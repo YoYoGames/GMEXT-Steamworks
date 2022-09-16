@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>16.0</VCProjectVersion>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectGuid>{52f43e45-315c-4145-a717-ced98e7302d4}</ProjectGuid>
+    <RootNamespace>Steamworks</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <TargetName>$(ProjectName)</TargetName>
+    <OutDir>..\..\Steamworks_gml\extensions\Steamworks\</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>..\..\Steamworks_gml\extensions\Steamworks\</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>..\..\Steamworks_gml\extensions\Steamworks\</OutDir>
+    <TargetName>$(ProjectName)_x64</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>..\..\Steamworks_gml\extensions\Steamworks\</OutDir>
+    <TargetName>$(ProjectName)_x64</TargetName>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>OS_Windows;_CRT_SECURE_NO_WARNINGS;WIN32;_DEBUG;STEAMWORKS_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <AdditionalIncludeDirectories>..\..\steamworks_sdk\public\steam\;.\;.\GMLSteam\;..\..\json-c-0.9</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableUAC>false</EnableUAC>
+      <AdditionalLibraryDirectories>..\..\steamworks_sdk\redistributable_bin\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>steam_api.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>OS_Windows;_CRT_SECURE_NO_WARNINGS;WIN32;NDEBUG;STEAMWORKS_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalIncludeDirectories>..\..\steamworks_sdk\public\steam\;.\;.\GMLSteam\;..\..\json-c-0.9</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableUAC>false</EnableUAC>
+      <AdditionalLibraryDirectories>..\..\steamworks_sdk\redistributable_bin\;</AdditionalLibraryDirectories>
+      <AdditionalDependencies>steam_api.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>OS_Windows;_CRT_SECURE_NO_WARNINGS;_DEBUG;STEAMWORKS_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <AdditionalIncludeDirectories>..\..\steamworks_sdk\public\steam\;.\;.\GMLSteam\;..\..\json-c-0.9</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableUAC>false</EnableUAC>
+      <AdditionalDependencies>steam_api64.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\..\steamworks_sdk\redistributable_bin\win64\;</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>OS_Windows;_CRT_SECURE_NO_WARNINGS;NDEBUG;STEAMWORKS_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <AdditionalIncludeDirectories>..\..\steamworks_sdk\public\steam\;.\;.\GMLSteam\;..\..\json-c-0.9</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableUAC>false</EnableUAC>
+      <AdditionalDependencies>steam_api64.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\..\steamworks_sdk\redistributable_bin\win64\;</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\json-c-0.9\3DS\JSON-configM.h" />
+    <ClInclude Include="..\..\json-c-0.9\Android\JSON-configM.h" />
+    <ClInclude Include="..\..\json-c-0.9\arraylist.h" />
+    <ClInclude Include="..\..\json-c-0.9\bits.h" />
+    <ClInclude Include="..\..\json-c-0.9\debug.h" />
+    <ClInclude Include="..\..\json-c-0.9\iPad\JSON-configM.h" />
+    <ClInclude Include="..\..\json-c-0.9\json-c.h" />
+    <ClInclude Include="..\..\json-c-0.9\JSON-config.h" />
+    <ClInclude Include="..\..\json-c-0.9\json_object.h" />
+    <ClInclude Include="..\..\json-c-0.9\json_object_private.h" />
+    <ClInclude Include="..\..\json-c-0.9\json_tokener.h" />
+    <ClInclude Include="..\..\json-c-0.9\json_util.h" />
+    <ClInclude Include="..\..\json-c-0.9\linkhash.h" />
+    <ClInclude Include="..\..\json-c-0.9\Linux\JSON-configM.h" />
+    <ClInclude Include="..\..\json-c-0.9\Mac\JSON-configM.h" />
+    <ClInclude Include="..\..\json-c-0.9\printbuf.h" />
+    <ClInclude Include="..\..\json-c-0.9\PS3\JSON-configM.h" />
+    <ClInclude Include="..\..\json-c-0.9\PS4\JSON-configM.h" />
+    <ClInclude Include="..\..\json-c-0.9\PS5\JSON-configM.h" />
+    <ClInclude Include="..\..\json-c-0.9\PSP\JSON-configM.h" />
+    <ClInclude Include="..\..\json-c-0.9\PSVita\JSON-configM.h" />
+    <ClInclude Include="..\..\json-c-0.9\Switch\JSON-configM.h" />
+    <ClInclude Include="..\..\json-c-0.9\Tizen\JSON-configM.h" />
+    <ClInclude Include="..\..\json-c-0.9\WiiU\JSON-configM.h" />
+    <ClInclude Include="..\..\json-c-0.9\Win32\JSON-configM.h" />
+    <ClInclude Include="..\..\json-c-0.9\WinMetro\JSON-configM.h" />
+    <ClInclude Include="..\..\json-c-0.9\WinPhone\JSON-configM.h" />
+    <ClInclude Include="..\..\json-c-0.9\XboxOne\JSON-configM.h" />
+    <ClInclude Include="framework.h" />
+    <ClInclude Include="GMLSteam\gml_glue.h" />
+    <ClInclude Include="GMLSteam\gml_glue_map.h" />
+    <ClInclude Include="GMLSteam\steam_callbacks.h" />
+    <ClInclude Include="GMLSteam\steam_glue.h" />
+    <ClInclude Include="pch.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\json-c-0.9\arraylist.c" />
+    <ClCompile Include="..\..\json-c-0.9\debug.c" />
+    <ClCompile Include="..\..\json-c-0.9\json_object.c" />
+    <ClCompile Include="..\..\json-c-0.9\json_tokener.c" />
+    <ClCompile Include="..\..\json-c-0.9\json_util.c" />
+    <ClCompile Include="..\..\json-c-0.9\linkhash.c" />
+    <ClCompile Include="..\..\json-c-0.9\printbuf.c" />
+    <ClCompile Include="DesktopExtensionTools.cpp" />
+    <ClCompile Include="dllmain.cpp" />
+    <ClCompile Include="GMLSteam\gml_glue.cpp" />
+    <ClCompile Include="GMLSteam\steam_apps.cpp" />
+    <ClCompile Include="GMLSteam\steam_callbacks.cpp" />
+    <ClCompile Include="GMLSteam\steam_controller.cpp" />
+    <ClCompile Include="GMLSteam\steam_friends.cpp" />
+    <ClCompile Include="GMLSteam\steam_funcs.cpp" />
+    <ClCompile Include="GMLSteam\steam_glue.cpp" />
+    <ClCompile Include="GMLSteam\steam_init.cpp" />
+    <ClCompile Include="GMLSteam\steam_init_new.cpp" />
+    <ClCompile Include="GMLSteam\steam_inventory.cpp" />
+    <ClCompile Include="GMLSteam\steam_lobby_chat.cpp" />
+    <ClCompile Include="GMLSteam\steam_matchmaking.cpp" />
+    <ClCompile Include="GMLSteam\steam_misc.cpp" />
+    <ClCompile Include="GMLSteam\steam_networking.cpp" />
+    <ClCompile Include="GMLSteam\steam_remotestorage.cpp" />
+    <ClCompile Include="GMLSteam\steam_screenshots.cpp" />
+    <ClCompile Include="GMLSteam\steam_ugc.cpp" />
+    <ClCompile Include="GMLSteam\steam_unsorted.cpp" />
+    <ClCompile Include="GMLSteam\steam_user.cpp" />
+    <ClCompile Include="GMLSteam\steam_userstats.cpp" />
+    <ClCompile Include="GMLSteam\steam_utils.cpp" />
+    <ClCompile Include="GMLSteam\steam_workshop.cpp" />
+    <ClCompile Include="IniOptionsLibrary.cpp" />
+    <ClCompile Include="pch.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+    </ClCompile>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
