@@ -30,3 +30,6 @@
 *.exe
 *.out
 *.app
+
+# Options
+source/Steamworks_gml/options/extensions/*
