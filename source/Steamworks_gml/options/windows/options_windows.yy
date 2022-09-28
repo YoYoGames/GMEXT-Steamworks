@@ -1,4 +1,7 @@
 {
+  "resourceType": "GMWindowsOptions",
+  "resourceVersion": "1.1",
+  "name": "Windows",
   "option_windows_display_name": "Steamworks by YoYoGames",
   "option_windows_executable_name": "${project_name}",
   "option_windows_version": "1.0.0.0",
@@ -12,7 +15,7 @@
   "option_windows_splash_screen": "splash/splash.png",
   "option_windows_use_splash": false,
   "option_windows_start_fullscreen": false,
-  "option_windows_allow_fullscreen_switching": false,
+  "option_windows_allow_fullscreen_switching": true,
   "option_windows_interpolate_pixels": false,
   "option_windows_vsync": false,
   "option_windows_resize_window": false,
@@ -28,9 +31,4 @@
   "option_windows_enable_steam": false,
   "option_windows_disable_sandbox": false,
   "option_windows_steam_use_alternative_launcher": false,
-  "option_windows_use_x64": true,
-  "resourceVersion": "1.1",
-  "name": "Windows",
-  "tags": [],
-  "resourceType": "GMWindowsOptions",
 }
