@@ -18,14 +18,14 @@ public:
 
 void CGMSteamUtilsCallbacks::on_floating_gamepad_text_input_dismissed(FloatingGamepadTextInputDismissed_t* pParam)
 {
-	int map = CreateDsMap(0);
+	int map = CreateDsMap(0, 0);
 	DsMapAddString(map, "event_type", "floating_gamepad_text_input_dismissed");
 	CreateAsyncEventWithDSMap(map, EVENT_OTHER_WEB_STEAM);
 }
 
 void CGMSteamUtilsCallbacks::on_gamepad_text_input_dismissed(GamepadTextInputDismissed_t* pParam)
 {
-	int map = CreateDsMap(0);
+	int map = CreateDsMap(0, 0);
 	DsMapAddString(map, "event_type", "gamepad_text_input_dismissed");
 	DsMapAddBool(map, "submitted", pParam->m_bSubmitted);
 	// length in BYTES, not in UTF-8 characters!

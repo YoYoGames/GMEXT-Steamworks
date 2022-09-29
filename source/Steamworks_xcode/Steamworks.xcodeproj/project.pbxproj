@@ -152,41 +152,41 @@
 		2BDE099C278F97E60090737D /* framework.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = framework.h; path = ../../Steamworks_vs/Steamworks/framework.h; sourceTree = "<group>"; };
 		2BDE099D278F97E60090737D /* pch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = pch.h; path = ../../Steamworks_vs/Steamworks/pch.h; sourceTree = "<group>"; };
 		2BDE09B62790A50B0090737D /* libsteam_api.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsteam_api.dylib; path = ../steamworks_sdk/redistributable_bin/osx/libsteam_api.dylib; sourceTree = "<group>"; };
-		6A60CF5B280AF8C6001B5E90 /* linkhash.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = linkhash.c; path = "../../../json-c-0.9/linkhash.c"; sourceTree = "<group>"; };
-		6A60CF5C280AF8C6001B5E90 /* Android */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Android; path = "../../../json-c-0.9/Android"; sourceTree = "<group>"; };
-		6A60CF5D280AF8C6001B5E90 /* linkhash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = linkhash.h; path = "../../../json-c-0.9/linkhash.h"; sourceTree = "<group>"; };
-		6A60CF5E280AF8C6001B5E90 /* bits.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = bits.h; path = "../../../json-c-0.9/bits.h"; sourceTree = "<group>"; };
-		6A60CF5F280AF8C6001B5E90 /* 3DS */ = {isa = PBXFileReference; lastKnownFileType = folder; name = 3DS; path = "../../../json-c-0.9/3DS"; sourceTree = "<group>"; };
-		6A60CF60280AF8C6001B5E90 /* PS5 */ = {isa = PBXFileReference; lastKnownFileType = folder; name = PS5; path = "../../../json-c-0.9/PS5"; sourceTree = "<group>"; };
-		6A60CF61280AF8C6001B5E90 /* PSVita */ = {isa = PBXFileReference; lastKnownFileType = folder; name = PSVita; path = "../../../json-c-0.9/PSVita"; sourceTree = "<group>"; };
-		6A60CF62280AF8C6001B5E90 /* Linux */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Linux; path = "../../../json-c-0.9/Linux"; sourceTree = "<group>"; };
-		6A60CF63280AF8C6001B5E90 /* PSP */ = {isa = PBXFileReference; lastKnownFileType = folder; name = PSP; path = "../../../json-c-0.9/PSP"; sourceTree = "<group>"; };
-		6A60CF64280AF8C6001B5E90 /* debug.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = debug.c; path = "../../../json-c-0.9/debug.c"; sourceTree = "<group>"; };
-		6A60CF65280AF8C6001B5E90 /* Switch */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Switch; path = "../../../json-c-0.9/Switch"; sourceTree = "<group>"; };
-		6A60CF66280AF8C6001B5E90 /* json_tokener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = json_tokener.h; path = "../../../json-c-0.9/json_tokener.h"; sourceTree = "<group>"; };
-		6A60CF67280AF8C6001B5E90 /* json_object_private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = json_object_private.h; path = "../../../json-c-0.9/json_object_private.h"; sourceTree = "<group>"; };
-		6A60CF68280AF8C6001B5E90 /* json_object.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = json_object.c; path = "../../../json-c-0.9/json_object.c"; sourceTree = "<group>"; };
-		6A60CF69280AF8C6001B5E90 /* PS4 */ = {isa = PBXFileReference; lastKnownFileType = folder; name = PS4; path = "../../../json-c-0.9/PS4"; sourceTree = "<group>"; };
-		6A60CF6A280AF8C6001B5E90 /* WiiU */ = {isa = PBXFileReference; lastKnownFileType = folder; name = WiiU; path = "../../../json-c-0.9/WiiU"; sourceTree = "<group>"; };
-		6A60CF6B280AF8C6001B5E90 /* arraylist.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = arraylist.h; path = "../../../json-c-0.9/arraylist.h"; sourceTree = "<group>"; };
-		6A60CF6C280AF8C6001B5E90 /* printbuf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = printbuf.h; path = "../../../json-c-0.9/printbuf.h"; sourceTree = "<group>"; };
-		6A60CF6D280AF8C6001B5E90 /* Win32 */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Win32; path = "../../../json-c-0.9/Win32"; sourceTree = "<group>"; };
-		6A60CF6E280AF8C6001B5E90 /* printbuf.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = printbuf.c; path = "../../../json-c-0.9/printbuf.c"; sourceTree = "<group>"; };
-		6A60CF6F280AF8C6001B5E90 /* WinMetro */ = {isa = PBXFileReference; lastKnownFileType = folder; name = WinMetro; path = "../../../json-c-0.9/WinMetro"; sourceTree = "<group>"; };
-		6A60CF70280AF8C6001B5E90 /* WinPhone */ = {isa = PBXFileReference; lastKnownFileType = folder; name = WinPhone; path = "../../../json-c-0.9/WinPhone"; sourceTree = "<group>"; };
-		6A60CF71280AF8C6001B5E90 /* debug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = debug.h; path = "../../../json-c-0.9/debug.h"; sourceTree = "<group>"; };
-		6A60CF72280AF8C6001B5E90 /* json_util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = json_util.h; path = "../../../json-c-0.9/json_util.h"; sourceTree = "<group>"; };
-		6A60CF73280AF8C6001B5E90 /* Mac */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Mac; path = "../../../json-c-0.9/Mac"; sourceTree = "<group>"; };
-		6A60CF74280AF8C6001B5E90 /* json_tokener.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = json_tokener.c; path = "../../../json-c-0.9/json_tokener.c"; sourceTree = "<group>"; };
-		6A60CF75280AF8C6001B5E90 /* XboxOne */ = {isa = PBXFileReference; lastKnownFileType = folder; name = XboxOne; path = "../../../json-c-0.9/XboxOne"; sourceTree = "<group>"; };
-		6A60CF76280AF8C6001B5E90 /* arraylist.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = arraylist.c; path = "../../../json-c-0.9/arraylist.c"; sourceTree = "<group>"; };
-		6A60CF77280AF8C6001B5E90 /* iPad */ = {isa = PBXFileReference; lastKnownFileType = folder; name = iPad; path = "../../../json-c-0.9/iPad"; sourceTree = "<group>"; };
-		6A60CF78280AF8C6001B5E90 /* Tizen */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Tizen; path = "../../../json-c-0.9/Tizen"; sourceTree = "<group>"; };
-		6A60CF79280AF8C6001B5E90 /* json_util.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = json_util.c; path = "../../../json-c-0.9/json_util.c"; sourceTree = "<group>"; };
-		6A60CF7A280AF8C6001B5E90 /* json_object.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = json_object.h; path = "../../../json-c-0.9/json_object.h"; sourceTree = "<group>"; };
-		6A60CF7B280AF8C6001B5E90 /* PS3 */ = {isa = PBXFileReference; lastKnownFileType = folder; name = PS3; path = "../../../json-c-0.9/PS3"; sourceTree = "<group>"; };
-		6A60CF7C280AF8C6001B5E90 /* json-c.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "json-c.h"; path = "../../../json-c-0.9/json-c.h"; sourceTree = "<group>"; };
-		6A60CF7D280AF8C6001B5E90 /* JSON-config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "JSON-config.h"; path = "../../../json-c-0.9/JSON-config.h"; sourceTree = "<group>"; };
+		6A60CF5B280AF8C6001B5E90 /* linkhash.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = linkhash.c; path = "../json-c-0.9/linkhash.c"; sourceTree = SOURCE_ROOT; };
+		6A60CF5C280AF8C6001B5E90 /* Android */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Android; path = "../json-c-0.9/Android"; sourceTree = SOURCE_ROOT; };
+		6A60CF5D280AF8C6001B5E90 /* linkhash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = linkhash.h; path = "../json-c-0.9/linkhash.h"; sourceTree = SOURCE_ROOT; };
+		6A60CF5E280AF8C6001B5E90 /* bits.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = bits.h; path = "../json-c-0.9/bits.h"; sourceTree = SOURCE_ROOT; };
+		6A60CF5F280AF8C6001B5E90 /* 3DS */ = {isa = PBXFileReference; lastKnownFileType = folder; name = 3DS; path = "../json-c-0.9/3DS"; sourceTree = SOURCE_ROOT; };
+		6A60CF60280AF8C6001B5E90 /* PS5 */ = {isa = PBXFileReference; lastKnownFileType = folder; name = PS5; path = "../json-c-0.9/PS5"; sourceTree = SOURCE_ROOT; };
+		6A60CF61280AF8C6001B5E90 /* PSVita */ = {isa = PBXFileReference; lastKnownFileType = folder; name = PSVita; path = "../json-c-0.9/PSVita"; sourceTree = SOURCE_ROOT; };
+		6A60CF62280AF8C6001B5E90 /* Linux */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Linux; path = "../json-c-0.9/Linux"; sourceTree = SOURCE_ROOT; };
+		6A60CF63280AF8C6001B5E90 /* PSP */ = {isa = PBXFileReference; lastKnownFileType = folder; name = PSP; path = "../json-c-0.9/PSP"; sourceTree = SOURCE_ROOT; };
+		6A60CF64280AF8C6001B5E90 /* debug.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = debug.c; path = "../json-c-0.9/debug.c"; sourceTree = SOURCE_ROOT; };
+		6A60CF65280AF8C6001B5E90 /* Switch */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Switch; path = "../json-c-0.9/Switch"; sourceTree = SOURCE_ROOT; };
+		6A60CF66280AF8C6001B5E90 /* json_tokener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = json_tokener.h; path = "../json-c-0.9/json_tokener.h"; sourceTree = SOURCE_ROOT; };
+		6A60CF67280AF8C6001B5E90 /* json_object_private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = json_object_private.h; path = "../json-c-0.9/json_object_private.h"; sourceTree = SOURCE_ROOT; };
+		6A60CF68280AF8C6001B5E90 /* json_object.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = json_object.c; path = "../json-c-0.9/json_object.c"; sourceTree = SOURCE_ROOT; };
+		6A60CF69280AF8C6001B5E90 /* PS4 */ = {isa = PBXFileReference; lastKnownFileType = folder; name = PS4; path = "../json-c-0.9/PS4"; sourceTree = SOURCE_ROOT; };
+		6A60CF6A280AF8C6001B5E90 /* WiiU */ = {isa = PBXFileReference; lastKnownFileType = folder; name = WiiU; path = "../json-c-0.9/WiiU"; sourceTree = SOURCE_ROOT; };
+		6A60CF6B280AF8C6001B5E90 /* arraylist.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = arraylist.h; path = "../json-c-0.9/arraylist.h"; sourceTree = SOURCE_ROOT; };
+		6A60CF6C280AF8C6001B5E90 /* printbuf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = printbuf.h; path = "../json-c-0.9/printbuf.h"; sourceTree = SOURCE_ROOT; };
+		6A60CF6D280AF8C6001B5E90 /* Win32 */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Win32; path = "../json-c-0.9/Win32"; sourceTree = SOURCE_ROOT; };
+		6A60CF6E280AF8C6001B5E90 /* printbuf.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = printbuf.c; path = "../json-c-0.9/printbuf.c"; sourceTree = SOURCE_ROOT; };
+		6A60CF6F280AF8C6001B5E90 /* WinMetro */ = {isa = PBXFileReference; lastKnownFileType = folder; name = WinMetro; path = "../json-c-0.9/WinMetro"; sourceTree = SOURCE_ROOT; };
+		6A60CF70280AF8C6001B5E90 /* WinPhone */ = {isa = PBXFileReference; lastKnownFileType = folder; name = WinPhone; path = "../json-c-0.9/WinPhone"; sourceTree = SOURCE_ROOT; };
+		6A60CF71280AF8C6001B5E90 /* debug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = debug.h; path = "../json-c-0.9/debug.h"; sourceTree = SOURCE_ROOT; };
+		6A60CF72280AF8C6001B5E90 /* json_util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = json_util.h; path = "../json-c-0.9/json_util.h"; sourceTree = SOURCE_ROOT; };
+		6A60CF73280AF8C6001B5E90 /* Mac */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Mac; path = "../json-c-0.9/Mac"; sourceTree = SOURCE_ROOT; };
+		6A60CF74280AF8C6001B5E90 /* json_tokener.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = json_tokener.c; path = "../json-c-0.9/json_tokener.c"; sourceTree = SOURCE_ROOT; };
+		6A60CF75280AF8C6001B5E90 /* XboxOne */ = {isa = PBXFileReference; lastKnownFileType = folder; name = XboxOne; path = "../json-c-0.9/XboxOne"; sourceTree = SOURCE_ROOT; };
+		6A60CF76280AF8C6001B5E90 /* arraylist.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = arraylist.c; path = "../json-c-0.9/arraylist.c"; sourceTree = SOURCE_ROOT; };
+		6A60CF77280AF8C6001B5E90 /* iPad */ = {isa = PBXFileReference; lastKnownFileType = folder; name = iPad; path = "../json-c-0.9/iPad"; sourceTree = SOURCE_ROOT; };
+		6A60CF78280AF8C6001B5E90 /* Tizen */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Tizen; path = "../json-c-0.9/Tizen"; sourceTree = SOURCE_ROOT; };
+		6A60CF79280AF8C6001B5E90 /* json_util.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = json_util.c; path = "../json-c-0.9/json_util.c"; sourceTree = SOURCE_ROOT; };
+		6A60CF7A280AF8C6001B5E90 /* json_object.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = json_object.h; path = "../json-c-0.9/json_object.h"; sourceTree = SOURCE_ROOT; };
+		6A60CF7B280AF8C6001B5E90 /* PS3 */ = {isa = PBXFileReference; lastKnownFileType = folder; name = PS3; path = "../json-c-0.9/PS3"; sourceTree = SOURCE_ROOT; };
+		6A60CF7C280AF8C6001B5E90 /* json-c.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "json-c.h"; path = "../json-c-0.9/json-c.h"; sourceTree = SOURCE_ROOT; };
+		6A60CF7D280AF8C6001B5E90 /* JSON-config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "JSON-config.h"; path = "../json-c-0.9/JSON-config.h"; sourceTree = SOURCE_ROOT; };
 		6ABC975A28E4955B00584CBF /* isteamapps.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = isteamapps.h; path = ../../../steamworks_sdk/public/steam/isteamapps.h; sourceTree = "<group>"; };
 		6ABC975B28E4955B00584CBF /* steamtypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = steamtypes.h; path = ../../../steamworks_sdk/public/steam/steamtypes.h; sourceTree = "<group>"; };
 		6ABC975C28E4955B00584CBF /* steamps3params.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = steamps3params.h; path = ../../../steamworks_sdk/public/steam/steamps3params.h; sourceTree = "<group>"; };
@@ -387,8 +387,9 @@
 				2BDE097F278F97BD0090737D /* steam_ugc.cpp */,
 				2BDE0988278F97BD0090737D /* steam_userstats.cpp */,
 			);
-			path = GMSteam;
-			sourceTree = "<group>";
+			name = GMSteam;
+			path = ../Steamworks_vs/Steamworks/GMLSteam;
+			sourceTree = SOURCE_ROOT;
 		};
 		2BDE09A5278F9A940090737D /* Frameworks */ = {
 			isa = PBXGroup;
@@ -438,8 +439,9 @@
 				6A60CF70280AF8C6001B5E90 /* WinPhone */,
 				6A60CF75280AF8C6001B5E90 /* XboxOne */,
 			);
-			path = "json-c";
-			sourceTree = "<group>";
+			name = "json-c";
+			path = "../json-c-0.9";
+			sourceTree = SOURCE_ROOT;
 		};
 /* End PBXGroup section */
 
