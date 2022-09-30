@@ -78,7 +78,7 @@ public:
 
 void CGMSteamInputCallbacks::on_steam_input_configuration_loaded(SteamInputConfigurationLoaded_t* pParam)
 {
-	int map = CreateDsMap(0);
+	int map = CreateDsMap(0,0);
 	DsMapAddString(map, "event_type", "steam_input_configuration_loaded");
 	DsMapAddDouble(map, "app_id", static_cast<double>(pParam->m_unAppID));
 	DsMapAddInt64(map, "device_handle", static_cast<int64>(pParam->m_ulDeviceHandle));
@@ -92,7 +92,7 @@ void CGMSteamInputCallbacks::on_steam_input_configuration_loaded(SteamInputConfi
 
 void CGMSteamInputCallbacks::on_steam_input_device_connected(SteamInputDeviceConnected_t* pParam)
 {
-	int map = CreateDsMap(0);
+	int map = CreateDsMap(0,0);
 	DsMapAddString(map, "event_type", "steam_input_device_connected");
 	DsMapAddInt64(map, "connected_device_handle", static_cast<int64>(pParam->m_ulConnectedDeviceHandle));
 	CreateAsyncEventWithDSMap(map, EVENT_OTHER_WEB_STEAM);
@@ -100,7 +100,7 @@ void CGMSteamInputCallbacks::on_steam_input_device_connected(SteamInputDeviceCon
 
 void CGMSteamInputCallbacks::on_steam_input_device_disconnected(SteamInputDeviceDisconnected_t* pParam)
 {
-	int map = CreateDsMap(0);
+	int map = CreateDsMap(0,0);
 	DsMapAddString(map, "event_type", "steam_input_device_disconnected");
 	DsMapAddInt64(map, "disconnected_device_handle", static_cast<int64>(pParam->m_ulDisconnectedDeviceHandle));
 	CreateAsyncEventWithDSMap(map, EVENT_OTHER_WEB_STEAM);
@@ -108,7 +108,7 @@ void CGMSteamInputCallbacks::on_steam_input_device_disconnected(SteamInputDevice
 
 void CGMSteamInputCallbacks::on_steam_input_action_event(SteamInputActionEvent_t* pParam)
 {
-	int map = CreateDsMap(0);
+	int map = CreateDsMap(0,0);
 	DsMapAddString(map, "event_type", "steam_input_action_event");
 	DsMapAddInt64(map, "controller_handle", static_cast<int64>(pParam->controllerHandle));
 	DsMapAddDouble(map, "action_event_type", static_cast<double>(pParam->eEventType));

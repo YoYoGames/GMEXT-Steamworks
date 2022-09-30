@@ -1,5 +1,6 @@
 #!/bin/sh
-g++ -m64 \
+
+if g++ -m64 \
     -std=c++17 \
 	json-c-0.9/*.c \
 	Steamworks_vs/Steamworks/*.cpp \
@@ -11,4 +12,11 @@ g++ -m64 \
     -ISteamworks_sdk/public/steam \
 	-ISteamworks_vs/Steamworks/GMLSteam/ \
 	-ISteamworks_vs/Steamworks/ \
-    -shared -o Steamworks_gml/extensions/Steamworks/Steamworks.so
+    -shared -o Steamworks_gml/extensions/Steamworks/Steamworks.so;
+then
+    echo "BUILD SUCCESS";
+else
+    echo "BUILD FAILED";
+fi
+
+	

@@ -409,7 +409,7 @@ bool OnFindLeaderboardResult(LeaderboardFindResult_t* pCallback, bool bIOFailure
 	SendLBRequests();
 
 
-	//int map = g_pYYRunnerInterface->CreateDsMap(0);
+	//int map = g_pYYRunnerInterface->CreateDsMap(0,0);
 	//g_pYYRunnerInterface->DsMapAddString(map, "event_type", "create_leaderboard");
 	//g_pYYRunnerInterface->DsMapAddString(map, "lb_name", pszLBName);
 	//g_pYYRunnerInterface->DsMapAddDouble(map, "status", (double)1);
@@ -450,7 +450,7 @@ bool GetLeaderboardHandleCreate(const char* pszName, SteamLeaderboard_t& handle,
 				//we have a cached handle for this lb - return it	
 				handle = m_aLeaderboardInfo[i].m_hSteamLeaderboard;
 
-				//int map = g_pYYRunnerInterface->CreateDsMap(0);
+				//int map = g_pYYRunnerInterface->CreateDsMap(0,0);
 				//g_pYYRunnerInterface->DsMapAddString(map, "event_type", "create_leaderboard");
 				//g_pYYRunnerInterface->DsMapAddString(map, "lb_name", pszName);
 				//g_pYYRunnerInterface->DsMapAddDouble(map, "status", (double)1);
@@ -464,7 +464,7 @@ bool GetLeaderboardHandleCreate(const char* pszName, SteamLeaderboard_t& handle,
 			{
 				//we are already waiting on a create callback - do nothing
 
-				//int map = g_pYYRunnerInterface->CreateDsMap(0);
+				//int map = g_pYYRunnerInterface->CreateDsMap(0,0);
 				//g_pYYRunnerInterface->DsMapAddString(map, "event_type", "create_leaderboard");
 				//g_pYYRunnerInterface->DsMapAddString(map, "lb_name", pszName);
 				//g_pYYRunnerInterface->DsMapAddDouble(map, "status", (double)0);
@@ -482,7 +482,7 @@ bool GetLeaderboardHandleCreate(const char* pszName, SteamLeaderboard_t& handle,
 				CLeaderboardFindHandler* pResultHandler = new CLeaderboardFindHandler( pszName, (ELeaderboardSortMethod)sortMethod,(ELeaderboardDisplayType)displayType, async_id);
 				pResultHandler->SetCallResult(hSteamAPICall);
 
-				//int map = g_pYYRunnerInterface->CreateDsMap(0);
+				//int map = g_pYYRunnerInterface->CreateDsMap(0,0);
 				//g_pYYRunnerInterface->DsMapAddString(map, "event_type", "create_leaderboard");
 				//g_pYYRunnerInterface->DsMapAddString(map, "lb_name", pszName);
 				//g_pYYRunnerInterface->DsMapAddDouble(map, "status", (double)0);
