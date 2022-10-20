@@ -273,6 +273,10 @@ struct YYRunnerInterface
 	int (*StructGetKeys)(RValue* _pStruct, const char** _keys, int* _count);
 
 	RValue* (*YYGetStruct)(RValue* _pBase, int _index);
+
+	void (*extOptGetRValue)(RValue& result, const char* _ext, const  char* _opt);
+	const char* (*extOptGetString)(const char* _ext, const  char* _opt);
+	double (*extOptGetReal)(const char* _ext, const char* _opt);
 };
 
 #define __YYDEFINE_EXTENSION_FUNCTIONS__
@@ -423,6 +427,10 @@ inline void YYStructAddInt32(RValue* _pStruct, const char* _pKey, int32 _value) 
 inline void YYStructAddInt64(RValue* _pStruct, const char* _pKey, int64 _value) { return g_pYYRunnerInterface->StructAddInt64(_pStruct, _pKey, _value); }
 inline RValue* YYStructGetMember(RValue* _pStruct, const char* _pKey) { return g_pYYRunnerInterface->StructGetMember(_pStruct, _pKey); }
 inline int YYStructGetKeys(RValue* _pStruct, const char** _keys, int* _count) { return g_pYYRunnerInterface->StructGetKeys(_pStruct, _keys, _count); }
+
+inline void extOptGetRValue(RValue& result, const char* _ext, const char* _opt) { return g_pYYRunnerInterface->extOptGetRValue(result, _ext, _opt); };
+inline const char* extOptGetString(const char* _ext, const char* _opt) { return g_pYYRunnerInterface->extOptGetString(_ext, _opt); }
+inline double extOptGetReal(const char* _ext, const char* _opt) { return g_pYYRunnerInterface->extOptGetReal(_ext, _opt); };
 
 #define g_LiveConnection	(*g_pYYRunnerInterface->pLiveConnection)
 #define g_HTTP_ID			(*g_pYYRunnerInterface->pHTTP_ID)
