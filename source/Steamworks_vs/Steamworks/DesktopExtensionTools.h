@@ -10,3 +10,5 @@
 
 
 std::string DesktopExtensionTools_getPathToExe();
+
+#define tracef(...) do { printf("[STEAMWORKS]: "); printf(__VA_ARGS__); printf("\n"); fflush(stdout); } while (0)
