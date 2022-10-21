@@ -45,9 +45,7 @@ void segmentation(const std::string str, const std::string extensionName, const 
 	int lines = countLines(str);
 	end = lines;
 
-	char* extensionNameClosed = (char*)malloc(extensionName.length() + 3);
-
-	sprintf(extensionNameClosed, "[%s]", extensionName.data());
+	std::string extensionNameClosed = std::string("[") + extensionName + std::string("]");
 
 	while (index < lines)
 	{
@@ -60,7 +58,6 @@ void segmentation(const std::string str, const std::string extensionName, const 
 		}
 		index++;
 	}
-	free(extensionNameClosed);
 
 	index++;
 	while (index < lines)
@@ -78,14 +75,13 @@ void segmentation(const std::string str, const std::string extensionName, const 
 std::string IniOptions_read(std::string extensionName,std::string key)
 {
     NSString *bundlename = [[NSBundle mainBundle] executablePath];
-    std::filesystem::path exePath =  [bundlename UTF8String];
+	// "./SomeGame.app/Contents/MacOS/Mac_Runner"
+    std::filesystem::path optionsIniPath =  [bundlename UTF8String];
     
-    exePath = exePath.parent_path();
+	// Mac_Runner -> MacOS -> Resources / options.ini
+	optionsIniPath = optionsIniPath.parent_path().parent_path() / "Resources" / "options.ini"; // ./Resources/options.ini
 
-	char filename[1024];
-	snprintf(filename, 1024, "%s/../Resources/options.ini", exePath.string().c_str());
-
-	std::string str = (char*)readFile(filename).c_str();
+	std::string str = readFile(optionsIniPath);
 
 	int start;
 	int end;

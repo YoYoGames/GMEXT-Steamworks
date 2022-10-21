@@ -848,7 +848,7 @@ YYEXPORT void steam_input_trigger_haptic_pulse_legacy(RValue& Result, CInstance*
 	API->Legacy_TriggerHapticPulse(con, pad, duration);
 }
 
-/// (controller:input_handle,pad:steam_controller_pad,duration_in_ms:real)->bool
+/// (controller:input_handle,pad:steam_controller_pad,duration_in_mcs:real,offset_in_mcs:real,repeats_amount:real,flags:real)->bool
 YYEXPORT void steam_input_trigger_repeated_haptic_pulse_legacy(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)
 {
 	steam_input_ensure_argc(6);

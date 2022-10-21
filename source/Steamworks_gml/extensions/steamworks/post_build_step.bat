@@ -59,8 +59,17 @@ exit /b 0
          echo "Copying Windows (32 bit) dependencies"
          if not exist "steam_api.dll" copy "%SDK_PATH%redistributable_bin\steam_api.dll" "steam_api.dll"
       )
-ss
+
    )
+   
+   if "%YYtargetFile%" == "" (
+     
+     echo "Running a Windows Steamworks game project inside the Windows IDE, enabling Debug..."
+	 :: do not put a space between > please, this breaks things!
+	 echo [SteamworksUtils]>>options.ini
+	 echo RunningFromIDE=True>>options.ini
+   )
+   
    if ERRORLEVEL 1 call :exitError
 goto :eof
 
@@ -72,6 +81,14 @@ goto :eof
       :: This is used for VM
       powershell Expand-Archive '%YYprojectName%.zip' _temp\
       copy /y "%SDK_PATH%redistributable_bin\osx\libsteam_api.dylib" "_temp\assets\libsteam_api.dylib"
+	  
+	  if "%YYtargetFile%" == "" (
+		  echo "Running a macOS VM Steamworks game project inside the Windows IDE, enabling Debug..."
+		  :: do not put a space between > please, this breaks things!
+		  echo [SteamworksUtils]>>"_temp\assets\options.ini"
+		  echo RunningFromIDE=True>>"_temp\assets\options.ini"
+	  )
+	  
       powershell Compress-Archive -Force _temp\* '%YYprojectName%.zip'
       rmdir /s /q _temp
 
@@ -79,6 +96,13 @@ goto :eof
 
       :: This is used from YYC compilation
       copy "%SDK_PATH%redistributable_bin\osx\libsteam_api.dylib" "%YYprojectName%\%YYprojectName%\Supporting Files\libsteam_api.dylib"
+	  
+	  if "%YYtargetFile%" == "" (
+		  echo "Running a macOS YYC Steamworks game project inside the Windows IDE, enabling Debug..."
+		  :: do not put a space between > please, this breaks things!
+		  echo [SteamworksUtils]>>"%YYprojectName%\%YYprojectName%\Supporting Files\options.ini"
+		  echo RunningFromIDE=True>>"%YYprojectName%\%YYprojectName%\Supporting Files\options.ini"
+	  )
    )
    if ERRORLEVEL 1 call :exitError
 goto :eof
@@ -87,6 +111,13 @@ goto :eof
 :Linux_copy_dependencies
    echo "Copying Linux (64 bit) dependencies"
    powershell Expand-Archive '%YYprojectName%.zip' _temp\
+
+   if "%YYtargetFile%" == "" (
+      echo "Running a Linux Steamworks game project inside the Windows IDE, enabling Debug..."
+	  :: do not put a space between > please, this breaks things!
+      echo [SteamworksUtils]>>"_temp\assets\options.ini"
+      echo RunningFromIDE=True>>"_temp\assets\options.ini"
+   )
 
    if not exist "assets/libsteam_api.so" (
       copy "%SDK_PATH%redistributable_bin\linux64\libsteam_api.so" "_temp\assets\libsteam_api.so"

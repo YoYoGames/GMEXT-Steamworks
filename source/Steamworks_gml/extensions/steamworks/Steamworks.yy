@@ -9,11 +9,10 @@
     {"resourceType":"GMExtensionOption","resourceVersion":"1.0","name":"SteamSDK","extensionId":null,"guid":"2d6a1c61-98e7-4289-8eff-d70ef6dac1ff","displayName":"Steam SDK","listItems":[],"description":"The path to the steam sdk (v1.53a)","defaultValue":"","exportToINI":true,"hidden":false,"optType":4,},
     {"resourceType":"GMExtensionOption","resourceVersion":"1.0","name":"__label2","extensionId":null,"guid":"c37a2e1d-c82f-4d90-9d0a-b4a2b3b3da08","displayName":"","listItems":[],"description":"","defaultValue":"APP OPTIONS:","exportToINI":false,"hidden":false,"optType":5,},
     {"resourceType":"GMExtensionOption","resourceVersion":"1.0","name":"AppID","extensionId":null,"guid":"2d512363-a8c0-4025-8b9f-b53e231b025d","displayName":"Application ID","listItems":[],"description":"Get this value from your steam dashboard.","defaultValue":"480","exportToINI":true,"hidden":false,"optType":1,},
-    {"resourceType":"GMExtensionOption","resourceVersion":"1.0","name":"Debug","extensionId":null,"guid":"5b7dc8d4-6fb8-4ae8-9a3c-6f576e03c60d","displayName":"Debug Mode","listItems":[],"description":"Change to 'FALSE' before publishing your game.","defaultValue":"True","exportToINI":true,"hidden":false,"optType":0,},
   ],
   "exportToGame": true,
   "supportedTargets": 113497714299118,
-  "extensionVersion": "1.1.3",
+  "extensionVersion": "1.1.4",
   "packageId": "",
   "productId": "",
   "author": "",
@@ -682,7 +681,7 @@
             2,
             2,
           ],},
-        {"resourceType":"GMExtensionFunction","resourceVersion":"1.0","name":"steam_input_trigger_repeated_haptic_pulse_legacy","externalName":"","kind":4,"help":"steam_input_trigger_repeated_haptic_pulse_legacy(controller:input_handle,pad:steam_controller_pad,duration_in_ms:real)->bool","hidden":false,"returnType":2,"argCount":0,"args":[
+        {"resourceType":"GMExtensionFunction","resourceVersion":"1.0","name":"steam_input_trigger_repeated_haptic_pulse_legacy","externalName":"","kind":4,"help":"steam_input_trigger_repeated_haptic_pulse_legacy(controller:input_handle,pad:steam_controller_pad,duration_in_mcs:real,offset_in_mcs:real,repeats_amount:real,flags:real)->bool","hidden":false,"returnType":2,"argCount":0,"args":[
             2,
             2,
             2,
