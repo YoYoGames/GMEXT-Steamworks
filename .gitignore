@@ -33,3 +33,6 @@
 
 # Options
 source/Steamworks_gml/options/extensions/*
+
+# MacOS
+.DS_Store
