@@ -34,32 +34,41 @@ void steam_net_callbacks_t::item_deleted(DeleteItemResult_t* r, bool failed)
 #pragma region Secure App Tickets
 YYEXPORT void /*double*/ steam_get_app_ownership_ticket_data(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)//(char* outbuf, uint32* vals) 
 {
-	char* outbuf = (char*)YYGetString(arg, 0);
-	uint32 vals_ = YYGetUint32(arg, 1);
-	uint32* vals = &vals_;
+	AppId_t AppID = (AppId_t)YYGetReal(arg, 0);
 
 	static ISteamAppTicket* SteamAppTicket = nullptr;
-	static bool ready = false;
-	if (!ready) {
-		ready = true;
-		SteamAppTicket = (ISteamAppTicket*)SteamClient()->GetISteamGenericInterface(
-			SteamAPI_GetHSteamUser(), SteamAPI_GetHSteamPipe(), STEAMAPPTICKET_INTERFACE_VERSION);
-	}
-	uint32 ret = 0;
-	uint32 iAppID = 0;
-	uint32 iSteamID = 0;
-	uint32 iSignature = 0;
-	uint32 cbSignature = 0;
-	if (SteamAppTicket) ret = SteamAppTicket->GetAppOwnershipTicketData(
-		vals[0], outbuf, vals[1], &iAppID, &iSteamID, &iSignature, &cbSignature);
-	vals[0] = ret;
-	vals[1] = iAppID;
-	vals[2] = iSteamID;
-	vals[3] = iSignature;
-	vals[4] = cbSignature;
+	SteamAppTicket = (ISteamAppTicket*)SteamClient()->GetISteamGenericInterface(SteamAPI_GetHSteamUser(), SteamAPI_GetHSteamPipe(), STEAMAPPTICKET_INTERFACE_VERSION);
 
-	Result.kind = VALUE_REAL;
-	Result.val = ret;
+	const int k_bufferLength = 256;
+	const int k_signatureLength = 128;
+	char buffer[k_bufferLength];
+	uint32 iAppID;
+	uint32 iSteamID;
+	uint32 iSignature;
+	uint32 cbSignature;
+	uint32 ret = SteamAppTicket->GetAppOwnershipTicketData(AppID, buffer, k_bufferLength, &iAppID, &iSteamID, &iSignature, &cbSignature);
+	
+	RValue Struct = { 0 };
+	YYStructCreate(&Struct);
+
+	if (ret > 0)
+	{
+		AppId_t appID;
+		memcpy(&appID, &buffer[iAppID], sizeof(AppId_t));
+		YYStructAddDouble(&Struct, "appId", appID);
+
+		CSteamID steamID;
+		memcpy(&steamID, &buffer[iSteamID], sizeof(CSteamID));
+		YYStructAddInt64(&Struct, "steamId", steamID.ConvertToUint64());
+
+		char signature[k_signatureLength];
+		memcpy_s(signature, k_signatureLength, &buffer[iSignature], cbSignature);
+		char b64string[1024] = { '\0' };
+		Base64Encode(signature, k_signatureLength, b64string, sizeof b64string);
+		YYStructAddString(&Struct, "signature", b64string);
+	}
+	COPY_RValue(&Result, &Struct);
+	FREE_RValue(&Struct);
 }
 
 void steam_net_callbacks_t::encrypted_app_ticket_response_received(EncryptedAppTicketResponse_t* r, bool failed) 
@@ -70,10 +79,9 @@ void steam_net_callbacks_t::encrypted_app_ticket_response_received(EncryptedAppT
 		uint8 ticket[1024];
 		uint32 ticketSize;
 		if (SteamUser()->GetEncryptedAppTicket(&ticket, sizeof ticket, &ticketSize)) {
-			static std::string s;
-			s.resize(ticketSize+1);
-			Base64Encode(ticket, ticketSize,s.data(), ticketSize);//s = b64encode(ticket, ticketSize); 
-			e.set((char*) "ticket_data", &s[0]);
+			char* b64string[1024] = { '\0' };
+			Base64Encode(ticket, ticketSize, b64string, sizeof b64string);//s = b64encode(ticket, ticketSize); 
+			e.set((char*) "ticket_data", (char*)b64string);
 		} else {
 			DebugConsoleOutput("Failed to retrieve GetEncryptedAppTicket data.");
 			result = k_EResultFail;
