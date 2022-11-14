@@ -62,8 +62,8 @@ YYEXPORT void /*double*/ steam_get_app_ownership_ticket_data(RValue& Result, CIn
 		YYStructAddInt64(&Struct, "steamId", steamID.ConvertToUint64());
 
 		char signature[k_signatureLength];
-		memcpy_s(signature, k_signatureLength, &buffer[iSignature], cbSignature);
-		char b64string[1024] = { '\0' };
+		memcpy(signature, &buffer[iSignature], cbSignature);
+		char b64string[1024] = { };
 		Base64Encode(signature, k_signatureLength, b64string, sizeof b64string);
 		YYStructAddString(&Struct, "signature", b64string);
 	}
@@ -79,7 +79,7 @@ void steam_net_callbacks_t::encrypted_app_ticket_response_received(EncryptedAppT
 		uint8 ticket[1024];
 		uint32 ticketSize;
 		if (SteamUser()->GetEncryptedAppTicket(&ticket, sizeof ticket, &ticketSize)) {
-			char* b64string[1024] = { '\0' };
+			char* b64string[1024] = { };
 			Base64Encode(ticket, ticketSize, b64string, sizeof b64string);//s = b64encode(ticket, ticketSize); 
 			e.set((char*) "ticket_data", (char*)b64string);
 		} else {
