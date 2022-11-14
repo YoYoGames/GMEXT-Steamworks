@@ -17,17 +17,20 @@ function error_incorrect_STEAMWORKS_path () {
     exit 1
 }
 
+function error_macOS_VM_STEAMWORKS_run () {
+    echo ""
+    echo "######################################################## ERROR ########################################################"
+    echo "This version of Steamworks extension is not compatible with the macOS VM export, please use the YYC export instead"
+    echo "#######################################################################################################################"
+    echo ""
+    exit 1
+}
+
 function macOS_copy_dependencies () {
 
     echo "Copying macOS (64 bit) dependencies"
     if [[ "$YYTARGET_runtime" == "VM" ]]; then
-        cp "${STEAM_SDK_PATH}redistributable_bin/osx/libsteam_api.dylib" "libsteam_api.dylib"
-        # debug check for VM
-        if [[ "$YYtargetFile" == "" ]] || [[ "$YYtargetFile" == " " ]]; then
-            echo "Running VM macOS Steamworks project on macOS via IDE, enabling Debug..."
-            echo [SteamworksUtils]>>options.ini
-			echo RunningFromIDE=True>>options.ini
-        fi
+        error_macOS_VM_STEAMWORKS_run
     else
         cp "${STEAM_SDK_PATH}redistributable_bin/osx/libsteam_api.dylib" "${YYprojectName}/${YYprojectName}/Supporting Files/libsteam_api.dylib"
         # debug check for YYC
