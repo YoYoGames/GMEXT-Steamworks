@@ -1,5 +1,4 @@
 /// steam_workshop.cpp
-#define __STDC_WANT_LIB_EXT1__ 1
 #include "pch.h"
 #include "steam_glue.h"
 #include "steam_api.h"
