@@ -54,33 +54,23 @@ YYEXPORT void steam_init(RValue& Result, CInstance* selfinst, CInstance* otherin
 	Result.val = 1;
 }
 
-#ifdef OS_Windows
-extern "C" __declspec(dllexport) void PreGraphicsInitialisation(char* arg1)
-#endif
-#if defined(OS_Linux) || defined(OS_MacOs)
-extern "C" void PreGraphicsInitialisation(char* arg1)
-#endif
+void OldPreGraphicsInitialisation()
 {
 	//json_object* jobj = json_tokener_parse(arg1);
 	//uint32 AppID = json_object_get_int(json_object_object_get(jobj, "AppID"));
 	//bool debug = json_object_get_boolean(json_object_object_get(jobj, "Debug"));
 
-	AppId_t AppID = (AppId_t)std::stoul(IniOptions_read("Steamworks", "AppID"));
-	bool debug = false;
+	//uint32 AppID = (uint32)std::stol(IniOptions_read("Steamworks", "AppID"));
+	//bool debug = IniOptions_read("Steamworks", "Debug").find("True") != std::string::npos;
 
-	// a game cannot have an invalid appid
-	if (AppID == k_uAppIdInvalid)
-	{
-		tracef("Invalid AppID, check extension settings in IDE, check file permissions.");
-		return;
-	}
-	
-	// try to check if we have a special debug file in options.ini
-	{
-		// written by the IDE build script, customers (ideally) should not know about this.
-		std::string expectedPhrase = "True";
-		debug = IniOptions_read("SteamworksUtils", "RunningFromIDE") == expectedPhrase;
-	}
+	const char* debug = extOptGetString("Steamworks", "Debug");
+
+	uint32 AppID = extOptGetReal("Steamworks", "AppID");
+
+	if (debug)
+		DebugConsoleOutput("[STEAMWORKS] Pregraphics::Found debug key %s for appid %d \n", debug,AppID);
+	else
+		DebugConsoleOutput("[STEAMWORKS] Pregraphics::Failed to find debug key %d\n",AppID);
 
 	if (debug)
 	{
