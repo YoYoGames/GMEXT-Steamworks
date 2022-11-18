@@ -78,19 +78,7 @@ goto :eof
    echo "Copying macOS (64 bit) dependencies"
    if "%YYTARGET_runtime%" == "VM" (
 
-      :: This is used for VM
-      powershell Expand-Archive '%YYprojectName%.zip' _temp\
-      copy /y "%SDK_PATH%redistributable_bin\osx\libsteam_api.dylib" "_temp\assets\libsteam_api.dylib"
-	  
-	  if "%YYtargetFile%" == "" (
-		  echo "Running a macOS VM Steamworks game project inside the Windows IDE, enabling Debug..."
-		  :: do not put a space between > please, this breaks things!
-		  echo [SteamworksUtils]>>"_temp\assets\options.ini"
-		  echo RunningFromIDE=True>>"_temp\assets\options.ini"
-	  )
-	  
-      powershell Compress-Archive -Force _temp\* '%YYprojectName%.zip'
-      rmdir /s /q _temp
+      call :error_macOS_VM_STEAMWORKS_run
 
    ) else (
 
@@ -133,6 +121,15 @@ goto :eof
    echo "######################################################## ERROR #########################################################"
    echo "The setup script was unable to copy dependencies"
    echo "########################################################################################################################"
+   echo ""
+exit 1
+
+:: ----------------------------------------------------------------------------------------------------
+:exitError
+   echo ""
+   echo "######################################################## ERROR ########################################################"
+   echo "This version of Steamworks extension is not compatible with the macOS VM export, please use the YYC export instead"
+   echo "#######################################################################################################################"
    echo ""
 exit 1
 
