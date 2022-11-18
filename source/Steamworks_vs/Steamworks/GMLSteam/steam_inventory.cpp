@@ -538,7 +538,7 @@ YYEXPORT void /*optional<uint64>*/ steam_inventory_get_item_price(RValue& Result
 #if defined(OS_Windows) || defined(OS_Linux)
 	if (API->GetItemPrice(item_def, &result, &basePrice))
 #elif defined(OS_MacOs)
-	if (API->GetItemPrice(item_def, &result))
+	if (API->GetItemPrice(item_def, &result, &basePrice))
 #endif // OS_Windows
 	{
 		Result.kind = VALUE_INT64;
@@ -566,7 +566,7 @@ YYEXPORT void /*optional<vector<steam_inventory_get_item_prices_t>>*/ steam_inve
 #if defined(OS_Windows) || defined(OS_Linux)
 	if (!API->GetItemsWithPrices(defs.data(), prices.data(), basePrices.data(), n))
 #elif defined(OS_MacOs)
-	if (!API->GetItemsWithPrices(defs.data(), prices.data(), n))
+	if (!API->GetItemsWithPrices(defs.data(), prices.data(), basePrices.data(), n))
 #endif // OS_Windows
 	{
 		return;

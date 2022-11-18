@@ -12,9 +12,9 @@
 *.pch
 
 # Compiled Dynamic libraries
-*.so
-*.dylib
-*.dll
+# *.so
+# *.dylib
+# *.dll
 
 # Fortran module files
 *.mod
@@ -33,3 +33,6 @@
 
 # Options
 source/Steamworks_gml/options/extensions/*
+
+# MacOS
+.DS_Store

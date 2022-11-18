@@ -4,14 +4,7 @@
 #include "Extension_Interface.h"
 #include "YYRValue.h"
 #include "steam_common.h"
-
-#ifdef OS_Windows
-#include "malloc.h"
-#endif
-
-#if defined(OS_Linux) || defined(OS_MacOs)
-#include <alloca.h>
-#endif
+#include <sstream>
 
 class CLeaderboardFindHandler;
 class CLeaderboardUploadHandler;
@@ -409,7 +402,7 @@ bool OnFindLeaderboardResult(LeaderboardFindResult_t* pCallback, bool bIOFailure
 	SendLBRequests();
 
 
-	//int map = g_pYYRunnerInterface->CreateDsMap(0);
+	//int map = g_pYYRunnerInterface->CreateDsMap(0,0);
 	//g_pYYRunnerInterface->DsMapAddString(map, "event_type", "create_leaderboard");
 	//g_pYYRunnerInterface->DsMapAddString(map, "lb_name", pszLBName);
 	//g_pYYRunnerInterface->DsMapAddDouble(map, "status", (double)1);
@@ -450,7 +443,7 @@ bool GetLeaderboardHandleCreate(const char* pszName, SteamLeaderboard_t& handle,
 				//we have a cached handle for this lb - return it	
 				handle = m_aLeaderboardInfo[i].m_hSteamLeaderboard;
 
-				//int map = g_pYYRunnerInterface->CreateDsMap(0);
+				//int map = g_pYYRunnerInterface->CreateDsMap(0,0);
 				//g_pYYRunnerInterface->DsMapAddString(map, "event_type", "create_leaderboard");
 				//g_pYYRunnerInterface->DsMapAddString(map, "lb_name", pszName);
 				//g_pYYRunnerInterface->DsMapAddDouble(map, "status", (double)1);
@@ -464,7 +457,7 @@ bool GetLeaderboardHandleCreate(const char* pszName, SteamLeaderboard_t& handle,
 			{
 				//we are already waiting on a create callback - do nothing
 
-				//int map = g_pYYRunnerInterface->CreateDsMap(0);
+				//int map = g_pYYRunnerInterface->CreateDsMap(0,0);
 				//g_pYYRunnerInterface->DsMapAddString(map, "event_type", "create_leaderboard");
 				//g_pYYRunnerInterface->DsMapAddString(map, "lb_name", pszName);
 				//g_pYYRunnerInterface->DsMapAddDouble(map, "status", (double)0);
@@ -482,7 +475,7 @@ bool GetLeaderboardHandleCreate(const char* pszName, SteamLeaderboard_t& handle,
 				CLeaderboardFindHandler* pResultHandler = new CLeaderboardFindHandler( pszName, (ELeaderboardSortMethod)sortMethod,(ELeaderboardDisplayType)displayType, async_id);
 				pResultHandler->SetCallResult(hSteamAPICall);
 
-				//int map = g_pYYRunnerInterface->CreateDsMap(0);
+				//int map = g_pYYRunnerInterface->CreateDsMap(0,0);
 				//g_pYYRunnerInterface->DsMapAddString(map, "event_type", "create_leaderboard");
 				//g_pYYRunnerInterface->DsMapAddString(map, "lb_name", pszName);
 				//g_pYYRunnerInterface->DsMapAddDouble(map, "status", (double)0);
@@ -912,26 +905,66 @@ YYEXPORT void /*double*/ steam_download_friends_scores(RValue& Result, CInstance
 
 }
 
-void expand_escapes(char* dest, const char* src)
+void expand_escapes(std::string& input_string)
 {
-	char c;
+	for (std::string::iterator it = input_string.begin(); it != input_string.end(); ++it)
+	{
+		switch (*it)
+		{
+			case '"':
+			{
+				it = input_string.insert(it, '\\') + 1;
+				break;
+			}
 
-	while ((c = *(src++))) {
-		switch (c) {
-		case '\\':
-			*(dest++) = '\\';
-			*(dest++) = '\\';
-			break;
-		case '\"':
-			*(dest++) = '\\';
-			*(dest++) = '\"';
-			break;
-		default:
-			*(dest++) = c;
+			case '\\':
+			{
+				it = input_string.insert(it, '\\') + 1;
+				break;
+			}
+
+			case '/':
+			{
+				it = input_string.insert(it, '\\') + 1;
+				break;
+			}
+
+			case '\b':
+			{
+				*it = 'b';
+				it = input_string.insert(it, '\\') + 1;
+				break;
+			}
+
+			case '\f':
+			{
+				*it = 'f';
+				it = input_string.insert(it, '\\') + 1;
+				break;
+			}
+
+			case '\n':
+			{
+				*it = 'n';
+				it = input_string.insert(it, '\\') + 1;
+				break;
+			}
+
+			case '\r':
+			{
+				*it = 'r';
+				it = input_string.insert(it, '\\') + 1;
+				break;
+			}
+
+			case '\t':
+			{
+				*it = 't';
+				it = input_string.insert(it, '\\') + 1;
+				break;
+			}
 		}
 	}
-
-	*dest = '\0'; /* Ensure nul terminator */
 }
 
 //leaderboard get callback
@@ -964,13 +997,9 @@ void OnDownloadScoreResult(LeaderboardScoresDownloaded_t* pCallback, bool bIOFai
 	g_pYYRunnerInterface->DsMapAddDouble(map, "num_entries", (double)numLeaderboardEntries);
 	g_pYYRunnerInterface->DsMapAddDouble(map, "id", (double)callId);
 
-	char* pJson = NULL;
-	int jsonSize = numLeaderboardEntries * 384 + 256;
-	pJson = (char*)alloca(jsonSize);
-	static char buff[512];
-	static char nameBuff[k_cchPersonaNameMax * 2];
+	std::stringstream sJson;
 
-	sprintf(pJson, "{\n\"entries\": [\n");
+	sJson << "{\n    \"entries\": [\n        ";
 	for (int index = 0; index < numLeaderboardEntries; index++)
 	{
 		//SteamUserStats()->GetDownloadedLeaderboardEntry( pCallback->m_hSteamLeaderboardEntries,index,&pData->m_Entries[index],NULL,0);
@@ -978,36 +1007,53 @@ void OnDownloadScoreResult(LeaderboardScoresDownloaded_t* pCallback, bool bIOFai
 		LeaderboardEntry_t leaderboardEntry;
 		int32 pExtraData[kLBExtraDataMax];
 		SteamUserStats()->GetDownloadedLeaderboardEntry(pCallback->m_hSteamLeaderboardEntries, index, &leaderboardEntry, pExtraData, kLBExtraDataMax);
-		
-		int map_entry = CreateDsMap(0,0);
 
-		const char* pUserName = SteamFriends()->GetFriendPersonaName(leaderboardEntry.m_steamIDUser);
-		expand_escapes(nameBuff, pUserName);
+		std::string sUserName = SteamFriends()->GetFriendPersonaName(leaderboardEntry.m_steamIDUser);
+		expand_escapes(sUserName);
+
+		sJson
+			<< "        {"
+			<< " \"name\"  : " << "\"" << sUserName << "\"" << ","
+			<< " \"score\" : " << leaderboardEntry.m_nScore << ","
+			<< " \"rank\"  : " << leaderboardEntry.m_nGlobalRank << ","
+			// always encode this as an int64json string (GM Format)
+			// snprintf(int64buff, 0x20, "@i64@%llx$i64$", int64val);
+			<< " \"userID\": " << "\"@i64@" << std::hex << leaderboardEntry.m_steamIDUser.ConvertToUint64() << std::dec << "$i64$\"";
 
 		if (leaderboardEntry.m_cDetails > 0)
 		{
-			int numBytes = leaderboardEntry.m_cDetails * 4;
-			int retSize = ((numBytes * 4) / 3) + 4;
-			char* pResult = (char*)alloca(retSize);
-			memset(pResult, 0, retSize);
-			g_pYYRunnerInterface->Base64Encode((const char*)pExtraData, numBytes, pResult, 128/*kLBExtraDataMax*/);
-			g_pYYRunnerInterface->DsMapAddString(map_entry, "data", pResult);
+			int numBytes = leaderboardEntry.m_cDetails * sizeof(int32);
+			// btoa("AAAA") -> 'QUFBQQ==' 8 bytes
+			// so one int32 takes approximately 8 bytes
+			// but since the '==' padding is only applied to the end, not to every int
+			// this size should be sufficiently enough, also ensure the last byte is always null
+			char b64string[(kLBExtraDataMax * 8) + 1] = { '\0' };
 
-			sprintf(buff, "{ \"name\":\"%s\" , \"score\":%d , \"rank\":%d, \"data\":\"%s\" }", nameBuff, leaderboardEntry.m_nScore, leaderboardEntry.m_nGlobalRank, pResult);
+			if (g_pYYRunnerInterface->Base64Encode((const char*)pExtraData, numBytes, b64string, sizeof(b64string) - 1))
+			{
+				std::string sb64string(b64string);
+				expand_escapes(sb64string);
+
+				sJson
+					<< ","
+					<< " \"data\"  : " << "\"" << sb64string << "\"";
+			}
 		}
-		else
-		{
-			sprintf(buff, "{ \"name\":\"%s\" , \"score\":%d , \"rank\":%d }", nameBuff, leaderboardEntry.m_nScore, leaderboardEntry.m_nGlobalRank);
-		}
+
+		sJson << " }";
+
 		if (index < numLeaderboardEntries - 1)
-			strcat(buff, ",\n");
-		else
-			strcat(buff, "\n");
-		strcat(pJson, buff);
-	}
-	strcat(pJson, "]}");
+		{
+			sJson << ",";
+		}
 
-	g_pYYRunnerInterface->DsMapAddString(map, "entries", pJson);
+		sJson << "\n        ";
+	}
+	sJson << "\n    ]\n}\n";
+	
+	std::string sjsons = sJson.str();
+
+	g_pYYRunnerInterface->DsMapAddString(map, "entries", sjsons.c_str());
 
 	g_pYYRunnerInterface->CreateAsyncEventWithDSMap(map,EVENT_OTHER_WEB_STEAM);
 }

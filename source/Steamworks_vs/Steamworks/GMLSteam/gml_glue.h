@@ -38,7 +38,7 @@
 //
 //inline gml_ds_map gml_ds_map_create() {
 //	//return gml_ds_map_create_ext(0);
-//	return CreateDsMap(0);
+//	return CreateDsMap(0,0);
 //}
 
 // A wrapper for queuing async events for GML easier.

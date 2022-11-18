@@ -231,6 +231,7 @@
     <ClCompile Include="GMLSteam\steam_glue.cpp" />
     <ClCompile Include="GMLSteam\steam_init.cpp" />
     <ClCompile Include="GMLSteam\steam_init_new.cpp" />
+    <ClCompile Include="GMLSteam\steam_input.cpp" />
     <ClCompile Include="GMLSteam\steam_inventory.cpp" />
     <ClCompile Include="GMLSteam\steam_lobby_chat.cpp" />
     <ClCompile Include="GMLSteam\steam_matchmaking.cpp" />
