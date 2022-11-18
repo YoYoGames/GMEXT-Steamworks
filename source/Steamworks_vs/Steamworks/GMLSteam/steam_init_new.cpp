@@ -68,6 +68,7 @@ void OldPreGraphicsInitialisation()
 
 	if (debug)
 	{
+		/*
 		std::filesystem::path steamAppIdTxtPath = DesktopExtensionTools_getPathToExe();
 		steamAppIdTxtPath /= "steam_appid.txt";
 		std::ofstream steamAppIdTxt(steamAppIdTxtPath.string());
@@ -82,6 +83,32 @@ void OldPreGraphicsInitialisation()
 			tracef("Debug: Unable to open the file or write the AppID, check file permissions?");
 			// do not return; from here as macOS doesn't really allow you to write to your own .app?
 			// SteamAPI_Init() will fail if it really can't guess the app id and we should rely on that instead.
+		}
+		*/
+
+		std::string exePath = DesktopExtensionTools_getPathToExe();
+
+		char filename[1024];
+		snprintf(filename, 1024, "%s/steam_appid.txt", exePath.c_str());
+
+		printf("[STEAMWORKS] Creating steam_appid.txt: %s\n", filename);
+
+		FILE* pFile = fopen(filename, "wb");
+		char strID[32];
+		snprintf(strID, 32, "%u", AppID);
+
+		if (pFile)
+		{
+			fwrite(strID, 1, strlen(strID), pFile);
+			fclose(pFile);
+			printf("steam_appid.txt file written\n");
+
+		}
+		else
+		{
+			printf("Error at write steam_appid.txt:\n");
+			perror("fopen");
+			return; //Failed to open
 		}
 	}
 	else
