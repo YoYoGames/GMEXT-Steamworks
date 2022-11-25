@@ -11,6 +11,10 @@ XCODE SOURCE: `source/Steamworks_xcode/`
 
 After compilation the exported dll/dylib/so file is automatically copied into the extension folder inside the included GameMaker project folder.
 
+## Important
+
+Do not download from the **main branch** this branch is a work in place branch and probably has features that might be broken or not working properly, please download from the releases panel (right side instead).
+
 ## Requirements
 
 In order to compile for Windows/macOS/Linux you are required to [download the Steam SDK v1.55](https://partner.steamgames.com/dashboard) and place it inside `source/Steamworks_sdk/`
