@@ -67,58 +67,45 @@ void OldPreGraphicsInitialisation()
 
 	uint32 AppID = extOptGetReal("Steamworks", "AppID");
 
-	if (debug)
-		DebugConsoleOutput("[STEAMWORKS] Pregraphics::Found debug key %s for appid %d \n", debug,AppID);
-	else
-		DebugConsoleOutput("[STEAMWORKS] Pregraphics::Failed to find debug key %d\n",AppID);
+    if (debug)
+    {
+        std::filesystem::path steamAppIdTxtPath = DesktopExtensionTools_getPathToExe();
+        steamAppIdTxtPath /= "steam_appid.txt";
+        std::ofstream steamAppIdTxt(steamAppIdTxtPath.string());
+        std::string pathasstring = steamAppIdTxtPath.string();
+        tracef("Debug: Writing AppID %u to file %s", static_cast<unsigned int>(AppID), pathasstring.c_str());
+        if (steamAppIdTxt && (steamAppIdTxt << AppID))
+        {
+            tracef("Debug: Wrote AppID without errors.");
+        }
+        else
+        {
+            tracef("Debug: Unable to open the file or write the AppID, check file permissions?");
+            // do not return; from here as macOS doesn't really allow you to write to your own .app?
+            // SteamAPI_Init() will fail if it really can't guess the app id and we should rely on that instead.
+        }
+    }
+    else
+    {
+        // https://partner.steamgames.com/doc/sdk/api#initialization_and_shutdown
+        if (SteamAPI_RestartAppIfNecessary(AppID))
+        {
+            tracef("RestartAppIfNecessary check failed, the game is not allowed to continue");
+            exit(0);
+            return;
+        }
+    }
 
-	if (debug)
-	{
-		std::string exePath = DesktopExtensionTools_getPathToExe();
+    // will also check if it can determine the app id
+    if (!SteamAPI_Init())
+    {
+        tracef("SteamAPI_Init had failed, please check your Steamworks SDK path and that Steam is running! See Output above for possible errors.");
+        return;
+    }
 
-		char filename[1024];
-		snprintf(filename, 1024, "%s/steam_appid.txt", exePath.c_str());
+    tracef("SteamAPI_Init had succeeded without errors, debug flag = %d", debug ? 1 : 0);
 
-		printf("[STEAMWORKS] Creating steam_appid.txt: %s\n", filename);
-
-		FILE* pFile = fopen(filename, "wb");
-		char strID[32];
-		snprintf(strID, 32, "%u", AppID);
-
-		if (pFile)
-		{
-			fwrite(strID, 1, strlen(strID), pFile);
-			fclose(pFile);
-			printf("steam_appid.txt file written\n");
-
-		}
-		else
-		{
-			printf("Error at write steam_appid.txt:\n");
-			perror("fopen");
-			return; //Failed to open
-		}
-	}
-	else
-	{
-		// https://partner.steamgames.com/doc/sdk/api#initialization_and_shutdown
-		if (SteamAPI_RestartAppIfNecessary(AppID))
-		{
-			printf("SteamAPI_RestartAppIfNecessary returned true, exiting\n");
-			exit(0);
-			return;
-		}
-	}
-
-	if (!SteamAPI_Init())
-	{
-		printf("SteamAPI_Init failed\n");
-		return;
-	}
-
-	printf("SteamAPI_Init succeded\n");
-
-	steam_is_initialised = true;
+    steam_is_initialised = true;
 }
 
 YYEXPORT void steam_initialised(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)

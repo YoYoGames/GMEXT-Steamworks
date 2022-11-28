@@ -28,6 +28,7 @@
     {"id":{"name":"Obj_Steam_Overlay_Store","path":"objects/Obj_Steam_Overlay_Store/Obj_Steam_Overlay_Store.yy",},"order":9,},
     {"id":{"name":"Obj_Steam_Overlay_GameGroup","path":"objects/Obj_Steam_Overlay_GameGroup/Obj_Steam_Overlay_GameGroup.yy",},"order":5,},
     {"id":{"name":"Obj_Steam_Leaderboard_Download_Friends","path":"objects/Obj_Steam_Leaderboard_Download_Friends/Obj_Steam_Leaderboard_Download_Friends.yy",},"order":4,},
+    {"id":{"name":"Obj_Steam_Ticket","path":"objects/Obj_Steam_Ticket/Obj_Steam_Ticket.yy",},"order":0,},
     {"id":{"name":"Obj_Steam_Leaderboard_Download_AroundUser","path":"objects/Obj_Steam_Leaderboard_Download_AroundUser/Obj_Steam_Leaderboard_Download_AroundUser.yy",},"order":3,},
     {"id":{"name":"Obj_Steam_Stat_FeetsTraveled","path":"objects/Obj_Steam_Stat_FeetsTraveled/Obj_Steam_Stat_FeetsTraveled.yy",},"order":3,},
     {"id":{"name":"Obj_Steam_Overlay_Community","path":"objects/Obj_Steam_Overlay_Community/Obj_Steam_Overlay_Community.yy",},"order":2,},
@@ -84,6 +85,7 @@
     {"name":"iOS","path":"options/ios/options_ios.yy",},
     {"name":"Linux","path":"options/linux/options_linux.yy",},
     {"name":"macOS","path":"options/mac/options_mac.yy",},
+    {"name":"Main","path":"options/main/options_main.yy",},
     {"name":"PlayStation 4","path":"options/ps4/options_ps4.yy",},
     {"name":"PlayStation 5","path":"options/ps5/options_ps5.yy",},
     {"name":"Switch","path":"options/switch/options_switch.yy",},
@@ -91,7 +93,6 @@
     {"name":"Windows","path":"options/windows/options_windows.yy",},
     {"name":"Xbox Series XS","path":"options/xboxseriesxs/options_xboxseriesxs.yy",},
     {"name":"operagx","path":"options/operagx/options_operagx.yy",},
-    {"name":"Main","path":"options/main/options_main.yy",},
   ],
   "defaultScriptType": 1,
   "isEcma": false,
@@ -139,6 +140,6 @@
     {"resourceType":"GMIncludedFile","resourceVersion":"1.0","name":"Steamworks_Extension_Documentation.pdf","CopyToMask":0,"filePath":"datafiles",},
   ],
   "MetaData": {
-    "IDEVersion": "9.9.1.129",
+    "IDEVersion": "9.9.1.171",
   },
 }

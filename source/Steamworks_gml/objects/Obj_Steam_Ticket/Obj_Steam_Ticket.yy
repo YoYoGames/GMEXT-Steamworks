@@ -1,7 +1,7 @@
 {
   "resourceType": "GMObject",
   "resourceVersion": "1.0",
-  "name": "Obj_YoYo_button",
+  "name": "Obj_Steam_Ticket",
   "spriteId": {
     "name": "Spr_YoYo_button",
     "path": "sprites/Spr_YoYo_button/Spr_YoYo_button.yy",
@@ -12,8 +12,8 @@
   "spriteMaskId": null,
   "persistent": false,
   "parentObjectId": {
-    "name": "Obj_YoYo_text",
-    "path": "objects/Obj_YoYo_text/Obj_YoYo_text.yy",
+    "name": "Obj_YoYo_button",
+    "path": "objects/Obj_YoYo_button/Obj_YoYo_button.yy",
   },
   "physicsObject": false,
   "physicsSensor": false,
@@ -28,14 +28,14 @@
   "physicsKinematic": false,
   "physicsShapePoints": [],
   "eventList": [
-    {"resourceType":"GMEvent","resourceVersion":"1.0","name":"","isDnD":false,"eventNum":0,"eventType":3,"collisionObjectId":null,},
     {"resourceType":"GMEvent","resourceVersion":"1.0","name":"","isDnD":false,"eventNum":0,"eventType":0,"collisionObjectId":null,},
-    {"resourceType":"GMEvent","resourceVersion":"1.0","name":"","isDnD":false,"eventNum":0,"eventType":8,"collisionObjectId":null,},
+    {"resourceType":"GMEvent","resourceVersion":"1.0","name":"","isDnD":false,"eventNum":7,"eventType":6,"collisionObjectId":null,},
+    {"resourceType":"GMEvent","resourceVersion":"1.0","name":"","isDnD":false,"eventNum":69,"eventType":7,"collisionObjectId":null,},
   ],
   "properties": [],
   "overriddenProperties": [],
   "parent": {
-    "name": "Objects",
-    "path": "folders/YoYo Extensions Assets/Objects.yy",
+    "name": "Main",
+    "path": "folders/Steamworks Demo/Main.yy",
   },
 }
