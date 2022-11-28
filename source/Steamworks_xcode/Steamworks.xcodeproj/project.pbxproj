@@ -128,10 +128,10 @@
 
 /* Begin PBXFileReference section */
 		2B53B66B27972B9300544C01 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		2BC97896287F3DAD0079F3E2 /* DesktopExtensionTools.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = DesktopExtensionTools.mm; path = ../../Steamworks_vs/Steamworks/DesktopExtensionTools.mm; sourceTree = "<group>"; };
-		2BC97898287F3DC70079F3E2 /* IniOptionsLibrary.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = IniOptionsLibrary.mm; path = ../../Steamworks_vs/Steamworks/IniOptionsLibrary.mm; sourceTree = "<group>"; };
-		2BC9789A287F3DE60079F3E2 /* DesktopExtensionTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DesktopExtensionTools.h; path = ../../Steamworks_vs/Steamworks/DesktopExtensionTools.h; sourceTree = "<group>"; };
-		2BC9789B287F3DE60079F3E2 /* IniOptionsLibrary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IniOptionsLibrary.h; path = ../../Steamworks_vs/Steamworks/IniOptionsLibrary.h; sourceTree = "<group>"; };
+		2BC97896287F3DAD0079F3E2 /* DesktopExtensionTools.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = DesktopExtensionTools.mm; path = ../Steamworks_vs/Steamworks/DesktopExtensionTools.mm; sourceTree = SOURCE_ROOT; };
+		2BC97898287F3DC70079F3E2 /* IniOptionsLibrary.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = IniOptionsLibrary.mm; path = ../Steamworks_vs/Steamworks/IniOptionsLibrary.mm; sourceTree = SOURCE_ROOT; };
+		2BC9789A287F3DE60079F3E2 /* DesktopExtensionTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DesktopExtensionTools.h; path = ../Steamworks_vs/Steamworks/DesktopExtensionTools.h; sourceTree = SOURCE_ROOT; };
+		2BC9789B287F3DE60079F3E2 /* IniOptionsLibrary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IniOptionsLibrary.h; path = ../Steamworks_vs/Steamworks/IniOptionsLibrary.h; sourceTree = SOURCE_ROOT; };
 		2BDE0923278F96F80090737D /* libSteamworks.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libSteamworks.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 		2BDE097F278F97BD0090737D /* steam_ugc.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = steam_ugc.cpp; path = ../../../Steamworks_vs/Steamworks/GMLSteam/steam_ugc.cpp; sourceTree = "<group>"; };
 		2BDE0980278F97BD0090737D /* steam_init_new.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = steam_init_new.cpp; path = ../../../Steamworks_vs/Steamworks/GMLSteam/steam_init_new.cpp; sourceTree = "<group>"; };
@@ -144,13 +144,13 @@
 		2BDE0987278F97BD0090737D /* steam_funcs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = steam_funcs.h; path = ../../../Steamworks_vs/Steamworks/GMLSteam/steam_funcs.h; sourceTree = "<group>"; };
 		2BDE0988278F97BD0090737D /* steam_userstats.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = steam_userstats.cpp; path = ../../../Steamworks_vs/Steamworks/GMLSteam/steam_userstats.cpp; sourceTree = "<group>"; };
 		2BDE0989278F97BD0090737D /* steam_screenshots.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = steam_screenshots.cpp; path = ../../../Steamworks_vs/Steamworks/GMLSteam/steam_screenshots.cpp; sourceTree = "<group>"; };
-		2BDE0997278F97E60090737D /* Extension_Interface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Extension_Interface.h; path = ../../Steamworks_vs/Steamworks/Extension_Interface.h; sourceTree = "<group>"; };
-		2BDE0998278F97E60090737D /* dllmain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = dllmain.cpp; path = ../../Steamworks_vs/Steamworks/dllmain.cpp; sourceTree = "<group>"; };
-		2BDE0999278F97E60090737D /* pch.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = pch.cpp; path = ../../Steamworks_vs/Steamworks/pch.cpp; sourceTree = "<group>"; };
-		2BDE099A278F97E60090737D /* YYRValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YYRValue.h; path = ../../Steamworks_vs/Steamworks/YYRValue.h; sourceTree = "<group>"; };
-		2BDE099B278F97E60090737D /* Ref.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Ref.h; path = ../../Steamworks_vs/Steamworks/Ref.h; sourceTree = "<group>"; };
-		2BDE099C278F97E60090737D /* framework.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = framework.h; path = ../../Steamworks_vs/Steamworks/framework.h; sourceTree = "<group>"; };
-		2BDE099D278F97E60090737D /* pch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = pch.h; path = ../../Steamworks_vs/Steamworks/pch.h; sourceTree = "<group>"; };
+		2BDE0997278F97E60090737D /* Extension_Interface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Extension_Interface.h; path = ../Steamworks_vs/Steamworks/Extension_Interface.h; sourceTree = SOURCE_ROOT; };
+		2BDE0998278F97E60090737D /* dllmain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = dllmain.cpp; path = ../Steamworks_vs/Steamworks/dllmain.cpp; sourceTree = SOURCE_ROOT; };
+		2BDE0999278F97E60090737D /* pch.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = pch.cpp; path = ../Steamworks_vs/Steamworks/pch.cpp; sourceTree = SOURCE_ROOT; };
+		2BDE099A278F97E60090737D /* YYRValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YYRValue.h; path = ../Steamworks_vs/Steamworks/YYRValue.h; sourceTree = SOURCE_ROOT; };
+		2BDE099B278F97E60090737D /* Ref.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Ref.h; path = ../Steamworks_vs/Steamworks/Ref.h; sourceTree = SOURCE_ROOT; };
+		2BDE099C278F97E60090737D /* framework.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = framework.h; path = ../Steamworks_vs/Steamworks/framework.h; sourceTree = SOURCE_ROOT; };
+		2BDE099D278F97E60090737D /* pch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = pch.h; path = ../Steamworks_vs/Steamworks/pch.h; sourceTree = SOURCE_ROOT; };
 		2BDE09B62790A50B0090737D /* libsteam_api.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsteam_api.dylib; path = ../steamworks_sdk/redistributable_bin/osx/libsteam_api.dylib; sourceTree = "<group>"; };
 		6A60CF5B280AF8C6001B5E90 /* linkhash.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = linkhash.c; path = "../json-c-0.9/linkhash.c"; sourceTree = SOURCE_ROOT; };
 		6A60CF5C280AF8C6001B5E90 /* Android */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Android; path = "../json-c-0.9/Android"; sourceTree = SOURCE_ROOT; };
@@ -299,8 +299,9 @@
 				2BDE0932278F975F0090737D /* GMSteam */,
 				2BDE0931278F974F0090737D /* Include */,
 			);
-			path = Steamworks;
-			sourceTree = "<group>";
+			name = Steamworks;
+			path = ../Steamworks_vs/Steamworks;
+			sourceTree = SOURCE_ROOT;
 		};
 		2BDE0931278F974F0090737D /* Include */ = {
 			isa = PBXGroup;
@@ -351,8 +352,9 @@
 				6ABC975B28E4955B00584CBF /* steamtypes.h */,
 				6ABC978228E4955C00584CBF /* steamuniverse.h */,
 			);
-			path = Include;
-			sourceTree = "<group>";
+			name = Include;
+			path = ../Steamworks_sdk/public/steam;
+			sourceTree = SOURCE_ROOT;
 		};
 		2BDE0932278F975F0090737D /* GMSteam */ = {
 			isa = PBXGroup;
@@ -654,6 +656,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = C9E7J7HL3D;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -713,6 +716,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = C9E7J7HL3D;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
