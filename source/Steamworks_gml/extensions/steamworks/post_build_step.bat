@@ -24,7 +24,7 @@ if not %STEAM_SDK_PATH:~-1% == \ (
 
 :: Check if debug mode is also 'Enabled' else is 'Auto' (use YYTargetFile hacks)
 set "DEBUG_MODE="
-if "%YYEXTOPT_Steamworks_SteamSDK%" == "Enabled" set DEBUG_MODE=1
+if "%YYEXTOPT_Steamworks_Debug%" == "Enabled" set DEBUG_MODE=1
 if "%YYtargetFile%" == "" set DEBUG_MODE=1
 
 :: Ensure the directory exists
