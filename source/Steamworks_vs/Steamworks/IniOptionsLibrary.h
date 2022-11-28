@@ -8,5 +8,4 @@
 #include <fstream>
 #include <string>
 
-
 std::string IniOptions_read(std::string extensionName, std::string key);

@@ -59,52 +59,45 @@ void OldPreGraphicsInitialisation()
 	bool debug = false;
 	uint32 AppID = extOptGetReal("Steamworks", "AppID");
 
-	// try to check if we have a special debug file in options.ini
-	{
-		// written by the IDE build script, customers (ideally) should not know about this.
-		std::string expectedPhrase = "True";
-		debug = IniOptions_read("SteamworksUtils", "RunningFromIDE") == expectedPhrase;
-	}
+    if (debug)
+    {
+        std::filesystem::path steamAppIdTxtPath = DesktopExtensionTools_getPathToExe();
+        steamAppIdTxtPath /= "steam_appid.txt";
+        std::ofstream steamAppIdTxt(steamAppIdTxtPath.string());
+        std::string pathasstring = steamAppIdTxtPath.string();
+        tracef("Debug: Writing AppID %u to file %s", static_cast<unsigned int>(AppID), pathasstring.c_str());
+        if (steamAppIdTxt && (steamAppIdTxt << AppID))
+        {
+            tracef("Debug: Wrote AppID without errors.");
+        }
+        else
+        {
+            tracef("Debug: Unable to open the file or write the AppID, check file permissions?");
+            // do not return; from here as macOS doesn't really allow you to write to your own .app?
+            // SteamAPI_Init() will fail if it really can't guess the app id and we should rely on that instead.
+        }
+    }
+    else
+    {
+        // https://partner.steamgames.com/doc/sdk/api#initialization_and_shutdown
+        if (SteamAPI_RestartAppIfNecessary(AppID))
+        {
+            tracef("RestartAppIfNecessary check failed, the game is not allowed to continue");
+            exit(0);
+            return;
+        }
+    }
 
-	if (debug)
-	{
-		std::filesystem::path steamAppIdTxtPath = DesktopExtensionTools_getPathToExe();
-		steamAppIdTxtPath /= "steam_appid.txt";
-		std::ofstream steamAppIdTxt(steamAppIdTxtPath.string());
-		std::string pathasstring = steamAppIdTxtPath.string();
-		tracef("Debug: Writing AppID %u to file %s", static_cast<unsigned int>(AppID), pathasstring.c_str());
-		if (steamAppIdTxt && (steamAppIdTxt << AppID))
-		{
-			tracef("Debug: Wrote AppID without errors.");
-		}
-		else
-		{
-			tracef("Debug: Unable to open the file or write the AppID, check file permissions?");
-			// do not return; from here as macOS doesn't really allow you to write to your own .app?
-			// SteamAPI_Init() will fail if it really can't guess the app id and we should rely on that instead.
-		}
-	}
-	else
-	{
-		// https://partner.steamgames.com/doc/sdk/api#initialization_and_shutdown
-		if (SteamAPI_RestartAppIfNecessary(AppID))
-		{
-			tracef("RestartAppIfNecessary check failed, the game is not allowed to continue");
-			exit(0);
-			return;
-		}
-	}
+    // will also check if it can determine the app id
+    if (!SteamAPI_Init())
+    {
+        tracef("SteamAPI_Init had failed, please check your Steamworks SDK path and that Steam is running! See Output above for possible errors.");
+        return;
+    }
 
-	// will also check if it can determine the app id
-	if (!SteamAPI_Init())
-	{
-		tracef("SteamAPI_Init had failed, please check your Steamworks SDK path and that Steam is running! See Output above for possible errors.");
-		return;
-	}
+    tracef("SteamAPI_Init had succeeded without errors, debug flag = %d", debug ? 1 : 0);
 
-	tracef("SteamAPI_Init had succeeded without errors, debug flag = %d", debug ? 1 : 0);
-
-	steam_is_initialised = true;
+    steam_is_initialised = true;
 }
 
 YYEXPORT void steam_initialised(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)

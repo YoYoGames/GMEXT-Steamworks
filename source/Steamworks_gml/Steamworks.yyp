@@ -28,6 +28,7 @@
     {"id":{"name":"Obj_Steam_Overlay_Store","path":"objects/Obj_Steam_Overlay_Store/Obj_Steam_Overlay_Store.yy",},"order":9,},
     {"id":{"name":"Obj_Steam_Overlay_GameGroup","path":"objects/Obj_Steam_Overlay_GameGroup/Obj_Steam_Overlay_GameGroup.yy",},"order":5,},
     {"id":{"name":"Obj_Steam_Leaderboard_Download_Friends","path":"objects/Obj_Steam_Leaderboard_Download_Friends/Obj_Steam_Leaderboard_Download_Friends.yy",},"order":4,},
+    {"id":{"name":"Obj_Steam_Ticket","path":"objects/Obj_Steam_Ticket/Obj_Steam_Ticket.yy",},"order":0,},
     {"id":{"name":"Obj_Steam_Leaderboard_Download_AroundUser","path":"objects/Obj_Steam_Leaderboard_Download_AroundUser/Obj_Steam_Leaderboard_Download_AroundUser.yy",},"order":3,},
     {"id":{"name":"Obj_Steam_Stat_FeetsTraveled","path":"objects/Obj_Steam_Stat_FeetsTraveled/Obj_Steam_Stat_FeetsTraveled.yy",},"order":3,},
     {"id":{"name":"Obj_Steam_Overlay_Community","path":"objects/Obj_Steam_Overlay_Community/Obj_Steam_Overlay_Community.yy",},"order":2,},
@@ -140,6 +141,6 @@
     {"resourceType":"GMIncludedFile","resourceVersion":"1.0","name":"Steamworks_Extension_Documentation.html","CopyToMask":0,"filePath":"datafiles",},
   ],
   "MetaData": {
-    "IDEVersion": "2022.1100.0.244",
+    "IDEVersion": "9.9.1.171",
   },
 }

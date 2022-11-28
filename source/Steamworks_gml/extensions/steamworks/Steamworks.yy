@@ -458,13 +458,11 @@
             2,
             2,
           ],"documentation":"",},
-        {"resourceType":"GMExtensionFunction","resourceVersion":"1.0","name":"steam_get_app_ownership_ticket_data","externalName":"steam_get_app_ownership_ticket_data","kind":4,"help":"steam_get_app_ownership_ticket_data(outbuf, vals)","hidden":false,"returnType":1,"argCount":0,"args":[
-            2,
+        {"resourceType":"GMExtensionFunction","resourceVersion":"1.0","name":"steam_get_app_ownership_ticket_data","externalName":"steam_get_app_ownership_ticket_data","kind":4,"help":"steam_get_app_ownership_ticket_data(appid)","hidden":false,"returnType":1,"argCount":0,"args":[
             2,
           ],"documentation":"",},
-        {"resourceType":"GMExtensionFunction","resourceVersion":"1.0","name":"steam_user_request_encrypted_app_ticket","externalName":"steam_user_request_encrypted_app_ticket","kind":4,"help":"steam_user_request_encrypted_app_ticket(data, size)","hidden":false,"returnType":1,"argCount":0,"args":[
-            2,
-            2,
+        {"resourceType":"GMExtensionFunction","resourceVersion":"1.0","name":"steam_user_request_encrypted_app_ticket","externalName":"steam_user_request_encrypted_app_ticket","kind":4,"help":"steam_user_request_encrypted_app_ticket(data)","hidden":false,"returnType":1,"argCount":0,"args":[
+            1,
           ],"documentation":"",},
         {"resourceType":"GMExtensionFunction","resourceVersion":"1.0","name":"steam_inventory_result_get_status","externalName":"steam_inventory_result_get_status","kind":4,"help":"steam_inventory_result_get_status(inv_result)","hidden":false,"returnType":1,"argCount":0,"args":[
             2,
