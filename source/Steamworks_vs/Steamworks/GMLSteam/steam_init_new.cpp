@@ -56,15 +56,7 @@ YYEXPORT void steam_init(RValue& Result, CInstance* selfinst, CInstance* otherin
 
 void OldPreGraphicsInitialisation()
 {
-	//json_object* jobj = json_tokener_parse(arg1);
-	//uint32 AppID = json_object_get_int(json_object_object_get(jobj, "AppID"));
-	//bool debug = json_object_get_boolean(json_object_object_get(jobj, "Debug"));
-
-	//uint32 AppID = (uint32)std::stol(IniOptions_read("Steamworks", "AppID"));
-	//bool debug = IniOptions_read("Steamworks", "Debug").find("True") != std::string::npos;
-
-	const char* debug = extOptGetString("Steamworks", "Debug");
-
+	bool debug = false;
 	uint32 AppID = extOptGetReal("Steamworks", "AppID");
 
     if (debug)
