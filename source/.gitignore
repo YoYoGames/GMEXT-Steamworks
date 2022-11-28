@@ -19,4 +19,4 @@ export/*.zip
 *.sdf
 help.rtf
 
-Steamworks_sdk/*
+steamworks_sdk/*

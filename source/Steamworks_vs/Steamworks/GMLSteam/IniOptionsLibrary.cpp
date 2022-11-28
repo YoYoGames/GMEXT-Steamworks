@@ -7,7 +7,6 @@
 #include "IniOptionsLibrary.h"
 #include "Extension_Interface.h"
 #include <sstream>
-#include <string>
 
 std::string readFile(std::filesystem::path path)
 {
@@ -46,7 +45,9 @@ void segmentation(const std::string str, const std::string extensionName, const 
 	int lines = countLines(str);
 	end = lines;
 
-	std::string extensionNameClosed = std::string("[") + extensionName + std::string("]");
+	char* extensionNameClosed = (char*)malloc(extensionName.length() + 3);
+
+	sprintf(extensionNameClosed, "[%s]", extensionName.data());
 
 	while (index < lines)
 	{
@@ -59,6 +60,7 @@ void segmentation(const std::string str, const std::string extensionName, const 
 		}
 		index++;
 	}
+	free(extensionNameClosed);
 
 	index++;
 	while (index < lines)
@@ -75,14 +77,19 @@ void segmentation(const std::string str, const std::string extensionName, const 
 
 std::string IniOptions_read(std::string extensionName, std::string key)
 {
-	// -- for a macOS implementation see the .mm file -- //
-	std::filesystem::path optionsIniPath = std::filesystem::current_path();
-#ifdef OS_Linux
-	optionsIniPath /= "assets"; // assets are in subdir on linux
-#endif
-	optionsIniPath /= "options.ini";
+	std::filesystem::path exePath = std::filesystem::current_path();
 
-	std::string str = readFile(optionsIniPath);
+	char filename[1024];
+
+#ifdef OS_Windows
+	snprintf(filename, 1024, "%s/options.ini", exePath.string().c_str());
+#endif
+
+#ifdef OS_Linux
+	snprintf(filename, 1024, "%s/assets/options.ini", exePath.string().c_str());
+#endif
+
+	std::string str = (char*)readFile(filename).c_str();
 
 	int start;
 	int end;

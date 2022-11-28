@@ -6,13 +6,17 @@
   "optionsFile": "options.json",
   "options": [
     {"resourceType":"GMExtensionOption","resourceVersion":"1.0","name":"__label1","extensionId":null,"guid":"fc7d5b5e-1344-49ee-bca6-8579b0c68d50","displayName":"","listItems":[],"description":"","defaultValue":"BUILD OPTIONS:","exportToINI":false,"hidden":false,"optType":5,},
-    {"resourceType":"GMExtensionOption","resourceVersion":"1.0","name":"SteamSDK","extensionId":null,"guid":"2d6a1c61-98e7-4289-8eff-d70ef6dac1ff","displayName":"Steam SDK","listItems":[],"description":"The path to the steam sdk (v1.53a)","defaultValue":"","exportToINI":false,"hidden":false,"optType":4,},
+    {"resourceType":"GMExtensionOption","resourceVersion":"1.0","name":"SteamSDK","extensionId":null,"guid":"2d6a1c61-98e7-4289-8eff-d70ef6dac1ff","displayName":"Steam SDK","listItems":[],"description":"The path to the steam sdk (v1.55)","defaultValue":"","exportToINI":false,"hidden":false,"optType":4,},
     {"resourceType":"GMExtensionOption","resourceVersion":"1.0","name":"__label2","extensionId":null,"guid":"c37a2e1d-c82f-4d90-9d0a-b4a2b3b3da08","displayName":"","listItems":[],"description":"","defaultValue":"APP OPTIONS:","exportToINI":false,"hidden":false,"optType":5,},
-    {"resourceType":"GMExtensionOption","resourceVersion":"1.0","name":"AppID","extensionId":null,"guid":"2d512363-a8c0-4025-8b9f-b53e231b025d","displayName":"Application ID","listItems":[],"description":"Get this value from your steam dashboard.","defaultValue":"480","exportToINI":true,"hidden":false,"optType":1,},
+    {"resourceType":"GMExtensionOption","resourceVersion":"1.0","name":"AppID","extensionId":null,"guid":"2d512363-a8c0-4025-8b9f-b53e231b025d","displayName":"Application ID","listItems":[],"description":"Get this value from your steam dashboard.","defaultValue":"480","exportToINI":false,"hidden":false,"optType":1,},
+    {"resourceType":"GMExtensionOption","resourceVersion":"1.0","name":"Debug","extensionId":null,"guid":"96a61e5d-c4ac-4104-b5ac-c8ef936e2609","displayName":"Debug","listItems":[
+        "Auto",
+        "Enabled",
+      ],"description":"Auto - automatically sets debug to false on export;\nEnabled - will always keep debug mode on (USE AT OWN RISK);","defaultValue":"Auto","exportToINI":true,"hidden":false,"optType":6,},
   ],
   "exportToGame": true,
   "supportedTargets": 113497714299118,
-  "extensionVersion": "1.1.4",
+  "extensionVersion": "1.1.3",
   "packageId": "",
   "productId": "",
   "author": "",
@@ -678,8 +682,8 @@
             2,
             2,
             2,
-          ],},
-        {"resourceType":"GMExtensionFunction","resourceVersion":"1.0","name":"steam_input_trigger_repeated_haptic_pulse_legacy","externalName":"","kind":4,"help":"steam_input_trigger_repeated_haptic_pulse_legacy(controller:input_handle,pad:steam_controller_pad,duration_in_mcs:real,offset_in_mcs:real,repeats_amount:real,flags:real)->bool","hidden":false,"returnType":2,"argCount":0,"args":[
+          ],"documentation":"",},
+        {"resourceType":"GMExtensionFunction","resourceVersion":"1.0","name":"steam_input_trigger_repeated_haptic_pulse_legacy","externalName":"","kind":4,"help":"steam_input_trigger_repeated_haptic_pulse_legacy(controller:input_handle,pad:steam_controller_pad,duration_in_ms:real)->bool","hidden":false,"returnType":2,"argCount":0,"args":[
             2,
             2,
             2,
