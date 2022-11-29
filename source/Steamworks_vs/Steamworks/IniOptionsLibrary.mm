@@ -104,22 +104,8 @@ std::string IniOptions_read(std::string extensionName,std::string key)
         }
         else
         {
-            // We are on Windows -> macOS build
-            
-            // 0: Path to MacOS runner
-            // 1: -game
-            // 2: pathToZip
-            // 3: -debugoutput
-            // 4: pathToDebug
-            // 5: -output
-            // 6: pathToOutput
-            // 7: -runTest
-            // 8: -game
-            // 9: pathToiOS.ios
-            
-            testPath = [[[NSProcessInfo processInfo] arguments][9] UTF8String];
-            testPath = testPath.parent_path() / "options.ini";
-            optionsIniPath = testPath;
+            // We are on Windows -> macOS build (not supported)
+            return "";
         }
     }
 
