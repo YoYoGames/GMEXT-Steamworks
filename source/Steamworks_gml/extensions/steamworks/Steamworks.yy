@@ -308,9 +308,6 @@
         {"resourceType":"GMExtensionFunction","resourceVersion":"1.0","name":"steam_update","externalName":"steam_update","kind":11,"help":"steam_update()","hidden":false,"returnType":2,"argCount":1,"args":[],"documentation":"",},
         {"resourceType":"GMExtensionFunction","resourceVersion":"1.0","name":"steam_init","externalName":"steam_init","kind":11,"help":"steam_init()","hidden":false,"returnType":2,"argCount":1,"args":[],"documentation":"",},
         {"resourceType":"GMExtensionFunction","resourceVersion":"1.0","name":"steam_initialised","externalName":"steam_initialised","kind":11,"help":"steam_initialised()","hidden":false,"returnType":2,"argCount":1,"args":[],"documentation":"",},
-        {"resourceType":"GMExtensionFunction","resourceVersion":"1.0","name":"PreGraphicsInitialisation","externalName":"PreGraphicsInitialisation","kind":1,"help":"","hidden":true,"returnType":1,"argCount":0,"args":[
-            1,
-          ],"documentation":"",},
         {"resourceType":"GMExtensionFunction","resourceVersion":"1.0","name":"steam_shutdown","externalName":"steam_shutdown","kind":1,"help":"steam_shutdown()","hidden":false,"returnType":1,"argCount":0,"args":[],"documentation":"",},
         {"resourceType":"GMExtensionFunction","resourceVersion":"1.0","name":"steam_is_subscribed","externalName":"steam_is_subscribed","kind":1,"help":"steam_is_subscribed()","hidden":false,"returnType":2,"argCount":0,"args":[],"documentation":"",},
         {"resourceType":"GMExtensionFunction","resourceVersion":"1.0","name":"steam_set_warning_message_hook","externalName":"steam_set_warning_message_hook","kind":1,"help":"steam_set_warning_message_hook()","hidden":false,"returnType":2,"argCount":0,"args":[],"documentation":"",},
