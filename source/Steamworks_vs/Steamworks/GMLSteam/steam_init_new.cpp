@@ -79,13 +79,8 @@ void OldPreGraphicsInitialisation()
     // try to check if we have a special debug file in options.ini
     {
         // written by the IDE build script, customers (ideally) should not know about this.
-        // std::string expectedPhrase = "True";
-        // debug = IniOptions_read("SteamworksUtils", "RunningFromIDE") == expectedPhrase;
-        
-        std::string a = IniOptions_read("SteamworksUtils", "RunningFromIDE");
-        tracef("############# ‰@ ############", a.c_str());
-        
-        debug = true;
+        std::string expectedPhrase = "True";
+        debug = IniOptions_read("SteamworksUtils", "RunningFromIDE") == expectedPhrase;
     }
     
     if (debug)
