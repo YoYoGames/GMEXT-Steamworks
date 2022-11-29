@@ -76,10 +76,31 @@ std::string IniOptions_read(std::string extensionName,std::string key)
 {
     NSString *bundlename = [[NSBundle mainBundle] executablePath];
     // "./SomeGame.app/Contents/MacOS/Mac_Runner"
-    std::filesystem::path optionsIniPath =  [bundlename UTF8String];
+    std::filesystem::path optionsIniPath = [bundlename UTF8String];
     
     // Mac_Runner -> MacOS -> Resources / options.ini
-    optionsIniPath = optionsIniPath.parent_path().parent_path() / "Resources" / "options.ini"; // ./Resources/options.ini
+    std::filesystem::path testPath;
+    
+    // This is the default path for MacOS YYC compilation
+    testPath = optionsIniPath.parent_path().parent_path() / "Resources" / "options.ini"; // ./Resources/options.ini
+    
+    if (std::filesystem::exists(testPath))
+    {
+        optionsIniPath = testPath;
+    }
+    else
+    {
+        // We are running the VM version (get path from command line arguments)
+        
+        // 0: Path to MacOS runner
+        // 1: -game
+        // 2: /tmp/GameMakerStudio2-Beta/GMS2TEMP/Steamworks_88FEBDE_VM/game.ios
+        
+        testPath = [[[NSProcessInfo processInfo] arguments][2] UTF8String];
+        testPath = testPath.parent_path() / "options.ini";
+        
+        optionsIniPath = testPath;
+    }
 
     std::string str = readFile(optionsIniPath);
 
