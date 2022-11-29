@@ -13,7 +13,7 @@ YYRunnerInterface* g_pYYRunnerInterface;
 //{
 //
 //}
-
+extern void OldPreGraphicsInitialisation();
 
 YYEXPORT void YYExtensionInitialise(const struct YYRunnerInterface* _pFunctions, size_t _functions_size)
 {
@@ -24,7 +24,7 @@ YYEXPORT void YYExtensionInitialise(const struct YYRunnerInterface* _pFunctions,
 	if (_functions_size < sizeof(YYRunnerInterface)) {
 		DebugConsoleOutput("ERROR : runner interface mismatch in extension DLL\n ");
 	} // end if
-
+	OldPreGraphicsInitialisation();
 	DebugConsoleOutput("YYExtensionInitialise CONFIGURED \n ");
 
 	// This stops the runner from crashing hard
