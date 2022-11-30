@@ -104,17 +104,25 @@ std::string IniOptions_read(std::string extensionName,std::string key)
         }
         else
         {
-            // We are on Windows -> macOS build (not supported)
-            return "";
+            // We are compiling from Windows to Mac on VM
+            testPath = [NSHomeDirectory() UTF8String];
+            testPath = testPath / "Library" / "Application Support" / "com.yoyogames.macyoyorunner" / "game" / "assets" / "options.ini";
+            
+            if (std::filesystem::exists(testPath))
+            {
+                optionsIniPath = testPath;
+            }
+            // There is nowhere else to look
+            else return "";
         }
     }
 
     std::string str = readFile(optionsIniPath);
-
+    
     int start;
     int end;
-    segmentation(str,extensionName, key, start, end);
-
+    segmentation(str, extensionName, key, start, end);
+    
     for (int i = start; i < end ; i++)
     {
         std::string line = getLine(str, i);
