@@ -680,7 +680,7 @@
             2,
             2,
           ],"documentation":"",},
-        {"resourceType":"GMExtensionFunction","resourceVersion":"1.0","name":"steam_input_trigger_repeated_haptic_pulse_legacy","externalName":"","kind":4,"help":"steam_input_trigger_repeated_haptic_pulse_legacy(controller:input_handle,pad:steam_controller_pad,duration_in_ms:real)->bool","hidden":false,"returnType":2,"argCount":0,"args":[
+        {"resourceType":"GMExtensionFunction","resourceVersion":"1.0","name":"steam_input_trigger_repeated_haptic_pulse_legacy","externalName":"","kind":4,"help":"steam_input_trigger_repeated_haptic_pulse_legacy(controller:input_handle,pad:steam_controller_pad,duration_in_mcs:real,offset_in_mcs:real,repeats_amount:real,flags:real)->bool","hidden":false,"returnType":2,"argCount":0,"args":[
             2,
             2,
             2,
