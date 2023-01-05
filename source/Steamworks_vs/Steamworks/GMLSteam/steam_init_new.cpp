@@ -56,18 +56,7 @@ YYEXPORT void steam_init(RValue& Result, CInstance* selfinst, CInstance* otherin
 
 void OldPreGraphicsInitialisation()
 {
-	//json_object* jobj = json_tokener_parse(arg1);
-	//uint32 AppID = json_object_get_int(json_object_object_get(jobj, "AppID"));
-	//bool debug = json_object_get_boolean(json_object_object_get(jobj, "Debug"));
-
-	//uint32 AppID = (uint32)std::stol(IniOptions_read("Steamworks", "AppID"));
-	//bool debug = IniOptions_read("Steamworks", "Debug").find("True") != std::string::npos;
-
-	// const char* debug = extOptGetString("Steamworks", "Debug");
-
 	uint32 AppID = extOptGetReal("Steamworks", "AppID");
-
-    bool debug = false;
 
     // a game cannot have an invalid appid
     if (AppID == k_uAppIdInvalid)
@@ -75,11 +64,8 @@ void OldPreGraphicsInitialisation()
         tracef("Invalid AppID, check extension settings in IDE, check file permissions.");
         return;
     }
-    
-    // try to check if we have a special debug entry in options.ini
-    {
-        debug = IniOptions_read("SteamworksUtils", "RunningFromIDE").compare(0, 4, "True") == 0;
-    }
+
+	bool debug = strncmp(extOptGetString("Steamworks", "Debug"), "Enabled", 7) == 0 ? true : isRunningFromIDE();
     
     if (debug)
     {

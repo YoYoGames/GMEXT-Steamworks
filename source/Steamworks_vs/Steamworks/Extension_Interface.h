@@ -277,6 +277,8 @@ struct YYRunnerInterface
 	void (*extOptGetRValue)(RValue& result, const char* _ext, const  char* _opt);
 	const char* (*extOptGetString)(const char* _ext, const  char* _opt);
 	double (*extOptGetReal)(const char* _ext, const char* _opt);
+
+	bool (*isRunningFromIDE)();
 };
 
 #define __YYDEFINE_EXTENSION_FUNCTIONS__
@@ -431,6 +433,9 @@ inline int YYStructGetKeys(RValue* _pStruct, const char** _keys, int* _count) { 
 inline void extOptGetRValue(RValue& result, const char* _ext, const char* _opt) { return g_pYYRunnerInterface->extOptGetRValue(result, _ext, _opt); };
 inline const char* extOptGetString(const char* _ext, const char* _opt) { return g_pYYRunnerInterface->extOptGetString(_ext, _opt); }
 inline double extOptGetReal(const char* _ext, const char* _opt) { return g_pYYRunnerInterface->extOptGetReal(_ext, _opt); };
+
+inline bool isRunningFromIDE() { return g_pYYRunnerInterface->isRunningFromIDE(); };
+
 
 #define g_LiveConnection	(*g_pYYRunnerInterface->pLiveConnection)
 #define g_HTTP_ID			(*g_pYYRunnerInterface->pHTTP_ID)
