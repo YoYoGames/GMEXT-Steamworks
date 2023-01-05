@@ -175,7 +175,7 @@ YYEXPORT void /*double*/ steam_net_packet_get_data(RValue& Result, CInstance* se
 	if (steam_net_packet_data != nullptr) 
 	{
 		//memcpy(data, steam_net_packet_data, steam_net_packet_size);
-		BufferWriteContent(buffer_idx,0 , steam_net_packet_data, steam_net_packet_size);
+		BufferWriteContent(buffer_idx, 0, steam_net_packet_data, steam_net_packet_size,true);
 		Result.kind = VALUE_BOOL;
 		Result.val = true;
 	}

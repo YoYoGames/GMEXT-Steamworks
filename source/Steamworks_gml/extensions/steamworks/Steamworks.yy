@@ -16,7 +16,7 @@
   ],
   "exportToGame": true,
   "supportedTargets": 113497714299118,
-  "extensionVersion": "1.1.3",
+  "extensionVersion": "1.1.5",
   "packageId": "",
   "productId": "",
   "author": "",
@@ -680,7 +680,7 @@
             2,
             2,
           ],"documentation":"",},
-        {"resourceType":"GMExtensionFunction","resourceVersion":"1.0","name":"steam_input_trigger_repeated_haptic_pulse_legacy","externalName":"","kind":4,"help":"steam_input_trigger_repeated_haptic_pulse_legacy(controller:input_handle,pad:steam_controller_pad,duration_in_ms:real)->bool","hidden":false,"returnType":2,"argCount":0,"args":[
+        {"resourceType":"GMExtensionFunction","resourceVersion":"1.0","name":"steam_input_trigger_repeated_haptic_pulse_legacy","externalName":"","kind":4,"help":"steam_input_trigger_repeated_haptic_pulse_legacy(controller:input_handle,pad:steam_controller_pad,duration_in_mcs:real,offset_in_mcs:real,repeats_amount:real,flags:real)->bool","hidden":false,"returnType":2,"argCount":0,"args":[
             2,
             2,
             2,
@@ -1060,7 +1060,6 @@
         {"name":"steam_update","path":"extensions/Steamworks/Steamworks.yy",},
         {"name":"steam_init","path":"extensions/Steamworks/Steamworks.yy",},
         {"name":"steam_initialised","path":"extensions/Steamworks/Steamworks.yy",},
-        {"name":"PreGraphicsInitialisation","path":"extensions/Steamworks/Steamworks.yy",},
         {"name":"steam_shutdown","path":"extensions/Steamworks/Steamworks.yy",},
         {"name":"steam_is_subscribed","path":"extensions/Steamworks/Steamworks.yy",},
         {"name":"steam_set_warning_message_hook","path":"extensions/Steamworks/Steamworks.yy",},
