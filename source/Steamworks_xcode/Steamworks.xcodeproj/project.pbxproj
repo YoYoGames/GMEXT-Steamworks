@@ -9,9 +9,7 @@
 /* Begin PBXBuildFile section */
 		1FE71D5227B2DF3A00ABC624 /* libsteam_api.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BDE09B62790A50B0090737D /* libsteam_api.dylib */; };
 		2BC97897287F3DAD0079F3E2 /* DesktopExtensionTools.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2BC97896287F3DAD0079F3E2 /* DesktopExtensionTools.mm */; };
-		2BC97899287F3DC70079F3E2 /* IniOptionsLibrary.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2BC97898287F3DC70079F3E2 /* IniOptionsLibrary.mm */; };
 		2BC9789C287F3DE60079F3E2 /* DesktopExtensionTools.h in Headers */ = {isa = PBXBuildFile; fileRef = 2BC9789A287F3DE60079F3E2 /* DesktopExtensionTools.h */; };
-		2BC9789D287F3DE60079F3E2 /* IniOptionsLibrary.h in Headers */ = {isa = PBXBuildFile; fileRef = 2BC9789B287F3DE60079F3E2 /* IniOptionsLibrary.h */; };
 		2BDE099E278F97E60090737D /* Extension_Interface.h in Headers */ = {isa = PBXBuildFile; fileRef = 2BDE0997278F97E60090737D /* Extension_Interface.h */; };
 		2BDE099F278F97E60090737D /* dllmain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2BDE0998278F97E60090737D /* dllmain.cpp */; };
 		2BDE09A0278F97E60090737D /* pch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2BDE0999278F97E60090737D /* pch.cpp */; };
@@ -94,24 +92,6 @@
 		6A2A82A62934DAD3002B2CE5 /* steam_inventory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6A2A82872934DAD3002B2CE5 /* steam_inventory.cpp */; };
 		6A2A82A72934DAD3002B2CE5 /* steam_matchmaking.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6A2A82882934DAD3002B2CE5 /* steam_matchmaking.cpp */; };
 		6A2A82A82934DAD3002B2CE5 /* steam_user.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6A2A82892934DAD3002B2CE5 /* steam_user.cpp */; };
-		6A60CF7E280AF8C6001B5E90 /* linkhash.c in Sources */ = {isa = PBXBuildFile; fileRef = 6A60CF5B280AF8C6001B5E90 /* linkhash.c */; };
-		6A60CF7F280AF8C6001B5E90 /* linkhash.h in Headers */ = {isa = PBXBuildFile; fileRef = 6A60CF5D280AF8C6001B5E90 /* linkhash.h */; };
-		6A60CF80280AF8C6001B5E90 /* bits.h in Headers */ = {isa = PBXBuildFile; fileRef = 6A60CF5E280AF8C6001B5E90 /* bits.h */; };
-		6A60CF81280AF8C6001B5E90 /* debug.c in Sources */ = {isa = PBXBuildFile; fileRef = 6A60CF64280AF8C6001B5E90 /* debug.c */; };
-		6A60CF82280AF8C6001B5E90 /* json_tokener.h in Headers */ = {isa = PBXBuildFile; fileRef = 6A60CF66280AF8C6001B5E90 /* json_tokener.h */; };
-		6A60CF83280AF8C6001B5E90 /* json_object_private.h in Headers */ = {isa = PBXBuildFile; fileRef = 6A60CF67280AF8C6001B5E90 /* json_object_private.h */; };
-		6A60CF84280AF8C6001B5E90 /* json_object.c in Sources */ = {isa = PBXBuildFile; fileRef = 6A60CF68280AF8C6001B5E90 /* json_object.c */; };
-		6A60CF85280AF8C6001B5E90 /* arraylist.h in Headers */ = {isa = PBXBuildFile; fileRef = 6A60CF6B280AF8C6001B5E90 /* arraylist.h */; };
-		6A60CF86280AF8C6001B5E90 /* printbuf.h in Headers */ = {isa = PBXBuildFile; fileRef = 6A60CF6C280AF8C6001B5E90 /* printbuf.h */; };
-		6A60CF87280AF8C6001B5E90 /* printbuf.c in Sources */ = {isa = PBXBuildFile; fileRef = 6A60CF6E280AF8C6001B5E90 /* printbuf.c */; };
-		6A60CF88280AF8C6001B5E90 /* debug.h in Headers */ = {isa = PBXBuildFile; fileRef = 6A60CF71280AF8C6001B5E90 /* debug.h */; };
-		6A60CF89280AF8C6001B5E90 /* json_util.h in Headers */ = {isa = PBXBuildFile; fileRef = 6A60CF72280AF8C6001B5E90 /* json_util.h */; };
-		6A60CF8A280AF8C6001B5E90 /* json_tokener.c in Sources */ = {isa = PBXBuildFile; fileRef = 6A60CF74280AF8C6001B5E90 /* json_tokener.c */; };
-		6A60CF8B280AF8C6001B5E90 /* arraylist.c in Sources */ = {isa = PBXBuildFile; fileRef = 6A60CF76280AF8C6001B5E90 /* arraylist.c */; };
-		6A60CF8C280AF8C6001B5E90 /* json_util.c in Sources */ = {isa = PBXBuildFile; fileRef = 6A60CF79280AF8C6001B5E90 /* json_util.c */; };
-		6A60CF8D280AF8C6001B5E90 /* json_object.h in Headers */ = {isa = PBXBuildFile; fileRef = 6A60CF7A280AF8C6001B5E90 /* json_object.h */; };
-		6A60CF8E280AF8C6001B5E90 /* json-c.h in Headers */ = {isa = PBXBuildFile; fileRef = 6A60CF7C280AF8C6001B5E90 /* json-c.h */; };
-		6A60CF8F280AF8C6001B5E90 /* JSON-config.h in Headers */ = {isa = PBXBuildFile; fileRef = 6A60CF7D280AF8C6001B5E90 /* JSON-config.h */; };
 		6ABC1B48280CBC3200BE82A7 /* libSteamworks.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2BDE0923278F96F80090737D /* libSteamworks.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 /* End PBXBuildFile section */
 
@@ -131,9 +111,7 @@
 /* Begin PBXFileReference section */
 		2B53B66B27972B9300544C01 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		2BC97896287F3DAD0079F3E2 /* DesktopExtensionTools.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = DesktopExtensionTools.mm; path = ../Steamworks_vs/Steamworks/DesktopExtensionTools.mm; sourceTree = SOURCE_ROOT; };
-		2BC97898287F3DC70079F3E2 /* IniOptionsLibrary.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = IniOptionsLibrary.mm; path = ../Steamworks_vs/Steamworks/IniOptionsLibrary.mm; sourceTree = SOURCE_ROOT; };
 		2BC9789A287F3DE60079F3E2 /* DesktopExtensionTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DesktopExtensionTools.h; path = ../Steamworks_vs/Steamworks/DesktopExtensionTools.h; sourceTree = SOURCE_ROOT; };
-		2BC9789B287F3DE60079F3E2 /* IniOptionsLibrary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IniOptionsLibrary.h; path = ../Steamworks_vs/Steamworks/IniOptionsLibrary.h; sourceTree = SOURCE_ROOT; };
 		2BDE0923278F96F80090737D /* libSteamworks.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libSteamworks.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 		2BDE0997278F97E60090737D /* Extension_Interface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Extension_Interface.h; path = ../Steamworks_vs/Steamworks/Extension_Interface.h; sourceTree = SOURCE_ROOT; };
 		2BDE0998278F97E60090737D /* dllmain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = dllmain.cpp; path = ../Steamworks_vs/Steamworks/dllmain.cpp; sourceTree = SOURCE_ROOT; };
@@ -220,41 +198,6 @@
 		6A2A82872934DAD3002B2CE5 /* steam_inventory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = steam_inventory.cpp; sourceTree = "<group>"; };
 		6A2A82882934DAD3002B2CE5 /* steam_matchmaking.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = steam_matchmaking.cpp; sourceTree = "<group>"; };
 		6A2A82892934DAD3002B2CE5 /* steam_user.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = steam_user.cpp; sourceTree = "<group>"; };
-		6A60CF5B280AF8C6001B5E90 /* linkhash.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = linkhash.c; path = "../json-c-0.9/linkhash.c"; sourceTree = SOURCE_ROOT; };
-		6A60CF5C280AF8C6001B5E90 /* Android */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Android; path = "../json-c-0.9/Android"; sourceTree = SOURCE_ROOT; };
-		6A60CF5D280AF8C6001B5E90 /* linkhash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = linkhash.h; path = "../json-c-0.9/linkhash.h"; sourceTree = SOURCE_ROOT; };
-		6A60CF5E280AF8C6001B5E90 /* bits.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = bits.h; path = "../json-c-0.9/bits.h"; sourceTree = SOURCE_ROOT; };
-		6A60CF5F280AF8C6001B5E90 /* 3DS */ = {isa = PBXFileReference; lastKnownFileType = folder; name = 3DS; path = "../json-c-0.9/3DS"; sourceTree = SOURCE_ROOT; };
-		6A60CF60280AF8C6001B5E90 /* PS5 */ = {isa = PBXFileReference; lastKnownFileType = folder; name = PS5; path = "../json-c-0.9/PS5"; sourceTree = SOURCE_ROOT; };
-		6A60CF61280AF8C6001B5E90 /* PSVita */ = {isa = PBXFileReference; lastKnownFileType = folder; name = PSVita; path = "../json-c-0.9/PSVita"; sourceTree = SOURCE_ROOT; };
-		6A60CF62280AF8C6001B5E90 /* Linux */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Linux; path = "../json-c-0.9/Linux"; sourceTree = SOURCE_ROOT; };
-		6A60CF63280AF8C6001B5E90 /* PSP */ = {isa = PBXFileReference; lastKnownFileType = folder; name = PSP; path = "../json-c-0.9/PSP"; sourceTree = SOURCE_ROOT; };
-		6A60CF64280AF8C6001B5E90 /* debug.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = debug.c; path = "../json-c-0.9/debug.c"; sourceTree = SOURCE_ROOT; };
-		6A60CF65280AF8C6001B5E90 /* Switch */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Switch; path = "../json-c-0.9/Switch"; sourceTree = SOURCE_ROOT; };
-		6A60CF66280AF8C6001B5E90 /* json_tokener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = json_tokener.h; path = "../json-c-0.9/json_tokener.h"; sourceTree = SOURCE_ROOT; };
-		6A60CF67280AF8C6001B5E90 /* json_object_private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = json_object_private.h; path = "../json-c-0.9/json_object_private.h"; sourceTree = SOURCE_ROOT; };
-		6A60CF68280AF8C6001B5E90 /* json_object.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = json_object.c; path = "../json-c-0.9/json_object.c"; sourceTree = SOURCE_ROOT; };
-		6A60CF69280AF8C6001B5E90 /* PS4 */ = {isa = PBXFileReference; lastKnownFileType = folder; name = PS4; path = "../json-c-0.9/PS4"; sourceTree = SOURCE_ROOT; };
-		6A60CF6A280AF8C6001B5E90 /* WiiU */ = {isa = PBXFileReference; lastKnownFileType = folder; name = WiiU; path = "../json-c-0.9/WiiU"; sourceTree = SOURCE_ROOT; };
-		6A60CF6B280AF8C6001B5E90 /* arraylist.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = arraylist.h; path = "../json-c-0.9/arraylist.h"; sourceTree = SOURCE_ROOT; };
-		6A60CF6C280AF8C6001B5E90 /* printbuf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = printbuf.h; path = "../json-c-0.9/printbuf.h"; sourceTree = SOURCE_ROOT; };
-		6A60CF6D280AF8C6001B5E90 /* Win32 */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Win32; path = "../json-c-0.9/Win32"; sourceTree = SOURCE_ROOT; };
-		6A60CF6E280AF8C6001B5E90 /* printbuf.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = printbuf.c; path = "../json-c-0.9/printbuf.c"; sourceTree = SOURCE_ROOT; };
-		6A60CF6F280AF8C6001B5E90 /* WinMetro */ = {isa = PBXFileReference; lastKnownFileType = folder; name = WinMetro; path = "../json-c-0.9/WinMetro"; sourceTree = SOURCE_ROOT; };
-		6A60CF70280AF8C6001B5E90 /* WinPhone */ = {isa = PBXFileReference; lastKnownFileType = folder; name = WinPhone; path = "../json-c-0.9/WinPhone"; sourceTree = SOURCE_ROOT; };
-		6A60CF71280AF8C6001B5E90 /* debug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = debug.h; path = "../json-c-0.9/debug.h"; sourceTree = SOURCE_ROOT; };
-		6A60CF72280AF8C6001B5E90 /* json_util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = json_util.h; path = "../json-c-0.9/json_util.h"; sourceTree = SOURCE_ROOT; };
-		6A60CF73280AF8C6001B5E90 /* Mac */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Mac; path = "../json-c-0.9/Mac"; sourceTree = SOURCE_ROOT; };
-		6A60CF74280AF8C6001B5E90 /* json_tokener.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = json_tokener.c; path = "../json-c-0.9/json_tokener.c"; sourceTree = SOURCE_ROOT; };
-		6A60CF75280AF8C6001B5E90 /* XboxOne */ = {isa = PBXFileReference; lastKnownFileType = folder; name = XboxOne; path = "../json-c-0.9/XboxOne"; sourceTree = SOURCE_ROOT; };
-		6A60CF76280AF8C6001B5E90 /* arraylist.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = arraylist.c; path = "../json-c-0.9/arraylist.c"; sourceTree = SOURCE_ROOT; };
-		6A60CF77280AF8C6001B5E90 /* iPad */ = {isa = PBXFileReference; lastKnownFileType = folder; name = iPad; path = "../json-c-0.9/iPad"; sourceTree = SOURCE_ROOT; };
-		6A60CF78280AF8C6001B5E90 /* Tizen */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Tizen; path = "../json-c-0.9/Tizen"; sourceTree = SOURCE_ROOT; };
-		6A60CF79280AF8C6001B5E90 /* json_util.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = json_util.c; path = "../json-c-0.9/json_util.c"; sourceTree = SOURCE_ROOT; };
-		6A60CF7A280AF8C6001B5E90 /* json_object.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = json_object.h; path = "../json-c-0.9/json_object.h"; sourceTree = SOURCE_ROOT; };
-		6A60CF7B280AF8C6001B5E90 /* PS3 */ = {isa = PBXFileReference; lastKnownFileType = folder; name = PS3; path = "../json-c-0.9/PS3"; sourceTree = SOURCE_ROOT; };
-		6A60CF7C280AF8C6001B5E90 /* json-c.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "json-c.h"; path = "../json-c-0.9/json-c.h"; sourceTree = SOURCE_ROOT; };
-		6A60CF7D280AF8C6001B5E90 /* JSON-config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "JSON-config.h"; path = "../json-c-0.9/JSON-config.h"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -290,10 +233,7 @@
 			isa = PBXGroup;
 			children = (
 				2BC9789A287F3DE60079F3E2 /* DesktopExtensionTools.h */,
-				2BC9789B287F3DE60079F3E2 /* IniOptionsLibrary.h */,
-				2BC97898287F3DC70079F3E2 /* IniOptionsLibrary.mm */,
 				2BC97896287F3DAD0079F3E2 /* DesktopExtensionTools.mm */,
-				6A60CF5A280AF891001B5E90 /* json-c */,
 				2BDE0998278F97E60090737D /* dllmain.cpp */,
 				2BDE0997278F97E60090737D /* Extension_Interface.h */,
 				2BDE099C278F97E60090737D /* framework.h */,
@@ -410,49 +350,6 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		6A60CF5A280AF891001B5E90 /* json-c */ = {
-			isa = PBXGroup;
-			children = (
-				6A60CF5F280AF8C6001B5E90 /* 3DS */,
-				6A60CF5C280AF8C6001B5E90 /* Android */,
-				6A60CF76280AF8C6001B5E90 /* arraylist.c */,
-				6A60CF6B280AF8C6001B5E90 /* arraylist.h */,
-				6A60CF5E280AF8C6001B5E90 /* bits.h */,
-				6A60CF64280AF8C6001B5E90 /* debug.c */,
-				6A60CF71280AF8C6001B5E90 /* debug.h */,
-				6A60CF77280AF8C6001B5E90 /* iPad */,
-				6A60CF67280AF8C6001B5E90 /* json_object_private.h */,
-				6A60CF68280AF8C6001B5E90 /* json_object.c */,
-				6A60CF7A280AF8C6001B5E90 /* json_object.h */,
-				6A60CF74280AF8C6001B5E90 /* json_tokener.c */,
-				6A60CF66280AF8C6001B5E90 /* json_tokener.h */,
-				6A60CF79280AF8C6001B5E90 /* json_util.c */,
-				6A60CF72280AF8C6001B5E90 /* json_util.h */,
-				6A60CF7C280AF8C6001B5E90 /* json-c.h */,
-				6A60CF7D280AF8C6001B5E90 /* JSON-config.h */,
-				6A60CF5B280AF8C6001B5E90 /* linkhash.c */,
-				6A60CF5D280AF8C6001B5E90 /* linkhash.h */,
-				6A60CF62280AF8C6001B5E90 /* Linux */,
-				6A60CF73280AF8C6001B5E90 /* Mac */,
-				6A60CF6E280AF8C6001B5E90 /* printbuf.c */,
-				6A60CF6C280AF8C6001B5E90 /* printbuf.h */,
-				6A60CF7B280AF8C6001B5E90 /* PS3 */,
-				6A60CF69280AF8C6001B5E90 /* PS4 */,
-				6A60CF60280AF8C6001B5E90 /* PS5 */,
-				6A60CF63280AF8C6001B5E90 /* PSP */,
-				6A60CF61280AF8C6001B5E90 /* PSVita */,
-				6A60CF65280AF8C6001B5E90 /* Switch */,
-				6A60CF78280AF8C6001B5E90 /* Tizen */,
-				6A60CF6A280AF8C6001B5E90 /* WiiU */,
-				6A60CF6D280AF8C6001B5E90 /* Win32 */,
-				6A60CF6F280AF8C6001B5E90 /* WinMetro */,
-				6A60CF70280AF8C6001B5E90 /* WinPhone */,
-				6A60CF75280AF8C6001B5E90 /* XboxOne */,
-			);
-			name = "json-c";
-			path = "../json-c-0.9";
-			sourceTree = SOURCE_ROOT;
-		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -471,22 +368,16 @@
 				6A2A825C2934DA8D002B2CE5 /* isteamnetworkingsockets.h in Headers */,
 				6A2A82682934DA8D002B2CE5 /* matchmakingtypes.h in Headers */,
 				6A2A82402934DA8D002B2CE5 /* steam_api_internal.h in Headers */,
-				6A60CF7F280AF8C6001B5E90 /* linkhash.h in Headers */,
 				6A2A82A02934DAD3002B2CE5 /* steam_callbacks.h in Headers */,
 				6A2A82482934DA8D002B2CE5 /* isteammatchmaking.h in Headers */,
-				2BC9789D287F3DE60079F3E2 /* IniOptionsLibrary.h in Headers */,
-				6A60CF8F280AF8C6001B5E90 /* JSON-config.h in Headers */,
 				6A2A824E2934DA8D002B2CE5 /* steam_api.h in Headers */,
 				6A2A823F2934DA8D002B2CE5 /* steamhttpenums.h in Headers */,
 				6A2A82422934DA8D002B2CE5 /* isteamremoteplay.h in Headers */,
-				6A60CF83280AF8C6001B5E90 /* json_object_private.h in Headers */,
-				6A60CF8D280AF8C6001B5E90 /* json_object.h in Headers */,
 				2BDE099E278F97E60090737D /* Extension_Interface.h in Headers */,
 				6A2A82562934DA8D002B2CE5 /* isteamdualsense.h in Headers */,
 				6A2A82642934DA8D002B2CE5 /* isteaminventory.h in Headers */,
 				6A2A823E2934DA8D002B2CE5 /* isteamps3overlayrenderer.h in Headers */,
 				6A2A82582934DA8D002B2CE5 /* isteamgameserverstats.h in Headers */,
-				6A60CF86280AF8C6001B5E90 /* printbuf.h in Headers */,
 				6A2A82502934DA8D002B2CE5 /* isteammusic.h in Headers */,
 				6A2A824F2934DA8D002B2CE5 /* steamencryptedappticket.h in Headers */,
 				6A2A82512934DA8D002B2CE5 /* isteamremotestorage.h in Headers */,
@@ -495,17 +386,12 @@
 				6A2A825B2934DA8D002B2CE5 /* isteamnetworkingutils.h in Headers */,
 				2BDE09A4278F97E60090737D /* pch.h in Headers */,
 				6A2A82432934DA8D002B2CE5 /* isteamvideo.h in Headers */,
-				6A60CF85280AF8C6001B5E90 /* arraylist.h in Headers */,
 				6A2A82A22934DAD3002B2CE5 /* gml_ext.h in Headers */,
 				6A2A82492934DA8D002B2CE5 /* isteamhttp.h in Headers */,
 				2BDE09A3278F97E60090737D /* framework.h in Headers */,
-				6A60CF82280AF8C6001B5E90 /* json_tokener.h in Headers */,
-				6A60CF80280AF8C6001B5E90 /* bits.h in Headers */,
 				2BC9789C287F3DE60079F3E2 /* DesktopExtensionTools.h in Headers */,
 				2BDE09A2278F97E60090737D /* Ref.h in Headers */,
-				6A60CF88280AF8C6001B5E90 /* debug.h in Headers */,
 				6A2A82672934DA8D002B2CE5 /* isteamscreenshots.h in Headers */,
-				6A60CF89280AF8C6001B5E90 /* json_util.h in Headers */,
 				6A2A82602934DA8D002B2CE5 /* steamuniverse.h in Headers */,
 				6A2A825F2934DA8D002B2CE5 /* steamps3params.h in Headers */,
 				6A2A82452934DA8D002B2CE5 /* isteamclient.h in Headers */,
@@ -519,7 +405,6 @@
 				6A2A82A52934DAD3002B2CE5 /* gml_glue.h in Headers */,
 				6A2A82552934DA8D002B2CE5 /* steamtypes.h in Headers */,
 				6A2A82522934DA8D002B2CE5 /* steamnetworkingfakeip.h in Headers */,
-				6A60CF8E280AF8C6001B5E90 /* json-c.h in Headers */,
 				2BDE09A1278F97E60090737D /* YYRValue.h in Headers */,
 				6A2A824B2934DA8D002B2CE5 /* isteamuserstats.h in Headers */,
 				6A2A829E2934DAD3002B2CE5 /* steam_common.h in Headers */,
@@ -595,22 +480,15 @@
 				6A2A82A72934DAD3002B2CE5 /* steam_matchmaking.cpp in Sources */,
 				2BC97897287F3DAD0079F3E2 /* DesktopExtensionTools.mm in Sources */,
 				2BDE09A0278F97E60090737D /* pch.cpp in Sources */,
-				6A60CF8B280AF8C6001B5E90 /* arraylist.c in Sources */,
-				6A60CF81280AF8C6001B5E90 /* debug.c in Sources */,
 				6A2A82992934DAD3002B2CE5 /* steam_glue.cpp in Sources */,
-				6A60CF87280AF8C6001B5E90 /* printbuf.c in Sources */,
-				6A60CF8A280AF8C6001B5E90 /* json_tokener.c in Sources */,
 				6A2A828F2934DAD3002B2CE5 /* steam_friends.cpp in Sources */,
-				2BC97899287F3DC70079F3E2 /* IniOptionsLibrary.mm in Sources */,
 				6A2A828E2934DAD3002B2CE5 /* gml_glue.cpp in Sources */,
 				6A2A82A12934DAD3002B2CE5 /* steam_remotestorage.cpp in Sources */,
-				6A60CF8C280AF8C6001B5E90 /* json_util.c in Sources */,
 				6A2A829D2934DAD3002B2CE5 /* steam_callbacks.cpp in Sources */,
 				6A2A82942934DAD3002B2CE5 /* steam_utils.cpp in Sources */,
 				6A2A82A32934DAD3002B2CE5 /* steam_lobby_chat.cpp in Sources */,
 				6A2A829C2934DAD3002B2CE5 /* steam_controller.cpp in Sources */,
 				6A2A828C2934DAD3002B2CE5 /* steam_input.cpp in Sources */,
-				6A60CF7E280AF8C6001B5E90 /* linkhash.c in Sources */,
 				6A2A829A2934DAD3002B2CE5 /* steam_misc.cpp in Sources */,
 				6A2A82902934DAD3002B2CE5 /* steam_ugc.cpp in Sources */,
 				6A2A82972934DAD3002B2CE5 /* steam_unsorted.cpp in Sources */,
@@ -624,7 +502,6 @@
 				6A2A82922934DAD3002B2CE5 /* steam_screenshots.cpp in Sources */,
 				6A2A829B2934DAD3002B2CE5 /* steam_apps.cpp in Sources */,
 				6A2A82A82934DAD3002B2CE5 /* steam_user.cpp in Sources */,
-				6A60CF84280AF8C6001B5E90 /* json_object.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
