@@ -157,19 +157,19 @@ YYEXPORT void steam_is_subscribed(RValue& Result, CInstance* selfinst, CInstance
 }
 
 
-YYEXPORT void ext_json_test(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)
-{
-	DebugConsoleOutput("ext_json_test\n");
-
-	const char* arg1 = YYGetString(arg, 0);
-	json_object* jobj = json_tokener_parse(arg1);
-
-	uint32 AppID = json_object_get_int(json_object_object_get(jobj, "ProductId"));
-	bool debug = json_object_get_boolean(json_object_object_get(jobj, "Debug"));
-
-	DebugConsoleOutput("ext_json_test %i\n", AppID);
-	DebugConsoleOutput("ext_json_test %i\n", debug);
-}
+//YYEXPORT void ext_json_test(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)
+//{
+//	DebugConsoleOutput("ext_json_test\n");
+//
+//	const char* arg1 = YYGetString(arg, 0);
+//	json_object* jobj = json_tokener_parse(arg1);
+//
+//	uint32 AppID = json_object_get_int(json_object_object_get(jobj, "ProductId"));
+//	bool debug = json_object_get_boolean(json_object_object_get(jobj, "Debug"));
+//
+//	DebugConsoleOutput("ext_json_test %i\n", AppID);
+//	DebugConsoleOutput("ext_json_test %i\n", debug);
+//}
 
 
 YYEXPORT void steam_shutdown(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)
