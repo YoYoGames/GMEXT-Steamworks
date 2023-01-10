@@ -10,9 +10,6 @@
 #include <vector>
 #include <sstream>
 
-#include "json-c.h"
-
-#include "IniOptionsLibrary.h"
 #include "DesktopExtensionTools.h"
 
 int requestInd = 0;
