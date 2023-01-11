@@ -153,17 +153,17 @@ exit 1
 :start
 
 :: Version locks
-set MIN_VERSION_STABLE="2023.1.0.0"
-set MIN_VERSION_BETA="2023.100.0.0"
-set MIN_VERSION_DEV="9.9.1.293"
+set RUNTIME_VERSION_STABLE="2023.1.0.0"
+set RUNTIME_VERSION_BETA="2023.100.0.0"
+set RUNTIME_VERSION_DEV="9.9.1.293"
 
 :: SDK version v1.55
-set HASH_SDK_WIN="1DB3FD414039D3E5815A5721925DD2E0A3A9F2549603C6CAB7C49B84966A1AF3"
-set HASH_SDK_OSX="88DC79403F68E81B6674C927ED362EF3CF69046F587ED009FDC6AD85D85E97F2"
-set HASH_SDK_LINUX="C0CC3D2802E5F2463BFA0046C41D2F65A6335BAAEEFBBA6C7DBD5681D5CA7C46"
+set SDK_HASH_WIN="1DB3FD414039D3E5815A5721925DD2E0A3A9F2549603C6CAB7C49B84966A1AF3"
+set SDK_HASH_OSX="88DC79403F68E81B6674C927ED362EF3CF69046F587ED009FDC6AD85D85E97F2"
+set SDK_HASH_LINUX="C0CC3D2802E5F2463BFA0046C41D2F65A6335BAAEEFBBA6C7DBD5681D5CA7C46"
 
 :: Checks IDE and Runtime versions
-call :checkMinVersion "%YYruntimeVersion%" %MIN_VERSION_STABLE% %MIN_VERSION_BETA% %MIN_VERSION_DEV% runtime
+call :checkMinVersion "%YYruntimeVersion%" %RUNTIME_VERSION_STABLE% %RUNTIME_VERSION_BETA% %RUNTIME_VERSION_DEV% runtime
 
 :: Resolve the SDK path (must exist)
 set SDK_PATH=%YYEXTOPT_Steamworks_SteamSDK%
@@ -190,7 +190,7 @@ exit 0
 :setupWindows
 
     set SDK_SOURCE="%SDK_PATH%\redistributable_bin\win64\steam_api64.dll"
-    call :assertFileHash %SDK_SOURCE% %HASH_SDK_WIN% "Steam SDK"
+    call :assertFileHash %SDK_SOURCE% %SDK_HASH_WIN% "Steam SDK"
 
     echo "Copying Windows (64 bit) dependencies"
     if not exist "steam_api64.dll" call :fileCopyTo %SDK_SOURCE% "steam_api64.dll"
@@ -205,7 +205,7 @@ exit /b 0
 :setupMacOS
 
     set SDK_SOURCE="%SDK_PATH%\redistributable_bin\osx\libsteam_api.dylib"
-    call :assertFileHash %SDK_SOURCE% %HASH_SDK_OSX% "Steam SDK"
+    call :assertFileHash %SDK_SOURCE% %SDK_HASH_OSX% "Steam SDK"
 
     echo "Copying macOS (64 bit) dependencies"
     if "%YYTARGET_runtime%" == "VM" (
@@ -232,7 +232,7 @@ exit /b 0
 :setupLinux
 
     set SDK_SOURCE="%SDK_PATH%\redistributable_bin\osx\libsteam_api.dylib"
-    call :assertFileHash %SDK_SOURCE% %HASH_SDK_LINUX% "Steam SDK"
+    call :assertFileHash %SDK_SOURCE% %SDK_HASH_LINUX% "Steam SDK"
 
     echo "Copying Linux (64 bit) dependencies"
     
