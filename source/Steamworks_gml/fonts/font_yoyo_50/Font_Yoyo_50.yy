@@ -1,4 +1,7 @@
 {
+  "resourceType": "GMFont",
+  "resourceVersion": "1.0",
+  "name": "Font_YoYo_50",
   "hinting": 0,
   "glyphOperations": 0,
   "interpreter": 0,
@@ -253,8 +256,4 @@
     "name": "Font",
     "path": "folders/YoYo Extensions Assets/Font.yy",
   },
-  "resourceVersion": "1.0",
-  "name": "Font_YoYo_50",
-  "tags": [],
-  "resourceType": "GMFont",
 }
