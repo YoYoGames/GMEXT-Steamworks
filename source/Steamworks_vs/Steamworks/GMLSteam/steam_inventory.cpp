@@ -180,7 +180,7 @@ YYEXPORT void /*SteamInventoryResult_t*/ steam_inventory_add_promo_items(RValue&
 	vector<int32> item_defs = _SW_GetArrayOfInt32(arg, 0, "steam_inventory_add_promo_items");
 
 	SteamInventoryResult_t result;
-	if (API->AddPromoItems(&result, item_defs.data(), item_defs.size())) 
+	if (API->AddPromoItems(&result, item_defs.data(), (uint32_t)item_defs.size()))
 	{
 		Result.kind = VALUE_INT32;
 		Result.v32 = result;
@@ -296,7 +296,7 @@ YYEXPORT void /*SteamInventoryResult_t*/ steam_inventory_exchange_items(RValue& 
 	}
 	
 	SteamInventoryResult_t result;
-	if (API->ExchangeItems(&result, create_defs.data(), create_quantities.data(), create.size(), destroy_items.data(), destroy_quantities.data(), destroy.size())) 
+	if (API->ExchangeItems(&result, create_defs.data(), create_quantities.data(), (uint32_t)create.size(), destroy_items.data(), destroy_quantities.data(), (uint32_t)destroy.size()))
 		{
 			Result.kind = VALUE_INT32;
 			Result.v32 = result;
@@ -323,7 +323,7 @@ YYEXPORT void /*SteamInventoryResult_t*/ steam_inventory_generate_items(RValue& 
 	}
 
 	SteamInventoryResult_t result;
-	if (API->GenerateItems(&result, create_defs.data(), create_quantities.data(), create.size())) 
+	if (API->GenerateItems(&result, create_defs.data(), create_quantities.data(), (uint32_t)create.size()))
 	{
 		Result.kind = VALUE_INT32;
 		Result.v32 = result;
@@ -398,7 +398,7 @@ YYEXPORT void /*bool*/ steam_inventory_start_purchase(RValue& Result, CInstance*
 		create_defs[i] = items[i].item_def;
 		create_quantities[i] = items[i].quantity;
 	}
-	auto call = API->StartPurchase(create_defs.data(), create_quantities.data(), items.size());
+	auto call = API->StartPurchase(create_defs.data(), create_quantities.data(), (uint32_t)items.size());
 	Result.kind = VALUE_BOOL;
 	Result.val = call != k_uAPICallInvalid;
 }
@@ -430,7 +430,7 @@ YYEXPORT void /*SteamInventoryResult_t*/ steam_inventory_get_items_by_id(RValue&
 	std::vector<uint64> item_ids = _SW_GetArrayOfUint64(arg, 0, "steam_inventory_get_items_by_id");
 
 	SteamInventoryResult_t result;
-	if (API->GetItemsByID(&result, item_ids.data(), item_ids.size()))
+	if (API->GetItemsByID(&result, item_ids.data(), (uint32_t)item_ids.size()))
 	{
 		Result.kind = VALUE_INT32;
 		Result.v32 = result;
@@ -453,8 +453,8 @@ YYEXPORT void /*SteamInventoryUpdateHandle_t*/ steam_inventory_start_update_prop
 
 YYEXPORT void /*bool*/ steam_inventory_set_property_bool(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)//(SteamInventoryUpdateHandle_t handle, SteamItemInstanceID_t item_id, const char* prop_name, bool value) 
 {
-	int32 handle = YYGetInt64(arg, 0);
-	int32 item_id = YYGetInt64(arg, 1);
+    uint64_t handle = YYGetInt64(arg, 0);
+	uint64_t item_id = YYGetInt64(arg, 1);
 	char* prop_name = (char*)YYGetString(arg,2);
 	bool value = YYGetBool(arg, 3);
 
@@ -464,8 +464,8 @@ YYEXPORT void /*bool*/ steam_inventory_set_property_bool(RValue& Result, CInstan
 
 YYEXPORT void /*bool*/ steam_inventory_set_property_float(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)//(SteamInventoryUpdateHandle_t handle, SteamItemInstanceID_t item_id, const char* prop_name, float value) 
 {
-	int32 handle = YYGetInt64(arg, 0);
-	int32 item_id = YYGetInt64(arg, 1);
+    uint64_t handle = YYGetInt64(arg, 0);
+    uint64_t item_id = YYGetInt64(arg, 1);
 	char* prop_name = (char*)YYGetString(arg, 2);
 	double value = YYGetReal(arg, 3);
 
@@ -475,8 +475,8 @@ YYEXPORT void /*bool*/ steam_inventory_set_property_float(RValue& Result, CInsta
 
 YYEXPORT void /*bool*/ steam_inventory_set_property_int(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)//(SteamInventoryUpdateHandle_t handle, SteamItemInstanceID_t item_id, const char* prop_name, int64 value) 
 {
-	int32 handle = YYGetInt64(arg, 0);
-	int32 item_id = YYGetInt64(arg, 1);
+    uint64_t handle = YYGetInt64(arg, 0);
+    uint64_t item_id = YYGetInt64(arg, 1);
 	char* prop_name = (char*)YYGetString(arg, 2);
 	int64 value = YYGetInt64(arg, 3);
 
@@ -490,8 +490,8 @@ YYEXPORT void /*bool*/ steam_inventory_set_property_int(RValue& Result, CInstanc
 
 YYEXPORT void /*bool*/ steam_inventory_set_property_string(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)//(SteamInventoryUpdateHandle_t handle, SteamItemInstanceID_t item_id, const char* prop_name, const char* value)
 {
-	int32 handle = YYGetInt64(arg, 0);
-	int32 item_id = YYGetInt64(arg, 1);
+    uint64_t handle = YYGetInt64(arg, 0);
+    uint64_t item_id = YYGetInt64(arg, 1);
 	char* prop_name = (char*)YYGetString(arg, 2);
 	char* value = (char*)YYGetString(arg, 3);
 
@@ -501,8 +501,8 @@ YYEXPORT void /*bool*/ steam_inventory_set_property_string(RValue& Result, CInst
 
 YYEXPORT void /*bool*/ steam_inventory_remove_property(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)//(SteamInventoryUpdateHandle_t handle, SteamItemInstanceID_t item_id, const char* prop_name) 
 {
-	int32 handle = YYGetInt64(arg, 0);
-	int32 item_id = YYGetInt64(arg, 1);
+    uint64_t handle = YYGetInt64(arg, 0);
+    uint64_t item_id = YYGetInt64(arg, 1);
 	char* prop_name = (char*)YYGetString(arg, 2);
 
 	Result.kind = VALUE_BOOL;
@@ -511,7 +511,7 @@ YYEXPORT void /*bool*/ steam_inventory_remove_property(RValue& Result, CInstance
 
 YYEXPORT void /*SteamInventoryResult_t*/ steam_inventory_submit_update_properties(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)//(SteamInventoryUpdateHandle_t handle) 
 {
-	int32 handle = YYGetInt64(arg, 0);
+    uint64_t handle = YYGetInt64(arg, 0);
 
 	SteamInventoryResult_t result;
 	Result.kind = VALUE_INT64;
@@ -530,7 +530,7 @@ YYEXPORT void /*bool*/ steam_inventory_load_item_definitions(RValue& Result, CIn
 
 YYEXPORT void /*optional<uint64>*/ steam_inventory_get_item_price(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)//(SteamItemDef_t item_def) 
 {
-	int64 item_def = YYGetInt64(arg, 0);
+	int32 item_def = YYGetInt32(arg, 0);
 
 	uint64 result;
 	uint64 basePrice;
@@ -558,7 +558,7 @@ struct steam_inventory_get_item_prices_t {
 
 YYEXPORT void /*optional<vector<steam_inventory_get_item_prices_t>>*/ steam_inventory_get_items_with_prices(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)//() 
 {
-	uint64 n = API->GetNumItemsWithPrices();
+	uint32 n = API->GetNumItemsWithPrices();
 	vector<SteamItemDef_t> defs; defs.resize(n);
 	vector<uint64> prices; prices.resize(n);
 	vector<uint64> basePrices; basePrices.resize(n);

@@ -297,9 +297,6 @@ YYEXPORT void /*double*/ steam_get_user_persona_name(RValue& Result, CInstance* 
 		Result.val = async_id;
 		return;
 	}
-
-	
-	Result.val = 1.0;
 }
 
 void Steam_Friends_Init()

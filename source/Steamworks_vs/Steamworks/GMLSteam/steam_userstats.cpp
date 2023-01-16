@@ -286,7 +286,6 @@ public:
 
 void DoLBRequest(SLBRequest* pRequest, SteamLeaderboard_t hLeaderboard)
 {
-    const char* pszName = SteamUserStats()->GetLeaderboardName(hLeaderboard);
     if (pRequest->m_bPost)
     {
         //dbg_csol.Output("Sending queued LB post: %s, %d \n", pszName, pRequest->m_score);
@@ -793,7 +792,6 @@ YYEXPORT void /*double*/ steam_download_scores(RValue& Result, CInstance* selfin
 
     //create a new async context for the returned data
     int  async_id = getAsyncRequestInd();// g_HTTP_ID;
-    int size = sizeof(SLeaderboardData);
     //
 
     SteamLeaderboard_t hLeaderboard;
@@ -986,7 +984,6 @@ void OnDownloadScoreResult(LeaderboardScoresDownloaded_t* pCallback, bool bIOFai
     else
         numLeaderboardEntries = kMaxEntries;
     
-    SteamLeaderboard_t m_hSteamLeaderboard = pCallback->m_hSteamLeaderboard;
     const char* pszLBName = SteamUserStats()->GetLeaderboardName(pCallback->m_hSteamLeaderboard);
     //strncpy(pData->m_pszName, pszLBName, k_cchLeaderboardNameMax);
 
@@ -1383,8 +1380,6 @@ YYEXPORT void /*double*/ steam_get_stat_avg_rate(RValue& Result, CInstance* self
 ///    \brief    Resets all the stats to the server defaults
 YYEXPORT void /*double*/ steam_reset_all_stats(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)//()/*Steam_UserStats_ResetAllStats*/
 {
-    const char* pStatName = YYGetString(arg, 0);
-
     if (!steam_is_initialised)
     {
         Result.kind = VALUE_REAL;
@@ -1552,7 +1547,7 @@ YYEXPORT void steam_get_achievement_achieved_percent(RValue& Result, CInstance* 
         {
             DebugConsoleOutput("GetAchievementAchievedPercent Not Null\n");
             float porcent;
-            if (Result.val = SteamUserStats()->GetAchievementAchievedPercent(statname, &porcent))
+            if (Result.val == SteamUserStats()->GetAchievementAchievedPercent(statname, &porcent))
             {
                 DebugConsoleOutput("GetAchievementAchievedPercent OK\n");
                 Result.val = porcent;

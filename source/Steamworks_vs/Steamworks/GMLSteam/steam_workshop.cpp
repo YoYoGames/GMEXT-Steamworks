@@ -97,7 +97,7 @@ YYEXPORT void /*double*/ steam_user_request_encrypted_app_ticket(RValue& Result,
     char* data = (char*)YYGetString(arg, 0);
     //double size = YYGetReal(arg, 1);
 
-    auto cc = SteamUser()->RequestEncryptedAppTicket(data, strlen(data));// (int)size);
+    auto cc = SteamUser()->RequestEncryptedAppTicket(data, (int)strlen(data));// (int)size);
     steam_user_app_ticket.Set(cc, &steam_net_callbacks, &steam_net_callbacks_t::encrypted_app_ticket_response_received);
     Result.kind = VALUE_REAL;
     Result.val = 1;

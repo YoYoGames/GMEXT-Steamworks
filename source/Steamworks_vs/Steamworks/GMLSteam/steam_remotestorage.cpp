@@ -253,7 +253,7 @@ YYEXPORT void /*double*/ steam_file_write_file(RValue& Result, CInstance* selfin
 	//read the file
 	int fileSize=0;
 	fseek( pFile, 0, SEEK_END );
-	fileSize = ftell( pFile ); // get file size
+	fileSize = (int)ftell( pFile ); // get file size
 	fseek( pFile, 0, SEEK_SET ); // set it back to where it was
 	
 	char* pBuffer = (char*)g_pYYRunnerInterface->YYAlloc(fileSize + 1);// , __FILE__, __LINE__ );
