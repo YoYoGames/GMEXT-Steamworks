@@ -18,7 +18,7 @@ exit /b 0
 
 :: Resolves a relative path if required
 :pathResolve basePath relativePath result
-for /f "tokens=* usebackq" %%F in (`powershell -NoLogo -NoProfile -Command Push-Location '%~1'^; $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath^('%~2'^)^; Pop-Location`) do ( set "%~3=%%F" )
+for /f "delims=" %%i in ('powershell -Command "Push-Location %~1; $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath('%~2'); Pop-Location;"') do set "%~3=%%i"
 exit /b 0
 
 :: Resolves an existing relative path if required (handles errors)
