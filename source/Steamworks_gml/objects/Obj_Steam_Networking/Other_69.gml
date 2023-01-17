@@ -27,12 +27,12 @@ switch(async_load[?"event_type"])
 	
 	case "lobby_list":
 	
-		for(var a = 0 ; a < steam_lobby_list_get_count() ; a++)
+		for(var _a = 0 ; _a < steam_lobby_list_get_count() ; _a++)
 		{
-			var ins = instance_create_depth(600,200+90*a,0,Obj_Steam_Networking_List_Slot);
-			ins.index = a
-			ins.lobby_id = steam_lobby_list_get_lobby_id(a)
-			ins.creator = steam_lobby_list_get_data(a, "Creator")
+			var ins = instance_create_depth(600,200+90*_a,0,Obj_Steam_Networking_List_Slot);
+			ins.index = _a
+			ins.lobby_id = steam_lobby_list_get_lobby_id(_a);
+			ins.creator = steam_lobby_list_get_data(_a, "Creator")
 		}
 		
 	break
