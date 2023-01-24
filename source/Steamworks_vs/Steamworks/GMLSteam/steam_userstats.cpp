@@ -444,12 +444,12 @@ bool GetLeaderboardHandleCreate(const char* pszName, SteamLeaderboard_t& handle,
                 //we have a cached handle for this lb - return it
                 handle = m_aLeaderboardInfo[i].m_hSteamLeaderboard;
 
-                //int map = g_pYYRunnerInterface->CreateDsMap(0,0);
-                //g_pYYRunnerInterface->DsMapAddString(map, "event_type", "create_leaderboard");
-                //g_pYYRunnerInterface->DsMapAddString(map, "lb_name", pszName);
-                //g_pYYRunnerInterface->DsMapAddDouble(map, "status", (double)1);
-                //g_pYYRunnerInterface->DsMapAddDouble(map, "id", (double)async_id);
-                //g_pYYRunnerInterface->CreateAsyncEventWithDSMap(map, EVENT_OTHER_WEB_STEAM);
+                int map = CreateDsMap(4,
+                    "event_type", (double)0.0, "create_leaderboard",
+                    "lb_name", (double)0.0, pszName,
+                    "status", (double)1.0, NULL,
+                    "id", (double)async_id, NULL);
+                g_pYYRunnerInterface->CreateAsyncEventWithDSMap(map, EVENT_OTHER_WEB_STEAM);
 
                 return true;
             }
@@ -458,12 +458,12 @@ bool GetLeaderboardHandleCreate(const char* pszName, SteamLeaderboard_t& handle,
             {
                 //we are already waiting on a create callback - do nothing
 
-                //int map = g_pYYRunnerInterface->CreateDsMap(0,0);
-                //g_pYYRunnerInterface->DsMapAddString(map, "event_type", "create_leaderboard");
-                //g_pYYRunnerInterface->DsMapAddString(map, "lb_name", pszName);
-                //g_pYYRunnerInterface->DsMapAddDouble(map, "status", (double)0);
-                //g_pYYRunnerInterface->DsMapAddDouble(map, "id", (double)async_id);
-                //g_pYYRunnerInterface->CreateAsyncEventWithDSMap(map, EVENT_OTHER_WEB_STEAM);
+                int map = CreateDsMap(4,
+                    "event_type", (double)0.0, "create_leaderboard",
+                    "lb_name", (double)0.0, pszName,
+                    "status", (double)0.0, NULL,
+                    "id", (double)async_id, NULL);
+                g_pYYRunnerInterface->CreateAsyncEventWithDSMap(map, EVENT_OTHER_WEB_STEAM);
 
                 return false;
             }
@@ -476,12 +476,12 @@ bool GetLeaderboardHandleCreate(const char* pszName, SteamLeaderboard_t& handle,
                 CLeaderboardFindHandler* pResultHandler = new CLeaderboardFindHandler( pszName, (ELeaderboardSortMethod)sortMethod,(ELeaderboardDisplayType)displayType, async_id);
                 pResultHandler->SetCallResult(hSteamAPICall);
 
-                //int map = g_pYYRunnerInterface->CreateDsMap(0,0);
-                //g_pYYRunnerInterface->DsMapAddString(map, "event_type", "create_leaderboard");
-                //g_pYYRunnerInterface->DsMapAddString(map, "lb_name", pszName);
-                //g_pYYRunnerInterface->DsMapAddDouble(map, "status", (double)0);
-                //g_pYYRunnerInterface->DsMapAddDouble(map, "id", (double)async_id);
-                //g_pYYRunnerInterface->CreateAsyncEventWithDSMap(map, EVENT_OTHER_WEB_STEAM);
+                int map = CreateDsMap(4,
+                    "event_type", (double)0.0, "create_leaderboard",
+                    "lb_name", (double)0.0, pszName,
+                    "status", (double)0.0, NULL,
+                    "id", (double)async_id, NULL);
+                g_pYYRunnerInterface->CreateAsyncEventWithDSMap(map, EVENT_OTHER_WEB_STEAM);
 
                 return false;
             }

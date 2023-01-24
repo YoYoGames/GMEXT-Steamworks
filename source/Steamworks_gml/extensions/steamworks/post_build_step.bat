@@ -3,6 +3,13 @@
 set Utils="%~dp0\scriptUtils.bat"
 
 :: ######################################################################################
+:: Macros
+
+call %Utils% pathExtractDirectory "%~0" SCRIPT_PATH
+call %Utils% pathExtractBase "%~0" EXTENSION_NAME
+call %Utils% toUpper "%EXTENSION_NAME%" EXTENSION_NAME
+
+:: ######################################################################################
 :: Script Logic
 
 :: Version locks
