@@ -31,6 +31,7 @@
     {"name":"Obj_Steam_UGC_Subscribed","path":"objects/Obj_Steam_UGC_Subscribed/Obj_Steam_UGC_Subscribed.yy","order":5,},
     {"name":"Room_Steam_UGC","path":"rooms/Room_Steam_UGC/Room_Steam_UGC.yy","order":7,},
     {"name":"Obj_Steam_UGC_Item","path":"objects/Obj_Steam_UGC_Item/Obj_Steam_UGC_Item.yy","order":1,},
+    {"name":"changelog","path":"notes/changelog/changelog.yy","order":4,},
     {"name":"Room_Steam_Social","path":"rooms/Room_Steam_Social/Room_Steam_Social.yy","order":4,},
     {"name":"Obj_Steam_Achievement_Set","path":"objects/Obj_Steam_Achievement_Set/Obj_Steam_Achievement_Set.yy","order":7,},
     {"name":"Obj_Steam_Overlay_Achievements","path":"objects/Obj_Steam_Overlay_Achievements/Obj_Steam_Overlay_Achievements.yy","order":6,},

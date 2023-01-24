@@ -63,7 +63,7 @@ assertFileHash() { # pathToBinary hash name
     shopt -s nocasematch
     case "$loc_output" in
     $2 ) return;;
-    *) echo errorHashMismatch "$loc_identifier";;
+    *) errorHashMismatch "$loc_identifier";;
     esac
     unsetVars loc_identifier loc_output
 }
