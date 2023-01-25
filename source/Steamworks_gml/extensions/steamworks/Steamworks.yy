@@ -1153,7 +1153,6 @@
         {"name":"steam_inventory_transfer_item_quantity","path":"extensions/Steamworks/Steamworks.yy",},
       ],},
     {"resourceType":"GMExtensionFile","resourceVersion":"1.0","name":"","filename":"libsteam_api.dylib","origname":"","init":"","final":"","kind":4,"uncompress":false,"functions":[],"constants":[],"ProxyFiles":[],"copyToTargets":2,"usesRunnerInterface":false,"order":[],},
-    {"resourceType":"GMExtensionFile","resourceVersion":"1.0","name":"","filename":"sdkencryptedappticket64.dll","origname":"","init":"","final":"","kind":1,"uncompress":false,"functions":[],"constants":[],"ProxyFiles":[],"copyToTargets":-1,"usesRunnerInterface":false,"order":[],},
   ],
   "classname": "",
   "tvosclassname": "",

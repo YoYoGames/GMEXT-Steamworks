@@ -6,7 +6,6 @@
 #include "YYRValue.h"
 #include "steam_common.h"
 #include "steam_callbacks.h"
-#include "steamencryptedappticket.h"
 
 //#if STEAMWORKS >= 142
 CCallResult<steam_net_callbacks_t, DeleteItemResult_t> steam_item_deleted;
