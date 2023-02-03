@@ -1,2 +1,12 @@
-v1.1.6
-- Added new changelog file to demo (please log firther changes here)
+
+v1.2.0
+- Added new changelog file to demo (please log further changes here)
+- Fixed bug when running Steamworks on YYC via Steam
+- Changed 'Debug' extension option. It now supports:
+	* Auto which will automatically disable debug for exported projects
+	* Enabled that will keep debug enabled even on exported projects
+- Extension options steam SDK path now allows relative paths (use forwardslash as delimiter)
+- Bumped required GM version to 2023.1
+- Added new scripts to provide better debug information to the console log
+- There is no support for macOS VM exports
+- Fixed minor bugs
