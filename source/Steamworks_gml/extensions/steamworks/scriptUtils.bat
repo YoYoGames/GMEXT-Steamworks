@@ -77,6 +77,8 @@ exit /b 0
     if %loc_result% geq 0 exit /b 0
     call :compareVersions "%~1" "%~2" loc_result
     if %loc_result% geq 0 exit /b 0
+    powershell -Command "& { [System.Version]$args[0].Major -gt 2020 }" %~1 >nul 2>&1
+    if %errorlevel% == 0 ( call :errorMinVersion "%~1" "STABLE v%~2 or BETA v%~3" "%~5"; exit 1 )
     call :compareVersions "%~1" "%~4" loc_result
     if %loc_result% geq 0 exit /b 0
     call :errorMinVersion "%~1" "STABLE v%~2 or BETA v%~3" "%~5"
