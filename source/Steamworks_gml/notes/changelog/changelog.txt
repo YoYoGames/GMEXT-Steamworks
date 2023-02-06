@@ -1,4 +1,7 @@
 
+v1.2.1 (Hotfix)
+- Fixed Ubuntu export binary hash checking
+
 v1.2.0
 - Added new changelog file to demo (please log further changes here)
 - Fixed bug when running Steamworks on YYC via Steam
