@@ -91,7 +91,7 @@ exit /b 0
 :: ----------------------------------------------------------------------------------------------------
 :setupLinux
 
-    set SDK_SOURCE="%SDK_PATH%\redistributable_bin\osx\libsteam_api.dylib"
+    set SDK_SOURCE="%SDK_PATH%\redistributable_bin\linux64\libsteam_api.so"
     call %Utils% assertFileHash %SDK_SOURCE% %SDK_HASH_LINUX% "Steam SDK"
 
     echo "Copying Linux (64 bit) dependencies"
