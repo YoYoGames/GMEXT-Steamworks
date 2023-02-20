@@ -17,7 +17,7 @@
   "date": "2019-12-12T01:34:29",
   "description": "",
   "exportToGame": true,
-  "extensionVersion": "1.2.1",
+  "extensionVersion": "1.2.2",
   "files": [
     {"resourceType":"GMExtensionFile","resourceVersion":"1.0","name":"","constants":[
         {"resourceType":"GMExtensionConstant","resourceVersion":"1.0","name":"ov_friends","hidden":false,"value":"0",},
