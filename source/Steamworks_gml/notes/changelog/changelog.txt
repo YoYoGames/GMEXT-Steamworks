@@ -1,4 +1,7 @@
 
+v1.2.3 (Hotfix)
+- Fixed crashing bug on load using IDE 2023.1.0.xxx
+
 v1.2.2 (Hotfix)
 - Fixed Windows binaries were incorrectly build in Debug mode.
 

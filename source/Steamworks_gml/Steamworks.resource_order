@@ -7,6 +7,7 @@
     {"name":"Social","order":2,"path":"folders/Steamworks Demo/Social.yy",},
     {"name":"Achievements","order":1,"path":"folders/Steamworks Demo/Social/Achievements.yy",},
     {"name":"Leaderboard","order":2,"path":"folders/Steamworks Demo/Social/Leaderboard.yy",},
+    {"name":"Global","order":6,"path":"folders/Steamworks Demo/Social/Stats/Global.yy",},
     {"name":"Storage","order":3,"path":"folders/Steamworks Demo/Storage.yy",},
     {"name":"UGC","order":4,"path":"folders/Steamworks Demo/UGC.yy",},
     {"name":"YoYo Extensions Assets","order":2,"path":"folders/YoYo Extensions Assets.yy",},
