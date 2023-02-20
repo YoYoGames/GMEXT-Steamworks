@@ -1,4 +1,7 @@
 
+v1.2.2 (Hotfix)
+- Fixed Windows binaries were incorrectly build in Debug mode.
+
 v1.2.1 (Hotfix)
 - Fixed Ubuntu export binary hash checking
 
