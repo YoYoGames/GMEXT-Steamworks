@@ -151,4 +151,41 @@ YYEXPORT void /*double*/ steam_user_request_encrypted_app_ticket(RValue& Result,
     Result.kind = VALUE_BOOL;
     Result.val = false;
 }
+
+
+HAuthTicket authTicket;
+YYEXPORT void steam_user_get_auth_session_ticket(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)//(char* data, double size)
+{
+    static const uint32 MAX_TICKET_SIZE{ 1024 };
+    uint32 ticketSize{ 0 };
+    uint8 ticket[MAX_TICKET_SIZE];
+
+    authTicket = SteamUser()->GetAuthSessionTicket(ticket, MAX_TICKET_SIZE, &ticketSize);
+
+    //for (int i = 0; i < 100; i++)
+    //    DebugConsoleOutput("%i \n", ticket[i]);
+
+    Result.kind = VALUE_REAL;
+    if (authTicket == k_HAuthTicketInvalid)
+    {
+        DebugConsoleOutput("Auth session ticket is invalid.\n");
+
+        Result.val = -4;//noone
+    }
+    else
+    {
+        DebugConsoleOutput("Auth session ticket is SUCCESS.\n");
+
+        int bufferID = CreateBuffer(ticketSize, eBuffer_Format_Fixed, 1);
+        BufferWriteContent(bufferID, 0, ticket, ticketSize);
+
+        Result.val = bufferID;
+    }
+}
+
+YYEXPORT void steam_user_cancel_auth_ticket(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)//(char* data, double size)
+{
+    SteamUser()->CancelAuthTicket(authTicket);
+}
+
 #pragma endregion

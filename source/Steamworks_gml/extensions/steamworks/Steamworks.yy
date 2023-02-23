@@ -966,6 +966,8 @@
         {"resourceType":"GMExtensionFunction","resourceVersion":"1.0","name":"steam_get_achievement_achieved_percent","argCount":0,"args":[],"documentation":"","externalName":"steam_get_achievement_achieved_percent","help":"steam_get_achievement_achieved_percent(statName)","hidden":false,"kind":4,"returnType":1,},
         {"resourceType":"GMExtensionFunction","resourceVersion":"1.0","name":"steam_get_next_most_achieved_achievement_info","argCount":0,"args":[],"documentation":"","externalName":"steam_get_next_most_achieved_achievement_info","help":"steam_get_next_most_achieved_achievement_info(iterator)","hidden":false,"kind":4,"returnType":1,},
         {"resourceType":"GMExtensionFunction","resourceVersion":"1.0","name":"steam_get_most_achieved_achievement_info","argCount":0,"args":[],"documentation":"","externalName":"steam_get_most_achieved_achievement_info","help":"steam_get_most_achieved_achievement_info()","hidden":false,"kind":4,"returnType":1,},
+        {"resourceType":"GMExtensionFunction","resourceVersion":"1.0","name":"steam_user_get_auth_session_ticket","argCount":0,"args":[],"documentation":"","externalName":"steam_user_get_auth_session_ticket","help":"","hidden":false,"kind":4,"returnType":1,},
+        {"resourceType":"GMExtensionFunction","resourceVersion":"1.0","name":"steam_user_cancel_auth_ticket","argCount":0,"args":[],"documentation":"","externalName":"steam_user_cancel_auth_ticket","help":"","hidden":false,"kind":4,"returnType":1,},
       ],"init":"steam_init","kind":4,"order":[
         {"name":"steam_user_owns_dlc","path":"extensions/Steamworks/Steamworks.yy",},
         {"name":"steam_user_installed_dlc","path":"extensions/Steamworks/Steamworks.yy",},
