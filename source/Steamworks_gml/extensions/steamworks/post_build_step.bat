@@ -79,7 +79,7 @@ exit /b 0
     ) else (
 
         :: This is used from YYC compilation
-        call %Utils% fileCopyTo %SDK_SOURCE% "%YYprojectName%\%YYprojectName%\Supporting Files\libsteam_api.dylib"
+        call %Utils% fileCopyTo %SDK_SOURCE% "%YYprojectName: =_%\%YYprojectName: =_%\Supporting Files\libsteam_api.dylib"
     )
 
     if defined DEBUG_MODE (
