@@ -2,8 +2,6 @@
 // This variable is used for game_restart() purposes.
 is_game_restarting = false;
 
-show_debug_message("create")
-
 randomize();
 
 #macro SteamLeaderboard "YYLeaderboard_10/29/21--"

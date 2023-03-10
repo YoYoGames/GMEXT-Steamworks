@@ -1,174 +1,232 @@
 @echo off
 
+set SCRIPT_PATH="%~0"
 shift & goto :%~1
 
-:: ######################################################################################
-:: Auxiliar Functions
+:: Gets an extension option value
+:optionGetValue str result
+    if not defined SCOPE_NAME call :pathExtractBase %SCRIPT_PATH% SCOPE_NAME
 
-:: Sets a string to uppercase
-:toUpper str result
-    for /f "usebackq delims=" %%I in (`powershell '%~1'.toUpper^(^)`) do set "%~2=%%~I"
+    :: Need to enabled delayed expansion
+    setlocal enabledelayedexpansion
+
+    set "result=!YYEXTOPT_%SCOPE_NAME%_%~1!"
+    call :logInformation "Accessed extension option '%~1' with value '%result%'."
+    
+    :: Need to end local (to push into main scope)
+    endlocal & set "%~2=%result%"
 exit /b 0
 
-:: Extracts the full folder path from a filepath
+:: Converts a string to uppercase and stores it into a variable
+:toUpper str result
+    for /f "usebackq delims=" %%i in (`powershell.exe -Command "$str = '%~1'.ToUpper(); Write-Output $str"`) do set "%~2=%%i"
+    call :logInformation "Converted string '%~1' to uppercase."
+exit /b 0
+
+:: Extracts folder path from a filepath, if a folder path is provided return it instead
 :pathExtractDirectory fullpath result
     set "%~2=%~dp1"
+    call :logInformation "Extracted directory path from '%~1'."
 exit /b 0
 
-:: Extracts the parent folder path from a filepath
+:: Extracts the parent folder path from a filepath. The input 'path\to\my\file.txt' must result in 'my' 
 :pathExtractBase fullpath result
     for %%I in ("%~dp1\.") do set "%~2=%%~nI%%~xI"
+    call :logInformation "Extracted base name from '%~1'."
 exit /b 0
 
 :: Resolves a relative path if required
 :pathResolve basePath relativePath result
-    for /f "delims=" %%i in ('powershell -Command "Push-Location %~1; $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath('%~2'); Pop-Location;"') do set "%~3=%%i"
+
+    :: Need to enabled delayed expansion
+    setlocal enabledelayedexpansion
+
+    for /f "delims=" %%i in ('powershell -Command "Push-Location %~1; $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath('%~2'); Pop-Location;"') do set "result=%%i"
+    call :logInformation "Resolved relative path into '%result%'."
+
+    :: Need to end local (to push into main scope)
+    endlocal & set "%~3=%result%"
 exit /b 0
 
-:: Resolves an existing relative path if required (handles errors)
+:: This function resolves the path if required and stores it into a variable (displays log messages)
 :pathResolveExisting basePath relativePath result
-    call :pathResolve "%~1" "%~2" test
-    set "%~3=%test%"
-    if not exist "%test%" call :errorPathInexistant "%test%"
-    set "test="
+    :: Resolve the path
+    call :pathResolve "%~1" "%~2" "%~3"
+
+    :: Need to enabled delayed expansion
+    setlocal enabledelayedexpansion
+
+    :: Check if the path exists
+    if not exist "!%~3%!" (
+        call :logError "Path '!%~3%!' does not exist."
+        endlocal & exit /b 1
+    )
+    :: Need to end local (to push into main scope)
+    endlocal
 exit /b 0
 
-:: Copies file to provided location (handles errors)
-:fileCopyTo srcFile destFolder
-    powershell -NoLogo -NoProfile -Command Copy-Item -Path '%~1' -Destination '%~2' -Force && echo "Finished copying '%~nx1' to '%~2'"
-    if ERRORLEVEL 1 call :errorFileCopy "%~1" "%~2"
+:: Copies a file or folder to the specified destination folder (displays log messages)
+:itemCopyTo srcPath destFolder
+    if exist "%~1\." (
+        :: Is a folder
+        powershell -NoLogo -NoProfile -Command Copy-Item -Path '%~1' -Destination '%~2' -Recurse
+    ) else if exist "%~1" (
+        :: Is a file
+        powershell -NoLogo -NoProfile -Command Copy-Item -Path '%~1' -Destination '%~2' -Force
+    ) else (
+        call :logError "Failed to copy '%~1' to '%~2'."
+        exit /b 1
+    )
+
+    :: Check if the copy operation succeeded
+    if %errorlevel% neq 0 (
+        call :logError "Failed to copy '%~1' to '%~2'."
+        exit /b 1
+    )
+
+    call :logInformation "Copied '%~1' to '%~2'."
 exit /b 0
 
-:: Extracts a zip file to a folder (handles errors)
-:fileExtract srcFile destFolder identifier
-    powershell Expand-Archive '%~1' '%~2'
-    if ERRORLEVEL 1 call :errorFileExtract "%~1" "%~2" "%~3"
+:: Generates the SHA256 hash of a file and stores it into a variable (displays log messages)
+:fileGetHash filepath result
+    for /f "usebackq delims=" %%i in (`powershell -Command "(Get-FileHash -Path '%~1' -Algorithm SHA256).Hash"`) do set "%~2=%%i"
+    call :logInformation "Generated SHA256 hash of '%~1' and stored it in '%~2'."
 exit /b 0
 
-:: Compresses folder into a zip file (handles errors)
-:folderCompress srcFolder destFile identifier
-    powershell Compress-Archive -Force '%~1' '%~2'
-    if ERRORLEVEL 1 call :errorFolderCompress "%~1" "%~2" "%~2"
+:: Extracts the contents of a zip file to the specified destination folder (displays log messages)
+:fileExtract srcFile destFolder
+    powershell -Command "if (!(Test-Path '%~2')) { New-Item -ItemType Directory -Path '%~2' }"
+    powershell -Command "$ErrorActionPreference = 'Stop'; Expand-Archive -Path '%~1' -DestinationPath '%~2'"
+
+    :: Check if the extraction operation succeeded
+    if %errorlevel% neq 0 (
+        call :logError "Failed to extract contents of '%~1' to '%~2'."
+        exit /b 1
+    )
+
+    call :logInformation "Extracted contents of '%~1' to '%~2'."
 exit /b 0
 
-:: Generates a SHA256 hash of a file and stores it into a variable
-:fileGetHash pathToFile result
-    for /f "tokens=* usebackq" %%F in (`powershell -NoLogo -NoProfile -Command ^(Get-FileHash '%~1'^)[0].Hash`) do ( set "%~2=%%F" )
+:: Compresses the contents of a folder into a zip file (displays log messages)
+:folderCompress srcFolder destFile
+    powershell -Command "Compress-Archive -Path '%~1\*' -DestinationPath '%~2'"
+
+    :: Check if the compression operation succeeded
+    if %errorlevel% neq 0 (
+        call :logError "Failed to compress contents of '%~1' into '%~2'."
+        exit /b 1
+    )
+
+    call :logInformation "Compressed contents of '%~1' into '%~2'."
 exit /b 0
 
-:: Asserts a file hash
-:assertFileHash pathToFile hash identifier
-    set loc_identifier=%~nx1
-    if "%~3" neq "" ( set loc_identifier=%~3 )
-    call :fileGetHash "%~1" loc_result
-    if "%loc_result%" neq "%~2" call :errorHashMismatch "%loc_identifier%"
-    set "loc_identifier="
-    set "loc_result="
+:: Extracts a specified part of a version string and stores it into a variable (displays log messages)
+:versionExtract version part result
+    :: Use PowerShell to extract the specified part of the version string
+    for /f "usebackq delims=" %%i in (`powershell -Command "$version = New-Object Version '%~1'; Write-Output $version.%~2"`) do set "%~3=%%i"
+
+    :: Log a message
+    call :logInformation "Extracted part %~2 of version '%~1' and stored it in '%~3'."
 exit /b 0
 
 :: Compares two version numbers (major.minor.build.rev) and saves result into variable
-:compareVersions version1 version2 result
+:versionCompare version1 version2 result
     for /f "tokens=* usebackq" %%F in (`powershell -NoLogo -NoProfile -Command ^([System.Version]'%~1'^).compareTo^([System.Version]'%~2'^)`) do ( set "%~3=%%F" )
+    call :logInformation "Compared version '%~1' with version '%~2' and stored result in '%~3'."
 exit /b 0
 
-:: Checks minimum product version for the 3 available builds (handles errors)
-:checkMinVersion current stable beta develop identifier
-    call :compareVersions "%~1" "%~3" loc_result
-    if %loc_result% geq 0 exit /b 0
-    call :compareVersions "%~1" "%~2" loc_result
-    if %loc_result% geq 0 exit /b 0
-    powershell -Command "& { [System.Version]$args[0].Major -gt 2020 }" %~1 >nul 2>&1
-    if %errorlevel% == 0 ( call :errorMinVersion "%~1" "STABLE v%~2 or BETA v%~3" "%~5"; exit 1 )
-    call :compareVersions "%~1" "%~4" loc_result
-    if %loc_result% geq 0 exit /b 0
-    call :errorMinVersion "%~1" "STABLE v%~2 or BETA v%~3" "%~5"
+:: Check minimum required versions for STABLE|BETA|DEV releases
+:versionCheckMin version stableVersion betaVersion devVersion
+
+    call :versionExtract "%~1" Major majorVersion
+    call :versionExtract "%~1" Minor minorVersion
+
+    if %majorVersion% geq 2020 (
+        if %minorVersion% geq 100 (
+            :: Beta version
+            call :assertVersionRequired "%~1" "%~3" "The runtime version needs to be at least v%~3."
+        ) else (
+            :: Stable version
+            call :assertVersionRequired "%~1" "%~2" "The runtime version needs to be at least v%~2."
+        )
+        exit /b %errorlevel%
+    )
+    call :assertVersionRequired "%~1" "%~4" "The runtime version needs to be at least v%~4."
 exit /b 0
 
-:: Asserts an exact version number
-:assertExactVersion version reqVersion identifier
-    set loc_identifier=file
-    if "%~3" neq "" ( set loc_identifier=%~3 )
-    call :compareVersions "%~1" "%~2" loc_result
-    if %loc_result% neq 0 call :errorExactVersion "%1" "%2" "%loc_identifier%"
-    set "loc_identifier="
-    set "loc_result="
+:: ASSERTS
+
+:: Asserts the SHA256 hash of a file, logs an error message and throws an error if they do not match (displays log messages)
+:assertFileHashEquals filepath expected message
+    :: Generate hash
+    call :fileGetHash "%~1" actualHash
+
+    :: Compare the actual hash with the expected hash
+    if not "%actualHash%" == "%~2" (
+        call :logError "%~3"
+        exit /b 1
+    )
+
+    :: Log a message
+    call :logInformation "Asserted SHA256 hash of '%~1' matches expected hash."
 exit /b 0
 
-:: Asserts a minimum version number
-:assertMinVersion version minVersion identifier
-    set loc_identifier=file
-    if "%~3" neq "" ( set loc_identifier=%~3 )
-    call :compareVersions "%~1" "%~2" loc_result 
-    if %loc_result% equ -1 call :errorMinVersion "%1" "%2" "%loc_identifier%"
-    set "loc_identifier="
-    set "loc_result="
+:: Asserts that the given version string is greater than the expected version string, logs an error message and throws an error if not (displays log messages)
+:assertVersionRequired version expected message
+    :: Compare the two version strings using :versionCompare
+    set "compareResult="
+    call :versionCompare "%~1" "%~2" compareResult
+
+    :: Check the result and log an error message and throw an error if not greater
+    if %compareResult% lss 0 (
+        call :logError "%~3"
+        exit /b 1
+    )
+
+    :: Log a message
+    call :logInformation "Asserted that version '%~1' is greater than or equal to version '%~2'."
 exit /b 0
 
-:: Sets a variable to a given value with default
-:setWithDefault variable optional value
-    set "%~1=%~2"
-    if "%~3" neq "" ( set "%~1=%~3" )
+:: Asserts that the given version string is equal to the expected version string, logs an error message and throws an error if not (displays log messages)
+:assertVersionEquals version expected message
+    :: Compare the two version strings using :versionCompare
+    set "compareResult="
+    call :versionCompare "%~1" "%~2" compareResult
+
+    :: Check the result and log an error message and throw an error if not equal
+    if %compareResult% neq 0 (
+        call :logError "%~3"
+        exit /b 1
+    )
+
+    :: Log a message
+    call :logInformation "Asserted that version '%~1' equals version '%~2'."
 exit /b 0
 
-:unsetVars variables
-    for %%x in (%*) do ( set "%%~x=" )
-exit /b 0
+:: LOGGING
 
+:: Logs information
 :logInformation message
-    call :log "Information" "%~1"
+    if not defined LOG_LEVEL set "LOG_LEVEL=2"
+    if %LOG_LEVEL% geq 2 call :log "INFO" "%~1"
 exit /b 0
 
+:: Logs warning
 :logWarning message
-    call :log "Warning" "%~1"
+    if not defined LOG_LEVEL set "LOG_LEVEL=1"
+    if %LOG_LEVEL% geq 1 call :log "WARN" "%~1"
 exit /b 0
 
+:: Logs error
 :logError message
-    call :log "Error" "%~1"
+    if not defined LOG_LEVEL set "LOG_LEVEL=0"
+    if %LOG_LEVEL% geq 0 call :log "ERROR" "%~1"
 exit /b 0
 
+:: General log function
 :log tag message
-    echo [%EXTENSION_NAME%] %~1: %~2
+    if not defined SCOPE_NAME call :pathExtractBase %SCRIPT_PATH% SCOPE_NAME
+    echo [%SCOPE_NAME%] %~1: %~2
 exit /b 0
 
-:: ######################################################################################
-:: Error Messages
-
-:errorExactVersion version reqVersion identifier
-    call :logError "Invalid '%~3' version, requires '%~2' (got '%~1')"
-exit 1
-
-:errorMinVersion version minVersion identifier
-    call :logError "Invalid '%~3' version, requires at least '%~2' (got '%~1')"
-exit 1
-
-:errorHashMismatch identifier
-    call :logError "Invalid '%~1' version, sha256 hash mismatch. Please check documentation."
-exit 1
-
-:errorPathInexistant fullpath
-    call :logError "Invalid path '%~1%' does not exist."
-exit 1
-
-:errorFileExtract filepath identifier
-    call :pathResolve "%~1" loc_fullpath
-    call :setWithDefault loc_identifier "file" "%~2"
-    call :logError "Failed to expand %loc_identifier% '%loc_fullpath%' (please file a bug on this issue)."
-    call :unsetVars loc_fullpath loc_identifier
-exit 1
-
-:errorFolderCompress folderpath identifier
-    call :pathResolve "%~1" loc_fullpath
-    call :setWithDefault loc_identifier "folder" "%~2"
-    call :logError "Failed to compress %loc_identifier% '%loc_fullpath%' (please file a bug on this issue)."
-    call :unsetVars loc_fullpath loc_identifier
-exit 1
-
-:errorDirectoryDelete fullpath
-    call :pathResolve "%~1" fullpath
-    call :logError "Failed to delete folder '%fullpath%' (please file a bug on this issue)."
-exit 1
-
-:errorFileCopy source destination
-    call :logError "Failed to copy file '%~1' to '%~2' (please file a bug on this issue)."
-exit 1
 
