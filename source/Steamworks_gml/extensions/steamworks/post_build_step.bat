@@ -1,10 +1,11 @@
 @echo off
-
-set LOG_LEVEL=0
 set Utils="%~dp0scriptUtils.bat"
 
 :: ######################################################################################
 :: Script Logic
+
+:: Always init the script
+call %Utils% scriptInit
 
 :: Version locks
 call %Utils% optionGetValue "versionStable" RUNTIME_VERSION_STABLE
@@ -20,17 +21,17 @@ call %Utils% optionGetValue "sdkHashLinux" SDK_HASH_LINUX
 call %Utils% optionGetValue "sdkPath" SDK_PATH
 call %Utils% optionGetValue "sdkVersion" SDK_VERSION
 
+:: Debug Mode
+call %Utils% optionGetValue "debug" DEBUG_MODE
+
+:: Error String
+set ERROR_SDK_HASH="Invalid Steam SDK version, sha256 hash mismatch (expected v%SDK_VERSION%)."
+
 :: Checks IDE and Runtime versions
-call %Utils% versionCheckMin "%YYruntimeVersion%" %RUNTIME_VERSION_STABLE% %RUNTIME_VERSION_BETA% %RUNTIME_VERSION_DEV% runtime
+call %Utils% versionLockCheck "%YYruntimeVersion%" %RUNTIME_VERSION_STABLE% %RUNTIME_VERSION_BETA% %RUNTIME_VERSION_DEV% runtime
 
 :: Resolve the SDK path (must exist)
 call %Utils% pathResolveExisting "%YYprojectDir%" "%SDK_PATH%" SDK_PATH
-
-:: Check if debug mode is 'Enabled' else is 'Auto' (use YYTargetFile hacks)
-set "DEBUG_MODE="
-if "%YYEXTOPT_Steamworks_Debug%" == "Enabled" set DEBUG_MODE=1
-if "%YYtargetFile%" == " " set DEBUG_MODE=1
-if "%YYtargetFile%" == "" set DEBUG_MODE=1
 
 :: Ensure we are on the output path
 pushd "%YYoutputFolder%"
@@ -39,22 +40,21 @@ pushd "%YYoutputFolder%"
 :: NOTE: the setup method can be (:setupWindows, :setupMacOS or :setupLinux)
 call :setup%YYPLATFORM_name%
 
+:: If debug is set to 'Enabled' provide a warning to the user.
+if "%DEBUG_MODE%" equ "Enabled" call %Utils% logWarning "Debug mode is set to 'Enabled', make sure to set it to 'Auto' before publishing."
+
 popd
 
-exit %errorlevel%
+exit 0
 
 :: ----------------------------------------------------------------------------------------------------
 :setupWindows
 
     set SDK_SOURCE="%SDK_PATH%\redistributable_bin\win64\steam_api64.dll"
-    call %Utils% assertFileHashEquals %SDK_SOURCE% %SDK_HASH_WIN% "Steam SDK v%SDK_VERSION%"
+    call %Utils% assertFileHashEquals %SDK_SOURCE% %SDK_HASH_WIN% %ERROR_SDK_HASH%
 
     echo "Copying Windows (64 bit) dependencies"
     if not exist "steam_api64.dll" call %Utils% itemCopyTo %SDK_SOURCE% "steam_api64.dll"
-   
-    if defined DEBUG_MODE (
-        echo "Running a Windows Steamworks game project inside the Windows IDE, enabling Debug..."
-    )
 
 exit /b 0
 
@@ -62,33 +62,29 @@ exit /b 0
 :setupMacOS
 
     set SDK_SOURCE="%SDK_PATH%\redistributable_bin\osx\libsteam_api.dylib"
-    call %Utils% assertFileHashEquals %SDK_SOURCE% %SDK_HASH_OSX% "Steam SDK v%SDK_VERSION%"
+    call %Utils% assertFileHashEquals %SDK_SOURCE% %SDK_HASH_OSX% %ERROR_SDK_HASH%
 
     echo "Copying macOS (64 bit) dependencies"
     if "%YYTARGET_runtime%" == "VM" (
         :: This is used for VM compilation
-        call %Utils% fileExtract "%YYprojectName%.zip" "_temp\"
-        call %Utils% itemCopyTo %SDK_SOURCE% "_temp\assets\libsteam_api.dylib"
-        call %Utils% folderCompress "_temp" "%YYprojectName%.zip"
+        call %Utils% logError "Extension is not compatible with the macOS VM export, please use YYC."
 
-        rmdir /s /q _temp
+        :: call %Utils% fileExtract "%YYprojectName%.zip" "_temp\"
+        :: call %Utils% itemCopyTo %SDK_SOURCE% "_temp\assets\libsteam_api.dylib"
+        :: call %Utils% folderCompress "_temp" "%YYprojectName%.zip"
+        :: rmdir /s /q _temp
 
     ) else (
         :: This is used for YYC compilation
         call %Utils% itemCopyTo %SDK_SOURCE% "%YYprojectName: =_%\%YYprojectName: =_%\Supporting Files\libsteam_api.dylib"
     )
-
-    if defined DEBUG_MODE (
-        echo "Running a macOS %YYTARGET_runtime% Steamworks game project inside the Windows IDE, enabling Debug..."
-    )
-
 exit /b 0
 
 :: ----------------------------------------------------------------------------------------------------
 :setupLinux
 
     set SDK_SOURCE="%SDK_PATH%\redistributable_bin\linux64\libsteam_api.so"
-    call %Utils% assertFileHashEquals %SDK_SOURCE% %SDK_HASH_LINUX% "Steam SDK v%SDK_VERSION%"
+    call %Utils% assertFileHashEquals %SDK_SOURCE% %SDK_HASH_LINUX% %ERROR_SDK_HASH%
 
     echo "Copying Linux (64 bit) dependencies"
     
@@ -97,11 +93,6 @@ exit /b 0
         call %Utils% itemCopyTo %SDK_SOURCE% "_temp\assets\libsteam_api.so"
         call %Utils% folderCompress "_temp" "%YYprojectName%.zip"
     )
-
-    if defined DEBUG_MODE (
-        echo "Running a Linux Steamworks game project inside the Windows IDE, enabling Debug..."
-    )
-
     rmdir /s /q _temp
 
 exit /b 0

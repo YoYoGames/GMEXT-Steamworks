@@ -8,7 +8,7 @@
   "androidinject": "",
   "androidmanifestinject": "",
   "androidPermissions": [],
-  "androidProps": true,
+  "androidProps": false,
   "androidsourcedir": "",
   "author": "",
   "classname": "",
@@ -1173,6 +1173,12 @@
     {"resourceType":"GMExtensionOption","resourceVersion":"1.0","name":"Debug","defaultValue":"Auto","description":"Auto - automatically sets debug to false on export;\nEnabled - will always keep debug mode on (USE AT OWN RISK);","displayName":"Debug","exportToINI":true,"extensionId":null,"guid":"96a61e5d-c4ac-4104-b5ac-c8ef936e2609","hidden":false,"listItems":[
         "Auto",
         "Enabled",
+      ],"optType":6,},
+    {"resourceType":"GMExtensionOption","resourceVersion":"1.0","name":"__extOptLabel","defaultValue":"EXTRA OPTIONS:","description":"","displayName":"","exportToINI":false,"extensionId":null,"guid":"6fb808c0-c204-4477-9ad2-f05b3a5b9eeb","hidden":false,"listItems":[],"optType":5,},
+    {"resourceType":"GMExtensionOption","resourceVersion":"1.0","name":"logLevel","defaultValue":"1","description":"The log level to be used by the script file.\r\n0: Show only errors\r\n1: Show errors and warnings (recommended)\r\n2: Show everything (use before submitting a bug)","displayName":"Log Level","exportToINI":false,"extensionId":null,"guid":"4bf243ec-4e30-4c6d-86fd-9207893f0784","hidden":false,"listItems":[
+        "0",
+        "1",
+        "2",
       ],"optType":6,},
     {"resourceType":"GMExtensionOption","resourceVersion":"1.0","name":"sdkVersion","defaultValue":"1.55","description":"","displayName":"","exportToINI":false,"extensionId":null,"guid":"3c048609-3c36-48e2-88c3-d1c216e84e6b","hidden":true,"listItems":[],"optType":2,},
     {"resourceType":"GMExtensionOption","resourceVersion":"1.0","name":"sdkHashWin","defaultValue":"1DB3FD414039D3E5815A5721925DD2E0A3A9F2549603C6CAB7C49B84966A1AF3","description":"","displayName":"","exportToINI":false,"extensionId":null,"guid":"33aac3da-b966-4c5f-8c9a-f3835e1e003d","hidden":true,"listItems":[],"optType":2,},

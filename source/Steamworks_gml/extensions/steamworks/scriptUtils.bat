@@ -3,14 +3,45 @@
 set SCRIPT_PATH="%~0"
 shift & goto :%~1
 
-:: Gets an extension option value
-:optionGetValue str result
-    if not defined SCOPE_NAME call :pathExtractBase %SCRIPT_PATH% SCOPE_NAME
+:scriptInit
+    set "LOG_LABEL=UNSET"
+    set "LOG_LEVEL=-1"
 
+    :: Get extension data
+    call :pathExtractBase %SCRIPT_PATH% EXTENSION_NAME
+    call :extensionGetVersion EXTENSION_VERSION
+    if not defined EXTENSION_VERSION set "EXTENSION_VERSION=0.0.0"
+
+    :: Setup logger
+    call :toUpper %EXTENSION_NAME% LOG_LABEL
+    call :optionGetValue "logLevel" LOG_LEVEL
+    if not defined LOG_LEVEL set "LOG_LEVEL=0"
+
+    :: Check if the operation succeeded
+    if %errorlevel% neq 0 (
+        call :log "INIT" "Script initialization failed (v%EXTENSION_VERSION% :: %LOG_LEVEL%)."
+    ) else (
+        call :log "INIT" "Script initialization succeeded (v%EXTENSION_VERSION% :: %LOG_LEVEL%)."
+    )
+exit /b 0
+
+:extensionGetVersion result
     :: Need to enabled delayed expansion
     setlocal enabledelayedexpansion
 
-    set "result=!YYEXTOPT_%SCOPE_NAME%_%~1!"
+    set "result=!GMEXT_%EXTENSION_NAME%_version!"
+    call :logInformation "Accessed extension version with value '%result%'."
+    
+    :: Need to end local (to push into main scope)
+    endlocal & set "%~1=%result%"
+exit /b 0
+
+:: Gets an extension option value
+:optionGetValue str result
+    :: Need to enabled delayed expansion
+    setlocal enabledelayedexpansion
+
+    set "result=!YYEXTOPT_%EXTENSION_NAME%_%~1!"
     call :logInformation "Accessed extension option '%~1' with value '%result%'."
     
     :: Need to end local (to push into main scope)
@@ -67,6 +98,9 @@ exit /b 0
 
 :: Copies a file or folder to the specified destination folder (displays log messages)
 :itemCopyTo srcPath destFolder
+
+    call :pathResolve "%cd%" "%~2" destination
+
     if exist "%~1\." (
         :: Is a folder
         powershell -NoLogo -NoProfile -Command Copy-Item -Path '%~1' -Destination '%~2' -Recurse
@@ -74,23 +108,23 @@ exit /b 0
         :: Is a file
         powershell -NoLogo -NoProfile -Command Copy-Item -Path '%~1' -Destination '%~2' -Force
     ) else (
-        call :logError "Failed to copy '%~1' to '%~2'."
+        call :logError "Failed to copy '%~1' to '%destination%'."
         exit /b 1
     )
 
     :: Check if the copy operation succeeded
     if %errorlevel% neq 0 (
-        call :logError "Failed to copy '%~1' to '%~2'."
+        call :logError "Failed to copy '%~1' to '%destination%'."
         exit /b 1
     )
 
-    call :logInformation "Copied '%~1' to '%~2'."
+    call :logInformation "Copied '%~1' to '%destination%'."
 exit /b 0
 
 :: Generates the SHA256 hash of a file and stores it into a variable (displays log messages)
 :fileGetHash filepath result
     for /f "usebackq delims=" %%i in (`powershell -Command "(Get-FileHash -Path '%~1' -Algorithm SHA256).Hash"`) do set "%~2=%%i"
-    call :logInformation "Generated SHA256 hash of '%~1' and stored it in '%~2'."
+    call :logInformation "Generated SHA256 hash of '%~1'."
 exit /b 0
 
 :: Extracts the contents of a zip file to the specified destination folder (displays log messages)
@@ -124,19 +158,21 @@ exit /b 0
 :versionExtract version part result
     :: Use PowerShell to extract the specified part of the version string
     for /f "usebackq delims=" %%i in (`powershell -Command "$version = New-Object Version '%~1'; Write-Output $version.%~2"`) do set "%~3=%%i"
-
-    :: Log a message
-    call :logInformation "Extracted part %~2 of version '%~1' and stored it in '%~3'."
+    
+    :: Need to enabled delayed expansion
+    setlocal enabledelayedexpansion
+    call :logInformation "Extracted part %~2 of version '%~1' with value '!%~3%!'."
+    endlocal
 exit /b 0
 
 :: Compares two version numbers (major.minor.build.rev) and saves result into variable
 :versionCompare version1 version2 result
     for /f "tokens=* usebackq" %%F in (`powershell -NoLogo -NoProfile -Command ^([System.Version]'%~1'^).compareTo^([System.Version]'%~2'^)`) do ( set "%~3=%%F" )
-    call :logInformation "Compared version '%~1' with version '%~2' and stored result in '%~3'."
+    call :logInformation "Compared version '%~1' with version '%~2'."
 exit /b 0
 
 :: Check minimum required versions for STABLE|BETA|DEV releases
-:versionCheckMin version stableVersion betaVersion devVersion
+:versionLockCheck version stableVersion betaVersion devVersion
 
     call :versionExtract "%~1" Major majorVersion
     call :versionExtract "%~1" Minor minorVersion
@@ -149,9 +185,11 @@ exit /b 0
             :: Stable version
             call :assertVersionRequired "%~1" "%~2" "The runtime version needs to be at least v%~2."
         )
-        exit /b %errorlevel%
+    ) else (
+        :: Dev version
+        call :assertVersionRequired "%~1" "%~4" "The runtime version needs to be at least v%~4."
     )
-    call :assertVersionRequired "%~1" "%~4" "The runtime version needs to be at least v%~4."
+    call :logInformation "Version lock check passed successfully, with version '%~1'."
 exit /b 0
 
 :: ASSERTS
@@ -207,26 +245,23 @@ exit /b 0
 
 :: Logs information
 :logInformation message
-    if not defined LOG_LEVEL set "LOG_LEVEL=2"
     if %LOG_LEVEL% geq 2 call :log "INFO" "%~1"
 exit /b 0
 
 :: Logs warning
 :logWarning message
-    if not defined LOG_LEVEL set "LOG_LEVEL=1"
     if %LOG_LEVEL% geq 1 call :log "WARN" "%~1"
 exit /b 0
 
 :: Logs error
 :logError message
-    if not defined LOG_LEVEL set "LOG_LEVEL=0"
     if %LOG_LEVEL% geq 0 call :log "ERROR" "%~1"
+    exit 1
 exit /b 0
 
 :: General log function
 :log tag message
-    if not defined SCOPE_NAME call :pathExtractBase %SCRIPT_PATH% SCOPE_NAME
-    echo [%SCOPE_NAME%] %~1: %~2
+    echo [%LOG_LABEL%] %~1: %~2
 exit /b 0
 
 
