@@ -1,211 +1,371 @@
 #!/bin/bash
 
-# ######################################################################################
+SCRIPT_PATH="$0"
+
 # Auxiliar Functions
+
+# Script initialization
+# Usage: scriptInit
+scriptInit() {
+    LOG_LABEL="UNSET"
+    LOG_LEVEL=-1
+    EXTENSION_NAME=
+
+    # Get extension data
+    pathExtractBase $SCRIPT_PATH EXTENSION_NAME
+    extensionGetVersion EXTENSION_VERSION
+    if [ -z "$EXTENSION_VERSION" ]; then
+        EXTENSION_VERSION="0.0.0"
+    fi
+
+    # Setup logger
+    LOG_LABEL=$(echo "$EXTENSION_NAME" | tr '[:lower:]' '[:upper:]')
+    optionGetValue "logLevel" LOG_LEVEL
+    if [ -z "$LOG_LEVEL" ]; then
+        LOG_LEVEL=2
+    fi
+
+    # Check if the operation succeeded
+    if [ "$?" -ne 0 ]; then
+        log "INIT" "Script initialization failed (v$EXTENSION_VERSION :: $LOG_LEVEL)."
+    else
+        log "INIT" "Script initialization succeeded (v$EXTENSION_VERSION :: $LOG_LEVEL)."
+    fi
+}
+
+# Gets the extension version value
+# Usage: extensionGetVersion result
+extensionGetVersion() {
+    # Enable indirect variable reference
+    set -f
+    local var="GMEXT_${EXTENSION_NAME}_version"
+    local result="${!var}"
+    set +f
+
+    logInformation "Accessed extension version with value '${result}'."
+    eval "$1=\"\$result\""
+}
+
+# Gets an extension option value
+# Usage: optionGetValue optionName result
+optionGetValue() {
+
+    # Enable indirect variable reference
+    set -f
+    local var="YYEXTOPT_${EXTENSION_NAME}_$1"
+    local result="${!var}"
+    set +f
+
+    logInformation "Accessed extension option '${1}' with value '${result}'."
+    eval "$2=\"\$result\""
+}
 
 # Sets a string to uppercase
 toUpper() { # str result
-    export $2=$(echo $1 | tr '[:lower:]' '[:upper:]')
+    eval "$2=$(echo $1 | tr '[:lower:]' '[:upper:]')"
 }
 
 # Extracts the full folder path from a filepath
-pathExtractDirectory() { # fullpath result
-    export $2="$(dirname "$1")"
+# Usage: pathExtractDirectory fullpath result
+pathExtractDirectory() {
+    eval "$2=\"$(dirname "$1")\""
+    logInformation "Extracted directory path from '$1'."
 }
 
 # Extracts the parent folder from a path
-pathExtractBase() { # fullpath result
-    export $2="$(basename $(dirname "$1"))"
+# Usage: pathExtractBase fullpath result
+pathExtractBase() {
+    eval "$2=\"$(basename $(dirname "$1"))\""
+    logInformation "Extracted base name from '$1'."
 }
 
-# Resolves a relative path if required
-pathResolve() { # basePath relativePath result
-    pushd "$1" >/dev/null
-    export $3=$(readlink -f "$2")
-    popd >/dev/null
+# Resolves a relative or absolute path to an absolute path
+# Usage: pathResolve basePath relativePath result
+pathResolve() {
+    local base="$1"
+    local relative="$2"
+    local resolvedPath=
+    resolvedPath="$(readlink -f "$base/$relative")"
+
+    logInformation "Resolved path into '$resolvedPath'."
+    eval "$3=\"$resolvedPath\""
 }
 
 # Resolves an existing relative path if required (handles errors)
-pathResolveExisting() { # basePath relativePath result
-    pathResolve "$1" "$2" loc_test
-    export $3=$loc_test
-    [[ ! -e "$loc_test" ]] && errorPathInexistant "$2"
-    unsetVars loc_test
-}
+# Usage: pathResolveExisting basePath relativePath result
+pathResolveExisting() {
+    local existingPath=""
+    pathResolve "$1" "$2" existingPath
 
-# Copies file to provided location (handles errors)
-fileCopyTo() { # srcFile destFolder
-    cp -fr "$1" "$2"
-    [[ $? != 0 ]] && errorFileCopy "$1" "$2"
-}
-
-# Extracts a zip file to a folder (handles errors)
-fileExtract() { # srcFile destFolder identifier
-    unzip $1.zip -d "$2"
-    [[ $? != 0 ]] && errorFileExtract "$1" "$2" "$3"
-}
-
-# Compresses folder into a zip file (handles errors)
-folderCompress() { # srcFolder destFile identifier
-    zip -FS -j -r "$2" "$1/*"
-    [[ $? != 0 ]] && errorFolderCompress "$1" "$2" "$3"
-}
-
-# Generates a SHA256 hash of a file and stores it into a variable
-fileGetHash() { # pathToBinary
-    export $2=$(shasum -a 256 "$1" | cut -d ' ' -f 1)
-}
-
-# Asserts a file hash
-assertFileHash() { # pathToBinary hash name
-    setWithDefault loc_identifier $(basename -- "$1") $3
-    fileGetHash "$1" loc_output
-    shopt -s nocasematch
-    case "$loc_output" in
-    $2 ) return;;
-    *) errorHashMismatch "$loc_identifier";;
-    esac
-    unsetVars loc_identifier loc_output
-}
-
-# Compares two version numbers and saves result into variable
-compareVersions() { # version1 version2 result
-    if [[ $1 == $2 ]]
-    then
-        export $3=0 && return 0
+    # Check if the path is valid
+    if [ ! -e "$existingPath" ]; then
+        logError "Path '$existingPath' does not exist or is not accessible."
     fi
-    local IFS=.
-    local i ver1=($1) ver2=($2)
-    # fill empty fields in ver1 with zeros
-    for ((i=${#ver1[@]}; i<${#ver2[@]}; i++))
-    do
-        ver1[i]=0
+    
+    eval "$3=\"$existingPath\""
+}
+
+# Copies a file or folder to the specified destination folder
+# Usage: itemCopyTo srcPath destFolder
+itemCopyTo() {
+    local source="$1"
+    local destination="$2"
+    local resolved_destination=""
+
+    # Resolve the destination folder to an absolute path
+    pathResolve "$PWD" "$destination" resolved_destination
+
+    if [ -d "$source" ]; then
+        # Source is a folder
+        cp -R "$source" "$resolved_destination"
+    elif [ -f "$source" ]; then
+        # Source is a file
+        cp "$source" "$resolved_destination"
+    else
+        logError "Falied to copy '$source' does not exist or is not accessible."
+        exit 1
+    fi
+
+    if [ $? -ne 0 ]; then
+        logError "Failed to copy '$source' to '$resolved_destination'."
+        exit 1
+    fi
+
+    logInformation "Copied '$source' to '$resolved_destination'."
+}
+
+# Generates the SHA256 hash of a file and stores it into a variable
+# Usage: fileGetHash filepath result
+fileGetHash() {
+    local file="$1"
+    local hash=""
+
+    if [ ! -f "$file" ]; then
+        logError "Failed to generate hash for '$file' does not exist or is not a file."
+        exit 1
+    fi
+
+    hash=$(shasum -a 256 "$file" | awk '{print $1}')
+
+    if [ $? -ne 0 ]; then
+        logError "Failed to generate hash for '$file'."
+        exit 1
+    fi
+
+    toUpper "$hash" hash
+
+    eval "$2=\"$hash\""
+    logInformation "Generated SHA256 hash of '$file'."
+}
+
+# Extracts the contents of a zip file to the specified destination folder
+# Usage: fileExtract srcFile destFolder
+fileExtract() {
+    local source="$1"
+    local destination="$2"
+
+    # Create the destination folder if it doesn't exist
+    mkdir -p "$destination"
+
+    # Extract the zip file to the destination folder
+    unzip -q "$source" -d "$destination"
+
+    if [ $? -ne 0 ]; then
+        logError "Failed to extract contents of '$source' to '$destination'."
+        exit 1
+    fi
+
+    logInformation "Extracted contents of '$source' to '$destination'."
+}
+
+# Compresses the contents of a folder into a zip file
+# Usage: folderCompress srcFolder destFile
+folderCompress() {
+    local source="$1"
+    local destination="$2"
+
+    # Compress the contents of the folder to the destination file
+    zip -j -r -q "$destination" "$source"
+
+    if [ $? -ne 0 ]; then
+        logError "Failed to compress contents of '$source' into '$destination'."
+        exit 1
+    fi
+
+    logInformation "Compressed contents of '$source' into '$destination'."
+}
+
+# Extracts a specified part of a version string and stores it into a variable
+# Usage: versionExtract version part result
+versionExtract() {
+    local version="$1"
+    local part="$2"
+
+    # Use awk to extract the specified part of the version string
+    local result="$(echo "$version" | awk -F '.' "{print \$$part}")"
+
+    # Store the result in the specified variable
+    eval "$3=\"$result\""
+
+    # Display a log message
+    logInformation "Extracted part $part of version '$version' with value '$result'."
+}
+
+# Compares two version numbers (w.x.y.z) and saves result into variable
+# Usage: versionCompare version1 version2 result
+versionCompare() {
+    local version1="$1"
+    local version2="$2"
+
+    # Use awk to split the version numbers into components
+    local version1_parts=($(echo "$version1" | awk -F '.' '{print $1,$2,$3,$4}'))
+    local version2_parts=($(echo "$version2" | awk -F '.' '{print $1,$2,$3,$4}'))
+
+    # Compare the components of the version numbers
+    for i in {0..3}; do
+        if [ "${version1_parts[$i]}" -lt "${version2_parts[$i]}" ]; then
+        result=-1
+        break
+        elif [ "${version1_parts[$i]}" -gt "${version2_parts[$i]}" ]; then
+        result=1
+        break
+        else
+        result=0
+        fi
     done
 
-    for ((i=0; i<${#ver1[@]}; i++))
-    do
-        if [[ -z ${ver2[i]} ]]
-        then
-            # fill empty fields in ver2 with zeros
-            ver2[i]=0
+    # Store the result in the specified variable
+    eval "$3=\"$result\""
+
+    # Display a log message
+    logInformation "Compared version '$version1' with version '$version2'."
+}
+
+# Check minimum required versions for STABLE|BETA|DEV releases
+# Usage: versionLockCheck version stableVersion betaVersion devVersion
+versionLockCheck() {
+    local version="$1"
+    local stableVersion="$2"
+    local betaVersion="$3"
+    local devVersion="$4"
+
+    # Extract the major and minor version numbers from the given version
+    local majorVersion=
+    local minorVersion=
+    versionExtract "$version" 1 majorVersion
+    versionExtract "$version" 2 minorVersion
+
+    if [ "$majorVersion" -ge 2020 ]; then
+        if [ "$minorVersion" -ge 100 ]; then
+        # Beta version
+        assertVersionRequired "$version" "$betaVersion" "The runtime version needs to be at least v$betaVersion."
+        else
+        # Stable version
+        assertVersionRequired "$version" "$stableVersion" "The runtime version needs to be at least v$stableVersion."
         fi
-        if ((10#${ver1[i]} > 10#${ver2[i]}))
-        then
-            export $3=1 && return 0
-        fi
-        if ((10#${ver1[i]} < 10#${ver2[i]}))
-        then
-            export $3=-1 && return 0
-        fi
-    done
-    export $3=0 %% return 0
+    else
+        # Dev version
+        assertVersionRequired "$version" "$devVersion" "The runtime version needs to be at least v$devVersion."
+    fi
+
+    logInformation "Version lock check passed successfully, with version '$version'."
 }
 
-# Checks minimum product version for the 3 available builds (handles errors)
-checkMinVersion() { # current stable beta develop identifier
-    compareVersions "$1" "$3" result
-    [[ "$result" -ge "0" ]] && return
-    compareVersions "$1" "$2" result
-    [[ "$result" -ge "0" ]] && return
-    compareVersions "$1" "$4" result
-    [[ "$result" -ge "0" ]] && return
-    errorMinVersion "$1" "STABLE v$2 or BETA v$3" "$5"
+# ASSERTS
+
+# Asserts the SHA256 hash of a file, logs an error message and throws an error if they do not match
+# Usage: assertFileHashEquals filepath expected message
+assertFileHashEquals() {
+    local filepath="$1"
+    local expected="$2"
+    local message="$3"
+
+    # Generate hash
+    local actualHash=
+    fileGetHash "$filepath" actualHash
+
+    # Compare the actual hash with the expected hash
+    if [ "$actualHash" != "$expected" ]; then
+        logError "$message"
+        exit 1
+    fi
+
+    # Log a message
+    logInformation "Asserted SHA256 hash of '$filepath' matches expected hash."
 }
 
-# Asserts an exact version number
-assertExactVersion() { # version reqVersion name
-    setWithDefault loc_identifier "file" $3
-    compareVersion "$1" "$2" loc_output
-    [[ $loc_output != 0 ]] && errorExactVersion "$1" "$2" "$loc_identifier"
-    unsetVars loc_identifier loc_output
+# Asserts that the given version string is greater than the expected version string, logs an error message and throws an error if not
+# Usage: assertVersionRequired version expected message
+assertVersionRequired() {
+    local version="$1"
+    local expected="$2"
+    local message="$3"
+
+    # Compare the two version strings using versionCompare
+    local compareResult=
+    versionCompare "$version" "$expected" compareResult
+
+    # Check the result and log an error message and throw an error if not greater
+    if [ "$compareResult" -lt 0 ]; then
+        logError "$message"
+        exit 1
+    fi
+
+    # Log a message
+    logInformation "Asserted that version '$version' is greater than or equal to version '$expected'."
 }
 
-# Asserts a minimum version number
-assertMinVersion() { # version minVersion name
-    setWithDefault loc_identifier "file" $3
-    compareVersion "$1" "$2" loc_output
-    [[ $loc_output == -1 ]] && errorMinVersion "$1" "$2" "$loc_identifier"
-    unsetVars loc_identifier loc_output
+# Asserts that the given version string is equal to the expected version string, logs an error message and throws an error if not
+# Usage: assertVersionEquals version expected message
+assertVersionEquals() {
+    local version="$1"
+    local expected="$2"
+    local message="$3"
+
+    # Compare the two version strings using versionCompare
+    local compareResult=
+    versionCompare "$version" "$expected" compareResult
+
+    # Check the result and log an error message and throw an error if not equal
+    if [ "$compareResult" -ne 0 ]; then
+        logError "$message"
+        exit 1
+    fi
+
+    # Log a message
+    logInformation "Asserted that version '$version' equals version '$expected'."
 }
 
-# Sets a variable to a given value with default
-setWithDefault() { # variable optional value
-    export $1=$2
-    [[ $# == 3 ]] && loc_name=$3
+# Logging
+
+# Logs information
+# Usage: logInformation message
+logInformation() {
+    if [ "$LOG_LEVEL" -ge 2 ]; then
+        log "INFO" "$1"
+    fi
 }
 
-# Unsets a collection of variables
-unsetVars() { # variables
-    for var in "$@"
-    do
-        unset "$var"
-    done
+# Logs warning
+# Usage: logWarning message
+logWarning() {
+    if [ "$LOG_LEVEL" -ge 1 ]; then
+        log "WARN" "$1"
+    fi
 }
 
-# Logs a information message
-logInformation() { # message
-    log "Information" "$1"
-}
-
-# Logs a warning message
-logWarning() { # message
-    log "Warning" "$1"
-}
-
-# Logs a error message
-logError() { # message
-    log "Error" "$1"
-}
-
-# Logs a message with a tag
-log() { # tag message
-    [[ -z $EXTENSION_NAME ]] && EXTENSION_NAME="UNKNOWN"
-    echo [$EXTENSION_NAME] $1: $2
-}
-
-
-# ######################################################################################
-# Error Messages
-
-errorExactVersion() { # version reqVersion name
-    logError "Invalid '$3' version, requires '$2' (got '$1')"
+# Logs error
+# Usage: logError message
+logError() {
+    if [ "$LOG_LEVEL" -ge 0 ]; then
+        log "ERROR" "$1"
+    fi
     exit 1
 }
 
-errorMinVersion() { # version minVersion name
-    logError "Invalid '$3' version, requires at least '$2' (got '$1')"
-    exit 1
-}
-
-errorHashMismatch() { # identifier
-    logError "Invalid '$1' version, sha256 hash mismatch. Please check documentation."
-    exit 1
-}
-
-errorPathInexistant() { # fullpath
-    logError "Invalid path '$1' does not exist."
-    exit 1
-}
-
-errorFileExtract() { # filepath identifier
-    setWithDefault loc_identifier "file" $2
-    logError "Failed to expand $loc_identifier '$1' (please file a bug on this issue)."
-    exit 1
-}
-
-errorFolderCompress() { # folderpath identifier
-    setWithDefault loc_identifier "folder" $2
-    logError "Failed to compress $loc_identifier '$1' (please file a bug on this issue)."
-    exit 1
-}
-
-errorDirectoryDelete() { # fullpath
-    logError "Failed to delete folder '$1' (please file a bug on this issue)."
-    exit 1
-}
-
-errorFileCopy() { # source destination
-    logError "Failed to copy file '$1' to '$2' (please file a bug on this issue)."
-    exit 1
+# General log function
+# Usage: log tag message
+log() {
+    echo "[$LOG_LABEL] $1: $2"
 }
 

@@ -28,7 +28,7 @@ call %Utils% optionGetValue "debug" DEBUG_MODE
 set ERROR_SDK_HASH="Invalid Steam SDK version, sha256 hash mismatch (expected v%SDK_VERSION%)."
 
 :: Checks IDE and Runtime versions
-call %Utils% versionLockCheck "%YYruntimeVersion%" %RUNTIME_VERSION_STABLE% %RUNTIME_VERSION_BETA% %RUNTIME_VERSION_DEV% runtime
+call %Utils% versionLockCheck "%YYruntimeVersion%" %RUNTIME_VERSION_STABLE% %RUNTIME_VERSION_BETA% %RUNTIME_VERSION_DEV%
 
 :: Resolve the SDK path (must exist)
 call %Utils% pathResolveExisting "%YYprojectDir%" "%SDK_PATH%" SDK_PATH
@@ -68,12 +68,6 @@ exit /b 0
     if "%YYTARGET_runtime%" == "VM" (
         :: This is used for VM compilation
         call %Utils% logError "Extension is not compatible with the macOS VM export, please use YYC."
-
-        :: call %Utils% fileExtract "%YYprojectName%.zip" "_temp\"
-        :: call %Utils% itemCopyTo %SDK_SOURCE% "_temp\assets\libsteam_api.dylib"
-        :: call %Utils% folderCompress "_temp" "%YYprojectName%.zip"
-        :: rmdir /s /q _temp
-
     ) else (
         :: This is used for YYC compilation
         call %Utils% itemCopyTo %SDK_SOURCE% "%YYprojectName: =_%\%YYprojectName: =_%\Supporting Files\libsteam_api.dylib"
@@ -89,7 +83,7 @@ exit /b 0
     echo "Copying Linux (64 bit) dependencies"
     
     call %Utils% fileExtract "%YYprojectName%.zip" "_temp\"
-    if not exist "assets\libsteam_api.so" (
+    if not exist "_temp\assets\libsteam_api.so" (
         call %Utils% itemCopyTo %SDK_SOURCE% "_temp\assets\libsteam_api.so"
         call %Utils% folderCompress "_temp" "%YYprojectName%.zip"
     )
