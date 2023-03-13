@@ -19,7 +19,7 @@ scriptInit() {
     fi
 
     # Setup logger
-    LOG_LABEL=$(echo "$EXTENSION_NAME" | tr '[:lower:]' '[:upper:]')
+    toUpper $EXTENSION_NAME LOG_LABEL
     optionGetValue "logLevel" LOG_LEVEL
     if [ -z "$LOG_LEVEL" ]; then
         LOG_LEVEL=2
@@ -63,6 +63,7 @@ optionGetValue() {
 # Sets a string to uppercase
 toUpper() { # str result
     eval "$2=$(echo $1 | tr '[:lower:]' '[:upper:]')"
+    logInformation "Converted string '$1' to upper case."
 }
 
 # Extracts the full folder path from a filepath
