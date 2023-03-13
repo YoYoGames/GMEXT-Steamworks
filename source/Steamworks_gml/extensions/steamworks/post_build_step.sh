@@ -56,7 +56,7 @@ optionGetValue "sdkVersion" SDK_VERSION
 optionGetValue "debug" DEBUG_MODE
 
 # Error String
-ERROR_SDK_HASH="Invalid Steam SDK version, sha256 hash mismatch (expected v%SDK_VERSION%)."
+ERROR_SDK_HASH="Invalid Steam SDK version, sha256 hash mismatch (expected v$SDK_VERSION)."
 
 # Checks IDE and Runtime versions
 versionLockCheck "$YYruntimeVersion" $RUNTIME_VERSION_STABLE $RUNTIME_VERSION_BETA $RUNTIME_VERSION_RED
