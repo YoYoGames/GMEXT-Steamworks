@@ -143,7 +143,7 @@ exit /b 0
 
 :: Compresses the contents of a folder into a zip file (displays log messages)
 :folderCompress srcFolder destFile
-    powershell -Command "Compress-Archive -Path '%~1\*' -DestinationPath '%~2'"
+    powershell -Command "Compress-Archive -Path '%~1\*' -DestinationPath '%~2'" -Force
 
     :: Check if the compression operation succeeded
     if %errorlevel% neq 0 (
