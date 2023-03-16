@@ -72,7 +72,7 @@ exit /b 0
     :: Need to enabled delayed expansion
     setlocal enabledelayedexpansion
 
-    for /f "delims=" %%i in ('powershell -Command "Push-Location %~1; $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath('%~2'); Pop-Location;"') do set "result=%%i"
+    for /f "delims=" %%i in ('powershell -Command "Push-Location '%~1'; $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath('%~2'); Pop-Location;"') do set "result=%%i"
     call :logInformation "Resolved relative path into '%result%'."
 
     :: Need to end local (to push into main scope)
@@ -103,10 +103,10 @@ exit /b 0
 
     if exist "%~1\." (
         :: Is a folder
-        powershell -NoLogo -NoProfile -Command Copy-Item -Path '%~1' -Destination '%~2' -Recurse
+        powershell -NoLogo -NoProfile -Command "New-Item -ItemType Directory -Force -Path '%~2'; Copy-Item -Path '%~1' -Destination '%~2' -Recurse"
     ) else if exist "%~1" (
         :: Is a file
-        powershell -NoLogo -NoProfile -Command Copy-Item -Path '%~1' -Destination '%~2' -Force
+        powershell -NoLogo -NoProfile -Command "New-Item -ItemType Directory -Force -Path (Split-Path -Parent '%~2'); Copy-Item -Path '%~1' -Destination '%~2' -Force"
     ) else (
         call :logError "Failed to copy '%~1' to '%destination%'."
         exit /b 1
@@ -119,6 +119,31 @@ exit /b 0
     )
 
     call :logInformation "Copied '%~1' to '%destination%'."
+exit /b 0
+
+:: Deletes a file or folder at the specified path (displays log messages)
+:itemDelete targetPath
+
+    call :pathResolve "%cd%" "%~1" target
+
+    if exist "%~1\." (
+        :: Is a folder
+        powershell -NoLogo -NoProfile -Command "Remove-Item -Path '%~1' -Recurse -Force"
+    ) else if exist "%~1" (
+        :: Is a file
+        powershell -NoLogo -NoProfile -Command "Remove-Item -Path '%~1' -Force"
+    ) else (
+        call :logWarning "Path '%target%' does not exist. Skipping deletion."
+        exit /b 0
+    )
+
+    :: Check if the deletion operation succeeded
+    if %errorlevel% neq 0 (
+        call :logError "Failed to delete '%target%'."
+        exit /b 1
+    )
+
+    call :logInformation "Deleted '%target%'."
 exit /b 0
 
 :: Generates the SHA256 hash of a file and stores it into a variable (displays log messages)

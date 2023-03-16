@@ -83,11 +83,46 @@ pathExtractBase() {
 # Resolves a relative or absolute path to an absolute path
 # Usage: pathResolve basePath relativePath result
 pathResolve() {
-    local base="$1"
-    local relative="$2"
+    local basePath="$1"
+    local relativePath="$2"
     local resolvedPath=
-    resolvedPath="$(readlink -f "$base/$relative")"
 
+    # Ensure 'basePath' ends with a forward slash
+    [[ "${basePath: -1}" != "/" ]] && basePath+="/"
+
+    # If 'relativePath' starts with "/", set 'combined_path' to 'relativePath'
+    if [[ "${relativePath:0:1}" == "/" ]]; then
+        combined_path="$relativePath"
+    else
+        # Concatenate the paths
+        combined_path="$basePath$relativePath"
+    fi
+
+    # Split the path into an array by the character "/"
+    IFS="/" read -ra path_parts <<< "$combined_path"
+
+    # Remove any entries that are "." and if an entry is "..", remove that entry and the previous one
+    result=()
+    for part in "${path_parts[@]}"; do
+        if [ "$part" == "." ] || [ -z "$part" ]; then
+            continue
+        elif [ "$part" == ".." ]; then
+            unset result[${#result[@]}-1]
+        else
+            result+=("$part")
+        fi
+    done
+
+    # Merge the final array using "/" as a delimiter
+    resolvedPath="/"
+    for i in "${!result[@]}"; do
+        resolvedPath+="${result[i]}"
+        if [ "$i" -lt $((${#result[@]}-1)) ]; then
+            resolvedPath+="/"
+        fi
+    done
+
+    # Return the merged result
     logInformation "Resolved path into '$resolvedPath'."
     eval "$3=\"$resolvedPath\""
 }
@@ -116,14 +151,23 @@ itemCopyTo() {
     # Resolve the destination folder to an absolute path
     pathResolve "$PWD" "$destination" resolved_destination
 
+    # If 'resolved_destination' ends with a "/", ensure the path exists
+    if [[ "${resolved_destination: -1}" == "/" ]]; then
+        mkdir -p "$resolved_destination"
+    else
+        # Create all parent directories up until the destination path
+        parent_directory=$(dirname "$resolved_destination")
+        mkdir -p "$parent_directory"
+    fi
+
     if [ -d "$source" ]; then
         # Source is a folder
-        cp -R "$source" "$resolved_destination"
+        cp -rf "$source" "$resolved_destination"
     elif [ -f "$source" ]; then
         # Source is a file
-        cp "$source" "$resolved_destination"
+        cp -f "$source" "$resolved_destination"
     else
-        logError "Falied to copy '$source' does not exist or is not accessible."
+        logError "Failed to copy '$source' does not exist or is not accessible."
         exit 1
     fi
 
@@ -133,6 +177,31 @@ itemCopyTo() {
     fi
 
     logInformation "Copied '$source' to '$resolved_destination'."
+}
+
+# Deletes a file or folder given a path
+# Usage: itemDelete folderPath
+itemDelete() {
+    target_path="$1"
+
+    if [ -d "$target_path" ]; then
+        # Is a folder
+        rm -rf "$target_path"
+    elif [ -f "$target_path" ]; then
+        # Is a file
+        rm -f "$target_path"
+    else
+        logWarning "Path '$target_path' does not exist. Skipping deletion."
+        return 0
+    fi
+
+    if [ $? -ne 0 ]; then
+        logError "Failed to delete '$target_path'."
+        return 1
+    fi
+
+    logInformation "Deleted '$target_path'."
+    return 0
 }
 
 # Generates the SHA256 hash of a file and stores it into a variable
