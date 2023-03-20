@@ -101,12 +101,12 @@ exit /b 0
 
     call :pathResolve "%cd%" "%~2" destination
 
-    if exist "%~1\." (
+    if exist "%~1\" (
         :: Is a folder
-        powershell -NoLogo -NoProfile -Command "New-Item -ItemType Directory -Force -Path '%~2'; Copy-Item -Path '%~1' -Destination '%~2' -Recurse"
+        powershell -NoLogo -NoProfile -Command "New-Item -ItemType Directory -Force -Path '%destination%'; Copy-Item -Path '%~1' -Destination '%destination%' -Recurse"
     ) else if exist "%~1" (
         :: Is a file
-        powershell -NoLogo -NoProfile -Command "New-Item -ItemType Directory -Force -Path (Split-Path -Parent '%~2'); Copy-Item -Path '%~1' -Destination '%~2' -Force"
+        powershell -NoLogo -NoProfile -Command "New-Item -ItemType Directory -Force -Path (Split-Path -Parent '%destination%'); Copy-Item -Path '%~1' -Destination '%destination%' -Force"
     ) else (
         call :logError "Failed to copy '%~1' to '%destination%'."
         exit /b 1
