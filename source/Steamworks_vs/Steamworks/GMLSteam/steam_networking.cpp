@@ -1,4 +1,4 @@
-﻿/// steam_networking.cpp
+/// steam_networking.cpp
 
 #include "pch.h"
 #include "steam_glue.h"
@@ -23,7 +23,6 @@ YYEXPORT void /*double*/ steam_net_set_auto_accept_p2p_sessions(RValue& Result, 
 void steam_net_callbacks_t::p2p_session_request(P2PSessionRequest_t* e) 
 {
 	CSteamID id = e->m_steamIDRemote;
-	uint64 uid = id.ConvertToUint64();
 	//
 	steam_net_event x((char*)"p2p_session_request");
 	x.set_steamid_all("user_id", id);

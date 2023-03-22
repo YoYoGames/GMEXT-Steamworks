@@ -302,7 +302,7 @@ YYEXPORT void /*double*/ steam_get_user_persona_name(RValue& Result, CInstance* 
 void Steam_Friends_Init()
 {
 	//(register callbacks?)
-	Singleton* singleton = Singleton::GetInstance();
+	//Singleton* singleton = Singleton::GetInstance();
 }
 
 void Steam_Friends_Shutdown()
