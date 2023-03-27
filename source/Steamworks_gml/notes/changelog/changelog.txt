@@ -1,4 +1,8 @@
 
+
+v1.3.1 (Hotfix)
+- Fixed Windows binaries were incorrectly build in Debug mode.
+
 v1.3.0
 - Recompiled macOS dylibs now using release mode
 - Updated extension options 
