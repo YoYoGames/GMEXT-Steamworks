@@ -11,6 +11,7 @@ call %Utils% scriptInit
 call %Utils% optionGetValue "versionStable" RUNTIME_VERSION_STABLE
 call %Utils% optionGetValue "versionBeta" RUNTIME_VERSION_BETA
 call %Utils% optionGetValue "versionDev" RUNTIME_VERSION_DEV
+call %Utils% optionGetValue "versionLTS" RUNTIME_VERSION_LTS
 
 :: SDK Hash
 call %Utils% optionGetValue "sdkHashWin" SDK_HASH_WIN
@@ -28,7 +29,7 @@ call %Utils% optionGetValue "debug" DEBUG_MODE
 set ERROR_SDK_HASH="Invalid Steam SDK version, sha256 hash mismatch (expected v%SDK_VERSION%)."
 
 :: Checks IDE and Runtime versions
-call %Utils% versionLockCheck "%YYruntimeVersion%" %RUNTIME_VERSION_STABLE% %RUNTIME_VERSION_BETA% %RUNTIME_VERSION_DEV%
+call %Utils% versionLockCheck "%YYruntimeVersion%" %RUNTIME_VERSION_STABLE% %RUNTIME_VERSION_BETA% %RUNTIME_VERSION_DEV% %RUNTIME_VERSION_LTS%
 
 :: Resolve the SDK path (must exist)
 call %Utils% pathResolveExisting "%YYprojectDir%" "%SDK_PATH%" SDK_PATH

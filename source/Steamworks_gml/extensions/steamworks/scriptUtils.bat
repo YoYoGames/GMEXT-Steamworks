@@ -101,17 +101,23 @@ exit /b 0
 
     call :pathResolve "%cd%" "%~2" destination
 
-    if exist "%~1\" (
-        :: Is a folder
-        powershell -NoLogo -NoProfile -Command "New-Item -ItemType Directory -Force -Path '%destination%'; Copy-Item -Path '%~1' -Destination '%destination%' -Recurse"
-    ) else if exist "%~1" (
-        :: Is a file
-        powershell -NoLogo -NoProfile -Command "New-Item -ItemType Directory -Force -Path (Split-Path -Parent '%destination%'); Copy-Item -Path '%~1' -Destination '%destination%' -Force"
-    ) else (
-        call :logError "Failed to copy '%~1' to '%destination%'."
+    if not exist "%~1" (
+        call :logError "Failed to copy '%~1' to '%destination%' (source doesn't exist)."
         exit /b 1
     )
 
+    for /f "delims=" %%a in ('dir /b /a:d "%~1" 2^>nul') do (
+        if "%%~a" == "%~nx1" (
+            powershell -NoLogo -NoProfile -Command "New-Item -ItemType Directory -Force -Path '%destination%'; Copy-Item -Path '%~1' -Destination '%destination%' -Recurse"
+        )
+    )
+
+    for /f "delims=" %%a in ('dir /b /a:-d "%~1" 2^>nul') do (
+        if "%%~a" == "%~nx1" (
+            powershell -NoLogo -NoProfile -Command "New-Item -ItemType Directory -Force -Path (Split-Path -Parent '%destination%'); Copy-Item -Path '%~1' -Destination '%destination%' -Force"
+        )
+    )
+    
     :: Check if the copy operation succeeded
     if %errorlevel% neq 0 (
         call :logError "Failed to copy '%~1' to '%destination%'."
@@ -197,24 +203,37 @@ exit /b 0
 exit /b 0
 
 :: Check minimum required versions for STABLE|BETA|DEV releases
-:versionLockCheck version stableVersion betaVersion devVersion
+:versionLockCheck version stableVersion betaVersion devVersion ltsVersion
 
     call :versionExtract "%~1" Major majorVersion
     call :versionExtract "%~1" Minor minorVersion
 
-    if %majorVersion% geq 2020 (
-        if %minorVersion% geq 100 (
-            :: Beta version
-            call :assertVersionRequired "%~1" "%~3" "The runtime version needs to be at least v%~3."
-        ) else (
-            :: Stable version
-            call :assertVersionRequired "%~1" "%~2" "The runtime version needs to be at least v%~2."
-        )
+    set "runnerBuild="
+
+    if %minorVersion% equ 0 (
+        :: LTS version
+        set "runnerBuild=LTS"
+        call :assertVersionRequired "%~1" "%~5" "The %%runnerBuild%% runtime version needs to be at least v%~5."
+        
     ) else (
-        :: Dev version
-        call :assertVersionRequired "%~1" "%~4" "The runtime version needs to be at least v%~4."
+        if %majorVersion% geq 2020 (
+            if %minorVersion% geq 100 (
+                :: Beta version
+                set "runnerBuild=BETA"
+                call :assertVersionRequired "%~1" "%~3" "The %%runnerBuild%% runtime version needs to be at least v%~3."
+            ) else (
+                :: Stable version
+                set "runnerBuild=STABLE"
+                call :assertVersionRequired "%~1" "%~2" "The %%runnerBuild%% runtime version needs to be at least v%~2."
+            )
+        ) else (
+            :: Dev version
+            set "runnerBuild=DEV"
+            call :assertVersionRequired "%~1" "%~4" "The %%runnerBuild%% runtime version needs to be at least v%~4."
+        )
     )
-    call :logInformation "Version lock check passed successfully, with version '%~1'."
+
+    call :logInformation "Version lock check passed successfully, with %%runnerBuild%% version '%~1'."
 exit /b 0
 
 :: ASSERTS

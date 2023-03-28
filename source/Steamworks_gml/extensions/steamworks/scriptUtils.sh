@@ -318,24 +318,34 @@ versionLockCheck() {
     local stableVersion="$2"
     local betaVersion="$3"
     local devVersion="$4"
+    local ltsVersion="$5"
 
     # Extract the major and minor version numbers from the given version
+    local runnerBuild=
     local majorVersion=
     local minorVersion=
     versionExtract "$version" 1 majorVersion
     versionExtract "$version" 2 minorVersion
 
-    if [ "$majorVersion" -ge 2020 ]; then
+    if [ "$minorVersion" -eq 0 ]; then
+        # LTS version
+        runnerBuild=LTS
+        assertVersionRequired "$version" "$ltsVersion" "The $runnerBuild runtime version needs to be at least v$ltsVersion."
+
+    elif [ "$majorVersion" -ge 2020 ]; then
         if [ "$minorVersion" -ge 100 ]; then
-        # Beta version
-        assertVersionRequired "$version" "$betaVersion" "The runtime version needs to be at least v$betaVersion."
+            # Beta version
+            runnerBuild=BETA
+            assertVersionRequired "$version" "$betaVersion" "The $runnerBuild runtime version needs to be at least v$betaVersion."
         else
-        # Stable version
-        assertVersionRequired "$version" "$stableVersion" "The runtime version needs to be at least v$stableVersion."
+            # Stable version
+            runnerBuild=STABLE
+            assertVersionRequired "$version" "$stableVersion" "The $runnerBuild runtime version needs to be at least v$stableVersion."
         fi
     else
         # Dev version
-        assertVersionRequired "$version" "$devVersion" "The runtime version needs to be at least v$devVersion."
+        runnerBuild=DEV
+        assertVersionRequired "$version" "$devVersion" "The $runnerBuild runtime version needs to be at least v$devVersion."
     fi
 
     logInformation "Version lock check passed successfully, with version '$version'."
