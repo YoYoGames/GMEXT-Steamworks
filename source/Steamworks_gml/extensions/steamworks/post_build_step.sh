@@ -12,6 +12,7 @@ setupmacOS() {
     assertFileHashEquals $SDK_SOURCE $SDK_HASH_OSX $ERROR_SDK_HASH
     
     echo "Copying macOS (64 bit) dependencies"
+
     if [[ "$YYTARGET_runtime" == "VM" ]]; then
         logError "Extension is not compatible with the macOS VM export, please use YYC."
     else
@@ -27,7 +28,7 @@ setupLinux() {
     echo "Copying Linux (64 bit) dependencies"
     
     fileExtract "${YYprojectName}.zip" "_temp"
-    [[ ! -f "_temp/assets/libsteam_api.so" ]] && fileCopyTo "$SDK_SOURCE" "_temp/assets/libsteam_api.so"
+    [[ ! -f "_temp/assets/libsteam_api.so" ]] && itemCopyTo "$SDK_SOURCE" "_temp/assets/libsteam_api.so"
     folderCompress "_temp" "${YYprojectName}.zip"
     rm -r _temp
 }
@@ -60,7 +61,7 @@ optionGetValue "debug" DEBUG_MODE
 ERROR_SDK_HASH="Invalid Steam SDK version, sha256 hash mismatch (expected v$SDK_VERSION)."
 
 # Checks IDE and Runtime versions
-versionLockCheck "$YYruntimeVersion" $RUNTIME_VERSION_STABLE $RUNTIME_VERSION_BETA $RUNTIME_VERSION_RED $RUNTIME_VERSION_LTS
+versionLockCheck "$YYruntimeVersion" $RUNTIME_VERSION_STABLE $RUNTIME_VERSION_BETA $RUNTIME_VERSION_DEV $RUNTIME_VERSION_LTS
 
 # Resolve the SDK path (must exist)
 pathResolveExisting "$YYprojectDir" "$SDK_PATH" SDK_PATH
@@ -80,4 +81,3 @@ fi
 popd >/dev/null
 
 exit 0
-
