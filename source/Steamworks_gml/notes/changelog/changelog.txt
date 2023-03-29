@@ -1,4 +1,8 @@
 
+1.4.0
+- This is a compatibility version ready to work with LTSr1
+NOTE: The github repo will on be compatible with latest Stable, to use in LTS import
+		the release version local package or use the marketplace asset.
 
 v1.3.1 (Hotfix)
 - Fixed Windows binaries were incorrectly build in Debug mode.
