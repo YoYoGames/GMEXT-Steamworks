@@ -1,4 +1,7 @@
 
+1.4.1 (Hotfix)
+- Fixes paths containing special characters on windows IDE.
+
 1.4.0
 - This is a compatibility version ready to work with LTSr1
 NOTE: The github repo will on be compatible with latest Stable, to use in LTS import
