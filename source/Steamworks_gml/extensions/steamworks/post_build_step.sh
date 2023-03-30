@@ -9,7 +9,7 @@ source "$(dirname "$0")/scriptUtils.sh"
 setupmacOS() {
 
     SDK_SOURCE="$SDK_PATH/redistributable_bin/osx/libsteam_api.dylib"
-    assertFileHashEquals $SDK_SOURCE $SDK_HASH_OSX $ERROR_SDK_HASH
+    assertFileHashEquals $SDK_SOURCE $SDK_HASH_OSX "$ERROR_SDK_HASH"
     
     echo "Copying macOS (64 bit) dependencies"
 
@@ -23,7 +23,7 @@ setupmacOS() {
 setupLinux() {
 
     SDK_SOURCE="$SDK_PATH/redistributable_bin/linux64/libsteam_api.so"
-    assertFileHashEquals $SDK_SOURCE $SDK_HASH_LINUX $ERROR_SDK_HASH
+    assertFileHashEquals $SDK_SOURCE $SDK_HASH_LINUX "$ERROR_SDK_HASH"
 
     echo "Copying Linux (64 bit) dependencies"
     

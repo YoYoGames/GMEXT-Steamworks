@@ -26,7 +26,7 @@ call %Utils% optionGetValue "sdkVersion" SDK_VERSION
 call %Utils% optionGetValue "debug" DEBUG_MODE
 
 :: Error String
-set ERROR_SDK_HASH="Invalid Steam SDK version, sha256 hash mismatch (expected v%SDK_VERSION%)."
+set "ERROR_SDK_HASH=Invalid Steam SDK version, sha256 hash mismatch (expected v%SDK_VERSION%)."
 
 :: Checks IDE and Runtime versions
 call %Utils% versionLockCheck "%YYruntimeVersion%" %RUNTIME_VERSION_STABLE% %RUNTIME_VERSION_BETA% %RUNTIME_VERSION_DEV% %RUNTIME_VERSION_LTS%
@@ -52,7 +52,7 @@ exit 0
 :setupWindows
 
     set SDK_SOURCE="%SDK_PATH%\redistributable_bin\win64\steam_api64.dll"
-    call %Utils% assertFileHashEquals %SDK_SOURCE% %SDK_HASH_WIN% %ERROR_SDK_HASH%
+    call %Utils% assertFileHashEquals %SDK_SOURCE% %SDK_HASH_WIN% "%ERROR_SDK_HASH%"
 
     echo "Copying Windows (64 bit) dependencies"
     if not exist "steam_api64.dll" call %Utils% itemCopyTo %SDK_SOURCE% "steam_api64.dll"
@@ -63,7 +63,7 @@ exit /b 0
 :setupMacOS
 
     set SDK_SOURCE="%SDK_PATH%\redistributable_bin\osx\libsteam_api.dylib"
-    call %Utils% assertFileHashEquals %SDK_SOURCE% %SDK_HASH_OSX% %ERROR_SDK_HASH%
+    call %Utils% assertFileHashEquals %SDK_SOURCE% %SDK_HASH_OSX% "%ERROR_SDK_HASH%"
 
     echo "Copying macOS (64 bit) dependencies"
     if "%YYTARGET_runtime%" == "VM" (
@@ -79,7 +79,7 @@ exit /b 0
 :setupLinux
 
     set SDK_SOURCE="%SDK_PATH%\redistributable_bin\linux64\libsteam_api.so"
-    call %Utils% assertFileHashEquals %SDK_SOURCE% %SDK_HASH_LINUX% %ERROR_SDK_HASH%
+    call %Utils% assertFileHashEquals %SDK_SOURCE% %SDK_HASH_LINUX% "%ERROR_SDK_HASH%"
 
     echo "Copying Linux (64 bit) dependencies"
     
