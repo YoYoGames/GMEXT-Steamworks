@@ -1,3 +1,19 @@
+1.4.2
+- macOS script changes, please see below:
+VM:
+- call `codesign` on the dylibs and the .app to resign everything with the same team id.
+  this will only work for macOS builds as of now.
+YYC:
+- patch the Xcode project to require necessary entitlements[1].
+- forcefully disable 'App Sandbox', IAPs and Game Center, since neither of these are functional
+  in Steamworks builds anyway.
+  this will work for both Windows remote builds and local macOS builds.
+
+The notarization of the app is not performed automatically by Steamworks specifically,
+but rather by a separate extension called "Notarizer",
+this extension is designed for all non-App-Store game builds like itch/GameJolt and Steamworks too.
+
+[1] - https://partner.steamgames.com/doc/store/application/platforms?l=english
 
 1.4.1 (Hotfix)
 - Fixes paths containing special characters on windows IDE.
