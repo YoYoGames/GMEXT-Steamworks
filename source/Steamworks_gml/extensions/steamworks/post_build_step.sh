@@ -37,16 +37,7 @@ setupmacOS() {
         codesign -s "${YYPLATFORM_option_mac_signing_identity}" -f --timestamp --verbose --options runtime "${YYoutputFolder}/libsteam_api.dylib"
         codesign -s "${YYPLATFORM_option_mac_signing_identity}" -f --timestamp --verbose --options runtime "${YYoutputFolder}/libSteamworks.dylib"
         
-        # HACKFIX: please delete this ugly if-block later when no longer needed, it's only for macOS VM local runs.
-        if [[ -z "$YYtargetFile" ]] || [[ "$YYtargetFile" == " " ]]; then
-            YOYO_VM_APP="${YYruntimeLocation}/mac/YoYo Runner.app"
-            TMP_PLIST="/tmp/yysteamworks${RANDOM}.plist"
-            echo "VM RunTest YoYo Runner location is ${YOYO_VM_APP}"
-            echo "Writing entitlements plist to ${TMP_PLIST} for codesigning"
-            echo -e "$PLIST">"${TMP_PLIST}"
-            codesign -s "${YYPLATFORM_option_mac_signing_identity}" -f --deep --timestamp --verbose --options runtime --entitlements "${TMP_PLIST}" "${YOYO_VM_APP}"
-            rm -f "${TMP_PLIST}"
-        fi
+        # Apparently the YoYo Runner.app file already has the dylib entitlements, so that hackfix was not needed?
     else
         itemCopyTo "$SDK_SOURCE" "${YYprojectName}/${YYprojectName}/Supporting Files/libsteam_api.dylib"
         echo "Patching the Xcode project..."
