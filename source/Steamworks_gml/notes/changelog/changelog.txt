@@ -1,4 +1,7 @@
 
+1.4.2 (Hotfix)
+- Fixes macOS IDE build|compile bug (forces CRLF to LF conversion of scriptUtils.sh)
+
 1.4.1 (Hotfix)
 - Fixes paths containing special characters on windows IDE.
 
