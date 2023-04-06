@@ -1,5 +1,5 @@
 
-1.4.2 (Hotfix)
+1.4.3 (Hotfix)
 - Fixes macOS IDE build|compile bug (forces CRLF to LF conversion of scriptUtils.sh)
 
 1.4.1 (Hotfix)
