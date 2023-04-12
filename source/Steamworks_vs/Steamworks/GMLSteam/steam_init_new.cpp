@@ -53,7 +53,7 @@ YYEXPORT void steam_init(RValue& Result, CInstance* selfinst, CInstance* otherin
 
 void OldPreGraphicsInitialisation()
 {
-	uint32 AppID = extOptGetReal("Steamworks", "AppID");
+	uint32 AppID = extOptGetReal("Steamworks", "appID");
 
     // a game cannot have an invalid appid
     if (AppID == k_uAppIdInvalid)
@@ -62,7 +62,7 @@ void OldPreGraphicsInitialisation()
         return;
     }
 
-	bool debug = strncmp(extOptGetString("Steamworks", "Debug"), "Enabled", 7) == 0 ? true : isRunningFromIDE();
+	bool debug = strncmp(extOptGetString("Steamworks", "debug"), "Enabled", 7) == 0 ? true : isRunningFromIDE();
     
     if (debug)
     {
