@@ -1,6 +1,6 @@
 #!/bin/bash
 
-sed -i -e 's/\\r$//' "$(dirname "$0")/scriptUtils.sh"
+sed -i -e 's/\r$//' "$(dirname "$0")/scriptUtils.sh"
 chmod +x "$(dirname "$0")/scriptUtils.sh"
 source "$(dirname "$0")/scriptUtils.sh"
 
