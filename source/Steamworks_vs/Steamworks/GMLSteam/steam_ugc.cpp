@@ -180,13 +180,23 @@ void OnUgcItemInstalled(ItemInstalled_t* pCallback )
 
 const char* ExtractFilePath(const char* fn)
 {
-	//const char* pLastSlash = utf8_strrchr(fn, '\\', '/');
-	std::string s = g_pYYRunnerInterface->YYStrDup(fn);
-	std::filesystem::path filepath{ s };
-	std::string path = filepath.parent_path().string();
-	return g_pYYRunnerInterface->YYStrDup(path.c_str());
+    if (!fn || strlen(fn) == 0) {
+        // Input string is empty or null.
+        return g_pYYRunnerInterface->YYStrDup("");
+    }
 
-} // end ExtractFilePat
+    std::string s = fn;
+    std::size_t found = s.find_last_of("/\\");
+
+    // Check if slash or backslash was found.
+    if (found == std::string::npos) {
+        // No path delimiter found, return an empty string.
+        return g_pYYRunnerInterface->YYStrDup("");
+    }
+
+    std::string path = s.substr(0, found);
+    return g_pYYRunnerInterface->YYStrDup(path.c_str());
+}
 
 
 //Check if folder has been added to whitelist, add if required
