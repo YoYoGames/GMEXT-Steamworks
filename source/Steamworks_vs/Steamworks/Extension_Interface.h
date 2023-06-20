@@ -19,7 +19,7 @@
 #endif
 
 #if defined(OS_Linux) || defined(OS_MacOs)
-#define YYEXPORT /**/
+#define YYEXPORT __attribute__((visibility("default")))
 #include <stddef.h>
 #endif
 

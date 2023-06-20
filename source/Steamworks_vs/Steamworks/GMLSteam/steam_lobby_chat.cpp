@@ -1,4 +1,4 @@
-﻿/// steam_lobby_chat.cpp
+/// steam_lobby_chat.cpp
 
 #include "pch.h"
 #include "steam_api.h"
@@ -51,7 +51,7 @@ YYEXPORT void /*bool*/ steam_lobby_send_chat_message(RValue& Result, CInstance* 
 	}
 
 	Result.kind = VALUE_BOOL;
-	Result.val = SteamMatchmaking()->SendLobbyChatMsg(steam_lobby_current, text, strlen(text) + 1);
+	Result.val = SteamMatchmaking()->SendLobbyChatMsg(steam_lobby_current, text, (int)strlen(text) + 1);
 }
 
 YYEXPORT void /*bool*/ steam_lobby_send_chat_message_buffer(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)//(gml_buffer buf, int size = -1) 
@@ -117,9 +117,6 @@ YYEXPORT void /*bool*/ steam_lobby_get_chat_message_data(RValue& Result, CInstan
 	double message_index = YYGetReal(arg, 0);
 	double gml_buff = YYGetReal(arg, 1);
 
-	unsigned char* buffer_data;
-	int buffer_size;
-
 	if (BufferGetFromGML(gml_buff) == NULL)
 	{
 		DebugConsoleOutput("steam_lobby_get_chat_message_data() - error: specified buffer not found\n");
@@ -140,7 +137,7 @@ YYEXPORT void /*bool*/ steam_lobby_get_chat_message_data(RValue& Result, CInstan
 	auto& msg = chat_messages.arr[(size_t)message_index];
 	auto size = msg.size;
 	
-	if (BufferWriteContent(gml_buff, 0, msg.data, size, true) != size)
+	if (BufferWriteContent(gml_buff, 0, msg.data, (int)size, true) != size)
 	{
 		DebugConsoleOutput("steam_lobby_get_chat_message_data() - error: could not write to buffer\n");
 		Result.kind = VALUE_BOOL;

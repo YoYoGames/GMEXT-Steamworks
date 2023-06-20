@@ -177,34 +177,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\json-c-0.9\3DS\JSON-configM.h" />
-    <ClInclude Include="..\..\json-c-0.9\Android\JSON-configM.h" />
-    <ClInclude Include="..\..\json-c-0.9\arraylist.h" />
-    <ClInclude Include="..\..\json-c-0.9\bits.h" />
-    <ClInclude Include="..\..\json-c-0.9\debug.h" />
-    <ClInclude Include="..\..\json-c-0.9\iPad\JSON-configM.h" />
-    <ClInclude Include="..\..\json-c-0.9\json-c.h" />
-    <ClInclude Include="..\..\json-c-0.9\JSON-config.h" />
-    <ClInclude Include="..\..\json-c-0.9\json_object.h" />
-    <ClInclude Include="..\..\json-c-0.9\json_object_private.h" />
-    <ClInclude Include="..\..\json-c-0.9\json_tokener.h" />
-    <ClInclude Include="..\..\json-c-0.9\json_util.h" />
-    <ClInclude Include="..\..\json-c-0.9\linkhash.h" />
-    <ClInclude Include="..\..\json-c-0.9\Linux\JSON-configM.h" />
-    <ClInclude Include="..\..\json-c-0.9\Mac\JSON-configM.h" />
-    <ClInclude Include="..\..\json-c-0.9\printbuf.h" />
-    <ClInclude Include="..\..\json-c-0.9\PS3\JSON-configM.h" />
-    <ClInclude Include="..\..\json-c-0.9\PS4\JSON-configM.h" />
-    <ClInclude Include="..\..\json-c-0.9\PS5\JSON-configM.h" />
-    <ClInclude Include="..\..\json-c-0.9\PSP\JSON-configM.h" />
-    <ClInclude Include="..\..\json-c-0.9\PSVita\JSON-configM.h" />
-    <ClInclude Include="..\..\json-c-0.9\Switch\JSON-configM.h" />
-    <ClInclude Include="..\..\json-c-0.9\Tizen\JSON-configM.h" />
-    <ClInclude Include="..\..\json-c-0.9\WiiU\JSON-configM.h" />
-    <ClInclude Include="..\..\json-c-0.9\Win32\JSON-configM.h" />
-    <ClInclude Include="..\..\json-c-0.9\WinMetro\JSON-configM.h" />
-    <ClInclude Include="..\..\json-c-0.9\WinPhone\JSON-configM.h" />
-    <ClInclude Include="..\..\json-c-0.9\XboxOne\JSON-configM.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="GMLSteam\gml_glue.h" />
     <ClInclude Include="GMLSteam\gml_glue_map.h" />
@@ -213,13 +185,6 @@
     <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\json-c-0.9\arraylist.c" />
-    <ClCompile Include="..\..\json-c-0.9\debug.c" />
-    <ClCompile Include="..\..\json-c-0.9\json_object.c" />
-    <ClCompile Include="..\..\json-c-0.9\json_tokener.c" />
-    <ClCompile Include="..\..\json-c-0.9\json_util.c" />
-    <ClCompile Include="..\..\json-c-0.9\linkhash.c" />
-    <ClCompile Include="..\..\json-c-0.9\printbuf.c" />
     <ClCompile Include="DesktopExtensionTools.cpp" />
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="GMLSteam\gml_glue.cpp" />
@@ -245,7 +210,6 @@
     <ClCompile Include="GMLSteam\steam_userstats.cpp" />
     <ClCompile Include="GMLSteam\steam_utils.cpp" />
     <ClCompile Include="GMLSteam\steam_workshop.cpp" />
-    <ClCompile Include="IniOptionsLibrary.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

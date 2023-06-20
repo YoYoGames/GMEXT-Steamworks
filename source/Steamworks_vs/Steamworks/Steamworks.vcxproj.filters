@@ -13,9 +13,6 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="json-c">
-      <UniqueIdentifier>{c869ae68-6454-49e7-a738-1de4165aa21d}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -35,90 +32,6 @@
     </ClInclude>
     <ClInclude Include="GMLSteam\steam_glue.h">
       <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\json-c-0.9\json_object.h">
-      <Filter>json-c</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\json-c-0.9\json_object_private.h">
-      <Filter>json-c</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\json-c-0.9\json_tokener.h">
-      <Filter>json-c</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\json-c-0.9\json_util.h">
-      <Filter>json-c</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\json-c-0.9\json-c.h">
-      <Filter>json-c</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\json-c-0.9\JSON-config.h">
-      <Filter>json-c</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\json-c-0.9\linkhash.h">
-      <Filter>json-c</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\json-c-0.9\printbuf.h">
-      <Filter>json-c</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\json-c-0.9\3DS\JSON-configM.h">
-      <Filter>json-c</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\json-c-0.9\Android\JSON-configM.h">
-      <Filter>json-c</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\json-c-0.9\iPad\JSON-configM.h">
-      <Filter>json-c</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\json-c-0.9\Linux\JSON-configM.h">
-      <Filter>json-c</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\json-c-0.9\Mac\JSON-configM.h">
-      <Filter>json-c</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\json-c-0.9\PS3\JSON-configM.h">
-      <Filter>json-c</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\json-c-0.9\PS4\JSON-configM.h">
-      <Filter>json-c</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\json-c-0.9\PS5\JSON-configM.h">
-      <Filter>json-c</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\json-c-0.9\PSP\JSON-configM.h">
-      <Filter>json-c</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\json-c-0.9\PSVita\JSON-configM.h">
-      <Filter>json-c</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\json-c-0.9\Switch\JSON-configM.h">
-      <Filter>json-c</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\json-c-0.9\Tizen\JSON-configM.h">
-      <Filter>json-c</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\json-c-0.9\WiiU\JSON-configM.h">
-      <Filter>json-c</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\json-c-0.9\Win32\JSON-configM.h">
-      <Filter>json-c</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\json-c-0.9\WinMetro\JSON-configM.h">
-      <Filter>json-c</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\json-c-0.9\WinPhone\JSON-configM.h">
-      <Filter>json-c</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\json-c-0.9\XboxOne\JSON-configM.h">
-      <Filter>json-c</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\json-c-0.9\arraylist.h">
-      <Filter>json-c</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\json-c-0.9\bits.h">
-      <Filter>json-c</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\json-c-0.9\debug.h">
-      <Filter>json-c</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -194,31 +107,7 @@
     <ClCompile Include="GMLSteam\steam_glue.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\json-c-0.9\json_object.c">
-      <Filter>json-c</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\json-c-0.9\json_tokener.c">
-      <Filter>json-c</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\json-c-0.9\json_util.c">
-      <Filter>json-c</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\json-c-0.9\linkhash.c">
-      <Filter>json-c</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\json-c-0.9\printbuf.c">
-      <Filter>json-c</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\json-c-0.9\arraylist.c">
-      <Filter>json-c</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\json-c-0.9\debug.c">
-      <Filter>json-c</Filter>
-    </ClCompile>
     <ClCompile Include="DesktopExtensionTools.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="IniOptionsLibrary.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="GMLSteam\steam_input.cpp">

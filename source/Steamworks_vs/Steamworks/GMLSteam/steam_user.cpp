@@ -263,7 +263,6 @@ YYEXPORT void /*bool*/ steam_image_get_rgba(RValue& Result, CInstance* selfinst,
 	int gml_buf = (int)YYGetReal(arg, 1);
 	int size = (int)YYGetReal(arg, 2);
 
-	IBuffer* pBuff = NULL;
 	if (gml_buf >= 0)
 	{
 		char* data = new char[size];
@@ -288,7 +287,6 @@ YYEXPORT void /*bool*/ steam_image_get_bgra(RValue& Result, CInstance* selfinst,
 	int gml_buf = (int)YYGetReal(arg, 1);
 	int size = (int)YYGetReal(arg, 2);
 	
-	IBuffer* pBuff = NULL;
 	if (gml_buf >= 0)
 	{
 		char* data = new char[size];

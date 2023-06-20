@@ -5,7 +5,6 @@
 #include "YYRValue.h"
 #include "steam_common.h"
 
-
 //#include "Files/IO/LoadSave.h"
 //#include "Files/Support/Support_Data_Structures.h"
 
@@ -34,33 +33,59 @@ static const char* s_pszOverlayNames[] =
 
 static void SendPersonaNameAsyncEvent( int _asyncId, uint64 _steamId, const char* pszPersonaName );
 
-class CSteamFriendsCallbacks
+class Singleton
 {
-public:
+protected:
 
-	CSteamFriendsCallbacks()
-		:	m_CallbackOverlayActivated(this,&CSteamFriendsCallbacks::OnGameOverlayActivated),
-			m_bOverlayActivated(false)
-			{}
+	Singleton()
+		: m_CallbackOverlayActivated(this, &Singleton::OnGameOverlayActivated),
+		m_bOverlayActivated(false)
+	{}
 
 
-	void OnGameOverlayActivated( GameOverlayActivated_t *callback )
+	void OnGameOverlayActivated(GameOverlayActivated_t* callback)
 	{
-		if ( callback->m_bActive )	
+		if (callback->m_bActive)
 		{
-			m_bOverlayActivated=true;
-			DebugConsoleOutput("Steam overlay now active\n" );
+			m_bOverlayActivated = true;
+			DebugConsoleOutput("[SINGLETON] Steam overlay now active\n");
 		}
 		else {
-			m_bOverlayActivated=false;
-			DebugConsoleOutput("Steam overlay now inactive\n" );
+			m_bOverlayActivated = false;
+			DebugConsoleOutput("[SINGLETON] Steam overlay now inactive\n");
 		}
 	}
 
-	CCallback<CSteamFriendsCallbacks, GameOverlayActivated_t, false>	m_CallbackOverlayActivated;
-	
+	CCallback<Singleton, GameOverlayActivated_t, false>	m_CallbackOverlayActivated;
+
 	bool m_bOverlayActivated;
+	static Singleton* singleton_;
+
+public:
+
+	Singleton(Singleton& other) = delete;
+	void operator=(const Singleton&) = delete;
+	static Singleton* GetInstance();
+	void SomeBusinessLogic()
+	{
+
+	}
+
+	bool value() const {
+		return m_bOverlayActivated;
+	}
 };
+
+Singleton* Singleton::singleton_ = nullptr;;
+
+Singleton* Singleton::GetInstance()
+{
+	if (singleton_ == nullptr) {
+		singleton_ = new Singleton();
+	}
+	return singleton_;
+}
+
 
 class CPersonaStateChangeListener
 {
@@ -69,9 +94,7 @@ public:
 	uint64	m_steamId;
 	CCallback<CPersonaStateChangeListener, PersonaStateChange_t,false> m_CallbackPersonaStateChanged;
 
-	CPersonaStateChangeListener( int _asyncId, CSteamID _steamId)
-		: m_asyncId(_asyncId),
-		m_CallbackPersonaStateChanged(this,&CPersonaStateChangeListener::OnPersonaStateChanged)
+	CPersonaStateChangeListener( int _asyncId, CSteamID _steamId): m_asyncId(_asyncId), m_CallbackPersonaStateChanged(this,&CPersonaStateChangeListener::OnPersonaStateChanged)
 	{
 		m_steamId = _steamId.ConvertToUint64();
 	}
@@ -88,10 +111,6 @@ public:
 		}
 	}
 };
-
-
-//const char			gUnknownString[] = "Unknown";//redefinition
-static CSteamFriendsCallbacks*	m_pFriendsCallback=NULL;
 
 
 YYEXPORT void /*double*/ steam_activate_overlay(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)//( int iOverlay)/*Steam_Friends_ActivateGameOverlay*/
@@ -168,16 +187,10 @@ YYEXPORT void /*double*/ steam_is_overlay_activated(RValue& Result, CInstance* s
 		return;
 	}
 
-	Result.kind = VALUE_REAL;
-	if( m_pFriendsCallback ) 
-	{
-		if( m_pFriendsCallback->m_bOverlayActivated )
-		{
-			Result.val = 1.0;
-			return;
-		}
-	}
-	Result.val = 0.0;
+	Singleton* singleton = Singleton::GetInstance();
+
+	Result.kind = VALUE_BOOL;
+	Result.val = singleton->value();
 }
 
 YYEXPORT void /*double*/ steam_activate_overlay_browser(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)//( const char* pszUrl )/*Steam_Friends_ActivateOverlayBrowser*/
@@ -284,15 +297,12 @@ YYEXPORT void /*double*/ steam_get_user_persona_name(RValue& Result, CInstance* 
 		Result.val = async_id;
 		return;
 	}
-
-	
-	Result.val = 1.0;
 }
 
 void Steam_Friends_Init()
 {
 	//(register callbacks?)
-	m_pFriendsCallback = new CSteamFriendsCallbacks();
+	//Singleton* singleton = Singleton::GetInstance();
 }
 
 void Steam_Friends_Shutdown()
@@ -304,8 +314,8 @@ void Steam_Friends_Shutdown()
 
 
 	//(register callbacks?)
-	delete m_pFriendsCallback;
-	m_pFriendsCallback = NULL;
+	/*delete m_pFriendsCallback;*/
+	//m_pFriendsCallback = NULL;
 }
 
 

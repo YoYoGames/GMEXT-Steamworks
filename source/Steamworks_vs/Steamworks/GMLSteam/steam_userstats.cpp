@@ -54,6 +54,8 @@ static int        m_numLeaderboardInfo;
 static bool        m_bStatsReady = false;
 static bool        m_bStoreStats = false;
 static bool        m_bStoringStats = false;
+static bool        m_bStatsGlobalReady = false;
+static bool        m_bStatsGlobalAchievementReady = false;
 
 
 
@@ -284,7 +286,6 @@ public:
 
 void DoLBRequest(SLBRequest* pRequest, SteamLeaderboard_t hLeaderboard)
 {
-    const char* pszName = SteamUserStats()->GetLeaderboardName(hLeaderboard);
     if (pRequest->m_bPost)
     {
         //dbg_csol.Output("Sending queued LB post: %s, %d \n", pszName, pRequest->m_score);
@@ -443,12 +444,12 @@ bool GetLeaderboardHandleCreate(const char* pszName, SteamLeaderboard_t& handle,
                 //we have a cached handle for this lb - return it
                 handle = m_aLeaderboardInfo[i].m_hSteamLeaderboard;
 
-                //int map = g_pYYRunnerInterface->CreateDsMap(0,0);
-                //g_pYYRunnerInterface->DsMapAddString(map, "event_type", "create_leaderboard");
-                //g_pYYRunnerInterface->DsMapAddString(map, "lb_name", pszName);
-                //g_pYYRunnerInterface->DsMapAddDouble(map, "status", (double)1);
-                //g_pYYRunnerInterface->DsMapAddDouble(map, "id", (double)async_id);
-                //g_pYYRunnerInterface->CreateAsyncEventWithDSMap(map, EVENT_OTHER_WEB_STEAM);
+                int map = CreateDsMap(4,
+                    "event_type", (double)0.0, "create_leaderboard",
+                    "lb_name", (double)0.0, pszName,
+                    "status", (double)1.0, NULL,
+                    "id", (double)async_id, NULL);
+                g_pYYRunnerInterface->CreateAsyncEventWithDSMap(map, EVENT_OTHER_WEB_STEAM);
 
                 return true;
             }
@@ -457,12 +458,12 @@ bool GetLeaderboardHandleCreate(const char* pszName, SteamLeaderboard_t& handle,
             {
                 //we are already waiting on a create callback - do nothing
 
-                //int map = g_pYYRunnerInterface->CreateDsMap(0,0);
-                //g_pYYRunnerInterface->DsMapAddString(map, "event_type", "create_leaderboard");
-                //g_pYYRunnerInterface->DsMapAddString(map, "lb_name", pszName);
-                //g_pYYRunnerInterface->DsMapAddDouble(map, "status", (double)0);
-                //g_pYYRunnerInterface->DsMapAddDouble(map, "id", (double)async_id);
-                //g_pYYRunnerInterface->CreateAsyncEventWithDSMap(map, EVENT_OTHER_WEB_STEAM);
+                int map = CreateDsMap(4,
+                    "event_type", (double)0.0, "create_leaderboard",
+                    "lb_name", (double)0.0, pszName,
+                    "status", (double)0.0, NULL,
+                    "id", (double)async_id, NULL);
+                g_pYYRunnerInterface->CreateAsyncEventWithDSMap(map, EVENT_OTHER_WEB_STEAM);
 
                 return false;
             }
@@ -475,12 +476,12 @@ bool GetLeaderboardHandleCreate(const char* pszName, SteamLeaderboard_t& handle,
                 CLeaderboardFindHandler* pResultHandler = new CLeaderboardFindHandler( pszName, (ELeaderboardSortMethod)sortMethod,(ELeaderboardDisplayType)displayType, async_id);
                 pResultHandler->SetCallResult(hSteamAPICall);
 
-                //int map = g_pYYRunnerInterface->CreateDsMap(0,0);
-                //g_pYYRunnerInterface->DsMapAddString(map, "event_type", "create_leaderboard");
-                //g_pYYRunnerInterface->DsMapAddString(map, "lb_name", pszName);
-                //g_pYYRunnerInterface->DsMapAddDouble(map, "status", (double)0);
-                //g_pYYRunnerInterface->DsMapAddDouble(map, "id", (double)async_id);
-                //g_pYYRunnerInterface->CreateAsyncEventWithDSMap(map, EVENT_OTHER_WEB_STEAM);
+                int map = CreateDsMap(4,
+                    "event_type", (double)0.0, "create_leaderboard",
+                    "lb_name", (double)0.0, pszName,
+                    "status", (double)0.0, NULL,
+                    "id", (double)async_id, NULL);
+                g_pYYRunnerInterface->CreateAsyncEventWithDSMap(map, EVENT_OTHER_WEB_STEAM);
 
                 return false;
             }
@@ -791,7 +792,6 @@ YYEXPORT void /*double*/ steam_download_scores(RValue& Result, CInstance* selfin
 
     //create a new async context for the returned data
     int  async_id = getAsyncRequestInd();// g_HTTP_ID;
-    int size = sizeof(SLeaderboardData);
     //
 
     SteamLeaderboard_t hLeaderboard;
@@ -984,7 +984,6 @@ void OnDownloadScoreResult(LeaderboardScoresDownloaded_t* pCallback, bool bIOFai
     else
         numLeaderboardEntries = kMaxEntries;
     
-    SteamLeaderboard_t m_hSteamLeaderboard = pCallback->m_hSteamLeaderboard;
     const char* pszLBName = SteamUserStats()->GetLeaderboardName(pCallback->m_hSteamLeaderboard);
     //strncpy(pData->m_pszName, pszLBName, k_cchLeaderboardNameMax);
 
@@ -1381,8 +1380,6 @@ YYEXPORT void /*double*/ steam_get_stat_avg_rate(RValue& Result, CInstance* self
 ///    \brief    Resets all the stats to the server defaults
 YYEXPORT void /*double*/ steam_reset_all_stats(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)//()/*Steam_UserStats_ResetAllStats*/
 {
-    const char* pStatName = YYGetString(arg, 0);
-
     if (!steam_is_initialised)
     {
         Result.kind = VALUE_REAL;
@@ -1405,6 +1402,315 @@ YYEXPORT void /*double*/ steam_reset_all_stats(RValue& Result, CInstance* selfin
     Result.val = 0.0;
     return;
 }
+
+////////////////////////////// Global Stats
+
+
+class CRequestGlobalStats
+{
+public:
+    int m_postId;
+
+    CCallResult<CRequestGlobalStats, GlobalStatsReceived_t>        m_SteamCallResultGlobalStats;
+
+    CRequestGlobalStats(int _postId): m_postId(_postId)
+    {
+    }
+
+    void    SetCallResult(SteamAPICall_t apicall)
+    {
+        m_SteamCallResultGlobalStats.Set(apicall, this, &CRequestGlobalStats::OnGlobalStatsResult);
+    }
+
+    void    OnGlobalStatsResult(GlobalStatsReceived_t* pCallback, bool bIOFailure)
+    {
+        //OnGlobalStatsResult(pCallback, bIOFailure);
+        //if (bDelete)
+        if(!bIOFailure && pCallback->m_eResult == k_EResultOK && SteamUtils()->GetAppID() == pCallback->m_nGameID)
+        {
+            //finished with handler, free & deregister
+            
+            m_bStatsGlobalReady = true;
+            double pData;
+            DebugConsoleOutput("steam_request_global_stats SUCCESS: %s\n", SteamUserStats()->GetGlobalStat("NumWins", &pData)?"True":"False");
+            delete this;
+        }
+    }
+};
+
+YYEXPORT void steam_request_global_stats(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)
+{
+    int nHistoryDays = (int)YYGetReal(arg, 0);
+
+    if (!steam_is_initialised)
+    {
+        Result.kind = VALUE_REAL;
+        Result.val = 0;
+        return;
+    }
+
+    Result.kind = VALUE_REAL;
+    if (m_bStatsReady)
+    {
+        if (SteamUserStats() != NULL)
+        {
+            SteamAPICall_t mSteamAPICall_t = SteamUserStats()->RequestGlobalStats(nHistoryDays);
+            CRequestGlobalStats *callback = new CRequestGlobalStats(getAsyncRequestInd());
+            callback->SetCallResult(mSteamAPICall_t);
+
+            Result.val = 1.0;
+            return;
+        }
+    }
+
+    Result.val = 0.0;
+    return;
+}
+
+class CRequestGlobalAchievementPercentages
+{
+public:
+    int m_postId;
+
+    CCallResult<CRequestGlobalAchievementPercentages, GlobalAchievementPercentagesReady_t>        m_SteamCallResultGlobalAchievementPercentages;
+
+    CRequestGlobalAchievementPercentages(int _postId) : m_postId(_postId)
+    {
+    }
+
+    void    SetCallResult(SteamAPICall_t apicall)
+    {
+        m_SteamCallResultGlobalAchievementPercentages.Set(apicall, this, &CRequestGlobalAchievementPercentages::OnCRequestGlobalAchievementPercentages);
+    }
+
+    void    OnCRequestGlobalAchievementPercentages(GlobalAchievementPercentagesReady_t* pCallback, bool bIOFailure)
+    {
+        //OnGlobalStatsResult(pCallback, bIOFailure);
+        //if (bDelete)
+        DebugConsoleOutput("steam_request_global_achievement_percentages? %i \n", pCallback->m_eResult);
+        if (!bIOFailure && pCallback->m_eResult == k_EResultOK && SteamUtils()->GetAppID() == pCallback->m_nGameID)
+        {
+            //finished with handler, free & deregister
+            m_bStatsGlobalAchievementReady = true;
+
+            DebugConsoleOutput("steam_request_global_achievement_percentages SUCCESS\n");
+
+            delete this;
+        }
+    }
+};
+
+YYEXPORT void steam_request_global_achievement_percentages(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)
+{
+    if (!steam_is_initialised)
+    {
+        Result.kind = VALUE_REAL;
+        Result.val = 0;
+        return;
+    }
+
+    Result.kind = VALUE_REAL;
+
+    if (m_bStatsReady)
+    {
+        if (SteamUserStats() != NULL)
+        {
+            SteamAPICall_t mSteamAPICall_t = SteamUserStats()->RequestGlobalAchievementPercentages();
+            CRequestGlobalAchievementPercentages* callback = new CRequestGlobalAchievementPercentages(getAsyncRequestInd());
+            callback->SetCallResult(mSteamAPICall_t);
+
+            Result.val = 1.0;
+            return;
+        }
+    }
+
+    Result.val = 0.0;
+    return;
+}
+
+YYEXPORT void steam_get_achievement_achieved_percent(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)
+{
+    const char* statname = YYGetString(arg, 0);
+    DebugConsoleOutput("GetAchievementAchievedPercent Called\n");
+    if (!steam_is_initialised)
+    {
+        Result.kind = VALUE_REAL;
+        Result.val = 0;
+        return;
+    }
+
+    Result.kind = VALUE_REAL;
+    if (m_bStatsGlobalAchievementReady)
+    {
+        DebugConsoleOutput("GetAchievementAchievedPercent REady\n");
+        if (SteamUserStats() != NULL)
+        {
+            DebugConsoleOutput("GetAchievementAchievedPercent Not Null\n");
+            float porcent;
+            if (Result.val == SteamUserStats()->GetAchievementAchievedPercent(statname, &porcent))
+            {
+                DebugConsoleOutput("GetAchievementAchievedPercent OK\n");
+                Result.val = porcent;
+                return;
+            }
+            else
+            {
+                DebugConsoleOutput("GetAchievementAchievedPercent False\n");
+                Result.val = -4.0;
+                return;
+            }
+        }
+    }
+    Result.val = 0.0;
+    return;
+}
+
+
+YYEXPORT void steam_get_most_achieved_achievement_info(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)
+{
+    RValue Struct{};
+    YYStructCreate(&Struct);
+
+    if (!steam_is_initialised)
+    {
+        COPY_RValue(&Result, &Struct);
+        FREE_RValue(&Struct);
+        return;
+    }
+
+    Result.kind = VALUE_REAL;
+    if (m_bStatsGlobalAchievementReady)
+    {
+        if (SteamUserStats() != NULL)
+        {
+            float porcent;
+            bool achievement;
+            char pchName[64];
+
+            int iterator = SteamUserStats()->GetMostAchievedAchievementInfo((char*)pchName, 64, &porcent, &achievement);
+            if (iterator != -1)
+            {
+                YYStructAddInt(&Struct, "iterator", iterator);
+                YYStructAddInt64(&Struct, "porcent", porcent);
+                YYStructAddBool(&Struct, "achievement", achievement);
+
+                COPY_RValue(&Result, &Struct);
+                FREE_RValue(&Struct);
+                return;
+            }
+        }
+    }
+    COPY_RValue(&Result, &Struct);
+    FREE_RValue(&Struct);
+    return;
+}
+
+YYEXPORT void steam_get_next_most_achieved_achievement_info(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)
+{
+    int iterator = (int)YYGetReal(arg, 0);
+
+    RValue Struct{};
+    YYStructCreate(&Struct);
+
+    if (!steam_is_initialised)
+    {
+        COPY_RValue(&Result, &Struct);
+        FREE_RValue(&Struct);
+        return;
+    }
+    
+    Result.kind = VALUE_REAL;
+    if (m_bStatsGlobalAchievementReady)
+    {
+        if (SteamUserStats() != NULL)
+        {
+            float porcent;
+            bool achievement;
+            char pchName[64];
+
+            int _iterator = SteamUserStats()->GetNextMostAchievedAchievementInfo(iterator, (char*)pchName, 64, &porcent, &achievement);
+            if (iterator != -1)
+            {
+                YYStructAddInt(&Struct, "iterator", _iterator);
+                YYStructAddInt64(&Struct, "porcent", porcent);
+                YYStructAddBool(&Struct, "achievement", achievement);
+
+                COPY_RValue(&Result, &Struct);
+                FREE_RValue(&Struct);
+                return;
+            }
+        }
+    }
+    COPY_RValue(&Result, &Struct);
+    FREE_RValue(&Struct);
+    return;
+}
+
+YYEXPORT void steam_get_global_stat(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)
+{
+    const char* pStatName = YYGetString(arg, 0);
+
+    if (!steam_is_initialised)
+    {
+        Result.kind = VALUE_REAL;
+        Result.val = 0;
+        return;
+    }
+
+    Result.kind = VALUE_REAL;
+    if (m_bStatsGlobalReady)
+    {
+        if (SteamUserStats() != NULL)
+        {
+            double pData;
+            if (!SteamUserStats()->GetGlobalStat(pStatName, &pData))
+            {
+                DebugConsoleOutput("GetGlobalStat Failed: %s\n", pStatName);
+                return;
+            }
+
+            Result.kind = VALUE_REAL;
+            Result.val = pData;
+        }
+    }
+
+    Result.val = 0.0;
+    return;
+}
+
+YYEXPORT void steam_get_global_stat_history(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)
+{
+    const char* pStatName = YYGetString(arg, 0);
+
+    if (!steam_is_initialised)
+    {
+        Result.kind = VALUE_REAL;
+        Result.val = 0;
+        return;
+    }
+
+    Result.kind = VALUE_REAL;
+    if (m_bStatsGlobalReady)
+    {
+        if (SteamUserStats() != NULL)
+        {
+            double pData;
+            uint32 cubData = 3;
+            
+            if (SteamUserStats()->GetGlobalStatHistory(pStatName, &pData, cubData) == 0)
+            {
+                DebugConsoleOutput("GetGlobalStatHistory Failed\n");
+            }
+
+            Result.val = 1.0;
+            return;
+        }
+    }
+
+    Result.val = 0.0;
+    return;
+}
+
 
 ///    \brief    Resets all the stats to the server defaults
 YYEXPORT void /*double*/ steam_reset_all_stats_achievements(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)//()/*Steam_UserStats_ResetAllStatsAndAchievements*/
@@ -1444,6 +1750,7 @@ void Steam_UserStats_Init()
     m_bStatsReady = false;
     m_bStoreStats = false;
     m_bStoringStats = false;
+    DebugConsoleOutput("Ok, you can continue\n");
     SteamUserStats()->RequestCurrentStats();    //You will receive a UserStatsReceived_t callback when the data is ready.
 }
 

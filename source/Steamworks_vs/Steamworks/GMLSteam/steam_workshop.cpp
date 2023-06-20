@@ -73,33 +73,119 @@ YYEXPORT void /*double*/ steam_get_app_ownership_ticket_data(RValue& Result, CIn
 
 void steam_net_callbacks_t::encrypted_app_ticket_response_received(EncryptedAppTicketResponse_t* r, bool failed)
 {
-    steam_net_event e = steam_net_event((char*)"user_encrypted_app_ticket_response_received");
     auto result = r->m_eResult;
-    if (result == k_EResultOK) {
-        uint8 ticket[1024];
-        uint32 ticketSize;
-        if (SteamUser()->GetEncryptedAppTicket(&ticket, sizeof ticket, &ticketSize)) {
-            char* b64string[1024] = { };
-            Base64Encode(ticket, ticketSize, b64string, sizeof b64string);//s = b64encode(ticket, ticketSize);
-            e.set((char*) "ticket_data", (char*)b64string);
-        } else {
-            DebugConsoleOutput("Failed to retrieve GetEncryptedAppTicket data.");
-            result = k_EResultFail;
-        }
+    if (result == k_EResultOK)
+    {
+        uint8 rgubTicket[1024];
+        uint32 cubTicket;
+        SteamUser()->GetEncryptedAppTicket(rgubTicket, sizeof(rgubTicket), &cubTicket);
+
+        //TODO: Done on Windows 
+        
+        //480 SteamEncryptedAppTicketSymmetricKeyLen
+        //const uint8 rgubKey[k_nSteamEncryptedAppTicketSymmetricKeyLen] = { 0xed, 0x93, 0x86, 0x07, 0x36, 0x47, 0xce, 0xa5, 0x8b, 0x77, 0x21, 0x49, 0x0d, 0x59, 0xed, 0x44, 0x57, 0x23, 0xf0, 0xf6, 0x6e, 0x74, 0x14, 0xe1, 0x53, 0x3b, 0xa3, 0x3c, 0xd8, 0x03, 0xbd, 0xbd };
+
+        //uint8 rgubDecrypted[1024];
+        //uint32 cubDecrypted = sizeof(rgubDecrypted);
+        //if (!SteamEncryptedAppTicket_BDecryptTicket(rgubTicket, cubTicket, rgubDecrypted, &cubDecrypted, rgubKey, sizeof(rgubKey)))
+        //{
+        //    DebugConsoleOutput("Ticket failed to decrypt\n");
+        //    return;
+        //}
+
+        //if (!SteamEncryptedAppTicket_BIsTicketForApp(rgubDecrypted, cubDecrypted, SteamUtils()->GetAppID()))
+        //    DebugConsoleOutput("Ticket for wrong app id\n");
+
+        //DebugConsoleOutput("Ok \n");
+
+        //CSteamID steamIDFromTicket;
+        //SteamEncryptedAppTicket_GetTicketSteamID(rgubDecrypted, cubDecrypted, &steamIDFromTicket);
+        //if (steamIDFromTicket != SteamUser()->GetSteamID())
+        //    DebugConsoleOutput("Ticket for wrong user\n");
+
+        //uint32 cubData;
+        //uint32* punSecretData = (uint32*)SteamEncryptedAppTicket_GetUserVariableData(rgubDecrypted, cubDecrypted, &cubData);
+        //if (cubData != sizeof(uint32) || *punSecretData != k_unSecretData)
+        //    printf("Failed to retrieve secret data\n");
+
+        //DebugConsoleOutput("Ok \n");
+
+        steam_net_event e = steam_net_event((char*)"user_encrypted_app_ticket_response_received");
+
+
+        /*char* b64string_[1024] = { };
+        Base64Encode(rgubDecrypted, cubDecrypted, b64string_, sizeof b64string_);
+        e.set((char*)"ticket_data_decrypt", (char*)b64string_);*/
+
+
+        char* b64string[1024] = { };
+        Base64Encode(rgubTicket, cubTicket, b64string, sizeof b64string);
+        e.set((char*)"ticket_data", (char*)b64string);
+
+        e.set_result(result);
+        e.dispatch();
     }
-    e.set_result(result);
-    e.dispatch();
 }
 
 CCallResult<steam_net_callbacks_t, EncryptedAppTicketResponse_t> steam_user_app_ticket;
 YYEXPORT void /*double*/ steam_user_request_encrypted_app_ticket(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)//(char* data, double size)
 {
-    char* data = (char*)YYGetString(arg, 0);
-    //double size = YYGetReal(arg, 1);
 
-    auto cc = SteamUser()->RequestEncryptedAppTicket(data, strlen(data));// (int)size);
+    double bufferId = YYGetReal(arg, 0);
+
+    unsigned char* buffer_data;
+    int buffer_size;
+
+    if (!BufferGetContent(bufferId, (void**)(&buffer_data), &buffer_size))
+    {
+        DebugConsoleOutput("steam_user_request_encrypted_app_ticket() - error: specified buffer not found\n");
+        Result.kind = VALUE_BOOL;
+        Result.val = false;
+
+        return;
+    }
+
+    auto cc = SteamUser()->RequestEncryptedAppTicket(buffer_data, buffer_size);
+
     steam_user_app_ticket.Set(cc, &steam_net_callbacks, &steam_net_callbacks_t::encrypted_app_ticket_response_received);
-    Result.kind = VALUE_REAL;
-    Result.val = 1;
+    Result.kind = VALUE_BOOL;
+    Result.val = false;
 }
+
+
+HAuthTicket authTicket;
+YYEXPORT void steam_user_get_auth_session_ticket(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)//(char* data, double size)
+{
+    static const uint32 MAX_TICKET_SIZE{ 1024 };
+    uint32 ticketSize{ 0 };
+    uint8 ticket[MAX_TICKET_SIZE];
+
+    authTicket = SteamUser()->GetAuthSessionTicket(ticket, MAX_TICKET_SIZE, &ticketSize);
+
+    //for (int i = 0; i < 100; i++)
+    //    DebugConsoleOutput("%i \n", ticket[i]);
+
+    Result.kind = VALUE_REAL;
+    if (authTicket == k_HAuthTicketInvalid)
+    {
+        DebugConsoleOutput("Auth session ticket is invalid.\n");
+
+        Result.val = -4;//noone
+    }
+    else
+    {
+        DebugConsoleOutput("Auth session ticket is SUCCESS.\n");
+
+        int bufferID = CreateBuffer(ticketSize, eBuffer_Format_Fixed, 1);
+        BufferWriteContent(bufferID, 0, ticket, ticketSize);
+
+        Result.val = bufferID;
+    }
+}
+
+YYEXPORT void steam_user_cancel_auth_ticket(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)//(char* data, double size)
+{
+    SteamUser()->CancelAuthTicket(authTicket);
+}
+
 #pragma endregion

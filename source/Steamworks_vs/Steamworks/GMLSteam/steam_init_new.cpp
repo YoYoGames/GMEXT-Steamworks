@@ -10,9 +10,6 @@
 #include <vector>
 #include <sstream>
 
-#include "json-c.h"
-
-#include "IniOptionsLibrary.h"
 #include "DesktopExtensionTools.h"
 
 int requestInd = 0;
@@ -56,7 +53,7 @@ YYEXPORT void steam_init(RValue& Result, CInstance* selfinst, CInstance* otherin
 
 void OldPreGraphicsInitialisation()
 {
-	uint32 AppID = extOptGetReal("Steamworks", "AppID");
+	uint32 AppID = extOptGetReal("Steamworks", "appID");
 
     // a game cannot have an invalid appid
     if (AppID == k_uAppIdInvalid)
@@ -65,7 +62,7 @@ void OldPreGraphicsInitialisation()
         return;
     }
 
-	bool debug = strncmp(extOptGetString("Steamworks", "Debug"), "Enabled", 7) == 0 ? true : isRunningFromIDE();
+	bool debug = strncmp(extOptGetString("Steamworks", "debug"), "Enabled", 7) == 0 ? true : isRunningFromIDE();
     
     if (debug)
     {
@@ -157,19 +154,19 @@ YYEXPORT void steam_is_subscribed(RValue& Result, CInstance* selfinst, CInstance
 }
 
 
-YYEXPORT void ext_json_test(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)
-{
-	DebugConsoleOutput("ext_json_test\n");
-
-	const char* arg1 = YYGetString(arg, 0);
-	json_object* jobj = json_tokener_parse(arg1);
-
-	uint32 AppID = json_object_get_int(json_object_object_get(jobj, "ProductId"));
-	bool debug = json_object_get_boolean(json_object_object_get(jobj, "Debug"));
-
-	DebugConsoleOutput("ext_json_test %i\n", AppID);
-	DebugConsoleOutput("ext_json_test %i\n", debug);
-}
+//YYEXPORT void ext_json_test(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)
+//{
+//	DebugConsoleOutput("ext_json_test\n");
+//
+//	const char* arg1 = YYGetString(arg, 0);
+//	json_object* jobj = json_tokener_parse(arg1);
+//
+//	uint32 AppID = json_object_get_int(json_object_object_get(jobj, "ProductId"));
+//	bool debug = json_object_get_boolean(json_object_object_get(jobj, "Debug"));
+//
+//	DebugConsoleOutput("ext_json_test %i\n", AppID);
+//	DebugConsoleOutput("ext_json_test %i\n", debug);
+//}
 
 
 YYEXPORT void steam_shutdown(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)

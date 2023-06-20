@@ -1,0 +1,40 @@
+
+1.4.3 (Hotfix)
+- Fixes macOS IDE build|compile bug (forces CRLF to LF conversion of scriptUtils.sh)
+
+1.4.1 (Hotfix)
+- Fixes paths containing special characters on windows IDE.
+
+1.4.0
+- This is a compatibility version ready to work with LTSr1
+NOTE: The github repo will on be compatible with latest Stable, to use in LTS import
+		the release version local package or use the marketplace asset.
+
+v1.3.1 (Hotfix)
+- Fixed Windows binaries were incorrectly build in Debug mode.
+
+v1.3.0
+- Recompiled macOS dylibs now using release mode
+- Updated extension options 
+- Updated script control system version 2.0
+
+v1.2.3 (Hotfix)
+- Fixed crashing bug on load using IDE 2023.1.0.xxx
+
+v1.2.2 (Hotfix)
+- Fixed Windows binaries were incorrectly build in Debug mode.
+
+v1.2.1 (Hotfix)
+- Fixed Ubuntu export binary hash checking
+
+v1.2.0
+- Added new changelog file to demo (please log further changes here)
+- Fixed bug when running Steamworks on YYC via Steam
+- Changed 'Debug' extension option. It now supports:
+	* Auto which will automatically disable debug for exported projects
+	* Enabled that will keep debug enabled even on exported projects
+- Extension options steam SDK path now allows relative paths (use forwardslash as delimiter)
+- Bumped required GM version to 2023.1
+- Added new scripts to provide better debug information to the console log
+- There is no support for macOS VM exports
+- Fixed minor bugs
