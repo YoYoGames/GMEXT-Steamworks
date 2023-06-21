@@ -13,8 +13,7 @@
 std::string DesktopExtensionTools_getPathToExe()
 {
     NSString *bundlename = [[NSBundle mainBundle] executablePath];
-    std::filesystem::path exePath =  [bundlename UTF8String];
+    NSString *exePath = [bundlename stringByDeletingLastPathComponent];
         
-    exePath = exePath.parent_path();
-    return exePath.string();
+    return std::string([exePath UTF8String]);
 }
