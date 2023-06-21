@@ -2,9 +2,9 @@
     {
         "projectFile": "source/Steamworks_gml/Steamworks.yyp",
         "extensionFile": "source/Steamworks_gml/extensions/Steamworks/Steamworks.yy",
-        "packageid": "com.yoyogames.steamworksext",
-        "packagename": "Steamworks Ext",
-        "version": "1.4.3",
+        "packageId": "com.yoyogames.steamworksext",
+        "packageName": "Steamworks Ext",
+        "packageVersion": "1.4.4",
         "includeFolders": null,
         "includeResources": null,
         "excludeFolders": null,
