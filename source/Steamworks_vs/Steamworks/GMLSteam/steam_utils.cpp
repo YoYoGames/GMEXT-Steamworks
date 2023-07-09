@@ -184,3 +184,29 @@ YYEXPORT void steam_utils_is_steam_running_on_steam_deck(RValue& Result, CInstan
 
 	Result.val = SteamUtils()->IsSteamRunningOnSteamDeck();
 }
+
+/// ()->bool
+YYEXPORT void steam_utils_is_steam_in_big_picture_mode(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)
+{
+	Result.kind = VALUE_BOOL;
+
+	if (!SteamUtils())
+	{
+		Result.val = 0;
+		return;
+	}
+
+	Result.val = SteamUtils()->IsSteamInBigPictureMode();
+}
+
+/// (enable_launcher_mode:bool)->
+YYEXPORT void steam_utils_set_game_launcher_mode(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)
+{
+	if (!SteamUtils())
+	{
+		return;
+	}
+
+	bool bLauncherMode = YYGetBool(arg, 0);
+	SteamUtils()->SetGameLauncherMode(bLauncherMode);
+}
