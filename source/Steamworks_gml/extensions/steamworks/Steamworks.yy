@@ -17,7 +17,7 @@
     "date": "2019-12-12T01:34:29",
     "description": "",
     "exportToGame": true,
-    "extensionVersion": "1.4.4",
+    "extensionVersion": "1.4.5",
     "files": [
         {
             "resourceType": "GMExtensionFile",
