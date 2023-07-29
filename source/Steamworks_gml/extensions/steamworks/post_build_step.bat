@@ -1,4 +1,7 @@
 @echo off
+:: fix weird error encoding stuff for non-Latin alphabets
+chcp 65001
+setlocal EnableDelayedExpansion
 set Utils="%~dp0scriptUtils.bat"
 
 :: ######################################################################################
@@ -61,17 +64,56 @@ exit /b 0
 
 :: ----------------------------------------------------------------------------------------------------
 :setupMacOS
-
+    
+    if "%YYPLATFORM_option_mac_build_app_store%" == "True" (
+        call %Utils% logError "Build for App Store is not supported by Steamworks, please disable it or use a Config."
+        exit /b 1
+    )
+    
+    if "%YYPLATFORM_option_mac_apple_sign_in%" == "True" (
+        call %Utils% logError "Apple SignIn is not supported by Steamworks, please disable it or use a Config."
+        exit /b 1
+    )
+    
     set SDK_SOURCE="%SDK_PATH%\redistributable_bin\osx\libsteam_api.dylib"
     call %Utils% assertFileHashEquals %SDK_SOURCE% %SDK_HASH_OSX% "%ERROR_SDK_HASH%"
 
     echo "Copying macOS (64 bit) dependencies"
     if "%YYTARGET_runtime%" == "VM" (
-        :: This is used for VM compilation
-        call %Utils% logError "Extension is not compatible with the macOS VM export, please use YYC."
+        rem This is used for VM compilation
+        call %Utils% logError "VM remote runs are currently not supported, please build on a Mac."
+        exit /b 1
     ) else (
-        :: This is used for YYC compilation
+        rem This is used for YYC compilation
         call %Utils% itemCopyTo %SDK_SOURCE% "%YYprojectName: =_%\%YYprojectName: =_%\Supporting Files\libsteam_api.dylib"
+        
+        rem Write the entitlements plist
+        set plistPath="%YYprojectName: =_%\%YYprojectName: =_%\Supporting Files\%YYprojectName: =_%.entitlements"
+        echo Writing entitlements to !plistPath!
+        echo ^<^?xml version^=^"1.0^" encoding^=^"UTF-8^"^?^>> !plistPath!
+        echo ^<^^!DOCTYPE^ plist^ PUBLIC^ ^"^-^/^/Apple^/^/DTD^ PLIST^ 1.0^/^/EN"^ "http^:^/^/www.apple.com^/DTDs^/PropertyList-1.0.dtd^"^>>> !plistPath!
+        echo ^<plist^ version^=^"1.0^"^>>> !plistPath!
+        echo ^<dict^>>> !plistPath!
+        echo     ^<key^>com.apple.security.cs.allow-dyld-environment-variables^<^/key^>>> !plistPath!
+        echo     ^<true^/^>>> !plistPath!
+        echo     ^<key^>com.apple.security.cs.disable-library-validation^<^/key^>>> !plistPath!
+        echo     ^<true^/^>>> !plistPath!
+        echo     ^<key^>com.apple.security.device.audio-input^<^/key^>>> !plistPath!
+        echo     ^<true^/^>>> !plistPath!
+        echo ^<^/dict^>>> !plistPath!
+        echo ^<^/plist^>>> !plistPath!
+        
+        rem Patch the xcodeproj file
+        set xcodeProj=%YYprojectName: =_%\%YYprojectName: =_%.xcodeproj\project.pbxproj
+        echo Patching xcodeproj in !xcodeProj!
+        rem DO NOT MESS WITH TABS BELOW THIS LINE, THEY ARE VERY IMPORTANT
+        powershell -NoLogo -NoProfile -Command "(Get-Content $env:xcodeProj) -replace '				EXCLUDED_ARCHS = ', """				ENABLE_HARDENED_RUNTIME = YES;`r`n				EXCLUDED_ARCHS = """ | Set-Content $env:xcodeProj"
+        powershell -NoLogo -NoProfile -Command "(Get-Content $env:xcodeProj) -replace '						        enabled = 1;', '						        enabled = 0;' | Set-Content $env:xcodeProj"
+        powershell -NoLogo -NoProfile -Command "(Get-Content $env:xcodeProj) -replace '		831BBFDC15C83806007085F8 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 831BBFDB15C83806007085F8 /* StoreKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };', '' | Set-Content $env:xcodeProj"
+        powershell -NoLogo -NoProfile -Command "(Get-Content $env:xcodeProj) -replace '		831BBFDB15C83806007085F8 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };', '' | Set-Content $env:xcodeProj"
+        powershell -NoLogo -NoProfile -Command "(Get-Content $env:xcodeProj) -replace '				831BBFDC15C83806007085F8 /* StoreKit.framework in Frameworks */,', '' | Set-Content $env:xcodeProj"
+        powershell -NoLogo -NoProfile -Command "(Get-Content $env:xcodeProj) -replace '				831BBFDB15C83806007085F8 /* StoreKit.framework */,', '' | Set-Content $env:xcodeProj"
+        echo Xcodeproj patch done
     )
 exit /b 0
 

@@ -35,7 +35,7 @@
   "isEcma": false,
   "LibraryEmitters": [],
   "MetaData": {
-    "IDEVersion": "2023.2.1.75",
+    "IDEVersion": "2023.2.0.71",
   },
   "resources": [
     {"id":{"name":"Obj_Steam_ProfileImage","path":"objects/Obj_Steam_ProfileImage/Obj_Steam_ProfileImage.yy",},},
@@ -54,6 +54,7 @@
     {"id":{"name":"Font_YoYo_50","path":"fonts/Font_YoYo_50/Font_YoYo_50.yy",},},
     {"id":{"name":"Obj_Steam_Overlay_Friends","path":"objects/Obj_Steam_Overlay_Friends/Obj_Steam_Overlay_Friends.yy",},},
     {"id":{"name":"Obj_Steam_Networking_Join_Specific","path":"objects/Obj_Steam_Networking_Join_Specific/Obj_Steam_Networking_Join_Specific.yy",},},
+    {"id":{"name":"Notarizer","path":"extensions/Notarizer/Notarizer.yy",},},
     {"id":{"name":"Obj_Steam_Networking_Overlay","path":"objects/Obj_Steam_Networking_Overlay/Obj_Steam_Networking_Overlay.yy",},},
     {"id":{"name":"Obj_Steam_UGC_Query_User","path":"objects/Obj_Steam_UGC_Query_User/Obj_Steam_UGC_Query_User.yy",},},
     {"id":{"name":"Obj_Steam_File_Read","path":"objects/Obj_Steam_File_Read/Obj_Steam_File_Read.yy",},},

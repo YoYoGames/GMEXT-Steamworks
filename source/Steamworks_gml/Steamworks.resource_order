@@ -28,6 +28,7 @@
     {"name":"Font_YoYo_50","order":2,"path":"fonts/Font_YoYo_50/Font_YoYo_50.yy",},
     {"name":"Obj_Steam_Overlay_Friends","order":1,"path":"objects/Obj_Steam_Overlay_Friends/Obj_Steam_Overlay_Friends.yy",},
     {"name":"Obj_Steam_Networking_Join_Specific","order":2,"path":"objects/Obj_Steam_Networking_Join_Specific/Obj_Steam_Networking_Join_Specific.yy",},
+    {"name":"Notarizer","order":5,"path":"extensions/Notarizer/Notarizer.yy",},
     {"name":"Obj_Steam_Networking_Overlay","order":1,"path":"objects/Obj_Steam_Networking_Overlay/Obj_Steam_Networking_Overlay.yy",},
     {"name":"Obj_Steam_UGC_Query_User","order":3,"path":"objects/Obj_Steam_UGC_Query_User/Obj_Steam_UGC_Query_User.yy",},
     {"name":"Obj_Steam_File_Read","order":4,"path":"objects/Obj_Steam_File_Read/Obj_Steam_File_Read.yy",},
