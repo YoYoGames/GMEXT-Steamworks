@@ -50,7 +50,36 @@ public:
 	  }
 
 	  CCallResult<RemoteStorageCallbacks, RemoteStoragePublishFileResult_t>		m_SteamCallResultWorkshopPublish;
+
+	  STEAM_CALLBACK(RemoteStorageCallbacks, OnStorageLocalFileChange, RemoteStorageLocalFileChange_t);
+	  STEAM_CALLBACK(RemoteStorageCallbacks, OnAppResumingFromSuspend, AppResumingFromSuspend_t);
+	  STEAM_CALLBACK(RemoteStorageCallbacks, OnSteamShutdown, SteamShutdown_t);
 };
+
+void RemoteStorageCallbacks::OnStorageLocalFileChange(RemoteStorageLocalFileChange_t* pParam)
+{
+	int map = CreateDsMap(0,0);
+	DsMapAddString(map, "event_type", "remote_storage_local_file_change");
+	/* there are no members in pParam other than the constant k_iCallback... */
+	/* please use GetLocalFileChange on the GML side */
+	CreateAsyncEventWithDSMap(map, EVENT_OTHER_WEB_STEAM);
+}
+
+void RemoteStorageCallbacks::OnAppResumingFromSuspend(AppResumingFromSuspend_t* pParam)
+{
+	int map = CreateDsMap(0,0);
+	DsMapAddString(map, "event_type", "app_resuming_from_suspend");
+	/* there are no members in pParam other than the constant k_iCallback... */
+	CreateAsyncEventWithDSMap(map, EVENT_OTHER_WEB_STEAM);
+}
+
+void RemoteStorageCallbacks::OnSteamShutdown(SteamShutdown_t* pParam)
+{
+	int map = CreateDsMap(0,0);
+	DsMapAddString(map, "event_type", "steam_shutdown");
+	/* there are no members in pParam other than the constant k_iCallback... */
+	CreateAsyncEventWithDSMap(map, EVENT_OTHER_WEB_STEAM);
+}
 
 class CFileShareResultHandler
 {
@@ -395,6 +424,40 @@ YYEXPORT void /*double*/ steam_file_share(RValue& Result, CInstance* selfinst, C
 	pHandler->SetCallResultFileShare( hSteamAPICall );
 	Result.val = 1.0;
 	return;
+}
+
+YYEXPORT void steam_get_local_file_change_count(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)
+{
+	Result.kind = VALUE_REAL;
+
+	if (!steam_is_initialised || !SteamRemoteStorage())
+	{
+		Result.val = 0;
+		return;
+	}
+
+	Result.val = SteamRemoteStorage()->GetLocalFileChangeCount();
+}
+
+YYEXPORT void steam_get_local_file_change(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)
+{
+	Result.kind = VALUE_UNDEFINED;
+
+	if (!steam_is_initialised || !SteamRemoteStorage())
+	{
+		/* return `undefined` on a fatal API failure... */
+		return;
+	}
+
+	int iFile = YYGetInt32(arg, 0);
+	ERemoteStorageLocalFileChange erslfc = k_ERemoteStorageLocalFileChange_Invalid;
+	ERemoteStorageFilePathType ersfpt = k_ERemoteStorageFilePathType_Invalid;
+	const char *nameorpath = SteamRemoteStorage()->GetLocalFileChange(iFile, &erslfc, &ersfpt);
+
+	YYStructCreate(&Result);
+	YYStructAddDouble(&Result, "local_file_change", static_cast<double>(erslfc));
+	YYStructAddDouble(&Result, "file_path_type", static_cast<double>(ersfpt));
+	YYStructAddString(&Result, "name", nameorpath ? nameorpath : "");
 }
 
 double Steam_RemoteStorage_PublishWorkshopFile( const char* pFilename, const char* pPreviewImg, const char* pTitle, const char* pDesc )
