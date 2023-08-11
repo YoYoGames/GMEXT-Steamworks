@@ -35,6 +35,8 @@
   "option_xboxseriesxs_store_id": "",
   "option_xboxseriesxs_support_4k_one_s": false,
   "option_xboxseriesxs_support_4k_one_x": false,
+  "option_xboxseriesxs_support_4k_ss": false,
+  "option_xboxseriesxs_support_4k_sx": false,
   "option_xboxseriesxs_texture_page": "2048x2048",
   "option_xboxseriesxs_title_id": "01234567",
   "option_xboxseriesxs_version": "1.0.0.0",
