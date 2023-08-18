@@ -768,6 +768,47 @@ YYEXPORT void /*double*/ steam_upload_score_buffer_ext(RValue& Result, CInstance
 
 /////////////////////////////////////////////////////////// DOWNLOAD /////////////////////////////////////////////////////
 
+//    \brief    Reports how many scores are available to download
+YYEXPORT void /*double*/ steam_get_leaderboard_entry_count(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)//(const char* pszLeaderboardName, double startidx, double endidx)/*Steam_UserStats_DownloadScores*/
+{
+    // Entry count is cached to the local computer after score are uploaded or downloaded; one of these operations needs to be run first
+    const char* pszLeaderboardName = YYGetString(arg, 0);
+
+    if (!steam_is_initialised)
+    {
+        // DebugConsoleOutput("Steam Initialisation failure\n");
+        Result.kind = VALUE_REAL;
+        Result.val = 0;
+        return;
+    }
+
+    if (!SteamUser()->BLoggedOn())
+    {
+        DebugConsoleOutput("Get leaderboard entry count failed: must be logged on\n");
+        Result.kind = VALUE_REAL;
+        Result.val = -1;
+        return; //=invalid async id
+    }
+
+
+    SteamLeaderboard_t hLeaderboard;
+    if (GetLeaderboardHandle(pszLeaderboardName, hLeaderboard))
+    {
+        int numberofentries = SteamUserStats()->GetLeaderboardEntryCount(hLeaderboard);
+
+        // DebugConsoleOutput("Number of entries downloaded %i\n", numberofentries);
+
+        Result.kind = VALUE_REAL;
+        Result.val = numberofentries;
+    }
+    else
+    {
+        DebugConsoleOutput("Leaderboard handler not available\n");
+        Result.kind = VALUE_REAL;
+        Result.val = 0;
+    }
+}
+
 //    \brief    Downloads scores using a starting offset
 YYEXPORT void /*double*/ steam_download_scores(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)//(const char* pszLeaderboardName, double startidx, double endidx)/*Steam_UserStats_DownloadScores*/
 {

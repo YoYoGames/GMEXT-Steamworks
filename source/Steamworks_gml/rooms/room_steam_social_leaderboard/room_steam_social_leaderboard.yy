@@ -16,6 +16,7 @@
     {"name":"inst_621C4689","path":"rooms/Room_Steam_Social_Leaderboard/Room_Steam_Social_Leaderboard.yy",},
     {"name":"inst_56D5E248","path":"rooms/Room_Steam_Social_Leaderboard/Room_Steam_Social_Leaderboard.yy",},
     {"name":"inst_716BF28","path":"rooms/Room_Steam_Social_Leaderboard/Room_Steam_Social_Leaderboard.yy",},
+    {"name":"inst_273C4D41","path":"rooms/Room_Steam_Social_Leaderboard/Room_Steam_Social_Leaderboard.yy",},
   ],
   "isDnd": false,
   "layers": [
@@ -29,6 +30,7 @@
         {"resourceType":"GMRInstance","resourceVersion":"1.0","name":"inst_621C4689","colour":4294967295,"frozen":false,"hasCreationCode":true,"ignore":false,"imageIndex":0,"imageSpeed":1.0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"objectId":{"name":"Obj_YoYo_text","path":"objects/Obj_YoYo_text/Obj_YoYo_text.yy",},"properties":[],"rotation":0.0,"scaleX":1.0,"scaleY":1.0,"x":768.0,"y":48.0,},
         {"resourceType":"GMRInstance","resourceVersion":"1.0","name":"inst_56D5E248","colour":4294967295,"frozen":false,"hasCreationCode":true,"ignore":false,"imageIndex":0,"imageSpeed":1.0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"objectId":{"name":"Obj_YoYo_text","path":"objects/Obj_YoYo_text/Obj_YoYo_text.yy",},"properties":[],"rotation":0.0,"scaleX":1.0,"scaleY":1.0,"x":192.0,"y":160.0,},
         {"resourceType":"GMRInstance","resourceVersion":"1.0","name":"inst_716BF28","colour":4294967295,"frozen":false,"hasCreationCode":true,"ignore":false,"imageIndex":0,"imageSpeed":1.0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"objectId":{"name":"Obj_YoYo_text","path":"objects/Obj_YoYo_text/Obj_YoYo_text.yy",},"properties":[],"rotation":0.0,"scaleX":1.0,"scaleY":1.0,"x":544.0,"y":160.0,},
+        {"resourceType":"GMRInstance","resourceVersion":"1.0","name":"inst_273C4D41","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":1.0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"objectId":{"name":"Obj_Steam_Leaderboard_Entry_Count","path":"objects/Obj_Steam_Leaderboard_Entry_Count/Obj_Steam_Leaderboard_Entry_Count.yy",},"properties":[],"rotation":0.0,"scaleX":4.0,"scaleY":1.0,"x":544.0,"y":512.0,},
       ],"layers":[],"properties":[],"userdefinedDepth":true,"visible":true,},
     {"resourceType":"GMRBackgroundLayer","resourceVersion":"1.0","name":"Compatibility_Colour","animationFPS":30.0,"animationSpeedType":0,"colour":4294967295,"depth":2147483600,"effectEnabled":true,"effectType":null,"gridX":32,"gridY":32,"hierarchyFrozen":false,"hspeed":0.0,"htiled":false,"inheritLayerDepth":false,"inheritLayerSettings":false,"inheritSubLayers":true,"inheritVisibility":true,"layers":[],"properties":[],"spriteId":{"name":"Spr_YoYo_background","path":"sprites/Spr_YoYo_background/Spr_YoYo_background.yy",},"stretch":false,"userdefinedAnimFPS":false,"userdefinedDepth":true,"visible":true,"vspeed":0.0,"vtiled":false,"x":0,"y":0,},
   ],

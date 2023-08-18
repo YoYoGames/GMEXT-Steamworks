@@ -35,7 +35,7 @@
   "isEcma": false,
   "LibraryEmitters": [],
   "MetaData": {
-    "IDEVersion": "2023.800.0.394",
+    "IDEVersion": "2023.6.0.92",
   },
   "resources": [
     {"id":{"name":"Obj_Steam_ProfileImage","path":"objects/Obj_Steam_ProfileImage/Obj_Steam_ProfileImage.yy",},},
@@ -76,6 +76,7 @@
     {"id":{"name":"Obj_Steam_StorageInfo","path":"objects/Obj_Steam_StorageInfo/Obj_Steam_StorageInfo.yy",},},
     {"id":{"name":"Room_Steam_UGC","path":"rooms/Room_Steam_UGC/Room_Steam_UGC.yy",},},
     {"id":{"name":"Obj_Steam_UGC_Item","path":"objects/Obj_Steam_UGC_Item/Obj_Steam_UGC_Item.yy",},},
+    {"id":{"name":"Obj_Steam_Leaderboard_Entry_Count","path":"objects/Obj_Steam_Leaderboard_Entry_Count/Obj_Steam_Leaderboard_Entry_Count.yy",},},
     {"id":{"name":"changelog","path":"notes/changelog/changelog.yy",},},
     {"id":{"name":"Room_Steam_Social","path":"rooms/Room_Steam_Social/Room_Steam_Social.yy",},},
     {"id":{"name":"Obj_Steam_Achievement_Set","path":"objects/Obj_Steam_Achievement_Set/Obj_Steam_Achievement_Set.yy",},},
@@ -127,7 +128,6 @@
     {"roomId":{"name":"Room_Steam_Networking_Lobby","path":"rooms/Room_Steam_Networking_Lobby/Room_Steam_Networking_Lobby.yy",},},
     {"roomId":{"name":"Room_Steam_Input","path":"rooms/Room_Steam_Input/Room_Steam_Input.yy",},},
   ],
-  "templateType": null,
   "TextureGroups": [
     {"resourceType":"GMTextureGroup","resourceVersion":"1.3","name":"Default","autocrop":true,"border":2,"compressFormat":"bz2","directory":"","groupParent":null,"isScaled":true,"loadType":"default","mipsToGenerate":0,"targets":-1,},
   ],

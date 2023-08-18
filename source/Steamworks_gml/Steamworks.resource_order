@@ -47,6 +47,7 @@
     {"name":"Obj_Steam_UGC_Subscribed","order":5,"path":"objects/Obj_Steam_UGC_Subscribed/Obj_Steam_UGC_Subscribed.yy",},
     {"name":"Room_Steam_UGC","order":7,"path":"rooms/Room_Steam_UGC/Room_Steam_UGC.yy",},
     {"name":"Obj_Steam_UGC_Item","order":1,"path":"objects/Obj_Steam_UGC_Item/Obj_Steam_UGC_Item.yy",},
+    {"name":"Obj_Steam_Leaderboard_Entry_Count","order":7,"path":"objects/Obj_Steam_Leaderboard_Entry_Count/Obj_Steam_Leaderboard_Entry_Count.yy",},
     {"name":"changelog","order":4,"path":"notes/changelog/changelog.yy",},
     {"name":"Room_Steam_Social","order":4,"path":"rooms/Room_Steam_Social/Room_Steam_Social.yy",},
     {"name":"Obj_Steam_Achievement_Set","order":7,"path":"objects/Obj_Steam_Achievement_Set/Obj_Steam_Achievement_Set.yy",},
