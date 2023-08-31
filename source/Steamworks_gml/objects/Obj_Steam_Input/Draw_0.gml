@@ -1,7 +1,7 @@
 /// @description Draw info
 
 // Feather disable GM2017
-draw_set_font(Font_YoYo_20);
+draw_set_font(Font_YoYo_15);
 draw_set_valign(fa_top);
 draw_set_halign(fa_left);
 
