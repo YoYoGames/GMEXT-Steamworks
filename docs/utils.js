@@ -1,32 +1,25 @@
 @func Utilities
-The Steam utility functions provide access to gamepad keyboard UI and Steam Deck getters.
+@desc The Steam utility functions provide access to gamepad keyboard UI and Steam Deck getters.
 
 The following functions can be used to access Steam Utilities from within GameMaker Studio 2
 
-* [steam_show_floating_gamepad_text_input](#steam_show_floating_gamepad_text_input)
-* [steam_dismiss_floating_gamepad_text_input](#steam_dismiss_floating_gamepad_text_input)
-* [steam_show_gamepad_text_input](#steam_show_gamepad_text_input)
-* [steam_get_entered_gamepad_text_input](#steam_get_entered_gamepad_text_input)
-* [steam_utils_enable_callbacks](#steam_utils_enable_callbacks)
-* [steam_utils_is_steam_running_on_steam_deck](#steam_utils_is_steam_running_on_steam_deck)
+* ${function.}
+* ${function.}
+* ${function.}
+* ${function.}
+* ${function.}
+* ${function.}
 
 
 
 @func_end
 
 @func steam_show_floating_gamepad_text_input
-With this function you can show a floating gamepad keyboard window, all input is emulated as if it is a physical keyboard, so `keyboard_string` or `keyboard_check` can be used to obtain the input. This function only works in Big Picture or on the Steam Deck. Returns `true` if the keyboard has been shown successfully, `false` otherwise.
+@desc With this function you can show a floating gamepad keyboard window, all input is emulated as if it is a physical keyboard, so `keyboard_string` or `keyboard_check` can be used to obtain the input. This function only works in Big Picture or on the Steam Deck. Returns `true` if the keyboard has been shown successfully, `false` otherwise.
 
-> **:warning: IMPORTANT**
->
-> You must call [steam_utils_enable_callbacks](#steam_utils_enable_callbacks) prior to calling this function if you wish to receive `Async - Steam` gamepad keyboard events.
+[[warning: IMPORTANTYou must call ${function.} prior to calling this function if you wish to receive `Async - Steam` gamepad keyboard events.
 
 
-**Syntax:**
-
-```gml
-steam_show_floating_gamepad_text_input(mode, text_field_x, text_field_y, text_field_width, text_field_height);
-```
 
 @param {real} mode A `steam_floating_gamepad_text_input_mode_` constant.
 @param {real} text_field_x X position of the keyboard window in display coordinates.
@@ -71,7 +64,7 @@ The above code shows a floating keyboard window in the bottom half of the window
 
 
 @func steam_dismiss_floating_gamepad_text_input
-With this function you can dismiss a floating keyboard window if it is being currently shown. Returns `true` if the operation was successful, `false` otherwise.
+@desc With this function you can dismiss a floating keyboard window if it is being currently shown. Returns `true` if the operation was successful, `false` otherwise.
 
 
 
@@ -88,11 +81,9 @@ The above code will dismiss the floating keyboard window if it is being displaye
 
 
 @func steam_show_gamepad_text_input
-With this function you can show a full-screen old-style Big Picture Mode-only keyboard UI. This one does not emulate the physical keyboard so you must use the [steam_get_entered_gamepad_text_input](#steam_get_entered_gamepad_text_input) function inside a corresponding `Async - Steam` event to obtain the input. Returns `true` if the window is being shown successfully, `false` otherwise.
+@desc With this function you can show a full-screen old-style Big Picture Mode-only keyboard UI. This one does not emulate the physical keyboard so you must use the ${function.} function inside a corresponding `Async - Steam` event to obtain the input. Returns `true` if the window is being shown successfully, `false` otherwise.
 
-> **:warning: IMPORTANT**
->
-> You must call [steam_utils_enable_callbacks](#steam_utils_enable_callbacks) prior to calling this function if you wish to receive `Async - Steam` gamepad keyboard events.
+[[warning: IMPORTANTYou must call ${function.} prior to calling this function if you wish to receive `Async - Steam` gamepad keyboard events.
 
 
 @param {real} mode A `steam_gamepad_text_input_mode_` constant.
@@ -142,11 +133,9 @@ The above code will show a modal gamepad keyboard input dialog with `"Some Descr
 
 
 @func steam_get_entered_gamepad_text_input
-With this function you can obtain the result of the [steam_show_gamepad_text_input](#steam_show_gamepad_text_input) input dialog. This function must only be called in the corresponding `Async - Steam` event.
+@desc With this function you can obtain the result of the ${function.} input dialog. This function must only be called in the corresponding `Async - Steam` event.
 
-> **:warning: IMPORTANT**
->
-> You must call [steam_utils_enable_callbacks](#steam_utils_enable_callbacks) prior to calling this function if you wish to receive `Async - Steam` gamepad keyboard events.
+[[warning: IMPORTANTYou must call ${function.} prior to calling this function if you wish to receive `Async - Steam` gamepad keyboard events.
 
 
 
@@ -169,7 +158,7 @@ The above code will activate the use of gamepad keyboard UI async events.
 
 
 @func steam_utils_enable_callbacks
-With this function you can activate the dispatch of `Async - Steam` events for gamepad keyboard UI. Returns `true` if the operation was successful and `false` otherwise.
+@desc With this function you can activate the dispatch of `Async - Steam` events for gamepad keyboard UI. Returns `true` if the operation was successful and `false` otherwise.
 
 
 
@@ -186,7 +175,7 @@ The above code will activate the use of gamepad keyboard UI async events.
 
 
 @func steam_utils_is_steam_running_on_steam_deck
-With this function you can check if your game is currently running on a Steam Deck, returns `true` if yes and `false` otherwise.
+@desc With this function you can check if your game is currently running on a Steam Deck, returns `true` if yes and `false` otherwise.
 
 
 

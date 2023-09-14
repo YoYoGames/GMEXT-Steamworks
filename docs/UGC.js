@@ -1,28 +1,24 @@
 @func UGC
-This section is for those users that have been given access to the Steam API for publishing your game to that platform and that want to use the possibilities that the Steam Workshop and Community gives you for adding and generating user content in your projects. The simplest form of user generated content is the ability for the user to take and share screenshots, which is facilitated using the following two functions:
+@desc This section is for those users that have been given access to the Steam API for publishing your game to that platform and that want to use the possibilities that the Steam Workshop and Community gives you for adding and generating user content in your projects. The simplest form of user generated content is the ability for the user to take and share screenshots, which is facilitated using the following two functions:
 
-* [steam_is_screenshot_requested](#steam_is_screenshot_requested)
-* [steam_send_screenshot](#steam_send_screenshot)
+* ${function.}
+* ${function.}
 
 Before using any of the built in functions for the Steam UGC ( **U** ser **G** enerated **C** ontent) API you need to have set up your game correctly from the Steam dashboard and you should have read through the required documentation found here:
 
 * [Sharing User Generated Content](https://partner.steamgames.com/documentation/ugc#Tech)
 
-> **:information_source: NOTE**
->
-> You need to have your game accepted for the Steam online store and have access to the developer areas of the Steam API documentation.
+[[NOTE: NOTE You need to have your game accepted for the Steam online store and have access to the developer areas of the Steam API documentation.
 
 All subscribed UGC items will be downloaded by the Steam client automatically, and you should have code in the [Steam Asynchronous Event](E:\Source\YoYoExtensionDocumentation\The_Asset_Editors\Object_Properties\Async_Events\Steam.htm) to catch this and store the ID of the UGC that has been downloaded for use in the other UGC functions.
 
-> **:warning: IMPORTANT**
->
-> Steam UGC IDs can be huge numbers This means that sometimes you may need to store these as a string rather than try and store them as a real value, especially if working with buffers or trying to write the value to a text file (since this will convert it to a simplified standard format like &quot;6.6624e+003&quot; which will cause issues being read back).
+[[warning: IMPORTANTSteam UGC IDs can be huge numbers This means that sometimes you may need to store these as a string rather than try and store them as a real value, especially if working with buffers or trying to write the value to a text file (since this will convert it to a simplified standard format like &quot;6.6624e+003&quot; which will cause issues being read back).
 
 The normal workflow for getting UGC into your game would be as follows:
 
-1. The user would subscribe to an item (either from your game using [steam_ugc_subscribe_item](#steam_ugc_subscribe_item) or from the client/browser). If done from the game you are able to &quot;listen&quot; to the callback from the Steam Async Event.
-2. When you get a successful subscription callback this means that your game is now downloading the UGC. You would then check if the item is installed (ie: download completed) with [steam_ugc_get_item_install_info](#steam_ugc_get_item_install_info).
-3. If the item is not completely installed, you can use [steam_ugc_get_item_update_info](#steam_ugc_get_item_update_info) to track the download progress.
+1. The user would subscribe to an item (either from your game using ${function.} or from the client/browser). If done from the game you are able to &quot;listen&quot; to the callback from the Steam Async Event.
+2. When you get a successful subscription callback this means that your game is now downloading the UGC. You would then check if the item is installed (ie: download completed) with ${function.}.
+3. If the item is not completely installed, you can use ${function.} to track the download progress.
 
 The following sections explain all the functions required to get UGC functioning in GameMaker Studio 2:
 
@@ -30,29 +26,29 @@ The following sections explain all the functions required to get UGC functioning
 
 The following functions are essentially &quot;wrapper&quot; functions for those supplied in the Steam API for creating and uploading content to their servers. As such, we recommend that you read over the linked Steam documentation before using them to gain a greater understanding of how they work: [Creating And Uploading Content](https://partner.steamgames.com/documentation/ugc#CreateUploadContent).
 
-* [steam_ugc_create_item](#steam_ugc_create_item)
-* [steam_ugc_delete_item](#steam_ugc_delete_item)
-* [steam_ugc_start_item_update](#steam_ugc_start_item_update)
-* [steam_ugc_set_item_title](#steam_ugc_set_item_title)
-* [steam_ugc_set_item_description](#steam_ugc_set_item_description)
-* [steam_ugc_set_item_visibility](#steam_ugc_set_item_visibility)
-* [steam_ugc_set_item_tags](#steam_ugc_set_item_tags)
-* [steam_ugc_set_item_content](#steam_ugc_set_item_content)
-* [steam_ugc_set_item_preview](#steam_ugc_set_item_preview)
-* [steam_ugc_submit_item_update](#steam_ugc_submit_item_update)
-* [steam_ugc_get_item_update_progress](#steam_ugc_get_item_update_progress)
+* ${function.}
+* ${function.}
+* ${function.}
+* ${function.}
+* ${function.}
+* ${function.}
+* ${function.}
+* ${function.}
+* ${function.}
+* ${function.}
+* ${function.}
 
 ## Consuming Content
 
 Once your user content has been created and the workshop has it available for download, people can subscribe to it through the Steam App or through the Web portal. However GameMaker Studio 2 also includes the following functions to use the Steam API for creating and canceling subscriptions as well as for getting information about what the user is subscribed to currently:
 
-* [steam_ugc_subscribe_item](#steam_ugc_subscribe_item)
-* [steam_ugc_unsubscribe_item](#steam_ugc_unsubscribe_item)
-* [steam_ugc_num_subscribed_items](#steam_ugc_num_subscribed_items)
-* [steam_ugc_get_subscribed_items](#steam_ugc_get_subscribed_items)
-* [steam_ugc_get_item_install_info](#steam_ugc_get_item_install_info)
-* [steam_ugc_get_item_update_info](#steam_ugc_get_item_update_info)
-* [steam_ugc_request_item_details](#steam_ugc_request_item_details)
+* ${function.}
+* ${function.}
+* ${function.}
+* ${function.}
+* ${function.}
+* ${function.}
+* ${function.}
 
 ## Querying Content
 
@@ -98,11 +94,11 @@ There are also a large number of functions available to query the Steam API abou
 
 This section also provides a set of constants to be used along side the functions provided above:
 
-* [UGCFileType](#UGCFileType)
-* [UGCFileVisibility](#UGCFileVisibility)
-* [UGCListSortOrder](#UGCListSortOrder)
-* [UGCListType](#UGCListType)
-* [UGCMatchType](#UGCMatchType)
+* ${function.}
+* ${function.}
+* ${function.}
+* ${function.}
+* ${function.}
 * [UGCQueryType](#ugcquerytype-sorting--filtering)
 
   <!-- KEYWORDS
@@ -113,12 +109,10 @@ Steam UGC
 
 
 @func steam_is_screenshot_requested
-This function will poll the Steam API to see if the key for taking a screenshot of the game has been pressed. The function will only return `true` for one step (game tick) when the key is pressed, and will return`false` at all other times.
+@desc This function will poll the Steam API to see if the key for taking a screenshot of the game has been pressed. The function will only return `true` for one step (game tick) when the key is pressed, and will return`false` at all other times.
 Please note that if the screenshot key is pressed, this function will only return `true` once for each step that it is pressed, and return `false` for any subsequent calls *within the same step* . For example, if a screenshot is requested in the current frame and you call this function in the Step event to find that out, you will get `true`; however, if you call it again in Draw GUI to check whether a screenshot was requested, you will get `false` as the function had already been &quot;used up&quot; in the Step event. To use the function&#39;s return value multiple times within the same frame, it is recommended to store it in a variable and read that instead of calling the function again.
 
-> **:information_source: NOTE**
->
-> This function does not take a screenshot for you. This only signals that the key has been pressed and you must use the GameMaker Studio 2 functions [screen_save](https://manual.yoyogames.com/GameMaker_Language/GML_Reference/Cameras_And_Display/screen_save.htm) or [screen_save_part](https://manual.yoyogames.com/GameMaker_Language/GML_Reference/Cameras_And_Display/screen_save_part.htm) to save a local copy of the file to be uploaded.
+[[NOTE: NOTE This function does not take a screenshot for you. This only signals that the key has been pressed and you must use the GameMaker Studio 2 functions [screen_save](https://manual.yoyogames.com/GameMaker_Language/GML_Reference/Cameras_And_Display/screen_save.htm) or [screen_save_part](https://manual.yoyogames.com/GameMaker_Language/GML_Reference/Cameras_And_Display/screen_save_part.htm) to save a local copy of the file to be uploaded.
 
 
 
@@ -141,14 +135,9 @@ The above code will poll the Steam API for a screenshot request and if it has be
 
 
 @func steam_send_screenshot
-With this function you can upload a screenshot to the Steam Community profile page of the currently logged in user. The filename you supply is the name of the local file that was created when you took the screenshot using the GameMaker Studio 2 functions [screen_save](https://manual.yoyogames.com/GameMaker_Language/GML_Reference/Cameras_And_Display/screen_save.htm) or [screen_save_part.](https://manual.yoyogames.com/GameMaker_Language/GML_Reference/Cameras_And_Display/screen_save_part.htm) The width and height define the image size, and the function will return a value of 0 if it fails for whatever reason and a value greater than 0 if it succeeds.
+@desc With this function you can upload a screenshot to the Steam Community profile page of the currently logged in user. The filename you supply is the name of the local file that was created when you took the screenshot using the GameMaker Studio 2 functions [screen_save](https://manual.yoyogames.com/GameMaker_Language/GML_Reference/Cameras_And_Display/screen_save.htm) or [screen_save_part.](https://manual.yoyogames.com/GameMaker_Language/GML_Reference/Cameras_And_Display/screen_save_part.htm) The width and height define the image size, and the function will return a value of 0 if it fails for whatever reason and a value greater than 0 if it succeeds.
 
 
-**Syntax:**
-
-```gml
-steam_send_screenshot(filename, width, height);
-```
 
 @param {string} filename The name of the image file to upload.
 @param {real} width The width of the image.
@@ -174,18 +163,13 @@ The above code will poll the Steam API for a screenshot request and if it has be
 
 
 @func steam_ugc_create_item
-This function is used to prepare the Workshop API and generate a published file ID for the item to be added. The function <i>must</i> be called before doing anything else with the item to be uploaded, as you will be required to use the unique published ID value that it returns in the Steam Async Event for updating.
+@desc This function is used to prepare the Workshop API and generate a published file ID for the item to be added. The function <i>must</i> be called before doing anything else with the item to be uploaded, as you will be required to use the unique published ID value that it returns in the Steam Async Event for updating.
 This is an asynchronous function that will return an asynchronous id and trigger the [Steam Async Event](https://manual-en.yoyogames.com/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm) when the task is finished.
 
 
-**Syntax:**
-
-```gml
-steam_ugc_create_item(consumer_app_id, file_type);
-```
 
 @param {integer} consumer_app_id The unique App ID for your game on Steam.
-@param {constant.UGCFileType} file_type One of the available file type constants (see [UGCFileType](#UGCFileType) constants).
+@param {constant.UGCFileType} file_type One of the available file type constants (see ${function.} constants).
 
 
 @returns {Real}
@@ -230,7 +214,7 @@ ugc_filetype_microtrans
 
 
 @func steam_ugc_delete_item
-This function attempts to delete a previously published UGC item.
+@desc This function attempts to delete a previously published UGC item.
 This is an asynchronous function that will return an asynchronous id and trigger the [Steam Async Event](https://manual-en.yoyogames.com/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm) when the task is finished.
 
 
@@ -255,14 +239,9 @@ The above code creates a deletion request for `ugc_query_handle`.
 
 
 @func steam_ugc_start_item_update
-This function must be called before adding or updating information on a UGC item. You need to supply the unique App ID for your game on Steam, along with the unique published file ID that was returned for the item when you created it using the function [steam_ugc_create_item](#steam_ugc_create_item). The function will return a unique update handle for the item, which you can then use in the UGC item functions to update (or add) information for uploading.
+@desc This function must be called before adding or updating information on a UGC item. You need to supply the unique App ID for your game on Steam, along with the unique published file ID that was returned for the item when you created it using the function ${function.}. The function will return a unique update handle for the item, which you can then use in the UGC item functions to update (or add) information for uploading.
 
 
-**Syntax:**
-
-```gml
-steam_ugc_start_item_update(consumer_app_id, published_file_id);
-```
 
 @param {real} consumer_app_id The unique App ID for your game on Steam.
 |published_file_id|int64|The unique published file ID value for the item.
@@ -292,17 +271,12 @@ The above code gets the game ID, then uses that along with a previously stored p
 
 
 @func steam_ugc_set_item_title
-This function will set the title to be used for the given item.
+@desc This function will set the title to be used for the given item.
 The function will return `true` if the API was successfully accessed and `false` if there was an issue.
 
 
-**Syntax:**
 
-```gml
-steam_ugc_set_item_title(ugc_update_handle, title);
-```
-
-@param {real} ugc_update_handle The unique handle for the UGC to be updated (returned from [steam_ugc_start_item_update](#steam_ugc_start_item_update))
+@param {real} ugc_update_handle The unique handle for the UGC to be updated (returned from ${function.})
 @param {string} title The title (max 128 characters) to be used for the item.
 
 
@@ -330,17 +304,12 @@ The above code gets the game ID, then uses that along with a previously stored p
 
 
 @func steam_ugc_set_item_description
-This function will set the description to be used for the given item.
+@desc This function will set the description to be used for the given item.
 The function will return `true` if the API was successfully accessed and `false` if there was an issue.
 
 
-**Syntax:**
 
-```gml
-steam_ugc_set_item_description(ugc_update_handle, description);
-```
-
-@param {real} ugc_update_handle The unique handle for the UGC to be updated (returned from [steam_ugc_start_item_update](#steam_ugc_start_item_update))
+@param {real} ugc_update_handle The unique handle for the UGC to be updated (returned from ${function.})
 @param {string} description The description (max 8000 characters) to be used for the item.
 
 
@@ -368,18 +337,13 @@ The above code gets the game ID, then uses that along with a previously stored p
 
 
 @func steam_ugc_set_item_visibility
-This function will set the visibility of the given item, using one of the [UGCFileVisibility](#UGCFileVisibility) constants.
+@desc This function will set the visibility of the given item, using one of the ${function.} constants.
 The function will return `true` if the API was successfully accessed and `false` if there was an issue.
 
 
-**Syntax:**
 
-```gml
-steam_ugc_set_item_visibility(ugc_update_handle, visibility);
-```
-
-@param {real} ugc_update_handle The unique handle for the UGC to be updated (returned from [steam_ugc_start_item_update](#steam_ugc_start_item_update))
-@param {constant.UGCFileVisibility} visibility The visibility to be used for the item (see [UGCFileVisibility](#UGCFileVisibility) constant)
+@param {real} ugc_update_handle The unique handle for the UGC to be updated (returned from ${function.})
+@param {constant.UGCFileVisibility} visibility The visibility to be used for the item (see ${function.} constant)
 
 
 @returns {Bool}
@@ -411,17 +375,12 @@ ugc_visibility_private
 
 
 @func steam_ugc_set_item_tags
-This function will set the tags to be used for the given item. The tags should be added to a 1D array as string elements and the array passed to the function.
+@desc This function will set the tags to be used for the given item. The tags should be added to a 1D array as string elements and the array passed to the function.
 The function will return `true` if the API was successfully accessed and `false` if there was an issue.
 
 
-**Syntax:**
 
-```gml
-steam_ugc_set_item_tags(ugc_update_handle, tags);
-```
-
-@param {real} ugc_update_handle The unique handle for the UGC to be updated (returned from [steam_ugc_start_item_update](#steam_ugc_start_item_update))
+@param {real} ugc_update_handle The unique handle for the UGC to be updated (returned from ${function.})
 @param {string} tags The tags (as an string json array) to be used for the item.
 
 
@@ -449,17 +408,12 @@ The above code gets the game ID, then uses that along with a previously stored p
 
 
 @func steam_ugc_set_item_content
-This function will set the content path to be used for the given item, and it should be a relative path to the folder which contains the content files to upload - which in turn should be in the save are <i>or</i> the game bundle (ie: an included file).
+@desc This function will set the content path to be used for the given item, and it should be a relative path to the folder which contains the content files to upload - which in turn should be in the save are <i>or</i> the game bundle (ie: an included file).
 The function will return `true` if the API was successfully accessed and `false` if there was an issue.
 
 
-**Syntax:**
 
-```gml
-steam_ugc_set_item_content(ugc_update_handle, content);
-```
-
-@param {real} ugc_update_handle The unique handle for the UGC to be updated (returned from [steam_ugc_start_item_update](#steam_ugc_start_item_update))
+@param {real} ugc_update_handle The unique handle for the UGC to be updated (returned from ${function.})
 @param {string} content The content path to be used for the item
 
 
@@ -487,17 +441,12 @@ The above code gets the game ID, then uses that along with a previously stored p
 
 
 @func steam_ugc_set_item_preview
-This function will set the preview image to be used for the given item. The image should be supplied as either a PNG, JPG or GIF format file with a maximum size of 1MB. The path to the image should be a relative path in the save are <i>or</i> the game bundle (ie: an included file).
+@desc This function will set the preview image to be used for the given item. The image should be supplied as either a PNG, JPG or GIF format file with a maximum size of 1MB. The path to the image should be a relative path in the save are <i>or</i> the game bundle (ie: an included file).
 The function will return `true` if the API was successfully accessed and `false` if there was an issue.
 
 
-**Syntax:**
 
-```gml
-steam_ugc_set_item_preview(ugc_update_handle, preview);
-```
-
-@param {real} ugc_update_handle The unique handle for the UGC to be updated (returned from [steam_ugc_start_item_update](#steam_ugc_start_item_update))
+@param {real} ugc_update_handle The unique handle for the UGC to be updated (returned from ${function.})
 @param {string} preview The preview image (JPG, GIF or PNG - max size 1MB) to be used for the item.
 
 
@@ -525,17 +474,12 @@ The above code gets the game ID, then uses that along with a previously stored p
 
 
 @func steam_ugc_submit_item_update
-This function will submit the UGC item indexed by the given handle to the Steam Workshop servers, adding the change notes to be used for the given item.
+@desc This function will submit the UGC item indexed by the given handle to the Steam Workshop servers, adding the change notes to be used for the given item.
 This is an asynchronous function that will return an asynchronous id and trigger the [Steam Async Event](https://manual-en.yoyogames.com/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm) when the task is finished.
 
 
-**Syntax:**
 
-```gml
-steam_ugc_submit_item_update(ugc_update_handle, change_note);
-```
-
-@param {real} ugc_update_handle The unique handle for the UGC to be updated (returned from [steam_ugc_start_item_update](#steam_ugc_start_item_update))
+@param {real} ugc_update_handle The unique handle for the UGC to be updated (returned from ${function.})
 @param {string} change_note The change notes to be used for the item.
 
 
@@ -570,15 +514,10 @@ The above code gets the game ID, then uses that along with a previously stored p
 
 
 @func steam_ugc_get_item_update_progress
-    This function can be used to track the update status for an item. You give the item handle (as returned by the function [steam_ugc_start_item_update](#steam_ugc_start_item_update)) and an empty [DS map](https://manual.yoyogames.com/GameMaker_Language/GML_Reference/Data_Structures/DS_Maps/DS_Maps.htm) which will then be populated with the update information (see table below)
+    This function can be used to track the update status for an item. You give the item handle (as returned by the function ${function.}) and an empty [DS map](https://manual.yoyogames.com/GameMaker_Language/GML_Reference/Data_Structures/DS_Maps/DS_Maps.htm) which will then be populated with the update information (see table below)
     If there is an error the function will return `false` and the map will be empty, otherwise the function returns `true`.
 
 
-**Syntax:**
-
-```gml
-steam_ugc_get_item_update_progress(ugc_update_handle, info_map);
-```
 
 @param {integer} ugc_update_handle The unique handle for the UGC to be updated.
 |info_map|DS Map ID|A (previously created) [DS map](https://manual.yoyogames.com/GameMaker_Language/GML_Reference/Data_Structures/DS_Maps/DS_Maps.htm) index.
@@ -622,7 +561,7 @@ ds_map_destroy(uploadMap);
 
 
 @func steam_ugc_subscribe_item
-This function can be used to subscribe to a UGC item.
+@desc This function can be used to subscribe to a UGC item.
 This is an asynchronous function that will return an asynchronous id and trigger the [Steam Async Event](https://manual-en.yoyogames.com/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm) when the task is finished.
 
 
@@ -649,7 +588,7 @@ The above code will subscribe (and download) the item with the file ID stored in
 
 
 @func steam_ugc_unsubscribe_item
-This function can be used to unsubscribe from a UGC item.
+@desc This function can be used to unsubscribe from a UGC item.
 This is an asynchronous function that will return an asynchronous id and trigger the [Steam Async Event](https://manual-en.yoyogames.com/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm) when the task is finished.
 
 
@@ -676,7 +615,7 @@ The above code will unsubscribe (and remove) the item with the file ID stored in
 
 
 @func steam_ugc_num_subscribed_items
-This function can be used to get the number of items that the current user has subscribed to.
+@desc This function can be used to get the number of items that the current user has subscribed to.
 
 
 
@@ -718,11 +657,6 @@ steam_ugc_get_subscribed_items(steam_list);
     If the item exists (ie.: as been subscribed and download was complete) then the function will return `true` and populate the map, otherwise it will return `false` and the map will remain empty.
 
 
-**Syntax:**
-
-```gml
-steam_ugc_get_item_install_info(published_file_id, info_map);
-```
 
 |published_file_id|int64|The unique handle for the UGC to be updated.
 |info_map|DS Map ID|A (previously created) DS map index.
@@ -749,11 +683,6 @@ steam_ugc_get_item_install_info(global.fileID, item_map);
     If the item exists then the function will return `true` and populate the map, otherwise it will return `false` and the map will remain empty.
 
 
-**Syntax:**
-
-```gml
-steam_ugc_get_item_update_info(published_file_id, info_map);
-```
 
 |published_file_id|int64|The unique file ID for the UGC to be checked.
 |info_map|DS Map ID|A (previously created) DS map index.
@@ -791,15 +720,10 @@ draw_text(32, 60, "bytes_total: " + string(info_map[? "bytes_total"]));
 
 
 @func steam_ugc_request_item_details
-This function can be used to retrieve information about a given file ID. You give the file ID and supply a maximum age for checking (see the Steam docs for more information).
+@desc This function can be used to retrieve information about a given file ID. You give the file ID and supply a maximum age for checking (see the Steam docs for more information).
 This is an asynchronous function that will return an asynchronous id and trigger the [Steam Async Event](https://manual-en.yoyogames.com/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm) when the task is finished.
 
 
-**Syntax:**
-
-```gml
-steam_ugc_request_item_details(published_file_id, max_age_seconds);
-```
 
 @param {real} published_file_id The unique file ID for the UGC to be checked.
 @param {real} max_age_seconds The age of the data to check (recommended 30 - 60 seconds).
@@ -822,13 +746,13 @@ steam_ugc_request_item_details(published_file_id, max_age_seconds);
 @param {real} time_created The time the item was first created
 @param {real} time_uploaded The last time the item was updated
 @param {real} time_added_to_user_list The time that the item was subscribed to
-@param {constant.UGCFileVisibility} visibility The visibility of the item (see [UGCFileVisibility](#UGCFileVisibility) constant)
+@param {constant.UGCFileVisibility} visibility The visibility of the item (see ${function.} constant)
 @param {bool} banned Whether the item has been banned or not
 @param {bool} accepted_for_use Whether the item has been accepted for use or not
 @param {array} tags_truncated Short version of the tags as an array
 |tags|Array\<String>|An array of the tags for the item
 |handle_file|int64|The unique file handle for the item
-|handle_preview_file|int64|The unique handle for the image preview for the item (can be used with [steam_ugc_download](#steam_ugc_download) to download a preview image)
+|handle_preview_file|int64|The unique handle for the image preview for the item (can be used with ${function.} to download a preview image)
 @param {string} filename The name of the item file
 @param {real} file_size The size of the item file
 @param {real} preview_file_size The size of the preview image
@@ -836,7 +760,7 @@ steam_ugc_request_item_details(published_file_id, max_age_seconds);
 @param {real} up_votes The number of up-votes received
 @param {real} down_votes The number of down-votes received
 @param {real} score The overall score of the item
-@param {real} account_id_owner The account ID from the Steam ID owner (this can be used in function [steam_ugc_create_query_user_ex](#steam_ugc_create_query_user_ex))
+@param {real} account_id_owner The account ID from the Steam ID owner (this can be used in function ${function.})
 
 
 @example
@@ -869,19 +793,14 @@ if (map_id == steam_details) && (result == ugc_result_success)
 
 
 @func steam_ugc_create_query_user
-This function can be used to query the UGC data base. The function automatically uses the default ID for the app, user and assumes that the query is being done by the consumer (rather than the creator). The function requires you to use the following constants for the type of data to query ([UGCListType](#UGCListType)), the type of item to match ([UGCMatchType](#UGCMatchType)) and the order in which the returned items will be sorted ([UGCListSortOrder](#UGCListSortOrder)), as well as a page number - note that a query will return a <i>maximum</i> number of 50 items.
-The function returns a unique query handle value which should be stored in a variable for use in the other query functions. Note that this function only prepares the query but does not actually send it - for that you must call the function [steam_ugc_send_query](#steam_ugc_send_query) - and you can use further `steam_ugc_query_*()` functions to refine the search request before it is actually sent.
+@desc This function can be used to query the UGC data base. The function automatically uses the default ID for the app, user and assumes that the query is being done by the consumer (rather than the creator). The function requires you to use the following constants for the type of data to query (${function.}), the type of item to match (${function.}) and the order in which the returned items will be sorted (${function.}), as well as a page number - note that a query will return a <i>maximum</i> number of 50 items.
+The function returns a unique query handle value which should be stored in a variable for use in the other query functions. Note that this function only prepares the query but does not actually send it - for that you must call the function ${function.} - and you can use further `steam_ugc_query_*()` functions to refine the search request before it is actually sent.
 
 
-**Syntax:**
 
-```gml
-steam_ugc_create_query_user(list_type, match_type, sort_order, page);
-```
-
-@param {constant.UGCListType} list_type The type of data list to create (see [UGCListType](#UGCListType) constants)
-@param {constant.UGCMatchType} match_type The type of UGC items to query (see [UGCMatchType](#UGCMatchType) constants)
-@param {constant.UGCListSortOrder} sort_order The way that data should be ordered (see [UGCListSortOrder](#UGCListSortOrder) constants)
+@param {constant.UGCListType} list_type The type of data list to create (see ${function.} constants)
+@param {constant.UGCMatchType} match_type The type of UGC items to query (see ${function.} constants)
+@param {constant.UGCListSortOrder} sort_order The way that data should be ordered (see ${function.} constants)
 @param {real} page The page number to query.
 
 
@@ -928,19 +847,14 @@ ugc_sortorder_ForModeration
 
 
 @func steam_ugc_create_query_user_ex
-This function can be used to query the UGC data base. The function requires the ID value for the user and the ID of the game that is going to consume the item and/or the ID of the game that created the item. You also need to use the following constants for the type of data to query ([UGCListType](#UGCListType)), the type of item to query ([UGCMatchType](#UGCMatchType)) and the order in which the returned items will be sorted ([UGCListSortOrder](#UGCListSortOrder)), as well as a page number - note that a query will return a <i>maximum</i> number of 50 items.
-The function returns a unique query handle value which should be stored in a variable for use in the other query functions. Note that this function only prepares the query but does not actually send it - for that you must call the function [steam_ugc_send_query](#steam_ugc_send_query) - and you can use further `steam_ugc_query_*()` functions to refine the search request before it is actually sent.
+@desc This function can be used to query the UGC data base. The function requires the ID value for the user and the ID of the game that is going to consume the item and/or the ID of the game that created the item. You also need to use the following constants for the type of data to query (${function.}), the type of item to query (${function.}) and the order in which the returned items will be sorted (${function.}), as well as a page number - note that a query will return a <i>maximum</i> number of 50 items.
+The function returns a unique query handle value which should be stored in a variable for use in the other query functions. Note that this function only prepares the query but does not actually send it - for that you must call the function ${function.} - and you can use further `steam_ugc_query_*()` functions to refine the search request before it is actually sent.
 
 
-**Syntax:**
 
-```gml
-steam_ugc_create_query_user_ex(list_type, match_type, sort_order, page, account_id, creator_app_id, consumer_app_id);
-```
-
-@param {constant.UGCListType} list_type The type of data list to create (see [UGCListType](#UGCListType) constants)
-@param {constant.UGCMatchType} match_type The type of UGC items to query (see [UGCMatchType](#UGCMatchType) constants)
-@param {constant.UGCListSortOrder} sort_order The way that data should be ordered (see [UGCListSortOrder](#UGCListSortOrder) constants)
+@param {constant.UGCListType} list_type The type of data list to create (see ${function.} constants)
+@param {constant.UGCMatchType} match_type The type of UGC items to query (see ${function.} constants)
+@param {constant.UGCListSortOrder} sort_order The way that data should be ordered (see ${function.} constants)
 @param {real} page The page number to query
 @param {real} account_id The Steam account ID
 @param {real} creator_app_id The item creator app ID
@@ -990,18 +904,13 @@ ugc_sortorder_ForModeration
 
 
 @func steam_ugc_create_query_all
-This function can be used to query the UGC data base using some predefined query types. The function requires the following constants for the type of query to create ([UGCQueryType](#UGCQueryType)), the type of item to match ([UGCMatchType](#UGCMatchType)) and the page number to query - note that a query will return a <i>maximum</i> number of 50 items.
-The function returns a unique query handle value which should be stored in a variable for use in the other query functions. Note that this function only prepares the query but does not actually send it - for that you must call the function [steam_ugc_send_query](#steam_ugc_send_query) - and you can use further `steam_ugc_query_*()` functions to refine the search request before it is actually sent.
+@desc This function can be used to query the UGC data base using some predefined query types. The function requires the following constants for the type of query to create (${function.}), the type of item to match (${function.}) and the page number to query - note that a query will return a <i>maximum</i> number of 50 items.
+The function returns a unique query handle value which should be stored in a variable for use in the other query functions. Note that this function only prepares the query but does not actually send it - for that you must call the function ${function.} - and you can use further `steam_ugc_query_*()` functions to refine the search request before it is actually sent.
 
 
-**Syntax:**
 
-```gml
-steam_ugc_create_query_all(query_type, match_type, page);
-```
-
-@param {constant.UGCQueryType} query_type The type of query to create (see [UGCQueryType](#UGCQueryType) constants)
-@param {constant.UGCMatchType} match_type The type of UGC items to query (see [UGCMatchType](#UGCMatchType) constants)
+@param {constant.UGCQueryType} query_type The type of query to create (see ${function.} constants)
+@param {constant.UGCMatchType} match_type The type of UGC items to query (see ${function.} constants)
 @param {real} page The page number to query
 
 
@@ -1044,18 +953,13 @@ ugc_match_ControllerBindings
 
 
 @func steam_ugc_create_query_all_ex
-This function can be used to query the UGC data base. The function requires the ID of the game that is going to consume the item and/or the ID of the game that created the item, and you need to use the following constants for the type of query to create ([UGCQueryType](#UGCQueryType)), the type of item to match ([UGCMatchType](#UGCMatchType)) and the page number to query. Note that a query will return a <i>maximum</i> number of 50 items.
-The function returns a unique query handle value which should be stored in a variable for use in the other query functions. Note that this function only prepares the query but does not actually send it - for that you must call the function [steam_ugc_send_query](#steam_ugc_send_query) - and you can use further `steam_ugc_query_*()` functions to refine the search request before it is actually sent.
+@desc This function can be used to query the UGC data base. The function requires the ID of the game that is going to consume the item and/or the ID of the game that created the item, and you need to use the following constants for the type of query to create (${function.}), the type of item to match (${function.}) and the page number to query. Note that a query will return a <i>maximum</i> number of 50 items.
+The function returns a unique query handle value which should be stored in a variable for use in the other query functions. Note that this function only prepares the query but does not actually send it - for that you must call the function ${function.} - and you can use further `steam_ugc_query_*()` functions to refine the search request before it is actually sent.
 
 
-**Syntax:**
 
-```gml
-steam_ugc_create_query_all_ex(query_type, match_type, page, creator_app_id, consumer_app_id);
-```
-
-@param {constant.UGCQueryType} query_type The type of query to create (see [UGCQueryType](#UGCQueryType) constants)
-@param {constant.UGCMatchType} match_type The type of UGC items to query (see  [UGCMatchType](#UGCMatchType) constants)
+@param {constant.UGCQueryType} query_type The type of query to create (see ${function.} constants)
+@param {constant.UGCMatchType} match_type The type of UGC items to query (see  ${function.} constants)
 @param {real} page The page number to query
 @param {integer} creator_app_id The item creator app ID
 @param {integer} consumer_app_id The consumer app ID
@@ -1100,15 +1004,10 @@ ugc_match_ControllerBindings
 
 
 @func steam_ugc_query_set_cloud_filename_filter
-This function can be used to further filter any given UGC query, specifically to check and see if a Workshop item file name must match or not. The query handle is the value returned when you created the query (using, for example, [steam_ugc_create_query_user](#steam_ugc_create_query_user)) and the second argument is either `true` or`false`` `depending on whether you require the file names to match.
+@desc This function can be used to further filter any given UGC query, specifically to check and see if a Workshop item file name must match or not. The query handle is the value returned when you created the query (using, for example, ${function.}) and the second argument is either `true` or`false`` `depending on whether you require the file names to match.
 The function will return `true` if the query filter was correctly set, or `false` otherwise.
 
 
-**Syntax:**
-
-```gml
-steam_ugc_query_set_cloud_filename_filter(ugc_query_handle, should_match);
-```
 
 @param {integer} ugc_query_handle The query handle to use.
 @param {bool} match_cloud_filename Sets whether the UGC item file name should match or not.
@@ -1132,15 +1031,10 @@ The above code creates a query request and stores it&#39;s handle in a local var
 
 
 @func steam_ugc_query_set_match_any_tag
-This function can be used to further filter any given UGC query, specifically to switch on or off tag matching. The query handle is the value returned when you created the query (using, for example, [steam_ugc_create_query_user](#steam_ugc_create_query_user)) and the second argument is either `true` or`false```depending on whether you require a check for matching tags.
+@desc This function can be used to further filter any given UGC query, specifically to switch on or off tag matching. The query handle is the value returned when you created the query (using, for example, ${function.}) and the second argument is either `true` or`false```depending on whether you require a check for matching tags.
 The function will return `true` if the query filter was correctly set, or `false` otherwise.
 
 
-**Syntax:**
-
-```gml
-steam_ugc_query_set_match_any_tag(ugc_query_handle, match_any_tag);
-```
 
 @param {integer} ugc_query_handle The query handle to use.
 @param {bool} match_any_tag Sets whether the UGC item tags should match anything or not.
@@ -1164,15 +1058,10 @@ The above code creates a query request and stores it&#39;s handle in a local var
 
 
 @func steam_ugc_query_set_search_text
-This function can be used to further filter any given UGC query, specifically to search for the given string in the title and description of the UGC items. The query handle is the value returned when you created the query (using, for example,  [steam_ugc_create_query_user](#steam_ugc_create_query_user)) and the second argument is a string you want to use as the search term.
+@desc This function can be used to further filter any given UGC query, specifically to search for the given string in the title and description of the UGC items. The query handle is the value returned when you created the query (using, for example,  ${function.}) and the second argument is a string you want to use as the search term.
 The function will return `true` if the query filter was correctly set, or `false` otherwise.
 
 
-**Syntax:**
-
-```gml
-steam_ugc_query_set_search_text(ugc_query_handle , search_text);
-```
 
 @param {real} ugc_query_handle The query handle to use.
 @param {string} search_text The search text to use for the query.
@@ -1195,15 +1084,10 @@ The above code creates a query request and stores it&#39;s handle in a local var
 
 
 @func steam_ugc_query_set_ranked_by_trend_days
-This function can be used to further filter any UGC query made using the `ugc_query_RankedByTrend` constant ([UGCQueryType](#UGCQueryType)), specifically to search over a number of days. The query handle is the value returned when you created the query (using, for example, [steam_ugc_create_query_user](#steam_ugc_create_query_user)) and the second argument is the number of days over which you want the query to run.
+@desc This function can be used to further filter any UGC query made using the `ugc_query_RankedByTrend` constant (${function.}), specifically to search over a number of days. The query handle is the value returned when you created the query (using, for example, ${function.}) and the second argument is the number of days over which you want the query to run.
 The function will return `true` if the query filter was correctly set, or `false` otherwise.
 
 
-**Syntax:**
-
-```gml
-steam_ugc_query_set_ranked_by_trend_days(ugc_query_handle, days);
-```
 
 @param {real} ugc_query_handle The query handle to use.
 @param {real} days The number of days to query.
@@ -1226,15 +1110,10 @@ The above code creates a query request and stores it&#39;s handle in a local var
 
 
 @func steam_ugc_query_add_required_tag
-This function can be used to further filter any given UGC query, specifically to search only those UGC items with the given tag. The query handle is the value returned when you created the query (using, for example, [steam_ugc_create_query_user](#steam_ugc_create_query_user)) and the second argument is a string you want to use as the tag to include.
+@desc This function can be used to further filter any given UGC query, specifically to search only those UGC items with the given tag. The query handle is the value returned when you created the query (using, for example, ${function.}) and the second argument is a string you want to use as the tag to include.
 The function will return `true` if the query filter was correctly set, or `false` otherwise.
 
 
-**Syntax:**
-
-```gml
-steam_ugc_query_add_required_tag(ugc_query_handle, tag_name);
-```
 
 @param {integer} ugc_query_handle The query handle to use.
 @param {string} tag_name The tag name to include.
@@ -1257,15 +1136,10 @@ The above code creates a query request and stores it&#39;s handle in a local var
 
 
 @func steam_ugc_query_add_excluded_tag
-This function can be used to further filter any given UGC query, specifically to exclude a given UGC from the query request. The query handle is the value returned when you created the query (using, for example, [steam_ugc_create_query_user](#steam_ugc_create_query_user)) and the second argument is a string you want to use as the tag to exclude.
+@desc This function can be used to further filter any given UGC query, specifically to exclude a given UGC from the query request. The query handle is the value returned when you created the query (using, for example, ${function.}) and the second argument is a string you want to use as the tag to exclude.
 The function will return `true` if the query filter was correctly set, or `false` otherwise.
 
 
-**Syntax:**
-
-```gml
-steam_ugc_query_add_excluded_tag(ugc_query_handle, tag_name);
-```
 
 @param {integer} ugc_query_handle The query handle to use.
 @param {string} tag_name The tag name to exclude.
@@ -1288,15 +1162,10 @@ The above code creates a query request and stores it&#39;s handle in a local var
 
 
 @func steam_ugc_query_set_return_long_description
-This function can be used to further filter any given UGC query, specifically to retrieve the long description text in the call back event triggered when the query was sent. The query handle is the value returned when you created the query (using, for example,  [steam_ugc_create_query_user](#steam_ugc_create_query_user)) and the second argument is either `true` or`false```.
+@desc This function can be used to further filter any given UGC query, specifically to retrieve the long description text in the call back event triggered when the query was sent. The query handle is the value returned when you created the query (using, for example,  ${function.}) and the second argument is either `true` or`false```.
 The function will return `true` if the query filter was correctly set, or `false` otherwise.
 
 
-**Syntax:**
-
-```gml
-steam_ugc_query_set_return_long_description(ugc_query_handle, should_return);
-```
 
 @param {real} ugc_query_handle The query handle to use.
 @param {bool} long_description Whether to have the query return the long description text.
@@ -1318,15 +1187,10 @@ The above code creates a query request and stores it&#39;s handle in a local var
 
 
 @func steam_ugc_query_set_return_total_only
-This function can be used to further filter any given UGC query, specifically to request only the number of results without any other information (meaning that the DS map generated by the send function will contain the key &quot;num_results&quot; without any further map data). The query handle is the value returned when you created the query (using, for example,  [steam_ugc_create_query_user](#steam_ugc_create_query_user)) and the second argument is either `true` or`false```.
+@desc This function can be used to further filter any given UGC query, specifically to request only the number of results without any other information (meaning that the DS map generated by the send function will contain the key &quot;num_results&quot; without any further map data). The query handle is the value returned when you created the query (using, for example,  ${function.}) and the second argument is either `true` or`false```.
 The function will return `true` if the query filter was correctly set, or `false` otherwise.
 
 
-**Syntax:**
-
-```gml
-steam_ugc_query_set_return_total_only(ugc_query_handle , total_only);
-```
 
 @param {real} ugc_query_handle The query handle to use.
 @param {bool} total_only Whether to have the query return only the total number of hits or not.
@@ -1348,15 +1212,10 @@ The above code creates a query request and stores it&#39;s handle in a local var
 
 
 @func steam_ugc_query_set_allow_cached_response
-This function can be used to further filter any given UGC query, specifically to request that the query check the local cache rather than online. The query handle is the value returned when you created the query (using, for example, [steam_ugc_create_query_user](#steam_ugc_create_query_user)) and the second argument is either `true` or`false`````.
+@desc This function can be used to further filter any given UGC query, specifically to request that the query check the local cache rather than online. The query handle is the value returned when you created the query (using, for example, ${function.}) and the second argument is either `true` or`false`````.
 The function will return `true` if the query filter was correctly set, or `false` otherwise.
 
 
-**Syntax:**
-
-```gml
-steam_ugc_query_set_allow_cached_response(ugc_query_handle , check_cache);
-```
 
 @param {integer} ugc_query_handle The query handle to use.
 @param {bool} cache Whether to have the query check the local cache or not.
@@ -1381,10 +1240,10 @@ The above code creates a query request and stores it&#39;s handle in a local var
 @func steam_ugc_send_query
     This function can be used to send a query request. You first define the query using one of the following function:
 
-* [steam_ugc_create_query_all](#steam_ugc_create_query_all)
-* [steam_ugc_create_query_all_ex](#steam_ugc_create_query_all_ex)
-* [steam_ugc_create_query_user](#steam_ugc_create_query_user)
-* [steam_ugc_create_query_user_ex](#steam_ugc_create_query_user_ex)
+* ${function.}
+* ${function.}
+* ${function.}
+* ${function.}
 
     which will return a query handle. This handle is then used to set filters etc.... before being used in this function to send off the query request.
     This is an asynchronous function that will return an asynchronous id and trigger the [Steam Async Event](https://manual-en.yoyogames.com/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm) when the task is finished.
@@ -1414,13 +1273,13 @@ The above code creates a query request and stores it&#39;s handle in a local var
 @param {real} time_created The time the item was first created
 @param {real} time_uploaded The last time the item was updated
 @param {real} time_added_to_user_list The time that the item was subscribed to
-@param {constant.UGCFileVisibility} visibility The visibility of the item (see [UGCFileVisibility](#UGCFileVisibility) constant)
+@param {constant.UGCFileVisibility} visibility The visibility of the item (see ${function.} constant)
 @param {bool} banned Whether the item has been banned or not
 @param {bool} accepted_for_use Whether the item has been accepted for use or not
 @param {array} tags_truncated Short version of the tags as an array
 |tags|Array\<String>|An array of the tags for the item
 |handle_file|int64|The unique file handle for the item
-|handle_preview_file|int64|The unique handle for the image preview for the item (can be used  with [steam_ugc_download](#steam_ugc_download) to download a preview image)
+|handle_preview_file|int64|The unique handle for the image preview for the item (can be used  with ${function.} to download a preview image)
 @param {string} filename The name of the item file
 @param {real} file_size The size of the item file
 @param {real} preview_file_size The size of the preview image
@@ -1428,7 +1287,7 @@ The above code creates a query request and stores it&#39;s handle in a local var
 @param {real} up_votes The number of up-votes received
 @param {real} down_votes The number of down-votes received
 @param {real} score The overall score of the item
-@param {real} account_id_owner The account ID from the Steam ID owner (can be used in the function  [steam_ugc_create_query_user](#steam_ugc_create_query_user))
+@param {real} account_id_owner The account ID from the Steam ID owner (can be used in the function  ${function.})
 
 
 ```gml
@@ -1448,15 +1307,10 @@ query_ID = steam_ugc_send_query(query_handle);
 
 
 @func steam_ugc_download
-With this function you can download a preview image for any given UGC item. The `ugc_handle` is the unique identifying value for the image (which you can get using the function [steam_ugc_send_query](#steam_ugc_send_query)), and the destination filename is the name (and local path within the Steam sandbox) that you wish to give the image file when the download is complete.
+@desc With this function you can download a preview image for any given UGC item. The `ugc_handle` is the unique identifying value for the image (which you can get using the function ${function.}), and the destination filename is the name (and local path within the Steam sandbox) that you wish to give the image file when the download is complete.
 This is an asynchronous function that will return an asynchronous id and trigger the [Steam Async Event](https://manual-en.yoyogames.com/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm) when the task is finished.
 
 
-**Syntax:**
-
-```gml
-steam_ugc_download(ugc_handle, dest_filename);
-```
 
 |ugc_handle|int64|The unique handle for the preview to be downloaded.
 @param {string} dest_filename The file name to save the preview with.
@@ -1501,11 +1355,9 @@ The above code checks the event type and then creates a sprite from the download
 
 
 @func UGCFileType
-These constants specify the way that a shared file will be shared with the community and should be used while creating a new item with [steam_ugc_create_item](#steam_ugc_create_item).
+@desc These constants specify the way that a shared file will be shared with the community and should be used while creating a new item with ${function.}.
 
-> **:information_source: NOTE**
->
-> See [Steam Docs](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#EWorkshopFileType) for more details.
+[[NOTE: NOTE See [Steam Docs](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#EWorkshopFileType) for more details.
 
 |UGC File Type Constant|Description
 |----|----
@@ -1517,11 +1369,9 @@ These constants specify the way that a shared file will be shared with the commu
 
 
 @func UGCFileVisibility
-These constants specify possible visibility states that a Workshop item can be in. They are used with the function [steam_ugc_set_item_visibility](#steam_ugc_set_item_visibility) and are an async callback parameter for the functions [steam_ugc_request_item_details](#steam_ugc_request_item_details) and [steam_ugc_send_query](#steam_ugc_send_query).
+@desc These constants specify possible visibility states that a Workshop item can be in. They are used with the function ${function.} and are an async callback parameter for the functions ${function.} and ${function.}.
 
-> **:information_source: NOTE**
->
-> See [Steam Docs](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#ERemoteStoragePublishedFileVisibility) for more details.
+[[NOTE: NOTE See [Steam Docs](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#ERemoteStoragePublishedFileVisibility) for more details.
 
 |UGC File Visibility Constant|Description
 |----|----
@@ -1534,14 +1384,12 @@ These constants specify possible visibility states that a Workshop item can be i
 
 
 @func UGCListSortOrder
-These constants specify the sorting order of user published UGC lists from queries created using one of the following functions:
+@desc These constants specify the sorting order of user published UGC lists from queries created using one of the following functions:
 
-* [steam_ugc_create_query_user](#steam_ugc_create_query_user)
-* [steam_ugc_create_query_user_ex](#steam_ugc_create_query_user_ex)
+* ${function.}
+* ${function.}
 
-> **:information_source: NOTE**
->
-> See [Steam UGC Docs](https://partner.steamgames.com/doc/api/ISteamUGC#EUserUGCListSortOrder) for more details.
+[[NOTE: NOTE See [Steam UGC Docs](https://partner.steamgames.com/doc/api/ISteamUGC#EUserUGCListSortOrder) for more details.
 
 |UGC List Sort Order Constant|Description
 |----|----
@@ -1558,14 +1406,12 @@ These constants specify the sorting order of user published UGC lists from queri
 
 
 @func UGCListType
-These constants specify the type of published UGC list to obtain from queries created using one of the following functions:
+@desc These constants specify the type of published UGC list to obtain from queries created using one of the following functions:
 
-* [steam_ugc_create_query_user](#steam_ugc_create_query_user)
-* [steam_ugc_create_query_user_ex](#steam_ugc_create_query_user_ex) 
+* ${function.}
+* ${function.} 
 
-> **:information_source: NOTE**
->
-> See [Steam UGC Docs](https://partner.steamgames.com/doc/api/ISteamUGC#EUserUGCList) for more details.
+[[NOTE: NOTE See [Steam UGC Docs](https://partner.steamgames.com/doc/api/ISteamUGC#EUserUGCList) for more details.
 
 |UGC List Type Constant|Description
 |----|----
@@ -1584,16 +1430,14 @@ These constants specify the type of published UGC list to obtain from queries cr
 
 
 @func UGCMatchType
-These constants specify the types of UGC to obtain from queries created using one of the following function:
+@desc These constants specify the types of UGC to obtain from queries created using one of the following function:
 
-* [steam_ugc_create_query_all](#steam_ugc_create_query_all)
-* [steam_ugc_create_query_all_ex](#steam_ugc_create_query_all_ex)
-* [steam_ugc_create_query_user](#steam_ugc_create_query_user)
-* [steam_ugc_create_query_user_ex](#steam_ugc_create_query_user_ex)
+* ${function.}
+* ${function.}
+* ${function.}
+* ${function.}
 
-> **:information_source: NOTE**
->
-> See [Steam UGC Docs](https://partner.steamgames.com/doc/api/ISteamUGC#EUGCMatchingUGCType) for more details.
+[[NOTE: NOTE See [Steam UGC Docs](https://partner.steamgames.com/doc/api/ISteamUGC#EUGCMatchingUGCType) for more details.
 
 |UGC Match Type Constant|Description
 |----|----
@@ -1618,26 +1462,24 @@ These constants specify the types of UGC to obtain from queries created using on
 
 These constants specify the sorting and filtering for queries across all available UGC, and are to be used with the following functions:
 
-* [steam_ugc_create_query_all](#steam_ugc_create_query_all)
-* [steam_ugc_create_query_all_ex](#steam_ugc_create_query_all_ex)
+* ${function.}
+* ${function.}
 
-> **:information_source: NOTE**
->
-> See [Steam UGC Docs](https://partner.steamgames.com/doc/api/ISteamUGC#EUGCQuery) for more details.
+[[NOTE: NOTE See [Steam UGC Docs](https://partner.steamgames.com/doc/api/ISteamUGC#EUGCQuery) for more details.
 
 |UGC Query Type Constant|Description
 |----|----
 |`ugc_query_RankedByVote`|Sort by vote popularity all-time
 |`ugc_query_RankedByPublicationDate`|Sort by publication date descending
 |`ugc_query_AcceptedForGameRankedByAcceptanceDate`|Sort by date accepted (for mtx items)
-|`ugc_query_RankedByTrend`|Sort by vote popularity within the given "trend" period (set in [steam_ugc_query_set_ranked_by_trend_days](#steam_ugc_query_set_ranked_by_trend_days))
+|`ugc_query_RankedByTrend`|Sort by vote popularity within the given "trend" period (set in ${function.})
 |`ugc_query_FavoritedByFriendsRankedByPublicationDate`|Filter to items the user's friends have favorited, sorted by publication date descending
 |`ugc_query_CreatedByFriendsRankedByPublicationDate`|Filter to items created by friends, sorted by publication date descending
 |`ugc_query_RankedByNumTimesReported`|Sort by report weight descending
 |`ugc_query_CreatedByFollowedUsersRankedByPublicationDate`|Filter to items created by users that the current user has followed, sorted by publication date descending
 |`ugc_query_NotYetRated`|Filtered to the user's voting queue
 |`ugc_query_RankedByTotalVotesAsc`|Sort by total # of votes ascending (used internally for building the user's voting queue)
-|`ugc_query_RankedByVotesUp`|Sort by number of votes up descending. Will use the "trend" period if specified (set in [steam_ugc_query_set_ranked_by_trend_days](#steam_ugc_query_set_ranked_by_trend_days))
+|`ugc_query_RankedByVotesUp`|Sort by number of votes up descending. Will use the "trend" period if specified (set in ${function.})
 |`ugc_query_RankedByTextSearch`|Sort by keyword text search relevancy
 
 

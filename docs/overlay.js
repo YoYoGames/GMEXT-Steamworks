@@ -1,31 +1,31 @@
 @func Overlay
-The Steam Overlay is the visual display that can be brought up to display the Steam interface to the user. This is normally done by the user themselves using a combination of keys, but you also have the possibility of doing it from within your game, so that you can map a button or an event to show the overlay.
+@desc The Steam Overlay is the visual display that can be brought up to display the Steam interface to the user. This is normally done by the user themselves using a combination of keys, but you also have the possibility of doing it from within your game, so that you can map a button or an event to show the overlay.
 
 ## Functions
 
 The extension provides you with the following functions:
 
-* [steam_is_overlay_enabled](#steam_is_overlay_enabled)
-* [steam_is_overlay_activated](#steam_is_overlay_activated)
-* [steam_activate_overlay](#steam_activate_overlay)
-* [steam_activate_overlay_browser](#steam_activate_overlay_browser)
-* [steam_activate_overlay_store](#steam_activate_overlay_store)
-* [steam_activate_overlay_user](#steam_activate_overlay_user)
-* [steam_set_overlay_notification_inset](#steam_set_overlay_notification_inset)
-* [steam_set_overlay_notification_position](#steam_set_overlay_notification_position)
+* ${function.}
+* ${function.}
+* ${function.}
+* ${function.}
+* ${function.}
+* ${function.}
+* ${function.}
+* ${function.}
 
 ## Constants
 
 This section also provides the following constants to use with the functions:
 
-* [OverlayType](#OverlayType)
-* [OverlayNotificationPosition](#OverlayNotificationPosition)
+* ${function.}
+* ${function.}
 
 @func_end
 
 
 @func steam_is_overlay_enabled
-When using the Steam API, this function can be called to check that the Steam client API has the overlay functionality enabled.
+@desc When using the Steam API, this function can be called to check that the Steam client API has the overlay functionality enabled.
 
 
 
@@ -49,7 +49,7 @@ The above code will set a global variable to `true` if the Steam client API is c
 
 
 @func steam_is_overlay_activated
-This function can be used to find out if the user has the Steam Overlay active or not. If the overlay is active and visible to the user the function will return `true`, and if it is not, then it will return `false`. An example of what this function can be used for would be for polling the Steam API for the overlay so that you can pause your game while the overlay is being shown.
+@desc This function can be used to find out if the user has the Steam Overlay active or not. If the overlay is active and visible to the user the function will return `true`, and if it is not, then it will return `false`. An example of what this function can be used for would be for polling the Steam API for the overlay so that you can pause your game while the overlay is being shown.
 
 
 
@@ -69,10 +69,10 @@ The above code will check to see if the Steam overlay is active and if it is it 
 
 
 @func steam_activate_overlay
-The Steam overlay is a piece of the Steam user interface that can be activated over the top of almost any game launched through Steam. It lets the user access their friends list, web browser, chat, and in-game DLC purchasing. The default key for a user to access the overlay while in a game is SHIFT + TAB, but you can also bring up any page of the overlay using this function. It takes one of six constants that are listed below:
+@desc The Steam overlay is a piece of the Steam user interface that can be activated over the top of almost any game launched through Steam. It lets the user access their friends list, web browser, chat, and in-game DLC purchasing. The default key for a user to access the overlay while in a game is SHIFT + TAB, but you can also bring up any page of the overlay using this function. It takes one of six constants that are listed below:
 
 
-@param {constant.OverlayType} overlay_type The page index of the Steam API UI to show (see [OverlayType](#OverlayType) constants).
+@param {constant.OverlayType} overlay_type The page index of the Steam API UI to show (see ${function.} constants).
 
 
 
@@ -105,7 +105,7 @@ ov_achievements
 
 
 @func steam_activate_overlay_browser
-With this function you can open the Steam game overlay to its web browser and then have it load the specified URL. you need to use the full URL as a string for this to resolve correctly, for example: `&quot;http://www.steamgames.com/&quot;`.
+@desc With this function you can open the Steam game overlay to its web browser and then have it load the specified URL. you need to use the full URL as a string for this to resolve correctly, for example: `&quot;http://www.steamgames.com/&quot;`.
 
 
 @param {string} url The (full) URL for the overlay to open.
@@ -127,7 +127,7 @@ The above code polls the keyboard for the F1 key and if it is then Steam overlay
 
 
 @func steam_activate_overlay_store
-With this function you can open the Steam overlay on the store page for a game so that users can buy or download DLC (for example). You need to supply the unique App ID for the game or DLC which you would get from the Steam dashboard when you set it up.
+@desc With this function you can open the Steam overlay on the store page for a game so that users can buy or download DLC (for example). You need to supply the unique App ID for the game or DLC which you would get from the Steam dashboard when you set it up.
 
 
 @param {integer} app_id The unique App ID for your game.
@@ -150,15 +150,10 @@ The above code polls the keyboard for the F1 key and if it is then Steam overlay
 
 
 @func steam_activate_overlay_user
-This function will open the Steam overlay to one of the chosen dialogues relating to the user ID given.
+@desc This function will open the Steam overlay to one of the chosen dialogues relating to the user ID given.
 Note that Steam IDs can be large numbers and so you may need to cast your ID value as an [int64()](E:\Source\YoYoExtensionDocumentation\YoYoExtensionDocumentation_RoboHelp\contents\Variable_Functions\int64.htm) before supplying it to the function.
 
 
-**Syntax:**
-
-```gml
-steam_activate_overlay_user(dialog_name, steamid);
-```
 
 @param {string} dialog_name The dialogue to open the overlay on (see below).
 |steamid|int64|The Steam user ID or group ID to use.
@@ -188,14 +183,9 @@ The above code polls the last keyboard key pressed and if it is function key 1 o
 
 
 @func steam_set_overlay_notification_inset
-Sets the inset of the overlay notification from the corner specified by [steam_set_overlay_notification_position](#steam_set_overlay_notification_position)
+@desc Sets the inset of the overlay notification from the corner specified by ${function.}
 
 
-**Syntax:**
-
-```gml
-steam_set_overlay_notification_inset(hor_inset, vert_inset);
-```
 
 @param {real} hor_inset The horizontal (left-right) distance in pixels from the corner.
 @param {real} vert_inset The vertical (up-down) distance in pixels from the corner.
@@ -214,10 +204,10 @@ The code above will inset the over lay 10px on the horizontal axis and 10px in t
 
 
 @func steam_set_overlay_notification_position
-Changes the corner in which the overlay notifications will appear.
+@desc Changes the corner in which the overlay notifications will appear.
 
 
-|position|[OverlayNotificationPosition](#OverlayNotificationPosition)|A constant that indicates the position where the notification overlay should render
+|position|${function.}|A constant that indicates the position where the notification overlay should render
 
 
 
@@ -233,7 +223,7 @@ The above code will change the notification position to the bottom right corner.
 
 
 @func OverlayType
-These constants specify the type of overlay to be activated when using the function [steam_activate_overlay](#steam_activate_overlay).
+@desc These constants specify the type of overlay to be activated when using the function ${function.}.
 
 |Overlay Type Constant|Description
 |----|----
@@ -249,7 +239,7 @@ These constants specify the type of overlay to be activated when using the funct
 
 
 @func OverlayNotificationPosition
-These constants specify the position of the notification overlay onscreen an should be used with the function [steam_set_overlay_notification_position](#steam_set_overlay_notification_position).
+@desc These constants specify the position of the notification overlay onscreen an should be used with the function ${function.}.
 
 |Overlay Notification Position Constant|Description
 |----|----

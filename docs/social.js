@@ -1,12 +1,12 @@
 @func Social
-The following set of functions are used for setting or getting social information.
+@desc The following set of functions are used for setting or getting social information.
 
 ## Rich Presence
 
 The following functions are provided to work with rich presence:
 
-* [steam_set_rich_presence](#steam_set_rich_presence)
-* [steam_clear_rich_presence](#steam_clear_rich_presence)
+* ${function.}
+* ${function.}
 
 ## User &amp; Friends
 
@@ -25,14 +25,9 @@ The following functions are provided to work with user and friends data:
 @func_end
 
 @func steam_set_rich_presence
-Sets a Rich Presence key/value for the current user that is automatically shared to all friends playing the same game.
+@desc Sets a Rich Presence key/value for the current user that is automatically shared to all friends playing the same game.
 
 
-**Syntax:**
-
-```gml
-steam_set_rich_presence(key, value);
-```
 
 @param {string} key The rich presence 'key' to set
 @param {string} value The rich presence 'value' to associate
@@ -48,7 +43,7 @@ steam_set_rich_presence("Mood","Happy");
 steam_clear_rich_presence();
 
 ```
-The code sample above uses sets a couple values for the local user rich presence and after that clears this values (using a call to the [steam_clear_rich_presence](#steam_clear_rich_presence) function) meaning those will no longer show.
+The code sample above uses sets a couple values for the local user rich presence and after that clears this values (using a call to the ${function.} function) meaning those will no longer show.
 
 
 
@@ -56,7 +51,7 @@ The code sample above uses sets a couple values for the local user rich presence
 
 
 @func steam_clear_rich_presence
-Clears all of the current user&#39;s Rich Presence key/values.
+@desc Clears all of the current user&#39;s Rich Presence key/values.
 
 
 
@@ -70,7 +65,7 @@ steam_set_rich_presence("Mood","Happy");
 steam_clear_rich_presence();
 
 ```
-The code sample above uses [steam_set_rich_presence](#steam_set_rich_presence) to set a couple values for the local user rich presence and after that clears this values meaning those will no longer show.
+The code sample above uses ${function.} to set a couple values for the local user rich presence and after that clears this values meaning those will no longer show.
 
 
 
@@ -78,7 +73,7 @@ The code sample above uses [steam_set_rich_presence](#steam_set_rich_presence) t
 
 
 @func steam_user_set_played_with
-Adds the given user to the &quot;recently played with&quot; list (accessed via &quot;Players&quot; - &quot;Recent games&quot;) menu in Steam overlay.
+@desc Adds the given user to the &quot;recently played with&quot; list (accessed via &quot;Players&quot; - &quot;Recent games&quot;) menu in Steam overlay.
 This is usually something to do on session start for all remote users.
 
 
@@ -98,7 +93,7 @@ This code will add the specified user id to the &quot;recently played with&quot;
 
 
 @func steam_get_friends_game_info
-Returns an array of information about what the current user&#39;s Steam friends are playing.
+@desc Returns an array of information about what the current user&#39;s Steam friends are playing.
 Equivalent to what can be seen in Steam Friends UI.
 
 
@@ -144,21 +139,16 @@ The above code will check all you friends to see if anyone of them is playing th
 
 
 @func steam_get_user_avatar
-Fetches an avatar for the specified user ID. 
+@desc Fetches an avatar for the specified user ID. 
 Returns `0` if no avatar is set for the user;<br>
       Returns `-1` if the request is pending, in which case an [Steam Async Event](https://manual-en.yoyogames.com/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm) will be triggered.
 Returns positive IDs if the avatar is ready, this id is to be used with the following function:
 
-* [steam_image_get_bgra](#steam_image_get_bgra)
-* [steam_image_get_rgba](#steam_image_get_rgba)
-* [steam_image_get_size](#steam_image_get_size)
+* ${function.}
+* ${function.}
+* ${function.}
 
 
-**Syntax:**
-
-```gml
-steam_get_user_avatar(userID, avatar_size);
-```
 
 |userID|int64|The user Steam unique identifier
 |avatar_size|[AvatarSize](E:\Source\YoYoExtensionDocumentation\YoYoExtensionDocumentation_RoboHelp\contents\Steamworks\Modules\Social\Constants\AvatarSize.htm)|The size of the avatar to be requested
@@ -205,7 +195,7 @@ if (l_img > 0)
 ```
 In the code above we query for the current user&#39;s ([steam_get_user_steam_id](General#steam_get_user_steam_id)) avatar, this function this function will either return:
 
-* the handle to the function (return value greater than zero): in this case we follow by getting size information ([steam_image_get_size](#steam_image_get_size)), creating a buffer and and getting the avatar image RBGA data into the buffer ([steam_image_get_rgba](#steam_image_get_rgba)) and lastely creating a sprite from said buffer.
+* the handle to the function (return value greater than zero): in this case we follow by getting size information (${function.}), creating a buffer and and getting the avatar image RBGA data into the buffer (${function.}) and lastely creating a sprite from said buffer.
 * no handle at all (return value equal to zero): in this case there is no avatar image for the specified used.
 * a value of -1: in this last case it measn that the request is pending and you can catch the output with a [Steam Async Event](https://manual-en.yoyogames.com/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm), using the following code:
 
@@ -232,7 +222,7 @@ else {
 
 
 @func steam_image_get_size
-Fetches dimensions for the said Steam image ID.
+@desc Fetches dimensions for the said Steam image ID.
 If the call succeeds, the return value is a two-element array containing width and height in pixels.
 
 
@@ -264,19 +254,12 @@ The above code will show a code example.
 
 
 @func steam_image_get_rgba
-Grabs RGBA data of the specified Steam image ID into a GameMaker buffer.
+@desc Grabs RGBA data of the specified Steam image ID into a GameMaker buffer.
 Returns whether successful.
 
-> **:information_source: NOTE**
->
-> The buffer should be appropriately sized in accordance with [steam_image_get_size](https://yal.cc/r/17/steamworks-gml/#steam_image_get_size) (width * height * 4).
+[[NOTE: NOTE The buffer should be appropriately sized in accordance with [steam_image_get_size](https://yal.cc/r/17/steamworks-gml/#steam_image_get_size) (width * height * 4).
 
 
-**Syntax:**
-
-```gml
-steam_image_get_rgba(steam_image_id, buffer, size);
-```
 
 |steam_image_id|int64|The steam image identifier
 @param {Id.Buffer} buffer The buffer where data will be written
@@ -314,7 +297,7 @@ if (l_img > 0)
 
 ```
 In the code above we query for the current user&#39;s ([steam_get_user_steam_id](General#steam_get_user_steam_id)) avatar data and place it inside a buffer (with the RGBA color format).
-For a more extensive example refer to the [steam_get_user_avatar](#steam_get_user_avatar) function.
+For a more extensive example refer to the ${function.} function.
 
 
 
@@ -322,19 +305,12 @@ For a more extensive example refer to the [steam_get_user_avatar](#steam_get_use
 
 
 @func steam_image_get_bgra
-Grabs BGRA data of the specified Steam image ID into a GameMaker buffer.
+@desc Grabs BGRA data of the specified Steam image ID into a GameMaker buffer.
 Returns whether successful.
 
-> **:information_source: NOTE**
->
-> The buffer should be appropriately sized in accordance with [steam_image_get_size](https://yal.cc/r/17/steamworks-gml/#steam_image_get_size) (width * height * 4).
+[[NOTE: NOTE The buffer should be appropriately sized in accordance with [steam_image_get_size](https://yal.cc/r/17/steamworks-gml/#steam_image_get_size) (width * height * 4).
 
 
-**Syntax:**
-
-```gml
-steam_image_get_bgra(steam_image_id, buffer, size);
-```
 
 |steam_image_id|int64|The steam image identifier
 @param {Id.Buffer} buffer The buffer where data will be written
@@ -372,7 +348,7 @@ if (l_img > 0)
 
 ```
 In the code above we query for the current user&#39;s ([steam_get_user_steam_id](General#steam_get_user_steam_id)) avatar data and place it inside a buffer (with the BGRA color format).
-For a more extensive example refer to the [steam_get_user_avatar](#steam_get_user_avatar) function.
+For a more extensive example refer to the ${function.} function.
 
 
 @func_end

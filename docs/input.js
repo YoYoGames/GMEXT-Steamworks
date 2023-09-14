@@ -1,5 +1,5 @@
 @func Input
-The Steam Input API is designed to allow you to easily enable *full support* for Steam Input devices in your game. This means things such as:
+@desc The Steam Input API is designed to allow you to easily enable *full support* for Steam Input devices in your game. This means things such as:
   - Ability to use proper controller-specific glyphs for input hints.
   - Allow the user to easily rebind controls however they like via the Steam Input Configurator.
   - Share input mappings with others via the Steam Workshop.
@@ -9,60 +9,58 @@ The Steam Input API is designed to allow you to easily enable *full support* for
   
 Before proceeding, please read [this page](https://partner.steamgames.com/doc/features/steam_controller/getting_started_for_devs) about the Steam Input API for developers before reading this page to have a good understanding of what are Input Handles, Action Sets, Action Set Layers, Digital Actions, Analog Actions, Action Origins, the Steam Input Configurator, and bindings.
 
-> **:information_source: NOTE**
->
-> This API is designed for **advanced users only**, if you don't know why you need it, please use the native GML `gamepad_` functions instead.
+[[NOTE: NOTE This API is designed for **advanced users only**, if you don't know why you need it, please use the native GML `gamepad_` functions instead.
 
 The following functions can be used to access the Steam Input from within GameMaker Studio 2
 
-* [steam_input_init](#steam_input_init)
-* [steam_input_shutdown](#steam_input_shutdown)
-* [steam_input_set_input_action_manifest_file_path](#steam_input_set_input_action_manifest_file_path)
-* [steam_input_run_frame](#steam_input_run_frame)
-* [steam_input_wait_for_data](#steam_input_wait_for_data)
-* [steam_input_new_data_available](#steam_input_new_data_available)
-* [steam_input_get_connected_controllers](#steam_input_get_connected_controllers)
-* [steam_input_enable_device_callbacks](#steam_input_enable_device_callbacks)
-* [steam_input_enable_action_event_callbacks](#steam_input_enable_action_event_callbacks)
-* [steam_input_get_action_set_handle](#steam_input_get_action_set_handle)
-* [steam_input_activate_action_set](#steam_input_activate_action_set)
-* [steam_input_get_current_action_set](#steam_input_get_current_action_set)
-* [steam_input_activate_action_set_layer](#steam_input_activate_action_set_layer)
-* [steam_input_deactivate_action_set_layer](#steam_input_deactivate_action_set_layer)
-* [steam_input_deactivate_all_action_set_layers](#steam_input_deactivate_all_action_set_layers)
-* [steam_input_get_active_action_set_layers](#steam_input_get_active_action_set_layers)
-* [steam_input_get_digital_action_handle](#steam_input_get_digital_action_handle)
-* [steam_input_get_digital_action_data](#steam_input_get_digital_action_data)
-* [steam_input_get_digital_action_origins](#steam_input_get_digital_action_origins)
-* [steam_input_get_string_for_digital_action_name](#steam_input_get_string_for_digital_action_name)
-* [steam_input_get_analog_action_handle](#steam_input_get_analog_action_handle)
-* [steam_input_get_analog_action_data](#steam_input_get_analog_action_data)
-* [steam_input_get_analog_action_origins](#steam_input_get_analog_action_origins)
-* [steam_input_get_glyph_png_for_action_origin](#steam_input_get_glyph_png_for_action_origin)
-* [steam_input_get_glyph_svg_for_action_origin](#steam_input_get_glyph_svg_for_action_origin)
-* [steam_input_get_glyph_for_action_origin_legacy](#steam_input_get_glyph_for_action_origin_legacy)
-* [steam_input_get_string_for_action_origin](#steam_input_get_string_for_action_origin)
-* [steam_input_get_string_for_analog_action_name](#steam_input_get_string_for_analog_action_name)
-* [steam_input_stop_analog_action_momentum](#steam_input_stop_analog_action_momentum)
-* [steam_input_get_motion_data](#steam_input_get_motion_data)
-* [steam_input_trigger_vibration](#steam_input_trigger_vibration)
-* [steam_input_trigger_vibration_extended](#steam_input_trigger_vibration_extended)
-* [steam_input_trigger_simple_haptic_event](#steam_input_trigger_simple_haptic_event)
-* [steam_input_set_led_color](#steam_input_set_led_color)
-* [steam_input_trigger_haptic_pulse_legacy](#steam_input_trigger_haptic_pulse_legacy)
-* [steam_input_trigger_repeated_haptic_pulse_legacy](#steam_input_trigger_repeated_haptic_pulse_legacy)
-* [steam_input_show_binding_panel](#steam_input_show_binding_panel)
-* [steam_input_get_input_type_for_handle](#steam_input_get_input_type_for_handle)
-* [steam_input_get_controller_for_gamepad_index](#steam_input_get_controller_for_gamepad_index)
-* [steam_input_get_gamepad_index_for_controller](#steam_input_get_gamepad_index_for_controller)
-* [steam_input_get_string_for_xbox_origin](#steam_input_get_string_for_xbox_origin)
-* [steam_input_get_glyph_for_xbox_origin](#steam_input_get_glyph_for_xbox_origin)
-* [steam_input_get_action_origin_from_xbox_origin](#steam_input_get_action_origin_from_xbox_origin)
-* [steam_input_translate_action_origin](#steam_input_translate_action_origin)
-* [steam_input_get_device_binding_revision](#steam_input_get_device_binding_revision)
-* [steam_input_get_remote_play_session_id](#steam_input_get_remote_play_session_id)
-* [steam_input_get_session_input_configuration_settings](#steam_input_get_session_input_configuration_settings)
-* [steam_input_set_dualsense_trigger_effect](#steam_input_set_dualsense_trigger_effect)
+* ${function.}
+* ${function.}
+* ${function.}
+* ${function.}
+* ${function.}
+* ${function.}
+* ${function.}
+* ${function.}
+* ${function.}
+* ${function.}
+* ${function.}
+* ${function.}
+* ${function.}
+* ${function.}
+* ${function.}
+* ${function.}
+* ${function.}
+* ${function.}
+* ${function.}
+* ${function.}
+* ${function.}
+* ${function.}
+* ${function.}
+* ${function.}
+* ${function.}
+* ${function.}
+* ${function.}
+* ${function.}
+* ${function.}
+* ${function.}
+* ${function.}
+* ${function.}
+* ${function.}
+* ${function.}
+* ${function.}
+* ${function.}
+* ${function.}
+* ${function.}
+* ${function.}
+* ${function.}
+* ${function.}
+* ${function.}
+* ${function.}
+* ${function.}
+* ${function.}
+* ${function.}
+* ${function.}
+* ${function.}
 
   <!-- KEYWORDS
 Steam Input
@@ -73,14 +71,12 @@ Steam Input
 
 
 @func steam_input_init
-With this function you can initialize the Steam Input API. It will return <tt>true</tt> if initialization was successful and <tt>false</tt> otherwise. If argument `explicitly_call_run_frame` is <tt>true</tt>, then you must manually call [steam_input_run_frame](#steam_input_run_frame) to poll for input data and async events, otherwise that will be performed by the `steam_update` function. After you initialize the Steam Input API, configuration events will be dispatched for any controllers connected while your game is running, they can be used to detect gamepad connection and when bindings have been updated so you need to refresh the sprites, input hints, etc.
+@desc With this function you can initialize the Steam Input API. It will return <tt>true</tt> if initialization was successful and <tt>false</tt> otherwise. If argument `explicitly_call_run_frame` is <tt>true</tt>, then you must manually call ${function.} to poll for input data and async events, otherwise that will be performed by the `steam_update` function. After you initialize the Steam Input API, configuration events will be dispatched for any controllers connected while your game is running, they can be used to detect gamepad connection and when bindings have been updated so you need to refresh the sprites, input hints, etc.
 
-> **:warning: IMPORTANT**
->
-> This function must be called ONLY if you **REALLY wish to use** the Steam Input API, or some other extensions in your project rely on Steam Input, otherwise calling it _may_ make native GameMaker `gamepad_` functions not see any controllers plugged in!
+[[warning: IMPORTANTThis function must be called ONLY if you **REALLY wish to use** the Steam Input API, or some other extensions in your project rely on Steam Input, otherwise calling it _may_ make native GameMaker `gamepad_` functions not see any controllers plugged in!
 
 
-@param {bool} explicitly_call_run_frame Are you going to call [steam_input_run_frame](#steam_input_run_frame) manually or not?
+@param {bool} explicitly_call_run_frame Are you going to call ${function.} manually or not?
 
 
 @returns {Bool}
@@ -120,7 +116,7 @@ The above code checks to see if the Steam Input API was initialized, and throws 
 
 
 @func steam_input_shutdown
-With this function you can tell Steam that you are done using the Steam Input API. It will return <tt>true</tt> if the operation was successful and <tt>false</tt> otherwise. Usually you do not need to call this, as when your game ends Steam will automatically release Steam Input for you. After this function had returned, no other Steam Input functions must be called.
+@desc With this function you can tell Steam that you are done using the Steam Input API. It will return <tt>true</tt> if the operation was successful and <tt>false</tt> otherwise. Usually you do not need to call this, as when your game ends Steam will automatically release Steam Input for you. After this function had returned, no other Steam Input functions must be called.
 
 
 
@@ -137,7 +133,7 @@ The above code shuts down the Steam Input API.
 
 
 @func steam_input_set_input_action_manifest_file_path
-This function can be used to set the absolute path to the input action manifest, in case you do not wish to use the Steam Workshop for this. Returns <tt>true</tt> if the operation was successful and <tt>false</tt> otherwise.
+@desc This function can be used to set the absolute path to the input action manifest, in case you do not wish to use the Steam Workshop for this. Returns <tt>true</tt> if the operation was successful and <tt>false</tt> otherwise.
 
 
 
@@ -156,7 +152,7 @@ The above code sets the full path to the input action manifest file the game wan
 
 
 @func steam_input_run_frame
-With this function you can poll for new input data from Steam Input if it is available, you do not need to call it manually unless you explicitly specified this when calling [steam_input_init](#steam_input_init).
+@desc With this function you can poll for new input data from Steam Input if it is available, you do not need to call it manually unless you explicitly specified this when calling ${function.}.
 
 
 
@@ -173,7 +169,7 @@ The above code asks Steam Input to poll for new data if available.
 
 
 @func steam_input_wait_for_data
-With this function you can freeze the game until new input data had arrived, returns <tt>true</tt> if new data did arrive, or <tt>false</tt> if the timeout had expired or an error had occurred. This function is only useful for lockstep multiplayer games.
+@desc With this function you can freeze the game until new input data had arrived, returns <tt>true</tt> if new data did arrive, or <tt>false</tt> if the timeout had expired or an error had occurred. This function is only useful for lockstep multiplayer games.
 
 
 @param {bool} wait_forever Whether to wait for data to arrive forever.
@@ -193,7 +189,7 @@ The above code will freeze the entire game until new input data is received from
 
 
 @func steam_input_new_data_available
-With this function you can check if there is new input data available since last read. Returns <tt>true</tt> if there is, <tt>false</tt> otherwise.
+@desc With this function you can check if there is new input data available since last read. Returns <tt>true</tt> if there is, <tt>false</tt> otherwise.
 
 
 
@@ -214,7 +210,7 @@ The above code checks if new data has been received since last poll, and sets a 
 
 
 @func steam_input_get_connected_controllers
-With this function you can get an array of currently connected controller handles. This function returns an array of controller handles on success, and <tt>undefined</tt> on failure.
+@desc With this function you can get an array of currently connected controller handles. This function returns an array of controller handles on success, and <tt>undefined</tt> on failure.
 
 
 
@@ -240,11 +236,9 @@ The above code will poll the current connected controllers array, and throw an e
 
 
 @func steam_input_enable_device_callbacks
-You can use this function to enable `Async - Steam` device connection and disconnection events, similar to `Async - System` type `gamepad connected` and `gamepad lost` events. The contents of `async_load` are described below. Returns <tt>true</tt> if the operation was successful, and <tt>false</tt> otherwise. This can be used as an alternative to [steam_input_get_connected_controllers](#steam_input_get_connected_controllers) since in that case you don't need to iterate through the entire array, which may be faster depending on how your game is coded. Both methods can be used simultaneously without issues. This function needs to be called only once and cannot be undone.
+@desc You can use this function to enable `Async - Steam` device connection and disconnection events, similar to `Async - System` type `gamepad connected` and `gamepad lost` events. The contents of `async_load` are described below. Returns <tt>true</tt> if the operation was successful, and <tt>false</tt> otherwise. This can be used as an alternative to ${function.} since in that case you don't need to iterate through the entire array, which may be faster depending on how your game is coded. Both methods can be used simultaneously without issues. This function needs to be called only once and cannot be undone.
 
-> **:warning: IMPORTANT**
->
-> Depending on the type of the controller, multiple connection or disconnection events may be sent for one handle, be sure to handle that in your code, e.g. don't show a disconnection pop-up if the controller was already lost, and don't show a connection pop-up if this controller was already connected (and is not lost).
+[[warning: IMPORTANTDepending on the type of the controller, multiple connection or disconnection events may be sent for one handle, be sure to handle that in your code, e.g. don't show a disconnection pop-up if the controller was already lost, and don't show a connection pop-up if this controller was already connected (and is not lost).
 
 
 
@@ -283,7 +277,7 @@ The above code will enable device connection and disconnection events, then it w
 
 
 @func steam_input_enable_action_event_callbacks
-This function will enable `Async - Steam` action events, this event will be called only when some digital or analog action will change it's state, in case of digital actions that means a button is held or released, in case of analog actions that means the analog stick had moved, or the stick type had changed. The contents of `async_load` are described below. This is similar to [steam_input_get_digital_action_data](#steam_input_get_digital_action_data) and [steam_input_get_analog_action_data](#steam_input_get_analog_action_data), only here you don't have to poll for the actions manually, but you still need to obtain the handles via [steam_input_get_digital_action_handle](#steam_input_get_digital_action_handle) and [steam_input_get_analog_action_handle](#steam_input_get_analog_action_handle) respectively, otherwise Steam will think you don't care about these actions. This function needs to be called only once and cannot be undone.
+@desc This function will enable `Async - Steam` action events, this event will be called only when some digital or analog action will change it's state, in case of digital actions that means a button is held or released, in case of analog actions that means the analog stick had moved, or the stick type had changed. The contents of `async_load` are described below. This is similar to ${function.} and ${function.}, only here you don't have to poll for the actions manually, but you still need to obtain the handles via ${function.} and ${function.} respectively, otherwise Steam will think you don't care about these actions. This function needs to be called only once and cannot be undone.
 
 
 
@@ -340,11 +334,9 @@ The above code will activate action input async events, and handle them correctl
 
 
 @func steam_input_get_action_set_handle
-This function will try to resolve an action set by name, returning the handle of that action set.
+@desc This function will try to resolve an action set by name, returning the handle of that action set.
 
-> **:warning: IMPORTANT**
->
-> Due to a bug in the Steam Input API, if the game was launched without any controllers connected, all action set and action handle resolver functions will return 0, an invalid handle, as such it is required that you try to obtain handles every frame until at least one controller gets connected and you succeed.
+[[warning: IMPORTANTDue to a bug in the Steam Input API, if the game was launched without any controllers connected, all action set and action handle resolver functions will return 0, an invalid handle, as such it is required that you try to obtain handles every frame until at least one controller gets connected and you succeed.
 
 
 @param {string} action_set_name The name of the action set.
@@ -379,14 +371,9 @@ The above code checks if any handle is 0, and if it is, it tries to obtain all h
 
 
 @func steam_input_activate_action_set
-With this function you can activate an action set on a specific controller, or all controllers by specifying the `steam_input_handle_all_controllers` constant as the controller handle. Returns `true` if the operation was successful, and `false` otherwise. This function is cheap to call and can be safely called every frame without hitting performance issues.
+@desc With this function you can activate an action set on a specific controller, or all controllers by specifying the `steam_input_handle_all_controllers` constant as the controller handle. Returns `true` if the operation was successful, and `false` otherwise. This function is cheap to call and can be safely called every frame without hitting performance issues.
 
 
-**Syntax:**
-
-```gml
-steam_input_activate_action_set(controller, action_set);
-```
 
 @param {Real} controller Input handle of the controller.
 @param {Real} action_set Handle of the action set, cannot be zero.
@@ -417,7 +404,7 @@ The above code will activate the appropriate action set based on which state the
 
 
 @func steam_input_get_current_action_set
-This function will return the handle of the currently activated action set on a given controller handle, or `0` if there is no action set currently active.
+@desc This function will return the handle of the currently activated action set on a given controller handle, or `0` if there is no action set currently active.
 
 
 @param {input_handle} controller Handle of the controller.
@@ -438,14 +425,9 @@ The above code will check to see if there is no action set activated for a contr
 
 
 @func steam_input_activate_action_set_layer
-This function will activate an action set layer on top of the current action set on a specified controller. Returns `true` if the operation was successful and `false` otherwise.
+@desc This function will activate an action set layer on top of the current action set on a specified controller. Returns `true` if the operation was successful and `false` otherwise.
 
 
-**Syntax:**
-
-```gml
-steam_input_activate_action_set_layer(controller, action_set_layer);
-```
 
 @param {real} controller Handle of the controller.
 @param {real} action_set_layer Handle of the action set layer.
@@ -464,14 +446,9 @@ The above code will activate a "sniper" action set layer on top of any currently
 
 
 @func steam_input_deactivate_action_set_layer
-This function will deactivate a specific action set layer from the specified controller. Returns `true` if the operation was successful and `false` otherwise.
+@desc This function will deactivate a specific action set layer from the specified controller. Returns `true` if the operation was successful and `false` otherwise.
 
 
-**Syntax:**
-
-```gml
-steam_input_deactivate_action_set_layer(controller, action_set_layer);
-```
 
 @param {real} controller Handle of the controller.
 @param {real} action_set_layer Handle of the action set layer.
@@ -493,7 +470,7 @@ The above code will deactivate the "sniper" action set layer from the `player_ha
 
 
 @func steam_input_deactivate_all_action_set_layers
-This function will deactivate all action set layers on a specified controller. Returns `true` if the operation was successful and `false` otherwise.
+@desc This function will deactivate all action set layers on a specified controller. Returns `true` if the operation was successful and `false` otherwise.
 
 
 @param {real} controller Handle of the controller.
@@ -512,7 +489,7 @@ The above code will deactivate all action set layers on the `player_handle` cont
 
 
 @func steam_input_get_active_action_set_layers
-This function will return an array of currently active action set layer handles on a specified controller. Returns an array of action set layer handles on success, and `undefined` on failure.
+@desc This function will return an array of currently active action set layer handles on a specified controller. Returns an array of action set layer handles on success, and `undefined` on failure.
 
 
 @param {real} controller Handle of the controller.
@@ -539,11 +516,9 @@ The above code will retrieve all currently active action set layers for `player_
 
 
 @func steam_input_get_digital_action_handle
-This function will resolve a digital action by name, and return that action's handle. Keep in mind that no two actions cannot have the same name, even if they are defined in different action sets, since Steam does not differentiate action names for each set.
+@desc This function will resolve a digital action by name, and return that action's handle. Keep in mind that no two actions cannot have the same name, even if they are defined in different action sets, since Steam does not differentiate action names for each set.
 
-> **:warning: IMPORTANT**
->
-> Due to a bug in the Steam Input API, if the game was launched without any controllers connected, all action set and action handle resolver functions will return 0, an invalid handle, as such it is required that you try to obtain handles every frame until at least one controller gets connected and you succeed.
+[[warning: IMPORTANTDue to a bug in the Steam Input API, if the game was launched without any controllers connected, all action set and action handle resolver functions will return 0, an invalid handle, as such it is required that you try to obtain handles every frame until at least one controller gets connected and you succeed.
 
 
 @param {string} digital_action_name Name of the digital action.
@@ -573,7 +548,7 @@ The above code will try to obtain handles of digital actions `shoot` and `roll`,
 
 
 @func steam_input_get_digital_action_data
-This function will return current input data for a given digital action on a given controller. It returns the `digital_action_data` struct on success and `undefined` on failure.
+@desc This function will return current input data for a given digital action on a given controller. It returns the `digital_action_data` struct on success and `undefined` on failure.
 
 
 @param {Real} controller Handle of the controller to use.
@@ -607,14 +582,9 @@ The above code will set the `isShooting` variable in the player object to `true`
 
 
 @func steam_input_get_digital_action_origins
-This function will retrieve an array of input origins for a specified action and controller handles. This is the function you should use when trying to obtain input hint prompts, keep in mind that it returns an array because multiple buttons can be bound to one action in the Steam Input Configurator. Also keep in mind that input hints may change mid-game as the Steam Input Configurator is accessible inside the Steam Overlay, this is why it's recommended that you update all input sprites when you get a Configuration `Async - Steam` event for the controller(s) you are interested in.
+@desc This function will retrieve an array of input origins for a specified action and controller handles. This is the function you should use when trying to obtain input hint prompts, keep in mind that it returns an array because multiple buttons can be bound to one action in the Steam Input Configurator. Also keep in mind that input hints may change mid-game as the Steam Input Configurator is accessible inside the Steam Overlay, this is why it's recommended that you update all input sprites when you get a Configuration `Async - Steam` event for the controller(s) you are interested in.
 
 
-**Syntax:**
-
-```gml
-steam_input_get_digital_action_origins(controller, action_set, digital_action);
-```
 
 @param {Real} controller Handle of the controller to use.
 @param {Real} action_set Handle of the action set.
@@ -673,7 +643,7 @@ The above code defines an example of how to turn action origins into a sprite th
 
 
 @func steam_input_get_string_for_digital_action_name
-This function will return the localized name of a digital action as specified by Steam localization settings. Keep in mind that the Steam language may be different than the OS language, and this function will always use the language settings of the Steam client, not the OS.
+@desc This function will return the localized name of a digital action as specified by Steam localization settings. Keep in mind that the Steam language may be different than the OS language, and this function will always use the language settings of the Steam client, not the OS.
 
 
 @param {Real} digital_action Handle of the digital action.
@@ -693,11 +663,9 @@ The above code will get the localized name for the shoot action, and store it in
 
 
 @func steam_input_get_analog_action_handle
-This function will resolve an analog action by name, and return that action's handle. Keep in mind that no two actions cannot have the same name, even if they are defined in different action sets, since Steam does not differentiate action names for each set.
+@desc This function will resolve an analog action by name, and return that action's handle. Keep in mind that no two actions cannot have the same name, even if they are defined in different action sets, since Steam does not differentiate action names for each set.
 
-> **:warning: IMPORTANT**
->
-> Due to a bug in the Steam Input API, if the game was launched without any controllers connected, all action set and action handle resolver functions will return 0, an invalid handle, as such it is required that you try to obtain handles every frame until at least one controller gets connected and you succeed.
+[[warning: IMPORTANTDue to a bug in the Steam Input API, if the game was launched without any controllers connected, all action set and action handle resolver functions will return 0, an invalid handle, as such it is required that you try to obtain handles every frame until at least one controller gets connected and you succeed.
 
 
 @param {string} analog_action_name Name of the analog action.
@@ -727,14 +695,9 @@ The above code will try to obtain handles of analog actions `move` and `aim`, if
 
 
 @func steam_input_get_analog_action_data
-This function will return current input data for a given analog action on a given controller. It returns the `analog_action_data` struct on success and `undefined` on failure.
+@desc This function will return current input data for a given analog action on a given controller. It returns the `analog_action_data` struct on success and `undefined` on failure.
 
 
-**Syntax:**
-
-```gml
-steam_input_get_analog_action_data(controller, action_handle);
-```
 
 @param {Real} controller Handle of the controller to use.
 @param {Real} action_handle Handle of the analog action to poll for.
@@ -776,14 +739,9 @@ The above code will move the player object accordingly to the input data for the
 
 
 @func steam_input_get_analog_action_origins
-This function will retrieve an array of input origins for a specified action and controller handles. This is the function you should use when trying to obtain input hint prompts, keep in mind that it returns an array because multiple buttons can be bound to one action in the Steam Input Configurator. Also keep in mind that input hints may change mid-game as the Steam Input Configurator is accessible inside the Steam Overlay, this is why it's recommended that you update all input sprites when you get a Configuration `Async - Steam` event for the controller(s) you are interested in.
+@desc This function will retrieve an array of input origins for a specified action and controller handles. This is the function you should use when trying to obtain input hint prompts, keep in mind that it returns an array because multiple buttons can be bound to one action in the Steam Input Configurator. Also keep in mind that input hints may change mid-game as the Steam Input Configurator is accessible inside the Steam Overlay, this is why it's recommended that you update all input sprites when you get a Configuration `Async - Steam` event for the controller(s) you are interested in.
 
 
-**Syntax:**
-
-```gml
-steam_input_get_analog_action_origins(controller, action_set, action);
-```
 
 @param {Real} controller Handle of the controller to use.
 @param {Real} action_set Handle of the action set.
@@ -842,14 +800,9 @@ The above code defines an example of how to turn action origins into a sprite th
 
 
 @func steam_input_get_glyph_png_for_action_origin
-This function will return a full path to a PNG file of the glyph image of an action origin. The path is automatically added into the GameMaker's filesystem sandbox list, so that you can use the returned path in `sprite_add` or `buffer_load` no matter if you have the sandbox enabled or disabled.
+@desc This function will return a full path to a PNG file of the glyph image of an action origin. The path is automatically added into the GameMaker's filesystem sandbox list, so that you can use the returned path in `sprite_add` or `buffer_load` no matter if you have the sandbox enabled or disabled.
 
 
-**Syntax:**
-
-```gml
-steam_input_get_glyph_png_for_action_origin(origin, size, flags);
-```
 
 @param {Real} origin Action origin to get the PNG of.
 @param {Real} size A `steam_input_glyph_size_` constant.
@@ -863,7 +816,7 @@ var _path = steam_input_get_glyph_png_for_action_origin(global.shoot_origin, ste
 global.shoot_sprite = sprite_add(_path, 1, false, false, 0, 0);
 ```
 
-The above code will get a PNG representing an action origin and load it as a sprite. For an extended example please see the example code from [steam_input_get_digital_action_origins](#steam_input_get_digital_action_origins).
+The above code will get a PNG representing an action origin and load it as a sprite. For an extended example please see the example code from ${function.}.
 
 
 
@@ -871,14 +824,9 @@ The above code will get a PNG representing an action origin and load it as a spr
 
 
 @func steam_input_get_glyph_svg_for_action_origin
-This function will return a full path to an SVG file of the glyph image of an action origin. The path is automatically added into the GameMaker's filesystem sandbox list, so that you can use the returned path in `buffer_load` no matter if you have the sandbox enabled or disabled. As for now GameMaker has no native capabilities to draw SVG files, but such ability may be added in the future. If you have your own SVG renderer then this function might be useful for you. Since SVGs do not have a fixed size and can be freely scaled, there is no `size` argument like in [steam_input_get_glyph_png_for_action_origin](#steam_input_get_glyph_png_for_action_origin).
+@desc This function will return a full path to an SVG file of the glyph image of an action origin. The path is automatically added into the GameMaker's filesystem sandbox list, so that you can use the returned path in `buffer_load` no matter if you have the sandbox enabled or disabled. As for now GameMaker has no native capabilities to draw SVG files, but such ability may be added in the future. If you have your own SVG renderer then this function might be useful for you. Since SVGs do not have a fixed size and can be freely scaled, there is no `size` argument like in ${function.}.
 
 
-**Syntax:**
-
-```gml
-steam_input_get_glyph_svg_for_action_origin(origin, flags);
-```
 
 @param {Real} origin Action origin to get the SVG of.
 @param {Real} flags A `steam_input_glyph_style_` bit flags constant.
@@ -898,7 +846,7 @@ The above code will get the path to an SVG representing an action origin and sto
 
 
 @func steam_input_get_glyph_for_action_origin_legacy
-This function will return a full path to a PNG file of the glyph image of an action origin. The path is automatically added into the GameMaker's filesystem sandbox list, so that you can use the returned path in `sprite_add` or `buffer_load` no matter if you have the sandbox enabled or disabled. The image will be in legacy Steam Big Picture design style, if you wish to use the new Steam Deck styled glyphs (also called Knockout glyphs in Valve's documentation), please use the function [steam_input_get_glyph_png_for_action_origin](#steam_input_get_glyph_png_for_action_origin) instead.
+@desc This function will return a full path to a PNG file of the glyph image of an action origin. The path is automatically added into the GameMaker's filesystem sandbox list, so that you can use the returned path in `sprite_add` or `buffer_load` no matter if you have the sandbox enabled or disabled. The image will be in legacy Steam Big Picture design style, if you wish to use the new Steam Deck styled glyphs (also called Knockout glyphs in Valve's documentation), please use the function ${function.} instead.
 
 
 @param {Real} origin Action origin to get the PNG of.
@@ -919,7 +867,7 @@ The above code will get a PNG representing an action origin and load it as a spr
 
 
 @func steam_input_get_string_for_action_origin
-This function will return a localized name of an action origin, for example `"Y Button"` if the Steam language is set to English, or `"Кнопка Y"` if it is set to Russian. Keep in mind that the OS language may be different from the Steam client language, and the Steam language will be used instead.
+@desc This function will return a localized name of an action origin, for example `"Y Button"` if the Steam language is set to English, or `"Кнопка Y"` if it is set to Russian. Keep in mind that the OS language may be different from the Steam client language, and the Steam language will be used instead.
 
 
 @param {Real} origin Action origin to get the localized name of.
@@ -939,7 +887,7 @@ The above code will get a localized name of the shoot origin and store it in a g
 
 
 @func steam_input_get_string_for_analog_action_name
-This function will return the localized name of an analog action as specified by Steam localization settings. Keep in mind that the Steam language may be different than the OS language, and this function will always use the language settings of the Steam client, not the OS.
+@desc This function will return the localized name of an analog action as specified by Steam localization settings. Keep in mind that the Steam language may be different than the OS language, and this function will always use the language settings of the Steam client, not the OS.
 
 
 @param {Real} action Handle of the analog action.
@@ -959,7 +907,7 @@ The above code will get the localized name for the move action, and store it in 
 
 
 @func steam_input_stop_analog_action_momentum
-This function will stop the momentum of an analog action if the input device is, for example, a trackball. Returns `true` if the operation was successful and `false` otherwise.
+@desc This function will stop the momentum of an analog action if the input device is, for example, a trackball. Returns `true` if the operation was successful and `false` otherwise.
 
 
 @param {Real} controller Input handle of the controller.
@@ -980,7 +928,7 @@ The above code will stop the analog momentum of the move action.
 
 
 @func steam_input_get_motion_data
-This function will obtain raw gyroscope and accelerometer data in the controller's native format. Returns the  `motion_data` struct on success and `undefined` on failure.
+@desc This function will obtain raw gyroscope and accelerometer data in the controller's native format. Returns the  `motion_data` struct on success and `undefined` on failure.
 
 
 @param {Real} controller Input handle of the controller.
@@ -1027,7 +975,7 @@ The above code will rotate and move the object based on the angular velocity dat
 
 
 @func steam_input_trigger_vibration
-This function will trigger a vibration effect on the target controller. Keep in mind that due to physical differences of each controller, the motors may not be the exact same, for example on the DualShock 4 controller the left motor is bigger and faster than the right one. Returns `true` on success and `false` otherwise.
+@desc This function will trigger a vibration effect on the target controller. Keep in mind that due to physical differences of each controller, the motors may not be the exact same, for example on the DualShock 4 controller the left motor is bigger and faster than the right one. Returns `true` on success and `false` otherwise.
 
 
 @param {real} controller Input handle of the controller.
@@ -1049,7 +997,7 @@ The above code will trigger a vibration effect at half the maximum power on both
 
 
 @func steam_input_trigger_vibration_extended
-This function will trigger an extended vibration effect on the target controller. Keep in mind that due to physical differences of each controller, the motors may not be the exact same, for example on the DualShock 4 controller the left motor is bigger and faster than the right one. Also keep in mind that not all controllers may support the extended vibration effects. Returns `true` on success and `false` otherwise.
+@desc This function will trigger an extended vibration effect on the target controller. Keep in mind that due to physical differences of each controller, the motors may not be the exact same, for example on the DualShock 4 controller the left motor is bigger and faster than the right one. Also keep in mind that not all controllers may support the extended vibration effects. Returns `true` on success and `false` otherwise.
 
 
 @param {real} controller Input handle of the controller.
@@ -1073,7 +1021,7 @@ The above code will trigger a vibration effect at half the maximum power on vibr
 
 
 @func steam_input_trigger_simple_haptic_event
-This function will trigger a simple haptic event if the target controller supports them. Returns `true` on success and `false` on failure.
+@desc This function will trigger a simple haptic event if the target controller supports them. Returns `true` on success and `false` on failure.
 
 
 @param {real} controller Input handle of the controller.
@@ -1098,7 +1046,7 @@ The above code will trigger a simple haptic event with half intensity and neutra
 
 
 @func steam_input_set_led_color
-This function will set or reset the color of the LED on the controller. Keep in mind that not all controllers have LEDs in them, and that the default user color of the controller differs between manufacturers, but your custom ones should always look almost the same.
+@desc This function will set or reset the color of the LED on the controller. Keep in mind that not all controllers have LEDs in them, and that the default user color of the controller differs between manufacturers, but your custom ones should always look almost the same.
 
 
 @param {real} controller Input handle of the controller.
@@ -1124,7 +1072,7 @@ The above code first sets the LED color to a custom one, then resets the color t
 
 
 @func steam_input_trigger_haptic_pulse_legacy
-This function runs a haptic pulse through the legacy API, this is only useful if the target controller is a Steam Controller. Returns `true` on success and `false` otherwise.
+@desc This function runs a haptic pulse through the legacy API, this is only useful if the target controller is a Steam Controller. Returns `true` on success and `false` otherwise.
 
 
 @param {real} controller Input handle of the controller.
@@ -1146,7 +1094,7 @@ The above code runs a haptic pulse on the left motor for two seconds (2000 milis
 
 
 @func steam_input_trigger_repeated_haptic_pulse_legacy
-This function runs a repeated haptic pulse through the legacy API, this is only useful if the target controller is a Steam Controller. Returns `true` on success and `false` otherwise.
+@desc This function runs a repeated haptic pulse through the legacy API, this is only useful if the target controller is a Steam Controller. Returns `true` on success and `false` otherwise.
 
 
 @param {real} controller Input handle of the controller.
@@ -1171,7 +1119,7 @@ The above code runs a repeated haptic pulse on the left motor for two seconds (2
 
 
 @func steam_input_show_binding_panel
-This function opens the Steam Input Configurator for the target controller which allows the player to rebind controls in-game. If Steam is not running in Big Picture, a new window will be opened, otherwise the configurator will be invoked as a part of the Steam Overlay. Keep in mind that the player can open the Configurator without this function too, by pressing the "Controller Layout" button in the Steam Overlay. Returns `true` if the operation was successful and `false` otherwise.
+@desc This function opens the Steam Input Configurator for the target controller which allows the player to rebind controls in-game. If Steam is not running in Big Picture, a new window will be opened, otherwise the configurator will be invoked as a part of the Steam Overlay. Keep in mind that the player can open the Configurator without this function too, by pressing the "Controller Layout" button in the Steam Overlay. Returns `true` if the operation was successful and `false` otherwise.
 
 
 @param {real} controller Input handle of the controller.
@@ -1191,7 +1139,7 @@ The above code opens the Steam Input Configurator for the controller handle stor
 
 
 @func steam_input_get_input_type_for_handle
-This function returns the type of the target controller. Useful if you want to know which features are most likely supported by the target contorller.
+@desc This function returns the type of the target controller. Useful if you want to know which features are most likely supported by the target contorller.
 
 
 @param {real} controller Input handle of the controller.
@@ -1230,7 +1178,7 @@ The above code prints the type of the controller as a string to debug output.
 
 
 @func steam_input_get_controller_for_gamepad_index
-This function returns the input handle for an XInput gamepad slot, or 0 if that slot is not powered by Steam Input. That can be used to match between native GameMaker `gamepad_` slots and Steam Input controllers on Windows. Since on Windows the GameMaker pad slots from 0 to 3 are XInput controllers, and from 4 to 12 are DirectInput controllers. This function only works with emulated XInput controllers.
+@desc This function returns the input handle for an XInput gamepad slot, or 0 if that slot is not powered by Steam Input. That can be used to match between native GameMaker `gamepad_` slots and Steam Input controllers on Windows. Since on Windows the GameMaker pad slots from 0 to 3 are XInput controllers, and from 4 to 12 are DirectInput controllers. This function only works with emulated XInput controllers.
 
 
 @param {real} index XInput slot from 0 to 3 included.
@@ -1253,7 +1201,7 @@ The above code prints the controller handle for the first XInput gamepad slot if
 
 
 @func steam_input_get_controller_for_gamepad_index
-This function is the reverse of [steam_input_get_controller_for_gamepad_index](#steam_input_get_controller_for_gamepad_index), except it allows you to determine whether a Steam Input handle is being emulated as XInput as well or not. See the definition of the reverse function for more information about slots.
+@desc This function is the reverse of ${function.}, except it allows you to determine whether a Steam Input handle is being emulated as XInput as well or not. See the definition of the reverse function for more information about slots.
 
 
 @param {real} controller Input handle of the controller.
@@ -1276,7 +1224,7 @@ The above code prints the XInput slot for the player controller if it's valid.
 
 
 @func steam_input_get_string_for_xbox_origin
-This function turns a `steam_input_xbox_origin_` constant into a localized string, the language will be taken from Steam client settings. For example `"A Button"` if it's English or `"Кнопка A"` if it's Russian.
+@desc This function turns a `steam_input_xbox_origin_` constant into a localized string, the language will be taken from Steam client settings. For example `"A Button"` if it's English or `"Кнопка A"` if it's Russian.
 
 
 @param {real} origin A `steam_input_xbox_origin_` constant.
@@ -1296,7 +1244,7 @@ The above code prints the localized name of the Xbox 360 A button origin.
 
 
 @func steam_input_get_glyph_for_xbox_origin
-This returns a path to a PNG associated with a `steam_input_xbox_origin_` constant. The returned path will be automatically added into the GameMaker filesystem sandbox list so it can be used with `buffer_load` or `sprite_add` no matter whether you have sandbox enabled or not.
+@desc This returns a path to a PNG associated with a `steam_input_xbox_origin_` constant. The returned path will be automatically added into the GameMaker filesystem sandbox list so it can be used with `buffer_load` or `sprite_add` no matter whether you have sandbox enabled or not.
 
 
 @param {real} origin A `steam_input_xbox_origin_` constant.
@@ -1320,14 +1268,9 @@ The above code loads a PNG file associated with `steam_input_xbox_origin_a` as a
 
 
 @func steam_input_get_action_origin_from_xbox_origin
-This function returns the closest origin that maps to the `steam_input_xbox_origin_` constant for the target controller. So for a DualShock 4 controller handle `steam_input_xbox_origin_a` will return the "cross" button origin. Useful for transposing Xbox 360 button hints into the target controller button hints without using the Actions and Action Sets.
+@desc This function returns the closest origin that maps to the `steam_input_xbox_origin_` constant for the target controller. So for a DualShock 4 controller handle `steam_input_xbox_origin_a` will return the "cross" button origin. Useful for transposing Xbox 360 button hints into the target controller button hints without using the Actions and Action Sets.
 
 
-**Syntax:**
-
-```gml
-steam_input_get_action_origin_from_xbox_origin(controller, origin);
-```
 
 @param {real} controller Target controller handle to use.
 @param {real} origin A `steam_input_xbox_origin_` constant.
@@ -1356,14 +1299,9 @@ The above code loads an input sprite of the Xbox 360 button "Y" in the target co
 
 
 @func steam_input_translate_action_origin
-This function allows to translate an action origin for a new unknown controller type into an origin that this extension will understand. This is useful if a new controller is released, it's support is added into Steam Input, the Steam client is updated, the Steam Input Configurator is updated, but your game is not, and it doesn't know about this controller. With this function you can try to obtain the closest origin that maps to that unknown-for-your-game controller origin.
+@desc This function allows to translate an action origin for a new unknown controller type into an origin that this extension will understand. This is useful if a new controller is released, it's support is added into Steam Input, the Steam client is updated, the Steam Input Configurator is updated, but your game is not, and it doesn't know about this controller. With this function you can try to obtain the closest origin that maps to that unknown-for-your-game controller origin.
 
 
-**Syntax:**
-
-```gml
-steam_input_translate_action_origin(type, origin);
-```
 
 @param {real} type `steam_input_type_` you would like to map to, or `steam_input_type_unknown` to let Steam do a best guess.
 @param {real} origin An unknown input action origin you would like to translate.
@@ -1390,7 +1328,7 @@ The above code tries to map an unknown action origin into something that this ex
 
 
 @func steam_input_get_device_binding_revision
-This function returns the current action bindings revision as a struct, or `undefined` if there was an error.
+@desc This function returns the current action bindings revision as a struct, or `undefined` if there was an error.
 
 
 @param {real} controller Input controller handle to use.
@@ -1422,7 +1360,7 @@ The above code prints the current device bindings revision into debug output.
 
 
 @func steam_input_get_remote_play_session_id
-This function returns the current Steam Remote Play session id associated with the controller, or 0 if no session is associated.
+@desc This function returns the current Steam Remote Play session id associated with the controller, or 0 if no session is associated.
 
 
 @param {input_handle} controller Input controller handle to use.
@@ -1443,7 +1381,7 @@ The above code prints the current Steam Remote Play session id associated with t
 
 
 @func steam_input_get_session_input_configuration_settings
-This function returns the Steam Remote Play session opted-in gamepad types bitmask. Specifically the `steam_input_configuration_enable_type_` constants.
+@desc This function returns the Steam Remote Play session opted-in gamepad types bitmask. Specifically the `steam_input_configuration_enable_type_` constants.
 
 
 
@@ -1466,14 +1404,9 @@ The above code prints the current Steam Remote Play session input bitmask into t
 
 
 @func steam_input_set_dualsense_trigger_effect
-This function is for input handles of DualSense controllers only, allows to apply an adaptive trigger effect to a DualSense input handle. The format of the struct is described in the example code. Returns `true` if the operation was successful and `false` otherwise.
+@desc This function is for input handles of DualSense controllers only, allows to apply an adaptive trigger effect to a DualSense input handle. The format of the struct is described in the example code. Returns `true` if the operation was successful and `false` otherwise.
 
 
-**Syntax:**
-
-```gml
-steam_input_set_dualsense_trigger_effect(controller, param);
-```
 
 @param {real} controller Input controller handle to use.
 @param {struct} param Trigger effect parameter struct, see the example.

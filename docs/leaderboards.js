@@ -1,54 +1,47 @@
 @func Leaderboards
-The Steam API supports persistent leaderboards with automatically ordered entries. These leaderboards can be used to display global and friend leaderboards in your game and on the community web page for your game. Each game can have up to 10,000 leaderboards, and each leaderboard can be retrieved immediately after a player&#39;s score has been inserted into it, but note that for each leaderboard, a player can have only <i>one</i> entry, although there is no limit on the number of players per leaderboard.
+@desc The Steam API supports persistent leaderboards with automatically ordered entries. These leaderboards can be used to display global and friend leaderboards in your game and on the community web page for your game. Each game can have up to 10,000 leaderboards, and each leaderboard can be retrieved immediately after a player&#39;s score has been inserted into it, but note that for each leaderboard, a player can have only <i>one</i> entry, although there is no limit on the number of players per leaderboard.
 
 ## Functions
 
 Each leaderboard entry contains a name, a score and a rank for the leaderboard, and this data will be replaced when a new leaderboard entry is created for the user, and the following functions can be used to add and retrieve this data form the leaderboards for your game:
 
-- [steam_create_leaderboard](#steam_create_leaderboard)
-- [steam_upload_score](#steam_upload_score)
-- [steam_upload_score_ext](#steam_upload_score_ext)
-- [steam_upload_score_buffer](#steam_upload_score_buffer)
-- [steam_upload_score_buffer_ext](#steam_upload_score_buffer_ext)
-- [steam_download_scores](#steam_download_scores)
-- [steam_download_scores_around_user](#steam_download_scores_around_user)
-- [steam_download_friends_scores](#steam_download_friends_scores)
+- ${function.}
+- ${function.}
+- ${function.}
+- ${function.}
+- ${function.}
+- ${function.}
+- ${function.}
+- ${function.}
 
 ## Data Types
 
 The following data types are used by the leaderboard functions:
 
-* [LeaderboardEntry](#LeaderboardEntry)
+* ${function.}
 
 ## Constants
 
 The following constants are used by the leaderboard functions:
 
-* [LeaderboardDisplayType](#LeaderboardDisplayType)
-* [LeaderboardSortOrder](#LeaderboardSortOrder)
+* ${function.}
+* ${function.}
 
 
 @func_end
 
 
 @func steam_create_leaderboard
-With this function you can create a new leaderboard for your game. The first argument is a string which defines the name of your leaderboard, and this name should be used in any further function calls relating to the leaderboard being created. You can then define the sort order (see [LeaderboardSortOrder](#LeaderboardSortOrder) constants) as well as the way in which the information is displayed (see [LeaderboardDisplayType](#LeaderboardDisplayType) constants).
+@desc With this function you can create a new leaderboard for your game. The first argument is a string which defines the name of your leaderboard, and this name should be used in any further function calls relating to the leaderboard being created. You can then define the sort order (see ${function.} constants) as well as the way in which the information is displayed (see ${function.} constants).
 This is an asynchronous function that will trigger the [Steam Async Event](https://manual-en.yoyogames.com/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm) when the task is finished.
 
-> **:information_source: NOTE**
->
-> If you have previously created a leaderboard with the same name (either through code or through your Steam page for the game), then this function will not create a new one.
+[[NOTE: NOTE If you have previously created a leaderboard with the same name (either through code or through your Steam page for the game), then this function will not create a new one.
 
 
-**Syntax:**
-
-```gml
-steam_create_leaderboard(lb_name, sort_order, display_type);
-```
 
 @param {string} lb_name The name of the leaderboard that you are creating
-|sort_order|LeaderboardSortOrder constant|The method for sorting the leaderboard entries (see [LeaderboardSortOrder](#LeaderboardSortOrder) constants)
-|display_type|LeaderboardDisplayType constant|The way to display the leaderboard to the user (see [LeaderboardDisplayType](#LeaderboardDisplayType) constants)
+|sort_order|LeaderboardSortOrder constant|The method for sorting the leaderboard entries (see ${function.} constants)
+|display_type|LeaderboardDisplayType constant|The way to display the leaderboard to the user (see ${function.} constants)
 
 @returns {Real}
 
@@ -67,19 +60,12 @@ The above code will create a leaderboard called &quot;Game Times&quot;, and set 
 @func_end
 
 @func steam_upload_score
-This function will send a score to the given leaderboard. The score to be uploaded is a real number, and the leaderboard name is a string that was defined when you created the leaderboard using the function [steam_create_leaderboard](#steam_create_leaderboard). 
+@desc This function will send a score to the given leaderboard. The score to be uploaded is a real number, and the leaderboard name is a string that was defined when you created the leaderboard using the function ${function.}. 
 This is an asynchronous function that will trigger the [Steam Async Event](https://manual-en.yoyogames.com/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm) when the task is finished.
 
-> **:information_source: NOTE**
->
-> If the function call fails for any reason it will return -1 and the Async event will not be triggered.
+[[NOTE: NOTE If the function call fails for any reason it will return -1 and the Async event will not be triggered.
 
 
-**Syntax:**
-
-```gml
-steam_upload_score(lb_name, score);
-```
 
 @param {string} lb_name The name of the leaderboard that you are uploading the scores to
 @param {real} score The score to upload
@@ -143,12 +129,10 @@ in the example we are simply outputting the return values to the compiler window
 
 
 @func steam_upload_score_ext
-This function will send a score to the given leaderboard. It is similar to the function [steam_upload_score](#steam_upload_score)but has an extra argument that will allow you to force the update of the score, as by default Steam only updates the score if it is better than the previous one.
+@desc This function will send a score to the given leaderboard. It is similar to the function ${function.}but has an extra argument that will allow you to force the update of the score, as by default Steam only updates the score if it is better than the previous one.
 This is an asynchronous function that will trigger the [Steam Async Event](https://manual-en.yoyogames.com/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm) when the task is finished.
 
-> **:information_source: NOTE**
->
-> If the function call fails for any reason it will return -1 and the Async event will not be triggered.
+[[NOTE: NOTE If the function call fails for any reason it will return -1 and the Async event will not be triggered.
 
 @param {string} lb_name The name of the leaderboard that you are uploading the scores to
 @param {real} score The score to upload
@@ -213,19 +197,12 @@ in the example we are simply outputting the return values to the compiler window
 
 
 @func steam_upload_score_buffer
-This function will send a score to the given leaderboard along with a data package created from a buffer. The buffer should be no more than 256 bytes in size - anything beyond that will be chopped off - and can contain any data you require. The score to be uploaded should be a real number, and the leaderboard name is a string that was defined when you created the leaderboard using the function [steam_create_leaderboard](#steam_create_leaderboard).
+@desc This function will send a score to the given leaderboard along with a data package created from a buffer. The buffer should be no more than 256 bytes in size - anything beyond that will be chopped off - and can contain any data you require. The score to be uploaded should be a real number, and the leaderboard name is a string that was defined when you created the leaderboard using the function ${function.}.
 This is an asynchronous function that will trigger the [Steam Async Event](https://manual-en.yoyogames.com/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm) when the task is finished.
 
-> **:information_source: NOTE**
->
-> If the function call fails for any reason it will return -1 and the Async event will not be triggered.
+[[NOTE: NOTE If the function call fails for any reason it will return -1 and the Async event will not be triggered.
 
 
-**Syntax:**
-
-```gml
-steam_upload_score_buffer(lb_name, score, buffer);
-```
 
 @param {string} lb_name The name of the leaderboard that you are uploading the scores to
 @param {real} score The score to upload
@@ -294,19 +271,12 @@ In the example we are simply outputting the return values to the compiler window
 
 
 @func steam_upload_score_buffer_ext
-This function will send a score to the given leaderboard along with a data package created from a buffer. The buffer should be no more than 256 bytes in size - anything beyond that will be chopped off - and can contain any data you require. This function is similar to [steam_upload_score_buffer](#steam_upload_score_buffer) but has an extra argument that will allow you to force the update of the score, as by default Steam only updates the score if it is better than the previous one.
+@desc This function will send a score to the given leaderboard along with a data package created from a buffer. The buffer should be no more than 256 bytes in size - anything beyond that will be chopped off - and can contain any data you require. This function is similar to ${function.} but has an extra argument that will allow you to force the update of the score, as by default Steam only updates the score if it is better than the previous one.
 This is an asynchronous function that will trigger the [Steam Async Event](https://manual-en.yoyogames.com/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm) when the task is finished.
 
-> **:information_source: NOTE**
->
-> If the function call fails for any reason it will return -1 and the Async event will not be triggered.
+[[NOTE: NOTE If the function call fails for any reason it will return -1 and the Async event will not be triggered.
 
 
-**Syntax:**
-
-```gml
-steam_upload_score_buffer_ext(lb_name, score, buffer, force_update);
-```
 
 @param {string} lb_name The name of the leaderboard that you are uploading the scores to
 @param {real} score The score to upload
@@ -378,19 +348,12 @@ In the example we are simply outputting the return values to the compiler window
 
 
 @func steam_download_scores
-This function is used retrieve a sequential range of leaderboard entries by leaderboard ranking. The `start_idx` and `end_idx` parameters control the requested range of ranks, for example, you can display the top 10 on a leaderboard for your game by setting the start value to 1 and the end value to 10. The leaderboard name is a string that was defined when you created the leaderboard using the function [steam_create_leaderboard](#steam_create_leaderboard).
+@desc This function is used retrieve a sequential range of leaderboard entries by leaderboard ranking. The `start_idx` and `end_idx` parameters control the requested range of ranks, for example, you can display the top 10 on a leaderboard for your game by setting the start value to 1 and the end value to 10. The leaderboard name is a string that was defined when you created the leaderboard using the function ${function.}.
 This is an asynchronous function that will trigger the [Steam Async Event](https://manual-en.yoyogames.com/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm) when the task is finished.
 
-> **:information_source: NOTE**
->
-> If the function call fails for any reason it will return -1 and the async event will not be triggered.
+[[NOTE: NOTE If the function call fails for any reason it will return -1 and the async event will not be triggered.
 
 
-**Syntax:**
-
-```gml
-steam_download_scores(lb_name, start_idx, end_idx);
-```
 
 @param {string} lb_name The name of the leaderboard that you are downloading the scores from
 @param {integer} start_idx The start position within the leaderboard
@@ -405,7 +368,7 @@ steam_download_scores(lb_name, start_idx, end_idx);
 |status|int64|The status code if download fails
 @param {string} lb_name The name of the leaderboard
 @param {real} num_entries The number of returned entries
-@param {string} entries A json formatted string with all the downloaded entries (see  [LeaderboardEntry](#LeaderboardEntry) for details)
+@param {string} entries A json formatted string with all the downloaded entries (see  ${function.} for details)
 
 
 @example
@@ -454,19 +417,12 @@ Once the loop has finished, the JSON [DS map](https://manual.yoyogames.com/GameM
 
 
 @func steam_download_scores_around_user
-This function is used to retrieve leaderboard entries relative the current users entry. The `range_start` parameter is the number of entries to retrieve <i>before</i> the current users entry, and the `range_end` parameter is the number of entries after the current user&#39;s entry, and the current user&#39;s entry is <i>always</i> included in the results. For example, if the current user is number 5 on a given leaderboard, then setting the start range to -2 and the end range to 2 will return 5 entries: 3 through 7. If there are not enough entries in the leaderboard before or after the user&#39;s entry, Steam will adjust the range start and end points trying to maintained the range size. For example, if the user is #1 on the leaderboard, start is set to -2, and end is set to 2, Steam will return the first 5 entries in the leaderboard.
+@desc This function is used to retrieve leaderboard entries relative the current users entry. The `range_start` parameter is the number of entries to retrieve <i>before</i> the current users entry, and the `range_end` parameter is the number of entries after the current user&#39;s entry, and the current user&#39;s entry is <i>always</i> included in the results. For example, if the current user is number 5 on a given leaderboard, then setting the start range to -2 and the end range to 2 will return 5 entries: 3 through 7. If there are not enough entries in the leaderboard before or after the user&#39;s entry, Steam will adjust the range start and end points trying to maintained the range size. For example, if the user is #1 on the leaderboard, start is set to -2, and end is set to 2, Steam will return the first 5 entries in the leaderboard.
 This is an asynchronous function that will trigger the [Steam Async Event](https://manual-en.yoyogames.com/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm) when the task is finished.
 
-> **:information_source: NOTE**
->
-> If the function call fails for any reason it will return -1 and the async event will not be triggered.
+[[NOTE: NOTE If the function call fails for any reason it will return -1 and the async event will not be triggered.
 
 
-**Syntax:**
-
-```gml
-steam_download_scores_around_user(lb_name, range_start, range_end);
-```
 
 @param {string} lb_name The name of the leaderboard that you are downloading the scores from
 @param {integer} range_start The start position within the leaderboard
@@ -481,13 +437,13 @@ steam_download_scores_around_user(lb_name, range_start, range_end);
 |status|int64|The status code if download fails
 @param {string} lb_name The name of the leaderboard
 @param {real} num_entries The number of returned entries
-@param {string} entries A json formatted string with all the downloaded entries (see  [LeaderboardEntry](#LeaderboardEntry) for details)
+@param {string} entries A json formatted string with all the downloaded entries (see  ${function.} for details)
 
 
 ```gml
 request_id = steam_download_scores_around_user("Game Scores", -4, 5);
 ```
-This will send off a request to the Steam Server for a range of 10 scores from the leaderboard `&quot;Game Scores&quot;`, centered on the player and will store the async id of the request in the variable `request_id`. This will then be handled in the [Steam Async Event](E:\Source\YoYoExtensionDocumentation\The_Asset_Editors\Object_Properties\Async_Events\Steam.htm), as shown in the Extended Example for [steam_download_scores](#steam_download_scores).
+This will send off a request to the Steam Server for a range of 10 scores from the leaderboard `&quot;Game Scores&quot;`, centered on the player and will store the async id of the request in the variable `request_id`. This will then be handled in the [Steam Async Event](E:\Source\YoYoExtensionDocumentation\The_Asset_Editors\Object_Properties\Async_Events\Steam.htm), as shown in the Extended Example for ${function.}.
 
 
 
@@ -495,12 +451,10 @@ This will send off a request to the Steam Server for a range of 10 scores from t
 
 
 @func steam_download_friends_scores
-With this function you can retrieve <i>only</i> the scores on the leaderboard that belong to those people that are marked as &quot;friends&quot; in the Steam client. So, if your leaderboard has 200 entries, and 50 of them are your friends, this function will retrieve only those 50 results. The leaderboard name is a string that was defined when you created the leaderboard using the function [steam_create_leaderboard](#steam_create_leaderboard).
+@desc With this function you can retrieve <i>only</i> the scores on the leaderboard that belong to those people that are marked as &quot;friends&quot; in the Steam client. So, if your leaderboard has 200 entries, and 50 of them are your friends, this function will retrieve only those 50 results. The leaderboard name is a string that was defined when you created the leaderboard using the function ${function.}.
 This is an asynchronous function that will trigger the [Steam Async Event](https://manual-en.yoyogames.com/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm) when the task is finished.
 
-> **:information_source: NOTE**
->
-> If the function call fails for any reason it will return -1 and the async event will not be triggered.
+[[NOTE: NOTE If the function call fails for any reason it will return -1 and the async event will not be triggered.
 
 
 @param {string} lb_name The name of the leaderboard that you are downloading the scores from
@@ -514,13 +468,13 @@ This is an asynchronous function that will trigger the [Steam Async Event](https
 |status|int64|The status code if download fails
 @param {string} lb_name The name of the leaderboard
 @param {real} num_entries The number of returned entries
-@param {string} entries A json formatted string with all the downloaded entries (see  [LeaderboardEntry](#LeaderboardEntry) for details)
+@param {string} entries A json formatted string with all the downloaded entries (see  ${function.} for details)
 
 
 ```gml
 request_id = steam_download_friends_scores("Game Scores");
 ```
-This will send off a request to the Steam Server for the users friends scores from the given leaderboard and will store the async id of the request in the variable `request_id`. This will then be handled in the [Steam Async Event](https://manual-en.yoyogames.com/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm), as shown in the Extended Example for [steam_download_scores](#steam_download_scores).
+This will send off a request to the Steam Server for the users friends scores from the given leaderboard and will store the async id of the request in the variable `request_id`. This will then be handled in the [Steam Async Event](https://manual-en.yoyogames.com/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm), as shown in the Extended Example for ${function.}.
 
 
 
@@ -528,30 +482,28 @@ This will send off a request to the Steam Server for the users friends scores fr
 
 
 @func LeaderboardEntry
-A leaderboard entry is represented by a json formatted string that can be returned by the async callback event of the following functions:
+@desc A leaderboard entry is represented by a json formatted string that can be returned by the async callback event of the following functions:
 
-* [steam_download_scores](#steam_download_scores)
-* [steam_download_scores_around_user](#steam_download_scores_around_user)
-* [steam_download_friends_scores](#steam_download_friends_scores)
+* ${function.}
+* ${function.}
+* ${function.}
 
 This string can be decoded into a [DS map](https://manual.yoyogames.com/GameMaker_Language/GML_Reference/Data_Structures/DS_Maps/DS_Maps.htm) (see [json_decode](https://manual-en.yoyogames.com/GameMaker_Language/GML_Reference/File_Handling/Encoding_And_Hashing/json_decode.htm), needs to be destroyed afterwards) or into a [struct](https://manual-en.yoyogames.com/GameMaker_Language/GML_Overview/Structs.htm) (see [json_parse](https://manual-en.yoyogames.com/GameMaker_Language/GML_Reference/File_Handling/Encoding_And_Hashing/json_parse.htm), recommended) and will provide the following members.
 
 @param {real} rank The rank of the entry on the specified leaderboard
-@param {string} data The base64 encoded string with the data provided when uploading scores using the [steam_upload_score_buffer](#steam_upload_score_buffer) or <br> [steam_upload_score_buffer_ext](#steam_upload_score_buffer_ext) functions :eight_pointed_black_star: OPTIONAL
+@param {string} data The base64 encoded string with the data provided when uploading scores using the ${function.} or <br> ${function.} functions :eight_pointed_black_star: OPTIONAL
 @param {real} score The score attributed to this entry
 @param {string} name The display name of the player for this entry
 |userID|int64|The unique user id of the player for this entry
 
-> **:information_source: NOTE**
->
-> If [steam_upload_score_buffer](#steam_upload_score_buffer) or [steam_upload_score_buffer_ext](#steam_upload_score_buffer_ext) were used to upload the score, the decoded entry will now have a `&quot;data&quot;` key so you can retrieve the data of the uploaded buffer (see the [Steam Async Event](https://manual-en.yoyogames.com/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm) extended code example for further details). This data will be base64 encoded and so you will need to use the function [buffer_base64_decode](https://manual-en.yoyogames.com/GameMaker_Language/GML_Reference/Buffers/buffer_base64_decode.htm) on the data before reading from the buffer.
+[[NOTE: NOTE If ${function.} or ${function.} were used to upload the score, the decoded entry will now have a `&quot;data&quot;` key so you can retrieve the data of the uploaded buffer (see the [Steam Async Event](https://manual-en.yoyogames.com/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm) extended code example for further details). This data will be base64 encoded and so you will need to use the function [buffer_base64_decode](https://manual-en.yoyogames.com/GameMaker_Language/GML_Reference/Buffers/buffer_base64_decode.htm) on the data before reading from the buffer.
 
 
 @func_end
 
 
 @func LeaderboardDisplayType
-These constants specify the display type of a leaderboard and should be used with the function [steam_create_leaderboard](#steam_create_leaderboard).
+@desc These constants specify the display type of a leaderboard and should be used with the function ${function.}.
 
 |Leaderboard Display Type Constant|Description
 |----|----
@@ -565,7 +517,7 @@ These constants specify the display type of a leaderboard and should be used wit
 
 
 @func LeaderboardSortOrder
-These constants specify the sort order of a leaderboard and should be used with the function [steam_create_leaderboard](#steam_create_leaderboard).
+@desc These constants specify the sort order of a leaderboard and should be used with the function ${function.}.
 
 |Leaderboard Sort Order Constant|Description
 |----|----

@@ -6,57 +6,57 @@ The following functions and constants allow you to use Steam&#39;s Lobbies and M
 
 These functions are provided for handling the current lobby:
 
-* [steam_lobby_activate_invite_overlay](#steam_lobby_activate_invite_overlay)
-* [steam_lobby_create](#steam_lobby_create)
-* [steam_lobby_get_data](#steam_lobby_get_data)
-* [steam_lobby_get_lobby_id](#steam_lobby_get_lobby_id)
-* [steam_lobby_get_member_count](#steam_lobby_get_member_count)
-* [steam_lobby_get_member_id](#steam_lobby_get_member_id)
-* [steam_lobby_get_owner_id](#steam_lobby_get_owner_id)
-* [steam_lobby_is_owner](#steam_lobby_is_owner)
-* [steam_lobby_join_id](#steam_lobby_join_id)
-* [steam_lobby_leave](#steam_lobby_leave)
-* [steam_lobby_set_data](#steam_lobby_set_data)
-* [steam_lobby_set_joinable](#steam_lobby_set_joinable)
-* [steam_lobby_set_owner_id](#steam_lobby_set_owner_id)
-* [steam_lobby_set_type](#steam_lobby_set_type)
+* ${function.}
+* ${function.}
+* ${function.}
+* ${function.}
+* ${function.}
+* ${function.}
+* ${function.}
+* ${function.}
+* ${function.}
+* ${function.}
+* ${function.}
+* ${function.}
+* ${function.}
+* ${function.}
 * [steam_lobby_get_chat_message_data](#steam_lobby_send_chat_message-copy)
-* [steam_lobby_get_chat_message_size](#steam_lobby_get_chat_message_size)
-* [steam_lobby_get_chat_message_text](#steam_lobby_get_chat_message_text)
-* [steam_lobby_send_chat_message](#steam_lobby_send_chat_message)
-* [steam_lobby_send_chat_message_buffer](#steam_lobby_send_chat_message_buffer)
+* ${function.}
+* ${function.}
+* ${function.}
+* ${function.}
 
 ## Matchmaking
 
 The following functions allow retrieving and handling lists of public lobbies.
 
-* [steam_lobby_list_add_distance_filter](#steam_lobby_list_add_distance_filter)
-* [steam_lobby_list_add_near_filter](#steam_lobby_list_add_near_filter)
-* [steam_lobby_list_add_numerical_filter](#steam_lobby_list_add_numerical_filter)
-* [steam_lobby_list_add_string_filter](#steam_lobby_list_add_string_filter)
-* [steam_lobby_list_request](#steam_lobby_list_request)
-* [steam_lobby_list_get_count](#steam_lobby_list_get_count)
-* [steam_lobby_list_get_data](#steam_lobby_list_get_data)
-* [steam_lobby_list_get_lobby_id](#steam_lobby_list_get_lobby_id)
-* [steam_lobby_list_get_lobby_member_count](#steam_lobby_list_get_lobby_member_count)
-* [steam_lobby_list_get_lobby_member_id](#steam_lobby_list_get_lobby_member_id)
-* [steam_lobby_list_get_lobby_owner_id](#steam_lobby_list_get_lobby_owner_id)
-* [steam_lobby_list_is_loading](#steam_lobby_list_is_loading)
+* ${function.}
+* ${function.}
+* ${function.}
+* ${function.}
+* ${function.}
+* ${function.}
+* ${function.}
+* ${function.}
+* ${function.}
+* ${function.}
+* ${function.}
+* ${function.}
 
 ## Constants
 
 These are the constants used by this API:
 
-* [LobbyFilterComparisonType](#LobbyFilterComparisonType)
-* [LobbyFilterDistanceMode](#LobbyFilterDistanceMode)
-* [LobbyType](#LobbyType)
+* ${function.}
+* ${function.}
+* ${function.}
 
 
 @func_end
 
 
 @func steam_lobby_activate_invite_overlay
-Displays an invitation overlay if currently in a lobby.
+@desc Displays an invitation overlay if currently in a lobby.
 The invitation overlay is much akin to the friends-list overlay, but only shows online friends, and shows an &quot;invite&quot; buttons on each row.
 
 
@@ -85,17 +85,12 @@ The above code will show the Steam invite overlay.
 
 
 @func steam_lobby_create
-Starts creating a lobby. Returns whether or not the task was successfully created.
+@desc Starts creating a lobby. Returns whether or not the task was successfully created.
 This is an asynchronous function that will trigger the [Steam Async Event](https://manual-en.yoyogames.com/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm) when the task is finished.
 
 
-**Syntax:**
 
-```gml
-steam_lobby_create(type, max_members);
-```
-
-|type|[LobbyType](#LobbyType)|Constant that indicate the status of the lobby
+|type|${function.}|Constant that indicate the status of the lobby
 @param {real} max_members Indicates the maximum allowed number of users in the lobby (including the lobby's creator)
 
 
@@ -130,14 +125,9 @@ in the example we are simply outputting the success of the lobby creation task.
 
 
 @func steam_lobby_get_chat_message_data
-Returns the data of a message sent using [steam_lobby_send_chat_message_buffer](#steam_lobby_send_chat_message_buffer). Returns whether or not the buffer was successfully filled with the message data.
+@desc Returns the data of a message sent using ${function.}. Returns whether or not the buffer was successfully filled with the message data.
 
 
-**Syntax:**
-
-```gml
-steam_lobby_get_chat_message_data(message_index, buffer);
-```
 
 @param {real} message_index The message unique identifier
 @param {Id.Buffer} buffer The buffer to write the data to
@@ -156,7 +146,7 @@ The code above will get the current message data and place it into a buffer (res
 
 
 @func steam_lobby_get_chat_message_size
-Return the size of a message
+@desc Return the size of a message
 
 
 @param {real} message_index The argument to be passed in
@@ -180,7 +170,7 @@ The code above will get the current message size in bytes.
 
 
 @func steam_lobby_get_chat_message_text
-Return the text of a message.
+@desc Return the text of a message.
 
 
 @param {real} index Message index
@@ -204,7 +194,7 @@ The code above will get the current message text.
 
 
 @func steam_lobby_get_data
-Returns a lobby field value, as set by [steam_lobby_set_data](#steam_lobby_set_data).
+@desc Returns a lobby field value, as set by ${function.}.
 
 
 @param {string} key String representation of the data
@@ -247,7 +237,7 @@ The code above will get the current lobby id and store it in a variable.
 
 
 @func steam_lobby_get_member_count
-Returns the number of users in the current lobby (including you).
+@desc Returns the number of users in the current lobby (including you).
 If the lobby is not valid, returns 0.
 
 
@@ -261,14 +251,14 @@ for(var i = 0 ; i < steam_lobby_get_member_count() ; i++)
     //Do something with the user id
 }
 ```
-The code sample above will get the total number of member in the current lobby and iterate over all of them getting their unique ids, using the [steam_lobby_get_member_id](#steam_lobby_get_member_id)  function.
+The code sample above will get the total number of member in the current lobby and iterate over all of them getting their unique ids, using the ${function.}  function.
 
 
 @func_end
 
 
 @func steam_lobby_get_member_id
-Returns the user ID of the member at the given index in the current lobby.
+@desc Returns the user ID of the member at the given index in the current lobby.
 
 
 @param {real} index Position of the member of the lobby to return
@@ -295,7 +285,7 @@ The code sample above will iterate over all of the members inside a lobby and ge
 
 
 @func steam_lobby_get_owner_id
-Returns the lobby&#39;s owner&#39;s Steam ID. If the lobby is not valid, returns ID 0.
+@desc Returns the lobby&#39;s owner&#39;s Steam ID. If the lobby is not valid, returns ID 0.
 
 
 
@@ -316,11 +306,9 @@ The code above will return the unique id of the owner of the current lobby.
 
 
 @func steam_lobby_is_owner
-Returns whether the local player is the lobby&#39;s owner.
+@desc Returns whether the local player is the lobby&#39;s owner.
 
-> **:information_source: NOTE**
->
-> If the lobby is not valid, returns false.
+[[NOTE: NOTE If the lobby is not valid, returns false.
 
 
 
@@ -344,7 +332,7 @@ The code example will loop through all the members in a lobby and transfers owne
 
 
 @func steam_lobby_join_id
-Starts joining a lobby with the given ID. Returns whether or not the API was correctly initialized.
+@desc Starts joining a lobby with the given ID. Returns whether or not the API was correctly initialized.
 This is an asynchronous function that will trigger the [Steam Async Event](https://manual-en.yoyogames.com/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm) when the task is finished.
 
 
@@ -383,11 +371,9 @@ In the example we are simply caching the data into variables.
 
 
 @func steam_lobby_leave
-Leaves the current lobby (if any). Does not raise any errors if currently not in a lobby.
+@desc Leaves the current lobby (if any). Does not raise any errors if currently not in a lobby.
 
-> **:information_source: NOTE**
->
-> If you are the lobby owner and leave the lobby, Steam transfers lobby ownership to any other available user, so you may need to manually handle ownership transfer using [steam_lobby_set_owner_id](#steam_lobby_set_owner_id) before leaving.
+[[NOTE: NOTE If you are the lobby owner and leave the lobby, Steam transfers lobby ownership to any other available user, so you may need to manually handle ownership transfer using ${function.} before leaving.
 
 
 
@@ -403,7 +389,7 @@ The code sample above will make the user leave the current lobby.
 
 
 @func steam_lobby_send_chat_message
-Broadcasts a chat text message to all the users in the lobby.
+@desc Broadcasts a chat text message to all the users in the lobby.
 
 
 @param {string} text The string to be sent (up to 4000 characters)
@@ -436,21 +422,16 @@ if (type == "lobby_chat_message")
 }
 
 ```
-In the example we are simply caching the data into variables notice that use use the function [steam_get_user_persona_name_sync](E:\Source\YoYoExtensionDocumentation\YoYoExtensionDocumentation_RoboHelp\contents\Steamworks\Modules\General\steam_get_user_persona_name_sync.htm) and [steam_lobby_get_chat_message_text](#steam_lobby_get_chat_message_text) to get both the user name and the text inside the message, respectively.
+In the example we are simply caching the data into variables notice that use use the function [steam_get_user_persona_name_sync](E:\Source\YoYoExtensionDocumentation\YoYoExtensionDocumentation_RoboHelp\contents\Steamworks\Modules\General\steam_get_user_persona_name_sync.htm) and ${function.} to get both the user name and the text inside the message, respectively.
 
 
 @func_end
 
 
 @func steam_lobby_send_chat_message_buffer
-Broadcasts a chat (text or binary data) message to all the users in the lobby.
+@desc Broadcasts a chat (text or binary data) message to all the users in the lobby.
 
 
-**Syntax:**
-
-```gml
-steam_lobby_send_chat_message_buffer(buffer, size);
-```
 
 @param {Id.Buffer} buffer The buffer to be sent (up to 4 Kilobytes in size)
 @param {real} size The amount of byte to be sent (there is no offset).
@@ -494,19 +475,12 @@ In the example we are simply caching the data into variables notice that use use
 
 
 @func steam_lobby_set_data
-Changes a lobby&#39;s field. You must be the lobby&#39;s owner to do this. Returns whether or not the data was set.
+@desc Changes a lobby&#39;s field. You must be the lobby&#39;s owner to do this. Returns whether or not the data was set.
 Fields can then be used to filter lobbies via matchmaking functions.
 
-> **:information_source: NOTE**
->
-> If your value is numeric, convert it to string prior to passing it to the function.
+[[NOTE: NOTE If your value is numeric, convert it to string prior to passing it to the function.
 
 
-**Syntax:**
-
-```gml
-steam_lobby_set_data(key, value);
-```
 
 @param {string} key The key to set the data for
 @param {string} value The value to set
@@ -524,15 +498,11 @@ The code sample will set the `&quot;LobbyName&quot;` lobby field to the provided
 
 
 @func steam_lobby_set_joinable
-Sets whether or not a lobby is join-able by other players. This always defaults to enabled for a new lobby. Returns whether or not the property was set.
+@desc Sets whether or not a lobby is join-able by other players. This always defaults to enabled for a new lobby. Returns whether or not the property was set.
 
-> **:information_source: NOTE**
->
-> If joining is disabled, then no players can join, even if they are a friend or have been invited.
+[[NOTE: NOTE If joining is disabled, then no players can join, even if they are a friend or have been invited.
 
-> **:information_source: NOTE**
->
-> Lobbies with joining disabled will not be returned from a lobby search.
+[[NOTE: NOTE Lobbies with joining disabled will not be returned from a lobby search.
 
 
 @param {bool} joinable Allow ( **true** ) or prevent ( **false** ) users from joining this lobby
@@ -550,11 +520,9 @@ The code above will prevent user from joining the current lobby.
 
 
 @func steam_lobby_set_owner_id
-If you are a lobby owner, transfers the lobby ownership to the specified player, which must be in this same lobby. Returns whether or not the property was set.
+@desc If you are a lobby owner, transfers the lobby ownership to the specified player, which must be in this same lobby. Returns whether or not the property was set.
 
-> **:information_source: NOTE**
->
-> You need to be the lobby owner in order to use the function.
+[[NOTE: NOTE You need to be the lobby owner in order to use the function.
 
 
 @param {bool} user_id The user to set as owner of the lobby
@@ -580,14 +548,12 @@ The code example will loop through all the members in a lobby and transfers owne
 
 
 @func steam_lobby_set_type
-Changes the lobby&#39;s type. Useful, if you don&#39;t allow mid-session joining, you could have the game make lobbies private on session start (or use [steam_lobby_set_joinable](#steam_lobby_set_joinable)).
+@desc Changes the lobby&#39;s type. Useful, if you don&#39;t allow mid-session joining, you could have the game make lobbies private on session start (or use ${function.}).
 
-> **:information_source: NOTE**
->
-> You need to be the lobby owner in order to use the function.
+[[NOTE: NOTE You need to be the lobby owner in order to use the function.
 
 
-|type|[LobbyType](#LobbyType)|The lobby visibility
+|type|${function.}|The lobby visibility
 
 
 
@@ -602,10 +568,10 @@ The code above will change the lobby joining policy.
 
 
 @func steam_lobby_list_add_distance_filter
-Restricts results by region and sorts them based on geographical proximity.
+@desc Restricts results by region and sorts them based on geographical proximity.
 
 
-|mode|[LobbyFilterDistanceMode](#LobbyFilterDistanceMode)|Distance filter to be applied
+|mode|${function.}|Distance filter to be applied
 
 
 @returns {bool}
@@ -624,18 +590,11 @@ The code above will apply some filters to be lobby list request before requestin
 
 
 @func steam_lobby_list_add_near_filter
-Sorts the results based on how close their field&#39;s (key)&#39;s value is to the provided one.
+@desc Sorts the results based on how close their field&#39;s (key)&#39;s value is to the provided one.
 
-> **:information_source: NOTE**
->
-> If multiple near-filters are specified, the earlier-set ones take precedence.
+[[NOTE: NOTE If multiple near-filters are specified, the earlier-set ones take precedence.
 
 
-**Syntax:**
-
-```gml
-steam_lobby_list_add_near_filter(key, value);
-```
 
 @param {string} key The filter key name to match.
 @param {real} value The value that lobbies will be sorted on.
@@ -657,11 +616,9 @@ The code above will apply some filters to be lobby list request before requestin
 
 
 @func steam_lobby_list_add_numerical_filter
-Sets up a numeric filter for the next lobby list request. That is, lobbies not matching the condition will be excluded from results.
+@desc Sets up a numeric filter for the next lobby list request. That is, lobbies not matching the condition will be excluded from results.
 
-> **:information_source: NOTE**
->
-> Lobbies without the given field (key) will be excluded.
+[[NOTE: NOTE Lobbies without the given field (key) will be excluded.
 
 
 **Syntax:**
@@ -672,7 +629,7 @@ steam_lobby_list_add_numerical_filter(key, value, comparison_type)
 
 @param {string} key The filter key name to match
 @param {real} value The number to compare.
-|comparison_type|[LobbyFilterComparisonType](#LobbyFilterComparisonType)|The type of comparison to make.
+|comparison_type|${function.}|The type of comparison to make.
 
 
 @returns {bool}
@@ -691,11 +648,9 @@ The code above will apply some filters to be lobby list request before requestin
 
 
 @func steam_lobby_list_add_string_filter
-Sets up a string filter for the next lobby list request. That is, lobbies not matching the condition will be excluded from results.
+@desc Sets up a string filter for the next lobby list request. That is, lobbies not matching the condition will be excluded from results.
 
-> **:information_source: NOTE**
->
-> Lobbies without the given field (`key`) will be assumed to have it as `&quot;&quot;`.
+[[NOTE: NOTE Lobbies without the given field (`key`) will be assumed to have it as `&quot;&quot;`.
 
 
 **Syntax:**
@@ -706,7 +661,7 @@ steam_lobby_list_add_string_filter(key, value, comparison_type)
 
 @param {string} key The filter key name to match
 @param {string} value The string to compare
-|comparison_type|[LobbyFilterComparisonType](#LobbyFilterComparisonType)|The type of comparison to make (strings only accepts equal or not equal comparison)
+|comparison_type|${function.}|The type of comparison to make (strings only accepts equal or not equal comparison)
 
 
 @returns {bool}
@@ -725,7 +680,7 @@ The code above will apply some filters to be lobby list request before requestin
 
 
 @func steam_lobby_list_get_count
-Return count of lobbies, after a successful call to [steam_lobby_list_request](#steam_lobby_list_request).
+@desc Return count of lobbies, after a successful call to ${function.}.
 
 
 
@@ -740,25 +695,18 @@ for(var a = 0 ; a < steam_lobby_list_get_count() ; a++)
     ins.creator = steam_lobby_list_get_data(a, "Creator")
 }
 ```
-After a successful [steam_lobby_list_request](#steam_lobby_list_request) this function will return the number of results in the lobby query.
+After a successful ${function.} this function will return the number of results in the lobby query.
 
 
 @func_end
 
 
 @func steam_lobby_list_get_data
-Gets the metadata associated with the specified key from the specified lobby.
+@desc Gets the metadata associated with the specified key from the specified lobby.
 
-> **:information_source: NOTE**
->
-> The argument `lobby_index` is not a lobby id but instead the position of the lobby (from 0 to [steam_lobby_list_get_count](#steam_lobby_list_get_count)) on the query array after a [steam_lobby_list_request](#steam_lobby_list_request) async event is triggered.
+[[NOTE: NOTE The argument `lobby_index` is not a lobby id but instead the position of the lobby (from 0 to ${function.}) on the query array after a ${function.} async event is triggered.
 
 
-**Syntax:**
-
-```gml
-steam_lobby_list_get_data(lobby_index, key);
-```
 
 @param {real} lobby_index The lobby list index from the queried result.
 @param {string} key The key to get the value of.
@@ -782,11 +730,9 @@ The above code will show a code example.
 
 
 @func steam_lobby_list_get_lobby_id
-Gets the lobby id associated to the index.
+@desc Gets the lobby id associated to the index.
 
-> **:information_source: NOTE**
->
-> The argument `lobby_index` is not a lobby id but instead the position of the lobby (from 0 to [steam_lobby_list_get_count](#steam_lobby_list_get_count)) on the query array after a [steam_lobby_list_request](#steam_lobby_list_request) async event is triggered.
+[[NOTE: NOTE The argument `lobby_index` is not a lobby id but instead the position of the lobby (from 0 to ${function.}) on the query array after a ${function.} async event is triggered.
 
 
 @param {real} lobby_index The lobby index in the current lobby list
@@ -815,11 +761,9 @@ The above code will show a code example.
 
 
 @func steam_lobby_list_get_lobby_member_count
-Gets the number of users in a lobby. **** 
+@desc Gets the number of users in a lobby. **** 
 
-> **:information_source: NOTE**
->
-> The argument `lobby_index` is not a lobby id but instead the position of the lobby (from 0 to [steam_lobby_list_get_count](#steam_lobby_list_get_count)) on the query array after a [steam_lobby_list_request](#steam_lobby_list_request) async event is triggered.
+[[NOTE: NOTE The argument `lobby_index` is not a lobby id but instead the position of the lobby (from 0 to ${function.}) on the query array after a ${function.} async event is triggered.
 
 
 @param {real} lobby_index The lobby ID of the lobby to get the number of members of.
@@ -837,21 +781,14 @@ The above code will show a code example.
 
 
 @func steam_lobby_list_get_lobby_member_id
-Gets the Steam ID of the lobby member at the given index.
+@desc Gets the Steam ID of the lobby member at the given index.
 
-> **:information_source: NOTE**
->
-> The argument `lobby_index` is not a lobby id but instead the index representation of the lobby (ranging from 0 to [steam_lobby_list_get_count](#steam_lobby_list_get_count)) on the query array after a [steam_lobby_list_request](#steam_lobby_list_request) async event is triggered. By the same logic the `member_index` is also not the user id but the indexed representation of the user within the lobby (this value ranges from 0 to [steam_lobby_list_get_lobby_member_count](#steam_lobby_list_get_lobby_member_count)).
+[[NOTE: NOTE The argument `lobby_index` is not a lobby id but instead the index representation of the lobby (ranging from 0 to ${function.}) on the query array after a ${function.} async event is triggered. By the same logic the `member_index` is also not the user id but the indexed representation of the user within the lobby (this value ranges from 0 to ${function.}).
 
 
-**Syntax:**
 
-```gml
-steam_lobby_list_get_lobby_member_id(lobby_index, member_index);
-```
-
-@param {real} lobby_index This MUST be an index ranging from 0 to [steam_lobby_list_get_count](#steam_lobby_list_get_count)
-@param {real} member_index This MUST be an index ranging from 0 to [steam_lobby_list_get_lobby_member_count](#steam_lobby_list_get_lobby_member_count) of the lobby index
+@param {real} lobby_index This MUST be an index ranging from 0 to ${function.}
+@param {real} member_index This MUST be an index ranging from 0 to ${function.} of the lobby index
 
 
 **Returns:**
@@ -876,11 +813,9 @@ The above code will show a code example.
 
 
 @func steam_lobby_list_get_lobby_owner_id
-Returns the current lobby owner.
+@desc Returns the current lobby owner.
 
-> **:information_source: NOTE**
->
-> The argument `lobby_index` is not a lobby id but instead the position of the lobby (from 0 to [steam_lobby_list_get_count](#steam_lobby_list_get_count)) on the query array after a [steam_lobby_list_request](#steam_lobby_list_request) async event is triggered.
+[[NOTE: NOTE The argument `lobby_index` is not a lobby id but instead the position of the lobby (from 0 to ${function.}) on the query array after a ${function.} async event is triggered.
 
 
 @param {real} index The lobby index from the lobby list request result
@@ -903,7 +838,7 @@ The above code will show a code example.
 
 
 @func steam_lobby_list_is_loading
-Returns whether a lobby list request is currently underway.
+@desc Returns whether a lobby list request is currently underway.
 
 
 
@@ -925,7 +860,7 @@ The above will code will check to see if the lobby list request is still loading
 
 
 @func steam_lobby_list_join
-Starts joining a lobby with the given ID.
+@desc Starts joining a lobby with the given ID.
 This is an asynchronous function that will trigger the [Steam Async Event](https://manual-en.yoyogames.com/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm) when the task is finished.
 
 
@@ -944,23 +879,19 @@ This is an asynchronous function that will trigger the [Steam Async Event](https
 ```gml
 steam_lobby_list_join(0)
 ```
-The code sample above can be used to join a lobby with the given index after a [steam_lobby_list_request](#steam_lobby_list_request) as been preformed.
+The code sample above can be used to join a lobby with the given index after a ${function.} as been preformed.
 
 
 @func_end
 
 
 @func steam_lobby_list_request
-Starts loading the list of lobbies matching the current filters.
+@desc Starts loading the list of lobbies matching the current filters.
 This is an asynchronous function that will trigger the [Steam Async Event](https://manual-en.yoyogames.com/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm) when the task is finished.
 
-> **:information_source: NOTE**
->
-> Filters are reset afterwards and have to be set again for subsequent request(s).
+[[NOTE: NOTE Filters are reset afterwards and have to be set again for subsequent request(s).
 
-> **:information_source: NOTE**
->
-> Existing results are kept up until the event is dispatched.
+[[NOTE: NOTE Existing results are kept up until the event is dispatched.
 
 
 
@@ -968,7 +899,7 @@ This is an asynchronous function that will trigger the [Steam Async Event](https
 
 @event steam
 @param {string} event_type The string value `"lobby_list"`
-|lobby_count|int64|The number of lobbies in retrieved (same as [steam_lobby_list_get_count](#steam_lobby_list_get_count))
+|lobby_count|int64|The number of lobbies in retrieved (same as ${function.})
 @param {bool} success Whether or not the task was successful
 @param {real} result The code of the result
 
@@ -1007,26 +938,26 @@ This code will loop through all the loobies and respective members on the query 
 
 
 @func LobbyFilterComparisonType
-These constants specify the comparison type when applying a filter to a lobby list request by calling the following functions:
+@desc These constants specify the comparison type when applying a filter to a lobby list request by calling the following functions:
 
-* [steam_lobby_list_add_numerical_filter](#steam_lobby_list_add_numerical_filter)
-* [steam_lobby_list_add_string_filter](#steam_lobby_list_add_string_filter)
+* ${function.}
+* ${function.}
 
 |Lobby Filter Comparison Type Constant|Description
 |----|----
 |`steam_lobby_list_filter_eq`|Equal (==).
 |`steam_lobby_list_filter_ne`|Not-equal (!=)
-|`steam_lobby_list_filter_lt`|Less-than (<), only applies to [steam_lobby_list_add_numerical_filter](#steam_lobby_list_add_numerical_filter)
-|`steam_lobby_list_filter_gt`|Greater-than (>), only applies to [steam_lobby_list_add_numerical_filter](#steam_lobby_list_add_numerical_filter)
-|`steam_lobby_list_filter_le`|Less-than-or-equal (<=), only applies to [steam_lobby_list_add_numerical_filter](#steam_lobby_list_add_numerical_filter)
-|`steam_lobby_list_filter_ge`|Greater-than-or-equal (>=), only applies to [steam_lobby_list_add_numerical_filter](#steam_lobby_list_add_numerical_filter)
+|`steam_lobby_list_filter_lt`|Less-than (<), only applies to ${function.}
+|`steam_lobby_list_filter_gt`|Greater-than (>), only applies to ${function.}
+|`steam_lobby_list_filter_le`|Less-than-or-equal (<=), only applies to ${function.}
+|`steam_lobby_list_filter_ge`|Greater-than-or-equal (>=), only applies to ${function.}
 
 
 @func_end
 
 
 @func LobbyFilterDistanceMode
-These constants specify the distance mode to be used when applying a filter to a lobby list request by calling the [steam_lobby_list_add_distance_filter](#steam_lobby_list_add_distance_filter) function.
+@desc These constants specify the distance mode to be used when applying a filter to a lobby list request by calling the ${function.} function.
 
 @param {Description} Constant 
 |----|----
@@ -1040,7 +971,7 @@ These constants specify the distance mode to be used when applying a filter to a
 
 
 @func LobbyType
-These constants specify the type of lobby should be used creating a new lobby using the [steam_lobby_create](#steam_lobby_create) function.
+@desc These constants specify the type of lobby should be used creating a new lobby using the ${function.} function.
 
 |Lobby Type Constant|Description
 |----|----

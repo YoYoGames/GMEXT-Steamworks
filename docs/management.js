@@ -1,11 +1,9 @@
 @func Management
 
 @func steam_init
-This function initialises the steam APIs.
+@desc This function initialises the steam APIs.
 
-> **:information_source: NOTE**
->
-> This function is already configured to be called at Game Start by the extension, and should not be called from your game code.
+[[NOTE: NOTE This function is already configured to be called at Game Start by the extension, and should not be called from your game code.
 
 
 
@@ -15,11 +13,9 @@ This function initialises the steam APIs.
 
 
 @func steam_update
-This function updates the steam APIs.
+@desc This function updates the steam APIs.
 
-> **:warning: IMPORTANT**
->
-> This function is required to be called in order for the Steamworks extension to work. We recommend you place this function in a persistent controller object that calls it inside its <span style="font-weight:bold;">Step Event.
+[[warning: IMPORTANTThis function is required to be called in order for the Steamworks extension to work. We recommend you place this function in a persistent controller object that calls it inside its <span style="font-weight:bold;">Step Event.
 
 
 
@@ -35,11 +31,9 @@ The above code will update the steam APIs.
 
 
 @func steam_shutdown
-This function shuts down the Steamworks API, releases pointers and frees memory.
+@desc This function shuts down the Steamworks API, releases pointers and frees memory.
 
-> **:warning: IMPORTANT**
->
-> This function is required to be called in order for the Steamworks extension to work. We recommend you place this function in the <span style="font-weight:bold;">GameEnd Event of a controller object. You need to check if this is not a `game_restart()`.
+[[warning: IMPORTANTThis function is required to be called in order for the Steamworks extension to work. We recommend you place this function in the <span style="font-weight:bold;">GameEnd Event of a controller object. You need to check if this is not a `game_restart()`.
 
 
 

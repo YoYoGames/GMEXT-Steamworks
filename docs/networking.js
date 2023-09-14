@@ -1,5 +1,5 @@
 @func Networking
-The following functions and constants allow you to use Steam&#39;s Networking functionality.
+@desc The following functions and constants allow you to use Steam&#39;s Networking functionality.
 
 ## Packets IO
 
@@ -27,18 +27,16 @@ The following functions allow handling P2P sessions:
 
 These are the constants used by this API:
 
-* [PacketType](#PacketType)
+* ${function.}
 
 
 @func_end
 
 
 @func steam_net_packet_get_data
-Copies the contents of last received packet to the given buffer. Data is copied to the start of the buffer (position remains unaffected), meaning that if you reuse the same buffer, you should &quot;rewind&quot; it prior to reading.
+@desc Copies the contents of last received packet to the given buffer. Data is copied to the start of the buffer (position remains unaffected), meaning that if you reuse the same buffer, you should &quot;rewind&quot; it prior to reading.
 
-> **:information_source: NOTE**
->
-> If the buffer is not big enough to fit data, it will be resized automatically (the buffer needs to be created using the using the `buffer_grow` type).
+[[NOTE: NOTE If the buffer is not big enough to fit data, it will be resized automatically (the buffer needs to be created using the using the `buffer_grow` type).
 
 
 @param {Id.Buffer} buffer The buffer to write the incoming data to.
@@ -66,8 +64,8 @@ The code above will check for an incoming packet and get its data into a buffer 
 
 
 @func steam_net_packet_get_sender_id
-Returns Steam ID of the user that sent the last received packet.
-Can be used in conjunction with [steam_net_packet_send](#steam_net_packet_send) to send something back and for just telling the senders apart.
+@desc Returns Steam ID of the user that sent the last received packet.
+Can be used in conjunction with ${function.} to send something back and for just telling the senders apart.
 
 
 
@@ -97,7 +95,7 @@ The above code will show a code example.
 
 
 @func steam_net_packet_get_size
-Returns the size of last received packet, in bytes.
+@desc Returns the size of last received packet, in bytes.
 
 
 
@@ -117,7 +115,7 @@ The code above will display the size of each incoming packet.
 
 
 @func steam_net_packet_receive
-Attempts to get the next packet from Steam API and returns whether successfully done so.
+@desc Attempts to get the next packet from Steam API and returns whether successfully done so.
 Other steam_net_ functions can then be used to get packet information/contents.
 
 
@@ -137,7 +135,7 @@ The code above will attempt to get the next packet from Steam API, would be used
 
 
 @func steam_net_packet_send
-Sends a packet to the given endpoint, returns whether successful (as opposed to incorrect arguments/invalid ID). If no packet type is passed in then default value will be used, the default value can be set using the [steam_net_packet_set_type](#steam_net_packet_set_type) function. Returns whether or not the packet was successfully sent.
+@desc Sends a packet to the given endpoint, returns whether successful (as opposed to incorrect arguments/invalid ID). If no packet type is passed in then default value will be used, the default value can be set using the ${function.} function. Returns whether or not the packet was successfully sent.
 
 
 **Syntax:**
@@ -149,7 +147,7 @@ steam_net_packet_send(user_id, buffer, size, packet_type)
 | **user_id** |int64|The target user to send the packet to
 | **buffer** |real|Buffer that contains the raw byte array for the packet data to send
 @param {real} size The size of data to send (default -1, sends the entire buffer) :eight_pointed_black_star: OPTIONAL
-|packet_type|[PacketType](#PacketType)|The type of packet to be used :eight_pointed_black_star: OPTIONAL
+|packet_type|${function.}|The type of packet to be used :eight_pointed_black_star: OPTIONAL
 
 
 @returns {bool}
@@ -167,10 +165,10 @@ The code sample will create a buffer and write to it, sending the total length o
 
 
 @func steam_net_packet_set_type
-Set the default connection protocol used when sending the data packets (using the [steam_net_packet_send](#steam_net_packet_send) function). Returns whether or not the default protocol was successfully set.
+@desc Set the default connection protocol used when sending the data packets (using the ${function.} function). Returns whether or not the default protocol was successfully set.
 
 
-|protocol|[PacketType](#PacketType)|The default connection protocol to be used
+|protocol|${function.}|The default connection protocol to be used
 
 
 @returns {bool}
@@ -285,7 +283,7 @@ if (async_load[?"event_type"] == "lobby_join_requested")
 
 
 @func PacketType
-These constants specify the type of a steam packet and should be used with the function [steam_net_packet_set_type](#steam_net_packet_set_type).
+@desc These constants specify the type of a steam packet and should be used with the function ${function.}.
 
 |Packet Type Constant|Description
 |----|----

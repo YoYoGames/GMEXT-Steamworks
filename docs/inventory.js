@@ -1,88 +1,81 @@
 @func Inventory
-The following functions, constants and structures allow to use the [Steam Inventory Service](https://partner.steamgames.com/doc/features/inventory).
+@desc The following functions, constants and structures allow to use the [Steam Inventory Service](https://partner.steamgames.com/doc/features/inventory).
 
 ## Pricing and Consumables
 
 These functions are provided for handling pricing, purchases and consumables:
 
-* [steam_inventory_consume_item](#steam_inventory_consume_item)
-* [steam_inventory_get_item_price](#steam_inventory_get_item_price)
-* [steam_inventory_get_items_with_prices](#steam_inventory_get_items_with_prices)
-* [steam_inventory_request_eligible_promo_item_defs](#steam_inventory_request_eligible_promo_item_defs)
-* [steam_inventory_request_prices](#steam_inventory_request_prices)
-* [steam_inventory_start_purchase](#steam_inventory_start_purchase)
+* ${function.}
+* ${function.}
+* ${function.}
+* ${function.}
+* ${function.}
+* ${function.}
 
 ## Inventory Management (Async Result)
 
 These asynchronous functions will return a **inventory result handle** that can be used to get additional information (see section below):
 
-* [steam_inventory_add_promo_item](#steam_inventory_add_promo_item)
-* [steam_inventory_add_promo_items](#steam_inventory_add_promo_items)
-* [steam_inventory_exchange_items](#steam_inventory_exchange_items)
+* ${function.}
+* ${function.}
+* ${function.}
 * [steam_inventory_generate_items](#steam_inventory_exchange_items-copy) :information_source: DEV ONLY
-* [steam_inventory_get_all_items](#steam_inventory_get_all_items)
-* [steam_inventory_get_items_by_id](#steam_inventory_get_items_by_id)
-* [steam_inventory_submit_update_properties](#steam_inventory_submit_update_properties)
-* [steam_inventory_transfer_item_quantity](#steam_inventory_transfer_item_quantity)
-* [steam_inventory_trigger_item_drop](#steam_inventory_trigger_item_drop)
+* ${function.}
+* ${function.}
+* ${function.}
+* ${function.}
+* ${function.}
 
 ## Inventory Result Information
 
 These functions can be called with the **inventory result handle** (from previous section) to get additional information:
 
-* [steam_inventory_result_destroy](#steam_inventory_result_destroy)
-* [steam_inventory_result_get_item_property](#steam_inventory_result_get_item_property)
-* [steam_inventory_result_get_items](#steam_inventory_result_get_items)
-* [steam_inventory_result_get_status](#steam_inventory_result_get_status)
-* [steam_inventory_result_get_unix_timestamp](#steam_inventory_result_get_unix_timestamp)
+* ${function.}
+* ${function.}
+* ${function.}
+* ${function.}
+* ${function.}
 
 ## Dynamic Properties
 
 This set of functions can be used to author items dynamic properties:
 
-* [steam_inventory_start_update_properties](#steam_inventory_start_update_properties)
-* [steam_inventory_remove_property](#steam_inventory_remove_property)
-* [steam_inventory_set_property_bool](#steam_inventory_set_property_bool)
-* [steam_inventory_set_property_float](#steam_inventory_set_property_float)
-* [steam_inventory_set_property_int](#steam_inventory_set_property_int)
-* [steam_inventory_set_property_string](#steam_inventory_set_property_string)
-* [steam_inventory_submit_update_properties](#steam_inventory_submit_update_properties)
+* ${function.}
+* ${function.}
+* ${function.}
+* ${function.}
+* ${function.}
+* ${function.}
+* ${function.}
 
 ## Constants
 
 These are the constants used by this API:
 
-* [InventoryResultStatus](#InventoryResultStatus)
+* ${function.}
 
 ## Structures
 
 These are the structures used by this API:
 
-* [InventoryItemConsumptionData](#InventoryItemConsumptionData)
-* [InventoryItemCreationData](#InventoryItemCreationData)
+* ${function.}
+* ${function.}
 
 
 @func_end
 
 
 @func steam_inventory_consume_item
-Consumes items from a user&#39;s inventory. If the quantity of the given item goes to zero, it is permanently removed.
+@desc Consumes items from a user&#39;s inventory. If the quantity of the given item goes to zero, it is permanently removed.
 This is an asynchronous function that will trigger the [Steam Async Event](https://manual-en.yoyogames.com/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm) when the task is finished.
 
-> **:warning: IMPORTANT**
->
->  You must call [steam_inventory_result_destroy](#steam_inventory_result_destroy) on the returned async result ID when you are done with it.
+[[warning: IMPORTANT You must call ${function.} on the returned async result ID when you are done with it.
 
 > **:eight_pointed_black_star: EXTERNAL**
 >
 > A wrapper around [ConsumeItem](http://partner.steamgames.com/doc/api/ISteamInventory#ConsumeItem).
 
 
-**Syntax:**
-
-```gml
-steam_inventory_consume_item(item_id, quantity);
-```
 
 |item_id|int64|The [steam_inventory_item_id](https://partner.steamgames.com/doc/api/ISteamInventory#SteamItemInstanceID_t) to consume.
 @param {real} quantity The number of items in that stack to consume.
@@ -93,7 +86,7 @@ steam_inventory_consume_item(item_id, quantity);
 @event steam
 @param {string} event_type The string value `"inventory_result_ready"`
 @param {bool} success Whether the async action succeeded
-|result|[InventoryResultStatus](#InventoryResultStatus)|The status code as returned by [steam_inventory_result_get_status](#steam_inventory_result_get_status)
+|result|${function.}|The status code as returned by ${function.}
 @param {real} handle The associated async result ID, which can be used to tell apart what result this event is for.
 
 
@@ -101,23 +94,17 @@ steam_inventory_consume_item(item_id, quantity);
 steam_inventory_consume_item(player.apple, 1);
 ```
 The code sample above will try to consume one item (`apple`,  [steam_inventory_item_id](https://partner.steamgames.com/doc/api/ISteamInventory#SteamItemInstanceID_t)), and trigger an async event with the task result.
-
-
 @func_end
 
 
 @func steam_inventory_get_item_price
-After a successful call to [steam_inventory_request_prices](#steam_inventory_request_prices), you can call this method to get the pricing for a specific item definition.
+@desc After a successful call to ${function.}, you can call this method to get the pricing for a specific item definition.
 
 > **:eight_pointed_black_star: EXTERNAL**
 >
 > A wrapper around [GetItemPrice](https://partner.steamgames.com/doc/api/ISteamInventory#GetItemPrice).
 
-
-@param {kind} Argument Description
-|----|----|----
 @param {real} item The [steam_inventory_item_def](https://partner.steamgames.com/doc/api/ISteamInventory#SteamItemDef_t) to get the price of.
-
 
 **Returns:**
 
@@ -125,18 +112,17 @@ After a successful call to [steam_inventory_request_prices](#steam_inventory_req
 int64
 ```
 
-
 ```gml
 var price = steam_inventory_get_item_price(item);
 ```
-The code sample above will return you the price for the speficied item definition. For more detailed example on using the function check [steam_inventory_request_prices](#steam_inventory_request_prices)
+The code sample above will return you the price for the speficied item definition. For more detailed example on using the function check ${function.}
 
 
 @func_end
 
 
 @func steam_inventory_get_items_with_prices
-After a successful call to [steam_inventory_request_prices](#steam_inventory_request_prices), you can call this method to get all the prices for applicable item definitions. 
+@desc After a successful call to ${function.}, you can call this method to get all the prices for applicable item definitions. 
 
 > **:eight_pointed_black_star: EXTERNAL**
 >
@@ -150,7 +136,6 @@ After a successful call to [steam_inventory_request_prices](#steam_inventory_req
 array of structs
 ```
 
-|----|----|----
 @param {real} item_def The [steam_inventory_item_def](https://partner.steamgames.com/doc/api/ISteamInventory#SteamItemDef_t) representing the item type
 |price|int64|The price of the item definition
 |base_price|int64|The base price of the item definition :eight_pointed_black_star: WINDOWS ONLY
@@ -173,7 +158,7 @@ The code above will get items with prices and if the returning array size is gre
 
 
 @func steam_inventory_request_eligible_promo_item_defs
-Requests the list of &quot;eligible&quot; promo items that can be manually granted to the given user.
+@desc Requests the list of &quot;eligible&quot; promo items that can be manually granted to the given user.
 This is an asynchronous function that will trigger the [Steam Async Event](https://manual-en.yoyogames.com/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm) when the task is finished.
 
 > **:eight_pointed_black_star: EXTERNAL**
@@ -204,12 +189,12 @@ For more information on this function call please refer to the official manual.
 
 
 @func steam_inventory_request_prices
-Request prices for all item definitions that can be purchased in the user&#39;s local currency.
+@desc Request prices for all item definitions that can be purchased in the user&#39;s local currency.
 
 This is an asynchronous function that will trigger the [Steam Async Event](https://manual-en.yoyogames.com/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm) when the task is finished, after which you can use the following functions:
 
-* [steam_inventory_get_item_price](#steam_inventory_get_item_price)
-* [steam_inventory_get_items_with_prices](#steam_inventory_get_items_with_prices)
+* ${function.}
+* ${function.}
 
 > **:eight_pointed_black_star: EXTERNAL**
 >
@@ -222,7 +207,7 @@ This is an asynchronous function that will trigger the [Steam Async Event](https
 @event steam
 @param {string} event_type The string value `"inventory_request_prices"`
 @param {bool} success Whether the async action succeeded
-|result|[InventoryResultStatus](#InventoryResultStatus)|The status code as returned by [steam_inventory_result_get_status](#steam_inventory_result_get_status)
+|result|${function.}|The status code as returned by ${function.}
 @param {string} currency The string representing the user's [local currency](https://partner.steamgames.com/doc/store/pricing/currencies) code.
 
 
@@ -244,14 +229,14 @@ if (async_load[? "success"])
 }
 
 ```
-The code above matches the event type and if so shows the currency being used. It also gets the price for a specific item using the [steam_inventory_get_item_price](#steam_inventory_get_item_price) function.
+The code above matches the event type and if so shows the currency being used. It also gets the price for a specific item using the ${function.} function.
 
 
 @func_end
 
 
 @func steam_inventory_start_purchase
-Starts the purchase process for the user, given a &quot;shopping cart&quot; of item definitions that the user would like to buy.
+@desc Starts the purchase process for the user, given a &quot;shopping cart&quot; of item definitions that the user would like to buy.
 The user will be prompted in the Steam Overlay to complete the purchase in their local currency, funding their Steam Wallet if necessary, etc.
 
 > **:eight_pointed_black_star: EXTERNAL**
@@ -259,7 +244,7 @@ The user will be prompted in the Steam Overlay to complete the purchase in their
 > A wrapper around [StartPurchase](https://partner.steamgames.com/doc/api/ISteamInventory#StartPurchase).
 
 
-|array|Array<[InventoryItemCreationData](#InventoryItemCreationData)>|An array of [structs](https://manual.yoyogames.com/GameMaker_Language/GML_Overview/Structs.htm) representing items to be purchased (see [InventoryItemCreationData](#InventoryItemCreationData))
+|array|Array<${function.}>|An array of [structs](https://manual.yoyogames.com/GameMaker_Language/GML_Overview/Structs.htm) representing items to be purchased (see ${function.})
 
 
 
@@ -280,12 +265,10 @@ The code above will initialize a purchase intent that will be finalized in the S
 
 
 @func steam_inventory_add_promo_item
-Take an Item Definition and grants the user the promo item. Item Definitions are integer numbers ranging from 1 to 999999999. Values below the range are invalid and values above the range are reserved.
+@desc Take an Item Definition and grants the user the promo item. Item Definitions are integer numbers ranging from 1 to 999999999. Values below the range are invalid and values above the range are reserved.
 This is an asynchronous function that will trigger the [Steam Async Event](https://manual-en.yoyogames.com/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm) when the task is finished.
 
-> **:warning: IMPORTANT**
->
-> You must call [steam_inventory_result_destroy](#steam_inventory_result_destroy) on the returned async result ID when you are done with it.
+[[warning: IMPORTANTYou must call ${function.} on the returned async result ID when you are done with it.
 
 > **:eight_pointed_black_star: EXTERNAL**
 >
@@ -300,26 +283,24 @@ This is an asynchronous function that will trigger the [Steam Async Event](https
 @event steam
 @param {string} event_type The string value `"inventory_result_ready"`
 @param {bool} success Whether the async action succeeded
-|result|[InventoryResultStatus](#InventoryResultStatus)|The status code as returned by [steam_inventory_result_get_status](#steam_inventory_result_get_status)
+|result|${function.}|The status code as returned by ${function.}
 @param {real} handle The associated async result ID, which can be used to tell apart what result this event is for.
 
 
 ```gml
 steam_inventory_add_promo_item(item)
 ```
-The above code will grant the user with a specific item. For an example on how to use the [Steam Async Event](https://manual-en.yoyogames.com/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm) to read the callback response, refer to the function [steam_inventory_get_all_items](#steam_inventory_get_all_items).
+The above code will grant the user with a specific item. For an example on how to use the [Steam Async Event](https://manual-en.yoyogames.com/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm) to read the callback response, refer to the function ${function.}.
 
 
 @func_end
 
 
 @func steam_inventory_add_promo_items
-Takes an array of Item Definitions and grants the user multiple items. Item Definitions are integer numbers ranging from 1 to 999999999. Values below the range are invalid and values above the range are reserved.
+@desc Takes an array of Item Definitions and grants the user multiple items. Item Definitions are integer numbers ranging from 1 to 999999999. Values below the range are invalid and values above the range are reserved.
 This is an asynchronous function that will trigger the [Steam Async Event](https://manual-en.yoyogames.com/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm) when the task is finished.
 
-> **:warning: IMPORTANT**
->
-> You must call [steam_inventory_result_destroy](#steam_inventory_result_destroy) on the returned async result ID when you are done with it.
+[[warning: IMPORTANTYou must call ${function.} on the returned async result ID when you are done with it.
 
 > **:eight_pointed_black_star: EXTERNAL**
 >
@@ -334,40 +315,33 @@ This is an asynchronous function that will trigger the [Steam Async Event](https
 @event steam
 @param {string} event_type The string value `"inventory_result_ready"`
 @param {bool} success Whether the async action succeeded
-|result|[InventoryResultStatus](#InventoryResultStatus)|The status code as returned by [steam_inventory_result_get_status](#steam_inventory_result_get_status)
+|result|${function.}|The status code as returned by ${function.}
 @param {real} handle The associated async result ID, which can be used to tell apart what result this event is for.
 
 
 ```gml
 steam_inventory_add_promo_items([item1,item2,item3])
 ```
-The above code will grant the user with an multiple items specified in an array format. For an example on how to use the [Steam Async Event](https://manual-en.yoyogames.com/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm) to read the callback response, refer to the function [steam_inventory_get_all_items](#steam_inventory_get_all_items).
+The above code will grant the user with an multiple items specified in an array format. For an example on how to use the [Steam Async Event](https://manual-en.yoyogames.com/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm) to read the callback response, refer to the function ${function.}.
 
 
 @func_end
 
 
 @func steam_inventory_exchange_items
-Grants one item in exchange for a set of other items.
+@desc Grants one item in exchange for a set of other items.
 This is an asynchronous function that will trigger the [Steam Async Event](https://manual-en.yoyogames.com/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm) when the task is finished.
 
-> **:warning: IMPORTANT**
->
->  You must call [steam_inventory_result_destroy](#steam_inventory_result_destroy) on the returned async result ID when you are done with it.
+[[warning: IMPORTANT You must call ${function.} on the returned async result ID when you are done with it.
 
 > **:eight_pointed_black_star: EXTERNAL**
 >
 > A wrapper around [ExchangeItems](https://partner.steamgames.com/doc/api/ISteamInventory#ExchangeItems).
 
 
-**Syntax:**
 
-```gml
-steam_inventory_exchange_items(create_arr, destroy_arr);
-```
-
-|create_arr|Array<[InventoryItemCreationData](#InventoryItemCreationData)>|An array of [structs](https://manual.yoyogames.com/GameMaker_Language/GML_Overview/Structs.htm) representing items to be created (see [InventoryItemCreationData](#InventoryItemCreationData))
-|destroy_arr|Array<[InventoryItemConsumptionData](#InventoryItemConsumptionData)>|An array of [structs](https://manual.yoyogames.com/GameMaker_Language/GML_Overview/Structs.htm) representing items to be consumed (see [InventoryItemConsumptionData](#InventoryItemConsumptionData))
+|create_arr|Array<${function.}>|An array of [structs](https://manual.yoyogames.com/GameMaker_Language/GML_Overview/Structs.htm) representing items to be created (see ${function.})
+|destroy_arr|Array<${function.}>|An array of [structs](https://manual.yoyogames.com/GameMaker_Language/GML_Overview/Structs.htm) representing items to be consumed (see ${function.})
 
 
 @returns {real}
@@ -375,7 +349,7 @@ steam_inventory_exchange_items(create_arr, destroy_arr);
 @event steam
 @param {string} event_type The string value `"inventory_result_ready"`
 @param {bool} success Whether the async action succeeded
-|result|[InventoryResultStatus](#InventoryResultStatus)|The status code as returned by [steam_inventory_result_get_status](#steam_inventory_result_get_status)
+|result|${function.}|The status code as returned by ${function.}
 @param {real} handle The associated async result ID, which can be used to tell apart what result this event is for.
 
 
@@ -417,30 +391,26 @@ steam_inventory_result_destroy(handle);
 handle = undefined;
 
 ```
-The code above matches the event type and checks if the handle id matches the one that initialized the request and if so we print a debug message with the success of the task. In the end we also use a call to [steam_inventory_result_destroy](#steam_inventory_result_destroy) to make sure we dispose and free all the used memory.
+The code above matches the event type and checks if the handle id matches the one that initialized the request and if so we print a debug message with the success of the task. In the end we also use a call to ${function.} to make sure we dispose and free all the used memory.
 
 
 @func_end
 
 
 @func steam_inventory_generate_items
-Generates specific items for the current user.
+@desc Generates specific items for the current user.
 This is an asynchronous function that will trigger the [Steam Async Event](https://manual-en.yoyogames.com/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm) when the task is finished.
 
-> **:information_source: NOTE**
->
-> This is only usable by Steam accounts that belong to the publisher group for your game.
+[[NOTE: NOTE This is only usable by Steam accounts that belong to the publisher group for your game.
 
-> **:warning: IMPORTANT**
->
->  You must call [steam_inventory_result_destroy](#steam_inventory_result_destroy) on the returned async result ID when you are done with it.
+[[warning: IMPORTANT You must call ${function.} on the returned async result ID when you are done with it.
 
 > **:eight_pointed_black_star: EXTERNAL**
 >
 > A wrapper around [GenerateItems](https://partner.steamgames.com/doc/api/ISteamInventory#GenerateItems).
 
 
-|create_arr|Array<[InventoryItemCreationData](#InventoryItemCreationData)>|An array of [structs](https://manual.yoyogames.com/GameMaker_Language/GML_Overview/Structs.htm) representing items to be created (see [InventoryItemCreationData](#InventoryItemCreationData))
+|create_arr|Array<${function.}>|An array of [structs](https://manual.yoyogames.com/GameMaker_Language/GML_Overview/Structs.htm) representing items to be created (see ${function.})
 
 
 @returns {real}
@@ -448,7 +418,7 @@ This is an asynchronous function that will trigger the [Steam Async Event](https
 @event steam
 @param {string} event_type The string value `"inventory_result_ready"`
 @param {bool} success Whether the async action succeeded
-|result|[InventoryResultStatus](#InventoryResultStatus)|The status code as returned by [steam_inventory_result_get_status](#steam_inventory_result_get_status)
+|result|${function.}|The status code as returned by ${function.}
 @param {real} handle The associated async result ID, which can be used to tell apart what result this event is for.
 
 
@@ -461,19 +431,17 @@ var arrayCreate = [
 steam_inventory_generate_items(arrayCreate)
 
 ```
-The code above will grant the specific items to the current user. For an example on how to use the [Steam Async Event](https://manual-en.yoyogames.com/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm) to read the callback response, refer to the function [steam_inventory_get_all_items](#steam_inventory_get_all_items).
+The code above will grant the specific items to the current user. For an example on how to use the [Steam Async Event](https://manual-en.yoyogames.com/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm) to read the callback response, refer to the function ${function.}.
 
 
 @func_end
 
 
 @func steam_inventory_get_all_items
-Starts retrieving all items in the current user&#39;s inventory.
+@desc Starts retrieving all items in the current user&#39;s inventory.
 This is an asynchronous function that will trigger the [Steam Async Event](https://manual-en.yoyogames.com/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm) when the task is finished.
 
-> **:warning: IMPORTANT**
->
->  You must call [steam_inventory_result_destroy](#steam_inventory_result_destroy) on the returned async result ID when you are done with it.
+[[warning: IMPORTANT You must call ${function.} on the returned async result ID when you are done with it.
 
 > **:eight_pointed_black_star: EXTERNAL**
 >
@@ -486,7 +454,7 @@ This is an asynchronous function that will trigger the [Steam Async Event](https
 @event steam
 @param {string} event_type The string value `"inventory_result_ready"`
 @param {bool} success Whether the async action succeeded
-|result|[InventoryResultStatus](#InventoryResultStatus)|The status code as returned by [steam_inventory_result_get_status](#steam_inventory_result_get_status)
+|result|${function.}|The status code as returned by ${function.}
 @param {real} handle The associated async result ID, which can be used to tell apart what result this event is for.
 
 > **:eight_pointed_black_star: OPTIONAL**
@@ -532,18 +500,16 @@ steam_inventory_result_destroy(handle);
 handle = undefined;
 
 ```
-The code above matches the event type and checks if the handle id matches the one that initialized the request and if so gets the items from the result using the function [steam_inventory_result_get_items](#steam_inventory_result_get_items) and loops through them. In the end we also use a call to [steam_inventory_result_destroy](#steam_inventory_result_destroy) to make sure we dispose and free all the used memory.
+The code above matches the event type and checks if the handle id matches the one that initialized the request and if so gets the items from the result using the function ${function.} and loops through them. In the end we also use a call to ${function.} to make sure we dispose and free all the used memory.
 
 
 @func_end
 
 
 @func steam_inventory_get_items_by_id
-Requests information about a subset of the current user&#39;s inventory.
+@desc Requests information about a subset of the current user&#39;s inventory.
 
-> **:warning: IMPORTANT**
->
->  You must call [steam_inventory_result_destroy](#steam_inventory_result_destroy) on the returned async result ID when you are done with it.
+[[warning: IMPORTANT You must call ${function.} on the returned async result ID when you are done with it.
 
 > **:eight_pointed_black_star: EXTERNAL**
 >
@@ -558,25 +524,23 @@ Requests information about a subset of the current user&#39;s inventory.
 @event steam
 @param {string} event_type The string value `"inventory_result_ready"`
 @param {bool} success Whether the async action succeeded
-|result|[InventoryResultStatus](#InventoryResultStatus)|The status code as returned by [steam_inventory_result_get_status](#steam_inventory_result_get_status)
+|result|${function.}|The status code as returned by ${function.}
 @param {real} handle The associated async result ID, which can be used to tell apart what result this event is for.
 
 
 ```gml
 handle = steam_inventory_get_items_by_id([item1, item2])
 ```
-Similar to [steam_inventory_get_all_items](#steam_inventory_get_all_items) but you can specify an array of items to query information instead of querying all of them. For an example on how to use the [Steam Async Event](https://manual-en.yoyogames.com/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm) to read the callback response, refer to the function [steam_inventory_get_all_items](#steam_inventory_get_all_items).
+Similar to ${function.} but you can specify an array of items to query information instead of querying all of them. For an example on how to use the [Steam Async Event](https://manual-en.yoyogames.com/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm) to read the callback response, refer to the function ${function.}.
 
 
 @func_end
 
 
 @func steam_inventory_submit_update_properties
-Submits the transaction request to modify [dynamic properties](https://partner.steamgames.com/doc/features/inventory/dynamicproperties) on items for the current user. See [StartUpdateProperties](https://partner.steamgames.com/doc/api/ISteamInventory#StartUpdateProperties).
+@desc Submits the transaction request to modify [dynamic properties](https://partner.steamgames.com/doc/features/inventory/dynamicproperties) on items for the current user. See [StartUpdateProperties](https://partner.steamgames.com/doc/api/ISteamInventory#StartUpdateProperties).
 
-> **:warning: IMPORTANT**
->
->  You must call [steam_inventory_result_destroy](#steam_inventory_result_destroy) on the returned async result ID when you are done with it.
+[[warning: IMPORTANT You must call ${function.} on the returned async result ID when you are done with it.
 
 > **:eight_pointed_black_star: EXTERNAL**
 >
@@ -591,7 +555,7 @@ Submits the transaction request to modify [dynamic properties](https://partner.s
 @event steam
 @param {string} event_type The string value `"inventory_result_ready"`
 @param {bool} success Whether the async action succeeded
-|result|[InventoryResultStatus](#InventoryResultStatus)|The status code as returned by [steam_inventory_result_get_status](#steam_inventory_result_get_status)
+|result|${function.}|The status code as returned by ${function.}
 @param {real} handle The associated async result ID, which can be used to tell apart what result this event is for.
 
 
@@ -607,37 +571,30 @@ steam_inventory_remove_property(handle, item_id, "invisible")
 steam_inventory_submit_update_properties(handle)
 ```
 The code above provides a simple sample on how to set/removed some properties.
-Starting with a [steam_inventory_start_update_properties](#steam_inventory_start_update_properties) then multiple calls to set/remove property functions:
+Starting with a ${function.} then multiple calls to set/remove property functions:
 
-* [steam_inventory_set_property_bool](#steam_inventory_set_property_bool)
-* [steam_inventory_set_property_float](#steam_inventory_set_property_float)
-* [steam_inventory_set_property_int](#steam_inventory_set_property_int)
-* [steam_inventory_set_property_string](#steam_inventory_set_property_string)
-* [steam_inventory_remove_property](#steam_inventory_remove_property)
+* ${function.}
+* ${function.}
+* ${function.}
+* ${function.}
+* ${function.}
 
-Finishing with the submition of the update using the function call [steam_inventory_submit_update_properties](#steam_inventory_submit_update_properties). For an example on how to use the [Steam Async Event](https://manual-en.yoyogames.com/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm) to read the callback response, refer to the function [steam_inventory_get_all_items](#steam_inventory_get_all_items).
+Finishing with the submition of the update using the function call ${function.}. For an example on how to use the [Steam Async Event](https://manual-en.yoyogames.com/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm) to read the callback response, refer to the function ${function.}.
 
 
 @func_end
 
 
 @func steam_inventory_transfer_item_quantity
-Transfer items between stacks within a user&#39;s inventory.
+@desc Transfer items between stacks within a user&#39;s inventory.
 
-> **:warning: IMPORTANT**
->
->  You must call [steam_inventory_result_destroy](#steam_inventory_result_destroy) on the returned async result ID when you are done with it.
+[[warning: IMPORTANT You must call ${function.} on the returned async result ID when you are done with it.
 
 > **:eight_pointed_black_star: EXTERNAL**
 >
 > A wrapper around [TransferItemQuantity](https://partner.steamgames.com/doc/api/ISteamInventory#TransferItemQuantity).
 
 
-**Syntax:**
-
-```gml
-steam_inventory_transfer_item_quantity(source_item_id, quantity, dest_item_id);
-```
 
 |source_item_id|int64|The source [steam_inventory_item_id](https://partner.steamgames.com/doc/api/ISteamInventory#SteamItemInstanceID_t) to transfer from
 @param {real} quantity The quantity of the item that will be transferred
@@ -649,21 +606,21 @@ steam_inventory_transfer_item_quantity(source_item_id, quantity, dest_item_id);
 @event steam
 @param {string} event_type The string value `"inventory_result_ready"`
 @param {bool} success Whether the async action succeeded
-|result|[InventoryResultStatus](#InventoryResultStatus)|The status code as returned by [steam_inventory_result_get_status](#steam_inventory_result_get_status)
+|result|${function.}|The status code as returned by ${function.}
 @param {real} handle The associated async result ID, which can be used to tell apart what result this event is for.
 
 
 ```gml
 handle = steam_inventory_transfer_item_quantity(global.apple, 2, global.oranges);
 ```
-The above code will trigger a transfer between to items owned by the used the amount to be transferred in the example, the user will lose 2 apples and receive 2 oranges. For an example on how to use the [Steam Async Event](https://manual-en.yoyogames.com/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm) to read the callback response, refer to the function [steam_inventory_get_all_items](#steam_inventory_get_all_items).
+The above code will trigger a transfer between to items owned by the used the amount to be transferred in the example, the user will lose 2 apples and receive 2 oranges. For an example on how to use the [Steam Async Event](https://manual-en.yoyogames.com/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm) to read the callback response, refer to the function ${function.}.
 
 
 @func_end
 
 
 @func steam_inventory_trigger_item_drop
-Trigger an item drop if the user has played a long enough period of time.<br>
+@desc Trigger an item drop if the user has played a long enough period of time.<br>
       <br>
       This period can be customized in two places:
 
@@ -675,9 +632,7 @@ Trigger an item drop if the user has played a long enough period of time.<br>
 
 This is an asynchronous function that will trigger the [Steam Async Event](https://manual-en.yoyogames.com/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm) when the task is finished.
 
-> **:warning: IMPORTANT**
->
->  You must call [steam_inventory_result_destroy](#steam_inventory_result_destroy) on the returned async result ID when you are done with it.
+[[warning: IMPORTANT You must call ${function.} on the returned async result ID when you are done with it.
 
 > **:eight_pointed_black_star: EXTERNAL**
 >
@@ -692,37 +647,35 @@ This is an asynchronous function that will trigger the [Steam Async Event](https
 @event steam
 @param {string} event_type The string value `"inventory_result_ready"`
 @param {bool} success Whether the async action succeeded
-|result|[InventoryResultStatus](#InventoryResultStatus)|The status code as returned by [steam_inventory_result_get_status](#steam_inventory_result_get_status)
+|result|${function.}|The status code as returned by ${function.}
 @param {real} handle The associated async result ID, which can be used to tell apart what result this event is for.
 
 
 ```gml
 handle = steam_inventory_trigger_item_drop(item_def)
 ```
-For more information on this function call please refer to the official manual. For an example on how to use the [Steam Async Event](https://manual-en.yoyogames.com/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm) to read the callback response, refer to the function [steam_inventory_get_all_items](#steam_inventory_get_all_items).
+For more information on this function call please refer to the official manual. For an example on how to use the [Steam Async Event](https://manual-en.yoyogames.com/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm) to read the callback response, refer to the function ${function.}.
 
 
 @func_end
 
 
 @func steam_inventory_result_destroy
-Destroys a result handle and frees all associated memory. 
+@desc Destroys a result handle and frees all associated memory. 
 This handle is returned by the following functions:
 
-* [steam_inventory_add_promo_item](#steam_inventory_add_promo_item)
-* [steam_inventory_add_promo_items](#steam_inventory_add_promo_items)
-* [steam_inventory_consume_item](#steam_inventory_consume_item)
-* [steam_inventory_exchange_items](#steam_inventory_exchange_items)
+* ${function.}
+* ${function.}
+* ${function.}
+* ${function.}
 * [steam_inventory_generate_items](#steam_inventory_exchange_items-copy)
-* [steam_inventory_get_all_items](#steam_inventory_get_all_items)
-* [steam_inventory_get_items_by_id](#steam_inventory_get_items_by_id)
-* [steam_inventory_trigger_item_drop](#steam_inventory_trigger_item_drop)
-* [steam_inventory_transfer_item_quantity](#steam_inventory_transfer_item_quantity)
-* [steam_inventory_submit_update_properties](#steam_inventory_submit_update_properties)
+* ${function.}
+* ${function.}
+* ${function.}
+* ${function.}
+* ${function.}
 
-> **:information_source: NOTE**
->
-> This function can be called using an inventory result handle after the corresponding async event has been triggered.
+[[NOTE: NOTE This function can be called using an inventory result handle after the corresponding async event has been triggered.
 
 > **:eight_pointed_black_star: EXTERNAL**
 >
@@ -756,30 +709,23 @@ steam_inventory_result_destroy(handle);
 handle = undefined;
 
 ```
-In the code above we have an example of a asynchronous callback that generates a result handle by the end of which we execute a call to [steam_inventory_result_destroy](#steam_inventory_result_destroy) to make sure we dispose and free all the used memory.
+In the code above we have an example of a asynchronous callback that generates a result handle by the end of which we execute a call to ${function.} to make sure we dispose and free all the used memory.
 
 
 @func_end
 
 
 @func steam_inventory_result_get_item_property
-Gets the dynamic properties from an item in an inventory result set.
+@desc Gets the dynamic properties from an item in an inventory result set.
 Property names are always composed of ASCII letters, numbers, and/or underscores.
 
-> **:information_source: NOTE**
->
-> This function can be called using an inventory result handle after the corresponding async event has been triggered.
+[[NOTE: NOTE This function can be called using an inventory result handle after the corresponding async event has been triggered.
 
 > **:eight_pointed_black_star: EXTERNAL**
 >
 > A wrapper around [GetResultItemProperty](https://partner.steamgames.com/doc/api/ISteamInventory#GetResultItemProperty).
 
 
-**Syntax:**
-
-```gml
-steam_inventory_result_get_item_property(inv_result, item_index, prop_name);
-```
 
 @param {real} inv_result The inventory result handle
 @param {real} item_index Position of the item in the result set
@@ -821,18 +767,16 @@ steam_inventory_result_destroy(handle);
 handle = undefined;
 
 ```
-The code above matches the event type and checks if the handle id matches the one that initialized the request and if so gets the items from the result using the function [steam_inventory_result_get_items](#steam_inventory_result_get_items) and loops through them to get the item properties we want. In the end we also use a call to [steam_inventory_result_destroy](#steam_inventory_result_destroy) to make sure we dispose and free all the used memory.
+The code above matches the event type and checks if the handle id matches the one that initialized the request and if so gets the items from the result using the function ${function.} and loops through them to get the item properties we want. In the end we also use a call to ${function.} to make sure we dispose and free all the used memory.
 
 
 @func_end
 
 
 @func steam_inventory_result_get_items
-Get the items associated with an inventory result handle.
+@desc Get the items associated with an inventory result handle.
 
-> **:information_source: NOTE**
->
-> This function can be called using an inventory result handle after the corresponding async event has been triggered.
+[[NOTE: NOTE This function can be called using an inventory result handle after the corresponding async event has been triggered.
 
 > **:eight_pointed_black_star: EXTERNAL**
 >
@@ -865,18 +809,16 @@ for(var i = 0 ; i < array_lenght(array) ; i++)
      var quantity = struct.quantity
 }
 ```
-For a more detailed implementation sample please refer to the [steam_inventory_get_all_items](#steam_inventory_get_all_items) function.
+For a more detailed implementation sample please refer to the ${function.} function.
 
 
 @func_end
 
 
 @func steam_inventory_result_get_status
-Returns status code of a result.
+@desc Returns status code of a result.
 
-> **:information_source: NOTE**
->
-> This function can be called using an inventory result handle after the corresponding async event has been triggered.
+[[NOTE: NOTE This function can be called using an inventory result handle after the corresponding async event has been triggered.
 
 > **:eight_pointed_black_star: EXTERNAL**
 >
@@ -893,18 +835,16 @@ Returns status code of a result.
 if(steam_inventory_result_get_status(inv_result) != steam_inventory_result_status_ok)
      exit
 ```
-For a more detailed implementation sample please refer to the [steam_inventory_result_get_item_property](#steam_inventory_result_get_item_property) function.
+For a more detailed implementation sample please refer to the ${function.} function.
 
 
 @func_end
 
 
 @func steam_inventory_result_get_unix_timestamp
-Returns a Unix timestamp for the server time at which the result was generated.
+@desc Returns a Unix timestamp for the server time at which the result was generated.
 
-> **:information_source: NOTE**
->
-> This function can be called using an inventory result handle after the corresponding async event has been triggered.
+[[NOTE: NOTE This function can be called using an inventory result handle after the corresponding async event has been triggered.
 
 > **:eight_pointed_black_star: EXTERNAL**
 >
@@ -924,21 +864,21 @@ int64
 ```gml
 var timestamp = steam_inventory_result_get_unix_timestamp(inv_result);
 ```
-For a more detailed implementation sample please refer to the [steam_inventory_result_get_item_property](#steam_inventory_result_get_item_property) function.
+For a more detailed implementation sample please refer to the ${function.} function.
 
 
 @func_end
 
 
 @func steam_inventory_start_update_properties
-Starts a transaction request to update dynamic properties on items for the current user.
+@desc Starts a transaction request to update dynamic properties on items for the current user.
 Returns a steam_inventory_update_handle that can be used with the following functions:
 
-* [steam_inventory_remove_property](#steam_inventory_remove_property)
-* [steam_inventory_set_property_bool](#steam_inventory_set_property_bool)
-* [steam_inventory_set_property_float](#steam_inventory_set_property_float)
-* [steam_inventory_set_property_int](#steam_inventory_set_property_int)
-* [steam_inventory_set_property_string](#steam_inventory_set_property_string)
+* ${function.}
+* ${function.}
+* ${function.}
+* ${function.}
+* ${function.}
 
 > **:eight_pointed_black_star: EXTERNAL**
 >
@@ -962,35 +902,30 @@ steam_inventory_set_property_string(handle, item_id, "name", "Big Sword")
 steam_inventory_submit_update_properties(handle)
 ```
 The code above provides a simple sample on how to set/removed some properties.
-Starting with a [steam_inventory_start_update_properties](#steam_inventory_start_update_properties) then mutliple calls to set/remove property functions:
+Starting with a ${function.} then mutliple calls to set/remove property functions:
 
-* [steam_inventory_set_property_bool](#steam_inventory_set_property_bool)
-* [steam_inventory_set_property_float](#steam_inventory_set_property_float)
-* [steam_inventory_set_property_int](#steam_inventory_set_property_int)
-* [steam_inventory_set_property_string](#steam_inventory_set_property_string)
-* [steam_inventory_remove_property](#steam_inventory_remove_property)
+* ${function.}
+* ${function.}
+* ${function.}
+* ${function.}
+* ${function.}
 
-Finishing with the submition of the update using the function call [steam_inventory_submit_update_properties](#steam_inventory_submit_update_properties).
+Finishing with the submition of the update using the function call ${function.}.
 
 
 @func_end
 
 
 @func steam_inventory_remove_property
-Removes a [dynamic property](https://partner.steamgames.com/doc/features/inventory/dynamicproperties) of the given item.
+@desc Removes a [dynamic property](https://partner.steamgames.com/doc/features/inventory/dynamicproperties) of the given item.
 
 > **:eight_pointed_black_star: EXTERNAL**
 >
 > A wrapper around [RemoveProperty](https://partner.steamgames.com/doc/api/ISteamInventory#RemoveProperty).
 
 
-**Syntax:**
 
-```gml
-steam_inventory_remove_property(handle, item_id, prop_name);
-```
-
-@param {real} handle The update handle returned by [steam_inventory_start_update_properties](#steam_inventory_start_update_properties)
+@param {real} handle The update handle returned by ${function.}
 |item_id|int64|The [steam_inventory_item_id](https://partner.steamgames.com/doc/api/ISteamInventory#SteamItemInstanceID_t) of the item being modified
 @param {string} prop_name The dynamic property being removed
 
@@ -1009,33 +944,28 @@ steam_inventory_remove_property(handler, item_id, "invisible")
 steam_inventory_submit_update_properties(handler)
 ```
 The code above provides a simple sample on how to set/removed some properties.
-Starting with a [steam_inventory_start_update_properties](#steam_inventory_start_update_properties) then mutliple calls to set/remove property functions:
+Starting with a ${function.} then mutliple calls to set/remove property functions:
 
-* [steam_inventory_set_property_bool](#steam_inventory_set_property_bool)
-* [steam_inventory_set_property_float](#steam_inventory_set_property_float)
-* [steam_inventory_set_property_int](#steam_inventory_set_property_int)
-* [steam_inventory_set_property_string](#steam_inventory_set_property_string)
-* [steam_inventory_remove_property](#steam_inventory_remove_property)
+* ${function.}
+* ${function.}
+* ${function.}
+* ${function.}
+* ${function.}
 
-Finishing with the submition of the update using the function call [steam_inventory_submit_update_properties](#steam_inventory_submit_update_properties).
+Finishing with the submition of the update using the function call ${function.}.
 
 
 @func_end
 
 
 @func steam_inventory_set_property_bool
-Sets a [dynamic property](https://partner.steamgames.com/doc/features/inventory/dynamicproperties) for the boolean given item 
+@desc Sets a [dynamic property](https://partner.steamgames.com/doc/features/inventory/dynamicproperties) for the boolean given item 
 
 > **:eight_pointed_black_star: EXTERNAL**
 >
 > A wrapper around [SetProperty](https://partner.steamgames.com/doc/api/ISteamInventory#SetProperty).
 
 
-**Syntax:**
-
-```gml
-steam_inventory_set_property_bool(handle, prop_name, val);
-```
 
 @param {real} handle The update handle corresponding to the transaction request
 @param {string} prop_name The dynamic property being added or updated.
@@ -1056,33 +986,28 @@ steam_inventory_remove_property(handle, item_id, "invisible")
 steam_inventory_submit_update_properties(handle)
 ```
 The code above provides a simple sample on how to set/removed some properties.
-Starting with a [steam_inventory_start_update_properties](#steam_inventory_start_update_properties) then mutliple calls to set/remove property functions:
+Starting with a ${function.} then mutliple calls to set/remove property functions:
 
-* [steam_inventory_set_property_bool](#steam_inventory_set_property_bool)
-* [steam_inventory_set_property_float](#steam_inventory_set_property_float)
-* [steam_inventory_set_property_int](#steam_inventory_set_property_int)
-* [steam_inventory_set_property_string](#steam_inventory_set_property_string)
-* [steam_inventory_remove_property](#steam_inventory_remove_property)
+* ${function.}
+* ${function.}
+* ${function.}
+* ${function.}
+* ${function.}
 
-Finishing with the submition of the update using the function call [steam_inventory_submit_update_properties](#steam_inventory_submit_update_properties).
+Finishing with the submition of the update using the function call ${function.}.
 
 
 @func_end
 
 
 @func steam_inventory_set_property_float
-Sets a [dynamic property](https://partner.steamgames.com/doc/features/inventory/dynamicproperties) for the float given item 
+@desc Sets a [dynamic property](https://partner.steamgames.com/doc/features/inventory/dynamicproperties) for the float given item 
 
 > **:eight_pointed_black_star: EXTERNAL**
 >
 > A wrapper around [SetProperty](https://partner.steamgames.com/doc/api/ISteamInventory#SetProperty).
 
 
-**Syntax:**
-
-```gml
-steam_inventory_set_property_float(handle, prop_name, val);
-```
 
 @param {real} handle The update handle corresponding to the transaction request
 @param {string} prop_name The dynamic property being added or updated.
@@ -1103,33 +1028,28 @@ steam_inventory_remove_property(handle, item_id, "invisible")
 steam_inventory_submit_update_properties(handle)
 ```
 The code above provides a simple sample on how to set/removed some properties.
-Starting with a [steam_inventory_start_update_properties](#steam_inventory_start_update_properties) then mutliple calls to set/remove property functions:
+Starting with a ${function.} then mutliple calls to set/remove property functions:
 
-* [steam_inventory_set_property_bool](#steam_inventory_set_property_bool)
-* [steam_inventory_set_property_float](#steam_inventory_set_property_float)
-* [steam_inventory_set_property_int](#steam_inventory_set_property_int)
-* [steam_inventory_set_property_string](#steam_inventory_set_property_string)
-* [steam_inventory_remove_property](#steam_inventory_remove_property)
+* ${function.}
+* ${function.}
+* ${function.}
+* ${function.}
+* ${function.}
 
-Finishing with the submition of the update using the function call [steam_inventory_submit_update_properties](#steam_inventory_submit_update_properties).
+Finishing with the submition of the update using the function call ${function.}.
 
 
 @func_end
 
 
 @func steam_inventory_set_property_int
-Sets a [dynamic property](https://partner.steamgames.com/doc/features/inventory/dynamicproperties) for the int given item 
+@desc Sets a [dynamic property](https://partner.steamgames.com/doc/features/inventory/dynamicproperties) for the int given item 
 
 > **:eight_pointed_black_star: EXTERNAL**
 >
 > A wrapper around [SetProperty](https://partner.steamgames.com/doc/api/ISteamInventory#SetProperty).
 
 
-**Syntax:**
-
-```gml
-steam_inventory_set_property_int(handle, prop_name, val);
-```
 
 @param {real} handle The update handle corresponding to the transaction request
 @param {string} prop_name The dynamic property being added or updated.
@@ -1150,33 +1070,28 @@ steam_inventory_remove_property(handle, item_id, "invisible")
 steam_inventory_submit_update_properties(handle)
 ```
 The code above provides a simple sample on how to set/removed some properties.
-Starting with a [steam_inventory_start_update_properties](#steam_inventory_start_update_properties) then mutliple calls to set/remove property functions:
+Starting with a ${function.} then mutliple calls to set/remove property functions:
 
-* [steam_inventory_set_property_bool](#steam_inventory_set_property_bool)
-* [steam_inventory_set_property_float](#steam_inventory_set_property_float)
-* [steam_inventory_set_property_int](#steam_inventory_set_property_int)
-* [steam_inventory_set_property_string](#steam_inventory_set_property_string)
-* [steam_inventory_remove_property](#steam_inventory_remove_property)
+* ${function.}
+* ${function.}
+* ${function.}
+* ${function.}
+* ${function.}
 
-Finishing with the submition of the update using the function call [steam_inventory_submit_update_properties](#steam_inventory_submit_update_properties).
+Finishing with the submition of the update using the function call ${function.}.
 
 
 @func_end
 
 
 @func steam_inventory_result_get_status
-Sets a [dynamic property](https://partner.steamgames.com/doc/features/inventory/dynamicproperties) for the string given item 
+@desc Sets a [dynamic property](https://partner.steamgames.com/doc/features/inventory/dynamicproperties) for the string given item 
 
 > **:eight_pointed_black_star: EXTERNAL**
 >
 > A wrapper around [SetProperty](https://partner.steamgames.com/doc/api/ISteamInventory#SetProperty).
 
 
-**Syntax:**
-
-```gml
-steam_inventory_set_property_string(handle, prop_name, val);
-```
 
 @param {real} handle The update handle corresponding to the transaction request
 @param {string} prop_name The dynamic property being added or updated.
@@ -1197,28 +1112,28 @@ steam_inventory_remove_property(handle, item_id, "invisible")
 steam_inventory_submit_update_properties(handle)
 ```
 The code above provides a simple sample on how to set/removed some properties.
-Starting with a [steam_inventory_start_update_properties](#steam_inventory_start_update_properties) then mutliple calls to set/remove property functions:
+Starting with a ${function.} then mutliple calls to set/remove property functions:
 
-* [steam_inventory_set_property_bool](#steam_inventory_set_property_bool)
-* [steam_inventory_set_property_float](#steam_inventory_set_property_float)
-* [steam_inventory_set_property_int](#steam_inventory_set_property_int)
-* [steam_inventory_set_property_string](#steam_inventory_set_property_string)
-* [steam_inventory_remove_property](#steam_inventory_remove_property)
+* ${function.}
+* ${function.}
+* ${function.}
+* ${function.}
+* ${function.}
 
-Finishing with the submition of the update using the function call [steam_inventory_submit_update_properties](#steam_inventory_submit_update_properties).
+Finishing with the submition of the update using the function call ${function.}.
 
 
 @func_end
 
 
 @func InventoryResultStatus
-These constants represent the status of an inventory result async event, and are returned by the async events of the following functions:
+@desc These constants represent the status of an inventory result async event, and are returned by the async events of the following functions:
 
-* [steam_inventory_add_promo_item](#steam_inventory_add_promo_item)
-* [steam_inventory_add_promo_items](#steam_inventory_add_promo_items)
-* [steam_inventory_consume_item](#steam_inventory_consume_item)
-* [steam_inventory_exchange_items](#steam_inventory_exchange_items)
-* [steam_inventory_get_all_items](#steam_inventory_get_all_items)
+* ${function.}
+* ${function.}
+* ${function.}
+* ${function.}
+* ${function.}
 
 |Inventory Result Status Constant|Description
 |----|----
@@ -1238,9 +1153,9 @@ These constants represent the status of an inventory result async event, and are
 
 
 @func InventoryItemConsumptionData
-This struct is used as an argument when performing a call to the following functions
+@desc This struct is used as an argument when performing a call to the following functions
 
-* [steam_inventory_exchange_items](#steam_inventory_exchange_items)
+* ${function.}
 
 and it contains the following details about an item consumption:
 
@@ -1252,11 +1167,11 @@ and it contains the following details about an item consumption:
 
 
 @func InventoryItemCreationData
-This struct is used as an argument when performing a call to the following functions
+@desc This struct is used as an argument when performing a call to the following functions
 
-* [steam_inventory_exchange_items](#steam_inventory_exchange_items)
+* ${function.}
 * [steam_inventory_generate_items](#steam_inventory_exchange_items-copy)
-* [steam_inventory_start_purchase](#steam_inventory_start_purchase)
+* ${function.}
 
 and it contains the following details about an item creation/purchase:
 
