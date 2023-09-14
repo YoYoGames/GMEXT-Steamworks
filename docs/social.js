@@ -51,7 +51,7 @@ The code sample above uses sets a couple values for the local user rich presence
 
 
 @func steam_clear_rich_presence
-@desc Clears all of the current user&#39;s Rich Presence key/values.
+@desc Clears all of the current user's Rich Presence key/values.
 
 
 
@@ -73,19 +73,19 @@ The code sample above uses ${function.} to set a couple values for the local use
 
 
 @func steam_user_set_played_with
-@desc Adds the given user to the &quot;recently played with&quot; list (accessed via &quot;Players&quot; - &quot;Recent games&quot;) menu in Steam overlay.
+@desc Adds the given user to the "recently played with" list (accessed via "Players" - "Recent games") menu in Steam overlay.
 This is usually something to do on session start for all remote users.
 
 
 |user_id|int64|Other player user id
 
 
-@returns {Bool}
+@returns {boolean}
 
 ```gml
 steam_user_set_played_with(anyFriendUserID)
 ```
-This code will add the specified user id to the &quot;recently played with&quot; list, of the local user.
+This code will add the specified user id to the "recently played with" list, of the local user.
 
 
 
@@ -93,7 +93,7 @@ This code will add the specified user id to the &quot;recently played with&quot;
 
 
 @func steam_get_friends_game_info
-@desc Returns an array of information about what the current user&#39;s Steam friends are playing.
+@desc Returns an array of information about what the current user's Steam friends are playing.
 Equivalent to what can be seen in Steam Friends UI.
 
 
@@ -141,7 +141,7 @@ The above code will check all you friends to see if anyone of them is playing th
 @func steam_get_user_avatar
 @desc Fetches an avatar for the specified user ID. 
 Returns `0` if no avatar is set for the user;<br>
-      Returns `-1` if the request is pending, in which case an [Steam Async Event](https://manual-en.yoyogames.com/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm) will be triggered.
+      Returns `-1` if the request is pending, in which case an ${event.steam} will be triggered.
 Returns positive IDs if the avatar is ready, this id is to be used with the following function:
 
 * ${function.}
@@ -158,7 +158,7 @@ Returns positive IDs if the avatar is ready, this id is to be used with the foll
 
 @event steam
 @param {string} event_type The string value `"avatar_image_loaded"`
-@param {bool} success Whether the async action succeeded
+@param {boolean} success Whether the async action succeeded
 |user_id|int64|The associated user's ID
 @param {real} image The image ID that would otherwise be returned by the function
 @param {real} width The image width, in pixels
@@ -193,11 +193,11 @@ if (l_img > 0)
 }
 
 ```
-In the code above we query for the current user&#39;s ([steam_get_user_steam_id](General#steam_get_user_steam_id)) avatar, this function this function will either return:
+In the code above we query for the current user's ([steam_get_user_steam_id](General#steam_get_user_steam_id)) avatar, this function this function will either return:
 
 * the handle to the function (return value greater than zero): in this case we follow by getting size information (${function.}), creating a buffer and and getting the avatar image RBGA data into the buffer (${function.}) and lastely creating a sprite from said buffer.
 * no handle at all (return value equal to zero): in this case there is no avatar image for the specified used.
-* a value of -1: in this last case it measn that the request is pending and you can catch the output with a [Steam Async Event](https://manual-en.yoyogames.com/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm), using the following code:
+* a value of -1: in this last case it measn that the request is pending and you can catch the output with a ${event.steam}, using the following code:
 
 ```gml
 // Early exit if event type doesn't match
@@ -262,7 +262,7 @@ Returns whether successful.
 
 
 |steam_image_id|int64|The steam image identifier
-@param {Id.Buffer} buffer The buffer where data will be written
+@param {type.buffer} buffer The buffer where data will be written
 @param {real} size The size of the buffer supplied
 
 
@@ -296,7 +296,7 @@ if (l_img > 0)
 }
 
 ```
-In the code above we query for the current user&#39;s ([steam_get_user_steam_id](General#steam_get_user_steam_id)) avatar data and place it inside a buffer (with the RGBA color format).
+In the code above we query for the current user's ([steam_get_user_steam_id](General#steam_get_user_steam_id)) avatar data and place it inside a buffer (with the RGBA color format).
 For a more extensive example refer to the ${function.} function.
 
 
@@ -313,7 +313,7 @@ Returns whether successful.
 
 
 |steam_image_id|int64|The steam image identifier
-@param {Id.Buffer} buffer The buffer where data will be written
+@param {type.buffer} buffer The buffer where data will be written
 @param {real} size The size of the buffer supplied
 
 
@@ -347,7 +347,7 @@ if (l_img > 0)
 }
 
 ```
-In the code above we query for the current user&#39;s ([steam_get_user_steam_id](General#steam_get_user_steam_id)) avatar data and place it inside a buffer (with the BGRA color format).
+In the code above we query for the current user's ([steam_get_user_steam_id](General#steam_get_user_steam_id)) avatar data and place it inside a buffer (with the BGRA color format).
 For a more extensive example refer to the ${function.} function.
 
 

@@ -1,7 +1,7 @@
 @func Utilities
 @desc The Steam utility functions provide access to gamepad keyboard UI and Steam Deck getters.
 
-The following functions can be used to access Steam Utilities from within GameMaker Studio 2
+The following functions can be used to access Steam Utilities from within GameMaker
 
 * ${function.}
 * ${function.}
@@ -28,7 +28,7 @@ The following functions can be used to access Steam Utilities from within GameMa
 @param {real} text_field_height Height of the keyboard window in display coordinates.
 
 
-@returns {Bool}
+@returns {boolean}
 
 @event steam
 |----|----|----
@@ -68,7 +68,7 @@ The above code shows a floating keyboard window in the bottom half of the window
 
 
 
-@returns {Bool}
+@returns {boolean}
 
 ```gml
 steam_dismiss_floating_gamepad_text_input();
@@ -93,12 +93,12 @@ The above code will dismiss the floating keyboard window if it is being displaye
 @param {string} existing_text Some existing text to put into the text field or an empty string.
 
 
-@returns {Bool}
+@returns {boolean}
 
 @event steam
 |----|----|----
 @param {string} event_type A string `"gamepad_text_input_dismissed"`.
-@param {bool} submitted `true` if the dialog was submitted successfully and `false` if it was cancelled.
+@param {boolean} submitted `true` if the dialog was submitted successfully and `false` if it was cancelled.
 @param {real} submitted_text_raw_byte_length Raw length of the text in bytes.
 
 
@@ -162,7 +162,7 @@ The above code will activate the use of gamepad keyboard UI async events.
 
 
 
-@returns {Bool}
+@returns {boolean}
 
 ```gml
 steam_utils_enable_callbacks();
@@ -179,7 +179,7 @@ The above code will activate the use of gamepad keyboard UI async events.
 
 
 
-@returns {Bool}
+@returns {boolean}
 
 ```gml
 if (steam_utils_is_steam_running_on_steam_deck()) {

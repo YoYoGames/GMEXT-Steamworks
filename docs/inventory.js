@@ -66,8 +66,8 @@ These are the structures used by this API:
 
 
 @func steam_inventory_consume_item
-@desc Consumes items from a user&#39;s inventory. If the quantity of the given item goes to zero, it is permanently removed.
-This is an asynchronous function that will trigger the [Steam Async Event](https://manual-en.yoyogames.com/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm) when the task is finished.
+@desc Consumes items from a user's inventory. If the quantity of the given item goes to zero, it is permanently removed.
+This is an asynchronous function that will trigger the ${event.steam} when the task is finished.
 
 [[warning: IMPORTANT You must call ${function.} on the returned async result ID when you are done with it.
 
@@ -85,7 +85,7 @@ This is an asynchronous function that will trigger the [Steam Async Event](https
 
 @event steam
 @param {string} event_type The string value `"inventory_result_ready"`
-@param {bool} success Whether the async action succeeded
+@param {boolean} success Whether the async action succeeded
 |result|${function.}|The status code as returned by ${function.}
 @param {real} handle The associated async result ID, which can be used to tell apart what result this event is for.
 
@@ -106,12 +106,7 @@ The code sample above will try to consume one item (`apple`,  [steam_inventory_i
 
 @param {real} item The [steam_inventory_item_def](https://partner.steamgames.com/doc/api/ISteamInventory#SteamItemDef_t) to get the price of.
 
-**Returns:**
-
-```gml
-int64
-```
-
+@returns {int64}
 ```gml
 var price = steam_inventory_get_item_price(item);
 ```
@@ -130,12 +125,7 @@ The code sample above will return you the price for the speficied item definitio
 
 
 
-**Returns:**
-
-```gml
-array of structs
-```
-
+@returns {array of structs}
 @param {real} item_def The [steam_inventory_item_def](https://partner.steamgames.com/doc/api/ISteamInventory#SteamItemDef_t) representing the item type
 |price|int64|The price of the item definition
 |base_price|int64|The base price of the item definition :eight_pointed_black_star: WINDOWS ONLY
@@ -151,15 +141,15 @@ if(array_length(array) > 0)
     show_debug_message("Found at one item that costs: " + string(price));
 }
 ```
-The code above will get items with prices and if the returning array size is greater than zero (meaning there is at least one item with a configured price) it prints to the console the item&#39;s price.
+The code above will get items with prices and if the returning array size is greater than zero (meaning there is at least one item with a configured price) it prints to the console the item's price.
 
 
 @func_end
 
 
 @func steam_inventory_request_eligible_promo_item_defs
-@desc Requests the list of &quot;eligible&quot; promo items that can be manually granted to the given user.
-This is an asynchronous function that will trigger the [Steam Async Event](https://manual-en.yoyogames.com/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm) when the task is finished.
+@desc Requests the list of "eligible" promo items that can be manually granted to the given user.
+This is an asynchronous function that will trigger the ${event.steam} when the task is finished.
 
 > **:eight_pointed_black_star: EXTERNAL**
 >
@@ -169,14 +159,14 @@ This is an asynchronous function that will trigger the [Steam Async Event](https
 |user_id|int64|The user ID of the user to request the eligible promo items for.
 
 
-@returns {bool}
+@returns {boolean}
 
 @event steam
 @param {string} event_type The string value `"inventory_request_eligible_promo_item_defs"`
 |user_id|int64|The user's unique identifier
 @param {real} item_def_count The number of items
 @param {string} item_def_json A json array of items identifiers (must be parsed using [json_parse](https://manual-en.yoyogames.com/GameMaker_Language/GML_Reference/File_Handling/Encoding_And_Hashing/json_parse.htm) or [json_decode](https://manual-en.yoyogames.com/GameMaker_Language/GML_Reference/File_Handling/Encoding_And_Hashing/json_decode.htm))
-@param {bool} is_cached_data Whether the data was retrieved from the cache and not from the server
+@param {boolean} is_cached_data Whether the data was retrieved from the cache and not from the server
 
 
 ```gml
@@ -189,9 +179,9 @@ For more information on this function call please refer to the official manual.
 
 
 @func steam_inventory_request_prices
-@desc Request prices for all item definitions that can be purchased in the user&#39;s local currency.
+@desc Request prices for all item definitions that can be purchased in the user's local currency.
 
-This is an asynchronous function that will trigger the [Steam Async Event](https://manual-en.yoyogames.com/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm) when the task is finished, after which you can use the following functions:
+This is an asynchronous function that will trigger the ${event.steam} when the task is finished, after which you can use the following functions:
 
 * ${function.}
 * ${function.}
@@ -202,11 +192,11 @@ This is an asynchronous function that will trigger the [Steam Async Event](https
 
 
 
-@returns {bool}
+@returns {boolean}
 
 @event steam
 @param {string} event_type The string value `"inventory_request_prices"`
-@param {bool} success Whether the async action succeeded
+@param {boolean} success Whether the async action succeeded
 |result|${function.}|The status code as returned by ${function.}
 @param {string} currency The string representing the user's [local currency](https://partner.steamgames.com/doc/store/pricing/currencies) code.
 
@@ -214,7 +204,7 @@ This is an asynchronous function that will trigger the [Steam Async Event](https
 ```gml
 steam_inventory_request_prices();
 ```
-The code above will request for price information. The result for this task can be caught inside the [Steam Async Event](https://manual-en.yoyogames.com/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm) with the following code:
+The code above will request for price information. The result for this task can be caught inside the ${event.steam} with the following code:
 
 ```gml
 // Early exit if event type doesn't match
@@ -236,7 +226,7 @@ The code above matches the event type and if so shows the currency being used. I
 
 
 @func steam_inventory_start_purchase
-@desc Starts the purchase process for the user, given a &quot;shopping cart&quot; of item definitions that the user would like to buy.
+@desc Starts the purchase process for the user, given a "shopping cart" of item definitions that the user would like to buy.
 The user will be prompted in the Steam Overlay to complete the purchase in their local currency, funding their Steam Wallet if necessary, etc.
 
 > **:eight_pointed_black_star: EXTERNAL**
@@ -266,7 +256,7 @@ The code above will initialize a purchase intent that will be finalized in the S
 
 @func steam_inventory_add_promo_item
 @desc Take an Item Definition and grants the user the promo item. Item Definitions are integer numbers ranging from 1 to 999999999. Values below the range are invalid and values above the range are reserved.
-This is an asynchronous function that will trigger the [Steam Async Event](https://manual-en.yoyogames.com/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm) when the task is finished.
+This is an asynchronous function that will trigger the ${event.steam} when the task is finished.
 
 [[warning: IMPORTANTYou must call ${function.} on the returned async result ID when you are done with it.
 
@@ -282,7 +272,7 @@ This is an asynchronous function that will trigger the [Steam Async Event](https
 
 @event steam
 @param {string} event_type The string value `"inventory_result_ready"`
-@param {bool} success Whether the async action succeeded
+@param {boolean} success Whether the async action succeeded
 |result|${function.}|The status code as returned by ${function.}
 @param {real} handle The associated async result ID, which can be used to tell apart what result this event is for.
 
@@ -290,7 +280,7 @@ This is an asynchronous function that will trigger the [Steam Async Event](https
 ```gml
 steam_inventory_add_promo_item(item)
 ```
-The above code will grant the user with a specific item. For an example on how to use the [Steam Async Event](https://manual-en.yoyogames.com/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm) to read the callback response, refer to the function ${function.}.
+The above code will grant the user with a specific item. For an example on how to use the ${event.steam} to read the callback response, refer to the function ${function.}.
 
 
 @func_end
@@ -298,7 +288,7 @@ The above code will grant the user with a specific item. For an example on how t
 
 @func steam_inventory_add_promo_items
 @desc Takes an array of Item Definitions and grants the user multiple items. Item Definitions are integer numbers ranging from 1 to 999999999. Values below the range are invalid and values above the range are reserved.
-This is an asynchronous function that will trigger the [Steam Async Event](https://manual-en.yoyogames.com/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm) when the task is finished.
+This is an asynchronous function that will trigger the ${event.steam} when the task is finished.
 
 [[warning: IMPORTANTYou must call ${function.} on the returned async result ID when you are done with it.
 
@@ -314,7 +304,7 @@ This is an asynchronous function that will trigger the [Steam Async Event](https
 
 @event steam
 @param {string} event_type The string value `"inventory_result_ready"`
-@param {bool} success Whether the async action succeeded
+@param {boolean} success Whether the async action succeeded
 |result|${function.}|The status code as returned by ${function.}
 @param {real} handle The associated async result ID, which can be used to tell apart what result this event is for.
 
@@ -322,7 +312,7 @@ This is an asynchronous function that will trigger the [Steam Async Event](https
 ```gml
 steam_inventory_add_promo_items([item1,item2,item3])
 ```
-The above code will grant the user with an multiple items specified in an array format. For an example on how to use the [Steam Async Event](https://manual-en.yoyogames.com/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm) to read the callback response, refer to the function ${function.}.
+The above code will grant the user with an multiple items specified in an array format. For an example on how to use the ${event.steam} to read the callback response, refer to the function ${function.}.
 
 
 @func_end
@@ -330,7 +320,7 @@ The above code will grant the user with an multiple items specified in an array 
 
 @func steam_inventory_exchange_items
 @desc Grants one item in exchange for a set of other items.
-This is an asynchronous function that will trigger the [Steam Async Event](https://manual-en.yoyogames.com/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm) when the task is finished.
+This is an asynchronous function that will trigger the ${event.steam} when the task is finished.
 
 [[warning: IMPORTANT You must call ${function.} on the returned async result ID when you are done with it.
 
@@ -348,7 +338,7 @@ This is an asynchronous function that will trigger the [Steam Async Event](https
 
 @event steam
 @param {string} event_type The string value `"inventory_result_ready"`
-@param {bool} success Whether the async action succeeded
+@param {boolean} success Whether the async action succeeded
 |result|${function.}|The status code as returned by ${function.}
 @param {real} handle The associated async result ID, which can be used to tell apart what result this event is for.
 
@@ -367,7 +357,7 @@ var arrayCreate = [
 steam_inventory_exchange_items(arrayCreate, arrayDestroy);
 
 ```
-Given the provided items to be destroyed and the items to be create the code above will perform an exchange removing the current items (`arrayDestroy`) from the inventory and adding the new (`arrayCreate`) in their place. The result for this task can be caught inside the [Steam Async Event](https://manual-en.yoyogames.com/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm) with the following code:
+Given the provided items to be destroyed and the items to be create the code above will perform an exchange removing the current items (`arrayDestroy`) from the inventory and adding the new (`arrayCreate`) in their place. The result for this task can be caught inside the ${event.steam} with the following code:
 
 ```gml
 // Early exit if event type doesn't match
@@ -399,7 +389,7 @@ The code above matches the event type and checks if the handle id matches the on
 
 @func steam_inventory_generate_items
 @desc Generates specific items for the current user.
-This is an asynchronous function that will trigger the [Steam Async Event](https://manual-en.yoyogames.com/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm) when the task is finished.
+This is an asynchronous function that will trigger the ${event.steam} when the task is finished.
 
 [[NOTE: NOTE This is only usable by Steam accounts that belong to the publisher group for your game.
 
@@ -417,7 +407,7 @@ This is an asynchronous function that will trigger the [Steam Async Event](https
 
 @event steam
 @param {string} event_type The string value `"inventory_result_ready"`
-@param {bool} success Whether the async action succeeded
+@param {boolean} success Whether the async action succeeded
 |result|${function.}|The status code as returned by ${function.}
 @param {real} handle The associated async result ID, which can be used to tell apart what result this event is for.
 
@@ -431,15 +421,15 @@ var arrayCreate = [
 steam_inventory_generate_items(arrayCreate)
 
 ```
-The code above will grant the specific items to the current user. For an example on how to use the [Steam Async Event](https://manual-en.yoyogames.com/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm) to read the callback response, refer to the function ${function.}.
+The code above will grant the specific items to the current user. For an example on how to use the ${event.steam} to read the callback response, refer to the function ${function.}.
 
 
 @func_end
 
 
 @func steam_inventory_get_all_items
-@desc Starts retrieving all items in the current user&#39;s inventory.
-This is an asynchronous function that will trigger the [Steam Async Event](https://manual-en.yoyogames.com/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm) when the task is finished.
+@desc Starts retrieving all items in the current user's inventory.
+This is an asynchronous function that will trigger the ${event.steam} when the task is finished.
 
 [[warning: IMPORTANT You must call ${function.} on the returned async result ID when you are done with it.
 
@@ -453,23 +443,23 @@ This is an asynchronous function that will trigger the [Steam Async Event](https
 
 @event steam
 @param {string} event_type The string value `"inventory_result_ready"`
-@param {bool} success Whether the async action succeeded
+@param {boolean} success Whether the async action succeeded
 |result|${function.}|The status code as returned by ${function.}
 @param {real} handle The associated async result ID, which can be used to tell apart what result this event is for.
 
 > **:eight_pointed_black_star: OPTIONAL**
 >
-> The asynchronous event presented below is only triggered when the result is newer/fresher than the last known result. It will not trigger if the inventory hasn&#39;t changed, or if results from two overlapping calls are reversed in flight and the earlier result is already known to be stale/out-of-date. The regular callback will still be triggered immediately afterwards; this is an additional notification for your convenience.
+> The asynchronous event presented below is only triggered when the result is newer/fresher than the last known result. It will not trigger if the inventory hasn't changed, or if results from two overlapping calls are reversed in flight and the earlier result is already known to be stale/out-of-date. The regular callback will still be triggered immediately afterwards; this is an additional notification for your convenience.
 
 @param {string} event_type The string value `"inventory_full_update"`
-@param {bool} success Whether the async action succeeded
+@param {boolean} success Whether the async action succeeded
 @param {real} handle The associated async result ID, which can be used to tell apart what result this event is for.
 
 
 ```gml
 handle = steam_inventory_get_all_items();
 ```
-The code above will start a query for all the items in current users inventory. The result for this task can be caught inside the [Steam Async Event](https://manual-en.yoyogames.com/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm) with the following code:
+The code above will start a query for all the items in current users inventory. The result for this task can be caught inside the ${event.steam} with the following code:
 
 ```gml
 // Early exit if event type doesn't match
@@ -507,7 +497,7 @@ The code above matches the event type and checks if the handle id matches the on
 
 
 @func steam_inventory_get_items_by_id
-@desc Requests information about a subset of the current user&#39;s inventory.
+@desc Requests information about a subset of the current user's inventory.
 
 [[warning: IMPORTANT You must call ${function.} on the returned async result ID when you are done with it.
 
@@ -523,7 +513,7 @@ The code above matches the event type and checks if the handle id matches the on
 
 @event steam
 @param {string} event_type The string value `"inventory_result_ready"`
-@param {bool} success Whether the async action succeeded
+@param {boolean} success Whether the async action succeeded
 |result|${function.}|The status code as returned by ${function.}
 @param {real} handle The associated async result ID, which can be used to tell apart what result this event is for.
 
@@ -531,7 +521,7 @@ The code above matches the event type and checks if the handle id matches the on
 ```gml
 handle = steam_inventory_get_items_by_id([item1, item2])
 ```
-Similar to ${function.} but you can specify an array of items to query information instead of querying all of them. For an example on how to use the [Steam Async Event](https://manual-en.yoyogames.com/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm) to read the callback response, refer to the function ${function.}.
+Similar to ${function.} but you can specify an array of items to query information instead of querying all of them. For an example on how to use the ${event.steam} to read the callback response, refer to the function ${function.}.
 
 
 @func_end
@@ -554,7 +544,7 @@ Similar to ${function.} but you can specify an array of items to query informati
 
 @event steam
 @param {string} event_type The string value `"inventory_result_ready"`
-@param {bool} success Whether the async action succeeded
+@param {boolean} success Whether the async action succeeded
 |result|${function.}|The status code as returned by ${function.}
 @param {real} handle The associated async result ID, which can be used to tell apart what result this event is for.
 
@@ -579,14 +569,14 @@ Starting with a ${function.} then multiple calls to set/remove property function
 * ${function.}
 * ${function.}
 
-Finishing with the submition of the update using the function call ${function.}. For an example on how to use the [Steam Async Event](https://manual-en.yoyogames.com/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm) to read the callback response, refer to the function ${function.}.
+Finishing with the submition of the update using the function call ${function.}. For an example on how to use the ${event.steam} to read the callback response, refer to the function ${function.}.
 
 
 @func_end
 
 
 @func steam_inventory_transfer_item_quantity
-@desc Transfer items between stacks within a user&#39;s inventory.
+@desc Transfer items between stacks within a user's inventory.
 
 [[warning: IMPORTANT You must call ${function.} on the returned async result ID when you are done with it.
 
@@ -605,7 +595,7 @@ Finishing with the submition of the update using the function call ${function.}.
 
 @event steam
 @param {string} event_type The string value `"inventory_result_ready"`
-@param {bool} success Whether the async action succeeded
+@param {boolean} success Whether the async action succeeded
 |result|${function.}|The status code as returned by ${function.}
 @param {real} handle The associated async result ID, which can be used to tell apart what result this event is for.
 
@@ -613,7 +603,7 @@ Finishing with the submition of the update using the function call ${function.}.
 ```gml
 handle = steam_inventory_transfer_item_quantity(global.apple, 2, global.oranges);
 ```
-The above code will trigger a transfer between to items owned by the used the amount to be transferred in the example, the user will lose 2 apples and receive 2 oranges. For an example on how to use the [Steam Async Event](https://manual-en.yoyogames.com/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm) to read the callback response, refer to the function ${function.}.
+The above code will trigger a transfer between to items owned by the used the amount to be transferred in the example, the user will lose 2 apples and receive 2 oranges. For an example on how to use the ${event.steam} to read the callback response, refer to the function ${function.}.
 
 
 @func_end
@@ -624,13 +614,13 @@ The above code will trigger a transfer between to items owned by the used the am
       <br>
       This period can be customized in two places:
 
-* At the application level within Inventory Service: Playtime Item Grants. This will automatically apply to all &quot;playtimegenerator&quot; items that do not specify any overrides.
-* In an individual &quot;playtimegenerator&quot; item definition. The settings would take precedence over any application-level settings.
+* At the application level within Inventory Service: Playtime Item Grants. This will automatically apply to all "playtimegenerator" items that do not specify any overrides.
+* In an individual "playtimegenerator" item definition. The settings would take precedence over any application-level settings.
 
   <br>
-    Only item definitions which are marked as &quot;playtime item generators&quot; can be spawned.
+    Only item definitions which are marked as "playtime item generators" can be spawned.
 
-This is an asynchronous function that will trigger the [Steam Async Event](https://manual-en.yoyogames.com/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm) when the task is finished.
+This is an asynchronous function that will trigger the ${event.steam} when the task is finished.
 
 [[warning: IMPORTANT You must call ${function.} on the returned async result ID when you are done with it.
 
@@ -642,11 +632,11 @@ This is an asynchronous function that will trigger the [Steam Async Event](https
 @param {real} item_def This must refer to an item definition of the type "playtimegenerator". See the [inventory schema](https://partner.steamgames.com/doc/features/inventory/schema) for more details.
 
 
-@returns {bool}
+@returns {boolean}
 
 @event steam
 @param {string} event_type The string value `"inventory_result_ready"`
-@param {bool} success Whether the async action succeeded
+@param {boolean} success Whether the async action succeeded
 |result|${function.}|The status code as returned by ${function.}
 @param {real} handle The associated async result ID, which can be used to tell apart what result this event is for.
 
@@ -654,7 +644,7 @@ This is an asynchronous function that will trigger the [Steam Async Event](https
 ```gml
 handle = steam_inventory_trigger_item_drop(item_def)
 ```
-For more information on this function call please refer to the official manual. For an example on how to use the [Steam Async Event](https://manual-en.yoyogames.com/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm) to read the callback response, refer to the function ${function.}.
+For more information on this function call please refer to the official manual. For an example on how to use the ${event.steam} to read the callback response, refer to the function ${function.}.
 
 
 @func_end
@@ -685,7 +675,7 @@ This handle is returned by the following functions:
 @param {real} inv_result The inventory result handle to destroy
 
 
-@returns {bool}
+@returns {boolean}
 
 ```gml
 // Early exit if event type doesn't match
@@ -737,7 +727,7 @@ Property names are always composed of ASCII letters, numbers, and/or underscores
 ```gml
 handle = steam_inventory_get_all_items();
 ```
-The code above will start a query for all the items in current users inventory. The result for this task can be caught inside the [Steam Async Event](https://manual-en.yoyogames.com/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm) with the following code:
+The code above will start a query for all the items in current users inventory. The result for this task can be caught inside the ${event.steam} with the following code:
 
 ```gml
 // Early exit if event type doesn't match
@@ -854,12 +844,7 @@ For a more detailed implementation sample please refer to the ${function.} funct
 @param {real} inv_result The inventory result handle
 
 
-**Returns:**
-
-```gml
-int64
-```
-
+@returns {int64}
 
 ```gml
 var timestamp = steam_inventory_result_get_unix_timestamp(inv_result);
@@ -886,12 +871,7 @@ Returns a steam_inventory_update_handle that can be used with the following func
 
 
 
-**Returns:**
-
-```gml
-int64
-```
-
+@returns {int64}
 
 ```gml
 handle = steam_inventory_start_update_properties()
@@ -930,7 +910,7 @@ Finishing with the submition of the update using the function call ${function.}.
 @param {string} prop_name The dynamic property being removed
 
 
-@returns {bool}
+@returns {boolean}
 
 ```gml
 var handler = steam_inventory_start_update_properties()
@@ -969,10 +949,10 @@ Finishing with the submition of the update using the function call ${function.}.
 
 @param {real} handle The update handle corresponding to the transaction request
 @param {string} prop_name The dynamic property being added or updated.
-@param {bool} val value being set.
+@param {boolean} val value being set.
 
 
-@returns {bool}
+@returns {boolean}
 
 ```gml
 handle = steam_inventory_start_update_properties()
@@ -1014,7 +994,7 @@ Finishing with the submition of the update using the function call ${function.}.
 @param {real} val value being set.
 
 
-@returns {bool}
+@returns {boolean}
 
 ```gml
 handle = steam_inventory_start_update_properties()
@@ -1056,7 +1036,7 @@ Finishing with the submition of the update using the function call ${function.}.
 @param {real} val value being set.
 
 
-@returns {bool}
+@returns {boolean}
 
 ```gml
 handle = steam_inventory_start_update_properties()
@@ -1098,7 +1078,7 @@ Finishing with the submition of the update using the function call ${function.}.
 @param {string} val value being set.
 
 
-@returns {bool}
+@returns {boolean}
 
 ```gml
 var handle = steam_inventory_start_update_properties()

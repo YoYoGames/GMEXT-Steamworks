@@ -1,5 +1,5 @@
 @func Networking
-@desc The following functions and constants allow you to use Steam&#39;s Networking functionality.
+@desc The following functions and constants allow you to use Steam's Networking functionality.
 
 ## Packets IO
 
@@ -34,15 +34,15 @@ These are the constants used by this API:
 
 
 @func steam_net_packet_get_data
-@desc Copies the contents of last received packet to the given buffer. Data is copied to the start of the buffer (position remains unaffected), meaning that if you reuse the same buffer, you should &quot;rewind&quot; it prior to reading.
+@desc Copies the contents of last received packet to the given buffer. Data is copied to the start of the buffer (position remains unaffected), meaning that if you reuse the same buffer, you should "rewind" it prior to reading.
 
 [[NOTE: NOTE If the buffer is not big enough to fit data, it will be resized automatically (the buffer needs to be created using the using the `buffer_grow` type).
 
 
-@param {Id.Buffer} buffer The buffer to write the incoming data to.
+@param {type.buffer} buffer The buffer to write the incoming data to.
 
 
-@returns {bool}
+@returns {boolean}
 
 ```gml
 while (steam_net_packet_receive())
@@ -69,12 +69,7 @@ Can be used in conjunction with ${function.} to send something back and for just
 
 
 
-**Returns:**
-
-```gml
-int64
-```
-
+@returns {int64}
 
 ```gml
 while(steam_net_packet_receive())
@@ -120,7 +115,7 @@ Other steam_net_ functions can then be used to get packet information/contents.
 
 
 
-@returns {bool}
+@returns {boolean}
 
 ```gml
 while (steam_net_packet_receive())
@@ -150,7 +145,7 @@ steam_net_packet_send(user_id, buffer, size, packet_type)
 |packet_type|${function.}|The type of packet to be used :eight_pointed_black_star: OPTIONAL
 
 
-@returns {bool}
+@returns {boolean}
 
 ```gml
 var buf = buffer_create(16, buffer_grow, 1);
@@ -171,7 +166,7 @@ The code sample will create a buffer and write to it, sending the total length o
 |protocol|${function.}|The default connection protocol to be used
 
 
-@returns {bool}
+@returns {boolean}
 
 ```gml
 steam_net_packet_set_type(steam_net_packet_type_reliable)
@@ -196,7 +191,7 @@ steam_net_accept_p2p_session(userID);
 |userID|int64|The User ID of the user that sent the initial packet to us.
 
 
-@returns {bool}
+@returns {boolean}
 
 ```gml
 if (isMyFriend(userID))
@@ -225,7 +220,7 @@ steam_net_close_p2p_session(user_id)
 |user_id|int64|The user ID of the user to close the connection with.
 
 
-@returns {bool}
+@returns {boolean}
 
 ```gml
 if (global.chat_closed)
@@ -250,7 +245,7 @@ Sets whether to auto-accept session requests coming from players in the same lob
 steam_net_set_auto_accept_p2p_sessions(enable);
 ```
 
-@param {bool} enable disable/enable auto accept sessions
+@param {boolean} enable disable/enable auto accept sessions
 
 
 
@@ -269,7 +264,7 @@ Asynchronous Steam Event (for each request, if disabled)
 ```gml
 steam_net_set_auto_accept_p2p_sessions(false);
 ```
-The code above will disable the auto accept P2P sessions functionality meaning we  should deal with the requests manually. In order to do so we need to use the [Steam Async Event](https://manual-en.yoyogames.com/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm) to catch the callback:
+The code above will disable the auto accept P2P sessions functionality meaning we  should deal with the requests manually. In order to do so we need to use the ${event.steam} to catch the callback:
 
 ```gml
 if (async_load[?"event_type"] == "lobby_join_requested")
