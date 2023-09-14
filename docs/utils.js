@@ -28,18 +28,18 @@ With this function you can show a floating gamepad keyboard window, all input is
 steam_show_floating_gamepad_text_input(mode, text_field_x, text_field_y, text_field_width, text_field_height);
 ```
 
-|mode|real|A `steam_floating_gamepad_text_input_mode_` constant.|
-|text_field_x|real|X position of the keyboard window in display coordinates.|
-|text_field_y|real|Y position of the keyboard window in display coordinates.|
-|text_field_width|real|Width of the keyboard window in display coordinates.|
-|text_field_height|real|Height of the keyboard window in display coordinates.|
+@param {real} mode A `steam_floating_gamepad_text_input_mode_` constant.
+@param {real} text_field_x X position of the keyboard window in display coordinates.
+@param {real} text_field_y Y position of the keyboard window in display coordinates.
+@param {real} text_field_width Width of the keyboard window in display coordinates.
+@param {real} text_field_height Height of the keyboard window in display coordinates.
 
 
 @returns {Bool}
 
 @event steam
-|----|----|----|
-|event_type|string|A constant string `"floating_gamepad_text_input_dismissed"`.|
+|----|----|----
+@param {string} event_type A constant string `"floating_gamepad_text_input_dismissed"`.
 
 
 @example
@@ -95,20 +95,20 @@ With this function you can show a full-screen old-style Big Picture Mode-only ke
 > You must call [steam_utils_enable_callbacks](#steam_utils_enable_callbacks) prior to calling this function if you wish to receive `Async - Steam` gamepad keyboard events.
 
 
-|mode|real|A `steam_gamepad_text_input_mode_` constant.|
-|lines_mode|real|A `steam_gamepad_text_input_line_mode_` constant.|
-|description|string|The description of the window.|
-|chars_max|real|The maximum amount of characters the player can enter.|
-|existing_text|string|Some existing text to put into the text field or an empty string.|
+@param {real} mode A `steam_gamepad_text_input_mode_` constant.
+@param {real} lines_mode A `steam_gamepad_text_input_line_mode_` constant.
+@param {string} description The description of the window.
+@param {real} chars_max The maximum amount of characters the player can enter.
+@param {string} existing_text Some existing text to put into the text field or an empty string.
 
 
 @returns {Bool}
 
 @event steam
-|----|----|----|
-|event_type|string|A string `"gamepad_text_input_dismissed"`.|
-|submitted|bool|`true` if the dialog was submitted successfully and `false` if it was cancelled.|
-|submitted_text_raw_byte_length|real|Raw length of the text in bytes.|
+|----|----|----
+@param {string} event_type A string `"gamepad_text_input_dismissed"`.
+@param {bool} submitted `true` if the dialog was submitted successfully and `false` if it was cancelled.
+@param {real} submitted_text_raw_byte_length Raw length of the text in bytes.
 
 
 @example

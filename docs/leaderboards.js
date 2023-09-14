@@ -46,17 +46,17 @@ This is an asynchronous function that will trigger the [Steam Async Event](https
 steam_create_leaderboard(lb_name, sort_order, display_type);
 ```
 
-|lb_name|string|The name of the leaderboard that you are creating|
-|sort_order|LeaderboardSortOrder constant|The method for sorting the leaderboard entries (see [LeaderboardSortOrder](#LeaderboardSortOrder) constants)|
-|display_type|LeaderboardDisplayType constant|The way to display the leaderboard to the user (see [LeaderboardDisplayType](#LeaderboardDisplayType) constants)|
+@param {string} lb_name The name of the leaderboard that you are creating
+|sort_order|LeaderboardSortOrder constant|The method for sorting the leaderboard entries (see [LeaderboardSortOrder](#LeaderboardSortOrder) constants)
+|display_type|LeaderboardDisplayType constant|The way to display the leaderboard to the user (see [LeaderboardDisplayType](#LeaderboardDisplayType) constants)
 
 @returns {Real}
 
 @event steam
-|id|real|The asynchronous request ID|
-|event_type|string|The string value `"create_leaderboard"`|
-|status|real|The status code, `0` if the leaderboard was create and `1` if it already existed|
-|lb_name|string|The name of the leaderboard|
+@param {real} id The asynchronous request ID
+@param {string} event_type The string value `"create_leaderboard"`
+@param {real} status The status code, `0` if the leaderboard was create and `1` if it already existed
+@param {string} lb_name The name of the leaderboard
 
 
 ```gml
@@ -81,20 +81,20 @@ This is an asynchronous function that will trigger the [Steam Async Event](https
 steam_upload_score(lb_name, score);
 ```
 
-|lb_name|string|The name of the leaderboard that you are uploading the scores to|
-|score|real|The score to upload|
+@param {string} lb_name The name of the leaderboard that you are uploading the scores to
+@param {real} score The score to upload
 
 
 @returns {Real}
 
 @event steam
-|post_id|real|The asynchronous request ID|
-|event_type|string|The string value `"leaderboard_upload"`|
-|lb_name|string|The name of the leaderboard|
-|num_entries|real|The number of returned entries|
-|success|bool|Whether or not the request was successful|
-|updated|bool|Whether or not the leaderboard was updated (ie: the new score was better)|
-|score|real|The score that was posted to the leaderboard|
+@param {real} post_id The asynchronous request ID
+@param {string} event_type The string value `"leaderboard_upload"`
+@param {string} lb_name The name of the leaderboard
+@param {real} num_entries The number of returned entries
+@param {bool} success Whether or not the request was successful
+@param {bool} updated Whether or not the leaderboard was updated (ie: the new score was better)
+@param {real} score The score that was posted to the leaderboard
 
 
 @example
@@ -150,21 +150,21 @@ This is an asynchronous function that will trigger the [Steam Async Event](https
 >
 > If the function call fails for any reason it will return -1 and the Async event will not be triggered.
 
-|lb_name|string|The name of the leaderboard that you are uploading the scores to|
-|score|real|The score to upload|
-|force_update|bool|Whether or not the value should be replaced|
+@param {string} lb_name The name of the leaderboard that you are uploading the scores to
+@param {real} score The score to upload
+@param {bool} force_update Whether or not the value should be replaced
 
 
 @returns {Real}
 
 @event steam
-|post_id|real|The asynchronous request ID|
-|event_type|string|The string value `"leaderboard_upload"`|
-|lb_name|string|The name of the leaderboard|
-|num_entries|real|The number of returned entries|
-|success|bool|Whether or not the request was successful|
-|updated|bool|Whether or not the leaderboard was updated (ie: the new score was better or `forceUpdate` was set to `true`)|
-|score|real|The score that was posted to the leaderboard|
+@param {real} post_id The asynchronous request ID
+@param {string} event_type The string value `"leaderboard_upload"`
+@param {string} lb_name The name of the leaderboard
+@param {real} num_entries The number of returned entries
+@param {bool} success Whether or not the request was successful
+@param {bool} updated Whether or not the leaderboard was updated (ie: the new score was better or `forceUpdate` was set to `true`)
+@param {real} score The score that was posted to the leaderboard
 
 
 @example
@@ -227,21 +227,21 @@ This is an asynchronous function that will trigger the [Steam Async Event](https
 steam_upload_score_buffer(lb_name, score, buffer);
 ```
 
-|lb_name|string|The name of the leaderboard that you are uploading the scores to|
-|score|real|The score to upload|
-|buffer|Id.Buffer|The ID of the buffer to attach|
+@param {string} lb_name The name of the leaderboard that you are uploading the scores to
+@param {real} score The score to upload
+@param {Id.Buffer} buffer The ID of the buffer to attach
 
 
 @returns {Real}
 
 @event steam
-|post_id|real|The asynchronous request ID|
-|event_type|string|The string value `"leaderboard_upload"`|
-|lb_name|string|The name of the leaderboard|
-|num_entries|real|The number of returned entries|
-|success|bool|Whether or not the request was successful|
-|updated|bool|Whether or not the leaderboard was updated (ie: the new score was better). Note that if you score was not updated neither will be the data buffer.|
-|score|real|The score that was posted to the leaderboard|
+@param {real} post_id The asynchronous request ID
+@param {string} event_type The string value `"leaderboard_upload"`
+@param {string} lb_name The name of the leaderboard
+@param {real} num_entries The number of returned entries
+@param {bool} success Whether or not the request was successful
+@param {bool} updated Whether or not the leaderboard was updated (ie: the new score was better). Note that if you score was not updated neither will be the data buffer.
+@param {real} score The score that was posted to the leaderboard
 
 
 @example
@@ -308,22 +308,22 @@ This is an asynchronous function that will trigger the [Steam Async Event](https
 steam_upload_score_buffer_ext(lb_name, score, buffer, force_update);
 ```
 
-|lb_name|string|The name of the leaderboard that you are uploading the scores to|
-|score|real|The score to upload|
-|buffer|Id.Buffer|The ID of the buffer to attach|
-|force_update|bool|Whether or not the value should be replaced|
+@param {string} lb_name The name of the leaderboard that you are uploading the scores to
+@param {real} score The score to upload
+@param {Id.Buffer} buffer The ID of the buffer to attach
+@param {bool} force_update Whether or not the value should be replaced
 
 
 @returns {Real}
 
 @event steam
-|post_id|real|The asynchronous request ID|
-|event_type|string|The string value `"leaderboard_upload"`|
-|lb_name|string|The name of the leaderboard|
-|num_entries|real|The number of returned entries|
-|success|bool|Whether or not the request was successful|
-|updated|bool|Whether or not the leaderboard was updated (ie: the new score was better or `forceUpdate` was set to `true`). Note that if you score was not updated neither will be the data buffer.|
-|score|real|The score that was posted to the leaderboard|
+@param {real} post_id The asynchronous request ID
+@param {string} event_type The string value `"leaderboard_upload"`
+@param {string} lb_name The name of the leaderboard
+@param {real} num_entries The number of returned entries
+@param {bool} success Whether or not the request was successful
+@param {bool} updated Whether or not the leaderboard was updated (ie: the new score was better or `forceUpdate` was set to `true`). Note that if you score was not updated neither will be the data buffer.
+@param {real} score The score that was posted to the leaderboard
 
 
 @example
@@ -392,20 +392,20 @@ This is an asynchronous function that will trigger the [Steam Async Event](https
 steam_download_scores(lb_name, start_idx, end_idx);
 ```
 
-|lb_name|string|The name of the leaderboard that you are downloading the scores from|
-|start_idx|integer|The start position within the leaderboard|
-|end_idx|integer|The end position within the leaderboard|
+@param {string} lb_name The name of the leaderboard that you are downloading the scores from
+@param {integer} start_idx The start position within the leaderboard
+@param {integer} end_idx The end position within the leaderboard
 
 
 @returns {Real}
 
 @event steam
-|id|real|The asynchronous request ID|
-|event_type|string|The string value `"leaderboard_download"`|
-|status|int64|The status code if download fails|
-|lb_name|string|The name of the leaderboard|
-|num_entries|real|The number of returned entries|
-|entries|string|A json formatted string with all the downloaded entries (see  [LeaderboardEntry](#LeaderboardEntry) for details)|
+@param {real} id The asynchronous request ID
+@param {string} event_type The string value `"leaderboard_download"`
+|status|int64|The status code if download fails
+@param {string} lb_name The name of the leaderboard
+@param {real} num_entries The number of returned entries
+@param {string} entries A json formatted string with all the downloaded entries (see  [LeaderboardEntry](#LeaderboardEntry) for details)
 
 
 @example
@@ -468,20 +468,20 @@ This is an asynchronous function that will trigger the [Steam Async Event](https
 steam_download_scores_around_user(lb_name, range_start, range_end);
 ```
 
-|lb_name|string|The name of the leaderboard that you are downloading the scores from|
-|range_start|integer|The start position within the leaderboard|
-|range_end|integer|The end position within the leaderboard|
+@param {string} lb_name The name of the leaderboard that you are downloading the scores from
+@param {integer} range_start The start position within the leaderboard
+@param {integer} range_end The end position within the leaderboard
 
 
 @returns {Real}
 
 @event steam
-|id|real|The asynchronous request ID|
-|event_type|string|The string value `"leaderboard_download"`|
-|status|int64|The status code if download fails|
-|lb_name|string|The name of the leaderboard|
-|num_entries|real|The number of returned entries|
-|entries|string|A json formatted string with all the downloaded entries (see  [LeaderboardEntry](#LeaderboardEntry) for details)|
+@param {real} id The asynchronous request ID
+@param {string} event_type The string value `"leaderboard_download"`
+|status|int64|The status code if download fails
+@param {string} lb_name The name of the leaderboard
+@param {real} num_entries The number of returned entries
+@param {string} entries A json formatted string with all the downloaded entries (see  [LeaderboardEntry](#LeaderboardEntry) for details)
 
 
 ```gml
@@ -503,18 +503,18 @@ This is an asynchronous function that will trigger the [Steam Async Event](https
 > If the function call fails for any reason it will return -1 and the async event will not be triggered.
 
 
-|lb_name|string|The name of the leaderboard that you are downloading the scores from|
+@param {string} lb_name The name of the leaderboard that you are downloading the scores from
 
 
 @returns {Real}
 
 @event steam
-|id|real|The asynchronous request ID|
-|event_type|string|The string value `"leaderboard_download"`|
-|status|int64|The status code if download fails|
-|lb_name|string|The name of the leaderboard|
-|num_entries|real|The number of returned entries|
-|entries|string|A json formatted string with all the downloaded entries (see  [LeaderboardEntry](#LeaderboardEntry) for details)|
+@param {real} id The asynchronous request ID
+@param {string} event_type The string value `"leaderboard_download"`
+|status|int64|The status code if download fails
+@param {string} lb_name The name of the leaderboard
+@param {real} num_entries The number of returned entries
+@param {string} entries A json formatted string with all the downloaded entries (see  [LeaderboardEntry](#LeaderboardEntry) for details)
 
 
 ```gml
@@ -536,11 +536,11 @@ A leaderboard entry is represented by a json formatted string that can be return
 
 This string can be decoded into a [DS map](https://manual.yoyogames.com/GameMaker_Language/GML_Reference/Data_Structures/DS_Maps/DS_Maps.htm) (see [json_decode](https://manual-en.yoyogames.com/GameMaker_Language/GML_Reference/File_Handling/Encoding_And_Hashing/json_decode.htm), needs to be destroyed afterwards) or into a [struct](https://manual-en.yoyogames.com/GameMaker_Language/GML_Overview/Structs.htm) (see [json_parse](https://manual-en.yoyogames.com/GameMaker_Language/GML_Reference/File_Handling/Encoding_And_Hashing/json_parse.htm), recommended) and will provide the following members.
 
-|rank|real|The rank of the entry on the specified leaderboard|
-|data|string|The base64 encoded string with the data provided when uploading scores using the [steam_upload_score_buffer](#steam_upload_score_buffer) or <br> [steam_upload_score_buffer_ext](#steam_upload_score_buffer_ext) functions :eight_pointed_black_star: OPTIONAL|
-|score|real|The score attributed to this entry|
-|name|string|The display name of the player for this entry|
-|userID|int64|The unique user id of the player for this entry|
+@param {real} rank The rank of the entry on the specified leaderboard
+@param {string} data The base64 encoded string with the data provided when uploading scores using the [steam_upload_score_buffer](#steam_upload_score_buffer) or <br> [steam_upload_score_buffer_ext](#steam_upload_score_buffer_ext) functions :eight_pointed_black_star: OPTIONAL
+@param {real} score The score attributed to this entry
+@param {string} name The display name of the player for this entry
+|userID|int64|The unique user id of the player for this entry
 
 > **:information_source: NOTE**
 >
@@ -553,12 +553,12 @@ This string can be decoded into a [DS map](https://manual.yoyogames.com/GameMake
 @func LeaderboardDisplayType
 These constants specify the display type of a leaderboard and should be used with the function [steam_create_leaderboard](#steam_create_leaderboard).
 
-|Leaderboard Display Type Constant|Description|
-|----|----|
-|`lb_disp_none`|Show the leaderboard "as is".|
-|`lb_disp_numeric`|Show the leaderboard as a numeric display.|
-|`lb_disp_time_sec`|Show the leaderboard values as times, with the base value being seconds.|
-|`lb_disp_time_ms`|Show the leaderboard values as times, with the base value being milliseconds|
+|Leaderboard Display Type Constant|Description
+|----|----
+|`lb_disp_none`|Show the leaderboard "as is".
+|`lb_disp_numeric`|Show the leaderboard as a numeric display.
+|`lb_disp_time_sec`|Show the leaderboard values as times, with the base value being seconds.
+|`lb_disp_time_ms`|Show the leaderboard values as times, with the base value being milliseconds
 
 
 @func_end
@@ -567,11 +567,11 @@ These constants specify the display type of a leaderboard and should be used wit
 @func LeaderboardSortOrder
 These constants specify the sort order of a leaderboard and should be used with the function [steam_create_leaderboard](#steam_create_leaderboard).
 
-|Leaderboard Sort Order Constant|Description|
-|----|----|
-|`lb_sort_none`|No sorting. The information will be displayed "as is".|
-|`lb_sort_ascending`|Sort the leaderboard in ascending order.|
-|`lb_sort_descending`|Sort the leaderboard in descending order.|
+|Leaderboard Sort Order Constant|Description
+|----|----
+|`lb_sort_none`|No sorting. The information will be displayed "as is".
+|`lb_sort_ascending`|Sort the leaderboard in ascending order.
+|`lb_sort_descending`|Sort the leaderboard in descending order.
 
 
 @func_end

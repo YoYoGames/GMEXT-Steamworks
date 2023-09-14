@@ -80,21 +80,21 @@ With this function you can initialize the Steam Input API. It will return <tt>tr
 > This function must be called ONLY if you **REALLY wish to use** the Steam Input API, or some other extensions in your project rely on Steam Input, otherwise calling it _may_ make native GameMaker `gamepad_` functions not see any controllers plugged in!
 
 
-|explicitly_call_run_frame|bool|Are you going to call [steam_input_run_frame](#steam_input_run_frame) manually or not?|
+@param {bool} explicitly_call_run_frame Are you going to call [steam_input_run_frame](#steam_input_run_frame) manually or not?
 
 
 @returns {Bool}
 
 @event steam
-|----|----|----|
-|event_type|string|A constant string `"steam_input_configuration_loaded"`.|
-|app_id|real|Your game's app id.|
-|device_handle|real|Input handle of the device this event refers to.|
-|mapping_creator|real|Steam ID of the user that created the loaded input mapping or `0` if none.|
-|major_revision|real|Major version digit of the mapping.|
-|minor_revision|real|Minor version digit of the mapping.|
-|uses_steam_input_api|bool|Whether this device is using the Action Set and Actions API.|
-|uses_steam_gamepad_api|bool|Whether this device is using the XInput emulation API.|
+|----|----|----
+@param {string} event_type A constant string `"steam_input_configuration_loaded"`.
+@param {real} app_id Your game's app id.
+@param {real} device_handle Input handle of the device this event refers to.
+@param {real} mapping_creator Steam ID of the user that created the loaded input mapping or `0` if none.
+@param {real} major_revision Major version digit of the mapping.
+@param {real} minor_revision Minor version digit of the mapping.
+@param {bool} uses_steam_input_api Whether this device is using the Action Set and Actions API.
+@param {bool} uses_steam_gamepad_api Whether this device is using the XInput emulation API.
 
 
 ```gml
@@ -141,7 +141,7 @@ This function can be used to set the absolute path to the input action manifest,
 
 
 
-|absolute_path|string|Absolute path to the input action manifest file|
+@param {string} absolute_path Absolute path to the input action manifest file
 
 @returns {Bool}
 
@@ -176,8 +176,8 @@ The above code asks Steam Input to poll for new data if available.
 With this function you can freeze the game until new input data had arrived, returns <tt>true</tt> if new data did arrive, or <tt>false</tt> if the timeout had expired or an error had occurred. This function is only useful for lockstep multiplayer games.
 
 
-|wait_forever|bool|Whether to wait for data to arrive forever.|
-|timeout|real|Data arrival timeout.|
+@param {bool} wait_forever Whether to wait for data to arrive forever.
+@param {real} timeout Data arrival timeout.
 
 
 @returns {Bool}
@@ -251,10 +251,10 @@ You can use this function to enable `Async - Steam` device connection and discon
 @returns {Bool}
 
 @event steam
-|----|----|----|
-|event_type|String|`"steam_input_device_connected"` or `"steam_input_device_disconnected"`|
-|disconnected_device_handle|Real|Only present if `event_type` is `"steam_input_device_disconnected"`|
-|connected_device_handle|Real|Only present if `event_type` is `"steam_input_device_connected"`|
+|----|----|----
+@param {String} event_type `"steam_input_device_connected"` or `"steam_input_device_disconnected"`
+@param {Real} disconnected_device_handle Only present if `event_type` is `"steam_input_device_disconnected"`
+@param {Real} connected_device_handle Only present if `event_type` is `"steam_input_device_connected"`
 
 
 
@@ -290,16 +290,16 @@ This function will enable `Async - Steam` action events, this event will be call
 @returns {Bool}
 
 @event steam
-|----|----|----|
-|event_type|string|`"steam_input_action_event"`|
-|controller_handle|Real|Handle of the controller this event is for.|
-|action_event_type|Real|A `steam_input_action_event_type_` constant|
-|action_handle|Real|Handle of the digital or analog action, depending on the type|
-|active|bool|Whether or not this action is currently available to be bound in the active action set. If it is not available, OR does not belong to the active action set, this will be false.|
-|state|bool|**DIGITAL ACTIONS ONLY:** state of the digital action, `true` or `false`.|
-|mode|real|**ANALOG ACTIONS ONLY:** A `steam_input_source_mode_` constant.|
-|x|real|**ANALOG ACTIONS ONLY:** X axis of the input|
-|y|real|**ANALOG ACTIONS ONLY:** Y axis of the input|
+|----|----|----
+@param {string} event_type `"steam_input_action_event"`
+@param {Real} controller_handle Handle of the controller this event is for.
+@param {Real} action_event_type A `steam_input_action_event_type_` constant
+@param {Real} action_handle Handle of the digital or analog action, depending on the type
+@param {bool} active Whether or not this action is currently available to be bound in the active action set. If it is not available, OR does not belong to the active action set, this will be false.
+@param {bool} state **DIGITAL ACTIONS ONLY:** state of the digital action, `true` or `false`.
+@param {real} mode **ANALOG ACTIONS ONLY:** A `steam_input_source_mode_` constant.
+@param {real} x **ANALOG ACTIONS ONLY:** X axis of the input
+@param {real} y **ANALOG ACTIONS ONLY:** Y axis of the input
 
 
 @example
@@ -347,7 +347,7 @@ This function will try to resolve an action set by name, returning the handle of
 > Due to a bug in the Steam Input API, if the game was launched without any controllers connected, all action set and action handle resolver functions will return 0, an invalid handle, as such it is required that you try to obtain handles every frame until at least one controller gets connected and you succeed.
 
 
-|action_set_name|string|The name of the action set.|
+@param {string} action_set_name The name of the action set.
 
 
 @returns {Real}
@@ -388,8 +388,8 @@ With this function you can activate an action set on a specific controller, or a
 steam_input_activate_action_set(controller, action_set);
 ```
 
-|controller|Real|Input handle of the controller.|
-|action_set|Real|Handle of the action set, cannot be zero.|
+@param {Real} controller Input handle of the controller.
+@param {Real} action_set Handle of the action set, cannot be zero.
 
 
 @returns {Bool}
@@ -420,7 +420,7 @@ The above code will activate the appropriate action set based on which state the
 This function will return the handle of the currently activated action set on a given controller handle, or `0` if there is no action set currently active.
 
 
-|controller|input_handle|Handle of the controller.|
+@param {input_handle} controller Handle of the controller.
 
 
 @returns {Real}
@@ -447,8 +447,8 @@ This function will activate an action set layer on top of the current action set
 steam_input_activate_action_set_layer(controller, action_set_layer);
 ```
 
-|controller|real|Handle of the controller.|
-|action_set_layer|real|Handle of the action set layer.|
+@param {real} controller Handle of the controller.
+@param {real} action_set_layer Handle of the action set layer.
 
 
 @returns {Bool}
@@ -473,8 +473,8 @@ This function will deactivate a specific action set layer from the specified con
 steam_input_deactivate_action_set_layer(controller, action_set_layer);
 ```
 
-|controller|real|Handle of the controller.|
-|action_set_layer|real|Handle of the action set layer.|
+@param {real} controller Handle of the controller.
+@param {real} action_set_layer Handle of the action set layer.
 
 
 @returns {Bool}
@@ -496,7 +496,7 @@ The above code will deactivate the "sniper" action set layer from the `player_ha
 This function will deactivate all action set layers on a specified controller. Returns `true` if the operation was successful and `false` otherwise.
 
 
-|controller|real|Handle of the controller.|
+@param {real} controller Handle of the controller.
 
 
 @returns {Bool}
@@ -515,7 +515,7 @@ The above code will deactivate all action set layers on the `player_handle` cont
 This function will return an array of currently active action set layer handles on a specified controller. Returns an array of action set layer handles on success, and `undefined` on failure.
 
 
-|controller|real|Handle of the controller.|
+@param {real} controller Handle of the controller.
 
 
 **Returns:**
@@ -546,7 +546,7 @@ This function will resolve a digital action by name, and return that action's ha
 > Due to a bug in the Steam Input API, if the game was launched without any controllers connected, all action set and action handle resolver functions will return 0, an invalid handle, as such it is required that you try to obtain handles every frame until at least one controller gets connected and you succeed.
 
 
-|digital_action_name|string|Name of the digital action.|
+@param {string} digital_action_name Name of the digital action.
 
 
 @returns {Real}
@@ -576,8 +576,8 @@ The above code will try to obtain handles of digital actions `shoot` and `roll`,
 This function will return current input data for a given digital action on a given controller. It returns the `digital_action_data` struct on success and `undefined` on failure.
 
 
-|controller|Real|Handle of the controller to use.|
-|action_handle|Real|Handle of the digital action to poll for.|
+@param {Real} controller Handle of the controller to use.
+@param {Real} action_handle Handle of the digital action to poll for.
 
 
 **Returns:**
@@ -587,9 +587,9 @@ Struct OR Undefined
 ```
 
 **Struct fields:**
-|----|----|----|
-|active|Bool|Whether the action is bound to any button|
-|state|Bool|Whether the action is currently held or not|
+|----|----|----
+@param {Bool} active Whether the action is bound to any button
+@param {Bool} state Whether the action is currently held or not
 
 
 ```gml
@@ -616,9 +616,9 @@ This function will retrieve an array of input origins for a specified action and
 steam_input_get_digital_action_origins(controller, action_set, digital_action);
 ```
 
-|controller|Real|Handle of the controller to use.|
-|action_set|Real|Handle of the action set.|
-|digital_action|Real|Handle of the digital action inside the action set.|
+@param {Real} controller Handle of the controller to use.
+@param {Real} action_set Handle of the action set.
+@param {Real} digital_action Handle of the digital action inside the action set.
 
 
 **Returns:**
@@ -676,7 +676,7 @@ The above code defines an example of how to turn action origins into a sprite th
 This function will return the localized name of a digital action as specified by Steam localization settings. Keep in mind that the Steam language may be different than the OS language, and this function will always use the language settings of the Steam client, not the OS.
 
 
-|digital_action|Real|Handle of the digital action.|
+@param {Real} digital_action Handle of the digital action.
 
 
 @returns {string}
@@ -700,7 +700,7 @@ This function will resolve an analog action by name, and return that action's ha
 > Due to a bug in the Steam Input API, if the game was launched without any controllers connected, all action set and action handle resolver functions will return 0, an invalid handle, as such it is required that you try to obtain handles every frame until at least one controller gets connected and you succeed.
 
 
-|analog_action_name|string|Name of the analog action.|
+@param {string} analog_action_name Name of the analog action.
 
 
 @returns {Real}
@@ -736,17 +736,17 @@ This function will return current input data for a given analog action on a give
 steam_input_get_analog_action_data(controller, action_handle);
 ```
 
-|controller|Real|Handle of the controller to use.|
-|action_handle|Real|Handle of the analog action to poll for.|
+@param {Real} controller Handle of the controller to use.
+@param {Real} action_handle Handle of the analog action to poll for.
 
 
 **Struct Fields:**
 
-|----|----|----|
-|active|Bool|Whether this action is bound to any input element.|
-|mode|Real|A `steam_input_source_mode_` constant.|
-|x|Real|X axis of the input.|
-|y|Real|Y axis of the input, **inverted by default**. See example code.|
+|----|----|----
+@param {Bool} active Whether this action is bound to any input element.
+@param {Real} mode A `steam_input_source_mode_` constant.
+@param {Real} x X axis of the input.
+@param {Real} y Y axis of the input, **inverted by default**. See example code.
 
 **Returns:**
 
@@ -785,9 +785,9 @@ This function will retrieve an array of input origins for a specified action and
 steam_input_get_analog_action_origins(controller, action_set, action);
 ```
 
-|controller|Real|Handle of the controller to use.|
-|action_set|Real|Handle of the action set.|
-|action|Real|Handle of the analog action inside the action set.|
+@param {Real} controller Handle of the controller to use.
+@param {Real} action_set Handle of the action set.
+@param {Real} action Handle of the analog action inside the action set.
 
 
 **Returns:**
@@ -851,9 +851,9 @@ This function will return a full path to a PNG file of the glyph image of an act
 steam_input_get_glyph_png_for_action_origin(origin, size, flags);
 ```
 
-|origin|Real|Action origin to get the PNG of.|
-|size|Real|A `steam_input_glyph_size_` constant.|
-|flags|Real|A `steam_input_glyph_style_` bit flags constant.|
+@param {Real} origin Action origin to get the PNG of.
+@param {Real} size A `steam_input_glyph_size_` constant.
+@param {Real} flags A `steam_input_glyph_style_` bit flags constant.
 
 
 @returns {string}
@@ -880,8 +880,8 @@ This function will return a full path to an SVG file of the glyph image of an ac
 steam_input_get_glyph_svg_for_action_origin(origin, flags);
 ```
 
-|origin|Real|Action origin to get the SVG of.|
-|flags|Real|A `steam_input_glyph_style_` bit flags constant.|
+@param {Real} origin Action origin to get the SVG of.
+@param {Real} flags A `steam_input_glyph_style_` bit flags constant.
 
 
 @returns {string}
@@ -901,7 +901,7 @@ The above code will get the path to an SVG representing an action origin and sto
 This function will return a full path to a PNG file of the glyph image of an action origin. The path is automatically added into the GameMaker's filesystem sandbox list, so that you can use the returned path in `sprite_add` or `buffer_load` no matter if you have the sandbox enabled or disabled. The image will be in legacy Steam Big Picture design style, if you wish to use the new Steam Deck styled glyphs (also called Knockout glyphs in Valve's documentation), please use the function [steam_input_get_glyph_png_for_action_origin](#steam_input_get_glyph_png_for_action_origin) instead.
 
 
-|origin|Real|Action origin to get the PNG of.|
+@param {Real} origin Action origin to get the PNG of.
 
 
 @returns {string}
@@ -922,7 +922,7 @@ The above code will get a PNG representing an action origin and load it as a spr
 This function will return a localized name of an action origin, for example `"Y Button"` if the Steam language is set to English, or `"Кнопка Y"` if it is set to Russian. Keep in mind that the OS language may be different from the Steam client language, and the Steam language will be used instead.
 
 
-|origin|Real|Action origin to get the localized name of.|
+@param {Real} origin Action origin to get the localized name of.
 
 
 @returns {string}
@@ -942,7 +942,7 @@ The above code will get a localized name of the shoot origin and store it in a g
 This function will return the localized name of an analog action as specified by Steam localization settings. Keep in mind that the Steam language may be different than the OS language, and this function will always use the language settings of the Steam client, not the OS.
 
 
-|action|Real|Handle of the analog action.|
+@param {Real} action Handle of the analog action.
 
 
 @returns {string}
@@ -962,8 +962,8 @@ The above code will get the localized name for the move action, and store it in 
 This function will stop the momentum of an analog action if the input device is, for example, a trackball. Returns `true` if the operation was successful and `false` otherwise.
 
 
-|controller|Real|Input handle of the controller.|
-|action|Real|Handle of the analog action.|
+@param {Real} controller Input handle of the controller.
+@param {Real} action Handle of the analog action.
 
 
 @returns {Bool}
@@ -983,21 +983,21 @@ The above code will stop the analog momentum of the move action.
 This function will obtain raw gyroscope and accelerometer data in the controller's native format. Returns the  `motion_data` struct on success and `undefined` on failure.
 
 
-|controller|Real|Input handle of the controller.|
+@param {Real} controller Input handle of the controller.
 
 **Struct Fields:**
 
-|----|----|----|
-|rot_quat_x|Real|X component of the orientation quaternion.|
-|rot_quat_y|Real|Y component of the orientation quaternion.|
-|rot_quat_z|Real|Z component of the orientation quaternion.|
-|rot_quat_w|Real|W component of the orientation quaternion.|
-|pos_accel_x|Real|X component of the acceleration.|
-|pos_accel_y|Real|Y component of the acceleration.|
-|pos_accel_z|Real|Z component of the acceleration.|
-|rot_vel_x|Real|X component of the angular velocity.|
-|rot_vel_y|Real|Y component of the angular velocity.|
-|rot_vel_z|Real|Z component of the angular velocity.|
+|----|----|----
+@param {Real} rot_quat_x X component of the orientation quaternion.
+@param {Real} rot_quat_y Y component of the orientation quaternion.
+@param {Real} rot_quat_z Z component of the orientation quaternion.
+@param {Real} rot_quat_w W component of the orientation quaternion.
+@param {Real} pos_accel_x X component of the acceleration.
+@param {Real} pos_accel_y Y component of the acceleration.
+@param {Real} pos_accel_z Z component of the acceleration.
+@param {Real} rot_vel_x X component of the angular velocity.
+@param {Real} rot_vel_y Y component of the angular velocity.
+@param {Real} rot_vel_z Z component of the angular velocity.
 
 
 **Returns:**
@@ -1030,9 +1030,9 @@ The above code will rotate and move the object based on the angular velocity dat
 This function will trigger a vibration effect on the target controller. Keep in mind that due to physical differences of each controller, the motors may not be the exact same, for example on the DualShock 4 controller the left motor is bigger and faster than the right one. Returns `true` on success and `false` otherwise.
 
 
-|controller|real|Input handle of the controller.|
-|left_speed|real|Speed of the left motor from 0 to 65535.|
-|right_speed|real|Speed of the right motor from 0 to 65535.|
+@param {real} controller Input handle of the controller.
+@param {real} left_speed Speed of the left motor from 0 to 65535.
+@param {real} right_speed Speed of the right motor from 0 to 65535.
 
 
 @returns {Bool}
@@ -1052,11 +1052,11 @@ The above code will trigger a vibration effect at half the maximum power on both
 This function will trigger an extended vibration effect on the target controller. Keep in mind that due to physical differences of each controller, the motors may not be the exact same, for example on the DualShock 4 controller the left motor is bigger and faster than the right one. Also keep in mind that not all controllers may support the extended vibration effects. Returns `true` on success and `false` otherwise.
 
 
-|controller|real|Input handle of the controller.|
-|left_speed|real|Speed of the left motor from 0 to 65535.|
-|right_speed|real|Speed of the right motor from 0 to 65535.|
-|left_trigger_speed|real|Speed of the left trigger from 0 to 65535.|
-|right_trigger_speed|real|Speed of the right trigger from 0 to 65535.|
+@param {real} controller Input handle of the controller.
+@param {real} left_speed Speed of the left motor from 0 to 65535.
+@param {real} right_speed Speed of the right motor from 0 to 65535.
+@param {real} left_trigger_speed Speed of the left trigger from 0 to 65535.
+@param {real} right_trigger_speed Speed of the right trigger from 0 to 65535.
 
 
 @returns {Bool}
@@ -1076,12 +1076,12 @@ The above code will trigger a vibration effect at half the maximum power on vibr
 This function will trigger a simple haptic event if the target controller supports them. Returns `true` on success and `false` on failure.
 
 
-|controller|real|Input handle of the controller.|
-|location|real|A `steam_input_controller_haptic_location_` constant.|
-|intensity|real|Intensity of the first motor from 0 to 255.|
-|gain_db|real|Gain in DB units, can be negative, from -127 to 128.|
-|other_intensity|real|Intensity of the second motor from 0 to 255.|
-|other_gain_db|real|Gain of the second motor in DB units, can be negative, from -127 to 128.|
+@param {real} controller Input handle of the controller.
+@param {real} location A `steam_input_controller_haptic_location_` constant.
+@param {real} intensity Intensity of the first motor from 0 to 255.
+@param {real} gain_db Gain in DB units, can be negative, from -127 to 128.
+@param {real} other_intensity Intensity of the second motor from 0 to 255.
+@param {real} other_gain_db Gain of the second motor in DB units, can be negative, from -127 to 128.
 
 
 @returns {Bool}
@@ -1101,9 +1101,9 @@ The above code will trigger a simple haptic event with half intensity and neutra
 This function will set or reset the color of the LED on the controller. Keep in mind that not all controllers have LEDs in them, and that the default user color of the controller differs between manufacturers, but your custom ones should always look almost the same.
 
 
-|controller|real|Input handle of the controller.|
-|color|real|Color value to use.|
-|flags|real|A `steam_input_led_flag_` constant.|
+@param {real} controller Input handle of the controller.
+@param {real} color Color value to use.
+@param {real} flags A `steam_input_led_flag_` constant.
 
 
 @returns {Bool}
@@ -1127,9 +1127,9 @@ The above code first sets the LED color to a custom one, then resets the color t
 This function runs a haptic pulse through the legacy API, this is only useful if the target controller is a Steam Controller. Returns `true` on success and `false` otherwise.
 
 
-|controller|real|Input handle of the controller.|
-|pad|real|A `steam_input_steam_controller_pad_` constant.|
-|duration_in_ms|real|Duration of the pulse in miliseconds.|
+@param {real} controller Input handle of the controller.
+@param {real} pad A `steam_input_steam_controller_pad_` constant.
+@param {real} duration_in_ms Duration of the pulse in miliseconds.
 
 
 @returns {Bool}
@@ -1149,12 +1149,12 @@ The above code runs a haptic pulse on the left motor for two seconds (2000 milis
 This function runs a repeated haptic pulse through the legacy API, this is only useful if the target controller is a Steam Controller. Returns `true` on success and `false` otherwise.
 
 
-|controller|real|Input handle of the controller.|
-|pad|real|A `steam_input_steam_controller_pad_` constant.|
-|duration_in_ms|real|Duration of the pulse in miliseconds.|
-|offset_in_ms|real|The offset from which to start looping in miliseconds.|
-|repeat_times|real|How many times to repeat the loop?|
-|flags|real|Repeated haptic pulse flags|
+@param {real} controller Input handle of the controller.
+@param {real} pad A `steam_input_steam_controller_pad_` constant.
+@param {real} duration_in_ms Duration of the pulse in miliseconds.
+@param {real} offset_in_ms The offset from which to start looping in miliseconds.
+@param {real} repeat_times How many times to repeat the loop?
+@param {real} flags Repeated haptic pulse flags
 
 
 @returns {Bool}
@@ -1174,7 +1174,7 @@ The above code runs a repeated haptic pulse on the left motor for two seconds (2
 This function opens the Steam Input Configurator for the target controller which allows the player to rebind controls in-game. If Steam is not running in Big Picture, a new window will be opened, otherwise the configurator will be invoked as a part of the Steam Overlay. Keep in mind that the player can open the Configurator without this function too, by pressing the "Controller Layout" button in the Steam Overlay. Returns `true` if the operation was successful and `false` otherwise.
 
 
-|controller|real|Input handle of the controller.|
+@param {real} controller Input handle of the controller.
 
 
 @returns {Bool}
@@ -1194,7 +1194,7 @@ The above code opens the Steam Input Configurator for the controller handle stor
 This function returns the type of the target controller. Useful if you want to know which features are most likely supported by the target contorller.
 
 
-|controller|real|Input handle of the controller.|
+@param {real} controller Input handle of the controller.
 
 
 @returns {real}
@@ -1233,7 +1233,7 @@ The above code prints the type of the controller as a string to debug output.
 This function returns the input handle for an XInput gamepad slot, or 0 if that slot is not powered by Steam Input. That can be used to match between native GameMaker `gamepad_` slots and Steam Input controllers on Windows. Since on Windows the GameMaker pad slots from 0 to 3 are XInput controllers, and from 4 to 12 are DirectInput controllers. This function only works with emulated XInput controllers.
 
 
-|index|real|XInput slot from 0 to 3 included.|
+@param {real} index XInput slot from 0 to 3 included.
 
 
 @returns {real}
@@ -1256,7 +1256,7 @@ The above code prints the controller handle for the first XInput gamepad slot if
 This function is the reverse of [steam_input_get_controller_for_gamepad_index](#steam_input_get_controller_for_gamepad_index), except it allows you to determine whether a Steam Input handle is being emulated as XInput as well or not. See the definition of the reverse function for more information about slots.
 
 
-|controller|real|Input handle of the controller.|
+@param {real} controller Input handle of the controller.
 
 
 @returns {Real}
@@ -1279,7 +1279,7 @@ The above code prints the XInput slot for the player controller if it's valid.
 This function turns a `steam_input_xbox_origin_` constant into a localized string, the language will be taken from Steam client settings. For example `"A Button"` if it's English or `"Кнопка A"` if it's Russian.
 
 
-|origin|real|A `steam_input_xbox_origin_` constant.|
+@param {real} origin A `steam_input_xbox_origin_` constant.
 
 
 @returns {string}
@@ -1299,7 +1299,7 @@ The above code prints the localized name of the Xbox 360 A button origin.
 This returns a path to a PNG associated with a `steam_input_xbox_origin_` constant. The returned path will be automatically added into the GameMaker filesystem sandbox list so it can be used with `buffer_load` or `sprite_add` no matter whether you have sandbox enabled or not.
 
 
-|origin|real|A `steam_input_xbox_origin_` constant.|
+@param {real} origin A `steam_input_xbox_origin_` constant.
 
 
 @returns {string}
@@ -1329,8 +1329,8 @@ This function returns the closest origin that maps to the `steam_input_xbox_orig
 steam_input_get_action_origin_from_xbox_origin(controller, origin);
 ```
 
-|controller|real|Target controller handle to use.|
-|origin|real|A `steam_input_xbox_origin_` constant.|
+@param {real} controller Target controller handle to use.
+@param {real} origin A `steam_input_xbox_origin_` constant.
 
 
 @returns {real}
@@ -1365,8 +1365,8 @@ This function allows to translate an action origin for a new unknown controller 
 steam_input_translate_action_origin(type, origin);
 ```
 
-|type|real|`steam_input_type_` you would like to map to, or `steam_input_type_unknown` to let Steam do a best guess.|
-|origin|real|An unknown input action origin you would like to translate.|
+@param {real} type `steam_input_type_` you would like to map to, or `steam_input_type_unknown` to let Steam do a best guess.
+@param {real} origin An unknown input action origin you would like to translate.
 
 
 @returns {real}
@@ -1393,13 +1393,13 @@ The above code tries to map an unknown action origin into something that this ex
 This function returns the current action bindings revision as a struct, or `undefined` if there was an error.
 
 
-|controller|real|Input controller handle to use.|
+@param {real} controller Input controller handle to use.
 
 **Struct Fields:**
 
-|----|----|----|
-|major|real|Major version digit.|
-|minor|real|Minor version digit.|
+|----|----|----
+@param {real} major Major version digit.
+@param {real} minor Minor version digit.
 
 
 **Returns:**
@@ -1425,7 +1425,7 @@ The above code prints the current device bindings revision into debug output.
 This function returns the current Steam Remote Play session id associated with the controller, or 0 if no session is associated.
 
 
-|controller|input_handle|Input controller handle to use.|
+@param {input_handle} controller Input controller handle to use.
 
 
 @returns {Real}
@@ -1475,8 +1475,8 @@ This function is for input handles of DualSense controllers only, allows to appl
 steam_input_set_dualsense_trigger_effect(controller, param);
 ```
 
-|controller|real|Input controller handle to use.|
-|param|struct|Trigger effect parameter struct, see the example.|
+@param {real} controller Input controller handle to use.
+@param {struct} param Trigger effect parameter struct, see the example.
 
 
 @returns {Bool}

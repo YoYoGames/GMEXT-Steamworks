@@ -47,7 +47,7 @@ If the user is in Offline Mode, Steam keeps a local cache of the stats and achie
 With this function you can tell the Steam API to award (&quot;set&quot;) an achievement for the player. These achievements should have been defined on the Steamworks control panel accounts page for your game and the string that is passed to the function should match that used as the API Name on the control panel. The Steam Game Overlay will display a notification panel to the user informing them of the achievement that they have received, unless the achievement has already been awarded, in which case nothing will happen.
 
 
-|ach_name|string|The name of the achievement to set.|
+@param {string} ach_name The name of the achievement to set.
 
 
 
@@ -62,17 +62,14 @@ if hp <= 0
     }
 }
 ```
-The above code will reward the player an achievement if the global variable &quot;Deaths&quot; is equal to 10 and if the achievement has not already been awarded.<br>
-
-
-
+The above code will reward the player an achievement if the global variable &quot;Deaths&quot; is equal to 10 and if the achievement has not already been awarded.
 @func_end
 
 @func steam_get_achievement
 With this function you can check the Steam API to see if a specific achievement has been awarded. The achievement should have been previously defined on the Steamworks control panel accounts page for your game and the string that is passed to the function should match that used as the API Name on the control panel.
 
 
-|ach_name|string|The name of the achievement to get.|
+@param {string} ach_name The name of the achievement to get.
 
 
 @returns {Bool}
@@ -88,18 +85,13 @@ if hp <= 0
 }
 ```
 The above code will reward the player an achievement if the global variable &quot;Deaths&quot; is equal to 10 and if the achievement has not already been awarded.
-
-
 @func_end
 
 @func steam_clear_achievement
 With this function you can tell the Steam API to clear (reset) a specific achievement. The achievement should have been previously defined on the Steamworks control panel accounts page for your game and the string that is passed to the function should match that used as the API Name on the control panel.
 
 
-|ach_name|string|The name of the achievement to clear.|
-
-
-
+@param {string} ach_name The name of the achievement to clear.
 
 ```gml
 if mouse_check_button_pressed(mb_left)
@@ -127,8 +119,8 @@ With this function you can set a specific statistic to a new, signed integer, va
 steam_set_stat_int(stat_name, value);
 ```
 
-|stat_name|string|The name of the statistic to set.|
-|value|integer|The value to set the stat to.|
+@param {string} stat_name The name of the statistic to set.
+@param {integer} value The value to set the stat to.
 
 
 
@@ -147,37 +139,24 @@ The above code sets a statistic and then checks the final value for it to decide
 @func_end
 
 @func steam_set_stat_float
-With this function you can set a specific statistic to a new, floating point, value. The statistic should have been previously defined on the Steamworks control panel accounts page for your game and the string that is passed to the function should match that used as the API Name on the control panel. Examples of when you could use this are for tracking how far your player has travelled, or what percentage of the game is complete.
+@desc With this function you can set a specific statistic to a new, floating point, value. The statistic should have been previously defined on the Steamworks control panel accounts page for your game and the string that is passed to the function should match that used as the API Name on the control panel. Examples of when you could use this are for tracking how far your player has travelled, or what percentage of the game is complete.
 
-
-**Syntax:**
-
-```gml
-steam_set_stat_float(stat_name, value);
-```
-
-|stat_name|string|The name of the statistic to set.|
-|value|real|The value to set the stat to.|
-
-
-
+@param {string} stat_name The name of the statistic to set.
+@param {real} value The value to set the stat to.
 
 ```gml
 var dist_pc = (dist / dist_max) * 100;
 steam_set_stat_float("Travelled", dist_pc);
 ```
 The above code calculates a percentage based on the distance travelled variable &quot;dist&quot; and the maximum distance you can travel &quot;dist_max&quot; and then sets the stat &quot;Travelled&quot; to the new value.
-
-
-
 @func_end
 
 @func steam_set_stat_avg_rate
 @desc This function permits you to set an average statistic type with a &quot;sliding window&quot; effect on the average. The &quot;session_count&quot; value is the current value that you wish to average out, while the &quot;session_length&quot; is the amount of game time since the last call to the function. Please see the extended Example below for further details on how this can be used.
 
-|stat_name|string|The name of the statistic to set.|
-|session_count|real|The value to get the average of.|
-|session_length|real|The time that has been taken since the last time the stat was set.|
+@param {string} stat_name The name of the statistic to set.
+@param {real} session_count The value to get the average of.
+@param {real} session_length The time that has been taken since the last time the stat was set.
 
 @example
 Since the average stat function can be complex to understand, we will illustrate its use with the following example. Consider the case where you&#39;d like to track an average statistic, such as &quot;Points earned per hour&quot;. One approach would be to have two stats: an <i>integer</i> stat, &quot;TotalPoints&quot;, and a <i>float</i> stat &quot;TotalPlayTimeHours&quot;, and then divide the total points by the total time to get the &quot;Points per Hour&quot; value.
@@ -196,16 +175,12 @@ global.Points = 0;
 global.Time = 0;
 ```
 Note that we divide time by 3600 since we want the time in <i>hours</i> and not in seconds, and afterward we reset the global &quot;Points&quot; variable and the global &quot;Time&quot; variable to 0 so that the next time the function is called, we get a new average for the statistic. Now, what Steam will do is take this value that you have sent and create an average value over the time that was set for our &quot;window&quot;.
-
-
 @func_end
 
 @func steam_get_stat_int
 With this function you can get the value of a specific signed integer statistic. The statistic should have been previously defined on the Steamworks control panel accounts page for your game and the string that is passed to the function should match that used as the API Name on the control panel.
 
-
-|stat_name|string|The name of the statistic to get.|
-
+@param {string} stat_name The name of the statistic to get.
 
 @returns {Real}
 
@@ -218,15 +193,13 @@ if steam_get_stat_int("Total_XP") > 1000
 }
 ```
 The above code sets a statistic and then checks the final value for it to decide whether to award an achievement or not.
-
-
 @func_end
 
 @func steam_get_stat_float
 With this function you can get the value of a specific floating point statistic. The statistic should have been previously defined on the Steamworks control panel accounts page for your game and the string that is passed to the function should match that used as the API Name on the control panel.
 
 
-|stat_name|string|The name of the statistic to get.|
+@param {string} stat_name The name of the statistic to get.
 
 @returns {Real}
 
@@ -243,8 +216,7 @@ The above code calculates a percentage based on the distance travelled variable 
 @func steam_get_stat_avg_rate
 With this function you can get the value of a specific average statistic. The statistic should have been previously defined on the Steamworks control panel accounts page for your game and the string that is passed to the function should match that used as the API Name on the control panel.
 
-|stat_name|string|The name of the statistic to get.|
-
+@param {string} stat_name The name of the statistic to get.
 
 @returns {Real}
 

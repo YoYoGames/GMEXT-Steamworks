@@ -34,8 +34,8 @@ Sets a Rich Presence key/value for the current user that is automatically shared
 steam_set_rich_presence(key, value);
 ```
 
-|key|string|The rich presence 'key' to set|
-|value|string|The rich presence 'value' to associate|
+@param {string} key The rich presence 'key' to set
+@param {string} value The rich presence 'value' to associate
 
 
 
@@ -82,7 +82,7 @@ Adds the given user to the &quot;recently played with&quot; list (accessed via &
 This is usually something to do on session start for all remote users.
 
 
-|user_id|int64|Other player user id|
+|user_id|int64|Other player user id
 
 
 @returns {Bool}
@@ -109,10 +109,10 @@ Equivalent to what can be seen in Steam Friends UI.
 Array<Struct>
 ```
 
-|friendId|int64|The Steam user id|
-|gameId|real|The Steam game id|
-|lobbyId|int64|The Steam lobby id (if hosting a lobby that is open for friends to join - otherwise `0`)|
-|name|string|The friend's user name|
+|friendId|int64|The Steam user id
+@param {real} gameId The Steam game id
+|lobbyId|int64|The Steam lobby id (if hosting a lobby that is open for friends to join - otherwise `0`)
+@param {string} name The friend's user name
 
 
 ```gml
@@ -160,19 +160,19 @@ Returns positive IDs if the avatar is ready, this id is to be used with the foll
 steam_get_user_avatar(userID, avatar_size);
 ```
 
-|userID|int64|The user Steam unique identifier|
-|avatar_size|[AvatarSize](E:\Source\YoYoExtensionDocumentation\YoYoExtensionDocumentation_RoboHelp\contents\Steamworks\Modules\Social\Constants\AvatarSize.htm)|The size of the avatar to be requested|
+|userID|int64|The user Steam unique identifier
+|avatar_size|[AvatarSize](E:\Source\YoYoExtensionDocumentation\YoYoExtensionDocumentation_RoboHelp\contents\Steamworks\Modules\Social\Constants\AvatarSize.htm)|The size of the avatar to be requested
 
 
 @returns {real}
 
 @event steam
-|event_type|string|The string value `"avatar_image_loaded"`|
-|success|bool|Whether the async action succeeded|
-|user_id|int64|The associated user's ID|
-|image|real|The image ID that would otherwise be returned by the function|
-|width|real|The image width, in pixels|
-|height|real|The image height, in pixels **** |
+@param {string} event_type The string value `"avatar_image_loaded"`
+@param {bool} success Whether the async action succeeded
+|user_id|int64|The associated user's ID
+@param {real} image The image ID that would otherwise be returned by the function
+@param {real} width The image width, in pixels
+@param {real} height The image height, in pixels **** 
 
 
 ```gml
@@ -236,7 +236,7 @@ Fetches dimensions for the said Steam image ID.
 If the call succeeds, the return value is a two-element array containing width and height in pixels.
 
 
-|steam_image_id|int64|steam identifier of the image|
+|steam_image_id|int64|steam identifier of the image
 
 
 @returns {array}
@@ -278,9 +278,9 @@ Returns whether successful.
 steam_image_get_rgba(steam_image_id, buffer, size);
 ```
 
-|steam_image_id|int64|The steam image identifier|
-|buffer|Id.Buffer|The buffer where data will be written|
-|size|real|The size of the buffer supplied|
+|steam_image_id|int64|The steam image identifier
+@param {Id.Buffer} buffer The buffer where data will be written
+@param {real} size The size of the buffer supplied
 
 
 @returns {Boolean}
@@ -336,9 +336,9 @@ Returns whether successful.
 steam_image_get_bgra(steam_image_id, buffer, size);
 ```
 
-|steam_image_id|int64|The steam image identifier|
-|buffer|Id.Buffer|The buffer where data will be written|
-|size|real|The size of the buffer supplied|
+|steam_image_id|int64|The steam image identifier
+@param {Id.Buffer} buffer The buffer where data will be written
+@param {real} size The size of the buffer supplied
 
 
 @returns {Boolean}

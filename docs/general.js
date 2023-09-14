@@ -152,16 +152,16 @@ This function can be used to retrieve the user name (screen name) for any specif
 This is an asynchronous function that will return an asynchronous id and trigger the [Steam Async Event](https://manual-en.yoyogames.com/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm) when the task is finished.
 
 
-|steamID|int64|The unique Steam ID for a user.|
+|steamID|int64|The unique Steam ID for a user.
 
 
 @returns {Real}
 
 @event steam
-|id|real|The asynchronous request ID|
-|event_type|string|The string value `"user_persona_name"`|
-|steamid|int64|The unique user id of the user currently logged into the Steam client|
-|persona_name|string|The visible screen name of the user currently logged into the Steam client|
+@param {real} id The asynchronous request ID
+@param {string} event_type The string value `"user_persona_name"`
+|steamid|int64|The unique user id of the user currently logged into the Steam client
+@param {string} persona_name The visible screen name of the user currently logged into the Steam client
 
 
 ```gml

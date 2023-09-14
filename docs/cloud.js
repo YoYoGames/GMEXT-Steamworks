@@ -120,7 +120,7 @@ The above code checks to see if the steam cloud is enabled for the game and if s
 With this function you can check to see if a file from the Steam Cloud exists or not, with a return value of true if it exists, or false otherwise.
 
 
-|filename|string|The name of the file to check for.|
+@param {string} filename The name of the file to check for.
 
 
 @returns {Bool}
@@ -142,7 +142,7 @@ The above code checks to see if a file exists on the Steam Cloud and if it does,
 With this function you can check the size of a file stored on the Steam Cloud. The returned real number is the size, in bytes, of the file.
 
 
-|filename|string|The name of the file to check the size of.|
+@param {string} filename The name of the file to check the size of.
 
 
 @returns {Real}
@@ -162,7 +162,7 @@ The above code stores the size of a file from the Steam Cloud in the variable &q
 With this function you can check the given file to see if it has been synchronized with the Steam Cloud. A return value of true means that it is, while false means it is not.
 
 
-|filename|string|The name of the file to check.|
+@param {string} filename The name of the file to check.
 
 
 @returns {Bool}
@@ -190,9 +190,9 @@ You can use this function to write data to a file, which will then be synchroniz
 steam_file_write(filename, data, size);
 ```
 
-|filename|string|The name of the file to write to.|
-|data|string|The data to write (a string).|
-|size|integer|the size of the data to be written.|
+@param {string} filename The name of the file to write to.
+@param {string} data The data to write (a string).
+@param {integer} size the size of the data to be written.
 
 
 @returns {Real}
@@ -220,8 +220,8 @@ With this function you can copy the contents of a locally saved file to a file t
 steam_file_write_file(steam_filename, local_filename);
 ```
 
-|steam_filename|string|The Steam Cloud file to copy over.|
-|local_filename|string|The local file to use to copy from.|
+@param {string} steam_filename The Steam Cloud file to copy over.
+@param {string} local_filename The local file to use to copy from.
 
 
 @returns {real}
@@ -241,7 +241,7 @@ The above code will copy the contents of the file &quot;Koala2.png&quot; to the 
 This function will read the contents of the given file into a string which can later be parsed in your game.
 
 
-|filename|string|The name of the file to read from.|
+@param {string} filename The name of the file to read from.
 
 
 @returns {String}
@@ -264,7 +264,7 @@ The above code checks to see if a file exists on the Steam Cloud and if it does,
 With this function you can force your game to synchronize the given file with the Steam Cloud. This is not normally necessary due to the fact that the game will synchronize automatically at the end of the player&#39;s session, nor is it recommended by Steam, but it can be useful to ensure sensitive information is synchronized immediately. The function will return a value of 0 if it fails for whatever reason and a value greater than 0 if it succeeds.
 
 
-|filename|string|The name of the file synchronize.|
+@param {string} filename The name of the file synchronize.
 
 
 @returns {Real}
@@ -286,7 +286,7 @@ The above code will check to see if a file has been stored to the Steam Cloud, a
 This function will delete the given file from the Steam Cloud. The function will return a value of 0 if it fails for whatever reason and a value greater than 0 if it succeeds.
 
 
-|filename|string|The name of the file delete.|
+@param {string} filename The name of the file delete.
 
 
 @returns {Real}

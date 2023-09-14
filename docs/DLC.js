@@ -17,7 +17,7 @@ If your game has DLC created for it, you can use this function to check whether 
 > Even if the user owns the DLC it doesn&#39;t mean that they have it installed in their local account, so you should additionally use the function [steam_user_installed_dlc](#steam_user_installed_dlc) to make sure that it is before using it.
 
 
-|dlc_id|int64|The unique identifier for the DLC to be checked.|
+|dlc_id|int64|The unique identifier for the DLC to be checked.
 
 
 @returns {Integer}
@@ -43,7 +43,7 @@ The above code will check to see if the user has bought, and installed, the DLC 
 If your game has DLC created for it, you can use this function to check and see whether the user has installed it before accessing any files associated with it. The function returns true if the player has the content installed, and false if the user does not, but note that the user must also own the DLC, so you should use the additional function of [steam_user_owns_dlc](#steam_user_owns_dlc) to check that it is owned as well before using it.
 
 
-|dlc_id|int64|The unique identifier for the DLC to be checked.|
+|dlc_id|int64|The unique identifier for the DLC to be checked.
 
 
 @returns {Bool}

@@ -84,17 +84,17 @@ This is an asynchronous function that will trigger the [Steam Async Event](https
 steam_inventory_consume_item(item_id, quantity);
 ```
 
-|item_id|int64|The [steam_inventory_item_id](https://partner.steamgames.com/doc/api/ISteamInventory#SteamItemInstanceID_t) to consume.|
-|quantity|real|The number of items in that stack to consume.|
+|item_id|int64|The [steam_inventory_item_id](https://partner.steamgames.com/doc/api/ISteamInventory#SteamItemInstanceID_t) to consume.
+@param {real} quantity The number of items in that stack to consume.
 
 
 @returns {real}
 
 @event steam
-|event_type|string|The string value `"inventory_result_ready"`|
-|success|bool|Whether the async action succeeded|
-|result|[InventoryResultStatus](#InventoryResultStatus)|The status code as returned by [steam_inventory_result_get_status](#steam_inventory_result_get_status)|
-|handle|real|The associated async result ID, which can be used to tell apart what result this event is for.|
+@param {string} event_type The string value `"inventory_result_ready"`
+@param {bool} success Whether the async action succeeded
+|result|[InventoryResultStatus](#InventoryResultStatus)|The status code as returned by [steam_inventory_result_get_status](#steam_inventory_result_get_status)
+@param {real} handle The associated async result ID, which can be used to tell apart what result this event is for.
 
 
 ```gml
@@ -114,9 +114,9 @@ After a successful call to [steam_inventory_request_prices](#steam_inventory_req
 > A wrapper around [GetItemPrice](https://partner.steamgames.com/doc/api/ISteamInventory#GetItemPrice).
 
 
-|Argument|kind|Description|
-|----|----|----|
-|item|real|The [steam_inventory_item_def](https://partner.steamgames.com/doc/api/ISteamInventory#SteamItemDef_t) to get the price of.|
+@param {kind} Argument Description
+|----|----|----
+@param {real} item The [steam_inventory_item_def](https://partner.steamgames.com/doc/api/ISteamInventory#SteamItemDef_t) to get the price of.
 
 
 **Returns:**
@@ -150,10 +150,10 @@ After a successful call to [steam_inventory_request_prices](#steam_inventory_req
 array of structs
 ```
 
-|----|----|----|
-|item_def|real|The [steam_inventory_item_def](https://partner.steamgames.com/doc/api/ISteamInventory#SteamItemDef_t) representing the item type|
-|price|int64|The price of the item definition|
-|base_price|int64|The base price of the item definition :eight_pointed_black_star: WINDOWS ONLY|
+|----|----|----
+@param {real} item_def The [steam_inventory_item_def](https://partner.steamgames.com/doc/api/ISteamInventory#SteamItemDef_t) representing the item type
+|price|int64|The price of the item definition
+|base_price|int64|The base price of the item definition :eight_pointed_black_star: WINDOWS ONLY
 
 
 ```gml
@@ -181,17 +181,17 @@ This is an asynchronous function that will trigger the [Steam Async Event](https
 > A wrapper around [RequestEligiblePromoItemDefinitionsIDs](https://partner.steamgames.com/doc/api/ISteamInventory#RequestEligiblePromoItemDefinitionsIDs).
 
 
-|user_id|int64|The user ID of the user to request the eligible promo items for.|
+|user_id|int64|The user ID of the user to request the eligible promo items for.
 
 
 @returns {bool}
 
 @event steam
-|event_type|string|The string value `"inventory_request_eligible_promo_item_defs"`|
-|user_id|int64|The user's unique identifier|
-|item_def_count|real|The number of items|
-|item_def_json|string|A json array of items identifiers (must be parsed using [json_parse](https://manual-en.yoyogames.com/GameMaker_Language/GML_Reference/File_Handling/Encoding_And_Hashing/json_parse.htm) or [json_decode](https://manual-en.yoyogames.com/GameMaker_Language/GML_Reference/File_Handling/Encoding_And_Hashing/json_decode.htm))|
-|is_cached_data|bool|Whether the data was retrieved from the cache and not from the server|
+@param {string} event_type The string value `"inventory_request_eligible_promo_item_defs"`
+|user_id|int64|The user's unique identifier
+@param {real} item_def_count The number of items
+@param {string} item_def_json A json array of items identifiers (must be parsed using [json_parse](https://manual-en.yoyogames.com/GameMaker_Language/GML_Reference/File_Handling/Encoding_And_Hashing/json_parse.htm) or [json_decode](https://manual-en.yoyogames.com/GameMaker_Language/GML_Reference/File_Handling/Encoding_And_Hashing/json_decode.htm))
+@param {bool} is_cached_data Whether the data was retrieved from the cache and not from the server
 
 
 ```gml
@@ -220,10 +220,10 @@ This is an asynchronous function that will trigger the [Steam Async Event](https
 @returns {bool}
 
 @event steam
-|event_type|string|The string value `"inventory_request_prices"`|
-|success|bool|Whether the async action succeeded|
-|result|[InventoryResultStatus](#InventoryResultStatus)|The status code as returned by [steam_inventory_result_get_status](#steam_inventory_result_get_status)|
-|currency|string|The string representing the user's [local currency](https://partner.steamgames.com/doc/store/pricing/currencies) code.|
+@param {string} event_type The string value `"inventory_request_prices"`
+@param {bool} success Whether the async action succeeded
+|result|[InventoryResultStatus](#InventoryResultStatus)|The status code as returned by [steam_inventory_result_get_status](#steam_inventory_result_get_status)
+@param {string} currency The string representing the user's [local currency](https://partner.steamgames.com/doc/store/pricing/currencies) code.
 
 
 ```gml
@@ -259,7 +259,7 @@ The user will be prompted in the Steam Overlay to complete the purchase in their
 > A wrapper around [StartPurchase](https://partner.steamgames.com/doc/api/ISteamInventory#StartPurchase).
 
 
-|array|Array<[InventoryItemCreationData](#InventoryItemCreationData)>|An array of [structs](https://manual.yoyogames.com/GameMaker_Language/GML_Overview/Structs.htm) representing items to be purchased (see [InventoryItemCreationData](#InventoryItemCreationData))|
+|array|Array<[InventoryItemCreationData](#InventoryItemCreationData)>|An array of [structs](https://manual.yoyogames.com/GameMaker_Language/GML_Overview/Structs.htm) representing items to be purchased (see [InventoryItemCreationData](#InventoryItemCreationData))
 
 
 
@@ -292,16 +292,16 @@ This is an asynchronous function that will trigger the [Steam Async Event](https
 > A wrapper around [AddPromoItem](https://partner.steamgames.com/doc/api/ISteamInventory#AddPromoItem).
 
 
-|item_def|int64|The [steam_inventory_item_def](https://partner.steamgames.com/doc/api/ISteamInventory#SteamItemDef_t) to grant the player (number between 1 and 999999999)|
+|item_def|int64|The [steam_inventory_item_def](https://partner.steamgames.com/doc/api/ISteamInventory#SteamItemDef_t) to grant the player (number between 1 and 999999999)
 
 
 @returns {real}
 
 @event steam
-|event_type|string|The string value `"inventory_result_ready"`|
-|success|bool|Whether the async action succeeded|
-|result|[InventoryResultStatus](#InventoryResultStatus)|The status code as returned by [steam_inventory_result_get_status](#steam_inventory_result_get_status)|
-|handle|real|The associated async result ID, which can be used to tell apart what result this event is for.|
+@param {string} event_type The string value `"inventory_result_ready"`
+@param {bool} success Whether the async action succeeded
+|result|[InventoryResultStatus](#InventoryResultStatus)|The status code as returned by [steam_inventory_result_get_status](#steam_inventory_result_get_status)
+@param {real} handle The associated async result ID, which can be used to tell apart what result this event is for.
 
 
 ```gml
@@ -326,16 +326,16 @@ This is an asynchronous function that will trigger the [Steam Async Event](https
 > A wrapper around [AddPromoItems](https://partner.steamgames.com/doc/api/ISteamInventory#AddPromoItems).
 
 
-|item_defs|Array\<Real>|An array of [steam_inventory_item_def](https://partner.steamgames.com/doc/api/ISteamInventory#SteamItemDef_t) to grant the user with.|
+|item_defs|Array\<Real>|An array of [steam_inventory_item_def](https://partner.steamgames.com/doc/api/ISteamInventory#SteamItemDef_t) to grant the user with.
 
 
 @returns {real}
 
 @event steam
-|event_type|string|The string value `"inventory_result_ready"`|
-|success|bool|Whether the async action succeeded|
-|result|[InventoryResultStatus](#InventoryResultStatus)|The status code as returned by [steam_inventory_result_get_status](#steam_inventory_result_get_status)|
-|handle|real|The associated async result ID, which can be used to tell apart what result this event is for.|
+@param {string} event_type The string value `"inventory_result_ready"`
+@param {bool} success Whether the async action succeeded
+|result|[InventoryResultStatus](#InventoryResultStatus)|The status code as returned by [steam_inventory_result_get_status](#steam_inventory_result_get_status)
+@param {real} handle The associated async result ID, which can be used to tell apart what result this event is for.
 
 
 ```gml
@@ -366,17 +366,17 @@ This is an asynchronous function that will trigger the [Steam Async Event](https
 steam_inventory_exchange_items(create_arr, destroy_arr);
 ```
 
-|create_arr|Array<[InventoryItemCreationData](#InventoryItemCreationData)>|An array of [structs](https://manual.yoyogames.com/GameMaker_Language/GML_Overview/Structs.htm) representing items to be created (see [InventoryItemCreationData](#InventoryItemCreationData))|
-|destroy_arr|Array<[InventoryItemConsumptionData](#InventoryItemConsumptionData)>|An array of [structs](https://manual.yoyogames.com/GameMaker_Language/GML_Overview/Structs.htm) representing items to be consumed (see [InventoryItemConsumptionData](#InventoryItemConsumptionData))|
+|create_arr|Array<[InventoryItemCreationData](#InventoryItemCreationData)>|An array of [structs](https://manual.yoyogames.com/GameMaker_Language/GML_Overview/Structs.htm) representing items to be created (see [InventoryItemCreationData](#InventoryItemCreationData))
+|destroy_arr|Array<[InventoryItemConsumptionData](#InventoryItemConsumptionData)>|An array of [structs](https://manual.yoyogames.com/GameMaker_Language/GML_Overview/Structs.htm) representing items to be consumed (see [InventoryItemConsumptionData](#InventoryItemConsumptionData))
 
 
 @returns {real}
 
 @event steam
-|event_type|string|The string value `"inventory_result_ready"`|
-|success|bool|Whether the async action succeeded|
-|result|[InventoryResultStatus](#InventoryResultStatus)|The status code as returned by [steam_inventory_result_get_status](#steam_inventory_result_get_status)|
-|handle|real|The associated async result ID, which can be used to tell apart what result this event is for.|
+@param {string} event_type The string value `"inventory_result_ready"`
+@param {bool} success Whether the async action succeeded
+|result|[InventoryResultStatus](#InventoryResultStatus)|The status code as returned by [steam_inventory_result_get_status](#steam_inventory_result_get_status)
+@param {real} handle The associated async result ID, which can be used to tell apart what result this event is for.
 
 
 ```gml
@@ -440,16 +440,16 @@ This is an asynchronous function that will trigger the [Steam Async Event](https
 > A wrapper around [GenerateItems](https://partner.steamgames.com/doc/api/ISteamInventory#GenerateItems).
 
 
-|create_arr|Array<[InventoryItemCreationData](#InventoryItemCreationData)>|An array of [structs](https://manual.yoyogames.com/GameMaker_Language/GML_Overview/Structs.htm) representing items to be created (see [InventoryItemCreationData](#InventoryItemCreationData))|
+|create_arr|Array<[InventoryItemCreationData](#InventoryItemCreationData)>|An array of [structs](https://manual.yoyogames.com/GameMaker_Language/GML_Overview/Structs.htm) representing items to be created (see [InventoryItemCreationData](#InventoryItemCreationData))
 
 
 @returns {real}
 
 @event steam
-|event_type|string|The string value `"inventory_result_ready"`|
-|success|bool|Whether the async action succeeded|
-|result|[InventoryResultStatus](#InventoryResultStatus)|The status code as returned by [steam_inventory_result_get_status](#steam_inventory_result_get_status)|
-|handle|real|The associated async result ID, which can be used to tell apart what result this event is for.|
+@param {string} event_type The string value `"inventory_result_ready"`
+@param {bool} success Whether the async action succeeded
+|result|[InventoryResultStatus](#InventoryResultStatus)|The status code as returned by [steam_inventory_result_get_status](#steam_inventory_result_get_status)
+@param {real} handle The associated async result ID, which can be used to tell apart what result this event is for.
 
 
 ```gml
@@ -484,18 +484,18 @@ This is an asynchronous function that will trigger the [Steam Async Event](https
 @returns {real}
 
 @event steam
-|event_type|string|The string value `"inventory_result_ready"`|
-|success|bool|Whether the async action succeeded|
-|result|[InventoryResultStatus](#InventoryResultStatus)|The status code as returned by [steam_inventory_result_get_status](#steam_inventory_result_get_status)|
-|handle|real|The associated async result ID, which can be used to tell apart what result this event is for.|
+@param {string} event_type The string value `"inventory_result_ready"`
+@param {bool} success Whether the async action succeeded
+|result|[InventoryResultStatus](#InventoryResultStatus)|The status code as returned by [steam_inventory_result_get_status](#steam_inventory_result_get_status)
+@param {real} handle The associated async result ID, which can be used to tell apart what result this event is for.
 
 > **:eight_pointed_black_star: OPTIONAL**
 >
 > The asynchronous event presented below is only triggered when the result is newer/fresher than the last known result. It will not trigger if the inventory hasn&#39;t changed, or if results from two overlapping calls are reversed in flight and the earlier result is already known to be stale/out-of-date. The regular callback will still be triggered immediately afterwards; this is an additional notification for your convenience.
 
-|event_type|string|The string value `"inventory_full_update"`|
-|success|bool|Whether the async action succeeded|
-|handle|real|The associated async result ID, which can be used to tell apart what result this event is for.|
+@param {string} event_type The string value `"inventory_full_update"`
+@param {bool} success Whether the async action succeeded
+@param {real} handle The associated async result ID, which can be used to tell apart what result this event is for.
 
 
 ```gml
@@ -550,16 +550,16 @@ Requests information about a subset of the current user&#39;s inventory.
 > A wrapper around [GetItemsByID](https://partner.steamgames.com/doc/api/ISteamInventory#GetItemsByID).
 
 
-|item_ids|Array\<Real>|An array of [steam_inventory_item_id](https://partner.steamgames.com/doc/api/ISteamInventory#SteamItemInstanceID_t) of items to get information of.|
+|item_ids|Array\<Real>|An array of [steam_inventory_item_id](https://partner.steamgames.com/doc/api/ISteamInventory#SteamItemInstanceID_t) of items to get information of.
 
 
 @returns {real}
 
 @event steam
-|event_type|string|The string value `"inventory_result_ready"`|
-|success|bool|Whether the async action succeeded|
-|result|[InventoryResultStatus](#InventoryResultStatus)|The status code as returned by [steam_inventory_result_get_status](#steam_inventory_result_get_status)|
-|handle|real|The associated async result ID, which can be used to tell apart what result this event is for.|
+@param {string} event_type The string value `"inventory_result_ready"`
+@param {bool} success Whether the async action succeeded
+|result|[InventoryResultStatus](#InventoryResultStatus)|The status code as returned by [steam_inventory_result_get_status](#steam_inventory_result_get_status)
+@param {real} handle The associated async result ID, which can be used to tell apart what result this event is for.
 
 
 ```gml
@@ -583,16 +583,16 @@ Submits the transaction request to modify [dynamic properties](https://partner.s
 > A wrapper around [SubmitUpdateProperties](https://partner.steamgames.com/doc/api/ISteamInventory#SubmitUpdateProperties).
 
 
-|handle|real|The update handle corresponding to the transaction request|
+@param {real} handle The update handle corresponding to the transaction request
 
 
 @returns {real}
 
 @event steam
-|event_type|string|The string value `"inventory_result_ready"`|
-|success|bool|Whether the async action succeeded|
-|result|[InventoryResultStatus](#InventoryResultStatus)|The status code as returned by [steam_inventory_result_get_status](#steam_inventory_result_get_status)|
-|handle|real|The associated async result ID, which can be used to tell apart what result this event is for.|
+@param {string} event_type The string value `"inventory_result_ready"`
+@param {bool} success Whether the async action succeeded
+|result|[InventoryResultStatus](#InventoryResultStatus)|The status code as returned by [steam_inventory_result_get_status](#steam_inventory_result_get_status)
+@param {real} handle The associated async result ID, which can be used to tell apart what result this event is for.
 
 
 ```gml
@@ -639,18 +639,18 @@ Transfer items between stacks within a user&#39;s inventory.
 steam_inventory_transfer_item_quantity(source_item_id, quantity, dest_item_id);
 ```
 
-|source_item_id|int64|The source [steam_inventory_item_id](https://partner.steamgames.com/doc/api/ISteamInventory#SteamItemInstanceID_t) to transfer from|
-|quantity|real|The quantity of the item that will be transferred|
-|dest_item_id|int64|The destination [steam_inventory_item_id](https://partner.steamgames.com/doc/api/ISteamInventory#SteamItemInstanceID_t) to transfer to|
+|source_item_id|int64|The source [steam_inventory_item_id](https://partner.steamgames.com/doc/api/ISteamInventory#SteamItemInstanceID_t) to transfer from
+@param {real} quantity The quantity of the item that will be transferred
+|dest_item_id|int64|The destination [steam_inventory_item_id](https://partner.steamgames.com/doc/api/ISteamInventory#SteamItemInstanceID_t) to transfer to
 
 
 @returns {real}
 
 @event steam
-|event_type|string|The string value `"inventory_result_ready"`|
-|success|bool|Whether the async action succeeded|
-|result|[InventoryResultStatus](#InventoryResultStatus)|The status code as returned by [steam_inventory_result_get_status](#steam_inventory_result_get_status)|
-|handle|real|The associated async result ID, which can be used to tell apart what result this event is for.|
+@param {string} event_type The string value `"inventory_result_ready"`
+@param {bool} success Whether the async action succeeded
+|result|[InventoryResultStatus](#InventoryResultStatus)|The status code as returned by [steam_inventory_result_get_status](#steam_inventory_result_get_status)
+@param {real} handle The associated async result ID, which can be used to tell apart what result this event is for.
 
 
 ```gml
@@ -684,16 +684,16 @@ This is an asynchronous function that will trigger the [Steam Async Event](https
 > A wrapper around [TriggerItemDrop](https://partner.steamgames.com/doc/api/ISteamInventory#TriggerItemDrop).
 
 
-|item_def|real|This must refer to an item definition of the type "playtimegenerator". See the [inventory schema](https://partner.steamgames.com/doc/features/inventory/schema) for more details.|
+@param {real} item_def This must refer to an item definition of the type "playtimegenerator". See the [inventory schema](https://partner.steamgames.com/doc/features/inventory/schema) for more details.
 
 
 @returns {bool}
 
 @event steam
-|event_type|string|The string value `"inventory_result_ready"`|
-|success|bool|Whether the async action succeeded|
-|result|[InventoryResultStatus](#InventoryResultStatus)|The status code as returned by [steam_inventory_result_get_status](#steam_inventory_result_get_status)|
-|handle|real|The associated async result ID, which can be used to tell apart what result this event is for.|
+@param {string} event_type The string value `"inventory_result_ready"`
+@param {bool} success Whether the async action succeeded
+|result|[InventoryResultStatus](#InventoryResultStatus)|The status code as returned by [steam_inventory_result_get_status](#steam_inventory_result_get_status)
+@param {real} handle The associated async result ID, which can be used to tell apart what result this event is for.
 
 
 ```gml
@@ -729,7 +729,7 @@ This handle is returned by the following functions:
 > A wrapper around [DestroyResult](https://partner.steamgames.com/doc/api/ISteamInventory#DestroyResult).
 
 
-|inv_result|real|The inventory result handle to destroy|
+@param {real} inv_result The inventory result handle to destroy
 
 
 @returns {bool}
@@ -781,9 +781,9 @@ Property names are always composed of ASCII letters, numbers, and/or underscores
 steam_inventory_result_get_item_property(inv_result, item_index, prop_name);
 ```
 
-|inv_result|real|The inventory result handle|
-|item_index|real|Position of the item in the result set|
-|prop_name|string|The property name to get the value for|
+@param {real} inv_result The inventory result handle
+@param {real} item_index Position of the item in the result set
+@param {string} prop_name The property name to get the value for
 
 
 @returns {string}
@@ -839,7 +839,7 @@ Get the items associated with an inventory result handle.
 > A wrapper around [GetResultItems](https://partner.steamgames.com/doc/api/ISteamInventory#GetResultItems).
 
 
-|inv_result|real|The inventory result handle|
+@param {real} inv_result The inventory result handle
 
 
 **Returns:**
@@ -848,11 +848,11 @@ Get the items associated with an inventory result handle.
 Array<Struct>
 ```
 
-|----|----|----|
-|item_id|real|A  representing the item instance|
-|item_def|real|A  representing the item type|
-|quantity|int64|How many of the said item there is in the slot|
-|flags|int64|This is a bit-masked collection of [ESteamItemFlags](https://partner.steamgames.com/doc/api/ISteamInventory#ESteamItemFlags)|
+|----|----|----
+@param {real} item_id A  representing the item instance
+@param {real} item_def A  representing the item type
+|quantity|int64|How many of the said item there is in the slot
+|flags|int64|This is a bit-masked collection of [ESteamItemFlags](https://partner.steamgames.com/doc/api/ISteamInventory#ESteamItemFlags)
 
 
 ```gml
@@ -883,7 +883,7 @@ Returns status code of a result.
 > A wrapper around [GetResultStatus](https://partner.steamgames.com/doc/api/ISteamInventory#GetResultStatus).
 
 
-|inv_result|real|The inventory result handle|
+@param {real} inv_result The inventory result handle
 
 
 @returns {InventoryResultStatus}
@@ -911,7 +911,7 @@ Returns a Unix timestamp for the server time at which the result was generated.
 > A wrapper around [GetResultTimestamp](https://partner.steamgames.com/doc/api/ISteamInventory#GetResultTimestamp).
 
 
-|inv_result|real|The inventory result handle|
+@param {real} inv_result The inventory result handle
 
 
 **Returns:**
@@ -990,9 +990,9 @@ Removes a [dynamic property](https://partner.steamgames.com/doc/features/invento
 steam_inventory_remove_property(handle, item_id, prop_name);
 ```
 
-|handle|real|The update handle returned by [steam_inventory_start_update_properties](#steam_inventory_start_update_properties)|
-|item_id|int64|The [steam_inventory_item_id](https://partner.steamgames.com/doc/api/ISteamInventory#SteamItemInstanceID_t) of the item being modified|
-|prop_name|string|The dynamic property being removed|
+@param {real} handle The update handle returned by [steam_inventory_start_update_properties](#steam_inventory_start_update_properties)
+|item_id|int64|The [steam_inventory_item_id](https://partner.steamgames.com/doc/api/ISteamInventory#SteamItemInstanceID_t) of the item being modified
+@param {string} prop_name The dynamic property being removed
 
 
 @returns {bool}
@@ -1037,9 +1037,9 @@ Sets a [dynamic property](https://partner.steamgames.com/doc/features/inventory/
 steam_inventory_set_property_bool(handle, prop_name, val);
 ```
 
-|handle|real|The update handle corresponding to the transaction request|
-|prop_name|string|The dynamic property being added or updated.|
-|val|bool|value being set.|
+@param {real} handle The update handle corresponding to the transaction request
+@param {string} prop_name The dynamic property being added or updated.
+@param {bool} val value being set.
 
 
 @returns {bool}
@@ -1084,9 +1084,9 @@ Sets a [dynamic property](https://partner.steamgames.com/doc/features/inventory/
 steam_inventory_set_property_float(handle, prop_name, val);
 ```
 
-|handle|real|The update handle corresponding to the transaction request|
-|prop_name|string|The dynamic property being added or updated.|
-|val|real|value being set.|
+@param {real} handle The update handle corresponding to the transaction request
+@param {string} prop_name The dynamic property being added or updated.
+@param {real} val value being set.
 
 
 @returns {bool}
@@ -1131,9 +1131,9 @@ Sets a [dynamic property](https://partner.steamgames.com/doc/features/inventory/
 steam_inventory_set_property_int(handle, prop_name, val);
 ```
 
-|handle|real|The update handle corresponding to the transaction request|
-|prop_name|string|The dynamic property being added or updated.|
-|val|real|value being set.|
+@param {real} handle The update handle corresponding to the transaction request
+@param {string} prop_name The dynamic property being added or updated.
+@param {real} val value being set.
 
 
 @returns {bool}
@@ -1178,9 +1178,9 @@ Sets a [dynamic property](https://partner.steamgames.com/doc/features/inventory/
 steam_inventory_set_property_string(handle, prop_name, val);
 ```
 
-|handle|real|The update handle corresponding to the transaction request|
-|prop_name|string|The dynamic property being added or updated.|
-|val|string|value being set.|
+@param {real} handle The update handle corresponding to the transaction request
+@param {string} prop_name The dynamic property being added or updated.
+@param {string} val value being set.
 
 
 @returns {bool}
@@ -1220,16 +1220,16 @@ These constants represent the status of an inventory result async event, and are
 * [steam_inventory_exchange_items](#steam_inventory_exchange_items)
 * [steam_inventory_get_all_items](#steam_inventory_get_all_items)
 
-|Inventory Result Status Constant|Description|
-|----|----|
-|`steam_inventory_result_status_pending`|Pending|
-|`steam_inventory_result_status_ok`|Ok|
-|`steam_inventory_result_status_expired`|Expired|
-|`steam_inventory_result_status_invalid`|Invalid|
-|`steam_inventory_result_status_fail`|Fail|
-|`steam_inventory_result_status_invalid_param`|Iinvalid|
-|`steam_inventory_result_status_service_unavailable`|Unavailable|
-|`steam_inventory_result_status_limit_exceeded`|Exceeded|
+|Inventory Result Status Constant|Description
+|----|----
+|`steam_inventory_result_status_pending`|Pending
+|`steam_inventory_result_status_ok`|Ok
+|`steam_inventory_result_status_expired`|Expired
+|`steam_inventory_result_status_invalid`|Invalid
+|`steam_inventory_result_status_fail`|Fail
+|`steam_inventory_result_status_invalid_param`|Iinvalid
+|`steam_inventory_result_status_service_unavailable`|Unavailable
+|`steam_inventory_result_status_limit_exceeded`|Exceeded
 
   <br>
 
@@ -1244,8 +1244,8 @@ This struct is used as an argument when performing a call to the following funct
 
 and it contains the following details about an item consumption:
 
-|item_id|int64|A [steam_inventory_item_id](https://partner.steamgames.com/doc/api/ISteamInventory#SteamItemInstanceID_t) of an item to be consumed|
-|quantity|real|How much of the said item is to be consumed|
+|item_id|int64|A [steam_inventory_item_id](https://partner.steamgames.com/doc/api/ISteamInventory#SteamItemInstanceID_t) of an item to be consumed
+@param {real} quantity How much of the said item is to be consumed
 
 
 @func_end
@@ -1260,8 +1260,8 @@ This struct is used as an argument when performing a call to the following funct
 
 and it contains the following details about an item creation/purchase:
 
-|item_def|int64|A [steam_inventory_item_def](https://partner.steamgames.com/doc/api/ISteamInventory#SteamItemDef_t) representing the item type|
-|quantity|real|Number of items of type to be created|
+|item_def|int64|A [steam_inventory_item_def](https://partner.steamgames.com/doc/api/ISteamInventory#SteamItemDef_t) representing the item type
+@param {real} quantity Number of items of type to be created
 
 
 @func_end

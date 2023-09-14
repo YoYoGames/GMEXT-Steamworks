@@ -41,7 +41,7 @@ Copies the contents of last received packet to the given buffer. Data is copied 
 > If the buffer is not big enough to fit data, it will be resized automatically (the buffer needs to be created using the using the `buffer_grow` type).
 
 
-|buffer|Id.Buffer|The buffer to write the incoming data to.|
+@param {Id.Buffer} buffer The buffer to write the incoming data to.
 
 
 @returns {bool}
@@ -146,10 +146,10 @@ Sends a packet to the given endpoint, returns whether successful (as opposed to 
 steam_net_packet_send(user_id, buffer, size, packet_type)
 ```
 
-| **user_id** |int64|The target user to send the packet to|
-| **buffer** |real|Buffer that contains the raw byte array for the packet data to send|
-|size|real|The size of data to send (default -1, sends the entire buffer) :eight_pointed_black_star: OPTIONAL|
-|packet_type|[PacketType](#PacketType)|The type of packet to be used :eight_pointed_black_star: OPTIONAL|
+| **user_id** |int64|The target user to send the packet to
+| **buffer** |real|Buffer that contains the raw byte array for the packet data to send
+@param {real} size The size of data to send (default -1, sends the entire buffer) :eight_pointed_black_star: OPTIONAL
+|packet_type|[PacketType](#PacketType)|The type of packet to be used :eight_pointed_black_star: OPTIONAL
 
 
 @returns {bool}
@@ -170,7 +170,7 @@ The code sample will create a buffer and write to it, sending the total length o
 Set the default connection protocol used when sending the data packets (using the [steam_net_packet_send](#steam_net_packet_send) function). Returns whether or not the default protocol was successfully set.
 
 
-|protocol|[PacketType](#PacketType)|The default connection protocol to be used|
+|protocol|[PacketType](#PacketType)|The default connection protocol to be used
 
 
 @returns {bool}
@@ -195,7 +195,7 @@ Accepts a P2P session request from the specified user. Returns whether successfu
 steam_net_accept_p2p_session(userID);
 ```
 
-|userID|int64|The User ID of the user that sent the initial packet to us.|
+|userID|int64|The User ID of the user that sent the initial packet to us.
 
 
 @returns {bool}
@@ -224,7 +224,7 @@ Steam will automatically close sessions after a period of inactivity, but you co
 steam_net_close_p2p_session(user_id)
 ```
 
-|user_id|int64|The user ID of the user to close the connection with.|
+|user_id|int64|The user ID of the user to close the connection with.
 
 
 @returns {bool}
@@ -252,7 +252,7 @@ Sets whether to auto-accept session requests coming from players in the same lob
 steam_net_set_auto_accept_p2p_sessions(enable);
 ```
 
-|enable|bool|disable/enable auto accept sessions|
+@param {bool} enable disable/enable auto accept sessions
 
 
 
@@ -263,9 +263,9 @@ steam_net_set_auto_accept_p2p_sessions(enable);
 Asynchronous Steam Event (for each request, if disabled)
 ```
 
-|type|string|The string value `"lobby_join_requested"`|
-|lobby_id|int64|The lobby unique identifier|
-|friend_id|int64|The friend unique identifier|
+@param {string} type The string value `"lobby_join_requested"`
+|lobby_id|int64|The lobby unique identifier
+|friend_id|int64|The friend unique identifier
 
 
 ```gml
@@ -287,12 +287,12 @@ if (async_load[?"event_type"] == "lobby_join_requested")
 @func PacketType
 These constants specify the type of a steam packet and should be used with the function [steam_net_packet_set_type](#steam_net_packet_set_type).
 
-|Packet Type Constant|Description|
-|----|----|
-|`steam_net_packet_type_unreliable`|Equivalent to UDP the data may or may not be delivered, will not be resent automatically.|
-|`steam_net_packet_type_unreliable_nodelay`|Similar to "unreliable" type, but always sent instantly (as soon as function is called). Intended for things like streaming voice data, where you want lowest latency possible and only care about the current data.|
-|`steam_net_packet_type_reliable`|Equivalent to TCP, the data is warranted to be delivered in order and intact.|
-|`steam_net_packet_type_reliable_buffer`|Similar to "reliable" type, but utilizes [Nagle's algorithm](https://en.wikipedia.org/wiki/Nagle's_algorithm) to reduce the number of packets at cost of potential delay while the data accumulates until the sending threshold.|
+|Packet Type Constant|Description
+|----|----
+|`steam_net_packet_type_unreliable`|Equivalent to UDP the data may or may not be delivered, will not be resent automatically.
+|`steam_net_packet_type_unreliable_nodelay`|Similar to "unreliable" type, but always sent instantly (as soon as function is called). Intended for things like streaming voice data, where you want lowest latency possible and only care about the current data.
+|`steam_net_packet_type_reliable`|Equivalent to TCP, the data is warranted to be delivered in order and intact.
+|`steam_net_packet_type_reliable_buffer`|Similar to "reliable" type, but utilizes [Nagle's algorithm](https://en.wikipedia.org/wiki/Nagle's_algorithm) to reduce the number of packets at cost of potential delay while the data accumulates until the sending threshold.
 
 
 @func_end

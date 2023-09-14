@@ -69,10 +69,10 @@ The invitation overlay is much akin to the friends-list overlay, but only shows 
 Asynchronous Steam Event (when an invitation is accepted)
 ```
 
-|event_type|string|The string value `"lobby_join_requested"`|
-|lobby_id|int64|The lobby unique identifier|
-|success|bool|Whether or not the task was successful|
-|result|real|The code of the result|
+@param {string} event_type The string value `"lobby_join_requested"`
+|lobby_id|int64|The lobby unique identifier
+@param {bool} success Whether or not the task was successful
+@param {real} result The code of the result
 
 
 ```gml
@@ -95,17 +95,17 @@ This is an asynchronous function that will trigger the [Steam Async Event](https
 steam_lobby_create(type, max_members);
 ```
 
-|type|[LobbyType](#LobbyType)|Constant that indicate the status of the lobby|
-|max_members|real|Indicates the maximum allowed number of users in the lobby (including the lobby's creator)|
+|type|[LobbyType](#LobbyType)|Constant that indicate the status of the lobby
+@param {real} max_members Indicates the maximum allowed number of users in the lobby (including the lobby's creator)
 
 
 @returns {bool}
 
 @event steam
-|event_type|string|The string value `"lobby_created"`|
-|lobby_id|int64|The name of the leaderboard|
-|success|real|Whether or not the request was successful|
-|result|bool|The status code (descriptions can be found in Steam API documentation)|
+@param {string} event_type The string value `"lobby_created"`
+|lobby_id|int64|The name of the leaderboard
+@param {real} success Whether or not the request was successful
+@param {bool} result The status code (descriptions can be found in Steam API documentation)
 
 
 ```gml
@@ -139,8 +139,8 @@ Returns the data of a message sent using [steam_lobby_send_chat_message_buffer](
 steam_lobby_get_chat_message_data(message_index, buffer);
 ```
 
-|message_index|real|The message unique identifier|
-|buffer|Id.Buffer|The buffer to write the data to|
+@param {real} message_index The message unique identifier
+@param {Id.Buffer} buffer The buffer to write the data to
 
 
 @returns {bool}
@@ -159,7 +159,7 @@ The code above will get the current message data and place it into a buffer (res
 Return the size of a message
 
 
-|message_index|real|The argument to be passed in|
+@param {real} message_index The argument to be passed in
 
 
 @returns {real}
@@ -183,7 +183,7 @@ The code above will get the current message size in bytes.
 Return the text of a message.
 
 
-|index|real|Message index|
+@param {real} index Message index
 
 
 @returns {string}
@@ -207,7 +207,7 @@ The code above will get the current message text.
 Returns a lobby field value, as set by [steam_lobby_set_data](#steam_lobby_set_data).
 
 
-|key|string|String representation of the data|
+@param {string} key String representation of the data
 
 
 @returns {string}
@@ -271,7 +271,7 @@ The code sample above will get the total number of member in the current lobby a
 Returns the user ID of the member at the given index in the current lobby.
 
 
-|index|real|Position of the member of the lobby to return|
+@param {real} index Position of the member of the lobby to return
 
 
 **Returns:**
@@ -348,16 +348,16 @@ Starts joining a lobby with the given ID. Returns whether or not the API was cor
 This is an asynchronous function that will trigger the [Steam Async Event](https://manual-en.yoyogames.com/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm) when the task is finished.
 
 
-|lobby_id|int64|Identifier of the lobby|
+|lobby_id|int64|Identifier of the lobby
 
 
 
 
 @event steam
-|event_type|string|The string value `"lobby_joined"`|
-|lobby_id|int64|The lobby unique identifier|
-|success|bool|Whether or not the task was successful|
-|result|real|The code of the result|
+@param {string} event_type The string value `"lobby_joined"`
+|lobby_id|int64|The lobby unique identifier
+@param {bool} success Whether or not the task was successful
+@param {real} result The code of the result
 
 
 ```gml
@@ -406,15 +406,15 @@ The code sample above will make the user leave the current lobby.
 Broadcasts a chat text message to all the users in the lobby.
 
 
-|text|string|The string to be sent (up to 4000 characters)|
+@param {string} text The string to be sent (up to 4000 characters)
 
 
 @returns {bool}
 
 @event steam
-|event_type|string|The string value `"lobby_chat_message"`|
-|user_id|string|The sender unique identifier|
-|message_index|real|The message unique identifier|
+@param {string} event_type The string value `"lobby_chat_message"`
+@param {string} user_id The sender unique identifier
+@param {real} message_index The message unique identifier
 
 
 ```gml
@@ -452,18 +452,18 @@ Broadcasts a chat (text or binary data) message to all the users in the lobby.
 steam_lobby_send_chat_message_buffer(buffer, size);
 ```
 
-|buffer|Id.Buffer|The buffer to be sent (up to 4 Kilobytes in size)|
-|size|real|The amount of byte to be sent (there is no offset).|
+@param {Id.Buffer} buffer The buffer to be sent (up to 4 Kilobytes in size)
+@param {real} size The amount of byte to be sent (there is no offset).
 
 
 @returns {bool}
 
 @event steam
-|event_type|string|The string value `"lobby_chat_message"`|
-|user_id|string|The sender unique identifier|
-|entry_type|real|Type of message received.|
-|message_index|real|The message unique identifier|
-|message_size|real|The size of the message being broadcasted|
+@param {string} event_type The string value `"lobby_chat_message"`
+@param {string} user_id The sender unique identifier
+@param {real} entry_type Type of message received.
+@param {real} message_index The message unique identifier
+@param {real} message_size The size of the message being broadcasted
 
 
 ```gml
@@ -508,8 +508,8 @@ Fields can then be used to filter lobbies via matchmaking functions.
 steam_lobby_set_data(key, value);
 ```
 
-|key|string|The key to set the data for|
-|value|string|The value to set|
+@param {string} key The key to set the data for
+@param {string} value The value to set
 
 
 @returns {bool}
@@ -535,7 +535,7 @@ Sets whether or not a lobby is join-able by other players. This always defaults 
 > Lobbies with joining disabled will not be returned from a lobby search.
 
 
-|joinable|bool|Allow ( **true** ) or prevent ( **false** ) users from joining this lobby|
+@param {bool} joinable Allow ( **true** ) or prevent ( **false** ) users from joining this lobby
 
 
 @returns {bool}
@@ -557,7 +557,7 @@ If you are a lobby owner, transfers the lobby ownership to the specified player,
 > You need to be the lobby owner in order to use the function.
 
 
-|user_id|bool|The user to set as owner of the lobby|
+@param {bool} user_id The user to set as owner of the lobby
 
 
 @returns {bool}
@@ -587,7 +587,7 @@ Changes the lobby&#39;s type. Useful, if you don&#39;t allow mid-session joining
 > You need to be the lobby owner in order to use the function.
 
 
-|type|[LobbyType](#LobbyType)|The lobby visibility|
+|type|[LobbyType](#LobbyType)|The lobby visibility
 
 
 
@@ -605,7 +605,7 @@ The code above will change the lobby joining policy.
 Restricts results by region and sorts them based on geographical proximity.
 
 
-|mode|[LobbyFilterDistanceMode](#LobbyFilterDistanceMode)|Distance filter to be applied|
+|mode|[LobbyFilterDistanceMode](#LobbyFilterDistanceMode)|Distance filter to be applied
 
 
 @returns {bool}
@@ -637,8 +637,8 @@ Sorts the results based on how close their field&#39;s (key)&#39;s value is to t
 steam_lobby_list_add_near_filter(key, value);
 ```
 
-|key|string|The filter key name to match.|
-|value|real|The value that lobbies will be sorted on.|
+@param {string} key The filter key name to match.
+@param {real} value The value that lobbies will be sorted on.
 
 
 @returns {bool}
@@ -670,9 +670,9 @@ Sets up a numeric filter for the next lobby list request. That is, lobbies not m
 steam_lobby_list_add_numerical_filter(key, value, comparison_type)
 ```
 
-|key|string|The filter key name to match|
-|value|real|The number to compare.|
-|comparison_type|[LobbyFilterComparisonType](#LobbyFilterComparisonType)|The type of comparison to make.|
+@param {string} key The filter key name to match
+@param {real} value The number to compare.
+|comparison_type|[LobbyFilterComparisonType](#LobbyFilterComparisonType)|The type of comparison to make.
 
 
 @returns {bool}
@@ -704,9 +704,9 @@ Sets up a string filter for the next lobby list request. That is, lobbies not ma
 steam_lobby_list_add_string_filter(key, value, comparison_type)
 ```
 
-|key|string|The filter key name to match|
-|value|string|The string to compare|
-|comparison_type|[LobbyFilterComparisonType](#LobbyFilterComparisonType)|The type of comparison to make (strings only accepts equal or not equal comparison)|
+@param {string} key The filter key name to match
+@param {string} value The string to compare
+|comparison_type|[LobbyFilterComparisonType](#LobbyFilterComparisonType)|The type of comparison to make (strings only accepts equal or not equal comparison)
 
 
 @returns {bool}
@@ -760,8 +760,8 @@ Gets the metadata associated with the specified key from the specified lobby.
 steam_lobby_list_get_data(lobby_index, key);
 ```
 
-|lobby_index|real|The lobby list index from the queried result.|
-|key|string|The key to get the value of.|
+@param {real} lobby_index The lobby list index from the queried result.
+@param {string} key The key to get the value of.
 
 
 @returns {string}
@@ -789,7 +789,7 @@ Gets the lobby id associated to the index.
 > The argument `lobby_index` is not a lobby id but instead the position of the lobby (from 0 to [steam_lobby_list_get_count](#steam_lobby_list_get_count)) on the query array after a [steam_lobby_list_request](#steam_lobby_list_request) async event is triggered.
 
 
-|lobby_index|real|The lobby index in the current lobby list|
+@param {real} lobby_index The lobby index in the current lobby list
 
 
 **Returns:**
@@ -822,7 +822,7 @@ Gets the number of users in a lobby. ****
 > The argument `lobby_index` is not a lobby id but instead the position of the lobby (from 0 to [steam_lobby_list_get_count](#steam_lobby_list_get_count)) on the query array after a [steam_lobby_list_request](#steam_lobby_list_request) async event is triggered.
 
 
-|lobby_index|real|The lobby ID of the lobby to get the number of members of.|
+@param {real} lobby_index The lobby ID of the lobby to get the number of members of.
 
 
 @returns {real}
@@ -850,8 +850,8 @@ Gets the Steam ID of the lobby member at the given index.
 steam_lobby_list_get_lobby_member_id(lobby_index, member_index);
 ```
 
-|lobby_index|real|This MUST be an index ranging from 0 to [steam_lobby_list_get_count](#steam_lobby_list_get_count)|
-|member_index|real|This MUST be an index ranging from 0 to [steam_lobby_list_get_lobby_member_count](#steam_lobby_list_get_lobby_member_count) of the lobby index|
+@param {real} lobby_index This MUST be an index ranging from 0 to [steam_lobby_list_get_count](#steam_lobby_list_get_count)
+@param {real} member_index This MUST be an index ranging from 0 to [steam_lobby_list_get_lobby_member_count](#steam_lobby_list_get_lobby_member_count) of the lobby index
 
 
 **Returns:**
@@ -883,7 +883,7 @@ Returns the current lobby owner.
 > The argument `lobby_index` is not a lobby id but instead the position of the lobby (from 0 to [steam_lobby_list_get_count](#steam_lobby_list_get_count)) on the query array after a [steam_lobby_list_request](#steam_lobby_list_request) async event is triggered.
 
 
-|index|real|The lobby index from the lobby list request result|
+@param {real} index The lobby index from the lobby list request result
 
 
 **Returns:**
@@ -929,16 +929,16 @@ Starts joining a lobby with the given ID.
 This is an asynchronous function that will trigger the [Steam Async Event](https://manual-en.yoyogames.com/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm) when the task is finished.
 
 
-|index|Real|Position of the lobby in the list|
+@param {Real} index Position of the lobby in the list
 
 
 
 
 @event steam
-|event_type|string|The string value `"lobby_joined"`|
-|lobby_id|int64|The lobby unique identifier|
-|success|bool|Whether or not the task was successful|
-|result|real|The code of the result|
+@param {string} event_type The string value `"lobby_joined"`
+|lobby_id|int64|The lobby unique identifier
+@param {bool} success Whether or not the task was successful
+@param {real} result The code of the result
 
 
 ```gml
@@ -967,10 +967,10 @@ This is an asynchronous function that will trigger the [Steam Async Event](https
 
 
 @event steam
-|event_type|string|The string value `"lobby_list"`|
-|lobby_count|int64|The number of lobbies in retrieved (same as [steam_lobby_list_get_count](#steam_lobby_list_get_count))|
-|success|bool|Whether or not the task was successful|
-|result|real|The code of the result|
+@param {string} event_type The string value `"lobby_list"`
+|lobby_count|int64|The number of lobbies in retrieved (same as [steam_lobby_list_get_count](#steam_lobby_list_get_count))
+@param {bool} success Whether or not the task was successful
+@param {real} result The code of the result
 
 
 ```gml
@@ -1012,14 +1012,14 @@ These constants specify the comparison type when applying a filter to a lobby li
 * [steam_lobby_list_add_numerical_filter](#steam_lobby_list_add_numerical_filter)
 * [steam_lobby_list_add_string_filter](#steam_lobby_list_add_string_filter)
 
-|Lobby Filter Comparison Type Constant|Description|
-|----|----|
-|`steam_lobby_list_filter_eq`|Equal (==).|
-|`steam_lobby_list_filter_ne`|Not-equal (!=)|
-|`steam_lobby_list_filter_lt`|Less-than (<), only applies to [steam_lobby_list_add_numerical_filter](#steam_lobby_list_add_numerical_filter)|
-|`steam_lobby_list_filter_gt`|Greater-than (>), only applies to [steam_lobby_list_add_numerical_filter](#steam_lobby_list_add_numerical_filter)|
-|`steam_lobby_list_filter_le`|Less-than-or-equal (<=), only applies to [steam_lobby_list_add_numerical_filter](#steam_lobby_list_add_numerical_filter)|
-|`steam_lobby_list_filter_ge`|Greater-than-or-equal (>=), only applies to [steam_lobby_list_add_numerical_filter](#steam_lobby_list_add_numerical_filter)|
+|Lobby Filter Comparison Type Constant|Description
+|----|----
+|`steam_lobby_list_filter_eq`|Equal (==).
+|`steam_lobby_list_filter_ne`|Not-equal (!=)
+|`steam_lobby_list_filter_lt`|Less-than (<), only applies to [steam_lobby_list_add_numerical_filter](#steam_lobby_list_add_numerical_filter)
+|`steam_lobby_list_filter_gt`|Greater-than (>), only applies to [steam_lobby_list_add_numerical_filter](#steam_lobby_list_add_numerical_filter)
+|`steam_lobby_list_filter_le`|Less-than-or-equal (<=), only applies to [steam_lobby_list_add_numerical_filter](#steam_lobby_list_add_numerical_filter)
+|`steam_lobby_list_filter_ge`|Greater-than-or-equal (>=), only applies to [steam_lobby_list_add_numerical_filter](#steam_lobby_list_add_numerical_filter)
 
 
 @func_end
@@ -1028,12 +1028,12 @@ These constants specify the comparison type when applying a filter to a lobby li
 @func LobbyFilterDistanceMode
 These constants specify the distance mode to be used when applying a filter to a lobby list request by calling the [steam_lobby_list_add_distance_filter](#steam_lobby_list_add_distance_filter) function.
 
-|Constant|Description|
-|----|----|
-|`steam_lobby_list_distance_filter_close`|Only allows lobbies in same immediate region|
-|`steam_lobby_list_distance_filter_default`|Allows lobbies in same or nearby regions (same continent)|
-|`steam_lobby_list_distance_filter_far`|Allows lobbies from up to half-way around the globe (nearby continents)|
-|`steam_lobby_list_distance_filter_worldwide`|Allows any lobbies. May result in very high latencies, so use with care|
+@param {Description} Constant 
+|----|----
+|`steam_lobby_list_distance_filter_close`|Only allows lobbies in same immediate region
+|`steam_lobby_list_distance_filter_default`|Allows lobbies in same or nearby regions (same continent)
+|`steam_lobby_list_distance_filter_far`|Allows lobbies from up to half-way around the globe (nearby continents)
+|`steam_lobby_list_distance_filter_worldwide`|Allows any lobbies. May result in very high latencies, so use with care
 
 
 @func_end
@@ -1042,11 +1042,11 @@ These constants specify the distance mode to be used when applying a filter to a
 @func LobbyType
 These constants specify the type of lobby should be used creating a new lobby using the [steam_lobby_create](#steam_lobby_create) function.
 
-|Lobby Type Constant|Description|
-|----|----|
-|`steam_lobby_type_private`|The lobby can only be joined by invitation|
-|`steam_lobby_type_friends_only`|The lobby can be joined by invitation or via friends-list (by opening the user's menu and picking "Join game")|
-|`steam_lobby_type_public`|The lobby can be joined by invitation, via friends-list and shows up in the public list (see matchmaking functions)|
+|Lobby Type Constant|Description
+|----|----
+|`steam_lobby_type_private`|The lobby can only be joined by invitation
+|`steam_lobby_type_friends_only`|The lobby can be joined by invitation or via friends-list (by opening the user's menu and picking "Join game")
+|`steam_lobby_type_public`|The lobby can be joined by invitation, via friends-list and shows up in the public list (see matchmaking functions)
 
 
 @func_end

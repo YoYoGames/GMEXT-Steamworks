@@ -150,9 +150,9 @@ With this function you can upload a screenshot to the Steam Community profile pa
 steam_send_screenshot(filename, width, height);
 ```
 
-|filename|string|The name of the image file to upload.|
-|width|real|The width of the image.|
-|height|real|The height of the image.|
+@param {string} filename The name of the image file to upload.
+@param {real} width The width of the image.
+@param {real} height The height of the image.
 
 
 @returns {Real}
@@ -184,18 +184,18 @@ This is an asynchronous function that will return an asynchronous id and trigger
 steam_ugc_create_item(consumer_app_id, file_type);
 ```
 
-|consumer_app_id|integer|The unique App ID for your game on Steam.|
-|file_type|constant.UGCFileType|One of the available file type constants (see [UGCFileType](#UGCFileType) constants).|
+@param {integer} consumer_app_id The unique App ID for your game on Steam.
+@param {constant.UGCFileType} file_type One of the available file type constants (see [UGCFileType](#UGCFileType) constants).
 
 
 @returns {Real}
 
 @event steam
-|id|real|The asynchronous request ID|
-|event_type|string|The string value `"ugc_create_item"`|
-|result|real|This will either be the GML constant `ugc_result_success` or some other real number (see the[Steam docs](https://partner.steamgames.com/doc/api/steam_api#EResult), for more details)|
-|legal_agreement_required|bool|Will be `true` or `false` (see the [Steam docs](https://partner.steamgames.com/documentation/ugc#Legal) for more details)|
-|published_file_id|int64|This key holds the unique published ID for the item (you may need to cast it using the [int64()](E:\Source\YoYoExtensionDocumentation\YoYoExtensionDocumentation_RoboHelp\contents\Variable_Functions\int64.htm) function)|
+@param {real} id The asynchronous request ID
+@param {string} event_type The string value `"ugc_create_item"`
+@param {real} result This will either be the GML constant `ugc_result_success` or some other real number (see the[Steam docs](https://partner.steamgames.com/doc/api/steam_api#EResult), for more details)
+@param {bool} legal_agreement_required Will be `true` or `false` (see the [Steam docs](https://partner.steamgames.com/documentation/ugc#Legal) for more details)
+|published_file_id|int64|This key holds the unique published ID for the item (you may need to cast it using the [int64()](E:\Source\YoYoExtensionDocumentation\YoYoExtensionDocumentation_RoboHelp\contents\Variable_Functions\int64.htm) function)
 
 
 @example
@@ -234,15 +234,15 @@ This function attempts to delete a previously published UGC item.
 This is an asynchronous function that will return an asynchronous id and trigger the [Steam Async Event](https://manual-en.yoyogames.com/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm) when the task is finished.
 
 
-|ugc_query_handle|real|The query handle to use.|
+@param {real} ugc_query_handle The query handle to use.
 
 
 @returns {Real}
 
 @event steam
-|id|real|The asynchronous request ID|
-|event_type|string|The string value `"ugc_item_delete"`|
-|result|real|This will either be the GML constant `ugc_result_success` or some other real number (see the[Steam docs](https://partner.steamgames.com/doc/api/steam_api#EResult), for more details)|
+@param {real} id The asynchronous request ID
+@param {string} event_type The string value `"ugc_item_delete"`
+@param {real} result This will either be the GML constant `ugc_result_success` or some other real number (see the[Steam docs](https://partner.steamgames.com/doc/api/steam_api#EResult), for more details)
 
 
 ```gml
@@ -264,8 +264,8 @@ This function must be called before adding or updating information on a UGC item
 steam_ugc_start_item_update(consumer_app_id, published_file_id);
 ```
 
-|consumer_app_id|real|The unique App ID for your game on Steam.|
-|published_file_id|int64|The unique published file ID value for the item.|
+@param {real} consumer_app_id The unique App ID for your game on Steam.
+|published_file_id|int64|The unique published file ID value for the item.
 
 
 @returns {Real}
@@ -302,8 +302,8 @@ The function will return `true` if the API was successfully accessed and `false`
 steam_ugc_set_item_title(ugc_update_handle, title);
 ```
 
-|ugc_update_handle|real|The unique handle for the UGC to be updated (returned from [steam_ugc_start_item_update](#steam_ugc_start_item_update))|
-|title|string|The title (max 128 characters) to be used for the item.|
+@param {real} ugc_update_handle The unique handle for the UGC to be updated (returned from [steam_ugc_start_item_update](#steam_ugc_start_item_update))
+@param {string} title The title (max 128 characters) to be used for the item.
 
 
 @returns {Bool}
@@ -340,8 +340,8 @@ The function will return `true` if the API was successfully accessed and `false`
 steam_ugc_set_item_description(ugc_update_handle, description);
 ```
 
-|ugc_update_handle|real|The unique handle for the UGC to be updated (returned from [steam_ugc_start_item_update](#steam_ugc_start_item_update))|
-|description|string|The description (max 8000 characters) to be used for the item.|
+@param {real} ugc_update_handle The unique handle for the UGC to be updated (returned from [steam_ugc_start_item_update](#steam_ugc_start_item_update))
+@param {string} description The description (max 8000 characters) to be used for the item.
 
 
 @returns {Bool}
@@ -378,8 +378,8 @@ The function will return `true` if the API was successfully accessed and `false`
 steam_ugc_set_item_visibility(ugc_update_handle, visibility);
 ```
 
-|ugc_update_handle|real|The unique handle for the UGC to be updated (returned from [steam_ugc_start_item_update](#steam_ugc_start_item_update))|
-|visibility|constant.UGCFileVisibility|The visibility to be used for the item (see [UGCFileVisibility](#UGCFileVisibility) constant)|
+@param {real} ugc_update_handle The unique handle for the UGC to be updated (returned from [steam_ugc_start_item_update](#steam_ugc_start_item_update))
+@param {constant.UGCFileVisibility} visibility The visibility to be used for the item (see [UGCFileVisibility](#UGCFileVisibility) constant)
 
 
 @returns {Bool}
@@ -421,8 +421,8 @@ The function will return `true` if the API was successfully accessed and `false`
 steam_ugc_set_item_tags(ugc_update_handle, tags);
 ```
 
-|ugc_update_handle|real|The unique handle for the UGC to be updated (returned from [steam_ugc_start_item_update](#steam_ugc_start_item_update))|
-|tags|string|The tags (as an string json array) to be used for the item.|
+@param {real} ugc_update_handle The unique handle for the UGC to be updated (returned from [steam_ugc_start_item_update](#steam_ugc_start_item_update))
+@param {string} tags The tags (as an string json array) to be used for the item.
 
 
 @returns {Bool}
@@ -459,8 +459,8 @@ The function will return `true` if the API was successfully accessed and `false`
 steam_ugc_set_item_content(ugc_update_handle, content);
 ```
 
-|ugc_update_handle|real|The unique handle for the UGC to be updated (returned from [steam_ugc_start_item_update](#steam_ugc_start_item_update))|
-|content|string|The content path to be used for the item|
+@param {real} ugc_update_handle The unique handle for the UGC to be updated (returned from [steam_ugc_start_item_update](#steam_ugc_start_item_update))
+@param {string} content The content path to be used for the item
 
 
 @returns {Bool}
@@ -497,8 +497,8 @@ The function will return `true` if the API was successfully accessed and `false`
 steam_ugc_set_item_preview(ugc_update_handle, preview);
 ```
 
-|ugc_update_handle|real|The unique handle for the UGC to be updated (returned from [steam_ugc_start_item_update](#steam_ugc_start_item_update))|
-|preview|string|The preview image (JPG, GIF or PNG - max size 1MB) to be used for the item.|
+@param {real} ugc_update_handle The unique handle for the UGC to be updated (returned from [steam_ugc_start_item_update](#steam_ugc_start_item_update))
+@param {string} preview The preview image (JPG, GIF or PNG - max size 1MB) to be used for the item.
 
 
 @returns {Bool}
@@ -535,17 +535,17 @@ This is an asynchronous function that will return an asynchronous id and trigger
 steam_ugc_submit_item_update(ugc_update_handle, change_note);
 ```
 
-|ugc_update_handle|real|The unique handle for the UGC to be updated (returned from [steam_ugc_start_item_update](#steam_ugc_start_item_update))|
-|change_note|string|The change notes to be used for the item.|
+@param {real} ugc_update_handle The unique handle for the UGC to be updated (returned from [steam_ugc_start_item_update](#steam_ugc_start_item_update))
+@param {string} change_note The change notes to be used for the item.
 
 
 @returns {Real}
 
 @event steam
-|id|real|The asynchronous request ID|
-|event_type|string|The string value `"ugc_update_item"`|
-|result|real|This will either be the GML constant `ugc_result_success` or some other real number (see the[Steam docs](https://partner.steamgames.com/doc/api/steam_api#EResult), for more details)|
-|legal_agreement_required|bool|Will be `true` or `false` (see the [Steam docs](https://partner.steamgames.com/documentation/ugc#Legal) for more details)|
+@param {real} id The asynchronous request ID
+@param {string} event_type The string value `"ugc_update_item"`
+@param {real} result This will either be the GML constant `ugc_result_success` or some other real number (see the[Steam docs](https://partner.steamgames.com/doc/api/steam_api#EResult), for more details)
+@param {bool} legal_agreement_required Will be `true` or `false` (see the [Steam docs](https://partner.steamgames.com/documentation/ugc#Legal) for more details)
 
 
 ```gml
@@ -580,13 +580,13 @@ The above code gets the game ID, then uses that along with a previously stored p
 steam_ugc_get_item_update_progress(ugc_update_handle, info_map);
 ```
 
-|ugc_update_handle|integer|The unique handle for the UGC to be updated.|
-|info_map|DS Map ID|A (previously created) [DS map](https://manual.yoyogames.com/GameMaker_Language/GML_Reference/Data_Structures/DS_Maps/DS_Maps.htm) index.|
+@param {integer} ugc_update_handle The unique handle for the UGC to be updated.
+|info_map|DS Map ID|A (previously created) [DS map](https://manual.yoyogames.com/GameMaker_Language/GML_Reference/Data_Structures/DS_Maps/DS_Maps.htm) index.
 
-|status_code|real|The Steam status code|
-|status_string|string|A string for the current status|
-|bytes_processed|real|The bytes processed so far|
-|bytes_total|real|The total number of bytes in the update|
+@param {real} status_code The Steam status code
+@param {string} status_string A string for the current status
+@param {real} bytes_processed The bytes processed so far
+@param {real} bytes_total The total number of bytes in the update
 
 
 @returns {Bool}
@@ -626,16 +626,16 @@ This function can be used to subscribe to a UGC item.
 This is an asynchronous function that will return an asynchronous id and trigger the [Steam Async Event](https://manual-en.yoyogames.com/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm) when the task is finished.
 
 
-|published_file_id|int64|The unique file ID for the UGC to subscribe to.|
+|published_file_id|int64|The unique file ID for the UGC to subscribe to.
 
 
 @returns {Real}
 
 @event steam
-|id|real|The asynchronous request ID|
-|event_type|string|The string value `"ugc_subscribe_item"`|
-|result|real|This will either be the GML constant `ugc_result_success` or some other real number (see the[Steam docs](https://partner.steamgames.com/doc/api/steam_api#EResult), for more details)|
-|published_file_id|int64|This key holds the unique published ID for the item (you may need to cast it using the [int64](https://manual.yoyogames.com/GameMaker_Language/GML_Reference/Variable_Functions/int64.htm) function, before passing it to subsequent functions)|
+@param {real} id The asynchronous request ID
+@param {string} event_type The string value `"ugc_subscribe_item"`
+@param {real} result This will either be the GML constant `ugc_result_success` or some other real number (see the[Steam docs](https://partner.steamgames.com/doc/api/steam_api#EResult), for more details)
+|published_file_id|int64|This key holds the unique published ID for the item (you may need to cast it using the [int64](https://manual.yoyogames.com/GameMaker_Language/GML_Reference/Variable_Functions/int64.htm) function, before passing it to subsequent functions)
 
 
 ```gml
@@ -653,16 +653,16 @@ This function can be used to unsubscribe from a UGC item.
 This is an asynchronous function that will return an asynchronous id and trigger the [Steam Async Event](https://manual-en.yoyogames.com/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm) when the task is finished.
 
 
-|published_file_id|int64|The unique file ID for the UGC to unsubscribe from.|
+|published_file_id|int64|The unique file ID for the UGC to unsubscribe from.
 
 
 @returns {Real}
 
 @event steam
-|id|real|The asynchronous request ID|
-|event_type|string|The string value `"ugc_unsubscribe_item"`|
-|result|real|This will either be the GML constant `ugc_result_success` or some other real number (see the[Steam docs](https://partner.steamgames.com/doc/api/steam_api#EResult), for more details)|
-|published_file_id|int64|This key holds the unique published ID for the item (you may need to cast it using the [int64](https://manual.yoyogames.com/GameMaker_Language/GML_Reference/Variable_Functions/int64.htm) function)|
+@param {real} id The asynchronous request ID
+@param {string} event_type The string value `"ugc_unsubscribe_item"`
+@param {real} result This will either be the GML constant `ugc_result_success` or some other real number (see the[Steam docs](https://partner.steamgames.com/doc/api/steam_api#EResult), for more details)
+|published_file_id|int64|This key holds the unique published ID for the item (you may need to cast it using the [int64](https://manual.yoyogames.com/GameMaker_Language/GML_Reference/Variable_Functions/int64.htm) function)
 
 
 ```gml
@@ -698,7 +698,7 @@ The above code will store the number of subscribed items in a variable.
     The function will return ```true` if everything is correct and the Steam API is initialized, or `false` if there is an error.
 
 
-|item_list|DS List ID|A (previously created) [DS list](https://manual.yoyogames.com/GameMaker_Language/GML_Reference/Data_Structures/DS_Lists/DS_Lists.htm) index.|
+|item_list|DS List ID|A (previously created) [DS list](https://manual.yoyogames.com/GameMaker_Language/GML_Reference/Data_Structures/DS_Lists/DS_Lists.htm) index.
 
 
 @returns {Bool}
@@ -724,12 +724,12 @@ steam_ugc_get_subscribed_items(steam_list);
 steam_ugc_get_item_install_info(published_file_id, info_map);
 ```
 
-|published_file_id|int64|The unique handle for the UGC to be updated.|
-|info_map|DS Map ID|A (previously created) DS map index.|
+|published_file_id|int64|The unique handle for the UGC to be updated.
+|info_map|DS Map ID|A (previously created) DS map index.
 
-|size_on_disk|real|The file size on disk (in bytes)|
-|legacy_item|bool|Will be `true` or `false` depending on whether it is a legacy file or not|
-|folder|string|This is the full path to the installed content ( please refer to "Item Installation" in Steam SDK docs, as "legacy" items uploaded with the old method, are treated differently)|
+@param {real} size_on_disk The file size on disk (in bytes)
+@param {bool} legacy_item Will be `true` or `false` depending on whether it is a legacy file or not
+@param {string} folder This is the full path to the installed content ( please refer to "Item Installation" in Steam SDK docs, as "legacy" items uploaded with the old method, are treated differently)
 
 
 @returns {Bool}
@@ -755,13 +755,13 @@ steam_ugc_get_item_install_info(global.fileID, item_map);
 steam_ugc_get_item_update_info(published_file_id, info_map);
 ```
 
-|published_file_id|int64|The unique file ID for the UGC to be checked.|
-|info_map|DS Map ID|A (previously created) DS map index.|
+|published_file_id|int64|The unique file ID for the UGC to be checked.
+|info_map|DS Map ID|A (previously created) DS map index.
 
-|needs_update|bool|Whether the item needs an update or not|
-|is_downloading|bool|Whether the item is currently downloading or not|
-|bytes_downloaded|real|The number of bytes that has been downloaded|
-|bytes_total|real|The total size (number of bytes) required for the item on disk|
+@param {bool} needs_update Whether the item needs an update or not
+@param {bool} is_downloading Whether the item is currently downloading or not
+@param {real} bytes_downloaded The number of bytes that has been downloaded
+@param {real} bytes_total The total size (number of bytes) required for the item on disk
 
 
 @returns {Bool}
@@ -801,42 +801,42 @@ This is an asynchronous function that will return an asynchronous id and trigger
 steam_ugc_request_item_details(published_file_id, max_age_seconds);
 ```
 
-|published_file_id|real|The unique file ID for the UGC to be checked.|
-|max_age_seconds|real|The age of the data to check (recommended 30 - 60 seconds).|
+@param {real} published_file_id The unique file ID for the UGC to be checked.
+@param {real} max_age_seconds The age of the data to check (recommended 30 - 60 seconds).
 
 
 @returns {Real}
 
 @event steam
-|id|real|The asynchronous request ID|
-|event_type|string|The string value `"ugc_item_details"`|
-|result|real|This will either be the GML constant `ugc_result_success` or some other real number (see the[Steam docs](https://partner.steamgames.com/doc/api/steam_api#EResult), for more details)|
-|cached_data|bool|Will be `true` if the returned details are from the local cache or `false` if they are taken from the server|
-|published_file_id|int64|This key holds the unique published ID for the item (you may need to cast it using the [int64](https://manual.yoyogames.com/GameMaker_Language/GML_Reference/Variable_Functions/int64.htm) function)|
-|file_type|string|The type of file used|
-|creator_app_id|real|The Steam ID of the item creator|
-|consumer_app_id|real|The Steam ID of the item consumer|
-|title|string|The title of the item|
-|description|string|The description of the item|
-|steam_id_owner|real|The Steam ID of the item owner|
-|time_created|real|The time the item was first created|
-|time_uploaded|real|The last time the item was updated|
-|time_added_to_user_list|real|The time that the item was subscribed to|
-|visibility|constant.UGCFileVisibility|The visibility of the item (see [UGCFileVisibility](#UGCFileVisibility) constant)|
-|banned|bool|Whether the item has been banned or not|
-|accepted_for_use|bool|Whether the item has been accepted for use or not|
-|tags_truncated|array|Short version of the tags as an array|
-|tags|Array\<String>|An array of the tags for the item|
-|handle_file|int64|The unique file handle for the item|
-|handle_preview_file|int64|The unique handle for the image preview for the item (can be used with [steam_ugc_download](#steam_ugc_download) to download a preview image)|
-|filename|string|The name of the item file|
-|file_size|real|The size of the item file|
-|preview_file_size|real|The size of the preview image|
-|url|string|The full URL for the item|
-|up_votes|real|The number of up-votes received|
-|down_votes|real|The number of down-votes received|
-|score|real|The overall score of the item|
-|account_id_owner|real|The account ID from the Steam ID owner (this can be used in function [steam_ugc_create_query_user_ex](#steam_ugc_create_query_user_ex))|
+@param {real} id The asynchronous request ID
+@param {string} event_type The string value `"ugc_item_details"`
+@param {real} result This will either be the GML constant `ugc_result_success` or some other real number (see the[Steam docs](https://partner.steamgames.com/doc/api/steam_api#EResult), for more details)
+@param {bool} cached_data Will be `true` if the returned details are from the local cache or `false` if they are taken from the server
+|published_file_id|int64|This key holds the unique published ID for the item (you may need to cast it using the [int64](https://manual.yoyogames.com/GameMaker_Language/GML_Reference/Variable_Functions/int64.htm) function)
+@param {string} file_type The type of file used
+@param {real} creator_app_id The Steam ID of the item creator
+@param {real} consumer_app_id The Steam ID of the item consumer
+@param {string} title The title of the item
+@param {string} description The description of the item
+@param {real} steam_id_owner The Steam ID of the item owner
+@param {real} time_created The time the item was first created
+@param {real} time_uploaded The last time the item was updated
+@param {real} time_added_to_user_list The time that the item was subscribed to
+@param {constant.UGCFileVisibility} visibility The visibility of the item (see [UGCFileVisibility](#UGCFileVisibility) constant)
+@param {bool} banned Whether the item has been banned or not
+@param {bool} accepted_for_use Whether the item has been accepted for use or not
+@param {array} tags_truncated Short version of the tags as an array
+|tags|Array\<String>|An array of the tags for the item
+|handle_file|int64|The unique file handle for the item
+|handle_preview_file|int64|The unique handle for the image preview for the item (can be used with [steam_ugc_download](#steam_ugc_download) to download a preview image)
+@param {string} filename The name of the item file
+@param {real} file_size The size of the item file
+@param {real} preview_file_size The size of the preview image
+@param {string} url The full URL for the item
+@param {real} up_votes The number of up-votes received
+@param {real} down_votes The number of down-votes received
+@param {real} score The overall score of the item
+@param {real} account_id_owner The account ID from the Steam ID owner (this can be used in function [steam_ugc_create_query_user_ex](#steam_ugc_create_query_user_ex))
 
 
 @example
@@ -879,10 +879,10 @@ The function returns a unique query handle value which should be stored in a var
 steam_ugc_create_query_user(list_type, match_type, sort_order, page);
 ```
 
-|list_type|constant.UGCListType|The type of data list to create (see [UGCListType](#UGCListType) constants)|
-|match_type|constant.UGCMatchType|The type of UGC items to query (see [UGCMatchType](#UGCMatchType) constants)|
-|sort_order|constant.UGCListSortOrder|The way that data should be ordered (see [UGCListSortOrder](#UGCListSortOrder) constants)|
-|page|real|The page number to query.|
+@param {constant.UGCListType} list_type The type of data list to create (see [UGCListType](#UGCListType) constants)
+@param {constant.UGCMatchType} match_type The type of UGC items to query (see [UGCMatchType](#UGCMatchType) constants)
+@param {constant.UGCListSortOrder} sort_order The way that data should be ordered (see [UGCListSortOrder](#UGCListSortOrder) constants)
+@param {real} page The page number to query.
 
 
 @returns {Real}
@@ -938,13 +938,13 @@ The function returns a unique query handle value which should be stored in a var
 steam_ugc_create_query_user_ex(list_type, match_type, sort_order, page, account_id, creator_app_id, consumer_app_id);
 ```
 
-|list_type|constant.UGCListType|The type of data list to create (see [UGCListType](#UGCListType) constants)|
-|match_type|constant.UGCMatchType|The type of UGC items to query (see [UGCMatchType](#UGCMatchType) constants)|
-|sort_order|constant.UGCListSortOrder|The way that data should be ordered (see [UGCListSortOrder](#UGCListSortOrder) constants)|
-|page|real|The page number to query|
-|account_id|real|The Steam account ID|
-|creator_app_id|real|The item creator app ID|
-|consumer_app_id|real|The consumer app ID|
+@param {constant.UGCListType} list_type The type of data list to create (see [UGCListType](#UGCListType) constants)
+@param {constant.UGCMatchType} match_type The type of UGC items to query (see [UGCMatchType](#UGCMatchType) constants)
+@param {constant.UGCListSortOrder} sort_order The way that data should be ordered (see [UGCListSortOrder](#UGCListSortOrder) constants)
+@param {real} page The page number to query
+@param {real} account_id The Steam account ID
+@param {real} creator_app_id The item creator app ID
+@param {real} consumer_app_id The consumer app ID
 
 
 @returns {Real}
@@ -1000,9 +1000,9 @@ The function returns a unique query handle value which should be stored in a var
 steam_ugc_create_query_all(query_type, match_type, page);
 ```
 
-|query_type|constant.UGCQueryType|The type of query to create (see [UGCQueryType](#UGCQueryType) constants)|
-|match_type|constant.UGCMatchType|The type of UGC items to query (see [UGCMatchType](#UGCMatchType) constants)|
-|page|real|The page number to query|
+@param {constant.UGCQueryType} query_type The type of query to create (see [UGCQueryType](#UGCQueryType) constants)
+@param {constant.UGCMatchType} match_type The type of UGC items to query (see [UGCMatchType](#UGCMatchType) constants)
+@param {real} page The page number to query
 
 
 @returns {Real}
@@ -1054,11 +1054,11 @@ The function returns a unique query handle value which should be stored in a var
 steam_ugc_create_query_all_ex(query_type, match_type, page, creator_app_id, consumer_app_id);
 ```
 
-|query_type|constant.UGCQueryType|The type of query to create (see [UGCQueryType](#UGCQueryType) constants)|
-|match_type|constant.UGCMatchType|The type of UGC items to query (see  [UGCMatchType](#UGCMatchType) constants)|
-|page|real|The page number to query|
-|creator_app_id|integer|The item creator app ID|
-|consumer_app_id|integer|The consumer app ID|
+@param {constant.UGCQueryType} query_type The type of query to create (see [UGCQueryType](#UGCQueryType) constants)
+@param {constant.UGCMatchType} match_type The type of UGC items to query (see  [UGCMatchType](#UGCMatchType) constants)
+@param {real} page The page number to query
+@param {integer} creator_app_id The item creator app ID
+@param {integer} consumer_app_id The consumer app ID
 
 
 @returns {Real}
@@ -1110,8 +1110,8 @@ The function will return `true` if the query filter was correctly set, or `false
 steam_ugc_query_set_cloud_filename_filter(ugc_query_handle, should_match);
 ```
 
-|ugc_query_handle|integer|The query handle to use.|
-|match_cloud_filename|bool|Sets whether the UGC item file name should match or not.|
+@param {integer} ugc_query_handle The query handle to use.
+@param {bool} match_cloud_filename Sets whether the UGC item file name should match or not.
 
 
 @returns {Bool}
@@ -1142,8 +1142,8 @@ The function will return `true` if the query filter was correctly set, or `false
 steam_ugc_query_set_match_any_tag(ugc_query_handle, match_any_tag);
 ```
 
-|ugc_query_handle|integer|The query handle to use.|
-|match_any_tag|bool|Sets whether the UGC item tags should match anything or not.|
+@param {integer} ugc_query_handle The query handle to use.
+@param {bool} match_any_tag Sets whether the UGC item tags should match anything or not.
 
 
 @returns {Bool}
@@ -1174,8 +1174,8 @@ The function will return `true` if the query filter was correctly set, or `false
 steam_ugc_query_set_search_text(ugc_query_handle , search_text);
 ```
 
-|ugc_query_handle|real|The query handle to use.|
-|search_text|string|The search text to use for the query.|
+@param {real} ugc_query_handle The query handle to use.
+@param {string} search_text The search text to use for the query.
 
 
 @returns {Bool}
@@ -1205,8 +1205,8 @@ The function will return `true` if the query filter was correctly set, or `false
 steam_ugc_query_set_ranked_by_trend_days(ugc_query_handle, days);
 ```
 
-|ugc_query_handle|real|The query handle to use.|
-|days|real|The number of days to query.|
+@param {real} ugc_query_handle The query handle to use.
+@param {real} days The number of days to query.
 
 
 @returns {Bool}
@@ -1236,8 +1236,8 @@ The function will return `true` if the query filter was correctly set, or `false
 steam_ugc_query_add_required_tag(ugc_query_handle, tag_name);
 ```
 
-|ugc_query_handle|integer|The query handle to use.|
-|tag_name|string|The tag name to include.|
+@param {integer} ugc_query_handle The query handle to use.
+@param {string} tag_name The tag name to include.
 
 
 @returns {Bool}
@@ -1267,8 +1267,8 @@ The function will return `true` if the query filter was correctly set, or `false
 steam_ugc_query_add_excluded_tag(ugc_query_handle, tag_name);
 ```
 
-|ugc_query_handle|integer|The query handle to use.|
-|tag_name|string|The tag name to exclude.|
+@param {integer} ugc_query_handle The query handle to use.
+@param {string} tag_name The tag name to exclude.
 
 
 @returns {Bool}
@@ -1298,8 +1298,8 @@ The function will return `true` if the query filter was correctly set, or `false
 steam_ugc_query_set_return_long_description(ugc_query_handle, should_return);
 ```
 
-|ugc_query_handle|real|The query handle to use.|
-|long_description|bool|Whether to have the query return the long description text.|
+@param {real} ugc_query_handle The query handle to use.
+@param {bool} long_description Whether to have the query return the long description text.
 
 
 @returns {Bool}
@@ -1328,8 +1328,8 @@ The function will return `true` if the query filter was correctly set, or `false
 steam_ugc_query_set_return_total_only(ugc_query_handle , total_only);
 ```
 
-|ugc_query_handle|real|The query handle to use.|
-|total_only|bool|Whether to have the query return only the total number of hits or not.|
+@param {real} ugc_query_handle The query handle to use.
+@param {bool} total_only Whether to have the query return only the total number of hits or not.
 
 
 @returns {Bool}
@@ -1358,8 +1358,8 @@ The function will return `true` if the query filter was correctly set, or `false
 steam_ugc_query_set_allow_cached_response(ugc_query_handle , check_cache);
 ```
 
-|ugc_query_handle|integer|The query handle to use.|
-|cache|bool|Whether to have the query check the local cache or not.|
+@param {integer} ugc_query_handle The query handle to use.
+@param {bool} cache Whether to have the query check the local cache or not.
 
 
 @returns {Bool}
@@ -1390,45 +1390,45 @@ The above code creates a query request and stores it&#39;s handle in a local var
     This is an asynchronous function that will return an asynchronous id and trigger the [Steam Async Event](https://manual-en.yoyogames.com/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm) when the task is finished.
 
 
-|ugc_query_handle|real|The query handle to send.|
+@param {real} ugc_query_handle The query handle to send.
 
 
 @returns {Real}
 
 @event steam
-|id|real|The asynchronous request ID|
-|event_type|string|The string value `"ugc_query"`|
-|result|real|This will either be the GML constant `ugc_result_success` or some other real number (see the[Steam docs](https://partner.steamgames.com/doc/api/steam_api#EResult), for more details)|
-|cached_data|bool|Will be `true` if the returned details are from the local cache or `false` if they are taken from the server|
-|total_matching|real|The total number of matching results|
-|num_results|real|The number of results returned (max 50)|
-|results_list|DS List ID|A [DS list](https://manual.yoyogames.com/GameMaker_Language/GML_Reference/Data_Structures/DS_Lists/DS_Lists.htm) index, where each list entry is a DS Map index containing details of the particular item (see table below)|
+@param {real} id The asynchronous request ID
+@param {string} event_type The string value `"ugc_query"`
+@param {real} result This will either be the GML constant `ugc_result_success` or some other real number (see the[Steam docs](https://partner.steamgames.com/doc/api/steam_api#EResult), for more details)
+@param {bool} cached_data Will be `true` if the returned details are from the local cache or `false` if they are taken from the server
+@param {real} total_matching The total number of matching results
+@param {real} num_results The number of results returned (max 50)
+|results_list|DS List ID|A [DS list](https://manual.yoyogames.com/GameMaker_Language/GML_Reference/Data_Structures/DS_Lists/DS_Lists.htm) index, where each list entry is a DS Map index containing details of the particular item (see table below)
 
-|published_file_id|int64|This key holds the unique published ID for the item (you may need to cast it using the [int64](https://manual.yoyogames.com/GameMaker_Language/GML_Reference/Variable_Functions/int64.htm) function)|
-|file_type|string|The type of file used|
-|creator_app_id|real|The Steam ID of the item creator|
-|consumer_app_id|real|The Steam ID of the item consumer|
-|title|string|The title of the item|
-|description|string|The description of the item|
-|steam_id_owner|real|The Steam ID of the item owner|
-|time_created|real|The time the item was first created|
-|time_uploaded|real|The last time the item was updated|
-|time_added_to_user_list|real|The time that the item was subscribed to|
-|visibility|constant.UGCFileVisibility|The visibility of the item (see [UGCFileVisibility](#UGCFileVisibility) constant)|
-|banned|bool|Whether the item has been banned or not|
-|accepted_for_use|bool|Whether the item has been accepted for use or not|
-|tags_truncated|array|Short version of the tags as an array|
-|tags|Array\<String>|An array of the tags for the item|
-|handle_file|int64|The unique file handle for the item|
-|handle_preview_file|int64|The unique handle for the image preview for the item (can be used  with [steam_ugc_download](#steam_ugc_download) to download a preview image)|
-|filename|string|The name of the item file|
-|file_size|real|The size of the item file|
-|preview_file_size|real|The size of the preview image|
-|url|string|The full URL for the item|
-|up_votes|real|The number of up-votes received|
-|down_votes|real|The number of down-votes received|
-|score|real|The overall score of the item|
-|account_id_owner|real|The account ID from the Steam ID owner (can be used in the function  [steam_ugc_create_query_user](#steam_ugc_create_query_user))|
+|published_file_id|int64|This key holds the unique published ID for the item (you may need to cast it using the [int64](https://manual.yoyogames.com/GameMaker_Language/GML_Reference/Variable_Functions/int64.htm) function)
+@param {string} file_type The type of file used
+@param {real} creator_app_id The Steam ID of the item creator
+@param {real} consumer_app_id The Steam ID of the item consumer
+@param {string} title The title of the item
+@param {string} description The description of the item
+@param {real} steam_id_owner The Steam ID of the item owner
+@param {real} time_created The time the item was first created
+@param {real} time_uploaded The last time the item was updated
+@param {real} time_added_to_user_list The time that the item was subscribed to
+@param {constant.UGCFileVisibility} visibility The visibility of the item (see [UGCFileVisibility](#UGCFileVisibility) constant)
+@param {bool} banned Whether the item has been banned or not
+@param {bool} accepted_for_use Whether the item has been accepted for use or not
+@param {array} tags_truncated Short version of the tags as an array
+|tags|Array\<String>|An array of the tags for the item
+|handle_file|int64|The unique file handle for the item
+|handle_preview_file|int64|The unique handle for the image preview for the item (can be used  with [steam_ugc_download](#steam_ugc_download) to download a preview image)
+@param {string} filename The name of the item file
+@param {real} file_size The size of the item file
+@param {real} preview_file_size The size of the preview image
+@param {string} url The full URL for the item
+@param {real} up_votes The number of up-votes received
+@param {real} down_votes The number of down-votes received
+@param {real} score The overall score of the item
+@param {real} account_id_owner The account ID from the Steam ID owner (can be used in the function  [steam_ugc_create_query_user](#steam_ugc_create_query_user))
 
 
 ```gml
@@ -1458,19 +1458,19 @@ This is an asynchronous function that will return an asynchronous id and trigger
 steam_ugc_download(ugc_handle, dest_filename);
 ```
 
-|ugc_handle|int64|The unique handle for the preview to be downloaded.|
-|dest_filename|string|The file name to save the preview with.|
+|ugc_handle|int64|The unique handle for the preview to be downloaded.
+@param {string} dest_filename The file name to save the preview with.
 
 
 @returns {Real}
 
 @event steam
-|id|real|The asynchronous request ID|
-|event_type|string|The string value `"ugc_create_item"`|
-|result|real|This will either be the GML constant `ugc_result_success` or some other real number (see the[Steam docs](https://partner.steamgames.com/doc/api/steam_api) under **EResult** , for more details)|
-|original_filename|string|This key holds the original name of the image file <i>on the server</i> (a string)|
-|dest_filename|string|This key holds the image file name you passed in (a string)|
-|ugc_handle|integer||
+@param {real} id The asynchronous request ID
+@param {string} event_type The string value `"ugc_create_item"`
+@param {real} result This will either be the GML constant `ugc_result_success` or some other real number (see the[Steam docs](https://partner.steamgames.com/doc/api/steam_api) under **EResult** , for more details)
+@param {string} original_filename This key holds the original name of the image file <i>on the server</i> (a string)
+@param {string} dest_filename This key holds the image file name you passed in (a string)
+@param {integer} ugc_handle 
 
 
 @example
@@ -1507,10 +1507,10 @@ These constants specify the way that a shared file will be shared with the commu
 >
 > See [Steam Docs](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#EWorkshopFileType) for more details.
 
-|UGC File Type Constant|Description|
-|----|----|
-|`ugc_filetype_community`|This is used to create files that will be uploaded and made available to anyone in the community|
-|`ugc_filetype_microtrans`|This is used to describe files that are uploaded but intended only for the game to consider adding as official content|
+|UGC File Type Constant|Description
+|----|----
+|`ugc_filetype_community`|This is used to create files that will be uploaded and made available to anyone in the community
+|`ugc_filetype_microtrans`|This is used to describe files that are uploaded but intended only for the game to consider adding as official content
 
 
 @func_end
@@ -1523,11 +1523,11 @@ These constants specify possible visibility states that a Workshop item can be i
 >
 > See [Steam Docs](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#ERemoteStoragePublishedFileVisibility) for more details.
 
-|UGC File Visibility Constant|Description|
-|----|----|
-|`ugc_visibility_public`|Set the item to be publicly visible|
-|`ugc_visibility_friends_only`|Set the item to be visible to only people on the users friends list|
-|`ugc_visibility_private`|Set the item to be private|
+|UGC File Visibility Constant|Description
+|----|----
+|`ugc_visibility_public`|Set the item to be publicly visible
+|`ugc_visibility_friends_only`|Set the item to be visible to only people on the users friends list
+|`ugc_visibility_private`|Set the item to be private
 
 
 @func_end
@@ -1543,15 +1543,15 @@ These constants specify the sorting order of user published UGC lists from queri
 >
 > See [Steam UGC Docs](https://partner.steamgames.com/doc/api/ISteamUGC#EUserUGCListSortOrder) for more details.
 
-|UGC List Sort Order Constant|Description|
-|----|----|
-|`ugc_sortorder_CreationOrderDesc`|Returns items by creation date. Descending - the newest items are first|
-|`ugc_sortorder_CreationOrderAsc`|Returns items by creation date. Ascending - the oldest items are first|
-|`ugc_sortorder_TitleAsc`|Returns items by name|
-|`ugc_sortorder_LastUpdatedDesc`|Returns the most recently updated items first|
-|`ugc_sortorder_SubscriptionDateDesc`|Returns the most recently subscribed items first|
-|`ugc_sortorder_VoteScoreDesc`|Returns the items with the more recent score updates first|
-|`ugc_sortorder_ForModeration`|Returns the items that have been reported for moderation|
+|UGC List Sort Order Constant|Description
+|----|----
+|`ugc_sortorder_CreationOrderDesc`|Returns items by creation date. Descending - the newest items are first
+|`ugc_sortorder_CreationOrderAsc`|Returns items by creation date. Ascending - the oldest items are first
+|`ugc_sortorder_TitleAsc`|Returns items by name
+|`ugc_sortorder_LastUpdatedDesc`|Returns the most recently updated items first
+|`ugc_sortorder_SubscriptionDateDesc`|Returns the most recently subscribed items first
+|`ugc_sortorder_VoteScoreDesc`|Returns the items with the more recent score updates first
+|`ugc_sortorder_ForModeration`|Returns the items that have been reported for moderation
 
 
 @func_end
@@ -1567,17 +1567,17 @@ These constants specify the type of published UGC list to obtain from queries cr
 >
 > See [Steam UGC Docs](https://partner.steamgames.com/doc/api/ISteamUGC#EUserUGCList) for more details.
 
-|UGC List Type Constant|Description|
-|----|----|
-|`ugc_list_Published`|List of files the user has published|
-|`ugc_list_VotedOn`|List of files the user has voted on. Includes both VotedUp and VotedDown|
-|`ugc_list_VotedUp`|List of files the user has voted up (restricted to the current user only)|
-|`ugc_list_VotedDown`|List of files the user has voted down (restricted to the current user only)|
-|`ugc_list_WillVoteLater`|:warning: DEPRECATED|
-|`ugc_list_Favorited`|List of files the user has favorited|
-|`ugc_list_Subscribed`|List of files the user has subscribed to (restricted to the current user only)|
-|`ugc_list_UsedOrPlayed`|List of files the user has spent time in game with|
-|`ugc_list_Followed`|List of files the user is following updates for|
+|UGC List Type Constant|Description
+|----|----
+|`ugc_list_Published`|List of files the user has published
+|`ugc_list_VotedOn`|List of files the user has voted on. Includes both VotedUp and VotedDown
+|`ugc_list_VotedUp`|List of files the user has voted up (restricted to the current user only)
+|`ugc_list_VotedDown`|List of files the user has voted down (restricted to the current user only)
+|`ugc_list_WillVoteLater`|:warning: DEPRECATED
+|`ugc_list_Favorited`|List of files the user has favorited
+|`ugc_list_Subscribed`|List of files the user has subscribed to (restricted to the current user only)
+|`ugc_list_UsedOrPlayed`|List of files the user has spent time in game with
+|`ugc_list_Followed`|List of files the user is following updates for
 
 
 @func_end
@@ -1595,20 +1595,20 @@ These constants specify the types of UGC to obtain from queries created using on
 >
 > See [Steam UGC Docs](https://partner.steamgames.com/doc/api/ISteamUGC#EUGCMatchingUGCType) for more details.
 
-|UGC Match Type Constant|Description|
-|----|----|
-|`ugc_match_Items`|Both microtransaction items and Ready-to-use items|
-|`ugc_match_Items_Mtx`|Microtransaction items|
-|`ugc_match_Items_ReadyToUse`|Regular in game items that players have uploaded|
-|`ugc_match_Collections`|Shared collections of UGC|
-|`ugc_match_Artwork`|Artwork which has been shared|
-|`ugc_match_Videos`|Videos which have been shared|
-|`ugc_match_Screenshots`|Screenshots which have been shared|
-|`ugc_match_AllGuides`|Both web guides and integrated guides|
-|`ugc_match_WebGuides`|Guides that are only available on the steam community|
-|`ugc_match_IntegratedGuides`|Guides that you can use within your game (like Dota 2's in game character guides)|
-|`ugc_match_UsableInGame`|Ready-to-use items and integrated guides|
-|`ugc_match_ControllerBindings`|Controller Bindings which have been shared|
+|UGC Match Type Constant|Description
+|----|----
+|`ugc_match_Items`|Both microtransaction items and Ready-to-use items
+|`ugc_match_Items_Mtx`|Microtransaction items
+|`ugc_match_Items_ReadyToUse`|Regular in game items that players have uploaded
+|`ugc_match_Collections`|Shared collections of UGC
+|`ugc_match_Artwork`|Artwork which has been shared
+|`ugc_match_Videos`|Videos which have been shared
+|`ugc_match_Screenshots`|Screenshots which have been shared
+|`ugc_match_AllGuides`|Both web guides and integrated guides
+|`ugc_match_WebGuides`|Guides that are only available on the steam community
+|`ugc_match_IntegratedGuides`|Guides that you can use within your game (like Dota 2's in game character guides)
+|`ugc_match_UsableInGame`|Ready-to-use items and integrated guides
+|`ugc_match_ControllerBindings`|Controller Bindings which have been shared
 
 
 @func_end
@@ -1625,20 +1625,20 @@ These constants specify the sorting and filtering for queries across all availab
 >
 > See [Steam UGC Docs](https://partner.steamgames.com/doc/api/ISteamUGC#EUGCQuery) for more details.
 
-|UGC Query Type Constant|Description|
-|----|----|
-|`ugc_query_RankedByVote`|Sort by vote popularity all-time|
-|`ugc_query_RankedByPublicationDate`|Sort by publication date descending|
-|`ugc_query_AcceptedForGameRankedByAcceptanceDate`|Sort by date accepted (for mtx items)|
-|`ugc_query_RankedByTrend`|Sort by vote popularity within the given "trend" period (set in [steam_ugc_query_set_ranked_by_trend_days](#steam_ugc_query_set_ranked_by_trend_days))|
-|`ugc_query_FavoritedByFriendsRankedByPublicationDate`|Filter to items the user's friends have favorited, sorted by publication date descending|
-|`ugc_query_CreatedByFriendsRankedByPublicationDate`|Filter to items created by friends, sorted by publication date descending|
-|`ugc_query_RankedByNumTimesReported`|Sort by report weight descending|
-|`ugc_query_CreatedByFollowedUsersRankedByPublicationDate`|Filter to items created by users that the current user has followed, sorted by publication date descending|
-|`ugc_query_NotYetRated`|Filtered to the user's voting queue|
-|`ugc_query_RankedByTotalVotesAsc`|Sort by total # of votes ascending (used internally for building the user's voting queue)|
-|`ugc_query_RankedByVotesUp`|Sort by number of votes up descending. Will use the "trend" period if specified (set in [steam_ugc_query_set_ranked_by_trend_days](#steam_ugc_query_set_ranked_by_trend_days))|
-|`ugc_query_RankedByTextSearch`|Sort by keyword text search relevancy|
+|UGC Query Type Constant|Description
+|----|----
+|`ugc_query_RankedByVote`|Sort by vote popularity all-time
+|`ugc_query_RankedByPublicationDate`|Sort by publication date descending
+|`ugc_query_AcceptedForGameRankedByAcceptanceDate`|Sort by date accepted (for mtx items)
+|`ugc_query_RankedByTrend`|Sort by vote popularity within the given "trend" period (set in [steam_ugc_query_set_ranked_by_trend_days](#steam_ugc_query_set_ranked_by_trend_days))
+|`ugc_query_FavoritedByFriendsRankedByPublicationDate`|Filter to items the user's friends have favorited, sorted by publication date descending
+|`ugc_query_CreatedByFriendsRankedByPublicationDate`|Filter to items created by friends, sorted by publication date descending
+|`ugc_query_RankedByNumTimesReported`|Sort by report weight descending
+|`ugc_query_CreatedByFollowedUsersRankedByPublicationDate`|Filter to items created by users that the current user has followed, sorted by publication date descending
+|`ugc_query_NotYetRated`|Filtered to the user's voting queue
+|`ugc_query_RankedByTotalVotesAsc`|Sort by total # of votes ascending (used internally for building the user's voting queue)
+|`ugc_query_RankedByVotesUp`|Sort by number of votes up descending. Will use the "trend" period if specified (set in [steam_ugc_query_set_ranked_by_trend_days](#steam_ugc_query_set_ranked_by_trend_days))
+|`ugc_query_RankedByTextSearch`|Sort by keyword text search relevancy
 
 
 @func_end
