@@ -747,32 +747,36 @@
  * @func_end
  */
 
-@const LobbyFilterComparisonType
-@desc These constants specify the comparison type when applying a filter to a lobby list request.
+/**
+ * @const LobbyFilterComparisonType
+ * @desc These constants specify the comparison type when applying a filter to a lobby list request.
+ * @member steam_lobby_list_filter_eq Equal (==).
+ * @member steam_lobby_list_filter_ne Not-equal (!=)
+ * @member steam_lobby_list_filter_lt Less-than (<), only applies to ${function.steam_lobby_list_add_numerical_filter}
+ * @member steam_lobby_list_filter_gt Greater-than (>), only applies to ${function.steam_lobby_list_add_numerical_filter}
+ * @member steam_lobby_list_filter_le Less-than-or-equal (<=), only applies to ${function.steam_lobby_list_add_numerical_filter}
+ * @member steam_lobby_list_filter_ge Greater-than-or-equal (>=), only applies to ${function.steam_lobby_list_add_numerical_filter}
+ * @const_end
+ */
 
-|`steam_lobby_list_filter_eq`|Equal (==).
-|`steam_lobby_list_filter_ne`|Not-equal (!=)
-|`steam_lobby_list_filter_lt`|Less-than (<), only applies to ${function.}
-|`steam_lobby_list_filter_gt`|Greater-than (>), only applies to ${function.}
-|`steam_lobby_list_filter_le`|Less-than-or-equal (<=), only applies to ${function.}
-|`steam_lobby_list_filter_ge`|Greater-than-or-equal (>=), only applies to ${function.}
-@const_end
+/**
+ * @const LobbyFilterDistanceMode
+ * @desc These constants specify the distance mode to be used when applying a filter to a lobby list request.
+ * @member steam_lobby_list_distance_filter_close Only allows lobbies in same immediate region
+ * @member steam_lobby_list_distance_filter_default Allows lobbies in same or nearby regions (same continent)
+ * @member steam_lobby_list_distance_filter_far Allows lobbies from up to half-way around the globe (nearby continents)
+ * @member steam_lobby_list_distance_filter_worldwide Allows any lobbies. May result in very high latencies, so use with care
+ * @const_end
+ */
 
-@const LobbyFilterDistanceMode
-@desc These constants specify the distance mode to be used when applying a filter to a lobby list request by calling the ${function.} function.
-
-|`steam_lobby_list_distance_filter_close`|Only allows lobbies in same immediate region
-|`steam_lobby_list_distance_filter_default`|Allows lobbies in same or nearby regions (same continent)
-|`steam_lobby_list_distance_filter_far`|Allows lobbies from up to half-way around the globe (nearby continents)
-|`steam_lobby_list_distance_filter_worldwide`|Allows any lobbies. May result in very high latencies, so use with care
-@const_end
-
-@const LobbyType
-@desc These constants specify the type of lobby should be used creating a new lobby using the ${function.} function.
-|`steam_lobby_type_private`|The lobby can only be joined by invitation
-|`steam_lobby_type_friends_only`|The lobby can be joined by invitation or via friends-list (by opening the user's menu and picking "Join game")
-|`steam_lobby_type_public`|The lobby can be joined by invitation, via friends-list and shows up in the public list (see matchmaking functions)
-@const_end
+/**
+ * @const LobbyType
+ * @desc These constants specify the type of lobby should be used creating a new lobby.
+ * @member steam_lobby_type_private The lobby can only be joined by invitation
+ * @member steam_lobby_type_friends_only The lobby can be joined by invitation or via friends-list (by opening the user's menu and picking "Join game")
+ * @member steam_lobby_type_public The lobby can be joined by invitation, via friends-list and shows up in the public list (see matchmaking functions)
+ * @const_end
+ */
 
 // MODULES
 
@@ -781,48 +785,48 @@
 
 @section_func Current Lobby
 @desc These functions are provided for handling the current lobby:
-* ${function.}
-* ${function.}
-* ${function.}
-* ${function.}
-* ${function.}
-* ${function.}
-* ${function.}
-* ${function.}
-* ${function.}
-* ${function.}
-* ${function.}
-* ${function.}
-* ${function.}
-* ${function.}
-* [steam_lobby_get_chat_message_data](#steam_lobby_send_chat_message-copy)
-* ${function.}
-* ${function.}
-* ${function.}
-* ${function.}
+@ref steam_lobby_activate_invite_overlay
+@ref steam_lobby_create
+@ref steam_lobby_get_data
+@ref steam_lobby_get_lobby_id
+@ref steam_lobby_get_member_count
+@ref steam_lobby_get_member_id
+@ref steam_lobby_get_owner_id
+@ref steam_lobby_is_owner
+@ref steam_lobby_join_id
+@ref steam_lobby_leave
+@ref steam_lobby_set_data
+@ref steam_lobby_set_joinable
+@ref steam_lobby_set_owner_id
+@ref steam_lobby_set_type
+@ref steam_lobby_send_chat_message-copy
+@ref steam_lobby_get_chat_message_size
+@ref steam_lobby_get_chat_message_text
+@ref steam_lobby_send_chat_message
+@ref steam_lobby_send_chat_message_buffer
 @section_end
 
 @section_func Matchmaking
-@desc The following functions allow retrieving and handling lists of public lobbies.
-* ${function.}
-* ${function.}
-* ${function.}
-* ${function.}
-* ${function.}
-* ${function.}
-* ${function.}
-* ${function.}
-* ${function.}
-* ${function.}
-* ${function.}
-* ${function.}
+@desc The following functions allow retrieving and handling lists of public lobbies:
+@ref steam_lobby_list_add_distance_filter
+@ref steam_lobby_list_add_near_filter
+@ref steam_lobby_list_add_numerical_filter
+@ref steam_lobby_list_add_string_filter
+@ref steam_lobby_list_request
+@ref steam_lobby_list_get_count
+@ref steam_lobby_list_get_data
+@ref steam_lobby_list_get_lobby_id
+@ref steam_lobby_list_get_lobby_member_count
+@ref steam_lobby_list_get_lobby_member_id
+@ref steam_lobby_list_get_lobby_owner_id
+@ref steam_lobby_list_is_loading
 @section_end
 
 @section_const Constants
 @desc These are the constants used by this API:
-* ${function.}
-* ${function.}
-* ${function.}
+@ref LobbyFilterComparisonType
+@ref LobbyFilterDistanceMode
+@ref LobbyType)
 @section_end
 
 @module_end

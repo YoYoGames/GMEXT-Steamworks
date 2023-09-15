@@ -393,7 +393,7 @@
 
 /**
  * @func steam_download_friends_scores
- * @desc With this function you can retrieve <i>only</i> the scores on the leaderboard that belong to those people that are marked as "friends" in the Steam client. So, if your leaderboard has 200 entries, and 50 of them are your friends, this function will retrieve only those 50 results. The leaderboard name is a string that was defined when you created the leaderboard using the function ${function.steam_create_leaderboard}.
+ * @desc With this function you can retrieve *only* the scores on the leaderboard that belong to those people that are marked as "friends" in the Steam client. So, if your leaderboard has 200 entries, and 50 of them are your friends, this function will retrieve only those 50 results. The leaderboard name is a string that was defined when you created the leaderboard using the function ${function.steam_create_leaderboard}.
  * This is an asynchronous function that will trigger the ${event.steam} when the task is finished.
  * 
  * [[NOTE: If the function call fails for any reason it will return -1 and the async event will not be triggered.]]

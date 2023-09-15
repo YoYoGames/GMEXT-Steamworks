@@ -163,7 +163,7 @@ The above code will poll the Steam API for a screenshot request and if it has be
 
 
 @func steam_ugc_create_item
-@desc This function is used to prepare the Workshop API and generate a published file ID for the item to be added. The function <i>must</i> be called before doing anything else with the item to be uploaded, as you will be required to use the unique published ID value that it returns in the Steam Async Event for updating.
+@desc This function is used to prepare the Workshop API and generate a published file ID for the item to be added. The function *must* be called before doing anything else with the item to be uploaded, as you will be required to use the unique published ID value that it returns in the Steam Async Event for updating.
 This is an asynchronous function that will return an asynchronous id and trigger the ${event.steam} when the task is finished.
 
 
@@ -408,7 +408,7 @@ The above code gets the game ID, then uses that along with a previously stored p
 
 
 @func steam_ugc_set_item_content
-@desc This function will set the content path to be used for the given item, and it should be a relative path to the folder which contains the content files to upload - which in turn should be in the save are <i>or</i> the game bundle (ie: an included file).
+@desc This function will set the content path to be used for the given item, and it should be a relative path to the folder which contains the content files to upload - which in turn should be in the save are *or* the game bundle (ie: an included file).
 The function will return `true` if the API was successfully accessed and `false` if there was an issue.
 
 
@@ -441,7 +441,7 @@ The above code gets the game ID, then uses that along with a previously stored p
 
 
 @func steam_ugc_set_item_preview
-@desc This function will set the preview image to be used for the given item. The image should be supplied as either a PNG, JPG or GIF format file with a maximum size of 1MB. The path to the image should be a relative path in the save are <i>or</i> the game bundle (ie: an included file).
+@desc This function will set the preview image to be used for the given item. The image should be supplied as either a PNG, JPG or GIF format file with a maximum size of 1MB. The path to the image should be a relative path in the save are *or* the game bundle (ie: an included file).
 The function will return `true` if the API was successfully accessed and `false` if there was an issue.
 
 
@@ -793,7 +793,7 @@ if (map_id == steam_details) && (result == ugc_result_success)
 
 
 @func steam_ugc_create_query_user
-@desc This function can be used to query the UGC data base. The function automatically uses the default ID for the app, user and assumes that the query is being done by the consumer (rather than the creator). The function requires you to use the following constants for the type of data to query (${function.}), the type of item to match (${function.}) and the order in which the returned items will be sorted (${function.}), as well as a page number - note that a query will return a <i>maximum</i> number of 50 items.
+@desc This function can be used to query the UGC data base. The function automatically uses the default ID for the app, user and assumes that the query is being done by the consumer (rather than the creator). The function requires you to use the following constants for the type of data to query (${function.}), the type of item to match (${function.}) and the order in which the returned items will be sorted (${function.}), as well as a page number - note that a query will return a *maximum* number of 50 items.
 The function returns a unique query handle value which should be stored in a variable for use in the other query functions. Note that this function only prepares the query but does not actually send it - for that you must call the function ${function.} - and you can use further `steam_ugc_query_*()` functions to refine the search request before it is actually sent.
 
 
@@ -847,7 +847,7 @@ ugc_sortorder_ForModeration
 
 
 @func steam_ugc_create_query_user_ex
-@desc This function can be used to query the UGC data base. The function requires the ID value for the user and the ID of the game that is going to consume the item and/or the ID of the game that created the item. You also need to use the following constants for the type of data to query (${function.}), the type of item to query (${function.}) and the order in which the returned items will be sorted (${function.}), as well as a page number - note that a query will return a <i>maximum</i> number of 50 items.
+@desc This function can be used to query the UGC data base. The function requires the ID value for the user and the ID of the game that is going to consume the item and/or the ID of the game that created the item. You also need to use the following constants for the type of data to query (${function.}), the type of item to query (${function.}) and the order in which the returned items will be sorted (${function.}), as well as a page number - note that a query will return a *maximum* number of 50 items.
 The function returns a unique query handle value which should be stored in a variable for use in the other query functions. Note that this function only prepares the query but does not actually send it - for that you must call the function ${function.} - and you can use further `steam_ugc_query_*()` functions to refine the search request before it is actually sent.
 
 
@@ -904,7 +904,7 @@ ugc_sortorder_ForModeration
 
 
 @func steam_ugc_create_query_all
-@desc This function can be used to query the UGC data base using some predefined query types. The function requires the following constants for the type of query to create (${function.}), the type of item to match (${function.}) and the page number to query - note that a query will return a <i>maximum</i> number of 50 items.
+@desc This function can be used to query the UGC data base using some predefined query types. The function requires the following constants for the type of query to create (${function.}), the type of item to match (${function.}) and the page number to query - note that a query will return a *maximum* number of 50 items.
 The function returns a unique query handle value which should be stored in a variable for use in the other query functions. Note that this function only prepares the query but does not actually send it - for that you must call the function ${function.} - and you can use further `steam_ugc_query_*()` functions to refine the search request before it is actually sent.
 
 
@@ -953,7 +953,7 @@ ugc_match_ControllerBindings
 
 
 @func steam_ugc_create_query_all_ex
-@desc This function can be used to query the UGC data base. The function requires the ID of the game that is going to consume the item and/or the ID of the game that created the item, and you need to use the following constants for the type of query to create (${function.}), the type of item to match (${function.}) and the page number to query. Note that a query will return a <i>maximum</i> number of 50 items.
+@desc This function can be used to query the UGC data base. The function requires the ID of the game that is going to consume the item and/or the ID of the game that created the item, and you need to use the following constants for the type of query to create (${function.}), the type of item to match (${function.}) and the page number to query. Note that a query will return a *maximum* number of 50 items.
 The function returns a unique query handle value which should be stored in a variable for use in the other query functions. Note that this function only prepares the query but does not actually send it - for that you must call the function ${function.} - and you can use further `steam_ugc_query_*()` functions to refine the search request before it is actually sent.
 
 
@@ -1322,7 +1322,7 @@ This is an asynchronous function that will return an asynchronous id and trigger
 @param {real} id The asynchronous request ID
 @param {string} event_type The string value `"ugc_create_item"`
 @param {real} result This will either be the GML constant `ugc_result_success` or some other real number (see the[Steam docs](https://partner.steamgames.com/doc/api/steam_api) under **EResult** , for more details)
-@param {string} original_filename This key holds the original name of the image file <i>on the server</i> (a string)
+@param {string} original_filename This key holds the original name of the image file *on the server* (a string)
 @param {string} dest_filename This key holds the image file name you passed in (a string)
 @param {integer} ugc_handle 
 
