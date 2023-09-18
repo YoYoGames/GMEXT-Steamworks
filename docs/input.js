@@ -7,7 +7,7 @@
   
 Before proceeding, please read [this page](https://partner.steamgames.com/doc/features/steam_controller/getting_started_for_devs) about the Steam Input API for developers before reading this page to have a good understanding of what are Input Handles, Action Sets, Action Set Layers, Digital Actions, Analog Actions, Action Origins, the Steam Input Configurator, and bindings.
 
-[[NOTE: NOTE This API is designed for **advanced users only**, if you don't know why you need it, please use the native GML `gamepad_` functions instead.
+[[NOTE: This API is designed for **advanced users only**, if you don't know why you need it, please use the native GML `gamepad_` functions instead.
 
 The following functions can be used to access the Steam Input from within GameMaker
 
