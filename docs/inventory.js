@@ -59,7 +59,7 @@
  * >
  * > A wrapper around [GetItemsWithPrices](https://partner.steamgames.com/doc/api/ISteamInventory#GetItemsWithPrices).
  * 
- * @returns {array[struct]}
+ * @returns {array[type.struct]}
  * 
  * @param {real} item_def The [steam_inventory_item_def](https://partner.steamgames.com/doc/api/ISteamInventory#SteamItemDef_t) representing the item type
  * @param {int64} price The price of the item definition
@@ -94,11 +94,11 @@
  * @returns {boolean}
  * 
  * @event steam
- * @param {string} event_type The string value `"inventory_request_eligible_promo_item_defs"`
- * @param {int64} user_id The user's unique identifier
- * @param {real} item_def_count The number of items
- * @param {string} item_def_json A JSON array of items identifiers (must be parsed using ${function.json_parse})
- * @param {boolean} is_cached_data Whether the data was retrieved from the cache and not from the server
+ * @member {string} event_type The string value `"inventory_request_eligible_promo_item_defs"`
+ * @member {int64} user_id The user's unique identifier
+ * @member {real} item_def_count The number of items
+ * @member {string} item_def_json A JSON array of items identifiers (must be parsed using ${function.json_parse})
+ * @member {boolean} is_cached_data Whether the data was retrieved from the cache and not from the server
  * @event_end
  * 
  * @example
@@ -163,7 +163,7 @@
  * >
  * > A wrapper around [StartPurchase](https://partner.steamgames.com/doc/api/ISteamInventory#StartPurchase).
  * 
- * @param {array[function]} array An array of [structs](https://manual.yoyogames.com/GameMaker_Language/GML_Overview/Structs.htm) representing items to be purchased (see ${constant.InventoryItemCreationData})
+ * @param {array[struct]} array An array of [structs](https://manual.yoyogames.com/GameMaker_Language/GML_Overview/Structs.htm) representing items to be purchased (see ${struct.InventoryItemCreationData})
  * 
  * @example
  * ```gml
@@ -194,10 +194,10 @@
  * @returns {real}
  * 
  * @event steam
- * @param {string} event_type The string value `"inventory_result_ready"`
- * @param {boolean} success Whether the async action succeeded
- * @param {constant.InventoryResultStatus} result The status code as returned by ${function.steam_inventory_result_get_status}
- * @param {real} handle The associated async result ID, which can be used to tell apart what result this event is for.
+ * @member {string} event_type The string value `"inventory_result_ready"`
+ * @member {boolean} success Whether the async action succeeded
+ * @member {constant.InventoryResultStatus} result The status code as returned by ${function.steam_inventory_result_get_status}
+ * @member {real} handle The associated async result ID, which can be used to tell apart what result this event is for.
  * @event_end
  * 
  * @example
@@ -213,7 +213,7 @@
  * @desc This function takes an array of Item Definitions and grants the user multiple items. Item Definitions are integer numbers ranging from 1 to 999999999. Values below the range are invalid and values above the range are reserved.
  * This is an asynchronous function that will trigger the ${event.steam} when the task is finished.
  * 
- * [[WARNING: IMPORTANT You must call ${function.} on the returned async result ID when you are done with it.]]
+ * [[WARNING: IMPORTANT You must call ${function.steam_inventory_result_destroy} on the returned async result ID when you are done with it.]]
  * 
  * > **:eight_pointed_black_star: EXTERNAL**
  * >
@@ -224,10 +224,11 @@
  * @returns {real}
  * 
  * @event steam
- * @param {string} event_type The string value `"inventory_result_ready"`
- * @param {boolean} success Whether the async action succeeded
- * @param result ${constant.	InventoryResultStatus} The status code as returned by ${function.steam_inventory_result_get_status}
- * @param {real} handle The associated async result ID, which can be used to tell apart what result this event is for.
+ * @member {string} event_type The string value `"inventory_result_ready"`
+ * @member {boolean} success Whether the async action succeeded
+ * @member {constant.InventoryResultStatus} result The status code as returned by ${function.steam_inventory_result_get_status}
+ * @member {real} handle The associated async result ID, which can be used to tell apart what result this event is for.
+ * @event_end
  * 
  * @example
  * ```gml
@@ -248,16 +249,16 @@
  * >
  * > A wrapper around [ExchangeItems](https://partner.steamgames.com/doc/api/ISteamInventory#ExchangeItems).
  * 
- * @param {array[struct]} create_arr An array of [structs](https://manual.yoyogames.com/GameMaker_Language/GML_Overview/Structs.htm) representing items to be created (see ${function.})
- * @param {array[struct]} destroy_arr An array of [structs](https://manual.yoyogames.com/GameMaker_Language/GML_Overview/Structs.htm) representing items to be consumed (see ${function.})
+ * @param {array[struct]} create_arr An array of [structs](https://manual.yoyogames.com/GameMaker_Language/GML_Overview/Structs.htm) representing items to be created
+ * @param {array[struct]} destroy_arr An array of [structs](https://manual.yoyogames.com/GameMaker_Language/GML_Overview/Structs.htm) representing items to be consumed
  * 
  * @returns {real}
  * 
  * @event steam
- * @param {string} event_type The string value `"inventory_result_ready"`
- * @param {boolean} success Whether the async action succeeded
- * @param {constant.InventoryResultStatus} result The status code as returned by ${function.steam_inventory_result_get_status}
- * @param {real} handle The associated async result ID, which can be used to tell apart what result this event is for.
+ * @member {string} event_type The string value `"inventory_result_ready"`
+ * @member {boolean} success Whether the async action succeeded
+ * @member {constant.InventoryResultStatus} result The status code as returned by ${function.steam_inventory_result_get_status}
+ * @member {real} handle The associated async result ID, which can be used to tell apart what result this event is for.
  * @event_end
  * 
  * @example
@@ -321,7 +322,7 @@
  * @event steam
  * @member {string} event_type The string value `"inventory_result_ready"`
  * @member {boolean} success Whether the async action succeeded
- * @member ${constant.InventoryResultStatus} The status code as returned by ${function.steam_inventory_result_get_status}
+ * @member {constant.InventoryResultStatus} The status code as returned by ${function.steam_inventory_result_get_status}
  * @member {real} handle The associated async result ID, which can be used to tell apart what result this event is for.
  * @event_end
  * 
@@ -358,10 +359,11 @@
  * @member {real} handle The associated async result ID, which can be used to tell apart what result this event is for.
  * @event_end
  * 
+ * @event steam
+ * @desc
  * > **:eight_pointed_black_star: OPTIONAL**
  * >
  * > The asynchronous event presented below is only triggered when the result is newer/fresher than the last known result. It will not trigger if the inventory hasn't changed, or if results from two overlapping calls are reversed in flight and the earlier result is already known to be stale/out-of-date. The regular callback will still be triggered immediately afterwards; this is an additional notification for your convenience.
- * 
  * @member {string} event_type The string value `"inventory_full_update"`
  * @member {boolean} success Whether the async action succeeded
  * @member {real} handle The associated async result ID, which can be used to tell apart what result this event is for.
@@ -421,10 +423,10 @@
  * @returns {real}
  * 
  * @event steam
- * @param {string} event_type The string value `"inventory_result_ready"`
- * @param {boolean} success Whether the async action succeeded
- * @param {constant.InventoryResultStatus} result The status code as returned by ${function.steam_inventory_result_get_status}
- * @param {real} handle The associated async result ID, which can be used to tell apart what result this event is for.
+ * @member {string} event_type The string value `"inventory_result_ready"`
+ * @member {boolean} success Whether the async action succeeded
+ * @member {constant.InventoryResultStatus} result The status code as returned by ${function.steam_inventory_result_get_status}
+ * @member {real} handle The associated async result ID, which can be used to tell apart what result this event is for.
  * @event_end
  * 
  * @example
@@ -498,10 +500,10 @@
  * @returns {real}
  * 
  * @event steam
- * @param {string} event_type The string value `"inventory_result_ready"`
- * @param {boolean} success Whether the async action succeeded
- * @param {constant.InventoryResultStatus} result The status code as returned by ${function.steam_inventory_result_get_status}
- * @param {real} handle The associated async result ID, which can be used to tell apart what result this event is for.
+ * @member {string} event_type The string value `"inventory_result_ready"`
+ * @member {boolean} success Whether the async action succeeded
+ * @member {constant.InventoryResultStatus} result The status code as returned by ${function.steam_inventory_result_get_status}
+ * @member {real} handle The associated async result ID, which can be used to tell apart what result this event is for.
  * @event_end
  * 
  * @example
@@ -524,7 +526,7 @@
  * 
  * This is an asynchronous function that will trigger the ${event.steam} when the task is finished.
  * 
- * [[WARNING: IMPORTANT You must call ${function.} on the returned async result ID when you are done with it.]]
+ * [[WARNING: IMPORTANT You must call ${function.steam_inventory_result_destroy} on the returned async result ID when you are done with it.]]
  * 
  * > **:eight_pointed_black_star: EXTERNAL**
  * >
@@ -535,10 +537,10 @@
  * @returns {boolean}
  * 
  * @event steam
- * @param {string} event_type The string value `"inventory_result_ready"`
- * @param {boolean} success Whether the async action succeeded
- * @param {constant.InventoryResultStatus} result The status code as returned by ${function.steam_inventory_result_get_status}
- * @param {real} handle The associated async result ID, which can be used to tell apart what result this event is for.
+ * @member {string} event_type The string value `"inventory_result_ready"`
+ * @member {boolean} success Whether the async action succeeded
+ * @member {constant.InventoryResultStatus} result The status code as returned by ${function.steam_inventory_result_get_status}
+ * @member {real} handle The associated async result ID, which can be used to tell apart what result this event is for.
  * @event_end
  * 
  * @example
@@ -670,20 +672,15 @@
  * 
  * @returns {array[struct.ResultItem]}
  * 
- * @member {real} item_id A representing the item instance
- * @member {real} item_def A representing the item type
- * @member {int64} quantity How many of the said item there is in the slot
- * @member {int64} flags This is a bit-masked collection of [ESteamItemFlags](https://partner.steamgames.com/doc/api/ISteamInventory#ESteamItemFlags)
- * 
  * @example
  * ```gml
  * var array = steam_inventory_result_get_items(inv_result);
- * for(var i = 0 ; i < array_lenght(array) ; i++)
+ * for(var i = 0 ; i < array_length(array) ; i++)
  * {
- *      var struct = array[i]
- *      var item_id = struct.item_id
- *      var item_def = struct.item_def
- *      var quantity = struct.quantity
+ *      var struct = array[i];
+ *      var item_id = struct.item_id;
+ *      var item_def = struct.item_def;
+ *      var quantity = struct.quantity;
  * }
  * ```
  * For a more detailed implementation sample please refer to the ${function.steam_inventory_get_all_items} function.
@@ -782,7 +779,7 @@
  * >
  * > A wrapper around [RemoveProperty](https://partner.steamgames.com/doc/api/ISteamInventory#RemoveProperty).
  * 
- * @param {real} handle The update handle returned by ${function.}
+ * @param {real} handle The update handle returned by ${function.steam_inventory_start_update_properties}
  * @param {int64} item_id The [steam_inventory_item_id](https://partner.steamgames.com/doc/api/ISteamInventory#SteamItemInstanceID_t) of the item being modified
  * @param {string} prop_name The dynamic property being removed
  * 
@@ -931,7 +928,7 @@
  */
 
 /**
- * @func steam_inventory_result_get_status
+ * @func steam_inventory_set_property_string
  * @desc Sets a [dynamic property](https://partner.steamgames.com/doc/features/inventory/dynamicproperties) for the string given item 
  * 
  * > **:eight_pointed_black_star: EXTERNAL**
@@ -1002,14 +999,22 @@
  * @struct_end
  */
 
+/**
+ * @struct ResultItem
+ * @member {real} item_id A representing the item instance
+ * @member {real} item_def A representing the item type
+ * @member {int64} quantity How many of the said item there is in the slot
+ * @member {int64} flags This is a bit-masked collection of [ESteamItemFlags](https://partner.steamgames.com/doc/api/ISteamInventory#ESteamItemFlags)
+ * @struct_end
+ */
+
 // MODULES
 
 /**
  * @module Inventory
  * @desc The following functions, constants and structures allow to use the [Steam Inventory Service](https://partner.steamgames.com/doc/features/inventory).
  * 
- * @section_func pricing_consumables
- * @title Pricing and Consumables
+ * @section_func Pricing and Consumables
  * @desc These functions are provided for handling pricing, purchases and consumables:
  * 
  * @ref steam_inventory_consume_item
@@ -1021,8 +1026,7 @@
  * 
  * @section_end
  * 
- * @section_func inventory_management
- * @title Inventory Management (Async Result)
+ * @section_func Inventory Management (Async Result)
  * @desc These asynchronous functions will return an **inventory result handle** that can be used to get additional information (see section below):
  * 
  * @ref steam_inventory_add_promo_item
@@ -1037,8 +1041,7 @@
  * 
  * @section_end
  * 
- * @section_func inventory_result_information
- * @title Inventory Result Information
+ * @section_func Inventory Result Information
  * @desc These functions can be called with the **inventory result handle** (from previous section) to get additional information:
  * 
  * @ref steam_inventory_result_destroy
@@ -1049,8 +1052,7 @@
  * 
  * @section_end
  * 
- * @section_func dynamic properties
- * @title Dynamic Properties
+ * @section_func Dynamic Properties
  * @desc This set of functions can be used to author items dynamic properties:
  * 
  * @ref steam_inventory_start_update_properties
@@ -1063,20 +1065,19 @@
  * 
  * @section_end
  * 
- * @section_const
- * @title Constants
+ * @section_const Constants
  * @desc These are the constants used by this API:
  * 
  * @ref InventoryResultStatus
  * 
  * @section_end
  * 
- * @section_struct
- * @title Structures
+ * @section_struct Structures
  * @desc These are the structures used by this API:
  * 
  * @ref InventoryItemConsumptionData
  * @ref InventoryItemCreationData
+ * @ref ResultItem
  * 
  * @section_end
  * 

@@ -8,7 +8,7 @@
  * 
  * @param {int64} dlc_id The unique identifier for the DLC to be checked.
  * 
- * @returns {integer}
+ * @returns {real}
  * 
  * @example
  * ```gml
@@ -50,6 +50,7 @@
 
 /**
  * @module DLC
+ * @title DLC
  * @desc Steam supports both free and paid downloadable content (DLC), and in the Steam client, a game with downloadable content appears as a single application in the user's game list with the downloadable content viewable through the games properties dialog. Once owned, downloadable content is treated as an integral part of the game and Steam will automatically update the content when a patch is available and installs the content when the user installs the game.
  * @section_func Functions
  * @desc Since this is all handled by the Steam servers and the configuration of any DLC is done through the Steamworks control panel, there are only a couple of functions necessary in GameMaker to check for this extra content:

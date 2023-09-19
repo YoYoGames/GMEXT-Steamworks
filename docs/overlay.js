@@ -96,7 +96,7 @@
 /**
  * @func steam_activate_overlay_user
  * @desc This function will open the Steam overlay to one of the chosen dialogues relating to the user ID given.
- * Note that Steam IDs can be large numbers and so you may need to cast your ID value as an ${function.int64} before supplying it to the function.
+ * Note that Steam IDs can be large numbers and so you may need to cast your ID value as an ${type.int64} before supplying it to the function.
  * 
  * @param {string} dialog_name The dialogue to open the overlay on (see below).
  * @param {int64} steamid The Steam user ID or group ID to use.
@@ -140,7 +140,7 @@
  * @func steam_set_overlay_notification_position
  * @desc This function changes the corner in which the overlay notifications will appear.
  * 
- * @param {const.OverlayNotificationPosition} position A constant that indicates the position where the notification overlay should render
+ * @param {constant.OverlayNotificationPosition} position A constant that indicates the position where the notification overlay should render
  * 
  * @example
  * ```gml

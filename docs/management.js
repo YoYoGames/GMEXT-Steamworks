@@ -48,12 +48,15 @@
 
 // MODULES
 
-@module management
-@title Management
-@desc These are functions to manage the Steamworks API.
-@section_func Functions
-@ref steam_init
-@ref steam_update
-@ref steam_shutdown
-@section_end
-@module_end
+/**
+ * @module management
+ * @title Management
+ * @desc These are functions to manage the Steamworks API.
+ * @section_func Functions
+ * @ref steam_init
+ * @ref steam_update
+ * @ref steam_shutdown
+ * @section_end
+ * @module_end
+ */
+ 

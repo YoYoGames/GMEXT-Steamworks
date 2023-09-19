@@ -33,10 +33,10 @@
  * @returns {boolean}
  * 
  * @event steam
- * @param {string} event_type The string value `"lobby_created"`
- * @param {int64} lobby_id The name of the leaderboard
- * @param {real} success Whether or not the request was successful
- * @param {boolean} result The status code (descriptions can be found in Steam API documentation)
+ * @member {string} event_type The string value `"lobby_created"`
+ * @member {int64} lobby_id The name of the leaderboard
+ * @member {real} success Whether or not the request was successful
+ * @member {boolean} result The status code (descriptions can be found in Steam API documentation)
  * @event_end
  * 
  * @example
@@ -285,9 +285,9 @@
  * @returns {boolean}
  * 
  * @event steam
- * @param {string} event_type The string value `"lobby_chat_message"`
- * @param {string} user_id The sender unique identifier
- * @param {real} message_index The message unique identifier
+ * @member {string} event_type The string value `"lobby_chat_message"`
+ * @member {string} user_id The sender unique identifier
+ * @member {real} message_index The message unique identifier
  * @event_end
  * 
  * @example
@@ -323,11 +323,11 @@
  * @returns {boolean}
  * 
  * @event steam
- * @param {string} event_type The string value `"lobby_chat_message"`
- * @param {string} user_id The sender unique identifier
- * @param {real} entry_type Type of message received.
- * @param {real} message_index The message unique identifier
- * @param {real} message_size The size of the message being broadcasted
+ * @member {string} event_type The string value `"lobby_chat_message"`
+ * @member {string} user_id The sender unique identifier
+ * @member {real} entry_type Type of message received.
+ * @member {real} message_index The message unique identifier
+ * @member {real} message_size The size of the message being broadcasted
  * @event_end
  * 
  * @example
@@ -709,10 +709,10 @@
  * [[NOTE: Existing results are kept up until the event is dispatched.]]
  * 
  * @event steam
- * @param {string} event_type The string value `"lobby_list"`
- * @param {int64} lobby_count The number of lobbies in retrieved (same as ${function.steam_lobby_list_get_count})
- * @param {boolean} success Whether or not the task was successful
- * @param {real} result The code of the result
+ * @member {string} event_type The string value `"lobby_list"`
+ * @member {int64} lobby_count The number of lobbies in retrieved (same as ${function.steam_lobby_list_get_count})
+ * @member {boolean} success Whether or not the task was successful
+ * @member {real} result The code of the result
  * @event_end
  * 
  * @example
@@ -780,53 +780,56 @@
 
 // MODULES
 
-@module Lobbies & Matchmaking
-@desc The following functions and constants allow you to use Steam's Lobbies and Matchmaking functionality.
-
-@section_func Current Lobby
-@desc These functions are provided for handling the current lobby:
-@ref steam_lobby_activate_invite_overlay
-@ref steam_lobby_create
-@ref steam_lobby_get_data
-@ref steam_lobby_get_lobby_id
-@ref steam_lobby_get_member_count
-@ref steam_lobby_get_member_id
-@ref steam_lobby_get_owner_id
-@ref steam_lobby_is_owner
-@ref steam_lobby_join_id
-@ref steam_lobby_leave
-@ref steam_lobby_set_data
-@ref steam_lobby_set_joinable
-@ref steam_lobby_set_owner_id
-@ref steam_lobby_set_type
-@ref steam_lobby_send_chat_message-copy
-@ref steam_lobby_get_chat_message_size
-@ref steam_lobby_get_chat_message_text
-@ref steam_lobby_send_chat_message
-@ref steam_lobby_send_chat_message_buffer
-@section_end
-
-@section_func Matchmaking
-@desc The following functions allow retrieving and handling lists of public lobbies:
-@ref steam_lobby_list_add_distance_filter
-@ref steam_lobby_list_add_near_filter
-@ref steam_lobby_list_add_numerical_filter
-@ref steam_lobby_list_add_string_filter
-@ref steam_lobby_list_request
-@ref steam_lobby_list_get_count
-@ref steam_lobby_list_get_data
-@ref steam_lobby_list_get_lobby_id
-@ref steam_lobby_list_get_lobby_member_count
-@ref steam_lobby_list_get_lobby_member_id
-@ref steam_lobby_list_get_lobby_owner_id
-@ref steam_lobby_list_is_loading
-@section_end
-
-@section_const Constants
-@desc These are the constants used by this API:
-@ref LobbyFilterComparisonType
-@ref LobbyFilterDistanceMode
-@ref LobbyType)
-@section_end
-
-@module_end
+/**
+ * @module Lobbies & Matchmaking
+ * @desc The following functions and constants allow you to use Steam's Lobbies and Matchmaking functionality.
+ * 
+ * @section_func Current Lobby
+ * @desc These functions are provided for handling the current lobby:
+ * @ref steam_lobby_activate_invite_overlay
+ * @ref steam_lobby_create
+ * @ref steam_lobby_get_data
+ * @ref steam_lobby_get_lobby_id
+ * @ref steam_lobby_get_member_count
+ * @ref steam_lobby_get_member_id
+ * @ref steam_lobby_get_owner_id
+ * @ref steam_lobby_is_owner
+ * @ref steam_lobby_join_id
+ * @ref steam_lobby_leave
+ * @ref steam_lobby_set_data
+ * @ref steam_lobby_set_joinable
+ * @ref steam_lobby_set_owner_id
+ * @ref steam_lobby_set_type
+ * @ref steam_lobby_send_chat_message-copy
+ * @ref steam_lobby_get_chat_message_size
+ * @ref steam_lobby_get_chat_message_text
+ * @ref steam_lobby_get_chat_message_data
+ * @ref steam_lobby_send_chat_message
+ * @ref steam_lobby_send_chat_message_buffer
+ * @section_end
+ * 
+ * @section_func Matchmaking
+ * @desc The following functions allow retrieving and handling lists of public lobbies:
+ * @ref steam_lobby_list_add_distance_filter
+ * @ref steam_lobby_list_add_near_filter
+ * @ref steam_lobby_list_add_numerical_filter
+ * @ref steam_lobby_list_add_string_filter
+ * @ref steam_lobby_list_request
+ * @ref steam_lobby_list_get_count
+ * @ref steam_lobby_list_get_data
+ * @ref steam_lobby_list_get_lobby_id
+ * @ref steam_lobby_list_get_lobby_member_count
+ * @ref steam_lobby_list_get_lobby_member_id
+ * @ref steam_lobby_list_get_lobby_owner_id
+ * @ref steam_lobby_list_is_loading
+ * @section_end
+ * 
+ * @section_const Constants
+ * @desc These are the constants used by this API:
+ * @ref LobbyFilterComparisonType
+ * @ref LobbyFilterDistanceMode
+ * @ref LobbyType)
+ * @section_end
+ * 
+ * @module_end
+ */

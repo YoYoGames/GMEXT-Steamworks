@@ -92,10 +92,10 @@
 
 /**
  * @func steam_get_user_avatar
- * @desc Fetches an avatar for the specified user ID. 
- * Returns `0` if no avatar is set for the user;
- *       Returns `-1` if the request is pending, in which case a ${event.steam} will be triggered.
- * Returns positive ID's if the avatar is ready, this ID is to be used with the following function:
+ * @desc This function fetches an avatar for the specified user ID. 
+ * It returns `0` if no avatar is set for the user;
+ *       it returns `-1` if the request is pending, in which case a ${event.steam} will be triggered.
+ * Returns positive ID's if the avatar is ready, this ID is to be used with the following functions:
  * 
  * * ${function.steam_image_get_bgra}
  * * ${function.steam_image_get_rgba}
@@ -150,7 +150,6 @@
  * * no handle at all (return value equal to zero): in this case there is no avatar image for the specified used.
  * * a value of -1: in this last case it means that the request is pending and you can catch the output with a ${event.steam}, using the following code:
  * 
- * @example
  * ```gml
  * // Early exit if event type doesn't match
  * if (async_load[?"event_type"] != "avatar_image_loaded") exit
@@ -167,6 +166,12 @@
  * }
  * 
  * ```
+ * @func_end
+ */
+
+/**
+ * @func steam_get_user_persona_name_sync
+ * @desc 
  * @func_end
  */
 
@@ -298,47 +303,23 @@
  * @module Social
  * @desc The following set of functions are used for setting or getting social information.
  * 
- * @section_func rich_presence
- * @title Rich Presence
+ * @section_func Rich Presence
  * @desc The following functions are provided to work with rich presence:
  * @ref function.steam_set_rich_presence
  * @ref function.steam_clear_rich_presence
  * @section_end
  * 
- * @section_func user_friends
- * @title User & Friends
+ * @section_func User & Friends
  * @desc The following functions are provided to work with user and friends data:
  * 
- * @ref steam_set_rich_presence
- * @ref steam_set_rich_presence
  * @ref steam_user_set_played_with
  * @ref steam_get_friends_game_info
  * @ref steam_get_user_avatar
+ * @ref steam_get_user_persona_name_sync
  * @ref steam_image_get_size
  * @ref steam_image_get_rgba
  * @ref steam_image_get_bgra
  * @section_end
- * @module_end
  * 
- * @section_func rich_presence
- * @title Rich Presence
- * @desc The following functions are provided to work with rich presence:
- * @ref function.steam_set_rich_presence
- * @ref function.steam_clear_rich_presence
- * @section_end
- * 
- * @section_func user_friends
- * @title User & Friends
- * @desc The following functions are provided to work with user and friends data:
- * 
- * @ref steam_set_rich_presence
- * @ref steam_set_rich_presence
- * @ref steam_user_set_played_with
- * @ref steam_get_friends_game_info
- * @ref steam_get_user_avatar
- * @ref steam_image_get_size
- * @ref steam_image_get_rgba
- * @ref steam_image_get_bgra
- * @section_end
  * @module_end
  */

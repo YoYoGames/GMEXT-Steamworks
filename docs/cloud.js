@@ -132,7 +132,7 @@
  * 
  * @param {string} filename The name of the file to write to.
  * @param {string} data The data to write (a string).
- * @param {integer} size the size of the data to be written.
+ * @param {real} size the size of the data to be written.
  * 
  * @returns {real}
  * 
@@ -222,7 +222,8 @@
  */
 
 /**
- * @module Cloud
+ * @module cloud
+ * @title Cloud
  * @desc The Steam Cloud provides an easy and transparent remote file storage system for your game. All files written to disk using the cloud functions will be replicated to the Steam servers after the game exits. If the user then changes computers, the files will then be downloaded to the new computer before the game launches, meaning that the game can then access the files by reading them using the appropriate Steam functions. The Steam Client does the work of ensuring that the files are kept synchronized across all computers the user may be accessing.
  * 
  * [[NOTE: By default, the Cloud is not enabled for a game on Steamworks. it must be enabled previously from the 'Cloud' tab of the Steamworks game admin, where you should set the byte and file quota. The next time you publish your games Steamworks configuration, the Cloud storage will be ready to use.]]

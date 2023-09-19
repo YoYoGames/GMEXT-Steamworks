@@ -94,7 +94,7 @@
  * @param {int64} user_id  The target user to send the packet to
  * @param {real} buffer Buffer that contains the raw byte array for the packet data to send
  * @param {real} size The size of data to send (default -1, sends the entire buffer) :eight_pointed_black_star: OPTIONAL
- * @param {const.PacketType} packet_type The type of packet to be used :eight_pointed_black_star: OPTIONAL
+ * @param {constant.PacketType} packet_type The type of packet to be used :eight_pointed_black_star: OPTIONAL
  * 
  * @returns {boolean}
  * 
@@ -170,9 +170,9 @@
  * @param {boolean} enable disable/enable auto accept sessions
  * 
  * @event steam
- * @param {string} type The string value `"lobby_join_requested"`
- * @param {int64} lobby_id The lobby unique identifier
- * @param {int64} friend_id The friend unique identifier
+ * @member {string} type The string value `"lobby_join_requested"`
+ * @member {int64} lobby_id The lobby unique identifier
+ * @member {int64} friend_id The friend unique identifier
  * @event_end
  * 
  * @example
@@ -207,8 +207,7 @@
  * @module Networking
  * @desc The following functions and constants allow you to use Steam's Networking functionality.
  * 
- * @section_func
- * @title Packets IO
+ * @section_func Packets IO
  * @desc These functions are provided for handling sending and receiving packets:
  * 
  * @ref steam_net_packet_get_data
@@ -223,8 +222,7 @@
  * 
  * @section_end
  * 
- * @section_func session
- * @title Session
+ * @section_func Session
  * @desc The following functions allow handling P2P sessions:
  * 
  * @ref steam_net_accept_p2p_session
@@ -233,8 +231,7 @@
  * 
  * @section_end
  * 
- * @section_const
- * @title Constants
+ * @section_const Constants
  * @desc These are the constants used by this API:
  * 
  * @ref PacketType

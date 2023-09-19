@@ -2,7 +2,7 @@
 
 /**
  * @func steam_create_leaderboard
- * @desc With this function you can create a new leaderboard for your game. The first argument is a string which defines the name of your leaderboard, and this name should be used in any further function calls relating to the leaderboard being created. You can then define the sort order (see ${function.} constants) as well as the way in which the information is displayed (see ${function.} constants).
+ * @desc With this function you can create a new leaderboard for your game. The first argument is a string which defines the name of your leaderboard, and this name should be used in any further function calls relating to the leaderboard being created. You can then define the sort order (see ${constant.LeaderboardSortOrder} constants) as well as the way in which the information is displayed (see ${constant.LeaderboardDisplayType} constants).
  * This is an asynchronous function that will trigger the ${event.steam} when the task is finished.
  * 
  * [[NOTE: If you have previously created a leaderboard with the same name (either through code or through your Steam page for the game), then this function will not create a new one.]]
@@ -14,10 +14,11 @@
  * @returns {real}
  * 
  * @event steam
- * @param {real} id The asynchronous request ID
- * @param {string} event_type The string value `"create_leaderboard"`
- * @param {real} status The status code, `0` if the leaderboard was created and `1` if it already existed
- * @param {string} lb_name The name of the leaderboard
+ * @member {real} id The asynchronous request ID
+ * @member {string} event_type The string value `"create_leaderboard"`
+ * @member {real} status The status code, `0` if the leaderboard was created and `1` if it already existed
+ * @member {string} lb_name The name of the leaderboard
+ * @event_end
  * 
  * @example
  * ```gml
@@ -40,13 +41,14 @@
  * @returns {real}
  * 
  * @event steam
- * @param {real} post_id The asynchronous request ID
- * @param {string} event_type The string value `"leaderboard_upload"`
- * @param {string} lb_name The name of the leaderboard
- * @param {real} num_entries The number of returned entries
- * @param {boolean} success Whether or not the request was successful
- * @param {boolean} updated Whether or not the leaderboard was updated (ie: the new score was better)
- * @param {real} score The score that was posted to the leaderboard
+ * @member {real} post_id The asynchronous request ID
+ * @member {string} event_type The string value `"leaderboard_upload"`
+ * @member {string} lb_name The name of the leaderboard
+ * @member {real} num_entries The number of returned entries
+ * @member {boolean} success Whether or not the request was successful
+ * @member {boolean} updated Whether or not the leaderboard was updated (ie: the new score was better)
+ * @member {real} score The score that was posted to the leaderboard
+ * @event_end
  * 
  * @example
  * In this example, we first upload a score and then parse the `async_load` map returned if successful. The code below shows a typical example for uploading:
@@ -92,10 +94,10 @@
 
 /**
  * @func steam_upload_score_ext
- * @desc This function will send a score to the given leaderboard. It is similar to the function ${function.}but has an extra argument that will allow you to force the update of the score, as by default Steam only updates the score if it is better than the previous one.
+ * @desc This function will send a score to the given leaderboard. It is similar to the function ${function.steam_upload_score} but has an extra argument that will allow you to force the update of the score, as by default Steam only updates the score if it is better than the previous one.
  * This is an asynchronous function that will trigger the ${event.steam} when the task is finished.
  * 
- * [[NOTE: If the function call fails for any reason it will return -1 and the Async event will not be triggered.
+ * [[NOTE: If the function call fails for any reason it will return -1 and the Async event will not be triggered.]]
  * 
  * @param {string} lb_name The name of the leaderboard that you are uploading the scores to
  * @param {real} score The score to upload
@@ -104,13 +106,13 @@
  * @returns {real}
  * 
  * @event steam
- * @param {real} post_id The asynchronous request ID
- * @param {string} event_type The string value `"leaderboard_upload"`
- * @param {string} lb_name The name of the leaderboard
- * @param {real} num_entries The number of returned entries
- * @param {boolean} success Whether or not the request was successful
- * @param {boolean} updated Whether or not the leaderboard was updated (ie: the new score was better or `forceUpdate` was set to `true`)
- * @param {real} score The score that was posted to the leaderboard
+ * @member {real} post_id The asynchronous request ID
+ * @member {string} event_type The string value `"leaderboard_upload"`
+ * @member {string} lb_name The name of the leaderboard
+ * @member {real} num_entries The number of returned entries
+ * @member {boolean} success Whether or not the request was successful
+ * @member {boolean} updated Whether or not the leaderboard was updated (ie: the new score was better or `forceUpdate` was set to `true`)
+ * @member {real} score The score that was posted to the leaderboard
  * @event_end
  * 
  * @example
@@ -169,13 +171,13 @@
  * @returns {real}
  * 
  * @event steam
- * @param {real} post_id The asynchronous request ID
- * @param {string} event_type The string value `"leaderboard_upload"`
- * @param {string} lb_name The name of the leaderboard
- * @param {real} num_entries The number of returned entries
- * @param {boolean} success Whether or not the request was successful
- * @param {boolean} updated Whether or not the leaderboard was updated (ie: the new score was better). Note that if you score was not updated neither will be the data buffer.
- * @param {real} score The score that was posted to the leaderboard
+ * @member {real} post_id The asynchronous request ID
+ * @member {string} event_type The string value `"leaderboard_upload"`
+ * @member {string} lb_name The name of the leaderboard
+ * @member {real} num_entries The number of returned entries
+ * @member {boolean} success Whether or not the request was successful
+ * @member {boolean} updated Whether or not the leaderboard was updated (ie: the new score was better). Note that if you score was not updated neither will be the data buffer.
+ * @member {real} score The score that was posted to the leaderboard
  * @event_end
  * 
  * @example
@@ -241,13 +243,13 @@
  * @returns {real}
  * 
  * @event steam
- * @param {real} post_id The asynchronous request ID
- * @param {string} event_type The string value `"leaderboard_upload"`
- * @param {string} lb_name The name of the leaderboard
- * @param {real} num_entries The number of returned entries
- * @param {boolean} success Whether or not the request was successful
- * @param {boolean} updated Whether or not the leaderboard was updated (i.e.: the new score was better or `forceUpdate` was set to `true`). Note that if you score was not updated neither will be the data buffer.
- * @param {real} score The score that was posted to the leaderboard
+ * @member {real} post_id The asynchronous request ID
+ * @member {string} event_type The string value `"leaderboard_upload"`
+ * @member {string} lb_name The name of the leaderboard
+ * @member {real} num_entries The number of returned entries
+ * @member {boolean} success Whether or not the request was successful
+ * @member {boolean} updated Whether or not the leaderboard was updated (i.e.: the new score was better or `forceUpdate` was set to `true`). Note that if you score was not updated neither will be the data buffer.
+ * @member {real} score The score that was posted to the leaderboard
  * @event_end
  * 
  * @example
@@ -306,18 +308,18 @@
  * [[NOTE: If the function call fails for any reason it will return -1 and the async event will not be triggered.]]
  * 
  * @param {string} lb_name The name of the leaderboard that you are downloading the scores from
- * @param {integer} start_idx The start position within the leaderboard
- * @param {integer} end_idx The end position within the leaderboard
+ * @param {real} start_idx The start position within the leaderboard
+ * @param {real} end_idx The end position within the leaderboard
  * 
  * @returns {real}
  * 
  * @event steam
- * @param {real} id The asynchronous request ID
- * @param {string} event_type The string value `"leaderboard_download"`
- * @param {real} int64 status The status code if download fails
- * @param {string} lb_name The name of the leaderboard
- * @param {real} num_entries The number of returned entries
- * @param {string} entries A JSON formatted string with all the downloaded entries (see ${function.LeaderboardEntry} for details)
+ * @member {real} id The asynchronous request ID
+ * @member {string} event_type The string value `"leaderboard_download"`
+ * @member {int64} status The status code if download fails
+ * @member {string} lb_name The name of the leaderboard
+ * @member {real} num_entries The number of returned entries
+ * @member {string} entries A JSON formatted string with all the downloaded entries (see ${struct.LeaderboardEntry} for details)
  * @event_end
  * 
  * @example
@@ -356,7 +358,7 @@
  *     ds_map_destroy(map)
  * }
  * ```
- * What we do here is first check the "id" key of the special ${var.async_load} DS map. If this value is the same as the value of the original call-back function (stored in the "score_get" variable) we then continue to process the data. The first thing we do is parse the `async_load` DS map for the key "entries" which will contain a JSON formatted string containing the leaderboard data. This JSON object is then decoded (see ${json_decode}) as another ${type.ds_map}, and this new map ID is stored in the variable "map".
+ * What we do here is first check the "id" key of the special ${var.async_load} DS map. If this value is the same as the value of the original call-back function (stored in the "score_get" variable) we then continue to process the data. The first thing we do is parse the `async_load` DS map for the key "entries" which will contain a JSON formatted string containing the leaderboard data. This JSON object is then decoded (see ${function.json_decode}) as another ${type.ds_map}, and this new map ID is stored in the variable "map".
  * This map is checked for the key "default" and if that is found then the map is destroyed and the event is exited. If no "default" key is found, the code will then parse the map to extract the necessary information about the leaderboard, by first extracting a DS list from the "entries" key of the DS map, and then looping through each entry of the list to get **another** DS map with the name, score and rank of each entry. These values are then stored to arrays.
  * Once the loop has finished, the JSON ${type.ds_map} is destroyed (which in turn destroys all the internal maps and lists). There is no need to destroy the ${var.async_load} DS map as this is handled for you by GameMaker.
  * @func_end
@@ -370,18 +372,18 @@
  * [[NOTE: If the function call fails for any reason it will return -1 and the async event will not be triggered.]]
  * 
  * @param {string} lb_name The name of the leaderboard that you are downloading the scores from
- * @param {integer} range_start The start position within the leaderboard
- * @param {integer} range_end The end position within the leaderboard
+ * @param {real} range_start The start position within the leaderboard
+ * @param {real} range_end The end position within the leaderboard
  * 
  * @returns {real}
  * 
  * @event steam
- * @param {real} id The asynchronous request ID
- * @param {string} event_type The string value `"leaderboard_download"`
- * @param {real} int64 status The status code if download fails
- * @param {string} lb_name The name of the leaderboard
- * @param {real} num_entries The number of returned entries
- * @param {string} entries A JSON formatted string with all the downloaded entries (see ${struct.LeaderboardEntry} for details)
+ * @member {real} id The asynchronous request ID
+ * @member {string} event_type The string value `"leaderboard_download"`
+ * @member {int64} status The status code if download fails
+ * @member {string} lb_name The name of the leaderboard
+ * @member {real} num_entries The number of returned entries
+ * @member {string} entries A JSON formatted string with all the downloaded entries (see ${struct.LeaderboardEntry} for details)
  * @event_end
  * 
  * ```gml
@@ -403,12 +405,12 @@
  * @returns {real}
  * 
  * @event steam
- * @param {real} id The asynchronous request ID
- * @param {string} event_type The string value `"leaderboard_download"`
- * @param {int64} status The status code if download fails
- * @param {string} lb_name The name of the leaderboard
- * @param {real} num_entries The number of returned entries
- * @param {string} entries A JSON formatted string with all the downloaded entries (see ${struct.LeaderboardEntry} for details)
+ * @member {real} id The asynchronous request ID
+ * @member {string} event_type The string value `"leaderboard_download"`
+ * @member {int64} status The status code if download fails
+ * @member {string} lb_name The name of the leaderboard
+ * @member {real} num_entries The number of returned entries
+ * @member {string} entries A JSON formatted string with all the downloaded entries (see ${struct.LeaderboardEntry} for details)
  * @event_end
  * 
  * ```gml

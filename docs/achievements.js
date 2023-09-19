@@ -69,7 +69,7 @@
  * @desc With this function you can set a specific statistic to a new, signed integer, value. The statistic should have been previously defined on the Steamworks control panel accounts page for your game and the string that is passed to the function should match that used as the API Name on the control panel. Examples of when you could use this are for tracking how many times the player dies or for tracking progress towards an achievement.
  * 
  * @param {string} stat_name The name of the statistic to set.
- * @param {integer} value The value to set the stat to.
+ * @param {real} value The value to set the stat to.
  * 
  * @example
  * ```gml
@@ -93,8 +93,8 @@
  * 
  * @example
  * ```gml
- * var dist_pc = (dist / dist_max) * 100;
- * steam_set_stat_float("Travelled", dist_pc);
+ * var _dist_pc = (dist / dist_max) * 100;
+ * steam_set_stat_float("Travelled", _dist_pc);
  * ```
  * The above code calculates a percentage based on the distance travelled variable "dist" and the maximum distance you can travel "dist_max" and then sets the stat "Travelled" to the new value.
  * @func_end
@@ -155,7 +155,7 @@
  * 
  * @param {string} stat_name The name of the statistic to get.
  * 
- * @returns {Real}
+ * @returns {real}
  * 
  * @example
  * ```gml
@@ -175,7 +175,7 @@
  * 
  * @param {string} stat_name The name of the statistic to get.
  * 
- * @returns {Real}
+ * @returns {real}
  * 
  * @example
  * ```gml
@@ -235,8 +235,9 @@
  * 
  * [[NOTE: You must wait until ${function.steam_stats_ready} has returned `true`, before attempting to read or write stats and achievements.]]
  * 
- * @section achievements
- * @title Achievements
+ * If the user is in Offline Mode, Steam keeps a local cache of the stats and achievement data so that the APIs can be use as normal. Any stats unable to be committed are saved for the next time the user is online. In the event that there have been modifications on more than one machine, Steam will automatically merge achievements and choose the set of stats that has had more progress. Because Steam keeps a local cache of stats data it is not necessary for the game to *also* keep a local cache of the data on disk, especially as such caches often come in conflict and when they do it looks to a users as if their progress has been reverted, which is a frustrating experience.
+ * 
+ * @section_func Achievements Functions
  * @desc In addition to providing highly-valued rewards to players of your games, achievements are useful for encouraging and rewarding teamwork and player interaction, providing extra dimensionality to the game objectives, and rewarding users for spending more of their time in-game, and as such it is recommended that your game has a few. They are easily set up from the Steam Dashboard, but will require that you create special Icons for them.
  * The following functions are provided for working with achievements:
  * @ref steam_set_achievement
@@ -244,8 +245,7 @@
  * @ref steam_clear_achievement
  * @section_end
  * 
- * @section statistics
- * @title Statistics Functions
+ * @section_func Statistics Functions
  * @desc Statistics track fine-grained pieces of information, such as play time, number of power-ups used, etc. You may choose to use them simply for tracking internal game data - so that, for instance, you can grant an achievement based on multi-session gameplay statistics collected from the user across multiple computers. Or, you can track interesting game data for display on the user's Steam Community page, where users can compare their own stats against their friends.
  * 
  * [[NOTE: Before being used, statistics must be initialized from the Steamworks control panel for your game.]]
@@ -259,15 +259,11 @@
  * @ref steam_get_stat_avg_rate
  * @section_end
  * 
- * @section debug
- * @title Debug Functions
- * 
- * The following functions are provided for debugging purposes and are not recommended in the production version of you game:
+ * @section_func Debug Functions
+ * @desc The following functions are provided for debugging purposes and are not recommended in the production version of you game:
  * 
  * @ref steam_reset_all_stats
  * @ref steam_reset_all_stats_achievements
- * 
- * If the user is in Offline Mode, Steam keeps a local cache of the stats and achievement data so that the APIs can be use as normal. Any stats unable to be committed are saved for the next time the user is online. In the event that there have been modifications on more than one machine, Steam will automatically merge achievements and choose the set of stats that has had more progress. Because Steam keeps a local cache of stats data it is not necessary for the game to *also* keep a local cache of the data on disk, especially as such caches often come in conflict and when they do it looks to a users as if their progress has been reverted, which is a frustrating experience.
  * 
  * @section_end
  * 

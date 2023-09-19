@@ -25,7 +25,7 @@
 
 /**
  * @func steam_send_screenshot
- * @desc With this function you can upload a screenshot to the Steam Community profile page of the currently logged in user. The filename you supply is the name of the local file that was created when you took the screenshot using the GameMaker functions ${screen_save} or ${screen_save_part}. The width and height define the image size, and the function will return a value of 0 if it fails for whatever reason and a value greater than 0 if it succeeds.
+ * @desc With this function you can upload a screenshot to the Steam Community profile page of the currently logged in user. The filename you supply is the name of the local file that was created when you took the screenshot using the GameMaker functions ${function.screen_save} or ${function.screen_save_part}. The width and height define the image size, and the function will return a value of 0 if it fails for whatever reason and a value greater than 0 if it succeeds.
  * 
  * @param {string} filename The name of the image file to upload.
  * @param {real} width The width of the image.
@@ -62,7 +62,7 @@
  * @member {string} event_type The string value `"ugc_create_item"`
  * @member {real} result This will either be the GML constant `ugc_result_success` or some other real number (see the[Steam docs](https://partner.steamgames.com/doc/api/steam_api#EResult), for more details)
  * @member {boolean} legal_agreement_required Will be `true` or `false` (see the [Steam docs](https://partner.steamgames.com/documentation/ugc#Legal) for more details)
- * @member {int64} published_file_id This key holds the unique published ID for the item (you may need to cast it using the ${function.int64} function).
+ * @member {int64} published_file_id This key holds the unique published ID for the item (you may need to cast it using the ${type.int64} function).
  * @event_end
  *
  * @example
@@ -99,9 +99,9 @@
  * @returns {real}
  * 
  * @event steam
- * @param {real} id The asynchronous request ID
- * @param {string} event_type The string value `"ugc_item_delete"`
- * @param {real} result This will either be the GML constant `ugc_result_success` or some other real number (see the[Steam docs](https://partner.steamgames.com/doc/api/steam_api#EResult), for more details)
+ * @member {real} id The asynchronous request ID
+ * @member {string} event_type The string value `"ugc_item_delete"`
+ * @member {real} result This will either be the GML constant `ugc_result_success` or some other real number (see the[Steam docs](https://partner.steamgames.com/doc/api/steam_api#EResult), for more details)
  * @event_end
  * 
  * @example
@@ -321,10 +321,10 @@
  * @returns {real}
  * 
  * @event steam
- * @param {real} id The asynchronous request ID
- * @param {string} event_type The string value `"ugc_update_item"`
- * @param {real} result This will either be the GML constant `ugc_result_success` or some other real number (see the [Steam docs](https://partner.steamgames.com/doc/api/steam_api#EResult), for more details)
- * @param {boolean} legal_agreement_required Will be `true` or `false` (see the [Steam docs](https://partner.steamgames.com/documentation/ugc#Legal) for more details)
+ * @member {real} id The asynchronous request ID
+ * @member {string} event_type The string value `"ugc_update_item"`
+ * @member {real} result This will either be the GML constant `ugc_result_success` or some other real number (see the [Steam docs](https://partner.steamgames.com/doc/api/steam_api#EResult), for more details)
+ * @member {boolean} legal_agreement_required Will be `true` or `false` (see the [Steam docs](https://partner.steamgames.com/documentation/ugc#Legal) for more details)
  * @event_end
  * 
  * @example
@@ -351,8 +351,8 @@
  * @desc This function can be used to track the update status for an item. You give the item handle (as returned by the function ${function.steam_ugc_start_item_update}) and an empty ${type.ds_map} which will then be populated with the update information (see table below).
  * If there is an error the function will return `false` and the map will be empty, otherwise the function returns `true`.
  * 
- * @param {integer} ugc_update_handle The unique handle for the UGC to be updated.
- * @param ${type.ds_map} info_map A (previously created) DS map
+ * @param {real} ugc_update_handle The unique handle for the UGC to be updated.
+ * @param {type.ds_map} info_map A (previously created) DS map
  * 
  * @param {real} status_code The Steam status code
  * @param {string} status_string A string for the current status
@@ -417,7 +417,7 @@
  * @member {real} id The asynchronous request ID
  * @member {string} event_type The string value `"ugc_unsubscribe_item"`
  * @member {real} result This will either be the GML constant `ugc_result_success` or some other real number (see the[Steam docs](https://partner.steamgames.com/doc/api/steam_api#EResult), for more details)
- * @member published_file_id This key holds the unique published ID for the item (you may need to cast it using the $func{int64} function)
+ * @member published_file_id This key holds the unique published ID for the item (you may need to cast it using the ${function.int64} function)
  * @event_end
  * 
  * @example
@@ -526,35 +526,35 @@
  * @returns {real}
  * 
  * @event steam
- * @param {real} id The asynchronous request ID
- * @param {string} event_type The string value `"ugc_item_details"`
- * @param {real} result This will either be the GML constant `ugc_result_success` or some other real number (see the [Steam docs](https://partner.steamgames.com/doc/api/steam_api#EResult), for more details)
- * @param {boolean} cached_data Will be `true` if the returned details are from the local cache or `false` if they are taken from the server
- * @param {int64} published_file_id This key holds the unique published ID for the item (you may need to cast it using the ${int64} function)
- * @param {string} file_type The type of file used
- * @param {real} creator_app_id The Steam ID of the item creator
- * @param {real} consumer_app_id The Steam ID of the item consumer
- * @param {string} title The title of the item
- * @param {string} description The description of the item
- * @param {real} steam_id_owner The Steam ID of the item owner
- * @param {real} time_created The time the item was first created
- * @param {real} time_uploaded The last time the item was updated
- * @param {real} time_added_to_user_list The time that the item was subscribed to
- * @param {constant.UGCFileVisibility} visibility The visibility of the item (see ${constant.UGCFileVisibility} constant)
- * @param {boolean} banned Whether the item has been banned or not
- * @param {boolean} accepted_for_use Whether the item has been accepted for use or not
- * @param {array} tags_truncated Short version of the tags as an array
- * @param {array[string]} tags An array of the tags for the item
- * @param {int64} handle_file The unique file handle for the item
- * @param {int64} handle_preview_file The unique handle for the image preview for the item (can be used with ${function.steam_ugc_download} to download a preview image)
- * @param {string} filename The name of the item file
- * @param {real} file_size The size of the item file
- * @param {real} preview_file_size The size of the preview image
- * @param {string} url The full URL for the item
- * @param {real} up_votes The number of up-votes received
- * @param {real} down_votes The number of down-votes received
- * @param {real} score The overall score of the item
- * @param {real} account_id_owner The account ID from the Steam ID owner (this can be used in function ${function.steam_ugc_create_query_user_ex})
+ * @member {real} id The asynchronous request ID
+ * @member {string} event_type The string value `"ugc_item_details"`
+ * @member {real} result This will either be the GML constant `ugc_result_success` or some other real number (see the [Steam docs](https://partner.steamgames.com/doc/api/steam_api#EResult), for more details)
+ * @member {boolean} cached_data Will be `true` if the returned details are from the local cache or `false` if they are taken from the server
+ * @member {int64} published_file_id This key holds the unique published ID for the item (you may need to cast it using the ${int64} function)
+ * @member {string} file_type The type of file used
+ * @member {real} creator_app_id The Steam ID of the item creator
+ * @member {real} consumer_app_id The Steam ID of the item consumer
+ * @member {string} title The title of the item
+ * @member {string} description The description of the item
+ * @member {real} steam_id_owner The Steam ID of the item owner
+ * @member {real} time_created The time the item was first created
+ * @member {real} time_uploaded The last time the item was updated
+ * @member {real} time_added_to_user_list The time that the item was subscribed to
+ * @member {constant.UGCFileVisibility} visibility The visibility of the item (see ${constant.UGCFileVisibility} constant)
+ * @member {boolean} banned Whether the item has been banned or not
+ * @member {boolean} accepted_for_use Whether the item has been accepted for use or not
+ * @member {array} tags_truncated Short version of the tags as an array
+ * @member {array[string]} tags An array of the tags for the item
+ * @member {int64} handle_file The unique file handle for the item
+ * @member {int64} handle_preview_file The unique handle for the image preview for the item (can be used with ${function.steam_ugc_download} to download a preview image)
+ * @member {string} filename The name of the item file
+ * @member {real} file_size The size of the item file
+ * @member {real} preview_file_size The size of the preview image
+ * @member {string} url The full URL for the item
+ * @member {real} up_votes The number of up-votes received
+ * @member {real} down_votes The number of down-votes received
+ * @member {real} score The overall score of the item
+ * @member {real} account_id_owner The account ID from the Steam ID owner (this can be used in function ${function.steam_ugc_create_query_user_ex})
  * @event_end
  * 
  * @example
@@ -588,9 +588,9 @@
  * @desc This function can be used to query the UGC database. The function automatically uses the default ID for the app, user and assumes that the query is being done by the consumer (rather than the creator). The function requires you to use the following constants for the type of data to query (${constant.UGCListType}), the type of item to match (${constant.UGCMatchType}) and the order in which the returned items will be sorted (${constant.UGCListSortOrder}), as well as a page number - note that a query will return a *maximum* number of 50 items.
  * The function returns a unique query handle value which should be stored in a variable for use in the other query functions. Note that this function only prepares the query but does not actually send it - for that you must call the function ${function.steam_ugc_send_query} - and you can use further `steam_ugc_query_*()` functions to refine the search request before it is actually sent.
  * 
- * @param {constant.UGCListType} list_type The type of data list to create (see ${function.} constants)
- * @param {constant.UGCMatchType} match_type The type of UGC items to query (see ${function.} constants)
- * @param {constant.UGCListSortOrder} sort_order The way that data should be ordered (see ${function.} constants)
+ * @param {constant.UGCListType} list_type The type of data list to create
+ * @param {constant.UGCMatchType} match_type The type of UGC items to query
+ * @param {constant.UGCListSortOrder} sort_order The way that data should be ordered
  * @param {real} page The page number to query.
  * 
  * @returns {real}
@@ -653,8 +653,8 @@
  * @param {constant.UGCQueryType} query_type The type of query to create
  * @param {constant.UGCMatchType} match_type The type of UGC items to query
  * @param {real} page The page number to query
- * @param {integer} creator_app_id The item creator app ID
- * @param {integer} consumer_app_id The consumer app ID
+ * @param {real} creator_app_id The item creator app ID
+ * @param {real} consumer_app_id The consumer app ID
  * 
  * @returns {real}
  * 
@@ -671,7 +671,7 @@
  * @desc This function can be used to further filter any given UGC query, specifically to check and see if a Workshop item file name must match or not. The query handle is the value returned when you created the query (using, for example, ${function.steam_ugc_create_query_user}) and the second argument is either `true` or`false`, depending on whether you require the file names to match.
  * The function will return `true` if the query filter was correctly set, or `false` otherwise.
  * 
- * @param {integer} ugc_query_handle The query handle to use.
+ * @param {real} ugc_query_handle The query handle to use.
  * @param {boolean} match_cloud_filename Sets whether the UGC item file name should match or not.
  * 
  * @returns {boolean}
@@ -694,7 +694,7 @@
  * @desc This function can be used to further filter any given UGC query, specifically to switch on or off tag matching. The query handle is the value returned when you created the query (using, for example, ${function.steam_ugc_create_query_user}) and the second argument is either `true` or `false`, depending on whether you require a check for matching tags.
  * The function will return `true` if the query filter was correctly set, or `false` otherwise.
  * 
- * @param {integer} ugc_query_handle The query handle to use.
+ * @param {real} ugc_query_handle The query handle to use.
  * @param {boolean} match_any_tag Sets whether the UGC item tags should match anything or not.
  * 
  * @returns {boolean}
@@ -761,7 +761,7 @@
  * @desc This function can be used to further filter any given UGC query, specifically to search only those UGC items with the given tag. The query handle is the value returned when you created the query (using, for example, ${function.steam_ugc_create_query_user}) and the second argument is a string you want to use as the tag to include.
  * The function will return `true` if the query filter was correctly set, or `false` otherwise.
  * 
- * @param {integer} ugc_query_handle The query handle to use.
+ * @param {real} ugc_query_handle The query handle to use.
  * @param {string} tag_name The tag name to include.
  * 
  * @returns {boolean}
@@ -783,7 +783,7 @@
  * @desc This function can be used to further filter any given UGC query, specifically to exclude a given UGC from the query request. The query handle is the value returned when you created the query (using, for example, ${function.steam_ugc_create_query_user}) and the second argument is a string you want to use as the tag to exclude.
  * The function will return `true` if the query filter was correctly set, or `false` otherwise.
  * 
- * @param {integer} ugc_query_handle The query handle to use.
+ * @param {real} ugc_query_handle The query handle to use.
  * @param {string} tag_name The tag name to exclude.
  * 
  * @returns {boolean}
@@ -847,7 +847,7 @@
  * @desc This function can be used to further filter any given UGC query, specifically to request that the query check the local cache rather than online. The query handle is the value returned when you created the query (using, for example, ${function.steam_ugc_create_query_user}) and the second argument is either `true` or`false`.
  * The function will return `true` if the query filter was correctly set, or `false` otherwise.
  * 
- * @param {integer} ugc_query_handle The query handle to use.
+ * @param {real} ugc_query_handle The query handle to use.
  * @param {boolean} cache Whether to have the query check the local cache or not.
  * 
  * @returns {boolean}
@@ -905,7 +905,7 @@
  * @member {array} tags_truncated Short version of the tags as an array
  * @member {array[string]} tags An array of the tags for the item
  * @member {int64} handle_file The unique file handle for the item
- * @member {int64} handle_preview_file The unique handle for the image preview for the item (can be used with ${function. steam_ugc_download} to download a preview image)
+ * @member {int64} handle_preview_file The unique handle for the image preview for the item (can be used with ${function.steam_ugc_download} to download a preview image)
  * @member {string} filename The name of the item file
  * @member {real} file_size The size of the item file
  * @member {real} preview_file_size The size of the preview image
@@ -939,12 +939,12 @@
  * @returns {real}
  * 
  * @event steam
- * @param {real} id The asynchronous request ID
- * @param {string} event_type The string value `"ugc_create_item"`
- * @param {real} result This will either be the GML constant `ugc_result_success` or some other real number (see the [Steam docs](https://partner.steamgames.com/doc/api/steam_api) under **EResult** , for more details)
- * @param {string} original_filename This key holds the original name of the image file *on the server* (a string)
- * @param {string} dest_filename This key holds the image file name you passed in (a string)
- * @param {integer} ugc_handle 
+ * @member {real} id The asynchronous request ID
+ * @member {string} event_type The string value `"ugc_create_item"`
+ * @member {real} result This will either be the GML constant `ugc_result_success` or some other real number (see the [Steam docs](https://partner.steamgames.com/doc/api/steam_api) under **EResult** , for more details)
+ * @member {string} original_filename This key holds the original name of the image file *on the server* (a string)
+ * @member {string} dest_filename This key holds the image file name you passed in (a string)
+ * @member {real} ugc_handle 
  * @event_end
  * 
  * @example
@@ -1081,11 +1081,11 @@
  * 
  * * [Sharing User Generated Content](https://partner.steamgames.com/documentation/ugc#Tech)
  * 
- * [[NOTE: NOTE You need to have your game accepted for the Steam online store and have access to the developer areas of the Steam API documentation.
+ * [[NOTE: You need to have your game accepted for the Steam online store and have access to the developer areas of the Steam API documentation.]]
  * 
  * All subscribed UGC items will be downloaded by the Steam client automatically, and you should have code in the ${event.steam} to catch this and store the ID of the UGC that has been downloaded for use in the other UGC functions.
  * 
- * [[warning: IMPORTANT Steam UGC IDs can be huge numbers This means that sometimes you may need to store these as a string rather than try and store them as a real value, especially if working with buffers or trying to write the value to a text file (since this will convert it to a simplified standard format like "6.6624e+003" which will cause issues being read back).
+ * [[WARNING: IMPORTANT Steam UGC IDs can be huge numbers This means that sometimes you may need to store these as a string rather than try and store them as a real value, especially if working with buffers or trying to write the value to a text file (since this will convert it to a simplified standard format like "6.6624e+003" which will cause issues being read back).]]
  * 
  * The normal workflow for getting UGC into your game would be as follows:
  * 
@@ -1095,8 +1095,7 @@
  * 
  * The following sections explain all the functions required to get UGC functioning in GameMaker:
  * 
- * @section content
- * @title Creating And Editing Content
+ * @section_func title Creating And Editing Content
  * The following functions are essentially "wrapper" functions for those supplied in the Steam API for creating and uploading content to their servers. As such, we recommend that you read over the linked Steam documentation before using them to gain a greater understanding of how they work: [Creating And Uploading Content](https://partner.steamgames.com/documentation/ugc#CreateUploadContent).
  * 
  * @ref steam_ugc_create_item
@@ -1113,7 +1112,7 @@
  * 
  * @section_end
  * 
- * @section Consuming Content
+ * @section_func Consuming Content
  * @desc Once your user content has been created and the workshop has it available for download, people can subscribe to it through the Steam App or through the Web portal. However GameMaker also includes the following functions to use the Steam API for creating and canceling subscriptions as well as for getting information about what the user is subscribed to currently:
  * 
  * @ref steam_ugc_subscribe_item
@@ -1126,7 +1125,7 @@
  * 
  * @section_end
  * 
- * @section Querying Content
+ * @section_func Querying Content
  * @desc There are also a large number of functions available to query the Steam API about the UGC items available:
  * @ref steam_is_screenshot_requested
  * @ref steam_send_screenshot
@@ -1165,7 +1164,7 @@
  * @ref steam_ugc_download
  * @section_end
  * 
- * @section Constants
+ * @section_const Constants
  * @desc This section also provides a set of constants to be used along side the functions provided above:
  * @ref UGCFileType
  * @ref UGCFileVisibility
