@@ -4,7 +4,7 @@
  * @func steam_net_packet_get_data
  * @desc This function copies the contents of the last received packet to the given buffer. Data is copied to the start of the buffer (position remains unaffected), meaning that if you reuse the same buffer, you should "rewind" it prior to reading.
  * 
- * [[NOTE: If the buffer is not big enough to fit data, it will be resized automatically (the buffer needs to be created using the using the `buffer_grow` type).]]
+ * [[NOTE: If the buffer is not big enough to fit data, it will be resized automatically (the buffer needs to be created using the `buffer_grow` type).]]
  * 
  * @param {type.buffer} buffer The buffer to write the incoming data to.
  * 
@@ -31,7 +31,7 @@
 /**
  * @func steam_net_packet_get_sender_id
  * @desc This function returns the Steam ID of the user that sent the last received packet.
- * Can be used in conjunction with ${function.steam_net_packet_send} to send something back and for just telling the senders apart.
+ * It can be used in conjunction with ${function.steam_net_packet_send} to send something back and for just telling the senders apart.
  * 
  * @returns {int64}
  * 
@@ -83,13 +83,13 @@
  *     // process the received packet
  * }
  * ```
- * The code above will attempt to get the next packet from Steam API, would be used every step while in lobby or with less frequency otherwise.
+ * The code above will attempt to get the next packet from Steam API. This would be used every step while in lobby or just from time to time.
  * @func_end
  */
 
 /**
  * @func steam_net_packet_send
- * @desc This function sends a packet to the given endpoint, returns whether successful (as opposed to incorrect arguments/invalid ID). If no packet type is passed in then default value will be used, the default value can be set using the ${function.steam_net_packet_set_type} function. Returns whether or not the packet was successfully sent.
+ * @desc This function sends a packet to the given endpoint and returns whether successful (as opposed to incorrect arguments/invalid ID). If no packet type is passed in then the default value will be used. The default value can be set using the ${function.steam_net_packet_set_type} function. The function returns whether or not the packet was successfully sent.
  * 
  * @param {int64} user_id  The target user to send the packet to
  * @param {real} buffer Buffer that contains the raw byte array for the packet data to send
@@ -111,7 +111,7 @@
 
 /**
  * @func steam_net_packet_set_type
- * @desc This function sets the default connection protocol used when sending the data packets (using the ${function.steam_net_packet_send} function). Returns whether or not the default protocol was successfully set.
+ * @desc This function sets the default connection protocol used when sending the data packets (using the ${function.steam_net_packet_send} function). It returns whether or not the default protocol was successfully set.
  * 
  * @param {constant.PacketType} protocol The default connection protocol to be used
  * 
@@ -153,6 +153,7 @@
  * 
  * @returns {boolean}
  * 
+ * @example
  * ```gml
  * if (global.chat_closed)
  * {
@@ -165,7 +166,7 @@
 
 /**
  * @func steam_net_set_auto_accept_p2p_sessions
- * @desc This function sets whether to auto-accept session requests coming from players in the same lobby. This is enabled by default for convenience. If you disable it, you will need to handle the async event when someone uses the ${function.steam_lobby_join_id} function.
+ * @desc This function sets whether to auto-accept session requests coming from players in the same lobby. This is enabled by default for convenience. If you disable it, you'll need to handle the async event when someone uses the ${function.steam_lobby_join_id} function.
  * 
  * @param {boolean} enable disable/enable auto accept sessions
  * 
@@ -192,19 +193,20 @@
 
 /**
  * @const PacketType
- * @desc These constants specify the type of a steam packet.
+ * @desc These constants specify the type of a Steam packet.
  * 
  * @member steam_net_packet_type_unreliable Equivalent to UDP the data may or may not be delivered, will not be resent automatically.
- * @member steam_net_packet_type_unreliable_nodelay Similar to "unreliable" type, but always sent instantly (as soon as function is called). Intended for things like streaming voice data, where you want lowest latency possible and only care about the current data.
+ * @member steam_net_packet_type_unreliable_nodelay Similar to "unreliable" type, but always sent instantly (as soon as the function is called). Intended for things like streaming voice data, where you want the lowest possible latency and only care about the current data.
  * @member steam_net_packet_type_reliable Equivalent to TCP, the data is warranted to be delivered in order and intact.
- * @member steam_net_packet_type_reliable_buffer Similar to "reliable" type, but utilizes [Nagle's algorithm](https://en.wikipedia.org/wiki/Nagle's_algorithm) to reduce the number of packets at the cost of potential delay while the data accumulates until the sending threshold.
+ * @member steam_net_packet_type_reliable_buffer Similar to the "reliable" type, but utilizes [Nagle's algorithm](https://en.wikipedia.org/wiki/Nagle's_algorithm) to reduce the number of packets at the cost of potential delay while the data accumulates until the sending threshold.
  * @const_end
  */
 
 // MODULES
 
 /**
- * @module Networking
+ * @module networking
+ * @title Networking
  * @desc The following functions and constants allow you to use Steam's Networking functionality.
  * 
  * @section_func Packets IO

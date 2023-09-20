@@ -27,7 +27,7 @@
 
 /**
  * @func steam_user_installed_dlc
- * @desc If your game has DLC created for it, you can use this function to check and see whether the user has installed it before accessing any files associated with it. The function returns true if the player has the content installed, and false if the user does not, but note that the user must also own the DLC, so you should use the additional function of ${function.steam_user_owns_dlc} to check that it is owned as well before using it.
+ * @desc If your game has DLC created for it, you can use this function to check and see whether the user has installed it before accessing any files associated with it. The function returns `true` if the player has the content installed, and `false` if the user does not, but note that the user must also own the DLC, so you should use the additional function of ${function.steam_user_owns_dlc} to check that it is owned as well before using it.
  * 
  * @param {int64} dlc_id The unique identifier for the DLC to be checked.
  * 

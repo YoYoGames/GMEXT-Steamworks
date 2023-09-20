@@ -2,7 +2,7 @@
 
 /**
  * @func steam_is_overlay_enabled
- * @desc When using the Steam API, this function can be called to check that the Steam client API has the overlay functionality enabled.
+ * @desc When using the Steam API, this function can be called to check if the Steam client API has the overlay functionality enabled.
  * 
  * @returns {boolean}
  * 
@@ -27,6 +27,7 @@
  * 
  * @returns {boolean}
  * 
+ * @example
  * ```gml
  * if steam_is_overlay_activated()
  * {
@@ -41,12 +42,12 @@
  * @func steam_activate_overlay
  * @desc The Steam overlay is a piece of the Steam user interface that can be activated over the top of almost any game launched through Steam. It lets the user access their friends list, web browser, chat, and in-game DLC purchasing. The default key for a user to access the overlay while in a game is SHIFT + TAB, but you can also bring up any page of the overlay using this function. It takes one of six constants that are listed below:
  * 
- * @param {constant.OverlayType} overlay_type The page index of the Steam API UI to show (see ${constant.OverlayType} constants).
+ * @param {constant.OverlayType} overlay_type The page index of the Steam API UI to show
  * 
  * @example
  * ```gml
- * var key = keyboard_lastkey;
- * switch (key)
+ * var _key = keyboard_lastkey;
+ * switch (_key)
  * {
  *     case vk_f1: steam_activate_overlay(ov_friends); break;
  *     case vk_f2: steam_activate_overlay(ov_community); break;
@@ -56,13 +57,13 @@
  *     case vk_f6: steam_activate_overlay(ov_achievements); break;
  * }
  * ```
- * The above code polls the last keyboard key pressed and if it is any of the function keys from 1 to 6 it will open the corresponding page of the Steam overlay.
+ * The above code polls the last keyboard key pressed. If it is any of the function keys from 1 to 6 it will open the corresponding page of the Steam overlay.
  * @func_end
  */
 
 /**
  * @func steam_activate_overlay_browser
- * @desc With this function you can open the Steam game overlay to its web browser and then have it load the specified URL. you need to use the full URL as a string for this to resolve correctly, for example: `"http://www.steamgames.com/"`.
+ * @desc With this function you can open the Steam game overlay to its web browser and then have it load the specified URL. You need to use the full URL as a string for this to resolve correctly, for example: `"http://www.steamgames.com/"`.
  * 
  * @param {string} url The (full) URL for the overlay to open.
  * 
@@ -72,7 +73,7 @@
  *     steam_activate_overlay_browser("http://www.steamgames.com/");
  * }
  * ```
- * The above code polls the keyboard for the F1 key and if it is then Steam overlay will be opened and resolve to the given URL.
+ * The above code polls the keyboard for the F1 key. If it was pressed then Steam overlay will be opened and resolve to the given URL.
  * @func_end
  */
 
@@ -98,24 +99,24 @@
  * @desc This function will open the Steam overlay to one of the chosen dialogues relating to the user ID given.
  * Note that Steam IDs can be large numbers and so you may need to cast your ID value as an ${type.int64} before supplying it to the function.
  * 
- * @param {string} dialog_name The dialogue to open the overlay on (see below).
- * @param {int64} steamid The Steam user ID or group ID to use.
- * 
  * |Dialog Names|Description|
- * |----|----
+ * |----|----|
  * |`"steamid"`|Opens the Steam Community web browser to the page of the user or group|
  * |`"chat"`|Opens a chat window to the specified user|
  * 
+ * @param {string} dialog_name The dialogue to open the overlay on (see below).
+ * @param {int64} steamid The Steam user ID or group ID to use.
+ * 
  * @example
  * ```gml
- * var key = keyboard_lastkey;
- * switch (key)
+ * var _key = keyboard_lastkey;
+ * switch (_key)
  * {
  *     case vk_f1: steam_activate_overlay_user("steamid", global.GameGroupID); break;
  *     case vk_f2: steam_activate_overlay_user("chat", global.FriendID); break;
  * }
  * ```
- * The above code polls the last keyboard key pressed and if it is function key 1 or function key 2, it will open the Steam overlay to either see the Steam group stored in the global variable "GamegroupID", or it will open the chat window to chat with the user stored in the global "FriendID" variable.
+ * The above code polls the last keyboard key pressed. If it is function key 1 or function key 2, it will open the Steam overlay to either see the Steam group stored in the global variable "GamegroupID", or it will open the chat window to chat with the user stored in the global "FriendID" variable.
  * @func_end
  */
 
@@ -132,7 +133,7 @@
  * ```gml
  * steam_set_overlay_notification_inset(10, 10);
  * ```
- * The code above will inset the over lay 10px on the horizontal axis and 10px in the vertical axis.
+ * The code above will inset the overlay 10px on the horizontal axis and 10px on the vertical axis.
  * @func_end
  */
 

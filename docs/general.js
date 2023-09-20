@@ -2,10 +2,11 @@
 
 /**
  * @func steam_initialised
- * @desc When using the Steam API, this function can be called to check that the Steam client API has been initialised correctly before any doing any further calls to Steam specific functions in your game.
+ * @desc When using the Steam API, this function can be called to check that the Steam client API has been initialised correctly before doing any further calls to Steam-specific functions in your game.
  * 
  * @returns {boolean}
  * 
+ * @example
  * ```gml
  * global.steam_api = false;
  * if (steam_initialised())
@@ -43,7 +44,7 @@
 
 /**
  * @func steam_get_app_id
- * @desc This function is used retrieve the unique app ID that Steam assigns for your game, which is required for using some of the ${module.UGC} functions.
+ * @desc This function is used retrieve the unique app ID that Steam assigns for your game, which is required for using some of the User Generated Content functions.
  * 
  * @returns {Real}
  * 
@@ -57,7 +58,7 @@
 
 /**
  * @func steam_get_user_account_id
- * @desc This function is used retrieve the unique User ID that Steam assigns to each user, which is required for using some of the ${module.UGC} functions.
+ * @desc This function is used to retrieve the unique User ID that Steam assigns to each user, which is required for using some of the ${module.UGC} functions.
  * 
  * @returns {real}
  * 
@@ -106,7 +107,7 @@
 /**
  * @func steam_get_user_persona_name
  * @desc This function can be used to retrieve the user name (screen name) for any specific user ID. 
- * This is an asynchronous function that will return an asynchronous id and trigger the ${event.steam} when the task is finished.
+ * This is an asynchronous function that will return an asynchronous ID and trigger the ${event.steam} when the task is finished.
  * 
  * @param {int64} steamID The unique Steam ID for a user.
  * 
@@ -115,7 +116,7 @@
  * @event steam
  * @member {real} id The asynchronous request ID
  * @member {string} event_type The string value `"user_persona_name"`
- * @member {int64} steamid The unique user id of the user currently logged into the Steam client
+ * @member {int64} steamid The unique user ID of the user currently logged into the Steam client
  * @member {string} persona_name The visible screen name of the user currently logged into the Steam client
  * @event_end
  * 
@@ -187,7 +188,7 @@
  *     show_debug_message("is_subscribed");
  * }
  * ```
- * The above code will check to see if the user is logged onto the Steam server and if it stores the user ID in a global variable.
+ * The above code will check to see if the user is subscribed and shows a debug message if that is the case.
  * @func_end
  */
 
@@ -207,7 +208,7 @@
 
 /**
  * @module general
- * @title general
+ * @title General
  * @desc The following set of functions are all for checking the availability of certain aspects of the Steam client or server API. This means that these functions should be used before any other Steam API function call to ensure that the client/server setup is correct and communicating with your game:
  * @section_func
  * @ref steam_initialised

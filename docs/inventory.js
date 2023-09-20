@@ -47,7 +47,7 @@
  * ```gml
  * var price = steam_inventory_get_item_price(item);
  * ```
- * The code sample above will return you the price for the specified item definition. For a more detailed example on using the function check ${function.steam_inventory_request_prices}
+ * The code sample above will return you the price for the specified item definition. For a more detailed example on using the function check ${function.steam_inventory_request_prices}.
  * @func_end
  */
 
@@ -97,7 +97,7 @@
  * @member {string} event_type The string value `"inventory_request_eligible_promo_item_defs"`
  * @member {int64} user_id The user's unique identifier
  * @member {real} item_def_count The number of items
- * @member {string} item_def_json A JSON array of items identifiers (must be parsed using ${function.json_parse})
+ * @member {string} item_def_json A JSON array of items identifiers (must be parsed using ${function.json_parse} or ${function.json_decode})
  * @member {boolean} is_cached_data Whether the data was retrieved from the cache and not from the server
  * @event_end
  * 
@@ -127,7 +127,7 @@
  * @event steam
  * @member {string} event_type The string value `"inventory_request_prices"`
  * @member {boolean} success Whether the async action succeeded
- * @member result The status code as returned by ${function.steam_inventory_result_get_status}
+ * @member {struct.InventoryResultStatus} result The status code as returned by ${function.steam_inventory_result_get_status}
  * @member {string} currency The string representing the user's [local currency](https://partner.steamgames.com/doc/store/pricing/currencies) code.
  * @event_end
  * 
@@ -144,7 +144,7 @@
  * // Early exit if handle doesn't match
  * if (async_load[? "success"])
  * {
- *     show_debug_message("The currenct being used is: " + async_load[? "currency"]);
+ *     show_debug_message("The currency being used is: " + async_load[? "currency"]);
  * 
  *     var price = steam_inventory_get_item_price(global.swordId);
  * }
@@ -163,7 +163,7 @@
  * >
  * > A wrapper around [StartPurchase](https://partner.steamgames.com/doc/api/ISteamInventory#StartPurchase).
  * 
- * @param {array[struct]} array An array of [structs](https://manual.yoyogames.com/GameMaker_Language/GML_Overview/Structs.htm) representing items to be purchased (see ${struct.InventoryItemCreationData})
+ * @param {array[struct.InventoryItemCreationData]} array An array of [structs](https://manual.yoyogames.com/GameMaker_Language/GML_Overview/Structs.htm) representing items to be purchased (see ${struct.InventoryItemCreationData})
  * 
  * @example
  * ```gml
@@ -249,8 +249,8 @@
  * >
  * > A wrapper around [ExchangeItems](https://partner.steamgames.com/doc/api/ISteamInventory#ExchangeItems).
  * 
- * @param {array[struct]} create_arr An array of [structs](https://manual.yoyogames.com/GameMaker_Language/GML_Overview/Structs.htm) representing items to be created
- * @param {array[struct]} destroy_arr An array of [structs](https://manual.yoyogames.com/GameMaker_Language/GML_Overview/Structs.htm) representing items to be consumed
+ * @param {array[struct.InventoryItemCreationData]} create_arr An array of [structs](https://manual.yoyogames.com/GameMaker_Language/GML_Overview/Structs.htm) representing items to be created
+ * @param {array[struct.InventoryItemConsumptionData]} destroy_arr An array of [structs](https://manual.yoyogames.com/GameMaker_Language/GML_Overview/Structs.htm) representing items to be consumed
  * 
  * @returns {real}
  * 
@@ -315,7 +315,7 @@
  * >
  * > A wrapper around [GenerateItems](https://partner.steamgames.com/doc/api/ISteamInventory#GenerateItems).
  * 
- * @param  create_arr An array of [structs](https://manual.yoyogames.com/GameMaker_Language/GML_Overview/Structs.htm) representing items to be created (see ${struct.InventoryItemCreationData})
+ * @param {array[struct.InventoryItemCreationData]} create_arr An array of [structs](https://manual.yoyogames.com/GameMaker_Language/GML_Overview/Structs.htm) representing items to be created
  * 
  * @returns {real}
  * 
@@ -410,7 +410,7 @@
 
 /**
  * @func steam_inventory_get_items_by_id
- * @desc Requests information about a subset of the current user's inventory.
+ * @desc This function requests information about a subset of the current user's inventory.
  * 
  * [[WARNING: IMPORTANT You must call ${function.steam_inventory_result_destroy} on the returned async result ID when you are done with it.]]
  * 
@@ -461,14 +461,14 @@
  * @example
  * ```gml
  * var _handle = steam_inventory_start_update_properties();
- * steam_inventory_set_property_bool(handle, item_id, "invisible", true);
- * steam_inventory_set_property_float(handle, item_id, "power", 123.54);
- * steam_inventory_set_property_int(handle, item_id, "uses", 5)
- * steam_inventory_set_property_string(handle, item_id, "name", "Big Sword")
- * ...
- * steam_inventory_remove_property(handle, item_id, "invisible")
- * ...
- * steam_inventory_submit_update_properties(handle)
+ * steam_inventory_set_property_bool(_handle, item_id, "invisible", true);
+ * steam_inventory_set_property_float(_handle, item_id, "power", 123.54);
+ * steam_inventory_set_property_int(_handle, item_id, "uses", 5);
+ * steam_inventory_set_property_string(_handle, item_id, "name", "Big Sword");
+ * // ...
+ * steam_inventory_remove_property(_handle, item_id, "invisible");
+ * // ...
+ * steam_inventory_submit_update_properties(_handle);
  * ```
  * The code above provides a simple sample on how to set/removed some properties.
  * Starting with a ${function.steam_inventory_start_update_properties} then multiple calls to set/remove property functions:
@@ -510,7 +510,7 @@
  * ```gml
  * handle = steam_inventory_transfer_item_quantity(global.apple, 2, global.oranges);
  * ```
- * The above code will trigger a transfer between two items owned by the used the amount to be transferred in the example, the user will lose 2 apples and receive 2 oranges. For an example on how to use the ${event.steam} to read the callback response, refer to the function ${function.steam_inventory_get_all_items}.
+ * The above code will trigger a transfer between two items owned by the user the amount to be transferred in the example, the user will lose 2 apples and receive 2 oranges. For an example on how to use the ${event.steam} to read the callback response, refer to the function ${function.steam_inventory_get_all_items}.
  * @func_end
  */
 
@@ -595,7 +595,7 @@
  *     show_debug_message("Exchange failed");
  * }
  * 
- * // Don't forget to clean the ununsed handle
+ * // Don't forget to clean the unused handle
  * steam_inventory_result_destroy(handle);
  * handle = undefined;
  * ```
@@ -624,7 +624,7 @@
  * ```gml
  * handle = steam_inventory_get_all_items();
  * ```
- * The code above will start a query for all the items in current users inventory. The result for this task can be caught inside the ${event.steam} with the following code:
+ * The code above will start a query for all the items in the current user's inventory. The result for this task can be caught inside the ${event.steam} with the following code:
  * 
  * ```gml
  * // Early exit if event type doesn't match
@@ -636,31 +636,31 @@
  * // Early exit if handle doesn't match
  * if (async_load[? "success"])
  * {
- *     var items = steam_inventory_result_get_items(handle);
+ *     var _items = steam_inventory_result_get_items(handle);
  * 
- *     var status = steam_inventory_result_get_status(handle);
- *     var timestamp = steam_inventory_result_get_unix_timestamp(handle);
+ *     var _status = steam_inventory_result_get_status(handle);
+ *     var _timestamp = steam_inventory_result_get_unix_timestamp(handle);
  * 
- *     for (var i = 0; i < array_length(items); i++)
+ *     for (var i = 0; i < array_length(_items); i++)
  *     {      
  *         // It's also possible to get properties from each item using 
- *         // prop1 = steam_inventory_result_get_item_property(handle, i, "property_name1")
- *         // prop2 = steam_inventory_result_get_item_property(handle, i, "property_name2")
+ *         // prop1 = steam_inventory_result_get_item_property(handle, i, "property_name1");
+ *         // prop2 = steam_inventory_result_get_item_property(handle, i, "property_name2");
  *     }
  * }
  * 
- * // Don't forget to clean the ununsed handle
+ * // Don't forget to clean the unused handle
  * steam_inventory_result_destroy(handle);
  * handle = undefined;
  * 
  * ```
- * The code above matches the event type and checks if the handle id matches the one that initialized the request and if so gets the items from the result using the function ${function.steam_inventory_result_get_items} and loops through them to get the item properties we want. In the end we also use a call to ${function.steam_inventory_result_destroy} to make sure we dispose and free all the used memory.
+ * The code above matches the event type and checks if the handle ID matches the one that initialized the request and if so gets the items from the result using the function ${function.steam_inventory_result_get_items} and loops through them to get the item properties we want. In the end we also use a call to ${function.steam_inventory_result_destroy} to make sure we dispose and free all the used memory.
  * @func_end
  */
 
 /**
  * @func steam_inventory_result_get_items
- * @desc Get the items associated with an inventory result handle.
+ * @desc This function gets the items associated with an inventory result handle.
  * 
  * [[NOTE: This function can be called using an inventory result handle after the corresponding async event has been triggered.]]
  * 
@@ -674,10 +674,10 @@
  * 
  * @example
  * ```gml
- * var array = steam_inventory_result_get_items(inv_result);
- * for(var i = 0 ; i < array_length(array) ; i++)
+ * var _array = steam_inventory_result_get_items(inv_result);
+ * for(var i = 0 ; i < array_length(_array) ; i++)
  * {
- *      var struct = array[i];
+ *      var struct = _array[i];
  *      var item_id = struct.item_id;
  *      var item_def = struct.item_def;
  *      var quantity = struct.quantity;
@@ -706,7 +706,7 @@
  * if(steam_inventory_result_get_status(inv_result) != steam_inventory_result_status_ok)
  *      exit;
  * ```
- * For a more detailed implementation sample please refer to the ${function.steam_inventory_get_all_items} function.
+ * For a more detailed implementation sample please refer to the ${function.steam_inventory_result_get_item_property} function.
  * @func_end
  */
 
@@ -795,9 +795,9 @@
  * // ...
  * steam_inventory_remove_property(_handler, item_id, "invisible");
  * // ...
- * steam_inventory_submit_update_properties(handler);
+ * steam_inventory_submit_update_properties(_handler);
  * ```
- * The code above provides a simple sample on how to set/removed some properties.
+ * The code above provides a simple sample on how to set/remove some properties.
  * Starting with a ${function.steam_inventory_start_update_properties} then multiple calls to set/remove property functions:
  * 
  * * ${function.steam_inventory_set_property_bool}
@@ -870,9 +870,9 @@
  * steam_inventory_set_property_float(handle, item_id, "power", 123.54);
  * steam_inventory_set_property_int(handle, item_id, "uses", 5);
  * steam_inventory_set_property_string(handle, item_id, "name", "Big Sword");
- * ...
+ * // ...
  * steam_inventory_remove_property(handle, item_id, "invisible");
- * ...
+ * // ...
  * steam_inventory_submit_update_properties(handle);
  * ```
  * The code above provides a simple sample on how to set/removed some properties.
@@ -890,7 +890,7 @@
 
 /**
  * @func steam_inventory_set_property_int
- * @desc Sets a [dynamic property](https://partner.steamgames.com/doc/features/inventory/dynamicproperties) for the int given item 
+ * @desc This function sets a [dynamic property](https://partner.steamgames.com/doc/features/inventory/dynamicproperties) for the int given item.
  * 
  * > **:eight_pointed_black_star: EXTERNAL**
  * >
@@ -909,9 +909,9 @@
  * steam_inventory_set_property_float(handle, item_id, "power", 123.54);
  * steam_inventory_set_property_int(handle, item_id, "uses", 5);
  * steam_inventory_set_property_string(handle, item_id, "name", "Big Sword");
- * ...
+ * // ...
  * steam_inventory_remove_property(handle, item_id, "invisible");
- * ...
+ * // ...
  * steam_inventory_submit_update_properties(handle);
  * ```
  * The code above provides a simple sample on how to set/removed some properties.
@@ -929,7 +929,7 @@
 
 /**
  * @func steam_inventory_set_property_string
- * @desc Sets a [dynamic property](https://partner.steamgames.com/doc/features/inventory/dynamicproperties) for the string given item 
+ * @desc This function sets a [dynamic property](https://partner.steamgames.com/doc/features/inventory/dynamicproperties) for the string given item.
  * 
  * > **:eight_pointed_black_star: EXTERNAL**
  * >
@@ -943,15 +943,15 @@
  * 
  * @example
  * ```gml
- * var handle = steam_inventory_start_update_properties();
- * steam_inventory_set_property_bool(handle, item_id, "invisible", true);
- * steam_inventory_set_property_float(handle, item_id, "power", 123.54);
- * steam_inventory_set_property_int(handle, item_id, "uses", 5);
- * steam_inventory_set_property_string(handle, item_id, "name", "Big Sword");
+ * var _handle = steam_inventory_start_update_properties();
+ * steam_inventory_set_property_bool(_handle, item_id, "invisible", true);
+ * steam_inventory_set_property_float(_handle, item_id, "power", 123.54);
+ * steam_inventory_set_property_int(_handle, item_id, "uses", 5);
+ * steam_inventory_set_property_string(_handle, item_id, "name", "Big Sword");
  * // ...
- * steam_inventory_remove_property(handle, item_id, "invisible");
+ * steam_inventory_remove_property(_handle, item_id, "invisible");
  * // ...
- * steam_inventory_submit_update_properties(handle);
+ * steam_inventory_submit_update_properties(_handle);
  * ```
  * The code above provides a simple sample on how to set/removed some properties.
  * Starting with a ${function.steam_inventory_start_update_properties} then multiple calls to set/remove property functions:
@@ -1011,7 +1011,8 @@
 // MODULES
 
 /**
- * @module Inventory
+ * @module inventory
+ * @title Inventory
  * @desc The following functions, constants and structures allow to use the [Steam Inventory Service](https://partner.steamgames.com/doc/features/inventory).
  * 
  * @section_func Pricing and Consumables

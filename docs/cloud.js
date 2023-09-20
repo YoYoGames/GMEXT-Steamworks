@@ -2,7 +2,7 @@
 
 /**
  * @func steam_is_cloud_enabled_for_app
- * @desc With this function you can check to make sure that the Steam Cloud service is enabled for your game. It will return true if it is and false otherwise.
+ * @desc With this function you can check to make sure that the Steam Cloud service is enabled for your game. It will return `true` if it is and `false` otherwise.
  * 
  * [[WARNING: IMPORTANT This does not automatically mean that you can use the Cloud functions as the user can switch off Cloud synchronization from their Steam Client. You can check this using the function ${function.steam_is_cloud_enabled_for_account}, but, even if it is disabled for the user (and enabled for the game), the functions will still work to store and retrieve data from a local copy of all files, it will just not upload them to the cloud on the game end, nor synchronize on the game start.]]
  * 
@@ -53,7 +53,7 @@
  *     quota = steam_get_quota_total();
  * }
  * ```
- * The above code checks to see if the steam cloud is enabled for the game and if so it gets the size of the storage quota and stores it in a variable.
+ * The above code checks to see if the Steam Cloud is enabled for the game and if so it gets the size of the storage quota and stores it in a variable.
  * @func_end
  */
 
@@ -109,7 +109,7 @@
 
 /**
  * @func steam_file_persisted
- * @desc With this function you can check the given file to see if it has been synchronized with the Steam Cloud. A return value of true means that it is, while false means it is not.
+ * @desc With this function you can check the given file to see if it has been synchronized with the Steam Cloud. A return value of `true` means that it is, while `false` means it is not.
  * 
  * @param {string} filename The name of the file to check.
  * 
@@ -138,10 +138,10 @@
  * 
  * @example
  * ```gml
- * var fname = "SaveData.txt";
- * var data = string(global.Level) + "|" + string(global.Points) + "|" + string(global.HP);
- * var len = string_length(data);
- * steam_file_write_file(fname, data, len);
+ * var _fname = "SaveData.txt";
+ * var _data = string(global.Level) + "|" + string(global.Points) + "|" + string(global.HP);
+ * var _len = string_length(_data);
+ * steam_file_write_file(_fname, _data, _len);
  * ```
  * The above code will prepare a number of local variables and then use them to write to (or create) a file which will then be synchronized with the Steam Cloud.
  * @func_end

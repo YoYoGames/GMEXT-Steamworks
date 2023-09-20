@@ -8,8 +8,8 @@
  * [[NOTE: If you have previously created a leaderboard with the same name (either through code or through your Steam page for the game), then this function will not create a new one.]]
  * 
  * @param {string} lb_name The name of the leaderboard that you are creating
- * @param {constant.LeaderboardSortOrder} sort_order The method for sorting the leaderboard entries (see ${constant.LeaderboardDisplayType} constants)
- * @param {constant.LeaderboardDisplayType} display_type The way to display the leaderboard to the user (see ${constant.LeaderboardDisplayType} constants)
+ * @param {constant.LeaderboardSortOrder} sort_order The method for sorting the leaderboard entries
+ * @param {constant.LeaderboardDisplayType} display_type The way to display the leaderboard to the user
  * 
  * @returns {real}
  * 
@@ -59,25 +59,25 @@
  *     upload_ID = steam_upload_score("Game Scores", score);
  *     if (!upload_ID)
  *     {
- *         alarm[0] = room_speed;
+ *         alarm[0] = game_get_speed(gamespeed_fps);
  *     }
  * }
  * ```
  * Note that we have set an alarm if the call fails. This would be used to try the upload again at a later time and you can add extra code there to retry the upload or to save the score to a text file should it continue to fail, etc. We now add the following into the ${event.steam} for the instance controlling the scores:
  * 
  * ```gml
- * var type = ds_map_find_value(async_load, "event_type");
- * if (type == "leaderboard_upload")
+ * var _type = ds_map_find_value(async_load, "event_type");
+ * if (_type == "leaderboard_upload")
  * {
- *     var lb_ID = ds_map_find_value(async_load, "post_id");
- *     if lb_ID == upload_ID
+ *     var _lb_ID = ds_map_find_value(async_load, "post_id");
+ *     if _lb_ID == upload_ID
  *     {
- *         var lb_name = ds_map_find_value(async_load, "lb_name");
- *         var lb_done = ds_map_find_value(async_load, "success");
- *         var lb_score = ds_map_find_value(async_load, "score");
- *         var lb_updated = ds_map_find_value(async_load, "updated");
- *         show_debug_message("leaderboard post id:" + string(lb_ID) + " to lb:" + string(lb_name) + " with score:" + string(lb_score) + " updated=" + string(lb_updated));
- *         if (lb_done)
+ *         var _lb_name = ds_map_find_value(async_load, "lb_name");
+ *         var _lb_done = ds_map_find_value(async_load, "success");
+ *         var _lb_score = ds_map_find_value(async_load, "score");
+ *         var _lb_updated = ds_map_find_value(async_load, "updated");
+ *         show_debug_message("leaderboard post ID:" + string(_lb_ID) + " to lb:" + string(_lb_name) + " with score:" + string(_lb_score) + " updated=" + string(_lb_updated));
+ *         if (_lb_done)
  *         {
  *             show_debug_message("- Succeeded");
  *         }
@@ -124,25 +124,25 @@
  *     upload_ID = steam_upload_score_ext("Game Scores", score, true);
  *     if (!upload_ID)
  *     {
- *         alarm[0] = room_speed;
+ *         alarm[0] = game_get_speed(gamespeed_fps);
  *     }
  * }
  * ```
  * Note that we have set an alarm if the call fails. This would be used to try the upload again at a later time and you can add extra code there to retry the upload or to save the score to a text file should it continue to fail, etc. We now add the following into the ${event.steam} for the instance controlling the scores:
  * 
  * ```gml
- * var type = ds_map_find_value(async_load, "event_type");
- * if (type == "leaderboard_upload")
+ * var _type = ds_map_find_value(async_load, "event_type");
+ * if (_type == "leaderboard_upload")
  * {
- *     var lb_ID = ds_map_find_value(async_load, "post_id");
- *     if lb_ID == upload_ID
+ *     var _lb_ID = ds_map_find_value(async_load, "post_id");
+ *     if _lb_ID == upload_ID
  *     {
- *         var lb_name = ds_map_find_value(async_load, "lb_name");
- *         var lb_done = ds_map_find_value(async_load, "success");
- *         var lb_score = ds_map_find_value(async_load, "score");
- *         var lb_updated = ds_map_find_value(async_load, "updated");
- *         show_debug_message("leaderboard post id:" + string(lb_ID) + " to lb:" + string(lb_name) + " with score:" + string(lb_score) + " updated=" + string(lb_updated));
- *         if (lb_done)
+ *         var _lb_name = ds_map_find_value(async_load, "lb_name");
+ *         var _lb_done = ds_map_find_value(async_load, "success");
+ *         var _lb_score = ds_map_find_value(async_load, "score");
+ *         var _lb_updated = ds_map_find_value(async_load, "updated");
+ *         show_debug_message("leaderboard post id:" + string(_lb_ID) + " to lb:" + string(_lb_name) + " with score:" + string(_lb_score) + " updated=" + string(_lb_updated));
+ *         if (_lb_done)
  *         {
  *             show_debug_message("- Succeeded");
  *         }
@@ -186,34 +186,34 @@
  * ```gml
  * if (hp <= 0)
  * {
- *     var buff = buffer_create(256, buffer_fixed, 1 );
- *     buffer_write(buff, buffer_string, "Uploaded on level " + string(global.Level));
- *     upload_ID = steam_upload_score("Game Scores", score, buff);
+ *     var _buff = buffer_create(256, buffer_fixed, 1);
+ *     buffer_write(_buff, buffer_string, "Uploaded on level " + string(global.Level));
+ *     upload_ID = steam_upload_score("Game Scores", score, _buff);
  * 
  *     if (!upload_ID)
  *     {
- *         alarm[0] = room_speed;
+ *         alarm[0] = game_get_speed(gamespeed_fps);
  *     }
  * 
- *     buffer_delete(buff);
+ *     buffer_delete(_buff);
  * }
  * 
  * ```
  * Note that we have set an alarm if the call fails. This would be used to try the upload again at a later time and you can add extra code there to retry the upload or to save the score to a text file should it continue to fail, etc. Also note that we immediately delete the buffer, since it is no longer required for the function. We now add the following into the ${event.steam} for the instance controlling the scores:
  * 
  * ```gml
- * var type = ds_map_find_value(async_load, "event_type");
- * if (type == "leaderboard_upload")
+ * var _type = ds_map_find_value(async_load, "event_type");
+ * if (_type == "leaderboard_upload")
  * {
- *     var lb_ID = ds_map_find_value(async_load, "post_id");
- *     if lb_ID == upload_ID
+ *     var _lb_ID = ds_map_find_value(async_load, "post_id");
+ *     if _lb_ID == upload_ID
  *     {
- *         var lb_name = ds_map_find_value(async_load, "lb_name");
- *         var lb_done = ds_map_find_value(async_load, "success");
- *         var lb_score = ds_map_find_value(async_load, "score");
- *         var lb_updated = ds_map_find_value(async_load, "updated");
- *         show_debug_message("leaderboard post id:" + string(lb_ID) + " to lb:" + string(lb_name) + " with score:" + string(lb_score) + " updated=" + string(lb_updated));
- *         if (lb_done)
+ *         var _lb_name = ds_map_find_value(async_load, "lb_name");
+ *         var _lb_done = ds_map_find_value(async_load, "success");
+ *         var _lb_score = ds_map_find_value(async_load, "score");
+ *         var _lb_updated = ds_map_find_value(async_load, "updated");
+ *         show_debug_message("leaderboard post ID:" + string(_lb_ID) + " to lb:" + string(_lb_name) + " with score:" + string(_lb_score) + " updated=" + string(_lb_updated));
+ *         if (_lb_done)
  *         {
  *             show_debug_message("- Succeeded");
  *         }
@@ -258,34 +258,34 @@
  * ```gml
  * if (hp <= 0)
  * {
- *     var buff = buffer_create(256, buffer_fixed, 1 );
- *     buffer_write(buff, buffer_string, "Uploaded on level " + string(global.Level));
- *     upload_ID = steam_upload_score_buffer_ext("Game Scores", score, buff, true);
+ *     var _buff = buffer_create(256, buffer_fixed, 1 );
+ *     buffer_write(_buff, buffer_string, "Uploaded on level " + string(global.Level));
+ *     upload_ID = steam_upload_score_buffer_ext("Game Scores", score, _buff, true);
  * 
  *     if (!upload_ID)
  *     {
- *         alarm[0] = room_speed;
+ *         alarm[0] = game_get_speed(gamespeed_fps);
  *     }
  * 
- *     buffer_delete(buff);
+ *     buffer_delete(_buff);
  * }
  * 
  * ```
  * Note that we have set an alarm if the call fails. This would be used to try the upload again at a later time and you can add extra code there to retry the upload or to save the score to a text file should it continue to fail, etc. Also note that we immediately delete the buffer, since it is no longer required for the function. We now add the following into the ${event.steam} for the instance controlling the scores:
  * 
  * ```gml
- * var type = ds_map_find_value(async_load, "event_type");
- * if (type == "leaderboard_upload")
+ * var _type = ds_map_find_value(async_load, "event_type");
+ * if (_type == "leaderboard_upload")
  * {
- *     var lb_ID = ds_map_find_value(async_load, "post_id");
- *     if lb_ID == upload_ID
+ *     var _lb_ID = ds_map_find_value(async_load, "post_id");
+ *     if _lb_ID == upload_ID
  *     {
- *         var lb_name = ds_map_find_value(async_load, "lb_name");
- *         var lb_done = ds_map_find_value(async_load, "success");
- *         var lb_score = ds_map_find_value(async_load, "score");
- *         var lb_updated = ds_map_find_value(async_load, "updated");
- *         show_debug_message("leaderboard post id:" + string(lb_ID) + " to lb:" + string(lb_name) + " with score:" + string(lb_score) + " updated=" + string(lb_updated));
- *         if (lb_done)
+ *         var _lb_name = ds_map_find_value(async_load, "lb_name");
+ *         var _lb_done = ds_map_find_value(async_load, "success");
+ *         var _lb_score = ds_map_find_value(async_load, "score");
+ *         var _lb_updated = ds_map_find_value(async_load, "updated");
+ *         show_debug_message("leaderboard post ID:" + string(_lb_ID) + " to lb:" + string(_lb_name) + " with score:" + string(_lb_score) + " updated=" + string(_lb_updated));
+ *         if (_lb_done)
  *         {
  *             show_debug_message("- Succeeded");
  *         }
@@ -302,7 +302,7 @@
 
 /**
  * @func steam_download_scores
- * @desc This function is used retrieve a sequential range of leaderboard entries by leaderboard ranking. The `start_idx` and `end_idx` parameters control the requested range of ranks, for example, you can display the top 10 on a leaderboard for your game by setting the start value to 1 and the end value to 10. The leaderboard name is a string that was defined when you created the leaderboard using the function ${function.steam_create_leaderboard}.
+ * @desc This function is used to retrieve a sequential range of leaderboard entries by leaderboard ranking. The `start_idx` and `end_idx` parameters control the requested range of ranks, for example, you can display the top 10 on a leaderboard for your game by setting the start value to 1 and the end value to 10. The leaderboard name is a string that was defined when you created the leaderboard using the function ${function.steam_create_leaderboard}.
  * This is an asynchronous function that will trigger the ${event.steam} when the task is finished.
  * 
  * [[NOTE: If the function call fails for any reason it will return -1 and the async event will not be triggered.]]
@@ -323,7 +323,7 @@
  * @event_end
  * 
  * @example
- * In this extended example we will request the top ten ranking for the given leaderboard and parse its results in the ${event.steam}. to start with we need to request the scores with the following code:
+ * In this extended example we will request the top ten ranking for the given leaderboard and parse its results in the ${event.steam}. To start with we need to request the scores with the following code:
  * 
  * ```gml
  * score_get = steam_download_scores("Game Scores", 1, 10);
@@ -331,31 +331,31 @@
  * This will send off a request to the Steam Server for the scores from the leaderboard "Game Scores", storing the async id of the request in the variable "score_get". this will then be handled in the Steam Async Event in the following way:
  * 
  * ```gml
- * var async_id = ds_map_find_value(async_load, "id");
- * if async_id == score_get
+ * var _async_id = ds_map_find_value(async_load, "id");
+ * if _async_id == score_get
  * {
- *     var entries = ds_map_find_value(async_load, "entries");
- *     var map = json_decode(entries);
- *     if ds_map_exists(map, "default")
+ *     var _entries = ds_map_find_value(async_load, "entries");
+ *     var _map = json_decode(_entries);
+ *     if ds_map_exists(_map, "default")
  *     {
- *         ds_map_destroy(map);
+ *         ds_map_destroy(_map);
  *         exit;
  *     }
  *     else
  *     {
- *         var list = ds_map_find_value(map, "entries");
- *         var len = ds_list_size(list);
- *         var entry;
- *         for(var i = 0; i < len; i++;)
+ *         var _list = ds_map_find_value(_map, "entries");
+ *         var _len = ds_list_size(_list);
+ *         var _entry;
+ *         for(var i = 0; i < _len; i++;)
  *         {
- *             entry = ds_list_find_value(list, i );
- *             steam_name[i] = ds_map_find_value(entry, "name");
- *             steam_score[i] = ds_map_find_value(entry, "score");
- *             steam_rank[i] = ds_map_find_value(entry, "rank");
- *             steam_data[i] = ds_map_find_value(entry, "data");
+ *             _entry = ds_list_find_value(_list, i );
+ *             steam_name[i] = ds_map_find_value(_entry, "name");
+ *             steam_score[i] = ds_map_find_value(_entry, "score");
+ *             steam_rank[i] = ds_map_find_value(_entry, "rank");
+ *             steam_data[i] = ds_map_find_value(_entry, "data");
  *         }
  *     }
- *     ds_map_destroy(map)
+ *     ds_map_destroy(map);
  * }
  * ```
  * What we do here is first check the "id" key of the special ${var.async_load} DS map. If this value is the same as the value of the original call-back function (stored in the "score_get" variable) we then continue to process the data. The first thing we do is parse the `async_load` DS map for the key "entries" which will contain a JSON formatted string containing the leaderboard data. This JSON object is then decoded (see ${function.json_decode}) as another ${type.ds_map}, and this new map ID is stored in the variable "map".
@@ -366,7 +366,7 @@
 
 /**
  * @func steam_download_scores_around_user
- * @desc This function is used to retrieve leaderboard entries relative the current users entry. The `range_start` parameter is the number of entries to retrieve **before** the current users entry, and the `range_end` parameter is the number of entries after the current user's entry, and the current user's entry is **always** included in the results. For example, if the current user is number 5 on a given leaderboard, then setting the start range to -2 and the end range to 2 will return 5 entries: 3 through 7. If there are not enough entries in the leaderboard before or after the user's entry, Steam will adjust the range start and end points trying to maintained the range size. For example, if the user is #1 on the leaderboard, start is set to -2, and end is set to 2, Steam will return the first 5 entries in the leaderboard.
+ * @desc This function is used to retrieve leaderboard entries relative to the current user's entry. The `range_start` parameter is the number of entries to retrieve **before** the current users entry, and the `range_end` parameter is the number of entries after the current user's entry, and the current user's entry is **always** included in the results. For example, if the current user is number 5 on a given leaderboard, then setting the start range to -2 and the end range to 2 will return 5 entries: 3 through 7. If there are not enough entries in the leaderboard before or after the user's entry, Steam will adjust the range start and end points trying to maintained the range size. For example, if the user is #1 on the leaderboard, start is set to -2, and end is set to 2, Steam will return the first 5 entries in the leaderboard.
  * This is an asynchronous function that will trigger the ${event.steam} when the task is finished.
  * 
  * [[NOTE: If the function call fails for any reason it will return -1 and the async event will not be triggered.]]
@@ -455,7 +455,8 @@
  */
 
 /**
- * @module Leaderboards
+ * @module leaderboards
+ * @title Leaderboards
  * @desc The Steam API supports persistent leaderboards with automatically ordered entries. These leaderboards can be used to display global and friend leaderboards in your game and on the community web page for your game. Each game can have up to 10,000 leaderboards, and each leaderboard can be retrieved immediately after a player's score has been inserted into it, but note that for each leaderboard, a player can have only **one** entry, although there is no limit on the number of players per leaderboard.
  * 
  * @section_func Functions

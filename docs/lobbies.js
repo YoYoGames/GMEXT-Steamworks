@@ -3,7 +3,7 @@
 /**
  * @func steam_lobby_activate_invite_overlay
  * @desc This function displays an invitation overlay if currently in a lobby.
- * The invitation overlay is much akin to the friends-list overlay, but only shows online friends, and shows an "invite" buttons on each row.
+ * The invitation overlay is much akin to the friends-list overlay, but only shows online friends, and shows an "invite" button on each row.
  * 
  * @returns {boolean}
  * 
@@ -62,7 +62,7 @@
 
 /**
  * @func steam_lobby_get_chat_message_data
- * @desc This function returns the data of a message sent using ${function.steam_lobby_send_chat_message_buffer}. Returns whether or not the buffer was successfully filled with the message data.
+ * @desc This function returns the data of a message sent using ${function.steam_lobby_send_chat_message_buffer}. It returns whether or not the buffer was successfully filled with the message data.
  * 
  * @param {real} message_index The message unique identifier
  * @param {type.buffer} buffer The buffer to write the data to
@@ -72,7 +72,7 @@
  * @example
  * ```gml
  * chat_message_buf = buffer_create(steam_lobby_max_chat_message_size, buffer_fixed, 1);
- * steam_lobby_get_chat_message_data(_msg_index, chat_message_buf)
+ * steam_lobby_get_chat_message_data(_msg_index, chat_message_buf);
  * ```
  * The code above will get the current message data and place it into a buffer (resizing if required and allowed, i.e.: **buffer_grow**).
  * @func_end
@@ -88,7 +88,7 @@
  * 
  * @example
  * ```gml
- * // ... INSIDE A STEAM ASYNC EVENT ...
+ * ///@desc Async Steam Event
  * switch (async[? "event_type"])
  * {
  *     case "lobby_chat_message":
@@ -110,7 +110,7 @@
  * 
  * @example
  * ```gml
- * // ... INSIDE A STEAM ASYNC EVENT ...
+ * ///@desc Async Steam Event
  * switch (async[? "event_type"])
  * {
  *     case "lobby_chat_message":
@@ -132,7 +132,7 @@
  * 
  * @example
  * ```gml
- * var title = steam_lobby_get_data("title");
+ * var _title = steam_lobby_get_data("title");
  * ```
  * The code above will return the data of the `title` field of the current value.
  * @func_end
@@ -155,7 +155,7 @@
 /**
  * @func steam_lobby_get_member_count
  * @desc This function returns the number of users in the current lobby (including you).
- * If the lobby is not valid, returns 0.
+ * If the lobby is not valid, it returns 0.
  * 
  * @returns {real}
  * 
@@ -164,7 +164,7 @@
  * for(var i = 0 ; i < steam_lobby_get_member_count() ; i++)
  * {
  *     var user_id = steam_lobby_get_member_id(i)
- *     //Do something with the user id
+ *     //Do something with the user ID
  * }
  * ```
  * The code sample above will get the total number of member in the current lobby and iterate over all of them getting their unique ID's, using the ${function.steam_lobby_get_member_id} function.
@@ -220,7 +220,7 @@
  *     if (!steam_lobby_is_owner())
  *     {
  *         var _user_id = steam_lobby_get_member_id(i);
- *         steam_lobby_set_owner_id(user_id);
+ *         steam_lobby_set_owner_id(_user_id);
  *         break;
  *     }
  * }
@@ -249,11 +249,11 @@
  * ```
  * The code will attempt the join a lobby with a given id, the task callback can be listened to inside the the ${event.steam} with the folllowing sample code:
  * ```gml
- * var type = async_load[? "type"];
- * if (type == "lobby_joined")
+ * var _type = async_load[? "type"];
+ * if (_type == "lobby_joined")
  * {
- *     var lobby_id = async_load[? "lobby_id"];
- *     var success = async_load[? "success"];
+ *     var _lobby_id = async_load[? "lobby_id"];
+ *     var _success = async_load[? "success"];
  * 
  *     // Do something with the data
  * }
@@ -297,14 +297,14 @@
  * The code will broadcast a text message to all the members in the current lobby, the message can be read using the ${event.steam} callback:
  * 
  * ```gml
- * var type = async_load[? "type"];
- * if (type == "lobby_chat_message")
+ * var _type = async_load[? "type"];
+ * if (_type == "lobby_chat_message")
  * {
- *     var user_id = async_load[? "user_id"];
- *     var msg_id = async_load[? "message_index"];
+ *     var _user_id = async_load[? "user_id"];
+ *     var _msg_id = async_load[? "message_index"];
  * 
- *     var user_name = steam_get_user_persona_name_sync(user_id);
- *     var message = steam_lobby_get_chat_message_text(msg_id);
+ *     var _user_name = steam_get_user_persona_name_sync(_user_id);
+ *     var _message = steam_lobby_get_chat_message_text(_msg_id);
  * 
  *     // Do something with the data
  * }
@@ -332,21 +332,21 @@
  * 
  * @example
  * ```gml
- * var buff = buffer_create(256, buffer_fixed, 1);
- * buffer_write(buff, buffer_string, "This is a buffer!");
- * steam_lobby_send_chat_message_buffer(buff);
+ * var _buff = buffer_create(256, buffer_fixed, 1);
+ * buffer_write(_buff, buffer_string, "This is a buffer!");
+ * steam_lobby_send_chat_message_buffer(_buff);
  * ```
  * The code will broadcast a message (text or binary data) to all the members in the current lobby, the message can be read using the ${event.steam} callback:
  * 
  * ```gml
- * var type = async_load[? "type"];
- * if (type == "lobby_chat_message")
+ * var _type = async_load[? "type"];
+ * if (_type == "lobby_chat_message")
  * {
- *     var user_id = async_load[? "user_id"];
- *     var msg_id = async_load[? "message_index"];
+ *     var _user_id = async_load[? "user_id"];
+ *     var _msg_id = async_load[? "message_index"];
  * 
- *     var user_name = steam_get_user_persona_name_sync(user_id);
- *     var data = steam_lobby_get_chat_message_data(global.chat_buffer, msg_id);
+ *     var _user_name = steam_get_user_persona_name_sync(_user_id);
+ *     var _data = steam_lobby_get_chat_message_data(global.chat_buffer, _msg_id);
  * 
  *     // Do something with the data
  * }
@@ -411,8 +411,8 @@
  * {
  *     if(!steam_lobby_is_owner())
  *     {
- *         var user_id = steam_lobby_get_member_id(i)
- *         steam_lobby_set_owner_id(user_id)
+ *         var _user_id = steam_lobby_get_member_id(i);
+ *         steam_lobby_set_owner_id(_user_id);
  *         break;
  *     }
  * }
@@ -450,7 +450,7 @@
  * steam_lobby_list_add_distance_filter(steam_lobby_list_distance_filter_far);
  * steam_lobby_list_add_near_filter("myNearFilter", 77);
  * steam_lobby_list_add_numerical_filter("level", 10, steam_lobby_list_filter_gt);
- * steam_lobby_list_add_string_filter("Stage","BattleZone", steam_lobby_list_filter_eq)
+ * steam_lobby_list_add_string_filter("Stage","BattleZone", steam_lobby_list_filter_eq);
  * steam_lobby_list_request();
  * ```
  * The code above will apply some filters to be lobby list request before requesting the results.
@@ -461,7 +461,7 @@
  * @func steam_lobby_list_add_near_filter
  * @desc This function sorts the results based on how close their field's (key)'s value is to the provided one.
  * 
- * [[NOTE: If multiple near-filters are specified, the earlier-set ones take precedence.]]
+ * [[NOTE: If multiple near-filters are specified, the earlier set ones take precedence.]]
  * 
  * @param {string} key The filter key name to match.
  * @param {real} value The value that lobbies will be sorted on.
@@ -497,10 +497,10 @@
  * steam_lobby_list_add_distance_filter(steam_lobby_list_distance_filter_far);
  * steam_lobby_list_add_near_filter("myNearFilter", 77);
  * steam_lobby_list_add_numerical_filter("level", 10, steam_lobby_list_filter_gt);
- * steam_lobby_list_add_string_filter("Stage","BattleZone", steam_lobby_list_filter_eq)
+ * steam_lobby_list_add_string_filter("Stage","BattleZone", steam_lobby_list_filter_eq);
  * steam_lobby_list_request();
  * ```
- * The code above will apply some filters to be lobby list request before requesting the results.
+ * The code above will apply some filters to a lobby list request before requesting the results.
  * @func_end
  */
 
@@ -521,7 +521,7 @@
  * steam_lobby_list_add_distance_filter(steam_lobby_list_distance_filter_far);
  * steam_lobby_list_add_near_filter("myNearFilter", 77);
  * steam_lobby_list_add_numerical_filter("level", 10, steam_lobby_list_filter_gt);
- * steam_lobby_list_add_string_filter("Stage","BattleZone", steam_lobby_list_filter_eq)
+ * steam_lobby_list_add_string_filter("Stage","BattleZone", steam_lobby_list_filter_eq);
  * steam_lobby_list_request();
  * ```
  * The code above will apply some filters to be lobby list request before requesting the results.
@@ -564,12 +564,12 @@
  * for(var a = 0 ; a < steam_lobby_list_get_count() ; a++)
  * {
  *     ins = instance_create_depth(600,200+90*a,0,Obj_Steam_Networking_List_Slot);
- *     ins.index = a
- *     ins.lobby_id = steam_lobby_list_get_lobby_id(a)
- *     ins.creator = steam_lobby_list_get_data(a, "Creator")
+ *     ins.index = a;
+ *     ins.lobby_id = steam_lobby_list_get_lobby_id(a);
+ *     ins.creator = steam_lobby_list_get_data(a, "Creator");
  * }
  * ```
- * The above code will show a code example.
+ * The above code shows a code example.
  * @func_end
  */
 
@@ -577,7 +577,7 @@
  * @func steam_lobby_list_get_lobby_id
  * @desc This function gets the lobby ID associated with the index.
  * 
- * [[NOTE: The argument `lobby_index` is not a lobby id but instead the position of the lobby (from 0 to ${function.steam_lobby_list_get_count}) on the query array after a ${function.steam_lobby_list_request} async event is triggered.]]
+ * [[NOTE: The argument `lobby_index` is not a lobby ID but instead the position of the lobby (from 0 to ${function.steam_lobby_list_get_count}) on the query array after a ${function.steam_lobby_list_request} async event is triggered.]]
  * 
  * @param {real} lobby_index The lobby index in the current lobby list
  * 
@@ -593,7 +593,7 @@
  *     ins.creator = steam_lobby_list_get_data(a, "Creator");
  * }
  * ```
- * The above code will show a code example.
+ * The above code shows a code example.
  * @func_end
  */
 
@@ -611,7 +611,7 @@
  * ```gml
  * steam_lobby_list_get_lobby_member_count(steam_lobby_get_lobby_id());
  * ```
- * The above code will show a code example.
+ * The above code shows a code example.
  * @func_end
  */
 
@@ -619,7 +619,7 @@
  * @func steam_lobby_list_get_lobby_member_id
  * @desc This function gets the Steam ID of the lobby member at the given index.
  * 
- * [[NOTE: The argument `lobby_index` is not a lobby ID but instead the index representation of the lobby (ranging from 0 to ${function.steam_lobby_list_get_count}) on the query array after a ${function.steam_lobby_list_request} async event is triggered. By the same logic the `member_index` is also not the user ID but the indexed representation of the user within the lobby (this value ranges from 0 to ${function.steam_lobby_list_get_lobby_member_count}).
+ * [[NOTE: The argument `lobby_index` is not a lobby ID but instead the index representation of the lobby (ranging from 0 to ${function.steam_lobby_list_get_count}) on the query array after a ${function.steam_lobby_list_request} async event is triggered. By the same logic the `member_index` is also not the user ID but the indexed representation of the user within the lobby (this value ranges from 0 to ${function.steam_lobby_list_get_lobby_member_count}).]]
  * 
  * @param {real} lobby_index This MUST be an index ranging from 0 to ${function.steam_lobby_list_get_count}
  * @param {real} member_index This MUST be an index ranging from 0 to ${function.steam_lobby_list_get_lobby_member_count} of the lobby index
@@ -631,7 +631,7 @@
  * var count = steam_lobby_list_get_lobby_member_count(steam_lobby_get_lobby_id());
  * for(var i = 0 ; i < count ; i++)
  * {
- *      var member = steam_lobby_list_get_lobby_member_id(i);
+ *      var _member = steam_lobby_list_get_lobby_member_id(i);
  *      //do something with the member id
  * }
  * ```
@@ -643,7 +643,7 @@
  * @func steam_lobby_list_get_lobby_owner_id
  * @desc This function returns the current lobby owner.
  * 
- * [[NOTE: The argument `lobby_index` is not a lobby id but instead the position of the lobby (from 0 to ${function.steam_lobby_list_get_count}) on the query array after a ${function.steam_lobby_list_request} async event is triggered.]]
+ * [[NOTE: The argument `lobby_index` is not a lobby ID but instead the position of the lobby (from 0 to ${function.steam_lobby_list_get_count}) on the query array after a ${function.steam_lobby_list_request} async event is triggered.]]
  * 
  * @param {real} index The lobby index from the lobby list request result
  * 
@@ -701,7 +701,7 @@
 
 /**
  * @func steam_lobby_list_request
- * @desc Starts loading the list of lobbies matching the current filters.
+ * @desc This function starts loading the list of lobbies matching the current filters.
  * This is an asynchronous function that will trigger the ${event.steam} when the task is finished.
  * 
  * [[NOTE: Filters are reset afterwards and have to be set again for subsequent request(s).]]
@@ -720,24 +720,24 @@
  * steam_lobby_list_add_distance_filter(steam_lobby_list_distance_filter_far);
  * steam_lobby_list_add_near_filter("myNearFilter", 77);
  * steam_lobby_list_add_numerical_filter("level", 10, steam_lobby_list_filter_gt);
- * steam_lobby_list_add_string_filter("Stage","BattleZone", steam_lobby_list_filter_eq)
+ * steam_lobby_list_add_string_filter("Stage","BattleZone", steam_lobby_list_filter_eq);
  * steam_lobby_list_request();
  * ```
  * In this extended example we will request the lobby list that matches the requested filter criteria and parse its results in the ${event.steam}. To start with we need to request the lobbies with the code above. And afterwards proceed to catch the results **after/during** the corresponding asynchronous event:
  * 
  * ```gml
- * var type = ds_map_find_value(async_load, "event_type");
- * if (type == "lobby_list")
+ * var _type = ds_map_find_value(async_load, "event_type");
+ * if (_type == "lobby_list")
  * {
- *     var lb_count = steam_lobby_list_get_count();
- *     for (var i = 0; i < lb_count; i++)
+ *     var _lb_count = steam_lobby_list_get_count();
+ *     for (var i = 0; i < _lb_count; i++)
  *     {
- *         var lb_ID = steam_lobby_list_get_lobby_id(i);
- *         var lb_owner = steam_lobby_list_get_lobby_owner_id(i);
- *         var lb_members_count = steam_lobby_list_get_lobby_member_count(i);
- *         for (var j = 0; j < lb_members_count; j++)
+ *         var _lb_ID = steam_lobby_list_get_lobby_id(i);
+ *         var _lb_owner = steam_lobby_list_get_lobby_owner_id(i);
+ *         var _lb_members_count = steam_lobby_list_get_lobby_member_count(i);
+ *         for (var j = 0; j < _lb_members_count; j++)
  *         {
- *             var lb_member_ID = steam_lobby_list_get_lobby_member_id(i, j);
+ *             var _lb_member_ID = steam_lobby_list_get_lobby_member_id(i, j);
  *             // Do what even you need with the queried information
  *         }
  *     }
@@ -781,7 +781,8 @@
 // MODULES
 
 /**
- * @module Lobbies & Matchmaking
+ * @module lobbies_matchmaking
+ * @title Lobbies & Matchmaking
  * @desc The following functions and constants allow you to use Steam's Lobbies and Matchmaking functionality.
  * 
  * @section_func Current Lobby
