@@ -13,13 +13,13 @@
  * ```gml
  * if steam_is_screenshot_requested()
  * {
- *     var file = "Catch_The_Haggis_" + string(global.scrn_num) + ".png");
- *     screen_save(file)
- *     steam_send_screenshot(file, window_get_width(), window_get_height());
+ *     var _file = "Catch_The_Haggis_" + string(global.scrn_num) + ".png");
+ *     screen_save(_file);
+ *     steam_send_screenshot(_file, window_get_width(), window_get_height());
  *     global.scrn_num += 1;
  * }
  * ```
- * The above code will poll the Steam API for a screenshot request and if it has been, a unique name for the image file will be generated, a screenshot will be taken, and the file will be sent to the Steam Community page for the user.
+ * The above code will poll the Steam API for a screenshot request. If there is one, a unique name for the image file will be generated, a screenshot will be taken, and the file will be sent to the Steam Community page for the user.
  * @func_end
  */
 
@@ -37,13 +37,13 @@
  * ```gml
  * if steam_is_screenshot_requested()
  * {
- *     var file = "Catch_The_Haggis_" + string(global.scrn_num) + ".png");
- *     screen_save(file)
- *     steam_send_screenshot(file, window_get_width(), window_get_height());
+ *     var _file = "Catch_The_Haggis_" + string(global.scrn_num) + ".png");
+ *     screen_save(_file);
+ *     steam_send_screenshot(_file, window_get_width(), window_get_height());
  *     global.scrn_num += 1;
  * }
  * ```
- * The above code will poll the Steam API for a screenshot request and if it has been, a unique name for the image file will be generated, a screenshot will be taken, and the file will be sent to the Steam Community page for the user.
+ * The above code will poll the Steam API for a screenshot request. If there is one, a unique name for the image file will be generated, a screenshot will be taken, and the file will be sent to the Steam Community page for the user.
  * @func_end
  */
 
@@ -69,17 +69,17 @@
  * In this example we first call the function and store the async ID value in a variable:
  * 
  * ```gml
- * var app_id = steam_get_app_id();
- * new_item = steam_ugc_create_item(app_id, ugc_filetype_community);
+ * var _app_id = steam_get_app_id();
+ * new_item = steam_ugc_create_item(_app_id, ugc_filetype_community);
  * ```
  * This would then send off a request to the Steam API to create the new Workshop item, generating an async event which we would deal with as follows:
  * 
  * ```gml
- * var event_id = async_load[? "id"];
- * if event_id == new_item
+ * var _event_id = async_load[? "id"];
+ * if _event_id == new_item
  * {
- *     var type = async_load[? "event_type"];
- *     if type == "ugc_create_item"
+ *     var _type = async_load[? "event_type"];
+ *     if _type == "ugc_create_item"
  *     {
  *         global.Publish_ID = async_load[? "published_file_id"];
  *     }
@@ -101,7 +101,7 @@
  * @event steam
  * @member {real} id The asynchronous request ID
  * @member {string} event_type The string value `"ugc_item_delete"`
- * @member {real} result This will either be the GML constant `ugc_result_success` or some other real number (see the[Steam docs](https://partner.steamgames.com/doc/api/steam_api#EResult), for more details)
+ * @member {real} result This will either be the GML constant `ugc_result_success` or some other real number (see the [Steam docs](https://partner.steamgames.com/doc/api/steam_api#EResult), for more details)
  * @event_end
  * 
  * @example
@@ -123,18 +123,18 @@
  * 
  * @example
  * ```gml
- * var app_id = steam_get_app_id();
- * var updateHandle = steam_ugc_start_item_update(app_id, global.Publish_ID);
- * steam_ugc_set_item_title(updateHandle, "My workshop item(3)!");
- * steam_ugc_set_item_description( updateHandle, "testing workshop...");
- * steam_ugc_set_item_visibility(updateHandle, ugc_visibility_public);
- * var tagArray;
- * tagArray[0] = "Test";
- * tagArray[1] = "New";
- * steam_ugc_set_item_tags(updateHandle, tagArray);
- * steam_ugc_set_item_preview(updateHandle, "promo.jpg");
- * steam_ugc_set_item_content(updateHandle, "WorkshopContent1");
- * requestId = steam_ugc_submit_item_update(updateHandle, "Version 1.2");
+ * var _app_id = steam_get_app_id();
+ * var _updateHandle = steam_ugc_start_item_update(_app_id, global.Publish_ID);
+ * steam_ugc_set_item_title(_updateHandle, "My workshop item(3)!");
+ * steam_ugc_set_item_description(_updateHandle, "testing workshop...");
+ * steam_ugc_set_item_visibility(_updateHandle, ugc_visibility_public);
+ * var _tagArray;
+ * _tagArray[0] = "Test";
+ * _tagArray[1] = "New";
+ * steam_ugc_set_item_tags(_updateHandle, _tagArray);
+ * steam_ugc_set_item_preview(_updateHandle, "promo.jpg");
+ * steam_ugc_set_item_content(_updateHandle, "WorkshopContent1");
+ * requestId = steam_ugc_submit_item_update(_updateHandle, "Version 1.2");
  * ```
  * The above code gets the game ID, then uses that along with a previously stored published file ID to generate an update handle for the item. This handle is then used to update various pieces of information before the update is pushed to the Workshop servers.
  * @func_end
@@ -151,18 +151,18 @@
  * @returns {boolean}
  * 
  * ```gml
- * var app_id = steam_get_app_id();
- * var updateHandle = steam_ugc_start_item_update(app_id, global.Publish_ID);
- * steam_ugc_set_item_title(updateHandle, "My workshop item(3)!");
- * steam_ugc_set_item_description( updateHandle, "testing workshop...");
- * steam_ugc_set_item_visibility(updateHandle, ugc_visibility_public);
- * var tagArray;
- * tagArray[0] = "Test";
- * tagArray[1] = "New";
- * steam_ugc_set_item_tags(updateHandle, tagArray);
- * steam_ugc_set_item_preview(updateHandle, "promo.jpg");
- * steam_ugc_set_item_content(updateHandle, "WorkshopContent1");
- * requestId = steam_ugc_submit_item_update(updateHandle, "Version 1.2");
+ * var _app_id = steam_get_app_id();
+ * var _updateHandle = steam_ugc_start_item_update(_app_id, global.Publish_ID);
+ * steam_ugc_set_item_title(_updateHandle, "My workshop item(3)!");
+ * steam_ugc_set_item_description(_updateHandle, "testing workshop...");
+ * steam_ugc_set_item_visibility(_updateHandle, ugc_visibility_public);
+ * var _tagArray;
+ * _tagArray[0] = "Test";
+ * _tagArray[1] = "New";
+ * steam_ugc_set_item_tags(_updateHandle, _tagArray);
+ * steam_ugc_set_item_preview(_updateHandle, "promo.jpg");
+ * steam_ugc_set_item_content(_updateHandle, "WorkshopContent1");
+ * requestId = steam_ugc_submit_item_update(_updateHandle, "Version 1.2");
  * ```
  * The above code gets the game ID, then uses that along with a previously stored published file ID to generate an update handle for the item. This handle is then used to update various pieces of information before the update is pushed to the Workshop servers.
  * @func_end
@@ -179,18 +179,18 @@
  * @returns {boolean}
  * 
  * ```gml
- * var app_id = steam_get_app_id();
- * var updateHandle = steam_ugc_start_item_update(app_id, global.Publish_ID);
- * steam_ugc_set_item_title(updateHandle, "My workshop item(3)!");
- * steam_ugc_set_item_description( updateHandle, "testing workshop...");
- * steam_ugc_set_item_visibility(updateHandle, ugc_visibility_public);
- * var tagArray;
- * tagArray[0] = "Test";
- * tagArray[1] = "New";
- * steam_ugc_set_item_tags(updateHandle, tagArray);
- * steam_ugc_set_item_preview(updateHandle, "promo.jpg");
- * steam_ugc_set_item_content(updateHandle, "WorkshopContent1");
- * requestId = steam_ugc_submit_item_update(updateHandle, "Version 1.2");
+ * var _app_id = steam_get_app_id();
+ * var _updateHandle = steam_ugc_start_item_update(_app_id, global.Publish_ID);
+ * steam_ugc_set_item_title(_updateHandle, "My workshop item(3)!");
+ * steam_ugc_set_item_description(_updateHandle, "testing workshop...");
+ * steam_ugc_set_item_visibility(_updateHandle, ugc_visibility_public);
+ * var _tagArray;
+ * _tagArray[0] = "Test";
+ * _tagArray[1] = "New";
+ * steam_ugc_set_item_tags(_updateHandle, _tagArray);
+ * steam_ugc_set_item_preview(_updateHandle, "promo.jpg");
+ * steam_ugc_set_item_content(_updateHandle, "WorkshopContent1");
+ * requestId = steam_ugc_submit_item_update(_updateHandle, "Version 1.2");
  * ```
  * The above code gets the game ID, then uses that along with a previously stored published file ID to generate an update handle for the item. This handle is then used to update various pieces of information before the update is pushed to the Workshop servers.
  * @func_end
@@ -207,18 +207,18 @@
  * @returns {boolean}
  * 
  * ```gml
- * var app_id = steam_get_app_id();
- * var updateHandle = steam_ugc_start_item_update(app_id, global.Publish_ID);
- * steam_ugc_set_item_title(updateHandle, "My workshop item(3)!");
- * steam_ugc_set_item_description( updateHandle, "testing workshop...");
- * steam_ugc_set_item_visibility(updateHandle, ugc_visibility_public);
- * var tagArray;
- * tagArray[0] = "Test";
- * tagArray[1] = "New";
- * steam_ugc_set_item_tags(updateHandle, tagArray);
- * steam_ugc_set_item_preview(updateHandle, "promo.jpg");
- * steam_ugc_set_item_content(updateHandle, "WorkshopContent1");
- * requestId = steam_ugc_submit_item_update(updateHandle, "Version 1.2");
+ * var _app_id = steam_get_app_id();
+ * var _updateHandle = steam_ugc_start_item_update(_app_id, global.Publish_ID);
+ * steam_ugc_set_item_title(_updateHandle, "My workshop item(3)!");
+ * steam_ugc_set_item_description(_updateHandle, "testing workshop...");
+ * steam_ugc_set_item_visibility(_updateHandle, ugc_visibility_public);
+ * var _tagArray;
+ * _tagArray[0] = "Test";
+ * _tagArray[1] = "New";
+ * steam_ugc_set_item_tags(_updateHandle, _tagArray);
+ * steam_ugc_set_item_preview(_updateHandle, "promo.jpg");
+ * steam_ugc_set_item_content(_updateHandle, "WorkshopContent1");
+ * requestId = steam_ugc_submit_item_update(_updateHandle, "Version 1.2");
  * ```
  * The above code gets the game ID, then uses that along with a previously stored published file ID to generate an update handle for the item. This handle is then used to update various pieces of information before the update is pushed to the Workshop servers.
  * @func_end
@@ -235,18 +235,18 @@
  * @returns {boolean}
  * 
  * ```gml
- * var app_id = steam_get_app_id();
- * var updateHandle = steam_ugc_start_item_update(app_id, global.Publish_ID);
- * steam_ugc_set_item_title(updateHandle, "My workshop item(3)!");
- * steam_ugc_set_item_description( updateHandle, "testing workshop...");
- * steam_ugc_set_item_visibility(updateHandle, ugc_visibility_public);
- * var tagArray;
- * tagArray[0] = "Test";
- * tagArray[1] = "New";
- * steam_ugc_set_item_tags(updateHandle, string(tagArray));
- * steam_ugc_set_item_preview(updateHandle, "promo.jpg");
- * steam_ugc_set_item_content(updateHandle, "WorkshopContent1");
- * requestId = steam_ugc_submit_item_update(updateHandle, "Version 1.2");
+ * var _app_id = steam_get_app_id();
+ * var _updateHandle = steam_ugc_start_item_update(_app_id, global.Publish_ID);
+ * steam_ugc_set_item_title(_updateHandle, "My workshop item(3)!");
+ * steam_ugc_set_item_description(_updateHandle, "testing workshop...");
+ * steam_ugc_set_item_visibility(_updateHandle, ugc_visibility_public);
+ * var _tagArray;
+ * _tagArray[0] = "Test";
+ * _tagArray[1] = "New";
+ * steam_ugc_set_item_tags(_updateHandle, _tagArray);
+ * steam_ugc_set_item_preview(_updateHandle, "promo.jpg");
+ * steam_ugc_set_item_content(_updateHandle, "WorkshopContent1");
+ * requestId = steam_ugc_submit_item_update(_updateHandle, "Version 1.2");
  * ```
  * The above code gets the game ID, then uses that along with a previously stored published file ID to generate an update handle for the item. This handle is then used to update various pieces of information before the update is pushed to the Workshop servers.
  * @func_end
@@ -264,18 +264,18 @@
  * 
  * @example
  * ```gml
- * var app_id = steam_get_app_id();
- * var updateHandle = steam_ugc_start_item_update(app_id, global.Publish_ID);
- * steam_ugc_set_item_title(updateHandle, "My workshop item(3)!");
- * steam_ugc_set_item_description( updateHandle, "testing workshop...");
- * steam_ugc_set_item_visibility(updateHandle, ugc_visibility_public);
- * var tagArray;
- * tagArray[0] = "Test";
- * tagArray[1] = "New";
- * steam_ugc_set_item_tags(updateHandle, tagArray);
- * steam_ugc_set_item_preview(updateHandle, "promo.jpg");
- * steam_ugc_set_item_content(updateHandle, "WorkshopContent1");
- * requestId = steam_ugc_submit_item_update(updateHandle, "Version 1.2");
+ * var _app_id = steam_get_app_id();
+ * var _updateHandle = steam_ugc_start_item_update(_app_id, global.Publish_ID);
+ * steam_ugc_set_item_title(_updateHandle, "My workshop item(3)!");
+ * steam_ugc_set_item_description(_updateHandle, "testing workshop...");
+ * steam_ugc_set_item_visibility(_updateHandle, ugc_visibility_public);
+ * var _tagArray;
+ * _tagArray[0] = "Test";
+ * _tagArray[1] = "New";
+ * steam_ugc_set_item_tags(_updateHandle, _tagArray);
+ * steam_ugc_set_item_preview(_updateHandle, "promo.jpg");
+ * steam_ugc_set_item_content(_updateHandle, "WorkshopContent1");
+ * requestId = steam_ugc_submit_item_update(_updateHandle, "Version 1.2");
  * ```
  * The above code gets the game ID, then uses that along with a previously stored published file ID to generate an update handle for the item. This handle is then used to update various pieces of information before the update is pushed to the Workshop servers.
  * @func_end
@@ -293,18 +293,18 @@
  * 
  * @example
  * ```gml
- * var app_id = steam_get_app_id();
- * var updateHandle = steam_ugc_start_item_update(app_id, global.Publish_ID);
- * steam_ugc_set_item_title(updateHandle, "My workshop item(3)!");
- * steam_ugc_set_item_description( updateHandle, "testing workshop...");
- * steam_ugc_set_item_visibility(updateHandle, ugc_visibility_public);
- * var tagArray;
- * tagArray[0] = "Test";
- * tagArray[1] = "New";
- * steam_ugc_set_item_tags(updateHandle, tagArray);
- * steam_ugc_set_item_preview(updateHandle, "promo.jpg");
- * steam_ugc_set_item_content(updateHandle, "WorkshopContent1");
- * requestId = steam_ugc_submit_item_update(updateHandle, "Version 1.2");
+ * var _app_id = steam_get_app_id();
+ * var _updateHandle = steam_ugc_start_item_update(_app_id, global.Publish_ID);
+ * steam_ugc_set_item_title(_updateHandle, "My workshop item(3)!");
+ * steam_ugc_set_item_description(_updateHandle, "testing workshop...");
+ * steam_ugc_set_item_visibility(_updateHandle, ugc_visibility_public);
+ * var _tagArray;
+ * _tagArray[0] = "Test";
+ * _tagArray[1] = "New";
+ * steam_ugc_set_item_tags(_updateHandle, _tagArray);
+ * steam_ugc_set_item_preview(_updateHandle, "promo.jpg");
+ * steam_ugc_set_item_content(_updateHandle, "WorkshopContent1");
+ * requestId = steam_ugc_submit_item_update(_updateHandle, "Version 1.2");
  * ```
  * The above code gets the game ID, then uses that along with a previously stored published file ID to generate an update handle for the item. This handle is then used to update various pieces of information before the update is pushed to the Workshop servers.
  * @func_end
@@ -329,18 +329,18 @@
  * 
  * @example
  * ```gml
- * var app_id = steam_get_app_id();
- * var updateHandle = steam_ugc_start_item_update(app_id, global.Publish_ID);
- * steam_ugc_set_item_title(updateHandle, "My workshop item(3)!");
- * steam_ugc_set_item_description( updateHandle, "testing workshop...");
- * steam_ugc_set_item_visibility(updateHandle, ugc_visibility_public);
- * var tagArray;
- * tagArray[0] = "Test";
- * tagArray[1] = "New";
- * steam_ugc_set_item_tags(updateHandle, tagArray);
- * steam_ugc_set_item_preview(updateHandle, "promo.jpg");
- * steam_ugc_set_item_content(updateHandle, "WorkshopContent1");
- * requestId = steam_ugc_submit_item_update(updateHandle, "Version 1.2");
+ * var _app_id = steam_get_app_id();
+ * var _updateHandle = steam_ugc_start_item_update(_app_id, global.Publish_ID);
+ * steam_ugc_set_item_title(_updateHandle, "My workshop item(3)!");
+ * steam_ugc_set_item_description(_updateHandle, "testing workshop...");
+ * steam_ugc_set_item_visibility(_updateHandle, ugc_visibility_public);
+ * var _tagArray;
+ * _tagArray[0] = "Test";
+ * _tagArray[1] = "New";
+ * steam_ugc_set_item_tags(_updateHandle, _tagArray);
+ * steam_ugc_set_item_preview(_updateHandle, "promo.jpg");
+ * steam_ugc_set_item_content(_updateHandle, "WorkshopContent1");
+ * requestId = steam_ugc_submit_item_update(_updateHandle, "Version 1.2");
  * ```
  * The above code gets the game ID, then uses that along with a previously stored published file ID to generate an update handle for the item. This handle is then used to update various pieces of information before the update is pushed to the Workshop servers.
  * @func_end
@@ -351,30 +351,32 @@
  * @desc This function can be used to track the update status for an item. You give the item handle (as returned by the function ${function.steam_ugc_start_item_update}) and an empty ${type.ds_map} which will then be populated with the update information (see table below).
  * If there is an error the function will return `false` and the map will be empty, otherwise the function returns `true`.
  * 
+ * |Key|Type|Description|
+ * |----|----|----|
+ * |status_code|${type.real}|The Steam status code|
+ * |status_string|${type.string}|A string for the current status|
+ * |bytes_processed|${type.real}|The bytes processed so far|
+ * |bytes_total|${type.real}|The total number of bytes in the update|
+ * 
  * @param {real} ugc_update_handle The unique handle for the UGC to be updated.
  * @param {type.ds_map} info_map A (previously created) DS map
- * 
- * @param {real} status_code The Steam status code
- * @param {string} status_string A string for the current status
- * @param {real} bytes_processed The bytes processed so far
- * @param {real} bytes_total The total number of bytes in the update
  * 
  * @returns {boolean}
  * 
  * @example
  * ```gml
- * var uploadMap = ds_map_create();
- * steam_ugc_get_item_update_progress(global.itemHandle, uploadMap);
- * var statusCode = uploadMap[? "status_code"];
- * var status = uploadMap[? "status_string"];
- * var processed = uploadMap[? "bytes_processed"];
- * var total = uploadMap[? "bytes_total"];
+ * var _uploadMap = ds_map_create();
+ * steam_ugc_get_item_update_progress(global.itemHandle, _uploadMap);
+ * var _statusCode = _uploadMap[? "status_code"];
+ * var _status = _uploadMap[? "status_string"];
+ * var _processed = _uploadMap[? "bytes_processed"];
+ * var _total = _uploadMap[? "bytes_total"];
  * draw_text(32, 0, "Upload info for item:" + string(global.itemHandle));
- * draw_text(32, 15, "status code:" + string(statusCode));
- * draw_text(32, 30, "status:" + string(status));
- * draw_text(32, 45, "bytes processed:" +string(processed));
- * draw_text(32, 60, "bytes total:" + string( total));
- * ds_map_destroy(uploadMap);
+ * draw_text(32, 15, "status code:" + string(_statusCode));
+ * draw_text(32, 30, "status:" + string(_status));
+ * draw_text(32, 45, "bytes processed:" +string(_processed));
+ * draw_text(32, 60, "bytes total:" + string(_total));
+ * ds_map_destroy(_uploadMap);
  * ```
  * The above code will query the upload status of the item indexed in the global variable "itemHandle", using a ${type.ds_map} to store the information. This is then parsed and the resulting values drawn to the screen.
  * @func_end
@@ -392,7 +394,7 @@
  * @event steam
  * @member {real} id The asynchronous request ID
  * @member {string} event_type The string value `"ugc_subscribe_item"`
- * @member {real} result This will either be the GML constant `ugc_result_success` or some other real number (see the[Steam docs](https://partner.steamgames.com/doc/api/steam_api#EResult), for more details)
+ * @member {real} result This will either be the GML constant `ugc_result_success` or some other real number (see the [Steam docs](https://partner.steamgames.com/doc/api/steam_api#EResult), for more details)
  * @member {int64} published_file_id This key holds the unique published ID for the item (you may need to cast it using the [int64](https://manual.yoyogames.com/GameMaker_Language/GML_Reference/Variable_Functions/int64.htm) function, before passing it to subsequent functions
  * @event_end
  *
@@ -416,7 +418,7 @@
  * @event steam
  * @member {real} id The asynchronous request ID
  * @member {string} event_type The string value `"ugc_unsubscribe_item"`
- * @member {real} result This will either be the GML constant `ugc_result_success` or some other real number (see the[Steam docs](https://partner.steamgames.com/doc/api/steam_api#EResult), for more details)
+ * @member {real} result This will either be the GML constant `ugc_result_success` or some other real number (see the [Steam docs](https://partner.steamgames.com/doc/api/steam_api#EResult), for more details)
  * @member published_file_id This key holds the unique published ID for the item (you may need to cast it using the ${function.int64} function)
  * @event_end
  * 
@@ -452,7 +454,6 @@
  * @example
  * ```gml
  * steam_list = ds_list_create();
- * 
  * steam_ugc_get_subscribed_items(steam_list);
  * ```
  * The above code will create an empty DS list and then populate it with the file IDs for all subscribed items for the user.
@@ -464,20 +465,21 @@
  * @desc This function can be used to retrieve information about any given published file item that has been subscribed to and downloaded to the Steam local storage area for your game. You give the item ID and supply the index to an empty ${type.ds_map} which will then be populated with the install information (see table below).
  * If the item exists (i.e.: as been subscribed and download was complete) then the function will return `true` and populate the map, otherwise it will return `false` and the map will remain empty.
  * 
+ * |Key|Type|Description|
+ * |----|----|----|
+ * |size_on_disk|${type.real}|The file size on disk (in bytes)|
+ * |legacy_item|${type.boolean}|Will be `true` or `false` depending on whether it is a legacy file or not|
+ * |folder|${type.string}|This is the full path to the installed content (please refer to "Item Installation" in Steam SDK docs, as "legacy" items uploaded with the old method, are treated differently)|
+ * 
  * @param {int64} published_file_id The unique handle for the UGC to be updated.
  * @param {type.ds_map} info_map A (previously created) DS map index.
- * 
- * @param {real} size_on_disk The file size on disk (in bytes)
- * @param {boolean} legacy_item Will be `true` or `false` depending on whether it is a legacy file or not
- * @param {string} folder This is the full path to the installed content ( please refer to "Item Installation" in Steam SDK docs, as "legacy" items uploaded with the old method, are treated differently)
  * 
  * @returns {boolean}
  * 
  * @example
  * ```gml
- * var item_map = ds_map_create();
- * 
- * steam_ugc_get_item_install_info(global.fileID, item_map);
+ * var _item_map = ds_map_create();
+ * steam_ugc_get_item_install_info(global.fileID, _item_map);
  * ```
  * The above code will query the install status of the item indexed in the global variable "fileID", using a `DS Map` to store the information.
  * @func_end
@@ -488,28 +490,30 @@
  * @desc This function can be used to retrieve information about the current download state for the given file ID. You give the item ID and supply the index to an empty ${type.ds_map} which will then be populated with the update information (see table below).
  * If the item exists then the function will return `true` and populate the map, otherwise it will return `false` and the map will remain empty.
  * 
+ * |Key|Type|Description|
+ * |----|----|----|
+ * |needs_update|${type.boolean}|Whether the item needs an update or not|
+ * |is_downloading|${type.boolean}|Whether the item is currently downloading or not|
+ * |bytes_downloaded|${type.real}|The number of bytes that has been downloaded|
+ * |bytes_total|${type.real}|The total size (number of bytes) required for the item on disk|
+ * 
  * @param {int64} published_file_id The unique file ID for the UGC to be checked.
  * @param {type.ds_map} info_map A (previously created) DS map index.
- * 
- * @param {boolean} needs_update Whether the item needs an update or not
- * @param {boolean} is_downloading Whether the item is currently downloading or not
- * @param {real} bytes_downloaded The number of bytes that has been downloaded
- * @param {real} bytes_total The total size (number of bytes) required for the item on disk
  * 
  * @returns {boolean}
  * 
  * @example
  * ```gml
- * var info_map = ds_map_create();
- * var info = steam_ugc_get_item_update_info(global.fileID, info_map);
+ * var _info_map = ds_map_create();
+ * var _info = steam_ugc_get_item_update_info(global.fileID, _info_map);
  * 
- * if info
- *   {
- * draw_text(32, 15, "needs_update: " + string(info_map[? "needs_update"]));
- * draw_text(32, 30, "is_downloading: " + string(info_map[? "is_downloading"]));
- * draw_text(32, 45, "bytes_downloaded: " + string(info_map[? "bytes_downloaded"]));
- * draw_text(32, 60, "bytes_total: " + string(info_map[? "bytes_total"]));
- *   }
+ * if _info
+ * {
+ *     draw_text(32, 15, "needs_update: " + string(_info_map[? "needs_update"]));
+ *     draw_text(32, 30, "is_downloading: " + string(_info_map[? "is_downloading"]));
+ *     draw_text(32, 45, "bytes_downloaded: " + string(_info_map[? "bytes_downloaded"]));
+ *     draw_text(32, 60, "bytes_total: " + string(_info_map[? "bytes_total"]));
+ * }
  * ```
  * The above code will query the download status of the item indexed in the global variable "fileID", using a ${type.ds_map} to store the information.
  * @func_end
@@ -518,7 +522,7 @@
 /**
  * @func steam_ugc_request_item_details
  * @desc This function can be used to retrieve information about a given file ID. You give the file ID and supply a maximum age for checking (see the Steam docs for more information).
- * This is an asynchronous function that will return an asynchronous id and trigger the ${event.steam} when the task is finished.
+ * This is an asynchronous function that will return an asynchronous ID and trigger the ${event.steam} when the task is finished.
  * 
  * @param {real} published_file_id The unique file ID for the UGC to be checked.
  * @param {real} max_age_seconds The age of the data to check (recommended 30 - 60 seconds).
@@ -530,7 +534,7 @@
  * @member {string} event_type The string value `"ugc_item_details"`
  * @member {real} result This will either be the GML constant `ugc_result_success` or some other real number (see the [Steam docs](https://partner.steamgames.com/doc/api/steam_api#EResult), for more details)
  * @member {boolean} cached_data Will be `true` if the returned details are from the local cache or `false` if they are taken from the server
- * @member {int64} published_file_id This key holds the unique published ID for the item (you may need to cast it using the ${int64} function)
+ * @member {int64} published_file_id This key holds the unique published ID for the item (you may need to cast it using the ${function.int64} function)
  * @member {string} file_type The type of file used
  * @member {real} creator_app_id The Steam ID of the item creator
  * @member {real} consumer_app_id The Steam ID of the item consumer
@@ -558,17 +562,17 @@
  * @event_end
  * 
  * @example
- * In this example we send off a details request for an item and then parse the resulting ${var.async_load} DS map to set some variables. First we send of the request:
+ * In this example we send off a details request for an item and then parse the resulting ${var.async_load} DS map to set some variables. First we send off the request:
  * 
  * ```gml
  * steam_details = steam_ugc_request_item_details(global.fileID, 60);
  * ```
- * The above code will request details on the item with the file ID stored in the global variable and will trigger a Steam Async event with the returned information. In this event we can then parse the map and store some of the values in variables which can then be used to display the information to the user:
+ * The above code will request details on the item with the file ID stored in the global variable and will trigger a ${event.steam} with the returned information. In this event we can then parse the map and store some of the values in variables which can then be used to display the information to the user:
  * 
  * ```gml
- * var map_id = async_load[? "id"];
- * var result = async_load[? "result"];
- * if (map_id == steam_details) && (result == ugc_result_success)
+ * var _map_id = async_load[? "id"];
+ * var _result = async_load[? "result"];
+ * if (_map_id == steam_details) && (_result == ugc_result_success)
  * {
  *     mTitle = async_load[? "title"];
  *     mDesc = async_load[? "description"];
@@ -668,7 +672,7 @@
 
 /**
  * @func steam_ugc_query_set_cloud_filename_filter
- * @desc This function can be used to further filter any given UGC query, specifically to check and see if a Workshop item file name must match or not. The query handle is the value returned when you created the query (using, for example, ${function.steam_ugc_create_query_user}) and the second argument is either `true` or`false`, depending on whether you require the file names to match.
+ * @desc This function can be used to further filter any given UGC query, specifically to check and see if a Workshop item file name must match or not. The query handle is the value returned when you created the query (using, for example, ${function.steam_ugc_create_query_user}) and the second argument is either `true` or `false`, depending on whether you require the file names to match.
  * The function will return `true` if the query filter was correctly set, or `false` otherwise.
  * 
  * @param {real} ugc_query_handle The query handle to use.
@@ -678,12 +682,12 @@
  * 
  * @example
  * ```gml
- * var query_handle = steam_ugc_create_query_all(ugc_query_RankedByVote, ugc_match_Items, 1);
- * steam_ugc_query_set_cloud_filename_filter(query_handle, true);
- * steam_ugc_query_add_excluded_tag(query_handle, "nasty chips");
- * steam_ugc_query_set_return_long_description(query_handle, true);
- * steam_ugc_query_set_allow_cached_response(query_handle, true);
- * query_ID = steam_ugc_send_query(query_handle);
+ * var _query_handle = steam_ugc_create_query_all(ugc_query_RankedByVote, ugc_match_Items, 1);
+ * steam_ugc_query_set_cloud_filename_filter(_query_handle, true);
+ * steam_ugc_query_add_excluded_tag(_query_handle, "nasty chips");
+ * steam_ugc_query_set_return_long_description(_query_handle, true);
+ * steam_ugc_query_set_allow_cached_response(_query_handle, true);
+ * query_ID = steam_ugc_send_query(_query_handle);
  * ```
  * The above code creates a query request and stores its handle in a local variable for future use in the rest of the functions which further define the query request before sending the query.
  * @func_end
@@ -708,7 +712,7 @@
  * steam_ugc_query_set_allow_cached_response(query_handle, true);
  * query_ID = steam_ugc_send_query(query_handle);
  * ```
- * The above code creates a query request and stores it's handle in a local variable for future use in the rest of the functions which further define the query request before sending the query.
+ * The above code creates a query request and stores its handle in a local variable for future use in the rest of the functions which further define the query request before sending the query.
  * @func_end
  */
 
@@ -724,11 +728,11 @@
  * 
  * @example
  * ```gml
- * var query_handle = steam_ugc_create_query_all(ugc_query_RankedByVote, ugc_match_Items, 1);
- * steam_ugc_query_set_search_text(query_handle, "texture");
- * steam_ugc_query_set_return_long_description(query_handle, true);
- * steam_ugc_query_set_allow_cached_response(query_handle, true);
- * query_ID = steam_ugc_send_query(query_handle);
+ * var _query_handle = steam_ugc_create_query_all(ugc_query_RankedByVote, ugc_match_Items, 1);
+ * steam_ugc_query_set_search_text(_query_handle, "texture");
+ * steam_ugc_query_set_return_long_description(_query_handle, true);
+ * steam_ugc_query_set_allow_cached_response(_query_handle, true);
+ * query_ID = steam_ugc_send_query(_query_handle);
  * ```
  * The above code creates a query request and stores its handle in a local variable for future use in the rest of the functions which further define the query request before sending the query.
  * @func_end
@@ -746,11 +750,11 @@
  * 
  * @example
  * ```gml
- * var query_handle = steam_ugc_create_query_all(ugc_query_RankedByTrend, ugc_match_Items, 1);
- * steam_ugc_query_set_ranked_by_trend_days(query_handle, 5);
- * steam_ugc_query_set_return_long_description(query_handle, true);
- * steam_ugc_query_set_allow_cached_response(query_handle, true);
- * query_ID = steam_ugc_send_query(query_handle);
+ * var _query_handle = steam_ugc_create_query_all(ugc_query_RankedByTrend, ugc_match_Items, 1);
+ * steam_ugc_query_set_ranked_by_trend_days(_query_handle, 5);
+ * steam_ugc_query_set_return_long_description(_query_handle, true);
+ * steam_ugc_query_set_allow_cached_response(_query_handle, true);
+ * query_ID = steam_ugc_send_query(_query_handle);
  * ```
  * The above code creates a query request and stores its handle in a local variable for future use in the rest of the functions which further define the query request before sending the query.
  * @func_end
@@ -768,11 +772,11 @@
  * 
  * @example
  * ```gml
- * var query_handle = steam_ugc_create_query_all(ugc_query_RankedByTrend, ugc_match_Items, 1);
- * steam_ugc_query_add_required_tag(query_handle, "RPG");
- * steam_ugc_query_set_return_long_description(query_handle, true);
- * steam_ugc_query_set_allow_cached_response(query_handle, true);
- * query_ID = steam_ugc_send_query(query_handle);
+ * var _query_handle = steam_ugc_create_query_all(ugc_query_RankedByTrend, ugc_match_Items, 1);
+ * steam_ugc_query_add_required_tag(_query_handle, "RPG");
+ * steam_ugc_query_set_return_long_description(_query_handle, true);
+ * steam_ugc_query_set_allow_cached_response(_query_handle, true);
+ * query_ID = steam_ugc_send_query(_query_handle);
  * ```
  * The above code creates a query request and stores its handle in a local variable for future use in the rest of the functions which further define the query request before sending the query.
  * @func_end
@@ -790,11 +794,11 @@
  * 
  * @example
  * ```gml
- * var query_handle = steam_ugc_create_query_all(ugc_query_RankedByVote, ugc_match_Items, 1);
- * steam_ugc_query_add_excluded_tag(query_handle, "walking simulator");
- * steam_ugc_query_set_return_long_description(query_handle, true);
- * steam_ugc_query_set_allow_cached_response(query_handle, true);
- * query_ID = steam_ugc_send_query(query_handle);
+ * var _query_handle = steam_ugc_create_query_all(ugc_query_RankedByVote, ugc_match_Items, 1);
+ * steam_ugc_query_add_excluded_tag(_query_handle, "walking simulator");
+ * steam_ugc_query_set_return_long_description(_query_handle, true);
+ * steam_ugc_query_set_allow_cached_response(_query_handle, true);
+ * query_ID = steam_ugc_send_query(_query_handle);
  * ```
  * The above code creates a query request and stores its handle in a local variable for future use in the rest of the functions which further define the query request before sending the query.
  * @func_end
@@ -812,10 +816,10 @@
  * 
  * @example
  * ```gml
- * var query_handle = steam_ugc_create_query_all(ugc_query_RankedByVote, ugc_match_Items, 1);
- * steam_ugc_query_set_return_long_description(query_handle, true);
- * steam_ugc_query_set_allow_cached_response(query_handle, true);
- * query_ID = steam_ugc_send_query(query_handle);
+ * var _query_handle = steam_ugc_create_query_all(ugc_query_RankedByVote, ugc_match_Items, 1);
+ * steam_ugc_query_set_return_long_description(_query_handle, true);
+ * steam_ugc_query_set_allow_cached_response(_query_handle, true);
+ * query_ID = steam_ugc_send_query(_query_handle);
  * ```
  * The above code creates a query request and stores its handle in a local variable for future use in the rest of the functions which further define the query request before sending the query.
  * @func_end
@@ -833,10 +837,10 @@
  * 
  * @example
  * ```gml
- * var query_handle = steam_ugc_create_query_all(ugc_query_RankedByVote, ugc_match_Items, 1);
- * steam_ugc_query_set_return_total_only(query_handle, true);
- * steam_ugc_query_set_allow_cached_response(query_handle, true);
- * query_ID = steam_ugc_send_query(query_handle);
+ * var _query_handle = steam_ugc_create_query_all(ugc_query_RankedByVote, ugc_match_Items, 1);
+ * steam_ugc_query_set_return_total_only(_query_handle, true);
+ * steam_ugc_query_set_allow_cached_response(_query_handle, true);
+ * query_ID = steam_ugc_send_query(_query_handle);
  * ```
  * The above code creates a query request and stores its handle in a local variable for future use in the rest of the functions which further define the query request before sending the query.
  * @func_end
@@ -844,7 +848,7 @@
 
 /**
  * @func steam_ugc_query_set_allow_cached_response
- * @desc This function can be used to further filter any given UGC query, specifically to request that the query check the local cache rather than online. The query handle is the value returned when you created the query (using, for example, ${function.steam_ugc_create_query_user}) and the second argument is either `true` or`false`.
+ * @desc This function can be used to further filter any given UGC query, specifically to request that the query check the local cache rather than online. The query handle is the value returned when you created the query (using, for example, ${function.steam_ugc_create_query_user}) and the second argument is either `true` or `false`.
  * The function will return `true` if the query filter was correctly set, or `false` otherwise.
  * 
  * @param {real} ugc_query_handle The query handle to use.
@@ -854,11 +858,11 @@
  * 
  * @example
  * ```gml
- * var query_handle = steam_ugc_create_query_all(ugc_query_RankedByTrend, ugc_match_Items, 1);
- * steam_ugc_query_add_required_tag(query_handle, "RPG");
- * steam_ugc_query_set_return_long_description(query_handle, true);
- * steam_ugc_query_set_allow_cached_response(query_handle, true);
- * query_ID = steam_ugc_send_query(query_handle);
+ * var _query_handle = steam_ugc_create_query_all(ugc_query_RankedByTrend, ugc_match_Items, 1);
+ * steam_ugc_query_add_required_tag(_query_handle, "RPG");
+ * steam_ugc_query_set_return_long_description(_query_handle, true);
+ * steam_ugc_query_set_allow_cached_response(_query_handle, true);
+ * query_ID = steam_ugc_send_query(_query_handle);
  * ```
  * The above code creates a query request and stores its handle in a local variable for future use in the rest of the functions which further define the query request before sending the query.
  * @func_end
@@ -874,7 +878,7 @@
  * * ${function.steam_ugc_create_query_user_ex}
  * 
  * which will return a query handle. This handle is then used to set filters, etc. before being used in this function to send off the query request.
- * This is an asynchronous function that will return an asynchronous id and trigger the ${event.steam} when the task is finished.
+ * This is an asynchronous function that will return an asynchronous ID and trigger the ${event.steam} when the task is finished.
  * 
  * @param {real} ugc_query_handle The query handle to send.
  * 
@@ -888,7 +892,6 @@
  * @member {real} total_matching The total number of matching results
  * @member {real} num_results The number of results returned (max 50)
  * @member {type.ds_list} results_list A DS List index, where each list entry is a DS Map index containing details of the particular item (see table below)
- *  member
  * @member {int64} published_file_id This key holds the unique published ID for the item (you may need to cast it using the ${int64} function)
  * @member {string} file_type The type of file used
  * @member {real} creator_app_id The Steam ID of the item creator
@@ -918,11 +921,11 @@
  *
  * @example
  * ```gml
- * var query_handle = steam_ugc_create_query_all(ugc_query_RankedByTrend, ugc_match_Items, 1);
- * steam_ugc_query_add_required_tag(query_handle, "RPG");
- * steam_ugc_query_set_return_long_description(query_handle, true);
- * steam_ugc_query_set_allow_cached_response(query_handle, true);
- * query_ID = steam_ugc_send_query(query_handle);
+ * var _query_handle = steam_ugc_create_query_all(ugc_query_RankedByTrend, ugc_match_Items, 1);
+ * steam_ugc_query_add_required_tag(_query_handle, "RPG");
+ * steam_ugc_query_set_return_long_description(_query_handle, true);
+ * steam_ugc_query_set_allow_cached_response(_query_handle, true);
+ * query_ID = steam_ugc_send_query(_query_handle);
  * ```
  * The above code creates a query request and stores its handle in a local variable for future use in the rest of the functions which further define the query request before sending the query.
  * @func_end
@@ -941,10 +944,10 @@
  * @event steam
  * @member {real} id The asynchronous request ID
  * @member {string} event_type The string value `"ugc_create_item"`
- * @member {real} result This will either be the GML constant `ugc_result_success` or some other real number (see the [Steam docs](https://partner.steamgames.com/doc/api/steam_api) under **EResult** , for more details)
+ * @member {real} result This will either be the GML constant `ugc_result_success` or some other real number (see the [Steam docs](https://partner.steamgames.com/doc/api/steam_api) under **EResult** for more details)
  * @member {string} original_filename This key holds the original name of the image file *on the server* (a string)
  * @member {string} dest_filename This key holds the image file name you passed in (a string)
- * @member {real} ugc_handle 
+ * @member {real} ugc_handle The unique identifying value for the image
  * @event_end
  * 
  * @example
@@ -956,11 +959,11 @@
  * This would then send off a file request to the Steam API, generating an async event which we would deal with as follows:
  * 
  * ```gml
- * var event_id = async_load[? "id"];
- * if event_id == steam_get
+ * var _event_id = async_load[? "id"];
+ * if _event_id == steam_get
  * {
- *     var type = async_load[? "event_type"];
- *     if type == "ugc_download"
+ *     var _type = async_load[? "event_type"];
+ *     if _type == "ugc_download"
  *     {
  *         sprite_delete(preview_sprite);
  *         preview_sprite = sprite_add(async_load[? "dest_filename"], 0, false, false, 0, 0);
@@ -1014,7 +1017,7 @@
  * @const UGCListType
  * @desc These constants specify the type of published UGC list to obtain.
  * 
- * [[NOTE: See [Steam UGC Docs](https://partner.steamgames.com/doc/api/ISteamUGC#EUserUGCList) for more details.
+ * [[NOTE: See [Steam UGC Docs](https://partner.steamgames.com/doc/api/ISteamUGC#EUserUGCList) for more details.]]
  * 
  * ugc_list_Published List of files the user has published
  * ugc_list_VotedOn List of files the user has voted on. Includes both VotedUp and VotedDown
@@ -1032,7 +1035,7 @@
  * @const UGCMatchType
  * @desc These constants specify the types of UGC to obtain.
  * 
- * [[NOTE: See [Steam UGC Docs](https://partner.steamgames.com/doc/api/ISteamUGC#EUGCMatchingUGCType) for more details.
+ * [[NOTE: See [Steam UGC Docs](https://partner.steamgames.com/doc/api/ISteamUGC#EUGCMatchingUGCType) for more details.]]
  * 
  * @member ugc_match_Items Both microtransaction items and Ready-to-use items
  * @member ugc_match_Items_Mtx Microtransaction items
@@ -1072,14 +1075,15 @@
 
 /**
  * @module UGC
- * @desc This section is for those users that have been given access to the Steam API for publishing your game to that platform and that want to use the possibilities that the Steam Workshop and Community gives you for adding and generating user content in your projects. The simplest form of user generated content is the ability for the user to take and share screenshots, which is facilitated using the following two functions:
+ * @title UGC
+ * @desc This section is for those users that have been given access to the Steam API for publishing your game to that platform and that want to use the possibilities that the Steam Workshop and Community gives you for adding and generating user content in your projects. The simplest form of user-generated content is the ability for the user to take and share screenshots, which is facilitated using the following two functions:
  * 
  * * ${function.steam_is_screenshot_requested}
  * * ${function.steam_send_screenshot}
  * 
  * Before using any of the built in functions for the Steam UGC (**U**ser **G**enerated **C**ontent) API you need to have set up your game correctly from the Steam dashboard and you should have read through the required documentation found here:
  * 
- * * [Sharing User Generated Content](https://partner.steamgames.com/documentation/ugc#Tech)
+ * * [Sharing User-Generated Content](https://partner.steamgames.com/documentation/ugc#Tech)
  * 
  * [[NOTE: You need to have your game accepted for the Steam online store and have access to the developer areas of the Steam API documentation.]]
  * 
@@ -1095,8 +1099,8 @@
  * 
  * The following sections explain all the functions required to get UGC functioning in GameMaker:
  * 
- * @section_func title Creating And Editing Content
- * The following functions are essentially "wrapper" functions for those supplied in the Steam API for creating and uploading content to their servers. As such, we recommend that you read over the linked Steam documentation before using them to gain a greater understanding of how they work: [Creating And Uploading Content](https://partner.steamgames.com/documentation/ugc#CreateUploadContent).
+ * @section_func Creating And Editing Content
+ * @desc The following functions are essentially "wrapper" functions for those supplied in the Steam API for creating and uploading content to their servers. As such, we recommend that you read over the linked Steam documentation before using them to gain a greater understanding of how they work: [Creating And Uploading Content](https://partner.steamgames.com/documentation/ugc#CreateUploadContent).
  * 
  * @ref steam_ugc_create_item
  * @ref steam_ugc_delete_item

@@ -110,6 +110,7 @@
  * 
  * @returns {string}
  * 
+ * @example
  * ```gml
  * /// @description Async - Steam event
  * if (async_load[? "event_type"] == "gamepad_text_input_dismissed") {
@@ -129,6 +130,7 @@
  * 
  * @returns {boolean}
  * 
+ * @example
  * ```gml
  * steam_utils_enable_callbacks();
  * ```
@@ -142,6 +144,7 @@
  * 
  * @returns {boolean}
  * 
+ * @example
  * ```gml
  * if (steam_utils_is_steam_running_on_steam_deck()) {
  *     show_debug_message("The game is running on a Steam Deck.");
@@ -154,18 +157,19 @@
 // MODULES
 
 /**
- * @module Utilities
+ * @module utilities
+ * @title Utilities
  * @desc The Steam utility functions provide access to gamepad keyboard UI and Steam Deck getters.
  * 
  * @section_func Functions
  * The following functions can be used to access Steam Utilities from within GameMaker: 
  * 
- * * ${function.steam_show_floating_gamepad_text_input}
- * * ${function.steam_dismiss_floating_gamepad_text_input}
- * * ${function.steam_show_gamepad_text_input}
- * * ${function.steam_get_entered_gamepad_text_input}
- * * ${function.steam_utils_enable_callbacks}
- * * ${function.steam_utils_is_steam_running_on_steam_deck}
+ * @ref steam_show_floating_gamepad_text_input
+ * @ref steam_dismiss_floating_gamepad_text_input
+ * @ref steam_show_gamepad_text_input
+ * @ref steam_get_entered_gamepad_text_input
+ * @ref steam_utils_enable_callbacks
+ * @ref steam_utils_is_steam_running_on_steam_deck
  * 
  * @section_end
  * 
