@@ -107,6 +107,7 @@
  * 
  * @returns {boolean}
  * 
+ * @example
  * ```gml
  * if (steam_input_new_data_available())
  * {
@@ -137,7 +138,7 @@
 
 /**
  * @func steam_input_enable_device_callbacks
- * @desc This function enables `Async - Steam` device connection and disconnection events, similar to `Async - System` type `gamepad connected` and `gamepad lost` events. The contents of `async_load` are described below. Returns `true` if the operation was successful, and `false` otherwise. This can be used as an alternative to ${function.steam_input_get_connected_controllers} since in that case you don't need to iterate through the entire array, which may be faster depending on how your game is coded. Both methods can be used simultaneously without issues. This function needs to be called only once and cannot be undone.
+ * @desc This function enables `Async - Steam` device connection and disconnection events, similar to `Async - System` type `gamepad connected` and `gamepad lost` events. The contents of ${var.async_load} are described below. Returns `true` if the operation was successful, and `false` otherwise. This can be used as an alternative to ${function.steam_input_get_connected_controllers} since in that case you don't need to iterate through the entire array, which may be faster depending on how your game is coded. Both methods can be used simultaneously without issues. This function needs to be called only once and cannot be undone.
  * 
  * [[WARNING: IMPORTANT Depending on the type of the controller, multiple connection or disconnection events may be sent for one handle, be sure to handle that in your code, e.g. don't show a disconnection pop-up if the controller was already lost, and don't show a connection pop-up if this controller was already connected (and is not lost).]]
  * 
@@ -286,7 +287,7 @@
  * @func steam_input_get_current_action_set
  * @desc This function will return the handle of the currently activated action set on a given controller handle, or `0` if there is no action set currently active.
  * 
- * @param {input_handle} controller Handle of the controller.
+ * @param {real} controller Handle of the controller.
  * 
  * @returns {real}
  * 
@@ -360,8 +361,8 @@
  * 
  * @example
  * ```gml
- * var layers = steam_input_get_active_action_set_layers(player_handle);
- * if (array_length(layers) > 0) {
+ * var _layers = steam_input_get_active_action_set_layers(player_handle);
+ * if (array_length(_layers) > 0) {
  *     steam_input_deactivate_all_action_set_layers(player_handle);
  * }
  * ```
@@ -371,7 +372,7 @@
 
 /**
  * @func steam_input_get_digital_action_handle
- * @desc This function will resolve a digital action by name, and return that action's handle. Keep in mind that no two actions cannot have the same name, even if they are defined in different action sets, since Steam does not differentiate action names for each set.
+ * @desc This function will resolve a digital action by name, and return that action's handle. Keep in mind that no two actions can have the same name, even if they are defined in different action sets, since Steam does not differentiate action names for each set.
  * 
  * [[warning: IMPORTANT Due to a bug in the Steam Input API, if the game was launched without any controllers connected, all action set and action handle resolver functions will return 0, an invalid handle, as such it is required that you try to obtain handles every frame until at least one controller gets connected and you succeed.]]
  * 
@@ -404,10 +405,7 @@
  * @param {real} controller Handle of the controller to use.
  * @param {real} action_handle Handle of the digital action to poll for.
  * 
- * @returns {struct|undefined}
- * 
- * @param {boolean} active Whether the action is bound to any button
- * @param {boolean} state Whether the action is currently held or not
+ * @returns {struct.ActionData|undefined}
  * 
  * @example
  * ```gml
@@ -489,7 +487,7 @@
 
 /**
  * @func steam_input_get_analog_action_handle
- * @desc This function will resolve an analog action by name, and return that action's handle. Keep in mind that no two actions cannot have the same name, even if they are defined in different action sets, since Steam does not differentiate action names for each set.
+ * @desc This function will resolve an analog action by name, and return that action's handle. Keep in mind that no two actions can have the same name, even if they are defined in different action sets, since Steam does not differentiate action names for each set.
  * 
  * [[WARNING: IMPORTANT Due to a bug in the Steam Input API, if the game was launched without any controllers connected, all action set and action handle resolver functions will return 0, an invalid handle, as such it is required that you try to obtain handles every frame until at least one controller gets connected and you succeed.]]
  * 
@@ -517,18 +515,12 @@
 
 /**
  * @func steam_input_get_analog_action_data
- * @desc This function will return current input data for a given analog action on a given controller. It returns the `analog_action_data` struct on success and `undefined` on failure.
+ * @desc This function will return the current input data for a given analog action on a given controller. It returns the ${struct.AnalogActionData} struct on success and `undefined` on failure.
  * 
  * @param {real} controller Handle of the controller to use.
  * @param {real} action_handle Handle of the analog action to poll for.
  * 
  * @returns {struct.AnalogActionData}
- * @param {boolean} active Whether this action is bound to any input element.
- * @param {Real} mode A `steam_input_source_mode_` constant.
- * @param {Real} x X axis of the input.
- * @param {Real} y Y axis of the input, **inverted by default**. See example code.
- * 
- * @returns {struct|undefined}
  * 
  * @example
  * ```gml
@@ -603,8 +595,8 @@
  * @desc This function will return a full path to a PNG file of the glyph image of an action origin. The path is automatically added into the GameMaker's filesystem sandbox list, so that you can use the returned path in ${function.sprite_add} or ${function.buffer_load} no matter if you have the sandbox enabled or disabled.
  * 
  * @param {real} origin Action origin to get the PNG of.
- * @param {real} size A `steam_input_glyph_size_` constant.
- * @param {real} flags A `steam_input_glyph_style_` bit flags constant.
+ * @param {constant.steam_input_glyph_size} size A `steam_input_glyph_size_` constant.
+ * @param {constant.steam_input_glyph_style} flags A `steam_input_glyph_style_` bit flags constant.
  * 
  * @returns {string}
  * 
@@ -622,7 +614,7 @@
  * @desc This function will return a full path to an SVG file of the glyph image of an action origin. The path is automatically added into the GameMaker's filesystem sandbox list, so that you can use the returned path in ${function.buffer_load} no matter if you have the sandbox enabled or disabled. As for now GameMaker has no native capabilities to draw SVG files, but such ability may be added in the future. If you have your own SVG renderer then this function might be useful for you. Since SVGs do not have a fixed size and can be freely scaled, there is no `size` argument like in ${function.steam_input_get_glyph_png_for_action_origin}.
  * 
  * @param {real} origin Action origin to get the SVG of.
- * @param {real} flags A `steam_input_glyph_style_` bit flags constant.
+ * @param {constant.steam_input_glyph_style} flags A `steam_input_glyph_style_` bit flags constant.
  * 
  * @returns {string}
  * 
@@ -772,7 +764,7 @@
  * @param {real} intensity Intensity of the first motor from 0 to 255.
  * @param {real} gain_db Gain in dB units, can be negative, from -127 to 128.
  * @param {real} other_intensity Intensity of the second motor from 0 to 255.
- * @param {real} other_gain_db Gain of the second motor in DB units, can be negative, from -127 to 128.
+ * @param {real} other_gain_db Gain of the second motor in dB units, can be negative, from -127 to 128.
  * 
  * @returns {boolean}
  * 
@@ -811,8 +803,8 @@
  * @desc This function runs a haptic pulse through the legacy API, this is only useful if the target controller is a Steam Controller. Returns `true` on success and `false` otherwise.
  * 
  * @param {real} controller Input handle of the controller.
- * @param {real} pad A `steam_input_steam_controller_pad_` constant.
- * @param {real} duration_in_ms Duration of the pulse in miliseconds.
+ * @param {constant.steam_input_steam_controller_pad} pad A `steam_input_steam_controller_pad_` constant.
+ * @param {real} duration_in_ms Duration of the pulse in milliseconds.
  * 
  * @returns {boolean}
  * 
@@ -820,7 +812,7 @@
  * ```gml
  * steam_input_trigger_haptic_pulse_legacy(player_handle, steam_input_steam_controller_pad_left, 2 * 1000);
  * ```
- * The above code runs a haptic pulse on the left motor for two seconds (2000 miliseconds).
+ * The above code runs a haptic pulse on the left motor for two seconds (2000 milliseconds).
  * @func_end
  */
 
@@ -829,10 +821,10 @@
  * @desc This function runs a repeated haptic pulse through the legacy API, this is only useful if the target controller is a Steam Controller. It returns `true` on success and `false` otherwise.
  * 
  * @param {real} controller Input handle of the controller.
- * @param {real} pad A `steam_input_steam_controller_pad_` constant.
- * @param {real} duration_in_ms Duration of the pulse in miliseconds.
- * @param {real} offset_in_ms The offset from which to start looping in miliseconds.
- * @param {real} repeat_times How many times to repeat the loop?
+ * @param {constant.steam_input_steam_controller_pad} pad A `steam_input_steam_controller_pad_` constant.
+ * @param {real} duration_in_ms Duration of the pulse in milliseconds.
+ * @param {real} offset_in_ms The offset from which to start looping in milliseconds.
+ * @param {real} repeat_times The number of times to repeat the loop
  * @param {real} flags Repeated haptic pulse flags
  * 
  * @returns {boolean}
@@ -841,7 +833,7 @@
  * ```gml
  * steam_input_trigger_repeated_haptic_pulse_legacy(player_handle, steam_input_steam_controller_pad_left, 2 * 1000, 100, 2, 0);
  * ```
- * The above code runs a repeated haptic pulse on the left motor for two seconds (2000 miliseconds), the next iterations will start at 100 miliseconds and this will repeat two times.
+ * The above code runs a repeated haptic pulse on the left motor for two seconds (2000 milliseconds), the next iterations will start at 100 milliseconds and this will repeat two times.
  * @func_end
  */
 
@@ -921,7 +913,7 @@
  * 
  * @param {real} controller Input handle of the controller.
  * 
- * @returns {Real}
+ * @returns {real}
  * 
  * @example
  * ```gml
@@ -934,9 +926,9 @@
  * @func_end
  * 
  * @func steam_input_get_string_for_xbox_origin
- * @desc This function turns a `steam_input_xbox_origin_` constant into a localized string, the language will be taken from Steam client settings. For example `"A Button"` if it's English or `"Кнопка A"` if it's Russian.
+ * @desc This function turns a ${constant.steam_input_xbox_origin} constant into a localized string, the language will be taken from Steam client settings. For example `"A Button"` if it's English or `"Кнопка A"` if it's Russian.
  * 
- * @param {real} origin A `steam_input_xbox_origin_` constant.
+ * @param {constant.steam_input_xbox_origin} origin A `steam_input_xbox_origin_` constant.
  * 
  * @returns {string}
  * 
@@ -950,9 +942,9 @@
 
 /**
  * @func steam_input_get_glyph_for_xbox_origin
- * @desc This returns a path to a PNG associated with a `steam_input_xbox_origin_` constant. The returned path will be automatically added into the GameMaker filesystem sandbox list so it can be used with ${function.buffer_load} or ${function.sprite_add} no matter whether you have sandbox enabled or not.
+ * @desc This returns a path to a PNG associated with a ${constant.steam_input_xbox_origin} constant. The returned path will be automatically added into the GameMaker filesystem sandbox list so it can be used with ${function.buffer_load} or ${function.sprite_add} no matter whether you have sandbox enabled or not.
  * 
- * @param {real} origin A `steam_input_xbox_origin_` constant.
+ * @param {constant.steam_input_xbox_origin} origin A `steam_input_xbox_origin_` constant.
  * 
  * @returns {string}
  * 
@@ -970,10 +962,10 @@
 
 /**
  * @func steam_input_get_action_origin_from_xbox_origin
- * @desc This function returns the closest origin that maps to the `steam_input_xbox_origin_` constant for the target controller. So for a DualShock 4 controller handle `steam_input_xbox_origin_a` will return the "cross" button origin. Useful for transposing Xbox 360 button hints into the target controller button hints without using the Actions and Action Sets.
+ * @desc This function returns the closest origin that maps to the ${constant.steam_input_xbox_origin} constant for the target controller. So for a DualShock 4 controller handle `steam_input_xbox_origin_a` will return the "cross" button origin. Useful for transposing Xbox 360 button hints into the target controller button hints without using the Actions and Action Sets.
  * 
  * @param {real} controller Target controller handle to use.
- * @param {real} origin A `steam_input_xbox_origin_` constant.
+ * @param {constant.steam_input_xbox_origin} origin A `steam_input_xbox_origin_` constant.
  * 
  * @returns {real}
  * 
@@ -996,9 +988,9 @@
 
 /**
  * @func steam_input_translate_action_origin
- * @desc This function allows to translate an action origin for a new unknown controller type into an origin that this extension will understand. This is useful if a new controller is released, it's support is added into Steam Input, the Steam client is updated, the Steam Input Configurator is updated, but your game is not, and it doesn't know about this controller. With this function you can try to obtain the closest origin that maps to that unknown-for-your-game controller origin.
+ * @desc This function allows to translate an action origin for a new unknown controller type into an origin that this extension will understand. This is useful if a new controller is released, its support is added into Steam Input, the Steam client is updated, the Steam Input Configurator is updated, but your game is not, and it doesn't know about this controller. With this function you can try to obtain the closest origin that maps to that unknown-for-your-game controller origin.
  * 
- * @param {real} type `steam_input_type_` you would like to map to, or `steam_input_type_unknown` to let Steam do a best guess.
+ * @param {constant.steam_input_type} type `steam_input_type_` you would like to map to, or `steam_input_type_unknown` to let Steam do a best guess.
  * @param {real} origin An unknown input action origin you would like to translate.
  * 
  * @returns {real}
@@ -1042,7 +1034,7 @@
  * @func steam_input_get_remote_play_session_id
  * @desc This function returns the current Steam Remote Play session ID associated with the controller, or 0 if no session is associated.
  * 
- * @param {input_handle} controller Input controller handle to use.
+ * @param {real} controller Input controller handle to use.
  * 
  * @returns {real}
  * 
@@ -1101,45 +1093,45 @@
  * 				// if mode_off then no fields from command_data will be read, otherwise:
  * 				feedback_param: {
  * 					// if mode_feedback
- * 					position: 0, /*E position where the strength of target trigger start changing(0~9). */
- * 					strength: 0  /*E strength that the motor arm pushes back target trigger(0~8 (0: Same as Off mode)). */
+ * 					position: 0, // position where the strength of target trigger start changing(0~9).
+ * 					strength: 0  // strength that the motor arm pushes back target trigger(0~8 (0: Same as Off mode)).
  * 				},
  * 				weapon_param: {
  * 					// if mode_weapon
- * 					start_position: 0, /*E position where the stiffness of trigger start changing(2~7). */
- * 					end_position: 0,   /*E position where the stiffness of trigger finish changing(start_position+1~8). */
- * 					strength: 0        /*E strength of gun trigger(0~8 (0: Same as Off mode)). */
+ * 					start_position: 0, // position where the stiffness of trigger start changing(2~7).
+ * 					end_position: 0,   // position where the stiffness of trigger finish changing(start_position+1~8).
+ * 					strength: 0        // strength of gun trigger(0~8 (0: Same as Off mode)).
  * 				},
  * 				vibration_param: {
  * 					// if mode_vibration
- * 					position: 0,  /*E position where the motor arm start vibrating(0~9). */
- * 					amplitude: 0, /*E vibration amplitude(0~8 (0: Same as Off mode)). */
- * 					frequency: 0, /*E vibration frequency(0~255[Hz] (0: Same as Off mode)). */
+ * 					position: 0,  // position where the motor arm start vibrating(0~9).
+ * 					amplitude: 0, // vibration amplitude(0~8 (0: Same as Off mode)).
+ * 					frequency: 0, // vibration frequency(0~255[Hz] (0: Same as Off mode)).
  * 				},
  * 				multiple_position_feedback_param: {
  * 					// if mode_multiple_position_feedback
- * 					/*E strength that the motor arm pushes back target trigger at position(0~8 (0: Same as Off mode)).
+ * 					// strength that the motor arm pushes back target trigger at position(0~8 (0: Same as Off mode)).
  * 						*  strength[0] means strength of motor arm at position0.
  * 						*  strength[1] means strength of motor arm at position1.
  * 						*  ...
- * 						* */
+ * 						*  
  * 					strength: [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]
  * 				},
  * 				slope_feedback_param: {
  * 					// if mode_slope_feedback
- * 					start_position: 0, /*E position where the strength of target trigger start changing(0~end_position). */
- * 					end_position: 0,   /*E position where the strength of target trigger finish changing(start_position+1~9). */
- * 					start_strength: 0, /*E strength when trigger's position is start_position(1~8) */
- * 					end_strength: 0    /*E strength when trigger's position is end_position(1~8) */
+ * 					start_position: 0, // position where the strength of target trigger start changing(0~end_position).
+ * 					end_position: 0,   // position where the strength of target trigger finish changing(start_position+1~9).
+ * 					start_strength: 0, // strength when trigger's position is start_position(1~8)
+ * 					end_strength: 0    // strength when trigger's position is end_position(1~8)
  * 				},
  * 				multiple_position_vibration_param: {
  * 					// if mode_multiple_position_vibration
- * 					frequency: 0, /*E vibration frequency(0~255 (0: Same as Off mode)) */
- * 					/*E vibration amplitude at position(0~8 (0: Same as Off mode)).
+ * 					frequency: 0, // vibration frequency(0~255 (0: Same as Off mode))
+ * 					// vibration amplitude at position(0~8 (0: Same as Off mode)).
  * 						*  amplitude[0] means amplitude of vibration at position0.
  * 						*  amplitude[1] means amplitude of vibration at position1.
  * 						*  ...
- * 						* */
+ * 						*  
  * 					amplitude: [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]
  * 				}
  * 			}
@@ -1161,6 +1153,8 @@
  * @func_end
  */
 
+// STRUCTS
+
 /**
  * @struct MotionData
  * @member {real} rot_quat_x X component of the orientation quaternion.
@@ -1176,10 +1170,116 @@
  * @struct_end
  */
 
+/**
+ * @struct ActionData
+ * @member {boolean} active Whether the action is bound to any button
+ * @member {boolean} state Whether the action is currently held or not
+ * @struct_end
+ */
+
+/**
+ * @struct AnalogActionData
+ * @member {boolean} active Whether this action is bound to any input element.
+ * @member {real} mode A `steam_input_source_mode_` constant.
+ * @member {real} x X axis of the input.
+ * @member {real} y Y axis of the input, **inverted by default**. See example code.
+ * @struct_end
+ */
+
+// CONSTANTS
+
+/**
+ * @constant steam_input_glyph_size
+ * @member steam_input_glyph_size_small
+ * @member steam_input_glyph_size_medium
+ * @member steam_input_glyph_size_large
+ * @constant_end
+ */
+
+/**
+ * @constant steam_input_glyph_style
+ * @member steam_input_glyph_style_knockout
+ * @member steam_input_glyph_style_light
+ * @member steam_input_glyph_style_dark
+ * @member steam_input_glyph_style_neutral_color_abxy
+ * @member steam_input_glyph_style_solid_abxy
+ * @constant_end
+ */
+
+/**
+ * @constant steam_input_steam_controller_pad
+ * @member steam_input_steam_controller_pad_left
+ * @member steam_input_steam_controller_pad_right
+ * @constant_end
+ */
+
+/**
+ * @constant steam_input_xbox_origin
+ * @member steam_input_xbox_origin_a
+ * @member steam_input_xbox_origin_b
+ * @member steam_input_xbox_origin_x
+ * @member steam_input_xbox_origin_y
+ * @member steam_input_xbox_origin_left_bumper
+ * @member steam_input_xbox_origin_right_bumper
+ * @member steam_input_xbox_origin_menu
+ * @member steam_input_xbox_origin_view
+ * @member steam_input_xbox_origin_left_trigger_pull
+ * @member steam_input_xbox_origin_left_trigger_click
+ * @member steam_input_xbox_origin_right_trigger_pull
+ * @member steam_input_xbox_origin_right_trigger_click
+ * @member steam_input_xbox_origin_left_stick_move
+ * @member steam_input_xbox_origin_left_stick_click
+ * @member steam_input_xbox_origin_left_stick_dpad_north
+ * @member steam_input_xbox_origin_left_stick_dpad_south
+ * @member steam_input_xbox_origin_left_stick_dpad_west
+ * @member steam_input_xbox_origin_left_stick_dpad_east
+ * @member steam_input_xbox_origin_right_stick_move
+ * @member steam_input_xbox_origin_right_stick_click
+ * @member steam_input_xbox_origin_right_stick_dpad_north
+ * @member steam_input_xbox_origin_right_stick_dpad_south
+ * @member steam_input_xbox_origin_right_stick_dpad_west
+ * @member steam_input_xbox_origin_right_stick_dpad_east
+ * @member steam_input_xbox_origin_dpad_north
+ * @member steam_input_xbox_origin_dpad_south
+ * @member steam_input_xbox_origin_dpad_west
+ * @member steam_input_xbox_origin_dpad_east
+ * @constant_end
+ */
+
+/**
+ * @constant steam_input_type
+ * @member steam_input_type_unknown
+ * @member steam_input_type_steam_controller
+ * @member steam_input_type_xbox_360_controller
+ * @member steam_input_type_xbox_one_controller
+ * @member steam_input_type_generic_gamepad
+ * @member steam_input_type_ps4_controller
+ * @member steam_input_type_apple_mfi_controller
+ * @member steam_input_type_android_controller
+ * @member steam_input_type_switch_joycon_pair
+ * @member steam_input_type_switch_joycon_single
+ * @member steam_input_type_switch_pro_controller
+ * @member steam_input_type_mobile_touch
+ * @member steam_input_type_ps3_controller
+ * @member steam_input_type_ps5_controller
+ * @member steam_input_type_steam_deck_controller
+ * @constant_end
+ */
+
+/**
+ * @constant steam_input_configuration_enable_type
+ * @member steam_input_configuration_enable_type_none
+ * @member steam_input_configuration_enable_type_playstation
+ * @member steam_input_configuration_enable_type_xbox
+ * @member steam_input_configuration_enable_type_generic
+ * @constant_end
+ */
+
 // MODULES
 
 /**
- * @module Input
+ * @module input
+ * @title Input
  * @desc The Steam Input API is designed to allow you to easily enable *full support* for Steam Input devices in your game. This means things such as:
  *   - Ability to use proper controller-specific glyphs for input hints.
  *   - Allow the user to easily rebind controls however they like via the Steam Input Configurator.
@@ -1245,9 +1345,17 @@
  * @section_end
  *
  * @section_struct
- *
  * @ref MotionData
- *
+ * @ref ActionData
+ * @section_end
+ * 
+ * @section_const
+ * @ref steam_input_glyph_size
+ * @ref steam_input_glyph_style
+ * @ref steam_input_steam_controller_pad
+ * @ref steam_input_xbox_origin
+ * @ref steam_input_type
+ * @ref steam_input_configuration_enable_type
  * @section_end
  * 
  * @module_end
