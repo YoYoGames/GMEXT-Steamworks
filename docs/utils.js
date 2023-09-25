@@ -154,6 +154,34 @@
  * @func_end
  */
 
+/**
+ * @func steam_utils_is_steam_in_big_picture_mode
+ * @desc This function returns if Steam is running in [Big Picture mode](https://help.steampowered.com/en/faqs/view/3725-76D3-3F31-FB63)
+ * 
+ * @returns {boolean}
+ * 
+ * @example
+ * ```gml
+ * if (steam_utils_is_steam_in_big_picture_mode()) {
+ *     show_debug_message("The game is running in Big Picture mode");
+ * }
+ * ```
+ * @func_end
+ */
+
+/**
+ * @func steam_utils_set_game_launcher_mode
+ * @desc 
+ * 
+ * @returns 
+ * 
+ * @example
+ * ```gml
+ * 
+ * ```
+ * @func_end
+ */
+
 // MODULES
 
 /**
@@ -170,6 +198,8 @@
  * @ref steam_get_entered_gamepad_text_input
  * @ref steam_utils_enable_callbacks
  * @ref steam_utils_is_steam_running_on_steam_deck
+ * @ref steam_utils_is_steam_in_big_picture_mode
+ * @ref steam_utils_set_game_launcher_mode
  * 
  * @section_end
  * 

@@ -127,7 +127,7 @@
  * @event steam
  * @member {string} event_type The string value `"inventory_request_prices"`
  * @member {boolean} success Whether the async action succeeded
- * @member {struct.InventoryResultStatus} result The status code as returned by ${function.steam_inventory_result_get_status}
+ * @member {constant.InventoryResultStatus} result The status code as returned by ${function.steam_inventory_result_get_status}
  * @member {string} currency The string representing the user's [local currency](https://partner.steamgames.com/doc/store/pricing/currencies) code.
  * @event_end
  * 
@@ -219,7 +219,7 @@
  * >
  * > A wrapper around [AddPromoItems](https://partner.steamgames.com/doc/api/ISteamInventory#AddPromoItems).
  * 
- * @param {array[real]} item_defs An array of [steam_inventory_item_def](https://partner.steamgames.com/doc/api/ISteamInventory#SteamItemDef_t) to grant the user with.
+ * @param {array} item_defs An array of [steam_inventory_item_def](https://partner.steamgames.com/doc/api/ISteamInventory#SteamItemDef_t) to grant the user with.
  * 
  * @returns {real}
  * 
@@ -418,7 +418,7 @@
  * >
  * > A wrapper around [GetItemsByID](https://partner.steamgames.com/doc/api/ISteamInventory#GetItemsByID).
  * 
- * @param item_ids {array[real]} An array of [steam_inventory_item_id](https://partner.steamgames.com/doc/api/ISteamInventory#SteamItemInstanceID_t) of items to get information of.
+ * @param item_ids {array} An array of [steam_inventory_item_id](https://partner.steamgames.com/doc/api/ISteamInventory#SteamItemInstanceID_t) of items to get information of.
  * 
  * @returns {real}
  * 

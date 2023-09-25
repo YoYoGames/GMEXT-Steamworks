@@ -57,12 +57,7 @@
  * @desc Returns an array of information about what the current user's Steam friends are playing.
  * Equivalent to what can be seen in Steam Friends UI.
  * 
- * @returns {array[struct.]}
- * 
- * @param {int64} friendId The Steam user ID
- * @param {real} gameId The Steam game ID
- * @param {int64} lobbyId The Steam lobby ID (if hosting a lobby that is open for friends to join - otherwise `0`)
- * @param {string} name The friend's user name
+ * @returns {array[struct.FriendsGameInfo]}
  * 
  * @example
  * ```gml
@@ -299,6 +294,15 @@
  * @func_end
  */
 
+/**
+ * @struct FriendsGameInfo
+ * @member {int64} friendId The Steam user ID
+ * @member {real} gameId The Steam game ID
+ * @member {int64} lobbyId The Steam lobby ID (if hosting a lobby that is open for friends to join - otherwise `0`)
+ * @member {string} name The friend's user name
+ * @struct_end
+ */
+
 // CONSTANTS
 
 /**
@@ -332,6 +336,10 @@
  * @ref steam_image_get_size
  * @ref steam_image_get_rgba
  * @ref steam_image_get_bgra
+ * @section_end
+ * 
+ * @section_struct Structs
+ * @ref FriendsGameInfo
  * @section_end
  * 
  * @section_const

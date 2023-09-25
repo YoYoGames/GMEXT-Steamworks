@@ -122,7 +122,7 @@
  * @func steam_input_get_connected_controllers
  * @desc With this function you can get an array of currently connected controller handles. This function returns an array of controller handles on success, and `undefined` on failure.
  * 
- * @returns {array[real]|undefined}
+ * @returns {array|undefined}
  * 
  * @example
  * ```gml
@@ -357,7 +357,7 @@
  * 
  * @param {real} controller Handle of the controller.
  * 
- * @returns {array[real]|undefined}
+ * @returns {array|undefined}
  * 
  * @example
  * ```gml
@@ -426,7 +426,7 @@
  * @param {real} action_set Handle of the action set.
  * @param {real} digital_action Handle of the digital action inside the action set.
  * 
- * @returns {array[real]|undefined}
+ * @returns {array|undefined}
  * 
  * @example
  * ```gml
@@ -547,7 +547,7 @@
  * @param {real} action_set Handle of the action set.
  * @param {real} action Handle of the analog action inside the action set.
  * 
- * @returns {array[real]|undefined}
+ * @returns {array|undefined}
  * 
  * @example
  * ```gml
@@ -1016,10 +1016,7 @@
  * 
  * @param {real} controller Input controller handle to use.
  * 
- * @param {real} major Major version digit.
- * @param {real} minor Minor version digit.
- * 
- * @returns {struct|undefined}
+ * @returns {struct.BindingRevision|undefined}
  * 
  * @example
  * ```gml
@@ -1186,6 +1183,13 @@
  * @struct_end
  */
 
+/**
+ * @struct BindingRevision
+ * @member {real} major Major version digit.
+ * @member {real} minor Minor version digit.
+ * @struct_end
+ */
+
 // CONSTANTS
 
 /**
@@ -1347,6 +1351,8 @@
  * @section_struct
  * @ref MotionData
  * @ref ActionData
+ * @ref AnalogActionData
+ * @ref BindingRevision
  * @section_end
  * 
  * @section_const

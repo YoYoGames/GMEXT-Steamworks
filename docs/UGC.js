@@ -395,7 +395,7 @@
  * @member {real} id The asynchronous request ID
  * @member {string} event_type The string value `"ugc_subscribe_item"`
  * @member {real} result This will either be the GML constant `ugc_result_success` or some other real number (see the [Steam docs](https://partner.steamgames.com/doc/api/steam_api#EResult), for more details)
- * @member {int64} published_file_id This key holds the unique published ID for the item (you may need to cast it using the [int64](https://manual.yoyogames.com/GameMaker_Language/GML_Reference/Variable_Functions/int64.htm) function, before passing it to subsequent functions
+ * @member {int64} published_file_id This key holds the unique published ID for the item (you may need to cast it using the ${function.int64} function, before passing it to subsequent functions
  * @event_end
  *
  * @example
@@ -892,7 +892,7 @@
  * @member {real} total_matching The total number of matching results
  * @member {real} num_results The number of results returned (max 50)
  * @member {type.ds_list} results_list A DS List index, where each list entry is a DS Map index containing details of the particular item (see table below)
- * @member {int64} published_file_id This key holds the unique published ID for the item (you may need to cast it using the ${int64} function)
+ * @member {int64} published_file_id This key holds the unique published ID for the item (you may need to cast it using the ${function.int64} function)
  * @member {string} file_type The type of file used
  * @member {real} creator_app_id The Steam ID of the item creator
  * @member {real} consumer_app_id The Steam ID of the item consumer
