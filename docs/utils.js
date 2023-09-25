@@ -171,13 +171,14 @@
 
 /**
  * @func steam_utils_set_game_launcher_mode
- * @desc 
+ * @desc This function can be used to set your game to "launcher mode" if your launcher is written with GameMaker
  * 
- * @returns 
+ * @param {boolean} launcher_mode Whether to set the game to 'launcher mode'
  * 
  * @example
  * ```gml
- * 
+ * steam_utils_set_game_launcher_mode(true);
+ * show_debug_message("Game set to launcher mode");
  * ```
  * @func_end
  */
