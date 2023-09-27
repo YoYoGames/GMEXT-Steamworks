@@ -164,12 +164,6 @@
  */
 
 /**
- * @func steam_get_user_persona_name_sync
- * @desc 
- * @func_end
- */
-
-/**
  * @func steam_image_get_size
  * @desc This function fetches the dimensions of the said Steam image ID.
  * If the call succeeds, the return value is a two-element array containing the width and height in pixels.
@@ -207,7 +201,7 @@
  * 
  * [[NOTE: The buffer should be appropriately sized in accordance with ${function.steam_image_get_size} (width * height * 4).]]
  * 
- * @param {int64} steam_image_id The steam image identifier
+ * @param {int64} steam_image_id The Steam image identifier
  * @param {type.buffer} buffer The buffer where data will be written
  * @param {real} size The size of the buffer supplied
  * 
@@ -254,7 +248,7 @@
  * 
  * [[NOTE: The buffer should be appropriately sized in accordance with ${function.steam_image_get_size} (width * height * 4).]]
  * 
- * @param {int64} steam_image_id The steam image identifier
+ * @param {int64} steam_image_id The Steam image identifier
  * @param {type.buffer} buffer The buffer where data will be written
  * @param {real} size The size of the buffer supplied
  * 
@@ -332,7 +326,6 @@
  * @ref steam_user_set_played_with
  * @ref steam_get_friends_game_info
  * @ref steam_get_user_avatar
- * @ref steam_get_user_persona_name_sync
  * @ref steam_image_get_size
  * @ref steam_image_get_rgba
  * @ref steam_image_get_bgra

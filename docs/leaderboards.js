@@ -413,6 +413,7 @@
  * @member {string} entries A JSON formatted string with all the downloaded entries (see ${struct.LeaderboardEntry} for details)
  * @event_end
  * 
+ * @example
  * ```gml
  * request_id = steam_download_friends_scores("Game Scores");
  * ```

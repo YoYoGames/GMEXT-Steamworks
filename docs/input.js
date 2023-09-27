@@ -258,7 +258,7 @@
  * @func steam_input_activate_action_set
  * @desc With this function you can activate an action set on a specific controller, or all controllers by specifying the `steam_input_handle_all_controllers` constant as the controller handle. Returns `true` if the operation was successful, and `false` otherwise. This function is cheap to call and can be safely called every frame without hitting performance issues.
  * 
- * @param {real} controller Input handle of the controller.
+ * @param {int64} controller The input handle of the controller.
  * @param {real} action_set Handle of the action set, cannot be zero.
  * 
  * @returns {boolean}
@@ -287,7 +287,7 @@
  * @func steam_input_get_current_action_set
  * @desc This function will return the handle of the currently activated action set on a given controller handle, or `0` if there is no action set currently active.
  * 
- * @param {real} controller Handle of the controller.
+ * @param {int64} controller The input handle of the controller.
  * 
  * @returns {real}
  * 
@@ -1031,7 +1031,7 @@
  * @func steam_input_get_remote_play_session_id
  * @desc This function returns the current Steam Remote Play session ID associated with the controller, or 0 if no session is associated.
  * 
- * @param {real} controller Input controller handle to use.
+ * @param {int64} controller The input controller handle to use.
  * 
  * @returns {real}
  * 

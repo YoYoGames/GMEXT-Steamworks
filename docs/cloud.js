@@ -222,6 +222,49 @@
  */
 
 /**
+ * @func steam_get_local_file_change
+ * @desc This function gets the changes in a local file.
+ * 
+ * @returns {struct.SteamLocalFileChange}
+ * 
+ * @func_end
+ */
+
+/**
+ * @func steam_get_local_file_change_count
+ * @desc This function gets the number of changes in a local file change event.
+ * 
+ * @returns {real}
+ * 
+ * @func_end
+ */
+
+/**
+ * @struct SteamLocalFileChange
+ * @desc This struct provides details on what happened in a local file change.
+ * @member {constant.steam_local_file_change} local_file_change The type of change that happened to the file
+ * @member {constant.steam_local_file_path_type} file_path_type The type of file path
+ * @member {string} name This is either a full path or an API filename.
+ * @struct_end
+ */
+
+/**
+ * @const steam_local_file_change
+ * @member steam_local_file_change_invalid impossible value
+ * @member steam_local_file_change_updated file's contents were updated
+ * @member steam_local_file_change_deleted the file was deleted
+ * @const_end
+ */
+
+/**
+ * @const steam_local_file_path_type
+ * @member steam_local_file_path_type_invalid An impossible value
+ * @member steam_local_file_path_type_absolute The absolute path to a file inside the Auto Cloud folder (should be your save folder, which means it should be already in the filesystem sandbox). Use ${function.buffer_load} or any other function to read the file.
+ * @member steam_local_file_path_type_api_filename A file for the steam_file_* functions. Pass `name` to the steam_file_* functions.
+ * @const_end
+ */
+
+/**
  * @module cloud
  * @title Cloud
  * @desc The Steam Cloud provides an easy and transparent remote file storage system for your game. All files written to disk using the cloud functions will be replicated to the Steam servers after the game exits. If the user then changes computers, the files will then be downloaded to the new computer before the game launches, meaning that the game can then access the files by reading them using the appropriate Steam functions. The Steam Client does the work of ensuring that the files are kept synchronized across all computers the user may be accessing.
@@ -242,6 +285,18 @@
  * @ref steam_file_read
  * @ref steam_file_share
  * @ref steam_file_delete
+ * @ref steam_get_local_file_change
+ * @ref steam_get_local_file_change_count
  * @section_end
+ * 
+ * @section_struct
+ * @ref SteamLocalFileChange
+ * @section_end
+ * 
+ * @section_const
+ * @ref steam_local_file_change
+ * @ref steam_local_file_path_type
+ * @section_end
+ * 
  * @module_end
  */

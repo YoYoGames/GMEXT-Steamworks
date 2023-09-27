@@ -657,8 +657,8 @@
  * @param {constant.UGCQueryType} query_type The type of query to create
  * @param {constant.UGCMatchType} match_type The type of UGC items to query
  * @param {real} page The page number to query
- * @param {real} creator_app_id The item creator app ID
- * @param {real} consumer_app_id The consumer app ID
+ * @param {real} creator_app_id The item creator's app ID
+ * @param {real} consumer_app_id The consumer's app ID
  * 
  * @returns {real}
  * 
@@ -913,8 +913,8 @@
  * @member {real} file_size The size of the item file
  * @member {real} preview_file_size The size of the preview image
  * @member {string} url The full URL for the item
- * @member {real} up_votes The number of up-votes received
- * @member {real} down_votes The number of down-votes received
+ * @member {real} up_votes The number of upvotes received
+ * @member {real} down_votes The number of downvotes received
  * @member {real} score The overall score of the item
  * @member {real} account_id_owner The account ID from the Steam ID owner (can be used in the function ${function.steam_ugc_create_query_user})
  * @event_end
@@ -937,7 +937,7 @@
  * This is an asynchronous function that will return an asynchronous ID and trigger the ${event.steam} when the task is finished.
  * 
  * @param {int64} ugc_handle The unique handle for the preview to be downloaded.
- * @param {string} dest_filename The file name to save the preview with.
+ * @param {string} dest_filename The filename to save the preview with.
  * 
  * @returns {real}
  * 
@@ -1037,7 +1037,7 @@
  * 
  * [[NOTE: See [Steam UGC Docs](https://partner.steamgames.com/doc/api/ISteamUGC#EUGCMatchingUGCType) for more details.]]
  * 
- * @member ugc_match_Items Both microtransaction items and Ready-to-use items
+ * @member ugc_match_Items Both microtransaction items and ready-to-use items
  * @member ugc_match_Items_Mtx Microtransaction items
  * @member ugc_match_Items_ReadyToUse Regular in game items that players have uploaded
  * @member ugc_match_Collections Shared collections of UGC
@@ -1045,10 +1045,10 @@
  * @member ugc_match_Videos Videos which have been shared
  * @member ugc_match_Screenshots Screenshots which have been shared
  * @member ugc_match_AllGuides Both web guides and integrated guides
- * @member ugc_match_WebGuides Guides that are only available on the steam community
- * @member ugc_match_IntegratedGuides Guides that you can use within your game (like Dota 2's in game character guides)
+ * @member ugc_match_WebGuides Guides that are only available on the [Steam Community](https://steamcommunity.com/)
+ * @member ugc_match_IntegratedGuides Guides that you can use within your game (like Dota 2's in-game character guides)
  * @member ugc_match_UsableInGame Ready-to-use items and integrated guides
- * @member ugc_match_ControllerBindings Controller Bindings which have been shared
+ * @member ugc_match_ControllerBindings Controller bindings which have been shared
  * @const_end
  */
 
@@ -1062,12 +1062,12 @@
  * @member ugc_query_RankedByPublicationDate Sort by publication date descending
  * @member ugc_query_AcceptedForGameRankedByAcceptanceDate Sort by date accepted (for mtx items)
  * @member ugc_query_RankedByTrend Sort by vote popularity within the given "trend" period (set in ${function.steam_ugc_query_set_ranked_by_trend_days})
- * @member ugc_query_FavoritedByFriendsRankedByPublicationDate Filter to items the user's friends have favorited, sorted by publication date descending
+ * @member ugc_query_FavoritedByFriendsRankedByPublicationDate Filter to items the user's friends have favourited, sorted descending by publication date
  * @member ugc_query_CreatedByFriendsRankedByPublicationDate Filter to items created by friends, sorted by publication date descending
  * @member ugc_query_RankedByNumTimesReported Sort by report weight descending
- * @member ugc_query_CreatedByFollowedUsersRankedByPublicationDate Filter to items created by users that the current user has followed, sorted by publication date descending
+ * @member ugc_query_CreatedByFollowedUsersRankedByPublicationDate Filter to items created by users that the current user has followed, sorted descending by publication date
  * @member ugc_query_NotYetRated Filtered to the user's voting queue
- * @member ugc_query_RankedByTotalVotesAsc Sort by total # of votes ascending (used internally for building the user's voting queue)
+ * @member ugc_query_RankedByTotalVotesAsc Sort by total number of votes ascending (used internally for building the user's voting queue)
  * @member ugc_query_RankedByVotesUp Sort by number of votes up descending. Will use the "trend" period if specified (set in ${function.steam_ugc_query_set_ranked_by_trend_days})
  * @member ugc_query_RankedByTextSearch Sort by keyword text search relevancy
  * @const_end

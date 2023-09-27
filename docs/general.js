@@ -129,6 +129,20 @@
  */
 
 /**
+ * @func steam_get_user_persona_name_sync
+ * @desc This function gets the specified user's persona (display) name.
+ * 
+ * This will only be known to the current user if the other user is in their friends list, on the same game server, in a chat room or lobby, or in a small Steam group with the local user.
+ * 
+ * @param {int64} steamID The unique Steam ID for a user.
+ * 
+ * @returns {string}
+ * 
+ * @example 
+ * @func_end
+ */
+
+/**
  * @func steam_is_user_logged_on
  * @desc This function will return `true` if the Steam client currently has a live connection to the Steam servers. If it returns `false`, it means there is no active connection due to either a networking issue on the local machine, or the Steam server being down or busy.
  * 
@@ -144,6 +158,22 @@
  * The above code will check to see if the user is logged onto the Steam server and if it stores the user ID in a global variable.
  * @func_end
 */
+
+/**
+ * @func steam_user_cancel_auth_ticket
+ * @desc This function cancels an authentication ticket.
+ * 
+ * @param {real} [ticket_handle] OPTIONAL The ticket handle to cancel
+ * 
+ * @event steam
+ * @member {string} event_type The string value `"ticket_response"`
+ * @member {real} result The Steam [EResult](https://partner.steamgames.com/doc/api/steam_api#EResult) code
+ * @member {boolean} success Whether `result` is equal to the value `k_EResultOK`
+ * @member {real} auth_ticket_handle the handle of the auth ticket, can be passed to `steam_user_cancel_auth_ticket`
+ * @event_end
+ * 
+ * @func_end
+ */
 
 /**
  * @func steam_current_game_language
@@ -218,7 +248,9 @@
  * @ref steam_get_user_steam_id
  * @ref steam_get_persona_name
  * @ref steam_get_user_persona_name
+ * @ref steam_get_user_persona_name_sync
  * @ref steam_is_user_logged_on
+ * @ref steam_user_cancel_auth_ticket
  * @ref steam_current_game_language
  * @ref steam_available_languages
  * @ref steam_is_subscribed
