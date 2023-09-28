@@ -15,18 +15,18 @@
  * 
  * @section Modules
  * @desc There are a great number of different functions related to the Steam API. We've split them up into the following sections to make it easier to navigate:
- * @ref general
- * @ref overlay
- * @ref leaderboards
- * @ref achievements
- * @ref cloud
- * @ref DLC
- * @ref UGC
- * @ref social
- * @ref inventory
- * @ref networking
- * @ref input
- * @ref utilities
+ * @ref module.general
+ * @ref module.overlay
+ * @ref module.leaderboards
+ * @ref module.achievements
+ * @ref module.cloud
+ * @ref module.DLC
+ * @ref module.UGC
+ * @ref module.social
+ * @ref module.inventory
+ * @ref module.networking
+ * @ref module.input
+ * @ref module.utilities
  * @section_end
  * 
  * @module_end
