@@ -65,7 +65,7 @@
  * @param {real} mode A `steam_gamepad_text_input_mode_` constant.
  * @param {real} lines_mode A `steam_gamepad_text_input_line_mode_` constant.
  * @param {string} description The description of the window.
- * @param {real} chars_max The maximum amount of characters the player can enter.
+ * @param {real} chars_max The maximum nupber of characters the player can enter.
  * @param {string} existing_text Some existing text to put into the text field or an empty string.
  * 
  * @returns {boolean}
@@ -156,7 +156,7 @@
 
 /**
  * @func steam_utils_is_steam_in_big_picture_mode
- * @desc This function returns if Steam is running in [Big Picture mode](https://help.steampowered.com/en/faqs/view/3725-76D3-3F31-FB63)
+ * @desc This function returns if Steam is running in [Big Picture mode](https://help.steampowered.com/en/faqs/view/3725-76D3-3F31-FB63).
  * 
  * @returns {boolean}
  * 
@@ -171,7 +171,7 @@
 
 /**
  * @func steam_utils_set_game_launcher_mode
- * @desc This function can be used to set your game to "launcher mode" if your launcher is written with GameMaker
+ * @desc This function can be used to set your game to "launcher mode" if your launcher is written with GameMaker.
  * 
  * @param {boolean} launcher_mode Whether to set the game to 'launcher mode'
  * 

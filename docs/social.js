@@ -11,7 +11,7 @@
  * ```gml
  * steam_set_rich_presence("game", "MyAwesomeGame");
  * steam_set_rich_presence("level", "Last");
- * steam_set_rich_presence("Mood", "Happy");
+ * steam_set_rich_presence("mood", "Happy");
  * 
  * steam_clear_rich_presence();
  * ```
@@ -31,7 +31,7 @@
  * 
  * steam_clear_rich_presence();
  * ```
- * The code sample above uses ${function.steam_set_rich_presence} to set a couple values for the local user rich presence and after that clears this values meaning those will no longer show.
+ * The code sample above uses ${function.steam_set_rich_presence} to set a couple values for the local user rich presence and after that clears these values meaning those will no longer show.
  * @func_end
  */
 
@@ -74,8 +74,8 @@
  *         // has an open lobby!
  *         if (_lobby_id != 0)
  *         {
- *             var _user_id = info.friendId;
- *             var _name = info.name;
+ *             var _user_id = _info.friendId;
+ *             var _name = _info.name;
  *             // Use steam_lobby_join_id(_lobby_id); to join the lobby when asked
  *         }
  *     }
@@ -301,9 +301,9 @@
 
 /**
  * @const AvatarSize
- * @member steam_user_avatar_size_small
- * @member steam_user_avatar_size_medium
- * @member steam_user_avatar_size_large
+ * @member steam_user_avatar_size_small Small avatar size
+ * @member steam_user_avatar_size_medium Medium avatar size
+ * @member steam_user_avatar_size_large Large avatar size
  * @const_end
  */
 

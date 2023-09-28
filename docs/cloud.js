@@ -74,7 +74,7 @@
  * @func_end
  * 
  * @func steam_file_exists
- * @desc With this function you can check to see if a file from the Steam Cloud exists or not, with a return value of true if it exists, or false otherwise.
+ * @desc With this function you can check to see if a file from the Steam Cloud exists or not, with a return value of `true` if it exists, or `false` otherwise.
  * 
  * @param {string} filename The name of the file to check for.
  * 
@@ -128,7 +128,7 @@
 
 /**
  * @func steam_file_write
- * @desc You can use this function to write data to a file, which will then be synchronized with the Steam Cloud when the user exits the game. if the file does not exist, this function will create it for you, and if it does already exists, it will overwrite any data that is already stored within the file with the new data string. The function will return a value of 0 if it fails for whatever reason and a value greater than 0 if it succeeds.
+ * @desc You can use this function to write data to a file, which will then be synchronized with the Steam Cloud when the user exits the game. if the file does not exist, this function will create it for you, and if it does already exist, it will overwrite any data that is already stored within the file with the new data string. The function will return a value of 0 if it fails for whatever reason and a value greater than 0 if it succeeds.
  * 
  * @param {string} filename The name of the file to write to.
  * @param {string} data The data to write (a string).

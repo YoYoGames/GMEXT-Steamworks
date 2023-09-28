@@ -159,10 +159,10 @@
  * 
  * @example
  * ```gml
- * var dist_pc = (dist / dist_max) * 100;
- * if steam_get_stat_float("Travelled") < dist_pc
+ * var _dist_pc = (dist / dist_max) * 100;
+ * if steam_get_stat_float("Travelled") < _dist_pc
  * {
- *     steam_set_stat_int("Travelled", dist_pc);
+ *     steam_set_stat_int("Travelled", _dist_pc);
  * }
  * ```
  * The above code calculates a percentage based on the distance travelled variable "dist" and the maximum distance you can travel "dist_max". It then polls the current value for the statistic "Travelled" and if it is less than the calculated value, it sets the stat again.
@@ -179,8 +179,8 @@
  * 
  * @example
  * ```gml
- * var avg = steam_get_stat_avg_rate("PointsPerHour");
- * draw_text(8, 8, "PPH = " + string(avg);
+ * var _avg = steam_get_stat_avg_rate("PointsPerHour");
+ * draw_text(8, 8, "PPH = " + string(_avg);
  * ```
  * The above code gets the current value for the average statistic "PointsPerHour" and draws it on the screen.
  * @func_end
@@ -202,7 +202,7 @@
  * }
  * ini_close();
  * ```
- * The above code checks a stored value in an ini file against that of a global variable and if they are different, it resets the statistics for the game.
+ * The above code checks a stored value in an INI file against that of a global variable and if they are different, it resets the statistics for the game.
  * @func_end
  */
 
@@ -222,7 +222,7 @@
  * }
  * ini_close();
  * ```
- * The above code checks a stored value in an ini file against that of a global variable and if they are different, it resets the statistics and achievements for the game.
+ * The above code checks a stored value in an INI file against that of a global variable and if they are different, it resets the statistics and achievements for the game.
  * @func_end
  */
 
@@ -235,10 +235,10 @@
  * 
  * [[NOTE: You must wait until ${function.steam_stats_ready} has returned `true`, before attempting to read or write stats and achievements.]]
  * 
- * If the user is in Offline Mode, Steam keeps a local cache of the stats and achievement data so that the APIs can be use as normal. Any stats unable to be committed are saved for the next time the user is online. In the event that there have been modifications on more than one machine, Steam will automatically merge achievements and choose the set of stats that has had more progress. Because Steam keeps a local cache of stats data it is not necessary for the game to *also* keep a local cache of the data on disk, especially as such caches often come in conflict and when they do it looks to a users as if their progress has been reverted, which is a frustrating experience.
+ * If the user is in Offline Mode, Steam keeps a local cache of the stats and achievement data so that the APIs can be used as normal. Any stats unable to be committed are saved for the next time the user is online. In the event that there have been modifications on more than one machine, Steam will automatically merge achievements and choose the set of stats that has had more progress. Because Steam keeps a local cache of stats data it is not necessary for the game to *also* keep a local cache of the data on disk, especially as such caches often come in conflict and when they do it looks to a users as if their progress has been reverted, which is a frustrating experience.
  * 
  * @section_func Achievements Functions
- * @desc In addition to providing highly-valued rewards to players of your games, achievements are useful for encouraging and rewarding teamwork and player interaction, providing extra dimensionality to the game objectives, and rewarding users for spending more of their time in-game, and as such it is recommended that your game has a few. They are easily set up from the Steam Dashboard, but will require that you create special Icons for them.
+ * @desc In addition to providing highly-valued rewards to players of your games, achievements are useful for encouraging and rewarding teamwork and player interaction, providing extra dimensionality to the game's objectives, and rewarding users for spending more of their time in-game, and as such it is recommended that your game has a few. They are easily set up from the Steam Dashboard, but will require that you create special Icons for them.
  * The following functions are provided for working with achievements:
  * @ref steam_set_achievement
  * @ref steam_get_achievement

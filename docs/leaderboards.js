@@ -46,7 +46,7 @@
  * @member {string} lb_name The name of the leaderboard
  * @member {real} num_entries The number of returned entries
  * @member {boolean} success Whether or not the request was successful
- * @member {boolean} updated Whether or not the leaderboard was updated (ie: the new score was better)
+ * @member {boolean} updated Whether or not the leaderboard was updated (i.e.: the new score was better)
  * @member {real} score The score that was posted to the leaderboard
  * @event_end
  * 
@@ -111,7 +111,7 @@
  * @member {string} lb_name The name of the leaderboard
  * @member {real} num_entries The number of returned entries
  * @member {boolean} success Whether or not the request was successful
- * @member {boolean} updated Whether or not the leaderboard was updated (ie: the new score was better or `forceUpdate` was set to `true`)
+ * @member {boolean} updated Whether or not the leaderboard was updated (i.e.: the new score was better or `forceUpdate` was set to `true`)
  * @member {real} score The score that was posted to the leaderboard
  * @event_end
  * 
@@ -176,7 +176,7 @@
  * @member {string} lb_name The name of the leaderboard
  * @member {real} num_entries The number of returned entries
  * @member {boolean} success Whether or not the request was successful
- * @member {boolean} updated Whether or not the leaderboard was updated (ie: the new score was better). Note that if you score was not updated neither will be the data buffer.
+ * @member {boolean} updated Whether or not the leaderboard was updated (i.e.: the new score was better). Note that if you score was not updated neither will the data buffer.
  * @member {real} score The score that was posted to the leaderboard
  * @event_end
  * 
@@ -366,7 +366,7 @@
 
 /**
  * @func steam_download_scores_around_user
- * @desc This function is used to retrieve leaderboard entries relative to the current user's entry. The `range_start` parameter is the number of entries to retrieve **before** the current users entry, and the `range_end` parameter is the number of entries after the current user's entry, and the current user's entry is **always** included in the results. For example, if the current user is number 5 on a given leaderboard, then setting the start range to -2 and the end range to 2 will return 5 entries: 3 through 7. If there are not enough entries in the leaderboard before or after the user's entry, Steam will adjust the range start and end points trying to maintained the range size. For example, if the user is #1 on the leaderboard, start is set to -2, and end is set to 2, Steam will return the first 5 entries in the leaderboard.
+ * @desc This function is used to retrieve leaderboard entries relative to the current user's entry. The `range_start` parameter is the number of entries to retrieve **before** the current user's entry, and the `range_end` parameter is the number of entries after the current user's entry, and the current user's entry is **always** included in the results. For example, if the current user is number 5 on a given leaderboard, then setting the start range to -2 and the end range to 2 will return 5 entries: 3 through 7. If there are not enough entries in the leaderboard before or after the user's entry, Steam will adjust the range start and end points trying to maintained the range size. For example, if the user is #1 on the leaderboard, start is set to -2, and end is set to 2, Steam will return the first 5 entries in the leaderboard.
  * This is an asynchronous function that will trigger the ${event.steam} when the task is finished.
  * 
  * [[NOTE: If the function call fails for any reason it will return -1 and the async event will not be triggered.]]
@@ -417,7 +417,7 @@
  * ```gml
  * request_id = steam_download_friends_scores("Game Scores");
  * ```
- * This will send off a request to the Steam Server for the users friends scores from the given leaderboard and will store the async id of the request in the variable `request_id`. This will then be handled in the ${event.steam}, as shown in the example for ${function.steam_download_scores}.
+ * This will send off a request to the Steam Server for the users friends scores from the given leaderboard and will store the async ID of the request in the variable `request_id`. This will then be handled in the ${event.steam}, as shown in the example for ${function.steam_download_scores}.
  * @func_end
  */
 
@@ -430,9 +430,9 @@
  * @member {string} data The base64 encoded string with the data provided when uploading scores using the ${function.steam_upload_score_buffer} or ${function.steam_upload_score_buffer_ext} functions :eight_pointed_black_star: OPTIONAL
  * @member {real} score The score attributed to this entry
  * @member {string} name The display name of the player for this entry
- * @member {int64} userID The unique user id of the player for this entry
+ * @member {int64} userID The unique user ID of the player for this entry
  * 
- * [[NOTE: If ${function.steam_upload_score_buffer} or ${function.steam_upload_score_buffer_ext} were used to upload the score, the decoded entry will now have a `"data"` key so you can retrieve the data of the uploaded buffer (see the ${event.steam} extended code example for further details). This data will be base64 encoded and so you will need to use the function ${function.buffer_base64_decode} on the data before reading from the buffer.
+ * [[NOTE: If ${function.steam_upload_score_buffer} or ${function.steam_upload_score_buffer_ext} were used to upload the score, the decoded entry will now have a `"data"` key so you can retrieve the data of the uploaded buffer (see the ${event.steam} extended code example for further details). This data will be base64 encoded and so you will need to use the function ${function.buffer_base64_decode} on the data before reading from the buffer.]]
  * @struct_end
  */
 

@@ -17,7 +17,7 @@
  *     }
  * }
  * ```
- * The above code will set a global variable to `true` if the Steam client API is correctly initialized, along with the Steam statistics and overlay functionality, or it will set the variable to `false` otherwise.
+ * The above code will set a global variable to `true` if the Steam client API is correctly initialised, along with the Steam statistics and overlay functionality, or it will set the variable to `false` otherwise.
  * @func_end
  */
 
@@ -40,7 +40,7 @@
 
 /**
  * @func steam_activate_overlay
- * @desc The Steam overlay is a piece of the Steam user interface that can be activated over the top of almost any game launched through Steam. It lets the user access their friends list, web browser, chat, and in-game DLC purchasing. The default key for a user to access the overlay while in a game is SHIFT + TAB, but you can also bring up any page of the overlay using this function. It takes one of six constants that are listed below:
+ * @desc The Steam overlay is a piece of the Steam user interface that can be activated over the top of almost any game launched through Steam. It lets the user access their friends list, web browser, chat, and in-game DLC purchasing. The default key for a user to access the overlay while in a game is SHIFT + TAB, but you can also bring up any page of the overlay using this function. It takes one of the ${constant.OverlayType} constants.
  * 
  * @param {constant.OverlayType} overlay_type The page index of the Steam API UI to show
  * 
@@ -67,6 +67,7 @@
  * 
  * @param {string} url The (full) URL for the overlay to open.
  * 
+ * @example
  * ```gml
  * if keyboard_check_pressed(vk_f1)
  * {

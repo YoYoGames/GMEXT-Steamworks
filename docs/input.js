@@ -1194,9 +1194,9 @@
 
 /**
  * @constant steam_input_glyph_size
- * @member steam_input_glyph_size_small
- * @member steam_input_glyph_size_medium
- * @member steam_input_glyph_size_large
+ * @member steam_input_glyph_size_small Small glyph
+ * @member steam_input_glyph_size_medium Medium glyph
+ * @member steam_input_glyph_size_large Large glyph
  * @constant_end
  */
 
@@ -1212,8 +1212,8 @@
 
 /**
  * @constant steam_input_steam_controller_pad
- * @member steam_input_steam_controller_pad_left
- * @member steam_input_steam_controller_pad_right
+ * @member steam_input_steam_controller_pad_left Left controller pad
+ * @member steam_input_steam_controller_pad_right Right controller pad
  * @constant_end
  */
 

@@ -101,7 +101,7 @@
  * @example
  * ```gml
  * var _buf = buffer_create(16, buffer_grow, 1);
- * buffer_write(buf, buffer_string, "Hello!");
+ * buffer_write(_buf, buffer_string, "Hello!");
  * steam_net_packet_send(steam_id, _buf, -1);
  * buffer_delete(_buf);
  * ```

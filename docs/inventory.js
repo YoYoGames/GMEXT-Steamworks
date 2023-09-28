@@ -45,7 +45,7 @@
  * 
  * @example
  * ```gml
- * var price = steam_inventory_get_item_price(item);
+ * var _price = steam_inventory_get_item_price(item);
  * ```
  * The code sample above will return you the price for the specified item definition. For a more detailed example on using the function check ${function.steam_inventory_request_prices}.
  * @func_end
@@ -146,7 +146,7 @@
  * {
  *     show_debug_message("The currency being used is: " + async_load[? "currency"]);
  * 
- *     var price = steam_inventory_get_item_price(global.swordId);
+ *     _var price = steam_inventory_get_item_price(global.swordId);
  * }
  * 
  * ```
@@ -167,7 +167,7 @@
  * 
  * @example
  * ```gml
- * var arrayCreate = [
+ * var _arrayCreate = [
  *               {item_def: item1, quantity: 3},
  *               {item_def: item2, quantity: 5},
  *        ];
@@ -202,7 +202,7 @@
  * 
  * @example
  * ```gml
- * steam_inventory_add_promo_item(item)
+ * steam_inventory_add_promo_item(item);
  * ```
  * The above code will grant the user with a specific item. For an example on how to use the ${event.steam} to read the callback response, refer to the function ${function.steam_inventory_get_all_items}.
  * @func_end
@@ -385,26 +385,25 @@
  * // Early exit if handle doesn't match
  * if (async_load[? "success"])
  * {
- *     var items = steam_inventory_result_get_items(handle);
+ *     var _items = steam_inventory_result_get_items(handle);
  * 
- *     for (var i = 0; i < array_length(items); i++)
+ *     for (var i = 0; i < array_length(_items); i++)
  *     {
- *         var item = items[i];
+ *         var _item = _items[i];
  *         // access item data for each entry
  *         //
- *         // item.item_id
- *         // item.item_def
- *         // item.quantity
- *         // item.flags
+ *         // _item.item_id
+ *         // _item.item_def
+ *         // _item.quantity
+ *         // _item.flags
  *     }
  * }
  * 
  * // Don't forget to clean the ununsed handle
  * steam_inventory_result_destroy(handle);
  * handle = undefined;
- * 
  * ```
- * The code above matches the event type and checks if the handle id matches the one that initialized the request and if so gets the items from the result using the function ${function.steam_inventory_result_get_items} and loops through them. In the end we also use a call to ${function.steam_inventory_result_destroy} to make sure we dispose and free all the used memory.
+ * The code above matches the event type and checks if the handle ID matches the one that initialized the request and if so gets the items from the result using the function ${function.steam_inventory_result_get_items} and loops through them. In the end we also use a call to ${function.steam_inventory_result_destroy} to make sure we dispose and free all the used memory.
  * @func_end
  */
 
@@ -677,10 +676,10 @@
  * var _array = steam_inventory_result_get_items(inv_result);
  * for(var i = 0 ; i < array_length(_array) ; i++)
  * {
- *      var struct = _array[i];
- *      var item_id = struct.item_id;
- *      var item_def = struct.item_def;
- *      var quantity = struct.quantity;
+ *      var _struct = _array[i];
+ *      var _item_id = _struct.item_id;
+ *      var _item_def = _struct.item_def;
+ *      var _quantity = _struct.quantity;
  * }
  * ```
  * For a more detailed implementation sample please refer to the ${function.steam_inventory_get_all_items} function.
@@ -812,7 +811,7 @@
 
 /**
  * @func steam_inventory_set_property_bool
- * @desc This function sets a [dynamic property](https://partner.steamgames.com/doc/features/inventory/dynamicproperties) for the boolean given item 
+ * @desc This function sets a [dynamic property](https://partner.steamgames.com/doc/features/inventory/dynamicproperties) for the boolean given item.
  * 
  * > **:eight_pointed_black_star: EXTERNAL**
  * >
@@ -851,7 +850,7 @@
 
 /**
  * @func steam_inventory_set_property_float
- * @desc This function sets a [dynamic property](https://partner.steamgames.com/doc/features/inventory/dynamicproperties) for the float given item 
+ * @desc This function sets a [dynamic property](https://partner.steamgames.com/doc/features/inventory/dynamicproperties) for the float given item.
  * 
  * > **:eight_pointed_black_star: EXTERNAL**
  * >

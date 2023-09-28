@@ -47,8 +47,8 @@
  * 
  * @example
  * ```gml
- * var type = async_load[? "type"];
- * if (type == "lobby_created")
+ * var _type = async_load[? "type"];
+ * if (_type == "lobby_created")
  * {
  *     if (async_load[? "success"])
  *         show_debug_message("Lobby created");
@@ -148,7 +148,7 @@
  * ```gml
  * var _lobby_id = steam_lobby_get_lobby_id();
  * ```
- * The code above will get the current lobby id and store it in a variable.
+ * The code above will get the current lobby ID and store it in a variable.
  * @func_end
  */
 
@@ -163,7 +163,7 @@
  * ```gml
  * for(var i = 0 ; i < steam_lobby_get_member_count() ; i++)
  * {
- *     var user_id = steam_lobby_get_member_id(i)
+ *     var _user_id = steam_lobby_get_member_id(i);
  *     //Do something with the user ID
  * }
  * ```
@@ -247,7 +247,7 @@
  * ```gml
  * steam_lobby_join_id(lobbyID);
  * ```
- * The code will attempt the join a lobby with a given id, the task callback can be listened to inside the the ${event.steam} with the folllowing sample code:
+ * The code will attempt the join a lobby with a given ID, the task callback can be listened to inside the the ${event.steam} with the folllowing sample code:
  * ```gml
  * var _type = async_load[? "type"];
  * if (_type == "lobby_joined")
@@ -318,14 +318,14 @@
  * @desc This function broadcasts a chat (text or binary data) message to all the users in the lobby.
  * 
  * @param {type.buffer} buffer The buffer to be sent (up to 4 Kilobytes in size)
- * @param {real} size The amount of byte to be sent (there is no offset).
+ * @param {real} size The number of bytes to be sent (there is no offset).
  * 
  * @returns {boolean}
  * 
  * @event steam
  * @member {string} event_type The string value `"lobby_chat_message"`
  * @member {string} user_id The sender unique identifier
- * @member {real} entry_type Type of message received.
+ * @member {real} entry_type The type of message received.
  * @member {real} message_index The message unique identifier
  * @member {real} message_size The size of the message being broadcasted
  * @event_end
@@ -369,7 +369,7 @@
  * 
  * @example
  * ```gml
- * steam_lobby_set_data("LobbyName","GreatLobby");
+ * steam_lobby_set_data("LobbyName", "GreatLobby");
  * ```
  * The code sample will set the `"LobbyName"` lobby field to the provided value `"GreatLobby"`.
  * @func_end
@@ -459,7 +459,7 @@
 
 /**
  * @func steam_lobby_list_add_near_filter
- * @desc This function sorts the results based on how close their field's (key)'s value is to the provided one.
+ * @desc This function sorts the results based on how close their field's key's value is to the provided one.
  * 
  * [[NOTE: If multiple near-filters are specified, the earlier set ones take precedence.]]
  * 
@@ -473,7 +473,7 @@
  * steam_lobby_list_add_distance_filter(steam_lobby_list_distance_filter_far);
  * steam_lobby_list_add_near_filter("myNearFilter", 77);
  * steam_lobby_list_add_numerical_filter("level", 10, steam_lobby_list_filter_gt);
- * steam_lobby_list_add_string_filter("Stage","BattleZone", steam_lobby_list_filter_eq)
+ * steam_lobby_list_add_string_filter("Stage","BattleZone", steam_lobby_list_filter_eq);
  * steam_lobby_list_request();
  * ```
  * The code above will apply some filters to be lobby list request before requesting the results.
@@ -628,8 +628,8 @@
  * 
  * @example
  * ```gml
- * var count = steam_lobby_list_get_lobby_member_count(steam_lobby_get_lobby_id());
- * for(var i = 0 ; i < count ; i++)
+ * var _count = steam_lobby_list_get_lobby_member_count(steam_lobby_get_lobby_id());
+ * for(var i = 0 ; i < _count ; i++)
  * {
  *      var _member = steam_lobby_list_get_lobby_member_id(i);
  *      //do something with the member id
@@ -680,6 +680,7 @@
 /**
  * @func steam_lobby_list_join
  * @desc Starts joining a lobby with the given ID.
+ * 
  * This is an asynchronous function that will trigger the ${event.steam} when the task is finished.
  * 
  * @param {real} index Position of the lobby in the list
@@ -782,7 +783,7 @@
 
 /**
  * @module lobbies_matchmaking
- * @title Lobbies & Matchmaking
+ * @title Lobbies and Matchmaking
  * @desc The following functions and constants allow you to use Steam's Lobbies and Matchmaking functionality.
  * 
  * @section_func Current Lobby
@@ -823,6 +824,7 @@
  * @ref steam_lobby_list_get_lobby_member_id
  * @ref steam_lobby_list_get_lobby_owner_id
  * @ref steam_lobby_list_is_loading
+ * @ref steam_lobby_list_join
  * @section_end
  * 
  * @section_const Constants

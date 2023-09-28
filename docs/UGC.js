@@ -60,7 +60,7 @@
  * @event steam
  * @member {real} id The asynchronous request ID
  * @member {string} event_type The string value `"ugc_create_item"`
- * @member {real} result This will either be the GML constant `ugc_result_success` or some other real number (see the[Steam docs](https://partner.steamgames.com/doc/api/steam_api#EResult), for more details)
+ * @member {real} result This will either be the GML constant `ugc_result_success` or some other real number (see the [Steam docs](https://partner.steamgames.com/doc/api/steam_api#EResult), for more details)
  * @member {boolean} legal_agreement_required Will be `true` or `false` (see the [Steam docs](https://partner.steamgames.com/documentation/ugc#Legal) for more details)
  * @member {int64} published_file_id This key holds the unique published ID for the item (you may need to cast it using the ${type.int64} function).
  * @event_end
@@ -705,12 +705,12 @@
  * 
  * @example
  * ```gml
- * var query_handle = steam_ugc_create_query_all(ugc_query_RankedByVote, ugc_match_Items, 1);
- * steam_ugc_query_set_match_any_tag(query_handle, false);
- * steam_ugc_query_add_excluded_tag(query_handle, "walking simulator");
- * steam_ugc_query_set_return_long_description(query_handle, true);
- * steam_ugc_query_set_allow_cached_response(query_handle, true);
- * query_ID = steam_ugc_send_query(query_handle);
+ * var _query_handle = steam_ugc_create_query_all(ugc_query_RankedByVote, ugc_match_Items, 1);
+ * steam_ugc_query_set_match_any_tag(_query_handle, false);
+ * steam_ugc_query_add_excluded_tag(_query_handle, "walking simulator");
+ * steam_ugc_query_set_return_long_description(_query_handle, true);
+ * steam_ugc_query_set_allow_cached_response(_query_handle, true);
+ * query_ID = steam_ugc_send_query(_query_handle);
  * ```
  * The above code creates a query request and stores its handle in a local variable for future use in the rest of the functions which further define the query request before sending the query.
  * @func_end
@@ -1019,15 +1019,15 @@
  * 
  * [[NOTE: See [Steam UGC Docs](https://partner.steamgames.com/doc/api/ISteamUGC#EUserUGCList) for more details.]]
  * 
- * ugc_list_Published List of files the user has published
- * ugc_list_VotedOn List of files the user has voted on. Includes both VotedUp and VotedDown
- * ugc_list_VotedUp List of files the user has voted up (restricted to the current user only)
- * ugc_list_VotedDown List of files the user has voted down (restricted to the current user only)
- * ugc_list_WillVoteLater :warning: DEPRECATED
- * ugc_list_Favorited List of files the user has favorited
- * ugc_list_Subscribed List of files the user has subscribed to (restricted to the current user only)
- * ugc_list_UsedOrPlayed List of files the user has spent time in game with
- * ugc_list_Followed List of files the user is following updates for
+ * @member ugc_list_Published List of files the user has published
+ * @member ugc_list_VotedOn List of files the user has voted on. Includes both VotedUp and VotedDown
+ * @member ugc_list_VotedUp List of files the user has voted up (restricted to the current user only)
+ * @member ugc_list_VotedDown List of files the user has voted down (restricted to the current user only)
+ * @member ugc_list_WillVoteLater :warning: DEPRECATED
+ * @member ugc_list_Favorited List of files the user has favorited
+ * @member ugc_list_Subscribed List of files the user has subscribed to (restricted to the current user only)
+ * @member ugc_list_UsedOrPlayed List of files the user has spent time in game with
+ * @member ugc_list_Followed List of files the user is following updates for
  * @const_end
  */
 
@@ -1081,7 +1081,7 @@
  * * ${function.steam_is_screenshot_requested}
  * * ${function.steam_send_screenshot}
  * 
- * Before using any of the built in functions for the Steam UGC (**U**ser **G**enerated **C**ontent) API you need to have set up your game correctly from the Steam dashboard and you should have read through the required documentation found here:
+ * Before using any of the built-in functions for the Steam UGC (**U**ser **G**enerated **C**ontent) API you need to have set up your game correctly from the Steam dashboard and you should have read through the required documentation found here:
  * 
  * * [Sharing User-Generated Content](https://partner.steamgames.com/documentation/ugc#Tech)
  * 
@@ -1089,7 +1089,7 @@
  * 
  * All subscribed UGC items will be downloaded by the Steam client automatically, and you should have code in the ${event.steam} to catch this and store the ID of the UGC that has been downloaded for use in the other UGC functions.
  * 
- * [[WARNING: IMPORTANT Steam UGC IDs can be huge numbers This means that sometimes you may need to store these as a string rather than try and store them as a real value, especially if working with buffers or trying to write the value to a text file (since this will convert it to a simplified standard format like "6.6624e+003" which will cause issues being read back).]]
+ * [[WARNING: IMPORTANT Steam UGC IDs can be huge numbers. This means that sometimes you may need to store these as a string rather than try and store them as a real value, especially if working with buffers or trying to write the value to a text file (since this will convert it to a simplified standard format like "6.6624e+003" which will cause issues being read back).]]
  * 
  * The normal workflow for getting UGC into your game would be as follows:
  * 

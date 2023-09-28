@@ -44,7 +44,7 @@
 
 /**
  * @func steam_get_app_id
- * @desc This function is used retrieve the unique app ID that Steam assigns for your game, which is required for using some of the User Generated Content functions.
+ * @desc This function is used retrieve the unique app ID that Steam assigns to your game, which is required for using some of the ${module.UGC} functions.
  * 
  * @returns {Real}
  * 
@@ -169,7 +169,7 @@
  * @member {string} event_type The string value `"ticket_response"`
  * @member {real} result The Steam [EResult](https://partner.steamgames.com/doc/api/steam_api#EResult) code
  * @member {boolean} success Whether `result` is equal to the value `k_EResultOK`
- * @member {real} auth_ticket_handle the handle of the auth ticket, can be passed to `steam_user_cancel_auth_ticket`
+ * @member {real} auth_ticket_handle The handle of the auth ticket, can be passed to `steam_user_cancel_auth_ticket`
  * @event_end
  * 
  * @func_end
@@ -224,7 +224,7 @@
 
 /**
  * @func steam_set_warning_message_hook
- * @desc This function sets a warning message hook to receive SteamAPI warnings and info messages in the console.
+ * @desc This function sets a warning message hook to receive Steam API warnings and info messages in the console.
  * 
  * @example
  * ```gml

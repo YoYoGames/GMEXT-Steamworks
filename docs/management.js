@@ -27,7 +27,7 @@
  * 
  * @event steam
  * @desc This event is triggered when a local file changes. You can use the functions ${function.steam_get_local_file_change_count} and ${function.steam_get_local_file_change} to get the actual change data.
- * @member event_type The string value `"remote_storage_local_file_change"`
+ * @member {string} event_type The string value `"remote_storage_local_file_change"`
  * @event_end
  * 
  * @example
