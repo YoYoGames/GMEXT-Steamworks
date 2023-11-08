@@ -133,12 +133,12 @@ YYEXPORT void /*double*/ steam_user_request_encrypted_app_ticket(RValue& Result,
 
     double bufferId = YYGetReal(arg, 0);
 
-    unsigned char* buffer_data;
-    int buffer_size;
+    void* buffer_data = nullptr;
+    int buffer_size = 0;
 
-    if (!BufferGetContent(bufferId, (void**)(&buffer_data), &buffer_size))
+    if (!BufferGetContent(bufferId, &buffer_data, &buffer_size) || !buffer_data)
     {
-        DebugConsoleOutput("steam_user_request_encrypted_app_ticket() - error: specified buffer not found\n");
+        DebugConsoleOutput("steam_user_request_encrypted_app_ticket() - error: specified buffer %d not found\n", (int)bufferId);
         Result.kind = VALUE_BOOL;
         Result.val = false;
 
@@ -146,10 +146,10 @@ YYEXPORT void /*double*/ steam_user_request_encrypted_app_ticket(RValue& Result,
     }
 
     auto cc = SteamUser()->RequestEncryptedAppTicket(buffer_data, buffer_size);
-
+    YYFree(buffer_data);
     steam_user_app_ticket.Set(cc, &steam_net_callbacks, &steam_net_callbacks_t::encrypted_app_ticket_response_received);
     Result.kind = VALUE_BOOL;
-    Result.val = false;
+    Result.val = true;
 }
 
 class CGMAuthTicketCallbacks {
