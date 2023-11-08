@@ -175,8 +175,8 @@ YYEXPORT void /*double*/ steam_get_quota_total(RValue& Result, CInstance* selfin
 	/*int32 totalBytes;
 	int32 availableBytes;*/
 
-	uint64 totalBytes;
-	uint64 availableBytes;
+	uint64 totalBytes = 0;
+	uint64 availableBytes = 0;
 
 	SteamRemoteStorage()->GetQuota(&totalBytes,&availableBytes);
 
@@ -196,8 +196,8 @@ YYEXPORT void /*double*/ steam_get_quota_free(RValue& Result, CInstance* selfins
 	//int32 totalBytes;
 	//int32 availableBytes;
 
-	uint64 totalBytes;
-	uint64 availableBytes;
+	uint64 totalBytes = 0;
+	uint64 availableBytes = 0;
 
 	SteamRemoteStorage()->GetQuota(&totalBytes,&availableBytes);
 
@@ -228,10 +228,10 @@ YYEXPORT void /*double*/ steam_file_write(RValue& Result, CInstance* selfinst, C
 {
 	const char* filename = YYGetString(arg, 0);
 	const char* pData = YYGetString(arg, 1);
-	double size = YYGetReal(arg, 2);
+	// previously there was a third argument `size`, but it is now ignored.
 
 	Result.kind = VALUE_REAL;
-	Result.val = steam_file_write_internal(filename, pData, size);
+	Result.val = steam_file_write_internal(filename, pData, (double)strlen(pData));
 }
 
 //write contents of local file to steam remote storage file
@@ -309,27 +309,28 @@ YYEXPORT void /*const char**/ steam_file_read(RValue& Result, CInstance* selfins
 		return;
 	}
 
+	char* filedata = nullptr;
 	if( SteamRemoteStorage()->FileExists(filename) == true )
 	{
 		int32 size = SteamRemoteStorage()->GetFileSize(filename);
 		
 		if ( size > 0 )
 		{
-			void* filedata = g_pYYRunnerInterface->YYAlloc(size + 1);// , __FILE__, __LINE__  );
-			if ( SteamRemoteStorage()->FileRead(filename, filedata ,size) == size )
+			filedata = (char *)YYAlloc(size + 1);
+			filedata[0] = 0; // (idk if YYAlloc bzero's...) if FileRead fails, this will be an empty string
+			if ( SteamRemoteStorage()->FileRead(filename, filedata, size) == size )
 			{
-				char* pStringData = (char*)filedata;
-				pStringData[size]=0;	//null terminate since returned as string
-				YYCreateString(&Result, (const char*)filedata);
-				return;
+				filedata[size] = 0;	//null terminate since returned as string
 			}
 		}
 	}
-	else {
+	else
+	{
 		DebugConsoleOutput("File read failed: file does not exist\n");
 	}
 
-	YYCreateString(&Result, "");
+	YYCreateString(&Result, filedata ? filedata : "");
+	YYFree(filedata);
 }
 
 YYEXPORT void /*double*/ steam_file_delete(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)//( const char* pFilename )/*Steam_RemoteStorage_FileDelete*/
