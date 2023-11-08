@@ -109,11 +109,11 @@ YYEXPORT void /*double*/ steam_net_packet_send(RValue& Result, CInstance* selfin
 		}
 	}
 
-	unsigned char* buffer_data;
-	int buffer_size;
-	if (!BufferGetContent(buffer_idx, (void**)(&buffer_data), &buffer_size))
+	void* buffer_data = nullptr;
+	int buffer_size = 0;
+	if (!BufferGetContent(buffer_idx, &buffer_data, &buffer_size) || !buffer_data)
 	{
-		DebugConsoleOutput("steam_net_packet_send() - error: specified buffer not found\n");
+		DebugConsoleOutput("steam_net_packet_send() - error: specified buffer %d not found\n", (int)buffer_idx);
 		Result.kind = VALUE_BOOL;
 		Result.val = false;
 
@@ -126,6 +126,7 @@ YYEXPORT void /*double*/ steam_net_packet_send(RValue& Result, CInstance* selfin
 
 	Result.kind = VALUE_BOOL;
 	Result.val = SteamNetworking() && SteamNetworking()->SendP2PPacket(target, buffer_data, size, type);
+	YYFree(buffer_data);
 }
 
 #pragma endregion
