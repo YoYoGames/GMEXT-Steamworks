@@ -206,7 +206,7 @@ YYEXPORT void /*double*/ steam_get_quota_free(RValue& Result, CInstance* selfins
 }
 
 
-double steam_file_write_internal( const char* filename, const char* pData, double size )/*Steam_RemoteStorage_FileWrite*/
+double steam_file_write_internal( const char* filename, const char* pData, int size )/*Steam_RemoteStorage_FileWrite*/
 {
 
 	if (!steam_is_initialised)
@@ -216,7 +216,7 @@ double steam_file_write_internal( const char* filename, const char* pData, doubl
 
 	SteamRemoteStorage()->FileForget(filename);	//what is the point of this? file will be remembered again when we write it?
 	
-	if ( SteamRemoteStorage()->FileWrite(filename,pData,(int32)size) == true )
+	if ( SteamRemoteStorage()->FileWrite(filename,pData, size) == true )
 	{
 		SteamRemoteStorage()->SetSyncPlatforms(filename,k_ERemoteStoragePlatformAll);
 		return 1.0;
@@ -231,7 +231,7 @@ YYEXPORT void /*double*/ steam_file_write(RValue& Result, CInstance* selfinst, C
 	// previously there was a third argument `size`, but it is now ignored.
 
 	Result.kind = VALUE_REAL;
-	Result.val = steam_file_write_internal(filename, pData, (double)strlen(pData));
+	Result.val = steam_file_write_internal(filename, pData, (int)strlen(pData));
 }
 
 //write contents of local file to steam remote storage file
