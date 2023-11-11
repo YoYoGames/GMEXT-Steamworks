@@ -461,6 +461,32 @@ YYEXPORT void steam_get_local_file_change(RValue& Result, CInstance* selfinst, C
 	YYStructAddString(&Result, "name", nameorpath ? nameorpath : "");
 }
 
+YYEXPORT void steam_file_get_list(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)
+{
+	YYCreateArray(&Result);
+
+	if (!steam_is_initialised || !SteamRemoteStorage())
+	{
+		/* return an empty array on a fatal API failure... */
+		return;
+	}
+
+	// iteration example taken from Steamworks documentation:
+	int32 fileCount = SteamRemoteStorage()->GetFileCount();
+	for (int i = 0; i < fileCount; ++i)
+	{
+		int32 fileSize = 0;
+		const char* fileName = SteamRemoteStorage()->GetFileNameAndSize(i, &fileSize);
+		// zero-initialize first, will be a 0.0 variable...
+		RValue fileStruct = { 0 };
+		YYStructCreate(&fileStruct);
+		YYStructAddString(&fileStruct, "file_name", fileName);
+		YYStructAddDouble(&fileStruct, "file_size", fileSize);
+		// (&Result)[i] = fileStruct;
+		SET_RValue(&Result, &fileStruct, nullptr, i);
+	}
+}
+
 double Steam_RemoteStorage_PublishWorkshopFile( const char* pFilename, const char* pPreviewImg, const char* pTitle, const char* pDesc )
 {
 	//workshop publish requires a few steps-from steam docs -
