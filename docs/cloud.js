@@ -240,6 +240,27 @@
  */
 
 /**
+ * @func steam_file_get_list
+ * @desc This function returns a list of all currently stored files in the user's cloud storage as an array, an empty array is returned on failure.
+ * 
+ * @returns {array<struct.SteamCloudFileEntry>}
+ * 
+ * @example
+ * ```gml
+ * var _i = 0;
+ * var files = steam_file_get_list();
+ * for (var i = 0, len = array_length(files); i < len; ++i)
+ * {
+ * 	var file = files[i];
+ * 	draw_text(50, 100 + _i++ * 30, file.file_name + " size is " + string(file.file_size));
+ * 	// steam_file_delete(file.file_name); // etc...
+ * }
+ * ```
+ * The above code will enumerate through all cloud files and draw their information on the screen.
+ * @func_end
+ */
+
+/**
  * @struct SteamLocalFileChange
  * @desc This struct provides details on what happened in a local file change.
  * @member {constant.steam_local_file_change} local_file_change The type of change that happened to the file
@@ -265,6 +286,14 @@
  */
 
 /**
+ * @struct SteamCloudFileEntry
+ * @desc This struct provides information about a file in a file list returned by the ${function.steam_file_get_list} function
+ * @member {string} file_name The full name of the file
+ * @member {real} file_size The size of the file in bytes
+ * @struct_end
+ */
+
+/**
  * @module cloud
  * @title Cloud
  * @desc The Steam Cloud provides an easy and transparent remote file storage system for your game. All files written to disk using the cloud functions will be replicated to the Steam servers after the game exits. If the user then changes computers, the files will then be downloaded to the new computer before the game launches, meaning that the game can then access the files by reading them using the appropriate Steam functions. The Steam Client does the work of ensuring that the files are kept synchronized across all computers the user may be accessing.
@@ -287,10 +316,12 @@
  * @ref steam_file_delete
  * @ref steam_get_local_file_change
  * @ref steam_get_local_file_change_count
+ * @ref steam_file_get_list
  * @section_end
  * 
  * @section_struct
  * @ref SteamLocalFileChange
+ * @ref SteamCloudFileEntry
  * @section_end
  * 
  * @section_const
