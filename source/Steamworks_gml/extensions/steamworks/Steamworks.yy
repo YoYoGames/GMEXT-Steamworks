@@ -251,6 +251,10 @@
         {"resourceType":"GMExtensionConstant","resourceVersion":"1.0","name":"steam_local_file_change_invalid","hidden":false,"value":"0",},
         {"resourceType":"GMExtensionConstant","resourceVersion":"1.0","name":"steam_local_file_change_updated","hidden":false,"value":"1",},
         {"resourceType":"GMExtensionConstant","resourceVersion":"1.0","name":"steam_local_file_change_deleted","hidden":false,"value":"2",},
+        {"resourceType":"GMExtensionConstant","resourceVersion":"1.0","name":"steam_music_playback_undefined","hidden":false,"value":"0",},
+        {"resourceType":"GMExtensionConstant","resourceVersion":"1.0","name":"steam_music_playback_playing","hidden":false,"value":"1",},
+        {"resourceType":"GMExtensionConstant","resourceVersion":"1.0","name":"steam_music_playback_paused","hidden":false,"value":"2",},
+        {"resourceType":"GMExtensionConstant","resourceVersion":"1.0","name":"steam_music_playback_idle","hidden":false,"value":"3",},
       ],"copyToTargets":194,"filename":"Steamworks.dll","final":"","functions":[
         {"resourceType":"GMExtensionFunction","resourceVersion":"1.0","name":"steam_user_owns_dlc","argCount":1,"args":[
             2,
@@ -983,7 +987,7 @@
         {"resourceType":"GMExtensionFunction","resourceVersion":"1.0","name":"steam_music_play","argCount":0,"args":[],"documentation":"/// @returns {bool}","externalName":"steam_music_play","help":"","hidden":false,"kind":4,"returnType":1,},
         {"resourceType":"GMExtensionFunction","resourceVersion":"1.0","name":"steam_music_play_previous","argCount":0,"args":[],"documentation":"/// @returns {bool}","externalName":"steam_music_play_previous","help":"","hidden":false,"kind":4,"returnType":1,},
         {"resourceType":"GMExtensionFunction","resourceVersion":"1.0","name":"steam_music_play_next","argCount":0,"args":[],"documentation":"/// @returns {bool}","externalName":"steam_music_play_next","help":"","hidden":false,"kind":4,"returnType":1,},
-        {"resourceType":"GMExtensionFunction","resourceVersion":"1.0","name":"steam_music_pause","argCount":0,"args":[],"documentation":"/// @returns {bool}","externalName":"steam_music_pause","help":"","hidden":false,"kind":4,"returnType":1,},
+        {"resourceType":"GMExtensionFunction","resourceVersion":"1.0","name":"steam_music_pause","argCount":0,"args":[],"documentation":"/// @returns {bool} ","externalName":"steam_music_pause","help":"","hidden":false,"kind":4,"returnType":1,},
         {"resourceType":"GMExtensionFunction","resourceVersion":"1.0","name":"steam_music_set_volume","argCount":0,"args":[],"documentation":"/// @param {Real} volume Music volume to use as a float.\r\n/// @returns {Bool}","externalName":"steam_music_set_volume","help":"","hidden":false,"kind":4,"returnType":1,},
         {"resourceType":"GMExtensionFunction","resourceVersion":"1.0","name":"steam_music_get_status","argCount":0,"args":[],"documentation":"/// @returns {real}","externalName":"steam_music_get_status","help":"","hidden":false,"kind":4,"returnType":1,},
       ],"init":"steam_init","kind":4,"order":[
