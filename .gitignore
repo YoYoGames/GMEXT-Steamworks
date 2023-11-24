@@ -33,8 +33,11 @@
 
 # Options
 source/Steamworks_gml/options/extensions/*
+**/.vs/**
 
 # MacOS
 .DS_Store
 
 output/
+
+.fake
