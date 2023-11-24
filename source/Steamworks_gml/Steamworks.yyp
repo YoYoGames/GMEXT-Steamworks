@@ -14,6 +14,7 @@
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Steamworks Demo","folderPath":"folders/Steamworks Demo.yy",},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Input","folderPath":"folders/Steamworks Demo/Input.yy",},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Main","folderPath":"folders/Steamworks Demo/Main.yy",},
+    {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Music","folderPath":"folders/Steamworks Demo/Music.yy",},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Networking","folderPath":"folders/Steamworks Demo/Networking.yy",},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Overlay","folderPath":"folders/Steamworks Demo/Overlay.yy",},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Social","folderPath":"folders/Steamworks Demo/Social.yy",},
@@ -28,7 +29,6 @@
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Font","folderPath":"folders/YoYo Extensions Assets/Font.yy",},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Objects","folderPath":"folders/YoYo Extensions Assets/Objects.yy",},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Sprites","folderPath":"folders/YoYo Extensions Assets/Sprites.yy",},
-    {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Music","folderPath":"folders/Steamworks Demo/Music.yy",},
   ],
   "IncludedFiles": [
     {"resourceType":"GMIncludedFile","resourceVersion":"1.0","name":"Steamworks_Extension_Documentation.html","CopyToMask":0,"filePath":"datafiles",},
