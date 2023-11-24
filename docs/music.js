@@ -60,7 +60,7 @@
  * The above code gets if Steam music player is paused and if it does it resumes the playback.
  * 
  * @event steam
- * @member {string} event_type The string value `"playback_status_has_changed"`
+ * @member {string} event_type The string value `"steam_music_playback_status_has_changed"`
  * @event_end
  * @func_end
  */
@@ -80,7 +80,7 @@
  * The above code gets if Steam music player is playing and if it does it pauses the playback.
  * 
  * @event steam
- * @member {string} event_type The string value `"playback_status_has_changed"`
+ * @member {string} event_type The string value `"steam_music_playback_status_has_changed"`
  * @event_end
  * @func_end
  */
@@ -121,7 +121,7 @@
  * The above code checks if the left arrow has been pressed and if it has, it goes back to the previous track.
  * 
  * @event steam
- * @member {string} event_type The string value `"playback_status_has_changed"`
+ * @member {string} event_type The string value `"steam_music_playback_status_has_changed"`
  * @event_end
  * @func_end
  */
@@ -135,7 +135,7 @@
  * 
  * @event steam
  * @descr this callback is also triggered whenever the volume is changed via the steam client UI.
- * @member {string} event_type The string value `"volume_has_changed"`
+ * @member {string} event_type The string value `"steam_music_volume_has_changed"`
  * @member {float} volume The current volume of the music player
  * @event_end
  * @func_end
