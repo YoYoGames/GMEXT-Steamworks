@@ -130,14 +130,14 @@ YYEXPORT void steam_music_set_volume(RValue& Result, CInstance* selfinst, CInsta
 
 #pragma region callbacks
 
-void steam_net_callbacks_t::volume_has_changed(VolumeHasChanged_t* e) {
-	steam_net_event event((char*)"volume_has_changed");
+void steam_net_callbacks_t::steam_music_volume_has_changed(VolumeHasChanged_t* e) {
+	steam_net_event event((char*)"steam_music_volume_status_has_changed");
 	event.set((char*)"volume", e->m_flNewVolume);
 	event.dispatch();
 }
 
-void steam_net_callbacks_t::playback_status_has_changed(PlaybackStatusHasChanged_t* e) {
-	steam_net_event event((char*)"playback_status_has_changed");
+void steam_net_callbacks_t::steam_music_playback_status_has_changed(PlaybackStatusHasChanged_t* e) {
+	steam_net_event event((char*)"steam_music_playback_status_has_changed");
 	event.dispatch();
 }
 
