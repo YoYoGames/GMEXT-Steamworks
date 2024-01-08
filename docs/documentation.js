@@ -27,6 +27,7 @@
  * @ref module.networking
  * @ref module.input
  * @ref module.utilities
+ * @ref module.music
  * @section_end
  * 
  * @module_end

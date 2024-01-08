@@ -27,4 +27,3 @@ for (var i = 0, len = array_length(files); i < len; ++i)
 	var file = files[i];
 	draw_text(50, 100 + _i++ * 30, file.file_name + " size is " + string(file.file_size))
 }
-

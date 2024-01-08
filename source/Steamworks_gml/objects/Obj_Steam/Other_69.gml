@@ -24,3 +24,6 @@ if (async_load[? "event_type"] == "remote_storage_local_file_change")
 	show_message_async(_str); // in case you can't see the debug logs
 }
 
+if (async_load[? "event_type"] == "playback_status_has_changed"){
+	show_debug_message("playback_change_detected");
+}

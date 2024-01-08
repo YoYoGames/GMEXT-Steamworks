@@ -19,7 +19,7 @@
   "exportToGame": true,
   "extensionVersion": "1.5.1",
   "files": [
-    {"resourceType":"GMExtensionFile","resourceVersion":"1.0","name":"","constants":[
+    {"resourceType":"GMExtensionFile","resourceVersion":"1.0","name":"Steamworks.dll","constants":[
         {"resourceType":"GMExtensionConstant","resourceVersion":"1.0","name":"ov_friends","hidden":false,"value":"0",},
         {"resourceType":"GMExtensionConstant","resourceVersion":"1.0","name":"ov_community","hidden":false,"value":"1",},
         {"resourceType":"GMExtensionConstant","resourceVersion":"1.0","name":"ov_players","hidden":false,"value":"2",},
@@ -251,6 +251,10 @@
         {"resourceType":"GMExtensionConstant","resourceVersion":"1.0","name":"steam_local_file_change_invalid","hidden":false,"value":"0",},
         {"resourceType":"GMExtensionConstant","resourceVersion":"1.0","name":"steam_local_file_change_updated","hidden":false,"value":"1",},
         {"resourceType":"GMExtensionConstant","resourceVersion":"1.0","name":"steam_local_file_change_deleted","hidden":false,"value":"2",},
+        {"resourceType":"GMExtensionConstant","resourceVersion":"1.0","name":"steam_music_playback_undefined","hidden":false,"value":"0",},
+        {"resourceType":"GMExtensionConstant","resourceVersion":"1.0","name":"steam_music_playback_playing","hidden":false,"value":"1",},
+        {"resourceType":"GMExtensionConstant","resourceVersion":"1.0","name":"steam_music_playback_paused","hidden":false,"value":"2",},
+        {"resourceType":"GMExtensionConstant","resourceVersion":"1.0","name":"steam_music_playback_idle","hidden":false,"value":"3",},
       ],"copyToTargets":194,"filename":"Steamworks.dll","final":"","functions":[
         {"resourceType":"GMExtensionFunction","resourceVersion":"1.0","name":"steam_user_owns_dlc","argCount":1,"args":[
             2,
@@ -978,7 +982,14 @@
         {"resourceType":"GMExtensionFunction","resourceVersion":"1.0","name":"steam_get_local_file_change","argCount":0,"args":[],"documentation":"/// @param {Real} index file change index\n/// @returns {Struct} change data struct\r\n","externalName":"steam_get_local_file_change","help":"steam_get_local_file_change(index)","hidden":false,"kind":4,"returnType":1,},
         {"resourceType":"GMExtensionFunction","resourceVersion":"1.0","name":"steam_utils_is_steam_in_big_picture_mode","argCount":0,"args":[],"documentation":"/// @returns {Bool} is Steam running in Big Picture mode","externalName":"steam_utils_is_steam_in_big_picture_mode","help":"","hidden":false,"kind":4,"returnType":1,},
         {"resourceType":"GMExtensionFunction","resourceVersion":"1.0","name":"steam_utils_set_game_launcher_mode","argCount":0,"args":[],"documentation":"/// @param {Bool} launcher_mode Enable launcher mode or not","externalName":"steam_utils_set_game_launcher_mode","help":"","hidden":false,"kind":4,"returnType":1,},
-        {"resourceType":"GMExtensionFunction","resourceVersion":"1.0","name":"steam_file_get_list","argCount":0,"args":[],"documentation":"/// @returns {Array<Struct>} of cloud files","externalName":"steam_file_get_list","help":"steam_file_get_list()->Array<Struct>","hidden":false,"kind":4,"returnType":2,},
+        {"resourceType":"GMExtensionFunction","resourceVersion":"1.0","name":"steam_music_is_enabled","argCount":0,"args":[],"documentation":"/// @returns {bool}","externalName":"steam_music_is_enabled","help":"","hidden":false,"kind":4,"returnType":1,},
+        {"resourceType":"GMExtensionFunction","resourceVersion":"1.0","name":"steam_music_is_playing","argCount":0,"args":[],"documentation":"/// @returns {bool}","externalName":"steam_music_is_playing","help":"","hidden":false,"kind":4,"returnType":1,},
+        {"resourceType":"GMExtensionFunction","resourceVersion":"1.0","name":"steam_music_play","argCount":0,"args":[],"documentation":"/// @returns {bool}","externalName":"steam_music_play","help":"","hidden":false,"kind":4,"returnType":1,},
+        {"resourceType":"GMExtensionFunction","resourceVersion":"1.0","name":"steam_music_play_previous","argCount":0,"args":[],"documentation":"/// @returns {bool}","externalName":"steam_music_play_previous","help":"","hidden":false,"kind":4,"returnType":1,},
+        {"resourceType":"GMExtensionFunction","resourceVersion":"1.0","name":"steam_music_play_next","argCount":0,"args":[],"documentation":"/// @returns {bool}","externalName":"steam_music_play_next","help":"","hidden":false,"kind":4,"returnType":1,},
+        {"resourceType":"GMExtensionFunction","resourceVersion":"1.0","name":"steam_music_pause","argCount":0,"args":[],"documentation":"/// @returns {bool} ","externalName":"steam_music_pause","help":"","hidden":false,"kind":4,"returnType":1,},
+        {"resourceType":"GMExtensionFunction","resourceVersion":"1.0","name":"steam_music_set_volume","argCount":0,"args":[],"documentation":"/// @param {Real} volume Music volume to use as a float.\r\n/// @returns {Bool}","externalName":"steam_music_set_volume","help":"","hidden":false,"kind":4,"returnType":1,},
+        {"resourceType":"GMExtensionFunction","resourceVersion":"1.0","name":"steam_music_get_status","argCount":0,"args":[],"documentation":"/// @returns {real}","externalName":"steam_music_get_status","help":"","hidden":false,"kind":4,"returnType":1,},
       ],"init":"steam_init","kind":4,"order":[
         {"name":"steam_user_owns_dlc","path":"extensions/Steamworks/Steamworks.yy",},
         {"name":"steam_user_installed_dlc","path":"extensions/Steamworks/Steamworks.yy",},
@@ -1150,13 +1161,12 @@
         {"name":"steam_inventory_get_items_with_prices","path":"extensions/Steamworks/Steamworks.yy",},
         {"name":"steam_inventory_request_prices","path":"extensions/Steamworks/Steamworks.yy",},
         {"name":"steam_inventory_transfer_item_quantity","path":"extensions/Steamworks/Steamworks.yy",},
-        {"name":"steam_file_get_list","path":"extensions/Steamworks/Steamworks.yy",},
       ],"origname":"extensions\\Steamworks.dll","ProxyFiles":[
         {"resourceType":"GMProxyFile","resourceVersion":"1.0","name":"libSteamworks.dylib","TargetMask":1,},
         {"resourceType":"GMProxyFile","resourceVersion":"1.0","name":"Steamworks.so","TargetMask":7,},
         {"resourceType":"GMProxyFile","resourceVersion":"1.0","name":"Steamworks_x64.dll","TargetMask":6,},
       ],"uncompress":false,"usesRunnerInterface":true,},
-    {"resourceType":"GMExtensionFile","resourceVersion":"1.0","name":"","constants":[],"copyToTargets":2,"filename":"libsteam_api.dylib","final":"","functions":[],"init":"","kind":4,"order":[],"origname":"","ProxyFiles":[],"uncompress":false,"usesRunnerInterface":false,},
+    {"resourceType":"GMExtensionFile","resourceVersion":"1.0","name":"libsteam_api.dylib","constants":[],"copyToTargets":2,"filename":"libsteam_api.dylib","final":"","functions":[],"init":"","kind":4,"order":[],"origname":"","ProxyFiles":[],"uncompress":false,"usesRunnerInterface":false,},
   ],
   "gradleinject": "",
   "hasConvertedCodeInjection": true,
