@@ -36,7 +36,7 @@
   "isEcma": false,
   "LibraryEmitters": [],
   "MetaData": {
-    "IDEVersion": "2023.1100.0.441",
+    "IDEVersion": "2023.1100.0.450",
   },
   "resources": [
     {"id":{"name":"Obj_Steam_ProfileImage","path":"objects/Obj_Steam_ProfileImage/Obj_Steam_ProfileImage.yy",},},

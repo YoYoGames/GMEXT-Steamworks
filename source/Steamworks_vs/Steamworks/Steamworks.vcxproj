@@ -201,6 +201,7 @@
     <ClCompile Include="GMLSteam\steam_lobby_chat.cpp" />
     <ClCompile Include="GMLSteam\steam_matchmaking.cpp" />
     <ClCompile Include="GMLSteam\steam_misc.cpp" />
+    <ClCompile Include="GMLSteam\steam_music.cpp" />
     <ClCompile Include="GMLSteam\steam_networking.cpp" />
     <ClCompile Include="GMLSteam\steam_remotestorage.cpp" />
     <ClCompile Include="GMLSteam\steam_screenshots.cpp" />
@@ -216,7 +217,6 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="steam_music.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

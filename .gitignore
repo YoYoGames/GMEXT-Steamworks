@@ -41,3 +41,4 @@ source/Steamworks_gml/options/extensions/*
 output/
 
 .fake
+*.vsxproj.filters
