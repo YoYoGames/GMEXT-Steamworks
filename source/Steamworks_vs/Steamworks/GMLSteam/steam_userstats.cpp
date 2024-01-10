@@ -1707,6 +1707,56 @@ YYEXPORT void steam_get_global_stat_history(RValue& Result, CInstance* selfinst,
     return;
 }
 
+YYEXPORT void steam_get_leaderboard_display_type(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)
+{
+    const char* pszLeaderboardName = YYGetString(arg, 0);
+
+    if (!steam_is_initialised)
+    {
+        Result.kind = VALUE_REAL;
+        Result.val = 0;
+        return;
+    }
+
+    SteamLeaderboard_t hLeaderboard;
+    if (GetLeaderboardHandle(pszLeaderboardName, hLeaderboard))
+    {
+        int type = SteamUserStats()->GetLeaderboardDisplayType(hLeaderboard);
+        Result.kind = VALUE_REAL;
+        Result.val = type;
+    }
+    else
+    {
+        Result.kind = VALUE_REAL;
+        Result.val = -4;
+    }
+}
+
+YYEXPORT void steam_get_leaderboard_entry_count(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)
+{
+    const char* pszLeaderboardName = YYGetString(arg, 0);
+
+    if (!steam_is_initialised)
+    {
+        Result.kind = VALUE_REAL;
+        Result.val = 0;
+        return;
+    }
+
+    SteamLeaderboard_t hLeaderboard;
+    if (GetLeaderboardHandle(pszLeaderboardName, hLeaderboard))
+    {
+        int type = SteamUserStats()->GetLeaderboardEntryCount(hLeaderboard);
+        Result.kind = VALUE_REAL;
+        Result.val = type;
+    }
+    else
+    {
+        Result.kind = VALUE_REAL;
+        Result.val = -4;
+    }
+}
+
 
 ///    \brief    Resets all the stats to the server defaults
 YYEXPORT void /*double*/ steam_reset_all_stats_achievements(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)//()/*Steam_UserStats_ResetAllStatsAndAchievements*/
