@@ -258,7 +258,7 @@
         {"resourceType":"GMExtensionConstant","resourceVersion":"1.0","name":"steam_display_type_none","hidden":false,"value":"0",},
         {"resourceType":"GMExtensionConstant","resourceVersion":"1.0","name":"steam_display_type_numeric","hidden":false,"value":"1",},
         {"resourceType":"GMExtensionConstant","resourceVersion":"1.0","name":"steam_display_type_time_seconds","hidden":false,"value":"2",},
-        {"resourceType":"GMExtensionConstant","resourceVersion":"1.0","name":"steam_display_type_time_milliseconds","hidden":false,"value":"",},
+        {"resourceType":"GMExtensionConstant","resourceVersion":"1.0","name":"steam_display_type_time_milliseconds","hidden":false,"value":"3",},
       ],"copyToTargets":194,"filename":"Steamworks.dll","final":"","functions":[
         {"resourceType":"GMExtensionFunction","resourceVersion":"1.0","name":"steam_user_owns_dlc","argCount":1,"args":[
             2,
