@@ -8,7 +8,6 @@
   "inheritLayers": false,
   "instanceCreationOrder": [
     {"name":"inst_2664DA60_1","path":"rooms/Room_Steam_Music/Room_Steam_Music.yy",},
-    {"name":"inst_40E33CB4_1","path":"rooms/Room_Steam_Music/Room_Steam_Music.yy",},
     {"name":"inst_41D837C6","path":"rooms/Room_Steam_Music/Room_Steam_Music.yy",},
     {"name":"inst_1AC62CCC","path":"rooms/Room_Steam_Music/Room_Steam_Music.yy",},
     {"name":"inst_6FDEA193","path":"rooms/Room_Steam_Music/Room_Steam_Music.yy",},
@@ -21,7 +20,6 @@
   "layers": [
     {"resourceType":"GMRInstanceLayer","resourceVersion":"1.0","name":"Compatibility_Instances_Depth_0","depth":0,"effectEnabled":true,"effectType":null,"gridX":32,"gridY":32,"hierarchyFrozen":false,"inheritLayerDepth":false,"inheritLayerSettings":false,"inheritSubLayers":true,"inheritVisibility":true,"instances":[
         {"resourceType":"GMRInstance","resourceVersion":"1.0","name":"inst_2664DA60_1","colour":4294967295,"frozen":false,"hasCreationCode":true,"ignore":false,"imageIndex":0,"imageSpeed":1.0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"objectId":{"name":"Obj_YoYo_text","path":"objects/Obj_YoYo_text/Obj_YoYo_text.yy",},"properties":[],"rotation":0.0,"scaleX":1.0,"scaleY":1.0,"x":320.0,"y":42.0,},
-        {"resourceType":"GMRInstance","resourceVersion":"1.0","name":"inst_40E33CB4_1","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":1.0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"objectId":{"name":"Obj_Steam_ProfileImage","path":"objects/Obj_Steam_ProfileImage/Obj_Steam_ProfileImage.yy",},"properties":[],"rotation":0.0,"scaleX":1.0,"scaleY":1.0,"x":32.0,"y":512.0,},
         {"resourceType":"GMRInstance","resourceVersion":"1.0","name":"inst_41D837C6","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":1.0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"objectId":{"name":"Obj_Steam_Music","path":"objects/Obj_Steam_Music/Obj_Steam_Music.yy",},"properties":[],"rotation":0.0,"scaleX":1.0,"scaleY":1.0,"x":480.0,"y":336.0,},
         {"resourceType":"GMRInstance","resourceVersion":"1.0","name":"inst_1AC62CCC","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":1.0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"objectId":{"name":"Obj_Steam_Play","path":"objects/Obj_Steam_Play/Obj_Steam_Play.yy",},"properties":[],"rotation":0.0,"scaleX":4.5,"scaleY":1.0,"x":1056.0,"y":224.0,},
         {"resourceType":"GMRInstance","resourceVersion":"1.0","name":"inst_6FDEA193","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":1.0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"objectId":{"name":"Obj_Steam_Pause","path":"objects/Obj_Steam_Pause/Obj_Steam_Pause.yy",},"properties":[],"rotation":0.0,"scaleX":4.5,"scaleY":1.0,"x":1056.0,"y":352.0,},
