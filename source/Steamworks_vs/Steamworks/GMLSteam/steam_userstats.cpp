@@ -18,7 +18,7 @@ bool LookupLeaderboardHandle(const char* pszName, SteamLeaderboard_t& handle );
 
 const int            kMaxEntries = 100;
 //const char            gUnknownString[] = "Unknown";
-const int kLBExtraDataMax = 64;    //max size in int32 of leader board entry data
+const int kLBExtraDataMax = k_cLeaderboardDetailsMax;    //max size in int32 of leader board entry data
 
 //leaderboard/stat queues...
 //used to cache retrieved handles for leaderboard names
@@ -633,37 +633,33 @@ double Steam_UserStats_UploadScore(const char* pszLeaderboardName, double score,
         return -1;
     }
 
-    int32 aExtraData[kLBExtraDataMax];
+    int32 aExtraData[kLBExtraDataMax] = { 0 };
     int32* pExtraData = NULL;
     int dataCount = 0;
 
-    IBuffer* pBuff = NULL;
-    //if (_bufferId != NULL)
     if (_bufferId >= 0)
     {
-        pBuff = g_pYYRunnerInterface->BufferGetFromGML(_bufferId);
-        if (pBuff != NULL)
+        void* bufferRawData = nullptr;
+        int bufferRawSize = 0;
+        const int maxBytesSize = kLBExtraDataMax * sizeof(int);
+        if (BufferGetContent(_bufferId, &bufferRawData, &bufferRawSize) && bufferRawData)
         {
-            //->int32[] for upload
-            int buffSize = g_pYYRunnerInterface->BufferTELL(pBuff);
-            if (buffSize > 0)
+            if (bufferRawSize > maxBytesSize)
             {
-                if (buffSize > kLBExtraDataMax * 4)
-                {
-                    //truncate...(or, abandon...)
-                    DebugConsoleOutput("steam_upload_score_buffer: requested upload of %d bytes was truncated to max of 256 bytes\n", buffSize);
-                    buffSize = kLBExtraDataMax * 4;
-                }
-
-                dataCount = (buffSize + 3) / 4;
-                memset(aExtraData, 0, kLBExtraDataMax * 4);
-                memcpy(aExtraData, g_pYYRunnerInterface->BufferGet(pBuff), buffSize);
-                pExtraData = aExtraData;
+                //truncate...(or, abandon...)
+                DebugConsoleOutput("steam_upload_score_buffer: requested upload of %d bytes was truncated to max of %d bytes\n", bufferRawSize, maxBytesSize);
+                bufferRawSize = maxBytesSize;
             }
+
+            dataCount = (bufferRawSize + 3) / 4; // always rounds up to largest int count (but never >64)
+            memcpy(aExtraData, bufferRawData, bufferRawSize);
+            pExtraData = aExtraData;
+            YYFree(bufferRawData);
+            // !!! BufferGetContent returns a copy of the memory allocated via YYAlloc, so we must free it
         }
         else
         {
-            DebugConsoleOutput("buffer index does not exist - no data will be uploaded");
+            DebugConsoleOutput("steam_upload_score_buffer: buffer index %d does not exist - no data will be uploaded\n", _bufferId);
         }
     }
 
@@ -1004,7 +1000,7 @@ void OnDownloadScoreResult(LeaderboardScoresDownloaded_t* pCallback, bool bIOFai
         //SteamUserStats()->GetDownloadedLeaderboardEntry( pCallback->m_hSteamLeaderboardEntries,index,&pData->m_Entries[index],NULL,0);
         //SteamUserStats()->GetDownloadedLeaderboardEntry(pCallback->m_hSteamLeaderboardEntries, index, &(pCallback->m_hSteamLeaderboard->m_Entries[index]), pExtraData, kLBExtraDataMax);
         LeaderboardEntry_t leaderboardEntry;
-        int32 pExtraData[kLBExtraDataMax];
+        int32 pExtraData[kLBExtraDataMax] = { 0 };
         SteamUserStats()->GetDownloadedLeaderboardEntry(pCallback->m_hSteamLeaderboardEntries, index, &leaderboardEntry, pExtraData, kLBExtraDataMax);
 
         std::string sUserName = SteamFriends()->GetFriendPersonaName(leaderboardEntry.m_steamIDUser);
@@ -1709,6 +1705,56 @@ YYEXPORT void steam_get_global_stat_history(RValue& Result, CInstance* selfinst,
 
     Result.val = 0.0;
     return;
+}
+
+YYEXPORT void steam_get_leaderboard_display_type(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)
+{
+    const char* pszLeaderboardName = YYGetString(arg, 0);
+
+    if (!steam_is_initialised)
+    {
+        Result.kind = VALUE_REAL;
+        Result.val = 0;
+        return;
+    }
+
+    SteamLeaderboard_t hLeaderboard;
+    if (GetLeaderboardHandle(pszLeaderboardName, hLeaderboard))
+    {
+        int type = SteamUserStats()->GetLeaderboardDisplayType(hLeaderboard);
+        Result.kind = VALUE_REAL;
+        Result.val = type;
+    }
+    else
+    {
+        Result.kind = VALUE_REAL;
+        Result.val = -4;
+    }
+}
+
+YYEXPORT void steam_get_leaderboard_entry_count(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)
+{
+    const char* pszLeaderboardName = YYGetString(arg, 0);
+
+    if (!steam_is_initialised)
+    {
+        Result.kind = VALUE_REAL;
+        Result.val = 0;
+        return;
+    }
+
+    SteamLeaderboard_t hLeaderboard;
+    if (GetLeaderboardHandle(pszLeaderboardName, hLeaderboard))
+    {
+        int type = SteamUserStats()->GetLeaderboardEntryCount(hLeaderboard);
+        Result.kind = VALUE_REAL;
+        Result.val = type;
+    }
+    else
+    {
+        Result.kind = VALUE_REAL;
+        Result.val = -4;
+    }
 }
 
 

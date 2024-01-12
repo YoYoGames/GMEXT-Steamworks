@@ -1,5 +1,5 @@
 
-font = Font_YoYo_20;
+font = Font_YoYo_15;
 valign = fa_top;
 halign = fa_left;
 

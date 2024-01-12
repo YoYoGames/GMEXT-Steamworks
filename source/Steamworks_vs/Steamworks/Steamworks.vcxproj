@@ -201,6 +201,7 @@
     <ClCompile Include="GMLSteam\steam_lobby_chat.cpp" />
     <ClCompile Include="GMLSteam\steam_matchmaking.cpp" />
     <ClCompile Include="GMLSteam\steam_misc.cpp" />
+    <ClCompile Include="GMLSteam\steam_music.cpp" />
     <ClCompile Include="GMLSteam\steam_networking.cpp" />
     <ClCompile Include="GMLSteam\steam_remotestorage.cpp" />
     <ClCompile Include="GMLSteam\steam_screenshots.cpp" />

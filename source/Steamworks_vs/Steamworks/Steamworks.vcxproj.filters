@@ -113,5 +113,8 @@
     <ClCompile Include="GMLSteam\steam_input.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="GMLSteam\steam_music.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

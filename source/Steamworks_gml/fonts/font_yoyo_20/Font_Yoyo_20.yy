@@ -4,7 +4,7 @@
   "name": "Font_YoYo_20",
   "AntiAlias": 1,
   "applyKerning": 0,
-  "ascender": 0,
+  "ascender": 24,
   "ascenderOffset": 0,
   "bold": false,
   "canGenerateBitmap": true,
@@ -108,7 +108,7 @@
     "124": {"character":124,"h":31,"offset":2,"shift":7,"w":3,"x":160,"y":35,},
     "125": {"character":125,"h":31,"offset":0,"shift":9,"w":9,"x":149,"y":35,},
     "126": {"character":126,"h":31,"offset":1,"shift":16,"w":14,"x":160,"y":167,},
-    "9647": {"character":9647,"h":31,"offset":5,"shift":26,"w":16,"x":176,"y":167,},
+    "9647": {"character":9647,"h":31,"offset":4,"shift":16,"w":8,"x":176,"y":167,},
   },
   "hinting": 0,
   "includeTTF": false,
@@ -205,6 +205,7 @@
     {"amount":-2,"first":121,"second":46,},
   ],
   "last": 0,
+  "lineHeight": 0,
   "maintainGms1Font": false,
   "parent": {
     "name": "Font",
@@ -217,6 +218,7 @@
   ],
   "regenerateBitmap": false,
   "sampleText": "abcdef ABCDEF\n0123456789 .,<>\"'&!?\nthe quick brown fox jumps over the lazy dog\nTHE QUICK BROWN FOX JUMPS OVER THE LAZY DOG\nDefault character: ▯ (9647)",
+  "sdfSpread": 8,
   "size": 20.0,
   "styleName": "Regular",
   "textureGroupId": {
@@ -224,4 +226,5 @@
     "path": "texturegroups/Default",
   },
   "TTFName": "",
+  "usesSDF": false,
 }

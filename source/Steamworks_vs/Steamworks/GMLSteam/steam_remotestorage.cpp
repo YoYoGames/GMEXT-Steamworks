@@ -50,7 +50,36 @@ public:
 	  }
 
 	  CCallResult<RemoteStorageCallbacks, RemoteStoragePublishFileResult_t>		m_SteamCallResultWorkshopPublish;
+
+	  STEAM_CALLBACK(RemoteStorageCallbacks, OnStorageLocalFileChange, RemoteStorageLocalFileChange_t);
+	  STEAM_CALLBACK(RemoteStorageCallbacks, OnAppResumingFromSuspend, AppResumingFromSuspend_t);
+	  STEAM_CALLBACK(RemoteStorageCallbacks, OnSteamShutdown, SteamShutdown_t);
 };
+
+void RemoteStorageCallbacks::OnStorageLocalFileChange(RemoteStorageLocalFileChange_t* pParam)
+{
+	int map = CreateDsMap(0,0);
+	DsMapAddString(map, "event_type", "remote_storage_local_file_change");
+	/* there are no members in pParam other than the constant k_iCallback... */
+	/* please use GetLocalFileChange on the GML side */
+	CreateAsyncEventWithDSMap(map, EVENT_OTHER_WEB_STEAM);
+}
+
+void RemoteStorageCallbacks::OnAppResumingFromSuspend(AppResumingFromSuspend_t* pParam)
+{
+	int map = CreateDsMap(0,0);
+	DsMapAddString(map, "event_type", "app_resuming_from_suspend");
+	/* there are no members in pParam other than the constant k_iCallback... */
+	CreateAsyncEventWithDSMap(map, EVENT_OTHER_WEB_STEAM);
+}
+
+void RemoteStorageCallbacks::OnSteamShutdown(SteamShutdown_t* pParam)
+{
+	int map = CreateDsMap(0,0);
+	DsMapAddString(map, "event_type", "steam_shutdown");
+	/* there are no members in pParam other than the constant k_iCallback... */
+	CreateAsyncEventWithDSMap(map, EVENT_OTHER_WEB_STEAM);
+}
 
 class CFileShareResultHandler
 {
@@ -146,8 +175,8 @@ YYEXPORT void /*double*/ steam_get_quota_total(RValue& Result, CInstance* selfin
 	/*int32 totalBytes;
 	int32 availableBytes;*/
 
-	uint64 totalBytes;
-	uint64 availableBytes;
+	uint64 totalBytes = 0;
+	uint64 availableBytes = 0;
 
 	SteamRemoteStorage()->GetQuota(&totalBytes,&availableBytes);
 
@@ -167,8 +196,8 @@ YYEXPORT void /*double*/ steam_get_quota_free(RValue& Result, CInstance* selfins
 	//int32 totalBytes;
 	//int32 availableBytes;
 
-	uint64 totalBytes;
-	uint64 availableBytes;
+	uint64 totalBytes = 0;
+	uint64 availableBytes = 0;
 
 	SteamRemoteStorage()->GetQuota(&totalBytes,&availableBytes);
 
@@ -177,7 +206,7 @@ YYEXPORT void /*double*/ steam_get_quota_free(RValue& Result, CInstance* selfins
 }
 
 
-double steam_file_write_internal( const char* filename, const char* pData, double size )/*Steam_RemoteStorage_FileWrite*/
+double steam_file_write_internal( const char* filename, const char* pData, int size )/*Steam_RemoteStorage_FileWrite*/
 {
 
 	if (!steam_is_initialised)
@@ -187,7 +216,7 @@ double steam_file_write_internal( const char* filename, const char* pData, doubl
 
 	SteamRemoteStorage()->FileForget(filename);	//what is the point of this? file will be remembered again when we write it?
 	
-	if ( SteamRemoteStorage()->FileWrite(filename,pData,(int32)size) == true )
+	if ( SteamRemoteStorage()->FileWrite(filename,pData, size) == true )
 	{
 		SteamRemoteStorage()->SetSyncPlatforms(filename,k_ERemoteStoragePlatformAll);
 		return 1.0;
@@ -199,10 +228,10 @@ YYEXPORT void /*double*/ steam_file_write(RValue& Result, CInstance* selfinst, C
 {
 	const char* filename = YYGetString(arg, 0);
 	const char* pData = YYGetString(arg, 1);
-	double size = YYGetReal(arg, 2);
+	// previously there was a third argument `size`, but it is now ignored.
 
 	Result.kind = VALUE_REAL;
-	Result.val = steam_file_write_internal(filename, pData, size);
+	Result.val = steam_file_write_internal(filename, pData, (int)strlen(pData));
 }
 
 //write contents of local file to steam remote storage file
@@ -280,27 +309,28 @@ YYEXPORT void /*const char**/ steam_file_read(RValue& Result, CInstance* selfins
 		return;
 	}
 
+	char* filedata = nullptr;
 	if( SteamRemoteStorage()->FileExists(filename) == true )
 	{
 		int32 size = SteamRemoteStorage()->GetFileSize(filename);
 		
 		if ( size > 0 )
 		{
-			void* filedata = g_pYYRunnerInterface->YYAlloc(size + 1);// , __FILE__, __LINE__  );
-			if ( SteamRemoteStorage()->FileRead(filename, filedata ,size) == size )
+			filedata = (char *)YYAlloc(size + 1);
+			filedata[0] = 0; // (idk if YYAlloc bzero's...) if FileRead fails, this will be an empty string
+			if ( SteamRemoteStorage()->FileRead(filename, filedata, size) == size )
 			{
-				char* pStringData = (char*)filedata;
-				pStringData[size]=0;	//null terminate since returned as string
-				YYCreateString(&Result, (const char*)filedata);
-				return;
+				filedata[size] = 0;	//null terminate since returned as string
 			}
 		}
 	}
-	else {
+	else
+	{
 		DebugConsoleOutput("File read failed: file does not exist\n");
 	}
 
-	YYCreateString(&Result, "");
+	YYCreateString(&Result, filedata ? filedata : "");
+	YYFree(filedata);
 }
 
 YYEXPORT void /*double*/ steam_file_delete(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)//( const char* pFilename )/*Steam_RemoteStorage_FileDelete*/
@@ -395,6 +425,66 @@ YYEXPORT void /*double*/ steam_file_share(RValue& Result, CInstance* selfinst, C
 	pHandler->SetCallResultFileShare( hSteamAPICall );
 	Result.val = 1.0;
 	return;
+}
+
+YYEXPORT void steam_get_local_file_change_count(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)
+{
+	Result.kind = VALUE_REAL;
+
+	if (!steam_is_initialised || !SteamRemoteStorage())
+	{
+		Result.val = 0;
+		return;
+	}
+
+	Result.val = SteamRemoteStorage()->GetLocalFileChangeCount();
+}
+
+YYEXPORT void steam_get_local_file_change(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)
+{
+	Result.kind = VALUE_UNDEFINED;
+
+	if (!steam_is_initialised || !SteamRemoteStorage())
+	{
+		/* return `undefined` on a fatal API failure... */
+		return;
+	}
+
+	int iFile = YYGetInt32(arg, 0);
+	ERemoteStorageLocalFileChange erslfc = k_ERemoteStorageLocalFileChange_Invalid;
+	ERemoteStorageFilePathType ersfpt = k_ERemoteStorageFilePathType_Invalid;
+	const char *nameorpath = SteamRemoteStorage()->GetLocalFileChange(iFile, &erslfc, &ersfpt);
+
+	YYStructCreate(&Result);
+	YYStructAddDouble(&Result, "local_file_change", static_cast<double>(erslfc));
+	YYStructAddDouble(&Result, "file_path_type", static_cast<double>(ersfpt));
+	YYStructAddString(&Result, "name", nameorpath ? nameorpath : "");
+}
+
+YYEXPORT void steam_file_get_list(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)
+{
+	YYCreateArray(&Result);
+
+	if (!steam_is_initialised || !SteamRemoteStorage())
+	{
+		/* return an empty array on a fatal API failure... */
+		return;
+	}
+
+	// iteration example taken from Steamworks documentation:
+	int32 fileCount = SteamRemoteStorage()->GetFileCount();
+	for (int i = 0; i < fileCount; ++i)
+	{
+		int32 fileSize = 0;
+		const char* fileName = SteamRemoteStorage()->GetFileNameAndSize(i, &fileSize);
+		// zero-initialize first, will be a 0.0 variable...
+		RValue fileStruct = { 0 };
+		YYStructCreate(&fileStruct);
+		YYStructAddString(&fileStruct, "file_name", fileName);
+		YYStructAddDouble(&fileStruct, "file_size", fileSize);
+		// (&Result)[i] = fileStruct;
+		SET_RValue(&Result, &fileStruct, nullptr, i);
+	}
 }
 
 double Steam_RemoteStorage_PublishWorkshopFile( const char* pFilename, const char* pPreviewImg, const char* pTitle, const char* pDesc )

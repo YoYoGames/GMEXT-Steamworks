@@ -12,8 +12,9 @@ scriptInit() {
     EXTENSION_NAME=
 
     # Get extension data
-    pathExtractBase $SCRIPT_PATH EXTENSION_NAME
+    pathExtractBase "$SCRIPT_PATH" EXTENSION_NAME
     extensionGetVersion EXTENSION_VERSION
+
     if [ -z "$EXTENSION_VERSION" ]; then
         EXTENSION_VERSION="0.0.0"
     fi
@@ -43,13 +44,12 @@ extensionGetVersion() {
     set +f
 
     logInformation "Accessed extension version with value '${result}'."
-    eval "$1=\"\$result\""
+    printf -v "$1" "%s" "$result"
 }
 
 # Gets an extension option value
 # Usage: optionGetValue optionName result
 optionGetValue() {
-
     # Enable indirect variable reference
     set -f
     local var="YYEXTOPT_${EXTENSION_NAME}_$1"
@@ -57,26 +57,34 @@ optionGetValue() {
     set +f
 
     logInformation "Accessed extension option '${1}' with value '${result}'."
-    eval "$2=\"\$result\""
+    printf -v "$2" "%s" "$result"
 }
 
 # Sets a string to uppercase
 toUpper() { # str result
-    eval "$2=$(echo $1 | tr '[:lower:]' '[:upper:]')"
+    local _result
+    _result=$(echo "$1" | tr '[:lower:]' '[:upper:]')
+    printf -v "$2" "%s" "$_result"
     logInformation "Converted string '$1' to upper case."
 }
+
 
 # Extracts the full folder path from a filepath
 # Usage: pathExtractDirectory fullpath result
 pathExtractDirectory() {
-    eval "$2=\"$(dirname "$1")\""
+    local _result
+    _result="$(dirname "$1")"
+    printf -v "$2" "%s" "$_result"
     logInformation "Extracted directory path from '$1'."
 }
+
 
 # Extracts the parent folder from a path
 # Usage: pathExtractBase fullpath result
 pathExtractBase() {
-    eval "$2=\"$(basename $(dirname "$1"))\""
+    local _result
+    _result="$(basename "$(dirname "$1")")"
+    printf -v "$2" "%s" "$_result"
     logInformation "Extracted base name from '$1'."
 }
 
@@ -86,6 +94,8 @@ pathResolve() {
     local basePath="$1"
     local relativePath="$2"
     local resolvedPath=
+    local combined_path
+    local result=()
 
     # Ensure 'basePath' ends with a forward slash
     [[ "${basePath: -1}" != "/" ]] && basePath+="/"
@@ -102,7 +112,6 @@ pathResolve() {
     IFS="/" read -ra path_parts <<< "$combined_path"
 
     # Remove any entries that are "." and if an entry is "..", remove that entry and the previous one
-    result=()
     for part in "${path_parts[@]}"; do
         if [ "$part" == "." ] || [ -z "$part" ]; then
             continue
@@ -124,8 +133,9 @@ pathResolve() {
 
     # Return the merged result
     logInformation "Resolved path into '$resolvedPath'."
-    eval "$3=\"$resolvedPath\""
+    printf -v "$3" "%s" "$resolvedPath"
 }
+
 
 # Resolves an existing relative path if required (handles errors)
 # Usage: pathResolveExisting basePath relativePath result

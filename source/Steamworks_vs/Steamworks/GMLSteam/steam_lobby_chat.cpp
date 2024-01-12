@@ -66,12 +66,12 @@ YYEXPORT void /*bool*/ steam_lobby_send_chat_message_buffer(RValue& Result, CIns
 		return;
 	}
 
-	unsigned char* buffer_data;
-	int buffer_size;
+	void* buffer_data = nullptr;
+	int buffer_size = 0;
 
-	if (!BufferGetContent(bufferId, (void**)(&buffer_data), &buffer_size))
+	if (!BufferGetContent(bufferId, &buffer_data, &buffer_size) || !buffer_data)
 	{
-		DebugConsoleOutput("steam_lobby_send_chat_message_buffer() - error: specified buffer not found\n");
+		DebugConsoleOutput("steam_lobby_send_chat_message_buffer() - error: specified buffer %d not found\n", (int)bufferId);
 		Result.kind = VALUE_BOOL;
 		Result.val = false;
 
@@ -82,7 +82,7 @@ YYEXPORT void /*bool*/ steam_lobby_send_chat_message_buffer(RValue& Result, CIns
 
 	Result.kind = VALUE_BOOL;
 	Result.val = SteamMatchmaking()->SendLobbyChatMsg(steam_lobby_current, buffer_data, size);
-
+	YYFree(buffer_data);
 }
 
 YYEXPORT void /*const char**/ steam_lobby_get_chat_message_text(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)//(double message_index) 
