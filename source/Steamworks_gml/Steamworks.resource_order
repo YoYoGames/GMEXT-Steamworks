@@ -34,6 +34,7 @@
     {"name":"Obj_Steam_Networking_Overlay","order":1,"path":"objects/Obj_Steam_Networking_Overlay/Obj_Steam_Networking_Overlay.yy",},
     {"name":"Obj_Steam_UGC_Query_User","order":3,"path":"objects/Obj_Steam_UGC_Query_User/Obj_Steam_UGC_Query_User.yy",},
     {"name":"Obj_Steam_File_Read","order":4,"path":"objects/Obj_Steam_File_Read/Obj_Steam_File_Read.yy",},
+    {"name":"Spr_YoYo_Background","order":3,"path":"sprites/Spr_YoYo_Background/Spr_YoYo_Background.yy",},
     {"name":"Obj_Steam_Networking_Lobby_setOwner","order":7,"path":"objects/Obj_Steam_Networking_Lobby_setOwner/Obj_Steam_Networking_Lobby_setOwner.yy",},
     {"name":"Obj_Steam_Overlay_Store","order":9,"path":"objects/Obj_Steam_Overlay_Store/Obj_Steam_Overlay_Store.yy",},
     {"name":"Obj_Steam_Overlay_GameGroup","order":5,"path":"objects/Obj_Steam_Overlay_GameGroup/Obj_Steam_Overlay_GameGroup.yy",},

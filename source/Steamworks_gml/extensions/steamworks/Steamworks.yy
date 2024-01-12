@@ -996,6 +996,7 @@
         {"resourceType":"GMExtensionFunction","resourceVersion":"1.0","name":"steam_music_get_status","argCount":0,"args":[],"documentation":"/// @returns {real}","externalName":"steam_music_get_status","help":"","hidden":false,"kind":4,"returnType":1,},
         {"resourceType":"GMExtensionFunction","resourceVersion":"1.0","name":"steam_get_leaderboard_entry_count","argCount":0,"args":[],"documentation":"/// @param {String} lb_name The name of the leaderboard\r\n/// @returns {Real}","externalName":"steam_get_leaderboard_entry_count","help":"","hidden":false,"kind":4,"returnType":1,},
         {"resourceType":"GMExtensionFunction","resourceVersion":"1.0","name":"steam_get_leaderboard_display_type","argCount":0,"args":[],"documentation":"/// @param {String} lb_name The name of the leaderboard\r\n/// @returns {Real}","externalName":"steam_get_leaderboard_display_type","help":"","hidden":false,"kind":4,"returnType":1,},
+        {"resourceType":"GMExtensionFunction","resourceVersion":"1.0","name":"steam_file_get_list","argCount":0,"args":[],"documentation":"/// @returns {Struct}","externalName":"steam_file_get_list","help":"","hidden":false,"kind":4,"returnType":1,},
       ],"init":"steam_init","kind":4,"order":[
         {"name":"steam_user_owns_dlc","path":"extensions/Steamworks/Steamworks.yy",},
         {"name":"steam_user_installed_dlc","path":"extensions/Steamworks/Steamworks.yy",},

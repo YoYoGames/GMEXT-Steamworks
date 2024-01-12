@@ -58,6 +58,7 @@
     {"id":{"name":"Obj_Steam_Networking_Overlay","path":"objects/Obj_Steam_Networking_Overlay/Obj_Steam_Networking_Overlay.yy",},},
     {"id":{"name":"Obj_Steam_UGC_Query_User","path":"objects/Obj_Steam_UGC_Query_User/Obj_Steam_UGC_Query_User.yy",},},
     {"id":{"name":"Obj_Steam_File_Read","path":"objects/Obj_Steam_File_Read/Obj_Steam_File_Read.yy",},},
+    {"id":{"name":"Spr_YoYo_Background","path":"sprites/Spr_YoYo_Background/Spr_YoYo_Background.yy",},},
     {"id":{"name":"Obj_Steam_Networking_Lobby_setOwner","path":"objects/Obj_Steam_Networking_Lobby_setOwner/Obj_Steam_Networking_Lobby_setOwner.yy",},},
     {"id":{"name":"Obj_Steam_Input","path":"objects/Obj_Steam_Input/Obj_Steam_Input.yy",},},
     {"id":{"name":"Obj_Steam_Overlay_Store","path":"objects/Obj_Steam_Overlay_Store/Obj_Steam_Overlay_Store.yy",},},
