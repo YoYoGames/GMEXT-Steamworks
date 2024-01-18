@@ -7,6 +7,8 @@ shift & goto :%~1
     set "LOG_LABEL=UNSET"
     set "LOG_LEVEL=-1"
 
+    call :assertPowerShellExecutionPolicy
+
     :: Get extension data
     call :pathExtractBase %SCRIPT_PATH% EXTENSION_NAME
     call :extensionGetVersion EXTENSION_VERSION
@@ -22,6 +24,19 @@ shift & goto :%~1
         call :log "INIT" "Script initialization failed (v%EXTENSION_VERSION% :: %LOG_LEVEL%)."
     ) else (
         call :log "INIT" "Script initialization succeeded (v%EXTENSION_VERSION% :: %LOG_LEVEL%)."
+    )
+exit /b 0
+
+:assertPowerShellExecutionPolicy
+    :: Check the execution policy of the powershell
+    for /f "delims=" %%i in ('powershell -Command "Get-ExecutionPolicy"') do set ExecutionPolicy=%%i
+
+    :: If the execution policy is set to 'Restricted' echo the appropriate message.
+    IF "!ExecutionPolicy!"=="Restricted" (
+        echo The execution of our extensions requires changing the PowerShell Execution Policy.
+        echo To do so, please run the following command in your PowerShell terminal:
+        echo     Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
+        exit 1
     )
 exit /b 0
 
