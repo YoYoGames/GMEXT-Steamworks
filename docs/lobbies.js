@@ -809,7 +809,7 @@
 // MODULES
 
 /**
- * @module lobbies_matchmaking
+ * @module lobbies
  * @title Lobbies and Matchmaking
  * @desc The following functions and constants allow you to use Steam's Lobbies and Matchmaking functionality.
  * 
