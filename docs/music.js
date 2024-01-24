@@ -10,14 +10,15 @@
  * ```gml
  * global.steam_music_enabled = steam_music_is_enabled();
  * ```
- * The above code gets if Steam music player is enabled and stores it in a global variable.
+ * The above code gets if Steam music player is enabled and stores the result in a global variable.
  * @func_end
  */
 
 /**
  * @func steam_music_is_playing
  * @desc This function returns whether Steam music is playing.
- * NOTE: This function returns true even if when a track is paused.
+ * 
+ * [[NOTE: This function returns true even if a track is paused.]]
  * 
  * @returns {boolean}
  * 
@@ -25,39 +26,39 @@
  * ```gml
  * global.steam_music_playing = steam_music_is_playing();
  * ```
- * The above code gets if Steam music player is playing and stores it in a global variable.
+ * The above code gets if the Steam music player is playing and stores the result in a global variable.
  * @func_end
  */
 
 /**
  * @func steam_music_get_status
- * @desc This function gets current status of the media player as ${constant.SteamMusicStatus}
+ * @desc This function gets the current status of the media player as ${constant.SteamMusicStatus}.
  * 
  * @returns {real}
  * 
  * @example
  * ```gml
- * if (steam_music_get_status==steam_music_playing){
- *  steam_music_pause();
+ * if (steam_music_get_status == steam_music_playing) {
+ *     steam_music_pause();
  * }
  * ```
- * The above code gets if Steam music player is playing and if it does it pauses the playback.
+ * The above code gets if the Steam music player is playing. If it is, it pauses the playback.
  * @func_end
  */
 
 /**
  * @func steam_music_play
- * @desc This function resumes playing current track. Returns true if successful.
+ * @desc This function resumes playback of the current track. Returns `true` if successful.
  * 
  * @returns {boolean}
  * 
  *  * @example
  * ```gml
- * if (steam_music_get_status==steam_music_paused){
- *  steam_music_play();
+ * if (steam_music_get_status == steam_music_paused) {
+ *     steam_music_play();
  * }
  * ```
- * The above code gets if Steam music player is paused and if it does it resumes the playback.
+ * The above code gets if the Steam music player is paused. If it is, it resumes playback.
  * 
  * @event steam
  * @member {string} event_type The string value `"steam_music_playback_status_has_changed"`
@@ -67,17 +68,17 @@
 
 /**
  * @func steam_music_pause
- * @desc This function pauses playing current track. Returns true if successful.
+ * @desc This function pauses playing current track. Returns `true` if successful.
  * 
  * @returns {boolean}
  * 
  *  * @example
  * ```gml
- * if (steam_music_get_status==steam_music_playing){
- *  steam_music_pause();
+ * if (steam_music_get_status == steam_music_playing) {
+ *     steam_music_pause();
  * }
  * ```
- * The above code gets if Steam music player is playing and if it does it pauses the playback.
+ * The above code gets if Steam music player is playing. if it is, it pauses playback.
  * 
  * @event steam
  * @member {string} event_type The string value `"steam_music_playback_status_has_changed"`
@@ -87,14 +88,14 @@
 
 /**
  * @func steam_music_play_next
- * @desc This function plays the next track. If current track is the last, it loops to the first one. Returns true if successful.
+ * @desc This function plays the next track. If the current track is the last, it loops to the first one. Returns `true` if successful.
  * 
  * @returns {boolean}
  * 
  *  * @example
  * ```gml
- * if (keyboard_check_pressed(vk_right)){
- *  steam_music_play_next();
+ * if (keyboard_check_pressed(vk_right)) {
+ *     steam_music_play_next();
  * }
  * ```
  * The above code checks if the right arrow has been pressed and if it has, it skips to the next track.
@@ -108,14 +109,14 @@
 /**
  * @func steam_music_play_previous
  * @desc This function plays the previous track. It resets the current track first, and goes to the last one if called again.
- * If current track is the first, it DOES NOT loop to the last one. Returns true if successful.
+ * If the current track is the first, it DOES NOT loop to the last one. Returns `true` if successful.
  * 
  * @returns {boolean}
  * 
  *  * @example
  * ```gml
- * if (keyboard_check_pressed(vk_left)){
- *  steam_music_play_previous();
+ * if (keyboard_check_pressed(vk_left)) {
+ *     steam_music_play_previous();
  * }
  * ```
  * The above code checks if the left arrow has been pressed and if it has, it goes back to the previous track.
@@ -129,7 +130,7 @@
 /**
  * @func steam_music_set_volume
  * @desc This function sets the volume of Steam music player only (not the system volume). 
- * If a number higher than 1 is entered, it defaults to 1. Returns true if successful.
+ * If a number higher than 1 is entered, it defaults to 1. Returns `true` if successful.
  * 
  * @param {real} volume The volume that you want to set as a real.
  * 
@@ -155,7 +156,7 @@
 /**
  * @module music
  * @title Music
- * @desc The following functions, constants and structures allow to use the [Steam Music API](https://partner.steamgames.com/doc/api/ISteamMusic).
+ * @desc The following functions, constants and structures allow you to use the [Steam Music API](https://partner.steamgames.com/doc/api/ISteamMusic).
  * 
  * @section_func Functions
  * @desc These functions are provided for getting and setting the media player playback:
