@@ -43,7 +43,7 @@
  * @desc This event is triggered when someone enters or leaves a lobby.
  * @member {string} event_type The string value `"lobby_chat_update"`
  * @member {int64} lobby_id The ID of the lobby
- * @member {real} change_flags 1 for new connection on lobby, 2 for disconnect
+ * @member {real} change_flags 1 for new connection on lobby, 2 for disconnect, 4 if the user disconnected without leaving the lobby first, 8 if the user has been kicked, 16 if the user has been kicked and banned.
  * @member {int64} user_id the Steam ID of the user that joined or left the lobby
  * @member {int64} change_id the ID that has "changed", the same as user_id
  * @event_end
@@ -256,7 +256,7 @@
  * @desc This event is triggered when someone enters or leaves a lobby.
  * @member {string} event_type The string value `"lobby_chat_update"`
  * @member {int64} lobby_id The ID of the lobby
- * @member {real} change_flags 1 for new connection on lobby, 2 for disconnect
+ * @member {real} change_flags 1 for new connection on lobby, 2 for disconnect, 4 if the user disconnected without leaving the lobby first, 8 if the user has been kicked, 16 if the user has been kicked and banned.
  * @member {int64} user_id the Steam ID of the user that joined or left the lobby
  * @member {int64} change_id the ID that has "changed", the same as user_id
  * @event_end
@@ -290,7 +290,7 @@
  * @desc This event is triggered when someone enters or leaves a lobby.
  * @member {string} event_type The string value `"lobby_chat_update"`
  * @member {int64} lobby_id The ID of the lobby
- * @member {real} change_flags 1 for new connection on lobby, 2 for disconnect
+ * @member {real} change_flags 1 for new connection on lobby, 2 for disconnect, 4 if the user disconnected without leaving the lobby first, 8 if the user has been kicked, 16 if the user has been kicked and banned.
  * @member {int64} user_id the Steam ID of the user that joined or left the lobby
  * @member {int64} change_id the ID that has "changed", the same as user_id
  * @event_end
