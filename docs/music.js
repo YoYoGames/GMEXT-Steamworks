@@ -68,7 +68,7 @@
 
 /**
  * @func steam_music_pause
- * @desc This function pauses playing current track. Returns `true` if successful.
+ * @desc This function pauses the current track. Returns `true` if successful.
  * 
  * @returns {boolean}
  * 
