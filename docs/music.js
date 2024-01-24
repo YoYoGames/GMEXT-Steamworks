@@ -128,15 +128,15 @@
 
 /**
  * @func steam_music_set_volume
- * @decr This function the volume of Steam music player only (not system volume). 
+ * @desc This function sets the volume of Steam music player only (not the system volume). 
  * If a number higher than 1 is entered, it defaults to 1. Returns true if successful.
  * 
- * @param {float} volume The volume that you want to set as a float.
+ * @param {real} volume The volume that you want to set as a real.
  * 
  * @event steam
- * @descr this callback is also triggered whenever the volume is changed via the steam client UI.
+ * @desc This callback is triggered whenever the volume is changed via the Steam client UI.
  * @member {string} event_type The string value `"steam_music_volume_has_changed"`
- * @member {float} volume The current volume of the music player
+ * @member {real} volume The current volume of the music player
  * @event_end
  * @func_end
  */
