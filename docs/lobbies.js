@@ -34,9 +34,18 @@
  * 
  * @event steam
  * @member {string} event_type The string value `"lobby_created"`
- * @member {int64} lobby_id The name of the leaderboard
+ * @member {int64} lobby_id The name of the lobby
  * @member {real} success Whether or not the request was successful
  * @member {boolean} result The status code (descriptions can be found in Steam API documentation)
+ * @event_end
+ * 
+ * @event steam
+ * @desc This event is triggered when someone enters or leaves a lobby.
+ * @member {string} event_type The string value `"lobby_chat_update"`
+ * @member {int64} lobby_id The ID of the lobby
+ * @member {real} change_flags 1 for new connection on lobby, 2 for disconnect, 4 if the user disconnected without leaving the lobby first, 8 if the user has been kicked, 16 if the user has been kicked and banned.
+ * @member {int64} user_id the Steam ID of the user that joined or left the lobby
+ * @member {int64} change_id the ID that has "changed", the same as user_id
  * @event_end
  * 
  * @example
@@ -243,6 +252,15 @@
  * @member {real} result The code of the result
  * @event_end
  * 
+ * @event steam
+ * @desc This event is triggered when someone enters or leaves a lobby.
+ * @member {string} event_type The string value `"lobby_chat_update"`
+ * @member {int64} lobby_id The ID of the lobby
+ * @member {real} change_flags 1 for new connection on lobby, 2 for disconnect, 4 if the user disconnected without leaving the lobby first, 8 if the user has been kicked, 16 if the user has been kicked and banned.
+ * @member {int64} user_id the Steam ID of the user that joined or left the lobby
+ * @member {int64} change_id the ID that has "changed", the same as user_id
+ * @event_end
+ * 
  * @example
  * ```gml
  * steam_lobby_join_id(lobbyID);
@@ -267,6 +285,15 @@
  * @desc This function leaves the current lobby (if any). It does not raise any errors if currently not in a lobby.
  * 
  * [[NOTE: If you are the lobby owner and leave the lobby, Steam transfers the lobby ownership to any other available user, so you may need to manually handle ownership transfer using ${function.steam_lobby_set_owner_id} before leaving.]]
+ * 
+ * @event steam
+ * @desc This event is triggered when someone enters or leaves a lobby.
+ * @member {string} event_type The string value `"lobby_chat_update"`
+ * @member {int64} lobby_id The ID of the lobby
+ * @member {real} change_flags 1 for new connection on lobby, 2 for disconnect, 4 if the user disconnected without leaving the lobby first, 8 if the user has been kicked, 16 if the user has been kicked and banned.
+ * @member {int64} user_id the Steam ID of the user that joined or left the lobby
+ * @member {int64} change_id the ID that has "changed", the same as user_id
+ * @event_end
  * 
  * @example
  * ```gml
@@ -782,7 +809,7 @@
 // MODULES
 
 /**
- * @module lobbies_matchmaking
+ * @module lobbies
  * @title Lobbies and Matchmaking
  * @desc The following functions and constants allow you to use Steam's Lobbies and Matchmaking functionality.
  * 

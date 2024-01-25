@@ -243,7 +243,7 @@
  * @func steam_file_get_list
  * @desc This function returns a list of all currently stored files in the user's cloud storage as an array, an empty array is returned on failure.
  * 
- * @returns {array<struct.SteamCloudFileEntry>}
+ * @returns {array[struct.SteamCloudFileEntry]}
  * 
  * @example
  * ```gml
