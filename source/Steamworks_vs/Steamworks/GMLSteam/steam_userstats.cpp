@@ -1538,20 +1538,16 @@ YYEXPORT void steam_get_achievement_achieved_percent(RValue& Result, CInstance* 
     Result.kind = VALUE_REAL;
     if (m_bStatsGlobalAchievementReady)
     {
-        DebugConsoleOutput("GetAchievementAchievedPercent REady\n");
         if (SteamUserStats() != NULL)
         {
-            DebugConsoleOutput("GetAchievementAchievedPercent Not Null\n");
             float porcent;
-            if (Result.val == SteamUserStats()->GetAchievementAchievedPercent(statname, &porcent))
+            if (SteamUserStats()->GetAchievementAchievedPercent(statname, &porcent))
             {
-                DebugConsoleOutput("GetAchievementAchievedPercent OK\n");
                 Result.val = porcent;
                 return;
             }
             else
             {
-                DebugConsoleOutput("GetAchievementAchievedPercent False\n");
                 Result.val = -4.0;
                 return;
             }
