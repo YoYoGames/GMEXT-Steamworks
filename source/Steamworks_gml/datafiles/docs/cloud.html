@@ -23,6 +23,7 @@
       <script src="js/html5shiv.min.js"></script>
     <![endif]-->
       <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/gml.min.js"></script>
       <script>hljs.highlightAll();</script> 
 </head>
 
@@ -183,7 +184,7 @@
 <p>With this function you can check to make sure that the Steam Cloud service is enabled for your game. It will return <code>true</code> if it is and <code>false</code> otherwise.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>IMPORTANT This does not automatically mean that you can use the Cloud functions as the user can switch off Cloud synchronization from their Steam Client. You can check this using the function <a href="cloud.html#steam_is_cloud_enabled_for_account">steam_is_cloud_enabled_for_account</a>, but, even if it is disabled for the user (and enabled for the game), the functions will still work to store and retrieve data from a local copy of all files, it will just not upload them to the cloud on the game end, nor synchronize on the game start.</p>
+<p>This does not automatically mean that you can use the Cloud functions as the user can switch off Cloud synchronization from their Steam Client. You can check this using the function <a href="cloud.html#steam_is_cloud_enabled_for_account">steam_is_cloud_enabled_for_account</a>, but, even if it is disabled for the user (and enabled for the game), the functions will still work to store and retrieve data from a local copy of all files, it will just not upload them to the cloud on the game end, nor synchronize on the game start.</p>
 </div>
 <p><br></p>
 <p><strong>Syntax:</strong></p>
@@ -213,7 +214,7 @@ The above code checks to see if the Steam Cloud is enabled for the game and if s
 <p>With this function you can check to make sure that the Steam Cloud service is enabled by the user in their Steam Client settings. It will return <code>true</code> if it is and <code>false</code> otherwise.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>IMPORTANT This does not automatically mean that you can store data to the Cloud, as it will also have to have been enabled for your game (you can check this using the function <a href="cloud.html#steam_is_cloud_enabled_for_app">steam_is_cloud_enabled_for_app</a>). If the Steam Cloud is enabled for your game, but the user has it switched off locally, you can still use the Cloud functions to store and retrieve data from a local copy of all files, it will just not upload them to the cloud on the game end, nor synchronize on the game start.</p>
+<p>This does not automatically mean that you can store data to the Cloud, as it will also have to have been enabled for your game (you can check this using the function <a href="cloud.html#steam_is_cloud_enabled_for_app">steam_is_cloud_enabled_for_app</a>). If the Steam Cloud is enabled for your game, but the user has it switched off locally, you can still use the Cloud functions to store and retrieve data from a local copy of all files, it will just not upload them to the cloud on the game end, nor synchronize on the game start.</p>
 </div>
 <p><br></p>
 <p><strong>Syntax:</strong></p>

@@ -190,7 +190,7 @@
  * @func steam_reset_all_stats
  * @desc With this function you can reset all the statistics for the **current user** to their default values (as defined in the Steamworks control panel for your game). If need to also reset the achievement to their default values use the ${function.steam_reset_all_stats_achievements} instead.
  * 
- * [[NOTE: TIP It is recommended that you only use this function as a debug tool when developing your game.]]
+ * [[NOTE: It is recommended that you only use this function as a debug tool when developing your game.]]
  * 
  * @example
  * ```gml
@@ -210,7 +210,7 @@
  * @func steam_reset_all_stats_achievements
  * @desc With this function you can reset all the statistics *and* achievements for the **current user** to their default values (as defined in the Steamworks control panel for your game). If you only need to reset the stats to their default values use the ${function.steam_reset_all_stats} instead.
  * 
- * [[NOTE: TIP It is recommended that you only use this function as a debug tool when developing your game.]]
+ * [[NOTE: It is recommended that you only use this function as a debug tool when developing your game.]]
  * 
  * @example
  * ```gml

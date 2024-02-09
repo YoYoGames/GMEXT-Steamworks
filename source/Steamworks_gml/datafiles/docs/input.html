@@ -23,6 +23,7 @@
       <script src="js/html5shiv.min.js"></script>
     <![endif]-->
       <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/gml.min.js"></script>
       <script>hljs.highlightAll();</script> 
 </head>
 
@@ -227,7 +228,7 @@
 <p>With this function you can initialize the Steam Input API. It will return <code>true</code> if initialization was successful and <code>false</code> otherwise. If argument <code>explicitly_call_run_frame</code> is <code>true</code>, then you must manually call <a href="input.html#steam_input_run_frame">steam_input_run_frame</a> to poll for input data and async events, otherwise that will be performed by the <a href="management.html#steam_update">steam_update</a> function. After you initialize the Steam Input API, configuration events will be dispatched for any controllers connected while your game is running, they can be used to detect gamepad connection and when bindings have been updated so you need to refresh the sprites, input hints, etc.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>IMPORTANT This function must be called ONLY if you <strong>REALLY wish to use</strong> the Steam Input API, or some other extensions in your project rely on Steam Input, otherwise calling it <em>may</em> make native GameMaker <code>gamepad_</code> functions not see any controllers plugged in!</p>
+<p>This function must be called ONLY if you <strong>REALLY wish to use</strong> the Steam Input API, or some other extensions in your project rely on Steam Input, otherwise calling it <em>may</em> make native GameMaker <code>gamepad_</code> functions not see any controllers plugged in!</p>
 </div>
 <p>This function operates asynchronously, which means that it does not immediately return the requested result. Instead, upon completion of the task, it will trigger the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a>.</p>
 <p><br></p>
@@ -518,7 +519,7 @@ The above code will poll the current connected controllers array, and throw an e
 <p>This function enables <code>Async - Steam</code> device connection and disconnection events, similar to <code>Async - System</code> type <code>gamepad connected</code> and <code>gamepad lost</code> events. The contents of <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Variables/Builtin_Global_Variables/async_load.htm">async_load</a> are described below. Returns <code>true</code> if the operation was successful, and <code>false</code> otherwise. This can be used as an alternative to <a href="input.html#steam_input_get_connected_controllers">steam_input_get_connected_controllers</a> since in that case you don't need to iterate through the entire array, which may be faster depending on how your game is coded. Both methods can be used simultaneously without issues. This function needs to be called only once and cannot be undone.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>IMPORTANT Depending on the type of the controller, multiple connection or disconnection events may be sent for one handle, be sure to handle that in your code, e.g. don't show a disconnection pop-up if the controller was already lost, and don't show a connection pop-up if this controller was already connected (and is not lost).</p>
+<p>Depending on the type of the controller, multiple connection or disconnection events may be sent for one handle, be sure to handle that in your code, e.g. don't show a disconnection pop-up if the controller was already lost, and don't show a connection pop-up if this controller was already connected (and is not lost).</p>
 </div>
 <p>This function operates asynchronously, which means that it does not immediately return the requested result. Instead, upon completion of the task, it will trigger the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a>.</p>
 <p><br></p>
@@ -696,7 +697,7 @@ The above code will activate action input async events, and handle them correctl
 <p>This function will try to resolve an action set by name, returning the handle of that action set.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>IMPORTANT Due to a bug in the Steam Input API, if the game was launched without any controllers connected, all action set and action handle resolver functions will return 0, an invalid handle, as such it is required that you try to obtain handles every frame until at least one controller gets connected and you succeed.</p>
+<p>Due to a bug in the Steam Input API, if the game was launched without any controllers connected, all action set and action handle resolver functions will return 0, an invalid handle, as such it is required that you try to obtain handles every frame until at least one controller gets connected and you succeed.</p>
 </div>
 <p><br></p>
 <p><strong>Syntax:</strong></p>
@@ -1017,7 +1018,7 @@ The above code will retrieve all currently active action set layers for <code>pl
 <p>This function will resolve a digital action by name, and return that action's handle. Keep in mind that no two actions can have the same name, even if they are defined in different action sets, since Steam does not differentiate action names for each set.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>IMPORTANT Due to a bug in the Steam Input API, if the game was launched without any controllers connected, all action set and action handle resolver functions will return 0, an invalid handle, as such it is required that you try to obtain handles every frame until at least one controller gets connected and you succeed.</p>
+<p>Due to a bug in the Steam Input API, if the game was launched without any controllers connected, all action set and action handle resolver functions will return 0, an invalid handle, as such it is required that you try to obtain handles every frame until at least one controller gets connected and you succeed.</p>
 </div>
 <p><br></p>
 <p><strong>Syntax:</strong></p>
@@ -1236,7 +1237,7 @@ The above code will get the localized name for the shoot action, and store it in
 <p>This function will resolve an analog action by name, and return that action's handle. Keep in mind that no two actions can have the same name, even if they are defined in different action sets, since Steam does not differentiate action names for each set.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>IMPORTANT Due to a bug in the Steam Input API, if the game was launched without any controllers connected, all action set and action handle resolver functions will return 0, an invalid handle, as such it is required that you try to obtain handles every frame until at least one controller gets connected and you succeed.</p>
+<p>Due to a bug in the Steam Input API, if the game was launched without any controllers connected, all action set and action handle resolver functions will return 0, an invalid handle, as such it is required that you try to obtain handles every frame until at least one controller gets connected and you succeed.</p>
 </div>
 <p><br></p>
 <p><strong>Syntax:</strong></p>

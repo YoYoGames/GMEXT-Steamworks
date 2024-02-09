@@ -1089,7 +1089,7 @@
  * 
  * All subscribed UGC items will be downloaded by the Steam client automatically, and you should have code in the ${event.steam} to catch this and store the ID of the UGC that has been downloaded for use in the other UGC functions.
  * 
- * [[WARNING: IMPORTANT Steam UGC IDs can be huge numbers. This means that sometimes you may need to store these as a string rather than try and store them as a real value, especially if working with buffers or trying to write the value to a text file (since this will convert it to a simplified standard format like "6.6624e+003" which will cause issues being read back).]]
+ * [[WARNING: Steam UGC IDs can be huge numbers. This means that sometimes you may need to store these as a string rather than try and store them as a real value, especially if working with buffers or trying to write the value to a text file (since this will convert it to a simplified standard format like "6.6624e+003" which will cause issues being read back).]]
  * 
  * The normal workflow for getting UGC into your game would be as follows:
  * 

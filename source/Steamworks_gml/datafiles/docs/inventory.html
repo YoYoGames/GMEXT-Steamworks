@@ -23,6 +23,7 @@
       <script src="js/html5shiv.min.js"></script>
     <![endif]-->
       <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/gml.min.js"></script>
       <script>hljs.highlightAll();</script> 
 </head>
 
@@ -210,12 +211,12 @@
 This is an asynchronous function that will trigger the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a> when the task is finished.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>IMPORTANT You must call <a href="inventory.html#steam_inventory_result_destroy">steam_inventory_result_destroy</a> on the returned async result ID when you are done with it.</p>
+<p>You must call <a href="inventory.html#steam_inventory_result_destroy">steam_inventory_result_destroy</a> on the returned async result ID when you are done with it.</p>
 </div>
-<blockquote>
-<p><strong><img alt="✴️" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/2734.png" title=":eight_pointed_black_star:" /> EXTERNAL</strong></p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
 <p>A wrapper around <a href="http://partner.steamgames.com/doc/api/ISteamInventory#ConsumeItem">ConsumeItem</a>.</p>
-</blockquote>
+</div>
 <p>This function operates asynchronously, which means that it does not immediately return the requested result. Instead, upon completion of the task, it will trigger the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a>.</p>
 <p><br></p>
 <p><strong>Syntax:</strong></p>
@@ -297,10 +298,10 @@ The code sample above will try to consume one item (<code>apple</code>,  <a href
 
 <h1 id="steam_inventory_get_item_price">steam_inventory_get_item_price</h1>
 <p>After a successful call to <a href="inventory.html#steam_inventory_request_prices">steam_inventory_request_prices</a>, you can call this method to get the pricing for a specific item definition.</p>
-<blockquote>
-<p><strong><img alt="✴️" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/2734.png" title=":eight_pointed_black_star:" /> EXTERNAL</strong></p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
 <p>A wrapper around <a href="https://partner.steamgames.com/doc/api/ISteamInventory#GetItemPrice">GetItemPrice</a>.</p>
-</blockquote>
+</div>
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
@@ -340,10 +341,10 @@ The code sample above will return you the price for the specified item definitio
 
 <h1 id="steam_inventory_get_items_with_prices">steam_inventory_get_items_with_prices</h1>
 <p>After a successful call to <a href="inventory.html#steam_inventory_request_prices">steam_inventory_request_prices</a>, you can call this method to get all the prices for applicable item definitions.</p>
-<blockquote>
-<p><strong><img alt="✴️" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/2734.png" title=":eight_pointed_black_star:" /> EXTERNAL</strong></p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
 <p>A wrapper around <a href="https://partner.steamgames.com/doc/api/ISteamInventory#GetItemsWithPrices">GetItemsWithPrices</a>.</p>
-</blockquote>
+</div>
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
@@ -401,10 +402,10 @@ The code above will get items with prices and if the returning array size is gre
 <h1 id="steam_inventory_request_eligible_promo_item_defs">steam_inventory_request_eligible_promo_item_defs</h1>
 <p>This function requests the list of "eligible" promo items that can be manually granted to the given user.
 This is an asynchronous function that will trigger the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a> when the task is finished.</p>
-<blockquote>
-<p><strong><img alt="✴️" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/2734.png" title=":eight_pointed_black_star:" /> EXTERNAL</strong></p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
 <p>A wrapper around <a href="https://partner.steamgames.com/doc/api/ISteamInventory#RequestEligiblePromoItemDefinitionsIDs">RequestEligiblePromoItemDefinitionsIDs</a>.</p>
-</blockquote>
+</div>
 <p>This function operates asynchronously, which means that it does not immediately return the requested result. Instead, upon completion of the task, it will trigger the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a>.</p>
 <p><br></p>
 <p><strong>Syntax:</strong></p>
@@ -491,10 +492,10 @@ For more information on this function call please refer to the official manual.<
 <li><a href="inventory.html#steam_inventory_get_item_price">steam_inventory_get_item_price</a></li>
 <li><a href="inventory.html#steam_inventory_get_items_with_prices">steam_inventory_get_items_with_prices</a></li>
 </ul>
-<blockquote>
-<p><strong><img alt="✴️" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/2734.png" title=":eight_pointed_black_star:" /> EXTERNAL</strong></p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
 <p>A wrapper around <a href="https://partner.steamgames.com/doc/api/ISteamInventory#RequestPrices">RequestPrices</a>.</p>
-</blockquote>
+</div>
 <p>This function operates asynchronously, which means that it does not immediately return the requested result. Instead, upon completion of the task, it will trigger the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a>.</p>
 <p><br></p>
 <p><strong>Syntax:</strong></p>
@@ -568,10 +569,10 @@ The code above matches the event type and if so shows the currency being used. I
 <h1 id="steam_inventory_start_purchase">steam_inventory_start_purchase</h1>
 <p>This function starts the purchase process for the user, given a "shopping cart" of item definitions that the user would like to buy.
 The user will be prompted in the Steam Overlay to complete the purchase in their local currency, funding their Steam Wallet if necessary, etc.</p>
-<blockquote>
-<p><strong><img alt="✴️" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/2734.png" title=":eight_pointed_black_star:" /> EXTERNAL</strong></p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
 <p>A wrapper around <a href="https://partner.steamgames.com/doc/api/ISteamInventory#StartPurchase">StartPurchase</a>.</p>
-</blockquote>
+</div>
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
@@ -619,12 +620,12 @@ The code above will initialize a purchase intent that will be finalized in the S
 This is an asynchronous function that will trigger the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a> when the task is finished.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>IMPORTANT You must call <a href="inventory.html#steam_inventory_result_destroy">steam_inventory_result_destroy</a> on the returned async result ID when you are done with it.</p>
+<p>You must call <a href="inventory.html#steam_inventory_result_destroy">steam_inventory_result_destroy</a> on the returned async result ID when you are done with it.</p>
 </div>
-<blockquote>
-<p><strong><img alt="✴️" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/2734.png" title=":eight_pointed_black_star:" /> EXTERNAL</strong></p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
 <p>A wrapper around <a href="https://partner.steamgames.com/doc/api/ISteamInventory#AddPromoItem">AddPromoItem</a>.</p>
-</blockquote>
+</div>
 <p>This function operates asynchronously, which means that it does not immediately return the requested result. Instead, upon completion of the task, it will trigger the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a>.</p>
 <p><br></p>
 <p><strong>Syntax:</strong></p>
@@ -704,12 +705,12 @@ The above code will grant the user with a specific item. For an example on how t
 This is an asynchronous function that will trigger the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a> when the task is finished.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>IMPORTANT You must call <a href="inventory.html#steam_inventory_result_destroy">steam_inventory_result_destroy</a> on the returned async result ID when you are done with it.</p>
+<p>You must call <a href="inventory.html#steam_inventory_result_destroy">steam_inventory_result_destroy</a> on the returned async result ID when you are done with it.</p>
 </div>
-<blockquote>
-<p><strong><img alt="✴️" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/2734.png" title=":eight_pointed_black_star:" /> EXTERNAL</strong></p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
 <p>A wrapper around <a href="https://partner.steamgames.com/doc/api/ISteamInventory#AddPromoItems">AddPromoItems</a>.</p>
-</blockquote>
+</div>
 <p>This function operates asynchronously, which means that it does not immediately return the requested result. Instead, upon completion of the task, it will trigger the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a>.</p>
 <p><br></p>
 <p><strong>Syntax:</strong></p>
@@ -789,12 +790,12 @@ The above code will grant the user with an multiple items specified in an array 
 This is an asynchronous function that will trigger the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a> when the task is finished.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>IMPORTANT You must call <a href="inventory.html#steam_inventory_result_destroy">steam_inventory_result_destroy</a> on the returned async result ID when you are done with it.</p>
+<p>You must call <a href="inventory.html#steam_inventory_result_destroy">steam_inventory_result_destroy</a> on the returned async result ID when you are done with it.</p>
 </div>
-<blockquote>
-<p><strong><img alt="✴️" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/2734.png" title=":eight_pointed_black_star:" /> EXTERNAL</strong></p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
 <p>A wrapper around <a href="https://partner.steamgames.com/doc/api/ISteamInventory#ExchangeItems">ExchangeItems</a>.</p>
-</blockquote>
+</div>
 <p>This function operates asynchronously, which means that it does not immediately return the requested result. Instead, upon completion of the task, it will trigger the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a>.</p>
 <p><br></p>
 <p><strong>Syntax:</strong></p>
@@ -914,12 +915,12 @@ This is an asynchronous function that will trigger the <a href="https://manual.g
 </div>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>IMPORTANT You must call <a href="inventory.html#steam_inventory_result_destroy">steam_inventory_result_destroy</a> on the returned async result ID when you are done with it.</p>
+<p>You must call <a href="inventory.html#steam_inventory_result_destroy">steam_inventory_result_destroy</a> on the returned async result ID when you are done with it.</p>
 </div>
-<blockquote>
-<p><strong><img alt="✴️" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/2734.png" title=":eight_pointed_black_star:" /> EXTERNAL</strong></p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
 <p>A wrapper around <a href="https://partner.steamgames.com/doc/api/ISteamInventory#GenerateItems">GenerateItems</a>.</p>
-</blockquote>
+</div>
 <p>This function operates asynchronously, which means that it does not immediately return the requested result. Instead, upon completion of the task, it will trigger the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a>.</p>
 <p><br></p>
 <p><strong>Syntax:</strong></p>
@@ -1004,12 +1005,12 @@ The code above will grant the specific items to the current user. For an example
 This is an asynchronous function that will trigger the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a> when the task is finished.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>IMPORTANT You must call <a href="inventory.html#steam_inventory_result_destroy">steam_inventory_result_destroy</a> on the returned async result ID when you are done with it.</p>
+<p>You must call <a href="inventory.html#steam_inventory_result_destroy">steam_inventory_result_destroy</a> on the returned async result ID when you are done with it.</p>
 </div>
-<blockquote>
-<p><strong><img alt="✴️" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/2734.png" title=":eight_pointed_black_star:" /> EXTERNAL</strong></p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
 <p>A wrapper around <a href="https://partner.steamgames.com/doc/api/ISteamInventory#GetAllItems">GetAllItems</a>.</p>
-</blockquote>
+</div>
 <p>This function operates asynchronously, which means that it does not immediately return the requested result. Instead, upon completion of the task, it will trigger the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a>.</p>
 <p><br></p>
 <p><strong>Syntax:</strong></p>
@@ -1131,12 +1132,12 @@ The code above matches the event type and checks if the handle ID matches the on
 <p>This function requests information about a subset of the current user's inventory.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>IMPORTANT You must call <a href="inventory.html#steam_inventory_result_destroy">steam_inventory_result_destroy</a> on the returned async result ID when you are done with it.</p>
+<p>You must call <a href="inventory.html#steam_inventory_result_destroy">steam_inventory_result_destroy</a> on the returned async result ID when you are done with it.</p>
 </div>
-<blockquote>
-<p><strong><img alt="✴️" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/2734.png" title=":eight_pointed_black_star:" /> EXTERNAL</strong></p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
 <p>A wrapper around <a href="https://partner.steamgames.com/doc/api/ISteamInventory#GetItemsByID">GetItemsByID</a>.</p>
-</blockquote>
+</div>
 <p>This function operates asynchronously, which means that it does not immediately return the requested result. Instead, upon completion of the task, it will trigger the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a>.</p>
 <p><br></p>
 <p><strong>Syntax:</strong></p>
@@ -1215,12 +1216,12 @@ Similar to <a href="inventory.html#steam_inventory_get_all_items">steam_inventor
 <p>Submits the transaction request to modify <a href="https://partner.steamgames.com/doc/features/inventory/dynamicproperties">dynamic properties</a> on items for the current user. See <a href="https://partner.steamgames.com/doc/api/ISteamInventory#StartUpdateProperties">StartUpdateProperties</a>.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>IMPORTANT You must call <a href="inventory.html#steam_inventory_result_destroy">steam_inventory_result_destroy</a> on the returned async result ID when you are done with it.</p>
+<p>You must call <a href="inventory.html#steam_inventory_result_destroy">steam_inventory_result_destroy</a> on the returned async result ID when you are done with it.</p>
 </div>
-<blockquote>
-<p><strong><img alt="✴️" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/2734.png" title=":eight_pointed_black_star:" /> EXTERNAL</strong></p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
 <p>A wrapper around <a href="https://partner.steamgames.com/doc/api/ISteamInventory#SubmitUpdateProperties">SubmitUpdateProperties</a>.</p>
-</blockquote>
+</div>
 <p>This function operates asynchronously, which means that it does not immediately return the requested result. Instead, upon completion of the task, it will trigger the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a>.</p>
 <p><br></p>
 <p><strong>Syntax:</strong></p>
@@ -1316,12 +1317,12 @@ Starting with a <a href="inventory.html#steam_inventory_start_update_properties"
 <p>This function transfers items between stacks within a user's inventory.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>IMPORTANT You must call <a href="inventory.html#steam_inventory_result_destroy">steam_inventory_result_destroy</a> on the returned async result ID when you are done with it.</p>
+<p>You must call <a href="inventory.html#steam_inventory_result_destroy">steam_inventory_result_destroy</a> on the returned async result ID when you are done with it.</p>
 </div>
-<blockquote>
-<p><strong><img alt="✴️" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/2734.png" title=":eight_pointed_black_star:" /> EXTERNAL</strong></p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
 <p>A wrapper around <a href="https://partner.steamgames.com/doc/api/ISteamInventory#TransferItemQuantity">TransferItemQuantity</a>.</p>
-</blockquote>
+</div>
 <p>This function operates asynchronously, which means that it does not immediately return the requested result. Instead, upon completion of the task, it will trigger the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a>.</p>
 <p><br></p>
 <p><strong>Syntax:</strong></p>
@@ -1417,12 +1418,12 @@ This period can be customized in two places:</p>
 <p>This is an asynchronous function that will trigger the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a> when the task is finished.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>IMPORTANT You must call <a href="inventory.html#steam_inventory_result_destroy">steam_inventory_result_destroy</a> on the returned async result ID when you are done with it.</p>
+<p>You must call <a href="inventory.html#steam_inventory_result_destroy">steam_inventory_result_destroy</a> on the returned async result ID when you are done with it.</p>
 </div>
-<blockquote>
-<p><strong><img alt="✴️" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/2734.png" title=":eight_pointed_black_star:" /> EXTERNAL</strong></p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
 <p>A wrapper around <a href="https://partner.steamgames.com/doc/api/ISteamInventory#TriggerItemDrop">TriggerItemDrop</a>.</p>
-</blockquote>
+</div>
 <p>This function operates asynchronously, which means that it does not immediately return the requested result. Instead, upon completion of the task, it will trigger the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a>.</p>
 <p><br></p>
 <p><strong>Syntax:</strong></p>
@@ -1516,10 +1517,10 @@ This handle is returned by the following functions:</p>
 <p class="admonition-title">Note</p>
 <p>This function can be called using an inventory result handle after the corresponding async event has been triggered.</p>
 </div>
-<blockquote>
-<p><strong><img alt="✴️" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/2734.png" title=":eight_pointed_black_star:" /> EXTERNAL</strong></p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
 <p>A wrapper around <a href="https://partner.steamgames.com/doc/api/ISteamInventory#DestroyResult">DestroyResult</a>.</p>
-</blockquote>
+</div>
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
@@ -1582,10 +1583,10 @@ Property names are always composed of ASCII letters, numbers, and/or underscores
 <p class="admonition-title">Note</p>
 <p>This function can be called using an inventory result handle after the corresponding async event has been triggered.</p>
 </div>
-<blockquote>
-<p><strong><img alt="✴️" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/2734.png" title=":eight_pointed_black_star:" /> EXTERNAL</strong></p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
 <p>A wrapper around <a href="https://partner.steamgames.com/doc/api/ISteamInventory#GetResultItemProperty">GetResultItemProperty</a>.</p>
-</blockquote>
+</div>
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
@@ -1666,10 +1667,10 @@ The code above matches the event type and checks if the handle ID matches the on
 <p class="admonition-title">Note</p>
 <p>This function can be called using an inventory result handle after the corresponding async event has been triggered.</p>
 </div>
-<blockquote>
-<p><strong><img alt="✴️" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/2734.png" title=":eight_pointed_black_star:" /> EXTERNAL</strong></p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
 <p>A wrapper around <a href="https://partner.steamgames.com/doc/api/ISteamInventory#GetResultItems">GetResultItems</a>.</p>
-</blockquote>
+</div>
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
@@ -1720,10 +1721,10 @@ For a more detailed implementation sample please refer to the <a href="inventory
 <p class="admonition-title">Note</p>
 <p>This function can be called using an inventory result handle after the corresponding async event has been triggered.</p>
 </div>
-<blockquote>
-<p><strong><img alt="✴️" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/2734.png" title=":eight_pointed_black_star:" /> EXTERNAL</strong></p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
 <p>A wrapper around <a href="https://partner.steamgames.com/doc/api/ISteamInventory#GetResultStatus">GetResultStatus</a>.</p>
-</blockquote>
+</div>
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
@@ -1768,10 +1769,10 @@ For a more detailed implementation sample please refer to the <a href="inventory
 <p class="admonition-title">Note</p>
 <p>This function can be called using an inventory result handle after the corresponding async event has been triggered.</p>
 </div>
-<blockquote>
-<p><strong><img alt="✴️" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/2734.png" title=":eight_pointed_black_star:" /> EXTERNAL</strong></p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
 <p>A wrapper around <a href="https://partner.steamgames.com/doc/api/ISteamInventory#GetResultTimestamp">GetResultTimestamp</a>.</p>
-</blockquote>
+</div>
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
@@ -1819,10 +1820,10 @@ It returns a steam_inventory_update_handle that can be used with the following f
 <li><a href="inventory.html#steam_inventory_set_property_int">steam_inventory_set_property_int</a></li>
 <li><a href="inventory.html#steam_inventory_set_property_string">steam_inventory_set_property_string</a></li>
 </ul>
-<blockquote>
-<p><strong><img alt="✴️" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/2734.png" title=":eight_pointed_black_star:" /> EXTERNAL</strong></p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
 <p>A wrapper around <a href="https://partner.steamgames.com/doc/api/ISteamInventory#StartUpdateProperties">StartUpdateProperties</a>.</p>
-</blockquote>
+</div>
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
@@ -1860,10 +1861,10 @@ Starting with a <a href="inventory.html#steam_inventory_start_update_properties"
 
 <h1 id="steam_inventory_remove_property">steam_inventory_remove_property</h1>
 <p>This function removes a <a href="https://partner.steamgames.com/doc/features/inventory/dynamicproperties">dynamic property</a> of the given item.</p>
-<blockquote>
-<p><strong><img alt="✴️" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/2734.png" title=":eight_pointed_black_star:" /> EXTERNAL</strong></p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
 <p>A wrapper around <a href="https://partner.steamgames.com/doc/api/ISteamInventory#RemoveProperty">RemoveProperty</a>.</p>
-</blockquote>
+</div>
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
@@ -1930,10 +1931,10 @@ Starting with a <a href="inventory.html#steam_inventory_start_update_properties"
 
 <h1 id="steam_inventory_set_property_bool">steam_inventory_set_property_bool</h1>
 <p>This function sets a <a href="https://partner.steamgames.com/doc/features/inventory/dynamicproperties">dynamic property</a> for the boolean given item.</p>
-<blockquote>
-<p><strong><img alt="✴️" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/2734.png" title=":eight_pointed_black_star:" /> EXTERNAL</strong></p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
 <p>A wrapper around <a href="https://partner.steamgames.com/doc/api/ISteamInventory#SetProperty">SetProperty</a>.</p>
-</blockquote>
+</div>
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
@@ -2000,10 +2001,10 @@ Starting with a <a href="inventory.html#steam_inventory_start_update_properties"
 
 <h1 id="steam_inventory_set_property_float">steam_inventory_set_property_float</h1>
 <p>This function sets a <a href="https://partner.steamgames.com/doc/features/inventory/dynamicproperties">dynamic property</a> for the float given item.</p>
-<blockquote>
-<p><strong><img alt="✴️" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/2734.png" title=":eight_pointed_black_star:" /> EXTERNAL</strong></p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
 <p>A wrapper around <a href="https://partner.steamgames.com/doc/api/ISteamInventory#SetProperty">SetProperty</a>.</p>
-</blockquote>
+</div>
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
@@ -2070,10 +2071,10 @@ Starting with a <a href="inventory.html#steam_inventory_start_update_properties"
 
 <h1 id="steam_inventory_set_property_int">steam_inventory_set_property_int</h1>
 <p>This function sets a <a href="https://partner.steamgames.com/doc/features/inventory/dynamicproperties">dynamic property</a> for the int given item.</p>
-<blockquote>
-<p><strong><img alt="✴️" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/2734.png" title=":eight_pointed_black_star:" /> EXTERNAL</strong></p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
 <p>A wrapper around <a href="https://partner.steamgames.com/doc/api/ISteamInventory#SetProperty">SetProperty</a>.</p>
-</blockquote>
+</div>
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
@@ -2140,10 +2141,10 @@ Starting with a <a href="inventory.html#steam_inventory_start_update_properties"
 
 <h1 id="steam_inventory_set_property_string">steam_inventory_set_property_string</h1>
 <p>This function sets a <a href="https://partner.steamgames.com/doc/features/inventory/dynamicproperties">dynamic property</a> for the string given item.</p>
-<blockquote>
-<p><strong><img alt="✴️" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/2734.png" title=":eight_pointed_black_star:" /> EXTERNAL</strong></p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
 <p>A wrapper around <a href="https://partner.steamgames.com/doc/api/ISteamInventory#SetProperty">SetProperty</a>.</p>
-</blockquote>
+</div>
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>

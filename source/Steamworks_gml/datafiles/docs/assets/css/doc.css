@@ -3,6 +3,18 @@
     white-space: normal; /* Allows text to wrap within cells */
 }
 
+.wy-table-responsive thead, 
+.wy-table-responsive tbody,
+.wy-table-responsive th,
+.wy-table-responsive tr {
+    width: 1000px;
+}
+
+.wy-table-responsive th:not(:last-child), 
+.wy-table-responsive td:not(:last-child) {
+    width: 20%; /* Adjust based on the number of columns */
+}
+
 .wy-table-responsive img,
 .wy-table-responsive iframe {
     max-width: 100%;
@@ -16,19 +28,9 @@
     word-wrap: break-word; /* Breaks long words if necessary */
 }
 
-.wy-table-responsive thead {
-    width: 100%; /* Ensure tbody can expand to the full width of the table */
-    display: table;
-}
-
-.wy-table-responsive tbody {
-    width: 100%; /* Ensure tbody can expand to the full width of the table */
-    display: table;
-}
-
-.wy-table-responsive th:not(:last-child), 
-.wy-table-responsive td:not(:last-child) {
-    width: 20%; /* Adjust based on the number of columns */
+hr {
+    height: 2px;
+    background:#03759b;
 }
 
 /* Adjust emoji size */

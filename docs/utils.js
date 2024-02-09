@@ -4,7 +4,7 @@
  * @func steam_show_floating_gamepad_text_input
  * @desc With this function you can show a floating gamepad keyboard window, all input is emulated as if it is a physical keyboard, so ${var.keyboard_string} or ${function.keyboard_check} can be used to obtain the input. This function only works in Big Picture or on the Steam Deck. Returns `true` if the keyboard has been shown successfully, `false` otherwise.
  * 
- * [[WARNING: IMPORTANT You must call ${function.steam_utils_enable_callbacks} prior to calling this function if you wish to receive `Async - Steam` gamepad keyboard events.]]
+ * [[WARNING: You must call ${function.steam_utils_enable_callbacks} prior to calling this function if you wish to receive `Async - Steam` gamepad keyboard events.]]
  * 
  * @param {real} mode A `steam_floating_gamepad_text_input_mode_` constant.
  * @param {real} text_field_x X position of the keyboard window in display coordinates.
@@ -60,7 +60,7 @@
  * @func steam_show_gamepad_text_input
  * @desc With this function you can show a full-screen old-style Big Picture Mode-only keyboard UI. This one does not emulate the physical keyboard so you must use the ${function.steam_get_entered_gamepad_text_input} function inside a corresponding `Async - Steam` event to obtain the input. Returns `true` if the window is being shown successfully, `false` otherwise.
  * 
- * [[WARNING: IMPORTANT You must call ${function.steam_utils_enable_callbacks} prior to calling this function if you wish to receive `Async - Steam` gamepad keyboard events.]]
+ * [[WARNING: You must call ${function.steam_utils_enable_callbacks} prior to calling this function if you wish to receive `Async - Steam` gamepad keyboard events.]]
  * 
  * @param {real} mode A `steam_gamepad_text_input_mode_` constant.
  * @param {real} lines_mode A `steam_gamepad_text_input_line_mode_` constant.
@@ -106,7 +106,7 @@
  * @func steam_get_entered_gamepad_text_input
  * @desc With this function you can obtain the result of the ${function.steam_show_gamepad_text_input} input dialog. This function must only be called in the corresponding `Async - Steam` event.
  * 
- * [[WARNING: IMPORTANT You must call ${function.steam_utils_enable_callbacks} prior to calling this function if you wish to receive `Async - Steam` gamepad keyboard events.]]
+ * [[WARNING: You must call ${function.steam_utils_enable_callbacks} prior to calling this function if you wish to receive `Async - Steam` gamepad keyboard events.]]
  * 
  * @returns {string}
  * 

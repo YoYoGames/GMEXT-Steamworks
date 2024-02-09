@@ -4,7 +4,7 @@
  * @func steam_is_cloud_enabled_for_app
  * @desc With this function you can check to make sure that the Steam Cloud service is enabled for your game. It will return `true` if it is and `false` otherwise.
  * 
- * [[WARNING: IMPORTANT This does not automatically mean that you can use the Cloud functions as the user can switch off Cloud synchronization from their Steam Client. You can check this using the function ${function.steam_is_cloud_enabled_for_account}, but, even if it is disabled for the user (and enabled for the game), the functions will still work to store and retrieve data from a local copy of all files, it will just not upload them to the cloud on the game end, nor synchronize on the game start.]]
+ * [[WARNING: This does not automatically mean that you can use the Cloud functions as the user can switch off Cloud synchronization from their Steam Client. You can check this using the function ${function.steam_is_cloud_enabled_for_account}, but, even if it is disabled for the user (and enabled for the game), the functions will still work to store and retrieve data from a local copy of all files, it will just not upload them to the cloud on the game end, nor synchronize on the game start.]]
  * 
  * @returns {boolean}
  * 
@@ -23,7 +23,7 @@
  * @func steam_is_cloud_enabled_for_account
  * @desc With this function you can check to make sure that the Steam Cloud service is enabled by the user in their Steam Client settings. It will return `true` if it is and `false` otherwise.
  * 
- * [[WARNING: IMPORTANT This does not automatically mean that you can store data to the Cloud, as it will also have to have been enabled for your game (you can check this using the function ${function.steam_is_cloud_enabled_for_app}). If the Steam Cloud is enabled for your game, but the user has it switched off locally, you can still use the Cloud functions to store and retrieve data from a local copy of all files, it will just not upload them to the cloud on the game end, nor synchronize on the game start.]]
+ * [[WARNING: This does not automatically mean that you can store data to the Cloud, as it will also have to have been enabled for your game (you can check this using the function ${function.steam_is_cloud_enabled_for_app}). If the Steam Cloud is enabled for your game, but the user has it switched off locally, you can still use the Cloud functions to store and retrieve data from a local copy of all files, it will just not upload them to the cloud on the game end, nor synchronize on the game start.]]
  * 
  * @returns {boolean}
  * 

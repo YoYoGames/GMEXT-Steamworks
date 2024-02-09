@@ -4,7 +4,7 @@
  * @func steam_input_init
  * @desc With this function you can initialize the Steam Input API. It will return `true` if initialization was successful and `false` otherwise. If argument `explicitly_call_run_frame` is `true`, then you must manually call ${function.steam_input_run_frame} to poll for input data and async events, otherwise that will be performed by the ${function.steam_update} function. After you initialize the Steam Input API, configuration events will be dispatched for any controllers connected while your game is running, they can be used to detect gamepad connection and when bindings have been updated so you need to refresh the sprites, input hints, etc.
  * 
- * [[WARNING: IMPORTANT This function must be called ONLY if you **REALLY wish to use** the Steam Input API, or some other extensions in your project rely on Steam Input, otherwise calling it _may_ make native GameMaker `gamepad_` functions not see any controllers plugged in!]]
+ * [[WARNING: This function must be called ONLY if you **REALLY wish to use** the Steam Input API, or some other extensions in your project rely on Steam Input, otherwise calling it _may_ make native GameMaker `gamepad_` functions not see any controllers plugged in!]]
  * 
  * @param {boolean} explicitly_call_run_frame Are you going to call ${function.steam_input_run_frame} manually or not?
  * 
@@ -140,7 +140,7 @@
  * @func steam_input_enable_device_callbacks
  * @desc This function enables `Async - Steam` device connection and disconnection events, similar to `Async - System` type `gamepad connected` and `gamepad lost` events. The contents of ${var.async_load} are described below. Returns `true` if the operation was successful, and `false` otherwise. This can be used as an alternative to ${function.steam_input_get_connected_controllers} since in that case you don't need to iterate through the entire array, which may be faster depending on how your game is coded. Both methods can be used simultaneously without issues. This function needs to be called only once and cannot be undone.
  * 
- * [[WARNING: IMPORTANT Depending on the type of the controller, multiple connection or disconnection events may be sent for one handle, be sure to handle that in your code, e.g. don't show a disconnection pop-up if the controller was already lost, and don't show a connection pop-up if this controller was already connected (and is not lost).]]
+ * [[WARNING: Depending on the type of the controller, multiple connection or disconnection events may be sent for one handle, be sure to handle that in your code, e.g. don't show a disconnection pop-up if the controller was already lost, and don't show a connection pop-up if this controller was already connected (and is not lost).]]
  * 
  * @returns {boolean}
  * 
@@ -226,7 +226,7 @@
  * @func steam_input_get_action_set_handle
  * @desc This function will try to resolve an action set by name, returning the handle of that action set.
  * 
- * [[WARNING: IMPORTANT Due to a bug in the Steam Input API, if the game was launched without any controllers connected, all action set and action handle resolver functions will return 0, an invalid handle, as such it is required that you try to obtain handles every frame until at least one controller gets connected and you succeed.]]
+ * [[WARNING: Due to a bug in the Steam Input API, if the game was launched without any controllers connected, all action set and action handle resolver functions will return 0, an invalid handle, as such it is required that you try to obtain handles every frame until at least one controller gets connected and you succeed.]]
  * 
  * @param {string} action_set_name The name of the action set.
  * 
@@ -374,7 +374,7 @@
  * @func steam_input_get_digital_action_handle
  * @desc This function will resolve a digital action by name, and return that action's handle. Keep in mind that no two actions can have the same name, even if they are defined in different action sets, since Steam does not differentiate action names for each set.
  * 
- * [[warning: IMPORTANT Due to a bug in the Steam Input API, if the game was launched without any controllers connected, all action set and action handle resolver functions will return 0, an invalid handle, as such it is required that you try to obtain handles every frame until at least one controller gets connected and you succeed.]]
+ * [[warning: Due to a bug in the Steam Input API, if the game was launched without any controllers connected, all action set and action handle resolver functions will return 0, an invalid handle, as such it is required that you try to obtain handles every frame until at least one controller gets connected and you succeed.]]
  * 
  * @param {string} digital_action_name Name of the digital action.
  * 
@@ -489,7 +489,7 @@
  * @func steam_input_get_analog_action_handle
  * @desc This function will resolve an analog action by name, and return that action's handle. Keep in mind that no two actions can have the same name, even if they are defined in different action sets, since Steam does not differentiate action names for each set.
  * 
- * [[WARNING: IMPORTANT Due to a bug in the Steam Input API, if the game was launched without any controllers connected, all action set and action handle resolver functions will return 0, an invalid handle, as such it is required that you try to obtain handles every frame until at least one controller gets connected and you succeed.]]
+ * [[WARNING: Due to a bug in the Steam Input API, if the game was launched without any controllers connected, all action set and action handle resolver functions will return 0, an invalid handle, as such it is required that you try to obtain handles every frame until at least one controller gets connected and you succeed.]]
  * 
  * @param {string} analog_action_name Name of the analog action.
  * 

@@ -5,9 +5,9 @@
  * @desc This function consumes items from a user's inventory. If the quantity of the given item goes to zero, it is permanently removed.
  * This is an asynchronous function that will trigger the ${event.steam} when the task is finished.
  * 
- * [[WARNING: IMPORTANT You must call ${function.steam_inventory_result_destroy} on the returned async result ID when you are done with it.]]
+ * [[WARNING: You must call ${function.steam_inventory_result_destroy} on the returned async result ID when you are done with it.]]
  * 
- * > **:eight_pointed_black_star: EXTERNAL**
+ * > [!TIP]
  * >
  * > A wrapper around [ConsumeItem](http://partner.steamgames.com/doc/api/ISteamInventory#ConsumeItem).
  * 
@@ -35,7 +35,7 @@
  * @func steam_inventory_get_item_price
  * @desc After a successful call to ${function.steam_inventory_request_prices}, you can call this method to get the pricing for a specific item definition.
  * 
- * > **:eight_pointed_black_star: EXTERNAL**
+ * > [!TIP]
  * >
  * > A wrapper around [GetItemPrice](https://partner.steamgames.com/doc/api/ISteamInventory#GetItemPrice).
  * 
@@ -55,7 +55,7 @@
  * @func steam_inventory_get_items_with_prices
  * @desc After a successful call to ${function.steam_inventory_request_prices}, you can call this method to get all the prices for applicable item definitions.
  * 
- * > **:eight_pointed_black_star: EXTERNAL**
+ * > [!TIP]
  * >
  * > A wrapper around [GetItemsWithPrices](https://partner.steamgames.com/doc/api/ISteamInventory#GetItemsWithPrices).
  * 
@@ -85,7 +85,7 @@
  * @desc This function requests the list of "eligible" promo items that can be manually granted to the given user.
  * This is an asynchronous function that will trigger the ${event.steam} when the task is finished.
  * 
- * > **:eight_pointed_black_star: EXTERNAL**
+ * > [!TIP]
  * >
  * > A wrapper around [RequestEligiblePromoItemDefinitionsIDs](https://partner.steamgames.com/doc/api/ISteamInventory#RequestEligiblePromoItemDefinitionsIDs).
  * 
@@ -118,7 +118,7 @@
  * * ${function.steam_inventory_get_item_price}
  * * ${function.steam_inventory_get_items_with_prices}
  * 
- * > **:eight_pointed_black_star: EXTERNAL**
+ * > [!TIP]
  * >
  * > A wrapper around [RequestPrices](https://partner.steamgames.com/doc/api/ISteamInventory#RequestPrices).
  * 
@@ -159,7 +159,7 @@
  * @desc This function starts the purchase process for the user, given a "shopping cart" of item definitions that the user would like to buy.
  * The user will be prompted in the Steam Overlay to complete the purchase in their local currency, funding their Steam Wallet if necessary, etc.
  * 
- * > **:eight_pointed_black_star: EXTERNAL**
+ * > [!TIP]
  * >
  * > A wrapper around [StartPurchase](https://partner.steamgames.com/doc/api/ISteamInventory#StartPurchase).
  * 
@@ -183,9 +183,9 @@
  * @desc This function takes an Item Definition and grants the user the promo item. Item Definitions are integer numbers ranging from 1 to 999999999. Values below the range are invalid and values above the range are reserved.
  * This is an asynchronous function that will trigger the ${event.steam} when the task is finished.
  * 
- * [[WARNING: IMPORTANT You must call ${function.steam_inventory_result_destroy} on the returned async result ID when you are done with it.]]
+ * [[WARNING: You must call ${function.steam_inventory_result_destroy} on the returned async result ID when you are done with it.]]
  * 
- * > **:eight_pointed_black_star: EXTERNAL**
+ * > [!TIP]
  * >
  * > A wrapper around [AddPromoItem](https://partner.steamgames.com/doc/api/ISteamInventory#AddPromoItem).
  * 
@@ -213,9 +213,9 @@
  * @desc This function takes an array of Item Definitions and grants the user multiple items. Item Definitions are integer numbers ranging from 1 to 999999999. Values below the range are invalid and values above the range are reserved.
  * This is an asynchronous function that will trigger the ${event.steam} when the task is finished.
  * 
- * [[WARNING: IMPORTANT You must call ${function.steam_inventory_result_destroy} on the returned async result ID when you are done with it.]]
+ * [[WARNING: You must call ${function.steam_inventory_result_destroy} on the returned async result ID when you are done with it.]]
  * 
- * > **:eight_pointed_black_star: EXTERNAL**
+ * > [!TIP]
  * >
  * > A wrapper around [AddPromoItems](https://partner.steamgames.com/doc/api/ISteamInventory#AddPromoItems).
  * 
@@ -243,9 +243,9 @@
  * @desc This function grants one item in exchange for a set of other items.
  * This is an asynchronous function that will trigger the ${event.steam} when the task is finished.
  * 
- * [[WARNING: IMPORTANT You must call ${function.steam_inventory_result_destroy} on the returned async result ID when you are done with it.]]
+ * [[WARNING: You must call ${function.steam_inventory_result_destroy} on the returned async result ID when you are done with it.]]
  * 
- * > **:eight_pointed_black_star: EXTERNAL**
+ * > [!TIP]
  * >
  * > A wrapper around [ExchangeItems](https://partner.steamgames.com/doc/api/ISteamInventory#ExchangeItems).
  * 
@@ -309,9 +309,9 @@
  * 
  * [[NOTE: This is only usable by Steam accounts that belong to the publisher group for your game.]]
  * 
- * [[WARNING: IMPORTANT You must call ${function.steam_inventory_result_destroy} on the returned async result ID when you are done with it.]]
+ * [[WARNING: You must call ${function.steam_inventory_result_destroy} on the returned async result ID when you are done with it.]]
  * 
- * > **:eight_pointed_black_star: EXTERNAL**
+ * > [!TIP]
  * >
  * > A wrapper around [GenerateItems](https://partner.steamgames.com/doc/api/ISteamInventory#GenerateItems).
  * 
@@ -344,9 +344,9 @@
  * @desc This function starts retrieving all items in the current user's inventory.
  * This is an asynchronous function that will trigger the ${event.steam} when the task is finished.
  * 
- * [[WARNING: IMPORTANT You must call ${function.steam_inventory_result_destroy} on the returned async result ID when you are done with it.]]
+ * [[WARNING: You must call ${function.steam_inventory_result_destroy} on the returned async result ID when you are done with it.]]
  * 
- * > **:eight_pointed_black_star: EXTERNAL**
+ * > [!TIP]
  * >
  * > A wrapper around [GetAllItems](https://partner.steamgames.com/doc/api/ISteamInventory#GetAllItems).
  * 
@@ -411,9 +411,9 @@
  * @func steam_inventory_get_items_by_id
  * @desc This function requests information about a subset of the current user's inventory.
  * 
- * [[WARNING: IMPORTANT You must call ${function.steam_inventory_result_destroy} on the returned async result ID when you are done with it.]]
+ * [[WARNING: You must call ${function.steam_inventory_result_destroy} on the returned async result ID when you are done with it.]]
  * 
- * > **:eight_pointed_black_star: EXTERNAL**
+ * > [!TIP]
  * >
  * > A wrapper around [GetItemsByID](https://partner.steamgames.com/doc/api/ISteamInventory#GetItemsByID).
  * 
@@ -440,9 +440,9 @@
  * @func steam_inventory_submit_update_properties
  * @desc Submits the transaction request to modify [dynamic properties](https://partner.steamgames.com/doc/features/inventory/dynamicproperties) on items for the current user. See [StartUpdateProperties](https://partner.steamgames.com/doc/api/ISteamInventory#StartUpdateProperties).
  * 
- * [[WARNING: IMPORTANT You must call ${function.steam_inventory_result_destroy} on the returned async result ID when you are done with it.]]
+ * [[WARNING: You must call ${function.steam_inventory_result_destroy} on the returned async result ID when you are done with it.]]
  * 
- * > **:eight_pointed_black_star: EXTERNAL**
+ * > [!TIP]
  * >
  * > A wrapper around [SubmitUpdateProperties](https://partner.steamgames.com/doc/api/ISteamInventory#SubmitUpdateProperties).
  * 
@@ -486,9 +486,9 @@
  * @func steam_inventory_transfer_item_quantity
  * @desc This function transfers items between stacks within a user's inventory.
  * 
- * [[WARNING: IMPORTANT You must call ${function.steam_inventory_result_destroy} on the returned async result ID when you are done with it.]]
+ * [[WARNING: You must call ${function.steam_inventory_result_destroy} on the returned async result ID when you are done with it.]]
  * 
- * > **:eight_pointed_black_star: EXTERNAL**
+ * > [!TIP]
  * >
  * > A wrapper around [TransferItemQuantity](https://partner.steamgames.com/doc/api/ISteamInventory#TransferItemQuantity).
  * 
@@ -525,9 +525,9 @@
  * 
  * This is an asynchronous function that will trigger the ${event.steam} when the task is finished.
  * 
- * [[WARNING: IMPORTANT You must call ${function.steam_inventory_result_destroy} on the returned async result ID when you are done with it.]]
+ * [[WARNING: You must call ${function.steam_inventory_result_destroy} on the returned async result ID when you are done with it.]]
  * 
- * > **:eight_pointed_black_star: EXTERNAL**
+ * > [!TIP]
  * >
  * > A wrapper around [TriggerItemDrop](https://partner.steamgames.com/doc/api/ISteamInventory#TriggerItemDrop).
  * 
@@ -568,7 +568,7 @@
  * 
  * [[NOTE: This function can be called using an inventory result handle after the corresponding async event has been triggered.]]
  * 
- * > **:eight_pointed_black_star: EXTERNAL**
+ * > [!TIP]
  * >
  * > A wrapper around [DestroyResult](https://partner.steamgames.com/doc/api/ISteamInventory#DestroyResult).
  * 
@@ -609,7 +609,7 @@
  * 
  * [[NOTE: This function can be called using an inventory result handle after the corresponding async event has been triggered.]]
  * 
- * > **:eight_pointed_black_star: EXTERNAL**
+ * > [!TIP]
  * >
  * > A wrapper around [GetResultItemProperty](https://partner.steamgames.com/doc/api/ISteamInventory#GetResultItemProperty).
  * 
@@ -663,7 +663,7 @@
  * 
  * [[NOTE: This function can be called using an inventory result handle after the corresponding async event has been triggered.]]
  * 
- * > **:eight_pointed_black_star: EXTERNAL**
+ * > [!TIP]
  * >
  * > A wrapper around [GetResultItems](https://partner.steamgames.com/doc/api/ISteamInventory#GetResultItems).
  * 
@@ -692,7 +692,7 @@
  * 
  * [[NOTE: This function can be called using an inventory result handle after the corresponding async event has been triggered.]]
  * 
- * > **:eight_pointed_black_star: EXTERNAL**
+ * > [!TIP]
  * >
  * > A wrapper around [GetResultStatus](https://partner.steamgames.com/doc/api/ISteamInventory#GetResultStatus).
  * 
@@ -715,7 +715,7 @@
  * 
  * [[NOTE: This function can be called using an inventory result handle after the corresponding async event has been triggered.]]
  * 
- * > **:eight_pointed_black_star: EXTERNAL**
+ * > [!TIP]
  * >
  * > A wrapper around [GetResultTimestamp](https://partner.steamgames.com/doc/api/ISteamInventory#GetResultTimestamp).
  * 
@@ -742,7 +742,7 @@
  * * ${function.steam_inventory_set_property_int}
  * * ${function.steam_inventory_set_property_string}
  * 
- * > **:eight_pointed_black_star: EXTERNAL**
+ * > [!TIP]
  * >
  * > A wrapper around [StartUpdateProperties](https://partner.steamgames.com/doc/api/ISteamInventory#StartUpdateProperties).
  * 
@@ -774,7 +774,7 @@
  * @func steam_inventory_remove_property
  * @desc This function removes a [dynamic property](https://partner.steamgames.com/doc/features/inventory/dynamicproperties) of the given item.
  * 
- * > **:eight_pointed_black_star: EXTERNAL**
+ * > [!TIP]
  * >
  * > A wrapper around [RemoveProperty](https://partner.steamgames.com/doc/api/ISteamInventory#RemoveProperty).
  * 
@@ -813,7 +813,7 @@
  * @func steam_inventory_set_property_bool
  * @desc This function sets a [dynamic property](https://partner.steamgames.com/doc/features/inventory/dynamicproperties) for the boolean given item.
  * 
- * > **:eight_pointed_black_star: EXTERNAL**
+ * > [!TIP]
  * >
  * > A wrapper around [SetProperty](https://partner.steamgames.com/doc/api/ISteamInventory#SetProperty).
  * 
@@ -852,7 +852,7 @@
  * @func steam_inventory_set_property_float
  * @desc This function sets a [dynamic property](https://partner.steamgames.com/doc/features/inventory/dynamicproperties) for the float given item.
  * 
- * > **:eight_pointed_black_star: EXTERNAL**
+ * > [!TIP]
  * >
  * > A wrapper around [SetProperty](https://partner.steamgames.com/doc/api/ISteamInventory#SetProperty).
  * 
@@ -891,7 +891,7 @@
  * @func steam_inventory_set_property_int
  * @desc This function sets a [dynamic property](https://partner.steamgames.com/doc/features/inventory/dynamicproperties) for the int given item.
  * 
- * > **:eight_pointed_black_star: EXTERNAL**
+ * > [!TIP]
  * >
  * > A wrapper around [SetProperty](https://partner.steamgames.com/doc/api/ISteamInventory#SetProperty).
  * 
@@ -930,7 +930,7 @@
  * @func steam_inventory_set_property_string
  * @desc This function sets a [dynamic property](https://partner.steamgames.com/doc/features/inventory/dynamicproperties) for the string given item.
  * 
- * > **:eight_pointed_black_star: EXTERNAL**
+ * > [!TIP]
  * >
  * > A wrapper around [SetProperty](https://partner.steamgames.com/doc/api/ISteamInventory#SetProperty).
  * 

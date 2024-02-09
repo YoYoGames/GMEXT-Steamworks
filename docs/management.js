@@ -18,7 +18,7 @@
  * @func steam_update
  * @desc This function updates the Steam APIs.
  * 
- * [[WARNING: IMPORTANT This function is required to be called in order for the Steamworks extension to work. Certain async events are only triggered when you call this function. We recommend you place this function in a persistent controller object that calls it inside its ${event.step}.]]
+ * [[WARNING: This function is required to be called in order for the Steamworks extension to work. Certain async events are only triggered when you call this function. We recommend you place this function in a persistent controller object that calls it inside its ${event.step}.]]
  * 
  * @event steam
  * @desc This event is triggered when Steam Deck has resumed from suspend.
@@ -42,7 +42,7 @@
  * @func steam_shutdown
  * @desc This function shuts down the Steamworks API, releases pointers and frees memory.
  * 
- * [[WARNING: IMPORTANT This function is required to be called in order for the Steamworks extension to work. We recommend you place this function in the ${event.game_end} of a controller object. You need to check if this is not a ${function.game_restart}.]]
+ * [[WARNING: This function is required to be called in order for the Steamworks extension to work. We recommend you place this function in the ${event.game_end} of a controller object. You need to check if this is not a ${function.game_restart}.]]
  * 
  * @event steam
  * @desc This event is triggered when the Steam client is about to shutdown, usually you have a few seconds to finish things.
