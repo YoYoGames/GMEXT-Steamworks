@@ -1,7 +1,6 @@
 {
-  "resourceType": "GMNotes",
-  "resourceVersion": "1.1",
-  "name": "changelog",
+  "$GMNotes": "",
+  "%Name": "changelog",
   "parent": {
     "name": "Steamworks",
     "path": "Steamworks.yyp",

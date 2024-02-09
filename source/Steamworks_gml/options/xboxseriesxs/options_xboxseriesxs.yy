@@ -1,7 +1,6 @@
 {
-  "resourceType": "GMXboxSeriesXSOptions",
-  "resourceVersion": "1.1",
-  "name": "Xbox Series XS",
+  "$GMXboxSeriesXSOptions": "",
+  "%Name": "Xbox Series XS",
   "option_xboxseriesxs_content_id": "",
   "option_xboxseriesxs_description": "Your Description",
   "option_xboxseriesxs_display_name": "Created with GameMaker Studio 2",

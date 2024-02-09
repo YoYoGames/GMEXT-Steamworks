@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="img/favicon.ico" />
+    <title>Social - GMEXT-Steamworks</title>
+    <link rel="stylesheet" href="css/theme.css" />
+    <link rel="stylesheet" href="css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+        <link href="assets/css/doc.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Social";
+        var mkdocs_page_input_path = "social.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="." class="icon icon-home"> GMEXT-Steamworks
+        </a>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="home.html">Home</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="guides.html">Guides</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="management.html">Management</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="general.html">General</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="overlay.html">Overlay</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="leaderboards.html">Leaderboards</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="lobbies.html">Lobbies</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="achievements.html">Achievements</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="cloud.html">Cloud</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="dlc.html">Dlc</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="ugc.html">Ugc</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="social.html">Social</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#rich-presence">Rich Presence</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#user-friends">User &amp; Friends</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#structs">Structs</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#constants">Constants</a>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="inventory.html">Inventory</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="networking.html">Networking</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="input.html">Input</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="music.html">Music</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="utilities.html">Utilities</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href=".">GMEXT-Steamworks</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Social</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/YoYoGames/GMEXT-Steamworks/edit/master/docs/social.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <p><a id="top"></a></p>
+<h1 id="social"><strong>Social</strong></h1>
+<p>The following set of functions are used for setting or getting social information.</p>
+<h2 id="rich-presence">Rich Presence</h2>
+<p>The following functions are provided to work with rich presence:</p>
+<ul>
+<li><a href="social.html#steam_set_rich_presence">steam_set_rich_presence</a></li>
+<li><a href="social.html#steam_clear_rich_presence">steam_clear_rich_presence</a></li>
+</ul>
+<h2 id="user-friends">User &amp; Friends</h2>
+<p>The following functions are provided to work with user and friends data:</p>
+<ul>
+<li><a href="social.html#steam_user_set_played_with">steam_user_set_played_with</a></li>
+<li><a href="social.html#steam_get_friends_game_info">steam_get_friends_game_info</a></li>
+<li><a href="social.html#steam_get_user_avatar">steam_get_user_avatar</a></li>
+<li><a href="social.html#steam_image_get_size">steam_image_get_size</a></li>
+<li><a href="social.html#steam_image_get_rgba">steam_image_get_rgba</a></li>
+<li><a href="social.html#steam_image_get_bgra">steam_image_get_bgra</a></li>
+</ul>
+<h2 id="structs">Structs</h2>
+<p>This module offers a collection of structs, which serve as custom data models for organizing and structuring data. Explore the provided structs to better understand the relationships between data elements and simplify your data manipulation tasks.</p>
+<ul>
+<li><a href="social.html#friendsgameinfo">FriendsGameInfo</a></li>
+</ul>
+<h2 id="constants">Constants</h2>
+<p>This module includes a set of predefined constants that can be utilized for various purposes. Browse through the available constants to find values relevant to your needs and enhance the efficiency of your code.</p>
+<ul>
+<li><a href="social.html#avatarsize">AvatarSize</a></li>
+</ul>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_set_rich_presence">steam_set_rich_presence</h1>
+<p>This function sets a Rich Presence key/value for the current user that is automatically shared to all friends playing the same game.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_set_rich_presence(key, value)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>key</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The rich presence 'key' to set</td>
+</tr>
+<tr>
+<td>value</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The rich presence 'value' to associate</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>steam_set_rich_presence(&quot;game&quot;, &quot;MyAwesomeGame&quot;);
+steam_set_rich_presence(&quot;level&quot;, &quot;Last&quot;);
+steam_set_rich_presence(&quot;mood&quot;, &quot;Happy&quot;);
+
+steam_clear_rich_presence();
+</code></pre></div>
+The code sample above uses sets a couple of values for the local user rich presence. After that, it clears these values (using a call to the <a href="social.html#steam_clear_rich_presence">steam_clear_rich_presence</a> function) so that they will no longer show.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_clear_rich_presence">steam_clear_rich_presence</h1>
+<p>Clears all of the current user's Rich Presence key/values.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_clear_rich_presence()
+</code></pre></div>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>steam_set_rich_presence(&quot;game&quot;, &quot;MyAwesomeGame&quot;);
+steam_set_rich_presence(&quot;level&quot;, &quot;Last&quot;);
+steam_set_rich_presence(&quot;Mood&quot;,&quot;Happy&quot;);
+
+steam_clear_rich_presence();
+</code></pre></div>
+The code sample above uses <a href="social.html#steam_set_rich_presence">steam_set_rich_presence</a> to set a couple values for the local user rich presence and after that clears these values meaning those will no longer show.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_user_set_played_with">steam_user_set_played_with</h1>
+<p>This function adds the given user to the "recently played with" list (accessed via "Players" - "Recent games") menu in Steam overlay.
+This is usually something to do on session start for all remote users.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_user_set_played_with(user_id)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>user_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Int64</a></td>
+<td>Other player user ID</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>steam_user_set_played_with(anyFriendUserID);
+</code></pre></div>
+This code will add the specified user ID to the "recently played with" list, of the local user.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_get_friends_game_info">steam_get_friends_game_info</h1>
+<p>Returns an array of information about what the current user's Steam friends are playing.
+Equivalent to what can be seen in Steam Friends UI.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_get_friends_game_info()
+</code></pre></div>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Arrays.htm">Array</a> of <a href="social.html#friendsgameinfo">FriendsGameInfo</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>var _info_arr = steam_get_friends_game_info();
+var _info_num = array_length(_info_arr);
+var _steam_app_id = steam_get_app_id();
+for (var i = 0; i &lt; _info_num; i++)
+{
+    var _info = _info_arr[i];
+    // same game!
+    if (_info.gameId == _steam_app_id)
+    {
+        var _lobby_id = _info.lobbyId;
+        // has an open lobby!
+        if (_lobby_id != 0)
+        {
+            var _user_id = _info.friendId;
+            var _name = _info.name;
+            // Use steam_lobby_join_id(_lobby_id); to join the lobby when asked
+        }
+    }
+}
+</code></pre></div>
+The above code will check all your friends to see if anyone of them is playing the same game as you (<a href="general.html#steam_get_app_id">steam_get_app_id</a>) and check if they have any open lobbies. If so, we can request to join the lobby they're in using <a href="lobbies.html#steam_lobby_join_id">steam_lobby_join_id</a>.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_get_user_avatar">steam_get_user_avatar</h1>
+<p>This function fetches an avatar for the specified user ID.
+It returns <code>0</code> if no avatar is set for the user;
+      it returns <code>-1</code> if the request is pending, in which case a <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a> will be triggered.
+Returns positive ID's if the avatar is ready, this ID is to be used with the following functions:</p>
+<ul>
+<li><a href="social.html#steam_image_get_bgra">steam_image_get_bgra</a></li>
+<li><a href="social.html#steam_image_get_rgba">steam_image_get_rgba</a></li>
+<li><a href="social.html#steam_image_get_size">steam_image_get_size</a></li>
+</ul>
+<p>This function operates asynchronously, which means that it does not immediately return the requested result. Instead, upon completion of the task, it will trigger the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_get_user_avatar(userID, avatar_size)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>userID</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Int64</a></td>
+<td>The user Steam unique identifier</td>
+</tr>
+<tr>
+<td>avatar_size</td>
+<td><a href="social.html#avatarsize">AvatarSize</a></td>
+<td>The size of the avatar to be requested</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Triggers:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>event_type</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The string value <code>"avatar_image_loaded"</code></td>
+</tr>
+<tr>
+<td>success</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></td>
+<td>Whether the async action succeeded</td>
+</tr>
+<tr>
+<td>user_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Int64</a></td>
+<td>The associated user's ID</td>
+</tr>
+<tr>
+<td>image</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The image ID that would otherwise be returned by the function</td>
+</tr>
+<tr>
+<td>width</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The image width, in pixels</td>
+</tr>
+<tr>
+<td>height</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The image height, in pixels</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>var _l_img = steam_get_user_avatar(steam_get_user_steam_id(), steam_user_avatar_size_large);
+
+// Check if avatar is ready
+if (_l_img &gt; 0)
+{
+    var _l_dims = steam_image_get_size(_l_img);
+    var _buff_size = _l_dims[0] * _l_dims[1] * 4;
+
+    var _l_cols = buffer_create(_buff_size, buffer_fixed, 1);
+
+    var _l_ok = steam_image_get_rgba(_l_img, _l_cols, _buff_size);
+
+    if(!_l_ok)
+    {
+        buffer_delete(_l_cols);
+        exit;
+    }
+
+    var _l_surf = surface_create(_l_dims[0], _l_dims[1]);
+    buffer_set_surface(_l_cols, _l_surf, 0);
+
+    l_sprite = sprite_create_from_surface(_l_surf, 0, 0, _l_dims[0], _l_dims[1], false, false, 0, 0);
+
+    surface_free(_l_surf);
+    buffer_delete(_l_cols);
+}
+</code></pre></div>
+In the code above we query for the current user's <a href="general.html#steam_get_user_steam_id">steam_get_user_steam_id</a> avatar, this function will either return:</p>
+<ul>
+<li>the handle to the function (return value greater than zero): in this case we follow by getting size information (<a href="social.html#steam_image_get_size">steam_image_get_size</a>), creating a buffer and getting the avatar image RBGA data into the buffer (<a href="social.html#steam_image_get_rgba">steam_image_get_rgba</a>) and lastly creating a sprite from said buffer.</li>
+<li>no handle at all (return value equal to zero): in this case there is no avatar image for the specified user.</li>
+<li>a value of -1: in this last case it means that the request is pending and you can catch the output with a <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a>, using the following code:</li>
+</ul>
+<div class="highlight"><pre><span></span><code>// Early exit if event type doesn&#39;t match
+if (async_load[?&quot;event_type&quot;] != &quot;avatar_image_loaded&quot;) exit;
+
+// Validate status
+var _success = async_load[?&quot;success&quot;];
+if (_success == 1) {
+
+    // Do what you want with the provided image handle
+}
+else {
+    // Failure
+    show_debug_message(&quot;Failed to get user avatar&quot;);
+}
+</code></pre></div>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_image_get_size">steam_image_get_size</h1>
+<p>This function fetches the dimensions of the said Steam image ID.
+If the call succeeds, the return value is a two-element array containing the width and height in pixels.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_image_get_size(steam_image_id)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>steam_image_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Int64</a></td>
+<td>Steam identifier of the image</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Arrays.htm">Array</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>var _l_img = steam_get_user_avatar(steam_get_user_steam_id(), steam_user_avatar_size_large);
+var _l_dims = steam_image_get_size(_l_img);
+var _buff_size = _l_dims[0] * _l_dims[1] * 4;
+var _l_cols = buffer_create(_buff_size, buffer_fixed, 1);
+var _l_ok = steam_image_get_rgba(_l_img, _l_cols, _buff_size);
+if(!_l_ok)
+{
+    buffer_delete(_l_cols);
+    exit;
+}
+var _l_surf = surface_create(_l_dims[0], _l_dims[1]);
+buffer_set_surface(_l_cols, _l_surf, 0);
+l_sprite = sprite_create_from_surface(_l_surf, 0, 0, _l_dims[0], _l_dims[1], false, false, 0, 0);
+surface_free(_l_surf);
+buffer_delete(_l_cols);
+</code></pre></div>
+The above code shows a code example.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_image_get_rgba">steam_image_get_rgba</h1>
+<p>This function grabs the RGBA data of the specified Steam image ID into a GameMaker buffer.
+Returns whether successful.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The buffer should be appropriately sized in accordance with <a href="social.html#steam_image_get_size">steam_image_get_size</a> (width * height * 4).</p>
+</div>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_image_get_rgba(steam_image_id, buffer, size)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>steam_image_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Int64</a></td>
+<td>The Steam image identifier</td>
+</tr>
+<tr>
+<td>buffer</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Buffers/Buffers.htm">Buffer</a></td>
+<td>The buffer where data will be written</td>
+</tr>
+<tr>
+<td>size</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The size of the buffer supplied</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>var _l_img = steam_get_user_avatar(steam_get_user_steam_id(), steam_user_avatar_size_large);
+
+// Check if avatar is ready
+if (_l_img &gt; 0)
+{
+    var _l_dims = steam_image_get_size(_l_img);
+    var _buff_size = _l_dims[0] * _l_dims[1] * 4;
+
+    var _l_cols = buffer_create(_buff_size, buffer_fixed, 1);
+
+    var _l_ok = steam_image_get_rgba(_l_img, l_cols, buff_size);
+
+    if(!_l_ok)
+    {
+        buffer_delete(_l_cols);
+        exit;
+    }
+
+    var _l_surf = surface_create(_l_dims[0], _l_dims[1]);
+    buffer_set_surface(_l_cols, _l_surf, 0);
+
+    l_sprite = sprite_create_from_surface(_l_surf, 0, 0, _l_dims[0], _l_dims[1], false, false, 0, 0);
+
+    surface_free(_l_surf);
+    buffer_delete(_l_cols);
+}
+</code></pre></div>
+In the code above we query the current user's <a href="general.html#steam_get_user_steam_id">steam_get_user_steam_id</a> avatar data and place it inside a buffer (with the RGBA color format).
+For a more extensive example refer to the <a href="social.html#steam_get_user_avatar">steam_get_user_avatar</a> function.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_image_get_bgra">steam_image_get_bgra</h1>
+<p>This function grabs the BGRA data of the specified Steam image ID into a GameMaker buffer.
+Returns whether successful.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The buffer should be appropriately sized in accordance with <a href="social.html#steam_image_get_size">steam_image_get_size</a> (width * height * 4).</p>
+</div>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_image_get_bgra(steam_image_id, buffer, size)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>steam_image_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Int64</a></td>
+<td>The Steam image identifier</td>
+</tr>
+<tr>
+<td>buffer</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Buffers/Buffers.htm">Buffer</a></td>
+<td>The buffer where data will be written</td>
+</tr>
+<tr>
+<td>size</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The size of the buffer supplied</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>var _l_img = steam_get_user_avatar(steam_get_user_steam_id(), steam_user_avatar_size_large);
+
+// Check if avatar is ready
+if (_l_img &gt; 0)
+{
+    var _l_dims = steam_image_get_size(_l_img);
+    var _buff_size = _l_dims[0] * _l_dims[1] * 4;
+
+    var _l_cols = buffer_create(_buff_size, buffer_fixed, 1);
+
+    var _l_ok = steam_image_get_bgra(_l_img, _l_cols, _buff_size);
+
+    if(!_l_ok)
+    {
+        buffer_delete(_l_cols);
+        exit;
+    }
+
+    var _l_surf = surface_create(_l_dims[0], _l_dims[1]);
+    buffer_set_surface(_l_cols, _l_surf, 0);
+
+    l_sprite = sprite_create_from_surface(_l_surf, 0, 0, _l_dims[0], _l_dims[1], false, false, 0, 0);
+
+    surface_free(_l_surf);
+    buffer_delete(_l_cols);
+}
+</code></pre></div>
+In the code above we query the current user's <a href="general.html#steam_get_user_steam_id">steam_get_user_steam_id</a> avatar data and place it inside a buffer (with the BGRA color format).
+For a more extensive example refer to the <a href="social.html#steam_get_user_avatar">steam_get_user_avatar</a> function.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="avatarsize">AvatarSize</h1>
+<p>These constants are referenced by the following functions:</p>
+<ul>
+<li><a href="social.html#steam_get_user_avatar">steam_get_user_avatar</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>steam_user_avatar_size_small</code></td>
+<td>Small avatar size</td>
+</tr>
+<tr>
+<td><code>steam_user_avatar_size_medium</code></td>
+<td>Medium avatar size</td>
+</tr>
+<tr>
+<td><code>steam_user_avatar_size_large</code></td>
+<td>Large avatar size</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="friendsgameinfo">FriendsGameInfo</h1>
+<p>This struct is referenced by the following functions:</p>
+<ul>
+<li><a href="social.html#steam_get_friends_game_info">steam_get_friends_game_info</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>friendId</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Int64</a></td>
+<td>The Steam user ID</td>
+</tr>
+<tr>
+<td>gameId</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The Steam game ID</td>
+</tr>
+<tr>
+<td>lobbyId</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Int64</a></td>
+<td>The Steam lobby ID (if hosting a lobby that is open for friends to join - otherwise <code>0</code>)</td>
+</tr>
+<tr>
+<td>name</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The friend's user name</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="ugc.html" class="btn btn-neutral float-left" title="Ugc"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="inventory.html" class="btn btn-neutral float-right" title="Inventory">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+      <p><p align="center">GameMaker 2024</p></p>
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/YoYoGames/GMEXT-Steamworks" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="ugc.html" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="inventory.html" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = ".";</script>
+    <script src="js/theme_extra.js"></script>
+    <script src="js/theme.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/gml.min.js"></script>
+      <script src="assets/js/copy_code.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

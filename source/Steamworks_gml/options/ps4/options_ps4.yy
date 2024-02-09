@@ -1,7 +1,6 @@
 {
-  "resourceType": "GMPS4Options",
-  "resourceVersion": "1.0",
-  "name": "PlayStation 4",
+  "$GMPS4Options": "",
+  "%Name": "PlayStation 4",
   "option_ps4_display_cursor": false,
   "option_ps4_garlic": 1024,
   "option_ps4_icon": "${base_options_dir}/ps4/sce_sys/icon0.png",
@@ -29,7 +28,7 @@
   "option_ps4_shareparam_file": "${options_dir}\\ps4\\sce_sys\\shareparam.json",
   "option_ps4_splash_screen": "${base_options_dir}/ps4/sce_sys/pic1.png",
   "option_ps4_texture_page": "2048x2048",
-  "option_ps4_trophy_screen": "${base_options_dir}/ps4/sce_sys/pic0.png",
   "option_ps4_trophy00trp_file": "${options_dir}\\ps4\\sce_sys\\trophy\\trophy00.trp",
   "option_ps4_trophyedit": "",
+  "option_ps4_trophy_screen": "${base_options_dir}/ps4/sce_sys/pic0.png",
 }

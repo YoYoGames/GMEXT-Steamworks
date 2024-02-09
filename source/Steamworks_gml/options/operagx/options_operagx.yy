@@ -1,7 +1,6 @@
 {
-  "resourceType": "GMOperaGXOptions",
-  "resourceVersion": "1.1",
-  "name": "operagx",
+  "$GMOperaGXOptions": "",
+  "%Name": "operagx",
   "option_operagx_display_cursor": true,
   "option_operagx_editUrl": "",
   "option_operagx_game_name": "Steamworks",

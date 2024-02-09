@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="img/favicon.ico" />
+    <title>Networking - GMEXT-Steamworks</title>
+    <link rel="stylesheet" href="css/theme.css" />
+    <link rel="stylesheet" href="css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+        <link href="assets/css/doc.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Networking";
+        var mkdocs_page_input_path = "networking.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="." class="icon icon-home"> GMEXT-Steamworks
+        </a>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="home.html">Home</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="guides.html">Guides</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="management.html">Management</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="general.html">General</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="overlay.html">Overlay</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="leaderboards.html">Leaderboards</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="lobbies.html">Lobbies</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="achievements.html">Achievements</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="cloud.html">Cloud</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="dlc.html">Dlc</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="ugc.html">Ugc</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="social.html">Social</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="inventory.html">Inventory</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="networking.html">Networking</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#packets-io">Packets IO</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#session">Session</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#constants">Constants</a>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="input.html">Input</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="music.html">Music</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="utilities.html">Utilities</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href=".">GMEXT-Steamworks</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Networking</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/YoYoGames/GMEXT-Steamworks/edit/master/docs/networking.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <p><a id="top"></a></p>
+<h1 id="networking"><strong>Networking</strong></h1>
+<p>The following functions and constants allow you to use Steam's Networking functionality.</p>
+<h2 id="packets-io">Packets IO</h2>
+<p>These functions are provided for handling sending and receiving packets:</p>
+<ul>
+<li><a href="networking.html#steam_net_packet_get_data">steam_net_packet_get_data</a></li>
+<li><a href="networking.html#steam_net_packet_get_sender_id">steam_net_packet_get_sender_id</a></li>
+<li><a href="networking.html#steam_net_packet_get_size">steam_net_packet_get_size</a></li>
+<li><a href="networking.html#steam_net_packet_receive">steam_net_packet_receive</a></li>
+<li><a href="networking.html#steam_net_packet_send">steam_net_packet_send</a></li>
+<li><a href="networking.html#steam_net_packet_set_type">steam_net_packet_set_type</a></li>
+<li><a href="networking.html#steam_net_accept_p2p_session">steam_net_accept_p2p_session</a></li>
+<li><a href="networking.html#steam_net_close_p2p_session">steam_net_close_p2p_session</a></li>
+<li><a href="networking.html#steam_net_set_auto_accept_p2p_sessions">steam_net_set_auto_accept_p2p_sessions</a></li>
+</ul>
+<h2 id="session">Session</h2>
+<p>The following functions allow handling P2P sessions:</p>
+<ul>
+<li><a href="networking.html#steam_net_accept_p2p_session">steam_net_accept_p2p_session</a></li>
+<li><a href="networking.html#steam_net_close_p2p_session">steam_net_close_p2p_session</a></li>
+<li><a href="networking.html#steam_net_set_auto_accept_p2p_sessions">steam_net_set_auto_accept_p2p_sessions</a></li>
+</ul>
+<h2 id="constants">Constants</h2>
+<p>These are the constants used by this API:</p>
+<ul>
+<li><a href="networking.html#packettype">PacketType</a></li>
+</ul>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_net_packet_get_data">steam_net_packet_get_data</h1>
+<p>This function copies the contents of the last received packet to the given buffer. Data is copied to the start of the buffer (position remains unaffected), meaning that if you reuse the same buffer, you should "rewind" it prior to reading.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If the buffer is not big enough to fit data, it will be resized automatically (the buffer needs to be created using the <code>buffer_grow</code> type).</p>
+</div>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_net_packet_get_data(buffer)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>buffer</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Buffers/Buffers.htm">Buffer</a></td>
+<td>The buffer to write the incoming data to.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>while (steam_net_packet_receive())
+{
+    steam_net_packet_get_data(inbuf);
+    buffer_seek(inbuf, buffer_seek_start, 0);
+    switch (buffer_read(inbuf, buffer_u8))
+    {
+        case 1: show_debug_message(&quot;packet ID 1&quot;); break;
+        case 2: show_debug_message(&quot;packet ID 2&quot;); break;
+        default: show_debug_message(&quot;unknown packet&quot;); break;
+    }
+}
+</code></pre></div>
+The code above will check for an incoming packet and get its data into a buffer (resizing if necessary) and reads from it.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_net_packet_get_sender_id">steam_net_packet_get_sender_id</h1>
+<p>This function returns the Steam ID of the user that sent the last received packet.
+It can be used in conjunction with <a href="networking.html#steam_net_packet_send">steam_net_packet_send</a> to send something back and for just telling the senders apart.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_net_packet_get_sender_id()
+</code></pre></div>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Int64</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>while(steam_net_packet_receive())
+{
+    var _sender = steam_net_packet_get_sender_id();
+
+    buffer_seek(outbuf, buffer_seek_start, 0);
+    buffer_write(outbuf, buffer_u8, test_network_packet.ping);
+
+    steam_net_packet_send(_sender, outbuf);
+}
+</code></pre></div>
+The above code will show a code example.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_net_packet_get_size">steam_net_packet_get_size</h1>
+<p>This function returns the size of the last received packet, in bytes.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_net_packet_get_size()
+</code></pre></div>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>while (steam_net_packet_receive())
+{
+    var _size = steam_net_packet_size();
+    show_debug_message(&quot;Received &quot; + string(_size) + &quot; bytes.&quot;);
+}
+</code></pre></div>
+The code above will display the size of each incoming packet.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_net_packet_receive">steam_net_packet_receive</h1>
+<p>This function attempts to get the next packet from Steam API and returns whether successfully done so.
+Other steam_net_ functions can then be used to get packet information/contents.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_net_packet_receive()
+</code></pre></div>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>while (steam_net_packet_receive())
+{
+    // process the received packet
+}
+</code></pre></div>
+The code above will attempt to get the next packet from Steam API. This would be used every step while in lobby or just from time to time.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_net_packet_send">steam_net_packet_send</h1>
+<p>This function sends a packet to the given endpoint and returns whether successful (as opposed to incorrect arguments/invalid ID). If no packet type is passed in then the default value will be used. The default value can be set using the <a href="networking.html#steam_net_packet_set_type">steam_net_packet_set_type</a> function. The function returns whether or not the packet was successfully sent.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_net_packet_send(user_id, buffer, size, packet_type)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>user_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Int64</a></td>
+<td>The target user to send the packet to</td>
+</tr>
+<tr>
+<td>buffer</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>Buffer that contains the raw byte array for the packet data to send</td>
+</tr>
+<tr>
+<td>size</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The size of data to send (default -1, sends the entire buffer) <img alt="✴️" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/2734.png" title=":eight_pointed_black_star:" /> OPTIONAL</td>
+</tr>
+<tr>
+<td>packet_type</td>
+<td><a href="networking.html#packettype">PacketType</a></td>
+<td>The type of packet to be used <img alt="✴️" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/2734.png" title=":eight_pointed_black_star:" /> OPTIONAL</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>var _buf = buffer_create(16, buffer_grow, 1);
+buffer_write(_buf, buffer_string, &quot;Hello!&quot;);
+steam_net_packet_send(steam_id, _buf, -1);
+buffer_delete(_buf);
+</code></pre></div>
+The code sample will create a buffer and write to it, sending the total length of it to the given <code>steam_id</code>, the buffer is then deleted.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_net_packet_set_type">steam_net_packet_set_type</h1>
+<p>This function sets the default connection protocol used when sending the data packets (using the <a href="networking.html#steam_net_packet_send">steam_net_packet_send</a> function). It returns whether or not the default protocol was successfully set.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_net_packet_set_type(protocol)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>protocol</td>
+<td><a href="networking.html#packettype">PacketType</a></td>
+<td>The default connection protocol to be used</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>steam_net_packet_set_type(steam_net_packet_type_reliable);
+</code></pre></div>
+The above code will set the current connection to use the <code>steam_net_packet_type_reliable</code> protocol to send data packages.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_net_accept_p2p_session">steam_net_accept_p2p_session</h1>
+<p>This function accepts a P2P session request from the specified user. Returns whether successful or not.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_net_accept_p2p_session(userID)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>userID</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Int64</a></td>
+<td>The User ID of the user that sent the initial packet to us.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>if (isMyFriend(userID))
+{
+    steam_net_accept_p2p_session(userID);
+}
+</code></pre></div>
+The code above uses a custom implemented function that will check if a given <code>userID</code> is a friend and if it is it will accept the P2P session.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_net_close_p2p_session">steam_net_close_p2p_session</h1>
+<p>This function closes a P2P session with the specified user. It returns whether successful or not.
+Steam will automatically close sessions after a period of inactivity, but you could also do it manually if you want.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_net_close_p2p_session(user_id)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>user_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Int64</a></td>
+<td>The user ID of the user to close the connection with.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>if (global.chat_closed)
+{
+     steam_net_close_p2p_session(user_id);
+}
+</code></pre></div>
+The code above check to see if a global variable (<code>chat_closed</code>) is true and if so, it will close the P2P session.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_net_set_auto_accept_p2p_sessions">steam_net_set_auto_accept_p2p_sessions</h1>
+<p>This function sets whether to auto-accept session requests coming from players in the same lobby. This is enabled by default for convenience. If you disable it, you'll need to handle the async event when someone uses the <a href="lobbies.html#steam_lobby_join_id">steam_lobby_join_id</a> function.</p>
+<p>This function operates asynchronously, which means that it does not immediately return the requested result. Instead, upon completion of the task, it will trigger the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_net_set_auto_accept_p2p_sessions(enable)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>enable</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></td>
+<td>disable/enable auto accept sessions</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<p><strong>Triggers:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>type</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The string value <code>"lobby_join_requested"</code></td>
+</tr>
+<tr>
+<td>lobby_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Int64</a></td>
+<td>The lobby unique identifier</td>
+</tr>
+<tr>
+<td>friend_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Int64</a></td>
+<td>The friend unique identifier</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>steam_net_set_auto_accept_p2p_sessions(false);
+</code></pre></div>
+The code above will disable the auto accept P2P sessions functionality meaning we  should deal with the requests manually. In order to do so we need to use the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a> to catch the callback:</p>
+<div class="highlight"><pre><span></span><code>if (async_load[?&quot;event_type&quot;] == &quot;lobby_join_requested&quot;)
+{
+    steam_net_accept_p2p_session(async_load[?&quot;friend_id&quot;]);
+}
+</code></pre></div>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="packettype">PacketType</h1>
+<p>These constants specify the type of a Steam packet.</p>
+<p>These constants are referenced by the following functions:</p>
+<ul>
+<li><a href="networking.html#steam_net_packet_send">steam_net_packet_send</a></li>
+<li><a href="networking.html#steam_net_packet_set_type">steam_net_packet_set_type</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>steam_net_packet_type_unreliable</code></td>
+<td>Equivalent to UDP the data may or may not be delivered, will not be resent automatically.</td>
+</tr>
+<tr>
+<td><code>steam_net_packet_type_unreliable_nodelay</code></td>
+<td>Similar to "unreliable" type, but always sent instantly (as soon as the function is called). Intended for things like streaming voice data, where you want the lowest possible latency and only care about the current data.</td>
+</tr>
+<tr>
+<td><code>steam_net_packet_type_reliable</code></td>
+<td>Equivalent to TCP, the data is warranted to be delivered in order and intact.</td>
+</tr>
+<tr>
+<td><code>steam_net_packet_type_reliable_buffer</code></td>
+<td>Similar to the "reliable" type, but utilizes <a href="https://en.wikipedia.org/wiki/Nagle's_algorithm">Nagle's algorithm</a> to reduce the number of packets at the cost of potential delay while the data accumulates until the sending threshold.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="inventory.html" class="btn btn-neutral float-left" title="Inventory"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="input.html" class="btn btn-neutral float-right" title="Input">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+      <p><p align="center">GameMaker 2024</p></p>
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/YoYoGames/GMEXT-Steamworks" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="inventory.html" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="input.html" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = ".";</script>
+    <script src="js/theme_extra.js"></script>
+    <script src="js/theme.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/gml.min.js"></script>
+      <script src="assets/js/copy_code.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

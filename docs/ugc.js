@@ -1074,7 +1074,7 @@
  */
 
 /**
- * @module UGC
+ * @module ugc
  * @title UGC
  * @desc This section is for those users that have been given access to the Steam API for publishing your game to that platform and that want to use the possibilities that the Steam Workshop and Community gives you for adding and generating user content in your projects. The simplest form of user-generated content is the ability for the user to take and share screenshots, which is facilitated using the following two functions:
  * 

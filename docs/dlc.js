@@ -49,7 +49,7 @@
  */
 
 /**
- * @module DLC
+ * @module dlc
  * @title DLC
  * @desc Steam supports both free and paid downloadable content (DLC), and in the Steam client, a game with downloadable content appears as a single application in the user's game list with the downloadable content viewable through the games properties dialog. Once owned, downloadable content is treated as an integral part of the game and Steam will automatically update the content when a patch is available and installs the content when the user installs the game.
  * @section_func Functions

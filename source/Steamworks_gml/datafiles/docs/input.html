@@ -1,0 +1,3222 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="img/favicon.ico" />
+    <title>Input - GMEXT-Steamworks</title>
+    <link rel="stylesheet" href="css/theme.css" />
+    <link rel="stylesheet" href="css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+        <link href="assets/css/doc.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Input";
+        var mkdocs_page_input_path = "input.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="." class="icon icon-home"> GMEXT-Steamworks
+        </a>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="home.html">Home</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="guides.html">Guides</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="management.html">Management</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="general.html">General</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="overlay.html">Overlay</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="leaderboards.html">Leaderboards</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="lobbies.html">Lobbies</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="achievements.html">Achievements</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="cloud.html">Cloud</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="dlc.html">Dlc</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="ugc.html">Ugc</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="social.html">Social</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="inventory.html">Inventory</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="networking.html">Networking</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="input.html">Input</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#functions">Functions</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#structs">Structs</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#constants">Constants</a>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="music.html">Music</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="utilities.html">Utilities</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href=".">GMEXT-Steamworks</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Input</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/YoYoGames/GMEXT-Steamworks/edit/master/docs/input.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <p><a id="top"></a></p>
+<h1 id="input"><strong>Input</strong></h1>
+<p>The Steam Input API is designed to allow you to easily enable <em>full support</em> for Steam Input devices in your game. This means things such as:
+  - Ability to use proper controller-specific glyphs for input hints.
+  - Allow the user to easily rebind controls however they like via the Steam Input Configurator.
+  - Share input mappings with others via the Steam Workshop.
+  - and many more!</p>
+<p>Before proceeding, please read <a href="https://partner.steamgames.com/doc/features/steam_controller/getting_started_for_devs">this page</a> about the Steam Input API for developers before reading this page to have a good understanding of what are Input Handles, Action Sets, Action Set Layers, Digital Actions, Analog Actions, Action Origins, the Steam Input Configurator, and bindings.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This API is designed for <strong>advanced users only</strong>, if you don't know why you need it, please use the native GML <code>gamepad_</code> functions instead.</p>
+</div>
+<h2 id="functions">Functions</h2>
+<p>The following functions can be used to access the Steam Input from within GameMaker:</p>
+<ul>
+<li><a href="input.html#steam_input_init">steam_input_init</a></li>
+<li><a href="input.html#steam_input_shutdown">steam_input_shutdown</a></li>
+<li><a href="input.html#steam_input_set_input_action_manifest_file_path">steam_input_set_input_action_manifest_file_path</a></li>
+<li><a href="input.html#steam_input_run_frame">steam_input_run_frame</a></li>
+<li><a href="input.html#steam_input_wait_for_data">steam_input_wait_for_data</a></li>
+<li><a href="input.html#steam_input_new_data_available">steam_input_new_data_available</a></li>
+<li><a href="input.html#steam_input_get_connected_controllers">steam_input_get_connected_controllers</a></li>
+<li><a href="input.html#steam_input_enable_device_callbacks">steam_input_enable_device_callbacks</a></li>
+<li><a href="input.html#steam_input_enable_action_event_callbacks">steam_input_enable_action_event_callbacks</a></li>
+<li><a href="input.html#steam_input_get_action_set_handle">steam_input_get_action_set_handle</a></li>
+<li><a href="input.html#steam_input_activate_action_set">steam_input_activate_action_set</a></li>
+<li><a href="input.html#steam_input_get_current_action_set">steam_input_get_current_action_set</a></li>
+<li><a href="input.html#steam_input_activate_action_set_layer">steam_input_activate_action_set_layer</a></li>
+<li><a href="input.html#steam_input_deactivate_action_set_layer">steam_input_deactivate_action_set_layer</a></li>
+<li><a href="input.html#steam_input_deactivate_all_action_set_layers">steam_input_deactivate_all_action_set_layers</a></li>
+<li><a href="input.html#steam_input_get_active_action_set_layers">steam_input_get_active_action_set_layers</a></li>
+<li><a href="input.html#steam_input_get_digital_action_handle">steam_input_get_digital_action_handle</a></li>
+<li><a href="input.html#steam_input_get_digital_action_data">steam_input_get_digital_action_data</a></li>
+<li><a href="input.html#steam_input_get_digital_action_origins">steam_input_get_digital_action_origins</a></li>
+<li><a href="input.html#steam_input_get_string_for_digital_action_name">steam_input_get_string_for_digital_action_name</a></li>
+<li><a href="input.html#steam_input_get_analog_action_handle">steam_input_get_analog_action_handle</a></li>
+<li><a href="input.html#steam_input_get_analog_action_data">steam_input_get_analog_action_data</a></li>
+<li><a href="input.html#steam_input_get_analog_action_origins">steam_input_get_analog_action_origins</a></li>
+<li><a href="input.html#steam_input_get_glyph_png_for_action_origin">steam_input_get_glyph_png_for_action_origin</a></li>
+<li><a href="input.html#steam_input_get_glyph_svg_for_action_origin">steam_input_get_glyph_svg_for_action_origin</a></li>
+<li><a href="input.html#steam_input_get_glyph_for_action_origin_legacy">steam_input_get_glyph_for_action_origin_legacy</a></li>
+<li><a href="input.html#steam_input_get_string_for_action_origin">steam_input_get_string_for_action_origin</a></li>
+<li><a href="input.html#steam_input_get_string_for_analog_action_name">steam_input_get_string_for_analog_action_name</a></li>
+<li><a href="input.html#steam_input_stop_analog_action_momentum">steam_input_stop_analog_action_momentum</a></li>
+<li><a href="input.html#steam_input_get_motion_data">steam_input_get_motion_data</a></li>
+<li><a href="input.html#steam_input_trigger_vibration">steam_input_trigger_vibration</a></li>
+<li><a href="input.html#steam_input_trigger_vibration_extended">steam_input_trigger_vibration_extended</a></li>
+<li><a href="input.html#steam_input_trigger_simple_haptic_event">steam_input_trigger_simple_haptic_event</a></li>
+<li><a href="input.html#steam_input_set_led_color">steam_input_set_led_color</a></li>
+<li><a href="input.html#steam_input_trigger_haptic_pulse_legacy">steam_input_trigger_haptic_pulse_legacy</a></li>
+<li><a href="input.html#steam_input_trigger_repeated_haptic_pulse_legacy">steam_input_trigger_repeated_haptic_pulse_legacy</a></li>
+<li><a href="input.html#steam_input_show_binding_panel">steam_input_show_binding_panel</a></li>
+<li><a href="input.html#steam_input_get_input_type_for_handle">steam_input_get_input_type_for_handle</a></li>
+<li><a href="input.html#steam_input_get_controller_for_gamepad_index">steam_input_get_controller_for_gamepad_index</a></li>
+<li><a href="input.html#steam_input_get_gamepad_index_for_controller">steam_input_get_gamepad_index_for_controller</a></li>
+<li><a href="input.html#steam_input_get_string_for_xbox_origin">steam_input_get_string_for_xbox_origin</a></li>
+<li><a href="input.html#steam_input_get_glyph_for_xbox_origin">steam_input_get_glyph_for_xbox_origin</a></li>
+<li><a href="input.html#steam_input_get_action_origin_from_xbox_origin">steam_input_get_action_origin_from_xbox_origin</a></li>
+<li><a href="input.html#steam_input_translate_action_origin">steam_input_translate_action_origin</a></li>
+<li><a href="input.html#steam_input_get_device_binding_revision">steam_input_get_device_binding_revision</a></li>
+<li><a href="input.html#steam_input_get_remote_play_session_id">steam_input_get_remote_play_session_id</a></li>
+<li><a href="input.html#steam_input_get_session_input_configuration_settings">steam_input_get_session_input_configuration_settings</a></li>
+<li><a href="input.html#steam_input_set_dualsense_trigger_effect">steam_input_set_dualsense_trigger_effect</a></li>
+</ul>
+<h2 id="structs">Structs</h2>
+<p>This module offers a collection of structs, which serve as custom data models for organizing and structuring data. Explore the provided structs to better understand the relationships between data elements and simplify your data manipulation tasks.</p>
+<ul>
+<li><a href="input.html#motiondata">MotionData</a></li>
+<li><a href="input.html#actiondata">ActionData</a></li>
+<li><a href="input.html#analogactiondata">AnalogActionData</a></li>
+<li><a href="input.html#bindingrevision">BindingRevision</a></li>
+</ul>
+<h2 id="constants">Constants</h2>
+<p>This module includes a set of predefined constants that can be utilized for various purposes. Browse through the available constants to find values relevant to your needs and enhance the efficiency of your code.</p>
+<ul>
+<li><a href="input.html#steam_input_glyph_size">steam_input_glyph_size</a></li>
+<li><a href="input.html#steam_input_glyph_style">steam_input_glyph_style</a></li>
+<li><a href="input.html#steam_input_steam_controller_pad">steam_input_steam_controller_pad</a></li>
+<li><a href="input.html#steam_input_xbox_origin">steam_input_xbox_origin</a></li>
+<li><a href="input.html#steam_input_type">steam_input_type</a></li>
+<li><a href="input.html#steam_input_configuration_enable_type">steam_input_configuration_enable_type</a></li>
+</ul>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_input_init">steam_input_init</h1>
+<p>With this function you can initialize the Steam Input API. It will return <code>true</code> if initialization was successful and <code>false</code> otherwise. If argument <code>explicitly_call_run_frame</code> is <code>true</code>, then you must manually call <a href="input.html#steam_input_run_frame">steam_input_run_frame</a> to poll for input data and async events, otherwise that will be performed by the <a href="management.html#steam_update">steam_update</a> function. After you initialize the Steam Input API, configuration events will be dispatched for any controllers connected while your game is running, they can be used to detect gamepad connection and when bindings have been updated so you need to refresh the sprites, input hints, etc.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>IMPORTANT This function must be called ONLY if you <strong>REALLY wish to use</strong> the Steam Input API, or some other extensions in your project rely on Steam Input, otherwise calling it <em>may</em> make native GameMaker <code>gamepad_</code> functions not see any controllers plugged in!</p>
+</div>
+<p>This function operates asynchronously, which means that it does not immediately return the requested result. Instead, upon completion of the task, it will trigger the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_input_init(explicitly_call_run_frame)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>explicitly_call_run_frame</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></td>
+<td>Are you going to call <a href="input.html#steam_input_run_frame">steam_input_run_frame</a> manually or not?</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Triggers:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>event_type</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>A constant string <code>"steam_input_configuration_loaded"</code>.</td>
+</tr>
+<tr>
+<td>app_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>Your game's app ID.</td>
+</tr>
+<tr>
+<td>device_handle</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>Input handle of the device this event refers to.</td>
+</tr>
+<tr>
+<td>mapping_creator</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>Steam ID of the user that created the loaded input mapping or <code>0</code> if none.</td>
+</tr>
+<tr>
+<td>major_revision</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>Major version digit of the mapping.</td>
+</tr>
+<tr>
+<td>minor_revision</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>Minor version digit of the mapping.</td>
+</tr>
+<tr>
+<td>uses_steam_input_api</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></td>
+<td>Whether this device is using the Action Set and Actions API.</td>
+</tr>
+<tr>
+<td>uses_steam_gamepad_api</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></td>
+<td>Whether this device is using the XInput emulation API.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<div class="highlight"><pre><span></span><code>if (!steam_input_init(false))
+{
+    throw &quot;Failed to initialize the Steam Input API&quot;;
+}
+</code></pre></div>
+<p><div class="highlight"><pre><span></span><code>/// @description Async - Steam event
+if (async_load[? &quot;event_type&quot;] == &quot;steam_input_configuration_loaded&quot;) {
+    // bindings refreshed, update any sprites we&#39;ve fetched in some handler script
+    scr_refresh_input_hints(async_load[? &quot;device_handle&quot;]);
+}
+</code></pre></div>
+The above code checks to see if the Steam Input API was initialized, and throws an exception if it wasn't, then handles "configuration loaded" async events.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_input_shutdown">steam_input_shutdown</h1>
+<p>With this function you can tell Steam that you are done using the Steam Input API. It will return <code>true</code> if the operation was successful and <code>false</code> otherwise. Usually you do not need to call this, as when your game ends Steam will automatically release Steam Input for you. After this function had returned, no other Steam Input functions must be called.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_input_shutdown()
+</code></pre></div>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>steam_input_shutdown();
+</code></pre></div>
+The above code shuts down the Steam Input API.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_input_set_input_action_manifest_file_path">steam_input_set_input_action_manifest_file_path</h1>
+<p>This function can be used to set the absolute path to the input action manifest, in case you do not wish to use the Steam Workshop for this. Returns <code>true</code> if the operation was successful and <code>false</code> otherwise.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_input_set_input_action_manifest_file_path(absolute_path)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>absolute_path</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>Absolute path to the input action manifest file</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>steam_input_set_input_action_manifest_file_path(working_directory + &quot;manifest.vdf&quot;);
+</code></pre></div>
+The above code sets the full path to the input action manifest file the game wants to use.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_input_run_frame">steam_input_run_frame</h1>
+<p>With this function you can poll for new input data from Steam Input if it is available, you do not need to call it manually unless you explicitly specified this when calling <a href="input.html#steam_input_init">steam_input_init</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_input_run_frame()
+</code></pre></div>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>steam_input_run_frame();
+</code></pre></div>
+The above code asks Steam Input to poll for new data if available.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_input_wait_for_data">steam_input_wait_for_data</h1>
+<p>With this function you can freeze the game until new input data had arrived, returns <code>true</code> if new data did arrive, or <code>false</code> if the timeout had expired or an error had occurred. This function is only useful for lockstep multiplayer games.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_input_wait_for_data(wait_forever, timeout)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>wait_forever</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></td>
+<td>Whether to wait for data to arrive forever.</td>
+</tr>
+<tr>
+<td>timeout</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>Data arrival timeout.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>steam_input_wait_for_data(true, 0);
+</code></pre></div>
+The above code will freeze the entire game until new input data is received from Steam Input.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_input_new_data_available">steam_input_new_data_available</h1>
+<p>With this function you can check if there is new input data available since last read. Returns <code>true</code> if there is, <code>false</code> otherwise.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_input_new_data_available()
+</code></pre></div>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>if (steam_input_new_data_available())
+{
+    global.data_check_flag = true;
+}
+</code></pre></div>
+The above code checks if new data has been received since last poll, and sets a flag to <code>true</code> if there is.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_input_get_connected_controllers">steam_input_get_connected_controllers</h1>
+<p>With this function you can get an array of currently connected controller handles. This function returns an array of controller handles on success, and <code>undefined</code> on failure.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_input_get_connected_controllers()
+</code></pre></div>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Arrays.htm">Array</a> or <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Undefined</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>controllers = steam_input_get_connected_controllers();
+if (is_undefined(controllers))
+{
+    throw &quot;Unable to poll for controllers!&quot;;
+}
+</code></pre></div>
+The above code will poll the current connected controllers array, and throw an exception if there was an error.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_input_enable_device_callbacks">steam_input_enable_device_callbacks</h1>
+<p>This function enables <code>Async - Steam</code> device connection and disconnection events, similar to <code>Async - System</code> type <code>gamepad connected</code> and <code>gamepad lost</code> events. The contents of <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Variables/Builtin_Global_Variables/async_load.htm">async_load</a> are described below. Returns <code>true</code> if the operation was successful, and <code>false</code> otherwise. This can be used as an alternative to <a href="input.html#steam_input_get_connected_controllers">steam_input_get_connected_controllers</a> since in that case you don't need to iterate through the entire array, which may be faster depending on how your game is coded. Both methods can be used simultaneously without issues. This function needs to be called only once and cannot be undone.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>IMPORTANT Depending on the type of the controller, multiple connection or disconnection events may be sent for one handle, be sure to handle that in your code, e.g. don't show a disconnection pop-up if the controller was already lost, and don't show a connection pop-up if this controller was already connected (and is not lost).</p>
+</div>
+<p>This function operates asynchronously, which means that it does not immediately return the requested result. Instead, upon completion of the task, it will trigger the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_input_enable_device_callbacks()
+</code></pre></div>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Triggers:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>event_type</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td><code>"steam_input_device_connected"</code> or <code>"steam_input_device_disconnected"</code></td>
+</tr>
+<tr>
+<td>disconnected_device_handle</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>Only present if <code>event_type</code> is <code>"steam_input_device_disconnected"</code></td>
+</tr>
+<tr>
+<td>connected_device_handle</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>Only present if <code>event_type</code> is <code>"steam_input_device_connected"</code></td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<div class="highlight"><pre><span></span><code>/// @description Create event
+steam_input_enable_device_callbacks(); // enable connection events
+</code></pre></div>
+<p><div class="highlight"><pre><span></span><code>/// @description Async - Steam event
+if (async_load[? &quot;event_type&quot;] == &quot;steam_input_device_connected&quot;) {
+    scr_game_add_device(async_load[? &quot;connected_device_handle&quot;]); // register an input_handle
+    show_debug_message(&quot;Discovered a new input_handle!&quot;);
+}
+else if (async_load[? &quot;event_type&quot;] == &quot;steam_input_device_disconnected&quot;) {
+    scr_game_remove_device(async_load[? &quot;disconnected_device_handle&quot;]); // de-register an input_handle
+    show_debug_message(&quot;Lost an input_handle!&quot;);
+}
+</code></pre></div>
+The above code will enable device connection and disconnection events, then it will react to them by calling some handler function.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_input_enable_action_event_callbacks">steam_input_enable_action_event_callbacks</h1>
+<p>This function enables <code>Async - Steam</code> action events, this event will be called only when some digital or analog action will change its state, in case of digital actions that means a button is held or released, in case of analog actions that means the analog stick had moved, or the stick type had changed. The contents of <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Variables/Builtin_Global_Variables/async_load.htm">async_load</a> are described below. This is similar to <a href="input.html#steam_input_get_digital_action_data">steam_input_get_digital_action_data</a> and <a href="input.html#steam_input_get_analog_action_data">steam_input_get_analog_action_data</a>, only here you don't have to poll for the actions manually, but you still need to obtain the handles via <a href="input.html#steam_input_get_digital_action_handle">steam_input_get_digital_action_handle</a> and <a href="input.html#steam_input_get_analog_action_handle">steam_input_get_analog_action_handle</a> respectively, otherwise Steam will think you don't care about these actions. This function needs to be called only once and cannot be undone.</p>
+<p>This function operates asynchronously, which means that it does not immediately return the requested result. Instead, upon completion of the task, it will trigger the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_input_enable_action_event_callbacks()
+</code></pre></div>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Triggers:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>event_type</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td><code>"steam_input_action_event"</code></td>
+</tr>
+<tr>
+<td>controller_handle</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>Handle of the controller this event is for.</td>
+</tr>
+<tr>
+<td>action_event_type</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>A <code>steam_input_action_event_type_</code> constant</td>
+</tr>
+<tr>
+<td>action_handle</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>Handle of the digital or analog action, depending on the type</td>
+</tr>
+<tr>
+<td>active</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></td>
+<td>Whether or not this action is currently available to be bound in the active action set. If it is not available, OR does not belong to the active action set, this will be false.</td>
+</tr>
+<tr>
+<td>state</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></td>
+<td><strong>DIGITAL ACTIONS ONLY:</strong> state of the digital action, <code>true</code> or <code>false</code>.</td>
+</tr>
+<tr>
+<td>mode</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td><strong>ANALOG ACTIONS ONLY:</strong> A <code>steam_input_source_mode_</code> constant.</td>
+</tr>
+<tr>
+<td>x</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td><strong>ANALOG ACTIONS ONLY:</strong> X axis of the input</td>
+</tr>
+<tr>
+<td>y</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td><strong>ANALOG ACTIONS ONLY:</strong> Y axis of the input</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<div class="highlight"><pre><span></span><code>/// @description Create event
+steam_input_enable_action_event_callbacks(); // enable action input events
+</code></pre></div>
+<p><div class="highlight"><pre><span></span><code>/// @description Async - System event
+if (async_load[? &quot;event_type&quot;] == &quot;steam_input_action_event&quot;) {
+    var _controller_handle = async_load[? &quot;controller_handle&quot;];
+    var _action_handle = async_load[? &quot;action_handle&quot;];
+    var _is_action_active = async_load[? &quot;active&quot;];
+    if (_is_action_active) { // it&#39;s useless to try and handle an inactive action
+        if (async_load[? &quot;action_event_type&quot;] == steam_input_action_event_type_digital_action) {
+            var _digital_state = async_load[? &quot;state&quot;]; // true or false only, held or not held
+            scr_register_digital_input(_controller_handle, _action_handle, _digital_state); // some handler
+        }
+        else if (async_load[? &quot;action_event_type&quot;] == steam_input_action_event_type_digital_action) {
+            var _analog_mode = async_load[? &quot;mode&quot;]; // the user may be using a stick, or a mouse, or a touchpad...
+            var _analog_x = async_load[? &quot;x&quot;];
+            var _analog_y = async_load[? &quot;y&quot;];
+            scr_register_analog_input(_controller_handle, _action_handle, _analog_mode, _analog_x, _analog_y); // some handler
+        }
+    }
+    else {
+        show_debug_message(&quot;Action &quot; + string(_action_handle) + &quot; not active for con &quot; + string(_controller_handle)); // not bound?
+    }
+}
+</code></pre></div>
+The above code will activate action input async events, and handle them correctly.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_input_get_action_set_handle">steam_input_get_action_set_handle</h1>
+<p>This function will try to resolve an action set by name, returning the handle of that action set.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>IMPORTANT Due to a bug in the Steam Input API, if the game was launched without any controllers connected, all action set and action handle resolver functions will return 0, an invalid handle, as such it is required that you try to obtain handles every frame until at least one controller gets connected and you succeed.</p>
+</div>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_input_get_action_set_handle(action_set_name)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>action_set_name</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The name of the action set.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<div class="highlight"><pre><span></span><code>/// @description Create event
+main_action_set = 0; // &#39;0&#39; is an invalid handle.
+menu_action_set = 0;
+</code></pre></div>
+<p><div class="highlight"><pre><span></span><code>/// @description Step event
+// due to a bug in the Steam Input API, we have to try and obtain these every frame until we succeed.
+// check if any handle is invalid:
+if (main_action_set == 0 || menu_action_set == 0) {
+    // try to resolve:
+    main_action_set = steam_input_get_action_set_handle(&quot;Set_Main&quot;);
+    menu_action_set = steam_input_get_action_set_handle(&quot;Set_Menu&quot;);
+    // if we failed and the functions return 0, we will try again, on the next frame.
+}
+</code></pre></div>
+The above code checks if any handle is 0, and if it is, it tries to obtain all handles again, until it eventually completes and all handles are valid.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_input_activate_action_set">steam_input_activate_action_set</h1>
+<p>With this function you can activate an action set on a specific controller, or all controllers by specifying the <code>steam_input_handle_all_controllers</code> constant as the controller handle. Returns <code>true</code> if the operation was successful, and <code>false</code> otherwise. This function is cheap to call and can be safely called every frame without hitting performance issues.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_input_activate_action_set(controller, action_set)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>controller</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Int64</a></td>
+<td>The input handle of the controller.</td>
+</tr>
+<tr>
+<td>action_set</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>Handle of the action set, cannot be zero.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>switch (state) {
+    case game_state.menu: {
+        steam_input_activate_action_set(steam_input_handle_all_controllers, menu_action_set);
+        scr_do_menu_input();
+        break;
+    }
+
+    case game_state.play: {
+        steam_input_activate_action_set(player_controller_handle, main_action_set);
+        scr_do_gameplay_input(player_controller_handle);
+        break;
+    }
+}
+</code></pre></div>
+The above code will activate the appropriate action set based on which state the game is currently in.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_input_get_current_action_set">steam_input_get_current_action_set</h1>
+<p>This function will return the handle of the currently activated action set on a given controller handle, or <code>0</code> if there is no action set currently active.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_input_get_current_action_set(controller)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>controller</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Int64</a></td>
+<td>The input handle of the controller.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>if (steam_input_get_current_action_set(player_handle) == 0) {
+    steam_input_activate_action_set(player_handle, menu_action_set);
+}
+</code></pre></div>
+The above code will check to see if there is no action set activated for a controller, and if there isn't, it will activate a menu action set.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_input_activate_action_set_layer">steam_input_activate_action_set_layer</h1>
+<p>This function will activate an action set layer on top of the current action set on a specified controller. It returns <code>true</code> if the operation was successful and <code>false</code> otherwise.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_input_activate_action_set_layer(controller, action_set_layer)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>controller</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>Handle of the controller.</td>
+</tr>
+<tr>
+<td>action_set_layer</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>Handle of the action set layer.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>steam_input_activate_action_set_layer(player_handle, action_set_layer_sniper);
+</code></pre></div>
+The above code will activate a "sniper" action set layer on top of any currently activated action sets. Returns <code>true</code> if the operation was successful and <code>false</code> otherwise.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_input_deactivate_action_set_layer">steam_input_deactivate_action_set_layer</h1>
+<p>This function will deactivate a specific action set layer from the specified controller. It returns <code>true</code> if the operation was successful and <code>false</code> otherwise.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_input_deactivate_action_set_layer(controller, action_set_layer)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>controller</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>Handle of the controller.</td>
+</tr>
+<tr>
+<td>action_set_layer</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>Handle of the action set layer.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>steam_input_deactivate_action_set_layer(player_handle, action_set_layer_sniper);
+</code></pre></div>
+The above code will deactivate the "sniper" action set layer from the <code>player_handle</code> controller.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_input_deactivate_all_action_set_layers">steam_input_deactivate_all_action_set_layers</h1>
+<p>This function will deactivate all action set layers on a specified controller. Returns <code>true</code> if the operation was successful and <code>false</code> otherwise.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_input_deactivate_all_action_set_layers(controller)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>controller</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>Handle of the controller.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>steam_input_deactivate_all_action_set_layers(player_handle);
+</code></pre></div>
+The above code will deactivate all action set layers on the <code>player_handle</code> controller.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_input_get_active_action_set_layers">steam_input_get_active_action_set_layers</h1>
+<p>This function will return an array of currently active action set layer handles on a specified controller. Returns an array of action set layer handles on success, and <code>undefined</code> on failure.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_input_get_active_action_set_layers(controller)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>controller</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>Handle of the controller.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Arrays.htm">Array</a> or <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Undefined</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>var _layers = steam_input_get_active_action_set_layers(player_handle);
+if (array_length(_layers) &gt; 0) {
+    steam_input_deactivate_all_action_set_layers(player_handle);
+}
+</code></pre></div>
+The above code will retrieve all currently active action set layers for <code>player_handle</code>, and if there are some active, it will deactivate all action set layers.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_input_get_digital_action_handle">steam_input_get_digital_action_handle</h1>
+<p>This function will resolve a digital action by name, and return that action's handle. Keep in mind that no two actions can have the same name, even if they are defined in different action sets, since Steam does not differentiate action names for each set.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>IMPORTANT Due to a bug in the Steam Input API, if the game was launched without any controllers connected, all action set and action handle resolver functions will return 0, an invalid handle, as such it is required that you try to obtain handles every frame until at least one controller gets connected and you succeed.</p>
+</div>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_input_get_digital_action_handle(digital_action_name)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>digital_action_name</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>Name of the digital action.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<div class="highlight"><pre><span></span><code>/// @description Create event
+action_shoot = 0; // &#39;0&#39; is an invalid handle.
+action_roll = 0;
+</code></pre></div>
+<p><div class="highlight"><pre><span></span><code>/// @description Step event
+if (action_shoot == 0 || action_roll == 0) {
+    action_shoot = steam_input_get_digital_action_handle(&quot;DAction_Shoot&quot;);
+    action_roll = steam_input_get_digital_action_handle(&quot;DAction_Roll&quot;);
+}
+</code></pre></div>
+The above code will try to obtain handles of digital actions <code>shoot</code> and <code>roll</code>, if it failed, it will try again on the next frame.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_input_get_digital_action_data">steam_input_get_digital_action_data</h1>
+<p>This function will return current input data for a given digital action on a given controller. It returns the <code>digital_action_data</code> struct on success and <code>undefined</code> on failure.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_input_get_digital_action_data(controller, action_handle)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>controller</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>Handle of the controller to use.</td>
+</tr>
+<tr>
+<td>action_handle</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>Handle of the digital action to poll for.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="input.html#actiondata">ActionData</a> or <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Undefined</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>var _data = steam_input_get_digital_action_data(player_handle, action_shoot);
+with (objPlayer) {
+    isShooting = _data.active &amp;&amp; _data.state;
+}
+</code></pre></div>
+The above code will set the <code>isShooting</code> variable in the player object to <code>true</code> if the action is active and is currently held, or <code>false</code> otherwise.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_input_get_digital_action_origins">steam_input_get_digital_action_origins</h1>
+<p>This function will retrieve an array of input origins for a specified action and controller handles. This is the function you should use when trying to obtain input hint prompts, keep in mind that it returns an array because multiple buttons can be bound to one action in the Steam Input Configurator. Also keep in mind that input hints may change mid-game as the Steam Input Configurator is accessible inside the Steam Overlay, this is why it's recommended that you update all input sprites when you get a Configuration <code>Async - Steam</code> event for the controller(s) you are interested in.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_input_get_digital_action_origins(controller, action_set, digital_action)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>controller</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>Handle of the controller to use.</td>
+</tr>
+<tr>
+<td>action_set</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>Handle of the action set.</td>
+</tr>
+<tr>
+<td>digital_action</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>Handle of the digital action inside the action set.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Arrays.htm">Array</a> or <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Undefined</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>// this example function returns a horizontal strip of input hints as a single sprite frame
+// do not forget to use sprite_delete() when you no longer need the returned sprite.
+function scr_sprite_for_action(player_handle, action_set_handle, action_handle, is_digital_action) {
+    var _origins = is_digital_action
+        ? steam_input_get_digital_action_origins(player_handle, action_set_handle, action_handle)
+        : steam_input_get_analog_action_origins(player_handle, action_set_handle, action_handle);
+    if (is_undefined(_origins) || array_length(_origins) == 0) {
+        // something is wrong or no buttons are bound
+        return -1;
+    }
+    var _hint_count = array_length(_origins),
+        _hint_width = 32,
+        _hint_height = 32,
+        _hint_size = steam_input_glyph_size_small, // _small is 32x32 pixels
+        _hint_style = steam_input_glyph_style_dark; // prefer dark glyphs for the sake of this example
+    var _surf = surface_create(_hint_count * _hint_width, _hint_height);
+    surface_set_target(_surf);
+    draw_clear_alpha(c_black, 0);
+    for (var _h = 0; _h &lt; _hint_count; ++_h) {
+        var _origin = _origins[_h];
+        var _path = steam_input_get_glyph_png_for_action_origin(_origin, _hint_size, _hint_style);
+        var _tempspr = sprite_add(_path, 1, false, false, 0, 0);
+        draw_sprite(_tempspr, 0, _hint_width * _h, 0);
+        sprite_delete(_tempspr);
+    }
+    surface_reset_target();
+    var _sprstrip = sprite_create_from_surface(_surf, 0, 0, surface_get_width(_surf), surface_get_height(_surf), false, false, 0, 0);
+    // you can add a call to sprite_set_offset() if you wish to auto-set the sprite origin to middle centre.
+    surface_free(_surf);
+    return _sprstrip;
+}
+
+global.shoot_sprite = scr_sprite_for_action(player_handle, main_action_set, action_shoot, true);
+draw_sprite(global.shoot_sprite, 0, 64, 64);
+</code></pre></div>
+The above code defines an example of how to turn action origins into a sprite that you can draw in-game, for example on the GUI Layer.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_input_get_string_for_digital_action_name">steam_input_get_string_for_digital_action_name</h1>
+<p>This function will return the localized name of a digital action as specified by Steam localization settings. Keep in mind that the Steam language may be different than the OS language, and this function will always use the language settings of the Steam client, not the OS.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_input_get_string_for_digital_action_name(digital_action)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>digital_action</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>Handle of the digital action.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>shoot_name_loc = steam_input_get_string_for_digital_action_name(action_shoot);
+</code></pre></div>
+The above code will get the localized name for the shoot action, and store it in the variable <code>shoot_name_loc</code>.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_input_get_analog_action_handle">steam_input_get_analog_action_handle</h1>
+<p>This function will resolve an analog action by name, and return that action's handle. Keep in mind that no two actions can have the same name, even if they are defined in different action sets, since Steam does not differentiate action names for each set.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>IMPORTANT Due to a bug in the Steam Input API, if the game was launched without any controllers connected, all action set and action handle resolver functions will return 0, an invalid handle, as such it is required that you try to obtain handles every frame until at least one controller gets connected and you succeed.</p>
+</div>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_input_get_analog_action_handle(analog_action_name)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>analog_action_name</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>Name of the analog action.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<div class="highlight"><pre><span></span><code>/// @description Create event
+action_move = 0; // &#39;0&#39; is an invalid handle.
+action_aim = 0;
+</code></pre></div>
+<p><div class="highlight"><pre><span></span><code>/// @description Step event
+if (action_move == 0 || action_aim == 0) {
+    action_move = steam_input_get_analog_action_handle(&quot;AAction_Move&quot;);
+    action_aim = steam_input_get_analog_action_handle(&quot;AAction_Aim&quot;);
+}
+</code></pre></div>
+The above code will try to obtain handles of analog actions <code>move</code> and <code>aim</code>, if it failed, it will try again on the next frame.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_input_get_analog_action_data">steam_input_get_analog_action_data</h1>
+<p>This function will return the current input data for a given analog action on a given controller. It returns the <a href="input.html#analogactiondata">AnalogActionData</a> struct on success and <code>undefined</code> on failure.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_input_get_analog_action_data(controller, action_handle)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>controller</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>Handle of the controller to use.</td>
+</tr>
+<tr>
+<td>action_handle</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>Handle of the analog action to poll for.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="input.html#analogactiondata">AnalogActionData</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>var _data = steam_input_get_analog_action_data(player_handle, action_move);
+if (_data.active) {
+    with (objPlayer) {
+        x += _data.x * move_speed;
+        // in Steam Input the Y axis is in a different direction than GameMaker, so we need to invert it.
+        y += -_data.y * move_speed;
+        // you might want to use different crosshairs if the movement came from a touchpad or an analog stick.
+        last_input_mode = _data.mode;
+    }
+}
+</code></pre></div>
+The above code will move the player object accordingly to the input data for the <code>move</code> analog action.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_input_get_analog_action_origins">steam_input_get_analog_action_origins</h1>
+<p>This function will retrieve an array of input origins for a specified action and controller handles. This is the function you should use when trying to obtain input hint prompts, keep in mind that it returns an array because multiple buttons can be bound to one action in the Steam Input Configurator. Also keep in mind that input hints may change mid-game as the Steam Input Configurator is accessible inside the Steam Overlay, this is why it's recommended that you update all input sprites when you get a Configuration <code>Async - Steam</code> event for the controller(s) you are interested in.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_input_get_analog_action_origins(controller, action_set, action)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>controller</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>Handle of the controller to use.</td>
+</tr>
+<tr>
+<td>action_set</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>Handle of the action set.</td>
+</tr>
+<tr>
+<td>action</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>Handle of the analog action inside the action set.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Arrays.htm">Array</a> or <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Undefined</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>// this example function returns a horizontal strip of input hints as a single sprite frame
+// do not forget to use sprite_delete() when you no longer need the returned sprite.
+function scr_sprite_for_action(player_handle, action_set_handle, action_handle, is_digital_action) {
+    var _origins = is_digital_action
+        ? steam_input_get_digital_action_origins(player_handle, action_set_handle, action_handle)
+        : steam_input_get_analog_action_origins(player_handle, action_set_handle, action_handle);
+    if (is_undefined(_origins) || array_length(_origins) == 0) {
+        // something is wrong or no buttons are bound
+        return -1;
+    }
+    var _hint_count = array_length(_origins),
+        _hint_width = 32,
+        _hint_height = 32,
+        _hint_size = steam_input_glyph_size_small, // _small is 32x32 pixels
+        _hint_style = steam_input_glyph_style_dark; // prefer dark glyphs for the sake of this example
+    var _surf = surface_create(_hint_count * _hint_width, _hint_height);
+    surface_set_target(_surf);
+    draw_clear_alpha(c_black, 0);
+    for (var _h = 0; _h &lt; _hint_count; ++_h) {
+        var _origin = _origins[_h];
+        var _path = steam_input_get_glyph_png_for_action_origin(_origin, _hint_size, _hint_style);
+        var _tempspr = sprite_add(_path, 1, false, false, 0, 0);
+        draw_sprite(_tempspr, 0, _hint_width * _h, 0);
+        sprite_delete(_tempspr);
+    }
+    surface_reset_target();
+    var _sprstrip = sprite_create_from_surface(_surf, 0, 0, surface_get_width(_surf), surface_get_height(_surf), false, false, 0, 0);
+    // you can add a call to sprite_set_offset() if you wish to auto-set the sprite origin to middle centre.
+    surface_free(_surf);
+    return _sprstrip;
+}
+
+global.move_sprite = scr_sprite_for_action(player_handle, main_action_set, action_move, false); // not digital this time!
+draw_sprite(global.move_sprite, 0, 64, 64);
+</code></pre></div>
+The above code defines an example of how to turn action origins into a sprite that you can draw in-game, for example on the GUI Layer.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_input_get_glyph_png_for_action_origin">steam_input_get_glyph_png_for_action_origin</h1>
+<p>This function will return a full path to a PNG file of the glyph image of an action origin. The path is automatically added into the GameMaker's filesystem sandbox list, so that you can use the returned path in <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Asset_Management/Sprites/Sprite_Manipulation/sprite_add.htm">sprite_add</a> or <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Buffers/buffer_load.htm">buffer_load</a> no matter if you have the sandbox enabled or disabled.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_input_get_glyph_png_for_action_origin(origin, size, flags)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>origin</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>Action origin to get the PNG of.</td>
+</tr>
+<tr>
+<td>size</td>
+<td><a href="input.html#steam_input_glyph_size">steam_input_glyph_size</a></td>
+<td>A <code>steam_input_glyph_size_</code> constant.</td>
+</tr>
+<tr>
+<td>flags</td>
+<td><a href="input.html#steam_input_glyph_style">steam_input_glyph_style</a></td>
+<td>A <code>steam_input_glyph_style_</code> bit flags constant.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>var _path = steam_input_get_glyph_png_for_action_origin(global.shoot_origin, steam_input_glyph_size_small, steam_input_glyph_style_dark);
+global.shoot_sprite = sprite_add(_path, 1, false, false, 0, 0);
+</code></pre></div>
+The above code will get a PNG representing an action origin and load it as a sprite. For an extended example please see the example code from <a href="input.html#steam_input_get_digital_action_origins">steam_input_get_digital_action_origins</a>.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_input_get_glyph_svg_for_action_origin">steam_input_get_glyph_svg_for_action_origin</h1>
+<p>This function will return a full path to an SVG file of the glyph image of an action origin. The path is automatically added into the GameMaker's filesystem sandbox list, so that you can use the returned path in <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Buffers/buffer_load.htm">buffer_load</a> no matter if you have the sandbox enabled or disabled. As for now GameMaker has no native capabilities to draw SVG files, but such ability may be added in the future. If you have your own SVG renderer then this function might be useful for you. Since SVGs do not have a fixed size and can be freely scaled, there is no <code>size</code> argument like in <a href="input.html#steam_input_get_glyph_png_for_action_origin">steam_input_get_glyph_png_for_action_origin</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_input_get_glyph_svg_for_action_origin(origin, flags)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>origin</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>Action origin to get the SVG of.</td>
+</tr>
+<tr>
+<td>flags</td>
+<td><a href="input.html#steam_input_glyph_style">steam_input_glyph_style</a></td>
+<td>A <code>steam_input_glyph_style_</code> bit flags constant.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<div class="highlight"><pre><span></span><code>var _svg_path = steam_input_get_glyph_svg_for_action_origin(global.shoot_origin, steam_input_glyph_style_dark);
+</code></pre></div>
+<p>The above code will get the path to an SVG representing an action origin and store it in a local variable <code>_svg_path</code>.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_input_get_glyph_for_action_origin_legacy">steam_input_get_glyph_for_action_origin_legacy</h1>
+<p>This function will return a full path to a PNG file of the glyph image of an action origin. The path is automatically added into the GameMaker's filesystem sandbox list, so that you can use the returned path in <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Asset_Management/Sprites/Sprite_Manipulation/sprite_add.htm">sprite_add</a> or <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Buffers/buffer_load.htm">buffer_load</a> no matter if you have the sandbox enabled or disabled. The image will be in legacy Steam Big Picture design style, if you wish to use the new Steam Deck styled glyphs (also called Knockout glyphs in Valve's documentation), please use the function <a href="input.html#steam_input_get_glyph_png_for_action_origin">steam_input_get_glyph_png_for_action_origin</a> instead.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_input_get_glyph_for_action_origin_legacy(origin)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>origin</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>Action origin to get the PNG of.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>var _path = steam_input_get_glyph_for_action_origin_legacy(global.shoot_origin);
+global.shoot_sprite = sprite_add(_path, 1, false, false, 0, 0);
+</code></pre></div>
+The above code will get a PNG representing an action origin and load it as a sprite.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_input_get_string_for_action_origin">steam_input_get_string_for_action_origin</h1>
+<p>This function will return a localized name of an action origin, for example <code>"Y Button"</code> if the Steam language is set to English, or <code>"Кнопка Y"</code> if it is set to Russian. Keep in mind that the OS language may be different from the Steam client language, and the Steam language will be used instead.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_input_get_string_for_action_origin(origin)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>origin</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>Action origin to get the localized name of.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>global.shoot_name = steam_input_get_string_for_action_origin(global.shoot_origin);
+</code></pre></div>
+The above code will get a localized name of the shoot origin and store it in a global variable <code>shoot_name</code>.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_input_get_string_for_analog_action_name">steam_input_get_string_for_analog_action_name</h1>
+<p>This function will return the localized name of an analog action as specified by Steam localization settings. Keep in mind that the Steam language may be different than the OS language, and this function will always use the language settings of the Steam client, not the OS.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_input_get_string_for_analog_action_name(action)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>action</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>Handle of the analog action.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>move_name_loc = steam_input_get_string_for_analog_action_name(action_move);
+</code></pre></div>
+The above code will get the localized name for the move action, and store it in the variable <code>move_name_loc</code>.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_input_stop_analog_action_momentum">steam_input_stop_analog_action_momentum</h1>
+<p>This function will stop the momentum of an analog action if the input device is, for example, a trackball. Returns <code>true</code> if the operation was successful and <code>false</code> otherwise.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_input_stop_analog_action_momentum(controller, action)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>controller</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>Input handle of the controller.</td>
+</tr>
+<tr>
+<td>action</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>Handle of the analog action.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>steam_input_stop_analog_action_momentum(player_handle, action_move);
+</code></pre></div>
+The above code will stop the analog momentum of the move action.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_input_get_motion_data">steam_input_get_motion_data</h1>
+<p>This function will obtain raw gyroscope and accelerometer data in the controller's native format. Returns the  <code>motion_data</code> struct on success and <code>undefined</code> on failure.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_input_get_motion_data(controller)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>controller</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>Input handle of the controller.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="input.html#motiondata">MotionData</a> or <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Undefined</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>var _data = steam_input_get_motion_data(player_handle);
+if (is_undefined(_data)) {
+    exit;
+}
+var _dt = delta_time / 1000000;
+// this math will only work for the DualShock 4 controller
+x += _dt * room_width * (_data.rot_vel_y / -32767);
+y += _dt * room_height * (_data.rot_vel_x / -32767);
+image_angle = radtodeg(_dt * (_data.rot_vel_z / 32767));
+</code></pre></div>
+The above code will rotate and move the object based on the angular velocity data of the controller.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_input_trigger_vibration">steam_input_trigger_vibration</h1>
+<p>This function will trigger a vibration effect on the target controller. Keep in mind that due to physical differences of each controller, the motors may not be the exact same, for example on the DualShock 4 controller the left motor is bigger and faster than the right one. Returns <code>true</code> on success and <code>false</code> otherwise.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_input_trigger_vibration(controller, left_speed, right_speed)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>controller</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>Input handle of the controller.</td>
+</tr>
+<tr>
+<td>left_speed</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>Speed of the left motor from 0 to 65535.</td>
+</tr>
+<tr>
+<td>right_speed</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>Speed of the right motor from 0 to 65535.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>steam_input_trigger_vibration(player_handle, 65535 / 2, 65535 / 2);
+</code></pre></div>
+The above code will trigger a vibration effect at half the maximum power on both motors.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_input_trigger_vibration_extended">steam_input_trigger_vibration_extended</h1>
+<p>This function will trigger an extended vibration effect on the target controller. Keep in mind that due to physical differences of each controller, the motors may not be the exact same, for example on the DualShock 4 controller the left motor is bigger and faster than the right one. Also keep in mind that not all controllers may support the extended vibration effects. Returns <code>true</code> on success and <code>false</code> otherwise.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_input_trigger_vibration_extended(controller, left_speed, right_speed, left_trigger_speed, right_trigger_speed)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>controller</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>Input handle of the controller.</td>
+</tr>
+<tr>
+<td>left_speed</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>Speed of the left motor from 0 to 65535.</td>
+</tr>
+<tr>
+<td>right_speed</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>Speed of the right motor from 0 to 65535.</td>
+</tr>
+<tr>
+<td>left_trigger_speed</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>Speed of the left trigger from 0 to 65535.</td>
+</tr>
+<tr>
+<td>right_trigger_speed</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>Speed of the right trigger from 0 to 65535.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>steam_input_trigger_vibration_extended(player_handle, 65535 / 2, 65535 / 2, 65535 / 4, 65535 / 4);
+</code></pre></div>
+The above code will trigger a vibration effect at half the maximum power on vibration motors, and set the trigger speed for both triggers to a quarter.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_input_trigger_simple_haptic_event">steam_input_trigger_simple_haptic_event</h1>
+<p>This function will trigger a simple haptic event if the target controller supports them. Returns <code>true</code> on success and <code>false</code> on failure.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_input_trigger_simple_haptic_event(controller, location, intensity, gain_db, other_intensity, other_gain_db)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>controller</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>Input handle of the controller.</td>
+</tr>
+<tr>
+<td>location</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>A <code>steam_input_controller_haptic_location_</code> constant.</td>
+</tr>
+<tr>
+<td>intensity</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>Intensity of the first motor from 0 to 255.</td>
+</tr>
+<tr>
+<td>gain_db</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>Gain in dB units, can be negative, from -127 to 128.</td>
+</tr>
+<tr>
+<td>other_intensity</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>Intensity of the second motor from 0 to 255.</td>
+</tr>
+<tr>
+<td>other_gain_db</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>Gain of the second motor in dB units, can be negative, from -127 to 128.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>steam_input_trigger_simple_haptic_event(controller, steam_input_controller_haptic_location_both, 255 / 2, 0, 255 / 2, 0);
+</code></pre></div>
+The above code will trigger a simple haptic event with half intensity and neutral dB gain on both motors of the controller.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_input_set_led_color">steam_input_set_led_color</h1>
+<p>This function will set or reset the color of the LED on the controller. Keep in mind that not all controllers have LEDs in them, and that the default user color of the controller differs between manufacturers, but your custom ones should always look almost the same.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_input_set_led_color(controller, color, flags)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>controller</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>Input handle of the controller.</td>
+</tr>
+<tr>
+<td>color</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>Color value to use.</td>
+</tr>
+<tr>
+<td>flags</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>A <code>steam_input_led_flag_</code> constant.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>// to set your own color:
+var _rainbow = make_color_hsv((get_timer() / 100000) mod (255 + 1), 255, 255); // cycle through the Hue.
+steam_input_set_led_color(controller, _rainbow, steam_input_led_flag_set_color);
+// to reset to the default color:
+steam_input_set_led_color(controller, c_black, steam_input_led_flag_restore_user_default);
+</code></pre></div>
+The above code first sets the LED color to a custom one, then resets the color to the default one.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_input_trigger_haptic_pulse_legacy">steam_input_trigger_haptic_pulse_legacy</h1>
+<p>This function runs a haptic pulse through the legacy API, this is only useful if the target controller is a Steam Controller. Returns <code>true</code> on success and <code>false</code> otherwise.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_input_trigger_haptic_pulse_legacy(controller, pad, duration_in_ms)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>controller</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>Input handle of the controller.</td>
+</tr>
+<tr>
+<td>pad</td>
+<td><a href="input.html#steam_input_steam_controller_pad">steam_input_steam_controller_pad</a></td>
+<td>A <code>steam_input_steam_controller_pad_</code> constant.</td>
+</tr>
+<tr>
+<td>duration_in_ms</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>Duration of the pulse in milliseconds.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>steam_input_trigger_haptic_pulse_legacy(player_handle, steam_input_steam_controller_pad_left, 2 * 1000);
+</code></pre></div>
+The above code runs a haptic pulse on the left motor for two seconds (2000 milliseconds).</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_input_trigger_repeated_haptic_pulse_legacy">steam_input_trigger_repeated_haptic_pulse_legacy</h1>
+<p>This function runs a repeated haptic pulse through the legacy API, this is only useful if the target controller is a Steam Controller. It returns <code>true</code> on success and <code>false</code> otherwise.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_input_trigger_repeated_haptic_pulse_legacy(controller, pad, duration_in_ms, offset_in_ms, repeat_times, flags)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>controller</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>Input handle of the controller.</td>
+</tr>
+<tr>
+<td>pad</td>
+<td><a href="input.html#steam_input_steam_controller_pad">steam_input_steam_controller_pad</a></td>
+<td>A <code>steam_input_steam_controller_pad_</code> constant.</td>
+</tr>
+<tr>
+<td>duration_in_ms</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>Duration of the pulse in milliseconds.</td>
+</tr>
+<tr>
+<td>offset_in_ms</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The offset from which to start looping in milliseconds.</td>
+</tr>
+<tr>
+<td>repeat_times</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The number of times to repeat the loop</td>
+</tr>
+<tr>
+<td>flags</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>Repeated haptic pulse flags</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>steam_input_trigger_repeated_haptic_pulse_legacy(player_handle, steam_input_steam_controller_pad_left, 2 * 1000, 100, 2, 0);
+</code></pre></div>
+The above code runs a repeated haptic pulse on the left motor for two seconds (2000 milliseconds), the next iterations will start at 100 milliseconds and this will repeat two times.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_input_show_binding_panel">steam_input_show_binding_panel</h1>
+<p>This function opens the Steam Input Configurator for the target controller which allows the player to rebind controls in-game. If Steam is not running in Big Picture, a new window will be opened, otherwise the configurator will be invoked as a part of the Steam Overlay. Keep in mind that the player can open the Configurator without this function too, by pressing the "Controller Layout" button in the Steam Overlay. Returns <code>true</code> if the operation was successful and <code>false</code> otherwise.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_input_show_binding_panel(controller)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>controller</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>Input handle of the controller.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>steam_input_show_binding_panel(player_handle);
+</code></pre></div>
+The above code opens the Steam Input Configurator for the controller handle stored in <code>player_handle</code>.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_input_get_input_type_for_handle">steam_input_get_input_type_for_handle</h1>
+<p>This function returns the type of the target controller. Useful if you want to know which features are most likely supported by the target controller.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_input_get_input_type_for_handle(controller)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>controller</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>Input handle of the controller.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>var _input_type = steam_input_get_input_type_for_handle(player_handle);
+var _msg = &quot;The controller type is &quot;;
+var _typestr = &quot;Unknown&quot;;
+switch (_input_type) {
+    case steam_input_type_steam_controller: _typestr = &quot;Steam Controller&quot;; break;
+    case steam_input_type_xbox_360_controller: _typestr = &quot;Xbox 360&quot;; break;
+    case steam_input_type_xbox_one_controller: _typestr = &quot;Xbox One&quot;; break;
+    case steam_input_type_generic_gamepad: _typestr = &quot;Generic Gamepad&quot;; break;
+    case steam_input_type_ps4_controller: _typestr = &quot;DualShock 4&quot;; break;
+    case steam_input_type_apple_mfi_controller: _typestr = &quot;Apple MFi&quot;; break;
+    case steam_input_type_android_controller: _typestr = &quot;Android&quot;; break;
+    case steam_input_type_switch_joycon_pair: _typestr = &quot;Joy-Con Pair&quot;; break;
+    case steam_input_type_switch_joycon_single: _typestr = &quot;Single Joy-Con&quot;; break;
+    case steam_input_type_switch_pro_controller: _typestr = &quot;Pro Controller&quot;; break;
+    case steam_input_type_mobile_touch: _typestr = &quot;Mobile Touch&quot;; break;
+    case steam_input_type_ps3_controller: _typestr = &quot;DualShock 3&quot;; break;
+    case steam_input_type_ps5_controller: _typestr = &quot;DualSense&quot;; break;
+    case steam_input_type_steam_deck_controller: _typestr = &quot;Steam Deck&quot;; break;
+}
+show_debug_message(_msg + _typestr);
+</code></pre></div>
+The above code prints the type of the controller as a string to debug output.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_input_get_controller_for_gamepad_index">steam_input_get_controller_for_gamepad_index</h1>
+<p>This function returns the input handle for an XInput gamepad slot, or 0 if that slot is not powered by Steam Input. That can be used to match between native GameMaker <code>gamepad_</code> slots and Steam Input controllers on Windows. Since on Windows the GameMaker pad slots from 0 to 3 are XInput controllers, and from 4 to 12 are DirectInput controllers. This function only works with emulated XInput controllers.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_input_get_controller_for_gamepad_index(index)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>index</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>XInput slot from 0 to 3 included.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>var _slot0h = steam_input_get_controller_for_gamepad_index(0);
+if (_slot0h != 0) {
+    show_debug_message(&quot;GM slot 0 handle = &quot; + string(_slot0h));
+}
+</code></pre></div>
+The above code prints the controller handle for the first XInput gamepad slot if it is valid.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_input_get_gamepad_index_for_controller">steam_input_get_gamepad_index_for_controller</h1>
+<p>This function is the reverse of <a href="input.html#steam_input_get_controller_for_gamepad_index">steam_input_get_controller_for_gamepad_index</a>, except it allows you to determine whether a Steam Input handle is being emulated as XInput as well or not. See the definition of the reverse function for more information about slots.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_input_get_gamepad_index_for_controller(controller)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>controller</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>Input handle of the controller.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>var _slot0i = steam_input_get_gamepad_index_for_controller(player_handle);
+if (_slot0i &gt;= 0) {
+    show_debug_message(&quot;GM slot for player is = &quot; + string(_slot0i));
+}
+</code></pre></div>
+The above code prints the XInput slot for the player controller if it's valid.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_input_get_string_for_xbox_origin">steam_input_get_string_for_xbox_origin</h1>
+<p>This function turns a <a href="input.html#steam_input_xbox_origin">steam_input_xbox_origin</a> constant into a localized string, the language will be taken from Steam client settings. For example <code>"A Button"</code> if it's English or <code>"Кнопка A"</code> if it's Russian.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_input_get_string_for_xbox_origin(origin)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>origin</td>
+<td><a href="input.html#steam_input_xbox_origin">steam_input_xbox_origin</a></td>
+<td>A <code>steam_input_xbox_origin_</code> constant.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>show_debug_message(&quot;A Button is &quot; + steam_input_get_string_for_xbox_origin(steam_input_xbox_origin_a));
+</code></pre></div>
+The above code prints the localized name of the Xbox 360 A button origin.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_input_get_glyph_for_xbox_origin">steam_input_get_glyph_for_xbox_origin</h1>
+<p>This returns a path to a PNG associated with a <a href="input.html#steam_input_xbox_origin">steam_input_xbox_origin</a> constant. The returned path will be automatically added into the GameMaker filesystem sandbox list so it can be used with <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Buffers/buffer_load.htm">buffer_load</a> or <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Asset_Management/Sprites/Sprite_Manipulation/sprite_add.htm">sprite_add</a> no matter whether you have sandbox enabled or not.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_input_get_glyph_for_xbox_origin(origin)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>origin</td>
+<td><a href="input.html#steam_input_xbox_origin">steam_input_xbox_origin</a></td>
+<td>A <code>steam_input_xbox_origin_</code> constant.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>var _path = steam_input_get_glyph_for_xbox_origin(steam_input_xbox_origin_a);
+var _sprite = sprite_add(_path, 1, false, false, 0, 0);
+// ...
+// do not forget to free the sprite when you&#39;re done:
+sprite_delete(_sprite);
+</code></pre></div>
+The above code loads a PNG file associated with <code>steam_input_xbox_origin_a</code> as a sprite.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_input_get_action_origin_from_xbox_origin">steam_input_get_action_origin_from_xbox_origin</h1>
+<p>This function returns the closest origin that maps to the <a href="input.html#steam_input_xbox_origin">steam_input_xbox_origin</a> constant for the target controller. So for a DualShock 4 controller handle <code>steam_input_xbox_origin_a</code> will return the "cross" button origin. Useful for transposing Xbox 360 button hints into the target controller button hints without using the Actions and Action Sets.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_input_get_action_origin_from_xbox_origin(controller, origin)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>controller</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>Target controller handle to use.</td>
+</tr>
+<tr>
+<td>origin</td>
+<td><a href="input.html#steam_input_xbox_origin">steam_input_xbox_origin</a></td>
+<td>A <code>steam_input_xbox_origin_</code> constant.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>// original origin:
+var _xbox_origin = steam_input_xbox_origin_y;
+// transposed origin: (ex: (Y) -&gt; (TRIANGLE) on DS4)
+var _transposed_origin = steam_input_get_action_origin_from_xbox_origin(player_handle, _xbox_origin);
+var _path = steam_input_get_glyph_png_for_action_origin(_transposed_origin, steam_input_glyph_size_small, steam_input_glyph_style_dark);
+var _sprite = sprite_add(_path, 1, false, false, 0, 0);
+// do something with the sprite
+// ...
+// free the sprite:
+sprite_delete(_sprite);
+</code></pre></div>
+The above code loads an input sprite of the Xbox 360 button "Y" in the target controller's style.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_input_translate_action_origin">steam_input_translate_action_origin</h1>
+<p>This function allows to translate an action origin for a new unknown controller type into an origin that this extension will understand. This is useful if a new controller is released, its support is added into Steam Input, the Steam client is updated, the Steam Input Configurator is updated, but your game is not, and it doesn't know about this controller. With this function you can try to obtain the closest origin that maps to that unknown-for-your-game controller origin.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_input_translate_action_origin(type, origin)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>type</td>
+<td><a href="input.html#steam_input_type">steam_input_type</a></td>
+<td><code>steam_input_type_</code> you would like to map to, or <code>steam_input_type_unknown</code> to let Steam do a best guess.</td>
+</tr>
+<tr>
+<td>origin</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>An unknown input action origin you would like to translate.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>// do a best guess here, let&#39;s pretend we have absolutely no idea how to handle this new controller
+var _transposed_origin = steam_input_translate_action_origin(steam_input_type_unknown, global.shoot_origin);
+var _path = steam_input_get_glyph_png_for_action_origin(_transposed_origin, steam_input_glyph_size_small, steam_input_glyph_style_dark);
+var _sprite = sprite_add(_path, 1, false, false, 0, 0);
+// do something with the sprite
+// ...
+// free the sprite:
+sprite_delete(_sprite);
+</code></pre></div>
+The above code tries to map an unknown action origin into something that this extension understands, and then loads a sprite representing that origin.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_input_get_device_binding_revision">steam_input_get_device_binding_revision</h1>
+<p>This function returns the current action bindings revision as a struct, or <code>undefined</code> if there was an error.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_input_get_device_binding_revision(controller)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>controller</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>Input controller handle to use.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="input.html#bindingrevision">BindingRevision</a> or <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Undefined</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>var _bindvers = steam_input_get_device_binding_revision(player_handle);
+show_debug_message(&quot;Major = &quot; + string(_bindvers.major) + &quot;, minor = &quot; + string(_bindvers.minor));
+</code></pre></div>
+The above code prints the current device bindings revision into debug output.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_input_get_remote_play_session_id">steam_input_get_remote_play_session_id</h1>
+<p>This function returns the current Steam Remote Play session ID associated with the controller, or 0 if no session is associated.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_input_get_remote_play_session_id(controller)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>controller</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Int64</a></td>
+<td>The input controller handle to use.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>var _sessid = steam_input_get_remote_play_session_id(player_handle);
+show_debug_message(&quot;Session ID = &quot; + string(_sessid));
+</code></pre></div>
+The above code prints the current Steam Remote Play session ID associated with the player controller.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_input_get_session_input_configuration_settings">steam_input_get_session_input_configuration_settings</h1>
+<p>This function returns the Steam Remote Play session opted-in gamepad types bitmask. Specifically the <code>steam_input_configuration_enable_type_</code> constants.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_input_get_session_input_configuration_settings()
+</code></pre></div>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>var _setmask = steam_input_get_session_input_configuration_settings();
+// how to detect for opt-in:
+var _opted_into_ps = (_setmask &amp; steam_input_configuration_enable_type_playstation) != 0;
+var _opted_into_switch = (_setmask &amp; steam_input_configuration_enable_type_switch) != 0;
+// just print the bitmask:
+show_debug_message(&quot;Settings bit mask = &quot; + string(_setmask));
+</code></pre></div>
+The above code prints the current Steam Remote Play session input bitmask into the debug output.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_input_set_dualsense_trigger_effect">steam_input_set_dualsense_trigger_effect</h1>
+<p>This function is for input handles of DualSense controllers only, allows to apply an adaptive trigger effect to a DualSense input handle. The format of the struct is described in the example code. Returns <code>true</code> if the operation was successful and <code>false</code> otherwise.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_input_set_dualsense_trigger_effect(controller, param)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>controller</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>Input controller handle to use.</td>
+</tr>
+<tr>
+<td>param</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Structs.htm">Struct</a></td>
+<td>Trigger effect parameter struct, see the example.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<div class="highlight"><pre><span></span><code>// please PLEASE PLEASE read the comments for each field here,
+// your struct MUST follow this format, otherwise the extension will throw an exception.
+// field comments taken from isteamdualsense.h header file from the Steamworks SDK.
+var _param = {
+    // which triggers to modify, L2, R2, or both
+    trigger_mask: steam_input_sce_pad_trigger_effect_trigger_mask_l2 | steam_input_sce_pad_trigger_effect_trigger_mask_r2,
+    // must be a valid array of 2 elements, always
+    command: [
+        // L2 data:
+        {
+            mode: steam_input_sce_pad_trigger_effect_mode_multiple_position_vibration,
+            // command_data must be a valid struct, never undefined
+            command_data: {
+                // if mode_off then no fields from command_data will be read, otherwise:
+                feedback_param: {
+                    // if mode_feedback
+                    position: 0, // position where the strength of target trigger start changing(0~9).
+                    strength: 0  // strength that the motor arm pushes back target trigger(0~8 (0: Same as Off mode)).
+                },
+                weapon_param: {
+                    // if mode_weapon
+                    start_position: 0, // position where the stiffness of trigger start changing(2~7).
+                    end_position: 0,   // position where the stiffness of trigger finish changing(start_position+1~8).
+                    strength: 0        // strength of gun trigger(0~8 (0: Same as Off mode)).
+                },
+                vibration_param: {
+                    // if mode_vibration
+                    position: 0,  // position where the motor arm start vibrating(0~9).
+                    amplitude: 0, // vibration amplitude(0~8 (0: Same as Off mode)).
+                    frequency: 0, // vibration frequency(0~255[Hz] (0: Same as Off mode)).
+                },
+                multiple_position_feedback_param: {
+                    // if mode_multiple_position_feedback
+                    // strength that the motor arm pushes back target trigger at position(0~8 (0: Same as Off mode)).
+                        *  strength[0] means strength of motor arm at position0.
+                        *  strength[1] means strength of motor arm at position1.
+                        *  ...
+                        *
+                    strength: [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]
+                },
+                slope_feedback_param: {
+                    // if mode_slope_feedback
+                    start_position: 0, // position where the strength of target trigger start changing(0~end_position).
+                    end_position: 0,   // position where the strength of target trigger finish changing(start_position+1~9).
+                    start_strength: 0, // strength when trigger&#39;s position is start_position(1~8)
+                    end_strength: 0    // strength when trigger&#39;s position is end_position(1~8)
+                },
+                multiple_position_vibration_param: {
+                    // if mode_multiple_position_vibration
+                    frequency: 0, // vibration frequency(0~255 (0: Same as Off mode))
+                    // vibration amplitude at position(0~8 (0: Same as Off mode)).
+                        *  amplitude[0] means amplitude of vibration at position0.
+                        *  amplitude[1] means amplitude of vibration at position1.
+                        *  ...
+                        *
+                    amplitude: [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]
+                }
+            }
+        },
+        // R2 data: even if your mask tells &quot;only l2&quot;, you MUST still include the dummy r2 field:
+        {
+            mode: steam_input_sce_pad_trigger_effect_mode_off,
+            command_data: {
+                // MUST be present even when mode_off!!
+            }
+        }
+    ]
+};
+// apply the parameters to the dualsense controller:
+steam_input_set_dualsense_trigger_effect(player_handle, _param);
+</code></pre></div>
+<p>The above code demonstrates the use of DualSense adaptive trigger effects in Steam Input, along with documenting every field in the struct.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_input_glyph_size">steam_input_glyph_size</h1>
+<p>These constants are referenced by the following functions:</p>
+<ul>
+<li><a href="input.html#steam_input_get_glyph_png_for_action_origin">steam_input_get_glyph_png_for_action_origin</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>steam_input_glyph_size_small</code></td>
+<td>Small glyph</td>
+</tr>
+<tr>
+<td><code>steam_input_glyph_size_medium</code></td>
+<td>Medium glyph</td>
+</tr>
+<tr>
+<td><code>steam_input_glyph_size_large</code></td>
+<td>Large glyph</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_input_glyph_style">steam_input_glyph_style</h1>
+<p>These constants are referenced by the following functions:</p>
+<ul>
+<li><a href="input.html#steam_input_get_glyph_png_for_action_origin">steam_input_get_glyph_png_for_action_origin</a></li>
+<li><a href="input.html#steam_input_get_glyph_svg_for_action_origin">steam_input_get_glyph_svg_for_action_origin</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>steam_input_glyph_style_knockout</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>steam_input_glyph_style_light</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>steam_input_glyph_style_dark</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>steam_input_glyph_style_neutral_color_abxy</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>steam_input_glyph_style_solid_abxy</code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_input_steam_controller_pad">steam_input_steam_controller_pad</h1>
+<p>These constants are referenced by the following functions:</p>
+<ul>
+<li><a href="input.html#steam_input_trigger_haptic_pulse_legacy">steam_input_trigger_haptic_pulse_legacy</a></li>
+<li><a href="input.html#steam_input_trigger_repeated_haptic_pulse_legacy">steam_input_trigger_repeated_haptic_pulse_legacy</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>steam_input_steam_controller_pad_left</code></td>
+<td>Left controller pad</td>
+</tr>
+<tr>
+<td><code>steam_input_steam_controller_pad_right</code></td>
+<td>Right controller pad</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_input_xbox_origin">steam_input_xbox_origin</h1>
+<p>These constants are referenced by the following functions:</p>
+<ul>
+<li><a href="input.html#steam_input_get_string_for_xbox_origin">steam_input_get_string_for_xbox_origin</a></li>
+<li><a href="input.html#steam_input_get_glyph_for_xbox_origin">steam_input_get_glyph_for_xbox_origin</a></li>
+<li><a href="input.html#steam_input_get_action_origin_from_xbox_origin">steam_input_get_action_origin_from_xbox_origin</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>steam_input_xbox_origin_a</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>steam_input_xbox_origin_b</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>steam_input_xbox_origin_x</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>steam_input_xbox_origin_y</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>steam_input_xbox_origin_left_bumper</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>steam_input_xbox_origin_right_bumper</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>steam_input_xbox_origin_menu</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>steam_input_xbox_origin_view</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>steam_input_xbox_origin_left_trigger_pull</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>steam_input_xbox_origin_left_trigger_click</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>steam_input_xbox_origin_right_trigger_pull</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>steam_input_xbox_origin_right_trigger_click</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>steam_input_xbox_origin_left_stick_move</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>steam_input_xbox_origin_left_stick_click</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>steam_input_xbox_origin_left_stick_dpad_north</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>steam_input_xbox_origin_left_stick_dpad_south</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>steam_input_xbox_origin_left_stick_dpad_west</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>steam_input_xbox_origin_left_stick_dpad_east</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>steam_input_xbox_origin_right_stick_move</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>steam_input_xbox_origin_right_stick_click</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>steam_input_xbox_origin_right_stick_dpad_north</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>steam_input_xbox_origin_right_stick_dpad_south</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>steam_input_xbox_origin_right_stick_dpad_west</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>steam_input_xbox_origin_right_stick_dpad_east</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>steam_input_xbox_origin_dpad_north</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>steam_input_xbox_origin_dpad_south</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>steam_input_xbox_origin_dpad_west</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>steam_input_xbox_origin_dpad_east</code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_input_type">steam_input_type</h1>
+<p>These constants are referenced by the following functions:</p>
+<ul>
+<li><a href="input.html#steam_input_translate_action_origin">steam_input_translate_action_origin</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>steam_input_type_unknown</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>steam_input_type_steam_controller</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>steam_input_type_xbox_360_controller</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>steam_input_type_xbox_one_controller</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>steam_input_type_generic_gamepad</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>steam_input_type_ps4_controller</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>steam_input_type_apple_mfi_controller</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>steam_input_type_android_controller</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>steam_input_type_switch_joycon_pair</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>steam_input_type_switch_joycon_single</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>steam_input_type_switch_pro_controller</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>steam_input_type_mobile_touch</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>steam_input_type_ps3_controller</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>steam_input_type_ps5_controller</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>steam_input_type_steam_deck_controller</code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_input_configuration_enable_type">steam_input_configuration_enable_type</h1>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>steam_input_configuration_enable_type_none</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>steam_input_configuration_enable_type_playstation</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>steam_input_configuration_enable_type_xbox</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>steam_input_configuration_enable_type_generic</code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="motiondata">MotionData</h1>
+<p>This struct is referenced by the following functions:</p>
+<ul>
+<li><a href="input.html#steam_input_get_motion_data">steam_input_get_motion_data</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>rot_quat_x</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>X component of the orientation quaternion.</td>
+</tr>
+<tr>
+<td>rot_quat_y</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>Y component of the orientation quaternion.</td>
+</tr>
+<tr>
+<td>rot_quat_z</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>Z component of the orientation quaternion.</td>
+</tr>
+<tr>
+<td>rot_quat_w</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>W component of the orientation quaternion.</td>
+</tr>
+<tr>
+<td>pos_accel_x</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>X component of the acceleration.</td>
+</tr>
+<tr>
+<td>pos_accel_y</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>Y component of the acceleration.</td>
+</tr>
+<tr>
+<td>pos_accel_z</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>Z component of the acceleration.</td>
+</tr>
+<tr>
+<td>rot_vel_x</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>X component of the angular velocity.</td>
+</tr>
+<tr>
+<td>rot_vel_y</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>Y component of the angular velocity.</td>
+</tr>
+<tr>
+<td>rot_vel_z</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>Z component of the angular velocity.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="actiondata">ActionData</h1>
+<p>This struct is referenced by the following functions:</p>
+<ul>
+<li><a href="input.html#steam_input_get_digital_action_data">steam_input_get_digital_action_data</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>active</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></td>
+<td>Whether the action is bound to any button</td>
+</tr>
+<tr>
+<td>state</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></td>
+<td>Whether the action is currently held or not</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="analogactiondata">AnalogActionData</h1>
+<p>This struct is referenced by the following functions:</p>
+<ul>
+<li><a href="input.html#steam_input_get_analog_action_data">steam_input_get_analog_action_data</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>active</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></td>
+<td>Whether this action is bound to any input element.</td>
+</tr>
+<tr>
+<td>mode</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>A <code>steam_input_source_mode_</code> constant.</td>
+</tr>
+<tr>
+<td>x</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>X axis of the input.</td>
+</tr>
+<tr>
+<td>y</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>Y axis of the input, <strong>inverted by default</strong>. See example code.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="bindingrevision">BindingRevision</h1>
+<p>This struct is referenced by the following functions:</p>
+<ul>
+<li><a href="input.html#steam_input_get_device_binding_revision">steam_input_get_device_binding_revision</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>major</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>Major version digit.</td>
+</tr>
+<tr>
+<td>minor</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>Minor version digit.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="networking.html" class="btn btn-neutral float-left" title="Networking"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="music.html" class="btn btn-neutral float-right" title="Music">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+      <p><p align="center">GameMaker 2024</p></p>
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/YoYoGames/GMEXT-Steamworks" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="networking.html" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="music.html" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = ".";</script>
+    <script src="js/theme_extra.js"></script>
+    <script src="js/theme.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/gml.min.js"></script>
+      <script src="assets/js/copy_code.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

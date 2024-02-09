@@ -44,7 +44,7 @@
 
 /**
  * @func steam_get_app_id
- * @desc This function is used retrieve the unique app ID that Steam assigns to your game, which is required for using some of the ${module.UGC} functions.
+ * @desc This function is used retrieve the unique app ID that Steam assigns to your game, which is required for using some of the ${module.ugc} functions.
  * 
  * @returns {Real}
  * 
@@ -58,7 +58,7 @@
 
 /**
  * @func steam_get_user_account_id
- * @desc This function is used to retrieve the unique User ID that Steam assigns to each user, which is required for using some of the ${module.UGC} functions.
+ * @desc This function is used to retrieve the unique User ID that Steam assigns to each user, which is required for using some of the ${module.ugc} functions.
  * 
  * @returns {real}
  * 

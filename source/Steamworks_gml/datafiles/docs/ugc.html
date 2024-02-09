@@ -1,0 +1,3010 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="img/favicon.ico" />
+    <title>Ugc - GMEXT-Steamworks</title>
+    <link rel="stylesheet" href="css/theme.css" />
+    <link rel="stylesheet" href="css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+        <link href="assets/css/doc.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Ugc";
+        var mkdocs_page_input_path = "ugc.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="." class="icon icon-home"> GMEXT-Steamworks
+        </a>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="home.html">Home</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="guides.html">Guides</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="management.html">Management</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="general.html">General</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="overlay.html">Overlay</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="leaderboards.html">Leaderboards</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="lobbies.html">Lobbies</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="achievements.html">Achievements</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="cloud.html">Cloud</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="dlc.html">Dlc</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="ugc.html">Ugc</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#creating-and-editing-content">Creating And Editing Content</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#consuming-content">Consuming Content</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#querying-content">Querying Content</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#constants">Constants</a>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="social.html">Social</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="inventory.html">Inventory</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="networking.html">Networking</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="input.html">Input</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="music.html">Music</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="utilities.html">Utilities</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href=".">GMEXT-Steamworks</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Ugc</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/YoYoGames/GMEXT-Steamworks/edit/master/docs/ugc.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <p><a id="top"></a></p>
+<h1 id="ugc"><strong>UGC</strong></h1>
+<p>This section is for those users that have been given access to the Steam API for publishing your game to that platform and that want to use the possibilities that the Steam Workshop and Community gives you for adding and generating user content in your projects. The simplest form of user-generated content is the ability for the user to take and share screenshots, which is facilitated using the following two functions:</p>
+<ul>
+<li><a href="ugc.html#steam_is_screenshot_requested">steam_is_screenshot_requested</a></li>
+<li><a href="ugc.html#steam_send_screenshot">steam_send_screenshot</a></li>
+</ul>
+<p>Before using any of the built-in functions for the Steam UGC (<strong>U</strong>ser <strong>G</strong>enerated <strong>C</strong>ontent) API you need to have set up your game correctly from the Steam dashboard and you should have read through the required documentation found here:</p>
+<ul>
+<li><a href="https://partner.steamgames.com/documentation/ugc#Tech">Sharing User-Generated Content</a></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You need to have your game accepted for the Steam online store and have access to the developer areas of the Steam API documentation.</p>
+</div>
+<p>All subscribed UGC items will be downloaded by the Steam client automatically, and you should have code in the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a> to catch this and store the ID of the UGC that has been downloaded for use in the other UGC functions.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>IMPORTANT Steam UGC IDs can be huge numbers. This means that sometimes you may need to store these as a string rather than try and store them as a real value, especially if working with buffers or trying to write the value to a text file (since this will convert it to a simplified standard format like "6.6624e+003" which will cause issues being read back).</p>
+</div>
+<p>The normal workflow for getting UGC into your game would be as follows:</p>
+<ol>
+<li>The user would subscribe to an item (either from your game using <a href="ugc.html#steam_ugc_subscribe_item">steam_ugc_subscribe_item</a> or from the client/browser). If done from the game you are able to "listen" to the callback from the Steam Async Event.</li>
+<li>When you get a successful subscription callback this means that your game is now downloading the UGC. You would then check if the item is installed (i.e.: download completed) with <a href="ugc.html#steam_ugc_get_item_install_info">steam_ugc_get_item_install_info</a>.</li>
+<li>If the item is not completely installed, you can use <a href="ugc.html#steam_ugc_get_item_update_info">steam_ugc_get_item_update_info</a> to track the download progress.</li>
+</ol>
+<p>The following sections explain all the functions required to get UGC functioning in GameMaker:</p>
+<h2 id="creating-and-editing-content">Creating And Editing Content</h2>
+<p>The following functions are essentially "wrapper" functions for those supplied in the Steam API for creating and uploading content to their servers. As such, we recommend that you read over the linked Steam documentation before using them to gain a greater understanding of how they work: <a href="https://partner.steamgames.com/documentation/ugc#CreateUploadContent">Creating And Uploading Content</a>.</p>
+<ul>
+<li><a href="ugc.html#steam_ugc_create_item">steam_ugc_create_item</a></li>
+<li><a href="ugc.html#steam_ugc_delete_item">steam_ugc_delete_item</a></li>
+<li><a href="ugc.html#steam_ugc_start_item_update">steam_ugc_start_item_update</a></li>
+<li><a href="ugc.html#steam_ugc_set_item_title">steam_ugc_set_item_title</a></li>
+<li><a href="ugc.html#steam_ugc_set_item_description">steam_ugc_set_item_description</a></li>
+<li><a href="ugc.html#steam_ugc_set_item_visibility">steam_ugc_set_item_visibility</a></li>
+<li><a href="ugc.html#steam_ugc_set_item_tags">steam_ugc_set_item_tags</a></li>
+<li><a href="ugc.html#steam_ugc_set_item_content">steam_ugc_set_item_content</a></li>
+<li><a href="ugc.html#steam_ugc_set_item_preview">steam_ugc_set_item_preview</a></li>
+<li><a href="ugc.html#steam_ugc_submit_item_update">steam_ugc_submit_item_update</a></li>
+<li><a href="ugc.html#steam_ugc_get_item_update_progress">steam_ugc_get_item_update_progress</a></li>
+</ul>
+<h2 id="consuming-content">Consuming Content</h2>
+<p>Once your user content has been created and the workshop has it available for download, people can subscribe to it through the Steam App or through the Web portal. However GameMaker also includes the following functions to use the Steam API for creating and canceling subscriptions as well as for getting information about what the user is subscribed to currently:</p>
+<ul>
+<li><a href="ugc.html#steam_ugc_subscribe_item">steam_ugc_subscribe_item</a></li>
+<li><a href="ugc.html#steam_ugc_unsubscribe_item">steam_ugc_unsubscribe_item</a></li>
+<li><a href="ugc.html#steam_ugc_num_subscribed_items">steam_ugc_num_subscribed_items</a></li>
+<li><a href="ugc.html#steam_ugc_get_subscribed_items">steam_ugc_get_subscribed_items</a></li>
+<li><a href="ugc.html#steam_ugc_get_item_install_info">steam_ugc_get_item_install_info</a></li>
+<li><a href="ugc.html#steam_ugc_get_item_update_info">steam_ugc_get_item_update_info</a></li>
+<li><a href="ugc.html#steam_ugc_request_item_details">steam_ugc_request_item_details</a></li>
+</ul>
+<h2 id="querying-content">Querying Content</h2>
+<p>There are also a large number of functions available to query the Steam API about the UGC items available:</p>
+<ul>
+<li><a href="ugc.html#steam_is_screenshot_requested">steam_is_screenshot_requested</a></li>
+<li><a href="ugc.html#steam_send_screenshot">steam_send_screenshot</a></li>
+<li><a href="ugc.html#steam_ugc_create_item">steam_ugc_create_item</a></li>
+<li><a href="ugc.html#steam_ugc_delete_item">steam_ugc_delete_item</a></li>
+<li><a href="ugc.html#steam_ugc_start_item_update">steam_ugc_start_item_update</a></li>
+<li><a href="ugc.html#steam_ugc_set_item_title">steam_ugc_set_item_title</a></li>
+<li><a href="ugc.html#steam_ugc_set_item_description">steam_ugc_set_item_description</a></li>
+<li><a href="ugc.html#steam_ugc_set_item_visibility">steam_ugc_set_item_visibility</a></li>
+<li><a href="ugc.html#steam_ugc_set_item_tags">steam_ugc_set_item_tags</a></li>
+<li><a href="ugc.html#steam_ugc_set_item_content">steam_ugc_set_item_content</a></li>
+<li><a href="ugc.html#steam_ugc_set_item_preview">steam_ugc_set_item_preview</a></li>
+<li><a href="ugc.html#steam_ugc_submit_item_update">steam_ugc_submit_item_update</a></li>
+<li><a href="ugc.html#steam_ugc_get_item_update_progress">steam_ugc_get_item_update_progress</a></li>
+<li><a href="ugc.html#steam_ugc_subscribe_item">steam_ugc_subscribe_item</a></li>
+<li><a href="ugc.html#steam_ugc_unsubscribe_item">steam_ugc_unsubscribe_item</a></li>
+<li><a href="ugc.html#steam_ugc_num_subscribed_items">steam_ugc_num_subscribed_items</a></li>
+<li><a href="ugc.html#steam_ugc_get_subscribed_items">steam_ugc_get_subscribed_items</a></li>
+<li><a href="ugc.html#steam_ugc_get_item_install_info">steam_ugc_get_item_install_info</a></li>
+<li><a href="ugc.html#steam_ugc_get_item_update_info">steam_ugc_get_item_update_info</a></li>
+<li><a href="ugc.html#steam_ugc_request_item_details">steam_ugc_request_item_details</a></li>
+<li><a href="ugc.html#steam_ugc_create_query_user">steam_ugc_create_query_user</a></li>
+<li><a href="ugc.html#steam_ugc_create_query_user_ex">steam_ugc_create_query_user_ex</a></li>
+<li><a href="ugc.html#steam_ugc_create_query_all">steam_ugc_create_query_all</a></li>
+<li><a href="ugc.html#steam_ugc_create_query_all_ex">steam_ugc_create_query_all_ex</a></li>
+<li><a href="ugc.html#steam_ugc_query_set_cloud_filename_filter">steam_ugc_query_set_cloud_filename_filter</a></li>
+<li><a href="ugc.html#steam_ugc_query_set_match_any_tag">steam_ugc_query_set_match_any_tag</a></li>
+<li><a href="ugc.html#steam_ugc_query_set_search_text">steam_ugc_query_set_search_text</a></li>
+<li><a href="ugc.html#steam_ugc_query_set_ranked_by_trend_days">steam_ugc_query_set_ranked_by_trend_days</a></li>
+<li><a href="ugc.html#steam_ugc_query_add_required_tag">steam_ugc_query_add_required_tag</a></li>
+<li><a href="ugc.html#steam_ugc_query_add_excluded_tag">steam_ugc_query_add_excluded_tag</a></li>
+<li><a href="ugc.html#steam_ugc_query_set_return_long_description">steam_ugc_query_set_return_long_description</a></li>
+<li><a href="ugc.html#steam_ugc_query_set_return_total_only">steam_ugc_query_set_return_total_only</a></li>
+<li><a href="ugc.html#steam_ugc_query_set_allow_cached_response">steam_ugc_query_set_allow_cached_response</a></li>
+<li><a href="ugc.html#steam_ugc_send_query">steam_ugc_send_query</a></li>
+<li><a href="ugc.html#steam_ugc_download">steam_ugc_download</a></li>
+</ul>
+<h2 id="constants">Constants</h2>
+<p>This section also provides a set of constants to be used along side the functions provided above:</p>
+<ul>
+<li><a href="ugc.html#ugcfiletype">UGCFileType</a></li>
+<li><a href="ugc.html#ugcfilevisibility">UGCFileVisibility</a></li>
+<li><a href="ugc.html#ugclistsortorder">UGCListSortOrder</a></li>
+<li><a href="ugc.html#ugclisttype">UGCListType</a></li>
+<li><a href="ugc.html#ugcmatchtype">UGCMatchType</a></li>
+<li><a href="ugc.html#ugcquerytype">UGCQueryType</a></li>
+</ul>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_is_screenshot_requested">steam_is_screenshot_requested</h1>
+<p>This function will poll the Steam API to see if the key for taking a screenshot of the game has been pressed. The function will only return <code>true</code> for one step (game tick) when the key is pressed, and will return <code>false</code> at all other times.
+Please note that if the screenshot key is pressed, this function will only return <code>true</code> once for each step that it is pressed, and return <code>false</code> for any subsequent calls <em>within the same step</em> . For example, if a screenshot is requested in the current frame and you call this function in the Step event to find that out, you will get <code>true</code>; however, if you call it again in Draw GUI to check whether a screenshot was requested, you will get <code>false</code> as the function had already been "used up" in the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Object_Events.htm">Step Event</a>. To use the function's return value multiple times within the same frame, it is recommended to store it in a variable and read that instead of calling the function again.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This function does not take a screenshot for you. This only signals that the key has been pressed and you must use the GameMaker functions <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Cameras_And_Display/screen_save.htm">screen_save</a> or <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Cameras_And_Display/screen_save_part.htm">screen_save_part</a> to save a local copy of the file to be uploaded.</p>
+</div>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_is_screenshot_requested()
+</code></pre></div>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>if steam_is_screenshot_requested()
+{
+    var _file = &quot;Catch_The_Haggis_&quot; + string(global.scrn_num) + &quot;.png&quot;);
+    screen_save(_file);
+    steam_send_screenshot(_file, window_get_width(), window_get_height());
+    global.scrn_num += 1;
+}
+</code></pre></div>
+The above code will poll the Steam API for a screenshot request. If there is one, a unique name for the image file will be generated, a screenshot will be taken, and the file will be sent to the Steam Community page for the user.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_send_screenshot">steam_send_screenshot</h1>
+<p>With this function you can upload a screenshot to the Steam Community profile page of the currently logged in user. The filename you supply is the name of the local file that was created when you took the screenshot using the GameMaker functions <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Cameras_And_Display/screen_save.htm">screen_save</a> or <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Cameras_And_Display/screen_save_part.htm">screen_save_part</a>. The width and height define the image size, and the function will return a value of 0 if it fails for whatever reason and a value greater than 0 if it succeeds.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_send_screenshot(filename, width, height)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>filename</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The name of the image file to upload.</td>
+</tr>
+<tr>
+<td>width</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The width of the image.</td>
+</tr>
+<tr>
+<td>height</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The height of the image.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>if steam_is_screenshot_requested()
+{
+    var _file = &quot;Catch_The_Haggis_&quot; + string(global.scrn_num) + &quot;.png&quot;);
+    screen_save(_file);
+    steam_send_screenshot(_file, window_get_width(), window_get_height());
+    global.scrn_num += 1;
+}
+</code></pre></div>
+The above code will poll the Steam API for a screenshot request. If there is one, a unique name for the image file will be generated, a screenshot will be taken, and the file will be sent to the Steam Community page for the user.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_ugc_create_item">steam_ugc_create_item</h1>
+<p>This function is used to prepare the Workshop API and generate a published file ID for the item to be added. The function <em>must</em> be called before doing anything else with the item to be uploaded, as you will be required to use the unique published ID value that it returns in the Steam Async Event for updating.
+This is an asynchronous function that will return an asynchronous id and trigger the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a> when the task is finished.</p>
+<p>This function operates asynchronously, which means that it does not immediately return the requested result. Instead, upon completion of the task, it will trigger the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_ugc_create_item(consumer_app_id, file_type)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>consumer_app_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The unique App ID for your game on Steam.</td>
+</tr>
+<tr>
+<td>file_type</td>
+<td><a href="ugc.html#ugcfiletype">UGCFileType</a></td>
+<td>One of the available file type constants (see <a href="ugc.html#ugcfiletype">UGCFileType</a> constants).</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Triggers:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The asynchronous request ID</td>
+</tr>
+<tr>
+<td>event_type</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The string value <code>"ugc_create_item"</code></td>
+</tr>
+<tr>
+<td>result</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>This will either be the GML constant <code>ugc_result_success</code> or some other real number (see the <a href="https://partner.steamgames.com/doc/api/steam_api#EResult">Steam docs</a>, for more details)</td>
+</tr>
+<tr>
+<td>legal_agreement_required</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></td>
+<td>Will be <code>true</code> or <code>false</code> (see the <a href="https://partner.steamgames.com/documentation/ugc#Legal">Steam docs</a> for more details)</td>
+</tr>
+<tr>
+<td>published_file_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Int64</a></td>
+<td>This key holds the unique published ID for the item (you may need to cast it using the <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Int64</a> function).</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p>In this example we first call the function and store the async ID value in a variable:</p>
+<p><div class="highlight"><pre><span></span><code>var _app_id = steam_get_app_id();
+new_item = steam_ugc_create_item(_app_id, ugc_filetype_community);
+</code></pre></div>
+This would then send off a request to the Steam API to create the new Workshop item, generating an async event which we would deal with as follows:</p>
+<p><div class="highlight"><pre><span></span><code>var _event_id = async_load[? &quot;id&quot;];
+if _event_id == new_item
+{
+    var _type = async_load[? &quot;event_type&quot;];
+    if _type == &quot;ugc_create_item&quot;
+    {
+        global.Publish_ID = async_load[? &quot;published_file_id&quot;];
+    }
+}
+</code></pre></div>
+The above code checks the event type and if it is "ugc_create_item" then it retrieves the published file ID and stores it in a global variable for future reference.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_ugc_delete_item">steam_ugc_delete_item</h1>
+<p>This function attempts to delete a previously published UGC item.
+This is an asynchronous function that will return an asynchronous ID and trigger the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a> when the task is finished.</p>
+<p>This function operates asynchronously, which means that it does not immediately return the requested result. Instead, upon completion of the task, it will trigger the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_ugc_delete_item(ugc_query_handle)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ugc_query_handle</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The query handle to use.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Triggers:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The asynchronous request ID</td>
+</tr>
+<tr>
+<td>event_type</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The string value <code>"ugc_item_delete"</code></td>
+</tr>
+<tr>
+<td>result</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>This will either be the GML constant <code>ugc_result_success</code> or some other real number (see the <a href="https://partner.steamgames.com/doc/api/steam_api#EResult">Steam docs</a>, for more details)</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>steam_ugc_delete_item(ugc_query_handle);
+</code></pre></div>
+The above code creates a deletion request for <code>ugc_query_handle</code>.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_ugc_start_item_update">steam_ugc_start_item_update</h1>
+<p>This function must be called before adding or updating information on a UGC item. You need to supply the unique App ID for your game on Steam, along with the unique published file ID that was returned for the item when you created it using the function <a href="ugc.html#steam_ugc_create_item">steam_ugc_create_item</a>. The function will return a unique update handle for the item, which you can then use in the UGC item functions to update (or add) information for uploading.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_ugc_start_item_update(consumer_app_id, published_file_id)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>consumer_app_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The unique App ID for your game on Steam.</td>
+</tr>
+<tr>
+<td>published_file_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Int64</a></td>
+<td>The unique published file ID value for the item.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>var _app_id = steam_get_app_id();
+var _updateHandle = steam_ugc_start_item_update(_app_id, global.Publish_ID);
+steam_ugc_set_item_title(_updateHandle, &quot;My workshop item(3)!&quot;);
+steam_ugc_set_item_description(_updateHandle, &quot;testing workshop...&quot;);
+steam_ugc_set_item_visibility(_updateHandle, ugc_visibility_public);
+var _tagArray;
+_tagArray[0] = &quot;Test&quot;;
+_tagArray[1] = &quot;New&quot;;
+steam_ugc_set_item_tags(_updateHandle, _tagArray);
+steam_ugc_set_item_preview(_updateHandle, &quot;promo.jpg&quot;);
+steam_ugc_set_item_content(_updateHandle, &quot;WorkshopContent1&quot;);
+requestId = steam_ugc_submit_item_update(_updateHandle, &quot;Version 1.2&quot;);
+</code></pre></div>
+The above code gets the game ID, then uses that along with a previously stored published file ID to generate an update handle for the item. This handle is then used to update various pieces of information before the update is pushed to the Workshop servers.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_ugc_set_item_title">steam_ugc_set_item_title</h1>
+<p>This function will set the title to be used for the given item.
+The function will return <code>true</code> if the API was successfully accessed and <code>false</code> if there was an issue.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_ugc_set_item_title(ugc_update_handle, title)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ugc_update_handle</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The unique handle for the UGC to be updated (returned from <a href="ugc.html#steam_ugc_start_item_update">steam_ugc_start_item_update</a>)</td>
+</tr>
+<tr>
+<td>title</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The title (max 128 characters) to be used for the item.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_ugc_set_item_description">steam_ugc_set_item_description</h1>
+<p>This function will set the description to be used for the given item.
+The function will return <code>true</code> if the API was successfully accessed and <code>false</code> if there was an issue.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_ugc_set_item_description(ugc_update_handle, description)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ugc_update_handle</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The unique handle for the UGC to be updated (returned from <a href="ugc.html#steam_ugc_start_item_update">steam_ugc_start_item_update</a>)</td>
+</tr>
+<tr>
+<td>description</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The description (max 8000 characters) to be used for the item.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_ugc_set_item_visibility">steam_ugc_set_item_visibility</h1>
+<p>This function will set the visibility of the given item, using one of the <a href="ugc.html#ugcfilevisibility">UGCFileVisibility</a> constants.
+The function will return <code>true</code> if the API was successfully accessed and <code>false</code> if there was an issue.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_ugc_set_item_visibility(ugc_update_handle, visibility)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ugc_update_handle</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The unique handle for the UGC to be updated (returned from <a href="ugc.html#steam_ugc_start_item_update">steam_ugc_start_item_update</a>)</td>
+</tr>
+<tr>
+<td>visibility</td>
+<td><a href="ugc.html#ugcfilevisibility">UGCFileVisibility</a></td>
+<td>The visibility to be used for the item (see <a href="ugc.html#ugcfilevisibility">UGCFileVisibility</a> constant)</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_ugc_set_item_tags">steam_ugc_set_item_tags</h1>
+<p>This function will set the tags to be used for the given item. The tags should be added to a 1D array as string elements and the array passed to the function.
+The function will return <code>true</code> if the API was successfully accessed and <code>false</code> if there was an issue.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_ugc_set_item_tags(ugc_update_handle, tags)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ugc_update_handle</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The unique handle for the UGC to be updated (returned from <a href="ugc.html#steam_ugc_start_item_update">steam_ugc_start_item_update</a>)</td>
+</tr>
+<tr>
+<td>tags</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The tags (as an string JSON array) to be used for the item.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_ugc_set_item_content">steam_ugc_set_item_content</h1>
+<p>This function will set the content path to be used for the given item, and it should be a relative path to the folder which contains the content files to upload - which in turn should be in the save area <em>or</em> the game bundle (i.e.: an included file).
+The function will return <code>true</code> if the API was successfully accessed and <code>false</code> if there was an issue.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_ugc_set_item_content(ugc_update_handle, content)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ugc_update_handle</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The unique handle for the UGC to be updated (returned from <a href="ugc.html#steam_ugc_start_item_update">steam_ugc_start_item_update</a>)</td>
+</tr>
+<tr>
+<td>content</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The content path to be used for the item</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>var _app_id = steam_get_app_id();
+var _updateHandle = steam_ugc_start_item_update(_app_id, global.Publish_ID);
+steam_ugc_set_item_title(_updateHandle, &quot;My workshop item(3)!&quot;);
+steam_ugc_set_item_description(_updateHandle, &quot;testing workshop...&quot;);
+steam_ugc_set_item_visibility(_updateHandle, ugc_visibility_public);
+var _tagArray;
+_tagArray[0] = &quot;Test&quot;;
+_tagArray[1] = &quot;New&quot;;
+steam_ugc_set_item_tags(_updateHandle, _tagArray);
+steam_ugc_set_item_preview(_updateHandle, &quot;promo.jpg&quot;);
+steam_ugc_set_item_content(_updateHandle, &quot;WorkshopContent1&quot;);
+requestId = steam_ugc_submit_item_update(_updateHandle, &quot;Version 1.2&quot;);
+</code></pre></div>
+The above code gets the game ID, then uses that along with a previously stored published file ID to generate an update handle for the item. This handle is then used to update various pieces of information before the update is pushed to the Workshop servers.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_ugc_set_item_preview">steam_ugc_set_item_preview</h1>
+<p>This function will set the preview image to be used for the given item. The image should be supplied as either a PNG, JPG or GIF format file with a maximum size of 1MB. The path to the image should be a relative path in the save area <em>or</em> the game bundle (i.e.: an included file).
+The function will return <code>true</code> if the API was successfully accessed and <code>false</code> if there was an issue.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_ugc_set_item_preview(ugc_update_handle, preview)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ugc_update_handle</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The unique handle for the UGC to be updated (returned from <a href="ugc.html#steam_ugc_start_item_update">steam_ugc_start_item_update</a>)</td>
+</tr>
+<tr>
+<td>preview</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The preview image (JPG, GIF or PNG - max size 1MB) to be used for the item.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>var _app_id = steam_get_app_id();
+var _updateHandle = steam_ugc_start_item_update(_app_id, global.Publish_ID);
+steam_ugc_set_item_title(_updateHandle, &quot;My workshop item(3)!&quot;);
+steam_ugc_set_item_description(_updateHandle, &quot;testing workshop...&quot;);
+steam_ugc_set_item_visibility(_updateHandle, ugc_visibility_public);
+var _tagArray;
+_tagArray[0] = &quot;Test&quot;;
+_tagArray[1] = &quot;New&quot;;
+steam_ugc_set_item_tags(_updateHandle, _tagArray);
+steam_ugc_set_item_preview(_updateHandle, &quot;promo.jpg&quot;);
+steam_ugc_set_item_content(_updateHandle, &quot;WorkshopContent1&quot;);
+requestId = steam_ugc_submit_item_update(_updateHandle, &quot;Version 1.2&quot;);
+</code></pre></div>
+The above code gets the game ID, then uses that along with a previously stored published file ID to generate an update handle for the item. This handle is then used to update various pieces of information before the update is pushed to the Workshop servers.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_ugc_submit_item_update">steam_ugc_submit_item_update</h1>
+<p>This function will submit the UGC item indexed by the given handle to the Steam Workshop servers, adding the change notes to be used for the given item.
+This is an asynchronous function that will return an asynchronous ID and trigger the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a> when the task is finished.</p>
+<p>This function operates asynchronously, which means that it does not immediately return the requested result. Instead, upon completion of the task, it will trigger the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_ugc_submit_item_update(ugc_update_handle, change_note)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ugc_update_handle</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The unique handle for the UGC to be updated (returned from <a href="ugc.html#steam_ugc_start_item_update">steam_ugc_start_item_update</a>)</td>
+</tr>
+<tr>
+<td>change_note</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The change notes to be used for the item.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Triggers:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The asynchronous request ID</td>
+</tr>
+<tr>
+<td>event_type</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The string value <code>"ugc_update_item"</code></td>
+</tr>
+<tr>
+<td>result</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>This will either be the GML constant <code>ugc_result_success</code> or some other real number (see the <a href="https://partner.steamgames.com/doc/api/steam_api#EResult">Steam docs</a>, for more details)</td>
+</tr>
+<tr>
+<td>legal_agreement_required</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></td>
+<td>Will be <code>true</code> or <code>false</code> (see the <a href="https://partner.steamgames.com/documentation/ugc#Legal">Steam docs</a> for more details)</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>var _app_id = steam_get_app_id();
+var _updateHandle = steam_ugc_start_item_update(_app_id, global.Publish_ID);
+steam_ugc_set_item_title(_updateHandle, &quot;My workshop item(3)!&quot;);
+steam_ugc_set_item_description(_updateHandle, &quot;testing workshop...&quot;);
+steam_ugc_set_item_visibility(_updateHandle, ugc_visibility_public);
+var _tagArray;
+_tagArray[0] = &quot;Test&quot;;
+_tagArray[1] = &quot;New&quot;;
+steam_ugc_set_item_tags(_updateHandle, _tagArray);
+steam_ugc_set_item_preview(_updateHandle, &quot;promo.jpg&quot;);
+steam_ugc_set_item_content(_updateHandle, &quot;WorkshopContent1&quot;);
+requestId = steam_ugc_submit_item_update(_updateHandle, &quot;Version 1.2&quot;);
+</code></pre></div>
+The above code gets the game ID, then uses that along with a previously stored published file ID to generate an update handle for the item. This handle is then used to update various pieces of information before the update is pushed to the Workshop servers.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_ugc_get_item_update_progress">steam_ugc_get_item_update_progress</h1>
+<p>This function can be used to track the update status for an item. You give the item handle (as returned by the function <a href="ugc.html#steam_ugc_start_item_update">steam_ugc_start_item_update</a>) and an empty <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Data_Structures/DS_Maps/DS_Maps.htm">DSMap</a> which will then be populated with the update information (see table below).
+If there is an error the function will return <code>false</code> and the map will be empty, otherwise the function returns <code>true</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>status_code</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The Steam status code</td>
+</tr>
+<tr>
+<td>status_string</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>A string for the current status</td>
+</tr>
+<tr>
+<td>bytes_processed</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The bytes processed so far</td>
+</tr>
+<tr>
+<td>bytes_total</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The total number of bytes in the update</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_ugc_get_item_update_progress(ugc_update_handle, info_map)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ugc_update_handle</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The unique handle for the UGC to be updated.</td>
+</tr>
+<tr>
+<td>info_map</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Data_Structures/DS_Maps/DS_Maps.htm">DSMap</a></td>
+<td>A (previously created) DS map</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>var _uploadMap = ds_map_create();
+steam_ugc_get_item_update_progress(global.itemHandle, _uploadMap);
+var _statusCode = _uploadMap[? &quot;status_code&quot;];
+var _status = _uploadMap[? &quot;status_string&quot;];
+var _processed = _uploadMap[? &quot;bytes_processed&quot;];
+var _total = _uploadMap[? &quot;bytes_total&quot;];
+draw_text(32, 0, &quot;Upload info for item:&quot; + string(global.itemHandle));
+draw_text(32, 15, &quot;status code:&quot; + string(_statusCode));
+draw_text(32, 30, &quot;status:&quot; + string(_status));
+draw_text(32, 45, &quot;bytes processed:&quot; +string(_processed));
+draw_text(32, 60, &quot;bytes total:&quot; + string(_total));
+ds_map_destroy(_uploadMap);
+</code></pre></div>
+The above code will query the upload status of the item indexed in the global variable "itemHandle", using a <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Data_Structures/DS_Maps/DS_Maps.htm">DSMap</a> to store the information. This is then parsed and the resulting values drawn to the screen.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_ugc_subscribe_item">steam_ugc_subscribe_item</h1>
+<p>This function can be used to subscribe to a UGC item.
+This is an asynchronous function that will return an asynchronous ID and trigger the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a> when the task is finished.</p>
+<p>This function operates asynchronously, which means that it does not immediately return the requested result. Instead, upon completion of the task, it will trigger the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_ugc_subscribe_item(published_file_id)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>published_file_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Int64</a></td>
+<td>The unique file ID for the UGC to subscribe to.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Triggers:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The asynchronous request ID</td>
+</tr>
+<tr>
+<td>event_type</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The string value <code>"ugc_subscribe_item"</code></td>
+</tr>
+<tr>
+<td>result</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>This will either be the GML constant <code>ugc_result_success</code> or some other real number (see the <a href="https://partner.steamgames.com/doc/api/steam_api#EResult">Steam docs</a>, for more details)</td>
+</tr>
+<tr>
+<td>published_file_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Int64</a></td>
+<td>This key holds the unique published ID for the item (you may need to cast it using the <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Variable_Functions/int64.htm">int64</a> function, before passing it to subsequent functions</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>steam_sub = steam_ugc_subscribe_item(global.pubFileID);
+</code></pre></div>
+The above code will subscribe (and download) the item with the file ID stored in the global variable "pubFileID".</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_ugc_unsubscribe_item">steam_ugc_unsubscribe_item</h1>
+<p>This function can be used to unsubscribe from a UGC item.
+This is an asynchronous function that will return an asynchronous ID and trigger the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a> when the task is finished.</p>
+<p>This function operates asynchronously, which means that it does not immediately return the requested result. Instead, upon completion of the task, it will trigger the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_ugc_unsubscribe_item(published_file_id)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>published_file_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Int64</a></td>
+<td>The unique file ID for the UGC to unsubscribe from.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Triggers:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The asynchronous request ID</td>
+</tr>
+<tr>
+<td>event_type</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The string value <code>"ugc_unsubscribe_item"</code></td>
+</tr>
+<tr>
+<td>result</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>This will either be the GML constant <code>ugc_result_success</code> or some other real number (see the <a href="https://partner.steamgames.com/doc/api/steam_api#EResult">Steam docs</a>, for more details)</td>
+</tr>
+<tr>
+<td>published_file_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Any</a></td>
+<td>This key holds the unique published ID for the item (you may need to cast it using the <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Variable_Functions/int64.htm">int64</a> function)</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>steam_sub = steam_ugc_unsubscribe_item(global.pubFileID);
+</code></pre></div>
+The above code will unsubscribe (and remove) the item with the file ID stored in the global variable "pubFileID".</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_ugc_num_subscribed_items">steam_ugc_num_subscribed_items</h1>
+<p>This function can be used to get the number of items that the current user has subscribed to.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_ugc_num_subscribed_items()
+</code></pre></div>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>numSub = steam_ugc_num_subscribed_items();
+</code></pre></div>
+The above code will store the number of subscribed items in a variable.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_ugc_get_subscribed_items">steam_ugc_get_subscribed_items</h1>
+<p>This function will populate a DS list with all the published file IDs for the items that the user is currently subscribed to. You must first create the list and store the index in a variable, then pass this to the function.
+The function will return <code>true</code> if everything is correct and the Steam API is initialized, or <code>false</code> if there is an error.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_ugc_get_subscribed_items(item_list)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>item_list</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Data_Structures/DS_Lists/DS_Lists.htm">DSList</a></td>
+<td>A (previously created) DS list index.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>steam_list = ds_list_create();
+steam_ugc_get_subscribed_items(steam_list);
+</code></pre></div>
+The above code will create an empty DS list and then populate it with the file IDs for all subscribed items for the user.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_ugc_get_item_install_info">steam_ugc_get_item_install_info</h1>
+<p>This function can be used to retrieve information about any given published file item that has been subscribed to and downloaded to the Steam local storage area for your game. You give the item ID and supply the index to an empty <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Data_Structures/DS_Maps/DS_Maps.htm">DSMap</a> which will then be populated with the install information (see table below).
+If the item exists (i.e.: as been subscribed and download was complete) then the function will return <code>true</code> and populate the map, otherwise it will return <code>false</code> and the map will remain empty.</p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>size_on_disk</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The file size on disk (in bytes)</td>
+</tr>
+<tr>
+<td>legacy_item</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></td>
+<td>Will be <code>true</code> or <code>false</code> depending on whether it is a legacy file or not</td>
+</tr>
+<tr>
+<td>folder</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>This is the full path to the installed content (please refer to "Item Installation" in Steam SDK docs, as "legacy" items uploaded with the old method, are treated differently)</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_ugc_get_item_install_info(published_file_id, info_map)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>published_file_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Int64</a></td>
+<td>The unique handle for the UGC to be updated.</td>
+</tr>
+<tr>
+<td>info_map</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Data_Structures/DS_Maps/DS_Maps.htm">DSMap</a></td>
+<td>A (previously created) DS map index.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>var _item_map = ds_map_create();
+steam_ugc_get_item_install_info(global.fileID, _item_map);
+</code></pre></div>
+The above code will query the install status of the item indexed in the global variable "fileID", using a <code>DS Map</code> to store the information.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_ugc_get_item_update_info">steam_ugc_get_item_update_info</h1>
+<p>This function can be used to retrieve information about the current download state for the given file ID. You give the item ID and supply the index to an empty <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Data_Structures/DS_Maps/DS_Maps.htm">DSMap</a> which will then be populated with the update information (see table below).
+If the item exists then the function will return <code>true</code> and populate the map, otherwise it will return <code>false</code> and the map will remain empty.</p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>needs_update</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></td>
+<td>Whether the item needs an update or not</td>
+</tr>
+<tr>
+<td>is_downloading</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></td>
+<td>Whether the item is currently downloading or not</td>
+</tr>
+<tr>
+<td>bytes_downloaded</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The number of bytes that has been downloaded</td>
+</tr>
+<tr>
+<td>bytes_total</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The total size (number of bytes) required for the item on disk</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_ugc_get_item_update_info(published_file_id, info_map)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>published_file_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Int64</a></td>
+<td>The unique file ID for the UGC to be checked.</td>
+</tr>
+<tr>
+<td>info_map</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Data_Structures/DS_Maps/DS_Maps.htm">DSMap</a></td>
+<td>A (previously created) DS map index.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>var _info_map = ds_map_create();
+var _info = steam_ugc_get_item_update_info(global.fileID, _info_map);
+
+if _info
+{
+    draw_text(32, 15, &quot;needs_update: &quot; + string(_info_map[? &quot;needs_update&quot;]));
+    draw_text(32, 30, &quot;is_downloading: &quot; + string(_info_map[? &quot;is_downloading&quot;]));
+    draw_text(32, 45, &quot;bytes_downloaded: &quot; + string(_info_map[? &quot;bytes_downloaded&quot;]));
+    draw_text(32, 60, &quot;bytes_total: &quot; + string(_info_map[? &quot;bytes_total&quot;]));
+}
+</code></pre></div>
+The above code will query the download status of the item indexed in the global variable "fileID", using a <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Data_Structures/DS_Maps/DS_Maps.htm">DSMap</a> to store the information.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_ugc_request_item_details">steam_ugc_request_item_details</h1>
+<p>This function can be used to retrieve information about a given file ID. You give the file ID and supply a maximum age for checking (see the Steam docs for more information).
+This is an asynchronous function that will return an asynchronous ID and trigger the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a> when the task is finished.</p>
+<p>This function operates asynchronously, which means that it does not immediately return the requested result. Instead, upon completion of the task, it will trigger the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_ugc_request_item_details(published_file_id, max_age_seconds)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>published_file_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The unique file ID for the UGC to be checked.</td>
+</tr>
+<tr>
+<td>max_age_seconds</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The age of the data to check (recommended 30 - 60 seconds).</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Triggers:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The asynchronous request ID</td>
+</tr>
+<tr>
+<td>event_type</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The string value <code>"ugc_item_details"</code></td>
+</tr>
+<tr>
+<td>result</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>This will either be the GML constant <code>ugc_result_success</code> or some other real number (see the <a href="https://partner.steamgames.com/doc/api/steam_api#EResult">Steam docs</a>, for more details)</td>
+</tr>
+<tr>
+<td>cached_data</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></td>
+<td>Will be <code>true</code> if the returned details are from the local cache or <code>false</code> if they are taken from the server</td>
+</tr>
+<tr>
+<td>published_file_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Int64</a></td>
+<td>This key holds the unique published ID for the item (you may need to cast it using the <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Variable_Functions/int64.htm">int64</a> function)</td>
+</tr>
+<tr>
+<td>file_type</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The type of file used</td>
+</tr>
+<tr>
+<td>creator_app_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The Steam ID of the item creator</td>
+</tr>
+<tr>
+<td>consumer_app_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The Steam ID of the item consumer</td>
+</tr>
+<tr>
+<td>title</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The title of the item</td>
+</tr>
+<tr>
+<td>description</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The description of the item</td>
+</tr>
+<tr>
+<td>steam_id_owner</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The Steam ID of the item owner</td>
+</tr>
+<tr>
+<td>time_created</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The time the item was first created</td>
+</tr>
+<tr>
+<td>time_uploaded</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The last time the item was updated</td>
+</tr>
+<tr>
+<td>time_added_to_user_list</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The time that the item was subscribed to</td>
+</tr>
+<tr>
+<td>visibility</td>
+<td><a href="ugc.html#ugcfilevisibility">UGCFileVisibility</a></td>
+<td>The visibility of the item (see <a href="ugc.html#ugcfilevisibility">UGCFileVisibility</a> constant)</td>
+</tr>
+<tr>
+<td>banned</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></td>
+<td>Whether the item has been banned or not</td>
+</tr>
+<tr>
+<td>accepted_for_use</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></td>
+<td>Whether the item has been accepted for use or not</td>
+</tr>
+<tr>
+<td>tags_truncated</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Arrays.htm">Array</a></td>
+<td>Short version of the tags as an array</td>
+</tr>
+<tr>
+<td>tags</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Arrays.htm">Array</a> of <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>An array of the tags for the item</td>
+</tr>
+<tr>
+<td>handle_file</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Int64</a></td>
+<td>The unique file handle for the item</td>
+</tr>
+<tr>
+<td>handle_preview_file</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Int64</a></td>
+<td>The unique handle for the image preview for the item (can be used with <a href="ugc.html#steam_ugc_download">steam_ugc_download</a> to download a preview image)</td>
+</tr>
+<tr>
+<td>filename</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The name of the item file</td>
+</tr>
+<tr>
+<td>file_size</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The size of the item file</td>
+</tr>
+<tr>
+<td>preview_file_size</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The size of the preview image</td>
+</tr>
+<tr>
+<td>url</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The full URL for the item</td>
+</tr>
+<tr>
+<td>up_votes</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The number of up-votes received</td>
+</tr>
+<tr>
+<td>down_votes</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The number of down-votes received</td>
+</tr>
+<tr>
+<td>score</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The overall score of the item</td>
+</tr>
+<tr>
+<td>account_id_owner</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The account ID from the Steam ID owner (this can be used in function <a href="ugc.html#steam_ugc_create_query_user_ex">steam_ugc_create_query_user_ex</a>)</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p>In this example we send off a details request for an item and then parse the resulting <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Variables/Builtin_Global_Variables/async_load.htm">async_load</a> DS map to set some variables. First we send off the request:</p>
+<p><div class="highlight"><pre><span></span><code>steam_details = steam_ugc_request_item_details(global.fileID, 60);
+</code></pre></div>
+The above code will request details on the item with the file ID stored in the global variable and will trigger a <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a> with the returned information. In this event we can then parse the map and store some of the values in variables which can then be used to display the information to the user:</p>
+<div class="highlight"><pre><span></span><code>var _map_id = async_load[? &quot;id&quot;];
+var _result = async_load[? &quot;result&quot;];
+if (_map_id == steam_details) &amp;&amp; (_result == ugc_result_success)
+{
+    mTitle = async_load[? &quot;title&quot;];
+    mDesc = async_load[? &quot;description&quot;];
+    mTags = async_load[? &quot;tags&quot;];
+    m_hPreviewFile = async_load[? &quot;handle_preview_file&quot;];
+    m_hOwnerSteamId = async_load[? &quot;steam_id_owner&quot;];
+    mOwnerAccountId = async_load[? &quot;account_id_owner&quot;];
+    mPubFileId = async_load[? &quot;published_file_id&quot;];
+    mScore = async_load[? &quot;score&quot;];
+}
+</code></pre></div>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_ugc_create_query_user">steam_ugc_create_query_user</h1>
+<p>This function can be used to query the UGC database. The function automatically uses the default ID for the app, user and assumes that the query is being done by the consumer (rather than the creator). The function requires you to use the following constants for the type of data to query (<a href="ugc.html#ugclisttype">UGCListType</a>), the type of item to match (<a href="ugc.html#ugcmatchtype">UGCMatchType</a>) and the order in which the returned items will be sorted (<a href="ugc.html#ugclistsortorder">UGCListSortOrder</a>), as well as a page number - note that a query will return a <em>maximum</em> number of 50 items.
+The function returns a unique query handle value which should be stored in a variable for use in the other query functions. Note that this function only prepares the query but does not actually send it - for that you must call the function <a href="ugc.html#steam_ugc_send_query">steam_ugc_send_query</a> - and you can use further <code>steam_ugc_query_*()</code> functions to refine the search request before it is actually sent.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_ugc_create_query_user(list_type, match_type, sort_order, page)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>list_type</td>
+<td><a href="ugc.html#ugclisttype">UGCListType</a></td>
+<td>The type of data list to create</td>
+</tr>
+<tr>
+<td>match_type</td>
+<td><a href="ugc.html#ugcmatchtype">UGCMatchType</a></td>
+<td>The type of UGC items to query</td>
+</tr>
+<tr>
+<td>sort_order</td>
+<td><a href="ugc.html#ugclistsortorder">UGCListSortOrder</a></td>
+<td>The way that data should be ordered</td>
+</tr>
+<tr>
+<td>page</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The page number to query.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>query_handle = steam_ugc_create_query_user(ugc_list_Published, ugc_match_Items, ugc_sortorder_TitleAsc, 1);
+</code></pre></div>
+The above code creates a query request and stores its handle in a variable for future use.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_ugc_create_query_user_ex">steam_ugc_create_query_user_ex</h1>
+<p>This function can be used to query the UGC database. The function requires the ID value for the user and the ID of the game that is going to consume the item and/or the ID of the game that created the item. You also need to use the following constants for the type of data to query (<a href="ugc.html#ugclisttype">UGCListType</a>), the type of item to query (<a href="ugc.html#ugcmatchtype">UGCMatchType</a>) and the order in which the returned items will be sorted (<a href="ugc.html#ugclistsortorder">UGCListSortOrder</a>), as well as a page number - note that a query will return a <em>maximum</em> number of 50 items.
+The function returns a unique query handle value which should be stored in a variable for use in the other query functions. Note that this function only prepares the query but does not actually send it - for that you must call the function <a href="ugc.html#steam_ugc_send_query">steam_ugc_send_query</a> - and you can use further <code>steam_ugc_query_*()</code> functions to refine the search request before it is actually sent.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_ugc_create_query_user_ex(list_type, match_type, sort_order, page, account_id, creator_app_id, consumer_app_id)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>list_type</td>
+<td><a href="ugc.html#ugclisttype">UGCListType</a></td>
+<td>The type of data list to create</td>
+</tr>
+<tr>
+<td>match_type</td>
+<td><a href="ugc.html#ugcmatchtype">UGCMatchType</a></td>
+<td>The type of UGC items to query</td>
+</tr>
+<tr>
+<td>sort_order</td>
+<td><a href="ugc.html#ugclistsortorder">UGCListSortOrder</a></td>
+<td>The way that data should be ordered</td>
+</tr>
+<tr>
+<td>page</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The page number to query</td>
+</tr>
+<tr>
+<td>account_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The Steam account ID</td>
+</tr>
+<tr>
+<td>creator_app_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The item creator app ID</td>
+</tr>
+<tr>
+<td>consumer_app_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The consumer app ID</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>query_handle = steam_ugc_create_query_user_ex(ugc_list_Published, ugc_match_Items, ugc_sortorder_TitleAsc, page, global.AccountID, 0, global.GameID);
+</code></pre></div>
+The above code creates a query request and stores its handle in a variable for future use.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_ugc_create_query_all">steam_ugc_create_query_all</h1>
+<p>This function can be used to query the UGC database using some predefined query types. The function requires the following constants for the type of query to create (<a href="ugc.html#ugcquerytype">UGCQueryType</a>), the type of item to match (<a href="ugc.html#ugcmatchtype">UGCMatchType</a>) and the page number to query - note that a query will return a <em>maximum</em> number of 50 items.
+The function returns a unique query handle value which should be stored in a variable for use in the other query functions. Note that this function only prepares the query but does not actually send it - for that you must call the function <a href="ugc.html#steam_ugc_send_query">steam_ugc_send_query</a> - and you can use further <code>steam_ugc_query_*()</code> functions to refine the search request before it is actually sent.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_ugc_create_query_all(query_type, match_type, page)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>query_type</td>
+<td><a href="ugc.html#ugcquerytype">UGCQueryType</a></td>
+<td>The type of query to create</td>
+</tr>
+<tr>
+<td>match_type</td>
+<td><a href="ugc.html#ugcmatchtype">UGCMatchType</a></td>
+<td>The type of UGC items to query</td>
+</tr>
+<tr>
+<td>page</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The page number to query</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>query_handle = steam_ugc_create_query_all(ugc_query_RankedByVote, ugc_match_Items, 1);
+</code></pre></div>
+The above code creates a general query request and stores its handle in a variable for future use.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_ugc_create_query_all_ex">steam_ugc_create_query_all_ex</h1>
+<p>This function can be used to query the UGC database. The function requires the ID of the game that is going to consume the item and/or the ID of the game that created the item, and you need to use the following constants for the type of query to create (<a href="ugc.html#ugcquerytype">UGCQueryType</a>), the type of item to match (<a href="ugc.html#ugcmatchtype">UGCMatchType</a>) and the page number to query. Note that a query will return a <em>maximum</em> number of 50 items.
+The function returns a unique query handle value which should be stored in a variable for use in the other query functions. Note that this function only prepares the query but does not actually send it - for that you must call the function <a href="ugc.html#steam_ugc_send_query">steam_ugc_send_query</a> - and you can use further <code>steam_ugc_query_*()</code> functions to refine the search request before it is actually sent.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_ugc_create_query_all_ex(query_type, match_type, page, creator_app_id, consumer_app_id)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>query_type</td>
+<td><a href="ugc.html#ugcquerytype">UGCQueryType</a></td>
+<td>The type of query to create</td>
+</tr>
+<tr>
+<td>match_type</td>
+<td><a href="ugc.html#ugcmatchtype">UGCMatchType</a></td>
+<td>The type of UGC items to query</td>
+</tr>
+<tr>
+<td>page</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The page number to query</td>
+</tr>
+<tr>
+<td>creator_app_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The item creator's app ID</td>
+</tr>
+<tr>
+<td>consumer_app_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The consumer's app ID</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>query_handle = steam_ugc_create_query_all_ex(ugc_query_RankedByVote, page, global.AccountID, 0, global.GameID);
+</code></pre></div>
+The above code creates a query request and stores its handle in a variable for future use.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_ugc_query_set_cloud_filename_filter">steam_ugc_query_set_cloud_filename_filter</h1>
+<p>This function can be used to further filter any given UGC query, specifically to check and see if a Workshop item file name must match or not. The query handle is the value returned when you created the query (using, for example, <a href="ugc.html#steam_ugc_create_query_user">steam_ugc_create_query_user</a>) and the second argument is either <code>true</code> or <code>false</code>, depending on whether you require the file names to match.
+The function will return <code>true</code> if the query filter was correctly set, or <code>false</code> otherwise.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_ugc_query_set_cloud_filename_filter(ugc_query_handle, match_cloud_filename)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ugc_query_handle</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The query handle to use.</td>
+</tr>
+<tr>
+<td>match_cloud_filename</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></td>
+<td>Sets whether the UGC item file name should match or not.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>var _query_handle = steam_ugc_create_query_all(ugc_query_RankedByVote, ugc_match_Items, 1);
+steam_ugc_query_set_cloud_filename_filter(_query_handle, true);
+steam_ugc_query_add_excluded_tag(_query_handle, &quot;nasty chips&quot;);
+steam_ugc_query_set_return_long_description(_query_handle, true);
+steam_ugc_query_set_allow_cached_response(_query_handle, true);
+query_ID = steam_ugc_send_query(_query_handle);
+</code></pre></div>
+The above code creates a query request and stores its handle in a local variable for future use in the rest of the functions which further define the query request before sending the query.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_ugc_query_set_match_any_tag">steam_ugc_query_set_match_any_tag</h1>
+<p>This function can be used to further filter any given UGC query, specifically to switch on or off tag matching. The query handle is the value returned when you created the query (using, for example, <a href="ugc.html#steam_ugc_create_query_user">steam_ugc_create_query_user</a>) and the second argument is either <code>true</code> or <code>false</code>, depending on whether you require a check for matching tags.
+The function will return <code>true</code> if the query filter was correctly set, or <code>false</code> otherwise.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_ugc_query_set_match_any_tag(ugc_query_handle, match_any_tag)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ugc_query_handle</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The query handle to use.</td>
+</tr>
+<tr>
+<td>match_any_tag</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></td>
+<td>Sets whether the UGC item tags should match anything or not.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>var _query_handle = steam_ugc_create_query_all(ugc_query_RankedByVote, ugc_match_Items, 1);
+steam_ugc_query_set_match_any_tag(_query_handle, false);
+steam_ugc_query_add_excluded_tag(_query_handle, &quot;walking simulator&quot;);
+steam_ugc_query_set_return_long_description(_query_handle, true);
+steam_ugc_query_set_allow_cached_response(_query_handle, true);
+query_ID = steam_ugc_send_query(_query_handle);
+</code></pre></div>
+The above code creates a query request and stores its handle in a local variable for future use in the rest of the functions which further define the query request before sending the query.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_ugc_query_set_search_text">steam_ugc_query_set_search_text</h1>
+<p>This function can be used to further filter any given UGC query, specifically to search for the given string in the title and description of the UGC items. The query handle is the value returned when you created the query (using, for example, <a href="ugc.html#steam_ugc_create_query_user">steam_ugc_create_query_user</a>) and the second argument is a string you want to use as the search term.
+The function will return <code>true</code> if the query filter was correctly set, or <code>false</code> otherwise.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_ugc_query_set_search_text(ugc_query_handle, search_text)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ugc_query_handle</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The query handle to use.</td>
+</tr>
+<tr>
+<td>search_text</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The search text to use for the query.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>var _query_handle = steam_ugc_create_query_all(ugc_query_RankedByVote, ugc_match_Items, 1);
+steam_ugc_query_set_search_text(_query_handle, &quot;texture&quot;);
+steam_ugc_query_set_return_long_description(_query_handle, true);
+steam_ugc_query_set_allow_cached_response(_query_handle, true);
+query_ID = steam_ugc_send_query(_query_handle);
+</code></pre></div>
+The above code creates a query request and stores its handle in a local variable for future use in the rest of the functions which further define the query request before sending the query.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_ugc_query_set_ranked_by_trend_days">steam_ugc_query_set_ranked_by_trend_days</h1>
+<p>This function can be used to further filter any UGC query made using the <code>ugc_query_RankedByTrend</code> constant (<a href="ugc.html#ugcquerytype">UGCQueryType</a>), specifically to search over a number of days. The query handle is the value returned when you created the query (using, for example, <a href="ugc.html#steam_ugc_create_query_user">steam_ugc_create_query_user</a>) and the second argument is the number of days over which you want the query to run.
+The function will return <code>true</code> if the query filter was correctly set, or <code>false</code> otherwise.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_ugc_query_set_ranked_by_trend_days(ugc_query_handle, days)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ugc_query_handle</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The query handle to use.</td>
+</tr>
+<tr>
+<td>days</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The number of days to query.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>var _query_handle = steam_ugc_create_query_all(ugc_query_RankedByTrend, ugc_match_Items, 1);
+steam_ugc_query_set_ranked_by_trend_days(_query_handle, 5);
+steam_ugc_query_set_return_long_description(_query_handle, true);
+steam_ugc_query_set_allow_cached_response(_query_handle, true);
+query_ID = steam_ugc_send_query(_query_handle);
+</code></pre></div>
+The above code creates a query request and stores its handle in a local variable for future use in the rest of the functions which further define the query request before sending the query.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_ugc_query_add_required_tag">steam_ugc_query_add_required_tag</h1>
+<p>This function can be used to further filter any given UGC query, specifically to search only those UGC items with the given tag. The query handle is the value returned when you created the query (using, for example, <a href="ugc.html#steam_ugc_create_query_user">steam_ugc_create_query_user</a>) and the second argument is a string you want to use as the tag to include.
+The function will return <code>true</code> if the query filter was correctly set, or <code>false</code> otherwise.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_ugc_query_add_required_tag(ugc_query_handle, tag_name)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ugc_query_handle</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The query handle to use.</td>
+</tr>
+<tr>
+<td>tag_name</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The tag name to include.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>var _query_handle = steam_ugc_create_query_all(ugc_query_RankedByTrend, ugc_match_Items, 1);
+steam_ugc_query_add_required_tag(_query_handle, &quot;RPG&quot;);
+steam_ugc_query_set_return_long_description(_query_handle, true);
+steam_ugc_query_set_allow_cached_response(_query_handle, true);
+query_ID = steam_ugc_send_query(_query_handle);
+</code></pre></div>
+The above code creates a query request and stores its handle in a local variable for future use in the rest of the functions which further define the query request before sending the query.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_ugc_query_add_excluded_tag">steam_ugc_query_add_excluded_tag</h1>
+<p>This function can be used to further filter any given UGC query, specifically to exclude a given UGC from the query request. The query handle is the value returned when you created the query (using, for example, <a href="ugc.html#steam_ugc_create_query_user">steam_ugc_create_query_user</a>) and the second argument is a string you want to use as the tag to exclude.
+The function will return <code>true</code> if the query filter was correctly set, or <code>false</code> otherwise.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_ugc_query_add_excluded_tag(ugc_query_handle, tag_name)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ugc_query_handle</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The query handle to use.</td>
+</tr>
+<tr>
+<td>tag_name</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The tag name to exclude.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>var _query_handle = steam_ugc_create_query_all(ugc_query_RankedByVote, ugc_match_Items, 1);
+steam_ugc_query_add_excluded_tag(_query_handle, &quot;walking simulator&quot;);
+steam_ugc_query_set_return_long_description(_query_handle, true);
+steam_ugc_query_set_allow_cached_response(_query_handle, true);
+query_ID = steam_ugc_send_query(_query_handle);
+</code></pre></div>
+The above code creates a query request and stores its handle in a local variable for future use in the rest of the functions which further define the query request before sending the query.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_ugc_query_set_return_long_description">steam_ugc_query_set_return_long_description</h1>
+<p>This function can be used to further filter any given UGC query, specifically to retrieve the long description text in the call back event triggered when the query was sent. The query handle is the value returned when you created the query (using, for example,  <a href="ugc.html#steam_ugc_create_query_user">steam_ugc_create_query_user</a>) and the second argument is either <code>true</code> or <code>false</code>.
+The function will return <code>true</code> if the query filter was correctly set, or <code>false</code> otherwise.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_ugc_query_set_return_long_description(ugc_query_handle, long_description)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ugc_query_handle</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The query handle to use.</td>
+</tr>
+<tr>
+<td>long_description</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></td>
+<td>Whether to have the query return the long description text.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>var _query_handle = steam_ugc_create_query_all(ugc_query_RankedByVote, ugc_match_Items, 1);
+steam_ugc_query_set_return_long_description(_query_handle, true);
+steam_ugc_query_set_allow_cached_response(_query_handle, true);
+query_ID = steam_ugc_send_query(_query_handle);
+</code></pre></div>
+The above code creates a query request and stores its handle in a local variable for future use in the rest of the functions which further define the query request before sending the query.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_ugc_query_set_return_total_only">steam_ugc_query_set_return_total_only</h1>
+<p>This function can be used to further filter any given UGC query, specifically to request only the number of results without any other information (meaning that the DS map generated by the send function will contain the key "num_results" without any further map data). The query handle is the value returned when you created the query (using, for example, <a href="ugc.html#steam_ugc_create_query_user">steam_ugc_create_query_user</a>) and the second argument is either <code>true</code> or <code>false</code>.
+The function will return <code>true</code> if the query filter was correctly set, or <code>false</code> otherwise.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_ugc_query_set_return_total_only(ugc_query_handle, total_only)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ugc_query_handle</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The query handle to use.</td>
+</tr>
+<tr>
+<td>total_only</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></td>
+<td>Whether to have the query return only the total number of hits or not.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>var _query_handle = steam_ugc_create_query_all(ugc_query_RankedByVote, ugc_match_Items, 1);
+steam_ugc_query_set_return_total_only(_query_handle, true);
+steam_ugc_query_set_allow_cached_response(_query_handle, true);
+query_ID = steam_ugc_send_query(_query_handle);
+</code></pre></div>
+The above code creates a query request and stores its handle in a local variable for future use in the rest of the functions which further define the query request before sending the query.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_ugc_query_set_allow_cached_response">steam_ugc_query_set_allow_cached_response</h1>
+<p>This function can be used to further filter any given UGC query, specifically to request that the query check the local cache rather than online. The query handle is the value returned when you created the query (using, for example, <a href="ugc.html#steam_ugc_create_query_user">steam_ugc_create_query_user</a>) and the second argument is either <code>true</code> or <code>false</code>.
+The function will return <code>true</code> if the query filter was correctly set, or <code>false</code> otherwise.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_ugc_query_set_allow_cached_response(ugc_query_handle, cache)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ugc_query_handle</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The query handle to use.</td>
+</tr>
+<tr>
+<td>cache</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></td>
+<td>Whether to have the query check the local cache or not.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>var _query_handle = steam_ugc_create_query_all(ugc_query_RankedByTrend, ugc_match_Items, 1);
+steam_ugc_query_add_required_tag(_query_handle, &quot;RPG&quot;);
+steam_ugc_query_set_return_long_description(_query_handle, true);
+steam_ugc_query_set_allow_cached_response(_query_handle, true);
+query_ID = steam_ugc_send_query(_query_handle);
+</code></pre></div>
+The above code creates a query request and stores its handle in a local variable for future use in the rest of the functions which further define the query request before sending the query.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_ugc_send_query">steam_ugc_send_query</h1>
+<p>This function can be used to send a query request. You first define the query using one of the following functions:</p>
+<ul>
+<li><a href="ugc.html#steam_ugc_create_query_all">steam_ugc_create_query_all</a></li>
+<li><a href="ugc.html#steam_ugc_create_query_all_ex">steam_ugc_create_query_all_ex</a></li>
+<li><a href="ugc.html#steam_ugc_create_query_user">steam_ugc_create_query_user</a></li>
+<li><a href="ugc.html#steam_ugc_create_query_user_ex">steam_ugc_create_query_user_ex</a></li>
+</ul>
+<p>which will return a query handle. This handle is then used to set filters, etc. before being used in this function to send off the query request.
+This is an asynchronous function that will return an asynchronous ID and trigger the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a> when the task is finished.</p>
+<p>This function operates asynchronously, which means that it does not immediately return the requested result. Instead, upon completion of the task, it will trigger the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_ugc_send_query(ugc_query_handle)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ugc_query_handle</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The query handle to send.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Triggers:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The asynchronous request ID</td>
+</tr>
+<tr>
+<td>event_type</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The string value <code>"ugc_query"</code></td>
+</tr>
+<tr>
+<td>result</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>This will either be the GML constant <code>ugc_result_success</code> or some other real number (see the <a href="https://partner.steamgames.com/doc/api/steam_api#EResult">Steam docs</a>, for more details)</td>
+</tr>
+<tr>
+<td>cached_data</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></td>
+<td>Will be <code>true</code> if the returned details are from the local cache or <code>false</code> if they are taken from the server</td>
+</tr>
+<tr>
+<td>total_matching</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The total number of matching results</td>
+</tr>
+<tr>
+<td>num_results</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The number of results returned (max 50)</td>
+</tr>
+<tr>
+<td>results_list</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Data_Structures/DS_Lists/DS_Lists.htm">DSList</a></td>
+<td>A DS List index, where each list entry is a DS Map index containing details of the particular item (see table below)</td>
+</tr>
+<tr>
+<td>published_file_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Int64</a></td>
+<td>This key holds the unique published ID for the item (you may need to cast it using the <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Variable_Functions/int64.htm">int64</a> function)</td>
+</tr>
+<tr>
+<td>file_type</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The type of file used</td>
+</tr>
+<tr>
+<td>creator_app_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The Steam ID of the item creator</td>
+</tr>
+<tr>
+<td>consumer_app_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The Steam ID of the item consumer</td>
+</tr>
+<tr>
+<td>title</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The title of the item</td>
+</tr>
+<tr>
+<td>description</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The description of the item</td>
+</tr>
+<tr>
+<td>steam_id_owner</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The Steam ID of the item owner</td>
+</tr>
+<tr>
+<td>time_created</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The time the item was first created</td>
+</tr>
+<tr>
+<td>time_uploaded</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The last time the item was updated</td>
+</tr>
+<tr>
+<td>time_added_to_user_list</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The time that the item was subscribed to</td>
+</tr>
+<tr>
+<td>visibility</td>
+<td><a href="ugc.html#ugcfilevisibility">UGCFileVisibility</a></td>
+<td>The visibility of the item</td>
+</tr>
+<tr>
+<td>banned</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></td>
+<td>Whether the item has been banned or not</td>
+</tr>
+<tr>
+<td>accepted_for_use</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></td>
+<td>Whether the item has been accepted for use or not</td>
+</tr>
+<tr>
+<td>tags_truncated</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Arrays.htm">Array</a></td>
+<td>Short version of the tags as an array</td>
+</tr>
+<tr>
+<td>tags</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Arrays.htm">Array</a> of <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>An array of the tags for the item</td>
+</tr>
+<tr>
+<td>handle_file</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Int64</a></td>
+<td>The unique file handle for the item</td>
+</tr>
+<tr>
+<td>handle_preview_file</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Int64</a></td>
+<td>The unique handle for the image preview for the item (can be used with <a href="ugc.html#steam_ugc_download">steam_ugc_download</a> to download a preview image)</td>
+</tr>
+<tr>
+<td>filename</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The name of the item file</td>
+</tr>
+<tr>
+<td>file_size</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The size of the item file</td>
+</tr>
+<tr>
+<td>preview_file_size</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The size of the preview image</td>
+</tr>
+<tr>
+<td>url</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The full URL for the item</td>
+</tr>
+<tr>
+<td>up_votes</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The number of upvotes received</td>
+</tr>
+<tr>
+<td>down_votes</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The number of downvotes received</td>
+</tr>
+<tr>
+<td>score</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The overall score of the item</td>
+</tr>
+<tr>
+<td>account_id_owner</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The account ID from the Steam ID owner (can be used in the function <a href="ugc.html#steam_ugc_create_query_user">steam_ugc_create_query_user</a>)</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>var _query_handle = steam_ugc_create_query_all(ugc_query_RankedByTrend, ugc_match_Items, 1);
+steam_ugc_query_add_required_tag(_query_handle, &quot;RPG&quot;);
+steam_ugc_query_set_return_long_description(_query_handle, true);
+steam_ugc_query_set_allow_cached_response(_query_handle, true);
+query_ID = steam_ugc_send_query(_query_handle);
+</code></pre></div>
+The above code creates a query request and stores its handle in a local variable for future use in the rest of the functions which further define the query request before sending the query.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_ugc_download">steam_ugc_download</h1>
+<p>With this function you can download a preview image for any given UGC item. The <code>ugc_handle</code> is the unique identifying value for the image (which you can get using the function <a href="ugc.html#steam_ugc_send_query">steam_ugc_send_query</a>), and the destination filename is the name (and local path within the Steam sandbox) that you wish to give the image file when the download is complete.
+This is an asynchronous function that will return an asynchronous ID and trigger the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a> when the task is finished.</p>
+<p>This function operates asynchronously, which means that it does not immediately return the requested result. Instead, upon completion of the task, it will trigger the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_ugc_download(ugc_handle, dest_filename)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ugc_handle</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Int64</a></td>
+<td>The unique handle for the preview to be downloaded.</td>
+</tr>
+<tr>
+<td>dest_filename</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The filename to save the preview with.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Triggers:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The asynchronous request ID</td>
+</tr>
+<tr>
+<td>event_type</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The string value <code>"ugc_create_item"</code></td>
+</tr>
+<tr>
+<td>result</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>This will either be the GML constant <code>ugc_result_success</code> or some other real number (see the <a href="https://partner.steamgames.com/doc/api/steam_api">Steam docs</a> under <strong>EResult</strong> for more details)</td>
+</tr>
+<tr>
+<td>original_filename</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>This key holds the original name of the image file <em>on the server</em> (a string)</td>
+</tr>
+<tr>
+<td>dest_filename</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>This key holds the image file name you passed in (a string)</td>
+</tr>
+<tr>
+<td>ugc_handle</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The unique identifying value for the image</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p>In this example we first call the function and store the async ID value in a variable:</p>
+<p><div class="highlight"><pre><span></span><code>steam_get = steam_ugc_download(steam_handle, &quot;\UGC\Preview_file.png&quot;);
+</code></pre></div>
+This would then send off a file request to the Steam API, generating an async event which we would deal with as follows:</p>
+<p><div class="highlight"><pre><span></span><code>var _event_id = async_load[? &quot;id&quot;];
+if _event_id == steam_get
+{
+    var _type = async_load[? &quot;event_type&quot;];
+    if _type == &quot;ugc_download&quot;
+    {
+        sprite_delete(preview_sprite);
+        preview_sprite = sprite_add(async_load[? &quot;dest_filename&quot;], 0, false, false, 0, 0);
+    }
+}
+</code></pre></div>
+The above code checks the event type and then creates a sprite from the downloaded image.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="ugcfiletype">UGCFileType</h1>
+<p>These constants specify the way that a shared file will be shared with the community and should be used while creating a new item with <a href="ugc.html#steam_ugc_create_item">steam_ugc_create_item</a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>See <a href="https://partner.steamgames.com/doc/api/ISteamRemoteStorage#EWorkshopFileType">Steam Docs</a> for more details.</p>
+</div>
+<p>These constants are referenced by the following functions:</p>
+<ul>
+<li><a href="ugc.html#steam_ugc_create_item">steam_ugc_create_item</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ugc_filetype_community</code></td>
+<td>This is used to create files that will be uploaded and made available to anyone in the community</td>
+</tr>
+<tr>
+<td><code>ugc_filetype_microtrans</code></td>
+<td>This is used to describe files that are uploaded but intended only for the game to consider adding as official content</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="ugcfilevisibility">UGCFileVisibility</h1>
+<p>These constants specify possible visibility states that a Workshop item can be in. They are used with the function <a href="ugc.html#steam_ugc_set_item_visibility">steam_ugc_set_item_visibility</a> and are an async callback parameter for the functions <a href="ugc.html#steam_ugc_request_item_details">steam_ugc_request_item_details</a> and <a href="ugc.html#steam_ugc_send_query">steam_ugc_send_query</a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>See <a href="https://partner.steamgames.com/doc/api/ISteamRemoteStorage#ERemoteStoragePublishedFileVisibility">Steam Docs</a> for more details.</p>
+</div>
+<p>These constants are referenced by the following functions:</p>
+<ul>
+<li><a href="ugc.html#steam_ugc_set_item_visibility">steam_ugc_set_item_visibility</a></li>
+<li><a href="ugc.html#steam_ugc_request_item_details">steam_ugc_request_item_details</a></li>
+<li><a href="ugc.html#steam_ugc_send_query">steam_ugc_send_query</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ugc_visibility_public</code></td>
+<td>Set the item to be publicly visible</td>
+</tr>
+<tr>
+<td><code>ugc_visibility_friends_only</code></td>
+<td>Set the item to be visible to only people on the users friends list</td>
+</tr>
+<tr>
+<td><code>ugc_visibility_private</code></td>
+<td>Set the item to be private</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="ugclistsortorder">UGCListSortOrder</h1>
+<p>These constants specify the sorting order of user published UGC lists.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>See <a href="https://partner.steamgames.com/doc/api/ISteamUGC#EUserUGCListSortOrder">Steam UGC Docs</a> for more details.</p>
+</div>
+<p>These constants are referenced by the following functions:</p>
+<ul>
+<li><a href="ugc.html#steam_ugc_create_query_user">steam_ugc_create_query_user</a></li>
+<li><a href="ugc.html#steam_ugc_create_query_user_ex">steam_ugc_create_query_user_ex</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ugc_sortorder_CreationOrderDesc</code></td>
+<td>Returns items by creation date. Descending - the newest items are first</td>
+</tr>
+<tr>
+<td><code>ugc_sortorder_CreationOrderAsc</code></td>
+<td>Returns items by creation date. Ascending - the oldest items are first</td>
+</tr>
+<tr>
+<td><code>ugc_sortorder_TitleAsc</code></td>
+<td>Returns items by name</td>
+</tr>
+<tr>
+<td><code>ugc_sortorder_LastUpdatedDesc</code></td>
+<td>Returns the most recently updated items first</td>
+</tr>
+<tr>
+<td><code>ugc_sortorder_SubscriptionDateDesc</code></td>
+<td>Returns the most recently subscribed items first</td>
+</tr>
+<tr>
+<td><code>ugc_sortorder_VoteScoreDesc</code></td>
+<td>Returns the items with the more recent score updates first</td>
+</tr>
+<tr>
+<td><code>ugc_sortorder_ForModeration</code></td>
+<td>Returns the items that have been reported for moderation</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="ugclisttype">UGCListType</h1>
+<p>These constants specify the type of published UGC list to obtain.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>See <a href="https://partner.steamgames.com/doc/api/ISteamUGC#EUserUGCList">Steam UGC Docs</a> for more details.</p>
+</div>
+<p>These constants are referenced by the following functions:</p>
+<ul>
+<li><a href="ugc.html#steam_ugc_create_query_user">steam_ugc_create_query_user</a></li>
+<li><a href="ugc.html#steam_ugc_create_query_user_ex">steam_ugc_create_query_user_ex</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ugc_list_Published</code></td>
+<td>List of files the user has published</td>
+</tr>
+<tr>
+<td><code>ugc_list_VotedOn</code></td>
+<td>List of files the user has voted on. Includes both VotedUp and VotedDown</td>
+</tr>
+<tr>
+<td><code>ugc_list_VotedUp</code></td>
+<td>List of files the user has voted up (restricted to the current user only)</td>
+</tr>
+<tr>
+<td><code>ugc_list_VotedDown</code></td>
+<td>List of files the user has voted down (restricted to the current user only)</td>
+</tr>
+<tr>
+<td><code>ugc_list_WillVoteLater</code></td>
+<td><img alt="⚠️" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/26a0.png" title=":warning:" /> DEPRECATED</td>
+</tr>
+<tr>
+<td><code>ugc_list_Favorited</code></td>
+<td>List of files the user has favorited</td>
+</tr>
+<tr>
+<td><code>ugc_list_Subscribed</code></td>
+<td>List of files the user has subscribed to (restricted to the current user only)</td>
+</tr>
+<tr>
+<td><code>ugc_list_UsedOrPlayed</code></td>
+<td>List of files the user has spent time in game with</td>
+</tr>
+<tr>
+<td><code>ugc_list_Followed</code></td>
+<td>List of files the user is following updates for</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="ugcmatchtype">UGCMatchType</h1>
+<p>These constants specify the types of UGC to obtain.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>See <a href="https://partner.steamgames.com/doc/api/ISteamUGC#EUGCMatchingUGCType">Steam UGC Docs</a> for more details.</p>
+</div>
+<p>These constants are referenced by the following functions:</p>
+<ul>
+<li><a href="ugc.html#steam_ugc_create_query_user">steam_ugc_create_query_user</a></li>
+<li><a href="ugc.html#steam_ugc_create_query_user_ex">steam_ugc_create_query_user_ex</a></li>
+<li><a href="ugc.html#steam_ugc_create_query_all">steam_ugc_create_query_all</a></li>
+<li><a href="ugc.html#steam_ugc_create_query_all_ex">steam_ugc_create_query_all_ex</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ugc_match_Items</code></td>
+<td>Both microtransaction items and ready-to-use items</td>
+</tr>
+<tr>
+<td><code>ugc_match_Items_Mtx</code></td>
+<td>Microtransaction items</td>
+</tr>
+<tr>
+<td><code>ugc_match_Items_ReadyToUse</code></td>
+<td>Regular in game items that players have uploaded</td>
+</tr>
+<tr>
+<td><code>ugc_match_Collections</code></td>
+<td>Shared collections of UGC</td>
+</tr>
+<tr>
+<td><code>ugc_match_Artwork</code></td>
+<td>Artwork which has been shared</td>
+</tr>
+<tr>
+<td><code>ugc_match_Videos</code></td>
+<td>Videos which have been shared</td>
+</tr>
+<tr>
+<td><code>ugc_match_Screenshots</code></td>
+<td>Screenshots which have been shared</td>
+</tr>
+<tr>
+<td><code>ugc_match_AllGuides</code></td>
+<td>Both web guides and integrated guides</td>
+</tr>
+<tr>
+<td><code>ugc_match_WebGuides</code></td>
+<td>Guides that are only available on the <a href="https://steamcommunity.com/">Steam Community</a></td>
+</tr>
+<tr>
+<td><code>ugc_match_IntegratedGuides</code></td>
+<td>Guides that you can use within your game (like Dota 2's in-game character guides)</td>
+</tr>
+<tr>
+<td><code>ugc_match_UsableInGame</code></td>
+<td>Ready-to-use items and integrated guides</td>
+</tr>
+<tr>
+<td><code>ugc_match_ControllerBindings</code></td>
+<td>Controller bindings which have been shared</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="ugcquerytype">UGCQueryType</h1>
+<p>These constants specify the sorting and filtering for queries across all available UGC.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>See <a href="https://partner.steamgames.com/doc/api/ISteamUGC#EUGCQuery">Steam UGC Docs</a> for more details.</p>
+</div>
+<p>These constants are referenced by the following functions:</p>
+<ul>
+<li><a href="ugc.html#steam_ugc_create_query_all">steam_ugc_create_query_all</a></li>
+<li><a href="ugc.html#steam_ugc_create_query_all_ex">steam_ugc_create_query_all_ex</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ugc_query_RankedByVote</code></td>
+<td>Sort by vote popularity all-time</td>
+</tr>
+<tr>
+<td><code>ugc_query_RankedByPublicationDate</code></td>
+<td>Sort by publication date descending</td>
+</tr>
+<tr>
+<td><code>ugc_query_AcceptedForGameRankedByAcceptanceDate</code></td>
+<td>Sort by date accepted (for mtx items)</td>
+</tr>
+<tr>
+<td><code>ugc_query_RankedByTrend</code></td>
+<td>Sort by vote popularity within the given "trend" period (set in <a href="ugc.html#steam_ugc_query_set_ranked_by_trend_days">steam_ugc_query_set_ranked_by_trend_days</a>)</td>
+</tr>
+<tr>
+<td><code>ugc_query_FavoritedByFriendsRankedByPublicationDate</code></td>
+<td>Filter to items the user's friends have favourited, sorted descending by publication date</td>
+</tr>
+<tr>
+<td><code>ugc_query_CreatedByFriendsRankedByPublicationDate</code></td>
+<td>Filter to items created by friends, sorted by publication date descending</td>
+</tr>
+<tr>
+<td><code>ugc_query_RankedByNumTimesReported</code></td>
+<td>Sort by report weight descending</td>
+</tr>
+<tr>
+<td><code>ugc_query_CreatedByFollowedUsersRankedByPublicationDate</code></td>
+<td>Filter to items created by users that the current user has followed, sorted descending by publication date</td>
+</tr>
+<tr>
+<td><code>ugc_query_NotYetRated</code></td>
+<td>Filtered to the user's voting queue</td>
+</tr>
+<tr>
+<td><code>ugc_query_RankedByTotalVotesAsc</code></td>
+<td>Sort by total number of votes ascending (used internally for building the user's voting queue)</td>
+</tr>
+<tr>
+<td><code>ugc_query_RankedByVotesUp</code></td>
+<td>Sort by number of votes up descending. Will use the "trend" period if specified (set in <a href="ugc.html#steam_ugc_query_set_ranked_by_trend_days">steam_ugc_query_set_ranked_by_trend_days</a>)</td>
+</tr>
+<tr>
+<td><code>ugc_query_RankedByTextSearch</code></td>
+<td>Sort by keyword text search relevancy</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="dlc.html" class="btn btn-neutral float-left" title="Dlc"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="social.html" class="btn btn-neutral float-right" title="Social">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+      <p><p align="center">GameMaker 2024</p></p>
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/YoYoGames/GMEXT-Steamworks" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="dlc.html" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="social.html" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = ".";</script>
+    <script src="js/theme_extra.js"></script>
+    <script src="js/theme.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/gml.min.js"></script>
+      <script src="assets/js/copy_code.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

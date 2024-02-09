@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="img/favicon.ico" />
+    <title>Utilities - GMEXT-Steamworks</title>
+    <link rel="stylesheet" href="css/theme.css" />
+    <link rel="stylesheet" href="css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+        <link href="assets/css/doc.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Utilities";
+        var mkdocs_page_input_path = "utilities.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="." class="icon icon-home"> GMEXT-Steamworks
+        </a>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="home.html">Home</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="guides.html">Guides</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="management.html">Management</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="general.html">General</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="overlay.html">Overlay</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="leaderboards.html">Leaderboards</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="lobbies.html">Lobbies</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="achievements.html">Achievements</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="cloud.html">Cloud</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="dlc.html">Dlc</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="ugc.html">Ugc</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="social.html">Social</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="inventory.html">Inventory</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="networking.html">Networking</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="input.html">Input</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="music.html">Music</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="utilities.html">Utilities</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#functions">Functions</a>
+    </li>
+    </ul>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href=".">GMEXT-Steamworks</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Utilities</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/YoYoGames/GMEXT-Steamworks/edit/master/docs/utilities.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <p><a id="top"></a></p>
+<h1 id="utilities"><strong>Utilities</strong></h1>
+<p>The Steam utility functions provide access to gamepad keyboard UI and Steam Deck getters.</p>
+<h2 id="functions">Functions</h2>
+<p>This module offers a collection of functions designed to address specific tasks and provide utilities for various purposes. Explore the available functions to make the most of the functionalities provided by this module.</p>
+<ul>
+<li><a href="utilities.html#steam_show_floating_gamepad_text_input">steam_show_floating_gamepad_text_input</a></li>
+<li><a href="utilities.html#steam_dismiss_floating_gamepad_text_input">steam_dismiss_floating_gamepad_text_input</a></li>
+<li><a href="utilities.html#steam_show_gamepad_text_input">steam_show_gamepad_text_input</a></li>
+<li><a href="utilities.html#steam_get_entered_gamepad_text_input">steam_get_entered_gamepad_text_input</a></li>
+<li><a href="utilities.html#steam_utils_enable_callbacks">steam_utils_enable_callbacks</a></li>
+<li><a href="utilities.html#steam_utils_is_steam_running_on_steam_deck">steam_utils_is_steam_running_on_steam_deck</a></li>
+<li><a href="utilities.html#steam_utils_is_steam_in_big_picture_mode">steam_utils_is_steam_in_big_picture_mode</a></li>
+<li><a href="utilities.html#steam_utils_set_game_launcher_mode">steam_utils_set_game_launcher_mode</a></li>
+</ul>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_show_floating_gamepad_text_input">steam_show_floating_gamepad_text_input</h1>
+<p>With this function you can show a floating gamepad keyboard window, all input is emulated as if it is a physical keyboard, so <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Game_Input/Keyboard_Input/keyboard_string.htm">keyboard_string</a> or <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Game_Input/Keyboard_Input/keyboard_check.htm">keyboard_check</a> can be used to obtain the input. This function only works in Big Picture or on the Steam Deck. Returns <code>true</code> if the keyboard has been shown successfully, <code>false</code> otherwise.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>IMPORTANT You must call <a href="utilities.html#steam_utils_enable_callbacks">steam_utils_enable_callbacks</a> prior to calling this function if you wish to receive <code>Async - Steam</code> gamepad keyboard events.</p>
+</div>
+<p>This function operates asynchronously, which means that it does not immediately return the requested result. Instead, upon completion of the task, it will trigger the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_show_floating_gamepad_text_input(mode, text_field_x, text_field_y, text_field_width, text_field_height)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>mode</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>A <code>steam_floating_gamepad_text_input_mode_</code> constant.</td>
+</tr>
+<tr>
+<td>text_field_x</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>X position of the keyboard window in display coordinates.</td>
+</tr>
+<tr>
+<td>text_field_y</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>Y position of the keyboard window in display coordinates.</td>
+</tr>
+<tr>
+<td>text_field_width</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>Width of the keyboard window in display coordinates.</td>
+</tr>
+<tr>
+<td>text_field_height</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>Height of the keyboard window in display coordinates.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Triggers:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>event_type</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>A constant string <code>"floating_gamepad_text_input_dismissed"</code>.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<div class="highlight"><pre><span></span><code>steam_utils_enable_callbacks(); // do this somewhere once.
+// show the dialog:
+steam_show_floating_gamepad_text_input(
+    steam_floating_gamepad_text_input_mode_single_line,
+    // in Display coordinates: use window_get_ or display_get_ functions to obtain the dimensions
+    window_get_x(),
+    window_get_y()/2,
+    window_get_width(),
+    window_get_height()/2
+);
+</code></pre></div>
+<p><div class="highlight"><pre><span></span><code>/// @description Async - Steam event
+if (async_load[? &quot;event_type&quot;] == &quot;floating_gamepad_text_input_dismissed&quot;) {
+    show_debug_message(&quot;Floating gamepad keyboard UI dialog dismissed.&quot;);
+}
+</code></pre></div>
+The above code shows a floating keyboard window in the bottom half of the window, then print a message to debug output when the dialog is dismissed.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_dismiss_floating_gamepad_text_input">steam_dismiss_floating_gamepad_text_input</h1>
+<p>With this function you can dismiss a floating keyboard window if it is being currently shown. Returns <code>true</code> if the operation was successful, <code>false</code> otherwise.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_dismiss_floating_gamepad_text_input()
+</code></pre></div>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>steam_dismiss_floating_gamepad_text_input();
+</code></pre></div>
+The above code will dismiss the floating keyboard window if it is being displayed.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_show_gamepad_text_input">steam_show_gamepad_text_input</h1>
+<p>With this function you can show a full-screen old-style Big Picture Mode-only keyboard UI. This one does not emulate the physical keyboard so you must use the <a href="utilities.html#steam_get_entered_gamepad_text_input">steam_get_entered_gamepad_text_input</a> function inside a corresponding <code>Async - Steam</code> event to obtain the input. Returns <code>true</code> if the window is being shown successfully, <code>false</code> otherwise.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>IMPORTANT You must call <a href="utilities.html#steam_utils_enable_callbacks">steam_utils_enable_callbacks</a> prior to calling this function if you wish to receive <code>Async - Steam</code> gamepad keyboard events.</p>
+</div>
+<p>This function operates asynchronously, which means that it does not immediately return the requested result. Instead, upon completion of the task, it will trigger the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_show_gamepad_text_input(mode, lines_mode, description, chars_max, existing_text)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>mode</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>A <code>steam_gamepad_text_input_mode_</code> constant.</td>
+</tr>
+<tr>
+<td>lines_mode</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>A <code>steam_gamepad_text_input_line_mode_</code> constant.</td>
+</tr>
+<tr>
+<td>description</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The description of the window.</td>
+</tr>
+<tr>
+<td>chars_max</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The maximum nupber of characters the player can enter.</td>
+</tr>
+<tr>
+<td>existing_text</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>Some existing text to put into the text field or an empty string.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Triggers:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>event_type</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>A string <code>"gamepad_text_input_dismissed"</code>.</td>
+</tr>
+<tr>
+<td>submitted</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></td>
+<td><code>true</code> if the dialog was submitted successfully and <code>false</code> if it was cancelled.</td>
+</tr>
+<tr>
+<td>submitted_text_raw_byte_length</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>Raw length of the text in bytes.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<div class="highlight"><pre><span></span><code>steam_utils_enable_callbacks(); // somewhere once.
+// show the dialog:
+steam_show_gamepad_text_input(
+    steam_gamepad_text_input_mode_normal,
+    steam_gamepad_text_input_line_mode_single_line,
+    &quot;Some Description&quot;,
+    100, // up to 100 string characters
+    &quot;&quot; // no default text, can be any string, ex: &quot;Player 1&quot; etc
+);
+</code></pre></div>
+<p><div class="highlight"><pre><span></span><code>/// @description Async - Steam event
+if (async_load[? &quot;event_type&quot;] == &quot;gamepad_text_input_dismissed&quot;) {
+    if (async_load[? &quot;submitted&quot;]) {
+        var _input = steam_get_entered_gamepad_text_input();
+        show_debug_message(&quot;Old-style dialog result: &quot; + _input);
+    }
+}
+</code></pre></div>
+The above code will show a modal gamepad keyboard input dialog with <code>"Some Description"</code> as the description and an empty text field, then print the typed text.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_get_entered_gamepad_text_input">steam_get_entered_gamepad_text_input</h1>
+<p>With this function you can obtain the result of the <a href="utilities.html#steam_show_gamepad_text_input">steam_show_gamepad_text_input</a> input dialog. This function must only be called in the corresponding <code>Async - Steam</code> event.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>IMPORTANT You must call <a href="utilities.html#steam_utils_enable_callbacks">steam_utils_enable_callbacks</a> prior to calling this function if you wish to receive <code>Async - Steam</code> gamepad keyboard events.</p>
+</div>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_get_entered_gamepad_text_input()
+</code></pre></div>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>/// @description Async - Steam event
+if (async_load[? &quot;event_type&quot;] == &quot;gamepad_text_input_dismissed&quot;) {
+    if (async_load[? &quot;submitted&quot;]) {
+        var _input = steam_get_entered_gamepad_text_input();
+        show_debug_message(&quot;Old-style dialog result: &quot; + _input);
+    }
+}
+</code></pre></div>
+The above code will activate the use of gamepad keyboard UI async events.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_utils_enable_callbacks">steam_utils_enable_callbacks</h1>
+<p>With this function you can activate the dispatch of <code>Async - Steam</code> events for gamepad keyboard UI. Returns <code>true</code> if the operation was successful and <code>false</code> otherwise.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_utils_enable_callbacks()
+</code></pre></div>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>steam_utils_enable_callbacks();
+</code></pre></div>
+The above code will activate the use of gamepad keyboard UI async events.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_utils_is_steam_running_on_steam_deck">steam_utils_is_steam_running_on_steam_deck</h1>
+<p>With this function you can check if your game is currently running on a Steam Deck, returns <code>true</code> if yes and <code>false</code> otherwise.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_utils_is_steam_running_on_steam_deck()
+</code></pre></div>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>if (steam_utils_is_steam_running_on_steam_deck()) {
+    show_debug_message(&quot;The game is running on a Steam Deck.&quot;);
+}
+</code></pre></div>
+The above code will print a message to debug output if the game is running on the Steam Deck.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_utils_is_steam_in_big_picture_mode">steam_utils_is_steam_in_big_picture_mode</h1>
+<p>This function returns if Steam is running in <a href="https://help.steampowered.com/en/faqs/view/3725-76D3-3F31-FB63">Big Picture mode</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_utils_is_steam_in_big_picture_mode()
+</code></pre></div>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<div class="highlight"><pre><span></span><code>if (steam_utils_is_steam_in_big_picture_mode()) {
+    show_debug_message(&quot;The game is running in Big Picture mode&quot;);
+}
+</code></pre></div>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_utils_set_game_launcher_mode">steam_utils_set_game_launcher_mode</h1>
+<p>This function can be used to set your game to "launcher mode" if your launcher is written with GameMaker.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_utils_set_game_launcher_mode(launcher_mode)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>launcher_mode</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></td>
+<td>Whether to set the game to 'launcher mode'</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<div class="highlight"><pre><span></span><code>steam_utils_set_game_launcher_mode(true);
+show_debug_message(&quot;Game set to launcher mode&quot;);
+</code></pre></div>
+<p><br></p>
+<p><br></p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="music.html" class="btn btn-neutral float-left" title="Music"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+      <p><p align="center">GameMaker 2024</p></p>
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/YoYoGames/GMEXT-Steamworks" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="music.html" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+  </span>
+</div>
+    <script src="js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = ".";</script>
+    <script src="js/theme_extra.js"></script>
+    <script src="js/theme.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/gml.min.js"></script>
+      <script src="assets/js/copy_code.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,2123 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="img/favicon.ico" />
+    <title>Lobbies - GMEXT-Steamworks</title>
+    <link rel="stylesheet" href="css/theme.css" />
+    <link rel="stylesheet" href="css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+        <link href="assets/css/doc.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Lobbies";
+        var mkdocs_page_input_path = "lobbies.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="." class="icon icon-home"> GMEXT-Steamworks
+        </a>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="home.html">Home</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="guides.html">Guides</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="management.html">Management</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="general.html">General</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="overlay.html">Overlay</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="leaderboards.html">Leaderboards</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="lobbies.html">Lobbies</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#current-lobby">Current Lobby</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#matchmaking">Matchmaking</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#constants">Constants</a>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="achievements.html">Achievements</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="cloud.html">Cloud</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="dlc.html">Dlc</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="ugc.html">Ugc</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="social.html">Social</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="inventory.html">Inventory</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="networking.html">Networking</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="input.html">Input</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="music.html">Music</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="utilities.html">Utilities</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href=".">GMEXT-Steamworks</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Lobbies</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/YoYoGames/GMEXT-Steamworks/edit/master/docs/lobbies.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <p><a id="top"></a></p>
+<h1 id="lobbies-and-matchmaking"><strong>Lobbies and Matchmaking</strong></h1>
+<p>The following functions and constants allow you to use Steam's Lobbies and Matchmaking functionality.</p>
+<h2 id="current-lobby">Current Lobby</h2>
+<p>These functions are provided for handling the current lobby:</p>
+<ul>
+<li><a href="lobbies.html#steam_lobby_activate_invite_overlay">steam_lobby_activate_invite_overlay</a></li>
+<li><a href="lobbies.html#steam_lobby_create">steam_lobby_create</a></li>
+<li><a href="lobbies.html#steam_lobby_get_data">steam_lobby_get_data</a></li>
+<li><a href="lobbies.html#steam_lobby_get_lobby_id">steam_lobby_get_lobby_id</a></li>
+<li><a href="lobbies.html#steam_lobby_get_member_count">steam_lobby_get_member_count</a></li>
+<li><a href="lobbies.html#steam_lobby_get_member_id">steam_lobby_get_member_id</a></li>
+<li><a href="lobbies.html#steam_lobby_get_owner_id">steam_lobby_get_owner_id</a></li>
+<li><a href="lobbies.html#steam_lobby_is_owner">steam_lobby_is_owner</a></li>
+<li><a href="lobbies.html#steam_lobby_join_id">steam_lobby_join_id</a></li>
+<li><a href="lobbies.html#steam_lobby_leave">steam_lobby_leave</a></li>
+<li><a href="lobbies.html#steam_lobby_set_data">steam_lobby_set_data</a></li>
+<li><a href="lobbies.html#steam_lobby_set_joinable">steam_lobby_set_joinable</a></li>
+<li><a href="lobbies.html#steam_lobby_set_owner_id">steam_lobby_set_owner_id</a></li>
+<li><a href="lobbies.html#steam_lobby_set_type">steam_lobby_set_type</a></li>
+<li><a href="lobbies.html#steam_lobby_send_chat_message">steam_lobby_send_chat_message</a></li>
+<li><a href="lobbies.html#steam_lobby_get_chat_message_size">steam_lobby_get_chat_message_size</a></li>
+<li><a href="lobbies.html#steam_lobby_get_chat_message_text">steam_lobby_get_chat_message_text</a></li>
+<li><a href="lobbies.html#steam_lobby_get_chat_message_data">steam_lobby_get_chat_message_data</a></li>
+<li><a href="lobbies.html#steam_lobby_send_chat_message">steam_lobby_send_chat_message</a></li>
+<li><a href="lobbies.html#steam_lobby_send_chat_message_buffer">steam_lobby_send_chat_message_buffer</a></li>
+</ul>
+<h2 id="matchmaking">Matchmaking</h2>
+<p>The following functions allow retrieving and handling lists of public lobbies:</p>
+<ul>
+<li><a href="lobbies.html#steam_lobby_list_add_distance_filter">steam_lobby_list_add_distance_filter</a></li>
+<li><a href="lobbies.html#steam_lobby_list_add_near_filter">steam_lobby_list_add_near_filter</a></li>
+<li><a href="lobbies.html#steam_lobby_list_add_numerical_filter">steam_lobby_list_add_numerical_filter</a></li>
+<li><a href="lobbies.html#steam_lobby_list_add_string_filter">steam_lobby_list_add_string_filter</a></li>
+<li><a href="lobbies.html#steam_lobby_list_request">steam_lobby_list_request</a></li>
+<li><a href="lobbies.html#steam_lobby_list_get_count">steam_lobby_list_get_count</a></li>
+<li><a href="lobbies.html#steam_lobby_list_get_data">steam_lobby_list_get_data</a></li>
+<li><a href="lobbies.html#steam_lobby_list_get_lobby_id">steam_lobby_list_get_lobby_id</a></li>
+<li><a href="lobbies.html#steam_lobby_list_get_lobby_member_count">steam_lobby_list_get_lobby_member_count</a></li>
+<li><a href="lobbies.html#steam_lobby_list_get_lobby_member_id">steam_lobby_list_get_lobby_member_id</a></li>
+<li><a href="lobbies.html#steam_lobby_list_get_lobby_owner_id">steam_lobby_list_get_lobby_owner_id</a></li>
+<li><a href="lobbies.html#steam_lobby_list_is_loading">steam_lobby_list_is_loading</a></li>
+<li><a href="lobbies.html#steam_lobby_list_join">steam_lobby_list_join</a></li>
+</ul>
+<h2 id="constants">Constants</h2>
+<p>These are the constants used by this API:</p>
+<ul>
+<li><a href="lobbies.html#lobbyfiltercomparisontype">LobbyFilterComparisonType</a></li>
+<li><a href="lobbies.html#lobbyfilterdistancemode">LobbyFilterDistanceMode</a></li>
+<li><a href="lobbies.html#lobbytype">LobbyType</a></li>
+</ul>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_lobby_activate_invite_overlay">steam_lobby_activate_invite_overlay</h1>
+<p>This function displays an invitation overlay if currently in a lobby.
+The invitation overlay is much akin to the friends-list overlay, but only shows online friends, and shows an "invite" button on each row.</p>
+<p>This function operates asynchronously, which means that it does not immediately return the requested result. Instead, upon completion of the task, it will trigger the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_lobby_activate_invite_overlay()
+</code></pre></div>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Triggers:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a></p>
+</blockquote>
+<p>(when an invitation is accepted)</p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>event_type</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The string value <code>"lobby_join_requested"</code></td>
+</tr>
+<tr>
+<td>lobby_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Int64</a></td>
+<td>The lobby unique identifier</td>
+</tr>
+<tr>
+<td>success</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></td>
+<td>Whether or not the task was successful</td>
+</tr>
+<tr>
+<td>result</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The code of the result</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>steam_lobby_activate_invite_overlay();
+</code></pre></div>
+The above code will show the Steam invite overlay.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_lobby_create">steam_lobby_create</h1>
+<p>This function starts creating a lobby. Returns whether or not the task was successfully created.
+This is an asynchronous function that will trigger the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a> when the task is finished.</p>
+<p>This function operates asynchronously, which means that it does not immediately return the requested result. Instead, upon completion of the task, it will trigger the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_lobby_create(type, max_members)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>type</td>
+<td><a href="lobbies.html#lobbytype">LobbyType</a></td>
+<td>A constant that indicates the status of the lobby</td>
+</tr>
+<tr>
+<td>max_members</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>Indicates the maximum allowed number of users in the lobby (including the lobby's creator)</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Triggers:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>event_type</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The string value <code>"lobby_created"</code></td>
+</tr>
+<tr>
+<td>lobby_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Int64</a></td>
+<td>The name of the lobby</td>
+</tr>
+<tr>
+<td>success</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>Whether or not the request was successful</td>
+</tr>
+<tr>
+<td>result</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></td>
+<td>The status code (descriptions can be found in Steam API documentation)</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p>This event is triggered when someone enters or leaves a lobby.</p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>event_type</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The string value <code>"lobby_chat_update"</code></td>
+</tr>
+<tr>
+<td>lobby_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Int64</a></td>
+<td>The ID of the lobby</td>
+</tr>
+<tr>
+<td>change_flags</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>1 for new connection on lobby, 2 for disconnect, 4 if the user disconnected without leaving the lobby first, 8 if the user has been kicked, 16 if the user has been kicked and banned.</td>
+</tr>
+<tr>
+<td>user_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Int64</a></td>
+<td>the Steam ID of the user that joined or left the lobby</td>
+</tr>
+<tr>
+<td>change_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Int64</a></td>
+<td>the ID that has "changed", the same as user_id</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>var _type = async_load[? &quot;type&quot;];
+if (_type == &quot;lobby_created&quot;)
+{
+    if (async_load[? &quot;success&quot;])
+        show_debug_message(&quot;Lobby created&quot;);
+    else
+        show_debug_message(&quot;Failed to create lobby&quot;);
+}
+</code></pre></div>
+in the example we are simply outputting the success of the lobby creation task.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_lobby_get_chat_message_data">steam_lobby_get_chat_message_data</h1>
+<p>This function returns the data of a message sent using <a href="lobbies.html#steam_lobby_send_chat_message_buffer">steam_lobby_send_chat_message_buffer</a>. It returns whether or not the buffer was successfully filled with the message data.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_lobby_get_chat_message_data(message_index, buffer)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>message_index</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The message unique identifier</td>
+</tr>
+<tr>
+<td>buffer</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Buffers/Buffers.htm">Buffer</a></td>
+<td>The buffer to write the data to</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>chat_message_buf = buffer_create(steam_lobby_max_chat_message_size, buffer_fixed, 1);
+steam_lobby_get_chat_message_data(_msg_index, chat_message_buf);
+</code></pre></div>
+The code above will get the current message data and place it into a buffer (resizing if required and allowed, i.e.: <strong>buffer_grow</strong>).</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_lobby_get_chat_message_size">steam_lobby_get_chat_message_size</h1>
+<p>This function returns the size of a message.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_lobby_get_chat_message_size(message_index)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>message_index</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The argument to be passed in</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>///@desc Async Steam Event
+switch (async[? &quot;event_type&quot;])
+{
+    case &quot;lobby_chat_message&quot;:
+        size = steam_lobby_get_chat_message_size(async_load[?&quot;message_index&quot;]);
+        break;
+}
+</code></pre></div>
+The code above will get the current message size in bytes.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_lobby_get_chat_message_text">steam_lobby_get_chat_message_text</h1>
+<p>This function returns the text of a message.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_lobby_get_chat_message_text(index)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>index</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>Message index</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>///@desc Async Steam Event
+switch (async[? &quot;event_type&quot;])
+{
+    case &quot;lobby_chat_message&quot;:
+        text = steam_lobby_get_chat_message_text(async_load[?&quot;message_index&quot;]);
+        break;
+}
+</code></pre></div>
+The code above will get the current message text.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_lobby_get_data">steam_lobby_get_data</h1>
+<p>This function returns a lobby field value, as set by <a href="lobbies.html#steam_lobby_set_data">steam_lobby_set_data</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_lobby_get_data(key)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>key</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>String representation of the data</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>var _title = steam_lobby_get_data(&quot;title&quot;);
+</code></pre></div>
+The code above will return the data of the <code>title</code> field of the current value.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_lobby_get_lobby_id">steam_lobby_get_lobby_id</h1>
+<p>This function returns the Steam ID of the current lobby.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_lobby_get_lobby_id()
+</code></pre></div>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Int64</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>var _lobby_id = steam_lobby_get_lobby_id();
+</code></pre></div>
+The code above will get the current lobby ID and store it in a variable.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_lobby_get_member_count">steam_lobby_get_member_count</h1>
+<p>This function returns the number of users in the current lobby (including you).
+If the lobby is not valid, it returns 0.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_lobby_get_member_count()
+</code></pre></div>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>for(var i = 0 ; i &lt; steam_lobby_get_member_count() ; i++)
+{
+    var _user_id = steam_lobby_get_member_id(i);
+    //Do something with the user ID
+}
+</code></pre></div>
+The code sample above will get the total number of member in the current lobby and iterate over all of them getting their unique ID's, using the <a href="lobbies.html#steam_lobby_get_member_id">steam_lobby_get_member_id</a> function.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_lobby_get_member_id">steam_lobby_get_member_id</h1>
+<p>This function returns the user ID of the member at the given index in the current lobby.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_lobby_get_member_id(index)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>index</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>Position of the member of the lobby to return</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Int64</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>for(var i = 0 ; i &lt; steam_lobby_get_member_count() ; i++)
+{
+    var _user_id = steam_lobby_get_member_id(i);
+    //Do something with the user id
+}
+</code></pre></div>
+The code sample above will iterate over all of the members inside a lobby and get their unique ID's.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_lobby_get_owner_id">steam_lobby_get_owner_id</h1>
+<p>This function returns the lobby owner's Steam ID. If the lobby is not valid, returns ID 0.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_lobby_get_owner_id()
+</code></pre></div>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Int64</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>var _lobby_owner = steam_lobby_get_owner_id();
+</code></pre></div>
+The code above will return the unique ID of the owner of the current lobby.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_lobby_is_owner">steam_lobby_is_owner</h1>
+<p>This function returns whether the local player is the lobby's owner.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If the lobby is not valid, this function returns <code>false</code>.</p>
+</div>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_lobby_is_owner()
+</code></pre></div>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>for (var i = 0; i &lt; steam_lobby_get_member_count(); i++)
+{
+    if (!steam_lobby_is_owner())
+    {
+        var _user_id = steam_lobby_get_member_id(i);
+        steam_lobby_set_owner_id(_user_id);
+        break;
+    }
+}
+</code></pre></div>
+The code example will loop through all the members in a lobby and transfers ownership to the first member that is not the owner.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_lobby_join_id">steam_lobby_join_id</h1>
+<p>This function starts joining the lobby with the given ID. Returns whether or not the API was correctly initialized.
+This is an asynchronous function that will trigger the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a> when the task is finished.</p>
+<p>This function operates asynchronously, which means that it does not immediately return the requested result. Instead, upon completion of the task, it will trigger the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_lobby_join_id(lobby_id)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>lobby_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Int64</a></td>
+<td>Identifier of the lobby</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<p><strong>Triggers:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>event_type</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The string value <code>"lobby_joined"</code></td>
+</tr>
+<tr>
+<td>lobby_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Int64</a></td>
+<td>The lobby unique identifier</td>
+</tr>
+<tr>
+<td>success</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></td>
+<td>Whether or not the task was successful</td>
+</tr>
+<tr>
+<td>result</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The code of the result</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p>This event is triggered when someone enters or leaves a lobby.</p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>event_type</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The string value <code>"lobby_chat_update"</code></td>
+</tr>
+<tr>
+<td>lobby_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Int64</a></td>
+<td>The ID of the lobby</td>
+</tr>
+<tr>
+<td>change_flags</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>1 for new connection on lobby, 2 for disconnect, 4 if the user disconnected without leaving the lobby first, 8 if the user has been kicked, 16 if the user has been kicked and banned.</td>
+</tr>
+<tr>
+<td>user_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Int64</a></td>
+<td>the Steam ID of the user that joined or left the lobby</td>
+</tr>
+<tr>
+<td>change_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Int64</a></td>
+<td>the ID that has "changed", the same as user_id</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>steam_lobby_join_id(lobbyID);
+</code></pre></div>
+The code will attempt the join a lobby with a given ID, the task callback can be listened to inside the the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a> with the folllowing sample code:
+<div class="highlight"><pre><span></span><code>var _type = async_load[? &quot;type&quot;];
+if (_type == &quot;lobby_joined&quot;)
+{
+    var _lobby_id = async_load[? &quot;lobby_id&quot;];
+    var _success = async_load[? &quot;success&quot;];
+
+    // Do something with the data
+}
+</code></pre></div>
+In the example we are simply caching the data into variables.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_lobby_leave">steam_lobby_leave</h1>
+<p>This function leaves the current lobby (if any). It does not raise any errors if currently not in a lobby.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you are the lobby owner and leave the lobby, Steam transfers the lobby ownership to any other available user, so you may need to manually handle ownership transfer using <a href="lobbies.html#steam_lobby_set_owner_id">steam_lobby_set_owner_id</a> before leaving.</p>
+</div>
+<p>This function operates asynchronously, which means that it does not immediately return the requested result. Instead, upon completion of the task, it will trigger the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_lobby_leave()
+</code></pre></div>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<p><strong>Triggers:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a></p>
+</blockquote>
+<p>This event is triggered when someone enters or leaves a lobby.</p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>event_type</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The string value <code>"lobby_chat_update"</code></td>
+</tr>
+<tr>
+<td>lobby_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Int64</a></td>
+<td>The ID of the lobby</td>
+</tr>
+<tr>
+<td>change_flags</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>1 for new connection on lobby, 2 for disconnect, 4 if the user disconnected without leaving the lobby first, 8 if the user has been kicked, 16 if the user has been kicked and banned.</td>
+</tr>
+<tr>
+<td>user_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Int64</a></td>
+<td>the Steam ID of the user that joined or left the lobby</td>
+</tr>
+<tr>
+<td>change_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Int64</a></td>
+<td>the ID that has "changed", the same as user_id</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>steam_lobby_leave();
+</code></pre></div>
+The code sample above will make the user leave the current lobby.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_lobby_send_chat_message">steam_lobby_send_chat_message</h1>
+<p>This function broadcasts a chat text message to all the users in the lobby.</p>
+<p>This function operates asynchronously, which means that it does not immediately return the requested result. Instead, upon completion of the task, it will trigger the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_lobby_send_chat_message(text)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>text</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The string to be sent (up to 4000 characters)</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Triggers:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>event_type</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The string value <code>"lobby_chat_message"</code></td>
+</tr>
+<tr>
+<td>user_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The sender unique identifier</td>
+</tr>
+<tr>
+<td>message_index</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The message unique identifier</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>steam_lobby_send_chat_message(&quot;Hello World&quot;);
+</code></pre></div>
+The code will broadcast a text message to all the members in the current lobby, the message can be read using the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a> callback:</p>
+<p><div class="highlight"><pre><span></span><code>var _type = async_load[? &quot;type&quot;];
+if (_type == &quot;lobby_chat_message&quot;)
+{
+    var _user_id = async_load[? &quot;user_id&quot;];
+    var _msg_id = async_load[? &quot;message_index&quot;];
+
+    var _user_name = steam_get_user_persona_name_sync(_user_id);
+    var _message = steam_lobby_get_chat_message_text(_msg_id);
+
+    // Do something with the data
+}
+</code></pre></div>
+In the example we are simply caching the data into variables. Notice that use use the functions <a href="general.html#steam_get_user_persona_name_sync">steam_get_user_persona_name_sync</a> and <a href="lobbies.html#steam_lobby_get_chat_message_text">steam_lobby_get_chat_message_text</a> to get both the user name and the text inside the message, respectively.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_lobby_send_chat_message_buffer">steam_lobby_send_chat_message_buffer</h1>
+<p>This function broadcasts a chat (text or binary data) message to all the users in the lobby.</p>
+<p>This function operates asynchronously, which means that it does not immediately return the requested result. Instead, upon completion of the task, it will trigger the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_lobby_send_chat_message_buffer(buffer, size)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>buffer</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Buffers/Buffers.htm">Buffer</a></td>
+<td>The buffer to be sent (up to 4 Kilobytes in size)</td>
+</tr>
+<tr>
+<td>size</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The number of bytes to be sent (there is no offset).</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Triggers:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>event_type</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The string value <code>"lobby_chat_message"</code></td>
+</tr>
+<tr>
+<td>user_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The sender unique identifier</td>
+</tr>
+<tr>
+<td>entry_type</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The type of message received.</td>
+</tr>
+<tr>
+<td>message_index</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The message unique identifier</td>
+</tr>
+<tr>
+<td>message_size</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The size of the message being broadcasted</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>var _buff = buffer_create(256, buffer_fixed, 1);
+buffer_write(_buff, buffer_string, &quot;This is a buffer!&quot;);
+steam_lobby_send_chat_message_buffer(_buff);
+</code></pre></div>
+The code will broadcast a message (text or binary data) to all the members in the current lobby, the message can be read using the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a> callback:</p>
+<p><div class="highlight"><pre><span></span><code>var _type = async_load[? &quot;type&quot;];
+if (_type == &quot;lobby_chat_message&quot;)
+{
+    var _user_id = async_load[? &quot;user_id&quot;];
+    var _msg_id = async_load[? &quot;message_index&quot;];
+
+    var _user_name = steam_get_user_persona_name_sync(_user_id);
+    var _data = steam_lobby_get_chat_message_data(global.chat_buffer, _msg_id);
+
+    // Do something with the data
+}
+</code></pre></div>
+In the example we are simply caching the data into variables notice that use use the functions <a href="general.html#steam_get_user_persona_name_sync">steam_get_user_persona_name_sync</a> and <a href="lobbies.html#steam_lobby_get_chat_message_data">steam_lobby_get_chat_message_data</a> to get both the user name and the data inside the message, respectively.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_lobby_set_data">steam_lobby_set_data</h1>
+<p>This function changes a lobby's field. You must be the lobby owner to do this. The function returns whether or not the data was set.
+Fields can then be used to filter lobbies via matchmaking functions.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If your value is numeric, convert it to string prior to passing it to the function.</p>
+</div>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_lobby_set_data(key, value)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>key</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The key to set the data for</td>
+</tr>
+<tr>
+<td>value</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The value to set</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>steam_lobby_set_data(&quot;LobbyName&quot;, &quot;GreatLobby&quot;);
+</code></pre></div>
+The code sample will set the <code>"LobbyName"</code> lobby field to the provided value <code>"GreatLobby"</code>.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_lobby_set_joinable">steam_lobby_set_joinable</h1>
+<p>This function sets whether or not a lobby is joinable by other players. This always defaults to enabled for a new lobby. Returns whether or not the property was set.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If joining is disabled, then no players can join, even if they are a friend or have been invited.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Lobbies with joining disabled will not be returned from a lobby search.</p>
+</div>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_lobby_set_joinable(joinable)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>joinable</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></td>
+<td>Allow ( <strong>true</strong> ) or prevent ( <strong>false</strong> ) users from joining this lobby</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>steam_lobby_set_joinable(false);
+</code></pre></div>
+The code above will prevent user from joining the current lobby.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_lobby_set_owner_id">steam_lobby_set_owner_id</h1>
+<p>If you are a lobby owner, this function transfers the lobby ownership to the specified player, which must be in this same lobby. Returns whether or not the property was set.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You need to be the lobby owner in order to use the function.</p>
+</div>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_lobby_set_owner_id(user_id)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>user_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></td>
+<td>The user to set as owner of the lobby</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>for(var i = 0 ; i &lt; steam_lobby_get_member_count() ; i++)
+{
+    if(!steam_lobby_is_owner())
+    {
+        var _user_id = steam_lobby_get_member_id(i);
+        steam_lobby_set_owner_id(_user_id);
+        break;
+    }
+}
+</code></pre></div>
+The code example will loop through all the members in a lobby and transfers ownership to the first member that is not the owner.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_lobby_set_type">steam_lobby_set_type</h1>
+<p>This function changes the lobby's type. Useful, if you don't allow mid-session joining, you could have the game make lobbies private on session start (or use <a href="lobbies.html#steam_lobby_set_joinable">steam_lobby_set_joinable</a>).</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You need to be the lobby owner in order to use the function.</p>
+</div>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_lobby_set_type(type)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>type</td>
+<td><a href="lobbies.html#lobbytype">LobbyType</a></td>
+<td>The lobby visibility</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>steam_lobby_set_type(steam_lobby_type_private);
+</code></pre></div>
+The code above will change the lobby joining policy.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_lobby_list_add_distance_filter">steam_lobby_list_add_distance_filter</h1>
+<p>This function restricts results by region and sorts them based on geographical proximity.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_lobby_list_add_distance_filter(mode)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>mode</td>
+<td><a href="lobbies.html#lobbyfilterdistancemode">LobbyFilterDistanceMode</a></td>
+<td>The distance filter to be applied</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>steam_lobby_list_add_distance_filter(steam_lobby_list_distance_filter_far);
+steam_lobby_list_add_near_filter(&quot;myNearFilter&quot;, 77);
+steam_lobby_list_add_numerical_filter(&quot;level&quot;, 10, steam_lobby_list_filter_gt);
+steam_lobby_list_add_string_filter(&quot;Stage&quot;,&quot;BattleZone&quot;, steam_lobby_list_filter_eq);
+steam_lobby_list_request();
+</code></pre></div>
+The code above will apply some filters to be lobby list request before requesting the results.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_lobby_list_add_near_filter">steam_lobby_list_add_near_filter</h1>
+<p>This function sorts the results based on how close their field's key's value is to the provided one.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If multiple near-filters are specified, the earlier set ones take precedence.</p>
+</div>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_lobby_list_add_near_filter(key, value)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>key</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The filter key name to match.</td>
+</tr>
+<tr>
+<td>value</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The value that lobbies will be sorted on.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>steam_lobby_list_add_distance_filter(steam_lobby_list_distance_filter_far);
+steam_lobby_list_add_near_filter(&quot;myNearFilter&quot;, 77);
+steam_lobby_list_add_numerical_filter(&quot;level&quot;, 10, steam_lobby_list_filter_gt);
+steam_lobby_list_add_string_filter(&quot;Stage&quot;,&quot;BattleZone&quot;, steam_lobby_list_filter_eq);
+steam_lobby_list_request();
+</code></pre></div>
+The code above will apply some filters to be lobby list request before requesting the results.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_lobby_list_add_numerical_filter">steam_lobby_list_add_numerical_filter</h1>
+<p>This function sets up a numeric filter for the next lobby list request. That is, lobbies not matching the condition will be excluded from results.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Lobbies without the given field (key) will be excluded.</p>
+</div>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_lobby_list_add_numerical_filter(key, value, comparison_type)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>key</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The filter key name to match</td>
+</tr>
+<tr>
+<td>value</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The number to compare.</td>
+</tr>
+<tr>
+<td>comparison_type</td>
+<td><a href="lobbies.html#lobbyfiltercomparisontype">LobbyFilterComparisonType</a></td>
+<td>The type of comparison to make.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>steam_lobby_list_add_distance_filter(steam_lobby_list_distance_filter_far);
+steam_lobby_list_add_near_filter(&quot;myNearFilter&quot;, 77);
+steam_lobby_list_add_numerical_filter(&quot;level&quot;, 10, steam_lobby_list_filter_gt);
+steam_lobby_list_add_string_filter(&quot;Stage&quot;,&quot;BattleZone&quot;, steam_lobby_list_filter_eq);
+steam_lobby_list_request();
+</code></pre></div>
+The code above will apply some filters to a lobby list request before requesting the results.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_lobby_list_add_string_filter">steam_lobby_list_add_string_filter</h1>
+<p>This function sets up a string filter for the next lobby list request. That is, lobbies not matching the condition will be excluded from results.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Lobbies without the given field (<code>key</code>) will be assumed to have it as <code>""</code>.</p>
+</div>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_lobby_list_add_string_filter(key, value, comparison_type)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>key</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The filter key name to match</td>
+</tr>
+<tr>
+<td>value</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The string to compare</td>
+</tr>
+<tr>
+<td>comparison_type</td>
+<td><a href="lobbies.html#lobbyfiltercomparisontype">LobbyFilterComparisonType</a></td>
+<td>The type of comparison to make (strings only accept equal or not equal comparison)</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>steam_lobby_list_add_distance_filter(steam_lobby_list_distance_filter_far);
+steam_lobby_list_add_near_filter(&quot;myNearFilter&quot;, 77);
+steam_lobby_list_add_numerical_filter(&quot;level&quot;, 10, steam_lobby_list_filter_gt);
+steam_lobby_list_add_string_filter(&quot;Stage&quot;,&quot;BattleZone&quot;, steam_lobby_list_filter_eq);
+steam_lobby_list_request();
+</code></pre></div>
+The code above will apply some filters to be lobby list request before requesting the results.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_lobby_list_get_count">steam_lobby_list_get_count</h1>
+<p>This function returns the count of lobbies, after a successful call to <a href="lobbies.html#steam_lobby_list_request">steam_lobby_list_request</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_lobby_list_get_count()
+</code></pre></div>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>for(var a = 0 ; a &lt; steam_lobby_list_get_count() ; a++)
+{
+    ins = instance_create_depth(600, 200+90*a, 0, Obj_Steam_Networking_List_Slot);
+    ins.index = a;
+    ins.lobby_id = steam_lobby_list_get_lobby_id(a);
+    ins.creator = steam_lobby_list_get_data(a, &quot;Creator&quot;);
+}
+</code></pre></div>
+After a successful <a href="lobbies.html#steam_lobby_list_request">steam_lobby_list_request</a> this function will return the number of results in the lobby query.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_lobby_list_get_data">steam_lobby_list_get_data</h1>
+<p>This function gets the metadata associated with the specified key from the specified lobby.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The argument <code>lobby_index</code> is not a lobby ID but instead the position of the lobby (from 0 to <a href="lobbies.html#steam_lobby_list_get_count">steam_lobby_list_get_count</a>) on the query array after a <a href="lobbies.html#steam_lobby_list_request">steam_lobby_list_request</a> async event is triggered.</p>
+</div>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_lobby_list_get_data(lobby_index, key)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>lobby_index</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The lobby list index from the queried result.</td>
+</tr>
+<tr>
+<td>key</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The key to get the value of.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>for(var a = 0 ; a &lt; steam_lobby_list_get_count() ; a++)
+{
+    ins = instance_create_depth(600,200+90*a,0,Obj_Steam_Networking_List_Slot);
+    ins.index = a;
+    ins.lobby_id = steam_lobby_list_get_lobby_id(a);
+    ins.creator = steam_lobby_list_get_data(a, &quot;Creator&quot;);
+}
+</code></pre></div>
+The above code shows a code example.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_lobby_list_get_lobby_id">steam_lobby_list_get_lobby_id</h1>
+<p>This function gets the lobby ID associated with the index.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The argument <code>lobby_index</code> is not a lobby ID but instead the position of the lobby (from 0 to <a href="lobbies.html#steam_lobby_list_get_count">steam_lobby_list_get_count</a>) on the query array after a <a href="lobbies.html#steam_lobby_list_request">steam_lobby_list_request</a> async event is triggered.</p>
+</div>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_lobby_list_get_lobby_id(lobby_index)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>lobby_index</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The lobby index in the current lobby list</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Int64</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>for(var a = 0; a &lt; steam_lobby_list_get_count(); a++)
+{
+    ins = instance_create_depth(600, 200+90*a, 0, Obj_Steam_Networking_List_Slot);
+    ins.index = a;
+    ins.lobby_id = steam_lobby_list_get_lobby_id(a);
+    ins.creator = steam_lobby_list_get_data(a, &quot;Creator&quot;);
+}
+</code></pre></div>
+The above code shows a code example.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_lobby_list_get_lobby_member_count">steam_lobby_list_get_lobby_member_count</h1>
+<p>This function gets the number of users in a lobby.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The argument <code>lobby_index</code> is not a lobby ID but instead the position of the lobby (from 0 to <a href="lobbies.html#steam_lobby_list_get_count">steam_lobby_list_get_count</a>) on the query array after a <a href="lobbies.html#steam_lobby_list_request">steam_lobby_list_request</a> async event is triggered.</p>
+</div>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_lobby_list_get_lobby_member_count(lobby_index)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>lobby_index</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The lobby ID of the lobby to get the number of members of.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>steam_lobby_list_get_lobby_member_count(steam_lobby_get_lobby_id());
+</code></pre></div>
+The above code shows a code example.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_lobby_list_get_lobby_member_id">steam_lobby_list_get_lobby_member_id</h1>
+<p>This function gets the Steam ID of the lobby member at the given index.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The argument <code>lobby_index</code> is not a lobby ID but instead the index representation of the lobby (ranging from 0 to <a href="lobbies.html#steam_lobby_list_get_count">steam_lobby_list_get_count</a>) on the query array after a <a href="lobbies.html#steam_lobby_list_request">steam_lobby_list_request</a> async event is triggered. By the same logic the <code>member_index</code> is also not the user ID but the indexed representation of the user within the lobby (this value ranges from 0 to <a href="lobbies.html#steam_lobby_list_get_lobby_member_count">steam_lobby_list_get_lobby_member_count</a>).</p>
+</div>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_lobby_list_get_lobby_member_id(lobby_index, member_index)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>lobby_index</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>This MUST be an index ranging from 0 to <a href="lobbies.html#steam_lobby_list_get_count">steam_lobby_list_get_count</a></td>
+</tr>
+<tr>
+<td>member_index</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>This MUST be an index ranging from 0 to <a href="lobbies.html#steam_lobby_list_get_lobby_member_count">steam_lobby_list_get_lobby_member_count</a> of the lobby index</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Int64</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>var _count = steam_lobby_list_get_lobby_member_count(steam_lobby_get_lobby_id());
+for(var i = 0 ; i &lt; _count ; i++)
+{
+     var _member = steam_lobby_list_get_lobby_member_id(i);
+     //do something with the member id
+}
+</code></pre></div>
+The above code will show a code example.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_lobby_list_get_lobby_owner_id">steam_lobby_list_get_lobby_owner_id</h1>
+<p>This function returns the current lobby owner.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The argument <code>lobby_index</code> is not a lobby ID but instead the position of the lobby (from 0 to <a href="lobbies.html#steam_lobby_list_get_count">steam_lobby_list_get_count</a>) on the query array after a <a href="lobbies.html#steam_lobby_list_request">steam_lobby_list_request</a> async event is triggered.</p>
+</div>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_lobby_list_get_lobby_owner_id(index)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>index</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The lobby index from the lobby list request result</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Int64</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>steam_lobby_list_get_lobby_owner_id(steam_lobby_get_lobby_id());
+</code></pre></div>
+The above code will show a code example.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_lobby_list_is_loading">steam_lobby_list_is_loading</h1>
+<p>This function returns whether a lobby list request is currently underway.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_lobby_list_is_loading()
+</code></pre></div>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>steam_lobby_list_request();
+
+// Later in code
+
+if (steam_lobby_list_is_loading)
+    show_message(&quot;Loading&quot;);
+</code></pre></div>
+The above will code will check to see if the lobby list request is still loading or has finished.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_lobby_list_join">steam_lobby_list_join</h1>
+<p>Starts joining a lobby with the given ID.</p>
+<p>This is an asynchronous function that will trigger the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a> when the task is finished.</p>
+<p>This function operates asynchronously, which means that it does not immediately return the requested result. Instead, upon completion of the task, it will trigger the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_lobby_list_join(index)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>index</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>Position of the lobby in the list</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<p><strong>Triggers:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>event_type</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The string value <code>"lobby_joined"</code></td>
+</tr>
+<tr>
+<td>lobby_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Int64</a></td>
+<td>The lobby unique identifier</td>
+</tr>
+<tr>
+<td>success</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></td>
+<td>Whether or not the task was successful</td>
+</tr>
+<tr>
+<td>result</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The code of the result</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>steam_lobby_list_join(0);
+</code></pre></div>
+The code sample above can be used to join a lobby with the given index after a <a href="lobbies.html#steam_lobby_list_request">steam_lobby_list_request</a> has been performed.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_lobby_list_request">steam_lobby_list_request</h1>
+<p>This function starts loading the list of lobbies matching the current filters.
+This is an asynchronous function that will trigger the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a> when the task is finished.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Filters are reset afterwards and have to be set again for subsequent request(s).</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Existing results are kept up until the event is dispatched.</p>
+</div>
+<p>This function operates asynchronously, which means that it does not immediately return the requested result. Instead, upon completion of the task, it will trigger the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_lobby_list_request()
+</code></pre></div>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<p><strong>Triggers:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>event_type</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The string value <code>"lobby_list"</code></td>
+</tr>
+<tr>
+<td>lobby_count</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Int64</a></td>
+<td>The number of lobbies in retrieved (same as <a href="lobbies.html#steam_lobby_list_get_count">steam_lobby_list_get_count</a>)</td>
+</tr>
+<tr>
+<td>success</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></td>
+<td>Whether or not the task was successful</td>
+</tr>
+<tr>
+<td>result</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The code of the result</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>steam_lobby_list_add_distance_filter(steam_lobby_list_distance_filter_far);
+steam_lobby_list_add_near_filter(&quot;myNearFilter&quot;, 77);
+steam_lobby_list_add_numerical_filter(&quot;level&quot;, 10, steam_lobby_list_filter_gt);
+steam_lobby_list_add_string_filter(&quot;Stage&quot;,&quot;BattleZone&quot;, steam_lobby_list_filter_eq);
+steam_lobby_list_request();
+</code></pre></div>
+In this extended example we will request the lobby list that matches the requested filter criteria and parse its results in the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a>. To start with we need to request the lobbies with the code above. And afterwards proceed to catch the results <strong>after/during</strong> the corresponding asynchronous event:</p>
+<p><div class="highlight"><pre><span></span><code>var _type = ds_map_find_value(async_load, &quot;event_type&quot;);
+if (_type == &quot;lobby_list&quot;)
+{
+    var _lb_count = steam_lobby_list_get_count();
+    for (var i = 0; i &lt; _lb_count; i++)
+    {
+        var _lb_ID = steam_lobby_list_get_lobby_id(i);
+        var _lb_owner = steam_lobby_list_get_lobby_owner_id(i);
+        var _lb_members_count = steam_lobby_list_get_lobby_member_count(i);
+        for (var j = 0; j &lt; _lb_members_count; j++)
+        {
+            var _lb_member_ID = steam_lobby_list_get_lobby_member_id(i, j);
+            // Do what even you need with the queried information
+        }
+    }
+}
+</code></pre></div>
+This code will loop through all the loobies and respective members on the query result.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="lobbyfiltercomparisontype">LobbyFilterComparisonType</h1>
+<p>These constants specify the comparison type when applying a filter to a lobby list request.</p>
+<p>These constants are referenced by the following functions:</p>
+<ul>
+<li><a href="lobbies.html#steam_lobby_list_add_numerical_filter">steam_lobby_list_add_numerical_filter</a></li>
+<li><a href="lobbies.html#steam_lobby_list_add_string_filter">steam_lobby_list_add_string_filter</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>steam_lobby_list_filter_eq</code></td>
+<td>Equal (==).</td>
+</tr>
+<tr>
+<td><code>steam_lobby_list_filter_ne</code></td>
+<td>Not-equal (!=)</td>
+</tr>
+<tr>
+<td><code>steam_lobby_list_filter_lt</code></td>
+<td>Less-than (&lt;), only applies to <a href="lobbies.html#steam_lobby_list_add_numerical_filter">steam_lobby_list_add_numerical_filter</a></td>
+</tr>
+<tr>
+<td><code>steam_lobby_list_filter_gt</code></td>
+<td>Greater-than (&gt;), only applies to <a href="lobbies.html#steam_lobby_list_add_numerical_filter">steam_lobby_list_add_numerical_filter</a></td>
+</tr>
+<tr>
+<td><code>steam_lobby_list_filter_le</code></td>
+<td>Less-than-or-equal (&lt;=), only applies to <a href="lobbies.html#steam_lobby_list_add_numerical_filter">steam_lobby_list_add_numerical_filter</a></td>
+</tr>
+<tr>
+<td><code>steam_lobby_list_filter_ge</code></td>
+<td>Greater-than-or-equal (&gt;=), only applies to <a href="lobbies.html#steam_lobby_list_add_numerical_filter">steam_lobby_list_add_numerical_filter</a></td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="lobbyfilterdistancemode">LobbyFilterDistanceMode</h1>
+<p>These constants specify the distance mode to be used when applying a filter to a lobby list request.</p>
+<p>These constants are referenced by the following functions:</p>
+<ul>
+<li><a href="lobbies.html#steam_lobby_list_add_distance_filter">steam_lobby_list_add_distance_filter</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>steam_lobby_list_distance_filter_close</code></td>
+<td>Only allows lobbies in same immediate region</td>
+</tr>
+<tr>
+<td><code>steam_lobby_list_distance_filter_default</code></td>
+<td>Allows lobbies in same or nearby regions (same continent)</td>
+</tr>
+<tr>
+<td><code>steam_lobby_list_distance_filter_far</code></td>
+<td>Allows lobbies from up to half-way around the globe (nearby continents)</td>
+</tr>
+<tr>
+<td><code>steam_lobby_list_distance_filter_worldwide</code></td>
+<td>Allows any lobbies. May result in very high latencies, so use with care</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="lobbytype">LobbyType</h1>
+<p>These constants specify the type of lobby should be used creating a new lobby.</p>
+<p>These constants are referenced by the following functions:</p>
+<ul>
+<li><a href="lobbies.html#steam_lobby_create">steam_lobby_create</a></li>
+<li><a href="lobbies.html#steam_lobby_set_type">steam_lobby_set_type</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>steam_lobby_type_private</code></td>
+<td>The lobby can only be joined by invitation</td>
+</tr>
+<tr>
+<td><code>steam_lobby_type_friends_only</code></td>
+<td>The lobby can be joined by invitation or via friends-list (by opening the user's menu and picking "Join game")</td>
+</tr>
+<tr>
+<td><code>steam_lobby_type_public</code></td>
+<td>The lobby can be joined by invitation, via friends-list and shows up in the public list (see matchmaking functions)</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="leaderboards.html" class="btn btn-neutral float-left" title="Leaderboards"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="achievements.html" class="btn btn-neutral float-right" title="Achievements">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+      <p><p align="center">GameMaker 2024</p></p>
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/YoYoGames/GMEXT-Steamworks" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="leaderboards.html" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="achievements.html" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = ".";</script>
+    <script src="js/theme_extra.js"></script>
+    <script src="js/theme.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/gml.min.js"></script>
+      <script src="assets/js/copy_code.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

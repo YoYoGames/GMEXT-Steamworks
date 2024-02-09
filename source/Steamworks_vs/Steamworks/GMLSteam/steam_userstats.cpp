@@ -1574,10 +1574,10 @@ YYEXPORT void steam_get_achievement_achieved_percent(RValue& Result, CInstance* 
 	{
 		if (SteamUserStats() != NULL)
 		{
-			float porcent;
-			if (SteamUserStats()->GetAchievementAchievedPercent(statname, &porcent))
+			float percent;
+			if (SteamUserStats()->GetAchievementAchievedPercent(statname, &percent))
 			{
-				Result.val = porcent;
+				Result.val = percent;
 				return;
 			}
 			else
@@ -1608,15 +1608,15 @@ YYEXPORT void steam_get_most_achieved_achievement_info(RValue& Result, CInstance
 	{
 		if (SteamUserStats() != NULL)
 		{
-			float porcent;
+			float percent;
 			bool achievement;
 			char pchName[64];
 
-			int iterator = SteamUserStats()->GetMostAchievedAchievementInfo((char*)pchName, 64, &porcent, &achievement);
+			int iterator = SteamUserStats()->GetMostAchievedAchievementInfo((char*)pchName, 64, &percent, &achievement);
 			if (iterator != -1)
 			{
 				YYStructAddInt(&Struct, "iterator", iterator);
-				YYStructAddInt64(&Struct, "porcent", porcent);
+				YYStructAddInt64(&Struct, "percent", percent);
 				YYStructAddBool(&Struct, "achievement", achievement);
 
 				COPY_RValue(&Result, &Struct);
@@ -1649,15 +1649,15 @@ YYEXPORT void steam_get_next_most_achieved_achievement_info(RValue& Result, CIns
 	{
 		if (SteamUserStats() != NULL)
 		{
-			float porcent;
+			float percent;
 			bool achievement;
 			char pchName[64];
 
-			int _iterator = SteamUserStats()->GetNextMostAchievedAchievementInfo(iterator, (char*)pchName, 64, &porcent, &achievement);
+			int _iterator = SteamUserStats()->GetNextMostAchievedAchievementInfo(iterator, (char*)pchName, 64, &percent, &achievement);
 			if (iterator != -1)
 			{
 				YYStructAddInt(&Struct, "iterator", _iterator);
-				YYStructAddInt64(&Struct, "porcent", porcent);
+				YYStructAddInt64(&Struct, "percent", percent);
 				YYStructAddBool(&Struct, "achievement", achievement);
 
 				COPY_RValue(&Result, &Struct);

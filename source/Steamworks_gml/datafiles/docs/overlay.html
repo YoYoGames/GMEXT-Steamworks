@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="img/favicon.ico" />
+    <title>Overlay - GMEXT-Steamworks</title>
+    <link rel="stylesheet" href="css/theme.css" />
+    <link rel="stylesheet" href="css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+        <link href="assets/css/doc.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Overlay";
+        var mkdocs_page_input_path = "overlay.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="." class="icon icon-home"> GMEXT-Steamworks
+        </a>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="home.html">Home</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="guides.html">Guides</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="management.html">Management</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="general.html">General</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="overlay.html">Overlay</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#functions">Functions</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#constants">Constants</a>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="leaderboards.html">Leaderboards</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="lobbies.html">Lobbies</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="achievements.html">Achievements</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="cloud.html">Cloud</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="dlc.html">Dlc</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="ugc.html">Ugc</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="social.html">Social</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="inventory.html">Inventory</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="networking.html">Networking</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="input.html">Input</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="music.html">Music</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="utilities.html">Utilities</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href=".">GMEXT-Steamworks</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Overlay</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/YoYoGames/GMEXT-Steamworks/edit/master/docs/overlay.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <p><a id="top"></a></p>
+<h1 id="overlay"><strong>Overlay</strong></h1>
+<p>The Steam Overlay is the visual display that can be brought up to display the Steam interface to the user. This is normally done by the user themselves using a combination of keys, but you also have the possibility of doing it from within your game, so that you can map a button or an event to show the overlay.</p>
+<h2 id="functions">Functions</h2>
+<p>The extension provides you with the following functions:</p>
+<ul>
+<li><a href="overlay.html#steam_is_overlay_enabled">steam_is_overlay_enabled</a></li>
+<li><a href="overlay.html#steam_is_overlay_activated">steam_is_overlay_activated</a></li>
+<li><a href="overlay.html#steam_activate_overlay">steam_activate_overlay</a></li>
+<li><a href="overlay.html#steam_activate_overlay_browser">steam_activate_overlay_browser</a></li>
+<li><a href="overlay.html#steam_activate_overlay_store">steam_activate_overlay_store</a></li>
+<li><a href="overlay.html#steam_activate_overlay_user">steam_activate_overlay_user</a></li>
+<li><a href="overlay.html#steam_set_overlay_notification_inset">steam_set_overlay_notification_inset</a></li>
+<li><a href="overlay.html#steam_set_overlay_notification_position">steam_set_overlay_notification_position</a></li>
+</ul>
+<h2 id="constants">Constants</h2>
+<p>This section also provides the following constants to use with the functions:</p>
+<ul>
+<li><a href="overlay.html#overlaytype">OverlayType</a></li>
+<li><a href="overlay.html#overlaynotificationposition">OverlayNotificationPosition</a></li>
+</ul>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_is_overlay_enabled">steam_is_overlay_enabled</h1>
+<p>When using the Steam API, this function can be called to check if the Steam client API has the overlay functionality enabled.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_is_overlay_enabled()
+</code></pre></div>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>global.steam_api = false;
+if steam_initialised()
+{
+    if steam_stats_ready() &amp;&amp; steam_is_overlay_enabled()
+    {
+        global.steamapi = true;
+    }
+}
+</code></pre></div>
+The above code will set a global variable to <code>true</code> if the Steam client API is correctly initialised, along with the Steam statistics and overlay functionality, or it will set the variable to <code>false</code> otherwise.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_is_overlay_activated">steam_is_overlay_activated</h1>
+<p>This function can be used to find out if the user has the Steam Overlay active or not. If the overlay is active and visible to the user the function will return <code>true</code>, and if it is not, then it will return <code>false</code>. An example of what this function can be used for would be for polling the Steam API for the overlay so that you can pause your game while the overlay is being shown.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_is_overlay_activated()
+</code></pre></div>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>if steam_is_overlay_activated()
+{
+    global.Pause = true;
+}
+</code></pre></div>
+The above code will check to see if the Steam overlay is active and if it is it will set the global variable "Pause" to <code>true</code>.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_activate_overlay">steam_activate_overlay</h1>
+<p>The Steam overlay is a piece of the Steam user interface that can be activated over the top of almost any game launched through Steam. It lets the user access their friends list, web browser, chat, and in-game DLC purchasing. The default key for a user to access the overlay while in a game is SHIFT + TAB, but you can also bring up any page of the overlay using this function. It takes one of the <a href="overlay.html#overlaytype">OverlayType</a> constants.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_activate_overlay(overlay_type)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>overlay_type</td>
+<td><a href="overlay.html#overlaytype">OverlayType</a></td>
+<td>The page index of the Steam API UI to show</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>var _key = keyboard_lastkey;
+switch (_key)
+{
+    case vk_f1: steam_activate_overlay(ov_friends); break;
+    case vk_f2: steam_activate_overlay(ov_community); break;
+    case vk_f3: steam_activate_overlay(ov_players); break;
+    case vk_f4: steam_activate_overlay(ov_settings); break;
+    case vk_f5: steam_activate_overlay(ov_gamegroup); break;
+    case vk_f6: steam_activate_overlay(ov_achievements); break;
+}
+</code></pre></div>
+The above code polls the last keyboard key pressed. If it is any of the function keys from 1 to 6 it will open the corresponding page of the Steam overlay.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_activate_overlay_browser">steam_activate_overlay_browser</h1>
+<p>With this function you can open the Steam game overlay to its web browser and then have it load the specified URL. You need to use the full URL as a string for this to resolve correctly, for example: <code>"http://www.steamgames.com/"</code>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_activate_overlay_browser(url)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>url</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The (full) URL for the overlay to open.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>if keyboard_check_pressed(vk_f1)
+{
+    steam_activate_overlay_browser(&quot;http://www.steamgames.com/&quot;);
+}
+</code></pre></div>
+The above code polls the keyboard for the F1 key. If it was pressed then Steam overlay will be opened and resolve to the given URL.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_activate_overlay_store">steam_activate_overlay_store</h1>
+<p>With this function you can open the Steam overlay on the store page for a game so that users can buy or download DLC (for example). You need to supply the unique App ID for the game or DLC which you would get from the Steam dashboard when you set it up.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_activate_overlay_store(app_id)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>app_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The unique App ID for your game.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>if keyboard_check_pressed(vk_f1)
+{
+    steam_activate_overlay_store(global.DLC_id);
+}
+</code></pre></div>
+The above code polls the keyboard for the F1 key and if it is then Steam overlay will be opened on the page for the game content using the app ID stored in the global variable.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_activate_overlay_user">steam_activate_overlay_user</h1>
+<p>This function will open the Steam overlay to one of the chosen dialogues relating to the user ID given.
+Note that Steam IDs can be large numbers and so you may need to cast your ID value as an <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Int64</a> before supplying it to the function.</p>
+<table>
+<thead>
+<tr>
+<th>Dialog Names</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>"steamid"</code></td>
+<td>Opens the Steam Community web browser to the page of the user or group</td>
+</tr>
+<tr>
+<td><code>"chat"</code></td>
+<td>Opens a chat window to the specified user</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_activate_overlay_user(dialog_name, steamid)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>dialog_name</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The dialogue to open the overlay on (see below).</td>
+</tr>
+<tr>
+<td>steamid</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Int64</a></td>
+<td>The Steam user ID or group ID to use.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>var _key = keyboard_lastkey;
+switch (_key)
+{
+    case vk_f1: steam_activate_overlay_user(&quot;steamid&quot;, global.GameGroupID); break;
+    case vk_f2: steam_activate_overlay_user(&quot;chat&quot;, global.FriendID); break;
+}
+</code></pre></div>
+The above code polls the last keyboard key pressed. If it is function key 1 or function key 2, it will open the Steam overlay to either see the Steam group stored in the global variable "GamegroupID", or it will open the chat window to chat with the user stored in the global "FriendID" variable.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_set_overlay_notification_inset">steam_set_overlay_notification_inset</h1>
+<p>This function sets the inset of the overlay notification from the corner specified by <a href="overlay.html#steam_set_overlay_notification_position">steam_set_overlay_notification_position</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_set_overlay_notification_inset(hor_inset, vert_inset)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>hor_inset</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The horizontal (left-right) distance in pixels from the corner.</td>
+</tr>
+<tr>
+<td>vert_inset</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The vertical (up-down) distance in pixels from the corner.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>steam_set_overlay_notification_inset(10, 10);
+</code></pre></div>
+The code above will inset the overlay 10px on the horizontal axis and 10px on the vertical axis.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_set_overlay_notification_position">steam_set_overlay_notification_position</h1>
+<p>This function changes the corner in which the overlay notifications will appear.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_set_overlay_notification_position(position)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>position</td>
+<td><a href="overlay.html#overlaynotificationposition">OverlayNotificationPosition</a></td>
+<td>A constant that indicates the position where the notification overlay should render</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>steam_set_overlay_notification_position(steam_overlay_notification_position_bottom_right);
+</code></pre></div>
+The above code will change the notification position to the bottom right corner.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="overlaytype">OverlayType</h1>
+<p>These constants specify the type of overlay to be activated.</p>
+<p>These constants are referenced by the following functions:</p>
+<ul>
+<li><a href="overlay.html#steam_activate_overlay">steam_activate_overlay</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ov_friends</code></td>
+<td>The friends page for the current user</td>
+</tr>
+<tr>
+<td><code>ov_community</code></td>
+<td>The community page for your game</td>
+</tr>
+<tr>
+<td><code>ov_players</code></td>
+<td>The page showing others that are playing the same game or that you have recently played with</td>
+</tr>
+<tr>
+<td><code>ov_settings</code></td>
+<td>The Steam client overlay settings</td>
+</tr>
+<tr>
+<td><code>ov_gamegroup</code></td>
+<td>Opens the Steam Community web browser to the official game group for this game</td>
+</tr>
+<tr>
+<td><code>ov_achievements</code></td>
+<td>The achievements page for your game</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="overlaynotificationposition">OverlayNotificationPosition</h1>
+<p>These constants specify the position of the notification overlay onscreen.</p>
+<p>These constants are referenced by the following functions:</p>
+<ul>
+<li><a href="overlay.html#steam_set_overlay_notification_position">steam_set_overlay_notification_position</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>steam_overlay_notification_position_top_left</code></td>
+<td>Point to the top left position</td>
+</tr>
+<tr>
+<td><code>steam_overlay_notification_position_top_right</code></td>
+<td>Point to the top right position</td>
+</tr>
+<tr>
+<td><code>steam_overlay_notification_position_bottom_left</code></td>
+<td>Point to the bottom left position</td>
+</tr>
+<tr>
+<td><code>steam_overlay_notification_position_bottom_right</code></td>
+<td>Point to the bottom right position</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="general.html" class="btn btn-neutral float-left" title="General"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="leaderboards.html" class="btn btn-neutral float-right" title="Leaderboards">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+      <p><p align="center">GameMaker 2024</p></p>
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/YoYoGames/GMEXT-Steamworks" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="general.html" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="leaderboards.html" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = ".";</script>
+    <script src="js/theme_extra.js"></script>
+    <script src="js/theme.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/gml.min.js"></script>
+      <script src="assets/js/copy_code.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

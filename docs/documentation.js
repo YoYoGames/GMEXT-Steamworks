@@ -20,8 +20,8 @@
  * @ref module.leaderboards
  * @ref module.achievements
  * @ref module.cloud
- * @ref module.DLC
- * @ref module.UGC
+ * @ref module.dlc
+ * @ref module.ugc
  * @ref module.lobbies
  * @ref module.social
  * @ref module.inventory

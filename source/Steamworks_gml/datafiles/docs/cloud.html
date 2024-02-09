@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="img/favicon.ico" />
+    <title>Cloud - GMEXT-Steamworks</title>
+    <link rel="stylesheet" href="css/theme.css" />
+    <link rel="stylesheet" href="css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+        <link href="assets/css/doc.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Cloud";
+        var mkdocs_page_input_path = "cloud.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="." class="icon icon-home"> GMEXT-Steamworks
+        </a>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="home.html">Home</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="guides.html">Guides</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="management.html">Management</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="general.html">General</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="overlay.html">Overlay</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="leaderboards.html">Leaderboards</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="lobbies.html">Lobbies</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="achievements.html">Achievements</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="cloud.html">Cloud</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#functions">Functions</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#structs">Structs</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#constants">Constants</a>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="dlc.html">Dlc</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="ugc.html">Ugc</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="social.html">Social</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="inventory.html">Inventory</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="networking.html">Networking</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="input.html">Input</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="music.html">Music</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="utilities.html">Utilities</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href=".">GMEXT-Steamworks</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Cloud</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/YoYoGames/GMEXT-Steamworks/edit/master/docs/cloud.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <p><a id="top"></a></p>
+<h1 id="cloud"><strong>Cloud</strong></h1>
+<p>The Steam Cloud provides an easy and transparent remote file storage system for your game. All files written to disk using the cloud functions will be replicated to the Steam servers after the game exits. If the user then changes computers, the files will then be downloaded to the new computer before the game launches, meaning that the game can then access the files by reading them using the appropriate Steam functions. The Steam Client does the work of ensuring that the files are kept synchronized across all computers the user may be accessing.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>By default, the Cloud is not enabled for a game on Steamworks. it must be enabled previously from the 'Cloud' tab of the Steamworks game admin, where you should set the byte and file quota. The next time you publish your games Steamworks configuration, the Cloud storage will be ready to use.</p>
+</div>
+<h2 id="functions">Functions</h2>
+<p>The following functions can be used to access the Steam Cloud from within GameMaker:</p>
+<ul>
+<li><a href="cloud.html#steam_is_cloud_enabled_for_app">steam_is_cloud_enabled_for_app</a></li>
+<li><a href="cloud.html#steam_is_cloud_enabled_for_account">steam_is_cloud_enabled_for_account</a></li>
+<li><a href="cloud.html#steam_get_quota_total">steam_get_quota_total</a></li>
+<li><a href="cloud.html#steam_get_quota_free">steam_get_quota_free</a></li>
+<li><a href="cloud.html#steam_file_exists">steam_file_exists</a></li>
+<li><a href="cloud.html#steam_file_size">steam_file_size</a></li>
+<li><a href="cloud.html#steam_file_persisted">steam_file_persisted</a></li>
+<li><a href="cloud.html#steam_file_write">steam_file_write</a></li>
+<li><a href="cloud.html#steam_file_write_file">steam_file_write_file</a></li>
+<li><a href="cloud.html#steam_file_read">steam_file_read</a></li>
+<li><a href="cloud.html#steam_file_share">steam_file_share</a></li>
+<li><a href="cloud.html#steam_file_delete">steam_file_delete</a></li>
+<li><a href="cloud.html#steam_get_local_file_change">steam_get_local_file_change</a></li>
+<li><a href="cloud.html#steam_get_local_file_change_count">steam_get_local_file_change_count</a></li>
+<li><a href="cloud.html#steam_file_get_list">steam_file_get_list</a></li>
+</ul>
+<h2 id="structs">Structs</h2>
+<p>This module offers a collection of structs, which serve as custom data models for organizing and structuring data. Explore the provided structs to better understand the relationships between data elements and simplify your data manipulation tasks.</p>
+<ul>
+<li><a href="cloud.html#steamlocalfilechange">SteamLocalFileChange</a></li>
+<li><a href="cloud.html#steamcloudfileentry">SteamCloudFileEntry</a></li>
+</ul>
+<h2 id="constants">Constants</h2>
+<p>This module includes a set of predefined constants that can be utilized for various purposes. Browse through the available constants to find values relevant to your needs and enhance the efficiency of your code.</p>
+<ul>
+<li><a href="cloud.html#steam_local_file_change">steam_local_file_change</a></li>
+<li><a href="cloud.html#steam_local_file_path_type">steam_local_file_path_type</a></li>
+</ul>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_is_cloud_enabled_for_app">steam_is_cloud_enabled_for_app</h1>
+<p>With this function you can check to make sure that the Steam Cloud service is enabled for your game. It will return <code>true</code> if it is and <code>false</code> otherwise.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>IMPORTANT This does not automatically mean that you can use the Cloud functions as the user can switch off Cloud synchronization from their Steam Client. You can check this using the function <a href="cloud.html#steam_is_cloud_enabled_for_account">steam_is_cloud_enabled_for_account</a>, but, even if it is disabled for the user (and enabled for the game), the functions will still work to store and retrieve data from a local copy of all files, it will just not upload them to the cloud on the game end, nor synchronize on the game start.</p>
+</div>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_is_cloud_enabled_for_app()
+</code></pre></div>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>if (steam_is_cloud_enabled_for_app())
+{
+    quota = steam_get_quota_total();
+}
+</code></pre></div>
+The above code checks to see if the Steam Cloud is enabled for the game and if so it gets the size of the storage quota and stores it in a variable.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_is_cloud_enabled_for_account">steam_is_cloud_enabled_for_account</h1>
+<p>With this function you can check to make sure that the Steam Cloud service is enabled by the user in their Steam Client settings. It will return <code>true</code> if it is and <code>false</code> otherwise.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>IMPORTANT This does not automatically mean that you can store data to the Cloud, as it will also have to have been enabled for your game (you can check this using the function <a href="cloud.html#steam_is_cloud_enabled_for_app">steam_is_cloud_enabled_for_app</a>). If the Steam Cloud is enabled for your game, but the user has it switched off locally, you can still use the Cloud functions to store and retrieve data from a local copy of all files, it will just not upload them to the cloud on the game end, nor synchronize on the game start.</p>
+</div>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_is_cloud_enabled_for_account()
+</code></pre></div>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>if (steam_is_cloud_enabled_for_account())
+{
+    steam_file_share(&quot;Save.txt&quot;);
+}
+</code></pre></div>
+The above code checks to see if the user has the Steam Cloud enabled and if it returns <code>true</code>, it will then synchronize the given file.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_get_quota_total">steam_get_quota_total</h1>
+<p>When using the Steam Cloud to store and synchronize files, you must set up the <em>quota</em> of space that your game will need. This quota is enforced on each Cloud-enabled game, on a per-user-per-game basis, so, for example, if the quota for Game X is 1 megabyte, then each Steam account that owns Game X may store, at most, 1 megabyte of data associated with that game in the Cloud. Any other Cloud-enabled games that the user owns (say, Game Y) will not be affected by the data stored by Game X. The default quota for new Steamworks games is one gigabyte, but you can change this from the Steamworks control panel for your game.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Once the quota is exhausted file writes will fail. If you think it may be possible for the quota to be exhausted for the user of your game, you should create code to handle it, as by doing nothing you leave users in a situation where they are unable to fix things and that will lead to a poor experience of your game.</p>
+</div>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_get_quota_total()
+</code></pre></div>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>if (steam_is_cloud_enabled_for_app())
+{
+    quota = steam_get_quota_total();
+}
+</code></pre></div>
+The above code checks to see if the Steam Cloud is enabled for the game and if so it gets the size of the storage quota and stores it in a variable.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_get_quota_free">steam_get_quota_free</h1>
+<p>With this function you can find out how much free space is left for the user of the Steam Cloud quota. The value returned is in <em>bytes</em>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_get_quota_free()
+</code></pre></div>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>if (steam_is_cloud_enabled_for_app())
+{
+    quota = steam_get_quota_free();
+}
+</code></pre></div>
+The above code checks to see if the Steam Cloud is enabled for the game and if so it gets the size of the free storage space and stores it in a variable.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_file_exists">steam_file_exists</h1>
+<p>With this function you can check to see if a file from the Steam Cloud exists or not, with a return value of <code>true</code> if it exists, or <code>false</code> otherwise.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_file_exists(filename)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>filename</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The name of the file to check for.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>if (steam_file_exists(&quot;Save.txt&quot;))
+{
+    save_str = steam_file_read(&quot;Save.txt&quot;);
+}
+</code></pre></div>
+The above code checks to see if a file exists on the Steam Cloud and if it does, it opens it and reads its contents into the variable "save_str".</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_file_size">steam_file_size</h1>
+<p>With this function you can check the size of a file stored on the Steam Cloud. The returned real number is the size, in bytes, of the file.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_file_size(filename)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>filename</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The name of the file to check the size of.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>file_bytes = steam_file_size(&quot;Save.txt&quot;);
+</code></pre></div>
+The above code stores the size of a file from the Steam Cloud in the variable "file_bytes".</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_file_persisted">steam_file_persisted</h1>
+<p>With this function you can check the given file to see if it has been synchronized with the Steam Cloud. A return value of <code>true</code> means that it is, while <code>false</code> means it is not.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_file_persisted(filename)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>filename</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The name of the file to check.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>if (!steam_file_persisted(&quot;Save.txt&quot;))
+{
+    steam_file_share(&quot;Save.txt&quot;);
+}
+</code></pre></div>
+The above code will check to see if a file has been stored to the Steam Cloud, and if it has not it will then synchronize it.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_file_write">steam_file_write</h1>
+<p>You can use this function to write data to a file, which will then be synchronized with the Steam Cloud when the user exits the game. if the file does not exist, this function will create it for you, and if it does already exist, it will overwrite any data that is already stored within the file with the new data string. The function will return a value of 0 if it fails for whatever reason and a value greater than 0 if it succeeds.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_file_write(filename, data, size)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>filename</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The name of the file to write to.</td>
+</tr>
+<tr>
+<td>data</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The data to write (a string).</td>
+</tr>
+<tr>
+<td>size</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>the size of the data to be written.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>var _fname = &quot;SaveData.txt&quot;;
+var _data = string(global.Level) + &quot;|&quot; + string(global.Points) + &quot;|&quot; + string(global.HP);
+var _len = string_length(_data);
+steam_file_write_file(_fname, _data, _len);
+</code></pre></div>
+The above code will prepare a number of local variables and then use them to write to (or create) a file which will then be synchronized with the Steam Cloud.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_file_write_file">steam_file_write_file</h1>
+<p>With this function you can copy the contents of a locally saved file to a file that is synchronized with the Steam Cloud. The local file <em>must exist</em> before using this function, and it will return a value of 0 if it fails for whatever reason and a value greater than 0 if it succeeds.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_file_write_file(steam_filename, local_filename)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>steam_filename</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The Steam Cloud file to copy over.</td>
+</tr>
+<tr>
+<td>local_filename</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The local file to use to copy from.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>steam_file_write_file(&quot;rm_koala.png&quot;, &quot;Koala2.png&quot;);
+</code></pre></div>
+The above code will copy the contents of the file "Koala2.png" to the Steam Cloud file "rm_koala.png".</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_file_read">steam_file_read</h1>
+<p>This function will read the contents of the given file into a string which can later be parsed in your game.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_file_read(filename)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>filename</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The name of the file to read from.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>if steam_file_exists(&quot;Save.txt&quot;)
+{
+    save_str = steam_file_read(&quot;Save.txt&quot;);
+}
+</code></pre></div>
+The above code checks to see if a file exists on the Steam Cloud and if it does, it opens it and reads its contents into the variable "save_str".</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_file_share">steam_file_share</h1>
+<p>With this function you can force your game to synchronize the given file with the Steam Cloud. This is not normally necessary due to the fact that the game will synchronize automatically at the end of the player's session, nor is it recommended by Steam, but it can be useful to ensure sensitive information is synchronized immediately. The function will return a value of 0 if it fails for whatever reason and a value greater than 0 if it succeeds.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_file_share(filename)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>filename</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The name of the file synchronize.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>if (!steam_file_persisted(&quot;Save.txt&quot;))
+{
+    steam_file_share(&quot;Save.txt&quot;);
+}
+</code></pre></div>
+The above code will check to see if a file has been stored to the Steam Cloud, and if it has not it will then synchronize it.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_file_delete">steam_file_delete</h1>
+<p>This function will delete the given file from the Steam Cloud. The function will return a value of 0 if it fails for whatever reason and a value greater than 0 if it succeeds.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_file_delete(filename)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>filename</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The name of the file delete.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>if (steam_file_exists(&quot;Save.txt&quot;))
+{
+    steam_file_delete(&quot;Save.txt&quot;);
+}
+</code></pre></div>
+The above code will check to see if a file exists, and if it does, it deletes the file from the Steam Cloud.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_get_local_file_change">steam_get_local_file_change</h1>
+<p>This function gets the changes in a local file.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_get_local_file_change()
+</code></pre></div>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="cloud.html#steamlocalfilechange">SteamLocalFileChange</a></p>
+</blockquote>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_get_local_file_change_count">steam_get_local_file_change_count</h1>
+<p>This function gets the number of changes in a local file change event.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_get_local_file_change_count()
+</code></pre></div>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_file_get_list">steam_file_get_list</h1>
+<p>This function returns a list of all currently stored files in the user's cloud storage as an array, an empty array is returned on failure.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_file_get_list()
+</code></pre></div>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Arrays.htm">Array</a> of <a href="cloud.html#steamcloudfileentry">SteamCloudFileEntry</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>var _i = 0;
+var files = steam_file_get_list();
+for (var i = 0, len = array_length(files); i &lt; len; ++i)
+{
+    var file = files[i];
+    draw_text(50, 100 + _i++ * 30, file.file_name + &quot; size is &quot; + string(file.file_size));
+    // steam_file_delete(file.file_name); // etc...
+}
+</code></pre></div>
+The above code will enumerate through all cloud files and draw their information on the screen.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_local_file_change">steam_local_file_change</h1>
+<p>These constants are referenced by the following structs:</p>
+<ul>
+<li><a href="cloud.html#steamlocalfilechange">SteamLocalFileChange</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>steam_local_file_change_invalid</code></td>
+<td>impossible value</td>
+</tr>
+<tr>
+<td><code>steam_local_file_change_updated</code></td>
+<td>file's contents were updated</td>
+</tr>
+<tr>
+<td><code>steam_local_file_change_deleted</code></td>
+<td>the file was deleted</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_local_file_path_type">steam_local_file_path_type</h1>
+<p>These constants are referenced by the following structs:</p>
+<ul>
+<li><a href="cloud.html#steamlocalfilechange">SteamLocalFileChange</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>steam_local_file_path_type_invalid</code></td>
+<td>An impossible value</td>
+</tr>
+<tr>
+<td><code>steam_local_file_path_type_absolute</code></td>
+<td>The absolute path to a file inside the Auto Cloud folder (should be your save folder, which means it should be already in the filesystem sandbox). Use <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Buffers/buffer_load.htm">buffer_load</a> or any other function to read the file.</td>
+</tr>
+<tr>
+<td><code>steam_local_file_path_type_api_filename</code></td>
+<td>A file for the steam_file_<em> functions. Pass <code>name</code> to the steam_file_</em> functions.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steamlocalfilechange">SteamLocalFileChange</h1>
+<p>This struct provides details on what happened in a local file change.</p>
+<p>This struct is referenced by the following functions:</p>
+<ul>
+<li><a href="cloud.html#steam_get_local_file_change">steam_get_local_file_change</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>local_file_change</td>
+<td><a href="cloud.html#steam_local_file_change">steam_local_file_change</a></td>
+<td>The type of change that happened to the file</td>
+</tr>
+<tr>
+<td>file_path_type</td>
+<td><a href="cloud.html#steam_local_file_path_type">steam_local_file_path_type</a></td>
+<td>The type of file path</td>
+</tr>
+<tr>
+<td>name</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>This is either a full path or an API filename.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steamcloudfileentry">SteamCloudFileEntry</h1>
+<p>This struct provides information about a file in a file list returned by the <a href="cloud.html#steam_file_get_list">steam_file_get_list</a> function</p>
+<p>This struct is referenced by the following functions:</p>
+<ul>
+<li><a href="cloud.html#steam_file_get_list">steam_file_get_list</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>file_name</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The full name of the file</td>
+</tr>
+<tr>
+<td>file_size</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The size of the file in bytes</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="achievements.html" class="btn btn-neutral float-left" title="Achievements"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="dlc.html" class="btn btn-neutral float-right" title="Dlc">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+      <p><p align="center">GameMaker 2024</p></p>
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/YoYoGames/GMEXT-Steamworks" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="achievements.html" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="dlc.html" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = ".";</script>
+    <script src="js/theme_extra.js"></script>
+    <script src="js/theme.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/gml.min.js"></script>
+      <script src="assets/js/copy_code.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,1305 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="img/favicon.ico" />
+    <title>Leaderboards - GMEXT-Steamworks</title>
+    <link rel="stylesheet" href="css/theme.css" />
+    <link rel="stylesheet" href="css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+        <link href="assets/css/doc.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Leaderboards";
+        var mkdocs_page_input_path = "leaderboards.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="." class="icon icon-home"> GMEXT-Steamworks
+        </a>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="home.html">Home</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="guides.html">Guides</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="management.html">Management</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="general.html">General</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="overlay.html">Overlay</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="leaderboards.html">Leaderboards</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#functions">Functions</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#structs">Structs</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#constants">Constants</a>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="lobbies.html">Lobbies</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="achievements.html">Achievements</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="cloud.html">Cloud</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="dlc.html">Dlc</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="ugc.html">Ugc</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="social.html">Social</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="inventory.html">Inventory</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="networking.html">Networking</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="input.html">Input</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="music.html">Music</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="utilities.html">Utilities</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href=".">GMEXT-Steamworks</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Leaderboards</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/YoYoGames/GMEXT-Steamworks/edit/master/docs/leaderboards.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <p><a id="top"></a></p>
+<h1 id="leaderboards"><strong>Leaderboards</strong></h1>
+<p>The Steam API supports persistent leaderboards with automatically ordered entries. These leaderboards can be used to display global and friend leaderboards in your game and on the community web page for your game. Each game can have up to 10,000 leaderboards, and each leaderboard can be retrieved immediately after a player's score has been inserted into it, but note that for each leaderboard, a player can have only <strong>one</strong> entry, although there is no limit on the number of players per leaderboard.</p>
+<h2 id="functions">Functions</h2>
+<p>Each leaderboard entry contains a name, a score and a rank for the leaderboard, and this data will be replaced when a new leaderboard entry is created for the user, and the following functions can be used to add and retrieve this data form the leaderboards for your game:</p>
+<ul>
+<li><a href="leaderboards.html#steam_create_leaderboard">steam_create_leaderboard</a></li>
+<li><a href="leaderboards.html#steam_upload_score">steam_upload_score</a></li>
+<li><a href="leaderboards.html#steam_upload_score_ext">steam_upload_score_ext</a></li>
+<li><a href="leaderboards.html#steam_upload_score_buffer">steam_upload_score_buffer</a></li>
+<li><a href="leaderboards.html#steam_upload_score_buffer_ext">steam_upload_score_buffer_ext</a></li>
+<li><a href="leaderboards.html#steam_download_scores">steam_download_scores</a></li>
+<li><a href="leaderboards.html#steam_download_scores_around_user">steam_download_scores_around_user</a></li>
+<li><a href="leaderboards.html#steam_download_friends_scores">steam_download_friends_scores</a></li>
+</ul>
+<h2 id="structs">Structs</h2>
+<p>The following data types are used by the leaderboard functions:</p>
+<ul>
+<li><a href="leaderboards.html#leaderboardentry">LeaderboardEntry</a></li>
+</ul>
+<h2 id="constants">Constants</h2>
+<p>The following constants are used by the leaderboard functions:</p>
+<ul>
+<li><a href="leaderboards.html#leaderboarddisplaytype">LeaderboardDisplayType</a></li>
+<li><a href="leaderboards.html#leaderboardsortorder">LeaderboardSortOrder</a></li>
+</ul>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_create_leaderboard">steam_create_leaderboard</h1>
+<p>With this function you can create a new leaderboard for your game. The first argument is a string which defines the name of your leaderboard, and this name should be used in any further function calls relating to the leaderboard being created. You can then define the sort order (see <a href="leaderboards.html#leaderboardsortorder">LeaderboardSortOrder</a> constants) as well as the way in which the information is displayed (see <a href="leaderboards.html#leaderboarddisplaytype">LeaderboardDisplayType</a> constants).
+This is an asynchronous function that will trigger the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a> when the task is finished.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you have previously created a leaderboard with the same name (either through code or through your Steam page for the game), then this function will not create a new one.</p>
+</div>
+<p>This function operates asynchronously, which means that it does not immediately return the requested result. Instead, upon completion of the task, it will trigger the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_create_leaderboard(lb_name, sort_order, display_type)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>lb_name</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The name of the leaderboard that you are creating</td>
+</tr>
+<tr>
+<td>sort_order</td>
+<td><a href="leaderboards.html#leaderboardsortorder">LeaderboardSortOrder</a></td>
+<td>The method for sorting the leaderboard entries</td>
+</tr>
+<tr>
+<td>display_type</td>
+<td><a href="leaderboards.html#leaderboarddisplaytype">LeaderboardDisplayType</a></td>
+<td>The way to display the leaderboard to the user</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Triggers:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The asynchronous request ID</td>
+</tr>
+<tr>
+<td>event_type</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The string value <code>"create_leaderboard"</code></td>
+</tr>
+<tr>
+<td>status</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The status code, <code>0</code> if the leaderboard was created and <code>1</code> if it already existed</td>
+</tr>
+<tr>
+<td>lb_name</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The name of the leaderboard</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>steam_create_leaderboard(&quot;Game Times&quot;, lb_sort_ascending, lb_disp_time_sec);
+</code></pre></div>
+The above code will create a leaderboard called "Game Times", and set it to display the results in ascending order and with a display in seconds.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_upload_score">steam_upload_score</h1>
+<p>This function will send a score to the given leaderboard. The score to be uploaded is a real number, and the leaderboard name is a string that was defined when you created the leaderboard using the function <a href="leaderboards.html#steam_create_leaderboard">steam_create_leaderboard</a>.
+This is an asynchronous function that will trigger the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a> when the task is finished.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If the function call fails for any reason it will return -1 and the Async event will not be triggered.</p>
+</div>
+<p>This function operates asynchronously, which means that it does not immediately return the requested result. Instead, upon completion of the task, it will trigger the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_upload_score(lb_name, score)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>lb_name</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The name of the leaderboard that you are uploading the scores to</td>
+</tr>
+<tr>
+<td>score</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The score to upload</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Triggers:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>post_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The asynchronous request ID</td>
+</tr>
+<tr>
+<td>event_type</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The string value <code>"leaderboard_upload"</code></td>
+</tr>
+<tr>
+<td>lb_name</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The name of the leaderboard</td>
+</tr>
+<tr>
+<td>num_entries</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The number of returned entries</td>
+</tr>
+<tr>
+<td>success</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></td>
+<td>Whether or not the request was successful</td>
+</tr>
+<tr>
+<td>updated</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></td>
+<td>Whether or not the leaderboard was updated (i.e.: the new score was better)</td>
+</tr>
+<tr>
+<td>score</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The score that was posted to the leaderboard</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p>In this example, we first upload a score and then parse the <code>async_load</code> map returned if successful. The code below shows a typical example for uploading:</p>
+<p><div class="highlight"><pre><span></span><code>if (hp &lt;= 0)
+{
+    upload_ID = steam_upload_score(&quot;Game Scores&quot;, score);
+    if (!upload_ID)
+    {
+        alarm[0] = game_get_speed(gamespeed_fps);
+    }
+}
+</code></pre></div>
+Note that we have set an alarm if the call fails. This would be used to try the upload again at a later time and you can add extra code there to retry the upload or to save the score to a text file should it continue to fail, etc. We now add the following into the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a> for the instance controlling the scores:</p>
+<p><div class="highlight"><pre><span></span><code>var _type = ds_map_find_value(async_load, &quot;event_type&quot;);
+if (_type == &quot;leaderboard_upload&quot;)
+{
+    var _lb_ID = ds_map_find_value(async_load, &quot;post_id&quot;);
+    if _lb_ID == upload_ID
+    {
+        var _lb_name = ds_map_find_value(async_load, &quot;lb_name&quot;);
+        var _lb_done = ds_map_find_value(async_load, &quot;success&quot;);
+        var _lb_score = ds_map_find_value(async_load, &quot;score&quot;);
+        var _lb_updated = ds_map_find_value(async_load, &quot;updated&quot;);
+        show_debug_message(&quot;leaderboard post ID:&quot; + string(_lb_ID) + &quot; to lb:&quot; + string(_lb_name) + &quot; with score:&quot; + string(_lb_score) + &quot; updated=&quot; + string(_lb_updated));
+        if (_lb_done)
+        {
+            show_debug_message(&quot;- Succeeded&quot;);
+        }
+        else
+        {
+            show_debug_message(&quot;- Failed&quot;);
+        }
+    }
+}
+</code></pre></div>
+In the example we are simply outputting the return values to the compiler window as debug messages, but you can use this event to deal with the information in any way you choose.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_upload_score_ext">steam_upload_score_ext</h1>
+<p>This function will send a score to the given leaderboard. It is similar to the function <a href="leaderboards.html#steam_upload_score">steam_upload_score</a> but has an extra argument that will allow you to force the update of the score, as by default Steam only updates the score if it is better than the previous one.
+This is an asynchronous function that will trigger the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a> when the task is finished.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If the function call fails for any reason it will return -1 and the Async event will not be triggered.</p>
+</div>
+<p>This function operates asynchronously, which means that it does not immediately return the requested result. Instead, upon completion of the task, it will trigger the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_upload_score_ext(lb_name, score, force_update)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>lb_name</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The name of the leaderboard that you are uploading the scores to</td>
+</tr>
+<tr>
+<td>score</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The score to upload</td>
+</tr>
+<tr>
+<td>force_update</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></td>
+<td>Whether or not the value should be replaced</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Triggers:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>post_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The asynchronous request ID</td>
+</tr>
+<tr>
+<td>event_type</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The string value <code>"leaderboard_upload"</code></td>
+</tr>
+<tr>
+<td>lb_name</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The name of the leaderboard</td>
+</tr>
+<tr>
+<td>num_entries</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The number of returned entries</td>
+</tr>
+<tr>
+<td>success</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></td>
+<td>Whether or not the request was successful</td>
+</tr>
+<tr>
+<td>updated</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></td>
+<td>Whether or not the leaderboard was updated (i.e.: the new score was better or <code>forceUpdate</code> was set to <code>true</code>)</td>
+</tr>
+<tr>
+<td>score</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The score that was posted to the leaderboard</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p>In this example, we first upload a score and then parse the <code>async_load</code> map returned if successful. The code below shows a typical example for uploading:</p>
+<p><div class="highlight"><pre><span></span><code>if (hp &lt;= 0)
+{
+    upload_ID = steam_upload_score_ext(&quot;Game Scores&quot;, score, true);
+    if (!upload_ID)
+    {
+        alarm[0] = game_get_speed(gamespeed_fps);
+    }
+}
+</code></pre></div>
+Note that we have set an alarm if the call fails. This would be used to try the upload again at a later time and you can add extra code there to retry the upload or to save the score to a text file should it continue to fail, etc. We now add the following into the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a> for the instance controlling the scores:</p>
+<p><div class="highlight"><pre><span></span><code>var _type = ds_map_find_value(async_load, &quot;event_type&quot;);
+if (_type == &quot;leaderboard_upload&quot;)
+{
+    var _lb_ID = ds_map_find_value(async_load, &quot;post_id&quot;);
+    if _lb_ID == upload_ID
+    {
+        var _lb_name = ds_map_find_value(async_load, &quot;lb_name&quot;);
+        var _lb_done = ds_map_find_value(async_load, &quot;success&quot;);
+        var _lb_score = ds_map_find_value(async_load, &quot;score&quot;);
+        var _lb_updated = ds_map_find_value(async_load, &quot;updated&quot;);
+        show_debug_message(&quot;leaderboard post id:&quot; + string(_lb_ID) + &quot; to lb:&quot; + string(_lb_name) + &quot; with score:&quot; + string(_lb_score) + &quot; updated=&quot; + string(_lb_updated));
+        if (_lb_done)
+        {
+            show_debug_message(&quot;- Succeeded&quot;);
+        }
+        else
+        {
+            show_debug_message(&quot;- Failed&quot;);
+        }
+    }
+}
+</code></pre></div>
+In the example we are simply outputting the return values to the compiler window as debug messages, but you can use this event to deal with the information in any way you choose.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_upload_score_buffer">steam_upload_score_buffer</h1>
+<p>This function will send a score to the given leaderboard along with a data package created from a buffer. The buffer should be no more than 256 bytes in size - anything beyond that will be chopped off - and can contain any data you require. The score to be uploaded should be a real number, and the leaderboard name is a string that was defined when you created the leaderboard using the function <a href="leaderboards.html#steam_create_leaderboard">steam_create_leaderboard</a>.
+This is an asynchronous function that will trigger the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a> when the task is finished.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If the function call fails for any reason it will return -1 and the Async event will not be triggered.</p>
+</div>
+<p>This function operates asynchronously, which means that it does not immediately return the requested result. Instead, upon completion of the task, it will trigger the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_upload_score_buffer(lb_name, score, buffer)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>lb_name</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The name of the leaderboard that you are uploading the scores to</td>
+</tr>
+<tr>
+<td>score</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The score to upload</td>
+</tr>
+<tr>
+<td>buffer</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Buffers/Buffers.htm">Buffer</a></td>
+<td>The ID of the buffer to attach</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Triggers:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>post_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The asynchronous request ID</td>
+</tr>
+<tr>
+<td>event_type</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The string value <code>"leaderboard_upload"</code></td>
+</tr>
+<tr>
+<td>lb_name</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The name of the leaderboard</td>
+</tr>
+<tr>
+<td>num_entries</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The number of returned entries</td>
+</tr>
+<tr>
+<td>success</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></td>
+<td>Whether or not the request was successful</td>
+</tr>
+<tr>
+<td>updated</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></td>
+<td>Whether or not the leaderboard was updated (i.e.: the new score was better). Note that if you score was not updated neither will the data buffer.</td>
+</tr>
+<tr>
+<td>score</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The score that was posted to the leaderboard</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p>In this example, we first upload a score and then parse the <code>async_load</code> map returned if successful. The code below shows a typical example for uploading, with a buffer being created to hold a string telling us which level the score was uploaded from:</p>
+<p><div class="highlight"><pre><span></span><code>if (hp &lt;= 0)
+{
+    var _buff = buffer_create(256, buffer_fixed, 1);
+    buffer_write(_buff, buffer_string, &quot;Uploaded on level &quot; + string(global.Level));
+    upload_ID = steam_upload_score(&quot;Game Scores&quot;, score, _buff);
+
+    if (!upload_ID)
+    {
+        alarm[0] = game_get_speed(gamespeed_fps);
+    }
+
+    buffer_delete(_buff);
+}
+</code></pre></div>
+Note that we have set an alarm if the call fails. This would be used to try the upload again at a later time and you can add extra code there to retry the upload or to save the score to a text file should it continue to fail, etc. Also note that we immediately delete the buffer, since it is no longer required for the function. We now add the following into the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a> for the instance controlling the scores:</p>
+<p><div class="highlight"><pre><span></span><code>var _type = ds_map_find_value(async_load, &quot;event_type&quot;);
+if (_type == &quot;leaderboard_upload&quot;)
+{
+    var _lb_ID = ds_map_find_value(async_load, &quot;post_id&quot;);
+    if _lb_ID == upload_ID
+    {
+        var _lb_name = ds_map_find_value(async_load, &quot;lb_name&quot;);
+        var _lb_done = ds_map_find_value(async_load, &quot;success&quot;);
+        var _lb_score = ds_map_find_value(async_load, &quot;score&quot;);
+        var _lb_updated = ds_map_find_value(async_load, &quot;updated&quot;);
+        show_debug_message(&quot;leaderboard post ID:&quot; + string(_lb_ID) + &quot; to lb:&quot; + string(_lb_name) + &quot; with score:&quot; + string(_lb_score) + &quot; updated=&quot; + string(_lb_updated));
+        if (_lb_done)
+        {
+            show_debug_message(&quot;- Succeeded&quot;);
+        }
+        else
+        {
+            show_debug_message(&quot;- Failed&quot;);
+        }
+    }
+}
+</code></pre></div>
+In the example we are simply outputting the return values to the compiler window as debug messages, but you can use this event to deal with the information in any way you choose.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_upload_score_buffer_ext">steam_upload_score_buffer_ext</h1>
+<p>This function will send a score to the given leaderboard along with a data package created from a buffer. The buffer should be no more than 256 bytes in size - anything beyond that will be chopped off - and can contain any data you require. This function is similar to <a href="leaderboards.html#steam_upload_score_buffer">steam_upload_score_buffer</a> but has an extra argument that will allow you to force the update of the score, as by default Steam only updates the score if it is better than the previous one.
+This is an asynchronous function that will trigger the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a> when the task is finished.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If the function call fails for any reason it will return -1 and the Async event will not be triggered.</p>
+</div>
+<p>This function operates asynchronously, which means that it does not immediately return the requested result. Instead, upon completion of the task, it will trigger the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_upload_score_buffer_ext(lb_name, score, buffer, force_update)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>lb_name</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The name of the leaderboard that you are uploading the scores to</td>
+</tr>
+<tr>
+<td>score</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The score to upload</td>
+</tr>
+<tr>
+<td>buffer</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Buffers/Buffers.htm">Buffer</a></td>
+<td>The ID of the buffer to attach</td>
+</tr>
+<tr>
+<td>force_update</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></td>
+<td>Whether or not the value should be replaced</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Triggers:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>post_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The asynchronous request ID</td>
+</tr>
+<tr>
+<td>event_type</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The string value <code>"leaderboard_upload"</code></td>
+</tr>
+<tr>
+<td>lb_name</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The name of the leaderboard</td>
+</tr>
+<tr>
+<td>num_entries</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The number of returned entries</td>
+</tr>
+<tr>
+<td>success</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></td>
+<td>Whether or not the request was successful</td>
+</tr>
+<tr>
+<td>updated</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></td>
+<td>Whether or not the leaderboard was updated (i.e.: the new score was better or <code>forceUpdate</code> was set to <code>true</code>). Note that if you score was not updated neither will be the data buffer.</td>
+</tr>
+<tr>
+<td>score</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The score that was posted to the leaderboard</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p>In this example, we first upload a score and then parse the <code>async_load</code> map returned if successful. The code below shows a typical example for uploading, with a buffer being created to hold a string telling us which level the score was uploaded from:</p>
+<p><div class="highlight"><pre><span></span><code>if (hp &lt;= 0)
+{
+    var _buff = buffer_create(256, buffer_fixed, 1 );
+    buffer_write(_buff, buffer_string, &quot;Uploaded on level &quot; + string(global.Level));
+    upload_ID = steam_upload_score_buffer_ext(&quot;Game Scores&quot;, score, _buff, true);
+
+    if (!upload_ID)
+    {
+        alarm[0] = game_get_speed(gamespeed_fps);
+    }
+
+    buffer_delete(_buff);
+}
+</code></pre></div>
+Note that we have set an alarm if the call fails. This would be used to try the upload again at a later time and you can add extra code there to retry the upload or to save the score to a text file should it continue to fail, etc. Also note that we immediately delete the buffer, since it is no longer required for the function. We now add the following into the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a> for the instance controlling the scores:</p>
+<p><div class="highlight"><pre><span></span><code>var _type = ds_map_find_value(async_load, &quot;event_type&quot;);
+if (_type == &quot;leaderboard_upload&quot;)
+{
+    var _lb_ID = ds_map_find_value(async_load, &quot;post_id&quot;);
+    if _lb_ID == upload_ID
+    {
+        var _lb_name = ds_map_find_value(async_load, &quot;lb_name&quot;);
+        var _lb_done = ds_map_find_value(async_load, &quot;success&quot;);
+        var _lb_score = ds_map_find_value(async_load, &quot;score&quot;);
+        var _lb_updated = ds_map_find_value(async_load, &quot;updated&quot;);
+        show_debug_message(&quot;leaderboard post ID:&quot; + string(_lb_ID) + &quot; to lb:&quot; + string(_lb_name) + &quot; with score:&quot; + string(_lb_score) + &quot; updated=&quot; + string(_lb_updated));
+        if (_lb_done)
+        {
+            show_debug_message(&quot;- Succeeded&quot;);
+        }
+        else
+        {
+            show_debug_message(&quot;- Failed&quot;);
+        }
+    }
+}
+</code></pre></div>
+In the example we are simply outputting the return values to the compiler window as debug messages, but you can use this event to deal with the information in any way you choose.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_download_scores">steam_download_scores</h1>
+<p>This function is used to retrieve a sequential range of leaderboard entries by leaderboard ranking. The <code>start_idx</code> and <code>end_idx</code> parameters control the requested range of ranks, for example, you can display the top 10 on a leaderboard for your game by setting the start value to 1 and the end value to 10. The leaderboard name is a string that was defined when you created the leaderboard using the function <a href="leaderboards.html#steam_create_leaderboard">steam_create_leaderboard</a>.
+This is an asynchronous function that will trigger the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a> when the task is finished.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If the function call fails for any reason it will return -1 and the async event will not be triggered.</p>
+</div>
+<p>This function operates asynchronously, which means that it does not immediately return the requested result. Instead, upon completion of the task, it will trigger the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_download_scores(lb_name, start_idx, end_idx)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>lb_name</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The name of the leaderboard that you are downloading the scores from</td>
+</tr>
+<tr>
+<td>start_idx</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The start position within the leaderboard</td>
+</tr>
+<tr>
+<td>end_idx</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The end position within the leaderboard</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Triggers:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The asynchronous request ID</td>
+</tr>
+<tr>
+<td>event_type</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The string value <code>"leaderboard_download"</code></td>
+</tr>
+<tr>
+<td>status</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Int64</a></td>
+<td>The status code if download fails</td>
+</tr>
+<tr>
+<td>lb_name</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The name of the leaderboard</td>
+</tr>
+<tr>
+<td>num_entries</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The number of returned entries</td>
+</tr>
+<tr>
+<td>entries</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>A JSON formatted string with all the downloaded entries (see <a href="leaderboards.html#leaderboardentry">LeaderboardEntry</a> for details)</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p>In this extended example we will request the top ten ranking for the given leaderboard and parse its results in the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a>. To start with we need to request the scores with the following code:</p>
+<p><div class="highlight"><pre><span></span><code>score_get = steam_download_scores(&quot;Game Scores&quot;, 1, 10);
+</code></pre></div>
+This will send off a request to the Steam Server for the scores from the leaderboard "Game Scores", storing the async id of the request in the variable "score_get". this will then be handled in the Steam Async Event in the following way:</p>
+<p><div class="highlight"><pre><span></span><code>var _async_id = ds_map_find_value(async_load, &quot;id&quot;);
+if _async_id == score_get
+{
+    var _entries = ds_map_find_value(async_load, &quot;entries&quot;);
+    var _map = json_decode(_entries);
+    if ds_map_exists(_map, &quot;default&quot;)
+    {
+        ds_map_destroy(_map);
+        exit;
+    }
+    else
+    {
+        var _list = ds_map_find_value(_map, &quot;entries&quot;);
+        var _len = ds_list_size(_list);
+        var _entry;
+        for(var i = 0; i &lt; _len; i++;)
+        {
+            _entry = ds_list_find_value(_list, i );
+            steam_name[i] = ds_map_find_value(_entry, &quot;name&quot;);
+            steam_score[i] = ds_map_find_value(_entry, &quot;score&quot;);
+            steam_rank[i] = ds_map_find_value(_entry, &quot;rank&quot;);
+            steam_data[i] = ds_map_find_value(_entry, &quot;data&quot;);
+        }
+    }
+    ds_map_destroy(map);
+}
+</code></pre></div>
+What we do here is first check the "id" key of the special <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Variables/Builtin_Global_Variables/async_load.htm">async_load</a> DS map. If this value is the same as the value of the original call-back function (stored in the "score_get" variable) we then continue to process the data. The first thing we do is parse the <code>async_load</code> DS map for the key "entries" which will contain a JSON formatted string containing the leaderboard data. This JSON object is then decoded (see <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/File_Handling/Encoding_And_Hashing/json_decode.htm">json_decode</a>) as another <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Data_Structures/DS_Maps/DS_Maps.htm">DSMap</a>, and this new map ID is stored in the variable "map".
+This map is checked for the key "default" and if that is found then the map is destroyed and the event is exited. If no "default" key is found, the code will then parse the map to extract the necessary information about the leaderboard, by first extracting a DS list from the "entries" key of the DS map, and then looping through each entry of the list to get <strong>another</strong> DS map with the name, score and rank of each entry. These values are then stored to arrays.
+Once the loop has finished, the JSON <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Data_Structures/DS_Maps/DS_Maps.htm">DSMap</a> is destroyed (which in turn destroys all the internal maps and lists). There is no need to destroy the <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Variables/Builtin_Global_Variables/async_load.htm">async_load</a> DS map as this is handled for you by GameMaker.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_download_scores_around_user">steam_download_scores_around_user</h1>
+<p>This function is used to retrieve leaderboard entries relative to the current user's entry. The <code>range_start</code> parameter is the number of entries to retrieve <strong>before</strong> the current user's entry, and the <code>range_end</code> parameter is the number of entries after the current user's entry, and the current user's entry is <strong>always</strong> included in the results. For example, if the current user is number 5 on a given leaderboard, then setting the start range to -2 and the end range to 2 will return 5 entries: 3 through 7. If there are not enough entries in the leaderboard before or after the user's entry, Steam will adjust the range start and end points trying to maintained the range size. For example, if the user is #1 on the leaderboard, start is set to -2, and end is set to 2, Steam will return the first 5 entries in the leaderboard.
+This is an asynchronous function that will trigger the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a> when the task is finished.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If the function call fails for any reason it will return -1 and the async event will not be triggered.</p>
+</div>
+<p>This function operates asynchronously, which means that it does not immediately return the requested result. Instead, upon completion of the task, it will trigger the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_download_scores_around_user(lb_name, range_start, range_end)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>lb_name</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The name of the leaderboard that you are downloading the scores from</td>
+</tr>
+<tr>
+<td>range_start</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The start position within the leaderboard</td>
+</tr>
+<tr>
+<td>range_end</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The end position within the leaderboard</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Triggers:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The asynchronous request ID</td>
+</tr>
+<tr>
+<td>event_type</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The string value <code>"leaderboard_download"</code></td>
+</tr>
+<tr>
+<td>status</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Int64</a></td>
+<td>The status code if download fails</td>
+</tr>
+<tr>
+<td>lb_name</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The name of the leaderboard</td>
+</tr>
+<tr>
+<td>num_entries</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The number of returned entries</td>
+</tr>
+<tr>
+<td>entries</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>A JSON formatted string with all the downloaded entries (see <a href="leaderboards.html#leaderboardentry">LeaderboardEntry</a> for details)</td>
+</tr>
+</tbody>
+</table>
+<p><div class="highlight"><pre><span></span><code>request_id = steam_download_scores_around_user(&quot;Game Scores&quot;, -4, 5);
+</code></pre></div>
+This will send off a request to the Steam Server for a range of 10 scores from the leaderboard <code>"Game Scores"</code>, centered on the player and will store the async ID of the request in the variable <code>request_id</code>. This will then be handled in the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a>, as shown in the example for <a href="leaderboards.html#steam_download_scores">steam_download_scores</a>.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_download_friends_scores">steam_download_friends_scores</h1>
+<p>With this function you can retrieve <em>only</em> the scores on the leaderboard that belong to those people that are marked as "friends" in the Steam client. So, if your leaderboard has 200 entries, and 50 of them are your friends, this function will retrieve only those 50 results. The leaderboard name is a string that was defined when you created the leaderboard using the function <a href="leaderboards.html#steam_create_leaderboard">steam_create_leaderboard</a>.
+This is an asynchronous function that will trigger the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a> when the task is finished.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If the function call fails for any reason it will return -1 and the async event will not be triggered.</p>
+</div>
+<p>This function operates asynchronously, which means that it does not immediately return the requested result. Instead, upon completion of the task, it will trigger the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_download_friends_scores(lb_name)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>lb_name</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The name of the leaderboard that you are downloading the scores from</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Triggers:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The asynchronous request ID</td>
+</tr>
+<tr>
+<td>event_type</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The string value <code>"leaderboard_download"</code></td>
+</tr>
+<tr>
+<td>status</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Int64</a></td>
+<td>The status code if download fails</td>
+</tr>
+<tr>
+<td>lb_name</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The name of the leaderboard</td>
+</tr>
+<tr>
+<td>num_entries</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The number of returned entries</td>
+</tr>
+<tr>
+<td>entries</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>A JSON formatted string with all the downloaded entries (see <a href="leaderboards.html#leaderboardentry">LeaderboardEntry</a> for details)</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><div class="highlight"><pre><span></span><code>request_id = steam_download_friends_scores(&quot;Game Scores&quot;);
+</code></pre></div>
+This will send off a request to the Steam Server for the users friends scores from the given leaderboard and will store the async ID of the request in the variable <code>request_id</code>. This will then be handled in the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a>, as shown in the example for <a href="leaderboards.html#steam_download_scores">steam_download_scores</a>.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="leaderboarddisplaytype">LeaderboardDisplayType</h1>
+<p>These constants specify the display type of a leaderboard.</p>
+<p>These constants are referenced by the following functions:</p>
+<ul>
+<li><a href="leaderboards.html#steam_create_leaderboard">steam_create_leaderboard</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>lb_disp_none</code></td>
+<td>Show the leaderboard "as is".</td>
+</tr>
+<tr>
+<td><code>lb_disp_numeric</code></td>
+<td>Show the leaderboard as a numeric display.</td>
+</tr>
+<tr>
+<td><code>lb_disp_time_sec</code></td>
+<td>Show the leaderboard values as times, with the base value being seconds.</td>
+</tr>
+<tr>
+<td><code>lb_disp_time_ms</code></td>
+<td>Show the leaderboard values as times, with the base value being milliseconds</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="leaderboardsortorder">LeaderboardSortOrder</h1>
+<p>These constants specify the sort order of a leaderboard.</p>
+<p>These constants are referenced by the following functions:</p>
+<ul>
+<li><a href="leaderboards.html#steam_create_leaderboard">steam_create_leaderboard</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>lb_sort_none</code></td>
+<td>No sorting. The information will be displayed "as is".</td>
+</tr>
+<tr>
+<td><code>lb_sort_ascending</code></td>
+<td>Sort the leaderboard in ascending order.</td>
+</tr>
+<tr>
+<td><code>lb_sort_descending</code></td>
+<td>Sort the leaderboard in descending order.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="leaderboardentry">LeaderboardEntry</h1>
+<p>A leaderboard entry is represented by a JSON formatted string that can be returned by the async callback event of a couple of functions.</p>
+<p>This string can be decoded into a <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Data_Structures/DS_Maps/DS_Maps.htm">DSMap</a> (see <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/File_Handling/Encoding_And_Hashing/json_decode.htm">json_decode</a>, needs to be destroyed afterwards) or into a <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Structs.htm">Struct</a> (see <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/File_Handling/Encoding_And_Hashing/json_parse.htm">json_parse</a>, recommended) and will provide the following members.</p>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>rank</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The rank of the entry on the specified leaderboard</td>
+</tr>
+<tr>
+<td>data</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The base64 encoded string with the data provided when uploading scores using the <a href="leaderboards.html#steam_upload_score_buffer">steam_upload_score_buffer</a> or <a href="leaderboards.html#steam_upload_score_buffer_ext">steam_upload_score_buffer_ext</a> functions <img alt="✴️" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/2734.png" title=":eight_pointed_black_star:" /> OPTIONAL</td>
+</tr>
+<tr>
+<td>score</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The score attributed to this entry</td>
+</tr>
+<tr>
+<td>name</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The display name of the player for this entry</td>
+</tr>
+<tr>
+<td>userID</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Int64</a></td>
+<td>The unique user ID of the player for this entry<br><br>&gt; [!NOTE]<br>&gt;<br>&gt;  If <a href="leaderboards.html#steam_upload_score_buffer">steam_upload_score_buffer</a> or <a href="leaderboards.html#steam_upload_score_buffer_ext">steam_upload_score_buffer_ext</a> were used to upload the score, the decoded entry will now have a <code>"data"</code> key so you can retrieve the data of the uploaded buffer (see the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a> extended code example for further details). This data will be base64 encoded and so you will need to use the function <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Buffers/buffer_base64_decode.htm">buffer_base64_decode</a> on the data before reading from the buffer.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="overlay.html" class="btn btn-neutral float-left" title="Overlay"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="lobbies.html" class="btn btn-neutral float-right" title="Lobbies">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+      <p><p align="center">GameMaker 2024</p></p>
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/YoYoGames/GMEXT-Steamworks" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="overlay.html" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="lobbies.html" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = ".";</script>
+    <script src="js/theme_extra.js"></script>
+    <script src="js/theme.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/gml.min.js"></script>
+      <script src="assets/js/copy_code.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

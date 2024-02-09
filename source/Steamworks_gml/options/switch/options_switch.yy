@@ -1,7 +1,6 @@
 {
-  "resourceType": "GMSwitchOptions",
-  "resourceVersion": "1.0",
-  "name": "Switch",
+  "$GMSwitchOptions": "",
+  "%Name": "Switch",
   "option_switch_allow_debug_output": false,
   "option_switch_check_nsp_publish_errors": true,
   "option_switch_enable_fileaccess_checking": true,
