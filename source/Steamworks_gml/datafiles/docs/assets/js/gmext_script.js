@@ -1,16 +1,13 @@
 document.addEventListener('DOMContentLoaded', function() {
-
-
-    // Select the element with the classes 'icon' and 'icon-home'
+    
+    // Top left link should point ot the github page
     var link = document.querySelector('a.icon.icon-home');
     var githublink = document.querySelector('a.fa.fa-github')
-        
-    // Change the 'href' attribute
     if (link && githublink) {
         link.href = githublink.href;
     }
 
-    // Select the element with class "icon icon-home" and aria-label "Docs"
+    // Point home icon to home.html
     var home_link = document.querySelector('a.icon.icon-home[aria-label="Docs"]');
     home_link.href = 'home.html'
 
@@ -20,6 +17,7 @@ document.addEventListener('DOMContentLoaded', function() {
         element.remove();
     }
 
+    // Add copy-to-clipboard on code blocks
     const codeBlocks = document.querySelectorAll('pre code');
     codeBlocks.forEach(function(codeBlock) {
         const button = document.createElement('button');

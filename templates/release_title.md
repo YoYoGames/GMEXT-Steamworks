@@ -1,0 +1,1 @@
+GMEXT-Steamworks ({releaseNewVersion})
