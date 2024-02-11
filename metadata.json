@@ -2,8 +2,7 @@
     "gitHubUrl": "https://github.com/YoYoGames/GMEXT-Steamworks",
     "projectFile": "source/Steamworks_gml/Steamworks.yyp",
     "projectVersion": "LTS22",
-    "releaseTitle": "templates/release_title.md",
-    "releaseBody": "templates/release_body.md",
+    "releaseTemplate": "templates/release_body.md",
     "extensionMetaData": [
         {
             "extensionFile": "source/Steamworks_gml/extensions/Steamworks/Steamworks.yy",
