@@ -1,6 +1,7 @@
 {
   "$GMOperaGXOptions": "",
   "%Name": "operagx",
+  "name": "operagx",
   "option_operagx_display_cursor": true,
   "option_operagx_editUrl": "",
   "option_operagx_game_name": "Steamworks",
@@ -23,4 +24,6 @@
   "option_operagx_team_name": "",
   "option_operagx_texture_page": "2048x2048",
   "option_operagx_version": "1.0.0.0",
+  "resourceType": "GMOperaGXOptions",
+  "resourceVersion": "2.0",
 }

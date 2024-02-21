@@ -1,6 +1,7 @@
 {
   "$GMWindowsOptions": "",
   "%Name": "Windows",
+  "name": "Windows",
   "option_windows_allow_fullscreen_switching": true,
   "option_windows_borderless": false,
   "option_windows_company_info": "",
@@ -30,4 +31,6 @@
   "option_windows_use_splash": false,
   "option_windows_version": "1.0.0.0",
   "option_windows_vsync": false,
+  "resourceType": "GMWindowsOptions",
+  "resourceVersion": "2.0",
 }

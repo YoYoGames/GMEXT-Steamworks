@@ -1,6 +1,7 @@
 {
   "$GMPS4Options": "",
   "%Name": "PlayStation 4",
+  "name": "PlayStation 4",
   "option_ps4_display_cursor": false,
   "option_ps4_garlic": 1024,
   "option_ps4_icon": "${base_options_dir}/ps4/sce_sys/icon0.png",
@@ -31,4 +32,6 @@
   "option_ps4_trophy00trp_file": "${options_dir}\\ps4\\sce_sys\\trophy\\trophy00.trp",
   "option_ps4_trophyedit": "",
   "option_ps4_trophy_screen": "${base_options_dir}/ps4/sce_sys/pic0.png",
+  "resourceType": "GMPS4Options",
+  "resourceVersion": "2.0",
 }

@@ -1,6 +1,7 @@
 {
   "$GMMacOptions": "",
   "%Name": "macOS",
+  "name": "macOS",
   "option_mac_allow_fullscreen": false,
   "option_mac_allow_incoming_network": false,
   "option_mac_allow_outgoing_network": false,
@@ -32,4 +33,6 @@
   "option_mac_version": "1.0.0.0",
   "option_mac_vsync": false,
   "option_mac_x86_64": true,
+  "resourceType": "GMMacOptions",
+  "resourceVersion": "2.0",
 }

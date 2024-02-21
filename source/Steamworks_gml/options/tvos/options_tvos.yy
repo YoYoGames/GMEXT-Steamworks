@@ -1,6 +1,7 @@
 {
   "$GMtvOSOptions": "",
   "%Name": "tvOS",
+  "name": "tvOS",
   "option_tvos_build_number": 0,
   "option_tvos_bundle_name": "com.company.game",
   "option_tvos_cocoapods_checkbox": true,
@@ -26,4 +27,6 @@
   "option_tvos_topshelf_wide": "${options_dir}/tvos/topshelf/topshelf_wide.png",
   "option_tvos_topshelf_wide_2x": "${options_dir}/tvos/topshelf/topshelf_wide_2x.png",
   "option_tvos_version": "1.0.0.0",
+  "resourceType": "GMtvOSOptions",
+  "resourceVersion": "2.0",
 }

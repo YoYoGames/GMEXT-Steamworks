@@ -1,6 +1,7 @@
 {
   "$GMHtml5Options": "",
   "%Name": "HTML5",
+  "name": "HTML5",
   "option_html5_allow_fullscreen": true,
   "option_html5_browser_title": "Made in GameMaker Studio 2",
   "option_html5_centregame": false,
@@ -29,4 +30,6 @@
   "option_html5_use_facebook": false,
   "option_html5_version": "1.0.0.0",
   "option_html5_webgl": 2,
+  "resourceType": "GMHtml5Options",
+  "resourceVersion": "2.0",
 }

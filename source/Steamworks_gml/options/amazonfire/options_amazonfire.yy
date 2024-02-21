@@ -1,6 +1,7 @@
 {
   "$GMAmazonFireOptions": "",
   "%Name": "Amazon Fire",
+  "name": "Amazon Fire",
   "option_amazonfire_application_tag_inject": "",
   "option_amazonfire_build_tools": "",
   "option_amazonfire_compile_sdk": "",
@@ -44,4 +45,6 @@
   "option_amazonfire_tools_from_version": false,
   "option_amazonfire_tv_banner": "${options_dir}/amazonfire/tv_banner.png",
   "option_amazonfire_version": "1.0.0.0",
+  "resourceType": "GMAmazonFireOptions",
+  "resourceVersion": "2.0",
 }

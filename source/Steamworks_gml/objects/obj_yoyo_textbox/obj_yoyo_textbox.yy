@@ -2,9 +2,10 @@
   "$GMObject": "",
   "%Name": "Obj_YoYo_textbox",
   "eventList": [
-    {"$GMEvent":"","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":8,"isDnD":false,},
+    {"$GMEvent":"","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":8,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
   ],
   "managed": true,
+  "name": "Obj_YoYo_textbox",
   "overriddenProperties": [],
   "parent": {
     "name": "Objects",
@@ -28,6 +29,8 @@
   "physicsShapePoints": [],
   "physicsStartAwake": true,
   "properties": [],
+  "resourceType": "GMObject",
+  "resourceVersion": "2.0",
   "solid": false,
   "spriteId": {
     "name": "Spr_YoYo_textbox",

@@ -12,17 +12,18 @@
   "edgeFiltering": false,
   "For3D": false,
   "frames": [
-    {"$GMSpriteFrame":"","%Name":"84329131-588f-4c95-82ab-e75d4898a6f4",},
-    {"$GMSpriteFrame":"","%Name":"5af1d0e7-7e1d-4c24-87a2-39b72cec5e39",},
-    {"$GMSpriteFrame":"","%Name":"d8040a58-ae60-4eea-9b17-4238268f1490",},
+    {"$GMSpriteFrame":"","%Name":"84329131-588f-4c95-82ab-e75d4898a6f4","name":"84329131-588f-4c95-82ab-e75d4898a6f4","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"","%Name":"5af1d0e7-7e1d-4c24-87a2-39b72cec5e39","name":"5af1d0e7-7e1d-4c24-87a2-39b72cec5e39","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"","%Name":"d8040a58-ae60-4eea-9b17-4238268f1490","name":"d8040a58-ae60-4eea-9b17-4238268f1490","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
   ],
   "gridX": 0,
   "gridY": 0,
   "height": 64,
   "HTile": false,
   "layers": [
-    {"$GMImageLayer":"","%Name":"2bcd6097-0126-4c78-95b8-74cf466c4de5","blendMode":0,"displayName":"default","isLocked":false,"opacity":100.0,"visible":true,},
+    {"$GMImageLayer":"","%Name":"2bcd6097-0126-4c78-95b8-74cf466c4de5","blendMode":0,"displayName":"default","isLocked":false,"name":"2bcd6097-0126-4c78-95b8-74cf466c4de5","opacity":100.0,"resourceType":"GMImageLayer","resourceVersion":"2.0","visible":true,},
   ],
+  "name": "Spr_YoYo_button",
   "nineSlice": {
     "$GMNineSliceData": "",
     "bottom": 4,
@@ -31,6 +32,8 @@
     "highlightColour": 1728023040,
     "highlightStyle": 0,
     "left": 4,
+    "resourceType": "GMNineSliceData",
+    "resourceVersion": "2.0",
     "right": 4,
     "tileMode": [
       0,
@@ -47,6 +50,8 @@
     "path": "folders/YoYo Extensions Assets/Sprites.yy",
   },
   "preMultiplyAlpha": false,
+  "resourceType": "GMSprite",
+  "resourceVersion": "2.0",
   "sequence": {
     "$GMSequence": "",
     "%Name": "Spr_YoYo_button",
@@ -60,6 +65,8 @@
     "events": {
       "$KeyframeStore<MessageEventKeyframe>": "",
       "Keyframes": [],
+      "resourceType": "KeyframeStore<MessageEventKeyframe>",
+      "resourceVersion": "2.0",
     },
     "eventStubScript": null,
     "eventToFunction": {},
@@ -68,25 +75,30 @@
     "moments": {
       "$KeyframeStore<MomentsEventKeyframe>": "",
       "Keyframes": [],
+      "resourceType": "KeyframeStore<MomentsEventKeyframe>",
+      "resourceVersion": "2.0",
     },
+    "name": "Spr_YoYo_button",
     "playback": 1,
     "playbackSpeed": 0.0,
     "playbackSpeedType": 0,
+    "resourceType": "GMSequence",
+    "resourceVersion": "2.0",
     "showBackdrop": true,
     "showBackdropImage": false,
     "timeUnits": 1,
     "tracks": [
       {"$GMSpriteFramesTrack":"","builtinName":0,"events":[],"inheritsTrackColour":true,"interpolation":1,"isCreationTrack":false,"keyframes":{"$KeyframeStore<SpriteFrameKeyframe>":"","Keyframes":[
             {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{
-                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"84329131-588f-4c95-82ab-e75d4898a6f4","path":"sprites/Spr_YoYo_button/Spr_YoYo_button.yy",},},
-              },"Disabled":false,"id":"6ed07c00-a662-4110-b206-b930dedda250","IsCreationKey":false,"Key":0.0,"Length":1.0,"Stretch":false,},
+                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"84329131-588f-4c95-82ab-e75d4898a6f4","path":"sprites/Spr_YoYo_button/Spr_YoYo_button.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
+              },"Disabled":false,"id":"6ed07c00-a662-4110-b206-b930dedda250","IsCreationKey":false,"Key":0.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
             {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{
-                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"5af1d0e7-7e1d-4c24-87a2-39b72cec5e39","path":"sprites/Spr_YoYo_button/Spr_YoYo_button.yy",},},
-              },"Disabled":false,"id":"bc440f9d-1e7d-40bf-bb37-921c80e71a8b","IsCreationKey":false,"Key":1.0,"Length":1.0,"Stretch":false,},
+                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"5af1d0e7-7e1d-4c24-87a2-39b72cec5e39","path":"sprites/Spr_YoYo_button/Spr_YoYo_button.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
+              },"Disabled":false,"id":"bc440f9d-1e7d-40bf-bb37-921c80e71a8b","IsCreationKey":false,"Key":1.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
             {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{
-                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"d8040a58-ae60-4eea-9b17-4238268f1490","path":"sprites/Spr_YoYo_button/Spr_YoYo_button.yy",},},
-              },"Disabled":false,"id":"78d06859-b709-45f6-a8ba-6b4372513af9","IsCreationKey":false,"Key":2.0,"Length":1.0,"Stretch":false,},
-          ],},"modifiers":[],"name":"frames","spriteId":null,"trackColour":0,"tracks":[],"traits":0,},
+                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"d8040a58-ae60-4eea-9b17-4238268f1490","path":"sprites/Spr_YoYo_button/Spr_YoYo_button.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
+              },"Disabled":false,"id":"78d06859-b709-45f6-a8ba-6b4372513af9","IsCreationKey":false,"Key":2.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
+          ],"resourceType":"KeyframeStore<SpriteFrameKeyframe>","resourceVersion":"2.0",},"modifiers":[],"name":"frames","resourceType":"GMSpriteFramesTrack","resourceVersion":"2.0","spriteId":null,"trackColour":0,"tracks":[],"traits":0,},
     ],
     "visibleRange": null,
     "volume": 1.0,

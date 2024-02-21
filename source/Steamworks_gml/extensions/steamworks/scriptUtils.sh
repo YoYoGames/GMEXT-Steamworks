@@ -261,16 +261,28 @@ fileExtract() {
 # Compresses the contents of a folder into a zip file
 # Usage: folderCompress srcFolder destFile
 folderCompress() {
-    local source="$1"
-    local destination="$2"
+    local source=$1
+    local destination=$2
+    
+    # Make sure destination exists
+    touch "$destination"
 
-    # Compress the contents of the folder to the destination file
-    zip -j -r -q "$destination" "$source"
-
+    # Get the absolute path of the destination zip
+    local abs_destination=$(readlink -f "$destination")
+    
+    # Change directory to the folder
+    cd "$source" || logError "Source folder doesn't exist ''"
+    
+    # Compress the contents of the folder into the destination zip
+    zip -r -q "$abs_destination" *
+    
     if [ $? -ne 0 ]; then
         logError "Failed to compress contents of '$source' into '$destination'."
         exit 1
     fi
+
+    # Change back to the original directory
+    cd - >/dev/null 2>&1
 
     logInformation "Compressed contents of '$source' into '$destination'."
 }

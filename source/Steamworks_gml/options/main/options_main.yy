@@ -1,6 +1,7 @@
 {
   "$GMMainOptions": "",
   "%Name": "Main",
+  "name": "Main",
   "option_author": "",
   "option_collision_compatibility": true,
   "option_copy_on_write_enabled": true,
@@ -16,4 +17,6 @@
   "option_template_icon": "${options_dir}/main/template_icon.png",
   "option_template_image": "${options_dir}/main/template_image.png",
   "option_window_colour": 255,
+  "resourceType": "GMMainOptions",
+  "resourceVersion": "2.0",
 }

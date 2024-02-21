@@ -12,15 +12,16 @@
   "edgeFiltering": false,
   "For3D": false,
   "frames": [
-    {"$GMSpriteFrame":"","%Name":"2660a3be-a410-4d4c-aaef-233230110198",},
+    {"$GMSpriteFrame":"","%Name":"2660a3be-a410-4d4c-aaef-233230110198","name":"2660a3be-a410-4d4c-aaef-233230110198","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
   ],
   "gridX": 0,
   "gridY": 0,
   "height": 64,
   "HTile": false,
   "layers": [
-    {"$GMImageLayer":"","%Name":"0fa0cdbf-7930-434c-890e-91853628d070","blendMode":0,"displayName":"default","isLocked":false,"opacity":100.0,"visible":true,},
+    {"$GMImageLayer":"","%Name":"0fa0cdbf-7930-434c-890e-91853628d070","blendMode":0,"displayName":"default","isLocked":false,"name":"0fa0cdbf-7930-434c-890e-91853628d070","opacity":100.0,"resourceType":"GMImageLayer","resourceVersion":"2.0","visible":true,},
   ],
+  "name": "Spr_YoYo_textbox",
   "nineSlice": {
     "$GMNineSliceData": "",
     "bottom": 15,
@@ -29,6 +30,8 @@
     "highlightColour": 1728023040,
     "highlightStyle": 0,
     "left": 20,
+    "resourceType": "GMNineSliceData",
+    "resourceVersion": "2.0",
     "right": 20,
     "tileMode": [
       0,
@@ -45,6 +48,8 @@
     "path": "folders/YoYo Extensions Assets/Sprites.yy",
   },
   "preMultiplyAlpha": false,
+  "resourceType": "GMSprite",
+  "resourceVersion": "2.0",
   "sequence": {
     "$GMSequence": "",
     "%Name": "Spr_YoYo_textbox",
@@ -58,6 +63,8 @@
     "events": {
       "$KeyframeStore<MessageEventKeyframe>": "",
       "Keyframes": [],
+      "resourceType": "KeyframeStore<MessageEventKeyframe>",
+      "resourceVersion": "2.0",
     },
     "eventStubScript": null,
     "eventToFunction": {},
@@ -66,19 +73,24 @@
     "moments": {
       "$KeyframeStore<MomentsEventKeyframe>": "",
       "Keyframes": [],
+      "resourceType": "KeyframeStore<MomentsEventKeyframe>",
+      "resourceVersion": "2.0",
     },
+    "name": "Spr_YoYo_textbox",
     "playback": 1,
     "playbackSpeed": 30.0,
     "playbackSpeedType": 0,
+    "resourceType": "GMSequence",
+    "resourceVersion": "2.0",
     "showBackdrop": true,
     "showBackdropImage": false,
     "timeUnits": 1,
     "tracks": [
       {"$GMSpriteFramesTrack":"","builtinName":0,"events":[],"inheritsTrackColour":true,"interpolation":1,"isCreationTrack":false,"keyframes":{"$KeyframeStore<SpriteFrameKeyframe>":"","Keyframes":[
             {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{
-                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"2660a3be-a410-4d4c-aaef-233230110198","path":"sprites/Spr_YoYo_textbox/Spr_YoYo_textbox.yy",},},
-              },"Disabled":false,"id":"88e6c9cd-b689-4a6b-b323-7539c8e48f1d","IsCreationKey":false,"Key":0.0,"Length":1.0,"Stretch":false,},
-          ],},"modifiers":[],"name":"frames","spriteId":null,"trackColour":0,"tracks":[],"traits":0,},
+                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"2660a3be-a410-4d4c-aaef-233230110198","path":"sprites/Spr_YoYo_textbox/Spr_YoYo_textbox.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
+              },"Disabled":false,"id":"88e6c9cd-b689-4a6b-b323-7539c8e48f1d","IsCreationKey":false,"Key":0.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
+          ],"resourceType":"KeyframeStore<SpriteFrameKeyframe>","resourceVersion":"2.0",},"modifiers":[],"name":"frames","resourceType":"GMSpriteFramesTrack","resourceVersion":"2.0","spriteId":null,"trackColour":0,"tracks":[],"traits":0,},
     ],
     "visibleRange": null,
     "volume": 1.0,

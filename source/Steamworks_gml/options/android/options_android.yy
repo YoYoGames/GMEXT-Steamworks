@@ -1,6 +1,7 @@
 {
   "$GMAndroidOptions": "",
   "%Name": "Android",
+  "name": "Android",
   "option_android_application_tag_inject": null,
   "option_android_arch_arm64": false,
   "option_android_arch_armv7": true,
@@ -75,4 +76,6 @@
   "option_android_tv_supports_leanback": true,
   "option_android_use_facebook": false,
   "option_android_version": "1.0.0.0",
+  "resourceType": "GMAndroidOptions",
+  "resourceVersion": "2.0",
 }

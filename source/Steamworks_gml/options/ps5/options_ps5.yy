@@ -1,6 +1,7 @@
 {
   "$GMPS5Options": "",
   "%Name": "PlayStation 5",
+  "name": "PlayStation 5",
   "option_ps5_display_cursor": false,
   "option_ps5_foreground_screen": "${base_options_dir}/ps5/sce_sys/pic2.png",
   "option_ps5_icon": "${base_options_dir}/ps5/sce_sys/icon0.png",
@@ -21,4 +22,6 @@
   "option_ps5_trophy00trp_file": "${options_dir}\\ps5\\sce_sys\\trophy\\trophy00.trp",
   "option_ps5_trophyedit": "",
   "option_ps5_trophy_screen": "${base_options_dir}/ps5/sce_sys/pic0.png",
+  "resourceType": "GMPS5Options",
+  "resourceVersion": "2.0",
 }
