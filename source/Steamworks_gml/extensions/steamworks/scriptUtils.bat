@@ -130,27 +130,12 @@ exit /b 0
         exit /b 1
     )
 
-    :: Set environment variables for srcPath and destination
-    set "PS_SRCPATH=%~1"
-    set "PS_DESTINATION=%destination%"
-
-    for /f "delims=" %%a in ('dir /b /a:d "%~1" 2^>nul') do (
-        if "%%~a" == "%~nx1" (
-            powershell -NoLogo -NoProfile -Command "New-Item -ItemType Directory -Force -Path $env:PS_DESTINATION; Copy-Item -Path $env:PS_SRCPATH -Destination $env:PS_DESTINATION -Recurse"
-        )
+    if exist "%~1\" (
+        powershell -NoLogo -NoProfile -Command "Copy-Item -Path '%~1' -Destination '%destination%' -Recurse -Force"
+    ) else (
+        powershell -NoLogo -NoProfile -Command "Copy-Item -Path '%~1' -Destination '%destination%' -Force"
     )
 
-    for /f "delims=" %%a in ('dir /b /a:-d "%~1" 2^>nul') do (
-        if "%%~a" == "%~nx1" (
-            powershell -NoLogo -NoProfile -Command "New-Item -ItemType Directory -Force -Path (Split-Path -Parent $env:PS_DESTINATION); Copy-Item -Path $env:PS_SRCPATH -Destination $env:PS_DESTINATION -Force"
-        )
-    )
-
-    :: Clean up environment variables
-    set "PS_SRCPATH="
-    set "PS_DESTINATION="
-    
-    :: Check if the copy operation succeeded
     if %errorlevel% neq 0 (
         call :logError "Failed to copy '%~1' to '%destination%'."
         exit /b 1

@@ -438,6 +438,23 @@ assertVersionEquals() {
     logInformation "Asserted that version '$version' equals version '$expected'."
 }
 
+# Asserts that Command Line Tools are installed, logs an error message and throws an error if not
+# Usage: assertXcodeToolsInstalled
+assertXcodeToolsInstalled() {
+    # Check for Command Line Tools by querying the location of 'xcode-select'
+    xcode_select_path=$(xcode-select -p &> /dev/null)
+
+    # Check the exit code of the previous command
+    if [ $? -ne 0 ]; then
+        logWarning "Xcode Command Line Tools are not installed."
+        logWarning "Please run 'xcode-select --install' to install them."
+        logError "Unable to find Xcode Command Line Tools."
+    else
+        logInformation "Xcode Command Line Tools are installed."
+    fi
+}
+
+
 # Logging
 
 # Logs information

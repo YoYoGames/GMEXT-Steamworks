@@ -1,18 +1,1 @@
-{
-    "gitHubUrl": "https://github.com/YoYoGames/GMEXT-Steamworks",
-    "projectFile": "source/Steamworks_gml/Steamworks.yyp",
-    "projectVersion": "LTS22",
-    "releaseTemplate": "templates/release_body.md",
-    "extensionMetaData": [
-        {
-            "extensionFile": "source/Steamworks_gml/extensions/Steamworks/Steamworks.yy",
-            "packageId": "com.yoyogames.steamworksext",
-            "packageName": "Steamworks Ext",
-            "packageVersion": "1.5.1",
-            "packageFormat": "LTS22",
-            "includeFolders": null,
-            "includeResources": null,
-            "excludeResources": null
-        }
-    ]
-}
+{"gitHubUrl":"https://github.com/YoYoGames/GMEXT-Steamworks","projectFile":"source/Steamworks_gml/Steamworks.yyp","projectVersion":"LTS22","releaseTemplate":"templates/release_body.md","extensionMetaData":[{"extensionFile":"source/Steamworks_gml/extensions/Steamworks/Steamworks.yy","packageId":"com.yoyogames.steamworksext","packageName":"Steamworks Ext","packageVersion":"1.6.0","packageFormat":"LTS22","includeFolders":null,"includeResources":null,"excludeFolders":null,"excludeResources":null}]}
