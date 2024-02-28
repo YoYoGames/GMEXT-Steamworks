@@ -233,7 +233,7 @@ YYEXPORT void steam_user_get_auth_session_ticket(RValue& Result, CInstance* self
     Result.kind = VALUE_REAL;
     if (ticketSize == 0) {
         // no ticket bytes
-        Result.val = -4.0;
+        Result.val = -1.0;
     }
     else {
         int ticketBuffer = CreateBuffer(ticketSize, eBuffer_Format_Fixed, 1);

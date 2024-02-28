@@ -689,7 +689,7 @@ YYEXPORT void /*double*/ steam_upload_score(RValue& Result,
 	}
 
 	Result.kind = VALUE_REAL;
-	Result.val = Steam_UserStats_UploadScore(pszLeaderboardName, score, -4 /*NULL*/, false);
+	Result.val = Steam_UserStats_UploadScore(pszLeaderboardName, score, -1, false);
 }
 
 YYEXPORT void /*double*/ steam_upload_score_ext(RValue& Result,
@@ -710,7 +710,7 @@ YYEXPORT void /*double*/ steam_upload_score_ext(RValue& Result,
 	}
 
 	Result.kind = VALUE_REAL;
-	Result.val = Steam_UserStats_UploadScore(pszLeaderboardName, score, -4 /*NULL*/, _forceupdate);
+	Result.val = Steam_UserStats_UploadScore(pszLeaderboardName, score, -1, _forceupdate);
 }
 
 YYEXPORT void /*double*/ steam_upload_score_buffer(RValue& Result,
@@ -1456,17 +1456,19 @@ class CRequestGlobalStats
 
 	void OnGlobalStatsResult(GlobalStatsReceived_t* pCallback, bool bIOFailure)
 	{
-		// OnGlobalStatsResult(pCallback, bIOFailure);
-		// if (bDelete)
+		auto mapID = CreateDsMap(0, 0);
+		DsMapAddString(mapID, "event_type", "steam_request_global_stats");
+
 		if (!bIOFailure && pCallback->m_eResult == k_EResultOK && SteamUtils()->GetAppID() == pCallback->m_nGameID)
 		{
 			// finished with handler, free & deregister
-
 			m_bStatsGlobalReady = true;
-			double pData;
-			DebugConsoleOutput("steam_request_global_stats SUCCESS: %s\n", SteamUserStats()->GetGlobalStat("NumWins", &pData) ? "True" : "False");
+			DsMapAddBool(mapID, "success", true);
 			delete this;
 		}
+		else DsMapAddBool(mapID, "success", false);
+
+		CreateAsyncEventWithDSMap(mapID, EVENT_OTHER_WEB_STEAM);
 	}
 };
 
@@ -1515,18 +1517,20 @@ class CRequestGlobalAchievementPercentages
 
 	void OnCRequestGlobalAchievementPercentages(GlobalAchievementPercentagesReady_t* pCallback, bool bIOFailure)
 	{
-		// OnGlobalStatsResult(pCallback, bIOFailure);
-		// if (bDelete)
-		DebugConsoleOutput("steam_request_global_achievement_percentages? %i \n", pCallback->m_eResult);
+		auto mapID = CreateDsMap(0, 0);
+		DsMapAddString(mapID, "event_type", "steam_request_global_achievement_percentages");
+
 		if (!bIOFailure && pCallback->m_eResult == k_EResultOK && SteamUtils()->GetAppID() == pCallback->m_nGameID)
 		{
 			// finished with handler, free & deregister
 			m_bStatsGlobalAchievementReady = true;
-
-			DebugConsoleOutput("steam_request_global_achievement_percentages SUCCESS\n");
-
+			DsMapAddBool(mapID, "success", true);
 			delete this;
+			
 		}
+		else DsMapAddBool(mapID, "success", false);
+
+		CreateAsyncEventWithDSMap(mapID, EVENT_OTHER_WEB_STEAM);
 	}
 };
 
@@ -1582,7 +1586,7 @@ YYEXPORT void steam_get_achievement_achieved_percent(RValue& Result, CInstance* 
 			}
 			else
 			{
-				Result.val = -4.0;
+				Result.val = 0.0;
 				return;
 			}
 		}
@@ -1593,17 +1597,10 @@ YYEXPORT void steam_get_achievement_achieved_percent(RValue& Result, CInstance* 
 
 YYEXPORT void steam_get_most_achieved_achievement_info(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)
 {
-	RValue Struct{};
-	YYStructCreate(&Struct);
+	YYStructCreate(&Result);
 
-	if (!steam_is_initialised)
-	{
-		COPY_RValue(&Result, &Struct);
-		FREE_RValue(&Struct);
-		return;
-	}
+	if (!steam_is_initialised) { return; }
 
-	Result.kind = VALUE_REAL;
 	if (m_bStatsGlobalAchievementReady)
 	{
 		if (SteamUserStats() != NULL)
@@ -1613,38 +1610,27 @@ YYEXPORT void steam_get_most_achieved_achievement_info(RValue& Result, CInstance
 			char pchName[64];
 
 			int iterator = SteamUserStats()->GetMostAchievedAchievementInfo((char*)pchName, 64, &percent, &achievement);
+			YYStructAddInt(&Result, "iterator", iterator);
+
 			if (iterator != -1)
 			{
-				YYStructAddInt(&Struct, "iterator", iterator);
-				YYStructAddInt64(&Struct, "percent", percent);
-				YYStructAddBool(&Struct, "achievement", achievement);
-
-				COPY_RValue(&Result, &Struct);
-				FREE_RValue(&Struct);
+				YYStructAddInt64(&Result, "percent", percent);
+				YYStructAddBool(&Result, "achievement", achievement);
 				return;
 			}
 		}
 	}
-	COPY_RValue(&Result, &Struct);
-	FREE_RValue(&Struct);
 	return;
 }
 
 YYEXPORT void steam_get_next_most_achieved_achievement_info(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)
 {
-	int iterator = (int)YYGetReal(arg, 0);
+	auto prevIterator = YYGetInt32(arg, 0);
 
-	RValue Struct{};
-	YYStructCreate(&Struct);
+	YYStructCreate(&Result);
 
-	if (!steam_is_initialised)
-	{
-		COPY_RValue(&Result, &Struct);
-		FREE_RValue(&Struct);
-		return;
-	}
+	if (!steam_is_initialised) { return; }
 
-	Result.kind = VALUE_REAL;
 	if (m_bStatsGlobalAchievementReady)
 	{
 		if (SteamUserStats() != NULL)
@@ -1653,21 +1639,17 @@ YYEXPORT void steam_get_next_most_achieved_achievement_info(RValue& Result, CIns
 			bool achievement;
 			char pchName[64];
 
-			int _iterator = SteamUserStats()->GetNextMostAchievedAchievementInfo(iterator, (char*)pchName, 64, &percent, &achievement);
+			int iterator = SteamUserStats()->GetNextMostAchievedAchievementInfo(prevIterator, (char*)pchName, 64, &percent, &achievement);
+			YYStructAddInt(&Result, "iterator", iterator);
+
 			if (iterator != -1)
 			{
-				YYStructAddInt(&Struct, "iterator", _iterator);
-				YYStructAddInt64(&Struct, "percent", percent);
-				YYStructAddBool(&Struct, "achievement", achievement);
-
-				COPY_RValue(&Result, &Struct);
-				FREE_RValue(&Struct);
+				YYStructAddInt64(&Result, "percent", percent);
+				YYStructAddBool(&Result, "achievement", achievement);
 				return;
 			}
 		}
 	}
-	COPY_RValue(&Result, &Struct);
-	FREE_RValue(&Struct);
 	return;
 }
 
@@ -1714,26 +1696,30 @@ YYEXPORT void steam_get_global_stat_history(RValue& Result, CInstance* selfinst,
 		return;
 	}
 
-	Result.kind = VALUE_REAL;
+	// Create empty array
+	YYCreateArray(&Result);
+
 	if (m_bStatsGlobalReady)
 	{
 		if (SteamUserStats() != NULL)
 		{
-			double pData;
-			uint32 cubData = 3;
+			constexpr int MAX_VALID_ENTRIES = 60;
+			double pData[MAX_VALID_ENTRIES]{};
 
-			if (SteamUserStats()->GetGlobalStatHistory(pStatName, &pData, cubData) == 0)
+			int32 numbEntries = SteamUserStats()->GetGlobalStatHistory(pStatName, pData, sizeof(pData));
+			if (numbEntries == 0) return;
+
+			for (int i = 0; i < numbEntries; i++)
 			{
-				DebugConsoleOutput("GetGlobalStatHistory Failed\n");
-			}
+				RValue tag = { 0 };
+				tag.kind = VALUE_REAL;
+				tag.val = pData[i];
 
-			Result.val = 1.0;
-			return;
+				SET_RValue(&Result, &tag, NULL, i);
+				FREE_RValue(&tag);
+			}
 		}
 	}
-
-	Result.val = 0.0;
-	return;
 }
 
 YYEXPORT void steam_get_leaderboard_display_type(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)
@@ -1757,7 +1743,7 @@ YYEXPORT void steam_get_leaderboard_display_type(RValue& Result, CInstance* self
 	else
 	{
 		Result.kind = VALUE_REAL;
-		Result.val = -4;
+		Result.val = -1;
 	}
 }
 
@@ -1782,7 +1768,7 @@ YYEXPORT void steam_get_leaderboard_entry_count(RValue& Result, CInstance* selfi
 	else
 	{
 		Result.kind = VALUE_REAL;
-		Result.val = -4;
+		Result.val = -1;
 	}
 }
 
