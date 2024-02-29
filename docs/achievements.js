@@ -288,7 +288,7 @@
  * 
  * If anything went wrong the value 0 is returned.
  * 
- * [[Note: You must have called ${function.steam_request_global_achievement_percentages} and it needs to return successfully via the ${event.steam} prior to calling this.]]]]
+ * [[Note: You must have called ${function.steam_request_global_achievement_percentages} and it needs to return successfully via the ${event.steam} prior to calling this.]]
  * 
  * @param {string} stat_name The 'API Name' of the achievement.
  * 
