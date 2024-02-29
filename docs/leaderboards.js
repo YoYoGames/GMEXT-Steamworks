@@ -422,6 +422,30 @@
  */
 
 /**
+ * @func steam_get_leaderboard_entry_count
+ * @desc This function returns the total number of entries in a leaderboard.
+ * 
+ * The function returns -1 in case something went wrong.
+ * 
+ * @param {string} lb_name The name of the leaderboard.
+ * 
+ * @returns {real}
+ * @func_end
+ */
+
+/**
+ * @func steam_get_leaderboard_display_type
+ * @desc This function returns the display type of a leaderboard handle.
+ * 
+ * The function returns -1 in case something went wrong.
+ * 
+ * @param {string} lb_name The name of the leaderboard.
+ * 
+ * @returns {constant.LeaderboardDisplayType}
+ * @func_end
+ */
+
+/**
  * @struct LeaderboardEntry
  * @desc A leaderboard entry is represented by a JSON formatted string that can be returned by the async callback event of a couple of functions.
  * 
@@ -470,6 +494,8 @@
  * @ref steam_download_scores
  * @ref steam_download_scores_around_user
  * @ref steam_download_friends_scores
+ * @ref steam_get_leaderboard_entry_count
+ * @ref steam_get_leaderboard_display_type
  * @section_end
  * 
  * @section_struct Structs
