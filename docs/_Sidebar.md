@@ -1,17 +1,22 @@
-* ### [Steamworks Extension](home)
-* ### [Guides](guides)
-* ### [Management](management)
-* ### [General](general)
-* ### [Overlay](overlay)
-* ### [Leaderboards](leaderboards)
-* ### [Lobbies](lobbies)
-* ### [Achievements](achievements)
-* ### [Cloud](cloud)
-* ### [DLC](dlc)
-* ### [UGC](ugc)
-* ### [Social](social)
-* ### [Inventory](inventory)
-* ### [Networking](networking)
-* ### [Steam Input](input)
-* ### [Steam Music](music)
-* ### [Steam Utilities](utilities)
+### [Steamworks Extension](home)
+### Guides
+
+ * ${page.guides}
+
+### Modules
+
+ * ${module.management}
+ * ${module.general}
+ * ${module.overlay}
+ * ${module.leaderboards}
+ * ${module.lobbies}
+ * ${module.achievements}
+ * ${module.cloud}
+ * ${module.dlc}
+ * ${module.ugc}
+ * ${module.social}
+ * ${module.inventory}
+ * ${module.networking}
+ * ${module.input}
+ * ${module.music}
+ * ${module.utilities}
