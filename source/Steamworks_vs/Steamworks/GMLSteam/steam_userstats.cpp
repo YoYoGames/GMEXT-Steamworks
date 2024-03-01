@@ -742,7 +742,7 @@ YYEXPORT void /*double*/ steam_upload_score_buffer_ext(RValue& Result,
 {
 	const char* pszLeaderboardName = YYGetString(arg, 0);
 	double score = YYGetReal(arg, 1);
-	int _bufferId = YYGetReal(arg, 2);
+	int _bufferId = YYGetInt32(arg, 2);
 	bool _forceupdate = YYGetBool(arg, 3);
 
 	if (!steam_is_initialised)
@@ -1595,6 +1595,8 @@ YYEXPORT void steam_get_achievement_achieved_percent(RValue& Result, CInstance* 
 	return;
 }
 
+constexpr int kAchNameMaxLength = 1024;
+
 YYEXPORT void steam_get_most_achieved_achievement_info(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)
 {
 	YYStructCreate(&Result);
@@ -1606,16 +1608,17 @@ YYEXPORT void steam_get_most_achieved_achievement_info(RValue& Result, CInstance
 		if (SteamUserStats() != NULL)
 		{
 			float percent;
-			bool achievement;
-			char pchName[64];
+			bool achieved;
+			char pchName[kAchNameMaxLength]{};
 
-			int iterator = SteamUserStats()->GetMostAchievedAchievementInfo((char*)pchName, 64, &percent, &achievement);
+			int iterator = SteamUserStats()->GetMostAchievedAchievementInfo(pchName, sizeof(pchName), &percent, &achieved);
 			YYStructAddInt(&Result, "iterator", iterator);
 
 			if (iterator != -1)
 			{
-				YYStructAddInt64(&Result, "percent", percent);
-				YYStructAddBool(&Result, "achievement", achievement);
+				YYStructAddString(&Result, "achievement", pchName);
+				YYStructAddDouble(&Result, "percent", percent);
+				YYStructAddBool(&Result, "achieved", achieved);
 				return;
 			}
 		}
@@ -1636,16 +1639,17 @@ YYEXPORT void steam_get_next_most_achieved_achievement_info(RValue& Result, CIns
 		if (SteamUserStats() != NULL)
 		{
 			float percent;
-			bool achievement;
-			char pchName[64];
+			bool achieved;
+			char pchName[kAchNameMaxLength]{};
 
-			int iterator = SteamUserStats()->GetNextMostAchievedAchievementInfo(prevIterator, (char*)pchName, 64, &percent, &achievement);
+			int iterator = SteamUserStats()->GetNextMostAchievedAchievementInfo(prevIterator, pchName, sizeof(pchName), &percent, &achieved);
 			YYStructAddInt(&Result, "iterator", iterator);
 
 			if (iterator != -1)
 			{
-				YYStructAddInt64(&Result, "percent", percent);
-				YYStructAddBool(&Result, "achievement", achievement);
+				YYStructAddString(&Result, "achievement", pchName);
+				YYStructAddDouble(&Result, "percent", percent);
+				YYStructAddBool(&Result, "achieved", achieved);
 				return;
 			}
 		}
