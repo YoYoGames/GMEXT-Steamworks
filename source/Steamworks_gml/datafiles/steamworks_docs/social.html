@@ -43,7 +43,7 @@
                 </li>
               </ul>
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="guides.html">Guides</a>
+                <li class="toctree-l1"><a class="reference internal" href="guides.html">Setup Guide (IDE/Runtime 2022.6+)</a>
                 </li>
               </ul>
               <ul>
@@ -63,11 +63,11 @@
                 </li>
               </ul>
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="lobbies.html">Lobbies</a>
+                <li class="toctree-l1"><a class="reference internal" href="lobbies.html">Lobbies and Matchmaking</a>
                 </li>
               </ul>
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="achievements.html">Achievements</a>
+                <li class="toctree-l1"><a class="reference internal" href="achievements.html">Stats and Achievements</a>
                 </li>
               </ul>
               <ul>
@@ -105,15 +105,15 @@
                 </li>
               </ul>
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="input.html">Steam Input</a>
+                <li class="toctree-l1"><a class="reference internal" href="input.html">Input</a>
                 </li>
               </ul>
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="music.html">Steam Music</a>
+                <li class="toctree-l1"><a class="reference internal" href="music.html">Music</a>
                 </li>
               </ul>
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="utilities.html">Steam Utilities</a>
+                <li class="toctree-l1"><a class="reference internal" href="utilities.html">Utilities</a>
                 </li>
               </ul>
       </div>
@@ -178,8 +178,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_set_rich_presence(key, value)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_set_rich_presence(key, value)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -209,12 +208,11 @@
 </blockquote>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<p><div class="highlight"><pre><span></span><code>steam_set_rich_presence(&quot;game&quot;, &quot;MyAwesomeGame&quot;);
-steam_set_rich_presence(&quot;level&quot;, &quot;Last&quot;);
-steam_set_rich_presence(&quot;mood&quot;, &quot;Happy&quot;);
+<p><pre class="highlight"><code class="language-gml">steam_set_rich_presence("game", "MyAwesomeGame");
+steam_set_rich_presence("level", "Last");
+steam_set_rich_presence("mood", "Happy");
 
-steam_clear_rich_presence();
-</code></pre></div>
+steam_clear_rich_presence();</code></pre>
 The code sample above uses sets a couple of values for the local user rich presence. After that, it clears these values (using a call to the <a href="social.html#steam_clear_rich_presence">steam_clear_rich_presence</a> function) so that they will no longer show.</p>
 <p><br></p>
 <p><br></p>
@@ -226,8 +224,7 @@ The code sample above uses sets a couple of values for the local user rich prese
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_clear_rich_presence()
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_clear_rich_presence()</code></pre>
 </blockquote>
 <p><br></p>
 <p><strong>Returns:</strong></p>
@@ -236,12 +233,11 @@ The code sample above uses sets a couple of values for the local user rich prese
 </blockquote>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<p><div class="highlight"><pre><span></span><code>steam_set_rich_presence(&quot;game&quot;, &quot;MyAwesomeGame&quot;);
-steam_set_rich_presence(&quot;level&quot;, &quot;Last&quot;);
-steam_set_rich_presence(&quot;Mood&quot;,&quot;Happy&quot;);
+<p><pre class="highlight"><code class="language-gml">steam_set_rich_presence("game", "MyAwesomeGame");
+steam_set_rich_presence("level", "Last");
+steam_set_rich_presence("Mood","Happy");
 
-steam_clear_rich_presence();
-</code></pre></div>
+steam_clear_rich_presence();</code></pre>
 The code sample above uses <a href="social.html#steam_set_rich_presence">steam_set_rich_presence</a> to set a couple values for the local user rich presence and after that clears these values meaning those will no longer show.</p>
 <p><br></p>
 <p><br></p>
@@ -254,8 +250,7 @@ This is usually something to do on session start for all remote users.</p>
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_user_set_played_with(user_id)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_user_set_played_with(user_id)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -280,8 +275,7 @@ This is usually something to do on session start for all remote users.</p>
 </blockquote>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<p><div class="highlight"><pre><span></span><code>steam_user_set_played_with(anyFriendUserID);
-</code></pre></div>
+<p><pre class="highlight"><code class="language-gml">steam_user_set_played_with(anyFriendUserID);</code></pre>
 This code will add the specified user ID to the "recently played with" list, of the local user.</p>
 <p><br></p>
 <p><br></p>
@@ -294,8 +288,7 @@ Equivalent to what can be seen in Steam Friends UI.</p>
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_get_friends_game_info()
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_get_friends_game_info()</code></pre>
 </blockquote>
 <p><br></p>
 <p><strong>Returns:</strong></p>
@@ -304,7 +297,7 @@ Equivalent to what can be seen in Steam Friends UI.</p>
 </blockquote>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<p><div class="highlight"><pre><span></span><code>var _info_arr = steam_get_friends_game_info();
+<p><pre class="highlight"><code class="language-gml">var _info_arr = steam_get_friends_game_info();
 var _info_num = array_length(_info_arr);
 var _steam_app_id = steam_get_app_id();
 for (var i = 0; i &lt; _info_num; i++)
@@ -322,8 +315,7 @@ for (var i = 0; i &lt; _info_num; i++)
             // Use steam_lobby_join_id(_lobby_id); to join the lobby when asked
         }
     }
-}
-</code></pre></div>
+}</code></pre>
 The above code will check all your friends to see if anyone of them is playing the same game as you (<a href="general.html#steam_get_app_id">steam_get_app_id</a>) and check if they have any open lobbies. If so, we can request to join the lobby they're in using <a href="lobbies.html#steam_lobby_join_id">steam_lobby_join_id</a>.</p>
 <p><br></p>
 <p><br></p>
@@ -344,8 +336,7 @@ Returns positive ID's if the avatar is ready, this ID is to be used with the fol
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_get_user_avatar(userID, avatar_size)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_get_user_avatar(userID, avatar_size)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -421,7 +412,7 @@ Returns positive ID's if the avatar is ready, this ID is to be used with the fol
 </table>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<p><div class="highlight"><pre><span></span><code>var _l_img = steam_get_user_avatar(steam_get_user_steam_id(), steam_user_avatar_size_large);
+<p><pre class="highlight"><code class="language-gml">var _l_img = steam_get_user_avatar(steam_get_user_steam_id(), steam_user_avatar_size_large);
 
 // Check if avatar is ready
 if (_l_img &gt; 0)
@@ -446,28 +437,26 @@ if (_l_img &gt; 0)
 
     surface_free(_l_surf);
     buffer_delete(_l_cols);
-}
-</code></pre></div>
+}</code></pre>
 In the code above we query for the current user's <a href="general.html#steam_get_user_steam_id">steam_get_user_steam_id</a> avatar, this function will either return:</p>
 <ul>
 <li>the handle to the function (return value greater than zero): in this case we follow by getting size information (<a href="social.html#steam_image_get_size">steam_image_get_size</a>), creating a buffer and getting the avatar image RBGA data into the buffer (<a href="social.html#steam_image_get_rgba">steam_image_get_rgba</a>) and lastly creating a sprite from said buffer.</li>
 <li>no handle at all (return value equal to zero): in this case there is no avatar image for the specified user.</li>
 <li>a value of -1: in this last case it means that the request is pending and you can catch the output with a <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a>, using the following code:</li>
 </ul>
-<div class="highlight"><pre><span></span><code>// Early exit if event type doesn&#39;t match
-if (async_load[?&quot;event_type&quot;] != &quot;avatar_image_loaded&quot;) exit;
+<pre class="highlight"><code class="language-gml">// Early exit if event type doesn't match
+if (async_load[?"event_type"] != "avatar_image_loaded") exit;
 
 // Validate status
-var _success = async_load[?&quot;success&quot;];
+var _success = async_load[?"success"];
 if (_success == 1) {
 
     // Do what you want with the provided image handle
 }
 else {
     // Failure
-    show_debug_message(&quot;Failed to get user avatar&quot;);
-}
-</code></pre></div>
+    show_debug_message("Failed to get user avatar");
+}</code></pre>
 <p><br></p>
 <p><br></p>
 <hr />
@@ -479,8 +468,7 @@ If the call succeeds, the return value is a two-element array containing the wid
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_image_get_size(steam_image_id)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_image_get_size(steam_image_id)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -505,7 +493,7 @@ If the call succeeds, the return value is a two-element array containing the wid
 </blockquote>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<p><div class="highlight"><pre><span></span><code>var _l_img = steam_get_user_avatar(steam_get_user_steam_id(), steam_user_avatar_size_large);
+<p><pre class="highlight"><code class="language-gml">var _l_img = steam_get_user_avatar(steam_get_user_steam_id(), steam_user_avatar_size_large);
 var _l_dims = steam_image_get_size(_l_img);
 var _buff_size = _l_dims[0] * _l_dims[1] * 4;
 var _l_cols = buffer_create(_buff_size, buffer_fixed, 1);
@@ -519,8 +507,7 @@ var _l_surf = surface_create(_l_dims[0], _l_dims[1]);
 buffer_set_surface(_l_cols, _l_surf, 0);
 l_sprite = sprite_create_from_surface(_l_surf, 0, 0, _l_dims[0], _l_dims[1], false, false, 0, 0);
 surface_free(_l_surf);
-buffer_delete(_l_cols);
-</code></pre></div>
+buffer_delete(_l_cols);</code></pre>
 The above code shows a code example.</p>
 <p><br></p>
 <p><br></p>
@@ -537,8 +524,7 @@ Returns whether successful.</p>
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_image_get_rgba(steam_image_id, buffer, size)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_image_get_rgba(steam_image_id, buffer, size)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -573,7 +559,7 @@ Returns whether successful.</p>
 </blockquote>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<p><div class="highlight"><pre><span></span><code>var _l_img = steam_get_user_avatar(steam_get_user_steam_id(), steam_user_avatar_size_large);
+<p><pre class="highlight"><code class="language-gml">var _l_img = steam_get_user_avatar(steam_get_user_steam_id(), steam_user_avatar_size_large);
 
 // Check if avatar is ready
 if (_l_img &gt; 0)
@@ -598,8 +584,7 @@ if (_l_img &gt; 0)
 
     surface_free(_l_surf);
     buffer_delete(_l_cols);
-}
-</code></pre></div>
+}</code></pre>
 In the code above we query the current user's <a href="general.html#steam_get_user_steam_id">steam_get_user_steam_id</a> avatar data and place it inside a buffer (with the RGBA color format).
 For a more extensive example refer to the <a href="social.html#steam_get_user_avatar">steam_get_user_avatar</a> function.</p>
 <p><br></p>
@@ -617,8 +602,7 @@ Returns whether successful.</p>
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_image_get_bgra(steam_image_id, buffer, size)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_image_get_bgra(steam_image_id, buffer, size)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -653,7 +637,7 @@ Returns whether successful.</p>
 </blockquote>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<p><div class="highlight"><pre><span></span><code>var _l_img = steam_get_user_avatar(steam_get_user_steam_id(), steam_user_avatar_size_large);
+<p><pre class="highlight"><code class="language-gml">var _l_img = steam_get_user_avatar(steam_get_user_steam_id(), steam_user_avatar_size_large);
 
 // Check if avatar is ready
 if (_l_img &gt; 0)
@@ -678,8 +662,7 @@ if (_l_img &gt; 0)
 
     surface_free(_l_surf);
     buffer_delete(_l_cols);
-}
-</code></pre></div>
+}</code></pre>
 In the code above we query the current user's <a href="general.html#steam_get_user_steam_id">steam_get_user_steam_id</a> avatar data and place it inside a buffer (with the BGRA color format).
 For a more extensive example refer to the <a href="social.html#steam_get_user_avatar">steam_get_user_avatar</a> function.</p>
 <p><br></p>

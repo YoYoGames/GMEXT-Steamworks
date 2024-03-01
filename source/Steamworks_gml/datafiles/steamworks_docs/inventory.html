@@ -43,7 +43,7 @@
                 </li>
               </ul>
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="guides.html">Guides</a>
+                <li class="toctree-l1"><a class="reference internal" href="guides.html">Setup Guide (IDE/Runtime 2022.6+)</a>
                 </li>
               </ul>
               <ul>
@@ -63,11 +63,11 @@
                 </li>
               </ul>
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="lobbies.html">Lobbies</a>
+                <li class="toctree-l1"><a class="reference internal" href="lobbies.html">Lobbies and Matchmaking</a>
                 </li>
               </ul>
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="achievements.html">Achievements</a>
+                <li class="toctree-l1"><a class="reference internal" href="achievements.html">Stats and Achievements</a>
                 </li>
               </ul>
               <ul>
@@ -109,15 +109,15 @@
                 </li>
               </ul>
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="input.html">Steam Input</a>
+                <li class="toctree-l1"><a class="reference internal" href="input.html">Input</a>
                 </li>
               </ul>
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="music.html">Steam Music</a>
+                <li class="toctree-l1"><a class="reference internal" href="music.html">Music</a>
                 </li>
               </ul>
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="utilities.html">Steam Utilities</a>
+                <li class="toctree-l1"><a class="reference internal" href="utilities.html">Utilities</a>
                 </li>
               </ul>
       </div>
@@ -221,8 +221,7 @@ This is an asynchronous function that will trigger the <a href="https://manual.g
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_inventory_consume_item(item_id, quantity)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_inventory_consume_item(item_id, quantity)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -288,8 +287,7 @@ This is an asynchronous function that will trigger the <a href="https://manual.g
 </table>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<p><div class="highlight"><pre><span></span><code>steam_inventory_consume_item(player.apple, 1);
-</code></pre></div>
+<p><pre class="highlight"><code class="language-gml">steam_inventory_consume_item(player.apple, 1);</code></pre>
 The code sample above will try to consume one item (<code>apple</code>,  <a href="https://partner.steamgames.com/doc/api/ISteamInventory#SteamItemInstanceID_t">steam_inventory_item_id</a>), and trigger an async event with the task result.</p>
 <p><br></p>
 <p><br></p>
@@ -305,8 +303,7 @@ The code sample above will try to consume one item (<code>apple</code>,  <a href
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_inventory_get_item_price(item)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_inventory_get_item_price(item)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -331,8 +328,7 @@ The code sample above will try to consume one item (<code>apple</code>,  <a href
 </blockquote>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<p><div class="highlight"><pre><span></span><code>var _price = steam_inventory_get_item_price(item);
-</code></pre></div>
+<p><pre class="highlight"><code class="language-gml">var _price = steam_inventory_get_item_price(item);</code></pre>
 The code sample above will return you the price for the specified item definition. For a more detailed example on using the function check <a href="inventory.html#steam_inventory_request_prices">steam_inventory_request_prices</a>.</p>
 <p><br></p>
 <p><br></p>
@@ -348,8 +344,7 @@ The code sample above will return you the price for the specified item definitio
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_inventory_get_items_with_prices(item_def, price, base_price)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_inventory_get_items_with_prices(item_def, price, base_price)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -384,15 +379,14 @@ The code sample above will return you the price for the specified item definitio
 </blockquote>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<p><div class="highlight"><pre><span></span><code>var _array = steam_inventory_get_items_with_prices(inv_result);
+<p><pre class="highlight"><code class="language-gml">var _array = steam_inventory_get_items_with_prices(inv_result);
 if(array_length(_array) &gt; 0)
 {
     var _item_def = _array[0].item_def;
     var _price = _array[0].price;
     var base_price = _array[0].base_price;
-    show_debug_message(&quot;Found at one item that costs: &quot; + string(_price));
-}
-</code></pre></div>
+    show_debug_message("Found at one item that costs: " + string(_price));
+}</code></pre>
 The code above will get items with prices and if the returning array size is greater than zero (meaning there is at least one item with a configured price) it prints to the console the item's price.</p>
 <p><br></p>
 <p><br></p>
@@ -410,8 +404,7 @@ This is an asynchronous function that will trigger the <a href="https://manual.g
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_inventory_request_eligible_promo_item_defs(user_id)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_inventory_request_eligible_promo_item_defs(user_id)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -477,8 +470,7 @@ This is an asynchronous function that will trigger the <a href="https://manual.g
 </table>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<p><div class="highlight"><pre><span></span><code>steam_inventory_request_eligible_promo_item_defs(user_id);
-</code></pre></div>
+<p><pre class="highlight"><code class="language-gml">steam_inventory_request_eligible_promo_item_defs(user_id);</code></pre>
 For more information on this function call please refer to the official manual.</p>
 <p><br></p>
 <p><br></p>
@@ -500,8 +492,7 @@ For more information on this function call please refer to the official manual.<
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_inventory_request_prices()
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_inventory_request_prices()</code></pre>
 </blockquote>
 <p><br></p>
 <p><strong>Returns:</strong></p>
@@ -546,20 +537,19 @@ For more information on this function call please refer to the official manual.<
 </table>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<p><div class="highlight"><pre><span></span><code>steam_inventory_request_prices();
-</code></pre></div>
+<p><pre class="highlight"><code class="language-gml">steam_inventory_request_prices();</code></pre>
 The code above will request for price information. The result for this task can be caught inside the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a> with the following code:</p>
-<p><div class="highlight"><pre><span></span><code>// Early exit if event type doesn&#39;t match
-if (async_load[? &quot;event_type&quot;] != &quot;inventory_request_prices&quot;) exit;
+<p><pre class="highlight"><code class="language-gml">// Early exit if event type doesn't match
+if (async_load[? "event_type"] != "inventory_request_prices") exit;
 
-// Early exit if handle doesn&#39;t match
-if (async_load[? &quot;success&quot;])
+// Early exit if handle doesn't match
+if (async_load[? "success"])
 {
-    show_debug_message(&quot;The currency being used is: &quot; + async_load[? &quot;currency&quot;]);
+    show_debug_message("The currency being used is: " + async_load[? "currency"]);
 
     _var price = steam_inventory_get_item_price(global.swordId);
 }
-</code></pre></div>
+</code></pre>
 The code above matches the event type and if so shows the currency being used. It also gets the price for a specific item using the <a href="inventory.html#steam_inventory_get_item_price">steam_inventory_get_item_price</a> function.</p>
 <p><br></p>
 <p><br></p>
@@ -576,8 +566,7 @@ The user will be prompted in the Steam Overlay to complete the purchase in their
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_inventory_start_purchase(array)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_inventory_start_purchase(array)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -602,13 +591,12 @@ The user will be prompted in the Steam Overlay to complete the purchase in their
 </blockquote>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<p><div class="highlight"><pre><span></span><code>var _arrayCreate = [
+<p><pre class="highlight"><code class="language-gml">var _arrayCreate = [
               {item_def: item1, quantity: 3},
               {item_def: item2, quantity: 5},
        ];
 
-steam_inventory_start_purchase();
-</code></pre></div>
+steam_inventory_start_purchase();</code></pre>
 The code above will initialize a purchase intent that will be finalized in the Steam Overlay.</p>
 <p><br></p>
 <p><br></p>
@@ -630,8 +618,7 @@ This is an asynchronous function that will trigger the <a href="https://manual.g
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_inventory_add_promo_item(item_def)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_inventory_add_promo_item(item_def)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -692,8 +679,7 @@ This is an asynchronous function that will trigger the <a href="https://manual.g
 </table>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<p><div class="highlight"><pre><span></span><code>steam_inventory_add_promo_item(item);
-</code></pre></div>
+<p><pre class="highlight"><code class="language-gml">steam_inventory_add_promo_item(item);</code></pre>
 The above code will grant the user with a specific item. For an example on how to use the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a> to read the callback response, refer to the function <a href="inventory.html#steam_inventory_get_all_items">steam_inventory_get_all_items</a>.</p>
 <p><br></p>
 <p><br></p>
@@ -715,8 +701,7 @@ This is an asynchronous function that will trigger the <a href="https://manual.g
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_inventory_add_promo_items(item_defs)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_inventory_add_promo_items(item_defs)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -777,8 +762,7 @@ This is an asynchronous function that will trigger the <a href="https://manual.g
 </table>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<p><div class="highlight"><pre><span></span><code>steam_inventory_add_promo_items([item1, item2, item3]);
-</code></pre></div>
+<p><pre class="highlight"><code class="language-gml">steam_inventory_add_promo_items([item1, item2, item3]);</code></pre>
 The above code will grant the user with an multiple items specified in an array format. For an example on how to use the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a> to read the callback response, refer to the function <a href="inventory.html#steam_inventory_get_all_items">steam_inventory_get_all_items</a>.</p>
 <p><br></p>
 <p><br></p>
@@ -800,8 +784,7 @@ This is an asynchronous function that will trigger the <a href="https://manual.g
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_inventory_exchange_items(create_arr, destroy_arr)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_inventory_exchange_items(create_arr, destroy_arr)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -867,7 +850,7 @@ This is an asynchronous function that will trigger the <a href="https://manual.g
 </table>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<p><div class="highlight"><pre><span></span><code>var _arrayDestroy = [
+<p><pre class="highlight"><code class="language-gml">var _arrayDestroy = [
     { item_id: player.cursed_sword, quantity: 1 },
     { item_id: player.apple, quantity: 7 },
 ];
@@ -877,29 +860,27 @@ var _arrayCreate = [
     { item_def: global.orange, quantity: 2 }
 ];
 
-steam_inventory_exchange_items(_arrayCreate, _arrayDestroy);
-</code></pre></div>
+steam_inventory_exchange_items(_arrayCreate, _arrayDestroy);</code></pre>
 Given the provided items to be destroyed and the items to be create the code above will perform an exchange removing the current items (<code>arrayDestroy</code>) from the inventory and adding the new (<code>arrayCreate</code>) in their place. The result for this task can be caught inside the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a> with the following code:</p>
-<p><div class="highlight"><pre><span></span><code>// Early exit if event type doesn&#39;t match
-if (async_load[? &quot;event_type&quot;] != &quot;inventory_result_ready&quot;) exit;
+<p><pre class="highlight"><code class="language-gml">// Early exit if event type doesn't match
+if (async_load[? "event_type"] != "inventory_result_ready") exit;
 
-// Early exit if handle doesn&#39;t match
-if (async_load[? &quot;handle&quot;] != handle) exit;
+// Early exit if handle doesn't match
+if (async_load[? "handle"] != handle) exit;
 
-// Early exit if handle doesn&#39;t match
-if (async_load[? &quot;success&quot;])
+// Early exit if handle doesn't match
+if (async_load[? "success"])
 {
-    show_debug_message(&quot;Exchange was a success&quot;);
+    show_debug_message("Exchange was a success");
 }
 else
 {
-    show_debug_message(&quot;Exchange failed&quot;);
+    show_debug_message("Exchange failed");
 }
 
-// Don&#39;t forget to clean the ununsed handle
+// Don't forget to clean the ununsed handle
 steam_inventory_result_destroy(handle);
-handle = undefined;
-</code></pre></div>
+handle = undefined;</code></pre>
 The code above matches the event type and checks if the handle ID matches the one that initialized the request and if so we print a debug message with the success of the task. In the end we also use a call to <a href="inventory.html#steam_inventory_result_destroy">steam_inventory_result_destroy</a> to make sure we dispose and free all the used memory.</p>
 <p><br></p>
 <p><br></p>
@@ -925,8 +906,7 @@ This is an asynchronous function that will trigger the <a href="https://manual.g
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_inventory_generate_items(create_arr)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_inventory_generate_items(create_arr)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -987,13 +967,12 @@ This is an asynchronous function that will trigger the <a href="https://manual.g
 </table>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<p><div class="highlight"><pre><span></span><code>var _arrayCreate = [
+<p><pre class="highlight"><code class="language-gml">var _arrayCreate = [
     {item_def: item1, quantity: 3},
     {item_def: item2, quantity: 5},
 ];
 
-steam_inventory_generate_items(_arrayCreate);
-</code></pre></div>
+steam_inventory_generate_items(_arrayCreate);</code></pre>
 The code above will grant the specific items to the current user. For an example on how to use the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a> to read the callback response, refer to the function <a href="inventory.html#steam_inventory_get_all_items">steam_inventory_get_all_items</a>.</p>
 <p><br></p>
 <p><br></p>
@@ -1015,8 +994,7 @@ This is an asynchronous function that will trigger the <a href="https://manual.g
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_inventory_get_all_items()
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_inventory_get_all_items()</code></pre>
 </blockquote>
 <p><br></p>
 <p><strong>Returns:</strong></p>
@@ -1092,17 +1070,16 @@ This is an asynchronous function that will trigger the <a href="https://manual.g
 </table>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<p><div class="highlight"><pre><span></span><code>handle = steam_inventory_get_all_items();
-</code></pre></div>
+<p><pre class="highlight"><code class="language-gml">handle = steam_inventory_get_all_items();</code></pre>
 The code above will start a query for all the items in current users inventory. The result for this task can be caught inside the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a> with the following code:</p>
-<p><div class="highlight"><pre><span></span><code>// Early exit if event type doesn&#39;t match
-if (async_load[? &quot;event_type&quot;] != &quot;inventory_result_ready&quot;) exit;
+<p><pre class="highlight"><code class="language-gml">// Early exit if event type doesn't match
+if (async_load[? "event_type"] != "inventory_result_ready") exit;
 
-// Early exit if handle doesn&#39;t match
-if (async_load[? &quot;handle&quot;] != handle) exit;
+// Early exit if handle doesn't match
+if (async_load[? "handle"] != handle) exit;
 
-// Early exit if handle doesn&#39;t match
-if (async_load[? &quot;success&quot;])
+// Early exit if handle doesn't match
+if (async_load[? "success"])
 {
     var _items = steam_inventory_result_get_items(handle);
 
@@ -1118,10 +1095,9 @@ if (async_load[? &quot;success&quot;])
     }
 }
 
-// Don&#39;t forget to clean the ununsed handle
+// Don't forget to clean the ununsed handle
 steam_inventory_result_destroy(handle);
-handle = undefined;
-</code></pre></div>
+handle = undefined;</code></pre>
 The code above matches the event type and checks if the handle ID matches the one that initialized the request and if so gets the items from the result using the function <a href="inventory.html#steam_inventory_result_get_items">steam_inventory_result_get_items</a> and loops through them. In the end we also use a call to <a href="inventory.html#steam_inventory_result_destroy">steam_inventory_result_destroy</a> to make sure we dispose and free all the used memory.</p>
 <p><br></p>
 <p><br></p>
@@ -1142,8 +1118,7 @@ The code above matches the event type and checks if the handle ID matches the on
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_inventory_get_items_by_id(item_ids)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_inventory_get_items_by_id(item_ids)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -1204,8 +1179,7 @@ The code above matches the event type and checks if the handle ID matches the on
 </table>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<p><div class="highlight"><pre><span></span><code>handle = steam_inventory_get_items_by_id([item1, item2]);
-</code></pre></div>
+<p><pre class="highlight"><code class="language-gml">handle = steam_inventory_get_items_by_id([item1, item2]);</code></pre>
 Similar to <a href="inventory.html#steam_inventory_get_all_items">steam_inventory_get_all_items</a> but you can specify an array of items to query information instead of querying all of them. For an example on how to use the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a> to read the callback response, refer to the function <a href="inventory.html#steam_inventory_get_all_items">steam_inventory_get_all_items</a>.</p>
 <p><br></p>
 <p><br></p>
@@ -1226,8 +1200,7 @@ Similar to <a href="inventory.html#steam_inventory_get_all_items">steam_inventor
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_inventory_submit_update_properties(handle)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_inventory_submit_update_properties(handle)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -1288,16 +1261,15 @@ Similar to <a href="inventory.html#steam_inventory_get_all_items">steam_inventor
 </table>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<p><div class="highlight"><pre><span></span><code>var _handle = steam_inventory_start_update_properties();
-steam_inventory_set_property_bool(_handle, item_id, &quot;invisible&quot;, true);
-steam_inventory_set_property_float(_handle, item_id, &quot;power&quot;, 123.54);
-steam_inventory_set_property_int(_handle, item_id, &quot;uses&quot;, 5);
-steam_inventory_set_property_string(_handle, item_id, &quot;name&quot;, &quot;Big Sword&quot;);
+<p><pre class="highlight"><code class="language-gml">var _handle = steam_inventory_start_update_properties();
+steam_inventory_set_property_bool(_handle, item_id, "invisible", true);
+steam_inventory_set_property_float(_handle, item_id, "power", 123.54);
+steam_inventory_set_property_int(_handle, item_id, "uses", 5);
+steam_inventory_set_property_string(_handle, item_id, "name", "Big Sword");
 // ...
-steam_inventory_remove_property(_handle, item_id, &quot;invisible&quot;);
+steam_inventory_remove_property(_handle, item_id, "invisible");
 // ...
-steam_inventory_submit_update_properties(_handle);
-</code></pre></div>
+steam_inventory_submit_update_properties(_handle);</code></pre>
 The code above provides a simple sample on how to set/removed some properties.
 Starting with a <a href="inventory.html#steam_inventory_start_update_properties">steam_inventory_start_update_properties</a> then multiple calls to set/remove property functions:</p>
 <ul>
@@ -1327,8 +1299,7 @@ Starting with a <a href="inventory.html#steam_inventory_start_update_properties"
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_inventory_transfer_item_quantity(source_item_id, quantity, dest_item_id)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_inventory_transfer_item_quantity(source_item_id, quantity, dest_item_id)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -1399,8 +1370,7 @@ Starting with a <a href="inventory.html#steam_inventory_start_update_properties"
 </table>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<p><div class="highlight"><pre><span></span><code>handle = steam_inventory_transfer_item_quantity(global.apple, 2, global.oranges);
-</code></pre></div>
+<p><pre class="highlight"><code class="language-gml">handle = steam_inventory_transfer_item_quantity(global.apple, 2, global.oranges);</code></pre>
 The above code will trigger a transfer between two items owned by the user the amount to be transferred in the example, the user will lose 2 apples and receive 2 oranges. For an example on how to use the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a> to read the callback response, refer to the function <a href="inventory.html#steam_inventory_get_all_items">steam_inventory_get_all_items</a>.</p>
 <p><br></p>
 <p><br></p>
@@ -1428,8 +1398,7 @@ This period can be customized in two places:</p>
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_inventory_trigger_item_drop(item_def)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_inventory_trigger_item_drop(item_def)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -1490,8 +1459,7 @@ This period can be customized in two places:</p>
 </table>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<p><div class="highlight"><pre><span></span><code>handle = steam_inventory_trigger_item_drop(item_def);
-</code></pre></div>
+<p><pre class="highlight"><code class="language-gml">handle = steam_inventory_trigger_item_drop(item_def);</code></pre>
 For more information on this function call please refer to the official manual. For an example on how to use the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a> to read the callback response, refer to the function <a href="inventory.html#steam_inventory_get_all_items">steam_inventory_get_all_items</a>.</p>
 <p><br></p>
 <p><br></p>
@@ -1524,8 +1492,7 @@ This handle is returned by the following functions:</p>
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_inventory_result_destroy(inv_result)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_inventory_result_destroy(inv_result)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -1550,26 +1517,25 @@ This handle is returned by the following functions:</p>
 </blockquote>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<p><div class="highlight"><pre><span></span><code>// Early exit if event type doesn&#39;t match
-if (async_load[? &quot;event_type&quot;] != &quot;inventory_result_ready&quot;) exit;
+<p><pre class="highlight"><code class="language-gml">// Early exit if event type doesn't match
+if (async_load[? "event_type"] != "inventory_result_ready") exit;
 
-// Early exit if handle doesn&#39;t match
-if (async_load[? &quot;handle&quot;] != handle) exit;
+// Early exit if handle doesn't match
+if (async_load[? "handle"] != handle) exit;
 
-// Early exit if handle doesn&#39;t match
-if (async_load[? &quot;success&quot;])
+// Early exit if handle doesn't match
+if (async_load[? "success"])
 {
-    show_debug_message(&quot;Exchange was a success&quot;);
+    show_debug_message("Exchange was a success");
 }
 else
 {
-    show_debug_message(&quot;Exchange failed&quot;);
+    show_debug_message("Exchange failed");
 }
 
-// Don&#39;t forget to clean the unused handle
+// Don't forget to clean the unused handle
 steam_inventory_result_destroy(handle);
-handle = undefined;
-</code></pre></div>
+handle = undefined;</code></pre>
 In the code above we have an example of a asynchronous callback that generates a result handle by the end of which we execute a call to <a href="inventory.html#steam_inventory_result_destroy">steam_inventory_result_destroy</a> to make sure we dispose and free all the used memory.</p>
 <p><br></p>
 <p><br></p>
@@ -1590,8 +1556,7 @@ Property names are always composed of ASCII letters, numbers, and/or underscores
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_inventory_result_get_item_property(inv_result, item_index, prop_name)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_inventory_result_get_item_property(inv_result, item_index, prop_name)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -1626,17 +1591,16 @@ Property names are always composed of ASCII letters, numbers, and/or underscores
 </blockquote>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<p><div class="highlight"><pre><span></span><code>handle = steam_inventory_get_all_items();
-</code></pre></div>
+<p><pre class="highlight"><code class="language-gml">handle = steam_inventory_get_all_items();</code></pre>
 The code above will start a query for all the items in the current user's inventory. The result for this task can be caught inside the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a> with the following code:</p>
-<p><div class="highlight"><pre><span></span><code>// Early exit if event type doesn&#39;t match
-if (async_load[? &quot;event_type&quot;] != &quot;inventory_result_ready&quot;) exit;
+<p><pre class="highlight"><code class="language-gml">// Early exit if event type doesn't match
+if (async_load[? "event_type"] != "inventory_result_ready") exit;
 
-// Early exit if handle doesn&#39;t match
-if (async_load[? &quot;handle&quot;] != handle) exit;
+// Early exit if handle doesn't match
+if (async_load[? "handle"] != handle) exit;
 
-// Early exit if handle doesn&#39;t match
-if (async_load[? &quot;success&quot;])
+// Early exit if handle doesn't match
+if (async_load[? "success"])
 {
     var _items = steam_inventory_result_get_items(handle);
 
@@ -1645,16 +1609,16 @@ if (async_load[? &quot;success&quot;])
 
     for (var i = 0; i &lt; array_length(_items); i++)
     {
-        // It&#39;s also possible to get properties from each item using
-        // prop1 = steam_inventory_result_get_item_property(handle, i, &quot;property_name1&quot;);
-        // prop2 = steam_inventory_result_get_item_property(handle, i, &quot;property_name2&quot;);
+        // It's also possible to get properties from each item using
+        // prop1 = steam_inventory_result_get_item_property(handle, i, "property_name1");
+        // prop2 = steam_inventory_result_get_item_property(handle, i, "property_name2");
     }
 }
 
-// Don&#39;t forget to clean the unused handle
+// Don't forget to clean the unused handle
 steam_inventory_result_destroy(handle);
 handle = undefined;
-</code></pre></div>
+</code></pre>
 The code above matches the event type and checks if the handle ID matches the one that initialized the request and if so gets the items from the result using the function <a href="inventory.html#steam_inventory_result_get_items">steam_inventory_result_get_items</a> and loops through them to get the item properties we want. In the end we also use a call to <a href="inventory.html#steam_inventory_result_destroy">steam_inventory_result_destroy</a> to make sure we dispose and free all the used memory.</p>
 <p><br></p>
 <p><br></p>
@@ -1674,8 +1638,7 @@ The code above matches the event type and checks if the handle ID matches the on
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_inventory_result_get_items(inv_result)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_inventory_result_get_items(inv_result)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -1700,15 +1663,14 @@ The code above matches the event type and checks if the handle ID matches the on
 </blockquote>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<p><div class="highlight"><pre><span></span><code>var _array = steam_inventory_result_get_items(inv_result);
+<p><pre class="highlight"><code class="language-gml">var _array = steam_inventory_result_get_items(inv_result);
 for(var i = 0 ; i &lt; array_length(_array) ; i++)
 {
      var _struct = _array[i];
      var _item_id = _struct.item_id;
      var _item_def = _struct.item_def;
      var _quantity = _struct.quantity;
-}
-</code></pre></div>
+}</code></pre>
 For a more detailed implementation sample please refer to the <a href="inventory.html#steam_inventory_get_all_items">steam_inventory_get_all_items</a> function.</p>
 <p><br></p>
 <p><br></p>
@@ -1728,8 +1690,7 @@ For a more detailed implementation sample please refer to the <a href="inventory
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_inventory_result_get_status(inv_result)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_inventory_result_get_status(inv_result)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -1754,9 +1715,8 @@ For a more detailed implementation sample please refer to the <a href="inventory
 </blockquote>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<p><div class="highlight"><pre><span></span><code>if(steam_inventory_result_get_status(inv_result) != steam_inventory_result_status_ok)
-     exit;
-</code></pre></div>
+<p><pre class="highlight"><code class="language-gml">if(steam_inventory_result_get_status(inv_result) != steam_inventory_result_status_ok)
+     exit;</code></pre>
 For a more detailed implementation sample please refer to the <a href="inventory.html#steam_inventory_result_get_item_property">steam_inventory_result_get_item_property</a> function.</p>
 <p><br></p>
 <p><br></p>
@@ -1776,8 +1736,7 @@ For a more detailed implementation sample please refer to the <a href="inventory
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_inventory_result_get_unix_timestamp(inv_result)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_inventory_result_get_unix_timestamp(inv_result)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -1802,8 +1761,7 @@ For a more detailed implementation sample please refer to the <a href="inventory
 </blockquote>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<p><div class="highlight"><pre><span></span><code>var _timestamp = steam_inventory_result_get_unix_timestamp(inv_result);
-</code></pre></div>
+<p><pre class="highlight"><code class="language-gml">var _timestamp = steam_inventory_result_get_unix_timestamp(inv_result);</code></pre>
 For a more detailed implementation sample please refer to the <a href="inventory.html#steam_inventory_result_get_item_property">steam_inventory_result_get_item_property</a> function.</p>
 <p><br></p>
 <p><br></p>
@@ -1827,8 +1785,7 @@ It returns a steam_inventory_update_handle that can be used with the following f
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_inventory_start_update_properties()
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_inventory_start_update_properties()</code></pre>
 </blockquote>
 <p><br></p>
 <p><strong>Returns:</strong></p>
@@ -1837,13 +1794,12 @@ It returns a steam_inventory_update_handle that can be used with the following f
 </blockquote>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<p><div class="highlight"><pre><span></span><code>handle = steam_inventory_start_update_properties();
-steam_inventory_set_property_bool(handle, item_id, &quot;invisible&quot;, true);
-steam_inventory_set_property_float(handle, item_id, &quot;power&quot;, 123.54);
-steam_inventory_set_property_int(handle, item_id, &quot;uses&quot;, 5);
-steam_inventory_set_property_string(handle, item_id, &quot;name&quot;, &quot;Big Sword&quot;);
-steam_inventory_submit_update_properties(handle);
-</code></pre></div>
+<p><pre class="highlight"><code class="language-gml">handle = steam_inventory_start_update_properties();
+steam_inventory_set_property_bool(handle, item_id, "invisible", true);
+steam_inventory_set_property_float(handle, item_id, "power", 123.54);
+steam_inventory_set_property_int(handle, item_id, "uses", 5);
+steam_inventory_set_property_string(handle, item_id, "name", "Big Sword");
+steam_inventory_submit_update_properties(handle);</code></pre>
 The code above provides a simple sample on how to set/removed some properties.
 Starting with a <a href="inventory.html#steam_inventory_start_update_properties">steam_inventory_start_update_properties</a> then multiple calls to set/remove property functions:</p>
 <ul>
@@ -1868,8 +1824,7 @@ Starting with a <a href="inventory.html#steam_inventory_start_update_properties"
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_inventory_remove_property(handle, item_id, prop_name)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_inventory_remove_property(handle, item_id, prop_name)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -1904,16 +1859,15 @@ Starting with a <a href="inventory.html#steam_inventory_start_update_properties"
 </blockquote>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<p><div class="highlight"><pre><span></span><code>var _handler = steam_inventory_start_update_properties();
-steam_inventory_set_property_bool(_handler, item_id, &quot;invisible&quot;, true);
-steam_inventory_set_property_float(_handler, item_id, &quot;power&quot;, 123.54);
-steam_inventory_set_property_int(_handler, item_id, &quot;uses&quot;, 5);
-steam_inventory_set_property_string(_handler, item_id, &quot;name&quot;, &quot;Big Sword&quot;);
+<p><pre class="highlight"><code class="language-gml">var _handler = steam_inventory_start_update_properties();
+steam_inventory_set_property_bool(_handler, item_id, "invisible", true);
+steam_inventory_set_property_float(_handler, item_id, "power", 123.54);
+steam_inventory_set_property_int(_handler, item_id, "uses", 5);
+steam_inventory_set_property_string(_handler, item_id, "name", "Big Sword");
 // ...
-steam_inventory_remove_property(_handler, item_id, &quot;invisible&quot;);
+steam_inventory_remove_property(_handler, item_id, "invisible");
 // ...
-steam_inventory_submit_update_properties(_handler);
-</code></pre></div>
+steam_inventory_submit_update_properties(_handler);</code></pre>
 The code above provides a simple sample on how to set/remove some properties.
 Starting with a <a href="inventory.html#steam_inventory_start_update_properties">steam_inventory_start_update_properties</a> then multiple calls to set/remove property functions:</p>
 <ul>
@@ -1938,8 +1892,7 @@ Starting with a <a href="inventory.html#steam_inventory_start_update_properties"
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_inventory_set_property_bool(handle, prop_name, val)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_inventory_set_property_bool(handle, prop_name, val)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -1974,16 +1927,15 @@ Starting with a <a href="inventory.html#steam_inventory_start_update_properties"
 </blockquote>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<p><div class="highlight"><pre><span></span><code>handle = steam_inventory_start_update_properties();
-steam_inventory_set_property_bool(handle, item_id, &quot;invisible&quot;, true);
-steam_inventory_set_property_float(handle, item_id, &quot;power&quot;, 123.54);
-steam_inventory_set_property_int(handle, item_id, &quot;uses&quot;, 5);
-steam_inventory_set_property_string(handle, item_id, &quot;name&quot;, &quot;Big Sword&quot;);
+<p><pre class="highlight"><code class="language-gml">handle = steam_inventory_start_update_properties();
+steam_inventory_set_property_bool(handle, item_id, "invisible", true);
+steam_inventory_set_property_float(handle, item_id, "power", 123.54);
+steam_inventory_set_property_int(handle, item_id, "uses", 5);
+steam_inventory_set_property_string(handle, item_id, "name", "Big Sword");
 // ...
-steam_inventory_remove_property(handle, item_id, &quot;invisible&quot;);
+steam_inventory_remove_property(handle, item_id, "invisible");
 // ...
-steam_inventory_submit_update_properties(handle);
-</code></pre></div>
+steam_inventory_submit_update_properties(handle);</code></pre>
 The code above provides a simple sample on how to set/removed some properties.
 Starting with a <a href="inventory.html#steam_inventory_start_update_properties">steam_inventory_start_update_properties</a> then multiple calls to set/remove property functions:</p>
 <ul>
@@ -2008,8 +1960,7 @@ Starting with a <a href="inventory.html#steam_inventory_start_update_properties"
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_inventory_set_property_float(handle, prop_name, val)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_inventory_set_property_float(handle, prop_name, val)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -2044,16 +1995,15 @@ Starting with a <a href="inventory.html#steam_inventory_start_update_properties"
 </blockquote>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<p><div class="highlight"><pre><span></span><code>handle = steam_inventory_start_update_properties();
-steam_inventory_set_property_bool(handle, item_id, &quot;invisible&quot;, true);
-steam_inventory_set_property_float(handle, item_id, &quot;power&quot;, 123.54);
-steam_inventory_set_property_int(handle, item_id, &quot;uses&quot;, 5);
-steam_inventory_set_property_string(handle, item_id, &quot;name&quot;, &quot;Big Sword&quot;);
+<p><pre class="highlight"><code class="language-gml">handle = steam_inventory_start_update_properties();
+steam_inventory_set_property_bool(handle, item_id, "invisible", true);
+steam_inventory_set_property_float(handle, item_id, "power", 123.54);
+steam_inventory_set_property_int(handle, item_id, "uses", 5);
+steam_inventory_set_property_string(handle, item_id, "name", "Big Sword");
 // ...
-steam_inventory_remove_property(handle, item_id, &quot;invisible&quot;);
+steam_inventory_remove_property(handle, item_id, "invisible");
 // ...
-steam_inventory_submit_update_properties(handle);
-</code></pre></div>
+steam_inventory_submit_update_properties(handle);</code></pre>
 The code above provides a simple sample on how to set/removed some properties.
 Starting with a <a href="inventory.html#steam_inventory_start_update_properties">steam_inventory_start_update_properties</a> then multiple calls to set/remove property functions:</p>
 <ul>
@@ -2078,8 +2028,7 @@ Starting with a <a href="inventory.html#steam_inventory_start_update_properties"
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_inventory_set_property_int(handle, prop_name, val)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_inventory_set_property_int(handle, prop_name, val)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -2114,16 +2063,15 @@ Starting with a <a href="inventory.html#steam_inventory_start_update_properties"
 </blockquote>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<p><div class="highlight"><pre><span></span><code>handle = steam_inventory_start_update_properties();
-steam_inventory_set_property_bool(handle, item_id, &quot;invisible&quot;, true);
-steam_inventory_set_property_float(handle, item_id, &quot;power&quot;, 123.54);
-steam_inventory_set_property_int(handle, item_id, &quot;uses&quot;, 5);
-steam_inventory_set_property_string(handle, item_id, &quot;name&quot;, &quot;Big Sword&quot;);
+<p><pre class="highlight"><code class="language-gml">handle = steam_inventory_start_update_properties();
+steam_inventory_set_property_bool(handle, item_id, "invisible", true);
+steam_inventory_set_property_float(handle, item_id, "power", 123.54);
+steam_inventory_set_property_int(handle, item_id, "uses", 5);
+steam_inventory_set_property_string(handle, item_id, "name", "Big Sword");
 // ...
-steam_inventory_remove_property(handle, item_id, &quot;invisible&quot;);
+steam_inventory_remove_property(handle, item_id, "invisible");
 // ...
-steam_inventory_submit_update_properties(handle);
-</code></pre></div>
+steam_inventory_submit_update_properties(handle);</code></pre>
 The code above provides a simple sample on how to set/removed some properties.
 Starting with a <a href="inventory.html#steam_inventory_start_update_properties">steam_inventory_start_update_properties</a> then multiple calls to set/remove property functions:</p>
 <ul>
@@ -2148,8 +2096,7 @@ Starting with a <a href="inventory.html#steam_inventory_start_update_properties"
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_inventory_set_property_string(handle, prop_name, val)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_inventory_set_property_string(handle, prop_name, val)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -2184,16 +2131,15 @@ Starting with a <a href="inventory.html#steam_inventory_start_update_properties"
 </blockquote>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<p><div class="highlight"><pre><span></span><code>var _handle = steam_inventory_start_update_properties();
-steam_inventory_set_property_bool(_handle, item_id, &quot;invisible&quot;, true);
-steam_inventory_set_property_float(_handle, item_id, &quot;power&quot;, 123.54);
-steam_inventory_set_property_int(_handle, item_id, &quot;uses&quot;, 5);
-steam_inventory_set_property_string(_handle, item_id, &quot;name&quot;, &quot;Big Sword&quot;);
+<p><pre class="highlight"><code class="language-gml">var _handle = steam_inventory_start_update_properties();
+steam_inventory_set_property_bool(_handle, item_id, "invisible", true);
+steam_inventory_set_property_float(_handle, item_id, "power", 123.54);
+steam_inventory_set_property_int(_handle, item_id, "uses", 5);
+steam_inventory_set_property_string(_handle, item_id, "name", "Big Sword");
 // ...
-steam_inventory_remove_property(_handle, item_id, &quot;invisible&quot;);
+steam_inventory_remove_property(_handle, item_id, "invisible");
 // ...
-steam_inventory_submit_update_properties(_handle);
-</code></pre></div>
+steam_inventory_submit_update_properties(_handle);</code></pre>
 The code above provides a simple sample on how to set/removed some properties.
 Starting with a <a href="inventory.html#steam_inventory_start_update_properties">steam_inventory_start_update_properties</a> then multiple calls to set/remove property functions:</p>
 <ul>

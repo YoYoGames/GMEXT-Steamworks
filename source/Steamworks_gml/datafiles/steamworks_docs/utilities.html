@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="img/favicon.ico" />
-    <title>Steam Utilities - GMEXT-Steamworks</title>
+    <title>Utilities - GMEXT-Steamworks</title>
     <link rel="stylesheet" href="css/theme.css" />
     <link rel="stylesheet" href="css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
@@ -14,7 +14,7 @@
     
       <script>
         // Current page data
-        var mkdocs_page_name = "Steam Utilities";
+        var mkdocs_page_name = "Utilities";
         var mkdocs_page_input_path = "utilities.md";
         var mkdocs_page_url = null;
       </script>
@@ -43,7 +43,7 @@
                 </li>
               </ul>
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="guides.html">Guides</a>
+                <li class="toctree-l1"><a class="reference internal" href="guides.html">Setup Guide (IDE/Runtime 2022.6+)</a>
                 </li>
               </ul>
               <ul>
@@ -63,11 +63,11 @@
                 </li>
               </ul>
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="lobbies.html">Lobbies</a>
+                <li class="toctree-l1"><a class="reference internal" href="lobbies.html">Lobbies and Matchmaking</a>
                 </li>
               </ul>
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="achievements.html">Achievements</a>
+                <li class="toctree-l1"><a class="reference internal" href="achievements.html">Stats and Achievements</a>
                 </li>
               </ul>
               <ul>
@@ -95,15 +95,15 @@
                 </li>
               </ul>
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="input.html">Steam Input</a>
+                <li class="toctree-l1"><a class="reference internal" href="input.html">Input</a>
                 </li>
               </ul>
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="music.html">Steam Music</a>
+                <li class="toctree-l1"><a class="reference internal" href="music.html">Music</a>
                 </li>
               </ul>
               <ul class="current">
-                <li class="toctree-l1 current"><a class="reference internal current" href="utilities.html">Steam Utilities</a>
+                <li class="toctree-l1 current"><a class="reference internal current" href="utilities.html">Utilities</a>
     <ul class="current">
     <li class="toctree-l2"><a class="reference internal" href="#functions">Functions</a>
     </li>
@@ -124,7 +124,7 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href="." class="icon icon-home" aria-label="Docs"></a></li>
-      <li class="breadcrumb-item active">Steam Utilities</li>
+      <li class="breadcrumb-item active">Utilities</li>
     <li class="wy-breadcrumbs-aside">
           <a href="https://github.com/YoYoGames/GMEXT-Steamworks/edit/master/docs/utilities.md" class="icon icon-github"> Edit on GitHub</a>
     </li>
@@ -163,8 +163,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_show_floating_gamepad_text_input(mode, text_field_x, text_field_y, text_field_width, text_field_height)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_show_floating_gamepad_text_input(mode, text_field_x, text_field_y, text_field_width, text_field_height)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -230,7 +229,7 @@
 </table>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<div class="highlight"><pre><span></span><code>steam_utils_enable_callbacks(); // do this somewhere once.
+<pre class="highlight"><code class="language-gml">steam_utils_enable_callbacks(); // do this somewhere once.
 // show the dialog:
 steam_show_floating_gamepad_text_input(
     steam_floating_gamepad_text_input_mode_single_line,
@@ -239,13 +238,11 @@ steam_show_floating_gamepad_text_input(
     window_get_y()/2,
     window_get_width(),
     window_get_height()/2
-);
-</code></pre></div>
-<p><div class="highlight"><pre><span></span><code>/// @description Async - Steam event
-if (async_load[? &quot;event_type&quot;] == &quot;floating_gamepad_text_input_dismissed&quot;) {
-    show_debug_message(&quot;Floating gamepad keyboard UI dialog dismissed.&quot;);
-}
-</code></pre></div>
+);</code></pre>
+<p><pre class="highlight"><code class="language-gml">/// @description Async - Steam event
+if (async_load[? "event_type"] == "floating_gamepad_text_input_dismissed") {
+    show_debug_message("Floating gamepad keyboard UI dialog dismissed.");
+}</code></pre>
 The above code shows a floating keyboard window in the bottom half of the window, then print a message to debug output when the dialog is dismissed.</p>
 <p><br></p>
 <p><br></p>
@@ -257,8 +254,7 @@ The above code shows a floating keyboard window in the bottom half of the window
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_dismiss_floating_gamepad_text_input()
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_dismiss_floating_gamepad_text_input()</code></pre>
 </blockquote>
 <p><br></p>
 <p><strong>Returns:</strong></p>
@@ -267,8 +263,7 @@ The above code shows a floating keyboard window in the bottom half of the window
 </blockquote>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<p><div class="highlight"><pre><span></span><code>steam_dismiss_floating_gamepad_text_input();
-</code></pre></div>
+<p><pre class="highlight"><code class="language-gml">steam_dismiss_floating_gamepad_text_input();</code></pre>
 The above code will dismiss the floating keyboard window if it is being displayed.</p>
 <p><br></p>
 <p><br></p>
@@ -285,8 +280,7 @@ The above code will dismiss the floating keyboard window if it is being displaye
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_show_gamepad_text_input(mode, lines_mode, description, chars_max, existing_text)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_show_gamepad_text_input(mode, lines_mode, description, chars_max, existing_text)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -362,24 +356,22 @@ The above code will dismiss the floating keyboard window if it is being displaye
 </table>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<div class="highlight"><pre><span></span><code>steam_utils_enable_callbacks(); // somewhere once.
+<pre class="highlight"><code class="language-gml">steam_utils_enable_callbacks(); // somewhere once.
 // show the dialog:
 steam_show_gamepad_text_input(
     steam_gamepad_text_input_mode_normal,
     steam_gamepad_text_input_line_mode_single_line,
-    &quot;Some Description&quot;,
+    "Some Description",
     100, // up to 100 string characters
-    &quot;&quot; // no default text, can be any string, ex: &quot;Player 1&quot; etc
-);
-</code></pre></div>
-<p><div class="highlight"><pre><span></span><code>/// @description Async - Steam event
-if (async_load[? &quot;event_type&quot;] == &quot;gamepad_text_input_dismissed&quot;) {
-    if (async_load[? &quot;submitted&quot;]) {
+    "" // no default text, can be any string, ex: "Player 1" etc
+);</code></pre>
+<p><pre class="highlight"><code class="language-gml">/// @description Async - Steam event
+if (async_load[? "event_type"] == "gamepad_text_input_dismissed") {
+    if (async_load[? "submitted"]) {
         var _input = steam_get_entered_gamepad_text_input();
-        show_debug_message(&quot;Old-style dialog result: &quot; + _input);
+        show_debug_message("Old-style dialog result: " + _input);
     }
-}
-</code></pre></div>
+}</code></pre>
 The above code will show a modal gamepad keyboard input dialog with <code>"Some Description"</code> as the description and an empty text field, then print the typed text.</p>
 <p><br></p>
 <p><br></p>
@@ -395,8 +387,7 @@ The above code will show a modal gamepad keyboard input dialog with <code>"Some 
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_get_entered_gamepad_text_input()
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_get_entered_gamepad_text_input()</code></pre>
 </blockquote>
 <p><br></p>
 <p><strong>Returns:</strong></p>
@@ -405,14 +396,13 @@ The above code will show a modal gamepad keyboard input dialog with <code>"Some 
 </blockquote>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<p><div class="highlight"><pre><span></span><code>/// @description Async - Steam event
-if (async_load[? &quot;event_type&quot;] == &quot;gamepad_text_input_dismissed&quot;) {
-    if (async_load[? &quot;submitted&quot;]) {
+<p><pre class="highlight"><code class="language-gml">/// @description Async - Steam event
+if (async_load[? "event_type"] == "gamepad_text_input_dismissed") {
+    if (async_load[? "submitted"]) {
         var _input = steam_get_entered_gamepad_text_input();
-        show_debug_message(&quot;Old-style dialog result: &quot; + _input);
+        show_debug_message("Old-style dialog result: " + _input);
     }
-}
-</code></pre></div>
+}</code></pre>
 The above code will activate the use of gamepad keyboard UI async events.</p>
 <p><br></p>
 <p><br></p>
@@ -424,8 +414,7 @@ The above code will activate the use of gamepad keyboard UI async events.</p>
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_utils_enable_callbacks()
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_utils_enable_callbacks()</code></pre>
 </blockquote>
 <p><br></p>
 <p><strong>Returns:</strong></p>
@@ -434,8 +423,7 @@ The above code will activate the use of gamepad keyboard UI async events.</p>
 </blockquote>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<p><div class="highlight"><pre><span></span><code>steam_utils_enable_callbacks();
-</code></pre></div>
+<p><pre class="highlight"><code class="language-gml">steam_utils_enable_callbacks();</code></pre>
 The above code will activate the use of gamepad keyboard UI async events.</p>
 <p><br></p>
 <p><br></p>
@@ -447,8 +435,7 @@ The above code will activate the use of gamepad keyboard UI async events.</p>
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_utils_is_steam_running_on_steam_deck()
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_utils_is_steam_running_on_steam_deck()</code></pre>
 </blockquote>
 <p><br></p>
 <p><strong>Returns:</strong></p>
@@ -457,10 +444,9 @@ The above code will activate the use of gamepad keyboard UI async events.</p>
 </blockquote>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<p><div class="highlight"><pre><span></span><code>if (steam_utils_is_steam_running_on_steam_deck()) {
-    show_debug_message(&quot;The game is running on a Steam Deck.&quot;);
-}
-</code></pre></div>
+<p><pre class="highlight"><code class="language-gml">if (steam_utils_is_steam_running_on_steam_deck()) {
+    show_debug_message("The game is running on a Steam Deck.");
+}</code></pre>
 The above code will print a message to debug output if the game is running on the Steam Deck.</p>
 <p><br></p>
 <p><br></p>
@@ -472,8 +458,7 @@ The above code will print a message to debug output if the game is running on th
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_utils_is_steam_in_big_picture_mode()
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_utils_is_steam_in_big_picture_mode()</code></pre>
 </blockquote>
 <p><br></p>
 <p><strong>Returns:</strong></p>
@@ -482,10 +467,9 @@ The above code will print a message to debug output if the game is running on th
 </blockquote>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<div class="highlight"><pre><span></span><code>if (steam_utils_is_steam_in_big_picture_mode()) {
-    show_debug_message(&quot;The game is running in Big Picture mode&quot;);
-}
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">if (steam_utils_is_steam_in_big_picture_mode()) {
+    show_debug_message("The game is running in Big Picture mode");
+}</code></pre>
 <p><br></p>
 <p><br></p>
 <hr />
@@ -496,8 +480,7 @@ The above code will print a message to debug output if the game is running on th
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_utils_set_game_launcher_mode(launcher_mode)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_utils_set_game_launcher_mode(launcher_mode)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -522,16 +505,15 @@ The above code will print a message to debug output if the game is running on th
 </blockquote>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<div class="highlight"><pre><span></span><code>steam_utils_set_game_launcher_mode(true);
-show_debug_message(&quot;Game set to launcher mode&quot;);
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_utils_set_game_launcher_mode(true);
+show_debug_message("Game set to launcher mode");</code></pre>
 <p><br></p>
 <p><br></p>
               
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="music.html" class="btn btn-neutral float-left" title="Steam Music"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="music.html" class="btn btn-neutral float-left" title="Music"><span class="icon icon-circle-arrow-left"></span> Previous</a>
     </div>
 
   <hr/>

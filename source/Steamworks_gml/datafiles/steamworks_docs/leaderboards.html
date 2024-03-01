@@ -43,7 +43,7 @@
                 </li>
               </ul>
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="guides.html">Guides</a>
+                <li class="toctree-l1"><a class="reference internal" href="guides.html">Setup Guide (IDE/Runtime 2022.6+)</a>
                 </li>
               </ul>
               <ul>
@@ -71,11 +71,11 @@
                 </li>
               </ul>
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="lobbies.html">Lobbies</a>
+                <li class="toctree-l1"><a class="reference internal" href="lobbies.html">Lobbies and Matchmaking</a>
                 </li>
               </ul>
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="achievements.html">Achievements</a>
+                <li class="toctree-l1"><a class="reference internal" href="achievements.html">Stats and Achievements</a>
                 </li>
               </ul>
               <ul>
@@ -103,15 +103,15 @@
                 </li>
               </ul>
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="input.html">Steam Input</a>
+                <li class="toctree-l1"><a class="reference internal" href="input.html">Input</a>
                 </li>
               </ul>
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="music.html">Steam Music</a>
+                <li class="toctree-l1"><a class="reference internal" href="music.html">Music</a>
                 </li>
               </ul>
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="utilities.html">Steam Utilities</a>
+                <li class="toctree-l1"><a class="reference internal" href="utilities.html">Utilities</a>
                 </li>
               </ul>
       </div>
@@ -152,6 +152,8 @@
 <li><a href="leaderboards.html#steam_download_scores">steam_download_scores</a></li>
 <li><a href="leaderboards.html#steam_download_scores_around_user">steam_download_scores_around_user</a></li>
 <li><a href="leaderboards.html#steam_download_friends_scores">steam_download_friends_scores</a></li>
+<li><a href="leaderboards.html#steam_get_leaderboard_entry_count">steam_get_leaderboard_entry_count</a></li>
+<li><a href="leaderboards.html#steam_get_leaderboard_display_type">steam_get_leaderboard_display_type</a></li>
 </ul>
 <h2 id="structs">Structs</h2>
 <p>The following data types are used by the leaderboard functions:</p>
@@ -179,8 +181,7 @@ This is an asynchronous function that will trigger the <a href="https://manual.g
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_create_leaderboard(lb_name, sort_order, display_type)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_create_leaderboard(lb_name, sort_order, display_type)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -251,8 +252,7 @@ This is an asynchronous function that will trigger the <a href="https://manual.g
 </table>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<p><div class="highlight"><pre><span></span><code>steam_create_leaderboard(&quot;Game Times&quot;, lb_sort_ascending, lb_disp_time_sec);
-</code></pre></div>
+<p><pre class="highlight"><code class="language-gml">steam_create_leaderboard("Game Times", lb_sort_ascending, lb_disp_time_sec);</code></pre>
 The above code will create a leaderboard called "Game Times", and set it to display the results in ascending order and with a display in seconds.</p>
 <p><br></p>
 <p><br></p>
@@ -270,8 +270,7 @@ This is an asynchronous function that will trigger the <a href="https://manual.g
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_upload_score(lb_name, score)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_upload_score(lb_name, score)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -353,38 +352,36 @@ This is an asynchronous function that will trigger the <a href="https://manual.g
 <p><br></p>
 <p><strong>Example:</strong></p>
 <p>In this example, we first upload a score and then parse the <code>async_load</code> map returned if successful. The code below shows a typical example for uploading:</p>
-<p><div class="highlight"><pre><span></span><code>if (hp &lt;= 0)
+<p><pre class="highlight"><code class="language-gml">if (hp &lt;= 0)
 {
-    upload_ID = steam_upload_score(&quot;Game Scores&quot;, score);
+    upload_ID = steam_upload_score("Game Scores", score);
     if (!upload_ID)
     {
         alarm[0] = game_get_speed(gamespeed_fps);
     }
-}
-</code></pre></div>
+}</code></pre>
 Note that we have set an alarm if the call fails. This would be used to try the upload again at a later time and you can add extra code there to retry the upload or to save the score to a text file should it continue to fail, etc. We now add the following into the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a> for the instance controlling the scores:</p>
-<p><div class="highlight"><pre><span></span><code>var _type = ds_map_find_value(async_load, &quot;event_type&quot;);
-if (_type == &quot;leaderboard_upload&quot;)
+<p><pre class="highlight"><code class="language-gml">var _type = ds_map_find_value(async_load, "event_type");
+if (_type == "leaderboard_upload")
 {
-    var _lb_ID = ds_map_find_value(async_load, &quot;post_id&quot;);
+    var _lb_ID = ds_map_find_value(async_load, "post_id");
     if _lb_ID == upload_ID
     {
-        var _lb_name = ds_map_find_value(async_load, &quot;lb_name&quot;);
-        var _lb_done = ds_map_find_value(async_load, &quot;success&quot;);
-        var _lb_score = ds_map_find_value(async_load, &quot;score&quot;);
-        var _lb_updated = ds_map_find_value(async_load, &quot;updated&quot;);
-        show_debug_message(&quot;leaderboard post ID:&quot; + string(_lb_ID) + &quot; to lb:&quot; + string(_lb_name) + &quot; with score:&quot; + string(_lb_score) + &quot; updated=&quot; + string(_lb_updated));
+        var _lb_name = ds_map_find_value(async_load, "lb_name");
+        var _lb_done = ds_map_find_value(async_load, "success");
+        var _lb_score = ds_map_find_value(async_load, "score");
+        var _lb_updated = ds_map_find_value(async_load, "updated");
+        show_debug_message("leaderboard post ID:" + string(_lb_ID) + " to lb:" + string(_lb_name) + " with score:" + string(_lb_score) + " updated=" + string(_lb_updated));
         if (_lb_done)
         {
-            show_debug_message(&quot;- Succeeded&quot;);
+            show_debug_message("- Succeeded");
         }
         else
         {
-            show_debug_message(&quot;- Failed&quot;);
+            show_debug_message("- Failed");
         }
     }
-}
-</code></pre></div>
+}</code></pre>
 In the example we are simply outputting the return values to the compiler window as debug messages, but you can use this event to deal with the information in any way you choose.</p>
 <p><br></p>
 <p><br></p>
@@ -402,8 +399,7 @@ This is an asynchronous function that will trigger the <a href="https://manual.g
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_upload_score_ext(lb_name, score, force_update)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_upload_score_ext(lb_name, score, force_update)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -490,38 +486,36 @@ This is an asynchronous function that will trigger the <a href="https://manual.g
 <p><br></p>
 <p><strong>Example:</strong></p>
 <p>In this example, we first upload a score and then parse the <code>async_load</code> map returned if successful. The code below shows a typical example for uploading:</p>
-<p><div class="highlight"><pre><span></span><code>if (hp &lt;= 0)
+<p><pre class="highlight"><code class="language-gml">if (hp &lt;= 0)
 {
-    upload_ID = steam_upload_score_ext(&quot;Game Scores&quot;, score, true);
+    upload_ID = steam_upload_score_ext("Game Scores", score, true);
     if (!upload_ID)
     {
         alarm[0] = game_get_speed(gamespeed_fps);
     }
-}
-</code></pre></div>
+}</code></pre>
 Note that we have set an alarm if the call fails. This would be used to try the upload again at a later time and you can add extra code there to retry the upload or to save the score to a text file should it continue to fail, etc. We now add the following into the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a> for the instance controlling the scores:</p>
-<p><div class="highlight"><pre><span></span><code>var _type = ds_map_find_value(async_load, &quot;event_type&quot;);
-if (_type == &quot;leaderboard_upload&quot;)
+<p><pre class="highlight"><code class="language-gml">var _type = ds_map_find_value(async_load, "event_type");
+if (_type == "leaderboard_upload")
 {
-    var _lb_ID = ds_map_find_value(async_load, &quot;post_id&quot;);
+    var _lb_ID = ds_map_find_value(async_load, "post_id");
     if _lb_ID == upload_ID
     {
-        var _lb_name = ds_map_find_value(async_load, &quot;lb_name&quot;);
-        var _lb_done = ds_map_find_value(async_load, &quot;success&quot;);
-        var _lb_score = ds_map_find_value(async_load, &quot;score&quot;);
-        var _lb_updated = ds_map_find_value(async_load, &quot;updated&quot;);
-        show_debug_message(&quot;leaderboard post id:&quot; + string(_lb_ID) + &quot; to lb:&quot; + string(_lb_name) + &quot; with score:&quot; + string(_lb_score) + &quot; updated=&quot; + string(_lb_updated));
+        var _lb_name = ds_map_find_value(async_load, "lb_name");
+        var _lb_done = ds_map_find_value(async_load, "success");
+        var _lb_score = ds_map_find_value(async_load, "score");
+        var _lb_updated = ds_map_find_value(async_load, "updated");
+        show_debug_message("leaderboard post id:" + string(_lb_ID) + " to lb:" + string(_lb_name) + " with score:" + string(_lb_score) + " updated=" + string(_lb_updated));
         if (_lb_done)
         {
-            show_debug_message(&quot;- Succeeded&quot;);
+            show_debug_message("- Succeeded");
         }
         else
         {
-            show_debug_message(&quot;- Failed&quot;);
+            show_debug_message("- Failed");
         }
     }
-}
-</code></pre></div>
+}</code></pre>
 In the example we are simply outputting the return values to the compiler window as debug messages, but you can use this event to deal with the information in any way you choose.</p>
 <p><br></p>
 <p><br></p>
@@ -539,8 +533,7 @@ This is an asynchronous function that will trigger the <a href="https://manual.g
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_upload_score_buffer(lb_name, score, buffer)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_upload_score_buffer(lb_name, score, buffer)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -627,11 +620,11 @@ This is an asynchronous function that will trigger the <a href="https://manual.g
 <p><br></p>
 <p><strong>Example:</strong></p>
 <p>In this example, we first upload a score and then parse the <code>async_load</code> map returned if successful. The code below shows a typical example for uploading, with a buffer being created to hold a string telling us which level the score was uploaded from:</p>
-<p><div class="highlight"><pre><span></span><code>if (hp &lt;= 0)
+<p><pre class="highlight"><code class="language-gml">if (hp &lt;= 0)
 {
     var _buff = buffer_create(256, buffer_fixed, 1);
-    buffer_write(_buff, buffer_string, &quot;Uploaded on level &quot; + string(global.Level));
-    upload_ID = steam_upload_score(&quot;Game Scores&quot;, score, _buff);
+    buffer_write(_buff, buffer_string, "Uploaded on level " + string(global.Level));
+    upload_ID = steam_upload_score("Game Scores", score, _buff);
 
     if (!upload_ID)
     {
@@ -640,30 +633,29 @@ This is an asynchronous function that will trigger the <a href="https://manual.g
 
     buffer_delete(_buff);
 }
-</code></pre></div>
+</code></pre>
 Note that we have set an alarm if the call fails. This would be used to try the upload again at a later time and you can add extra code there to retry the upload or to save the score to a text file should it continue to fail, etc. Also note that we immediately delete the buffer, since it is no longer required for the function. We now add the following into the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a> for the instance controlling the scores:</p>
-<p><div class="highlight"><pre><span></span><code>var _type = ds_map_find_value(async_load, &quot;event_type&quot;);
-if (_type == &quot;leaderboard_upload&quot;)
+<p><pre class="highlight"><code class="language-gml">var _type = ds_map_find_value(async_load, "event_type");
+if (_type == "leaderboard_upload")
 {
-    var _lb_ID = ds_map_find_value(async_load, &quot;post_id&quot;);
+    var _lb_ID = ds_map_find_value(async_load, "post_id");
     if _lb_ID == upload_ID
     {
-        var _lb_name = ds_map_find_value(async_load, &quot;lb_name&quot;);
-        var _lb_done = ds_map_find_value(async_load, &quot;success&quot;);
-        var _lb_score = ds_map_find_value(async_load, &quot;score&quot;);
-        var _lb_updated = ds_map_find_value(async_load, &quot;updated&quot;);
-        show_debug_message(&quot;leaderboard post ID:&quot; + string(_lb_ID) + &quot; to lb:&quot; + string(_lb_name) + &quot; with score:&quot; + string(_lb_score) + &quot; updated=&quot; + string(_lb_updated));
+        var _lb_name = ds_map_find_value(async_load, "lb_name");
+        var _lb_done = ds_map_find_value(async_load, "success");
+        var _lb_score = ds_map_find_value(async_load, "score");
+        var _lb_updated = ds_map_find_value(async_load, "updated");
+        show_debug_message("leaderboard post ID:" + string(_lb_ID) + " to lb:" + string(_lb_name) + " with score:" + string(_lb_score) + " updated=" + string(_lb_updated));
         if (_lb_done)
         {
-            show_debug_message(&quot;- Succeeded&quot;);
+            show_debug_message("- Succeeded");
         }
         else
         {
-            show_debug_message(&quot;- Failed&quot;);
+            show_debug_message("- Failed");
         }
     }
-}
-</code></pre></div>
+}</code></pre>
 In the example we are simply outputting the return values to the compiler window as debug messages, but you can use this event to deal with the information in any way you choose.</p>
 <p><br></p>
 <p><br></p>
@@ -681,8 +673,7 @@ This is an asynchronous function that will trigger the <a href="https://manual.g
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_upload_score_buffer_ext(lb_name, score, buffer, force_update)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_upload_score_buffer_ext(lb_name, score, buffer, force_update)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -774,11 +765,11 @@ This is an asynchronous function that will trigger the <a href="https://manual.g
 <p><br></p>
 <p><strong>Example:</strong></p>
 <p>In this example, we first upload a score and then parse the <code>async_load</code> map returned if successful. The code below shows a typical example for uploading, with a buffer being created to hold a string telling us which level the score was uploaded from:</p>
-<p><div class="highlight"><pre><span></span><code>if (hp &lt;= 0)
+<p><pre class="highlight"><code class="language-gml">if (hp &lt;= 0)
 {
     var _buff = buffer_create(256, buffer_fixed, 1 );
-    buffer_write(_buff, buffer_string, &quot;Uploaded on level &quot; + string(global.Level));
-    upload_ID = steam_upload_score_buffer_ext(&quot;Game Scores&quot;, score, _buff, true);
+    buffer_write(_buff, buffer_string, "Uploaded on level " + string(global.Level));
+    upload_ID = steam_upload_score_buffer_ext("Game Scores", score, _buff, true);
 
     if (!upload_ID)
     {
@@ -787,30 +778,29 @@ This is an asynchronous function that will trigger the <a href="https://manual.g
 
     buffer_delete(_buff);
 }
-</code></pre></div>
+</code></pre>
 Note that we have set an alarm if the call fails. This would be used to try the upload again at a later time and you can add extra code there to retry the upload or to save the score to a text file should it continue to fail, etc. Also note that we immediately delete the buffer, since it is no longer required for the function. We now add the following into the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a> for the instance controlling the scores:</p>
-<p><div class="highlight"><pre><span></span><code>var _type = ds_map_find_value(async_load, &quot;event_type&quot;);
-if (_type == &quot;leaderboard_upload&quot;)
+<p><pre class="highlight"><code class="language-gml">var _type = ds_map_find_value(async_load, "event_type");
+if (_type == "leaderboard_upload")
 {
-    var _lb_ID = ds_map_find_value(async_load, &quot;post_id&quot;);
+    var _lb_ID = ds_map_find_value(async_load, "post_id");
     if _lb_ID == upload_ID
     {
-        var _lb_name = ds_map_find_value(async_load, &quot;lb_name&quot;);
-        var _lb_done = ds_map_find_value(async_load, &quot;success&quot;);
-        var _lb_score = ds_map_find_value(async_load, &quot;score&quot;);
-        var _lb_updated = ds_map_find_value(async_load, &quot;updated&quot;);
-        show_debug_message(&quot;leaderboard post ID:&quot; + string(_lb_ID) + &quot; to lb:&quot; + string(_lb_name) + &quot; with score:&quot; + string(_lb_score) + &quot; updated=&quot; + string(_lb_updated));
+        var _lb_name = ds_map_find_value(async_load, "lb_name");
+        var _lb_done = ds_map_find_value(async_load, "success");
+        var _lb_score = ds_map_find_value(async_load, "score");
+        var _lb_updated = ds_map_find_value(async_load, "updated");
+        show_debug_message("leaderboard post ID:" + string(_lb_ID) + " to lb:" + string(_lb_name) + " with score:" + string(_lb_score) + " updated=" + string(_lb_updated));
         if (_lb_done)
         {
-            show_debug_message(&quot;- Succeeded&quot;);
+            show_debug_message("- Succeeded");
         }
         else
         {
-            show_debug_message(&quot;- Failed&quot;);
+            show_debug_message("- Failed");
         }
     }
-}
-</code></pre></div>
+}</code></pre>
 In the example we are simply outputting the return values to the compiler window as debug messages, but you can use this event to deal with the information in any way you choose.</p>
 <p><br></p>
 <p><br></p>
@@ -828,8 +818,7 @@ This is an asynchronous function that will trigger the <a href="https://manual.g
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_download_scores(lb_name, start_idx, end_idx)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_download_scores(lb_name, start_idx, end_idx)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -911,36 +900,34 @@ This is an asynchronous function that will trigger the <a href="https://manual.g
 <p><br></p>
 <p><strong>Example:</strong></p>
 <p>In this extended example we will request the top ten ranking for the given leaderboard and parse its results in the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a>. To start with we need to request the scores with the following code:</p>
-<p><div class="highlight"><pre><span></span><code>score_get = steam_download_scores(&quot;Game Scores&quot;, 1, 10);
-</code></pre></div>
+<p><pre class="highlight"><code class="language-gml">score_get = steam_download_scores("Game Scores", 1, 10);</code></pre>
 This will send off a request to the Steam Server for the scores from the leaderboard "Game Scores", storing the async id of the request in the variable "score_get". this will then be handled in the Steam Async Event in the following way:</p>
-<p><div class="highlight"><pre><span></span><code>var _async_id = ds_map_find_value(async_load, &quot;id&quot;);
+<p><pre class="highlight"><code class="language-gml">var _async_id = ds_map_find_value(async_load, "id");
 if _async_id == score_get
 {
-    var _entries = ds_map_find_value(async_load, &quot;entries&quot;);
+    var _entries = ds_map_find_value(async_load, "entries");
     var _map = json_decode(_entries);
-    if ds_map_exists(_map, &quot;default&quot;)
+    if ds_map_exists(_map, "default")
     {
         ds_map_destroy(_map);
         exit;
     }
     else
     {
-        var _list = ds_map_find_value(_map, &quot;entries&quot;);
+        var _list = ds_map_find_value(_map, "entries");
         var _len = ds_list_size(_list);
         var _entry;
         for(var i = 0; i &lt; _len; i++;)
         {
             _entry = ds_list_find_value(_list, i );
-            steam_name[i] = ds_map_find_value(_entry, &quot;name&quot;);
-            steam_score[i] = ds_map_find_value(_entry, &quot;score&quot;);
-            steam_rank[i] = ds_map_find_value(_entry, &quot;rank&quot;);
-            steam_data[i] = ds_map_find_value(_entry, &quot;data&quot;);
+            steam_name[i] = ds_map_find_value(_entry, "name");
+            steam_score[i] = ds_map_find_value(_entry, "score");
+            steam_rank[i] = ds_map_find_value(_entry, "rank");
+            steam_data[i] = ds_map_find_value(_entry, "data");
         }
     }
     ds_map_destroy(map);
-}
-</code></pre></div>
+}</code></pre>
 What we do here is first check the "id" key of the special <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Variables/Builtin_Global_Variables/async_load.htm">async_load</a> DS map. If this value is the same as the value of the original call-back function (stored in the "score_get" variable) we then continue to process the data. The first thing we do is parse the <code>async_load</code> DS map for the key "entries" which will contain a JSON formatted string containing the leaderboard data. This JSON object is then decoded (see <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/File_Handling/Encoding_And_Hashing/json_decode.htm">json_decode</a>) as another <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Data_Structures/DS_Maps/DS_Maps.htm">DSMap</a>, and this new map ID is stored in the variable "map".
 This map is checked for the key "default" and if that is found then the map is destroyed and the event is exited. If no "default" key is found, the code will then parse the map to extract the necessary information about the leaderboard, by first extracting a DS list from the "entries" key of the DS map, and then looping through each entry of the list to get <strong>another</strong> DS map with the name, score and rank of each entry. These values are then stored to arrays.
 Once the loop has finished, the JSON <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Data_Structures/DS_Maps/DS_Maps.htm">DSMap</a> is destroyed (which in turn destroys all the internal maps and lists). There is no need to destroy the <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Variables/Builtin_Global_Variables/async_load.htm">async_load</a> DS map as this is handled for you by GameMaker.</p>
@@ -960,8 +947,7 @@ This is an asynchronous function that will trigger the <a href="https://manual.g
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_download_scores_around_user(lb_name, range_start, range_end)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_download_scores_around_user(lb_name, range_start, range_end)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -1040,8 +1026,7 @@ This is an asynchronous function that will trigger the <a href="https://manual.g
 </tr>
 </tbody>
 </table>
-<p><div class="highlight"><pre><span></span><code>request_id = steam_download_scores_around_user(&quot;Game Scores&quot;, -4, 5);
-</code></pre></div>
+<p><pre class="highlight"><code class="language-gml">request_id = steam_download_scores_around_user("Game Scores", -4, 5);</code></pre>
 This will send off a request to the Steam Server for a range of 10 scores from the leaderboard <code>"Game Scores"</code>, centered on the player and will store the async ID of the request in the variable <code>request_id</code>. This will then be handled in the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a>, as shown in the example for <a href="leaderboards.html#steam_download_scores">steam_download_scores</a>.</p>
 <p><br></p>
 <p><br></p>
@@ -1059,8 +1044,7 @@ This is an asynchronous function that will trigger the <a href="https://manual.g
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_download_friends_scores(lb_name)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_download_friends_scores(lb_name)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -1131,9 +1115,76 @@ This is an asynchronous function that will trigger the <a href="https://manual.g
 </table>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<p><div class="highlight"><pre><span></span><code>request_id = steam_download_friends_scores(&quot;Game Scores&quot;);
-</code></pre></div>
+<p><pre class="highlight"><code class="language-gml">request_id = steam_download_friends_scores("Game Scores");</code></pre>
 This will send off a request to the Steam Server for the users friends scores from the given leaderboard and will store the async ID of the request in the variable <code>request_id</code>. This will then be handled in the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a>, as shown in the example for <a href="leaderboards.html#steam_download_scores">steam_download_scores</a>.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_get_leaderboard_entry_count">steam_get_leaderboard_entry_count</h1>
+<p>This function returns the total number of entries in a leaderboard.</p>
+<p>The function returns -1 in case something went wrong.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<pre class="highlight"><code class="language-gml">steam_get_leaderboard_entry_count(lb_name)</code></pre>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>lb_name</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The name of the leaderboard.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_get_leaderboard_display_type">steam_get_leaderboard_display_type</h1>
+<p>This function returns the display type of a leaderboard handle.</p>
+<p>The function returns -1 in case something went wrong.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<pre class="highlight"><code class="language-gml">steam_get_leaderboard_display_type(lb_name)</code></pre>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>lb_name</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The name of the leaderboard.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="leaderboards.html#leaderboarddisplaytype">LeaderboardDisplayType</a></p>
+</blockquote>
 <p><br></p>
 <p><br></p>
 <hr />
@@ -1144,6 +1195,7 @@ This will send off a request to the Steam Server for the users friends scores fr
 <p>These constants are referenced by the following functions:</p>
 <ul>
 <li><a href="leaderboards.html#steam_create_leaderboard">steam_create_leaderboard</a></li>
+<li><a href="leaderboards.html#steam_get_leaderboard_display_type">steam_get_leaderboard_display_type</a></li>
 </ul>
 <p><br></p>
 <table>
@@ -1255,7 +1307,7 @@ This will send off a request to the Steam Server for the users friends scores fr
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
         <a href="overlay.html" class="btn btn-neutral float-left" title="Overlay"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="lobbies.html" class="btn btn-neutral float-right" title="Lobbies">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="lobbies.html" class="btn btn-neutral float-right" title="Lobbies and Matchmaking">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
   <hr/>

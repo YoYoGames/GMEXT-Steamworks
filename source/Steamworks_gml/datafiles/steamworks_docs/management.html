@@ -43,7 +43,7 @@
                 </li>
               </ul>
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="guides.html">Guides</a>
+                <li class="toctree-l1"><a class="reference internal" href="guides.html">Setup Guide (IDE/Runtime 2022.6+)</a>
                 </li>
               </ul>
               <ul class="current">
@@ -67,11 +67,11 @@
                 </li>
               </ul>
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="lobbies.html">Lobbies</a>
+                <li class="toctree-l1"><a class="reference internal" href="lobbies.html">Lobbies and Matchmaking</a>
                 </li>
               </ul>
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="achievements.html">Achievements</a>
+                <li class="toctree-l1"><a class="reference internal" href="achievements.html">Stats and Achievements</a>
                 </li>
               </ul>
               <ul>
@@ -99,15 +99,15 @@
                 </li>
               </ul>
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="input.html">Steam Input</a>
+                <li class="toctree-l1"><a class="reference internal" href="input.html">Input</a>
                 </li>
               </ul>
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="music.html">Steam Music</a>
+                <li class="toctree-l1"><a class="reference internal" href="music.html">Music</a>
                 </li>
               </ul>
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="utilities.html">Steam Utilities</a>
+                <li class="toctree-l1"><a class="reference internal" href="utilities.html">Utilities</a>
                 </li>
               </ul>
       </div>
@@ -157,8 +157,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_init()
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_init()</code></pre>
 </blockquote>
 <p><br></p>
 <p><strong>Returns:</strong></p>
@@ -167,8 +166,7 @@
 </blockquote>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<p><div class="highlight"><pre><span></span><code>steam_init();
-</code></pre></div>
+<p><pre class="highlight"><code class="language-gml">steam_init();</code></pre>
 The above code initialises the Steam API.</p>
 <p><br></p>
 <p><br></p>
@@ -185,8 +183,7 @@ The above code initialises the Steam API.</p>
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_update()
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_update()</code></pre>
 </blockquote>
 <p><br></p>
 <p><strong>Returns:</strong></p>
@@ -235,8 +232,7 @@ The above code initialises the Steam API.</p>
 </table>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<p><div class="highlight"><pre><span></span><code>steam_update();
-</code></pre></div>
+<p><pre class="highlight"><code class="language-gml">steam_update();</code></pre>
 The above code will update the Steam APIs.</p>
 <p><br></p>
 <p><br></p>
@@ -253,8 +249,7 @@ The above code will update the Steam APIs.</p>
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_shutdown()
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_shutdown()</code></pre>
 </blockquote>
 <p><br></p>
 <p><strong>Returns:</strong></p>
@@ -285,16 +280,14 @@ The above code will update the Steam APIs.</p>
 </table>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<p><div class="highlight"><pre><span></span><code>global.is_game_restarting = true;
-game_restart();
-</code></pre></div>
+<p><pre class="highlight"><code class="language-gml">global.is_game_restarting = true;
+game_restart();</code></pre>
 The code above should be used when you want to restart your game. We set the <code>is_game_restarting</code> global variable to <code>true</code> announcing the game being restarted to true (this global variable should already be declared at the begining of your game and be set to <code>false</code> by default).
 Now inside our <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/System.htm">Game End Event</a> we can use the following code:</p>
-<p><div class="highlight"><pre><span></span><code>if (global.is_game_restarting == false) {
+<p><pre class="highlight"><code class="language-gml">if (global.is_game_restarting == false) {
     steam_shutdown();
 }
-global.is_game_restarting = false;
-</code></pre></div>
+global.is_game_restarting = false;</code></pre>
 First we check if the game is not restarting and in that case we know we are actually ending so we call the <code>steam_shutdown</code> method.</p>
 <p><br></p>
 <p><br></p>
@@ -302,7 +295,7 @@ First we check if the game is not restarting and in that case we know we are act
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="guides.html" class="btn btn-neutral float-left" title="Guides"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="guides.html" class="btn btn-neutral float-left" title="Setup Guide (IDE/Runtime 2022.6+)"><span class="icon icon-circle-arrow-left"></span> Previous</a>
         <a href="general.html" class="btn btn-neutral float-right" title="General">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 

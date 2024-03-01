@@ -43,7 +43,7 @@
                 </li>
               </ul>
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="guides.html">Guides</a>
+                <li class="toctree-l1"><a class="reference internal" href="guides.html">Setup Guide (IDE/Runtime 2022.6+)</a>
                 </li>
               </ul>
               <ul>
@@ -63,11 +63,11 @@
                 </li>
               </ul>
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="lobbies.html">Lobbies</a>
+                <li class="toctree-l1"><a class="reference internal" href="lobbies.html">Lobbies and Matchmaking</a>
                 </li>
               </ul>
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="achievements.html">Achievements</a>
+                <li class="toctree-l1"><a class="reference internal" href="achievements.html">Stats and Achievements</a>
                 </li>
               </ul>
               <ul>
@@ -103,15 +103,15 @@
                 </li>
               </ul>
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="input.html">Steam Input</a>
+                <li class="toctree-l1"><a class="reference internal" href="input.html">Input</a>
                 </li>
               </ul>
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="music.html">Steam Music</a>
+                <li class="toctree-l1"><a class="reference internal" href="music.html">Music</a>
                 </li>
               </ul>
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="utilities.html">Steam Utilities</a>
+                <li class="toctree-l1"><a class="reference internal" href="utilities.html">Utilities</a>
                 </li>
               </ul>
       </div>
@@ -179,8 +179,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_net_packet_get_data(buffer)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_net_packet_get_data(buffer)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -205,18 +204,17 @@
 </blockquote>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<p><div class="highlight"><pre><span></span><code>while (steam_net_packet_receive())
+<p><pre class="highlight"><code class="language-gml">while (steam_net_packet_receive())
 {
     steam_net_packet_get_data(inbuf);
     buffer_seek(inbuf, buffer_seek_start, 0);
     switch (buffer_read(inbuf, buffer_u8))
     {
-        case 1: show_debug_message(&quot;packet ID 1&quot;); break;
-        case 2: show_debug_message(&quot;packet ID 2&quot;); break;
-        default: show_debug_message(&quot;unknown packet&quot;); break;
+        case 1: show_debug_message("packet ID 1"); break;
+        case 2: show_debug_message("packet ID 2"); break;
+        default: show_debug_message("unknown packet"); break;
     }
-}
-</code></pre></div>
+}</code></pre>
 The code above will check for an incoming packet and get its data into a buffer (resizing if necessary) and reads from it.</p>
 <p><br></p>
 <p><br></p>
@@ -229,8 +227,7 @@ It can be used in conjunction with <a href="networking.html#steam_net_packet_sen
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_net_packet_get_sender_id()
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_net_packet_get_sender_id()</code></pre>
 </blockquote>
 <p><br></p>
 <p><strong>Returns:</strong></p>
@@ -239,7 +236,7 @@ It can be used in conjunction with <a href="networking.html#steam_net_packet_sen
 </blockquote>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<p><div class="highlight"><pre><span></span><code>while(steam_net_packet_receive())
+<p><pre class="highlight"><code class="language-gml">while(steam_net_packet_receive())
 {
     var _sender = steam_net_packet_get_sender_id();
 
@@ -247,8 +244,7 @@ It can be used in conjunction with <a href="networking.html#steam_net_packet_sen
     buffer_write(outbuf, buffer_u8, test_network_packet.ping);
 
     steam_net_packet_send(_sender, outbuf);
-}
-</code></pre></div>
+}</code></pre>
 The above code will show a code example.</p>
 <p><br></p>
 <p><br></p>
@@ -260,8 +256,7 @@ The above code will show a code example.</p>
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_net_packet_get_size()
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_net_packet_get_size()</code></pre>
 </blockquote>
 <p><br></p>
 <p><strong>Returns:</strong></p>
@@ -270,12 +265,11 @@ The above code will show a code example.</p>
 </blockquote>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<p><div class="highlight"><pre><span></span><code>while (steam_net_packet_receive())
+<p><pre class="highlight"><code class="language-gml">while (steam_net_packet_receive())
 {
     var _size = steam_net_packet_size();
-    show_debug_message(&quot;Received &quot; + string(_size) + &quot; bytes.&quot;);
-}
-</code></pre></div>
+    show_debug_message("Received " + string(_size) + " bytes.");
+}</code></pre>
 The code above will display the size of each incoming packet.</p>
 <p><br></p>
 <p><br></p>
@@ -288,8 +282,7 @@ Other steam_net_ functions can then be used to get packet information/contents.<
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_net_packet_receive()
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_net_packet_receive()</code></pre>
 </blockquote>
 <p><br></p>
 <p><strong>Returns:</strong></p>
@@ -298,11 +291,10 @@ Other steam_net_ functions can then be used to get packet information/contents.<
 </blockquote>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<p><div class="highlight"><pre><span></span><code>while (steam_net_packet_receive())
+<p><pre class="highlight"><code class="language-gml">while (steam_net_packet_receive())
 {
     // process the received packet
-}
-</code></pre></div>
+}</code></pre>
 The code above will attempt to get the next packet from Steam API. This would be used every step while in lobby or just from time to time.</p>
 <p><br></p>
 <p><br></p>
@@ -314,8 +306,7 @@ The code above will attempt to get the next packet from Steam API. This would be
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_net_packet_send(user_id, buffer, size, packet_type)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_net_packet_send(user_id, buffer, size, packet_type)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -355,11 +346,10 @@ The code above will attempt to get the next packet from Steam API. This would be
 </blockquote>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<p><div class="highlight"><pre><span></span><code>var _buf = buffer_create(16, buffer_grow, 1);
-buffer_write(_buf, buffer_string, &quot;Hello!&quot;);
+<p><pre class="highlight"><code class="language-gml">var _buf = buffer_create(16, buffer_grow, 1);
+buffer_write(_buf, buffer_string, "Hello!");
 steam_net_packet_send(steam_id, _buf, -1);
-buffer_delete(_buf);
-</code></pre></div>
+buffer_delete(_buf);</code></pre>
 The code sample will create a buffer and write to it, sending the total length of it to the given <code>steam_id</code>, the buffer is then deleted.</p>
 <p><br></p>
 <p><br></p>
@@ -371,8 +361,7 @@ The code sample will create a buffer and write to it, sending the total length o
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_net_packet_set_type(protocol)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_net_packet_set_type(protocol)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -397,8 +386,7 @@ The code sample will create a buffer and write to it, sending the total length o
 </blockquote>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<p><div class="highlight"><pre><span></span><code>steam_net_packet_set_type(steam_net_packet_type_reliable);
-</code></pre></div>
+<p><pre class="highlight"><code class="language-gml">steam_net_packet_set_type(steam_net_packet_type_reliable);</code></pre>
 The above code will set the current connection to use the <code>steam_net_packet_type_reliable</code> protocol to send data packages.</p>
 <p><br></p>
 <p><br></p>
@@ -410,8 +398,7 @@ The above code will set the current connection to use the <code>steam_net_packet
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_net_accept_p2p_session(userID)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_net_accept_p2p_session(userID)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -436,11 +423,10 @@ The above code will set the current connection to use the <code>steam_net_packet
 </blockquote>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<p><div class="highlight"><pre><span></span><code>if (isMyFriend(userID))
+<p><pre class="highlight"><code class="language-gml">if (isMyFriend(userID))
 {
     steam_net_accept_p2p_session(userID);
-}
-</code></pre></div>
+}</code></pre>
 The code above uses a custom implemented function that will check if a given <code>userID</code> is a friend and if it is it will accept the P2P session.</p>
 <p><br></p>
 <p><br></p>
@@ -453,8 +439,7 @@ Steam will automatically close sessions after a period of inactivity, but you co
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_net_close_p2p_session(user_id)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_net_close_p2p_session(user_id)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -479,11 +464,10 @@ Steam will automatically close sessions after a period of inactivity, but you co
 </blockquote>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<p><div class="highlight"><pre><span></span><code>if (global.chat_closed)
+<p><pre class="highlight"><code class="language-gml">if (global.chat_closed)
 {
      steam_net_close_p2p_session(user_id);
-}
-</code></pre></div>
+}</code></pre>
 The code above check to see if a global variable (<code>chat_closed</code>) is true and if so, it will close the P2P session.</p>
 <p><br></p>
 <p><br></p>
@@ -496,8 +480,7 @@ The code above check to see if a global variable (<code>chat_closed</code>) is t
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_net_set_auto_accept_p2p_sessions(enable)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_net_set_auto_accept_p2p_sessions(enable)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -553,14 +536,12 @@ The code above check to see if a global variable (<code>chat_closed</code>) is t
 </table>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<p><div class="highlight"><pre><span></span><code>steam_net_set_auto_accept_p2p_sessions(false);
-</code></pre></div>
+<p><pre class="highlight"><code class="language-gml">steam_net_set_auto_accept_p2p_sessions(false);</code></pre>
 The code above will disable the auto accept P2P sessions functionality meaning we  should deal with the requests manually. In order to do so we need to use the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a> to catch the callback:</p>
-<div class="highlight"><pre><span></span><code>if (async_load[?&quot;event_type&quot;] == &quot;lobby_join_requested&quot;)
+<pre class="highlight"><code class="language-gml">if (async_load[?"event_type"] == "lobby_join_requested")
 {
-    steam_net_accept_p2p_session(async_load[?&quot;friend_id&quot;]);
-}
-</code></pre></div>
+    steam_net_accept_p2p_session(async_load[?"friend_id"]);
+}</code></pre>
 <p><br></p>
 <p><br></p>
 <hr />
@@ -606,7 +587,7 @@ The code above will disable the auto accept P2P sessions functionality meaning w
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
         <a href="inventory.html" class="btn btn-neutral float-left" title="Inventory"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="input.html" class="btn btn-neutral float-right" title="Steam Input">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="input.html" class="btn btn-neutral float-right" title="Input">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
   <hr/>

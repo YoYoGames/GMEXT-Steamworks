@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="img/favicon.ico" />
-    <title>Achievements - GMEXT-Steamworks</title>
+    <title>Stats and Achievements - GMEXT-Steamworks</title>
     <link rel="stylesheet" href="css/theme.css" />
     <link rel="stylesheet" href="css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
@@ -14,7 +14,7 @@
     
       <script>
         // Current page data
-        var mkdocs_page_name = "Achievements";
+        var mkdocs_page_name = "Stats and Achievements";
         var mkdocs_page_input_path = "achievements.md";
         var mkdocs_page_url = null;
       </script>
@@ -43,7 +43,7 @@
                 </li>
               </ul>
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="guides.html">Guides</a>
+                <li class="toctree-l1"><a class="reference internal" href="guides.html">Setup Guide (IDE/Runtime 2022.6+)</a>
                 </li>
               </ul>
               <ul>
@@ -63,17 +63,21 @@
                 </li>
               </ul>
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="lobbies.html">Lobbies</a>
+                <li class="toctree-l1"><a class="reference internal" href="lobbies.html">Lobbies and Matchmaking</a>
                 </li>
               </ul>
               <ul class="current">
-                <li class="toctree-l1 current"><a class="reference internal current" href="achievements.html">Achievements</a>
+                <li class="toctree-l1 current"><a class="reference internal current" href="achievements.html">Stats and Achievements</a>
     <ul class="current">
     <li class="toctree-l2"><a class="reference internal" href="#achievements-functions">Achievements Functions</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#statistics-functions">Statistics Functions</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#debug-functions">Debug Functions</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#functions">Functions</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#structs">Structs</a>
     </li>
     </ul>
                 </li>
@@ -103,15 +107,15 @@
                 </li>
               </ul>
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="input.html">Steam Input</a>
+                <li class="toctree-l1"><a class="reference internal" href="input.html">Input</a>
                 </li>
               </ul>
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="music.html">Steam Music</a>
+                <li class="toctree-l1"><a class="reference internal" href="music.html">Music</a>
                 </li>
               </ul>
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="utilities.html">Steam Utilities</a>
+                <li class="toctree-l1"><a class="reference internal" href="utilities.html">Utilities</a>
                 </li>
               </ul>
       </div>
@@ -128,7 +132,7 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href="." class="icon icon-home" aria-label="Docs"></a></li>
-      <li class="breadcrumb-item active">Achievements</li>
+      <li class="breadcrumb-item active">Stats and Achievements</li>
     <li class="wy-breadcrumbs-aside">
           <a href="https://github.com/YoYoGames/GMEXT-Steamworks/edit/master/docs/achievements.md" class="icon icon-github"> Edit on GitHub</a>
     </li>
@@ -175,6 +179,22 @@ The following functions are provided for working with achievements:</p>
 <li><a href="achievements.html#steam_reset_all_stats">steam_reset_all_stats</a></li>
 <li><a href="achievements.html#steam_reset_all_stats_achievements">steam_reset_all_stats_achievements</a></li>
 </ul>
+<h2 id="functions">Functions</h2>
+<p>The following functions are provided for working with global stats:</p>
+<ul>
+<li><a href="achievements.html#steam_request_global_stats">steam_request_global_stats</a></li>
+<li><a href="achievements.html#steam_request_global_achievement_percentages">steam_request_global_achievement_percentages</a></li>
+<li><a href="achievements.html#steam_get_achievement_achieved_percent">steam_get_achievement_achieved_percent</a></li>
+<li><a href="achievements.html#steam_get_most_achieved_achievement_info">steam_get_most_achieved_achievement_info</a></li>
+<li><a href="achievements.html#steam_get_next_most_achieved_achievement_info">steam_get_next_most_achieved_achievement_info</a></li>
+<li><a href="achievements.html#steam_get_global_stat">steam_get_global_stat</a></li>
+<li><a href="achievements.html#steam_get_global_stat_history">steam_get_global_stat_history</a></li>
+</ul>
+<h2 id="structs">Structs</h2>
+<p>The following structs are used with stats and achievements:</p>
+<ul>
+<li><a href="achievements.html#achievementinfo">AchievementInfo</a></li>
+</ul>
 <p><br></p>
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
@@ -184,8 +204,7 @@ The following functions are provided for working with achievements:</p>
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_set_achievement(ach_name)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_set_achievement(ach_name)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -210,15 +229,14 @@ The following functions are provided for working with achievements:</p>
 </blockquote>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<p><div class="highlight"><pre><span></span><code>if hp &lt;= 0
+<p><pre class="highlight"><code class="language-gml">if hp &lt;= 0
 {
     global.Deaths += 1;
     if global.Deaths == 10
     {
-        if !steam_get_achievement(&quot;ach_Player_Dies_Ten_Times&quot;) steam_set_achievement(&quot;ach_Player_Dies_Ten_Times&quot;);
+        if !steam_get_achievement("ach_Player_Dies_Ten_Times") steam_set_achievement("ach_Player_Dies_Ten_Times");
     }
-}
-</code></pre></div>
+}</code></pre>
 The above code will reward the player an achievement if the global variable "Deaths" is equal to 10 and if the achievement has not already been awarded.</p>
 <p><br></p>
 <p><br></p>
@@ -230,8 +248,7 @@ The above code will reward the player an achievement if the global variable "Dea
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_get_achievement(ach_name)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_get_achievement(ach_name)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -256,15 +273,14 @@ The above code will reward the player an achievement if the global variable "Dea
 </blockquote>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<p><div class="highlight"><pre><span></span><code>if hp &lt;= 0
+<p><pre class="highlight"><code class="language-gml">if hp &lt;= 0
 {
     global.Deaths += 1;
     if global.Deaths == 10
     {
-        if !steam_get_achievement(&quot;ach_Player_Dies_Ten_Times&quot;) steam_set_achievement(&quot;ach_Player_Dies_Ten_Times&quot;);
+        if !steam_get_achievement("ach_Player_Dies_Ten_Times") steam_set_achievement("ach_Player_Dies_Ten_Times");
     }
-}
-</code></pre></div>
+}</code></pre>
 The above code will reward the player an achievement if the global variable "Deaths" is equal to 10 and if the achievement has not already been awarded.</p>
 <p><br></p>
 <p><br></p>
@@ -276,8 +292,7 @@ The above code will reward the player an achievement if the global variable "Dea
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_clear_achievement(ach_name)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_clear_achievement(ach_name)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -302,14 +317,13 @@ The above code will reward the player an achievement if the global variable "Dea
 </blockquote>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<p><div class="highlight"><pre><span></span><code>if mouse_check_button_pressed(mb_left)
+<p><pre class="highlight"><code class="language-gml">if mouse_check_button_pressed(mb_left)
 {
-    steam_clear_achievement(&quot;Ach_Game_Win&quot;);
-    steam_clear_achievement(&quot;Ach_Died_10_Times&quot;);
-    steam_clear_achievement(&quot;Ach_Killed_100_Enemies&quot;);
-    steam_clear_achievement(&quot;Ach_Beat_Boss_Level_1&quot;);
-}
-</code></pre></div>
+    steam_clear_achievement("Ach_Game_Win");
+    steam_clear_achievement("Ach_Died_10_Times");
+    steam_clear_achievement("Ach_Killed_100_Enemies");
+    steam_clear_achievement("Ach_Beat_Boss_Level_1");
+}</code></pre>
 The above code will reset the achievements of the game when the user clicks the left mouse button.</p>
 <p><br></p>
 <p><br></p>
@@ -321,8 +335,7 @@ The above code will reset the achievements of the game when the user clicks the 
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_set_stat_int(stat_name, value)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_set_stat_int(stat_name, value)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -352,13 +365,12 @@ The above code will reset the achievements of the game when the user clicks the 
 </blockquote>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<p><div class="highlight"><pre><span></span><code>xp += 100;
-steam_set_stat_int(&quot;Total_XP&quot;, steam_get_stat_int(&quot;Total_XP&quot;) + 100);
-if steam_get_stat_int(&quot;Total_XP&quot;) &gt; 1000
+<p><pre class="highlight"><code class="language-gml">xp += 100;
+steam_set_stat_int("Total_XP", steam_get_stat_int("Total_XP") + 100);
+if steam_get_stat_int("Total_XP") &gt; 1000
 {
-    if !steam_get_achievement(&quot;Ach_1000XP&quot;) steam_set_achievement(&quot;Ach_1000XP&quot;);
-}
-</code></pre></div>
+    if !steam_get_achievement("Ach_1000XP") steam_set_achievement("Ach_1000XP");
+}</code></pre>
 The above code sets a statistic and then checks the final value for it to decide whether to award an achievement or not.</p>
 <p><br></p>
 <p><br></p>
@@ -370,8 +382,7 @@ The above code sets a statistic and then checks the final value for it to decide
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_set_stat_float(stat_name, value)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_set_stat_float(stat_name, value)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -401,9 +412,8 @@ The above code sets a statistic and then checks the final value for it to decide
 </blockquote>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<p><div class="highlight"><pre><span></span><code>var _dist_pc = (dist / dist_max) * 100;
-steam_set_stat_float(&quot;Travelled&quot;, _dist_pc);
-</code></pre></div>
+<p><pre class="highlight"><code class="language-gml">var _dist_pc = (dist / dist_max) * 100;
+steam_set_stat_float("Travelled", _dist_pc);</code></pre>
 The above code calculates a percentage based on the distance travelled variable "dist" and the maximum distance you can travel "dist_max" and then sets the stat "Travelled" to the new value.</p>
 <p><br></p>
 <p><br></p>
@@ -415,8 +425,7 @@ The above code calculates a percentage based on the distance travelled variable 
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_set_stat_avg_rate(stat_name, session_count, session_length)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_set_stat_avg_rate(stat_name, session_count, session_length)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -454,14 +463,12 @@ The above code calculates a percentage based on the distance travelled variable 
 <p>Since the average stat function can be complex to understand, we will illustrate its use with the following example. Consider the case where you'd like to track an average statistic, such as "Points earned per hour". One approach would be to have two stats: an <em>integer</em> stat, "TotalPoints", and a <em>float</em> stat "TotalPlayTimeHours", and then divide the total points by the total time to get the "Points per Hour" value.
 However, once the player has accumulated a significant amount of playtime, the calculated average will change extremely slowly, and the more the user plays the game, the less responsive that average will be. If the user has spent 100 hours playing the game, the calculated average will "lag" by about 50 hours of that, and if they increase their skill, they will not see the increase in "Points Per Hour" that they expect. To get around that we can use a "sliding window" to only calculate the "Points per hour" for the last 10 hours played.
 So, to use this function, we would need to create a Steam stat (in the control panel for the game on the Workshop) called "AvgPointsPerHour" and set its Window property to 10. Now in your game you would have to add some global variables into an instance at the start:</p>
-<p><div class="highlight"><pre><span></span><code>global.Points = 0;
-global.Time = 0;
-</code></pre></div>
+<p><pre class="highlight"><code class="language-gml">global.Points = 0;
+global.Time = 0;</code></pre>
 You would then have some controller object to count up the global "Time" variable in an alarm (for example) every second, while your game-play would affect the global "Points" variable. At regular intervals while playing (again, in a controller object, perhaps in an Alarm, or at intervals from polling the "Time" value) you would set the stat like this:</p>
-<p><div class="highlight"><pre><span></span><code>steam_set_stat_avg_rate(&quot;AvgPointsPerHour&quot;, global.Points, (global.Time / 3600));
+<p><pre class="highlight"><code class="language-gml">steam_set_stat_avg_rate("AvgPointsPerHour", global.Points, (global.Time / 3600));
 global.Points = 0;
-global.Time = 0;
-</code></pre></div>
+global.Time = 0;</code></pre>
 Note that we divide time by 3600 since we want the time in <em>hours</em> and not in seconds, and afterward we reset the global "Points" variable and the global "Time" variable to 0 so that the next time the function is called, we get a new average for the statistic. Now, what Steam will do is take this value that you have sent and create an average value over the time that was set for our "window".</p>
 <p><br></p>
 <p><br></p>
@@ -473,8 +480,7 @@ Note that we divide time by 3600 since we want the time in <em>hours</em> and no
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_get_stat_int(stat_name)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_get_stat_int(stat_name)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -499,13 +505,12 @@ Note that we divide time by 3600 since we want the time in <em>hours</em> and no
 </blockquote>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<p><div class="highlight"><pre><span></span><code>xp += 100;
-steam_set_stat_int(&quot;Total_XP&quot;, steam_get_stat_int(&quot;Total_XP&quot;) + 100);
-if steam_get_stat_int(&quot;Total_XP&quot;) &gt; 1000
+<p><pre class="highlight"><code class="language-gml">xp += 100;
+steam_set_stat_int("Total_XP", steam_get_stat_int("Total_XP") + 100);
+if steam_get_stat_int("Total_XP") &gt; 1000
 {
-    if !steam_get_achievement(&quot;Ach_1000XP&quot;) steam_set_achievement(&quot;Ach_1000XP&quot;);
-}
-</code></pre></div>
+    if !steam_get_achievement("Ach_1000XP") steam_set_achievement("Ach_1000XP");
+}</code></pre>
 The above code sets a statistic and then checks the final value for it to decide whether to award an achievement or not.</p>
 <p><br></p>
 <p><br></p>
@@ -517,8 +522,7 @@ The above code sets a statistic and then checks the final value for it to decide
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_get_stat_float(stat_name)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_get_stat_float(stat_name)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -543,12 +547,11 @@ The above code sets a statistic and then checks the final value for it to decide
 </blockquote>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<p><div class="highlight"><pre><span></span><code>var _dist_pc = (dist / dist_max) * 100;
-if steam_get_stat_float(&quot;Travelled&quot;) &lt; _dist_pc
+<p><pre class="highlight"><code class="language-gml">var _dist_pc = (dist / dist_max) * 100;
+if steam_get_stat_float("Travelled") &lt; _dist_pc
 {
-    steam_set_stat_int(&quot;Travelled&quot;, _dist_pc);
-}
-</code></pre></div>
+    steam_set_stat_int("Travelled", _dist_pc);
+}</code></pre>
 The above code calculates a percentage based on the distance travelled variable "dist" and the maximum distance you can travel "dist_max". It then polls the current value for the statistic "Travelled" and if it is less than the calculated value, it sets the stat again.</p>
 <p><br></p>
 <p><br></p>
@@ -560,8 +563,7 @@ The above code calculates a percentage based on the distance travelled variable 
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_get_stat_avg_rate(stat_name)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_get_stat_avg_rate(stat_name)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -586,9 +588,8 @@ The above code calculates a percentage based on the distance travelled variable 
 </blockquote>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<p><div class="highlight"><pre><span></span><code>var _avg = steam_get_stat_avg_rate(&quot;PointsPerHour&quot;);
-draw_text(8, 8, &quot;PPH = &quot; + string(_avg);
-</code></pre></div>
+<p><pre class="highlight"><code class="language-gml">var _avg = steam_get_stat_avg_rate("PointsPerHour");
+draw_text(8, 8, "PPH = " + string(_avg);</code></pre>
 The above code gets the current value for the average statistic "PointsPerHour" and draws it on the screen.</p>
 <p><br></p>
 <p><br></p>
@@ -604,8 +605,7 @@ The above code gets the current value for the average statistic "PointsPerHour" 
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_reset_all_stats()
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_reset_all_stats()</code></pre>
 </blockquote>
 <p><br></p>
 <p><strong>Returns:</strong></p>
@@ -614,14 +614,13 @@ The above code gets the current value for the average statistic "PointsPerHour" 
 </blockquote>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<p><div class="highlight"><pre><span></span><code>ini_open(&quot;Save.ini&quot;);
-if global.Version != ini_read_real(&quot;Data&quot;, &quot;Version&quot;, 0)
+<p><pre class="highlight"><code class="language-gml">ini_open("Save.ini");
+if global.Version != ini_read_real("Data", "Version", 0)
 {
-    ini_write_real(&quot;Data&quot;, &quot;Version&quot;, global.Version);
+    ini_write_real("Data", "Version", global.Version);
     steam_reset_all_stats();
 }
-ini_close();
-</code></pre></div>
+ini_close();</code></pre>
 The above code checks a stored value in an INI file against that of a global variable and if they are different, it resets the statistics for the game.</p>
 <p><br></p>
 <p><br></p>
@@ -637,8 +636,7 @@ The above code checks a stored value in an INI file against that of a global var
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_reset_all_stats_achievements()
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_reset_all_stats_achievements()</code></pre>
 </blockquote>
 <p><br></p>
 <p><strong>Returns:</strong></p>
@@ -647,22 +645,400 @@ The above code checks a stored value in an INI file against that of a global var
 </blockquote>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<p><div class="highlight"><pre><span></span><code>ini_open(&quot;Save.ini&quot;);
-if global.Version != ini_read_real(&quot;Data&quot;, &quot;Version&quot;, 0)
+<p><pre class="highlight"><code class="language-gml">ini_open("Save.ini");
+if global.Version != ini_read_real("Data", "Version", 0)
 {
-    ini_write_real(&quot;Data&quot;, &quot;Version&quot;, global.Version);
+    ini_write_real("Data", "Version", global.Version);
     steam_reset_all_stats_achievements();
 }
-ini_close();
-</code></pre></div>
+ini_close();</code></pre>
 The above code checks a stored value in an INI file against that of a global variable and if they are different, it resets the statistics and achievements for the game.</p>
 <p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_request_global_stats">steam_request_global_stats</h1>
+<p>This function asynchronously fetches global stats data, which is available for stats marked as "aggregated" in the App Admin panel of the Steamworks website.</p>
+<p>This function operates asynchronously, which means that it does not immediately return the requested result. Instead, upon completion of the task, it will trigger the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<pre class="highlight"><code class="language-gml">steam_request_global_stats(history_days)</code></pre>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>history_days</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The number of days of day-by-day history to retrieve in addition to the overall totals. The limit is 60.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Triggers:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>event_type</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The string value <code>"steam_request_global_stats"</code></td>
+</tr>
+<tr>
+<td>success</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></td>
+<td>Whether the request completed successfully.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<pre class="highlight"><code class="language-gml">/// Create Event
+steam_request_global_stats(60);
+
+/// Async Steam Event
+var _type = async_load[?"event_type"];
+var _success = async_load[?"success"];
+if (_type == "steam_request_global_stats")
+{
+    show_debug_message("{0}: {1}", _type, _success);
+}</code></pre>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_request_global_achievement_percentages">steam_request_global_achievement_percentages</h1>
+<p>This function asynchronously fetches the data for the percentage of players who have received each achievement for the current game globally.</p>
+<p>This function operates asynchronously, which means that it does not immediately return the requested result. Instead, upon completion of the task, it will trigger the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<pre class="highlight"><code class="language-gml">steam_request_global_achievement_percentages()</code></pre>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Triggers:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>event_type</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The string value <code>"steam_request_global_stats"</code></td>
+</tr>
+<tr>
+<td>success</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></td>
+<td>Whether the request completed successfully.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<pre class="highlight"><code class="language-gml">/// Create Event
+steam_request_global_achievement_percentages();
+
+/// Async Steam Event
+var _type = async_load[?"event_type"];
+var _success = async_load[?"success"];
+if (_type == "steam_request_global_achievement_percentages")
+{
+    show_debug_message("{0}: {1}", _type, _success);
+}</code></pre>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_get_achievement_achieved_percent">steam_get_achievement_achieved_percent</h1>
+<p>This function returns the percentage of users who have unlocked the specified achievement from 0 to 100.</p>
+<p>If anything went wrong the value 0 is returned.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You must have called <a href="achievements.html#steam_request_global_achievement_percentages">steam_request_global_achievement_percentages</a> and it needs to return successfully via the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a> prior to calling this.</p>
+</div>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<pre class="highlight"><code class="language-gml">steam_get_achievement_achieved_percent(stat_name)</code></pre>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>stat_name</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The 'API Name' of the achievement.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><pre class="highlight"><code class="language-gml">var _stat_name = "Win_5_Times_In_A_Row";
+var _pct_users_achieved = steam_get_achievement_achieved_percent(_stat_name);
+show_debug_message("{0} percent of users achieved {1}", _pct_users_achieved, _stat_name);</code></pre>
+The code example above shows how to call the function <code>steam_get_achievement_achieved_percent</code> and show the result in a descriptive debug message.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_get_most_achieved_achievement_info">steam_get_most_achieved_achievement_info</h1>
+<p>This function gets the info on the most achieved achievement for the game.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You must have called <a href="achievements.html#steam_request_global_achievement_percentages">steam_request_global_achievement_percentages</a> and it needs to return successfully via the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a> prior to calling this.</p>
+</div>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<pre class="highlight"><code class="language-gml">steam_get_most_achieved_achievement_info()</code></pre>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="achievements.html#achievementinfo">AchievementInfo</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><pre class="highlight"><code class="language-gml">var _info = steam_get_most_achieved_achievement_info();
+while (_info.iterator != -1)
+{
+    show_debug_message($"{_info.achievement} - achieved: {_info.achieved} (unlocked by {_info.percent}% of players)");
+    _info = steam_get_next_most_achieved_achievement_info(_info.iterator);
+}</code></pre>
+The code example above shows how to loop through the most achieved achievements and show a debug message with info on each of them.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_get_next_most_achieved_achievement_info">steam_get_next_most_achieved_achievement_info</h1>
+<p>This function gets the info on the next most achieved achievement for the game.</p>
+<p>An iterator value of <code>-1</code> indicates that the previous item was the last one.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You must have called <a href="achievements.html#steam_request_global_achievement_percentages">steam_request_global_achievement_percentages</a> and it needs to return successfully via the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a> prior to calling this.</p>
+</div>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<pre class="highlight"><code class="language-gml">steam_get_next_most_achieved_achievement_info(iterator_previous)</code></pre>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>iterator_previous</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The iterator value returned from the previous call to this function or from <a href="achievements.html#steam_get_most_achieved_achievement_info">steam_get_most_achieved_achievement_info</a>.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="achievements.html#achievementinfo">AchievementInfo</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><pre class="highlight"><code class="language-gml">var _info = steam_get_most_achieved_achievement_info();
+while (_info.iterator != -1) {
+    show_debug_message($"{_info.achievement} - achieved: {_info.achieved} (unlocked by {_info.percent}% of players)");
+    _info = steam_get_next_most_achieved_achievement_info(_info.iterator);
+}</code></pre>
+The code example above shows how to loop through the most achieved achievements and show a debug message with info on each of them.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_get_global_stat">steam_get_global_stat</h1>
+<p>This function gets the lifetime totals for an aggregated stat.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You must have called <a href="achievements.html#steam_request_global_stats">steam_request_global_stats</a> and it needs to return successfully via its <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a> prior to calling this.</p>
+</div>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<pre class="highlight"><code class="language-gml">steam_get_global_stat(stat_name)</code></pre>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>stat_name</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The 'API Name' of the stat.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<pre class="highlight"><code class="language-gml">var _val = steam_get_global_stat("Eggs_Hatched");</code></pre>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_get_global_stat_history">steam_get_global_stat_history</h1>
+<p>This function gets the daily history for an aggregated stat.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You must have called <a href="achievements.html#steam_request_global_stats">steam_request_global_stats</a> and it needs to return successfully via its <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a> prior to calling this.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The maximum number of items returned will be the value passed to <a href="achievements.html#steam_request_global_stats">steam_request_global_stats</a>.</p>
+</div>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<pre class="highlight"><code class="language-gml">steam_get_global_stat_history(stat_name)</code></pre>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>stat_name</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The 'API Name' of the stat.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Arrays.htm">Array</a> of <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><pre class="highlight"><code class="language-gml">var _name = "Eggs_Hatched";
+var _arr_history = steam_get_global_stat_history("Eggs_Hatched");
+show_debug_message("Evolution:");
+array_foreach(_arr_history, function(_element, _index) { show_debug_message($"Day {_index}: {_element}"); });</code></pre>
+The code example above shows how to get the global stat history and show it using multiple debug messages.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="achievementinfo">AchievementInfo</h1>
+<p>This struct holds information about an achievement.</p>
+<p>This struct is referenced by the following functions:</p>
+<ul>
+<li><a href="achievements.html#steam_get_most_achieved_achievement_info">steam_get_most_achieved_achievement_info</a></li>
+<li><a href="achievements.html#steam_get_next_most_achieved_achievement_info">steam_get_next_most_achieved_achievement_info</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>iterator</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The iterator value at the given achievement. A value of <code>-1</code> indicates that the previously returned item was the last item.</td>
+</tr>
+<tr>
+<td>percent</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The percentage of people that have unlocked this achievement from 0 to 100.</td>
+</tr>
+<tr>
+<td>achievement</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The 'API Name' of the achievement.</td>
+</tr>
+<tr>
+<td>achieved</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></td>
+<td>Whether the player achieved this achievement.</td>
+</tr>
+</tbody>
+</table>
 <p><br></p>
               
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="lobbies.html" class="btn btn-neutral float-left" title="Lobbies"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="lobbies.html" class="btn btn-neutral float-left" title="Lobbies and Matchmaking"><span class="icon icon-circle-arrow-left"></span> Previous</a>
         <a href="cloud.html" class="btn btn-neutral float-right" title="Cloud">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 

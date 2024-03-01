@@ -43,7 +43,7 @@
                 </li>
               </ul>
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="guides.html">Guides</a>
+                <li class="toctree-l1"><a class="reference internal" href="guides.html">Setup Guide (IDE/Runtime 2022.6+)</a>
                 </li>
               </ul>
               <ul>
@@ -63,11 +63,11 @@
                 </li>
               </ul>
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="lobbies.html">Lobbies</a>
+                <li class="toctree-l1"><a class="reference internal" href="lobbies.html">Lobbies and Matchmaking</a>
                 </li>
               </ul>
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="achievements.html">Achievements</a>
+                <li class="toctree-l1"><a class="reference internal" href="achievements.html">Stats and Achievements</a>
                 </li>
               </ul>
               <ul>
@@ -99,15 +99,15 @@
                 </li>
               </ul>
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="input.html">Steam Input</a>
+                <li class="toctree-l1"><a class="reference internal" href="input.html">Input</a>
                 </li>
               </ul>
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="music.html">Steam Music</a>
+                <li class="toctree-l1"><a class="reference internal" href="music.html">Music</a>
                 </li>
               </ul>
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="utilities.html">Steam Utilities</a>
+                <li class="toctree-l1"><a class="reference internal" href="utilities.html">Utilities</a>
                 </li>
               </ul>
       </div>
@@ -156,8 +156,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_user_owns_dlc(dlc_id)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_user_owns_dlc(dlc_id)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -182,15 +181,14 @@
 </blockquote>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<p><div class="highlight"><pre><span></span><code>global.Level_Max = 100;
+<p><pre class="highlight"><code class="language-gml">global.Level_Max = 100;
 if steam_user_owns_dlc(10354)
 {
     if steam_user_installed_dlc(10354)
     {
         global.Level_max = 200;
     }
-}
-</code></pre></div>
+}</code></pre>
 The above code will check to see if the user has bought, and installed, the DLC with the ID 10354, and if so set a global variable to a different value.</p>
 <p><br></p>
 <p><br></p>
@@ -202,8 +200,7 @@ The above code will check to see if the user has bought, and installed, the DLC 
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_user_installed_dlc(dlc_id)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_user_installed_dlc(dlc_id)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -228,15 +225,14 @@ The above code will check to see if the user has bought, and installed, the DLC 
 </blockquote>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<p><div class="highlight"><pre><span></span><code>global.Level_Max = 100;
+<p><pre class="highlight"><code class="language-gml">global.Level_Max = 100;
 if (steam_user_owns_dlc(10354))
 {
     if (steam_user_installed_dlc(10354))
     {
         global.Level_max = 200;
     }
-}
-</code></pre></div>
+}</code></pre>
 The above code will check to see if the user has bought, and installed, the DLC with the ID 10354, and if so set a global variable to a different value.</p>
 <p><br></p>
 <p><br></p>

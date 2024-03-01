@@ -43,7 +43,7 @@
                 </li>
               </ul>
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="guides.html">Guides</a>
+                <li class="toctree-l1"><a class="reference internal" href="guides.html">Setup Guide (IDE/Runtime 2022.6+)</a>
                 </li>
               </ul>
               <ul>
@@ -63,11 +63,11 @@
                 </li>
               </ul>
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="lobbies.html">Lobbies</a>
+                <li class="toctree-l1"><a class="reference internal" href="lobbies.html">Lobbies and Matchmaking</a>
                 </li>
               </ul>
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="achievements.html">Achievements</a>
+                <li class="toctree-l1"><a class="reference internal" href="achievements.html">Stats and Achievements</a>
                 </li>
               </ul>
               <ul class="current">
@@ -103,15 +103,15 @@
                 </li>
               </ul>
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="input.html">Steam Input</a>
+                <li class="toctree-l1"><a class="reference internal" href="input.html">Input</a>
                 </li>
               </ul>
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="music.html">Steam Music</a>
+                <li class="toctree-l1"><a class="reference internal" href="music.html">Music</a>
                 </li>
               </ul>
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="utilities.html">Steam Utilities</a>
+                <li class="toctree-l1"><a class="reference internal" href="utilities.html">Utilities</a>
                 </li>
               </ul>
       </div>
@@ -189,8 +189,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_is_cloud_enabled_for_app()
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_is_cloud_enabled_for_app()</code></pre>
 </blockquote>
 <p><br></p>
 <p><strong>Returns:</strong></p>
@@ -199,11 +198,10 @@
 </blockquote>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<p><div class="highlight"><pre><span></span><code>if (steam_is_cloud_enabled_for_app())
+<p><pre class="highlight"><code class="language-gml">if (steam_is_cloud_enabled_for_app())
 {
     quota = steam_get_quota_total();
-}
-</code></pre></div>
+}</code></pre>
 The above code checks to see if the Steam Cloud is enabled for the game and if so it gets the size of the storage quota and stores it in a variable.</p>
 <p><br></p>
 <p><br></p>
@@ -219,8 +217,7 @@ The above code checks to see if the Steam Cloud is enabled for the game and if s
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_is_cloud_enabled_for_account()
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_is_cloud_enabled_for_account()</code></pre>
 </blockquote>
 <p><br></p>
 <p><strong>Returns:</strong></p>
@@ -229,11 +226,10 @@ The above code checks to see if the Steam Cloud is enabled for the game and if s
 </blockquote>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<p><div class="highlight"><pre><span></span><code>if (steam_is_cloud_enabled_for_account())
+<p><pre class="highlight"><code class="language-gml">if (steam_is_cloud_enabled_for_account())
 {
-    steam_file_share(&quot;Save.txt&quot;);
-}
-</code></pre></div>
+    steam_file_share("Save.txt");
+}</code></pre>
 The above code checks to see if the user has the Steam Cloud enabled and if it returns <code>true</code>, it will then synchronize the given file.</p>
 <p><br></p>
 <p><br></p>
@@ -249,8 +245,7 @@ The above code checks to see if the user has the Steam Cloud enabled and if it r
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_get_quota_total()
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_get_quota_total()</code></pre>
 </blockquote>
 <p><br></p>
 <p><strong>Returns:</strong></p>
@@ -259,11 +254,10 @@ The above code checks to see if the user has the Steam Cloud enabled and if it r
 </blockquote>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<p><div class="highlight"><pre><span></span><code>if (steam_is_cloud_enabled_for_app())
+<p><pre class="highlight"><code class="language-gml">if (steam_is_cloud_enabled_for_app())
 {
     quota = steam_get_quota_total();
-}
-</code></pre></div>
+}</code></pre>
 The above code checks to see if the Steam Cloud is enabled for the game and if so it gets the size of the storage quota and stores it in a variable.</p>
 <p><br></p>
 <p><br></p>
@@ -275,8 +269,7 @@ The above code checks to see if the Steam Cloud is enabled for the game and if s
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_get_quota_free()
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_get_quota_free()</code></pre>
 </blockquote>
 <p><br></p>
 <p><strong>Returns:</strong></p>
@@ -285,11 +278,10 @@ The above code checks to see if the Steam Cloud is enabled for the game and if s
 </blockquote>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<p><div class="highlight"><pre><span></span><code>if (steam_is_cloud_enabled_for_app())
+<p><pre class="highlight"><code class="language-gml">if (steam_is_cloud_enabled_for_app())
 {
     quota = steam_get_quota_free();
-}
-</code></pre></div>
+}</code></pre>
 The above code checks to see if the Steam Cloud is enabled for the game and if so it gets the size of the free storage space and stores it in a variable.</p>
 <p><br></p>
 <p><br></p>
@@ -301,8 +293,7 @@ The above code checks to see if the Steam Cloud is enabled for the game and if s
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_file_exists(filename)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_file_exists(filename)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -327,11 +318,10 @@ The above code checks to see if the Steam Cloud is enabled for the game and if s
 </blockquote>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<p><div class="highlight"><pre><span></span><code>if (steam_file_exists(&quot;Save.txt&quot;))
+<p><pre class="highlight"><code class="language-gml">if (steam_file_exists("Save.txt"))
 {
-    save_str = steam_file_read(&quot;Save.txt&quot;);
-}
-</code></pre></div>
+    save_str = steam_file_read("Save.txt");
+}</code></pre>
 The above code checks to see if a file exists on the Steam Cloud and if it does, it opens it and reads its contents into the variable "save_str".</p>
 <p><br></p>
 <p><br></p>
@@ -343,8 +333,7 @@ The above code checks to see if a file exists on the Steam Cloud and if it does,
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_file_size(filename)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_file_size(filename)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -369,8 +358,7 @@ The above code checks to see if a file exists on the Steam Cloud and if it does,
 </blockquote>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<p><div class="highlight"><pre><span></span><code>file_bytes = steam_file_size(&quot;Save.txt&quot;);
-</code></pre></div>
+<p><pre class="highlight"><code class="language-gml">file_bytes = steam_file_size("Save.txt");</code></pre>
 The above code stores the size of a file from the Steam Cloud in the variable "file_bytes".</p>
 <p><br></p>
 <p><br></p>
@@ -382,8 +370,7 @@ The above code stores the size of a file from the Steam Cloud in the variable "f
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_file_persisted(filename)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_file_persisted(filename)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -408,11 +395,10 @@ The above code stores the size of a file from the Steam Cloud in the variable "f
 </blockquote>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<p><div class="highlight"><pre><span></span><code>if (!steam_file_persisted(&quot;Save.txt&quot;))
+<p><pre class="highlight"><code class="language-gml">if (!steam_file_persisted("Save.txt"))
 {
-    steam_file_share(&quot;Save.txt&quot;);
-}
-</code></pre></div>
+    steam_file_share("Save.txt");
+}</code></pre>
 The above code will check to see if a file has been stored to the Steam Cloud, and if it has not it will then synchronize it.</p>
 <p><br></p>
 <p><br></p>
@@ -424,8 +410,7 @@ The above code will check to see if a file has been stored to the Steam Cloud, a
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_file_write(filename, data, size)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_file_write(filename, data, size)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -460,11 +445,10 @@ The above code will check to see if a file has been stored to the Steam Cloud, a
 </blockquote>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<p><div class="highlight"><pre><span></span><code>var _fname = &quot;SaveData.txt&quot;;
-var _data = string(global.Level) + &quot;|&quot; + string(global.Points) + &quot;|&quot; + string(global.HP);
+<p><pre class="highlight"><code class="language-gml">var _fname = "SaveData.txt";
+var _data = string(global.Level) + "|" + string(global.Points) + "|" + string(global.HP);
 var _len = string_length(_data);
-steam_file_write_file(_fname, _data, _len);
-</code></pre></div>
+steam_file_write_file(_fname, _data, _len);</code></pre>
 The above code will prepare a number of local variables and then use them to write to (or create) a file which will then be synchronized with the Steam Cloud.</p>
 <p><br></p>
 <p><br></p>
@@ -476,8 +460,7 @@ The above code will prepare a number of local variables and then use them to wri
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_file_write_file(steam_filename, local_filename)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_file_write_file(steam_filename, local_filename)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -507,8 +490,7 @@ The above code will prepare a number of local variables and then use them to wri
 </blockquote>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<p><div class="highlight"><pre><span></span><code>steam_file_write_file(&quot;rm_koala.png&quot;, &quot;Koala2.png&quot;);
-</code></pre></div>
+<p><pre class="highlight"><code class="language-gml">steam_file_write_file("rm_koala.png", "Koala2.png");</code></pre>
 The above code will copy the contents of the file "Koala2.png" to the Steam Cloud file "rm_koala.png".</p>
 <p><br></p>
 <p><br></p>
@@ -520,8 +502,7 @@ The above code will copy the contents of the file "Koala2.png" to the Steam Clou
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_file_read(filename)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_file_read(filename)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -546,11 +527,10 @@ The above code will copy the contents of the file "Koala2.png" to the Steam Clou
 </blockquote>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<p><div class="highlight"><pre><span></span><code>if steam_file_exists(&quot;Save.txt&quot;)
+<p><pre class="highlight"><code class="language-gml">if steam_file_exists("Save.txt")
 {
-    save_str = steam_file_read(&quot;Save.txt&quot;);
-}
-</code></pre></div>
+    save_str = steam_file_read("Save.txt");
+}</code></pre>
 The above code checks to see if a file exists on the Steam Cloud and if it does, it opens it and reads its contents into the variable "save_str".</p>
 <p><br></p>
 <p><br></p>
@@ -562,8 +542,7 @@ The above code checks to see if a file exists on the Steam Cloud and if it does,
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_file_share(filename)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_file_share(filename)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -588,11 +567,10 @@ The above code checks to see if a file exists on the Steam Cloud and if it does,
 </blockquote>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<p><div class="highlight"><pre><span></span><code>if (!steam_file_persisted(&quot;Save.txt&quot;))
+<p><pre class="highlight"><code class="language-gml">if (!steam_file_persisted("Save.txt"))
 {
-    steam_file_share(&quot;Save.txt&quot;);
-}
-</code></pre></div>
+    steam_file_share("Save.txt");
+}</code></pre>
 The above code will check to see if a file has been stored to the Steam Cloud, and if it has not it will then synchronize it.</p>
 <p><br></p>
 <p><br></p>
@@ -604,8 +582,7 @@ The above code will check to see if a file has been stored to the Steam Cloud, a
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_file_delete(filename)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_file_delete(filename)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -630,11 +607,10 @@ The above code will check to see if a file has been stored to the Steam Cloud, a
 </blockquote>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<p><div class="highlight"><pre><span></span><code>if (steam_file_exists(&quot;Save.txt&quot;))
+<p><pre class="highlight"><code class="language-gml">if (steam_file_exists("Save.txt"))
 {
-    steam_file_delete(&quot;Save.txt&quot;);
-}
-</code></pre></div>
+    steam_file_delete("Save.txt");
+}</code></pre>
 The above code will check to see if a file exists, and if it does, it deletes the file from the Steam Cloud.</p>
 <p><br></p>
 <p><br></p>
@@ -646,8 +622,7 @@ The above code will check to see if a file exists, and if it does, it deletes th
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_get_local_file_change()
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_get_local_file_change()</code></pre>
 </blockquote>
 <p><br></p>
 <p><strong>Returns:</strong></p>
@@ -664,8 +639,7 @@ The above code will check to see if a file exists, and if it does, it deletes th
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_get_local_file_change_count()
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_get_local_file_change_count()</code></pre>
 </blockquote>
 <p><br></p>
 <p><strong>Returns:</strong></p>
@@ -682,8 +656,7 @@ The above code will check to see if a file exists, and if it does, it deletes th
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_file_get_list()
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_file_get_list()</code></pre>
 </blockquote>
 <p><br></p>
 <p><strong>Returns:</strong></p>
@@ -692,15 +665,14 @@ The above code will check to see if a file exists, and if it does, it deletes th
 </blockquote>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<p><div class="highlight"><pre><span></span><code>var _i = 0;
+<p><pre class="highlight"><code class="language-gml">var _i = 0;
 var files = steam_file_get_list();
 for (var i = 0, len = array_length(files); i &lt; len; ++i)
 {
     var file = files[i];
-    draw_text(50, 100 + _i++ * 30, file.file_name + &quot; size is &quot; + string(file.file_size));
+    draw_text(50, 100 + _i++ * 30, file.file_name + " size is " + string(file.file_size));
     // steam_file_delete(file.file_name); // etc...
-}
-</code></pre></div>
+}</code></pre>
 The above code will enumerate through all cloud files and draw their information on the screen.</p>
 <p><br></p>
 <p><br></p>
@@ -841,7 +813,7 @@ The above code will enumerate through all cloud files and draw their information
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="achievements.html" class="btn btn-neutral float-left" title="Achievements"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="achievements.html" class="btn btn-neutral float-left" title="Stats and Achievements"><span class="icon icon-circle-arrow-left"></span> Previous</a>
         <a href="dlc.html" class="btn btn-neutral float-right" title="DLC">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 

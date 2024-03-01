@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="img/favicon.ico" />
-    <title>Lobbies - GMEXT-Steamworks</title>
+    <title>Lobbies and Matchmaking - GMEXT-Steamworks</title>
     <link rel="stylesheet" href="css/theme.css" />
     <link rel="stylesheet" href="css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
@@ -14,7 +14,7 @@
     
       <script>
         // Current page data
-        var mkdocs_page_name = "Lobbies";
+        var mkdocs_page_name = "Lobbies and Matchmaking";
         var mkdocs_page_input_path = "lobbies.md";
         var mkdocs_page_url = null;
       </script>
@@ -43,7 +43,7 @@
                 </li>
               </ul>
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="guides.html">Guides</a>
+                <li class="toctree-l1"><a class="reference internal" href="guides.html">Setup Guide (IDE/Runtime 2022.6+)</a>
                 </li>
               </ul>
               <ul>
@@ -63,7 +63,7 @@
                 </li>
               </ul>
               <ul class="current">
-                <li class="toctree-l1 current"><a class="reference internal current" href="lobbies.html">Lobbies</a>
+                <li class="toctree-l1 current"><a class="reference internal current" href="lobbies.html">Lobbies and Matchmaking</a>
     <ul class="current">
     <li class="toctree-l2"><a class="reference internal" href="#current-lobby">Current Lobby</a>
     </li>
@@ -75,7 +75,7 @@
                 </li>
               </ul>
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="achievements.html">Achievements</a>
+                <li class="toctree-l1"><a class="reference internal" href="achievements.html">Stats and Achievements</a>
                 </li>
               </ul>
               <ul>
@@ -103,15 +103,15 @@
                 </li>
               </ul>
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="input.html">Steam Input</a>
+                <li class="toctree-l1"><a class="reference internal" href="input.html">Input</a>
                 </li>
               </ul>
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="music.html">Steam Music</a>
+                <li class="toctree-l1"><a class="reference internal" href="music.html">Music</a>
                 </li>
               </ul>
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="utilities.html">Steam Utilities</a>
+                <li class="toctree-l1"><a class="reference internal" href="utilities.html">Utilities</a>
                 </li>
               </ul>
       </div>
@@ -128,7 +128,7 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href="." class="icon icon-home" aria-label="Docs"></a></li>
-      <li class="breadcrumb-item active">Lobbies</li>
+      <li class="breadcrumb-item active">Lobbies and Matchmaking</li>
     <li class="wy-breadcrumbs-aside">
           <a href="https://github.com/YoYoGames/GMEXT-Steamworks/edit/master/docs/lobbies.md" class="icon icon-github"> Edit on GitHub</a>
     </li>
@@ -200,8 +200,7 @@ The invitation overlay is much akin to the friends-list overlay, but only shows 
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_lobby_activate_invite_overlay()
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_lobby_activate_invite_overlay()</code></pre>
 </blockquote>
 <p><br></p>
 <p><strong>Returns:</strong></p>
@@ -247,8 +246,7 @@ The invitation overlay is much akin to the friends-list overlay, but only shows 
 </table>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<p><div class="highlight"><pre><span></span><code>steam_lobby_activate_invite_overlay();
-</code></pre></div>
+<p><pre class="highlight"><code class="language-gml">steam_lobby_activate_invite_overlay();</code></pre>
 The above code will show the Steam invite overlay.</p>
 <p><br></p>
 <p><br></p>
@@ -262,8 +260,7 @@ This is an asynchronous function that will trigger the <a href="https://manual.g
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_lobby_create(type, max_members)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_lobby_create(type, max_members)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -367,15 +364,14 @@ This is an asynchronous function that will trigger the <a href="https://manual.g
 </table>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<p><div class="highlight"><pre><span></span><code>var _type = async_load[? &quot;type&quot;];
-if (_type == &quot;lobby_created&quot;)
+<p><pre class="highlight"><code class="language-gml">var _type = async_load[? "type"];
+if (_type == "lobby_created")
 {
-    if (async_load[? &quot;success&quot;])
-        show_debug_message(&quot;Lobby created&quot;);
+    if (async_load[? "success"])
+        show_debug_message("Lobby created");
     else
-        show_debug_message(&quot;Failed to create lobby&quot;);
-}
-</code></pre></div>
+        show_debug_message("Failed to create lobby");
+}</code></pre>
 in the example we are simply outputting the success of the lobby creation task.</p>
 <p><br></p>
 <p><br></p>
@@ -387,8 +383,7 @@ in the example we are simply outputting the success of the lobby creation task.<
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_lobby_get_chat_message_data(message_index, buffer)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_lobby_get_chat_message_data(message_index, buffer)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -418,9 +413,8 @@ in the example we are simply outputting the success of the lobby creation task.<
 </blockquote>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<p><div class="highlight"><pre><span></span><code>chat_message_buf = buffer_create(steam_lobby_max_chat_message_size, buffer_fixed, 1);
-steam_lobby_get_chat_message_data(_msg_index, chat_message_buf);
-</code></pre></div>
+<p><pre class="highlight"><code class="language-gml">chat_message_buf = buffer_create(steam_lobby_max_chat_message_size, buffer_fixed, 1);
+steam_lobby_get_chat_message_data(_msg_index, chat_message_buf);</code></pre>
 The code above will get the current message data and place it into a buffer (resizing if required and allowed, i.e.: <strong>buffer_grow</strong>).</p>
 <p><br></p>
 <p><br></p>
@@ -432,8 +426,7 @@ The code above will get the current message data and place it into a buffer (res
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_lobby_get_chat_message_size(message_index)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_lobby_get_chat_message_size(message_index)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -458,14 +451,13 @@ The code above will get the current message data and place it into a buffer (res
 </blockquote>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<p><div class="highlight"><pre><span></span><code>///@desc Async Steam Event
-switch (async[? &quot;event_type&quot;])
+<p><pre class="highlight"><code class="language-gml">///@desc Async Steam Event
+switch (async[? "event_type"])
 {
-    case &quot;lobby_chat_message&quot;:
-        size = steam_lobby_get_chat_message_size(async_load[?&quot;message_index&quot;]);
+    case "lobby_chat_message":
+        size = steam_lobby_get_chat_message_size(async_load[?"message_index"]);
         break;
-}
-</code></pre></div>
+}</code></pre>
 The code above will get the current message size in bytes.</p>
 <p><br></p>
 <p><br></p>
@@ -477,8 +469,7 @@ The code above will get the current message size in bytes.</p>
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_lobby_get_chat_message_text(index)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_lobby_get_chat_message_text(index)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -503,14 +494,13 @@ The code above will get the current message size in bytes.</p>
 </blockquote>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<p><div class="highlight"><pre><span></span><code>///@desc Async Steam Event
-switch (async[? &quot;event_type&quot;])
+<p><pre class="highlight"><code class="language-gml">///@desc Async Steam Event
+switch (async[? "event_type"])
 {
-    case &quot;lobby_chat_message&quot;:
-        text = steam_lobby_get_chat_message_text(async_load[?&quot;message_index&quot;]);
+    case "lobby_chat_message":
+        text = steam_lobby_get_chat_message_text(async_load[?"message_index"]);
         break;
-}
-</code></pre></div>
+}</code></pre>
 The code above will get the current message text.</p>
 <p><br></p>
 <p><br></p>
@@ -522,8 +512,7 @@ The code above will get the current message text.</p>
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_lobby_get_data(key)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_lobby_get_data(key)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -548,8 +537,7 @@ The code above will get the current message text.</p>
 </blockquote>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<p><div class="highlight"><pre><span></span><code>var _title = steam_lobby_get_data(&quot;title&quot;);
-</code></pre></div>
+<p><pre class="highlight"><code class="language-gml">var _title = steam_lobby_get_data("title");</code></pre>
 The code above will return the data of the <code>title</code> field of the current value.</p>
 <p><br></p>
 <p><br></p>
@@ -561,8 +549,7 @@ The code above will return the data of the <code>title</code> field of the curre
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_lobby_get_lobby_id()
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_lobby_get_lobby_id()</code></pre>
 </blockquote>
 <p><br></p>
 <p><strong>Returns:</strong></p>
@@ -571,8 +558,7 @@ The code above will return the data of the <code>title</code> field of the curre
 </blockquote>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<p><div class="highlight"><pre><span></span><code>var _lobby_id = steam_lobby_get_lobby_id();
-</code></pre></div>
+<p><pre class="highlight"><code class="language-gml">var _lobby_id = steam_lobby_get_lobby_id();</code></pre>
 The code above will get the current lobby ID and store it in a variable.</p>
 <p><br></p>
 <p><br></p>
@@ -585,8 +571,7 @@ If the lobby is not valid, it returns 0.</p>
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_lobby_get_member_count()
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_lobby_get_member_count()</code></pre>
 </blockquote>
 <p><br></p>
 <p><strong>Returns:</strong></p>
@@ -595,12 +580,11 @@ If the lobby is not valid, it returns 0.</p>
 </blockquote>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<p><div class="highlight"><pre><span></span><code>for(var i = 0 ; i &lt; steam_lobby_get_member_count() ; i++)
+<p><pre class="highlight"><code class="language-gml">for(var i = 0 ; i &lt; steam_lobby_get_member_count() ; i++)
 {
     var _user_id = steam_lobby_get_member_id(i);
     //Do something with the user ID
-}
-</code></pre></div>
+}</code></pre>
 The code sample above will get the total number of member in the current lobby and iterate over all of them getting their unique ID's, using the <a href="lobbies.html#steam_lobby_get_member_id">steam_lobby_get_member_id</a> function.</p>
 <p><br></p>
 <p><br></p>
@@ -612,8 +596,7 @@ The code sample above will get the total number of member in the current lobby a
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_lobby_get_member_id(index)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_lobby_get_member_id(index)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -638,12 +621,11 @@ The code sample above will get the total number of member in the current lobby a
 </blockquote>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<p><div class="highlight"><pre><span></span><code>for(var i = 0 ; i &lt; steam_lobby_get_member_count() ; i++)
+<p><pre class="highlight"><code class="language-gml">for(var i = 0 ; i &lt; steam_lobby_get_member_count() ; i++)
 {
     var _user_id = steam_lobby_get_member_id(i);
     //Do something with the user id
-}
-</code></pre></div>
+}</code></pre>
 The code sample above will iterate over all of the members inside a lobby and get their unique ID's.</p>
 <p><br></p>
 <p><br></p>
@@ -655,8 +637,7 @@ The code sample above will iterate over all of the members inside a lobby and ge
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_lobby_get_owner_id()
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_lobby_get_owner_id()</code></pre>
 </blockquote>
 <p><br></p>
 <p><strong>Returns:</strong></p>
@@ -665,8 +646,7 @@ The code sample above will iterate over all of the members inside a lobby and ge
 </blockquote>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<p><div class="highlight"><pre><span></span><code>var _lobby_owner = steam_lobby_get_owner_id();
-</code></pre></div>
+<p><pre class="highlight"><code class="language-gml">var _lobby_owner = steam_lobby_get_owner_id();</code></pre>
 The code above will return the unique ID of the owner of the current lobby.</p>
 <p><br></p>
 <p><br></p>
@@ -682,8 +662,7 @@ The code above will return the unique ID of the owner of the current lobby.</p>
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_lobby_is_owner()
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_lobby_is_owner()</code></pre>
 </blockquote>
 <p><br></p>
 <p><strong>Returns:</strong></p>
@@ -692,7 +671,7 @@ The code above will return the unique ID of the owner of the current lobby.</p>
 </blockquote>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<p><div class="highlight"><pre><span></span><code>for (var i = 0; i &lt; steam_lobby_get_member_count(); i++)
+<p><pre class="highlight"><code class="language-gml">for (var i = 0; i &lt; steam_lobby_get_member_count(); i++)
 {
     if (!steam_lobby_is_owner())
     {
@@ -700,8 +679,7 @@ The code above will return the unique ID of the owner of the current lobby.</p>
         steam_lobby_set_owner_id(_user_id);
         break;
     }
-}
-</code></pre></div>
+}</code></pre>
 The code example will loop through all the members in a lobby and transfers ownership to the first member that is not the owner.</p>
 <p><br></p>
 <p><br></p>
@@ -715,8 +693,7 @@ This is an asynchronous function that will trigger the <a href="https://manual.g
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_lobby_join_id(lobby_id)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_lobby_join_id(lobby_id)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -815,18 +792,16 @@ This is an asynchronous function that will trigger the <a href="https://manual.g
 </table>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<p><div class="highlight"><pre><span></span><code>steam_lobby_join_id(lobbyID);
-</code></pre></div>
+<p><pre class="highlight"><code class="language-gml">steam_lobby_join_id(lobbyID);</code></pre>
 The code will attempt the join a lobby with a given ID, the task callback can be listened to inside the the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a> with the folllowing sample code:
-<div class="highlight"><pre><span></span><code>var _type = async_load[? &quot;type&quot;];
-if (_type == &quot;lobby_joined&quot;)
+<pre class="highlight"><code class="language-gml">var _type = async_load[? "type"];
+if (_type == "lobby_joined")
 {
-    var _lobby_id = async_load[? &quot;lobby_id&quot;];
-    var _success = async_load[? &quot;success&quot;];
+    var _lobby_id = async_load[? "lobby_id"];
+    var _success = async_load[? "success"];
 
     // Do something with the data
-}
-</code></pre></div>
+}</code></pre>
 In the example we are simply caching the data into variables.</p>
 <p><br></p>
 <p><br></p>
@@ -843,8 +818,7 @@ In the example we are simply caching the data into variables.</p>
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_lobby_leave()
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_lobby_leave()</code></pre>
 </blockquote>
 <p><br></p>
 <p><strong>Returns:</strong></p>
@@ -895,8 +869,7 @@ In the example we are simply caching the data into variables.</p>
 </table>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<p><div class="highlight"><pre><span></span><code>steam_lobby_leave();
-</code></pre></div>
+<p><pre class="highlight"><code class="language-gml">steam_lobby_leave();</code></pre>
 The code sample above will make the user leave the current lobby.</p>
 <p><br></p>
 <p><br></p>
@@ -909,8 +882,7 @@ The code sample above will make the user leave the current lobby.</p>
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_lobby_send_chat_message(text)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_lobby_send_chat_message(text)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -966,21 +938,19 @@ The code sample above will make the user leave the current lobby.</p>
 </table>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<p><div class="highlight"><pre><span></span><code>steam_lobby_send_chat_message(&quot;Hello World&quot;);
-</code></pre></div>
+<p><pre class="highlight"><code class="language-gml">steam_lobby_send_chat_message("Hello World");</code></pre>
 The code will broadcast a text message to all the members in the current lobby, the message can be read using the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a> callback:</p>
-<p><div class="highlight"><pre><span></span><code>var _type = async_load[? &quot;type&quot;];
-if (_type == &quot;lobby_chat_message&quot;)
+<p><pre class="highlight"><code class="language-gml">var _type = async_load[? "type"];
+if (_type == "lobby_chat_message")
 {
-    var _user_id = async_load[? &quot;user_id&quot;];
-    var _msg_id = async_load[? &quot;message_index&quot;];
+    var _user_id = async_load[? "user_id"];
+    var _msg_id = async_load[? "message_index"];
 
     var _user_name = steam_get_user_persona_name_sync(_user_id);
     var _message = steam_lobby_get_chat_message_text(_msg_id);
 
     // Do something with the data
-}
-</code></pre></div>
+}</code></pre>
 In the example we are simply caching the data into variables. Notice that use use the functions <a href="general.html#steam_get_user_persona_name_sync">steam_get_user_persona_name_sync</a> and <a href="lobbies.html#steam_lobby_get_chat_message_text">steam_lobby_get_chat_message_text</a> to get both the user name and the text inside the message, respectively.</p>
 <p><br></p>
 <p><br></p>
@@ -993,8 +963,7 @@ In the example we are simply caching the data into variables. Notice that use us
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_lobby_send_chat_message_buffer(buffer, size)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_lobby_send_chat_message_buffer(buffer, size)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -1065,23 +1034,21 @@ In the example we are simply caching the data into variables. Notice that use us
 </table>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<p><div class="highlight"><pre><span></span><code>var _buff = buffer_create(256, buffer_fixed, 1);
-buffer_write(_buff, buffer_string, &quot;This is a buffer!&quot;);
-steam_lobby_send_chat_message_buffer(_buff);
-</code></pre></div>
+<p><pre class="highlight"><code class="language-gml">var _buff = buffer_create(256, buffer_fixed, 1);
+buffer_write(_buff, buffer_string, "This is a buffer!");
+steam_lobby_send_chat_message_buffer(_buff);</code></pre>
 The code will broadcast a message (text or binary data) to all the members in the current lobby, the message can be read using the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a> callback:</p>
-<p><div class="highlight"><pre><span></span><code>var _type = async_load[? &quot;type&quot;];
-if (_type == &quot;lobby_chat_message&quot;)
+<p><pre class="highlight"><code class="language-gml">var _type = async_load[? "type"];
+if (_type == "lobby_chat_message")
 {
-    var _user_id = async_load[? &quot;user_id&quot;];
-    var _msg_id = async_load[? &quot;message_index&quot;];
+    var _user_id = async_load[? "user_id"];
+    var _msg_id = async_load[? "message_index"];
 
     var _user_name = steam_get_user_persona_name_sync(_user_id);
     var _data = steam_lobby_get_chat_message_data(global.chat_buffer, _msg_id);
 
     // Do something with the data
-}
-</code></pre></div>
+}</code></pre>
 In the example we are simply caching the data into variables notice that use use the functions <a href="general.html#steam_get_user_persona_name_sync">steam_get_user_persona_name_sync</a> and <a href="lobbies.html#steam_lobby_get_chat_message_data">steam_lobby_get_chat_message_data</a> to get both the user name and the data inside the message, respectively.</p>
 <p><br></p>
 <p><br></p>
@@ -1098,8 +1065,7 @@ Fields can then be used to filter lobbies via matchmaking functions.</p>
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_lobby_set_data(key, value)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_lobby_set_data(key, value)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -1129,8 +1095,7 @@ Fields can then be used to filter lobbies via matchmaking functions.</p>
 </blockquote>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<p><div class="highlight"><pre><span></span><code>steam_lobby_set_data(&quot;LobbyName&quot;, &quot;GreatLobby&quot;);
-</code></pre></div>
+<p><pre class="highlight"><code class="language-gml">steam_lobby_set_data("LobbyName", "GreatLobby");</code></pre>
 The code sample will set the <code>"LobbyName"</code> lobby field to the provided value <code>"GreatLobby"</code>.</p>
 <p><br></p>
 <p><br></p>
@@ -1150,8 +1115,7 @@ The code sample will set the <code>"LobbyName"</code> lobby field to the provide
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_lobby_set_joinable(joinable)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_lobby_set_joinable(joinable)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -1176,8 +1140,7 @@ The code sample will set the <code>"LobbyName"</code> lobby field to the provide
 </blockquote>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<p><div class="highlight"><pre><span></span><code>steam_lobby_set_joinable(false);
-</code></pre></div>
+<p><pre class="highlight"><code class="language-gml">steam_lobby_set_joinable(false);</code></pre>
 The code above will prevent user from joining the current lobby.</p>
 <p><br></p>
 <p><br></p>
@@ -1193,8 +1156,7 @@ The code above will prevent user from joining the current lobby.</p>
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_lobby_set_owner_id(user_id)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_lobby_set_owner_id(user_id)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -1219,7 +1181,7 @@ The code above will prevent user from joining the current lobby.</p>
 </blockquote>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<p><div class="highlight"><pre><span></span><code>for(var i = 0 ; i &lt; steam_lobby_get_member_count() ; i++)
+<p><pre class="highlight"><code class="language-gml">for(var i = 0 ; i &lt; steam_lobby_get_member_count() ; i++)
 {
     if(!steam_lobby_is_owner())
     {
@@ -1227,8 +1189,7 @@ The code above will prevent user from joining the current lobby.</p>
         steam_lobby_set_owner_id(_user_id);
         break;
     }
-}
-</code></pre></div>
+}</code></pre>
 The code example will loop through all the members in a lobby and transfers ownership to the first member that is not the owner.</p>
 <p><br></p>
 <p><br></p>
@@ -1244,8 +1205,7 @@ The code example will loop through all the members in a lobby and transfers owne
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_lobby_set_type(type)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_lobby_set_type(type)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -1270,8 +1230,7 @@ The code example will loop through all the members in a lobby and transfers owne
 </blockquote>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<p><div class="highlight"><pre><span></span><code>steam_lobby_set_type(steam_lobby_type_private);
-</code></pre></div>
+<p><pre class="highlight"><code class="language-gml">steam_lobby_set_type(steam_lobby_type_private);</code></pre>
 The code above will change the lobby joining policy.</p>
 <p><br></p>
 <p><br></p>
@@ -1283,8 +1242,7 @@ The code above will change the lobby joining policy.</p>
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_lobby_list_add_distance_filter(mode)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_lobby_list_add_distance_filter(mode)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -1309,12 +1267,11 @@ The code above will change the lobby joining policy.</p>
 </blockquote>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<p><div class="highlight"><pre><span></span><code>steam_lobby_list_add_distance_filter(steam_lobby_list_distance_filter_far);
-steam_lobby_list_add_near_filter(&quot;myNearFilter&quot;, 77);
-steam_lobby_list_add_numerical_filter(&quot;level&quot;, 10, steam_lobby_list_filter_gt);
-steam_lobby_list_add_string_filter(&quot;Stage&quot;,&quot;BattleZone&quot;, steam_lobby_list_filter_eq);
-steam_lobby_list_request();
-</code></pre></div>
+<p><pre class="highlight"><code class="language-gml">steam_lobby_list_add_distance_filter(steam_lobby_list_distance_filter_far);
+steam_lobby_list_add_near_filter("myNearFilter", 77);
+steam_lobby_list_add_numerical_filter("level", 10, steam_lobby_list_filter_gt);
+steam_lobby_list_add_string_filter("Stage","BattleZone", steam_lobby_list_filter_eq);
+steam_lobby_list_request();</code></pre>
 The code above will apply some filters to be lobby list request before requesting the results.</p>
 <p><br></p>
 <p><br></p>
@@ -1330,8 +1287,7 @@ The code above will apply some filters to be lobby list request before requestin
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_lobby_list_add_near_filter(key, value)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_lobby_list_add_near_filter(key, value)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -1361,12 +1317,11 @@ The code above will apply some filters to be lobby list request before requestin
 </blockquote>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<p><div class="highlight"><pre><span></span><code>steam_lobby_list_add_distance_filter(steam_lobby_list_distance_filter_far);
-steam_lobby_list_add_near_filter(&quot;myNearFilter&quot;, 77);
-steam_lobby_list_add_numerical_filter(&quot;level&quot;, 10, steam_lobby_list_filter_gt);
-steam_lobby_list_add_string_filter(&quot;Stage&quot;,&quot;BattleZone&quot;, steam_lobby_list_filter_eq);
-steam_lobby_list_request();
-</code></pre></div>
+<p><pre class="highlight"><code class="language-gml">steam_lobby_list_add_distance_filter(steam_lobby_list_distance_filter_far);
+steam_lobby_list_add_near_filter("myNearFilter", 77);
+steam_lobby_list_add_numerical_filter("level", 10, steam_lobby_list_filter_gt);
+steam_lobby_list_add_string_filter("Stage","BattleZone", steam_lobby_list_filter_eq);
+steam_lobby_list_request();</code></pre>
 The code above will apply some filters to be lobby list request before requesting the results.</p>
 <p><br></p>
 <p><br></p>
@@ -1382,8 +1337,7 @@ The code above will apply some filters to be lobby list request before requestin
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_lobby_list_add_numerical_filter(key, value, comparison_type)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_lobby_list_add_numerical_filter(key, value, comparison_type)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -1418,12 +1372,11 @@ The code above will apply some filters to be lobby list request before requestin
 </blockquote>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<p><div class="highlight"><pre><span></span><code>steam_lobby_list_add_distance_filter(steam_lobby_list_distance_filter_far);
-steam_lobby_list_add_near_filter(&quot;myNearFilter&quot;, 77);
-steam_lobby_list_add_numerical_filter(&quot;level&quot;, 10, steam_lobby_list_filter_gt);
-steam_lobby_list_add_string_filter(&quot;Stage&quot;,&quot;BattleZone&quot;, steam_lobby_list_filter_eq);
-steam_lobby_list_request();
-</code></pre></div>
+<p><pre class="highlight"><code class="language-gml">steam_lobby_list_add_distance_filter(steam_lobby_list_distance_filter_far);
+steam_lobby_list_add_near_filter("myNearFilter", 77);
+steam_lobby_list_add_numerical_filter("level", 10, steam_lobby_list_filter_gt);
+steam_lobby_list_add_string_filter("Stage","BattleZone", steam_lobby_list_filter_eq);
+steam_lobby_list_request();</code></pre>
 The code above will apply some filters to a lobby list request before requesting the results.</p>
 <p><br></p>
 <p><br></p>
@@ -1439,8 +1392,7 @@ The code above will apply some filters to a lobby list request before requesting
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_lobby_list_add_string_filter(key, value, comparison_type)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_lobby_list_add_string_filter(key, value, comparison_type)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -1475,12 +1427,11 @@ The code above will apply some filters to a lobby list request before requesting
 </blockquote>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<p><div class="highlight"><pre><span></span><code>steam_lobby_list_add_distance_filter(steam_lobby_list_distance_filter_far);
-steam_lobby_list_add_near_filter(&quot;myNearFilter&quot;, 77);
-steam_lobby_list_add_numerical_filter(&quot;level&quot;, 10, steam_lobby_list_filter_gt);
-steam_lobby_list_add_string_filter(&quot;Stage&quot;,&quot;BattleZone&quot;, steam_lobby_list_filter_eq);
-steam_lobby_list_request();
-</code></pre></div>
+<p><pre class="highlight"><code class="language-gml">steam_lobby_list_add_distance_filter(steam_lobby_list_distance_filter_far);
+steam_lobby_list_add_near_filter("myNearFilter", 77);
+steam_lobby_list_add_numerical_filter("level", 10, steam_lobby_list_filter_gt);
+steam_lobby_list_add_string_filter("Stage","BattleZone", steam_lobby_list_filter_eq);
+steam_lobby_list_request();</code></pre>
 The code above will apply some filters to be lobby list request before requesting the results.</p>
 <p><br></p>
 <p><br></p>
@@ -1492,8 +1443,7 @@ The code above will apply some filters to be lobby list request before requestin
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_lobby_list_get_count()
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_lobby_list_get_count()</code></pre>
 </blockquote>
 <p><br></p>
 <p><strong>Returns:</strong></p>
@@ -1502,14 +1452,13 @@ The code above will apply some filters to be lobby list request before requestin
 </blockquote>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<p><div class="highlight"><pre><span></span><code>for(var a = 0 ; a &lt; steam_lobby_list_get_count() ; a++)
+<p><pre class="highlight"><code class="language-gml">for(var a = 0 ; a &lt; steam_lobby_list_get_count() ; a++)
 {
     ins = instance_create_depth(600, 200+90*a, 0, Obj_Steam_Networking_List_Slot);
     ins.index = a;
     ins.lobby_id = steam_lobby_list_get_lobby_id(a);
-    ins.creator = steam_lobby_list_get_data(a, &quot;Creator&quot;);
-}
-</code></pre></div>
+    ins.creator = steam_lobby_list_get_data(a, "Creator");
+}</code></pre>
 After a successful <a href="lobbies.html#steam_lobby_list_request">steam_lobby_list_request</a> this function will return the number of results in the lobby query.</p>
 <p><br></p>
 <p><br></p>
@@ -1525,8 +1474,7 @@ After a successful <a href="lobbies.html#steam_lobby_list_request">steam_lobby_l
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_lobby_list_get_data(lobby_index, key)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_lobby_list_get_data(lobby_index, key)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -1556,14 +1504,13 @@ After a successful <a href="lobbies.html#steam_lobby_list_request">steam_lobby_l
 </blockquote>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<p><div class="highlight"><pre><span></span><code>for(var a = 0 ; a &lt; steam_lobby_list_get_count() ; a++)
+<p><pre class="highlight"><code class="language-gml">for(var a = 0 ; a &lt; steam_lobby_list_get_count() ; a++)
 {
     ins = instance_create_depth(600,200+90*a,0,Obj_Steam_Networking_List_Slot);
     ins.index = a;
     ins.lobby_id = steam_lobby_list_get_lobby_id(a);
-    ins.creator = steam_lobby_list_get_data(a, &quot;Creator&quot;);
-}
-</code></pre></div>
+    ins.creator = steam_lobby_list_get_data(a, "Creator");
+}</code></pre>
 The above code shows a code example.</p>
 <p><br></p>
 <p><br></p>
@@ -1579,8 +1526,7 @@ The above code shows a code example.</p>
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_lobby_list_get_lobby_id(lobby_index)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_lobby_list_get_lobby_id(lobby_index)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -1605,14 +1551,13 @@ The above code shows a code example.</p>
 </blockquote>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<p><div class="highlight"><pre><span></span><code>for(var a = 0; a &lt; steam_lobby_list_get_count(); a++)
+<p><pre class="highlight"><code class="language-gml">for(var a = 0; a &lt; steam_lobby_list_get_count(); a++)
 {
     ins = instance_create_depth(600, 200+90*a, 0, Obj_Steam_Networking_List_Slot);
     ins.index = a;
     ins.lobby_id = steam_lobby_list_get_lobby_id(a);
-    ins.creator = steam_lobby_list_get_data(a, &quot;Creator&quot;);
-}
-</code></pre></div>
+    ins.creator = steam_lobby_list_get_data(a, "Creator");
+}</code></pre>
 The above code shows a code example.</p>
 <p><br></p>
 <p><br></p>
@@ -1628,8 +1573,7 @@ The above code shows a code example.</p>
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_lobby_list_get_lobby_member_count(lobby_index)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_lobby_list_get_lobby_member_count(lobby_index)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -1654,8 +1598,7 @@ The above code shows a code example.</p>
 </blockquote>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<p><div class="highlight"><pre><span></span><code>steam_lobby_list_get_lobby_member_count(steam_lobby_get_lobby_id());
-</code></pre></div>
+<p><pre class="highlight"><code class="language-gml">steam_lobby_list_get_lobby_member_count(steam_lobby_get_lobby_id());</code></pre>
 The above code shows a code example.</p>
 <p><br></p>
 <p><br></p>
@@ -1671,8 +1614,7 @@ The above code shows a code example.</p>
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_lobby_list_get_lobby_member_id(lobby_index, member_index)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_lobby_list_get_lobby_member_id(lobby_index, member_index)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -1702,13 +1644,12 @@ The above code shows a code example.</p>
 </blockquote>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<p><div class="highlight"><pre><span></span><code>var _count = steam_lobby_list_get_lobby_member_count(steam_lobby_get_lobby_id());
+<p><pre class="highlight"><code class="language-gml">var _count = steam_lobby_list_get_lobby_member_count(steam_lobby_get_lobby_id());
 for(var i = 0 ; i &lt; _count ; i++)
 {
      var _member = steam_lobby_list_get_lobby_member_id(i);
      //do something with the member id
-}
-</code></pre></div>
+}</code></pre>
 The above code will show a code example.</p>
 <p><br></p>
 <p><br></p>
@@ -1724,8 +1665,7 @@ The above code will show a code example.</p>
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_lobby_list_get_lobby_owner_id(index)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_lobby_list_get_lobby_owner_id(index)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -1750,8 +1690,7 @@ The above code will show a code example.</p>
 </blockquote>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<p><div class="highlight"><pre><span></span><code>steam_lobby_list_get_lobby_owner_id(steam_lobby_get_lobby_id());
-</code></pre></div>
+<p><pre class="highlight"><code class="language-gml">steam_lobby_list_get_lobby_owner_id(steam_lobby_get_lobby_id());</code></pre>
 The above code will show a code example.</p>
 <p><br></p>
 <p><br></p>
@@ -1763,8 +1702,7 @@ The above code will show a code example.</p>
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_lobby_list_is_loading()
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_lobby_list_is_loading()</code></pre>
 </blockquote>
 <p><br></p>
 <p><strong>Returns:</strong></p>
@@ -1773,13 +1711,13 @@ The above code will show a code example.</p>
 </blockquote>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<p><div class="highlight"><pre><span></span><code>steam_lobby_list_request();
+<p><pre class="highlight"><code class="language-gml">steam_lobby_list_request();
 
 // Later in code
 
 if (steam_lobby_list_is_loading)
-    show_message(&quot;Loading&quot;);
-</code></pre></div>
+    show_message("Loading");
+</code></pre>
 The above will code will check to see if the lobby list request is still loading or has finished.</p>
 <p><br></p>
 <p><br></p>
@@ -1793,8 +1731,7 @@ The above will code will check to see if the lobby list request is still loading
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_lobby_list_join(index)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_lobby_list_join(index)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -1855,8 +1792,7 @@ The above will code will check to see if the lobby list request is still loading
 </table>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<p><div class="highlight"><pre><span></span><code>steam_lobby_list_join(0);
-</code></pre></div>
+<p><pre class="highlight"><code class="language-gml">steam_lobby_list_join(0);</code></pre>
 The code sample above can be used to join a lobby with the given index after a <a href="lobbies.html#steam_lobby_list_request">steam_lobby_list_request</a> has been performed.</p>
 <p><br></p>
 <p><br></p>
@@ -1878,8 +1814,7 @@ This is an asynchronous function that will trigger the <a href="https://manual.g
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_lobby_list_request()
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_lobby_list_request()</code></pre>
 </blockquote>
 <p><br></p>
 <p><strong>Returns:</strong></p>
@@ -1924,15 +1859,14 @@ This is an asynchronous function that will trigger the <a href="https://manual.g
 </table>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<p><div class="highlight"><pre><span></span><code>steam_lobby_list_add_distance_filter(steam_lobby_list_distance_filter_far);
-steam_lobby_list_add_near_filter(&quot;myNearFilter&quot;, 77);
-steam_lobby_list_add_numerical_filter(&quot;level&quot;, 10, steam_lobby_list_filter_gt);
-steam_lobby_list_add_string_filter(&quot;Stage&quot;,&quot;BattleZone&quot;, steam_lobby_list_filter_eq);
-steam_lobby_list_request();
-</code></pre></div>
+<p><pre class="highlight"><code class="language-gml">steam_lobby_list_add_distance_filter(steam_lobby_list_distance_filter_far);
+steam_lobby_list_add_near_filter("myNearFilter", 77);
+steam_lobby_list_add_numerical_filter("level", 10, steam_lobby_list_filter_gt);
+steam_lobby_list_add_string_filter("Stage","BattleZone", steam_lobby_list_filter_eq);
+steam_lobby_list_request();</code></pre>
 In this extended example we will request the lobby list that matches the requested filter criteria and parse its results in the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a>. To start with we need to request the lobbies with the code above. And afterwards proceed to catch the results <strong>after/during</strong> the corresponding asynchronous event:</p>
-<p><div class="highlight"><pre><span></span><code>var _type = ds_map_find_value(async_load, &quot;event_type&quot;);
-if (_type == &quot;lobby_list&quot;)
+<p><pre class="highlight"><code class="language-gml">var _type = ds_map_find_value(async_load, "event_type");
+if (_type == "lobby_list")
 {
     var _lb_count = steam_lobby_list_get_count();
     for (var i = 0; i &lt; _lb_count; i++)
@@ -1946,8 +1880,7 @@ if (_type == &quot;lobby_list&quot;)
             // Do what even you need with the queried information
         }
     }
-}
-</code></pre></div>
+}</code></pre>
 This code will loop through all the loobies and respective members on the query result.</p>
 <p><br></p>
 <p><br></p>
@@ -2073,7 +2006,7 @@ This code will loop through all the loobies and respective members on the query 
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
         <a href="leaderboards.html" class="btn btn-neutral float-left" title="Leaderboards"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="achievements.html" class="btn btn-neutral float-right" title="Achievements">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="achievements.html" class="btn btn-neutral float-right" title="Stats and Achievements">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
   <hr/>

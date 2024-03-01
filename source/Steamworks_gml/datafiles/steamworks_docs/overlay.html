@@ -43,7 +43,7 @@
                 </li>
               </ul>
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="guides.html">Guides</a>
+                <li class="toctree-l1"><a class="reference internal" href="guides.html">Setup Guide (IDE/Runtime 2022.6+)</a>
                 </li>
               </ul>
               <ul>
@@ -69,11 +69,11 @@
                 </li>
               </ul>
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="lobbies.html">Lobbies</a>
+                <li class="toctree-l1"><a class="reference internal" href="lobbies.html">Lobbies and Matchmaking</a>
                 </li>
               </ul>
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="achievements.html">Achievements</a>
+                <li class="toctree-l1"><a class="reference internal" href="achievements.html">Stats and Achievements</a>
                 </li>
               </ul>
               <ul>
@@ -101,15 +101,15 @@
                 </li>
               </ul>
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="input.html">Steam Input</a>
+                <li class="toctree-l1"><a class="reference internal" href="input.html">Input</a>
                 </li>
               </ul>
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="music.html">Steam Music</a>
+                <li class="toctree-l1"><a class="reference internal" href="music.html">Music</a>
                 </li>
               </ul>
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="utilities.html">Steam Utilities</a>
+                <li class="toctree-l1"><a class="reference internal" href="utilities.html">Utilities</a>
                 </li>
               </ul>
       </div>
@@ -166,8 +166,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_is_overlay_enabled()
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_is_overlay_enabled()</code></pre>
 </blockquote>
 <p><br></p>
 <p><strong>Returns:</strong></p>
@@ -176,15 +175,14 @@
 </blockquote>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<p><div class="highlight"><pre><span></span><code>global.steam_api = false;
+<p><pre class="highlight"><code class="language-gml">global.steam_api = false;
 if steam_initialised()
 {
     if steam_stats_ready() &amp;&amp; steam_is_overlay_enabled()
     {
         global.steamapi = true;
     }
-}
-</code></pre></div>
+}</code></pre>
 The above code will set a global variable to <code>true</code> if the Steam client API is correctly initialised, along with the Steam statistics and overlay functionality, or it will set the variable to <code>false</code> otherwise.</p>
 <p><br></p>
 <p><br></p>
@@ -196,8 +194,7 @@ The above code will set a global variable to <code>true</code> if the Steam clie
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_is_overlay_activated()
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_is_overlay_activated()</code></pre>
 </blockquote>
 <p><br></p>
 <p><strong>Returns:</strong></p>
@@ -206,11 +203,10 @@ The above code will set a global variable to <code>true</code> if the Steam clie
 </blockquote>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<p><div class="highlight"><pre><span></span><code>if steam_is_overlay_activated()
+<p><pre class="highlight"><code class="language-gml">if steam_is_overlay_activated()
 {
     global.Pause = true;
-}
-</code></pre></div>
+}</code></pre>
 The above code will check to see if the Steam overlay is active and if it is it will set the global variable "Pause" to <code>true</code>.</p>
 <p><br></p>
 <p><br></p>
@@ -222,8 +218,7 @@ The above code will check to see if the Steam overlay is active and if it is it 
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_activate_overlay(overlay_type)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_activate_overlay(overlay_type)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -248,7 +243,7 @@ The above code will check to see if the Steam overlay is active and if it is it 
 </blockquote>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<p><div class="highlight"><pre><span></span><code>var _key = keyboard_lastkey;
+<p><pre class="highlight"><code class="language-gml">var _key = keyboard_lastkey;
 switch (_key)
 {
     case vk_f1: steam_activate_overlay(ov_friends); break;
@@ -257,8 +252,7 @@ switch (_key)
     case vk_f4: steam_activate_overlay(ov_settings); break;
     case vk_f5: steam_activate_overlay(ov_gamegroup); break;
     case vk_f6: steam_activate_overlay(ov_achievements); break;
-}
-</code></pre></div>
+}</code></pre>
 The above code polls the last keyboard key pressed. If it is any of the function keys from 1 to 6 it will open the corresponding page of the Steam overlay.</p>
 <p><br></p>
 <p><br></p>
@@ -270,8 +264,7 @@ The above code polls the last keyboard key pressed. If it is any of the function
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_activate_overlay_browser(url)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_activate_overlay_browser(url)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -296,11 +289,10 @@ The above code polls the last keyboard key pressed. If it is any of the function
 </blockquote>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<p><div class="highlight"><pre><span></span><code>if keyboard_check_pressed(vk_f1)
+<p><pre class="highlight"><code class="language-gml">if keyboard_check_pressed(vk_f1)
 {
-    steam_activate_overlay_browser(&quot;http://www.steamgames.com/&quot;);
-}
-</code></pre></div>
+    steam_activate_overlay_browser("http://www.steamgames.com/");
+}</code></pre>
 The above code polls the keyboard for the F1 key. If it was pressed then Steam overlay will be opened and resolve to the given URL.</p>
 <p><br></p>
 <p><br></p>
@@ -312,8 +304,7 @@ The above code polls the keyboard for the F1 key. If it was pressed then Steam o
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_activate_overlay_store(app_id)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_activate_overlay_store(app_id)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -338,11 +329,10 @@ The above code polls the keyboard for the F1 key. If it was pressed then Steam o
 </blockquote>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<p><div class="highlight"><pre><span></span><code>if keyboard_check_pressed(vk_f1)
+<p><pre class="highlight"><code class="language-gml">if keyboard_check_pressed(vk_f1)
 {
     steam_activate_overlay_store(global.DLC_id);
-}
-</code></pre></div>
+}</code></pre>
 The above code polls the keyboard for the F1 key and if it is then Steam overlay will be opened on the page for the game content using the app ID stored in the global variable.</p>
 <p><br></p>
 <p><br></p>
@@ -373,8 +363,7 @@ Note that Steam IDs can be large numbers and so you may need to cast your ID val
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_activate_overlay_user(dialog_name, steamid)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_activate_overlay_user(dialog_name, steamid)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -404,13 +393,12 @@ Note that Steam IDs can be large numbers and so you may need to cast your ID val
 </blockquote>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<p><div class="highlight"><pre><span></span><code>var _key = keyboard_lastkey;
+<p><pre class="highlight"><code class="language-gml">var _key = keyboard_lastkey;
 switch (_key)
 {
-    case vk_f1: steam_activate_overlay_user(&quot;steamid&quot;, global.GameGroupID); break;
-    case vk_f2: steam_activate_overlay_user(&quot;chat&quot;, global.FriendID); break;
-}
-</code></pre></div>
+    case vk_f1: steam_activate_overlay_user("steamid", global.GameGroupID); break;
+    case vk_f2: steam_activate_overlay_user("chat", global.FriendID); break;
+}</code></pre>
 The above code polls the last keyboard key pressed. If it is function key 1 or function key 2, it will open the Steam overlay to either see the Steam group stored in the global variable "GamegroupID", or it will open the chat window to chat with the user stored in the global "FriendID" variable.</p>
 <p><br></p>
 <p><br></p>
@@ -422,8 +410,7 @@ The above code polls the last keyboard key pressed. If it is function key 1 or f
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_set_overlay_notification_inset(hor_inset, vert_inset)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_set_overlay_notification_inset(hor_inset, vert_inset)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -453,8 +440,7 @@ The above code polls the last keyboard key pressed. If it is function key 1 or f
 </blockquote>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<p><div class="highlight"><pre><span></span><code>steam_set_overlay_notification_inset(10, 10);
-</code></pre></div>
+<p><pre class="highlight"><code class="language-gml">steam_set_overlay_notification_inset(10, 10);</code></pre>
 The code above will inset the overlay 10px on the horizontal axis and 10px on the vertical axis.</p>
 <p><br></p>
 <p><br></p>
@@ -466,8 +452,7 @@ The code above will inset the overlay 10px on the horizontal axis and 10px on th
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_set_overlay_notification_position(position)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_set_overlay_notification_position(position)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -492,8 +477,7 @@ The code above will inset the overlay 10px on the horizontal axis and 10px on th
 </blockquote>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<p><div class="highlight"><pre><span></span><code>steam_set_overlay_notification_position(steam_overlay_notification_position_bottom_right);
-</code></pre></div>
+<p><pre class="highlight"><code class="language-gml">steam_set_overlay_notification_position(steam_overlay_notification_position_bottom_right);</code></pre>
 The above code will change the notification position to the bottom right corner.</p>
 <p><br></p>
 <p><br></p>

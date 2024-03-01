@@ -43,7 +43,7 @@
                 </li>
               </ul>
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="guides.html">Guides</a>
+                <li class="toctree-l1"><a class="reference internal" href="guides.html">Setup Guide (IDE/Runtime 2022.6+)</a>
                 </li>
               </ul>
               <ul>
@@ -67,11 +67,11 @@
                 </li>
               </ul>
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="lobbies.html">Lobbies</a>
+                <li class="toctree-l1"><a class="reference internal" href="lobbies.html">Lobbies and Matchmaking</a>
                 </li>
               </ul>
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="achievements.html">Achievements</a>
+                <li class="toctree-l1"><a class="reference internal" href="achievements.html">Stats and Achievements</a>
                 </li>
               </ul>
               <ul>
@@ -99,15 +99,15 @@
                 </li>
               </ul>
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="input.html">Steam Input</a>
+                <li class="toctree-l1"><a class="reference internal" href="input.html">Input</a>
                 </li>
               </ul>
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="music.html">Steam Music</a>
+                <li class="toctree-l1"><a class="reference internal" href="music.html">Music</a>
                 </li>
               </ul>
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="utilities.html">Steam Utilities</a>
+                <li class="toctree-l1"><a class="reference internal" href="utilities.html">Utilities</a>
                 </li>
               </ul>
       </div>
@@ -164,8 +164,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_initialised()
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_initialised()</code></pre>
 </blockquote>
 <p><br></p>
 <p><strong>Returns:</strong></p>
@@ -174,15 +173,14 @@
 </blockquote>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<p><div class="highlight"><pre><span></span><code>global.steam_api = false;
+<p><pre class="highlight"><code class="language-gml">global.steam_api = false;
 if (steam_initialised())
 {
     if (steam_stats_ready() &amp;&amp; steam_is_overlay_enabled())
     {
         global.steam_api = true;
     }
-}
-</code></pre></div>
+}</code></pre>
 The above code will set a global variable to <code>true</code> if the Steam client API is correctly initialised, along with the Steam statistics and overlay functionality, or it will set the variable to <code>false</code> otherwise.</p>
 <p><br></p>
 <p><br></p>
@@ -194,8 +192,7 @@ The above code will set a global variable to <code>true</code> if the Steam clie
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_stats_ready()
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_stats_ready()</code></pre>
 </blockquote>
 <p><br></p>
 <p><strong>Returns:</strong></p>
@@ -204,15 +201,14 @@ The above code will set a global variable to <code>true</code> if the Steam clie
 </blockquote>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<p><div class="highlight"><pre><span></span><code>global.steam_api = false;
+<p><pre class="highlight"><code class="language-gml">global.steam_api = false;
 if steam_initialised()
 {
     if steam_stats_ready() &amp;&amp; steam_is_overlay_enabled()
     {
         global.steam_api = true;
     }
-}
-</code></pre></div>
+}</code></pre>
 The above code will set a global variable to <code>true</code> if the Steam client API is correctly initialised, along with the Steam statistics and overlay functionality, or it will set the variable to <code>false</code> otherwise.</p>
 <p><br></p>
 <p><br></p>
@@ -224,8 +220,7 @@ The above code will set a global variable to <code>true</code> if the Steam clie
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_get_app_id()
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_get_app_id()</code></pre>
 </blockquote>
 <p><br></p>
 <p><strong>Returns:</strong></p>
@@ -234,8 +229,7 @@ The above code will set a global variable to <code>true</code> if the Steam clie
 </blockquote>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<p><div class="highlight"><pre><span></span><code>global.app_id = steam_get_app_id();
-</code></pre></div>
+<p><pre class="highlight"><code class="language-gml">global.app_id = steam_get_app_id();</code></pre>
 The above code gets the unique app ID for your game on Steam and stores it in a global variable.</p>
 <p><br></p>
 <p><br></p>
@@ -247,8 +241,7 @@ The above code gets the unique app ID for your game on Steam and stores it in a 
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_get_user_account_id()
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_get_user_account_id()</code></pre>
 </blockquote>
 <p><br></p>
 <p><strong>Returns:</strong></p>
@@ -257,8 +250,7 @@ The above code gets the unique app ID for your game on Steam and stores it in a 
 </blockquote>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<p><div class="highlight"><pre><span></span><code>global.user_id = steam_get_user_account_id();
-</code></pre></div>
+<p><pre class="highlight"><code class="language-gml">global.user_id = steam_get_user_account_id();</code></pre>
 The above code gets the unique user ID for the person who owns the game and stores it in a global variable.</p>
 <p><br></p>
 <p><br></p>
@@ -270,8 +262,7 @@ The above code gets the unique user ID for the person who owns the game and stor
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_get_user_steam_id()
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_get_user_steam_id()</code></pre>
 </blockquote>
 <p><br></p>
 <p><strong>Returns:</strong></p>
@@ -280,11 +271,10 @@ The above code gets the unique user ID for the person who owns the game and stor
 </blockquote>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<p><div class="highlight"><pre><span></span><code>if steam_initialised()
+<p><pre class="highlight"><code class="language-gml">if steam_initialised()
 {
     global.u_id = steam_get_user_steam_id();
-}
-</code></pre></div>
+}</code></pre>
 The above code will set a global variable to the current users unique Steam ID if the Steam client API is correctly initialised.</p>
 <p><br></p>
 <p><br></p>
@@ -296,8 +286,7 @@ The above code will set a global variable to the current users unique Steam ID i
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_get_persona_name()
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_get_persona_name()</code></pre>
 </blockquote>
 <p><br></p>
 <p><strong>Returns:</strong></p>
@@ -306,11 +295,10 @@ The above code will set a global variable to the current users unique Steam ID i
 </blockquote>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<p><div class="highlight"><pre><span></span><code>if steam_initialised()
+<p><pre class="highlight"><code class="language-gml">if steam_initialised()
 {
     global.p_name = steam_get_persona_name();
-}
-</code></pre></div>
+}</code></pre>
 The above code will set a global variable to current users screen name if the Steam client API is correctly initialised.</p>
 <p><br></p>
 <p><br></p>
@@ -324,8 +312,7 @@ This is an asynchronous function that will return an asynchronous ID and trigger
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_get_user_persona_name(steamID)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_get_user_persona_name(steamID)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -386,8 +373,7 @@ This is an asynchronous function that will return an asynchronous ID and trigger
 </table>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<p><div class="highlight"><pre><span></span><code>request = steam_get_user_persona_name(global.UGC_UserID);
-</code></pre></div>
+<p><pre class="highlight"><code class="language-gml">request = steam_get_user_persona_name(global.UGC_UserID);</code></pre>
 The above code will request the user name of the user ID stored in the global variable "UGC_UserID", storing the returned value in a variable for parsing in the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a>.</p>
 <p><br></p>
 <p><br></p>
@@ -400,8 +386,7 @@ The above code will request the user name of the user ID stored in the global va
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_get_user_persona_name_sync(steamID)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_get_user_persona_name_sync(steamID)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -434,8 +419,7 @@ The above code will request the user name of the user ID stored in the global va
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_is_user_logged_on()
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_is_user_logged_on()</code></pre>
 </blockquote>
 <p><br></p>
 <p><strong>Returns:</strong></p>
@@ -444,11 +428,10 @@ The above code will request the user name of the user ID stored in the global va
 </blockquote>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<p><div class="highlight"><pre><span></span><code>if (steam_is_user_logged_on())
+<p><pre class="highlight"><code class="language-gml">if (steam_is_user_logged_on())
 {
     global.user_id = steam_get_user_account_id();
-}
-</code></pre></div>
+}</code></pre>
 The above code will check to see if the user is logged onto the Steam server and if it stores the user ID in a global variable.</p>
 <p><br></p>
 <p><br></p>
@@ -461,8 +444,7 @@ The above code will check to see if the user is logged onto the Steam server and
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_user_cancel_auth_ticket(ticket_handle=undefined)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_user_cancel_auth_ticket(ticket_handle=undefined)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -531,8 +513,7 @@ The above code will check to see if the user is logged onto the Steam server and
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_current_game_language()
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_current_game_language()</code></pre>
 </blockquote>
 <p><br></p>
 <p><strong>Returns:</strong></p>
@@ -541,8 +522,7 @@ The above code will check to see if the user is logged onto the Steam server and
 </blockquote>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<p><div class="highlight"><pre><span></span><code>language = steam_current_game_language();
-</code></pre></div>
+<p><pre class="highlight"><code class="language-gml">language = steam_current_game_language();</code></pre>
 The above code gets the language used for the current game.</p>
 <p><br></p>
 <p><br></p>
@@ -554,8 +534,7 @@ The above code gets the language used for the current game.</p>
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_available_languages()
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_available_languages()</code></pre>
 </blockquote>
 <p><br></p>
 <p><strong>Returns:</strong></p>
@@ -564,8 +543,7 @@ The above code gets the language used for the current game.</p>
 </blockquote>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<p><div class="highlight"><pre><span></span><code>languages = steam_available_languages();
-</code></pre></div>
+<p><pre class="highlight"><code class="language-gml">languages = steam_available_languages();</code></pre>
 The above gets the available languages for Steam as a string and stores it in a variable.</p>
 <p><br></p>
 <p><br></p>
@@ -581,8 +559,7 @@ The above gets the available languages for Steam as a string and stores it in a 
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_is_subscribed()
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_is_subscribed()</code></pre>
 </blockquote>
 <p><br></p>
 <p><strong>Returns:</strong></p>
@@ -591,11 +568,10 @@ The above gets the available languages for Steam as a string and stores it in a 
 </blockquote>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<p><div class="highlight"><pre><span></span><code>if (steam_is_subscribed())
+<p><pre class="highlight"><code class="language-gml">if (steam_is_subscribed())
 {
-    show_debug_message(&quot;is_subscribed&quot;);
-}
-</code></pre></div>
+    show_debug_message("is_subscribed");
+}</code></pre>
 The above code will check to see if the user is subscribed and shows a debug message if that is the case.</p>
 <p><br></p>
 <p><br></p>
@@ -607,8 +583,7 @@ The above code will check to see if the user is subscribed and shows a debug mes
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_set_warning_message_hook()
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_set_warning_message_hook()</code></pre>
 </blockquote>
 <p><br></p>
 <p><strong>Returns:</strong></p>
@@ -617,8 +592,7 @@ The above code will check to see if the user is subscribed and shows a debug mes
 </blockquote>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<p><div class="highlight"><pre><span></span><code>steam_set_warning_message_hook();
-</code></pre></div>
+<p><pre class="highlight"><code class="language-gml">steam_set_warning_message_hook();</code></pre>
 The above code start Steamworks logging messages in console.</p>
 <p><br></p>
 <p><br></p>

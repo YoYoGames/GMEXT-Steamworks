@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="img/favicon.ico" />
-    <title>Steam Music - GMEXT-Steamworks</title>
+    <title>Music - GMEXT-Steamworks</title>
     <link rel="stylesheet" href="css/theme.css" />
     <link rel="stylesheet" href="css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
@@ -14,7 +14,7 @@
     
       <script>
         // Current page data
-        var mkdocs_page_name = "Steam Music";
+        var mkdocs_page_name = "Music";
         var mkdocs_page_input_path = "music.md";
         var mkdocs_page_url = null;
       </script>
@@ -43,7 +43,7 @@
                 </li>
               </ul>
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="guides.html">Guides</a>
+                <li class="toctree-l1"><a class="reference internal" href="guides.html">Setup Guide (IDE/Runtime 2022.6+)</a>
                 </li>
               </ul>
               <ul>
@@ -63,11 +63,11 @@
                 </li>
               </ul>
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="lobbies.html">Lobbies</a>
+                <li class="toctree-l1"><a class="reference internal" href="lobbies.html">Lobbies and Matchmaking</a>
                 </li>
               </ul>
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="achievements.html">Achievements</a>
+                <li class="toctree-l1"><a class="reference internal" href="achievements.html">Stats and Achievements</a>
                 </li>
               </ul>
               <ul>
@@ -95,11 +95,11 @@
                 </li>
               </ul>
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="input.html">Steam Input</a>
+                <li class="toctree-l1"><a class="reference internal" href="input.html">Input</a>
                 </li>
               </ul>
               <ul class="current">
-                <li class="toctree-l1 current"><a class="reference internal current" href="music.html">Steam Music</a>
+                <li class="toctree-l1 current"><a class="reference internal current" href="music.html">Music</a>
     <ul class="current">
     <li class="toctree-l2"><a class="reference internal" href="#functions">Functions</a>
     </li>
@@ -109,7 +109,7 @@
                 </li>
               </ul>
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="utilities.html">Steam Utilities</a>
+                <li class="toctree-l1"><a class="reference internal" href="utilities.html">Utilities</a>
                 </li>
               </ul>
       </div>
@@ -126,7 +126,7 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href="." class="icon icon-home" aria-label="Docs"></a></li>
-      <li class="breadcrumb-item active">Steam Music</li>
+      <li class="breadcrumb-item active">Music</li>
     <li class="wy-breadcrumbs-aside">
           <a href="https://github.com/YoYoGames/GMEXT-Steamworks/edit/master/docs/music.md" class="icon icon-github"> Edit on GitHub</a>
     </li>
@@ -165,8 +165,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_music_is_enabled()
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_music_is_enabled()</code></pre>
 </blockquote>
 <p><br></p>
 <p><strong>Returns:</strong></p>
@@ -175,8 +174,7 @@
 </blockquote>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<p><div class="highlight"><pre><span></span><code>global.steam_music_enabled = steam_music_is_enabled();
-</code></pre></div>
+<p><pre class="highlight"><code class="language-gml">global.steam_music_enabled = steam_music_is_enabled();</code></pre>
 The above code gets if Steam music player is enabled and stores the result in a global variable.</p>
 <p><br></p>
 <p><br></p>
@@ -192,8 +190,7 @@ The above code gets if Steam music player is enabled and stores the result in a 
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_music_is_playing()
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_music_is_playing()</code></pre>
 </blockquote>
 <p><br></p>
 <p><strong>Returns:</strong></p>
@@ -202,8 +199,7 @@ The above code gets if Steam music player is enabled and stores the result in a 
 </blockquote>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<p><div class="highlight"><pre><span></span><code>global.steam_music_playing = steam_music_is_playing();
-</code></pre></div>
+<p><pre class="highlight"><code class="language-gml">global.steam_music_playing = steam_music_is_playing();</code></pre>
 The above code gets if the Steam music player is playing and stores the result in a global variable.</p>
 <p><br></p>
 <p><br></p>
@@ -215,8 +211,7 @@ The above code gets if the Steam music player is playing and stores the result i
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_music_get_status()
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_music_get_status()</code></pre>
 </blockquote>
 <p><br></p>
 <p><strong>Returns:</strong></p>
@@ -225,10 +220,9 @@ The above code gets if the Steam music player is playing and stores the result i
 </blockquote>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<p><div class="highlight"><pre><span></span><code>if (steam_music_get_status == steam_music_playing) {
+<p><pre class="highlight"><code class="language-gml">if (steam_music_get_status == steam_music_playing) {
     steam_music_pause();
-}
-</code></pre></div>
+}</code></pre>
 The above code gets if the Steam music player is playing. If it is, it pauses the playback.</p>
 <p><br></p>
 <p><br></p>
@@ -241,8 +235,7 @@ The above code gets if the Steam music player is playing. If it is, it pauses th
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_music_play()
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_music_play()</code></pre>
 </blockquote>
 <p><br></p>
 <p><strong>Returns:</strong></p>
@@ -281,8 +274,7 @@ The above code gets if the Steam music player is playing. If it is, it pauses th
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_music_pause()
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_music_pause()</code></pre>
 </blockquote>
 <p><br></p>
 <p><strong>Returns:</strong></p>
@@ -321,8 +313,7 @@ The above code gets if the Steam music player is playing. If it is, it pauses th
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_music_play_next()
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_music_play_next()</code></pre>
 </blockquote>
 <p><br></p>
 <p><strong>Returns:</strong></p>
@@ -362,8 +353,7 @@ If the current track is the first, it DOES NOT loop to the last one. Returns <co
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_music_play_previous()
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_music_play_previous()</code></pre>
 </blockquote>
 <p><br></p>
 <p><strong>Returns:</strong></p>
@@ -403,8 +393,7 @@ If a number higher than 1 is entered, it defaults to 1. Returns <code>true</code
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_music_set_volume(volume)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_music_set_volume(volume)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -493,8 +482,8 @@ If a number higher than 1 is entered, it defaults to 1. Returns <code>true</code
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="input.html" class="btn btn-neutral float-left" title="Steam Input"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="utilities.html" class="btn btn-neutral float-right" title="Steam Utilities">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="input.html" class="btn btn-neutral float-left" title="Input"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="utilities.html" class="btn btn-neutral float-right" title="Utilities">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
   <hr/>
