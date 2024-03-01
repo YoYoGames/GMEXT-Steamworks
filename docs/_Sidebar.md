@@ -3,9 +3,12 @@
 
  * ${page.guides}
 
-### Modules
+### Setup
 
  * ${module.management}
+
+### Modules
+
  * ${module.general}
  * ${module.overlay}
  * ${module.leaderboards}

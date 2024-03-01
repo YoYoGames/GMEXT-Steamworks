@@ -7,11 +7,12 @@
  * @ref page.guides
  * @section_end
  * 
- * ## Management
- * This extension provides the following management functions:
+ * @section Management
+ * @desc This extension provides the following management functions:
  * * ${function.steam_init} (automatically called by the extension)
  * * ${function.steam_update} :warning: REQUIRED
  * * ${function.steam_shutdown} :warning: REQUIRED
+ * @section_end
  * 
  * @section Modules
  * @desc There are a great number of different functions related to the Steam API. We've split them up into the following sections to make it easier to navigate:
@@ -27,8 +28,8 @@
  * @ref module.inventory
  * @ref module.networking
  * @ref module.input
- * @ref module.utilities
  * @ref module.music
+ * @ref module.utilities
  * @section_end
  * 
  * @module_end
