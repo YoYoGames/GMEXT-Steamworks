@@ -226,6 +226,180 @@
  * @func_end
  */
 
+/**
+ * @func steam_request_global_stats
+ * @desc This function asynchronously fetches global stats data, which is available for stats marked as "aggregated" in the App Admin panel of the Steamworks website.
+ * 
+ * @param {real} history_days The number of days of day-by-day history to retrieve in addition to the overall totals. The limit is 60.
+ * 
+ * @event steam
+ * @member {string} event_type The string value `"steam_request_global_stats"`
+ * @member {bool} success Whether the request completed successfully.
+ * @event_end
+ * 
+ * @returns {bool}
+ * 
+ * @example
+ * ```gml
+ * /// Create Event
+ * steam_request_global_stats(60);
+ * 
+ * /// Async Steam Event
+ * var _type = async_load[?"event_type"];
+ * var _success = async_load[?"success"];
+ * if (_type == "steam_request_global_stats")
+ * {
+ *     show_debug_message("{0}: {1}", _type, _success);
+ * }
+ * ```
+ * @func_end
+ */
+
+/**
+ * @func steam_request_global_achievement_percentages
+ * @desc This function asynchronously fetches the data for the percentage of players who have received each achievement for the current game globally.
+ * 
+ * @event steam
+ * @member {string} event_type The string value `"steam_request_global_stats"`
+ * @member {bool} success Whether the request completed successfully.
+ * @event_end
+ * 
+ * @returns {bool}
+ * 
+ * @example
+ * ```gml
+ * /// Create Event
+ * steam_request_global_achievement_percentages();
+ * 
+ * /// Async Steam Event
+ * var _type = async_load[?"event_type"];
+ * var _success = async_load[?"success"];
+ * if (_type == "steam_request_global_achievement_percentages")
+ * {
+ *     show_debug_message("{0}: {1}", _type, _success);
+ * }
+ * ```
+ * @func_end
+ */
+
+/**
+ * @func steam_get_achievement_achieved_percent
+ * @desc This function returns the percentage of users who have unlocked the specified achievement from 0 to 100.
+ * 
+ * If anything went wrong the value 0 is returned.
+ * 
+ * [[Note: You must have called ${function.steam_request_global_achievement_percentages} and it needs to return successfully via the ${event.steam} prior to calling this.]]
+ * 
+ * @param {string} stat_name The 'API Name' of the achievement.
+ * 
+ * @returns {real}
+ * 
+ * @example
+ * ```gml
+ * var _stat_name = "Win_5_Times_In_A_Row";
+ * var _pct_users_achieved = steam_get_achievement_achieved_percent(_stat_name);
+ * show_debug_message("{0} percent of users achieved {1}", _pct_users_achieved, _stat_name);
+ * ```
+ * The code example above shows how to call the function `steam_get_achievement_achieved_percent` and show the result in a descriptive debug message.
+ * @func_end
+ */
+
+/**
+ * @func steam_get_most_achieved_achievement_info
+ * @desc This function gets the info on the most achieved achievement for the game.
+ * 
+ * [[Note: You must have called ${function.steam_request_global_achievement_percentages} and it needs to return successfully via the ${event.steam} prior to calling this.]]
+ * 
+ * @returns {struct.AchievementInfo}
+ * 
+ * @example
+ * ```gml
+ * var _info = steam_get_most_achieved_achievement_info();
+ * while (_info.iterator != -1)
+ * {
+ *     show_debug_message($"{_info.achievement} - achieved: {_info.achieved} (unlocked by {_info.percent}% of players)");
+ *     _info = steam_get_next_most_achieved_achievement_info(_info.iterator);
+ * }
+ * ```
+ * The code example above shows how to loop through the most achieved achievements and show a debug message with info on each of them.
+ * @func_end
+ */
+
+/**
+ * @func steam_get_next_most_achieved_achievement_info
+ * @desc This function gets the info on the next most achieved achievement for the game.
+ * 
+ * An iterator value of `-1` indicates that the previous item was the last one.
+ * 
+ * [[Note: You must have called ${function.steam_request_global_achievement_percentages} and it needs to return successfully via the ${event.steam} prior to calling this.]]
+ * 
+ * @param {real} iterator_previous The iterator value returned from the previous call to this function or from ${function.steam_get_most_achieved_achievement_info}.
+ * 
+ * @returns {struct.AchievementInfo}
+ * 
+ * @example
+ * ```gml
+ * var _info = steam_get_most_achieved_achievement_info();
+ * while (_info.iterator != -1) {
+ *     show_debug_message($"{_info.achievement} - achieved: {_info.achieved} (unlocked by {_info.percent}% of players)");
+ *     _info = steam_get_next_most_achieved_achievement_info(_info.iterator);
+ * }
+ * ```
+ * The code example above shows how to loop through the most achieved achievements and show a debug message with info on each of them.
+ * @func_end
+ */
+
+/**
+ * @func steam_get_global_stat
+ * @desc This function gets the lifetime totals for an aggregated stat.
+ * 
+ * [[Note: You must have called ${function.steam_request_global_stats} and it needs to return successfully via its ${event.steam} prior to calling this.]]
+ * 
+ * @param {string} stat_name The 'API Name' of the stat.
+ * 
+ * @returns {real}
+ * 
+ * @example
+ * ```gml
+ * var _val = steam_get_global_stat("Eggs_Hatched");
+ * ```
+ * @func_end
+ */
+
+/**
+ * @func steam_get_global_stat_history
+ * @desc This function gets the daily history for an aggregated stat.
+ * 
+ * [[Note: You must have called ${function.steam_request_global_stats} and it needs to return successfully via its ${event.steam} prior to calling this.]]
+ * 
+ * [[Note: The maximum number of items returned will be the value passed to ${function.steam_request_global_stats}.]]
+ * 
+ * @param {string} stat_name The 'API Name' of the stat.
+ * @returns {array[real]}
+ * 
+ * @example
+ * ```gml
+ * var _name = "Eggs_Hatched";
+ * var _arr_history = steam_get_global_stat_history("Eggs_Hatched");
+ * show_debug_message("Evolution:");
+ * array_foreach(_arr_history, function(_element, _index) { show_debug_message($"Day {_index}: {_element}"); });
+ * ```
+ * The code example above shows how to get the global stat history and show it using multiple debug messages.
+ * @func_end
+ */
+
+// STRUCTS
+
+/**
+ * @struct AchievementInfo
+ * @desc This struct holds information about an achievement.
+ * @member {real} iterator The iterator value at the given achievement. A value of `-1` indicates that the previously returned item was the last item.
+ * @member {real} percent The percentage of people that have unlocked this achievement from 0 to 100.
+ * @member {string} achievement The 'API Name' of the achievement.
+ * @member {bool} achieved Whether the player achieved this achievement.
+ * @struct_end
+ */
+
 // MODULES
 
 /**
@@ -265,6 +439,22 @@
  * @ref steam_reset_all_stats
  * @ref steam_reset_all_stats_achievements
  * 
+ * @section_end
+ * 
+ * @section_func 
+ * @desc The following functions are provided for working with global stats: 
+ * @ref steam_request_global_stats
+ * @ref steam_request_global_achievement_percentages
+ * @ref steam_get_achievement_achieved_percent
+ * @ref steam_get_most_achieved_achievement_info
+ * @ref steam_get_next_most_achieved_achievement_info
+ * @ref steam_get_global_stat
+ * @ref steam_get_global_stat_history
+ * @section_end
+ * 
+ * @section_struct
+ * @desc The following structs are used with stats and achievements: 
+ * @ref AchievementInfo
  * @section_end
  * 
  * @module_end
