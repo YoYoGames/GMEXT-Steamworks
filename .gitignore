@@ -42,3 +42,5 @@ output/
 
 .fake
 *.vsxproj.filters
+
+*.xcuserstate
