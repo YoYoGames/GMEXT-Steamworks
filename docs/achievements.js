@@ -355,7 +355,7 @@
  * 
  * [[Note: You must have called ${function.steam_request_global_stats} and it needs to return successfully via its ${event.steam} prior to calling this.]]
  * 
- * [[Warning: This function only applies to stats marked as `int64` on the Steamwork dashboard]]
+ * [[Warning: This function only applies to stats marked as `int64` on the Steamworks dashboard]]
  * 
  * @param {string} stat_name The 'API Name' of the stat.
  * 
@@ -374,7 +374,7 @@
  * 
  * [[Note: You must have called ${function.steam_request_global_stats} and it needs to return successfully via its ${event.steam} prior to calling this.]]
  * 
- * [[Warning: This function only applies to stats marked as `double` on the Steamwork dashboard]]
+ * [[Warning: This function only applies to stats marked as `double` on the Steamworks dashboard]]
  * 
  * @param {string} stat_name The 'API Name' of the stat.
  * 
@@ -395,7 +395,7 @@
  * 
  * [[Note: The maximum number of items returned will be the value passed to ${function.steam_request_global_stats}.]]
  * 
- * [[Warning: This function only applies to stats marked as `int64` on the Steamwork dashboard]]
+ * [[Warning: This function only applies to stats marked as `int64` on the Steamworks dashboard]]
  * 
  * @param {string} stat_name The 'API Name' of the stat.
  * @returns {array[int64]}
@@ -419,7 +419,7 @@
  * 
  * [[Note: The maximum number of items returned will be the value passed to ${function.steam_request_global_stats}.]]
  * 
- * [[Warning: This function only applies to stats marked as `real` on the Steamwork dashboard]]
+ * [[Warning: This function only applies to stats marked as `real` on the Steamworks dashboard]]
  * 
  * @param {string} stat_name The 'API Name' of the stat.
  * @returns {array[real]}
