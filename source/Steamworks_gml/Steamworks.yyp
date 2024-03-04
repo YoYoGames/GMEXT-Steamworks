@@ -30,8 +30,8 @@
     {"$GMFolder":"","%Name":"Sprites","folderPath":"folders/YoYo Extensions Assets/Sprites.yy","name":"Sprites","resourceType":"GMFolder","resourceVersion":"2.0",},
   ],
   "IncludedFiles":[
-    {"$GMIncludedFile":"","%Name":"GMEXT-Steamwork Unix Docs.html","CopyToMask":-1,"filePath":"datafiles","name":"GMEXT-Steamwork Unix Docs.html","resourceType":"GMIncludedFile","resourceVersion":"2.0",},
-    {"$GMIncludedFile":"","%Name":"GMEXT-Steamwork Win Docs.html.lnk","CopyToMask":-1,"filePath":"datafiles","name":"GMEXT-Steamwork Win Docs.html.lnk","resourceType":"GMIncludedFile","resourceVersion":"2.0",},
+    {"$GMIncludedFile":"","%Name":"GMEXT-Steamwork Unix Docs.html","CopyToMask":0,"filePath":"datafiles","name":"GMEXT-Steamwork Unix Docs.html","resourceType":"GMIncludedFile","resourceVersion":"2.0",},
+    {"$GMIncludedFile":"","%Name":"GMEXT-Steamwork Win Docs.lnk","CopyToMask":0,"filePath":"datafiles","name":"GMEXT-Steamwork Win Docs.lnk","resourceType":"GMIncludedFile","resourceVersion":"2.0",},
   ],
   "isEcma":false,
   "LibraryEmitters":[],
