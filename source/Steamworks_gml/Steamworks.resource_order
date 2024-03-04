@@ -1,5 +1,5 @@
 {
-  "FolderOrderSettings": [
+  "FolderOrderSettings":[
     {"name":"Steamworks Demo","order":3,"path":"folders/Steamworks Demo.yy",},
     {"name":"Input","order":11,"path":"folders/Steamworks Demo/Input.yy",},
     {"name":"Music","order":12,"path":"folders/Steamworks Demo/Music.yy",},
@@ -16,7 +16,7 @@
     {"name":"Objects","order":2,"path":"folders/YoYo Extensions Assets/Objects.yy",},
     {"name":"Sprites","order":3,"path":"folders/YoYo Extensions Assets/Sprites.yy",},
   ],
-  "ResourceOrderSettings": [
+  "ResourceOrderSettings":[
     {"name":"Obj_Steam_ProfileImage","order":5,"path":"objects/Obj_Steam_ProfileImage/Obj_Steam_ProfileImage.yy",},
     {"name":"Obj_Steam_Overlay_Players","order":3,"path":"objects/Obj_Steam_Overlay_Players/Obj_Steam_Overlay_Players.yy",},
     {"name":"Font_YoYo_30","order":2,"path":"fonts/Font_YoYo_30/Font_YoYo_30.yy",},

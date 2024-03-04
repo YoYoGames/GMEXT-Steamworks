@@ -9,6 +9,7 @@
  * 
  * @section Management
  * @desc This extension provides the following management functions:
+ * 
  *  * ${function.steam_init} (automatically called by the extension)
  *  * ${function.steam_update} :warning: REQUIRED
  *  * ${function.steam_shutdown} :warning: REQUIRED

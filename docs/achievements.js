@@ -350,10 +350,31 @@
  */
 
 /**
- * @func steam_get_global_stat
+ * @func steam_get_global_stat_int
+ * @desc This function gets the lifetime totals for an aggregated integer stat.
+ * 
+ * [[Note: You must have called ${function.steam_request_global_stats} and it needs to return successfully via its ${event.steam} prior to calling this.]]
+ * 
+ * [[Important: This function only applies to stats marked as `int64` on the Steamwork dashboard]]
+ * 
+ * @param {string} stat_name The 'API Name' of the stat.
+ * 
+ * @returns {int64}
+ * 
+ * @example
+ * ```gml
+ * var _val = steam_get_global_stat_int("Eggs_Hatched");
+ * ```
+ * @func_end
+ */
+
+/**
+ * @func steam_get_global_stat_real
  * @desc This function gets the lifetime totals for an aggregated stat.
  * 
  * [[Note: You must have called ${function.steam_request_global_stats} and it needs to return successfully via its ${event.steam} prior to calling this.]]
+ * 
+ * [[Important: This function only applies to stats marked as `double` on the Steamwork dashboard]]
  * 
  * @param {string} stat_name The 'API Name' of the stat.
  * 
@@ -361,18 +382,44 @@
  * 
  * @example
  * ```gml
- * var _val = steam_get_global_stat("Eggs_Hatched");
+ * var _val = steam_get_global_stat_real("Eggs_Hatched");
  * ```
  * @func_end
  */
 
 /**
- * @func steam_get_global_stat_history
+ * @func steam_get_global_stat_history_int
  * @desc This function gets the daily history for an aggregated stat.
  * 
  * [[Note: You must have called ${function.steam_request_global_stats} and it needs to return successfully via its ${event.steam} prior to calling this.]]
  * 
  * [[Note: The maximum number of items returned will be the value passed to ${function.steam_request_global_stats}.]]
+ * 
+ * [[Important: This function only applies to stats marked as `int64` on the Steamwork dashboard]]
+ * 
+ * @param {string} stat_name The 'API Name' of the stat.
+ * @returns {array[int64]}
+ * 
+ * @example
+ * ```gml
+ * var _name = "Eggs_Hatched";
+ * var _arr_history = steam_get_global_stat_history("Eggs_Hatched");
+ * show_debug_message("Evolution:");
+ * array_foreach(_arr_history, function(_element, _index) { show_debug_message($"Day {_index}: {_element}"); });
+ * ```
+ * The code example above shows how to get the global stat history and show it using multiple debug messages.
+ * @func_end
+ */
+
+/**
+ * @func steam_get_global_stat_history_real
+ * @desc This function gets the daily history for an aggregated stat.
+ * 
+ * [[Note: You must have called ${function.steam_request_global_stats} and it needs to return successfully via its ${event.steam} prior to calling this.]]
+ * 
+ * [[Note: The maximum number of items returned will be the value passed to ${function.steam_request_global_stats}.]]
+ * 
+ * [[Important: This function only applies to stats marked as `real` on the Steamwork dashboard]]
  * 
  * @param {string} stat_name The 'API Name' of the stat.
  * @returns {array[real]}
@@ -448,8 +495,10 @@
  * @ref steam_get_achievement_achieved_percent
  * @ref steam_get_most_achieved_achievement_info
  * @ref steam_get_next_most_achieved_achievement_info
- * @ref steam_get_global_stat
- * @ref steam_get_global_stat_history
+ * @ref steam_get_global_stat_int
+ * @ref steam_get_global_stat_real
+ * @ref steam_get_global_stat_history_int
+ * @ref steam_get_global_stat_history_real
  * @section_end
  * 
  * @section_struct
