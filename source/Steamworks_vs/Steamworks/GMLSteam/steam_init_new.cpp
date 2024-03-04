@@ -53,7 +53,7 @@ YYEXPORT void steam_init(RValue& Result, CInstance* selfinst, CInstance* otherin
 
 void OldPreGraphicsInitialisation()
 {
-	uint32 AppID = extOptGetReal("Steamworks", "appID");
+	uint32 AppID = static_cast<uint32>(extOptGetReal("Steamworks", "appID"));
 
     // a game cannot have an invalid appid
     if (AppID == k_uAppIdInvalid)

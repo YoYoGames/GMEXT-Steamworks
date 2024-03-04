@@ -56,7 +56,7 @@ YYEXPORT void /*bool*/ steam_lobby_send_chat_message(RValue& Result, CInstance* 
 
 YYEXPORT void /*bool*/ steam_lobby_send_chat_message_buffer(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)//(gml_buffer buf, int size = -1) 
 {
-	double bufferId = YYGetReal(arg, 0);
+	int32 bufferId = YYGetInt32(arg, 0);
 	int32 size = YYGetInt32(arg, 1);
 
 	if (!steam_lobby_current.IsValid())
@@ -98,25 +98,25 @@ YYEXPORT void /*const char**/ steam_lobby_get_chat_message_text(RValue& Result, 
 
 YYEXPORT void /*double*/ steam_lobby_get_chat_message_size(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)//(double message_index) 
 {
-	double message_index = YYGetReal(arg, 0);
+	int64 message_index = YYGetInt64(arg, 0);
 
 	message_index -= chat_messages.offset;
-	if (message_index < 0 || message_index >= chat_messages.arr.size()) 
+	if (message_index < 0 || message_index >= static_cast<int64>(chat_messages.arr.size()))
 	{ 
 		Result.kind = VALUE_REAL;
 		Result.val = -1;
 		return;
 	}
 
-	Result.kind = VALUE_REAL;
-	Result.val = chat_messages.arr[(size_t)message_index].size;
+	Result.kind = VALUE_INT64;
+	Result.v64 = chat_messages.arr[message_index].size;
 }
 
 YYEXPORT void /*bool*/ steam_lobby_get_chat_message_data(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)//(int64_t message_index, gml_buffer buf) 
 {
-	double message_index = YYGetReal(arg, 0);
-	double gml_buff = YYGetReal(arg, 1);
-
+	int64 message_index = YYGetInt64(arg, 0);
+	int32 gml_buff = YYGetInt32(arg, 1);
+	 
 	if (BufferGetFromGML(gml_buff) == NULL)
 	{
 		DebugConsoleOutput("steam_lobby_get_chat_message_data() - error: specified buffer not found\n");
@@ -127,14 +127,14 @@ YYEXPORT void /*bool*/ steam_lobby_get_chat_message_data(RValue& Result, CInstan
 	}
 
 	message_index -= chat_messages.offset;
-	if (message_index < 0 || message_index >= chat_messages.arr.size())
+	if (message_index < 0 || message_index >= static_cast<int64>(chat_messages.arr.size()))
 	{
 		Result.kind = VALUE_BOOL;
 		Result.val = false;
 		return;
 	}
 
-	auto& msg = chat_messages.arr[(size_t)message_index];
+	auto& msg = chat_messages.arr[message_index];
 	auto size = msg.size;
 	
 	if (BufferWriteContent(gml_buff, 0, msg.data, (int)size, true) != size)

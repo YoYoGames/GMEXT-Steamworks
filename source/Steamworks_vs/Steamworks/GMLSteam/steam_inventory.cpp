@@ -50,7 +50,7 @@ YYEXPORT void /*int*/ steam_inventory_result_get_unix_timestamp(RValue& Result, 
 YYEXPORT void /*const char**/ steam_inventory_result_get_item_property(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)//(SteamInventoryResult_t inv_result, int item_index, const char* prop_name) 
 {
 	int32 inv_result = YYGetInt32(arg, 0);
-	int item_index = YYGetReal(arg, 1);
+	int item_index = YYGetInt32(arg, 1);
 	char* prop_name = (char*)YYGetString(arg, 2);
 
 	static vector<char> tmp;
@@ -101,7 +101,7 @@ YYEXPORT void /*vector<steam_inventory_result_item>*/ steam_inventory_result_get
 
 	vector<RValue> vec{};
 
-	for (auto i = 0 ; i < count ; i++)
+	for (uint32 i = 0 ; i < count ; i++)
 	{
 		RValue Struct{};
 		YYStructCreate(&Struct);
@@ -235,8 +235,8 @@ vector<steam_inventory_itemdef_w_quantity> argToSteam_inventory_itemdef_w_quanti
 		for (int i = 0; GET_RValue(&elem, pV, NULL, i); ++i)
 		{
 			steam_inventory_itemdef_w_quantity* _struct = new steam_inventory_itemdef_w_quantity();// {0};
-			_struct->item_def = YYStructGetMember(&elem, "item_def")->val;
-			_struct->quantity = YYStructGetMember(&elem, "quantity")->val;
+			_struct->item_def = static_cast<SteamItemDef_t>(YYStructGetMember(&elem, "item_def")->val);
+			_struct->quantity = static_cast<uint32>(YYStructGetMember(&elem, "quantity")->val);
 
 			items.push_back(*_struct);
 		}
@@ -261,8 +261,8 @@ vector<steam_inventory_itemid_w_quantity> argToSteam_inventory_itemid_w_quantity
 		for (int i = 0; GET_RValue(&elem, pV, NULL, i); ++i)
 		{
 			steam_inventory_itemid_w_quantity* _struct = new steam_inventory_itemid_w_quantity();// {0};
-			_struct->item_id = YYStructGetMember(&elem, "item_id")->val;
-			_struct->quantity = YYStructGetMember(&elem, "quantity")->val;
+			_struct->item_id = static_cast<SteamItemInstanceID_t>(YYStructGetMember(&elem, "item_id")->val);
+			_struct->quantity = static_cast<uint32>(YYStructGetMember(&elem, "quantity")->val);
 
 			items.push_back(*_struct);
 		}
@@ -573,7 +573,7 @@ YYEXPORT void /*optional<vector<steam_inventory_get_item_prices_t>>*/ steam_inve
 	}
 
 	vector<RValue> vec{}; 
-	for (int i = 0u; i < n; i++)
+	for (uint32 i = 0; i < n; i++)
 	{
 		RValue Struct = { 0 };
 		YYStructCreate(&Struct);

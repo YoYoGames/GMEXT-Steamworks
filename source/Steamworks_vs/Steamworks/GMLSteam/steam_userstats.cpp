@@ -1565,7 +1565,7 @@ YYEXPORT void steam_request_global_achievement_percentages(RValue& Result, CInst
 YYEXPORT void steam_get_achievement_achieved_percent(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)
 {
 	const char* statname = YYGetString(arg, 0);
-	DebugConsoleOutput("GetAchievementAchievedPercent Called\n");
+
 	if (!steam_is_initialised)
 	{
 		Result.kind = VALUE_REAL;
@@ -1657,72 +1657,128 @@ YYEXPORT void steam_get_next_most_achieved_achievement_info(RValue& Result, CIns
 	return;
 }
 
-YYEXPORT void steam_get_global_stat(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)
+YYEXPORT void steam_get_global_stat_int(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)
 {
+	Result.kind = VALUE_REAL;
+	Result.val = NAN;
+
 	const char* pStatName = YYGetString(arg, 0);
 
-	if (!steam_is_initialised)
-	{
-		Result.kind = VALUE_REAL;
-		Result.val = 0;
-		return;
-	}
+	if (!steam_is_initialised) return;
 
-	Result.kind = VALUE_REAL;
 	if (m_bStatsGlobalReady)
 	{
 		if (SteamUserStats() != NULL)
 		{
-			double pData;
+			int64 pData = 0;
 			if (!SteamUserStats()->GetGlobalStat(pStatName, &pData))
 			{
-				DebugConsoleOutput("GetGlobalStat Failed: %s\n", pStatName);
+				DebugConsoleOutput("%s Failed: wrong data type for stat '%s'\n", __FUNCTION__, pStatName);
 				return;
 			}
 
-			Result.kind = VALUE_REAL;
-			Result.val = pData;
+			Result.kind = VALUE_INT64;
+			Result.v64 = pData;
+		}
+		else
+		{
+			DebugConsoleOutput("%s Failed: could not access SteamUserStats interface\n", __FUNCTION__);
 		}
 	}
+	else
+	{
+		DebugConsoleOutput("%s Failed: global stats are not ready call: 'steam_request_global_stats'\n", __FUNCTION__);
+	}
+}
 
-	Result.val = 0.0;
+YYEXPORT void steam_get_global_stat_real(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)
+{
+	Result.kind = VALUE_REAL;
+	Result.val = NAN;
+
+	const char* pStatName = YYGetString(arg, 0);
+
+	if (!steam_is_initialised) return;
+
+	if (m_bStatsGlobalReady)
+	{
+		if (SteamUserStats() != NULL)
+		{
+			double pData = 0;
+			if (!SteamUserStats()->GetGlobalStat(pStatName, &pData))
+			{
+				DebugConsoleOutput("%s Failed: wrong data type for stat '%s'\n", __FUNCTION__, pStatName);
+				return;
+			}
+			Result.val = pData;
+		}
+		else
+		{
+			DebugConsoleOutput("%s Failed: could not access SteamUserStats interface\n", __FUNCTION__);
+		}
+	}
+	else
+	{
+		DebugConsoleOutput("%s Failed: global stats are not ready call: 'steam_request_global_stats'\n", __FUNCTION__);
+	}
 	return;
 }
 
-YYEXPORT void steam_get_global_stat_history(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)
+YYEXPORT void steam_get_global_stat_history_int(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)
 {
-	const char* pStatName = YYGetString(arg, 0);
-
-	if (!steam_is_initialised)
-	{
-		Result.kind = VALUE_REAL;
-		Result.val = 0;
-		return;
-	}
-
-	// Create empty array
 	YYCreateArray(&Result);
+	
+	if (!steam_is_initialised) return;
+
+	const char* pStatName = YYGetString(arg, 0);
 
 	if (m_bStatsGlobalReady)
 	{
 		if (SteamUserStats() != NULL)
 		{
 			constexpr int MAX_VALID_ENTRIES = 60;
-			double pData[MAX_VALID_ENTRIES]{};
+			std::vector<int64> pData(MAX_VALID_ENTRIES); 
 
-			int32 numbEntries = SteamUserStats()->GetGlobalStatHistory(pStatName, pData, sizeof(pData));
-			if (numbEntries == 0) return;
-
-			for (int i = 0; i < numbEntries; i++)
-			{
-				RValue tag = { 0 };
-				tag.kind = VALUE_REAL;
-				tag.val = pData[i];
-
-				SET_RValue(&Result, &tag, NULL, i);
-				FREE_RValue(&tag);
-			}
+			SteamUserStats()->GetGlobalStatHistory(pStatName, pData.data(), MAX_VALID_ENTRIES);
+			_SW_SetArrayOfInt64(&Result, pData);
 		}
+		else
+		{
+			DebugConsoleOutput("%s Failed: could not access SteamUserStats interface\n", __FUNCTION__);
+		}
+	}
+	else
+	{
+		DebugConsoleOutput("%s Failed: global stats are not ready call: 'steam_request_global_stats'\n", __FUNCTION__);
+	}
+}
+
+YYEXPORT void steam_get_global_stat_history_real(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)
+{
+	YYCreateArray(&Result);
+
+	if (!steam_is_initialised) return;
+
+	const char* pStatName = YYGetString(arg, 0);
+
+	if (m_bStatsGlobalReady)
+	{
+		if (SteamUserStats() != NULL)
+		{
+			constexpr int MAX_VALID_ENTRIES = 60;
+			std::vector<double> pData(MAX_VALID_ENTRIES);
+
+			SteamUserStats()->GetGlobalStatHistory(pStatName, pData.data(), MAX_VALID_ENTRIES);
+			_SW_SetArrayOfReal(&Result, pData);
+		}
+		else
+		{
+			DebugConsoleOutput("%s Failed: could not access SteamUserStats interface\n", __FUNCTION__);
+		}
+	}
+	else
+	{
+		DebugConsoleOutput("%s Failed: global stats are not ready call: 'steam_request_global_stats'\n", __FUNCTION__);
 	}
 }
 

@@ -136,7 +136,7 @@ void _SW_SetArrayOfString(RValue* _array, char* str, const char* delim)
 	}
 }
 
-void _SW_SetArrayOfReal(RValue* _array, std::vector<double> values)
+void _SW_SetArrayOfReal(RValue* _array, std::vector<double> &values)
 {
 	for (int i = 0; i < values.size(); i++)
 	{
@@ -149,7 +149,7 @@ void _SW_SetArrayOfReal(RValue* _array, std::vector<double> values)
 	}
 }
 
-void _SW_SetArrayOfRValue(RValue* _array, std::vector<RValue> values)
+void _SW_SetArrayOfRValue(RValue* _array, std::vector<RValue> &values)
 {
 	for (int i = 0 ; i < values.size() ; i++)
 	{
@@ -160,13 +160,26 @@ void _SW_SetArrayOfRValue(RValue* _array, std::vector<RValue> values)
 	}
 }
 
-void _SW_SetArrayOfInt32(RValue* _array, std::vector<int32> values)
+void _SW_SetArrayOfInt32(RValue* _array, std::vector<int32> &values)
 {
 	for (int i = 0; i < values.size(); i++)
 	{
 		RValue tag = { 0 };
 		tag.kind = VALUE_INT32;
 		tag.v32 = values[i];
+
+		SET_RValue(_array, &tag, NULL, i);
+		FREE_RValue(&tag);
+	}
+}
+
+void _SW_SetArrayOfInt64(RValue* _array, std::vector<int64> &values)
+{
+	for (int i = 0; i < values.size(); i++)
+	{
+		RValue tag = { 0 };
+		tag.kind = VALUE_INT64;
+		tag.v64 = values[i];
 
 		SET_RValue(_array, &tag, NULL, i);
 		FREE_RValue(&tag);

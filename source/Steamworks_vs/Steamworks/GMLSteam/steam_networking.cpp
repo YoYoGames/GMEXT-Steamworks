@@ -90,7 +90,7 @@ YYEXPORT void /*double*/ steam_net_packet_set_type(RValue& Result, CInstance* se
 YYEXPORT void /*double*/ steam_net_packet_send(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)//(int64 user_id, char* data, double size, double type) 
 {
 	uint64 value64 = (uint64)YYGetInt64(arg, 0);
-	double buffer_idx = (double)YYGetReal(arg, 1);
+	int32 buffer_idx = YYGetInt32(arg, 1);
 
 	int32 size = argc > 2 ? size = YYGetInt32(arg, 2) : -1;
 
@@ -170,7 +170,7 @@ YYEXPORT void /*double*/ steam_net_packet_get_size(RValue& Result, CInstance* se
 
 YYEXPORT void /*double*/ steam_net_packet_get_data(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)//(char* data) 
 {
-	double buffer_idx = (double)YYGetReal(arg, 0);
+	int32 buffer_idx = YYGetInt32(arg, 0);
 
 	if (steam_net_packet_data != nullptr) 
 	{

@@ -338,17 +338,16 @@ YYEXPORT void /*const char**/ steam_lobby_list_get_data(RValue& Result, CInstanc
 		YYCreateString(&Result, "");
 }
 //
-uint64 steam_lobby_list_get_lobby_id(double index) {
-	int32 i = (int32)index;
-	if (i >= 0 && i < steam_lobby_count) {
-		return steam_lobby_list[i].ConvertToUint64();
+uint64 steam_lobby_list_get_lobby_id(int32 index) {
+	if (index >= 0 && index < steam_lobby_count) {
+		return steam_lobby_list[index].ConvertToUint64();
 	} 
 	else return 0;
 }
 
 YYEXPORT void /*double*/ steam_lobby_list_get_lobby_id(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)//(double index) 
 {
-	uint64 value64 = (uint64)YYGetInt64(arg, 0);
+	int32 value64 = YYGetInt32(arg, 0);
 
 	Result.kind = VALUE_INT64;
 	Result.v64 = steam_lobby_list_get_lobby_id(value64);

@@ -130,8 +130,7 @@ void steam_net_callbacks_t::encrypted_app_ticket_response_received(EncryptedAppT
 CCallResult<steam_net_callbacks_t, EncryptedAppTicketResponse_t> steam_user_app_ticket;
 YYEXPORT void /*double*/ steam_user_request_encrypted_app_ticket(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)//(char* data, double size)
 {
-
-    double bufferId = YYGetReal(arg, 0);
+    int32 bufferId = YYGetInt32(arg, 0);
 
     void* buffer_data = nullptr;
     int buffer_size = 0;
