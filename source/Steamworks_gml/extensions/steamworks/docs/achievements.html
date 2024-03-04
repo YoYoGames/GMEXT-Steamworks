@@ -1039,7 +1039,7 @@ The code example above shows how to loop through the most achieved achievements 
 <p><br></p>
 <p><strong>Example:</strong></p>
 <p><pre class="highlight"><code class="language-gml">var _name = "Eggs_Hatched";
-var _arr_history = steam_get_global_stat_history("Eggs_Hatched");
+var _arr_history = steam_get_global_stat_history_int("Eggs_Hatched");
 show_debug_message("Evolution:");
 array_foreach(_arr_history, function(_element, _index) { show_debug_message($"Day {_index}: {_element}"); });</code></pre>
 The code example above shows how to get the global stat history and show it using multiple debug messages.</p>
@@ -1091,7 +1091,7 @@ The code example above shows how to get the global stat history and show it usin
 <p><br></p>
 <p><strong>Example:</strong></p>
 <p><pre class="highlight"><code class="language-gml">var _name = "Eggs_Hatched";
-var _arr_history = steam_get_global_stat_history("Eggs_Hatched");
+var _arr_history = steam_get_global_stat_history_real("Eggs_Hatched");
 show_debug_message("Evolution:");
 array_foreach(_arr_history, function(_element, _index) { show_debug_message($"Day {_index}: {_element}"); });</code></pre>
 The code example above shows how to get the global stat history and show it using multiple debug messages.</p>
