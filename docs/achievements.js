@@ -403,7 +403,7 @@
  * @example
  * ```gml
  * var _name = "Eggs_Hatched";
- * var _arr_history = steam_get_global_stat_history("Eggs_Hatched");
+ * var _arr_history = steam_get_global_stat_history_int("Eggs_Hatched");
  * show_debug_message("Evolution:");
  * array_foreach(_arr_history, function(_element, _index) { show_debug_message($"Day {_index}: {_element}"); });
  * ```
@@ -427,7 +427,7 @@
  * @example
  * ```gml
  * var _name = "Eggs_Hatched";
- * var _arr_history = steam_get_global_stat_history("Eggs_Hatched");
+ * var _arr_history = steam_get_global_stat_history_real("Eggs_Hatched");
  * show_debug_message("Evolution:");
  * array_foreach(_arr_history, function(_element, _index) { show_debug_message($"Day {_index}: {_element}"); });
  * ```
