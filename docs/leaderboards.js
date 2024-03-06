@@ -3,7 +3,6 @@
 /**
  * @func steam_create_leaderboard
  * @desc With this function you can create a new leaderboard for your game. The first argument is a string which defines the name of your leaderboard, and this name should be used in any further function calls relating to the leaderboard being created. You can then define the sort order (see ${constant.LeaderboardSortOrder} constants) as well as the way in which the information is displayed (see ${constant.LeaderboardDisplayType} constants).
- * This is an asynchronous function that will trigger the ${event.steam} when the task is finished.
  * 
  * [[NOTE: If you have previously created a leaderboard with the same name (either through code or through your Steam page for the game), then this function will not create a new one.]]
  * 
@@ -31,7 +30,6 @@
 /**
  * @func steam_upload_score
  * @desc This function will send a score to the given leaderboard. The score to be uploaded is a real number, and the leaderboard name is a string that was defined when you created the leaderboard using the function ${function.steam_create_leaderboard}. 
- * This is an asynchronous function that will trigger the ${event.steam} when the task is finished.
  * 
  * [[NOTE: If the function call fails for any reason it will return -1 and the Async event will not be triggered.]]
  * 
@@ -95,7 +93,6 @@
 /**
  * @func steam_upload_score_ext
  * @desc This function will send a score to the given leaderboard. It is similar to the function ${function.steam_upload_score} but has an extra argument that will allow you to force the update of the score, as by default Steam only updates the score if it is better than the previous one.
- * This is an asynchronous function that will trigger the ${event.steam} when the task is finished.
  * 
  * [[NOTE: If the function call fails for any reason it will return -1 and the Async event will not be triggered.]]
  * 
@@ -160,7 +157,6 @@
 /**
  * @func steam_upload_score_buffer
  * @desc This function will send a score to the given leaderboard along with a data package created from a buffer. The buffer should be no more than 256 bytes in size - anything beyond that will be chopped off - and can contain any data you require. The score to be uploaded should be a real number, and the leaderboard name is a string that was defined when you created the leaderboard using the function ${function.steam_create_leaderboard}.
- * This is an asynchronous function that will trigger the ${event.steam} when the task is finished.
  * 
  * [[NOTE: If the function call fails for any reason it will return -1 and the Async event will not be triggered.]]
  * 
@@ -231,7 +227,6 @@
 /**
  * @func steam_upload_score_buffer_ext
  * @desc This function will send a score to the given leaderboard along with a data package created from a buffer. The buffer should be no more than 256 bytes in size - anything beyond that will be chopped off - and can contain any data you require. This function is similar to ${function.steam_upload_score_buffer} but has an extra argument that will allow you to force the update of the score, as by default Steam only updates the score if it is better than the previous one.
- * This is an asynchronous function that will trigger the ${event.steam} when the task is finished.
  * 
  * [[NOTE: If the function call fails for any reason it will return -1 and the Async event will not be triggered.]]
  * 
@@ -303,7 +298,6 @@
 /**
  * @func steam_download_scores
  * @desc This function is used to retrieve a sequential range of leaderboard entries by leaderboard ranking. The `start_idx` and `end_idx` parameters control the requested range of ranks, for example, you can display the top 10 on a leaderboard for your game by setting the start value to 1 and the end value to 10. The leaderboard name is a string that was defined when you created the leaderboard using the function ${function.steam_create_leaderboard}.
- * This is an asynchronous function that will trigger the ${event.steam} when the task is finished.
  * 
  * [[NOTE: If the function call fails for any reason it will return -1 and the async event will not be triggered.]]
  * 
@@ -367,7 +361,6 @@
 /**
  * @func steam_download_scores_around_user
  * @desc This function is used to retrieve leaderboard entries relative to the current user's entry. The `range_start` parameter is the number of entries to retrieve **before** the current user's entry, and the `range_end` parameter is the number of entries after the current user's entry, and the current user's entry is **always** included in the results. For example, if the current user is number 5 on a given leaderboard, then setting the start range to -2 and the end range to 2 will return 5 entries: 3 through 7. If there are not enough entries in the leaderboard before or after the user's entry, Steam will adjust the range start and end points trying to maintained the range size. For example, if the user is #1 on the leaderboard, start is set to -2, and end is set to 2, Steam will return the first 5 entries in the leaderboard.
- * This is an asynchronous function that will trigger the ${event.steam} when the task is finished.
  * 
  * [[NOTE: If the function call fails for any reason it will return -1 and the async event will not be triggered.]]
  * 
@@ -396,7 +389,6 @@
 /**
  * @func steam_download_friends_scores
  * @desc With this function you can retrieve *only* the scores on the leaderboard that belong to those people that are marked as "friends" in the Steam client. So, if your leaderboard has 200 entries, and 50 of them are your friends, this function will retrieve only those 50 results. The leaderboard name is a string that was defined when you created the leaderboard using the function ${function.steam_create_leaderboard}.
- * This is an asynchronous function that will trigger the ${event.steam} when the task is finished.
  * 
  * [[NOTE: If the function call fails for any reason it will return -1 and the async event will not be triggered.]]
  * 
