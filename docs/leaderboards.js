@@ -336,7 +336,7 @@
  *     exit;
  * }
  * 
- * if (async_load[? "status"] != 0)
+ * if (async_load[? "status"] == 0)
  * {
  *     // This is a response to the request we made, but something seems to have gone wrong.
  *     // Handle this, then exit the event.
