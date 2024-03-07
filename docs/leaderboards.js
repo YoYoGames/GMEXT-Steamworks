@@ -347,21 +347,38 @@
  * var _entries_json = ds_map_find_value(async_load, "entries");
  * var _entries = json_parse(_entries_json);
  * leaderboard = _entries.entries;
+ * 
+ * // Get any custom data if it's present and assign to a struct variable named "message"
+ * var _data_base64, _buffer, _message;
+ * array_foreach(leaderboard, function(_element, _index)
+ * {
+ *     _element.message = "";
+ *     if (struct_exists(_element, "data"))
+ *     {
+ *         _data_base64 = _element.data;
+ *         _buffer = buffer_base64_decode(_data_base64);
+ *         _element.message = buffer_read(_buffer, buffer_string);
+ *         buffer_delete(_buffer);
+ *     }
+ * });
  * ```
  * First we check the `"id"` key of the ${var.async_load} ${type.ds_map}. If this value is the same as the value returned by the original call to the function (stored in the `scores_request_id` variable) we continue to process the data. After checking the async ID, we can be sure that the async event is of the right `"event_type"`, so a check on that isn't strictly necessary here.
  * The request status is checked next by checking ${var.async_load}'s `"status"` key. If anything went wrong, it can be handled and we exit the event.
  * The first thing we do after the above checks is get the value of the ${var.async_load} map's `"entries"` key which will contain a JSON-formatted string containing the leaderboard data.
  * This JSON object is then parsed using ${function.json_parse} and the returned struct stored in a local variable `_entries`.
  * The actual leaderboard data is in an array under the struct's `entries` variable, which can be directly assigned to the instance's `leaderboard` variable.
+ * In an optional next step we check every item using ${function.array_foreach} for the presence of a `"data"` key. If this key exists, the data is decoded into a ${type.buffer} and the contents read as a ${type.string}.
+ * The message is then assigned as an additional variable `"message"` to the current score struct to avoid reading from the buffer again when drawing this info in a Draw event.
  * 
  * ```gml
  * /// Draw GUI Event
  * array_foreach(leaderboard, function(_element, _index)
  * {
- *     draw_text(5, 5 + _index * 20, $"{_element.rank}. {_element.score} ({_element.user})");
- * })
+ *     var _msg = (_element.message == "") ? "No Message" : _element.message;
+ *     draw_text(5, 5 + _index * 20, $"{_element.rank}. {_element.score} ({_element.user}) - (_msg)");
+ * });
  * ```
- * Finally, the code above draws the leaderboard in the Draw GUI event.
+ * The code above draws the leaderboard in the Draw GUI event. If the message turns out to be an empty string for whatever reason, the text "No Message" is shown instead.
  * @func_end
  */
 
@@ -456,7 +473,7 @@
  * @member {string} name The display name of the player for this entry
  * @member {int64} userID The unique user ID of the player for this entry
  * 
- * [[NOTE: If ${function.steam_upload_score_buffer} or ${function.steam_upload_score_buffer_ext} were used to upload the score, the decoded entry will now have a `"data"` key so you can retrieve the data of the uploaded buffer (see the ${event.steam} extended code example for further details). This data will be base64 encoded and so you will need to use the function ${function.buffer_base64_decode} on the data before reading from the buffer.]]
+ * [[NOTE: If ${function.steam_upload_score_buffer} or ${function.steam_upload_score_buffer_ext} were used to upload the score, the decoded entry will now have a `"data"` key so you can retrieve the data of the uploaded buffer (see the ${function.steam_download_scores} extended code example for further details). This data will be base64-encoded and so you will need to use the function ${function.buffer_base64_decode} on the data before reading from the buffer.]]
  * @struct_end
  */
 
