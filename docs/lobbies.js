@@ -25,7 +25,6 @@
 /**
  * @func steam_lobby_create
  * @desc This function starts creating a lobby. Returns whether or not the task was successfully created.
- * This is an asynchronous function that will trigger the ${event.steam} when the task is finished.
  * 
  * @param {constant.LobbyType} type A constant that indicates the status of the lobby
  * @param {real} max_members Indicates the maximum allowed number of users in the lobby (including the lobby's creator)
@@ -241,7 +240,6 @@
 /**
  * @func steam_lobby_join_id
  * @desc This function starts joining the lobby with the given ID. Returns whether or not the API was correctly initialized.
- * This is an asynchronous function that will trigger the ${event.steam} when the task is finished.
  * 
  * @param {int64} lobby_id Identifier of the lobby
  * 
@@ -708,8 +706,6 @@
  * @func steam_lobby_list_join
  * @desc Starts joining a lobby with the given ID.
  * 
- * This is an asynchronous function that will trigger the ${event.steam} when the task is finished.
- * 
  * @param {real} index Position of the lobby in the list
  * 
  * @event steam
@@ -730,7 +726,6 @@
 /**
  * @func steam_lobby_list_request
  * @desc This function starts loading the list of lobbies matching the current filters.
- * This is an asynchronous function that will trigger the ${event.steam} when the task is finished.
  * 
  * [[NOTE: Filters are reset afterwards and have to be set again for subsequent request(s).]]
  * 

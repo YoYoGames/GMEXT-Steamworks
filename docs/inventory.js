@@ -3,7 +3,6 @@
 /**
  * @func steam_inventory_consume_item
  * @desc This function consumes items from a user's inventory. If the quantity of the given item goes to zero, it is permanently removed.
- * This is an asynchronous function that will trigger the ${event.steam} when the task is finished.
  * 
  * [[WARNING: You must call ${function.steam_inventory_result_destroy} on the returned async result ID when you are done with it.]]
  * 
@@ -83,7 +82,6 @@
 /**
  * @func steam_inventory_request_eligible_promo_item_defs
  * @desc This function requests the list of "eligible" promo items that can be manually granted to the given user.
- * This is an asynchronous function that will trigger the ${event.steam} when the task is finished.
  * 
  * > [!TIP]
  * >
@@ -112,8 +110,6 @@
 /**
  * @func steam_inventory_request_prices
  * @desc This function requests prices for all item definitions that can be purchased in the user's local currency.
- * 
- * This is an asynchronous function that will trigger the ${event.steam} when the task is finished, after which you can use the following functions:
  * 
  * * ${function.steam_inventory_get_item_price}
  * * ${function.steam_inventory_get_items_with_prices}
@@ -181,7 +177,6 @@
 /**
  * @func steam_inventory_add_promo_item
  * @desc This function takes an Item Definition and grants the user the promo item. Item Definitions are integer numbers ranging from 1 to 999999999. Values below the range are invalid and values above the range are reserved.
- * This is an asynchronous function that will trigger the ${event.steam} when the task is finished.
  * 
  * [[WARNING: You must call ${function.steam_inventory_result_destroy} on the returned async result ID when you are done with it.]]
  * 
@@ -211,7 +206,6 @@
 /**
  * @func steam_inventory_add_promo_items
  * @desc This function takes an array of Item Definitions and grants the user multiple items. Item Definitions are integer numbers ranging from 1 to 999999999. Values below the range are invalid and values above the range are reserved.
- * This is an asynchronous function that will trigger the ${event.steam} when the task is finished.
  * 
  * [[WARNING: You must call ${function.steam_inventory_result_destroy} on the returned async result ID when you are done with it.]]
  * 
@@ -241,7 +235,6 @@
 /**
  * @func steam_inventory_exchange_items
  * @desc This function grants one item in exchange for a set of other items.
- * This is an asynchronous function that will trigger the ${event.steam} when the task is finished.
  * 
  * [[WARNING: You must call ${function.steam_inventory_result_destroy} on the returned async result ID when you are done with it.]]
  * 
@@ -305,7 +298,6 @@
 /**
  * @func steam_inventory_generate_items
  * @desc This function generates specific items for the current user.
- * This is an asynchronous function that will trigger the ${event.steam} when the task is finished.
  * 
  * [[NOTE: This is only usable by Steam accounts that belong to the publisher group for your game.]]
  * 
@@ -342,7 +334,6 @@
 /**
  * @func steam_inventory_get_all_items
  * @desc This function starts retrieving all items in the current user's inventory.
- * This is an asynchronous function that will trigger the ${event.steam} when the task is finished.
  * 
  * [[WARNING: You must call ${function.steam_inventory_result_destroy} on the returned async result ID when you are done with it.]]
  * 
@@ -522,8 +513,6 @@
  * * In an individual "playtimegenerator" item definition. The settings would take precedence over any application-level settings.
  * 
  * Only item definitions which are marked as "playtime item generators" can be spawned.
- * 
- * This is an asynchronous function that will trigger the ${event.steam} when the task is finished.
  * 
  * [[WARNING: You must call ${function.steam_inventory_result_destroy} on the returned async result ID when you are done with it.]]
  * 
