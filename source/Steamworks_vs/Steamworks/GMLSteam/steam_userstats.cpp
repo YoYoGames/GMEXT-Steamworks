@@ -972,13 +972,16 @@ void expand_escapes(std::string& input_string)
 // leaderboard get callback
 void OnDownloadScoreResult(LeaderboardScoresDownloaded_t* pCallback, bool bIOFailure, int callId)
 {
+	int map = CreateDsMap(0, 0);
+	g_pYYRunnerInterface->DsMapAddDouble(map, "id", (double)callId);
+	g_pYYRunnerInterface->DsMapAddString(map, "event_type", "leaderboard_download");
+	g_pYYRunnerInterface->DsMapAddDouble(map, "status", bIOFailure ? 1.0 : 0.0);
+
 	if (bIOFailure)
 	{
-		printf("OnDownloadScoreResult FAILED: %i\n", callId);
+		g_pYYRunnerInterface->CreateAsyncEventWithDSMap(map, EVENT_OTHER_WEB_STEAM);
 		return;
 	}
-
-	printf("OnDownloadScoreResult SUCCESS: %i\n", callId);
 
 	int numLeaderboardEntries;
 	if (pCallback->m_cEntryCount < kMaxEntries)
@@ -987,16 +990,9 @@ void OnDownloadScoreResult(LeaderboardScoresDownloaded_t* pCallback, bool bIOFai
 		numLeaderboardEntries = kMaxEntries;
 
 	const char* pszLBName = SteamUserStats()->GetLeaderboardName(pCallback->m_hSteamLeaderboard);
-	// strncpy(pData->m_pszName, pszLBName, k_cchLeaderboardNameMax);
 
-	printf("got scores for lb:%s %d entries\n", pszLBName, numLeaderboardEntries);
-
-	int map = CreateDsMap(0, 0);
-	g_pYYRunnerInterface->DsMapAddString(map, "event_type", "leaderboard_download");
 	g_pYYRunnerInterface->DsMapAddString(map, "lb_name", pszLBName);
-	g_pYYRunnerInterface->DsMapAddDouble(map, "status", (double)1);
 	g_pYYRunnerInterface->DsMapAddDouble(map, "num_entries", (double)numLeaderboardEntries);
-	g_pYYRunnerInterface->DsMapAddDouble(map, "id", (double)callId);
 
 	std::stringstream sJson;
 
