@@ -83,6 +83,11 @@ exit /b 0
 
     echo "Copying Linux (64 bit) dependencies"
     
+    :: When running from CI the 'YYprojectName' will not be set use 'YYprojectPath' instead.
+    if "%YYprojectName%"=="" (
+        for %%A in ("%YYprojectPath%") do set "YYprojectName=%%~nA"
+    )
+    
     call %Utils% fileExtract "%YYprojectName%.zip" "_temp\"
     if not exist "_temp\assets\libsteam_api.so" (
         call %Utils% itemCopyTo %SDK_SOURCE% "_temp\assets\libsteam_api.so"

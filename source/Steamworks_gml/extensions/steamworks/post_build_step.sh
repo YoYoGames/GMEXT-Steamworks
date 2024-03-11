@@ -28,6 +28,11 @@ setupLinux() {
 
     echo "Copying Linux (64 bit) dependencies"
     
+    # When running from CI the 'YYprojectName' will not be set use 'YYprojectPath' instead.
+    if [ -z "$YYprojectName" ]; then
+        YYprojectName=$(basename "${YYprojectPath%.*}")
+    fi
+
     fileExtract "${YYprojectName}.zip" "_temp"
     [[ ! -f "_temp/assets/libsteam_api.so" ]] && itemCopyTo "$SDK_SOURCE" "_temp/assets/libsteam_api.so"
     folderCompress "_temp" "${YYprojectName}.zip"
