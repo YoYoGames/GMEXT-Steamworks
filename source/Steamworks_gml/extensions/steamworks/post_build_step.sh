@@ -17,6 +17,11 @@ setupmacOS() {
     if [[ "$YYTARGET_runtime" == "VM" ]]; then
         logError "Extension is not compatible with the macOS VM export, please use YYC."
     else
+        # When running from CI the 'YYprojectName' will not be set use 'YYprojectPath' instead.
+        if [ -z "$YYprojectName" ]; then
+            YYprojectName=$(basename "${YYprojectPath%.*}")
+        fi
+
         itemCopyTo "$SDK_SOURCE" "${YYprojectName}/${YYprojectName}/Supporting Files/libsteam_api.dylib"
     fi
 }

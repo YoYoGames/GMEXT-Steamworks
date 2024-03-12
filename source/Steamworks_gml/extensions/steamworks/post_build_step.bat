@@ -66,10 +66,16 @@ exit /b 0
     call %Utils% assertFileHashEquals %SDK_SOURCE% %SDK_HASH_OSX% "%ERROR_SDK_HASH%"
 
     echo "Copying macOS (64 bit) dependencies"
+    
     if "%YYTARGET_runtime%" == "VM" (
         :: This is used for VM compilation
         call %Utils% logError "Extension is not compatible with the macOS VM export, please use YYC."
     ) else (
+        :: When running from CI the 'YYprojectName' will not be set use 'YYprojectPath' instead.
+        if "%YYprojectName%"=="" (
+            for %%A in ("%YYprojectPath%") do set "YYprojectName=%%~nA"
+        )
+
         :: This is used for YYC compilation
         call %Utils% itemCopyTo %SDK_SOURCE% "%YYprojectName: =_%\%YYprojectName: =_%\Supporting Files\libsteam_api.dylib"
     )
