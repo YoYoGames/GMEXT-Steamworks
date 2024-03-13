@@ -93,12 +93,11 @@ exit /b 0
     if "%YYprojectName%"=="" (
         for %%A in ("%YYprojectPath%") do set "YYprojectName=%%~nA"
     )
-    
-    call %Utils% fileExtract "%YYprojectName%.zip" "_temp\"
-    if not exist "_temp\assets\libsteam_api.so" (
-        call %Utils% itemCopyTo %SDK_SOURCE% "_temp\assets\libsteam_api.so"
-        call %Utils% folderCompress "_temp" "%YYprojectName%.zip"
-    )
+
+    :: Update the zip file with the required SDKs
+    mkdir _temp\assets
+    call %Utils% itemCopyTo %SDK_SOURCE% "_temp\assets\libsteam_api.so"
+    call %Utils% zipUpdate "_temp" "%YYprojectName%.zip"
     rmdir /s /q _temp
 
 exit /b 0

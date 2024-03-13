@@ -38,9 +38,10 @@ setupLinux() {
         YYprojectName=$(basename "${YYprojectPath%.*}")
     fi
 
-    fileExtract "${YYprojectName}.zip" "_temp"
-    [[ ! -f "_temp/assets/libsteam_api.so" ]] && itemCopyTo "$SDK_SOURCE" "_temp/assets/libsteam_api.so"
-    folderCompress "_temp" "${YYprojectName}.zip"
+    # Update the zip file with the required SDKs
+    mkdir -p _temp/assets
+    itemCopyTo "$SDK_SOURCE" "_temp/assets/libsteam_api.so"
+    zipUpdate "_temp" "${YYprojectName}.zip"
     rm -r _temp
 }
 

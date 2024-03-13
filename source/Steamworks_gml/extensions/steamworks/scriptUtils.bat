@@ -241,6 +241,28 @@ exit /b 0
     call :logInformation "Compressed contents of '%~1' into '%~2'."
 exit /b 0
 
+:: Adds the contents of a folder into a zip file (displays log messages)
+:zipUpdate srcFolder destFile
+
+    :: Set environment variables for target
+    set "PS_SRCFOLDER=%~1"
+    set "PS_DESTFILE=%~2"
+
+    powershell -Command "Compress-Archive -Path $env:PS_SRCFOLDER\* -DestinationPath $env:PS_DESTFILE -Update"
+
+    :: Check if the compression operation succeeded
+    if %errorlevel% neq 0 (
+        call :logError "Failed to compress contents of '%~1' into '%~2'."
+        exit /b 1
+    )
+
+    :: Clean up environment variables
+    set "PS_SRCFOLDER="
+    set "PS_DESTFILE="
+
+    call :logInformation "Compressed contents of '%~1' into '%~2'."
+exit /b 0
+
 :: Extracts a specified part of a version string and stores it into a variable (displays log messages)
 :versionExtract version part result
     :: Use PowerShell to extract the specified part of the version string
