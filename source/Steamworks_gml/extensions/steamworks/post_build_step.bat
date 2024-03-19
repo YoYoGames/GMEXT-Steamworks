@@ -71,13 +71,18 @@ exit /b 0
         :: This is used for VM compilation
         call %Utils% logError "Extension is not compatible with the macOS VM export, please use YYC."
     ) else (
+        setlocal enabledelayedexpansion
+
         :: When running from CI the 'YYprojectName' will not be set use 'YYprojectPath' instead.
         if "%YYprojectName%"=="" (
             for %%A in ("%YYprojectPath%") do set "YYprojectName=%%~nA"
         )
+        :: Replace spaces with underscores (this matches the assetcompiler output)
+        set YYfixedProjectName=!YYprojectName: =_!
 
         :: This is used for YYC compilation
-        call %Utils% itemCopyTo %SDK_SOURCE% "%YYprojectName: =_%\%YYprojectName: =_%\Supporting Files\libsteam_api.dylib"
+        call %Utils% itemCopyTo %SDK_SOURCE% "!YYfixedProjectName!\!YYfixedProjectName!\Supporting Files\libsteam_api.dylib"
+        endlocal
     )
 exit /b 0
 
@@ -89,6 +94,8 @@ exit /b 0
 
     echo "Copying Linux (64 bit) dependencies"
     
+    setlocal enabledelayedexpansion
+
     :: When running from CI the 'YYprojectName' will not be set use 'YYprojectPath' instead.
     if "%YYprojectName%"=="" (
         for %%A in ("%YYprojectPath%") do set "YYprojectName=%%~nA"
@@ -97,7 +104,9 @@ exit /b 0
     :: Update the zip file with the required SDKs
     mkdir _temp\assets
     call %Utils% itemCopyTo %SDK_SOURCE% "_temp\assets\libsteam_api.so"
-    call %Utils% zipUpdate "_temp" "%YYprojectName%.zip"
+    call %Utils% zipUpdate "_temp" "!YYprojectName!.zip"
     rmdir /s /q _temp
+
+    endlocal 
 
 exit /b 0
