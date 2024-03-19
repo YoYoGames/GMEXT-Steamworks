@@ -207,8 +207,7 @@
 <p align="right"><a href="#top">Back To Top</a></p>
 
 <h1 id="steam_inventory_consume_item">steam_inventory_consume_item</h1>
-<p>This function consumes items from a user's inventory. If the quantity of the given item goes to zero, it is permanently removed.
-This is an asynchronous function that will trigger the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a> when the task is finished.</p>
+<p>This function consumes items from a user's inventory. If the quantity of the given item goes to zero, it is permanently removed.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>You must call <a href="inventory.html#steam_inventory_result_destroy">steam_inventory_result_destroy</a> on the returned async result ID when you are done with it.</p>
@@ -394,8 +393,7 @@ The code above will get items with prices and if the returning array size is gre
 <p align="right"><a href="#top">Back To Top</a></p>
 
 <h1 id="steam_inventory_request_eligible_promo_item_defs">steam_inventory_request_eligible_promo_item_defs</h1>
-<p>This function requests the list of "eligible" promo items that can be manually granted to the given user.
-This is an asynchronous function that will trigger the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a> when the task is finished.</p>
+<p>This function requests the list of "eligible" promo items that can be manually granted to the given user.</p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
 <p>A wrapper around <a href="https://partner.steamgames.com/doc/api/ISteamInventory#RequestEligiblePromoItemDefinitionsIDs">RequestEligiblePromoItemDefinitionsIDs</a>.</p>
@@ -479,7 +477,6 @@ For more information on this function call please refer to the official manual.<
 
 <h1 id="steam_inventory_request_prices">steam_inventory_request_prices</h1>
 <p>This function requests prices for all item definitions that can be purchased in the user's local currency.</p>
-<p>This is an asynchronous function that will trigger the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a> when the task is finished, after which you can use the following functions:</p>
 <ul>
 <li><a href="inventory.html#steam_inventory_get_item_price">steam_inventory_get_item_price</a></li>
 <li><a href="inventory.html#steam_inventory_get_items_with_prices">steam_inventory_get_items_with_prices</a></li>
@@ -604,8 +601,7 @@ The code above will initialize a purchase intent that will be finalized in the S
 <p align="right"><a href="#top">Back To Top</a></p>
 
 <h1 id="steam_inventory_add_promo_item">steam_inventory_add_promo_item</h1>
-<p>This function takes an Item Definition and grants the user the promo item. Item Definitions are integer numbers ranging from 1 to 999999999. Values below the range are invalid and values above the range are reserved.
-This is an asynchronous function that will trigger the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a> when the task is finished.</p>
+<p>This function takes an Item Definition and grants the user the promo item. Item Definitions are integer numbers ranging from 1 to 999999999. Values below the range are invalid and values above the range are reserved.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>You must call <a href="inventory.html#steam_inventory_result_destroy">steam_inventory_result_destroy</a> on the returned async result ID when you are done with it.</p>
@@ -687,8 +683,7 @@ The above code will grant the user with a specific item. For an example on how t
 <p align="right"><a href="#top">Back To Top</a></p>
 
 <h1 id="steam_inventory_add_promo_items">steam_inventory_add_promo_items</h1>
-<p>This function takes an array of Item Definitions and grants the user multiple items. Item Definitions are integer numbers ranging from 1 to 999999999. Values below the range are invalid and values above the range are reserved.
-This is an asynchronous function that will trigger the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a> when the task is finished.</p>
+<p>This function takes an array of Item Definitions and grants the user multiple items. Item Definitions are integer numbers ranging from 1 to 999999999. Values below the range are invalid and values above the range are reserved.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>You must call <a href="inventory.html#steam_inventory_result_destroy">steam_inventory_result_destroy</a> on the returned async result ID when you are done with it.</p>
@@ -770,8 +765,7 @@ The above code will grant the user with an multiple items specified in an array 
 <p align="right"><a href="#top">Back To Top</a></p>
 
 <h1 id="steam_inventory_exchange_items">steam_inventory_exchange_items</h1>
-<p>This function grants one item in exchange for a set of other items.
-This is an asynchronous function that will trigger the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a> when the task is finished.</p>
+<p>This function grants one item in exchange for a set of other items.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>You must call <a href="inventory.html#steam_inventory_result_destroy">steam_inventory_result_destroy</a> on the returned async result ID when you are done with it.</p>
@@ -888,8 +882,7 @@ The code above matches the event type and checks if the handle ID matches the on
 <p align="right"><a href="#top">Back To Top</a></p>
 
 <h1 id="steam_inventory_generate_items">steam_inventory_generate_items</h1>
-<p>This function generates specific items for the current user.
-This is an asynchronous function that will trigger the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a> when the task is finished.</p>
+<p>This function generates specific items for the current user.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>This is only usable by Steam accounts that belong to the publisher group for your game.</p>
@@ -980,8 +973,7 @@ The code above will grant the specific items to the current user. For an example
 <p align="right"><a href="#top">Back To Top</a></p>
 
 <h1 id="steam_inventory_get_all_items">steam_inventory_get_all_items</h1>
-<p>This function starts retrieving all items in the current user's inventory.
-This is an asynchronous function that will trigger the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a> when the task is finished.</p>
+<p>This function starts retrieving all items in the current user's inventory.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>You must call <a href="inventory.html#steam_inventory_result_destroy">steam_inventory_result_destroy</a> on the returned async result ID when you are done with it.</p>
@@ -1385,7 +1377,6 @@ This period can be customized in two places:</p>
 <li>In an individual "playtimegenerator" item definition. The settings would take precedence over any application-level settings.</li>
 </ul>
 <p>Only item definitions which are marked as "playtime item generators" can be spawned.</p>
-<p>This is an asynchronous function that will trigger the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a> when the task is finished.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>You must call <a href="inventory.html#steam_inventory_result_destroy">steam_inventory_result_destroy</a> on the returned async result ID when you are done with it.</p>
