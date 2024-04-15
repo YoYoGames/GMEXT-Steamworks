@@ -100,7 +100,7 @@
 		2BADDA3427C27D9E00682B15 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "${PROJECT_DIR}/../Steamworks_gml/extensions/Steamworks";
+			dstPath = "${PROJECT_DIR}/..";
 			dstSubfolderSpec = 0;
 			files = (
 				6ABC1B48280CBC3200BE82A7 /* libSteamworks.dylib in CopyFiles */,
@@ -111,17 +111,17 @@
 
 /* Begin PBXFileReference section */
 		2B53B66B27972B9300544C01 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		2BC97896287F3DAD0079F3E2 /* DesktopExtensionTools.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = DesktopExtensionTools.mm; path = ../Steamworks_vs/Steamworks/DesktopExtensionTools.mm; sourceTree = SOURCE_ROOT; };
-		2BC9789A287F3DE60079F3E2 /* DesktopExtensionTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DesktopExtensionTools.h; path = ../Steamworks_vs/Steamworks/DesktopExtensionTools.h; sourceTree = SOURCE_ROOT; };
+		2BC97896287F3DAD0079F3E2 /* DesktopExtensionTools.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = DesktopExtensionTools.mm; path = ../steamworks_cpp/DesktopExtensionTools.mm; sourceTree = SOURCE_ROOT; };
+		2BC9789A287F3DE60079F3E2 /* DesktopExtensionTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DesktopExtensionTools.h; path = ../steamworks_cpp/DesktopExtensionTools.h; sourceTree = SOURCE_ROOT; };
 		2BDE0923278F96F80090737D /* libSteamworks.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libSteamworks.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
-		2BDE0997278F97E60090737D /* Extension_Interface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Extension_Interface.h; path = ../Steamworks_vs/Steamworks/Extension_Interface.h; sourceTree = SOURCE_ROOT; };
-		2BDE0998278F97E60090737D /* dllmain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = dllmain.cpp; path = ../Steamworks_vs/Steamworks/dllmain.cpp; sourceTree = SOURCE_ROOT; };
-		2BDE0999278F97E60090737D /* pch.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = pch.cpp; path = ../Steamworks_vs/Steamworks/pch.cpp; sourceTree = SOURCE_ROOT; };
-		2BDE099A278F97E60090737D /* YYRValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YYRValue.h; path = ../Steamworks_vs/Steamworks/YYRValue.h; sourceTree = SOURCE_ROOT; };
-		2BDE099B278F97E60090737D /* Ref.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Ref.h; path = ../Steamworks_vs/Steamworks/Ref.h; sourceTree = SOURCE_ROOT; };
-		2BDE099C278F97E60090737D /* framework.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = framework.h; path = ../Steamworks_vs/Steamworks/framework.h; sourceTree = SOURCE_ROOT; };
-		2BDE099D278F97E60090737D /* pch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = pch.h; path = ../Steamworks_vs/Steamworks/pch.h; sourceTree = SOURCE_ROOT; };
-		2BDE09B62790A50B0090737D /* libsteam_api.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsteam_api.dylib; path = ../steamworks_sdk/redistributable_bin/osx/libsteam_api.dylib; sourceTree = "<group>"; };
+		2BDE0997278F97E60090737D /* Extension_Interface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Extension_Interface.h; path = ../steamworks_cpp/Extension_Interface.h; sourceTree = SOURCE_ROOT; };
+		2BDE0998278F97E60090737D /* dllmain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = dllmain.cpp; path = ../steamworks_cpp/dllmain.cpp; sourceTree = SOURCE_ROOT; };
+		2BDE0999278F97E60090737D /* pch.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = pch.cpp; path = ../steamworks_cpp/pch.cpp; sourceTree = SOURCE_ROOT; };
+		2BDE099A278F97E60090737D /* YYRValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YYRValue.h; path = ../steamworks_cpp/YYRValue.h; sourceTree = SOURCE_ROOT; };
+		2BDE099B278F97E60090737D /* Ref.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Ref.h; path = ../steamworks_cpp/Ref.h; sourceTree = SOURCE_ROOT; };
+		2BDE099C278F97E60090737D /* framework.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = framework.h; path = ../steamworks_cpp/framework.h; sourceTree = SOURCE_ROOT; };
+		2BDE099D278F97E60090737D /* pch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = pch.h; path = ../steamworks_cpp/pch.h; sourceTree = SOURCE_ROOT; };
+		2BDE09B62790A50B0090737D /* libsteam_api.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsteam_api.dylib; path = ../../../../Steamworks_sdk/redistributable_bin/osx/libsteam_api.dylib; sourceTree = SOURCE_ROOT; };
 		6A2A820F2934DA8C002B2CE5 /* isteamps3overlayrenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = isteamps3overlayrenderer.h; sourceTree = "<group>"; };
 		6A2A82102934DA8C002B2CE5 /* steamhttpenums.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = steamhttpenums.h; sourceTree = "<group>"; };
 		6A2A82112934DA8C002B2CE5 /* steam_api_internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = steam_api_internal.h; sourceTree = "<group>"; };
@@ -247,7 +247,7 @@
 				2BDE0931278F974F0090737D /* Include */,
 			);
 			name = Steamworks;
-			path = ../Steamworks_vs/Steamworks;
+			path = ../steamworks_cpp;
 			sourceTree = SOURCE_ROOT;
 		};
 		2BDE0931278F974F0090737D /* Include */ = {
@@ -302,7 +302,7 @@
 				6A2A82332934DA8D002B2CE5 /* steamuniverse.h */,
 			);
 			name = Include;
-			path = ../Steamworks_sdk/public/steam;
+			path = ../../../../Steamworks_sdk/public/steam;
 			sourceTree = SOURCE_ROOT;
 		};
 		2BDE0932278F975F0090737D /* GMSteam */ = {
@@ -341,7 +341,7 @@
 				6A2A82722934DAD3002B2CE5 /* steam_workshop.cpp */,
 			);
 			name = GMSteam;
-			path = ../Steamworks_vs/Steamworks/GMLSteam;
+			path = ../steamworks_cpp/GMLSteam;
 			sourceTree = SOURCE_ROOT;
 		};
 		2BDE09A5278F9A940090737D /* Frameworks */ = {
@@ -644,8 +644,8 @@
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				LIBRARY_SEARCH_PATHS = (
-					../steamworks_sdk/redistributable_bin/,
-					../steamworks_sdk/redistributable_bin/osx/,
+					../../../../steamworks_sdk/redistributable_bin/,
+					../../../../steamworks_sdk/redistributable_bin/osx/,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -668,8 +668,8 @@
 				GCC_PREPROCESSOR_DEFINITIONS = "OS_MacOs=1";
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				LIBRARY_SEARCH_PATHS = (
-					../steamworks_sdk/redistributable_bin/,
-					../steamworks_sdk/redistributable_bin/osx/,
+					../../../../steamworks_sdk/redistributable_bin/,
+					../../../../steamworks_sdk/redistributable_bin/osx/,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
