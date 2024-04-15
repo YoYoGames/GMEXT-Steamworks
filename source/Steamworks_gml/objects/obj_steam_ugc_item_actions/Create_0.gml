@@ -4,7 +4,7 @@
 // Inherit the parent event
 event_inherited();
 
-font = Font_YoYo_15;
+font = fnt_gm_15;
 
 text = 
 @"Available Actions:

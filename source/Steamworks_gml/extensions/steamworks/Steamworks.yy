@@ -502,7 +502,7 @@
         {"$GMExtensionFunction":"","%Name":"steam_get_leaderboard_entry_count","argCount":0,"args":[],"documentation":"/// @param {String} lb_name The name of the leaderboard\r\n/// @returns {Real}","externalName":"steam_get_leaderboard_entry_count","help":"","hidden":false,"kind":4,"name":"steam_get_leaderboard_entry_count","resourceType":"GMExtensionFunction","resourceVersion":"2.0","returnType":1,},
         {"$GMExtensionFunction":"","%Name":"steam_get_leaderboard_display_type","argCount":0,"args":[],"documentation":"/// @param {String} lb_name The name of the leaderboard\r\n/// @returns {Real}","externalName":"steam_get_leaderboard_display_type","help":"","hidden":false,"kind":4,"name":"steam_get_leaderboard_display_type","resourceType":"GMExtensionFunction","resourceVersion":"2.0","returnType":1,},
         {"$GMExtensionFunction":"","%Name":"steam_file_get_list","argCount":0,"args":[],"documentation":"/// @returns {Struct}","externalName":"steam_file_get_list","help":"","hidden":false,"kind":4,"name":"steam_file_get_list","resourceType":"GMExtensionFunction","resourceVersion":"2.0","returnType":1,},
-        {"$GMExtensionFunction":"","%Name":"steam_get_global_stat_int","argCount":0,"args":[],"documentation":"@param {string} statName\r\n@returns {int64}","externalName":"steam_get_global_stat_int","help":"","hidden":false,"kind":4,"name":"steam_get_global_stat_int","resourceType":"GMExtensionFunction","resourceVersion":"2.0","returnType":1,},
+        {"$GMExtensionFunction":"","%Name":"steam_get_global_stat_int","argCount":0,"args":[1,1,],"documentation":"@param {string} statName\r\n@returns {int64}","externalName":"steam_get_global_stat_int","help":"","hidden":false,"kind":4,"name":"steam_get_global_stat_int","resourceType":"GMExtensionFunction","resourceVersion":"2.0","returnType":1,},
         {"$GMExtensionFunction":"","%Name":"steam_get_global_stat_history_int","argCount":0,"args":[],"documentation":"@param {string} statName\r\n@returns {array[int64]}","externalName":"steam_get_global_stat_history_int","help":"","hidden":false,"kind":4,"name":"steam_get_global_stat_history_int","resourceType":"GMExtensionFunction","resourceVersion":"2.0","returnType":1,},
       ],"init":"steam_init","kind":4,"name":"Steamworks.dll","order":[
         {"name":"steam_user_owns_dlc","path":"extensions/Steamworks/Steamworks.yy",},
@@ -679,7 +679,7 @@
         {"$GMProxyFile":"","%Name":"libSteamworks.dylib","name":"libSteamworks.dylib","resourceType":"GMProxyFile","resourceVersion":"2.0","TargetMask":1,},
         {"$GMProxyFile":"","%Name":"Steamworks.so","name":"Steamworks.so","resourceType":"GMProxyFile","resourceVersion":"2.0","TargetMask":7,},
         {"$GMProxyFile":"","%Name":"Steamworks_x64.dll","name":"Steamworks_x64.dll","resourceType":"GMProxyFile","resourceVersion":"2.0","TargetMask":6,},
-      ],"resourceType":"GMExtensionFile","resourceVersion":"2.0","uncompress":false,"usesRunnerInterface":true,},
+      ],"resourceType":"GMExtensionFile","resourceVersion":"2.0","uncompress":false,"usesRunnerInterface":false,},
     {"$GMExtensionFile":"","%Name":"libsteam_api.dylib","constants":[],"copyToTargets":2,"filename":"libsteam_api.dylib","final":"","functions":[],"init":"","kind":4,"name":"libsteam_api.dylib","order":[],"origname":"","ProxyFiles":[],"resourceType":"GMExtensionFile","resourceVersion":"2.0","uncompress":false,"usesRunnerInterface":false,},
   ],
   "gradleinject":"",
