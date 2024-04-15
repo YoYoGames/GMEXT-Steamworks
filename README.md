@@ -5,9 +5,13 @@ This repository was created with the intent of presenting users with the latest 
 
 This extension will work on Windows, macOS and Linux.
 
-VISUAL STUDIO SOURCE: `source/Steamworks_vs/`
+SOURCE CODE: `source/steamworks_gml/extensions/steamworks/steamworks_cpp/`
 
-XCODE SOURCE: `source/Steamworks_xcode/`
+VISUAL STUDIO PROJECT: `source/steamworks_gml/extensions/steamworks/steamworks_windows/`
+
+XCODE PROJECT: `source/steamworks_gml/extensions/steamworks/Steamworks_macos/`
+
+LINUX BUILD SCRIPTS: `source/steamworks_gml/extensions/steamworks/steamworks_linux/`
 
 After compilation the exported dll/dylib/so file is automatically copied into the extension folder inside the included GameMaker project folder.
 
