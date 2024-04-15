@@ -15,7 +15,7 @@
   "copyToTargets":194,
   "description":"",
   "exportToGame":true,
-  "extensionVersion":"1.6.3",
+  "extensionVersion":"1.6.4",
   "files":[
     {"$GMExtensionFile":"","%Name":"Steamworks.dll","constants":[
         {"$GMExtensionConstant":"","%Name":"ov_friends","hidden":false,"name":"ov_friends","resourceType":"GMExtensionConstant","resourceVersion":"2.0","value":"0",},
@@ -253,7 +253,7 @@
         {"$GMExtensionConstant":"","%Name":"steam_music_playback_playing","hidden":false,"name":"steam_music_playback_playing","resourceType":"GMExtensionConstant","resourceVersion":"2.0","value":"1",},
         {"$GMExtensionConstant":"","%Name":"steam_music_playback_paused","hidden":false,"name":"steam_music_playback_paused","resourceType":"GMExtensionConstant","resourceVersion":"2.0","value":"2",},
         {"$GMExtensionConstant":"","%Name":"steam_music_playback_idle","hidden":false,"name":"steam_music_playback_idle","resourceType":"GMExtensionConstant","resourceVersion":"2.0","value":"3",},
-      ],"copyToTargets":194,"filename":"Steamworks.dll","final":"","functions":[
+      ],"copyToTargets":194,"filename":"Steamworks.ext","final":"","functions":[
         {"$GMExtensionFunction":"","%Name":"steam_user_owns_dlc","argCount":1,"args":[2,],"documentation":"/// @param {Int64} dlc_id The unique identifier for the DLC to be checked.\n/// @returns {Real}","externalName":"steam_user_owns_dlc","help":"steam_user_owns_dlc(dlc_id)","hidden":false,"kind":11,"name":"steam_user_owns_dlc","resourceType":"GMExtensionFunction","resourceVersion":"2.0","returnType":2,},
         {"$GMExtensionFunction":"","%Name":"steam_user_installed_dlc","argCount":1,"args":[2,],"documentation":"/// @param {Int64} dlc_id The unique identifier for the DLC to be checked.\n/// @returns {Bool}","externalName":"steam_user_installed_dlc","help":"steam_user_installed_dlc(dlc_id)","hidden":false,"kind":11,"name":"steam_user_installed_dlc","resourceType":"GMExtensionFunction","resourceVersion":"2.0","returnType":2,},
         {"$GMExtensionFunction":"","%Name":"steam_current_game_language","argCount":1,"args":[],"documentation":"/// @returns {String}","externalName":"steam_current_game_language","help":"steam_current_game_language()","hidden":false,"kind":11,"name":"steam_current_game_language","resourceType":"GMExtensionFunction","resourceVersion":"2.0","returnType":1,},
@@ -502,7 +502,7 @@
         {"$GMExtensionFunction":"","%Name":"steam_get_leaderboard_entry_count","argCount":0,"args":[],"documentation":"/// @param {String} lb_name The name of the leaderboard\r\n/// @returns {Real}","externalName":"steam_get_leaderboard_entry_count","help":"","hidden":false,"kind":4,"name":"steam_get_leaderboard_entry_count","resourceType":"GMExtensionFunction","resourceVersion":"2.0","returnType":1,},
         {"$GMExtensionFunction":"","%Name":"steam_get_leaderboard_display_type","argCount":0,"args":[],"documentation":"/// @param {String} lb_name The name of the leaderboard\r\n/// @returns {Real}","externalName":"steam_get_leaderboard_display_type","help":"","hidden":false,"kind":4,"name":"steam_get_leaderboard_display_type","resourceType":"GMExtensionFunction","resourceVersion":"2.0","returnType":1,},
         {"$GMExtensionFunction":"","%Name":"steam_file_get_list","argCount":0,"args":[],"documentation":"/// @returns {Struct}","externalName":"steam_file_get_list","help":"","hidden":false,"kind":4,"name":"steam_file_get_list","resourceType":"GMExtensionFunction","resourceVersion":"2.0","returnType":1,},
-        {"$GMExtensionFunction":"","%Name":"steam_get_global_stat_int","argCount":0,"args":[],"documentation":"@param {string} statName\r\n@returns {int64}","externalName":"steam_get_global_stat_int","help":"","hidden":false,"kind":4,"name":"steam_get_global_stat_int","resourceType":"GMExtensionFunction","resourceVersion":"2.0","returnType":1,},
+        {"$GMExtensionFunction":"","%Name":"steam_get_global_stat_int","argCount":0,"args":[1,1,],"documentation":"@param {string} statName\r\n@returns {int64}","externalName":"steam_get_global_stat_int","help":"","hidden":false,"kind":4,"name":"steam_get_global_stat_int","resourceType":"GMExtensionFunction","resourceVersion":"2.0","returnType":1,},
         {"$GMExtensionFunction":"","%Name":"steam_get_global_stat_history_int","argCount":0,"args":[],"documentation":"@param {string} statName\r\n@returns {array[int64]}","externalName":"steam_get_global_stat_history_int","help":"","hidden":false,"kind":4,"name":"steam_get_global_stat_history_int","resourceType":"GMExtensionFunction","resourceVersion":"2.0","returnType":1,},
       ],"init":"steam_init","kind":4,"name":"Steamworks.dll","order":[
         {"name":"steam_user_owns_dlc","path":"extensions/Steamworks/Steamworks.yy",},

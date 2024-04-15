@@ -58,7 +58,7 @@ exit /b 0
 
     set "result=!YYEXTOPT_%EXTENSION_NAME%_%~1!"
     call :logInformation "Accessed extension option '%~1' with value '%result%'."
-    
+
     :: Need to end local (to push into main scope)
     endlocal & set "%~2=%result%"
 exit /b 0

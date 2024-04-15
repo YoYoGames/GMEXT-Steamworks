@@ -1,46 +1,31 @@
-# Prerequisites
-*.d
+# VS and VSC folders
+**/.vs/
+**/.vsc/
 
-# Compiled Object files
-*.slo
-*.lo
-*.o
-*.obj
+# Common extensions
+**/*.exp
+**/*.ilk
+**/*.lib
+**/*.pdb
+**/*.exp
+**/*.exe
 
-# Precompiled Headers
-*.gch
-*.pch
+# SteamworksSteamworks SDKs
+source/Steamworks_sdk/
 
-# Compiled Dynamic libraries
-# *.so
-# *.dylib
-# *.dll
+# Steamworks DEMO options
+source/Steamworks_gml/options/
 
-# Fortran module files
-*.mod
-*.smod
-
-# Compiled Static libraries
-*.lai
-*.la
-*.a
-*.lib
-
-# Executables
-*.exe
-*.out
-*.app
-
-# Options
-source/Steamworks_gml/options/extensions/*
-**/.vs/**
+# Steamworks build solutions (temp & output)
+**/Debug/
+**/Release/
 
 # MacOS
 .DS_Store
 
+# XCode and VS userdata
+*.user
+xcuserdata/
+
+# Release packages
 output/
-
-.fake
-*.vsxproj.filters
-
-*.xcuserstate
