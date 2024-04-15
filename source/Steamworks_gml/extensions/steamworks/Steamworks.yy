@@ -253,7 +253,7 @@
         {"$GMExtensionConstant":"","%Name":"steam_music_playback_playing","hidden":false,"name":"steam_music_playback_playing","resourceType":"GMExtensionConstant","resourceVersion":"2.0","value":"1",},
         {"$GMExtensionConstant":"","%Name":"steam_music_playback_paused","hidden":false,"name":"steam_music_playback_paused","resourceType":"GMExtensionConstant","resourceVersion":"2.0","value":"2",},
         {"$GMExtensionConstant":"","%Name":"steam_music_playback_idle","hidden":false,"name":"steam_music_playback_idle","resourceType":"GMExtensionConstant","resourceVersion":"2.0","value":"3",},
-      ],"copyToTargets":194,"filename":"Steamworks.dll","final":"","functions":[
+      ],"copyToTargets":194,"filename":"Steamworks.ext","final":"","functions":[
         {"$GMExtensionFunction":"","%Name":"steam_user_owns_dlc","argCount":1,"args":[2,],"documentation":"/// @param {Int64} dlc_id The unique identifier for the DLC to be checked.\n/// @returns {Real}","externalName":"steam_user_owns_dlc","help":"steam_user_owns_dlc(dlc_id)","hidden":false,"kind":11,"name":"steam_user_owns_dlc","resourceType":"GMExtensionFunction","resourceVersion":"2.0","returnType":2,},
         {"$GMExtensionFunction":"","%Name":"steam_user_installed_dlc","argCount":1,"args":[2,],"documentation":"/// @param {Int64} dlc_id The unique identifier for the DLC to be checked.\n/// @returns {Bool}","externalName":"steam_user_installed_dlc","help":"steam_user_installed_dlc(dlc_id)","hidden":false,"kind":11,"name":"steam_user_installed_dlc","resourceType":"GMExtensionFunction","resourceVersion":"2.0","returnType":2,},
         {"$GMExtensionFunction":"","%Name":"steam_current_game_language","argCount":1,"args":[],"documentation":"/// @returns {String}","externalName":"steam_current_game_language","help":"steam_current_game_language()","hidden":false,"kind":11,"name":"steam_current_game_language","resourceType":"GMExtensionFunction","resourceVersion":"2.0","returnType":1,},
@@ -679,7 +679,7 @@
         {"$GMProxyFile":"","%Name":"libSteamworks.dylib","name":"libSteamworks.dylib","resourceType":"GMProxyFile","resourceVersion":"2.0","TargetMask":1,},
         {"$GMProxyFile":"","%Name":"Steamworks.so","name":"Steamworks.so","resourceType":"GMProxyFile","resourceVersion":"2.0","TargetMask":7,},
         {"$GMProxyFile":"","%Name":"Steamworks_x64.dll","name":"Steamworks_x64.dll","resourceType":"GMProxyFile","resourceVersion":"2.0","TargetMask":6,},
-      ],"resourceType":"GMExtensionFile","resourceVersion":"2.0","uncompress":false,"usesRunnerInterface":false,},
+      ],"resourceType":"GMExtensionFile","resourceVersion":"2.0","uncompress":false,"usesRunnerInterface":true,},
     {"$GMExtensionFile":"","%Name":"libsteam_api.dylib","constants":[],"copyToTargets":2,"filename":"libsteam_api.dylib","final":"","functions":[],"init":"","kind":4,"name":"libsteam_api.dylib","order":[],"origname":"","ProxyFiles":[],"resourceType":"GMExtensionFile","resourceVersion":"2.0","uncompress":false,"usesRunnerInterface":false,},
   ],
   "gradleinject":"",
