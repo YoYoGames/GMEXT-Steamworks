@@ -31,7 +31,7 @@
   ],
   "IncludedFiles":[
     {"$GMIncludedFile":"","%Name":"GMEXT-Steamwork Unix Docs.html","CopyToMask":0,"filePath":"datafiles","name":"GMEXT-Steamwork Unix Docs.html","resourceType":"GMIncludedFile","resourceVersion":"2.0",},
-    {"$GMIncludedFile":"","%Name":"GMEXT-Steamwork Win Docs","CopyToMask":-1,"filePath":"datafiles","name":"GMEXT-Steamwork Win Docs","resourceType":"GMIncludedFile","resourceVersion":"2.0",},
+    {"$GMIncludedFile":"","%Name":"GMEXT-Steamwork Win Docs","CopyToMask":0,"filePath":"datafiles","name":"GMEXT-Steamwork Win Docs","resourceType":"GMIncludedFile","resourceVersion":"2.0",},
   ],
   "isEcma":false,
   "LibraryEmitters":[],
