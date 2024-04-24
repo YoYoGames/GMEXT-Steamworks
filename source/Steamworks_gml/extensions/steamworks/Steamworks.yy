@@ -17,7 +17,7 @@
   "exportToGame":true,
   "extensionVersion":"1.6.5",
   "files":[
-    {"$GMExtensionFile":"","%Name":"Steamworks.dll","constants":[
+    {"$GMExtensionFile":"","%Name":"Steamworks.ext","constants":[
         {"$GMExtensionConstant":"","%Name":"ov_friends","hidden":false,"name":"ov_friends","resourceType":"GMExtensionConstant","resourceVersion":"2.0","value":"0",},
         {"$GMExtensionConstant":"","%Name":"ov_community","hidden":false,"name":"ov_community","resourceType":"GMExtensionConstant","resourceVersion":"2.0","value":"1",},
         {"$GMExtensionConstant":"","%Name":"ov_players","hidden":false,"name":"ov_players","resourceType":"GMExtensionConstant","resourceVersion":"2.0","value":"2",},
@@ -504,7 +504,7 @@
         {"$GMExtensionFunction":"","%Name":"steam_file_get_list","argCount":0,"args":[],"documentation":"/// @returns {Struct}","externalName":"steam_file_get_list","help":"","hidden":false,"kind":4,"name":"steam_file_get_list","resourceType":"GMExtensionFunction","resourceVersion":"2.0","returnType":1,},
         {"$GMExtensionFunction":"","%Name":"steam_get_global_stat_int","argCount":0,"args":[1,1,],"documentation":"@param {string} statName\r\n@returns {int64}","externalName":"steam_get_global_stat_int","help":"","hidden":false,"kind":4,"name":"steam_get_global_stat_int","resourceType":"GMExtensionFunction","resourceVersion":"2.0","returnType":1,},
         {"$GMExtensionFunction":"","%Name":"steam_get_global_stat_history_int","argCount":0,"args":[],"documentation":"@param {string} statName\r\n@returns {array[int64]}","externalName":"steam_get_global_stat_history_int","help":"","hidden":false,"kind":4,"name":"steam_get_global_stat_history_int","resourceType":"GMExtensionFunction","resourceVersion":"2.0","returnType":1,},
-      ],"init":"steam_init","kind":4,"name":"Steamworks.dll","order":[
+      ],"init":"steam_init","kind":4,"name":"Steamworks.ext","order":[
         {"name":"steam_user_owns_dlc","path":"extensions/Steamworks/Steamworks.yy",},
         {"name":"steam_user_installed_dlc","path":"extensions/Steamworks/Steamworks.yy",},
         {"name":"steam_current_game_language","path":"extensions/Steamworks/Steamworks.yy",},
