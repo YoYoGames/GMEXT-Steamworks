@@ -124,8 +124,11 @@ YYEXPORT void /*double*/ steam_net_packet_send(RValue& Result, CInstance* selfin
 
 	if (size <= -1 || size > buffer_size) size = buffer_size;
 
+	uint32 value32 = YYGetInt32(arg, 4);
+	int steam_channel = static_cast<int>(value32);
+
 	Result.kind = VALUE_BOOL;
-	Result.val = SteamNetworking() && SteamNetworking()->SendP2PPacket(target, buffer_data, size, type);
+	Result.val = SteamNetworking() && SteamNetworking()->SendP2PPacket(target, buffer_data, size, type, steam_channel);
 	YYFree(buffer_data);
 }
 
@@ -140,8 +143,11 @@ CSteamID steam_net_packet_sender;
 /// Receives a packet, returns whether successful (retrieve data via steam_net_packet_).
 YYEXPORT void /*double*/ steam_net_packet_receive(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)//() 
 {
+	uint32 value32 = YYGetInt32(arg, 0);
+	int steam_channel = static_cast<int>(value32);
+
 	uint32 steam_net_packet_size_pre = 0;
-	if (SteamNetworking() && SteamNetworking()->IsP2PPacketAvailable(&steam_net_packet_size_pre)) {
+	if (SteamNetworking() && SteamNetworking()->IsP2PPacketAvailable(&steam_net_packet_size_pre, steam_channel)) {
 		// dealloc the current buffer if it's still around:
 		if (steam_net_packet_data != nullptr) {
 			free(steam_net_packet_data);
@@ -149,7 +155,7 @@ YYEXPORT void /*double*/ steam_net_packet_receive(RValue& Result, CInstance* sel
 		}
 		//
 		steam_net_packet_data = malloc(steam_net_packet_size_pre);
-		if (SteamNetworking()->ReadP2PPacket(steam_net_packet_data, steam_net_packet_size_pre,&steam_net_packet_size, &steam_net_packet_sender)) 
+		if (SteamNetworking()->ReadP2PPacket(steam_net_packet_data, steam_net_packet_size_pre,&steam_net_packet_size, &steam_net_packet_sender, steam_channel))
 		{
 			Result.kind = VALUE_BOOL;
 			Result.val = true;
