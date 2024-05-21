@@ -12,15 +12,15 @@ echo Steam RT? "$YYSTEAMRT"
 if "$YYCOMPILER" -m64 \
     -Wno-invalid-offsetof \
     -std=c++17 \
-	../Steamworks_cpp/*.cpp \
-    ../Steamworks_cpp/GMLSteam/steam_*.cpp \
+	Steamworks_gml/extensions/steamworks/steamworks_cpp/*.cpp \
+    Steamworks_gml/extensions/steamworks/steamworks_cpp/GMLSteam/steam_*.cpp \
     -Wl,-rpath,assets/ -fPIC \
-    -L../../../../Steamworks_sdk/redistributable_bin/linux64 \
+    -LSteamworks_sdk/redistributable_bin/linux64 \
     -lsteam_api \
-    -I../../../../Steamworks_sdk/public/steam \
-	-I../../../../Steamworks_vs/Steamworks/GMLSteam/ \
-	-I../Steamworks_cpp/ \
-    -shared -o ../Steamworks.so;
+    -ISteamworks_sdk/public/steam \
+	-ISteamworks_gml/extensions/steamworks/steamworks_cpp/GMLSteam/ \
+	-ISteamworks_gml/extensions/steamworks/steamworks_cpp/ \
+    -shared -o Steamworks_gml/extensions/steamworks/Steamworks.so;
 then
     echo "BUILD SUCCESS";
 else
