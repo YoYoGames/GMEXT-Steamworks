@@ -261,7 +261,7 @@ vector<steam_inventory_itemid_w_quantity> argToSteam_inventory_itemid_w_quantity
 		for (int i = 0; GET_RValue(&elem, pV, NULL, i); ++i)
 		{
 			steam_inventory_itemid_w_quantity* _struct = new steam_inventory_itemid_w_quantity();// {0};
-			_struct->item_id = static_cast<SteamItemInstanceID_t>(YYStructGetMember(&elem, "item_id")->val);
+			_struct->item_id = static_cast<SteamItemInstanceID_t>(YYStructGetMember(&elem, "item_id")->v64);
 			_struct->quantity = static_cast<uint32>(YYStructGetMember(&elem, "quantity")->val);
 
 			items.push_back(*_struct);
@@ -278,8 +278,8 @@ vector<steam_inventory_itemid_w_quantity> argToSteam_inventory_itemid_w_quantity
 
 YYEXPORT void /*SteamInventoryResult_t*/ steam_inventory_exchange_items(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)//(vector<steam_inventory_itemdef_w_quantity> create, vector< steam_inventory_itemid_w_quantity> destroy) 
 {
-	vector<steam_inventory_itemdef_w_quantity> create = argToSteam_inventory_itemdef_w_quantity(arg, 0);
-	vector<steam_inventory_itemid_w_quantity> destroy = argToSteam_inventory_itemid_w_quantity(arg, 1);
+	const vector<steam_inventory_itemdef_w_quantity>& create = argToSteam_inventory_itemdef_w_quantity(arg, 0);
+	const vector<steam_inventory_itemid_w_quantity>& destroy = argToSteam_inventory_itemid_w_quantity(arg, 1);
 
 	vector<SteamItemDef_t> create_defs; create_defs.resize(create.size());
 	vector<uint32> create_quantities; create_quantities.resize(create.size());
