@@ -124,7 +124,7 @@ YYEXPORT void /*double*/ steam_net_packet_send(RValue& Result, CInstance* selfin
 
 	if (size <= -1 || size > buffer_size) size = buffer_size;
 
-	uint32 value32 = (argc >= 0) ? YYGetInt32(arg, 4) : 0;
+	uint32 value32 = (argc > 4) ? YYGetInt32(arg, 4) : 0;
 	int steam_channel = static_cast<int>(value32);
 
 	Result.kind = VALUE_BOOL;
@@ -143,7 +143,7 @@ CSteamID steam_net_packet_sender;
 /// Receives a packet, returns whether successful (retrieve data via steam_net_packet_).
 YYEXPORT void /*double*/ steam_net_packet_receive(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)//() 
 {
-	uint32 value32 = (argc >= 0) ? YYGetInt32(arg, 0) : 0;
+	uint32 value32 = (argc > 0) ? YYGetInt32(arg, 0) : 0;
 	int steam_channel = static_cast<int>(value32);
 
 	uint32 steam_net_packet_size_pre = 0;
