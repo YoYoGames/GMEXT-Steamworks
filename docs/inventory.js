@@ -236,13 +236,17 @@
  * @func steam_inventory_exchange_items
  * @desc This function grants one item in exchange for a set of other items.
  * 
+ * The API currently takes an array of items to generate but at this time the size of that array must be 1 and the quantity of the new item must be 1.
+ * 
+ * [[NOTE: Any items that can be granted MUST have an exchange attribute in their itemdef.]]
+ * 
  * [[WARNING: You must call ${function.steam_inventory_result_destroy} on the returned async result ID when you are done with it.]]
  * 
  * > [!TIP]
  * >
  * > A wrapper around [ExchangeItems](https://partner.steamgames.com/doc/api/ISteamInventory#ExchangeItems).
  * 
- * @param {array[struct.InventoryItemCreationData]} create_arr An array of [structs](https://manual.yoyogames.com/GameMaker_Language/GML_Overview/Structs.htm) representing items to be created
+ * @param {array[struct.InventoryItemCreationData]} create_arr An array of [structs](https://manual.yoyogames.com/GameMaker_Language/GML_Overview/Structs.htm) representing items to be created (must be of size 1 and the item quantity must also be 1)
  * @param {array[struct.InventoryItemConsumptionData]} destroy_arr An array of [structs](https://manual.yoyogames.com/GameMaker_Language/GML_Overview/Structs.htm) representing items to be consumed
  * 
  * @returns {real}
@@ -263,7 +267,6 @@
  * 
  * var _arrayCreate = [
  *     { item_def: global.holy_sword, quantity: 1 },
- *     { item_def: global.orange, quantity: 2 }
  * ];
  * 
  * steam_inventory_exchange_items(_arrayCreate, _arrayDestroy);
@@ -475,7 +478,9 @@
 
 /**
  * @func steam_inventory_transfer_item_quantity
- * @desc This function transfers items between stacks within a user's inventory.
+ * @desc Transfer items between stacks within a user's inventory.
+ *
+ * This can be used to stack, split, and moving items. The source and destination items must have the same itemdef id. To move items onto a destination stack specify the source, the quantity to move, and the destination item id. To split an existing stack, pass `steam_item_instance_id_invalid` into `dest_item_id`. A new item stack will be generated with the requested quantity.
  * 
  * [[WARNING: You must call ${function.steam_inventory_result_destroy} on the returned async result ID when you are done with it.]]
  * 
@@ -485,7 +490,7 @@
  * 
  * @param {int64} source_item_id The source [steam_inventory_item_id](https://partner.steamgames.com/doc/api/ISteamInventory#SteamItemInstanceID_t) to transfer from
  * @param {real} quantity The quantity of the item that will be transferred
- * @param  {int64} dest_item_id The destination [steam_inventory_item_id](https://partner.steamgames.com/doc/api/ISteamInventory#SteamItemInstanceID_t) to transfer to
+ * @param  {int64} dest_item_id The destination [steam_inventory_item_id](https://partner.steamgames.com/doc/api/ISteamInventory#SteamItemInstanceID_t) to transfer to or `steam_item_instance_id_invalid` to create a new stack
  * 
  * @returns {real}
  * 
@@ -498,9 +503,9 @@
  * 
  * @example
  * ```gml
- * handle = steam_inventory_transfer_item_quantity(global.apple, 2, global.oranges);
+ * handle = steam_inventory_transfer_item_quantity(global.apples[0], 2, global.apples[1]);
  * ```
- * The above code will trigger a transfer between two items owned by the user the amount to be transferred in the example, the user will lose 2 apples and receive 2 oranges. For an example on how to use the ${event.steam} to read the callback response, refer to the function ${function.steam_inventory_get_all_items}.
+ * The above code will trigger a transfer between two item stacks owned by the user the amount to be transferred in the example, this will move 2 apples from stack 0 to stack 1. For an example on how to use the ${event.steam} to read the callback response, refer to the function ${function.steam_inventory_get_all_items}.
  * @func_end
  */
 
