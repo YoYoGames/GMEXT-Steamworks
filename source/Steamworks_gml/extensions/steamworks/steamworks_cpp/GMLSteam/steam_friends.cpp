@@ -39,6 +39,7 @@ protected:
 
 	Singleton()
 		: m_CallbackOverlayActivated(this, &Singleton::OnGameOverlayActivated),
+		  m_CallbackFriendRichPresence(this, &Singleton::OnFriendRichPresenceUpdate),
 		m_bOverlayActivated(false)
 	{}
 
@@ -56,7 +57,21 @@ protected:
 		}
 	}
 
+	void OnFriendRichPresenceUpdate(FriendRichPresenceUpdate_t* callback)
+	{
+		if (!callback || callback->m_nAppID != SteamUtils()->GetAppID())
+			return; // uhhhh???? ok
+
+		int map = CreateDsMap(0, 0);
+
+		DsMapAddString(map, "event_type", "friend_rich_presence_update");
+		DsMapAddInt64(map, "steam_id_friend", callback->m_steamIDFriend.ConvertToUint64());
+
+		CreateAsyncEventWithDSMap(map, EVENT_OTHER_WEB_STEAM);
+	}
+
 	CCallback<Singleton, GameOverlayActivated_t, false>	m_CallbackOverlayActivated;
+	CCallback<Singleton, FriendRichPresenceUpdate_t, false> m_CallbackFriendRichPresence;
 
 	bool m_bOverlayActivated;
 	static Singleton* singleton_;
@@ -299,10 +314,67 @@ YYEXPORT void /*double*/ steam_get_user_persona_name(RValue& Result, CInstance* 
 	}
 }
 
+YYEXPORT void steam_request_friend_rich_presence(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)
+{
+	if (!steam_is_initialised)
+	{
+		Result.kind = VALUE_REAL;
+		Result.val = 0;
+		return;
+	}
+
+	int64 steamIdFriend = YYGetInt64(arg, 0);
+	SteamFriends()->RequestFriendRichPresence(CSteamID(uint64(steamIdFriend)));
+	Result.kind = VALUE_REAL;
+	Result.val = 1;
+}
+
+YYEXPORT void steam_get_friend_rich_presence(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)
+{
+	if (!steam_is_initialised)
+	{
+		YYCreateString(&Result, "");
+		return;
+	}
+
+	int64 steamIdFriend = YYGetInt64(arg, 0);
+	auto pchKey = YYGetString(arg, 1);
+	YYCreateString(&Result, SteamFriends()->GetFriendRichPresence(CSteamID(uint64(steamIdFriend)), pchKey));
+}
+
+YYEXPORT void steam_get_friend_rich_presence_key_by_index(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)
+{
+	if (!steam_is_initialised)
+	{
+		YYCreateString(&Result, "");
+		return;
+	}
+
+	int64 steamIdFriend = YYGetInt64(arg, 0);
+	int iKey = YYGetInt32(arg, 1);
+	YYCreateString(&Result, SteamFriends()->GetFriendRichPresenceKeyByIndex(CSteamID(uint64(steamIdFriend)), iKey));
+}
+
+YYEXPORT void steam_get_friend_rich_presence_key_count(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)
+{
+	if (!steam_is_initialised)
+	{
+		Result.kind = VALUE_REAL;
+		Result.val = 0;
+		return;
+	}
+
+	int64 steamIdFriend = YYGetInt64(arg, 0);
+	Result.kind = VALUE_REAL;
+	Result.val = SteamFriends()->GetFriendRichPresenceKeyCount(CSteamID(uint64(steamIdFriend)));
+}
+
 void Steam_Friends_Init()
 {
 	//(register callbacks?)
 	//Singleton* singleton = Singleton::GetInstance();
+	if (steam_is_initialised)
+		(void)Singleton::GetInstance();
 }
 
 void Steam_Friends_Shutdown()

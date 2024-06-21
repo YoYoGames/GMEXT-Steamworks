@@ -289,6 +289,108 @@
  */
 
 /**
+ * @func steam_request_friend_rich_presence
+ * @desc Requests Rich Presence data from a specific user. This is used to get the Rich Presence information from a user that is not a friend of the current user, like someone in the same lobby or game server. This function is rate limited, if you call this too frequently for a particular user then it will just immediately post a callback without requesting new data from the server.
+ * 
+ * Please see the related functions:
+ *
+ * ${function.steam_get_friend_rich_presence}
+ * ${function.steam_get_friend_rich_presence_key_by_index}
+ * ${function.steam_get_friend_rich_presence_key_count}
+ *
+ * [[Warning: This function is asynchronous and as such the result will only arrive in an Async - Steam event]]
+ *
+ * @param {int64} userID The user Steam unique identifier
+ * @returns {bool}
+ * 
+ * @example
+ * Please see examples for the related functions such as ${function.steam_get_friend_rich_presence} or ${function.steam_get_friend_rich_presence_key_count}
+ * @func_end
+ */
+
+/**
+ * @func steam_get_friend_rich_presence
+ * @desc Get a Rich Presence value from a specified friend.
+ * 
+ * [[Warning: You MUST use ${function.steam_request_friend_rich_presence} to obtain the Rich Presence data for a particular user before using this function]]
+ *
+ * @param {int64} userID The user Steam unique identifier
+ * @param {string} key Rich Presence string key, for example "status" or "connect"
+ * @returns {string}
+ * 
+ * @example
+ * ```gml
+ * /// @desc Create Event
+ * busy = false; // are we busy with the request?
+ * if (steam_request_friend_rich_presence(friendSteamIdGoesHere))
+ *     busy = true; // waiting for the request
+ *
+ * /// @desc Async - Steam Event
+ * if (async_load[? "event_type"] == "friend_rich_presence_update") {
+ *     // check if this is data for the user we care about
+ *     if (async_load[? "steam_id_friend"] == friendSteamIdGoesHere) {
+ *         busy = false; // no longer busy with the request
+ *         var friendstatus = steam_get_friend_rich_presence(friendSteamIdGoesHere, "status");
+ *         show_debug_message("friend rich presence status is " + friendstatus);
+ *     }
+ * }
+ * ```
+ * The extended code example above shows how to properly request, wait for and read the rich presence data of a Steam user
+ * @func_end
+ */
+
+/**
+ * @func steam_get_friend_rich_presence_key_count
+ * @desc Gets the number of Rich Presence keys that are set on the specified user. This is used for iteration, after calling this then ${function.steam_get_friend_rich_presence_key_by_index} to get the rich presence keys. This is typically only ever used for debugging purposes.
+ * 
+ * [[Warning: You MUST use ${function.steam_request_friend_rich_presence} to obtain the Rich Presence data for a particular user before using this function]]
+ *
+ * @param {int64} userID The user Steam unique identifier
+ * @returns {real}
+ * 
+ * @example
+ * ```gml
+ * /// @desc Create Event
+ * busy = false; // are we busy with the request?
+ * if (steam_request_friend_rich_presence(friendSteamIdGoesHere))
+ *     busy = true; // waiting for the request
+ *
+ * /// @desc Async - Steam Event
+ * if (async_load[? "event_type"] == "friend_rich_presence_update") {
+ *     // check if this is data for the user we care about
+ *     if (async_load[? "steam_id_friend"] == friendSteamIdGoesHere) {
+ *         busy = false; // no longer busy with the request
+ *         show_debug_message("Begin rich presence for Steam user " + string(friendSteamIdGoesHere);
+ *         var keycount = steam_get_friend_rich_presence_key_count(friendSteamIdGoesHere);
+ *         for (var index = 0; index < keycount; ++index) {
+ *             var key = steam_get_friend_rich_presence_key_by_index(friendSteamIdGoesHere, index);
+ *             var value = steam_get_friend_rich_presence(friendSteamIdGoesHere, key);
+ *             show_debug_message(key + ": " + value);
+ *         }
+ *         show_debug_message("End rich presence");
+ *     }
+ * }
+ * ```
+ * The extended code example above shows how to properly request, wait for and iterate the rich presence data of a Steam user
+ * @func_end
+ */
+
+/**
+ * @func steam_get_friend_rich_presence_key_by_index
+ * @desc Obtains a Rich Presence key from an index between 0 and ${function.steam_get_friend_rich_presence_key_count} exclusive. For debugging only.
+ * 
+ * [[Warning: You MUST use ${function.steam_request_friend_rich_presence} to obtain the Rich Presence data for a particular user before using this function]]
+ *
+ * @param {int64} userID The user Steam unique identifier
+ * @param {real} index Index of the key
+ * @returns {string}
+ * 
+ * @example
+ * Please see ${function.steam_get_friend_rich_presence_key_count} for the code example as both functions are heavily related.
+ * @func_end
+ */
+
+/**
  * @struct FriendsGameInfo
  * @member {int64} friendId The Steam user ID
  * @member {real} gameId The Steam game ID
@@ -318,6 +420,10 @@
  * @desc The following functions are provided to work with rich presence:
  * @ref function.steam_set_rich_presence
  * @ref function.steam_clear_rich_presence
+ * @ref steam_request_friend_rich_presence
+ * @ref steam_get_friend_rich_presence
+ * @ref steam_get_friend_rich_presence_key_count
+ * @ref steam_get_friend_rich_presence_key_by_index
  * @section_end
  * 
  * @section_func User & Friends

@@ -27,5 +27,5 @@ draw_text(50, 100 + _i++ * 30,"steam_is_subscribed: " + string(steam_is_subscrib
 
 draw_text(50, 100 + _i++ * 30,"steam_get_persona_name: " + string(steam_get_persona_name()))
 
-draw_text(50, 100 + _i++ * 30,"steam_get_persona_name: " + string(steam_utils_is_steam_running_on_steam_deck()))
+draw_text(50, 100 + _i++ * 30,"is on steam deck: " + string(steam_utils_is_steam_running_on_steam_deck()))
 
