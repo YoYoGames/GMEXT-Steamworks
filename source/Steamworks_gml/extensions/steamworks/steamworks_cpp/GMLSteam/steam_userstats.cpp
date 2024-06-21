@@ -1104,11 +1104,45 @@ class UserStatCallbacks
 		}
 	}
 
+	void OnNumberOfCurrentPlayers(NumberOfCurrentPlayers_t* pParam, bool bIOFailure)
+	{
+		int map = CreateDsMap(0, 0);
+
+		DsMapAddString(map, "event_type", "number_of_current_players");
+		if (pParam != nullptr && !bIOFailure)
+		{
+			DsMapAddBool(map, "success", pParam->m_bSuccess);
+			// this is a int32 for some reason... kinda low but whatever
+			DsMapAddDouble(map, "players", pParam->m_cPlayers);
+		}
+		else
+		{
+			DsMapAddBool(map, "success", false);
+			DsMapAddDouble(map, "players", 0);
+		}
+
+		CreateAsyncEventWithDSMap(map, EVENT_OTHER_WEB_STEAM);
+	}
+
+	bool StartGetNumberOfCurrentPlayers()
+	{
+		if (m_CallResultNumberOfCurrentPlayers.IsActive())
+			return false; // already busy
+
+		const auto apiCall = SteamUserStats()->GetNumberOfCurrentPlayers();
+		if (apiCall == k_uAPICallInvalid)
+			return false; // failed to start the request
+
+		m_CallResultNumberOfCurrentPlayers.Set(apiCall, this, &UserStatCallbacks::OnNumberOfCurrentPlayers);
+		return true;
+	}
+
 	// CCallResult<UserStatCallbacks, LeaderboardScoreUploaded_t>        m_SteamCallResultUploadScore;
 
 	CCallback<UserStatCallbacks, UserStatsStored_t, false> m_CallbackUserStatsStored;
 	CCallback<UserStatCallbacks, UserAchievementStored_t, false> m_CallbackAchievementStored;
 	CCallback<UserStatCallbacks, UserStatsReceived_t, false> m_CallbackUserStatsReceived;
+	CCallResult<UserStatCallbacks, NumberOfCurrentPlayers_t> m_CallResultNumberOfCurrentPlayers;
 };
 //- do we need to initialise steam first, since constructor registers callbacks...?
 static UserStatCallbacks* m_pUserStatCallback = NULL;
@@ -1856,6 +1890,78 @@ YYEXPORT void /*double*/ steam_reset_all_stats_achievements(RValue& Result,
 
 	Result.val = 0.0;
 	return;
+}
+
+YYEXPORT void steam_indicate_achievement_progress(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)
+{
+	if (!steam_is_initialised)
+	{
+		Result.kind = VALUE_REAL;
+		Result.val = 0;
+		return;
+	}
+
+	const char* pchName = YYGetString(arg, 0);
+	uint32 nCurProgress = YYGetUint32(arg, 1);
+	uint32 nMaxProgress = YYGetUint32(arg, 2);
+
+	Result.kind = VALUE_REAL;
+	Result.val = SteamUserStats()->IndicateAchievementProgress(pchName, nCurProgress, nMaxProgress);
+}
+
+YYEXPORT void steam_get_number_of_current_players(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)
+{
+	if (!steam_is_initialised)
+	{
+		Result.kind = VALUE_REAL;
+		Result.val = 0;
+		return;
+	}
+
+	Result.kind = VALUE_REAL;
+	Result.val = m_pUserStatCallback->StartGetNumberOfCurrentPlayers();
+}
+
+YYEXPORT void steam_get_achievement_progress_limits_int(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)
+{
+	Result.kind = VALUE_UNDEFINED;
+	Result.v64 = 0;
+
+	if (!steam_is_initialised)
+	{
+		return;
+	}
+
+	const char* pchName = YYGetString(arg, 0);
+
+	int32 minProgress = 0, maxProgress = 0;
+	if (SteamUserStats()->GetAchievementProgressLimits(pchName, &minProgress, &maxProgress))
+	{
+		YYStructCreate(&Result);
+		YYStructAddDouble(&Result, "min_progress", minProgress);
+		YYStructAddDouble(&Result, "max_progress", maxProgress);
+	}
+}
+
+YYEXPORT void steam_get_achievement_progress_limits_float(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)
+{
+	Result.kind = VALUE_UNDEFINED;
+	Result.v64 = 0;
+
+	if (!steam_is_initialised)
+	{
+		return;
+	}
+
+	const char* pchName = YYGetString(arg, 0);
+
+	float minProgress = 0, maxProgress = 0;
+	if (SteamUserStats()->GetAchievementProgressLimits(pchName, &minProgress, &maxProgress))
+	{
+		YYStructCreate(&Result);
+		YYStructAddDouble(&Result, "min_progress", minProgress);
+		YYStructAddDouble(&Result, "max_progress", maxProgress);
+	}
 }
 
 void Steam_UserStats_Init()

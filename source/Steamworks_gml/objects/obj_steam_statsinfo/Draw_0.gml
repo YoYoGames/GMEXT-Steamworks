@@ -12,4 +12,4 @@ draw_text(50, 100 + _i++ * 30,"NumWins: " + string(steam_get_stat_int("NumWins")
 draw_text(50, 100 + _i++ * 30,"NumLosses: " + string(steam_get_stat_int("NumLosses")))
 draw_text(50, 100 + _i++ * 30,"FeetTraveled: " + string(steam_get_stat_float("FeetTraveled")))
 draw_text(50, 100 + _i++ * 30,"AverageSpeed: " + string(steam_get_stat_float("AverageSpeed")))
-
+draw_text(50, 100 + _i++ * 30,"Global Players: " + Obj_Steam_Global_Stats.globalplayers)

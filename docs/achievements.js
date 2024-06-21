@@ -435,6 +435,101 @@
  * @func_end
  */
 
+/**
+ * @func steam_indicate_achievement_progress
+ * @desc Shows the user a pop-up notification with the current progress of an achievement.
+ * 
+ * [[Warning: This function only shows the progress, you are still responsible for using ${function.steam_set_stat_int} or ${function.steam_set_stat_float} to actually set the progress value!]]
+ *
+ * @param {string} ach_name The 'API Name' of the achievement.
+ * @param {real} cur_progress Current progress of the stat.
+ * @param {real} max_progress Maximum progress of the achievement.
+ * @returns {bool}
+ * 
+ * @example
+ * ```gml
+ * // imagine global.max_boxes is the maximum possible amount of boxes, as defined in the Steamworks Partner Config!
+ * global.found_boxes = steam_get_stat_int("STAT_SECRET_BOXES_COUNTER") + 1;
+ * steam_set_stat_int("STAT_SECRET_BOXES_COUNTER", global.found_boxes);
+ * // you don't have to call this on every increment, perhaps on every 10th increment or so, to indicate an important milestone
+ * steam_indicate_achievement_progress("ACH_FOUND_100_BOXES", global.found_boxes, global.max_boxes);
+ * ```
+ * The code example above shows how to set and show the achievement progress to the user
+ * @func_end
+ */
+
+/**
+ * @func steam_get_achievement_progress_limits_int
+ * @desc Gets the minimum and maximum allowed progress values for an achievement. (linked stat must be of INT datatype)
+ *
+ * Returns `undefined` if Steam API was not initialized, given achievement does not exist or it does not have a linked stat.
+ * 
+ * @param {string} ach_name The 'API Name' of the achievement.
+ * @returns {struct.AchievementProgressLimitsInfo|undefined}
+ * 
+ * @example
+ * ```gml
+ * var limits = steam_get_achievement_progress_limits_int("ACH_WIN_100_GAMES");
+ * if (!is_undefined(limits)) {
+ *     global.min_games = limits.min_progress;
+ *     global.max_games = limits.max_progress;
+ * } // else, didn't obtain the stats?
+ * ```
+ * The code example above shows how to obtain the minimum and maximum progress values for an achievement
+ * @func_end
+ */
+
+/**
+ * @func steam_get_achievement_progress_limits_float
+ * @desc Gets the minimum and maximum allowed progress values for an achievement. (linked stat must be of FLOAT datatype)
+ *
+ * Returns `undefined` if Steam API was not initialized, given achievement does not exist or it does not have a linked stat.
+ * 
+ * @param {string} ach_name The 'API Name' of the achievement.
+ * @returns {struct.AchievementProgressLimitsInfo|undefined}
+ * 
+ * @example
+ * ```gml
+ * var limits = steam_get_achievement_progress_limits_float("ACH_WIN_100_GAMES");
+ * if (!is_undefined(limits)) {
+ *     global.min_games = limits.min_progress;
+ *     global.max_games = limits.max_progress;
+ * } // else, didn't obtain the stats?
+ * ```
+ * The code example above shows how to obtain the minimum and maximum progress values for an achievement
+ * @func_end
+ */
+
+/**
+ * @func steam_get_number_of_current_players
+ * @desc Asynchronously retrieves the total number of players currently playing the current game. Both online and in offline mode. Returns whether the async request was submitted successfully.
+ * 
+ * [[Warning: This function is asynchronous and as such the result will only arrive in an Async - Steam event]]
+ *
+ * @returns {bool}
+ * 
+ * @example
+ * ```gml
+ * /// @desc Create Event
+ * busy = false; // are we busy with the request?
+ * success = false; // did we obtain a number successfully?
+ * players = 0; // the actual number, can be 0
+ * if (steam_get_number_of_current_players())
+ *     busy = true; // waiting for the request
+ *
+ * /// @desc Async - Steam Event
+ * if (async_load[? "event_type"] == "number_of_current_players") {
+ *     busy = false; // no longer waiting for the request
+ *     if (async_load[? "success"]) {
+ *         success = true; // we do have a number
+ *         players = async_load[? "players"];
+ *     }
+ * }
+ * ```
+ * The extended code example above shows how to properly request and wait for the current players number
+ * @func_end
+ */
+
 // STRUCTS
 
 /**
@@ -444,6 +539,14 @@
  * @member {real} percent The percentage of people that have unlocked this achievement from 0 to 100.
  * @member {string} achievement The 'API Name' of the achievement.
  * @member {bool} achieved Whether the player achieved this achievement.
+ * @struct_end
+ */
+
+/**
+ * @struct AchievementProgressLimitsInfo
+ * @desc This struct holds information about progress limits for an achievement with a linked stat.
+ * @member {real} min_progress Minimum progress value
+ * @member {real} max_progress Maximum progress value
  * @struct_end
  */
 
@@ -464,6 +567,9 @@
  * @ref steam_set_achievement
  * @ref steam_get_achievement
  * @ref steam_clear_achievement
+ * @ref steam_indicate_achievement_progress
+ * @ref steam_get_achievement_progress_limits_int
+ * @ref steam_get_achievement_progress_limits_float
  * @section_end
  * 
  * @section_func Statistics Functions
@@ -499,6 +605,7 @@
  * @ref steam_get_global_stat_real
  * @ref steam_get_global_stat_history_int
  * @ref steam_get_global_stat_history_real
+ * @ref steam_get_number_of_current_players
  * @section_end
  * 
  * @section_struct
