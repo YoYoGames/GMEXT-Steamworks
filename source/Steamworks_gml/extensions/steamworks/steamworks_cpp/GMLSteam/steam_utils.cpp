@@ -210,3 +210,12 @@ YYEXPORT void steam_utils_set_game_launcher_mode(RValue& Result, CInstance* self
 	bool bLauncherMode = YYGetBool(arg, 0);
 	SteamUtils()->SetGameLauncherMode(bLauncherMode);
 }
+
+/// ()->real
+YYEXPORT void steam_utils_get_server_real_time(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)
+{
+	Result.kind = VALUE_REAL;
+	if (SteamUtils()) {
+		Result.val = SteamUtils()->GetServerRealTime();
+	} else Result.val = 0;
+}

@@ -182,6 +182,19 @@
  * ```
  * @func_end
  */
+ 
+ /**
+ * @func steam_utils_get_server_real_time
+ * @desc This function returns the Steam server time in Unix epoch format. (Number of seconds since Jan 1, 1970 UTC)
+ * 
+ * @returns {real}
+ * 
+ * @example
+ * ```gml
+ * show_debug_message("Current server time is " + string(steam_utils_get_server_real_time()));
+ * ```
+ * @func_end
+ */
 
 // MODULES
 
