@@ -521,7 +521,11 @@
 
 /**
  * @func steam_ugc_request_item_details
- * @desc This function can be used to retrieve information about a given file ID. You give the file ID and supply a maximum age for checking (see the Steam docs for more information).
+ * @desc **Steamworks Function:** [ISteamUGC::GetQueryUGCResult](https://partner.steamgames.com/doc/api/ISteamUGC#GetQueryUGCResult)
+ * 
+ * This function can be used to retrieve information about a given file ID. You give the file ID and supply a maximum age for checking.
+ * 
+ * The function returns the async event ID.
  * 
  * @param {real} published_file_id The unique file ID for the UGC to be checked.
  * @param {real} max_age_seconds The age of the data to check (recommended 30 - 60 seconds).
@@ -546,14 +550,14 @@
  * @member {constant.UGCFileVisibility} visibility The visibility of the item (see ${constant.UGCFileVisibility} constant)
  * @member {boolean} banned Whether the item has been banned or not
  * @member {boolean} accepted_for_use Whether the item has been accepted for use or not
- * @member {boolean} tags_truncated Whether the tag list in `tags` has been truncated
- * @member {array[string]} tags An array of the tags for the item
+ * @member {boolean} tags_truncated Whether the tag list in `tags` has been truncated.
+ * @member {array[string]} tags An array of the tags for the item. This array may be incomplete or contain incomplete tag names when `tags_truncated` is `true`. (Note that the Steamworks function returns the tags as a comma-separated list (string) instead)
  * @member {int64} handle_file The unique file handle for the item
  * @member {int64} handle_preview_file The unique handle for the image preview for the item (can be used with ${function.steam_ugc_download} to download a preview image)
  * @member {string} filename The name of the item file
  * @member {real} file_size The size of the item file
  * @member {real} preview_file_size The size of the preview image
- * @member {string} url The full URL for the item
+ * @member {string} url The full URL associated with this item. (For a video or a website.)
  * @member {real} up_votes The number of up-votes received
  * @member {real} down_votes The number of down-votes received
  * @member {real} score The overall score of the item
