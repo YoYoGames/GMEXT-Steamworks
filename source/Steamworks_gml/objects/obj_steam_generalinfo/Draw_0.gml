@@ -29,3 +29,5 @@ draw_text(50, 100 + _i++ * 30,"steam_get_persona_name: " + string(steam_get_pers
 
 draw_text(50, 100 + _i++ * 30,"is on steam deck: " + string(steam_utils_is_steam_running_on_steam_deck()))
 
+draw_text(50, 100 + _i++ * 30,"server real time: " + string(steam_utils_get_server_real_time()))
+
