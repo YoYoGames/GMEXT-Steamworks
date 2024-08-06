@@ -521,8 +521,11 @@
 
 /**
  * @func steam_ugc_request_item_details
- * @desc This function can be used to retrieve information about a given file ID. You give the file ID and supply a maximum age for checking (see the Steam docs for more information).
- * This is an asynchronous function that will return an asynchronous ID and trigger the ${event.steam} when the task is finished.
+ * @desc **Steamworks Function:** [ISteamUGC::GetQueryUGCResult](https://partner.steamgames.com/doc/api/ISteamUGC#GetQueryUGCResult)
+ * 
+ * This function can be used to retrieve information about a given file ID. You give the file ID and supply a maximum age for checking.
+ * 
+ * The function returns the async event ID.
  * 
  * @param {real} published_file_id The unique file ID for the UGC to be checked.
  * @param {real} max_age_seconds The age of the data to check (recommended 30 - 60 seconds).
@@ -532,9 +535,9 @@
  * @event steam
  * @member {real} id The asynchronous request ID
  * @member {string} event_type The string value `"ugc_item_details"`
- * @member {real} result This will either be the GML constant `ugc_result_success` or some other real number (see the [Steam docs](https://partner.steamgames.com/doc/api/steam_api#EResult), for more details)
  * @member {boolean} cached_data Will be `true` if the returned details are from the local cache or `false` if they are taken from the server
  * @member {int64} published_file_id This key holds the unique published ID for the item (you may need to cast it using the ${function.int64} function)
+ * @member {real} result This will either be the GML constant `ugc_result_success` or some other real number (see the [Steam docs](https://partner.steamgames.com/doc/api/steam_api#EResult), for more details)
  * @member {string} file_type The type of file used
  * @member {real} creator_app_id The Steam ID of the item creator
  * @member {real} consumer_app_id The Steam ID of the item consumer
@@ -542,19 +545,19 @@
  * @member {string} description The description of the item
  * @member {real} steam_id_owner The Steam ID of the item owner
  * @member {real} time_created The time the item was first created
- * @member {real} time_uploaded The last time the item was updated
+ * @member {real} time_updated The last time the item was updated
  * @member {real} time_added_to_user_list The time that the item was subscribed to
  * @member {constant.UGCFileVisibility} visibility The visibility of the item (see ${constant.UGCFileVisibility} constant)
  * @member {boolean} banned Whether the item has been banned or not
  * @member {boolean} accepted_for_use Whether the item has been accepted for use or not
- * @member {array} tags_truncated Short version of the tags as an array
- * @member {array[string]} tags An array of the tags for the item
+ * @member {boolean} tags_truncated Whether the tag list in `tags` has been truncated.
+ * @member {array[string]} tags An array of the tags for the item. This array may be incomplete or contain incomplete tag names when `tags_truncated` is `true`. (Note that the Steamworks function returns the tags as a comma-separated list (string) instead)
  * @member {int64} handle_file The unique file handle for the item
  * @member {int64} handle_preview_file The unique handle for the image preview for the item (can be used with ${function.steam_ugc_download} to download a preview image)
  * @member {string} filename The name of the item file
  * @member {real} file_size The size of the item file
  * @member {real} preview_file_size The size of the preview image
- * @member {string} url The full URL for the item
+ * @member {string} url The full URL associated with this item. (For a video or a website.)
  * @member {real} up_votes The number of up-votes received
  * @member {real} down_votes The number of down-votes received
  * @member {real} score The overall score of the item
