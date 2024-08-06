@@ -64,17 +64,18 @@ void OldPreGraphicsInitialisation()
 
 	bool debug = strncmp(extOptGetString("Steamworks", "debug"), "Enabled", 7) == 0 ? true : isRunningFromIDE();
     
+	std::filesystem::path steamAppIdTxtPath = DesktopExtensionTools_getPathToExe();
+	steamAppIdTxtPath /= "steam_appid.txt";
+
     if (debug)
     {
-        std::filesystem::path steamAppIdTxtPath = DesktopExtensionTools_getPathToExe();
-        steamAppIdTxtPath /= "steam_appid.txt";
         std::ofstream steamAppIdTxt(steamAppIdTxtPath.string());
         std::string pathasstring = steamAppIdTxtPath.string();
         tracef("Debug: Writing AppID %u to file %s", static_cast<unsigned int>(AppID), pathasstring.c_str());
         if (steamAppIdTxt && (steamAppIdTxt << AppID))
         {
             tracef("Debug: Wrote AppID without errors.");
-        }
+		}
         else
         {
             tracef("Debug: Unable to open the file or write the AppID, check file permissions?");
@@ -84,6 +85,22 @@ void OldPreGraphicsInitialisation()
     }
     else
     {
+		// Make sure we delete the steam_appid.txt file from the executable directory
+		try {
+			if (std::filesystem::remove(steamAppIdTxtPath)) {
+				tracef("Debug: steam_appid.txt file deleted successfully.");
+			}
+			else {
+				tracef("Debug: steam_appid.txt file not found.");
+			}
+		}
+		catch (const std::filesystem::filesystem_error& err) {
+			tracef("Debug: Filesystem error - %s\n", err.what());
+		}
+		catch (const std::exception& ex) {
+			tracef("Debug: Error - %s\n", ex.what());
+		}
+
         // https://partner.steamgames.com/doc/sdk/api#initialization_and_shutdown
         if (SteamAPI_RestartAppIfNecessary(AppID))
         {
