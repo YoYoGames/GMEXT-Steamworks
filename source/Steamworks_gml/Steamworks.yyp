@@ -30,13 +30,12 @@
     {"$GMFolder":"","%Name":"Steamworks","folderPath":"folders/Steamworks.yy","name":"Steamworks","resourceType":"GMFolder","resourceVersion":"2.0",},
   ],
   "IncludedFiles":[
-    {"$GMIncludedFile":"","%Name":"GMEXT-Steamwork Unix Docs.html","CopyToMask":0,"filePath":"datafiles","name":"GMEXT-Steamwork Unix Docs.html","resourceType":"GMIncludedFile","resourceVersion":"2.0",},
-    {"$GMIncludedFile":"","%Name":"GMEXT-Steamwork Win Docs","CopyToMask":0,"filePath":"datafiles","name":"GMEXT-Steamwork Win Docs","resourceType":"GMIncludedFile","resourceVersion":"2.0",},
+    {"$GMIncludedFile":"","%Name":"GMEXT-Steamworks.html","CopyToMask":0,"filePath":"datafiles","name":"GMEXT-Steamworks.html","resourceType":"GMIncludedFile","resourceVersion":"2.0",},
   ],
   "isEcma":false,
   "LibraryEmitters":[],
   "MetaData":{
-    "IDEVersion":"2024.600.0.562",
+    "IDEVersion":"2024.800.0.602",
   },
   "name":"Steamworks",
   "resources":[
