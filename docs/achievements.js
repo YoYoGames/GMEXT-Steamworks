@@ -611,6 +611,7 @@
  * @section_struct
  * @desc The following structs are used with stats and achievements: 
  * @ref AchievementInfo
+ * @ref AchievementProgressLimitsInfo
  * @section_end
  * 
  * @module_end
