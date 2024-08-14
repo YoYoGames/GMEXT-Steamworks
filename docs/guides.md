@@ -23,7 +23,7 @@ To use the Steam API extension you should follow these steps:
 
   * **Steam SDK**: The path to the folder where you unzipped the downloaded SDK.
 
-  * **Application ID**: The Steam App ID for you game (retreived from the dashboard).
+  * **Application ID**: The Steam App ID for you game (retrieved from the dashboard).
   
   * **Debug**: This is a flag option that allows you to force debug mode or set it to automatic. Debug mode will allow exports of your game to run a non-steam version of your game (warning, this should be only used during developement). We suggest leaving this set to `Auto`.
 
