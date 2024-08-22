@@ -72,7 +72,9 @@
 /**
  * @func steam_net_packet_receive
  * @desc This function attempts to get the next packet from Steam API and returns whether successfully done so.
- * Other steam_net_ functions can then be used to get packet information/contents.
+ * Other steam_net_* functions can then be used to get packet information/contents.
+ * 
+ * @param {real} [channel] The channel the packet was sent over. Defaults to 0.
  * 
  * @returns {boolean}
  * 
@@ -93,8 +95,9 @@
  * 
  * @param {int64} user_id  The target user to send the packet to
  * @param {real} buffer Buffer that contains the raw byte array for the packet data to send
- * @param {real} size The size of data to send (default -1, sends the entire buffer) :eight_pointed_black_star: OPTIONAL
- * @param {constant.PacketType} packet_type The type of packet to be used :eight_pointed_black_star: OPTIONAL
+ * @param {real} [size] The size of data to send (default -1, sends the entire buffer)
+ * @param {constant.PacketType} [packet_type] The type of packet to be used
+ * @param {real} [channel] The channel which acts as a virtual port to send this packet on and allows you help route a message to different systems. Defaults to 0, the default channel.
  * 
  * @returns {boolean}
  * 
