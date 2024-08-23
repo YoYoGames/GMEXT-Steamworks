@@ -287,6 +287,35 @@ folderCompress() {
     logInformation "Compressed contents of '$source' into '$destination'."
 }
 
+# Adds the contents of a folder into a zip file
+# Usage: zipUpdate srcFolder destFile
+zipUpdate() {
+    local source=$1
+    local destination=$2
+    
+    # Make sure destination exists
+    touch "$destination"
+
+    # Get the absolute path of the destination zip
+    local abs_destination=$(readlink -f "$destination")
+    
+    # Change directory to the folder
+    cd "$source" || logError "Source folder doesn't exist ''"
+    
+    # Update the contents of the folder into the destination zip
+    zip -ur -q "$abs_destination" *
+    
+    if [ $? -ne 0 ]; then
+        logError "Failed to compress contents of '$source' into '$destination'."
+        exit 1
+    fi
+
+    # Change back to the original directory
+    cd - >/dev/null 2>&1
+
+    logInformation "Compressed contents of '$source' into '$destination'."
+}
+
 # Extracts a specified part of a version string and stores it into a variable
 # Usage: versionExtract version part result
 versionExtract() {

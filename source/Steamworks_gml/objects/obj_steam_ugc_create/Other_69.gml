@@ -14,7 +14,7 @@ if async_load[? "event_type"] == "ugc_create_item"
 	steam_ugc_set_item_tags(updateHandle, tagArray);
 	
 	var itemPath = "itemFolderContent/myItem.png"
-	var spr = sprite_duplicate(Spr_YoYo_button);
+	var spr = sprite_duplicate(spr_gm_button);
 	sprite_save(spr, 0, itemPath);
 	sprite_delete(spr);
 		

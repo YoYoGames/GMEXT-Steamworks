@@ -67,7 +67,7 @@
                 </li>
               </ul>
               <ul class="current">
-                <li class="toctree-l1 current"><a class="reference internal current" href="achievements.html">Stats and Achievements</a>
+                <li class="toctree-l1 current"><a class="reference internal current" href="#">Stats and Achievements</a>
     <ul class="current">
     <li class="toctree-l2"><a class="reference internal" href="#achievements-functions">Achievements Functions</a>
     </li>
@@ -157,6 +157,9 @@ The following functions are provided for working with achievements:</p>
 <li><a href="achievements.html#steam_set_achievement">steam_set_achievement</a></li>
 <li><a href="achievements.html#steam_get_achievement">steam_get_achievement</a></li>
 <li><a href="achievements.html#steam_clear_achievement">steam_clear_achievement</a></li>
+<li><a href="achievements.html#steam_indicate_achievement_progress">steam_indicate_achievement_progress</a></li>
+<li><a href="achievements.html#steam_get_achievement_progress_limits_int">steam_get_achievement_progress_limits_int</a></li>
+<li><a href="achievements.html#steam_get_achievement_progress_limits_float">steam_get_achievement_progress_limits_float</a></li>
 </ul>
 <h2 id="statistics-functions">Statistics Functions</h2>
 <p>Statistics track fine-grained pieces of information, such as play time, number of power-ups used, etc. You may choose to use them simply for tracking internal game data - so that, for instance, you can grant an achievement based on multi-session gameplay statistics collected from the user across multiple computers. Or, you can track interesting game data for display on the user's Steam Community page, where users can compare their own stats against their friends.</p>
@@ -191,11 +194,13 @@ The following functions are provided for working with achievements:</p>
 <li><a href="achievements.html#steam_get_global_stat_real">steam_get_global_stat_real</a></li>
 <li><a href="achievements.html#steam_get_global_stat_history_int">steam_get_global_stat_history_int</a></li>
 <li><a href="achievements.html#steam_get_global_stat_history_real">steam_get_global_stat_history_real</a></li>
+<li><a href="achievements.html#steam_get_number_of_current_players">steam_get_number_of_current_players</a></li>
 </ul>
 <h2 id="structs">Structs</h2>
 <p>The following structs are used with stats and achievements:</p>
 <ul>
 <li><a href="achievements.html#achievementinfo">AchievementInfo</a></li>
+<li><a href="achievements.html#achievementprogresslimitsinfo">AchievementProgressLimitsInfo</a></li>
 </ul>
 <p><br></p>
 <hr />
@@ -224,6 +229,8 @@ The following functions are provided for working with achievements:</p>
 </tr>
 </tbody>
 </table>
+<p><br></p>
+<p><br></p>
 <p><br></p>
 <p><strong>Returns:</strong></p>
 <blockquote>
@@ -269,6 +276,8 @@ The above code will reward the player an achievement if the global variable "Dea
 </tbody>
 </table>
 <p><br></p>
+<p><br></p>
+<p><br></p>
 <p><strong>Returns:</strong></p>
 <blockquote>
 <p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
@@ -312,6 +321,8 @@ The above code will reward the player an achievement if the global variable "Dea
 </tr>
 </tbody>
 </table>
+<p><br></p>
+<p><br></p>
 <p><br></p>
 <p><strong>Returns:</strong></p>
 <blockquote>
@@ -361,6 +372,8 @@ The above code will reset the achievements of the game when the user clicks the 
 </tbody>
 </table>
 <p><br></p>
+<p><br></p>
+<p><br></p>
 <p><strong>Returns:</strong></p>
 <blockquote>
 <p>N/A</p>
@@ -407,6 +420,8 @@ The above code sets a statistic and then checks the final value for it to decide
 </tr>
 </tbody>
 </table>
+<p><br></p>
+<p><br></p>
 <p><br></p>
 <p><strong>Returns:</strong></p>
 <blockquote>
@@ -456,6 +471,8 @@ The above code calculates a percentage based on the distance travelled variable 
 </tbody>
 </table>
 <p><br></p>
+<p><br></p>
+<p><br></p>
 <p><strong>Returns:</strong></p>
 <blockquote>
 <p>N/A</p>
@@ -501,6 +518,8 @@ Note that we divide time by 3600 since we want the time in <em>hours</em> and no
 </tbody>
 </table>
 <p><br></p>
+<p><br></p>
+<p><br></p>
 <p><strong>Returns:</strong></p>
 <blockquote>
 <p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
@@ -543,6 +562,8 @@ The above code sets a statistic and then checks the final value for it to decide
 </tbody>
 </table>
 <p><br></p>
+<p><br></p>
+<p><br></p>
 <p><strong>Returns:</strong></p>
 <blockquote>
 <p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
@@ -584,6 +605,8 @@ The above code calculates a percentage based on the distance travelled variable 
 </tbody>
 </table>
 <p><br></p>
+<p><br></p>
+<p><br></p>
 <p><strong>Returns:</strong></p>
 <blockquote>
 <p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
@@ -609,6 +632,8 @@ The above code gets the current value for the average statistic "PointsPerHour" 
 <blockquote>
 <pre class="highlight"><code class="language-gml">steam_reset_all_stats()</code></pre>
 </blockquote>
+<p><br></p>
+<p><br></p>
 <p><br></p>
 <p><strong>Returns:</strong></p>
 <blockquote>
@@ -640,6 +665,8 @@ The above code checks a stored value in an INI file against that of a global var
 <blockquote>
 <pre class="highlight"><code class="language-gml">steam_reset_all_stats_achievements()</code></pre>
 </blockquote>
+<p><br></p>
+<p><br></p>
 <p><br></p>
 <p><strong>Returns:</strong></p>
 <blockquote>
@@ -684,6 +711,8 @@ The above code checks a stored value in an INI file against that of a global var
 </tr>
 </tbody>
 </table>
+<p><br></p>
+<p><br></p>
 <p><br></p>
 <p><strong>Returns:</strong></p>
 <blockquote>
@@ -740,6 +769,8 @@ if (_type == "steam_request_global_stats")
 <blockquote>
 <pre class="highlight"><code class="language-gml">steam_request_global_achievement_percentages()</code></pre>
 </blockquote>
+<p><br></p>
+<p><br></p>
 <p><br></p>
 <p><strong>Returns:</strong></p>
 <blockquote>
@@ -817,6 +848,8 @@ if (_type == "steam_request_global_achievement_percentages")
 </tbody>
 </table>
 <p><br></p>
+<p><br></p>
+<p><br></p>
 <p><strong>Returns:</strong></p>
 <blockquote>
 <p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
@@ -843,6 +876,8 @@ The code example above shows how to call the function <code>steam_get_achievemen
 <blockquote>
 <pre class="highlight"><code class="language-gml">steam_get_most_achieved_achievement_info()</code></pre>
 </blockquote>
+<p><br></p>
+<p><br></p>
 <p><br></p>
 <p><strong>Returns:</strong></p>
 <blockquote>
@@ -890,6 +925,8 @@ The code example above shows how to loop through the most achieved achievements 
 </tr>
 </tbody>
 </table>
+<p><br></p>
+<p><br></p>
 <p><br></p>
 <p><strong>Returns:</strong></p>
 <blockquote>
@@ -940,6 +977,8 @@ The code example above shows how to loop through the most achieved achievements 
 </tbody>
 </table>
 <p><br></p>
+<p><br></p>
+<p><br></p>
 <p><strong>Returns:</strong></p>
 <blockquote>
 <p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Int64</a></p>
@@ -983,6 +1022,8 @@ The code example above shows how to loop through the most achieved achievements 
 </tr>
 </tbody>
 </table>
+<p><br></p>
+<p><br></p>
 <p><br></p>
 <p><strong>Returns:</strong></p>
 <blockquote>
@@ -1031,6 +1072,8 @@ The code example above shows how to loop through the most achieved achievements 
 </tr>
 </tbody>
 </table>
+<p><br></p>
+<p><br></p>
 <p><br></p>
 <p><strong>Returns:</strong></p>
 <blockquote>
@@ -1084,6 +1127,8 @@ The code example above shows how to get the global stat history and show it usin
 </tbody>
 </table>
 <p><br></p>
+<p><br></p>
+<p><br></p>
 <p><strong>Returns:</strong></p>
 <blockquote>
 <p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Arrays.htm">Array</a> of <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
@@ -1095,6 +1140,192 @@ var _arr_history = steam_get_global_stat_history_real("Eggs_Hatched");
 show_debug_message("Evolution:");
 array_foreach(_arr_history, function(_element, _index) { show_debug_message($"Day {_index}: {_element}"); });</code></pre>
 The code example above shows how to get the global stat history and show it using multiple debug messages.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_indicate_achievement_progress">steam_indicate_achievement_progress</h1>
+<p>Shows the user a pop-up notification with the current progress of an achievement.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This function only shows the progress, you are still responsible for using <a href="achievements.html#steam_set_stat_int">steam_set_stat_int</a> or <a href="achievements.html#steam_set_stat_float">steam_set_stat_float</a> to actually set the progress value!</p>
+</div>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<pre class="highlight"><code class="language-gml">steam_indicate_achievement_progress(ach_name, cur_progress, max_progress)</code></pre>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ach_name</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The 'API Name' of the achievement.</td>
+</tr>
+<tr>
+<td>cur_progress</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>Current progress of the stat.</td>
+</tr>
+<tr>
+<td>max_progress</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>Maximum progress of the achievement.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><pre class="highlight"><code class="language-gml">// imagine global.max_boxes is the maximum possible amount of boxes, as defined in the Steamworks Partner Config!
+global.found_boxes = steam_get_stat_int("STAT_SECRET_BOXES_COUNTER") + 1;
+steam_set_stat_int("STAT_SECRET_BOXES_COUNTER", global.found_boxes);
+// you don't have to call this on every increment, perhaps on every 10th increment or so, to indicate an important milestone
+steam_indicate_achievement_progress("ACH_FOUND_100_BOXES", global.found_boxes, global.max_boxes);</code></pre>
+The code example above shows how to set and show the achievement progress to the user</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_get_achievement_progress_limits_int">steam_get_achievement_progress_limits_int</h1>
+<p>Gets the minimum and maximum allowed progress values for an achievement. (linked stat must be of INT datatype)</p>
+<p>Returns <code>undefined</code> if Steam API was not initialized, given achievement does not exist or it does not have a linked stat.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<pre class="highlight"><code class="language-gml">steam_get_achievement_progress_limits_int(ach_name)</code></pre>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ach_name</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The 'API Name' of the achievement.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="achievements.html#achievementprogresslimitsinfo">AchievementProgressLimitsInfo</a> or <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Undefined</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><pre class="highlight"><code class="language-gml">var limits = steam_get_achievement_progress_limits_int("ACH_WIN_100_GAMES");
+if (!is_undefined(limits)) {
+    global.min_games = limits.min_progress;
+    global.max_games = limits.max_progress;
+} // else, didn't obtain the stats?</code></pre>
+The code example above shows how to obtain the minimum and maximum progress values for an achievement</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_get_achievement_progress_limits_float">steam_get_achievement_progress_limits_float</h1>
+<p>Gets the minimum and maximum allowed progress values for an achievement. (linked stat must be of FLOAT datatype)</p>
+<p>Returns <code>undefined</code> if Steam API was not initialized, given achievement does not exist or it does not have a linked stat.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<pre class="highlight"><code class="language-gml">steam_get_achievement_progress_limits_float(ach_name)</code></pre>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ach_name</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The 'API Name' of the achievement.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="achievements.html#achievementprogresslimitsinfo">AchievementProgressLimitsInfo</a> or <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Undefined</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><pre class="highlight"><code class="language-gml">var limits = steam_get_achievement_progress_limits_float("ACH_WIN_100_GAMES");
+if (!is_undefined(limits)) {
+    global.min_games = limits.min_progress;
+    global.max_games = limits.max_progress;
+} // else, didn't obtain the stats?</code></pre>
+The code example above shows how to obtain the minimum and maximum progress values for an achievement</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_get_number_of_current_players">steam_get_number_of_current_players</h1>
+<p>Asynchronously retrieves the total number of players currently playing the current game. Both online and in offline mode. Returns whether the async request was submitted successfully.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This function is asynchronous and as such the result will only arrive in an Async - Steam event</p>
+</div>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<pre class="highlight"><code class="language-gml">steam_get_number_of_current_players()</code></pre>
+</blockquote>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><pre class="highlight"><code class="language-gml">/// @desc Create Event
+busy = false; // are we busy with the request?
+success = false; // did we obtain a number successfully?
+players = 0; // the actual number, can be 0
+if (steam_get_number_of_current_players())
+    busy = true; // waiting for the request
+
+/// @desc Async - Steam Event
+if (async_load[? "event_type"] == "number_of_current_players") {
+    busy = false; // no longer waiting for the request
+    if (async_load[? "success"]) {
+        success = true; // we do have a number
+        players = async_load[? "players"];
+    }
+}</code></pre>
+The extended code example above shows how to properly request and wait for the current players number</p>
 <p><br></p>
 <p><br></p>
 <hr />
@@ -1136,6 +1367,39 @@ The code example above shows how to get the global stat history and show it usin
 <td>achieved</td>
 <td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></td>
 <td>Whether the player achieved this achievement.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="achievementprogresslimitsinfo">AchievementProgressLimitsInfo</h1>
+<p>This struct holds information about progress limits for an achievement with a linked stat.</p>
+<p>This struct is referenced by the following functions:</p>
+<ul>
+<li><a href="achievements.html#steam_get_achievement_progress_limits_int">steam_get_achievement_progress_limits_int</a></li>
+<li><a href="achievements.html#steam_get_achievement_progress_limits_float">steam_get_achievement_progress_limits_float</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>min_progress</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>Minimum progress value</td>
+</tr>
+<tr>
+<td>max_progress</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>Maximum progress value</td>
 </tr>
 </tbody>
 </table>

@@ -18,6 +18,22 @@ To use the Steam API extension you should follow these steps:
 
 ![](assets/steamworks_setup_ext_options.png)
 
+
+* **Steam Options**
+
+  * **Steam SDK**: The path to the folder where you unzipped the downloaded SDK.
+
+  * **Application ID**: The Steam App ID for you game (retrieved from the dashboard).
+  
+  * **Debug**: This is a flag option that allows you to force debug mode or set it to automatic. Debug mode will allow exports of your game to run a non-steam version of your game (warning, this should be only used during developement). We suggest leaving this set to `Auto`.
+
+* **Build Options**
+
+  * **Log Level**: The log level to be used when executing the script files.
+    - 0: Show only errors
+    - 1: Show errors and warnings (recommended)
+    - 2: Show everything (use before submitting a bug)
+
 # Migration Changes
 
   During the migration of the Steamworks function library from the base GameMaker runner into this extension, there were some new functions that were added, and others that were slightly changed. This document covers the changes that happened during that migration.

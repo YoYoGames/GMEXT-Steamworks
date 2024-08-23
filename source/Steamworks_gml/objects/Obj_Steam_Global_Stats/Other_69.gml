@@ -28,4 +28,16 @@ switch (async_load[? "event_type"]) {
 		// 
 		show_debug_message(steam_get_most_achieved_achievement_info());
 		break;
+	case "number_of_current_players":
+	
+		// This contains the actual result of steam_get_number_of_current_players
+		if (async_load[? "success"]) {
+			var players = async_load[? "players"];
+			show_debug_message(string(players) + " players are playing this game");
+			globalplayers = string(players) + " players";
+		} else {
+			show_debug_message("Call to steam_get_number_of_current_players failed");
+			globalplayers = "failed";
+		}
+		break;
 }

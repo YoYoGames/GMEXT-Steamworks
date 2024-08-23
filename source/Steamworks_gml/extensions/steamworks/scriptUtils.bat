@@ -58,7 +58,7 @@ exit /b 0
 
     set "result=!YYEXTOPT_%EXTENSION_NAME%_%~1!"
     call :logInformation "Accessed extension option '%~1' with value '%result%'."
-    
+
     :: Need to end local (to push into main scope)
     endlocal & set "%~2=%result%"
 exit /b 0
@@ -227,6 +227,28 @@ exit /b 0
     set "PS_DESTFILE=%~2"
 
     powershell -Command "Compress-Archive -Path $env:PS_SRCFOLDER\* -DestinationPath $env:PS_DESTFILE -Force"
+
+    :: Check if the compression operation succeeded
+    if %errorlevel% neq 0 (
+        call :logError "Failed to compress contents of '%~1' into '%~2'."
+        exit /b 1
+    )
+
+    :: Clean up environment variables
+    set "PS_SRCFOLDER="
+    set "PS_DESTFILE="
+
+    call :logInformation "Compressed contents of '%~1' into '%~2'."
+exit /b 0
+
+:: Adds the contents of a folder into a zip file (displays log messages)
+:zipUpdate srcFolder destFile
+
+    :: Set environment variables for target
+    set "PS_SRCFOLDER=%~1"
+    set "PS_DESTFILE=%~2"
+
+    powershell -Command "Compress-Archive -Path $env:PS_SRCFOLDER\* -DestinationPath $env:PS_DESTFILE -Update"
 
     :: Check if the compression operation succeeded
     if %errorlevel% neq 0 (

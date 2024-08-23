@@ -17,6 +17,11 @@ setupmacOS() {
     if [[ "$YYTARGET_runtime" == "VM" ]]; then
         logError "Extension is not compatible with the macOS VM export, please use YYC."
     else
+        # When running from CI the 'YYprojectName' will not be set use 'YYprojectPath' instead.
+        if [ -z "$YYprojectName" ]; then
+            YYprojectName=$(basename "${YYprojectPath%.*}")
+        fi
+
         itemCopyTo "$SDK_SOURCE" "${YYprojectName}/${YYprojectName}/Supporting Files/libsteam_api.dylib"
     fi
 }
@@ -28,9 +33,15 @@ setupLinux() {
 
     echo "Copying Linux (64 bit) dependencies"
     
-    fileExtract "${YYprojectName}.zip" "_temp"
-    [[ ! -f "_temp/assets/libsteam_api.so" ]] && itemCopyTo "$SDK_SOURCE" "_temp/assets/libsteam_api.so"
-    folderCompress "_temp" "${YYprojectName}.zip"
+    # When running from CI the 'YYprojectName' will not be set use 'YYprojectPath' instead.
+    if [ -z "$YYprojectName" ]; then
+        YYprojectName=$(basename "${YYprojectPath%.*}")
+    fi
+
+    # Update the zip file with the required SDKs
+    mkdir -p _temp/assets
+    itemCopyTo "$SDK_SOURCE" "_temp/assets/libsteam_api.so"
+    zipUpdate "_temp" "${YYprojectName}.zip"
     rm -r _temp
 }
 

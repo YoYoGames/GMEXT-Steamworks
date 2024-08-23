@@ -27,3 +27,27 @@ if (async_load[? "event_type"] == "remote_storage_local_file_change")
 if (async_load[? "event_type"] == "playback_status_has_changed"){
 	show_debug_message("playback_change_detected");
 }
+
+// Early exit if event type doesn't match
+if (async_load[? "event_type"] == "inventory_result_ready") {
+
+	// Early exit if handle doesn't match
+	if (async_load[? "handle"] == handle) {
+
+		// Early exit if handle doesn't match
+		if (async_load[? "success"])
+		{
+		    var _items = steam_inventory_result_get_items(handle);
+
+		    for (var i = 0; i < array_length(_items); i++)
+		    {
+		        var _item = _items[i];
+		        show_debug_message(_item);
+		    }
+		}
+	}
+
+	// Don't forget to clean the ununsed handle
+	steam_inventory_result_destroy(handle);
+	handle = -1;
+}

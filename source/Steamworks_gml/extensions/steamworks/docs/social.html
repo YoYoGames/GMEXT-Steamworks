@@ -83,7 +83,7 @@
                 </li>
               </ul>
               <ul class="current">
-                <li class="toctree-l1 current"><a class="reference internal current" href="social.html">Social</a>
+                <li class="toctree-l1 current"><a class="reference internal current" href="#">Social</a>
     <ul class="current">
     <li class="toctree-l2"><a class="reference internal" href="#rich-presence">Rich Presence</a>
     </li>
@@ -148,6 +148,10 @@
 <ul>
 <li><a href="social.html#steam_set_rich_presence">steam_set_rich_presence</a></li>
 <li><a href="social.html#steam_clear_rich_presence">steam_clear_rich_presence</a></li>
+<li><a href="social.html#steam_request_friend_rich_presence">steam_request_friend_rich_presence</a></li>
+<li><a href="social.html#steam_get_friend_rich_presence">steam_get_friend_rich_presence</a></li>
+<li><a href="social.html#steam_get_friend_rich_presence_key_count">steam_get_friend_rich_presence_key_count</a></li>
+<li><a href="social.html#steam_get_friend_rich_presence_key_by_index">steam_get_friend_rich_presence_key_by_index</a></li>
 </ul>
 <h2 id="user-friends">User &amp; Friends</h2>
 <p>The following functions are provided to work with user and friends data:</p>
@@ -202,6 +206,8 @@
 </tbody>
 </table>
 <p><br></p>
+<p><br></p>
+<p><br></p>
 <p><strong>Returns:</strong></p>
 <blockquote>
 <p>N/A</p>
@@ -226,6 +232,8 @@ The code sample above uses sets a couple of values for the local user rich prese
 <blockquote>
 <pre class="highlight"><code class="language-gml">steam_clear_rich_presence()</code></pre>
 </blockquote>
+<p><br></p>
+<p><br></p>
 <p><br></p>
 <p><strong>Returns:</strong></p>
 <blockquote>
@@ -269,6 +277,8 @@ This is usually something to do on session start for all remote users.</p>
 </tbody>
 </table>
 <p><br></p>
+<p><br></p>
+<p><br></p>
 <p><strong>Returns:</strong></p>
 <blockquote>
 <p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
@@ -290,6 +300,8 @@ Equivalent to what can be seen in Steam Friends UI.</p>
 <blockquote>
 <pre class="highlight"><code class="language-gml">steam_get_friends_game_info()</code></pre>
 </blockquote>
+<p><br></p>
+<p><br></p>
 <p><br></p>
 <p><strong>Returns:</strong></p>
 <blockquote>
@@ -359,6 +371,8 @@ Returns positive ID's if the avatar is ready, this ID is to be used with the fol
 </tr>
 </tbody>
 </table>
+<p><br></p>
+<p><br></p>
 <p><br></p>
 <p><strong>Returns:</strong></p>
 <blockquote>
@@ -487,6 +501,8 @@ If the call succeeds, the return value is a two-element array containing the wid
 </tbody>
 </table>
 <p><br></p>
+<p><br></p>
+<p><br></p>
 <p><strong>Returns:</strong></p>
 <blockquote>
 <p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Arrays.htm">Array</a></p>
@@ -552,6 +568,8 @@ Returns whether successful.</p>
 </tr>
 </tbody>
 </table>
+<p><br></p>
+<p><br></p>
 <p><br></p>
 <p><strong>Returns:</strong></p>
 <blockquote>
@@ -631,6 +649,8 @@ Returns whether successful.</p>
 </tbody>
 </table>
 <p><br></p>
+<p><br></p>
+<p><br></p>
 <p><strong>Returns:</strong></p>
 <blockquote>
 <p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
@@ -665,6 +685,222 @@ if (_l_img &gt; 0)
 }</code></pre>
 In the code above we query the current user's <a href="general.html#steam_get_user_steam_id">steam_get_user_steam_id</a> avatar data and place it inside a buffer (with the BGRA color format).
 For a more extensive example refer to the <a href="social.html#steam_get_user_avatar">steam_get_user_avatar</a> function.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_request_friend_rich_presence">steam_request_friend_rich_presence</h1>
+<p>Requests Rich Presence data from a specific user. This is used to get the Rich Presence information from a user that is not a friend of the current user, like someone in the same lobby or game server. This function is rate limited, if you call this too frequently for a particular user then it will just immediately post a callback without requesting new data from the server.</p>
+<p>Please see the related functions:</p>
+<p><a href="social.html#steam_get_friend_rich_presence">steam_get_friend_rich_presence</a>
+<a href="social.html#steam_get_friend_rich_presence_key_by_index">steam_get_friend_rich_presence_key_by_index</a>
+<a href="social.html#steam_get_friend_rich_presence_key_count">steam_get_friend_rich_presence_key_count</a></p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This function is asynchronous and as such the result will only arrive in an Async - Steam event</p>
+</div>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<pre class="highlight"><code class="language-gml">steam_request_friend_rich_presence(userID)</code></pre>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>userID</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Int64</a></td>
+<td>The user Steam unique identifier</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p>Please see examples for the related functions such as <a href="social.html#steam_get_friend_rich_presence">steam_get_friend_rich_presence</a> or <a href="social.html#steam_get_friend_rich_presence_key_count">steam_get_friend_rich_presence_key_count</a></p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_get_friend_rich_presence">steam_get_friend_rich_presence</h1>
+<p>Get a Rich Presence value from a specified friend.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>You MUST use <a href="social.html#steam_request_friend_rich_presence">steam_request_friend_rich_presence</a> to obtain the Rich Presence data for a particular user before using this function</p>
+</div>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<pre class="highlight"><code class="language-gml">steam_get_friend_rich_presence(userID, key)</code></pre>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>userID</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Int64</a></td>
+<td>The user Steam unique identifier</td>
+</tr>
+<tr>
+<td>key</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>Rich Presence string key, for example "status" or "connect"</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><pre class="highlight"><code class="language-gml">/// @desc Create Event
+busy = false; // are we busy with the request?
+if (steam_request_friend_rich_presence(friendSteamIdGoesHere))
+    busy = true; // waiting for the request
+
+/// @desc Async - Steam Event
+if (async_load[? "event_type"] == "friend_rich_presence_update") {
+    // check if this is data for the user we care about
+    if (async_load[? "steam_id_friend"] == friendSteamIdGoesHere) {
+        busy = false; // no longer busy with the request
+        var friendstatus = steam_get_friend_rich_presence(friendSteamIdGoesHere, "status");
+        show_debug_message("friend rich presence status is " + friendstatus);
+    }
+}</code></pre>
+The extended code example above shows how to properly request, wait for and read the rich presence data of a Steam user</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_get_friend_rich_presence_key_count">steam_get_friend_rich_presence_key_count</h1>
+<p>Gets the number of Rich Presence keys that are set on the specified user. This is used for iteration, after calling this then <a href="social.html#steam_get_friend_rich_presence_key_by_index">steam_get_friend_rich_presence_key_by_index</a> to get the rich presence keys. This is typically only ever used for debugging purposes.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>You MUST use <a href="social.html#steam_request_friend_rich_presence">steam_request_friend_rich_presence</a> to obtain the Rich Presence data for a particular user before using this function</p>
+</div>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<pre class="highlight"><code class="language-gml">steam_get_friend_rich_presence_key_count(userID)</code></pre>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>userID</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Int64</a></td>
+<td>The user Steam unique identifier</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><pre class="highlight"><code class="language-gml">/// @desc Create Event
+busy = false; // are we busy with the request?
+if (steam_request_friend_rich_presence(friendSteamIdGoesHere))
+    busy = true; // waiting for the request
+
+/// @desc Async - Steam Event
+if (async_load[? "event_type"] == "friend_rich_presence_update") {
+    // check if this is data for the user we care about
+    if (async_load[? "steam_id_friend"] == friendSteamIdGoesHere) {
+        busy = false; // no longer busy with the request
+        show_debug_message("Begin rich presence for Steam user " + string(friendSteamIdGoesHere);
+        var keycount = steam_get_friend_rich_presence_key_count(friendSteamIdGoesHere);
+        for (var index = 0; index &lt; keycount; ++index) {
+            var key = steam_get_friend_rich_presence_key_by_index(friendSteamIdGoesHere, index);
+            var value = steam_get_friend_rich_presence(friendSteamIdGoesHere, key);
+            show_debug_message(key + ": " + value);
+        }
+        show_debug_message("End rich presence");
+    }
+}</code></pre>
+The extended code example above shows how to properly request, wait for and iterate the rich presence data of a Steam user</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_get_friend_rich_presence_key_by_index">steam_get_friend_rich_presence_key_by_index</h1>
+<p>Obtains a Rich Presence key from an index between 0 and <a href="social.html#steam_get_friend_rich_presence_key_count">steam_get_friend_rich_presence_key_count</a> exclusive. For debugging only.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>You MUST use <a href="social.html#steam_request_friend_rich_presence">steam_request_friend_rich_presence</a> to obtain the Rich Presence data for a particular user before using this function</p>
+</div>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<pre class="highlight"><code class="language-gml">steam_get_friend_rich_presence_key_by_index(userID, index)</code></pre>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>userID</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Int64</a></td>
+<td>The user Steam unique identifier</td>
+</tr>
+<tr>
+<td>index</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>Index of the key</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p>Please see <a href="social.html#steam_get_friend_rich_presence_key_count">steam_get_friend_rich_presence_key_count</a> for the code example as both functions are heavily related.</p>
 <p><br></p>
 <p><br></p>
 <hr />
