@@ -37,7 +37,6 @@ YYEXPORT void steam_update(RValue& Result, CInstance* selfinst, CInstance* other
 
 bool steam_is_initialised = false;
 
-CSteamAPIContext* g_SteamContext;
 YYEXPORT void steam_init(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)//(int appid)
 {
 	if (!steam_is_initialised)
@@ -111,9 +110,11 @@ void OldPreGraphicsInitialisation()
     }
 
     // will also check if it can determine the app id
-    if (!SteamAPI_Init())
+	SteamErrMsg errMsg;
+    if (SteamAPI_InitEx(&errMsg) != k_ESteamAPIInitResult_OK)
     {
-        tracef("SteamAPI_Init had failed, please check your Steamworks SDK path and that Steam is running! See Output above for possible errors.");
+		tracef("Failed to init Steam. %s", errMsg);
+        tracef("SteamAPI_InitEx had failed, please check your Steamworks SDK path and that Steam is running! See Output above for possible errors.");
         return;
     }
 

@@ -13,7 +13,7 @@ if(async_load[? "auth_ticket_handle"] > 0)
 	show_debug_message("Auth ticket can now be used, see buffer index " + string(auth_ticket_buffer))
 }
 
-/*SDK1.57:
+
 if(async_load[?"event_type"] == "ticket_for_web_api_response")
 if(async_load[?"auth_ticket_handle"] == auth_ticket_handle)
 {
@@ -35,4 +35,3 @@ if(async_load[?"auth_ticket_handle"] == auth_ticket_handle)
 		// now use auth_ticket_buffer, you can inspect this buffer in the Debugger.
 	}
 }
-*/

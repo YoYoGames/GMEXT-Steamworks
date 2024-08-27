@@ -76,8 +76,8 @@ void steam_net_callbacks_t::encrypted_app_ticket_response_received(EncryptedAppT
     auto result = r->m_eResult;
     if (result == k_EResultOK)
     {
-        uint8 rgubTicket[1024];
-        uint32 cubTicket;
+        uint8 rgubTicket[2048];
+        uint32 cubTicket = 0;
         SteamUser()->GetEncryptedAppTicket(rgubTicket, sizeof(rgubTicket), &cubTicket);
 
         //TODO: Done on Windows 
@@ -130,12 +130,12 @@ void steam_net_callbacks_t::encrypted_app_ticket_response_received(EncryptedAppT
 CCallResult<steam_net_callbacks_t, EncryptedAppTicketResponse_t> steam_user_app_ticket;
 YYEXPORT void /*double*/ steam_user_request_encrypted_app_ticket(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)//(char* data, double size)
 {
-    int32 bufferId = YYGetInt32(arg, 0);
+    int32 bufferId = (argc > 0) ? YYGetInt32(arg, 0) : -1;
 
     void* buffer_data = nullptr;
     int buffer_size = 0;
 
-    if (!BufferGetContent(bufferId, &buffer_data, &buffer_size) || !buffer_data)
+    if (bufferId >= 0 && !BufferGetContent(bufferId, &buffer_data, &buffer_size))
     {
         DebugConsoleOutput("steam_user_request_encrypted_app_ticket() - error: specified buffer %d not found\n", (int)bufferId);
         Result.kind = VALUE_BOOL;
@@ -164,15 +164,12 @@ public:
         }
     }
 
-    /*SDK1.57:
     STEAM_CALLBACK(CGMAuthTicketCallbacks, OnGetTicketForWebApiResponse, GetTicketForWebApiResponse_t);
-    */
     STEAM_CALLBACK(CGMAuthTicketCallbacks, OnGetAuthSessionTicketResponse, GetAuthSessionTicketResponse_t);
 };
 
 CGMAuthTicketCallbacks *CGMAuthTicketCallbacks::m_pAuthTicketCallbacks = nullptr;
 
-/*SDK1.57:
 void CGMAuthTicketCallbacks::OnGetTicketForWebApiResponse(GetTicketForWebApiResponse_t* pParam)
 {
     int map = CreateDsMap(0,0);
@@ -183,7 +180,7 @@ void CGMAuthTicketCallbacks::OnGetTicketForWebApiResponse(GetTicketForWebApiResp
     if (pParam->m_cubTicket > 0)
     {
         int buffer = CreateBuffer(pParam->m_cubTicket, eBuffer_Format_Grow, 1);
-        BufferWriteContent(buffer, 0, pParam->m_rgubTicket, pParam->m_cubTicket);
+        BufferWriteContent(buffer, 0, pParam->m_rgubTicket, pParam->m_cubTicket, true);
         DsMapAddDouble(map, "auth_ticket_buffer", buffer);
         CreateAsyncEventWithDSMapAndBuffer(map, buffer, EVENT_OTHER_WEB_STEAM);
     }
@@ -193,7 +190,6 @@ void CGMAuthTicketCallbacks::OnGetTicketForWebApiResponse(GetTicketForWebApiResp
         CreateAsyncEventWithDSMap(map, EVENT_OTHER_WEB_STEAM);
     }
 }
-*/
 
 void CGMAuthTicketCallbacks::OnGetAuthSessionTicketResponse(GetAuthSessionTicketResponse_t* pParam)
 {
@@ -206,28 +202,34 @@ void CGMAuthTicketCallbacks::OnGetAuthSessionTicketResponse(GetAuthSessionTicket
 }
 
 HAuthTicket authTicket = k_HAuthTicketInvalid;
-YYEXPORT void steam_user_get_auth_session_ticket(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)//(char* data, double size)
+YYEXPORT void steam_user_get_auth_ticket_for_web_api(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)
 {
-    CGMAuthTicketCallbacks::Ensure();
+    Result.kind = VALUE_REAL;
+    Result.val = k_HAuthTicketInvalid;
 
-    /*SDK1.57:
-    const char *pchIdentity = nullptr;
-    if (argc > 0 && arg && arg[0].kind == VALUE_STRING)
+    if (!steam_is_initialised)
+    {
+        return;
+    }
+
+    const char* pchIdentity = nullptr;
+    if (argc > 0 && arg)
     {
         pchIdentity = YYGetString(arg, 0);
     }
 
-    authTicket = SteamUser()->GetAuthTicketForWebApi(pchIdentity);
+    CGMAuthTicketCallbacks::Ensure();
+    Result.val = SteamUser()->GetAuthTicketForWebApi(pchIdentity);
+}
 
-    Result.kind = VALUE_REAL;
-    Result.val = static_cast<double>(authTicket);
-    return;
-    */
+YYEXPORT void steam_user_get_auth_session_ticket(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)//(char* data, double size)
+{
+    CGMAuthTicketCallbacks::Ensure();
 
     uint8 ticketBytes[3000] = { '\0' };
     uint32 ticketSize = 0;
 
-    authTicket = SteamUser()->GetAuthSessionTicket(ticketBytes, sizeof(ticketBytes), &ticketSize);
+    authTicket = SteamUser()->GetAuthSessionTicket(ticketBytes, sizeof(ticketBytes), &ticketSize, nullptr);
 
     Result.kind = VALUE_REAL;
     if (ticketSize == 0) {
@@ -247,7 +249,7 @@ YYEXPORT void steam_user_cancel_auth_ticket(RValue& Result, CInstance* selfinst,
 
     HAuthTicket htk = authTicket;
 
-    if (argc > 0 && arg && arg[0].kind == VALUE_REAL)
+    if (argc > 0 && arg)
     {
         htk = static_cast<HAuthTicket>(YYGetReal(arg, 0));
     }
