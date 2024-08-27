@@ -333,6 +333,81 @@ YYEXPORT void /*const char**/ steam_file_read(RValue& Result, CInstance* selfins
 	YYFree(filedata);
 }
 
+YYEXPORT void steam_file_read_buffer(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)
+{
+	// return undefined if the file doesn't exist, is empty, or read only 0 bytes (which is useless)
+	Result.kind = VALUE_UNDEFINED;
+	Result.val = 0;
+
+	if (!steam_is_initialised)
+	{
+		return;
+	}
+
+	const char* filename = YYGetString(arg, 0);
+	int bufferId = (argc > 1) ? YYGetInt32(arg, 1) : -1;
+	int offset = (argc > 2) ? YYGetInt32(arg, 2) : 0;
+
+	// don't support negative offsets
+	// because there's no convenient way to get the length of a buffer
+	if (offset < 0)
+		offset = 0;
+
+	// Returns 0 if the file does not exist, which is OK for our purposes
+	// (if the developer wants to check for an empty file, they can always use steam_file_exists)
+	auto filesize = SteamRemoteStorage()->GetFileSize(filename);
+	if (filesize <= 0)
+	{
+		return; // file is empty or doesn't exist? don't bother reading
+	}
+
+	std::vector<uint8_t> rawbytes;
+	rawbytes.resize(filesize);
+	filesize = SteamRemoteStorage()->FileRead(filename, rawbytes.data(), filesize);
+	// double check that it read successfully
+	// it makes no sense to allocate 0-byte GML buffers anyway
+	if (filesize <= 0)
+	{
+		return; // unable to read any bytes?
+	}
+
+	if (bufferId < 0)
+	{
+		bufferId = CreateBuffer(filesize, eBuffer_Format_Grow, 1);
+		offset = 0; // this is useless for new buffers anyway
+	}
+
+	// do I really need to set _grow to true here?
+	BufferWriteContent(bufferId, offset, rawbytes.data(), filesize, true);
+	// this returns the buffer id even if an existing one was specified, intentionally
+	Result.kind = VALUE_REAL;
+	Result.val = bufferId;
+}
+
+YYEXPORT void steam_file_write_buffer(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)
+{
+	// returns false on any error (buffer doesn't exist? empty? unable to write the file?) and true on success
+	Result.kind = VALUE_BOOL;
+	Result.val = 0;
+
+	if (!steam_is_initialised)
+	{
+		return;
+	}
+
+	const char* filename = YYGetString(arg, 0);
+	int bufferId = YYGetInt32(arg, 1);
+	void* bufferData = nullptr;
+	int bufferSize = 0;
+	BufferGetContent(bufferId, &bufferData, &bufferSize);
+	// there is no sense in writing nullptr bytes or deallocate nullptr pointers
+	if (bufferData)
+	{
+		Result.val = steam_file_write_internal(filename, reinterpret_cast<char*>(bufferData), bufferSize);
+		YYFree(bufferData);
+	}
+}
+
 YYEXPORT void /*double*/ steam_file_delete(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)//( const char* pFilename )/*Steam_RemoteStorage_FileDelete*/
 {
 	const char* pFilename = YYGetString(arg,0);

@@ -184,6 +184,55 @@
  */
 
 /**
+ * @func steam_file_read_buffer
+ * @desc This function will read the contents of the given file into a buffer. You can read contents into an existing buffer. Returns undefined on error and a buffer id on success.
+ * 
+ * [[WARNING: As this function deals with buffers, you are responsible for deallocating the buffer with buffer_delete when you no longer need it, as this function will not do it for you. You will get a hard to debug memory leak if you don't delete the buffers you no longer need.]]
+ *
+ * @param {string} filename The name of the file to read from.
+ * @param {Id.Buffer} [bufferId] OPTIONAL: ID of the buffer to read into, or -1 to create a new one. You are responsible for calling buffer_delete in both cases.
+ * @param {real} [offset] OPTIONAL: Offset at which to begin writing data into the buffer, if creating a new buffer this argument is ignored.
+ * 
+ * @returns {Id.Buffer|undefined}
+ * 
+ * @example
+ * ```gml
+ * var buff = steam_file_read_buffer("Save.bin");
+ * if (!is_undefined(buff)) {
+ *     buffer_seek(buff, buffer_seek_start, 0);
+ *     var number = buffer_read(buff, buffer_s32);
+ *     var str = buffer_read(buff, buffer_string);
+ *     buffer_delete(buff);
+ * }
+ * ```
+ * The above code reads the file "Save.bin" into a buffer and then deletes it.
+ * @func_end
+ */
+
+/**
+ * @func steam_file_write_buffer
+ * @desc You can use this function to write data to a file, which will then be synchronized with the Steam Cloud when the user exits the game. if the file does not exist, this function will create it for you, and if it does already exist, it will overwrite any data that is already stored within the file with the new data. The function will return false if it fails for whatever reason and true if it succeeds.
+ * 
+ * [[WARNING: As this function deals with buffers, you are responsible for deallocating the buffer with buffer_delete when you no longer need it, as this function will not do it for you. You will get a hard to debug memory leak if you don't delete the buffers you no longer need.]]
+ *
+ * @param {string} filename The name of the file to write or create.
+ * @param {Id.Buffer} bufferId ID of the buffer to read from, any seek positions are ignored and the buffer will be read in full.
+ * 
+ * @returns {bool}
+ * 
+ * @example
+ * ```gml
+ * var buff = buffer_create(1, buffer_grow, 1);
+ * buffer_write(buff, buffer_string, "hampsterdance");
+ * buffer_write(buff, buffer_f64, 420.69);
+ * steam_file_write_buffer("Save.bin", buff);
+ * buffer_delete(buff);
+ * ```
+ * The above code creates a buffer, writes some random data, saves the buffer into Steam Cloud and then deletes the buffer.
+ * @func_end
+ */
+
+/**
  * @func steam_file_share
  * @desc With this function you can force your game to synchronize the given file with the Steam Cloud. This is not normally necessary due to the fact that the game will synchronize automatically at the end of the player's session, nor is it recommended by Steam, but it can be useful to ensure sensitive information is synchronized immediately. The function will return a value of 0 if it fails for whatever reason and a value greater than 0 if it succeeds.
  * 
@@ -312,6 +361,8 @@
  * @ref steam_file_write
  * @ref steam_file_write_file
  * @ref steam_file_read
+ * @ref steam_file_read_buffer
+ * @ref steam_file_write_buffer
  * @ref steam_file_share
  * @ref steam_file_delete
  * @ref steam_get_local_file_change
