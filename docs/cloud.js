@@ -185,9 +185,9 @@
 
 /**
  * @func steam_file_read_buffer
- * @desc This function will read the contents of the given file into a buffer. You can read contents into an existing buffer. Returns undefined on error and a buffer id on success.
+ * @desc This function will read the contents of the given file into a buffer. You can read contents into an existing buffer. Returns undefined on error and a buffer ID on success.
  * 
- * [[WARNING: As this function deals with buffers, you are responsible for deallocating the buffer with buffer_delete when you no longer need it, as this function will not do it for you. You will get a hard to debug memory leak if you don't delete the buffers you no longer need.]]
+ * [[WARNING: As this function deals with buffers, you are responsible for deallocating the buffer with ${function.buffer_delete} when you no longer need it, as this function will not do it for you. You will get a hard to debug memory leak if you don't delete the buffers you no longer need.]]
  *
  * @param {string} filename The name of the file to read from.
  * @param {buffer} [bufferId] OPTIONAL: ID of the buffer to read into, or -1 to create a new one. You are responsible for calling buffer_delete in both cases.
@@ -213,7 +213,7 @@
  * @func steam_file_write_buffer
  * @desc You can use this function to write data to a file, which will then be synchronized with the Steam Cloud when the user exits the game. if the file does not exist, this function will create it for you, and if it does already exist, it will overwrite any data that is already stored within the file with the new data. The function will return false if it fails for whatever reason and true if it succeeds.
  * 
- * [[WARNING: As this function deals with buffers, you are responsible for deallocating the buffer with buffer_delete when you no longer need it, as this function will not do it for you. You will get a hard to debug memory leak if you don't delete the buffers you no longer need.]]
+ * [[WARNING: As this function deals with buffers, you are responsible for deallocating the buffer with ${function.buffer_delete} when you no longer need it, as this function will not do it for you. You will get a hard to debug memory leak if you don't delete the buffers you no longer need.]]
  *
  * @param {string} filename The name of the file to write or create.
  * @param {buffer} bufferId ID of the buffer to read from, any seek positions are ignored and the buffer will be read in full.
