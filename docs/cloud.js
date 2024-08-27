@@ -190,10 +190,10 @@
  * [[WARNING: As this function deals with buffers, you are responsible for deallocating the buffer with buffer_delete when you no longer need it, as this function will not do it for you. You will get a hard to debug memory leak if you don't delete the buffers you no longer need.]]
  *
  * @param {string} filename The name of the file to read from.
- * @param {Id.Buffer} [bufferId] OPTIONAL: ID of the buffer to read into, or -1 to create a new one. You are responsible for calling buffer_delete in both cases.
+ * @param {buffer} [bufferId] OPTIONAL: ID of the buffer to read into, or -1 to create a new one. You are responsible for calling buffer_delete in both cases.
  * @param {real} [offset] OPTIONAL: Offset at which to begin writing data into the buffer, if creating a new buffer this argument is ignored.
  * 
- * @returns {Id.Buffer|undefined}
+ * @returns {buffer|undefined}
  * 
  * @example
  * ```gml
@@ -216,7 +216,7 @@
  * [[WARNING: As this function deals with buffers, you are responsible for deallocating the buffer with buffer_delete when you no longer need it, as this function will not do it for you. You will get a hard to debug memory leak if you don't delete the buffers you no longer need.]]
  *
  * @param {string} filename The name of the file to write or create.
- * @param {Id.Buffer} bufferId ID of the buffer to read from, any seek positions are ignored and the buffer will be read in full.
+ * @param {buffer} bufferId ID of the buffer to read from, any seek positions are ignored and the buffer will be read in full.
  * 
  * @returns {bool}
  * 

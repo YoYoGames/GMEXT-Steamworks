@@ -284,12 +284,28 @@ The code above will display the size of each incoming packet.</p>
 
 <h1 id="steam_net_packet_receive">steam_net_packet_receive</h1>
 <p>This function attempts to get the next packet from Steam API and returns whether successfully done so.
-Other steam_net_ functions can then be used to get packet information/contents.</p>
+Other steam_net_* functions can then be used to get packet information/contents.</p>
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<pre class="highlight"><code class="language-gml">steam_net_packet_receive()</code></pre>
+<pre class="highlight"><code class="language-gml">steam_net_packet_receive(channel=undefined)</code></pre>
 </blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>channel</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The channel the packet was sent over. Defaults to 0.</td>
+</tr>
+</tbody>
+</table>
 <p><br></p>
 <p><br></p>
 <p><br></p>
@@ -314,7 +330,7 @@ The code above will attempt to get the next packet from Steam API. This would be
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<pre class="highlight"><code class="language-gml">steam_net_packet_send(user_id, buffer, size, packet_type)</code></pre>
+<pre class="highlight"><code class="language-gml">steam_net_packet_send(user_id, buffer, size=undefined, packet_type=undefined, channel=undefined)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -338,12 +354,17 @@ The code above will attempt to get the next packet from Steam API. This would be
 <tr>
 <td>size</td>
 <td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
-<td>The size of data to send (default -1, sends the entire buffer) <img alt="✴️" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/2734.png" title=":eight_pointed_black_star:" /> OPTIONAL</td>
+<td>The size of data to send (default -1, sends the entire buffer)</td>
 </tr>
 <tr>
 <td>packet_type</td>
 <td><a href="networking.html#packettype">PacketType</a></td>
-<td>The type of packet to be used <img alt="✴️" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/2734.png" title=":eight_pointed_black_star:" /> OPTIONAL</td>
+<td>The type of packet to be used</td>
+</tr>
+<tr>
+<td>channel</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The channel which acts as a virtual port to send this packet on and allows you help route a message to different systems. Defaults to 0, the default channel.</td>
 </tr>
 </tbody>
 </table>

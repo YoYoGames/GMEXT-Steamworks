@@ -247,7 +247,7 @@ The above code will update the Steam APIs.</p>
 <p>This function shuts down the Steamworks API, releases pointers and frees memory.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>This function is required to be called in order for the Steamworks extension to work. We recommend you place this function in the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/System.htm">Game End Event</a> of a controller object. You need to check if this is not a <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/General_Game_Control/game_restart.htm">game_restart</a>.</p>
+<p>This function is required to be called in order for the Steamworks extension to work. We recommend you place this function in the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Other_Events.htm">Game End Event</a> of a controller object. You need to check if this is not a <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/General_Game_Control/game_restart.htm">game_restart</a>.</p>
 </div>
 <p>This function operates asynchronously, which means that it does not immediately return the requested result. Instead, upon completion of the task, it will trigger the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a>.</p>
 <p><br></p>
@@ -289,7 +289,7 @@ The above code will update the Steam APIs.</p>
 <p><pre class="highlight"><code class="language-gml">global.is_game_restarting = true;
 game_restart();</code></pre>
 The code above should be used when you want to restart your game. We set the <code>is_game_restarting</code> global variable to <code>true</code> announcing the game being restarted to true (this global variable should already be declared at the begining of your game and be set to <code>false</code> by default).
-Now inside our <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/System.htm">Game End Event</a> we can use the following code:</p>
+Now inside our <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Other_Events.htm">Game End Event</a> we can use the following code:</p>
 <p><pre class="highlight"><code class="language-gml">if (global.is_game_restarting == false) {
     steam_shutdown();
 }
