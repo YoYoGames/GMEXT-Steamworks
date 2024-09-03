@@ -480,7 +480,7 @@
  * @func steam_inventory_transfer_item_quantity
  * @desc Transfer items between stacks within a user's inventory.
  *
- * This can be used to stack, split, and moving items. The source and destination items must have the same itemdef id. To move items onto a destination stack specify the source, the quantity to move, and the destination item id. To split an existing stack, pass `steam_item_instance_id_invalid` into `dest_item_id`. A new item stack will be generated with the requested quantity.
+ * This can be used to stack, split, and move items. The source and destination items must have the same itemdef id. To move items onto a destination stack specify the source, the quantity to move, and the destination item id. To split an existing stack, pass `steam_item_instance_id_invalid` into `dest_item_id`. A new item stack will be generated with the requested quantity.
  * 
  * [[WARNING: You must call ${function.steam_inventory_result_destroy} on the returned async result ID when you are done with it.]]
  * 
@@ -1006,7 +1006,13 @@
 /**
  * @module inventory
  * @title Inventory
- * @desc The following functions, constants and structures allow to use the [Steam Inventory Service](https://partner.steamgames.com/doc/features/inventory).
+ * @desc The Inventory module contains functions, constants and structures that allow you to use the [Steam Inventory Service](https://partner.steamgames.com/doc/features/inventory).
+ * 
+ * [[Warning: The Steamworks SDK limits the number of items that can be read from one stack to 65535.
+ * This is a limitation of the SDK rather than of the extension: the data type used for the `m_unQuantity` member of [SteamItemDetails_t](https://partner.steamgames.com/doc/api/ISteamInventory#SteamItemDetails_t) is uint16, which can hold a maximum value of 65535.
+ * 
+ * Since the limitation is per stack, you can work around it by transferring any amount over 65535 to a new stack using the function ${function.steam_inventory_transfer_item_quantity} and add the necessary logic to your game that keeps track of the excess amount on the second stack.
+ * For example, an amount of 100000 would be divided over two stacks as follows: the first stack holds 65535, the other the remaining 34465.]]
  * 
  * @section_func Pricing and Consumables
  * @desc These functions are provided for handling pricing, purchases and consumables:
