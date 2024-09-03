@@ -296,13 +296,13 @@
  * 
  * @example
  * ```gml
- * var _i = 0;
- * var files = steam_file_get_list();
- * for (var i = 0, len = array_length(files); i < len; ++i)
+ * var i = 0;
+ * var _files = steam_file_get_list();
+ * for (var i = 0, _len = array_length(_files); i < _len; ++i)
  * {
- * 	var file = files[i];
- * 	draw_text(50, 100 + _i++ * 30, file.file_name + " size is " + string(file.file_size));
- * 	// steam_file_delete(file.file_name); // etc...
+ * 	var _file = _files[i];
+ * 	draw_text(50, 100 + i++ * 30, _file.file_name + " size is " + string(_file.file_size));
+ * 	// steam_file_delete(_file.file_name); // etc.
  * }
  * ```
  * The above code will enumerate through all cloud files and draw their information on the screen.
@@ -336,7 +336,7 @@
 
 /**
  * @struct SteamCloudFileEntry
- * @desc This struct provides information about a file in a file list returned by the ${function.steam_file_get_list} function
+ * @desc This struct provides information about a file in a file list
  * @member {string} file_name The full name of the file
  * @member {real} file_size The size of the file in bytes
  * @struct_end
