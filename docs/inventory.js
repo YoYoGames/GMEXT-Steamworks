@@ -1008,10 +1008,11 @@
  * @title Inventory
  * @desc The Inventory module contains functions, constants and structures that allow you to use the [Steam Inventory Service](https://partner.steamgames.com/doc/features/inventory).
  * 
- * [[Important: The Steamworks SDK limits the number of items that you can have on one stack to 65535, due to the size limitations of the data type used (uint16).
- * This is a limitation of the SDK rather than a limitation of the extension.
- * Since the limitation is per stack, you can work around this by transferring any amount over 65535 to a new stack using the function ${function.steam_inventory_transfer_item_quantity} and add the necessary logic to your game that keeps track of the excess amount on the second stack.
- * I.e. if the maximum amount that can be owned is 100000, it would be divided across two stacks: one that holds a maximum of 65535, the other the remainder of 34465.]]
+ * [[Warning: The Steamworks SDK limits the number of items that can be read from one stack to 65535.
+ * This is a limitation of the SDK rather than of the extension: the data type used for the `m_unQuantity` member of [SteamItemDetails_t](https://partner.steamgames.com/doc/api/ISteamInventory#SteamItemDetails_t) is uint16, which can hold a maximum value of 65535.
+ * 
+ * Since the limitation is per stack, you can work around it by transferring any amount over 65535 to a new stack using the function ${function.steam_inventory_transfer_item_quantity} and add the necessary logic to your game that keeps track of the excess amount on the second stack.
+ * For example, an amount of 100000 would be divided over two stacks as follows: the first stack holds 65535, the other the remaining 34465.]]
  * 
  * @section_func Pricing and Consumables
  * @desc These functions are provided for handling pricing, purchases and consumables:
