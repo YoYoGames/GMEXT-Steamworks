@@ -160,17 +160,75 @@
 */
 
 /**
- * @func steam_user_cancel_auth_ticket
- * @desc This function cancels an authentication ticket.
+ * @func steam_user_get_auth_ticket_for_web_api
+ * @desc Retrieve an authentication ticket to be sent to the entity that wishes to authenticate you using the ISteamUserAuth/AuthenticateUserTicket Web API. It is best practice to use an identity string for each service that will consume tickets.
  * 
- * @param {real} [ticket_handle] OPTIONAL The ticket handle to cancel
+ * @param {string} [identity] OPTIONAL: The identity of the remote service that will authenticate the ticket. The service should provide a string identifier.
  * 
+ * @returns {real}
+ * @event steam
+ * @member {string} event_type The string value `"ticket_for_web_api_response"`
+ * @member {real} result The Steam [EResult](https://partner.steamgames.com/doc/api/steam_api#EResult) code
+ * @member {boolean} success Whether `result` is equal to the value `k_EResultOK`
+ * @member {real} auth_ticket_handle The handle of the auth ticket, can be passed to `steam_user_cancel_auth_ticket`
+ * @member {buffer} auth_ticket_buffer Auth ticket buffer id on success or -1 on failure
+ * @event_end
+ *
+ * @example
+ * ```gml
+ * /// @desc Create
+ * web_ticket_handle = steam_user_get_auth_ticket_for_web_api("myservice"); // if value is 0 then this failed
+ * /// @desc Async - Steam
+ * if (async_load[? "event_type"] == "ticket_for_web_api_response" &&
+ *     async_load[? "auth_ticket_handle"] == web_ticket_handle) {
+ *     if (async_load[? "success"]) {
+ *         var buffer = async_load[? "auth_ticket_buffer"];
+ *         // convert bytes in buffer into a lowercase hex string and send over HTTP
+ *         // then do steam_user_cancel_auth_ticket(web_ticket_handle); after you're done with your HTTP request flow
+ *     }
+ * }
+ * ```
+ * The above code will request a ticket to be used with the Web API and obtain the buffer with the ticket bytes.
+ * @func_end
+ */
+
+/**
+ * @func steam_user_get_auth_session_ticket
+ * @desc Retrieve an authentication ticket to be sent to the entity who wishes to authenticate you. After calling this you can send the ticket to the entity where they can then call BeginAuthSession/ISteamGameServer::BeginAuthSession to verify this entity's integrity.
+ * 
+ * [[NOTE: This API can not be used to create a ticket for use by the ISteamUserAuth/AuthenticateUserTicket Web API. Use the steam_user_get_auth_ticket_for_web_api call instead]]
+ * 
+ * @returns {real}
  * @event steam
  * @member {string} event_type The string value `"ticket_response"`
  * @member {real} result The Steam [EResult](https://partner.steamgames.com/doc/api/steam_api#EResult) code
  * @member {boolean} success Whether `result` is equal to the value `k_EResultOK`
  * @member {real} auth_ticket_handle The handle of the auth ticket, can be passed to `steam_user_cancel_auth_ticket`
  * @event_end
+ *
+ * @example
+ * ```gml
+ * /// @desc Create
+ * srv_ticket_buffer = steam_user_get_auth_session_ticket();
+ * srv_ticket_handle = 0; // 0 means invalid handle
+ * /// @desc Async - Steam
+ * if (async_load[? "event_type"] == "ticket_response") {
+ *     if (async_load[? "success"]) {
+ *         srv_ticket_handle = async_load[? "auth_ticket_handle"];
+ *         // do your usual game server authentication flow with the ticket buffer & handle
+ *         // then do steam_user_cancel_auth_ticket(srv_ticket_handle); after you're done
+ *     }
+ * }
+ * ```
+ * The above code will request a ticket to be used with the Game Server Authentication and obtain the handle to the ticket.
+ * @func_end
+ */
+
+/**
+ * @func steam_user_cancel_auth_ticket
+ * @desc This function cancels an authentication ticket created by steam_user_get_auth_session_ticket or steam_user_get_auth_ticket_for_web_api
+ * 
+ * @param {real} [ticket_handle] OPTIONAL The ticket handle to cancel
  * 
  * @func_end
  */
@@ -250,6 +308,8 @@
  * @ref steam_get_user_persona_name
  * @ref steam_get_user_persona_name_sync
  * @ref steam_is_user_logged_on
+ * @ref steam_user_get_auth_ticket_for_web_api
+ * @ref steam_user_get_auth_session_ticket
  * @ref steam_user_cancel_auth_ticket
  * @ref steam_current_game_language
  * @ref steam_available_languages

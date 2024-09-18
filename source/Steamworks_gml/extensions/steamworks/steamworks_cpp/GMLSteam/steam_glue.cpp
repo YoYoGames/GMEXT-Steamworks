@@ -1,7 +1,6 @@
 /// steam_glue.cpp
 #include "pch.h"
 #include "steam_glue.h"
-CSteamAPIContext SteamAPI;
 
 uint32 steam_app_id = 0;
 CSteamID steam_local_id;
