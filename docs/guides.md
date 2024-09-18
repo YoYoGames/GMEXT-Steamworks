@@ -6,7 +6,7 @@ To use the Steam API extension you should follow these steps:
 
 2. The Steam app needs to be **installed**, **running** and with an account **logged in** ([official site](https://store.steampowered.com/)).
 
-3. Download Steamworks SDK (1.55) from Steam's [partner site](https://partner.steamgames.com/dashboard) and extract the contents of the zip into a directory of your choice (e.g.: `C:\steamworks\sdk`).
+3. Download Steamworks SDK (1.60) from Steam's [partner site](https://partner.steamgames.com/dashboard) and extract the contents of the zip into a directory of your choice (e.g.: `C:\steamworks\sdk`).
 
 ![](assets/steamworks_setup_sdk.jpg)
 

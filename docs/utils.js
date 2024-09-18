@@ -183,7 +183,7 @@
  * @func_end
  */
  
- /**
+/**
  * @func steam_utils_get_server_real_time
  * @desc This function returns the Steam server time in Unix epoch format. (Number of seconds since Jan 1, 1970 UTC)
  * 
@@ -193,6 +193,21 @@
  * ```gml
  * show_debug_message("Current server time is " + string(steam_utils_get_server_real_time()));
  * ```
+ * @func_end
+ */
+
+/**
+ * @func steam_utils_get_steam_ui_language
+ * @desc This function returns the Steam language string for the language the Steam Client is running in.
+ * 
+ * @returns {string}
+ * 
+ * @example
+ * ```gml
+ * show_debug_message("Current Steam UI language is " + steam_utils_get_steam_ui_language());
+ * // "english", "russian", "japanese", etc...
+ * ```
+ * This example prints the current Steam client UI language into the Debug Output
  * @func_end
  */
 
@@ -214,6 +229,8 @@
  * @ref steam_utils_is_steam_running_on_steam_deck
  * @ref steam_utils_is_steam_in_big_picture_mode
  * @ref steam_utils_set_game_launcher_mode
+ * @ref steam_utils_get_server_real_time
+ * @ref steam_utils_get_steam_ui_language
  * 
  * @section_end
  * 

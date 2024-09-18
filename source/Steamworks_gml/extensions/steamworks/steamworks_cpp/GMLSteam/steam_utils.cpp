@@ -219,3 +219,9 @@ YYEXPORT void steam_utils_get_server_real_time(RValue& Result, CInstance* selfin
 		Result.val = SteamUtils()->GetServerRealTime();
 	} else Result.val = 0;
 }
+
+/// ()->string
+YYEXPORT void steam_utils_get_steam_ui_language(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)
+{
+	YYCreateString(&Result, (steam_is_initialised && SteamUtils()) ? SteamUtils()->GetSteamUILanguage() : "");
+}

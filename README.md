@@ -17,7 +17,7 @@ After compilation the exported dll/dylib/so file is automatically copied into th
 
 ## Requirements
 
-In order to compile for Windows/macOS/Linux you are required to [download the Steam SDK v1.55](https://partner.steamgames.com/dashboard) and place it inside `source/Steamworks_sdk/`
+In order to compile for Windows/macOS/Linux you are required to [download the Steam SDK v1.60](https://partner.steamgames.com/dashboard) and place it inside `source/Steamworks_sdk/`
 
 ## Documentation
 

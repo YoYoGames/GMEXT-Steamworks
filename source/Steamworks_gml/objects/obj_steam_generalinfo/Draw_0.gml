@@ -11,7 +11,7 @@ var _i = 0;
 draw_text(50,100 + _i++ * 30,"steam_initialised: " + string(steam_initialised()));
 
 // General information functions
-draw_text(50, 100 + _i++ * 30,"steam_current_game_language: " + string(steam_current_game_language()));
+draw_text(50, 100 + _i++ * 30,"steam_current_game_language: " + string(steam_current_game_language()) + ", ui_language: " + string(steam_utils_get_steam_ui_language()));
 draw_text(50, 100 + _i++ * 30,"steam_available_languages: " + string(steam_available_languages()));
 draw_text(50, 100 + _i++ * 30,"steam_user_owns_dlc [447130]: " + string(steam_user_owns_dlc(447130)));
 draw_text(50, 100 + _i++ * 30,"steam_user_installed_dlc [447130]: " + string(steam_user_installed_dlc(447130)));

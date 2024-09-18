@@ -9,6 +9,9 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\steamworks_cpp\GMLSteam\steam_timeline.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\steamworks_cpp\GMLSteam\steam_workshop.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
