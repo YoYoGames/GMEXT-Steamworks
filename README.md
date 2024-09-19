@@ -19,6 +19,14 @@ After compilation the exported dll/dylib/so file is automatically copied into th
 
 In order to compile for Windows/macOS/Linux you are required to [download the Steam SDK v1.60](https://partner.steamgames.com/dashboard) and place it inside `source/Steamworks_sdk/`
 
+> [!IMPORTANT]
+> Latest version 2.0.0 is a major release with breaking changes:
+>
+> * You will need to make sure the SDK is updated to version 1.60
+> * `steam_user_get_auth_session_ticket` can no longer be used for HTTP Web API purposes, this is now only for Game Server authentication (NOT HTTP, this is related to Steam Networking).
+> * `steam_user_get_auth_ticket_for_web_api` must now be used for HTTP Web API, along with the identity parameter (not required but heavily recommended by Valve)
+> * This version is not yet compatible with Valve Proton (if you rely on it consider staying in the old version).
+
 ## Documentation
 
 * Check [the documentation](../../wiki)
