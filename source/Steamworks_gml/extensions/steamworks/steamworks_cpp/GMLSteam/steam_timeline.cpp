@@ -9,7 +9,7 @@
 // This is why checking the interface for null is required.
 // If any function returns false, then there's no SteamTimeline support.
 
-YYEXPORT void steam_set_timeline_state_description(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)
+YYEXPORT void steam_timeline_set_state_description(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)
 {
 	Result.kind = VALUE_BOOL;
 	Result.val = 0;
@@ -25,7 +25,7 @@ YYEXPORT void steam_set_timeline_state_description(RValue& Result, CInstance* se
 	Result.val = 1;
 }
 
-YYEXPORT void steam_clear_timeline_state_description(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)
+YYEXPORT void steam_timeline_clear_state_description(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)
 {
 	Result.kind = VALUE_BOOL;
 	Result.val = 0;
@@ -40,7 +40,7 @@ YYEXPORT void steam_clear_timeline_state_description(RValue& Result, CInstance* 
 	Result.val = 1;
 }
 
-YYEXPORT void steam_add_timeline_event(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)
+YYEXPORT void steam_timeline_add_event(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)
 {
 	Result.kind = VALUE_BOOL;
 	Result.val = 0;
@@ -61,7 +61,7 @@ YYEXPORT void steam_add_timeline_event(RValue& Result, CInstance* selfinst, CIns
 	Result.val = 1;
 }
 
-YYEXPORT void steam_set_timeline_game_mode(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)
+YYEXPORT void steam_timeline_set_game_mode(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)
 {
 	Result.kind = VALUE_BOOL;
 	Result.val = 0;

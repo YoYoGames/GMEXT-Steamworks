@@ -1,7 +1,7 @@
 // FUNCTIONS
 
 /**
- * @func steam_set_timeline_state_description
+ * @func steam_timeline_set_state_description
  * @desc Sets a description (B) for the current game state in the timeline. These help the user to find specific moments in the timeline when saving clips. Setting a new state description replaces any previous description.
  * 
  * Examples could include:
@@ -15,14 +15,14 @@
  * 
  * @example
  * ```gml
- * steam_set_timeline_state_description("Earned x10 points as Cirno", -seconds);
+ * steam_timeline_set_state_description("Earned x10 points as Cirno", -seconds);
  * ```
  * This sets some description for an event that happened `seconds` seconds ago.
  * @func_end
  */
 
 /**
- * @func steam_clear_timeline_state_description
+ * @func steam_timeline_clear_state_description
  * @desc Clears the previous set game state in the timeline.
  * 
  * @param {real} timeDelta The time offset in seconds to apply to this state change. Negative times indicate an event that happened in the past.
@@ -30,14 +30,14 @@
  * 
  * @example
  * ```gml
- * steam_clear_timeline_state_description(-seconds);
+ * steam_timeline_clear_state_description(-seconds);
  * ```
  * This clears description for an event that happened `seconds` seconds ago.
  * @func_end
  */
 
 /**
- * @func steam_add_timeline_event
+ * @func steam_timeline_add_event
  * @desc Use this to mark an event (A) on the Timeline. The event can be instantaneous or take some amount of time to complete, depending on the value passed in durationSeconds.
  * 
  * @param {string} icon The name of the icon to show at the timeline at this point. This can be one of the icons uploaded through the Steamworks partner Site for your title, or one of the provided icons that start with steam_. The Steam Timelines overview includes a list of available icons.
@@ -51,7 +51,7 @@
  * 
  * @example
  * ```gml
- * steam_add_timeline_event(
+ * steam_timeline_add_event(
  *     "steam_achievement",                   // default steam_ icon name
  *     "Rensenware",                          // this should be in the user's preferred language
  *     "Scored 0.2 bln pts. in LUNATIC mode", // this should be in the user's preferred language
@@ -66,7 +66,7 @@
  */
 
 /**
- * @func steam_set_timeline_game_mode
+ * @func steam_timeline_set_game_mode
  * @desc Changes the color of the timeline bar (C). See ${constant.TimelineGameMode} for how to use each value.
  * 
  * @param {real} mode The mode that the game is in. Use a ${constant.TimelineGameMode} constant.
@@ -74,7 +74,7 @@
  * 
  * @example
  * ```gml
- * steam_set_timeline_game_mode(steam_timeline_game_mode_playing);
+ * steam_timeline_set_game_mode(steam_timeline_game_mode_playing);
  * ```
  * This call will change the current game mode to Playing.
  * @func_end
@@ -96,7 +96,7 @@
 
 /**
  * @const TimelineEventClipPriority
- * @desc Used in ${function.steam_add_timeline_event}, where Featured events will be offered before Standard events.
+ * @desc Used in ${function.steam_timeline_add_event}, where Featured events will be offered before Standard events.
  * @member steam_timeline_clip_priority_invalid Invalid dummy value.
  * @member steam_timeline_clip_priority_none This event is not appropriate as a clip.
  * @member steam_timeline_clip_priority_standard The user may want to make a clip around this event.
@@ -106,14 +106,14 @@
 
 /**
  * @const TimelineMaxPriority
- * @desc May be used in ${function.steam_add_timeline_event} as the maximum value in an argument.
+ * @desc May be used in ${function.steam_timeline_add_event} as the maximum value in an argument.
  * @member steam_timeline_max_timeline_priority Maximum timeline event priority value.
  * @const_end
  */
 
 /**
  * @const TimelineMaxEventDuration
- * @desc May be used in ${function.steam_add_timeline_event} as the maximum value in an argument.
+ * @desc May be used in ${function.steam_timeline_add_event} as the maximum value in an argument.
  * @member steam_timeline_max_timeline_event_duration Maximum timeline event duration value.
  * @const_end
  */
@@ -136,10 +136,10 @@
  * 
  * @section_func Functions
  * @desc The following functions can be used to access Steam Timeline from within GameMaker: 
- * @ref steam_set_timeline_state_description
- * @ref steam_clear_timeline_state_description
- * @ref steam_add_timeline_event
- * @ref steam_set_timeline_game_mode
+ * @ref steam_timeline_set_state_description
+ * @ref steam_timeline_clear_state_description
+ * @ref steam_timeline_add_event
+ * @ref steam_timeline_set_game_mode
  * @section_end
  * 
  * @section_const Constants
