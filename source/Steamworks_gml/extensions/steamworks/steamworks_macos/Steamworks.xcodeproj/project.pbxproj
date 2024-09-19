@@ -94,6 +94,7 @@
 		6A2A82A82934DAD3002B2CE5 /* steam_user.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6A2A82892934DAD3002B2CE5 /* steam_user.cpp */; };
 		6A7D31FA2B9244640062496A /* steam_music.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6A7D31F92B9244640062496A /* steam_music.cpp */; };
 		6ABC1B48280CBC3200BE82A7 /* libSteamworks.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2BDE0923278F96F80090737D /* libSteamworks.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		841840742C9B6097008B2B96 /* steam_timeline.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 841840732C9B6097008B2B96 /* steam_timeline.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -200,6 +201,7 @@
 		6A2A82882934DAD3002B2CE5 /* steam_matchmaking.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = steam_matchmaking.cpp; sourceTree = "<group>"; };
 		6A2A82892934DAD3002B2CE5 /* steam_user.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = steam_user.cpp; sourceTree = "<group>"; };
 		6A7D31F92B9244640062496A /* steam_music.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = steam_music.cpp; sourceTree = "<group>"; };
+		841840732C9B6097008B2B96 /* steam_timeline.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = steam_timeline.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -339,6 +341,7 @@
 				6A2A82802934DAD3002B2CE5 /* steam_userstats.cpp */,
 				6A2A82752934DAD3002B2CE5 /* steam_utils.cpp */,
 				6A2A82722934DAD3002B2CE5 /* steam_workshop.cpp */,
+				841840732C9B6097008B2B96 /* steam_timeline.cpp */,
 			);
 			name = GMSteam;
 			path = ../steamworks_cpp/GMLSteam;
@@ -482,6 +485,7 @@
 				6A2A82932934DAD3002B2CE5 /* steam_init.cpp in Sources */,
 				6A7D31FA2B9244640062496A /* steam_music.cpp in Sources */,
 				6A2A82A72934DAD3002B2CE5 /* steam_matchmaking.cpp in Sources */,
+				841840742C9B6097008B2B96 /* steam_timeline.cpp in Sources */,
 				2BC97897287F3DAD0079F3E2 /* DesktopExtensionTools.mm in Sources */,
 				2BDE09A0278F97E60090737D /* pch.cpp in Sources */,
 				6A2A82992934DAD3002B2CE5 /* steam_glue.cpp in Sources */,

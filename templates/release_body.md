@@ -2,7 +2,7 @@
 
 - This extension version will be compatible with the GM 2022.0.1 LTSr1 (upon release)
 - This extension is to be used with GM 2023.1 and future releases.
-- Requires Steamworks SDK version 1.55 (or recent)
+- Requires Steamworks SDK version 1.60 (or recent)
 - Works with **Windows**, **macOS** and **Ubuntu**.
 - macOS (VM) not supported
 

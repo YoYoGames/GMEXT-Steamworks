@@ -60,6 +60,7 @@
     <ClCompile Include="..\..\steamworks_cpp\GMLSteam\steam_userstats.cpp" />
     <ClCompile Include="..\..\steamworks_cpp\GMLSteam\steam_utils.cpp" />
     <ClCompile Include="..\..\steamworks_cpp\GMLSteam\steam_workshop.cpp" />
+    <ClCompile Include="..\..\steamworks_cpp\GMLSteam\steam_timeline.cpp" />
     <ClCompile Include="..\..\steamworks_cpp\pch.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
