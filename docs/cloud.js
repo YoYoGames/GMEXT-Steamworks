@@ -224,7 +224,7 @@
  * ```gml
  * var buff = buffer_create(1, buffer_grow, 1);
  * buffer_write(buff, buffer_string, "hampsterdance");
- * buffer_write(buff, buffer_f64, 420.69);
+ * buffer_write(buff, buffer_f64, 123.45);
  * steam_file_write_buffer("Save.bin", buff);
  * buffer_delete(buff);
  * ```
