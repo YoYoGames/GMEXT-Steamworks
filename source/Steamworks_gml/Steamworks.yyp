@@ -15,7 +15,6 @@
     {"$GMFolder":"","%Name":"Objects","folderPath":"folders/GM Extensions Assets/Objects.yy","name":"Objects","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"Sprites","folderPath":"folders/GM Extensions Assets/Sprites.yy","name":"Sprites","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"Steamworks Demo","folderPath":"folders/Steamworks Demo.yy","name":"Steamworks Demo","resourceType":"GMFolder","resourceVersion":"2.0",},
-    {"$GMFolder":"","%Name":"Timeline","folderPath":"folders/Steamworks Demo/Timeline.yy","name":"Timeline","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"Input","folderPath":"folders/Steamworks Demo/Input.yy","name":"Input","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"Main","folderPath":"folders/Steamworks Demo/Main.yy","name":"Main","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"Music","folderPath":"folders/Steamworks Demo/Music.yy","name":"Music","resourceType":"GMFolder","resourceVersion":"2.0",},
@@ -27,6 +26,7 @@
     {"$GMFolder":"","%Name":"Stats","folderPath":"folders/Steamworks Demo/Social/Stats.yy","name":"Stats","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"Global","folderPath":"folders/Steamworks Demo/Social/Stats/Global.yy","name":"Global","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"Storage","folderPath":"folders/Steamworks Demo/Storage.yy","name":"Storage","resourceType":"GMFolder","resourceVersion":"2.0",},
+    {"$GMFolder":"","%Name":"Timeline","folderPath":"folders/Steamworks Demo/Timeline.yy","name":"Timeline","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"UGC","folderPath":"folders/Steamworks Demo/UGC.yy","name":"UGC","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"Steamworks","folderPath":"folders/Steamworks.yy","name":"Steamworks","resourceType":"GMFolder","resourceVersion":"2.0",},
   ],
@@ -36,7 +36,7 @@
   "isEcma":false,
   "LibraryEmitters":[],
   "MetaData":{
-    "IDEVersion":"2024.800.0.602",
+    "IDEVersion":"2024.800.0.618",
   },
   "name":"Steamworks",
   "resources":[

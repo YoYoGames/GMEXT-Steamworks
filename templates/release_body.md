@@ -28,6 +28,7 @@ Steamworks is a set of tools and services that help game developers and publishe
 - Lobby
 - Inventory
 - Input
+- Timelines
 
 ## DOCUMENTATION
 

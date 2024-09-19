@@ -5,7 +5,6 @@
     {"name":"Objects","order":2,"path":"folders/GM Extensions Assets/Objects.yy",},
     {"name":"Sprites","order":3,"path":"folders/GM Extensions Assets/Sprites.yy",},
     {"name":"Steamworks Demo","order":3,"path":"folders/Steamworks Demo.yy",},
-    {"name":"Timeline","order":13,"path":"folders/Steamworks Demo/Timeline.yy",},
     {"name":"Input","order":11,"path":"folders/Steamworks Demo/Input.yy",},
     {"name":"Music","order":12,"path":"folders/Steamworks Demo/Music.yy",},
     {"name":"Networking","order":5,"path":"folders/Steamworks Demo/Networking.yy",},
@@ -15,6 +14,7 @@
     {"name":"Leaderboard","order":2,"path":"folders/Steamworks Demo/Social/Leaderboard.yy",},
     {"name":"Global","order":6,"path":"folders/Steamworks Demo/Social/Stats/Global.yy",},
     {"name":"Storage","order":3,"path":"folders/Steamworks Demo/Storage.yy",},
+    {"name":"Timeline","order":13,"path":"folders/Steamworks Demo/Timeline.yy",},
     {"name":"UGC","order":4,"path":"folders/Steamworks Demo/UGC.yy",},
   ],
   "ResourceOrderSettings":[
