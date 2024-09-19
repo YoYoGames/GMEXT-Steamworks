@@ -46,7 +46,7 @@
  * @param {real|constant.TimelineMaxPriority} priority Provide the priority to use when the UI is deciding which icons to display in crowded parts of the timeline. Events with larger priority values will be displayed more prominently than events with smaller priority values. This value must be between 0 and ${constant.TimelineMaxPriority}.
  * @param {real|constant.TimelineMaxEventDuration} startOffsetSeconds The time offset in seconds to apply to the start of the event. Negative times indicate an event that happened in the past. One use of this parameter is to handle events whose significance is not clear until after the fact. For instance if the player starts a damage over time effect on another player, which kills them 3.5 seconds later, the game could pass -3.5 as the start offset and cause the event to appear in the timeline where the effect started.
  * @param {real|constant.TimelineMaxEventDuration} durationSeconds The duration of the event, in seconds. Pass 0 for instantaneous events. The final duration of the event cannot be larger than ${constant.TimelineMaxEventDuration}.
- * @param {constant.TimelineEventClipPriority|constant.TimelineMaxPriority} possibleClip Allows the game to describe events that should be suggested to the user as possible video clips.
+ * @param {constant.TimelineEventClipPriority} possibleClip Allows the game to describe events that should be suggested to the user as possible video clips.
  * @returns {bool}
  * 
  * @example
@@ -122,7 +122,7 @@
 
 /**
  * @module timeline
- * @title Steam Timeline
+ * @title Timeline
  * @desc Functions that allow the game to add events to the timeline that is displayed alongside recorded video.
  * 
  * Due to the experimental nature of Steam Timeline (currently), all extension functions return a boolean.
