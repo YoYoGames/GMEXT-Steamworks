@@ -30,6 +30,7 @@
  * @ref module.networking
  * @ref module.input
  * @ref module.music
+ * @ref module.timeline
  * @ref module.utilities
  * @section_end
  * 

@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="img/favicon.ico" />
+    <title>Steam Timeline - GMEXT-Steamworks</title>
+    <link rel="stylesheet" href="css/theme.css" />
+    <link rel="stylesheet" href="css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+        <link href="assets/css/gmext_style.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Steam Timeline";
+        var mkdocs_page_input_path = "timeline.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/gml.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="." class="icon icon-home"> GMEXT-Steamworks
+        </a>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="home.html">Steamworks Extension</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="guides.html">Setup Guide (IDE/Runtime 2022.6+)</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="management.html">Management</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="general.html">General</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="overlay.html">Overlay</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="leaderboards.html">Leaderboards</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="lobbies.html">Lobbies and Matchmaking</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="achievements.html">Stats and Achievements</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="cloud.html">Cloud</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="dlc.html">DLC</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="ugc.html">UGC</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="social.html">Social</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="inventory.html">Inventory</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="networking.html">Networking</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="input.html">Input</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="music.html">Music</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="#">Steam Timeline</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#functions">Functions</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#constants">Constants</a>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="utilities.html">Utilities</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href=".">GMEXT-Steamworks</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Steam Timeline</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/YoYoGames/GMEXT-Steamworks/edit/master/docs/timeline.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <p><a id="top"></a></p>
+<h1 id="steam-timeline"><strong>Steam Timeline</strong></h1>
+<p>Functions that allow the game to add events to the timeline that is displayed alongside recorded video.</p>
+<p>Due to the experimental nature of Steam Timeline (currently), all extension functions return a boolean.
+If it's true, it means that the Steam Timeline API is available and the call was made.
+If it's false, it means that the Steam Timeline API is not available, the Steam Client is probably too old or not a Beta.</p>
+<p>The (A), (B) and (C) marks in the function documentation refer to the parts of the Diagram image below.</p>
+<p>Diagrams:
+<img alt="" src="assets/steam_timeline_diagram.png" /></p>
+<h2 id="functions">Functions</h2>
+<p>The following functions can be used to access Steam Timeline from within GameMaker:</p>
+<ul>
+<li><a href="timeline.html#steam_timeline_set_state_description">steam_timeline_set_state_description</a></li>
+<li><a href="timeline.html#steam_timeline_clear_state_description">steam_timeline_clear_state_description</a></li>
+<li><a href="timeline.html#steam_timeline_add_event">steam_timeline_add_event</a></li>
+<li><a href="timeline.html#steam_timeline_set_game_mode">steam_timeline_set_game_mode</a></li>
+</ul>
+<h2 id="constants">Constants</h2>
+<p>This section also provides the following constants to use with the functions:</p>
+<ul>
+<li><a href="timeline.html#timelinegamemode">TimelineGameMode</a></li>
+<li><a href="timeline.html#timelineeventclippriority">TimelineEventClipPriority</a></li>
+<li><a href="timeline.html#timelinemaxpriority">TimelineMaxPriority</a></li>
+<li><a href="timeline.html#timelinemaxeventduration">TimelineMaxEventDuration</a></li>
+</ul>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_timeline_set_state_description">steam_timeline_set_state_description</h1>
+<p>Sets a description (B) for the current game state in the timeline. These help the user to find specific moments in the timeline when saving clips. Setting a new state description replaces any previous description.</p>
+<p>Examples could include:
+- Where the user is in the world in a single player game
+- Which round is happening in a multiplayer game
+- The current score for a sports game</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<pre class="highlight"><code class="language-gml">steam_timeline_set_state_description(description, timeDelta)</code></pre>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>description</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>A localized string in the game language</td>
+</tr>
+<tr>
+<td>timeDelta</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The time offset in seconds to apply to this state change. Negative times indicate an event that happened in the past.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><pre class="highlight"><code class="language-gml">steam_timeline_set_state_description("Earned x10 points as Cirno", -seconds);</code></pre>
+This sets some description for an event that happened <code>seconds</code> seconds ago.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_timeline_clear_state_description">steam_timeline_clear_state_description</h1>
+<p>Clears the previous set game state in the timeline.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<pre class="highlight"><code class="language-gml">steam_timeline_clear_state_description(timeDelta)</code></pre>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>timeDelta</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The time offset in seconds to apply to this state change. Negative times indicate an event that happened in the past.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><pre class="highlight"><code class="language-gml">steam_timeline_clear_state_description(-seconds);</code></pre>
+This clears description for an event that happened <code>seconds</code> seconds ago.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_timeline_add_event">steam_timeline_add_event</h1>
+<p>Use this to mark an event (A) on the Timeline. The event can be instantaneous or take some amount of time to complete, depending on the value passed in durationSeconds.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<pre class="highlight"><code class="language-gml">steam_timeline_add_event(icon, title, description, priority, startOffsetSeconds, durationSeconds, possibleClip)</code></pre>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>icon</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The name of the icon to show at the timeline at this point. This can be one of the icons uploaded through the Steamworks partner Site for your title, or one of the provided icons that start with steam_. The Steam Timelines overview includes a list of available icons.</td>
+</tr>
+<tr>
+<td>title</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>Title-provided localized string in the game language</td>
+</tr>
+<tr>
+<td>description</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>Title-provided localized string in the game language</td>
+</tr>
+<tr>
+<td>priority</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a> or <a href="timeline.html#timelinemaxpriority">TimelineMaxPriority</a></td>
+<td>Provide the priority to use when the UI is deciding which icons to display in crowded parts of the timeline. Events with larger priority values will be displayed more prominently than events with smaller priority values. This value must be between 0 and <a href="timeline.html#timelinemaxpriority">TimelineMaxPriority</a>.</td>
+</tr>
+<tr>
+<td>startOffsetSeconds</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a> or <a href="timeline.html#timelinemaxeventduration">TimelineMaxEventDuration</a></td>
+<td>The time offset in seconds to apply to the start of the event. Negative times indicate an event that happened in the past. One use of this parameter is to handle events whose significance is not clear until after the fact. For instance if the player starts a damage over time effect on another player, which kills them 3.5 seconds later, the game could pass -3.5 as the start offset and cause the event to appear in the timeline where the effect started.</td>
+</tr>
+<tr>
+<td>durationSeconds</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a> or <a href="timeline.html#timelinemaxeventduration">TimelineMaxEventDuration</a></td>
+<td>The duration of the event, in seconds. Pass 0 for instantaneous events. The final duration of the event cannot be larger than <a href="timeline.html#timelinemaxeventduration">TimelineMaxEventDuration</a>.</td>
+</tr>
+<tr>
+<td>possibleClip</td>
+<td><a href="timeline.html#timelineeventclippriority">TimelineEventClipPriority</a> or <a href="timeline.html#timelinemaxpriority">TimelineMaxPriority</a></td>
+<td>Allows the game to describe events that should be suggested to the user as possible video clips.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><pre class="highlight"><code class="language-gml">steam_timeline_add_event(
+    "steam_achievement",                   // default steam_ icon name
+    "Rensenware",                          // this should be in the user's preferred language
+    "Scored 0.2 bln pts. in LUNATIC mode", // this should be in the user's preferred language
+    100,                                   // between 0 and steam_timeline_max_timeline_priority inclusive
+    -1.0,                                  // this event happened one second in the past
+    10.0,                                  // this event took 10 seconds
+    steam_timeline_clip_priority_standard  // you might want to clip this awesome event
+);</code></pre>
+This example demonstrates how to add a timeline event.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_timeline_set_game_mode">steam_timeline_set_game_mode</h1>
+<p>Changes the color of the timeline bar (C). See <a href="timeline.html#timelinegamemode">TimelineGameMode</a> for how to use each value.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<pre class="highlight"><code class="language-gml">steam_timeline_set_game_mode(mode)</code></pre>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>mode</td>
+<td><a href="timeline.html#timelinegamemode">TimelineGameMode</a></td>
+<td>The mode that the game is in.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><pre class="highlight"><code class="language-gml">steam_timeline_set_game_mode(steam_timeline_game_mode_playing);</code></pre>
+This call will change the current game mode to Playing.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="timelinegamemode">TimelineGameMode</h1>
+<p>Represents the possible game mode tags a timeline can have (influences the color scheme).</p>
+<p>These constants are referenced by the following functions:</p>
+<ul>
+<li><a href="timeline.html#steam_timeline_set_game_mode">steam_timeline_set_game_mode</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>steam_timeline_game_mode_invalid</code></td>
+<td>Invalid dummy value.</td>
+</tr>
+<tr>
+<td><code>steam_timeline_game_mode_playing</code></td>
+<td>Used when the player is fully loaded into the game and playing - for example inside the dungeon fighting monsters.</td>
+</tr>
+<tr>
+<td><code>steam_timeline_game_mode_staging</code></td>
+<td>Used when some loading action is happening ingame - for example player is in a multiplayer lobby or for when a dungeon is loading.</td>
+</tr>
+<tr>
+<td><code>steam_timeline_game_mode_menus</code></td>
+<td>Used when inside menus - for example the player adjusting settings or in a town buying items</td>
+</tr>
+<tr>
+<td><code>steam_timeline_game_mode_loading_screen</code></td>
+<td>Used for loading screens.</td>
+</tr>
+<tr>
+<td><code>steam_timeline_game_mode_max</code></td>
+<td>One past the last valid value.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="timelineeventclippriority">TimelineEventClipPriority</h1>
+<p>Represents the possible priority a timeline event can have. Where 'steam_timeline_clip_priority_featured' is higher than 'steam_timeline_clip_priority_standard'.</p>
+<p>These constants are referenced by the following functions:</p>
+<ul>
+<li><a href="timeline.html#steam_timeline_add_event">steam_timeline_add_event</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>steam_timeline_clip_priority_invalid</code></td>
+<td>Invalid dummy value.</td>
+</tr>
+<tr>
+<td><code>steam_timeline_clip_priority_none</code></td>
+<td>This event is not appropriate as a clip.</td>
+</tr>
+<tr>
+<td><code>steam_timeline_clip_priority_standard</code></td>
+<td>The user may want to make a clip around this event.</td>
+</tr>
+<tr>
+<td><code>steam_timeline_clip_priority_featured</code></td>
+<td>The player will be likely to want a clip around event, and those clips should be promoted more prominently.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="timelinemaxpriority">TimelineMaxPriority</h1>
+<p>Represents the maximum possible priority a timeline event can have.</p>
+<p>These constants are referenced by the following functions:</p>
+<ul>
+<li><a href="timeline.html#steam_timeline_add_event">steam_timeline_add_event</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>steam_timeline_max_timeline_priority</code></td>
+<td>Maximum timeline event priority value.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="timelinemaxeventduration">TimelineMaxEventDuration</h1>
+<p>Represents the maximum possible duration a timeline event can have.</p>
+<p>These constants are referenced by the following functions:</p>
+<ul>
+<li><a href="timeline.html#steam_timeline_add_event">steam_timeline_add_event</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>steam_timeline_max_timeline_event_duration</code></td>
+<td>Maximum timeline event duration value.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="music.html" class="btn btn-neutral float-left" title="Music"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="utilities.html" class="btn btn-neutral float-right" title="Utilities">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+      <p><p align="center">GameMaker 2024</p></p>
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/YoYoGames/GMEXT-Steamworks" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="music.html" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="utilities.html" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = ".";</script>
+    <script src="js/theme_extra.js"></script>
+    <script src="js/theme.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/gml.min.js"></script>
+      <script src="assets/js/gmext_script.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

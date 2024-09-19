@@ -117,6 +117,10 @@
                 </li>
               </ul>
               <ul>
+                <li class="toctree-l1"><a class="reference internal" href="timeline.html">Steam Timeline</a>
+                </li>
+              </ul>
+              <ul>
                 <li class="toctree-l1"><a class="reference internal" href="utilities.html">Utilities</a>
                 </li>
               </ul>
@@ -146,7 +150,14 @@
               
                 <p><a id="top"></a></p>
 <h1 id="inventory"><strong>Inventory</strong></h1>
-<p>The following functions, constants and structures allow to use the <a href="https://partner.steamgames.com/doc/features/inventory">Steam Inventory Service</a>.</p>
+<p>The Inventory module contains functions, constants and structures that allow you to use the <a href="https://partner.steamgames.com/doc/features/inventory">Steam Inventory Service</a>.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The Steamworks SDK limits the number of items that can be read from one stack to 65535.
+This is a limitation of the SDK rather than of the extension: the data type used for the <code>m_unQuantity</code> member of <a href="https://partner.steamgames.com/doc/api/ISteamInventory#SteamItemDetails_t">SteamItemDetails_t</a> is uint16, which can hold a maximum value of 65535.</p>
+<p>Since the limitation is per stack, you can work around it by transferring any amount over 65535 to a new stack using the function <a href="inventory.html#steam_inventory_transfer_item_quantity">steam_inventory_transfer_item_quantity</a> and add the necessary logic to your game that keeps track of the excess amount on the second stack.
+For example, an amount of 100000 would be divided over two stacks as follows: the first stack holds 65535, the other the remaining 34465.</p>
+</div>
 <h2 id="pricing-and-consumables">Pricing and Consumables</h2>
 <p>These functions are provided for handling pricing, purchases and consumables:</p>
 <ul>
@@ -1309,7 +1320,7 @@ Starting with a <a href="inventory.html#steam_inventory_start_update_properties"
 
 <h1 id="steam_inventory_transfer_item_quantity">steam_inventory_transfer_item_quantity</h1>
 <p>Transfer items between stacks within a user's inventory.</p>
-<p>This can be used to stack, split, and moving items. The source and destination items must have the same itemdef id. To move items onto a destination stack specify the source, the quantity to move, and the destination item id. To split an existing stack, pass <code>steam_item_instance_id_invalid</code> into <code>dest_item_id</code>. A new item stack will be generated with the requested quantity.</p>
+<p>This can be used to stack, split, and move items. The source and destination items must have the same itemdef id. To move items onto a destination stack specify the source, the quantity to move, and the destination item id. To split an existing stack, pass <code>steam_item_instance_id_invalid</code> into <code>dest_item_id</code>. A new item stack will be generated with the requested quantity.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>You must call <a href="inventory.html#steam_inventory_result_destroy">steam_inventory_result_destroy</a> on the returned async result ID when you are done with it.</p>

@@ -22,4 +22,5 @@
  * ${module.networking}
  * ${module.input}
  * ${module.music}
+ * ${module.timeline}
  * ${module.utilities}

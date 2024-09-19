@@ -102,6 +102,10 @@
                 <li class="toctree-l1"><a class="reference internal" href="music.html">Music</a>
                 </li>
               </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="timeline.html">Steam Timeline</a>
+                </li>
+              </ul>
               <ul class="current">
                 <li class="toctree-l1 current"><a class="reference internal current" href="#">Utilities</a>
     <ul class="current">
@@ -148,6 +152,8 @@
 <li><a href="utilities.html#steam_utils_is_steam_running_on_steam_deck">steam_utils_is_steam_running_on_steam_deck</a></li>
 <li><a href="utilities.html#steam_utils_is_steam_in_big_picture_mode">steam_utils_is_steam_in_big_picture_mode</a></li>
 <li><a href="utilities.html#steam_utils_set_game_launcher_mode">steam_utils_set_game_launcher_mode</a></li>
+<li><a href="utilities.html#steam_utils_get_server_real_time">steam_utils_get_server_real_time</a></li>
+<li><a href="utilities.html#steam_utils_get_steam_ui_language">steam_utils_get_steam_ui_language</a></li>
 </ul>
 <p><br></p>
 <hr />
@@ -525,11 +531,57 @@ The above code will print a message to debug output if the game is running on th
 show_debug_message("Game set to launcher mode");</code></pre>
 <p><br></p>
 <p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_utils_get_server_real_time">steam_utils_get_server_real_time</h1>
+<p>This function returns the Steam server time in Unix epoch format. (Number of seconds since Jan 1, 1970 UTC)</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<pre class="highlight"><code class="language-gml">steam_utils_get_server_real_time()</code></pre>
+</blockquote>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<pre class="highlight"><code class="language-gml">show_debug_message("Current server time is " + string(steam_utils_get_server_real_time()));</code></pre>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_utils_get_steam_ui_language">steam_utils_get_steam_ui_language</h1>
+<p>This function returns the Steam language string for the language the Steam Client is running in.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<pre class="highlight"><code class="language-gml">steam_utils_get_steam_ui_language()</code></pre>
+</blockquote>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><pre class="highlight"><code class="language-gml">show_debug_message("Current Steam UI language is " + steam_utils_get_steam_ui_language());
+// "english", "russian", "japanese", etc...</code></pre>
+This example prints the current Steam client UI language into the Debug Output</p>
+<p><br></p>
+<p><br></p>
               
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="music.html" class="btn btn-neutral float-left" title="Music"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="timeline.html" class="btn btn-neutral float-left" title="Steam Timeline"><span class="icon icon-circle-arrow-left"></span> Previous</a>
     </div>
 
   <hr/>
@@ -557,7 +609,7 @@ show_debug_message("Game set to launcher mode");</code></pre>
         </span>
     
     
-      <span><a href="music.html" style="color: #fcfcfc">&laquo; Previous</a></span>
+      <span><a href="timeline.html" style="color: #fcfcfc">&laquo; Previous</a></span>
     
     
   </span>

@@ -111,6 +111,10 @@
                 </li>
               </ul>
               <ul>
+                <li class="toctree-l1"><a class="reference internal" href="timeline.html">Steam Timeline</a>
+                </li>
+              </ul>
+              <ul>
                 <li class="toctree-l1"><a class="reference internal" href="utilities.html">Utilities</a>
                 </li>
               </ul>
@@ -560,10 +564,10 @@ The above code checks to see if a file exists on the Steam Cloud and if it does,
 <p align="right"><a href="#top">Back To Top</a></p>
 
 <h1 id="steam_file_read_buffer">steam_file_read_buffer</h1>
-<p>This function will read the contents of the given file into a buffer. You can read contents into an existing buffer. Returns undefined on error and a buffer id on success.</p>
+<p>This function will read the contents of the given file into a buffer. You can read contents into an existing buffer. Returns undefined on error and a buffer ID on success.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>As this function deals with buffers, you are responsible for deallocating the buffer with buffer_delete when you no longer need it, as this function will not do it for you. You will get a hard to debug memory leak if you don't delete the buffers you no longer need.</p>
+<p>As this function deals with buffers, you are responsible for deallocating the buffer with <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Buffers/buffer_delete.htm">buffer_delete</a> when you no longer need it, as this function will not do it for you. You will get a hard to debug memory leak if you don't delete the buffers you no longer need.</p>
 </div>
 <p><br></p>
 <p><strong>Syntax:</strong></p>
@@ -622,7 +626,7 @@ The above code reads the file "Save.bin" into a buffer and then deletes it.</p>
 <p>You can use this function to write data to a file, which will then be synchronized with the Steam Cloud when the user exits the game. if the file does not exist, this function will create it for you, and if it does already exist, it will overwrite any data that is already stored within the file with the new data. The function will return false if it fails for whatever reason and true if it succeeds.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>As this function deals with buffers, you are responsible for deallocating the buffer with buffer_delete when you no longer need it, as this function will not do it for you. You will get a hard to debug memory leak if you don't delete the buffers you no longer need.</p>
+<p>As this function deals with buffers, you are responsible for deallocating the buffer with <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Buffers/buffer_delete.htm">buffer_delete</a> when you no longer need it, as this function will not do it for you. You will get a hard to debug memory leak if you don't delete the buffers you no longer need.</p>
 </div>
 <p><br></p>
 <p><strong>Syntax:</strong></p>
@@ -661,7 +665,7 @@ The above code reads the file "Save.bin" into a buffer and then deletes it.</p>
 <p><strong>Example:</strong></p>
 <p><pre class="highlight"><code class="language-gml">var buff = buffer_create(1, buffer_grow, 1);
 buffer_write(buff, buffer_string, "hampsterdance");
-buffer_write(buff, buffer_f64, 420.69);
+buffer_write(buff, buffer_f64, 123.45);
 steam_file_write_buffer("Save.bin", buff);
 buffer_delete(buff);</code></pre>
 The above code creates a buffer, writes some random data, saves the buffer into Steam Cloud and then deletes the buffer.</p>
@@ -808,13 +812,13 @@ The above code will check to see if a file exists, and if it does, it deletes th
 </blockquote>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<p><pre class="highlight"><code class="language-gml">var _i = 0;
-var files = steam_file_get_list();
-for (var i = 0, len = array_length(files); i &lt; len; ++i)
+<p><pre class="highlight"><code class="language-gml">var i = 0;
+var _files = steam_file_get_list();
+for (var i = 0, _len = array_length(_files); i &lt; _len; ++i)
 {
-    var file = files[i];
-    draw_text(50, 100 + _i++ * 30, file.file_name + " size is " + string(file.file_size));
-    // steam_file_delete(file.file_name); // etc...
+    var _file = _files[i];
+    draw_text(50, 100 + i++ * 30, _file.file_name + " size is " + string(_file.file_size));
+    // steam_file_delete(_file.file_name); // etc.
 }</code></pre>
 The above code will enumerate through all cloud files and draw their information on the screen.</p>
 <p><br></p>
@@ -924,7 +928,7 @@ The above code will enumerate through all cloud files and draw their information
 <p align="right"><a href="#top">Back To Top</a></p>
 
 <h1 id="steamcloudfileentry">SteamCloudFileEntry</h1>
-<p>This struct provides information about a file in a file list returned by the <a href="cloud.html#steam_file_get_list">steam_file_get_list</a> function</p>
+<p>This struct provides information about a file in a file list</p>
 <p>This struct is referenced by the following functions:</p>
 <ul>
 <li><a href="cloud.html#steam_file_get_list">steam_file_get_list</a></li>
