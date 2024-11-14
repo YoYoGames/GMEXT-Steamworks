@@ -189,6 +189,45 @@
  * }
  * ```
  * The above code will request a ticket to be used with the Web API and obtain the buffer with the ticket bytes.
+ * If you ever need to convert the byte buffer into a hexadecimal string you can do so by using a conversion function like the one below:
+ * 
+ * ```gml
+ * function convert_byte_buffer_to_hex_string(_buffer, _offset = 0, _length = (buffer_get_size(_buffer) - _offset)) {
+ * 
+ *     static _nibble_to_hexa = [ ord("0"), ord("1"), ord("2"), ord("3"), ord("4"), ord("5"), ord("6"), ord("7"), 
+ * 	                              ord("8"), ord("9"), ord("A"), ord("B"), ord("C"), ord("D"), ord("E"), ord("F") ];
+ * 	
+ * 	   // Store the tell of the input buffer so we can reset it at the end
+ *     var _tell = buffer_tell(_buffer);
+ * 	    
+ * 	   // Seek to the offset where we want to start the conversion
+ *     buffer_seek(_buffer, buffer_seek_start, _offset);
+ * 	    
+ * 	   // Create an output buffer that will be 2 times + 1 (terminate character)
+ * 	   var _temp_buffer = buffer_create(_length * 2, buffer_fixed, 1);
+ * 	   repeat (_length) {
+ * 	       // Read the byte
+ * 	       var _byte = buffer_read(_buffer, buffer_u8);
+ * 	       // Split the byte into 2 nibbles (higher and lower)
+ * 	       var _high = (_byte & $F0) >> 4;
+ *         var _low = _byte & $0F;
+ * 	       // Use the convertion table to get the currect character
+ * 	       buffer_write(_temp_buffer, buffer_u8, _nibble_to_hexa[_high]);
+ * 	       buffer_write(_temp_buffer, buffer_u8, _nibble_to_hexa[_low]);
+ * 	   }
+ * 	   // Write the end string character '\0'
+ * 	   buffer_write(_temp_buffer, buffer_u8, 0);
+ * 	    
+ * 	   // Seek the original buffer to the original place
+ * 	   buffer_seek(_buffer, buffer_seek_start, _tell);
+ * 	    
+ * 	   // Read the converted string and delete the temp buffer
+ * 	   var _hexa_string = buffer_peek(_temp_buffer, 0, buffer_string);
+ * 	   buffer_delete(_temp_buffer);
+ * 	
+ *     return _hexa_string;
+ * }
+ * ```
  * @func_end
  */
 

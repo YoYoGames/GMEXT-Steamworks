@@ -197,7 +197,7 @@
       <AdditionalLibraryDirectories>$(SolutionDir)..\..\..\..\steamworks_sdk\redistributable_bin\win64\;</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy /Y "$(TargetPath)" "$(ProjectDir)..\..\$(TargetFileName)"</Command>
+      <Command>copy /Y "$(TargetPath)" "$(ProjectDir)..\..\$(TargetFileName)"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -224,7 +224,7 @@
       <AdditionalLibraryDirectories>$(SolutionDir)..\..\..\..\steamworks_sdk\redistributable_bin\win64\;</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy /Y "$(TargetPath)" "$(ProjectDir)..\..\$(TargetFileName)"</Command>
+      <Command>copy /Y "$(TargetPath)" "$(ProjectDir)..\..\$(TargetFileName)"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -10,7 +10,7 @@
 **/*.exp
 **/*.exe
 
-# SteamworksSteamworks SDKs
+# Steamworks SDKs
 source/Steamworks_sdk/
 
 # Steamworks DEMO options
