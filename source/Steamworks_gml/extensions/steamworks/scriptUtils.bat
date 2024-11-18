@@ -126,22 +126,34 @@ exit /b 0
     call :pathResolve "%cd%" "%~2" destination
 
     if not exist "%~1" (
-        call :logError "Failed to copy '%~1' to '%destination%' (source doesn't exist)."
+        call :logError "Failed to copy "%~1" to "%destination%" (source doesn't exist)."
         exit /b 1
     )
 
-    if exist "%~1\" (
-        powershell -NoLogo -NoProfile -Command "Copy-Item -Path '%~1' -Destination '%destination%' -Recurse -Force"
+    if exist "%~1\*" (
+        xcopy "%~1" "%destination%" /E /I /H /Y
     ) else (
-        powershell -NoLogo -NoProfile -Command "Copy-Item -Path '%~1' -Destination '%destination%' -Force"
+        for %%I in ("%destination%") do set "destDir=%%~dpI"
+
+        if not exist "%destDir%" (
+            call :logInformation "Destination directory "%destDir%" does not exist. Creating it."
+            mkdir "%destDir%"
+            if %errorlevel% neq 0 (
+                call :logError "Failed to create destination directory ""%destDir%""."
+                exit /b 1
+            )
+        )
+
+        echo Copying file "%source%" to "%destination%"
+        copy /Y "%source%" "%destination%"
     )
 
     if %errorlevel% neq 0 (
-        call :logError "Failed to copy '%~1' to '%destination%'."
+        call :logError "Failed to copy "%~1" to "%destination%"."
         exit /b 1
     )
 
-    call :logInformation "Copied '%~1' to '%destination%'."
+    call :logInformation "Copied "%~1" to "%destination%"."
 exit /b 0
 
 

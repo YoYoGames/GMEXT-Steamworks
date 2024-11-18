@@ -29,3 +29,6 @@ xcuserdata/
 
 # Release packages
 output/
+source/Steamworks_gml/extensions/steamworks/scriptUtils.bat.bak
+
+source/Steamworks_gml/extensions/steamworks/scriptUtils.sh.bak
