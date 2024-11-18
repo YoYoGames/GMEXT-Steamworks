@@ -471,7 +471,7 @@ assertVersionEquals() {
 # Usage: assertXcodeToolsInstalled
 assertXcodeToolsInstalled() {
     # Check for Command Line Tools by querying the location of 'xcode-select'
-    xcode_select_path=$(xcode-select -p &> /dev/null)
+    xcode-select -p &> /dev/null
 
     # Check the exit code of the previous command
     if [ $? -ne 0 ]; then
