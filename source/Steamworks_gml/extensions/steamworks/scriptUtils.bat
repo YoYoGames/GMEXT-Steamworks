@@ -144,8 +144,8 @@ exit /b 0
             )
         )
 
-        echo Copying file "%source%" to "%destination%"
-        copy /Y "%source%" "%destination%"
+        call :logInformation "Copying file "%~1" to "%destination%""
+        copy /Y "%~1" "%destination%"
     )
 
     if %errorlevel% neq 0 (
