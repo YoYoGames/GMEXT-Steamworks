@@ -133,18 +133,22 @@ exit /b 0
     if exist "%~1\*" (
         xcopy "%~1" "%destination%" /E /I /H /Y
     ) else (
+
+        setlocal enabledelayedexpansion
         for %%I in ("%destination%") do set "destDir=%%~dpI"
 
-        if not exist "%destDir%" (
-            call :logInformation "Destination directory "%destDir%" does not exist. Creating it."
-            mkdir "%destDir%"
+        if not exist "!destDir!" (
+            call :logInformation "Destination directory "!destDir!" does not exist. Creating it."
+            mkdir "!destDir!"
             if %errorlevel% neq 0 (
-                call :logError "Failed to create destination directory ""%destDir%""."
+                call :logError "Failed to create destination directory ""!destDir!""."
                 exit /b 1
             )
         )
+        endlocal
 
         call :logInformation "Copying file "%~1" to "%destination%""
+
         copy /Y "%~1" "%destination%"
     )
 
