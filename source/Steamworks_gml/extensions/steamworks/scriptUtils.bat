@@ -123,41 +123,64 @@ exit /b 0
 :: Copies a file or folder to the specified destination folder (displays log messages)
 :itemCopyTo srcPath destFolder
 
+    :: Resolve the destination path based on the current directory and the second argument
     call :pathResolve "%cd%" "%~2" destination
 
-    if not exist "%~1" (
-        call :logError "Failed to copy "%~1" to "%destination%" (source doesn't exist)."
+    :: Enable delayed variable expansion for variables within this block
+    setlocal enabledelayedexpansion
+
+    :: Store the source and destination paths in variables
+    set "sourcePath=%~1"
+    set "destPath=%destination%"
+
+    :: Check if the source path exists
+    if not exist "!sourcePath!" (
+        :: Log an error message if the source doesn't exist and exit with error code 1
+        call :logError "Failed to copy "!sourcePath!" to "!destPath!" (source doesn't exist)."
         exit /b 1
     )
 
-    if exist "%~1\*" (
-        xcopy "%~1" "%destination%" /E /I /H /Y
+    :: Check if the source path is a directory (contains files)
+    if exist "!sourcePath!\*" (
+        :: Copy the directory and its contents to the destination using xcopy
+        xcopy "!sourcePath!" "!destPath!" /E /I /H /Y
     ) else (
+        :: Extract the directory path from the destination path
+        for %%I in ("!destPath!") do set "destDir=%%~dpI"
 
-        setlocal enabledelayedexpansion
-        for %%I in ("%destination%") do set "destDir=%%~dpI"
-
+        :: Check if the destination directory exists
         if not exist "!destDir!" (
+            :: Log information about creating the destination directory
             call :logInformation "Destination directory "!destDir!" does not exist. Creating it."
+            :: Create the destination directory
             mkdir "!destDir!"
-            if %errorlevel% neq 0 (
+            :: Check if the directory creation was successful
+            if !errorlevel! neq 0 (
+                :: Log an error message if the directory couldn't be created and exit with error code 1
                 call :logError "Failed to create destination directory ""!destDir!""."
                 exit /b 1
             )
         )
-        endlocal
-
-        call :logInformation "Copying file "%~1" to "%destination%""
-
-        copy /Y "%~1" "%destination%"
+        :: Log information about copying the file
+        call :logInformation "Copying file "!sourcePath!" to "!destPath!""
+        :: Copy the file to the destination
+        copy /Y "!sourcePath!" "!destPath!"
     )
 
-    if %errorlevel% neq 0 (
-        call :logError "Failed to copy "%~1" to "%destination%"."
+    :: Check if the copy operation was successful
+    if !errorlevel! neq 0 (
+        :: Log an error message if the copy failed and exit with error code 1
+        call :logError "Failed to copy "!sourcePath!" to "!destPath!"."
         exit /b 1
     )
 
-    call :logInformation "Copied "%~1" to "%destination%"."
+    :: Log information that the copy was successful
+    call :logInformation "Copied "!sourcePath!" to "!destPath!"."
+
+    :: End the local environment changes (delayed variable expansion)
+    endlocal
+
+:: Exit the function with success code 0
 exit /b 0
 
 
