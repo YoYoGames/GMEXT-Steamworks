@@ -1977,7 +1977,7 @@ void Steam_UserStats_Init()
 	m_bStoreStats = false;
 	m_bStoringStats = false;
 	DebugConsoleOutput("Ok, you can continue\n");
-	SteamUserStats()->RequestCurrentStats();  // You will receive a UserStatsReceived_t callback when the data is ready.
+	// SteamUserStats()->RequestCurrentStats();  // You will receive a UserStatsReceived_t callback when the data is ready.
 }
 
 YYEXPORT void /*double*/ steam_stats_ready(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)  //()/*Steam_UserStats_StatsReady*/

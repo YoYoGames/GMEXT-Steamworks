@@ -21,7 +21,7 @@ YYEXPORT void steam_timeline_set_state_description(RValue& Result, CInstance* se
 
 	const char* description = YYGetString(arg, 0);
 	float delta = YYGetFloat(arg, 1);
-	SteamTimeline()->SetTimelineStateDescription(description, delta);
+	SteamTimeline()->SetTimelineTooltip(description, delta);
 	Result.val = 1;
 }
 
@@ -36,7 +36,7 @@ YYEXPORT void steam_timeline_clear_state_description(RValue& Result, CInstance* 
 	}
 
 	float delta = YYGetFloat(arg, 0);
-	SteamTimeline()->ClearTimelineStateDescription(delta);
+	SteamTimeline()->ClearTimelineTooltip(delta);
 	Result.val = 1;
 }
 
@@ -57,7 +57,31 @@ YYEXPORT void steam_timeline_add_event(RValue& Result, CInstance* selfinst, CIns
 	float start = YYGetFloat(arg, 4);
 	float dur = YYGetFloat(arg, 5);
 	ETimelineEventClipPriority possible = static_cast<ETimelineEventClipPriority>(YYGetInt32(arg, 6));
-	SteamTimeline()->AddTimelineEvent(icon, title, desc, prio, start, dur, possible);
+	SteamTimeline()->AddRangeTimelineEvent(icon, title, desc, prio, start, dur, possible);
+	
+	
+	Result.val = 1;
+}
+
+YYEXPORT void steam_timeline_add_instantaneous_event(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)
+{
+	Result.kind = VALUE_BOOL;
+	Result.val = 0;
+
+	if (!steam_is_initialised || !SteamTimeline())
+	{
+		return;
+	}
+
+	const char* icon = YYGetString(arg, 0);
+	const char* title = YYGetString(arg, 1);
+	const char* desc = YYGetString(arg, 2);
+	uint32 prio = YYGetUint32(arg, 3);
+	float start = YYGetFloat(arg, 4);
+	ETimelineEventClipPriority possible = static_cast<ETimelineEventClipPriority>(YYGetInt32(arg, 5));
+	SteamTimeline()->AddInstantaneousTimelineEvent(icon, title, desc, prio, start, possible);
+
+
 	Result.val = 1;
 }
 

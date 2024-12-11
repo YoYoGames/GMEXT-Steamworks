@@ -709,6 +709,13 @@ void OnUgcQueryResult( SteamUGCQueryCompleted_t* pCallback, bool bIOFailure, int
 				//create a map for this item and populate it
 				int dsDetailsMap = CreateDsMap(0,0);
 				AddUGCDetailsToMap( &ugcDetails, dsDetailsMap );
+
+				//add metadata to the return dictionary if it exists
+				char metadata[k_cchDeveloperMetadataMax]{};
+				if (SteamUGC()->GetQueryUGCMetadata(pCallback->m_handle, i, metadata, k_cchDeveloperMetadataMax)) {
+					g_pYYRunnerInterface->DsMapAddString(dsDetailsMap, "metadata", metadata);
+				}
+
 				//add to results list
 				g_pYYRunnerInterface->DsListAddMap( dsResultList, dsDetailsMap );
 			}
@@ -989,6 +996,17 @@ YYEXPORT void /*double*/ steam_ugc_set_item_preview(RValue& Result, CInstance* s
 	Result.kind = VALUE_REAL;
 	Result.val = (bResult) ? 1 : 0;
 	
+}
+
+//steam_ugc_set_item_metadata(ugc_update_handle, metadata ) 
+YYEXPORT void /*double*/ steam_ugc_set_item_metadata(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)//( uint64 _ugcUpdateHandle, const char* _metadata )/*Steam_Ugc_SetItemMetadata*/
+{
+	uint64 _ugcUpdateHandle = (uint64)YYGetInt64(arg, 0);
+	const char* _metadata = YYGetString(arg, 1);
+
+	bool bResult = SteamUGC()->SetItemMetadata((UGCUpdateHandle_t)_ugcUpdateHandle, _metadata);
+	Result.kind = VALUE_REAL;
+	Result.val = (bResult) ? 1 : 0;
 }
 
 //steam_ugc_get_item_update_progress( ugc_update_handle , info_map)
@@ -1551,6 +1569,24 @@ YYEXPORT void /*double*/ steam_ugc_query_set_allow_cached_response(RValue& Resul
 	bool bResult = SteamUGC()->SetAllowCachedResponse( (UGCQueryHandle_t)_ugcQueryHandle, _maxAgeSeconds );
 	Result.kind = VALUE_REAL;
 	Result.val = (bResult) ? 1:0;
+}
+
+//steam_ugc_query_set_return_metadata( ugc_query_handle, should_return )
+YYEXPORT void /*double*/ steam_ugc_query_set_return_metadata(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)//( uint64 _ugcQueryHandle, bool shouldReturn)/*Steam_Ugc_SetReturnMetadata*/
+{
+	uint64 _ugcQueryHandle = YYGetInt64(arg, 0);
+	bool _shouldReturn = YYGetBool(arg, 1);
+
+	if (!steam_is_initialised)
+	{
+		Result.kind = VALUE_REAL;
+		Result.val = 0;
+		return;
+	}
+
+	bool bResult = SteamUGC()->SetReturnMetadata((UGCQueryHandle_t)_ugcQueryHandle, _shouldReturn);
+	Result.kind = VALUE_REAL;
+	Result.val = (bResult) ? 1 : 0;
 }
 
 //steam_ugc_send_query( ugc_query_handle )
