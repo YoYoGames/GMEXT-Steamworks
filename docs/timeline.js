@@ -21,6 +21,7 @@
  * @func_end
  */
 
+
 /**
  * @func steam_timeline_clear_state_description
  * @desc Clears the previous set game state in the timeline.
@@ -35,6 +36,7 @@
  * This clears description for an event that happened `seconds` seconds ago.
  * @func_end
  */
+
 
 /**
  * @func steam_timeline_add_event
@@ -65,6 +67,7 @@
  * @func_end
  */
 
+
 /**
  * @func steam_timeline_start_event
  * @desc Use this to mark the start of an event (A) on the Timeline that takes some amount of time to complete. The duration of the event is determined by a matching call to EndRangeTimelineEvent. If the game wants to cancel an event in progress, they can do that with a call to ${function.steam_timeline_remove_event}.
@@ -94,9 +97,10 @@
  * @func_end
  */
 
+
 /**
  * @func steam_timeline_update_event
- * @desc Use this to update the details of an event that was started with ${function.steam_timeline_event_start}.
+ * @desc Use this to update the details of an event that was started with ${function.steam_timeline_start_event}.
  * 
  * @param {real} handle The handle for a previously created event.
  * @param {string} icon The name of the icon to show at the timeline at this point. This can be one of the icons uploaded through the Steamworks partner Site for your title, or one of the provided icons that start with steam_. The Steam Timelines overview includes a list of available icons.
@@ -123,9 +127,10 @@
  * @func_end
  */
 
+
 /**
  * @func steam_timeline_end_event
- * @desc Use this to identify the end of an event that was started with ${function.steam_timeline_event_start}.
+ * @desc Use this to identify the end of an event that was started with ${function.steam_timeline_start_event}.
  * 
  * @param {real} handle The handle for a previously created event.
  * @param {real|constant.TimelineMaxEventDuration} endOffsetSeconds The time offset in seconds to apply to the start of the event. Negative times indicate an event that happened in the past. One use of this parameter is to handle events whose significance is not clear until after the fact. For instance if the player starts a damage over time effect on another player, which kills them 3.5 seconds later, the game could pass -3.5 as the start offset and cause the event to appear in the timeline where the effect started.
@@ -142,6 +147,7 @@
  * This example demonstrates how to add a timeline event.
  * @func_end
  */
+
 
 /**
  * @func steam_timeline_remove_event
@@ -173,17 +179,17 @@
 
 
 /**
- * @func steam_timeline_set_game_mode
- * @desc Changes the color of the timeline bar (C). See ${constant.TimelineGameMode} for how to use each value.
+ * @func steam_timeline_event_open_overlay
+ * @desc Opens the Steam overlay to the section of the timeline represented by the timeline event. This event must be in the current game session, since event handles values are not valid for future runs of the game.
  * 
- * @param {constant.TimelineGameMode} mode The mode that the game is in.
+ * @param {real} event_handle Handle of the event to show in the overlay.
  * @returns {bool}
  * 
  * @example
  * ```gml
- * steam_timeline_set_game_mode(steam_timeline_game_mode_playing);
+ * steam_timeline_event_open_overlay(event_handle);
  * ```
- * This call will change the current game mode to Playing.
+ * This call will open the steam overlay showing the requested event.
  * @func_end
  */
 
@@ -192,7 +198,7 @@
  * @func steam_timeline_game_phase_start
  * @desc Use this to start a game phase. Game phases allow the user to navigate their background recordings and clips. Exactly what a game phase means will vary game to game, but the game phase should be a section of gameplay that is usually between 10 minutes and a few hours in length, and should be the main way a user would think to divide up the game. These are presented to the user in a UI that shows the date the game was played, with one row per game slice. Game phases should be used to mark sections of gameplay that the user might be interested in watching.
  * 
- * Game phases are started with `steam_timeline_game_phase_start`, and while a phase is still happening, they can have tags and attributes added to them with ${function.steam_timeline_game_phase_add_tag} or ${steam_timeline_game_phase_add_attribute}. Only one game phase can be active at a time.
+ * Game phases are started with `steam_timeline_game_phase_start`, and while a phase is still happening, they can have tags and attributes added to them with ${function.steam_timeline_game_phase_add_tag} or ${function.steam_timeline_game_phase_set_attribute}. Only one game phase can be active at a time.
  * 
  * @returns {bool}
  * 
@@ -219,9 +225,10 @@
  * @func_end
  */
 
+
 /**
  * @func steam_timeline_game_phase_set_id
- * @desc The phase ID is used to let the game identify which phase it is referring to in calls to ${function.steam_timeline_game_phase_exists} or ${function.steam_timeline_game_phase_open_overlay}. It may also be used to associated multiple phases with each other.
+ * @desc The phase ID is used to let the game identify which phase it is referring to in calls to ${function.steam_timeline_game_phase_recording_exists} or ${function.steam_timeline_game_phase_open_overlay}. It may also be used to associated multiple phases with each other.
  * 
  * @param {string} phase_id A game-provided persistent ID for a game phase. This could be a the match ID in a multiplayer game, a chapter name in a single player game, the ID of a character, etc. 
  * @returns {bool}
@@ -293,6 +300,7 @@
  * @func_end
  */
 
+
 /**
  * @func steam_timeline_game_phase_open_overlay
  * @desc Opens the Steam overlay to the section of the timeline represented by the game phase.
@@ -309,7 +317,20 @@
  */
 
 
-
+/**
+ * @func steam_timeline_set_game_mode
+ * @desc Changes the color of the timeline bar (C). See ${constant.TimelineGameMode} for how to use each value.
+ * 
+ * @param {constant.TimelineGameMode} mode The mode that the game is in.
+ * @returns {bool}
+ * 
+ * @example
+ * ```gml
+ * steam_timeline_set_game_mode(steam_timeline_game_mode_playing);
+ * ```
+ * This call will change the current game mode to Playing.
+ * @func_end
+ */
 
 
 // CONSTANTS
@@ -371,6 +392,19 @@
  * @ref steam_timeline_set_state_description
  * @ref steam_timeline_clear_state_description
  * @ref steam_timeline_add_event
+ * @ref steam_timeline_start_event
+ * @ref steam_timeline_update_event
+ * @ref steam_timeline_end_event
+ * @ref steam_timeline_remove_event
+ * @ref steam_timeline_event_overlay
+ * @ref steam_timeline_event_recording_exists
+ * @ref steam_timeline_game_phase_start
+ * @ref steam_timeline_game_phase_end
+ * @ref steam_timeline_game_phase_set_id
+ * @ref steam_timeline_game_phase_add_tag
+ * @ref steam_timeline_game_phase_set_attribute
+ * @ref steam_timeline_game_phase_open_overlay
+ * @ref steam_timeline_game_phase_recording_exists
  * @ref steam_timeline_set_game_mode
  * @section_end
  * 
