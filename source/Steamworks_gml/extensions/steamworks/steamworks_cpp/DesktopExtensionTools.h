@@ -10,4 +10,4 @@
 
 #define tracef(...) do { DebugConsoleOutput("[STEAMWORKS]: "); DebugConsoleOutput(__VA_ARGS__); DebugConsoleOutput("\n"); } while (0)
 
-std::string DesktopExtensionTools_getPathToExe();
+std::filesystem::path DesktopExtensionTools_getPathToExe();
