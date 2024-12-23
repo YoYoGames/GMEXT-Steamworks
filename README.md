@@ -17,7 +17,7 @@ After compilation the exported dll/dylib/so file is automatically copied into th
 
 ## Requirements
 
-In order to compile for Windows/macOS/Linux you are required to [download the Steam SDK v1.60](https://partner.steamgames.com/dashboard) and place it inside `source/Steamworks_sdk/`
+In order to compile for Windows/macOS/Linux you are required to [download the Steam SDK v1.61](https://partner.steamgames.com/dashboard) and place it inside `source/Steamworks_sdk/`
 
 > [!IMPORTANT]
 > Version 2.0.0 is a major release with breaking changes:
@@ -27,7 +27,7 @@ In order to compile for Windows/macOS/Linux you are required to [download the St
 > * `steam_user_get_auth_ticket_for_web_api` must now be used for HTTP Web API, along with the identity parameter (not required but heavily recommended by Valve)
 
 > [!IMPORTANT]
-> Version 2.1.0 is requires Steamworks SDK version v1.61 and won't work correctly with previous versions of the SDK. If for any reason you need to keep using a previous version please refrain from updating to the v2.1.0 version.
+> Version 2.1.0 is requires Steamworks SDK version v1.61 and won't work correctly with previous versions of the SDK. If for any reason you need to keep using a previous SDK version please refrain from updating to the v2.1.0 version.
 
 ## Documentation
 
