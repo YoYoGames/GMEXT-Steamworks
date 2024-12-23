@@ -24,13 +24,14 @@ YYEXPORT void YYExtensionInitialise(const struct YYRunnerInterface* _pFunctions,
 	if (_functions_size < sizeof(YYRunnerInterface)) {
 		DebugConsoleOutput("ERROR : runner interface mismatch in extension DLL\n ");
 	} // end if
+	
 	OldPreGraphicsInitialisation();
 	DebugConsoleOutput("YYExtensionInitialise CONFIGURED \n ");
 
 	// This stops the runner from crashing hard
 	if (!steam_is_initialised) return;
 
-    Steam_UserStats_Init();
+	Steam_UserStats_Init();
     Steam_Friends_Init();
     Steam_UGC_Init();
     Steam_Screenshots_Init();

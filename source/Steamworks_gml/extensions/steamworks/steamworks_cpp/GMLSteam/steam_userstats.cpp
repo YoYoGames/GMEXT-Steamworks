@@ -50,7 +50,6 @@ struct SLeaderboardData
 static int m_MaxLeaderboards = 64;
 static SLeaderboardInfo* m_aLeaderboardInfo;
 static int m_numLeaderboardInfo;
-static bool m_bStatsReady = false;
 static bool m_bStoreStats = false;
 static bool m_bStoringStats = false;
 static bool m_bStatsGlobalReady = false;
@@ -1112,7 +1111,7 @@ class UserStatCallbacks
 		if (pParam != nullptr && !bIOFailure)
 		{
 			DsMapAddBool(map, "success", pParam->m_bSuccess);
-			// this is a int32 for some reason... kinda low but whatever
+			// this is a int32 for some reason... kinda low but whateverSteam_UserStats_Init
 			DsMapAddDouble(map, "players", pParam->m_cPlayers);
 		}
 		else
@@ -1164,15 +1163,12 @@ YYEXPORT void /*double*/ steam_set_achievement(RValue& Result,
 	}
 
 	Result.kind = VALUE_REAL;
-	if (m_bStatsReady)	// we cant set stats until we have got callback result from SteamUserStats()->RequestCurrentStats()
+	if (SteamUserStats()->SetAchievement(pAchievementID) == true)
 	{
-		if (SteamUserStats()->SetAchievement(pAchievementID) == true)
-		{
-			// Store stats end of frame
-			m_bStoreStats = true;
-			Result.val = 1.0;
-			return;
-		}
+		// Store stats end of frame
+		m_bStoreStats = true;
+		Result.val = 1.0;
+		return;
 	}
 
 	Result.val = 0.0;
@@ -1196,16 +1192,13 @@ YYEXPORT void /*double*/ steam_get_achievement(RValue& Result,
 	}
 
 	Result.kind = VALUE_REAL;
-	// need to wait for request stats return...? i believe so
-	if (m_bStatsReady)
-	{
-		bool bAchieved = false;
 
-		if (SteamUserStats()->GetAchievement(pAchievementID, &bAchieved) == true)
-		{
-			Result.val = bAchieved ? 1.0 : 0.0;
-			return;
-		}
+	bool bAchieved = false;
+
+	if (SteamUserStats()->GetAchievement(pAchievementID, &bAchieved) == true)
+	{
+		Result.val = bAchieved ? 1.0 : 0.0;
+		return;
 	}
 	Result.val = 0.0;
 
@@ -1229,17 +1222,15 @@ YYEXPORT void /*double*/ steam_clear_achievement(RValue& Result,
 	}
 
 	Result.kind = VALUE_REAL;
-	if (m_bStatsReady)
+	bool bRet = SteamUserStats()->ClearAchievement(pAchievementID);
+	if (bRet == true)
 	{
-		bool bRet = SteamUserStats()->ClearAchievement(pAchievementID);
-		if (bRet == true)
-		{
-			// Store stats end of frame
-			m_bStoreStats = true;
-			Result.val = 1.0;
-			return;
-		}
+		// Store stats end of frame
+		m_bStoreStats = true;
+		Result.val = 1.0;
+		return;
 	}
+	
 
 	Result.val = 0.0;
 	return;
@@ -1265,15 +1256,12 @@ YYEXPORT void /*double*/ steam_set_stat_int(RValue& Result,
 	}
 
 	Result.kind = VALUE_REAL;
-	if (m_bStatsReady)
+	if (SteamUserStats()->SetStat(pStatName, (int32)val) == true)
 	{
-		if (SteamUserStats()->SetStat(pStatName, (int32)val) == true)
-		{
-			// Store stats end of frame
-			m_bStoreStats = true;
-			Result.val = 1.0;
-			return;
-		}
+		// Store stats end of frame
+		m_bStoreStats = true;
+		Result.val = 1.0;
+		return;
 	}
 
 	Result.val = 0.0;
@@ -1298,14 +1286,11 @@ YYEXPORT void /*double*/ steam_set_stat_float(RValue& Result,
 	}
 
 	Result.kind = VALUE_REAL;
-	if (m_bStatsReady)
+	if (SteamUserStats()->SetStat(pStatName, (float)val) == true)
 	{
-		if (SteamUserStats()->SetStat(pStatName, (float)val) == true)
-		{
-			m_bStoreStats = true;  // Store stats end of frame
-			Result.val = 1.0;
-			return;
-		}
+		m_bStoreStats = true;  // Store stats end of frame
+		Result.val = 1.0;
+		return;
 	}
 
 	Result.val = 0.0;
@@ -1332,14 +1317,11 @@ YYEXPORT void /*double*/ steam_set_stat_avg_rate(
 	}
 
 	Result.kind = VALUE_REAL;
-	if (m_bStatsReady)
+	if (SteamUserStats()->UpdateAvgRateStat(pStatName, (float)dCountThisSession, dSessionLength) == true)
 	{
-		if (SteamUserStats()->UpdateAvgRateStat(pStatName, (float)dCountThisSession, dSessionLength) == true)
-		{
-			m_bStoreStats = true;  // Store stats end of frame
-			Result.val = 1.0;
-			return;
-		}
+		m_bStoreStats = true;  // Store stats end of frame
+		Result.val = 1.0;
+		return;
 	}
 
 	Result.val = 0.0;
@@ -1363,15 +1345,12 @@ YYEXPORT void /*double*/ steam_get_stat_int(RValue& Result,
 	}
 
 	Result.kind = VALUE_REAL;
-	if (m_bStatsReady)	// cannot query until RequestCurrentStats() callback received
-	{
-		int32 statval;
+	int32 statval;
 
-		if (SteamUserStats()->GetStat(pStatName, &statval) == true)
-		{
-			Result.val = (double)statval;
-			return;
-		}
+	if (SteamUserStats()->GetStat(pStatName, &statval) == true)
+	{
+		Result.val = (double)statval;
+		return;
 	}
 
 	Result.val = 0.0;
@@ -1394,15 +1373,12 @@ YYEXPORT void /*double*/ steam_get_stat_float(RValue& Result,
 	}
 
 	Result.kind = VALUE_REAL;
-	if (m_bStatsReady)	// cannot query until RequestCurrentStats() callback received
-	{
-		float statval;
+	float statval;
 
-		if (SteamUserStats()->GetStat(pStatName, &statval) == true)
-		{
-			Result.val = (double)statval;
-			return;
-		}
+	if (SteamUserStats()->GetStat(pStatName, &statval) == true)
+	{
+		Result.val = (double)statval;
+		return;
 	}
 
 	Result.val = 0.0;
@@ -1426,15 +1402,12 @@ YYEXPORT void /*double*/ steam_get_stat_avg_rate(RValue& Result,
 	}
 
 	Result.kind = VALUE_REAL;
-	if (m_bStatsReady)	// cannot query until RequestCurrentStats() callback received
-	{
-		float statval;
+	float statval;
 
-		if (SteamUserStats()->GetStat(pStatName, &statval) == true)
-		{
-			Result.val = (double)statval;
-			return;
-		}
+	if (SteamUserStats()->GetStat(pStatName, &statval) == true)
+	{
+		Result.val = (double)statval;
+		return;
 	}
 
 	Result.val = 0.0;
@@ -1456,15 +1429,12 @@ YYEXPORT void /*double*/ steam_reset_all_stats(RValue& Result,
 	}
 
 	Result.kind = VALUE_REAL;
-	if (m_bStatsReady)
+	if (SteamUserStats() != NULL)
 	{
-		if (SteamUserStats() != NULL)
-		{
-			SteamUserStats()->ResetAllStats(false);
-			m_bStoreStats = true;  // Store stats end of frame
-			Result.val = 1.0;
-			return;
-		}
+		SteamUserStats()->ResetAllStats(false);
+		m_bStoreStats = true;  // Store stats end of frame
+		Result.val = 1.0;
+		return;
 	}
 
 	Result.val = 0.0;
@@ -1514,17 +1484,14 @@ YYEXPORT void steam_request_global_stats(RValue& Result, CInstance* selfinst, CI
 	}
 
 	Result.kind = VALUE_REAL;
-	if (m_bStatsReady)
+	if (SteamUserStats() != NULL)
 	{
-		if (SteamUserStats() != NULL)
-		{
-			SteamAPICall_t mSteamAPICall_t = SteamUserStats()->RequestGlobalStats(nHistoryDays);
-			CRequestGlobalStats* callback = new CRequestGlobalStats(getAsyncRequestInd());
-			callback->SetCallResult(mSteamAPICall_t);
+		SteamAPICall_t mSteamAPICall_t = SteamUserStats()->RequestGlobalStats(nHistoryDays);
+		CRequestGlobalStats* callback = new CRequestGlobalStats(getAsyncRequestInd());
+		callback->SetCallResult(mSteamAPICall_t);
 
-			Result.val = 1.0;
-			return;
-		}
+		Result.val = 1.0;
+		return;
 	}
 
 	Result.val = 0.0;
@@ -1574,18 +1541,14 @@ YYEXPORT void steam_request_global_achievement_percentages(RValue& Result, CInst
 	}
 
 	Result.kind = VALUE_REAL;
-
-	if (m_bStatsReady)
+	if (SteamUserStats() != NULL)
 	{
-		if (SteamUserStats() != NULL)
-		{
-			SteamAPICall_t mSteamAPICall_t = SteamUserStats()->RequestGlobalAchievementPercentages();
-			CRequestGlobalAchievementPercentages* callback = new CRequestGlobalAchievementPercentages(getAsyncRequestInd());
-			callback->SetCallResult(mSteamAPICall_t);
+		SteamAPICall_t mSteamAPICall_t = SteamUserStats()->RequestGlobalAchievementPercentages();
+		CRequestGlobalAchievementPercentages* callback = new CRequestGlobalAchievementPercentages(getAsyncRequestInd());
+		callback->SetCallResult(mSteamAPICall_t);
 
-			Result.val = 1.0;
-			return;
-		}
+		Result.val = 1.0;
+		return;
 	}
 
 	Result.val = 0.0;
@@ -1877,15 +1840,12 @@ YYEXPORT void /*double*/ steam_reset_all_stats_achievements(RValue& Result,
 	}
 
 	Result.kind = VALUE_REAL;
-	if (m_bStatsReady)
+	if (SteamUserStats() != NULL)
 	{
-		if (SteamUserStats() != NULL)
-		{
-			SteamUserStats()->ResetAllStats(true);
-			m_bStoreStats = true;  // Store stats end of frame
-			Result.val = 1.0;
-			return;
-		}
+		SteamUserStats()->ResetAllStats(true);
+		m_bStoreStats = true;  // Store stats end of frame
+		Result.val = 1.0;
+		return;
 	}
 
 	Result.val = 0.0;
@@ -1969,15 +1929,13 @@ void Steam_UserStats_Init()
 	//(register callbacks?)
 	m_pUserStatCallback = new UserStatCallbacks();
 
-	m_aLeaderboardInfo = (SLeaderboardInfo*)g_pYYRunnerInterface->YYAlloc(sizeof(SLeaderboardInfo) * m_MaxLeaderboards);  // , __FILE__, __LINE__);
+	m_aLeaderboardInfo = (SLeaderboardInfo*)g_pYYRunnerInterface->YYAlloc(sizeof(SLeaderboardInfo) * m_MaxLeaderboards);
 
-	// request stats - !!This call needs to be made before you can set any stats or achievements !!
-	//- we need to WAIT for callback before we can get or set stats ( i think )
-	m_bStatsReady = false;
+	// Starting on SDK v1.61 the data is synced on init from the Steam Client
+
 	m_bStoreStats = false;
 	m_bStoringStats = false;
-	DebugConsoleOutput("Ok, you can continue\n");
-	// SteamUserStats()->RequestCurrentStats();  // You will receive a UserStatsReceived_t callback when the data is ready.
+	DebugConsoleOutput("Received stats and achievements from Steam\n");
 }
 
 YYEXPORT void /*double*/ steam_stats_ready(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)  //()/*Steam_UserStats_StatsReady*/
@@ -1989,8 +1947,9 @@ YYEXPORT void /*double*/ steam_stats_ready(RValue& Result, CInstance* selfinst, 
 		return;
 	}
 
+	// This is always true (since 1.61 the data is synced on init)
 	Result.kind = VALUE_REAL;
-	Result.val = (m_bStatsReady) ? 1.0 : 0;
+	Result.val = 1.0;
 	return;
 }
 
@@ -1999,7 +1958,6 @@ void OnUserStatsReceivedCallback(UserStatsReceived_t* pCallback)
 	if (k_EResultOK == pCallback->m_eResult)
 	{
 		DebugConsoleOutput("Received stats and achievements from Steam\n");
-		m_bStatsReady = true;  // ready to set & get stats
 	}
 	else
 	{
@@ -2009,9 +1967,6 @@ void OnUserStatsReceivedCallback(UserStatsReceived_t* pCallback)
 
 void Steam_UserStats_Process()
 {
-	if (!m_bStatsReady)
-		return;
-
 	// stats or achievements updated, send them off
 	if (m_bStoreStats)
 	{
