@@ -311,6 +311,32 @@
  */
 
 /**
+ * @func steam_ugc_set_item_metadata
+ * @desc This function sets the metadata for the given UGC item.
+ * The function will return `true` if the API was successfully accessed and `false` if there was an issue.
+ * 
+ * @param {real} ugc_update_handle The unique handle for the UGC to be updated.
+ * @param {string} metadata The metadata to be associated with the current UGC.
+ * 
+ * @returns {boolean}
+ * 
+ * @func_end
+ */
+
+/**
+ * @func steam_ugc_query_set_return_metadata
+ * @desc This function sets whether to return the developer-specified metadata for the items on a pending UGC Query.
+ * The function will return `true` if the API was successfully accessed and `false` if there was an issue.
+ * 
+ * [[Note: This must be set before you send a UGC Query handle using ${function.steam_ugc_send_query}.]]
+ * 
+ * @param {real} ugc_query_handle The query handle to use.
+ * @param {bool} return_metadata Whether to have the query return the metadata information.
+ * 
+ * @func_end
+ */
+
+/**
  * @func steam_ugc_submit_item_update
  * @desc This function will submit the UGC item indexed by the given handle to the Steam Workshop servers, adding the change notes to be used for the given item.
  * This is an asynchronous function that will return an asynchronous ID and trigger the ${event.steam} when the task is finished.
@@ -1114,6 +1140,7 @@
  * @ref steam_ugc_set_item_tags
  * @ref steam_ugc_set_item_content
  * @ref steam_ugc_set_item_preview
+ * @ref steam_ugc_set_item_metadata
  * @ref steam_ugc_submit_item_update
  * @ref steam_ugc_get_item_update_progress
  * 
@@ -1145,6 +1172,7 @@
  * @ref steam_ugc_set_item_tags
  * @ref steam_ugc_set_item_content
  * @ref steam_ugc_set_item_preview
+ * @ref steam_ugc_set_item_metadata
  * @ref steam_ugc_submit_item_update
  * @ref steam_ugc_get_item_update_progress
  * @ref steam_ugc_subscribe_item
@@ -1165,6 +1193,7 @@
  * @ref steam_ugc_query_add_required_tag
  * @ref steam_ugc_query_add_excluded_tag
  * @ref steam_ugc_query_set_return_long_description
+ * @ref steam_ugc_query_set_return_metadata
  * @ref steam_ugc_query_set_return_total_only
  * @ref steam_ugc_query_set_allow_cached_response
  * @ref steam_ugc_send_query
