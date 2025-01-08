@@ -38,7 +38,6 @@ YYEXPORT void YYExtensionInitialise(const struct YYRunnerInterface* _pFunctions,
     Steam_RemoteStorage_Init();
 }
 
-
 std::vector<const char*> _SW_GetArrayOfStrings(RValue* arg, int arg_idx, const char* func)
 {
 	RValue* pV = &(arg[arg_idx]);
@@ -76,9 +75,10 @@ std::vector<int32> _SW_GetArrayOfInt32(RValue* arg, int arg_idx, const char* fun
 		RValue elem;
 		for (int i = 0; GET_RValue(&elem, pV, NULL, i); ++i)
 		{
-			if (KIND_RValue(&elem) != VALUE_INT32)
+			int kind = KIND_RValue(&elem);
+			if (kind != VALUE_REAL && kind != VALUE_INT32 && kind != VALUE_INT64)
 			{
-				YYError("%s argument %d [array element %d] incorrect type (%s) expecting a String", func, (arg_idx + 1), i, KIND_NAME_RValue(pV));
+				YYError("%s argument %d [array element %d] incorrect type (%s) expecting a numeric value", func, (arg_idx + 1), i, KIND_NAME_RValue(&elem));
 			}
 
 			vec.push_back(YYGetInt32(&elem, i));
@@ -102,9 +102,10 @@ std::vector<uint64> _SW_GetArrayOfUint64(RValue* arg, int arg_idx, const char* f
 		RValue elem;
 		for (int i = 0; GET_RValue(&elem, pV, NULL, i); ++i)
 		{
-			if (KIND_RValue(&elem) != VALUE_INT64)
+			int kind = KIND_RValue(&elem);
+			if (kind != VALUE_REAL && kind != VALUE_INT32 && kind != VALUE_INT64)
 			{
-				YYError("%s argument %d [array element %d] incorrect type (%s) expecting a String", func, (arg_idx + 1), i, KIND_NAME_RValue(pV));
+				YYError("%s argument %d [array element %d] incorrect type (%s) expecting a numeric value", func, (arg_idx + 1), i, KIND_NAME_RValue(&elem));
 			}
 
 			vec.push_back(YYGetInt64(&elem, i));
@@ -185,57 +186,5 @@ void _SW_SetArrayOfInt64(RValue* _array, std::vector<int64> &values)
 		SET_RValue(_array, &tag, NULL, i);
 		FREE_RValue(&tag);
 	}
-}
-
-YYEXPORT double SimpleDesktopExample_Test(double val)
-{
-	return val;
-}
-
-YYEXPORT void SimpleDesktopExample_ReturnString(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)
-{
-	DebugConsoleOutput("SimpleDesktopExample_ReturnString \n ");
-	YYCreateString(&Result, "Hello World");
-}
-
-double val = 0;
-YYEXPORT void SimpleDesktopExample_ReturnDouble(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)
-{
-	double inc = YYGetReal(arg, 0);
-
-	val += inc;
-
-	Result.kind = VALUE_REAL;
-	Result.val = val;
-}
-
-YYEXPORT void SimpleDesktopExample_AsyncCallback(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)
-{
-	int map = CreateDsMap(0,0);
-	DsMapAddString(map, "type", "SimpleDesktopExample_AsyncCallback");
-	DsMapAddDouble(map, "double", val);
-	DsMapAddString(map, "string", "Hello World");
-
-	CreateAsyncEventWithDSMap(map, 70);
-}
-/*
-YYEXPORT void SimpleDesktopExample_EchoStruct(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)
-{
-	RValue* pV = &(arg[0]);
-
-	COPY_RValue(&Result, pV);
-	FREE_RValue(pV);
-}
-*/
-YYEXPORT void SimpleDesktopExample_ReturnStruct(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)
-{
-	RValue Struct = { 0 };
-	YYStructCreate(&Struct);
-
-	YYStructAddDouble(&Struct, "double", val);
-	YYStructAddString(&Struct, "string", "YoYoGames X Opera");
-
-	COPY_RValue(&Result, &Struct);
-	FREE_RValue(&Struct);
 }
 
