@@ -15,7 +15,7 @@
   "copyToTargets":194,
   "description":"",
   "exportToGame":true,
-  "extensionVersion":"2.1.1",
+  "extensionVersion":"2.1.2",
   "files":[
     {"$GMExtensionFile":"","%Name":"Steamworks.ext","constants":[
         {"$GMExtensionConstant":"","%Name":"ov_friends","hidden":false,"name":"ov_friends","resourceType":"GMExtensionConstant","resourceVersion":"2.0","value":"0",},
@@ -750,7 +750,7 @@
   "name":"Steamworks",
   "options":[
     {"$GMExtensionOption":"","%Name":"__label1","defaultValue":"BUILD OPTIONS:","description":"","displayName":"","exportToINI":false,"extensionId":null,"guid":"fc7d5b5e-1344-49ee-bca6-8579b0c68d50","hidden":false,"listItems":[],"name":"__label1","optType":5,"resourceType":"GMExtensionOption","resourceVersion":"2.0",},
-    {"$GMExtensionOption":"","%Name":"sdkPath","defaultValue":"","description":"The path to the steam sdk (v1.61)","displayName":"Steam SDK","exportToINI":false,"extensionId":null,"guid":"2d6a1c61-98e7-4289-8eff-d70ef6dac1ff","hidden":false,"listItems":[],"name":"sdkPath","optType":4,"resourceType":"GMExtensionOption","resourceVersion":"2.0",},
+    {"$GMExtensionOption":"","%Name":"sdkPath","defaultValue":"../Steamworks_sdk","description":"The path to the steam sdk (v1.61)","displayName":"Steam SDK","exportToINI":false,"extensionId":null,"guid":"2d6a1c61-98e7-4289-8eff-d70ef6dac1ff","hidden":false,"listItems":[],"name":"sdkPath","optType":4,"resourceType":"GMExtensionOption","resourceVersion":"2.0",},
     {"$GMExtensionOption":"","%Name":"__label2","defaultValue":"APP OPTIONS:","description":"","displayName":"","exportToINI":false,"extensionId":null,"guid":"c37a2e1d-c82f-4d90-9d0a-b4a2b3b3da08","hidden":false,"listItems":[],"name":"__label2","optType":5,"resourceType":"GMExtensionOption","resourceVersion":"2.0",},
     {"$GMExtensionOption":"","%Name":"appID","defaultValue":"480","description":"Get this value from your steam dashboard.","displayName":"Application ID","exportToINI":false,"extensionId":null,"guid":"2d512363-a8c0-4025-8b9f-b53e231b025d","hidden":false,"listItems":[],"name":"appID","optType":1,"resourceType":"GMExtensionOption","resourceVersion":"2.0",},
     {"$GMExtensionOption":"","%Name":"debug","defaultValue":"Auto","description":"Auto - automatically sets debug to false on export;\nEnabled - will always keep debug mode on (USE AT OWN RISK);","displayName":"Debug","exportToINI":true,"extensionId":null,"guid":"96a61e5d-c4ac-4104-b5ac-c8ef936e2609","hidden":false,"listItems":[
