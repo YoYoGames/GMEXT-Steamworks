@@ -362,7 +362,7 @@ bool OnFindLeaderboardResult(LeaderboardFindResult_t* pCallback, bool bIOFailure
 	else if (!pCallback->m_bLeaderboardFound)
 	{
 
-		int map = CreateDsMap(4, "event_type", (double)0.0, "leaderboard_download", "lb_name", (double)0.0, pHandler->m_pszName, "status", (double)1.0, NULL, "id",
+		int map = CreateDsMap(4, "event_type", (double)0.0, "leaderboard_not_found", "lb_name", (double)0.0, pHandler->m_pszName, "status", (double)1.0, NULL, "id",
 			(double)pHandler->async_id, NULL);
 		g_pYYRunnerInterface->CreateAsyncEventWithDSMap(map, EVENT_OTHER_WEB_STEAM);
 
