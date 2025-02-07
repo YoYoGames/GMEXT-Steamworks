@@ -299,7 +299,7 @@
  * @func steam_download_scores
  * @desc This function is used to retrieve a sequential range of leaderboard entries by leaderboard ranking. The `start_idx` and `end_idx` parameters control the requested range of ranks, for example, you can display the top 10 on a leaderboard for your game by setting the start value to 1 and the end value to 10. The leaderboard name is a string that was defined when you created the leaderboard using the function ${function.steam_create_leaderboard}.
  * 
- * [[NOTE: If the function call fails for any reason it will return -1 and the async event will not be triggered.]]
+ * [[NOTE: The function will return 0 if the extension hasn't finished initialisation or -1 in case of some other error.]]
  * 
  * @param {string} lb_name The name of the leaderboard that you are downloading the scores from
  * @param {real} start_idx The start position within the leaderboard
@@ -308,12 +308,21 @@
  * @returns {real}
  * 
  * @event steam
+ * @desc Triggered if a leaderboard with the given name is found:
  * @member {real} id The asynchronous request ID
  * @member {string} event_type The string value `"leaderboard_download"`
  * @member {bool} status The status code if download fails
  * @member {string} lb_name The name of the leaderboard
  * @member {real} num_entries The number of entries returned
  * @member {string} entries A JSON-formatted string with all the downloaded entries (see ${struct.LeaderboardEntry} for details)
+ * @event_end
+ * 
+ * @event steam
+ * @desc Triggered if no leaderboard could be found:
+ * @member {real} id The asynchronous request ID
+ * @member {string} event_type The string `"leaderboard_not_found"`
+ * @member {bool} status The status of the request
+ * @member {string} lb_name The name of the leaderboard
  * @event_end
  * 
  * @example
@@ -386,7 +395,7 @@
  * @func steam_download_scores_around_user
  * @desc This function is used to retrieve leaderboard entries relative to the current user's entry. The `range_start` parameter is the number of entries to retrieve **before** the current user's entry, and the `range_end` parameter is the number of entries after the current user's entry, and the current user's entry is **always** included in the results. For example, if the current user is number 5 on a given leaderboard, then setting the start range to -2 and the end range to 2 will return 5 entries: 3 through 7. If there are not enough entries in the leaderboard before or after the user's entry, Steam will adjust the range start and end points trying to maintained the range size. For example, if the user is #1 on the leaderboard, start is set to -2, and end is set to 2, Steam will return the first 5 entries in the leaderboard.
  * 
- * [[NOTE: If the function call fails for any reason it will return -1 and the async event will not be triggered.]]
+ * [[NOTE: The function will return 0 if the extension hasn't finished initialisation or -1 in case of some other error.]]
  * 
  * @param {string} lb_name The name of the leaderboard that you are downloading the scores from
  * @param {real} range_start The start position within the leaderboard
@@ -395,12 +404,21 @@
  * @returns {real}
  * 
  * @event steam
+ * @desc Triggered if a leaderboard with the given name is found:
  * @member {real} id The asynchronous request ID
  * @member {string} event_type The string value `"leaderboard_download"`
  * @member {bool} status The status code if download fails
  * @member {string} lb_name The name of the leaderboard
  * @member {real} num_entries The number of entries returned
  * @member {string} entries A JSON-formatted string with all the downloaded entries (see ${struct.LeaderboardEntry} for details)
+ * @event_end
+ * 
+ * @event steam
+ * @desc Triggered if no leaderboard with the given name could be found:
+ * @member {real} id The asynchronous request ID
+ * @member {string} event_type The string `"leaderboard_not_found"`
+ * @member {bool} status The status of the request
+ * @member {string} lb_name The name of the leaderboard
  * @event_end
  * 
  * @example
@@ -415,19 +433,28 @@
  * @func steam_download_friends_scores
  * @desc With this function you can retrieve *only* the scores on the leaderboard that belong to those people that are marked as "friends" in the Steam client. So, if your leaderboard has 200 entries, and 50 of them are your friends, this function will retrieve only those 50 results. The leaderboard name is a string that was defined when you created the leaderboard using the function ${function.steam_create_leaderboard}.
  * 
- * [[NOTE: If the function call fails for any reason it will return -1 and the async event will not be triggered.]]
+ * [[NOTE: The function will return 0 if the extension hasn't finished initialisation or -1 in case of some other error.]]
  * 
  * @param {string} lb_name The name of the leaderboard that you are downloading the scores from
  * 
  * @returns {real}
  * 
  * @event steam
+ * @desc Triggered if a leaderboard with the given name is found:
  * @member {real} id The asynchronous request ID
  * @member {string} event_type The string value `"leaderboard_download"`
  * @member {int64} status The status code if download fails
  * @member {string} lb_name The name of the leaderboard
  * @member {real} num_entries The number of returned entries
  * @member {string} entries A JSON formatted string with all the downloaded entries (see ${struct.LeaderboardEntry} for details)
+ * @event_end
+ * 
+ * @event steam
+ * @desc Triggered if no leaderboard with the given name could be found:
+ * @member {real} id The asynchronous request ID
+ * @member {string} event_type The string `"leaderboard_not_found"`
+ * @member {bool} status The status of the request
+ * @member {string} lb_name The name of the leaderboard
  * @event_end
  * 
  * @example
