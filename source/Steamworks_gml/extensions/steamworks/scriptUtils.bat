@@ -6,6 +6,7 @@ shift & goto :%~1
 :scriptInit
     set "LOG_LABEL=UNSET"
     set "LOG_LEVEL=-1"
+    set PSModulePath=
 
     call :assertPowerShellExecutionPolicy
 
