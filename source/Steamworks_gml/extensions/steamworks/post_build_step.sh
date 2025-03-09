@@ -22,6 +22,9 @@ setupmacOS() {
             YYprojectName=$(basename "${YYprojectPath%.*}")
         fi
 
+        # Replace spaces with underscores in YYprojectName
+        YYprojectName=${YYprojectName// /_}
+
         itemCopyTo "$SDK_SOURCE" "${YYprojectName}/${YYprojectName}/Supporting Files/libsteam_api.dylib"
     fi
 }
