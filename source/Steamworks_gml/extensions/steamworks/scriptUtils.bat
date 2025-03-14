@@ -6,7 +6,7 @@ shift & goto :%~1
 :scriptInit
     set "LOG_LABEL=UNSET"
     set "LOG_LEVEL=-1"
-    set PSModulePath=
+    set PSMODULEPATH=
 
     call :assertPowerShellExecutionPolicy
 
@@ -137,7 +137,7 @@ exit /b 0
     :: Check if the source path exists
     if not exist "!sourcePath!" (
         :: Log an error message if the source doesn't exist and exit with error code 1
-        call :logError "Failed to copy "!sourcePath!" to "!destPath!" (source doesn't exist)."
+        call :logError "Failed to copy '!sourcePath!' to '!destPath!' (source doesn't exist)."
         exit /b 1
     )
 
@@ -152,18 +152,18 @@ exit /b 0
         :: Check if the destination directory exists
         if not exist "!destDir!" (
             :: Log information about creating the destination directory
-            call :logInformation "Destination directory "!destDir!" does not exist. Creating it."
+            call :logInformation "Destination directory '!destDir!' does not exist. Creating it."
             :: Create the destination directory
             mkdir "!destDir!"
             :: Check if the directory creation was successful
             if !errorlevel! neq 0 (
                 :: Log an error message if the directory couldn't be created and exit with error code 1
-                call :logError "Failed to create destination directory ""!destDir!""."
+                call :logError "Failed to create destination directory '!destDir!'."
                 exit /b 1
             )
         )
         :: Log information about copying the file
-        call :logInformation "Copying file "!sourcePath!" to "!destPath!""
+        call :logInformation "Copying file '!sourcePath!' to '!destPath!'."
         :: Copy the file to the destination
         copy /Y "!sourcePath!" "!destPath!"
     )
@@ -171,12 +171,12 @@ exit /b 0
     :: Check if the copy operation was successful
     if !errorlevel! neq 0 (
         :: Log an error message if the copy failed and exit with error code 1
-        call :logError "Failed to copy "!sourcePath!" to "!destPath!"."
+        call :logError "Failed to copy '!sourcePath!' to '!destPath!'."
         exit /b 1
     )
 
     :: Log information that the copy was successful
-    call :logInformation "Copied "!sourcePath!" to "!destPath!"."
+    call :logInformation "Copied '!sourcePath!' to '!destPath!'."
 
     :: End the local environment changes (delayed variable expansion)
     endlocal
