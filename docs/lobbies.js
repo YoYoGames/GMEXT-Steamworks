@@ -233,13 +233,16 @@
  *     }
  * }
  * ```
- * The code example will loop through all the members in a lobby and transfers ownership to the first member that is not the owner.
+ * The code example will loop through all the members in a lobby and transfer ownership to the first member that is not the owner.
  * @func_end
  */
 
 /**
  * @func steam_lobby_join_id
- * @desc This function starts joining the lobby with the given ID. Returns whether or not the API was correctly initialized.
+ * @desc This function starts joining the lobby with the given ID. Returns whether or not the API was correctly initialised.
+ * 
+ * [[Note: The lobby ID value returned by Steam in the ${event.steam} may be different from the one you passed to the function. This is because Steam stores this info in a type `CSteamID`, which internally is an int64 that not only contains the lobby ID but also other fields in the remaining bits. Of these fields, Steam might change the `Instance` field, leading to a different value being returned. The lobby ID part will be unchanged, however.
+ * You should always make sure to use this modified lobby ID value returned by Steam in subsequent function calls.]]
  * 
  * @param {int64} lobby_id Identifier of the lobby
  * 
@@ -258,6 +261,8 @@
  * @member {int64} user_id the Steam ID of the user that joined or left the lobby
  * @member {int64} change_id the ID that has "changed", the same as user_id
  * @event_end
+ * 
+ * @returns {boolean}
  * 
  * @example
  * ```gml
@@ -853,7 +858,7 @@
  * @desc These are the constants used by this API:
  * @ref LobbyFilterComparisonType
  * @ref LobbyFilterDistanceMode
- * @ref LobbyType)
+ * @ref LobbyType
  * @section_end
  * 
  * @module_end
