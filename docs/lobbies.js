@@ -2,8 +2,7 @@
 
 /**
  * @func steam_lobby_activate_invite_overlay
- * @desc This function displays an invitation overlay if currently in a lobby.
- * The invitation overlay is much akin to the friends-list overlay, but only shows online friends, and shows an "invite" button on each row.
+ * @desc This function activates the [Steam-overlay](https://partner.steamgames.com/doc/features/overlay) to open the invite dialog. Invitations sent from this dialog will be for the provided lobby.
  * 
  * @returns {boolean}
  * 
