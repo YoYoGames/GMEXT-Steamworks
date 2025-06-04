@@ -2,7 +2,7 @@
 
 /**
  * @func steam_show_floating_gamepad_text_input
- * @desc With this function you can show a floating gamepad keyboard window, all input is emulated as if it is a physical keyboard, so ${var.keyboard_string} or ${function.keyboard_check} can be used to obtain the input. This function only works in Big Picture or on the Steam Deck. Returns `true` if the keyboard has been shown successfully, `false` otherwise.
+ * @desc With this function you can show a floating gamepad keyboard window, all input is emulated as if it is a physical keyboard, so ${var.keyboard_string} or ${function.keyboard_check} can be used to obtain the input. This function only works in Big Picture mode or on the Steam Deck. Returns `true` if the keyboard has been shown successfully, `false` otherwise.
  * 
  * [[WARNING: You must call ${function.steam_utils_enable_callbacks} prior to calling this function if you wish to receive `Async - Steam` gamepad keyboard events.]]
  * 
@@ -217,6 +217,8 @@
  * @module utilities
  * @title Utilities
  * @desc The Steam utility functions provide access to gamepad keyboard UI and Steam Deck getters.
+ * 
+ * [[Tip: If you turn on Big Picture mode on Steam, you can use the text input functions with the Steam virtual keyboard, also when running your game from the IDE.]]
  * 
  * @section_func Functions
  * The following functions can be used to access Steam Utilities from within GameMaker: 
