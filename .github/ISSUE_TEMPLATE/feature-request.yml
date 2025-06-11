@@ -1,0 +1,20 @@
+name: Feature Request
+description: Suggest an improvement, SDK update, or new functionality you would like to see added for this extension
+type: 'Feature'
+labels: ["Steamworks", "documentation"]
+body:
+ - type: textarea
+   id: desciption
+   attributes:
+     label: Describe the current problem and the solution you would like
+     description: Tell us why you cannot achieve this right now and what you want to be changed as part of this report. Paste in any images and external links as you require.
+   validations:
+     required: true
+     
+ - type: textarea
+   id: alternatives
+   attributes:
+     label: Describe any alternative solutions
+     description: A clear and concise description of any alternative solutions or features you have considered.
+   validations:
+     required: false
