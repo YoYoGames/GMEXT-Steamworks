@@ -1,6 +1,6 @@
 name: Bug Report
 description: File a bug report for issues that only happen when this extension is in your project
-labels: ["Steamworks"]
+labels: ["Steamworks","extension"]
 type: "Extension Bug"
 body:
   - type: markdown
