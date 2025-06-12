@@ -1,15 +1,11 @@
-name: Bug Report
-description: File a bug report for issues that only happen when this extension is in your project
+name: Extension Bug
+description: Report a bug that only happens when the latest version of this extension is in your project
 labels: ["Steamworks","extension"]
 type: "Extension Bug"
 body:
   - type: markdown
     attributes:
       value: |
-        For in-game bugs which also happen without this extension, or about using GameMaker itself, DO NOT report that here! (Help  inside GameMaker.)
-        
-        Ensure the bug happens in the latest version of this extension before sending any bug reports! (DO NOT send reports for older versions.)
-        
         Search for any existing reports of this bug first! (If one exists, DO NOT file yours now - add a thumbs-up/comment on the existing report.)
        
         Most fields need to be filled-in before you can submit, as it's all required information to us confirm and fix this bug.
@@ -18,7 +14,7 @@ body:
     id: description
     attributes:
       label: Description
-      description: Write a thorough description of the bug. Paste any relevant screenshots into here also. DO NOT paste more than a couple of code (send a sample project instead!) and DO NOT add a web URL and assume we will read the external thread to work the bug ourselves, as we will almost certainly just close the report!
+      description: Write a thorough description of the bug. You may paste any relevant screenshots in. DO NOT paste more than a couple of lines of code (send a sample project instead!). DO NOT add a web URL and assume we will read any external discussion to work the bug ourselves, as we will almost certainly just close the report.
     validations:
       required: true
       
@@ -30,6 +26,14 @@ body:
     validations:
       required: false
       
+  - type: input
+    id: sample
+    attributes:
+      label: Sample Package
+      description: Recreate the problem and then use the Help > Upload a Bug Sample tool inside GameMaker. Ideally, say yes to including your project which shows the issue! Then paste the download URL into the box below.
+    validations:
+      required: true
+
   - type: textarea
     id: steps
     attributes:
@@ -60,9 +64,9 @@ body:
     id: gm-version
     attributes:
       label: Which version of GameMaker are you reporting this issue for?
-      description: Double-click or right-click the version number in the top-right corner of GameMaker, and then paste the version number here. 
+      description: Double-click or right-click the version number in the top-right corner of GameMaker and then paste the version number here. 
     validations:
-      required: false
+      required: true
     
   - type: dropdown
     id: platforms
@@ -83,15 +87,7 @@ body:
         - Switch
         - Xbox (GDK)
     validations:
-      required: false
-      
-  - type: input
-    id: sample
-    attributes:
-      label: Sample Package
-      description: Please create as small a sample project as you can make which shows the problem and then use the Help > Upload a Bug Sample tool inside GameMaker. Say yes to including that little sample project! Then paste the download URL into the box below.
-    validations:
-      required: false
+      required: true
           
   - type: markdown
     attributes:
