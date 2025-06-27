@@ -77,5 +77,25 @@ if(async_load[?"status"])
 			steam_ugc_delete_item(item);
 			instance_destroy();
 		break
+		
+		case 7:
+			show_debug_message("Add To Favorites")
+			steam_ugc_add_item_to_favorites(item)
+		break
+		
+		case 8:
+			show_debug_message("Remove From Favorites")
+			steam_ugc_remove_item_from_favorites(item)
+		break
+		
+		case 9:
+			show_debug_message("Vote Up")
+			steam_ugc_set_user_item_vote(item,true)
+		break
+		
+		case 10:
+			show_debug_message("Get Vote")
+			steam_ugc_get_user_item_vote(item)
+		break
 	}
 }

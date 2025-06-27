@@ -13,7 +13,12 @@ text =
   (3) Install Info
   (4) Update Info
   (5) Details
-  (6) Delete";
+  (6) Delete
+  (7) Add To Favorites
+  (8) Remove From Favorites
+  (9) Vote Up
+  (10) Get Vote"
+  ;
 
 valign = fa_top;
 halign = fa_left;

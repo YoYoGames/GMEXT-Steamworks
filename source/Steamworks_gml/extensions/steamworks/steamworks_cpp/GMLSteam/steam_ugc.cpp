@@ -730,6 +730,113 @@ void OnUgcQueryResult( SteamUGCQueryCompleted_t* pCallback, bool bIOFailure, int
 
 ///////////////////////////////////////
 
+class CRequestUserFavoriteItemsListChanged
+{
+public:
+	int m_asyncId;
+	CCallResult<CRequestUserFavoriteItemsListChanged, UserFavoriteItemsListChanged_t>	m_SteamCallResultUserFavoriteItemsListChanged_t;
+	CRequestUserFavoriteItemsListChanged(int _asyncId) : m_asyncId(_asyncId) {}
+
+	void SetCallResult(SteamAPICall_t apicall)
+	{
+		m_SteamCallResultUserFavoriteItemsListChanged_t.Set(apicall, this, &CRequestUserFavoriteItemsListChanged::OnFavoriteChanged);
+	}
+
+	void OnFavoriteChanged(UserFavoriteItemsListChanged_t* pParam, bool bIOFailure)
+	{
+		const char* type = "";
+		if (pParam->m_bWasAddRequest)
+			type = "steam_ugc_add_item_to_favorites";
+		else
+			type = "steam_ugc_remove_item_from_favorites";
+
+		int result = (bIOFailure) ? 0 : pParam->m_eResult;
+		int dsMapIndex = CreateDsMap(3,
+			"id", (double)m_asyncId, NULL,
+			"event_type", (double)0.0, type,
+			"result", (double)result, NULL
+		);
+
+		g_pYYRunnerInterface->DsMapAddInt64(dsMapIndex, "published_file_id", pParam->m_nPublishedFileId);
+
+		//return async event
+		g_pYYRunnerInterface->CreateAsyncEventWithDSMap(dsMapIndex, EVENT_OTHER_WEB_STEAM);
+
+		delete this;	//delete the handler (unregisters)
+	}
+};
+
+///////////////////////////////////////
+
+class CRequesSetVote
+{
+public:
+	int m_asyncId;
+	CCallResult<CRequesSetVote, SetUserItemVoteResult_t >	m_SteamCallResultUserFavoriteItemsListChanged_t;
+	CRequesSetVote(int _asyncId) : m_asyncId(_asyncId) {}
+
+	void SetCallResult(SteamAPICall_t apicall)
+	{
+		m_SteamCallResultUserFavoriteItemsListChanged_t.Set(apicall, this, &CRequesSetVote::OnSetVoteResult);
+	}
+
+	void OnSetVoteResult(SetUserItemVoteResult_t* pResult, bool bIOFailure)
+	{
+
+		int result = (bIOFailure) ? 0 : pResult->m_eResult;
+		int dsMapIndex = CreateDsMap(4,
+			"id", (double)m_asyncId, NULL,
+			"event_type", (double)0.0, "steam_ugc_set_user_item_vote",
+			"result", (double)result, NULL,
+			"vote_up", (double)pResult->m_bVoteUp, NULL
+		);
+
+		g_pYYRunnerInterface->DsMapAddInt64(dsMapIndex, "published_file_id", pResult->m_nPublishedFileId);
+
+		//return async event
+		g_pYYRunnerInterface->CreateAsyncEventWithDSMap(dsMapIndex, EVENT_OTHER_WEB_STEAM);
+
+		delete this;	//delete the handler (unregisters)
+	}
+};
+
+///////////////////////////////////////
+
+class CRequesGetVote
+{
+public:
+	int m_asyncId;
+	CCallResult<CRequesGetVote, GetUserItemVoteResult_t >	m_SteamCallResultUserFavoriteItemsListChanged_t;
+	CRequesGetVote(int _asyncId) : m_asyncId(_asyncId) {}
+
+	void SetCallResult(SteamAPICall_t apicall)
+	{
+		m_SteamCallResultUserFavoriteItemsListChanged_t.Set(apicall, this, &CRequesGetVote::OnGetUserItemVoteResult);
+	}
+
+	void OnGetUserItemVoteResult(GetUserItemVoteResult_t* pResult, bool bIOFailure) {
+		
+		int result = (bIOFailure) ? 0 : pResult->m_eResult;
+		int dsMapIndex = CreateDsMap(6,
+			"id", (double)m_asyncId, NULL,
+			"event_type", (double)0.0, "steam_ugc_get_user_item_vote",
+			"result", (double)result, NULL,
+			"voted_up", (double)pResult->m_bVotedUp, NULL,
+			"voted_down", (double)pResult->m_bVotedDown, NULL,
+			"voted_skpped", (double)pResult->m_bVoteSkipped, NULL
+		);
+
+		g_pYYRunnerInterface->DsMapAddInt64(dsMapIndex, "published_file_id", pResult->m_nPublishedFileId);
+
+		//return async event
+		g_pYYRunnerInterface->CreateAsyncEventWithDSMap(dsMapIndex, EVENT_OTHER_WEB_STEAM);
+
+		delete this;	//delete the handler (unregisters)
+	}
+};
+
+///////////////////////////////////////
+
 //---------------- gml interface -------------------------------------------------------------------------------------
 //steam_ugc_download( ugc_handle, dest_filename )
 YYEXPORT void /*double*/ steam_ugc_download(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)//( uint64 _ugcHandle, const char* pszDestFilename )/*Steam_Ugc_Download*/
@@ -1610,3 +1717,90 @@ YYEXPORT void /*double*/ steam_ugc_send_query(RValue& Result, CInstance* selfins
 	Result.val = async_id;
 }
 
+YYEXPORT void steam_ugc_add_item_to_favorites(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)
+{
+	uint64 _pubFileId = (uint64)YYGetInt64(arg, 0);
+
+	if (!steam_is_initialised)
+	{
+		Result.kind = VALUE_REAL;
+		Result.val = 0;
+		return;
+	}
+	
+	AppId_t myAppId = SteamUtils()->GetAppID();
+
+	int  async_id = getAsyncRequestInd();
+	CRequestUserFavoriteItemsListChanged* pResultHandler = new CRequestUserFavoriteItemsListChanged(async_id);
+	SteamAPICall_t hAPICall = SteamUGC()->AddItemToFavorites(myAppId, (PublishedFileId_t)_pubFileId);
+	pResultHandler->SetCallResult(hAPICall);
+
+	Result.kind = VALUE_REAL;
+	Result.val = async_id;
+}
+
+YYEXPORT void steam_ugc_remove_item_from_favorites(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)
+{
+	uint64 _pubFileId = (uint64)YYGetInt64(arg, 0);
+
+	if (!steam_is_initialised)
+	{
+		Result.kind = VALUE_REAL;
+		Result.val = 0;
+		return;
+	}
+
+	AppId_t myAppId = SteamUtils()->GetAppID();
+
+	int async_id = getAsyncRequestInd();
+
+	CRequestUserFavoriteItemsListChanged* pResultHandler = new CRequestUserFavoriteItemsListChanged(async_id);
+	SteamAPICall_t hAPICall = SteamUGC()->RemoveItemFromFavorites(myAppId, (PublishedFileId_t)_pubFileId);
+	pResultHandler->SetCallResult(hAPICall);
+
+	Result.kind = VALUE_REAL;
+	Result.val = async_id;
+}
+
+YYEXPORT void steam_ugc_set_user_item_vote(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)
+{
+	uint64 _pubFileId = (uint64)YYGetInt64(arg, 0);
+	bool vote_up = YYGetBool(arg, 1);
+
+	if (!steam_is_initialised)
+	{
+		Result.kind = VALUE_REAL;
+		Result.val = 0;
+		return;
+	}
+
+	int async_id = getAsyncRequestInd();
+
+	CRequesSetVote* pResultHandler = new CRequesSetVote(async_id);
+	SteamAPICall_t hAPICall = SteamUGC()->SetUserItemVote((PublishedFileId_t)_pubFileId, vote_up);
+	pResultHandler->SetCallResult(hAPICall);
+
+	Result.kind = VALUE_REAL;
+	Result.val = async_id;
+}
+
+YYEXPORT void steam_ugc_get_user_item_vote(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)
+{
+	uint64 _pubFileId = (uint64)YYGetInt64(arg, 0);
+
+	if (!steam_is_initialised)
+	{
+		Result.kind = VALUE_REAL;
+		Result.val = 0;
+		return;
+	}
+
+	int async_id = getAsyncRequestInd();
+
+	CRequesGetVote* pResultHandler = new CRequesGetVote(async_id);
+	SteamAPICall_t hAPICall = SteamUGC()->GetUserItemVote((PublishedFileId_t)_pubFileId);
+	pResultHandler->SetCallResult(hAPICall);
+
+	Result.kind = VALUE_REAL;
+	Result.val = async_id;
+}
