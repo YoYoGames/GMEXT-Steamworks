@@ -119,6 +119,8 @@
         {"$GMExtensionConstant":"","%Name":"steam_lobby_type_private","hidden":false,"name":"steam_lobby_type_private","resourceType":"GMExtensionConstant","resourceVersion":"2.0","value":"0",},
         {"$GMExtensionConstant":"","%Name":"steam_lobby_type_friends_only","hidden":false,"name":"steam_lobby_type_friends_only","resourceType":"GMExtensionConstant","resourceVersion":"2.0","value":"1",},
         {"$GMExtensionConstant":"","%Name":"steam_lobby_type_public","hidden":false,"name":"steam_lobby_type_public","resourceType":"GMExtensionConstant","resourceVersion":"2.0","value":"2",},
+        {"$GMExtensionConstant":"","%Name":"steam_lobby_type_invisible","hidden":false,"name":"steam_lobby_type_invisible","resourceType":"GMExtensionConstant","resourceVersion":"2.0","value":"3",},
+        {"$GMExtensionConstant":"","%Name":"steam_lobby_type_private_unique","hidden":false,"name":"steam_lobby_type_private_unique","resourceType":"GMExtensionConstant","resourceVersion":"2.0","value":"4",},
         {"$GMExtensionConstant":"","%Name":"steam_net_packet_type_unreliable","hidden":false,"name":"steam_net_packet_type_unreliable","resourceType":"GMExtensionConstant","resourceVersion":"2.0","value":"0",},
         {"$GMExtensionConstant":"","%Name":"steam_net_packet_type_unreliable_nodelay","hidden":false,"name":"steam_net_packet_type_unreliable_nodelay","resourceType":"GMExtensionConstant","resourceVersion":"2.0","value":"1",},
         {"$GMExtensionConstant":"","%Name":"steam_net_packet_type_reliable","hidden":false,"name":"steam_net_packet_type_reliable","resourceType":"GMExtensionConstant","resourceVersion":"2.0","value":"2",},

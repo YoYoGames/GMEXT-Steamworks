@@ -465,11 +465,17 @@ void steam_net_callbacks_t::lobby_join_requested(GameLobbyJoinRequested_t* e) {
 #define steam_lobby_type_friends_only 1
 /// Public lobby. Visible to everyone.
 #define steam_lobby_type_public 2
+//returned by search, but not visible to other friends. useful if you want a user in two lobbies, for example matching groups together. a user can be in only one regular lobby, and up to two invisible lobbies
+#define steam_lobby_type_invisible 3
+//private, unique and does not delete when empty - only one of these may exist per unique keypair set. can only create from webapi
+#define steam_lobby_type_private_unique 4
 
 ELobbyType steam_lobby_type_from_int(int32 type) {
 	switch ((int32)type) {
 		case steam_lobby_type_friends_only: return k_ELobbyTypeFriendsOnly;
 		case steam_lobby_type_public: return k_ELobbyTypePublic;
+		case steam_lobby_type_invisible: return k_ELobbyTypeInvisible;
+		case steam_lobby_type_private_unique: return k_ELobbyTypePrivateUnique;
 		default: return k_ELobbyTypePrivate;
 	}
 }
