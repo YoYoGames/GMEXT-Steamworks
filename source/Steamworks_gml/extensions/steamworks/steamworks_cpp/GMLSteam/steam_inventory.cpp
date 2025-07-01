@@ -614,6 +614,30 @@ YYEXPORT void /*bool*/ steam_inventory_request_prices(RValue& Result, CInstance*
 	Result.val = true;
 }
 
+
+YYEXPORT void steam_inventory_get_item_definition_property(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)
+{
+	int32 item_def = YYGetInt32(arg, 0);
+	char* property_name = (char*)YYGetString(arg, 1);
+
+	char valueBuffer[256];
+	uint32 bufferSize = sizeof(valueBuffer);
+
+	bool success = SteamInventory()->GetItemDefinitionProperty(
+		item_def,
+		property_name,
+		valueBuffer,
+		&bufferSize
+	);
+
+	if (success) {
+		YYCreateString(&Result, valueBuffer);
+	}
+	else {
+		YYCreateString(&Result, "");
+	}
+}
+
 #pragma endregion
 
 // todo: serialization functions
