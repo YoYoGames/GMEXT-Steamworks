@@ -802,6 +802,8 @@
  * @member steam_lobby_type_private The lobby can only be joined by invitation
  * @member steam_lobby_type_friends_only The lobby can be joined by invitation or via friends-list (by opening the user's menu and picking "Join game")
  * @member steam_lobby_type_public The lobby can be joined by invitation, via friends-list and shows up in the public list (see matchmaking functions)
+ * @member steam_lobby_type_invisible Returned by search, but not visible to other friends. This is useful if you want a user in two lobbies, for example matching groups together. A user can be in only one regular lobby, and up to two invisible lobbies.
+ * @member steam_lobby_type_private_unique Private, unique and does not delete when empty - only one of these may exist per unique keypair set. can only create from web API
  * @const_end
  */
 
