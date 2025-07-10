@@ -114,6 +114,9 @@ struct steam_get_friends_game_info_t {
 YYEXPORT void /*vector<steam_get_friends_game_info_t>*/ steam_get_friends_game_info(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)//() 
 {
 	int flags = k_EFriendFlagImmediate;
+	if(argc > 0)
+		flags = (EFriendFlags)YYGetInt32(arg,0);
+	
 	int count = SteamFriends()->GetFriendCount(flags);
 	//vector<steam_get_friends_game_info_t> vec{};
 	vector<RValue> vec{};
@@ -140,6 +143,44 @@ YYEXPORT void /*vector<steam_get_friends_game_info_t>*/ steam_get_friends_game_i
 
 		vec.push_back(Struct);
 	}
+	//Result.kind = VALUE_ARRAY;
+	_SW_SetArrayOfRValue(&Result, vec);
+}
+
+YYEXPORT void /*vector<steam_get_friends_game_info_t>*/ steam_get_friends(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)//() 
+{
+	int flags = k_EFriendFlagImmediate;
+	if (argc > 0)
+		flags = (EFriendFlags)YYGetInt32(arg, 0);
+
+	int count = SteamFriends()->GetFriendCount(flags);
+	//vector<steam_get_friends_game_info_t> vec{};
+	vector<RValue> vec{};
+
+	for (auto i = 0; i < count; i++)
+	{
+		FriendGameInfo_t gameInfo{};
+		auto friendId = SteamFriends()->GetFriendByIndex(i, flags);
+
+		CSteamID friendSteamID = SteamFriends()->GetFriendByIndex(i, k_EFriendFlagImmediate);
+		const char* friendName = SteamFriends()->GetFriendPersonaName(friendSteamID);
+		EPersonaState state = SteamFriends()->GetFriendPersonaState(friendSteamID);
+
+		printf("Friend %d: %s (Status: %d)\n", i + 1, friendName, state);
+
+		RValue Struct{};
+		YYStructCreate(&Struct);
+
+		YYStructAddInt64(&Struct, "friendId", friendSteamID.ConvertToUint64());
+		YYStructAddString(&Struct, "friendName", friendName);
+		YYStructAddDouble(&Struct, "state", (int)state);
+
+		//COPY_RValue(&Result, &Struct);
+		//FREE_RValue(&Struct);
+
+		vec.push_back(Struct);
+	}
+	//Result.kind = VALUE_ARRAY;
 	_SW_SetArrayOfRValue(&Result, vec);
 }
 
