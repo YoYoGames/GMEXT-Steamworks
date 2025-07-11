@@ -53,8 +53,27 @@
  */
 
 /**
+ * @func steam_get_friends
+ * @desc This function returns information on the current user's Steam friends.
+ * 
+ * An optional combination of flags can be provided to further specify which users to include in the result.
+ * 
+ * @param {constant.STEAMWORKS_FRIENDS_FLAGS} [flags] A combination of friend flags (defaults to `STEAMWORKS_FRIENDS_FLAGS.IMMEDIATE`)
+ * 
+ * @returns {array[struct.FriendInfo]}
+ * 
+ * @example
+ * ```gml
+ * var _friends_arr = steam_get_friends();
+ * array_foreach(_friends_arr, show_debug_message);
+ * ```
+ * The code above gets the current Steam user's friends list and outputs a debug message for every entry retrieved.
+ * @func_end
+ */
+
+/**
  * @func steam_get_friends_game_info
- * @desc Returns an array of information about what the current user's Steam friends are playing.
+ * @desc This function returns an array of information about what the current user's Steam friends are playing.
  * Equivalent to what can be seen in Steam Friends UI.
  * 
  * @returns {array[struct.FriendsGameInfo]}
@@ -391,7 +410,17 @@
  */
 
 /**
+ * @struct FriendInfo
+ * @desc This struct holds information about a friend.
+ * @member {int64} friendId The Steam user ID
+ * @member {string} friendName The name of the friend
+ * @member {constant.STEAMWORKS_PERSONA_STATE} state The friend's state
+ * @struct_end
+ */
+
+/**
  * @struct FriendsGameInfo
+ * @desc 
  * @member {int64} friendId The Steam user ID
  * @member {real} gameId The Steam game ID
  * @member {int64} lobbyId The Steam lobby ID (if hosting a lobby that is open for friends to join - otherwise `0`)
@@ -403,9 +432,48 @@
 
 /**
  * @const AvatarSize
+ * @desc This set of constants specifies the avatar size.
  * @member steam_user_avatar_size_small Small avatar size
  * @member steam_user_avatar_size_medium Medium avatar size
  * @member steam_user_avatar_size_large Large avatar size
+ * @const_end
+ */
+
+/**
+ * @const STEAMWORKS_FRIENDS_FLAGS
+ * @desc > **Steamworks Enum**: [EFriendFlags](https://partner.steamgames.com/doc/api/ISteamFriends#EFriendFlags)
+ * 
+ * This enum contains the different flags for enumerating the friends list, or quickly checking the relationship between users.
+ * 
+ * @member NONE None.
+ * @member BLOCKED Users that the current user has blocked from contacting.
+ * @member FRIENDSHIP_REQUESTED Users that have sent a friend invite to the current user.
+ * @member IMMEDIATE The current user's "regular" friends.
+ * @member CLAN_MEMBER Users that are in one of the same (small) Steam groups as the current user.
+ * @member ON_GAME_SERVER Users that are on the same game server; as set by ${function.steam_user_set_played_with}.
+ * @member REQUESTING_FRIENDSHIP Users that the current user has sent friend invites to.
+ * @member REQUESTING_INFO Users that are currently sending additional info about themselves after a call to RequestUserInformation.
+ * @member IGNORED Users that the current user has ignored from contacting them.
+ * @member IGNORED_FRIEND Users that have ignored the current user; but the current user still knows about them.
+ * @member CHAT_MEMBER Users in one of the same chats.
+ * @member ALL Returns all friend flags.
+ * @const_end
+ */
+
+/**
+ * @const STEAMWORKS_PERSONA_STATE
+ * @desc > **Steamworks Enum**: [EPersonaState](https://partner.steamgames.com/doc/api/ISteamFriends#EPersonaState)
+ * 
+ * This enum holds the list of states a Steam friend can be in.
+ * 
+ * @member OFFLINE Friend is not currently logged on.
+ * @member ONLINE Friend is logged on.
+ * @member BUSY Friend is logged on, but set to "Do not disturb."
+ * @member AWAY Auto-away feature.
+ * @member SNOOZE Auto-away for a long time.
+ * @member LOOKING_TO_TRADE Online, trading.
+ * @member LOOKING_TO_PLAY Online, wanting to play.
+ * @member INVISIBLE The total number of states. Only used for looping and validation.
  * @const_end
  */
 
@@ -430,6 +498,7 @@
  * @desc The following functions are provided to work with user and friends data:
  * 
  * @ref steam_user_set_played_with
+ * @ref steam_get_friends
  * @ref steam_get_friends_game_info
  * @ref steam_get_user_avatar
  * @ref steam_image_get_size
@@ -438,11 +507,14 @@
  * @section_end
  * 
  * @section_struct Structs
+ * @ref FriendInfo
  * @ref FriendsGameInfo
  * @section_end
  * 
  * @section_const
  * @ref AvatarSize
+ * @ref STEAMWORKS_FRIENDS_FLAGS
+ * @ref STEAMWORKS_PERSONA_STATE
  * @section_end
  * 
  * @module_end
