@@ -28,8 +28,28 @@ void CGMSteamUtilsCallbacks::on_gamepad_text_input_dismissed(GamepadTextInputDis
 	int map = CreateDsMap(0, 0);
 	DsMapAddString(map, "event_type", "gamepad_text_input_dismissed");
 	DsMapAddBool(map, "submitted", pParam->m_bSubmitted);
-	// length in BYTES, not in UTF-8 characters!
-	DsMapAddDouble(map, "submitted_text_raw_byte_length", pParam->m_unSubmittedText);
+
+	if (pParam->m_bSubmitted)
+	{
+		char text[1024]; // Adjust size as needed
+		uint32 len = SteamUtils()->GetEnteredGamepadTextInput(text, sizeof(text));
+		if (len > 0)
+		{
+			DsMapAddString(map, "submitted_text", text);
+			DsMapAddDouble(map, "submitted_text_raw_byte_length", pParam->m_unSubmittedText);
+		}
+		else
+		{
+			DsMapAddString(map, "submitted_text", "");
+			DsMapAddDouble(map, "submitted_text_raw_byte_length", 0);
+		}
+	}
+	else
+	{
+		DsMapAddString(map, "submitted_text", "");
+		DsMapAddDouble(map, "submitted_text_raw_byte_length", 0);
+	}
+
 	CreateAsyncEventWithDSMap(map, EVENT_OTHER_WEB_STEAM);
 }
 
@@ -192,7 +212,7 @@ YYEXPORT void steam_utils_is_steam_in_big_picture_mode(RValue& Result, CInstance
 
 	if (!SteamUtils())
 	{
-		Result.val = 0;
+		Result.val = false;
 		return;
 	}
 
