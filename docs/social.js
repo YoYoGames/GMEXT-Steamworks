@@ -58,7 +58,7 @@
  * 
  * An optional combination of flags can be provided to further specify which users to include in the result.
  * 
- * @param {constant.STEAMWORKS_FRIENDS_FLAGS} [flags] A combination of friend flags (defaults to `STEAMWORKS_FRIENDS_FLAGS.IMMEDIATE`)
+ * @param {constant.STEAMWORKS_FRIENDS_FLAGS} [flags=STEAMWORKS_FRIENDS_FLAGS.IMMEDIATE] A combination of friend flags (defaults to `STEAMWORKS_FRIENDS_FLAGS.IMMEDIATE`)
  * 
  * @returns {array[struct.FriendInfo]}
  * 
