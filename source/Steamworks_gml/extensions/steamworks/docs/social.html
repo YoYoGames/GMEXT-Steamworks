@@ -161,6 +161,7 @@
 <p>The following functions are provided to work with user and friends data:</p>
 <ul>
 <li><a href="social.html#steam_user_set_played_with">steam_user_set_played_with</a></li>
+<li><a href="social.html#steam_get_friends">steam_get_friends</a></li>
 <li><a href="social.html#steam_get_friends_game_info">steam_get_friends_game_info</a></li>
 <li><a href="social.html#steam_get_user_avatar">steam_get_user_avatar</a></li>
 <li><a href="social.html#steam_image_get_size">steam_image_get_size</a></li>
@@ -170,12 +171,15 @@
 <h2 id="structs">Structs</h2>
 <p>This module offers a collection of structs, which serve as custom data models for organizing and structuring data. Explore the provided structs to better understand the relationships between data elements and simplify your data manipulation tasks.</p>
 <ul>
+<li><a href="social.html#friendinfo">FriendInfo</a></li>
 <li><a href="social.html#friendsgameinfo">FriendsGameInfo</a></li>
 </ul>
 <h2 id="constants">Constants</h2>
 <p>This module includes a set of predefined constants that can be utilized for various purposes. Browse through the available constants to find values relevant to your needs and enhance the efficiency of your code.</p>
 <ul>
 <li><a href="social.html#avatarsize">AvatarSize</a></li>
+<li><a href="social.html#steamworks_friends_flags">STEAMWORKS_FRIENDS_FLAGS</a></li>
+<li><a href="social.html#steamworks_persona_state">STEAMWORKS_PERSONA_STATE</a></li>
 </ul>
 <p><br></p>
 <hr />
@@ -296,8 +300,49 @@ This code will add the specified user ID to the "recently played with" list, of 
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
+<h1 id="steam_get_friends">steam_get_friends</h1>
+<p>This function returns information on the current user's Steam friends.</p>
+<p>An optional combination of flags can be provided to further specify which users to include in the result.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<pre class="highlight"><code class="language-gml">steam_get_friends(flags=STEAMWORKS_FRIENDS_FLAGS.IMMEDIATE)</code></pre>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>flags</td>
+<td><a href="social.html#steamworks_friends_flags">STEAMWORKS_FRIENDS_FLAGS</a></td>
+<td>A combination of friend flags (defaults to <code>STEAMWORKS_FRIENDS_FLAGS.IMMEDIATE</code>)</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Arrays.htm">Array</a> of <a href="social.html#friendinfo">FriendInfo</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><pre class="highlight"><code class="language-gml">var _friends_arr = steam_get_friends();
+array_foreach(_friends_arr, show_debug_message);</code></pre>
+The code above gets the current Steam user's friends list and outputs a debug message for every entry retrieved.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
 <h1 id="steam_get_friends_game_info">steam_get_friends_game_info</h1>
-<p>Returns an array of information about what the current user's Steam friends are playing.
+<p>This function returns an array of information about what the current user's Steam friends are playing.
 Equivalent to what can be seen in Steam Friends UI.</p>
 <p><br></p>
 <p><strong>Syntax:</strong></p>
@@ -911,6 +956,7 @@ The extended code example above shows how to properly request, wait for and iter
 <p align="right"><a href="#top">Back To Top</a></p>
 
 <h1 id="avatarsize">AvatarSize</h1>
+<p>This set of constants specifies the avatar size.</p>
 <p>These constants are referenced by the following functions:</p>
 <ul>
 <li><a href="social.html#steam_get_user_avatar">steam_get_user_avatar</a></li>
@@ -935,6 +981,171 @@ The extended code example above shows how to properly request, wait for and iter
 <tr>
 <td><code>steam_user_avatar_size_large</code></td>
 <td>Large avatar size</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steamworks_friends_flags">STEAMWORKS_FRIENDS_FLAGS</h1>
+<blockquote>
+<p><strong>Steamworks Enum</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamFriends#EFriendFlags">EFriendFlags</a></p>
+</blockquote>
+<p>This enum contains the different flags for enumerating the friends list, or quickly checking the relationship between users.</p>
+<p>These constants are referenced by the following functions:</p>
+<ul>
+<li><a href="social.html#steam_get_friends">steam_get_friends</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>NONE</code></td>
+<td>None.</td>
+</tr>
+<tr>
+<td><code>BLOCKED</code></td>
+<td>Users that the current user has blocked from contacting.</td>
+</tr>
+<tr>
+<td><code>FRIENDSHIP_REQUESTED</code></td>
+<td>Users that have sent a friend invite to the current user.</td>
+</tr>
+<tr>
+<td><code>IMMEDIATE</code></td>
+<td>The current user's "regular" friends.</td>
+</tr>
+<tr>
+<td><code>CLAN_MEMBER</code></td>
+<td>Users that are in one of the same (small) Steam groups as the current user.</td>
+</tr>
+<tr>
+<td><code>ON_GAME_SERVER</code></td>
+<td>Users that are on the same game server; as set by <a href="social.html#steam_user_set_played_with">steam_user_set_played_with</a>.</td>
+</tr>
+<tr>
+<td><code>REQUESTING_FRIENDSHIP</code></td>
+<td>Users that the current user has sent friend invites to.</td>
+</tr>
+<tr>
+<td><code>REQUESTING_INFO</code></td>
+<td>Users that are currently sending additional info about themselves after a call to RequestUserInformation.</td>
+</tr>
+<tr>
+<td><code>IGNORED</code></td>
+<td>Users that the current user has ignored from contacting them.</td>
+</tr>
+<tr>
+<td><code>IGNORED_FRIEND</code></td>
+<td>Users that have ignored the current user; but the current user still knows about them.</td>
+</tr>
+<tr>
+<td><code>CHAT_MEMBER</code></td>
+<td>Users in one of the same chats.</td>
+</tr>
+<tr>
+<td><code>ALL</code></td>
+<td>Returns all friend flags.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steamworks_persona_state">STEAMWORKS_PERSONA_STATE</h1>
+<blockquote>
+<p><strong>Steamworks Enum</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamFriends#EPersonaState">EPersonaState</a></p>
+</blockquote>
+<p>This enum holds the list of states a Steam friend can be in.</p>
+<p>These constants are referenced by the following structs:</p>
+<ul>
+<li><a href="social.html#friendinfo">FriendInfo</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>OFFLINE</code></td>
+<td>Friend is not currently logged on.</td>
+</tr>
+<tr>
+<td><code>ONLINE</code></td>
+<td>Friend is logged on.</td>
+</tr>
+<tr>
+<td><code>BUSY</code></td>
+<td>Friend is logged on, but set to "Do not disturb."</td>
+</tr>
+<tr>
+<td><code>AWAY</code></td>
+<td>Auto-away feature.</td>
+</tr>
+<tr>
+<td><code>SNOOZE</code></td>
+<td>Auto-away for a long time.</td>
+</tr>
+<tr>
+<td><code>LOOKING_TO_TRADE</code></td>
+<td>Online, trading.</td>
+</tr>
+<tr>
+<td><code>LOOKING_TO_PLAY</code></td>
+<td>Online, wanting to play.</td>
+</tr>
+<tr>
+<td><code>INVISIBLE</code></td>
+<td>The total number of states. Only used for looping and validation.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="friendinfo">FriendInfo</h1>
+<p>This struct holds information about a friend.</p>
+<p>This struct is referenced by the following functions:</p>
+<ul>
+<li><a href="social.html#steam_get_friends">steam_get_friends</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>friendId</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Int64</a></td>
+<td>The Steam user ID</td>
+</tr>
+<tr>
+<td>friendName</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The name of the friend</td>
+</tr>
+<tr>
+<td>state</td>
+<td><a href="social.html#steamworks_persona_state">STEAMWORKS_PERSONA_STATE</a></td>
+<td>The friend's state</td>
 </tr>
 </tbody>
 </table>
@@ -992,7 +1203,7 @@ The extended code example above shows how to properly request, wait for and iter
 
   <div role="contentinfo">
     <!-- Copyright etc -->
-      <p><p align="center">GameMaker 2024</p></p>
+      <p><p align="center">GameMaker 2025</p></p>
   </div>
 
   Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.

@@ -183,6 +183,7 @@
 <li><a href="ugc.html#steam_ugc_set_item_tags">steam_ugc_set_item_tags</a></li>
 <li><a href="ugc.html#steam_ugc_set_item_content">steam_ugc_set_item_content</a></li>
 <li><a href="ugc.html#steam_ugc_set_item_preview">steam_ugc_set_item_preview</a></li>
+<li><a href="ugc.html#steam_ugc_set_item_metadata">steam_ugc_set_item_metadata</a></li>
 <li><a href="ugc.html#steam_ugc_submit_item_update">steam_ugc_submit_item_update</a></li>
 <li><a href="ugc.html#steam_ugc_get_item_update_progress">steam_ugc_get_item_update_progress</a></li>
 </ul>
@@ -211,6 +212,7 @@
 <li><a href="ugc.html#steam_ugc_set_item_tags">steam_ugc_set_item_tags</a></li>
 <li><a href="ugc.html#steam_ugc_set_item_content">steam_ugc_set_item_content</a></li>
 <li><a href="ugc.html#steam_ugc_set_item_preview">steam_ugc_set_item_preview</a></li>
+<li><a href="ugc.html#steam_ugc_set_item_metadata">steam_ugc_set_item_metadata</a></li>
 <li><a href="ugc.html#steam_ugc_submit_item_update">steam_ugc_submit_item_update</a></li>
 <li><a href="ugc.html#steam_ugc_get_item_update_progress">steam_ugc_get_item_update_progress</a></li>
 <li><a href="ugc.html#steam_ugc_subscribe_item">steam_ugc_subscribe_item</a></li>
@@ -231,6 +233,7 @@
 <li><a href="ugc.html#steam_ugc_query_add_required_tag">steam_ugc_query_add_required_tag</a></li>
 <li><a href="ugc.html#steam_ugc_query_add_excluded_tag">steam_ugc_query_add_excluded_tag</a></li>
 <li><a href="ugc.html#steam_ugc_query_set_return_long_description">steam_ugc_query_set_return_long_description</a></li>
+<li><a href="ugc.html#steam_ugc_query_set_return_metadata">steam_ugc_query_set_return_metadata</a></li>
 <li><a href="ugc.html#steam_ugc_query_set_return_total_only">steam_ugc_query_set_return_total_only</a></li>
 <li><a href="ugc.html#steam_ugc_query_set_allow_cached_response">steam_ugc_query_set_allow_cached_response</a></li>
 <li><a href="ugc.html#steam_ugc_send_query">steam_ugc_send_query</a></li>
@@ -836,6 +839,92 @@ steam_ugc_set_item_preview(_updateHandle, "promo.jpg");
 steam_ugc_set_item_content(_updateHandle, "WorkshopContent1");
 requestId = steam_ugc_submit_item_update(_updateHandle, "Version 1.2");</code></pre>
 The above code gets the game ID, then uses that along with a previously stored published file ID to generate an update handle for the item. This handle is then used to update various pieces of information before the update is pushed to the Workshop servers.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_ugc_set_item_metadata">steam_ugc_set_item_metadata</h1>
+<p>This function sets the metadata for the given UGC item.
+The function will return <code>true</code> if the API was successfully accessed and <code>false</code> if there was an issue.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<pre class="highlight"><code class="language-gml">steam_ugc_set_item_metadata(ugc_update_handle, metadata)</code></pre>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ugc_update_handle</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The unique handle for the UGC to be updated.</td>
+</tr>
+<tr>
+<td>metadata</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The metadata to be associated with the current UGC.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_ugc_query_set_return_metadata">steam_ugc_query_set_return_metadata</h1>
+<p>This function sets whether to return the developer-specified metadata for the items on a pending UGC Query.
+The function will return <code>true</code> if the API was successfully accessed and <code>false</code> if there was an issue.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This must be set before you send a UGC Query handle using <a href="ugc.html#steam_ugc_send_query">steam_ugc_send_query</a>.</p>
+</div>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<pre class="highlight"><code class="language-gml">steam_ugc_query_set_return_metadata(ugc_query_handle, return_metadata)</code></pre>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ugc_query_handle</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The query handle to use.</td>
+</tr>
+<tr>
+<td>return_metadata</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></td>
+<td>Whether to have the query return the metadata information.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
 <p><br></p>
 <p><br></p>
 <hr />
@@ -2973,7 +3062,7 @@ The above code checks the event type and then creates a sprite from the download
 
   <div role="contentinfo">
     <!-- Copyright etc -->
-      <p><p align="center">GameMaker 2024</p></p>
+      <p><p align="center">GameMaker 2025</p></p>
   </div>
 
   Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.

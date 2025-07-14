@@ -198,8 +198,7 @@
 <p align="right"><a href="#top">Back To Top</a></p>
 
 <h1 id="steam_lobby_activate_invite_overlay">steam_lobby_activate_invite_overlay</h1>
-<p>This function displays an invitation overlay if currently in a lobby.
-The invitation overlay is much akin to the friends-list overlay, but only shows online friends, and shows an "invite" button on each row.</p>
+<p>This function activates the <a href="https://partner.steamgames.com/doc/features/overlay">Steam-overlay</a> to open the invite dialog. Invitations sent from this dialog will be for the provided lobby.</p>
 <p>This function operates asynchronously, which means that it does not immediately return the requested result. Instead, upon completion of the task, it will trigger the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a>.</p>
 <p><br></p>
 <p><strong>Syntax:</strong></p>
@@ -705,14 +704,19 @@ The code above will return the unique ID of the owner of the current lobby.</p>
         break;
     }
 }</code></pre>
-The code example will loop through all the members in a lobby and transfers ownership to the first member that is not the owner.</p>
+The code example will loop through all the members in a lobby and transfer ownership to the first member that is not the owner.</p>
 <p><br></p>
 <p><br></p>
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
 <h1 id="steam_lobby_join_id">steam_lobby_join_id</h1>
-<p>This function starts joining the lobby with the given ID. Returns whether or not the API was correctly initialized.</p>
+<p>This function starts joining the lobby with the given ID. Returns whether or not the API was correctly initialised.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The lobby ID value returned by Steam in the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a> may be different from the one you passed to the function. This is because Steam stores this info in a type <code>CSteamID</code>, which internally is an int64 that not only contains the lobby ID but also other fields in the remaining bits. Of these fields, Steam might change the <code>Instance</code> field, leading to a different value being returned. The lobby ID part will be unchanged, however.
+You should always make sure to use this modified lobby ID value returned by Steam in subsequent function calls.</p>
+</div>
 <p>This function operates asynchronously, which means that it does not immediately return the requested result. Instead, upon completion of the task, it will trigger the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a>.</p>
 <p><br></p>
 <p><strong>Syntax:</strong></p>
@@ -740,7 +744,7 @@ The code example will loop through all the members in a lobby and transfers owne
 <p><br></p>
 <p><strong>Returns:</strong></p>
 <blockquote>
-<p>N/A</p>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
 </blockquote>
 <p><br></p>
 <p><strong>Triggers:</strong></p>
@@ -2062,6 +2066,14 @@ This code will loop through all the loobies and respective members on the query 
 <td><code>steam_lobby_type_public</code></td>
 <td>The lobby can be joined by invitation, via friends-list and shows up in the public list (see matchmaking functions)</td>
 </tr>
+<tr>
+<td><code>steam_lobby_type_invisible</code></td>
+<td>Returned by search, but not visible to other friends. This is useful if you want a user in two lobbies, for example matching groups together. A user can be in only one regular lobby, and up to two invisible lobbies.</td>
+</tr>
+<tr>
+<td><code>steam_lobby_type_private_unique</code></td>
+<td>Private, unique and does not delete when empty - only one of these may exist per unique keypair set. can only create from web API</td>
+</tr>
 </tbody>
 </table>
 <p><br></p>
@@ -2077,7 +2089,7 @@ This code will loop through all the loobies and respective members on the query 
 
   <div role="contentinfo">
     <!-- Copyright etc -->
-      <p><p align="center">GameMaker 2024</p></p>
+      <p><p align="center">GameMaker 2025</p></p>
   </div>
 
   Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
