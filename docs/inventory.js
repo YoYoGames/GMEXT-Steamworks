@@ -317,7 +317,7 @@
  * @event steam
  * @member {string} event_type The string value `"inventory_result_ready"`
  * @member {boolean} success Whether the async action succeeded
- * @member {constant.InventoryResultStatus} The status code as returned by ${function.steam_inventory_result_get_status}
+ * @member {constant.InventoryResultStatus} result The status code as returned by ${function.steam_inventory_result_get_status}
  * @member {real} handle The associated async result ID, which can be used to tell apart what result this event is for.
  * @event_end
  * 
@@ -349,7 +349,7 @@
  * @event steam
  * @member {string} event_type The string value `"inventory_result_ready"`
  * @member {boolean} success Whether the async action succeeded
- * @member {constant.InventoryResultStatus} The status code as returned by ${function.steam_inventory_result_get_status}
+ * @member {constant.InventoryResultStatus} result The status code as returned by ${function.steam_inventory_result_get_status}
  * @member {real} handle The associated async result ID, which can be used to tell apart what result this event is for.
  * @event_end
  * 
@@ -626,7 +626,7 @@
  * // Early exit if handle doesn't match
  * if (async_load[? "handle"] != handle) exit;
  * 
- * // Early exit if handle doesn't match
+ * // Get result items if the request was successful
  * if (async_load[? "success"])
  * {
  *     var _items = steam_inventory_result_get_items(handle);
