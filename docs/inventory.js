@@ -492,7 +492,7 @@
  * @example
  * ```gml
  * power = 0;
- * var _value = steam_inventory_get_item_definition_property("power");
+ * var _value = steam_inventory_get_item_definition_property(item_id, "power");
  * if (_value != "") {
  *     power = real(_value);
  * }
