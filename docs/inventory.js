@@ -477,6 +477,31 @@
  */
 
 /**
+ * @func steam_inventory_get_item_definition_property
+ * @desc This function gets a string property from the specified item definition.
+ * 
+ * The function returns the value associated with the property as a string upon success, or an empty string `""` in the following cases:
+ * 
+ * * The item definitions have not been loaded from the server.
+ * * No item definitions exist for the current application.
+ * * The property name was not found in the item definition.
+ * 
+ * @param {string} item_id The item definition to use
+ * @param {string} prop_name The name of the property to get the value of
+ * 
+ * @example
+ * ```gml
+ * power = 0;
+ * var _value = steam_inventory_get_item_definition_property("power");
+ * if (_value != "") {
+ *     power = real(_value);
+ * }
+ * ```
+ * The code above shows a call to the function being used to retrieve the value for a property `"power"`. If the returned value is not an empty string, it is converted to a real and assigned to the instance variable `power`.
+ * @func_end
+ */
+
+/**
  * @func steam_inventory_transfer_item_quantity
  * @desc Transfer items between stacks within a user's inventory.
  *
@@ -1062,6 +1087,7 @@
  * @ref steam_inventory_set_property_int
  * @ref steam_inventory_set_property_string
  * @ref steam_inventory_submit_update_properties
+ * @ref steam_inventory_get_item_definition_property
  * 
  * @section_end
  * 
