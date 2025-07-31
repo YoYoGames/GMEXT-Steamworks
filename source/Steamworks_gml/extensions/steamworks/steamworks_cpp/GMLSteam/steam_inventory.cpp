@@ -620,18 +620,27 @@ YYEXPORT void steam_inventory_get_item_definition_property(RValue& Result, CInst
 	int32 item_def = YYGetInt32(arg, 0);
 	char* property_name = (char*)YYGetString(arg, 1);
 
-	char valueBuffer[256];
-	uint32 bufferSize = sizeof(valueBuffer);
+	uint32 bufferSize = 0;
+
+	// Step 1: Query the required buffer size
+	if (!SteamInventory()->GetItemDefinitionProperty(item_def, property_name, nullptr, &bufferSize)) {
+		//std::cerr << "Property '" << propertyName << "' does not exist or could not get size.\n";
+		YYCreateString(&Result, "");
+		return;
+	}
+
+	// Step 2: Allocate the buffer
+	char* value_buffer = new char[bufferSize];
 
 	bool success = SteamInventory()->GetItemDefinitionProperty(
 		item_def,
 		property_name,
-		valueBuffer,
+		value_buffer,
 		&bufferSize
 	);
 
 	if (success) {
-		YYCreateString(&Result, valueBuffer);
+		YYCreateString(&Result, value_buffer);
 	}
 	else {
 		YYCreateString(&Result, "");
