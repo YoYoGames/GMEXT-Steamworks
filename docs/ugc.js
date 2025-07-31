@@ -11,7 +11,7 @@
  * 
  * @example
  * ```gml
- * if steam_is_screenshot_requested()
+ * if (steam_is_screenshot_requested())
  * {
  *     var _file = "Catch_The_Haggis_" + string(global.scrn_num) + ".png");
  *     screen_save(_file);
@@ -35,7 +35,7 @@
  * 
  * @example
  * ```gml
- * if steam_is_screenshot_requested()
+ * if (steam_is_screenshot_requested())
  * {
  *     var _file = "Catch_The_Haggis_" + string(global.scrn_num) + ".png");
  *     screen_save(_file);
@@ -76,10 +76,10 @@
  * 
  * ```gml
  * var _event_id = async_load[? "id"];
- * if _event_id == new_item
+ * if (_event_id == new_item)
  * {
  *     var _type = async_load[? "event_type"];
- *     if _type == "ugc_create_item"
+ *     if (_type == "ugc_create_item")
  *     {
  *         global.Publish_ID = async_load[? "published_file_id"];
  *     }
@@ -533,7 +533,7 @@
  * var _info_map = ds_map_create();
  * var _info = steam_ugc_get_item_update_info(global.fileID, _info_map);
  * 
- * if _info
+ * if (_info)
  * {
  *     draw_text(32, 15, "needs_update: " + string(_info_map[? "needs_update"]));
  *     draw_text(32, 30, "is_downloading: " + string(_info_map[? "is_downloading"]));
@@ -601,7 +601,7 @@
  * ```gml
  * var _map_id = async_load[? "id"];
  * var _result = async_load[? "result"];
- * if (_map_id == steam_details) && (_result == ugc_result_success)
+ * if (_map_id == steam_details && _result == ugc_result_success)
  * {
  *     mTitle = async_load[? "title"];
  *     mDesc = async_load[? "description"];
@@ -989,10 +989,10 @@
  * 
  * ```gml
  * var _event_id = async_load[? "id"];
- * if _event_id == steam_get
+ * if (_event_id == steam_get)
  * {
  *     var _type = async_load[? "event_type"];
- *     if _type == "ugc_download"
+ *     if (_type == "ugc_download")
  *     {
  *         sprite_delete(preview_sprite);
  *         preview_sprite = sprite_add(async_load[? "dest_filename"], 0, false, false, 0, 0);
