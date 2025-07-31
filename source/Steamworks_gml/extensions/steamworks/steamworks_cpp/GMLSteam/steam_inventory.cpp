@@ -622,29 +622,18 @@ YYEXPORT void steam_inventory_get_item_definition_property(RValue& Result, CInst
 
 	uint32 bufferSize = 0;
 
-	// Step 1: Query the required buffer size
+	// The first call with nullptr output will just fetch the required size
 	if (!SteamInventory()->GetItemDefinitionProperty(item_def, property_name, nullptr, &bufferSize)) {
-		//std::cerr << "Property '" << propertyName << "' does not exist or could not get size.\n";
 		YYCreateString(&Result, "");
 		return;
 	}
 
-	// Step 2: Allocate the buffer
-	char* value_buffer = new char[bufferSize];
+	// Create a vector to avoid dealing with freeing the data afterwards
+	std::vector<char> valueBuffer(bufferSize);
 
-	bool success = SteamInventory()->GetItemDefinitionProperty(
-		item_def,
-		property_name,
-		value_buffer,
-		&bufferSize
-	);
-
-	if (success) {
-		YYCreateString(&Result, value_buffer);
-	}
-	else {
-		YYCreateString(&Result, "");
-	}
+	// No need to check for the return value we have already excluded errors in the first call
+	SteamInventory()->GetItemDefinitionProperty(item_def, property_name, valueBuffer.data(), &bufferSize);
+	YYCreateString(&Result, valueBuffer.data());
 }
 
 #pragma endregion
