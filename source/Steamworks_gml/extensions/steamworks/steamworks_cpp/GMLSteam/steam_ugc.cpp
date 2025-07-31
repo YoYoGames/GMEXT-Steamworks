@@ -823,7 +823,7 @@ public:
 			"result", (double)result, NULL,
 			"voted_up", (double)pResult->m_bVotedUp, NULL,
 			"voted_down", (double)pResult->m_bVotedDown, NULL,
-			"voted_skpped", (double)pResult->m_bVoteSkipped, NULL
+			"vote_skipped", (double)pResult->m_bVoteSkipped, NULL
 		);
 
 		g_pYYRunnerInterface->DsMapAddInt64(dsMapIndex, "published_file_id", pResult->m_nPublishedFileId);
