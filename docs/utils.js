@@ -6,6 +6,8 @@
  * 
  * [[WARNING: You must call ${function.steam_utils_enable_callbacks} prior to calling this function if you wish to receive `Async - Steam` gamepad keyboard events.]]
  * 
+ * [[Note: Steam needs to be in Big Picture mode for this function to work.]]
+ * 
  * @param {real} mode A `steam_floating_gamepad_text_input_mode_` constant.
  * @param {real} text_field_x X position of the keyboard window in display coordinates.
  * @param {real} text_field_y Y position of the keyboard window in display coordinates.
@@ -61,6 +63,8 @@
  * @desc With this function you can show a full-screen old-style Big Picture Mode-only keyboard UI. This one does not emulate the physical keyboard so you must use the ${function.steam_get_entered_gamepad_text_input} function inside a corresponding `Async - Steam` event to obtain the input. Returns `true` if the window is being shown successfully, `false` otherwise.
  * 
  * [[WARNING: You must call ${function.steam_utils_enable_callbacks} prior to calling this function if you wish to receive `Async - Steam` gamepad keyboard events.]]
+ * 
+ * [[Note: Steam needs to be in Big Picture mode for this function to work.]]
  * 
  * @param {real} mode A `steam_gamepad_text_input_mode_` constant.
  * @param {real} lines_mode A `steam_gamepad_text_input_line_mode_` constant.
