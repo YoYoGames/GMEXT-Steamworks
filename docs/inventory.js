@@ -486,6 +486,8 @@
  * * No item definitions exist for the current application.
  * * The property name was not found in the item definition.
  * 
+ * [[Note: Call ${function.steam_inventory_load_item_definitions} first, to ensure that items are ready to be used before calling this function.]]
+ * 
  * @param {string} item_id The item definition to use
  * @param {string} prop_name The name of the property to get the value of
  * 
@@ -618,6 +620,19 @@
  * handle = undefined;
  * ```
  * In the code above we have an example of a asynchronous callback that generates a result handle by the end of which we execute a call to ${function.steam_inventory_result_destroy} to make sure we dispose and free all the used memory.
+ * @func_end
+ */
+
+/**
+ * @func steam_inventory_load_item_definitions
+ * @desc This function triggers an asynchronous load and refresh of item definitions.
+ * 
+ * @returns {bool}
+ * 
+ * @example
+ * ```gml
+ * steam_inventory_load_item_definitions();
+ * ```
  * @func_end
  */
 
@@ -1087,6 +1102,7 @@
  * @ref steam_inventory_set_property_int
  * @ref steam_inventory_set_property_string
  * @ref steam_inventory_submit_update_properties
+ * @ref steam_inventory_load_item_definitions
  * @ref steam_inventory_get_item_definition_property
  * 
  * @section_end
