@@ -539,12 +539,15 @@
 /**
  * @func steam_inventory_trigger_item_drop
  * @desc This function triggers an item drop if the user has played a long enough period of time.
+ * 
  * This period can be customized in two places:
  * 
- * * At the application level within Inventory Service: Playtime Item Grants. This will automatically apply to all "playtimegenerator" items that do not specify any overrides.
+ * * At the application level within Inventory Service: Playtime Item Grants. This will automatically apply to all `"playtimegenerator"` items that do not specify any overrides.
  * * In an individual "playtimegenerator" item definition. The settings would take precedence over any application-level settings.
  * 
  * Only item definitions which are marked as "playtime item generators" can be spawned.
+ * 
+ * See [Playtime Item Drops](https://partner.steamgames.com/doc/features/inventory/schema#PlaytimeDrops) for more information.
  * 
  * [[WARNING: You must call ${function.steam_inventory_result_destroy} on the returned async result ID when you are done with it.]]
  * 
@@ -552,7 +555,7 @@
  * >
  * > A wrapper around [TriggerItemDrop](https://partner.steamgames.com/doc/api/ISteamInventory#TriggerItemDrop).
  * 
- * @param {real} item_def This must refer to an item definition of the type "playtimegenerator". See the [inventory schema](https://partner.steamgames.com/doc/features/inventory/schema) for more details.
+ * @param {real} item_def This must refer to an item definition of the type `"playtimegenerator"`. See the [inventory schema](https://partner.steamgames.com/doc/features/inventory/schema) for more details.
  * 
  * @returns {boolean}
  * 
