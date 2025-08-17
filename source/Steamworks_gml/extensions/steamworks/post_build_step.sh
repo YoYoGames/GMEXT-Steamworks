@@ -11,10 +11,55 @@ setupmacOS() {
 
     SDK_SOURCE="$SDK_PATH/redistributable_bin/osx/libsteam_api.dylib"
     assertFileHashEquals $SDK_SOURCE $SDK_HASH_OSX "$ERROR_SDK_HASH"
-    
+
+    for f in "${SDK_SOURCE}"; do
+        # Skip empty vars
+        [ -n "$f" ] || continue
+
+        if [ ! -e "$f" ]; then
+            logWarning "Not found: $f"
+            continue
+        fi
+
+        if xattr -p com.apple.quarantine "$f" >/dev/null 2>&1; then
+            logWarning "'$(basename "$f")' is quarantined. Removing com.apple.quarantine…"
+            if xattr -d com.apple.quarantine "$f" >/dev/null 2>&1; then
+                logInformation "Removed quarantine from '$f'"
+            else
+                logError "Failed to remove quarantine from '$f' (permissions/path?)."
+            fi
+        fi
+    done
+
     echo "Copying macOS (64 bit) dependencies"
 
     if [[ "$YYTARGET_runtime" == "VM" ]]; then
+
+        # Assert if xcode-tools are installed (required)
+        assertXcodeToolsInstalled
+
+        # Code sign the original library binary
+        codesign -s "${YYPLATFORM_option_mac_signing_identity}" -f --timestamp --verbose --options runtime "./libSteamworks.dylib"
+
+        # Copy and code sign dependencies
+        itemCopyTo "$SDK_SOURCE" "./libsteam_api.dylib"
+        codesign -s "${YYPLATFORM_option_mac_signing_identity}" -f --timestamp --verbose --options runtime "./libsteam_api.dylib"
+
+        # If there is an extra game.zip file here then this is a package command
+        # Update the libraries inside the zip file (used for packaging)
+        if [ -f "./game.zip" ]; then
+            TEMP_FOLDER="${YYprojectName}___temp___"
+
+            mkdir "./${TEMP_FOLDER}"
+
+            itemCopyTo "./libSteamworks.dylib" "${TEMP_FOLDER}/assets/libSteamworks.dylib"
+            itemCopyTo "./libsteam_api.dylib" "${TEMP_FOLDER}/assets/libsteam_api.dylib"
+    
+            zipUpdate "${TEMP_FOLDER}" "game.zip"
+            rm -r ${TEMP_FOLDER}
+        fi
+
+
         logError "Extension is not compatible with the macOS VM export, please use YYC."
     else
         # When running from CI the 'YYprojectName' will not be set use 'YYprojectPath' instead.
@@ -41,11 +86,16 @@ setupLinux() {
         YYprojectName=$(basename "${YYprojectPath%.*}")
     fi
 
+    # Replace spaces with underscores (this matches the assetcompiler output)
+    YYfixedProjectName="${YYprojectName// /_}"
+
+    TEMP_FOLDER="${YYprojectName}___temp___"
+
     # Update the zip file with the required SDKs
-    mkdir -p _temp/assets
-    itemCopyTo "$SDK_SOURCE" "_temp/assets/libsteam_api.so"
-    zipUpdate "_temp" "${YYprojectName}.zip"
-    rm -r _temp
+    mkdir "./${TEMP_FOLDER}"
+    itemCopyTo "$SDK_SOURCE" "${TEMP_FOLDER}/assets/libsteam_api.so"
+    zipUpdate "${TEMP_FOLDER}" "${YYprojectName}.zip"
+    rm -r ${TEMP_FOLDER}
 }
 
 # ######################################################################################
