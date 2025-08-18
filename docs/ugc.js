@@ -150,6 +150,7 @@
  * 
  * @returns {boolean}
  * 
+ * @example
  * ```gml
  * var _app_id = steam_get_app_id();
  * var _updateHandle = steam_ugc_start_item_update(_app_id, global.Publish_ID);
@@ -178,6 +179,7 @@
  * 
  * @returns {boolean}
  * 
+ * @example
  * ```gml
  * var _app_id = steam_get_app_id();
  * var _updateHandle = steam_ugc_start_item_update(_app_id, global.Publish_ID);
@@ -206,6 +208,7 @@
  * 
  * @returns {boolean}
  * 
+ * @example
  * ```gml
  * var _app_id = steam_get_app_id();
  * var _updateHandle = steam_ugc_start_item_update(_app_id, global.Publish_ID);
@@ -234,6 +237,7 @@
  * 
  * @returns {boolean}
  * 
+ * @example
  * ```gml
  * var _app_id = steam_get_app_id();
  * var _updateHandle = steam_ugc_start_item_update(_app_id, global.Publish_ID);

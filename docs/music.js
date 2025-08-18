@@ -52,7 +52,7 @@
  * 
  * @returns {boolean}
  * 
- *  * @example
+ * @example
  * ```gml
  * if (steam_music_get_status == steam_music_paused) {
  *     steam_music_play();

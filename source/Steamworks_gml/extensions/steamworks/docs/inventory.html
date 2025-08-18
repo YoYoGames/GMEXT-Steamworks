@@ -200,6 +200,8 @@ For example, an amount of 100000 would be divided over two stacks as follows: th
 <li><a href="inventory.html#steam_inventory_set_property_int">steam_inventory_set_property_int</a></li>
 <li><a href="inventory.html#steam_inventory_set_property_string">steam_inventory_set_property_string</a></li>
 <li><a href="inventory.html#steam_inventory_submit_update_properties">steam_inventory_submit_update_properties</a></li>
+<li><a href="inventory.html#steam_inventory_load_item_definitions">steam_inventory_load_item_definitions</a></li>
+<li><a href="inventory.html#steam_inventory_get_item_definition_property">steam_inventory_get_item_definition_property</a></li>
 </ul>
 <h2 id="constants">Constants</h2>
 <p>These are the constants used by this API:</p>
@@ -1318,6 +1320,64 @@ Starting with a <a href="inventory.html#steam_inventory_start_update_properties"
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
+<h1 id="steam_inventory_get_item_definition_property">steam_inventory_get_item_definition_property</h1>
+<p>This function gets a string property from the specified item definition.</p>
+<p>The function returns the value associated with the property as a string upon success, or an empty string <code>""</code> in the following cases:</p>
+<ul>
+<li>The item definitions have not been loaded from the server.</li>
+<li>No item definitions exist for the current application.</li>
+<li>The property name was not found in the item definition.</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Call <a href="inventory.html#steam_inventory_load_item_definitions">steam_inventory_load_item_definitions</a> first, to ensure that items are ready to be used before calling this function.</p>
+</div>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<pre class="highlight"><code class="language-gml">steam_inventory_get_item_definition_property(item_id, prop_name)</code></pre>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>item_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The item definition to use</td>
+</tr>
+<tr>
+<td>prop_name</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The name of the property to get the value of</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><pre class="highlight"><code class="language-gml">power = 0;
+var _value = steam_inventory_get_item_definition_property(item_id, "power");
+if (_value != "") {
+    power = real(_value);
+}</code></pre>
+The code above shows a call to the function being used to retrieve the value for a property <code>"power"</code>. If the returned value is not an empty string, it is converted to a real and assigned to the instance variable <code>power</code>.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
 <h1 id="steam_inventory_transfer_item_quantity">steam_inventory_transfer_item_quantity</h1>
 <p>Transfer items between stacks within a user's inventory.</p>
 <p>This can be used to stack, split, and move items. The source and destination items must have the same itemdef id. To move items onto a destination stack specify the source, the quantity to move, and the destination item id. To split an existing stack, pass <code>steam_item_instance_id_invalid</code> into <code>dest_item_id</code>. A new item stack will be generated with the requested quantity.</p>
@@ -1414,13 +1474,14 @@ The above code will trigger a transfer between two item stacks owned by the user
 <p align="right"><a href="#top">Back To Top</a></p>
 
 <h1 id="steam_inventory_trigger_item_drop">steam_inventory_trigger_item_drop</h1>
-<p>This function triggers an item drop if the user has played a long enough period of time.
-This period can be customized in two places:</p>
+<p>This function triggers an item drop if the user has played a long enough period of time.</p>
+<p>This period can be customized in two places:</p>
 <ul>
-<li>At the application level within Inventory Service: Playtime Item Grants. This will automatically apply to all "playtimegenerator" items that do not specify any overrides.</li>
+<li>At the application level within Inventory Service: Playtime Item Grants. This will automatically apply to all <code>"playtimegenerator"</code> items that do not specify any overrides.</li>
 <li>In an individual "playtimegenerator" item definition. The settings would take precedence over any application-level settings.</li>
 </ul>
 <p>Only item definitions which are marked as "playtime item generators" can be spawned.</p>
+<p>See <a href="https://partner.steamgames.com/doc/features/inventory/schema#PlaytimeDrops">Playtime Item Drops</a> for more information.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>You must call <a href="inventory.html#steam_inventory_result_destroy">steam_inventory_result_destroy</a> on the returned async result ID when you are done with it.</p>
@@ -1447,7 +1508,7 @@ This period can be customized in two places:</p>
 <tr>
 <td>item_def</td>
 <td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
-<td>This must refer to an item definition of the type "playtimegenerator". See the <a href="https://partner.steamgames.com/doc/features/inventory/schema">inventory schema</a> for more details.</td>
+<td>This must refer to an item definition of the type <code>"playtimegenerator"</code>. See the <a href="https://partner.steamgames.com/doc/features/inventory/schema">inventory schema</a> for more details.</td>
 </tr>
 </tbody>
 </table>
@@ -1576,6 +1637,28 @@ else
 steam_inventory_result_destroy(handle);
 handle = undefined;</code></pre>
 In the code above we have an example of a asynchronous callback that generates a result handle by the end of which we execute a call to <a href="inventory.html#steam_inventory_result_destroy">steam_inventory_result_destroy</a> to make sure we dispose and free all the used memory.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_inventory_load_item_definitions">steam_inventory_load_item_definitions</h1>
+<p>This function triggers an asynchronous load and refresh of item definitions.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<pre class="highlight"><code class="language-gml">steam_inventory_load_item_definitions()</code></pre>
+</blockquote>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<pre class="highlight"><code class="language-gml">steam_inventory_load_item_definitions();</code></pre>
 <p><br></p>
 <p><br></p>
 <hr />

@@ -276,6 +276,12 @@ The above code gets if the Steam music player is playing. If it is, it pauses th
 </tbody>
 </table>
 <p><br></p>
+<p><strong>Example:</strong></p>
+<p><pre class="highlight"><code class="language-gml">if (steam_music_get_status == steam_music_paused) {
+    steam_music_play();
+}</code></pre>
+The above code gets if the Steam music player is paused. If it is, it resumes playback.</p>
+<p><br></p>
 <p><br></p>
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
@@ -295,6 +301,13 @@ The above code gets if the Steam music player is playing. If it is, it pauses th
 <blockquote>
 <p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
 </blockquote>
+<ul>
+<li>@example
+<pre class="highlight"><code class="language-gml">if (steam_music_get_status == steam_music_playing) {
+    steam_music_pause();
+}</code></pre>
+The above code gets if Steam music player is playing. if it is, it pauses playback.</li>
+</ul>
 <p><br></p>
 <p><strong>Triggers:</strong></p>
 <blockquote>
@@ -336,6 +349,13 @@ The above code gets if the Steam music player is playing. If it is, it pauses th
 <blockquote>
 <p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
 </blockquote>
+<ul>
+<li>@example
+<pre class="highlight"><code class="language-gml">if (keyboard_check_pressed(vk_right)) {
+    steam_music_play_next();
+}</code></pre>
+The above code checks if the right arrow has been pressed and if it has, it skips to the next track.</li>
+</ul>
 <p><br></p>
 <p><strong>Triggers:</strong></p>
 <blockquote>
@@ -378,6 +398,13 @@ If the current track is the first, it DOES NOT loop to the last one. Returns <co
 <blockquote>
 <p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
 </blockquote>
+<ul>
+<li>@example
+<pre class="highlight"><code class="language-gml">if (keyboard_check_pressed(vk_left)) {
+    steam_music_play_previous();
+}</code></pre>
+The above code checks if the left arrow has been pressed and if it has, it goes back to the previous track.</li>
+</ul>
 <p><br></p>
 <p><strong>Triggers:</strong></p>
 <blockquote>
