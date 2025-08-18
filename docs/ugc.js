@@ -11,7 +11,7 @@
  * 
  * @example
  * ```gml
- * if steam_is_screenshot_requested()
+ * if (steam_is_screenshot_requested())
  * {
  *     var _file = "Catch_The_Haggis_" + string(global.scrn_num) + ".png");
  *     screen_save(_file);
@@ -35,7 +35,7 @@
  * 
  * @example
  * ```gml
- * if steam_is_screenshot_requested()
+ * if (steam_is_screenshot_requested())
  * {
  *     var _file = "Catch_The_Haggis_" + string(global.scrn_num) + ".png");
  *     screen_save(_file);
@@ -76,10 +76,10 @@
  * 
  * ```gml
  * var _event_id = async_load[? "id"];
- * if _event_id == new_item
+ * if (_event_id == new_item)
  * {
  *     var _type = async_load[? "event_type"];
- *     if _type == "ugc_create_item"
+ *     if (_type == "ugc_create_item")
  *     {
  *         global.Publish_ID = async_load[? "published_file_id"];
  *     }
@@ -533,7 +533,7 @@
  * var _info_map = ds_map_create();
  * var _info = steam_ugc_get_item_update_info(global.fileID, _info_map);
  * 
- * if _info
+ * if (_info)
  * {
  *     draw_text(32, 15, "needs_update: " + string(_info_map[? "needs_update"]));
  *     draw_text(32, 30, "is_downloading: " + string(_info_map[? "is_downloading"]));
@@ -601,7 +601,7 @@
  * ```gml
  * var _map_id = async_load[? "id"];
  * var _result = async_load[? "result"];
- * if (_map_id == steam_details) && (_result == ugc_result_success)
+ * if (_map_id == steam_details && _result == ugc_result_success)
  * {
  *     mTitle = async_load[? "title"];
  *     mDesc = async_load[? "description"];
@@ -989,10 +989,10 @@
  * 
  * ```gml
  * var _event_id = async_load[? "id"];
- * if _event_id == steam_get
+ * if (_event_id == steam_get)
  * {
  *     var _type = async_load[? "event_type"];
- *     if _type == "ugc_download"
+ *     if (_type == "ugc_download")
  *     {
  *         sprite_delete(preview_sprite);
  *         preview_sprite = sprite_add(async_load[? "dest_filename"], 0, false, false, 0, 0);
@@ -1000,6 +1000,162 @@
  * }
  * ```
  * The above code checks the event type and then creates a sprite from the downloaded image.
+ * @func_end
+ */
+
+/**
+ * @func steam_ugc_add_item_to_favorites
+ * @desc > **Steamworks Function**: [ISteamUGC::AddItemToFavorites](https://partner.steamgames.com/doc/api/ISteamUGC#AddItemToFavorites)
+ * 
+ * This function adds a workshop item to the user's favorites list.
+ * 
+ * @param {int64} published_file_id The workshop item to add to the user's favorites list.
+ * 
+ * @returns {real} The async identifier for the request.
+ * 
+ * @event steam
+ * @desc 
+ * @member {real} id The async ID returned in the original function call
+ * @member {string} event_type The string `"steam_ugc_add_item_to_favorites"`
+ * @member {real} result The result of the operation.
+ * @member {real} published_file_id The item which was added.
+ * @event_end
+ * 
+ * @example
+ * ```gml
+ * /// Mouse Left Pressed Event
+ * request_id = steam_ugc_add_item_to_favorites(item);
+ * ```
+ * The code above calls the function and stores the request ID in an instance variable.
+ * ```gml
+ * /// Async Steam Event
+ * if (async_load[? "id"] != request_id) { exit; }
+ * 
+ * var _event_type = async_load[? "event_type"];
+ * var _id = async_load[? "published_file_id"];
+ * var _success = (async_load[? "result"] == ugc_result_success) ? "succeeded" : "failed";
+ * show_debug_message("{0} {1} (published file ID: {2})", _event_type, _success, _id);
+ * ```
+ * The code above shows the code in the ${event.steam}. The event is exited early if the ID for which it is triggered is not the request ID returned in the original function call, otherwise a debug message is output that shows information about the result of the call.
+ * @func_end
+ */
+
+/**
+ * @func steam_ugc_remove_item_from_favorites
+ * @desc > **Steamworks Function**: [ISteamUGC::RemoveItemFromFavorites](https://partner.steamgames.com/doc/api/ISteamUGC#RemoveItemFromFavorites)
+ * 
+ * This function removes a workshop item from the user's favorites list.
+ * 
+ * @param {int64} published_file_id The workshop item to remove from the user's favorites list.
+ * 
+ * @returns {real} The async identifier for the request.
+ * 
+ * @event steam
+ * @desc 
+ * @member {real} id The async ID returned in the original function call
+ * @member {string} event_type The string `"steam_ugc_remove_item_from_favorites"`
+ * @member {real} result The result of the operation.
+ * @member {real} published_file_id The item which was removed.
+ * @event_end
+ * 
+ * @example
+ * ```gml
+ * /// Mouse Left Pressed Event
+ * request_id = steam_ugc_add_item_to_favorites(item);
+ * ```
+ * The code above calls the function and stores the request ID in an instance variable.
+ * ```gml
+ * /// Async Steam Event
+ * if (async_load[? "id"] != request_id) { exit; }
+ * 
+ * var _event_type = async_load[? "event_type"];
+ * var _id = async_load[? "published_file_id"];
+ * var _success = (async_load[? "result"] == ugc_result_success) ? "succeeded" : "failed";
+ * show_debug_message("{0} {1} (published file ID: {2})", _event_type, _success, _id);
+ * ```
+ * The code above shows the code in the ${event.steam}. The event is exited early if the ID for which it is triggered is not the request ID returned in the original function call, otherwise a debug message is output that shows information about the result of the call.
+ * @func_end
+ */
+
+/**
+ * @func steam_ugc_set_user_item_vote
+ * @desc > **Steamworks Function**: [ISteamUGC::SetUserItemVote](https://partner.steamgames.com/doc/api/ISteamUGC#SetUserItemVote)
+ * 
+ * This function allows the user to rate a workshop item up or down.
+ * 
+ * @param {int64} published_file_id The workshop item ID to vote on.
+ * @param {bool} vote_up Vote up (`true`) or down (`false`)?
+ * 
+ * @returns {real} The async identifier for the request.
+ * 
+ * @event steam
+ * @desc 
+ * @member {real} id The async ID returned in the original function call
+ * @member {string} event_type The string `"steam_ugc_set_user_item_vote"`
+ * @member {real} result The result of the operation.
+ * @member {bool} vote_up Was the vote up (`true`) or down (`false`)?
+ * @member {int64} published_file_id The workshop item that the user voted on.
+ * @event_end
+ * 
+ * @example
+ * ```gml
+ * /// Mouse Left Pressed Event
+ * request_id = steam_ugc_set_user_item_vote(item, true);
+ * ```
+ * The code above calls the function and stores the request ID in an instance variable.
+ * ```gml
+ * /// Async Steam Event
+ * if (async_load[? "id"] != request_id) { exit; }
+ * 
+ * var _event_type = async_load[? "event_type"];
+ * var _id = async_load[? "published_file_id"];
+ * var _success = (async_load[? "result"] == ugc_result_success) ? "succeeded" : "failed";
+ * var _up = (async_load[? "vote_up"]) ? "up" : "down";
+ * show_debug_message("{0} {1} (published file ID: {2}) - voted {3}", _event_type, _success, _id, _up);
+ * ```
+ * The code above shows the code in the ${event.steam}. The event is exited early if the ID for which it is triggered is not the request ID returned in the original function call, otherwise a debug message is output that shows information about the result of the call.
+ * @func_end
+ */
+
+/**
+ * @func steam_ugc_get_user_item_vote
+ * @desc > **Steamworks Function**: [ISteamUGC::GetUserItemVote](https://partner.steamgames.com/doc/api/ISteamUGC#GetUserItemVote)
+ * 
+ * This function gets the user's vote status on a workshop item.
+ * 
+ * @param {int64} published_file_id The workshop item ID to get the user's vote of.
+ * 
+ * @returns {real} The async identifier for the request.
+ * 
+ * @event steam
+ * @desc 
+ * @member {real} id The async ID returned in the original function call
+ * @member {string} event_type The string `"steam_ugc_get_user_item_vote"`
+ * @member {real} result The result of the operation.
+ * @member {bool} voted_up Has the user voted the item up?
+ * @member {bool} voted_down Has the user voted the item down?
+ * @member {bool} vote_skipped Has the user skipped voting on this item?
+ * @member {int64} published_file_id The workshop item to get the vote status of.
+ * @event_end
+ * 
+ * @example
+ * ```gml
+ * /// Mouse Left Pressed Event
+ * request_id = steam_ugc_get_user_item_vote(item);
+ * ```
+ * The code above calls the function and stores the request ID in an instance variable.
+ * ```gml
+ * /// Async Steam Event
+ * if (async_load[? "id"] != request_id) { exit; }
+ * 
+ * var _event_type = async_load[? "event_type"];
+ * var _id = async_load[? "published_file_id"];
+ * var _success = (async_load[? "result"] == ugc_result_success) ? "succeeded" : "failed";
+ * var _voted_up = async_load[? "voted_up"];
+ * var _vote_status = (async_load[? "vote_skipped"] ? "skipped" : ((_voted_up) ? "up" : "down"));
+ * show_debug_message("{0} {1} (published file ID: {2}) - vote {3}", _event_type, _success, _id, _vote_status);
+ * ```
+ * The code above shows the code in the ${event.steam}. The event is exited early if the ID for which it is triggered is not the request ID returned in the original function call, otherwise a debug message is output that shows information about the result of the call.
  * @func_end
  */
 
@@ -1198,6 +1354,14 @@
  * @ref steam_ugc_query_set_allow_cached_response
  * @ref steam_ugc_send_query
  * @ref steam_ugc_download
+ * @section_end
+ * 
+ * @section_func Voting And Favouriting
+ * @desc The following functions are provided by the extension to work with voting and favouriting:
+ * @ref steam_ugc_add_item_to_favorites
+ * @ref steam_ugc_remove_item_from_favorites
+ * @ref steam_ugc_set_user_item_vote
+ * @ref steam_ugc_get_user_item_vote
  * @section_end
  * 
  * @section_const Constants

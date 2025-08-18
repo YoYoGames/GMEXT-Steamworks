@@ -477,6 +477,33 @@
  */
 
 /**
+ * @func steam_inventory_get_item_definition_property
+ * @desc This function gets a string property from the specified item definition.
+ * 
+ * The function returns the value associated with the property as a string upon success, or an empty string `""` in the following cases:
+ * 
+ * * The item definitions have not been loaded from the server.
+ * * No item definitions exist for the current application.
+ * * The property name was not found in the item definition.
+ * 
+ * [[Note: Call ${function.steam_inventory_load_item_definitions} first, to ensure that items are ready to be used before calling this function.]]
+ * 
+ * @param {string} item_id The item definition to use
+ * @param {string} prop_name The name of the property to get the value of
+ * 
+ * @example
+ * ```gml
+ * power = 0;
+ * var _value = steam_inventory_get_item_definition_property(item_id, "power");
+ * if (_value != "") {
+ *     power = real(_value);
+ * }
+ * ```
+ * The code above shows a call to the function being used to retrieve the value for a property `"power"`. If the returned value is not an empty string, it is converted to a real and assigned to the instance variable `power`.
+ * @func_end
+ */
+
+/**
  * @func steam_inventory_transfer_item_quantity
  * @desc Transfer items between stacks within a user's inventory.
  *
@@ -512,12 +539,15 @@
 /**
  * @func steam_inventory_trigger_item_drop
  * @desc This function triggers an item drop if the user has played a long enough period of time.
+ * 
  * This period can be customized in two places:
  * 
- * * At the application level within Inventory Service: Playtime Item Grants. This will automatically apply to all "playtimegenerator" items that do not specify any overrides.
+ * * At the application level within Inventory Service: Playtime Item Grants. This will automatically apply to all `"playtimegenerator"` items that do not specify any overrides.
  * * In an individual "playtimegenerator" item definition. The settings would take precedence over any application-level settings.
  * 
  * Only item definitions which are marked as "playtime item generators" can be spawned.
+ * 
+ * See [Playtime Item Drops](https://partner.steamgames.com/doc/features/inventory/schema#PlaytimeDrops) for more information.
  * 
  * [[WARNING: You must call ${function.steam_inventory_result_destroy} on the returned async result ID when you are done with it.]]
  * 
@@ -525,7 +555,7 @@
  * >
  * > A wrapper around [TriggerItemDrop](https://partner.steamgames.com/doc/api/ISteamInventory#TriggerItemDrop).
  * 
- * @param {real} item_def This must refer to an item definition of the type "playtimegenerator". See the [inventory schema](https://partner.steamgames.com/doc/features/inventory/schema) for more details.
+ * @param {real} item_def This must refer to an item definition of the type `"playtimegenerator"`. See the [inventory schema](https://partner.steamgames.com/doc/features/inventory/schema) for more details.
  * 
  * @returns {boolean}
  * 
@@ -593,6 +623,19 @@
  * handle = undefined;
  * ```
  * In the code above we have an example of a asynchronous callback that generates a result handle by the end of which we execute a call to ${function.steam_inventory_result_destroy} to make sure we dispose and free all the used memory.
+ * @func_end
+ */
+
+/**
+ * @func steam_inventory_load_item_definitions
+ * @desc This function triggers an asynchronous load and refresh of item definitions.
+ * 
+ * @returns {bool}
+ * 
+ * @example
+ * ```gml
+ * steam_inventory_load_item_definitions();
+ * ```
  * @func_end
  */
 
@@ -1062,6 +1105,8 @@
  * @ref steam_inventory_set_property_int
  * @ref steam_inventory_set_property_string
  * @ref steam_inventory_submit_update_properties
+ * @ref steam_inventory_load_item_definitions
+ * @ref steam_inventory_get_item_definition_property
  * 
  * @section_end
  * 

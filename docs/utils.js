@@ -6,6 +6,8 @@
  * 
  * [[WARNING: You must call ${function.steam_utils_enable_callbacks} prior to calling this function if you wish to receive `Async - Steam` gamepad keyboard events.]]
  * 
+ * [[Note: Steam needs to be in Big Picture mode for this function to work.]]
+ * 
  * @param {real} mode A `steam_floating_gamepad_text_input_mode_` constant.
  * @param {real} text_field_x X position of the keyboard window in display coordinates.
  * @param {real} text_field_y Y position of the keyboard window in display coordinates.
@@ -62,10 +64,12 @@
  * 
  * [[WARNING: You must call ${function.steam_utils_enable_callbacks} prior to calling this function if you wish to receive `Async - Steam` gamepad keyboard events.]]
  * 
+ * [[Note: Steam needs to be in Big Picture mode for this function to work.]]
+ * 
  * @param {real} mode A `steam_gamepad_text_input_mode_` constant.
  * @param {real} lines_mode A `steam_gamepad_text_input_line_mode_` constant.
  * @param {string} description The description of the window.
- * @param {real} chars_max The maximum nupber of characters the player can enter.
+ * @param {real} chars_max The maximum number of characters the player can enter.
  * @param {string} existing_text Some existing text to put into the text field or an empty string.
  * 
  * @returns {boolean}
@@ -73,6 +77,7 @@
  * @event steam
  * @member {string} event_type A string `"gamepad_text_input_dismissed"`.
  * @member {boolean} submitted `true` if the dialog was submitted successfully and `false` if it was cancelled.
+ * @member {string} submitted_text The text submitted in the text box.
  * @member {real} submitted_text_raw_byte_length Raw length of the text in bytes.
  * @event_end
  * 
