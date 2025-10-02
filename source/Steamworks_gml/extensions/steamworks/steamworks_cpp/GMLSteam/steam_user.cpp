@@ -143,7 +143,8 @@ YYEXPORT void /*vector<steam_get_friends_game_info_t>*/ steam_get_friends_game_i
 
 		vec.push_back(Struct);
 	}
-	//Result.kind = VALUE_ARRAY;
+
+	YYCreateArray(&Result);
 	_SW_SetArrayOfRValue(&Result, vec);
 }
 
@@ -175,12 +176,10 @@ YYEXPORT void /*vector<steam_get_friends_game_info_t>*/ steam_get_friends(RValue
 		YYStructAddString(&Struct, "friendName", friendName);
 		YYStructAddDouble(&Struct, "state", (int)state);
 
-		//COPY_RValue(&Result, &Struct);
-		//FREE_RValue(&Struct);
-
 		vec.push_back(Struct);
 	}
-	//Result.kind = VALUE_ARRAY;
+
+	YYCreateArray(&Result);
 	_SW_SetArrayOfRValue(&Result, vec);
 }
 

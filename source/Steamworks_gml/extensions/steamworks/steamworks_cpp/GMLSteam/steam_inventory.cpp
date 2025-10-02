@@ -114,6 +114,7 @@ YYEXPORT void /*vector<steam_inventory_result_item>*/ steam_inventory_result_get
 		vec.push_back(Struct);
 	}
 
+	YYCreateArray(&Result);
 	_SW_SetArrayOfRValue(&Result, vec);
 }
 
@@ -562,6 +563,8 @@ YYEXPORT void /*optional<vector<steam_inventory_get_item_prices_t>>*/ steam_inve
 	vector<SteamItemDef_t> defs; defs.resize(n);
 	vector<uint64> prices; prices.resize(n);
 	vector<uint64> basePrices; basePrices.resize(n);
+
+	YYCreateArray(&Result);
 
 #if defined(OS_Windows) || defined(OS_Linux)
 	if (!API->GetItemsWithPrices(defs.data(), prices.data(), basePrices.data(), n))
