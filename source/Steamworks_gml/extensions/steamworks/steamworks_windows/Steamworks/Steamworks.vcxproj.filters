@@ -93,6 +93,12 @@
     <ClCompile Include="..\..\steamworks_cpp\pch.cpp">
       <Filter>Header Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\steamworks_cpp\GMLSteam\steam_networking_sockets.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\steamworks_cpp\GMLSteam\steam_networking_messages.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\steamworks_cpp\DesktopExtensionTools.h">

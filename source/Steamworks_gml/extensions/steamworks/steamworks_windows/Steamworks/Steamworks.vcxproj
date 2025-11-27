@@ -52,6 +52,8 @@
     <ClCompile Include="..\..\steamworks_cpp\GMLSteam\steam_misc.cpp" />
     <ClCompile Include="..\..\steamworks_cpp\GMLSteam\steam_music.cpp" />
     <ClCompile Include="..\..\steamworks_cpp\GMLSteam\steam_networking.cpp" />
+    <ClCompile Include="..\..\steamworks_cpp\GMLSteam\steam_networking_messages.cpp" />
+    <ClCompile Include="..\..\steamworks_cpp\GMLSteam\steam_networking_sockets.cpp" />
     <ClCompile Include="..\..\steamworks_cpp\GMLSteam\steam_remotestorage.cpp" />
     <ClCompile Include="..\..\steamworks_cpp\GMLSteam\steam_screenshots.cpp" />
     <ClCompile Include="..\..\steamworks_cpp\GMLSteam\steam_ugc.cpp" />
