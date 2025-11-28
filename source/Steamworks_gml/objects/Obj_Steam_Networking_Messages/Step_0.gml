@@ -2,7 +2,7 @@
 event_inherited();
 
 var buff = buffer_create(128,buffer_fixed,1)
-show_debug_message("Buffer: " + string(buff))
+
 var data_size = steam_net_messages_receive_on_channel(0,buff,128)
 
 if(data_size)
