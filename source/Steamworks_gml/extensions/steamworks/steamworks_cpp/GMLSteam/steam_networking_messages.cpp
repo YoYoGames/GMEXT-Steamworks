@@ -41,7 +41,6 @@ void CSteamNetMessagesHandler::OnSessionRequest(SteamNetworkingMessagesSessionRe
 {
     char str[128];
     pInfo->m_identityRemote.ToString(str, sizeof(str));
-    DebugConsoleOutput("[SteamMessages] SessionRequest from %s\n", str);
 
     int dsMapIndex = CreateDsMap(1,
         "event_type", (double)0.0, "steam_net_message_on_session_request"
@@ -80,8 +79,6 @@ YYEXPORT void steam_net_messages_register_callbacks(
     if (!g_pNetMsgHandler)
         g_pNetMsgHandler = new CSteamNetMessagesHandler();
 
-    DebugConsoleOutput("[SteamMessages] Callbacks registered\n");
-
     Result.kind = VALUE_BOOL;
     Result.val = true;
 }
@@ -95,8 +92,6 @@ YYEXPORT void steam_net_messages_unregister_callbacks(
         g_pNetMsgHandler = nullptr;
     }
 
-    DebugConsoleOutput("[SteamMessages] Callbacks unregistered\n");
-
     Result.kind = VALUE_BOOL;
     Result.val = true;
 }
@@ -107,8 +102,6 @@ YYEXPORT void steam_net_messages_unregister_callbacks(
 YYEXPORT void steam_net_messages_send(
     RValue& Result, CInstance*, CInstance*, int argc, RValue* args)
 {
-    DebugConsoleOutput("steam_net_messages_send CALLED \n");
-
     ISteamNetworkingMessages* p = GM_SteamNetMessages();
     if (!p)
     {
@@ -140,7 +133,6 @@ YYEXPORT void steam_net_messages_send(
     identity.Clear();
     identity.SetSteamID64(steamID64);
 
-    DebugConsoleOutput("Sending: - %s %i\n",(char*)buffer_data, dataSize);
     EResult er = p->SendMessageToUser(identity, buffer_data, (uint32)dataSize, sendFlags, channel);
 
     Result.kind = VALUE_REAL;
@@ -153,7 +145,6 @@ YYEXPORT void steam_net_messages_send(
 YYEXPORT void steam_net_messages_accept_session(
     RValue& Result, CInstance*, CInstance*, int argc, RValue* args)
 {
-    DebugConsoleOutput("steam_net_messages_accept_session CALLED \n");
 
     ISteamNetworkingMessages* p = GM_SteamNetMessages();
     if (!p)
@@ -181,8 +172,6 @@ YYEXPORT void steam_net_messages_accept_session(
 YYEXPORT void steam_net_messages_close_session(
     RValue& Result, CInstance*, CInstance*, int argc, RValue* args)
 {
-    DebugConsoleOutput("steam_net_messages_close_session CALLED \n");
-
     ISteamNetworkingMessages* p = GM_SteamNetMessages();
     if (!p)
     {
@@ -209,8 +198,6 @@ YYEXPORT void steam_net_messages_close_session(
 YYEXPORT void steam_net_messages_close_channel(
     RValue& Result, CInstance*, CInstance*, int argc, RValue* args)
 {
-    DebugConsoleOutput("steam_net_messages_close_channel CALLED \n");
-
     ISteamNetworkingMessages* p = GM_SteamNetMessages();
     if (!p)
     {
@@ -252,8 +239,8 @@ YYEXPORT void steam_net_messages_receive_on_channel(
 
     void* buffer_data = nullptr;
     int buffer_size = 0;
-
-    if (!BufferGetContent(bufferIndex, &buffer_data, &buffer_size))// || !buffer_data)
+    //if (!BufferGetContent(bufferIndex, &buffer_data, &buffer_size))// || !buffer_data)
+    if (BufferGetFromGML(bufferIndex) == NULL)
     {
         DebugConsoleOutput("steam_net_messages_receive_on_channel - buffer not found\n");
         Result.kind = VALUE_REAL;
@@ -261,8 +248,8 @@ YYEXPORT void steam_net_messages_receive_on_channel(
         return;
     }
 
-    if (maxSize > buffer_size)
-        maxSize = buffer_size;
+    //if (maxSize > buffer_size)
+    //    maxSize = buffer_size;
 
     SteamNetworkingMessage_t* pMsg = nullptr;
 
@@ -275,17 +262,20 @@ YYEXPORT void steam_net_messages_receive_on_channel(
         return;
     }
 
-    DebugConsoleOutput("Message IN: %i Size: %i\n", num, pMsg->m_cbSize);
-
     int toCopy = (pMsg->m_cbSize < maxSize) ? pMsg->m_cbSize : maxSize;
-    memcpy(buffer_data, pMsg->m_pData, toCopy);
+
+    //memcpy(buffer_data, pMsg->m_pData, toCopy);
+    if (BufferWriteContent(bufferIndex, 0, pMsg->m_pData, (int)toCopy, true) != toCopy)
+    {
+        DebugConsoleOutput("steam_net_messages_receive_on_channel() - error: could not write to buffer\n");
+        Result.kind = VALUE_BOOL;
+        Result.val = false;
+    }
+
 
     g_lastMsgIdentity = pMsg->m_identityPeer;
     g_lastMsgSize = pMsg->m_cbSize;
-
     pMsg->Release();
-
-    DebugConsoleOutput("toCopy: %i\n", toCopy);
 
     Result.kind = VALUE_REAL;
     Result.val = (double)toCopy;
