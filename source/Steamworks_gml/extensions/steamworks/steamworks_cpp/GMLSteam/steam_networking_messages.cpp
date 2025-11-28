@@ -140,6 +140,7 @@ YYEXPORT void steam_net_messages_send(
     identity.Clear();
     identity.SetSteamID64(steamID64);
 
+    DebugConsoleOutput("Sending: - %s %i\n",(char*)buffer_data, dataSize);
     EResult er = p->SendMessageToUser(identity, buffer_data, (uint32)dataSize, sendFlags, channel);
 
     Result.kind = VALUE_REAL;
@@ -274,6 +275,8 @@ YYEXPORT void steam_net_messages_receive_on_channel(
         return;
     }
 
+    DebugConsoleOutput("Message IN: %i Size: %i\n", num, pMsg->m_cbSize);
+
     int toCopy = (pMsg->m_cbSize < maxSize) ? pMsg->m_cbSize : maxSize;
     memcpy(buffer_data, pMsg->m_pData, toCopy);
 
@@ -281,6 +284,8 @@ YYEXPORT void steam_net_messages_receive_on_channel(
     g_lastMsgSize = pMsg->m_cbSize;
 
     pMsg->Release();
+
+    DebugConsoleOutput("toCopy: %i\n", toCopy);
 
     Result.kind = VALUE_REAL;
     Result.val = (double)toCopy;
