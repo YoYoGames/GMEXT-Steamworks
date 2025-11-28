@@ -125,7 +125,7 @@ YYEXPORT void steam_net_messages_send(
 
     void* buffer_data = nullptr;
     int buffer_size = 0;
-    if (!BufferGetContent(bufferIndex, &buffer_data, &buffer_size) || !buffer_data)
+    if (!BufferGetContent(bufferIndex, &buffer_data, &buffer_size))// || !buffer_data)
     {
         DebugConsoleOutput("steam_net_messages_send() - buffer not found\n");
         Result.kind = VALUE_BOOL;
@@ -252,7 +252,9 @@ YYEXPORT void steam_net_messages_receive_on_channel(
     void* buffer_data = nullptr;
     int buffer_size = 0;
 
-    if (!BufferGetContent(bufferIndex, &buffer_data, &buffer_size) || !buffer_data)
+    DebugConsoleOutput("buff: %i R: %i  \n",bufferIndex, BufferGetContent(bufferIndex, &buffer_data, &buffer_size));
+
+    if (!BufferGetContent(bufferIndex, &buffer_data, &buffer_size))// || !buffer_data)
     {
         DebugConsoleOutput("steam_net_messages_receive_on_channel - buffer not found\n");
         Result.kind = VALUE_REAL;
