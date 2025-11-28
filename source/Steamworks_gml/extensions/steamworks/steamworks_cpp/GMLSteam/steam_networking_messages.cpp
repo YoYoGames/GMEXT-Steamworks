@@ -1,4 +1,3 @@
-
 #include "pch.h"
 #include "steam_glue.h"
 #include "steam_api.h"
@@ -6,21 +5,110 @@
 #include "YYRValue.h"
 #include "steam_common.h"
 
-// Accessor
+// ============================================================
+// ACCESSOR
+// ============================================================
 static inline ISteamNetworkingMessages* GM_SteamNetMessages()
 {
     return SteamNetworkingMessages();
 }
 
-// Keep information about the last received message
+// ============================================================
+// GLOBAL LAST MESSAGE INFO
+// ============================================================
 static SteamNetworkingIdentity g_lastMsgIdentity;
-static int                     g_lastMsgChannel = 0;
-static int                     g_lastMsgSize = 0;
+static int g_lastMsgSize = 0;
 
-// double steam_net_messages_send(int64 steam_id, double channel, buffer buf, double size, double send_flags)
-YYEXPORT void steam_net_messages_send(
-    RValue& Result, CInstance* self, CInstance* other, int argc, RValue* args)
+// ============================================================
+// NETWORK CALLBACK HANDLER CLASS
+// ============================================================
+class CSteamNetMessagesHandler
 {
+public:
+    CSteamNetMessagesHandler() {} // empty constructor; STEAM_CALLBACK handles initialization
+
+private:
+    STEAM_CALLBACK(CSteamNetMessagesHandler, OnSessionRequest, SteamNetworkingMessagesSessionRequest_t);
+    STEAM_CALLBACK(CSteamNetMessagesHandler, OnSessionFailed, SteamNetworkingMessagesSessionFailed_t);
+};
+
+static CSteamNetMessagesHandler* g_pNetMsgHandler = nullptr;
+
+// ============================================================
+// CALLBACK IMPLEMENTATIONS
+// ============================================================
+void CSteamNetMessagesHandler::OnSessionRequest(SteamNetworkingMessagesSessionRequest_t* pInfo)
+{
+    char str[128];
+    pInfo->m_identityRemote.ToString(str, sizeof(str));
+    DebugConsoleOutput("[SteamMessages] SessionRequest from %s\n", str);
+
+    int dsMapIndex = CreateDsMap(1,
+        "event_type", (double)0.0, "steam_net_message_on_session_request"
+    );
+
+    g_pYYRunnerInterface->DsMapAddInt64(dsMapIndex, "steamid", pInfo->m_identityRemote.GetSteamID64());
+    //TODO: more data
+    //g_pYYRunnerInterface->DsMapAddInt64(dsMapIndex, "", pInfo->);
+
+    g_pYYRunnerInterface->CreateAsyncEventWithDSMap(dsMapIndex, EVENT_OTHER_WEB_STEAM);
+}
+
+void CSteamNetMessagesHandler::OnSessionFailed(SteamNetworkingMessagesSessionFailed_t* pInfo)
+{
+    char str[128];
+    pInfo->m_info.m_identityRemote.ToString(str, sizeof(str));
+
+    int dsMapIndex = CreateDsMap(1,
+        "event_type", (double)0.0, "steam_net_message_on_session_failed"
+    );
+
+    g_pYYRunnerInterface->DsMapAddInt64(dsMapIndex, "steamid", pInfo->m_info.m_identityRemote.GetSteamID64());
+    g_pYYRunnerInterface->DsMapAddDouble(dsMapIndex, "reason", pInfo->m_info.m_eEndReason);
+    //TODO: more data
+    //g_pYYRunnerInterface->DsMapAddDouble(dsMapIndex, "", pInfo->m_info.);
+
+    g_pYYRunnerInterface->CreateAsyncEventWithDSMap(dsMapIndex, EVENT_OTHER_WEB_STEAM);
+}
+
+// ============================================================
+// REGISTER / UNREGISTER CALLBACKS
+// ============================================================
+YYEXPORT void steam_net_messages_register_callbacks(
+    RValue& Result, CInstance*, CInstance*, int, RValue*)
+{
+    if (!g_pNetMsgHandler)
+        g_pNetMsgHandler = new CSteamNetMessagesHandler();
+
+    DebugConsoleOutput("[SteamMessages] Callbacks registered\n");
+
+    Result.kind = VALUE_BOOL;
+    Result.val = true;
+}
+
+YYEXPORT void steam_net_messages_unregister_callbacks(
+    RValue& Result, CInstance*, CInstance*, int, RValue*)
+{
+    if (g_pNetMsgHandler)
+    {
+        delete g_pNetMsgHandler;
+        g_pNetMsgHandler = nullptr;
+    }
+
+    DebugConsoleOutput("[SteamMessages] Callbacks unregistered\n");
+
+    Result.kind = VALUE_BOOL;
+    Result.val = true;
+}
+
+// ============================================================
+// SEND MESSAGE
+// ============================================================
+YYEXPORT void steam_net_messages_send(
+    RValue& Result, CInstance*, CInstance*, int argc, RValue* args)
+{
+    DebugConsoleOutput("steam_net_messages_send CALLED \n");
+
     ISteamNetworkingMessages* p = GM_SteamNetMessages();
     if (!p)
     {
@@ -30,47 +118,42 @@ YYEXPORT void steam_net_messages_send(
     }
 
     int64 steamID64 = (int64)YYGetInt64(args, 0);
-    int   channel = (int)YYGetReal(args, 1);
-    int   bufferIndex = (int)YYGetReal(args, 2);
-    int   dataSize = (int)YYGetReal(args, 3);
-    int   sendFlags = (int)YYGetReal(args, 4);
+    int channel = (int)YYGetReal(args, 1);
+    int bufferIndex = (int)YYGetReal(args, 2);
+    int dataSize = (int)YYGetReal(args, 3);
+    int sendFlags = (int)YYGetReal(args, 4);
 
     void* buffer_data = nullptr;
-    int   buffer_size = 0;
+    int buffer_size = 0;
     if (!BufferGetContent(bufferIndex, &buffer_data, &buffer_size) || !buffer_data)
     {
-        DebugConsoleOutput("steam_net_messages_send() - error: specified buffer %d not found\n", (int)bufferIndex);
+        DebugConsoleOutput("steam_net_messages_send() - buffer not found\n");
         Result.kind = VALUE_BOOL;
         Result.val = false;
         return;
     }
 
     if (dataSize > buffer_size)
-    {
-        DebugConsoleOutput("steam_net_messages_send() - warning: requested size %d is bigger than buffer size %d, clamping\n", dataSize, buffer_size);
         dataSize = buffer_size;
-    }
 
     SteamNetworkingIdentity identity;
     identity.Clear();
     identity.SetSteamID64(steamID64);
 
-    EResult er = (EResult)p->SendMessageToUser(
-        identity,
-        buffer_data,
-        (uint32)dataSize,
-        sendFlags,      // e.g. k_nSteamNetworkingSend_Reliable, etc.
-        channel         // remote channel
-    );
+    EResult er = p->SendMessageToUser(identity, buffer_data, (uint32)dataSize, sendFlags, channel);
 
     Result.kind = VALUE_REAL;
     Result.val = (double)er;
 }
 
-// double steam_net_messages_accept_session(int64 steam_id)
+// ============================================================
+// ACCEPT SESSION
+// ============================================================
 YYEXPORT void steam_net_messages_accept_session(
-    RValue& Result, CInstance* self, CInstance* other, int argc, RValue* args)
+    RValue& Result, CInstance*, CInstance*, int argc, RValue* args)
 {
+    DebugConsoleOutput("steam_net_messages_accept_session CALLED \n");
+
     ISteamNetworkingMessages* p = GM_SteamNetMessages();
     if (!p)
     {
@@ -91,10 +174,14 @@ YYEXPORT void steam_net_messages_accept_session(
     Result.val = ok;
 }
 
-// double steam_net_messages_close_session(int64 steam_id)
+// ============================================================
+// CLOSE SESSION
+// ============================================================
 YYEXPORT void steam_net_messages_close_session(
-    RValue& Result, CInstance* self, CInstance* other, int argc, RValue* args)
+    RValue& Result, CInstance*, CInstance*, int argc, RValue* args)
 {
+    DebugConsoleOutput("steam_net_messages_close_session CALLED \n");
+
     ISteamNetworkingMessages* p = GM_SteamNetMessages();
     if (!p)
     {
@@ -115,10 +202,14 @@ YYEXPORT void steam_net_messages_close_session(
     Result.val = ok;
 }
 
-// double steam_net_messages_close_channel(int64 steam_id, double channel)
+// ============================================================
+// CLOSE CHANNEL
+// ============================================================
 YYEXPORT void steam_net_messages_close_channel(
-    RValue& Result, CInstance* self, CInstance* other, int argc, RValue* args)
+    RValue& Result, CInstance*, CInstance*, int argc, RValue* args)
 {
+    DebugConsoleOutput("steam_net_messages_close_channel CALLED \n");
+
     ISteamNetworkingMessages* p = GM_SteamNetMessages();
     if (!p)
     {
@@ -128,7 +219,7 @@ YYEXPORT void steam_net_messages_close_channel(
     }
 
     int64 steamID64 = (int64)YYGetInt64(args, 0);
-    int   channel = (int)YYGetReal(args, 1);
+    int channel = (int)YYGetReal(args, 1);
 
     SteamNetworkingIdentity identity;
     identity.Clear();
@@ -140,13 +231,11 @@ YYEXPORT void steam_net_messages_close_channel(
     Result.val = ok;
 }
 
-// double steam_net_messages_receive_on_channel(double local_channel, buffer buf, double max_size)
-//
-// Returns:
-//  0  -> no message
-// >0  -> bytes written into buffer, and you can query last sender / channel with the getters below.
+// ============================================================
+// RECEIVE MESSAGE
+// ============================================================
 YYEXPORT void steam_net_messages_receive_on_channel(
-    RValue& Result, CInstance* self, CInstance* other, int argc, RValue* args)
+    RValue& Result, CInstance*, CInstance*, int argc, RValue* args)
 {
     ISteamNetworkingMessages* p = GM_SteamNetMessages();
     if (!p)
@@ -161,10 +250,11 @@ YYEXPORT void steam_net_messages_receive_on_channel(
     int maxSize = (int)YYGetReal(args, 2);
 
     void* buffer_data = nullptr;
-    int   buffer_size = 0;
+    int buffer_size = 0;
+
     if (!BufferGetContent(bufferIndex, &buffer_data, &buffer_size) || !buffer_data)
     {
-        DebugConsoleOutput("steam_net_messages_receive_on_channel() - error: specified buffer %d not found\n", (int)bufferIndex);
+        DebugConsoleOutput("steam_net_messages_receive_on_channel - buffer not found\n");
         Result.kind = VALUE_REAL;
         Result.val = 0.0;
         return;
@@ -175,11 +265,7 @@ YYEXPORT void steam_net_messages_receive_on_channel(
 
     SteamNetworkingMessage_t* pMsg = nullptr;
 
-    int num = p->ReceiveMessagesOnChannel(
-        localChannel,
-        &pMsg,
-        1   // only grab one at a time, simpler for GML
-    );
+    int num = p->ReceiveMessagesOnChannel(localChannel, &pMsg, 1);
 
     if (num <= 0 || !pMsg)
     {
@@ -191,9 +277,7 @@ YYEXPORT void steam_net_messages_receive_on_channel(
     int toCopy = (pMsg->m_cbSize < maxSize) ? pMsg->m_cbSize : maxSize;
     memcpy(buffer_data, pMsg->m_pData, toCopy);
 
-    // Store info about the last message
-    //g_lastMsgIdentity = pMsg->m_identitySender;//TODO
-    g_lastMsgChannel = localChannel;
+    g_lastMsgIdentity = pMsg->m_identityPeer;
     g_lastMsgSize = pMsg->m_cbSize;
 
     pMsg->Release();
@@ -202,25 +286,21 @@ YYEXPORT void steam_net_messages_receive_on_channel(
     Result.val = (double)toCopy;
 }
 
-// double steam_net_messages_get_last_size()
+// ============================================================
+// LAST MESSAGE SIZE
+// ============================================================
 YYEXPORT void steam_net_messages_get_last_size(
-    RValue& Result, CInstance* self, CInstance* other, int argc, RValue* args)
+    RValue& Result, CInstance*, CInstance*, int, RValue*)
 {
     Result.kind = VALUE_REAL;
     Result.val = (double)g_lastMsgSize;
 }
 
-// double steam_net_messages_get_last_channel()
-YYEXPORT void steam_net_messages_get_last_channel(
-    RValue& Result, CInstance* self, CInstance* other, int argc, RValue* args)
-{
-    Result.kind = VALUE_REAL;
-    Result.val = (double)g_lastMsgChannel;
-}
-
-// double steam_net_messages_get_last_steam_id()
+// ============================================================
+// LAST SENDER STEAM ID
+// ============================================================
 YYEXPORT void steam_net_messages_get_last_steam_id(
-    RValue& Result, CInstance* self, CInstance* other, int argc, RValue* args)
+    RValue& Result, CInstance*, CInstance*, int, RValue*)
 {
     if (g_lastMsgIdentity.m_eType == k_ESteamNetworkingIdentityType_SteamID)
     {
@@ -234,4 +314,3 @@ YYEXPORT void steam_net_messages_get_last_steam_id(
         Result.v64 = 0;
     }
 }
-

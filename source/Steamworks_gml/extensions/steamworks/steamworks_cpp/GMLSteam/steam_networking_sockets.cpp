@@ -349,6 +349,7 @@ YYEXPORT void steam_net_sockets_create_socket_pair(
 
     bool useLoopback = (YYGetReal(args, 0) != 0.0);
 
+    // Optional identities – you can leave them cleared
     SteamNetworkingIdentity id1, id2;
     id1.Clear();
     id2.Clear();
@@ -356,11 +357,14 @@ YYEXPORT void steam_net_sockets_create_socket_pair(
     HSteamNetConnection conn1 = k_HSteamNetConnection_Invalid;
     HSteamNetConnection conn2 = k_HSteamNetConnection_Invalid;
 
+    // NEW SIGNATURE ORDER:
+    // (HSteamNetConnection*, HSteamNetConnection*, bool, const SteamNetworkingIdentity*, const SteamNetworkingIdentity*)
     bool ok = p->CreateSocketPair(
+        &conn1,
+        &conn2,
         useLoopback,
-        &id1, &id2,
-        &conn1, &conn2,
-        0, nullptr
+        &id1,
+        &id2
     );
 
     if (ok)
@@ -372,6 +376,7 @@ YYEXPORT void steam_net_sockets_create_socket_pair(
     Result.kind = VALUE_BOOL;
     Result.val = ok;
 }
+
 
 // double steam_net_sockets_get_socket_pair_connection1()
 YYEXPORT void steam_net_sockets_get_socket_pair_connection1(
@@ -938,25 +943,28 @@ YYEXPORT void steam_net_sockets_received_relay_auth_ticket(
         return;
     }
 
-    SteamDatagramRelayAuthTicket parsed;
+    // NOTE: we do NOT use SteamDatagramRelayAuthTicket here to avoid incomplete-type issues.
+    // Pass nullptr for the parsed ticket pointer.
     int res = p->ReceivedRelayAuthTicket(
         ticket_data,
         ticketSize,
-        &parsed
+        nullptr    // SteamDatagramRelayAuthTicket* (ignored)
     );
 
+    // Optional: copy the raw ticket into parsed_buf for convenience/debugging
     if (res >= 0)
     {
-        int sz = (int)sizeof(parsed);
+        int sz = ticketSize;
         if (sz > parsed_size) sz = parsed_size;
-        memcpy(parsed_data, &parsed, sz);
+        memcpy(parsed_data, ticket_data, sz);
     }
 
     Result.kind = VALUE_REAL;
     Result.val = (double)res;
 }
 
-// double steam_net_sockets_find_relay_auth_ticket_for_server(int64 server_steam_id, double remote_virtual_port, buffer parsed_buf)
+
+// double steam_net_sockets_find_relay_auth_ticket_for_server(buffer parsed_buf, double popid)
 YYEXPORT void steam_net_sockets_find_relay_auth_ticket_for_server(
     RValue& Result, CInstance* self, CInstance* other, int argc, RValue* args)
 {
@@ -968,41 +976,59 @@ YYEXPORT void steam_net_sockets_find_relay_auth_ticket_for_server(
         return;
     }
 
+    // Read GML args – keep order exactly as you already expose them
     int64 steamID64 = (int64)YYGetInt64(args, 0);
     int   remoteVirtPort = (int)YYGetReal(args, 1);
     int   parsedBufIndex = (int)YYGetReal(args, 2);
 
+    // Validate parsed buffer
     void* parsed_data = nullptr;
     int   parsed_size = 0;
     if (!BufferGetContent(parsedBufIndex, &parsed_data, &parsed_size) || !parsed_data)
     {
-        DebugConsoleOutput("steam_net_sockets_find_relay_auth_ticket_for_server() - invalid parsed buffer\n");
+        DebugConsoleOutput("steam_net_sockets_find_relay_auth_ticket_for_server() - error: parsed buffer %d not found\n", parsedBufIndex);
         Result.kind = VALUE_REAL;
         Result.val = -1.0;
         return;
     }
 
+    // Build identity from SteamID64
     SteamNetworkingIdentity id;
     id.Clear();
     id.SetSteamID64(steamID64);
 
-    SteamDatagramRelayAuthTicket parsed;
-    int idx = p->FindRelayAuthTicketForServer(
+    // Call Steam and DO NOT request the parsed struct to avoid incomplete type error
+    int seconds_left = p->FindRelayAuthTicketForServer(
         id,
         remoteVirtPort,
-        0, nullptr,
-        &parsed
+        nullptr  // SteamDatagramRelayAuthTicket* — we ignore it
     );
 
-    if (idx >= 0)
-    {
-        int sz = (int)sizeof(parsed);
-        if (sz > parsed_size) sz = parsed_size;
-        memcpy(parsed_data, &parsed, sz);
-    }
+    //// Optional improvement:
+    //// if a ticket exists, copy the raw ticket bytes from Steam's internal cache into parsed_buf
+    //// (only for convenience, does NOT affect expiry check logic)
+    //if (seconds_left > 0)
+    //{
+    //    // Max we can copy into the parsed buffer
+    //    int toCopy = 1024;
+    //    if (toCopy > parsed_size) toCopy = parsed_size;
 
+    //    SteamNetAuthenticationStatus_t auth;
+    //    memset(&auth, 0, sizeof(auth));
+
+    //    if (p->GetAuthenticationStatus(&auth) == k_ESteamNetworkingAvailability_Current)
+    //    {
+    //        const void* cached_ticket = auth.m_vecRelayTickets.data();
+    //        int ticket_size = (int)auth.m_vecRelayTickets.size();
+    //        if (ticket_size < toCopy) toCopy = ticket_size;
+
+    //        memcpy(parsed_data, cached_ticket, toCopy);
+    //    }
+    //}
+
+    // Return seconds until expiry (0 = no ticket, >0 = time left, <0 = error)
     Result.kind = VALUE_REAL;
-    Result.val = (double)idx;
+    Result.val = (double)seconds_left;
 }
 
 // double steam_net_sockets_connect_to_hosted_dedicated_server(int64 server_steam_id, double remote_virtual_port)
@@ -1060,7 +1086,7 @@ YYEXPORT void steam_net_sockets_get_hosted_dedicated_server_popid(
     Result.val = (double)popid;
 }
 
-// double steam_net_sockets_get_hosted_dedicated_server_address(buffer routing_buf, buffer ip_buf)
+// double steam_net_sockets_get_hosted_dedicated_server_address(buffer routing_buf)
 YYEXPORT void steam_net_sockets_get_hosted_dedicated_server_address(
     RValue& Result, CInstance* self, CInstance* other, int argc, RValue* args)
 {
@@ -1073,44 +1099,32 @@ YYEXPORT void steam_net_sockets_get_hosted_dedicated_server_address(
     }
 
     int routingBufIndex = (int)YYGetReal(args, 0);
-    int ipBufIndex = (int)YYGetReal(args, 1);
 
     void* routing_data = nullptr;
-    void* ip_data = nullptr;
     int   routing_size = 0;
-    int   ip_size = 0;
-
-    if (!BufferGetContent(routingBufIndex, &routing_data, &routing_size) || !routing_data ||
-        !BufferGetContent(ipBufIndex, &ip_data, &ip_size) || !ip_data)
+    if (!BufferGetContent(routingBufIndex, &routing_data, &routing_size) || !routing_data)
     {
-        DebugConsoleOutput("steam_net_sockets_get_hosted_dedicated_server_address() - invalid buffers\n");
+        DebugConsoleOutput("steam_net_sockets_get_hosted_dedicated_server_address() - invalid routing buffer %d\n", routingBufIndex);
         Result.kind = VALUE_REAL;
         Result.val = (double)k_EResultFail;
         return;
     }
 
-    SteamDatagramHostedAddress routing;
-    SteamNetworkingIPAddr      ip;
+    // Treat the GM buffer memory as a SteamDatagramHostedAddress struct.
+    // This only needs a *pointer* to the type, so the type can be incomplete.
+    SteamDatagramHostedAddress* pRouting = reinterpret_cast<SteamDatagramHostedAddress*>(routing_data);
 
-    EResult er = p->GetHostedDedicatedServerAddress(
-        &routing,
-        &ip
-    );
+    EResult er = p->GetHostedDedicatedServerAddress(pRouting);
 
-    if (er == k_EResultOK)
-    {
-        int szR = (int)sizeof(routing);
-        if (szR > routing_size) szR = routing_size;
-        memcpy(routing_data, &routing, szR);
-
-        int szI = (int)sizeof(ip);
-        if (szI > ip_size) szI = ip_size;
-        memcpy(ip_data, &ip, szI);
-    }
+    // We don't do memcpy – Steam already wrote the struct directly into the buffer.
+    // Caller just gets 'er' and the raw bytes in routing_buf.
 
     Result.kind = VALUE_REAL;
     Result.val = (double)er;
 }
+
+
+
 
 // double steam_net_sockets_create_hosted_dedicated_server_listen_socket(double local_virtual_port)
 YYEXPORT void steam_net_sockets_create_hosted_dedicated_server_listen_socket(
@@ -1168,30 +1182,33 @@ YYEXPORT void steam_net_sockets_get_game_coordinator_server_login(
     if (blobMaxSize > blob_size)
         blobMaxSize = blob_size;
 
-    SteamDatagramGameCoordinatorServerLogin login;
     int cbSignedBlob = blobMaxSize;
 
+    // Use the GameMaker buffer memory as the SteamDatagramGameCoordinatorServerLogin struct.
+    // This only needs a pointer type, so the type can be incomplete.
+    SteamDatagramGameCoordinatorServerLogin* pLogin =
+        reinterpret_cast<SteamDatagramGameCoordinatorServerLogin*>(login_data);
+
     EResult er = p->GetGameCoordinatorServerLogin(
-        &login,
-        &cbSignedBlob,
-        blob_data
+        pLogin,        // struct written directly into login_buf
+        &cbSignedBlob, // in/out size of signed blob
+        blob_data      // blob written directly into blob_buf
     );
 
-    if (er == k_EResultOK)
-    {
-        int szL = (int)sizeof(login);
-        if (szL > login_size) szL = login_size;
-        memcpy(login_data, &login, szL);
-    }
-    else
+    if (er != k_EResultOK)
     {
         cbSignedBlob = 0;
+
+        // Optional: clear login buffer on failure so GML doesn't read garbage
+        if (login_data && login_size > 0)
+            memset(login_data, 0, login_size);
     }
 
     // Return blob size actually written (0 on failure)
     Result.kind = VALUE_REAL;
     Result.val = (double)cbSignedBlob;
 }
+
 
 // bool steam_net_sockets_begin_async_request_fake_ip(double num_ports)
 YYEXPORT void steam_net_sockets_begin_async_request_fake_ip(
@@ -1209,44 +1226,53 @@ YYEXPORT void steam_net_sockets_begin_async_request_fake_ip(
     Result.val = ok;
 }
 
-// double steam_net_sockets_get_fake_ip(double idx_fake_port, buffer buf)
-YYEXPORT void steam_net_sockets_get_fake_ip(
-    RValue& Result, CInstance* self, CInstance* other, int argc, RValue* args)
-{
-    ISteamNetworkingSockets* p = GM_SteamNetSockets();
-    if (!p)
-    {
-        Result.kind = VALUE_REAL;
-        Result.val = 0.0;
-        return;
-    }
+//// double steam_net_sockets_get_fake_ip(double idx_fake_port, buffer buf)
+//YYEXPORT void steam_net_sockets_get_fake_ip(
+//    RValue& Result, CInstance* self, CInstance* other, int argc, RValue* args)
+//{
+//    ISteamNetworkingSockets* p = GM_SteamNetSockets();
+//    if (!p)
+//    {
+//        Result.kind = VALUE_REAL;
+//        Result.val = 0.0;
+//        return;
+//    }
+//
+//    int idxFakePort = (int)YYGetReal(args, 0);
+//    int bufferIndex = (int)YYGetReal(args, 1);
+//
+//    void* buffer_data = nullptr;
+//    int   buffer_size = 0;
+//    if (!BufferGetContent(bufferIndex, &buffer_data, &buffer_size) || !buffer_data)
+//    {
+//        DebugConsoleOutput("steam_net_sockets_get_fake_ip() - invalid buffer\n");
+//        Result.kind = VALUE_REAL;
+//        Result.val = 0.0;
+//        return;
+//    }
+//
+//    SteamNetworkingIPAddr addr;
+//    ESteamNetworkingFakeIPType type = p->GetFakeIP(
+//        idxFakePort,
+//        &addr
+//    );
+//
+//    if (type != k_ESteamNetworkingFakeIPType_Invalid)
+//    {
+//        int sz = (int)sizeof(addr);
+//        if (sz > buffer_size) sz = buffer_size;
+//        memcpy(buffer_data, &addr, sz);
+//    }
+//    else
+//    {
+//        // Optional: clear buffer if there is no valid FakeIP
+//        memset(buffer_data, 0, buffer_size);
+//    }
+//
+//    Result.kind = VALUE_REAL;
+//    Result.val = (double)type;
+//}
 
-    int idxFakePort = (int)YYGetReal(args, 0);
-    int bufferIndex = (int)YYGetReal(args, 1);
-
-    void* buffer_data = nullptr;
-    int   buffer_size = 0;
-    if (!BufferGetContent(bufferIndex, &buffer_data, &buffer_size) || !buffer_data)
-    {
-        DebugConsoleOutput("steam_net_sockets_get_fake_ip() - invalid buffer\n");
-        Result.kind = VALUE_REAL;
-        Result.val = 0.0;
-        return;
-    }
-
-    SteamNetworkingIPAddr addr;
-    ESteamNetworkingFakeIPType type = p->GetFakeIP(
-        idxFakePort,
-        &addr
-    );
-
-    int sz = (int)sizeof(addr);
-    if (sz > buffer_size) sz = buffer_size;
-    memcpy(buffer_data, &addr, sz);
-
-    Result.kind = VALUE_REAL;
-    Result.val = (double)type;
-}
 
 // double steam_net_sockets_create_listen_socket_p2p_fake_ip(double idx_fake_port)
 YYEXPORT void steam_net_sockets_create_listen_socket_p2p_fake_ip(
@@ -1270,62 +1296,62 @@ YYEXPORT void steam_net_sockets_create_listen_socket_p2p_fake_ip(
     Result.kind = VALUE_REAL;
     Result.val = (double)hListen;
 }
-
-// double steam_net_sockets_get_remote_fake_ip_for_connection(double connection, buffer buf)
-YYEXPORT void steam_net_sockets_get_remote_fake_ip_for_connection(
-    RValue& Result, CInstance* self, CInstance* other, int argc, RValue* args)
-{
-    ISteamNetworkingSockets* p = GM_SteamNetSockets();
-    if (!p)
-    {
-        Result.kind = VALUE_REAL;
-        Result.val = 0.0;
-        return;
-    }
-
-    HSteamNetConnection hConn = (HSteamNetConnection)(int)YYGetReal(args, 0);
-    int bufferIndex = (int)YYGetReal(args, 1);
-
-    void* buffer_data = nullptr;
-    int   buffer_size = 0;
-    if (!BufferGetContent(bufferIndex, &buffer_data, &buffer_size) || !buffer_data)
-    {
-        DebugConsoleOutput("steam_net_sockets_get_remote_fake_ip_for_connection() - invalid buffer\n");
-        Result.kind = VALUE_REAL;
-        Result.val = 0.0;
-        return;
-    }
-
-    SteamNetworkingIPAddr addr;
-    ESteamNetworkingFakeIPType type = p->GetRemoteFakeIPForConnection(
-        hConn,
-        &addr
-    );
-
-    int sz = (int)sizeof(addr);
-    if (sz > buffer_size) sz = buffer_size;
-    memcpy(buffer_data, &addr, sz);
-
-    Result.kind = VALUE_REAL;
-    Result.val = (double)type;
-}
-
-// double steam_net_sockets_create_fake_udp_port(double idx_fake_server_port)
-YYEXPORT void steam_net_sockets_create_fake_udp_port(
-    RValue& Result, CInstance* self, CInstance* other, int argc, RValue* args)
-{
-    ISteamNetworkingSockets* p = GM_SteamNetSockets();
-    if (!p)
-    {
-        Result.kind = VALUE_REAL;
-        Result.val = -1.0;
-        return;
-    }
-
-    int idxFakeServerPort = (int)YYGetReal(args, 0);
-
-    HSteamNetConnection hConn = p->CreateFakeUDPPort(idxFakeServerPort);
-
-    Result.kind = VALUE_REAL;
-    Result.val = (double)hConn;
-}
+//
+//// double steam_net_sockets_get_remote_fake_ip_for_connection(double connection, buffer buf)
+//YYEXPORT void steam_net_sockets_get_remote_fake_ip_for_connection(
+//    RValue& Result, CInstance* self, CInstance* other, int argc, RValue* args)
+//{
+//    ISteamNetworkingSockets* p = GM_SteamNetSockets();
+//    if (!p)
+//    {
+//        Result.kind = VALUE_REAL;
+//        Result.val = 0.0;
+//        return;
+//    }
+//
+//    HSteamNetConnection hConn = (HSteamNetConnection)(int)YYGetReal(args, 0);
+//    int bufferIndex = (int)YYGetReal(args, 1);
+//
+//    void* buffer_data = nullptr;
+//    int   buffer_size = 0;
+//    if (!BufferGetContent(bufferIndex, &buffer_data, &buffer_size) || !buffer_data)
+//    {
+//        DebugConsoleOutput("steam_net_sockets_get_remote_fake_ip_for_connection() - invalid buffer\n");
+//        Result.kind = VALUE_REAL;
+//        Result.val = 0.0;
+//        return;
+//    }
+//
+//    SteamNetworkingIPAddr addr;
+//    ESteamNetworkingFakeIPType type = p->GetRemoteFakeIPForConnection(
+//        hConn,
+//        &addr
+//    );
+//
+//    int sz = (int)sizeof(addr);
+//    if (sz > buffer_size) sz = buffer_size;
+//    memcpy(buffer_data, &addr, sz);
+//
+//    Result.kind = VALUE_REAL;
+//    Result.val = (double)type;
+//}
+//
+//// double steam_net_sockets_create_fake_udp_port(double idx_fake_server_port)
+//YYEXPORT void steam_net_sockets_create_fake_udp_port(
+//    RValue& Result, CInstance* self, CInstance* other, int argc, RValue* args)
+//{
+//    ISteamNetworkingSockets* p = GM_SteamNetSockets();
+//    if (!p)
+//    {
+//        Result.kind = VALUE_REAL;
+//        Result.val = -1.0;
+//        return;
+//    }
+//
+//    int idxFakeServerPort = (int)YYGetReal(args, 0);
+//
+//    HSteamNetConnection hConn = p->CreateFakeUDPPort(idxFakeServerPort);
+//
+//    Result.kind = VALUE_REAL;
+//    Result.val = (double)hConn;
+//}
