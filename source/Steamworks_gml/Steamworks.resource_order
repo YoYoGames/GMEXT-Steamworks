@@ -52,6 +52,7 @@
     {"name":"Obj_Steam_Networking_Lobby","order":5,"path":"objects/Obj_Steam_Networking_Lobby/Obj_Steam_Networking_Lobby.yy",},
     {"name":"Obj_Steam_Networking_Messages","order":4,"path":"objects/Obj_Steam_Networking_Messages/Obj_Steam_Networking_Messages.yy",},
     {"name":"Obj_Steam_Networking_Overlay","order":1,"path":"objects/Obj_Steam_Networking_Overlay/Obj_Steam_Networking_Overlay.yy",},
+    {"name":"Obj_Steam_Networking_Sockets","order":5,"path":"objects/Obj_Steam_Networking_Sockets/Obj_Steam_Networking_Sockets.yy",},
     {"name":"Obj_Steam_Overlay_Achievements","order":6,"path":"objects/Obj_Steam_Overlay_Achievements/Obj_Steam_Overlay_Achievements.yy",},
     {"name":"Obj_Steam_Overlay_Browser","order":7,"path":"objects/Obj_Steam_Overlay_Browser/Obj_Steam_Overlay_Browser.yy",},
     {"name":"Obj_Steam_Overlay_Community","order":2,"path":"objects/Obj_Steam_Overlay_Community/Obj_Steam_Overlay_Community.yy",},

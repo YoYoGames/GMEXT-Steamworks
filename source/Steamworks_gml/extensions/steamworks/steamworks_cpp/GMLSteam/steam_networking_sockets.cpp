@@ -323,6 +323,8 @@ YYEXPORT void steam_net_sockets_send_messages(
         return;
     }
 
+    //DebugConsoleOutput("steam_net_sockets_send_messages() - %s\n", (char*)buffer_data);
+
     memcpy(msg->m_pData, buffer_data, dataSize);
     msg->m_cbSize = dataSize;
     msg->m_conn = hConn;
@@ -388,7 +390,8 @@ YYEXPORT void steam_net_sockets_recv_messages_on_connection(
 
     void* buffer_data = nullptr;
     int   buffer_size = 0;
-    if (!BufferGetContent(bufferIndex, &buffer_data, &buffer_size) || !buffer_data)
+    //if (!BufferGetContent(bufferIndex, &buffer_data, &buffer_size) || !buffer_data)
+    if (BufferGetFromGML(bufferIndex) == NULL)
     {
         DebugConsoleOutput("steam_net_sockets_recv_messages_on_connection() - error: specified buffer %d not found\n", (int)bufferIndex);
         Result.kind = VALUE_REAL;
@@ -396,8 +399,8 @@ YYEXPORT void steam_net_sockets_recv_messages_on_connection(
         return;
     }
 
-    if (maxSize > buffer_size)
-        maxSize = buffer_size;
+    //if (maxSize > buffer_size)
+    //    maxSize = buffer_size;
 
     SteamNetworkingMessage_t* pMsg = nullptr;
 
@@ -407,6 +410,8 @@ YYEXPORT void steam_net_sockets_recv_messages_on_connection(
         1   // grab only one message at a time
     );
 
+    DebugConsoleOutput("just ReceiveMessagesOnConnection: %i\n", num);
+    
     if (num <= 0 || !pMsg)
     {
         // no messages available
@@ -415,6 +420,8 @@ YYEXPORT void steam_net_sockets_recv_messages_on_connection(
         return;
     }
 
+    DebugConsoleOutput("ReceiveMessagesOnConnection: %i\n", num);
+
     int toCopy = (pMsg->m_cbSize < maxSize) ? pMsg->m_cbSize : maxSize;
     if (toCopy < pMsg->m_cbSize)
     {
@@ -422,7 +429,13 @@ YYEXPORT void steam_net_sockets_recv_messages_on_connection(
             pMsg->m_cbSize, toCopy);
     }
 
-    memcpy(buffer_data, pMsg->m_pData, toCopy);
+    //memcpy(buffer_data, pMsg->m_pData, toCopy);
+    if (BufferWriteContent(bufferIndex, 0, pMsg->m_pData, (int)toCopy, true) != toCopy)
+    {
+        DebugConsoleOutput("steam_net_messages_receive_on_channel() - error: could not write to buffer\n");
+        Result.kind = VALUE_BOOL;
+        Result.val = false;
+    }
 
     pMsg->Release();
 
