@@ -133,7 +133,7 @@ YYEXPORT void steam_net_sockets_accept_connection(
     ISteamNetworkingSockets* p = GM_SteamNetSockets();
     if (!p) { Result.kind = VALUE_REAL; Result.val = 0.0; return; }
 
-    HSteamNetConnection hConn = (HSteamNetConnection)(int)YYGetReal(args, 0);
+    HSteamNetConnection hConn = (HSteamNetConnection)YYGetReal(args, 0);
     EResult er = p->AcceptConnection(hConn);
 
     Result.kind = VALUE_REAL;
@@ -149,7 +149,7 @@ YYEXPORT void steam_net_sockets_close_connection(
     ISteamNetworkingSockets* p = GM_SteamNetSockets();
     if (!p) { Result.kind = VALUE_REAL; Result.val = 0.0; return; }
 
-    HSteamNetConnection hConn = (HSteamNetConnection)(int)YYGetReal(args, 0);
+    HSteamNetConnection hConn = (HSteamNetConnection)YYGetReal(args, 0);
     int   reason = (int)YYGetReal(args, 1);
     const char* debug = YYGetString(args, 2);
     bool linger = (YYGetReal(args, 3) != 0.0);
@@ -250,7 +250,7 @@ YYEXPORT void steam_net_sockets_send_message(
     ISteamNetworkingSockets* p = GM_SteamNetSockets();
     if (!p) { Result.kind = VALUE_REAL; Result.val = -1.0; return; }
 
-    HSteamNetConnection hConn = (HSteamNetConnection)(int)YYGetReal(args, 0);
+    HSteamNetConnection hConn = (HSteamNetConnection)YYGetReal(args, 0);
 
     int bufferIndex = (int)YYGetReal(args, 1); // same way steam_networking.cpp gets buffers
     int dataSize = (int)YYGetReal(args, 2);
@@ -285,6 +285,8 @@ YYEXPORT void steam_net_sockets_send_message(
 YYEXPORT void steam_net_sockets_send_messages(
     RValue& Result, CInstance* self, CInstance* other, int argc, RValue* args)
 {
+    
+
     ISteamNetworkingSockets* pSockets = GM_SteamNetSockets();
     ISteamNetworkingUtils* pUtils = GM_SteamNetUtils();
     if (!pSockets || !pUtils)
@@ -294,7 +296,7 @@ YYEXPORT void steam_net_sockets_send_messages(
         return;
     }
 
-    HSteamNetConnection hConn = (HSteamNetConnection)(int)YYGetReal(args, 0);
+    HSteamNetConnection hConn = (HSteamNetConnection)YYGetReal(args, 0);
     int bufferIndex = (int)YYGetReal(args, 1);
     int dataSize = (int)YYGetReal(args, 2);
     int sendFlags = (int)YYGetReal(args, 3);
@@ -323,8 +325,6 @@ YYEXPORT void steam_net_sockets_send_messages(
         return;
     }
 
-    //DebugConsoleOutput("steam_net_sockets_send_messages() - %s\n", (char*)buffer_data);
-
     memcpy(msg->m_pData, buffer_data, dataSize);
     msg->m_cbSize = dataSize;
     msg->m_conn = hConn;
@@ -346,6 +346,8 @@ YYEXPORT void steam_net_sockets_send_messages(
 
     Result.kind = VALUE_REAL;
     Result.val = (double)0;
+
+    
 }
 
 // -------------------------------------------------------------------------
@@ -376,6 +378,7 @@ YYEXPORT void steam_net_sockets_flush_messages_on_connection(
 YYEXPORT void steam_net_sockets_recv_messages_on_connection(
     RValue& Result, CInstance* self, CInstance* other, int argc, RValue* args)
 {
+    
     ISteamNetworkingSockets* p = GM_SteamNetSockets();
     if (!p)
     {
@@ -384,12 +387,13 @@ YYEXPORT void steam_net_sockets_recv_messages_on_connection(
         return;
     }
 
-    HSteamNetConnection hConn = (HSteamNetConnection)(int)YYGetReal(args, 0);
+    HSteamNetConnection hConn = (HSteamNetConnection)YYGetReal(args, 0);
     int bufferIndex = (int)YYGetReal(args, 1);
     int maxSize = (int)YYGetReal(args, 2);
 
     void* buffer_data = nullptr;
     int   buffer_size = 0;
+
     //if (!BufferGetContent(bufferIndex, &buffer_data, &buffer_size) || !buffer_data)
     if (BufferGetFromGML(bufferIndex) == NULL)
     {
@@ -409,8 +413,6 @@ YYEXPORT void steam_net_sockets_recv_messages_on_connection(
         &pMsg,
         1   // grab only one message at a time
     );
-
-    DebugConsoleOutput("just ReceiveMessagesOnConnection: %i\n", num);
     
     if (num <= 0 || !pMsg)
     {
@@ -419,8 +421,6 @@ YYEXPORT void steam_net_sockets_recv_messages_on_connection(
         Result.val = 0.0;
         return;
     }
-
-    DebugConsoleOutput("ReceiveMessagesOnConnection: %i\n", num);
 
     int toCopy = (pMsg->m_cbSize < maxSize) ? pMsg->m_cbSize : maxSize;
     if (toCopy < pMsg->m_cbSize)
@@ -483,8 +483,8 @@ YYEXPORT void steam_net_sockets_set_connection_poll_group(
     ISteamNetworkingSockets* p = GM_SteamNetSockets();
     if (!p) { Result.kind = VALUE_REAL; Result.val = 0.0; return; }
 
-    HSteamNetConnection hConn = (HSteamNetConnection)(int)YYGetReal(args, 0);
-    HSteamNetPollGroup  hGroup = (HSteamNetPollGroup)(int)YYGetReal(args, 1);
+    HSteamNetConnection hConn = (HSteamNetConnection)YYGetReal(args, 0);
+    HSteamNetPollGroup  hGroup = (HSteamNetPollGroup)YYGetReal(args, 1);
 
     bool ok = p->SetConnectionPollGroup(hConn, hGroup);
 
@@ -561,7 +561,7 @@ YYEXPORT void steam_net_sockets_get_connection_info(
         return;
     }
 
-    HSteamNetConnection hConn = (HSteamNetConnection)(int)YYGetReal(args, 0);
+    HSteamNetConnection hConn = (HSteamNetConnection)YYGetReal(args, 0);
     int bufferIndex = (int)YYGetReal(args, 1);
 
     void* buffer_data = nullptr;
@@ -602,7 +602,7 @@ YYEXPORT void steam_net_sockets_get_connection_real_time_status(
         return;
     }
 
-    HSteamNetConnection hConn = (HSteamNetConnection)(int)YYGetReal(args, 0);
+    HSteamNetConnection hConn = (HSteamNetConnection)YYGetReal(args, 0);
     int bufferIndex = (int)YYGetReal(args, 1);
 
     void* buffer_data = nullptr;
@@ -649,7 +649,7 @@ YYEXPORT void steam_net_sockets_get_detailed_connection_status(
         return;
     }
 
-    HSteamNetConnection hConn = (HSteamNetConnection)(int)YYGetReal(args, 0);
+    HSteamNetConnection hConn = (HSteamNetConnection)YYGetReal(args, 0);
     int bufferIndex = (int)YYGetReal(args, 1);
 
     void* buffer_data = nullptr;
@@ -686,7 +686,7 @@ YYEXPORT void steam_net_sockets_set_connection_user_data(
         return;
     }
 
-    HSteamNetConnection hConn = (HSteamNetConnection)(int)YYGetReal(args, 0);
+    HSteamNetConnection hConn = (HSteamNetConnection)YYGetReal(args, 0);
     int64 userData = (int64)YYGetInt64(args, 1);
 
     bool ok = p->SetConnectionUserData(hConn, userData);
@@ -705,7 +705,7 @@ YYEXPORT void steam_net_sockets_get_connection_user_data(
     int64 val = k_HSteamNetConnection_Invalid;//k_nSteamNetworkingConnectionUserDataInvalid;
     if (p)
     {
-        HSteamNetConnection hConn = (HSteamNetConnection)(int)YYGetReal(args, 0);
+        HSteamNetConnection hConn = (HSteamNetConnection)YYGetReal(args, 0);
         val = p->GetConnectionUserData(hConn);
     }
 
@@ -722,7 +722,7 @@ YYEXPORT void steam_net_sockets_set_connection_name(
     ISteamNetworkingSockets* p = GM_SteamNetSockets();
     if (p)
     {
-        HSteamNetConnection hConn = (HSteamNetConnection)(int)YYGetReal(args, 0);
+        HSteamNetConnection hConn = (HSteamNetConnection)YYGetReal(args, 0);
         const char* name = YYGetString(args, 1);
         p->SetConnectionName(hConn, name);
     }
@@ -745,7 +745,7 @@ YYEXPORT void steam_net_sockets_get_connection_name(//TODO: BUFF.... should retu
         return;
     }
 
-    HSteamNetConnection hConn = (HSteamNetConnection)(int)YYGetReal(args, 0);
+    HSteamNetConnection hConn = (HSteamNetConnection)YYGetReal(args, 0);
     int bufferIndex = (int)YYGetReal(args, 1);
 
     void* buffer_data = nullptr;
@@ -782,7 +782,7 @@ YYEXPORT void steam_net_sockets_configure_connection_lanes(//TODO: Args...
         return;
     }
 
-    HSteamNetConnection hConn = (HSteamNetConnection)(int)YYGetReal(args, 0);
+    HSteamNetConnection hConn = (HSteamNetConnection)YYGetReal(args, 0);
     int nLanes = (int)YYGetReal(args, 1);
     int bufPriIndex = (int)YYGetReal(args, 2);
     int bufWgtIndex = (int)YYGetReal(args, 3);
@@ -1344,7 +1344,7 @@ YYEXPORT void steam_net_sockets_create_listen_socket_p2p_fake_ip(
 //        return;
 //    }
 //
-//    HSteamNetConnection hConn = (HSteamNetConnection)(int)YYGetReal(args, 0);
+//    HSteamNetConnection hConn = (HSteamNetConnection)YYGetReal(args, 0);
 //    int bufferIndex = (int)YYGetReal(args, 1);
 //
 //    void* buffer_data = nullptr;

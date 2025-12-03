@@ -33,12 +33,12 @@ if (keyboard_check_pressed(vk_space)) {
     var size = buffer_tell(buf);
 
     // Send using your wrapper (single message API or batched; here: SendMessages)
-    var er = steam_net_sockets_send_messages(
+    var er = steam_net_sockets_send_message(
         from_conn,
         buf,
         size,
-        global.SEND_RELIABLE,  // reliable
-        0                      // lane (0 = default)
+        global.SEND_RELIABLE//,  // reliable
+        //0                      // lane (0 = default)
     );
 
     log_add("SEND: \"" + msg + "\" via conn " + string(from_conn)
@@ -49,7 +49,6 @@ if (keyboard_check_pressed(vk_space)) {
 
 // === RECEIVE helper ===
 function poll_connection(conn_name, conn_handle) {
-
     // try to receive one message
     var received = steam_net_sockets_recv_messages_on_connection(
         conn_handle,
