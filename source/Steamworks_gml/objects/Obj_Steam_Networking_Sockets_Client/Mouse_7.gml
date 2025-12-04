@@ -1,7 +1,7 @@
 
     if (net_connection > 0)
     {
-        var msg = "Hello from " + (is_host ? "host" : "client") + " at " + string(current_time);
+        var msg = "Hello from " + "client" + " at " + string(current_time);
 
         // Write string into the buffer
         buffer_seek(net_buffer, buffer_seek_start, 0);
