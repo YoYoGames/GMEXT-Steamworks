@@ -17,6 +17,55 @@ static inline ISteamNetworkingUtils* GM_SteamNetUtils()
     return SteamNetworkingUtils();
 }
 
+
+
+// Global listen socket (optional – useful if you want to auto-accept)
+static HSteamListenSocket g_p2pListenSocket = k_HSteamListenSocket_Invalid;
+
+class GMNetSocketsCallbackHandler
+{
+public:
+    GMNetSocketsCallbackHandler() :
+        m_CallbackConnectionStatusChanged(this, &GMNetSocketsCallbackHandler::OnConnectionStatusChanged)
+    {}
+
+    STEAM_CALLBACK(GMNetSocketsCallbackHandler,
+        OnConnectionStatusChanged,
+        SteamNetConnectionStatusChangedCallback_t,
+        m_CallbackConnectionStatusChanged);
+};
+
+static GMNetSocketsCallbackHandler g_NetSocketsCallbacks;
+
+void GMNetSocketsCallbackHandler::OnConnectionStatusChanged(SteamNetConnectionStatusChangedCallback_t* pInfo)
+{
+    ISteamNetworkingSockets* p = GM_SteamNetSockets();
+    if (!p || !pInfo)
+        return;
+
+    const SteamNetConnectionInfo_t& info = pInfo->m_info;
+
+    if (info.m_hListenSocket == g_p2pListenSocket &&
+        info.m_eState == k_ESteamNetworkingConnectionState_Connecting)
+    {
+        p->AcceptConnection(pInfo->m_hConn);
+    }
+
+    int dsMapIndex = CreateDsMap(2,
+        "event_type", (double)0.0,
+        "event_name", "steam_net_message_on_state_change"
+    );
+
+    g_pYYRunnerInterface->DsMapAddInt64(dsMapIndex, "connection", (int64)pInfo->m_hConn);
+    g_pYYRunnerInterface->DsMapAddDouble(dsMapIndex, "state", (double)info.m_eState);
+    g_pYYRunnerInterface->DsMapAddDouble(dsMapIndex, "old_state", (double)pInfo->m_eOldState);
+    g_pYYRunnerInterface->DsMapAddDouble(dsMapIndex, "end_reason", (double)info.m_eEndReason);
+    g_pYYRunnerInterface->DsMapAddString(dsMapIndex, "debug", info.m_szEndDebug ? info.m_szEndDebug : "");
+
+    g_pYYRunnerInterface->CreateAsyncEventWithDSMap(dsMapIndex, EVENT_OTHER_WEB_STEAM);
+}
+
+
 // -------------------------------------------------------------------------
 // 1. CreateListenSocketIP
 // double steam_net_sockets_create_listen_socket_ip(string ip, double port)
@@ -92,6 +141,8 @@ YYEXPORT void steam_net_sockets_create_listen_socket_p2p(
 
     HSteamListenSocket hListen =
         p->CreateListenSocketP2P(virtualPort, 0, nullptr);
+
+    g_p2pListenSocket = hListen;
 
     Result.kind = VALUE_REAL;
     Result.val = (double)hListen;
@@ -171,6 +222,9 @@ YYEXPORT void steam_net_sockets_close_listen_socket(
 
     HSteamListenSocket hListen = (HSteamListenSocket)(int)YYGetReal(args, 0);
     bool ok = p->CloseListenSocket(hListen);
+
+    if (ok && hListen == g_p2pListenSocket)
+        g_p2pListenSocket = k_HSteamListenSocket_Invalid;
 
     Result.kind = VALUE_REAL;
     Result.val = ok ? 1.0 : 0.0;
@@ -364,7 +418,7 @@ YYEXPORT void steam_net_sockets_flush_messages_on_connection(
         return;
     }
 
-    HSteamNetConnection hConn = (HSteamNetConnection)(int)YYGetReal(args, 0);
+    HSteamNetConnection hConn = (HSteamNetConnection)YYGetReal(args, 0);
 
     EResult er = p->FlushMessagesOnConnection(hConn);
 
