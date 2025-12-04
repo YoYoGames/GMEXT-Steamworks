@@ -1,7 +1,7 @@
 /// Async - Steam (obj_net_controller)
 
-var name = async_load[? "event_name"];
-if (name != "steam_net_message_on_session_request") exit;
+var name = async_load[? "event_type"];
+if (name != "steam_net_message_on_state_change") exit;
 
 // Data from the DS map
 var conn        = async_load[? "connection"];
@@ -19,6 +19,11 @@ show_debug_message("SteamNet: conn=" + string(conn)
 // Auto-accept is already done in C++ when m_eState == Connecting.
 // Here we mainly care when it actually becomes Connected or closes.
 
+if(state == NET_STATE_CONNECTING)
+{
+	steam_net_sockets_accept_connection(conn)
+}
+else
 if (state == NET_STATE_CONNECTED)
 {
     // Store the connection so we can send/recv
