@@ -188,7 +188,6 @@ YYEXPORT void steam_net_sockets_close_listen_socket(
     Result.val = ok ? 1.0 : 0.0;
 }
 
-/// array steam_net_sockets_create_socket_pair(bool loopback)
 YYEXPORT void steam_net_sockets_create_socket_pair(
     RValue& Result, CInstance* self, CInstance* other, int argc, RValue* args)
 {
@@ -206,7 +205,6 @@ YYEXPORT void steam_net_sockets_create_socket_pair(
     id1.Clear();
     id2.Clear();
 
-    // Connection handles
     HSteamNetConnection conn1 = k_HSteamNetConnection_Invalid;
     HSteamNetConnection conn2 = k_HSteamNetConnection_Invalid;
 
@@ -388,12 +386,11 @@ YYEXPORT void steam_net_sockets_recv_messages_on_connection(
     int num = p->ReceiveMessagesOnConnection(
         hConn,
         &pMsg,
-        1   // grab only one message at a time
+        1
     );
     
     if (num <= 0 || !pMsg)
     {
-        // no messages available
         Result.kind = VALUE_REAL;
         Result.val = 0.0;
         return;
@@ -541,7 +538,6 @@ YYEXPORT void steam_net_sockets_get_connection_info(
     YYStructAddInt(&Result, "listen_socket", (int)info.m_hListenSocket);
     YYStructAddInt(&Result, "remote_pop", (int)info.m_idPOPRemote);
     YYStructAddInt(&Result, "relay_pop", (int)info.m_idPOPRelay);
-    //YYStructAddInt(&Result, "transport_kind", (int)info.m_nTransportKind);
 
     YYStructAddString(&Result, "description",
         info.m_szConnectionDescription ? info.m_szConnectionDescription : "");
@@ -561,12 +557,11 @@ YYEXPORT void steam_net_sockets_get_connection_info(
 YYEXPORT void steam_net_sockets_get_connection_real_time_status(
     RValue& Result, CInstance* self, CInstance* other, int argc, RValue* args)
 {
-    YYStructCreate(&Result); // always return a struct
+    YYStructCreate(&Result);
 
     ISteamNetworkingSockets* p = SteamNetworkingSockets();
     if (!p)
     {
-        // success = false, result = k_EResultFail
         YYStructAddBool(&Result, "success", false);
         YYStructAddInt(&Result, "result", (int)k_EResultFail);
         return;
@@ -668,7 +663,7 @@ YYEXPORT void steam_net_sockets_get_connection_user_data(
     RValue& Result, CInstance* self, CInstance* other, int argc, RValue* args)
 {
     ISteamNetworkingSockets* p = SteamNetworkingSockets();
-    int64 val = k_HSteamNetConnection_Invalid;//k_nSteamNetworkingConnectionUserDataInvalid;
+    int64 val = k_HSteamNetConnection_Invalid;
     if (p)
     {
         HSteamNetConnection hConn = (HSteamNetConnection)YYGetReal(args, 0);
@@ -700,7 +695,7 @@ YYEXPORT void steam_net_sockets_get_connection_name(
     ISteamNetworkingSockets* p = SteamNetworkingSockets();
     if (!p)
     {
-        YYCreateString(&Result, ""); // or some error text if you prefer
+        YYCreateString(&Result, "");
         return;
     }
 
@@ -716,7 +711,7 @@ YYEXPORT void steam_net_sockets_get_connection_name(
 
     if (!ok)
     {
-        YYCreateString(&Result, ""); // no name / invalid connection
+        YYCreateString(&Result, "");
         return;
     }
 
@@ -919,13 +914,11 @@ YYEXPORT void steam_net_sockets_init_authentication(
 YYEXPORT void steam_net_sockets_get_authentication_status(
     RValue& Result, CInstance* self, CInstance* other, int argc, RValue* args)
 {
-    // Always return a struct
     YYStructCreate(&Result);
 
     ISteamNetworkingSockets* p = SteamNetworkingSockets();
     if (!p)
     {
-        // No interface, report "CannotTry"
         YYStructAddDouble(&Result, "availability", (double)k_ESteamNetworkingAvailability_CannotTry);
         YYStructAddString(&Result, "availability_name", "CannotTry");
         YYStructAddString(&Result, "debug", "SteamNetworkingSockets interface not available");
@@ -938,26 +931,7 @@ YYEXPORT void steam_net_sockets_get_authentication_status(
 
     ESteamNetworkingAvailability avail = p->GetAuthenticationStatus(&status);
 
-    // --- Raw enum value ---
     YYStructAddDouble(&Result, "availability", (double)avail);
-
-    // --- Human-readable availability name ---
-    const char* availName = "Unknown";
-
-    switch (avail)
-    {
-    case k_ESteamNetworkingAvailability_CannotTry:      availName = "CannotTry"; break;
-    case k_ESteamNetworkingAvailability_Failed:         availName = "Failed"; break;
-    case k_ESteamNetworkingAvailability_Previously:     availName = "Previously"; break;
-    case k_ESteamNetworkingAvailability_Retrying:       availName = "Retrying"; break;
-    case k_ESteamNetworkingAvailability_NeverTried:     availName = "NeverTried"; break;
-    case k_ESteamNetworkingAvailability_Waiting:        availName = "Waiting"; break;
-    case k_ESteamNetworkingAvailability_Attempting:     availName = "Attempting"; break;
-    case k_ESteamNetworkingAvailability_Current:        availName = "Current"; break;
-    default:                                            availName = "Unknown"; break;
-    }
-
-    YYStructAddString(&Result, "availability_name", availName);
     YYStructAddString(&Result, "debug", status.m_debugMsg[0] ? status.m_debugMsg : "");
     YYStructAddInt(&Result, "status", (int)status.m_eAvail);
 }
