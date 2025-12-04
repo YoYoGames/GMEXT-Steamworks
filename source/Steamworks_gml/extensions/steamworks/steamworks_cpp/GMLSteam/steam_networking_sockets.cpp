@@ -45,18 +45,17 @@ void GMNetSocketsCallbackHandler::OnConnectionStatusChanged(SteamNetConnectionSt
 
     const SteamNetConnectionInfo_t& info = pInfo->m_info;
 
-    if (info.m_hListenSocket == g_p2pListenSocket &&
-        info.m_eState == k_ESteamNetworkingConnectionState_Connecting)
-    {
-        p->AcceptConnection(pInfo->m_hConn);
-    }
+    //if (info.m_hListenSocket == g_p2pListenSocket &&
+    //    info.m_eState == k_ESteamNetworkingConnectionState_Connecting)
+    //{
+    //    p->AcceptConnection(pInfo->m_hConn);
+    //}
 
-    int dsMapIndex = CreateDsMap(2,
-        "event_type", (double)0.0,
-        "event_name", "steam_net_message_on_state_change"
+    int dsMapIndex = CreateDsMap(1,
+        "event_type", (double)0.0, "steam_net_message_on_state_change"
     );
 
-    g_pYYRunnerInterface->DsMapAddInt64(dsMapIndex, "connection", (int64)pInfo->m_hConn);
+    g_pYYRunnerInterface->DsMapAddDouble(dsMapIndex, "connection", (double)pInfo->m_hConn);
     g_pYYRunnerInterface->DsMapAddDouble(dsMapIndex, "state", (double)info.m_eState);
     g_pYYRunnerInterface->DsMapAddDouble(dsMapIndex, "old_state", (double)pInfo->m_eOldState);
     g_pYYRunnerInterface->DsMapAddDouble(dsMapIndex, "end_reason", (double)info.m_eEndReason);
