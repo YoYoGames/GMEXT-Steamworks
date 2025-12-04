@@ -14,17 +14,17 @@ text = "Net Sockets"
 show_debug_message("=== Steam Net Sockets demo: Create ===");
 
 // Create a socket pair (two connections in the same process)
-var ok = steam_net_sockets_create_socket_pair(true); // use loopback = true
-show_debug_message("create_socket_pair -> " + string(ok));
-if (!ok) {
+var array = steam_net_sockets_create_socket_pair(true); // use loopback = true
+show_debug_message("create_socket_pair -> " + json_stringify(array));
+if (array_length(array) != 2) {
     show_debug_message("Failed to create socket pair");
     socket_demo_ready = false;
     exit;
 }
 
 // Get the two connection handles (both live in this process)
-conn_a = steam_net_sockets_get_socket_pair_connection1();
-conn_b = steam_net_sockets_get_socket_pair_connection2();
+conn_a = array[0].connection
+conn_b = array[1].connection
 
 show_debug_message("Socket pair created: A=" + string(conn_a) + ", B=" + string(conn_b));
 

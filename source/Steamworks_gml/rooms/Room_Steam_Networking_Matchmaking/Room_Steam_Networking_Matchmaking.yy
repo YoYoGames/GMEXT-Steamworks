@@ -25,8 +25,8 @@
   ],
   "name":"Room_Steam_Networking_Matchmaking",
   "parent":{
-    "name":"Networking",
-    "path":"folders/Steamworks Demo/Networking.yy",
+    "name":"Matchmaking",
+    "path":"folders/Steamworks Demo/Networking/Matchmaking.yy",
   },
   "parentRoom":null,
   "physicsSettings":{

@@ -9,8 +9,8 @@
   "name":"Obj_Steam_Networking_List",
   "overriddenProperties":[],
   "parent":{
-    "name":"Networking",
-    "path":"folders/Steamworks Demo/Networking.yy",
+    "name":"Matchmaking",
+    "path":"folders/Steamworks Demo/Networking/Matchmaking.yy",
   },
   "parentObjectId":{
     "name":"obj_gm_button",

@@ -12,8 +12,8 @@
   "name":"Obj_Steam_Networking_Sockets_Server_Client",
   "overriddenProperties":[],
   "parent":{
-    "name":"Steamworks",
-    "path":"Steamworks.yyp",
+    "name":"ServerClient",
+    "path":"folders/Steamworks Demo/Networking/Sockets/ServerClient.yy",
   },
   "parentObjectId":{
     "name":"obj_gm_button",

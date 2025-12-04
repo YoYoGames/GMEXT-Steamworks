@@ -11,8 +11,8 @@
   "name":"Obj_Steam_Networking_Sockets_Local_Test",
   "overriddenProperties":[],
   "parent":{
-    "name":"Steamworks",
-    "path":"Steamworks.yyp",
+    "name":"Local Test",
+    "path":"folders/Steamworks Demo/Networking/Sockets/Local Test.yy",
   },
   "parentObjectId":{
     "name":"obj_gm_button",

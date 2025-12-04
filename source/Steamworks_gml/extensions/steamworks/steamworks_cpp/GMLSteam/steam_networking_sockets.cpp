@@ -5,21 +5,7 @@
 #include "YYRValue.h"
 #include "steam_common.h"
 
-// If you already have something like this, reuse it:
-static inline ISteamNetworkingSockets* GM_SteamNetSockets()
-{
-    return SteamNetworkingSockets();  // global accessor from Steamworks
-}
 
-// Utils accessor (for AllocateMessage used by SendMessages)
-static inline ISteamNetworkingUtils* GM_SteamNetUtils()
-{
-    return SteamNetworkingUtils();
-}
-
-
-
-// Global listen socket (optional – useful if you want to auto-accept)
 static HSteamListenSocket g_p2pListenSocket = k_HSteamListenSocket_Invalid;
 
 class GMNetSocketsCallbackHandler
@@ -39,17 +25,11 @@ static GMNetSocketsCallbackHandler g_NetSocketsCallbacks;
 
 void GMNetSocketsCallbackHandler::OnConnectionStatusChanged(SteamNetConnectionStatusChangedCallback_t* pInfo)
 {
-    ISteamNetworkingSockets* p = GM_SteamNetSockets();
+    ISteamNetworkingSockets* p = SteamNetworkingSockets();
     if (!p || !pInfo)
         return;
 
     const SteamNetConnectionInfo_t& info = pInfo->m_info;
-
-    //if (info.m_hListenSocket == g_p2pListenSocket &&
-    //    info.m_eState == k_ESteamNetworkingConnectionState_Connecting)
-    //{
-    //    p->AcceptConnection(pInfo->m_hConn);
-    //}
 
     int dsMapIndex = CreateDsMap(1,
         "event_type", (double)0.0, "steam_net_message_on_state_change"
@@ -65,13 +45,10 @@ void GMNetSocketsCallbackHandler::OnConnectionStatusChanged(SteamNetConnectionSt
 }
 
 
-// -------------------------------------------------------------------------
-// 1. CreateListenSocketIP
-// double steam_net_sockets_create_listen_socket_ip(string ip, double port)
 YYEXPORT void steam_net_sockets_create_listen_socket_ip(
     RValue& Result, CInstance* self, CInstance* other, int argc, RValue* args)
 {
-    ISteamNetworkingSockets* p = GM_SteamNetSockets();
+    ISteamNetworkingSockets* p = SteamNetworkingSockets();
     if (!p) {
         Result.kind = VALUE_REAL;
         Result.val = -1.0;
@@ -95,13 +72,10 @@ YYEXPORT void steam_net_sockets_create_listen_socket_ip(
     Result.val = (double)hListen;
 }
 
-// -------------------------------------------------------------------------
-// 2. ConnectByIPAddress
-// double steam_net_sockets_connect_by_ip(string ip, double port)
 YYEXPORT void steam_net_sockets_connect_by_ip(
     RValue& Result, CInstance* self, CInstance* other, int argc, RValue* args)
 {
-    ISteamNetworkingSockets* p = GM_SteamNetSockets();
+    ISteamNetworkingSockets* p = SteamNetworkingSockets();
     if (!p) {
         Result.kind = VALUE_REAL;
         Result.val = -1.0;
@@ -123,13 +97,10 @@ YYEXPORT void steam_net_sockets_connect_by_ip(
     Result.val = (double)hConn;
 }
 
-// -------------------------------------------------------------------------
-// 3. CreateListenSocketP2P
-// double steam_net_sockets_create_listen_socket_p2p(double local_virtual_port)
 YYEXPORT void steam_net_sockets_create_listen_socket_p2p(
     RValue& Result, CInstance* self, CInstance* other, int argc, RValue* args)
 {
-    ISteamNetworkingSockets* p = GM_SteamNetSockets();
+    ISteamNetworkingSockets* p = SteamNetworkingSockets();
     if (!p) {
         Result.kind = VALUE_REAL;
         Result.val = -1.0;
@@ -147,13 +118,10 @@ YYEXPORT void steam_net_sockets_create_listen_socket_p2p(
     Result.val = (double)hListen;
 }
 
-// -------------------------------------------------------------------------
-// 4. ConnectP2P
-// double steam_net_sockets_connect_p2p(int64 steam_id, double virtual_port)
 YYEXPORT void steam_net_sockets_connect_p2p(
     RValue& Result, CInstance* self, CInstance* other, int argc, RValue* args)
 {
-    ISteamNetworkingSockets* p = GM_SteamNetSockets();
+    ISteamNetworkingSockets* p = SteamNetworkingSockets();
     if (!p) {
         Result.kind = VALUE_REAL;
         Result.val = -1.0;
@@ -174,13 +142,10 @@ YYEXPORT void steam_net_sockets_connect_p2p(
     Result.val = (double)hConn;
 }
 
-// -------------------------------------------------------------------------
-// 5. AcceptConnection
-// double steam_net_sockets_accept_connection(double connection_handle)
 YYEXPORT void steam_net_sockets_accept_connection(
     RValue& Result, CInstance* self, CInstance* other, int argc, RValue* args)
 {
-    ISteamNetworkingSockets* p = GM_SteamNetSockets();
+    ISteamNetworkingSockets* p = SteamNetworkingSockets();
     if (!p) { Result.kind = VALUE_REAL; Result.val = 0.0; return; }
 
     HSteamNetConnection hConn = (HSteamNetConnection)YYGetReal(args, 0);
@@ -190,13 +155,10 @@ YYEXPORT void steam_net_sockets_accept_connection(
     Result.val = (double)er;
 }
 
-// -------------------------------------------------------------------------
-// 6. CloseConnection
-// double steam_net_sockets_close_connection(double connection_handle, double reason, string debug, bool linger)
 YYEXPORT void steam_net_sockets_close_connection(
     RValue& Result, CInstance* self, CInstance* other, int argc, RValue* args)
 {
-    ISteamNetworkingSockets* p = GM_SteamNetSockets();
+    ISteamNetworkingSockets* p = SteamNetworkingSockets();
     if (!p) { Result.kind = VALUE_REAL; Result.val = 0.0; return; }
 
     HSteamNetConnection hConn = (HSteamNetConnection)YYGetReal(args, 0);
@@ -210,13 +172,10 @@ YYEXPORT void steam_net_sockets_close_connection(
     Result.val = ok ? 1.0 : 0.0;
 }
 
-// -------------------------------------------------------------------------
-// 7. CloseListenSocket
-// double steam_net_sockets_close_listen_socket(double listen_handle)
 YYEXPORT void steam_net_sockets_close_listen_socket(
     RValue& Result, CInstance* self, CInstance* other, int argc, RValue* args)
 {
-    ISteamNetworkingSockets* p = GM_SteamNetSockets();
+    ISteamNetworkingSockets* p = SteamNetworkingSockets();
     if (!p) { Result.kind = VALUE_REAL; Result.val = 0.0; return; }
 
     HSteamListenSocket hListen = (HSteamListenSocket)(int)YYGetReal(args, 0);
@@ -229,83 +188,64 @@ YYEXPORT void steam_net_sockets_close_listen_socket(
     Result.val = ok ? 1.0 : 0.0;
 }
 
-// -------------------------------------------------------------------------
-// Socket pair globals (used by CreateSocketPair helpers)
-static HSteamNetConnection g_socketPairConn1 = k_HSteamNetConnection_Invalid;
-static HSteamNetConnection g_socketPairConn2 = k_HSteamNetConnection_Invalid;
-
-// -------------------------------------------------------------------------
-// 8. CreateSocketPair
-// bool steam_net_sockets_create_socket_pair(double use_network_loopback)
+/// array steam_net_sockets_create_socket_pair(bool loopback)
 YYEXPORT void steam_net_sockets_create_socket_pair(
     RValue& Result, CInstance* self, CInstance* other, int argc, RValue* args)
 {
-    ISteamNetworkingSockets* p = GM_SteamNetSockets();
+    YYCreateArray(&Result);
+
+    ISteamNetworkingSockets* p = SteamNetworkingSockets();
     if (!p)
     {
-        Result.kind = VALUE_BOOL;
-        Result.val = false;
         return;
     }
 
     bool useLoopback = (YYGetReal(args, 0) != 0.0);
 
-    // Optional identities – you can leave them cleared
     SteamNetworkingIdentity id1, id2;
     id1.Clear();
     id2.Clear();
 
+    // Connection handles
     HSteamNetConnection conn1 = k_HSteamNetConnection_Invalid;
     HSteamNetConnection conn2 = k_HSteamNetConnection_Invalid;
 
-    // NEW SIGNATURE ORDER:
-    // (HSteamNetConnection*, HSteamNetConnection*, bool, const SteamNetworkingIdentity*, const SteamNetworkingIdentity*)
-    bool ok = p->CreateSocketPair(
-        &conn1,
-        &conn2,
-        useLoopback,
-        &id1,
-        &id2
-    );
-
-    if (ok)
+    bool ok = p->CreateSocketPair(&conn1, &conn2, useLoopback, &id1, &id2);
+    if (!ok)
     {
-        g_socketPairConn1 = conn1;
-        g_socketPairConn2 = conn2;
+        return;
     }
+    
+    char idBuf1[128] = { 0 };
+    char idBuf2[128] = { 0 };
+    id1.ToString(idBuf1, sizeof(idBuf1));
+    id2.ToString(idBuf2, sizeof(idBuf2));
+    
+    RValue a = {0};
+    YYStructCreate(&a);
+    YYStructAddDouble(&a, "connection", conn1);
+    YYStructAddString(&a, "identity", idBuf1);
+    YYStructAddBool(&a, "loopback", useLoopback);
+    SET_RValue(&Result, &a, nullptr, 0);
 
-    Result.kind = VALUE_BOOL;
-    Result.val = ok;
+    
+    RValue b = {0};
+    YYStructCreate(&b);
+    YYStructAddDouble(&b, "connection", conn2);
+    YYStructAddString(&b, "identity", idBuf2);
+    YYStructAddBool(&b, "loopback", useLoopback);
+    SET_RValue(&Result, &b, nullptr, 1);
 }
 
-// double steam_net_sockets_get_socket_pair_connection1()
-YYEXPORT void steam_net_sockets_get_socket_pair_connection1(
-    RValue& Result, CInstance* self, CInstance* other, int argc, RValue* args)
-{
-    Result.kind = VALUE_REAL;
-    Result.val = (double)g_socketPairConn1;
-}
-
-// double steam_net_sockets_get_socket_pair_connection2()
-YYEXPORT void steam_net_sockets_get_socket_pair_connection2(
-    RValue& Result, CInstance* self, CInstance* other, int argc, RValue* args)
-{
-    Result.kind = VALUE_REAL;
-    Result.val = (double)g_socketPairConn2;
-}
-
-// -------------------------------------------------------------------------
-// 9. SendMessageToConnection
-// double steam_net_sockets_send_message(double connection, buffer buf, double size, double send_flags)
 YYEXPORT void steam_net_sockets_send_message(
     RValue& Result, CInstance* self, CInstance* other, int argc, RValue* args)
 {
-    ISteamNetworkingSockets* p = GM_SteamNetSockets();
+    ISteamNetworkingSockets* p = SteamNetworkingSockets();
     if (!p) { Result.kind = VALUE_REAL; Result.val = -1.0; return; }
 
     HSteamNetConnection hConn = (HSteamNetConnection)YYGetReal(args, 0);
 
-    int bufferIndex = (int)YYGetReal(args, 1); // same way steam_networking.cpp gets buffers
+    int bufferIndex = (int)YYGetReal(args, 1);
     int dataSize = (int)YYGetReal(args, 2);
     int sendFlags = (int)YYGetReal(args, 3);
 
@@ -322,26 +262,23 @@ YYEXPORT void steam_net_sockets_send_message(
 
     EResult er = p->SendMessageToConnection(
         hConn,
-        buffer_data,                          // pointer to data
+        buffer_data,
         (uint32)dataSize,
-        sendFlags,                      // e.g. k_nSteamNetworkingSend_Reliable etc.
-        nullptr                         // [out] message number (optional)
+        sendFlags,
+        nullptr
     );
 
     Result.kind = VALUE_REAL;
     Result.val = (double)er;
 }
 
-// -------------------------------------------------------------------------
-// 10. SendMessages
-// double steam_net_sockets_send_messages(double connection, buffer buf, double size, double send_flags, [double lane])
 YYEXPORT void steam_net_sockets_send_messages(
     RValue& Result, CInstance* self, CInstance* other, int argc, RValue* args)
 {
     
 
-    ISteamNetworkingSockets* pSockets = GM_SteamNetSockets();
-    ISteamNetworkingUtils* pUtils = GM_SteamNetUtils();
+    ISteamNetworkingSockets* pSockets = SteamNetworkingSockets();
+    ISteamNetworkingUtils* pUtils = SteamNetworkingUtils();
     if (!pSockets || !pUtils)
     {
         Result.kind = VALUE_REAL;
@@ -394,22 +331,16 @@ YYEXPORT void steam_net_sockets_send_messages(
         resultNumbers
     );
 
-    // Release message object (frees m_pData as well)
     msg->Release();
 
     Result.kind = VALUE_REAL;
-    Result.val = (double)0;
-
-    
+    Result.val = (double)0;    
 }
 
-// -------------------------------------------------------------------------
-// 11. FlushMessagesOnConnection
-// double steam_net_sockets_flush_messages_on_connection(double connection)
 YYEXPORT void steam_net_sockets_flush_messages_on_connection(
     RValue& Result, CInstance* self, CInstance* other, int argc, RValue* args)
 {
-    ISteamNetworkingSockets* p = GM_SteamNetSockets();
+    ISteamNetworkingSockets* p = SteamNetworkingSockets();
     if (!p)
     {
         Result.kind = VALUE_REAL;
@@ -425,14 +356,11 @@ YYEXPORT void steam_net_sockets_flush_messages_on_connection(
     Result.val = (double)er;
 }
 
-// -------------------------------------------------------------------------
-// 12. ReceiveMessagesOnConnection
-// double steam_net_sockets_recv_messages_on_connection(double connection, buffer buf, double max_size)
 YYEXPORT void steam_net_sockets_recv_messages_on_connection(
     RValue& Result, CInstance* self, CInstance* other, int argc, RValue* args)
 {
     
-    ISteamNetworkingSockets* p = GM_SteamNetSockets();
+    ISteamNetworkingSockets* p = SteamNetworkingSockets();
     if (!p)
     {
         Result.kind = VALUE_REAL;
@@ -447,7 +375,6 @@ YYEXPORT void steam_net_sockets_recv_messages_on_connection(
     void* buffer_data = nullptr;
     int   buffer_size = 0;
 
-    //if (!BufferGetContent(bufferIndex, &buffer_data, &buffer_size) || !buffer_data)
     if (BufferGetFromGML(bufferIndex) == NULL)
     {
         DebugConsoleOutput("steam_net_sockets_recv_messages_on_connection() - error: specified buffer %d not found\n", (int)bufferIndex);
@@ -455,9 +382,6 @@ YYEXPORT void steam_net_sockets_recv_messages_on_connection(
         Result.val = 0.0;
         return;
     }
-
-    //if (maxSize > buffer_size)
-    //    maxSize = buffer_size;
 
     SteamNetworkingMessage_t* pMsg = nullptr;
 
@@ -481,8 +405,7 @@ YYEXPORT void steam_net_sockets_recv_messages_on_connection(
         DebugConsoleOutput("steam_net_sockets_recv_messages_on_connection() - warning: message size %d truncated to %d bytes\n",
             pMsg->m_cbSize, toCopy);
     }
-
-    //memcpy(buffer_data, pMsg->m_pData, toCopy);
+    
     if (BufferWriteContent(bufferIndex, 0, pMsg->m_pData, (int)toCopy, true) != toCopy)
     {
         DebugConsoleOutput("steam_net_messages_receive_on_channel() - error: could not write to buffer\n");
@@ -496,13 +419,10 @@ YYEXPORT void steam_net_sockets_recv_messages_on_connection(
     Result.val = (double)toCopy;
 }
 
-// -------------------------------------------------------------------------
-// 13. CreatePollGroup
-// double steam_net_sockets_create_poll_group()
 YYEXPORT void steam_net_sockets_create_poll_group(
     RValue& Result, CInstance* self, CInstance* other, int argc, RValue* args)
 {
-    ISteamNetworkingSockets* p = GM_SteamNetSockets();
+    ISteamNetworkingSockets* p = SteamNetworkingSockets();
     if (!p) { Result.kind = VALUE_REAL; Result.val = -1.0; return; }
 
     HSteamNetPollGroup hGroup = p->CreatePollGroup();
@@ -511,13 +431,10 @@ YYEXPORT void steam_net_sockets_create_poll_group(
     Result.val = (double)hGroup;
 }
 
-// -------------------------------------------------------------------------
-// 14. DestroyPollGroup
-// double steam_net_sockets_destroy_poll_group(double poll_group)
 YYEXPORT void steam_net_sockets_destroy_poll_group(
     RValue& Result, CInstance* self, CInstance* other, int argc, RValue* args)
 {
-    ISteamNetworkingSockets* p = GM_SteamNetSockets();
+    ISteamNetworkingSockets* p = SteamNetworkingSockets();
     if (!p) { Result.kind = VALUE_REAL; Result.val = 0.0; return; }
 
     HSteamNetPollGroup hGroup = (HSteamNetPollGroup)(int)YYGetReal(args, 0);
@@ -527,13 +444,10 @@ YYEXPORT void steam_net_sockets_destroy_poll_group(
     Result.val = ok ? 1.0 : 0.0;
 }
 
-// -------------------------------------------------------------------------
-// 15. SetConnectionPollGroup
-// double steam_net_sockets_set_connection_poll_group(double connection, double poll_group)
 YYEXPORT void steam_net_sockets_set_connection_poll_group(
     RValue& Result, CInstance* self, CInstance* other, int argc, RValue* args)
 {
-    ISteamNetworkingSockets* p = GM_SteamNetSockets();
+    ISteamNetworkingSockets* p = SteamNetworkingSockets();
     if (!p) { Result.kind = VALUE_REAL; Result.val = 0.0; return; }
 
     HSteamNetConnection hConn = (HSteamNetConnection)YYGetReal(args, 0);
@@ -545,13 +459,10 @@ YYEXPORT void steam_net_sockets_set_connection_poll_group(
     Result.val = ok ? 1.0 : 0.0;
 }
 
-// -------------------------------------------------------------------------
-// 16. ReceiveMessagesOnPollGroup
-// double steam_net_sockets_recv_messages_on_poll_group(double poll_group, buffer buf, double max_size)
 YYEXPORT void steam_net_sockets_recv_messages_on_poll_group(
     RValue& Result, CInstance* self, CInstance* other, int argc, RValue* args)
 {
-    ISteamNetworkingSockets* p = GM_SteamNetSockets();
+    ISteamNetworkingSockets* p = SteamNetworkingSockets();
     if (!p)
     {
         Result.kind = VALUE_REAL;
@@ -593,27 +504,18 @@ YYEXPORT void steam_net_sockets_recv_messages_on_poll_group(
     int toCopy = (pMsg->m_cbSize < maxSize) ? pMsg->m_cbSize : maxSize;
     memcpy(buffer_data, pMsg->m_pData, toCopy);
 
-    // (Optional) you could store pMsg->m_conn etc. in globals here too.
     pMsg->Release();
 
     Result.kind = VALUE_REAL;
     Result.val = (double)toCopy;
 }
 
-// -------------------------------------------------------------------------
-// 17. GetConnectionInfo
-// bool steam_net_sockets_get_connection_info(double connection, buffer buf)
-// GML:
-//    var info = steam_net_sockets_get_connection_info(conn);
-//    if (info.ok) show_debug_message(info.state);
-
 YYEXPORT void steam_net_sockets_get_connection_info(
     RValue& Result, CInstance* self, CInstance* other, int argc, RValue* args)
 {
-    // Always return a struct (even on failure)
     YYStructCreate(&Result);
 
-    ISteamNetworkingSockets* p = GM_SteamNetSockets();
+    ISteamNetworkingSockets* p = SteamNetworkingSockets();
     if (!p)
     {
         YYStructAddBool(&Result, "ok", false);
@@ -628,51 +530,40 @@ YYEXPORT void steam_net_sockets_get_connection_info(
 
     if (!ok)
     {
-        return; // empty-ish struct with ok = false
+        return;
     }
 
-    // Basic numeric fields
     YYStructAddInt(&Result, "connection", (int)hConn);
     YYStructAddInt(&Result, "state", (int)info.m_eState);
     YYStructAddInt(&Result, "end_reason", (int)info.m_eEndReason);
     YYStructAddInt(&Result, "flags", (int)info.m_nFlags);
-    YYStructAddInt64(&Result, "user_data", (double)info.m_nUserData);       // int64 -> double
+    YYStructAddInt64(&Result, "user_data", info.m_nUserData);
     YYStructAddInt(&Result, "listen_socket", (int)info.m_hListenSocket);
     YYStructAddInt(&Result, "remote_pop", (int)info.m_idPOPRemote);
     YYStructAddInt(&Result, "relay_pop", (int)info.m_idPOPRelay);
     //YYStructAddInt(&Result, "transport_kind", (int)info.m_nTransportKind);
 
-    // Connection description / end-debug text (C strings)
     YYStructAddString(&Result, "description",
         info.m_szConnectionDescription ? info.m_szConnectionDescription : "");
     YYStructAddString(&Result, "debug",
         info.m_szEndDebug ? info.m_szEndDebug : "");
 
-    // Remote identity as a string
-    {
-        char identBuf[128] = { 0 };
-        info.m_identityRemote.ToString(identBuf, sizeof(identBuf));
-        YYStructAddString(&Result, "remote_identity", identBuf);
-    }
+    char identBuf[128] = { 0 };
+    info.m_identityRemote.ToString(identBuf, sizeof(identBuf));
+    YYStructAddString(&Result, "remote_identity", identBuf);
 
-    // Remote IP:port as a string
-    {
-        char addrBuf[SteamNetworkingIPAddr::k_cchMaxString] = { 0 };
-        info.m_addrRemote.ToString(addrBuf, sizeof(addrBuf), true); // include port
-        YYStructAddString(&Result, "remote_addr", addrBuf);
-    }
+    char addrBuf[SteamNetworkingIPAddr::k_cchMaxString] = { 0 };
+    info.m_addrRemote.ToString(addrBuf, sizeof(addrBuf), true);
+    YYStructAddString(&Result, "remote_addr", addrBuf);
 }
 
 
-// -------------------------------------------------------------------------
-// 18. GetConnectionRealTimeStatus
-// double steam_net_sockets_get_connection_real_time_status(double connection, buffer buf)
 YYEXPORT void steam_net_sockets_get_connection_real_time_status(
     RValue& Result, CInstance* self, CInstance* other, int argc, RValue* args)
 {
     YYStructCreate(&Result); // always return a struct
 
-    ISteamNetworkingSockets* p = GM_SteamNetSockets();
+    ISteamNetworkingSockets* p = SteamNetworkingSockets();
     if (!p)
     {
         // success = false, result = k_EResultFail
@@ -697,11 +588,9 @@ YYEXPORT void steam_net_sockets_get_connection_real_time_status(
 
     if (er != k_EResultOK)
     {
-        // do not fill more fields on error – GML can check success/result
         return;
     }
 
-    // Map all the useful fields into the struct
     YYStructAddInt(&Result, "state", (int)status.m_eState);
     YYStructAddInt(&Result, "ping", status.m_nPing);
 
@@ -718,18 +607,13 @@ YYEXPORT void steam_net_sockets_get_connection_real_time_status(
     YYStructAddInt(&Result, "pending_reliable", status.m_cbPendingReliable);
     YYStructAddInt(&Result, "sent_unacked_reliable", status.m_cbSentUnackedReliable);
 
-    // This field name might vary slightly by SDK; if your version uses a different name,
-    // just change it here.
     YYStructAddInt(&Result, "queue_time_usec", (int)status.m_usecQueueTime);
 }
 
-// -------------------------------------------------------------------------
-// 19. GetDetailedConnectionStatus
-// double steam_net_sockets_get_detailed_connection_status(double connection, buffer buf)
 YYEXPORT void steam_net_sockets_get_detailed_connection_status(
     RValue& Result, CInstance* self, CInstance* other, int argc, RValue* args)
 {
-    ISteamNetworkingSockets* p = GM_SteamNetSockets();
+    ISteamNetworkingSockets* p = SteamNetworkingSockets();
     if (!p)
     {
         Result.kind = VALUE_REAL;
@@ -760,13 +644,10 @@ YYEXPORT void steam_net_sockets_get_detailed_connection_status(
     Result.val = (double)written;
 }
 
-// -------------------------------------------------------------------------
-// 20. SetConnectionUserData
-// bool steam_net_sockets_set_connection_user_data(double connection, int64 user_data)
 YYEXPORT void steam_net_sockets_set_connection_user_data(
     RValue& Result, CInstance* self, CInstance* other, int argc, RValue* args)
 {
-    ISteamNetworkingSockets* p = GM_SteamNetSockets();
+    ISteamNetworkingSockets* p = SteamNetworkingSockets();
     if (!p)
     {
         Result.kind = VALUE_BOOL;
@@ -783,13 +664,10 @@ YYEXPORT void steam_net_sockets_set_connection_user_data(
     Result.val = ok;
 }
 
-// -------------------------------------------------------------------------
-// 21. GetConnectionUserData
-// int64 steam_net_sockets_get_connection_user_data(double connection)
 YYEXPORT void steam_net_sockets_get_connection_user_data(
     RValue& Result, CInstance* self, CInstance* other, int argc, RValue* args)
 {
-    ISteamNetworkingSockets* p = GM_SteamNetSockets();
+    ISteamNetworkingSockets* p = SteamNetworkingSockets();
     int64 val = k_HSteamNetConnection_Invalid;//k_nSteamNetworkingConnectionUserDataInvalid;
     if (p)
     {
@@ -801,13 +679,10 @@ YYEXPORT void steam_net_sockets_get_connection_user_data(
     Result.v64 = val;
 }
 
-// -------------------------------------------------------------------------
-// 22. SetConnectionName
-// void steam_net_sockets_set_connection_name(double connection, string name)
 YYEXPORT void steam_net_sockets_set_connection_name(
     RValue& Result, CInstance* self, CInstance* other, int argc, RValue* args)
 {
-    ISteamNetworkingSockets* p = GM_SteamNetSockets();
+    ISteamNetworkingSockets* p = SteamNetworkingSockets();
     if (p)
     {
         HSteamNetConnection hConn = (HSteamNetConnection)YYGetReal(args, 0);
@@ -819,14 +694,10 @@ YYEXPORT void steam_net_sockets_set_connection_name(
     Result.val = 1.0;
 }
 
-// -------------------------------------------------------------------------
-// 23. GetConnectionName
-// bool steam_net_sockets_get_connection_name(double connection, buffer buf)
-// GML: string steam_net_sockets_get_connection_name(double connection)
 YYEXPORT void steam_net_sockets_get_connection_name(
     RValue& Result, CInstance* self, CInstance* other, int argc, RValue* args)
 {
-    ISteamNetworkingSockets* p = GM_SteamNetSockets();
+    ISteamNetworkingSockets* p = SteamNetworkingSockets();
     if (!p)
     {
         YYCreateString(&Result, ""); // or some error text if you prefer
@@ -835,8 +706,6 @@ YYEXPORT void steam_net_sockets_get_connection_name(
 
     HSteamNetConnection hConn = (HSteamNetConnection)YYGetReal(args, 0);
 
-    // Choose a reasonable max length. There is a Steam constant:
-    // k_cchSteamNetworkingMaxConnectionName in some SDKs.
     char nameBuf[256] = { 0 };
 
     bool ok = p->GetConnectionName(
@@ -855,13 +724,10 @@ YYEXPORT void steam_net_sockets_get_connection_name(
 }
 
 
-// -------------------------------------------------------------------------
-// 24. ConfigureConnectionLanes
-// bool steam_net_sockets_configure_connection_lanes(double connection, double lane_count, buffer priorities_buf, buffer weights_buf)
 YYEXPORT void steam_net_sockets_configure_connection_lanes(
     RValue& Result, CInstance* self, CInstance* other, int argc, RValue* args)
 {
-    ISteamNetworkingSockets* p = GM_SteamNetSockets();
+    ISteamNetworkingSockets* p = SteamNetworkingSockets();
     if (!p)
     {
         Result.kind = VALUE_BOOL;
@@ -904,9 +770,6 @@ YYEXPORT void steam_net_sockets_configure_connection_lanes(
         return;
     }
 
-    // Each lane uses:
-    //  - priorities: int (4 bytes)
-    //  - weights:    uint16 (2 bytes)
     int maxPriLanes = pri_size / (int)sizeof(int);
     int maxWgtLanes = wgt_size / (int)sizeof(uint16);
 
@@ -940,13 +803,10 @@ YYEXPORT void steam_net_sockets_configure_connection_lanes(
     Result.val = ok;
 }
 
-// -------------------------------------------------------------------------
-// 25. GetListenSocketAddress
-//string steam_net_sockets_get_listen_socket_address(double listen_socket)
 YYEXPORT void steam_net_sockets_get_listen_socket_address(
     RValue& Result, CInstance* self, CInstance* other, int argc, RValue* args)
 {
-    ISteamNetworkingSockets* p = GM_SteamNetSockets();
+    ISteamNetworkingSockets* p = SteamNetworkingSockets();
     if (!p)
     {
         YYCreateString(&Result, "");
@@ -958,29 +818,23 @@ YYEXPORT void steam_net_sockets_get_listen_socket_address(
     SteamNetworkingIPAddr addr;
     if (!p->GetListenSocketAddress(hListen, &addr))
     {
-        // Failed to query address
         YYCreateString(&Result, "");
         return;
     }
 
-    // Convert to string "IP:port"
     char buf[SteamNetworkingIPAddr::k_cchMaxString] = { 0 };
-    addr.ToString(buf, sizeof(buf), true); // true = include port
+    addr.ToString(buf, sizeof(buf), true);
 
     YYCreateString(&Result, buf);
 }
 
 
-// -------------------------------------------------------------------------
-// 26. GetIdentity
-// GML: struct steam_net_sockets_get_identity()
 YYEXPORT void steam_net_sockets_get_identity(
     RValue& Result, CInstance* self, CInstance* other, int argc, RValue* args)
 {
-    // We'll always return a struct
     YYStructCreate(&Result);
 
-    ISteamNetworkingSockets* p = GM_SteamNetSockets();
+    ISteamNetworkingSockets* p = SteamNetworkingSockets();
     if (!p)
     {
         YYStructAddBool(&Result, "success", false);
@@ -996,13 +850,9 @@ YYEXPORT void steam_net_sockets_get_identity(
         return;
     }
 
-    // ---- Basic success + type ----
     YYStructAddBool(&Result, "success", true);
-
-    // Raw enum value
     YYStructAddDouble(&Result, "type", (double)id.m_eType);
 
-    // Optional: human-readable type name
     const char* typeName = "unknown";
     switch (id.m_eType)
     {
@@ -1018,59 +868,46 @@ YYEXPORT void steam_net_sockets_get_identity(
     }
     YYStructAddString(&Result, "type_name", typeName);
 
-    // ---- Canonical string form (type:<data>) ----
     char idStr[SteamNetworkingIdentity::k_cchMaxString] = { 0 };
     id.ToString(idStr, sizeof(idStr));
     YYStructAddString(&Result, "identity_string", idStr);
 
-    // ---- SteamID64 (0 if not SteamID) ----
-    uint64 steamID64 = id.GetSteamID64();   // per your struct comment, returns 0 if not SteamID
-    YYStructAddDouble(&Result, "steam_id", (double)steamID64);
+    uint64 steamID64 = id.GetSteamID64();
+    YYStructAddInt64(&Result, "steam_id", steamID64);
 
-    // ---- Xbox pairwise ID ("" if not that type) ----
-    const char* xboxId = id.GetXboxPairwiseID(); // nullptr if not Xbox type
+    const char* xboxId = id.GetXboxPairwiseID();
     YYStructAddString(&Result, "xbox_pairwise_id", xboxId ? xboxId : "");
 
-    // ---- PSN ID (0 if not PSN type) ----
     uint64 psnID = id.GetPSNID();
-    YYStructAddDouble(&Result, "psn_id", (double)psnID);
+    YYStructAddInt64(&Result, "psn_id", psnID);
 
-    // ---- Generic string ("" if not generic string) ----
-    const char* genericStr = id.GetGenericString(); // nullptr if not generic string
+    const char* genericStr = id.GetGenericString();
     YYStructAddString(&Result, "generic_string", genericStr ? genericStr : "");
 
-    // ---- Generic bytes (we'll just expose length for now) ----
     int genericLen = 0;
-    const uint8* genericBytes = id.GetGenericBytes(genericLen); // nullptr if not generic bytes
+    const uint8* genericBytes = id.GetGenericBytes(genericLen);
     YYStructAddInt(&Result, "generic_bytes_len", genericBytes ? genericLen : 0);
-    // (If you want, we can later add a helper that copies these into a GM buffer.)
 
-    // ---- IP address (string "ip:port" or "") ----
-    const SteamNetworkingIPAddr* pIP = id.GetIPAddr(); // nullptr if not IP
+    const SteamNetworkingIPAddr* pIP = id.GetIPAddr();
     char ipStr[SteamNetworkingIPAddr::k_cchMaxString] = { 0 };
     if (pIP)
     {
-        pIP->ToString(ipStr, sizeof(ipStr), true); // true = include port
+        pIP->ToString(ipStr, sizeof(ipStr), true);
         YYStructAddString(&Result, "ip", ipStr);
     }
     else
     {
         YYStructAddString(&Result, "ip", "");
     }
-
-    // ---- Localhost / Fake IP helpers ----
+    
     YYStructAddBool(&Result, "is_local_host", id.IsLocalHost());
     YYStructAddDouble(&Result, "fake_ip_type", (double)id.GetFakeIPType());
 }
 
-
-// -------------------------------------------------------------------------
-// 27. InitAuthentication
-// double steam_net_sockets_init_authentication()
 YYEXPORT void steam_net_sockets_init_authentication(
     RValue& Result, CInstance* self, CInstance* other, int argc, RValue* args)
 {
-    ISteamNetworkingSockets* p = GM_SteamNetSockets();
+    ISteamNetworkingSockets* p = SteamNetworkingSockets();
     ESteamNetworkingAvailability avail = k_ESteamNetworkingAvailability_CannotTry;
     if (p)
         avail = p->InitAuthentication();
@@ -1079,16 +916,13 @@ YYEXPORT void steam_net_sockets_init_authentication(
     Result.val = (double)avail;
 }
 
-// -------------------------------------------------------------------------
-// 28. GetAuthenticationStatus
-// struct steam_net_sockets_get_authentication_status()
 YYEXPORT void steam_net_sockets_get_authentication_status(
     RValue& Result, CInstance* self, CInstance* other, int argc, RValue* args)
 {
     // Always return a struct
     YYStructCreate(&Result);
 
-    ISteamNetworkingSockets* p = GM_SteamNetSockets();
+    ISteamNetworkingSockets* p = SteamNetworkingSockets();
     if (!p)
     {
         // No interface, report "CannotTry"
@@ -1120,16 +954,11 @@ YYEXPORT void steam_net_sockets_get_authentication_status(
     case k_ESteamNetworkingAvailability_Waiting:        availName = "Waiting"; break;
     case k_ESteamNetworkingAvailability_Attempting:     availName = "Attempting"; break;
     case k_ESteamNetworkingAvailability_Current:        availName = "Current"; break;
-        // You can add any newer enum values here if your SDK has them
     default:                                            availName = "Unknown"; break;
     }
 
     YYStructAddString(&Result, "availability_name", availName);
-
-    // --- Debug message from SteamNetAuthenticationStatus_t ---
-    // status.m_debugMsg is a char[] with a null-terminated string
     YYStructAddString(&Result, "debug", status.m_debugMsg[0] ? status.m_debugMsg : "");
-
     YYStructAddInt(&Result, "status", (int)status.m_eAvail);
 }
 
@@ -1137,13 +966,11 @@ YYEXPORT void steam_net_sockets_get_authentication_status(
 
 ///////////////Gameservers utilizing Steam Datagram Relay///////////////// This secction will be ignored for now....
 
-//// -------------------------------------------------------------------------
-//// 29. ReceivedRelayAuthTicket
-//// double steam_net_sockets_received_relay_auth_ticket(buffer ticket_buf, double ticket_size, buffer parsed_buf)
+
 //YYEXPORT void steam_net_sockets_received_relay_auth_ticket(
 //    RValue& Result, CInstance* self, CInstance* other, int argc, RValue* args)
 //{
-//    ISteamNetworkingSockets* p = GM_SteamNetSockets();
+//    ISteamNetworkingSockets* p = SteamNetworkingSockets();
 //    if (!p)
 //    {
 //        Result.kind = VALUE_REAL;
@@ -1197,13 +1024,10 @@ YYEXPORT void steam_net_sockets_get_authentication_status(
 //    Result.val = (double)res;
 //}
 //
-//// -------------------------------------------------------------------------
-//// 30. FindRelayAuthTicketForServer
-//// double steam_net_sockets_find_relay_auth_ticket_for_server(buffer parsed_buf, double popid)
 //YYEXPORT void steam_net_sockets_find_relay_auth_ticket_for_server(
 //    RValue& Result, CInstance* self, CInstance* other, int argc, RValue* args)
 //{
-//    ISteamNetworkingSockets* p = GM_SteamNetSockets();
+//    ISteamNetworkingSockets* p = SteamNetworkingSockets();
 //    if (!p)
 //    {
 //        Result.kind = VALUE_REAL;
@@ -1244,13 +1068,10 @@ YYEXPORT void steam_net_sockets_get_authentication_status(
 //    Result.val = (double)seconds_left;
 //}
 //
-//// -------------------------------------------------------------------------
-//// 31. ConnectToHostedDedicatedServer
-//// double steam_net_sockets_connect_to_hosted_dedicated_server(int64 server_steam_id, double remote_virtual_port)
 //YYEXPORT void steam_net_sockets_connect_to_hosted_dedicated_server(
 //    RValue& Result, CInstance* self, CInstance* other, int argc, RValue* args)
 //{
-//    ISteamNetworkingSockets* p = GM_SteamNetSockets();
+//    ISteamNetworkingSockets* p = SteamNetworkingSockets();
 //    if (!p)
 //    {
 //        Result.kind = VALUE_REAL;
@@ -1275,13 +1096,10 @@ YYEXPORT void steam_net_sockets_get_authentication_status(
 //    Result.val = (double)hConn;
 //}
 //
-//// -------------------------------------------------------------------------
-//// 32. GetHostedDedicatedServerPort
-//// double steam_net_sockets_get_hosted_dedicated_server_port()
 //YYEXPORT void steam_net_sockets_get_hosted_dedicated_server_port(
 //    RValue& Result, CInstance* self, CInstance* other, int argc, RValue* args)
 //{
-//    ISteamNetworkingSockets* p = GM_SteamNetSockets();
+//    ISteamNetworkingSockets* p = SteamNetworkingSockets();
 //    uint16 port = 0;
 //    if (p)
 //        port = p->GetHostedDedicatedServerPort();
@@ -1290,13 +1108,10 @@ YYEXPORT void steam_net_sockets_get_authentication_status(
 //    Result.val = (double)port;
 //}
 //
-//// -------------------------------------------------------------------------
-//// 33. GetHostedDedicatedServerPOPID
-//// double steam_net_sockets_get_hosted_dedicated_server_popid()
 //YYEXPORT void steam_net_sockets_get_hosted_dedicated_server_popid(
 //    RValue& Result, CInstance* self, CInstance* other, int argc, RValue* args)
 //{
-//    ISteamNetworkingSockets* p = GM_SteamNetSockets();
+//    ISteamNetworkingSockets* p = SteamNetworkingSockets();
 //    SteamNetworkingPOPID popid = 0;
 //    if (p)
 //        popid = p->GetHostedDedicatedServerPOPID();
@@ -1305,13 +1120,10 @@ YYEXPORT void steam_net_sockets_get_authentication_status(
 //    Result.val = (double)popid;
 //}
 //
-//// -------------------------------------------------------------------------
-//// 34. GetHostedDedicatedServerAddress
-//// double steam_net_sockets_get_hosted_dedicated_server_address(buffer routing_buf)
 //YYEXPORT void steam_net_sockets_get_hosted_dedicated_server_address(
 //    RValue& Result, CInstance* self, CInstance* other, int argc, RValue* args)
 //{
-//    ISteamNetworkingSockets* p = GM_SteamNetSockets();
+//    ISteamNetworkingSockets* p = SteamNetworkingSockets();
 //    if (!p)
 //    {
 //        Result.kind = VALUE_REAL;
@@ -1344,13 +1156,10 @@ YYEXPORT void steam_net_sockets_get_authentication_status(
 //    Result.val = (double)er;
 //}
 //
-//// -------------------------------------------------------------------------
-//// 35. CreateHostedDedicatedServerListenSocket
-//// double steam_net_sockets_create_hosted_dedicated_server_listen_socket(double local_virtual_port)
 //YYEXPORT void steam_net_sockets_create_hosted_dedicated_server_listen_socket(
 //    RValue& Result, CInstance* self, CInstance* other, int argc, RValue* args)
 //{
-//    ISteamNetworkingSockets* p = GM_SteamNetSockets();
+//    ISteamNetworkingSockets* p = SteamNetworkingSockets();
 //    if (!p)
 //    {
 //        Result.kind = VALUE_REAL;
@@ -1369,13 +1178,10 @@ YYEXPORT void steam_net_sockets_get_authentication_status(
 //    Result.val = (double)hListen;
 //}
 //
-//// -------------------------------------------------------------------------
-//// 36. GetGameCoordinatorServerLogin
-//// double steam_net_sockets_get_game_coordinator_server_login(buffer login_buf, buffer blob_buf, double blob_max_size)
 //YYEXPORT void steam_net_sockets_get_game_coordinator_server_login(
 //    RValue& Result, CInstance* self, CInstance* other, int argc, RValue* args)
 //{
-//    ISteamNetworkingSockets* p = GM_SteamNetSockets();
+//    ISteamNetworkingSockets* p = SteamNetworkingSockets();
 //    if (!p)
 //    {
 //        Result.kind = VALUE_REAL;
@@ -1431,15 +1237,14 @@ YYEXPORT void steam_net_sockets_get_authentication_status(
 //    Result.val = (double)cbSignedBlob;
 //}
 
+
+
 /////////////////////////////////FakeIP system//////////////////////// Ignore this section for now
 
-//// -------------------------------------------------------------------------
-//// 37. BeginAsyncRequestFakeIP
-//// bool steam_net_sockets_begin_async_request_fake_ip(double num_ports)
 //YYEXPORT void steam_net_sockets_begin_async_request_fake_ip(
 //    RValue& Result, CInstance* self, CInstance* other, int argc, RValue* args)
 //{
-//    ISteamNetworkingSockets* p = GM_SteamNetSockets();
+//    ISteamNetworkingSockets* p = SteamNetworkingSockets();
 //    bool ok = false;
 //    if (p)
 //    {
@@ -1451,13 +1256,10 @@ YYEXPORT void steam_net_sockets_get_authentication_status(
 //    Result.val = ok;
 //}
 //
-//// -------------------------------------------------------------------------
-//// 38. GetFakeIP  (currently commented out)
-///// double steam_net_sockets_get_fake_ip(double idx_fake_port, buffer buf)
 //YYEXPORT void steam_net_sockets_get_fake_ip(
 //    RValue& Result, CInstance* self, CInstance* other, int argc, RValue* args)
 //{
-//    ISteamNetworkingSockets* p = GM_SteamNetSockets();
+//    ISteamNetworkingSockets* p = SteamNetworkingSockets();
 //    if (!p)
 //    {
 //        Result.kind = VALUE_REAL;
@@ -1500,13 +1302,10 @@ YYEXPORT void steam_net_sockets_get_authentication_status(
 //    Result.val = (double)type;
 //}
 //
-//// -------------------------------------------------------------------------
-//// 39. CreateListenSocketP2PFakeIP
-//// double steam_net_sockets_create_listen_socket_p2p_fake_ip(double idx_fake_port)
 //YYEXPORT void steam_net_sockets_create_listen_socket_p2p_fake_ip(
 //    RValue& Result, CInstance* self, CInstance* other, int argc, RValue* args)
 //{
-//    ISteamNetworkingSockets* p = GM_SteamNetSockets();
+//    ISteamNetworkingSockets* p = SteamNetworkingSockets();
 //    if (!p)
 //    {
 //        Result.kind = VALUE_REAL;
@@ -1525,13 +1324,10 @@ YYEXPORT void steam_net_sockets_get_authentication_status(
 //    Result.val = (double)hListen;
 //}
 //
-//// -------------------------------------------------------------------------
-//// 40. GetRemoteFakeIPForConnection  (currently commented out)
-////// double steam_net_sockets_get_remote_fake_ip_for_connection(double connection, buffer buf)
 //YYEXPORT void steam_net_sockets_get_remote_fake_ip_for_connection(
 //    RValue& Result, CInstance* self, CInstance* other, int argc, RValue* args)
 //{
-//    ISteamNetworkingSockets* p = GM_SteamNetSockets();
+//    ISteamNetworkingSockets* p = SteamNetworkingSockets();
 //    if (!p)
 //    {
 //        Result.kind = VALUE_REAL;
@@ -1566,13 +1362,10 @@ YYEXPORT void steam_net_sockets_get_authentication_status(
 //    Result.val = (double)type;
 //}
 //
-//// -------------------------------------------------------------------------
-//// 41. CreateFakeUDPPort  (currently commented out)
-////// double steam_net_sockets_create_fake_udp_port(double idx_fake_server_port)
 //YYEXPORT void steam_net_sockets_create_fake_udp_port(
 //    RValue& Result, CInstance* self, CInstance* other, int argc, RValue* args)
 //{
-//    ISteamNetworkingSockets* p = GM_SteamNetSockets();
+//    ISteamNetworkingSockets* p = SteamNetworkingSockets();
 //    if (!p)
 //    {
 //        Result.kind = VALUE_REAL;

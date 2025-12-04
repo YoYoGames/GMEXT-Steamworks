@@ -29,8 +29,8 @@
   ],
   "name":"Room_Steam_Networking_Lobby",
   "parent":{
-    "name":"Networking",
-    "path":"folders/Steamworks Demo/Networking.yy",
+    "name":"Lobbies",
+    "path":"folders/Steamworks Demo/Networking/Lobbies.yy",
   },
   "parentRoom":null,
   "physicsSettings":{

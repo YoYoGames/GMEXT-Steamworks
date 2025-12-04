@@ -9,8 +9,8 @@
   "name":"Obj_Steam_Networking_Lobby_Color",
   "overriddenProperties":[],
   "parent":{
-    "name":"Networking",
-    "path":"folders/Steamworks Demo/Networking.yy",
+    "name":"Lobbies",
+    "path":"folders/Steamworks Demo/Networking/Lobbies.yy",
   },
   "parentObjectId":{
     "name":"obj_gm_button",

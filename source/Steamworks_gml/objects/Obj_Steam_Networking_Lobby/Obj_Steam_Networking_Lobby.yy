@@ -12,8 +12,8 @@
   "name":"Obj_Steam_Networking_Lobby",
   "overriddenProperties":[],
   "parent":{
-    "name":"Networking",
-    "path":"folders/Steamworks Demo/Networking.yy",
+    "name":"Lobbies",
+    "path":"folders/Steamworks Demo/Networking/Lobbies.yy",
   },
   "parentObjectId":null,
   "persistent":false,

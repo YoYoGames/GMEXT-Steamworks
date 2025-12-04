@@ -12,8 +12,8 @@
   "name":"Obj_Steam_Networking_Messages",
   "overriddenProperties":[],
   "parent":{
-    "name":"Steamworks",
-    "path":"Steamworks.yyp",
+    "name":"Messages",
+    "path":"folders/Steamworks Demo/Networking/Messages.yy",
   },
   "parentObjectId":{
     "name":"obj_gm_button",
