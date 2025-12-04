@@ -27,14 +27,14 @@ else
 if (state == NET_STATE_CONNECTED)
 {
     // Store the connection so we can send/recv
-    global.net_connection = conn;
+    net_connection = conn;
     show_debug_message("SteamNet: CONNECTED on conn " + string(conn));
 }
 else if (state == NET_STATE_CLOSED_BY_PEER || state == NET_STATE_PROBLEM_LOCAL)
 {
     show_debug_message("SteamNet: connection closed / problem on " + string(conn));
-    if (global.net_connection == conn)
+    if (net_connection == conn)
     {
-        global.net_connection = -1;
+        net_connection = -1;
     }
 }

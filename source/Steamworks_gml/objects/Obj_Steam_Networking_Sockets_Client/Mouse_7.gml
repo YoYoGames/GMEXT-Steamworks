@@ -1,19 +1,19 @@
 
-    if (global.net_connection > 0)
+    if (net_connection > 0)
     {
         var msg = "Hello from " + (is_host ? "host" : "client") + " at " + string(current_time);
 
         // Write string into the buffer
-        buffer_seek(global.net_buffer, buffer_seek_start, 0);
-        buffer_write(global.net_buffer, buffer_u8, string_length(msg)); // store length first (1 byte if <=255)
-        buffer_write(global.net_buffer, buffer_string, msg);
+        buffer_seek(net_buffer, buffer_seek_start, 0);
+        buffer_write(net_buffer, buffer_u8, string_length(msg)); // store length first (1 byte if <=255)
+        buffer_write(net_buffer, buffer_string, msg);
 
-        var size = buffer_tell(global.net_buffer);
+        var size = buffer_tell(net_buffer);
 
         // Send reliable
         var res = steam_net_sockets_send_message(
-            global.net_connection,
-            global.net_buffer,
+            net_connection,
+            net_buffer,
             size,
             NET_SEND_RELIABLE
         );
