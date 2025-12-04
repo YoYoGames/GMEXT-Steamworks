@@ -787,39 +787,38 @@ YYEXPORT void steam_net_sockets_set_connection_name(
 // -------------------------------------------------------------------------
 // 23. GetConnectionName
 // bool steam_net_sockets_get_connection_name(double connection, buffer buf)
-YYEXPORT void steam_net_sockets_get_connection_name(//TODO: BUFF.... should return char
+// GML: string steam_net_sockets_get_connection_name(double connection)
+YYEXPORT void steam_net_sockets_get_connection_name(
     RValue& Result, CInstance* self, CInstance* other, int argc, RValue* args)
 {
     ISteamNetworkingSockets* p = GM_SteamNetSockets();
     if (!p)
     {
-        Result.kind = VALUE_BOOL;
-        Result.val = false;
+        YYCreateString(&Result, ""); // or some error text if you prefer
         return;
     }
 
     HSteamNetConnection hConn = (HSteamNetConnection)YYGetReal(args, 0);
-    int bufferIndex = (int)YYGetReal(args, 1);
 
-    void* buffer_data = nullptr;
-    int   buffer_size = 0;
-    if (!BufferGetContent(bufferIndex, &buffer_data, &buffer_size) || !buffer_data)
-    {
-        DebugConsoleOutput("steam_net_sockets_get_connection_name() - error: specified buffer %d not found\n", (int)bufferIndex);
-        Result.kind = VALUE_BOOL;
-        Result.val = false;
-        return;
-    }
+    // Choose a reasonable max length. There is a Steam constant:
+    // k_cchSteamNetworkingMaxConnectionName in some SDKs.
+    char nameBuf[256] = { 0 };
 
     bool ok = p->GetConnectionName(
         hConn,
-        (char*)buffer_data,
-        buffer_size
+        nameBuf,
+        sizeof(nameBuf)
     );
 
-    Result.kind = VALUE_BOOL;
-    Result.val = ok;
+    if (!ok)
+    {
+        YYCreateString(&Result, ""); // no name / invalid connection
+        return;
+    }
+
+    YYCreateString(&Result, nameBuf);
 }
+
 
 // -------------------------------------------------------------------------
 // 24. ConfigureConnectionLanes
@@ -867,48 +866,39 @@ YYEXPORT void steam_net_sockets_configure_connection_lanes(//TODO: Args...
 
 // -------------------------------------------------------------------------
 // 25. GetListenSocketAddress
-// bool steam_net_sockets_get_listen_socket_address(double listen_socket, buffer buf)
-YYEXPORT void steam_net_sockets_get_listen_socket_address(//TODO: buff.... return string
+//string steam_net_sockets_get_listen_socket_address(double listen_socket)
+YYEXPORT void steam_net_sockets_get_listen_socket_address(
     RValue& Result, CInstance* self, CInstance* other, int argc, RValue* args)
 {
     ISteamNetworkingSockets* p = GM_SteamNetSockets();
     if (!p)
     {
-        Result.kind = VALUE_BOOL;
-        Result.val = false;
+        YYCreateString(&Result, "");
         return;
     }
 
     HSteamListenSocket hListen = (HSteamListenSocket)(int)YYGetReal(args, 0);
-    int bufferIndex = (int)YYGetReal(args, 1);
 
-    void* buffer_data = nullptr;
-    int   buffer_size = 0;
-    if (!BufferGetContent(bufferIndex, &buffer_data, &buffer_size) || !buffer_data)
+    SteamNetworkingIPAddr addr;
+    if (!p->GetListenSocketAddress(hListen, &addr))
     {
-        DebugConsoleOutput("steam_net_sockets_get_listen_socket_address() - error: specified buffer %d not found\n", (int)bufferIndex);
-        Result.kind = VALUE_BOOL;
-        Result.val = false;
+        // Failed to query address
+        YYCreateString(&Result, "");
         return;
     }
 
-    SteamNetworkingIPAddr addr;
-    bool ok = p->GetListenSocketAddress(hListen, &addr);
-    if (ok)
-    {
-        int sz = (int)sizeof(addr);
-        if (sz > buffer_size) sz = buffer_size;
-        memcpy(buffer_data, &addr, sz);
-    }
+    // Convert to string "IP:port"
+    char buf[SteamNetworkingIPAddr::k_cchMaxString] = { 0 };
+    addr.ToString(buf, sizeof(buf), true); // true = include port
 
-    Result.kind = VALUE_BOOL;
-    Result.val = ok;
+    YYCreateString(&Result, buf);
 }
+
 
 // -------------------------------------------------------------------------
 // 26. GetIdentity
 // bool steam_net_sockets_get_identity(buffer buf)
-YYEXPORT void steam_net_sockets_get_identity(//TODO: return string
+YYEXPORT void steam_net_sockets_get_identity(
     RValue& Result, CInstance* self, CInstance* other, int argc, RValue* args)
 {
     ISteamNetworkingSockets* p = GM_SteamNetSockets();
@@ -962,7 +952,7 @@ YYEXPORT void steam_net_sockets_init_authentication(
 // -------------------------------------------------------------------------
 // 28. GetAuthenticationStatus
 // double steam_net_sockets_get_authentication_status(buffer buf)
-YYEXPORT void steam_net_sockets_get_authentication_status(//TODO: return..... String
+YYEXPORT void steam_net_sockets_get_authentication_status(
     RValue& Result, CInstance* self, CInstance* other, int argc, RValue* args)
 {
     ISteamNetworkingSockets* p = GM_SteamNetSockets();
