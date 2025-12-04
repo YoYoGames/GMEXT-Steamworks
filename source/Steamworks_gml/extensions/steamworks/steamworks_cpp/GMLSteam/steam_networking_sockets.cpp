@@ -603,70 +603,85 @@ YYEXPORT void steam_net_sockets_recv_messages_on_poll_group(
 // -------------------------------------------------------------------------
 // 17. GetConnectionInfo
 // bool steam_net_sockets_get_connection_info(double connection, buffer buf)
-YYEXPORT void steam_net_sockets_get_connection_info(//TODO: struct
+// GML:
+//    var info = steam_net_sockets_get_connection_info(conn);
+//    if (info.ok) show_debug_message(info.state);
+
+YYEXPORT void steam_net_sockets_get_connection_info(
     RValue& Result, CInstance* self, CInstance* other, int argc, RValue* args)
 {
+    // Always return a struct (even on failure)
+    YYStructCreate(&Result);
+
     ISteamNetworkingSockets* p = GM_SteamNetSockets();
     if (!p)
     {
-        Result.kind = VALUE_BOOL;
-        Result.val = false;
+        YYStructAddBool(&Result, "ok", false);
         return;
     }
 
     HSteamNetConnection hConn = (HSteamNetConnection)YYGetReal(args, 0);
-    int bufferIndex = (int)YYGetReal(args, 1);
 
-    void* buffer_data = nullptr;
-    int   buffer_size = 0;
-    if (!BufferGetContent(bufferIndex, &buffer_data, &buffer_size) || !buffer_data)
-    {
-        DebugConsoleOutput("steam_net_sockets_get_connection_info() - error: specified buffer %d not found\n", (int)bufferIndex);
-        Result.kind = VALUE_BOOL;
-        Result.val = false;
-        return;
-    }
-
-    SteamNetConnectionInfo_t info;
+    SteamNetConnectionInfo_t info{};
     bool ok = p->GetConnectionInfo(hConn, &info);
+    YYStructAddBool(&Result, "ok", ok);
 
-    if (ok)
+    if (!ok)
     {
-        int sz = (int)sizeof(info);
-        if (sz > buffer_size) sz = buffer_size;
-        memcpy(buffer_data, &info, sz);
+        return; // empty-ish struct with ok = false
     }
 
-    Result.kind = VALUE_BOOL;
-    Result.val = ok;
+    // Basic numeric fields
+    YYStructAddInt(&Result, "connection", (int)hConn);
+    YYStructAddInt(&Result, "state", (int)info.m_eState);
+    YYStructAddInt(&Result, "end_reason", (int)info.m_eEndReason);
+    YYStructAddInt(&Result, "flags", (int)info.m_nFlags);
+    YYStructAddInt64(&Result, "user_data", (double)info.m_nUserData);       // int64 -> double
+    YYStructAddInt(&Result, "listen_socket", (int)info.m_hListenSocket);
+    YYStructAddInt(&Result, "remote_pop", (int)info.m_idPOPRemote);
+    YYStructAddInt(&Result, "relay_pop", (int)info.m_idPOPRelay);
+    //YYStructAddInt(&Result, "transport_kind", (int)info.m_nTransportKind);
+
+    // Connection description / end-debug text (C strings)
+    YYStructAddString(&Result, "description",
+        info.m_szConnectionDescription ? info.m_szConnectionDescription : "");
+    YYStructAddString(&Result, "debug",
+        info.m_szEndDebug ? info.m_szEndDebug : "");
+
+    // Remote identity as a string
+    {
+        char identBuf[128] = { 0 };
+        info.m_identityRemote.ToString(identBuf, sizeof(identBuf));
+        YYStructAddString(&Result, "remote_identity", identBuf);
+    }
+
+    // Remote IP:port as a string
+    {
+        char addrBuf[SteamNetworkingIPAddr::k_cchMaxString] = { 0 };
+        info.m_addrRemote.ToString(addrBuf, sizeof(addrBuf), true); // include port
+        YYStructAddString(&Result, "remote_addr", addrBuf);
+    }
 }
+
 
 // -------------------------------------------------------------------------
 // 18. GetConnectionRealTimeStatus
 // double steam_net_sockets_get_connection_real_time_status(double connection, buffer buf)
-YYEXPORT void steam_net_sockets_get_connection_real_time_status(//TODO: struct
+YYEXPORT void steam_net_sockets_get_connection_real_time_status(
     RValue& Result, CInstance* self, CInstance* other, int argc, RValue* args)
 {
+    YYStructCreate(&Result); // always return a struct
+
     ISteamNetworkingSockets* p = GM_SteamNetSockets();
     if (!p)
     {
-        Result.kind = VALUE_REAL;
-        Result.val = -1.0;
+        // success = false, result = k_EResultFail
+        YYStructAddBool(&Result, "success", false);
+        YYStructAddInt(&Result, "result", (int)k_EResultFail);
         return;
     }
 
     HSteamNetConnection hConn = (HSteamNetConnection)YYGetReal(args, 0);
-    int bufferIndex = (int)YYGetReal(args, 1);
-
-    void* buffer_data = nullptr;
-    int   buffer_size = 0;
-    if (!BufferGetContent(bufferIndex, &buffer_data, &buffer_size) || !buffer_data)
-    {
-        DebugConsoleOutput("steam_net_sockets_get_connection_real_time_status() - error: specified buffer %d not found\n", (int)bufferIndex);
-        Result.kind = VALUE_REAL;
-        Result.val = -1.0;
-        return;
-    }
 
     SteamNetConnectionRealTimeStatus_t status;
     memset(&status, 0, sizeof(status));
@@ -677,15 +692,35 @@ YYEXPORT void steam_net_sockets_get_connection_real_time_status(//TODO: struct
         0, nullptr
     );
 
-    if (er == k_EResultOK)
+    YYStructAddBool(&Result, "success", (er == k_EResultOK));
+    YYStructAddInt(&Result, "result", (int)er);
+
+    if (er != k_EResultOK)
     {
-        int sz = (int)sizeof(status);
-        if (sz > buffer_size) sz = buffer_size;
-        memcpy(buffer_data, &status, sz);
+        // do not fill more fields on error – GML can check success/result
+        return;
     }
 
-    Result.kind = VALUE_REAL;
-    Result.val = (double)er;
+    // Map all the useful fields into the struct
+    YYStructAddInt(&Result, "state", (int)status.m_eState);
+    YYStructAddInt(&Result, "ping", status.m_nPing);
+
+    YYStructAddDouble(&Result, "local_quality", status.m_flConnectionQualityLocal);
+    YYStructAddDouble(&Result, "remote_quality", status.m_flConnectionQualityRemote);
+
+    YYStructAddDouble(&Result, "out_packets_per_sec", status.m_flOutPacketsPerSec);
+    YYStructAddDouble(&Result, "out_bytes_per_sec", status.m_flOutBytesPerSec);
+    YYStructAddDouble(&Result, "in_packets_per_sec", status.m_flInPacketsPerSec);
+    YYStructAddDouble(&Result, "in_bytes_per_sec", status.m_flInBytesPerSec);
+
+    YYStructAddInt(&Result, "send_rate_bytes_per_sec", status.m_nSendRateBytesPerSecond);
+    YYStructAddInt(&Result, "pending_unreliable", status.m_cbPendingUnreliable);
+    YYStructAddInt(&Result, "pending_reliable", status.m_cbPendingReliable);
+    YYStructAddInt(&Result, "sent_unacked_reliable", status.m_cbSentUnackedReliable);
+
+    // This field name might vary slightly by SDK; if your version uses a different name,
+    // just change it here.
+    YYStructAddInt(&Result, "queue_time_usec", (int)status.m_usecQueueTime);
 }
 
 // -------------------------------------------------------------------------
@@ -823,7 +858,7 @@ YYEXPORT void steam_net_sockets_get_connection_name(
 // -------------------------------------------------------------------------
 // 24. ConfigureConnectionLanes
 // bool steam_net_sockets_configure_connection_lanes(double connection, double lane_count, buffer priorities_buf, buffer weights_buf)
-YYEXPORT void steam_net_sockets_configure_connection_lanes(//TODO: Args...
+YYEXPORT void steam_net_sockets_configure_connection_lanes(
     RValue& Result, CInstance* self, CInstance* other, int argc, RValue* args)
 {
     ISteamNetworkingSockets* p = GM_SteamNetSockets();
@@ -834,10 +869,26 @@ YYEXPORT void steam_net_sockets_configure_connection_lanes(//TODO: Args...
         return;
     }
 
+    if (argc < 4)
+    {
+        DebugConsoleOutput("steam_net_sockets_configure_connection_lanes() - not enough arguments\n");
+        Result.kind = VALUE_BOOL;
+        Result.val = false;
+        return;
+    }
+
     HSteamNetConnection hConn = (HSteamNetConnection)YYGetReal(args, 0);
-    int nLanes = (int)YYGetReal(args, 1);
-    int bufPriIndex = (int)YYGetReal(args, 2);
-    int bufWgtIndex = (int)YYGetReal(args, 3);
+    int                 nLanes = (int)YYGetReal(args, 1);
+    int                 bufPriIndex = (int)YYGetReal(args, 2);
+    int                 bufWgtIndex = (int)YYGetReal(args, 3);
+
+    if (nLanes <= 0)
+    {
+        DebugConsoleOutput("steam_net_sockets_configure_connection_lanes() - lane_count <= 0\n");
+        Result.kind = VALUE_BOOL;
+        Result.val = false;
+        return;
+    }
 
     void* pri_data = nullptr;
     void* wgt_data = nullptr;
@@ -851,6 +902,31 @@ YYEXPORT void steam_net_sockets_configure_connection_lanes(//TODO: Args...
         Result.kind = VALUE_BOOL;
         Result.val = false;
         return;
+    }
+
+    // Each lane uses:
+    //  - priorities: int (4 bytes)
+    //  - weights:    uint16 (2 bytes)
+    int maxPriLanes = pri_size / (int)sizeof(int);
+    int maxWgtLanes = wgt_size / (int)sizeof(uint16);
+
+    int maxLanes = maxPriLanes < maxWgtLanes ? maxPriLanes : maxWgtLanes;
+
+    if (maxLanes <= 0)
+    {
+        DebugConsoleOutput("steam_net_sockets_configure_connection_lanes() - buffers too small\n");
+        Result.kind = VALUE_BOOL;
+        Result.val = false;
+        return;
+    }
+
+    if (nLanes > maxLanes)
+    {
+        DebugConsoleOutput(
+            "steam_net_sockets_configure_connection_lanes() - lane_count %d clamped to %d by buffer sizes\n",
+            nLanes, maxLanes
+        );
+        nLanes = maxLanes;
     }
 
     bool ok = p->ConfigureConnectionLanes(
@@ -897,42 +973,96 @@ YYEXPORT void steam_net_sockets_get_listen_socket_address(
 
 // -------------------------------------------------------------------------
 // 26. GetIdentity
-// bool steam_net_sockets_get_identity(buffer buf)
-YYEXPORT void steam_net_sockets_get_identity(//TODO: Struct
+// GML: struct steam_net_sockets_get_identity()
+YYEXPORT void steam_net_sockets_get_identity(
     RValue& Result, CInstance* self, CInstance* other, int argc, RValue* args)
 {
+    // We'll always return a struct
+    YYStructCreate(&Result);
+
     ISteamNetworkingSockets* p = GM_SteamNetSockets();
     if (!p)
     {
-        Result.kind = VALUE_BOOL;
-        Result.val = false;
-        return;
-    }
-
-    int bufferIndex = (int)YYGetReal(args, 0);
-
-    void* buffer_data = nullptr;
-    int   buffer_size = 0;
-    if (!BufferGetContent(bufferIndex, &buffer_data, &buffer_size) || !buffer_data)
-    {
-        DebugConsoleOutput("steam_net_sockets_get_identity() - error: specified buffer %d not found\n", (int)bufferIndex);
-        Result.kind = VALUE_BOOL;
-        Result.val = false;
+        YYStructAddBool(&Result, "success", false);
         return;
     }
 
     SteamNetworkingIdentity id;
     bool ok = p->GetIdentity(&id);
-    if (ok)
+
+    if (!ok || id.IsInvalid())
     {
-        int sz = (int)sizeof(id);
-        if (sz > buffer_size) sz = buffer_size;
-        memcpy(buffer_data, &id, sz);
+        YYStructAddBool(&Result, "success", false);
+        return;
     }
 
-    Result.kind = VALUE_BOOL;
-    Result.val = ok;
+    // ---- Basic success + type ----
+    YYStructAddBool(&Result, "success", true);
+
+    // Raw enum value
+    YYStructAddDouble(&Result, "type", (double)id.m_eType);
+
+    // Optional: human-readable type name
+    const char* typeName = "unknown";
+    switch (id.m_eType)
+    {
+    case k_ESteamNetworkingIdentityType_Invalid:        typeName = "invalid"; break;
+    case k_ESteamNetworkingIdentityType_SteamID:        typeName = "steamid"; break;
+    case k_ESteamNetworkingIdentityType_XboxPairwiseID: typeName = "xbox_pairwise"; break;
+    case k_ESteamNetworkingIdentityType_SonyPSN:        typeName = "psn"; break;
+    case k_ESteamNetworkingIdentityType_IPAddress:      typeName = "ip_address"; break;
+    case k_ESteamNetworkingIdentityType_GenericString:  typeName = "generic_string"; break;
+    case k_ESteamNetworkingIdentityType_GenericBytes:   typeName = "generic_bytes"; break;
+    case k_ESteamNetworkingIdentityType_UnknownType:    typeName = "unknown_type"; break;
+    default:                                            typeName = "unknown"; break;
+    }
+    YYStructAddString(&Result, "type_name", typeName);
+
+    // ---- Canonical string form (type:<data>) ----
+    char idStr[SteamNetworkingIdentity::k_cchMaxString] = { 0 };
+    id.ToString(idStr, sizeof(idStr));
+    YYStructAddString(&Result, "identity_string", idStr);
+
+    // ---- SteamID64 (0 if not SteamID) ----
+    uint64 steamID64 = id.GetSteamID64();   // per your struct comment, returns 0 if not SteamID
+    YYStructAddDouble(&Result, "steam_id", (double)steamID64);
+
+    // ---- Xbox pairwise ID ("" if not that type) ----
+    const char* xboxId = id.GetXboxPairwiseID(); // nullptr if not Xbox type
+    YYStructAddString(&Result, "xbox_pairwise_id", xboxId ? xboxId : "");
+
+    // ---- PSN ID (0 if not PSN type) ----
+    uint64 psnID = id.GetPSNID();
+    YYStructAddDouble(&Result, "psn_id", (double)psnID);
+
+    // ---- Generic string ("" if not generic string) ----
+    const char* genericStr = id.GetGenericString(); // nullptr if not generic string
+    YYStructAddString(&Result, "generic_string", genericStr ? genericStr : "");
+
+    // ---- Generic bytes (we'll just expose length for now) ----
+    int genericLen = 0;
+    const uint8* genericBytes = id.GetGenericBytes(genericLen); // nullptr if not generic bytes
+    YYStructAddInt(&Result, "generic_bytes_len", genericBytes ? genericLen : 0);
+    // (If you want, we can later add a helper that copies these into a GM buffer.)
+
+    // ---- IP address (string "ip:port" or "") ----
+    const SteamNetworkingIPAddr* pIP = id.GetIPAddr(); // nullptr if not IP
+    char ipStr[SteamNetworkingIPAddr::k_cchMaxString] = { 0 };
+    if (pIP)
+    {
+        pIP->ToString(ipStr, sizeof(ipStr), true); // true = include port
+        YYStructAddString(&Result, "ip", ipStr);
+    }
+    else
+    {
+        YYStructAddString(&Result, "ip", "");
+    }
+
+    // ---- Localhost / Fake IP helpers ----
+    YYStructAddBool(&Result, "is_local_host", id.IsLocalHost());
+    YYStructAddDouble(&Result, "fake_ip_type", (double)id.GetFakeIPType());
 }
+
 
 // -------------------------------------------------------------------------
 // 27. InitAuthentication
@@ -951,27 +1081,21 @@ YYEXPORT void steam_net_sockets_init_authentication(
 
 // -------------------------------------------------------------------------
 // 28. GetAuthenticationStatus
-// double steam_net_sockets_get_authentication_status(buffer buf)
-YYEXPORT void steam_net_sockets_get_authentication_status(//TODO return struct
+// struct steam_net_sockets_get_authentication_status()
+YYEXPORT void steam_net_sockets_get_authentication_status(
     RValue& Result, CInstance* self, CInstance* other, int argc, RValue* args)
 {
+    // Always return a struct
+    YYStructCreate(&Result);
+
     ISteamNetworkingSockets* p = GM_SteamNetSockets();
     if (!p)
     {
-        Result.kind = VALUE_REAL;
-        Result.val = (double)k_ESteamNetworkingAvailability_CannotTry;
-        return;
-    }
-
-    int bufferIndex = (int)YYGetReal(args, 0);
-
-    void* buffer_data = nullptr;
-    int   buffer_size = 0;
-    if (!BufferGetContent(bufferIndex, &buffer_data, &buffer_size) || !buffer_data)
-    {
-        DebugConsoleOutput("steam_net_sockets_get_authentication_status() - error: specified buffer %d not found\n", (int)bufferIndex);
-        Result.kind = VALUE_REAL;
-        Result.val = (double)k_ESteamNetworkingAvailability_CannotTry;
+        // No interface, report "CannotTry"
+        YYStructAddDouble(&Result, "availability", (double)k_ESteamNetworkingAvailability_CannotTry);
+        YYStructAddString(&Result, "availability_name", "CannotTry");
+        YYStructAddString(&Result, "debug", "SteamNetworkingSockets interface not available");
+        YYStructAddDouble(&Result, "status", -1);
         return;
     }
 
@@ -979,13 +1103,36 @@ YYEXPORT void steam_net_sockets_get_authentication_status(//TODO return struct
     memset(&status, 0, sizeof(status));
 
     ESteamNetworkingAvailability avail = p->GetAuthenticationStatus(&status);
-    int sz = (int)sizeof(status);
-    if (sz > buffer_size) sz = buffer_size;
-    memcpy(buffer_data, &status, sz);
 
-    Result.kind = VALUE_REAL;
-    Result.val = (double)avail;
+    // --- Raw enum value ---
+    YYStructAddDouble(&Result, "availability", (double)avail);
+
+    // --- Human-readable availability name ---
+    const char* availName = "Unknown";
+
+    switch (avail)
+    {
+    case k_ESteamNetworkingAvailability_CannotTry:      availName = "CannotTry"; break;
+    case k_ESteamNetworkingAvailability_Failed:         availName = "Failed"; break;
+    case k_ESteamNetworkingAvailability_Previously:     availName = "Previously"; break;
+    case k_ESteamNetworkingAvailability_Retrying:       availName = "Retrying"; break;
+    case k_ESteamNetworkingAvailability_NeverTried:     availName = "NeverTried"; break;
+    case k_ESteamNetworkingAvailability_Waiting:        availName = "Waiting"; break;
+    case k_ESteamNetworkingAvailability_Attempting:     availName = "Attempting"; break;
+    case k_ESteamNetworkingAvailability_Current:        availName = "Current"; break;
+        // You can add any newer enum values here if your SDK has them
+    default:                                            availName = "Unknown"; break;
+    }
+
+    YYStructAddString(&Result, "availability_name", availName);
+
+    // --- Debug message from SteamNetAuthenticationStatus_t ---
+    // status.m_debugMsg is a char[] with a null-terminated string
+    YYStructAddString(&Result, "debug", status.m_debugMsg[0] ? status.m_debugMsg : "");
+
+    YYStructAddInt(&Result, "status", (int)status.m_eAvail);
 }
+
 
 
 ///////////////Gameservers utilizing Steam Datagram Relay///////////////// This secction will be ignored for now....
