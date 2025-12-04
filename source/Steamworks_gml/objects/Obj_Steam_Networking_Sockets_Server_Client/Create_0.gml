@@ -42,7 +42,7 @@ global.net_listen      = -1;
 
 // Example: for client, you need the host's SteamID64
 // (you'll probably get this from lobby, friend list, etc.)
-global.net_host_steamid64 = 0; // set this on the client before connecting
+global.net_host_steamid64 = 76561199257286820//0; // set this on the client before connecting
 
 
 NET_P2P_PORT = 7
