@@ -1,27 +1,20 @@
 
-    if (net_connection > 0)
-    {
-        var msg = "Hello from " + "client" + " at " + string(current_time);
+var steam_id = noone
 
-        // Write string into the buffer
-        buffer_seek(net_buffer, buffer_seek_start, 0);
-        buffer_write(net_buffer, buffer_u8, string_length(msg)); // store length first (1 byte if <=255)
-        buffer_write(net_buffer, buffer_string, msg);
+with(Obj_Steam_Networking_Friend)
+{
+	if(locked)
+	{
+		steam_id = id.steam_id
+		break
+	}
+}
 
-        var size = buffer_tell(net_buffer);
-
-        // Send reliable
-        var res = steam_net_sockets_send_message(
-            net_connection,
-            net_buffer,
-            size,
-            NET_SEND_RELIABLE
-        );
-
-        show_debug_message("Send result = " + string(res) + " (0 or 1 is OK, check docs)");
-    }
-    else
-    {
-        show_debug_message("No active connection to send on");
-    }
-
+if(steam_id)
+if (net_host_steamid64 != 0)
+{
+	net_connection = steam_net_sockets_connect_p2p(steam_id, NET_P2P_PORT);
+	show_debug_message("Client: connecting, conn = " + string(net_connection));
+}
+else
+	show_debug_message("Client: ERROR - host steamID64 not set");
