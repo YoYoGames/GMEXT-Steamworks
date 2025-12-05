@@ -1,4 +1,6 @@
 
+alarm[0] = 3
+
 event_inherited()
 
 text = "client"

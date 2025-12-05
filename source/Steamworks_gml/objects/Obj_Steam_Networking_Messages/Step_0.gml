@@ -10,7 +10,6 @@ if(data_size)
 	var Color = buffer_read(buff, buffer_u32);
 	var X = buffer_read(buff, buffer_u16);
 	var Y = buffer_read(buff, buffer_u16);
-	//show_debug_message([Color,X,Y])
 	var ins = instance_create_depth(X,Y,0,Obj_Steam_Networking_Circle)
 	ins.image_blend = Color
 }

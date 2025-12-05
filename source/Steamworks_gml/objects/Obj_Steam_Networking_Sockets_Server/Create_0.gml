@@ -1,4 +1,6 @@
 
+alarm[0] = 3
+
 event_inherited()
 
 
@@ -23,20 +25,11 @@ event_inherited()
 #macro NET_SEND_RELIABLE                8        // 📌 This is the common "Reliable"
 #macro NET_SEND_UNRELIABLE_NO_DELAY     16
 
-
-
 text = "host"
-
-
-
 
 net_buffer      = buffer_create(1024, buffer_grow, 1);
 net_connection  = -1;
 net_listen      = -1;
-
-// Example: for client, you need the host's SteamID64
-// (you'll probably get this from lobby, friend list, etc.)
-net_host_steamid64 = 76561199257286820//0; // set this on the client before connecting
 
 
 NET_P2P_PORT = 7
