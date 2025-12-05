@@ -273,8 +273,6 @@ YYEXPORT void steam_net_sockets_send_message(
 YYEXPORT void steam_net_sockets_send_messages(
     RValue& Result, CInstance* self, CInstance* other, int argc, RValue* args)
 {
-    
-
     ISteamNetworkingSockets* pSockets = SteamNetworkingSockets();
     ISteamNetworkingUtils* pUtils = SteamNetworkingUtils();
     if (!pSockets || !pUtils)
@@ -284,11 +282,22 @@ YYEXPORT void steam_net_sockets_send_messages(
         return;
     }
 
-    HSteamNetConnection hConn = (HSteamNetConnection)YYGetReal(args, 0);
+    // GML: steam_net_sockets_send_messages(array connections, buffer buf, real size, real flags, [real lane])
+    std::vector<double> connValues = _SW_GetArrayOfReal(args, 0, "steam_net_sockets_send_messages");
+
+    // If array is empty, nothing to send, treat as success
+    if (connValues.empty())
+    {
+        Result.kind = VALUE_REAL;
+        Result.val = 0.0;
+        return;
+    }
+
     int bufferIndex = (int)YYGetReal(args, 1);
     int dataSize = (int)YYGetReal(args, 2);
     int sendFlags = (int)YYGetReal(args, 3);
     uint16 lane = 0;
+
     if (argc > 4)
         lane = (uint16)(int)YYGetReal(args, 4);
 
@@ -296,7 +305,8 @@ YYEXPORT void steam_net_sockets_send_messages(
     int   buffer_size = 0;
     if (!BufferGetContent(bufferIndex, &buffer_data, &buffer_size) || !buffer_data)
     {
-        DebugConsoleOutput("steam_net_sockets_send_messages() - error: specified buffer %d not found\n", (int)bufferIndex);
+        DebugConsoleOutput("steam_net_sockets_send_messages() - error: specified buffer %d not found\n",
+            (int)bufferIndex);
         Result.kind = VALUE_REAL;
         Result.val = -1.0;
         return;
@@ -304,36 +314,57 @@ YYEXPORT void steam_net_sockets_send_messages(
 
     if (dataSize > buffer_size)
         dataSize = buffer_size;
-
-    SteamNetworkingMessage_t* msg = pUtils->AllocateMessage(dataSize);
-    if (!msg)
+    if (dataSize <= 0)
     {
         Result.kind = VALUE_REAL;
         Result.val = -1.0;
         return;
     }
 
-    memcpy(msg->m_pData, buffer_data, dataSize);
-    msg->m_cbSize = dataSize;
-    msg->m_conn = hConn;
-    msg->m_nFlags = sendFlags;
-    msg->m_idxLane = lane;
-    msg->m_nUserData = 0;
+    const int n = (int)connValues.size();
 
-    SteamNetworkingMessage_t* msgs[1] = { msg };
-    int64 resultNumbers[1] = { 0 };
+    // Allocate arrays for messages and results
+    std::vector<SteamNetworkingMessage_t*> msgs(n, nullptr);
+    std::vector<int64> resultNumbers(n, 0);
+
+    // Prepare one message per connection
+    for (int i = 0; i < n; ++i)
+    {
+        SteamNetworkingMessage_t* msg = pUtils->AllocateMessage(dataSize);
+        if (!msg)
+        {
+            // Allocation failed; clean up any messages we created so far
+            for (int j = 0; j < i; ++j)
+            {
+                if (msgs[j])
+                    msgs[j]->Release();
+            }
+
+            Result.kind = VALUE_REAL;
+            Result.val = -1.0;
+            return;
+        }
+
+        memcpy(msg->m_pData, buffer_data, dataSize);
+        msg->m_cbSize = dataSize;
+        msg->m_conn = (HSteamNetConnection)(int)connValues[i];
+        msg->m_nFlags = sendFlags;
+        msg->m_idxLane = lane;
+        msg->m_nUserData = 0;
+
+        msgs[i] = msg;
+    }
 
     pSockets->SendMessages(
-        1,
-        msgs,
-        resultNumbers
+        n,
+        msgs.data(),
+        resultNumbers.data()
     );
 
-    msg->Release();
-
     Result.kind = VALUE_REAL;
-    Result.val = (double)0;    
+    Result.val = (double)resultNumbers[0];
 }
+
 
 YYEXPORT void steam_net_sockets_flush_messages_on_connection(
     RValue& Result, CInstance* self, CInstance* other, int argc, RValue* args)

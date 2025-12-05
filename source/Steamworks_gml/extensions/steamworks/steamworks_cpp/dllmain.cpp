@@ -64,6 +64,33 @@ std::vector<const char*> _SW_GetArrayOfStrings(RValue* arg, int arg_idx, const c
 	return strings;
 }
 
+std::vector<double> _SW_GetArrayOfReal(RValue* arg, int arg_idx, const char* func)
+{
+	RValue* pV = &(arg[arg_idx]);
+
+	std::vector<double> vec;
+
+	if (KIND_RValue(pV) == VALUE_ARRAY)
+	{
+		RValue elem;
+		for (int i = 0; GET_RValue(&elem, pV, NULL, i); ++i)
+		{
+			int kind = KIND_RValue(&elem);
+			if (kind != VALUE_REAL)
+			{
+				YYError("%s argument %d [array element %d] incorrect type (%s) expecting a numeric value", func, (arg_idx + 1), i, KIND_NAME_RValue(&elem));
+			}
+
+			vec.push_back(YYGetReal(&elem, i));
+		}
+	}
+	else {
+		YYError("%s argument %d incorrect type (%s) expecting an Array", func, (arg_idx + 1), KIND_NAME_RValue(pV));
+	}
+
+	return vec;
+}
+
 std::vector<int32> _SW_GetArrayOfInt32(RValue* arg, int arg_idx, const char* func)
 {
 	RValue* pV = &(arg[arg_idx]);
