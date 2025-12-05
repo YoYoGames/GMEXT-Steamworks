@@ -2,7 +2,7 @@
     if (net_connection > 0)
     {
         var msg = "Hello from " + "host" + " at " + string(current_time);
-
+		
         // Write string into the buffer
         buffer_seek(net_buffer, buffer_seek_start, 0);
         buffer_write(net_buffer, buffer_u8, string_length(msg)); // store length first (1 byte if <=255)
