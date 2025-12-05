@@ -1,7 +1,7 @@
 
 event_inherited()
 
-if (net_connection > 0)
+if(net_connection > 0)
 {	
     while(true)
     {

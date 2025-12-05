@@ -34,7 +34,6 @@ net_listen      = -1;
 
 NET_P2P_PORT = 7
 
-// HOST: create a P2P listen socket
 net_listen = steam_net_sockets_create_listen_socket_p2p(NET_P2P_PORT);
 show_debug_message("Host: listen socket = " + string(net_listen));
 
