@@ -15,10 +15,7 @@
     "name":"Messages",
     "path":"folders/Steamworks Demo/Networking/Messages.yy",
   },
-  "parentObjectId":{
-    "name":"obj_gm_button",
-    "path":"objects/obj_gm_button/obj_gm_button.yy",
-  },
+  "parentObjectId":null,
   "persistent":false,
   "physicsAngularDamping":0.1,
   "physicsDensity":0.5,
@@ -36,10 +33,7 @@
   "resourceType":"GMObject",
   "resourceVersion":"2.0",
   "solid":false,
-  "spriteId":{
-    "name":"spr_gm_button",
-    "path":"sprites/spr_gm_button/spr_gm_button.yy",
-  },
+  "spriteId":null,
   "spriteMaskId":null,
   "visible":true,
 }
