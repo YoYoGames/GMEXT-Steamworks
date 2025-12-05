@@ -19,7 +19,7 @@ for(var a = 0 ; a < array_length(array) ; a++)
 	
 	if(Y > room_height-100)
 	{
-		Y = 0
+		Y = 150
 		X += 300
 	}
 }
