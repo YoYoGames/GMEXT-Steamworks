@@ -282,7 +282,6 @@ YYEXPORT void steam_net_sockets_send_messages(
         return;
     }
 
-    // GML: steam_net_sockets_send_messages(array connections, buffer buf, real size, real flags, [real lane])
     std::vector<double> connValues = _SW_GetArrayOfReal(args, 0, "steam_net_sockets_send_messages");
 
     // If array is empty, nothing to send, treat as success
@@ -323,17 +322,14 @@ YYEXPORT void steam_net_sockets_send_messages(
 
     const int n = (int)connValues.size();
 
-    // Allocate arrays for messages and results
     std::vector<SteamNetworkingMessage_t*> msgs(n, nullptr);
     std::vector<int64> resultNumbers(n, 0);
 
-    // Prepare one message per connection
     for (int i = 0; i < n; ++i)
     {
         SteamNetworkingMessage_t* msg = pUtils->AllocateMessage(dataSize);
         if (!msg)
         {
-            // Allocation failed; clean up any messages we created so far
             for (int j = 0; j < i; ++j)
             {
                 if (msgs[j])
@@ -400,9 +396,6 @@ YYEXPORT void steam_net_sockets_recv_messages_on_connection(
     HSteamNetConnection hConn = (HSteamNetConnection)YYGetReal(args, 0);
     int bufferIndex = (int)YYGetReal(args, 1);
     int maxSize = (int)YYGetReal(args, 2);
-
-    void* buffer_data = nullptr;
-    int   buffer_size = 0;
 
     if (BufferGetFromGML(bufferIndex) == NULL)
     {
@@ -633,7 +626,7 @@ YYEXPORT void steam_net_sockets_get_connection_real_time_status(
     YYStructAddInt(&Result, "pending_reliable", status.m_cbPendingReliable);
     YYStructAddInt(&Result, "sent_unacked_reliable", status.m_cbSentUnackedReliable);
 
-    YYStructAddInt(&Result, "queue_time_usec", (int)status.m_usecQueueTime);
+    YYStructAddInt64(&Result, "queue_time_usec", status.m_usecQueueTime);
 }
 
 YYEXPORT void steam_net_sockets_get_detailed_connection_status(

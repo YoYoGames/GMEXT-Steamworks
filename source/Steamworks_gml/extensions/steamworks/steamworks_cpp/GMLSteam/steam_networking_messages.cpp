@@ -26,33 +26,71 @@ static CSteamNetMessagesHandler* g_pNetMsgHandler = nullptr;
 
 void CSteamNetMessagesHandler::OnSessionRequest(SteamNetworkingMessagesSessionRequest_t* pInfo)
 {
-    char str[128];
-    pInfo->m_identityRemote.ToString(str, sizeof(str));
+    if (!pInfo)
+        return;
+
+    const SteamNetworkingIdentity& id = pInfo->m_identityRemote;
+
+    // Identity as string
+    char identStr[SteamNetworkingIdentity::k_cchMaxString] = { 0 };
+    id.ToString(identStr, sizeof(identStr));
+
+    // Optional IP string, if this identity is an IP address
+    char ipStr[SteamNetworkingIPAddr::k_cchMaxString] = { 0 };
+    const SteamNetworkingIPAddr* pIP = id.GetIPAddr();
+    if (pIP)
+        pIP->ToString(ipStr, sizeof(ipStr), true); // include port
 
     int dsMapIndex = CreateDsMap(1,
         "event_type", (double)0.0, "steam_net_message_on_session_request"
     );
 
-    g_pYYRunnerInterface->DsMapAddInt64(dsMapIndex, "steamid", pInfo->m_identityRemote.GetSteamID64());
-    //TODO: more data
-    //g_pYYRunnerInterface->DsMapAddInt64(dsMapIndex, "", pInfo->);
+    g_pYYRunnerInterface->DsMapAddInt64(dsMapIndex, "steamid", id.GetSteamID64());
+    g_pYYRunnerInterface->DsMapAddString(dsMapIndex, "identity_string", identStr);
+
+    g_pYYRunnerInterface->DsMapAddDouble(dsMapIndex, "identity_type", (double)id.m_eType);
+
+    g_pYYRunnerInterface->DsMapAddString(dsMapIndex, "ip", ipStr);
+    g_pYYRunnerInterface->DsMapAddDouble(dsMapIndex, "is_local_host", id.IsLocalHost() ? 1.0 : 0.0);
+    g_pYYRunnerInterface->DsMapAddDouble(dsMapIndex, "fake_ip_type", (double)id.GetFakeIPType());
 
     g_pYYRunnerInterface->CreateAsyncEventWithDSMap(dsMapIndex, EVENT_OTHER_WEB_STEAM);
 }
 
+
 void CSteamNetMessagesHandler::OnSessionFailed(SteamNetworkingMessagesSessionFailed_t* pInfo)
 {
-    char str[128];
-    pInfo->m_info.m_identityRemote.ToString(str, sizeof(str));
+    if (!pInfo)
+        return;
+
+    const SteamNetConnectionInfo_t& info = pInfo->m_info;
+
+    char identityStr[128] = { 0 };
+    info.m_identityRemote.ToString(identityStr, sizeof(identityStr));
+
+    char addrStr[128] = { 0 };
+    info.m_addrRemote.ToString(addrStr, sizeof(addrStr), true); // include port
 
     int dsMapIndex = CreateDsMap(1,
         "event_type", (double)0.0, "steam_net_message_on_session_failed"
     );
 
-    g_pYYRunnerInterface->DsMapAddInt64(dsMapIndex, "steamid", pInfo->m_info.m_identityRemote.GetSteamID64());
-    g_pYYRunnerInterface->DsMapAddDouble(dsMapIndex, "reason", pInfo->m_info.m_eEndReason);
-    //TODO: more data
-    //g_pYYRunnerInterface->DsMapAddDouble(dsMapIndex, "", pInfo->m_info.);
+    g_pYYRunnerInterface->DsMapAddInt64(dsMapIndex, "steamid", info.m_identityRemote.GetSteamID64());
+    g_pYYRunnerInterface->DsMapAddDouble(dsMapIndex, "state", (double)info.m_eState);
+    g_pYYRunnerInterface->DsMapAddDouble(dsMapIndex, "end_reason", (double)info.m_eEndReason);
+    g_pYYRunnerInterface->DsMapAddDouble(dsMapIndex, "flags", (double)info.m_nFlags);
+    g_pYYRunnerInterface->DsMapAddInt64(dsMapIndex, "user_data", info.m_nUserData);
+
+    g_pYYRunnerInterface->DsMapAddDouble(dsMapIndex, "listen_socket", (double)info.m_hListenSocket);
+    g_pYYRunnerInterface->DsMapAddDouble(dsMapIndex, "remote_pop", (double)info.m_idPOPRemote);
+    g_pYYRunnerInterface->DsMapAddDouble(dsMapIndex, "relay_pop", (double)info.m_idPOPRelay);
+
+    g_pYYRunnerInterface->DsMapAddString(dsMapIndex, "remote_identity", identityStr);
+    g_pYYRunnerInterface->DsMapAddString(dsMapIndex, "remote_addr", addrStr);
+    g_pYYRunnerInterface->DsMapAddString(dsMapIndex, "description",
+        info.m_szConnectionDescription ? info.m_szConnectionDescription : "");
+    g_pYYRunnerInterface->DsMapAddString(dsMapIndex, "debug",
+        info.m_szEndDebug ? info.m_szEndDebug : "");
 
     g_pYYRunnerInterface->CreateAsyncEventWithDSMap(dsMapIndex, EVENT_OTHER_WEB_STEAM);
 }

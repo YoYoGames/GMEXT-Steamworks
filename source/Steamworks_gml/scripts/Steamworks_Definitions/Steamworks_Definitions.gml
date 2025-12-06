@@ -31,3 +31,32 @@ enum STEAMWORKS_PERSONA_STATE
 	INVISIBLE = 7,		// ONLINE, BUT APPEARS OFFLINE TO FRIENDS.  THIS STATUS IS NEVER PUBLISHED TO CLIENTS.
 	MAX,
 };
+
+
+
+
+// SteamNetworking connection states (ESteamNetworkingConnectionState)
+enum STEAMWORKS_NET_SOCKET_STATE
+{
+	NONE = 0,
+	CONNECTING = 1,
+	FINDING_ROUTE = 2,
+	CONNECTED = 3,
+	CLOSED_BY_PEER = 4,
+	PROBLEM_LOCAL = 5,
+	FIN_WAIT = 6,
+	LINGER = 7,
+	DEAD = 8,
+	TERMINATED = 9,
+}
+
+
+// SteamNetworking send flags (k_nSteamNetworkingSend_*)
+enum STEAMWORKS_NET_SOCKET_FLAG
+{
+	UNRELIABLE = 0,
+	NO_NAGLE = 1,
+	NO_DELAY = 4,
+	RELIABLE = 8,
+	UNRELIABLE_NO_DELAY = 16,
+}
