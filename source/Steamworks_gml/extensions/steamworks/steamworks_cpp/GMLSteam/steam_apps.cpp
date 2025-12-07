@@ -51,24 +51,22 @@ YYEXPORT void /*const char**/ steam_available_languages(RValue& Result, CInstanc
 {
 	if (!steam_is_initialised)
 	{
-		Result.kind = VALUE_REAL;
-		Result.val = 0;
+		YYCreateString(&Result, "");
 		return;
 	}
 
 	YYCreateString(&Result,SteamApps()->GetAvailableGameLanguages());
 }
 
-YYEXPORT void /*bool*/ steam_get_current_beta_name(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)//()
+YYEXPORT void steam_get_current_beta_name(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)
 {
 	if (!steam_is_initialised)
 	{
-		Result.kind = VALUE_REAL;
-		Result.val = 0;
+		YYCreateString(&Result, "");
 		return;
 	}
 
-	char betaName[256]; // Buffer to store the beta name
+	char betaName[256];
 	bool success = SteamApps()->GetCurrentBetaName(betaName, 256);
 
 	if (success)
@@ -77,17 +75,16 @@ YYEXPORT void /*bool*/ steam_get_current_beta_name(RValue& Result, CInstance* se
 	}
 	else
 	{
-		// If not on a beta branch, return empty string
 		YYCreateString(&Result, "");
 	}
 }
 
-YYEXPORT void /*int*/ steam_get_num_betas(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)//()
+YYEXPORT void steam_get_num_betas(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)
 {
+    YYStructCreate(&Result);
+
     if (!steam_is_initialised)
     {
-        Result.kind = VALUE_REAL;
-        Result.val = 0;
         return;
     }
 
@@ -95,22 +92,17 @@ YYEXPORT void /*int*/ steam_get_num_betas(RValue& Result, CInstance* selfinst, C
     int private_betas = 0;
     int total_betas = SteamApps()->GetNumBetas(&available, &private_betas);
 
-    // Create a DS map to return the values
-    int map = CreateDsMap(0, 0);
-    DsMapAddDouble(map, "total", total_betas);
-    DsMapAddDouble(map, "available", available);
-    DsMapAddDouble(map, "private", private_betas);
-
-    Result.kind = VALUE_REAL;
-    Result.val = map;
+    YYStructAddInt(&Result, "total", total_betas);
+    YYStructAddInt(&Result, "available", available);
+    YYStructAddInt(&Result, "private", private_betas);
 }
 
-YYEXPORT void /*bool*/ steam_get_beta_info(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)//()
+YYEXPORT void steam_get_beta_info(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)
 {
+    YYStructCreate(&Result);
+
     if (!steam_is_initialised || argc < 1)
     {
-        Result.kind = VALUE_REAL;
-        Result.val = 0;
         return;
     }
 
@@ -126,29 +118,14 @@ YYEXPORT void /*bool*/ steam_get_beta_info(RValue& Result, CInstance* selfinst, 
 
     if (success)
     {
-        // Create a DS map to return all the information
-        int map = CreateDsMap(0, 0);
-        DsMapAddDouble(map, "flags", flags);
-        DsMapAddDouble(map, "buildID", buildID);
-        DsMapAddString(map, "name", betaName);
-        DsMapAddString(map, "description", description);
-        DsMapAddDouble(map, "success", 1);
-
-        Result.kind = VALUE_REAL;
-        Result.val = map;
-    }
-    else
-    {
-        // Return a map with just the success flag set to false
-        int map = CreateDsMap(0, 0);
-        DsMapAddDouble(map, "success", 0);
-
-        Result.kind = VALUE_REAL;
-        Result.val = map;
+		YYStructAddDouble(&Result, "flags", flags);
+		YYStructAddDouble(&Result, "buildID", buildID);
+		YYStructAddString(&Result, "name", betaName);
+		YYStructAddString(&Result, "description", description);
     }
 }
 
-YYEXPORT void /*bool*/ steam_set_active_beta(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)//()
+YYEXPORT void steam_set_active_beta(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)
 {
     if (!steam_is_initialised || argc < 1)
     {
@@ -160,6 +137,7 @@ YYEXPORT void /*bool*/ steam_set_active_beta(RValue& Result, CInstance* selfinst
     const char* betaName = YYGetString(arg, 0);
     bool success = SteamApps()->SetActiveBeta(betaName);
 
-    Result.kind = VALUE_REAL;
-    Result.val = success ? 1.0 : 0.0;
+    Result.kind = VALUE_BOOL;
+    Result.val = success;
 }
+
