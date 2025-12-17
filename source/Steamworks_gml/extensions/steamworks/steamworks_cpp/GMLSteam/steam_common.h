@@ -24,6 +24,7 @@ extern int getAsyncRequestInd();
 
 extern void Steam_UserStats_Process();
 
+extern void YYStructAddUndefined(RValue* s, const char* key);
 extern void _SW_SetArrayOfString(RValue* _array, char* str, const char* delim);
 extern void _SW_SetArrayOfInt32(RValue* _array, std::vector<int> &values);
 extern void _SW_SetArrayOfInt64(RValue* _array, std::vector<int64> &values);

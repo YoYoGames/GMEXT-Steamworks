@@ -36,7 +36,7 @@ enum STEAMWORKS_PERSONA_STATE
 
 
 // SteamNetworking connection states (ESteamNetworkingConnectionState)
-enum STEAMWORKS_NET_SOCKET_STATE
+enum STEAMWORKS_NET_CONNECTION_STATE
 {
 	NONE = 0,
 	CONNECTING = 1,
@@ -52,7 +52,7 @@ enum STEAMWORKS_NET_SOCKET_STATE
 
 
 // SteamNetworking send flags (k_nSteamNetworkingSend_*)
-enum STEAMWORKS_NET_SOCKET_FLAG
+enum STEAMWORKS_NET_SEND_FLAG
 {
 	UNRELIABLE = 0,
 	NO_NAGLE = 1,
@@ -60,3 +60,60 @@ enum STEAMWORKS_NET_SOCKET_FLAG
 	RELIABLE = 8,
 	UNRELIABLE_NO_DELAY = 16,
 }
+
+// enum ESteamNetworkingFakeIPType
+enum STEAMWORKS_NET_FAKE_IP_TYPE
+{
+	INVALID, // Error, argument was not even an IP address, etc.
+	NOT_FAKE, // Argument was a valid IP, but was not from the reserved "fake" range
+	GLOBAL_IPV4, // Globally unique (for a given app) IPv4 address.  Address space managed by Steam
+	LOCAL_IPV4, // Locally unique IPv4 address.  Address space managed by the local process.  For internal use only; should not be shared!
+};
+
+
+/// enum ESteamNetworkingIdentityType
+enum STEAMWORKS_NET_IDENTITY_TYPE
+{
+	// Dummy/empty/invalid.
+	// Please note that if we parse a string that we don't recognize
+	// but that appears reasonable, we will NOT use this type.  Instead
+	// we'll use k_ESteamNetworkingIdentityType_UnknownType.
+	INVALID = 0,
+
+	//
+	// Basic platform-specific identifiers.
+	//
+	STEAM_ID = 16, // 64-bit CSteamID
+	XBOX_PAIRWISE_ID = 17, // Publisher-specific user identity, as string
+	SONY_PSN = 18, // 64-bit ID
+
+	//
+	// Special identifiers.
+	//
+
+	// Use their IP address (and port) as their "identity".
+	// These types of identities are always unauthenticated.
+	// They are useful for porting plain sockets code, and other
+	// situations where you don't care about authentication.  In this
+	// case, the local identity will be "localhost",
+	// and the remote address will be their network address.
+	//
+	// We use the same type for either IPv4 or IPv6, and
+	// the address is always store as IPv6.  We use IPv4
+	// mapped addresses to handle IPv4.
+	IP_ADDRESS = 1,
+
+	// Generic string/binary blobs.  It's up to your app to interpret this.
+	// This library can tell you if the remote host presented a certificate
+	// signed by somebody you have chosen to trust, with this identity on it.
+	// It's up to you to ultimately decide what this identity means.
+	GENERIC_STRING = 2,
+	GENERIC_BYTES = 3,
+
+	// This identity type is used when we parse a string that looks like is a
+	// valid identity, just of a kind that we don't recognize.  In this case, we
+	// can often still communicate with the peer!  Allowing such identities
+	// for types we do not recognize useful is very useful for forward
+	// compatibility.
+	UNKNOWN_TYPE = 4,
+};

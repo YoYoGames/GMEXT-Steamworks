@@ -143,8 +143,8 @@ YYEXPORT void steam_net_messages_send(
     if (!BufferGetContent(bufferIndex, &buffer_data, &buffer_size))// || !buffer_data)
     {
         DebugConsoleOutput("steam_net_messages_send() - buffer not found\n");
-        Result.kind = VALUE_BOOL;
-        Result.val = false;
+        Result.kind = VALUE_REAL;
+        Result.val = -1;
         return;
     }
 
@@ -159,6 +159,9 @@ YYEXPORT void steam_net_messages_send(
 
     Result.kind = VALUE_REAL;
     Result.val = (double)er;
+
+    // This needs to be freed otherwise there is a memory leak
+    YYFree(buffer_data);
 }
 
 YYEXPORT void steam_net_messages_accept_session(
@@ -253,7 +256,7 @@ YYEXPORT void steam_net_messages_receive_on_channel(
     {
         DebugConsoleOutput("steam_net_messages_receive_on_channel - buffer not found\n");
         Result.kind = VALUE_REAL;
-        Result.val = 0.0;
+        Result.val = -1;
         return;
     }
 
@@ -273,8 +276,8 @@ YYEXPORT void steam_net_messages_receive_on_channel(
     if (BufferWriteContent(bufferIndex, 0, pMsg->m_pData, (int)toCopy, true) != toCopy)
     {
         DebugConsoleOutput("steam_net_messages_receive_on_channel() - error: could not write to buffer\n");
-        Result.kind = VALUE_BOOL;
-        Result.val = false;
+        Result.kind = VALUE_REAL;
+        Result.val = -1;
     }
 
 

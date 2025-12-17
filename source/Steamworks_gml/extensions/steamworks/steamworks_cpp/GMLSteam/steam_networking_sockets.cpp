@@ -5,9 +5,6 @@
 #include "YYRValue.h"
 #include "steam_common.h"
 
-
-static HSteamListenSocket g_p2pListenSocket = k_HSteamListenSocket_Invalid;
-
 class GMNetSocketsCallbackHandler
 {
 public:
@@ -42,6 +39,12 @@ void GMNetSocketsCallbackHandler::OnConnectionStatusChanged(SteamNetConnectionSt
     g_pYYRunnerInterface->DsMapAddString(dsMapIndex, "debug", info.m_szEndDebug ? info.m_szEndDebug : "");
 
     g_pYYRunnerInterface->CreateAsyncEventWithDSMap(dsMapIndex, EVENT_OTHER_WEB_STEAM);
+
+    // Steamworks manual states we need to close the connection when dropped to avoid memory leaks
+    if (info.m_eState == ESteamNetworkingConnectionState::k_ESteamNetworkingConnectionState_ClosedByPeer || 
+        info.m_eState == ESteamNetworkingConnectionState::k_ESteamNetworkingConnectionState_ProblemDetectedLocally) {
+        p->CloseConnection(pInfo->m_hConn, 0, nullptr, false);
+    }
 }
 
 
@@ -109,10 +112,7 @@ YYEXPORT void steam_net_sockets_create_listen_socket_p2p(
 
     int virtualPort = (int)YYGetReal(args, 0); // use same helper as in steam_networking.cpp
 
-    HSteamListenSocket hListen =
-        p->CreateListenSocketP2P(virtualPort, 0, nullptr);
-
-    g_p2pListenSocket = hListen;
+    HSteamListenSocket hListen = p->CreateListenSocketP2P(virtualPort, 0, nullptr);
 
     Result.kind = VALUE_REAL;
     Result.val = (double)hListen;
@@ -163,7 +163,7 @@ YYEXPORT void steam_net_sockets_close_connection(
 
     HSteamNetConnection hConn = (HSteamNetConnection)YYGetReal(args, 0);
     int   reason = (int)YYGetReal(args, 1);
-    const char* debug = YYGetString(args, 2);
+    const char* debug = (args[2].kind == VALUE_UNDEFINED) ? nullptr : YYGetString(args, 2);
     bool linger = (YYGetReal(args, 3) != 0.0);
 
     bool ok = p->CloseConnection(hConn, reason, debug, linger);
@@ -180,9 +180,6 @@ YYEXPORT void steam_net_sockets_close_listen_socket(
 
     HSteamListenSocket hListen = (HSteamListenSocket)(int)YYGetReal(args, 0);
     bool ok = p->CloseListenSocket(hListen);
-
-    if (ok && hListen == g_p2pListenSocket)
-        g_p2pListenSocket = k_HSteamListenSocket_Invalid;
 
     Result.kind = VALUE_REAL;
     Result.val = ok ? 1.0 : 0.0;
@@ -252,11 +249,15 @@ YYEXPORT void steam_net_sockets_send_message(
     if (!BufferGetContent(bufferIndex, &buffer_data, &buffer_size) || !buffer_data)
     {
         DebugConsoleOutput("steam_net_sockets_send_message() - error: specified buffer %d not found\n", (int)bufferIndex);
-        Result.kind = VALUE_BOOL;
-        Result.val = false;
+        Result.kind = VALUE_REAL;
+        Result.val = (double) - 1;
 
+        YYFree(buffer_data);
         return;
     }
+
+    if (dataSize < 0) dataSize = buffer_size;
+    if (dataSize > buffer_size) dataSize = buffer_size;
 
     EResult er = p->SendMessageToConnection(
         hConn,
@@ -268,6 +269,8 @@ YYEXPORT void steam_net_sockets_send_message(
 
     Result.kind = VALUE_REAL;
     Result.val = (double)er;
+
+    YYFree(buffer_data);
 }
 
 YYEXPORT void steam_net_sockets_send_messages(
@@ -308,6 +311,8 @@ YYEXPORT void steam_net_sockets_send_messages(
             (int)bufferIndex);
         Result.kind = VALUE_REAL;
         Result.val = -1.0;
+
+        YYFree(buffer_data);
         return;
     }
 
@@ -317,6 +322,8 @@ YYEXPORT void steam_net_sockets_send_messages(
     {
         Result.kind = VALUE_REAL;
         Result.val = -1.0;
+
+        YYFree(buffer_data);
         return;
     }
 
@@ -338,6 +345,8 @@ YYEXPORT void steam_net_sockets_send_messages(
 
             Result.kind = VALUE_REAL;
             Result.val = -1.0;
+
+            YYFree(buffer_data);
             return;
         }
 
@@ -359,6 +368,8 @@ YYEXPORT void steam_net_sockets_send_messages(
 
     Result.kind = VALUE_REAL;
     Result.val = (double)resultNumbers[0];
+
+    YYFree(buffer_data);
 }
 
 
@@ -495,18 +506,13 @@ YYEXPORT void steam_net_sockets_recv_messages_on_poll_group(
     int bufferIndex = (int)YYGetReal(args, 1);
     int maxSize = (int)YYGetReal(args, 2);
 
-    void* buffer_data = nullptr;
-    int   buffer_size = 0;
-    if (!BufferGetContent(bufferIndex, &buffer_data, &buffer_size) || !buffer_data)
+    if (!BufferGetFromGML(bufferIndex))
     {
         DebugConsoleOutput("steam_net_sockets_recv_messages_on_poll_group() - error: specified buffer %d not found\n", (int)bufferIndex);
         Result.kind = VALUE_REAL;
-        Result.val = 0.0;
+        Result.val = -1;
         return;
     }
-
-    if (maxSize > buffer_size)
-        maxSize = buffer_size;
 
     SteamNetworkingMessage_t* pMsg = nullptr;
     int num = p->ReceiveMessagesOnPollGroup(
@@ -523,7 +529,15 @@ YYEXPORT void steam_net_sockets_recv_messages_on_poll_group(
     }
 
     int toCopy = (pMsg->m_cbSize < maxSize) ? pMsg->m_cbSize : maxSize;
-    memcpy(buffer_data, pMsg->m_pData, toCopy);
+
+    int written = BufferWriteContent(bufferIndex, 0, pMsg->m_pData, toCopy, true);
+    if (written != toCopy) {
+        DebugConsoleOutput("steam_net_sockets_recv_messages_on_poll_group() - error: could not write to buffer\n");
+        Result.kind = VALUE_REAL;
+        Result.val = -1;
+        pMsg->Release();
+        return;
+    }
 
     pMsg->Release();
 
@@ -650,6 +664,8 @@ YYEXPORT void steam_net_sockets_get_detailed_connection_status(
         DebugConsoleOutput("steam_net_sockets_get_detailed_connection_status() - error: specified buffer %d not found\n", (int)bufferIndex);
         Result.kind = VALUE_REAL;
         Result.val = 0.0;
+
+        YYFree(buffer_data);
         return;
     }
 
@@ -661,6 +677,8 @@ YYEXPORT void steam_net_sockets_get_detailed_connection_status(
 
     Result.kind = VALUE_REAL;
     Result.val = (double)written;
+
+    YYFree(buffer_data);
 }
 
 YYEXPORT void steam_net_sockets_set_connection_user_data(
@@ -786,6 +804,10 @@ YYEXPORT void steam_net_sockets_configure_connection_lanes(
         DebugConsoleOutput("steam_net_sockets_configure_connection_lanes() - invalid buffers\n");
         Result.kind = VALUE_BOOL;
         Result.val = false;
+
+        YYFree(pri_data);
+        YYFree(wgt_data);
+
         return;
     }
 
@@ -799,6 +821,10 @@ YYEXPORT void steam_net_sockets_configure_connection_lanes(
         DebugConsoleOutput("steam_net_sockets_configure_connection_lanes() - buffers too small\n");
         Result.kind = VALUE_BOOL;
         Result.val = false;
+
+        YYFree(pri_data);
+        YYFree(wgt_data);
+
         return;
     }
 
@@ -820,6 +846,9 @@ YYEXPORT void steam_net_sockets_configure_connection_lanes(
 
     Result.kind = VALUE_BOOL;
     Result.val = ok;
+
+    YYFree(pri_data);
+    YYFree(wgt_data);
 }
 
 YYEXPORT void steam_net_sockets_get_listen_socket_address(
@@ -894,30 +923,36 @@ YYEXPORT void steam_net_sockets_get_identity(
     uint64 steamID64 = id.GetSteamID64();
     YYStructAddInt64(&Result, "steam_id", steamID64);
 
-    const char* xboxId = id.GetXboxPairwiseID();
-    YYStructAddString(&Result, "xbox_pairwise_id", xboxId ? xboxId : "");
+    const char* xboxID = id.GetXboxPairwiseID();
+    if (xboxID == nullptr) YYStructAddUndefined(&Result, "xbox_pairwise_id");
+    else  YYStructAddString(&Result, "xbox_pairwise_id", xboxID);
 
     uint64 psnID = id.GetPSNID();
     YYStructAddInt64(&Result, "psn_id", psnID);
 
     const char* genericStr = id.GetGenericString();
-    YYStructAddString(&Result, "generic_string", genericStr ? genericStr : "");
+    if (genericStr == nullptr) YYStructAddUndefined(&Result, "generic_string");
+    else YYStructAddString(&Result, "generic_string", genericStr);
 
     int genericLen = 0;
     const uint8* genericBytes = id.GetGenericBytes(genericLen);
     YYStructAddInt(&Result, "generic_bytes_len", genericBytes ? genericLen : 0);
+    if (genericBytes == nullptr) YYStructAddUndefined(&Result, "generic_bytes");
+    else {
+        static_assert(SteamNetworkingIdentity::k_cbMaxGenericBytes == 32, "steam_net_sockets_get_identity :: k_cbMaxGenericBytes is not 32 bytes");
+        constexpr size_t size = static_cast<size_t>(((SteamNetworkingIdentity::k_cbMaxGenericBytes + 2) / 3)) * 4;
+        char encoded[size]{};
+        Base64Encode(genericBytes, genericLen, encoded, sizeof(encoded));
+        YYStructAddString(&Result, "generic_bytes", encoded);
+    }
 
     const SteamNetworkingIPAddr* pIP = id.GetIPAddr();
-    char ipStr[SteamNetworkingIPAddr::k_cchMaxString] = { 0 };
-    if (pIP)
-    {
+    if (pIP == nullptr) YYStructAddUndefined(&Result, "ip");
+    else {
+        char ipStr[SteamNetworkingIPAddr::k_cchMaxString]{};
         pIP->ToString(ipStr, sizeof(ipStr), true);
         YYStructAddString(&Result, "ip", ipStr);
-    }
-    else
-    {
-        YYStructAddString(&Result, "ip", "");
-    }
+    }    
     
     YYStructAddBool(&Result, "is_local_host", id.IsLocalHost());
     YYStructAddDouble(&Result, "fake_ip_type", (double)id.GetFakeIPType());

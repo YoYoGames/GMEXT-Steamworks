@@ -38,6 +38,13 @@ YYEXPORT void YYExtensionInitialise(const struct YYRunnerInterface* _pFunctions,
     Steam_RemoteStorage_Init();
 }
 
+void YYStructAddUndefined(RValue* s, const char* key) {
+	RValue v{};
+	v.kind = VALUE_UNDEFINED;
+	YYStructAddRValue(s, key, &v);
+	FREE_RValue(&v);
+}
+
 std::vector<const char*> _SW_GetArrayOfStrings(RValue* arg, int arg_idx, const char* func)
 {
 	RValue* pV = &(arg[arg_idx]);
