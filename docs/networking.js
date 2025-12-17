@@ -96,7 +96,7 @@
  * @param {int64} user_id  The target user to send the packet to
  * @param {real} buffer Buffer that contains the raw byte array for the packet data to send
  * @param {real} [size] The size of data to send (default -1, sends the entire buffer)
- * @param {constant.PacketType} [packet_type] The type of packet to be used
+ * @param {constant.steam_net_packet_type} [packet_type] The type of packet to be used
  * @param {real} [channel] The channel which acts as a virtual port to send this packet on and allows you help route a message to different systems. Defaults to 0, the default channel.
  * 
  * @returns {boolean}
@@ -116,7 +116,7 @@
  * @func steam_net_packet_set_type
  * @desc This function sets the default connection protocol used when sending the data packets (using the ${function.steam_net_packet_send} function). It returns whether or not the default protocol was successfully set.
  * 
- * @param {constant.PacketType} protocol The default connection protocol to be used
+ * @param {constant.steam_net_packet_type} protocol The default connection protocol to be used
  * 
  * @returns {boolean}
  * 
@@ -195,7 +195,7 @@
  */
 
 /**
- * @const PacketType
+ * @const steam_net_packet_type
  * @desc These constants specify the type of a Steam packet.
  * 
  * @member steam_net_packet_type_unreliable Equivalent to UDP the data may or may not be delivered, will not be resent automatically.
@@ -239,7 +239,7 @@
  * @section_const Constants
  * @desc These are the constants used by this API:
  * 
- * @ref PacketType
+ * @ref steam_net_packet_type
  * 
  * @section_end
  * 
