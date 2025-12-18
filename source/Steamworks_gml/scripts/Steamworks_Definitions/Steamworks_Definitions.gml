@@ -117,3 +117,30 @@ enum STEAMWORKS_NET_IDENTITY_TYPE
 	// compatibility.
 	UNKNOWN_TYPE = 4,
 };
+
+/// Describe the status of a particular network resource
+// enum ESteamNetworkingAvailability
+enum STEAMWORKS_NET_AVAILABILITY
+{
+	// Negative values indicate a problem.
+	//
+	// In general, we will not automatically retry unless you take some action that
+	// depends on of requests this resource, such as querying the status, attempting
+	// to initiate a connection, receive a connection, etc.  If you do not take any
+	// action at all, we do not automatically retry in the background.
+	
+	CANNOT_TRY = -102,		// A dependent resource is missing, so this service is unavailable.  (E.g. we cannot talk to routers because Internet is down or we don't have the network config.)
+	FAILED = -101,			// We have tried for enough time that we would expect to have been successful by now.  We have never been successful
+	PREVIOUSLY = -100,		// We tried and were successful at one time, but now it looks like we have a problem
+
+	RETRYING = -10,		// We previously failed and are currently retrying
+
+	// Not a problem, but not ready either
+    NEVER_TRIED = 1,		// We don't know because we haven't ever checked/tried
+	WAITING = 2,			// We're waiting on a dependent resource to be acquired.  (E.g. we cannot obtain a cert until we are logged into Steam.  We cannot measure latency to relays until we have the network config.)
+	ATTEMPTING = 3,			// We're actively trying now, but are not yet successful.
+
+	CURRENT = 100,			// Resource is online/available
+
+	UNKNOWN = 0,			// Internal dummy/sentinel, or value is not applicable in this context
+};
