@@ -4,18 +4,25 @@
 #include "Extension_Interface.h"
 #include "YYRValue.h"
 #include "steam_common.h"
+#include <atomic>
 
 class GMNetSocketsCallbackHandler
 {
 public:
     GMNetSocketsCallbackHandler() :
-        m_CallbackConnectionStatusChanged(this, &GMNetSocketsCallbackHandler::OnConnectionStatusChanged)
+        m_CallbackConnectionStatusChanged(this, &GMNetSocketsCallbackHandler::OnConnectionStatusChanged),
+        m_CallbackAuthenticationStatusChanged(this, &GMNetSocketsCallbackHandler::OnAuthenticationStatusChanged)
     {}
 
     STEAM_CALLBACK(GMNetSocketsCallbackHandler,
         OnConnectionStatusChanged,
         SteamNetConnectionStatusChangedCallback_t,
         m_CallbackConnectionStatusChanged);
+
+    STEAM_CALLBACK(GMNetSocketsCallbackHandler,
+        OnAuthenticationStatusChanged,
+        SteamNetAuthenticationStatus_t,
+        m_CallbackAuthenticationStatusChanged);
 };
 
 static GMNetSocketsCallbackHandler g_NetSocketsCallbacks;
@@ -47,6 +54,9 @@ void GMNetSocketsCallbackHandler::OnConnectionStatusChanged(SteamNetConnectionSt
     }
 }
 
+void GMNetSocketsCallbackHandler::OnAuthenticationStatusChanged(SteamNetAuthenticationStatus_t* status) {
+    // Say something to the runner??
+}
 
 YYEXPORT void steam_net_sockets_create_listen_socket_ip(
     RValue& Result, CInstance* self, CInstance* other, int argc, RValue* args)
@@ -198,7 +208,7 @@ YYEXPORT void steam_net_sockets_create_socket_pair(
 
     bool useLoopback = (YYGetReal(args, 0) != 0.0);
 
-    SteamNetworkingIdentity id1, id2;
+    SteamNetworkingIdentity id1{}, id2{};
     id1.Clear();
     id2.Clear();
 
@@ -230,6 +240,9 @@ YYEXPORT void steam_net_sockets_create_socket_pair(
     YYStructAddString(&b, "identity", idBuf2);
     YYStructAddBool(&b, "loopback", useLoopback);
     SET_RValue(&Result, &b, nullptr, 1);
+
+    YYFree(&a);
+    YYFree(&b);
 }
 
 YYEXPORT void steam_net_sockets_send_message(
@@ -250,27 +263,75 @@ YYEXPORT void steam_net_sockets_send_message(
     {
         DebugConsoleOutput("steam_net_sockets_send_message() - error: specified buffer %d not found\n", (int)bufferIndex);
         Result.kind = VALUE_REAL;
-        Result.val = (double) - 1;
-
-        YYFree(buffer_data);
+        Result.val = (double) -1;
         return;
     }
 
     if (dataSize < 0) dataSize = buffer_size;
     if (dataSize > buffer_size) dataSize = buffer_size;
 
+    int64_t message_id = 0;
     EResult er = p->SendMessageToConnection(
         hConn,
         buffer_data,
         (uint32)dataSize,
         sendFlags,
-        nullptr
+        &message_id
     );
 
-    Result.kind = VALUE_REAL;
-    Result.val = (double)er;
+    YYStructCreate(&Result);
+    YYStructAddDouble(&Result, "result", (double)er);
+    YYStructAddInt64(&Result, "message_id", message_id);
 
     YYFree(buffer_data);
+}
+
+// A single heap allocation that owns the payload bytes until all messages release it.
+struct PayloadBlock
+{
+    std::atomic<uint32_t> refs;
+    uint32_t              size;
+    std::byte             data[1]; // flexible array tail (allocated larger)
+};
+
+static PayloadBlock* AllocatePayloadBlock(const void* src, uint32_t size, uint32_t refs)
+{
+    // Flexible-array allocation
+    const size_t allocSize = sizeof(PayloadBlock) + (size_t)size - 1;
+    auto* block = (PayloadBlock*)std::malloc(allocSize);
+    if (!block) return nullptr;
+
+    block->refs.store(refs, std::memory_order_relaxed);
+    block->size = size;
+
+    if (size > 0 && src)
+        std::memcpy(block->data, src, size);
+
+    return block;
+}
+
+static void FreePayloadBlock(PayloadBlock* block)
+{
+    std::free(block);
+}
+
+// Steam will call this from any thread, possibly before SendMessages returns.
+// Must be fast + thread-safe.
+static void ReleasePayloadBlockFromMessage(SteamNetworkingMessage_t* msg)
+{
+    // We stored the PayloadBlock* in m_nUserData.
+    auto* block = reinterpret_cast<PayloadBlock*>(
+        static_cast<uintptr_t>(msg->m_nUserData)
+        );
+
+    if (!block)
+        return;
+
+    // If this was the last reference, free the block.
+    if (block->refs.fetch_sub(1, std::memory_order_acq_rel) == 1)
+    {
+        FreePayloadBlock(block);
+    }
 }
 
 YYEXPORT void steam_net_sockets_send_messages(
@@ -295,81 +356,112 @@ YYEXPORT void steam_net_sockets_send_messages(
         return;
     }
 
-    int bufferIndex = (int)YYGetReal(args, 1);
+    const int bufferIndex = (int)YYGetReal(args, 1);
     int dataSize = (int)YYGetReal(args, 2);
-    int sendFlags = (int)YYGetReal(args, 3);
-    uint16 lane = 0;
+    const int sendFlags = (int)YYGetReal(args, 3);
+    const uint16 lane = (argc > 4) ? (uint16)YYGetReal(args, 4) : 0;
 
-    if (argc > 4)
-        lane = (uint16)(int)YYGetReal(args, 4);
-
-    void* buffer_data = nullptr;
-    int   buffer_size = 0;
-    if (!BufferGetContent(bufferIndex, &buffer_data, &buffer_size) || !buffer_data)
+    void* bufferCopy = nullptr;
+    int   bufferSize = 0;
+    if (!BufferGetContent(bufferIndex, &bufferCopy, &bufferSize) || !bufferCopy)
     {
-        DebugConsoleOutput("steam_net_sockets_send_messages() - error: specified buffer %d not found\n",
-            (int)bufferIndex);
+        DebugConsoleOutput("steam_net_sockets_send_messages() - error: specified buffer %d not found\n", bufferIndex);
         Result.kind = VALUE_REAL;
         Result.val = -1.0;
-
-        YYFree(buffer_data);
         return;
     }
 
-    if (dataSize > buffer_size)
-        dataSize = buffer_size;
+    // Contract: dataSize < 0 means "send whole buffer"
+    if (dataSize < 0) dataSize = bufferSize;
+    if (dataSize > bufferSize) dataSize = bufferSize;
+
+    // Decide your contract here: I treat 0 as error (not "whole buffer")
     if (dataSize <= 0)
     {
+        YYFree(bufferCopy);
         Result.kind = VALUE_REAL;
         Result.val = -1.0;
-
-        YYFree(buffer_data);
         return;
     }
 
     const int n = (int)connValues.size();
+    if (n <= 0)
+    {
+        YYFree(bufferCopy);
+        Result.kind = VALUE_REAL;
+        Result.val = 0.0;
+        return;
+    }
+
+    // Refcount is uint32_t; clamp/guard very large sends.
+    if ((uint64_t)n > (uint64_t)UINT32_MAX)
+    {
+        YYFree(bufferCopy);
+        Result.kind = VALUE_REAL;
+        Result.val = -1.0;
+        return;
+    }
 
     std::vector<SteamNetworkingMessage_t*> msgs(n, nullptr);
-    std::vector<int64> resultNumbers(n, 0);
+    std::vector<int64> results(n, 0);
 
+    // Allocate all message objects first so we don’t leak payload on partial failure
     for (int i = 0; i < n; ++i)
     {
-        SteamNetworkingMessage_t* msg = pUtils->AllocateMessage(dataSize);
-        if (!msg)
+        msgs[i] = pUtils->AllocateMessage(0); // we provide our own payload
+        if (!msgs[i])
         {
             for (int j = 0; j < i; ++j)
-            {
-                if (msgs[j])
-                    msgs[j]->Release();
-            }
+                msgs[j]->Release();
+
+            YYFree(bufferCopy);
 
             Result.kind = VALUE_REAL;
             Result.val = -1.0;
-
-            YYFree(buffer_data);
             return;
         }
-
-        memcpy(msg->m_pData, buffer_data, dataSize);
-        msg->m_cbSize = dataSize;
-        msg->m_conn = (HSteamNetConnection)(int)connValues[i];
-        msg->m_nFlags = sendFlags;
-        msg->m_idxLane = lane;
-        msg->m_nUserData = 0;
-
-        msgs[i] = msg;
     }
 
-    pSockets->SendMessages(
-        n,
-        msgs.data(),
-        resultNumbers.data()
-    );
+    // Allocate shared payload block and copy bytes into it
+    PayloadBlock* block = AllocatePayloadBlock(bufferCopy, (uint32_t)dataSize, (uint32_t)n);
+
+    // Done with GM buffer copy either way
+    YYFree(bufferCopy);
+
+    if (!block)
+    {
+        for (int i = 0; i < n; ++i)
+            msgs[i]->Release();
+
+        Result.kind = VALUE_REAL;
+        Result.val = -1.0;
+        return;
+    }
+
+    // Store pointer in user data (portable cast)
+    const int64 userData = (int64)(uintptr_t)block;
+
+    // Fill message fields (do not touch messages after SendMessages)
+    for (int i = 0; i < n; ++i)
+    {
+        SteamNetworkingMessage_t* msg = msgs[i];
+
+        msg->m_pData = block->data;
+        msg->m_cbSize = dataSize;
+        msg->m_conn = (HSteamNetConnection)connValues[i];
+        msg->m_nFlags = sendFlags;
+        msg->m_idxLane = lane;
+
+        msg->m_nUserData = userData;
+        msg->m_pfnFreeData = &ReleasePayloadBlockFromMessage;
+    }
+
+    // Send; Steam takes ownership of message structures.
+    // Callback may run from any thread, even before this returns.
+    pSockets->SendMessages(n, msgs.data(), results.data());
 
     Result.kind = VALUE_REAL;
-    Result.val = (double)resultNumbers[0];
-
-    YYFree(buffer_data);
+    Result.val = 0;
 }
 
 
@@ -395,60 +487,78 @@ YYEXPORT void steam_net_sockets_flush_messages_on_connection(
 YYEXPORT void steam_net_sockets_recv_messages_on_connection(
     RValue& Result, CInstance* self, CInstance* other, int argc, RValue* args)
 {
-    
+    YYCreateArray(&Result);
+
     ISteamNetworkingSockets* p = SteamNetworkingSockets();
-    if (!p)
-    {
-        Result.kind = VALUE_REAL;
-        Result.val = 0.0;
-        return;
-    }
+    if (!p) return;
 
     HSteamNetConnection hConn = (HSteamNetConnection)YYGetReal(args, 0);
     int bufferIndex = (int)YYGetReal(args, 1);
-    int maxSize = (int)YYGetReal(args, 2);
 
-    if (BufferGetFromGML(bufferIndex) == NULL)
-    {
-        DebugConsoleOutput("steam_net_sockets_recv_messages_on_connection() - error: specified buffer %d not found\n", (int)bufferIndex);
-        Result.kind = VALUE_REAL;
-        Result.val = 0.0;
+    int maxMessages = (argc > 2) ? (int)YYGetReal(args, 2) : 32;
+    if (maxMessages <= 0) maxMessages = 32;
+    if (maxMessages > 256) maxMessages = 256; // sanity cap
+
+    int maxBytesTotal = (argc > 3) ? (int)YYGetReal(args, 3) : 0; // 0 => no cap
+
+    if (!BufferGetFromGML(bufferIndex))
         return;
-    }
 
-    SteamNetworkingMessage_t* pMsg = nullptr;
+    std::vector<SteamNetworkingMessage_t*> msgs((size_t)maxMessages, nullptr);
 
-    int num = p->ReceiveMessagesOnConnection(
-        hConn,
-        &pMsg,
-        1
-    );
-    
-    if (num <= 0 || !pMsg)
-    {
-        Result.kind = VALUE_REAL;
-        Result.val = 0.0;
+    int num = p->ReceiveMessagesOnConnection(hConn, msgs.data(), maxMessages);
+    if (num <= 0)
         return;
-    }
 
-    int toCopy = (pMsg->m_cbSize < maxSize) ? pMsg->m_cbSize : maxSize;
-    if (toCopy < pMsg->m_cbSize)
+    int writeOffset = 0;
+    int totalWritten = 0;
+
+    for (int i = 0; i < num; ++i)
     {
-        DebugConsoleOutput("steam_net_sockets_recv_messages_on_connection() - warning: message size %d truncated to %d bytes\n",
-            pMsg->m_cbSize, toCopy);
-    }
-    
-    if (BufferWriteContent(bufferIndex, 0, pMsg->m_pData, (int)toCopy, true) != toCopy)
-    {
-        DebugConsoleOutput("steam_net_messages_receive_on_channel() - error: could not write to buffer\n");
-        Result.kind = VALUE_BOOL;
-        Result.val = false;
-    }
+        SteamNetworkingMessage_t* msg = msgs[i];
+        if (!msg) continue;
 
-    pMsg->Release();
+        int cb = msg->m_cbSize;
+        if (cb < 0) cb = 0;
 
-    Result.kind = VALUE_REAL;
-    Result.val = (double)toCopy;
+        // Optional cap on total bytes packed this call
+        if (maxBytesTotal > 0 && totalWritten >= maxBytesTotal)
+        {
+            msg->Release();
+            continue;
+        }
+
+        int toWrite = cb;
+        if (maxBytesTotal > 0)
+        {
+            int remaining = maxBytesTotal - totalWritten;
+            if (toWrite > remaining) toWrite = remaining;
+        }
+
+        // Write message bytes into buffer at current offset; allow resize
+        int written = BufferWriteContent(bufferIndex, writeOffset, msg->m_pData, toWrite, true);
+        if (written != toWrite)
+        {
+            // If write fails, stop packing further
+            msg->Release();
+            break;
+        }
+
+        // Create per-message metadata struct
+        RValue entry = { 0 };
+        YYStructCreate(&entry);
+        YYStructAddInt(&entry, "offset", writeOffset);
+        YYStructAddInt(&entry, "size", toWrite);
+        YYStructAddBool(&entry, "truncated", toWrite != cb);
+
+        SET_RValue(&Result, &entry, nullptr, i);
+        YYFree(&entry);
+
+        writeOffset += toWrite;
+        totalWritten += toWrite;
+
+        msg->Release();
+    }
 }
 
 YYEXPORT void steam_net_sockets_create_poll_group(
@@ -494,55 +604,81 @@ YYEXPORT void steam_net_sockets_set_connection_poll_group(
 YYEXPORT void steam_net_sockets_recv_messages_on_poll_group(
     RValue& Result, CInstance* self, CInstance* other, int argc, RValue* args)
 {
+    YYCreateArray(&Result);
+
     ISteamNetworkingSockets* p = SteamNetworkingSockets();
-    if (!p)
-    {
-        Result.kind = VALUE_REAL;
-        Result.val = 0.0;
-        return;
-    }
+    if (!p) return;
 
     HSteamNetPollGroup hGroup = (HSteamNetPollGroup)(int)YYGetReal(args, 0);
     int bufferIndex = (int)YYGetReal(args, 1);
-    int maxSize = (int)YYGetReal(args, 2);
+
+    int maxMessages = (argc > 2) ? (int)YYGetReal(args, 2) : 32;
+    if (maxMessages <= 0)  maxMessages = 32;
+    if (maxMessages > 256) maxMessages = 256; // sanity cap
+
+    int maxBytesTotal = (argc > 3) ? (int)YYGetReal(args, 3) : 0; // 0 => no cap
 
     if (!BufferGetFromGML(bufferIndex))
     {
-        DebugConsoleOutput("steam_net_sockets_recv_messages_on_poll_group() - error: specified buffer %d not found\n", (int)bufferIndex);
-        Result.kind = VALUE_REAL;
-        Result.val = -1;
+        DebugConsoleOutput("steam_net_sockets_recv_messages_on_poll_group() - error: specified buffer %d not found\n", bufferIndex);
         return;
     }
 
-    SteamNetworkingMessage_t* pMsg = nullptr;
-    int num = p->ReceiveMessagesOnPollGroup(
-        hGroup,
-        &pMsg,
-        1
-    );
+    std::vector<SteamNetworkingMessage_t*> msgs((size_t)maxMessages, nullptr);
 
-    if (num <= 0 || !pMsg)
+    int num = p->ReceiveMessagesOnPollGroup(hGroup, msgs.data(), maxMessages);
+    if (num <= 0)
+        return;
+
+    int writeOffset = 0;
+    int totalWritten = 0;
+
+    for (int i = 0; i < num; ++i)
     {
-        Result.kind = VALUE_REAL;
-        Result.val = 0.0;
-        return;
+        SteamNetworkingMessage_t* msg = msgs[i];
+        if (!msg) continue;
+
+        int cb = msg->m_cbSize;
+        if (cb < 0) cb = 0;
+
+        // Optional cap on total bytes packed this call
+        if (maxBytesTotal > 0 && totalWritten >= maxBytesTotal)
+        {
+            msg->Release();
+            continue;
+        }
+
+        int toWrite = cb;
+        if (maxBytesTotal > 0)
+        {
+            int remaining = maxBytesTotal - totalWritten;
+            if (toWrite > remaining) toWrite = remaining;
+        }
+
+        int written = BufferWriteContent(bufferIndex, writeOffset, msg->m_pData, toWrite, true);
+        if (written != toWrite)
+        {
+            DebugConsoleOutput("steam_net_sockets_recv_messages_on_poll_group() - error: could not write to buffer\n");
+            msg->Release();
+            break;
+        }
+
+        RValue entry = { 0 };
+        YYStructCreate(&entry);
+        YYStructAddInt(&entry, "offset", writeOffset);
+        YYStructAddInt(&entry, "size", toWrite);
+        YYStructAddDouble(&entry, "connection", (double)msg->m_conn);
+        YYStructAddInt(&entry, "flags", (int)msg->m_nFlags);
+        YYStructAddInt(&entry, "lane", (int)msg->m_idxLane);
+
+        SET_RValue(&Result, &entry, nullptr, i);
+        YYFree(&entry);
+
+        writeOffset += toWrite;
+        totalWritten += toWrite;
+
+        msg->Release();
     }
-
-    int toCopy = (pMsg->m_cbSize < maxSize) ? pMsg->m_cbSize : maxSize;
-
-    int written = BufferWriteContent(bufferIndex, 0, pMsg->m_pData, toCopy, true);
-    if (written != toCopy) {
-        DebugConsoleOutput("steam_net_sockets_recv_messages_on_poll_group() - error: could not write to buffer\n");
-        Result.kind = VALUE_REAL;
-        Result.val = -1;
-        pMsg->Release();
-        return;
-    }
-
-    pMsg->Release();
-
-    Result.kind = VALUE_REAL;
-    Result.val = (double)toCopy;
 }
 
 YYEXPORT void steam_net_sockets_get_connection_info(
@@ -553,7 +689,7 @@ YYEXPORT void steam_net_sockets_get_connection_info(
     ISteamNetworkingSockets* p = SteamNetworkingSockets();
     if (!p)
     {
-        YYStructAddBool(&Result, "ok", false);
+        Result.kind = VALUE_UNDEFINED;
         return;
     }
 
@@ -561,14 +697,13 @@ YYEXPORT void steam_net_sockets_get_connection_info(
 
     SteamNetConnectionInfo_t info{};
     bool ok = p->GetConnectionInfo(hConn, &info);
-    YYStructAddBool(&Result, "ok", ok);
-
     if (!ok)
     {
+        Result.kind = VALUE_UNDEFINED;
         return;
     }
 
-    YYStructAddInt(&Result, "connection", (int)hConn);
+    YYStructCreate(&Result);
     YYStructAddInt(&Result, "state", (int)info.m_eState);
     YYStructAddInt(&Result, "end_reason", (int)info.m_eEndReason);
     YYStructAddInt(&Result, "flags", (int)info.m_nFlags);
@@ -577,69 +712,53 @@ YYEXPORT void steam_net_sockets_get_connection_info(
     YYStructAddInt(&Result, "remote_pop", (int)info.m_idPOPRemote);
     YYStructAddInt(&Result, "relay_pop", (int)info.m_idPOPRelay);
 
-    YYStructAddString(&Result, "description",
-        info.m_szConnectionDescription ? info.m_szConnectionDescription : "");
-    YYStructAddString(&Result, "debug",
-        info.m_szEndDebug ? info.m_szEndDebug : "");
+    YYStructAddString(&Result, "description", info.m_szConnectionDescription);
+    YYStructAddString(&Result, "debug", info.m_szEndDebug);
 
-    char identBuf[128] = { 0 };
+    char identBuf[SteamNetworkingIPAddr::k_cchMaxString]{};
     info.m_identityRemote.ToString(identBuf, sizeof(identBuf));
     YYStructAddString(&Result, "remote_identity", identBuf);
 
-    char addrBuf[SteamNetworkingIPAddr::k_cchMaxString] = { 0 };
+    char addrBuf[SteamNetworkingIPAddr::k_cchMaxString]{};
     info.m_addrRemote.ToString(addrBuf, sizeof(addrBuf), true);
     YYStructAddString(&Result, "remote_addr", addrBuf);
 }
 
-
 YYEXPORT void steam_net_sockets_get_connection_real_time_status(
     RValue& Result, CInstance* self, CInstance* other, int argc, RValue* args)
 {
-    YYStructCreate(&Result);
-
     ISteamNetworkingSockets* p = SteamNetworkingSockets();
     if (!p)
     {
-        YYStructAddBool(&Result, "success", false);
-        YYStructAddInt(&Result, "result", (int)k_EResultFail);
+        Result.kind = VALUE_UNDEFINED;
         return;
     }
 
     HSteamNetConnection hConn = (HSteamNetConnection)YYGetReal(args, 0);
 
-    SteamNetConnectionRealTimeStatus_t status;
-    memset(&status, 0, sizeof(status));
+    SteamNetConnectionRealTimeStatus_t status{};
 
-    EResult er = p->GetConnectionRealTimeStatus(
-        hConn,
-        &status,
-        0, nullptr
-    );
-
-    YYStructAddBool(&Result, "success", (er == k_EResultOK));
-    YYStructAddInt(&Result, "result", (int)er);
-
+    EResult er = p->GetConnectionRealTimeStatus(hConn, &status, 0, nullptr);
     if (er != k_EResultOK)
     {
+        Result.kind = VALUE_REAL;
+        Result.val = er;
         return;
     }
 
+    YYStructCreate(&Result);
     YYStructAddInt(&Result, "state", (int)status.m_eState);
     YYStructAddInt(&Result, "ping", status.m_nPing);
-
     YYStructAddDouble(&Result, "local_quality", status.m_flConnectionQualityLocal);
     YYStructAddDouble(&Result, "remote_quality", status.m_flConnectionQualityRemote);
-
     YYStructAddDouble(&Result, "out_packets_per_sec", status.m_flOutPacketsPerSec);
     YYStructAddDouble(&Result, "out_bytes_per_sec", status.m_flOutBytesPerSec);
     YYStructAddDouble(&Result, "in_packets_per_sec", status.m_flInPacketsPerSec);
     YYStructAddDouble(&Result, "in_bytes_per_sec", status.m_flInBytesPerSec);
-
     YYStructAddInt(&Result, "send_rate_bytes_per_sec", status.m_nSendRateBytesPerSecond);
     YYStructAddInt(&Result, "pending_unreliable", status.m_cbPendingUnreliable);
     YYStructAddInt(&Result, "pending_reliable", status.m_cbPendingReliable);
     YYStructAddInt(&Result, "sent_unacked_reliable", status.m_cbSentUnackedReliable);
-
     YYStructAddInt64(&Result, "queue_time_usec", status.m_usecQueueTime);
 }
 
@@ -647,38 +766,23 @@ YYEXPORT void steam_net_sockets_get_detailed_connection_status(
     RValue& Result, CInstance* self, CInstance* other, int argc, RValue* args)
 {
     ISteamNetworkingSockets* p = SteamNetworkingSockets();
-    if (!p)
-    {
-        Result.kind = VALUE_REAL;
-        Result.val = 0.0;
+    if (!p) {
+        Result.kind = VALUE_UNDEFINED;
         return;
     }
 
     HSteamNetConnection hConn = (HSteamNetConnection)YYGetReal(args, 0);
-    int bufferIndex = (int)YYGetReal(args, 1);
-
-    void* buffer_data = nullptr;
-    int   buffer_size = 0;
-    if (!BufferGetContent(bufferIndex, &buffer_data, &buffer_size) || !buffer_data)
-    {
-        DebugConsoleOutput("steam_net_sockets_get_detailed_connection_status() - error: specified buffer %d not found\n", (int)bufferIndex);
-        Result.kind = VALUE_REAL;
-        Result.val = 0.0;
-
-        YYFree(buffer_data);
+    int bytes = p->GetDetailedConnectionStatus(hConn, nullptr, 0);
+    if (bytes == -1) {
+        Result.kind = VALUE_UNDEFINED;
         return;
     }
 
-    int written = p->GetDetailedConnectionStatus(
-        hConn,
-        (char*)buffer_data,
-        buffer_size
-    );
+    std::string tmp;
+    tmp.resize(bytes);
+    p->GetDetailedConnectionStatus(hConn, tmp.data(), tmp.size());
 
-    Result.kind = VALUE_REAL;
-    Result.val = (double)written;
-
-    YYFree(buffer_data);
+    YYCreateString(&Result, tmp.c_str());
 }
 
 YYEXPORT void steam_net_sockets_set_connection_user_data(
@@ -759,7 +863,6 @@ YYEXPORT void steam_net_sockets_get_connection_name(
 
     YYCreateString(&Result, nameBuf);
 }
-
 
 YYEXPORT void steam_net_sockets_configure_connection_lanes(
     RValue& Result, CInstance* self, CInstance* other, int argc, RValue* args)
@@ -973,26 +1076,19 @@ YYEXPORT void steam_net_sockets_init_authentication(
 YYEXPORT void steam_net_sockets_get_authentication_status(
     RValue& Result, CInstance* self, CInstance* other, int argc, RValue* args)
 {
-    YYStructCreate(&Result);
-
     ISteamNetworkingSockets* p = SteamNetworkingSockets();
     if (!p)
     {
-        YYStructAddDouble(&Result, "availability", (double)k_ESteamNetworkingAvailability_CannotTry);
-        YYStructAddString(&Result, "availability_name", "CannotTry");
-        YYStructAddString(&Result, "debug", "SteamNetworkingSockets interface not available");
-        YYStructAddDouble(&Result, "status", -1);
+        Result.kind = VALUE_UNDEFINED;
         return;
     }
 
-    SteamNetAuthenticationStatus_t status;
-    memset(&status, 0, sizeof(status));
+    SteamNetAuthenticationStatus_t status{};
+    p->GetAuthenticationStatus(&status);
 
-    ESteamNetworkingAvailability avail = p->GetAuthenticationStatus(&status);
-
-    YYStructAddDouble(&Result, "availability", (double)avail);
-    YYStructAddString(&Result, "debug", status.m_debugMsg[0] ? status.m_debugMsg : "");
-    YYStructAddInt(&Result, "status", (int)status.m_eAvail);
+    YYStructCreate(&Result);
+    YYStructAddString(&Result, "debug_message", status.m_debugMsg);
+    YYStructAddInt(&Result, "availability", (int)status.m_eAvail);
 }
 
 
