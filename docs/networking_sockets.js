@@ -33,7 +33,7 @@
  * @member {real} connection The connection handle
  * @member {constant.STEAMWORKS_NET_CONNECTION_STATE} state The current state
  * @member {constant.STEAMWORKS_NET_CONNECTION_STATE} old_state The previous state
- * @member {constant.STEAMWORKS_NET_CONNECTION_STATE} end_reason The end reason
+ * @member {real} end_reason The end reason (one of [ESteamNetConnectionEnd](partner.steamgames.com/doc/api/steamnetworkingtypes#ESteamNetConnectionEnd))
  * @member {string} debug A debug message
  * @event_end
  * 
@@ -70,7 +70,7 @@
  * @member {real} connection The connection handle
  * @member {constant.STEAMWORKS_NET_CONNECTION_STATE} state The current state
  * @member {constant.STEAMWORKS_NET_CONNECTION_STATE} old_state The previous state
- * @member {constant.STEAMWORKS_NET_CONNECTION_STATE} end_reason The end reason
+ * @member {real} end_reason The end reason (one of [ESteamNetConnectionEnd](partner.steamgames.com/doc/api/steamnetworkingtypes#ESteamNetConnectionEnd))
  * @member {string} debug A debug message
  * @event_end
  * 
@@ -93,7 +93,7 @@
  * @member {real} connection The connection handle
  * @member {constant.STEAMWORKS_NET_CONNECTION_STATE} state The current state
  * @member {constant.STEAMWORKS_NET_CONNECTION_STATE} old_state The previous state
- * @member {constant.STEAMWORKS_NET_CONNECTION_STATE} end_reason The end reason
+ * @member {real} end_reason The end reason (one of [ESteamNetConnectionEnd](partner.steamgames.com/doc/api/steamnetworkingtypes#ESteamNetConnectionEnd))
  * @member {string} debug A debug message
  * @event_end
  * 
@@ -119,7 +119,7 @@
  * @member {real} connection The connection handle
  * @member {constant.STEAMWORKS_NET_CONNECTION_STATE} state The current state
  * @member {constant.STEAMWORKS_NET_CONNECTION_STATE} old_state The previous state
- * @member {constant.STEAMWORKS_NET_CONNECTION_STATE} end_reason The end reason
+ * @member {real} end_reason The end reason (one of [ESteamNetConnectionEnd](partner.steamgames.com/doc/api/steamnetworkingtypes#ESteamNetConnectionEnd))
  * @member {string} debug A debug message
  * @event_end
  * 
@@ -563,7 +563,7 @@
  * This struct describes the state of a connection.
  * 
  * @member {constant.STEAMWORKS_NET_CONNECTION_STATE} state The connection state
- * @member {constant.STEAMWORKS_NET_CONNECTION_STATE} end_reason The reason the connection was ended
+ * @member {real} end_reason The reason the connection was ended (one of [ESteamNetConnectionEnd](partner.steamgames.com/doc/api/steamnetworkingtypes#ESteamNetConnectionEnd))
  * @member {constant.STEAMWORKS_NET_SEND_FLAG} flags A bitmask of the flags
  * @member {int64} user_data Arbitrary user data set by the local application code
  * @member {real} listen_socket The listen socket

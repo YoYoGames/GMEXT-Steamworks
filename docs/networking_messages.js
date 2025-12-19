@@ -29,7 +29,7 @@
  * @member {string} event_type The string `"steam_net_message_on_session_failed"`
  * @member {int64} steamid The user's Steam ID
  * @member {constant.STEAMWORKS_NET_CONNECTION_STATE} state The high level state of the connection
- * @member {real} end_reason The basic cause of the connection termination or problem
+ * @member {real} end_reason The basic cause of the connection termination or problem (one of [ESteamNetConnectionEnd](partner.steamgames.com/doc/api/steamnetworkingtypes#ESteamNetConnectionEnd))
  * @member {constant.STEAMWORKS_NET_SEND_FLAG} flags The send flags
  * @member {int64} user_data Arbitrary user data set by the local application code
  * @member {real} listen_socket Handle to listen socket this was connected on (0 indicates invalid)
