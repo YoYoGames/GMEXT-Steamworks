@@ -28,7 +28,7 @@
  * @desc This event is triggered when we fail to establish a connection, or we detect that communications have been disrupted in an unusual way.
  * @member {string} event_type The string `"steam_net_message_on_session_failed"`
  * @member {int64} steamid The user's Steam ID
- * @member {real} state The high level state of the connection
+ * @member {constant.STEAMWORKS_NET_CONNECTION_STATE} state The high level state of the connection
  * @member {real} end_reason The basic cause of the connection termination or problem
  * @member {constant.STEAMWORKS_NET_SEND_FLAG} flags The send flags
  * @member {int64} user_data Arbitrary user data set by the local application code
@@ -120,7 +120,7 @@
  * The function returns one of the following:
  * 
  * * -1 on error (buffer not found or couldn't write to buffer)
- * * >= 0 - The number of bytes copied
+ * * greater than or equal to 0 - The number of bytes copied
  * 
  * @param {real} channel The channel number
  * @param {buffer} buffer The buffer to write the data into
@@ -158,7 +158,7 @@
 /**
  * @module networking_messages
  * @title Networking Messages
- * @desc > **Steamworks Interface**: [ISteamnetworkingMessages](https://partner.steamgames.com/doc/api/ISteamnetworkingMessages)
+ * @desc > **Steamworks Interface**: [ISteamNetworkingMessages](https://partner.steamgames.com/doc/api/ISteamnetworkingMessages)
  * 
  * The Networking Messages module of the Steamworks extension is intended to make it easy to port non-connection-oriented code to take advantage of P2P connectivity and [Steam Datagram Relay](https://partner.steamgames.com/doc/features/multiplayer/steamdatagramrelay).
  * 

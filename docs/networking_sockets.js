@@ -641,7 +641,7 @@
  * @section_end
  * 
  * @section_func Basic Sockets
- * @desc 
+ * @desc These are the basic functions for working with sockets:
  * @ref steam_net_sockets_create_listen_socket_ip
  * @ref steam_net_sockets_connect_by_ip
  * @ref steam_net_sockets_create_listen_socket_p2p
@@ -652,12 +652,12 @@
  * @section_end
  * 
  * @section_func Socket Pair (Local Connection)
- * @desc 
+ * @desc These functions allow working with socket pairs:
  * @ref steam_net_sockets_create_socket_pair
  * @section_end
  * 
  * @section_func Send / Receive Messages
- * @desc 
+ * @desc The following functions can be used to send/receive messages:
  * @ref steam_net_sockets_send_message
  * @ref steam_net_sockets_send_messages
  * @ref steam_net_sockets_flush_messages_on_connection
@@ -665,7 +665,7 @@
  * @section_end
  * 
  * @section_func Poll Groups
- * @desc 
+ * @desc The following functions can be used to create and use poll groups:
  * @ref steam_net_sockets_create_poll_group
  * @ref steam_net_sockets_destroy_poll_group
  * @ref steam_net_sockets_set_connection_poll_group
@@ -673,14 +673,14 @@
  * @section_end
  * 
  * @section_func Connection Info
- * @desc 
+ * @desc The following functions provide info about a connection:
  * @ref steam_net_sockets_get_connection_info
  * @ref steam_net_sockets_get_connection_real_time_status
  * @ref steam_net_sockets_get_detailed_connection_status
  * @section_end
  * 
  * @section_func User Data / Connection Name
- * @desc 
+ * @desc These functions get info on user data and the connection name:
  * @ref steam_net_sockets_set_connection_user_data
  * @ref steam_net_sockets_get_connection_user_data
  * @ref steam_net_sockets_set_connection_name
@@ -688,12 +688,12 @@
  * @section_end
  * 
  * @section_func Connection Lanes
- * @desc 
+ * @desc The following function allows configuring connection lanes:
  * @ref steam_net_sockets_configure_connection_lanes
  * @section_end
  * 
  * @section_func Addresses / Identity / Auth
- * @desc 
+ * @desc These functions are used to work with addresses, identities and authentication:
  * @ref steam_net_sockets_get_listen_socket_address
  * @ref steam_net_sockets_get_identity
  * @ref steam_net_sockets_init_authentication
