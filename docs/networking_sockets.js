@@ -582,7 +582,7 @@
  * 
  * This struct holds information on the connection state.
  * 
- * @member {real} state The high level state of the connection
+ * @member {constant.STEAMWORKS_NET_CONNECTION_STATE} state The high level state of the connection
  * @member {real} ping The current ping (ms)
  * @member {real} local_quality Connection quality measured locally, 0...1. (Percentage of packets delivered end-to-end in order).
  * @member {real} remote_quality Packet delivery success rate as observed from remote host
