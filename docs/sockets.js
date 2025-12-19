@@ -177,13 +177,18 @@
  * @func steam_net_sockets_recv_messages_on_connection
  * @desc > **Steam Function**: [ISteamNetworkingSockets::ReceiveMessagesOnConnection](https://partner.steamgames.com/doc/api/ISteamNetworkingSockets#ReceiveMessagesOnConnection)
  * 
- * This function receives one message on the given connection and writes its contents into the given buffer.
+ * This function fetches the next available message(s) from the given connection (if any) and writes their data to the given buffer. It does this for up to up to `max_messages` messages.
+ * 
+ * The function returns an array with a struct element containing offset and size for each message.
+ * 
+ * A `max_size` value can also be specified to limit the number of bytes written.
  * 
  * @param {real} connection The connection to receive messages on
- * @param {buffer} buffer The buffer to write the data to
- * @param {real} max_size The max number of bytes to write
+ * @param {buffer} buffer The buffer to write the messages to
+ * @param {real} max_messages The maximum number of messages to retrieve (32 by default, capped to a maximum value of 256)
+ * @param {real} max_size The maximum number of bytes to write in this function call for all messages combined
  * 
- * @returns {real} The number of bytes written or 0 if there was an issue
+ * @returns {array[struct]} An array containing structs with the `offset` (${type.real}) and `size` (${type.real}) of each message in the buffer and whether that message was `truncated` (${type.bool})
  * 
  * @func_end
  */
@@ -232,15 +237,16 @@
  * @func steam_net_sockets_recv_messages_on_poll_group
  * @desc > **Steam Function**: [ISteamNetworkingSockets::ReceiveMessagesOnPollGroup](https://partner.steamgames.com/doc/api/ISteamNetworkingSockets#ReceiveMessagesOnPollGroup)
  * 
- * This function is the same as ${function.steam_net_sockets_recv_messages_on_connection}, but will return the next messages available on any connection in the poll group. Examine SteamNetworkingMessage_t::m_conn to know which connection. (SteamNetworkingMessage_t::m_nConnUserData might also be useful.)
+ * This function is the same as ${function.steam_net_sockets_recv_messages_on_connection}, but will return the next messages available on any connection in the poll group. Examine a struct's `connection` to know which connection.
  * 
  * Delivery order of messages among different connections will usually match the order that the last packet was received which completed the message. But this is not a strong guarantee, especially for packets received right as a connection is being assigned to poll group.
  * 
  * @param {real} poll_group The poll group on which to receive messages
- * @param {buffer} buffer The buffer to write the data to
+ * @param {buffer} buffer The buffer to write the messages to
+ * @param {real} max_messages The maximum number of messages to write
  * @param {real} max_size The maximum number of bytes to write
  * 
- * @returns {real} The number of bytes written or 0 if there was an issue
+ * @returns {array[struct]} An array of structs holding `offset` (${type.real}) and `size` (${type.real}),  `connection` handle (${type.real}), `flags` (${constant.STEAMWORKS_NET_SEND_FLAG}) and `lane` (${type.real}) of each message
  * 
  * @func_end
  */
@@ -253,7 +259,7 @@
  * 
  * @param {real} connection The connection handle
  * 
- * @returns {struct.ConnectionInfo} Connection info struct, `undefined` if the information couldn't be retrieved, or the EResult error code if the function returned one
+ * @returns {struct.ConnectionInfo} Connection info struct, `undefined` if the information couldn't be retrieved, or the [EResult](https://partner.steamgames.com/doc/api/steam_api#EResult) error code if the function returned an error
  * 
  * @func_end
  */
@@ -266,7 +272,7 @@
  * 
  * @param {real} connection The connection handle
  * 
- * @returns {struct.ConnectionRealTimeStatus} A struct holding real-time info about the connection, the error code if the Steam function returned one, or `undefined` if there was another issue
+ * @returns {struct.ConnectionRealTimeStatus} A struct holding real-time info about the connection, the [EResult](https://partner.steamgames.com/doc/api/steam_api#EResult) error code if the Steam function returned one, or `undefined` if there was another issue
  * 
  * @func_end
  */
