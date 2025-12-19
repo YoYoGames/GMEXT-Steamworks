@@ -164,6 +164,8 @@
  * 
  * While the ${module.networking_sockets} module is connection-oriented (like TCP), meaning you need to listen and connect, and then you send messages using a connection handle. ${module.networking_messages}, on the other hand, is more like UDP, in that you can just send messages to arbitrary peers at any time. The underlying connections are established implicitly.
  * 
+ * See: [Steam Networking](https://partner.steamgames.com/doc/features/multiplayer/networking)
+ * 
  * @section_func General
  * @desc The following are general functions for working with messages:
  * @ref steam_net_messages_register_callbacks

@@ -29,10 +29,11 @@
  * 
  * @event steam
  * @desc This event is triggered whenever a connection is created, destroyed, or changes state.
+ * @member {string} event_type The string `"steam_net_message_on_state_change"`
  * @member {real} connection The connection handle
- * @member {real} state The current state
- * @member {real} old_state The previous state
- * @member {real} end_reason The connection handle
+ * @member {constant.STEAMWORKS_NET_CONNECTION_STATE} state The current state
+ * @member {constant.STEAMWORKS_NET_CONNECTION_STATE} old_state The previous state
+ * @member {constant.STEAMWORKS_NET_CONNECTION_STATE} end_reason The end reason
  * @member {string} debug A debug message
  * @event_end
  * 
@@ -43,7 +44,7 @@
  * @func steam_net_sockets_create_listen_socket_p2p
  * @desc > **Steam Function**: [ISteamNetworkingSockets::CreateListenSocketP2P](https://partner.steamgames.com/doc/api/ISteamNetworkingSockets#CreateListenSocketP2P)
  * 
- * This function works like ${funcion.steam_net_sockets_create_listen_socket_ip}, but clients will connect using ${function.steam_net_sockets_connect_p2p}. The connection will be relayed through the Valve network.
+ * This function works like ${function.steam_net_sockets_create_listen_socket_ip}, but clients will connect using ${function.steam_net_sockets_connect_p2p}. The connection will be relayed through the Valve network.
  * 
  * @param {real} local_virtual_port This specifies how clients can connect to this socket using ${function.steam_net_sockets_connect_p2p}. It's very common for applications to only have one listening socket; in that case, use zero. If you need to open multiple listen sockets and have clients be able to connect to one or the other, then this should be a small integer (<1000) unique to each listen socket you create.
  * 
@@ -58,10 +59,20 @@
  * 
  * This function begins connecting to a peer that is identified using a platform-specific identifier. This uses the default rendezvous service, which depends on the platform and library configuration. (E.g. on Steam, it goes through the Steam backend.) The traffic is relayed over the Steam Datagram Relay network.
  * 
- * @param {int64} steam_id64 
- * @param {real} virtual_port 
+ * @param {int64} steam_id64 The SteamID to connect to
+ * @param {real} virtual_port The virtual port to use
  * 
  * @returns {real} Connection handle (>= 0) or -1
+ * 
+ * @event steam
+ * @desc This event is triggered whenever a connection is created, destroyed, or changes state.
+ * @member {string} event_type The string `"steam_net_message_on_state_change"`
+ * @member {real} connection The connection handle
+ * @member {constant.STEAMWORKS_NET_CONNECTION_STATE} state The current state
+ * @member {constant.STEAMWORKS_NET_CONNECTION_STATE} old_state The previous state
+ * @member {constant.STEAMWORKS_NET_CONNECTION_STATE} end_reason The end reason
+ * @member {string} debug A debug message
+ * @event_end
  * 
  * @func_end
  */
@@ -72,9 +83,19 @@
  * 
  * This function accepts an incoming connection that has been received on a listen socket.
  * 
- * @param {real} connection 
+ * @param {real} connection The connection handle
  * 
  * @returns {real} The Steam [EResult](https://partner.steamgames.com/doc/api/steam_api#EResult) code
+ * 
+ * @event steam
+ * @desc This event is triggered whenever a connection is created, destroyed, or changes state.
+ * @member {string} event_type The string `"steam_net_message_on_state_change"`
+ * @member {real} connection The connection handle
+ * @member {constant.STEAMWORKS_NET_CONNECTION_STATE} state The current state
+ * @member {constant.STEAMWORKS_NET_CONNECTION_STATE} old_state The previous state
+ * @member {constant.STEAMWORKS_NET_CONNECTION_STATE} end_reason The end reason
+ * @member {string} debug A debug message
+ * @event_end
  * 
  * @func_end
  */
@@ -86,11 +107,21 @@
  * This function disconnects from the remote host and invalidates the connection handle. Any unread data on the connection is discarded.
  * 
  * @param {real} connection The connection to a peer
- * @param {STEAMWORKS_NET_SOCKET_STATE} reason An application defined code that will be received on the other end and recorded (when possible) in backend analytics
+ * @param {constant.STEAMWORKS_NET_CONNECTION_STATE} reason An application defined code that will be received on the other end and recorded (when possible) in backend analytics
  * @param {string} [debug] An optional human-readable diagnostic string that will be received by the remote host and recorded (when possible) in backend analytics
  * @param {bool} linger Set to `true` to attempt to deliver any remaining outbound reliable messages before actually closing the connection. Otherwise any unsent reliable data is discarded.
  * 
  * @returns {bool}
+ * 
+ * @event steam
+ * @desc This event is triggered whenever a connection is created, destroyed, or changes state.
+ * @member {string} event_type The string `"steam_net_message_on_state_change"`
+ * @member {real} connection The connection handle
+ * @member {constant.STEAMWORKS_NET_CONNECTION_STATE} state The current state
+ * @member {constant.STEAMWORKS_NET_CONNECTION_STATE} old_state The previous state
+ * @member {constant.STEAMWORKS_NET_CONNECTION_STATE} end_reason The end reason
+ * @member {string} debug A debug message
+ * @event_end
  * 
  * @func_end
  */
@@ -484,6 +515,25 @@
  * @constant_end
  */
 
+/**
+ * @constant STEAMWORKS_NET_CONNECTION_STATE
+ * @desc > **Steamworks Enumeration**: [ESteamNetworkingConnectionState](partner.steamgames.com/doc/api/steamnetworkingtypes#ESteamNetworkingConnectionState)
+ * 
+ * This enumeration holds the possible high level connection states.
+ * 
+ * @member NONE Dummy value used to indicate an error condition in the API. Specified connection doesn't exist or has already been closed.
+ * @member CONNECTING We are trying to establish whether peers can talk to each other, whether they WANT to talk to each other, perform basic auth, and exchange crypt keys.
+ * @member FINDING_ROUTE Some connection types use a back channel or trusted 3rd party for earliest communication. If the server accepts the connection, then these connections switch into the rendezvous state. During this state, we still have not yet established an end-to-end route (through the relay network), and so if you send any messages unreliable, they are going to be discarded.
+ * @member CONNECTED We've received communications from our peer (and we know who they are) and are all good.
+ * @member CLOSED_BY_PEER Connection has been closed by our peer, but not closed locally.
+ * @member PROBLEM_LOCAL A disruption in the connection has been detected locally. (E.g. timeout, local internet connection disrupted, etc.)
+ * @member FIN_WAIT We've disconnected on our side, and from an API perspective the connection is closed. No more data may be sent or received.  All reliable data has been flushed, or else we've given up and discarded it. We do not yet know for sure that the peer knows the connection has been closed.
+ * @member LINGER We've disconnected on our side, and from an API perspective the connection is closed. No more data may be sent or received.  From a network perspective, however, on the wire, we have not yet given any indication to the peer that the connection is closed. We are in the process of flushing out the last bit of reliable data.  Once that is done, we will inform the peer that the connection has been closed, and transition to the `FIN_WAIT` state.
+ * @member DEAD Connection is completely inactive and ready to be destroyed.
+ * @member TERMINATED Connection was terminated
+ * @constant_end
+ */
+
 // STRUCTS
 
 /**
@@ -534,7 +584,7 @@
  * 
  * @member {real} state The high level state of the connection
  * @member {real} ping The current ping (ms)
- * @member {real} local_quality Connection quality measured locally, 0...1.  (Percentage of packets delivered end-to-end in order).
+ * @member {real} local_quality Connection quality measured locally, 0...1. (Percentage of packets delivered end-to-end in order).
  * @member {real} remote_quality Packet delivery success rate as observed from remote host
  * @member {real} out_packets_per_sec Current out packets per second from recent history
  * @member {real} out_bytes_per_sec Current out bytes per second from recent history
@@ -553,7 +603,42 @@
 /**
  * @module networking_sockets
  * @title Networking Sockets
- * @desc 
+ * @desc > **Steamworks Interface**: [ISteamNetworkingSockets](https://partner.steamgames.com/doc/api/ISteamNetworkingSockets)
+ * 
+ * The Networking Sockets module of the Steam extension provides a networking API similar to Berkeley sockets, but for games.
+ * 
+ * * It's a connection-oriented API (like TCP, not UDP). When sending and receiving messages, the peer is identified using a connection handle.
+ * * But unlike TCP, it's message-oriented, not stream-oriented. (The boundaries between the messages are maintained by the API.)
+ * * Both reliable and unreliable messages are supported.
+ * * Large messages are split into multiple packets, small messages are combined into fewer packets.
+ * * A robust ACK / reassembly / retransmission strategy.
+ * * Strong encryption and authentication. When a player connects, you can be sure that if a certain SteamID is authenticated, that someone who has access to that person's account has authorized the connection. Eavesdropping / tampering requires hacking into the VAC-secured process. Impersonation requires access to the target's computer.
+ * * Supports relayed connections through the Valve network. This prevents IP addresses from being revealed, protecting your players and gameservers from attack.
+ * * Also supports standard connectivity over plain UDP using IPv4 or IPv6.
+ * 
+ * See: [Steam Networking](https://partner.steamgames.com/doc/features/multiplayer/networking)
+ * 
+ * @section Connection Status Callback
+ * @desc This callback is triggered *any* time a connection changes state. This includes new incoming connections, successful outgoing connections, disconnections, failures, and transitions between internal states.
+ * 
+ * Steam will invoke this callback automatically whenever:
+ * 
+ * 1. A remote peer starts connecting to your listen socket (incoming P2P or IP connection request)
+ * 2. You call ${function.steam_net_sockets_connect_p2p} or ${function.steam_net_sockets_connect_by_ip} and the connection progresses through states:
+ *   * Connecting
+ *   * Finding Route
+ *   * Connected
+ * 3. The connection encounters a problem:
+ *   * Timed out
+ *   * Lost route
+ *   * Ended by peer
+ *   * Rejected
+ * 4. You call ${function.steam_net_sockets_accept_connection}, ${function.steam_net_sockets_close_connection}, etc.
+ * 5. Steam networking changes internal routing state (e.g., switching to relays, NAT punch-through events)
+ * 
+ * The extension will trigger a ${event.steam} of `event_type` `"steam_net_message_on_state_change"` for callbacks of this type.
+ * 
+ * @section_end
  * 
  * @section_func Basic Sockets
  * @desc 

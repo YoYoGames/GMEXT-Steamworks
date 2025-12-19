@@ -212,6 +212,8 @@
  * @title Networking
  * @desc The following functions and constants allow you to use Steam's Networking functionality.
  * 
+ * [[Note: This module is deprecated. Please see the ${module.networking_sockets} and ${module.networking_messages} modules of the extension for networking functionality.]]
+ * 
  * @section_func Packets IO
  * @desc These functions are provided for handling sending and receiving packets:
  * 

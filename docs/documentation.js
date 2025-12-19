@@ -28,6 +28,8 @@
  * @ref module.social
  * @ref module.inventory
  * @ref module.networking
+ * @ref module.networking_sockets
+ * @ref module.networking_messages
  * @ref module.input
  * @ref module.music
  * @ref module.timeline
