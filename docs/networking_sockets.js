@@ -219,7 +219,7 @@
  * @param {real} max_messages The maximum number of messages to retrieve (32 by default, capped to a maximum value of 256)
  * @param {real} max_size The maximum number of bytes to write in this function call for all messages combined
  * 
- * @returns {array[struct]} An array containing structs with the `offset` (${type.real}) and `size` (${type.real}) of each message in the buffer and whether that message was `truncated` (${type.bool})
+ * @returns {array[struct]} An array containing structs with the `offset` (${type.real}) and `size` (${type.real}) of each message in the buffer and whether that message was `truncated` or not (${type.bool})
  * 
  * @func_end
  */
