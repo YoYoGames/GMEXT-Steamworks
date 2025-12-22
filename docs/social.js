@@ -58,7 +58,7 @@
  * 
  * An optional combination of flags can be provided to further specify which users to include in the result.
  * 
- * @param {constant.STEAMWORKS_FRIENDS_FLAGS} [flags=STEAMWORKS_FRIENDS_FLAGS.IMMEDIATE] A combination of friend flags (defaults to `STEAMWORKS_FRIENDS_FLAGS.IMMEDIATE`)
+ * @param {constant.steam_friends_flags} [flags=steam_friends_flags_immediate] A combination of friend flags (defaults to `steam_friends_flags_immediate`)
  * 
  * @returns {array[struct.FriendInfo]}
  * 
@@ -414,7 +414,7 @@
  * @desc This struct holds information about a friend.
  * @member {int64} friendId The Steam user ID
  * @member {string} friendName The name of the friend
- * @member {constant.STEAMWORKS_PERSONA_STATE} state The friend's state
+ * @member {constant.steam_persona_state} state The friend's state
  * @struct_end
  */
 
@@ -440,40 +440,44 @@
  */
 
 /**
- * @const STEAMWORKS_FRIENDS_FLAGS
+ * @const steam_friends_flags
  * @desc > **Steamworks Enum**: [EFriendFlags](https://partner.steamgames.com/doc/api/ISteamFriends#EFriendFlags)
  * 
- * This enum contains the different flags for enumerating the friends list, or quickly checking the relationship between users.
+ * This set of constants represent the different flags for enumerating the friends list, or quickly checking the relationship between users.
  * 
- * @member NONE None.
- * @member BLOCKED Users that the current user has blocked from contacting.
- * @member FRIENDSHIP_REQUESTED Users that have sent a friend invite to the current user.
- * @member IMMEDIATE The current user's "regular" friends.
- * @member CLAN_MEMBER Users that are in one of the same (small) Steam groups as the current user.
- * @member ON_GAME_SERVER Users that are on the same game server; as set by ${function.steam_user_set_played_with}.
- * @member REQUESTING_FRIENDSHIP Users that the current user has sent friend invites to.
- * @member REQUESTING_INFO Users that are currently sending additional info about themselves after a call to RequestUserInformation.
- * @member IGNORED Users that the current user has ignored from contacting them.
- * @member IGNORED_FRIEND Users that have ignored the current user; but the current user still knows about them.
- * @member CHAT_MEMBER Users in one of the same chats.
- * @member ALL Returns all friend flags.
+ * [[Note: Alternatively, you can use the `STEAMWORKS_FRIENDS_FLAGS` enum.]]
+ * 
+ * @member steam_friends_flags_none None.
+ * @member steam_friends_flags_blocked Users that the current user has blocked from contacting.
+ * @member steam_friends_flags_friendship_requested Users that have sent a friend invite to the current user.
+ * @member steam_friends_flags_immediate The current user's "regular" friends.
+ * @member steam_friends_flags_clan_member Users that are in one of the same (small) Steam groups as the current user.
+ * @member steam_friends_flags_on_game_server Users that are on the same game server; as set by ${function.steam_user_set_played_with}.
+ * @member steam_friends_flags_requesting_friendship Users that the current user has sent friend invites to.
+ * @member steam_friends_flags_requesting_info Users that are currently sending additional info about themselves after a call to RequestUserInformation.
+ * @member steam_friends_flags_ignored Users that the current user has ignored from contacting them.
+ * @member steam_friends_flags_ignored_friend Users that have ignored the current user; but the current user still knows about them.
+ * @member steam_friends_flags_chat_member Users in one of the same chats.
+ * @member steam_friends_flags_all Returns all friend flags.
  * @const_end
  */
 
 /**
- * @const STEAMWORKS_PERSONA_STATE
+ * @const steam_persona_state
  * @desc > **Steamworks Enum**: [EPersonaState](https://partner.steamgames.com/doc/api/ISteamFriends#EPersonaState)
  * 
- * This enum holds the list of states a Steam friend can be in.
+ * This set of constants represents the list of states a Steam friend can be in.
  * 
- * @member OFFLINE Friend is not currently logged on.
- * @member ONLINE Friend is logged on.
- * @member BUSY Friend is logged on, but set to "Do not disturb."
- * @member AWAY Auto-away feature.
- * @member SNOOZE Auto-away for a long time.
- * @member LOOKING_TO_TRADE Online, trading.
- * @member LOOKING_TO_PLAY Online, wanting to play.
- * @member INVISIBLE The total number of states. Only used for looping and validation.
+ * [[Note: Alternatively, you can use the `STEAMWORKS_PERSONA_STATE` enum.]]
+ * 
+ * @member steam_persona_state_offline Friend is not currently logged on.
+ * @member steam_persona_state_online Friend is logged on.
+ * @member steam_persona_state_busy Friend is logged on, but set to "Do not disturb."
+ * @member steam_persona_state_away Auto-away feature.
+ * @member steam_persona_state_snooze Auto-away for a long time.
+ * @member steam_persona_state_looking_to_trade Online, trading.
+ * @member steam_persona_state_looking_to_play Online, wanting to play.
+ * @member steam_persona_state_invisible The total number of states. Only used for looping and validation.
  * @const_end
  */
 
@@ -513,8 +517,8 @@
  * 
  * @section_const
  * @ref AvatarSize
- * @ref STEAMWORKS_FRIENDS_FLAGS
- * @ref STEAMWORKS_PERSONA_STATE
+ * @ref steam_friends_flags
+ * @ref steam_persona_state
  * @section_end
  * 
  * @module_end
