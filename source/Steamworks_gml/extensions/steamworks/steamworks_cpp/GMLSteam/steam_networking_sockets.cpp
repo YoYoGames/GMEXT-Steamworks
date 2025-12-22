@@ -298,7 +298,7 @@ static PayloadBlock* AllocatePayloadBlock(const void* src, uint32_t size, uint32
 {
     // Flexible-array allocation
     const size_t allocSize = sizeof(PayloadBlock) + (size_t)size - 1;
-    auto* block = (PayloadBlock*)std::malloc(allocSize);
+    auto* block = (PayloadBlock*)YYAlloc((int)allocSize);
     if (!block) return nullptr;
 
     block->refs.store(refs, std::memory_order_relaxed);
@@ -312,7 +312,7 @@ static PayloadBlock* AllocatePayloadBlock(const void* src, uint32_t size, uint32
 
 static void FreePayloadBlock(PayloadBlock* block)
 {
-    std::free(block);
+    YYFree(block);
 }
 
 // Steam will call this from any thread, possibly before SendMessages returns.
@@ -320,9 +320,7 @@ static void FreePayloadBlock(PayloadBlock* block)
 static void ReleasePayloadBlockFromMessage(SteamNetworkingMessage_t* msg)
 {
     // We stored the PayloadBlock* in m_nUserData.
-    auto* block = reinterpret_cast<PayloadBlock*>(
-        static_cast<uintptr_t>(msg->m_nUserData)
-        );
+    auto* block = reinterpret_cast<PayloadBlock*>(static_cast<uintptr_t>(msg->m_nUserData));
 
     if (!block)
         return;
@@ -667,6 +665,8 @@ YYEXPORT void steam_net_sockets_recv_messages_on_poll_group(
         YYStructCreate(&entry);
         YYStructAddInt(&entry, "offset", writeOffset);
         YYStructAddInt(&entry, "size", toWrite);
+        YYStructAddBool(&entry, "truncated", toWrite != cb);
+
         YYStructAddDouble(&entry, "connection", (double)msg->m_conn);
         YYStructAddInt(&entry, "flags", (int)msg->m_nFlags);
         YYStructAddInt(&entry, "lane", (int)msg->m_idxLane);
@@ -780,7 +780,7 @@ YYEXPORT void steam_net_sockets_get_detailed_connection_status(
 
     std::string tmp;
     tmp.resize(bytes);
-    p->GetDetailedConnectionStatus(hConn, tmp.data(), tmp.size());
+    p->GetDetailedConnectionStatus(hConn, tmp.data(), (int)tmp.size());
 
     YYCreateString(&Result, tmp.c_str());
 }
