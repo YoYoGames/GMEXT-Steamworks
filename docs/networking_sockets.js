@@ -31,8 +31,8 @@
  * @desc This event is triggered whenever a connection is created, destroyed, or changes state.
  * @member {string} event_type The string `"steam_net_message_on_state_change"`
  * @member {real} connection The connection handle
- * @member {constant.STEAMWORKS_NET_CONNECTION_STATE} state The current state
- * @member {constant.STEAMWORKS_NET_CONNECTION_STATE} old_state The previous state
+ * @member {constant.steam_net_connection_state} state The current state
+ * @member {constant.steam_net_connection_state} old_state The previous state
  * @member {real} end_reason The end reason (one of [ESteamNetConnectionEnd](partner.steamgames.com/doc/api/steamnetworkingtypes#ESteamNetConnectionEnd))
  * @member {string} debug A debug message
  * @event_end
@@ -68,8 +68,8 @@
  * @desc This event is triggered whenever a connection is created, destroyed, or changes state.
  * @member {string} event_type The string `"steam_net_message_on_state_change"`
  * @member {real} connection The connection handle
- * @member {constant.STEAMWORKS_NET_CONNECTION_STATE} state The current state
- * @member {constant.STEAMWORKS_NET_CONNECTION_STATE} old_state The previous state
+ * @member {constant.steam_net_connection_state} state The current state
+ * @member {constant.steam_net_connection_state} old_state The previous state
  * @member {real} end_reason The end reason (one of [ESteamNetConnectionEnd](partner.steamgames.com/doc/api/steamnetworkingtypes#ESteamNetConnectionEnd))
  * @member {string} debug A debug message
  * @event_end
@@ -91,8 +91,8 @@
  * @desc This event is triggered whenever a connection is created, destroyed, or changes state.
  * @member {string} event_type The string `"steam_net_message_on_state_change"`
  * @member {real} connection The connection handle
- * @member {constant.STEAMWORKS_NET_CONNECTION_STATE} state The current state
- * @member {constant.STEAMWORKS_NET_CONNECTION_STATE} old_state The previous state
+ * @member {constant.steam_net_connection_state} state The current state
+ * @member {constant.steam_net_connection_state} old_state The previous state
  * @member {real} end_reason The end reason (one of [ESteamNetConnectionEnd](partner.steamgames.com/doc/api/steamnetworkingtypes#ESteamNetConnectionEnd))
  * @member {string} debug A debug message
  * @event_end
@@ -107,7 +107,7 @@
  * This function disconnects from the remote host and invalidates the connection handle. Any unread data on the connection is discarded.
  * 
  * @param {real} connection The connection to a peer
- * @param {constant.STEAMWORKS_NET_CONNECTION_STATE} reason An application defined code that will be received on the other end and recorded (when possible) in backend analytics
+ * @param {constant.steam_net_connection_state} reason An application defined code that will be received on the other end and recorded (when possible) in backend analytics
  * @param {string} [debug] An optional human-readable diagnostic string that will be received by the remote host and recorded (when possible) in backend analytics
  * @param {bool} linger Set to `true` to attempt to deliver any remaining outbound reliable messages before actually closing the connection. Otherwise any unsent reliable data is discarded.
  * 
@@ -117,8 +117,8 @@
  * @desc This event is triggered whenever a connection is created, destroyed, or changes state.
  * @member {string} event_type The string `"steam_net_message_on_state_change"`
  * @member {real} connection The connection handle
- * @member {constant.STEAMWORKS_NET_CONNECTION_STATE} state The current state
- * @member {constant.STEAMWORKS_NET_CONNECTION_STATE} old_state The previous state
+ * @member {constant.steam_net_connection_state} state The current state
+ * @member {constant.steam_net_connection_state} old_state The previous state
  * @member {real} end_reason The end reason (one of [ESteamNetConnectionEnd](partner.steamgames.com/doc/api/steamnetworkingtypes#ESteamNetConnectionEnd))
  * @member {string} debug A debug message
  * @event_end
@@ -165,7 +165,7 @@
  * @param {real} connection The connection to send the message to
  * @param {buffer} buffer The buffer holding the message data to send
  * @param {real} size The number of bytes to send
- * @param {constant.STEAMWORKS_NET_SEND_FLAG} send_flags A bitmask of send flags. Determines the delivery guarantees that will be provided, when data should be buffered, etc.
+ * @param {constant.steam_net_send_flag} send_flags A bitmask of send flags. Determines the delivery guarantees that will be provided, when data should be buffered, etc.
  * 
  * @returns {struct} A struct holding the Steam [EResult](https://partner.steamgames.com/doc/api/steam_api#EResult) code (`result`) and the message number assigned to the message (`message_id`), if sending was successful
  * 
@@ -181,7 +181,7 @@
  * @param {array[real]} connection_array An array storing the connection handles
  * @param {buffer} buffer The buffer holding the message data to send
  * @param {real} size The number of bytes to send (-1 sends all of the buffer's contents)
- * @param {constant.STEAMWORKS_NET_SEND_FLAG} send_flags A bitmask of send flags. Determines the delivery guarantees that will be provided, when data should be buffered, etc.
+ * @param {constant.steam_net_send_flag} send_flags A bitmask of send flags. Determines the delivery guarantees that will be provided, when data should be buffered, etc.
  * @param {real} [lane] The lane to use
  * 
  * @returns {real} The Steam [EResult](https://partner.steamgames.com/doc/api/steam_api#EResult) code, or -1 if an case of an error
@@ -277,7 +277,7 @@
  * @param {real} max_messages The maximum number of messages to write
  * @param {real} max_size The maximum number of bytes to write
  * 
- * @returns {array[struct]} An array of structs holding `offset` (${type.real}) and `size` (${type.real}),  `connection` handle (${type.real}), `flags` (${constant.STEAMWORKS_NET_SEND_FLAG}) and `lane` (${type.real}) of each message
+ * @returns {array[struct]} An array of structs holding `offset` (${type.real}) and `size` (${type.real}),  `connection` handle (${type.real}), `flags` (${constant.steam_net_send_flag}) and `lane` (${type.real}) of each message
  * 
  * @func_end
  */
@@ -438,7 +438,7 @@
  * 
  * Returns the current value that would be returned from ${function.steam_net_sockets_get_authentication_status}.
  * 
- * @returns {constant.STEAMWORKS_NET_AVAILABILITY}
+ * @returns {constant.steam_net_availability}
  * 
  * @func_end
  */
@@ -449,7 +449,7 @@
  * 
  * This function queries our readiness to participate in authenticated communications.
  * 
- * @returns {struct} A struct containing variables `availability` (${constant.STEAMWORKS_NET_AVAILABILITY}) and `debug_message` (${type.string}), or `undefined` if the status could not be retrieved
+ * @returns {struct} A struct containing variables `availability` (${constant.steam_net_availability}) and `debug_message` (${type.string}), or `undefined` if the status could not be retrieved
  * 
  * @func_end
  */
@@ -457,80 +457,94 @@
 // CONSTANTS
 
 /**
- * @constant STEAMWORKS_NET_FAKE_IP_TYPE
+ * @constant steam_net_fake_ip_type
  * @desc > **Steamworks**: [ESteamNetworkingFakeIPType]()
  * 
- * This enumeration holds the types of fake IP.
+ * This set of constants hold the types of fake IP.
  * 
- * @member INVALID Error, argument was not even an IP address, etc.
- * @member NOT_FAKE Argument was a valid IP, but was not from the reserved "fake" range
- * @member GLOBAL_IPV4 Globally unique (for a given app) IPv4 address. Address space managed by Steam
- * @member LOCAL_IPV4 Locally unique IPv4 address.  Address space managed by the local process. For internal use only; should not be shared!
+ * [[Note: Alternatively, you can use the `STEAMWORKS_NET_FAKE_IP_TYPE` enum.]]
+ * 
+ * @member steam_net_fake_ip_type_invalid Error, argument was not even an IP address, etc.
+ * @member steam_net_fake_ip_type_not_fake Argument was a valid IP, but was not from the reserved "fake" range
+ * @member steam_net_fake_ip_type_global_ipv4 Globally unique (for a given app) IPv4 address. Address space managed by Steam
+ * @member steam_net_fake_ip_type_local_ipv4 Locally unique IPv4 address. Address space managed by the local process. For internal use only; should not be shared!
  * @constant_end
  */
 
 /**
- * @constant STEAMWORKS_NET_IDENTITY_TYPE
+ * @constant steam_net_identity_type
  * @desc > **Steamworks Enumeration**: [ESteamNetworkingIdentityType](partner.steamgames.com/doc/api/steamnetworkingtypes#ESteamNetworkingIdentityType)
  * 
- * This enumeration holds the different types of identities that a remote host can have. Most of the time on Steam, this will be a SteamID. However, in some cases you can disable authentication, in which case a more generic identity will be used.
+ * This set of constants holds the different types of identities that a remote host can have. Most of the time on Steam, this will be a SteamID. However, in some cases you can disable authentication, in which case a more generic identity will be used.
  * 
- * @member INVALID Dummy/unknown/invalid
- * @member STEAM_ID 64-bit SteamID
- * @member IP_ADDRESS Use an IP address (and port) as the "identity".
- * @member GENERIC_STRING Generic string. It's up to your app to interpret this.
- * @member GENERIC_BYTES Generic binary blobs. It's up to your app to interpret this.
+ * [[Note: Alternatively, you can use the `STEAMWORKS_NET_IDENTITY_TYPE` enum.]]
+ * 
+ * @member steam_net_identity_type_invalid Dummy/unknown/invalid
+ * @member steam_net_identity_type_steam_id 64-bit SteamID
+ * @member steam_net_identity_type_xbox_pairwise_id 64-bit SteamID
+ * @member steam_net_identity_type_sony_psn 64-bit SteamID
+ * @member steam_net_identity_type_ip_address Use an IP address (and port) as the "identity".
+ * @member steam_net_identity_type_generic_string Generic string. It's up to your app to interpret this.
+ * @member steam_net_identity_type_generic_bytes Generic binary blobs. It's up to your app to interpret this.
  * @constant_end
  */
 
 /**
- * @constant STEAMWORKS_NET_AVAILABILITY
+ * @constant steam_net_availability
  * @desc > **Steamworks Enumeration**: [ESteamNetworkingAvailability]()
  * 
- * @member CANNOT_TRY A dependent resource is missing, so this service is unavailable. (E.g. we cannot talk to routers because Internet is down or we don't have the network config.)
- * @member FAILED We have tried for enough time that we would expect to have been successful by now. We have never been successful.
- * @member PREVIOUSLY We tried and were successful at one time, but now it looks like we have a problem.
- * @member RETRYING We previously failed and are currently retrying.
- * @member NEVER_TRIED We don't know because we haven't ever checked/tried.
- * @member WAITING We're waiting on a dependent resource to be acquired. (E.g. we cannot obtain a cert until we are logged into Steam. We cannot measure latency to relays until we have the network config.)
- * @member ATTEMPTING We're actively trying now, but are not yet successful.
- * @member CURRENT Resource is online/available.
- * @member UNKNOWN Internal dummy/sentinel, or value is not applicable in this context
+ * This set of constants holds the different states of networking availability.
+ * 
+ * [[Note: Alternatively, you can use the `STEAMWORKS_NET_AVAILABILITY` enum.]]
+ * 
+ * @member steam_net_availability_cannot_try A dependent resource is missing, so this service is unavailable. (E.g. we cannot talk to routers because Internet is down or we don't have the network config.)
+ * @member steam_net_availability_failed We have tried for enough time that we would expect to have been successful by now. We have never been successful.
+ * @member steam_net_availability_previously We tried and were successful at one time, but now it looks like we have a problem.
+ * @member steam_net_availability_retrying We previously failed and are currently retrying.
+ * @member steam_net_availability_never_tried We don't know because we haven't ever checked/tried.
+ * @member steam_net_availability_waiting We're waiting on a dependent resource to be acquired. (E.g. we cannot obtain a cert until we are logged into Steam. We cannot measure latency to relays until we have the network config.)
+ * @member steam_net_availability_attempting We're actively trying now, but are not yet successful.
+ * @member steam_net_availability_current Resource is online/available.
+ * @member steam_net_availability_unknown Internal dummy/sentinel, or value is not applicable in this context
  * @constant_end
  */
 
 /**
- * @constant STEAMWORKS_NET_SEND_FLAG
+ * @constant steam_net_send_flag
  * @desc > **Steamworks Flags**: [k_nSteamNetworkingSend_*](https://partner.steamgames.com/doc/api/steamnetworkingtypes#message_sending_flags)
  * 
- * These values are used in bitmask parameters to functions for message sending such as ${function.steam_net_sockets_send_message}.
+ * These constants are used in bitmask parameters to functions for message sending such as ${function.steam_net_sockets_send_message}.
  * 
- * @member UNRELIABLE Send the message unreliably. Can be lost. Messages *can* be larger than a single MTU (UDP packet), but there is no retransmission, so if any piece of the message is lost, the entire message will be dropped.
- * @member NO_NAGLE Disable [Nagle's algorithm](https://en.wikipedia.org/wiki/Nagle%27s_algorithm).
- * @member UNRELIABLE_NO_NAGLE Send a message unreliably, bypassing Nagle's algorithm for this message and any messages currently pending on the Nagle timer.
- * @member NO_DELAY If the message cannot be sent very soon (because the connection is still doing some initial handshaking, route negotiations, etc), then just drop it. This is only applicable for unreliable messages. Using this flag on reliable messages is invalid.
- * @member UNRELIABLE_NO_DELAY Send an unreliable message, but if it cannot be sent relatively quickly, just drop it instead of queuing it. This is useful for messages that are not useful if they are excessively delayed, such as voice data.
- * @member RELIABLE Reliable message send. Can send up to k_cbMaxSteamNetworkingSocketsMessageSizeSend bytes in a single message. Does fragmentation/re-assembly of messages under the hood, as well as a sliding window for efficient sends of large chunks of data.
- * @member RELIABLE_NO_NAGLE Send a message reliably, but bypass Nagle's algorithm.
+ * [[Note: Alternatively, you can use the `STEAMWORKS_NET_SEND_FLAG` enum.]]
+ * 
+ * @member steam_net_send_flag_unreliable Send the message unreliably. Can be lost. Messages *can* be larger than a single MTU (UDP packet), but there is no retransmission, so if any piece of the message is lost, the entire message will be dropped.
+ * @member steam_net_send_flag_no_nagle Disable [Nagle's algorithm](https://en.wikipedia.org/wiki/Nagle%27s_algorithm).
+ * @member steam_net_send_flag_unreliable_no_nagle Send a message unreliably, bypassing Nagle's algorithm for this message and any messages currently pending on the Nagle timer.
+ * @member steam_net_send_flag_no_delay If the message cannot be sent very soon (because the connection is still doing some initial handshaking, route negotiations, etc), then just drop it. This is only applicable for unreliable messages. Using this flag on reliable messages is invalid.
+ * @member steam_net_send_flag_unreliable_no_delay Send an unreliable message, but if it cannot be sent relatively quickly, just drop it instead of queuing it. This is useful for messages that are not useful if they are excessively delayed, such as voice data.
+ * @member steam_net_send_flag_reliable Reliable message send. Can send up to k_cbMaxSteamNetworkingSocketsMessageSizeSend bytes in a single message. Does fragmentation/re-assembly of messages under the hood, as well as a sliding window for efficient sends of large chunks of data.
+ * @member steam_net_send_flag_reliable_no_nagle Send a message reliably, but bypass Nagle's algorithm.
  * @constant_end
  */
 
 /**
- * @constant STEAMWORKS_NET_CONNECTION_STATE
+ * @constant steam_net_connection_state
  * @desc > **Steamworks Enumeration**: [ESteamNetworkingConnectionState](partner.steamgames.com/doc/api/steamnetworkingtypes#ESteamNetworkingConnectionState)
  * 
  * This enumeration holds the possible high level connection states.
  * 
- * @member NONE Dummy value used to indicate an error condition in the API. Specified connection doesn't exist or has already been closed.
- * @member CONNECTING We are trying to establish whether peers can talk to each other, whether they WANT to talk to each other, perform basic auth, and exchange crypt keys.
- * @member FINDING_ROUTE Some connection types use a back channel or trusted 3rd party for earliest communication. If the server accepts the connection, then these connections switch into the rendezvous state. During this state, we still have not yet established an end-to-end route (through the relay network), and so if you send any messages unreliable, they are going to be discarded.
- * @member CONNECTED We've received communications from our peer (and we know who they are) and are all good.
- * @member CLOSED_BY_PEER Connection has been closed by our peer, but not closed locally.
- * @member PROBLEM_LOCAL A disruption in the connection has been detected locally. (E.g. timeout, local internet connection disrupted, etc.)
- * @member FIN_WAIT We've disconnected on our side, and from an API perspective the connection is closed. No more data may be sent or received.  All reliable data has been flushed, or else we've given up and discarded it. We do not yet know for sure that the peer knows the connection has been closed.
- * @member LINGER We've disconnected on our side, and from an API perspective the connection is closed. No more data may be sent or received.  From a network perspective, however, on the wire, we have not yet given any indication to the peer that the connection is closed. We are in the process of flushing out the last bit of reliable data.  Once that is done, we will inform the peer that the connection has been closed, and transition to the `FIN_WAIT` state.
- * @member DEAD Connection is completely inactive and ready to be destroyed.
- * @member TERMINATED Connection was terminated
+ * [[Note: Alternatively, you can use the `STEAMWORKS_NET_CONNECTION_STATE` enum.]]
+ * 
+ * @member steam_net_connection_state_none Dummy value used to indicate an error condition in the API. Specified connection doesn't exist or has already been closed.
+ * @member steam_net_connection_state_connecting We are trying to establish whether peers can talk to each other, whether they WANT to talk to each other, perform basic auth, and exchange crypt keys.
+ * @member steam_net_connection_state_find_route Some connection types use a back channel or trusted 3rd party for earliest communication. If the server accepts the connection, then these connections switch into the rendezvous state. During this state, we still have not yet established an end-to-end route (through the relay network), and so if you send any messages unreliable, they are going to be discarded.
+ * @member steam_net_connection_state_connected We've received communications from our peer (and we know who they are) and are all good.
+ * @member steam_net_connection_state_closed_by_peer Connection has been closed by our peer, but not closed locally.
+ * @member steam_net_connection_state_problem_detected_locally A disruption in the connection has been detected locally. (E.g. timeout, local internet connection disrupted, etc.)
+ * @member steam_net_connection_state_fin_wait We've disconnected on our side, and from an API perspective the connection is closed. No more data may be sent or received.  All reliable data has been flushed, or else we've given up and discarded it. We do not yet know for sure that the peer knows the connection has been closed.
+ * @member steam_net_connection_state_linger We've disconnected on our side, and from an API perspective the connection is closed. No more data may be sent or received.  From a network perspective, however, on the wire, we have not yet given any indication to the peer that the connection is closed. We are in the process of flushing out the last bit of reliable data.  Once that is done, we will inform the peer that the connection has been closed, and transition to the `FIN_WAIT` state.
+ * @member steam_net_connection_state_dead Connection is completely inactive and ready to be destroyed.
+ * @member steam_net_connection_state_terminated Connection was terminated
  * @constant_end
  */
 
@@ -542,7 +556,7 @@
  * 
  * This struct represents an abstract way to represent the identity of a network host.
  * 
- * @member {constant.STEAMWORKS_NET_IDENTITY_TYPE} type The type of identity
+ * @member {constant.steam_net_identity_type} type The type of identity
  * @member {string} type_name The identity type as a string
  * @member {string} identity_string A human-readable string version of the identity. This is suitable for debug messages or any other time you need to encode the identity as a string. It has a URL-like format (type:<type-data>).
  * @member {int64} steam_id The SteamID as a raw 64-bit number
@@ -562,9 +576,9 @@
  * 
  * This struct describes the state of a connection.
  * 
- * @member {constant.STEAMWORKS_NET_CONNECTION_STATE} state The connection state
+ * @member {constant.steam_net_connection_state} state The connection state
  * @member {real} end_reason The reason the connection was ended (one of [ESteamNetConnectionEnd](partner.steamgames.com/doc/api/steamnetworkingtypes#ESteamNetConnectionEnd))
- * @member {constant.STEAMWORKS_NET_SEND_FLAG} flags A bitmask of the flags
+ * @member {constant.steam_net_send_flag} flags A bitmask of the flags
  * @member {int64} user_data Arbitrary user data set by the local application code
  * @member {real} listen_socket The listen socket
  * @member {real} remote_pop What data center is the remote host in?  (0 if we don't know.)
@@ -582,7 +596,7 @@
  * 
  * This struct holds information on the connection state.
  * 
- * @member {constant.STEAMWORKS_NET_CONNECTION_STATE} state The high level state of the connection
+ * @member {constant.steam_net_connection_state} state The high level state of the connection
  * @member {real} ping The current ping (ms)
  * @member {real} local_quality Connection quality measured locally, 0...1. (Percentage of packets delivered end-to-end in order).
  * @member {real} remote_quality Packet delivery success rate as observed from remote host
@@ -702,11 +716,11 @@
  * 
  * @section_const Constants
  * @desc These are the constants used by the Steam extension's networking sockets and messages modules:
- * @ref STEAMWORKS_NET_FAKE_IP_TYPE
- * @ref STEAMWORKS_NET_IDENTITY_TYPE
- * @ref STEAMWORKS_NET_AVAILABILITY
- * @ref STEAMWORKS_NET_CONNECTION_STATE
- * @ref STEAMWORKS_NET_SEND_FLAG
+ * @ref steam_net_fake_ip_type
+ * @ref steam_net_identity_type
+ * @ref steam_net_availability
+ * @ref steam_net_send_flag
+ * @ref steam_net_connection_state
  * @section_end
  * 
  * @section_struct Structs

@@ -18,19 +18,19 @@
  * @member {string} event_type The string `"steam_net_message_on_session_request"`
  * @member {int64} steamid The user's Steam ID
  * @member {string} identity_string The identity string
- * @member {constant.STEAMWORKS_NET_IDENTITY_TYPE} identity_type The type of identity
+ * @member {constant.steam_net_identity_type} identity_type The type of identity
  * @member {string} ip IP address including the port number
  * @member {bool} is_local_host Whether this identity is localhost
- * @member {constant.STEAMWORKS_NET_FAKE_IP_TYPE} fake_ip_type The fake IP type
+ * @member {constant.steam_net_fake_ip_type} fake_ip_type The fake IP type
  * @event_end
  * 
  * @event steam
  * @desc This event is triggered when we fail to establish a connection, or we detect that communications have been disrupted in an unusual way.
  * @member {string} event_type The string `"steam_net_message_on_session_failed"`
  * @member {int64} steamid The user's Steam ID
- * @member {constant.STEAMWORKS_NET_CONNECTION_STATE} state The high level state of the connection
+ * @member {constant.steam_net_connection_state} state The high level state of the connection
  * @member {real} end_reason The basic cause of the connection termination or problem (one of [ESteamNetConnectionEnd](partner.steamgames.com/doc/api/steamnetworkingtypes#ESteamNetConnectionEnd))
- * @member {constant.STEAMWORKS_NET_SEND_FLAG} flags The send flags
+ * @member {constant.steam_net_send_flag} flags The send flags
  * @member {int64} user_data Arbitrary user data set by the local application code
  * @member {real} listen_socket Handle to listen socket this was connected on (0 indicates invalid)
  * @member {real} remote_pop What data center is the remote host in?  (0 if we don't know.)
@@ -65,7 +65,7 @@
  * @param {real} channel The local channel number
  * @param {buffer} buffer The buffer containing the data
  * @param {real} size The number of bytes to send
- * @param {constant.STEAMWORKS_NET_SEND_FLAG} send_flags The send flags to use
+ * @param {constant.steam_net_send_flag} send_flags The send flags to use
  * 
  * @returns {real} -1 on error, positive values indicate a Steam [EResult](https://partner.steamgames.com/doc/api/steam_api#EResult) code
  * 
