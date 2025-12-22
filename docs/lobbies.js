@@ -7,10 +7,10 @@
  * @returns {boolean}
  * 
  * @event steam (when an invitation is accepted)
+ * @desc This event is triggered when the user tries to join a lobby from their friends list or from an invite. The game client should attempt to connect to specified lobby when this is received.
  * @member {string} event_type The string value `"lobby_join_requested"`
- * @member {int64} lobby_id The lobby unique identifier
- * @member {boolean} success Whether or not the task was successful
- * @member {real} result The code of the result
+ * @member {int64} lobby_id The Steam ID of the lobby to connect to.
+ * @member {int64} friend_id The friend they joined through. This will be invalid if not directly via a friend.
  * @event_end
  * 
  * @example
@@ -32,7 +32,7 @@
  * 
  * @event steam
  * @member {string} event_type The string value `"lobby_created"`
- * @member {int64} lobby_id The name of the lobby
+ * @member {int64} lobby_id The ID of the lobby
  * @member {real} success Whether or not the request was successful
  * @member {boolean} result The status code (descriptions can be found in Steam API documentation)
  * @event_end
