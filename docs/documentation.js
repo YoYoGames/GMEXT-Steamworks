@@ -4,6 +4,7 @@
  * @desc This section is for those users that have been given access to the Steam API for publishing your game to that platform. To be able to use these functions you *must* have been accepted onto Steam previously, either through a publisher or through the self-publishing system.
  * 
  * @section Guides
+ * @desc These are the guides for the Steamworks extension:
  * @ref page.guides
  * @section_end
  * 
@@ -28,6 +29,8 @@
  * @ref module.social
  * @ref module.inventory
  * @ref module.networking
+ * @ref module.networking_sockets
+ * @ref module.networking_messages
  * @ref module.input
  * @ref module.music
  * @ref module.timeline

@@ -43,6 +43,118 @@
 */
 
 /**
+ * @func steam_get_current_beta_name
+ * @desc This function returns the name of the beta branch the user is currently opted into.
+ * 
+ * An empty string `""` is returned if:
+ * * Steam is not initialised
+ * * The user is not in a beta
+ * * `SteamApps()->GetCurrentBetaName()` returns `false`
+ * 
+ * [[Note: This returns only the active beta name, not all available betas.]]
+ * 
+ * @returns {string} The beta name, or an empty string `""`
+ * @example
+ * ```gml
+ * var _beta_num = steam_get_num_betas();
+ * if (_beta_num.available > 0)
+ * {
+ *     var _beta_info = steam_get_beta_info(0);
+ *     var _name = _beta_info.name;
+ *     var _result = steam_set_active_beta(_name);
+ *     show_debug_message($"Active beta set to \"{_name}\": {_result}");
+ * }
+ * show_debug_message($"Current beta: {steam_get_current_beta_name()}");
+ * ```
+ * This code first retrieves information on the number of beta branches with a call to ${function.steam_get_num_betas}. It then checks if there are any public betas available and, if there are, gets the info of the first beta using ${function.steam_get_beta_info}.
+ * After that, an attempt is made to set the active beta to the beta for which the info was retrieved using ${function.steam_set_active_beta} and a debug message is output to show whether this succeeded or not.
+ * Finally, another debug message is output showing the name of the current beta.
+ * @func_end
+ */
+
+/**
+ * @func steam_get_num_betas
+ * @desc This function returns the number of beta branches available for this app.
+ * 
+ * [[Note: If Steam is not initialized, an empty struct is returned.]]
+ * 
+ * @returns {struct.BetaNumInfo}
+ * @example
+ * ```gml
+ * var _beta_num = steam_get_num_betas();
+ * if (_beta_num.available > 0)
+ * {
+ *     var _beta_info = steam_get_beta_info(0);
+ *     var _name = _beta_info.name;
+ *     var _result = steam_set_active_beta(_name);
+ *     show_debug_message($"Active beta set to \"{_name}\": {_result}");
+ * }
+ * show_debug_message($"Current beta: {steam_get_current_beta_name()}");
+ * ```
+ * This code first retrieves information on the number of beta branches with a call to ${function.steam_get_num_betas}. It then checks if there are any public betas available and, if there are, gets the info of the first beta using ${function.steam_get_beta_info}.
+ * After that, an attempt is made to set the active beta to the beta for which the info was retrieved using ${function.steam_set_active_beta} and a debug message is output to show whether this succeeded or not.
+ * Finally, another debug message is output showing the name of the current beta.
+ * @func_end
+ */
+
+/**
+ * @func steam_get_beta_info
+ * @desc This function retrieves information about a beta branch by its index.
+ * 
+ * [[Note: This does not validate the index; invalid indexes return an empty struct.]]
+ * 
+ * @param {real} beta_index The index from 0 to (total_betas - 1), or the index values provided by Steam
+ * 
+ * @returns {struct.BetaInfo} A struct holding information on the beta, or an empty struct if anything went wrong
+ * @example
+ * ```gml
+ * var _beta_num = steam_get_num_betas();
+ * if (_beta_num.available > 0)
+ * {
+ *     var _beta_info = steam_get_beta_info(0);
+ *     var _name = _beta_info.name;
+ *     var _result = steam_set_active_beta(_name);
+ *     show_debug_message($"Active beta set to \"{_name}\": {_result}");
+ * }
+ * show_debug_message($"Current beta: {steam_get_current_beta_name()}");
+ * ```
+ * This code first retrieves information on the number of beta branches with a call to ${function.steam_get_num_betas}. It then checks if there are any public betas available and, if there are, gets the info of the first beta using ${function.steam_get_beta_info}.
+ * After that, an attempt is made to set the active beta to the beta for which the info was retrieved using ${function.steam_set_active_beta} and a debug message is output to show whether this succeeded or not.
+ * Finally, another debug message is output showing the name of the current beta.
+ * @func_end
+ */
+
+/**
+ * @func steam_set_active_beta
+ * @desc This function attempts to change the current active beta branch to the one specified.
+ * 
+ * [[Note: Steam must restart for the change to take effect. This matches `SteamApps()->SetActiveBeta()` behavior.]]
+ * 
+ * The functions returns `true` when successfully switched to the beta branch, `false` if switching failed (invalid name, private beta requiring password, Steam not initialised).
+ * 
+ * @param {string} beta_name The exact name of the beta branch (e.g., `"public"`, `"experimental"`, `"legacy"`)
+ * 
+ * @returns {bool} 
+ * @example
+ * ```gml
+ * var _beta_num = steam_get_num_betas();
+ * if (_beta_num.available > 0)
+ * {
+ *     var _beta_info = steam_get_beta_info(0);
+ *     var _name = _beta_info.name;
+ *     var _result = steam_set_active_beta(_name);
+ *     show_debug_message($"Active beta set to \"{_name}\": {_result}");
+ * }
+ * show_debug_message($"Current beta: {steam_get_current_beta_name()}");
+ * ```
+ * This code first retrieves information on the number of beta branches with a call to ${function.steam_get_num_betas}. It then checks if there are any public betas available and, if there are, gets the info of the first beta using ${function.steam_get_beta_info}.
+ * After that, an attempt is made to set the active beta to the beta for which the info was retrieved using ${function.steam_set_active_beta} and a debug message is output to show whether this succeeded or not.
+ * Finally, another debug message is output showing the name of the current beta.
+ * @func_end
+ */
+
+
+/**
  * @func steam_get_app_id
  * @desc This function is used retrieve the unique app ID that Steam assigns to your game, which is required for using some of the ${module.ugc} functions.
  * 
@@ -327,8 +439,33 @@
  * ```gml
  * steam_set_warning_message_hook();
  * ```
- * The above code start Steamworks logging messages in console.
+ * The above code starts Steamworks logging messages to the console.
  * @func_end
+ */
+
+// STRUCTS
+
+/**
+ * @struct BetaNumInfo
+ * @desc This struct holds info on the number of beta branches.
+ * 
+ * @member {real} total The total number of betas (including private ones)
+ * @member {real} available The number of public betas available
+ * @member {real} private The number of private betas available
+ * 
+ * @struct_end
+ */
+
+/**
+ * @struct BetaInfo
+ * @desc This struct contains information on a beta branch.
+ * 
+ * @member {real} flags The beta flags
+ * @member {real} buildID The build ID
+ * @member {string} name The name of the beta branch
+ * @member {string} description The description of the beta branch
+ * 
+ * @struct_end
  */
 
 // MODULES
@@ -340,6 +477,10 @@
  * @section_func
  * @ref steam_initialised
  * @ref steam_stats_ready
+ * @ref steam_get_current_beta_name
+ * @ref steam_get_num_betas
+ * @ref steam_get_beta_info
+ * @ref steam_set_active_beta
  * @ref steam_get_app_id
  * @ref steam_get_user_account_id
  * @ref steam_get_user_steam_id
@@ -354,6 +495,12 @@
  * @ref steam_available_languages
  * @ref steam_is_subscribed
  * @ref steam_set_warning_message_hook
+ * @section_end
+ * 
+ * @section_struct
+ * @desc These are the structs used by the functions in this module:
+ * @ref BetaInfo
+ * @ref BetaNumInfo
  * @section_end
  * @module_end
  */
