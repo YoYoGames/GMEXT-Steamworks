@@ -403,7 +403,7 @@ YYEXPORT void steam_net_sockets_send_messages(
     std::vector<SteamNetworkingMessage_t*> msgs(n, nullptr);
     std::vector<int64> results(n, 0);
 
-    // Allocate all message objects first so we don’t leak payload on partial failure
+    // Allocate all message objects first so we donï¿½t leak payload on partial failure
     for (int i = 0; i < n; ++i)
     {
         msgs[i] = pUtils->AllocateMessage(0); // we provide our own payload
@@ -1164,7 +1164,7 @@ YYEXPORT void steam_net_sockets_get_authentication_status(
 //        return;
 //    }
 //
-//    // Read GML args – keep order exactly as you already expose them
+//    // Read GML args ï¿½ keep order exactly as you already expose them
 //    int64 steamID64 = (int64)YYGetInt64(args, 0);
 //    int   remoteVirtPort = (int)YYGetReal(args, 1);
 //    int   parsedBufIndex = (int)YYGetReal(args, 2);
@@ -1189,7 +1189,7 @@ YYEXPORT void steam_net_sockets_get_authentication_status(
 //    int seconds_left = p->FindRelayAuthTicketForServer(
 //        id,
 //        remoteVirtPort,
-//        nullptr  // SteamDatagramRelayAuthTicket* — we ignore it
+//        nullptr  // SteamDatagramRelayAuthTicket* ï¿½ we ignore it
 //    );
 //
 //    // Return seconds until expiry (0 = no ticket, >0 = time left, <0 = error)
@@ -1278,7 +1278,7 @@ YYEXPORT void steam_net_sockets_get_authentication_status(
 //
 //    EResult er = p->GetHostedDedicatedServerAddress(pRouting);
 //
-//    // We don't do memcpy – Steam already wrote the struct directly into the buffer.
+//    // We don't do memcpy ï¿½ Steam already wrote the struct directly into the buffer.
 //    // Caller just gets 'er' and the raw bytes in routing_buf.
 //
 //    Result.kind = VALUE_REAL;
