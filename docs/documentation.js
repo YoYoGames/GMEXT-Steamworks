@@ -34,6 +34,7 @@
  * @ref module.input
  * @ref module.music
  * @ref module.timeline
+ * @ref module.parties
  * @ref module.utilities
  * @section_end
  * 

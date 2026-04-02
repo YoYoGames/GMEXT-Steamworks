@@ -97,6 +97,7 @@
 		6ACC18882F7E7EAA00A13300 /* steam_networking_sockets.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6ACC18872F7E7EAA00A13300 /* steam_networking_sockets.cpp */; };
 		6ACC18892F7E7EAA00A13300 /* steam_networking_messages.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6ACC18862F7E7EAA00A13300 /* steam_networking_messages.cpp */; };
 		841840742C9B6097008B2B96 /* steam_timeline.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 841840732C9B6097008B2B96 /* steam_timeline.cpp */; };
+		8418407600000001008B2B96 /* steam_parties.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8418407500000001008B2B96 /* steam_parties.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -206,6 +207,7 @@
 		6ACC18862F7E7EAA00A13300 /* steam_networking_messages.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = steam_networking_messages.cpp; sourceTree = "<group>"; };
 		6ACC18872F7E7EAA00A13300 /* steam_networking_sockets.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = steam_networking_sockets.cpp; sourceTree = "<group>"; };
 		841840732C9B6097008B2B96 /* steam_timeline.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = steam_timeline.cpp; sourceTree = "<group>"; };
+		8418407500000001008B2B96 /* steam_parties.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = steam_parties.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -348,6 +350,7 @@
 				6A2A82752934DAD3002B2CE5 /* steam_utils.cpp */,
 				6A2A82722934DAD3002B2CE5 /* steam_workshop.cpp */,
 				841840732C9B6097008B2B96 /* steam_timeline.cpp */,
+				8418407500000001008B2B96 /* steam_parties.cpp */,
 			);
 			name = GMSteam;
 			path = ../steamworks_cpp/GMLSteam;
@@ -492,6 +495,7 @@
 				6A7D31FA2B9244640062496A /* steam_music.cpp in Sources */,
 				6A2A82A72934DAD3002B2CE5 /* steam_matchmaking.cpp in Sources */,
 				841840742C9B6097008B2B96 /* steam_timeline.cpp in Sources */,
+				8418407600000001008B2B96 /* steam_parties.cpp in Sources */,
 				2BC97897287F3DAD0079F3E2 /* DesktopExtensionTools.mm in Sources */,
 				2BDE09A0278F97E60090737D /* pch.cpp in Sources */,
 				6A2A82992934DAD3002B2CE5 /* steam_glue.cpp in Sources */,
