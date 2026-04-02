@@ -16,19 +16,23 @@ Steamworks is a set of tools and services that help game developers and publishe
 
 ## FEATURES 
 
-- General API
-- Achievements
-- Statistics
+- General
+- Overlay
 - Leaderboards
-- Cloud Storage
+- Lobbies
+- Achievements
+- Cloud
 - DLC
 - UGC
-- Network
-- Matchmaking
-- Lobby
+- Social
 - Inventory
+- Networking
 - Input
-- Timelines
+- Music
+- Timeline
+- Networking Messages
+- Networking Sockets
+- Utilities
 
 ## DOCUMENTATION
 
