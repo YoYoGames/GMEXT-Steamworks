@@ -25,4 +25,5 @@
  * ${module.timeline}
  * ${module.networking_messages}
  * ${module.networking_sockets}
+ * ${module.parties}
  * ${module.utilities}

@@ -347,3 +347,21 @@ enum STEAMWORKS_NET_CONNECTION_END
 
 	MISC_MAX = 5999,
 };
+
+
+// ISteamParties beacon location types (ESteamPartyBeaconLocationType)
+enum STEAMWORKS_PARTY_BEACON_LOCATION_TYPE
+{
+	INVALID = 0,
+	CHAT_GROUP = 1,
+};
+
+// ISteamParties beacon location data types (ESteamPartyBeaconLocationData)
+enum STEAMWORKS_PARTY_BEACON_LOCATION_DATA
+{
+	INVALID = 0,
+	NAME = 1,
+	ICON_URL_SMALL = 2,
+	ICON_URL_MEDIUM = 3,
+	ICON_URL_LARGE = 4,
+};
