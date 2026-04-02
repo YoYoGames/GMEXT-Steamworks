@@ -23,4 +23,6 @@
  * ${module.input}
  * ${module.music}
  * ${module.timeline}
+ * ${module.networking_messages}
+ * ${module.networking_sockets}
  * ${module.utilities}

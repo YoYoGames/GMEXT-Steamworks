@@ -1,0 +1,2255 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="img/favicon.ico" />
+    <title>Networking Sockets - GMEXT-Steamworks</title>
+    <link rel="stylesheet" href="css/theme.css" />
+    <link rel="stylesheet" href="css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+        <link href="assets/css/gmext_style.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Networking Sockets";
+        var mkdocs_page_input_path = "networking_sockets.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/gml.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="." class="icon icon-home"> GMEXT-Steamworks
+        </a>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="home.html">Steamworks Extension</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="guides.html">Setup Guide (IDE/Runtime 2022.6+)</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="management.html">Management</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="general.html">General</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="overlay.html">Overlay</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="leaderboards.html">Leaderboards</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="lobbies.html">Lobbies and Matchmaking</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="achievements.html">Stats and Achievements</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="cloud.html">Cloud</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="dlc.html">DLC</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="ugc.html">UGC</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="social.html">Social</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="inventory.html">Inventory</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="networking.html">Networking</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="input.html">Input</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="music.html">Music</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="timeline.html">Timeline</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="networking_messages.html">Networking Messages</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="#">Networking Sockets</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#connection-status-callback">Connection Status Callback</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#basic-sockets">Basic Sockets</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#socket-pair-local-connection">Socket Pair (Local Connection)</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#send-receive-messages">Send / Receive Messages</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#poll-groups">Poll Groups</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#connection-info">Connection Info</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#user-data-connection-name">User Data / Connection Name</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#connection-lanes">Connection Lanes</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#addresses-identity-auth">Addresses / Identity / Auth</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#constants">Constants</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#structs">Structs</a>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="utilities.html">Utilities</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href=".">GMEXT-Steamworks</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Networking Sockets</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/YoYoGames/GMEXT-Steamworks/edit/master/docs/networking_sockets.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <p><a id="top"></a></p>
+<h1 id="networking-sockets"><strong>Networking Sockets</strong></h1>
+<blockquote>
+<p><strong>Steamworks Interface</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamNetworkingSockets">ISteamNetworkingSockets</a></p>
+</blockquote>
+<p>The Networking Sockets module of the Steam extension provides a networking API similar to Berkeley sockets, but for games.</p>
+<ul>
+<li>It's a connection-oriented API (like TCP, not UDP). When sending and receiving messages, the peer is identified using a connection handle.</li>
+<li>But unlike TCP, it's message-oriented, not stream-oriented. (The boundaries between the messages are maintained by the API.)</li>
+<li>Both reliable and unreliable messages are supported.</li>
+<li>Large messages are split into multiple packets, small messages are combined into fewer packets.</li>
+<li>A robust ACK / reassembly / retransmission strategy.</li>
+<li>Strong encryption and authentication. When a player connects, you can be sure that if a certain SteamID is authenticated, that someone who has access to that person's account has authorized the connection. Eavesdropping / tampering requires hacking into the VAC-secured process. Impersonation requires access to the target's computer.</li>
+<li>Supports relayed connections through the Valve network. This prevents IP addresses from being revealed, protecting your players and gameservers from attack.</li>
+<li>Also supports standard connectivity over plain UDP using IPv4 or IPv6.</li>
+</ul>
+<p>See: <a href="https://partner.steamgames.com/doc/features/multiplayer/networking">Steam Networking</a></p>
+<h2 id="connection-status-callback">Connection Status Callback</h2>
+<p>This callback is triggered <em>any</em> time a connection changes state. This includes new incoming connections, successful outgoing connections, disconnections, failures, and transitions between internal states.</p>
+<p>Steam will invoke this callback automatically whenever:</p>
+<ol>
+<li>A remote peer starts connecting to your listen socket (incoming P2P or IP connection request)</li>
+<li>You call <a href="networking_sockets.html#steam_net_sockets_connect_p2p">steam_net_sockets_connect_p2p</a> or <a href="networking_sockets.html#steam_net_sockets_connect_by_ip">steam_net_sockets_connect_by_ip</a> and the connection progresses through states:</li>
+<li>Connecting</li>
+<li>Finding Route</li>
+<li>Connected</li>
+<li>The connection encounters a problem:</li>
+<li>Timed out</li>
+<li>Lost route</li>
+<li>Ended by peer</li>
+<li>Rejected</li>
+<li>You call <a href="networking_sockets.html#steam_net_sockets_accept_connection">steam_net_sockets_accept_connection</a>, <a href="networking_sockets.html#steam_net_sockets_close_connection">steam_net_sockets_close_connection</a>, etc.</li>
+<li>Steam networking changes internal routing state (e.g., switching to relays, NAT punch-through events)</li>
+</ol>
+<p>The extension will trigger a <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a> of <code>event_type</code> <code>"steam_net_message_on_state_change"</code> for callbacks of this type.</p>
+<h2 id="basic-sockets">Basic Sockets</h2>
+<p>These are the basic functions for working with sockets:</p>
+<ul>
+<li><a href="networking_sockets.html#steam_net_sockets_create_listen_socket_ip">steam_net_sockets_create_listen_socket_ip</a></li>
+<li><a href="networking_sockets.html#steam_net_sockets_connect_by_ip">steam_net_sockets_connect_by_ip</a></li>
+<li><a href="networking_sockets.html#steam_net_sockets_create_listen_socket_p2p">steam_net_sockets_create_listen_socket_p2p</a></li>
+<li><a href="networking_sockets.html#steam_net_sockets_connect_p2p">steam_net_sockets_connect_p2p</a></li>
+<li><a href="networking_sockets.html#steam_net_sockets_accept_connection">steam_net_sockets_accept_connection</a></li>
+<li><a href="networking_sockets.html#steam_net_sockets_close_connection">steam_net_sockets_close_connection</a></li>
+<li><a href="networking_sockets.html#steam_net_sockets_close_listen_socket">steam_net_sockets_close_listen_socket</a></li>
+</ul>
+<h2 id="socket-pair-local-connection">Socket Pair (Local Connection)</h2>
+<p>These functions allow working with socket pairs:</p>
+<ul>
+<li><a href="networking_sockets.html#steam_net_sockets_create_socket_pair">steam_net_sockets_create_socket_pair</a></li>
+</ul>
+<h2 id="send-receive-messages">Send / Receive Messages</h2>
+<p>The following functions can be used to send/receive messages:</p>
+<ul>
+<li><a href="networking_sockets.html#steam_net_sockets_send_message">steam_net_sockets_send_message</a></li>
+<li><a href="networking_sockets.html#steam_net_sockets_send_messages">steam_net_sockets_send_messages</a></li>
+<li><a href="networking_sockets.html#steam_net_sockets_flush_messages_on_connection">steam_net_sockets_flush_messages_on_connection</a></li>
+<li><a href="networking_sockets.html#steam_net_sockets_recv_messages_on_connection">steam_net_sockets_recv_messages_on_connection</a></li>
+</ul>
+<h2 id="poll-groups">Poll Groups</h2>
+<p>The following functions can be used to create and use poll groups:</p>
+<ul>
+<li><a href="networking_sockets.html#steam_net_sockets_create_poll_group">steam_net_sockets_create_poll_group</a></li>
+<li><a href="networking_sockets.html#steam_net_sockets_destroy_poll_group">steam_net_sockets_destroy_poll_group</a></li>
+<li><a href="networking_sockets.html#steam_net_sockets_set_connection_poll_group">steam_net_sockets_set_connection_poll_group</a></li>
+<li><a href="networking_sockets.html#steam_net_sockets_recv_messages_on_poll_group">steam_net_sockets_recv_messages_on_poll_group</a></li>
+</ul>
+<h2 id="connection-info">Connection Info</h2>
+<p>The following functions provide info about a connection:</p>
+<ul>
+<li><a href="networking_sockets.html#steam_net_sockets_get_connection_info">steam_net_sockets_get_connection_info</a></li>
+<li><a href="networking_sockets.html#steam_net_sockets_get_connection_real_time_status">steam_net_sockets_get_connection_real_time_status</a></li>
+<li><a href="networking_sockets.html#steam_net_sockets_get_detailed_connection_status">steam_net_sockets_get_detailed_connection_status</a></li>
+</ul>
+<h2 id="user-data-connection-name">User Data / Connection Name</h2>
+<p>These functions get info on user data and the connection name:</p>
+<ul>
+<li><a href="networking_sockets.html#steam_net_sockets_set_connection_user_data">steam_net_sockets_set_connection_user_data</a></li>
+<li><a href="networking_sockets.html#steam_net_sockets_get_connection_user_data">steam_net_sockets_get_connection_user_data</a></li>
+<li><a href="networking_sockets.html#steam_net_sockets_set_connection_name">steam_net_sockets_set_connection_name</a></li>
+<li><a href="networking_sockets.html#steam_net_sockets_get_connection_name">steam_net_sockets_get_connection_name</a></li>
+</ul>
+<h2 id="connection-lanes">Connection Lanes</h2>
+<p>The following function allows configuring connection lanes:</p>
+<ul>
+<li><a href="networking_sockets.html#steam_net_sockets_configure_connection_lanes">steam_net_sockets_configure_connection_lanes</a></li>
+</ul>
+<h2 id="addresses-identity-auth">Addresses / Identity / Auth</h2>
+<p>These functions are used to work with addresses, identities and authentication:</p>
+<ul>
+<li><a href="networking_sockets.html#steam_net_sockets_get_listen_socket_address">steam_net_sockets_get_listen_socket_address</a></li>
+<li><a href="networking_sockets.html#steam_net_sockets_get_identity">steam_net_sockets_get_identity</a></li>
+<li><a href="networking_sockets.html#steam_net_sockets_init_authentication">steam_net_sockets_init_authentication</a></li>
+<li><a href="networking_sockets.html#steam_net_sockets_get_authentication_status">steam_net_sockets_get_authentication_status</a></li>
+</ul>
+<h2 id="constants">Constants</h2>
+<p>These are the constants used by the Steam extension's networking sockets and messages modules:</p>
+<ul>
+<li><a href="networking_sockets.html#steam_net_fake_ip_type">steam_net_fake_ip_type</a></li>
+<li><a href="networking_sockets.html#steam_net_identity_type">steam_net_identity_type</a></li>
+<li><a href="networking_sockets.html#steam_net_availability">steam_net_availability</a></li>
+<li><a href="networking_sockets.html#steam_net_send_flag">steam_net_send_flag</a></li>
+<li><a href="networking_sockets.html#steam_net_connection_state">steam_net_connection_state</a></li>
+</ul>
+<h2 id="structs">Structs</h2>
+<p>These are the structs used by the Steam extension's networking sockets and messages modules:</p>
+<ul>
+<li><a href="networking_sockets.html#identity">Identity</a></li>
+<li><a href="networking_sockets.html#connectioninfo">ConnectionInfo</a></li>
+<li><a href="networking_sockets.html#connectionrealtimestatus">ConnectionRealTimeStatus</a></li>
+</ul>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_net_sockets_create_listen_socket_ip">steam_net_sockets_create_listen_socket_ip</h1>
+<blockquote>
+<p><strong>Steam Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamnetworkingSockets#CreateListenSocketIP">ISteamnetworkingSockets::CreateListenSocketIP</a></p>
+</blockquote>
+<p>This function creates a "server" socket that listens for clients to connect to by calling <a href="networking_sockets.html#steam_net_sockets_connect_by_ip">steam_net_sockets_connect_by_ip</a>, over ordinary UDP (IPv4 or IPv6). You must select a specific local port to listen on and set it as the port field of the local address.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<pre class="highlight"><code class="language-gml">steam_net_sockets_create_listen_socket_ip(ip, port)</code></pre>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ip</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The local IP address</td>
+</tr>
+<tr>
+<td>port</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The local port to listen on</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p>Listen socket handle (&gt;= 0) or -1</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_net_sockets_connect_by_ip">steam_net_sockets_connect_by_ip</h1>
+<blockquote>
+<p><strong>Steam Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamNetworkingSockets#ConnectByIPAddress">ISteamNetworkingSockets::ConnectByIPAddress</a></p>
+</blockquote>
+<p>This function creates a connection and begins talking to a "server" over UDP at the given IPv4 or IPv6 address. The remote host must be listening with a matching call to <a href="networking_sockets.html#steam_net_sockets_create_listen_socket_ip">steam_net_sockets_create_listen_socket_ip</a> on the specified port.</p>
+<p>A <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a> will be triggered when we start connecting, and then another one on either timeout or successful connection.</p>
+<p>This function operates asynchronously, which means that it does not immediately return the requested result. Instead, upon completion of the task, it will trigger the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<pre class="highlight"><code class="language-gml">steam_net_sockets_connect_by_ip(ip, port)</code></pre>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ip</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The IP address to connect to</td>
+</tr>
+<tr>
+<td>port</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The port to connect to</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p>Connection handle (&gt;= 0) or -1</p>
+<p><br></p>
+<p><strong>Triggers:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a></p>
+</blockquote>
+<p>This event is triggered whenever a connection is created, destroyed, or changes state.</p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>event_type</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The string <code>"steam_net_message_on_state_change"</code></td>
+</tr>
+<tr>
+<td>connection</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The connection handle</td>
+</tr>
+<tr>
+<td>state</td>
+<td><a href="networking_sockets.html#steam_net_connection_state">steam_net_connection_state</a></td>
+<td>The current state</td>
+</tr>
+<tr>
+<td>old_state</td>
+<td><a href="networking_sockets.html#steam_net_connection_state">steam_net_connection_state</a></td>
+<td>The previous state</td>
+</tr>
+<tr>
+<td>end_reason</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The end reason (one of <a href="https://partner.steamgames.com/doc/api/steamnetworkingtypes#ESteamNetConnectionEnd">ESteamNetConnectionEnd</a>)</td>
+</tr>
+<tr>
+<td>debug</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>A debug message</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_net_sockets_create_listen_socket_p2p">steam_net_sockets_create_listen_socket_p2p</h1>
+<blockquote>
+<p><strong>Steam Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamNetworkingSockets#CreateListenSocketP2P">ISteamNetworkingSockets::CreateListenSocketP2P</a></p>
+</blockquote>
+<p>This function works like <a href="networking_sockets.html#steam_net_sockets_create_listen_socket_ip">steam_net_sockets_create_listen_socket_ip</a>, but clients will connect using <a href="networking_sockets.html#steam_net_sockets_connect_p2p">steam_net_sockets_connect_p2p</a>. The connection will be relayed through the Valve network.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<pre class="highlight"><code class="language-gml">steam_net_sockets_create_listen_socket_p2p(local_virtual_port)</code></pre>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>local_virtual_port</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>This specifies how clients can connect to this socket using <a href="networking_sockets.html#steam_net_sockets_connect_p2p">steam_net_sockets_connect_p2p</a>. It's very common for applications to only have one listening socket; in that case, use zero. If you need to open multiple listen sockets and have clients be able to connect to one or the other, then this should be a small integer (&lt;1000) unique to each listen socket you create.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p>Listen socket handle (&gt;= 0) or -1</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_net_sockets_connect_p2p">steam_net_sockets_connect_p2p</h1>
+<blockquote>
+<p><strong>Steam Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamNetworkingSockets#ConnectP2P">ISteamNetworkingSockets::ConnectP2P</a></p>
+</blockquote>
+<p>This function begins connecting to a peer that is identified using a platform-specific identifier. This uses the default rendezvous service, which depends on the platform and library configuration. (E.g. on Steam, it goes through the Steam backend.) The traffic is relayed over the Steam Datagram Relay network.</p>
+<p>This function operates asynchronously, which means that it does not immediately return the requested result. Instead, upon completion of the task, it will trigger the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<pre class="highlight"><code class="language-gml">steam_net_sockets_connect_p2p(steam_id64, virtual_port)</code></pre>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>steam_id64</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Int64</a></td>
+<td>The SteamID to connect to</td>
+</tr>
+<tr>
+<td>virtual_port</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The virtual port to use</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p>Connection handle (&gt;= 0) or -1</p>
+<p><br></p>
+<p><strong>Triggers:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a></p>
+</blockquote>
+<p>This event is triggered whenever a connection is created, destroyed, or changes state.</p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>event_type</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The string <code>"steam_net_message_on_state_change"</code></td>
+</tr>
+<tr>
+<td>connection</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The connection handle</td>
+</tr>
+<tr>
+<td>state</td>
+<td><a href="networking_sockets.html#steam_net_connection_state">steam_net_connection_state</a></td>
+<td>The current state</td>
+</tr>
+<tr>
+<td>old_state</td>
+<td><a href="networking_sockets.html#steam_net_connection_state">steam_net_connection_state</a></td>
+<td>The previous state</td>
+</tr>
+<tr>
+<td>end_reason</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The end reason (one of <a href="https://partner.steamgames.com/doc/api/steamnetworkingtypes#ESteamNetConnectionEnd">ESteamNetConnectionEnd</a>)</td>
+</tr>
+<tr>
+<td>debug</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>A debug message</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_net_sockets_accept_connection">steam_net_sockets_accept_connection</h1>
+<blockquote>
+<p><strong>Steam Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamNetworkingSockets#AcceptConnection">ISteamNetworkingSockets::AcceptConnection</a></p>
+</blockquote>
+<p>This function accepts an incoming connection that has been received on a listen socket.</p>
+<p>This function operates asynchronously, which means that it does not immediately return the requested result. Instead, upon completion of the task, it will trigger the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<pre class="highlight"><code class="language-gml">steam_net_sockets_accept_connection(connection)</code></pre>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>connection</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The connection handle</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p>The Steam <a href="https://partner.steamgames.com/doc/api/steam_api#EResult">EResult</a> code</p>
+<p><br></p>
+<p><strong>Triggers:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a></p>
+</blockquote>
+<p>This event is triggered whenever a connection is created, destroyed, or changes state.</p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>event_type</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The string <code>"steam_net_message_on_state_change"</code></td>
+</tr>
+<tr>
+<td>connection</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The connection handle</td>
+</tr>
+<tr>
+<td>state</td>
+<td><a href="networking_sockets.html#steam_net_connection_state">steam_net_connection_state</a></td>
+<td>The current state</td>
+</tr>
+<tr>
+<td>old_state</td>
+<td><a href="networking_sockets.html#steam_net_connection_state">steam_net_connection_state</a></td>
+<td>The previous state</td>
+</tr>
+<tr>
+<td>end_reason</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The end reason (one of <a href="https://partner.steamgames.com/doc/api/steamnetworkingtypes#ESteamNetConnectionEnd">ESteamNetConnectionEnd</a>)</td>
+</tr>
+<tr>
+<td>debug</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>A debug message</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_net_sockets_close_connection">steam_net_sockets_close_connection</h1>
+<blockquote>
+<p><strong>Steam Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamNetworkingSockets#CloseConnection">ISteamNetworkingSockets::CloseConnection</a></p>
+</blockquote>
+<p>This function disconnects from the remote host and invalidates the connection handle. Any unread data on the connection is discarded.</p>
+<p>This function operates asynchronously, which means that it does not immediately return the requested result. Instead, upon completion of the task, it will trigger the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<pre class="highlight"><code class="language-gml">steam_net_sockets_close_connection(connection, reason, debug=undefined, linger)</code></pre>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>connection</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The connection to a peer</td>
+</tr>
+<tr>
+<td>reason</td>
+<td><a href="networking_sockets.html#steam_net_connection_state">steam_net_connection_state</a></td>
+<td>An application defined code that will be received on the other end and recorded (when possible) in backend analytics</td>
+</tr>
+<tr>
+<td>debug</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>An optional human-readable diagnostic string that will be received by the remote host and recorded (when possible) in backend analytics</td>
+</tr>
+<tr>
+<td>linger</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></td>
+<td>Set to <code>true</code> to attempt to deliver any remaining outbound reliable messages before actually closing the connection. Otherwise any unsent reliable data is discarded.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Triggers:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a></p>
+</blockquote>
+<p>This event is triggered whenever a connection is created, destroyed, or changes state.</p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>event_type</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The string <code>"steam_net_message_on_state_change"</code></td>
+</tr>
+<tr>
+<td>connection</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The connection handle</td>
+</tr>
+<tr>
+<td>state</td>
+<td><a href="networking_sockets.html#steam_net_connection_state">steam_net_connection_state</a></td>
+<td>The current state</td>
+</tr>
+<tr>
+<td>old_state</td>
+<td><a href="networking_sockets.html#steam_net_connection_state">steam_net_connection_state</a></td>
+<td>The previous state</td>
+</tr>
+<tr>
+<td>end_reason</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The end reason (one of <a href="https://partner.steamgames.com/doc/api/steamnetworkingtypes#ESteamNetConnectionEnd">ESteamNetConnectionEnd</a>)</td>
+</tr>
+<tr>
+<td>debug</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>A debug message</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_net_sockets_close_listen_socket">steam_net_sockets_close_listen_socket</h1>
+<blockquote>
+<p><strong>Steam Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamNetworkingSockets#CloseListenSocket">ISteamNetworkingSockets::CloseListenSocket</a></p>
+</blockquote>
+<p>This function destroys a listen socket. All the connections that were accepted on the listen socket are closed ungracefully.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<pre class="highlight"><code class="language-gml">steam_net_sockets_close_listen_socket(listen_socket)</code></pre>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>listen_socket</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The listen socket to destroy</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_net_sockets_create_socket_pair">steam_net_sockets_create_socket_pair</h1>
+<blockquote>
+<p><strong>Steam Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamNetworkingSockets#CreateSocketPair">ISteamNetworkingSockets::CreateSocketPair</a></p>
+</blockquote>
+<p>This function creates a pair of connections that are talking to each other, e.g. a loopback connection. This is very useful for testing, or so that your client/server code can work the same even when you are running a local "server".</p>
+<p>The two connections will immediately be placed into the connected state, and no callbacks will be posted immediately. After this, if you close either connection, the other connection will receive a callback, exactly as if they were communicating over the network. You must close <em>both</em> sides in order to fully clean up the resources!</p>
+<p>Note that this extension function doesn't support assigning a specific identity to either connection.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<pre class="highlight"><code class="language-gml">steam_net_sockets_create_socket_pair(use_loopback)</code></pre>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>use_loopback</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></td>
+<td>Set to <code>true</code> to cause the socket pair to send packets through the local network loopback device (127.0.0.1) on ephemeral ports. Fake lag and loss are supported in this case, and CPU time is expended to encrypt and decrypt.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Arrays.htm">Array</a> of <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Structs.htm">Struct</a></p>
+</blockquote>
+<p>An array holding a struct for each connection, with each struct having <code>connection</code> (<a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a>), <code>identity</code> (<a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a>) and <code>loopback</code> (<a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a>) variables</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_net_sockets_send_message">steam_net_sockets_send_message</h1>
+<blockquote>
+<p><strong>Steam Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamNetworkingSockets#SendMessageToConnection">ISteamNetworkingSockets::SendMessageToConnection</a></p>
+</blockquote>
+<p>This function sends a single message to the remote host on the specified connection.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<pre class="highlight"><code class="language-gml">steam_net_sockets_send_message(connection, buffer, size, send_flags)</code></pre>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>connection</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The connection to send the message to</td>
+</tr>
+<tr>
+<td>buffer</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Buffers/Buffers.htm">Buffer</a></td>
+<td>The buffer holding the message data to send</td>
+</tr>
+<tr>
+<td>size</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The number of bytes to send</td>
+</tr>
+<tr>
+<td>send_flags</td>
+<td><a href="networking_sockets.html#steam_net_send_flag">steam_net_send_flag</a></td>
+<td>A bitmask of send flags. Determines the delivery guarantees that will be provided, when data should be buffered, etc.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Structs.htm">Struct</a></p>
+</blockquote>
+<p>A struct holding the Steam <a href="https://partner.steamgames.com/doc/api/steam_api#EResult">EResult</a> code (<code>result</code>) and the message number assigned to the message (<code>message_id</code>), if sending was successful</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_net_sockets_send_messages">steam_net_sockets_send_messages</h1>
+<blockquote>
+<p><strong>Steam Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamNetworkingSockets#SendMessages">ISteamNetworkingSockets::SendMessages</a></p>
+</blockquote>
+<p>This function sends the same message to all connections in the provided array. This is the most efficient way to send messages.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<pre class="highlight"><code class="language-gml">steam_net_sockets_send_messages(connection_array, buffer, size, send_flags, lane=undefined)</code></pre>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>connection_array</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Arrays.htm">Array</a> of <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>An array storing the connection handles</td>
+</tr>
+<tr>
+<td>buffer</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Buffers/Buffers.htm">Buffer</a></td>
+<td>The buffer holding the message data to send</td>
+</tr>
+<tr>
+<td>size</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The number of bytes to send (-1 sends all of the buffer's contents)</td>
+</tr>
+<tr>
+<td>send_flags</td>
+<td><a href="networking_sockets.html#steam_net_send_flag">steam_net_send_flag</a></td>
+<td>A bitmask of send flags. Determines the delivery guarantees that will be provided, when data should be buffered, etc.</td>
+</tr>
+<tr>
+<td>lane</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The lane to use</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p>The Steam <a href="https://partner.steamgames.com/doc/api/steam_api#EResult">EResult</a> code, or -1 if an case of an error</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_net_sockets_flush_messages_on_connection">steam_net_sockets_flush_messages_on_connection</h1>
+<blockquote>
+<p><strong>Steam Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamNetworkingSockets#FlushMessagesOnConnection">ISteamNetworkingSockets::FlushMessagesOnConnection</a></p>
+</blockquote>
+<p>This function flushes any messages waiting on the Nagle timer and sends them at the next transmission opportunity (often that means right now).</p>
+<p>If Nagle is enabled (it's on by default) then when calling <a href="networking_sockets.html#steam_net_sockets_send_message">steam_net_sockets_send_message</a> the message will be buffered, up to the Nagle time before being sent, to merge small messages into the same packet. (See k_ESteamNetworkingConfig_NagleTime).</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<pre class="highlight"><code class="language-gml">steam_net_sockets_flush_messages_on_connection(connection)</code></pre>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>connection</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The connection handle</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p>The Steam <a href="https://partner.steamgames.com/doc/api/steam_api#EResult">EResult</a> code</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_net_sockets_recv_messages_on_connection">steam_net_sockets_recv_messages_on_connection</h1>
+<blockquote>
+<p><strong>Steam Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamNetworkingSockets#ReceiveMessagesOnConnection">ISteamNetworkingSockets::ReceiveMessagesOnConnection</a></p>
+</blockquote>
+<p>This function fetches the next available message(s) from the given connection (if any) and writes their data to the given buffer. It does this for up to up to <code>max_messages</code> messages.</p>
+<p>The function returns an array with a struct element containing offset and size for each message.</p>
+<p>A <code>max_size</code> value can also be specified to limit the number of bytes written.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<pre class="highlight"><code class="language-gml">steam_net_sockets_recv_messages_on_connection(connection, buffer, max_messages, max_size)</code></pre>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>connection</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The connection to receive messages on</td>
+</tr>
+<tr>
+<td>buffer</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Buffers/Buffers.htm">Buffer</a></td>
+<td>The buffer to write the messages to</td>
+</tr>
+<tr>
+<td>max_messages</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The maximum number of messages to retrieve (32 by default, capped to a maximum value of 256)</td>
+</tr>
+<tr>
+<td>max_size</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The maximum number of bytes to write in this function call for all messages combined</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Arrays.htm">Array</a> of <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Structs.htm">Struct</a></p>
+</blockquote>
+<p>An array containing structs with the <code>offset</code> (<a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a>) and <code>size</code> (<a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a>) of each message in the buffer and whether that message was <code>truncated</code> or not (<a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a>)</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_net_sockets_create_poll_group">steam_net_sockets_create_poll_group</h1>
+<blockquote>
+<p><strong>Steam Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamNetworkingSockets#CreatePollGroup">ISteamNetworkingSockets::CreatePollGroup</a></p>
+</blockquote>
+<p>This function creates a new poll group.</p>
+<p>You should destroy the poll group when you are done using <a href="networking_sockets.html#steam_net_sockets_destroy_poll_group">steam_net_sockets_destroy_poll_group</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<pre class="highlight"><code class="language-gml">steam_net_sockets_create_poll_group()</code></pre>
+</blockquote>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p>The poll group handle, or -1 in case something went wrong</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_net_sockets_destroy_poll_group">steam_net_sockets_destroy_poll_group</h1>
+<blockquote>
+<p><strong>Steam Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamNetworkingSockets#DestroyPollGroup">ISteamNetworkingSockets::DestroyPollGroup</a></p>
+</blockquote>
+<p>This function destroys a poll group created with <a href="networking_sockets.html#steam_net_sockets_create_poll_group">steam_net_sockets_create_poll_group</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<pre class="highlight"><code class="language-gml">steam_net_sockets_destroy_poll_group(poll_group)</code></pre>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>poll_group</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The poll group handle</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p>Whether successful or not</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_net_sockets_set_connection_poll_group">steam_net_sockets_set_connection_poll_group</h1>
+<blockquote>
+<p><strong>Steam Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamNetworkingSockets#SetConnectionPollGroup">ISteamNetworkingSockets::SetConnectionPollGroup</a></p>
+</blockquote>
+<p>This function assigns a connection to a poll group. Note that a connection may only belong to a single poll group. Adding a connection to a poll group implicitly removes it from any other poll group it is in.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<pre class="highlight"><code class="language-gml">steam_net_sockets_set_connection_poll_group(connection, poll_group)</code></pre>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>connection</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The connection handle</td>
+</tr>
+<tr>
+<td>poll_group</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The poll group to assign the connection to</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p>Whether successful or not</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_net_sockets_recv_messages_on_poll_group">steam_net_sockets_recv_messages_on_poll_group</h1>
+<blockquote>
+<p><strong>Steam Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamNetworkingSockets#ReceiveMessagesOnPollGroup">ISteamNetworkingSockets::ReceiveMessagesOnPollGroup</a></p>
+</blockquote>
+<p>This function is the same as <a href="networking_sockets.html#steam_net_sockets_recv_messages_on_connection">steam_net_sockets_recv_messages_on_connection</a>, but will return the next messages available on any connection in the poll group. Examine a struct's <code>connection</code> to know which connection.</p>
+<p>Delivery order of messages among different connections will usually match the order that the last packet was received which completed the message. But this is not a strong guarantee, especially for packets received right as a connection is being assigned to poll group.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<pre class="highlight"><code class="language-gml">steam_net_sockets_recv_messages_on_poll_group(poll_group, buffer, max_messages, max_size)</code></pre>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>poll_group</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The poll group on which to receive messages</td>
+</tr>
+<tr>
+<td>buffer</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Buffers/Buffers.htm">Buffer</a></td>
+<td>The buffer to write the messages to</td>
+</tr>
+<tr>
+<td>max_messages</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The maximum number of messages to write</td>
+</tr>
+<tr>
+<td>max_size</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The maximum number of bytes to write</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Arrays.htm">Array</a> of <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Structs.htm">Struct</a></p>
+</blockquote>
+<p>An array of structs holding <code>offset</code> (<a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a>) and <code>size</code> (<a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a>),  <code>connection</code> handle (<a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a>), <code>flags</code> (<a href="networking_sockets.html#steam_net_send_flag">steam_net_send_flag</a>) and <code>lane</code> (<a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a>) of each message</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_net_sockets_get_connection_info">steam_net_sockets_get_connection_info</h1>
+<blockquote>
+<p><strong>Steam Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamNetworkingSockets#GetConnectionInfo">ISteamNetworkingSockets::GetConnectionInfo</a></p>
+</blockquote>
+<p>This function returns a struct that holds basic information about the high-level state of the connection.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<pre class="highlight"><code class="language-gml">steam_net_sockets_get_connection_info(connection)</code></pre>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>connection</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The connection handle</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="networking_sockets.html#connectioninfo">ConnectionInfo</a></p>
+</blockquote>
+<p>Connection info struct, <code>undefined</code> if the information couldn't be retrieved, or the <a href="https://partner.steamgames.com/doc/api/steam_api#EResult">EResult</a> error code if the function returned an error</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_net_sockets_get_connection_real_time_status">steam_net_sockets_get_connection_real_time_status</h1>
+<blockquote>
+<p><strong>Steam Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamNetworkingSockets#GetConnectionRealTimeStatus">ISteamNetworkingSockets::GetConnectionRealTimeStatus</a></p>
+</blockquote>
+<p>This function returns a small set of information about the real-time state of the connection and the queue status of each lane.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<pre class="highlight"><code class="language-gml">steam_net_sockets_get_connection_real_time_status(connection)</code></pre>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>connection</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The connection handle</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="networking_sockets.html#connectionrealtimestatus">ConnectionRealTimeStatus</a></p>
+</blockquote>
+<p>A struct holding real-time info about the connection, the <a href="https://partner.steamgames.com/doc/api/steam_api#EResult">EResult</a> error code if the Steam function returned one, or <code>undefined</code> if there was another issue</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_net_sockets_get_detailed_connection_status">steam_net_sockets_get_detailed_connection_status</h1>
+<blockquote>
+<p><strong>Steam Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamNetworkingSockets#GetDetailedConnectionStatus">ISteamNetworkingSockets::GetDetailedConnectionStatus</a></p>
+</blockquote>
+<p>This function returns very detailed connection stats in diagnostic text format. Useful for dumping to a log, etc. The format of this information is subject to change.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<pre class="highlight"><code class="language-gml">steam_net_sockets_get_detailed_connection_status(connection, buffer)</code></pre>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>connection</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The connection handle</td>
+</tr>
+<tr>
+<td>buffer</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Buffers/Buffers.htm">Buffer</a></td>
+<td>The buffer to write the data to</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></p>
+</blockquote>
+<p>A string holding the connection status, or <code>undefined</code> if an error occurred</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_net_sockets_set_connection_user_data">steam_net_sockets_set_connection_user_data</h1>
+<blockquote>
+<p><strong>Steam Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamNetworkingSockets#SetConnectionUserData">ISteamNetworkingSockets::SetConnectionUserData</a></p>
+</blockquote>
+<p>This function sets connection user data. The data is used in the following places:</p>
+<ul>
+<li>You can query it using <a href="networking_sockets.html#steam_net_sockets_get_connection_user_data">steam_net_sockets_get_connection_user_data</a>.</li>
+<li>Networking messages (The Steam <code>SteamNetworkingMessage_t</code> structure.)</li>
+<li>The <a href="networking_sockets.html#connectioninfo">ConnectionInfo</a> struct.</li>
+</ul>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<pre class="highlight"><code class="language-gml">steam_net_sockets_set_connection_user_data(connection, user_data)</code></pre>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>connection</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The connection handle</td>
+</tr>
+<tr>
+<td>user_data</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Int64</a></td>
+<td>The user data</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><code>false</code> if the handle is invalid, <code>true</code> otherwise</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_net_sockets_get_connection_user_data">steam_net_sockets_get_connection_user_data</h1>
+<blockquote>
+<p><strong>Steam Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamNetworkingSockets#GetConnectionUserData">ISteamNetworkingSockets::GetConnectionUserData</a></p>
+</blockquote>
+<p>This fetches connection user data. Returns -1 if the handle is invalid or if you haven't set any user data on the connection.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<pre class="highlight"><code class="language-gml">steam_net_sockets_get_connection_user_data(connection)</code></pre>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>connection</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The connection handle</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Int64</a></p>
+</blockquote>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_net_sockets_set_connection_name">steam_net_sockets_set_connection_name</h1>
+<blockquote>
+<p><strong>Steam Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamNetworkingSockets#SetConnectionName">ISteamNetworkingSockets::SetConnectionName</a></p>
+</blockquote>
+<p>This function sets a name for the connection, used mostly for debugging.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<pre class="highlight"><code class="language-gml">steam_net_sockets_set_connection_name(connection, name)</code></pre>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>connection</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The connection handle</td>
+</tr>
+<tr>
+<td>name</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The name to use</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_net_sockets_get_connection_name">steam_net_sockets_get_connection_name</h1>
+<blockquote>
+<p><strong>Steam Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamNetworkingSockets#GetConnectionName">ISteamNetworkingSockets::GetConnectionName</a></p>
+</blockquote>
+<p>This function fetches the connection name, or returns an empty string <code>""</code> if the handle is invalid.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<pre class="highlight"><code class="language-gml">steam_net_sockets_get_connection_name(connection)</code></pre>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>connection</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The connection handle</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></p>
+</blockquote>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_net_sockets_configure_connection_lanes">steam_net_sockets_configure_connection_lanes</h1>
+<blockquote>
+<p><strong>Steam Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamNetworkingSockets#ConfigureConnectionLanes">ISteamNetworkingSockets::ConfigureConnectionLanes</a></p>
+</blockquote>
+<p>This function configures multiple outbound message streams ("lanes") on a connection, and controls head-of-line blocking between them. Messages within a given lane are always sent in the order they are queued, but messages from different lanes may be sent out of order. Each lane has its own message number sequence. The first message sent on each lane will be assigned the number 1.</p>
+<p>Each lane has a "priority". Lower priority lanes will only be processed when all higher-priority lanes are empty. The magnitudes of the priority values are not relevant, only their sort order. Higher numeric values take priority over lower numeric values.</p>
+<p>Each lane also is assigned a weight, which controls the approximate proportion of the bandwidth that will be consumed by the lane, relative to other lanes of the same priority. (This is assuming the lane stays busy. An idle lane does not build up "credits" to be spent once a message is queued.) This value is only meaningful as a proportion, relative to other lanes with the same priority. For lanes with different priorities, the strict priority order will prevail, and their weights relative to each other are not relevant. Thus, if a lane has a unique priority value, the weight value for that lane is not relevant.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<pre class="highlight"><code class="language-gml">steam_net_sockets_configure_connection_lanes(connection, lane_count, priorities_buffer, weights_buffer)</code></pre>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>connection</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The connection handle</td>
+</tr>
+<tr>
+<td>lane_count</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The number of lanes</td>
+</tr>
+<tr>
+<td>priorities_buffer</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Buffers/Buffers.htm">Buffer</a></td>
+<td>buffer storing the priorities as <code>buffer_s32</code> values</td>
+</tr>
+<tr>
+<td>weights_buffer</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Buffers/Buffers.htm">Buffer</a></td>
+<td>buffer storing the weights as <code>buffer_u16</code> values</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_net_sockets_get_listen_socket_address">steam_net_sockets_get_listen_socket_address</h1>
+<blockquote>
+<p><strong>Steam Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamNetworkingSockets#GetListenSocketAddress">ISteamNetworkingSockets::GetListenSocketAddress</a></p>
+</blockquote>
+<p>This function returns the local IP and port that a listen socket created using <a href="networking_sockets.html#steam_net_sockets_create_listen_socket_ip">steam_net_sockets_create_listen_socket_ip</a> is bound to.</p>
+<p>Specific IPv6/IPv4 addresses may be returned if you bound the socket to a particular interface.\
+An IPv6 address of ::0 means "any IPv4 or IPv6"\
+An IPv6 address of ::ffff:0000:0000 means "any IPv4"</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<pre class="highlight"><code class="language-gml">steam_net_sockets_get_listen_socket_address(listen_socket)</code></pre>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>listen_socket</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The listen socket</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></p>
+</blockquote>
+<p>A string holding the address as "ip:port", or an empty string <code>""</code> if the handle is invalid or the information is not available for that type of listen socket</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_net_sockets_get_identity">steam_net_sockets_get_identity</h1>
+<blockquote>
+<p><strong>Steam Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamNetworkingSockets#GetIdentity">ISteamNetworkingSockets::GetIdentity</a></p>
+</blockquote>
+<p>This function gets the identity assigned to this interface.</p>
+<p>E.g. on Steam, this is the user's SteamID, or for the gameserver interface, the SteamID assigned to the gameserver. Returns <code>false</code> in the <code>success</code> key if we don't know our identity yet. (E.g. GameServer has not logged in. On Steam, the user will know their SteamID even if they are not signed into Steam.)</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<pre class="highlight"><code class="language-gml">steam_net_sockets_get_identity()</code></pre>
+</blockquote>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="networking_sockets.html#identity">Identity</a></p>
+</blockquote>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_net_sockets_init_authentication">steam_net_sockets_init_authentication</h1>
+<blockquote>
+<p><strong>Steam Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamNetworkingSockets#InitAuthentication">ISteamNetworkingSockets::InitAuthentication</a></p>
+</blockquote>
+<p>This function indicates our desire to be ready participate in authenticated communications. If we are currently not ready, then steps will be taken to obtain the necessary certificates. (This includes a certificate for us, as well as any CA certificates needed to authenticate peers.)</p>
+<p>You can use <a href="networking_sockets.html#steam_net_sockets_get_authentication_status">steam_net_sockets_get_authentication_status</a> to monitor the status.</p>
+<p>Returns the current value that would be returned from <a href="networking_sockets.html#steam_net_sockets_get_authentication_status">steam_net_sockets_get_authentication_status</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<pre class="highlight"><code class="language-gml">steam_net_sockets_init_authentication()</code></pre>
+</blockquote>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="networking_sockets.html#steam_net_availability">steam_net_availability</a></p>
+</blockquote>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_net_sockets_get_authentication_status">steam_net_sockets_get_authentication_status</h1>
+<blockquote>
+<p><strong>Steam Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamNetworkingSockets#GetAuthenticationStatus">ISteamNetworkingSockets::GetAuthenticationStatus</a></p>
+</blockquote>
+<p>This function queries our readiness to participate in authenticated communications.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<pre class="highlight"><code class="language-gml">steam_net_sockets_get_authentication_status()</code></pre>
+</blockquote>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Structs.htm">Struct</a></p>
+</blockquote>
+<p>A struct containing variables <code>availability</code> (<a href="networking_sockets.html#steam_net_availability">steam_net_availability</a>) and <code>debug_message</code> (<a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a>), or <code>undefined</code> if the status could not be retrieved</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_net_fake_ip_type">steam_net_fake_ip_type</h1>
+<blockquote>
+<p><strong>Steamworks</strong>: <a href="">ESteamNetworkingFakeIPType</a></p>
+</blockquote>
+<p>This set of constants hold the types of fake IP.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Alternatively, you can use the <code>STEAMWORKS_NET_FAKE_IP_TYPE</code> enum.</p>
+</div>
+<p>These constants are referenced by the following functions:</p>
+<ul>
+<li><a href="networking_messages.html#steam_net_messages_register_callbacks">steam_net_messages_register_callbacks</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>steam_net_fake_ip_type_invalid</code></td>
+<td>Error, argument was not even an IP address, etc.</td>
+</tr>
+<tr>
+<td><code>steam_net_fake_ip_type_not_fake</code></td>
+<td>Argument was a valid IP, but was not from the reserved "fake" range</td>
+</tr>
+<tr>
+<td><code>steam_net_fake_ip_type_global_ipv4</code></td>
+<td>Globally unique (for a given app) IPv4 address. Address space managed by Steam</td>
+</tr>
+<tr>
+<td><code>steam_net_fake_ip_type_local_ipv4</code></td>
+<td>Locally unique IPv4 address. Address space managed by the local process. For internal use only; should not be shared!</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_net_identity_type">steam_net_identity_type</h1>
+<blockquote>
+<p><strong>Steamworks Enumeration</strong>: <a href="https://partner.steamgames.com/doc/api/steamnetworkingtypes#ESteamNetworkingIdentityType">ESteamNetworkingIdentityType</a></p>
+</blockquote>
+<p>This set of constants holds the different types of identities that a remote host can have. Most of the time on Steam, this will be a SteamID. However, in some cases you can disable authentication, in which case a more generic identity will be used.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Alternatively, you can use the <code>STEAMWORKS_NET_IDENTITY_TYPE</code> enum.</p>
+</div>
+<p>These constants are referenced by the following functions:</p>
+<ul>
+<li><a href="networking_messages.html#steam_net_messages_register_callbacks">steam_net_messages_register_callbacks</a></li>
+</ul>
+<p>These constants are referenced by the following structs:</p>
+<ul>
+<li><a href="networking_sockets.html#identity">Identity</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>steam_net_identity_type_invalid</code></td>
+<td>Dummy/unknown/invalid</td>
+</tr>
+<tr>
+<td><code>steam_net_identity_type_steam_id</code></td>
+<td>64-bit SteamID</td>
+</tr>
+<tr>
+<td><code>steam_net_identity_type_xbox_pairwise_id</code></td>
+<td>64-bit SteamID</td>
+</tr>
+<tr>
+<td><code>steam_net_identity_type_sony_psn</code></td>
+<td>64-bit SteamID</td>
+</tr>
+<tr>
+<td><code>steam_net_identity_type_ip_address</code></td>
+<td>Use an IP address (and port) as the "identity".</td>
+</tr>
+<tr>
+<td><code>steam_net_identity_type_generic_string</code></td>
+<td>Generic string. It's up to your app to interpret this.</td>
+</tr>
+<tr>
+<td><code>steam_net_identity_type_generic_bytes</code></td>
+<td>Generic binary blobs. It's up to your app to interpret this.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_net_availability">steam_net_availability</h1>
+<blockquote>
+<p><strong>Steamworks Enumeration</strong>: <a href="">ESteamNetworkingAvailability</a></p>
+</blockquote>
+<p>This set of constants holds the different states of networking availability.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Alternatively, you can use the <code>STEAMWORKS_NET_AVAILABILITY</code> enum.</p>
+</div>
+<p>These constants are referenced by the following functions:</p>
+<ul>
+<li><a href="networking_sockets.html#steam_net_sockets_init_authentication">steam_net_sockets_init_authentication</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>steam_net_availability_cannot_try</code></td>
+<td>A dependent resource is missing, so this service is unavailable. (E.g. we cannot talk to routers because Internet is down or we don't have the network config.)</td>
+</tr>
+<tr>
+<td><code>steam_net_availability_failed</code></td>
+<td>We have tried for enough time that we would expect to have been successful by now. We have never been successful.</td>
+</tr>
+<tr>
+<td><code>steam_net_availability_previously</code></td>
+<td>We tried and were successful at one time, but now it looks like we have a problem.</td>
+</tr>
+<tr>
+<td><code>steam_net_availability_retrying</code></td>
+<td>We previously failed and are currently retrying.</td>
+</tr>
+<tr>
+<td><code>steam_net_availability_never_tried</code></td>
+<td>We don't know because we haven't ever checked/tried.</td>
+</tr>
+<tr>
+<td><code>steam_net_availability_waiting</code></td>
+<td>We're waiting on a dependent resource to be acquired. (E.g. we cannot obtain a cert until we are logged into Steam. We cannot measure latency to relays until we have the network config.)</td>
+</tr>
+<tr>
+<td><code>steam_net_availability_attempting</code></td>
+<td>We're actively trying now, but are not yet successful.</td>
+</tr>
+<tr>
+<td><code>steam_net_availability_current</code></td>
+<td>Resource is online/available.</td>
+</tr>
+<tr>
+<td><code>steam_net_availability_unknown</code></td>
+<td>Internal dummy/sentinel, or value is not applicable in this context</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_net_send_flag">steam_net_send_flag</h1>
+<blockquote>
+<p><strong>Steamworks Flags</strong>: <a href="https://partner.steamgames.com/doc/api/steamnetworkingtypes#message_sending_flags">k_nSteamNetworkingSend_*</a></p>
+</blockquote>
+<p>These constants are used in bitmask parameters to functions for message sending such as <a href="networking_sockets.html#steam_net_sockets_send_message">steam_net_sockets_send_message</a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Alternatively, you can use the <code>STEAMWORKS_NET_SEND_FLAG</code> enum.</p>
+</div>
+<p>These constants are referenced by the following functions:</p>
+<ul>
+<li><a href="networking_messages.html#steam_net_messages_register_callbacks">steam_net_messages_register_callbacks</a></li>
+<li><a href="networking_messages.html#steam_net_messages_send">steam_net_messages_send</a></li>
+<li><a href="networking_sockets.html#steam_net_sockets_send_message">steam_net_sockets_send_message</a></li>
+<li><a href="networking_sockets.html#steam_net_sockets_send_messages">steam_net_sockets_send_messages</a></li>
+</ul>
+<p>These constants are referenced by the following structs:</p>
+<ul>
+<li><a href="networking_sockets.html#connectioninfo">ConnectionInfo</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>steam_net_send_flag_unreliable</code></td>
+<td>Send the message unreliably. Can be lost. Messages <em>can</em> be larger than a single MTU (UDP packet), but there is no retransmission, so if any piece of the message is lost, the entire message will be dropped.</td>
+</tr>
+<tr>
+<td><code>steam_net_send_flag_no_nagle</code></td>
+<td>Disable <a href="https://en.wikipedia.org/wiki/Nagle%27s_algorithm">Nagle's algorithm</a>.</td>
+</tr>
+<tr>
+<td><code>steam_net_send_flag_unreliable_no_nagle</code></td>
+<td>Send a message unreliably, bypassing Nagle's algorithm for this message and any messages currently pending on the Nagle timer.</td>
+</tr>
+<tr>
+<td><code>steam_net_send_flag_no_delay</code></td>
+<td>If the message cannot be sent very soon (because the connection is still doing some initial handshaking, route negotiations, etc), then just drop it. This is only applicable for unreliable messages. Using this flag on reliable messages is invalid.</td>
+</tr>
+<tr>
+<td><code>steam_net_send_flag_unreliable_no_delay</code></td>
+<td>Send an unreliable message, but if it cannot be sent relatively quickly, just drop it instead of queuing it. This is useful for messages that are not useful if they are excessively delayed, such as voice data.</td>
+</tr>
+<tr>
+<td><code>steam_net_send_flag_reliable</code></td>
+<td>Reliable message send. Can send up to k_cbMaxSteamNetworkingSocketsMessageSizeSend bytes in a single message. Does fragmentation/re-assembly of messages under the hood, as well as a sliding window for efficient sends of large chunks of data.</td>
+</tr>
+<tr>
+<td><code>steam_net_send_flag_reliable_no_nagle</code></td>
+<td>Send a message reliably, but bypass Nagle's algorithm.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_net_connection_state">steam_net_connection_state</h1>
+<blockquote>
+<p><strong>Steamworks Enumeration</strong>: <a href="https://partner.steamgames.com/doc/api/steamnetworkingtypes#ESteamNetworkingConnectionState">ESteamNetworkingConnectionState</a></p>
+</blockquote>
+<p>This enumeration holds the possible high level connection states.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Alternatively, you can use the <code>STEAMWORKS_NET_CONNECTION_STATE</code> enum.</p>
+</div>
+<p>These constants are referenced by the following functions:</p>
+<ul>
+<li><a href="networking_messages.html#steam_net_messages_register_callbacks">steam_net_messages_register_callbacks</a></li>
+<li><a href="networking_sockets.html#steam_net_sockets_connect_by_ip">steam_net_sockets_connect_by_ip</a></li>
+<li><a href="networking_sockets.html#steam_net_sockets_connect_p2p">steam_net_sockets_connect_p2p</a></li>
+<li><a href="networking_sockets.html#steam_net_sockets_accept_connection">steam_net_sockets_accept_connection</a></li>
+<li><a href="networking_sockets.html#steam_net_sockets_close_connection">steam_net_sockets_close_connection</a></li>
+</ul>
+<p>These constants are referenced by the following structs:</p>
+<ul>
+<li><a href="networking_sockets.html#connectioninfo">ConnectionInfo</a></li>
+<li><a href="networking_sockets.html#connectionrealtimestatus">ConnectionRealTimeStatus</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>steam_net_connection_state_none</code></td>
+<td>Dummy value used to indicate an error condition in the API. Specified connection doesn't exist or has already been closed.</td>
+</tr>
+<tr>
+<td><code>steam_net_connection_state_connecting</code></td>
+<td>We are trying to establish whether peers can talk to each other, whether they WANT to talk to each other, perform basic auth, and exchange crypt keys.</td>
+</tr>
+<tr>
+<td><code>steam_net_connection_state_find_route</code></td>
+<td>Some connection types use a back channel or trusted 3rd party for earliest communication. If the server accepts the connection, then these connections switch into the rendezvous state. During this state, we still have not yet established an end-to-end route (through the relay network), and so if you send any messages unreliable, they are going to be discarded.</td>
+</tr>
+<tr>
+<td><code>steam_net_connection_state_connected</code></td>
+<td>We've received communications from our peer (and we know who they are) and are all good.</td>
+</tr>
+<tr>
+<td><code>steam_net_connection_state_closed_by_peer</code></td>
+<td>Connection has been closed by our peer, but not closed locally.</td>
+</tr>
+<tr>
+<td><code>steam_net_connection_state_problem_detected_locally</code></td>
+<td>A disruption in the connection has been detected locally. (E.g. timeout, local internet connection disrupted, etc.)</td>
+</tr>
+<tr>
+<td><code>steam_net_connection_state_fin_wait</code></td>
+<td>We've disconnected on our side, and from an API perspective the connection is closed. No more data may be sent or received.  All reliable data has been flushed, or else we've given up and discarded it. We do not yet know for sure that the peer knows the connection has been closed.</td>
+</tr>
+<tr>
+<td><code>steam_net_connection_state_linger</code></td>
+<td>We've disconnected on our side, and from an API perspective the connection is closed. No more data may be sent or received.  From a network perspective, however, on the wire, we have not yet given any indication to the peer that the connection is closed. We are in the process of flushing out the last bit of reliable data.  Once that is done, we will inform the peer that the connection has been closed, and transition to the <code>FIN_WAIT</code> state.</td>
+</tr>
+<tr>
+<td><code>steam_net_connection_state_dead</code></td>
+<td>Connection is completely inactive and ready to be destroyed.</td>
+</tr>
+<tr>
+<td><code>steam_net_connection_state_terminated</code></td>
+<td>Connection was terminated</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="identity">Identity</h1>
+<blockquote>
+<p><strong>Steamworks Struct</strong>: <a href="https://partner.steamgames.com/doc/api/steamnetworkingtypes#SteamNetworkingIdentity">SteamNetworkingIdentity</a></p>
+</blockquote>
+<p>This struct represents an abstract way to represent the identity of a network host.</p>
+<p>This struct is referenced by the following functions:</p>
+<ul>
+<li><a href="networking_sockets.html#steam_net_sockets_get_identity">steam_net_sockets_get_identity</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>type</td>
+<td><a href="networking_sockets.html#steam_net_identity_type">steam_net_identity_type</a></td>
+<td>The type of identity</td>
+</tr>
+<tr>
+<td>type_name</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The identity type as a string</td>
+</tr>
+<tr>
+<td>identity_string</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>A human-readable string version of the identity. This is suitable for debug messages or any other time you need to encode the identity as a string. It has a URL-like format (type:<type-data>).</td>
+</tr>
+<tr>
+<td>steam_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Int64</a></td>
+<td>The SteamID as a raw 64-bit number</td>
+</tr>
+<tr>
+<td>xbox_pairwise_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>Publisher-specific user identity, as string</td>
+</tr>
+<tr>
+<td>psn_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Int64</a></td>
+<td>64-bit PSN ID</td>
+</tr>
+<tr>
+<td>generic_string</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>A generic string value</td>
+</tr>
+<tr>
+<td>generic_bytes</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>A Base64-encoded string holding generic byte data</td>
+</tr>
+<tr>
+<td>generic_bytes_len</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The number of bytes in <code>generic_bytes</code></td>
+</tr>
+<tr>
+<td>ip</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The identity's IP address</td>
+</tr>
+<tr>
+<td>is_local_host</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></td>
+<td><code>true</code> if this identity is localhost, <code>false</code> otherwise</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="connectioninfo">ConnectionInfo</h1>
+<blockquote>
+<p><strong>Steamworks Struct</strong>: <a href="https://partner.steamgames.com/doc/api/steamnetworkingtypes#SteamNetConnectionInfo_t">SteamNetConnectionInfo_t</a></p>
+</blockquote>
+<p>This struct describes the state of a connection.</p>
+<p>This struct is referenced by the following functions:</p>
+<ul>
+<li><a href="networking_sockets.html#steam_net_sockets_get_connection_info">steam_net_sockets_get_connection_info</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>state</td>
+<td><a href="networking_sockets.html#steam_net_connection_state">steam_net_connection_state</a></td>
+<td>The connection state</td>
+</tr>
+<tr>
+<td>end_reason</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The reason the connection was ended (one of <a href="https://partner.steamgames.com/doc/api/steamnetworkingtypes#ESteamNetConnectionEnd">ESteamNetConnectionEnd</a>)</td>
+</tr>
+<tr>
+<td>flags</td>
+<td><a href="networking_sockets.html#steam_net_send_flag">steam_net_send_flag</a></td>
+<td>A bitmask of the flags</td>
+</tr>
+<tr>
+<td>user_data</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Int64</a></td>
+<td>Arbitrary user data set by the local application code</td>
+</tr>
+<tr>
+<td>listen_socket</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The listen socket</td>
+</tr>
+<tr>
+<td>remote_pop</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>What data center is the remote host in?  (0 if we don't know.)</td>
+</tr>
+<tr>
+<td>relay_pop</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>What relay are we using to communicate with the remote host? (0 if not applicable.)</td>
+</tr>
+<tr>
+<td>remote_identity</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>Who is on the other end?  Depending on the connection type and phase of the connection, we might not know</td>
+</tr>
+<tr>
+<td>remote_addr</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>Remote address. Might be all 0's if we don't know it, or if this is N/A. (E.g. Basically everything except direct UDP connection.)</td>
+</tr>
+<tr>
+<td>description</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>Debug description. This includes the connection handle, connection type (and peer information), and the app name. This string is used in various internal logging messages.</td>
+</tr>
+<tr>
+<td>debug</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>Human-readable, but non-localized explanation for connection termination or problem.  This is intended for debugging / diagnostic purposes only, not to display to users. It might have some details specific to the issue.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="connectionrealtimestatus">ConnectionRealTimeStatus</h1>
+<blockquote>
+<p><strong>Steamworks Struct</strong>: <a href="">SteamNetConnectionRealTimeStatus_t</a></p>
+</blockquote>
+<p>This struct holds information on the connection state.</p>
+<p>This struct is referenced by the following functions:</p>
+<ul>
+<li><a href="networking_sockets.html#steam_net_sockets_get_connection_real_time_status">steam_net_sockets_get_connection_real_time_status</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>state</td>
+<td><a href="networking_sockets.html#steam_net_connection_state">steam_net_connection_state</a></td>
+<td>The high level state of the connection</td>
+</tr>
+<tr>
+<td>ping</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The current ping (ms)</td>
+</tr>
+<tr>
+<td>local_quality</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>Connection quality measured locally, 0...1. (Percentage of packets delivered end-to-end in order).</td>
+</tr>
+<tr>
+<td>remote_quality</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>Packet delivery success rate as observed from remote host</td>
+</tr>
+<tr>
+<td>out_packets_per_sec</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>Current out packets per second from recent history</td>
+</tr>
+<tr>
+<td>out_bytes_per_sec</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>Current out bytes per second from recent history</td>
+</tr>
+<tr>
+<td>in_packets_per_sec</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>Current in packets per second from recent history</td>
+</tr>
+<tr>
+<td>in_bytes_per_sec</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>Current in bytes per second from recent history</td>
+</tr>
+<tr>
+<td>send_rate_bytes_per_sec</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>Estimate rate that we believe that we can send data to our peer.</td>
+</tr>
+<tr>
+<td>pending_unreliable</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>Number of bytes pending to be sent. This is data that you have recently requested to be sent but has not yet actually been put on the wire.</td>
+</tr>
+<tr>
+<td>pending_reliable</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>This number also includes data that was previously placed on the wire, but has now been scheduled for re-transmission.</td>
+</tr>
+<tr>
+<td>sent_unacked_reliable</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>Number of bytes of reliable data that has been placed the wire, but for which we have not yet received an acknowledgment, and thus we may have to re-transmit.</td>
+</tr>
+<tr>
+<td>queue_time_usec</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Int64</a></td>
+<td>If you queued a message right now, approximately how long would that message wait in the queue before we actually started putting its data on the wire in a packet?</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="networking_messages.html" class="btn btn-neutral float-left" title="Networking Messages"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="utilities.html" class="btn btn-neutral float-right" title="Utilities">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+      <p><p align="center">GameMaker 2026</p></p>
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/YoYoGames/GMEXT-Steamworks" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="networking_messages.html" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="utilities.html" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = ".";</script>
+    <script src="js/theme_extra.js"></script>
+    <script src="js/theme.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/gml.min.js"></script>
+      <script src="assets/js/gmext_script.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

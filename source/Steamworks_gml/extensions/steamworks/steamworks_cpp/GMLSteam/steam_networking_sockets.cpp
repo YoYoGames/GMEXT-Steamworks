@@ -270,7 +270,7 @@ YYEXPORT void steam_net_sockets_send_message(
     if (dataSize < 0) dataSize = buffer_size;
     if (dataSize > buffer_size) dataSize = buffer_size;
 
-    int64_t message_id = 0;
+    int64 message_id = 0;
     EResult er = p->SendMessageToConnection(
         hConn,
         buffer_data,

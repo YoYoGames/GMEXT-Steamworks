@@ -8,7 +8,7 @@
  * 
  * > [!TIP]
  * >
- * > A wrapper around [ConsumeItem](http://partner.steamgames.com/doc/api/ISteamInventory#ConsumeItem).
+ * > A wrapper around [ConsumeItem](https://partner.steamgames.com/doc/api/ISteamInventory#ConsumeItem).
  * 
  * @param {int64} item_id The [steam_inventory_item_id](https://partner.steamgames.com/doc/api/ISteamInventory#SteamItemInstanceID_t) to consume.
  * @param {real} quantity The number of items in that stack to consume.

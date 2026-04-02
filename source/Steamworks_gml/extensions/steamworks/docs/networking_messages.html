@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="img/favicon.ico" />
+    <title>Networking Messages - GMEXT-Steamworks</title>
+    <link rel="stylesheet" href="css/theme.css" />
+    <link rel="stylesheet" href="css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+        <link href="assets/css/gmext_style.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Networking Messages";
+        var mkdocs_page_input_path = "networking_messages.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/gml.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="." class="icon icon-home"> GMEXT-Steamworks
+        </a>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="home.html">Steamworks Extension</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="guides.html">Setup Guide (IDE/Runtime 2022.6+)</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="management.html">Management</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="general.html">General</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="overlay.html">Overlay</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="leaderboards.html">Leaderboards</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="lobbies.html">Lobbies and Matchmaking</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="achievements.html">Stats and Achievements</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="cloud.html">Cloud</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="dlc.html">DLC</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="ugc.html">UGC</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="social.html">Social</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="inventory.html">Inventory</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="networking.html">Networking</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="input.html">Input</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="music.html">Music</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="timeline.html">Timeline</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="#">Networking Messages</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#general">General</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#sending-and-receiving-messages">Sending and receiving messages</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#managing-sessions-with-peers">Managing sessions with peers</a>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="networking_sockets.html">Networking Sockets</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="utilities.html">Utilities</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href=".">GMEXT-Steamworks</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Networking Messages</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/YoYoGames/GMEXT-Steamworks/edit/master/docs/networking_messages.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <p><a id="top"></a></p>
+<h1 id="networking-messages"><strong>Networking Messages</strong></h1>
+<blockquote>
+<p><strong>Steamworks Interface</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamnetworkingMessages">ISteamNetworkingMessages</a></p>
+</blockquote>
+<p>The Networking Messages module of the Steamworks extension is intended to make it easy to port non-connection-oriented code to take advantage of P2P connectivity and <a href="https://partner.steamgames.com/doc/features/multiplayer/steamdatagramrelay">Steam Datagram Relay</a>.</p>
+<p>While the <a href="networking_sockets.html">Networking Sockets</a> module is connection-oriented (like TCP), meaning you need to listen and connect, and then you send messages using a connection handle. <a href="networking_messages.html">Networking Messages</a>, on the other hand, is more like UDP, in that you can just send messages to arbitrary peers at any time. The underlying connections are established implicitly.</p>
+<p>See: <a href="https://partner.steamgames.com/doc/features/multiplayer/networking">Steam Networking</a></p>
+<h2 id="general">General</h2>
+<p>The following are general functions for working with messages:</p>
+<ul>
+<li><a href="networking_messages.html#steam_net_messages_register_callbacks">steam_net_messages_register_callbacks</a></li>
+<li><a href="networking_messages.html#steam_net_messages_unregister_callbacks">steam_net_messages_unregister_callbacks</a></li>
+<li><a href="networking_messages.html#steam_net_messages_get_last_size">steam_net_messages_get_last_size</a></li>
+<li><a href="networking_messages.html#steam_net_messages_get_last_steam_id">steam_net_messages_get_last_steam_id</a></li>
+</ul>
+<h2 id="sending-and-receiving-messages">Sending and receiving messages</h2>
+<p>The following functions are used for sending and receiving:</p>
+<ul>
+<li><a href="networking_messages.html#steam_net_messages_send">steam_net_messages_send</a></li>
+<li><a href="networking_messages.html#steam_net_messages_receive_on_channel">steam_net_messages_receive_on_channel</a></li>
+</ul>
+<h2 id="managing-sessions-with-peers">Managing sessions with peers</h2>
+<p>The following functions are used for managing sessions:</p>
+<ul>
+<li><a href="networking_messages.html#steam_net_messages_accept_session">steam_net_messages_accept_session</a></li>
+<li><a href="networking_messages.html#steam_net_messages_close_session">steam_net_messages_close_session</a></li>
+<li><a href="networking_messages.html#steam_net_messages_close_channel">steam_net_messages_close_channel</a></li>
+</ul>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_net_messages_register_callbacks">steam_net_messages_register_callbacks</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: N / A</p>
+</blockquote>
+<p>This function registers the internal Steam Networking Messages callback handler. It should be called once after Steam initialisation.</p>
+<p>A call to this function is required to receive async events of type:</p>
+<ul>
+<li><code>steam_net_message_on_session_request</code></li>
+<li><code>steam_net_message_on_session_failed</code></li>
+</ul>
+<p>This function operates asynchronously, which means that it does not immediately return the requested result. Instead, upon completion of the task, it will trigger the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<pre class="highlight"><code class="language-gml">steam_net_messages_register_callbacks()</code></pre>
+</blockquote>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Triggers:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a></p>
+</blockquote>
+<p>This event is triggered when a remote host is sending us a message, and we do not already have a session with them.</p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>event_type</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The string <code>"steam_net_message_on_session_request"</code></td>
+</tr>
+<tr>
+<td>steamid</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Int64</a></td>
+<td>The user's Steam ID</td>
+</tr>
+<tr>
+<td>identity_string</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The identity string</td>
+</tr>
+<tr>
+<td>identity_type</td>
+<td><a href="networking_sockets.html#steam_net_identity_type">steam_net_identity_type</a></td>
+<td>The type of identity</td>
+</tr>
+<tr>
+<td>ip</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>IP address including the port number</td>
+</tr>
+<tr>
+<td>is_local_host</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></td>
+<td>Whether this identity is localhost</td>
+</tr>
+<tr>
+<td>fake_ip_type</td>
+<td><a href="networking_sockets.html#steam_net_fake_ip_type">steam_net_fake_ip_type</a></td>
+<td>The fake IP type</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p>This event is triggered when we fail to establish a connection, or we detect that communications have been disrupted in an unusual way.</p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>event_type</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The string <code>"steam_net_message_on_session_failed"</code></td>
+</tr>
+<tr>
+<td>steamid</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Int64</a></td>
+<td>The user's Steam ID</td>
+</tr>
+<tr>
+<td>state</td>
+<td><a href="networking_sockets.html#steam_net_connection_state">steam_net_connection_state</a></td>
+<td>The high level state of the connection</td>
+</tr>
+<tr>
+<td>end_reason</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The basic cause of the connection termination or problem (one of <a href="https://partner.steamgames.com/doc/api/steamnetworkingtypes#ESteamNetConnectionEnd">ESteamNetConnectionEnd</a>)</td>
+</tr>
+<tr>
+<td>flags</td>
+<td><a href="networking_sockets.html#steam_net_send_flag">steam_net_send_flag</a></td>
+<td>The send flags</td>
+</tr>
+<tr>
+<td>user_data</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Int64</a></td>
+<td>Arbitrary user data set by the local application code</td>
+</tr>
+<tr>
+<td>listen_socket</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>Handle to listen socket this was connected on (0 indicates invalid)</td>
+</tr>
+<tr>
+<td>remote_pop</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>What data center is the remote host in?  (0 if we don't know.)</td>
+</tr>
+<tr>
+<td>relay_pop</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>What relay are we using to communicate with the remote host? (0 if not applicable.)</td>
+</tr>
+<tr>
+<td>remote_identity</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>Who is on the other end?  Depending on the connection type and phase of the connection, we might not know</td>
+</tr>
+<tr>
+<td>remote_addr</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>Remote address. Might be all 0's if we don't know it, or if this is N/A. (E.g. Basically everything except direct UDP connection.)</td>
+</tr>
+<tr>
+<td>description</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>Debug description. This includes the connection handle, connection type (and peer information), and the app name. This string is used in various internal logging messages.</td>
+</tr>
+<tr>
+<td>debug</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>Human-readable, but non-localized explanation for connection termination or problem.  This is intended for debugging / diagnostic purposes only, not to display to users. It might have some details specific to the issue.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_net_messages_unregister_callbacks">steam_net_messages_unregister_callbacks</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: N / A</p>
+</blockquote>
+<p>This function unregisters and deletes the callback handler created earlier. Call this when unloading or shutting down networking.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<pre class="highlight"><code class="language-gml">steam_net_messages_unregister_callbacks()</code></pre>
+</blockquote>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_net_messages_send">steam_net_messages_send</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamnetworkingMessages#SendMessageToUser">ISteamnetworkingMessages::SendMessageToUser</a></p>
+</blockquote>
+<p>This function sends a message to a specific Steam user on a given channel.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<pre class="highlight"><code class="language-gml">steam_net_messages_send(steamid64, channel, buffer, size, send_flags)</code></pre>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>steamid64</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Int64</a></td>
+<td>The remote user's SteamID64</td>
+</tr>
+<tr>
+<td>channel</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The local channel number</td>
+</tr>
+<tr>
+<td>buffer</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Buffers/Buffers.htm">Buffer</a></td>
+<td>The buffer containing the data</td>
+</tr>
+<tr>
+<td>size</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The number of bytes to send</td>
+</tr>
+<tr>
+<td>send_flags</td>
+<td><a href="networking_sockets.html#steam_net_send_flag">steam_net_send_flag</a></td>
+<td>The send flags to use</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p>-1 on error, positive values indicate a Steam <a href="https://partner.steamgames.com/doc/api/steam_api#EResult">EResult</a> code</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_net_messages_accept_session">steam_net_messages_accept_session</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamNetworkingMessages#AcceptSessionWithUser">ISteamNetworkingMessages::AcceptSessionWithUser</a></p>
+</blockquote>
+<p>This function accepts a pending message session request from a user.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<pre class="highlight"><code class="language-gml">steam_net_messages_accept_session(steamid64)</code></pre>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>steamid64</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Int64</a></td>
+<td>The remote user's SteamID64</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_net_messages_close_session">steam_net_messages_close_session</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamNetworkingMessages#CloseSessionWithUser">ISteamNetworkingMessages::CloseSessionWithUser</a></p>
+</blockquote>
+<p>This function closes any active message session with this user.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<pre class="highlight"><code class="language-gml">steam_net_messages_close_session(steamid64)</code></pre>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>steamid64</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Int64</a></td>
+<td>The remote user's SteamID64</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_net_messages_close_channel">steam_net_messages_close_channel</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamNetworkingMessages#CloseChannelWithUser">ISteamNetworkingMessages::CloseChannelWithUser</a></p>
+</blockquote>
+<p>This function closes a specific channel for messaging with that user.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<pre class="highlight"><code class="language-gml">steam_net_messages_close_channel(steamid64)</code></pre>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>steamid64</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Int64</a></td>
+<td>The remote user's SteamID64</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_net_messages_receive_on_channel">steam_net_messages_receive_on_channel</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamNetworkingMessages#ReceiveMessagesOnChannel">ISteamNetworkingMessages::ReceiveMessagesOnChannel</a></p>
+</blockquote>
+<p>This function receives at most one message from the specified channel. Also records metadata for "last message" helpers.</p>
+<p>The function returns one of the following:</p>
+<ul>
+<li>-1 on error (buffer not found or couldn't write to buffer)</li>
+<li>greater than or equal to 0 - The number of bytes copied</li>
+</ul>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<pre class="highlight"><code class="language-gml">steam_net_messages_receive_on_channel(channel, buffer, max_size)</code></pre>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>channel</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The channel number</td>
+</tr>
+<tr>
+<td>buffer</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Buffers/Buffers.htm">Buffer</a></td>
+<td>The buffer to write the data into</td>
+</tr>
+<tr>
+<td>max_size</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The maximum allowed number of bytes to write</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_net_messages_get_last_size">steam_net_messages_get_last_size</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: N / A</p>
+</blockquote>
+<p>This function returns the FULL size of the last received message (even if it was truncated when written into a buffer).</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<pre class="highlight"><code class="language-gml">steam_net_messages_get_last_size()</code></pre>
+</blockquote>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_net_messages_get_last_steam_id">steam_net_messages_get_last_steam_id</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: N / A</p>
+</blockquote>
+<p>This function returns the SteamID64 of the sender of the last received message, or 0 if the identity was not a SteamID.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<pre class="highlight"><code class="language-gml">steam_net_messages_get_last_steam_id()</code></pre>
+</blockquote>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Int64</a></p>
+</blockquote>
+<p><br></p>
+<p><br></p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="timeline.html" class="btn btn-neutral float-left" title="Timeline"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="networking_sockets.html" class="btn btn-neutral float-right" title="Networking Sockets">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+      <p><p align="center">GameMaker 2026</p></p>
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/YoYoGames/GMEXT-Steamworks" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="timeline.html" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="networking_sockets.html" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = ".";</script>
+    <script src="js/theme_extra.js"></script>
+    <script src="js/theme.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/gml.min.js"></script>
+      <script src="assets/js/gmext_script.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

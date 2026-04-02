@@ -115,6 +115,14 @@
                 </li>
               </ul>
               <ul>
+                <li class="toctree-l1"><a class="reference internal" href="networking_messages.html">Networking Messages</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="networking_sockets.html">Networking Sockets</a>
+                </li>
+              </ul>
+              <ul>
                 <li class="toctree-l1"><a class="reference internal" href="utilities.html">Utilities</a>
                 </li>
               </ul>
@@ -145,6 +153,10 @@
                 <p><a id="top"></a></p>
 <h1 id="networking"><strong>Networking</strong></h1>
 <p>The following functions and constants allow you to use Steam's Networking functionality.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This module is deprecated. Please see the <a href="networking_sockets.html">Networking Sockets</a> and <a href="networking_messages.html">Networking Messages</a> modules of the extension for networking functionality.</p>
+</div>
 <h2 id="packets-io">Packets IO</h2>
 <p>These functions are provided for handling sending and receiving packets:</p>
 <ul>
@@ -168,7 +180,7 @@
 <h2 id="constants">Constants</h2>
 <p>These are the constants used by this API:</p>
 <ul>
-<li><a href="networking.html#packettype">PacketType</a></li>
+<li><a href="networking.html#steam_net_packet_type">steam_net_packet_type</a></li>
 </ul>
 <p><br></p>
 <hr />
@@ -362,7 +374,7 @@ The code above will attempt to get the next packet from Steam API. This would be
 </tr>
 <tr>
 <td>packet_type</td>
-<td><a href="networking.html#packettype">PacketType</a></td>
+<td><a href="networking.html#steam_net_packet_type">steam_net_packet_type</a></td>
 <td>The type of packet to be used</td>
 </tr>
 <tr>
@@ -409,7 +421,7 @@ The code sample will create a buffer and write to it, sending the total length o
 <tbody>
 <tr>
 <td>protocol</td>
-<td><a href="networking.html#packettype">PacketType</a></td>
+<td><a href="networking.html#steam_net_packet_type">steam_net_packet_type</a></td>
 <td>The default connection protocol to be used</td>
 </tr>
 </tbody>
@@ -590,7 +602,7 @@ The code above will disable the auto accept P2P sessions functionality meaning w
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="packettype">PacketType</h1>
+<h1 id="steam_net_packet_type">steam_net_packet_type</h1>
 <p>These constants specify the type of a Steam packet.</p>
 <p>These constants are referenced by the following functions:</p>
 <ul>
@@ -637,7 +649,7 @@ The code above will disable the auto accept P2P sessions functionality meaning w
 
   <div role="contentinfo">
     <!-- Copyright etc -->
-      <p><p align="center">GameMaker 2025</p></p>
+      <p><p align="center">GameMaker 2026</p></p>
   </div>
 
   Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.

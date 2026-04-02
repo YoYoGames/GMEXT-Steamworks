@@ -13,7 +13,7 @@
  * ```gml
  * if (steam_is_screenshot_requested())
  * {
- *     var _file = "Catch_The_Haggis_" + string(global.scrn_num) + ".png");
+ *     var _file = "Catch_The_Haggis_" + string(global.scrn_num) + ".png";
  *     screen_save(_file);
  *     steam_send_screenshot(_file, window_get_width(), window_get_height());
  *     global.scrn_num += 1;
@@ -37,7 +37,7 @@
  * ```gml
  * if (steam_is_screenshot_requested())
  * {
- *     var _file = "Catch_The_Haggis_" + string(global.scrn_num) + ".png");
+ *     var _file = "Catch_The_Haggis_" + string(global.scrn_num) + ".png";
  *     screen_save(_file);
  *     steam_send_screenshot(_file, window_get_width(), window_get_height());
  *     global.scrn_num += 1;

@@ -55,6 +55,8 @@
     <ul class="current">
     <li class="toctree-l2"><a class="reference internal" href="#functions">Functions</a>
     </li>
+    <li class="toctree-l2"><a class="reference internal" href="#structs">Structs</a>
+    </li>
     </ul>
                 </li>
               </ul>
@@ -111,6 +113,14 @@
                 </li>
               </ul>
               <ul>
+                <li class="toctree-l1"><a class="reference internal" href="networking_messages.html">Networking Messages</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="networking_sockets.html">Networking Sockets</a>
+                </li>
+              </ul>
+              <ul>
                 <li class="toctree-l1"><a class="reference internal" href="utilities.html">Utilities</a>
                 </li>
               </ul>
@@ -146,6 +156,10 @@
 <ul>
 <li><a href="general.html#steam_initialised">steam_initialised</a></li>
 <li><a href="general.html#steam_stats_ready">steam_stats_ready</a></li>
+<li><a href="general.html#steam_get_current_beta_name">steam_get_current_beta_name</a></li>
+<li><a href="general.html#steam_get_num_betas">steam_get_num_betas</a></li>
+<li><a href="general.html#steam_get_beta_info">steam_get_beta_info</a></li>
+<li><a href="general.html#steam_set_active_beta">steam_set_active_beta</a></li>
 <li><a href="general.html#steam_get_app_id">steam_get_app_id</a></li>
 <li><a href="general.html#steam_get_user_account_id">steam_get_user_account_id</a></li>
 <li><a href="general.html#steam_get_user_steam_id">steam_get_user_steam_id</a></li>
@@ -160,6 +174,12 @@
 <li><a href="general.html#steam_available_languages">steam_available_languages</a></li>
 <li><a href="general.html#steam_is_subscribed">steam_is_subscribed</a></li>
 <li><a href="general.html#steam_set_warning_message_hook">steam_set_warning_message_hook</a></li>
+</ul>
+<h2 id="structs">Structs</h2>
+<p>These are the structs used by the functions in this module:</p>
+<ul>
+<li><a href="general.html#betainfo">BetaInfo</a></li>
+<li><a href="general.html#betanuminfo">BetaNumInfo</a></li>
 </ul>
 <p><br></p>
 <hr />
@@ -220,6 +240,193 @@ if steam_initialised()
     }
 }</code></pre>
 The above code will set a global variable to <code>true</code> if the Steam client API is correctly initialised, along with the Steam statistics and overlay functionality, or it will set the variable to <code>false</code> otherwise.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_get_current_beta_name">steam_get_current_beta_name</h1>
+<p>This function returns the name of the beta branch the user is currently opted into.</p>
+<p>An empty string <code>""</code> is returned if:
+* Steam is not initialised
+* The user is not in a beta
+* <code>SteamApps()-&gt;GetCurrentBetaName()</code> returns <code>false</code></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This returns only the active beta name, not all available betas.</p>
+</div>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<pre class="highlight"><code class="language-gml">steam_get_current_beta_name()</code></pre>
+</blockquote>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></p>
+</blockquote>
+<p>The beta name, or an empty string <code>""</code></p>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><pre class="highlight"><code class="language-gml">var _beta_num = steam_get_num_betas();
+if (_beta_num.available &gt; 0)
+{
+    var _beta_info = steam_get_beta_info(0);
+    var _name = _beta_info.name;
+    var _result = steam_set_active_beta(_name);
+    show_debug_message($"Active beta set to \"{_name}\": {_result}");
+}
+show_debug_message($"Current beta: {steam_get_current_beta_name()}");</code></pre>
+This code first retrieves information on the number of beta branches with a call to <a href="general.html#steam_get_num_betas">steam_get_num_betas</a>. It then checks if there are any public betas available and, if there are, gets the info of the first beta using <a href="general.html#steam_get_beta_info">steam_get_beta_info</a>.
+After that, an attempt is made to set the active beta to the beta for which the info was retrieved using <a href="general.html#steam_set_active_beta">steam_set_active_beta</a> and a debug message is output to show whether this succeeded or not.
+Finally, another debug message is output showing the name of the current beta.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_get_num_betas">steam_get_num_betas</h1>
+<p>This function returns the number of beta branches available for this app.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If Steam is not initialized, an empty struct is returned.</p>
+</div>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<pre class="highlight"><code class="language-gml">steam_get_num_betas()</code></pre>
+</blockquote>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="general.html#betanuminfo">BetaNumInfo</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><pre class="highlight"><code class="language-gml">var _beta_num = steam_get_num_betas();
+if (_beta_num.available &gt; 0)
+{
+    var _beta_info = steam_get_beta_info(0);
+    var _name = _beta_info.name;
+    var _result = steam_set_active_beta(_name);
+    show_debug_message($"Active beta set to \"{_name}\": {_result}");
+}
+show_debug_message($"Current beta: {steam_get_current_beta_name()}");</code></pre>
+This code first retrieves information on the number of beta branches with a call to <a href="general.html#steam_get_num_betas">steam_get_num_betas</a>. It then checks if there are any public betas available and, if there are, gets the info of the first beta using <a href="general.html#steam_get_beta_info">steam_get_beta_info</a>.
+After that, an attempt is made to set the active beta to the beta for which the info was retrieved using <a href="general.html#steam_set_active_beta">steam_set_active_beta</a> and a debug message is output to show whether this succeeded or not.
+Finally, another debug message is output showing the name of the current beta.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_get_beta_info">steam_get_beta_info</h1>
+<p>This function retrieves information about a beta branch by its index.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This does not validate the index; invalid indexes return an empty struct.</p>
+</div>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<pre class="highlight"><code class="language-gml">steam_get_beta_info(beta_index)</code></pre>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>beta_index</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The index from 0 to (total_betas - 1), or the index values provided by Steam</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="general.html#betainfo">BetaInfo</a></p>
+</blockquote>
+<p>A struct holding information on the beta, or an empty struct if anything went wrong</p>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><pre class="highlight"><code class="language-gml">var _beta_num = steam_get_num_betas();
+if (_beta_num.available &gt; 0)
+{
+    var _beta_info = steam_get_beta_info(0);
+    var _name = _beta_info.name;
+    var _result = steam_set_active_beta(_name);
+    show_debug_message($"Active beta set to \"{_name}\": {_result}");
+}
+show_debug_message($"Current beta: {steam_get_current_beta_name()}");</code></pre>
+This code first retrieves information on the number of beta branches with a call to <a href="general.html#steam_get_num_betas">steam_get_num_betas</a>. It then checks if there are any public betas available and, if there are, gets the info of the first beta using <a href="general.html#steam_get_beta_info">steam_get_beta_info</a>.
+After that, an attempt is made to set the active beta to the beta for which the info was retrieved using <a href="general.html#steam_set_active_beta">steam_set_active_beta</a> and a debug message is output to show whether this succeeded or not.
+Finally, another debug message is output showing the name of the current beta.</p>
+<p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_set_active_beta">steam_set_active_beta</h1>
+<p>This function attempts to change the current active beta branch to the one specified.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Steam must restart for the change to take effect. This matches <code>SteamApps()-&gt;SetActiveBeta()</code> behavior.</p>
+</div>
+<p>The functions returns <code>true</code> when successfully switched to the beta branch, <code>false</code> if switching failed (invalid name, private beta requiring password, Steam not initialised).</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<pre class="highlight"><code class="language-gml">steam_set_active_beta(beta_name)</code></pre>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>beta_name</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The exact name of the beta branch (e.g., <code>"public"</code>, <code>"experimental"</code>, <code>"legacy"</code>)</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><pre class="highlight"><code class="language-gml">var _beta_num = steam_get_num_betas();
+if (_beta_num.available &gt; 0)
+{
+    var _beta_info = steam_get_beta_info(0);
+    var _name = _beta_info.name;
+    var _result = steam_set_active_beta(_name);
+    show_debug_message($"Active beta set to \"{_name}\": {_result}");
+}
+show_debug_message($"Current beta: {steam_get_current_beta_name()}");</code></pre>
+This code first retrieves information on the number of beta branches with a call to <a href="general.html#steam_get_num_betas">steam_get_num_betas</a>. It then checks if there are any public betas available and, if there are, gets the info of the first beta using <a href="general.html#steam_get_beta_info">steam_get_beta_info</a>.
+After that, an attempt is made to set the active beta to the beta for which the info was retrieved using <a href="general.html#steam_set_active_beta">steam_set_active_beta</a> and a debug message is output to show whether this succeeded or not.
+Finally, another debug message is output showing the name of the current beta.</p>
 <p><br></p>
 <p><br></p>
 <hr />
@@ -791,8 +998,87 @@ The above code will check to see if the user is subscribed and shows a debug mes
 <p><br></p>
 <p><strong>Example:</strong></p>
 <p><pre class="highlight"><code class="language-gml">steam_set_warning_message_hook();</code></pre>
-The above code start Steamworks logging messages in console.</p>
+The above code starts Steamworks logging messages to the console.</p>
 <p><br></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="betanuminfo">BetaNumInfo</h1>
+<p>This struct holds info on the number of beta branches.</p>
+<p>This struct is referenced by the following functions:</p>
+<ul>
+<li><a href="general.html#steam_get_num_betas">steam_get_num_betas</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>total</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The total number of betas (including private ones)</td>
+</tr>
+<tr>
+<td>available</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The number of public betas available</td>
+</tr>
+<tr>
+<td>private</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The number of private betas available</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="betainfo">BetaInfo</h1>
+<p>This struct contains information on a beta branch.</p>
+<p>This struct is referenced by the following functions:</p>
+<ul>
+<li><a href="general.html#steam_get_beta_info">steam_get_beta_info</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>flags</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The beta flags</td>
+</tr>
+<tr>
+<td>buildID</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The build ID</td>
+</tr>
+<tr>
+<td>name</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The name of the beta branch</td>
+</tr>
+<tr>
+<td>description</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The description of the beta branch</td>
+</tr>
+</tbody>
+</table>
 <p><br></p>
               
             </div>
@@ -806,7 +1092,7 @@ The above code start Steamworks logging messages in console.</p>
 
   <div role="contentinfo">
     <!-- Copyright etc -->
-      <p><p align="center">GameMaker 2025</p></p>
+      <p><p align="center">GameMaker 2026</p></p>
   </div>
 
   Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.

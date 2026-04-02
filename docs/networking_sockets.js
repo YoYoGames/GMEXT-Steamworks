@@ -33,7 +33,7 @@
  * @member {real} connection The connection handle
  * @member {constant.steam_net_connection_state} state The current state
  * @member {constant.steam_net_connection_state} old_state The previous state
- * @member {real} end_reason The end reason (one of [ESteamNetConnectionEnd](partner.steamgames.com/doc/api/steamnetworkingtypes#ESteamNetConnectionEnd))
+ * @member {real} end_reason The end reason (one of [ESteamNetConnectionEnd](https://partner.steamgames.com/doc/api/steamnetworkingtypes#ESteamNetConnectionEnd))
  * @member {string} debug A debug message
  * @event_end
  * 
@@ -70,7 +70,7 @@
  * @member {real} connection The connection handle
  * @member {constant.steam_net_connection_state} state The current state
  * @member {constant.steam_net_connection_state} old_state The previous state
- * @member {real} end_reason The end reason (one of [ESteamNetConnectionEnd](partner.steamgames.com/doc/api/steamnetworkingtypes#ESteamNetConnectionEnd))
+ * @member {real} end_reason The end reason (one of [ESteamNetConnectionEnd](https://partner.steamgames.com/doc/api/steamnetworkingtypes#ESteamNetConnectionEnd))
  * @member {string} debug A debug message
  * @event_end
  * 
@@ -93,7 +93,7 @@
  * @member {real} connection The connection handle
  * @member {constant.steam_net_connection_state} state The current state
  * @member {constant.steam_net_connection_state} old_state The previous state
- * @member {real} end_reason The end reason (one of [ESteamNetConnectionEnd](partner.steamgames.com/doc/api/steamnetworkingtypes#ESteamNetConnectionEnd))
+ * @member {real} end_reason The end reason (one of [ESteamNetConnectionEnd](https://partner.steamgames.com/doc/api/steamnetworkingtypes#ESteamNetConnectionEnd))
  * @member {string} debug A debug message
  * @event_end
  * 
@@ -119,7 +119,7 @@
  * @member {real} connection The connection handle
  * @member {constant.steam_net_connection_state} state The current state
  * @member {constant.steam_net_connection_state} old_state The previous state
- * @member {real} end_reason The end reason (one of [ESteamNetConnectionEnd](partner.steamgames.com/doc/api/steamnetworkingtypes#ESteamNetConnectionEnd))
+ * @member {real} end_reason The end reason (one of [ESteamNetConnectionEnd](https://partner.steamgames.com/doc/api/steamnetworkingtypes#ESteamNetConnectionEnd))
  * @member {string} debug A debug message
  * @event_end
  * 
@@ -473,7 +473,7 @@
 
 /**
  * @constant steam_net_identity_type
- * @desc > **Steamworks Enumeration**: [ESteamNetworkingIdentityType](partner.steamgames.com/doc/api/steamnetworkingtypes#ESteamNetworkingIdentityType)
+ * @desc > **Steamworks Enumeration**: [ESteamNetworkingIdentityType](https://partner.steamgames.com/doc/api/steamnetworkingtypes#ESteamNetworkingIdentityType)
  * 
  * This set of constants holds the different types of identities that a remote host can have. Most of the time on Steam, this will be a SteamID. However, in some cases you can disable authentication, in which case a more generic identity will be used.
  * 
@@ -529,7 +529,7 @@
 
 /**
  * @constant steam_net_connection_state
- * @desc > **Steamworks Enumeration**: [ESteamNetworkingConnectionState](partner.steamgames.com/doc/api/steamnetworkingtypes#ESteamNetworkingConnectionState)
+ * @desc > **Steamworks Enumeration**: [ESteamNetworkingConnectionState](https://partner.steamgames.com/doc/api/steamnetworkingtypes#ESteamNetworkingConnectionState)
  * 
  * This enumeration holds the possible high level connection states.
  * 
@@ -552,7 +552,7 @@
 
 /**
  * @struct Identity
- * @desc > **Steamworks Struct**: [SteamNetworkingIdentity](partner.steamgames.com/doc/api/steamnetworkingtypes#SteamNetworkingIdentity)
+ * @desc > **Steamworks Struct**: [SteamNetworkingIdentity](https://partner.steamgames.com/doc/api/steamnetworkingtypes#SteamNetworkingIdentity)
  * 
  * This struct represents an abstract way to represent the identity of a network host.
  * 
@@ -577,7 +577,7 @@
  * This struct describes the state of a connection.
  * 
  * @member {constant.steam_net_connection_state} state The connection state
- * @member {real} end_reason The reason the connection was ended (one of [ESteamNetConnectionEnd](partner.steamgames.com/doc/api/steamnetworkingtypes#ESteamNetConnectionEnd))
+ * @member {real} end_reason The reason the connection was ended (one of [ESteamNetConnectionEnd](https://partner.steamgames.com/doc/api/steamnetworkingtypes#ESteamNetConnectionEnd))
  * @member {constant.steam_net_send_flag} flags A bitmask of the flags
  * @member {int64} user_data Arbitrary user data set by the local application code
  * @member {real} listen_socket The listen socket

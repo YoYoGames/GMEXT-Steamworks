@@ -119,6 +119,14 @@
                 </li>
               </ul>
               <ul>
+                <li class="toctree-l1"><a class="reference internal" href="networking_messages.html">Networking Messages</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="networking_sockets.html">Networking Sockets</a>
+                </li>
+              </ul>
+              <ul>
                 <li class="toctree-l1"><a class="reference internal" href="utilities.html">Utilities</a>
                 </li>
               </ul>
@@ -286,7 +294,7 @@ Please note that if the screenshot key is pressed, this function will only retur
 <p><strong>Example:</strong></p>
 <p><pre class="highlight"><code class="language-gml">if (steam_is_screenshot_requested())
 {
-    var _file = "Catch_The_Haggis_" + string(global.scrn_num) + ".png");
+    var _file = "Catch_The_Haggis_" + string(global.scrn_num) + ".png";
     screen_save(_file);
     steam_send_screenshot(_file, window_get_width(), window_get_height());
     global.scrn_num += 1;
@@ -341,7 +349,7 @@ The above code will poll the Steam API for a screenshot request. If there is one
 <p><strong>Example:</strong></p>
 <p><pre class="highlight"><code class="language-gml">if (steam_is_screenshot_requested())
 {
-    var _file = "Catch_The_Haggis_" + string(global.scrn_num) + ".png");
+    var _file = "Catch_The_Haggis_" + string(global.scrn_num) + ".png";
     screen_save(_file);
     steam_send_screenshot(_file, window_get_width(), window_get_height());
     global.scrn_num += 1;
@@ -3516,7 +3524,7 @@ The code above shows the code in the <a href="https://manual.gamemaker.io/monthl
 
   <div role="contentinfo">
     <!-- Copyright etc -->
-      <p><p align="center">GameMaker 2025</p></p>
+      <p><p align="center">GameMaker 2026</p></p>
   </div>
 
   Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.

@@ -115,6 +115,14 @@
                 </li>
               </ul>
               <ul>
+                <li class="toctree-l1"><a class="reference internal" href="networking_messages.html">Networking Messages</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="networking_sockets.html">Networking Sockets</a>
+                </li>
+              </ul>
+              <ul>
                 <li class="toctree-l1"><a class="reference internal" href="utilities.html">Utilities</a>
                 </li>
               </ul>
@@ -217,7 +225,7 @@
 <blockquote>
 <p><a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a></p>
 </blockquote>
-<p>(when an invitation is accepted)</p>
+<p>This event is triggered when the user tries to join a lobby from their friends list or from an invite. The game client should attempt to connect to specified lobby when this is received.</p>
 <table>
 <thead>
 <tr>
@@ -235,17 +243,12 @@
 <tr>
 <td>lobby_id</td>
 <td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Int64</a></td>
-<td>The lobby unique identifier</td>
+<td>The Steam ID of the lobby to connect to.</td>
 </tr>
 <tr>
-<td>success</td>
-<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></td>
-<td>Whether or not the task was successful</td>
-</tr>
-<tr>
-<td>result</td>
-<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
-<td>The code of the result</td>
+<td>friend_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Int64</a></td>
+<td>The friend they joined through. This will be invalid if not directly via a friend.</td>
 </tr>
 </tbody>
 </table>
@@ -316,7 +319,7 @@ The above code will show the Steam invite overlay.</p>
 <tr>
 <td>lobby_id</td>
 <td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Int64</a></td>
-<td>The name of the lobby</td>
+<td>The ID of the lobby</td>
 </tr>
 <tr>
 <td>success</td>
@@ -2089,7 +2092,7 @@ This code will loop through all the loobies and respective members on the query 
 
   <div role="contentinfo">
     <!-- Copyright etc -->
-      <p><p align="center">GameMaker 2025</p></p>
+      <p><p align="center">GameMaker 2026</p></p>
   </div>
 
   Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
