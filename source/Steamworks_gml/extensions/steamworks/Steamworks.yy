@@ -15,7 +15,7 @@
   "copyToTargets":194,
   "description":"",
   "exportToGame":true,
-  "extensionVersion":"2.1.6",
+  "extensionVersion":"2.2.0",
   "files":[
     {"$GMExtensionFile":"v1","%Name":"Steamworks.ext","constants":[
         {"$GMExtensionConstant":"","%Name":"ov_friends","hidden":false,"name":"ov_friends","resourceType":"GMExtensionConstant","resourceVersion":"2.0","value":"0",},
