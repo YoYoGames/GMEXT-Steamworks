@@ -7,7 +7,7 @@ text = "Net Msg"
 
 steam_net_messages_register_callbacks()
 
-var array = steam_get_friends_game_info(STEAMWORKS_FRIENDS_FLAGS.IMMEDIATE)
+var array = steam_get_friends_game_info(steam_friends_flags_immediate)
 
 var X = 100
 var Y = 150

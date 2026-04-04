@@ -1003,7 +1003,7 @@ The extended code example above shows how to properly request, wait for and iter
 <p>This set of constants represent the different flags for enumerating the friends list, or quickly checking the relationship between users.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Alternatively, you can use the <code>STEAMWORKS_FRIENDS_FLAGS</code> enum.</p>
+<p>The <code>STEAMWORKS_FRIENDS_FLAGS</code> enum is deprecated. Use the snake_case extension constants listed here instead.</p>
 </div>
 <p>These constants are referenced by the following functions:</p>
 <ul>
@@ -1079,7 +1079,7 @@ The extended code example above shows how to properly request, wait for and iter
 <p>This set of constants represents the list of states a Steam friend can be in.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Alternatively, you can use the <code>STEAMWORKS_PERSONA_STATE</code> enum.</p>
+<p>The <code>STEAMWORKS_PERSONA_STATE</code> enum is deprecated. Use the snake_case extension constants listed here instead.</p>
 </div>
 <p>These constants are referenced by the following structs:</p>
 <ul>
@@ -1124,7 +1124,7 @@ The extended code example above shows how to properly request, wait for and iter
 </tr>
 <tr>
 <td><code>steam_persona_state_invisible</code></td>
-<td>The total number of states. Only used for looping and validation.</td>
+<td>Online, but appears offline to friends. This status is never published to clients.</td>
 </tr>
 </tbody>
 </table>

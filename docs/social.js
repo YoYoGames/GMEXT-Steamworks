@@ -445,7 +445,7 @@
  * 
  * This set of constants represent the different flags for enumerating the friends list, or quickly checking the relationship between users.
  * 
- * [[Note: Alternatively, you can use the `STEAMWORKS_FRIENDS_FLAGS` enum.]]
+ * [[Note: The `STEAMWORKS_FRIENDS_FLAGS` enum is deprecated. Use the snake_case extension constants listed here instead.]]
  * 
  * @member steam_friends_flags_none None.
  * @member steam_friends_flags_blocked Users that the current user has blocked from contacting.
@@ -468,7 +468,7 @@
  * 
  * This set of constants represents the list of states a Steam friend can be in.
  * 
- * [[Note: Alternatively, you can use the `STEAMWORKS_PERSONA_STATE` enum.]]
+ * [[Note: The `STEAMWORKS_PERSONA_STATE` enum is deprecated. Use the snake_case extension constants listed here instead.]]
  * 
  * @member steam_persona_state_offline Friend is not currently logged on.
  * @member steam_persona_state_online Friend is logged on.
@@ -477,7 +477,7 @@
  * @member steam_persona_state_snooze Auto-away for a long time.
  * @member steam_persona_state_looking_to_trade Online, trading.
  * @member steam_persona_state_looking_to_play Online, wanting to play.
- * @member steam_persona_state_invisible The total number of states. Only used for looping and validation.
+ * @member steam_persona_state_invisible Online, but appears offline to friends. This status is never published to clients.
  * @const_end
  */
 

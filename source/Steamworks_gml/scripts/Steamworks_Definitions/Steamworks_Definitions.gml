@@ -1,4 +1,5 @@
 
+// @deprecated Use the steam_friends_flags_* extension constants instead.
 enum STEAMWORKS_FRIENDS_FLAGS
 {
 	NONE = 0x00,
@@ -19,6 +20,7 @@ enum STEAMWORKS_FRIENDS_FLAGS
 };
 
 
+// @deprecated Use the steam_persona_state_* extension constants instead.
 enum STEAMWORKS_PERSONA_STATE
 {
 	OFFLINE = 0,			// FRIEND IS NOT CURRENTLY LOGGED ON
@@ -36,6 +38,7 @@ enum STEAMWORKS_PERSONA_STATE
 
 
 // SteamNetworking connection states (ESteamNetworkingConnectionState)
+// @deprecated Use the steam_net_connection_state_* extension constants instead.
 enum STEAMWORKS_NET_CONNECTION_STATE
 {
 	NONE = 0,
@@ -52,6 +55,7 @@ enum STEAMWORKS_NET_CONNECTION_STATE
 
 
 // SteamNetworking send flags (k_nSteamNetworkingSend_*)
+// @deprecated Use the steam_net_send_flag_* extension constants instead.
 enum STEAMWORKS_NET_SEND_FLAG
 {
 	UNRELIABLE = 0,
@@ -66,6 +70,7 @@ enum STEAMWORKS_NET_SEND_FLAG
 }
 
 // enum ESteamNetworkingFakeIPType
+// @deprecated Use the steam_net_fake_ip_type_* extension constants instead.
 enum STEAMWORKS_NET_FAKE_IP_TYPE
 {
 	INVALID, // Error, argument was not even an IP address, etc.
@@ -76,6 +81,7 @@ enum STEAMWORKS_NET_FAKE_IP_TYPE
 
 
 /// enum ESteamNetworkingIdentityType
+// @deprecated Use the steam_net_identity_type_* extension constants instead.
 enum STEAMWORKS_NET_IDENTITY_TYPE
 {
 	// Dummy/empty/invalid.
@@ -124,6 +130,7 @@ enum STEAMWORKS_NET_IDENTITY_TYPE
 
 /// Describe the status of a particular network resource
 // enum ESteamNetworkingAvailability
+// @deprecated Use the steam_net_availability_* extension constants instead.
 enum STEAMWORKS_NET_AVAILABILITY
 {
 	// Negative values indicate a problem.
@@ -153,6 +160,7 @@ enum STEAMWORKS_NET_AVAILABILITY
 /// Enumerate various causes of connection termination.  These are designed to work similar
 /// to HTTP error codes: the numeric range gives you a rough classification as to the source
 /// of the problem.
+// @deprecated Use the steam_net_connection_end_* extension constants instead.
 enum STEAMWORKS_NET_CONNECTION_END
 {
 	// Invalid/sentinel value
