@@ -462,7 +462,7 @@
  * 
  * This set of constants hold the types of fake IP.
  * 
- * [[Note: Alternatively, you can use the `STEAMWORKS_NET_FAKE_IP_TYPE` enum.]]
+ * [[Note: The `STEAMWORKS_NET_FAKE_IP_TYPE` enum is deprecated. Use the snake_case extension constants listed here instead.]]
  * 
  * @member steam_net_fake_ip_type_invalid Error, argument was not even an IP address, etc.
  * @member steam_net_fake_ip_type_not_fake Argument was a valid IP, but was not from the reserved "fake" range
@@ -477,7 +477,7 @@
  * 
  * This set of constants holds the different types of identities that a remote host can have. Most of the time on Steam, this will be a SteamID. However, in some cases you can disable authentication, in which case a more generic identity will be used.
  * 
- * [[Note: Alternatively, you can use the `STEAMWORKS_NET_IDENTITY_TYPE` enum.]]
+ * [[Note: The `STEAMWORKS_NET_IDENTITY_TYPE` enum is deprecated. Use the snake_case extension constants listed here instead.]]
  * 
  * @member steam_net_identity_type_invalid Dummy/unknown/invalid
  * @member steam_net_identity_type_steam_id 64-bit SteamID
@@ -495,7 +495,7 @@
  * 
  * This set of constants holds the different states of networking availability.
  * 
- * [[Note: Alternatively, you can use the `STEAMWORKS_NET_AVAILABILITY` enum.]]
+ * [[Note: The `STEAMWORKS_NET_AVAILABILITY` enum is deprecated. Use the snake_case extension constants listed here instead.]]
  * 
  * @member steam_net_availability_cannot_try A dependent resource is missing, so this service is unavailable. (E.g. we cannot talk to routers because Internet is down or we don't have the network config.)
  * @member steam_net_availability_failed We have tried for enough time that we would expect to have been successful by now. We have never been successful.
@@ -515,7 +515,7 @@
  * 
  * These constants are used in bitmask parameters to functions for message sending such as ${function.steam_net_sockets_send_message}.
  * 
- * [[Note: Alternatively, you can use the `STEAMWORKS_NET_SEND_FLAG` enum.]]
+ * [[Note: The `STEAMWORKS_NET_SEND_FLAG` enum is deprecated. Use the snake_case extension constants listed here instead.]]
  * 
  * @member steam_net_send_flag_unreliable Send the message unreliably. Can be lost. Messages *can* be larger than a single MTU (UDP packet), but there is no retransmission, so if any piece of the message is lost, the entire message will be dropped.
  * @member steam_net_send_flag_no_nagle Disable [Nagle's algorithm](https://en.wikipedia.org/wiki/Nagle%27s_algorithm).
@@ -533,7 +533,7 @@
  * 
  * This enumeration holds the possible high level connection states.
  * 
- * [[Note: Alternatively, you can use the `STEAMWORKS_NET_CONNECTION_STATE` enum.]]
+ * [[Note: The `STEAMWORKS_NET_CONNECTION_STATE` enum is deprecated. Use the snake_case extension constants listed here instead.]]
  * 
  * @member steam_net_connection_state_none Dummy value used to indicate an error condition in the API. Specified connection doesn't exist or has already been closed.
  * @member steam_net_connection_state_connecting We are trying to establish whether peers can talk to each other, whether they WANT to talk to each other, perform basic auth, and exchange crypt keys.
