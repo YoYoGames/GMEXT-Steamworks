@@ -261,4 +261,54 @@ YYEXPORT void steam_user_cancel_auth_ticket(RValue& Result, CInstance* selfinst,
     }
 }
 
+void steam_net_callbacks_t::validate_auth_ticket_response(ValidateAuthTicketResponse_t* e)
+{
+    steam_net_event r((char*)"validate_auth_ticket_response");
+    r.set((char*)"success", e->m_eAuthSessionResponse == k_EAuthSessionResponseOK);
+    r.set((char*)"response", (double)e->m_eAuthSessionResponse);
+    r.set_steamid_all("steam_id", e->m_SteamID);
+    r.set_steamid_all("owner_steam_id", e->m_OwnerSteamID);
+    r.dispatch();
+}
+
+YYEXPORT void steam_user_begin_auth_session(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)
+{
+    Result.kind = VALUE_REAL;
+    Result.val = -1.0;
+
+    if (!steam_is_initialised) return;
+
+    int32 bufferId = YYGetInt32(arg, 0);
+    int64 steamId = YYGetInt64(arg, 1);
+
+    void* buffer_data = nullptr;
+    int buffer_size = 0;
+
+    if (bufferId < 0 || !BufferGetContent(bufferId, &buffer_data, &buffer_size))
+    {
+        DebugConsoleOutput("steam_user_begin_auth_session() - error: invalid buffer %d\n", (int)bufferId);
+        return;
+    }
+
+    CSteamID target;
+    target.SetFromUint64((uint64)steamId);
+
+    EBeginAuthSessionResult result = SteamUser()->BeginAuthSession(buffer_data, buffer_size, target);
+    YYFree(buffer_data);
+
+    Result.val = (double)result;
+}
+
+YYEXPORT void steam_user_end_auth_session(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)
+{
+    if (!steam_is_initialised) return;
+
+    int64 steamId = YYGetInt64(arg, 0);
+
+    CSteamID target;
+    target.SetFromUint64((uint64)steamId);
+
+    SteamUser()->EndAuthSession(target);
+}
+
 #pragma endregion
