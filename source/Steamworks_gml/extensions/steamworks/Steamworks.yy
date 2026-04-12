@@ -730,6 +730,10 @@
         "Auto",
         "Enabled",
       ],"name":"debug","optType":6,"resourceType":"GMExtensionOption","resourceVersion":"2.0",},
+    {"$GMExtensionOption":"","%Name":"steamInput","defaultValue":"Manual","description":"Manual - you must call steam_input_init() from GML;\nAuto - auto-initializes Steam Input on startup to prevent gamepad-related crashes (may affect native gamepad_ functions);","displayName":"Steam Input","exportToINI":true,"extensionId":null,"guid":"bb29a960-d7e1-4a62-9cc5-5a2052e6d2e0","hidden":false,"listItems":[
+        "Manual",
+        "Auto",
+      ],"name":"steamInput","optType":6,"resourceType":"GMExtensionOption","resourceVersion":"2.0",},
     {"$GMExtensionOption":"","%Name":"__extOptLabel","defaultValue":"EXTRA OPTIONS:","description":"","displayName":"","exportToINI":false,"extensionId":null,"guid":"6fb808c0-c204-4477-9ad2-f05b3a5b9eeb","hidden":false,"listItems":[],"name":"__extOptLabel","optType":5,"resourceType":"GMExtensionOption","resourceVersion":"2.0",},
     {"$GMExtensionOption":"","%Name":"logLevel","defaultValue":"1","description":"The log level to be used by the script file.\r\n0: Show only errors\r\n1: Show errors and warnings (recommended)\r\n2: Show everything (use before submitting a bug)","displayName":"Log Level","exportToINI":false,"extensionId":null,"guid":"4bf243ec-4e30-4c6d-86fd-9207893f0784","hidden":false,"listItems":[
         "0",
