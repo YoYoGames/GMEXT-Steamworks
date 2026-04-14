@@ -5,7 +5,9 @@
  * @desc With this function you can initialize the Steam Input API. It will return `true` if initialization was successful and `false` otherwise. If argument `explicitly_call_run_frame` is `true`, then you must manually call ${function.steam_input_run_frame} to poll for input data and async events, otherwise that will be performed by the ${function.steam_update} function. After you initialize the Steam Input API, configuration events will be dispatched for any controllers connected while your game is running, they can be used to detect gamepad connection and when bindings have been updated so you need to refresh the sprites, input hints, etc.
  * 
  * [[WARNING: This function must be called ONLY if you **REALLY wish to use** the Steam Input API, or some other extensions in your project rely on Steam Input, otherwise calling it _may_ make native GameMaker `gamepad_` functions not see any controllers plugged in!]]
- * 
+ *
+ * [[NOTE: If you have set the **Steam Input** extension option to `"Auto"`, Steam Input is automatically initialized during startup and this function will return `true` without re-initializing. The `explicitly_call_run_frame` argument is ignored in that case, as auto-initialization always uses automatic frame polling (equivalent to passing `false`).]]
+ *
  * @param {boolean} explicitly_call_run_frame Are you going to call ${function.steam_input_run_frame} manually or not?
  * 
  * @returns {boolean}
@@ -1293,6 +1295,8 @@
  * Before proceeding, please read [this page](https://partner.steamgames.com/doc/features/steam_controller/getting_started_for_devs) about the Steam Input API for developers before reading this page to have a good understanding of what are Input Handles, Action Sets, Action Set Layers, Digital Actions, Analog Actions, Action Origins, the Steam Input Configurator, and bindings.
  * 
  * [[NOTE: This API is designed for **advanced users only**, if you don't know why you need it, please use the native GML `gamepad_` functions instead.]]
+ *
+ * [[NOTE: If you experience crashes when a gamepad is connected during game startup (see [GitHub issue #148](https://github.com/YoYoGames/GMEXT-Steamworks/issues/148)), try setting the **Steam Input** extension option to `"Auto"` in the IDE. This will automatically initialize the Steam Input API during startup, preventing conflicts with Steam's input translation layer. Be aware that this may cause native GameMaker `gamepad_` functions to not see controllers.]]
  * 
  * @section_func Functions
  * @desc The following functions can be used to access the Steam Input from within GameMaker: 
