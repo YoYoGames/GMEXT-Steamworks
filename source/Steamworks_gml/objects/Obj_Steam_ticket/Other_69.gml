@@ -35,3 +35,19 @@ if(async_load[?"auth_ticket_handle"] == auth_ticket_handle)
 		// now use auth_ticket_buffer, you can inspect this buffer in the Debugger.
 	}
 }
+
+if (async_load[? "event_type"] == "validate_auth_ticket_response")
+{
+	var _steam_id = async_load[? "steam_id"]
+	var _response = async_load[? "response"]
+	var _owner_id = async_load[? "owner_steam_id"]
+	show_debug_message("Validate auth ticket response - steam_id: " + string(_steam_id) + " response: " + string(_response) + " owner_steam_id: " + string(_owner_id))
+	if (async_load[? "success"])
+	{
+		show_debug_message("Auth session validated successfully")
+	}
+	else
+	{
+		show_debug_message("Auth session validation failed with response code: " + string(_response))
+	}
+}

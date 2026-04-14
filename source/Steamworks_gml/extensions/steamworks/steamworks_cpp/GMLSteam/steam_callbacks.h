@@ -20,6 +20,7 @@ public:
 	STEAM_CALLBACK(steam_net_callbacks_t, steam_inventory_full_update, SteamInventoryFullUpdate_t);
 	STEAM_CALLBACK(steam_net_callbacks_t, steam_inventory_definition_update, SteamInventoryDefinitionUpdate_t);
 	STEAM_CALLBACK(steam_net_callbacks_t, avatar_image_loaded, AvatarImageLoaded_t);
+	STEAM_CALLBACK(steam_net_callbacks_t, validate_auth_ticket_response, ValidateAuthTicketResponse_t);
 	STEAM_CALLBACK(steam_net_callbacks_t, steam_music_volume_has_changed, VolumeHasChanged_t);
 	STEAM_CALLBACK(steam_net_callbacks_t, steam_music_playback_status_has_changed, PlaybackStatusHasChanged_t);
 

@@ -385,6 +385,68 @@
  */
 
 /**
+ * @func steam_user_begin_auth_session
+ * @desc > **Steam Function**: [ISteamUser::BeginAuthSession](https://partner.steamgames.com/doc/api/ISteamUser#BeginAuthSession)
+ *
+ * This function validates an auth session ticket received from another user. The ticket is created on the other user's side using ${function.steam_user_get_auth_session_ticket} and sent over the network.
+ *
+ * This function returns a `STEAMWORKS_BEGIN_AUTH_SESSION_RESULT` value synchronously indicating whether the initial validation passed. The full VAC/authentication check happens asynchronously — listen for the `"validate_auth_ticket_response"` async event to get the final result, including VAC ban status.
+ *
+ * You **must** call ${function.steam_user_end_auth_session} when done with the session.
+ *
+ * @param {Id.Buffer} auth_ticket_buffer The buffer containing auth ticket bytes from the other player.
+ * @param {Int64} steam_id The Steam ID of the user who created the ticket.
+ *
+ * @returns {Real} A `STEAMWORKS_BEGIN_AUTH_SESSION_RESULT` value (0 = OK, 1 = Invalid Ticket, 2 = Duplicate Request, 3 = Invalid Version, 4 = Game Mismatch, 5 = Expired Ticket)
+ *
+ * @event steam
+ * @member {string} event_type The string value `"validate_auth_ticket_response"`
+ * @member {boolean} success Whether the auth session response is OK
+ * @member {real} response The `STEAMWORKS_AUTH_SESSION_RESPONSE` value (0 = OK, 3 = VAC Banned, 5 = VAC Check Timed Out, 9 = Publisher Issued Ban, etc.)
+ * @member {Int64} steam_id The Steam ID of the user being validated
+ * @member {Int64} owner_steam_id The Steam ID of the actual game owner (may differ from steam_id under Family Sharing)
+ * @event_end
+ *
+ * @example
+ * ```gml
+ * /// @desc After receiving ticket bytes from another player over the network:
+ * var _result = steam_user_begin_auth_session(received_ticket_buffer, sender_steam_id);
+ * if (_result == STEAMWORKS_BEGIN_AUTH_SESSION_RESULT.OK) {
+ *     show_debug_message("Auth session started, waiting for validation...");
+ * } else {
+ *     show_debug_message("Begin auth session failed with code: " + string(_result));
+ * }
+ * /// @desc Async - Steam
+ * if (async_load[? "event_type"] == "validate_auth_ticket_response") {
+ *     var _steam_id = async_load[? "steam_id"];
+ *     var _response = async_load[? "response"];
+ *     if (_response == STEAMWORKS_AUTH_SESSION_RESPONSE.OK) {
+ *         show_debug_message("User validated successfully!");
+ *     } else if (_response == STEAMWORKS_AUTH_SESSION_RESPONSE.VAC_BANNED) {
+ *         show_debug_message("User is VAC banned!");
+ *     }
+ * }
+ * ```
+ * The above code begins an auth session with another player's ticket and checks the async result for VAC status.
+ * @func_end
+ */
+
+/**
+ * @func steam_user_end_auth_session
+ * @desc > **Steam Function**: [ISteamUser::EndAuthSession](https://partner.steamgames.com/doc/api/ISteamUser#EndAuthSession)
+ *
+ * This function ends an auth session that was started with ${function.steam_user_begin_auth_session}. This should be called when the game session with the other user ends.
+ *
+ * @param {Int64} steam_id The Steam ID of the user to end the auth session with.
+ *
+ * @example
+ * ```gml
+ * steam_user_end_auth_session(other_player_steam_id);
+ * ```
+ * @func_end
+ */
+
+/**
  * @func steam_current_game_language
  * @desc This function retrieves the current language that Steam is using (as a string), for example "english".
  * 
@@ -491,6 +553,8 @@
  * @ref steam_user_get_auth_ticket_for_web_api
  * @ref steam_user_get_auth_session_ticket
  * @ref steam_user_cancel_auth_ticket
+ * @ref steam_user_begin_auth_session
+ * @ref steam_user_end_auth_session
  * @ref steam_current_game_language
  * @ref steam_available_languages
  * @ref steam_is_subscribed
