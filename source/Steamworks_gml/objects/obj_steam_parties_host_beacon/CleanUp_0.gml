@@ -1,0 +1,2 @@
+
+steam_parties_destroy_beacon(beacon_id)

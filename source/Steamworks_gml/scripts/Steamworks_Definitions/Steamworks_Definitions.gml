@@ -1,4 +1,23 @@
 
+
+// SteamPartiesBeaconLocationType
+enum STEAM_PARTIES_BEACON_LOCATION
+{
+	TYPE_INVALID,
+	CHAT_GROUP,
+	TYPE_MAX
+}
+
+// SteamPartiesBeaconLocationData
+enum STEAM_PARTIES_BEACON_LOCATION_DATA
+{
+	DATA_INVALID,
+	DATA_NAME,
+	ICON_URL_SMALL,
+	ICON_URL_MEDIUM,
+	ICON_URL_LARGE,
+}
+
 enum STEAMWORKS_FRIENDS_FLAGS
 {
 	NONE = 0x00,
@@ -148,6 +167,32 @@ enum STEAMWORKS_NET_AVAILABILITY
 
 	UNKNOWN = 0,			// Internal dummy/sentinel, or value is not applicable in this context
 };
+
+// EBeginAuthSessionResult
+enum STEAMWORKS_BEGIN_AUTH_SESSION_RESULT
+{
+	OK = 0,
+	INVALID_TICKET = 1,
+	DUPLICATE_REQUEST = 2,
+	INVALID_VERSION = 3,
+	GAME_MISMATCH = 4,
+	EXPIRED_TICKET = 5,
+}
+
+// EAuthSessionResponse
+enum STEAMWORKS_AUTH_SESSION_RESPONSE
+{
+	OK = 0,
+	USER_NOT_CONNECTED_TO_STEAM = 1,
+	NO_LICENSE_OR_EXPIRED = 2,
+	VAC_BANNED = 3,
+	LOGGED_IN_ELSEWHERE = 4,
+	VAC_CHECK_TIMED_OUT = 5,
+	AUTH_TICKET_CANCELED = 6,
+	AUTH_TICKET_INVALID_ALREADY_USED = 7,
+	AUTH_TICKET_INVALID = 8,
+	PUBLISHER_ISSUED_BAN = 9,
+}
 
 // ESteamNetConnectionEnd
 /// Enumerate various causes of connection termination.  These are designed to work similar
