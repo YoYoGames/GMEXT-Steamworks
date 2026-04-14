@@ -121,14 +121,6 @@ void OldPreGraphicsInitialisation()
     tracef("SteamAPI_Init had succeeded without errors, debug flag = %d", debug ? 1 : 0);
 
     steam_is_initialised = true;
-
-    // Auto-initialize Steam Input if extension option is set to "Auto"
-    const char* steamInputOpt = extOptGetString("Steamworks", "steamInput");
-    if (strncmp(steamInputOpt, "Auto", 4) == 0)
-    {
-        tracef("Steam Input auto-init enabled via extension option.");
-        Steam_Input_Init();
-    }
 }
 
 YYEXPORT void steam_initialised(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)
@@ -202,14 +194,6 @@ YYEXPORT void steam_shutdown(RValue& Result, CInstance* selfinst, CInstance* oth
 		Result.kind = VALUE_REAL;
 		Result.val = 0;
 		return;
-	}
-
-	if (steam_input_auto_initialized && SteamInput())
-	{
-		SteamInput()->Shutdown();
-		steam_input_auto_initialized = false;
-		Steam_Input_Cleanup();
-		tracef("Steam Input auto-shutdown completed.");
 	}
 
 	SteamAPI_Shutdown();

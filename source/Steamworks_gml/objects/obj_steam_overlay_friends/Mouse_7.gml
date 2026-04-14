@@ -1,4 +1,4 @@
 
 // This will bring up your steam friends overlay
-steam_activate_overlay(ov_friends)
+steam_friends_activate_game_overlay("Friends")
 

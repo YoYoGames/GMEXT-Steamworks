@@ -1,2 +1,2 @@
 
-steam_set_achievement(achievement)
+steam_userstats_set_achievement(achievement)

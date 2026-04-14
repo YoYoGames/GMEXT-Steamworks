@@ -1,0 +1,370 @@
+{
+  "type": [
+    "object",
+    "null"
+  ],
+  "properties": {
+    "$schema": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "input": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "root": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "profile": {
+      "enum": [
+        "Full",
+        "BindingsOnly",
+        "BuildOnly"
+      ]
+    },
+    "gamemaker": {
+      "type": "object",
+      "properties": {
+        "wrappers": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "enabled": {
+              "type": "boolean"
+            },
+            "outputFile": {
+              "type": "string"
+            }
+          }
+        },
+        "runtime": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "enabled": {
+              "type": "boolean"
+            },
+            "outputFile": {
+              "type": "string"
+            }
+          }
+        },
+        "extension": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "enabled": {
+              "type": "boolean"
+            },
+            "outputFile": {
+              "type": "string"
+            },
+            "mode": {
+              "enum": [
+                "plain",
+                "patch"
+              ]
+            },
+            "extensionName": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "extensionFileName": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "patchFrameworks": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "mode"
+          ]
+        },
+        "injectors": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "enabled": {
+              "type": "boolean"
+            },
+            "outputFolder": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "targets": {
+      "type": "object",
+      "properties": {
+        "sourceFolder": {
+          "type": "string"
+        },
+        "sourceFile": {
+          "type": "string"
+        },
+        "windows": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "outputFolder": {
+              "type": "string"
+            },
+            "enabled": {
+              "type": "boolean"
+            }
+          }
+        },
+        "macos": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "outputFolder": {
+              "type": "string"
+            },
+            "enabled": {
+              "type": "boolean"
+            }
+          }
+        },
+        "linux": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "outputFolder": {
+              "type": "string"
+            },
+            "enabled": {
+              "type": "boolean"
+            }
+          }
+        },
+        "android": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "mode": {
+              "enum": [
+                "java",
+                "kotlin",
+                "jni"
+              ]
+            },
+            "outputFolder": {
+              "type": "string"
+            },
+            "enabled": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "mode"
+          ]
+        },
+        "ios": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "mode": {
+              "enum": [
+                "objc",
+                "swift",
+                "native"
+              ]
+            },
+            "sourceFolder": {
+              "type": "string"
+            },
+            "sourceFilename": {
+              "type": "string"
+            },
+            "outputFolder": {
+              "type": "string"
+            },
+            "outputSourceFolder": {
+              "type": "string"
+            },
+            "enabled": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "mode"
+          ]
+        },
+        "tvos": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "mode": {
+              "enum": [
+                "objc",
+                "swift",
+                "native"
+              ]
+            },
+            "sourceFolder": {
+              "type": "string"
+            },
+            "sourceFilename": {
+              "type": "string"
+            },
+            "outputFolder": {
+              "type": "string"
+            },
+            "outputSourceFolder": {
+              "type": "string"
+            },
+            "enabled": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "mode"
+          ]
+        },
+        "xbox": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "outputFolder": {
+              "type": "string"
+            },
+            "enabled": {
+              "type": "boolean"
+            }
+          }
+        },
+        "ps4": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "outputFolder": {
+              "type": "string"
+            },
+            "enabled": {
+              "type": "boolean"
+            }
+          }
+        },
+        "ps5": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "outputFolder": {
+              "type": "string"
+            },
+            "enabled": {
+              "type": "boolean"
+            }
+          }
+        },
+        "switch": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "outputFolder": {
+              "type": "string"
+            },
+            "enabled": {
+              "type": "boolean"
+            }
+          }
+        }
+      }
+    },
+    "extras": {
+      "type": "object",
+      "properties": {
+        "docs": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "outputFile": {
+              "type": "string"
+            },
+            "overwrite": {
+              "type": "boolean"
+            },
+            "enabled": {
+              "type": "boolean"
+            },
+            "outputFolder": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "build": {
+      "type": "object",
+      "properties": {
+        "emitCmake": {
+          "type": "boolean"
+        },
+        "cmake": {
+          "type": "object",
+          "properties": {
+            "cppStandard": {
+              "type": "integer"
+            },
+            "cppExtensions": {
+              "type": "boolean"
+            },
+            "strictWarnings": {
+              "type": "boolean"
+            },
+            "useThirdParty": {
+              "type": "boolean"
+            },
+            "emitPresets": {
+              "type": "boolean"
+            }
+          }
+        }
+      }
+    }
+  }
+}

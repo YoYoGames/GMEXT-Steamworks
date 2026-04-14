@@ -1,16 +1,16 @@
 {
   "$GMObject":"",
-  "%Name":"Obj_Steam_Networking_Overlay",
+  "%Name":"obj_steam_networking_overlay",
   "eventList":[
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":7,"eventType":6,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
   ],
   "managed":true,
-  "name":"Obj_Steam_Networking_Overlay",
+  "name":"obj_steam_networking_overlay",
   "overriddenProperties":[],
   "parent":{
-    "name":"Lobbies",
-    "path":"folders/Steamworks Demo/Networking/Lobbies.yy",
+    "name":"Lobby",
+    "path":"folders/Steamworks Demo/Networking/Matchmaking/Lobby.yy",
   },
   "parentObjectId":{
     "name":"obj_gm_button",

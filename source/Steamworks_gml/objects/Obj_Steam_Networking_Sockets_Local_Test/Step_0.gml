@@ -1,11 +1,12 @@
 
 event_inherited()
 
+
 if (!socket_demo_ready) exit;
 
 if (keyboard_check_pressed(vk_space)) {
     send_counter++;
-
+	
     var from_conn;
     var to_conn;
     if (keyboard_check(vk_shift)) {
@@ -16,18 +17,17 @@ if (keyboard_check_pressed(vk_space)) {
         to_conn   = conn_b;
     }
 
-    var msg = "Hello #" + string(send_counter)
-              + " from " + (from_conn == conn_a ? "A" : "B");
+    var msg = $"Hello # {send_counter} from {from_conn == conn_a ? "A" : "B"}"
 
     buffer_seek(buf, buffer_seek_start, 0);
     buffer_write(buf, buffer_string, msg);
 
     var size = buffer_tell(buf);
-    var er = steam_net_sockets_send_message(
+    var er = steam_networking_sockets_send_message_to_connection(
         from_conn,
         buf,
         size,
-        global.SEND_RELIABLE
+        0
     );
 
     log_add("SEND: \"" + msg + "\" via conn " + string(from_conn)
@@ -37,17 +37,18 @@ if (keyboard_check_pressed(vk_space)) {
 
 
 function poll_connection(conn_name, conn_handle) {
-    var received = steam_net_sockets_recv_messages_on_connection(
+    var received = steam_networking_sockets_receive_one_on_connection(
         conn_handle,
         buf,
-        buf_size
+        buf_size,
+		0
     );
 
-    if (received > 0) {
+    if (received.bytes_written > 0) {
         buffer_seek(buf, buffer_seek_start, 0);
         var s = buffer_read(buf, buffer_string);
 
-        log_add("RECV on " + conn_name + " (" + string(conn_handle) + "): " + s);
+        log_add($"RECV on {conn_name} ( {conn_handle} ): {s}")
     }
 }
 

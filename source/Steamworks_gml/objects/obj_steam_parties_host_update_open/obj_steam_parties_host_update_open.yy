@@ -4,7 +4,6 @@
   "eventList":[
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":7,"eventType":6,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
-    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":70,"eventType":7,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
   ],
   "managed":true,
   "name":"obj_steam_parties_host_update_open",
@@ -14,8 +13,8 @@
     "path":"folders/Steamworks Demo/Parties/Host.yy",
   },
   "parentObjectId":{
-    "name":"obj_gm_button",
-    "path":"objects/obj_gm_button/obj_gm_button.yy",
+    "name":"obj_gm_button1",
+    "path":"objects/obj_gm_button1/obj_gm_button1.yy",
   },
   "persistent":false,
   "physicsAngularDamping":0.1,
@@ -35,8 +34,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"spr_gm_button",
-    "path":"sprites/spr_gm_button/spr_gm_button.yy",
+    "name":"spr_gm_button1",
+    "path":"sprites/spr_gm_button1/spr_gm_button1.yy",
   },
   "spriteMaskId":null,
   "visible":true,

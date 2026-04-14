@@ -29,13 +29,13 @@ function locations_refresh()
 	    var name = steam_parties_get_beacon_location_data(
 		        beacon_location_type,
 		        beacon_location_id,
-		        STEAM_PARTIES_BEACON_LOCATION_DATA.DATA_NAME
+		        SteamPartiesBeaconLocationData.Name
 		    );
 	
 	    var icon = steam_parties_get_beacon_location_data(
 		        beacon_location_type,
 		        beacon_location_id,
-		        STEAM_PARTIES_BEACON_LOCATION_DATA.ICON_URL_SMALL
+		        SteamPartiesBeaconLocationData.IconURLSmall
 		    );
 
 		var beacon_location = {

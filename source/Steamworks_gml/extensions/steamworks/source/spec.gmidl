@@ -1,0 +1,5420 @@
+[gml_api]
+module Steamworks;
+
+
+[global]
+class `[[SteamId]]` prototype Object
+{
+    [field, type_hint = uint64]
+    property id64 : gmval { get; set; }
+
+    [field]
+    property account_id : uint32 { get; set; }        // GetAccountID()
+
+    [field]
+    property account_instance : uint32 { get; set; }  // GetUnAccountInstance()
+
+    [field, type_hint = `SteamApiUniverse`]
+    property universe : gmval { get; set; }           // GetEUniverse()
+
+    [field, type_hint = `SteamApiAccountType`]
+    property account_type : gmval { get; set; }       // GetEAccountType()
+
+    // Common identity predicates
+    [field]
+    property is_valid : bool { get; set; }            // IsValid()
+
+    [field]
+    property is_lobby : bool { get; set; }            // IsLobby()
+
+    //Internal Steam debug function....
+    // [field]
+    // property is_valid_external : bool { get; set; }   // BValidExternalSteamID()
+
+    // Account-type predicates
+    [field]
+    property is_individual : bool { get; set; }       // BIndividualAccount()
+
+    [field]
+    property is_game_server : bool { get; set; }      // BGameServerAccount()
+
+    [field]
+    property is_anon_game_server : bool { get; set; } // BAnonGameServerAccount()
+
+    [field]
+    property is_anon_user : bool { get; set; }        // BAnonUserAccount()
+
+    [field]
+    property is_content_server : bool { get; set; }   // BContentServerAccount()
+
+    [field]
+    property is_clan : bool { get; set; }             // BClanAccount()
+
+    [field]
+    property is_chat : bool { get; set; }             // BChatAccount()
+}
+
+
+[global, bind = typed_gml]
+enum SteamApiAccountType
+{
+    Invalid = 0,
+    Individual = 1,
+    Multiseat = 2,
+    GameServer = 3,
+    AnonGameServer = 4,
+    Pending = 5,
+    ContentServer = 6,
+    Clan = 7,
+    Chat = 8,
+    ConsoleUser = 9,
+    AnonUser = 10,
+}
+
+group
+{
+
+[global, bind = typed_gml]
+function steam_api_last_error(): string;
+
+// auxiliar function
+[global, bind = typed_gml]
+function steam_api_is_initialized(): bool;
+
+// SteamAPI_Init
+[global, bind = typed_gml]
+function steam_api_init(unOwnAppID: uint32): bool;
+
+// SteamAPI_ReleaseCurrentThreadMemory
+[global, bind = typed_gml]
+function steam_api_release_current_thread_memory(): unit;
+
+// SteamAPI_RestartAppIfNecessary
+[global, bind = typed_gml]
+function steam_api_restart_app_if_necessary(unOwnAppID: uint32): bool;
+
+// SteamAPI_RunCallbacks
+[global, bind = typed_gml]
+function steam_api_run_callbacks(): unit;
+
+// SteamAPI_Shutdown
+[global, bind = typed_gml]
+function steam_api_shutdown(): unit;
+
+
+// From EDenyReason 
+[global, bind = typed_gml]
+enum SteamApiDenyReason
+{
+    Invalid = 0,
+    InvalidVersion = 1,
+    Generic = 2,
+    NotLoggedOn = 3,
+    NoLicense = 4,
+    Cheater = 5,
+    LoggedInElsewhere = 6,
+    UnknownText = 7,
+    IncompatibleAnticheat = 8,
+    MemoryCorruption = 9,
+    IncompatibleSoftware = 10,
+    SteamConnectionLost = 11,
+    SteamConnectionError = 12,
+    SteamResponseTimedOut = 13,
+    SteamValidationStalled = 14,
+    SteamOwnerLeftGuestUser = 15,
+}
+
+// From EGameIDType 
+[global, bind = typed_gml]
+enum SteamApiGameIdType
+{
+    App = 0,
+    GameMod = 1,
+    Shortcut = 2,
+    P2p = 3,
+}
+
+// From ELaunchOptionType 
+[global, bind = typed_gml]
+enum SteamApiLaunchOptionType
+{
+    None = 0,
+    Default = 1,
+    SafeMode = 2,
+    Multiplayer = 3,
+    Config = 4,
+    Openvr = 5,
+    Server = 6,
+    Editor = 7,
+    Manual = 8,
+    Benchmark = 9,
+    Option1 = 10,
+    Option2 = 11,
+    Option3 = 12,
+    OculusVr = 13,
+    OpenvrOverlay = 14,
+    Osvr = 15,
+    Dialog = 1000,
+}
+
+// From EMarketingMessageFlags (bit flags) 
+[global, bind = typed_gml]
+enum SteamApiMarketingMessageFlag
+{
+    None = 0,
+    HighPriority = 1,        // 1 << 0
+    PlatformWindows = 2,     // 1 << 1
+    PlatformMac = 4,         // 1 << 2
+    PlatformLinux = 8,       // 1 << 3
+    PlatformRestrictions = 14, // aggregate of platform flags
+}
+
+// From ENotificationPosition 
+[global, bind = typed_gml]
+enum SteamApiNotificationPosition
+{
+    TopLeft = 0,
+    TopRight = 1,
+    BottomLeft = 2,
+    BottomRight = 3,
+}
+
+// From EUniverse 
+[global, bind = typed_gml]
+enum SteamApiUniverse
+{
+    Invalid = 0,
+    Public = 1,
+    Beta = 2,
+    Internal = 3,
+    Dev = 4,
+    Max = 5,
+}
+
+// From EUserHasLicenseForAppResult 
+[global, bind = typed_gml]
+enum SteamApiUserHasLicenseResult
+{
+    HasLicense = 0,
+    DoesNotHaveLicense = 1,
+    NoAuth = 2,
+}
+
+// From EVoiceResult 
+[global, bind = typed_gml]
+enum SteamApiVoiceResult
+{
+    Ok = 0,
+    NotInitialized = 1,
+    NotRecording = 2,
+    NoData = 3,
+    BufferTooSmall = 4,
+    DataCorrupted = 5,
+    Restricted = 6,
+    UnsupportedCodec = 7,
+    ReceiverOutOfDate = 8,
+    ReceiverDidNotAnswer = 9,
+}
+
+// From EResult (Steam result codes) 
+[global, bind = typed_gml]
+enum SteamApiResult
+{
+    Ok = 1,
+    Fail = 2,
+    NoConnection = 3,
+    InvalidPassword = 5,
+    LoggedInElsewhere = 6,
+    InvalidProtocolVer = 7,
+    InvalidParam = 8,
+    FileNotFound = 9,
+    Busy = 10,
+    InvalidState = 11,
+    InvalidName = 12,
+    InvalidEmail = 13,
+    DuplicateName = 14,
+    AccessDenied = 15,
+    Timeout = 16,
+    Banned = 17,
+    AccountNotFound = 18,
+    InvalidSteamId = 19,
+    ServiceUnavailable = 20,
+    NotLoggedOn = 21,
+    Pending = 22,
+    EncryptionFailure = 23,
+    InsufficientPrivilege = 24,
+    LimitExceeded = 25,
+    Revoked = 26,
+    Expired = 27,
+    AlreadyRedeemed = 28,
+    DuplicateRequest = 29,
+    AlreadyOwned = 30,
+    IpNotFound = 31,
+    PersistFailed = 32,
+    LockingFailed = 33,
+    LogonSessionReplaced = 34,
+    ConnectFailed = 35,
+    HandshakeFailed = 36,
+    IoFailure = 37,
+    RemoteDisconnect = 38,
+    ShoppingCartNotFound = 39,
+    Blocked = 40,
+    Ignored = 41,
+    NoMatch = 42,
+    AccountDisabled = 43,
+    ServiceReadOnly = 44,
+}
+
+}
+
+group{ // SteamFriends
+
+[global]
+class `[[SteamFriendsGetFollowerCountResult]]` prototype Object
+{
+    [field] property result : int32 { get; set; } // EResult numeric
+    [field, type_hint=uint64] property steam_id : gmval { get; set; }
+    [field] property count : int32 { get; set; }
+}
+
+[global]
+class `[[SteamFriendsIsFollowingResult]]` prototype Object
+{
+    [field] property result : int32 { get; set; } // EResult numeric
+    [field, type_hint=uint64] property steam_id : gmval { get; set; }
+    [field] property is_following : bool { get; set; }
+}
+
+[global]
+class `[[SteamFriendsEnumerateFollowingListResult]]` prototype Object
+{
+    [field] property result : int32 { get; set; } // EResult numeric
+    [field, type_hint=`uint64[]`] property steam_ids : gmval { get; set; }
+    [field] property results_returned : int32 { get; set; }
+    [field] property total_result_count : int32 { get; set; }
+}
+
+[global]
+class `[[SteamFriendsRequestClanOfficerListResult]]` prototype Object
+{
+    [field] property result : int32 { get; set; } // EResult numeric
+    [field, type_hint=uint64] property clan_id : gmval { get; set; }
+    [field] property officers : int32 { get; set; }
+}
+
+[global]
+class `[[SteamFriendsDownloadClanActivityCountsResult]]` prototype Object
+{
+    [field] property result : int32 { get; set; } // EResult numeric
+}
+
+[global, bind = typed_gml]
+function steam_friends_activate_game_overlay(pchDialog: string): unit;
+
+[global, bind = typed_gml]
+function steam_friends_activate_game_overlay_invite_dialog([type_hint=uint64] steamIDLobby: gmval): unit;
+
+[global, bind = typed_gml]
+function steam_friends_activate_game_overlay_to_store(nAppID: uint32, [type_hint=`SteamFriendsOverlayToStoreFlag`] eFlag: gmval): unit;
+
+[global, bind = typed_gml]
+function steam_friends_activate_game_overlay_to_user(pchDialog: string, [type_hint=uint64] steamID: gmval): unit;
+
+[global, bind = typed_gml]
+function steam_friends_activate_game_overlay_to_web_page(pchURL: string, [type_hint=`SteamFriendsOverlayToWebpageMode`] eMode: gmval): unit;
+
+[global, bind = typed_gml]
+function steam_friends_clear_rich_presence(): unit;
+
+[global, bind = typed_gml]
+function steam_friends_close_clan_chat_window_in_steam([type_hint=uint64] steamIDClanChat: gmval): bool;
+
+[global, bind = typed_gml]
+function steam_friends_download_clan_activity_counts([type_hint=`uint64[]`] psteamIDClans: gmval, cClansToRequest: int32, [type_hint=`func?`]callback:gmval): bool;
+
+[global, bind = typed_gml]
+function steam_friends_enumerate_following_list(unStartIndex: uint32, [type_hint=`func?`]callback:gmval): unit;
+
+
+// EOverlayToStoreFlag 
+// Values are from Steamworks headers; keep stable numeric mapping.
+[global, bind = typed_gml]
+enum SteamFriendsOverlayToStoreFlag
+{
+    None = 0,
+    AddToCart = 1,
+    AddToCartAndShow = 2,
+
+}
+
+
+[global, bind = typed_gml]
+function steam_friends_set_callback_avatar_image_loaded(callback:func): unit;
+
+[global, bind = typed_gml]
+function steam_friends_clear_callback_avatar_image_loaded(): unit;
+
+[global]
+class `[[SteamFriendsAvatarImageLoaded]]` prototype Object
+{
+    [field, type_hint = uint64]
+    property steam_id_64 : gmval { get; set; }
+
+    [field]
+    property image_handle : int32 { get; set; }
+
+    [field]
+    property width : int32 { get; set; }
+
+    [field]
+    property height : int32 { get; set; }
+}
+
+
+// EActivateGameOverlayToWebPageMode 
+[global, bind = typed_gml]
+enum SteamFriendsOverlayToWebpageMode
+{
+    Default = 0,
+    Modal = 1,
+}
+
+// GetChatMemberByIndex
+[global, bind = typed_gml, type_hint=uint64]
+function steam_friends_get_chat_member_by_index([type_hint=uint64] steamIDClan: gmval, iUser: int32): gmval;
+
+// GetClanActivityCounts
+[global, bind = typed_gml, type_hint=`SteamFriendsClanActivityCounts`]
+function steam_friends_get_clan_activity_counts([type_hint=uint64] steamIDClan: gmval): gmval;
+
+// GetClanByIndex
+[global, bind = typed_gml, type_hint=uint64]
+function steam_friends_get_clan_by_index(iClan: int32): gmval;
+
+// GetClanChatMemberCount
+[global, bind = typed_gml]
+function steam_friends_get_clan_chat_member_count([type_hint=uint64] steamIDClan: gmval): int32;
+
+// GetClanChatMessage
+[global, bind = typed_gml, type_hint=`SteamFriendsClanChatMessage`]
+function steam_friends_get_clan_chat_message([type_hint=uint64] steamIDClanChat: gmval, iMessage: int32): gmval;
+
+// GetClanCount
+[global, bind = typed_gml]
+function steam_friends_get_clan_count(): int32;
+
+// GetClanName
+[global, bind = typed_gml]
+function steam_friends_get_clan_name([type_hint=uint64] steamIDClan: gmval): string;
+
+// GetClanOfficerByIndex
+[global, bind = typed_gml, type_hint=uint64]
+function steam_friends_get_clan_officer_by_index([type_hint=uint64] steamIDClan: gmval, iOfficer: int32): gmval;
+
+// GetClanOfficerCount
+[global, bind = typed_gml]
+function steam_friends_get_clan_officer_count([type_hint=uint64] steamIDClan: gmval): int32;
+
+// GetClanOwner
+[global, bind = typed_gml, type_hint=uint64]
+function steam_friends_get_clan_owner([type_hint=uint64] steamIDClan: gmval): gmval;
+
+// GetClanTag
+[global, bind = typed_gml]
+function steam_friends_get_clan_tag([type_hint=uint64] steamIDClan: gmval): string;
+
+// GetCoplayFriend
+[global, bind = typed_gml, type_hint=uint64]
+function steam_friends_get_coplay_friend(iCoplayFriend: int32): gmval;
+
+// GetCoplayFriendCount
+[global, bind = typed_gml]
+function steam_friends_get_coplay_friend_count(): int32;
+
+
+[global]
+class `[[SteamFriendsClanActivityCounts]]` prototype Object
+{
+    // ok = true when GetClanActivityCounts returned true
+    [field]
+    property ok : bool { get; set; }
+
+    [field]
+    property online : int32 { get; set; }
+
+    [field]
+    property in_game : int32 { get; set; }
+
+    [field]
+    property chatting : int32 { get; set; }
+}
+
+[global]
+class `[[SteamFriendsClanChatMessage]]` prototype Object
+{
+    // bytes_copied = return value from GetClanChatMessage
+    [field]
+    property bytes_copied : int32 { get; set; }
+
+    [field]
+    property text : string { get; set; }
+
+    [field, type_hint = `SteamFriendsChatEntryType`]
+    property entry_type : gmval { get; set; }
+
+    [field, type_hint = uint64]
+    property chatter_steam_id_64 : gmval { get; set; }
+}
+
+
+
+// EChatEntryType 
+[global, bind = typed_gml]
+enum SteamFriendsChatEntryType
+{
+    Invalid = 0,
+    ChatMsg = 1,
+    Typing = 2,
+    InviteGame = 3,
+    Emote = 4,
+    LeftConversation = 6,
+    Entered = 7,
+    WasKicked = 8,
+    WasBanned = 9,
+    Disconnected = 10,
+    HistoricalChat = 11,
+    LinkBlocked = 14,
+}
+
+// GetFollowerCount
+// Returns SteamAPICall_t (async). Expose as uint64 handle.
+[global, bind = typed_gml]
+function steam_friends_get_follower_count([type_hint=uint64] steamID: gmval, [type_hint=`func?`]callback:gmval): unit;
+
+// GetFriendByIndex
+[global, bind = typed_gml, type_hint=uint64]
+function steam_friends_get_friend_by_index(iFriend: int32, iFriendFlags: int32): gmval;
+
+// GetFriendCoplayGame
+// AppId_t -> uint32
+[global, bind = typed_gml]
+function steam_friends_get_friend_coplay_game([type_hint=uint64] steamIDFriend: gmval): uint32;
+
+// GetFriendCoplayTime
+[global, bind = typed_gml]
+function steam_friends_get_friend_coplay_time([type_hint=uint64] steamIDFriend: gmval): int32;
+
+// GetFriendCount
+[global, bind = typed_gml]
+function steam_friends_get_friend_count(iFriendFlags: int32): int32;
+
+// GetFriendCountFromSource
+[global, bind = typed_gml]
+function steam_friends_get_friend_count_from_source([type_hint=uint64] steamIDSource: gmval): int32;
+
+
+// EFriendFlags (bitmask used by GetFriendCount / GetFriendByIndex) 
+[global, bind = typed_gml]
+enum SteamFriendsFriendFlag
+{
+    None = 0,
+
+    Blocked            = 1,        // 1 << 0
+    FriendshipRequested = 2,      // 1 << 1
+    Immediate          = 4,        // 1 << 2
+    ClanMember        = 8,        // 1 << 3
+    OnGameServer     = 16,       // 1 << 4
+    RequestingFriendship = 128,   // 1 << 7
+    RequestingInfo    = 256,      // 1 << 8
+    Ignored            = 512,      // 1 << 9
+    IgnoredFriend     = 1024,     // 1 << 10
+    ChatMember        = 4096,     // 1 << 12
+    All                = 65535,    // 0xFFFF
+}
+
+// GetFriendFromSourceByIndex
+[global, bind = typed_gml, type_hint=uint64]
+function steam_friends_get_friend_from_source_by_index([type_hint=uint64] steamIDSource: gmval, iFriend: int32): gmval;
+
+// GetFriendGamePlayed
+[global, bind = typed_gml, type_hint=`SteamFriendsFriendGamePlayed`]
+function steam_friends_get_friend_game_played([type_hint=uint64] steamIDFriend: gmval): gmval;
+
+// GetFriendMessage
+[global, bind = typed_gml, type_hint=`SteamFriendsFriendMessage`]
+function steam_friends_get_friend_message([type_hint=uint64] steamIDFriend: gmval, iMessageID: int32, cubData: int32): gmval;
+
+// GetFriendPersonaName
+[global, bind = typed_gml]
+function steam_friends_get_friend_persona_name([type_hint=uint64] steamIDFriend: gmval): string;
+
+// GetFriendPersonaNameHistory
+[global, bind = typed_gml]
+function steam_friends_get_friend_persona_name_history([type_hint=uint64] steamIDFriend: gmval, iPersonaName: int32): string;
+
+// GetFriendPersonaState
+[global, bind = typed_gml, type_hint=`SteamFriendsPersonaState`]
+function steam_friends_get_friend_persona_state([type_hint=uint64] steamIDFriend: gmval): gmval;
+
+// GetFriendRelationship
+[global, bind = typed_gml, type_hint=`SteamFriendsRelationship`]
+function steam_friends_get_friend_relationship([type_hint=uint64] steamIDFriend: gmval): gmval;
+
+// GetFriendRichPresence
+[global, bind = typed_gml]
+function steam_friends_get_friend_rich_presence([type_hint=uint64] steamIDFriend: gmval, pchKey: string): string;
+
+// GetFriendRichPresenceKeyByIndex
+[global, bind = typed_gml]
+function steam_friends_get_friend_rich_presence_key_by_index([type_hint=uint64] steamIDFriend: gmval, iKey: int32): string;
+
+// GetFriendRichPresenceKeyCount
+[global, bind = typed_gml]
+function steam_friends_get_friend_rich_presence_key_count([type_hint=uint64] steamIDFriend: gmval): int32;
+
+// GetFriendsGroupCount
+[global, bind = typed_gml]
+function steam_friends_get_friends_group_count(): int32;
+
+
+[global]
+class `[[SteamFriendsFriendGamePlayed]]` prototype Object
+{
+    [field]
+    property ok : bool { get; set; }
+
+    [field, type_hint = uint64]
+    property game_id : gmval { get; set; }          // typically CGameID -> uint64
+
+    [field]
+    property game_ip_v4 : uint32 { get; set; }      // host-order IPv4 (as returned by Steam)
+
+    [field]
+    property game_port : uint32 { get; set; }
+
+    [field]
+    property query_port : uint32 { get; set; }
+
+    [field, type_hint = uint64]
+    property lobby_steam_id_64 : gmval { get; set; } // typically CSteamID
+}
+
+[global]
+class `[[SteamFriendsFriendMessage]]` prototype Object
+{
+    [field]
+    property bytes_copied : int32 { get; set; }
+
+    [field, type_hint = `SteamFriendsChatEntryType`]
+    property entry_type : gmval { get; set; }
+
+    [field]
+    property data : string { get; set; }
+}
+
+
+// EPersonaState (commonly used by SteamFriends; numeric mapping is stable across SDKs)
+[global, bind = typed_gml]
+enum SteamFriendsPersonaState
+{
+    Offline = 0,
+    Online = 1,
+    Busy = 2,
+    Away = 3,
+    Snooze = 4,
+    LookingToTrade = 5,
+    LookingToPlay = 6,
+}
+
+// EFriendRelationship (relationship between the local user and the specified SteamID)
+[global, bind = typed_gml]
+enum SteamFriendsRelationship
+{
+    None = 0,
+    Blocked = 1,
+    RequestRecipient = 2,
+    Friend = 3,
+    RequestInitiator = 4,
+    Ignored = 5,
+    IgnoredFriend = 6,
+    SuggestedFriend = 7,
+}
+
+// GetFriendsGroupIDByIndex
+[global, bind = typed_gml]
+function steam_friends_get_friends_group_id_by_index(iFG: int32): int32;
+
+// GetFriendsGroupName
+[global, bind = typed_gml]
+function steam_friends_get_friends_group_name(friendsGroupID: int32): string;
+// GetFriendSteamLevel
+[global, bind = typed_gml]
+function steam_friends_get_friend_steam_level([type_hint=uint64] steam_id_friend: gmval): int32;
+
+// GetLargeFriendAvatar
+[global, bind = typed_gml]
+function steam_friends_get_large_friend_avatar([type_hint=uint64] steam_id_friend: gmval): int32;
+
+// GetMediumFriendAvatar
+[global, bind = typed_gml]
+function steam_friends_get_medium_friend_avatar([type_hint=uint64] steam_id_friend: gmval): int32;
+
+
+// GetFriendsGroupMembersCount
+[global, bind = typed_gml]
+function steam_friends_get_friends_group_members_count(friendsGroupID: int32): int32;
+
+// GetFriendsGroupMembersList
+[global, bind = typed_gml, type_hint = `uint64[]`]
+function steam_friends_get_friends_group_members_list(friendsGroupID: int32): gmval;
+
+// GetPersonaName
+[global, bind = typed_gml]
+function steam_friends_get_persona_name(): string;
+
+// GetPersonaState
+[global, bind = typed_gml, type_hint = `SteamFriendsPersonaState`]
+function steam_friends_get_persona_state(): gmval;
+
+// GetPlayerNickname
+[global, bind = typed_gml]
+function steam_friends_get_player_nickname([type_hint=uint64] steamIDPlayer: gmval): string;
+// GetSmallFriendAvatar
+[global, bind = typed_gml]
+function steam_friends_get_small_friend_avatar([type_hint=uint64] steam_id_friend: gmval): int32;
+
+// HasFriend
+[global, bind = typed_gml]
+function steam_friends_has_friend([type_hint=uint64] steamIDFriend: gmval, iFriendFlags: int32): bool;
+
+// InviteUserToGame
+[global, bind = typed_gml]
+function steam_friends_invite_user_to_game([type_hint=uint64] steamIDFriend: gmval, pchConnectString: string): bool;
+
+// IsClanChatAdmin
+[global, bind = typed_gml]
+function steam_friends_is_clan_chat_admin([type_hint=uint64] steamIDClanChat: gmval, [type_hint=uint64] steamIDUser: gmval): bool;
+
+// IsClanPublic
+[global, bind = typed_gml]
+function steam_friends_is_clan_public([type_hint=uint64] steamIDClan: gmval): bool;
+
+// IsClanOfficialGameGroup
+[global, bind = typed_gml]
+function steam_friends_is_clan_official_game_group([type_hint=uint64] steamIDClan: gmval): bool;
+
+// IsClanChatWindowOpenInSteam
+[global, bind = typed_gml]
+function steam_friends_is_clan_chat_window_open_in_steam([type_hint=uint64] steamIDClanChat: gmval): bool;
+
+// IsFollowing
+[global, bind = typed_gml]
+function steam_friends_is_following([type_hint=uint64] steamID: gmval, [type_hint=`func?`]callback:gmval): unit;
+
+// IsUserInSource
+[global, bind = typed_gml]
+function steam_friends_is_user_in_source([type_hint=uint64] steamIDUser: gmval, [type_hint=uint64] steamIDSource: gmval): bool;
+
+// RequestClanOfficerList
+[global, bind = typed_gml]
+function steam_friends_request_clan_officer_list([type_hint=uint64] steamIDClan: gmval, [type_hint=`func?`]callback:gmval): unit;
+
+// RequestFriendRichPresence
+[global, bind = typed_gml]
+function steam_friends_request_friend_rich_presence([type_hint=uint64] steamIDFriend: gmval): unit;
+
+// RequestUserInformation
+[global, bind = typed_gml]
+function steam_friends_request_user_information([type_hint=uint64] steamIDUser: gmval, bRequireNameOnly: bool): bool;
+
+// SetInGameVoiceSpeaking
+[global, bind = typed_gml]
+function steam_friends_set_in_game_voice_speaking([type_hint=uint64] steamIDUser: gmval, bSpeaking: bool): unit;
+
+// SetPlayedWith
+[global, bind = typed_gml]
+function steam_friends_set_played_with([type_hint=uint64] steamIDUserPlayedWith: gmval): unit;
+
+// SetRichPresence
+[global, bind = typed_gml]
+function steam_friends_set_rich_presence(pchKey: string, pchValue: string): bool;
+
+[global, bind = typed_gml]
+function steam_friends_set_callback_persona_state_change(callback:func): unit;
+
+[global, bind = typed_gml]
+function steam_friends_clear_callback_persona_state_change(): unit;
+
+[global]
+class `[[SteamFriendsPersonaStateChange]]` prototype Object
+{
+    [field, type_hint=uint64]
+    property steam_id : gmval { get; set; }
+
+    [field]
+    property change_flags : int32 { get; set; }
+}
+
+[global, bind = typed_gml]
+function steam_friends_set_callback_game_overlay_activated(callback:func): unit;
+
+[global, bind = typed_gml]
+function steam_friends_clear_callback_game_overlay_activated(): unit;
+
+[global, bind = typed_gml]
+function steam_friends_set_callback_game_rich_presence_join_requested(callback:func): unit;
+
+[global, bind = typed_gml]
+function steam_friends_clear_callback_game_rich_presence_join_requested(): unit;
+
+[global, bind = typed_gml]
+function steam_friends_set_callback_game_lobby_join_requested(callback:func): unit;
+
+[global, bind = typed_gml]
+function steam_friends_clear_callback_game_lobby_join_requested(): unit;
+
+[global, bind = typed_gml]
+function steam_friends_set_callback_friend_rich_presence_update(callback:func): unit;
+
+[global, bind = typed_gml]
+function steam_friends_clear_callback_friend_rich_presence_update(): unit;
+
+[global]
+class `[[SteamFriendsGameOverlayActivated]]` prototype Object
+{
+    [field]
+    property active : bool { get; set; }
+}
+
+[global]
+class `[[SteamFriendsGameRichPresenceJoinRequested]]` prototype Object
+{
+    [field, type_hint=uint64]
+    property steam_id_friend : gmval { get; set; }
+
+    [field]
+    property connect_string : string { get; set; }
+}
+
+[global]
+class `[[SteamFriendsGameLobbyJoinRequested]]` prototype Object
+{
+    [field, type_hint=uint64]
+    property steam_id_friend : gmval { get; set; }
+
+    [field, type_hint=uint64]
+    property steam_id_lobby : gmval { get; set; }
+}
+
+[global]
+class `[[SteamFriendsFriendRichPresenceUpdate]]` prototype Object
+{
+    [field, type_hint=uint64]
+    property steam_id_friend : gmval { get; set; }
+
+    [field]
+    property app_id : uint32 { get; set; }
+}
+
+[global, bind = typed_gml]
+function steam_friends_set_callback_game_server_change_requested(callback:func): unit;
+
+[global, bind = typed_gml]
+function steam_friends_clear_callback_game_server_change_requested(): unit;
+
+[global]
+class `[[SteamFriendsGameServerChangeRequested]]` prototype Object
+{
+    [field]
+    property server: string { get; set; }
+
+    [field]
+    property password: string { get; set; }
+}
+}
+
+group{ // SteamApps
+
+// BGetDLCDataByIndex
+[global, bind = typed_gml, type_hint = `SteamAppsDlcData`]
+function steam_apps_get_dlc_data_by_index(iDLC: int32): gmval;
+
+// BIsAppInstalled
+[global, bind = typed_gml]
+function steam_apps_is_app_installed(appID: uint32): bool;
+
+// BIsCybercafe (Deprecated by Valve, but exposed for completeness)
+[global, bind = typed_gml]
+function steam_apps_is_cybercafe(): bool;
+
+// BIsDlcInstalled
+[global, bind = typed_gml]
+function steam_apps_is_dlc_installed(appID: uint32): bool;
+
+// BIsLowViolence
+[global, bind = typed_gml]
+function steam_apps_is_low_violence(): bool;
+
+// BIsSubscribed
+[global, bind = typed_gml]
+function steam_apps_is_subscribed(): bool;
+
+// BIsSubscribedApp
+[global, bind = typed_gml]
+function steam_apps_is_subscribed_app(appID: uint32): bool;
+
+// BIsSubscribedFromFamilySharing
+[global, bind = typed_gml]
+function steam_apps_is_subscribed_from_family_sharing(): bool;
+
+// BIsSubscribedFromFreeWeekend
+[global, bind = typed_gml]
+function steam_apps_is_subscribed_from_free_weekend(): bool;
+
+// BIsTimedTrial (out params)
+[global, bind = typed_gml, type_hint = `SteamAppsTimedTrialStatus`]
+function steam_apps_is_timed_trial(): gmval;
+
+// BIsVACBanned
+[global, bind = typed_gml]
+function steam_apps_is_vac_banned(): bool;
+
+// GetAppBuildId
+[global, bind = typed_gml]
+function steam_apps_get_app_build_id(): int32;
+
+// GetAppInstallDir (out buffer)
+[global, bind = typed_gml, type_hint = `SteamAppsInstallDir`]
+function steam_apps_get_app_install_dir(appID: uint32): gmval;
+
+// GetAppOwner
+[global, bind = typed_gml, type_hint = uint64]
+function steam_apps_get_app_owner(): gmval;
+
+// GetAvailableGameLanguages
+[global, bind = typed_gml]
+function steam_apps_get_available_game_languages(): string;
+
+// GetCurrentBetaName (out buffer)
+[global, bind = typed_gml, type_hint = `SteamAppsBetaName`]
+function steam_apps_get_current_beta_name(): gmval;
+
+// GetNumBetas (out params)
+[global, bind = typed_gml, type_hint = `SteamAppsNumBetas`]
+function steam_apps_get_num_betas(): gmval;
+
+// GetBetaInfo (many out params)
+[global, bind = typed_gml, type_hint = `SteamAppsBetaInfo`]
+function steam_apps_get_beta_info(
+  iBetaIndex: int32
+): gmval;
+
+// SetActiveBeta
+[global, bind = typed_gml]
+function steam_apps_set_active_beta(pchBetaName: string): bool;
+
+// GetCurrentGameLanguage
+[global, bind = typed_gml]
+function steam_apps_get_current_game_language(): string;
+
+// GetDLCCount
+[global, bind = typed_gml]
+function steam_apps_get_dlc_count(): int32;
+
+// GetDlcDownloadProgress (out params)
+[global, bind = typed_gml, type_hint = `SteamAppsDlcDownloadProgress`]
+function steam_apps_get_dlc_download_progress(nAppID: uint32): gmval;
+
+// GetAppOwnershipTicketData (writes ticket bytes into a buffer)
+[global, bind = typed_gml]
+function steam_apps_get_app_ownership_ticket_data(
+    app_id: uint32,
+    [type_hint=buffer] ticket_buffer: gmval,
+    max_bytes: uint32
+): uint32;
+
+[global]
+class `[[SteamAppsFileDetailsResult]]` prototype Object
+{
+    [field] property result : int32 { get; set; }   // EResult numeric
+    [field] property file_size : int32 { get; set; }
+    [field] property flags : int32 { get; set; }
+    [field] property sha1 : string { get; set; }    // 40 hex chars
+}
+
+[global]
+class `[[SteamAppsDlcData]]` prototype Object
+{
+    [field]
+    property ok : bool { get; set; }
+
+    [field]
+    property app_id : uint32 { get; set; }
+
+    [field]
+    property available : bool { get; set; }
+
+    [field]
+    property name : string { get; set; }
+}
+
+[global]
+class `[[SteamAppsTimedTrialStatus]]` prototype Object
+{
+    [field]
+    property ok : bool { get; set; }
+
+    [field]
+    property seconds_allowed : uint32 { get; set; }
+
+    [field]
+    property seconds_played : uint32 { get; set; }
+}
+
+[global]
+class `[[SteamAppsInstallDir]]` prototype Object
+{
+    [field]
+    property bytes_copied : uint32 { get; set; }
+
+    [field]
+    property path : string { get; set; }
+}
+
+[global]
+class `[[SteamAppsBetaName]]` prototype Object
+{
+    [field]
+    property ok : bool { get; set; }
+
+    [field]
+    property name : string { get; set; }
+}
+
+[global]
+class `[[SteamAppsNumBetas]]` prototype Object
+{
+    [field]
+    property total : int32 { get; set; }
+
+    [field]
+    property available : int32 { get; set; }
+
+    [field]
+    property private_count : int32 { get; set; }
+}
+
+[global]
+class `[[SteamAppsBetaInfo]]` prototype Object
+{
+    [field]
+    property ok : bool { get; set; }
+
+    [field]
+    property flags : uint32 { get; set; }      // bitset (EBetaBranchFlags)
+
+    [field]
+    property build_id : uint32 { get; set; }
+
+    [field]
+    property beta_name : string { get; set; }
+
+    [field]
+    property description : string { get; set; }
+}
+
+[global]
+class `[[SteamAppsDlcDownloadProgress]]` prototype Object
+{
+    [field]
+    property ok : bool { get; set; }
+
+    [field, type_hint = uint64]
+    property bytes_downloaded : gmval { get; set; }
+
+    [field, type_hint = uint64]
+    property bytes_total : gmval { get; set; }
+}
+
+// GetEarliestPurchaseUnixTime
+[global, bind = typed_gml]
+function steam_apps_get_earliest_purchase_unix_time(nAppID: uint32): uint32;
+
+// GetFileDetails (async SteamAPICall_t)
+[global, bind = typed_gml]
+function steam_apps_get_file_details(pszFileName: string, [type_hint=`func?`]callback:gmval): unit;
+
+// GetInstalledDepots (out array)
+[global, bind = typed_gml, type_hint = `uint32[]`]
+function steam_apps_get_installed_depots(appID: uint32, cMaxDepots: uint32): gmval;
+
+// GetLaunchCommandLine (out buffer)
+[global, bind = typed_gml, type_hint = `SteamAppsLaunchCommandLine`]
+function steam_apps_get_launch_command_line(cubCommandLine: int32): gmval;
+
+// GetLaunchQueryParam
+[global, bind = typed_gml]
+function steam_apps_get_launch_query_param(pchKey: string): string;
+
+// InstallDLC
+[global, bind = typed_gml]
+function steam_apps_install_dlc(nAppID: uint32): unit;
+
+// MarkContentCorrupt
+[global, bind = typed_gml]
+function steam_apps_mark_content_corrupt(bMissingFilesOnly: bool): bool;
+
+// RequestAllProofOfPurchaseKeys (Deprecated)
+[global, bind = typed_gml]
+function steam_apps_request_all_proof_of_purchase_keys(): unit;
+
+// RequestAppProofOfPurchaseKey (Deprecated)
+[global, bind = typed_gml]
+function steam_apps_request_app_proof_of_purchase_key(nAppID: uint32): unit;
+
+// UninstallDLC
+[global, bind = typed_gml]
+function steam_apps_uninstall_dlc(nAppID: uint32): unit;
+
+[global]
+class `[[SteamAppsLaunchCommandLine]]` prototype Object
+{
+    [field]
+    property bytes_copied : int32 { get; set; }
+
+    [field]
+    property command_line : string { get; set; }
+}
+
+[global]
+class `[[SteamAppsInstallSize]]` prototype Object
+{
+    [field]
+    property ok : bool { get; set; }
+
+    [field, type_hint = uint64]
+    property bytes_install_size : gmval { get; set; }
+
+    [field, type_hint = uint64]
+    property bytes_download_size : gmval { get; set; }
+}
+
+[global]
+class `[[SteamAppsDlcInstallDir]]` prototype Object
+{
+    [field]
+    property bytes_copied : uint32 { get; set; }
+
+    [field]
+    property path : string { get; set; }
+}
+
+[global]
+class `[[SteamAppsLanguageInfo]]` prototype Object
+{
+    [field]
+    property ok : bool { get; set; }
+
+    [field]
+    property language_name : string { get; set; }
+
+    [field]
+    property language_code : string { get; set; }
+}
+
+[global, bind = typed_gml]
+function steam_apps_set_callback_dlc_installed(callback:func): unit;
+
+[global, bind = typed_gml]
+function steam_apps_clear_callback_dlc_installed(): unit;
+
+[global]
+class `[[SteamAppsDlcInstalled]]` prototype Object
+{
+    [field]
+    property app_id : uint32 { get; set; }
+}
+}
+
+group{ // SteamScreenshots
+[global, bind = typed_gml]
+function steam_screenshots_add_screenshot_to_library(
+    pchFilename: string,
+    pchThumbnailFilename: string,
+    nWidth: int32,
+    nHeight: int32
+): uint32;
+
+// AddVRScreenshotToLibrary
+[global, bind = typed_gml]
+function steam_screenshots_add_vr_screenshot_to_library(
+    [type_hint=`SteamScreenshotsVrScreenshotType`] eType: gmval,
+    pchFilename: string,
+    pchVRFilename: string
+): uint32;
+
+// HookScreenshots
+[global, bind = typed_gml]
+function steam_screenshots_hook_screenshots(bHook: bool): unit;
+
+// IsScreenshotsHooked
+[global, bind = typed_gml]
+function steam_screenshots_is_screenshots_hooked(): bool;
+
+// SetLocation
+[global, bind = typed_gml]
+function steam_screenshots_set_location(hScreenshot: uint32, pchLocation: string): bool;
+
+// TagPublishedFile
+[global, bind = typed_gml]
+function steam_screenshots_tag_published_file(hScreenshot: uint32, [type_hint=uint64] unPublishedFileID: gmval): bool;
+
+// TagUser
+[global, bind = typed_gml]
+function steam_screenshots_tag_user(hScreenshot: uint32, [type_hint=uint64] steamID: gmval): bool;
+
+// TriggerScreenshot
+[global, bind = typed_gml]
+function steam_screenshots_trigger_screenshot(): unit;
+
+// WriteScreenshot
+[global, bind = typed_gml]
+function steam_screenshots_write_screenshot(
+    [type_hint=buffer] pubRGB,
+    cubRGB: uint32,
+    nWidth: int32,
+    nHeight: int32
+): uint32;
+
+// EVRScreenshotType 
+[global, bind = typed_gml]
+enum SteamScreenshotsVrScreenshotType
+{
+    None = 0,
+    Mono = 1,
+    Stereo = 2,
+    MonoCubemap = 3,
+    MonoPanorama = 4,
+    StereoPanorama = 5,
+}
+
+[global, bind = typed_gml]
+enum SteamScreenshotsConst
+{
+    InvalidScreenshotHandle = 0,
+    TagTypeMax = 255,
+    TagValueMax = 255,
+    MaxTaggedPublishedFiles = 32,
+    MaxTaggedUsers = 32,
+    ThumbWidth = 200,
+}
+
+[global, bind = typed_gml]
+function steam_screenshots_set_callback_screenshot_ready(callback:func): unit;
+
+[global, bind = typed_gml]
+function steam_screenshots_set_callback_screenshot_requested(callback:func): unit;
+
+[global]
+class `[[SteamScreenshotsScreenshotReady]]` prototype Object
+{
+    [field]
+    property screenshot_handle : uint32 { get; set; }
+
+    [field, type_hint = `SteamApiResult`]
+    property result : gmval { get; set; }
+}
+
+[global, bind = typed_gml]
+function steam_screenshots_clear_callback_screenshot_ready(): unit;
+
+[global, bind = typed_gml]
+function steam_screenshots_clear_callback_screenshot_requested(): unit;
+
+}
+
+group{ // SteamUser
+
+[global]
+class `[[SteamUserStoreAuthUrlResponse]]` prototype Object
+{
+    [field] property result : int32 { get; set; } // EResult numeric (0 if unknown)
+    [field] property url : string { get; set; }
+}
+
+[global]
+class `[[SteamUserEncryptedAppTicketResponse]]` prototype Object
+{
+    [field] property result : int32 { get; set; } // EResult numeric
+}
+
+[global]
+class `[[SteamUserDurationControl]]` prototype Object
+{
+    [field] property result : int32 { get; set; }       // EResult numeric
+    [field] property app_id : uint32 { get; set; }
+    [field] property applicable : bool { get; set; }
+    [field] property csecs_last_5h : int32 { get; set; }
+    [field] property progress : int32 { get; set; }     // EDurationControlProgress numeric
+    [field] property notification : int32 { get; set; } // EDurationControlNotification numeric
+}
+
+[global]
+class `[[SteamUserMarketEligibilityResponse]]` prototype Object
+{
+    [field] property allowed : bool { get; set; }
+    [field] property not_allowed_reason : int32 { get; set; }
+    [field] property allowed_at_time : uint32 { get; set; }
+    [field] property steam_purchase_time : uint32 { get; set; }
+    [field] property day_steam_guard_required_days : uint32 { get; set; }
+    [field] property day_new_device_cooldown : uint32 { get; set; }
+}
+
+// AdvertiseGame
+[global, bind = typed_gml]
+function steam_user_advertise_game(
+    [type_hint=uint64] steam_id_game_server: gmval,
+    un_ip_server: uint32,
+    us_port_server: uint32
+): unit;
+
+
+// BeginAuthSession
+[global, bind = typed_gml, type_hint=`SteamUserBeginAuthSessionResult`]
+function steam_user_begin_auth_session(
+    [type_hint=buffer] auth_ticket: gmval,
+    cb_auth_ticket: int32,
+    [type_hint=uint64] steam_id: gmval
+): gmval;
+
+// IsBehindNAT
+[global, bind = typed_gml]
+function steam_user_is_behind_nat(): bool;
+
+// IsPhoneIdentifying
+[global, bind = typed_gml]
+function steam_user_is_phone_identifying(): bool;
+
+// IsPhoneRequiringVerification
+[global, bind = typed_gml]
+function steam_user_is_phone_requiring_verification(): bool;
+
+// IsPhoneVerified
+[global, bind = typed_gml]
+function steam_user_is_phone_verified(): bool;
+
+// IsTwoFactorEnabled
+[global, bind = typed_gml]
+function steam_user_is_two_factor_enabled(): bool;
+
+// LoggedOn
+[global, bind = typed_gml]
+function steam_user_logged_on(): bool;
+
+// SetDurationControlOnlineState
+[global, bind = typed_gml]
+function steam_user_set_duration_control_online_state(
+    [type_hint=`SteamUserDurationControlOnlineState`] state: gmval
+): bool;
+
+// CancelAuthTicket
+[global, bind = typed_gml]
+function steam_user_cancel_auth_ticket(h_auth_ticket: uint32): unit;
+
+// DecompressVoice
+[global, bind = typed_gml, type_hint=`SteamApiVoiceResult`]
+function steam_user_decompress_voice(
+    [type_hint=buffer] compressed: gmval,
+    cb_compressed: uint32,
+    [type_hint=buffer] dest: gmval,
+    cb_dest_buffer_size: uint32,
+    n_desired_sample_rate: uint32
+): gmval;
+
+// EndAuthSession
+[global, bind = typed_gml]
+function steam_user_end_auth_session([type_hint=uint64] steam_id: gmval): unit;
+
+
+[global, bind = typed_gml]
+enum SteamNetworkingIdentityType
+{
+    Invalid = 0,
+    SteamId = 1,
+    IpAddress = 2,
+    GenericString = 3,
+    GenericBytes = 4,
+}
+
+[global]
+class `[[SteamNetworkingIdentity]]` prototype Object
+{
+    [field, type_hint=`SteamNetworkingIdentityType`]
+    property type : gmval { get; set; }
+
+    // SteamId variant
+    [field, type_hint=uint64]
+    property steam_id : gmval { get; set; }
+
+    // IP variant
+    [field]
+    property ip : string { get; set; }
+
+    [field]
+    property port : uint32 { get; set; }
+
+    // Generic string variant
+    [field]
+    property generic_string : string { get; set; }
+
+    // Generic bytes variant
+    // [field, type_hint=buffer]
+    // property generic_bytes : gmval { get; set; }
+
+    // [field]
+    // property generic_bytes_size : uint32 { get; set; }
+}
+
+[global, bind = typed_gml, type_hint=`SteamUserAuthSessionTicket`]
+function steam_user_get_auth_session_ticket(
+    [type_hint=buffer] out_ticket: gmval,
+    cb_max_ticket: int32,
+    [type_hint=`SteamNetworkingIdentity?`] remote_identity: gmval
+): gmval;
+
+// GetHSteamUser
+[global, bind = typed_gml]
+function steam_user_get_h_steam_user(): int32;
+
+// GetPlayerSteamLevel
+[global, bind = typed_gml]
+function steam_user_get_player_steam_level(): int32;
+
+// GetSteamID
+[global, bind = typed_gml, type_hint = `uint64`]
+function steam_user_get_steam_id(): gmval;
+
+[global, bind = typed_gml, type_hint = `SteamId`]
+function steam_user_decode_steam_id([type_hint=`uint64`]steam_id: gmval): gmval;
+
+// StartVoiceRecording
+[global, bind = typed_gml]
+function steam_user_start_voice_recording(): unit;
+
+// StopVoiceRecording
+[global, bind = typed_gml]
+function steam_user_stop_voice_recording(): unit;
+
+// GetVoiceOptimalSampleRate
+[global, bind = typed_gml]
+function steam_user_get_voice_optimal_sample_rate(): uint32;
+
+[global]
+class `[[SteamUserAuthSessionTicket]]` prototype Object
+{
+    // HAuthTicket (uint32). 0 indicates invalid.
+    [field]
+    property auth_ticket_handle : uint32 { get; set; }
+
+    // Length of ticket copied into the buffer.
+    [field]
+    property ticket_size : uint32 { get; set; }
+}
+
+// EBeginAuthSessionResult 
+[global, bind = typed_gml]
+enum SteamUserBeginAuthSessionResult
+{
+    Ok = 0,
+    InvalidTicket = 1,
+    DuplicateRequest = 2,
+    InvalidVersion = 3,
+    GameMismatch = 4,
+    ExpiredTicket = 5,
+}
+
+// EDurationControlOnlineState 
+[global, bind = typed_gml]
+enum SteamUserDurationControlOnlineState
+{
+    Invalid = 0,
+    Offline = 1,
+    Online = 2,
+    OnlineHighPri = 3,
+}
+
+// GetAvailableVoice (out params)
+// Steam returns EVoiceResult and fills bytes available for compressed + optional uncompressed
+[global, bind = typed_gml, type_hint=`SteamUserAvailableVoice`]
+function steam_user_get_available_voice(): gmval;
+
+// GetVoice
+[global, bind = typed_gml, type_hint=`SteamUserGetVoiceResult`]
+function steam_user_get_voice(
+    b_want_compressed: bool,
+    [type_hint=buffer] dest_compressed: gmval,
+    cb_dest_compressed: uint32,
+    b_want_uncompressed: bool,
+    [type_hint=buffer] dest_uncompressed: gmval,
+    cb_dest_uncompressed: uint32,
+    n_desired_sample_rate: uint32
+): gmval;
+
+// GetUserDataFolder (out buffer)
+[global, bind = typed_gml, type_hint=`SteamUserDataFolder`]
+function steam_user_get_user_data_folder(): gmval;
+
+
+// RequestEncryptedAppTicket (async SteamAPICall_t)
+[global, bind = typed_gml]
+function steam_user_request_encrypted_app_ticket([type_hint=buffer] data_to_include: gmval,
+    cb_data_to_include: int32, [type_hint=`func?`]callback:gmval): unit;
+
+// GetEncryptedAppTicket
+[global, bind = typed_gml, type_hint=`SteamUserEncryptedAppTicket`]
+function steam_user_get_encrypted_app_ticket(
+    [type_hint=buffer] out_ticket: gmval,
+    cb_max_ticket: int32
+): gmval;
+
+// GetGameBadgeLevel
+[global, bind = typed_gml]
+function steam_user_get_game_badge_level(n_series: int32, b_foil: bool): int32;
+
+[global]
+class `[[SteamUserAvailableVoice]]` prototype Object
+{
+    [field, type_hint = `SteamApiVoiceResult`]
+    property result : gmval { get; set; }
+
+    [field]
+    property compressed_bytes: uint32 { get; set; }
+
+    [field]
+    property uncompressed_bytes: uint32 { get; set; }
+}
+
+[global]
+class `[[SteamUserGetVoiceResult]]` prototype Object
+{
+    [field, type_hint = `SteamApiVoiceResult`]
+    property result : gmval { get; set; }
+
+    [field]
+    property written_compressed: uint32 { get; set; }
+
+    [field]
+    property written_uncompressed: uint32 { get; set; }
+}
+
+[global]
+class `[[SteamUserGameConnectionToken]]` prototype Object
+{
+    [field]
+    property ok : bool { get; set; }
+
+    [field]
+    property bytes_written : int32 { get; set; }
+}
+
+[global]
+class `[[SteamUserDataFolder]]` prototype Object
+{
+    [field]
+    property ok : bool { get; set; }
+
+    [field]
+    property path : string { get; set; }
+}
+
+[global]
+class `[[SteamUserEncryptedAppTicket]]` prototype Object
+{
+    [field]
+    property ok : bool { get; set; }
+
+    [field]
+    property ticket_size : uint32 { get; set; }
+}
+
+// GetAuthTicketForWebApi
+[global, bind = typed_gml]
+function steam_user_get_auth_ticket_for_web_api(pch_identity: string): uint32;
+
+
+// GetDurationControl
+[global, bind = typed_gml]
+function steam_user_get_duration_control([type_hint=`func?`]callback:gmval): unit;
+
+
+// RequestStoreAuthURL
+[global, bind = typed_gml]
+function steam_user_request_store_auth_url(pch_redirect_url: string, [type_hint=`func?`]callback:gmval): unit;
+
+// GetMarketEligibility (async SteamAPICall_t)
+[global, bind = typed_gml]
+function steam_user_get_market_eligibility([type_hint=`func?`]callback:gmval): unit;
+
+// TrackAppUsageEvent
+[global, bind = typed_gml]
+function steam_user_track_app_usage_event(
+    [type_hint = uint64] game_id: gmval,
+    e_app_usage_event: int32,
+    pch_extra_info: string
+): unit;
+
+
+// UserHasLicenseForApp 
+[global, bind = typed_gml, type_hint = `SteamApiUserHasLicenseResult`]
+function steam_user_user_has_license_for_app(
+    [type_hint = uint64] steam_id: gmval,
+    app_id: uint32
+): gmval;
+
+[global, bind = typed_gml]
+function steam_user_set_callback_steam_servers_connected(callback:func): unit;
+
+[global, bind = typed_gml]
+function steam_user_clear_callback_steam_servers_connected(): unit;
+
+[global, bind = typed_gml]
+function steam_user_set_callback_steam_server_connect_failure(callback:func): unit;
+
+[global, bind = typed_gml]
+function steam_user_clear_callback_steam_server_connect_failure(): unit;
+
+[global, bind = typed_gml]
+function steam_user_set_callback_steam_servers_disconnected(callback:func): unit;
+
+[global, bind = typed_gml]
+function steam_user_clear_callback_steam_servers_disconnected(): unit;
+
+[global, bind = typed_gml]
+function steam_user_set_callback_client_game_server_deny(callback:func): unit;
+
+[global, bind = typed_gml]
+function steam_user_clear_callback_client_game_server_deny(): unit;
+
+[global, bind = typed_gml]
+function steam_user_set_callback_licenses_updated(callback:func): unit;
+
+[global, bind = typed_gml]
+function steam_user_clear_callback_licenses_updated(): unit;
+
+[global, bind = typed_gml]
+function steam_user_set_callback_microtxn_authorization_response(callback:func): unit;
+
+[global, bind = typed_gml]
+function steam_user_clear_callback_microtxn_authorization_response(): unit;
+
+[global]
+class `[[SteamUserSteamServersConnected]]` prototype Object
+{
+    [field]
+    property dummy : int32 { get; set; } // no fields in callback
+}
+
+[global]
+class `[[SteamUserSteamServersDisconnected]]` prototype Object
+{
+    [field]
+    property result : int32 { get; set; } // EResult numeric
+}
+
+[global]
+class `[[SteamUserSteamServerConnectFailure]]` prototype Object
+{
+    [field]
+    property result : int32 { get; set; } // EResult numeric
+
+    [field]
+    property still_retrying : bool { get; set; }
+}
+
+[global]
+class `[[SteamUserClientGameServerDeny]]` prototype Object
+{
+    [field]
+    property app_id : uint32 { get; set; }
+
+    [field]
+    property game_server_ip : uint32 { get; set; } // IPv4 packed
+
+    [field]
+    property game_server_port : uint32 { get; set; } // uint16 widened
+
+    [field]
+    property secure : bool { get; set; }
+
+    [field]
+    property reason : int32 { get; set; } // EDenyReason numeric
+}
+
+[global]
+class `[[SteamUserLicensesUpdated]]` prototype Object
+{
+    [field]
+    property dummy : int32 { get; set; } // no fields
+}
+
+[global]
+class `[[SteamUserMicroTxnAuthorizationResponse]]` prototype Object
+{
+    [field]
+    property app_id : uint32 { get; set; }
+
+    [field, type_hint=uint64]
+    property order_id : gmval { get; set; }
+
+    [field]
+    property authorized : bool { get; set; }
+}
+}
+
+group{
+
+// BOverlayNeedsPresent
+[global, bind = typed_gml]
+function steam_utils_overlay_needs_present(): bool;
+
+// CheckFileSignature (Deprecated) -> SteamAPICall_t
+[global, bind = typed_gml]
+function steam_utils_check_file_signature(sz_file_name: string,[type_hint=`func?`]callback:gmval): unit;
+
+// GetAPICallFailureReason
+[global, bind = typed_gml, type_hint = `SteamUtilsApiCallFailure`]
+function steam_utils_get_api_call_failure_reason([type_hint=uint64] steam_api_call: gmval): gmval;
+
+// GetApiCallResult (low-level; generally not recommended, but exposed for completeness)
+[global, bind = typed_gml, type_hint = `SteamUtilsApiCallResult`]
+function steam_utils_get_api_call_result(
+    [type_hint=uint64] steam_api_call: gmval,
+    callback_expected: int32,
+    [type_hint=buffer] out_callback: gmval,
+    out_callback_size: int32
+): gmval;
+
+[global]
+class `[[SteamUtilsApiCallResult]]` prototype Object
+{
+    [field]
+    property ok : bool { get; set; }
+
+    [field]
+    property failed : bool { get; set; }
+}
+
+[global]
+class `[[SteamUtilsCheckFileSignatureResult]]` prototype Object
+{
+    [field] property result : int32 { get; set; } // ECheckFileSignature numeric
+}
+
+[global, bind = typed_gml]
+function steam_utils_set_callback_ip_country(callback:func): unit;
+
+[global, bind = typed_gml]
+function steam_utils_clear_callback_ip_country(): unit;
+
+[global, bind = typed_gml]
+function steam_utils_set_callback_low_battery_power(callback:func): unit;
+
+[global, bind = typed_gml]
+function steam_utils_clear_callback_low_battery_power(): unit;
+
+[global, bind = typed_gml]
+function steam_utils_set_callback_steam_api_call_completed(callback:func): unit;
+
+[global, bind = typed_gml]
+function steam_utils_clear_callback_steam_api_call_completed(): unit;
+
+[global, bind = typed_gml]
+function steam_utils_set_callback_app_resuming_from_suspend(callback:func): unit;
+
+[global, bind = typed_gml]
+function steam_utils_clear_callback_app_resuming_from_suspend(): unit;
+
+[global, bind = typed_gml]
+function steam_utils_set_callback_steam_shutdown(callback:func): unit;
+
+[global, bind = typed_gml]
+function steam_utils_clear_callback_steam_shutdown(): unit;
+
+[global]
+class `[[SteamUtilsLowBatteryPower]]` prototype Object
+{
+    [field]
+    property minutes_battery_left : uint32 { get; set; }
+}
+
+[global]
+class `[[SteamUtilsSteamApiCallCompleted]]` prototype Object
+{
+    [field, type_hint = uint64]
+    property async_call : gmval { get; set; }
+
+    [field]
+    property callback_id : int32 { get; set; }
+
+    [field]
+    property param_size : uint32 { get; set; }
+}
+
+
+// GetAppID
+[global, bind = typed_gml]
+function steam_utils_get_app_id(): uint32;
+
+// GetConnectedUniverse
+[global, bind = typed_gml, type_hint = `SteamApiUniverse`]
+function steam_utils_get_connected_universe(): gmval;
+
+// GetCurrentBatteryPower (uint8)
+[global, bind = typed_gml]
+function steam_utils_get_current_battery_power(): uint32;
+
+// GetEnteredGamepadTextInput (out buffer)
+[global, bind = typed_gml, type_hint = `SteamUtilsGamepadTextInput`]
+function steam_utils_get_entered_gamepad_text_input(): gmval;
+
+// GetEnteredGamepadTextLength
+[global, bind = typed_gml]
+function steam_utils_get_entered_gamepad_text_length(): uint32;
+
+// GetImageRGBA (fills RGBA bytes into provided buffer)
+[global, bind = typed_gml]
+function steam_utils_get_image_rgba(
+    i_image: int32,
+    [type_hint=buffer] dest: gmval,
+    n_dest_buffer_size: int32
+): bool;
+
+// GetImageSize (out width/height)
+[global, bind = typed_gml, type_hint = `SteamUtilsImageSize`]
+function steam_utils_get_image_size(i_image: int32): gmval;
+
+// GetIPCCallCount
+[global, bind = typed_gml]
+function steam_utils_get_ipc_call_count(): uint32;
+
+// GetIPCountry
+[global, bind = typed_gml]
+function steam_utils_get_ip_country(): string;
+
+// GetSecondsSinceAppActive
+[global, bind = typed_gml]
+function steam_utils_get_seconds_since_app_active(): uint32;
+
+// GetSecondsSinceComputerActive
+[global, bind = typed_gml]
+function steam_utils_get_seconds_since_computer_active(): uint32;
+
+// GetServerRealTime
+[global, bind = typed_gml]
+function steam_utils_get_server_real_time(): uint32;
+
+// GetSteamUILanguage
+[global, bind = typed_gml]
+function steam_utils_get_steam_ui_language(): string;
+
+// IsOverlayEnabled
+[global, bind = typed_gml]
+function steam_utils_is_overlay_enabled(): bool;
+
+// IsSteamInBigPictureMode
+[global, bind = typed_gml]
+function steam_utils_is_steam_in_big_picture_mode(): bool;
+
+// IsSteamRunningInVR
+[global, bind = typed_gml]
+function steam_utils_is_steam_running_in_vr(): bool;
+
+// IsSteamRunningOnSteamDeck
+[global, bind = typed_gml]
+function steam_utils_is_steam_running_on_steam_deck(): bool;
+
+// IsSteamChinaLauncher
+[global, bind = typed_gml]
+function steam_utils_is_steam_china_launcher(): bool;
+
+[global]
+class `[[SteamUtilsCserIpPort]]` prototype Object
+{
+    [field]
+    property ok : bool { get; set; }
+
+    [field]
+    property ip_v4 : uint32 { get; set; }
+
+    [field]
+    property port : uint32 { get; set; }
+}
+
+[global]
+class `[[SteamUtilsGamepadTextInput]]` prototype Object
+{
+    [field]
+    property ok : bool { get; set; }
+
+    [field]
+    property text : string { get; set; }
+}
+
+[global]
+class `[[SteamUtilsImageSize]]` prototype Object
+{
+    [field]
+    property ok : bool { get; set; }
+
+    [field]
+    property width : uint32 { get; set; }
+
+    [field]
+    property height : uint32 { get; set; }
+}
+
+// ESteamAPICallFailure 
+[global, bind = typed_gml]
+enum SteamUtilsApiCallFailure
+{
+    None = -1,
+    SteamGone = 0,
+    NetworkFailure = 1,
+    InvalidHandle = 2,
+    MismatchedCallback = 3,
+}
+
+// IsAPICallCompleted (out bool pbFailed)
+[global, bind = typed_gml, type_hint = `SteamUtilsApiCallCompleted`]
+function steam_utils_is_api_call_completed([type_hint=uint64] steam_api_call: gmval): gmval;
+
+
+// InitFilterText
+[global, bind = typed_gml]
+function steam_utils_init_filter_text(): bool;
+
+// FilterText (writes into output buffer)
+[global, bind = typed_gml, type_hint = `SteamUtilsFilterTextResult`]
+function steam_utils_filter_text(
+    [type_hint=`SteamUtilsTextFilteringContext`] context: gmval,
+    [type_hint=uint64] source_steam_id: gmval,
+    input_message: string
+): gmval;
+
+
+// IsVRHeadsetStreamingEnabled
+[global, bind = typed_gml]
+function steam_utils_is_vr_headset_streaming_enabled(): bool;
+
+// SetOverlayNotificationInset
+[global, bind = typed_gml]
+function steam_utils_set_overlay_notification_inset(n_horizontal_inset: int32, n_vertical_inset: int32): unit;
+
+// SetOverlayNotificationPosition
+[global, bind = typed_gml]
+function steam_utils_set_overlay_notification_position(
+    [type_hint=`SteamApiNotificationPosition`] notification_position: gmval
+): unit;
+
+// SetVRHeadsetStreamingEnabled
+[global, bind = typed_gml]
+function steam_utils_set_vr_headset_streaming_enabled(b_enabled: bool): unit;
+
+
+// ShowGamepadTextInput
+[global, bind = typed_gml]
+function steam_utils_show_gamepad_text_input(
+    [type_hint=`SteamUtilsGamepadTextInputMode`] input_mode: gmval,
+    [type_hint=`SteamUtilsGamepadTextInputLineMode`] line_mode: gmval,
+    description: string,
+    char_max: uint32,
+    existing_text: string
+): bool;
+
+// ShowFloatingGamepadTextInput
+[global, bind = typed_gml]
+function steam_utils_show_floating_gamepad_text_input(
+[type_hint=`SteamUtilsFloatingGamepadTextInputMode`] keyboard_mode: gmval,
+    text_field_x: int32,
+    text_field_y: int32,
+    text_field_width: int32,
+    text_field_height: int32
+): bool;
+
+// DismissFloatingGamepadTextInput
+[global, bind = typed_gml]
+function steam_utils_dismiss_floating_gamepad_text_input(): unit;
+
+// StartVRDashboard
+[global, bind = typed_gml]
+function steam_utils_start_vr_dashboard(): unit;
+
+// SetGameLauncherMode
+[global, bind = typed_gml]
+function steam_utils_set_game_launcher_mode(b_launcher_mode: bool): unit;
+
+[global, bind = typed_gml]
+function steam_utils_set_callback_gamepad_text_input_dismissed(callback:func): unit;
+
+[global, bind = typed_gml]
+function steam_utils_clear_callback_gamepad_text_input_dismissed(): unit;
+
+[global, bind = typed_gml]
+function steam_utils_set_callback_floating_gamepad_text_input_dismissed(callback:func): unit;
+
+[global, bind = typed_gml]
+function steam_utils_clear_callback_floating_gamepad_text_input_dismissed(): unit;
+
+[global, bind = typed_gml]
+function steam_utils_set_callback_warning_message(callback:func): unit;
+
+[global, bind = typed_gml]
+function steam_utils_clear_callback_warning_message(): unit;
+
+[global]
+class `[[SteamUtilsApiCallCompleted]]` prototype Object
+{
+    [field]
+    property ok : bool { get; set; }        // return value from IsAPICallCompleted
+
+    [field]
+    property failed : bool { get; set; }    // pbFailed
+}
+
+[global]
+class `[[SteamUtilsFilterTextResult]]` prototype Object
+{
+    [field]
+    property ok : bool { get; set; }                // InitFilterText may be false; FilterText still passes through
+
+    [field]
+    property characters_filtered : int32 { get; set; }
+
+    [field]
+    property filtered_text : string { get; set; }
+}
+
+[global]
+class `[[SteamUtilsGamepadTextInputDismissed]]` prototype Object
+{
+    [field]
+    property submitted : bool { get; set; }
+
+    [field]
+    property submitted_text_length : uint32 { get; set; }
+}
+
+[global]
+class `[[SteamUtilsFloatingGamepadTextInputDismissed]]` prototype Object
+{
+    [field]
+    property submitted : bool { get; set; }
+}
+
+[global]
+class `[[SteamUtilsWarningMessage]]` prototype Object
+{
+    [field]
+    property severity : int32 { get; set; }     // 0 = msg, 1 = warning (per docs) 
+
+    [field]
+    property text : string { get; set; }
+}
+
+// EGamepadTextInputMode
+[global, bind = typed_gml]
+enum SteamUtilsGamepadTextInputMode
+{
+    Normal = 0,
+    Password = 1,
+}
+
+// EGamepadTextInputLineMode
+[global, bind = typed_gml]
+enum SteamUtilsGamepadTextInputLineMode
+{
+    SingleLine = 0,
+    MultipleLines = 1,
+}
+
+// EFloatingGamepadTextInputMode
+[global, bind = typed_gml]
+enum SteamUtilsFloatingGamepadTextInputMode
+{
+    SingleLine = 0,
+    MultipleLines = 1,
+    Email = 2,
+    Numeric = 3,
+}
+
+// ETextFilteringContext
+[global, bind = typed_gml]
+enum SteamUtilsTextFilteringContext
+{
+    Unknown = 0,
+    GameContent = 1,
+    Chat = 2,
+    Name = 3,
+}
+}
+
+group{ // SteamUgc
+
+[global, bind = typed_gml]
+enum SteamUgcMatchingUgcType
+{
+    Items = 0,
+    Items_Mtx = 1,
+    Items_ReadyToUse = 2,
+    Collections = 3,
+    Artwork = 4,
+    Videos = 5,
+    Screenshots = 6,
+    AllGuides = 7,
+    WebGuides = 8,
+    IntegratedGuides = 9,
+    UsableInGame = 10,
+    ControllerBindings = 11,
+    GameManagedItems = 12,
+    All = -1,
+}
+
+[global, bind = typed_gml]
+enum SteamUgcQuery
+{
+    RankedByVote = 0,
+    RankedByPublicationDate = 1,
+    AcceptedForGameRankedByAcceptanceDate = 2,
+    RankedByTrend = 3,
+    FavoritedByFriendsRankedByPublicationDate = 4,
+    CreatedByFriendsRankedByPublicationDate = 5,
+    RankedByNumTimesReported = 6,
+    CreatedByFollowedUsersRankedByPublicationDate = 7,
+    NotYetRated = 8,
+    RankedByTotalVotesAsc = 9,
+    RankedByVotesUp = 10,
+    RankedByTextSearch = 11,
+    RankedByTotalUniqueSubscriptions = 12,
+    RankedByPlaytimeTrend = 13,
+    RankedByTotalPlaytime = 14,
+    RankedByAveragePlaytimeTrend = 15,
+    RankedByLifetimeAveragePlaytime = 16,
+    RankedByPlaytimeSessionsTrend = 17,
+    RankedByLifetimePlaytimeSessions = 18,
+    RankedByLastUpdatedDate = 19,
+}
+
+[global, bind = typed_gml]
+enum SteamUserUgcList
+{
+    Published = 0,
+    VotedOn = 1,
+    VotedUp = 2,
+    VotedDown = 3,
+    WillVoteLater = 4,
+    Favorited = 5,
+    Subscribed = 6,
+    UsedOrPlayed = 7,
+    Followed = 8,
+}
+
+[global, bind = typed_gml]
+enum SteamUserUgcListSortOrder
+{
+    CreationOrderDesc = 0,
+    CreationOrderAsc = 1,
+    TitleAsc = 2,
+    LastUpdatedDesc = 3,
+    SubscriptionDateDesc = 4,
+    VoteScoreDesc = 5,
+    ForModeration = 6,
+}
+
+[global, bind = typed_gml]
+enum SteamWorkshopFileType
+{
+    Community = 0,
+    Microtransaction = 1,
+    Collection = 2,
+    Art = 3,
+    Video = 4,
+    Screenshot = 5,
+    Game = 6,
+    Software = 7,
+    Concept = 8,
+    WebGuide = 9,
+    IntegratedGuide = 10,
+    Merch = 11,
+    ControllerBinding = 12,
+    SteamworksAccessInvite = 13,
+    SteamVideo = 14,
+    GameManagedItem = 15,
+}
+
+[global, bind = typed_gml]
+enum SteamItemPreviewType
+{
+    Image = 0,
+    YouTubeVideo = 1,
+    Sketchfab = 2,
+    EnvironmentMap_HorizontalCross = 3,
+    EnvironmentMap_LatLong = 4,
+    ReservedMax = 255,
+}
+
+[global, bind = typed_gml]
+enum SteamRemoteStoragePublishedFileVisibility
+{
+    Public = 0,
+    FriendsOnly = 1,
+    Private = 2,
+    Unlisted = 3,
+}
+
+[global, bind = typed_gml]
+enum SteamUgcContentDescriptorId
+{
+    NudityOrSexualContent = 1,
+    FrequentViolenceOrGore = 2,
+    AdultOnlySexualContent = 3,
+    GratuitousSexualContent = 4,
+    AnyMatureContent = 5,
+}
+
+// AddAppDependency
+[global, bind = typed_gml]
+function steam_ugc_add_app_dependency(
+    [type_hint=uint64] published_file_id: gmval,
+    app_id: uint32
+, [type_hint=`func?`]callback:gmval): unit;
+
+
+// AddDependency
+[global, bind = typed_gml]
+function steam_ugc_add_dependency(
+    [type_hint=uint64] parent_published_file_id: gmval,
+    [type_hint=uint64] child_published_file_id: gmval
+, [type_hint=`func?`]callback:gmval): unit;
+
+
+// AddExcludedTag
+[global, bind = typed_gml]
+function steam_ugc_add_excluded_tag(
+    [type_hint=uint64] query_handle: gmval,
+    tag_name: string
+): bool;
+
+
+// AddItemKeyValueTag
+[global, bind = typed_gml]
+function steam_ugc_add_item_key_value_tag(
+    [type_hint=uint64] update_handle: gmval,
+    key: string,
+    value: string
+): bool;
+
+
+// AddItemPreviewFile
+[global, bind = typed_gml]
+function steam_ugc_add_item_preview_file(
+    [type_hint=uint64] update_handle: gmval,
+    preview_file_path: string,
+    [type_hint=`SteamItemPreviewType`] preview_type: gmval
+): bool;
+
+
+// AddItemPreviewVideo
+[global, bind = typed_gml]
+function steam_ugc_add_item_preview_video(
+    [type_hint=uint64] update_handle: gmval,
+    video_id: string
+): bool;
+
+
+// AddItemToFavorites
+[global, bind = typed_gml]
+function steam_ugc_add_item_to_favorites(
+    app_id: uint32,
+    [type_hint=uint64] published_file_id: gmval
+, [type_hint=`func?`]callback:gmval): unit;
+
+
+// AddRequiredKeyValueTag
+[global, bind = typed_gml]
+function steam_ugc_add_required_key_value_tag(
+    [type_hint=uint64] query_handle: gmval,
+    key: string,
+    value: string
+): bool;
+
+// AddRequiredTag
+[global, bind = typed_gml]
+function steam_ugc_add_required_tag(
+    [type_hint=uint64] query_handle: gmval,
+    tag_name: string
+): bool;
+
+
+// AddRequiredTagGroup
+[global, bind = typed_gml]
+function steam_ugc_add_required_tag_group(
+    [type_hint=uint64] query_handle: gmval,
+    [type_hint=`string[]`]tags_csv: gmval
+): bool;
+
+
+// BInitWorkshopForGameServer
+[global, bind = typed_gml]
+function steam_ugc_init_workshop_for_game_server(
+    workshop_depot_id: uint32,
+    folder: string
+): bool;
+
+
+// CreateItem (async SteamAPICall_t)
+[global, bind = typed_gml]
+function steam_ugc_create_item(
+    consumer_app_id: uint32,
+    [type_hint=`SteamWorkshopFileType`] workshop_file_type: gmval
+, [type_hint=`func?`]callback:gmval): unit;
+
+// CreateQueryAllUGCRequest (returns UGCQueryHandle_t)
+[global, bind = typed_gml, type_hint = uint64]
+function steam_ugc_create_query_all_ugc_request(
+    [type_hint=`SteamUgcQuery`]query_type: int32,
+    [type_hint=`SteamUgcMatchingUgcType`] matching_ugc_type: gmval,
+    creator_app_id: uint32,
+    consumer_app_id: uint32,
+    page: uint32
+): gmval;
+
+
+// CreateQueryUGCDetailsRequest (returns UGCQueryHandle_t)
+[global, bind = typed_gml, type_hint = uint64]
+function steam_ugc_create_query_ugc_details_request(
+    [type_hint=`uint64[]`] published_file_ids: gmval,
+    num_published_file_ids: uint32
+): gmval;
+
+// CreateQueryUserUGCRequest (returns UGCQueryHandle_t)
+[global, bind = typed_gml, type_hint = uint64]
+function steam_ugc_create_query_user_ugc_request(
+    account_id: uint32,
+    [type_hint=`SteamUserUgcList`] list_type: gmval,
+    [type_hint=`SteamUgcMatchingUgcType`] matching_ugc_type: gmval,
+    [type_hint=`SteamUserUgcListSortOrder`] sort_order: gmval,
+    creator_app_id: uint32,
+    consumer_app_id: uint32,
+    page: uint32
+): gmval;
+
+// DeleteItem (async SteamAPICall_t)
+[global, bind = typed_gml]
+function steam_ugc_delete_item(
+    [type_hint=uint64] published_file_id: gmval
+, [type_hint=`func?`]callback:gmval): unit;
+
+
+// DownloadItem
+[global, bind = typed_gml]
+function steam_ugc_download_item(
+    [type_hint=uint64] published_file_id: gmval,
+    high_priority: bool
+): bool;
+
+
+// GetAppDependencies (async SteamAPICall_t)
+[global, bind = typed_gml]
+function steam_ugc_get_app_dependencies(
+    [type_hint=uint64] published_file_id: gmval
+, [type_hint=`func?`]callback:gmval): unit;
+
+
+// GetItemDownloadInfo (out params)
+[global, bind = typed_gml, type_hint = `SteamUgcItemDownloadInfo`]
+function steam_ugc_get_item_download_info(
+    [type_hint=uint64] published_file_id: gmval
+): gmval;
+
+
+// GetItemInstallInfo (out params incl folder buffer)
+[global, bind = typed_gml, type_hint = `SteamUgcItemInstallInfo`]
+function steam_ugc_get_item_install_info(
+    [type_hint=uint64] published_file_id: gmval
+): gmval;
+
+
+// GetItemState (bitflags in uint32)
+[global, bind = typed_gml]
+function steam_ugc_get_item_state(
+    [type_hint=uint64] published_file_id: gmval
+): uint32;
+
+
+// GetItemUpdateProgress (out params)
+[global, bind = typed_gml, type_hint = `SteamUgcItemUpdateProgress`]
+function steam_ugc_get_item_update_progress(
+    [type_hint=uint64] update_handle: gmval
+): gmval;
+
+
+// GetNumSubscribedItems
+[global, bind = typed_gml]
+function steam_ugc_get_num_subscribed_items(include_locally_disabled: bool): uint32;
+
+
+// GetSubscribedItems
+[global, bind = typed_gml, type_hint = `uint64[]`]
+function steam_ugc_get_subscribed_items(
+    c_max_entries: uint32,
+    include_locally_disabled: bool
+): gmval;
+
+[global]
+class `[[SteamUgcItemDownloadInfo]]` prototype Object
+{
+    [field]
+    property ok : bool { get; set; }
+
+    [field, type_hint = uint64]
+    property bytes_downloaded : gmval { get; set; }
+
+    [field, type_hint = uint64]
+    property bytes_total : gmval { get; set; }
+}
+
+[global]
+class `[[SteamUgcItemInstallInfo]]` prototype Object
+{
+    [field]
+    property ok : bool { get; set; }
+
+    [field, type_hint = uint64]
+    property size_on_disk : gmval { get; set; }
+
+    [field]
+    property folder : string { get; set; }
+
+    [field]
+    property timestamp : uint32 { get; set; }
+}
+
+[global]
+class `[[SteamUgcItemUpdateProgress]]` prototype Object
+{
+    [field]
+    property status : int32 { get; set; }  // EItemUpdateStatus
+
+    [field, type_hint = uint64]
+    property bytes_processed : gmval { get; set; }
+
+    [field, type_hint = uint64]
+    property bytes_total : gmval { get; set; }
+}
+
+// EItemStatistic
+[global, bind = typed_gml]
+enum SteamUgcStatisticType
+{
+    NumSubscriptions = 0,
+    NumFavorites = 1,
+    NumFollowers = 2,
+    NumUniqueSubscriptions = 3,
+    NumUniqueFavorites = 4,
+    NumUniqueFollowers = 5,
+    NumUniqueWebsiteViews = 6,
+    ReportScore = 7,
+    NumSecondsPlayed = 8,
+    NumPlaytimeSessions = 9,
+    NumComments = 10,
+    NumSecondsPlayedDuringTimePeriod = 11,
+}
+
+// GetQueryUGCResult
+[global, bind = typed_gml, type_hint = `SteamUgcQueryResult`]
+function steam_ugc_get_query_ugc_result(
+    [type_hint=uint64] query_handle: gmval,
+    index: uint32
+): gmval;
+
+// GetQueryUGCPreviewURL
+[global, bind = typed_gml, type_hint = `SteamUgcQueryPreviewUrl`]
+function steam_ugc_get_query_ugc_preview_url(
+    [type_hint=uint64] query_handle: gmval,
+    index: uint32
+): gmval;
+
+// GetQueryUGCMetadata
+[global, bind = typed_gml, type_hint = `SteamUgcQueryMetadata`]
+function steam_ugc_get_query_ugc_metadata(
+    [type_hint=uint64] query_handle: gmval,
+    index: uint32
+): gmval;
+
+// GetQueryUGCChildren
+[global, bind = typed_gml, type_hint = `uint64[]`]
+function steam_ugc_get_query_ugc_children(
+    [type_hint=uint64] query_handle: gmval,
+    index: uint32,
+    c_max_entries: uint32
+): gmval;
+
+// GetQueryUGCStatistic
+[global, bind = typed_gml, type_hint = uint64]
+function steam_ugc_get_query_ugc_statistic(
+    [type_hint=uint64] query_handle: gmval,
+    index: uint32,
+    [type_hint=`SteamUgcStatisticType`] stat_type: gmval
+): gmval;
+
+// GetQueryUGCNumAdditionalPreviews
+[global, bind = typed_gml]
+function steam_ugc_get_query_ugc_num_additional_previews(
+    [type_hint=uint64] query_handle: gmval,
+    index: uint32
+): uint32;
+
+// GetQueryUGCAdditionalPreview
+[global, bind = typed_gml, type_hint = `SteamUgcAdditionalPreview`]
+function steam_ugc_get_query_ugc_additional_preview(
+    [type_hint=uint64] query_handle: gmval,
+    index: uint32,
+    preview_index: uint32,
+    original_file_name: string
+): gmval;
+
+// GetQueryUGCNumKeyValueTags
+[global, bind = typed_gml]
+function steam_ugc_get_query_ugc_num_key_value_tags(
+    [type_hint=uint64] query_handle: gmval,
+    index: uint32
+): uint32;
+
+// GetQueryUGCKeyValueTag
+[global, bind = typed_gml, type_hint = `SteamUgcKeyValueTag`]
+function steam_ugc_get_query_ugc_key_value_tag(
+    [type_hint=uint64] query_handle: gmval,
+    index: uint32,
+    key_value_tag_index: uint32
+): gmval;
+
+// GetQueryUGCContentDescriptors
+// Returns list of EUGCContentDescriptorID values as int32[] (we keep int32 to avoid hardcoding enum values in spec).
+[global, bind = typed_gml, type_hint = `int32[]`]
+function steam_ugc_get_query_ugc_content_descriptors(
+    [type_hint=uint64] query_handle: gmval,
+    index: uint32,
+    max_descriptors: uint32
+): gmval;
+
+[global]
+class `[[SteamUgcQueryResult]]` prototype Object
+{
+    [field]
+    property ok : bool { get; set; }
+
+    [field, type_hint = uint64]
+    property published_file_id : gmval { get; set; }
+
+    [field]
+    property title : string { get; set; }
+
+    [field]
+    property description : string { get; set; }
+
+    [field]
+    property time_created : uint32 { get; set; }
+
+    [field]
+    property time_updated : uint32 { get; set; }
+
+    [field]
+    property visibility : int32 { get; set; }
+
+    [field]
+    property banned : bool { get; set; }
+
+    [field]
+    property accepted_for_use : bool { get; set; }
+
+    [field]
+    property tags_truncated : bool { get; set; }
+}
+
+[global]
+class `[[SteamUgcQueryPreviewUrl]]` prototype Object
+{
+    [field]
+    property ok : bool { get; set; }
+
+    [field]
+    property url : string { get; set; }
+}
+
+[global]
+class `[[SteamUgcQueryMetadata]]` prototype Object
+{
+    [field]
+    property ok : bool { get; set; }
+
+    [field]
+    property metadata : string { get; set; }
+}
+
+[global]
+class `[[SteamUgcAdditionalPreview]]` prototype Object
+{
+    [field]
+    property ok : bool { get; set; }
+
+    [field]
+    property url_or_video_id : string { get; set; }
+
+    [field]
+    property preview_type : int32 { get; set; } // EItemPreviewType as int32
+}
+
+[global]
+class `[[SteamUgcKeyValueTag]]` prototype Object
+{
+    [field]
+    property ok : bool { get; set; }
+
+    [field]
+    property key : string { get; set; }
+
+    [field]
+    property value : string { get; set; }
+}
+
+
+// RemoveAppDependency (async SteamAPICall_t)
+[global, bind = typed_gml]
+function steam_ugc_remove_app_dependency(
+    [type_hint=uint64] published_file_id: gmval,
+    app_id: uint32
+, [type_hint=`func?`]callback:gmval): unit;
+
+// RemoveDependency (async SteamAPICall_t)
+[global, bind = typed_gml]
+function steam_ugc_remove_dependency(
+    [type_hint=uint64] parent_published_file_id: gmval,
+    [type_hint=uint64] child_published_file_id: gmval
+, [type_hint=`func?`]callback:gmval): unit;
+
+// RemoveItemFromFavorites (async SteamAPICall_t)
+[global, bind = typed_gml]
+function steam_ugc_remove_item_from_favorites(
+    app_id: uint32,
+    [type_hint=uint64] published_file_id: gmval
+, [type_hint=`func?`]callback:gmval): unit;
+
+
+// RemoveItemKeyValueTags
+[global, bind = typed_gml]
+function steam_ugc_remove_item_key_value_tags(
+    [type_hint=uint64] update_handle: gmval,
+    key: string
+): bool;
+
+// RemoveItemPreview
+[global, bind = typed_gml]
+function steam_ugc_remove_item_preview(
+    [type_hint=uint64] update_handle: gmval,
+    index: uint32
+): bool;
+
+
+// AddContentDescriptor
+[global, bind = typed_gml]
+function steam_ugc_add_content_descriptor(
+    [type_hint=uint64] update_handle: gmval,
+    [type_hint=`SteamUgcContentDescriptorId`] descriptor_id: gmval
+): bool;
+
+
+// RemoveContentDescriptor
+[global, bind = typed_gml]
+function steam_ugc_remove_content_descriptor(
+    [type_hint=uint64] update_handle: gmval,
+    [type_hint=`SteamUgcContentDescriptorId`] descriptor_id: gmval
+): bool;
+
+
+// SetRequiredGameVersions
+[global, bind = typed_gml]
+function steam_ugc_set_required_game_versions(
+    [type_hint=uint64] update_handle: gmval,
+    game_branch_min: string,
+    game_branch_max: string
+): bool;
+
+
+// RequestUGCDetails (deprecated; async SteamAPICall_t)
+[global, bind = typed_gml]
+function steam_ugc_request_ugc_details(
+    [type_hint=uint64] published_file_id: gmval,
+    max_age_seconds: uint32
+, [type_hint=`func?`]callback:gmval): unit;
+
+
+// SendQueryUGCRequest (async SteamAPICall_t)
+[global, bind = typed_gml]
+function steam_ugc_send_query_ugc_request(
+    [type_hint=uint64] query_handle: gmval
+, [type_hint=`func?`]callback:gmval): unit;
+
+// ReleaseQueryUGCRequest
+[global, bind = typed_gml]
+function steam_ugc_release_query_ugc_request([type_hint=uint64] query_handle: gmval): unit;
+
+[global, bind = typed_gml]
+function steam_ugc_set_callback_item_installed(callback:func): unit;
+
+[global, bind = typed_gml]
+function steam_ugc_clear_callback_item_installed(): unit;
+
+[global]
+class `[[SteamUgcItemInstalled]]` prototype Object
+{
+    [field]
+    property app_id : uint32 { get; set; }
+
+    [field, type_hint=uint64]
+    property published_file_id : gmval { get; set; }
+}
+
+// SetAllowCachedResponse
+[global, bind = typed_gml]
+function steam_ugc_set_allow_cached_response(
+    [type_hint=uint64] query_handle: gmval,
+    max_age_seconds: uint32
+): bool;
+
+
+// SetCloudFileNameFilter
+[global, bind = typed_gml]
+function steam_ugc_set_cloud_file_name_filter(
+    [type_hint=uint64] query_handle: gmval,
+    match_cloud_file_name: string
+): bool;
+
+
+// SetItemContent
+[global, bind = typed_gml]
+function steam_ugc_set_item_content(
+    [type_hint=uint64] update_handle: gmval,
+    content_folder: string
+): bool;
+
+
+// SetItemDescription
+[global, bind = typed_gml]
+function steam_ugc_set_item_description(
+    [type_hint=uint64] update_handle: gmval,
+    description: string
+): bool;
+
+// SetItemMetadata
+[global, bind = typed_gml]
+function steam_ugc_set_item_metadata(
+    [type_hint=uint64] update_handle: gmval,
+    metadata: string
+): bool;
+
+
+// SetItemPreview
+[global, bind = typed_gml]
+function steam_ugc_set_item_preview(
+    [type_hint=uint64] update_handle: gmval,
+    preview_file: string
+): bool;
+
+
+// SetItemTags
+[global, bind = typed_gml]
+function steam_ugc_set_item_tags(
+    [type_hint=uint64] update_handle: gmval,
+    [type_hint=`string[]`]tags_csv: gmval
+): bool;
+
+
+// SetItemTitle
+[global, bind = typed_gml]
+function steam_ugc_set_item_title(
+    [type_hint=uint64] update_handle: gmval,
+    title: string
+): bool;
+
+
+// SetItemUpdateLanguage
+[global, bind = typed_gml]
+function steam_ugc_set_item_update_language(
+    [type_hint=uint64] update_handle: gmval,
+    language: string
+): bool;
+
+
+// SetItemsDisabledLocally
+[global, bind = typed_gml]
+function steam_ugc_set_items_disabled_locally(
+    [type_hint=`uint64[]`] published_file_ids: gmval,
+    num_published_file_ids: uint32,
+    disabled_locally: bool
+): bool;
+
+
+// SetItemVisibility
+[global, bind = typed_gml]
+function steam_ugc_set_item_visibility(
+    [type_hint=uint64] update_handle: gmval,
+    [type_hint=`SteamRemoteStoragePublishedFileVisibility`] visibility: gmval
+): bool;
+
+// SetLanguage
+[global, bind = typed_gml]
+function steam_ugc_set_language(
+    [type_hint=uint64] query_handle: gmval,
+    language: string
+): bool;
+
+// SetMatchAnyTag
+[global, bind = typed_gml]
+function steam_ugc_set_match_any_tag(
+    [type_hint=uint64] query_handle: gmval,
+    match_any_tag: bool
+): bool;
+
+// SetRankedByTrendDays
+[global, bind = typed_gml]
+function steam_ugc_set_ranked_by_trend_days(
+    [type_hint=uint64] query_handle: gmval,
+    days: uint32
+): bool;
+
+// SetReturnAdditionalPreviews
+[global, bind = typed_gml]
+function steam_ugc_set_return_additional_previews(
+    [type_hint=uint64] query_handle: gmval,
+    return_additional_previews: bool
+): bool;
+
+// SetReturnChildren
+[global, bind = typed_gml]
+function steam_ugc_set_return_children(
+    [type_hint=uint64] query_handle: gmval,
+    return_children: bool
+): bool;
+
+
+// SetReturnKeyValueTags
+[global, bind = typed_gml]
+function steam_ugc_set_return_key_value_tags(
+    [type_hint=uint64] query_handle: gmval,
+    return_key_value_tags: bool
+): bool;
+
+
+// SetReturnLongDescription
+[global, bind = typed_gml]
+function steam_ugc_set_return_long_description(
+    [type_hint=uint64] query_handle: gmval,
+    return_long_description: bool
+): bool;
+
+
+// SetReturnMetadata
+[global, bind = typed_gml]
+function steam_ugc_set_return_metadata(
+    [type_hint=uint64] query_handle: gmval,
+    return_metadata: bool
+): bool;
+
+
+// SetReturnOnlyIDs
+[global, bind = typed_gml]
+function steam_ugc_set_return_only_ids(
+    [type_hint=uint64] query_handle: gmval,
+    return_only_ids: bool
+): bool;
+
+
+// SetReturnPlaytimeStats
+[global, bind = typed_gml]
+function steam_ugc_set_return_playtime_stats(
+    [type_hint=uint64] query_handle: gmval,
+    days: uint32
+): bool;
+
+// SetReturnTotalOnly
+[global, bind = typed_gml]
+function steam_ugc_set_return_total_only(
+    [type_hint=uint64] query_handle: gmval,
+    return_total_only: bool
+): bool;
+
+// SetSearchText
+[global, bind = typed_gml]
+function steam_ugc_set_search_text(
+    [type_hint=uint64] query_handle: gmval,
+    search_text: string
+): bool;
+
+// SetSubscriptionsLoadOrder
+[global, bind = typed_gml]
+function steam_ugc_set_subscriptions_load_order(
+    [type_hint=`uint64[]`] published_file_ids: gmval,
+    num_published_file_ids: uint32
+): bool;
+
+// SetUserItemVote (async SteamAPICall_t)
+[global, bind = typed_gml]
+function steam_ugc_set_user_item_vote(
+    [type_hint=uint64] published_file_id: gmval,
+    vote_up: bool
+, [type_hint=`func?`]callback:gmval): unit;
+
+// GetUserItemVote (async; Option 1 inline callback)
+[global, bind = typed_gml]
+function steam_ugc_get_user_item_vote(
+    [type_hint=uint64] published_file_id: gmval,
+    [type_hint=`func?`]callback:gmval
+): unit;
+
+// StartItemUpdate
+[global, bind = typed_gml, type_hint = uint64]
+function steam_ugc_start_item_update(
+    consumer_app_id: uint32,
+    [type_hint=uint64] published_file_id: gmval
+): gmval;
+
+// StartPlaytimeTracking (async SteamAPICall_t)
+[global, bind = typed_gml]
+function steam_ugc_start_playtime_tracking(
+    [type_hint=`uint64[]`] published_file_ids: gmval,
+    num_published_file_ids: uint32
+, [type_hint=`func?`]callback:gmval): unit;
+
+// StopPlaytimeTracking (async SteamAPICall_t)
+[global, bind = typed_gml]
+function steam_ugc_stop_playtime_tracking(
+    [type_hint=`uint64[]`] published_file_ids: gmval,
+    num_published_file_ids: uint32
+, [type_hint=`func?`]callback:gmval): unit;
+
+// StopPlaytimeTrackingForAllItems (async SteamAPICall_t)
+[global, bind = typed_gml]
+function steam_ugc_stop_playtime_tracking_for_all_items([type_hint=`func?`]callback:gmval): unit;
+
+// SubmitItemUpdate (async SteamAPICall_t)
+[global, bind = typed_gml]
+function steam_ugc_submit_item_update(
+    [type_hint=uint64] update_handle: gmval,
+    change_note: string
+, [type_hint=`func?`]callback:gmval): unit;
+
+// SubscribeItem (async SteamAPICall_t)
+[global, bind = typed_gml]
+function steam_ugc_subscribe_item([type_hint=uint64] published_file_id: gmval, [type_hint=`func?`]callback:gmval): unit;
+
+// SuspendDownloads
+[global, bind = typed_gml]
+function steam_ugc_suspend_downloads(suspend: bool): unit;
+
+// UnsubscribeItem (async SteamAPICall_t)
+[global, bind = typed_gml]
+function steam_ugc_unsubscribe_item([type_hint=uint64] published_file_id: gmval, [type_hint=`func?`]callback:gmval): unit;
+
+[global, bind = typed_gml]
+function steam_ugc_set_callback_user_subscribed_items_list_changed(callback:func): unit;
+
+[global, bind = typed_gml]
+function steam_ugc_clear_callback_user_subscribed_items_list_changed(): unit;
+
+[global]
+class `[[SteamUgcUserSubscribedItemsListChanged]]` prototype Object
+{
+    [field]
+    property app_id : uint32 { get; set; }
+}
+
+// UpdateItemPreviewFile
+[global, bind = typed_gml]
+function steam_ugc_update_item_preview_file(
+    [type_hint=uint64] update_handle: gmval,
+    index: uint32,
+    preview_file: string
+): bool;
+
+// UpdateItemPreviewVideo
+[global, bind = typed_gml]
+function steam_ugc_update_item_preview_video(
+    [type_hint=uint64] update_handle: gmval,
+    index: uint32,
+    video_id: string
+): bool;
+
+// ShowWorkshopEULA
+[global, bind = typed_gml]
+function steam_ugc_show_workshop_eula(): bool;
+
+// GetWorkshopEULAStatus (async SteamAPICall_t)
+[global, bind = typed_gml]
+function steam_ugc_get_workshop_eula_status([type_hint=`func?`]callback:gmval): unit;
+
+[global, bind = typed_gml]
+function steam_ugc_set_callback_file_subscribed(callback:func): unit;
+
+[global, bind = typed_gml]
+function steam_ugc_clear_callback_file_subscribed(): unit;
+
+[global, bind = typed_gml]
+function steam_ugc_set_callback_file_unsubscribed(callback:func): unit;
+
+[global, bind = typed_gml]
+function steam_ugc_clear_callback_file_unsubscribed(): unit;
+
+// GetNumSupportedGameVersions
+[global, bind = typed_gml]
+function steam_ugc_get_num_supported_game_versions(
+    [type_hint=uint64] query_handle: gmval,
+    index: uint32
+): uint32;
+
+[global]
+class `[[SteamUgcFileSubscribed]]` prototype Object
+{
+    [field]
+    property app_id : uint32 { get; set; }
+
+    [field, type_hint=uint64]
+    property published_file_id : gmval { get; set; }
+}
+
+[global]
+class `[[SteamUgcFileUnsubscribed]]` prototype Object
+{
+    [field]
+    property app_id : uint32 { get; set; }
+
+    [field, type_hint=uint64]
+    property published_file_id : gmval { get; set; }
+}
+
+[global]
+class `[[SteamUgcQueryCompleted]]` prototype Object
+{
+    [field, type_hint=uint64] property query_handle : gmval { get; set; }
+    [field] property result : int32 { get; set; }
+    [field] property num_results_returned : uint32 { get; set; }
+    [field] property total_matching_results : uint32 { get; set; }
+    [field] property cached_data : bool { get; set; }
+}
+
+[global]
+class `[[SteamUgcCreateItemResult]]` prototype Object
+{
+    [field] property result : int32 { get; set; }
+    [field, type_hint=uint64] property published_file_id : gmval { get; set; }
+    [field] property legal_agreement_required : bool { get; set; }
+}
+
+[global]
+class `[[SteamUgcSubmitItemUpdateResult]]` prototype Object
+{
+    [field] property result : int32 { get; set; }
+    [field] property legal_agreement_required : bool { get; set; }
+}
+
+[global]
+class `[[SteamUgcSubscribeItemResult]]` prototype Object
+{
+    [field] property result : int32 { get; set; }
+    [field, type_hint=uint64] property published_file_id : gmval { get; set; }
+}
+
+[global]
+class `[[SteamUgcUnsubscribeItemResult]]` prototype Object
+{
+    [field] property result : int32 { get; set; }
+    [field, type_hint=uint64] property published_file_id : gmval { get; set; }
+}
+
+[global]
+class `[[SteamUgcFavoriteItemsListChanged]]` prototype Object
+{
+    [field] property result : int32 { get; set; }
+    [field, type_hint=uint64] property published_file_id : gmval { get; set; }
+    [field] property was_add_request : bool { get; set; }
+}
+
+[global]
+class `[[SteamUgcSetUserItemVoteResult]]` prototype Object
+{
+    [field] property result : int32 { get; set; }
+    [field, type_hint=uint64] property published_file_id : gmval { get; set; }
+    [field] property vote_up : bool { get; set; }
+}
+
+[global]
+class `[[SteamUgcGetUserItemVoteResult]]` prototype Object
+{
+    [field] property result : int32 { get; set; }
+    [field, type_hint=uint64] property published_file_id : gmval { get; set; }
+    [field] property voted_up : bool { get; set; }
+    [field] property voted_down : bool { get; set; }
+    [field] property vote_skipped : bool { get; set; }
+}
+
+[global]
+class `[[SteamUgcRequestItemDetailsResult]]` prototype Object
+{
+    [field] property result : int32 { get; set; }
+    [field, type_hint=uint64] property published_file_id : gmval { get; set; }
+    [field] property cached_data : bool { get; set; }
+}
+
+[global]
+class `[[SteamUgcSupportedGameVersionData]]` prototype Object
+{
+    [field] property ok : bool { get; set; }
+    [field] property game_branch_min : string { get; set; }
+    [field] property game_branch_max : string { get; set; }
+}
+
+[global]
+class `[[SteamUgcDeleteItemResult]]` prototype Object
+{
+    [field] property result : int32 { get; set; }
+    [field, type_hint=uint64] property published_file_id : gmval { get; set; }
+}
+
+[global]
+class `[[SteamUgcDownloadItemResult]]` prototype Object
+{
+    [field] property app_id : uint32 { get; set; }
+    [field, type_hint=uint64] property published_file_id : gmval { get; set; }
+    [field] property result : int32 { get; set; }
+}
+
+}
+
+
+group{ // SteamInput
+
+[global]
+class `[[SteamInputAnalogActionData]]` prototype Object
+{
+    [field]
+    property mode : int32 { get; set; } // EControllerSourceMode as int32 (kept numeric to avoid huge enum)
+
+    [field]
+    property x : float { get; set; }
+
+    [field]
+    property y : float { get; set; }
+
+    [field]
+    property active : bool { get; set; } // bActive
+}
+
+[global]
+class `[[SteamInputDigitalActionData]]` prototype Object
+{
+    // Matches InputDigitalActionData_t
+    [field]
+    property state : bool { get; set; }  // bState
+
+    [field]
+    property active : bool { get; set; } // bActive
+}
+
+[global]
+class `[[SteamInputMotionData]]` prototype Object
+{
+    // Matches InputMotionData_t
+    [field] property rot_quat_x : float { get; set; }
+    [field] property rot_quat_y : float { get; set; }
+    [field] property rot_quat_z : float { get; set; }
+    [field] property rot_quat_w : float { get; set; }
+
+    [field] property pos_accel_x : float { get; set; }
+    [field] property pos_accel_y : float { get; set; }
+    [field] property pos_accel_z : float { get; set; }
+
+    [field] property rot_vel_x : float { get; set; }
+    [field] property rot_vel_y : float { get; set; }
+    [field] property rot_vel_z : float { get; set; }
+}
+
+
+[global]
+class `[[SteamInputActiveActionSetLayers]]` prototype Object
+{
+    [field]
+    property count : int32 { get; set; }
+
+    [field, type_hint = `uint64[]`]
+    property handles : gmval { get; set; } // InputActionSetHandle_t[]
+}
+
+[global]
+class `[[SteamInputActionOrigins]]` prototype Object
+{
+    [field]
+    property count : int32 { get; set; }
+
+    [field, type_hint = `int32[]`]
+    property origins : gmval { get; set; }
+}
+
+[global]
+class `[[SteamInputDeviceBindingRevision]]` prototype Object
+{
+    [field]
+    property ok : bool { get; set; }
+
+    [field]
+    property major : int32 { get; set; }
+
+    [field]
+    property minor : int32 { get; set; }
+}
+
+
+// ActivateActionSet
+[global, bind = typed_gml]
+function steam_input_activate_action_set([type_hint=uint64] input_handle: gmval, [type_hint=uint64] action_set_handle: gmval): unit;
+
+// ActivateActionSetLayer
+[global, bind = typed_gml]
+function steam_input_activate_action_set_layer([type_hint=uint64] input_handle: gmval, [type_hint=uint64] action_set_layer_handle: gmval): unit;
+
+// DeactivateActionSetLayer
+[global, bind = typed_gml]
+function steam_input_deactivate_action_set_layer([type_hint=uint64] input_handle: gmval, [type_hint=uint64] action_set_layer_handle: gmval): unit;
+
+// DeactivateAllActionSetLayers
+[global, bind = typed_gml]
+function steam_input_deactivate_all_action_set_layers([type_hint=uint64] input_handle: gmval): unit;
+
+// GetActiveActionSetLayers
+[global, bind = typed_gml, type_hint=`SteamInputActiveActionSetLayers`]
+function steam_input_get_active_action_set_layers([type_hint=uint64] input_handle: gmval): gmval;
+
+// GetActionSetHandle
+[global, bind = typed_gml, type_hint=uint64]
+function steam_input_get_action_set_handle(pszActionSetName: string): gmval;
+
+// GetAnalogActionData
+[global, bind = typed_gml, type_hint=`SteamInputAnalogActionData`]
+function steam_input_get_analog_action_data([type_hint=uint64] input_handle: gmval, [type_hint=uint64] analog_action_handle: gmval): gmval;
+
+// GetAnalogActionHandle
+[global, bind = typed_gml, type_hint=uint64]
+function steam_input_get_analog_action_handle(pszActionName: string): gmval;
+
+// GetAnalogActionOrigins
+[global, bind = typed_gml, type_hint=`SteamInputActionOrigins`]
+function steam_input_get_analog_action_origins([type_hint=uint64] input_handle: gmval, [type_hint=uint64] action_set_handle: gmval, [type_hint=uint64] analog_action_handle: gmval): gmval;
+
+// GetGlyphPNGForActionOrigin
+[global, bind = typed_gml]
+function steam_input_get_glyph_png_for_action_origin(
+    origin: uint32,
+    size: uint32,
+    flags: uint32
+): string;
+
+// GetGlyphSVGForActionOrigin
+[global, bind = typed_gml]
+function steam_input_get_glyph_svg_for_action_origin(
+    origin: uint32,
+    flags: uint32
+): string;
+
+// GetConnectedControllers
+[global, bind = typed_gml, type_hint=`uint64[]`]
+function steam_input_get_connected_controllers(): gmval;
+
+// GetControllerForGamepadIndex
+[global, bind = typed_gml, type_hint=uint64]
+function steam_input_get_controller_for_gamepad_index(nIndex: int32): gmval;
+
+// GetCurrentActionSet
+[global, bind = typed_gml, type_hint=uint64]
+function steam_input_get_current_action_set([type_hint=uint64] input_handle: gmval): gmval;
+
+// GetDigitalActionData
+[global, bind = typed_gml, type_hint=`SteamInputDigitalActionData`]
+function steam_input_get_digital_action_data([type_hint=uint64] input_handle: gmval, [type_hint=uint64] digital_action_handle: gmval): gmval;
+
+// GetDigitalActionHandle
+[global, bind = typed_gml, type_hint=uint64]
+function steam_input_get_digital_action_handle(pszActionName: string): gmval;
+
+// GetDigitalActionOrigins
+[global, bind = typed_gml, type_hint=`SteamInputActionOrigins`]
+function steam_input_get_digital_action_origins([type_hint=uint64] input_handle: gmval, [type_hint=uint64] action_set_handle: gmval, [type_hint=uint64] digital_action_handle: gmval): gmval;
+
+// GetGamepadIndexForController
+[global, bind = typed_gml]
+function steam_input_get_gamepad_index_for_controller([type_hint=uint64] input_handle: gmval): int32;
+
+// GetInputTypeForHandle
+[global, bind = typed_gml]
+function steam_input_get_input_type_for_handle([type_hint=uint64] input_handle: gmval): int32;
+
+// GetMotionData
+[global, bind = typed_gml, type_hint=`SteamInputMotionData`]
+function steam_input_get_motion_data([type_hint=uint64] input_handle: gmval): gmval;
+
+// GetStringForActionOrigin
+[global, bind = typed_gml]
+function steam_input_get_string_for_action_origin(eOrigin: int32): string;
+
+// Init
+[global, bind = typed_gml]
+function steam_input_init(explicitly_call_run_frame: bool): bool;
+
+[global, bind = typed_gml]
+function steam_input_enable_device_callbacks(): unit;
+
+// RunFrame
+[global, bind = typed_gml]
+function steam_input_run_frame(): unit;
+
+// SetDualSenseTriggerEffect
+// TODO: Not currently supported in the GM binding (requires a native ScePadTriggerEffectParam pointer).
+[global, bind = typed_gml]
+function steam_input_set_dual_sense_trigger_effect([type_hint=uint64] input_handle: gmval, [type_hint=`uint32[]`] pParam: gmval): bool;
+
+// SetLEDColor
+[global, bind = typed_gml]
+function steam_input_set_led_color([type_hint=uint64] input_handle: gmval, nColorR: uint32, nColorG: uint32, nColorB: uint32, nFlags: uint32): unit;
+
+// ShowBindingPanel
+[global, bind = typed_gml]
+function steam_input_show_binding_panel([type_hint=uint64] input_handle: gmval): bool;
+
+// Shutdown
+[global, bind = typed_gml]
+function steam_input_shutdown(): bool;
+
+// StopAnalogActionMomentum
+[global, bind = typed_gml]
+function steam_input_stop_analog_action_momentum([type_hint=uint64] input_handle: gmval, [type_hint=uint64] analog_action_handle: gmval): unit;
+
+
+// TriggerVibration
+[global, bind = typed_gml]
+function steam_input_trigger_vibration([type_hint=uint64] input_handle: gmval, usLeftSpeed: uint32, usRightSpeed: uint32): unit;
+
+// TriggerVibrationExtended
+[global, bind = typed_gml]
+function steam_input_trigger_vibration_extended([type_hint=uint64] input_handle: gmval, usLeftSpeed: uint32, usRightSpeed: uint32, usLeftTriggerSpeed: uint32, usRightTriggerSpeed: uint32): unit;
+
+// GetActionOriginFromXboxOrigin
+[global, bind = typed_gml]
+function steam_input_get_action_origin_from_xbox_origin([type_hint=uint64] input_handle: gmval, eOrigin: int32): int32;
+
+// TranslateActionOrigin
+[global, bind = typed_gml]
+function steam_input_translate_action_origin(eDestinationInputType: int32, eSourceOrigin: int32): int32;
+
+// GetDeviceBindingRevision
+[global, bind = typed_gml, type_hint=`SteamInputDeviceBindingRevision`]
+function steam_input_get_device_binding_revision([type_hint=uint64] input_handle: gmval): gmval;
+
+// GetRemotePlaySessionID
+[global, bind = typed_gml]
+function steam_input_get_remote_play_session_id([type_hint=uint64] input_handle: gmval): uint32;
+
+[global, bind = typed_gml]
+function steam_input_set_callback_device_connected(callback:func): unit;
+
+[global, bind = typed_gml]
+function steam_input_clear_callback_device_connected(): unit;
+
+[global, bind = typed_gml]
+function steam_input_set_callback_device_disconnected(callback:func): unit;
+
+[global, bind = typed_gml]
+function steam_input_clear_callback_device_disconnected(): unit;
+
+[global]
+class `[[SteamInputDeviceEvent]]` prototype Object
+{
+    [field, type_hint=uint64]
+    property controller_handle : gmval { get; set; }
+}
+
+// Action set change (polling based)
+[global, bind = typed_gml]
+function steam_input_set_callback_action_set_changed(callback:func): unit;
+
+[global, bind = typed_gml]
+function steam_input_clear_callback_action_set_changed(): unit;
+
+// Controller battery polling (best-effort; may be unsupported on desktop Steam Input)
+[global, bind = typed_gml]
+function steam_input_set_callback_controller_battery(callback:func): unit;
+
+[global, bind = typed_gml]
+function steam_input_clear_callback_controller_battery(): unit;
+
+[global]
+class `[[SteamInputActionSetChanged]]` prototype Object
+{
+    [field, type_hint=uint64]
+    property controller_handle : gmval { get; set; }
+
+    [field, type_hint=uint64]
+    property action_set_handle : gmval { get; set; }
+}
+
+[global]
+class `[[SteamInputControllerBattery]]` prototype Object
+{
+    [field, type_hint=uint64]
+    property controller_handle : gmval { get; set; }
+
+    // -1 = unknown/unsupported
+    [field]
+    property battery_percent : int32 { get; set; }
+}
+
+} // end group SteamInput
+
+
+
+group{ // SteamUserStats
+
+[global, bind = typed_gml]
+enum SteamLeaderboardDataRequest
+{
+    Global = 0,
+    GlobalAroundUser = 1,
+    Friends = 2,
+}
+
+[global, bind = typed_gml]
+enum SteamLeaderboardSortMethod
+{
+    None = 0,
+    Ascending = 1,
+    Descending = 2,
+}
+
+[global, bind = typed_gml]
+enum SteamLeaderboardDisplayType
+{
+    None = 0,
+    Numeric = 1,
+    TimeSeconds = 2,
+    TimeMilliSeconds = 3,
+}
+
+[global, bind = typed_gml]
+enum SteamLeaderboardUploadScoreMethod
+{
+    None = 0,
+    KeepBest = 1,
+    ForceUpdate = 2,
+}
+
+[global]
+class `[[SteamUserStatsAchievementAndUnlockTime]]` prototype Object
+{
+    [field] property achieved : bool { get; set; }
+    [field] property unlock_time : uint32 { get; set; }
+}
+
+[global]
+class `[[SteamUserStatsAchievementAndProgress]]` prototype Object
+{
+    [field] property achieved : bool { get; set; }
+    [field] property cur_progress : uint32 { get; set; }
+    [field] property max_progress : uint32 { get; set; }
+}
+
+[global]
+class `[[SteamUserStatsAchievementNamesAndPercent]]` prototype Object
+{
+    [field] property name : string { get; set; }
+    [field] property percent : float { get; set; }
+}
+
+[global]
+class `[[SteamUserStatsMostAchievedAchievementInfo]]` prototype Object
+{
+    [field] property ok : bool { get; set; }
+    [field] property name : string { get; set; }
+    [field] property percent : float { get; set; }
+    [field] property achieved : bool { get; set; }
+}
+
+[global]
+class `[[SteamUserStatsNumAchievementsAndHours]]` prototype Object
+{
+    [field] property num_achievements : uint32 { get; set; }
+    [field] property hours : float { get; set; }
+}
+
+[global]
+class `[[SteamUserStatsStatInt]]` prototype Object
+{
+    [field] property ok : bool { get; set; }
+    [field] property data : int32 { get; set; }
+}
+
+[global]
+class `[[SteamUserStatsStatFloat]]` prototype Object
+{
+    [field] property ok : bool { get; set; }
+    [field] property data : float { get; set; }
+}
+
+[global]
+class `[[SteamUserStatsUserAchievement]]` prototype Object
+{
+    [field] property ok : bool { get; set; }
+    [field] property achieved : bool { get; set; }
+}
+
+[global]
+class `[[SteamUserStatsGlobalStatInt64]]` prototype Object
+{
+    [field] property ok : bool { get; set; }
+    [field] property data : int64 { get; set; }
+}
+
+[global]
+class `[[SteamUserStatsGlobalStatDouble]]` prototype Object
+{
+    [field] property ok : bool { get; set; }
+    [field] property data : real { get; set; }
+}
+
+[global]
+class `[[SteamUserStatsGlobalStatHistoryInt64]]` prototype Object
+{
+    [field] property ok : bool { get; set; }
+    [field, type_hint=`int64[]`]
+    property data : gmval { get; set; }
+}
+
+[global]
+class `[[SteamUserStatsGlobalStatHistoryDouble]]` prototype Object
+{
+    [field] property ok : bool { get; set; }
+    [field, type_hint=`real[]`]
+    property data : gmval { get; set; }
+}
+
+[global]
+class `[[SteamUserStatsDownloadedLeaderboardEntry]]` prototype Object
+{
+    [field] property ok : bool { get; set; }
+
+    [field, type_hint=uint64]
+    property steam_id_user : gmval { get; set; }
+
+    [field] property global_rank : int32 { get; set; }
+    [field] property score : int32 { get; set; }
+    [field] property details_count : int32 { get; set; }
+
+    [field] property details_written : int32 { get; set; }
+    [field] property bytes_written : int32 { get; set; }
+}
+
+[global]
+class `[[SteamUserStatsRequestUserStatsResult]]` prototype Object
+{
+    [field, type_hint=uint64] property game_id : gmval { get; set; }
+    [field, type_hint=uint64] property steam_id_user : gmval { get; set; }
+    [field] property result : int32 { get; set; } // EResult numeric
+}
+
+[global]
+class `[[SteamUserStatsLeaderboardFindResult]]` prototype Object
+{
+    [field, type_hint=uint64] property leaderboard_handle : gmval { get; set; }
+    [field] property leaderboard_found : bool { get; set; }
+}
+
+[global]
+class `[[SteamUserStatsScoresDownloadedResult]]` prototype Object
+{
+    [field, type_hint=uint64] property leaderboard_handle : gmval { get; set; }
+    [field, type_hint=uint64] property entries_handle : gmval { get; set; }
+    [field] property entry_count : uint32 { get; set; }
+}
+
+[global]
+class `[[SteamUserStatsScoreUploadedResult]]` prototype Object
+{
+    [field] property success : bool { get; set; }
+    [field, type_hint=uint64] property leaderboard_handle : gmval { get; set; }
+    [field] property score : int32 { get; set; }
+    [field] property score_changed : bool { get; set; }
+    [field] property global_rank_new : int32 { get; set; }
+    [field] property global_rank_previous : int32 { get; set; }
+}
+
+[global]
+class `[[SteamUserStatsNumberOfCurrentPlayersResult]]` prototype Object
+{
+    [field] property success : bool { get; set; }
+    [field] property players : int32 { get; set; }
+}
+
+[global]
+class `[[SteamUserStatsGlobalAchievementPercentagesReadyResult]]` prototype Object
+{
+    [field, type_hint=uint64] property game_id : gmval { get; set; }
+    [field] property result : int32 { get; set; } // EResult numeric
+}
+
+[global]
+class `[[SteamUserStatsGlobalStatsReceivedResult]]` prototype Object
+{
+    [field, type_hint=uint64] property game_id : gmval { get; set; }
+    [field] property result : int32 { get; set; } // EResult numeric
+}
+
+// GetStat (int32)
+[global, bind = typed_gml, type_hint = `SteamUserStatsStatInt`]
+function steam_userstats_get_stat_int(stat_name: string): gmval;
+
+// GetStat (float)
+[global, bind = typed_gml, type_hint = `SteamUserStatsStatFloat`]
+function steam_userstats_get_stat_float(stat_name: string): gmval;
+
+// SetStat (int32)
+[global, bind = typed_gml]
+function steam_userstats_set_stat_int(stat_name: string, data: int32): bool;
+
+// SetStat (float)
+[global, bind = typed_gml]
+function steam_userstats_set_stat_float(stat_name: string, data: float): bool;
+
+// UpdateAvgRateStat
+[global, bind = typed_gml]
+function steam_userstats_update_avg_rate_stat(stat_name: string, count_this_session: float, session_length: real): bool;
+
+// GetAchievement
+[global, bind = typed_gml, type_hint = `SteamUserStatsUserAchievement`]
+function steam_userstats_get_achievement(achievement_name: string): gmval;
+
+// SetAchievement
+[global, bind = typed_gml]
+function steam_userstats_set_achievement(achievement_name: string): bool;
+
+// ClearAchievement
+[global, bind = typed_gml]
+function steam_userstats_clear_achievement(achievement_name: string): bool;
+
+// GetAchievementAndUnlockTime
+[global, bind = typed_gml, type_hint = `SteamUserStatsAchievementAndUnlockTime`]
+function steam_userstats_achievement_and_unlock_time(achievement_name: string): gmval;
+
+// StoreStats
+[global, bind = typed_gml]
+function steam_userstats_store_stats(): bool;
+
+// GetAchievementIcon
+[global, bind = typed_gml]
+function steam_userstats_achievement_icon(achievement_name: string): int32;
+
+// GetAchievementDisplayAttribute
+[global, bind = typed_gml]
+function steam_userstats_achievement_display_attribute(achievement_name: string, key: string): string;
+
+// IndicateAchievementProgress
+[global, bind = typed_gml]
+function steam_userstats_indicate_achievement_progress(achievement_name: string, cur_progress: uint32, max_progress: uint32): bool;
+
+// GetNumAchievements
+[global, bind = typed_gml]
+function steam_userstats_num_achievements(): uint32;
+
+// GetAchievementName
+[global, bind = typed_gml]
+function steam_userstats_achievement_name(index: uint32): string;
+
+// RequestUserStats
+[global, bind = typed_gml]
+function steam_userstats_request_user_stats([type_hint=uint64] steam_id_user: gmval, [type_hint=`func?`]callback:gmval): unit;
+
+// GetUserStat (int32)
+[global, bind = typed_gml, type_hint = `SteamUserStatsStatInt`]
+function steam_userstats_user_stat_int([type_hint=uint64] steam_id_user: gmval, stat_name: string): gmval;
+
+// GetUserStat (float)
+[global, bind = typed_gml, type_hint = `SteamUserStatsStatFloat`]
+function steam_userstats_user_stat_float([type_hint=uint64] steam_id_user: gmval, stat_name: string): gmval;
+
+// GetUserAchievement
+[global, bind = typed_gml, type_hint = `SteamUserStatsUserAchievement`]
+function steam_userstats_user_achievement([type_hint=uint64] steam_id_user: gmval, achievement_name: string): gmval;
+
+// GetUserAchievementAndUnlockTime
+[global, bind = typed_gml, type_hint = `SteamUserStatsAchievementAndUnlockTime`]
+function steam_userstats_user_achievement_and_unlock_time([type_hint=uint64] steam_id_user: gmval, achievement_name: string): gmval;
+
+// ResetAllStats
+[global, bind = typed_gml]
+function steam_userstats_reset_all_stats(achievements_too: bool): bool;
+
+// FindOrCreateLeaderboard
+[global, bind = typed_gml]
+function steam_userstats_find_or_create_leaderboard(leaderboard_name: string,
+    [type_hint=`SteamLeaderboardSortMethod`] sort_method: gmval,
+    [type_hint=`SteamLeaderboardDisplayType`] display_type: gmval, [type_hint=`func?`]callback:gmval): unit;
+
+// FindLeaderboard
+[global, bind = typed_gml]
+function steam_userstats_find_leaderboard(leaderboard_name: string, [type_hint=`func?`]callback:gmval): unit;
+
+// GetLeaderboardName
+[global, bind = typed_gml]
+function steam_userstats_leaderboard_name([type_hint=uint64] leaderboard_handle: gmval): string;
+
+// GetLeaderboardEntryCount
+[global, bind = typed_gml]
+function steam_userstats_leaderboard_entry_count([type_hint=uint64] leaderboard_handle: gmval): int32;
+
+// GetLeaderboardSortMethod
+[global, bind = typed_gml, type_hint = `SteamLeaderboardSortMethod`]
+function steam_userstats_leaderboard_sort_method([type_hint=uint64] leaderboard_handle: gmval): gmval;
+
+// GetLeaderboardDisplayType
+[global, bind = typed_gml, type_hint = `SteamLeaderboardDisplayType`]
+function steam_userstats_leaderboard_display_type([type_hint=uint64] leaderboard_handle: gmval): gmval;
+
+// DownloadLeaderboardEntries
+[global, bind = typed_gml]
+function steam_userstats_download_leaderboard_entries([type_hint=uint64] leaderboard_handle: gmval,
+    [type_hint=`SteamLeaderboardDataRequest`] request: gmval,
+    range_start: int32,
+    range_end: int32, [type_hint=`func?`]callback:gmval): unit;
+
+// DownloadLeaderboardEntriesForUsers
+[global, bind = typed_gml]
+function steam_userstats_download_leaderboard_entries_for_users([type_hint=uint64] leaderboard_handle: gmval,
+    [type_hint=`uint64[]`] users: gmval, [type_hint=`func?`]callback:gmval): unit;
+
+// GetDownloadedLeaderboardEntry
+[global, bind = typed_gml, type_hint=`SteamUserStatsDownloadedLeaderboardEntry`]
+function steam_userstats_downloaded_leaderboard_entry(
+    [type_hint=uint64]leaderboard_entries_handle: gmval,
+    entry_index: int32,
+    [type_hint=buffer] buffer: gmval,
+    buffer_size: uint32
+): gmval;
+
+// UploadLeaderboardScore
+[global, bind = typed_gml]
+function steam_userstats_upload_leaderboard_score(
+    [type_hint=uint64] leaderboard_handle: gmval,
+    [type_hint=SteamLeaderboardUploadScoreMethod] method: gmval,
+    score: int32,
+    [type_hint=buffer] score_details_buffer: gmval,
+    score_details_count: int32,
+    [type_hint=`func?`]callback:gmval
+): unit;
+
+// Result: AttachLeaderboardUGC
+class `[[SteamUserStatsAttachLeaderboardUgcResult]]` prototype Object
+{
+    [field] property ok : bool { get; set; }
+    [field] property result : int32 { get; set; }
+
+    [field, type_hint=`uint64`] property leaderboard_handle : gmval { get; set; }
+}
+
+// AttachLeaderboardUGC
+[global, bind = typed_gml]
+function steam_userstats_attach_leaderboard_ugc(
+    [type_hint=uint64] leaderboard_handle: gmval,
+    [type_hint=uint64] ugc_handle: gmval,
+    [type_hint=`func?`]callback:gmval
+): unit;
+
+// GetNumberOfCurrentPlayers
+[global, bind = typed_gml]
+function steam_userstats_number_of_current_players([type_hint=`func?`]callback:gmval): unit;
+
+// RequestGlobalAchievementPercentages
+[global, bind = typed_gml]
+function steam_userstats_request_global_achievement_percentages([type_hint=`func?`]callback:gmval): unit;
+
+// GetMostAchievedAchievementInfo
+[global, bind = typed_gml, type_hint = `SteamUserStatsMostAchievedAchievementInfo`]
+function steam_userstats_most_achieved_achievement_info(): gmval;
+
+// GetNextMostAchievedAchievementInfo
+[global, bind = typed_gml, type_hint = `SteamUserStatsMostAchievedAchievementInfo`]
+function steam_userstats_next_most_achieved_achievement_info(iterator_prev: int32): gmval;
+
+// GetAchievementAchievedPercent
+[global, bind = typed_gml]
+function steam_userstats_achievement_achieved_percent(achievement_name: string): float;
+
+// RequestGlobalStats
+[global, bind = typed_gml]
+function steam_userstats_request_global_stats(history_days: int32, [type_hint=`func?`]callback:gmval): unit;
+
+// GetGlobalStat (int64)
+[global, bind = typed_gml, type_hint = `SteamUserStatsGlobalStatInt64`]
+function steam_userstats_global_stat_int64(stat_name: string): gmval;
+
+// GetGlobalStat (real)
+[global, bind = typed_gml, type_hint = `SteamUserStatsGlobalStatDouble`]
+function steam_userstats_global_stat_double(stat_name: string): gmval;
+
+// GetGlobalStatHistory (int64)
+[global, bind = typed_gml, type_hint = `SteamUserStatsGlobalStatHistoryInt64`]
+function steam_userstats_global_stat_history_int64(stat_name: string): gmval;
+
+// GetGlobalStatHistory (real)
+[global, bind = typed_gml, type_hint = `SteamUserStatsGlobalStatHistoryDouble`]
+function steam_userstats_global_stat_history_double(stat_name: string): gmval;
+
+// GetAchievementProgressLimits (int32)
+[global, bind = typed_gml,type_hint=`SteamUserStatsIntMinMax`]
+function steam_userstats_achievement_progress_limits_int(
+    achievement_name: string,
+    cur_progress: uint32,
+    max_progress: uint32
+): gmval;
+
+// GetAchievementProgressLimits (float)
+[global, bind = typed_gml,type_hint=`SteamUserStatsFloatMinMax`]
+function steam_userstats_achievement_progress_limits_float(
+    achievement_name: string,
+    cur_progress: float,
+    max_progress: float
+): gmval;
+
+[global, bind = typed_gml]
+function steam_userstats_set_callback_user_stats_received(callback:func): unit;
+
+[global, bind = typed_gml]
+function steam_userstats_clear_callback_user_stats_received(): unit;
+
+[global, bind = typed_gml]
+function steam_userstats_set_callback_user_stats_stored(callback:func): unit;
+
+[global, bind = typed_gml]
+function steam_userstats_clear_callback_user_stats_stored(): unit;
+
+[global, bind = typed_gml]
+function steam_userstats_set_callback_user_achievement_stored(callback:func): unit;
+
+[global, bind = typed_gml]
+function steam_userstats_clear_callback_user_achievement_stored(): unit;
+
+[global]
+class `[[SteamUserStatsUserStatsReceived]]` prototype Object
+{
+    [field, type_hint=uint64] property game_id : gmval { get; set; }
+    [field, type_hint=uint64] property steam_id_user : gmval { get; set; }
+    [field] property result : int32 { get; set; } // EResult numeric
+}
+
+[global]
+class `[[SteamUserStatsUserStatsStored]]` prototype Object
+{
+    [field, type_hint=uint64] property game_id : gmval { get; set; }
+    [field] property result : int32 { get; set; } // EResult numeric
+}
+
+[global]
+class `[[SteamUserStatsUserAchievementStored]]` prototype Object
+{
+    [field, type_hint=uint64] property game_id : gmval { get; set; }
+    [field] property achievement_name : string { get; set; }
+    [field] property cur_progress : int32 { get; set; }
+    [field] property max_progress : int32 { get; set; }
+}
+
+[global]
+class `[[SteamUserStatsIntMinMax]]` prototype Object
+{
+    [field] property min : int32 { get; set; }
+    [field] property max : int32 { get; set; }
+    [field] property ok : bool { get; set; }
+}
+
+[global]
+class `[[SteamUserStatsFloatMinMax]]` prototype Object
+{
+    [field] property min : real { get; set; }
+    [field] property max : real { get; set; }
+    [field] property ok : bool { get; set; }
+}
+}
+
+group{ // SteamMusic
+
+// BIsEnabled
+[global, bind = typed_gml]
+function steam_music_is_enabled(): bool;
+
+// BIsPlaying
+[global, bind = typed_gml]
+function steam_music_is_playing(): bool;
+
+// GetPlaybackStatus
+[global, bind = typed_gml, type_hint = `SteamMusicPlaybackStatus`]
+function steam_music_get_playback_status(): gmval;
+
+// Play
+[global, bind = typed_gml]
+function steam_music_play(): unit;
+
+// Pause
+[global, bind = typed_gml]
+function steam_music_pause(): unit;
+
+// PlayPrevious
+[global, bind = typed_gml]
+function steam_music_play_previous(): unit;
+
+// PlayNext
+[global, bind = typed_gml]
+function steam_music_play_next(): unit;
+
+// SetVolume
+[global, bind = typed_gml]
+function steam_music_set_volume(volume: float): unit;
+
+// GetVolume
+[global, bind = typed_gml]
+function steam_music_get_volume(): float;
+
+[global, bind = typed_gml]
+function steam_music_set_callback_playback_status_has_changed(callback:func): unit;
+
+[global, bind = typed_gml]
+function steam_music_clear_callback_playback_status_has_changed(): unit;
+
+[global, bind = typed_gml]
+function steam_music_set_callback_volume_has_changed(callback:func): unit;
+
+[global, bind = typed_gml]
+function steam_music_clear_callback_volume_has_changed(): unit;
+
+[global]
+class `[[SteamMusicPlaybackStatusHasChanged]]` prototype Object
+{
+    [field]
+    property playback_status : int32 { get; set; }
+}
+
+[global]
+class `[[SteamMusicVolumeHasChanged]]` prototype Object
+{
+    [field]
+    property volume : float { get; set; }
+}
+
+[global, bind = typed_gml]
+enum SteamMusicPlaybackStatus
+{
+    Undefined = 0,
+    Playing = 1,
+    Paused = 2,
+    Idle = 3
+}
+
+}
+
+
+
+
+group{ // SteamTimeline
+
+[global, bind = typed_gml]
+enum SteamTimelineGameMode
+{
+    Playing = 1,
+    Staging = 2,
+    Menus = 3,
+    LoadingScreen = 4,
+}
+
+[global, bind = typed_gml]
+enum SteamTimelineEventClipPriority
+{
+    None = 1,
+    Standard = 2,
+    Featured = 3,
+}
+
+// SetTimelineTooltip
+[global, bind = typed_gml]
+function steam_timeline_set_timeline_tooltip(
+    description: string,
+    time_delta_seconds: float
+): unit;
+
+// ClearTimelineTooltip
+[global, bind = typed_gml]
+function steam_timeline_clear_timeline_tooltip(time_delta_seconds: float): unit;
+
+// AddInstantaneousTimelineEvent
+[global, bind = typed_gml, type_hint=uint64]
+function steam_timeline_add_instantaneous_timeline_event(
+    title: string,
+    description: string,
+    icon: string,
+    priority: uint32,
+    start_offset_seconds: float,
+    [type_hint=`SteamTimelineEventClipPriority`] possible_clip: gmval
+): gmval;
+
+// AddRangeTimelineEvent
+[global, bind = typed_gml, type_hint=uint64]
+function steam_timeline_add_range_timeline_event(
+    title: string,
+    description: string,
+    icon: string,
+    priority: uint32,
+    start_offset_seconds: float,
+    duration_seconds: float,
+    [type_hint=`SteamTimelineEventClipPriority`] possible_clip: gmval
+): gmval;
+
+// StartRangeTimelineEvent
+[global, bind = typed_gml, type_hint=uint64]
+function steam_timeline_start_range_timeline_event(
+    title: string,
+    description: string,
+    icon: string,
+    priority: uint32,
+    start_offset_seconds: float,
+    [type_hint=`SteamTimelineEventClipPriority`] possible_clip: gmval
+): gmval;
+
+// UpdateRangeTimelineEvent
+[global, bind = typed_gml]
+function steam_timeline_update_range_timeline_event(
+    [type_hint=uint64] event_handle: gmval,
+    title: string,
+    description: string,
+    icon: string,
+    priority: uint32,
+    [type_hint=`SteamTimelineEventClipPriority`] possible_clip: gmval
+): unit;
+
+// EndRangeTimelineEvent
+[global, bind = typed_gml]
+function steam_timeline_end_range_timeline_event(
+    [type_hint=uint64] event_handle: gmval,
+    end_offset_seconds: float
+): unit;
+
+// RemoveTimelineEvent
+[global, bind = typed_gml]
+function steam_timeline_remove_timeline_event([type_hint=uint64] event_handle: gmval): unit;
+
+// DoesEventRecordingExist (async SteamAPICall_t)
+[global, bind = typed_gml, type_hint=uint64]
+function steam_timeline_does_event_recording_exist([type_hint=uint64] event_handle: gmval): gmval;
+
+// StartGamePhase
+[global, bind = typed_gml]
+function steam_timeline_start_game_phase(): unit;
+
+// EndGamePhase
+[global, bind = typed_gml]
+function steam_timeline_end_game_phase(): unit;
+
+// SetGamePhaseID
+[global, bind = typed_gml]
+function steam_timeline_set_game_phase_id(phase_id: string): unit;
+
+// DoesGamePhaseRecordingExist (async SteamAPICall_t)
+[global, bind = typed_gml, type_hint=uint64]
+function steam_timeline_does_game_phase_recording_exist(phase_id: string): gmval;
+
+// AddGamePhaseTag
+[global, bind = typed_gml]
+function steam_timeline_add_game_phase_tag(
+    tag_name: string,
+    tag_icon: string,
+    tag_group: string,
+    priority: uint32
+): unit;
+
+// SetGamePhaseAttribute
+[global, bind = typed_gml]
+function steam_timeline_set_game_phase_attribute(
+    attribute_group: string,
+    attribute_value: string,
+    priority: uint32
+): unit;
+
+// SetTimelineGameMode
+[global, bind = typed_gml]
+function steam_timeline_set_timeline_game_mode(
+    [type_hint=`SteamTimelineGameMode`] mode: gmval
+): unit;
+
+// OpenOverlayToGamePhase
+[global, bind = typed_gml]
+function steam_timeline_open_overlay_to_game_phase(phase_id: string): unit;
+
+// OpenOverlayToTimelineEvent
+[global, bind = typed_gml]
+function steam_timeline_open_overlay_to_timeline_event([type_hint=uint64] event_handle: gmval): unit;
+
+[global, bind = typed_gml]
+function steam_timeline_set_callback_game_phase_recording_exists(callback:func): unit;
+
+[global, bind = typed_gml]
+function steam_timeline_clear_callback_game_phase_recording_exists(): unit;
+
+[global, bind = typed_gml]
+function steam_timeline_set_callback_event_recording_exists(callback:func): unit;
+
+[global, bind = typed_gml]
+function steam_timeline_clear_callback_event_recording_exists(): unit;
+
+[global]
+class `[[SteamTimelineGamePhaseRecordingExists]]` prototype Object
+{
+    [field]
+    property phase_id : string { get; set; }
+
+    [field, type_hint=uint64]
+    property recording_ms : gmval { get; set; }
+
+    [field, type_hint=uint64]
+    property longest_clip_ms : gmval { get; set; }
+
+    [field]
+    property clip_count : uint32 { get; set; }
+
+    [field]
+    property screenshot_count : uint32 { get; set; }
+}
+
+[global]
+class `[[SteamTimelineEventRecordingExists]]` prototype Object
+{
+    [field, type_hint=uint64]
+    property event_id : gmval { get; set; }
+
+    [field]
+    property recording_exists : bool { get; set; }
+}
+
+}
+
+
+group{ // SteamInventory
+
+// Result handles are SteamInventoryResult_t (int32 in Steam)
+[global, bind = typed_gml]
+enum SteamInventoryConst
+{
+    InvalidResult = -1,
+}
+
+// Returned by GetResultItems
+[global]
+class `[[SteamInventoryResultItems]]` prototype Object
+{
+    [field] property ok : bool { get; set; }
+    [field] property count : uint32 { get; set; }
+
+    [field, type_hint=`uint64[]`]
+    property item_instance_ids : gmval { get; set; }
+
+    [field, type_hint=`uint32[]`]
+    property item_def_ids : gmval { get; set; }
+
+    [field, type_hint=`uint32[]`]
+    property quantities : gmval { get; set; }
+
+    [field, type_hint=`uint32[]`]
+    property flags : gmval { get; set; }
+}
+
+[global]
+class `[[SteamInventoryDeserializeResult]]` prototype Object
+{
+    [field] property ok : bool { get; set; }
+    [field] property result_handle : int32 { get; set; }
+
+    [field, type_hint=`SteamApiResult`]
+    property status : gmval { get; set; }
+}
+
+// AddPromoItem :contentReference[oaicite:3]{index=3}
+[global, bind = typed_gml]
+function steam_inventory_add_promo_item(
+    item_def_id: uint32,
+    [type_hint = `func?`] callback: gmval,
+): int32;
+
+// AddPromoItems :contentReference[oaicite:4]{index=4}
+[global, bind = typed_gml]
+function steam_inventory_add_promo_items(
+    [type_hint=`uint32[]`] item_def_ids: gmval,
+    num_item_defs: uint32,
+    [type_hint = `func?`] callback: gmval
+): int32;
+
+// CheckResultSteamID :contentReference[oaicite:5]{index=5}
+[global, bind = typed_gml]
+function steam_inventory_check_result_steam_id(
+    result_handle: int32,
+    [type_hint=uint64] steam_id_expected: gmval
+): bool;
+
+// ConsumeItem :contentReference[oaicite:6]{index=6}
+[global, bind = typed_gml]
+function steam_inventory_consume_item(
+    [type_hint=uint64] item_instance_id: gmval,
+    quantity: uint32,
+    [type_hint = `func?`] callback: gmval
+): int32;
+
+// DeserializeResult :contentReference[oaicite:7]{index=7}
+[global, bind = typed_gml, type_hint=`SteamInventoryDeserializeResult`]
+function steam_inventory_deserialize_result(
+    [type_hint=buffer] data: gmval,
+    data_size: uint32
+): gmval;
+
+// DestroyResult :contentReference[oaicite:8]{index=8}
+[global, bind = typed_gml]
+function steam_inventory_destroy_result(result_handle: int32): unit;
+
+// ExchangeItems :contentReference[oaicite:9]{index=9}
+[global, bind = typed_gml]
+function steam_inventory_exchange_items(
+    [type_hint=`uint32[]`] generate_item_defs: gmval,
+    [type_hint=`uint32[]`] generate_qty: gmval,
+    generate_len: uint32,
+    [type_hint=`uint64[]`] destroy_instance_ids: gmval,
+    [type_hint=`uint32[]`] destroy_qty: gmval,
+    destroy_len: uint32,
+    [type_hint = `func?`] callback: gmval
+): int32;
+
+// GenerateItems :contentReference[oaicite:10]{index=10}
+[global, bind = typed_gml]
+function steam_inventory_generate_items(
+    [type_hint=`uint32[]`] item_defs: gmval,
+    [type_hint=`uint32[]`] quantities: gmval,
+    count: uint32,
+    [type_hint = `func?`] callback: gmval
+): int32;
+
+// GetAllItems :contentReference[oaicite:11]{index=11}
+[global, bind = typed_gml]
+function steam_inventory_get_all_items(): int32;
+
+// GetResultItems
+[global, bind = typed_gml, type_hint=`SteamInventoryResultItems`]
+function steam_inventory_get_result_items(
+    result_handle: int32
+): gmval;
+
+// GetResultStatus (returns SteamApiResult) :contentReference[oaicite:12]{index=12}
+[global, bind = typed_gml, type_hint=`SteamApiResult`]
+function steam_inventory_get_result_status(result_handle: int32): gmval;
+
+// GetResultTimestamp (uint32) :contentReference[oaicite:13]{index=13}
+[global, bind = typed_gml]
+function steam_inventory_get_result_timestamp(result_handle: int32): uint32;
+
+// GetEligiblePromoItemDefinitionIDs
+[global, bind = typed_gml, type_hint=`uint32[]`]
+function steam_inventory_get_eligible_promo_item_definition_ids(
+    c_max_item_defs: uint32
+): gmval;
+
+[global, bind = typed_gml]
+function steam_inventory_load_item_definitions(): bool;
+
+// GetItemDefinitionIDs
+[global, bind = typed_gml, type_hint=`uint32[]`]
+function steam_inventory_get_item_definition_ids(
+    c_max_item_defs: uint32
+): gmval;
+
+// GetItemsByID
+[global, bind = typed_gml]
+function steam_inventory_get_items_by_id(
+    [type_hint=`uint64[]`] item_instance_ids: gmval,
+    [type_hint = `func?`] callback: gmval
+): int32;
+
+// SerializeResult (writes to buffer)
+[global, bind = typed_gml, type_hint=`SteamInventorySerializeResult`]
+function steam_inventory_serialize_result(
+    result_handle: int32,
+    [type_hint=buffer] out_data: gmval,
+    out_capacity: uint32
+): gmval;
+
+[global]
+class `[[SteamInventorySerializeResult]]` prototype Object
+{
+    [field] property ok : bool { get; set; }
+    [field] property bytes_written : uint32 { get; set; }
+}
+
+[global, bind = typed_gml, type_hint = `string[]`]
+function steam_inventory_get_result_item_property_keys_array(
+    result_handle: int32,
+    item_index: uint32
+): gmval;
+
+// GetResultItemProperty (out string)
+[global, bind = typed_gml, type_hint=`SteamInventoryItemProperty`]
+function steam_inventory_get_result_item_property(
+    result_handle: int32,
+    item_index: uint32,
+    property_name: string,
+): gmval;
+
+[global]
+class `[[SteamInventoryItemProperty]]` prototype Object
+{
+    [field] property ok : bool { get; set; }
+    [field] property value : string { get; set; }
+}
+
+// StartPurchase (async SteamAPICall_t)
+[global, bind = typed_gml]
+function steam_inventory_start_purchase(
+    [type_hint=`uint32[]`] item_def_ids: gmval,
+    [type_hint=`uint32[]`] quantities: gmval,
+    count: uint32,
+    [type_hint=`func?`]callback:gmval
+): unit;
+
+// RequestPrices (async SteamAPICall_t)
+[global, bind = typed_gml]
+function steam_inventory_request_prices([type_hint=`func?`]callback:gmval): unit;
+
+// GetNumItemsWithPrices
+[global, bind = typed_gml]
+function steam_inventory_get_num_items_with_prices(): uint32;
+
+// GetItemsWithPrices (arrays)
+[global, bind = typed_gml, type_hint=`SteamInventoryItemsWithPrices`]
+function steam_inventory_get_items_with_prices(max: uint32): gmval;
+
+[global]
+class `[[SteamInventoryItemsWithPrices]]` prototype Object
+{
+    [field] property ok : bool { get; set; }
+    [field] property count : uint32 { get; set; }
+
+    [field, type_hint=`uint32[]`]
+    property item_def_ids : gmval { get; set; }
+
+    // Prices are int64 in Steam; use gmval arrays so generator stays stable
+    [field, type_hint=`int64[]`]
+    property current_prices : gmval { get; set; }
+
+    [field, type_hint=`int64[]`]
+    property base_prices : gmval { get; set; }
+}
+
+// StartUpdateProperties
+[global, bind = typed_gml]
+function steam_inventory_start_update_properties(): int32;
+
+// RemoveProperty
+[global, bind = typed_gml]
+function steam_inventory_remove_property(
+    result_handle: int32,
+    [type_hint=uint64] item_instance_id: gmval,
+    property_name: string
+): bool;
+
+// SetProperty (string)
+[global, bind = typed_gml]
+function steam_inventory_set_property_string(
+    result_handle: int32,
+    [type_hint=uint64] item_instance_id: gmval,
+    property_name: string,
+    value: string
+): bool;
+
+// SetProperty (bool)
+[global, bind = typed_gml]
+function steam_inventory_set_property_bool(
+    result_handle: int32,
+    [type_hint=uint64] item_instance_id: gmval,
+    property_name: string,
+    value: bool
+): bool;
+
+// SetProperty (int64) — use gmval + type_hint for safety
+[global, bind = typed_gml]
+function steam_inventory_set_property_int64(
+    result_handle: int32,
+    [type_hint=uint64] item_instance_id: gmval,
+    property_name: string,
+    [type_hint=`int64`] value: gmval
+): bool;
+
+// SetProperty (float)
+[global, bind = typed_gml]
+function steam_inventory_set_property_float(
+    result_handle: int32,
+    [type_hint=uint64] item_instance_id: gmval,
+    property_name: string,
+    value: float
+): bool;
+
+// SubmitUpdateProperties
+[global, bind = typed_gml]
+function steam_inventory_submit_update_properties(
+    result_handle: int32,
+    [type_hint=`func?`]callback:gmval
+): int32;
+
+
+// TransferItemQuantity
+[global, bind = typed_gml]
+function steam_inventory_transfer_item_quantity(
+    [type_hint=uint64] item_instance_id_source: gmval,
+    quantity: uint32,
+    [type_hint=uint64] item_instance_id_dest: gmval,
+    [type_hint=`func?`]callback:gmval
+): int32;
+
+// TriggerItemDrop
+[global, bind = typed_gml]
+function steam_inventory_trigger_item_drop(item_def_id: uint32,[type_hint=`func?`]callback:gmval): int32;
+
+// GrantPromoItems
+[global, bind = typed_gml]
+function steam_inventory_grant_promo_items([type_hint=`func?`]callback:gmval): int32;
+
+
+// GetItemDefinitionProperty
+[global, bind = typed_gml, type_hint=`SteamInventoryDefProperty`]
+function steam_inventory_get_item_definition_property(
+    item_def_id: uint32,
+    property_name: string
+): gmval;
+
+[global]
+class `[[SteamInventoryDefProperty]]` prototype Object
+{
+    [field] property ok : bool { get; set; }
+    [field] property value : string { get; set; }
+}
+
+[global, bind = typed_gml,type_hint = `string[]`]
+function steam_inventory_get_item_definition_property_keys(
+    item_def_id: uint32
+): gmval;
+
+// GetItemPrice
+[global, bind = typed_gml, type_hint=`SteamInventoryItemPrice`]
+function steam_inventory_get_item_price(item_def_id: uint32): gmval;
+
+[global]
+class `[[SteamInventoryItemPrice]]` prototype Object
+{
+    [field] property ok : bool { get; set; }
+    [field, type_hint=`uint64`] property current_price : gmval { get; set; }
+    [field, type_hint=`uint64`] property base_price : gmval { get; set; }
+}
+
+
+[global, bind = typed_gml]
+function steam_inventory_set_callback_result_ready(callback:func): unit;
+
+[global, bind = typed_gml]
+function steam_inventory_clear_callback_result_ready(): unit;
+
+[global, bind = typed_gml]
+function steam_inventory_set_callback_full_update(callback:func): unit;
+
+[global, bind = typed_gml]
+function steam_inventory_clear_callback_full_update(): unit;
+
+[global, bind = typed_gml]
+function steam_inventory_set_callback_definition_update(callback:func): unit;
+
+[global, bind = typed_gml]
+function steam_inventory_clear_callback_definition_update(): unit;
+
+[global]
+class `[[SteamInventoryResultReady]]` prototype Object
+{
+    [field] property result_handle : int32 { get; set; }
+    [field] property result : int32 { get; set; } // EResult numeric (keep int32)
+}
+
+[global]
+class `[[SteamInventoryFullUpdate]]` prototype Object
+{
+    [field] property result_handle : int32 { get; set; }
+}
+
+[global]
+class `[[SteamInventoryDefinitionUpdate]]` prototype Object
+{
+    [field] property dummy : int32 { get; set; } // callback has no meaningful fields
+}
+
+[global]
+class `[[SteamInventoryStartPurchaseResult]]` prototype Object
+{
+    [field] property result : int32 { get; set; } // EResult numeric
+    [field, type_hint=uint64] property order_id : gmval { get; set; }
+    [field, type_hint=uint64] property transaction_id : gmval { get; set; }
+}
+
+[global]
+class `[[SteamInventoryRequestPricesResult]]` prototype Object
+{
+    [field] property result : int32 { get; set; } // EResult numeric
+    [field] property currency : string { get; set; }
+}
+
+}
+
+group{ // SteamRemoteStorage
+
+[global, bind = typed_gml]
+enum SteamRemoteStoragePlatform
+{
+    None = 0,
+    Windows = 1,
+    OSX = 2,
+    PS3 = 4,
+    Linux = 8,
+    Reserved2 = 16,
+    All = 0xFFFFFFFF,
+}
+
+[global, bind = typed_gml]
+enum SteamRemoteStorageUgcReadAction
+{
+    ContinueReadingUntilFinished = 0,
+    ContinueReading = 1,
+    Close = 2,
+}
+
+[global, bind = typed_gml]
+enum SteamRemoteStorageWorkshopFileType
+{
+    Community = 0,
+    Microtransaction = 1,
+    Collection = 2,
+    Art = 3,
+    Video = 4,
+    Screenshot = 5,
+    Game = 6,
+    Software = 7,
+    Concept = 8,
+    WebGuide = 9,
+    IntegratedGuide = 10,
+    Merch = 11,
+    ControllerBinding = 12,
+    SteamworksAccessInvite = 13,
+    SteamVideo = 14,
+    GameManagedItem = 15,
+}
+
+[global]
+class `[[SteamRemoteStorageFileNameAndSize]]` prototype Object
+{
+    [field] property ok : bool { get; set; }
+    [field] property file_name : string { get; set; }
+    [field] property file_size : int32 { get; set; }
+}
+
+[global]
+class `[[SteamRemoteStorageQuota]]` prototype Object
+{
+    [field] property ok : bool { get; set; }
+    [field, type_hint=uint64] property total_bytes : gmval { get; set; }
+    [field, type_hint=uint64] property available_bytes : gmval { get; set; }
+}
+
+[global]
+class `[[SteamRemoteStorageUgcDetails]]` prototype Object
+{
+    [field] property ok : bool { get; set; }
+    [field, type_hint=uint64] property ugc_handle : gmval { get; set; }
+    [field] property app_id : uint32 { get; set; }
+    [field] property size_in_bytes : int32 { get; set; }
+    [field] property file_name : string { get; set; }
+    [field, type_hint=uint64] property steam_id_owner : gmval { get; set; }
+}
+
+[global]
+class `[[SteamRemoteStorageFileShareResult]]` prototype Object
+{
+    [field] property result : int32 { get; set; } // EResult numeric
+    [field, type_hint=uint64] property ugc_handle : gmval { get; set; } // UGCHandle_t
+    [field] property file_name : string { get; set; }
+}
+
+[global]
+class `[[SteamRemoteStorageDownloadUgcResult]]` prototype Object
+{
+    [field] property result : int32 { get; set; } // EResult numeric
+    [field, type_hint=uint64] property ugc_handle : gmval { get; set; }
+    [field] property app_id : uint32 { get; set; }
+    [field] property size_in_bytes : int32 { get; set; }
+    [field] property file_name : string { get; set; }
+    [field, type_hint=uint64] property steam_id_owner : gmval { get; set; }
+}
+
+[global]
+class `[[SteamRemoteStoragePublishedFileSubscribed]]` prototype Object
+{
+    [field] property app_id : uint32 { get; set; }
+    [field, type_hint=uint64] property published_file_id : gmval { get; set; }
+}
+
+[global]
+class `[[SteamRemoteStoragePublishedFileUnsubscribed]]` prototype Object
+{
+    [field] property app_id : uint32 { get; set; }
+    [field, type_hint=uint64] property published_file_id : gmval { get; set; }
+}
+
+[global]
+class `[[SteamRemoteStorageLocalFileChange]]` prototype Object
+{
+    [field] property dummy : int32 { get; set; }
+}
+
+[global]
+class `[[SteamRemoteStoragePublishFileResult]]` prototype Object
+{
+    [field] property result : int32 { get; set; }
+    [field, type_hint=uint64] property published_file_id : gmval { get; set; }
+    [field] property user_needs_to_accept_wla : bool { get; set; }
+}
+
+[global]
+class `[[SteamRemoteStorageUpdatePublishedFileResult]]` prototype Object
+{
+    [field] property result : int32 { get; set; }
+    [field] property user_needs_to_accept_wla : bool { get; set; }
+}
+
+[global]
+class `[[SteamRemoteStorageSubscribePublishedFileResult]]` prototype Object
+{
+    [field] property result : int32 { get; set; }
+    [field, type_hint=uint64] property published_file_id : gmval { get; set; }
+}
+
+[global]
+class `[[SteamRemoteStorageUnsubscribePublishedFileResult]]` prototype Object
+{
+    [field] property result : int32 { get; set; }
+    [field, type_hint=uint64] property published_file_id : gmval { get; set; }
+}
+
+[global, bind = typed_gml]
+function steam_remote_storage_set_callback_published_file_subscribed(callback:func): unit;
+
+[global, bind = typed_gml]
+function steam_remote_storage_clear_callback_published_file_subscribed(): unit;
+
+[global, bind = typed_gml]
+function steam_remote_storage_set_callback_published_file_unsubscribed(callback:func): unit;
+
+[global, bind = typed_gml]
+function steam_remote_storage_clear_callback_published_file_unsubscribed(): unit;
+
+[global, bind = typed_gml]
+function steam_remote_storage_set_callback_local_file_change(callback:func): unit;
+
+[global, bind = typed_gml]
+function steam_remote_storage_clear_callback_local_file_change(): unit;
+
+[global, bind = typed_gml]
+function steam_remote_storage_is_cloud_enabled_for_account(): bool;
+
+[global, bind = typed_gml]
+function steam_remote_storage_is_cloud_enabled_for_app(): bool;
+
+[global, bind = typed_gml]
+function steam_remote_storage_set_cloud_enabled_for_app(enabled: bool): unit;
+
+[global, bind = typed_gml]
+function steam_remote_storage_file_write(file_name: string, [type_hint=buffer] data: gmval, bytes: uint32): bool;
+
+[global, bind = typed_gml]
+function steam_remote_storage_file_read(file_name: string, [type_hint=buffer] out_data: gmval, max_bytes: uint32): int32;
+
+[global, bind = typed_gml]
+function steam_remote_storage_file_delete(file_name: string): bool;
+
+[global, bind = typed_gml]
+function steam_remote_storage_file_exists(file_name: string): bool;
+
+[global, bind = typed_gml]
+function steam_remote_storage_file_persisted(file_name: string): bool;
+
+[global, bind = typed_gml]
+function steam_remote_storage_get_file_size(file_name: string): int32;
+
+[global, bind = typed_gml]
+function steam_remote_storage_get_file_timestamp(file_name: string): int32;
+
+[global, bind = typed_gml]
+function steam_remote_storage_get_file_count(): int32;
+
+[global, bind = typed_gml, type_hint=`SteamRemoteStorageFileNameAndSize`]
+function steam_remote_storage_get_file_name_and_size(index: int32): gmval;
+
+[global, bind = typed_gml, type_hint=`SteamRemoteStorageQuota`]
+function steam_remote_storage_get_quota(): gmval;
+
+[global, bind = typed_gml]
+function steam_remote_storage_set_sync_platforms(file_name: string, [type_hint=`SteamRemoteStoragePlatform`] platforms: gmval): bool;
+
+[global, bind = typed_gml, type_hint=`SteamRemoteStoragePlatform`]
+function steam_remote_storage_get_sync_platforms(file_name: string): gmval;
+
+[global, bind = typed_gml]
+function steam_remote_storage_file_forget(file_name: string): bool;
+
+[global, bind = typed_gml, type_hint=uint64]
+function steam_remote_storage_file_write_stream_open(file_name: string): gmval;
+
+[global, bind = typed_gml]
+function steam_remote_storage_file_write_stream_write_chunk([type_hint=uint64] stream: gmval, [type_hint=buffer] data: gmval, bytes: uint32): bool;
+
+[global, bind = typed_gml]
+function steam_remote_storage_file_write_stream_close([type_hint=uint64] stream: gmval): bool;
+
+[global, bind = typed_gml]
+function steam_remote_storage_file_write_stream_cancel([type_hint=uint64] stream: gmval): bool;
+
+[global, bind = typed_gml]
+function steam_remote_storage_get_cached_ugc_count(): int32;
+
+[global, bind = typed_gml, type_hint=uint64]
+function steam_remote_storage_get_cached_ugc_handle(index: int32): gmval;
+
+[global, bind = typed_gml, type_hint=`SteamRemoteStorageUgcDetails`]
+function steam_remote_storage_get_ugc_details([type_hint=uint64] ugc_handle: gmval): gmval;
+
+[global, bind = typed_gml]
+function steam_remote_storage_ugc_read(
+    [type_hint=uint64] ugc_handle: gmval,
+    [type_hint=buffer] out_data: gmval,
+    bytes_to_read: int32,
+    offset: uint32,
+    [type_hint=`SteamRemoteStorageUgcReadAction`] action: gmval
+): int32;
+
+[global, bind = typed_gml]
+function steam_remote_storage_file_share(file_name: string, [type_hint=`func?`]callback:gmval): unit;
+
+[global, bind = typed_gml]
+function steam_remote_storage_ugc_download([type_hint=uint64] ugc_handle: gmval, priority: uint32, [type_hint=`func?`]callback:gmval): unit;
+
+[global, bind = typed_gml]
+function steam_remote_storage_ugc_download_to_location([type_hint=uint64] ugc_handle: gmval, location: string, priority: uint32, [type_hint=`func?`]callback:gmval): unit;
+
+[global, bind = typed_gml]
+function steam_remote_storage_publish_workshop_file(
+    file: string,
+    preview_file: string,
+    app_id_consumer: uint32,
+    title: string,
+    description: string,
+    [type_hint=`SteamRemoteStoragePublishedFileVisibility`] visibility: gmval,
+    tags_csv: string,
+    [type_hint=`SteamRemoteStorageWorkshopFileType`] file_type: gmval,
+    [type_hint=`func?`]callback:gmval
+): unit;
+
+[global, bind = typed_gml, type_hint=uint64]
+function steam_remote_storage_create_published_file_update_request([type_hint=uint64] published_file_id: gmval): gmval;
+
+[global, bind = typed_gml]
+function steam_remote_storage_update_published_file_file([type_hint=uint64] update_handle: gmval, file: string): bool;
+
+[global, bind = typed_gml]
+function steam_remote_storage_update_published_file_preview_file([type_hint=uint64] update_handle: gmval, preview_file: string): bool;
+
+[global, bind = typed_gml]
+function steam_remote_storage_update_published_file_title([type_hint=uint64] update_handle: gmval, title: string): bool;
+
+[global, bind = typed_gml]
+function steam_remote_storage_update_published_file_description([type_hint=uint64] update_handle: gmval, description: string): bool;
+
+[global, bind = typed_gml]
+function steam_remote_storage_update_published_file_visibility([type_hint=uint64] update_handle: gmval, [type_hint=`SteamRemoteStoragePublishedFileVisibility`] visibility: gmval): bool;
+
+[global, bind = typed_gml]
+function steam_remote_storage_update_published_file_tags([type_hint=uint64] update_handle: gmval, tags_csv: string): bool;
+
+[global, bind = typed_gml]
+function steam_remote_storage_commit_published_file_update(
+    [type_hint=uint64] update_handle: gmval,
+    [type_hint=`func?`]callback:gmval
+): unit;
+
+[global, bind = typed_gml]
+function steam_remote_storage_subscribe_published_file([type_hint=uint64] published_file_id: gmval, [type_hint=`func?`]callback:gmval): unit;
+
+[global, bind = typed_gml]
+function steam_remote_storage_unsubscribe_published_file([type_hint=uint64] published_file_id: gmval, [type_hint=`func?`]callback:gmval): unit;
+
+} // end group SteamRemoteStorage
+
+
+group{ // SteamMatchmaking
+
+[global, bind = typed_gml]
+enum SteamMatchmakingLobbyType
+{
+    Private = 0,
+    FriendsOnly = 1,
+    Public = 2,
+    Invisible = 3,
+}
+
+[global, bind = typed_gml]
+enum SteamMatchmakingLobbyComparison
+{
+    EqualToOrLessThan = -2,
+    LessThan = -1,
+    Equal = 0,
+    GreaterThan = 1,
+    EqualToOrGreaterThan = 2,
+    NotEqual = 3,
+}
+
+[global, bind = typed_gml]
+enum SteamMatchmakingLobbyDistanceFilter
+{
+    Close = 0,
+    Default = 1,
+    Far = 2,
+    Worldwide = 3,
+}
+
+[global]
+class `[[SteamMatchmakingLobbyCreated]]` prototype Object
+{
+    [field] property result : int32 { get; set; }            // EResult
+    [field, type_hint=uint64] property lobby_id : gmval { get; set; } // CSteamID
+}
+
+[global]
+class `[[SteamMatchmakingLobbyEnter]]` prototype Object
+{
+    [field, type_hint=uint64] property lobby_id : gmval { get; set; }
+    [field] property chat_permissions : uint32 { get; set; }
+    [field] property locked : bool { get; set; }
+    [field] property response : uint32 { get; set; } // EChatRoomEnterResponse numeric
+}
+
+[global]
+class `[[SteamMatchmakingLobbyMatchList]]` prototype Object
+{
+    [field] property lobbies_count : uint32 { get; set; }
+}
+
+[global]
+class `[[SteamMatchmakingLobbyDataUpdate]]` prototype Object
+{
+    [field, type_hint=uint64] property lobby_id : gmval { get; set; }
+    [field, type_hint=uint64] property member_id : gmval { get; set; }
+    [field] property success : bool { get; set; }
+}
+
+[global]
+class `[[SteamMatchmakingLobbyChatUpdate]]` prototype Object
+{
+    [field, type_hint=uint64] property lobby_id : gmval { get; set; }
+    [field, type_hint=uint64] property user_changed_id : gmval { get; set; }
+    [field, type_hint=uint64] property making_change_id : gmval { get; set; }
+    [field] property chat_member_state_change : uint32 { get; set; }
+}
+
+[global]
+class `[[SteamMatchmakingLobbyChatMsg]]` prototype Object
+{
+    [field, type_hint=uint64] property lobby_id : gmval { get; set; }
+    [field, type_hint=uint64] property sender_id : gmval { get; set; }
+    [field] property chat_entry_type : int32 { get; set; }
+    [field] property message_size : uint32 { get; set; }
+}
+
+[global]
+class `[[SteamMatchmakingLobbyGameCreated]]` prototype Object
+{
+    [field, type_hint=uint64] property lobby_id : gmval { get; set; }
+    [field] property server_ip : uint32 { get; set; }
+    [field] property server_port : uint32 { get; set; } // uint16 widened
+    [field, type_hint=uint64] property game_server_id : gmval { get; set; } // CSteamID
+}
+
+[global]
+class `[[SteamMatchmakingLobbyInvite]]` prototype Object
+{
+    [field, type_hint=uint64] property inviter_id : gmval { get; set; }
+    [field, type_hint=uint64] property lobby_id : gmval { get; set; }
+    [field] property game_id : string { get; set; } // GameID as string to avoid precision issues
+}
+
+[global, bind = typed_gml]
+function steam_matchmaking_set_callback_lobby_data_update(callback:func): unit;
+
+[global, bind = typed_gml]
+function steam_matchmaking_clear_callback_lobby_data_update(): unit;
+
+[global, bind = typed_gml]
+function steam_matchmaking_set_callback_lobby_chat_update(callback:func): unit;
+
+[global, bind = typed_gml]
+function steam_matchmaking_clear_callback_lobby_chat_update(): unit;
+
+[global, bind = typed_gml]
+function steam_matchmaking_set_callback_lobby_chat_msg(callback:func): unit;
+
+[global, bind = typed_gml]
+function steam_matchmaking_clear_callback_lobby_chat_msg(): unit;
+
+[global, bind = typed_gml]
+function steam_matchmaking_set_callback_lobby_game_created(callback:func): unit;
+
+[global, bind = typed_gml]
+function steam_matchmaking_clear_callback_lobby_game_created(): unit;
+
+[global, bind = typed_gml]
+function steam_matchmaking_set_callback_lobby_invite(callback:func): unit;
+
+[global, bind = typed_gml]
+function steam_matchmaking_clear_callback_lobby_invite(): unit;
+
+[global, bind = typed_gml]
+function steam_matchmaking_create_lobby(
+    [type_hint=`SteamMatchmakingLobbyType`] lobby_type: gmval,
+    max_members: int32,
+    [type_hint=`func?`]callback:gmval
+): unit;
+
+[global, bind = typed_gml]
+function steam_matchmaking_join_lobby([type_hint=uint64] lobby_id: gmval, [type_hint=`func?`]callback:gmval): unit;
+
+[global, bind = typed_gml]
+function steam_matchmaking_request_lobby_list([type_hint=`func?`]callback:gmval): unit;
+
+// Lobby list filters (sync setters for the next RequestLobbyList call)
+[global, bind = typed_gml]
+function steam_matchmaking_add_request_lobby_list_string_filter(key: string, value: string, [type_hint=`SteamMatchmakingLobbyComparison`] comparison: gmval): unit;
+
+[global, bind = typed_gml]
+function steam_matchmaking_add_request_lobby_list_numerical_filter(key: string, value: int32, [type_hint=`SteamMatchmakingLobbyComparison`] comparison: gmval): unit;
+
+[global, bind = typed_gml]
+function steam_matchmaking_add_request_lobby_list_near_value_filter(key: string, value: int32): unit;
+
+[global, bind = typed_gml]
+function steam_matchmaking_add_request_lobby_list_distance_filter([type_hint=`SteamMatchmakingLobbyDistanceFilter`] distance: gmval): unit;
+
+[global, bind = typed_gml]
+function steam_matchmaking_add_request_lobby_list_result_count_filter(max_results: int32): unit;
+
+[global, bind = typed_gml, type_hint=uint64]
+function steam_matchmaking_get_lobby_by_index(index: int32): gmval;
+
+[global, bind = typed_gml]
+function steam_matchmaking_leave_lobby([type_hint=uint64] lobby_id: gmval): unit;
+
+[global, bind = typed_gml]
+function steam_matchmaking_set_lobby_owner([type_hint=uint64] lobby_id: gmval,[type_hint=uint64] new_owner_id: gmval): bool;
+
+[global, bind = typed_gml, type_hint=uint64]
+function steam_matchmaking_get_lobby_owner([type_hint=uint64] lobby_id: gmval): unit;
+
+[global, bind = typed_gml]
+function steam_matchmaking_get_num_lobby_members([type_hint=uint64] lobby_id: gmval): int32;
+
+[global, bind = typed_gml, type_hint=uint64]
+function steam_matchmaking_get_lobby_member_by_index([type_hint=uint64] lobby_id: gmval, member_index: int32): gmval;
+
+[global, bind = typed_gml]
+function steam_matchmaking_set_lobby_data([type_hint=uint64] lobby_id: gmval, key: string, value: string): bool;
+
+[global, bind = typed_gml]
+function steam_matchmaking_get_lobby_data([type_hint=uint64] lobby_id: gmval, key: string): string;
+
+[global, bind = typed_gml]
+function steam_matchmaking_delete_lobby_data([type_hint=uint64] lobby_id: gmval, key: string): bool;
+
+[global, bind = typed_gml]
+function steam_matchmaking_get_lobby_data_count([type_hint=uint64] lobby_id: gmval): int32;
+
+[global, bind = typed_gml]
+function steam_matchmaking_get_lobby_data_by_index([type_hint=uint64] lobby_id: gmval, index: int32, [type_hint=buffer] key_out: gmval, key_max: int32, [type_hint=buffer] val_out: gmval, val_max: int32): bool;
+
+[global, bind = typed_gml]
+function steam_matchmaking_set_lobby_member_data([type_hint=uint64] lobby_id: gmval, key: string, value: string): unit;
+
+[global, bind = typed_gml]
+function steam_matchmaking_get_lobby_member_data([type_hint=uint64] lobby_id: gmval, [type_hint=uint64] member_id: gmval, key: string): string;
+
+[global, bind = typed_gml]
+function steam_matchmaking_send_lobby_chat_msg([type_hint=uint64] lobby_id: gmval, [type_hint=buffer] msg: gmval, bytes: int32): bool;
+
+[global]
+class `[[SteamMatchmakingLobbyChatEntry]]` prototype Object
+{
+    [field]
+    property ok : bool { get; set; }
+
+    [field]
+    property bytes : uint32 { get; set; }
+
+    [field, type_hint=uint64]
+    property sender_id : gmval { get; set; }
+
+    [field]
+    property entry_type : int32 { get; set; }
+}
+
+[global, bind = typed_gml, type_hint=`SteamMatchmakingLobbyChatEntry`]
+function steam_matchmaking_get_lobby_chat_entry(
+    [type_hint=uint64] lobby_id: gmval,
+    chat_id: int32,
+    [type_hint=buffer] out_buffer: gmval,
+    out_max_bytes: int32
+): gmval;
+
+[global, bind = typed_gml]
+function steam_matchmaking_add_request_lobby_list_filter_slots_available(slots_available: int32): unit;
+
+[global, bind = typed_gml]
+function steam_matchmaking_request_lobby_data([type_hint=uint64] steam_id_lobby: gmval): bool;
+
+[global, bind = typed_gml]
+function steam_matchmaking_set_lobby_joinable([type_hint=uint64] steam_id_lobby: gmval, joinable: bool): bool;
+
+[global, bind = typed_gml]
+function steam_matchmaking_invite_user_to_lobby([type_hint=uint64] steam_id_lobby: gmval,
+    [type_hint=uint64] steam_id_invitee: gmval): bool;
+
+[global, bind = typed_gml]
+function steam_matchmaking_set_lobby_game_server([type_hint=uint64] steam_id_lobby: gmval, ip: uint32, port: uint32,
+    [type_hint=uint64] steam_id_gs: gmval): unit;
+
+[global, bind = typed_gml]
+function steam_matchmaking_set_linked_lobby([type_hint=uint64] steam_id_lobby: gmval,
+    [type_hint=uint64] steam_id_lobby_dependent: gmval): bool;
+
+[global]
+class `[[SteamMatchmakingLobbyGameServer]]` prototype Object
+{
+    [field]
+    property ok : bool { get; set; }
+
+    [field]
+    property ip : uint32 { get; set; }
+	
+    [field]
+    property port : uint32 { get; set; }
+
+    [field, type_hint=uint64]
+    property steam_id_gs : gmval { get; set; }
+}
+
+[global, bind = typed_gml, type_hint=`SteamMatchmakingLobbyGameServer`]
+function steam_matchmaking_get_lobby_game_server([type_hint=uint64] steam_id_lobby: gmval): gmval;
+
+} // end group SteamMatchmaking
+
+group{ // SteamNetworkingMessages
+
+[global]
+class `[[SteamNetworkingMessagesSessionRequest]]` prototype Object
+{
+    [field, type_hint=uint64]
+    property steam_id_remote : gmval { get; set; }
+}
+
+[global]
+class `[[SteamNetworkingMessagesSessionFailed]]` prototype Object
+{
+    [field, type_hint=uint64]
+    property steam_id_remote : gmval { get; set; }
+
+    [field]
+    property end_reason : int32 { get; set; } // SteamNetConnectionEnd or numeric reason
+
+    [field]
+    property debug_msg : string { get; set; }
+}
+
+[global]
+class `[[SteamNetworkingMessagesReceived]]` prototype Object
+{
+    [field]
+    property ok : bool { get; set; }
+
+    [field, type_hint=uint64]
+    property steam_id_remote : gmval { get; set; }
+
+    [field]
+    property channel : int32 { get; set; }
+
+    [field]
+    property bytes_written : uint32 { get; set; }
+
+    [field]
+    property send_flags : int32 { get; set; }
+}
+
+[global, bind = typed_gml]
+function steam_networking_messages_set_callback_session_request(callback:func): unit;
+
+[global, bind = typed_gml]
+function steam_networking_messages_clear_callback_session_request(): unit;
+
+[global, bind = typed_gml]
+function steam_networking_messages_set_callback_session_failed(callback:func): unit;
+
+[global, bind = typed_gml]
+function steam_networking_messages_clear_callback_session_failed(): unit;
+
+[global, bind = typed_gml]
+function steam_networking_messages_send_message_to_user(
+    [type_hint=uint64] steam_id_remote: gmval,
+    [type_hint=buffer] data: gmval,
+    bytes: uint32,
+    send_flags: int32,
+    remote_channel: int32
+): int32;
+
+// Receive one message on channel into out buffer.
+[global, bind = typed_gml, type_hint=`SteamNetworkingMessagesReceived`]
+function steam_networking_messages_receive_one_on_channel(
+    local_channel: int32,
+    [type_hint=buffer] out_data: gmval,
+    max_bytes: uint32,
+    offset: uint32
+): gmval;
+
+[global, bind = typed_gml]
+function steam_networking_messages_accept_session_with_user([type_hint=uint64] steam_id_remote: gmval): bool;
+
+[global, bind = typed_gml]
+function steam_networking_messages_close_session_with_user([type_hint=uint64] steam_id_remote: gmval): bool;
+
+[global, bind = typed_gml]
+function steam_networking_messages_close_channel_with_user([type_hint=uint64] steam_id_remote: gmval, local_channel: int32): bool;
+
+} // end group SteamNetworkingMessages
+
+
+group{ // SteamNetworkingSockets
+
+[global, bind = typed_gml]
+enum SteamNetworkingConnectionState
+{
+    None = 0,
+    Connecting = 1,
+    FindingRoute = 2,
+    Connected = 3,
+    ClosedByPeer = 4,
+    ProblemDetectedLocally = 5,
+    FinWait = -1,
+    Linger = -2,
+    Dead = -3,
+}
+
+[global, bind = typed_gml]
+enum SteamNetworkingSendFlags
+{
+    Unreliable = 0,
+    NoNagle = 1,
+    NoDelay = 4,
+    Reliable = 8,
+    UseCurrentThread = 16,
+    AutoRestartBrokenSession = 32,
+}
+
+[global]
+class `[[SteamNetworkingSocketsConnectionInfo]]` prototype Object
+{
+    [field, type_hint=uint64] property user_data : gmval { get; set; }
+    [field] property end_reason : int32 { get; set; }
+    [field] property end_debug : string { get; set; }
+    [field] property connection_description : string { get; set; }
+    [field] property flags : int32 { get; set; }
+    [field] property state : int32 { get; set; } // SteamNetworkingConnectionState
+    [field, type_hint=uint64] property steam_id_remote : gmval { get; set; }
+    [field] property addr_remote : string { get; set; }
+}
+
+[global]
+class `[[SteamNetworkingSocketsStatusChanged]]` prototype Object
+{
+    [field] property conn : uint32 { get; set; }
+    [field] property old_state : int32 { get; set; }
+    [field, type_hint=`SteamNetworkingSocketsConnectionInfo`] property info : gmval { get; set; }
+}
+
+[global]
+class `[[SteamNetworkingSocketsReceived]]` prototype Object
+{
+    [field] property ok : bool { get; set; }
+    [field] property conn : uint32 { get; set; }
+    [field] property bytes_written : uint32 { get; set; }
+    [field] property flags : int32 { get; set; }
+}
+
+[global, bind = typed_gml]
+function steam_networking_sockets_set_callback_connection_status_changed(callback:func): unit;
+
+[global, bind = typed_gml]
+function steam_networking_sockets_clear_callback_connection_status_changed(): unit;
+
+[global, bind = typed_gml]
+function steam_networking_sockets_create_listen_socket_ip(port: uint32): uint32;
+
+[global, bind = typed_gml]
+function steam_networking_sockets_close_listen_socket(listen_socket: uint32): bool;
+
+[global, bind = typed_gml]
+function steam_networking_sockets_connect_by_ip_address(ip: string, port: uint32): uint32;
+
+[global, bind = typed_gml]
+function steam_networking_sockets_accept_connection(conn: uint32): int32;
+
+[global, bind = typed_gml]
+function steam_networking_sockets_close_connection(conn: uint32, reason: int32, debug: string, linger: bool): bool;
+
+[global, bind = typed_gml]
+function steam_networking_sockets_set_connection_user_data(conn: uint32, [type_hint=uint64] user_data: gmval): bool;
+
+[global, bind = typed_gml, type_hint=uint64]
+function steam_networking_sockets_get_connection_user_data(conn: uint32): gmval;
+
+[global, bind = typed_gml]
+function steam_networking_sockets_set_connection_name(conn: uint32, name: string): unit;
+
+[global, bind = typed_gml]
+function steam_networking_sockets_get_connection_name(conn: uint32): string;
+
+[global, bind = typed_gml]
+function steam_networking_sockets_send_message_to_connection(
+    conn: uint32,
+    [type_hint=buffer] data: gmval,
+    bytes: uint32,
+    [type_hint=`SteamNetworkingSendFlags`] send_flags: gmval
+): int32;
+
+[global, bind = typed_gml]
+function steam_networking_sockets_flush_messages_on_connection(conn: uint32): int32;
+
+[global, bind = typed_gml, type_hint=`SteamNetworkingSocketsReceived`]
+function steam_networking_sockets_receive_one_on_connection(
+    conn: uint32,
+    [type_hint=buffer] out_data: gmval,
+    max_bytes: uint32,
+    offset: uint32
+): gmval;
+
+[global, bind = typed_gml, type_hint=`SteamNetworkingSocketsConnectionInfo`]
+function steam_networking_sockets_get_connection_info(conn: uint32): gmval;
+
+[global, bind = typed_gml]
+function steam_networking_sockets_get_detailed_connection_status(conn: uint32): string;
+
+[global, bind = typed_gml]
+function steam_networking_sockets_run_callbacks(): unit;
+
+[global, bind = typed_gml, type_hint=`uint32[]`]
+function steam_networking_sockets_create_socket_pair(use_network_loopback: bool): gmval;
+
+[global, bind = typed_gml]
+function steam_networking_sockets_create_listen_socket_p2p(local_virtual_port: int32): uint32;
+
+[global, bind = typed_gml]
+function steam_networking_sockets_connect_p2p(
+    [type_hint=uint64] steam_id_remote: gmval,
+    remote_virtual_port: int32
+): uint32;
+
+[global, bind = typed_gml]
+function steam_networking_sockets_get_listen_socket_address(listen_socket: uint32): string;
+
+[global, bind = typed_gml]
+function steam_networking_sockets_create_poll_group(): uint32;
+
+[global, bind = typed_gml]
+function steam_networking_sockets_destroy_poll_group(poll_group: uint32): bool;
+
+[global, bind = typed_gml]
+function steam_networking_sockets_set_connection_poll_group(
+    conn: uint32,
+    poll_group: uint32
+): bool;
+
+[global, bind = typed_gml, type_hint=`SteamNetworkingSocketsReceived`]
+function steam_networking_sockets_receive_messages_on_poll_group(
+    poll_group: uint32,
+    [type_hint=buffer] out_data: gmval,
+    max_bytes: uint32,
+    offset: uint32
+): gmval;
+
+} // end group SteamNetworkingSockets
+
+group{ // SteamParties
+
+[global]
+class `[[SteamPartiesAvailableBeaconLocationCount]]` prototype Object
+{
+    [field] property ok : bool { get; set; }
+    [field] property count : uint32 { get; set; }
+}
+
+[global]
+class `[[SteamPartiesAvailableBeaconLocations]]` prototype Object
+{
+    [field] property ok : bool { get; set; }
+    [field] property count : uint32 { get; set; }
+    [field, type_hint=`SteamPartiesBeaconLocationType[]`] property location_types : gmval { get; set; }
+    [field, type_hint=`uint64[]`] property location_ids : gmval { get; set; }
+}
+
+[global]
+class `[[SteamPartiesCreateBeaconResult]]` prototype Object
+{
+    [field] property result : int32 { get; set; } // EResult numeric
+    [field, type_hint=uint64] property beacon_id : gmval { get; set; }
+}
+
+[global]
+class `[[SteamPartiesJoinPartyResult]]` prototype Object
+{
+    [field] property result : int32 { get; set; } // EResult numeric
+    [field, type_hint=uint64] property beacon_id : gmval { get; set; }
+    [field, type_hint=uint64] property beacon_owner_steam_id : gmval { get; set; }
+    [field] property connect_string : string { get; set; }
+}
+
+[global]
+class `[[SteamPartiesChangeNumOpenSlotsResult]]` prototype Object
+{
+    [field] property result : int32 { get; set; } // EResult numeric
+}
+
+[global]
+class `[[SteamPartiesReservationNotification]]` prototype Object
+{
+    [field, type_hint=uint64] property beacon_id : gmval { get; set; }
+    [field, type_hint=uint64] property joiner_steam_id : gmval { get; set; }
+}
+
+[global]
+class `[[SteamPartiesBeaconDetails]]` prototype Object
+{
+    [field] property ok : bool { get; set; }
+    [field, type_hint=uint64] property beacon_owner_steam_id : gmval { get; set; }
+    [field, type_hint=`SteamPartiesBeaconLocationType`] property location_type : int32 { get; set; }
+    [field, type_hint=uint64] property location_id : gmval { get; set; }
+    [field] property metadata : string { get; set; }
+}
+
+[global, bind = typed_gml]
+function steam_parties_set_callback_reservation_notification(callback:func): unit;
+
+[global, bind = typed_gml]
+function steam_parties_clear_callback_reservation_notification(): unit;
+
+[global, bind = typed_gml]
+function steam_parties_set_callback_available_beacon_locations_updated(callback:func): unit;
+
+[global, bind = typed_gml]
+function steam_parties_clear_callback_available_beacon_locations_updated(): unit;
+
+[global, bind = typed_gml]
+function steam_parties_set_callback_active_beacons_updated(callback:func): unit;
+
+[global, bind = typed_gml]
+function steam_parties_clear_callback_active_beacons_updated(): unit;
+
+[global, bind = typed_gml, type_hint=`SteamPartiesAvailableBeaconLocationCount`]
+function steam_parties_get_num_available_beacon_locations(): gmval;
+
+[global, bind = typed_gml, type_hint=`SteamPartiesAvailableBeaconLocations`]
+function steam_parties_get_available_beacon_locations(): gmval;
+
+[global, bind = typed_gml]
+function steam_parties_create_beacon(
+    open_slots: uint32,
+    [type_hint=`SteamPartiesBeaconLocationType`] beacon_location_type: gmval,
+    [type_hint=uint64] beacon_location_id: gmval,
+    connect_string: string,
+    metadata: string,
+    [type_hint=`func?`] callback: gmval
+): bool;
+
+[global, bind = typed_gml]
+function steam_parties_on_reservation_completed([type_hint=uint64] beacon_id: gmval, [type_hint=uint64] user_steam_id: gmval): bool;
+
+[global, bind = typed_gml]
+function steam_parties_change_num_open_slots([type_hint=uint64] beacon_id: gmval, open_slots: uint32, [type_hint=`func?`] callback: gmval): bool;
+
+[global, bind = typed_gml]
+function steam_parties_destroy_beacon([type_hint=uint64] beacon_id: gmval): bool;
+
+[global, bind = typed_gml]
+function steam_parties_get_num_active_beacons(): uint32;
+
+[global, bind = typed_gml,type_hint=`uint64`]
+function steam_parties_get_beacon_by_index(index: uint32): gmval;
+
+[global, bind = typed_gml, type_hint=`SteamPartiesBeaconDetails`]
+function steam_parties_get_beacon_details([type_hint=uint64] beacon_id: gmval): gmval;
+
+[global, bind = typed_gml]
+function steam_parties_join_party([type_hint=uint64] beacon_id: gmval, [type_hint=`func?`] callback: gmval): bool;
+
+[global, bind = typed_gml]
+function steam_parties_get_beacon_location_data(
+    [type_hint=`SteamPartiesBeaconLocationType`]beacon_location_type: gmval,
+    [type_hint=uint64] beacon_location_id: gmval,
+    [type_hint=`SteamPartiesBeaconLocationData`]data_kind: int32,
+): string;
+
+enum SteamPartiesBeaconLocationType {
+    Invalid = 0,
+    ChatGroup = 1,
+    Max = 2,
+}
+
+enum SteamPartiesBeaconLocationData {
+    Invalid = 0,
+    Name = 1,
+    IconURLSmall = 2,
+    IconURLMedium = 3,
+    IconURLLarge = 4,
+}
+
+} // SteamParties

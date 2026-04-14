@@ -13,8 +13,8 @@
     "path":"folders/Steamworks Demo/Parties/Host.yy",
   },
   "parentObjectId":{
-    "name":"obj_gm_button",
-    "path":"objects/obj_gm_button/obj_gm_button.yy",
+    "name":"obj_gm_button1",
+    "path":"objects/obj_gm_button1/obj_gm_button1.yy",
   },
   "persistent":false,
   "physicsAngularDamping":0.1,
@@ -34,8 +34,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"spr_gm_button",
-    "path":"sprites/spr_gm_button/spr_gm_button.yy",
+    "name":"spr_gm_button1",
+    "path":"sprites/spr_gm_button1/spr_gm_button1.yy",
   },
   "spriteMaskId":null,
   "visible":true,

@@ -1,0 +1,3 @@
+
+steam_parties_clear_callback_available_beacon_locations_updated();
+

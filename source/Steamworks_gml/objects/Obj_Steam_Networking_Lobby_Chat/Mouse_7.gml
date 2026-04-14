@@ -1,4 +1,4 @@
 
-request = get_string_async("Text:","")
+request = get_string_async("Text:","Hey!")
 
 

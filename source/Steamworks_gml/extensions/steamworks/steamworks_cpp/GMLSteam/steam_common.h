@@ -18,9 +18,6 @@ extern void Steam_Friends_Init();
 extern void Steam_UGC_Init();
 extern void Steam_Screenshots_Init();
 extern void Steam_RemoteStorage_Init();
-extern void Steam_Input_Init();
-extern void Steam_Input_Cleanup();
-extern bool steam_input_auto_initialized;
 
 extern int requestInd;
 extern int getAsyncRequestInd();

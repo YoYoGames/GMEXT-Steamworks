@@ -158,39 +158,6 @@ void CGMSteamInputCallbacks::on_steam_input_gamepad_slot_change(SteamInputGamepa
 // and we actually want native Steam Input,
 // otherwise weird things may happen
 CGMSteamInputCallbacks* g_pGMSteamInputCallbacks = nullptr;
-bool steam_input_auto_initialized = false;
-static bool steam_input_is_init = false;
-static bool steam_input_init_warned = false;
-
-void Steam_Input_Init()
-{
-	if (!SteamInput())
-	{
-		DebugConsoleOutput("[STEAMWORKS] Steam_Input_Init: SteamInput() interface is null, skipping auto-init.\n");
-		return;
-	}
-
-	if (!g_pGMSteamInputCallbacks)
-	{
-		g_pGMSteamInputCallbacks = new CGMSteamInputCallbacks();
-		DebugConsoleOutput("[STEAMWORKS] Steam Input callbacks CONFIGURED (auto-init)\n");
-	}
-
-	SteamInput()->Init(false);
-	steam_input_auto_initialized = true;
-	steam_input_is_init = true;
-	steam_input_init_warned = false;
-	DebugConsoleOutput("[STEAMWORKS] Steam Input auto-initialized.\n");
-}
-
-void Steam_Input_Cleanup()
-{
-	if (g_pGMSteamInputCallbacks)
-	{
-		delete g_pGMSteamInputCallbacks;
-		g_pGMSteamInputCallbacks = nullptr;
-	}
-}
 
 //// helpers:
 #define API SteamInput()
@@ -204,7 +171,7 @@ void Steam_Input_Cleanup()
 	} while (0) /* so we are required to put a semicolon here... */
 
 /// (explicitly_call_run_frame:bool)->bool
-YYEXPORT void steam_input_init(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)
+YYEXPORT void steam_input_init(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg) 
 {
 	steam_input_ensure_argc(1);
 
@@ -217,21 +184,15 @@ YYEXPORT void steam_input_init(RValue& Result, CInstance* selfinst, CInstance* o
 		return;
 	}
 
-	if (steam_input_auto_initialized)
-	{
-		Result.val = 1.0;
-		return;
-	}
-
 	if (!g_pGMSteamInputCallbacks)
 	{
+		// subscribe to Steam Input callbacks
+		// before initializing Steam Input, but only if the interface is not null.
 		g_pGMSteamInputCallbacks = new CGMSteamInputCallbacks();
 		DebugConsoleOutput("Steam Input callbacks CONFIGURED \n ");
 	}
 
 	Result.val = API->Init(expCallRunFrame);
-	steam_input_is_init = true;
-	steam_input_init_warned = false;
 }
 
 /// ()->bool
@@ -245,10 +206,6 @@ YYEXPORT void steam_input_shutdown(RValue& Result, CInstance* selfinst, CInstanc
 	}
 
 	Result.val = API->Shutdown();
-	steam_input_auto_initialized = false;
-	Steam_Input_Cleanup();
-	steam_input_is_init = false;
-	steam_input_init_warned = false;
 }
 
 /// (absolute_path:string)->bool
@@ -273,12 +230,6 @@ YYEXPORT void steam_input_run_frame(RValue& Result, CInstance* selfinst, CInstan
 {
 	Result.kind = VALUE_BOOL;
 	if (!steam_is_initialised || !API)
-	{
-		Result.val = 0.0;
-		return;
-	}
-
-	if (!steam_input_is_init)
 	{
 		Result.val = 0.0;
 		return;
@@ -332,17 +283,6 @@ YYEXPORT void steam_input_get_connected_controllers(RValue& Result, CInstance* s
 		return;
 	}
 
-	if (!steam_input_is_init)
-	{
-		if (!steam_input_init_warned)
-		{
-			DebugConsoleOutput("steam_input_get_connected_controllers: steam_input_init() must be called before using Steam Input functions\n");
-			steam_input_init_warned = true;
-		}
-		YYCreateArray(&Result);
-		return;
-	}
-
 	int wrote = API->GetConnectedControllers(handles);
 	YYCreateArray(&Result);
 	for (int i = 0; i < wrote; ++i)
@@ -372,13 +312,6 @@ YYEXPORT void steam_input_enable_device_callbacks(RValue& Result, CInstance* sel
 		return;
 	}
 
-	if (!steam_input_is_init)
-	{
-		DebugConsoleOutput("steam_input_enable_device_callbacks: steam_input_init() must be called before using Steam Input functions\n");
-		Result.val = 0.0;
-		return;
-	}
-
 	Result.val = 1.0;
 	API->EnableDeviceCallbacks();
 }
@@ -391,13 +324,6 @@ YYEXPORT void steam_input_enable_action_event_callbacks(RValue& Result, CInstanc
 	Result.kind = VALUE_BOOL;
 	if (!steam_is_initialised || !API)
 	{
-		Result.val = 0.0;
-		return;
-	}
-
-	if (!steam_input_is_init)
-	{
-		DebugConsoleOutput("steam_input_enable_action_event_callbacks: steam_input_init() must be called before using Steam Input functions\n");
 		Result.val = 0.0;
 		return;
 	}

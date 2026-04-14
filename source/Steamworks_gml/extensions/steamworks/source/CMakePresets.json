@@ -1,0 +1,496 @@
+{
+  "version": 4,
+  "cmakeMinimumRequired": {
+    "major": 3,
+    "minor": 21,
+    "patch": 0
+  },
+
+  "configurePresets": [
+    {
+      "name": "base-ninja",
+      "hidden": true,
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/out/build/${presetName}",
+      "cacheVariables": {
+        "CMAKE_CXX_STANDARD": "17",
+        "CMAKE_POSITION_INDEPENDENT_CODE": "ON"
+      }
+    },
+
+    {
+      "name": "base-vs",
+      "hidden": true,
+      "generator": "Visual Studio 17 2022",
+      "binaryDir": "${sourceDir}/out/build/${presetName}",
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Windows"
+      },
+      "cacheVariables": {
+        "CMAKE_CXX_STANDARD": "17",
+        "CMAKE_POSITION_INDEPENDENT_CODE": "ON",
+        "CMAKE_MSVC_RUNTIME_LIBRARY": "MultiThreadedDLL"
+      },
+      "toolset": { "value": "v143" }
+    },
+
+
+    {
+      "name": "win-x64-debug",
+      "displayName": "Windows x64 Debug",
+      "hidden": false,
+      "inherits": "base-vs",
+      "cacheVariables": {
+        "CMAKE_MSVC_RUNTIME_LIBRARY": "MultiThreadedDebugDLL",
+        "EXT_OUTPUT_DIR": "../"
+      }
+    },
+    {
+      "name": "win-x64-release",
+      "displayName": "Windows x64 Release",
+      "hidden": false,
+      "inherits": "base-vs",
+      "cacheVariables": {
+        "CMAKE_MSVC_RUNTIME_LIBRARY": "MultiThreadedDLL",
+        "EXT_OUTPUT_DIR": "../"
+      }
+    },
+
+
+    {
+      "name": "macos-debug",
+      "displayName": "macOS Debug",
+      "hidden": false,
+      "inherits": "base-ninja",
+      "condition": { "type": "equals", "lhs": "${hostSystemName}", "rhs": "Darwin" },
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "CMAKE_OSX_DEPLOYMENT_TARGET": "11.0",
+        "CMAKE_OSX_ARCHITECTURES": "arm64;x86_64",
+        "EXT_OUTPUT_DIR": "../"
+      }
+    },
+    {
+      "name": "macos-release",
+      "displayName": "macOS Release",
+      "hidden": false,
+      "inherits": "base-ninja",
+      "condition": { "type": "equals", "lhs": "${hostSystemName}", "rhs": "Darwin" },
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release",
+        "CMAKE_OSX_DEPLOYMENT_TARGET": "11.0",
+        "CMAKE_OSX_ARCHITECTURES": "arm64;x86_64",
+        "EXT_OUTPUT_DIR": "../"
+      }
+    },
+
+    {
+      "name": "base-xcode",
+      "hidden": true,
+      "generator": "Xcode",
+      "binaryDir": "${sourceDir}/out/build/${presetName}",
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Darwin"
+      },
+      "cacheVariables": {
+        "CMAKE_CXX_STANDARD": "17",
+        "CMAKE_POSITION_INDEPENDENT_CODE": "ON"
+      }
+    },
+
+    {
+      "name": "base-xcode-gm",
+      "hidden": true,
+      "inherits": "base-xcode",
+      "cacheVariables": {
+        "EXT_GM_XCODEPROJ": "",
+        "EXT_GM_APP_TARGET": ""
+      }
+    },
+
+    {
+      "name": "ios-xcframework-release",
+      "displayName": "iOS XCFramework (Release)",
+      "hidden": true,
+      "inherits": "base-xcode",
+      "cacheVariables": {
+        "CMAKE_SYSTEM_NAME": "iOS",
+        "EXT_APPLE_PACKAGE_CONFIG": "Release",
+        "EXT_APPLE_NATIVE_FRAMEWORK": "OFF",
+        "EXT_APPLE_SIM_X86_64": "OFF",
+        "EXT_APPLE_DROP_DIR": "../iOSSourceFromMac"
+      }
+    },
+    {
+      "name": "ios-xcframework-debug",
+      "displayName": "iOS XCFramework (Debug)",
+      "hidden": true,
+      "inherits": "base-xcode",
+      "cacheVariables": {
+        "CMAKE_SYSTEM_NAME": "iOS",
+        "EXT_APPLE_PACKAGE_CONFIG": "Debug",
+        "EXT_APPLE_NATIVE_FRAMEWORK": "OFF",
+        "EXT_APPLE_SIM_X86_64": "OFF",
+        "EXT_APPLE_DROP_DIR": "../iOSSourceFromMac"
+      }
+    },
+    {
+      "name": "ios-xcframework-native-release",
+      "displayName": "iOS XCFramework Native (Release)",
+      "hidden": true,
+      "inherits": "ios-xcframework-release",
+      "cacheVariables": {
+        "EXT_APPLE_NATIVE_FRAMEWORK": "ON",
+        "EXT_APPLE_DROP_DIR": "../iOSSourceFromMac"
+      }
+    },
+    {
+      "name": "ios-xcframework-native-debug",
+      "displayName": "iOS XCFramework Native (Debug)",
+      "hidden": true,
+      "inherits": "ios-xcframework-debug",
+      "cacheVariables": {
+        "EXT_APPLE_NATIVE_FRAMEWORK": "ON",
+        "EXT_APPLE_DROP_DIR": "../iOSSourceFromMac"
+      }
+    },
+    {
+      "name": "tvos-xcframework-release",
+      "displayName": "tvOS XCFramework (Release)",
+      "hidden": true,
+      "inherits": "base-xcode",
+      "cacheVariables": {
+        "CMAKE_SYSTEM_NAME": "tvOS",
+        "EXT_APPLE_PACKAGE_CONFIG": "Release",
+        "EXT_APPLE_NATIVE_FRAMEWORK": "OFF",
+        "EXT_APPLE_SIM_X86_64": "OFF",
+        "EXT_APPLE_DROP_DIR": "../tvOSSourceFromMac"
+      }
+    },
+    {
+      "name": "tvos-xcframework-debug",
+      "displayName": "tvOS XCFramework (Debug)",
+      "hidden": true,
+      "inherits": "base-xcode",
+      "cacheVariables": {
+        "CMAKE_SYSTEM_NAME": "tvOS",
+        "EXT_APPLE_PACKAGE_CONFIG": "Debug",
+        "EXT_APPLE_NATIVE_FRAMEWORK": "OFF",
+        "EXT_APPLE_SIM_X86_64": "OFF",
+        "EXT_APPLE_DROP_DIR": "../tvOSSourceFromMac"
+      }
+    },
+    {
+      "name": "tvos-xcframework-native-release",
+      "displayName": "tvOS XCFramework Native (Release)",
+      "hidden": true,
+      "inherits": "tvos-xcframework-release",
+      "cacheVariables": {
+        "EXT_APPLE_NATIVE_FRAMEWORK": "ON",
+        "EXT_APPLE_DROP_DIR": "../tvOSSourceFromMac"
+      }
+    },
+    {
+      "name": "tvos-xcframework-native-debug",
+      "displayName": "tvOS XCFramework Native (Debug)",
+      "hidden": true,
+      "inherits": "tvos-xcframework-debug",
+      "cacheVariables": {
+        "EXT_APPLE_NATIVE_FRAMEWORK": "ON",
+        "EXT_APPLE_DROP_DIR": "../tvOSSourceFromMac"
+      }
+    },
+
+
+    {
+      "name": "ios-gamemaker-integrate",
+      "displayName": "iOS: Integrate into GameMaker Xcode project",
+      "hidden": true,
+      "inherits": [ "ios-xcframework-debug", "base-xcode-gm" ],
+      "cacheVariables": {
+        "EXT_APPLE_NATIVE_FRAMEWORK": "OFF"
+      }
+    },
+    {
+      "name": "tvos-gamemaker-integrate",
+      "displayName": "tvOS: Integrate into GameMaker Xcode project",
+      "hidden": true,
+      "inherits": [ "tvos-xcframework-debug", "base-xcode-gm" ],
+      "cacheVariables": {
+        "EXT_APPLE_NATIVE_FRAMEWORK": "OFF"
+      }
+    },
+
+
+    {
+      "name": "linux-clang-x64-debug",
+      "displayName": "Linux x64 Debug (clang)",
+      "hidden": false,
+      "inherits": "base-ninja",
+      "condition": { "type": "equals", "lhs": "${hostSystemName}", "rhs": "Linux" },
+      "environment": { "CC": "clang", "CXX": "clang++" },
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "EXT_OUTPUT_DIR": "../"
+      }
+    },
+    {
+      "name": "linux-clang-x64-release",
+      "displayName": "Linux x64 Release (clang)",
+      "hidden": false,
+      "inherits": "base-ninja",
+      "condition": { "type": "equals", "lhs": "${hostSystemName}", "rhs": "Linux" },
+      "environment": { "CC": "clang", "CXX": "clang++" },
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release",
+        "EXT_OUTPUT_DIR": "../"
+      }
+    },
+
+
+    {
+      "name": "android-base-release",
+      "hidden": true,
+      "inherits": "base-ninja",
+      "toolchainFile": "$env{ANDROID_NDK_HOME}/build/cmake/android.toolchain.cmake",
+      "cacheVariables": {
+        "CMAKE_SYSTEM_NAME": "Android",
+        "ANDROID_PLATFORM": "21",
+        "ANDROID_STL": "c++_static",
+        "BUILD_SHARED_LIBS": "ON",
+        "CMAKE_BUILD_TYPE": "Release",
+        "EXT_ANDROID_OUTPUT_DIR": "../AndroidSource"
+      }
+    },
+    {
+      "name": "android-base-debug",
+      "hidden": true,
+      "inherits": "base-ninja",
+      "toolchainFile": "$env{ANDROID_NDK_HOME}/build/cmake/android.toolchain.cmake",
+      "cacheVariables": {
+        "CMAKE_SYSTEM_NAME": "Android",
+        "ANDROID_PLATFORM": "21",
+        "ANDROID_STL": "c++_static",
+        "BUILD_SHARED_LIBS": "ON",
+        "CMAKE_BUILD_TYPE": "Debug",
+        "EXT_ANDROID_OUTPUT_DIR": "../AndroidSource"
+      }
+    },
+
+    {
+      "name": "android-arm64-v8a-release",
+      "displayName": "Android arm64-v8a (Release)",
+      "hidden": true,
+      "inherits": "android-base-release",
+      "cacheVariables": { "ANDROID_ABI": "arm64-v8a" }
+    },
+    {
+      "name": "android-arm64-v8a-debug",
+      "displayName": "Android arm64-v8a (Debug)",
+      "hidden": true,
+      "inherits": "android-base-debug",
+      "cacheVariables": { "ANDROID_ABI": "arm64-v8a" }
+    },
+
+    {
+      "name": "android-armeabi-v7a-release",
+      "displayName": "Android armeabi-v7a (Release)",
+      "hidden": true,
+      "inherits": "android-base-release",
+      "cacheVariables": { "ANDROID_ABI": "armeabi-v7a" }
+    },
+    {
+      "name": "android-armeabi-v7a-debug",
+      "displayName": "Android armeabi-v7a (Debug)",
+      "hidden": true,
+      "inherits": "android-base-debug",
+      "cacheVariables": { "ANDROID_ABI": "armeabi-v7a" }
+    },
+
+    {
+      "name": "android-x86_64-release",
+      "displayName": "Android x86_64 (Release)",
+      "hidden": true,
+      "inherits": "android-base-release",
+      "cacheVariables": { "ANDROID_ABI": "x86_64" }
+    },
+    {
+      "name": "android-x86_64-debug",
+      "displayName": "Android x86_64 (Debug)",
+      "hidden": true,
+      "inherits": "android-base-debug",
+      "cacheVariables": { "ANDROID_ABI": "x86_64" }
+    },
+
+
+    {
+      "name": "xbox-scarlett-debug",
+      "displayName": "Xbox Series (Scarlett) Debug",
+      "hidden": true,
+      "inherits": "base-vs",
+      "architecture": { "value": "Gaming.Xbox.Scarlett.x64", "strategy": "set" },
+      "cacheVariables": { "EXTGEN_PLATFORM_XBOX_SCARLETT": "ON", "EXT_OUTPUT_DIR": "../" }
+    },
+    {
+      "name": "xbox-scarlett-release",
+      "displayName": "Xbox Series (Scarlett) Release",
+      "hidden": true,
+      "inherits": "base-vs",
+      "architecture": { "value": "Gaming.Xbox.Scarlett.x64", "strategy": "set" },
+      "cacheVariables": { "EXTGEN_PLATFORM_XBOX_SCARLETT": "ON", "EXT_OUTPUT_DIR": "../" }
+    },
+    {
+      "name": "xbox-one-debug",
+      "displayName": "Xbox One Debug",
+      "hidden": true,
+      "inherits": "base-vs",
+      "architecture": { "value": "Gaming.Xbox.XboxOne.x64", "strategy": "set" },
+      "cacheVariables": { "EXTGEN_PLATFORM_XBOX_ONE": "ON", "EXT_OUTPUT_DIR": "../" }
+    },
+    {
+      "name": "xbox-one-release",
+      "displayName": "Xbox One Release",
+      "hidden": true,
+      "inherits": "base-vs",
+      "architecture": { "value": "Gaming.Xbox.XboxOne.x64", "strategy": "set" },
+      "cacheVariables": { "EXTGEN_PLATFORM_XBOX_ONE": "ON", "EXT_OUTPUT_DIR": "../" }
+    },
+
+    {
+      "name": "ps-base-vs",
+      "hidden": true,
+      "inherits": "base-vs",
+      "cacheVariables": {
+        "BUILD_SHARED_LIBS": "ON"
+      }
+    },
+
+    {
+      "name": "ps4-debug",
+      "displayName": "PlayStation 4 (ORBIS) Debug",
+      "hidden": true,
+      "inherits": "ps-base-vs",
+      "architecture": { "value": "ORBIS" },
+      "cacheVariables": { "EXT_OUTPUT_DIR": "../" }
+    },
+    {
+      "name": "ps4-release",
+      "displayName": "PlayStation 4 (ORBIS) Release",
+      "hidden": true,
+      "inherits": "ps-base-vs",
+      "architecture": { "value": "ORBIS" },
+      "cacheVariables": { "EXT_OUTPUT_DIR": "../" }
+    },
+
+    {
+      "name": "ps5-debug",
+      "displayName": "PlayStation 5 (Prospero) Debug",
+      "hidden": true,
+      "inherits": "ps-base-vs",
+      "architecture": { "value": "Prospero" },
+      "cacheVariables": { "EXT_OUTPUT_DIR": "../" }
+    },
+    {
+      "name": "ps5-release",
+      "displayName": "PlayStation 5 (Prospero) Release",
+      "hidden": true,
+      "inherits": "ps-base-vs",
+      "architecture": { "value": "Prospero" },
+      "cacheVariables": { "EXT_OUTPUT_DIR": "../" }
+    },
+
+    {
+      "name": "base-vs-switch",
+      "hidden": true,
+      "inherits": "base-vs",
+      "architecture": {
+        "value": "NX64",
+        "strategy": "set"
+      },
+
+      "cacheVariables": {
+        "BUILD_SHARED_LIBS": "ON",
+        "EXTGEN_PLATFORM_SWITCH": "ON",
+        "EXT_OUTPUT_DIR": "../"
+      }
+    }
+  ],
+
+  "buildPresets": [
+    { "name": "win-x64-debug", "configurePreset": "win-x64-debug", "configuration": "Debug" },
+    { "name": "win-x64-release", "configurePreset": "win-x64-release", "configuration": "Release" },
+
+    { "name": "macos-debug", "configurePreset": "macos-debug" },
+    { "name": "macos-release", "configurePreset": "macos-release" },
+
+    { "name": "linux-clang-x64-debug", "configurePreset": "linux-clang-x64-debug" },
+    { "name": "linux-clang-x64-release", "configurePreset": "linux-clang-x64-release" },
+
+    { "name": "android-arm64-v8a-release", "configurePreset": "android-arm64-v8a-release" },
+    { "name": "android-armeabi-v7a-release", "configurePreset": "android-armeabi-v7a-release" },
+    { "name": "android-x86_64-release", "configurePreset": "android-x86_64-release" },
+
+    { "name": "android-arm64-v8a-debug", "configurePreset": "android-arm64-v8a-debug" },
+    { "name": "android-armeabi-v7a-debug", "configurePreset": "android-armeabi-v7a-debug" },
+    { "name": "android-x86_64-debug", "configurePreset": "android-x86_64-debug" },
+
+    { "name": "xbox-one-debug",       "configurePreset": "xbox-one-debug",       "configuration": "Debug" },
+    { "name": "xbox-one-release",     "configurePreset": "xbox-one-release",     "configuration": "Release" },
+
+    { "name": "xbox-scarlett-debug",  "configurePreset": "xbox-scarlett-debug",  "configuration": "Debug" },
+    { "name": "xbox-scarlett-release","configurePreset": "xbox-scarlett-release","configuration": "Release" },
+
+    { "name": "ps4-debug",   "configurePreset": "ps4-debug",   "configuration": "Debug" },
+    { "name": "ps4-release", "configurePreset": "ps4-release", "configuration": "Release" },
+
+    { "name": "ps5-debug",   "configurePreset": "ps5-debug",   "configuration": "Debug" },
+    { "name": "ps5-release", "configurePreset": "ps5-release", "configuration": "Release" },
+
+    {
+      "name": "ios-xcframework-release",
+      "displayName": "Build iOS XCFramework (Release)",
+      "configurePreset": "ios-xcframework-release",
+      "configuration": "Release",
+      "targets": [ "package_ios_xcframework" ]
+    },
+    {
+      "name": "ios-xcframework-debug",
+      "displayName": "Build iOS XCFramework (Debug)",
+      "configurePreset": "ios-xcframework-debug",
+      "configuration": "Debug",
+      "targets": [ "package_ios_xcframework" ]
+    },
+
+    {
+      "name": "tvos-xcframework-release",
+      "displayName": "Build tvOS XCFramework (Release)",
+      "configurePreset": "tvos-xcframework-release",
+      "configuration": "Release",
+      "targets": [ "package_tvos_xcframework" ]
+    },
+    {
+      "name": "tvos-xcframework-debug",
+      "displayName": "Build tvOS XCFramework (Debug)",
+      "configurePreset": "tvos-xcframework-debug",
+      "configuration": "Debug",
+      "targets": [ "package_tvos_xcframework" ]
+    },
+
+    {
+      "name": "ios-integrate-gamemaker",
+      "displayName": "iOS: Integrate into GameMaker (no build)",
+      "configurePreset": "ios-gamemaker-integrate",
+      "targets": [ "integrate_gamemaker" ]
+    },
+    {
+      "name": "tvos-integrate-gamemaker",
+      "displayName": "tvOS: Integrate into GameMaker (no build)",
+      "configurePreset": "tvos-gamemaker-integrate",
+      "targets": [ "integrate_gamemaker" ]
+    }
+  ]
+}

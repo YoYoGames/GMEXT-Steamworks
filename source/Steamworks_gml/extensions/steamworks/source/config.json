@@ -1,0 +1,24 @@
+{
+  "$schema": "./extgen.schema.json",
+  "input": "spec.gmidl",
+  "root": "./",
+  "gamemaker": {
+    "wrappers": {
+      "outputFile": "../../../scripts/Steamworks_API/Steamworks_API.gml"
+    },
+    "extension": {
+      "outputFile": "../../../extensions/steamworks/Steamworks.yy",
+      "mode": "patch"
+    },
+    "injectors": {
+    }
+  },
+  "targets": {
+    "windows": {},
+    "macos": {},
+    "linux": {}
+  },
+  "extras": {
+    "docs": {}
+  }
+}

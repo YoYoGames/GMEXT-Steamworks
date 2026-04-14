@@ -1,23 +1,20 @@
 
-global.SEND_UNRELIABLE = 0;
-global.SEND_RELIABLE   = 8; // k_nSteamNetworkingSend_Reliable
-
 event_inherited();
 
 text = "Net Sockets"
 
 
-var array = steam_net_sockets_create_socket_pair(true);
+var array = steam_networking_sockets_create_socket_pair(true);
 if (array_length(array) != 2) {
     show_debug_message("Failed to create socket pair");
     socket_demo_ready = false;
     exit;
 }
 
-conn_a = array[0].connection
-conn_b = array[1].connection
+conn_a = array[0]
+conn_b = array[1]
 
-show_debug_message("Socket pair created: A=" + string(conn_a) + ", B=" + string(conn_b));
+show_debug_message($"Socket pair created: A={conn_a} B={conn_b}");
 
 buf_size = 1024;
 buf = buffer_create(buf_size, buffer_grow, 1);

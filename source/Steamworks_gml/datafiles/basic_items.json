@@ -1,0 +1,141 @@
+{
+  "appid": 2804000,
+  "items": [
+	{
+	  "itemdefid": 201,
+	  "type": "item",
+	  "name": "Coins",
+	  "description": "Stackable currency used for GenerateItems + TransferItemQuantity + Exchange demos.",
+	  "display_type": "Currency",
+	  "commodity": true,
+	  "tradable": false,
+	  "marketable": false,
+	  "auto_stack": true
+	},
+	{
+	  "itemdefid": 202,
+	  "type": "item",
+	  "name": "Gems",
+	  "description": "Secondary stackable currency used for GenerateItems + Exchange + Drops demos.",
+	  "display_type": "Currency",
+	  "commodity": true,
+	  "tradable": false,
+	  "marketable": false,
+	  "auto_stack": true,
+	  "exchange": "201x2"
+	},
+    {
+      "itemdefid": 501,
+      "type": "item",
+      "name": "Promo Gift",
+      "description": "Manual promo item for AddPromoItem / GrantPromoItems demos. Also used as a possible loot/drop output.",
+      "display_type": "Promo",
+      "promo": "manual",
+      "tradable": false,
+      "marketable": false
+    },
+	{
+	  "itemdefid": 502,
+	  "type": "item",
+	  "name": "Auto Promo Gift",
+	  "description": "Granted automatically if the user qualifies.",
+	  "display_type": "Promo",
+	  "promo": "owns:480",
+	  "tradable": false,
+	  "marketable": false
+	},
+    {
+      "itemdefid": 310,
+      "type": "generator",
+      "name": "Craft / Loot Generator",
+      "description": "Used by ExchangeItems: consumes 1x Coins (201) + 1x Gems (202) to roll a reward.",
+      "bundle": "201x80;202x19;501x1",
+      "exchange": "201x1,202x1",
+      "tradable": false,
+      "marketable": false
+    },
+    {
+      "itemdefid": 10,
+      "type": "playtimegenerator",
+      "name": "Playtime Drop Generator",
+      "description": "Used by TriggerItemDrop(10): grants currency or promo gift over time.",
+      "bundle": "201x85;202x14;501x1",
+      "drop_interval": 30,
+      "use_drop_window": true,
+      "drop_window": 1440,
+      "drop_max_per_window": 3,
+      "tradable": false,
+      "marketable": false
+    },
+    {
+      "itemdefid": 1,
+      "type": "item",
+      "name": "DEPRECATED old1",
+      "description": "Deprecated",
+      "hidden": true,
+      "tradable": false,
+      "marketable": false,
+      "store_hidden": true
+    },
+    {
+      "itemdefid": 2,
+      "type": "item",
+      "name": "DEPRECATED old2",
+      "description": "Deprecated",
+      "hidden": true,
+      "tradable": false,
+      "marketable": false,
+      "store_hidden": true
+    },
+    {
+      "itemdefid": 3,
+      "type": "item",
+      "name": "DEPRECATED old3",
+      "description": "Deprecated",
+      "hidden": true,
+      "tradable": false,
+      "marketable": false,
+      "store_hidden": true
+    },
+    {
+      "itemdefid": 301,
+      "type": "item",
+      "name": "DEPRECATED old4",
+      "description": "Deprecated",
+      "hidden": true,
+      "tradable": false,
+      "marketable": false,
+      "store_hidden": true
+    },
+    {
+      "itemdefid": 302,
+      "type": "item",
+      "name": "DEPRECATED old5",
+      "description": "Deprecated",
+      "hidden": true,
+      "tradable": false,
+      "marketable": false,
+      "store_hidden": true
+    },
+    {
+      "itemdefid": 401,
+      "type": "item",
+      "name": "DEPRECATED old6",
+      "description": "Deprecated",
+      "hidden": true,
+      "tradable": false,
+      "marketable": false,
+      "store_hidden": true
+    },
+    {
+      "itemdefid": 402,
+      "type": "item",
+      "name": "DEPRECATED old7",
+      "description": "Deprecated",
+      "hidden": true,
+      "tradable": false,
+      "marketable": false,
+      "store_hidden": true
+    }
+  ]
+}

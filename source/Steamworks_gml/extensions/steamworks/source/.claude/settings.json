@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(grep -n \"void steam_net_callbacks_t::lobby_created\\\\|void steam_net_callbacks_t::lobby_joined\" /d/Github/GMEXT-Steamworks/source/Steamworks_gml/extensions/steamworks/steamworks_cpp/GMLSteam/*.cpp)",
+      "Bash(grep -n \"YYCreateArray\\\\|YYStructAdd\\\\|YYStructCreate\" /d/Github/GMEXT-Steamworks/source/Steamworks_gml/extensions/steamworks/steamworks_cpp/GMLSteam/*.cpp)",
+      "Bash(grep -roh \"YYStructAdd[A-Za-z]*\\\\|YYCreateArray\" /d/Github/GMEXT-Steamworks/source/Steamworks_gml/extensions/steamworks/steamworks_cpp/GMLSteam/*.cpp)",
+      "Bash(grep -rn \"YYStructAddInt64\" /d/Github/GMEXT-Steamworks/source/Steamworks_gml/extensions/steamworks/steamworks_cpp/GMLSteam/*.cpp)",
+      "Bash(grep -rn \"YYStructAddRValue\\\\|DsMapAddRValue\" /d/Github/GMEXT-Steamworks/source/Steamworks_gml/extensions/steamworks/steamworks_cpp/GMLSteam/*.cpp)"
+    ],
+    "additionalDirectories": [
+      "D:\\Github\\GMEXT-Steamworks\\source\\Steamworks_gml\\extensions\\steamworks\\steamworks_windows\\Steamworks"
+    ]
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"Steamworks_API",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"Steamworks_API",
+  "parent":{
+    "name":"Steamworks",
+    "path":"folders/Steamworks.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

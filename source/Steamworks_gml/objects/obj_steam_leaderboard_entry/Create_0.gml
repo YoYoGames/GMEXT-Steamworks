@@ -1,5 +1,6 @@
-rank = noone
-score_ = noone
-name = ""
-userID = noone
-data = ""
+
+event_inherited()
+
+if(!variable_instance_exists(id,"medium"))
+	medium = false
+

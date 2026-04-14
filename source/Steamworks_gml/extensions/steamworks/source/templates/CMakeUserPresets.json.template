@@ -1,0 +1,59 @@
+{
+  "version": 6,
+  "cmakeMinimumRequired": {
+    "major": 3,
+    "minor": 25,
+    "patch": 0
+  },
+  "configurePresets": [
+    {
+      "name": "switch-paths",
+      "hidden": true,
+      "cacheVariables": {
+        "__comment_instructions": "=== REQUIRED: Configure these paths for your Nintendo SDK installation ===",
+        "__comment_note": "Edit paths below - they apply to both Debug and Release builds",
+
+        "__comment_compiler_paths": "--- Compiler paths (adjust for your SDK location) ---",
+        "CMAKE_C_COMPILER": {
+          "type": "FILEPATH",
+          "value": "$env{NINTENDO_SDK_ROOT}/path/to/clang-cl.exe"
+        },
+        "CMAKE_CXX_COMPILER": {
+          "type": "FILEPATH",
+          "value": "$env{NINTENDO_SDK_ROOT}/path/to/clang-cl.exe"
+        },
+
+        "__comment_props_path": "--- SDK props file path (relative to NINTENDO_SDK_ROOT) ---",
+        "NINTENDO_SDK_PROPS_PATH": "relative/path/to/ImportNintendoSdk.props"
+      }
+    },
+    {
+      "name": "switch-debug",
+      "displayName": "Nintendo Switch (NX64) Debug",
+      "inherits": [ "base-vs-switch", "switch-paths" ],
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug"
+      }
+    },
+    {
+      "name": "switch-release",
+      "displayName": "Nintendo Switch (NX64) Release",
+      "inherits": [ "base-vs-switch", "switch-paths" ],
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release"
+      }
+    }
+  ],
+  "buildPresets": [
+    {
+      "name": "switch-debug",
+      "configurePreset": "switch-debug",
+      "configuration": "Debug"
+    },
+    {
+      "name": "switch-release",
+      "configurePreset": "switch-release",
+      "configuration": "Release"
+    }
+  ]
+}

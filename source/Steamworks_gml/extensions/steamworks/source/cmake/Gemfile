@@ -1,0 +1,4 @@
+source "https://rubygems.org"
+
+# Pick a modern xcodeproj. If your Ruby is old, this might need adjusting.
+gem "xcodeproj", ">= 1.27.0"

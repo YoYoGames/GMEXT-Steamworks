@@ -1,7 +1,6 @@
-/// @description Insert description here
-// You can write your code in this editor
 
-if (steam_initialised()) return;
+
+if (steam_api_is_initialized()) return;
 
 draw_set_halign(fa_center);
 draw_set_valign(fa_middle);

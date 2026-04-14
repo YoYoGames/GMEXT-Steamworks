@@ -1,2 +1,2 @@
 
-steam_clear_achievement(achievement);
+steam_userstats_clear_achievement(achievement);

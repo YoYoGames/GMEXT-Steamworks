@@ -14,19 +14,25 @@ net_host_steamid64 = 76561199257286820//0; // set this on the client before conn
 NET_P2P_PORT = 7
 
 
-var array = steam_get_friends_game_info(STEAMWORKS_FRIENDS_FLAGS.IMMEDIATE)
+
+
+var flag = SteamFriendsFriendFlag.All
+var count = steam_friends_get_friend_count(flag)
 
 var X = 100
 var Y = 150
-for(var a = 0 ; a < array_length(array) ; a++)
+for(var i = 0 ; i < count ; i++)
 {
-	var struct = array[a]
-	instance_create_depth(X,Y,0,Obj_Steam_Networking_Friend,{steam_id: struct.friendId,image_xscale:3}).text = struct.name
+	var friend_id = steam_friends_get_friend_by_index(i,flag)
+	var friend_name = steam_friends_get_friend_persona_name(friend_id)
+	
+	var data = {steam_id: friend_id,image_xscale:3,only_one: true}
+	instance_create_depth(X,Y,0,obj_steam_friends_friend_select,{data}).text = friend_name
 	Y += 100
 	
 	if(Y > room_height-100)
 	{
 		Y = 150
-		X += 300
+		X += 200
 	}
 }

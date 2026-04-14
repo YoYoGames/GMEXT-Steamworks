@@ -1,20 +1,20 @@
 {
   "$GMObject":"",
-  "%Name":"Obj_Steam_Leaderboard_Download_Friends",
+  "%Name":"obj_Steam_leaderboard_download_friends",
   "eventList":[
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":7,"eventType":6,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
   ],
   "managed":true,
-  "name":"Obj_Steam_Leaderboard_Download_Friends",
+  "name":"obj_Steam_leaderboard_download_friends",
   "overriddenProperties":[],
   "parent":{
     "name":"Leaderboard",
     "path":"folders/Steamworks Demo/Social/Leaderboard.yy",
   },
   "parentObjectId":{
-    "name":"Obj_Steam_Leaderboard_Download",
-    "path":"objects/Obj_Steam_Leaderboard_Download/Obj_Steam_Leaderboard_Download.yy",
+    "name":"obj_gm_button",
+    "path":"objects/obj_gm_button/obj_gm_button.yy",
   },
   "persistent":false,
   "physicsAngularDamping":0.1,

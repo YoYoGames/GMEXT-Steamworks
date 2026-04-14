@@ -1,22 +1,30 @@
 
-steam_user_request_encrypted_app_ticket()
+var data_to_include = buffer_create(1024, buffer_fixed, 1);
+// fill data_to_include with whatever you want to embed, or leave empty
 
-var appId = steam_get_app_id()
-show_debug_message("steam_get_app_ownership_ticket_data: " + string(steam_get_app_ownership_ticket_data(appId)))
+steam_user_request_encrypted_app_ticket(data_to_include, 1024, function(ev) {
+    show_debug_message($"RequestEncryptedAppTicket result= {ev.result}");
 
-// -- auth ticket for web api -- //
+    if (ev.result == SteamApiResult.Ok) {
+        var ticket_buf = buffer_create(2048, buffer_fixed, 1);
+        var bytes = steam_user_get_encrypted_app_ticket(ticket_buf, 2048);
+        show_debug_message("Encrypted ticket bytes= {bytes}");
+        buffer_delete(ticket_buf);
+    }
+});
 
-if (auth_ticket_buffer >= 0)
-{
-	buffer_delete(auth_ticket_buffer)
-	auth_ticket_buffer = -1
-}
+buffer_delete(data_to_include);
 
-if (auth_ticket_handle > 0)
-{
-	steam_user_cancel_auth_ticket(auth_ticket_handle)
-	auth_ticket_handle = 0
-}
 
-auth_ticket_buffer = steam_user_get_auth_session_ticket()
-// now wait for an async event...
+var result
+
+var app_ownership_ticket_data_buffer = buffer_create(4096, buffer_fixed, 1);
+result = steam_apps_get_app_ownership_ticket_data(steam_utils_get_app_id(), app_ownership_ticket_data_buffer, 4096);
+show_debug_message($"Result {result}");
+
+
+
+var buff_auth_session_ticket = buffer_create(1024,buffer_fixed,1)
+result = steam_user_get_auth_session_ticket(buff_auth_session_ticket,1024)
+show_debug_message($"Result {result}");
+

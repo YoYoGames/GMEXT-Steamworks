@@ -117,14 +117,6 @@
                 </li>
               </ul>
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="networking_messages.html">Networking Messages</a>
-                </li>
-              </ul>
-              <ul>
-                <li class="toctree-l1"><a class="reference internal" href="networking_sockets.html">Networking Sockets</a>
-                </li>
-              </ul>
-              <ul>
                 <li class="toctree-l1"><a class="reference internal" href="utilities.html">Utilities</a>
                 </li>
               </ul>
@@ -186,8 +178,8 @@
 <p>This module includes a set of predefined constants that can be utilized for various purposes. Browse through the available constants to find values relevant to your needs and enhance the efficiency of your code.</p>
 <ul>
 <li><a href="social.html#avatarsize">AvatarSize</a></li>
-<li><a href="social.html#steam_friends_flags">steam_friends_flags</a></li>
-<li><a href="social.html#steam_persona_state">steam_persona_state</a></li>
+<li><a href="social.html#steamworks_friends_flags">STEAMWORKS_FRIENDS_FLAGS</a></li>
+<li><a href="social.html#steamworks_persona_state">STEAMWORKS_PERSONA_STATE</a></li>
 </ul>
 <p><br></p>
 <hr />
@@ -314,7 +306,7 @@ This code will add the specified user ID to the "recently played with" list, of 
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<pre class="highlight"><code class="language-gml">steam_get_friends(flags=steam_friends_flags_immediate)</code></pre>
+<pre class="highlight"><code class="language-gml">steam_get_friends(flags=STEAMWORKS_FRIENDS_FLAGS.IMMEDIATE)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -327,8 +319,8 @@ This code will add the specified user ID to the "recently played with" list, of 
 <tbody>
 <tr>
 <td>flags</td>
-<td><a href="social.html#steam_friends_flags">steam_friends_flags</a></td>
-<td>A combination of friend flags (defaults to <code>steam_friends_flags_immediate</code>)</td>
+<td><a href="social.html#steamworks_friends_flags">STEAMWORKS_FRIENDS_FLAGS</a></td>
+<td>A combination of friend flags (defaults to <code>STEAMWORKS_FRIENDS_FLAGS.IMMEDIATE</code>)</td>
 </tr>
 </tbody>
 </table>
@@ -996,15 +988,11 @@ The extended code example above shows how to properly request, wait for and iter
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_friends_flags">steam_friends_flags</h1>
+<h1 id="steamworks_friends_flags">STEAMWORKS_FRIENDS_FLAGS</h1>
 <blockquote>
 <p><strong>Steamworks Enum</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamFriends#EFriendFlags">EFriendFlags</a></p>
 </blockquote>
-<p>This set of constants represent the different flags for enumerating the friends list, or quickly checking the relationship between users.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Alternatively, you can use the <code>STEAMWORKS_FRIENDS_FLAGS</code> enum.</p>
-</div>
+<p>This enum contains the different flags for enumerating the friends list, or quickly checking the relationship between users.</p>
 <p>These constants are referenced by the following functions:</p>
 <ul>
 <li><a href="social.html#steam_get_friends">steam_get_friends</a></li>
@@ -1019,51 +1007,51 @@ The extended code example above shows how to properly request, wait for and iter
 </thead>
 <tbody>
 <tr>
-<td><code>steam_friends_flags_none</code></td>
+<td><code>NONE</code></td>
 <td>None.</td>
 </tr>
 <tr>
-<td><code>steam_friends_flags_blocked</code></td>
+<td><code>BLOCKED</code></td>
 <td>Users that the current user has blocked from contacting.</td>
 </tr>
 <tr>
-<td><code>steam_friends_flags_friendship_requested</code></td>
+<td><code>FRIENDSHIP_REQUESTED</code></td>
 <td>Users that have sent a friend invite to the current user.</td>
 </tr>
 <tr>
-<td><code>steam_friends_flags_immediate</code></td>
+<td><code>IMMEDIATE</code></td>
 <td>The current user's "regular" friends.</td>
 </tr>
 <tr>
-<td><code>steam_friends_flags_clan_member</code></td>
+<td><code>CLAN_MEMBER</code></td>
 <td>Users that are in one of the same (small) Steam groups as the current user.</td>
 </tr>
 <tr>
-<td><code>steam_friends_flags_on_game_server</code></td>
+<td><code>ON_GAME_SERVER</code></td>
 <td>Users that are on the same game server; as set by <a href="social.html#steam_user_set_played_with">steam_user_set_played_with</a>.</td>
 </tr>
 <tr>
-<td><code>steam_friends_flags_requesting_friendship</code></td>
+<td><code>REQUESTING_FRIENDSHIP</code></td>
 <td>Users that the current user has sent friend invites to.</td>
 </tr>
 <tr>
-<td><code>steam_friends_flags_requesting_info</code></td>
+<td><code>REQUESTING_INFO</code></td>
 <td>Users that are currently sending additional info about themselves after a call to RequestUserInformation.</td>
 </tr>
 <tr>
-<td><code>steam_friends_flags_ignored</code></td>
+<td><code>IGNORED</code></td>
 <td>Users that the current user has ignored from contacting them.</td>
 </tr>
 <tr>
-<td><code>steam_friends_flags_ignored_friend</code></td>
+<td><code>IGNORED_FRIEND</code></td>
 <td>Users that have ignored the current user; but the current user still knows about them.</td>
 </tr>
 <tr>
-<td><code>steam_friends_flags_chat_member</code></td>
+<td><code>CHAT_MEMBER</code></td>
 <td>Users in one of the same chats.</td>
 </tr>
 <tr>
-<td><code>steam_friends_flags_all</code></td>
+<td><code>ALL</code></td>
 <td>Returns all friend flags.</td>
 </tr>
 </tbody>
@@ -1072,15 +1060,11 @@ The extended code example above shows how to properly request, wait for and iter
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_persona_state">steam_persona_state</h1>
+<h1 id="steamworks_persona_state">STEAMWORKS_PERSONA_STATE</h1>
 <blockquote>
 <p><strong>Steamworks Enum</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamFriends#EPersonaState">EPersonaState</a></p>
 </blockquote>
-<p>This set of constants represents the list of states a Steam friend can be in.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Alternatively, you can use the <code>STEAMWORKS_PERSONA_STATE</code> enum.</p>
-</div>
+<p>This enum holds the list of states a Steam friend can be in.</p>
 <p>These constants are referenced by the following structs:</p>
 <ul>
 <li><a href="social.html#friendinfo">FriendInfo</a></li>
@@ -1095,35 +1079,35 @@ The extended code example above shows how to properly request, wait for and iter
 </thead>
 <tbody>
 <tr>
-<td><code>steam_persona_state_offline</code></td>
+<td><code>OFFLINE</code></td>
 <td>Friend is not currently logged on.</td>
 </tr>
 <tr>
-<td><code>steam_persona_state_online</code></td>
+<td><code>ONLINE</code></td>
 <td>Friend is logged on.</td>
 </tr>
 <tr>
-<td><code>steam_persona_state_busy</code></td>
+<td><code>BUSY</code></td>
 <td>Friend is logged on, but set to "Do not disturb."</td>
 </tr>
 <tr>
-<td><code>steam_persona_state_away</code></td>
+<td><code>AWAY</code></td>
 <td>Auto-away feature.</td>
 </tr>
 <tr>
-<td><code>steam_persona_state_snooze</code></td>
+<td><code>SNOOZE</code></td>
 <td>Auto-away for a long time.</td>
 </tr>
 <tr>
-<td><code>steam_persona_state_looking_to_trade</code></td>
+<td><code>LOOKING_TO_TRADE</code></td>
 <td>Online, trading.</td>
 </tr>
 <tr>
-<td><code>steam_persona_state_looking_to_play</code></td>
+<td><code>LOOKING_TO_PLAY</code></td>
 <td>Online, wanting to play.</td>
 </tr>
 <tr>
-<td><code>steam_persona_state_invisible</code></td>
+<td><code>INVISIBLE</code></td>
 <td>The total number of states. Only used for looping and validation.</td>
 </tr>
 </tbody>
@@ -1160,7 +1144,7 @@ The extended code example above shows how to properly request, wait for and iter
 </tr>
 <tr>
 <td>state</td>
-<td><a href="social.html#steam_persona_state">steam_persona_state</a></td>
+<td><a href="social.html#steamworks_persona_state">STEAMWORKS_PERSONA_STATE</a></td>
 <td>The friend's state</td>
 </tr>
 </tbody>
@@ -1219,7 +1203,7 @@ The extended code example above shows how to properly request, wait for and iter
 
   <div role="contentinfo">
     <!-- Copyright etc -->
-      <p><p align="center">GameMaker 2026</p></p>
+      <p><p align="center">GameMaker 2025</p></p>
   </div>
 
   Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.

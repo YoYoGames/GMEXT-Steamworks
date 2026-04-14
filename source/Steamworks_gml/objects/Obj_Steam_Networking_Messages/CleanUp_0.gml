@@ -1,7 +1,8 @@
 
-with(Obj_Steam_Networking_Friend)
+with(obj_steam_friends_friend_select)
 {
-	steam_net_messages_close_session(steam_id)
+	steam_networking_messages_close_session_with_user(steam_id)
 }
 
-steam_net_messages_unregister_callbacks()
+steam_networking_messages_clear_callback_session_request()
+steam_networking_messages_clear_callback_session_failed()
