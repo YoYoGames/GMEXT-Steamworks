@@ -743,7 +743,7 @@
         "Auto",
         "Enabled",
       ],"name":"debug","optType":6,"resourceType":"GMExtensionOption","resourceVersion":"2.0",},
-    {"$GMExtensionOption":"","%Name":"steamInput","defaultValue":"Manual","description":"Manual - you must call steam_input_init() from GML;\nAuto - auto-initializes Steam Input on startup to prevent gamepad-related crashes (may affect native gamepad_ functions);","displayName":"Steam Input","exportToINI":true,"extensionId":null,"guid":"bb29a960-d7e1-4a62-9cc5-5a2052e6d2e0","hidden":false,"listItems":[
+    {"$GMExtensionOption":"","%Name":"steamInput","defaultValue":"Auto","description":"Manual - you must call steam_input_init() from GML;\nAuto - auto-initializes Steam Input on startup to prevent gamepad-related crashes (may affect native gamepad_ functions);","displayName":"Steam Input","exportToINI":true,"extensionId":null,"guid":"bb29a960-d7e1-4a62-9cc5-5a2052e6d2e0","hidden":false,"listItems":[
         "Manual",
         "Auto",
       ],"name":"steamInput","optType":6,"resourceType":"GMExtensionOption","resourceVersion":"2.0",},

@@ -159,6 +159,8 @@ void CGMSteamInputCallbacks::on_steam_input_gamepad_slot_change(SteamInputGamepa
 // otherwise weird things may happen
 CGMSteamInputCallbacks* g_pGMSteamInputCallbacks = nullptr;
 bool steam_input_auto_initialized = false;
+static bool steam_input_is_init = false;
+static bool steam_input_init_warned = false;
 
 void Steam_Input_Init()
 {
@@ -174,15 +176,11 @@ void Steam_Input_Init()
 		DebugConsoleOutput("[STEAMWORKS] Steam Input callbacks CONFIGURED (auto-init)\n");
 	}
 
-	if (SteamInput()->Init(false))
-	{
-		steam_input_auto_initialized = true;
-		DebugConsoleOutput("[STEAMWORKS] Steam Input auto-initialized successfully.\n");
-	}
-	else
-	{
-		DebugConsoleOutput("[STEAMWORKS] Steam Input auto-initialization failed.\n");
-	}
+	SteamInput()->Init(false);
+	steam_input_auto_initialized = true;
+	steam_input_is_init = true;
+	steam_input_init_warned = false;
+	DebugConsoleOutput("[STEAMWORKS] Steam Input auto-initialized.\n");
 }
 
 void Steam_Input_Cleanup()
@@ -193,9 +191,6 @@ void Steam_Input_Cleanup()
 		g_pGMSteamInputCallbacks = nullptr;
 	}
 }
-
-static bool steam_input_is_init = false;
-static bool steam_input_init_warned = false;
 
 //// helpers:
 #define API SteamInput()
@@ -230,8 +225,6 @@ YYEXPORT void steam_input_init(RValue& Result, CInstance* selfinst, CInstance* o
 
 	if (!g_pGMSteamInputCallbacks)
 	{
-		// subscribe to Steam Input callbacks
-		// before initializing Steam Input, but only if the interface is not null.
 		g_pGMSteamInputCallbacks = new CGMSteamInputCallbacks();
 		DebugConsoleOutput("Steam Input callbacks CONFIGURED \n ");
 	}

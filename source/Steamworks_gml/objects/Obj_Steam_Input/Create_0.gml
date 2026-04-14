@@ -1,7 +1,7 @@
 /// @description Initialize Steam Input
 
 // Feather disable GM2017
-steam_input_init(false);
+//steam_input_init(false);//if your select Steam Input "Manual",Extension Options
 steam_input_enable_device_callbacks();
 steam_utils_enable_callbacks();
 controllers = [];
