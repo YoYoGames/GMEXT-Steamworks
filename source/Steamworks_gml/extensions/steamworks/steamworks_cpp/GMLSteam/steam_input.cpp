@@ -159,6 +159,9 @@ void CGMSteamInputCallbacks::on_steam_input_gamepad_slot_change(SteamInputGamepa
 // otherwise weird things may happen
 CGMSteamInputCallbacks* g_pGMSteamInputCallbacks = nullptr;
 
+static bool steam_input_is_init = false;
+static bool steam_input_init_warned = false;
+
 //// helpers:
 #define API SteamInput()
 #define steam_input_ensure_argc(_ExpectedArgumentCount) \
@@ -193,6 +196,8 @@ YYEXPORT void steam_input_init(RValue& Result, CInstance* selfinst, CInstance* o
 	}
 
 	Result.val = API->Init(expCallRunFrame);
+	steam_input_is_init = true;
+	steam_input_init_warned = false;
 }
 
 /// ()->bool
@@ -206,6 +211,8 @@ YYEXPORT void steam_input_shutdown(RValue& Result, CInstance* selfinst, CInstanc
 	}
 
 	Result.val = API->Shutdown();
+	steam_input_is_init = false;
+	steam_input_init_warned = false;
 }
 
 /// (absolute_path:string)->bool
@@ -230,6 +237,12 @@ YYEXPORT void steam_input_run_frame(RValue& Result, CInstance* selfinst, CInstan
 {
 	Result.kind = VALUE_BOOL;
 	if (!steam_is_initialised || !API)
+	{
+		Result.val = 0.0;
+		return;
+	}
+
+	if (!steam_input_is_init)
 	{
 		Result.val = 0.0;
 		return;
@@ -283,6 +296,17 @@ YYEXPORT void steam_input_get_connected_controllers(RValue& Result, CInstance* s
 		return;
 	}
 
+	if (!steam_input_is_init)
+	{
+		if (!steam_input_init_warned)
+		{
+			DebugConsoleOutput("steam_input_get_connected_controllers: steam_input_init() must be called before using Steam Input functions\n");
+			steam_input_init_warned = true;
+		}
+		YYCreateArray(&Result);
+		return;
+	}
+
 	int wrote = API->GetConnectedControllers(handles);
 	YYCreateArray(&Result);
 	for (int i = 0; i < wrote; ++i)
@@ -312,6 +336,13 @@ YYEXPORT void steam_input_enable_device_callbacks(RValue& Result, CInstance* sel
 		return;
 	}
 
+	if (!steam_input_is_init)
+	{
+		DebugConsoleOutput("steam_input_enable_device_callbacks: steam_input_init() must be called before using Steam Input functions\n");
+		Result.val = 0.0;
+		return;
+	}
+
 	Result.val = 1.0;
 	API->EnableDeviceCallbacks();
 }
@@ -324,6 +355,13 @@ YYEXPORT void steam_input_enable_action_event_callbacks(RValue& Result, CInstanc
 	Result.kind = VALUE_BOOL;
 	if (!steam_is_initialised || !API)
 	{
+		Result.val = 0.0;
+		return;
+	}
+
+	if (!steam_input_is_init)
+	{
+		DebugConsoleOutput("steam_input_enable_action_event_callbacks: steam_input_init() must be called before using Steam Input functions\n");
 		Result.val = 0.0;
 		return;
 	}
