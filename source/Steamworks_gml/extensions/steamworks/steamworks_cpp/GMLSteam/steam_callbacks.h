@@ -32,5 +32,14 @@ public:
 
 	void item_deleted(DeleteItemResult_t* r, bool failed);
 	void encrypted_app_ticket_response_received(EncryptedAppTicketResponse_t* pEncryptedAppTicketResponse, bool bIOFailure);
+
+	// Parties (ISteamParties)
+	STEAM_CALLBACK(steam_net_callbacks_t, parties_reservation_notification,          ReservationNotificationCallback_t);
+	STEAM_CALLBACK(steam_net_callbacks_t, parties_available_beacon_locations_updated, AvailableBeaconLocationsUpdated_t);
+	STEAM_CALLBACK(steam_net_callbacks_t, parties_active_beacons_updated,            ActiveBeaconsUpdated_t);
+
+	void parties_create_beacon(CreateBeaconCallback_t* e, bool failed);
+	void parties_change_num_open_slots(ChangeNumOpenSlotsCallback_t* e, bool failed);
+	void parties_join_party(JoinPartyCallback_t* e, bool failed);
 };
 extern steam_net_callbacks_t steam_net_callbacks;
