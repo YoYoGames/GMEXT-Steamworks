@@ -271,18 +271,25 @@ void steam_net_callbacks_t::validate_auth_ticket_response(ValidateAuthTicketResp
     r.dispatch();
 }
 
-YYEXPORT void steam_user_begin_auth_session(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)
+YYEXPORT void steam_user_begin_auth_session(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)//(buffer_id, ticket_size, steam_id)
 {
     Result.kind = VALUE_REAL;
-    Result.val = -1.0;
+    Result.val  = -1.0;
 
-    if (!steam_is_initialised) return;
+    if (!steam_is_initialised || !SteamUser()) return;
 
-    int32 bufferId = YYGetInt32(arg, 0);
-    int64 steamId = YYGetInt64(arg, 1);
+    int32 bufferId   = YYGetInt32(arg, 0);
+    int32 ticketSize = YYGetInt32(arg, 1);
+    int64 steamId    = YYGetInt64(arg, 2);
+
+    if (ticketSize <= 0)
+    {
+        DebugConsoleOutput("steam_user_begin_auth_session() - error: ticket_size must be > 0\n");
+        return;
+    }
 
     void* buffer_data = nullptr;
-    int buffer_size = 0;
+    int   buffer_size = 0;
 
     if (bufferId < 0 || !BufferGetContent(bufferId, &buffer_data, &buffer_size))
     {
@@ -290,18 +297,28 @@ YYEXPORT void steam_user_begin_auth_session(RValue& Result, CInstance* selfinst,
         return;
     }
 
+    if (ticketSize > buffer_size)
+    {
+        DebugConsoleOutput("steam_user_begin_auth_session() - error: ticket_size %d exceeds buffer size %d\n", ticketSize, buffer_size);
+        YYFree(buffer_data);
+        return;
+    }
+
     CSteamID target;
     target.SetFromUint64((uint64)steamId);
 
-    EBeginAuthSessionResult result = SteamUser()->BeginAuthSession(buffer_data, buffer_size, target);
+    EBeginAuthSessionResult result = SteamUser()->BeginAuthSession(buffer_data, ticketSize, target);
     YYFree(buffer_data);
 
     Result.val = (double)result;
 }
 
-YYEXPORT void steam_user_end_auth_session(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)
+YYEXPORT void steam_user_end_auth_session(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)//(steam_id)
 {
-    if (!steam_is_initialised) return;
+    Result.kind = VALUE_BOOL;
+    Result.val  = false;
+
+    if (!steam_is_initialised || !SteamUser()) return;
 
     int64 steamId = YYGetInt64(arg, 0);
 
@@ -309,6 +326,7 @@ YYEXPORT void steam_user_end_auth_session(RValue& Result, CInstance* selfinst, C
     target.SetFromUint64((uint64)steamId);
 
     SteamUser()->EndAuthSession(target);
+    Result.val = true;
 }
 
 #pragma endregion
