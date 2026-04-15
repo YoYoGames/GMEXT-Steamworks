@@ -276,10 +276,11 @@ YYEXPORT void steam_net_messages_receive_on_channel(
     if (BufferWriteContent(bufferIndex, 0, pMsg->m_pData, (int)toCopy, true) != toCopy)
     {
         DebugConsoleOutput("steam_net_messages_receive_on_channel() - error: could not write to buffer\n");
+        pMsg->Release();
         Result.kind = VALUE_REAL;
         Result.val = -1;
+        return;
     }
-
 
     g_lastMsgIdentity = pMsg->m_identityPeer;
     g_lastMsgSize = pMsg->m_cbSize;
