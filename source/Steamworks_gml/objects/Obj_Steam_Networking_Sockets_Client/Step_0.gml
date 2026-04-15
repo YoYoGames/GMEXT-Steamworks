@@ -6,14 +6,15 @@ if(net_connection > 0)
     while(true)
     {
         buffer_seek(net_buffer, buffer_seek_start, 0);
-        var bytes_read = steam_net_sockets_recv_messages_on_connection(
+        var struct = steam_net_sockets_recv_messages_on_connection(
 	            net_connection,
 	            net_buffer,
 	            1024//NET_BUFFER_SIZE
 	        );
-
-        if (bytes_read <= 0)
-			break;
+		
+		if(!struct.ok) break
+		
+        if(struct.bytes_written <= 0)break;
 
         buffer_seek(net_buffer, buffer_seek_start, 0);
 

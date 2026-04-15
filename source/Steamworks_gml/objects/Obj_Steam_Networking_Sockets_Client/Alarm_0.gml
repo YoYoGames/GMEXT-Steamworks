@@ -12,7 +12,7 @@ var res = steam_net_sockets_send_message(
     net_connection,
     b,
     buffer_tell(b),
-    NET_SEND_RELIABLE
+    STEAMWORKS_NET_SEND_FLAG.RELIABLE
 );
 		
 buffer_delete(b);

@@ -15,17 +15,17 @@ show_debug_message("SteamNet: conn=" + string(conn)
     + " debug=" + string(debug_str));
 
 
-if(state == NET_STATE_CONNECTING)
+if(state == STEAMWORKS_NET_CONNECTION_STATE.CONNECTING)
 {
 	steam_net_sockets_accept_connection(conn)
 }
 else
-if (state == NET_STATE_CONNECTED)
+if (state == STEAMWORKS_NET_CONNECTION_STATE.CONNECTED)
 {
     net_connection = conn;
     show_debug_message("SteamNet: CONNECTED on conn " + string(conn));
 }
-else if (state == NET_STATE_CLOSED_BY_PEER || state == NET_STATE_PROBLEM_LOCAL)
+else if (state == STEAMWORKS_NET_CONNECTION_STATE.CLOSED_BY_PEER || state == STEAMWORKS_NET_CONNECTION_STATE.PROBLEM_LOCAL)
 {
     show_debug_message("SteamNet: connection closed / problem on " + string(conn));
     if (net_connection == conn)

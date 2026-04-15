@@ -188,7 +188,7 @@ YYEXPORT void steam_net_sockets_close_listen_socket(
     ISteamNetworkingSockets* p = SteamNetworkingSockets();
     if (!p) { Result.kind = VALUE_REAL; Result.val = 0.0; return; }
 
-    HSteamListenSocket hListen = (HSteamListenSocket)(int)YYGetReal(args, 0);
+    HSteamListenSocket hListen = (HSteamListenSocket)YYGetReal(args, 0);
     bool ok = p->CloseListenSocket(hListen);
 
     Result.kind = VALUE_REAL;
@@ -199,50 +199,34 @@ YYEXPORT void steam_net_sockets_create_socket_pair(
     RValue& Result, CInstance* self, CInstance* other, int argc, RValue* args)
 {
     YYCreateArray(&Result);
-
+    
     ISteamNetworkingSockets* p = SteamNetworkingSockets();
-    if (!p)
-    {
-        return;
-    }
+    if (!p) return;
 
-    bool useLoopback = (YYGetReal(args, 0) != 0.0);
-
-    SteamNetworkingIdentity id1{}, id2{};
-    id1.Clear();
-    id2.Clear();
+    bool useLoopback = YYGetBool(args, 0);
 
     HSteamNetConnection conn1 = k_HSteamNetConnection_Invalid;
     HSteamNetConnection conn2 = k_HSteamNetConnection_Invalid;
 
-    bool ok = p->CreateSocketPair(&conn1, &conn2, useLoopback, &id1, &id2);
-    if (!ok)
-    {
-        return;
-    }
-    
-    char idBuf1[128] = { 0 };
-    char idBuf2[128] = { 0 };
-    id1.ToString(idBuf1, sizeof(idBuf1));
-    id2.ToString(idBuf2, sizeof(idBuf2));
-    
+    // Pass nullptr so Steam auto-assigns identities; non-null Invalid-typed
+    // identity structs cause undefined behavior in the SDK.
+    bool ok = p->CreateSocketPair(&conn1, &conn2, useLoopback, nullptr, nullptr);
+    if (!ok) return;
+
     RValue a = {0};
     YYStructCreate(&a);
-    YYStructAddDouble(&a, "connection", conn1);
-    YYStructAddString(&a, "identity", idBuf1);
+    YYStructAddDouble(&a, "connection", (double)conn1);
     YYStructAddBool(&a, "loopback", useLoopback);
     SET_RValue(&Result, &a, nullptr, 0);
+    // Do NOT YYFree(&a) — SET_RValue transfers ownership of the struct data
+    // into the array slot. Freeing here would double-free the runtime data.
 
-    
     RValue b = {0};
     YYStructCreate(&b);
-    YYStructAddDouble(&b, "connection", conn2);
-    YYStructAddString(&b, "identity", idBuf2);
+    YYStructAddDouble(&b, "connection", (double)conn2);
     YYStructAddBool(&b, "loopback", useLoopback);
     SET_RValue(&Result, &b, nullptr, 1);
-
-    YYFree(&a);
-    YYFree(&b);
+    // Do NOT YYFree(&b) — same reason as above.
 }
 
 YYEXPORT void steam_net_sockets_send_message(
@@ -485,78 +469,45 @@ YYEXPORT void steam_net_sockets_flush_messages_on_connection(
 YYEXPORT void steam_net_sockets_recv_messages_on_connection(
     RValue& Result, CInstance* self, CInstance* other, int argc, RValue* args)
 {
-    YYCreateArray(&Result);
+    bool   ok            = false;
+    double conn_out      = 0.0;
+    int    bytes_written = 0;
+    int    flags         = 0;
+
+    HSteamNetConnection hConn       = (HSteamNetConnection)YYGetReal(args, 0);
+    int                 bufferIndex = (int)YYGetReal(args, 1);
+    int                 maxBytes    = (argc > 2) ? (int)YYGetReal(args, 2) : 0;
+    int                 offset      = (argc > 3) ? (int)YYGetReal(args, 3) : 0;
+
+    conn_out = (double)hConn;
 
     ISteamNetworkingSockets* p = SteamNetworkingSockets();
-    if (!p) return;
-
-    HSteamNetConnection hConn = (HSteamNetConnection)YYGetReal(args, 0);
-    int bufferIndex = (int)YYGetReal(args, 1);
-
-    int maxMessages = (argc > 2) ? (int)YYGetReal(args, 2) : 32;
-    if (maxMessages <= 0) maxMessages = 32;
-    if (maxMessages > 256) maxMessages = 256; // sanity cap
-
-    int maxBytesTotal = (argc > 3) ? (int)YYGetReal(args, 3) : 0; // 0 => no cap
-
-    if (!BufferGetFromGML(bufferIndex))
-        return;
-
-    std::vector<SteamNetworkingMessage_t*> msgs((size_t)maxMessages, nullptr);
-
-    int num = p->ReceiveMessagesOnConnection(hConn, msgs.data(), maxMessages);
-    if (num <= 0)
-        return;
-
-    int writeOffset = 0;
-    int totalWritten = 0;
-
-    for (int i = 0; i < num; ++i)
+    if (p && maxBytes > 0 && BufferGetFromGML(bufferIndex))
     {
-        SteamNetworkingMessage_t* msg = msgs[i];
-        if (!msg) continue;
-
-        int cb = msg->m_cbSize;
-        if (cb < 0) cb = 0;
-
-        // Optional cap on total bytes packed this call
-        if (maxBytesTotal > 0 && totalWritten >= maxBytesTotal)
+        SteamNetworkingMessage_t* msg = nullptr;
+        int n = p->ReceiveMessagesOnConnection(hConn, &msg, 1);
+        if (n > 0 && msg)
         {
+            int cb      = msg->m_cbSize;
+            if (cb < 0) cb = 0;
+            int toWrite = (cb < maxBytes) ? cb : maxBytes;
+
+            int written = BufferWriteContent(bufferIndex, offset, msg->m_pData, toWrite, false);
+            if (written == toWrite)
+            {
+                ok            = true;
+                bytes_written = toWrite;
+                flags         = (int)msg->m_nFlags;
+            }
             msg->Release();
-            continue;
         }
-
-        int toWrite = cb;
-        if (maxBytesTotal > 0)
-        {
-            int remaining = maxBytesTotal - totalWritten;
-            if (toWrite > remaining) toWrite = remaining;
-        }
-
-        // Write message bytes into buffer at current offset; allow resize
-        int written = BufferWriteContent(bufferIndex, writeOffset, msg->m_pData, toWrite, true);
-        if (written != toWrite)
-        {
-            // If write fails, stop packing further
-            msg->Release();
-            break;
-        }
-
-        // Create per-message metadata struct
-        RValue entry = { 0 };
-        YYStructCreate(&entry);
-        YYStructAddInt(&entry, "offset", writeOffset);
-        YYStructAddInt(&entry, "size", toWrite);
-        YYStructAddBool(&entry, "truncated", toWrite != cb);
-
-        SET_RValue(&Result, &entry, nullptr, i);
-        YYFree(&entry);
-
-        writeOffset += toWrite;
-        totalWritten += toWrite;
-
-        msg->Release();
     }
+
+    YYStructCreate(&Result);
+    YYStructAddBool(&Result, "ok", ok);
+    YYStructAddDouble(&Result, "conn", conn_out);
+    YYStructAddInt(&Result, "bytes_written", bytes_written);
+    YYStructAddInt(&Result, "flags", flags);
 }
 
 YYEXPORT void steam_net_sockets_create_poll_group(
@@ -577,7 +528,7 @@ YYEXPORT void steam_net_sockets_destroy_poll_group(
     ISteamNetworkingSockets* p = SteamNetworkingSockets();
     if (!p) { Result.kind = VALUE_REAL; Result.val = 0.0; return; }
 
-    HSteamNetPollGroup hGroup = (HSteamNetPollGroup)(int)YYGetReal(args, 0);
+    HSteamNetPollGroup hGroup = (HSteamNetPollGroup)YYGetReal(args, 0);
     bool ok = p->DestroyPollGroup(hGroup);
 
     Result.kind = VALUE_REAL;
@@ -607,7 +558,7 @@ YYEXPORT void steam_net_sockets_recv_messages_on_poll_group(
     ISteamNetworkingSockets* p = SteamNetworkingSockets();
     if (!p) return;
 
-    HSteamNetPollGroup hGroup = (HSteamNetPollGroup)(int)YYGetReal(args, 0);
+    HSteamNetPollGroup hGroup = (HSteamNetPollGroup)YYGetReal(args, 0);
     int bufferIndex = (int)YYGetReal(args, 1);
 
     int maxMessages = (argc > 2) ? (int)YYGetReal(args, 2) : 32;
@@ -964,7 +915,7 @@ YYEXPORT void steam_net_sockets_get_listen_socket_address(
         return;
     }
 
-    HSteamListenSocket hListen = (HSteamListenSocket)(int)YYGetReal(args, 0);
+    HSteamListenSocket hListen = (HSteamListenSocket)YYGetReal(args, 0);
 
     SteamNetworkingIPAddr addr;
     if (!p->GetListenSocketAddress(hListen, &addr))
