@@ -8,8 +8,6 @@ shift & goto :%~1
     set "LOG_LEVEL=-1"
     set PSMODULEPATH=
 
-    call :assertPowerShellExecutionPolicy
-
     :: Get extension data
     call :pathExtractBase %SCRIPT_PATH% EXTENSION_NAME
     call :extensionGetVersion EXTENSION_VERSION
@@ -25,19 +23,6 @@ shift & goto :%~1
         call :log "INIT" "Script initialization failed (v%EXTENSION_VERSION% :: %LOG_LEVEL%)."
     ) else (
         call :log "INIT" "Script initialization succeeded (v%EXTENSION_VERSION% :: %LOG_LEVEL%)."
-    )
-exit /b 0
-
-:assertPowerShellExecutionPolicy
-    :: Check the execution policy of the powershell
-    for /f "delims=" %%i in ('powershell -NoLogo -NoProfile -Command "Get-ExecutionPolicy"') do set ExecutionPolicy=%%i
-
-    :: If the execution policy is set to 'Restricted' echo the appropriate message.
-    IF "%ExecutionPolicy%"=="Restricted" (
-        echo The execution of our extensions requires changing the PowerShell Execution Policy.
-        echo To do so, please run the following command in your PowerShell terminal:
-        echo     Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
-        exit 1
     )
 exit /b 0
 
@@ -220,6 +205,23 @@ exit /b 0
     )
 
     call :logInformation "Deleted '%target%'."
+exit /b 0
+
+:: Clears the contents of a folder, creating it first if it doesn't exist (displays log messages)
+:itemClearDir targetPath
+
+    set "PS_TARGET=%~1"
+
+    powershell -NoLogo -NoProfile -Command "New-Item -ItemType Directory -Path $env:PS_TARGET -Force | Out-Null; Get-ChildItem -LiteralPath $env:PS_TARGET -Force | Remove-Item -Recurse -Force"
+
+    set "PS_TARGET="
+
+    if %errorlevel% neq 0 (
+        call :logError "Failed to clear directory '%~1'."
+        exit /b 1
+    )
+
+    call :logInformation "Cleared contents of directory '%~1'."
 exit /b 0
 
 :: Generates the SHA256 hash of a file and stores it into a variable (displays log messages)

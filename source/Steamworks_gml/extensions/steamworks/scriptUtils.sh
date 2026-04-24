@@ -214,6 +214,22 @@ itemDelete() {
     return 0
 }
 
+# Clears the contents of a folder, creating it first if it doesn't exist
+# Usage: itemClearDir targetPath
+itemClearDir() {
+    local target="$1"
+
+    mkdir -p "$target"
+    find "$target" -mindepth 1 -delete
+
+    if [ $? -ne 0 ]; then
+        logError "Failed to clear directory '$target'."
+        exit 1
+    fi
+
+    logInformation "Cleared contents of directory '$target'."
+}
+
 # Generates the SHA256 hash of a file and stores it into a variable
 # Usage: fileGetHash filepath result
 fileGetHash() {
