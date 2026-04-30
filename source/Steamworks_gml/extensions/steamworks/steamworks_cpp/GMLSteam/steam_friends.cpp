@@ -55,6 +55,12 @@ protected:
 			m_bOverlayActivated = false;
 			DebugConsoleOutput("[SINGLETON] Steam overlay now inactive\n");
 		}
+		int map = CreateDsMap(0, 0);
+
+		DsMapAddString(map, "event_type", "overlay_changed");
+		DsMapAddBool(map, "active", m_bOverlayActivated);
+
+		CreateAsyncEventWithDSMap(map, EVENT_OTHER_WEB_STEAM);
 	}
 
 	void OnFriendRichPresenceUpdate(FriendRichPresenceUpdate_t* callback)
