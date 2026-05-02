@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(Get-ChildItem -Path \"D:\\\\Github\\\\GMEXT-Steamworks\\\\source\\\\Steamworks_gml\\\\extensions\\\\steamworks\\\\steamworks_cpp\\\\GMLSteam\" -Recurse -File)",
+      "Bash(Select-Object -Property FullName, Extension)",
+      "Bash(Sort-Object Extension)",
+      "Bash(Format-Table -AutoSize)",
+      "Read(//d/Github/GMS2-Runner-Main/VC_Runner/Files/Platform/Win32/**)",
+      "Read(//d/Github/GMS2-Runner-Main/VC_Runner/**)"
+    ]
+  }
+}

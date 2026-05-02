@@ -5,6 +5,7 @@
 #include "YYRValue.h"
 #include "steam_common.h"
 
+
 //#include "Files/IO/LoadSave.h"
 //#include "Files/Support/Support_Data_Structures.h"
 
@@ -33,6 +34,24 @@ static const char* s_pszOverlayNames[] =
 
 static void SendPersonaNameAsyncEvent( int _asyncId, uint64 _steamId, const char* pszPersonaName );
 
+#ifdef OS_Windows
+static void BringWindowToFront()
+{
+	HWND hWnd = FindWindowW(L"YYGameMakerYY", NULL);
+	if (hWnd == NULL) return;
+	SetTimer(hWnd, (UINT_PTR)0x53544D57, 100, [](HWND hwnd, UINT, UINT_PTR id, DWORD) {
+		KillTimer(hwnd, id);
+		ReleaseCapture();
+		ShowWindow(hwnd, SW_SHOWDEFAULT);
+		BringWindowToTop(hwnd);
+		SetForegroundWindow(hwnd);
+		SetWindowPos(hwnd, HWND_NOTOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE);
+		SetWindowPos(hwnd, HWND_TOPMOST,   0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE);
+		SetWindowPos(hwnd, HWND_NOTOPMOST, 0, 0, 0, 0, SWP_SHOWWINDOW | SWP_NOMOVE | SWP_NOSIZE);
+	});
+}
+#endif
+
 class Singleton
 {
 protected:
@@ -54,6 +73,9 @@ protected:
 		else {
 			m_bOverlayActivated = false;
 			DebugConsoleOutput("[SINGLETON] Steam overlay now inactive\n");
+#ifdef OS_Windows
+			BringWindowToFront();
+#endif
 		}
 		int map = CreateDsMap(0, 0);
 
