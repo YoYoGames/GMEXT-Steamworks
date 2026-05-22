@@ -4,6 +4,186 @@
 // # Macros
 // #####################################################################
 
+#macro SteamApiBreakpadInvalidHandle 0
+
+#macro SteamApiGameExtraInfoMax 64
+
+#macro SteamApiSaltSize 8
+
+#macro SteamApiGidNil -1
+
+#macro SteamApiAuthTicketInvalid 0
+
+#macro SteamApiJobIdNil -1
+
+#macro SteamApiTxnIdNil -1
+
+#macro SteamApiTxnIdUnknown 0
+
+#macro SteamApiApiCallInvalid 0x0
+
+#macro SteamApiAppIdInvalid 0x0
+
+#macro SteamApiBundleIdInvalid 0
+
+#macro SteamApiCellIdInvalid 0xFFFFFFFF
+
+#macro SteamApiDepotIdInvalid 0x0
+
+#macro SteamApiAssetClassIdInvalid 0x0
+
+#macro SteamApiManifestIdInvalid 0
+
+#macro SteamApiSteamAccountIdMask 0xFFFFFFFF
+
+#macro SteamApiSteamAccountInstanceMask 0x000FFFFF
+
+#macro SteamApiSteamUserConsoleInstance 2
+
+#macro SteamApiSteamUserDesktopInstance 1
+
+#macro SteamApiSteamUserWebInstance 4
+
+#macro SteamApiPackageIdFreeSub 0x0
+
+#macro SteamApiPackageIdInvalid 0xFFFFFFFF
+
+#macro SteamApiPartnerIdInvalid 0
+
+#macro SteamApiPhysicalItemIdInvalid 0x0
+
+#macro SteamApiQueryPortError 0xFFFE
+
+#macro SteamApiQueryPortNotInitialized 0xFFFF
+
+#macro SteamFriendsMaxFriendsGroupName 64
+
+#macro SteamFriendsMaxRichPresenceKeyLength 64
+
+#macro SteamFriendsMaxRichPresenceKeys 20
+
+#macro SteamFriendsMaxRichPresenceValueLength 256
+
+#macro SteamFriendsPersonaNameMax 128
+
+#macro SteamFriendsEnumerateFollowersMax 50
+
+#macro SteamFriendsFriendsGroupLimit 100
+
+#macro SteamFriendsChatMetadataMax 8192
+
+#macro SteamFriendsPersonaNameMaxUtf16 32
+
+#macro SteamFriendsGroupIdInvalid -1
+
+#macro SteamFriendsInterfaceVersion "SteamFriends015"
+
+#macro SteamAppsAppProofOfPurchaseKeyMax 240
+
+#macro SteamAppsInterfaceVersion "STEAMAPPS_INTERFACE_VERSION008"
+
+#macro SteamScreenshotsInvalidScreenshotHandle 0
+
+#macro SteamScreenshotsUfsTagTypeMax 255
+
+#macro SteamScreenshotsUfsTagValueMax 255
+
+#macro SteamScreenshotsMaxTaggedPublishedFiles 32
+
+#macro SteamScreenshotsMaxTaggedUsers 32
+
+#macro SteamScreenshotsThumbWidth 200
+
+#macro SteamScreenshotsInterfaceVersion "STEAMSCREENSHOTS_INTERFACE_VERSION003"
+
+#macro SteamUserInterfaceVersion "SteamUser019"
+
+#macro SteamUserEncryptedAppTicketSymmetricKeyLen 32
+
+#macro SteamUtilsInterfaceVersion "SteamUtils009"
+
+#macro SteamUgcNumResultsPerPage 50
+
+#macro SteamUgcDeveloperMetadataMax 5000
+
+#macro SteamUgcQueryHandleInvalid -1
+
+#macro SteamUgcUpdateHandleInvalid -1
+
+#macro SteamUgcInterfaceVersion "STEAMUGC_INTERFACE_VERSION015"
+
+#macro SteamInputInterfaceVersion "SteamInput001"
+
+#macro SteamInputHandleAllControllers -1
+
+#macro SteamInputMaxAnalogActions 16
+
+#macro SteamInputMaxAnalogActionData 1.0
+
+#macro SteamInputMaxCount 16
+
+#macro SteamInputMaxDigitalActions 128
+
+#macro SteamInputMaxOrigins 8
+
+#macro SteamInputMinAnalogActionData -1.0
+
+#macro SteamUserStatsLeaderboardNameMax 128
+
+#macro SteamUserStatsStatNameMax 128
+
+#macro SteamUserStatsLeaderboardDetailsMax 64
+
+#macro SteamUserStatsInterfaceVersion "STEAMUSERSTATS_INTERFACE_VERSION011"
+
+#macro SteamMusicInterfaceVersion "STEAMMUSIC_INTERFACE_VERSION001"
+
+#macro SteamInventoryResultInvalid -1
+
+#macro SteamInventoryItemInstanceIdInvalid -1
+
+#macro SteamInventoryInterfaceVersion "STEAMINVENTORY_INTERFACE_V002"
+
+#macro SteamRemoteStorageFilenameMax 260
+
+#macro SteamRemoteStoragePublishedDocumentChangeDescriptionMax 8000
+
+#macro SteamRemoteStoragePublishedDocumentDescriptionMax 8000
+
+#macro SteamRemoteStoragePublishedDocumentTitleMax 129
+
+#macro SteamRemoteStoragePublishedFileUrlMax 256
+
+#macro SteamRemoteStorageTagListMax 1025
+
+#macro SteamRemoteStoragePublishedFileIdInvalid 0
+
+#macro SteamRemoteStoragePublishedFileUpdateHandleInvalid -1
+
+#macro SteamRemoteStorageUgcFileStreamHandleInvalid -1
+
+#macro SteamRemoteStorageUgcHandleInvalid -1
+
+#macro SteamRemoteStorageEnumeratePublishedFilesMaxResults 50
+
+#macro SteamRemoteStorageMaxCloudFileChunkSize 104857600
+
+#macro SteamRemoteStorageInterfaceVersion "STEAMREMOTESTORAGE_INTERFACE_VERSION014"
+
+#macro SteamMatchmakingServerQueryInvalid 0xffffffff
+
+#macro SteamMatchmakingMaxLobbyKeyLength 255
+
+#macro SteamMatchmakingFavoriteFlagFavorite 0x01
+
+#macro SteamMatchmakingFavoriteFlagHistory 0x02
+
+#macro SteamMatchmakingFavoriteFlagNone 0x00
+
+#macro SteamMatchmakingServersInterfaceVersion "SteamMatchMakingServers002"
+
+#macro SteamMatchmakingInterfaceVersion "SteamMatchMaking009"
+
 // #####################################################################
 // # Enums
 // #####################################################################

@@ -16,6 +16,31 @@
 
 #include "GMExtUtils.h"
 
+// ---------------------------------------------------------------------------
+// GMWIRE_THROW — portable throw / fatal-abort for exception-disabled platforms
+//
+// When C++ exceptions are enabled (__cpp_exceptions defined), GMWIRE_THROW(ex)
+// is a normal throw that callers can catch.
+//
+// When exceptions are disabled (e.g. Nintendo Switch, PS4 ORBIS toolset default),
+// throw is a compile error. GMWIRE_THROW instead prints a diagnostic via
+// GMWIRE_TRACE and calls std::abort(). This fires in BOTH Debug and Release —
+// unlike assert() which is stripped in Release builds.
+//
+// Override GMWIRE_TRACE before including this header to redirect output
+// (e.g. to a platform logging API).
+// ---------------------------------------------------------------------------
+#if !defined(GMWIRE_TRACE)
+#define GMWIRE_TRACE(msg) LOG_ERROR("[GMExtWire] fatal: %s", msg)
+#endif
+
+#if defined(__cpp_exceptions)
+#define GMWIRE_THROW(ex) throw ex
+#else
+#include <cstdlib>
+#define GMWIRE_THROW(ex) do { GMWIRE_TRACE(#ex); std::abort(); } while (0)
+#endif
+
 // #############################################################################
 // # GMExtWire
 // #############################################################################
@@ -49,7 +74,7 @@ namespace gm::byteio {
         constexpr span_lite subspan(size_t offset, size_t count) const
         {
             if (offset > size_ || count > size_ - offset)
-                throw std::out_of_range("span_lite::subspan out of range");
+                GMWIRE_THROW(std::out_of_range("span_lite::subspan out of range"));
             return { data_ + offset, count };
         }
     };
@@ -96,7 +121,7 @@ namespace gm::byteio {
         void need(size_t n) const
         {
             if (pos_ + n > s_.size())
-                throw BufferOverflow("cursor out of bounds");
+                GMWIRE_THROW(BufferOverflow("cursor out of bounds"));
         }
 
     public:
@@ -140,7 +165,7 @@ namespace gm::byteio {
             // find '\0' within remaining
             const void* endPtr = std::memchr(begin, '\0', remaining);
             if (!endPtr) {
-                throw std::runtime_error("read(): unterminated NUL string in buffer");
+                GMWIRE_THROW(std::runtime_error("read(): unterminated NUL string in buffer"));
             }
 
             const char* end = static_cast<const char*>(endPtr);
@@ -448,7 +473,7 @@ namespace gm::wire {
         explicit GMArrayView(const GMValue& v)
         {
             if (v.kind() != gm::wire::GMKind::Array)
-                throw std::bad_cast{};
+                GMWIRE_THROW(std::bad_cast{});
             sz = gm::byteio::readLe<std::uint16_t>(v.data());
             first = v.data() + 2;
         }
@@ -460,7 +485,7 @@ namespace gm::wire {
 
             auto consumed = static_cast<std::uint32_t>(r.position());
             if (consumed == 0)
-                throw gm::byteio::BufferError("corrupt stream: element size == 0");
+                GMWIRE_THROW(gm::byteio::BufferError("corrupt stream: element size == 0"));
             return consumed;
         }
 
@@ -498,7 +523,7 @@ namespace gm::wire {
         const GMValue operator[](std::size_t idx) const
         {
             if (idx >= sz)
-                throw std::out_of_range("GMArrayView[]");
+                GMWIRE_THROW(std::out_of_range("GMArrayView[]"));
             buildOffsets();
             const std::byte* p = first + (*offs_)[idx];
             gm::byteio::BufferReader r(const_cast<std::byte*>(p), SIZE_MAX);
@@ -545,7 +570,7 @@ namespace gm::wire {
             buildIndex(); // make sure the table exists
             auto it = std::find_if(index_->begin(), index_->end(), [&](auto& e) { return e.key == k; });
             if (it == index_->end())
-                throw std::out_of_range("GMObjectView: key not found");
+                GMWIRE_THROW(std::out_of_range("GMObjectView: key not found"));
 
             const std::byte* valPtr = first + it->valOff; // locate the value tag
             gm::byteio::BufferReader r(const_cast<std::byte*>(valPtr), SIZE_MAX);
@@ -556,7 +581,7 @@ namespace gm::wire {
         explicit GMObjectView(const GMValue& v)
         {
             if (v.kind() != gm::wire::GMKind::Struct)
-                throw std::bad_cast{};
+                GMWIRE_THROW(std::bad_cast{});
             sz = gm::byteio::readLe<std::uint16_t>(v.data());
             first = v.data() + 2;
         }
@@ -574,7 +599,7 @@ namespace gm::wire {
 
             auto tag = static_cast<gm::wire::GMKind>(r.read<std::uint8_t>());
             if (tag != gm::wire::GMKind::String && tag != gm::wire::GMKind::Text)
-                throw gm::byteio::BufferCorrupted("Struct key tag wrong");
+                GMWIRE_THROW(gm::byteio::BufferCorrupted("Struct key tag wrong"));
 
             std::uint32_t len = r.read<std::uint32_t>();
             const char* s = reinterpret_cast<const char*>(r.data());
@@ -793,7 +818,7 @@ namespace gm::wire::details {
         case gm::wire::GMKind::Pointer:
             return static_cast<T>(gm::byteio::readLe<std::uintptr_t>(bytes));
         default:
-            throw std::runtime_error("GMValue: kind not coercible to scalar");
+            GMWIRE_THROW(std::runtime_error("GMValue: kind not coercible to scalar"));
         }
     }
 } // namespace gm::wire::details
@@ -816,7 +841,7 @@ namespace gm::wire {
         if constexpr (gm::wire::details::is_scalar_v<T>)
             return gm::wire::details::coerceScalar<T>(kind_, data_);
 
-        throw std::runtime_error("GMValue: cannot coerce to requested type");
+        GMWIRE_THROW(std::runtime_error("GMValue: cannot coerce to requested type"));
     }
 
     template<class T>
@@ -940,7 +965,7 @@ namespace gm::wire::codec {
             buf.skip(8);
             break;
         case gm::wire::GMKind::Float16:
-            throw gm::byteio::BufferUnderflow("GMBufferIO: unsupported tag byte (float16)");
+            GMWIRE_THROW(gm::byteio::BufferUnderflow("GMBufferIO: unsupported tag byte (float16)"));
         case gm::wire::GMKind::Float:
             buf.skip(4);
             break;
@@ -955,16 +980,16 @@ namespace gm::wire::codec {
         case gm::wire::GMKind::String: {
             std::size_t len = buf.read<std::uint32_t>();
             if (buf.remaining() < len + 1)
-                throw gm::byteio::BufferUnderflow("GMBufferIO: buffer overflow / underflow");
+                GMWIRE_THROW(gm::byteio::BufferUnderflow("GMBufferIO: buffer overflow / underflow"));
             buf.skip(len);
             if (buf.read<std::uint8_t>() != 0)
-                throw gm::byteio::BufferError("GMBufferIO: string missing NUL terminator");
+                GMWIRE_THROW(gm::byteio::BufferError("GMBufferIO: string missing NUL terminator"));
             break;
         }
 
         case gm::wire::GMKind::TypedArray:
         case gm::wire::GMKind::TypedStruct:
-            throw gm::byteio::BufferError("GMBufferIO: typed kinds not expected from GML");
+            GMWIRE_THROW(gm::byteio::BufferError("GMBufferIO: typed kinds not expected from GML"));
 
         case gm::wire::GMKind::Undefined:
             break;
@@ -1006,7 +1031,7 @@ namespace gm::wire::codec {
         }
 
         default:
-            throw gm::byteio::BufferError("GMBufferIO: unknown tag byte");
+            GMWIRE_THROW(gm::byteio::BufferError("GMBufferIO: unknown tag byte"));
         }
 
         return gm::wire::GMValue{ tag, payload };
@@ -1037,12 +1062,12 @@ namespace gm::wire::codec {
     {
         std::size_t len = buf.read<std::uint32_t>();
         if (buf.remaining() < len + 1)
-            throw gm::byteio::BufferUnderflow("BufferIO: buffer overflow / underflow");
+            GMWIRE_THROW(gm::byteio::BufferUnderflow("BufferIO: buffer overflow / underflow"));
 
         const char* s = reinterpret_cast<const char*>(buf.data());
         buf.skip(len);
         if (buf.read<std::uint8_t>() != 0)
-            throw gm::byteio::BufferError("BufferIO: string missing NUL terminator");
+            GMWIRE_THROW(gm::byteio::BufferError("BufferIO: string missing NUL terminator"));
 
         return std::string{ s };
     }
@@ -1052,12 +1077,12 @@ namespace gm::wire::codec {
     {
         std::size_t len = buf.read<std::uint32_t>();
         if (buf.remaining() < len + 1)
-            throw gm::byteio::BufferUnderflow("BufferIO: buffer overflow / underflow");
+            GMWIRE_THROW(gm::byteio::BufferUnderflow("BufferIO: buffer overflow / underflow"));
 
         const char* s = reinterpret_cast<const char*>(buf.data());
         buf.skip(len);
         if (buf.read<std::uint8_t>() != 0)
-            throw gm::byteio::BufferError("BufferIO: string missing NUL terminator");
+            GMWIRE_THROW(gm::byteio::BufferError("BufferIO: string missing NUL terminator"));
 
         return std::string_view{ s, len };
     }
@@ -1085,7 +1110,7 @@ namespace gm::wire::codec {
         std::array<T, N> arr{};
         if constexpr (std::is_arithmetic_v<T>) {
             if (buf.remaining() < N * sizeof(T))
-                throw gm::byteio::BufferUnderflow("BufferIO: buffer overflow / underflow");
+                GMWIRE_THROW(gm::byteio::BufferUnderflow("BufferIO: buffer overflow / underflow"));
 
             buf.readBytes(arr.data(), sizeof(arr));
         }
@@ -1106,7 +1131,7 @@ namespace gm::wire::codec {
 
         if constexpr (std::is_arithmetic_v<T>) {
             if (buf.remaining() < sz * sizeof(T))
-                throw gm::byteio::BufferUnderflow("BufferIO: buffer overflow / underflow");
+                GMWIRE_THROW(gm::byteio::BufferUnderflow("BufferIO: buffer overflow / underflow"));
 
             vec.resize(sz); // resize only for the memcpy path
             buf.readBytes(vec.data(), sizeof(T) * sz);
