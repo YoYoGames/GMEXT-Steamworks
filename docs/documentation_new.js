@@ -60,6 +60,26 @@
  * This function dispatches callbacks and call results to all of the registered listeners.
  * 
  * It's best to call this at >10Hz, the more time between calls, the more potential latency between receiving events or results from the Steamworks API. Most games call this once per render-frame. All registered listener functions will be invoked during this call, in the caller's thread context.
+ * 
+ * @event callback
+ * @desc > **Steamworks Callback**: [ISteamUser::SteamServersConnected_t](https://partner.steamgames.com/doc/api/ISteamUser#SteamServersConnected_t)
+ * 
+ * Called when a connection to the Steam back-end has been established.
+ * This means the Steam client now has a working connection to the Steam servers. Usually this will have occurred before the game has launched, and should only be seen if the user has dropped connection due to a networking issue or a Steam server update.
+ * 
+ * This callback has no fields.
+ * 
+ * @event_end
+ * 
+ * @event callback
+ * @desc > **Steamworks Callback**: [ISteamUser::SteamServersDisconnected_t](https://partner.steamgames.com/doc/api/ISteamUser#SteamServersDisconnected_t)
+ * 
+ * Called if the client has lost connection to the Steam servers.
+ * 
+ * Real-time services will be disabled until a matching [SteamServersConnected_t](https://partner.steamgames.com/doc/api/ISteamUser#SteamServersConnected_t) has been posted.
+ * 
+ * @member {Enum.SteamApiResult} result The reason we were disconnected from Steam.
+ * @event_end
  *
  * @function_end
  */
@@ -1148,230 +1168,264 @@
 
 /**
  * @function steam_apps_get_dlc_data_by_index
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamApps#BGetDLCDataByIndex](https://partner.steamgames.com/doc/api/ISteamApps#BGetDLCDataByIndex)
  *
- * This function 
+ * This function returns metadata for a DLC by index.
  *
- * @param {Real} iDLC
- * @returns {Struct.SteamAppsDlcData} 
- * @function_end 
+ * @param {Real} iDLC Index of the DLC to get between 0 and ${function.steam_apps_get_dlc_count}.
+ * @returns {Struct.SteamAppsDlcData}
+ * @function_end
  */
 
 /**
  * @function steam_apps_is_app_installed
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamApps::BIsAppInstalled](https://partner.steamgames.com/doc/api/ISteamApps#BIsAppInstalled)
  *
- * This function 
+ * This function checks if a specific app is installed.
+ * 
+ * [[Note: Should only be used for simple client side checks - not intended for granting in-game items.]]
  *
- * @param {Real} appID
- * @returns {Bool} 
- * @function_end 
+ * @param {Real} appID The App ID of the DLC to check.
+ * @returns {Bool} `true` if the user owns the DLC and it's currently installed, otherwise `false`.
+ * @function_end
  */
 
 /**
  * @function steam_apps_is_cybercafe
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamApps::BIsCybercafe](https://partner.steamgames.com/doc/api/ISteamApps#BIsCybercafe)
  *
- * This function 
+ * This function checks whether the current App ID is for Cyber Cafes.
+ * 
+ * [[Note: Deprecated - No longer used.]]
  *
  * @returns {Bool} 
- * @function_end 
+ * @function_end
  */
 
 /**
  * @function steam_apps_is_dlc_installed
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamApps::BIsDlcInstalled](https://partner.steamgames.com/doc/api/ISteamApps#BIsDlcInstalled)
  *
- * This function 
+ * This function checks if the user owns a specific DLC and if the DLC is installed.
+ * 
+ * [[Note: Should only be used for simple client side checks - not intended for granting in-game items.]]
  *
- * @param {Real} appID
- * @returns {Bool} 
- * @function_end 
+ * @param {Real} appID The App ID of the DLC to check.
+ * @returns {Bool} `true` if the user owns the DLC and it's currently installed, otherwise `false`.
+ * @function_end
  */
 
 /**
  * @function steam_apps_is_low_violence
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamApps::BIsLowViolence](https://partner.steamgames.com/doc/api/ISteamApps#BIsLowViolence)
  *
- * This function 
+ * This function checks if the license owned by the user provides low violence depots.
+ * 
+ * Low violence depots are useful for copies sold in countries that have content restrictions.
+ * 
+ * See also: [Depot Mounting Rules](https://partner.steamgames.com/doc/store/application/depots#depot_mounting_rules)
  *
- * @returns {Bool} 
- * @function_end 
+ * @returns {Bool} `true` if the license owned by the user provides low violence depots; otherwise, `false`.
+ * @function_end
  */
 
 /**
  * @function steam_apps_is_subscribed
  * @description > **Steamworks Function**: [func](url)
  *
- * This function 
+ * This function checks if the active user is subscribed to the current App ID.
+ * 
+ * [[Note: This will always return `true` if you're using Steam DRM or calling ${function.steam_api_restart_app_if_necessary}.]]
  *
  * @returns {Bool} 
- * @function_end 
+ * @function_end
  */
 
 /**
  * @function steam_apps_is_subscribed_app
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamApps::BIsSubscribedApp](https://partner.steamgames.com/doc/api/ISteamApps#BIsSubscribedApp)
  *
- * This function 
+ * This function checks if the active user is subscribed to a specified App ID.
+ * 
+ * Only use this if you need to check ownership of another game related to yours, a demo for example.
  *
- * @param {Real} appID
+ * @param {Real} appID The App ID to check.
  * @returns {Bool} 
- * @function_end 
+ * @function_end
  */
 
 /**
  * @function steam_apps_is_subscribed_from_family_sharing
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamApps::BIsSubscribedFromFamilySharing](https://partner.steamgames.com/doc/api/ISteamApps#BIsSubscribedFromFamilySharing)
  *
- * This function 
+ * This function checks if the active user is accessing the current app ID via a temporary Family Shared license owned by another user.
+ * 
+ * If you need to determine the steamID of the permanent owner of the license, use ${function.steam_apps_get_app_owner}.
  *
  * @returns {Bool} 
- * @function_end 
+ * @function_end
  */
 
 /**
  * @function steam_apps_is_subscribed_from_free_weekend
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamApps::BIsSubscribedFromFreeWeekend](https://partner.steamgames.com/doc/api/ISteamApps#BIsSubscribedFromFreeWeekend)
  *
- * This function 
+ * This function checks if the user is subscribed to the current appID through a free weekend.
+ * 
+ * Before using this please contact a Valve technical account manager via the [Steamworks Discussion Board](http://steamcommunity.com/groups/steamworks/discussions) to properly package and secure your free weekend.
  *
  * @returns {Bool} 
- * @function_end 
+ * @function_end
  */
 
 /**
  * @function steam_apps_is_timed_trial
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamApps::BIsTimedTrial](https://partner.steamgames.com/doc/api/ISteamApps#BIsTimedTrial)
  *
- * This function 
+ * This function checks if the user is subscribed to the current app ID through a timed trial. If so, holds `true` for the `ok` key in the returned struct and gives back the total time the timed trial is allowed to play, along with the current amount of time the user has played.
+ * 
+ * See also: [TimedTrialStatus_t](https://partner.steamgames.com/doc/api/ISteamApps#TimedTrialStatus_t)
  *
  * @returns {Struct.SteamAppsTimedTrialStatus} 
- * @function_end 
+ * @function_end
  */
 
 /**
  * @function steam_apps_is_vac_banned
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamApps::BIsVACBanned](https://partner.steamgames.com/doc/api/ISteamApps#BIsVACBanned)
  *
- * This function 
+ * This function checks if the user has a VAC ban on their account.
  *
  * @returns {Bool} 
- * @function_end 
+ * @function_end
  */
 
 /**
  * @function steam_apps_get_app_build_id
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamApps::GetAppBuildId](https://partner.steamgames.com/doc/api/ISteamApps#GetAppBuildId)
  *
- * This function 
+ * This function gets the buildid of this app, may change at any time based on backend updates to the game.
  *
- * @returns {Real} 
- * @function_end 
+ * @returns {Real} The current Build Id of this App. Defaults to 0 if you're not running a build downloaded from Steam.
+ * @function_end
  */
 
 /**
  * @function steam_apps_get_app_install_dir
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamApps::GetAppInstallDir](https://partner.steamgames.com/doc/api/ISteamApps#GetAppInstallDir)
  *
- * This function 
+ * This function gets the install folder for a specific App ID.
+ * 
+ * This works even if the application is not installed, based on where the game would be installed with the default Steam library location.
  *
- * @param {Real} appID
+ * @param {Real} appID The App ID to get the install dir for.
  * @returns {Struct.SteamAppsInstallDir} 
- * @function_end 
+ * @function_end
  */
 
 /**
  * @function steam_apps_get_app_owner
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamApps::GetAppOwner](https://partner.steamgames.com/doc/api/ISteamApps#GetAppOwner)
  *
- * This function 
+ * This function gets the Steam ID of the true owner of the current app. This is different from the current user if they are accessing this app via Family Sharing.
  *
  * @returns {Real} 
- * @function_end 
+ * @function_end
  */
 
 /**
  * @function steam_apps_get_available_game_languages
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamApps::GetAvailableGameLanguages](https://partner.steamgames.com/doc/api/ISteamApps#GetAvailableGameLanguages)
  *
- * This function 
+ * This function gets a comma separated list of the languages the current app supports.
+ * 
+ * For the full list of languages that may be returned see [Localization and Languages](https://partner.steamgames.com/doc/store/localization).
+ * 
+ * See also: ${function.steam_apps_get_current_game_language}, ${function.steam_utils_get_steam_ui_language}
  *
  * @returns {String} 
- * @function_end 
+ * @function_end
  */
 
 /**
  * @function steam_apps_get_current_beta_name
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamApps::GetCurrentBetaName](https://partner.steamgames.com/doc/api/ISteamApps#GetCurrentBetaName)
  *
- * This function 
+ * This function checks if the user is running from a beta branch, and gets the name of the branch if they are.
  *
  * @returns {Struct.SteamAppsBetaName} 
- * @function_end 
+ * @function_end
  */
 
 /**
  * @function steam_apps_get_num_betas
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamApps::GetNumBetas](https://partner.steamgames.com/doc/api/ISteamApps#GetNumBetas)
  *
- * This function 
+ * This function returns the total number of known app branches (including default "public" branch) which can be iterated with ${function.steam_apps_get_beta_info}.
  *
  * @returns {Struct.SteamAppsNumBetas} 
- * @function_end 
+ * @function_end
  */
 
 /**
  * @function steam_apps_get_beta_info
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamApps::GetBetaInfo](https://partner.steamgames.com/doc/api/ISteamApps#GetBetaInfo)
  *
- * This function 
+ * This function gets details about an app beta branch like name, description and state.
  *
- * @param {Real} iBetaIndex
+ * @param {Real} iBetaIndex Branch index starting at 0 which is always the default branch.
  * @returns {Struct.SteamAppsBetaInfo} 
- * @function_end 
+ * @function_end
  */
 
 /**
  * @function steam_apps_set_active_beta
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamApps::SetActiveBeta](https://partner.steamgames.com/doc/api/ISteamApps#SetActiveBeta)
  *
- * This function 
+ * This function selects a beta branch for this app as active, might need the game to restart so Steam can update its content to that branch.
  *
- * @param {String} pchBetaName
+ * @param {String} pchBetaName Beta name the game wants to switch to.
  * @returns {Bool} 
- * @function_end 
+ * @function_end
  */
 
 /**
  * @function steam_apps_get_current_game_language
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamApps::GetCurrentGameLanguage](https://partner.steamgames.com/doc/api/ISteamApps#GetCurrentGameLanguage)
  *
- * This function 
+ * This function gets the current language that the user has set.
+ * 
+ * This falls back to the Steam UI language if the user hasn't explicitly picked a language for the title.
+ * 
+ * For the full list of languages see [Supported Languages](https://partner.steamgames.com/doc/store/localization/languages).
+ * 
+ * See also: ${function.steam_apps_get_available_game_languages}, ${function.steam_utils_get_steam_ui_language}
  *
  * @returns {String} 
- * @function_end 
+ * @function_end
  */
 
 /**
  * @function steam_apps_get_dlc_count
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamApps::GetDLCCount](https://partner.steamgames.com/doc/api/ISteamApps#GetDLCCount)
  *
- * This function 
+ * This function gets the number of DLC pieces for the current app.
+ * 
+ * This is typically used to loop through each piece of DLC and get the info about each one with ${function.steam_apps_get_dlc_data_by_index}.
  *
- * @returns {Real} 
- * @function_end 
+ * @returns {Real} The number of DLC pieces for the current app. Note that this value may max out at 64, depending on how much unowned DLC the user has. If your app has a large number of DLC, you should set your own internal list of known DLC to check against.
+ * @function_end
  */
 
 /**
  * @function steam_apps_get_dlc_download_progress
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamApps::GetDlcDownloadProgress](https://partner.steamgames.com/doc/api/ISteamApps#GetDlcDownloadProgress)
  *
- * This function 
+ * This function gets the download progress for optional DLC.
  *
- * @param {Real} nAppID
+ * @param {Real} nAppID The App ID of the DLC to monitor.
  * @returns {Struct.SteamAppsDlcDownloadProgress} 
- * @function_end 
+ * @function_end
  */
 
 /**
@@ -1384,550 +1438,768 @@
  * @param {Buffer} ticket_buffer
  * @param {Real} max_bytes
  * @returns {Real} 
- * @function_end 
+ * @function_end
  */
 
 /**
  * @function steam_apps_get_earliest_purchase_unix_time
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamApps::GetEarliestPurchaseUnixTime](https://partner.steamgames.com/doc/api/ISteamApps#GetEarliestPurchaseUnixTime)
  *
- * This function 
+ * This function gets the time of purchase of the specified app in Unix epoch format (time since Jan 1st, 1970).
+ * 
+ * This is useful for rewarding users based on their initial purchase date.
  *
- * @param {Real} nAppID
+ * @param {Real} nAppID The App ID to get the purchase time for.
  * @returns {Real} 
- * @function_end 
+ * @function_end
  */
 
 /**
  * @function steam_apps_get_file_details
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamApps::GetFileDetails](https://partner.steamgames.com/doc/api/ISteamApps#GetFileDetails)
  *
- * This function 
+ * This function asynchronously retrieves metadata details about a specific file in the depot manifest.
  *
- * @param {String} pszFileName
- * @param {Function} [callback]
- * @function_end 
+ * @param {String} pszFileName The absolute path and name to the file.
+ * @param {Function} [callback] The function to call upon completion.
+ * 
+ * @event callback
+ * @desc > **Steamworks Callback**: [ISteamApps::FileDetailsResult_t](https://partner.steamgames.com/doc/api/ISteamApps#FileDetailsResult_t)
+ * @member {Enum.SteamApiResult} result Was the call successful? `SteamApiResult.Ok` if it was; otherwise, `SteamApiResult.FileNotFound` if the file was not found. None of the other fields are filled out if the call was not successful.
+ * @member {Real} file_size The original file size in bytes.
+ * @member {Real} file_sha The original file SHA-1 hash.
+ * @member {Real} flags The file's flags.
+ * @event_end
+ * @function_end
  */
 
 /**
  * @function steam_apps_get_installed_depots
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamApps::GetInstalledDepots](https://partner.steamgames.com/doc/api/ISteamApps#GetInstalledDepots)
  *
- * This function 
+ * This function gets a list of all installed depots for a given App ID in mount order.
  *
- * @param {Real} appID
- * @param {Real} cMaxDepots
- * @returns {Array[Real]} 
- * @function_end 
+ * @param {Real} appID The App to list the depots for.
+ * @param {Real} cMaxDepots The maximum number of depots to obtain.
+ * @returns {Array[Real]} An array holding the unique identifiers of the depots.
+ * @function_end
  */
 
 /**
  * @function steam_apps_get_launch_command_line
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamApps::GetLaunchCommandLine](https://partner.steamgames.com/doc/api/ISteamApps#GetLaunchCommandLine)
  *
- * This function 
+ * This function gets the command line if the game was launched via Steam URL, e.g. `"steam://run/<appid>//<command line>/"`. This method is preferable to launching with a command line via the operating system, which can be a security risk. In order for rich presence joins to go through this and not be placed on the OS command line, you must enable "Use launch command line" from the Installation > General page on your app.
  *
- * @param {Real} cubCommandLine
+ * @param {Real} cubCommandLine 
  * @returns {Struct.SteamAppsLaunchCommandLine} 
- * @function_end 
+ * @function_end
  */
 
 /**
  * @function steam_apps_get_launch_query_param
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamApps::GetLaunchQueryParam](https://partner.steamgames.com/doc/api/ISteamApps#GetLaunchQueryParam)
  *
- * This function 
+ * This function gets the associated launch parameter if the game is run via `"steam://run/<appid>/?param1=value1;param2=value2;param3=value3"`, etc.
+ * 
+ * Parameter names starting with the character `"@"` are reserved for internal use and will always return an empty string `""`.
+ * Parameter names starting with an underscore `"_"` are reserved for Steam features -- they can be queried by the game, but it is advised that you do not use param names beginning with an underscore for your own features.
  *
- * @param {String} pchKey
- * @returns {String} 
- * @function_end 
+ * @param {String} pchKey The launch key to test for. Ex: `"param1"`
+ * @returns {String} The value associated with the key provided, or an empty string (`""`) if the specified key does not exist.
+ * @function_end
  */
 
 /**
  * @function steam_apps_install_dlc
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamApps::InstallDLC](https://partner.steamgames.com/doc/api/ISteamApps#InstallDLC)
  *
- * This function 
+ * This function allows you to install an optional DLC.
  *
- * @param {Real} nAppID
- * @function_end 
+ * @param {Real} nAppID The DLC you want to install.
+ * 
+ * @event callback
+ * @desc > **Steamworks Callback**: [ISteamApps::DlcInstalled_t](https://partner.steamgames.com/doc/api/ISteamApps#DlcInstalled_t)
+ * 
+ * Triggered after the current user gains ownership of DLC and that DLC is installed.
+ * 
+ * @member {Real} app_id App ID of the DLC that was installed.
+ * @event_end
+ * @function_end
  */
 
 /**
  * @function steam_apps_mark_content_corrupt
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamApps::MarkContentCorrupt](https://partner.steamgames.com/doc/api/ISteamApps#MarkContentCorrupt)
  *
- * This function 
+ * This function allows you to force verify game content on next launch.
+ * 
+ * If you detect the game is out-of-date (for example, by having the client detect a version mismatch with a server),
+you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, show a message to the user, and then quit.
  *
- * @param {Bool} bMissingFilesOnly
+ * @param {Bool} bMissingFilesOnly Only scan for missing files, don't verify the checksum of each file.
  * @returns {Bool} 
- * @function_end 
+ * @function_end
  */
 
 /**
  * @function steam_apps_request_all_proof_of_purchase_keys
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamApps::RequestAllProofOfPurchaseKeys](https://partner.steamgames.com/doc/api/ISteamApps#RequestAllProofOfPurchaseKeys)
  *
- * This function 
+ * Deprecated.
  *
- * @function_end 
+ * @function_end
  */
 
 /**
  * @function steam_apps_request_app_proof_of_purchase_key
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamApps::RequestAppProofOfPurchaseKey](https://partner.steamgames.com/doc/api/ISteamApps#RequestAppProofOfPurchaseKey)
  *
- * This function 
+ * Deprecated.
  *
- * @param {Real} nAppID
- * @function_end 
+ * @param {Real} nAppID 
+ * @function_end
  */
 
 /**
  * @function steam_apps_uninstall_dlc
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamApps::UninstallDLC](https://partner.steamgames.com/doc/api/ISteamApps#UninstallDLC)
  *
- * This function 
+ * This function allows you to uninstall an optional DLC.
  *
- * @param {Real} nAppID
- * @function_end 
+ * @param {Real} nAppID The DLC you want to uninstall.
+ * @function_end
  */
 
 /**
  * @function steam_apps_set_callback_dlc_installed
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: N / A
  *
- * This function 
+ * This function sets the callback function to be triggered after the current user gains ownership of DLC and that DLC is installed.
+ * 
+ * See: [ISteamApps::InstallDLC](https://partner.steamgames.com/doc/api/ISteamApps#InstallDLC)
  *
- * @param {Function} callback
- * @function_end 
+ * @param {Function} callback The function to be used as the callback function.
+ * @function_end
  */
 
 /**
  * @function steam_apps_clear_callback_dlc_installed
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: N / A
  *
- * This function 
+ * This function clears the callback function previously set using ${function.steam_apps_set_callback_dlc_installed}.
  *
- * @function_end 
+ * @function_end
  */
 
 /**
  * @function steam_screenshots_add_screenshot_to_library
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamScreenshots::AddScreenshotToLibrary](https://partner.steamgames.com/doc/api/ISteamScreenshots#AddScreenshotToLibrary)
  *
- * This function 
+ * This function adds a screenshot to the user's Steam screenshot library from disk.
  *
- * @param {String} pchFilename
- * @param {String} pchThumbnailFilename
- * @param {Real} nWidth
- * @param {Real} nHeight
- * @returns {Real} 
- * @function_end 
+ * @param {String} pchFilename The absolute file path to the JPG, PNG, or TGA screenshot.
+ * @param {String} pchThumbnailFilename The absolute file path to an optional thumbnail image. This must be 200px wide, as described by [k_ScreenshotThumbWidth](https://partner.steamgames.com/doc/api/ISteamScreenshots#k_ScreenshotThumbWidth) and the same aspect ratio. Pass an empty string `""` if there is no thumbnail, one will be created automatically.
+ * @param {Real} nWidth The width of the screenshot.
+ * @param {Real} nHeight The height of the screenshot.
+ * @returns {Real} Screenshot handle, or [INVALID_SCREENSHOT_HANDLE](https://partner.steamgames.com/doc/api/ISteamScreenshots#INVALID_SCREENSHOT_HANDLE) if the file could not be saved
+ * 
+ * @event callback
+ * @desc > **Steamworks Callback**: [ISteamScreenshots::ScreenshotReady_t](https://partner.steamgames.com/doc/api/ISteamScreenshots#ScreenshotReady_t)
+ * 
+ * This is triggered when a screenshot has been successfully written or otherwise added to the library and can now be tagged.
+ * 
+ * @member {Real} The screenshot handle that has been written.
+ * @member {Enum.SteamApiResult} result The result of the operation. Possible values:
+ * 
+ * * `SteamApiResult.Ok` - The screenshot was successfully added to the user's library.
+ * * `SteamApiResult.Fail` - The screenshot could not be loaded or parsed.
+ * * `SteamApiResult.IoFailure` - The screenshot could not be saved to the disk.
+ * @event_end
+ * @function_end
  */
 
 /**
  * @function steam_screenshots_add_vr_screenshot_to_library
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamScreenshots::AddVRScreenshotToLibrary](https://partner.steamgames.com/doc/api/ISteamScreenshots#AddVRScreenshotToLibrary)
  *
- * This function 
+ * This function adds a VR screenshot to the user's Steam screenshot library from disk in the supported type.
  *
- * @param {Enum.SteamScreenshotsVrScreenshotType} eType
- * @param {String} pchFilename
- * @param {String} pchVRFilename
- * @returns {Real} 
- * @function_end 
+ * @param {Enum.SteamScreenshotsVrScreenshotType} eType The type of VR screenshot that this is.
+ * @param {String} pchFilename 	The absolute file path to a 2D JPG, PNG, or TGA version of the screenshot for the library view.
+ * @param {String} pchVRFilename The absolute file path to the VR screenshot, this should be the same type of screenshot specified in `eType`.
+ * @returns {Real} Screenshot handle, or [INVALID_SCREENSHOT_HANDLE](https://partner.steamgames.com/doc/api/ISteamScreenshots#INVALID_SCREENSHOT_HANDLE) if the file could not be saved
+ * 
+ * @event callback
+ * @desc > **Steamworks Callback**: [ISteamScreenshots::ScreenshotReady_t](https://partner.steamgames.com/doc/api/ISteamScreenshots#ScreenshotReady_t)
+ * 
+ * This is triggered when a screenshot has been successfully written or otherwise added to the library and can now be tagged.
+ * 
+ * @member {Real} local The screenshot handle that has been written.
+ * @member {Enum.SteamApiResult} result The result of the operation. Possible values:
+ * 
+ * * `SteamApiResult.Ok` - The screenshot was successfully added to the user's library.
+ * * `SteamApiResult.Fail` - The screenshot could not be loaded or parsed.
+ * * `SteamApiResult.IoFailure` - The screenshot could not be saved to the disk.
+ * @event_end
+ * 
+ * @function_end
  */
 
 /**
  * @function steam_screenshots_hook_screenshots
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamScreenshots::HookScreenshots](https://partner.steamgames.com/doc/api/ISteamScreenshots#HookScreenshots)
  *
- * This function 
+ * This function toggles whether the overlay handles screenshots when the user presses the screenshot hotkey, or if the game handles them.
+ * 
+ * Hooking is disabled by default, and only ever enabled if you do so with this function.
+ * 
+ * If the hooking is enabled, then the [ScreenshotRequested_t](https://partner.steamgames.com/doc/api/ISteamScreenshots#ScreenshotRequested_t) callback will be sent if the user presses the hotkey or when ${function.steam_screenshots_trigger_screenshot} is called, and then the game is expected to call ${function.steam_screenshots_write_screenshot} or ${function.steam_screenshots_add_screenshot_to_library} in response.
+ * 
+ * You can check if hooking is enabled with ${function.steam_screenshots_is_screenshots_hooked}.
  *
- * @param {Bool} bHook
- * @function_end 
+ * @param {Bool} bHook Enable (`true`) or disable (`false`) hooking?
+ * 
+ * @event callback
+ * @desc **Steamworks Callback**: [ISteamScreenshots::ScreenshotRequested_t](https://partner.steamgames.com/doc/api/ISteamScreenshots#ScreenshotRequested_t)
+ * 
+ * Triggered when a screenshot has been requested by the user from the Steam screenshot hotkey. This will only be called if ${function.steam_screenshots_hook_screenshots} has been enabled, in which case Steam will not take the screenshot itself.
+ * 
+ * This callback has no fields.
+ * 
+ * @event_end
+ * @function_end
  */
 
 /**
  * @function steam_screenshots_is_screenshots_hooked
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamScreenshots::IsScreenshotsHooked](https://partner.steamgames.com/doc/api/ISteamScreenshots#IsScreenshotsHooked)
  *
- * This function 
+ * This function checks if the app is hooking screenshots, or if the Steam Overlay is handling them.
+ * 
+ * This can be toggled with ${function.steam_screenshots_hook_screenshots}.
  *
  * @returns {Bool} 
- * @function_end 
+ * @function_end
  */
 
 /**
  * @function steam_screenshots_set_location
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamScreenshots::SetLocation](https://partner.steamgames.com/doc/api/ISteamScreenshots#SetLocation)
  *
- * This function 
+ * This function sets optional metadata about a screenshot's location. For example, the name of the map it was taken on.
+ * 
+ * You can get the handle to tag the screenshot once it has been successfully saved from the [ScreenshotReady_t](https://partner.steamgames.com/doc/api/ISteamScreenshots#ScreenshotReady_t) callback or via the ${function.steam_screenshots_write_screenshot}, ${function.steam_screenshots_add_screenshot_to_library}, ${function.steam_screenshots_add_vr_screenshot_to_library} calls.
  *
- * @param {Real} hScreenshot
- * @param {String} pchLocation
- * @returns {Bool} 
- * @function_end 
+ * @param {Real} hScreenshot The handle to the screenshot to tag.
+ * @param {String} pchLocation The location in the game where this screenshot was taken. This can not be longer than [k_cubUFSTagValueMax](https://partner.steamgames.com/doc/api/ISteamScreenshots#k_cubUFSTagValueMax).
+ * @returns {Bool} `true` if the location was successfully added to the screenshot. `false` if the screenshot handle was invalid, or the location is invalid or too long.
+ * @function_end
  */
 
 /**
  * @function steam_screenshots_tag_published_file
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamScreenshots::TagPublishedFile](https://partner.steamgames.com/doc/api/ISteamScreenshots#TagPublishedFile)
  *
- * This function 
+ * This function tags a published file as being visible in the screenshot.
+ * 
+ * You can tag up to the value declared by [k_nScreenshotMaxTaggedPublishedFiles](https://partner.steamgames.com/doc/api/ISteamScreenshots#k_nScreenshotMaxTaggedPublishedFiles) in a single screenshot. Tagging more items than that will just be discarded.
+ * 
+ * This function has a built-in delay before saving the tag which allows you to call it repeatedly for each item.
+ * 
+ * You can get the handle to tag the screenshot once it has been successfully saved from the [ScreenshotReady_t](https://partner.steamgames.com/doc/api/ISteamScreenshots#ScreenshotReady_t) callback or via the ${function.steam_screenshots_write_screenshot}, ${function.steam_screenshots_add_screenshot_to_library}, ${function.steam_screenshots_add_vr_screenshot_to_library} calls.
  *
- * @param {Real} hScreenshot
- * @param {Real} unPublishedFileID
+ * @param {Real} hScreenshot The handle to the screenshot to tag.
+ * @param {Real} unPublishedFileID The workshop item ID that is in the screenshot.
  * @returns {Bool} 
- * @function_end 
+ * @function_end
  */
 
 /**
  * @function steam_screenshots_tag_user
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamScreenshots::TagUser](https://partner.steamgames.com/doc/api/ISteamScreenshots#TagUser)
  *
- * This function 
+ * This function tags a Steam user as being visible in the screenshot.
+ * 
+ * You can tag up to the value declared by [k_nScreenshotMaxTaggedUsers](https://partner.steamgames.com/doc/api/ISteamScreenshots#k_nScreenshotMaxTaggedUsers) in a single screenshot. Tagging more items than that will just be discarded.
+ * 
+ * This function has a built-in delay before saving the tag which allows you to call it repeatedly for each item.
+ * 
+ * You can get the handle to tag the screenshot once it has been successfully saved from the [ScreenshotReady_t](https://partner.steamgames.com/doc/api/ISteamScreenshots#ScreenshotReady_t) callback or via the ${function.steam_screenshots_write_screenshot}, ${function.steam_screenshots_add_screenshot_to_library}, ${function.steam_screenshots_add_vr_screenshot_to_library} calls.
  *
- * @param {Real} hScreenshot
- * @param {Real} steamID
+ * @param {Real} hScreenshot The handle to the screenshot to tag.
+ * @param {Real} steamID The Steam ID of a user that is in the screenshot.
  * @returns {Bool} 
- * @function_end 
+ * @function_end
  */
 
 /**
  * @function steam_screenshots_trigger_screenshot
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamScreenshots::TriggerScreenshot](https://partner.steamgames.com/doc/api/ISteamScreenshots#TriggerScreenshot)
  *
- * This function 
- *
- * @function_end 
+ * This function either causes the Steam Overlay to take a screenshot, or tells your screenshot manager that a screenshot needs to be taken. Depending on the value of ${function.steam_screenshots_is_screenshots_hooked}.
+ * 
+ * @event callback
+ * @desc > **Steamworks Callback**: [ISteamScreenshots::ScreenshotReady_t](https://partner.steamgames.com/doc/api/ISteamScreenshots#ScreenshotReady_t)
+ * 
+ * This is triggered when a screenshot has been successfully written or otherwise added to the library and can now be tagged.
+ * 
+ * @member {Real} local The screenshot handle that has been written.
+ * @member {Enum.SteamApiResult} result The result of the operation. Possible values:
+ * 
+ * * `SteamApiResult.Ok` - The screenshot was successfully added to the user's library.
+ * * `SteamApiResult.Fail` - The screenshot could not be loaded or parsed.
+ * * `SteamApiResult.IoFailure` - The screenshot could not be saved to the disk.
+ * @event_end
+ * 
+ * @event callback
+ * @desc **Steamworks Callback**: [ISteamScreenshots::ScreenshotRequested_t](https://partner.steamgames.com/doc/api/ISteamScreenshots#ScreenshotRequested_t)
+ * 
+ * Triggered when a screenshot has been requested by the user from the Steam screenshot hotkey. This will only be called if ${function.steam_screenshots_hook_screenshots} has been enabled, in which case Steam will not take the screenshot itself.
+ * 
+ * This callback has no fields.
+ * 
+ * @event_end
+ * 
+ * @function_end
  */
 
 /**
  * @function steam_screenshots_write_screenshot
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamScreenshots::WriteScreenshot](https://partner.steamgames.com/doc/api/ISteamScreenshots#WriteScreenshot)
  *
- * This function 
+ * This function writes a screenshot to the user's Steam screenshot library given the raw image data, which must be in RGB format.
  *
- * @param {Buffer} pubRGB
- * @param {Real} cubRGB
- * @param {Real} nWidth
- * @param {Real} nHeight
- * @returns {Real} 
- * @function_end 
+ * @param {Buffer} pubRGB The buffer containing the raw RGB data from the screenshot.
+ * @param {Real} cubRGB The size of `pubRGB` in bytes.
+ * @param {Real} nWidth The width of the screenshot in pixels.
+ * @param {Real} nHeight The height of the screenshot in pixels.
+ * @returns {Real} Screenshot handle, or [INVALID_SCREENSHOT_HANDLE](https://partner.steamgames.com/doc/api/ISteamScreenshots#INVALID_SCREENSHOT_HANDLE) if the file could not be saved
+ * 
+ * @event callback
+ * @desc > **Steamworks Callback**: [ISteamScreenshots::ScreenshotReady_t](https://partner.steamgames.com/doc/api/ISteamScreenshots#ScreenshotReady_t)
+ * 
+ * This is triggered when a screenshot has been successfully written or otherwise added to the library and can now be tagged.
+ * 
+ * @member {Real} local The screenshot handle that has been written.
+ * @member {Enum.SteamApiResult} result The result of the operation. Possible values:
+ * 
+ * * `SteamApiResult.Ok` - The screenshot was successfully added to the user's library.
+ * * `SteamApiResult.Fail` - The screenshot could not be loaded or parsed.
+ * * `SteamApiResult.IoFailure` - The screenshot could not be saved to the disk.
+ * @event_end
+ * 
+ * @function_end
  */
 
 /**
  * @function steam_screenshots_set_callback_screenshot_ready
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: N / A
  *
- * This function 
+ * This function sets the callback function to be triggered after a screenshot has been successfully written or otherwise added to the library and can now be tagged.
+ * 
+ * See: [ISteamScreenshots::ScreenshotReady_t](https://partner.steamgames.com/doc/api/ISteamScreenshots#ScreenshotReady_t)
  *
- * @param {Function} callback
- * @function_end 
+ * @param {Function} callback The callback function to use.
+ * @function_end
  */
 
 /**
  * @function steam_screenshots_set_callback_screenshot_requested
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: N / A
  *
- * This function 
+ * This function sets the callback function to be triggered after A screenshot has been requested by the user from the Steam screenshot hotkey. This will only be called if ${function.steam_screenshots_hook_screenshots} has been enabled, in which case Steam will not take the screenshot itself.
+ * 
+ * See: [ISteamScreenshots::ScreenshotRequested_t](https://partner.steamgames.com/doc/api/ISteamScreenshots#ScreenshotRequested_t)
  *
- * @param {Function} callback
- * @function_end 
+ * @param {Function} callback The callback function to use.
+ * @function_end
  */
 
 /**
  * @function steam_screenshots_clear_callback_screenshot_ready
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: N / A
  *
- * This function 
+ * This function clears the callback function previously set using ${function.steam_screenshots_set_callback_screenshot_ready}.
  *
- * @function_end 
+ * @function_end
  */
 
 /**
  * @function steam_screenshots_clear_callback_screenshot_requested
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: N / A
  *
- * This function 
+ * This function clears the callback function previously set using ${function.steam_screenshots_set_callback_screenshot_requested}.
  *
- * @function_end 
+ * @function_end
  */
 
 /**
  * @function steam_user_advertise_game
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUser::AdvertiseGame](https://partner.steamgames.com/doc/api/ISteamUser#AdvertiseGame)
  *
- * This function 
+ * This function sets the rich presence data for an unsecured game server that the user is playing on. This allows friends to be able to view the game info and join your game.
+ * 
+ * When you are using Steam authentication system this call is never required, the auth system automatically sets the appropriate rich presence.
  *
- * @param {Real} steam_id_game_server
- * @param {Real} un_ip_server
- * @param {Real} us_port_server
- * @function_end 
+ * @param {Real} steam_id_game_server This should be [k_steamIDNonSteamGS](https://partner.steamgames.com/doc/api/steam_api#k_steamIDNonSteamGS) if you're setting the IP/Port, otherwise it should be [k_steamIDNil](https://partner.steamgames.com/doc/api/steam_api#k_steamIDNil) if you're clearing this.
+ * @param {Real} un_ip_server The IP of the game server in host order, i.e 127.0.0.1 == 0x7f000001.
+ * @param {Real} us_port_server The connection port of the game server, in host order.
+ * @function_end
  */
 
 /**
  * @function steam_user_begin_auth_session
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUser::BeginAuthSession](https://partner.steamgames.com/doc/api/ISteamUser#BeginAuthSession)
  *
- * This function 
+ * This function authenticates the ticket from the entity Steam ID to be sure it is valid and isn't reused. Note that identity is not confirmed until the response callback is received and the return value in that callback is checked for success.
+ * 
+ * The ticket is created on the entity with ${function.steam_user_get_auth_session_ticket} or [ISteamGameServer::GetAuthSessionTicket](https://partner.steamgames.com/doc/api/ISteamGameServer#GetAuthSessionTicket) and then needs to be provided over the network for the other end to validate.
+ * 
+ * This registers for additional [ValidateAuthTicketResponse_t](https://partner.steamgames.com/doc/api/ISteamUser#ValidateAuthTicketResponse_t) callbacks if the entity goes offline or cancels the ticket. See ${Enum.SteamAuthSess} EAuthSessionResponse for more information.
+ * 
+ * When the multiplayer session terminates you must call ${function.steam_user_end_auth_session}.
+ * 
+ * See also: [User Authentication and Ownership](https://partner.steamgames.com/doc/features/auth)
  *
- * @param {Buffer} auth_ticket
- * @param {Real} cb_auth_ticket
- * @param {Real} steam_id
+ * @param {Buffer} auth_ticket The auth ticket to validate.
+ * @param {Real} cb_auth_ticket The size in bytes of the auth ticket. This must be the `pcbTicket` size provided by the call that created this ticket.
+ * @param {Real} steam_id The entity's Steam ID that sent this ticket.
  * @returns {Enum.SteamUserBeginAuthSessionResult} 
- * @function_end 
+ * 
+ * @event callback
+ * @desc > **Steamworks Callback**: [ISteamUser::ValidateAuthTicketResponse_t](https://partner.steamgames.com/doc/api/ISteamUser#ValidateAuthTicketResponse_t)
+ * 
+ * Called when an auth ticket has been validated.
+ * 
+ * @member {Real} steam_id The Steam ID of the entity that provided the auth ticket.
+ * @member {Enum.SteamAuthSessionResponse} auth_session_response The result of the validation.
+ * @member {} owner_steam_id The Steam ID that owns the game, this will be different from `steam_id` if the game is being accessed via Steam Family Sharing.
+ * @event_end
+ * @function_end
  */
 
 /**
  * @function steam_user_is_behind_nat
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUser::BIsBehindNAT](https://partner.steamgames.com/doc/api/ISteamUser#BIsBehindNAT)
  *
- * This function 
+ * This function checks if the current user looks like they are behind a NAT device.
+ * 
+ * This is only valid if the user is connected to the Steam servers and may not catch all forms of NAT.
  *
  * @returns {Bool} 
- * @function_end 
+ * @function_end
  */
 
 /**
  * @function steam_user_is_phone_identifying
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUser::BIsPhoneIdentifying](https://partner.steamgames.com/doc/api/ISteamUser#BIsPhoneIdentifying)
  *
- * This function 
+ * This function checks whether the user's phone number is used to uniquely identify them.
  *
  * @returns {Bool} 
- * @function_end 
+ * @function_end
  */
 
 /**
  * @function steam_user_is_phone_requiring_verification
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUser::BIsPhoneRequiringVerification](https://partner.steamgames.com/doc/api/ISteamUser#BIsPhoneRequiringVerification)
  *
- * This function 
+ * This function checks whether the current user's phone number is awaiting (re)verification.
  *
  * @returns {Bool} 
- * @function_end 
+ * @function_end
  */
 
 /**
  * @function steam_user_is_phone_verified
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUser::BIsPhoneVerified](https://partner.steamgames.com/doc/api/ISteamUser#BIsPhoneVerified)
  *
- * This function 
+ * This function checks whether the current user has verified their phone number.
+ * 
+ * See the [Steam Guard Mobile Authenticator](https://support.steampowered.com/kb_article.php?ref=8625-wrah-9030) page on the customer facing Steam Support site for more information.
  *
  * @returns {Bool} 
- * @function_end 
+ * @function_end
  */
 
 /**
  * @function steam_user_is_two_factor_enabled
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUser::BIsTwoFactorEnabled](https://partner.steamgames.com/doc/api/ISteamUser#BIsTwoFactorEnabled)
  *
- * This function 
+ * This function checks whether the current user has Steam Guard two factor authentication enabled on their account.
+ * 
+ * See the [Steam Guard Mobile Authenticator](https://support.steampowered.com/kb_article.php?ref=8625-wrah-9030) page on the customer facing Steam Support site for more information.
  *
  * @returns {Bool} 
- * @function_end 
+ * @function_end
  */
 
 /**
  * @function steam_user_logged_on
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUser::BLoggedOn](https://partner.steamgames.com/doc/api/ISteamUser#BLoggedOn)
  *
- * This function 
+ * This function checks if the current user's Steam client is connected to the Steam servers.
+ * 
+ * If it's not then no real-time services provided by the Steamworks API will be enabled. The Steam client will automatically be trying to recreate the connection as often as possible. When the connection is restored a [SteamServersConnected_t](https://partner.steamgames.com/doc/api/ISteamUser#SteamServersConnected_t) callback will be posted.
+ * 
+ * You usually don't need to check for this yourself. All of the API calls that rely on this will check internally. Forcefully disabling stuff when the player loses access is usually not a very good experience for the player and you could be preventing them from accessing APIs that do not need a live connection to Steam.
  *
- * @returns {Bool} 
- * @function_end 
+ * @returns {Bool} `true` if the Steam client current has a live connection to the Steam servers; otherwise, `false` if there is no active connection due to either a networking issue on the local machine, or the Steam server is down/busy.
+ * @function_end
  */
 
 /**
  * @function steam_user_set_duration_control_online_state
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUser::BSetDurationControlOnlineState](https://partner.steamgames.com/doc/api/ISteamUser#BSetDurationControlOnlineState)
  *
- * This function 
+ * This function allows the game to specify the offline/online gameplay state for Steam china duration control.
  *
- * @param {Enum.SteamUserDurationControlOnlineState} state
- * @returns {Bool} 
- * @function_end 
+ * @param {Enum.SteamUserDurationControlOnlineState} state The new gameplay state.
+ * @returns {Bool} `true` if the online state was set successfully; otherwise, `false`.
+ * @function_end
  */
 
 /**
  * @function steam_user_cancel_auth_ticket
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUser::CancelAuthTicket](https://partner.steamgames.com/doc/api/ISteamUser#CancelAuthTicket)
  *
- * This function 
+ * This function cancels an auth ticket received from ${function.steam_user_get_auth_session_ticket} or ${function.steam_user_get_auth_ticket_for_web_api}. This should be called when no longer playing with the specified entity.
+ * 
+ * See also: [User Authentication and Ownership](https://partner.steamgames.com/doc/features/auth)
  *
- * @param {Real} h_auth_ticket
- * @function_end 
+ * @param {Real} h_auth_ticket The active auth ticket to cancel.
+ * @function_end
  */
 
 /**
  * @function steam_user_decompress_voice
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUser::DecompressVoice](https://partner.steamgames.com/doc/api/ISteamUser#DecompressVoice)
  *
- * This function 
+ * This function decodes the compressed voice data returned by ${function.steam_user_get_voice}.
+ * 
+ * The output data is raw single-channel 16-bit PCM audio. The decoder supports any sample rate from 11025 to 48000. See ${function.steam_user_get_voice_optimal_sample_rate} for more information.
+ * 
+ * It is recommended that you start with a 20KiB buffer and then reallocate as necessary.
+ * 
+ * See [Steam Voice](https://partner.steamgames.com/doc/features/voice) for more information.
  *
- * @param {Buffer} compressed
- * @param {Real} cb_compressed
- * @param {Buffer} dest
- * @param {Real} cb_dest_buffer_size
- * @param {Real} n_desired_sample_rate
- * @returns {Enum.SteamApiVoiceResult} 
- * @function_end 
+ * @param {Buffer} compressed The compressed data received from ${function.steam_user_get_voice}.
+ * @param {Real} cb_compressed The size of the buffer passed into `compressed`.
+ * @param {Buffer} dest The buffer where the raw audio data will be returned. This can then be passed to your audio subsystems for playback.
+ * @param {Real} cb_dest_buffer_size The size of the buffer passed into `dest`.
+ * @param {Real} n_desired_sample_rate The sample rate that will be returned. This can be from 11025 to 48000, you should either use the rate that works best for your audio playback system, which likely takes the user's audio hardware into account, or you can use ${function.steam_user_get_voice_optimal_sample_rate} to get the native sample rate of the Steam voice decoder.
+ * @returns {Enum.SteamApiVoiceResult}
+ * @function_end
  */
 
 /**
  * @function steam_user_end_auth_session
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUser::EndAuthSession](https://partner.steamgames.com/doc/api/ISteamUser#EndAuthSession)
  *
- * This function 
+ * This function ends an auth session that was started with ${function.steam_user_begin_auth_session}. This should be called when no longer playing with the specified entity.
  *
- * @param {Real} steam_id
- * @function_end 
+ * @param {Real} steam_id The entity to end the active auth session with.
+ * @function_end
  */
 
 /**
  * @function steam_user_get_auth_session_ticket
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUser::GetAuthSessionTicket](https://partner.steamgames.com/doc/api/ISteamUser#GetAuthSessionTicket)
  *
- * This function 
+ * This function retrieves an authentication ticket to be sent to the entity who wishes to authenticate you.
+ * 
+ * After calling this you can send the ticket to the entity where they can then call ${function.steam_user_begin_auth_session} /[ISteamGameServer::BeginAuthSession](https://partner.steamgames.com/doc/api/ISteamGameServer#BeginAuthSession) to verify this entity's integrity.
+ * 
+ * [[Note: This API can not be used to create a ticket for use by the [ISteamUserAuth/AuthenticateUserTicket](https://partner.steamgames.com/doc/webapi/ISteamUserAuth#AuthenticateUserTicket) Web API. Use the ${function.steam_user_get_auth_ticket_for_web_api} call instead.]]
  *
- * @param {Buffer} out_ticket
- * @param {Real} cb_max_ticket
- * @param {Struct.SteamNetworkingIdentity} [remote_identity]
+ * @param {Buffer} out_ticket The buffer where the new auth ticket will be copied into if the call was successful.
+ * @param {Real} cb_max_ticket The size of the buffer allocated for `out_ticket`. Typically a buffer size of 1024 will be sufficient. However, in certain cases (e.g., when an application has a large amount of available DLC), a larger buffer size may be required.
+ * @param {Struct.SteamNetworkingIdentity} [remote_identity] The identity of the remote system that will authenticate the ticket. If it is peer-to-peer then the user steam ID. If it is a game server, then the game server steam ID may be used if it was obtained from a trusted 3rd party, otherwise use the IP address. If it is a service, a string identifier of that service if one if provided.
  * @returns {Struct.SteamUserAuthSessionTicket} 
- * @function_end 
+ * @function_end
  */
 
 /**
  * @function steam_user_get_h_steam_user
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUser::GetHSteamUser](https://partner.steamgames.com/doc/api/ISteamUser#GetHSteamUser)
  *
- * This function 
+ * This function gets the Steam user handle that this interface represents.
+ * 
+ * This is only used internally by the API, and by a few select interfaces that support multi-user.
  *
  * @returns {Real} 
- * @function_end 
+ * @function_end
  */
 
 /**
  * @function steam_user_get_player_steam_level
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUser::GetPlayerSteamLevel](https://partner.steamgames.com/doc/api/ISteamUser#GetPlayerSteamLevel)
  *
- * This function 
+ * This function gets the Steam level of the user, as shown on their Steam community profile.
  *
  * @returns {Real} 
- * @function_end 
+ * @function_end
  */
 
 /**
  * @function steam_user_get_steam_id
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUser::GetSteamID](https://partner.steamgames.com/doc/api/ISteamUser#GetSteamID)
  *
- * This function 
+ * This function gets the Steam ID of the account currently logged into the Steam client. This is commonly called the 'current user', or 'local user'.
+ * 
+ * A Steam ID is a unique identifier for a Steam accounts, Steam groups, Lobbies and Chat rooms, and used to differentiate users in all parts of the Steamworks API.
  *
  * @returns {Real} 
- * @function_end 
+ * @function_end
  */
 
 /**
  * @function steam_user_decode_steam_id
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: N / A
  *
- * This function 
+ * This function gets information about the given Steam ID and returns it in a struct.
  *
- * @param {Real} steam_id
+ * @param {Real} steam_id The Steam ID to get information about.
  * @returns {Struct.SteamId} 
- * @function_end 
+ * @function_end
  */
 
 /**
  * @function steam_user_start_voice_recording
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUser::StartVoiceRecording](https://partner.steamgames.com/doc/api/ISteamUser#StartVoiceRecording)
  *
- * This function 
+ * This function starts voice recording.
+ * 
+ * Once started, use ${function.steam_user_get_available_voice} and ${function.steam_user_get_voice} to get the data, and then call StopVoiceRecording when the user has released their push-to-talk hotkey or the game session has completed.
+ * 
+ * See [Steam Voice](https://partner.steamgames.com/doc/features/voice) for more information.
  *
- * @function_end 
+ * @function_end
  */
 
 /**
  * @function steam_user_stop_voice_recording
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUser::StartVoiceRecording](https://partner.steamgames.com/doc/api/ISteamUser#StartVoiceRecording)
  *
- * This function 
+ * This function stops voice recording.
+ * 
+ * Because people often release push-to-talk keys early, the system will keep recording for a little bit after this function is called. As such, ${function.steam_user_get_voice} should continue to be called until it returns [k_EVoiceResultNotRecording](https://partner.steamgames.com/doc/api/steam_api#k_EVoiceResultNotRecording), only then will voice recording be stopped.
  *
- * @function_end 
+ * @function_end
  */
 
 /**
  * @function steam_user_get_voice_optimal_sample_rate
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUser::GetVoiceOptimalSampleRate](https://partner.steamgames.com/doc/api/ISteamUser#GetVoiceOptimalSampleRate)
  *
- * This function 
+ * This function gets the native sample rate of the Steam voice decoder.
+ * 
+ * Using this sample rate for ${function.steam_user_decompress_voice} will perform the least CPU processing. However, the final audio quality will depend on how well the audio device (and/or your application's audio output SDK) deals with lower sample rates. You may find that you get the best audio output quality when you ignore this function and use the native sample rate of your audio output device, which is usually 48000 or 44100.
+ * 
+ * See [Steam Voice](https://partner.steamgames.com/doc/features/voice) for more information.
  *
  * @returns {Real} 
- * @function_end 
+ * @function_end
  */
 
 /**
  * @function steam_user_get_available_voice
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUser::GetAvailableVoice](https://partner.steamgames.com/doc/api/ISteamUser#GetAvailableVoice)
  *
- * This function 
+ * This function checks to see if there is captured audio data available from ${function.steam_user_get_voice}, and gets the size of the data.
+ * 
+ * Most applications will only use compressed data and should ignore the other parameters, which exist primarily for backwards compatibility. See ${function.steam_user_get_voice} for further explanation of "uncompressed" data.
+ * 
+ * See [Steam Voice](https://partner.steamgames.com/doc/features/voice) for more information.
  *
  * @returns {Struct.SteamUserAvailableVoice} 
- * @function_end 
+ * @function_end
  */
 
 /**
  * @function steam_user_get_voice
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Stermworks Function**: [ISteamUser::GetVoice](https://partner.steamgames.com/doc/api/ISteamUser#GetVoice)
+ * 
+ * This function reads captured audio data from the microphone buffer.
+ * 
+ * The compressed data can be transmitted by your application and decoded back into raw audio data using ${function.steam_user_decompress_voice} on the other side. The compressed data provided is in an arbitrary format and is not meant to be played directly.
+ * 
+ * This should be called once per frame, and at worst no more than four times a second to keep the microphone input delay as low as possible. Calling this any less may result in gaps in the returned stream.
+ * 
+ * It is recommended that you pass in an 8 kilobytes or larger destination buffer for compressed audio. Static buffers are recommended for performance reasons. However, if you would like to allocate precisely the right amount of space for a buffer before each call you may use ${function.steam_user_get_available_voice} to find out how much data is available to be read.
+ * 
+ * [[Note: Uncompressed" audio is a deprecated feature and should not be used by most applications. It is raw single-channel 16-bit PCM wave data which may have been run through preprocessing filters and/or had silence removed, so the uncompressed audio could have a shorter duration than you expect. There may be no data at all during long periods of silence. Also, fetching uncompressed audio will cause ${function.steam_user_get_voice} to discard any leftover compressed audio, so you must fetch both types at once. Finally, ${function.steam_user_get_available_voice} is not precisely accurate when the uncompressed size is requested. So if you really need to use uncompressed audio, you should call ${function.steam_user_get_voice} GetVoice frequently with two very large (20KiB+) output buffers instead of trying to allocate perfectly-sized buffers. But most applications should ignore all of these details and simply leave the "uncompressed" parameters as 0.]]
+ * 
+ * See [Steam Voice](https://partner.steamgames.com/doc/features/voice) for more information.
  *
- * This function 
- *
- * @param {Bool} b_want_compressed
- * @param {Buffer} dest_compressed
- * @param {Real} cb_dest_compressed
- * @param {Bool} b_want_uncompressed
- * @param {Buffer} dest_uncompressed
- * @param {Real} cb_dest_uncompressed
- * @param {Real} n_desired_sample_rate
+ * @param {Bool} b_want_compressed This should always be `true`.
+ * @param {Buffer} dest_compressed The buffer where the audio data will be copied into.
+ * @param {Real} cb_dest_compressed The size of the buffer allocated for `dest_compressed`.
+ * @param {Bool} b_want_uncompressed Deprecated.
+ * @param {Buffer} dest_uncompressed Deprecated.
+ * @param {Real} cb_dest_uncompressed Deprecated.
+ * @param {Real} n_desired_sample_rate Deprecated.
  * @returns {Struct.SteamUserGetVoiceResult} 
- * @function_end 
+ * @function_end
  */
 
 /**
  * @function steam_user_get_user_data_folder
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUser::GetUserDataFolder](https://partner.steamgames.com/doc/api/ISteamUser#GetUserDataFolder)
  *
- * This function 
+ * Deprecated. You should use the [ISteamRemoteStorage](https://partner.steamgames.com/doc/api/ISteamRemoteStorage) API from [Steam Cloud](https://partner.steamgames.com/doc/features/cloud) instead.
  *
  * @returns {Struct.SteamUserDataFolder} 
- * @function_end 
+ * @function_end
  */
 
 /**
  * @function steam_user_request_encrypted_app_ticket
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUser::RequestEncryptedAppTicket](https://partner.steamgames.com/doc/api/ISteamUser#RequestEncryptedAppTicket)
  *
- * This function 
+ * This function requests an application ticket encrypted with the secret "encrypted app ticket key".
+ * 
+ * The encryption key can be obtained from the [Encrypted App Ticket Key](https://partner.steamgames.com/apps/sdkauth/) page on the App Admin for your app.
+ * 
+ * There can only be one [EncryptedAppTicketResponse_t](https://partner.steamgames.com/doc/api/ISteamUser#EncryptedAppTicketResponse_t) pending, and this call is subject to a 60 second rate limit.
+ * 
+ * After receiving the response you should call ${function.steam_user_get_encrypted_app_ticket} to get the ticket data, and then you need to send it to a secure server to be decrypted with the [SteamEncryptedAppTicket](https://partner.steamgames.com/doc/api/SteamEncryptedAppTicket) functions.
  *
- * @param {Buffer} data_to_include
- * @param {Real} cb_data_to_include
- * @param {Function} [callback]
- * @function_end 
+ * @param {Buffer} data_to_include The data which will be encrypted into the ticket.
+ * @param {Real} cb_data_to_include The total size in bytes of `data_to_include`.
+ * @param {Function} [callback] The function to call upon completion.
+ * 
+ * @event callback
+ * @desc > **Steamworks Callback**: [ISteamUser::EncryptedAppTicketResponse_t](https://partner.steamgames.com/doc/api/ISteamUser#EncryptedAppTicketResponse_t)
+ * 
+ * Called when an encrypted application ticket has been received.
+ * 
+ * @member {Enum.SteamApiResult} result Was the call successful? Possible results:
+ * 
+ * * SteamApiResult.Ok - Success!
+ * * SteamApiResult.NoConnection - A connection to Steam could not be established.
+ * * SteamApiResult.DuplicateRequest - There is already a pending request.
+ * * SteamApiResult.LimitExceeded - This call is subject to a 60 second rate limit, and you have exceeded that.
+ * 
+ * @event_end
+ * @function_end
  */
 
 /**
  * @function steam_user_get_encrypted_app_ticket
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUser::GetEncryptedAppTicket](https://partner.steamgames.com/doc/api/ISteamUser#GetEncryptedAppTicket)
  *
- * This function 
+ * This function retrieves an encrypted ticket.
+ * 
+ * This should be called after requesting an encrypted app ticket with ${function.steam_user_request_encrypted_app_ticket} and receiving the [EncryptedAppTicketResponse_t](https://partner.steamgames.com/doc/api/ISteamUser#EncryptedAppTicketResponse_t) call result.
+ * 
+ * [[Note: If you call this without calling ${function.steam_user_request_encrypted_app_ticket}, the call may succeed but you will likely get a stale ticket.]]
  *
- * @param {Buffer} out_ticket
- * @param {Real} cb_max_ticket
- * @returns {Struct.SteamUserEncryptedAppTicket} 
- * @function_end 
+ * @param {Buffer} out_ticket The encrypted app ticket is copied into this buffer.
+ * @param {Real} cb_max_ticket The total size of the `out_ticket` buffer in bytes.
+ * @returns {Struct.SteamUserEncryptedAppTicket}
+ * @function_end
  */
 
 /**
@@ -1939,7 +2211,7 @@
  * @param {Real} n_series
  * @param {Bool} b_foil
  * @returns {Real} 
- * @function_end 
+ * @function_end
  */
 
 /**
@@ -1950,7 +2222,7 @@
  *
  * @param {String} pch_identity
  * @returns {Real} 
- * @function_end 
+ * @function_end
  */
 
 /**
@@ -1960,7 +2232,7 @@
  * This function 
  *
  * @param {Function} [callback]
- * @function_end 
+ * @function_end
  */
 
 /**
@@ -1971,7 +2243,7 @@
  *
  * @param {String} pch_redirect_url
  * @param {Function} [callback]
- * @function_end 
+ * @function_end
  */
 
 /**
@@ -1981,7 +2253,7 @@
  * This function 
  *
  * @param {Function} [callback]
- * @function_end 
+ * @function_end
  */
 
 /**
@@ -1993,7 +2265,7 @@
  * @param {Real} game_id
  * @param {Real} e_app_usage_event
  * @param {String} pch_extra_info
- * @function_end 
+ * @function_end
  */
 
 /**
@@ -2005,7 +2277,7 @@
  * @param {Real} steam_id
  * @param {Real} app_id
  * @returns {Enum.SteamApiUserHasLicenseResult} 
- * @function_end 
+ * @function_end
  */
 
 /**
@@ -2015,7 +2287,7 @@
  * This function 
  *
  * @param {Function} callback
- * @function_end 
+ * @function_end
  */
 
 /**
@@ -2024,7 +2296,7 @@
  *
  * This function 
  *
- * @function_end 
+ * @function_end
  */
 
 /**
@@ -2034,7 +2306,7 @@
  * This function 
  *
  * @param {Function} callback
- * @function_end 
+ * @function_end
  */
 
 /**
@@ -2043,7 +2315,7 @@
  *
  * This function 
  *
- * @function_end 
+ * @function_end
  */
 
 /**
@@ -2053,7 +2325,7 @@
  * This function 
  *
  * @param {Function} callback
- * @function_end 
+ * @function_end
  */
 
 /**
@@ -2062,7 +2334,7 @@
  *
  * This function 
  *
- * @function_end 
+ * @function_end
  */
 
 /**
@@ -2072,7 +2344,7 @@
  * This function 
  *
  * @param {Function} callback
- * @function_end 
+ * @function_end
  */
 
 /**
@@ -2081,7 +2353,7 @@
  *
  * This function 
  *
- * @function_end 
+ * @function_end
  */
 
 /**
@@ -2091,7 +2363,7 @@
  * This function 
  *
  * @param {Function} callback
- * @function_end 
+ * @function_end
  */
 
 /**
@@ -2100,7 +2372,7 @@
  *
  * This function 
  *
- * @function_end 
+ * @function_end
  */
 
 /**
@@ -2110,7 +2382,7 @@
  * This function 
  *
  * @param {Function} callback
- * @function_end 
+ * @function_end
  */
 
 /**
@@ -2119,7 +2391,7 @@
  *
  * This function 
  *
- * @function_end 
+ * @function_end
  */
 
 /**
@@ -7140,25 +7412,25 @@
 
 /**
  * @struct SteamId
- * @description > **Steamworks Struct**: [func](url)
+ * @description > **Steamworks Struct**: [steam_api::CSteamID](https://partner.steamgames.com/doc/api/steam_api#CSteamID)
  *
- * This struct 
+ * This struct holds details about the globally unique identifier for all Steam accounts, Steam groups, Lobbies and Chat rooms.
  *
- * @member {Real} id64
- * @member {Real} account_id
- * @member {Real} account_instance
- * @member {Enum.SteamApiUniverse} universe
- * @member {Enum.SteamApiAccountType} account_type
- * @member {Bool} is_valid
- * @member {Bool} is_lobby
- * @member {Bool} is_individual
- * @member {Bool} is_game_server
- * @member {Bool} is_anon_game_server
- * @member {Bool} is_anon_user
- * @member {Bool} is_content_server
- * @member {Bool} is_clan
- * @member {Bool} is_chat
- * @struct_end 
+ * @member {Real} id64 Unique ID.
+ * @member {Real} account_id The account ID.
+ * @member {Real} account_instance The account instance.
+ * @member {Enum.SteamApiUniverse} universe The universe, or self-contained Steam instance, this account belongs to.
+ * @member {Enum.SteamApiAccountType} account_type The type of account.
+ * @member {Bool} is_valid Whether this Steam ID is valid.
+ * @member {Bool} is_lobby Whether this Steam ID is a lobby.
+ * @member {Bool} is_individual Whether this is an individual user account ID.
+ * @member {Bool} is_game_server Whether this is a persistent (not anonymous) game server account ID.
+ * @member {Bool} is_anon_game_server Whether this is an anonymous game server account.
+ * @member {Bool} is_anon_user Whether this is an anonymous user account.
+ * @member {Bool} is_content_server Whether this is a content server account ID.
+ * @member {Bool} is_clan Whether this is a clan account ID.
+ * @member {Bool} is_chat Whether this is a chat account ID.
+ * @struct_end
  */
 
 /**
@@ -7366,14 +7638,14 @@
 
 /**
  * @struct SteamAppsDlcData
- * @description > **Steamworks Struct**: [func](url)
+ * @description > N / A
  *
- * This struct 
+ * This struct holds metadata about a DLC.
  *
- * @member {Bool} ok
- * @member {Real} app_id
- * @member {Bool} available
- * @member {String} name
+ * @member {Bool} ok Whether the request was successful.
+ * @member {Real} app_id The App ID of the DLC.
+ * @member {Bool} available Whether the DLC is currently available on the Steam store. Will be `false` if the DLC does not have a visible store page.
+ * @member {String} name The name of the DLC.
  * @struct_end 
  */
 
@@ -7391,7 +7663,7 @@
 
 /**
  * @struct SteamAppsInstallDir
- * @description > **Steamworks Struct**: [func](url)
+ * @description > **Steamworks Struct**: N / A
  *
  * This struct 
  *
@@ -7413,39 +7685,39 @@
 
 /**
  * @struct SteamAppsNumBetas
- * @description > **Steamworks Struct**: [func](url)
+ * @description > **Steamworks Struct**: N / A
  *
- * This struct 
+ * This struct holds information on app and beta branches.
  *
- * @member {Real} total
- * @member {Real} available
- * @member {Real} private_count
+ * @member {Real} total The total number of known app branches.
+ * @member {Real} available The number of beta branches available to the current user.
+ * @member {Real} private_count How many of these are private betas.
  * @struct_end 
  */
 
 /**
  * @struct SteamAppsBetaInfo
- * @description > **Steamworks Struct**: [func](url)
+ * @description > **Steamworks Struct**: N / A
  *
- * This struct 
+ * This struct holds details about an app beta branch.
  *
- * @member {Bool} ok
- * @member {Real} flags
- * @member {Real} build_id
- * @member {String} beta_name
- * @member {String} description
+ * @member {Bool} ok `true` is passed in branch index is valid; `false` otherwise.
+ * @member {Real} flags Set of flags (${Enum.SteamBetaBranchFlags}) describing current branch state.
+ * @member {Real} build_id Content BuildID set live on this branch.
+ * @member {String} beta_name Beta branch name.
+ * @member {String} description Beta branch description.
  * @struct_end 
  */
 
 /**
  * @struct SteamAppsDlcDownloadProgress
- * @description > **Steamworks Struct**: [func](url)
+ * @description > **Steamworks Struct**: N / A
  *
- * This struct 
+ * This struct holds the download progress for optional DLC.
  *
- * @member {Bool} ok
- * @member {Real} bytes_downloaded
- * @member {Real} bytes_total
+ * @member {Bool} ok `true` if the specified DLC exists and is currently downloading; otherwise, `false`.
+ * @member {Real} bytes_downloaded The number of bytes downloaded.
+ * @member {Real} bytes_total The total size of the download in bytes.
  * @struct_end 
  */
 
@@ -7594,13 +7866,13 @@
 
 /**
  * @struct SteamUserAvailableVoice
- * @description > **Steamworks Struct**: [func](url)
+ * @description > **Steamworks Struct**: N / A
  *
- * This struct 
+ * This struct holds information about the size of available voice data.
  *
- * @member {Enum.SteamApiVoiceResult} result
- * @member {Real} compressed_bytes
- * @member {Real} uncompressed_bytes
+ * @member {Enum.SteamApiVoiceResult} result The result of the request.
+ * @member {Real} compressed_bytes The size of the available voice data in bytes.
+ * @member {Real} uncompressed_bytes Deprecated.
  * @struct_end 
  */
 
@@ -7640,7 +7912,7 @@
 
 /**
  * @struct SteamUserEncryptedAppTicket
- * @description > **Steamworks Struct**: [func](url)
+ * @description > **Steamworks Struct**: N / A
  *
  * This struct 
  *
