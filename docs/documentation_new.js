@@ -1231,7 +1231,7 @@
 
 /**
  * @function steam_apps_is_subscribed
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamApps::BIsSubscribed](https://partner.steamgames.com/doc/api/ISteamApps#BIsSubscribed)
  *
  * This function checks if the active user is subscribed to the current App ID.
  * 
@@ -1430,7 +1430,7 @@
 
 /**
  * @function steam_apps_get_app_ownership_ticket_data
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: N / A
  *
  * This function 
  *
@@ -2204,9 +2204,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_user_get_game_badge_level
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUser::GetGameBadgeLevel](https://partner.steamgames.com/doc/api/ISteamUser#GetGameBadgeLevel)
  *
- * This function 
+ * This function gets the level of the users Steam badge for your game.
  *
  * @param {Real} n_series
  * @param {Bool} b_foil
@@ -2216,9 +2216,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_user_get_auth_ticket_for_web_api
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUser::GetAuthTicketForWebApi](https://partner.steamgames.com/doc/api/ISteamUser#GetAuthTicketForWebApi)
  *
- * This function 
+ * This function retrieves an authentication ticket for use with the ISteamUserAuth Web API.
  *
  * @param {String} pch_identity
  * @returns {Real} 
@@ -2227,9 +2227,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_user_get_duration_control
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUser::GetDurationControl](https://partner.steamgames.com/doc/api/ISteamUser#GetDurationControl)
  *
- * This function 
+ * This function retrieves anti indulgence / duration control for current user / game combination.
  *
  * @param {Function} [callback]
  * @function_end
@@ -2237,9 +2237,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_user_request_store_auth_url
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUser::RequestStoreAuthURL](https://partner.steamgames.com/doc/api/ISteamUser#RequestStoreAuthURL)
  *
- * This function 
+ * This function requests a URL that authenticates an in-game browser for store checkout, then redirects.
  *
  * @param {String} pch_redirect_url
  * @param {Function} [callback]
@@ -2248,7 +2248,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_user_get_market_eligibility
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: N / A
  *
  * This function 
  *
@@ -2258,9 +2258,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_user_track_app_usage_event
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUser::TrackAppUsageEvent](https://partner.steamgames.com/doc/api/ISteamUser#TrackAppUsageEvent)
  *
- * This function 
+ * This function was previously used by a few games to track usage events before Stats and Achievements (now deprecated).
  *
  * @param {Real} game_id
  * @param {Real} e_app_usage_event
@@ -2270,9 +2270,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_user_user_has_license_for_app
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUser::UserHasLicenseForApp](https://partner.steamgames.com/doc/api/ISteamUser#UserHasLicenseForApp)
  *
- * This function 
+ * This function checks if the user owns a specific piece of Downloadable Content (DLC).
  *
  * @param {Real} steam_id
  * @param {Real} app_id
@@ -2282,7 +2282,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_user_set_callback_steam_servers_connected
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: N / A
  *
  * This function 
  *
@@ -2292,7 +2292,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_user_clear_callback_steam_servers_connected
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: N / A
  *
  * This function 
  *
@@ -2301,7 +2301,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_user_set_callback_steam_server_connect_failure
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: N / A
  *
  * This function 
  *
@@ -2311,7 +2311,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_user_clear_callback_steam_server_connect_failure
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: N / A
  *
  * This function 
  *
@@ -2320,7 +2320,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_user_set_callback_steam_servers_disconnected
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: N / A
  *
  * This function 
  *
@@ -2330,7 +2330,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_user_clear_callback_steam_servers_disconnected
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: N / A
  *
  * This function 
  *
@@ -2339,7 +2339,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_user_set_callback_client_game_server_deny
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: N / A
  *
  * This function 
  *
@@ -2349,7 +2349,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_user_clear_callback_client_game_server_deny
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: N / A
  *
  * This function 
  *
@@ -2358,7 +2358,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_user_set_callback_licenses_updated
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: N / A
  *
  * This function 
  *
@@ -2368,7 +2368,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_user_clear_callback_licenses_updated
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: N / A
  *
  * This function 
  *
@@ -2377,7 +2377,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_user_set_callback_microtxn_authorization_response
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: N / A
  *
  * This function 
  *
@@ -2387,7 +2387,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_user_clear_callback_microtxn_authorization_response
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: N / A
  *
  * This function 
  *
@@ -2396,9 +2396,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_utils_overlay_needs_present
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUtils::BOverlayNeedsPresent](https://partner.steamgames.com/doc/api/ISteamUtils#BOverlayNeedsPresent)
  *
- * This function 
+ * This function checks if the Overlay needs a present. Only required if using event driven render updates.
  *
  * @returns {Bool} 
  * @function_end 
@@ -2406,9 +2406,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_utils_check_file_signature
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUtils::CheckFileSignature](https://partner.steamgames.com/doc/api/ISteamUtils#CheckFileSignature)
  *
- * This function 
+ * This function is deprecated.
  *
  * @param {String} sz_file_name
  * @param {Function} [callback]
@@ -2417,20 +2417,20 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_utils_get_api_call_failure_reason
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUtils::GetAPICallFailureReason](https://partner.steamgames.com/doc/api/ISteamUtils#GetAPICallFailureReason)
  *
- * This function 
+ * This function is used to get the failure reason of a call result.
  *
- * @param {Real} steam_api_call
- * @returns {Enum.SteamUtilsApiCallFailure} 
+ * @param {Real} steam_api_call The Steam API Call handle to check the failure for.
+ * @returns {Enum.SteamUtilsApiCallFailure}
  * @function_end 
  */
 
 /**
  * @function steam_utils_get_api_call_result
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUtils::GetAPICallResult](https://partner.steamgames.com/doc/api/ISteamUtils#GetAPICallResult)
  *
- * This function 
+ * This function gets the content of a completed API Call. Provided for the backend of the CallResult wrapper.
  *
  * @param {Real} steam_api_call
  * @param {Real} callback_expected
@@ -2442,7 +2442,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_utils_set_callback_ip_country
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: N / A
  *
  * This function 
  *
@@ -2452,7 +2452,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_utils_clear_callback_ip_country
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: N / A
  *
  * This function 
  *
@@ -2461,7 +2461,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_utils_set_callback_low_battery_power
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: N / A
  *
  * This function 
  *
@@ -2471,7 +2471,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_utils_clear_callback_low_battery_power
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: N / A
  *
  * This function 
  *
@@ -2480,7 +2480,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_utils_set_callback_steam_api_call_completed
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: N / A
  *
  * This function 
  *
@@ -2490,7 +2490,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_utils_clear_callback_steam_api_call_completed
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: N / A
  *
  * This function 
  *
@@ -2499,7 +2499,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_utils_set_callback_app_resuming_from_suspend
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: N / A
  *
  * This function 
  *
@@ -2509,7 +2509,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_utils_clear_callback_app_resuming_from_suspend
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: N / A
  *
  * This function 
  *
@@ -2518,7 +2518,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_utils_set_callback_steam_shutdown
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: N / A
  *
  * This function 
  *
@@ -2528,7 +2528,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_utils_clear_callback_steam_shutdown
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: N / A
  *
  * This function 
  *
@@ -2537,9 +2537,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_utils_get_app_id
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUtils::GetAppID](https://partner.steamgames.com/doc/api/ISteamUtils#GetAppID)
  *
- * This function 
+ * This function gets the App ID of the current process.
  *
  * @returns {Real} 
  * @function_end 
@@ -2547,9 +2547,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_utils_get_connected_universe
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUtils::GetConnectedUniverse](https://partner.steamgames.com/doc/api/ISteamUtils#GetConnectedUniverse)
  *
- * This function 
+ * This function gets the universe that the current client is connecting to. (Valve use only.)
  *
  * @returns {Enum.SteamApiUniverse} 
  * @function_end 
@@ -2557,9 +2557,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_utils_get_current_battery_power
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUtils::GetCurrentBatteryPower](https://partner.steamgames.com/doc/api/ISteamUtils#GetCurrentBatteryPower)
  *
- * This function 
+ * This function gets the current amount of battery power on the computer.
  *
  * @returns {Real} 
  * @function_end 
@@ -2567,9 +2567,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_utils_get_entered_gamepad_text_input
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUtils::GetEnteredGamepadTextInput](https://partner.steamgames.com/doc/api/ISteamUtils#GetEnteredGamepadTextInput)
  *
- * This function 
+ * This function gets the gamepad text input from the Big Picture overlay.
  *
  * @returns {Struct.SteamUtilsGamepadTextInput} 
  * @function_end 
@@ -2577,9 +2577,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_utils_get_entered_gamepad_text_length
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUtils::GetEnteredGamepadTextLength](https://partner.steamgames.com/doc/api/ISteamUtils#GetEnteredGamepadTextLength)
  *
- * This function 
+ * This function gets the length of the gamepad text input from the Big Picture overlay.
  *
  * @returns {Real} 
  * @function_end 
@@ -2587,33 +2587,33 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_utils_get_image_rgba
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUtils::GetImageRGBA](https://partner.steamgames.com/doc/api/ISteamUtils#GetImageRGBA)
  *
- * This function 
+ * This function gets the image bytes from an image handle.
  *
- * @param {Real} i_image
- * @param {Buffer} dest
- * @param {Real} n_dest_buffer_size
+ * @param {Real} i_image The handle to the image that will be obtained.
+ * @param {Buffer} dest The buffer that will be filled.
+ * @param {Real} n_dest_buffer_size The total size of the pubDest buffer.
  * @returns {Bool} 
  * @function_end 
  */
 
 /**
  * @function steam_utils_get_image_size
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUtils::GetImageSize](https://partner.steamgames.com/doc/api/ISteamUtils#GetImageSize)
  *
- * This function 
+ * This function gets the size of a Steam image handle.
  *
- * @param {Real} i_image
- * @returns {Struct.SteamUtilsImageSize} 
+ * @param {Real} i_image The image handle to get the size for.
+ * @returns {Struct.SteamUtilsImageSize}
  * @function_end 
  */
 
 /**
  * @function steam_utils_get_ipc_call_count
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUtils::GetIPCCallCount](https://partner.steamgames.com/doc/api/ISteamUtils#GetIPCCallCount)
  *
- * This function 
+ * This function returns the number of IPC calls made since the last time this function was called.
  *
  * @returns {Real} 
  * @function_end 
@@ -2621,9 +2621,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_utils_get_ip_country
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUtils::GetIPCountry](https://partner.steamgames.com/doc/api/ISteamUtils#GetIPCountry)
  *
- * This function 
+ * This function returns the 2 digit ISO 3166-1-alpha-2 format country code which client is running in.
  *
  * @returns {String} 
  * @function_end 
@@ -2631,9 +2631,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_utils_get_seconds_since_app_active
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUtils::GetSecondsSinceAppActive](https://partner.steamgames.com/doc/api/ISteamUtils#GetSecondsSinceAppActive)
  *
- * This function 
+ * This function returns the number of seconds since the application was active.
  *
  * @returns {Real} 
  * @function_end 
@@ -2641,9 +2641,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_utils_get_seconds_since_computer_active
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUtils::GetSecondsSinceComputerActive](https://partner.steamgames.com/doc/api/ISteamUtils#GetSecondsSinceComputerActive)
  *
- * This function 
+ * This function returns the number of seconds since the user last moved the mouse.
  *
  * @returns {Real} 
  * @function_end 
@@ -2651,9 +2651,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_utils_get_server_real_time
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUtils::GetServerRealTime](https://partner.steamgames.com/doc/api/ISteamUtils#GetServerRealTime)
  *
- * This function 
+ * This function returns the Steam server time in Unix epoch format.
  *
  * @returns {Real} 
  * @function_end 
@@ -2661,9 +2661,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_utils_get_steam_ui_language
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUtils::GetSteamUILanguage](https://partner.steamgames.com/doc/api/ISteamUtils#GetSteamUILanguage)
  *
- * This function 
+ * This function returns the language the Steam client is running in.
  *
  * @returns {String} 
  * @function_end 
@@ -2671,9 +2671,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_utils_is_overlay_enabled
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUtils::IsOverlayEnabled](https://partner.steamgames.com/doc/api/ISteamUtils#IsOverlayEnabled)
  *
- * This function 
+ * This function checks if the Steam Overlay is running & the user can access it.
  *
  * @returns {Bool} 
  * @function_end 
@@ -2681,9 +2681,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_utils_is_steam_in_big_picture_mode
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUtils::IsSteamInBigPictureMode](https://partner.steamgames.com/doc/api/ISteamUtils#IsSteamInBigPictureMode)
  *
- * This function 
+ * This function checks if Steam & the Steam Overlay are running in Big Picture mode.
  *
  * @returns {Bool} 
  * @function_end 
@@ -2691,9 +2691,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_utils_is_steam_running_in_vr
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUtils::IsSteamRunningInVR](https://partner.steamgames.com/doc/api/ISteamUtils#IsSteamRunningInVR)
  *
- * This function 
+ * This function checks if Steam is running in VR mode.
  *
  * @returns {Bool} 
  * @function_end 
@@ -2701,9 +2701,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_utils_is_steam_running_on_steam_deck
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUtils::IsSteamRunningOnSteamDeck](https://partner.steamgames.com/doc/api/ISteamUtils#IsSteamRunningOnSteamDeck)
  *
- * This function 
+ * This function checks if Steam is running on a Steam Deck, or any other SteamOS device.
  *
  * @returns {Bool} 
  * @function_end 
@@ -2711,9 +2711,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_utils_is_steam_china_launcher
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUtils::IsSteamChinaLauncher](https://partner.steamgames.com/doc/api/ISteamUtils#IsSteamChinaLauncher)
  *
- * This function 
+ * This function returns whether the current launcher is a Steam China launcher.
  *
  * @returns {Bool} 
  * @function_end 
@@ -2721,20 +2721,20 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_utils_is_api_call_completed
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUtils::IsAPICallCompleted](https://partner.steamgames.com/doc/api/ISteamUtils#IsAPICallCompleted)
  *
- * This function 
+ * This function checks if an API Call is completed. Provides the backend of the CallResult wrapper.
  *
- * @param {Real} steam_api_call
- * @returns {Struct.SteamUtilsApiCallCompleted} 
+ * @param {Real} steam_api_call The API Call handle to check.
+ * @returns {Struct.SteamUtilsApiCallCompleted}
  * @function_end 
  */
 
 /**
  * @function steam_utils_init_filter_text
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUtils::InitFilterText](https://partner.steamgames.com/doc/api/ISteamUtils#InitFilterText)
  *
- * This function 
+ * This function initializes text filtering, loading dictionaries for the language the game is running in.
  *
  * @returns {Bool} 
  * @function_end 
@@ -2742,22 +2742,22 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_utils_filter_text
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUtils::FilterText](https://partner.steamgames.com/doc/api/ISteamUtils#FilterText)
  *
- * This function 
+ * This function filters the provided input message and places the filtered result into pchOutFilteredText.
  *
- * @param {Enum.SteamUtilsTextFilteringContext} context
- * @param {Real} source_steam_id
- * @param {String} input_message
+ * @param {Enum.SteamUtilsTextFilteringContext} context The type of content in the input string.
+ * @param {Real} source_steam_id The Steam ID that is the source of the input string (e.g. the player with the name, or who said the chat text).
+ * @param {String} input_message The input string that should be filtered, which can be ASCII or UTF-8.
  * @returns {Struct.SteamUtilsFilterTextResult} 
  * @function_end 
  */
 
 /**
  * @function steam_utils_is_vr_headset_streaming_enabled
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUtils::IsVRHeadsetStreamingEnabled](https://partner.steamgames.com/doc/api/ISteamUtils#IsVRHeadsetStreamingEnabled)
  *
- * This function 
+ * This function checks if the HMD view is being streamed via Steam Remote Play.
  *
  * @returns {Bool} 
  * @function_end 
@@ -2765,20 +2765,20 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_utils_set_overlay_notification_inset
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUtils::SetOverlayNotificationInset](https://partner.steamgames.com/doc/api/ISteamUtils#SetOverlayNotificationInset)
  *
- * This function 
+ * This function sets the inset of the overlay notification from the corner specified by SetOverlayNotificationPosition.
  *
- * @param {Real} n_horizontal_inset
- * @param {Real} n_vertical_inset
+ * @param {Real} n_horizontal_inset The horizontal (left-right) distance in pixels from the corner.
+ * @param {Real} n_vertical_inset The vertical (up-down) distance in pixels from the corner.
  * @function_end 
  */
 
 /**
  * @function steam_utils_set_overlay_notification_position
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUtils::SetOverlayNotificationPosition](https://partner.steamgames.com/doc/api/ISteamUtils#SetOverlayNotificationPosition)
  *
- * This function 
+ * This function sets which corner the Steam overlay notification popup should display itself in.
  *
  * @param {Enum.SteamApiNotificationPosition} notification_position
  * @function_end 
@@ -2786,47 +2786,47 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_utils_set_vr_headset_streaming_enabled
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUtils::SetVRHeadsetStreamingEnabled](https://partner.steamgames.com/doc/api/ISteamUtils#SetVRHeadsetStreamingEnabled)
  *
- * This function 
+ * This function sets whether the HMD content will be streamed via Steam Remote Play.
  *
- * @param {Bool} b_enabled
- * @function_end 
+ * @param {Bool} b_enabled Turns VR HMD Streaming on (true) or off (false).
+ * @function_end
  */
 
 /**
  * @function steam_utils_show_gamepad_text_input
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUtils::ShowGamepadTextInput](https://partner.steamgames.com/doc/api/ISteamUtils#ShowGamepadTextInput)
  *
- * This function 
+ * This function activates the Big Picture text input dialog which only supports gamepad input.
  *
- * @param {Enum.SteamUtilsGamepadTextInputMode} input_mode
- * @param {Enum.SteamUtilsGamepadTextInputLineMode} line_mode
- * @param {String} description
- * @param {Real} char_max
- * @param {String} existing_text
+ * @param {Enum.SteamUtilsGamepadTextInputMode} input_mode Selects the input mode to use, either Normal or Password (hidden text).
+ * @param {Enum.SteamUtilsGamepadTextInputLineMode} line_mode Controls whether to use single or multi line input.
+ * @param {String} description Sets the description that should inform the user what the input dialog is for.
+ * @param {Real} char_max The maximum number of characters that the user can input.
+ * @param {String} existing_text Sets the preexisting text which the user can edit.
  * @returns {Bool} 
  * @function_end 
  */
 
 /**
  * @function steam_utils_show_floating_gamepad_text_input
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUtils::ShowFloatingGamepadTextInput](https://partner.steamgames.com/doc/api/ISteamUtils#ShowFloatingGamepadTextInput)
  *
- * This function 
+ * This function opens a floating keyboard over the game content and sends OS keyboard keys directly to the game.
  *
- * @param {Enum.SteamUtilsFloatingGamepadTextInputMode} keyboard_mode
- * @param {Real} text_field_x
- * @param {Real} text_field_y
- * @param {Real} text_field_width
- * @param {Real} text_field_height
+ * @param {Enum.SteamUtilsFloatingGamepadTextInputMode} keyboard_mode Selects the keyboard type to use.
+ * @param {Real} text_field_x X coordinate of text field which shouldn't be obscured by the floating keyboard.
+ * @param {Real} text_field_y Y coordinate of text field which shouldn't be obscured by the floating keyboard.
+ * @param {Real} text_field_width Width of text field which shouldn't be obscured by the floating keyboard.
+ * @param {Real} text_field_height Height of text field which shouldn't be obscured by the floating keyboard.
  * @returns {Bool} 
  * @function_end 
  */
 
 /**
  * @function steam_utils_dismiss_floating_gamepad_text_input
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: N / A
  *
  * This function 
  *
@@ -2835,26 +2835,26 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_utils_start_vr_dashboard
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUtils::StartVRDashboard](https://partner.steamgames.com/doc/api/ISteamUtils#StartVRDashboard)
  *
- * This function 
+ * This function asks Steam to create and render the OpenVR dashboard.
  *
  * @function_end 
  */
 
 /**
  * @function steam_utils_set_game_launcher_mode
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUtils::SetGameLauncherMode](https://partner.steamgames.com/doc/api/ISteamUtils#SetGameLauncherMode)
  *
- * This function 
+ * This function sets the game launcher mode, so that Steam Input translates controller input into mouse and keyboard input to navigate the launcher, for launchers that do not have native controller support.
  *
- * @param {Bool} b_launcher_mode
+ * @param {Bool} b_launcher_mode Whether a launcher is active or not.
  * @function_end 
  */
 
 /**
  * @function steam_utils_set_callback_gamepad_text_input_dismissed
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: N / A
  *
  * This function 
  *
@@ -2864,7 +2864,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_utils_clear_callback_gamepad_text_input_dismissed
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: N / A
  *
  * This function 
  *
@@ -2873,7 +2873,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_utils_set_callback_floating_gamepad_text_input_dismissed
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: N / A
  *
  * This function 
  *
@@ -2883,7 +2883,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_utils_clear_callback_floating_gamepad_text_input_dismissed
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: N / A
  *
  * This function 
  *
@@ -2892,9 +2892,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_utils_set_callback_warning_message
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUtils::SetWarningMessageHook](https://partner.steamgames.com/doc/api/ISteamUtils#SetWarningMessageHook)
  *
- * This function 
+ * This function sets a warning message hook to receive SteamAPI warnings and info messages in a callback function.
  *
  * @param {Function} callback
  * @function_end 
@@ -2902,7 +2902,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_utils_clear_callback_warning_message
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: N / A
  *
  * This function 
  *
@@ -2911,9 +2911,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_ugc_add_app_dependency
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUGC::AddAppDependency](https://partner.steamgames.com/doc/api/ISteamUGC#AddAppDependency)
  *
- * This function 
+ * This function adds a dependency between the given item and the appid.
  *
  * @param {Real} published_file_id
  * @param {Real} app_id
@@ -2923,9 +2923,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_ugc_add_dependency
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUGC::AddDependency](https://partner.steamgames.com/doc/api/ISteamUGC#AddDependency)
  *
- * This function 
+ * This function adds a workshop item as a dependency to the specified item.
  *
  * @param {Real} parent_published_file_id
  * @param {Real} child_published_file_id
@@ -2935,9 +2935,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_ugc_add_excluded_tag
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUGC::AddExcludedTag](https://partner.steamgames.com/doc/api/ISteamUGC#AddExcludedTag)
  *
- * This function 
+ * This function adds an excluded tag to a pending UGC Query.
  *
  * @param {Real} query_handle
  * @param {String} tag_name
@@ -2947,9 +2947,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_ugc_add_item_key_value_tag
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUGC::AddItemKeyValueTag](https://partner.steamgames.com/doc/api/ISteamUGC#AddItemKeyValueTag)
  *
- * This function 
+ * This function adds a key-value tag pair to an item.
  *
  * @param {Real} update_handle
  * @param {String} key
@@ -2960,9 +2960,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_ugc_add_item_preview_file
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUGC::AddItemPreviewFile](https://partner.steamgames.com/doc/api/ISteamUGC#AddItemPreviewFile)
  *
- * This function 
+ * This function adds an additional preview file for the item.
  *
  * @param {Real} update_handle
  * @param {String} preview_file_path
@@ -2973,9 +2973,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_ugc_add_item_preview_video
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUGC::AddItemPreviewVideo](https://partner.steamgames.com/doc/api/ISteamUGC#AddItemPreviewVideo)
  *
- * This function 
+ * This function adds an additional video preview from YouTube for the item.
  *
  * @param {Real} update_handle
  * @param {String} video_id
@@ -2985,9 +2985,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_ugc_add_item_to_favorites
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUGC::AddItemToFavorites](https://partner.steamgames.com/doc/api/ISteamUGC#AddItemToFavorites)
  *
- * This function 
+ * This function adds a workshop item to the user's favorites list.
  *
  * @param {Real} app_id
  * @param {Real} published_file_id
@@ -2997,9 +2997,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_ugc_add_required_key_value_tag
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUGC::AddRequiredKeyValueTag](https://partner.steamgames.com/doc/api/ISteamUGC#AddRequiredKeyValueTag)
  *
- * This function 
+ * This function adds a required key-value tag to a pending UGC Query.
  *
  * @param {Real} query_handle
  * @param {String} key
@@ -3010,9 +3010,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_ugc_add_required_tag
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUGC::AddRequiredTag](https://partner.steamgames.com/doc/api/ISteamUGC#AddRequiredTag)
  *
- * This function 
+ * This function adds a required tag to a pending UGC Query.
  *
  * @param {Real} query_handle
  * @param {String} tag_name
@@ -3022,9 +3022,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_ugc_add_required_tag_group
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUGC::AddRequiredTagGroup](https://partner.steamgames.com/doc/api/ISteamUGC#AddRequiredTagGroup)
  *
- * This function 
+ * This function adds the requirement that the returned items from the pending UGC Query have at least one of the tags in the given set (logical "or").
  *
  * @param {Real} query_handle
  * @param {Array[String]} tags_csv
@@ -3034,9 +3034,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_ugc_init_workshop_for_game_server
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUGC::BInitWorkshopForGameServer](https://partner.steamgames.com/doc/api/ISteamUGC#BInitWorkshopForGameServer)
  *
- * This function 
+ * This function lets game servers set a specific workshop folder before issuing any UGC commands.
  *
  * @param {Real} workshop_depot_id
  * @param {String} folder
@@ -3046,9 +3046,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_ugc_create_item
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUGC::CreateItem](https://partner.steamgames.com/doc/api/ISteamUGC#CreateItem)
  *
- * This function 
+ * This function creates a new workshop item with no content attached yet.
  *
  * @param {Real} consumer_app_id
  * @param {Enum.SteamWorkshopFileType} workshop_file_type
@@ -3058,9 +3058,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_ugc_create_query_all_ugc_request
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUGC::CreateQueryAllUGCRequest](https://partner.steamgames.com/doc/api/ISteamUGC#CreateQueryAllUGCRequest)
  *
- * This function 
+ * This function queries for all matching UGC.
  *
  * @param {Enum.SteamUgcQuery} query_type
  * @param {Enum.SteamUgcMatchingUgcType} matching_ugc_type
@@ -3073,9 +3073,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_ugc_create_query_ugc_details_request
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUGC::CreateQueryUGCDetailsRequest](https://partner.steamgames.com/doc/api/ISteamUGC#CreateQueryUGCDetailsRequest)
  *
- * This function 
+ * This function queries for the details of specific UGC items.
  *
  * @param {Array[Real]} published_file_ids
  * @param {Real} num_published_file_ids
@@ -3085,9 +3085,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_ugc_create_query_user_ugc_request
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUGC::CreateQueryUserUGCRequest](https://partner.steamgames.com/doc/api/ISteamUGC#CreateQueryUserUGCRequest)
  *
- * This function 
+ * This function queries UGC associated with a user.
  *
  * @param {Real} account_id
  * @param {Enum.SteamUserUgcList} list_type
@@ -3102,9 +3102,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_ugc_delete_item
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUGC::DeleteItem](https://partner.steamgames.com/doc/api/ISteamUGC#DeleteItem)
  *
- * This function 
+ * This function deletes the item without prompting the user.
  *
  * @param {Real} published_file_id
  * @param {Function} [callback]
@@ -3113,9 +3113,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_ugc_download_item
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUGC::DownloadItem](https://partner.steamgames.com/doc/api/ISteamUGC#DownloadItem)
  *
- * This function 
+ * This function downloads or updates a workshop item.
  *
  * @param {Real} published_file_id
  * @param {Bool} high_priority
@@ -3125,9 +3125,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_ugc_get_app_dependencies
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUGC::GetAppDependencies](https://partner.steamgames.com/doc/api/ISteamUGC#GetAppDependencies)
  *
- * This function 
+ * This function gets the app dependencies associated with the given PublishedFileId_t.
  *
  * @param {Real} published_file_id
  * @param {Function} [callback]
@@ -3136,9 +3136,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_ugc_get_item_download_info
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUGC::GetItemDownloadInfo](https://partner.steamgames.com/doc/api/ISteamUGC#GetItemDownloadInfo)
  *
- * This function 
+ * This function gets info about a pending download of a workshop item that has k_EItemStateNeedsUpdate set.
  *
  * @param {Real} published_file_id
  * @returns {Struct.SteamUgcItemDownloadInfo} 
@@ -3147,9 +3147,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_ugc_get_item_install_info
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUGC::GetItemInstallInfo](https://partner.steamgames.com/doc/api/ISteamUGC#GetItemInstallInfo)
  *
- * This function 
+ * This function gets info about currently installed content on the disc for workshop items that have k_EItemStateInstalled set.
  *
  * @param {Real} published_file_id
  * @returns {Struct.SteamUgcItemInstallInfo} 
@@ -3158,9 +3158,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_ugc_get_item_state
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUGC::GetItemState](https://partner.steamgames.com/doc/api/ISteamUGC#GetItemState)
  *
- * This function 
+ * This function gets the current state of a workshop item on this client.
  *
  * @param {Real} published_file_id
  * @returns {Real} 
@@ -3169,9 +3169,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_ugc_get_item_update_progress
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUGC::GetItemUpdateProgress](https://partner.steamgames.com/doc/api/ISteamUGC#GetItemUpdateProgress)
  *
- * This function 
+ * This function gets the progress of an item update.
  *
  * @param {Real} update_handle
  * @returns {Struct.SteamUgcItemUpdateProgress} 
@@ -3180,9 +3180,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_ugc_get_num_subscribed_items
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUGC::GetNumSubscribedItems](https://partner.steamgames.com/doc/api/ISteamUGC#GetNumSubscribedItems)
  *
- * This function 
+ * This function gets the total number of items the current user is subscribed to for the game or application.
  *
  * @param {Bool} include_locally_disabled
  * @returns {Real} 
@@ -3191,9 +3191,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_ugc_get_subscribed_items
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUGC::GetSubscribedItems](https://partner.steamgames.com/doc/api/ISteamUGC#GetSubscribedItems)
  *
- * This function 
+ * This function gets a list of all of the items the current user is subscribed to for the current game, excluding any that have been locally disabled by the user.
  *
  * @param {Real} c_max_entries
  * @param {Bool} include_locally_disabled
@@ -3203,9 +3203,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_ugc_get_query_ugc_result
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUGC::GetQueryUGCResult](https://partner.steamgames.com/doc/api/ISteamUGC#GetQueryUGCResult)
  *
- * This function 
+ * This function retrieves the details of an individual workshop item after receiving a querying UGC call result.
  *
  * @param {Real} query_handle
  * @param {Real} index
@@ -3215,9 +3215,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_ugc_get_query_ugc_preview_url
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUGC::GetQueryUGCPreviewURL](https://partner.steamgames.com/doc/api/ISteamUGC#GetQueryUGCPreviewURL)
  *
- * This function 
+ * This function retrieves the URL to the preview image of an individual workshop item after receiving a querying UGC call result.
  *
  * @param {Real} query_handle
  * @param {Real} index
@@ -3227,9 +3227,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_ugc_get_query_ugc_metadata
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUGC::GetQueryUGCMetadata](https://partner.steamgames.com/doc/api/ISteamUGC#GetQueryUGCMetadata)
  *
- * This function 
+ * This function retrieves the developer set metadata of an individual workshop item after receiving a querying UGC call result.
  *
  * @param {Real} query_handle
  * @param {Real} index
@@ -3239,9 +3239,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_ugc_get_query_ugc_children
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUGC::GetQueryUGCChildren](https://partner.steamgames.com/doc/api/ISteamUGC#GetQueryUGCChildren)
  *
- * This function 
+ * This function retrieves the ids of any child items of an individual workshop item after receiving a querying UGC call result.
  *
  * @param {Real} query_handle
  * @param {Real} index
@@ -3252,9 +3252,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_ugc_get_query_ugc_statistic
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUGC::GetQueryUGCStatistic](https://partner.steamgames.com/doc/api/ISteamUGC#GetQueryUGCStatistic)
  *
- * This function 
+ * This function retrieves various statistics of an individual workshop item after receiving a querying UGC call result.
  *
  * @param {Real} query_handle
  * @param {Real} index
@@ -3265,9 +3265,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_ugc_get_query_ugc_num_additional_previews
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUGC::GetQueryUGCNumAdditionalPreviews](https://partner.steamgames.com/doc/api/ISteamUGC#GetQueryUGCNumAdditionalPreviews)
  *
- * This function 
+ * This function retrieves the number of additional previews of an individual workshop item after receiving a querying UGC call result.
  *
  * @param {Real} query_handle
  * @param {Real} index
@@ -3277,9 +3277,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_ugc_get_query_ugc_additional_preview
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUGC::GetQueryUGCAdditionalPreview](https://partner.steamgames.com/doc/api/ISteamUGC#GetQueryUGCAdditionalPreview)
  *
- * This function 
+ * This function retrieves the details of an additional preview associated with an individual workshop item after receiving a querying UGC call result.
  *
  * @param {Real} query_handle
  * @param {Real} index
@@ -3291,9 +3291,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_ugc_get_query_ugc_num_key_value_tags
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUGC::GetQueryUGCNumKeyValueTags](https://partner.steamgames.com/doc/api/ISteamUGC#GetQueryUGCNumKeyValueTags)
  *
- * This function 
+ * This function retrieves the number of key-value tags of an individual workshop item after receiving a querying UGC call result.
  *
  * @param {Real} query_handle
  * @param {Real} index
@@ -3303,9 +3303,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_ugc_get_query_ugc_key_value_tag
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUGC::GetQueryUGCKeyValueTag](https://partner.steamgames.com/doc/api/ISteamUGC#GetQueryUGCKeyValueTag)
  *
- * This function 
+ * This function retrieves the details of a key-value tag associated with an individual workshop item after receiving a querying UGC call result.
  *
  * @param {Real} query_handle
  * @param {Real} index
@@ -3316,9 +3316,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_ugc_get_query_ugc_content_descriptors
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUGC::GetQueryUGCContentDescriptors](https://partner.steamgames.com/doc/api/ISteamUGC#GetQueryUGCContentDescriptors)
  *
- * This function 
+ * This function retrieves an array of EUGCContentDescriptorID set on the item.
  *
  * @param {Real} query_handle
  * @param {Real} index
@@ -3329,9 +3329,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_ugc_remove_app_dependency
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUGC::RemoveAppDependency](https://partner.steamgames.com/doc/api/ISteamUGC#RemoveAppDependency)
  *
- * This function 
+ * This function removes the dependency between the given item and the appid.
  *
  * @param {Real} published_file_id
  * @param {Real} app_id
@@ -3341,9 +3341,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_ugc_remove_dependency
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUGC::RemoveDependency](https://partner.steamgames.com/doc/api/ISteamUGC#RemoveDependency)
  *
- * This function 
+ * This function removes a workshop item as a dependency from the specified item.
  *
  * @param {Real} parent_published_file_id
  * @param {Real} child_published_file_id
@@ -3353,9 +3353,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_ugc_remove_item_from_favorites
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUGC::RemoveItemFromFavorites](https://partner.steamgames.com/doc/api/ISteamUGC#RemoveItemFromFavorites)
  *
- * This function 
+ * This function removes a workshop item from the user's favorites list.
  *
  * @param {Real} app_id
  * @param {Real} published_file_id
@@ -3365,9 +3365,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_ugc_remove_item_key_value_tags
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUGC::RemoveItemKeyValueTags](https://partner.steamgames.com/doc/api/ISteamUGC#RemoveItemKeyValueTags)
  *
- * This function 
+ * This function removes an existing key-value tag from an item.
  *
  * @param {Real} update_handle
  * @param {String} key
@@ -3377,9 +3377,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_ugc_remove_item_preview
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUGC::RemoveItemPreview](https://partner.steamgames.com/doc/api/ISteamUGC#RemoveItemPreview)
  *
- * This function 
+ * This function removes an existing preview from an item.
  *
  * @param {Real} update_handle
  * @param {Real} index
@@ -3389,9 +3389,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_ugc_add_content_descriptor
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUGC::AddContentDescriptor](https://partner.steamgames.com/doc/api/ISteamUGC#AddContentDescriptor)
  *
- * This function 
+ * This function sets the given EUGCContentDescriptorID on the item.
  *
  * @param {Real} update_handle
  * @param {Enum.SteamUgcContentDescriptorId} descriptor_id
@@ -3401,9 +3401,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_ugc_remove_content_descriptor
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUGC::RemoveContentDescriptor](https://partner.steamgames.com/doc/api/ISteamUGC#RemoveContentDescriptor)
  *
- * This function 
+ * This function removes the given EUGCContentDescriptorID from the item.
  *
  * @param {Real} update_handle
  * @param {Enum.SteamUgcContentDescriptorId} descriptor_id
@@ -3413,9 +3413,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_ugc_set_required_game_versions
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUGC::SetRequiredGameVersions](https://partner.steamgames.com/doc/api/ISteamUGC#SetRequiredGameVersions)
  *
- * This function 
+ * This function sets what Steam (beta) branches this item is valid for.
  *
  * @param {Real} update_handle
  * @param {String} game_branch_min
@@ -3426,9 +3426,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_ugc_request_ugc_details
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUGC::RequestUGCDetails](https://partner.steamgames.com/doc/api/ISteamUGC#RequestUGCDetails)
  *
- * This function 
+ * This function is deprecated; use steam_ugc_create_query_ugc_details_request instead.
  *
  * @param {Real} published_file_id
  * @param {Real} max_age_seconds
@@ -3438,9 +3438,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_ugc_send_query_ugc_request
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUGC::SendQueryUGCRequest](https://partner.steamgames.com/doc/api/ISteamUGC#SendQueryUGCRequest)
  *
- * This function 
+ * This function sends a UGC query to Steam.
  *
  * @param {Real} query_handle
  * @param {Function} [callback]
@@ -3449,9 +3449,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_ugc_release_query_ugc_request
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUGC::ReleaseQueryUGCRequest](https://partner.steamgames.com/doc/api/ISteamUGC#ReleaseQueryUGCRequest)
  *
- * This function 
+ * This function releases a UGC query handle when you are done with it to free up memory.
  *
  * @param {Real} query_handle
  * @function_end 
@@ -3459,7 +3459,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_ugc_set_callback_item_installed
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: N / A
  *
  * This function 
  *
@@ -3469,7 +3469,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_ugc_clear_callback_item_installed
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: N / A
  *
  * This function 
  *
@@ -3478,9 +3478,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_ugc_set_allow_cached_response
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUGC::SetAllowCachedResponse](https://partner.steamgames.com/doc/api/ISteamUGC#SetAllowCachedResponse)
  *
- * This function 
+ * This function sets whether results will be returned from the cache for the specific period of time on a pending UGC Query.
  *
  * @param {Real} query_handle
  * @param {Real} max_age_seconds
@@ -3490,9 +3490,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_ugc_set_cloud_file_name_filter
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUGC::SetCloudFileNameFilter](https://partner.steamgames.com/doc/api/ISteamUGC#SetCloudFileNameFilter)
  *
- * This function 
+ * This function sets to only return items that have a specific filename on a pending UGC Query.
  *
  * @param {Real} query_handle
  * @param {String} match_cloud_file_name
@@ -3502,9 +3502,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_ugc_set_item_content
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUGC::SetItemContent](https://partner.steamgames.com/doc/api/ISteamUGC#SetItemContent)
  *
- * This function 
+ * This function sets the folder that will be stored as the content for an item.
  *
  * @param {Real} update_handle
  * @param {String} content_folder
@@ -3514,9 +3514,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_ugc_set_item_description
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUGC::SetItemDescription](https://partner.steamgames.com/doc/api/ISteamUGC#SetItemDescription)
  *
- * This function 
+ * This function sets a new description for an item.
  *
  * @param {Real} update_handle
  * @param {String} description
@@ -3526,9 +3526,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_ugc_set_item_metadata
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUGC::SetItemMetadata](https://partner.steamgames.com/doc/api/ISteamUGC#SetItemMetadata)
  *
- * This function 
+ * This function sets arbitrary metadata for an item.
  *
  * @param {Real} update_handle
  * @param {String} metadata
@@ -3538,9 +3538,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_ugc_set_item_preview
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUGC::SetItemPreview](https://partner.steamgames.com/doc/api/ISteamUGC#SetItemPreview)
  *
- * This function 
+ * This function sets the primary preview image for the item.
  *
  * @param {Real} update_handle
  * @param {String} preview_file
@@ -3550,9 +3550,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_ugc_set_item_tags
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUGC::SetItemTags](https://partner.steamgames.com/doc/api/ISteamUGC#SetItemTags)
  *
- * This function 
+ * This function sets arbitrary developer specified tags on an item.
  *
  * @param {Real} update_handle
  * @param {Array[String]} tags_csv
@@ -3562,9 +3562,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_ugc_set_item_title
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUGC::SetItemTitle](https://partner.steamgames.com/doc/api/ISteamUGC#SetItemTitle)
  *
- * This function 
+ * This function sets a new title for an item.
  *
  * @param {Real} update_handle
  * @param {String} title
@@ -3574,9 +3574,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_ugc_set_item_update_language
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUGC::SetItemUpdateLanguage](https://partner.steamgames.com/doc/api/ISteamUGC#SetItemUpdateLanguage)
  *
- * This function 
+ * This function sets the language of the title and description that will be set in this item update.
  *
  * @param {Real} update_handle
  * @param {String} language
@@ -3586,9 +3586,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_ugc_set_items_disabled_locally
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUGC::SetItemsDisabledLocally](https://partner.steamgames.com/doc/api/ISteamUGC#SetItemsDisabledLocally)
  *
- * This function 
+ * This function sets whether the items should be disabled locally or not.
  *
  * @param {Array[Real]} published_file_ids
  * @param {Real} num_published_file_ids
@@ -3599,9 +3599,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_ugc_set_item_visibility
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUGC::SetItemVisibility](https://partner.steamgames.com/doc/api/ISteamUGC#SetItemVisibility)
  *
- * This function 
+ * This function sets the visibility of an item.
  *
  * @param {Real} update_handle
  * @param {Enum.SteamRemoteStoragePublishedFileVisibility} visibility
@@ -3611,9 +3611,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_ugc_set_language
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUGC::SetLanguage](https://partner.steamgames.com/doc/api/ISteamUGC#SetLanguage)
  *
- * This function 
+ * This function sets the language to return the title and description in for the items on a pending UGC Query.
  *
  * @param {Real} query_handle
  * @param {String} language
@@ -3623,9 +3623,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_ugc_set_match_any_tag
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUGC::SetMatchAnyTag](https://partner.steamgames.com/doc/api/ISteamUGC#SetMatchAnyTag)
  *
- * This function 
+ * This function sets whether workshop items will be returned if they have one or more matching tags, or if all tags need to match on a pending UGC Query.
  *
  * @param {Real} query_handle
  * @param {Bool} match_any_tag
@@ -3635,9 +3635,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_ugc_set_ranked_by_trend_days
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUGC::SetRankedByTrendDays](https://partner.steamgames.com/doc/api/ISteamUGC#SetRankedByTrendDays)
  *
- * This function 
+ * This function sets whether the order of the results will be updated based on the rank of items over a number of days on a pending UGC Query.
  *
  * @param {Real} query_handle
  * @param {Real} days
@@ -3647,9 +3647,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_ugc_set_return_additional_previews
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUGC::SetReturnAdditionalPreviews](https://partner.steamgames.com/doc/api/ISteamUGC#SetReturnAdditionalPreviews)
  *
- * This function 
+ * This function sets whether to return any additional images/videos attached to the items on a pending UGC Query.
  *
  * @param {Real} query_handle
  * @param {Bool} return_additional_previews
@@ -3659,9 +3659,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_ugc_set_return_children
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUGC::SetReturnChildren](https://partner.steamgames.com/doc/api/ISteamUGC#SetReturnChildren)
  *
- * This function 
+ * This function sets whether to return the IDs of the child items of the item on a pending UGC Query.
  *
  * @param {Real} query_handle
  * @param {Bool} return_children
@@ -3671,9 +3671,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_ugc_set_return_key_value_tags
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUGC::SetReturnKeyValueTags](https://partner.steamgames.com/doc/api/ISteamUGC#SetReturnKeyValueTags)
  *
- * This function 
+ * This function sets whether to return any key-value tags for the items on a pending UGC Query.
  *
  * @param {Real} query_handle
  * @param {Bool} return_key_value_tags
@@ -3683,9 +3683,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_ugc_set_return_long_description
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUGC::SetReturnLongDescription](https://partner.steamgames.com/doc/api/ISteamUGC#SetReturnLongDescription)
  *
- * This function 
+ * This function sets whether to return the full description for the items on a pending UGC Query.
  *
  * @param {Real} query_handle
  * @param {Bool} return_long_description
@@ -3695,9 +3695,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_ugc_set_return_metadata
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUGC::SetReturnMetadata](https://partner.steamgames.com/doc/api/ISteamUGC#SetReturnMetadata)
  *
- * This function 
+ * This function sets whether to return the developer-specified metadata for the items on a pending UGC Query.
  *
  * @param {Real} query_handle
  * @param {Bool} return_metadata
@@ -3707,9 +3707,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_ugc_set_return_only_ids
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUGC::SetReturnOnlyIDs](https://partner.steamgames.com/doc/api/ISteamUGC#SetReturnOnlyIDs)
  *
- * This function 
+ * This function sets whether to only return IDs instead of all the details on a pending UGC Query.
  *
  * @param {Real} query_handle
  * @param {Bool} return_only_ids
@@ -3719,9 +3719,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_ugc_set_return_playtime_stats
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUGC::SetReturnPlaytimeStats](https://partner.steamgames.com/doc/api/ISteamUGC#SetReturnPlaytimeStats)
  *
- * This function 
+ * This function sets whether to return the playtime stats on a pending UGC Query.
  *
  * @param {Real} query_handle
  * @param {Real} days
@@ -3731,9 +3731,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_ugc_set_return_total_only
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUGC::SetReturnTotalOnly](https://partner.steamgames.com/doc/api/ISteamUGC#SetReturnTotalOnly)
  *
- * This function 
+ * This function sets whether to only return the total number of matching items on a pending UGC Query.
  *
  * @param {Real} query_handle
  * @param {Bool} return_total_only
@@ -3743,9 +3743,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_ugc_set_search_text
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUGC::SetSearchText](https://partner.steamgames.com/doc/api/ISteamUGC#SetSearchText)
  *
- * This function 
+ * This function sets a string that items need to match in either the title or the description on a pending UGC Query.
  *
  * @param {Real} query_handle
  * @param {String} search_text
@@ -3755,9 +3755,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_ugc_set_subscriptions_load_order
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUGC::SetSubscriptionsLoadOrder](https://partner.steamgames.com/doc/api/ISteamUGC#SetSubscriptionsLoadOrder)
  *
- * This function 
+ * This function sets the local load order for these items.
  *
  * @param {Array[Real]} published_file_ids
  * @param {Real} num_published_file_ids
@@ -3767,9 +3767,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_ugc_set_user_item_vote
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUGC::SetUserItemVote](https://partner.steamgames.com/doc/api/ISteamUGC#SetUserItemVote)
  *
- * This function 
+ * This function allows the user to rate a workshop item up or down.
  *
  * @param {Real} published_file_id
  * @param {Bool} vote_up
@@ -3779,9 +3779,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_ugc_get_user_item_vote
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUGC::GetUserItemVote](https://partner.steamgames.com/doc/api/ISteamUGC#GetUserItemVote)
  *
- * This function 
+ * This function gets the user's vote status on a workshop item.
  *
  * @param {Real} published_file_id
  * @param {Function} [callback]
@@ -3790,9 +3790,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_ugc_start_item_update
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUGC::StartItemUpdate](https://partner.steamgames.com/doc/api/ISteamUGC#StartItemUpdate)
  *
- * This function 
+ * This function starts the item update process.
  *
  * @param {Real} consumer_app_id
  * @param {Real} published_file_id
@@ -3802,9 +3802,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_ugc_start_playtime_tracking
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUGC::StartPlaytimeTracking](https://partner.steamgames.com/doc/api/ISteamUGC#StartPlaytimeTracking)
  *
- * This function 
+ * This function starts tracking playtime on a set of workshop items.
  *
  * @param {Array[Real]} published_file_ids
  * @param {Real} num_published_file_ids
@@ -3814,9 +3814,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_ugc_stop_playtime_tracking
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUGC::StopPlaytimeTracking](https://partner.steamgames.com/doc/api/ISteamUGC#StopPlaytimeTracking)
  *
- * This function 
+ * This function stops tracking playtime on a set of workshop items.
  *
  * @param {Array[Real]} published_file_ids
  * @param {Real} num_published_file_ids
@@ -3826,9 +3826,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_ugc_stop_playtime_tracking_for_all_items
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUGC::StopPlaytimeTrackingForAllItems](https://partner.steamgames.com/doc/api/ISteamUGC#StopPlaytimeTrackingForAllItems)
  *
- * This function 
+ * This function stops tracking playtime of all workshop items.
  *
  * @param {Function} [callback]
  * @function_end 
@@ -3836,9 +3836,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_ugc_submit_item_update
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUGC::SubmitItemUpdate](https://partner.steamgames.com/doc/api/ISteamUGC#SubmitItemUpdate)
  *
- * This function 
+ * This function uploads the changes made to an item to the Steam Workshop.
  *
  * @param {Real} update_handle
  * @param {String} change_note
@@ -3848,9 +3848,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_ugc_subscribe_item
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUGC::SubscribeItem](https://partner.steamgames.com/doc/api/ISteamUGC#SubscribeItem)
  *
- * This function 
+ * This function subscribes to a workshop item.
  *
  * @param {Real} published_file_id
  * @param {Function} [callback]
@@ -3859,9 +3859,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_ugc_suspend_downloads
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUGC::SuspendDownloads](https://partner.steamgames.com/doc/api/ISteamUGC#SuspendDownloads)
  *
- * This function 
+ * This function suspends and resumes all workshop downloads.
  *
  * @param {Bool} suspend
  * @function_end 
@@ -3869,9 +3869,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_ugc_unsubscribe_item
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUGC::UnsubscribeItem](https://partner.steamgames.com/doc/api/ISteamUGC#UnsubscribeItem)
  *
- * This function 
+ * This function unsubscribes from a workshop item.
  *
  * @param {Real} published_file_id
  * @param {Function} [callback]
@@ -3880,7 +3880,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_ugc_set_callback_user_subscribed_items_list_changed
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: N / A
  *
  * This function 
  *
@@ -3890,7 +3890,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_ugc_clear_callback_user_subscribed_items_list_changed
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: N / A
  *
  * This function 
  *
@@ -3899,9 +3899,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_ugc_update_item_preview_file
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUGC::UpdateItemPreviewFile](https://partner.steamgames.com/doc/api/ISteamUGC#UpdateItemPreviewFile)
  *
- * This function 
+ * This function updates an existing additional preview file for the item.
  *
  * @param {Real} update_handle
  * @param {Real} index
@@ -3912,9 +3912,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_ugc_update_item_preview_video
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUGC::UpdateItemPreviewVideo](https://partner.steamgames.com/doc/api/ISteamUGC#UpdateItemPreviewVideo)
  *
- * This function 
+ * This function updates an additional video preview from YouTube for the item.
  *
  * @param {Real} update_handle
  * @param {Real} index
@@ -3925,9 +3925,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_ugc_show_workshop_eula
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUGC::ShowWorkshopEULA](https://partner.steamgames.com/doc/api/ISteamUGC#ShowWorkshopEULA)
  *
- * This function 
+ * This function shows the app's latest Workshop EULA to the user in an overlay window, where they can accept it or not.
  *
  * @returns {Bool} 
  * @function_end 
@@ -3935,9 +3935,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_ugc_get_workshop_eula_status
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUGC::GetWorkshopEULAStatus](https://partner.steamgames.com/doc/api/ISteamUGC#GetWorkshopEULAStatus)
  *
- * This function 
+ * This function asynchronously retrieves data about whether the user accepted the Workshop EULA for the current app.
  *
  * @param {Function} [callback]
  * @function_end 
@@ -3945,7 +3945,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_ugc_set_callback_file_subscribed
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: N / A
  *
  * This function 
  *
@@ -3955,7 +3955,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_ugc_clear_callback_file_subscribed
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: N / A
  *
  * This function 
  *
@@ -3964,7 +3964,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_ugc_set_callback_file_unsubscribed
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: N / A
  *
  * This function 
  *
@@ -3974,7 +3974,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_ugc_clear_callback_file_unsubscribed
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: N / A
  *
  * This function 
  *
@@ -3983,9 +3983,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_ugc_get_num_supported_game_versions
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUGC::GetNumSupportedGameVersions](https://partner.steamgames.com/doc/api/ISteamUGC#GetNumSupportedGameVersions)
  *
- * This function 
+ * This function returns the number of supported game versions; items can have multiple versions, whose support can be valid for a range of Steam beta branches.
  *
  * @param {Real} query_handle
  * @param {Real} index
@@ -3995,9 +3995,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_input_activate_action_set
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamInput::ActivateActionSet](https://partner.steamgames.com/doc/api/ISteamInput#ActivateActionSet)
  *
- * This function 
+ * This function reconfigures the controller to use the specified action set.
  *
  * @param {Real} input_handle
  * @param {Real} action_set_handle
@@ -4006,9 +4006,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_input_activate_action_set_layer
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamInput::ActivateActionSetLayer](https://partner.steamgames.com/doc/api/ISteamInput#ActivateActionSetLayer)
  *
- * This function 
+ * This function reconfigures the controller to use the specified action set layer.
  *
  * @param {Real} input_handle
  * @param {Real} action_set_layer_handle
@@ -4017,9 +4017,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_input_deactivate_action_set_layer
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamInput::DeactivateActionSetLayer](https://partner.steamgames.com/doc/api/ISteamInput#DeactivateActionSetLayer)
  *
- * This function 
+ * This function reconfigures the controller to stop using the specified action set layer.
  *
  * @param {Real} input_handle
  * @param {Real} action_set_layer_handle
@@ -4028,9 +4028,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_input_deactivate_all_action_set_layers
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamInput::DeactivateAllActionSetLayers](https://partner.steamgames.com/doc/api/ISteamInput#DeactivateAllActionSetLayers)
  *
- * This function 
+ * This function reconfigures the controller to stop using all action set layers.
  *
  * @param {Real} input_handle
  * @function_end 
@@ -4038,9 +4038,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_input_get_active_action_set_layers
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamInput::GetActiveActionSetLayers](https://partner.steamgames.com/doc/api/ISteamInput#GetActiveActionSetLayers)
  *
- * This function 
+ * This function fills an array with all of the currently active action set layers for a specified controller handle.
  *
  * @param {Real} input_handle
  * @returns {Struct.SteamInputActiveActionSetLayers} 
@@ -4049,9 +4049,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_input_get_action_set_handle
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamInput::GetActionSetHandle](https://partner.steamgames.com/doc/api/ISteamInput#GetActionSetHandle)
  *
- * This function 
+ * This function looks up the handle for an action set.
  *
  * @param {String} pszActionSetName
  * @returns {Real} 
@@ -4060,9 +4060,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_input_get_analog_action_data
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamInput::GetAnalogActionData](https://partner.steamgames.com/doc/api/ISteamInput#GetAnalogActionData)
  *
- * This function 
+ * This function returns the current state of the supplied analog game action.
  *
  * @param {Real} input_handle
  * @param {Real} analog_action_handle
@@ -4072,9 +4072,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_input_get_analog_action_handle
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamInput::GetAnalogActionHandle](https://partner.steamgames.com/doc/api/ISteamInput#GetAnalogActionHandle)
  *
- * This function 
+ * This function gets the handle of the specified analog action.
  *
  * @param {String} pszActionName
  * @returns {Real} 
@@ -4083,9 +4083,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_input_get_analog_action_origins
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamInput::GetAnalogActionOrigins](https://partner.steamgames.com/doc/api/ISteamInput#GetAnalogActionOrigins)
  *
- * This function 
+ * This function gets the origin(s) for an analog action within an action set.
  *
  * @param {Real} input_handle
  * @param {Real} action_set_handle
@@ -4096,9 +4096,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_input_get_glyph_png_for_action_origin
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamInput::GetGlyphPNGForActionOrigin](https://partner.steamgames.com/doc/api/ISteamInput#GetGlyphPNGForActionOrigin)
  *
- * This function 
+ * This function gets a local path to a PNG file for the on-screen glyph for a particular origin.
  *
  * @param {Real} origin
  * @param {Real} size
@@ -4109,9 +4109,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_input_get_glyph_svg_for_action_origin
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamInput::GetGlyphSVGForActionOrigin](https://partner.steamgames.com/doc/api/ISteamInput#GetGlyphSVGForActionOrigin)
  *
- * This function 
+ * This function gets a local path to an SVG file for the on-screen glyph for a particular origin.
  *
  * @param {Real} origin
  * @param {Real} flags
@@ -4121,9 +4121,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_input_get_connected_controllers
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamInput::GetConnectedControllers](https://partner.steamgames.com/doc/api/ISteamInput#GetConnectedControllers)
  *
- * This function 
+ * This function enumerates currently connected controllers by filling handlesOut with controller handles.
  *
  * @returns {Array[Real]} 
  * @function_end 
@@ -4131,9 +4131,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_input_get_controller_for_gamepad_index
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamInput::GetControllerForGamepadIndex](https://partner.steamgames.com/doc/api/ISteamInput#GetControllerForGamepadIndex)
  *
- * This function 
+ * This function returns the associated controller handle for the specified emulated gamepad.
  *
  * @param {Real} nIndex
  * @returns {Real} 
@@ -4142,9 +4142,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_input_get_current_action_set
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamInput::GetCurrentActionSet](https://partner.steamgames.com/doc/api/ISteamInput#GetCurrentActionSet)
  *
- * This function 
+ * This function gets the currently active action set for the specified controller.
  *
  * @param {Real} input_handle
  * @returns {Real} 
@@ -4153,9 +4153,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_input_get_digital_action_data
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamInput::GetDigitalActionData](https://partner.steamgames.com/doc/api/ISteamInput#GetDigitalActionData)
  *
- * This function 
+ * This function returns the current state of the supplied digital game action.
  *
  * @param {Real} input_handle
  * @param {Real} digital_action_handle
@@ -4165,9 +4165,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_input_get_digital_action_handle
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamInput::GetDigitalActionHandle](https://partner.steamgames.com/doc/api/ISteamInput#GetDigitalActionHandle)
  *
- * This function 
+ * This function gets the handle of the specified digital action.
  *
  * @param {String} pszActionName
  * @returns {Real} 
@@ -4176,9 +4176,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_input_get_digital_action_origins
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamInput::GetDigitalActionOrigins](https://partner.steamgames.com/doc/api/ISteamInput#GetDigitalActionOrigins)
  *
- * This function 
+ * This function gets the origin(s) for a digital action within an action set.
  *
  * @param {Real} input_handle
  * @param {Real} action_set_handle
@@ -4189,9 +4189,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_input_get_gamepad_index_for_controller
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamInput::GetGamepadIndexForController](https://partner.steamgames.com/doc/api/ISteamInput#GetGamepadIndexForController)
  *
- * This function 
+ * This function returns the associated gamepad index for the specified controller, if emulating a gamepad.
  *
  * @param {Real} input_handle
  * @returns {Real} 
@@ -4200,9 +4200,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_input_get_input_type_for_handle
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamInput::GetInputTypeForHandle](https://partner.steamgames.com/doc/api/ISteamInput#GetInputTypeForHandle)
  *
- * This function 
+ * This function returns the input type (device model) for the specified controller.
  *
  * @param {Real} input_handle
  * @returns {Real} 
@@ -4211,9 +4211,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_input_get_motion_data
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamInput::GetMotionData](https://partner.steamgames.com/doc/api/ISteamInput#GetMotionData)
  *
- * This function 
+ * This function returns raw motion data for the specified controller.
  *
  * @param {Real} input_handle
  * @returns {Struct.SteamInputMotionData} 
@@ -4222,9 +4222,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_input_get_string_for_action_origin
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamInput::GetStringForActionOrigin](https://partner.steamgames.com/doc/api/ISteamInput#GetStringForActionOrigin)
  *
- * This function 
+ * This function returns a localized string (from Steam's language setting) for the specified origin.
  *
  * @param {Real} eOrigin
  * @returns {String} 
@@ -4233,9 +4233,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_input_init
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamInput::Init](https://partner.steamgames.com/doc/api/ISteamInput#Init)
  *
- * This function 
+ * This function must be called when starting use of the ISteamInput interface.
  *
  * @param {Bool} explicitly_call_run_frame
  * @returns {Bool} 
@@ -4244,27 +4244,27 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_input_enable_device_callbacks
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamInput::EnableDeviceCallbacks](https://partner.steamgames.com/doc/api/ISteamInput#EnableDeviceCallbacks)
  *
- * This function 
+ * This function enables SteamInputDeviceConnected and SteamInputDeviceDisconnected callbacks.
  *
  * @function_end 
  */
 
 /**
  * @function steam_input_run_frame
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamInput::RunFrame](https://partner.steamgames.com/doc/api/ISteamInput#RunFrame)
  *
- * This function 
+ * This function synchronizes API state with the latest Steam Controller inputs available.
  *
  * @function_end 
  */
 
 /**
  * @function steam_input_set_dual_sense_trigger_effect
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamInput::SetDualSenseTriggerEffect](https://partner.steamgames.com/doc/api/ISteamInput#SetDualSenseTriggerEffect)
  *
- * This function 
+ * This function sets the trigger effect for a DualSense controller.
  *
  * @param {Real} input_handle
  * @param {Array[Real]} pParam
@@ -4274,9 +4274,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_input_set_led_color
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamInput::SetLEDColor](https://partner.steamgames.com/doc/api/ISteamInput#SetLEDColor)
  *
- * This function 
+ * This function sets the controller LED color on supported controllers.
  *
  * @param {Real} input_handle
  * @param {Real} nColorR
@@ -4288,9 +4288,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_input_show_binding_panel
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamInput::ShowBindingPanel](https://partner.steamgames.com/doc/api/ISteamInput#ShowBindingPanel)
  *
- * This function 
+ * This function invokes the Steam overlay and brings up the binding screen.
  *
  * @param {Real} input_handle
  * @returns {Bool} 
@@ -4299,9 +4299,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_input_shutdown
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamInput::Shutdown](https://partner.steamgames.com/doc/api/ISteamInput#Shutdown)
  *
- * This function 
+ * This function must be called when ending use of the ISteamInput interface.
  *
  * @returns {Bool} 
  * @function_end 
@@ -4309,9 +4309,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_input_stop_analog_action_momentum
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamInput::StopAnalogActionMomentum](https://partner.steamgames.com/doc/api/ISteamInput#StopAnalogActionMomentum)
  *
- * This function 
+ * This function stops the momentum of an analog action.
  *
  * @param {Real} input_handle
  * @param {Real} analog_action_handle
@@ -4320,9 +4320,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_input_trigger_vibration
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamInput::TriggerVibration](https://partner.steamgames.com/doc/api/ISteamInput#TriggerVibration)
  *
- * This function 
+ * This function triggers a vibration event on supported controllers.
  *
  * @param {Real} input_handle
  * @param {Real} usLeftSpeed
@@ -4332,9 +4332,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_input_trigger_vibration_extended
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamInput::TriggerVibrationExtended](https://partner.steamgames.com/doc/api/ISteamInput#TriggerVibrationExtended)
  *
- * This function 
+ * This function triggers a vibration event on supported controllers, including Xbox Impulse Trigger motor values.
  *
  * @param {Real} input_handle
  * @param {Real} usLeftSpeed
@@ -4346,9 +4346,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_input_get_action_origin_from_xbox_origin
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamInput::GetActionOriginFromXboxOrigin](https://partner.steamgames.com/doc/api/ISteamInput#GetActionOriginFromXboxOrigin)
  *
- * This function 
+ * This function gets an action origin that you can use in your glyph look up table.
  *
  * @param {Real} input_handle
  * @param {Real} eOrigin
@@ -4358,9 +4358,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_input_translate_action_origin
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamInput::TranslateActionOrigin](https://partner.steamgames.com/doc/api/ISteamInput#TranslateActionOrigin)
  *
- * This function 
+ * This function gets the equivalent origin for a given controller type.
  *
  * @param {Real} eDestinationInputType
  * @param {Real} eSourceOrigin
@@ -4370,9 +4370,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_input_get_device_binding_revision
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamInput::GetDeviceBindingRevision](https://partner.steamgames.com/doc/api/ISteamInput#GetDeviceBindingRevision)
  *
- * This function 
+ * This function gets the major and minor device binding revisions for Steam Input API configurations.
  *
  * @param {Real} input_handle
  * @returns {Struct.SteamInputDeviceBindingRevision} 
@@ -4381,9 +4381,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_input_get_remote_play_session_id
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamInput::GetRemotePlaySessionID](https://partner.steamgames.com/doc/api/ISteamInput#GetRemotePlaySessionID)
  *
- * This function 
+ * This function gets the Steam Remote Play session ID associated with a device.
  *
  * @param {Real} input_handle
  * @returns {Real} 
@@ -4392,7 +4392,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_input_set_callback_device_connected
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: N / A
  *
  * This function 
  *
@@ -4402,7 +4402,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_input_clear_callback_device_connected
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: N / A
  *
  * This function 
  *
@@ -4411,7 +4411,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_input_set_callback_device_disconnected
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: N / A
  *
  * This function 
  *
@@ -4421,7 +4421,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_input_clear_callback_device_disconnected
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: N / A
  *
  * This function 
  *
@@ -4430,7 +4430,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_input_set_callback_action_set_changed
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: N / A
  *
  * This function 
  *
@@ -4440,7 +4440,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_input_clear_callback_action_set_changed
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: N / A
  *
  * This function 
  *
@@ -4449,7 +4449,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_input_set_callback_controller_battery
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: N / A
  *
  * This function 
  *
@@ -4459,7 +4459,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_input_clear_callback_controller_battery
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: N / A
  *
  * This function 
  *
@@ -4468,9 +4468,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_userstats_get_stat_int
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUserStats::GetStat](https://partner.steamgames.com/doc/api/ISteamUserStats#GetStat)
  *
- * This function 
+ * This function gets the current value of the given integer stat for the current user.
  *
  * @param {String} stat_name
  * @returns {Struct.SteamUserStatsStatInt} 
@@ -4479,9 +4479,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_userstats_get_stat_float
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUserStats::GetStat](https://partner.steamgames.com/doc/api/ISteamUserStats#GetStat)
  *
- * This function 
+ * This function gets the current value of the given floating point stat for the current user.
  *
  * @param {String} stat_name
  * @returns {Struct.SteamUserStatsStatFloat} 
@@ -4490,9 +4490,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_userstats_set_stat_int
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUserStats::SetStat](https://partner.steamgames.com/doc/api/ISteamUserStats#SetStat)
  *
- * This function 
+ * This function sets / updates the value of a given integer stat for the current user.
  *
  * @param {String} stat_name
  * @param {Real} data
@@ -4502,9 +4502,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_userstats_set_stat_float
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUserStats::SetStat](https://partner.steamgames.com/doc/api/ISteamUserStats#SetStat)
  *
- * This function 
+ * This function sets / updates the value of a given floating point stat for the current user.
  *
  * @param {String} stat_name
  * @param {Real} data
@@ -4514,9 +4514,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_userstats_update_avg_rate_stat
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUserStats::UpdateAvgRateStat](https://partner.steamgames.com/doc/api/ISteamUserStats#UpdateAvgRateStat)
  *
- * This function 
+ * This function updates an AVGRATE stat with new values.
  *
  * @param {String} stat_name
  * @param {Real} count_this_session
@@ -4527,9 +4527,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_userstats_get_achievement
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUserStats::GetAchievement](https://partner.steamgames.com/doc/api/ISteamUserStats#GetAchievement)
  *
- * This function 
+ * This function gets the unlock status of the Achievement.
  *
  * @param {String} achievement_name
  * @returns {Struct.SteamUserStatsUserAchievement} 
@@ -4538,9 +4538,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_userstats_set_achievement
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUserStats::SetAchievement](https://partner.steamgames.com/doc/api/ISteamUserStats#SetAchievement)
  *
- * This function 
+ * This function unlocks an achievement.
  *
  * @param {String} achievement_name
  * @returns {Bool} 
@@ -4549,9 +4549,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_userstats_clear_achievement
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUserStats::ClearAchievement](https://partner.steamgames.com/doc/api/ISteamUserStats#ClearAchievement)
  *
- * This function 
+ * This function resets the unlock status of an achievement.
  *
  * @param {String} achievement_name
  * @returns {Bool} 
@@ -4560,9 +4560,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_userstats_achievement_and_unlock_time
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUserStats::GetAchievementAndUnlockTime](https://partner.steamgames.com/doc/api/ISteamUserStats#GetAchievementAndUnlockTime)
  *
- * This function 
+ * This function gets the achievement status, and the time it was unlocked if unlocked.
  *
  * @param {String} achievement_name
  * @returns {Struct.SteamUserStatsAchievementAndUnlockTime} 
@@ -4571,9 +4571,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_userstats_store_stats
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUserStats::StoreStats](https://partner.steamgames.com/doc/api/ISteamUserStats#StoreStats)
  *
- * This function 
+ * This function sends the changed stats and achievements data to the server for permanent storage.
  *
  * @returns {Bool} 
  * @function_end 
@@ -4581,9 +4581,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_userstats_achievement_icon
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUserStats::GetAchievementIcon](https://partner.steamgames.com/doc/api/ISteamUserStats#GetAchievementIcon)
  *
- * This function 
+ * This function gets the icon for an achievement.
  *
  * @param {String} achievement_name
  * @returns {Real} 
@@ -4592,9 +4592,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_userstats_achievement_display_attribute
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUserStats::GetAchievementDisplayAttribute](https://partner.steamgames.com/doc/api/ISteamUserStats#GetAchievementDisplayAttribute)
  *
- * This function 
+ * This function gets general attributes for an achievement. Currently provides: Name, Description, and Hidden status.
  *
  * @param {String} achievement_name
  * @param {String} key
@@ -4604,9 +4604,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_userstats_indicate_achievement_progress
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUserStats::IndicateAchievementProgress](https://partner.steamgames.com/doc/api/ISteamUserStats#IndicateAchievementProgress)
  *
- * This function 
+ * This function shows the user a pop-up notification with the current progress of an achievement.
  *
  * @param {String} achievement_name
  * @param {Real} cur_progress
@@ -4617,9 +4617,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_userstats_num_achievements
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUserStats::GetNumAchievements](https://partner.steamgames.com/doc/api/ISteamUserStats#GetNumAchievements)
  *
- * This function 
+ * This function gets the number of achievements defined in the App Admin panel of the Steamworks website.
  *
  * @returns {Real} 
  * @function_end 
@@ -4627,9 +4627,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_userstats_achievement_name
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUserStats::GetAchievementName](https://partner.steamgames.com/doc/api/ISteamUserStats#GetAchievementName)
  *
- * This function 
+ * This function gets the "API name" for an achievement index between 0 and GetNumAchievements.
  *
  * @param {Real} index
  * @returns {String} 
@@ -4638,9 +4638,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_userstats_request_user_stats
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUserStats::RequestUserStats](https://partner.steamgames.com/doc/api/ISteamUserStats#RequestUserStats)
  *
- * This function 
+ * This function asynchronously downloads stats and achievements for the specified user from the server.
  *
  * @param {Real} steam_id_user
  * @param {Function} [callback]
@@ -4649,9 +4649,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_userstats_user_stat_int
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUserStats::GetUserStat](https://partner.steamgames.com/doc/api/ISteamUserStats#GetUserStat)
  *
- * This function 
+ * This function gets the current value of the given integer stat for the specified user.
  *
  * @param {Real} steam_id_user
  * @param {String} stat_name
@@ -4661,9 +4661,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_userstats_user_stat_float
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUserStats::GetUserStat](https://partner.steamgames.com/doc/api/ISteamUserStats#GetUserStat)
  *
- * This function 
+ * This function gets the current value of the given floating point stat for the specified user.
  *
  * @param {Real} steam_id_user
  * @param {String} stat_name
@@ -4673,9 +4673,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_userstats_user_achievement
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUserStats::GetUserAchievement](https://partner.steamgames.com/doc/api/ISteamUserStats#GetUserAchievement)
  *
- * This function 
+ * This function gets the unlock status of the Achievement.
  *
  * @param {Real} steam_id_user
  * @param {String} achievement_name
@@ -4685,9 +4685,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_userstats_user_achievement_and_unlock_time
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUserStats::GetUserAchievementAndUnlockTime](https://partner.steamgames.com/doc/api/ISteamUserStats#GetUserAchievementAndUnlockTime)
  *
- * This function 
+ * This function gets the achievement status, and the time it was unlocked if unlocked.
  *
  * @param {Real} steam_id_user
  * @param {String} achievement_name
@@ -4697,9 +4697,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_userstats_reset_all_stats
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUserStats::ResetAllStats](https://partner.steamgames.com/doc/api/ISteamUserStats#ResetAllStats)
  *
- * This function 
+ * This function resets the current users stats and, optionally achievements.
  *
  * @param {Bool} achievements_too
  * @returns {Bool} 
@@ -4708,9 +4708,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_userstats_find_or_create_leaderboard
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUserStats::FindOrCreateLeaderboard](https://partner.steamgames.com/doc/api/ISteamUserStats#FindOrCreateLeaderboard)
  *
- * This function 
+ * This function gets a leaderboard by name, it will create it if it's not yet created.
  *
  * @param {String} leaderboard_name
  * @param {Enum.SteamLeaderboardSortMethod} sort_method
@@ -4721,9 +4721,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_userstats_find_leaderboard
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUserStats::FindLeaderboard](https://partner.steamgames.com/doc/api/ISteamUserStats#FindLeaderboard)
  *
- * This function 
+ * This function gets a leaderboard by name.
  *
  * @param {String} leaderboard_name
  * @param {Function} [callback]
@@ -4732,9 +4732,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_userstats_leaderboard_name
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUserStats::GetLeaderboardName](https://partner.steamgames.com/doc/api/ISteamUserStats#GetLeaderboardName)
  *
- * This function 
+ * This function returns the name of a leaderboard handle.
  *
  * @param {Real} leaderboard_handle
  * @returns {String} 
@@ -4743,9 +4743,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_userstats_leaderboard_entry_count
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUserStats::GetLeaderboardEntryCount](https://partner.steamgames.com/doc/api/ISteamUserStats#GetLeaderboardEntryCount)
  *
- * This function 
+ * This function returns the total number of entries in a leaderboard.
  *
  * @param {Real} leaderboard_handle
  * @returns {Real} 
@@ -4754,9 +4754,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_userstats_leaderboard_sort_method
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUserStats::GetLeaderboardSortMethod](https://partner.steamgames.com/doc/api/ISteamUserStats#GetLeaderboardSortMethod)
  *
- * This function 
+ * This function returns the sort order of a leaderboard handle.
  *
  * @param {Real} leaderboard_handle
  * @returns {Enum.SteamLeaderboardSortMethod} 
@@ -4765,9 +4765,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_userstats_leaderboard_display_type
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUserStats::GetLeaderboardDisplayType](https://partner.steamgames.com/doc/api/ISteamUserStats#GetLeaderboardDisplayType)
  *
- * This function 
+ * This function returns the display type of a leaderboard handle.
  *
  * @param {Real} leaderboard_handle
  * @returns {Enum.SteamLeaderboardDisplayType} 
@@ -4776,9 +4776,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_userstats_download_leaderboard_entries
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUserStats::DownloadLeaderboardEntries](https://partner.steamgames.com/doc/api/ISteamUserStats#DownloadLeaderboardEntries)
  *
- * This function 
+ * This function fetches a series of leaderboard entries for a specified leaderboard.
  *
  * @param {Real} leaderboard_handle
  * @param {Enum.SteamLeaderboardDataRequest} request
@@ -4790,9 +4790,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_userstats_download_leaderboard_entries_for_users
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUserStats::DownloadLeaderboardEntriesForUsers](https://partner.steamgames.com/doc/api/ISteamUserStats#DownloadLeaderboardEntriesForUsers)
  *
- * This function 
+ * This function fetches leaderboard entries for an arbitrary set of users on a specified leaderboard.
  *
  * @param {Real} leaderboard_handle
  * @param {Array[Real]} users
@@ -4802,9 +4802,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_userstats_downloaded_leaderboard_entry
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUserStats::GetDownloadedLeaderboardEntry](https://partner.steamgames.com/doc/api/ISteamUserStats#GetDownloadedLeaderboardEntry)
  *
- * This function 
+ * This function retrieves the data for a single leaderboard entry.
  *
  * @param {Real} leaderboard_entries_handle
  * @param {Real} entry_index
@@ -4816,9 +4816,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_userstats_upload_leaderboard_score
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUserStats::UploadLeaderboardScore](https://partner.steamgames.com/doc/api/ISteamUserStats#UploadLeaderboardScore)
  *
- * This function 
+ * This function uploads a user score to a specified leaderboard.
  *
  * @param {Real} leaderboard_handle
  * @param {Enum.SteamLeaderboardUploadScoreMethod} method
@@ -4831,9 +4831,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_userstats_attach_leaderboard_ugc
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUserStats::AttachLeaderboardUGC](https://partner.steamgames.com/doc/api/ISteamUserStats#AttachLeaderboardUGC)
  *
- * This function 
+ * This function attaches a piece of user generated content to the current user's entry on a leaderboard.
  *
  * @param {Real} leaderboard_handle
  * @param {Real} ugc_handle
@@ -4843,9 +4843,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_userstats_number_of_current_players
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUserStats::GetNumberOfCurrentPlayers](https://partner.steamgames.com/doc/api/ISteamUserStats#GetNumberOfCurrentPlayers)
  *
- * This function 
+ * This function asynchronously retrieves the total number of players currently playing the current game.
  *
  * @param {Function} [callback]
  * @function_end 
@@ -4853,9 +4853,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_userstats_request_global_achievement_percentages
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUserStats::RequestGlobalAchievementPercentages](https://partner.steamgames.com/doc/api/ISteamUserStats#RequestGlobalAchievementPercentages)
  *
- * This function 
+ * This function asynchronously fetches the data for the percentage of players who have received each achievement for the current game globally.
  *
  * @param {Function} [callback]
  * @function_end 
@@ -4863,9 +4863,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_userstats_most_achieved_achievement_info
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUserStats::GetMostAchievedAchievementInfo](https://partner.steamgames.com/doc/api/ISteamUserStats#GetMostAchievedAchievementInfo)
  *
- * This function 
+ * This function gets the info on the most achieved achievement for the game.
  *
  * @returns {Struct.SteamUserStatsMostAchievedAchievementInfo} 
  * @function_end 
@@ -4873,9 +4873,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_userstats_next_most_achieved_achievement_info
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUserStats::GetNextMostAchievedAchievementInfo](https://partner.steamgames.com/doc/api/ISteamUserStats#GetNextMostAchievedAchievementInfo)
  *
- * This function 
+ * This function gets the info on the next most achieved achievement for the game.
  *
  * @param {Real} iterator_prev
  * @returns {Struct.SteamUserStatsMostAchievedAchievementInfo} 
@@ -4884,9 +4884,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_userstats_achievement_achieved_percent
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUserStats::GetAchievementAchievedPercent](https://partner.steamgames.com/doc/api/ISteamUserStats#GetAchievementAchievedPercent)
  *
- * This function 
+ * This function returns the percentage of users who have unlocked the specified achievement.
  *
  * @param {String} achievement_name
  * @returns {Real} 
@@ -4895,9 +4895,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_userstats_request_global_stats
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUserStats::RequestGlobalStats](https://partner.steamgames.com/doc/api/ISteamUserStats#RequestGlobalStats)
  *
- * This function 
+ * This function asynchronously fetches global stats data, which is available for stats marked as "aggregated" in the App Admin panel of the Steamworks website.
  *
  * @param {Real} history_days
  * @param {Function} [callback]
@@ -4906,9 +4906,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_userstats_global_stat_int64
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUserStats::GetGlobalStat](https://partner.steamgames.com/doc/api/ISteamUserStats#GetGlobalStat)
  *
- * This function 
+ * This function gets the lifetime totals for an aggregated integer (int64) stat.
  *
  * @param {String} stat_name
  * @returns {Struct.SteamUserStatsGlobalStatInt64} 
@@ -4917,9 +4917,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_userstats_global_stat_double
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUserStats::GetGlobalStat](https://partner.steamgames.com/doc/api/ISteamUserStats#GetGlobalStat)
  *
- * This function 
+ * This function gets the lifetime totals for an aggregated floating point (double) stat.
  *
  * @param {String} stat_name
  * @returns {Struct.SteamUserStatsGlobalStatDouble} 
@@ -4928,9 +4928,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_userstats_global_stat_history_int64
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUserStats::GetGlobalStatHistory](https://partner.steamgames.com/doc/api/ISteamUserStats#GetGlobalStatHistory)
  *
- * This function 
+ * This function gets the daily history for an aggregated integer (int64) stat.
  *
  * @param {String} stat_name
  * @returns {Struct.SteamUserStatsGlobalStatHistoryInt64} 
@@ -4939,9 +4939,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_userstats_global_stat_history_double
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUserStats::GetGlobalStatHistory](https://partner.steamgames.com/doc/api/ISteamUserStats#GetGlobalStatHistory)
  *
- * This function 
+ * This function gets the daily history for an aggregated floating point (double) stat.
  *
  * @param {String} stat_name
  * @returns {Struct.SteamUserStatsGlobalStatHistoryDouble} 
@@ -4950,9 +4950,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_userstats_achievement_progress_limits_int
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUserStats::GetAchievementProgressLimits](https://partner.steamgames.com/doc/api/ISteamUserStats#GetAchievementProgressLimits)
  *
- * This function 
+ * This function returns the integer progress limits (the minimum and maximum) used to compute the progress bar for a given achievement.
  *
  * @param {String} achievement_name
  * @param {Real} cur_progress
@@ -4963,9 +4963,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_userstats_achievement_progress_limits_float
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamUserStats::GetAchievementProgressLimits](https://partner.steamgames.com/doc/api/ISteamUserStats#GetAchievementProgressLimits)
  *
- * This function 
+ * This function returns the floating point progress limits (the minimum and maximum) used to compute the progress bar for a given achievement.
  *
  * @param {String} achievement_name
  * @param {Real} cur_progress
@@ -4976,7 +4976,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_userstats_set_callback_user_stats_received
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: N / A
  *
  * This function 
  *
@@ -4986,7 +4986,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_userstats_clear_callback_user_stats_received
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: N / A
  *
  * This function 
  *
@@ -4995,7 +4995,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_userstats_set_callback_user_stats_stored
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: N / A
  *
  * This function 
  *
@@ -5005,7 +5005,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_userstats_clear_callback_user_stats_stored
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: N / A
  *
  * This function 
  *
@@ -5014,7 +5014,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_userstats_set_callback_user_achievement_stored
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: N / A
  *
  * This function 
  *
@@ -5024,7 +5024,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_userstats_clear_callback_user_achievement_stored
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: N / A
  *
  * This function 
  *
@@ -5033,9 +5033,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_music_is_enabled
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamMusic::BIsEnabled](https://partner.steamgames.com/doc/api/ISteamMusic#BIsEnabled)
  *
- * This function 
+ * This function checks if Steam Music is enabled.
  *
  * @returns {Bool} 
  * @function_end 
@@ -5043,9 +5043,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_music_is_playing
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamMusic::BIsPlaying](https://partner.steamgames.com/doc/api/ISteamMusic#BIsPlaying)
  *
- * This function 
+ * This function checks if Steam Music is active.
  *
  * @returns {Bool} 
  * @function_end 
@@ -5053,9 +5053,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_music_get_playback_status
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamMusic::GetPlaybackStatus](https://partner.steamgames.com/doc/api/ISteamMusic#GetPlaybackStatus)
  *
- * This function 
+ * This function gets the current status of the Steam Music player.
  *
  * @returns {Enum.SteamMusicPlaybackStatus} 
  * @function_end 
@@ -5063,45 +5063,45 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_music_play
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamMusic::Play](https://partner.steamgames.com/doc/api/ISteamMusic#Play)
  *
- * This function 
+ * This function has the Steam Music player resume playing.
  *
  * @function_end 
  */
 
 /**
  * @function steam_music_pause
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamMusic::Pause](https://partner.steamgames.com/doc/api/ISteamMusic#Pause)
  *
- * This function 
+ * This function pauses the Steam Music player.
  *
  * @function_end 
  */
 
 /**
  * @function steam_music_play_previous
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamMusic::PlayPrevious](https://partner.steamgames.com/doc/api/ISteamMusic#PlayPrevious)
  *
- * This function 
+ * This function has the Steam Music player play the previous song.
  *
  * @function_end 
  */
 
 /**
  * @function steam_music_play_next
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamMusic::PlayNext](https://partner.steamgames.com/doc/api/ISteamMusic#PlayNext)
  *
- * This function 
+ * This function has the Steam Music player skip to the next song.
  *
  * @function_end 
  */
 
 /**
  * @function steam_music_set_volume
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamMusic::SetVolume](https://partner.steamgames.com/doc/api/ISteamMusic#SetVolume)
  *
- * This function 
+ * This function sets the volume of the Steam Music player.
  *
  * @param {Real} volume
  * @function_end 
@@ -5109,9 +5109,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_music_get_volume
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamMusic::GetVolume](https://partner.steamgames.com/doc/api/ISteamMusic#GetVolume)
  *
- * This function 
+ * This function gets the current volume of the Steam Music player.
  *
  * @returns {Real} 
  * @function_end 
@@ -5119,7 +5119,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_music_set_callback_playback_status_has_changed
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: N / A
  *
  * This function 
  *
@@ -5129,7 +5129,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_music_clear_callback_playback_status_has_changed
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: N / A
  *
  * This function 
  *
@@ -5138,7 +5138,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_music_set_callback_volume_has_changed
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: N / A
  *
  * This function 
  *
@@ -5148,7 +5148,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_music_clear_callback_volume_has_changed
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: N / A
  *
  * This function 
  *
@@ -5157,9 +5157,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_timeline_set_timeline_tooltip
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamTimeline::SetTimelineTooltip](https://partner.steamgames.com/doc/api/ISteamTimeline#SetTimelineTooltip)
  *
- * This function 
+ * This function sets a description for the current game state in the timeline.
  *
  * @param {String} description
  * @param {Real} time_delta_seconds
@@ -5168,9 +5168,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_timeline_clear_timeline_tooltip
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamTimeline::ClearTimelineTooltip](https://partner.steamgames.com/doc/api/ISteamTimeline#ClearTimelineTooltip)
  *
- * This function 
+ * This function clears the previous set game state in the timeline.
  *
  * @param {Real} time_delta_seconds
  * @function_end 
@@ -5178,9 +5178,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_timeline_add_instantaneous_timeline_event
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamTimeline::AddInstantaneousTimelineEvent](https://partner.steamgames.com/doc/api/ISteamTimeline#AddInstantaneousTimelineEvent)
  *
- * This function 
+ * This function is used to mark an event on the Timeline. This event will be instantaneous.
  *
  * @param {String} title
  * @param {String} description
@@ -5194,9 +5194,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_timeline_add_range_timeline_event
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamTimeline::AddRangeTimelineEvent](https://partner.steamgames.com/doc/api/ISteamTimeline#AddRangeTimelineEvent)
  *
- * This function 
+ * This function is used to mark an event on the Timeline that takes some amount of time to complete.
  *
  * @param {String} title
  * @param {String} description
@@ -5211,9 +5211,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_timeline_start_range_timeline_event
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamTimeline::StartRangeTimelineEvent](https://partner.steamgames.com/doc/api/ISteamTimeline#StartRangeTimelineEvent)
  *
- * This function 
+ * This function is used to mark the start of an event on the Timeline that takes some amount of time to complete.
  *
  * @param {String} title
  * @param {String} description
@@ -5227,9 +5227,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_timeline_update_range_timeline_event
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamTimeline::UpdateRangeTimelineEvent](https://partner.steamgames.com/doc/api/ISteamTimeline#UpdateRangeTimelineEvent)
  *
- * This function 
+ * This function is used to update the details of an event that was started with StartRangeTimelineEvent.
  *
  * @param {Real} event_handle
  * @param {String} title
@@ -5242,9 +5242,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_timeline_end_range_timeline_event
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamTimeline::EndRangeTimelineEvent](https://partner.steamgames.com/doc/api/ISteamTimeline#EndRangeTimelineEvent)
  *
- * This function 
+ * This function is used to end an event that was started with StartRangeTimelineEvent.
  *
  * @param {Real} event_handle
  * @param {Real} end_offset_seconds
@@ -5253,9 +5253,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_timeline_remove_timeline_event
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamTimeline::RemoveTimelineEvent](https://partner.steamgames.com/doc/api/ISteamTimeline#RemoveTimelineEvent)
  *
- * This function 
+ * This function is used to remove an event that was added with AddInstantaneousTimelineEvent or AddRangeTimelineEvent.
  *
  * @param {Real} event_handle
  * @function_end 
@@ -5263,9 +5263,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_timeline_does_event_recording_exist
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamTimeline::DoesEventRecordingExist](https://partner.steamgames.com/doc/api/ISteamTimeline#DoesEventRecordingExist)
  *
- * This function 
+ * This function is used to determine if video recordings exist for the specified event.
  *
  * @param {Real} event_handle
  * @returns {Real} 
@@ -5274,27 +5274,27 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_timeline_start_game_phase
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamTimeline::StartGamePhase](https://partner.steamgames.com/doc/api/ISteamTimeline#StartGamePhase)
  *
- * This function 
+ * This function is used to start a game phase.
  *
  * @function_end 
  */
 
 /**
  * @function steam_timeline_end_game_phase
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamTimeline::EndGamePhase](https://partner.steamgames.com/doc/api/ISteamTimeline#EndGamePhase)
  *
- * This function 
+ * This function is used to end a game phase that was started with StartGamePhase.
  *
  * @function_end 
  */
 
 /**
  * @function steam_timeline_set_game_phase_id
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamTimeline::SetGamePhaseID](https://partner.steamgames.com/doc/api/ISteamTimeline#SetGamePhaseID)
  *
- * This function 
+ * This function sets a phase ID that is used to let the game identify which phase it is referring to in calls to DoesGamePhaseRecordingExist or OpenOverlayToGamePhase.
  *
  * @param {String} phase_id
  * @function_end 
@@ -5302,9 +5302,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_timeline_does_game_phase_recording_exist
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamTimeline::DoesGamePhaseRecordingExist](https://partner.steamgames.com/doc/api/ISteamTimeline#DoesGamePhaseRecordingExist)
  *
- * This function 
+ * This function is used to determine if video recordings exist for the specified game phase.
  *
  * @param {String} phase_id
  * @returns {Real} 
@@ -5313,9 +5313,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_timeline_add_game_phase_tag
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamTimeline::AddGamePhaseTag](https://partner.steamgames.com/doc/api/ISteamTimeline#AddGamePhaseTag)
  *
- * This function 
+ * This function is used to add a game phase tag.
  *
  * @param {String} tag_name
  * @param {String} tag_icon
@@ -5326,9 +5326,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_timeline_set_game_phase_attribute
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamTimeline::SetGamePhaseAttribute](https://partner.steamgames.com/doc/api/ISteamTimeline#SetGamePhaseAttribute)
  *
- * This function 
+ * This function is used to add a game phase attribute.
  *
  * @param {String} attribute_group
  * @param {String} attribute_value
@@ -5338,9 +5338,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_timeline_set_timeline_game_mode
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamTimeline::SetTimelineGameMode](https://partner.steamgames.com/doc/api/ISteamTimeline#SetTimelineGameMode)
  *
- * This function 
+ * This function changes the color of the timeline bar.
  *
  * @param {Enum.SteamTimelineGameMode} mode
  * @function_end 
@@ -5348,9 +5348,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_timeline_open_overlay_to_game_phase
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamTimeline::OpenOverlayToGamePhase](https://partner.steamgames.com/doc/api/ISteamTimeline#OpenOverlayToGamePhase)
  *
- * This function 
+ * This function opens the Steam overlay to the section of the timeline represented by the game phase.
  *
  * @param {String} phase_id
  * @function_end 
@@ -5358,9 +5358,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_timeline_open_overlay_to_timeline_event
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamTimeline::OpenOverlayToTimelineEvent](https://partner.steamgames.com/doc/api/ISteamTimeline#OpenOverlayToTimelineEvent)
  *
- * This function 
+ * This function opens the Steam overlay to the section of the timeline represented by the timeline event.
  *
  * @param {Real} event_handle
  * @function_end 
@@ -5368,7 +5368,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_timeline_set_callback_game_phase_recording_exists
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: N / A
  *
  * This function 
  *
@@ -5378,7 +5378,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_timeline_clear_callback_game_phase_recording_exists
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: N / A
  *
  * This function 
  *
@@ -5387,7 +5387,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_timeline_set_callback_event_recording_exists
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: N / A
  *
  * This function 
  *
@@ -5397,7 +5397,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_timeline_clear_callback_event_recording_exists
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: N / A
  *
  * This function 
  *
@@ -5406,9 +5406,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_inventory_add_promo_item
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamInventory::AddPromoItem](https://partner.steamgames.com/doc/api/ISteamInventory#AddPromoItem)
  *
- * This function 
+ * This function grants a specific one-time promotional item to the current user.
  *
  * @param {Real} item_def_id
  * @param {Function} [callback]
@@ -5418,9 +5418,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_inventory_add_promo_items
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamInventory::AddPromoItems](https://partner.steamgames.com/doc/api/ISteamInventory#AddPromoItems)
  *
- * This function 
+ * This function grants a specific one-time promotional item to the current user.
  *
  * @param {Array[Real]} item_def_ids
  * @param {Real} num_item_defs
@@ -5431,9 +5431,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_inventory_check_result_steam_id
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamInventory::CheckResultSteamID](https://partner.steamgames.com/doc/api/ISteamInventory#CheckResultSteamID)
  *
- * This function 
+ * This function checks whether an inventory result handle belongs to the specified Steam ID.
  *
  * @param {Real} result_handle
  * @param {Real} steam_id_expected
@@ -5443,9 +5443,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_inventory_consume_item
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamInventory::ConsumeItem](https://partner.steamgames.com/doc/api/ISteamInventory#ConsumeItem)
  *
- * This function 
+ * This function consumes items from a user's inventory. If the quantity of the given item goes to zero, it is permanently removed.
  *
  * @param {Real} item_instance_id
  * @param {Real} quantity
@@ -5456,9 +5456,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_inventory_deserialize_result
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamInventory::DeserializeResult](https://partner.steamgames.com/doc/api/ISteamInventory#DeserializeResult)
  *
- * This function 
+ * This function deserializes a result set and verifies the signature bytes.
  *
  * @param {Buffer} data
  * @param {Real} data_size
@@ -5468,9 +5468,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_inventory_destroy_result
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamInventory::DestroyResult](https://partner.steamgames.com/doc/api/ISteamInventory#DestroyResult)
  *
- * This function 
+ * This function destroys a result handle and frees all associated memory.
  *
  * @param {Real} result_handle
  * @function_end 
@@ -5478,9 +5478,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_inventory_exchange_items
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamInventory::ExchangeItems](https://partner.steamgames.com/doc/api/ISteamInventory#ExchangeItems)
  *
- * This function 
+ * This function grants one item in exchange for a set of other items.
  *
  * @param {Array[Real]} generate_item_defs
  * @param {Array[Real]} generate_qty
@@ -5495,9 +5495,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_inventory_generate_items
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamInventory::GenerateItems](https://partner.steamgames.com/doc/api/ISteamInventory#GenerateItems)
  *
- * This function 
+ * This function grants specific items to the current user, for developers only.
  *
  * @param {Array[Real]} item_defs
  * @param {Array[Real]} quantities
@@ -5509,9 +5509,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_inventory_get_all_items
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamInventory::GetAllItems](https://partner.steamgames.com/doc/api/ISteamInventory#GetAllItems)
  *
- * This function 
+ * This function starts retrieving all items in the current users inventory.
  *
  * @returns {Real} 
  * @function_end 
@@ -5519,9 +5519,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_inventory_get_result_items
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamInventory::GetResultItems](https://partner.steamgames.com/doc/api/ISteamInventory#GetResultItems)
  *
- * This function 
+ * This function gets the items associated with an inventory result handle.
  *
  * @param {Real} result_handle
  * @returns {Struct.SteamInventoryResultItems} 
@@ -5530,9 +5530,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_inventory_get_result_status
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamInventory::GetResultStatus](https://partner.steamgames.com/doc/api/ISteamInventory#GetResultStatus)
  *
- * This function 
+ * This function finds out the status of an asynchronous inventory result handle.
  *
  * @param {Real} result_handle
  * @returns {Enum.SteamApiResult} 
@@ -5541,9 +5541,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_inventory_get_result_timestamp
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamInventory::GetResultTimestamp](https://partner.steamgames.com/doc/api/ISteamInventory#GetResultTimestamp)
  *
- * This function 
+ * This function gets the server time at which the result was generated.
  *
  * @param {Real} result_handle
  * @returns {Real} 
@@ -5552,9 +5552,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_inventory_get_eligible_promo_item_definition_ids
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamInventory::GetEligiblePromoItemDefinitionIDs](https://partner.steamgames.com/doc/api/ISteamInventory#GetEligiblePromoItemDefinitionIDs)
  *
- * This function 
+ * This function gets the list of item definition ids that a user can be granted.
  *
  * @param {Real} c_max_item_defs
  * @returns {Array[Real]} 
@@ -5563,9 +5563,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_inventory_load_item_definitions
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamInventory::LoadItemDefinitions](https://partner.steamgames.com/doc/api/ISteamInventory#LoadItemDefinitions)
  *
- * This function 
+ * This function triggers an asynchronous load and refresh of item definitions.
  *
  * @returns {Bool} 
  * @function_end 
@@ -5573,9 +5573,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_inventory_get_item_definition_ids
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamInventory::GetItemDefinitionIDs](https://partner.steamgames.com/doc/api/ISteamInventory#GetItemDefinitionIDs)
  *
- * This function 
+ * This function returns the set of all item definition IDs which are defined in the App Admin panel of the Steamworks website.
  *
  * @param {Real} c_max_item_defs
  * @returns {Array[Real]} 
@@ -5584,9 +5584,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_inventory_get_items_by_id
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamInventory::GetItemsByID](https://partner.steamgames.com/doc/api/ISteamInventory#GetItemsByID)
  *
- * This function 
+ * This function gets the state of a subset of the current user's inventory.
  *
  * @param {Array[Real]} item_instance_ids
  * @param {Function} [callback]
@@ -5596,9 +5596,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_inventory_serialize_result
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamInventory::SerializeResult](https://partner.steamgames.com/doc/api/ISteamInventory#SerializeResult)
  *
- * This function 
+ * This function serializes a result set with a short signature which can't be forged or replayed across different game sessions.
  *
  * @param {Real} result_handle
  * @param {Buffer} out_data
@@ -5609,9 +5609,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_inventory_get_result_item_property_keys_array
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamInventory::GetResultItemProperty](https://partner.steamgames.com/doc/api/ISteamInventory#GetResultItemProperty)
  *
- * This function 
+ * This function gets the list of dynamic property names available on an item in an inventory result set.
  *
  * @param {Real} result_handle
  * @param {Real} item_index
@@ -5621,9 +5621,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_inventory_get_result_item_property
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamInventory::GetResultItemProperty](https://partner.steamgames.com/doc/api/ISteamInventory#GetResultItemProperty)
  *
- * This function 
+ * This function gets the dynamic properties from an item in an inventory result set.
  *
  * @param {Real} result_handle
  * @param {Real} item_index
@@ -5634,9 +5634,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_inventory_start_purchase
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamInventory::StartPurchase](https://partner.steamgames.com/doc/api/ISteamInventory#StartPurchase)
  *
- * This function 
+ * This function starts the purchase process for the user, given a "shopping cart" of item definitions that the user would like to buy.
  *
  * @param {Array[Real]} item_def_ids
  * @param {Array[Real]} quantities
@@ -5647,9 +5647,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_inventory_request_prices
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamInventory::RequestPrices](https://partner.steamgames.com/doc/api/ISteamInventory#RequestPrices)
  *
- * This function 
+ * This function requests prices for all item definitions that can be purchased in the user's local currency.
  *
  * @param {Function} [callback]
  * @function_end 
@@ -5657,9 +5657,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_inventory_get_num_items_with_prices
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamInventory::GetNumItemsWithPrices](https://partner.steamgames.com/doc/api/ISteamInventory#GetNumItemsWithPrices)
  *
- * This function 
+ * This function, after a successful call to RequestPrices, returns the number of item definitions with valid pricing.
  *
  * @returns {Real} 
  * @function_end 
@@ -5667,9 +5667,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_inventory_get_items_with_prices
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamInventory::GetItemsWithPrices](https://partner.steamgames.com/doc/api/ISteamInventory#GetItemsWithPrices)
  *
- * This function 
+ * This function, after a successful call to RequestPrices, gets all the pricing for applicable item definitions.
  *
  * @param {Real} max
  * @returns {Struct.SteamInventoryItemsWithPrices} 
@@ -5678,9 +5678,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_inventory_start_update_properties
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamInventory::StartUpdateProperties](https://partner.steamgames.com/doc/api/ISteamInventory#StartUpdateProperties)
  *
- * This function 
+ * This function starts a transaction request to update dynamic properties on items for the current user.
  *
  * @returns {Real} 
  * @function_end 
@@ -5688,9 +5688,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_inventory_remove_property
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamInventory::RemoveProperty](https://partner.steamgames.com/doc/api/ISteamInventory#RemoveProperty)
  *
- * This function 
+ * This function removes a dynamic property for the given item.
  *
  * @param {Real} result_handle
  * @param {Real} item_instance_id
@@ -5701,9 +5701,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_inventory_set_property_string
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamInventory::SetProperty](https://partner.steamgames.com/doc/api/ISteamInventory#SetProperty)
  *
- * This function 
+ * This function sets a dynamic property for the given item.
  *
  * @param {Real} result_handle
  * @param {Real} item_instance_id
@@ -5715,9 +5715,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_inventory_set_property_bool
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamInventory::SetProperty](https://partner.steamgames.com/doc/api/ISteamInventory#SetProperty)
  *
- * This function 
+ * This function sets a dynamic property for the given item.
  *
  * @param {Real} result_handle
  * @param {Real} item_instance_id
@@ -5729,9 +5729,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_inventory_set_property_int64
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamInventory::SetProperty](https://partner.steamgames.com/doc/api/ISteamInventory#SetProperty)
  *
- * This function 
+ * This function sets a dynamic property for the given item.
  *
  * @param {Real} result_handle
  * @param {Real} item_instance_id
@@ -5743,9 +5743,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_inventory_set_property_float
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamInventory::SetProperty](https://partner.steamgames.com/doc/api/ISteamInventory#SetProperty)
  *
- * This function 
+ * This function sets a dynamic property for the given item.
  *
  * @param {Real} result_handle
  * @param {Real} item_instance_id
@@ -5757,9 +5757,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_inventory_submit_update_properties
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamInventory::SubmitUpdateProperties](https://partner.steamgames.com/doc/api/ISteamInventory#SubmitUpdateProperties)
  *
- * This function 
+ * This function submits the transaction request to modify dynamic properties on items for the current user.
  *
  * @param {Real} result_handle
  * @param {Function} [callback]
@@ -5769,9 +5769,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_inventory_transfer_item_quantity
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamInventory::TransferItemQuantity](https://partner.steamgames.com/doc/api/ISteamInventory#TransferItemQuantity)
  *
- * This function 
+ * This function transfers items between stacks within a user's inventory.
  *
  * @param {Real} item_instance_id_source
  * @param {Real} quantity
@@ -5783,9 +5783,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_inventory_trigger_item_drop
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamInventory::TriggerItemDrop](https://partner.steamgames.com/doc/api/ISteamInventory#TriggerItemDrop)
  *
- * This function 
+ * This function triggers an item drop if the user has played a long enough period of time.
  *
  * @param {Real} item_def_id
  * @param {Function} [callback]
@@ -5795,9 +5795,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_inventory_grant_promo_items
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamInventory::GrantPromoItems](https://partner.steamgames.com/doc/api/ISteamInventory#GrantPromoItems)
  *
- * This function 
+ * This function grants all potential one-time promotional items to the current user.
  *
  * @param {Function} [callback]
  * @returns {Real} 
@@ -5806,9 +5806,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_inventory_get_item_definition_property
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamInventory::GetItemDefinitionProperty](https://partner.steamgames.com/doc/api/ISteamInventory#GetItemDefinitionProperty)
  *
- * This function 
+ * This function gets a string property from the specified item definition.
  *
  * @param {Real} item_def_id
  * @param {String} property_name
@@ -5818,9 +5818,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_inventory_get_item_definition_property_keys
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamInventory::GetItemDefinitionProperty](https://partner.steamgames.com/doc/api/ISteamInventory#GetItemDefinitionProperty)
  *
- * This function 
+ * This function gets the list of string property names available on the specified item definition.
  *
  * @param {Real} item_def_id
  * @returns {Array[String]} 
@@ -5829,9 +5829,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_inventory_get_item_price
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamInventory::GetItemPrice](https://partner.steamgames.com/doc/api/ISteamInventory#GetItemPrice)
  *
- * This function 
+ * This function, after a successful call to RequestPrices, gets the pricing for a specific item definition.
  *
  * @param {Real} item_def_id
  * @returns {Struct.SteamInventoryItemPrice} 
@@ -5840,7 +5840,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_inventory_set_callback_result_ready
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: N / A
  *
  * This function 
  *
@@ -5850,7 +5850,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_inventory_clear_callback_result_ready
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: N / A
  *
  * This function 
  *
@@ -5859,7 +5859,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_inventory_set_callback_full_update
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: N / A
  *
  * This function 
  *
@@ -5869,7 +5869,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_inventory_clear_callback_full_update
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: N / A
  *
  * This function 
  *
@@ -5878,7 +5878,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_inventory_set_callback_definition_update
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: N / A
  *
  * This function 
  *
@@ -5888,7 +5888,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_inventory_clear_callback_definition_update
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: N / A
  *
  * This function 
  *
@@ -5897,7 +5897,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_remote_storage_set_callback_published_file_subscribed
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: N / A
  *
  * This function 
  *
@@ -5907,7 +5907,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_remote_storage_clear_callback_published_file_subscribed
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: N / A
  *
  * This function 
  *
@@ -5916,7 +5916,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_remote_storage_set_callback_published_file_unsubscribed
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: N / A
  *
  * This function 
  *
@@ -5926,7 +5926,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_remote_storage_clear_callback_published_file_unsubscribed
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: N / A
  *
  * This function 
  *
@@ -5935,7 +5935,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_remote_storage_set_callback_local_file_change
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: N / A
  *
  * This function 
  *
@@ -5945,7 +5945,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_remote_storage_clear_callback_local_file_change
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: N / A
  *
  * This function 
  *
@@ -5954,9 +5954,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_remote_storage_is_cloud_enabled_for_account
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamRemoteStorage::IsCloudEnabledForAccount](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#IsCloudEnabledForAccount)
  *
- * This function 
+ * This function checks if the account wide Steam Cloud setting is enabled for this user.
  *
  * @returns {Bool} 
  * @function_end 
@@ -5964,9 +5964,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_remote_storage_is_cloud_enabled_for_app
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamRemoteStorage::IsCloudEnabledForApp](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#IsCloudEnabledForApp)
  *
- * This function 
+ * This function checks if the per game Steam Cloud setting is enabled for this user.
  *
  * @returns {Bool} 
  * @function_end 
@@ -5974,9 +5974,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_remote_storage_set_cloud_enabled_for_app
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamRemoteStorage::SetCloudEnabledForApp](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#SetCloudEnabledForApp)
  *
- * This function 
+ * This function toggles whether the Steam Cloud is enabled for your application.
  *
  * @param {Bool} enabled
  * @function_end 
@@ -5984,9 +5984,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_remote_storage_file_write
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamRemoteStorage::FileWrite](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#FileWrite)
  *
- * This function 
+ * This function creates a new file, writes the bytes to the file, and then closes the file.
  *
  * @param {String} file_name
  * @param {Buffer} data
@@ -5997,9 +5997,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_remote_storage_file_read
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamRemoteStorage::FileRead](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#FileRead)
  *
- * This function 
+ * This function opens a binary file, reads the contents of the file into a byte array, and then closes the file.
  *
  * @param {String} file_name
  * @param {Buffer} out_data
@@ -6010,9 +6010,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_remote_storage_file_delete
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamRemoteStorage::FileDelete](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#FileDelete)
  *
- * This function 
+ * This function deletes a file from the local disk, and propagates that delete to the cloud.
  *
  * @param {String} file_name
  * @returns {Bool} 
@@ -6021,9 +6021,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_remote_storage_file_exists
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamRemoteStorage::FileExists](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#FileExists)
  *
- * This function 
+ * This function checks whether the specified file exists.
  *
  * @param {String} file_name
  * @returns {Bool} 
@@ -6032,9 +6032,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_remote_storage_file_persisted
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamRemoteStorage::FilePersisted](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#FilePersisted)
  *
- * This function 
+ * This function checks if a specific file is persisted in the steam cloud.
  *
  * @param {String} file_name
  * @returns {Bool} 
@@ -6043,9 +6043,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_remote_storage_get_file_size
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamRemoteStorage::GetFileSize](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#GetFileSize)
  *
- * This function 
+ * This function gets the specified files size in bytes.
  *
  * @param {String} file_name
  * @returns {Real} 
@@ -6054,9 +6054,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_remote_storage_get_file_timestamp
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamRemoteStorage::GetFileTimestamp](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#GetFileTimestamp)
  *
- * This function 
+ * This function gets the specified file's last modified timestamp in Unix epoch format.
  *
  * @param {String} file_name
  * @returns {Real} 
@@ -6065,9 +6065,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_remote_storage_get_file_count
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamRemoteStorage::GetFileCount](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#GetFileCount)
  *
- * This function 
+ * This function gets the total number of local files synchronized by Steam Cloud.
  *
  * @returns {Real} 
  * @function_end 
@@ -6075,9 +6075,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_remote_storage_get_file_name_and_size
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamRemoteStorage::GetFileNameAndSize](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#GetFileNameAndSize)
  *
- * This function 
+ * This function gets the file name and size of a file from the index.
  *
  * @param {Real} index
  * @returns {Struct.SteamRemoteStorageFileNameAndSize} 
@@ -6086,9 +6086,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_remote_storage_get_quota
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamRemoteStorage::GetQuota](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#GetQuota)
  *
- * This function 
+ * This function gets the number of bytes available, and used on the users Steam Cloud storage.
  *
  * @returns {Struct.SteamRemoteStorageQuota} 
  * @function_end 
@@ -6096,9 +6096,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_remote_storage_set_sync_platforms
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamRemoteStorage::SetSyncPlatforms](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#SetSyncPlatforms)
  *
- * This function 
+ * This function allows you to specify which operating systems a file will be synchronized to.
  *
  * @param {String} file_name
  * @param {Enum.SteamRemoteStoragePlatform} platforms
@@ -6108,9 +6108,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_remote_storage_get_sync_platforms
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamRemoteStorage::GetSyncPlatforms](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#GetSyncPlatforms)
  *
- * This function 
+ * This function obtains the platforms that the specified file will syncronize to.
  *
  * @param {String} file_name
  * @returns {Enum.SteamRemoteStoragePlatform} 
@@ -6119,9 +6119,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_remote_storage_file_forget
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamRemoteStorage::FileForget](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#FileForget)
  *
- * This function 
+ * This function deletes the file from remote storage, but leaves it on the local disk and remains accessible from the API.
  *
  * @param {String} file_name
  * @returns {Bool} 
@@ -6130,9 +6130,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_remote_storage_file_write_stream_open
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamRemoteStorage::FileWriteStreamOpen](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#FileWriteStreamOpen)
  *
- * This function 
+ * This function creates a new file output stream allowing you to stream out data to the Steam Cloud file in chunks.
  *
  * @param {String} file_name
  * @returns {Real} 
@@ -6141,9 +6141,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_remote_storage_file_write_stream_write_chunk
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamRemoteStorage::FileWriteStreamWriteChunk](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#FileWriteStreamWriteChunk)
  *
- * This function 
+ * This function writes a blob of data to the file write stream.
  *
  * @param {Real} stream
  * @param {Buffer} data
@@ -6154,9 +6154,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_remote_storage_file_write_stream_close
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamRemoteStorage::FileWriteStreamClose](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#FileWriteStreamClose)
  *
- * This function 
+ * This function closes a file write stream that was started by FileWriteStreamOpen.
  *
  * @param {Real} stream
  * @returns {Bool} 
@@ -6165,9 +6165,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_remote_storage_file_write_stream_cancel
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamRemoteStorage::FileWriteStreamCancel](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#FileWriteStreamCancel)
  *
- * This function 
+ * This function cancels a file write stream that was started by FileWriteStreamOpen.
  *
  * @param {Real} stream
  * @returns {Bool} 
@@ -6176,7 +6176,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_remote_storage_get_cached_ugc_count
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamRemoteStorage::GetCachedUGCCount](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#GetCachedUGCCount)
  *
  * This function 
  *
@@ -6186,7 +6186,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_remote_storage_get_cached_ugc_handle
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamRemoteStorage::GetCachedUGCHandle](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#GetCachedUGCHandle)
  *
  * This function 
  *
@@ -6197,7 +6197,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_remote_storage_get_ugc_details
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamRemoteStorage::GetUGCDetails](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#GetUGCDetails)
  *
  * This function 
  *
@@ -6208,7 +6208,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_remote_storage_ugc_read
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamRemoteStorage::UGCRead](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#UGCRead)
  *
  * This function 
  *
@@ -6223,7 +6223,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_remote_storage_file_share
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamRemoteStorage::FileShare](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#FileShare)
  *
  * This function 
  *
@@ -6234,7 +6234,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_remote_storage_ugc_download
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamRemoteStorage::UGCDownload](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#UGCDownload)
  *
  * This function 
  *
@@ -6246,7 +6246,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_remote_storage_ugc_download_to_location
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamRemoteStorage::UGCDownloadToLocation](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#UGCDownloadToLocation)
  *
  * This function 
  *
@@ -6259,9 +6259,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_remote_storage_publish_workshop_file
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamRemoteStorage::PublishWorkshopFile](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#PublishWorkshopFile)
  *
- * This function 
+ * This function is deprecated and only used with the deprecated RemoteStorage based Workshop API.
  *
  * @param {String} file
  * @param {String} preview_file
@@ -6277,9 +6277,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_remote_storage_create_published_file_update_request
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamRemoteStorage::CreatePublishedFileUpdateRequest](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#CreatePublishedFileUpdateRequest)
  *
- * This function 
+ * This function is deprecated and only used with the deprecated RemoteStorage based Workshop API.
  *
  * @param {Real} published_file_id
  * @returns {Real} 
@@ -6288,9 +6288,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_remote_storage_update_published_file_file
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamRemoteStorage::UpdatePublishedFileFile](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#UpdatePublishedFileFile)
  *
- * This function 
+ * This function is deprecated and only used with the deprecated RemoteStorage based Workshop API.
  *
  * @param {Real} update_handle
  * @param {String} file
@@ -6300,9 +6300,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_remote_storage_update_published_file_preview_file
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamRemoteStorage::UpdatePublishedFilePreviewFile](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#UpdatePublishedFilePreviewFile)
  *
- * This function 
+ * This function is deprecated and only used with the deprecated RemoteStorage based Workshop API.
  *
  * @param {Real} update_handle
  * @param {String} preview_file
@@ -6312,9 +6312,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_remote_storage_update_published_file_title
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamRemoteStorage::UpdatePublishedFileTitle](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#UpdatePublishedFileTitle)
  *
- * This function 
+ * This function is deprecated and only used with the deprecated RemoteStorage based Workshop API.
  *
  * @param {Real} update_handle
  * @param {String} title
@@ -6324,9 +6324,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_remote_storage_update_published_file_description
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamRemoteStorage::UpdatePublishedFileDescription](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#UpdatePublishedFileDescription)
  *
- * This function 
+ * This function is deprecated and only used with the deprecated RemoteStorage based Workshop API.
  *
  * @param {Real} update_handle
  * @param {String} description
@@ -6336,9 +6336,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_remote_storage_update_published_file_visibility
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamRemoteStorage::UpdatePublishedFileVisibility](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#UpdatePublishedFileVisibility)
  *
- * This function 
+ * This function is deprecated and only used with the deprecated RemoteStorage based Workshop API.
  *
  * @param {Real} update_handle
  * @param {Enum.SteamRemoteStoragePublishedFileVisibility} visibility
@@ -6348,9 +6348,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_remote_storage_update_published_file_tags
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamRemoteStorage::UpdatePublishedFileTags](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#UpdatePublishedFileTags)
  *
- * This function 
+ * This function is deprecated and only used with the deprecated RemoteStorage based Workshop API.
  *
  * @param {Real} update_handle
  * @param {String} tags_csv
@@ -6360,9 +6360,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_remote_storage_commit_published_file_update
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamRemoteStorage::CommitPublishedFileUpdate](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#CommitPublishedFileUpdate)
  *
- * This function 
+ * This function is deprecated and only used with the deprecated RemoteStorage based Workshop API.
  *
  * @param {Real} update_handle
  * @param {Function} [callback]
@@ -6371,9 +6371,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_remote_storage_subscribe_published_file
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamRemoteStorage::SubscribePublishedFile](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#SubscribePublishedFile)
  *
- * This function 
+ * This function is deprecated and only used with the deprecated RemoteStorage based Workshop API.
  *
  * @param {Real} published_file_id
  * @param {Function} [callback]
@@ -6382,9 +6382,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_remote_storage_unsubscribe_published_file
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamRemoteStorage::UnsubscribePublishedFile](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#UnsubscribePublishedFile)
  *
- * This function 
+ * This function is deprecated and only used with the deprecated RemoteStorage based Workshop API.
  *
  * @param {Real} published_file_id
  * @param {Function} [callback]
@@ -6393,7 +6393,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_matchmaking_set_callback_lobby_data_update
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: N / A
  *
  * This function 
  *
@@ -6403,7 +6403,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_matchmaking_clear_callback_lobby_data_update
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: N / A
  *
  * This function 
  *
@@ -6412,7 +6412,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_matchmaking_set_callback_lobby_chat_update
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: N / A
  *
  * This function 
  *
@@ -6422,7 +6422,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_matchmaking_clear_callback_lobby_chat_update
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: N / A
  *
  * This function 
  *
@@ -6431,7 +6431,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_matchmaking_set_callback_lobby_chat_msg
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: N / A
  *
  * This function 
  *
@@ -6441,7 +6441,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_matchmaking_clear_callback_lobby_chat_msg
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: N / A
  *
  * This function 
  *
@@ -6450,7 +6450,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_matchmaking_set_callback_lobby_game_created
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: N / A
  *
  * This function 
  *
@@ -6460,7 +6460,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_matchmaking_clear_callback_lobby_game_created
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: N / A
  *
  * This function 
  *
@@ -6469,7 +6469,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_matchmaking_set_callback_lobby_invite
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: N / A
  *
  * This function 
  *
@@ -6479,7 +6479,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_matchmaking_clear_callback_lobby_invite
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: N / A
  *
  * This function 
  *
@@ -6488,9 +6488,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_matchmaking_create_lobby
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamMatchmaking::CreateLobby](https://partner.steamgames.com/doc/api/ISteamMatchmaking#CreateLobby)
  *
- * This function 
+ * This function creates a new matchmaking lobby.
  *
  * @param {Enum.SteamMatchmakingLobbyType} lobby_type
  * @param {Real} max_members
@@ -6500,9 +6500,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_matchmaking_join_lobby
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamMatchmaking::JoinLobby](https://partner.steamgames.com/doc/api/ISteamMatchmaking#JoinLobby)
  *
- * This function 
+ * This function joins an existing lobby.
  *
  * @param {Real} lobby_id
  * @param {Function} [callback]
@@ -6511,9 +6511,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_matchmaking_request_lobby_list
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamMatchmaking::RequestLobbyList](https://partner.steamgames.com/doc/api/ISteamMatchmaking#RequestLobbyList)
  *
- * This function 
+ * This function gets a filtered list of relevant lobbies.
  *
  * @param {Function} [callback]
  * @function_end 
@@ -6521,9 +6521,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_matchmaking_add_request_lobby_list_string_filter
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamMatchmaking::AddRequestLobbyListStringFilter](https://partner.steamgames.com/doc/api/ISteamMatchmaking#AddRequestLobbyListStringFilter)
  *
- * This function 
+ * This function adds a string comparison filter to the next ${function.steam_matchmaking_request_lobby_list} call.
  *
  * @param {String} key
  * @param {String} value
@@ -6533,9 +6533,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_matchmaking_add_request_lobby_list_numerical_filter
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamMatchmaking::AddRequestLobbyListNumericalFilter](https://partner.steamgames.com/doc/api/ISteamMatchmaking#AddRequestLobbyListNumericalFilter)
  *
- * This function 
+ * This function adds a numerical comparison filter to the next ${function.steam_matchmaking_request_lobby_list} call.
  *
  * @param {String} key
  * @param {Real} value
@@ -6545,9 +6545,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_matchmaking_add_request_lobby_list_near_value_filter
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamMatchmaking::AddRequestLobbyListNearValueFilter](https://partner.steamgames.com/doc/api/ISteamMatchmaking#AddRequestLobbyListNearValueFilter)
  *
- * This function 
+ * This function sorts the results closest to the specified value.
  *
  * @param {String} key
  * @param {Real} value
@@ -6556,9 +6556,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_matchmaking_add_request_lobby_list_distance_filter
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamMatchmaking::AddRequestLobbyListDistanceFilter](https://partner.steamgames.com/doc/api/ISteamMatchmaking#AddRequestLobbyListDistanceFilter)
  *
- * This function 
+ * This function sets the physical distance for which we should search for lobbies, this is based on the users IP address and a IP location map on the Steam backed.
  *
  * @param {Enum.SteamMatchmakingLobbyDistanceFilter} distance
  * @function_end 
@@ -6566,9 +6566,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_matchmaking_add_request_lobby_list_result_count_filter
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamMatchmaking::AddRequestLobbyListResultCountFilter](https://partner.steamgames.com/doc/api/ISteamMatchmaking#AddRequestLobbyListResultCountFilter)
  *
- * This function 
+ * This function sets the maximum number of lobbies to return.
  *
  * @param {Real} max_results
  * @function_end 
@@ -6576,9 +6576,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_matchmaking_get_lobby_by_index
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamMatchmaking::GetLobbyByIndex](https://partner.steamgames.com/doc/api/ISteamMatchmaking#GetLobbyByIndex)
  *
- * This function 
+ * This function gets the Steam ID of the lobby at the specified index after receiving the ${function.steam_matchmaking_request_lobby_list} results.
  *
  * @param {Real} index
  * @returns {Real} 
@@ -6587,9 +6587,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_matchmaking_leave_lobby
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamMatchmaking::LeaveLobby](https://partner.steamgames.com/doc/api/ISteamMatchmaking#LeaveLobby)
  *
- * This function 
+ * This function leaves a lobby that the user is currently in; this takes effect immediately on the client side of the user.
  *
  * @param {Real} lobby_id
  * @function_end 
@@ -6597,9 +6597,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_matchmaking_set_lobby_owner
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamMatchmaking::SetLobbyOwner](https://partner.steamgames.com/doc/api/ISteamMatchmaking#SetLobbyOwner)
  *
- * This function 
+ * This function changes who the lobby owner is.
  *
  * @param {Real} lobby_id
  * @param {Real} new_owner_id
@@ -6609,9 +6609,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_matchmaking_get_lobby_owner
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamMatchmaking::GetLobbyOwner](https://partner.steamgames.com/doc/api/ISteamMatchmaking#GetLobbyOwner)
  *
- * This function 
+ * This function returns the current lobby owner.
  *
  * @param {Real} lobby_id
  * @returns {Real} 
@@ -6620,9 +6620,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_matchmaking_get_num_lobby_members
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamMatchmaking::GetNumLobbyMembers](https://partner.steamgames.com/doc/api/ISteamMatchmaking#GetNumLobbyMembers)
  *
- * This function 
+ * This function gets the number of users in a lobby.
  *
  * @param {Real} lobby_id
  * @returns {Real} 
@@ -6631,9 +6631,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_matchmaking_get_lobby_member_by_index
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamMatchmaking::GetLobbyMemberByIndex](https://partner.steamgames.com/doc/api/ISteamMatchmaking#GetLobbyMemberByIndex)
  *
- * This function 
+ * This function gets the Steam ID of the lobby member at the given index.
  *
  * @param {Real} lobby_id
  * @param {Real} member_index
@@ -6643,9 +6643,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_matchmaking_set_lobby_data
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamMatchmaking::SetLobbyData](https://partner.steamgames.com/doc/api/ISteamMatchmaking#SetLobbyData)
  *
- * This function 
+ * This function sets a key/value pair in the lobby metadata.
  *
  * @param {Real} lobby_id
  * @param {String} key
@@ -6656,9 +6656,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_matchmaking_get_lobby_data
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamMatchmaking::GetLobbyData](https://partner.steamgames.com/doc/api/ISteamMatchmaking#GetLobbyData)
  *
- * This function 
+ * This function gets the metadata associated with the specified key from the specified lobby.
  *
  * @param {Real} lobby_id
  * @param {String} key
@@ -6668,9 +6668,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_matchmaking_delete_lobby_data
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamMatchmaking::DeleteLobbyData](https://partner.steamgames.com/doc/api/ISteamMatchmaking#DeleteLobbyData)
  *
- * This function 
+ * This function removes a metadata key from the lobby.
  *
  * @param {Real} lobby_id
  * @param {String} key
@@ -6680,9 +6680,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_matchmaking_get_lobby_data_count
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamMatchmaking::GetLobbyDataCount](https://partner.steamgames.com/doc/api/ISteamMatchmaking#GetLobbyDataCount)
  *
- * This function 
+ * This function gets the number of metadata keys set on the specified lobby.
  *
  * @param {Real} lobby_id
  * @returns {Real} 
@@ -6691,9 +6691,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_matchmaking_get_lobby_data_by_index
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamMatchmaking::GetLobbyDataByIndex](https://partner.steamgames.com/doc/api/ISteamMatchmaking#GetLobbyDataByIndex)
  *
- * This function 
+ * This function gets a lobby metadata key/value pair by index.
  *
  * @param {Real} lobby_id
  * @param {Real} index
@@ -6707,9 +6707,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_matchmaking_set_lobby_member_data
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamMatchmaking::SetLobbyMemberData](https://partner.steamgames.com/doc/api/ISteamMatchmaking#SetLobbyMemberData)
  *
- * This function 
+ * This function sets per-user metadata for the local user.
  *
  * @param {Real} lobby_id
  * @param {String} key
@@ -6719,9 +6719,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_matchmaking_get_lobby_member_data
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamMatchmaking::GetLobbyMemberData](https://partner.steamgames.com/doc/api/ISteamMatchmaking#GetLobbyMemberData)
  *
- * This function 
+ * This function gets per-user metadata from another player in the specified lobby.
  *
  * @param {Real} lobby_id
  * @param {Real} member_id
@@ -6732,9 +6732,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_matchmaking_send_lobby_chat_msg
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamMatchmaking::SendLobbyChatMsg](https://partner.steamgames.com/doc/api/ISteamMatchmaking#SendLobbyChatMsg)
  *
- * This function 
+ * This function broadcasts a chat (text or binary data) message to the all of the users in the lobby.
  *
  * @param {Real} lobby_id
  * @param {Buffer} msg
@@ -6745,9 +6745,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_matchmaking_get_lobby_chat_entry
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamMatchmaking::GetLobbyChatEntry](https://partner.steamgames.com/doc/api/ISteamMatchmaking#GetLobbyChatEntry)
  *
- * This function 
+ * This function gets the data from a lobby chat message after receiving a lobby chat message callback.
  *
  * @param {Real} lobby_id
  * @param {Real} chat_id
@@ -6759,9 +6759,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_matchmaking_add_request_lobby_list_filter_slots_available
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamMatchmaking::AddRequestLobbyListFilterSlotsAvailable](https://partner.steamgames.com/doc/api/ISteamMatchmaking#AddRequestLobbyListFilterSlotsAvailable)
  *
- * This function 
+ * This function filters to only return lobbies with the specified number of open slots available.
  *
  * @param {Real} slots_available
  * @function_end 
@@ -6769,9 +6769,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_matchmaking_request_lobby_data
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamMatchmaking::RequestLobbyData](https://partner.steamgames.com/doc/api/ISteamMatchmaking#RequestLobbyData)
  *
- * This function 
+ * This function refreshes all of the metadata for a lobby that you're not in right now.
  *
  * @param {Real} steam_id_lobby
  * @returns {Bool} 
@@ -6780,9 +6780,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_matchmaking_set_lobby_joinable
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamMatchmaking::SetLobbyJoinable](https://partner.steamgames.com/doc/api/ISteamMatchmaking#SetLobbyJoinable)
  *
- * This function 
+ * This function sets whether or not a lobby is joinable by other players.
  *
  * @param {Real} steam_id_lobby
  * @param {Bool} joinable
@@ -6792,9 +6792,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_matchmaking_invite_user_to_lobby
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamMatchmaking::InviteUserToLobby](https://partner.steamgames.com/doc/api/ISteamMatchmaking#InviteUserToLobby)
  *
- * This function 
+ * This function invites another user to the lobby.
  *
  * @param {Real} steam_id_lobby
  * @param {Real} steam_id_invitee
@@ -6804,9 +6804,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_matchmaking_set_lobby_game_server
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamMatchmaking::SetLobbyGameServer](https://partner.steamgames.com/doc/api/ISteamMatchmaking#SetLobbyGameServer)
  *
- * This function 
+ * This function sets the game server associated with the lobby.
  *
  * @param {Real} steam_id_lobby
  * @param {Real} ip
@@ -6817,9 +6817,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_matchmaking_set_linked_lobby
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamMatchmaking::SetLinkedLobby](https://partner.steamgames.com/doc/api/ISteamMatchmaking#SetLinkedLobby)
  *
- * This function 
+ * This function links two lobbies for the purposes of checking player compatibility using the frenemy system.
  *
  * @param {Real} steam_id_lobby
  * @param {Real} steam_id_lobby_dependent
@@ -6829,9 +6829,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_matchmaking_get_lobby_game_server
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamMatchmaking::GetLobbyGameServer](https://partner.steamgames.com/doc/api/ISteamMatchmaking#GetLobbyGameServer)
  *
- * This function 
+ * This function gets the details of a game server set in a lobby.
  *
  * @param {Real} steam_id_lobby
  * @returns {Struct.SteamMatchmakingLobbyGameServer} 
@@ -6840,7 +6840,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_networking_messages_set_callback_session_request
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: N / A
  *
  * This function 
  *
@@ -6850,7 +6850,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_networking_messages_clear_callback_session_request
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: N / A
  *
  * This function 
  *
@@ -6859,7 +6859,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_networking_messages_set_callback_session_failed
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: N / A
  *
  * This function 
  *
@@ -6869,7 +6869,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_networking_messages_clear_callback_session_failed
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: N / A
  *
  * This function 
  *
@@ -6878,9 +6878,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_networking_messages_send_message_to_user
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamNetworkingMessages::SendMessageToUser](https://partner.steamgames.com/doc/api/ISteamNetworkingMessages#SendMessageToUser)
  *
- * This function 
+ * This function sends a message to the specified host. If we don't already have a session with that user, a session is implicitly created.
  *
  * @param {Real} steam_id_remote
  * @param {Buffer} data
@@ -6893,9 +6893,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_networking_messages_receive_one_on_channel
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamNetworkingMessages::ReceiveMessagesOnChannel](https://partner.steamgames.com/doc/api/ISteamNetworkingMessages#ReceiveMessagesOnChannel)
  *
- * This function 
+ * This function reads the next message that has been sent from another user via SendMessageToUser() on the given channel.
  *
  * @param {Real} local_channel
  * @param {Buffer} out_data
@@ -6907,9 +6907,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_networking_messages_accept_session_with_user
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamNetworkingMessages::AcceptSessionWithUser](https://partner.steamgames.com/doc/api/ISteamNetworkingMessages#AcceptSessionWithUser)
  *
- * This function 
+ * This function is called in response to a SteamNetworkingMessagesSessionRequest_t callback, which is posted when a user attempts to message you first.
  *
  * @param {Real} steam_id_remote
  * @returns {Bool} 
@@ -6918,9 +6918,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_networking_messages_close_session_with_user
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamNetworkingMessages::CloseSessionWithUser](https://partner.steamgames.com/doc/api/ISteamNetworkingMessages#CloseSessionWithUser)
  *
- * This function 
+ * This function is called when you're done talking to a user to immediately free up resources under-the-hood.
  *
  * @param {Real} steam_id_remote
  * @returns {Bool} 
@@ -6929,9 +6929,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_networking_messages_close_channel_with_user
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamNetworkingMessages::CloseChannelWithUser](https://partner.steamgames.com/doc/api/ISteamNetworkingMessages#CloseChannelWithUser)
  *
- * This function 
+ * This function is called when you're done talking to a user on a specific channel.
  *
  * @param {Real} steam_id_remote
  * @param {Real} local_channel
@@ -6941,7 +6941,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_networking_sockets_set_callback_connection_status_changed
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: N / A
  *
  * This function 
  *
@@ -6951,7 +6951,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_networking_sockets_clear_callback_connection_status_changed
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: N / A
  *
  * This function 
  *
@@ -6960,9 +6960,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_networking_sockets_create_listen_socket_ip
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamNetworkingSockets::CreateListenSocketIP](https://partner.steamgames.com/doc/api/ISteamNetworkingSockets#CreateListenSocketIP)
  *
- * This function 
+ * This function creates a "server" socket that listens for clients to connect to by calling ConnectByIPAddress, over ordinary UDP (IPv4 or IPv6).
  *
  * @param {Real} port
  * @returns {Real} 
@@ -6971,9 +6971,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_networking_sockets_close_listen_socket
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamNetworkingSockets::CloseListenSocket](https://partner.steamgames.com/doc/api/ISteamNetworkingSockets#CloseListenSocket)
  *
- * This function 
+ * This function destroys a listen socket.
  *
  * @param {Real} listen_socket
  * @returns {Bool} 
@@ -6982,9 +6982,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_networking_sockets_connect_by_ip_address
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamNetworkingSockets::ConnectByIPAddress](https://partner.steamgames.com/doc/api/ISteamNetworkingSockets#ConnectByIPAddress)
  *
- * This function 
+ * This function creates a connection and begins talking to a "server" over UDP at the given IPv4 or IPv6 address.
  *
  * @param {String} ip
  * @param {Real} port
@@ -6994,9 +6994,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_networking_sockets_accept_connection
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamNetworkingSockets::AcceptConnection](https://partner.steamgames.com/doc/api/ISteamNetworkingSockets#AcceptConnection)
  *
- * This function 
+ * This function accepts an incoming connection that has been received on a listen socket.
  *
  * @param {Real} conn
  * @returns {Real} 
@@ -7005,9 +7005,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_networking_sockets_close_connection
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamNetworkingSockets::CloseConnection](https://partner.steamgames.com/doc/api/ISteamNetworkingSockets#CloseConnection)
  *
- * This function 
+ * This function disconnects from the remote host and invalidates the connection handle.
  *
  * @param {Real} conn
  * @param {Real} reason
@@ -7019,9 +7019,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_networking_sockets_set_connection_user_data
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamNetworkingSockets::SetConnectionUserData](https://partner.steamgames.com/doc/api/ISteamNetworkingSockets#SetConnectionUserData)
  *
- * This function 
+ * This function sets the connection user data, which is returned in various queries and structures.
  *
  * @param {Real} conn
  * @param {Real} user_data
@@ -7031,9 +7031,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_networking_sockets_get_connection_user_data
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamNetworkingSockets::GetConnectionUserData](https://partner.steamgames.com/doc/api/ISteamNetworkingSockets#GetConnectionUserData)
  *
- * This function 
+ * This function fetches connection user data.
  *
  * @param {Real} conn
  * @returns {Real} 
@@ -7042,9 +7042,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_networking_sockets_set_connection_name
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamNetworkingSockets::SetConnectionName](https://partner.steamgames.com/doc/api/ISteamNetworkingSockets#SetConnectionName)
  *
- * This function 
+ * This function sets a name for the connection, used mostly for debugging.
  *
  * @param {Real} conn
  * @param {String} name
@@ -7053,9 +7053,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_networking_sockets_get_connection_name
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamNetworkingSockets::GetConnectionName](https://partner.steamgames.com/doc/api/ISteamNetworkingSockets#GetConnectionName)
  *
- * This function 
+ * This function fetches the connection name into your buffer.
  *
  * @param {Real} conn
  * @returns {String} 
@@ -7064,9 +7064,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_networking_sockets_send_message_to_connection
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamNetworkingSockets::SendMessageToConnection](https://partner.steamgames.com/doc/api/ISteamNetworkingSockets#SendMessageToConnection)
  *
- * This function 
+ * This function sends a message to the remote host on the specified connection.
  *
  * @param {Real} conn
  * @param {Buffer} data
@@ -7078,9 +7078,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_networking_sockets_flush_messages_on_connection
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamNetworkingSockets::FlushMessagesOnConnection](https://partner.steamgames.com/doc/api/ISteamNetworkingSockets#FlushMessagesOnConnection)
  *
- * This function 
+ * This function flushes any messages waiting on the Nagle timer and sends them at the next transmission opportunity.
  *
  * @param {Real} conn
  * @returns {Real} 
@@ -7089,9 +7089,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_networking_sockets_receive_one_on_connection
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamNetworkingSockets::ReceiveMessagesOnConnection](https://partner.steamgames.com/doc/api/ISteamNetworkingSockets#ReceiveMessagesOnConnection)
  *
- * This function 
+ * This function fetches the next available message(s) from the connection, if any.
  *
  * @param {Real} conn
  * @param {Buffer} out_data
@@ -7103,9 +7103,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_networking_sockets_get_connection_info
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamNetworkingSockets::GetConnectionInfo](https://partner.steamgames.com/doc/api/ISteamNetworkingSockets#GetConnectionInfo)
  *
- * This function 
+ * This function returns basic information about the high-level state of the connection.
  *
  * @param {Real} conn
  * @returns {Struct.SteamNetworkingSocketsConnectionInfo} 
@@ -7114,9 +7114,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_networking_sockets_get_detailed_connection_status
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamNetworkingSockets::GetDetailedConnectionStatus](https://partner.steamgames.com/doc/api/ISteamNetworkingSockets#GetDetailedConnectionStatus)
  *
- * This function 
+ * This function returns very detailed connection stats in diagnostic text format.
  *
  * @param {Real} conn
  * @returns {String} 
@@ -7125,7 +7125,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_networking_sockets_run_callbacks
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamNetworkingSockets::RunCallbacks](https://partner.steamgames.com/doc/api/ISteamNetworkingSockets#RunCallbacks)
  *
  * This function 
  *
@@ -7134,9 +7134,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_networking_sockets_create_socket_pair
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamNetworkingSockets::CreateSocketPair](https://partner.steamgames.com/doc/api/ISteamNetworkingSockets#CreateSocketPair)
  *
- * This function 
+ * This function creates a pair of connections that are talking to each other, e.g. a loopback connection.
  *
  * @param {Bool} use_network_loopback
  * @returns {Array[Real]} 
@@ -7145,9 +7145,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_networking_sockets_create_listen_socket_p2p
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamNetworkingSockets::CreateListenSocketP2P](https://partner.steamgames.com/doc/api/ISteamNetworkingSockets#CreateListenSocketP2P)
  *
- * This function 
+ * This function works like CreateListenSocketIP, but the clients connect using ConnectP2P, with the traffic relayed through the Valve network.
  *
  * @param {Real} local_virtual_port
  * @returns {Real} 
@@ -7156,9 +7156,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_networking_sockets_connect_p2p
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamNetworkingSockets::ConnectP2P](https://partner.steamgames.com/doc/api/ISteamNetworkingSockets#ConnectP2P)
  *
- * This function 
+ * This function begins connecting to a peer that is identified using a platform-specific identifier.
  *
  * @param {Real} steam_id_remote
  * @param {Real} remote_virtual_port
@@ -7168,9 +7168,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_networking_sockets_get_listen_socket_address
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamNetworkingSockets::GetListenSocketAddress](https://partner.steamgames.com/doc/api/ISteamNetworkingSockets#GetListenSocketAddress)
  *
- * This function 
+ * This function returns the local IP and port that a listen socket created via CreateListenSocketIP is bound to.
  *
  * @param {Real} listen_socket
  * @returns {String} 
@@ -7179,9 +7179,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_networking_sockets_create_poll_group
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamNetworkingSockets::CreatePollGroup](https://partner.steamgames.com/doc/api/ISteamNetworkingSockets#CreatePollGroup)
  *
- * This function 
+ * This function creates a new poll group.
  *
  * @returns {Real} 
  * @function_end 
@@ -7189,9 +7189,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_networking_sockets_destroy_poll_group
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamNetworkingSockets::DestroyPollGroup](https://partner.steamgames.com/doc/api/ISteamNetworkingSockets#DestroyPollGroup)
  *
- * This function 
+ * This function destroys a poll group created with CreatePollGroup.
  *
  * @param {Real} poll_group
  * @returns {Bool} 
@@ -7200,9 +7200,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_networking_sockets_set_connection_poll_group
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamNetworkingSockets::SetConnectionPollGroup](https://partner.steamgames.com/doc/api/ISteamNetworkingSockets#SetConnectionPollGroup)
  *
- * This function 
+ * This function assigns a connection to a poll group.
  *
  * @param {Real} conn
  * @param {Real} poll_group
@@ -7212,9 +7212,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_networking_sockets_receive_messages_on_poll_group
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamNetworkingSockets::ReceiveMessagesOnPollGroup](https://partner.steamgames.com/doc/api/ISteamNetworkingSockets#ReceiveMessagesOnPollGroup)
  *
- * This function 
+ * This function works like ReceiveMessagesOnConnection, but it returns messages from any connection in the poll group.
  *
  * @param {Real} poll_group
  * @param {Buffer} out_data
@@ -7226,7 +7226,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_parties_set_callback_reservation_notification
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: N / A
  *
  * This function 
  *
@@ -7236,7 +7236,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_parties_clear_callback_reservation_notification
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: N / A
  *
  * This function 
  *
@@ -7245,7 +7245,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_parties_set_callback_available_beacon_locations_updated
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: N / A
  *
  * This function 
  *
@@ -7255,7 +7255,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_parties_clear_callback_available_beacon_locations_updated
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: N / A
  *
  * This function 
  *
@@ -7264,7 +7264,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_parties_set_callback_active_beacons_updated
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: N / A
  *
  * This function 
  *
@@ -7274,7 +7274,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_parties_clear_callback_active_beacons_updated
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: N / A
  *
  * This function 
  *
@@ -7283,9 +7283,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_parties_get_num_available_beacon_locations
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamParties::GetNumAvailableBeaconLocations](https://partner.steamgames.com/doc/api/ISteamParties#GetNumAvailableBeaconLocations)
  *
- * This function 
+ * This function gets the number of locations in which you are able to post a party beacon.
  *
  * @returns {Struct.SteamPartiesAvailableBeaconLocationCount} 
  * @function_end 
@@ -7293,9 +7293,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_parties_get_available_beacon_locations
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamParties::GetAvailableBeaconLocations](https://partner.steamgames.com/doc/api/ISteamParties#GetAvailableBeaconLocations)
  *
- * This function 
+ * This function gets the list of locations in which you can post a party beacon.
  *
  * @returns {Struct.SteamPartiesAvailableBeaconLocations} 
  * @function_end 
@@ -7303,9 +7303,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_parties_create_beacon
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamParties::CreateBeacon](https://partner.steamgames.com/doc/api/ISteamParties#CreateBeacon)
  *
- * This function 
+ * This function creates a beacon. You can only create one beacon at a time.
  *
  * @param {Real} open_slots
  * @param {Enum.SteamPartiesBeaconLocationType} beacon_location_type
@@ -7319,9 +7319,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_parties_on_reservation_completed
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamParties::OnReservationCompleted](https://partner.steamgames.com/doc/api/ISteamParties#OnReservationCompleted)
  *
- * This function 
+ * This function notifies Steam that a reserved user has successfully joined your party, once a user who followed your beacon has joined.
  *
  * @param {Real} beacon_id
  * @param {Real} user_steam_id
@@ -7331,9 +7331,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_parties_change_num_open_slots
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamParties::ChangeNumOpenSlots](https://partner.steamgames.com/doc/api/ISteamParties#ChangeNumOpenSlots)
  *
- * This function 
+ * This function reduces the number of open slots that Steam is managing through the party beacon when a user joins your party through other matchmaking.
  *
  * @param {Real} beacon_id
  * @param {Real} open_slots
@@ -7344,9 +7344,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_parties_destroy_beacon
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamParties::DestroyBeacon](https://partner.steamgames.com/doc/api/ISteamParties#DestroyBeacon)
  *
- * This function 
+ * This function destroys the Steam party beacon.
  *
  * @param {Real} beacon_id
  * @returns {Bool} 
@@ -7355,9 +7355,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_parties_get_num_active_beacons
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamParties::GetNumActiveBeacons](https://partner.steamgames.com/doc/api/ISteamParties#GetNumActiveBeacons)
  *
- * This function 
+ * This function gets the number of active party beacons created by other users for your game, that are visible to the current user.
  *
  * @returns {Real} 
  * @function_end 
@@ -7365,9 +7365,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_parties_get_beacon_by_index
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamParties::GetBeaconByIndex](https://partner.steamgames.com/doc/api/ISteamParties#GetBeaconByIndex)
  *
- * This function 
+ * This function is used with ${function.steam_parties_get_num_active_beacons} to iterate the active beacons visible to the current user.
  *
  * @param {Real} index
  * @returns {Real} 
@@ -7376,9 +7376,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_parties_get_beacon_details
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamParties::GetBeaconDetails](https://partner.steamgames.com/doc/api/ISteamParties#GetBeaconDetails)
  *
- * This function 
+ * This function gets details about the specified beacon.
  *
  * @param {Real} beacon_id
  * @returns {Struct.SteamPartiesBeaconDetails} 
@@ -7387,9 +7387,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_parties_join_party
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamParties::JoinParty](https://partner.steamgames.com/doc/api/ISteamParties#JoinParty)
  *
- * This function 
+ * This function is called when the user indicates they wish to join the party advertised by a given beacon.
  *
  * @param {Real} beacon_id
  * @param {Function} [callback]
@@ -7399,9 +7399,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @function steam_parties_get_beacon_location_data
- * @description > **Steamworks Function**: [func](url)
+ * @description > **Steamworks Function**: [ISteamParties::GetBeaconLocationData](https://partner.steamgames.com/doc/api/ISteamParties#GetBeaconLocationData)
  *
- * This function 
+ * This function queries general metadata for the given beacon location.
  *
  * @param {Enum.SteamPartiesBeaconLocationType} beacon_location_type
  * @param {Real} beacon_location_id
