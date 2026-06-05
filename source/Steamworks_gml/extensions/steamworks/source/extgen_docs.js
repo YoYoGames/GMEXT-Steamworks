@@ -12,7 +12,7 @@
 
 /**
  * @function_partial steam_api_init
- * @param {Real} unOwnAppID
+ * @param {Real} own_app_id
  * @returns {Bool} 
  * @function_end 
  */
@@ -24,7 +24,7 @@
 
 /**
  * @function_partial steam_api_restart_app_if_necessary
- * @param {Real} unOwnAppID
+ * @param {Real} own_app_id
  * @returns {Bool} 
  * @function_end 
  */
@@ -41,27 +41,27 @@
 
 /**
  * @function_partial steam_friends_activate_game_overlay
- * @param {String} pchDialog
+ * @param {String} dialog
  * @function_end 
  */
 
 /**
  * @function_partial steam_friends_activate_game_overlay_invite_dialog
- * @param {Real} steamIDLobby
+ * @param {Real} steam_id_lobby
  * @function_end 
  */
 
 /**
  * @function_partial steam_friends_activate_game_overlay_to_store
- * @param {Real} nAppID
+ * @param {Real} app_id
  * @param {Enum.SteamFriendsOverlayToStoreFlag} eFlag
  * @function_end 
  */
 
 /**
  * @function_partial steam_friends_activate_game_overlay_to_user
- * @param {String} pchDialog
- * @param {Real} steamID
+ * @param {String} dialog
+ * @param {Real} steam_id
  * @function_end 
  */
 
@@ -79,15 +79,15 @@
 
 /**
  * @function_partial steam_friends_close_clan_chat_window_in_steam
- * @param {Real} steamIDClanChat
+ * @param {Real} steam_id_clan_chat
  * @returns {Bool} 
  * @function_end 
  */
 
 /**
  * @function_partial steam_friends_download_clan_activity_counts
- * @param {Array[Real]} psteamIDClans
- * @param {Real} cClansToRequest
+ * @param {Array[Real]} steam_id_clans
+ * @param {Real} clans_to_request
  * @param {Function} [callback]
  * @returns {Bool} 
  * @function_end 
@@ -95,7 +95,7 @@
 
 /**
  * @function_partial steam_friends_enumerate_following_list
- * @param {Real} unStartIndex
+ * @param {Real} start_index
  * @param {Function} [callback]
  * @function_end 
  */
@@ -113,7 +113,7 @@
 
 /**
  * @function_partial steam_friends_get_chat_member_by_index
- * @param {Real} steamIDClan
+ * @param {Real} steam_id_clan
  * @param {Real} iUser
  * @returns {Real} 
  * @function_end 
@@ -121,28 +121,28 @@
 
 /**
  * @function_partial steam_friends_get_clan_activity_counts
- * @param {Real} steamIDClan
+ * @param {Real} steam_id_clan
  * @returns {Struct.SteamFriendsClanActivityCounts} 
  * @function_end 
  */
 
 /**
  * @function_partial steam_friends_get_clan_by_index
- * @param {Real} iClan
+ * @param {Real} clan
  * @returns {Real} 
  * @function_end 
  */
 
 /**
  * @function_partial steam_friends_get_clan_chat_member_count
- * @param {Real} steamIDClan
+ * @param {Real} steam_id_clan
  * @returns {Real} 
  * @function_end 
  */
 
 /**
  * @function_partial steam_friends_get_clan_chat_message
- * @param {Real} steamIDClanChat
+ * @param {Real} steam_id_clan_chat
  * @param {Real} iMessage
  * @returns {Struct.SteamFriendsClanChatMessage} 
  * @function_end 
@@ -156,43 +156,43 @@
 
 /**
  * @function_partial steam_friends_get_clan_name
- * @param {Real} steamIDClan
+ * @param {Real} steam_id_clan
  * @returns {String} 
  * @function_end 
  */
 
 /**
  * @function_partial steam_friends_get_clan_officer_by_index
- * @param {Real} steamIDClan
- * @param {Real} iOfficer
+ * @param {Real} steam_id_clan
+ * @param {Real} officer
  * @returns {Real} 
  * @function_end 
  */
 
 /**
  * @function_partial steam_friends_get_clan_officer_count
- * @param {Real} steamIDClan
+ * @param {Real} steam_id_clan
  * @returns {Real} 
  * @function_end 
  */
 
 /**
  * @function_partial steam_friends_get_clan_owner
- * @param {Real} steamIDClan
+ * @param {Real} steam_id_clan
  * @returns {Real} 
  * @function_end 
  */
 
 /**
  * @function_partial steam_friends_get_clan_tag
- * @param {Real} steamIDClan
+ * @param {Real} steam_id_clan
  * @returns {String} 
  * @function_end 
  */
 
 /**
  * @function_partial steam_friends_get_coplay_friend
- * @param {Real} iCoplayFriend
+ * @param {Real} coplay_friend
  * @returns {Real} 
  * @function_end 
  */
@@ -205,7 +205,7 @@
 
 /**
  * @function_partial steam_friends_get_follower_count
- * @param {Real} steamID
+ * @param {Real} steam_id
  * @param {Function} [callback]
  * @function_end 
  */
@@ -220,14 +220,14 @@
 
 /**
  * @function_partial steam_friends_get_friend_coplay_game
- * @param {Real} steamIDFriend
+ * @param {Real} steam_id_friend
  * @returns {Real} 
  * @function_end 
  */
 
 /**
  * @function_partial steam_friends_get_friend_coplay_time
- * @param {Real} steamIDFriend
+ * @param {Real} steam_id_friend
  * @returns {Real} 
  * @function_end 
  */
@@ -241,14 +241,14 @@
 
 /**
  * @function_partial steam_friends_get_friend_count_from_source
- * @param {Real} steamIDSource
+ * @param {Real} steam_id_source
  * @returns {Real} 
  * @function_end 
  */
 
 /**
  * @function_partial steam_friends_get_friend_from_source_by_index
- * @param {Real} steamIDSource
+ * @param {Real} steam_id_source
  * @param {Real} iFriend
  * @returns {Real} 
  * @function_end 
@@ -256,52 +256,52 @@
 
 /**
  * @function_partial steam_friends_get_friend_game_played
- * @param {Real} steamIDFriend
+ * @param {Real} steam_id_friend
  * @returns {Struct.SteamFriendsFriendGamePlayed} 
  * @function_end 
  */
 
 /**
  * @function_partial steam_friends_get_friend_message
- * @param {Real} steamIDFriend
- * @param {Real} iMessageID
- * @param {Real} cubData
+ * @param {Real} steam_id_friend
+ * @param {Real} message_id
+ * @param {Real} data_size
  * @returns {Struct.SteamFriendsFriendMessage} 
  * @function_end 
  */
 
 /**
  * @function_partial steam_friends_get_friend_persona_name
- * @param {Real} steamIDFriend
+ * @param {Real} steam_id_friend
  * @returns {String} 
  * @function_end 
  */
 
 /**
  * @function_partial steam_friends_get_friend_persona_name_history
- * @param {Real} steamIDFriend
- * @param {Real} iPersonaName
+ * @param {Real} steam_id_friend
+ * @param {Real} persona_name
  * @returns {String} 
  * @function_end 
  */
 
 /**
  * @function_partial steam_friends_get_friend_persona_state
- * @param {Real} steamIDFriend
+ * @param {Real} steam_id_friend
  * @returns {Enum.SteamFriendsPersonaState} 
  * @function_end 
  */
 
 /**
  * @function_partial steam_friends_get_friend_relationship
- * @param {Real} steamIDFriend
+ * @param {Real} steam_id_friend
  * @returns {Enum.SteamFriendsRelationship} 
  * @function_end 
  */
 
 /**
  * @function_partial steam_friends_get_friend_rich_presence
- * @param {Real} steamIDFriend
+ * @param {Real} steam_id_friend
  * @param {String} pchKey
  * @returns {String} 
  * @function_end 
@@ -309,7 +309,7 @@
 
 /**
  * @function_partial steam_friends_get_friend_rich_presence_key_by_index
- * @param {Real} steamIDFriend
+ * @param {Real} steam_id_friend
  * @param {Real} iKey
  * @returns {String} 
  * @function_end 
@@ -317,7 +317,7 @@
 
 /**
  * @function_partial steam_friends_get_friend_rich_presence_key_count
- * @param {Real} steamIDFriend
+ * @param {Real} steam_id_friend
  * @returns {Real} 
  * @function_end 
  */
@@ -330,14 +330,14 @@
 
 /**
  * @function_partial steam_friends_get_friends_group_id_by_index
- * @param {Real} iFG
+ * @param {Real} fg
  * @returns {Real} 
  * @function_end 
  */
 
 /**
  * @function_partial steam_friends_get_friends_group_name
- * @param {Real} friendsGroupID
+ * @param {Real} friends_group_id
  * @returns {String} 
  * @function_end 
  */
@@ -365,14 +365,14 @@
 
 /**
  * @function_partial steam_friends_get_friends_group_members_count
- * @param {Real} friendsGroupID
+ * @param {Real} friends_group_id
  * @returns {Real} 
  * @function_end 
  */
 
 /**
  * @function_partial steam_friends_get_friends_group_members_list
- * @param {Real} friendsGroupID
+ * @param {Real} friends_group_id
  * @returns {Array[Real]} 
  * @function_end 
  */
@@ -391,7 +391,7 @@
 
 /**
  * @function_partial steam_friends_get_player_nickname
- * @param {Real} steamIDPlayer
+ * @param {Real} steam_id_player
  * @returns {String} 
  * @function_end 
  */
@@ -405,7 +405,7 @@
 
 /**
  * @function_partial steam_friends_has_friend
- * @param {Real} steamIDFriend
+ * @param {Real} steam_id_friend
  * @param {Real} iFriendFlags
  * @returns {Bool} 
  * @function_end 
@@ -413,94 +413,94 @@
 
 /**
  * @function_partial steam_friends_invite_user_to_game
- * @param {Real} steamIDFriend
- * @param {String} pchConnectString
+ * @param {Real} steam_id_friend
+ * @param {String} connect_string
  * @returns {Bool} 
  * @function_end 
  */
 
 /**
  * @function_partial steam_friends_is_clan_chat_admin
- * @param {Real} steamIDClanChat
- * @param {Real} steamIDUser
+ * @param {Real} steam_id_clan_chat
+ * @param {Real} steam_id_user
  * @returns {Bool} 
  * @function_end 
  */
 
 /**
  * @function_partial steam_friends_is_clan_public
- * @param {Real} steamIDClan
+ * @param {Real} steam_id_clan
  * @returns {Bool} 
  * @function_end 
  */
 
 /**
  * @function_partial steam_friends_is_clan_official_game_group
- * @param {Real} steamIDClan
+ * @param {Real} steam_id_clan
  * @returns {Bool} 
  * @function_end 
  */
 
 /**
  * @function_partial steam_friends_is_clan_chat_window_open_in_steam
- * @param {Real} steamIDClanChat
+ * @param {Real} steam_id_clan_chat
  * @returns {Bool} 
  * @function_end 
  */
 
 /**
  * @function_partial steam_friends_is_following
- * @param {Real} steamID
+ * @param {Real} steam_id
  * @param {Function} [callback]
  * @function_end 
  */
 
 /**
  * @function_partial steam_friends_is_user_in_source
- * @param {Real} steamIDUser
- * @param {Real} steamIDSource
+ * @param {Real} steam_id_user
+ * @param {Real} steam_id_source
  * @returns {Bool} 
  * @function_end 
  */
 
 /**
  * @function_partial steam_friends_request_clan_officer_list
- * @param {Real} steamIDClan
+ * @param {Real} steam_id_clan
  * @param {Function} [callback]
  * @function_end 
  */
 
 /**
  * @function_partial steam_friends_request_friend_rich_presence
- * @param {Real} steamIDFriend
+ * @param {Real} steam_id_friend
  * @function_end 
  */
 
 /**
  * @function_partial steam_friends_request_user_information
- * @param {Real} steamIDUser
- * @param {Bool} bRequireNameOnly
+ * @param {Real} steam_id_user
+ * @param {Bool} require_name_only
  * @returns {Bool} 
  * @function_end 
  */
 
 /**
  * @function_partial steam_friends_set_in_game_voice_speaking
- * @param {Real} steamIDUser
- * @param {Bool} bSpeaking
+ * @param {Real} steam_id_user
+ * @param {Bool} speaking
  * @function_end 
  */
 
 /**
  * @function_partial steam_friends_set_played_with
- * @param {Real} steamIDUserPlayedWith
+ * @param {Real} steam_id_user_played_with
  * @function_end 
  */
 
 /**
  * @function_partial steam_friends_set_rich_presence
  * @param {String} pchKey
- * @param {String} pchValue
+ * @param {String} value
  * @returns {Bool} 
  * @function_end 
  */
@@ -573,14 +573,14 @@
 
 /**
  * @function_partial steam_apps_get_dlc_data_by_index
- * @param {Real} iDLC
+ * @param {Real} dlc
  * @returns {Struct.SteamAppsDlcData} 
  * @function_end 
  */
 
 /**
  * @function_partial steam_apps_is_app_installed
- * @param {Real} appID
+ * @param {Real} app_id
  * @returns {Bool} 
  * @function_end 
  */
@@ -593,7 +593,7 @@
 
 /**
  * @function_partial steam_apps_is_dlc_installed
- * @param {Real} appID
+ * @param {Real} app_id
  * @returns {Bool} 
  * @function_end 
  */
@@ -612,7 +612,7 @@
 
 /**
  * @function_partial steam_apps_is_subscribed_app
- * @param {Real} appID
+ * @param {Real} app_id
  * @returns {Bool} 
  * @function_end 
  */
@@ -649,7 +649,7 @@
 
 /**
  * @function_partial steam_apps_get_app_install_dir
- * @param {Real} appID
+ * @param {Real} app_id
  * @returns {Struct.SteamAppsInstallDir} 
  * @function_end 
  */
@@ -680,14 +680,14 @@
 
 /**
  * @function_partial steam_apps_get_beta_info
- * @param {Real} iBetaIndex
+ * @param {Real} beta_index
  * @returns {Struct.SteamAppsBetaInfo} 
  * @function_end 
  */
 
 /**
  * @function_partial steam_apps_set_active_beta
- * @param {String} pchBetaName
+ * @param {String} beta_name
  * @returns {Bool} 
  * @function_end 
  */
@@ -706,7 +706,7 @@
 
 /**
  * @function_partial steam_apps_get_dlc_download_progress
- * @param {Real} nAppID
+ * @param {Real} app_id
  * @returns {Struct.SteamAppsDlcDownloadProgress} 
  * @function_end 
  */
@@ -722,29 +722,29 @@
 
 /**
  * @function_partial steam_apps_get_earliest_purchase_unix_time
- * @param {Real} nAppID
+ * @param {Real} app_id
  * @returns {Real} 
  * @function_end 
  */
 
 /**
  * @function_partial steam_apps_get_file_details
- * @param {String} pszFileName
+ * @param {String} file_name
  * @param {Function} [callback]
  * @function_end 
  */
 
 /**
  * @function_partial steam_apps_get_installed_depots
- * @param {Real} appID
- * @param {Real} cMaxDepots
+ * @param {Real} app_id
+ * @param {Real} max_depots
  * @returns {Array[Real]} 
  * @function_end 
  */
 
 /**
  * @function_partial steam_apps_get_launch_command_line
- * @param {Real} cubCommandLine
+ * @param {Real} command_line_size
  * @returns {Struct.SteamAppsLaunchCommandLine} 
  * @function_end 
  */
@@ -758,13 +758,13 @@
 
 /**
  * @function_partial steam_apps_install_dlc
- * @param {Real} nAppID
+ * @param {Real} app_id
  * @function_end 
  */
 
 /**
  * @function_partial steam_apps_mark_content_corrupt
- * @param {Bool} bMissingFilesOnly
+ * @param {Bool} missing_files_only
  * @returns {Bool} 
  * @function_end 
  */
@@ -776,13 +776,13 @@
 
 /**
  * @function_partial steam_apps_request_app_proof_of_purchase_key
- * @param {Real} nAppID
+ * @param {Real} app_id
  * @function_end 
  */
 
 /**
  * @function_partial steam_apps_uninstall_dlc
- * @param {Real} nAppID
+ * @param {Real} app_id
  * @function_end 
  */
 
@@ -799,10 +799,10 @@
 
 /**
  * @function_partial steam_screenshots_add_screenshot_to_library
- * @param {String} pchFilename
- * @param {String} pchThumbnailFilename
- * @param {Real} nWidth
- * @param {Real} nHeight
+ * @param {String} filename
+ * @param {String} thumbnail_filename
+ * @param {Real} width
+ * @param {Real} height
  * @returns {Real} 
  * @function_end 
  */
@@ -810,15 +810,15 @@
 /**
  * @function_partial steam_screenshots_add_vr_screenshot_to_library
  * @param {Enum.SteamScreenshotsVrScreenshotType} eType
- * @param {String} pchFilename
- * @param {String} pchVRFilename
+ * @param {String} filename
+ * @param {String} vr_filename
  * @returns {Real} 
  * @function_end 
  */
 
 /**
  * @function_partial steam_screenshots_hook_screenshots
- * @param {Bool} bHook
+ * @param {Bool} hook
  * @function_end 
  */
 
@@ -830,24 +830,24 @@
 
 /**
  * @function_partial steam_screenshots_set_location
- * @param {Real} hScreenshot
- * @param {String} pchLocation
+ * @param {Real} screenshot
+ * @param {String} location
  * @returns {Bool} 
  * @function_end 
  */
 
 /**
  * @function_partial steam_screenshots_tag_published_file
- * @param {Real} hScreenshot
- * @param {Real} unPublishedFileID
+ * @param {Real} screenshot
+ * @param {Real} published_file_id
  * @returns {Bool} 
  * @function_end 
  */
 
 /**
  * @function_partial steam_screenshots_tag_user
- * @param {Real} hScreenshot
- * @param {Real} steamID
+ * @param {Real} screenshot
+ * @param {Real} steam_id
  * @returns {Bool} 
  * @function_end 
  */
@@ -859,10 +859,10 @@
 
 /**
  * @function_partial steam_screenshots_write_screenshot
- * @param {Buffer} pubRGB
- * @param {Real} cubRGB
- * @param {Real} nWidth
- * @param {Real} nHeight
+ * @param {Buffer} buff_rgb
+ * @param {Real} rgb_size
+ * @param {Real} width
+ * @param {Real} height
  * @returns {Real} 
  * @function_end 
  */
@@ -2246,7 +2246,7 @@
 
 /**
  * @function_partial steam_input_get_action_set_handle
- * @param {String} pszActionSetName
+ * @param {String} action_set_name
  * @returns {Real} 
  * @function_end 
  */
@@ -2261,7 +2261,7 @@
 
 /**
  * @function_partial steam_input_get_analog_action_handle
- * @param {String} pszActionName
+ * @param {String} action_name
  * @returns {Real} 
  * @function_end 
  */
@@ -2300,7 +2300,7 @@
 
 /**
  * @function_partial steam_input_get_controller_for_gamepad_index
- * @param {Real} nIndex
+ * @param {Real} index
  * @returns {Real} 
  * @function_end 
  */
@@ -2322,7 +2322,7 @@
 
 /**
  * @function_partial steam_input_get_digital_action_handle
- * @param {String} pszActionName
+ * @param {String} action_name
  * @returns {Real} 
  * @function_end 
  */
@@ -2384,7 +2384,7 @@
 /**
  * @function_partial steam_input_set_dual_sense_trigger_effect
  * @param {Real} input_handle
- * @param {Array[Real]} pParam
+ * @param {Array[Real]} param
  * @returns {Bool} 
  * @function_end 
  */
@@ -2392,10 +2392,10 @@
 /**
  * @function_partial steam_input_set_led_color
  * @param {Real} input_handle
- * @param {Real} nColorR
- * @param {Real} nColorG
- * @param {Real} nColorB
- * @param {Real} nFlags
+ * @param {Real} color_r
+ * @param {Real} color_g
+ * @param {Real} color_b
+ * @param {Real} flags
  * @function_end 
  */
 
@@ -2422,18 +2422,18 @@
 /**
  * @function_partial steam_input_trigger_vibration
  * @param {Real} input_handle
- * @param {Real} usLeftSpeed
- * @param {Real} usRightSpeed
+ * @param {Real} left_speed
+ * @param {Real} right_speed
  * @function_end 
  */
 
 /**
  * @function_partial steam_input_trigger_vibration_extended
  * @param {Real} input_handle
- * @param {Real} usLeftSpeed
- * @param {Real} usRightSpeed
- * @param {Real} usLeftTriggerSpeed
- * @param {Real} usRightTriggerSpeed
+ * @param {Real} left_speed
+ * @param {Real} right_speed
+ * @param {Real} left_trigger_speed
+ * @param {Real} right_trigger_speed
  * @function_end 
  */
 

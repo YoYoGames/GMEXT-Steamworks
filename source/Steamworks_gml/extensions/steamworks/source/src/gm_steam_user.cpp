@@ -1,4 +1,4 @@
-// gm_steam_user.cpp
+﻿// gm_steam_user.cpp
 //
 // Steamworks module: user (ISteamUser)
 // Naming: steam_user_*
@@ -985,5 +985,6 @@ void steam_user_clear_callback_microtxn_authorization_response()
     std::lock_guard<std::mutex> lock(g_callbacks_mtx);
     g_cb_user_microtxn_auth = nullptr;
 }
+
 
 

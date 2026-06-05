@@ -1,4 +1,4 @@
-#include "GMSteamworks.h"
+﻿#include "GMSteamworks.h"
 
 #include <steam/steam_api.h>
 #include <steam/isteamnetworkingmessages.h>
@@ -202,3 +202,4 @@ bool steam_networking_messages_close_channel_with_user(std::uint64_t steam_id_re
     SteamNetworkingIdentity id = snm_identity_from_steamid64(steam_id_remote);
     return m->CloseChannelWithUser(id, (int)local_channel);
 }
+

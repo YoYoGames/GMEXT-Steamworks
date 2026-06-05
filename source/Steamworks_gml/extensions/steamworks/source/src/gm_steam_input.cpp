@@ -1,4 +1,4 @@
-// gm_steam_input.cpp
+﻿// gm_steam_input.cpp
 //
 // Steamworks module: input (ISteamInput)
 
@@ -172,14 +172,14 @@ gm_structs::SteamInputActiveActionSetLayers steam_input_get_active_action_set_la
     return out;
 }
 
-std::uint64_t steam_input_get_action_set_handle(std::string_view pszActionSetName)
+std::uint64_t steam_input_get_action_set_handle(std::string_view action_set_name)
 {
     STEAM_GUARD_RET(0);
 
     ISteamInput* s = steam_input_iface();
     if (!s)
         return 0;
-    return (std::uint64_t)s->GetActionSetHandle(std::string(pszActionSetName).c_str());
+    return (std::uint64_t)s->GetActionSetHandle(std::string(action_set_name).c_str());
 }
 
 gm_structs::SteamInputAnalogActionData
@@ -206,14 +206,14 @@ steam_input_get_analog_action_data(std::uint64_t input_handle, std::uint64_t ana
     return out;
 }
 
-std::uint64_t steam_input_get_analog_action_handle(std::string_view pszActionName)
+std::uint64_t steam_input_get_analog_action_handle(std::string_view action_name)
 {
     STEAM_GUARD_RET(0);
 
     ISteamInput* s = steam_input_iface();
     if (!s)
         return 0;
-    return (std::uint64_t)s->GetAnalogActionHandle(std::string(pszActionName).c_str());
+    return (std::uint64_t)s->GetAnalogActionHandle(std::string(action_name).c_str());
 }
 
 gm_structs::SteamInputActionOrigins steam_input_get_analog_action_origins(
@@ -301,14 +301,14 @@ std::vector<std::uint64_t> steam_input_get_connected_controllers()
     return out;
 }
 
-std::uint64_t steam_input_get_controller_for_gamepad_index(std::int32_t nIndex)
+std::uint64_t steam_input_get_controller_for_gamepad_index(std::int32_t index)
 {
     STEAM_GUARD_RET(0);
 
     ISteamInput* s = steam_input_iface();
     if (!s)
         return 0;
-    return (std::uint64_t)s->GetControllerForGamepadIndex(nIndex);
+    return (std::uint64_t)s->GetControllerForGamepadIndex(index);
 }
 
 std::uint64_t steam_input_get_current_action_set(std::uint64_t input_handle)
@@ -341,14 +341,14 @@ steam_input_get_digital_action_data(std::uint64_t input_handle, std::uint64_t di
     return out;
 }
 
-std::uint64_t steam_input_get_digital_action_handle(std::string_view pszActionName)
+std::uint64_t steam_input_get_digital_action_handle(std::string_view action_name)
 {
     STEAM_GUARD_RET(0);
 
     ISteamInput* s = steam_input_iface();
     if (!s)
         return 0;
-    return (std::uint64_t)s->GetDigitalActionHandle(std::string(pszActionName).c_str());
+    return (std::uint64_t)s->GetDigitalActionHandle(std::string(action_name).c_str());
 }
 
 gm_structs::SteamInputActionOrigins steam_input_get_digital_action_origins(
@@ -562,10 +562,10 @@ bool steam_input_set_dual_sense_trigger_effect(
 
 void steam_input_set_led_color(
     std::uint64_t input_handle,
-    std::uint32_t nColorR,
-    std::uint32_t nColorG,
-    std::uint32_t nColorB,
-    std::uint32_t nFlags
+    std::uint32_t color_r,
+    std::uint32_t color_g,
+    std::uint32_t color_b,
+    std::uint32_t flags
 )
 {
     STEAM_GUARD();
@@ -574,11 +574,11 @@ void steam_input_set_led_color(
     if (!s)
         return;
 
-    std::uint8_t r = (std::uint8_t)clamp_u32(nColorR, 0, 255);
-    std::uint8_t g = (std::uint8_t)clamp_u32(nColorG, 0, 255);
-    std::uint8_t b = (std::uint8_t)clamp_u32(nColorB, 0, 255);
+    std::uint8_t r = (std::uint8_t)clamp_u32(color_r, 0, 255);
+    std::uint8_t g = (std::uint8_t)clamp_u32(color_g, 0, 255);
+    std::uint8_t b = (std::uint8_t)clamp_u32(color_b, 0, 255);
 
-    s->SetLEDColor((InputHandle_t)input_handle, r, g, b, (unsigned int)nFlags);
+    s->SetLEDColor((InputHandle_t)input_handle, r, g, b, (unsigned int)flags);
 }
 
 bool steam_input_show_binding_panel(std::uint64_t input_handle)
@@ -613,7 +613,7 @@ void steam_input_stop_analog_action_momentum(std::uint64_t input_handle, std::ui
 }
 
 
-void steam_input_trigger_vibration(std::uint64_t input_handle, std::uint32_t usLeftSpeed, std::uint32_t usRightSpeed)
+void steam_input_trigger_vibration(std::uint64_t input_handle, std::uint32_t left_speed, std::uint32_t right_speed)
 {
     STEAM_GUARD();
 
@@ -621,18 +621,18 @@ void steam_input_trigger_vibration(std::uint64_t input_handle, std::uint32_t usL
     if (!s)
         return;
 
-    std::uint16_t l = (std::uint16_t)clamp_u32(usLeftSpeed, 0, 65535);
-    std::uint16_t r = (std::uint16_t)clamp_u32(usRightSpeed, 0, 65535);
+    std::uint16_t l = (std::uint16_t)clamp_u32(left_speed, 0, 65535);
+    std::uint16_t r = (std::uint16_t)clamp_u32(right_speed, 0, 65535);
 
     s->TriggerVibration((InputHandle_t)input_handle, l, r);
 }
 
 void steam_input_trigger_vibration_extended(
     std::uint64_t input_handle,
-    std::uint32_t usLeftSpeed,
-    std::uint32_t usRightSpeed,
-    std::uint32_t usLeftTriggerSpeed,
-    std::uint32_t usRightTriggerSpeed
+    std::uint32_t left_speed,
+    std::uint32_t right_speed,
+    std::uint32_t left_trigger_speed,
+    std::uint32_t right_trigger_speed
 )
 {
     STEAM_GUARD();
@@ -641,10 +641,10 @@ void steam_input_trigger_vibration_extended(
     if (!s)
         return;
 
-    std::uint16_t l = (std::uint16_t)clamp_u32(usLeftSpeed, 0, 65535);
-    std::uint16_t r = (std::uint16_t)clamp_u32(usRightSpeed, 0, 65535);
-    std::uint16_t lt = (std::uint16_t)clamp_u32(usLeftTriggerSpeed, 0, 65535);
-    std::uint16_t rt = (std::uint16_t)clamp_u32(usRightTriggerSpeed, 0, 65535);
+    std::uint16_t l = (std::uint16_t)clamp_u32(left_speed, 0, 65535);
+    std::uint16_t r = (std::uint16_t)clamp_u32(right_speed, 0, 65535);
+    std::uint16_t lt = (std::uint16_t)clamp_u32(left_trigger_speed, 0, 65535);
+    std::uint16_t rt = (std::uint16_t)clamp_u32(right_trigger_speed, 0, 65535);
 
     s->TriggerVibrationExtended((InputHandle_t)input_handle, l, r, lt, rt);
 }
@@ -706,3 +706,4 @@ std::uint32_t steam_input_get_remote_play_session_id(std::uint64_t input_handle)
 
     return s->GetRemotePlaySessionID((InputHandle_t)input_handle);
 }
+

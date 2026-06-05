@@ -1,4 +1,4 @@
-// gm_steam_api.cpp
+﻿// gm_steam_api.cpp
 //
 // Steamworks module: api (steam_api.h page)
 // Naming: steam_api_*
@@ -208,14 +208,14 @@ static void steam_api_clear_all_callbacks()
 
 void steamworks_pregraphics_init_func()
 {
-    auto app_id = gm::ExtUtils::GetExtensionOption("Steamworks", "appID");
+    auto app_id = gm::ExtUtils::GetExtensionOption("Steamworks", "app_id");
     if (app_id.empty())
         return;
 
     try {
         steam_api_init(static_cast<uint32_t>(std::stoul(app_id)));
     } catch (const std::exception&) {
-        steam_set_last_error("Steam API: invalid Steamworks appID extension option.");
+        steam_set_last_error("Steam API: invalid Steamworks app_id extension option.");
         steam_set_initialized(false);
     }
 }
@@ -227,14 +227,14 @@ bool steam_api_is_initialized()
 }
 
 // SteamAPI_Init
-bool steam_api_init(uint32_t unOwnAppID)
+bool steam_api_init(uint32_t own_app_id)
 {
     steam_clear_last_error();
 
     if (steam_api_is_initialized())
         return true;
 
-    if (unOwnAppID == k_uAppIdInvalid || unOwnAppID == 0) {
+    if (own_app_id == k_uAppIdInvalid || own_app_id == 0) {
         steam_set_last_error("Invalid AppID, check extension settings in IDE, check file permissions.");
         steam_set_initialized(false);
         return false;
@@ -247,16 +247,16 @@ bool steam_api_init(uint32_t unOwnAppID)
 
     if (debug) {
         TRACE("Debug: Writing AppID %u to file %s",
-              static_cast<unsigned int>(unOwnAppID),
+              static_cast<unsigned int>(own_app_id),
               steamAppIdTxtPath.string().c_str());
 
-        steam_api_try_write_appid_file(unOwnAppID, steamAppIdTxtPath);
+        steam_api_try_write_appid_file(own_app_id, steamAppIdTxtPath);
         // Intentionally do not fail here; same as YoYo approach.
     } else {
         steam_api_try_remove_appid_file(steamAppIdTxtPath);
 
         // https://partner.steamgames.com/doc/sdk/api#initialization_and_shutdown
-        if (SteamAPI_RestartAppIfNecessary(static_cast<AppId_t>(unOwnAppID))) {
+        if (SteamAPI_RestartAppIfNecessary(static_cast<AppId_t>(own_app_id))) {
             TRACE("RestartAppIfNecessary check failed, the game is not allowed to continue");
             steam_set_last_error("Steam API: restart through Steam is required.");
             steam_set_initialized(false);
@@ -294,9 +294,9 @@ void steam_api_release_current_thread_memory()
 }
 
 // SteamAPI_RestartAppIfNecessary
-bool steam_api_restart_app_if_necessary(uint32_t unOwnAppID)
+bool steam_api_restart_app_if_necessary(uint32_t own_app_id)
 {
-    return (SteamAPI_RestartAppIfNecessary(static_cast<AppId_t>(unOwnAppID)) != 0);
+    return (SteamAPI_RestartAppIfNecessary(static_cast<AppId_t>(own_app_id)) != 0);
 }
 
 // SteamAPI_RunCallbacks

@@ -1,4 +1,4 @@
-#include "GMSteamworks.h"
+﻿#include "GMSteamworks.h"
 #include "steam_async_common.h"
 
 #include <steam/steam_api.h>
@@ -519,4 +519,5 @@ gm_structs::SteamMatchmakingLobbyGameServer steam_matchmaking_get_lobby_game_ser
     out.steam_id_gs = (std::uint64_t)gs.ConvertToUint64();
     return out;
 }
+
 

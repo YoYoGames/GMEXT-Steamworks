@@ -1,4 +1,4 @@
-// gm_steam_utils.cpp
+﻿// gm_steam_utils.cpp
 //
 // Steamworks module: utils (ISteamUtils)
 
@@ -834,3 +834,4 @@ void steam_utils_clear_callback_steam_shutdown()
     std::lock_guard<std::mutex> lock(g_callbacks_mtx);
     g_cb_steam_shutdown = nullptr;
 }
+

@@ -1,4 +1,4 @@
-// gm_steam_timeline.cpp
+﻿// gm_steam_timeline.cpp
 //
 // Steamworks module: timeline (ISteamTimeline)
 // Naming: steam_timeline_*
@@ -341,3 +341,4 @@ void steam_timeline_open_overlay_to_timeline_event(std::uint64_t event_handle)
 
     t->OpenOverlayToTimelineEvent(timeline_handle_from_u64(event_handle));
 }
+

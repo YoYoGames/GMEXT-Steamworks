@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include <cstdint>
 #include <string>
@@ -120,3 +120,4 @@ static inline gm_structs::SteamId steam_make_steam_id(const CSteamID& sid)
 
     return out;
 }
+

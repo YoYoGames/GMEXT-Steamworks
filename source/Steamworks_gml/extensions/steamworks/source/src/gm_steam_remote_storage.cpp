@@ -1,4 +1,4 @@
-#include "GMSteamworks.h"
+﻿#include "GMSteamworks.h"
 #include "steam_async_common.h"
 
 #include <steam/steam_api.h>
@@ -730,3 +730,4 @@ void steam_remote_storage_unsubscribe_published_file(std::uint64_t published_fil
         h->set(call);
     }
 }
+
