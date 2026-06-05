@@ -73,6 +73,34 @@ enum SteamApiAccountType
 
 group
 {
+// Steam API / shared constants
+const SteamApiBreakpadInvalidHandle : int32 = 0;
+const SteamApiGameExtraInfoMax : int32 = 64;
+const SteamApiSaltSize : int32 = 8;
+const SteamApiGidNil : int64 = -1;
+const SteamApiAuthTicketInvalid : int32 = 0;
+const SteamApiJobIdNil : int64 = -1;
+const SteamApiTxnIdNil : int64 = -1;
+const SteamApiTxnIdUnknown : int32 = 0;
+const SteamApiApiCallInvalid : int32 = 0x0;
+const SteamApiAppIdInvalid : int32 = 0x0;
+const SteamApiBundleIdInvalid : int32 = 0;
+const SteamApiCellIdInvalid : int32 = 0xFFFFFFFF;
+const SteamApiDepotIdInvalid : int32 = 0x0;
+const SteamApiAssetClassIdInvalid : int32 = 0x0;
+const SteamApiManifestIdInvalid : int32 = 0;
+const SteamApiSteamAccountIdMask : int32 = 0xFFFFFFFF;
+const SteamApiSteamAccountInstanceMask : int32 = 0x000FFFFF;
+const SteamApiSteamUserConsoleInstance : int32 = 2;
+const SteamApiSteamUserDesktopInstance : int32 = 1;
+const SteamApiSteamUserWebInstance : int32 = 4;
+const SteamApiPackageIdFreeSub : int32 = 0x0;
+const SteamApiPackageIdInvalid : int32 = 0xFFFFFFFF;
+const SteamApiPartnerIdInvalid : int32 = 0;
+const SteamApiPhysicalItemIdInvalid : int32 = 0x0;
+const SteamApiQueryPortError : int32 = 0xFFFE;
+const SteamApiQueryPortNotInitialized : int32 = 0xFFFF;
+
 
 [global, bind = typed_gml]
 function steam_api_last_error(): string;
@@ -268,6 +296,19 @@ enum SteamApiResult
 }
 
 group{ // SteamFriends
+
+// Steam Friends constants
+const SteamFriendsMaxFriendsGroupName : int32 = 64;
+const SteamFriendsMaxRichPresenceKeyLength : int32 = 64;
+const SteamFriendsMaxRichPresenceKeys : int32 = 20;
+const SteamFriendsMaxRichPresenceValueLength : int32 = 256;
+const SteamFriendsPersonaNameMax : int32 = 128;
+const SteamFriendsEnumerateFollowersMax : int32 = 50;
+const SteamFriendsFriendsGroupLimit : int32 = 100;
+const SteamFriendsChatMetadataMax : int32 = 8192;
+const SteamFriendsPersonaNameMaxUtf16 : int32 = 32;
+const SteamFriendsGroupIdInvalid : int32 = -1;
+const SteamFriendsInterfaceVersion : string = "SteamFriends015";
 
 [global]
 class `[[SteamFriendsGetFollowerCountResult]]` prototype Object
@@ -835,6 +876,10 @@ class `[[SteamFriendsGameServerChangeRequested]]` prototype Object
 
 group{ // SteamApps
 
+// Steam Apps constants
+const SteamAppsAppProofOfPurchaseKeyMax : int32 = 240;
+const SteamAppsInterfaceVersion : string = "STEAMAPPS_INTERFACE_VERSION008";
+
 // BGetDLCDataByIndex
 [global, bind = typed_gml, type_hint = `SteamAppsDlcData`]
 function steam_apps_get_dlc_data_by_index(iDLC: int32): gmval;
@@ -1137,6 +1182,15 @@ class `[[SteamAppsDlcInstalled]]` prototype Object
 }
 
 group{ // SteamScreenshots
+
+// Steam Screenshots constants
+const SteamScreenshotsInvalidScreenshotHandle : int32 = 0;
+const SteamScreenshotsUfsTagTypeMax : int32 = 255;
+const SteamScreenshotsUfsTagValueMax : int32 = 255;
+const SteamScreenshotsMaxTaggedPublishedFiles : int32 = 32;
+const SteamScreenshotsMaxTaggedUsers : int32 = 32;
+const SteamScreenshotsThumbWidth : int32 = 200;
+const SteamScreenshotsInterfaceVersion : string = "STEAMSCREENSHOTS_INTERFACE_VERSION003";
 [global, bind = typed_gml]
 function steam_screenshots_add_screenshot_to_library(
     pchFilename: string,
@@ -1234,6 +1288,10 @@ function steam_screenshots_clear_callback_screenshot_requested(): unit;
 }
 
 group{ // SteamUser
+
+// Steam User constants
+const SteamUserInterfaceVersion : string = "SteamUser019";
+const SteamUserEncryptedAppTicketSymmetricKeyLen : int32 = 32;
 
 [global]
 class `[[SteamUserStoreAuthUrlResponse]]` prototype Object
@@ -1674,6 +1732,9 @@ class `[[SteamUserMicroTxnAuthorizationResponse]]` prototype Object
 group{
 
 // BOverlayNeedsPresent
+
+// Steam Utils constants
+const SteamUtilsInterfaceVersion : string = "SteamUtils009";
 [global, bind = typed_gml]
 function steam_utils_overlay_needs_present(): bool;
 
@@ -2059,6 +2120,13 @@ enum SteamUtilsTextFilteringContext
 }
 
 group{ // SteamUgc
+
+// Steam UGC constants
+const SteamUgcNumResultsPerPage : int32 = 50;
+const SteamUgcDeveloperMetadataMax : int32 = 5000;
+const SteamUgcQueryHandleInvalid : int64 = -1;
+const SteamUgcUpdateHandleInvalid : int64 = -1;
+const SteamUgcInterfaceVersion : string = "STEAMUGC_INTERFACE_VERSION015";
 
 [global, bind = typed_gml]
 enum SteamUgcMatchingUgcType
@@ -3102,6 +3170,16 @@ class `[[SteamUgcDownloadItemResult]]` prototype Object
 
 group{ // SteamInput
 
+// Steam Input constants
+const SteamInputInterfaceVersion : string = "SteamInput001";
+const SteamInputHandleAllControllers : int64 = -1;
+const SteamInputMaxAnalogActions : int32 = 16;
+const SteamInputMaxAnalogActionData : real = 1.0;
+const SteamInputMaxCount : int32 = 16;
+const SteamInputMaxDigitalActions : int32 = 128;
+const SteamInputMaxOrigins : int32 = 8;
+const SteamInputMinAnalogActionData : real = -1.0;
+
 [global]
 class `[[SteamInputAnalogActionData]]` prototype Object
 {
@@ -3389,6 +3467,12 @@ class `[[SteamInputControllerBattery]]` prototype Object
 
 
 group{ // SteamUserStats
+
+// Steam User Stats constants
+const SteamUserStatsLeaderboardNameMax : int32 = 128;
+const SteamUserStatsStatNameMax : int32 = 128;
+const SteamUserStatsLeaderboardDetailsMax : int32 = 64;
+const SteamUserStatsInterfaceVersion : string = "STEAMUSERSTATS_INTERFACE_VERSION011";
 
 [global, bind = typed_gml]
 enum SteamLeaderboardDataRequest
@@ -3859,6 +3943,9 @@ class `[[SteamUserStatsFloatMinMax]]` prototype Object
 
 group{ // SteamMusic
 
+// Steam Music constants
+const SteamMusicInterfaceVersion : string = "STEAMMUSIC_INTERFACE_VERSION001";
+
 // BIsEnabled
 [global, bind = typed_gml]
 function steam_music_is_enabled(): bool;
@@ -4117,6 +4204,11 @@ class `[[SteamTimelineEventRecordingExists]]` prototype Object
 
 
 group{ // SteamInventory
+
+// Steam Inventory constants
+const SteamInventoryResultInvalid : int32 = -1;
+const SteamInventoryItemInstanceIdInvalid : int64 = -1;
+const SteamInventoryInterfaceVersion : string = "STEAMINVENTORY_INTERFACE_V002";
 
 // Result handles are SteamInventoryResult_t (int32 in Steam)
 [global, bind = typed_gml]
@@ -4493,6 +4585,21 @@ class `[[SteamInventoryRequestPricesResult]]` prototype Object
 
 group{ // SteamRemoteStorage
 
+// Steam Remote Storage constants
+const SteamRemoteStorageFilenameMax : int32 = 260;
+const SteamRemoteStoragePublishedDocumentChangeDescriptionMax : int32 = 8000;
+const SteamRemoteStoragePublishedDocumentDescriptionMax : int32 = 8000;
+const SteamRemoteStoragePublishedDocumentTitleMax : int32 = 129;
+const SteamRemoteStoragePublishedFileUrlMax : int32 = 256;
+const SteamRemoteStorageTagListMax : int32 = 1025;
+const SteamRemoteStoragePublishedFileIdInvalid : int32 = 0;
+const SteamRemoteStoragePublishedFileUpdateHandleInvalid : int64 = -1;
+const SteamRemoteStorageUgcFileStreamHandleInvalid : int64 = -1;
+const SteamRemoteStorageUgcHandleInvalid : int64 = -1;
+const SteamRemoteStorageEnumeratePublishedFilesMaxResults : int32 = 50;
+const SteamRemoteStorageMaxCloudFileChunkSize : int32 = 104857600;
+const SteamRemoteStorageInterfaceVersion : string = "STEAMREMOTESTORAGE_INTERFACE_VERSION014";
+
 [global, bind = typed_gml]
 enum SteamRemoteStoragePlatform
 {
@@ -4784,6 +4891,15 @@ function steam_remote_storage_unsubscribe_published_file([type_hint=uint64] publ
 
 
 group{ // SteamMatchmaking
+
+// Steam Matchmaking constants
+const SteamMatchmakingServerQueryInvalid : int32 = 0xffffffff;
+const SteamMatchmakingMaxLobbyKeyLength : int32 = 255;
+const SteamMatchmakingFavoriteFlagFavorite : int32 = 0x01;
+const SteamMatchmakingFavoriteFlagHistory : int32 = 0x02;
+const SteamMatchmakingFavoriteFlagNone : int32 = 0x00;
+const SteamMatchmakingServersInterfaceVersion : string = "SteamMatchMakingServers002";
+const SteamMatchmakingInterfaceVersion : string = "SteamMatchMaking009";
 
 [global, bind = typed_gml]
 enum SteamMatchmakingLobbyType
@@ -5418,3 +5534,4 @@ enum SteamPartiesBeaconLocationData {
 }
 
 } // SteamParties
+
