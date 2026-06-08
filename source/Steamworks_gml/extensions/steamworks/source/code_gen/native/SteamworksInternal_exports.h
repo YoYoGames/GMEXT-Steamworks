@@ -41,10 +41,10 @@ GMEXPORT char* __EXT_NATIVE__steam_friends_get_clan_tag(char* __arg_buffer, doub
 GMEXPORT double __EXT_NATIVE__steam_friends_get_coplay_friend(double coplay_friend, char* __ret_buffer, double __ret_buffer_length);
 GMEXPORT double __EXT_NATIVE__steam_friends_get_coplay_friend_count();
 GMEXPORT double __EXT_NATIVE__steam_friends_get_follower_count(char* __arg_buffer, double __arg_buffer_length);
-GMEXPORT double __EXT_NATIVE__steam_friends_get_friend_by_index(double iFriend, double iFriendFlags, char* __ret_buffer, double __ret_buffer_length);
+GMEXPORT double __EXT_NATIVE__steam_friends_get_friend_by_index(double friend, double friend_flags, char* __ret_buffer, double __ret_buffer_length);
 GMEXPORT double __EXT_NATIVE__steam_friends_get_friend_coplay_game(char* __arg_buffer, double __arg_buffer_length);
 GMEXPORT double __EXT_NATIVE__steam_friends_get_friend_coplay_time(char* __arg_buffer, double __arg_buffer_length);
-GMEXPORT double __EXT_NATIVE__steam_friends_get_friend_count(double iFriendFlags);
+GMEXPORT double __EXT_NATIVE__steam_friends_get_friend_count(double friend_flags);
 GMEXPORT double __EXT_NATIVE__steam_friends_get_friend_count_from_source(char* __arg_buffer, double __arg_buffer_length);
 GMEXPORT double __EXT_NATIVE__steam_friends_get_friend_from_source_by_index(char* __arg_buffer, double __arg_buffer_length, char* __ret_buffer, double __ret_buffer_length);
 GMEXPORT double __EXT_NATIVE__steam_friends_get_friend_game_played(char* __arg_buffer, double __arg_buffer_length, char* __ret_buffer, double __ret_buffer_length);
@@ -81,7 +81,7 @@ GMEXPORT double __EXT_NATIVE__steam_friends_request_friend_rich_presence(char* _
 GMEXPORT double __EXT_NATIVE__steam_friends_request_user_information(char* __arg_buffer, double __arg_buffer_length);
 GMEXPORT double __EXT_NATIVE__steam_friends_set_in_game_voice_speaking(char* __arg_buffer, double __arg_buffer_length);
 GMEXPORT double __EXT_NATIVE__steam_friends_set_played_with(char* __arg_buffer, double __arg_buffer_length);
-GMEXPORT double __EXT_NATIVE__steam_friends_set_rich_presence(char* pchKey, char* value);
+GMEXPORT double __EXT_NATIVE__steam_friends_set_rich_presence(char* key, char* value);
 GMEXPORT double __EXT_NATIVE__steam_friends_set_callback_persona_state_change(char* __arg_buffer, double __arg_buffer_length);
 GMEXPORT double __EXT_NATIVE__steam_friends_clear_callback_persona_state_change();
 GMEXPORT double __EXT_NATIVE__steam_friends_set_callback_game_overlay_activated(char* __arg_buffer, double __arg_buffer_length);
@@ -121,7 +121,7 @@ GMEXPORT double __EXT_NATIVE__steam_apps_get_earliest_purchase_unix_time(double 
 GMEXPORT double __EXT_NATIVE__steam_apps_get_file_details(char* __arg_buffer, double __arg_buffer_length);
 GMEXPORT double __EXT_NATIVE__steam_apps_get_installed_depots(double app_id, double max_depots, char* __ret_buffer, double __ret_buffer_length);
 GMEXPORT double __EXT_NATIVE__steam_apps_get_launch_command_line(double command_line_size, char* __ret_buffer, double __ret_buffer_length);
-GMEXPORT char* __EXT_NATIVE__steam_apps_get_launch_query_param(char* pchKey);
+GMEXPORT char* __EXT_NATIVE__steam_apps_get_launch_query_param(char* key);
 GMEXPORT double __EXT_NATIVE__steam_apps_install_dlc(double app_id);
 GMEXPORT double __EXT_NATIVE__steam_apps_mark_content_corrupt(double missing_files_only);
 GMEXPORT double __EXT_NATIVE__steam_apps_request_all_proof_of_purchase_keys();
@@ -348,7 +348,7 @@ GMEXPORT double __EXT_NATIVE__steam_input_get_digital_action_origins(char* __arg
 GMEXPORT double __EXT_NATIVE__steam_input_get_gamepad_index_for_controller(char* __arg_buffer, double __arg_buffer_length);
 GMEXPORT double __EXT_NATIVE__steam_input_get_input_type_for_handle(char* __arg_buffer, double __arg_buffer_length);
 GMEXPORT double __EXT_NATIVE__steam_input_get_motion_data(char* __arg_buffer, double __arg_buffer_length, char* __ret_buffer, double __ret_buffer_length);
-GMEXPORT char* __EXT_NATIVE__steam_input_get_string_for_action_origin(double eOrigin);
+GMEXPORT char* __EXT_NATIVE__steam_input_get_string_for_action_origin(double origin);
 GMEXPORT double __EXT_NATIVE__steam_input_init(double explicitly_call_run_frame);
 GMEXPORT double __EXT_NATIVE__steam_input_enable_device_callbacks();
 GMEXPORT double __EXT_NATIVE__steam_input_run_frame();
@@ -360,7 +360,7 @@ GMEXPORT double __EXT_NATIVE__steam_input_stop_analog_action_momentum(char* __ar
 GMEXPORT double __EXT_NATIVE__steam_input_trigger_vibration(char* __arg_buffer, double __arg_buffer_length);
 GMEXPORT double __EXT_NATIVE__steam_input_trigger_vibration_extended(char* __arg_buffer, double __arg_buffer_length);
 GMEXPORT double __EXT_NATIVE__steam_input_get_action_origin_from_xbox_origin(char* __arg_buffer, double __arg_buffer_length);
-GMEXPORT double __EXT_NATIVE__steam_input_translate_action_origin(double eDestinationInputType, double eSourceOrigin);
+GMEXPORT double __EXT_NATIVE__steam_input_translate_action_origin(double destination_input_type, double source_origin);
 GMEXPORT double __EXT_NATIVE__steam_input_get_device_binding_revision(char* __arg_buffer, double __arg_buffer_length, char* __ret_buffer, double __ret_buffer_length);
 GMEXPORT double __EXT_NATIVE__steam_input_get_remote_play_session_id(char* __arg_buffer, double __arg_buffer_length);
 GMEXPORT double __EXT_NATIVE__steam_input_set_callback_device_connected(char* __arg_buffer, double __arg_buffer_length);

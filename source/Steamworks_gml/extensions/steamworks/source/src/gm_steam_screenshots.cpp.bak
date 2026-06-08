@@ -1,4 +1,4 @@
-// gm_steam_screenshots.cpp
+﻿// gm_steam_screenshots.cpp
 //
 // Steamworks module: screenshots (ISteamScreenshots)
 
@@ -133,7 +133,7 @@ std::uint32_t steam_screenshots_add_screenshot_to_library(std::string_view filen
 }
 
 std::uint32_t steam_screenshots_add_vr_screenshot_to_library(
-    gm_enums::SteamScreenshotsVrScreenshotType type, std::string_view filename, std::string_view vr_filename
+    gm_enums::SteamScreenshotsVrScreenshotType eType, std::string_view filename, std::string_view vr_filename
 )
 {
     STEAM_GUARD_RET(0);
@@ -149,7 +149,7 @@ std::uint32_t steam_screenshots_add_vr_screenshot_to_library(
         return 0;
     }
 
-    return (std::uint32_t)ss->AddVRScreenshotToLibrary((EVRScreenshotType)(int)type, fn.c_str(), vr.c_str());
+    return (std::uint32_t)ss->AddVRScreenshotToLibrary((EVRScreenshotType)(int)eType, fn.c_str(), vr.c_str());
 }
 
 void steam_screenshots_hook_screenshots(bool hook)

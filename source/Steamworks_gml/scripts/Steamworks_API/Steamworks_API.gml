@@ -13414,9 +13414,9 @@ function steam_friends_activate_game_overlay_invite_dialog(_steam_id_lobby)
 
 /**
  * @param {Real} _app_id
- * @param {Enum.SteamFriendsOverlayToStoreFlag} _eFlag
+ * @param {Enum.SteamFriendsOverlayToStoreFlag} _flag
  */
-function steam_friends_activate_game_overlay_to_store(_app_id, _eFlag)
+function steam_friends_activate_game_overlay_to_store(_app_id, _flag)
 {
     var __args_buffer = __ext_core_get_args_buffer();
 
@@ -13424,10 +13424,10 @@ function steam_friends_activate_game_overlay_to_store(_app_id, _eFlag)
     if (!is_numeric(_app_id)) show_error($"{_GMFUNCTION_} :: _app_id expected number", true);
     buffer_write(__args_buffer, buffer_u32, _app_id);
 
-    // param: _eFlag, type: enum SteamFriendsOverlayToStoreFlag
+    // param: _flag, type: enum SteamFriendsOverlayToStoreFlag
 
-    if (!is_numeric(_eFlag)) show_error($"{_GMFUNCTION_} :: _eFlag expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _eFlag);
+    if (!is_numeric(_flag)) show_error($"{_GMFUNCTION_} :: _flag expected number", true);
+    buffer_write(__args_buffer, buffer_u64, _flag);
 
     var _return_value = __steam_friends_activate_game_overlay_to_store(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
 
@@ -13457,22 +13457,22 @@ function steam_friends_activate_game_overlay_to_user(_dialog, _steam_id)
 }
 
 /**
- * @param {String} _pchURL
- * @param {Enum.SteamFriendsOverlayToWebpageMode} _eMode
+ * @param {String} _url
+ * @param {Enum.SteamFriendsOverlayToWebpageMode} _mode
  */
-function steam_friends_activate_game_overlay_to_web_page(_pchURL, _eMode)
+function steam_friends_activate_game_overlay_to_web_page(_url, _mode)
 {
     var __args_buffer = __ext_core_get_args_buffer();
 
-    // param: _pchURL, type: String
-    if (!is_string(_pchURL)) show_error($"{_GMFUNCTION_} :: _pchURL expected string", true);
-    buffer_write(__args_buffer, buffer_u32, string_byte_length(_pchURL));
-    buffer_write(__args_buffer, buffer_string, _pchURL);
+    // param: _url, type: String
+    if (!is_string(_url)) show_error($"{_GMFUNCTION_} :: _url expected string", true);
+    buffer_write(__args_buffer, buffer_u32, string_byte_length(_url));
+    buffer_write(__args_buffer, buffer_string, _url);
 
-    // param: _eMode, type: enum SteamFriendsOverlayToWebpageMode
+    // param: _mode, type: enum SteamFriendsOverlayToWebpageMode
 
-    if (!is_numeric(_eMode)) show_error($"{_GMFUNCTION_} :: _eMode expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _eMode);
+    if (!is_numeric(_mode)) show_error($"{_GMFUNCTION_} :: _mode expected number", true);
+    buffer_write(__args_buffer, buffer_u64, _mode);
 
     var _return_value = __steam_friends_activate_game_overlay_to_web_page(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
 
@@ -13599,10 +13599,10 @@ function steam_friends_set_callback_avatar_image_loaded(_callback)
 
 /**
  * @param {Real} _steam_id_clan
- * @param {Real} _iUser
+ * @param {Real} _user
  * @returns {Real} 
  */
-function steam_friends_get_chat_member_by_index(_steam_id_clan, _iUser)
+function steam_friends_get_chat_member_by_index(_steam_id_clan, _user)
 {
     var __args_buffer = __ext_core_get_args_buffer();
 
@@ -13610,9 +13610,9 @@ function steam_friends_get_chat_member_by_index(_steam_id_clan, _iUser)
     if (!is_numeric(_steam_id_clan)) show_error($"{_GMFUNCTION_} :: _steam_id_clan expected number", true);
     buffer_write(__args_buffer, buffer_u64, _steam_id_clan);
 
-    // param: _iUser, type: Int32
-    if (!is_numeric(_iUser)) show_error($"{_GMFUNCTION_} :: _iUser expected number", true);
-    buffer_write(__args_buffer, buffer_s32, _iUser);
+    // param: _user, type: Int32
+    if (!is_numeric(_user)) show_error($"{_GMFUNCTION_} :: _user expected number", true);
+    buffer_write(__args_buffer, buffer_s32, _user);
 
     var __ret_buffer = __ext_core_get_ret_buffer();
 
@@ -13678,10 +13678,10 @@ function steam_friends_get_clan_chat_member_count(_steam_id_clan)
 
 /**
  * @param {Real} _steam_id_clan_chat
- * @param {Real} _iMessage
+ * @param {Real} _message
  * @returns {Struct.SteamFriendsClanChatMessage} 
  */
-function steam_friends_get_clan_chat_message(_steam_id_clan_chat, _iMessage)
+function steam_friends_get_clan_chat_message(_steam_id_clan_chat, _message)
 {
     var __args_buffer = __ext_core_get_args_buffer();
 
@@ -13689,9 +13689,9 @@ function steam_friends_get_clan_chat_message(_steam_id_clan_chat, _iMessage)
     if (!is_numeric(_steam_id_clan_chat)) show_error($"{_GMFUNCTION_} :: _steam_id_clan_chat expected number", true);
     buffer_write(__args_buffer, buffer_u64, _steam_id_clan_chat);
 
-    // param: _iMessage, type: Int32
-    if (!is_numeric(_iMessage)) show_error($"{_GMFUNCTION_} :: _iMessage expected number", true);
-    buffer_write(__args_buffer, buffer_s32, _iMessage);
+    // param: _message, type: Int32
+    if (!is_numeric(_message)) show_error($"{_GMFUNCTION_} :: _message expected number", true);
+    buffer_write(__args_buffer, buffer_s32, _message);
 
     var __ret_buffer = __ext_core_get_ret_buffer();
 
@@ -13854,15 +13854,15 @@ function steam_friends_get_follower_count(_steam_id, _callback)
 }
 
 /**
- * @param {Real} _iFriend
- * @param {Real} _iFriendFlags
+ * @param {Real} _friend
+ * @param {Real} _friend_flags
  * @returns {Real} 
  */
-function steam_friends_get_friend_by_index(_iFriend, _iFriendFlags)
+function steam_friends_get_friend_by_index(_friend, _friend_flags)
 {
     var __ret_buffer = __ext_core_get_ret_buffer();
 
-    var _return_value = __steam_friends_get_friend_by_index(_iFriend, _iFriendFlags, buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var _return_value = __steam_friends_get_friend_by_index(_friend, _friend_flags, buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
 
     var _result = undefined;
     _result = buffer_read(__ret_buffer, buffer_u64);
@@ -13925,10 +13925,10 @@ function steam_friends_get_friend_count_from_source(_steam_id_source)
 
 /**
  * @param {Real} _steam_id_source
- * @param {Real} _iFriend
+ * @param {Real} _friend
  * @returns {Real} 
  */
-function steam_friends_get_friend_from_source_by_index(_steam_id_source, _iFriend)
+function steam_friends_get_friend_from_source_by_index(_steam_id_source, _friend)
 {
     var __args_buffer = __ext_core_get_args_buffer();
 
@@ -13936,9 +13936,9 @@ function steam_friends_get_friend_from_source_by_index(_steam_id_source, _iFrien
     if (!is_numeric(_steam_id_source)) show_error($"{_GMFUNCTION_} :: _steam_id_source expected number", true);
     buffer_write(__args_buffer, buffer_u64, _steam_id_source);
 
-    // param: _iFriend, type: Int32
-    if (!is_numeric(_iFriend)) show_error($"{_GMFUNCTION_} :: _iFriend expected number", true);
-    buffer_write(__args_buffer, buffer_s32, _iFriend);
+    // param: _friend, type: Int32
+    if (!is_numeric(_friend)) show_error($"{_GMFUNCTION_} :: _friend expected number", true);
+    buffer_write(__args_buffer, buffer_s32, _friend);
 
     var __ret_buffer = __ext_core_get_ret_buffer();
 
@@ -14084,10 +14084,10 @@ function steam_friends_get_friend_relationship(_steam_id_friend)
 
 /**
  * @param {Real} _steam_id_friend
- * @param {String} _pchKey
+ * @param {String} _key
  * @returns {String} 
  */
-function steam_friends_get_friend_rich_presence(_steam_id_friend, _pchKey)
+function steam_friends_get_friend_rich_presence(_steam_id_friend, _key)
 {
     var __args_buffer = __ext_core_get_args_buffer();
 
@@ -14095,10 +14095,10 @@ function steam_friends_get_friend_rich_presence(_steam_id_friend, _pchKey)
     if (!is_numeric(_steam_id_friend)) show_error($"{_GMFUNCTION_} :: _steam_id_friend expected number", true);
     buffer_write(__args_buffer, buffer_u64, _steam_id_friend);
 
-    // param: _pchKey, type: String
-    if (!is_string(_pchKey)) show_error($"{_GMFUNCTION_} :: _pchKey expected string", true);
-    buffer_write(__args_buffer, buffer_u32, string_byte_length(_pchKey));
-    buffer_write(__args_buffer, buffer_string, _pchKey);
+    // param: _key, type: String
+    if (!is_string(_key)) show_error($"{_GMFUNCTION_} :: _key expected string", true);
+    buffer_write(__args_buffer, buffer_u32, string_byte_length(_key));
+    buffer_write(__args_buffer, buffer_string, _key);
 
     var _return_value = __steam_friends_get_friend_rich_presence(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
 
@@ -14107,10 +14107,10 @@ function steam_friends_get_friend_rich_presence(_steam_id_friend, _pchKey)
 
 /**
  * @param {Real} _steam_id_friend
- * @param {Real} _iKey
+ * @param {Real} _key
  * @returns {String} 
  */
-function steam_friends_get_friend_rich_presence_key_by_index(_steam_id_friend, _iKey)
+function steam_friends_get_friend_rich_presence_key_by_index(_steam_id_friend, _key)
 {
     var __args_buffer = __ext_core_get_args_buffer();
 
@@ -14118,9 +14118,9 @@ function steam_friends_get_friend_rich_presence_key_by_index(_steam_id_friend, _
     if (!is_numeric(_steam_id_friend)) show_error($"{_GMFUNCTION_} :: _steam_id_friend expected number", true);
     buffer_write(__args_buffer, buffer_u64, _steam_id_friend);
 
-    // param: _iKey, type: Int32
-    if (!is_numeric(_iKey)) show_error($"{_GMFUNCTION_} :: _iKey expected number", true);
-    buffer_write(__args_buffer, buffer_s32, _iKey);
+    // param: _key, type: Int32
+    if (!is_numeric(_key)) show_error($"{_GMFUNCTION_} :: _key expected number", true);
+    buffer_write(__args_buffer, buffer_s32, _key);
 
     var _return_value = __steam_friends_get_friend_rich_presence_key_by_index(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
 
@@ -14280,10 +14280,10 @@ function steam_friends_get_small_friend_avatar(_steam_id_friend)
 
 /**
  * @param {Real} _steam_id_friend
- * @param {Real} _iFriendFlags
+ * @param {Real} _friend_flags
  * @returns {Bool} 
  */
-function steam_friends_has_friend(_steam_id_friend, _iFriendFlags)
+function steam_friends_has_friend(_steam_id_friend, _friend_flags)
 {
     var __args_buffer = __ext_core_get_args_buffer();
 
@@ -14291,9 +14291,9 @@ function steam_friends_has_friend(_steam_id_friend, _iFriendFlags)
     if (!is_numeric(_steam_id_friend)) show_error($"{_GMFUNCTION_} :: _steam_id_friend expected number", true);
     buffer_write(__args_buffer, buffer_u64, _steam_id_friend);
 
-    // param: _iFriendFlags, type: Int32
-    if (!is_numeric(_iFriendFlags)) show_error($"{_GMFUNCTION_} :: _iFriendFlags expected number", true);
-    buffer_write(__args_buffer, buffer_s32, _iFriendFlags);
+    // param: _friend_flags, type: Int32
+    if (!is_numeric(_friend_flags)) show_error($"{_GMFUNCTION_} :: _friend_flags expected number", true);
+    buffer_write(__args_buffer, buffer_s32, _friend_flags);
 
     var _return_value = __steam_friends_has_friend(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
 
@@ -14993,19 +14993,19 @@ function steam_apps_set_callback_dlc_installed(_callback)
 
 
 /**
- * @param {Enum.SteamScreenshotsVrScreenshotType} _eType
+ * @param {Enum.SteamScreenshotsVrScreenshotType} _type
  * @param {String} _filename
  * @param {String} _vr_filename
  * @returns {Real} 
  */
-function steam_screenshots_add_vr_screenshot_to_library(_eType, _filename, _vr_filename)
+function steam_screenshots_add_vr_screenshot_to_library(_type, _filename, _vr_filename)
 {
     var __args_buffer = __ext_core_get_args_buffer();
 
-    // param: _eType, type: enum SteamScreenshotsVrScreenshotType
+    // param: _type, type: enum SteamScreenshotsVrScreenshotType
 
-    if (!is_numeric(_eType)) show_error($"{_GMFUNCTION_} :: _eType expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _eType);
+    if (!is_numeric(_type)) show_error($"{_GMFUNCTION_} :: _type expected number", true);
+    buffer_write(__args_buffer, buffer_u64, _type);
 
     // param: _filename, type: String
     if (!is_string(_filename)) show_error($"{_GMFUNCTION_} :: _filename expected string", true);
@@ -19261,10 +19261,10 @@ function steam_input_trigger_vibration_extended(_input_handle, _left_speed, _rig
 
 /**
  * @param {Real} _input_handle
- * @param {Real} _eOrigin
+ * @param {Real} _origin
  * @returns {Real} 
  */
-function steam_input_get_action_origin_from_xbox_origin(_input_handle, _eOrigin)
+function steam_input_get_action_origin_from_xbox_origin(_input_handle, _origin)
 {
     var __args_buffer = __ext_core_get_args_buffer();
 
@@ -19272,9 +19272,9 @@ function steam_input_get_action_origin_from_xbox_origin(_input_handle, _eOrigin)
     if (!is_numeric(_input_handle)) show_error($"{_GMFUNCTION_} :: _input_handle expected number", true);
     buffer_write(__args_buffer, buffer_u64, _input_handle);
 
-    // param: _eOrigin, type: Int32
-    if (!is_numeric(_eOrigin)) show_error($"{_GMFUNCTION_} :: _eOrigin expected number", true);
-    buffer_write(__args_buffer, buffer_s32, _eOrigin);
+    // param: _origin, type: Int32
+    if (!is_numeric(_origin)) show_error($"{_GMFUNCTION_} :: _origin expected number", true);
+    buffer_write(__args_buffer, buffer_s32, _origin);
 
     var _return_value = __steam_input_get_action_origin_from_xbox_origin(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
 

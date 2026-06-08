@@ -93,10 +93,10 @@ GMEXPORT double __EXT_NATIVE__steam_friends_activate_game_overlay_to_store(char*
     // field: app_id, type: UInt32
     std::uint32_t app_id = gm::wire::codec::readValue<std::uint32_t>(__br);
 
-    // field: eFlag, type: enum SteamFriendsOverlayToStoreFlag
-    gm_enums::SteamFriendsOverlayToStoreFlag eFlag = gm::wire::codec::readValue<gm_enums::SteamFriendsOverlayToStoreFlag>(__br);
+    // field: flag, type: enum SteamFriendsOverlayToStoreFlag
+    gm_enums::SteamFriendsOverlayToStoreFlag flag = gm::wire::codec::readValue<gm_enums::SteamFriendsOverlayToStoreFlag>(__br);
 
-    steam_friends_activate_game_overlay_to_store(app_id, eFlag);
+    steam_friends_activate_game_overlay_to_store(app_id, flag);
     return 0;
 }
 
@@ -118,13 +118,13 @@ GMEXPORT double __EXT_NATIVE__steam_friends_activate_game_overlay_to_web_page(ch
 {
     gm::byteio::BufferReader __br{__arg_buffer, static_cast<size_t>(__arg_buffer_length)};
 
-    // field: pchURL, type: String
-    std::string_view pchURL = gm::wire::codec::readValue<std::string_view>(__br);
+    // field: url, type: String
+    std::string_view url = gm::wire::codec::readValue<std::string_view>(__br);
 
-    // field: eMode, type: enum SteamFriendsOverlayToWebpageMode
-    gm_enums::SteamFriendsOverlayToWebpageMode eMode = gm::wire::codec::readValue<gm_enums::SteamFriendsOverlayToWebpageMode>(__br);
+    // field: mode, type: enum SteamFriendsOverlayToWebpageMode
+    gm_enums::SteamFriendsOverlayToWebpageMode mode = gm::wire::codec::readValue<gm_enums::SteamFriendsOverlayToWebpageMode>(__br);
 
-    steam_friends_activate_game_overlay_to_web_page(pchURL, eMode);
+    steam_friends_activate_game_overlay_to_web_page(url, mode);
     return 0;
 }
 
@@ -208,10 +208,10 @@ GMEXPORT double __EXT_NATIVE__steam_friends_get_chat_member_by_index(char* __arg
     // field: steam_id_clan, type: UInt64
     std::uint64_t steam_id_clan = gm::wire::codec::readValue<std::uint64_t>(__br);
 
-    // field: iUser, type: Int32
-    std::int32_t iUser = gm::wire::codec::readValue<std::int32_t>(__br);
+    // field: user, type: Int32
+    std::int32_t user = gm::wire::codec::readValue<std::int32_t>(__br);
 
-    auto&& __result = steam_friends_get_chat_member_by_index(steam_id_clan, iUser);
+    auto&& __result = steam_friends_get_chat_member_by_index(steam_id_clan, user);
     gm::byteio::BufferWriter __bw{__ret_buffer, static_cast<size_t>(__ret_buffer_length)};
 
     // return: __result, type: UInt64
@@ -262,10 +262,10 @@ GMEXPORT double __EXT_NATIVE__steam_friends_get_clan_chat_message(char* __arg_bu
     // field: steam_id_clan_chat, type: UInt64
     std::uint64_t steam_id_clan_chat = gm::wire::codec::readValue<std::uint64_t>(__br);
 
-    // field: iMessage, type: Int32
-    std::int32_t iMessage = gm::wire::codec::readValue<std::int32_t>(__br);
+    // field: message, type: Int32
+    std::int32_t message = gm::wire::codec::readValue<std::int32_t>(__br);
 
-    auto&& __result = steam_friends_get_clan_chat_message(steam_id_clan_chat, iMessage);
+    auto&& __result = steam_friends_get_clan_chat_message(steam_id_clan_chat, message);
     gm::byteio::BufferWriter __bw{__ret_buffer, static_cast<size_t>(__ret_buffer_length)};
 
     // return: __result, type: struct SteamFriendsClanChatMessage
@@ -381,9 +381,9 @@ GMEXPORT double __EXT_NATIVE__steam_friends_get_follower_count(char* __arg_buffe
     return 0;
 }
 
-GMEXPORT double __EXT_NATIVE__steam_friends_get_friend_by_index(double iFriend, double iFriendFlags, char* __ret_buffer, double __ret_buffer_length)
+GMEXPORT double __EXT_NATIVE__steam_friends_get_friend_by_index(double friend, double friend_flags, char* __ret_buffer, double __ret_buffer_length)
 {
-    auto&& __result = steam_friends_get_friend_by_index(static_cast<std::int32_t>(iFriend), static_cast<std::int32_t>(iFriendFlags));
+    auto&& __result = steam_friends_get_friend_by_index(static_cast<std::int32_t>(friend), static_cast<std::int32_t>(friend_flags));
     gm::byteio::BufferWriter __bw{__ret_buffer, static_cast<size_t>(__ret_buffer_length)};
 
     // return: __result, type: UInt64
@@ -413,9 +413,9 @@ GMEXPORT double __EXT_NATIVE__steam_friends_get_friend_coplay_time(char* __arg_b
     return static_cast<double>(__result);
 }
 
-GMEXPORT double __EXT_NATIVE__steam_friends_get_friend_count(double iFriendFlags)
+GMEXPORT double __EXT_NATIVE__steam_friends_get_friend_count(double friend_flags)
 {
-    auto&& __result = steam_friends_get_friend_count(static_cast<std::int32_t>(iFriendFlags));
+    auto&& __result = steam_friends_get_friend_count(static_cast<std::int32_t>(friend_flags));
     return static_cast<double>(__result);
 }
 
@@ -437,10 +437,10 @@ GMEXPORT double __EXT_NATIVE__steam_friends_get_friend_from_source_by_index(char
     // field: steam_id_source, type: UInt64
     std::uint64_t steam_id_source = gm::wire::codec::readValue<std::uint64_t>(__br);
 
-    // field: iFriend, type: Int32
-    std::int32_t iFriend = gm::wire::codec::readValue<std::int32_t>(__br);
+    // field: friend, type: Int32
+    std::int32_t friend = gm::wire::codec::readValue<std::int32_t>(__br);
 
-    auto&& __result = steam_friends_get_friend_from_source_by_index(steam_id_source, iFriend);
+    auto&& __result = steam_friends_get_friend_from_source_by_index(steam_id_source, friend);
     gm::byteio::BufferWriter __bw{__ret_buffer, static_cast<size_t>(__ret_buffer_length)};
 
     // return: __result, type: UInt64
@@ -548,11 +548,11 @@ GMEXPORT char* __EXT_NATIVE__steam_friends_get_friend_rich_presence(char* __arg_
     // field: steam_id_friend, type: UInt64
     std::uint64_t steam_id_friend = gm::wire::codec::readValue<std::uint64_t>(__br);
 
-    // field: pchKey, type: String
-    std::string_view pchKey = gm::wire::codec::readValue<std::string_view>(__br);
+    // field: key, type: String
+    std::string_view key = gm::wire::codec::readValue<std::string_view>(__br);
 
     static std::string __result;
-    __result = steam_friends_get_friend_rich_presence(steam_id_friend, pchKey);
+    __result = steam_friends_get_friend_rich_presence(steam_id_friend, key);
     return (char*)__result.c_str();
 }
 
@@ -563,11 +563,11 @@ GMEXPORT char* __EXT_NATIVE__steam_friends_get_friend_rich_presence_key_by_index
     // field: steam_id_friend, type: UInt64
     std::uint64_t steam_id_friend = gm::wire::codec::readValue<std::uint64_t>(__br);
 
-    // field: iKey, type: Int32
-    std::int32_t iKey = gm::wire::codec::readValue<std::int32_t>(__br);
+    // field: key, type: Int32
+    std::int32_t key = gm::wire::codec::readValue<std::int32_t>(__br);
 
     static std::string __result;
-    __result = steam_friends_get_friend_rich_presence_key_by_index(steam_id_friend, iKey);
+    __result = steam_friends_get_friend_rich_presence_key_by_index(steam_id_friend, key);
     return (char*)__result.c_str();
 }
 
@@ -697,10 +697,10 @@ GMEXPORT double __EXT_NATIVE__steam_friends_has_friend(char* __arg_buffer, doubl
     // field: steam_id_friend, type: UInt64
     std::uint64_t steam_id_friend = gm::wire::codec::readValue<std::uint64_t>(__br);
 
-    // field: iFriendFlags, type: Int32
-    std::int32_t iFriendFlags = gm::wire::codec::readValue<std::int32_t>(__br);
+    // field: friend_flags, type: Int32
+    std::int32_t friend_flags = gm::wire::codec::readValue<std::int32_t>(__br);
 
-    auto&& __result = steam_friends_has_friend(steam_id_friend, iFriendFlags);
+    auto&& __result = steam_friends_has_friend(steam_id_friend, friend_flags);
     return static_cast<double>(__result);
 }
 
@@ -865,9 +865,9 @@ GMEXPORT double __EXT_NATIVE__steam_friends_set_played_with(char* __arg_buffer, 
     return 0;
 }
 
-GMEXPORT double __EXT_NATIVE__steam_friends_set_rich_presence(char* pchKey, char* value)
+GMEXPORT double __EXT_NATIVE__steam_friends_set_rich_presence(char* key, char* value)
 {
-    auto&& __result = steam_friends_set_rich_presence(pchKey, value);
+    auto&& __result = steam_friends_set_rich_presence(key, value);
     return static_cast<double>(__result);
 }
 
@@ -1201,10 +1201,10 @@ GMEXPORT double __EXT_NATIVE__steam_apps_get_launch_command_line(double command_
     return 0;
 }
 
-GMEXPORT char* __EXT_NATIVE__steam_apps_get_launch_query_param(char* pchKey)
+GMEXPORT char* __EXT_NATIVE__steam_apps_get_launch_query_param(char* key)
 {
     static std::string __result;
-    __result = steam_apps_get_launch_query_param(pchKey);
+    __result = steam_apps_get_launch_query_param(key);
     return (char*)__result.c_str();
 }
 
@@ -1265,8 +1265,8 @@ GMEXPORT double __EXT_NATIVE__steam_screenshots_add_vr_screenshot_to_library(cha
 {
     gm::byteio::BufferReader __br{__arg_buffer, static_cast<size_t>(__arg_buffer_length)};
 
-    // field: eType, type: enum SteamScreenshotsVrScreenshotType
-    gm_enums::SteamScreenshotsVrScreenshotType eType = gm::wire::codec::readValue<gm_enums::SteamScreenshotsVrScreenshotType>(__br);
+    // field: type, type: enum SteamScreenshotsVrScreenshotType
+    gm_enums::SteamScreenshotsVrScreenshotType type = gm::wire::codec::readValue<gm_enums::SteamScreenshotsVrScreenshotType>(__br);
 
     // field: filename, type: String
     std::string_view filename = gm::wire::codec::readValue<std::string_view>(__br);
@@ -1274,7 +1274,7 @@ GMEXPORT double __EXT_NATIVE__steam_screenshots_add_vr_screenshot_to_library(cha
     // field: vr_filename, type: String
     std::string_view vr_filename = gm::wire::codec::readValue<std::string_view>(__br);
 
-    auto&& __result = steam_screenshots_add_vr_screenshot_to_library(eType, filename, vr_filename);
+    auto&& __result = steam_screenshots_add_vr_screenshot_to_library(type, filename, vr_filename);
     return static_cast<double>(__result);
 }
 
@@ -4044,10 +4044,10 @@ GMEXPORT double __EXT_NATIVE__steam_input_get_motion_data(char* __arg_buffer, do
     return 0;
 }
 
-GMEXPORT char* __EXT_NATIVE__steam_input_get_string_for_action_origin(double eOrigin)
+GMEXPORT char* __EXT_NATIVE__steam_input_get_string_for_action_origin(double origin)
 {
     static std::string __result;
-    __result = steam_input_get_string_for_action_origin(static_cast<std::int32_t>(eOrigin));
+    __result = steam_input_get_string_for_action_origin(static_cast<std::int32_t>(origin));
     return (char*)__result.c_str();
 }
 
@@ -4184,16 +4184,16 @@ GMEXPORT double __EXT_NATIVE__steam_input_get_action_origin_from_xbox_origin(cha
     // field: input_handle, type: UInt64
     std::uint64_t input_handle = gm::wire::codec::readValue<std::uint64_t>(__br);
 
-    // field: eOrigin, type: Int32
-    std::int32_t eOrigin = gm::wire::codec::readValue<std::int32_t>(__br);
+    // field: origin, type: Int32
+    std::int32_t origin = gm::wire::codec::readValue<std::int32_t>(__br);
 
-    auto&& __result = steam_input_get_action_origin_from_xbox_origin(input_handle, eOrigin);
+    auto&& __result = steam_input_get_action_origin_from_xbox_origin(input_handle, origin);
     return static_cast<double>(__result);
 }
 
-GMEXPORT double __EXT_NATIVE__steam_input_translate_action_origin(double eDestinationInputType, double eSourceOrigin)
+GMEXPORT double __EXT_NATIVE__steam_input_translate_action_origin(double destination_input_type, double source_origin)
 {
-    auto&& __result = steam_input_translate_action_origin(static_cast<std::int32_t>(eDestinationInputType), static_cast<std::int32_t>(eSourceOrigin));
+    auto&& __result = steam_input_translate_action_origin(static_cast<std::int32_t>(destination_input_type), static_cast<std::int32_t>(source_origin));
     return static_cast<double>(__result);
 }
 

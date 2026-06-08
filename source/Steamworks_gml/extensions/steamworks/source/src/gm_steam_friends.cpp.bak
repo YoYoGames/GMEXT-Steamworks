@@ -1,4 +1,4 @@
-// gm_steam_friends.cpp
+﻿// gm_steam_friends.cpp
 //
 // Steamworks module: friends (ISteamFriends)
 
@@ -105,14 +105,14 @@ void steam_friends_activate_game_overlay_invite_dialog(std::uint64_t steam_id_lo
     f->ActivateGameOverlayInviteDialog(steam_id_from_u64(steam_id_lobby));
 }
 
-void steam_friends_activate_game_overlay_to_store(std::uint32_t app_id, gm_enums::SteamFriendsOverlayToStoreFlag flag)
+void steam_friends_activate_game_overlay_to_store(std::uint32_t app_id, gm_enums::SteamFriendsOverlayToStoreFlag eFlag)
 {
     STEAM_GUARD();
     ISteamFriends* f = steam_friends_iface();
     if (!f)
         return;
 
-    f->ActivateGameOverlayToStore((AppId_t)app_id, (EOverlayToStoreFlag)(int)flag);
+    f->ActivateGameOverlayToStore((AppId_t)app_id, (EOverlayToStoreFlag)(int)eFlag);
 }
 
 void steam_friends_activate_game_overlay_to_user(std::string_view dialog, std::uint64_t steam_id)
@@ -127,7 +127,7 @@ void steam_friends_activate_game_overlay_to_user(std::string_view dialog, std::u
 }
 
 void steam_friends_activate_game_overlay_to_web_page(
-    std::string_view url, gm_enums::SteamFriendsOverlayToWebpageMode mode
+    std::string_view pchURL, gm_enums::SteamFriendsOverlayToWebpageMode eMode
 )
 {
     STEAM_GUARD();
@@ -135,8 +135,8 @@ void steam_friends_activate_game_overlay_to_web_page(
     if (!f)
         return;
 
-    std::string url(url);
-    f->ActivateGameOverlayToWebPage(url.c_str(), (EActivateGameOverlayToWebPageMode)(int)mode);
+    std::string url(pchURL);
+    f->ActivateGameOverlayToWebPage(url.c_str(), (EActivateGameOverlayToWebPageMode)(int)eMode);
 }
 
 void steam_friends_clear_rich_presence()
@@ -159,14 +159,14 @@ bool steam_friends_close_clan_chat_window_in_steam(std::uint64_t steam_id_clan_c
     return f->CloseClanChatWindowInSteam(steam_id_from_u64(steam_id_clan_chat));
 }
 
-std::uint64_t steam_friends_get_chat_member_by_index(std::uint64_t steam_id_clan, std::int32_t user)
+std::uint64_t steam_friends_get_chat_member_by_index(std::uint64_t steam_id_clan, std::int32_t iUser)
 {
     STEAM_GUARD_RET(0);
     ISteamFriends* f = steam_friends_iface();
     if (!f)
         return 0;
 
-    CSteamID id = f->GetChatMemberByIndex(steam_id_from_u64(steam_id_clan), user);
+    CSteamID id = f->GetChatMemberByIndex(steam_id_from_u64(steam_id_clan), iUser);
     return steam_u64_from_steam_id(id);
 }
 
@@ -221,7 +221,7 @@ std::int32_t steam_friends_get_clan_chat_member_count(std::uint64_t steam_id_cla
 }
 
 gm_structs::SteamFriendsClanChatMessage
-steam_friends_get_clan_chat_message(std::uint64_t steam_id_clan_chat, std::int32_t message)
+steam_friends_get_clan_chat_message(std::uint64_t steam_id_clan_chat, std::int32_t iMessage)
 {
     STEAM_GUARD_RET({});
 
@@ -242,7 +242,7 @@ steam_friends_get_clan_chat_message(std::uint64_t steam_id_clan_chat, std::int32
     EChatEntryType entry = k_EChatEntryTypeInvalid;
 
     const int bytes = f->GetClanChatMessage(
-        steam_id_from_u64(steam_id_clan_chat), message, buf.data(), (int)buf.size(), &entry, &chatter
+        steam_id_from_u64(steam_id_clan_chat), iMessage, buf.data(), (int)buf.size(), &entry, &chatter
     );
 
     out.bytes_copied = bytes;
@@ -342,14 +342,14 @@ std::int32_t steam_friends_get_coplay_friend_count()
     return (std::int32_t)f->GetCoplayFriendCount();
 }
 
-std::uint64_t steam_friends_get_friend_by_index(std::int32_t friend, std::int32_t friend_flags)
+std::uint64_t steam_friends_get_friend_by_index(std::int32_t iFriend, std::int32_t iFriendFlags)
 {
     STEAM_GUARD_RET(0);
     ISteamFriends* f = steam_friends_iface();
     if (!f)
         return 0;
 
-    CSteamID id = f->GetFriendByIndex(friend, friend_flags);
+    CSteamID id = f->GetFriendByIndex(iFriend, iFriendFlags);
     return steam_u64_from_steam_id(id);
 }
 
@@ -373,14 +373,14 @@ std::int32_t steam_friends_get_friend_coplay_time(std::uint64_t steam_id_friend)
     return (std::int32_t)f->GetFriendCoplayTime(steam_id_from_u64(steam_id_friend));
 }
 
-std::int32_t steam_friends_get_friend_count(std::int32_t friend_flags)
+std::int32_t steam_friends_get_friend_count(std::int32_t iFriendFlags)
 {
     STEAM_GUARD_RET(0);
     ISteamFriends* f = steam_friends_iface();
     if (!f)
         return 0;
 
-    return (std::int32_t)f->GetFriendCount(friend_flags);
+    return (std::int32_t)f->GetFriendCount(iFriendFlags);
 }
 
 std::int32_t steam_friends_get_friend_count_from_source(std::uint64_t steam_id_source)
@@ -397,14 +397,14 @@ std::int32_t steam_friends_get_friend_count_from_source(std::uint64_t steam_id_s
 // ISteamFriends â€” Part 4 (From source + game played + messages + persona)
 // ============================================================
 
-std::uint64_t steam_friends_get_friend_from_source_by_index(std::uint64_t steam_id_source, std::int32_t friend)
+std::uint64_t steam_friends_get_friend_from_source_by_index(std::uint64_t steam_id_source, std::int32_t iFriend)
 {
     STEAM_GUARD_RET(0);
     ISteamFriends* f = steam_friends_iface();
     if (!f)
         return 0;
 
-    CSteamID id = f->GetFriendFromSourceByIndex(steam_id_from_u64(steam_id_source), friend);
+    CSteamID id = f->GetFriendFromSourceByIndex(steam_id_from_u64(steam_id_source), iFriend);
     return steam_u64_from_steam_id(id);
 }
 
@@ -520,26 +520,26 @@ gm_enums::SteamFriendsRelationship steam_friends_get_friend_relationship(std::ui
     return (gm_enums::SteamFriendsRelationship)(int)rel;
 }
 
-std::string steam_friends_get_friend_rich_presence(std::uint64_t steam_id_friend, std::string_view key)
+std::string steam_friends_get_friend_rich_presence(std::uint64_t steam_id_friend, std::string_view pchKey)
 {
     STEAM_GUARD_RET("");
     ISteamFriends* f = steam_friends_iface();
     if (!f)
         return "";
 
-    std::string key(key);
+    std::string key(pchKey);
     const char* s = f->GetFriendRichPresence(steam_id_from_u64(steam_id_friend), key.c_str());
     return s ? std::string(s) : std::string();
 }
 
-std::string steam_friends_get_friend_rich_presence_key_by_index(std::uint64_t steam_id_friend, std::int32_t key)
+std::string steam_friends_get_friend_rich_presence_key_by_index(std::uint64_t steam_id_friend, std::int32_t iKey)
 {
     STEAM_GUARD_RET("");
     ISteamFriends* f = steam_friends_iface();
     if (!f)
         return "";
 
-    const char* s = f->GetFriendRichPresenceKeyByIndex(steam_id_from_u64(steam_id_friend), key);
+    const char* s = f->GetFriendRichPresenceKeyByIndex(steam_id_from_u64(steam_id_friend), iKey);
     return s ? std::string(s) : std::string();
 }
 
@@ -696,14 +696,14 @@ std::int32_t steam_friends_get_small_friend_avatar(std::uint64_t steam_id_friend
     return (std::int32_t)f->GetSmallFriendAvatar(steam_id_from_u64(steam_id_friend));
 }
 
-bool steam_friends_has_friend(std::uint64_t steam_id_friend, std::int32_t friend_flags)
+bool steam_friends_has_friend(std::uint64_t steam_id_friend, std::int32_t iFriendFlags)
 {
     STEAM_GUARD_RET(false);
     ISteamFriends* f = steam_friends_iface();
     if (!f)
         return false;
 
-    return f->HasFriend(steam_id_from_u64(steam_id_friend), friend_flags);
+    return f->HasFriend(steam_id_from_u64(steam_id_friend), iFriendFlags);
 }
 
 bool steam_friends_invite_user_to_game(std::uint64_t steam_id_friend, std::string_view connect_string)
@@ -807,14 +807,14 @@ void steam_friends_set_played_with(std::uint64_t steam_id_user_played_with)
     f->SetPlayedWith(steam_id_from_u64(steam_id_user_played_with));
 }
 
-bool steam_friends_set_rich_presence(std::string_view key, std::string_view value)
+bool steam_friends_set_rich_presence(std::string_view pchKey, std::string_view value)
 {
     STEAM_GUARD_RET(false);
     ISteamFriends* f = steam_friends_iface();
     if (!f)
         return false;
 
-    std::string key(key);
+    std::string key(pchKey);
     std::string val(value);
 
     const bool ok = f->SetRichPresence(key.c_str(), val.c_str());

@@ -54,7 +54,7 @@
 /**
  * @function_partial steam_friends_activate_game_overlay_to_store
  * @param {Real} app_id
- * @param {Enum.SteamFriendsOverlayToStoreFlag} eFlag
+ * @param {Enum.SteamFriendsOverlayToStoreFlag} flag
  * @function_end 
  */
 
@@ -67,8 +67,8 @@
 
 /**
  * @function_partial steam_friends_activate_game_overlay_to_web_page
- * @param {String} pchURL
- * @param {Enum.SteamFriendsOverlayToWebpageMode} eMode
+ * @param {String} url
+ * @param {Enum.SteamFriendsOverlayToWebpageMode} mode
  * @function_end 
  */
 
@@ -114,7 +114,7 @@
 /**
  * @function_partial steam_friends_get_chat_member_by_index
  * @param {Real} steam_id_clan
- * @param {Real} iUser
+ * @param {Real} user
  * @returns {Real} 
  * @function_end 
  */
@@ -143,7 +143,7 @@
 /**
  * @function_partial steam_friends_get_clan_chat_message
  * @param {Real} steam_id_clan_chat
- * @param {Real} iMessage
+ * @param {Real} message
  * @returns {Struct.SteamFriendsClanChatMessage} 
  * @function_end 
  */
@@ -212,8 +212,8 @@
 
 /**
  * @function_partial steam_friends_get_friend_by_index
- * @param {Real} iFriend
- * @param {Real} iFriendFlags
+ * @param {Real} friend
+ * @param {Real} friend_flags
  * @returns {Real} 
  * @function_end 
  */
@@ -234,7 +234,7 @@
 
 /**
  * @function_partial steam_friends_get_friend_count
- * @param {Real} iFriendFlags
+ * @param {Real} friend_flags
  * @returns {Real} 
  * @function_end 
  */
@@ -249,7 +249,7 @@
 /**
  * @function_partial steam_friends_get_friend_from_source_by_index
  * @param {Real} steam_id_source
- * @param {Real} iFriend
+ * @param {Real} friend
  * @returns {Real} 
  * @function_end 
  */
@@ -302,7 +302,7 @@
 /**
  * @function_partial steam_friends_get_friend_rich_presence
  * @param {Real} steam_id_friend
- * @param {String} pchKey
+ * @param {String} key
  * @returns {String} 
  * @function_end 
  */
@@ -310,7 +310,7 @@
 /**
  * @function_partial steam_friends_get_friend_rich_presence_key_by_index
  * @param {Real} steam_id_friend
- * @param {Real} iKey
+ * @param {Real} key
  * @returns {String} 
  * @function_end 
  */
@@ -406,7 +406,7 @@
 /**
  * @function_partial steam_friends_has_friend
  * @param {Real} steam_id_friend
- * @param {Real} iFriendFlags
+ * @param {Real} friend_flags
  * @returns {Bool} 
  * @function_end 
  */
@@ -499,7 +499,7 @@
 
 /**
  * @function_partial steam_friends_set_rich_presence
- * @param {String} pchKey
+ * @param {String} key
  * @param {String} value
  * @returns {Bool} 
  * @function_end 
@@ -751,7 +751,7 @@
 
 /**
  * @function_partial steam_apps_get_launch_query_param
- * @param {String} pchKey
+ * @param {String} key
  * @returns {String} 
  * @function_end 
  */
@@ -809,7 +809,7 @@
 
 /**
  * @function_partial steam_screenshots_add_vr_screenshot_to_library
- * @param {Enum.SteamScreenshotsVrScreenshotType} eType
+ * @param {Enum.SteamScreenshotsVrScreenshotType} type
  * @param {String} filename
  * @param {String} vr_filename
  * @returns {Real} 
@@ -2359,7 +2359,7 @@
 
 /**
  * @function_partial steam_input_get_string_for_action_origin
- * @param {Real} eOrigin
+ * @param {Real} origin
  * @returns {String} 
  * @function_end 
  */
@@ -2440,15 +2440,15 @@
 /**
  * @function_partial steam_input_get_action_origin_from_xbox_origin
  * @param {Real} input_handle
- * @param {Real} eOrigin
+ * @param {Real} origin
  * @returns {Real} 
  * @function_end 
  */
 
 /**
  * @function_partial steam_input_translate_action_origin
- * @param {Real} eDestinationInputType
- * @param {Real} eSourceOrigin
+ * @param {Real} destination_input_type
+ * @param {Real} source_origin
  * @returns {Real} 
  * @function_end 
  */
