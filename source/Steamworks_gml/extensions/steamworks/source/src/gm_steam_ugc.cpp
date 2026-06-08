@@ -1,4 +1,4 @@
-// gm_steam_ugc.cpp
+﻿// gm_steam_ugc.cpp
 // Steamworks module: ugc (ISteamUGC)
 
 #include "GMSteamworks.h"
@@ -1687,3 +1687,4 @@ void steam_ugc_clear_callback_file_unsubscribed()
     std::lock_guard<std::mutex> lock(g_callbacks_mtx);
     g_cb_file_unsubscribed = nullptr;
 }
+

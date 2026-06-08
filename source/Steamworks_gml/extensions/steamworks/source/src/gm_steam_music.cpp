@@ -1,4 +1,4 @@
-// gm_steam_music.cpp
+﻿// gm_steam_music.cpp
 //
 // Steamworks module: music (ISteamMusic)
 // Naming: steam_music_*
@@ -211,3 +211,4 @@ float steam_music_get_volume()
 
     return m->GetVolume();
 }
+

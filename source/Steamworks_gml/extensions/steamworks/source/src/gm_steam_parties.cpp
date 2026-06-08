@@ -1,4 +1,4 @@
-// gm_steam_parties.cpp
+﻿// gm_steam_parties.cpp
 //
 // Steamworks module: parties (ISteamParties)
 // Naming: steam_parties_*
@@ -481,3 +481,4 @@ std::string steam_parties_get_beacon_location_data(
 
     return std::string(out.data());
 }
+

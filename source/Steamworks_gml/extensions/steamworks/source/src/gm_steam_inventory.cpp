@@ -1,4 +1,4 @@
-#include "GMSteamworks.h"
+﻿#include "GMSteamworks.h"
 
 #include "steam_async_common.h"
 #include <steam/steam_api.h>

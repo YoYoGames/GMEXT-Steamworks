@@ -1,4 +1,4 @@
-// gm_steam_friends.cpp
+﻿// gm_steam_friends.cpp
 //
 // Steamworks module: friends (ISteamFriends)
 
@@ -84,46 +84,46 @@ void steam_friends_clear_callback_avatar_image_loaded()
     g_cb_avatar_image_loaded = nullptr;
 }
 
-void steam_friends_activate_game_overlay(std::string_view pchDialog)
+void steam_friends_activate_game_overlay(std::string_view dialog)
 {
     STEAM_GUARD();
     ISteamFriends* f = steam_friends_iface();
     if (!f)
         return;
 
-    std::string dlg(pchDialog);
+    std::string dlg(dialog);
     f->ActivateGameOverlay(dlg.c_str());
 }
 
-void steam_friends_activate_game_overlay_invite_dialog(std::uint64_t steamIDLobby)
+void steam_friends_activate_game_overlay_invite_dialog(std::uint64_t steam_id_lobby)
 {
     STEAM_GUARD();
     ISteamFriends* f = steam_friends_iface();
     if (!f)
         return;
 
-    f->ActivateGameOverlayInviteDialog(steam_id_from_u64(steamIDLobby));
+    f->ActivateGameOverlayInviteDialog(steam_id_from_u64(steam_id_lobby));
 }
 
-void steam_friends_activate_game_overlay_to_store(std::uint32_t nAppID, gm_enums::SteamFriendsOverlayToStoreFlag eFlag)
+void steam_friends_activate_game_overlay_to_store(std::uint32_t app_id, gm_enums::SteamFriendsOverlayToStoreFlag eFlag)
 {
     STEAM_GUARD();
     ISteamFriends* f = steam_friends_iface();
     if (!f)
         return;
 
-    f->ActivateGameOverlayToStore((AppId_t)nAppID, (EOverlayToStoreFlag)(int)eFlag);
+    f->ActivateGameOverlayToStore((AppId_t)app_id, (EOverlayToStoreFlag)(int)eFlag);
 }
 
-void steam_friends_activate_game_overlay_to_user(std::string_view pchDialog, std::uint64_t steamID)
+void steam_friends_activate_game_overlay_to_user(std::string_view dialog, std::uint64_t steam_id)
 {
     STEAM_GUARD();
     ISteamFriends* f = steam_friends_iface();
     if (!f)
         return;
 
-    std::string dlg(pchDialog);
-    f->ActivateGameOverlayToUser(dlg.c_str(), steam_id_from_u64(steamID));
+    std::string dlg(dialog);
+    f->ActivateGameOverlayToUser(dlg.c_str(), steam_id_from_u64(steam_id));
 }
 
 void steam_friends_activate_game_overlay_to_web_page(
@@ -149,28 +149,28 @@ void steam_friends_clear_rich_presence()
     f->ClearRichPresence();
 }
 
-bool steam_friends_close_clan_chat_window_in_steam(std::uint64_t steamIDClanChat)
+bool steam_friends_close_clan_chat_window_in_steam(std::uint64_t steam_id_clan_chat)
 {
     STEAM_GUARD_RET(false);
     ISteamFriends* f = steam_friends_iface();
     if (!f)
         return false;
 
-    return f->CloseClanChatWindowInSteam(steam_id_from_u64(steamIDClanChat));
+    return f->CloseClanChatWindowInSteam(steam_id_from_u64(steam_id_clan_chat));
 }
 
-std::uint64_t steam_friends_get_chat_member_by_index(std::uint64_t steamIDClan, std::int32_t iUser)
+std::uint64_t steam_friends_get_chat_member_by_index(std::uint64_t steam_id_clan, std::int32_t iUser)
 {
     STEAM_GUARD_RET(0);
     ISteamFriends* f = steam_friends_iface();
     if (!f)
         return 0;
 
-    CSteamID id = f->GetChatMemberByIndex(steam_id_from_u64(steamIDClan), iUser);
+    CSteamID id = f->GetChatMemberByIndex(steam_id_from_u64(steam_id_clan), iUser);
     return steam_u64_from_steam_id(id);
 }
 
-gm_structs::SteamFriendsClanActivityCounts steam_friends_get_clan_activity_counts(std::uint64_t steamIDClan)
+gm_structs::SteamFriendsClanActivityCounts steam_friends_get_clan_activity_counts(std::uint64_t steam_id_clan)
 {
     STEAM_GUARD_RET({});
 
@@ -185,7 +185,7 @@ gm_structs::SteamFriendsClanActivityCounts steam_friends_get_clan_activity_count
         return out;
 
     int online = 0, inGame = 0, chatting = 0;
-    const bool ok = f->GetClanActivityCounts(steam_id_from_u64(steamIDClan), &online, &inGame, &chatting);
+    const bool ok = f->GetClanActivityCounts(steam_id_from_u64(steam_id_clan), &online, &inGame, &chatting);
 
     out.ok = ok;
     if (ok) {
@@ -199,29 +199,29 @@ gm_structs::SteamFriendsClanActivityCounts steam_friends_get_clan_activity_count
     return out;
 }
 
-std::uint64_t steam_friends_get_clan_by_index(std::int32_t iClan)
+std::uint64_t steam_friends_get_clan_by_index(std::int32_t clan)
 {
     STEAM_GUARD_RET(0);
     ISteamFriends* f = steam_friends_iface();
     if (!f)
         return 0;
 
-    CSteamID id = f->GetClanByIndex(iClan);
+    CSteamID id = f->GetClanByIndex(clan);
     return steam_u64_from_steam_id(id);
 }
 
-std::int32_t steam_friends_get_clan_chat_member_count(std::uint64_t steamIDClan)
+std::int32_t steam_friends_get_clan_chat_member_count(std::uint64_t steam_id_clan)
 {
     STEAM_GUARD_RET(0);
     ISteamFriends* f = steam_friends_iface();
     if (!f)
         return 0;
 
-    return (std::int32_t)f->GetClanChatMemberCount(steam_id_from_u64(steamIDClan));
+    return (std::int32_t)f->GetClanChatMemberCount(steam_id_from_u64(steam_id_clan));
 }
 
 gm_structs::SteamFriendsClanChatMessage
-steam_friends_get_clan_chat_message(std::uint64_t steamIDClanChat, std::int32_t iMessage)
+steam_friends_get_clan_chat_message(std::uint64_t steam_id_clan_chat, std::int32_t iMessage)
 {
     STEAM_GUARD_RET({});
 
@@ -242,7 +242,7 @@ steam_friends_get_clan_chat_message(std::uint64_t steamIDClanChat, std::int32_t 
     EChatEntryType entry = k_EChatEntryTypeInvalid;
 
     const int bytes = f->GetClanChatMessage(
-        steam_id_from_u64(steamIDClanChat), iMessage, buf.data(), (int)buf.size(), &entry, &chatter
+        steam_id_from_u64(steam_id_clan_chat), iMessage, buf.data(), (int)buf.size(), &entry, &chatter
     );
 
     out.bytes_copied = bytes;
@@ -267,68 +267,68 @@ std::int32_t steam_friends_get_clan_count()
     return (std::int32_t)f->GetClanCount();
 }
 
-std::string steam_friends_get_clan_name(std::uint64_t steamIDClan)
+std::string steam_friends_get_clan_name(std::uint64_t steam_id_clan)
 {
     STEAM_GUARD_RET("");
     ISteamFriends* f = steam_friends_iface();
     if (!f)
         return "";
 
-    const char* s = f->GetClanName(steam_id_from_u64(steamIDClan));
+    const char* s = f->GetClanName(steam_id_from_u64(steam_id_clan));
     return s ? std::string(s) : std::string();
 }
 
-std::uint64_t steam_friends_get_clan_officer_by_index(std::uint64_t steamIDClan, std::int32_t iOfficer)
+std::uint64_t steam_friends_get_clan_officer_by_index(std::uint64_t steam_id_clan, std::int32_t officer)
 {
     STEAM_GUARD_RET(0);
     ISteamFriends* f = steam_friends_iface();
     if (!f)
         return 0;
 
-    CSteamID id = f->GetClanOfficerByIndex(steam_id_from_u64(steamIDClan), iOfficer);
+    CSteamID id = f->GetClanOfficerByIndex(steam_id_from_u64(steam_id_clan), officer);
     return steam_u64_from_steam_id(id);
 }
 
-std::int32_t steam_friends_get_clan_officer_count(std::uint64_t steamIDClan)
+std::int32_t steam_friends_get_clan_officer_count(std::uint64_t steam_id_clan)
 {
     STEAM_GUARD_RET(0);
     ISteamFriends* f = steam_friends_iface();
     if (!f)
         return 0;
 
-    return (std::int32_t)f->GetClanOfficerCount(steam_id_from_u64(steamIDClan));
+    return (std::int32_t)f->GetClanOfficerCount(steam_id_from_u64(steam_id_clan));
 }
 
-std::uint64_t steam_friends_get_clan_owner(std::uint64_t steamIDClan)
+std::uint64_t steam_friends_get_clan_owner(std::uint64_t steam_id_clan)
 {
     STEAM_GUARD_RET(0);
     ISteamFriends* f = steam_friends_iface();
     if (!f)
         return 0;
 
-    CSteamID id = f->GetClanOwner(steam_id_from_u64(steamIDClan));
+    CSteamID id = f->GetClanOwner(steam_id_from_u64(steam_id_clan));
     return steam_u64_from_steam_id(id);
 }
 
-std::string steam_friends_get_clan_tag(std::uint64_t steamIDClan)
+std::string steam_friends_get_clan_tag(std::uint64_t steam_id_clan)
 {
     STEAM_GUARD_RET("");
     ISteamFriends* f = steam_friends_iface();
     if (!f)
         return "";
 
-    const char* s = f->GetClanTag(steam_id_from_u64(steamIDClan));
+    const char* s = f->GetClanTag(steam_id_from_u64(steam_id_clan));
     return s ? std::string(s) : std::string();
 }
 
-std::uint64_t steam_friends_get_coplay_friend(std::int32_t iCoplayFriend)
+std::uint64_t steam_friends_get_coplay_friend(std::int32_t coplay_friend)
 {
     STEAM_GUARD_RET(0);
     ISteamFriends* f = steam_friends_iface();
     if (!f)
         return 0;
 
-    CSteamID id = f->GetCoplayFriend(iCoplayFriend);
+    CSteamID id = f->GetCoplayFriend(coplay_friend);
     return steam_u64_from_steam_id(id);
 }
 
@@ -353,24 +353,24 @@ std::uint64_t steam_friends_get_friend_by_index(std::int32_t iFriend, std::int32
     return steam_u64_from_steam_id(id);
 }
 
-std::uint32_t steam_friends_get_friend_coplay_game(std::uint64_t steamIDFriend)
+std::uint32_t steam_friends_get_friend_coplay_game(std::uint64_t steam_id_friend)
 {
     STEAM_GUARD_RET(0);
     ISteamFriends* f = steam_friends_iface();
     if (!f)
         return 0;
 
-    return (std::uint32_t)f->GetFriendCoplayGame(steam_id_from_u64(steamIDFriend));
+    return (std::uint32_t)f->GetFriendCoplayGame(steam_id_from_u64(steam_id_friend));
 }
 
-std::int32_t steam_friends_get_friend_coplay_time(std::uint64_t steamIDFriend)
+std::int32_t steam_friends_get_friend_coplay_time(std::uint64_t steam_id_friend)
 {
     STEAM_GUARD_RET(0);
     ISteamFriends* f = steam_friends_iface();
     if (!f)
         return 0;
 
-    return (std::int32_t)f->GetFriendCoplayTime(steam_id_from_u64(steamIDFriend));
+    return (std::int32_t)f->GetFriendCoplayTime(steam_id_from_u64(steam_id_friend));
 }
 
 std::int32_t steam_friends_get_friend_count(std::int32_t iFriendFlags)
@@ -383,32 +383,32 @@ std::int32_t steam_friends_get_friend_count(std::int32_t iFriendFlags)
     return (std::int32_t)f->GetFriendCount(iFriendFlags);
 }
 
-std::int32_t steam_friends_get_friend_count_from_source(std::uint64_t steamIDSource)
+std::int32_t steam_friends_get_friend_count_from_source(std::uint64_t steam_id_source)
 {
     STEAM_GUARD_RET(0);
     ISteamFriends* f = steam_friends_iface();
     if (!f)
         return 0;
 
-    return (std::int32_t)f->GetFriendCountFromSource(steam_id_from_u64(steamIDSource));
+    return (std::int32_t)f->GetFriendCountFromSource(steam_id_from_u64(steam_id_source));
 }
 
 // ============================================================
-// ISteamFriends — Part 4 (From source + game played + messages + persona)
+// ISteamFriends â€” Part 4 (From source + game played + messages + persona)
 // ============================================================
 
-std::uint64_t steam_friends_get_friend_from_source_by_index(std::uint64_t steamIDSource, std::int32_t iFriend)
+std::uint64_t steam_friends_get_friend_from_source_by_index(std::uint64_t steam_id_source, std::int32_t iFriend)
 {
     STEAM_GUARD_RET(0);
     ISteamFriends* f = steam_friends_iface();
     if (!f)
         return 0;
 
-    CSteamID id = f->GetFriendFromSourceByIndex(steam_id_from_u64(steamIDSource), iFriend);
+    CSteamID id = f->GetFriendFromSourceByIndex(steam_id_from_u64(steam_id_source), iFriend);
     return steam_u64_from_steam_id(id);
 }
 
-gm_structs::SteamFriendsFriendGamePlayed steam_friends_get_friend_game_played(std::uint64_t steamIDFriend)
+gm_structs::SteamFriendsFriendGamePlayed steam_friends_get_friend_game_played(std::uint64_t steam_id_friend)
 {
     STEAM_GUARD_RET({});
 
@@ -425,7 +425,7 @@ gm_structs::SteamFriendsFriendGamePlayed steam_friends_get_friend_game_played(st
         return out;
 
     FriendGameInfo_t info {};
-    const bool ok = f->GetFriendGamePlayed(steam_id_from_u64(steamIDFriend), &info);
+    const bool ok = f->GetFriendGamePlayed(steam_id_from_u64(steam_id_friend), &info);
 
     out.ok = ok;
     if (!ok)
@@ -441,7 +441,7 @@ gm_structs::SteamFriendsFriendGamePlayed steam_friends_get_friend_game_played(st
 }
 
 gm_structs::SteamFriendsFriendMessage
-steam_friends_get_friend_message(std::uint64_t steamIDFriend, std::int32_t iMessageID, std::int32_t cubData)
+steam_friends_get_friend_message(std::uint64_t steam_id_friend, std::int32_t message_id, std::int32_t data_size)
 {
     STEAM_GUARD_RET({});
 
@@ -454,16 +454,16 @@ steam_friends_get_friend_message(std::uint64_t steamIDFriend, std::int32_t iMess
     if (!f)
         return out;
 
-    if (cubData <= 0) {
-        steam_set_last_error("GetFriendMessage: cubData must be > 0.");
+    if (data_size <= 0) {
+        steam_set_last_error("GetFriendMessage: data_size must be > 0.");
         return out;
     }
 
-    std::vector<std::uint8_t> buf((size_t)cubData);
+    std::vector<std::uint8_t> buf((size_t)data_size);
 
     EChatEntryType entry = k_EChatEntryTypeInvalid;
     const int bytes
-        = f->GetFriendMessage(steam_id_from_u64(steamIDFriend), iMessageID, buf.data(), (int)buf.size(), &entry);
+        = f->GetFriendMessage(steam_id_from_u64(steam_id_friend), message_id, buf.data(), (int)buf.size(), &entry);
 
     out.bytes_copied = bytes;
     out.entry_type = (gm_enums::SteamFriendsChatEntryType)(int)entry;
@@ -476,51 +476,51 @@ steam_friends_get_friend_message(std::uint64_t steamIDFriend, std::int32_t iMess
     return out;
 }
 
-std::string steam_friends_get_friend_persona_name(std::uint64_t steamIDFriend)
+std::string steam_friends_get_friend_persona_name(std::uint64_t steam_id_friend)
 {
     STEAM_GUARD_RET("");
     ISteamFriends* f = steam_friends_iface();
     if (!f)
         return "";
 
-    const char* s = f->GetFriendPersonaName(steam_id_from_u64(steamIDFriend));
+    const char* s = f->GetFriendPersonaName(steam_id_from_u64(steam_id_friend));
     return s ? std::string(s) : std::string();
 }
 
-std::string steam_friends_get_friend_persona_name_history(std::uint64_t steamIDFriend, std::int32_t iPersonaName)
+std::string steam_friends_get_friend_persona_name_history(std::uint64_t steam_id_friend, std::int32_t persona_name)
 {
     STEAM_GUARD_RET("");
     ISteamFriends* f = steam_friends_iface();
     if (!f)
         return "";
 
-    const char* s = f->GetFriendPersonaNameHistory(steam_id_from_u64(steamIDFriend), iPersonaName);
+    const char* s = f->GetFriendPersonaNameHistory(steam_id_from_u64(steam_id_friend), persona_name);
     return s ? std::string(s) : std::string();
 }
 
-gm_enums::SteamFriendsPersonaState steam_friends_get_friend_persona_state(std::uint64_t steamIDFriend)
+gm_enums::SteamFriendsPersonaState steam_friends_get_friend_persona_state(std::uint64_t steam_id_friend)
 {
     STEAM_GUARD_RET(gm_enums::SteamFriendsPersonaState::Offline);
     ISteamFriends* f = steam_friends_iface();
     if (!f)
         return gm_enums::SteamFriendsPersonaState::Offline;
 
-    const EPersonaState st = f->GetFriendPersonaState(steam_id_from_u64(steamIDFriend));
+    const EPersonaState st = f->GetFriendPersonaState(steam_id_from_u64(steam_id_friend));
     return (gm_enums::SteamFriendsPersonaState)(int)st;
 }
 
-gm_enums::SteamFriendsRelationship steam_friends_get_friend_relationship(std::uint64_t steamIDFriend)
+gm_enums::SteamFriendsRelationship steam_friends_get_friend_relationship(std::uint64_t steam_id_friend)
 {
     STEAM_GUARD_RET({});
     ISteamFriends* f = steam_friends_iface();
     if (!f)
         return gm_enums::SteamFriendsRelationship::None;
 
-    const EFriendRelationship rel = f->GetFriendRelationship(steam_id_from_u64(steamIDFriend));
+    const EFriendRelationship rel = f->GetFriendRelationship(steam_id_from_u64(steam_id_friend));
     return (gm_enums::SteamFriendsRelationship)(int)rel;
 }
 
-std::string steam_friends_get_friend_rich_presence(std::uint64_t steamIDFriend, std::string_view pchKey)
+std::string steam_friends_get_friend_rich_presence(std::uint64_t steam_id_friend, std::string_view pchKey)
 {
     STEAM_GUARD_RET("");
     ISteamFriends* f = steam_friends_iface();
@@ -528,29 +528,29 @@ std::string steam_friends_get_friend_rich_presence(std::uint64_t steamIDFriend, 
         return "";
 
     std::string key(pchKey);
-    const char* s = f->GetFriendRichPresence(steam_id_from_u64(steamIDFriend), key.c_str());
+    const char* s = f->GetFriendRichPresence(steam_id_from_u64(steam_id_friend), key.c_str());
     return s ? std::string(s) : std::string();
 }
 
-std::string steam_friends_get_friend_rich_presence_key_by_index(std::uint64_t steamIDFriend, std::int32_t iKey)
+std::string steam_friends_get_friend_rich_presence_key_by_index(std::uint64_t steam_id_friend, std::int32_t iKey)
 {
     STEAM_GUARD_RET("");
     ISteamFriends* f = steam_friends_iface();
     if (!f)
         return "";
 
-    const char* s = f->GetFriendRichPresenceKeyByIndex(steam_id_from_u64(steamIDFriend), iKey);
+    const char* s = f->GetFriendRichPresenceKeyByIndex(steam_id_from_u64(steam_id_friend), iKey);
     return s ? std::string(s) : std::string();
 }
 
-std::int32_t steam_friends_get_friend_rich_presence_key_count(std::uint64_t steamIDFriend)
+std::int32_t steam_friends_get_friend_rich_presence_key_count(std::uint64_t steam_id_friend)
 {
     STEAM_GUARD_RET(0);
     ISteamFriends* f = steam_friends_iface();
     if (!f)
         return 0;
 
-    return (std::int32_t)f->GetFriendRichPresenceKeyCount(steam_id_from_u64(steamIDFriend));
+    return (std::int32_t)f->GetFriendRichPresenceKeyCount(steam_id_from_u64(steam_id_friend));
 }
 
 std::int32_t steam_friends_get_friends_group_count()
@@ -563,24 +563,24 @@ std::int32_t steam_friends_get_friends_group_count()
     return (std::int32_t)f->GetFriendsGroupCount();
 }
 
-std::int32_t steam_friends_get_friends_group_id_by_index(std::int32_t iFG)
+std::int32_t steam_friends_get_friends_group_id_by_index(std::int32_t fg)
 {
     STEAM_GUARD_RET(0);
     ISteamFriends* f = steam_friends_iface();
     if (!f)
         return 0;
 
-    return (std::int32_t)f->GetFriendsGroupIDByIndex(iFG);
+    return (std::int32_t)f->GetFriendsGroupIDByIndex(fg);
 }
 
-std::string steam_friends_get_friends_group_name(std::int32_t friendsGroupID)
+std::string steam_friends_get_friends_group_name(std::int32_t friends_group_id)
 {
     STEAM_GUARD_RET("");
     ISteamFriends* f = steam_friends_iface();
     if (!f)
         return "";
 
-    const char* s = f->GetFriendsGroupName((FriendsGroupID_t)friendsGroupID);
+    const char* s = f->GetFriendsGroupName((FriendsGroupID_t)friends_group_id);
     return s ? std::string(s) : std::string();
 }
 
@@ -617,17 +617,17 @@ std::int32_t steam_friends_get_medium_friend_avatar(std::uint64_t steam_id_frien
     return (std::int32_t)f->GetMediumFriendAvatar(steam_id_from_u64(steam_id_friend));
 }
 
-std::int32_t steam_friends_get_friends_group_members_count(std::int32_t friendsGroupID)
+std::int32_t steam_friends_get_friends_group_members_count(std::int32_t friends_group_id)
 {
     STEAM_GUARD_RET(0);
     ISteamFriends* f = steam_friends_iface();
     if (!f)
         return 0;
 
-    return (std::int32_t)f->GetFriendsGroupMembersCount((FriendsGroupID_t)friendsGroupID);
+    return (std::int32_t)f->GetFriendsGroupMembersCount((FriendsGroupID_t)friends_group_id);
 }
 
-std::vector<std::uint64_t> steam_friends_get_friends_group_members_list(std::int32_t friendsGroupID)
+std::vector<std::uint64_t> steam_friends_get_friends_group_members_list(std::int32_t friends_group_id)
 {
     std::vector<std::uint64_t> out;
 
@@ -637,12 +637,12 @@ std::vector<std::uint64_t> steam_friends_get_friends_group_members_list(std::int
     if (!f)
         return out;
 
-    const int n = f->GetFriendsGroupMembersCount((FriendsGroupID_t)friendsGroupID);
+    const int n = f->GetFriendsGroupMembersCount((FriendsGroupID_t)friends_group_id);
     if (n <= 0)
         return out;
 
     std::vector<CSteamID> ids((size_t)n);
-    f->GetFriendsGroupMembersList((FriendsGroupID_t)friendsGroupID, ids.data(), n);
+    f->GetFriendsGroupMembersList((FriendsGroupID_t)friends_group_id, ids.data(), n);
 
     out.reserve((size_t)n);
     for (int i = 0; i < n; ++i)
@@ -674,14 +674,14 @@ gm_enums::SteamFriendsPersonaState steam_friends_get_persona_state()
     return (gm_enums::SteamFriendsPersonaState)(int)st;
 }
 
-std::string steam_friends_get_player_nickname(std::uint64_t steamIDPlayer)
+std::string steam_friends_get_player_nickname(std::uint64_t steam_id_player)
 {
     STEAM_GUARD_RET("");
     ISteamFriends* f = steam_friends_iface();
     if (!f)
         return "";
 
-    const char* s = f->GetPlayerNickname(steam_id_from_u64(steamIDPlayer));
+    const char* s = f->GetPlayerNickname(steam_id_from_u64(steam_id_player));
     return s ? std::string(s) : std::string();
 }
 
@@ -696,118 +696,118 @@ std::int32_t steam_friends_get_small_friend_avatar(std::uint64_t steam_id_friend
     return (std::int32_t)f->GetSmallFriendAvatar(steam_id_from_u64(steam_id_friend));
 }
 
-bool steam_friends_has_friend(std::uint64_t steamIDFriend, std::int32_t iFriendFlags)
+bool steam_friends_has_friend(std::uint64_t steam_id_friend, std::int32_t iFriendFlags)
 {
     STEAM_GUARD_RET(false);
     ISteamFriends* f = steam_friends_iface();
     if (!f)
         return false;
 
-    return f->HasFriend(steam_id_from_u64(steamIDFriend), iFriendFlags);
+    return f->HasFriend(steam_id_from_u64(steam_id_friend), iFriendFlags);
 }
 
-bool steam_friends_invite_user_to_game(std::uint64_t steamIDFriend, std::string_view pchConnectString)
+bool steam_friends_invite_user_to_game(std::uint64_t steam_id_friend, std::string_view connect_string)
 {
     STEAM_GUARD_RET(false);
     ISteamFriends* f = steam_friends_iface();
     if (!f)
         return false;
 
-    std::string s(pchConnectString);
-    return f->InviteUserToGame(steam_id_from_u64(steamIDFriend), s.c_str());
+    std::string s(connect_string);
+    return f->InviteUserToGame(steam_id_from_u64(steam_id_friend), s.c_str());
 }
 
-bool steam_friends_is_clan_chat_admin(std::uint64_t steamIDClanChat, std::uint64_t steamIDUser)
+bool steam_friends_is_clan_chat_admin(std::uint64_t steam_id_clan_chat, std::uint64_t steam_id_user)
 {
     STEAM_GUARD_RET(false);
     ISteamFriends* f = steam_friends_iface();
     if (!f)
         return false;
 
-    return f->IsClanChatAdmin(steam_id_from_u64(steamIDClanChat), steam_id_from_u64(steamIDUser));
+    return f->IsClanChatAdmin(steam_id_from_u64(steam_id_clan_chat), steam_id_from_u64(steam_id_user));
 }
 
-bool steam_friends_is_clan_public(std::uint64_t steamIDClan)
+bool steam_friends_is_clan_public(std::uint64_t steam_id_clan)
 {
     STEAM_GUARD_RET(false);
     ISteamFriends* f = steam_friends_iface();
     if (!f)
         return false;
 
-    return f->IsClanPublic(steam_id_from_u64(steamIDClan));
+    return f->IsClanPublic(steam_id_from_u64(steam_id_clan));
 }
 
-bool steam_friends_is_clan_official_game_group(std::uint64_t steamIDClan)
+bool steam_friends_is_clan_official_game_group(std::uint64_t steam_id_clan)
 {
     STEAM_GUARD_RET(false);
     ISteamFriends* f = steam_friends_iface();
     if (!f)
         return false;
 
-    return f->IsClanOfficialGameGroup(steam_id_from_u64(steamIDClan));
+    return f->IsClanOfficialGameGroup(steam_id_from_u64(steam_id_clan));
 }
 
-bool steam_friends_is_clan_chat_window_open_in_steam(std::uint64_t steamIDClanChat)
+bool steam_friends_is_clan_chat_window_open_in_steam(std::uint64_t steam_id_clan_chat)
 {
     STEAM_GUARD_RET(false);
     ISteamFriends* f = steam_friends_iface();
     if (!f)
         return false;
 
-    return f->IsClanChatWindowOpenInSteam(steam_id_from_u64(steamIDClanChat));
+    return f->IsClanChatWindowOpenInSteam(steam_id_from_u64(steam_id_clan_chat));
 }
 
-bool steam_friends_is_user_in_source(std::uint64_t steamIDUser, std::uint64_t steamIDSource)
+bool steam_friends_is_user_in_source(std::uint64_t steam_id_user, std::uint64_t steam_id_source)
 {
     STEAM_GUARD_RET(false);
     ISteamFriends* f = steam_friends_iface();
     if (!f)
         return false;
 
-    return f->IsUserInSource(steam_id_from_u64(steamIDUser), steam_id_from_u64(steamIDSource));
+    return f->IsUserInSource(steam_id_from_u64(steam_id_user), steam_id_from_u64(steam_id_source));
 }
 
-void steam_friends_request_friend_rich_presence(std::uint64_t steamIDFriend)
+void steam_friends_request_friend_rich_presence(std::uint64_t steam_id_friend)
 {
     STEAM_GUARD();
     ISteamFriends* f = steam_friends_iface();
     if (!f)
         return;
 
-    f->RequestFriendRichPresence(steam_id_from_u64(steamIDFriend));
+    f->RequestFriendRichPresence(steam_id_from_u64(steam_id_friend));
 }
 
-bool steam_friends_request_user_information(std::uint64_t steamIDUser, bool bRequireNameOnly)
+bool steam_friends_request_user_information(std::uint64_t steam_id_user, bool require_name_only)
 {
     STEAM_GUARD_RET(false);
     ISteamFriends* f = steam_friends_iface();
     if (!f)
         return false;
 
-    return f->RequestUserInformation(steam_id_from_u64(steamIDUser), bRequireNameOnly);
+    return f->RequestUserInformation(steam_id_from_u64(steam_id_user), require_name_only);
 }
 
-void steam_friends_set_in_game_voice_speaking(std::uint64_t steamIDUser, bool bSpeaking)
+void steam_friends_set_in_game_voice_speaking(std::uint64_t steam_id_user, bool speaking)
 {
     STEAM_GUARD();
     ISteamFriends* f = steam_friends_iface();
     if (!f)
         return;
 
-    f->SetInGameVoiceSpeaking(steam_id_from_u64(steamIDUser), bSpeaking);
+    f->SetInGameVoiceSpeaking(steam_id_from_u64(steam_id_user), speaking);
 }
 
-void steam_friends_set_played_with(std::uint64_t steamIDUserPlayedWith)
+void steam_friends_set_played_with(std::uint64_t steam_id_user_played_with)
 {
     STEAM_GUARD();
     ISteamFriends* f = steam_friends_iface();
     if (!f)
         return;
 
-    f->SetPlayedWith(steam_id_from_u64(steamIDUserPlayedWith));
+    f->SetPlayedWith(steam_id_from_u64(steam_id_user_played_with));
 }
 
-bool steam_friends_set_rich_presence(std::string_view pchKey, std::string_view pchValue)
+bool steam_friends_set_rich_presence(std::string_view pchKey, std::string_view value)
 {
     STEAM_GUARD_RET(false);
     ISteamFriends* f = steam_friends_iface();
@@ -815,7 +815,7 @@ bool steam_friends_set_rich_presence(std::string_view pchKey, std::string_view p
         return false;
 
     std::string key(pchKey);
-    std::string val(pchValue);
+    std::string val(value);
 
     const bool ok = f->SetRichPresence(key.c_str(), val.c_str());
     if (!ok)
@@ -938,8 +938,8 @@ void steam_friends_request_clan_officer_list(std::uint64_t clan_steam_id,  const
 }
 
 bool steam_friends_download_clan_activity_counts(
-    const std::vector<std::uint64_t>& psteamIDClans,
-    std::int32_t cClansToRequest,
+    const std::vector<std::uint64_t>& steam_id_clans,
+    std::int32_t clans_to_request,
     const std::optional<gm::wire::GMFunction>& callback
 )
 {
@@ -951,8 +951,8 @@ bool steam_friends_download_clan_activity_counts(
 
     // Clamp requested count to input vector size
     const uint32 n = (uint32)std::min<std::size_t>(
-        psteamIDClans.size(),
-        (size_t)std::max<std::int32_t>(0, cClansToRequest)
+        steam_id_clans.size(),
+        (size_t)std::max<std::int32_t>(0, clans_to_request)
     );
 
     if (n == 0)
@@ -961,7 +961,7 @@ bool steam_friends_download_clan_activity_counts(
     std::vector<CSteamID> ids;
     ids.reserve(n);
     for (uint32 i = 0; i < n; ++i)
-        ids.push_back(steam_id_from_u64(psteamIDClans[(size_t)i]));
+        ids.push_back(steam_id_from_u64(steam_id_clans[(size_t)i]));
 
     SteamAPICall_t call = f->DownloadClanActivityCounts(ids.data(), (int)ids.size());
     if (!call)
@@ -1222,3 +1222,4 @@ void steam_friends_clear_callback_game_server_change_requested()
     std::lock_guard<std::mutex> lock(g_callbacks_mtx);
     g_cb_game_server_change_requested = nullptr;
 }
+

@@ -1,4 +1,4 @@
-#include "GMSteamworks.h"
+﻿#include "GMSteamworks.h"
 
 #include <atomic>
 #include <mutex>
@@ -27,3 +27,4 @@ std::string steam_api_last_error()
 }
 
 void steam_set_initialized(bool v) { g_steam_initialized.store(v); }
+

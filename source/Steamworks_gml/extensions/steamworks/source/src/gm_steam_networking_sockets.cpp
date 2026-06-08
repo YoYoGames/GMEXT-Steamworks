@@ -1,4 +1,4 @@
-#include "GMSteamworks.h"
+﻿#include "GMSteamworks.h"
 
 #include <steam/steam_api.h>
 #include <steam/isteamnetworkingsockets.h>
@@ -442,3 +442,4 @@ gm_structs::SteamNetworkingSocketsReceived steam_networking_sockets_receive_mess
     msg->Release();
     return out;
 }
+

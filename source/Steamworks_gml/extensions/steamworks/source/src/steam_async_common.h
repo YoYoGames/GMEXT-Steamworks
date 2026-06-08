@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 // steam_async_common.h
 
 
@@ -77,3 +77,4 @@ namespace steam_async
         }
     };
 }
+

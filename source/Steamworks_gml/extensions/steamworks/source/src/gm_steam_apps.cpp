@@ -1,4 +1,4 @@
-// gm_steam_apps.cpp
+﻿// gm_steam_apps.cpp
 //
 // Steamworks module: apps (ISteamApps)
 
@@ -30,7 +30,7 @@ static inline ISteamApps* steam_apps_iface()
     return a;
 }
 
-SteamAppsDlcData steam_apps_get_dlc_data_by_index(std::int32_t iDLC)
+SteamAppsDlcData steam_apps_get_dlc_data_by_index(std::int32_t dlc)
 {
     STEAM_GUARD_RET({});
 
@@ -51,7 +51,7 @@ SteamAppsDlcData steam_apps_get_dlc_data_by_index(std::int32_t iDLC)
     std::vector<char> nameBuf((size_t)cchNameBufferSize);
     nameBuf[0] = '\0';
 
-    const bool ok = a->BGetDLCDataByIndex(iDLC, &appId, &available, nameBuf.data(), (int)nameBuf.size());
+    const bool ok = a->BGetDLCDataByIndex(dlc, &appId, &available, nameBuf.data(), (int)nameBuf.size());
     out.ok = ok;
 
     if (!ok) {
@@ -65,14 +65,14 @@ SteamAppsDlcData steam_apps_get_dlc_data_by_index(std::int32_t iDLC)
     return out;
 }
 
-bool steam_apps_is_app_installed(std::uint32_t appID)
+bool steam_apps_is_app_installed(std::uint32_t app_id)
 {
     STEAM_GUARD_RET(false);
     ISteamApps* a = steam_apps_iface();
     if (!a)
         return false;
 
-    return a->BIsAppInstalled((AppId_t)appID);
+    return a->BIsAppInstalled((AppId_t)app_id);
 }
 
 bool steam_apps_is_cybercafe()
@@ -85,14 +85,14 @@ bool steam_apps_is_cybercafe()
     return a->BIsCybercafe();
 }
 
-bool steam_apps_is_dlc_installed(std::uint32_t appID)
+bool steam_apps_is_dlc_installed(std::uint32_t app_id)
 {
     STEAM_GUARD_RET(false);
     ISteamApps* a = steam_apps_iface();
     if (!a)
         return false;
 
-    return a->BIsDlcInstalled((AppId_t)appID);
+    return a->BIsDlcInstalled((AppId_t)app_id);
 }
 
 bool steam_apps_is_low_violence()
@@ -115,14 +115,14 @@ bool steam_apps_is_subscribed()
     return a->BIsSubscribed();
 }
 
-bool steam_apps_is_subscribed_app(std::uint32_t appID)
+bool steam_apps_is_subscribed_app(std::uint32_t app_id)
 {
     STEAM_GUARD_RET(false);
     ISteamApps* a = steam_apps_iface();
     if (!a)
         return false;
 
-    return a->BIsSubscribedApp((AppId_t)appID);
+    return a->BIsSubscribedApp((AppId_t)app_id);
 }
 
 bool steam_apps_is_subscribed_from_family_sharing()
@@ -193,7 +193,7 @@ std::int32_t steam_apps_get_app_build_id()
     return (std::int32_t)a->GetAppBuildId();
 }
 
-SteamAppsInstallDir steam_apps_get_app_install_dir(std::uint32_t appID)
+SteamAppsInstallDir steam_apps_get_app_install_dir(std::uint32_t app_id)
 {
     STEAM_GUARD_RET({});
 
@@ -209,7 +209,7 @@ SteamAppsInstallDir steam_apps_get_app_install_dir(std::uint32_t appID)
     std::vector<char> buf((size_t)cchFolderBufferSize);
     buf[0] = '\0';
 
-    const uint32 bytes = a->GetAppInstallDir((AppId_t)appID, buf.data(), (uint32)buf.size());
+    const uint32 bytes = a->GetAppInstallDir((AppId_t)app_id, buf.data(), (uint32)buf.size());
     out.bytes_copied = bytes;
 
     if (bytes == 0)
@@ -301,7 +301,7 @@ SteamAppsNumBetas steam_apps_get_num_betas()
 }
 
 SteamAppsBetaInfo
-steam_apps_get_beta_info(std::int32_t iBetaIndex)
+steam_apps_get_beta_info(std::int32_t beta_index)
 {
     STEAM_GUARD_RET({});
 
@@ -327,7 +327,7 @@ steam_apps_get_beta_info(std::int32_t iBetaIndex)
     uint32 buildId = 0;
 
     bool success = a->GetBetaInfo(
-        iBetaIndex,
+        beta_index,
         &flags,
         &buildId,
         nameBuf.data(),
@@ -347,14 +347,14 @@ steam_apps_get_beta_info(std::int32_t iBetaIndex)
     return out;
 }
 
-bool steam_apps_set_active_beta(std::string_view pchBetaName)
+bool steam_apps_set_active_beta(std::string_view beta_name)
 {
     STEAM_GUARD_RET(false);
     ISteamApps* a = steam_apps_iface();
     if (!a)
         return false;
 
-    std::string beta(pchBetaName);
+    std::string beta(beta_name);
     const bool ok = a->SetActiveBeta(beta.c_str());
 
     if (!ok)
@@ -384,7 +384,7 @@ std::int32_t steam_apps_get_dlc_count()
     return (std::int32_t)a->GetDLCCount();
 }
 
-SteamAppsDlcDownloadProgress steam_apps_get_dlc_download_progress(std::uint32_t nAppID)
+SteamAppsDlcDownloadProgress steam_apps_get_dlc_download_progress(std::uint32_t app_id)
 {
     STEAM_GUARD_RET({});
 
@@ -399,7 +399,7 @@ SteamAppsDlcDownloadProgress steam_apps_get_dlc_download_progress(std::uint32_t 
 
     uint64 downloaded = 0;
     uint64 total = 0;
-    const bool ok = a->GetDlcDownloadProgress((AppId_t)nAppID, &downloaded, &total);
+    const bool ok = a->GetDlcDownloadProgress((AppId_t)app_id, &downloaded, &total);
 
     out.ok = ok;
     if (!ok)
@@ -410,17 +410,17 @@ SteamAppsDlcDownloadProgress steam_apps_get_dlc_download_progress(std::uint32_t 
     return out;
 }
 
-std::uint32_t steam_apps_get_earliest_purchase_unix_time(std::uint32_t nAppID)
+std::uint32_t steam_apps_get_earliest_purchase_unix_time(std::uint32_t app_id)
 {
     STEAM_GUARD_RET(0);
     ISteamApps* a = steam_apps_iface();
     if (!a)
         return 0;
 
-    return (std::uint32_t)a->GetEarliestPurchaseUnixTime((AppId_t)nAppID);
+    return (std::uint32_t)a->GetEarliestPurchaseUnixTime((AppId_t)app_id);
 }
 
-std::vector<std::uint32_t> steam_apps_get_installed_depots(std::uint32_t appID, std::uint32_t cMaxDepots)
+std::vector<std::uint32_t> steam_apps_get_installed_depots(std::uint32_t app_id, std::uint32_t max_depots)
 {
     std::vector<std::uint32_t> out;
 
@@ -430,13 +430,13 @@ std::vector<std::uint32_t> steam_apps_get_installed_depots(std::uint32_t appID, 
     if (!a)
         return out;
 
-    if (cMaxDepots == 0)
+    if (max_depots == 0)
         return out;
 
     std::vector<DepotId_t> depots;
-    depots.resize((size_t)cMaxDepots);
+    depots.resize((size_t)max_depots);
 
-    const uint32 n = a->GetInstalledDepots((AppId_t)appID, depots.data(), (uint32)depots.size());
+    const uint32 n = a->GetInstalledDepots((AppId_t)app_id, depots.data(), (uint32)depots.size());
 
     out.reserve((size_t)n);
     for (uint32 i = 0; i < n; ++i)
@@ -445,7 +445,7 @@ std::vector<std::uint32_t> steam_apps_get_installed_depots(std::uint32_t appID, 
     return out;
 }
 
-SteamAppsLaunchCommandLine steam_apps_get_launch_command_line(std::int32_t cubCommandLine)
+SteamAppsLaunchCommandLine steam_apps_get_launch_command_line(std::int32_t command_line_size)
 {
     STEAM_GUARD_RET({});
 
@@ -457,12 +457,12 @@ SteamAppsLaunchCommandLine steam_apps_get_launch_command_line(std::int32_t cubCo
     if (!a)
         return out;
 
-    if (cubCommandLine <= 0) {
-        steam_set_last_error("GetLaunchCommandLine: cubCommandLine must be > 0.");
+    if (command_line_size <= 0) {
+        steam_set_last_error("GetLaunchCommandLine: command_line_size must be > 0.");
         return out;
     }
 
-    std::vector<char> buf((size_t)cubCommandLine);
+    std::vector<char> buf((size_t)command_line_size);
     buf[0] = '\0';
 
     const int bytes = a->GetLaunchCommandLine(buf.data(), (int)buf.size());
@@ -487,24 +487,24 @@ std::string steam_apps_get_launch_query_param(std::string_view pchKey)
     return s ? std::string(s) : std::string();
 }
 
-void steam_apps_install_dlc(std::uint32_t nAppID)
+void steam_apps_install_dlc(std::uint32_t app_id)
 {
     STEAM_GUARD();
     ISteamApps* a = steam_apps_iface();
     if (!a)
         return;
 
-    a->InstallDLC((AppId_t)nAppID);
+    a->InstallDLC((AppId_t)app_id);
 }
 
-bool steam_apps_mark_content_corrupt(bool bMissingFilesOnly)
+bool steam_apps_mark_content_corrupt(bool missing_files_only)
 {
     STEAM_GUARD_RET(false);
     ISteamApps* a = steam_apps_iface();
     if (!a)
         return false;
 
-    return a->MarkContentCorrupt(bMissingFilesOnly);
+    return a->MarkContentCorrupt(missing_files_only);
 }
 
 void steam_apps_request_all_proof_of_purchase_keys()
@@ -518,7 +518,7 @@ void steam_apps_request_all_proof_of_purchase_keys()
     a->RequestAllProofOfPurchaseKeys();
 }
 
-void steam_apps_request_app_proof_of_purchase_key(std::uint32_t nAppID)
+void steam_apps_request_app_proof_of_purchase_key(std::uint32_t app_id)
 {
     STEAM_GUARD();
     ISteamApps* a = steam_apps_iface();
@@ -526,17 +526,17 @@ void steam_apps_request_app_proof_of_purchase_key(std::uint32_t nAppID)
         return;
 
     // Deprecated by Valve, but still present in many SDKs.
-    a->RequestAppProofOfPurchaseKey((AppId_t)nAppID);
+    a->RequestAppProofOfPurchaseKey((AppId_t)app_id);
 }
 
-void steam_apps_uninstall_dlc(std::uint32_t nAppID)
+void steam_apps_uninstall_dlc(std::uint32_t app_id)
 {
     STEAM_GUARD();
     ISteamApps* a = steam_apps_iface();
     if (!a)
         return;
 
-    a->UninstallDLC((AppId_t)nAppID);
+    a->UninstallDLC((AppId_t)app_id);
 }
 
 static inline gm_structs::SteamAppsFileDetailsResult apps_fromNative(const FileDetailsResult_t& e)
@@ -681,3 +681,4 @@ std::uint32_t steam_apps_get_app_ownership_ticket_data(
     
     return (std::uint32_t)written;
 }
+

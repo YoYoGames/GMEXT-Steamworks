@@ -1,4 +1,4 @@
-// gm_steam_userstats.cpp
+﻿// gm_steam_userstats.cpp
 //
 // Steamworks module: userstats (ISteamUserStats)
 
@@ -1098,3 +1098,4 @@ void steam_userstats_clear_callback_user_achievement_stored()
     std::lock_guard<std::mutex> lock(g_callbacks_mtx);
     g_cb_user_achievement_stored = nullptr;
 }
+

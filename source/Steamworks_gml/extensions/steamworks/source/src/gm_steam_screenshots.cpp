@@ -1,4 +1,4 @@
-// gm_steam_screenshots.cpp
+﻿// gm_steam_screenshots.cpp
 //
 // Steamworks module: screenshots (ISteamScreenshots)
 
@@ -112,7 +112,7 @@ static inline const char* steam_opt_cstr_or_null(std::string_view s, std::string
     return tmp_storage.c_str();
 }
 
-std::uint32_t steam_screenshots_add_screenshot_to_library(std::string_view pchFilename, std::string_view pchThumbnailFilename, std::int32_t nWidth, std::int32_t nHeight
+std::uint32_t steam_screenshots_add_screenshot_to_library(std::string_view filename, std::string_view thumbnail_filename, std::int32_t width, std::int32_t height
 )
 {
     STEAM_GUARD_RET(0);
@@ -120,20 +120,20 @@ std::uint32_t steam_screenshots_add_screenshot_to_library(std::string_view pchFi
     if (!ss)
         return 0;
 
-    std::string fn(pchFilename);
+    std::string fn(filename);
     if (fn.empty()) {
-        steam_set_last_error("AddScreenshotToLibrary: pchFilename is required.");
+        steam_set_last_error("AddScreenshotToLibrary: filename is required.");
         return 0;
     }
 
     std::string thumbTmp;
-    const char* thumb = steam_opt_cstr_or_null(pchThumbnailFilename, thumbTmp);
+    const char* thumb = steam_opt_cstr_or_null(thumbnail_filename, thumbTmp);
 
-    return (std::uint32_t)ss->AddScreenshotToLibrary(fn.c_str(), thumb, (int)nWidth, (int)nHeight);
+    return (std::uint32_t)ss->AddScreenshotToLibrary(fn.c_str(), thumb, (int)width, (int)height);
 }
 
 std::uint32_t steam_screenshots_add_vr_screenshot_to_library(
-    gm_enums::SteamScreenshotsVrScreenshotType eType, std::string_view pchFilename, std::string_view pchVRFilename
+    gm_enums::SteamScreenshotsVrScreenshotType eType, std::string_view filename, std::string_view vr_filename
 )
 {
     STEAM_GUARD_RET(0);
@@ -141,25 +141,25 @@ std::uint32_t steam_screenshots_add_vr_screenshot_to_library(
     if (!ss)
         return 0;
 
-    std::string fn(pchFilename);
-    std::string vr(pchVRFilename);
+    std::string fn(filename);
+    std::string vr(vr_filename);
 
     if (fn.empty() || vr.empty()) {
-        steam_set_last_error("AddVRScreenshotToLibrary: pchFilename and pchVRFilename are required.");
+        steam_set_last_error("AddVRScreenshotToLibrary: filename and vr_filename are required.");
         return 0;
     }
 
     return (std::uint32_t)ss->AddVRScreenshotToLibrary((EVRScreenshotType)(int)eType, fn.c_str(), vr.c_str());
 }
 
-void steam_screenshots_hook_screenshots(bool bHook)
+void steam_screenshots_hook_screenshots(bool hook)
 {
     STEAM_GUARD();
     ISteamScreenshots* ss = steam_screenshots_iface();
     if (!ss)
         return;
 
-    ss->HookScreenshots(bHook);
+    ss->HookScreenshots(hook);
 }
 
 bool steam_screenshots_is_screenshots_hooked()
@@ -172,55 +172,55 @@ bool steam_screenshots_is_screenshots_hooked()
     return ss->IsScreenshotsHooked();
 }
 
-bool steam_screenshots_set_location(std::uint32_t hScreenshot, std::string_view pchLocation)
+bool steam_screenshots_set_location(std::uint32_t screenshot, std::string_view location)
 {
     STEAM_GUARD_RET(false);
     ISteamScreenshots* ss = steam_screenshots_iface();
     if (!ss)
         return false;
 
-    if (hScreenshot == 0) {
+    if (screenshot == 0) {
         steam_set_last_error("SetLocation: invalid screenshot handle (0).");
         return false;
     }
 
-    std::string loc(pchLocation);
+    std::string loc(location);
     if (loc.empty()) {
         steam_set_last_error("SetLocation: location string is required.");
         return false;
     }
 
-    return ss->SetLocation((ScreenshotHandle)hScreenshot, loc.c_str());
+    return ss->SetLocation((ScreenshotHandle)screenshot, loc.c_str());
 }
 
-bool steam_screenshots_tag_published_file(std::uint32_t hScreenshot, std::uint64_t unPublishedFileID)
+bool steam_screenshots_tag_published_file(std::uint32_t screenshot, std::uint64_t published_file_id)
 {
     STEAM_GUARD_RET(false);
     ISteamScreenshots* ss = steam_screenshots_iface();
     if (!ss)
         return false;
 
-    if (hScreenshot == 0) {
+    if (screenshot == 0) {
         steam_set_last_error("TagPublishedFile: invalid screenshot handle (0).");
         return false;
     }
 
-    return ss->TagPublishedFile((ScreenshotHandle)hScreenshot, (PublishedFileId_t)unPublishedFileID);
+    return ss->TagPublishedFile((ScreenshotHandle)screenshot, (PublishedFileId_t)published_file_id);
 }
 
-bool steam_screenshots_tag_user(std::uint32_t hScreenshot, std::uint64_t steamID)
+bool steam_screenshots_tag_user(std::uint32_t screenshot, std::uint64_t steam_id)
 {
     STEAM_GUARD_RET(false);
     ISteamScreenshots* ss = steam_screenshots_iface();
     if (!ss)
         return false;
 
-    if (hScreenshot == 0) {
+    if (screenshot == 0) {
         steam_set_last_error("TagUser: invalid screenshot handle (0).");
         return false;
     }
 
-    return ss->TagUser((ScreenshotHandle)hScreenshot, steam_id_from_u64(steamID));
+    return ss->TagUser((ScreenshotHandle)screenshot, steam_id_from_u64(steam_id));
 }
 
 void steam_screenshots_trigger_screenshot()
@@ -234,7 +234,7 @@ void steam_screenshots_trigger_screenshot()
 }
 
 std::uint32_t steam_screenshots_write_screenshot(
-    gm::wire::GMBuffer pubRGB, std::uint32_t cubRGB, std::int32_t nWidth, std::int32_t nHeight
+    gm::wire::GMBuffer buff_rgb, std::uint32_t rgb_size, std::int32_t width, std::int32_t height
 )
 {
     STEAM_GUARD_RET(0);
@@ -242,18 +242,19 @@ std::uint32_t steam_screenshots_write_screenshot(
     if (!ss)
         return 0;
 
-    if (cubRGB == 0) {
-        steam_set_last_error("WriteScreenshot: cubRGB must be > 0.");
+    if (rgb_size == 0) {
+        steam_set_last_error("WriteScreenshot: rgb_size must be > 0.");
         return 0;
     }
 
     std::vector<std::uint8_t> rgb;
-    rgb.resize((size_t)cubRGB);
+    rgb.resize((size_t)rgb_size);
 
-    auto reader = pubRGB.getReader();
-    reader.readBytes((char*)rgb.data(), (int)cubRGB);
+    auto reader = buff_rgb.getReader();
+    reader.readBytes((char*)rgb.data(), (int)rgb_size);
 
     // NOTE: Steam expects raw RGB data (no alpha) in a specific packing (typically 24-bit RGB).
     // Ensure your GML side writes the correct format and byte order.
-    return (std::uint32_t)ss->WriteScreenshot(rgb.data(), (uint32)cubRGB, (int)nWidth, (int)nHeight);
+    return (std::uint32_t)ss->WriteScreenshot(rgb.data(), (uint32)rgb_size, (int)width, (int)height);
 }
+
