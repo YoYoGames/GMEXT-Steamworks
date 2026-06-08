@@ -4,7 +4,7 @@
  *
  * This function returns a string containing the last error that occurred.
  *
- * @returns {String} 
+ * @returns {String}
  * @function_end
  */
 
@@ -24,7 +24,7 @@
  *
  * This function initialises the Steamworks API and returns if this was successful or not.
  *
- * @param {Real} unOwnAppID The app ID.
+ * @param {Real} own_app_id The app ID.
  * @returns {Bool}
  * @function_end
  */
@@ -48,7 +48,7 @@
  * 
  * See [Initialization and Shutdown](https://partner.steamgames.com/doc/sdk/api#initialization_and_shutdown) for additional information.
  *
- * @param {Real} unOwnAppID The app ID.
+ * @param {Real} own_app_id The app ID.
  * @returns {Bool}
  * @function_end
  */
@@ -103,9 +103,9 @@
  *
  * This function activates the [Steam-overlay](https://partner.steamgames.com/doc/features/overlay) to a specific dialog.
  * 
- * This is equivalent to calling ${function.steam_friends_activate_game_overlay_to_user} with `steamID` set to ${function.steam_user_get_steam_id}.
+ * This is equivalent to calling ${function.steam_friends_activate_game_overlay_to_user} with `steam_id` set to ${function.steam_user_get_steam_id}.
  *
- * @param {String} pchDialog The dialog to open. Valid options are: `"friends"`, `"community"`, `"players"`, `"settings"`, `"officialgamegroup"`, `"stats"`, `"achievements"`.
+ * @param {String} dialog The dialog to open. Valid options are: `"friends"`, `"community"`, `"players"`, `"settings"`, `"officialgamegroup"`, `"stats"`, `"achievements"`.
  * @function_end
  */
 
@@ -125,10 +125,10 @@
  *
  * This function activates the [Steam-overlay](https://partner.steamgames.com/doc/features/overlay) to the Steam store page for the provided app.
  * 
- * Using k_uAppIdInvalid brings the user to the front page of the Steam store.
+ * Using `SteamApiAppIdInvalid` brings the user to the front page of the Steam store.
  *
- * @param {Real} nAppID The app ID to show the store page of.
- * @param {Enum.SteamFriendsOverlayToStoreFlag} eFlag Flags to modify the behaviour when the page opens.
+ * @param {Real} app_id The app ID to show the store page of.
+ * @param {Enum.SteamFriendsOverlayToStoreFlag} flag Flags to modify the behaviour when the page opens.
  * @function_end
  */
 
@@ -138,7 +138,7 @@
  *
  * This function activates [Steam-overlay](https://partner.steamgames.com/doc/features/overlay) to a specific dialog.
  * 
- * Valid `pchDialog` options are:
+ * Valid `dialog` options are:
  * 
  * * `"steamid"` - Opens the overlay web browser to the specified user or groups profile.
  * * `"chat"` - Opens a chat window to the specified user, or joins the group chat.
@@ -150,8 +150,8 @@
  * * `"friendrequestaccept"` - Opens the overlay in minimal mode prompting the user to accept an incoming friend invite.
  * * `"friendrequestignore"` - Opens the overlay in minimal mode prompting the user to ignore an incoming friend invite.
  *
- * @param {String} pchDialog The dialog to open.
- * @param {Real} steamID The Steam ID of the context to open this dialog to.
+ * @param {String} dialog The dialog to open.
+ * @param {Real} steam_id The Steam ID of the context to open this dialog to.
  * @function_end
  */
 
@@ -161,8 +161,8 @@
  *
  * This function activates [Steam-overlay](https://partner.steamgames.com/doc/features/overlay) web browser directly to the specified URL.
  *
- * @param {String} pchURL The webpage to open. (A fully qualified address with the protocol is required, e.g. `"http://www.steampowered.com"`)
- * @param {Enum.SteamFriendsOverlayToWebpageMode} eMode Mode for the web page. Defaults to `SteamFriendsOverlayToWebpageMode.Default`.
+ * @param {String} url The webpage to open. (A fully qualified address with the protocol is required, e.g. `"http://www.steampowered.com"`)
+ * @param {Enum.SteamFriendsOverlayToWebpageMode} mode Mode for the web page. Defaults to `SteamFriendsOverlayToWebpageMode.Default`.
  * @function_end
  */
 
@@ -181,7 +181,7 @@
  *
  * This function closes the specified Steam group chat room in the Steam UI. Returns `true` if the user successfully left the Steam group chat room, `false` if the user is not in the provided Steam group chat room.
  *
- * @param {Real} steamIDClanChat The Steam ID of the Steam group chat room to close.
+ * @param {Real} steam_id_clan_chat The Steam ID of the Steam group chat room to close.
  * @returns {Bool}
  * @function_end
  */
@@ -214,6 +214,8 @@
  * This function gets the list of users that the current user is following.
  * 
  * You can be following people that are not your friends. Following allows you to receive updates when the person does things like post a new piece of content to the Steam Workshop.
+ * 
+ * [[Note: This returns up to `SteamFriendsEnumerateFollowersMax` users at once. If the current user is following more than that, you will need to call this repeatedly, with `start_index` set to the total number of followers that you have received so far.]]
  *
  * @param {Real} unStartIndex The index to start receiving followers from. This should be 0 on the initial call.
  * @param {Function} [callback] The function to call upon completion.
@@ -223,7 +225,7 @@
  * @member {Enum.SteamApiResult} result The result of the operation.
  * @member {Array[Real]} steam_ids The list of users that we are following.
  * @member {Real} results_returned The number of results returned in `steam_ids`.
- * @member {Real} total_result_count The total number of people we are following. If this is greater than `results_returned` Then you should make a subsequent call to ${function.steam_friends_enumerate_following_list} with `results_returned` as the index to get the next portion of followers.
+ * @member {Real} total_result_count The total number of people we are following. If this is greater than `results_returned` then you should make a subsequent call to ${function.steam_friends_enumerate_following_list} with `results_returned` as the index to get the next portion of followers.
  * @event_end
  * @function_end
  */
@@ -259,8 +261,8 @@
  * 
  * [[Note: You must call ${function.steam_friends_get_clan_chat_member_count} before calling this.]]
  *
- * @param {Real} steamIDClan This MUST be the same source used in the previous call to ${function.steam_friends_get_clan_chat_member_count}!
- * @param {Real} iUser An index between 0 and ${function.steam_friends_get_clan_chat_member_count}.
+ * @param {Real} steam_id_clan This MUST be the same source used in the previous call to ${function.steam_friends_get_clan_chat_member_count}!
+ * @param {Real} user An index between 0 and ${function.steam_friends_get_clan_chat_member_count}.
  * @returns {Real}
  * @function_end
  */
@@ -273,7 +275,7 @@
  * 
  * This can only retrieve data that the local client knows about. To refresh the data or get data from a group other than one that the current user is a member of you must call ${function.steam_friends_download_clan_activity_counts}.
  *
- * @param {Real} steamIDClan The Steam group to get the activity of.
+ * @param {Real} steam_id_clan The Steam group to get the activity of.
  * @returns {Struct.SteamFriendsClanActivityCounts}
  * @function_end
  */
@@ -282,11 +284,13 @@
  * @function steam_friends_get_clan_by_index
  * @description > **Steamworks Function**: [ISteamFriends::GetClanByIndex](https://partner.steamgames.com/doc/api/ISteamFriends#GetClanByIndex)
  *
+ * **This API is deprecated.**
+ * 
  * This function gets the Steam group's Steam ID at the given index.
  * 
  * [[Note: You must call ${function.steam_friends_get_clan_count} before calling this.]]
  *
- * @param {Real} iClan An index between 0 and ${function.steam_friends_get_clan_count}.
+ * @param {Real} clan An index between 0 and ${function.steam_friends_get_clan_count}.
  * @returns {Real}
  * @function_end
  */
@@ -294,7 +298,9 @@
 /**
  * @function steam_friends_get_clan_chat_member_count
  * @description > **Steamworks Function**: [ISteamFriends::GetClanChatMemberCount](https://partner.steamgames.com/doc/api/ISteamFriends#GetClanChatMemberCount)
- *
+ * 
+ * **This API is deprecated.**
+ * 
  * This function gets the number of users in a Steam group chat.
  * 
  * [[Note: Large steam groups cannot be iterated by the local user.]]
@@ -303,7 +309,7 @@
  * 
  * This is used for iteration, after calling this then ${function.steam_friends_get_chat_member_by_index} can be used to get the Steam ID of each person in the chat.
  *
- * @param {Real} steamIDClan The Steam group to get the chat count of.
+ * @param {Real} steam_id_clan The Steam group to get the chat count of.
  * @returns {Real}
  * @function_end
  */
@@ -316,8 +322,8 @@
  * 
  * This should only ever be called in response to a [GameConnectedClanChatMsg_t](https://partner.steamgames.com/doc/api/ISteamFriends#GameConnectedClanChatMsg_t) callback.
  *
- * @param {Real} steamIDClanChat The Steam ID of the Steam group chat room.
- * @param {Real} iMessage The index of the message. This should be the m_iMessageID field of [GameConnectedClanChatMsg_t](https://partner.steamgames.com/doc/api/ISteamFriends#GameConnectedClanChatMsg_t).
+ * @param {Real} steam_id_clan_chat The Steam ID of the Steam group chat room.
+ * @param {Real} message The index of the message. This should be the m_iMessageID field of [GameConnectedClanChatMsg_t](https://partner.steamgames.com/doc/api/ISteamFriends#GameConnectedClanChatMsg_t).
  * @returns {Struct.SteamFriendsClanChatMessage}
  * @function_end
  */
@@ -340,7 +346,7 @@
  *
  * This function gets the display name for the specified Steam group; if the local client knows about it.
  *
- * @param {Real} steamIDClan The Steam group to get the name of.
+ * @param {Real} steam_id_clan The Steam group to get the name of.
  * @returns {String} The Steam group's name in UTF-8 format. Returns an empty string (`""`) if the provided Steam ID is invalid or the user does not know about the group.
  * @function_end
  */
@@ -353,7 +359,7 @@
  * 
  * [[Note: You must call ${function.steam_friends_get_clan_officer_count} before calling this.]]
  *
- * @param {Real} steamIDClan This must be the same steam group used in the previous call to ${function.steam_friends_get_clan_officer_count}!
+ * @param {Real} steam_id_clan This must be the same steam group used in the previous call to ${function.steam_friends_get_clan_officer_count}!
  * @param {Real} iOfficer An index between 0 and ${function.steam_friends_get_clan_officer_count}.
  * @returns {Real}
  * @function_end
@@ -369,9 +375,9 @@
  * 
  * This is used for iteration, after calling this then ${function.steam_friends_get_clan_officer_by_index} can be used to get the Steam ID of each officer.
  * 
- * [[Note: You must call RequestClanOfficerList before this to get the required data!]]
+ * [[Note: You must call ${function.steam_friends_request_clan_officer_list} before this to get the required data!]]
  *
- * @param {Real} steamIDClan The Steam group to get the officer count of.
+ * @param {Real} steam_id_clan The Steam group to get the officer count of.
  * @returns {Real} 
  * @function_end
  */
@@ -384,7 +390,7 @@
  * 
  * [[Note: You must call ${function.steam_friends_request_clan_officer_list} before this to get the required data!]]
  *
- * @param {Real} steamIDClan The Steam ID of the Steam group to get the owner for.
+ * @param {Real} steam_id_clan The Steam ID of the Steam group to get the owner for.
  * @returns {Real}
  * @function_end
  */
@@ -397,7 +403,7 @@
  * 
  * The Steam group abbreviation is a unique way for people to identify the group and is limited to 12 characters. In some games this will appear next to the name of group members.
  *
- * @param {Real} steamIDClan The Steam group to get the tag of.
+ * @param {Real} steam_id_clan The Steam group to get the tag of.
  * @returns {String}
  * @function_end
  */
@@ -410,7 +416,7 @@
  * 
  * [[Note: You must call ${function.steam_friends_get_coplay_friend_count} before calling this.]]
  *
- * @param {Real} iCoplayFriend An index between 0 and ${function.steam_friends_get_coplay_friend_count}.
+ * @param {Real} coplay_friend An index between 0 and ${function.steam_friends_get_coplay_friend_count}.
  * @returns {Real}
  * @function_end
  */
@@ -435,7 +441,7 @@
  *
  * This function gets the number of users following the specified user.
  *
- * @param {Real} steamID The user to get the follower count for.
+ * @param {Real} steam_id The user to get the follower count for.
  * @param {Function} [callback] The function to call upon completion.
  * 
  * @event callback
@@ -455,8 +461,8 @@
  * 
  * [[Note: You must call ${function.steam_friends_get_friend_count} before calling this.]]
  *
- * @param {Real} iFriend An index between 0 and ${function.steam_friends_get_friend_count}.
- * @param {Real} iFriendFlags A combined union (binary "or") of ${enum.SteamFriendsFriendFlag}. This must be the same value as used in the previous call to ${function.steam_friends_get_friend_count}.
+ * @param {Real} friend An index between 0 and ${function.steam_friends_get_friend_count}.
+ * @param {Real} friend_flags A combined union (binary "or") of ${enum.SteamFriendsFriendFlag}. This must be the same value as used in the previous call to ${function.steam_friends_get_friend_count}.
  * @returns {Real} 
  * @function_end
  */
@@ -467,7 +473,7 @@
  *
  * This function gets the app ID of the game that user played with someone on their recently-played-with list.
  *
- * @param {Real} steamIDFriend The Steam ID of the user on the recently-played-with list to get the game played.
+ * @param {Real} steam_id_friend The Steam ID of the user on the recently-played-with list to get the game played.
  * @returns {Real} 
  * @function_end
  */
@@ -478,7 +484,7 @@
  *
  * This function gets the timestamp of when the user played with someone on their recently-played-with list.
  *
- * @param {Real}  The Steam ID of the user on the recently-played-with list to get the timestamp for.
+ * @param {Real} steam_id_friend The Steam ID of the user on the recently-played-with list to get the timestamp for.
  * @returns {Real} 
  * @function_end
  */
@@ -491,7 +497,7 @@
  * 
  * This can be used to iterate over all of the users by calling ${function.steam_friends_get_friend_by_index} to get the Steam IDs of each user.
  *
- * @param {Real} iFriendFlags A combined union (binary "or") of one or more ${enum.SteamFriendsFriendFlag}.
+ * @param {Real} friend_flags A combined union (binary "or") of one or more ${enum.SteamFriendsFriendFlag}.
  * @returns {Real} 
  * @function_end
  */
@@ -508,7 +514,7 @@
  * 
  * This is used for iteration, after calling this then ${function.steam_friends_get_friend_from_source_by_index} can be used to get the Steam ID of each person in the source.
  *
- * @param {Real} steamIDSource The Steam group, chat room, lobby or game server to get the user count of.
+ * @param {Real} steam_id_source The Steam group, chat room, lobby or game server to get the user count of.
  * @returns {Real} 
  * @function_end
  */
@@ -521,8 +527,8 @@
  * 
  * [[Note: You must call ${function.steam_friends_get_friend_count_from_source} before calling this.]]
  *
- * @param {Real} steamIDSource This MUST be the same source used in the previous call to ${function.steam_friends_get_friend_count_from_source}!
- * @param {Real} iFriend An index between 0 and ${function.steam_friends_get_friend_count_from_source}.
+ * @param {Real} steam_id_source This MUST be the same source used in the previous call to ${function.steam_friends_get_friend_count_from_source}!
+ * @param {Real} friend An index between 0 and ${function.steam_friends_get_friend_count_from_source}.
  * @returns {Real} 
  * @function_end
  */
@@ -533,8 +539,8 @@
  *
  * This function checks if the specified friend is in a game, and gets info about the game if they are.
  *
- * @param {Real} steamIDFriend The Steam ID of the other user.
- * @returns {Struct.SteamFriendsFriendGamePlayed} Fills in the details if the user is in a game.
+ * @param {Real} steam_id_friend The Steam ID of the other user.
+ * @returns {Struct.SteamFriendsFriendGamePlayed} The details if the user is in a game.
  * @function_end
  */
 
@@ -543,11 +549,13 @@
  * @description > **Steamworks Function**: [ISteamFriends::GetFriendMessage](https://partner.steamgames.com/doc/api/ISteamFriends#GetFriendMessage)
  *
  * This function gets the data from a Steam friends message.
+ * 
+ * This should only ever be called in response to a [GameConnectedFriendChatMsg_t](https://partner.steamgames.com/doc/api/ISteamFriends#GameConnectedFriendChatMsg_t) callback.
  *
- * @param {Real} steamIDFriend The Steam ID of the friend that sent this message.
- * @param {Real} iMessageID The index of the message. This should be the `m_iMessageID` field of [GameConnectedFriendChatMsg_t](https://partner.steamgames.com/doc/api/ISteamFriends#GameConnectedFriendChatMsg_t).
- * @param {Real} cubData 
- * @returns {Struct.SteamFriendsFriendMessage} 
+ * @param {Real} steam_id_friend The Steam ID of the friend that sent this message.
+ * @param {Real} message_id The index of the message. This should be the `m_iMessageID` field of [GameConnectedFriendChatMsg_t](https://partner.steamgames.com/doc/api/ISteamFriends#GameConnectedFriendChatMsg_t).
+ * @param {Real} cubData The maximum number of bytes to read for the message data.
+ * @returns {Struct.SteamFriendsFriendMessage}
  * @function_end
  */
 
@@ -559,11 +567,11 @@
  * 
  * This will only be known to the current user if the other user is in their friends list, on the same game server, in a chat room or lobby, or in a small Steam group with the local user.
  * 
- * [[Note: Upon on first joining a lobby, chat room, or game server the current user will not known the name of the other users automatically; that information will arrive asynchronously via [PersonaStateChange_t](https://partner.steamgames.com/doc/api/ISteamFriends#PersonaStateChange_t) callbacks.]]
+ * [[Note: Upon first joining a lobby, chat room, or game server the current user will not known the name of the other users automatically; that information will arrive asynchronously via [PersonaStateChange_t](https://partner.steamgames.com/doc/api/ISteamFriends#PersonaStateChange_t) callbacks.]]
  * 
  * To get the persona name of the current user use ${function.steam_friends_get_persona_name}.
  *
- * @param {Real} steamIDFriend The Steam ID of the other user.
+ * @param {Real} steam_id_friend The Steam ID of the other user.
  * @returns {String} 
  * @function_end
  */
@@ -576,9 +584,9 @@
  * 
  * This only works for display names that the current user has seen on the local computer.
  *
- * @param {Real} steamIDFriend The Steam ID of the other user.
+ * @param {Real} steam_id_friend The Steam ID of the other user.
  * @param {Real} iPersonaName The index of the history to receive. 0 is their current persona name, 1 is their most recent before they changed it, etc.
- * @returns {String} 
+ * @returns {String} The player's old persona name at the given index, or an empty string when there are no further items in the history.
  * @function_end
  */
 
@@ -592,7 +600,7 @@
  * 
  * To get the state of the current user use ${function.steam_friends_get_persona_state}.
  *
- * @param {Real} steamIDFriend The Steam ID of the other user.
+ * @param {Real} steam_id_friend The Steam ID of the other user.
  * @returns {Enum.SteamFriendsPersonaState} The friend state of the specified user. (Online, Offline, In-Game, etc.)
  * @function_end
  */
@@ -603,7 +611,7 @@
  *
  * This function gets a relationship to a specified user.
  *
- * @param {Real} steamIDFriend The Steam ID of the other user.
+ * @param {Real} steam_id_friend The Steam ID of the other user.
  * @returns {Enum.SteamFriendsRelationship} How the users know each other.
  * @function_end
  */
@@ -614,8 +622,8 @@
  *
  * This function gets a Rich Presence value from a specified friend.
  *
- * @param {Real} steamIDFriend The friend to get the Rich Presence value for.
- * @param {String} pchKey The Rich Presence key to request.
+ * @param {Real} steam_id_friend The friend to get the Rich Presence value for.
+ * @param {String} key The Rich Presence key to request.
  * @returns {String} 
  * @function_end
  */
@@ -626,8 +634,8 @@
  *
  * This function gets a Rich Presence value from a specified friend using the index of the key.
  *
- * @param {Real} steamIDFriend This should be the same user provided to the previous call to ${function.steam_friends_get_friend_rich_presence_key_count}!
- * @param {Real} iKey An index between 0 and ${function.steam_friends_get_friend_rich_presence_key_count}.
+ * @param {Real} steam_id_friend This should be the same user provided to the previous call to ${function.steam_friends_get_friend_rich_presence_key_count}!
+ * @param {Real} key An index between 0 and ${function.steam_friends_get_friend_rich_presence_key_count}.
  * @returns {String} 
  * @function_end
  */
@@ -642,7 +650,7 @@
  * 
  * This is typically only ever used for debugging purposes.
  *
- * @param {Real} steamIDFriend The Steam ID of the user to get the Rich Presence Key Count of.
+ * @param {Real} steam_id_friend The Steam ID of the user to get the Rich Presence Key Count of.
  * @returns {Real} 
  * @function_end
  */
@@ -827,8 +835,8 @@
  *
  * This function checks if the user meets the specified criteria. (Friends, blocked, users on the same server, etc.)
  *
- * @param {Real} steamIDFriend The Steam user to check the friend status of.
- * @param {Real} iFriendFlags A combined union (binary "or") of one or more ${enum.SteamFriendsFriendFlag}.
+ * @param {Real} steam_id_friend The Steam user to check the friend status of.
+ * @param {Real} friend_flags A combined union (binary "or") of one or more ${enum.SteamFriendsFriendFlag}.
  * @returns {Bool} 
  * @function_end
  */
@@ -842,7 +850,7 @@
  * If the target user accepts the invite then the `pchConnectString` gets added to the command-line when launching the game.
  * If the game is already running for that user, then they will receive a [GameRichPresenceJoinRequested_t](https://partner.steamgames.com/doc/api/ISteamFriends#GameRichPresenceJoinRequested_t) callback with the connect string.
  *
- * @param {Real} steamIDFriend The Steam ID of the friend to invite.
+ * @param {Real} steam_id_friend The Steam ID of the friend to invite.
  * @param {String} pchConnectString A string that lets the friend know how to join the game (i.e. the game server IP). This can not be longer than specified in [k_cchMaxRichPresenceValueLength](https://partner.steamgames.com/doc/api/ISteamFriends#k_cchMaxRichPresenceValueLength).
  * @returns {Bool}
  * 
@@ -863,8 +871,8 @@
  *
  * This function checks if a user in the Steam group chat room is an admin.
  *
- * @param {Real} steamIDClanChat The Steam ID of the Steam group chat room.
- * @param {Real} steamIDUser The Steam ID of the user to check the admin status of.
+ * @param {Real} steam_id_clan_chat The Steam ID of the Steam group chat room.
+ * @param {Real} steam_id_user The Steam ID of the user to check the admin status of.
  * @returns {Bool} 
  * @function_end
  */
@@ -875,7 +883,7 @@
  *
  * This function checks if the Steam group is public.
  *
- * @param {Real} steamIDClan The Steam ID of the Steam group.
+ * @param {Real} steam_id_clan The Steam ID of the Steam group.
  * @returns {Bool} 
  * @function_end
  */
@@ -886,7 +894,7 @@
  *
  * This function checks if the Steam group is an official game group/community hub.
  *
- * @param {Real} steamIDClan The Steam ID of the Steam group.
+ * @param {Real} steam_id_clan The Steam ID of the Steam group.
  * @returns {Bool} 
  * @function_end
  */
@@ -897,7 +905,7 @@
  *
  * This function checks if the Steam Group chat room is open in the Steam UI.
  *
- * @param {Real} steamIDClanChat The Steam ID of the Steam group chat room to check.
+ * @param {Real} steam_id_clan_chat The Steam ID of the Steam group chat room to check.
  * @returns {Bool} 
  * @function_end
  */
@@ -908,7 +916,7 @@
  *
  * This function checks if the current user is following the specified user.
  *
- * @param {Real} steamID The Steam ID of the check if we are following.
+ * @param {Real} steam_id The Steam ID of the check if we are following.
  * @param {Function} [callback] The function to call upon completion.
  * 
  * @event callback
@@ -925,11 +933,13 @@
 /**
  * @function steam_friends_is_user_in_source
  * @description > **Steamworks Function**: [ISteamFriends::IsUserInSource](https://partner.steamgames.com/doc/api/ISteamFriends#IsUserInSource)
- *
+ * 
+ * **This API is deprecated.**
+ * 
  * This function checks if a specified user is in a source (Steam group, chat room, lobby, or game server).
  *
- * @param {Real} steamIDUser The user to check if they are in the source.
- * @param {Real} steamIDSource The source to check for the user.
+ * @param {Real} steam_id_user The user to check if they are in the source.
+ * @param {Real} steam_id_source The source to check for the user.
  * @returns {Bool} 
  * @function_end
  */
@@ -944,7 +954,7 @@
  * 
  * [[Note: This won't download avatars for the officers automatically. If no avatar image is available for an officer, then call ${function.steam_friends_request_user_information} to download the avatar.]]
  *
- * @param {Real} steamIDClan The Steam group to get the officers list for.
+ * @param {Real} steam_id_clan The Steam group to get the officers list for.
  * @param {Function} [callback] The function to be called upon completion.
  * 
  * @event callback
@@ -966,12 +976,12 @@
  * 
  * This function is rate limited, if you call this too frequently for a particular user then it will just immediately post a callback without requesting new data from the server.
  *
- * @param {Real} steamIDFriend The Steam ID of the user to request the rich presence of.
+ * @param {Real} steam_id_friend The Steam ID of the user to request the rich presence of.
  * 
  * @event callback
  * @desc > **Steamworks Callback**: [ISteamFriends::FriendRichPresenceUpdate_t](https://partner.steamgames.com/doc/api/ISteamFriends#FriendRichPresenceUpdate_t)
  * @member {Real} steam_id_friend The Steam ID of the user whose rich presence has changed.
- * @member {Real} The App ID of the game. This should always be the current game.
+ * @member {Real} app_id The App ID of the game. This should always be the current game.
  * @event_end
  * @function_end
  */
@@ -984,8 +994,8 @@
  * 
  * [[Note: It's a lot slower to download avatars and churns the local cache, so if you don't need avatars, don't request them.]]
  *
- * @param {Real} steamIDUser The user to request the information of.
- * @param {Bool} bRequireNameOnly Retrieve the Persona name only (`true`)? Or both the name and the avatar (`false`)?
+ * @param {Real} steam_id_user The user to request the information of.
+ * @param {Bool} require_name_only Retrieve the Persona name only (`true`)? Or both the name and the avatar (`false`)?
  * @returns {Bool} `true` means that the data has being requested, and a [PersonaStateChange_t](https://partner.steamgames.com/doc/api/ISteamFriends#PersonaStateChange_t) callback will be posted when it's retrieved. `false` means that we already have all the details about that user, and functions that require this information can be used immediately.
  * 
  * @event callback
@@ -1004,8 +1014,8 @@
  * 
  * This will suppress the microphone for all voice communication in the Steam UI.
  *
- * @param {Real} steamIDUser Unused.
- * @param {Bool} bSpeaking Did the user start speaking in game (`true`) or stop speaking in game (`false`)?
+ * @param {Real} steam_id_user Unused.
+ * @param {Bool} speaking Did the user start speaking in game (`true`) or stop speaking in game (`false`)?
  * @function_end
  */
 
@@ -1016,8 +1026,10 @@
  * This function marks a target user as 'played with'.
  * 
  * You can view the players you have recently played with [here](http://steamcommunity.com/my/friends/coplay/) on the Steam community and in the [Steam-overlay](https://partner.steamgames.com/doc/features/overlay).
+ * 
+ * [[Note: The current user must be in game with the other player for the association to work.]]
  *
- * @param {Real} steamIDUserPlayedWith The other user that we have played with.
+ * @param {Real} steam_id_user_played_with The other user that we have played with.
  * @function_end
  */
 
@@ -1027,14 +1039,14 @@
  *
  * This function sets a Rich Presence key/value for the current user that is automatically shared to all friends playing the same game.
  * 
- * Each user can have up to 20 keys set as defined by [k_cchMaxRichPresenceKeys](https://partner.steamgames.com/doc/api/ISteamFriends#k_cchMaxRichPresenceKeys).
+ * Each user can have up to 20 keys set as defined by `SteamFriendsMaxRichPresenceKeys`.
  * 
  * You can clear all of the keys for the current user with ${function.steam_friends_clear_rich_presence}.
  * 
  * To get rich presence keys for friends see: ${function.steam_friends_get_friend_rich_presence}.
  *
- * @param {String} pchKey The rich presence 'key' to set. This can not be longer than specified in [k_cchMaxRichPresenceKeyLength](https://partner.steamgames.com/doc/api/ISteamFriends#k_cchMaxRichPresenceKeyLength).
- * @param {String} pchValue The rich presence 'value' to associate with `pchKey`. This can not be longer than specified in [k_cchMaxRichPresenceValueLength](https://partner.steamgames.com/doc/api/ISteamFriends#k_cchMaxRichPresenceValueLength). If this is set to an empty string (`""`) then the key is removed if it's set.
+ * @param {String} key The rich presence 'key' to set. This can not be longer than specified in [k_cchMaxRichPresenceKeyLength](https://partner.steamgames.com/doc/api/ISteamFriends#k_cchMaxRichPresenceKeyLength).
+ * @param {String} value The rich presence 'value' to associate with `key`. This can not be longer than specified in `SteamFriendsMaxRichPresenceKeyLength`. If this is set to an empty string (`""`) then the key is removed if it's set.
  * @returns {Bool} `true` if the rich presence was set successfully, `false` if key or value was longer than its respective max length, the key had a length of 0, or the user has reached the maximum number of rich presence keys
  * @function_end
  */
@@ -1172,7 +1184,7 @@
  *
  * This function returns metadata for a DLC by index.
  *
- * @param {Real} iDLC Index of the DLC to get between 0 and ${function.steam_apps_get_dlc_count}.
+ * @param {Real} dlc Index of the DLC to get between 0 and ${function.steam_apps_get_dlc_count}.
  * @returns {Struct.SteamAppsDlcData}
  * @function_end
  */
@@ -1185,7 +1197,7 @@
  * 
  * [[Note: Should only be used for simple client side checks - not intended for granting in-game items.]]
  *
- * @param {Real} appID The App ID of the DLC to check.
+ * @param {Real} app_id The App ID of the DLC to check.
  * @returns {Bool} `true` if the user owns the DLC and it's currently installed, otherwise `false`.
  * @function_end
  */
@@ -1210,7 +1222,7 @@
  * 
  * [[Note: Should only be used for simple client side checks - not intended for granting in-game items.]]
  *
- * @param {Real} appID The App ID of the DLC to check.
+ * @param {Real} app_id The App ID of the DLC to check.
  * @returns {Bool} `true` if the user owns the DLC and it's currently installed, otherwise `false`.
  * @function_end
  */
@@ -1249,7 +1261,7 @@
  * 
  * Only use this if you need to check ownership of another game related to yours, a demo for example.
  *
- * @param {Real} appID The App ID to check.
+ * @param {Real} app_id The App ID to check.
  * @returns {Bool} 
  * @function_end
  */
@@ -1260,7 +1272,7 @@
  *
  * This function checks if the active user is accessing the current app ID via a temporary Family Shared license owned by another user.
  * 
- * If you need to determine the steamID of the permanent owner of the license, use ${function.steam_apps_get_app_owner}.
+ * If you need to determine the steam ID of the permanent owner of the license, use ${function.steam_apps_get_app_owner}.
  *
  * @returns {Bool} 
  * @function_end
@@ -1270,7 +1282,7 @@
  * @function steam_apps_is_subscribed_from_free_weekend
  * @description > **Steamworks Function**: [ISteamApps::BIsSubscribedFromFreeWeekend](https://partner.steamgames.com/doc/api/ISteamApps#BIsSubscribedFromFreeWeekend)
  *
- * This function checks if the user is subscribed to the current appID through a free weekend.
+ * This function checks if the user is subscribed to the current app ID through a free weekend.
  * 
  * Before using this please contact a Valve technical account manager via the [Steamworks Discussion Board](http://steamcommunity.com/groups/steamworks/discussions) to properly package and secure your free weekend.
  *
@@ -1318,7 +1330,7 @@
  * 
  * This works even if the application is not installed, based on where the game would be installed with the default Steam library location.
  *
- * @param {Real} appID The App ID to get the install dir for.
+ * @param {Real} app_id The App ID to get the install dir for.
  * @returns {Struct.SteamAppsInstallDir} 
  * @function_end
  */
@@ -1423,21 +1435,21 @@
  *
  * This function gets the download progress for optional DLC.
  *
- * @param {Real} nAppID The App ID of the DLC to monitor.
+ * @param {Real} app_id The App ID of the DLC to monitor.
  * @returns {Struct.SteamAppsDlcDownloadProgress} 
  * @function_end
  */
 
 /**
  * @function steam_apps_get_app_ownership_ticket_data
- * @description > **Steamworks Function**: N / A
+ * @description > **Steamworks Function**: [ISteamAppTicket::GetAppOwnershipTicketData](https://partner.steamgames.com/doc/api/ISteamAppTicket)
  *
- * This function 
+ * This function gets the app ownership ticket data for the given app ID.
  *
- * @param {Real} app_id
- * @param {Buffer} ticket_buffer
- * @param {Real} max_bytes
- * @returns {Real} 
+ * @param {Real} app_id The App ID to get the ownership ticket data for.
+ * @param {Buffer} ticket_buffer The buffer to write the ownership ticket data into.
+ * @param {Real} max_bytes The maximum number of bytes to write into the buffer.
+ * @returns {Real}
  * @function_end
  */
 
@@ -1449,7 +1461,7 @@
  * 
  * This is useful for rewarding users based on their initial purchase date.
  *
- * @param {Real} nAppID The App ID to get the purchase time for.
+ * @param {Real} app_id The App ID to get the purchase time for.
  * @returns {Real} 
  * @function_end
  */
@@ -1460,7 +1472,7 @@
  *
  * This function asynchronously retrieves metadata details about a specific file in the depot manifest.
  *
- * @param {String} pszFileName The absolute path and name to the file.
+ * @param {String} file_name The absolute path and name to the file.
  * @param {Function} [callback] The function to call upon completion.
  * 
  * @event callback
@@ -1479,8 +1491,8 @@
  *
  * This function gets a list of all installed depots for a given App ID in mount order.
  *
- * @param {Real} appID The App to list the depots for.
- * @param {Real} cMaxDepots The maximum number of depots to obtain.
+ * @param {Real} app_id The App to list the depots for.
+ * @param {Real} max_depots The maximum number of depots to obtain.
  * @returns {Array[Real]} An array holding the unique identifiers of the depots.
  * @function_end
  */
@@ -1491,8 +1503,8 @@
  *
  * This function gets the command line if the game was launched via Steam URL, e.g. `"steam://run/<appid>//<command line>/"`. This method is preferable to launching with a command line via the operating system, which can be a security risk. In order for rich presence joins to go through this and not be placed on the OS command line, you must enable "Use launch command line" from the Installation > General page on your app.
  *
- * @param {Real} cubCommandLine 
- * @returns {Struct.SteamAppsLaunchCommandLine} 
+ * @param {Real} command_line_size The maximum number of bytes to read into the returned command line string.
+ * @returns {Struct.SteamAppsLaunchCommandLine}
  * @function_end
  */
 
@@ -1505,7 +1517,7 @@
  * Parameter names starting with the character `"@"` are reserved for internal use and will always return an empty string `""`.
  * Parameter names starting with an underscore `"_"` are reserved for Steam features -- they can be queried by the game, but it is advised that you do not use param names beginning with an underscore for your own features.
  *
- * @param {String} pchKey The launch key to test for. Ex: `"param1"`
+ * @param {String} key The launch key to test for. Ex: `"param1"`
  * @returns {String} The value associated with the key provided, or an empty string (`""`) if the specified key does not exist.
  * @function_end
  */
@@ -1516,7 +1528,7 @@
  *
  * This function allows you to install an optional DLC.
  *
- * @param {Real} nAppID The DLC you want to install.
+ * @param {Real} app_id The DLC you want to install.
  * 
  * @event callback
  * @desc > **Steamworks Callback**: [ISteamApps::DlcInstalled_t](https://partner.steamgames.com/doc/api/ISteamApps#DlcInstalled_t)
@@ -1534,10 +1546,9 @@
  *
  * This function allows you to force verify game content on next launch.
  * 
- * If you detect the game is out-of-date (for example, by having the client detect a version mismatch with a server),
-you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, show a message to the user, and then quit.
+ * If you detect the game is out-of-date (for example, by having the client detect a version mismatch with a server), you can call ${function.steam_apps_mark_content_corrupt} to force a verify, show a message to the user, and then quit.
  *
- * @param {Bool} bMissingFilesOnly Only scan for missing files, don't verify the checksum of each file.
+ * @param {Bool} missing_files_only Only scan for missing files, don't verify the checksum of each file.
  * @returns {Bool} 
  * @function_end
  */
@@ -1557,7 +1568,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * Deprecated.
  *
- * @param {Real} nAppID 
+ * @param {Real} app_id The App ID to request the proof of purchase key for.
  * @function_end
  */
 
@@ -1567,7 +1578,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function allows you to uninstall an optional DLC.
  *
- * @param {Real} nAppID The DLC you want to uninstall.
+ * @param {Real} app_id The DLC you want to uninstall.
  * @function_end
  */
 
@@ -1609,7 +1620,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  * 
  * This is triggered when a screenshot has been successfully written or otherwise added to the library and can now be tagged.
  * 
- * @member {Real} The screenshot handle that has been written.
+ * @member {Real} local The screenshot handle that has been written.
  * @member {Enum.SteamApiResult} result The result of the operation. Possible values:
  * 
  * * `SteamApiResult.Ok` - The screenshot was successfully added to the user's library.
@@ -1625,9 +1636,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function adds a VR screenshot to the user's Steam screenshot library from disk in the supported type.
  *
- * @param {Enum.SteamScreenshotsVrScreenshotType} eType The type of VR screenshot that this is.
- * @param {String} pchFilename 	The absolute file path to a 2D JPG, PNG, or TGA version of the screenshot for the library view.
- * @param {String} pchVRFilename The absolute file path to the VR screenshot, this should be the same type of screenshot specified in `eType`.
+ * @param {Enum.SteamScreenshotsVrScreenshotType} type The type of VR screenshot that this is.
+ * @param {String} filename The absolute file path to a 2D JPG, PNG, or TGA version of the screenshot for the library view.
+ * @param {String} vr_filename The absolute file path to the VR screenshot, this should be the same type of screenshot specified in `eType`.
  * @returns {Real} Screenshot handle, or [INVALID_SCREENSHOT_HANDLE](https://partner.steamgames.com/doc/api/ISteamScreenshots#INVALID_SCREENSHOT_HANDLE) if the file could not be saved
  * 
  * @event callback
@@ -1658,7 +1669,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  * 
  * You can check if hooking is enabled with ${function.steam_screenshots_is_screenshots_hooked}.
  *
- * @param {Bool} bHook Enable (`true`) or disable (`false`) hooking?
+ * @param {Bool} hook Enable (`true`) or disable (`false`) hooking?
  * 
  * @event callback
  * @desc **Steamworks Callback**: [ISteamScreenshots::ScreenshotRequested_t](https://partner.steamgames.com/doc/api/ISteamScreenshots#ScreenshotRequested_t)
@@ -1691,7 +1702,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  * 
  * You can get the handle to tag the screenshot once it has been successfully saved from the [ScreenshotReady_t](https://partner.steamgames.com/doc/api/ISteamScreenshots#ScreenshotReady_t) callback or via the ${function.steam_screenshots_write_screenshot}, ${function.steam_screenshots_add_screenshot_to_library}, ${function.steam_screenshots_add_vr_screenshot_to_library} calls.
  *
- * @param {Real} hScreenshot The handle to the screenshot to tag.
+ * @param {Real} screenshot The handle to the screenshot to tag.
  * @param {String} pchLocation The location in the game where this screenshot was taken. This can not be longer than [k_cubUFSTagValueMax](https://partner.steamgames.com/doc/api/ISteamScreenshots#k_cubUFSTagValueMax).
  * @returns {Bool} `true` if the location was successfully added to the screenshot. `false` if the screenshot handle was invalid, or the location is invalid or too long.
  * @function_end
@@ -1703,14 +1714,14 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function tags a published file as being visible in the screenshot.
  * 
- * You can tag up to the value declared by [k_nScreenshotMaxTaggedPublishedFiles](https://partner.steamgames.com/doc/api/ISteamScreenshots#k_nScreenshotMaxTaggedPublishedFiles) in a single screenshot. Tagging more items than that will just be discarded.
+ * You can tag up to the value declared by `SteamScreenshotsMaxTaggedUsers` ([k_nScreenshotMaxTaggedPublishedFiles](https://partner.steamgames.com/doc/api/ISteamScreenshots#k_nScreenshotMaxTaggedPublishedFiles)) in a single screenshot. Tagging more items than that will just be discarded.
  * 
  * This function has a built-in delay before saving the tag which allows you to call it repeatedly for each item.
  * 
  * You can get the handle to tag the screenshot once it has been successfully saved from the [ScreenshotReady_t](https://partner.steamgames.com/doc/api/ISteamScreenshots#ScreenshotReady_t) callback or via the ${function.steam_screenshots_write_screenshot}, ${function.steam_screenshots_add_screenshot_to_library}, ${function.steam_screenshots_add_vr_screenshot_to_library} calls.
  *
- * @param {Real} hScreenshot The handle to the screenshot to tag.
- * @param {Real} unPublishedFileID The workshop item ID that is in the screenshot.
+ * @param {Real} screenshot The handle to the screenshot to tag.
+ * @param {Real} published_file_id The workshop item ID that is in the screenshot.
  * @returns {Bool} 
  * @function_end
  */
@@ -1721,14 +1732,14 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function tags a Steam user as being visible in the screenshot.
  * 
- * You can tag up to the value declared by [k_nScreenshotMaxTaggedUsers](https://partner.steamgames.com/doc/api/ISteamScreenshots#k_nScreenshotMaxTaggedUsers) in a single screenshot. Tagging more items than that will just be discarded.
+ * You can tag up to the value declared by `SteamScreenshotsMaxTaggedUsers` ([k_nScreenshotMaxTaggedUsers](https://partner.steamgames.com/doc/api/ISteamScreenshots#k_nScreenshotMaxTaggedUsers)) in a single screenshot. Tagging more items than that will just be discarded.
  * 
  * This function has a built-in delay before saving the tag which allows you to call it repeatedly for each item.
  * 
  * You can get the handle to tag the screenshot once it has been successfully saved from the [ScreenshotReady_t](https://partner.steamgames.com/doc/api/ISteamScreenshots#ScreenshotReady_t) callback or via the ${function.steam_screenshots_write_screenshot}, ${function.steam_screenshots_add_screenshot_to_library}, ${function.steam_screenshots_add_vr_screenshot_to_library} calls.
  *
- * @param {Real} hScreenshot The handle to the screenshot to tag.
- * @param {Real} steamID The Steam ID of a user that is in the screenshot.
+ * @param {Real} screenshot The handle to the screenshot to tag.
+ * @param {Real} steam_id The Steam ID of a user that is in the screenshot.
  * @returns {Bool} 
  * @function_end
  */
@@ -1770,10 +1781,10 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function writes a screenshot to the user's Steam screenshot library given the raw image data, which must be in RGB format.
  *
- * @param {Buffer} pubRGB The buffer containing the raw RGB data from the screenshot.
- * @param {Real} cubRGB The size of `pubRGB` in bytes.
- * @param {Real} nWidth The width of the screenshot in pixels.
- * @param {Real} nHeight The height of the screenshot in pixels.
+ * @param {Buffer} buff_rgb The buffer containing the raw RGB data from the screenshot.
+ * @param {Real} rgb_size The size of `rgb` in bytes.
+ * @param {Real} width The width of the screenshot in pixels.
+ * @param {Real} height The height of the screenshot in pixels.
  * @returns {Real} Screenshot handle, or [INVALID_SCREENSHOT_HANDLE](https://partner.steamgames.com/doc/api/ISteamScreenshots#INVALID_SCREENSHOT_HANDLE) if the file could not be saved
  * 
  * @event callback
@@ -1808,7 +1819,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  * @function steam_screenshots_set_callback_screenshot_requested
  * @description > **Steamworks Function**: N / A
  *
- * This function sets the callback function to be triggered after A screenshot has been requested by the user from the Steam screenshot hotkey. This will only be called if ${function.steam_screenshots_hook_screenshots} has been enabled, in which case Steam will not take the screenshot itself.
+ * This function sets the callback function to be triggered after a screenshot has been requested by the user from the Steam screenshot hotkey. This will only be called if ${function.steam_screenshots_hook_screenshots} has been enabled, in which case Steam will not take the screenshot itself.
  * 
  * See: [ISteamScreenshots::ScreenshotRequested_t](https://partner.steamgames.com/doc/api/ISteamScreenshots#ScreenshotRequested_t)
  *
@@ -1856,14 +1867,14 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  * 
  * The ticket is created on the entity with ${function.steam_user_get_auth_session_ticket} or [ISteamGameServer::GetAuthSessionTicket](https://partner.steamgames.com/doc/api/ISteamGameServer#GetAuthSessionTicket) and then needs to be provided over the network for the other end to validate.
  * 
- * This registers for additional [ValidateAuthTicketResponse_t](https://partner.steamgames.com/doc/api/ISteamUser#ValidateAuthTicketResponse_t) callbacks if the entity goes offline or cancels the ticket. See ${Enum.SteamAuthSess} EAuthSessionResponse for more information.
+ * This registers for additional [ValidateAuthTicketResponse_t](https://partner.steamgames.com/doc/api/ISteamUser#ValidateAuthTicketResponse_t) callbacks if the entity goes offline or cancels the ticket. See ${Enum.SteamAuthSessionResponse} for more information.
  * 
  * When the multiplayer session terminates you must call ${function.steam_user_end_auth_session}.
  * 
  * See also: [User Authentication and Ownership](https://partner.steamgames.com/doc/features/auth)
  *
  * @param {Buffer} auth_ticket The auth ticket to validate.
- * @param {Real} cb_auth_ticket The size in bytes of the auth ticket. This must be the `pcbTicket` size provided by the call that created this ticket.
+ * @param {Real} cb_auth_ticket The size in bytes of the auth ticket. This must be the ticket size provided by the call that created this ticket.
  * @param {Real} steam_id The entity's Steam ID that sent this ticket.
  * @returns {Enum.SteamUserBeginAuthSessionResult} 
  * 
@@ -1998,6 +2009,8 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  * @description > **Steamworks Function**: [ISteamUser::EndAuthSession](https://partner.steamgames.com/doc/api/ISteamUser#EndAuthSession)
  *
  * This function ends an auth session that was started with ${function.steam_user_begin_auth_session}. This should be called when no longer playing with the specified entity.
+ * 
+ * See: [User Authentication and Ownership](https://partner.steamgames.com/doc/features/auth)
  *
  * @param {Real} steam_id The entity to end the active auth session with.
  * @function_end
@@ -2071,7 +2084,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function starts voice recording.
  * 
- * Once started, use ${function.steam_user_get_available_voice} and ${function.steam_user_get_voice} to get the data, and then call StopVoiceRecording when the user has released their push-to-talk hotkey or the game session has completed.
+ * Once started, use ${function.steam_user_get_available_voice} and ${function.steam_user_get_voice} to get the data, and then call ${function.steam_user_stop_voice_recording} when the user has released their push-to-talk hotkey or the game session has completed.
  * 
  * See [Steam Voice](https://partner.steamgames.com/doc/features/voice) for more information.
  *
@@ -2084,7 +2097,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function stops voice recording.
  * 
- * Because people often release push-to-talk keys early, the system will keep recording for a little bit after this function is called. As such, ${function.steam_user_get_voice} should continue to be called until it returns [k_EVoiceResultNotRecording](https://partner.steamgames.com/doc/api/steam_api#k_EVoiceResultNotRecording), only then will voice recording be stopped.
+ * Because people often release push-to-talk keys early, the system will keep recording for a little bit after this function is called. As such, ${function.steam_user_get_voice} should continue to be called until it returns `SteamApiVoiceResult.NotRecording`, only then will voice recording be stopped.
  *
  * @function_end
  */
@@ -2192,7 +2205,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function retrieves an encrypted ticket.
  * 
- * This should be called after requesting an encrypted app ticket with ${function.steam_user_request_encrypted_app_ticket} and receiving the [EncryptedAppTicketResponse_t](https://partner.steamgames.com/doc/api/ISteamUser#EncryptedAppTicketResponse_t) call result.
+ * This should be called after requesting an encrypted app ticket with ${function.steam_user_request_encrypted_app_ticket} and receiving the [EncryptedAppTicketResponse_t](https://partner.steamgames.com/doc/api/ISteamUser#EncryptedAppTicketResponse_t) call result. You should then pass this encrypted ticket to your secure servers to be decrypted using your secret key using [SteamEncryptedAppTicket::BDecryptTicket](https://partner.steamgames.com/doc/api/SteamEncryptedAppTicket#BDecryptTicket).
  * 
  * [[Note: If you call this without calling ${function.steam_user_request_encrypted_app_ticket}, the call may succeed but you will likely get a stale ticket.]]
  *
@@ -2206,10 +2219,12 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  * @function steam_user_get_game_badge_level
  * @description > **Steamworks Function**: [ISteamUser::GetGameBadgeLevel](https://partner.steamgames.com/doc/api/ISteamUser#GetGameBadgeLevel)
  *
- * This function gets the level of the users Steam badge for your game.
+ * This function gets the level of the user's Steam badge for your game.
+ * 
+ * The user can have two different badges for a series; the regular badge (max level 5) and the foil badge (max level 1).
  *
- * @param {Real} n_series
- * @param {Bool} b_foil
+ * @param {Real} n_series If you only have one set of cards, the series will be 1.
+ * @param {Bool} b_foil Whether to check if they have received the foil badge.
  * @returns {Real} 
  * @function_end
  */
@@ -2220,7 +2235,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function retrieves an authentication ticket for use with the ISteamUserAuth Web API.
  *
- * @param {String} pch_identity
+ * @param {String} pch_identity The identity of the remote service that will authenticate the ticket, as a string identifier. Pass an empty string if none was provided.
  * @returns {Real} 
  * @function_end
  */
@@ -2229,9 +2244,22 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  * @function steam_user_get_duration_control
  * @description > **Steamworks Function**: [ISteamUser::GetDurationControl](https://partner.steamgames.com/doc/api/ISteamUser#GetDurationControl)
  *
- * This function retrieves anti indulgence / duration control for current user / game combination.
+ * This function retrieves anti indulgence / duration control for the current user / game combination.
  *
- * @param {Function} [callback]
+ * @param {Function} [callback] The function to call upon completion.
+ *
+ * @event callback
+ * @desc > **Steamworks Callback**: [ISteamUser::DurationControl_t](https://partner.steamgames.com/doc/api/ISteamUser#DurationControl_t)
+ *
+ * Called when the user's playtime/duration-control information has been received (used for the anti-addiction / playtime systems required in some regions).
+ *
+ * @member {Enum.SteamApiResult} result The result of the operation.
+ * @member {Real} app_id The app ID the duration control information applies to.
+ * @member {Bool} applicable Whether duration control is applicable to this user and app (i.e. whether the user is subject to the playtime restrictions).
+ * @member {Real} csecs_last_5h The number of seconds the user has played in the last 5 hours, in centiseconds.
+ * @member {Enum.SteamUserDurationControlProgress} progress The current duration-control progress level (an `EDurationControlProgress` value describing whether the user should be encouraged to take a break).
+ * @member {Enum.SteamUserDurationControlNotification} notification The notification that should be shown to the user, if any (an `EDurationControlNotification` value).
+ * @event_end
  * @function_end
  */
 
@@ -2240,9 +2268,24 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  * @description > **Steamworks Function**: [ISteamUser::RequestStoreAuthURL](https://partner.steamgames.com/doc/api/ISteamUser#RequestStoreAuthURL)
  *
  * This function requests a URL that authenticates an in-game browser for store checkout, then redirects.
+ * 
+ * As long as the in-game browser accepts and handles session cookies, Steam microtransaction checkout pages will automatically recognize the user instead of presenting a login page.
+ * 
+ * [[Note: The URL has a very short lifetime to prevent history-snooping attacks, so you should only call this API when you are about to launch the browser, or else immediately navigate to the result URL using a hidden browser window.]]
+ * 
+ * [[Note: The resulting authorization cookie has an expiration time of one day, so it would be a good idea to request and visit a new auth URL every 12 hours.]]
  *
- * @param {String} pch_redirect_url
- * @param {Function} [callback]
+ * @param {String} pch_redirect_url The URL to redirect the user to once the in-game browser has been authenticated for the store.
+ * @param {Function} [callback] The function to call upon completion.
+ *
+ * @event callback
+ * @desc > **Steamworks Callback**: [ISteamUser::StoreAuthURLResponse_t](https://partner.steamgames.com/doc/api/ISteamUser#StoreAuthURLResponse_t)
+ *
+ * Called when a store authentication URL has been received.
+ *
+ * @member {Enum.SteamApiResult} result The result of the operation.
+ * @member {String} url The authenticated URL that was requested.
+ * @event_end
  * @function_end
  */
 
@@ -2252,7 +2295,20 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function 
  *
- * @param {Function} [callback]
+ * @param {Function} [callback] The function to call upon completion.
+ *
+ * @event callback
+ * @desc > **Steamworks Callback**: [ISteamUser::MarketEligibilityResponse_t](https://partner.steamgames.com/doc/api/ISteamUser#MarketEligibilityResponse_t)
+ *
+ * Called when the user's Steam Community Market eligibility has been received.
+ *
+ * @member {Bool} allowed Whether the user is allowed to use the Steam Community Market.
+ * @member {Real} not_allowed_reason The reason the user is not allowed to use the market, if applicable (an `EMarketNotAllowedReasonFlags` bitfield).
+ * @member {Real} allowed_at_time The Unix timestamp of when the user will be allowed to use the market, if currently restricted.
+ * @member {Real} steam_purchase_time The Unix timestamp of the user's first Steam purchase, used for some eligibility checks.
+ * @member {Real} day_steam_guard_required_days The number of days Steam Guard must have been active before the user is allowed to use the market.
+ * @member {Real} day_new_device_cooldown The number of days a newly added device must wait before the user is allowed to use the market.
+ * @event_end
  * @function_end
  */
 
@@ -2262,9 +2318,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function was previously used by a few games to track usage events before Stats and Achievements (now deprecated).
  *
- * @param {Real} game_id
- * @param {Real} e_app_usage_event
- * @param {String} pch_extra_info
+ * @param {Real} game_id The game ID that the usage event applies to.
+ * @param {Real} e_app_usage_event The type of app usage event to track.
+ * @param {String} pch_extra_info Additional information describing the event.
  * @function_end
  */
 
@@ -2273,9 +2329,11 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  * @description > **Steamworks Function**: [ISteamUser::UserHasLicenseForApp](https://partner.steamgames.com/doc/api/ISteamUser#UserHasLicenseForApp)
  *
  * This function checks if the user owns a specific piece of Downloadable Content (DLC).
+ * 
+ * This can only be called after sending the user's auth ticket to [ISteamGameServer::BeginAuthSession](https://partner.steamgames.com/doc/api/ISteamGameServer#BeginAuthSession).
  *
- * @param {Real} steam_id
- * @param {Real} app_id
+ * @param {Real} steam_id The Steam ID of the user to check.
+ * @param {Real} app_id The DLC App ID to check if the user owns it.
  * @returns {Enum.SteamApiUserHasLicenseResult} 
  * @function_end
  */
@@ -2284,9 +2342,11 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  * @function steam_user_set_callback_steam_servers_connected
  * @description > **Steamworks Function**: N / A
  *
- * This function 
+ * This function sets the function to be called when a connection to the Steam servers is established.
+ * 
+ * See: [ISteamUser::SteamServersConnected_t](https://partner.steamgames.com/doc/api/ISteamUser#SteamServersConnected_t)
  *
- * @param {Function} callback
+ * @param {Function} callback The function to be called when a connection to the Steam servers is established.
  * @function_end
  */
 
@@ -2294,7 +2354,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  * @function steam_user_clear_callback_steam_servers_connected
  * @description > **Steamworks Function**: N / A
  *
- * This function 
+ * This function clears the callback previously set with ${function.steam_user_set_callback_steam_servers_connected}.
  *
  * @function_end
  */
@@ -2303,9 +2363,11 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  * @function steam_user_set_callback_steam_server_connect_failure
  * @description > **Steamworks Function**: N / A
  *
- * This function 
+ * This function sets the function to be called when a connection attempt has failed.
+ * 
+ * See: [ISteamUser::SteamServerConnectFailure_t](https://partner.steamgames.com/doc/api/ISteamUser#SteamServerConnectFailure_t)
  *
- * @param {Function} callback
+ * @param {Function} callback The function to be called when a connection attempt to the Steam servers fails.
  * @function_end
  */
 
@@ -2313,7 +2375,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  * @function steam_user_clear_callback_steam_server_connect_failure
  * @description > **Steamworks Function**: N / A
  *
- * This function 
+ * This function clears the callback previously set with ${function.steam_user_set_callback_steam_server_connect_failure}.
  *
  * @function_end
  */
@@ -2322,9 +2384,11 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  * @function steam_user_set_callback_steam_servers_disconnected
  * @description > **Steamworks Function**: N / A
  *
- * This function 
+ * This function sets the function to be called if the client has lost connection to the Steam servers.
+ * 
+ * See: [ISteamUser::SteamServersDisconnected_t](https://partner.steamgames.com/doc/api/ISteamUser#SteamServersDisconnected_t)
  *
- * @param {Function} callback
+ * @param {Function} callback The function to be called when the connection to the Steam servers is lost.
  * @function_end
  */
 
@@ -2332,7 +2396,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  * @function steam_user_clear_callback_steam_servers_disconnected
  * @description > **Steamworks Function**: N / A
  *
- * This function 
+ * This function clears the callback previously set with ${function.steam_user_set_callback_steam_servers_disconnected}.
  *
  * @function_end
  */
@@ -2341,9 +2405,11 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  * @function steam_user_set_callback_client_game_server_deny
  * @description > **Steamworks Function**: N / A
  *
- * This function 
+ * This function sets the function to be called when a message is sent by the Steam server to the client telling it to disconnect from the specified game server, which it may be in the process of or already connected to. The game client should immediately disconnect upon receiving this message.
+ * 
+ * See: [ISteamUser::ClientGameServerDeny_t](https://partner.steamgames.com/doc/api/ISteamUser#ClientGameServerDeny_t)
  *
- * @param {Function} callback
+ * @param {Function} callback The function to be called when Steam requests that the client disconnect from a game server.
  * @function_end
  */
 
@@ -2351,7 +2417,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  * @function steam_user_clear_callback_client_game_server_deny
  * @description > **Steamworks Function**: N / A
  *
- * This function 
+ * This function clears the callback previously set with ${function.steam_user_set_callback_client_game_server_deny}.
  *
  * @function_end
  */
@@ -2360,9 +2426,11 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  * @function steam_user_set_callback_licenses_updated
  * @description > **Steamworks Function**: N / A
  *
- * This function 
+ * This function sets the function to be called whenever the user's licenses (owned packages) changes.
+ * 
+ * See: [ISteamUser::LicensesUpdated_t](https://partner.steamgames.com/doc/api/ISteamUser#LicensesUpdated_t)
  *
- * @param {Function} callback
+ * @param {Function} callback The function to be called when the user's licenses (owned packages) change.
  * @function_end
  */
 
@@ -2370,7 +2438,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  * @function steam_user_clear_callback_licenses_updated
  * @description > **Steamworks Function**: N / A
  *
- * This function 
+ * This function clears the callback previously set with ${function.steam_user_set_callback_licenses_updated}.
  *
  * @function_end
  */
@@ -2379,9 +2447,11 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  * @function steam_user_set_callback_microtxn_authorization_response
  * @description > **Steamworks Function**: N / A
  *
- * This function 
+ * This function sets the function to be called when a user has responded to a microtransaction authorization request.
+ * 
+ * See: [ISteamUser::MicroTxnAuthorizationResponse_t](https://partner.steamgames.com/doc/api/ISteamUser#MicroTxnAuthorizationResponse_t)
  *
- * @param {Function} callback
+ * @param {Function} callback The function to be called when the user responds to a microtransaction authorization request.
  * @function_end
  */
 
@@ -2389,7 +2459,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  * @function steam_user_clear_callback_microtxn_authorization_response
  * @description > **Steamworks Function**: N / A
  *
- * This function 
+ * This function clears the callback previously set with ${function.steam_user_set_callback_microtxn_authorization_response}.
  *
  * @function_end
  */
@@ -2410,9 +2480,17 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function is deprecated.
  *
- * @param {String} sz_file_name
- * @param {Function} [callback]
- * @function_end 
+ * @param {String} sz_file_name The name of the file whose signature is to be checked.
+ * @param {Function} [callback] The function to call upon completion.
+ *
+ * @event callback
+ * @desc > **Steamworks Callback**: [ISteamUtils::CheckFileSignature_t](https://partner.steamgames.com/doc/api/ISteamUtils#CheckFileSignature_t)
+ *
+ * Called when the file signature check started by ${function.steam_utils_check_file_signature} has completed.
+ *
+ * @member {Real} result The result of the file signature check (an `ECheckFileSignature` value).
+ * @event_end
+ * @function_end
  */
 
 /**
@@ -2432,10 +2510,10 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function gets the content of a completed API Call. Provided for the backend of the CallResult wrapper.
  *
- * @param {Real} steam_api_call
- * @param {Real} callback_expected
- * @param {Buffer} out_callback
- * @param {Real} out_callback_size
+ * @param {Real} steam_api_call The handle to the API Call.
+ * @param {Real} callback_expected The k_iCallback number associated with the callback.
+ * @param {Buffer} out_callback Returns the callback into the preallocated memory provided.
+ * @param {Real} out_callback_size The size of the callback buffer that you are passing in.
  * @returns {Struct.SteamUtilsApiCallResult} 
  * @function_end 
  */
@@ -2446,7 +2524,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function 
  *
- * @param {Function} callback
+ * @param {Function} callback The function to be called when the user's IP country changes.
  * @function_end 
  */
 
@@ -2465,7 +2543,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function 
  *
- * @param {Function} callback
+ * @param {Function} callback The function to be called when the system reports the device is low on battery power.
  * @function_end 
  */
 
@@ -2484,7 +2562,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function 
  *
- * @param {Function} callback
+ * @param {Function} callback The function to be called when an asynchronous Steam API call is completed.
  * @function_end 
  */
 
@@ -2503,7 +2581,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function 
  *
- * @param {Function} callback
+ * @param {Function} callback The function to be called when the app is resuming from suspend.
  * @function_end 
  */
 
@@ -2522,7 +2600,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function 
  *
- * @param {Function} callback
+ * @param {Function} callback The function to be called when Steam is about to shut down.
  * @function_end 
  */
 
@@ -2780,7 +2858,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function sets which corner the Steam overlay notification popup should display itself in.
  *
- * @param {Enum.SteamApiNotificationPosition} notification_position
+ * @param {Enum.SteamApiNotificationPosition} notification_position The position on the screen where the overlay notification popup should be displayed.
  * @function_end 
  */
 
@@ -2858,7 +2936,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function 
  *
- * @param {Function} callback
+ * @param {Function} callback The function to be called when the gamepad text input dialog is dismissed.
  * @function_end 
  */
 
@@ -2877,7 +2955,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function 
  *
- * @param {Function} callback
+ * @param {Function} callback The function to be called when the floating gamepad text input is dismissed.
  * @function_end 
  */
 
@@ -2896,7 +2974,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function sets a warning message hook to receive SteamAPI warnings and info messages in a callback function.
  *
- * @param {Function} callback
+ * @param {Function} callback The function to be called when a SteamAPI warning or info message is received.
  * @function_end 
  */
 
@@ -2913,11 +2991,11 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  * @function steam_ugc_add_app_dependency
  * @description > **Steamworks Function**: [ISteamUGC::AddAppDependency](https://partner.steamgames.com/doc/api/ISteamUGC#AddAppDependency)
  *
- * This function adds a dependency between the given item and the appid.
+ * This function adds a dependency between the given item and the app ID.
  *
- * @param {Real} published_file_id
- * @param {Real} app_id
- * @param {Function} [callback]
+ * @param {Real} published_file_id The workshop item to add the dependency to.
+ * @param {Real} app_id The required app or DLC to add as a dependency.
+ * @param {Function} [callback] The function to call upon completion.
  * @function_end 
  */
 
@@ -2927,9 +3005,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function adds a workshop item as a dependency to the specified item.
  *
- * @param {Real} parent_published_file_id
- * @param {Real} child_published_file_id
- * @param {Function} [callback]
+ * @param {Real} parent_published_file_id The workshop item to add a dependency to.
+ * @param {Real} child_published_file_id The dependency to add to the parent.
+ * @param {Function} [callback] The function to call upon completion.
  * @function_end 
  */
 
@@ -2939,8 +3017,8 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function adds an excluded tag to a pending UGC Query.
  *
- * @param {Real} query_handle
- * @param {String} tag_name
+ * @param {Real} query_handle The UGC query handle to customize.
+ * @param {String} tag_name The tag that must NOT be attached to the UGC for it to be received.
  * @returns {Bool} 
  * @function_end 
  */
@@ -2951,9 +3029,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function adds a key-value tag pair to an item.
  *
- * @param {Real} update_handle
- * @param {String} key
- * @param {String} value
+ * @param {Real} update_handle The workshop item update handle to customize.
+ * @param {String} key The key to set on the item.
+ * @param {String} value The value to map to the key.
  * @returns {Bool} 
  * @function_end 
  */
@@ -2964,9 +3042,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function adds an additional preview file for the item.
  *
- * @param {Real} update_handle
- * @param {String} preview_file_path
- * @param {Enum.SteamItemPreviewType} preview_type
+ * @param {Real} update_handle The workshop item update handle to customize.
+ * @param {String} preview_file_path The absolute path to the local image.
+ * @param {Enum.SteamItemPreviewType} preview_type The type of this preview.
  * @returns {Bool} 
  * @function_end 
  */
@@ -2977,8 +3055,8 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function adds an additional video preview from YouTube for the item.
  *
- * @param {Real} update_handle
- * @param {String} video_id
+ * @param {Real} update_handle The workshop item update handle to customize.
+ * @param {String} video_id The YouTube video ID to add (e.g. "jHgZh4GV9G0").
  * @returns {Bool} 
  * @function_end 
  */
@@ -2989,10 +3067,20 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function adds a workshop item to the user's favorites list.
  *
- * @param {Real} app_id
- * @param {Real} published_file_id
- * @param {Function} [callback]
- * @function_end 
+ * @param {Real} app_id The app ID that this item belongs to.
+ * @param {Real} published_file_id The workshop item to add to the user's favorites list.
+ * @param {Function} [callback] The function to call upon completion.
+ *
+ * @event callback
+ * @desc > **Steamworks Callback**: [ISteamUGC::UserFavoriteItemsListChanged_t](https://partner.steamgames.com/doc/api/ISteamUGC#UserFavoriteItemsListChanged_t)
+ *
+ * Called when an item is added to or removed from the user's list of favorite workshop items.
+ *
+ * @member {Enum.SteamApiResult} result The result of the operation.
+ * @member {Real} published_file_id The workshop item whose favorite status changed.
+ * @member {Bool} was_add_request Whether the item was added to (`true`) or removed from (`false`) the favorites list.
+ * @event_end
+ * @function_end
  */
 
 /**
@@ -3001,9 +3089,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function adds a required key-value tag to a pending UGC Query.
  *
- * @param {Real} query_handle
- * @param {String} key
- * @param {String} value
+ * @param {Real} query_handle The UGC query handle to customize.
+ * @param {String} key The key-value key that must be attached to the UGC for it to be received.
+ * @param {String} value The key-value value associated with the key that must be attached to the UGC for it to be received.
  * @returns {Bool} 
  * @function_end 
  */
@@ -3014,8 +3102,8 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function adds a required tag to a pending UGC Query.
  *
- * @param {Real} query_handle
- * @param {String} tag_name
+ * @param {Real} query_handle The UGC query handle to customize.
+ * @param {String} tag_name The tag that must be attached to the UGC for it to be received.
  * @returns {Bool} 
  * @function_end 
  */
@@ -3026,8 +3114,8 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function adds the requirement that the returned items from the pending UGC Query have at least one of the tags in the given set (logical "or").
  *
- * @param {Real} query_handle
- * @param {Array[String]} tags_csv
+ * @param {Real} query_handle The UGC query handle to customize.
+ * @param {Array[String]} tags_csv A set of tags where at least one of the tags must be attached to the UGC.
  * @returns {Bool} 
  * @function_end 
  */
@@ -3038,8 +3126,8 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function lets game servers set a specific workshop folder before issuing any UGC commands.
  *
- * @param {Real} workshop_depot_id
- * @param {String} folder
+ * @param {Real} workshop_depot_id The depot ID of the game server.
+ * @param {String} folder The absolute path to store the workshop content.
  * @returns {Bool} 
  * @function_end 
  */
@@ -3050,10 +3138,20 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function creates a new workshop item with no content attached yet.
  *
- * @param {Real} consumer_app_id
- * @param {Enum.SteamWorkshopFileType} workshop_file_type
- * @param {Function} [callback]
- * @function_end 
+ * @param {Real} consumer_app_id The app ID that will be using this item.
+ * @param {Enum.SteamWorkshopFileType} workshop_file_type The type of UGC to create.
+ * @param {Function} [callback] The function to call upon completion.
+ *
+ * @event callback
+ * @desc > **Steamworks Callback**: [ISteamUGC::CreateItemResult_t](https://partner.steamgames.com/doc/api/ISteamUGC#CreateItemResult_t)
+ *
+ * Called when a new workshop item has been created.
+ *
+ * @member {Enum.SteamApiResult} result The result of the operation.
+ * @member {Real} published_file_id The ID of the newly created workshop item.
+ * @member {Bool} legal_agreement_required Whether the user needs to accept the Steam Workshop legal agreement.
+ * @event_end
+ * @function_end
  */
 
 /**
@@ -3062,11 +3160,11 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function queries for all matching UGC.
  *
- * @param {Enum.SteamUgcQuery} query_type
- * @param {Enum.SteamUgcMatchingUgcType} matching_ugc_type
- * @param {Real} creator_app_id
- * @param {Real} consumer_app_id
- * @param {Real} page
+ * @param {Enum.SteamUgcQuery} query_type Used to specify the sorting and filtering for this call.
+ * @param {Enum.SteamUgcMatchingUgcType} matching_ugc_type Used to specify the type of UGC queried for.
+ * @param {Real} creator_app_id The app ID where the item was created. This may differ if your creation tool is a separate app from the game.
+ * @param {Real} consumer_app_id The app ID of the current game. Do not pass the creation tool's app ID if it is a separate app.
+ * @param {Real} page The page number of the results to receive. This should start at 1 on the first call.
  * @returns {Real} 
  * @function_end 
  */
@@ -3077,8 +3175,8 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function queries for the details of specific UGC items.
  *
- * @param {Array[Real]} published_file_ids
- * @param {Real} num_published_file_ids
+ * @param {Array[Real]} published_file_ids The list of workshop items to get the details for.
+ * @param {Real} num_published_file_ids The number of items in the published file ids array.
  * @returns {Real} 
  * @function_end 
  */
@@ -3089,13 +3187,13 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function queries UGC associated with a user.
  *
- * @param {Real} account_id
- * @param {Enum.SteamUserUgcList} list_type
- * @param {Enum.SteamUgcMatchingUgcType} matching_ugc_type
- * @param {Enum.SteamUserUgcListSortOrder} sort_order
- * @param {Real} creator_app_id
- * @param {Real} consumer_app_id
- * @param {Real} page
+ * @param {Real} account_id The account ID to query UGC for.
+ * @param {Enum.SteamUserUgcList} list_type Used to specify the type of list to get.
+ * @param {Enum.SteamUgcMatchingUgcType} matching_ugc_type Used to specify the type of UGC queried for.
+ * @param {Enum.SteamUserUgcListSortOrder} sort_order Used to specify the order that the list will be sorted in.
+ * @param {Real} creator_app_id The app ID where the item was created. This may differ if your creation tool is a separate app from the game.
+ * @param {Real} consumer_app_id The app ID of the current game. Do not pass the creation tool's app ID if it is a separate app.
+ * @param {Real} page The page number of the results to receive. This should start at 1 on the first call.
  * @returns {Real} 
  * @function_end 
  */
@@ -3106,9 +3204,18 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function deletes the item without prompting the user.
  *
- * @param {Real} published_file_id
- * @param {Function} [callback]
- * @function_end 
+ * @param {Real} published_file_id The workshop item to delete.
+ * @param {Function} [callback] The function to call upon completion.
+ *
+ * @event callback
+ * @desc > **Steamworks Callback**: [ISteamUGC::DeleteItemResult_t](https://partner.steamgames.com/doc/api/ISteamUGC#DeleteItemResult_t)
+ *
+ * Called when a workshop item has been deleted.
+ *
+ * @member {Enum.SteamApiResult} result The result of the operation.
+ * @member {Real} published_file_id The workshop item that was deleted.
+ * @event_end
+ * @function_end
  */
 
 /**
@@ -3117,8 +3224,8 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function downloads or updates a workshop item.
  *
- * @param {Real} published_file_id
- * @param {Bool} high_priority
+ * @param {Real} published_file_id The workshop item to download.
+ * @param {Bool} high_priority Whether to start the download in high priority, pausing any existing in-progress Steam downloads to immediately begin.
  * @returns {Bool} 
  * @function_end 
  */
@@ -3129,8 +3236,8 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function gets the app dependencies associated with the given PublishedFileId_t.
  *
- * @param {Real} published_file_id
- * @param {Function} [callback]
+ * @param {Real} published_file_id The workshop item to get app dependencies for.
+ * @param {Function} [callback] The function to call upon completion.
  * @function_end 
  */
 
@@ -3140,7 +3247,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function gets info about a pending download of a workshop item that has k_EItemStateNeedsUpdate set.
  *
- * @param {Real} published_file_id
+ * @param {Real} published_file_id The workshop item to get the download info for.
  * @returns {Struct.SteamUgcItemDownloadInfo} 
  * @function_end 
  */
@@ -3151,7 +3258,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function gets info about currently installed content on the disc for workshop items that have k_EItemStateInstalled set.
  *
- * @param {Real} published_file_id
+ * @param {Real} published_file_id The workshop item to get the install info for.
  * @returns {Struct.SteamUgcItemInstallInfo} 
  * @function_end 
  */
@@ -3162,7 +3269,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function gets the current state of a workshop item on this client.
  *
- * @param {Real} published_file_id
+ * @param {Real} published_file_id The workshop item to get the state for.
  * @returns {Real} 
  * @function_end 
  */
@@ -3173,7 +3280,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function gets the progress of an item update.
  *
- * @param {Real} update_handle
+ * @param {Real} update_handle The update handle to get the progress for.
  * @returns {Struct.SteamUgcItemUpdateProgress} 
  * @function_end 
  */
@@ -3184,7 +3291,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function gets the total number of items the current user is subscribed to for the game or application.
  *
- * @param {Bool} include_locally_disabled
+ * @param {Bool} include_locally_disabled Whether to include locally disabled items in the return value or not. Defaults to false.
  * @returns {Real} 
  * @function_end 
  */
@@ -3195,8 +3302,8 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function gets a list of all of the items the current user is subscribed to for the current game, excluding any that have been locally disabled by the user.
  *
- * @param {Real} c_max_entries
- * @param {Bool} include_locally_disabled
+ * @param {Real} c_max_entries The maximum number of items to return. This typically matches the value returned by ${function.steam_ugc_get_num_subscribed_items}.
+ * @param {Bool} include_locally_disabled Whether to include locally disabled items in the return value or not. Defaults to false.
  * @returns {Array[Real]} 
  * @function_end 
  */
@@ -3207,8 +3314,8 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function retrieves the details of an individual workshop item after receiving a querying UGC call result.
  *
- * @param {Real} query_handle
- * @param {Real} index
+ * @param {Real} query_handle The UGC query handle to get the results from.
+ * @param {Real} index The index of the item to get the details of.
  * @returns {Struct.SteamUgcQueryResult} 
  * @function_end 
  */
@@ -3219,8 +3326,8 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function retrieves the URL to the preview image of an individual workshop item after receiving a querying UGC call result.
  *
- * @param {Real} query_handle
- * @param {Real} index
+ * @param {Real} query_handle The UGC query handle to get the results from.
+ * @param {Real} index The index of the item to get the details of.
  * @returns {Struct.SteamUgcQueryPreviewUrl} 
  * @function_end 
  */
@@ -3231,8 +3338,8 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function retrieves the developer set metadata of an individual workshop item after receiving a querying UGC call result.
  *
- * @param {Real} query_handle
- * @param {Real} index
+ * @param {Real} query_handle The UGC query handle to get the results from.
+ * @param {Real} index The index of the item to get the details of.
  * @returns {Struct.SteamUgcQueryMetadata} 
  * @function_end 
  */
@@ -3243,9 +3350,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function retrieves the ids of any child items of an individual workshop item after receiving a querying UGC call result.
  *
- * @param {Real} query_handle
- * @param {Real} index
- * @param {Real} c_max_entries
+ * @param {Real} query_handle The UGC query handle to get the results from.
+ * @param {Real} index The index of the item to get the details of.
+ * @param {Real} c_max_entries The maximum number of child item ids to return.
  * @returns {Array[Real]} 
  * @function_end 
  */
@@ -3256,9 +3363,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function retrieves various statistics of an individual workshop item after receiving a querying UGC call result.
  *
- * @param {Real} query_handle
- * @param {Real} index
- * @param {Enum.SteamUgcStatisticType} stat_type
+ * @param {Real} query_handle The UGC query handle to get the results from.
+ * @param {Real} index The index of the item to get the details of.
+ * @param {Enum.SteamUgcStatisticType} stat_type The statistic to retrieve.
  * @returns {Real} 
  * @function_end 
  */
@@ -3269,8 +3376,8 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function retrieves the number of additional previews of an individual workshop item after receiving a querying UGC call result.
  *
- * @param {Real} query_handle
- * @param {Real} index
+ * @param {Real} query_handle The UGC query handle to get the results from.
+ * @param {Real} index The index of the item to get the details of.
  * @returns {Real} 
  * @function_end 
  */
@@ -3281,10 +3388,10 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function retrieves the details of an additional preview associated with an individual workshop item after receiving a querying UGC call result.
  *
- * @param {Real} query_handle
- * @param {Real} index
- * @param {Real} preview_index
- * @param {String} original_file_name
+ * @param {Real} query_handle The UGC query handle to get the results from.
+ * @param {Real} index The index of the item to get the details of.
+ * @param {Real} preview_index The index of the additional preview to get the details of.
+ * @param {String} original_file_name Whether to also return the original file name of the preview.
  * @returns {Struct.SteamUgcAdditionalPreview} 
  * @function_end 
  */
@@ -3295,8 +3402,8 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function retrieves the number of key-value tags of an individual workshop item after receiving a querying UGC call result.
  *
- * @param {Real} query_handle
- * @param {Real} index
+ * @param {Real} query_handle The UGC query handle to get the results from.
+ * @param {Real} index The index of the item to get the details of.
  * @returns {Real} 
  * @function_end 
  */
@@ -3307,9 +3414,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function retrieves the details of a key-value tag associated with an individual workshop item after receiving a querying UGC call result.
  *
- * @param {Real} query_handle
- * @param {Real} index
- * @param {Real} key_value_tag_index
+ * @param {Real} query_handle The UGC query handle to get the results from.
+ * @param {Real} index The index of the item to get the details of.
+ * @param {Real} key_value_tag_index The index of the tag to get the details of.
  * @returns {Struct.SteamUgcKeyValueTag} 
  * @function_end 
  */
@@ -3320,9 +3427,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function retrieves an array of EUGCContentDescriptorID set on the item.
  *
- * @param {Real} query_handle
- * @param {Real} index
- * @param {Real} max_descriptors
+ * @param {Real} query_handle The UGC query handle to get the results from.
+ * @param {Real} index The index of the item to get the details of.
+ * @param {Real} max_descriptors The maximum number of content descriptors to return.
  * @returns {Array[Real]} 
  * @function_end 
  */
@@ -3331,11 +3438,11 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  * @function steam_ugc_remove_app_dependency
  * @description > **Steamworks Function**: [ISteamUGC::RemoveAppDependency](https://partner.steamgames.com/doc/api/ISteamUGC#RemoveAppDependency)
  *
- * This function removes the dependency between the given item and the appid.
+ * This function removes the dependency between the given item and the app ID.
  *
- * @param {Real} published_file_id
- * @param {Real} app_id
- * @param {Function} [callback]
+ * @param {Real} published_file_id The workshop item to remove the dependency from.
+ * @param {Real} app_id The app or DLC to remove as a dependency.
+ * @param {Function} [callback] The function to call upon completion.
  * @function_end 
  */
 
@@ -3345,9 +3452,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function removes a workshop item as a dependency from the specified item.
  *
- * @param {Real} parent_published_file_id
- * @param {Real} child_published_file_id
- * @param {Function} [callback]
+ * @param {Real} parent_published_file_id The workshop item to remove a dependency from.
+ * @param {Real} child_published_file_id The dependency to remove from the parent.
+ * @param {Function} [callback] The function to call upon completion.
  * @function_end 
  */
 
@@ -3357,10 +3464,20 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function removes a workshop item from the user's favorites list.
  *
- * @param {Real} app_id
- * @param {Real} published_file_id
- * @param {Function} [callback]
- * @function_end 
+ * @param {Real} app_id The app ID that this item belongs to.
+ * @param {Real} published_file_id The workshop item to remove from the user's favorites list.
+ * @param {Function} [callback] The function to call upon completion.
+ *
+ * @event callback
+ * @desc > **Steamworks Callback**: [ISteamUGC::UserFavoriteItemsListChanged_t](https://partner.steamgames.com/doc/api/ISteamUGC#UserFavoriteItemsListChanged_t)
+ *
+ * Called when an item is added to or removed from the user's list of favorite workshop items.
+ *
+ * @member {Enum.SteamApiResult} result The result of the operation.
+ * @member {Real} published_file_id The workshop item whose favorite status changed.
+ * @member {Bool} was_add_request Whether the item was added to (`true`) or removed from (`false`) the favorites list.
+ * @event_end
+ * @function_end
  */
 
 /**
@@ -3369,8 +3486,8 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function removes an existing key-value tag from an item.
  *
- * @param {Real} update_handle
- * @param {String} key
+ * @param {Real} update_handle The workshop item update handle to customize.
+ * @param {String} key The key to remove from the item.
  * @returns {Bool} 
  * @function_end 
  */
@@ -3381,8 +3498,8 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function removes an existing preview from an item.
  *
- * @param {Real} update_handle
- * @param {Real} index
+ * @param {Real} update_handle The workshop item update handle to customize.
+ * @param {Real} index The index of the preview to remove from the item.
  * @returns {Bool} 
  * @function_end 
  */
@@ -3393,8 +3510,8 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function sets the given EUGCContentDescriptorID on the item.
  *
- * @param {Real} update_handle
- * @param {Enum.SteamUgcContentDescriptorId} descriptor_id
+ * @param {Real} update_handle The workshop item update handle to customize.
+ * @param {Enum.SteamUgcContentDescriptorId} descriptor_id The content descriptor to set on the item.
  * @returns {Bool} 
  * @function_end 
  */
@@ -3405,8 +3522,8 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function removes the given EUGCContentDescriptorID from the item.
  *
- * @param {Real} update_handle
- * @param {Enum.SteamUgcContentDescriptorId} descriptor_id
+ * @param {Real} update_handle The workshop item update handle to customize.
+ * @param {Enum.SteamUgcContentDescriptorId} descriptor_id The content descriptor to remove from the item.
  * @returns {Bool} 
  * @function_end 
  */
@@ -3417,9 +3534,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function sets what Steam (beta) branches this item is valid for.
  *
- * @param {Real} update_handle
- * @param {String} game_branch_min
- * @param {String} game_branch_max
+ * @param {Real} update_handle The workshop item update handle to customize.
+ * @param {String} game_branch_min The name of the minimum Steam branch this item is valid for.
+ * @param {String} game_branch_max The name of the maximum Steam branch this item is valid for.
  * @returns {Bool} 
  * @function_end 
  */
@@ -3430,10 +3547,22 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function is deprecated; use steam_ugc_create_query_ugc_details_request instead.
  *
- * @param {Real} published_file_id
- * @param {Real} max_age_seconds
- * @param {Function} [callback]
- * @function_end 
+ * @param {Real} published_file_id The workshop item to get the details for.
+ * @param {Real} max_age_seconds The maximum age (in seconds) that cached data is considered valid for.
+ * @param {Function} [callback] The function to call upon completion.
+ *
+ * @event callback
+ * @desc > **Steamworks Callback**: [ISteamUGC::SteamUGCRequestUGCDetailsResult_t](https://partner.steamgames.com/doc/api/ISteamUGC#SteamUGCRequestUGCDetailsResult_t)
+ *
+ * Called when the details of a workshop item have been received.
+ *
+ * [[Note: This callback is deprecated by Steam and is provided for backwards compatibility.]]
+ *
+ * @member {Enum.SteamApiResult} result The result of the operation.
+ * @member {Real} published_file_id The workshop item the details are for.
+ * @member {Bool} cached_data Whether the returned data was retrieved from the local cache.
+ * @event_end
+ * @function_end
  */
 
 /**
@@ -3442,9 +3571,21 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function sends a UGC query to Steam.
  *
- * @param {Real} query_handle
- * @param {Function} [callback]
- * @function_end 
+ * @param {Real} query_handle The UGC query request handle to send.
+ * @param {Function} [callback] The function to call upon completion.
+ *
+ * @event callback
+ * @desc > **Steamworks Callback**: [ISteamUGC::SteamUGCQueryCompleted_t](https://partner.steamgames.com/doc/api/ISteamUGC#SteamUGCQueryCompleted_t)
+ *
+ * Called when a UGC query request has completed.
+ *
+ * @member {Real} query_handle The handle of the query that completed.
+ * @member {Enum.SteamApiResult} result The result of the operation.
+ * @member {Real} num_results_returned The number of results returned in this query.
+ * @member {Real} total_matching_results The total number of results matching the query criteria.
+ * @member {Bool} cached_data Whether the returned data was retrieved from the local cache rather than from the server.
+ * @event_end
+ * @function_end
  */
 
 /**
@@ -3453,17 +3594,17 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function releases a UGC query handle when you are done with it to free up memory.
  *
- * @param {Real} query_handle
- * @function_end 
+ * @param {Real} query_handle The UGC query handle to release.
+ * @function_end
  */
 
 /**
  * @function steam_ugc_set_callback_item_installed
  * @description > **Steamworks Function**: N / A
  *
- * This function 
+ * This function
  *
- * @param {Function} callback
+ * @param {Function} callback The function to be called when a workshop item is installed.
  * @function_end 
  */
 
@@ -3482,8 +3623,8 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function sets whether results will be returned from the cache for the specific period of time on a pending UGC Query.
  *
- * @param {Real} query_handle
- * @param {Real} max_age_seconds
+ * @param {Real} query_handle The UGC query handle to customize, as returned by ${function.steam_ugc_create_query_user} or ${function.steam_ugc_create_query_all}.
+ * @param {Real} max_age_seconds The maximum amount of time, in seconds, that an item can be returned from the cache without a fresh query being made.
  * @returns {Bool} 
  * @function_end 
  */
@@ -3494,8 +3635,8 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function sets to only return items that have a specific filename on a pending UGC Query.
  *
- * @param {Real} query_handle
- * @param {String} match_cloud_file_name
+ * @param {Real} query_handle The UGC query handle to customize, as returned by ${function.steam_ugc_create_query_user} or ${function.steam_ugc_create_query_all}.
+ * @param {String} match_cloud_file_name The filename that returned items must have in order to match the query.
  * @returns {Bool} 
  * @function_end 
  */
@@ -3506,8 +3647,8 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function sets the folder that will be stored as the content for an item.
  *
- * @param {Real} update_handle
- * @param {String} content_folder
+ * @param {Real} update_handle The item update handle, as returned by ${function.steam_ugc_start_item_update}.
+ * @param {String} content_folder The absolute path to a local folder containing the content for the item.
  * @returns {Bool} 
  * @function_end 
  */
@@ -3518,8 +3659,8 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function sets a new description for an item.
  *
- * @param {Real} update_handle
- * @param {String} description
+ * @param {Real} update_handle The item update handle, as returned by ${function.steam_ugc_start_item_update}.
+ * @param {String} description The new description of the item, with a maximum length of 8000 bytes.
  * @returns {Bool} 
  * @function_end 
  */
@@ -3530,8 +3671,8 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function sets arbitrary metadata for an item.
  *
- * @param {Real} update_handle
- * @param {String} metadata
+ * @param {Real} update_handle The item update handle, as returned by ${function.steam_ugc_start_item_update}.
+ * @param {String} metadata The metadata to set for the item, with a maximum length of 5000 bytes.
  * @returns {Bool} 
  * @function_end 
  */
@@ -3542,8 +3683,8 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function sets the primary preview image for the item.
  *
- * @param {Real} update_handle
- * @param {String} preview_file
+ * @param {Real} update_handle The item update handle, as returned by ${function.steam_ugc_start_item_update}.
+ * @param {String} preview_file The absolute path to a local preview file (image) to use as the primary preview for the item.
  * @returns {Bool} 
  * @function_end 
  */
@@ -3554,8 +3695,8 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function sets arbitrary developer specified tags on an item.
  *
- * @param {Real} update_handle
- * @param {Array[String]} tags_csv
+ * @param {Real} update_handle The item update handle, as returned by ${function.steam_ugc_start_item_update}.
+ * @param {Array[String]} tags_csv An array of strings holding the tags to set on the item.
  * @returns {Bool} 
  * @function_end 
  */
@@ -3566,8 +3707,8 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function sets a new title for an item.
  *
- * @param {Real} update_handle
- * @param {String} title
+ * @param {Real} update_handle The item update handle, as returned by ${function.steam_ugc_start_item_update}.
+ * @param {String} title The new title of the item, with a maximum length of 128 bytes.
  * @returns {Bool} 
  * @function_end 
  */
@@ -3578,8 +3719,8 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function sets the language of the title and description that will be set in this item update.
  *
- * @param {Real} update_handle
- * @param {String} language
+ * @param {Real} update_handle The item update handle, as returned by ${function.steam_ugc_start_item_update}.
+ * @param {String} language The language to set, as a Steam supported [API language code](https://partner.steamgames.com/doc/store/localization/languages).
  * @returns {Bool} 
  * @function_end 
  */
@@ -3590,9 +3731,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function sets whether the items should be disabled locally or not.
  *
- * @param {Array[Real]} published_file_ids
- * @param {Real} num_published_file_ids
- * @param {Bool} disabled_locally
+ * @param {Array[Real]} published_file_ids An array of the unique IDs of the published items to set the disabled state for.
+ * @param {Real} num_published_file_ids The number of items in the `published_file_ids` array.
+ * @param {Bool} disabled_locally Whether the items should be disabled locally (`true`) or enabled (`false`).
  * @returns {Bool} 
  * @function_end 
  */
@@ -3603,8 +3744,8 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function sets the visibility of an item.
  *
- * @param {Real} update_handle
- * @param {Enum.SteamRemoteStoragePublishedFileVisibility} visibility
+ * @param {Real} update_handle The item update handle, as returned by ${function.steam_ugc_start_item_update}.
+ * @param {Enum.SteamRemoteStoragePublishedFileVisibility} visibility The desired visibility to set for the item.
  * @returns {Bool} 
  * @function_end 
  */
@@ -3615,8 +3756,8 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function sets the language to return the title and description in for the items on a pending UGC Query.
  *
- * @param {Real} query_handle
- * @param {String} language
+ * @param {Real} query_handle The UGC query handle to customize, as returned by ${function.steam_ugc_create_query_user} or ${function.steam_ugc_create_query_all}.
+ * @param {String} language The language to return the title and description in, as a Steam supported [API language code](https://partner.steamgames.com/doc/store/localization/languages).
  * @returns {Bool} 
  * @function_end 
  */
@@ -3627,8 +3768,8 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function sets whether workshop items will be returned if they have one or more matching tags, or if all tags need to match on a pending UGC Query.
  *
- * @param {Real} query_handle
- * @param {Bool} match_any_tag
+ * @param {Real} query_handle The UGC query handle to customize, as returned by ${function.steam_ugc_create_query_user} or ${function.steam_ugc_create_query_all}.
+ * @param {Bool} match_any_tag If `true`, items must have at least one of the required tags to match; if `false`, items must have all of the required tags.
  * @returns {Bool} 
  * @function_end 
  */
@@ -3639,8 +3780,8 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function sets whether the order of the results will be updated based on the rank of items over a number of days on a pending UGC Query.
  *
- * @param {Real} query_handle
- * @param {Real} days
+ * @param {Real} query_handle The UGC query handle to customize, as returned by ${function.steam_ugc_create_query_all}.
+ * @param {Real} days The number of days to rank items over, used with the `ugc_query_RankedByTrend` query type.
  * @returns {Bool} 
  * @function_end 
  */
@@ -3651,8 +3792,8 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function sets whether to return any additional images/videos attached to the items on a pending UGC Query.
  *
- * @param {Real} query_handle
- * @param {Bool} return_additional_previews
+ * @param {Real} query_handle The UGC query handle to customize, as returned by ${function.steam_ugc_create_query_user} or ${function.steam_ugc_create_query_all}.
+ * @param {Bool} return_additional_previews Whether to return any additional previews (images and videos) for the items in the query results.
  * @returns {Bool} 
  * @function_end 
  */
@@ -3663,8 +3804,8 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function sets whether to return the IDs of the child items of the item on a pending UGC Query.
  *
- * @param {Real} query_handle
- * @param {Bool} return_children
+ * @param {Real} query_handle The UGC query handle to customize, as returned by ${function.steam_ugc_create_query_user} or ${function.steam_ugc_create_query_all}.
+ * @param {Bool} return_children Whether to return the IDs of the child items of each item in the query results.
  * @returns {Bool} 
  * @function_end 
  */
@@ -3675,8 +3816,8 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function sets whether to return any key-value tags for the items on a pending UGC Query.
  *
- * @param {Real} query_handle
- * @param {Bool} return_key_value_tags
+ * @param {Real} query_handle The UGC query handle to customize, as returned by ${function.steam_ugc_create_query_user} or ${function.steam_ugc_create_query_all}.
+ * @param {Bool} return_key_value_tags Whether to return any key-value tags for the items in the query results.
  * @returns {Bool} 
  * @function_end 
  */
@@ -3687,8 +3828,8 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function sets whether to return the full description for the items on a pending UGC Query.
  *
- * @param {Real} query_handle
- * @param {Bool} return_long_description
+ * @param {Real} query_handle The UGC query handle to customize, as returned by ${function.steam_ugc_create_query_user} or ${function.steam_ugc_create_query_all}.
+ * @param {Bool} return_long_description Whether to return the full description for the items in the query results.
  * @returns {Bool} 
  * @function_end 
  */
@@ -3699,8 +3840,8 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function sets whether to return the developer-specified metadata for the items on a pending UGC Query.
  *
- * @param {Real} query_handle
- * @param {Bool} return_metadata
+ * @param {Real} query_handle The UGC query handle to customize, as returned by ${function.steam_ugc_create_query_user} or ${function.steam_ugc_create_query_all}.
+ * @param {Bool} return_metadata Whether to return the developer-specified metadata for the items in the query results.
  * @returns {Bool} 
  * @function_end 
  */
@@ -3711,8 +3852,8 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function sets whether to only return IDs instead of all the details on a pending UGC Query.
  *
- * @param {Real} query_handle
- * @param {Bool} return_only_ids
+ * @param {Real} query_handle The UGC query handle to customize, as returned by ${function.steam_ugc_create_query_user} or ${function.steam_ugc_create_query_all}.
+ * @param {Bool} return_only_ids Whether to only return the IDs of the items, omitting all other details, in the query results.
  * @returns {Bool} 
  * @function_end 
  */
@@ -3723,8 +3864,8 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function sets whether to return the playtime stats on a pending UGC Query.
  *
- * @param {Real} query_handle
- * @param {Real} days
+ * @param {Real} query_handle The UGC query handle to customize, as returned by ${function.steam_ugc_create_query_user} or ${function.steam_ugc_create_query_all}.
+ * @param {Real} days The number of days worth of playtime stats to return for the items in the query results.
  * @returns {Bool} 
  * @function_end 
  */
@@ -3735,8 +3876,8 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function sets whether to only return the total number of matching items on a pending UGC Query.
  *
- * @param {Real} query_handle
- * @param {Bool} return_total_only
+ * @param {Real} query_handle The UGC query handle to customize, as returned by ${function.steam_ugc_create_query_user} or ${function.steam_ugc_create_query_all}.
+ * @param {Bool} return_total_only Whether to only return the total number of matching items, without returning any item details.
  * @returns {Bool} 
  * @function_end 
  */
@@ -3747,8 +3888,8 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function sets a string that items need to match in either the title or the description on a pending UGC Query.
  *
- * @param {Real} query_handle
- * @param {String} search_text
+ * @param {Real} query_handle The UGC query handle to customize, as returned by ${function.steam_ugc_create_query_all}.
+ * @param {String} search_text The text that items must match in either their title or description to be returned.
  * @returns {Bool} 
  * @function_end 
  */
@@ -3759,8 +3900,8 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function sets the local load order for these items.
  *
- * @param {Array[Real]} published_file_ids
- * @param {Real} num_published_file_ids
+ * @param {Array[Real]} published_file_ids An array of the unique IDs of the subscribed items, in the desired load order.
+ * @param {Real} num_published_file_ids The number of items in the `published_file_ids` array.
  * @returns {Bool} 
  * @function_end 
  */
@@ -3771,10 +3912,20 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function allows the user to rate a workshop item up or down.
  *
- * @param {Real} published_file_id
- * @param {Bool} vote_up
- * @param {Function} [callback]
- * @function_end 
+ * @param {Real} published_file_id The unique ID of the workshop item to vote on.
+ * @param {Bool} vote_up Whether to vote the item up (`true`) or down (`false`).
+ * @param {Function} [callback] The function to call upon completion.
+ *
+ * @event callback
+ * @desc > **Steamworks Callback**: [ISteamUGC::SetUserItemVoteResult_t](https://partner.steamgames.com/doc/api/ISteamUGC#SetUserItemVoteResult_t)
+ *
+ * Called when the user has voted on a workshop item.
+ *
+ * @member {Enum.SteamApiResult} result The result of the operation.
+ * @member {Real} published_file_id The workshop item that was voted on.
+ * @member {Bool} vote_up The vote that was set; `true` for an up vote, `false` for a down vote.
+ * @event_end
+ * @function_end
  */
 
 /**
@@ -3783,9 +3934,21 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function gets the user's vote status on a workshop item.
  *
- * @param {Real} published_file_id
- * @param {Function} [callback]
- * @function_end 
+ * @param {Real} published_file_id The unique ID of the workshop item to get the user's vote status for.
+ * @param {Function} [callback] The function to call upon completion.
+ *
+ * @event callback
+ * @desc > **Steamworks Callback**: [ISteamUGC::GetUserItemVoteResult_t](https://partner.steamgames.com/doc/api/ISteamUGC#GetUserItemVoteResult_t)
+ *
+ * Called when the user's current vote on a workshop item has been retrieved.
+ *
+ * @member {Enum.SteamApiResult} result The result of the operation.
+ * @member {Real} published_file_id The workshop item the vote information is for.
+ * @member {Bool} voted_up Whether the user has voted the item up.
+ * @member {Bool} voted_down Whether the user has voted the item down.
+ * @member {Bool} vote_skipped Whether the user has skipped voting on the item.
+ * @event_end
+ * @function_end
  */
 
 /**
@@ -3794,8 +3957,8 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function starts the item update process.
  *
- * @param {Real} consumer_app_id
- * @param {Real} published_file_id
+ * @param {Real} consumer_app_id The App ID that will consume this item.
+ * @param {Real} published_file_id The unique ID of the workshop item to update.
  * @returns {Real} 
  * @function_end 
  */
@@ -3806,9 +3969,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function starts tracking playtime on a set of workshop items.
  *
- * @param {Array[Real]} published_file_ids
- * @param {Real} num_published_file_ids
- * @param {Function} [callback]
+ * @param {Array[Real]} published_file_ids An array of the unique IDs of the workshop items to start tracking playtime for.
+ * @param {Real} num_published_file_ids The number of items in the `published_file_ids` array.
+ * @param {Function} [callback] The function to call upon completion.
  * @function_end 
  */
 
@@ -3818,9 +3981,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function stops tracking playtime on a set of workshop items.
  *
- * @param {Array[Real]} published_file_ids
- * @param {Real} num_published_file_ids
- * @param {Function} [callback]
+ * @param {Array[Real]} published_file_ids An array of the unique IDs of the workshop items to stop tracking playtime for.
+ * @param {Real} num_published_file_ids The number of items in the `published_file_ids` array.
+ * @param {Function} [callback] The function to call upon completion.
  * @function_end 
  */
 
@@ -3830,7 +3993,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function stops tracking playtime of all workshop items.
  *
- * @param {Function} [callback]
+ * @param {Function} [callback] The function to call upon completion.
  * @function_end 
  */
 
@@ -3840,10 +4003,19 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function uploads the changes made to an item to the Steam Workshop.
  *
- * @param {Real} update_handle
- * @param {String} change_note
- * @param {Function} [callback]
- * @function_end 
+ * @param {Real} update_handle The item update handle, as returned by ${function.steam_ugc_start_item_update}.
+ * @param {String} change_note A change note detailing what was altered in this item update; can be an empty string.
+ * @param {Function} [callback] The function to call upon completion.
+ *
+ * @event callback
+ * @desc > **Steamworks Callback**: [ISteamUGC::SubmitItemUpdateResult_t](https://partner.steamgames.com/doc/api/ISteamUGC#SubmitItemUpdateResult_t)
+ *
+ * Called when a workshop item update has been submitted and uploaded.
+ *
+ * @member {Enum.SteamApiResult} result The result of the operation.
+ * @member {Bool} legal_agreement_required Whether the user needs to accept the Steam Workshop legal agreement.
+ * @event_end
+ * @function_end
  */
 
 /**
@@ -3852,9 +4024,18 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function subscribes to a workshop item.
  *
- * @param {Real} published_file_id
- * @param {Function} [callback]
- * @function_end 
+ * @param {Real} published_file_id The unique ID of the workshop item to subscribe to.
+ * @param {Function} [callback] The function to call upon completion.
+ *
+ * @event callback
+ * @desc > **Steamworks Callback**: [ISteamRemoteStorage::RemoteStorageSubscribePublishedFileResult_t](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#RemoteStorageSubscribePublishedFileResult_t)
+ *
+ * Called when the user has subscribed to a piece of UGC.
+ *
+ * @member {Enum.SteamApiResult} result The result of the operation.
+ * @member {Real} published_file_id The workshop item that the user subscribed to.
+ * @event_end
+ * @function_end
  */
 
 /**
@@ -3863,7 +4044,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function suspends and resumes all workshop downloads.
  *
- * @param {Bool} suspend
+ * @param {Bool} suspend Whether to suspend (`true`) or resume (`false`) all workshop downloads.
  * @function_end 
  */
 
@@ -3873,18 +4054,27 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function unsubscribes from a workshop item.
  *
- * @param {Real} published_file_id
- * @param {Function} [callback]
- * @function_end 
+ * @param {Real} published_file_id The unique ID of the workshop item to unsubscribe from.
+ * @param {Function} [callback] The function to call upon completion.
+ *
+ * @event callback
+ * @desc > **Steamworks Callback**: [ISteamRemoteStorage::RemoteStorageUnsubscribePublishedFileResult_t](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#RemoteStorageUnsubscribePublishedFileResult_t)
+ *
+ * Called when the user has unsubscribed from a piece of UGC.
+ *
+ * @member {Enum.SteamApiResult} result The result of the operation.
+ * @member {Real} published_file_id The workshop item that the user unsubscribed from.
+ * @event_end
+ * @function_end
  */
 
 /**
  * @function steam_ugc_set_callback_user_subscribed_items_list_changed
  * @description > **Steamworks Function**: N / A
  *
- * This function 
+ * This function
  *
- * @param {Function} callback
+ * @param {Function} callback The function to be called when the user's list of subscribed items changes.
  * @function_end 
  */
 
@@ -3903,9 +4093,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function updates an existing additional preview file for the item.
  *
- * @param {Real} update_handle
- * @param {Real} index
- * @param {String} preview_file
+ * @param {Real} update_handle The item update handle, as returned by ${function.steam_ugc_start_item_update}.
+ * @param {Real} index The (zero-based) index of the preview file to update.
+ * @param {String} preview_file The absolute path to the local image file that will replace the existing preview.
  * @returns {Bool} 
  * @function_end 
  */
@@ -3916,9 +4106,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function updates an additional video preview from YouTube for the item.
  *
- * @param {Real} update_handle
- * @param {Real} index
- * @param {String} video_id
+ * @param {Real} update_handle The item update handle, as returned by ${function.steam_ugc_start_item_update}.
+ * @param {Real} index The (zero-based) index of the preview video to update.
+ * @param {String} video_id The ID of the YouTube video that will replace the existing preview video.
  * @returns {Bool} 
  * @function_end 
  */
@@ -3939,7 +4129,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function asynchronously retrieves data about whether the user accepted the Workshop EULA for the current app.
  *
- * @param {Function} [callback]
+ * @param {Function} [callback] The function to call upon completion.
  * @function_end 
  */
 
@@ -3947,9 +4137,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  * @function steam_ugc_set_callback_file_subscribed
  * @description > **Steamworks Function**: N / A
  *
- * This function 
+ * This function
  *
- * @param {Function} callback
+ * @param {Function} callback The function to be called when a workshop file is subscribed to.
  * @function_end 
  */
 
@@ -3966,9 +4156,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  * @function steam_ugc_set_callback_file_unsubscribed
  * @description > **Steamworks Function**: N / A
  *
- * This function 
+ * This function
  *
- * @param {Function} callback
+ * @param {Function} callback The function to be called when a workshop file is unsubscribed from.
  * @function_end 
  */
 
@@ -3987,8 +4177,8 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function returns the number of supported game versions; items can have multiple versions, whose support can be valid for a range of Steam beta branches.
  *
- * @param {Real} query_handle
- * @param {Real} index
+ * @param {Real} query_handle The UGC query handle to query, as returned by ${function.steam_ugc_create_query_user} or ${function.steam_ugc_create_query_all}.
+ * @param {Real} index The (zero-based) index of the item within the query results to get the number of supported game versions for.
  * @returns {Real} 
  * @function_end 
  */
@@ -3999,8 +4189,8 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function reconfigures the controller to use the specified action set.
  *
- * @param {Real} input_handle
- * @param {Real} action_set_handle
+ * @param {Real} input_handle The handle of the controller you want to activate an action set for.
+ * @param {Real} action_set_handle The handle of the action set you want to activate.
  * @function_end 
  */
 
@@ -4010,8 +4200,8 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function reconfigures the controller to use the specified action set layer.
  *
- * @param {Real} input_handle
- * @param {Real} action_set_layer_handle
+ * @param {Real} input_handle The handle of the controller you want to activate an action set layer for.
+ * @param {Real} action_set_layer_handle The handle of the action set layer you want to activate.
  * @function_end 
  */
 
@@ -4021,8 +4211,8 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function reconfigures the controller to stop using the specified action set layer.
  *
- * @param {Real} input_handle
- * @param {Real} action_set_layer_handle
+ * @param {Real} input_handle The handle of the controller you want to deactivate an action set layer for.
+ * @param {Real} action_set_layer_handle The handle of the action set layer you want to deactivate.
  * @function_end 
  */
 
@@ -4032,7 +4222,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function reconfigures the controller to stop using all action set layers.
  *
- * @param {Real} input_handle
+ * @param {Real} input_handle The handle of the controller you want to deactivate all action set layers for.
  * @function_end 
  */
 
@@ -4042,7 +4232,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function fills an array with all of the currently active action set layers for a specified controller handle.
  *
- * @param {Real} input_handle
+ * @param {Real} input_handle The handle of the controller you want to get active action set layers for.
  * @returns {Struct.SteamInputActiveActionSetLayers} 
  * @function_end 
  */
@@ -4053,7 +4243,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function looks up the handle for an action set.
  *
- * @param {String} pszActionSetName
+ * @param {String} pszActionSetName The string identifier of an action set defined in the game's VDF file.
  * @returns {Real} 
  * @function_end 
  */
@@ -4064,8 +4254,8 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function returns the current state of the supplied analog game action.
  *
- * @param {Real} input_handle
- * @param {Real} analog_action_handle
+ * @param {Real} input_handle The handle of the controller you want to query.
+ * @param {Real} analog_action_handle The handle of the analog action you want to query.
  * @returns {Struct.SteamInputAnalogActionData} 
  * @function_end 
  */
@@ -4076,7 +4266,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function gets the handle of the specified analog action.
  *
- * @param {String} pszActionName
+ * @param {String} pszActionName The string identifier of the analog action defined in the game's VDF file.
  * @returns {Real} 
  * @function_end 
  */
@@ -4087,9 +4277,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function gets the origin(s) for an analog action within an action set.
  *
- * @param {Real} input_handle
- * @param {Real} action_set_handle
- * @param {Real} analog_action_handle
+ * @param {Real} input_handle The handle of the controller you want to query.
+ * @param {Real} action_set_handle The handle of the action set you want to query.
+ * @param {Real} analog_action_handle The handle of the analog action you want to query.
  * @returns {Struct.SteamInputActionOrigins} 
  * @function_end 
  */
@@ -4100,9 +4290,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function gets a local path to a PNG file for the on-screen glyph for a particular origin.
  *
- * @param {Real} origin
- * @param {Real} size
- * @param {Real} flags
+ * @param {Real} origin The action origin you want to get the glyph image for.
+ * @param {Real} size The size of the PNG glyph to retrieve, from the `ESteamInputGlyphSize` enum.
+ * @param {Real} flags A bit-masked combination of glyph style flags that control the visual appearance of the returned glyph.
  * @returns {String} 
  * @function_end 
  */
@@ -4113,8 +4303,8 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function gets a local path to an SVG file for the on-screen glyph for a particular origin.
  *
- * @param {Real} origin
- * @param {Real} flags
+ * @param {Real} origin The action origin you want to get the glyph image for.
+ * @param {Real} flags A bit-masked combination of glyph style flags that control the visual appearance of the returned glyph.
  * @returns {String} 
  * @function_end 
  */
@@ -4135,7 +4325,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function returns the associated controller handle for the specified emulated gamepad.
  *
- * @param {Real} nIndex
+ * @param {Real} nIndex The index of the emulated gamepad you want to get a controller handle for.
  * @returns {Real} 
  * @function_end 
  */
@@ -4146,7 +4336,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function gets the currently active action set for the specified controller.
  *
- * @param {Real} input_handle
+ * @param {Real} input_handle The handle of the controller you want to query.
  * @returns {Real} 
  * @function_end 
  */
@@ -4157,8 +4347,8 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function returns the current state of the supplied digital game action.
  *
- * @param {Real} input_handle
- * @param {Real} digital_action_handle
+ * @param {Real} input_handle The handle of the controller you want to query.
+ * @param {Real} digital_action_handle The handle of the digital action you want to query.
  * @returns {Struct.SteamInputDigitalActionData} 
  * @function_end 
  */
@@ -4169,7 +4359,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function gets the handle of the specified digital action.
  *
- * @param {String} pszActionName
+ * @param {String} pszActionName The string identifier of the digital action defined in the game's VDF file.
  * @returns {Real} 
  * @function_end 
  */
@@ -4180,9 +4370,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function gets the origin(s) for a digital action within an action set.
  *
- * @param {Real} input_handle
- * @param {Real} action_set_handle
- * @param {Real} digital_action_handle
+ * @param {Real} input_handle The handle of the controller you want to query.
+ * @param {Real} action_set_handle The handle of the action set you want to query.
+ * @param {Real} digital_action_handle The handle of the digital action you want to query.
  * @returns {Struct.SteamInputActionOrigins} 
  * @function_end 
  */
@@ -4193,7 +4383,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function returns the associated gamepad index for the specified controller, if emulating a gamepad.
  *
- * @param {Real} input_handle
+ * @param {Real} input_handle The handle of the controller you want to get a gamepad index for.
  * @returns {Real} 
  * @function_end 
  */
@@ -4204,7 +4394,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function returns the input type (device model) for the specified controller.
  *
- * @param {Real} input_handle
+ * @param {Real} input_handle The handle of the controller whose input type (device model) you want to query.
  * @returns {Real} 
  * @function_end 
  */
@@ -4215,7 +4405,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function returns raw motion data for the specified controller.
  *
- * @param {Real} input_handle
+ * @param {Real} input_handle The handle of the controller you want to get motion data for.
  * @returns {Struct.SteamInputMotionData} 
  * @function_end 
  */
@@ -4226,7 +4416,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function returns a localized string (from Steam's language setting) for the specified origin.
  *
- * @param {Real} eOrigin
+ * @param {Real} origin The action origin you want to get the localized string for.
  * @returns {String} 
  * @function_end 
  */
@@ -4237,7 +4427,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function must be called when starting use of the ISteamInput interface.
  *
- * @param {Bool} explicitly_call_run_frame
+ * @param {Bool} explicitly_call_run_frame Set to `true` if you intend to call ${function.steam_input_run_frame} manually instead of having it called automatically.
  * @returns {Bool} 
  * @function_end 
  */
@@ -4266,8 +4456,8 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function sets the trigger effect for a DualSense controller.
  *
- * @param {Real} input_handle
- * @param {Array[Real]} pParam
+ * @param {Real} input_handle The handle of the controller to affect.
+ * @param {Array[Real]} pParam The trigger parameters, as defined in isteamdualsense.h.
  * @returns {Bool} 
  * @function_end 
  */
@@ -4278,11 +4468,11 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function sets the controller LED color on supported controllers.
  *
- * @param {Real} input_handle
- * @param {Real} nColorR
- * @param {Real} nColorG
- * @param {Real} nColorB
- * @param {Real} nFlags
+ * @param {Real} input_handle The handle of the controller to affect.
+ * @param {Real} nColorR The red component of the color to set (0-255).
+ * @param {Real} nColorG The green component of the color to set (0-255).
+ * @param {Real} nColorB The blue component of the color to set (0-255).
+ * @param {Real} nFlags Bit-masked flags combined from values defined in the ESteamControllerLEDFlag enum.
  * @function_end 
  */
 
@@ -4292,7 +4482,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function invokes the Steam overlay and brings up the binding screen.
  *
- * @param {Real} input_handle
+ * @param {Real} input_handle The handle of the controller you want to bring up the binding screen for.
  * @returns {Bool} 
  * @function_end 
  */
@@ -4313,8 +4503,8 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function stops the momentum of an analog action.
  *
- * @param {Real} input_handle
- * @param {Real} analog_action_handle
+ * @param {Real} input_handle The handle of the controller to affect.
+ * @param {Real} analog_action_handle The handle of the analog action to stop momentum for.
  * @function_end 
  */
 
@@ -4324,9 +4514,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function triggers a vibration event on supported controllers.
  *
- * @param {Real} input_handle
- * @param {Real} usLeftSpeed
- * @param {Real} usRightSpeed
+ * @param {Real} input_handle The handle of the controller to affect.
+ * @param {Real} usLeftSpeed The intensity value for the left rumble motor.
+ * @param {Real} usRightSpeed The intensity value of the right rumble motor.
  * @function_end 
  */
 
@@ -4336,11 +4526,11 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function triggers a vibration event on supported controllers, including Xbox Impulse Trigger motor values.
  *
- * @param {Real} input_handle
- * @param {Real} usLeftSpeed
- * @param {Real} usRightSpeed
- * @param {Real} usLeftTriggerSpeed
- * @param {Real} usRightTriggerSpeed
+ * @param {Real} input_handle The handle of the controller to affect.
+ * @param {Real} usLeftSpeed The intensity value for the left rumble motor.
+ * @param {Real} usRightSpeed The intensity value of the right rumble motor.
+ * @param {Real} usLeftTriggerSpeed The intensity value for the left Xbox Impulse Trigger motor.
+ * @param {Real} usRightTriggerSpeed The intensity value of the right Xbox Impulse Trigger motor.
  * @function_end 
  */
 
@@ -4350,8 +4540,8 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function gets an action origin that you can use in your glyph look up table.
  *
- * @param {Real} input_handle
- * @param {Real} eOrigin
+ * @param {Real} input_handle The handle of the controller to query. You can use ${function.steam_input_get_controller_for_gamepad_index} to get this handle.
+ * @param {Enum.SteamXboxOrigin} origin The Xbox button you want to get the image for, e.g. `SteamXboxOrigin.A`.
  * @returns {Real} 
  * @function_end 
  */
@@ -4362,8 +4552,8 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function gets the equivalent origin for a given controller type.
  *
- * @param {Real} eDestinationInputType
- * @param {Real} eSourceOrigin
+ * @param {Real} destination_input_type The controller type you want to translate to. Steam will pick the closest type from your SDK version if `k_ESteamInputType_Unknown` is used.
+ * @param {Enum.SteamInputActionOrigin} source_origin The button you want to translate.
  * @returns {Real} 
  * @function_end 
  */
@@ -4374,7 +4564,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function gets the major and minor device binding revisions for Steam Input API configurations.
  *
- * @param {Real} input_handle
+ * @param {Real} input_handle The handle of the controller to query.
  * @returns {Struct.SteamInputDeviceBindingRevision} 
  * @function_end 
  */
@@ -4385,7 +4575,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function gets the Steam Remote Play session ID associated with a device.
  *
- * @param {Real} input_handle
+ * @param {Real} input_handle The handle of the controller to query.
  * @returns {Real} 
  * @function_end 
  */
@@ -4396,7 +4586,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function 
  *
- * @param {Function} callback
+ * @param {Function} callback The function to be called when an input device is connected.
  * @function_end 
  */
 
@@ -4415,7 +4605,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function 
  *
- * @param {Function} callback
+ * @param {Function} callback The function to be called when an input device is disconnected.
  * @function_end 
  */
 
@@ -4434,7 +4624,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function 
  *
- * @param {Function} callback
+ * @param {Function} callback The function to be called when the active action set changes.
  * @function_end 
  */
 
@@ -4453,7 +4643,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function 
  *
- * @param {Function} callback
+ * @param {Function} callback The function to be called when a controller's battery level changes.
  * @function_end 
  */
 
@@ -4472,7 +4662,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function gets the current value of the given integer stat for the current user.
  *
- * @param {String} stat_name
+ * @param {String} stat_name The "API Name" of the stat.
  * @returns {Struct.SteamUserStatsStatInt} 
  * @function_end 
  */
@@ -4483,7 +4673,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function gets the current value of the given floating point stat for the current user.
  *
- * @param {String} stat_name
+ * @param {String} stat_name The "API Name" of the stat.
  * @returns {Struct.SteamUserStatsStatFloat} 
  * @function_end 
  */
@@ -4494,8 +4684,8 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function sets / updates the value of a given integer stat for the current user.
  *
- * @param {String} stat_name
- * @param {Real} data
+ * @param {String} stat_name The "API Name" of the stat.
+ * @param {Real} data The new value of the stat. This must be an absolute value; it will not increment or decrement for you.
  * @returns {Bool} 
  * @function_end 
  */
@@ -4506,8 +4696,8 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function sets / updates the value of a given floating point stat for the current user.
  *
- * @param {String} stat_name
- * @param {Real} data
+ * @param {String} stat_name The "API Name" of the stat.
+ * @param {Real} data The new value of the stat. This must be an absolute value; it will not increment or decrement for you.
  * @returns {Bool} 
  * @function_end 
  */
@@ -4518,9 +4708,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function updates an AVGRATE stat with new values.
  *
- * @param {String} stat_name
- * @param {Real} count_this_session
- * @param {Real} session_length
+ * @param {String} stat_name The "API Name" of the stat.
+ * @param {Real} count_this_session The value accumulation since the last call to this function.
+ * @param {Real} session_length The amount of time in seconds since the last call to this function.
  * @returns {Bool} 
  * @function_end 
  */
@@ -4531,7 +4721,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function gets the unlock status of the Achievement.
  *
- * @param {String} achievement_name
+ * @param {String} achievement_name The "API Name" of the achievement.
  * @returns {Struct.SteamUserStatsUserAchievement} 
  * @function_end 
  */
@@ -4542,7 +4732,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function unlocks an achievement.
  *
- * @param {String} achievement_name
+ * @param {String} achievement_name The "API Name" of the achievement to unlock.
  * @returns {Bool} 
  * @function_end 
  */
@@ -4553,7 +4743,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function resets the unlock status of an achievement.
  *
- * @param {String} achievement_name
+ * @param {String} achievement_name The "API Name" of the achievement to reset.
  * @returns {Bool} 
  * @function_end 
  */
@@ -4564,7 +4754,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function gets the achievement status, and the time it was unlocked if unlocked.
  *
- * @param {String} achievement_name
+ * @param {String} achievement_name The "API Name" of the achievement.
  * @returns {Struct.SteamUserStatsAchievementAndUnlockTime} 
  * @function_end 
  */
@@ -4585,7 +4775,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function gets the icon for an achievement.
  *
- * @param {String} achievement_name
+ * @param {String} achievement_name The "API Name" of the achievement.
  * @returns {Real} 
  * @function_end 
  */
@@ -4596,8 +4786,8 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function gets general attributes for an achievement. Currently provides: Name, Description, and Hidden status.
  *
- * @param {String} achievement_name
- * @param {String} key
+ * @param {String} achievement_name The "API Name" of the achievement.
+ * @param {String} key The "key" to get a value for.
  * @returns {String} 
  * @function_end 
  */
@@ -4608,9 +4798,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function shows the user a pop-up notification with the current progress of an achievement.
  *
- * @param {String} achievement_name
- * @param {Real} cur_progress
- * @param {Real} max_progress
+ * @param {String} achievement_name The "API Name" of the achievement.
+ * @param {Real} cur_progress The current progress.
+ * @param {Real} max_progress The progress required to unlock the achievement.
  * @returns {Bool} 
  * @function_end 
  */
@@ -4631,7 +4821,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function gets the "API name" for an achievement index between 0 and GetNumAchievements.
  *
- * @param {Real} index
+ * @param {Real} index The index of the achievement, between 0 and the total number of achievements.
  * @returns {String} 
  * @function_end 
  */
@@ -4642,9 +4832,19 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function asynchronously downloads stats and achievements for the specified user from the server.
  *
- * @param {Real} steam_id_user
- * @param {Function} [callback]
- * @function_end 
+ * @param {Real} steam_id_user The Steam ID of the user to request stats for.
+ * @param {Function} [callback] The function to call upon completion.
+ *
+ * @event callback
+ * @desc > **Steamworks Callback**: [ISteamUserStats::UserStatsReceived_t](https://partner.steamgames.com/doc/api/ISteamUserStats#UserStatsReceived_t)
+ *
+ * Called when the latest stats and achievements for a user have been received from the server.
+ *
+ * @member {Real} game_id The game ID that these stats are for.
+ * @member {Real} steam_id_user The Steam ID of the user whose stats were retrieved.
+ * @member {Enum.SteamApiResult} result The result of the operation.
+ * @event_end
+ * @function_end
  */
 
 /**
@@ -4653,8 +4853,8 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function gets the current value of the given integer stat for the specified user.
  *
- * @param {Real} steam_id_user
- * @param {String} stat_name
+ * @param {Real} steam_id_user The Steam ID of the user to get the stat for.
+ * @param {String} stat_name The "API Name" of the stat.
  * @returns {Struct.SteamUserStatsStatInt} 
  * @function_end 
  */
@@ -4665,8 +4865,8 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function gets the current value of the given floating point stat for the specified user.
  *
- * @param {Real} steam_id_user
- * @param {String} stat_name
+ * @param {Real} steam_id_user The Steam ID of the user to get the stat for.
+ * @param {String} stat_name The "API Name" of the stat.
  * @returns {Struct.SteamUserStatsStatFloat} 
  * @function_end 
  */
@@ -4677,8 +4877,8 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function gets the unlock status of the Achievement.
  *
- * @param {Real} steam_id_user
- * @param {String} achievement_name
+ * @param {Real} steam_id_user The Steam ID of the user to get the achievement for.
+ * @param {String} achievement_name The "API Name" of the achievement.
  * @returns {Struct.SteamUserStatsUserAchievement} 
  * @function_end 
  */
@@ -4689,8 +4889,8 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function gets the achievement status, and the time it was unlocked if unlocked.
  *
- * @param {Real} steam_id_user
- * @param {String} achievement_name
+ * @param {Real} steam_id_user The Steam ID of the user to get the achievement for.
+ * @param {String} achievement_name The "API Name" of the achievement.
  * @returns {Struct.SteamUserStatsAchievementAndUnlockTime} 
  * @function_end 
  */
@@ -4701,7 +4901,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function resets the current users stats and, optionally achievements.
  *
- * @param {Bool} achievements_too
+ * @param {Bool} achievements_too Whether the user's achievements should also be reset.
  * @returns {Bool} 
  * @function_end 
  */
@@ -4712,11 +4912,20 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function gets a leaderboard by name, it will create it if it's not yet created.
  *
- * @param {String} leaderboard_name
- * @param {Enum.SteamLeaderboardSortMethod} sort_method
- * @param {Enum.SteamLeaderboardDisplayType} display_type
- * @param {Function} [callback]
- * @function_end 
+ * @param {String} leaderboard_name The name of the leaderboard to find or create.
+ * @param {Enum.SteamLeaderboardSortMethod} sort_method The sort order of the new leaderboard if it is created.
+ * @param {Enum.SteamLeaderboardDisplayType} display_type The display type (used by the Steam Community web site) of the new leaderboard if it is created.
+ * @param {Function} [callback] The function to call upon completion.
+ *
+ * @event callback
+ * @desc > **Steamworks Callback**: [ISteamUserStats::LeaderboardFindResult_t](https://partner.steamgames.com/doc/api/ISteamUserStats#LeaderboardFindResult_t)
+ *
+ * Called when a leaderboard has been found, or failed to be found.
+ *
+ * @member {Real} leaderboard_handle The handle of the leaderboard that was found. Will be 0 if no leaderboard was found.
+ * @member {Bool} leaderboard_found Whether a leaderboard was found; `true` if it was found.
+ * @event_end
+ * @function_end
  */
 
 /**
@@ -4725,9 +4934,18 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function gets a leaderboard by name.
  *
- * @param {String} leaderboard_name
- * @param {Function} [callback]
- * @function_end 
+ * @param {String} leaderboard_name The name of the leaderboard to find.
+ * @param {Function} [callback] The function to call upon completion.
+ *
+ * @event callback
+ * @desc > **Steamworks Callback**: [ISteamUserStats::LeaderboardFindResult_t](https://partner.steamgames.com/doc/api/ISteamUserStats#LeaderboardFindResult_t)
+ *
+ * Called when a leaderboard has been found, or failed to be found.
+ *
+ * @member {Real} leaderboard_handle The handle of the leaderboard that was found. Will be 0 if no leaderboard was found.
+ * @member {Bool} leaderboard_found Whether a leaderboard was found; `true` if it was found.
+ * @event_end
+ * @function_end
  */
 
 /**
@@ -4736,7 +4954,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function returns the name of a leaderboard handle.
  *
- * @param {Real} leaderboard_handle
+ * @param {Real} leaderboard_handle A leaderboard handle obtained from steam_userstats_find_leaderboard or steam_userstats_find_or_create_leaderboard.
  * @returns {String} 
  * @function_end 
  */
@@ -4747,7 +4965,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function returns the total number of entries in a leaderboard.
  *
- * @param {Real} leaderboard_handle
+ * @param {Real} leaderboard_handle A leaderboard handle obtained from steam_userstats_find_leaderboard or steam_userstats_find_or_create_leaderboard.
  * @returns {Real} 
  * @function_end 
  */
@@ -4758,7 +4976,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function returns the sort order of a leaderboard handle.
  *
- * @param {Real} leaderboard_handle
+ * @param {Real} leaderboard_handle A leaderboard handle obtained from steam_userstats_find_leaderboard or steam_userstats_find_or_create_leaderboard.
  * @returns {Enum.SteamLeaderboardSortMethod} 
  * @function_end 
  */
@@ -4769,7 +4987,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function returns the display type of a leaderboard handle.
  *
- * @param {Real} leaderboard_handle
+ * @param {Real} leaderboard_handle A leaderboard handle obtained from steam_userstats_find_leaderboard or steam_userstats_find_or_create_leaderboard.
  * @returns {Enum.SteamLeaderboardDisplayType} 
  * @function_end 
  */
@@ -4780,12 +4998,22 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function fetches a series of leaderboard entries for a specified leaderboard.
  *
- * @param {Real} leaderboard_handle
- * @param {Enum.SteamLeaderboardDataRequest} request
- * @param {Real} range_start
- * @param {Real} range_end
- * @param {Function} [callback]
- * @function_end 
+ * @param {Real} leaderboard_handle A leaderboard handle obtained from steam_userstats_find_leaderboard or steam_userstats_find_or_create_leaderboard.
+ * @param {Enum.SteamLeaderboardDataRequest} request The type of data request to make.
+ * @param {Real} range_start The index to start downloading entries relative to the data request type.
+ * @param {Real} range_end The last index to retrieve entries for relative to the data request type.
+ * @param {Function} [callback] The function to call upon completion.
+ *
+ * @event callback
+ * @desc > **Steamworks Callback**: [ISteamUserStats::LeaderboardScoresDownloaded_t](https://partner.steamgames.com/doc/api/ISteamUserStats#LeaderboardScoresDownloaded_t)
+ *
+ * Called when scores for a leaderboard have been downloaded and are ready to be retrieved.
+ *
+ * @member {Real} leaderboard_handle The handle of the leaderboard that the scores were downloaded from.
+ * @member {Real} entries_handle A handle used to retrieve each downloaded entry's data.
+ * @member {Real} entry_count The number of entries that were downloaded.
+ * @event_end
+ * @function_end
  */
 
 /**
@@ -4794,10 +5022,20 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function fetches leaderboard entries for an arbitrary set of users on a specified leaderboard.
  *
- * @param {Real} leaderboard_handle
- * @param {Array[Real]} users
- * @param {Function} [callback]
- * @function_end 
+ * @param {Real} leaderboard_handle A leaderboard handle obtained from steam_userstats_find_leaderboard or steam_userstats_find_or_create_leaderboard.
+ * @param {Array[Real]} users An array of Steam IDs to get the leaderboard entries for.
+ * @param {Function} [callback] The function to call upon completion.
+ *
+ * @event callback
+ * @desc > **Steamworks Callback**: [ISteamUserStats::LeaderboardScoresDownloaded_t](https://partner.steamgames.com/doc/api/ISteamUserStats#LeaderboardScoresDownloaded_t)
+ *
+ * Called when scores for a leaderboard have been downloaded and are ready to be retrieved.
+ *
+ * @member {Real} leaderboard_handle The handle of the leaderboard that the scores were downloaded from.
+ * @member {Real} entries_handle A handle used to retrieve each downloaded entry's data.
+ * @member {Real} entry_count The number of entries that were downloaded.
+ * @event_end
+ * @function_end
  */
 
 /**
@@ -4806,10 +5044,10 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function retrieves the data for a single leaderboard entry.
  *
- * @param {Real} leaderboard_entries_handle
- * @param {Real} entry_index
- * @param {Buffer} buffer
- * @param {Real} buffer_size
+ * @param {Real} leaderboard_entries_handle A leaderboard entries handle obtained from the leaderboard scores downloaded callback.
+ * @param {Real} entry_index The index of the entry to retrieve, between 0 and the number of entries that were downloaded.
+ * @param {Buffer} buffer The buffer into which the entry's score details will be written.
+ * @param {Real} buffer_size The size in bytes of the provided buffer.
  * @returns {Struct.SteamUserStatsDownloadedLeaderboardEntry} 
  * @function_end 
  */
@@ -4820,12 +5058,12 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function uploads a user score to a specified leaderboard.
  *
- * @param {Real} leaderboard_handle
- * @param {Enum.SteamLeaderboardUploadScoreMethod} method
- * @param {Real} score
- * @param {Buffer} score_details_buffer
- * @param {Real} score_details_count
- * @param {Function} [callback]
+ * @param {Real} leaderboard_handle A leaderboard handle obtained from steam_userstats_find_leaderboard or steam_userstats_find_or_create_leaderboard.
+ * @param {Enum.SteamLeaderboardUploadScoreMethod} method Whether the score change should be forced, or only kept if it is better than the user's existing score.
+ * @param {Real} score The score to upload.
+ * @param {Buffer} score_details_buffer A buffer containing the optional details surrounding the unlocking of this score.
+ * @param {Real} score_details_count The number of detail elements contained in the score details buffer.
+ * @param {Function} [callback] The function to call upon completion.
  * @function_end 
  */
 
@@ -4835,9 +5073,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function attaches a piece of user generated content to the current user's entry on a leaderboard.
  *
- * @param {Real} leaderboard_handle
- * @param {Real} ugc_handle
- * @param {Function} [callback]
+ * @param {Real} leaderboard_handle A leaderboard handle obtained from steam_userstats_find_leaderboard or steam_userstats_find_or_create_leaderboard.
+ * @param {Real} ugc_handle A handle to the user generated content that was shared using the steam_ugc functions.
+ * @param {Function} [callback] The function to call upon completion.
  * @function_end 
  */
 
@@ -4847,8 +5085,17 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function asynchronously retrieves the total number of players currently playing the current game.
  *
- * @param {Function} [callback]
- * @function_end 
+ * @param {Function} [callback] The function to call upon completion.
+ *
+ * @event callback
+ * @desc > **Steamworks Callback**: [ISteamUserStats::NumberOfCurrentPlayers_t](https://partner.steamgames.com/doc/api/ISteamUserStats#NumberOfCurrentPlayers_t)
+ *
+ * Called when the current number of players for the current app has been received.
+ *
+ * @member {Bool} success Whether the call was successful; `true` if the player count was retrieved.
+ * @member {Real} players The number of players currently playing the game.
+ * @event_end
+ * @function_end
  */
 
 /**
@@ -4857,8 +5104,17 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function asynchronously fetches the data for the percentage of players who have received each achievement for the current game globally.
  *
- * @param {Function} [callback]
- * @function_end 
+ * @param {Function} [callback] The function to call upon completion.
+ *
+ * @event callback
+ * @desc > **Steamworks Callback**: [ISteamUserStats::GlobalAchievementPercentagesReady_t](https://partner.steamgames.com/doc/api/ISteamUserStats#GlobalAchievementPercentagesReady_t)
+ *
+ * Called when the global achievement unlock percentages have been received from the server.
+ *
+ * @member {Real} game_id The game ID that the achievement percentages are for.
+ * @member {Enum.SteamApiResult} result The result of the operation.
+ * @event_end
+ * @function_end
  */
 
 /**
@@ -4877,7 +5133,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function gets the info on the next most achieved achievement for the game.
  *
- * @param {Real} iterator_prev
+ * @param {Real} iterator_prev The iterator returned from the previous call to this function, or from steam_userstats_most_achieved_achievement_info.
  * @returns {Struct.SteamUserStatsMostAchievedAchievementInfo} 
  * @function_end 
  */
@@ -4888,7 +5144,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function returns the percentage of users who have unlocked the specified achievement.
  *
- * @param {String} achievement_name
+ * @param {String} achievement_name The "API Name" of the achievement.
  * @returns {Real} 
  * @function_end 
  */
@@ -4899,9 +5155,18 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function asynchronously fetches global stats data, which is available for stats marked as "aggregated" in the App Admin panel of the Steamworks website.
  *
- * @param {Real} history_days
- * @param {Function} [callback]
- * @function_end 
+ * @param {Real} history_days The number of days of day-by-day history to retrieve in addition to the overall totals. The limit is 60.
+ * @param {Function} [callback] The function to call upon completion.
+ *
+ * @event callback
+ * @desc > **Steamworks Callback**: [ISteamUserStats::GlobalStatsReceived_t](https://partner.steamgames.com/doc/api/ISteamUserStats#GlobalStatsReceived_t)
+ *
+ * Called when the global stats have been received from the server.
+ *
+ * @member {Real} game_id The game ID that the global stats are for.
+ * @member {Enum.SteamApiResult} result The result of the operation.
+ * @event_end
+ * @function_end
  */
 
 /**
@@ -4910,7 +5175,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function gets the lifetime totals for an aggregated integer (int64) stat.
  *
- * @param {String} stat_name
+ * @param {String} stat_name The "API Name" of the stat.
  * @returns {Struct.SteamUserStatsGlobalStatInt64} 
  * @function_end 
  */
@@ -4921,7 +5186,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function gets the lifetime totals for an aggregated floating point (double) stat.
  *
- * @param {String} stat_name
+ * @param {String} stat_name The "API Name" of the stat.
  * @returns {Struct.SteamUserStatsGlobalStatDouble} 
  * @function_end 
  */
@@ -4932,7 +5197,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function gets the daily history for an aggregated integer (int64) stat.
  *
- * @param {String} stat_name
+ * @param {String} stat_name The "API Name" of the stat.
  * @returns {Struct.SteamUserStatsGlobalStatHistoryInt64} 
  * @function_end 
  */
@@ -4943,7 +5208,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function gets the daily history for an aggregated floating point (double) stat.
  *
- * @param {String} stat_name
+ * @param {String} stat_name The "API Name" of the stat.
  * @returns {Struct.SteamUserStatsGlobalStatHistoryDouble} 
  * @function_end 
  */
@@ -4954,9 +5219,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function returns the integer progress limits (the minimum and maximum) used to compute the progress bar for a given achievement.
  *
- * @param {String} achievement_name
- * @param {Real} cur_progress
- * @param {Real} max_progress
+ * @param {String} achievement_name The "API Name" of the achievement.
+ * @param {Real} cur_progress The variable into which the current progress towards the achievement is returned.
+ * @param {Real} max_progress The variable into which the progress required to unlock the achievement is returned.
  * @returns {Struct.SteamUserStatsIntMinMax} 
  * @function_end 
  */
@@ -4967,9 +5232,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function returns the floating point progress limits (the minimum and maximum) used to compute the progress bar for a given achievement.
  *
- * @param {String} achievement_name
- * @param {Real} cur_progress
- * @param {Real} max_progress
+ * @param {String} achievement_name The "API Name" of the achievement.
+ * @param {Real} cur_progress The variable into which the current progress towards the achievement is returned.
+ * @param {Real} max_progress The variable into which the progress required to unlock the achievement is returned.
  * @returns {Struct.SteamUserStatsFloatMinMax} 
  * @function_end 
  */
@@ -4980,7 +5245,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function 
  *
- * @param {Function} callback
+ * @param {Function} callback The function to be called when user stats are received.
  * @function_end 
  */
 
@@ -4999,7 +5264,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function 
  *
- * @param {Function} callback
+ * @param {Function} callback The function to be called when user stats are stored.
  * @function_end 
  */
 
@@ -5018,7 +5283,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function 
  *
- * @param {Function} callback
+ * @param {Function} callback The function to be called when a user achievement is stored.
  * @function_end 
  */
 
@@ -5103,8 +5368,8 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function sets the volume of the Steam Music player.
  *
- * @param {Real} volume
- * @function_end 
+ * @param {Real} volume The volume to set, as a value ranging from 0.0 (silent) to 1.0 (maximum).
+ * @function_end
  */
 
 /**
@@ -5121,9 +5386,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  * @function steam_music_set_callback_playback_status_has_changed
  * @description > **Steamworks Function**: N / A
  *
- * This function 
+ * This function
  *
- * @param {Function} callback
+ * @param {Function} callback The function to be called when the music playback status changes.
  * @function_end 
  */
 
@@ -5140,9 +5405,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  * @function steam_music_set_callback_volume_has_changed
  * @description > **Steamworks Function**: N / A
  *
- * This function 
+ * This function
  *
- * @param {Function} callback
+ * @param {Function} callback The function to be called when the music volume changes.
  * @function_end 
  */
 
@@ -5161,8 +5426,8 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function sets a description for the current game state in the timeline.
  *
- * @param {String} description
- * @param {Real} time_delta_seconds
+ * @param {String} description A localized string in the language returned by the GetSteamUILanguage call.
+ * @param {Real} time_delta_seconds The number of seconds ago that this state change occurred; negative values mark events in the past.
  * @function_end 
  */
 
@@ -5172,7 +5437,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function clears the previous set game state in the timeline.
  *
- * @param {Real} time_delta_seconds
+ * @param {Real} time_delta_seconds The number of seconds ago that this state change occurred; negative values mark events in the past.
  * @function_end 
  */
 
@@ -5182,12 +5447,12 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function is used to mark an event on the Timeline. This event will be instantaneous.
  *
- * @param {String} title
- * @param {String} description
- * @param {String} icon
- * @param {Real} priority
- * @param {Real} start_offset_seconds
- * @param {Enum.SteamTimelineEventClipPriority} possible_clip
+ * @param {String} title A title-provided localized string in the UI language.
+ * @param {String} description A title-provided localized string in the UI language.
+ * @param {String} icon The name of the icon to display; this can be a title-uploaded icon or one of the provided icons whose name begins with `steam_`.
+ * @param {Real} priority The priority used to decide which icons to show in crowded areas; higher priority events are shown more prominently, and the value must be between 0 and `k_unMaxTimelinePriority`.
+ * @param {Real} start_offset_seconds The number of seconds before the current time that the event started; negative values indicate the past, which is useful for events whose significance only becomes apparent later.
+ * @param {Enum.SteamTimelineEventClipPriority} possible_clip Lets the game flag the event as a suggested video clip.
  * @returns {Real} 
  * @function_end 
  */
@@ -5198,13 +5463,13 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function is used to mark an event on the Timeline that takes some amount of time to complete.
  *
- * @param {String} title
- * @param {String} description
- * @param {String} icon
- * @param {Real} priority
- * @param {Real} start_offset_seconds
- * @param {Real} duration_seconds
- * @param {Enum.SteamTimelineEventClipPriority} possible_clip
+ * @param {String} title A title-provided localized string in the UI language.
+ * @param {String} description A title-provided localized string in the UI language.
+ * @param {String} icon The name of the icon to display; this can be a title-uploaded icon or one of the provided icons whose name begins with `steam_`.
+ * @param {Real} priority The priority used to decide which icons to show in crowded areas; higher priority events are shown more prominently, and the value must be between 0 and `k_unMaxTimelinePriority`.
+ * @param {Real} start_offset_seconds The number of seconds before the current time that the event started; negative values indicate the past, which is useful for retroactively significant events.
+ * @param {Real} duration_seconds The length of the event in seconds; use 0 for instantaneous events.
+ * @param {Enum.SteamTimelineEventClipPriority} possible_clip Lets the game flag the event as a suggested video clip.
  * @returns {Real} 
  * @function_end 
  */
@@ -5215,12 +5480,12 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function is used to mark the start of an event on the Timeline that takes some amount of time to complete.
  *
- * @param {String} title
- * @param {String} description
- * @param {String} icon
- * @param {Real} priority
- * @param {Real} start_offset_seconds
- * @param {Enum.SteamTimelineEventClipPriority} possible_clip
+ * @param {String} title A title-provided localized string in the UI language.
+ * @param {String} description A title-provided localized string in the UI language.
+ * @param {String} icon The name of the icon to display; this can be a title-uploaded icon or one of the provided icons whose name begins with `steam_`.
+ * @param {Real} priority The priority used to decide which icons to show in crowded areas; higher priority events are shown more prominently, and the value must be between 0 and `k_unMaxTimelinePriority`.
+ * @param {Real} start_offset_seconds The number of seconds before the current time that the event started; negative values indicate the past, which is useful for retroactively significant events.
+ * @param {Enum.SteamTimelineEventClipPriority} possible_clip Lets the game flag the event as a suggested video clip.
  * @returns {Real} 
  * @function_end 
  */
@@ -5231,12 +5496,12 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function is used to update the details of an event that was started with StartRangeTimelineEvent.
  *
- * @param {Real} event_handle
- * @param {String} title
- * @param {String} description
- * @param {String} icon
- * @param {Real} priority
- * @param {Enum.SteamTimelineEventClipPriority} possible_clip
+ * @param {Real} event_handle The handle of the event to update.
+ * @param {String} title A title-provided localized string in the UI language.
+ * @param {String} description A title-provided localized string in the UI language.
+ * @param {String} icon The name of the icon to display; this can be a title-uploaded icon or one of the provided icons whose name begins with `steam_`.
+ * @param {Real} priority The priority used to decide which icons to show in crowded areas; higher priority events are shown more prominently, and the value must be between 0 and `k_unMaxTimelinePriority`.
+ * @param {Enum.SteamTimelineEventClipPriority} possible_clip Lets the game flag the event as a suggested video clip.
  * @function_end 
  */
 
@@ -5246,8 +5511,8 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function is used to end an event that was started with StartRangeTimelineEvent.
  *
- * @param {Real} event_handle
- * @param {Real} end_offset_seconds
+ * @param {Real} event_handle The handle of the event to end.
+ * @param {Real} end_offset_seconds The number of seconds before the current time that the event ended; negative values indicate the past.
  * @function_end 
  */
 
@@ -5257,7 +5522,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function is used to remove an event that was added with AddInstantaneousTimelineEvent or AddRangeTimelineEvent.
  *
- * @param {Real} event_handle
+ * @param {Real} event_handle The handle of the event to remove.
  * @function_end 
  */
 
@@ -5267,7 +5532,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function is used to determine if video recordings exist for the specified event.
  *
- * @param {Real} event_handle
+ * @param {Real} event_handle The handle of the event to check for recordings.
  * @returns {Real} 
  * @function_end 
  */
@@ -5296,7 +5561,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function sets a phase ID that is used to let the game identify which phase it is referring to in calls to DoesGamePhaseRecordingExist or OpenOverlayToGamePhase.
  *
- * @param {String} phase_id
+ * @param {String} phase_id A game-provided persistent ID for a game phase, such as the match ID in a multiplayer game, a chapter name in a single player game, the ID of a character, etc.
  * @function_end 
  */
 
@@ -5306,7 +5571,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function is used to determine if video recordings exist for the specified game phase.
  *
- * @param {String} phase_id
+ * @param {String} phase_id A game-provided persistent ID for a game phase.
  * @returns {Real} 
  * @function_end 
  */
@@ -5317,10 +5582,10 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function is used to add a game phase tag.
  *
- * @param {String} tag_name
- * @param {String} tag_icon
- * @param {String} tag_group
- * @param {Real} priority
+ * @param {String} tag_name A title-provided localized string in the language returned by `SteamUtils()->GetSteamUILanguage()`.
+ * @param {String} tag_icon The name of the icon to show when the tag is displayed in the UI; this can be a title-uploaded icon or one of the provided icons whose name begins with `steam_`.
+ * @param {String} tag_group A title-provided localized string; tags within the same group will be shown together in the UI.
+ * @param {Real} priority The priority used to decide which icons to show; tags with larger priority values are displayed more prominently, and the value must be between 0 and `k_unMaxTimelinePriority`.
  * @function_end 
  */
 
@@ -5330,9 +5595,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function is used to add a game phase attribute.
  *
- * @param {String} attribute_group
- * @param {String} attribute_value
- * @param {Real} priority
+ * @param {String} attribute_group A title-provided localized string in the language returned by `SteamUtils()->GetSteamUILanguage()`.
+ * @param {String} attribute_value A title-provided localized string in the language returned by `SteamUtils()->GetSteamUILanguage()`.
+ * @param {Real} priority The priority used to decide which attributes to show; attributes with larger priority values are displayed more prominently, and the value must be between 0 and `k_unMaxTimelinePriority`.
  * @function_end 
  */
 
@@ -5342,7 +5607,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function changes the color of the timeline bar.
  *
- * @param {Enum.SteamTimelineGameMode} mode
+ * @param {Enum.SteamTimelineGameMode} mode The mode that the game is in.
  * @function_end 
  */
 
@@ -5352,7 +5617,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function opens the Steam overlay to the section of the timeline represented by the game phase.
  *
- * @param {String} phase_id
+ * @param {String} phase_id The game phase to show in the overlay.
  * @function_end 
  */
 
@@ -5362,7 +5627,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function opens the Steam overlay to the section of the timeline represented by the timeline event.
  *
- * @param {Real} event_handle
+ * @param {Real} event_handle The handle of the event to show in the overlay.
  * @function_end 
  */
 
@@ -5372,7 +5637,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function 
  *
- * @param {Function} callback
+ * @param {Function} callback The function to be called when a game phase recording exists event occurs.
  * @function_end 
  */
 
@@ -5391,7 +5656,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function 
  *
- * @param {Function} callback
+ * @param {Function} callback The function to be called when an event recording exists event occurs.
  * @function_end 
  */
 
@@ -5410,8 +5675,8 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function grants a specific one-time promotional item to the current user.
  *
- * @param {Real} item_def_id
- * @param {Function} [callback]
+ * @param {Real} item_def_id The item definition id to grant the player.
+ * @param {Function} [callback] The function to call upon completion.
  * @returns {Real} 
  * @function_end 
  */
@@ -5422,9 +5687,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function grants a specific one-time promotional item to the current user.
  *
- * @param {Array[Real]} item_def_ids
- * @param {Real} num_item_defs
- * @param {Function} [callback]
+ * @param {Array[Real]} item_def_ids The list of items to grant the user.
+ * @param {Real} num_item_defs The number of items in the `item_def_ids` array.
+ * @param {Function} [callback] The function to call upon completion.
  * @returns {Real} 
  * @function_end 
  */
@@ -5435,8 +5700,8 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function checks whether an inventory result handle belongs to the specified Steam ID.
  *
- * @param {Real} result_handle
- * @param {Real} steam_id_expected
+ * @param {Real} result_handle The inventory result handle to check the Steam ID on.
+ * @param {Real} steam_id_expected The Steam ID to verify.
  * @returns {Bool} 
  * @function_end 
  */
@@ -5447,9 +5712,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function consumes items from a user's inventory. If the quantity of the given item goes to zero, it is permanently removed.
  *
- * @param {Real} item_instance_id
- * @param {Real} quantity
- * @param {Function} [callback]
+ * @param {Real} item_instance_id The item instance id to consume.
+ * @param {Real} quantity The number of items in that stack to consume.
+ * @param {Function} [callback] The function to call upon completion.
  * @returns {Real} 
  * @function_end 
  */
@@ -5460,8 +5725,8 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function deserializes a result set and verifies the signature bytes.
  *
- * @param {Buffer} data
- * @param {Real} data_size
+ * @param {Buffer} data The buffer to deserialize.
+ * @param {Real} data_size The size of the `data` buffer.
  * @returns {Struct.SteamInventoryDeserializeResult} 
  * @function_end 
  */
@@ -5472,7 +5737,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function destroys a result handle and frees all associated memory.
  *
- * @param {Real} result_handle
+ * @param {Real} result_handle The inventory result handle to destroy.
  * @function_end 
  */
 
@@ -5482,13 +5747,13 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function grants one item in exchange for a set of other items.
  *
- * @param {Array[Real]} generate_item_defs
- * @param {Array[Real]} generate_qty
- * @param {Real} generate_len
- * @param {Array[Real]} destroy_instance_ids
- * @param {Array[Real]} destroy_qty
- * @param {Real} destroy_len
- * @param {Function} [callback]
+ * @param {Array[Real]} generate_item_defs The list of items that will be created by this call. Currently can only be 1 item.
+ * @param {Array[Real]} generate_qty The quantity of each item in `generate_item_defs` to create.
+ * @param {Real} generate_len The number of items in the `generate_item_defs` and `generate_qty` arrays.
+ * @param {Array[Real]} destroy_instance_ids The list of items that will be destroyed by this call.
+ * @param {Array[Real]} destroy_qty The quantity of each item in `destroy_instance_ids` to destroy.
+ * @param {Real} destroy_len The number of items in the `destroy_instance_ids` and `destroy_qty` arrays.
+ * @param {Function} [callback] The function to call upon completion.
  * @returns {Real} 
  * @function_end 
  */
@@ -5499,10 +5764,10 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function grants specific items to the current user, for developers only.
  *
- * @param {Array[Real]} item_defs
- * @param {Array[Real]} quantities
- * @param {Real} count
- * @param {Function} [callback]
+ * @param {Array[Real]} item_defs The list of items to grant the user.
+ * @param {Array[Real]} quantities The quantity of each item in `item_defs` to grant.
+ * @param {Real} count The number of items in the `item_defs` array.
+ * @param {Function} [callback] The function to call upon completion.
  * @returns {Real} 
  * @function_end 
  */
@@ -5523,7 +5788,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function gets the items associated with an inventory result handle.
  *
- * @param {Real} result_handle
+ * @param {Real} result_handle The inventory result handle to get the items for.
  * @returns {Struct.SteamInventoryResultItems} 
  * @function_end 
  */
@@ -5534,7 +5799,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function finds out the status of an asynchronous inventory result handle.
  *
- * @param {Real} result_handle
+ * @param {Real} result_handle The inventory result handle to get the status for.
  * @returns {Enum.SteamApiResult} 
  * @function_end 
  */
@@ -5545,7 +5810,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function gets the server time at which the result was generated.
  *
- * @param {Real} result_handle
+ * @param {Real} result_handle The inventory result handle to get the timestamp for.
  * @returns {Real} 
  * @function_end 
  */
@@ -5556,7 +5821,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function gets the list of item definition ids that a user can be granted.
  *
- * @param {Real} c_max_item_defs
+ * @param {Real} c_max_item_defs The maximum number of item definition ids to retrieve.
  * @returns {Array[Real]} 
  * @function_end 
  */
@@ -5577,7 +5842,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function returns the set of all item definition IDs which are defined in the App Admin panel of the Steamworks website.
  *
- * @param {Real} c_max_item_defs
+ * @param {Real} c_max_item_defs The maximum number of item definition ids to retrieve.
  * @returns {Array[Real]} 
  * @function_end 
  */
@@ -5588,8 +5853,8 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function gets the state of a subset of the current user's inventory.
  *
- * @param {Array[Real]} item_instance_ids
- * @param {Function} [callback]
+ * @param {Array[Real]} item_instance_ids A list of the item instance ids to update the state of.
+ * @param {Function} [callback] The function to call upon completion.
  * @returns {Real} 
  * @function_end 
  */
@@ -5600,9 +5865,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function serializes a result set with a short signature which can't be forged or replayed across different game sessions.
  *
- * @param {Real} result_handle
- * @param {Buffer} out_data
- * @param {Real} out_capacity
+ * @param {Real} result_handle The inventory result handle to serialize.
+ * @param {Buffer} out_data The buffer that the serialized result will be copied into.
+ * @param {Real} out_capacity The size of the `out_data` buffer.
  * @returns {Struct.SteamInventorySerializeResult} 
  * @function_end 
  */
@@ -5613,8 +5878,8 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function gets the list of dynamic property names available on an item in an inventory result set.
  *
- * @param {Real} result_handle
- * @param {Real} item_index
+ * @param {Real} result_handle The result handle containing the item to get the properties of.
+ * @param {Real} item_index The index of the item within the result set to query.
  * @returns {Array[String]} 
  * @function_end 
  */
@@ -5625,9 +5890,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function gets the dynamic properties from an item in an inventory result set.
  *
- * @param {Real} result_handle
- * @param {Real} item_index
- * @param {String} property_name
+ * @param {Real} result_handle The result handle containing the item to get the properties of.
+ * @param {Real} item_index The index of the item within the result set to query.
+ * @param {String} property_name The property name to get the value for.
  * @returns {Struct.SteamInventoryItemProperty} 
  * @function_end 
  */
@@ -5638,11 +5903,21 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function starts the purchase process for the user, given a "shopping cart" of item definitions that the user would like to buy.
  *
- * @param {Array[Real]} item_def_ids
- * @param {Array[Real]} quantities
- * @param {Real} count
- * @param {Function} [callback]
- * @function_end 
+ * @param {Array[Real]} item_def_ids The array of item definition ids that the user wants to purchase.
+ * @param {Array[Real]} quantities The array of quantities of each item definition that the user wants to purchase.
+ * @param {Real} count The length of the `item_def_ids` and `quantities` arrays.
+ * @param {Function} [callback] The function to call upon completion.
+ *
+ * @event callback
+ * @desc > **Steamworks Callback**: [ISteamInventory::SteamInventoryStartPurchaseResult_t](https://partner.steamgames.com/doc/api/ISteamInventory#SteamInventoryStartPurchaseResult_t)
+ *
+ * Returned after StartPurchase is called.
+ *
+ * @member {Enum.SteamApiResult} result The result of the operation.
+ * @member {Real} order_id The auto-generated order id for the initiated purchase.
+ * @member {Real} transaction_id The auto-generated transaction id for the initiated purchase.
+ * @event_end
+ * @function_end
  */
 
 /**
@@ -5651,8 +5926,17 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function requests prices for all item definitions that can be purchased in the user's local currency.
  *
- * @param {Function} [callback]
- * @function_end 
+ * @param {Function} [callback] The function to call upon completion.
+ *
+ * @event callback
+ * @desc > **Steamworks Callback**: [ISteamInventory::SteamInventoryRequestPricesResult_t](https://partner.steamgames.com/doc/api/ISteamInventory#SteamInventoryRequestPricesResult_t)
+ *
+ * Returned after RequestPrices is called.
+ *
+ * @member {Enum.SteamApiResult} result The result of the operation.
+ * @member {String} currency The string representing the user's local currency code.
+ * @event_end
+ * @function_end
  */
 
 /**
@@ -5671,7 +5955,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function, after a successful call to RequestPrices, gets all the pricing for applicable item definitions.
  *
- * @param {Real} max
+ * @param {Real} max The number of item definitions to retrieve, as returned by ${function.steam_inventory_get_num_items_with_prices}.
  * @returns {Struct.SteamInventoryItemsWithPrices} 
  * @function_end 
  */
@@ -5692,9 +5976,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function removes a dynamic property for the given item.
  *
- * @param {Real} result_handle
- * @param {Real} item_instance_id
- * @param {String} property_name
+ * @param {Real} result_handle The update handle corresponding to the transaction request, returned from ${function.steam_inventory_start_update_properties}.
+ * @param {Real} item_instance_id The id of the item being modified.
+ * @param {String} property_name The dynamic property being removed.
  * @returns {Bool} 
  * @function_end 
  */
@@ -5705,10 +5989,10 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function sets a dynamic property for the given item.
  *
- * @param {Real} result_handle
- * @param {Real} item_instance_id
- * @param {String} property_name
- * @param {String} value
+ * @param {Real} result_handle The update handle corresponding to the transaction request, returned from ${function.steam_inventory_start_update_properties}.
+ * @param {Real} item_instance_id The id of the item being modified.
+ * @param {String} property_name The dynamic property being added or updated.
+ * @param {String} value The string value being set.
  * @returns {Bool} 
  * @function_end 
  */
@@ -5719,10 +6003,10 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function sets a dynamic property for the given item.
  *
- * @param {Real} result_handle
- * @param {Real} item_instance_id
- * @param {String} property_name
- * @param {Bool} value
+ * @param {Real} result_handle The update handle corresponding to the transaction request, returned from ${function.steam_inventory_start_update_properties}.
+ * @param {Real} item_instance_id The id of the item being modified.
+ * @param {String} property_name The dynamic property being added or updated.
+ * @param {Bool} value The boolean value being set.
  * @returns {Bool} 
  * @function_end 
  */
@@ -5733,10 +6017,10 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function sets a dynamic property for the given item.
  *
- * @param {Real} result_handle
- * @param {Real} item_instance_id
- * @param {String} property_name
- * @param {Real} value
+ * @param {Real} result_handle The update handle corresponding to the transaction request, returned from ${function.steam_inventory_start_update_properties}.
+ * @param {Real} item_instance_id The id of the item being modified.
+ * @param {String} property_name The dynamic property being added or updated.
+ * @param {Real} value The 64 bit integer value being set.
  * @returns {Bool} 
  * @function_end 
  */
@@ -5747,10 +6031,10 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function sets a dynamic property for the given item.
  *
- * @param {Real} result_handle
- * @param {Real} item_instance_id
- * @param {String} property_name
- * @param {Real} value
+ * @param {Real} result_handle The update handle corresponding to the transaction request, returned from ${function.steam_inventory_start_update_properties}.
+ * @param {Real} item_instance_id The id of the item being modified.
+ * @param {String} property_name The dynamic property being added or updated.
+ * @param {Real} value The floating point number value being set.
  * @returns {Bool} 
  * @function_end 
  */
@@ -5761,8 +6045,8 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function submits the transaction request to modify dynamic properties on items for the current user.
  *
- * @param {Real} result_handle
- * @param {Function} [callback]
+ * @param {Real} result_handle The update handle corresponding to the transaction request, returned from ${function.steam_inventory_start_update_properties}.
+ * @param {Function} [callback] The function to call upon completion.
  * @returns {Real} 
  * @function_end 
  */
@@ -5773,10 +6057,10 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function transfers items between stacks within a user's inventory.
  *
- * @param {Real} item_instance_id_source
- * @param {Real} quantity
- * @param {Real} item_instance_id_dest
- * @param {Function} [callback]
+ * @param {Real} item_instance_id_source The source item to transfer.
+ * @param {Real} quantity The quantity of the item that will be transferred from `item_instance_id_source` to `item_instance_id_dest`.
+ * @param {Real} item_instance_id_dest The destination item.
+ * @param {Function} [callback] The function to call upon completion.
  * @returns {Real} 
  * @function_end 
  */
@@ -5787,8 +6071,8 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function triggers an item drop if the user has played a long enough period of time.
  *
- * @param {Real} item_def_id
- * @param {Function} [callback]
+ * @param {Real} item_def_id The item definition id, which must refer to an itemdefid of the type "playtimegenerator".
+ * @param {Function} [callback] The function to call upon completion.
  * @returns {Real} 
  * @function_end 
  */
@@ -5799,7 +6083,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function grants all potential one-time promotional items to the current user.
  *
- * @param {Function} [callback]
+ * @param {Function} [callback] The function to call upon completion.
  * @returns {Real} 
  * @function_end 
  */
@@ -5810,8 +6094,8 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function gets a string property from the specified item definition.
  *
- * @param {Real} item_def_id
- * @param {String} property_name
+ * @param {Real} item_def_id The item definition to get the property for.
+ * @param {String} property_name The property name to get the value for.
  * @returns {Struct.SteamInventoryDefProperty} 
  * @function_end 
  */
@@ -5822,7 +6106,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function gets the list of string property names available on the specified item definition.
  *
- * @param {Real} item_def_id
+ * @param {Real} item_def_id The item definition to get the properties for.
  * @returns {Array[String]} 
  * @function_end 
  */
@@ -5833,7 +6117,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function, after a successful call to RequestPrices, gets the pricing for a specific item definition.
  *
- * @param {Real} item_def_id
+ * @param {Real} item_def_id The item definition id to retrieve the price for.
  * @returns {Struct.SteamInventoryItemPrice} 
  * @function_end 
  */
@@ -5844,7 +6128,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function 
  *
- * @param {Function} callback
+ * @param {Function} callback The function to be called when an inventory result is ready.
  * @function_end 
  */
 
@@ -5863,7 +6147,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function 
  *
- * @param {Function} callback
+ * @param {Function} callback The function to be called when a full inventory update occurs.
  * @function_end 
  */
 
@@ -5882,7 +6166,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function 
  *
- * @param {Function} callback
+ * @param {Function} callback The function to be called when item definitions are updated.
  * @function_end 
  */
 
@@ -5899,9 +6183,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  * @function steam_remote_storage_set_callback_published_file_subscribed
  * @description > **Steamworks Function**: N / A
  *
- * This function 
+ * This function
  *
- * @param {Function} callback
+ * @param {Function} callback The function to be called when a published file is subscribed to.
  * @function_end 
  */
 
@@ -5918,9 +6202,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  * @function steam_remote_storage_set_callback_published_file_unsubscribed
  * @description > **Steamworks Function**: N / A
  *
- * This function 
+ * This function
  *
- * @param {Function} callback
+ * @param {Function} callback The function to be called when a published file is unsubscribed from.
  * @function_end 
  */
 
@@ -5937,9 +6221,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  * @function steam_remote_storage_set_callback_local_file_change
  * @description > **Steamworks Function**: N / A
  *
- * This function 
+ * This function
  *
- * @param {Function} callback
+ * @param {Function} callback The function to be called when a local file change is detected.
  * @function_end 
  */
 
@@ -5978,8 +6262,8 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function toggles whether the Steam Cloud is enabled for your application.
  *
- * @param {Bool} enabled
- * @function_end 
+ * @param {Bool} enabled Enable (`true`) or disable (`false`) the Steam Cloud for this application.
+ * @function_end
  */
 
 /**
@@ -5988,9 +6272,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function creates a new file, writes the bytes to the file, and then closes the file.
  *
- * @param {String} file_name
- * @param {Buffer} data
- * @param {Real} bytes
+ * @param {String} file_name The name of the file to write to.
+ * @param {Buffer} data The buffer containing the bytes to write to the file.
+ * @param {Real} bytes The number of bytes to write to the file.
  * @returns {Bool} 
  * @function_end 
  */
@@ -6001,9 +6285,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function opens a binary file, reads the contents of the file into a byte array, and then closes the file.
  *
- * @param {String} file_name
- * @param {Buffer} out_data
- * @param {Real} max_bytes
+ * @param {String} file_name The name of the file to read from.
+ * @param {Buffer} out_data The buffer that the file will be read into. This buffer must be at least the same size provided to `max_bytes`.
+ * @param {Real} max_bytes The amount of bytes to read. Generally obtained from the file's size.
  * @returns {Real} 
  * @function_end 
  */
@@ -6014,7 +6298,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function deletes a file from the local disk, and propagates that delete to the cloud.
  *
- * @param {String} file_name
+ * @param {String} file_name The name of the file that will be deleted.
  * @returns {Bool} 
  * @function_end 
  */
@@ -6025,7 +6309,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function checks whether the specified file exists.
  *
- * @param {String} file_name
+ * @param {String} file_name The name of the file.
  * @returns {Bool} 
  * @function_end 
  */
@@ -6036,7 +6320,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function checks if a specific file is persisted in the steam cloud.
  *
- * @param {String} file_name
+ * @param {String} file_name The name of the file.
  * @returns {Bool} 
  * @function_end 
  */
@@ -6047,7 +6331,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function gets the specified files size in bytes.
  *
- * @param {String} file_name
+ * @param {String} file_name The name of the file.
  * @returns {Real} 
  * @function_end 
  */
@@ -6058,7 +6342,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function gets the specified file's last modified timestamp in Unix epoch format.
  *
- * @param {String} file_name
+ * @param {String} file_name The name of the file.
  * @returns {Real} 
  * @function_end 
  */
@@ -6079,7 +6363,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function gets the file name and size of a file from the index.
  *
- * @param {Real} index
+ * @param {Real} index The index of the file, this should be between 0 and the value returned by ${function.steam_remote_storage_get_file_count}.
  * @returns {Struct.SteamRemoteStorageFileNameAndSize} 
  * @function_end 
  */
@@ -6100,8 +6384,8 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function allows you to specify which operating systems a file will be synchronized to.
  *
- * @param {String} file_name
- * @param {Enum.SteamRemoteStoragePlatform} platforms
+ * @param {String} file_name The name of the file.
+ * @param {Enum.SteamRemoteStoragePlatform} platforms The platforms that the file will be synchronized to.
  * @returns {Bool} 
  * @function_end 
  */
@@ -6112,7 +6396,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function obtains the platforms that the specified file will syncronize to.
  *
- * @param {String} file_name
+ * @param {String} file_name The name of the file.
  * @returns {Enum.SteamRemoteStoragePlatform} 
  * @function_end 
  */
@@ -6123,7 +6407,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function deletes the file from remote storage, but leaves it on the local disk and remains accessible from the API.
  *
- * @param {String} file_name
+ * @param {String} file_name The name of the file that will be forgotten.
  * @returns {Bool} 
  * @function_end 
  */
@@ -6134,7 +6418,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function creates a new file output stream allowing you to stream out data to the Steam Cloud file in chunks.
  *
- * @param {String} file_name
+ * @param {String} file_name The name of the file to write to.
  * @returns {Real} 
  * @function_end 
  */
@@ -6145,9 +6429,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function writes a blob of data to the file write stream.
  *
- * @param {Real} stream
- * @param {Buffer} data
- * @param {Real} bytes
+ * @param {Real} stream The file write stream to write to.
+ * @param {Buffer} data The buffer containing the data to write to the stream.
+ * @param {Real} bytes The size of the data to write, in bytes.
  * @returns {Bool} 
  * @function_end 
  */
@@ -6158,7 +6442,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function closes a file write stream that was started by FileWriteStreamOpen.
  *
- * @param {Real} stream
+ * @param {Real} stream The file write stream to close.
  * @returns {Bool} 
  * @function_end 
  */
@@ -6169,7 +6453,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function cancels a file write stream that was started by FileWriteStreamOpen.
  *
- * @param {Real} stream
+ * @param {Real} stream The file write stream to cancel.
  * @returns {Bool} 
  * @function_end 
  */
@@ -6188,9 +6472,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  * @function steam_remote_storage_get_cached_ugc_handle
  * @description > **Steamworks Function**: [ISteamRemoteStorage::GetCachedUGCHandle](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#GetCachedUGCHandle)
  *
- * This function 
+ * This function
  *
- * @param {Real} index
+ * @param {Real} index The index of the cached UGC, between 0 and the cached UGC count.
  * @returns {Real} 
  * @function_end 
  */
@@ -6199,9 +6483,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  * @function steam_remote_storage_get_ugc_details
  * @description > **Steamworks Function**: [ISteamRemoteStorage::GetUGCDetails](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#GetUGCDetails)
  *
- * This function 
+ * This function
  *
- * @param {Real} ugc_handle
+ * @param {Real} ugc_handle The handle of the UGC content to get the details for.
  * @returns {Struct.SteamRemoteStorageUgcDetails} 
  * @function_end 
  */
@@ -6212,11 +6496,11 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function 
  *
- * @param {Real} ugc_handle
- * @param {Buffer} out_data
- * @param {Real} bytes_to_read
- * @param {Real} offset
- * @param {Enum.SteamRemoteStorageUgcReadAction} action
+ * @param {Real} ugc_handle The handle of the UGC content to read.
+ * @param {Buffer} out_data The buffer that the content will be read into.
+ * @param {Real} bytes_to_read The amount of bytes to read into the buffer.
+ * @param {Real} offset The offset, in bytes, within the file at which to start reading.
+ * @param {Enum.SteamRemoteStorageUgcReadAction} action The action to take when reading the content (controls how the file is held in memory after the read).
  * @returns {Real} 
  * @function_end 
  */
@@ -6225,36 +6509,72 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  * @function steam_remote_storage_file_share
  * @description > **Steamworks Function**: [ISteamRemoteStorage::FileShare](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#FileShare)
  *
- * This function 
+ * This function
  *
- * @param {String} file_name
- * @param {Function} [callback]
- * @function_end 
+ * @param {String} file_name The name of the file to share.
+ * @param {Function} [callback] The function to call upon completion.
+ *
+ * @event callback
+ * @desc > **Steamworks Callback**: [ISteamRemoteStorage::RemoteStorageFileShareResult_t](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#RemoteStorageFileShareResult_t)
+ *
+ * This callback is fired in response to sharing a file, and provides a handle that can be used to refer to the shared file.
+ *
+ * @member {Enum.SteamApiResult} result The result of the operation.
+ * @member {Real} ugc_handle The handle that can be shared with users and features.
+ * @member {String} file_name The name of the file that was shared.
+ * @event_end
+ * @function_end
  */
 
 /**
  * @function steam_remote_storage_ugc_download
  * @description > **Steamworks Function**: [ISteamRemoteStorage::UGCDownload](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#UGCDownload)
  *
- * This function 
+ * This function
  *
- * @param {Real} ugc_handle
- * @param {Real} priority
- * @param {Function} [callback]
- * @function_end 
+ * @param {Real} ugc_handle The handle of the UGC content to download.
+ * @param {Real} priority The download priority, where a lower value indicates a higher priority.
+ * @param {Function} [callback] The function to call upon completion.
+ *
+ * @event callback
+ * @desc > **Steamworks Callback**: [ISteamRemoteStorage::RemoteStorageDownloadUGCResult_t](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#RemoteStorageDownloadUGCResult_t)
+ *
+ * This callback is fired in response to a UGC download request, and contains the details of the file that was downloaded.
+ *
+ * @member {Enum.SteamApiResult} result The result of the operation.
+ * @member {Real} ugc_handle The handle of the file that was attempted to be downloaded.
+ * @member {Real} app_id The app ID the file was shared from.
+ * @member {Real} size_in_bytes The size of the file that was downloaded, in bytes.
+ * @member {String} file_name The name of the file that was downloaded.
+ * @member {Real} steam_id_owner The Steam ID of the user who created this content.
+ * @event_end
+ * @function_end
  */
 
 /**
  * @function steam_remote_storage_ugc_download_to_location
  * @description > **Steamworks Function**: [ISteamRemoteStorage::UGCDownloadToLocation](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#UGCDownloadToLocation)
  *
- * This function 
+ * This function
  *
- * @param {Real} ugc_handle
- * @param {String} location
- * @param {Real} priority
- * @param {Function} [callback]
- * @function_end 
+ * @param {Real} ugc_handle The handle of the UGC content to download.
+ * @param {String} location The absolute file path to download the content to.
+ * @param {Real} priority The download priority, where a lower value indicates a higher priority.
+ * @param {Function} [callback] The function to call upon completion.
+ *
+ * @event callback
+ * @desc > **Steamworks Callback**: [ISteamRemoteStorage::RemoteStorageDownloadUGCResult_t](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#RemoteStorageDownloadUGCResult_t)
+ *
+ * This callback is fired in response to a UGC download request, and contains the details of the file that was downloaded.
+ *
+ * @member {Enum.SteamApiResult} result The result of the operation.
+ * @member {Real} ugc_handle The handle of the file that was attempted to be downloaded.
+ * @member {Real} app_id The app ID the file was shared from.
+ * @member {Real} size_in_bytes The size of the file that was downloaded, in bytes.
+ * @member {String} file_name The name of the file that was downloaded.
+ * @member {Real} steam_id_owner The Steam ID of the user who created this content.
+ * @event_end
+ * @function_end
  */
 
 /**
@@ -6263,16 +6583,26 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function is deprecated and only used with the deprecated RemoteStorage based Workshop API.
  *
- * @param {String} file
- * @param {String} preview_file
- * @param {Real} app_id_consumer
- * @param {String} title
- * @param {String} description
- * @param {Enum.SteamRemoteStoragePublishedFileVisibility} visibility
- * @param {String} tags_csv
- * @param {Enum.SteamRemoteStorageWorkshopFileType} file_type
- * @param {Function} [callback]
- * @function_end 
+ * @param {String} file The name of the file to publish.
+ * @param {String} preview_file The name of the preview image file to publish.
+ * @param {Real} app_id_consumer The consumer app ID that this file is published for.
+ * @param {String} title The title of the published file.
+ * @param {String} description The description of the published file.
+ * @param {Enum.SteamRemoteStoragePublishedFileVisibility} visibility The visibility of the published file.
+ * @param {String} tags_csv A comma-separated list of tags to apply to the published file.
+ * @param {Enum.SteamRemoteStorageWorkshopFileType} file_type The type of workshop file being published.
+ * @param {Function} [callback] The function to call upon completion.
+ *
+ * @event callback
+ * @desc > **Steamworks Callback**: [ISteamRemoteStorage::RemoteStoragePublishFileResult_t](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#RemoteStoragePublishFileResult_t)
+ *
+ * This callback is fired when a workshop file has been published, returning the result of the operation and the ID of the newly published file.
+ *
+ * @member {Enum.SteamApiResult} result The result of the operation.
+ * @member {Real} published_file_id The file id of the published file.
+ * @member {Bool} user_needs_to_accept_wla Whether the user still needs to accept the Steam Workshop legal agreement.
+ * @event_end
+ * @function_end
  */
 
 /**
@@ -6281,7 +6611,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function is deprecated and only used with the deprecated RemoteStorage based Workshop API.
  *
- * @param {Real} published_file_id
+ * @param {Real} published_file_id The ID of the published file to create an update request for.
  * @returns {Real} 
  * @function_end 
  */
@@ -6292,9 +6622,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function is deprecated and only used with the deprecated RemoteStorage based Workshop API.
  *
- * @param {Real} update_handle
- * @param {String} file
- * @returns {Bool} 
+ * @param {Real} update_handle The handle of the update request, returned by ${function.steam_remote_storage_create_published_file_update_request}.
+ * @param {String} file The name of the file to set on the published file.
+ * @returns {Bool}
  * @function_end 
  */
 
@@ -6304,9 +6634,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function is deprecated and only used with the deprecated RemoteStorage based Workshop API.
  *
- * @param {Real} update_handle
- * @param {String} preview_file
- * @returns {Bool} 
+ * @param {Real} update_handle The handle of the update request, returned by ${function.steam_remote_storage_create_published_file_update_request}.
+ * @param {String} preview_file The name of the preview image file to set on the published file.
+ * @returns {Bool}
  * @function_end 
  */
 
@@ -6316,9 +6646,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function is deprecated and only used with the deprecated RemoteStorage based Workshop API.
  *
- * @param {Real} update_handle
- * @param {String} title
- * @returns {Bool} 
+ * @param {Real} update_handle The handle of the update request, returned by ${function.steam_remote_storage_create_published_file_update_request}.
+ * @param {String} title The title to set on the published file.
+ * @returns {Bool}
  * @function_end 
  */
 
@@ -6328,9 +6658,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function is deprecated and only used with the deprecated RemoteStorage based Workshop API.
  *
- * @param {Real} update_handle
- * @param {String} description
- * @returns {Bool} 
+ * @param {Real} update_handle The handle of the update request, returned by ${function.steam_remote_storage_create_published_file_update_request}.
+ * @param {String} description The description to set on the published file.
+ * @returns {Bool}
  * @function_end 
  */
 
@@ -6340,9 +6670,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function is deprecated and only used with the deprecated RemoteStorage based Workshop API.
  *
- * @param {Real} update_handle
- * @param {Enum.SteamRemoteStoragePublishedFileVisibility} visibility
- * @returns {Bool} 
+ * @param {Real} update_handle The handle of the update request, returned by ${function.steam_remote_storage_create_published_file_update_request}.
+ * @param {Enum.SteamRemoteStoragePublishedFileVisibility} visibility The visibility to set on the published file.
+ * @returns {Bool}
  * @function_end 
  */
 
@@ -6352,9 +6682,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function is deprecated and only used with the deprecated RemoteStorage based Workshop API.
  *
- * @param {Real} update_handle
- * @param {String} tags_csv
- * @returns {Bool} 
+ * @param {Real} update_handle The handle of the update request, returned by ${function.steam_remote_storage_create_published_file_update_request}.
+ * @param {String} tags_csv A comma-separated list of tags to set on the published file.
+ * @returns {Bool}
  * @function_end 
  */
 
@@ -6364,8 +6694,8 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function is deprecated and only used with the deprecated RemoteStorage based Workshop API.
  *
- * @param {Real} update_handle
- * @param {Function} [callback]
+ * @param {Real} update_handle The handle of the update request to commit, returned by ${function.steam_remote_storage_create_published_file_update_request}.
+ * @param {Function} [callback] The function to call upon completion.
  * @function_end 
  */
 
@@ -6375,9 +6705,18 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function is deprecated and only used with the deprecated RemoteStorage based Workshop API.
  *
- * @param {Real} published_file_id
- * @param {Function} [callback]
- * @function_end 
+ * @param {Real} published_file_id The ID of the published file to subscribe to.
+ * @param {Function} [callback] The function to call upon completion.
+ *
+ * @event callback
+ * @desc > **Steamworks Callback**: [ISteamRemoteStorage::RemoteStorageSubscribePublishedFileResult_t](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#RemoteStorageSubscribePublishedFileResult_t)
+ *
+ * Called when the user has subscribed to a piece of UGC.
+ *
+ * @member {Enum.SteamApiResult} result The result of the operation.
+ * @member {Real} published_file_id The workshop item that the user subscribed to.
+ * @event_end
+ * @function_end
  */
 
 /**
@@ -6386,9 +6725,18 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function is deprecated and only used with the deprecated RemoteStorage based Workshop API.
  *
- * @param {Real} published_file_id
- * @param {Function} [callback]
- * @function_end 
+ * @param {Real} published_file_id The ID of the published file to unsubscribe from.
+ * @param {Function} [callback] The function to call upon completion.
+ *
+ * @event callback
+ * @desc > **Steamworks Callback**: [ISteamRemoteStorage::RemoteStorageUnsubscribePublishedFileResult_t](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#RemoteStorageUnsubscribePublishedFileResult_t)
+ *
+ * Called when the user has unsubscribed from a piece of UGC.
+ *
+ * @member {Enum.SteamApiResult} result The result of the operation.
+ * @member {Real} published_file_id The workshop item that the user unsubscribed from.
+ * @event_end
+ * @function_end
  */
 
 /**
@@ -6397,7 +6745,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function 
  *
- * @param {Function} callback
+ * @param {Function} callback The function to be called when lobby data is updated.
  * @function_end 
  */
 
@@ -6416,7 +6764,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function 
  *
- * @param {Function} callback
+ * @param {Function} callback The function to be called when a lobby chat update event occurs (a user joins, leaves or disconnects).
  * @function_end 
  */
 
@@ -6435,7 +6783,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function 
  *
- * @param {Function} callback
+ * @param {Function} callback The function to be called when a lobby chat message is received.
  * @function_end 
  */
 
@@ -6454,7 +6802,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function 
  *
- * @param {Function} callback
+ * @param {Function} callback The function to be called when a game server is set for a lobby.
  * @function_end 
  */
 
@@ -6473,7 +6821,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function 
  *
- * @param {Function} callback
+ * @param {Function} callback The function to be called when the user receives a lobby invitation.
  * @function_end 
  */
 
@@ -6492,10 +6840,19 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function creates a new matchmaking lobby.
  *
- * @param {Enum.SteamMatchmakingLobbyType} lobby_type
- * @param {Real} max_members
- * @param {Function} [callback]
- * @function_end 
+ * @param {Enum.SteamMatchmakingLobbyType} lobby_type The type and visibility of this lobby. This can be changed later via the lobby type setting.
+ * @param {Real} max_members The maximum number of players that can join this lobby. This can not be above 250.
+ * @param {Function} [callback] The function to call upon completion.
+ *
+ * @event callback
+ * @desc > **Steamworks Callback**: [ISteamMatchmaking::LobbyCreated_t](https://partner.steamgames.com/doc/api/ISteamMatchmaking#LobbyCreated_t)
+ *
+ * Result of our request to create a Lobby.
+ *
+ * @member {Enum.SteamApiResult} result The result of the operation.
+ * @member {Real} lobby_id The Steam ID of the lobby that was created, 0 if failed.
+ * @event_end
+ * @function_end
  */
 
 /**
@@ -6504,9 +6861,20 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function joins an existing lobby.
  *
- * @param {Real} lobby_id
- * @param {Function} [callback]
- * @function_end 
+ * @param {Real} lobby_id The Steam ID of the lobby to join.
+ * @param {Function} [callback] The function to call upon completion.
+ *
+ * @event callback
+ * @desc > **Steamworks Callback**: [ISteamMatchmaking::LobbyEnter_t](https://partner.steamgames.com/doc/api/ISteamMatchmaking#LobbyEnter_t)
+ *
+ * Received upon attempting to enter a lobby. Lobby metadata is available to use immediately after receiving this.
+ *
+ * @member {Real} lobby_id The Steam ID of the lobby you have entered.
+ * @member {Real} chat_permissions Unused - always 0.
+ * @member {Bool} locked If true, then only invited users may join.
+ * @member {Real} response An EChatRoomEnterResponse value, indicating whether the user successfully joined the lobby.
+ * @event_end
+ * @function_end
  */
 
 /**
@@ -6515,8 +6883,16 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function gets a filtered list of relevant lobbies.
  *
- * @param {Function} [callback]
- * @function_end 
+ * @param {Function} [callback] The function to call upon completion.
+ *
+ * @event callback
+ * @desc > **Steamworks Callback**: [ISteamMatchmaking::LobbyMatchList_t](https://partner.steamgames.com/doc/api/ISteamMatchmaking#LobbyMatchList_t)
+ *
+ * Result when requesting the lobby list.
+ *
+ * @member {Real} lobbies_count Number of lobbies that matched the search criteria and are available via ${function.steam_matchmaking_get_lobby_by_index}.
+ * @event_end
+ * @function_end
  */
 
 /**
@@ -6525,9 +6901,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function adds a string comparison filter to the next ${function.steam_matchmaking_request_lobby_list} call.
  *
- * @param {String} key
- * @param {String} value
- * @param {Enum.SteamMatchmakingLobbyComparison} comparison
+ * @param {String} key The filter key name to match. This can not be longer than the maximum lobby key length.
+ * @param {String} value The string to match.
+ * @param {Enum.SteamMatchmakingLobbyComparison} comparison The type of comparison to make.
  * @function_end 
  */
 
@@ -6537,9 +6913,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function adds a numerical comparison filter to the next ${function.steam_matchmaking_request_lobby_list} call.
  *
- * @param {String} key
- * @param {Real} value
- * @param {Enum.SteamMatchmakingLobbyComparison} comparison
+ * @param {String} key The filter key name to match. This can not be longer than the maximum lobby key length.
+ * @param {Real} value The number to match.
+ * @param {Enum.SteamMatchmakingLobbyComparison} comparison The type of comparison to make.
  * @function_end 
  */
 
@@ -6549,8 +6925,8 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function sorts the results closest to the specified value.
  *
- * @param {String} key
- * @param {Real} value
+ * @param {String} key The filter key name to match. This can not be longer than the maximum lobby key length.
+ * @param {Real} value The value that lobbies will be sorted on.
  * @function_end 
  */
 
@@ -6560,7 +6936,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function sets the physical distance for which we should search for lobbies, this is based on the users IP address and a IP location map on the Steam backed.
  *
- * @param {Enum.SteamMatchmakingLobbyDistanceFilter} distance
+ * @param {Enum.SteamMatchmakingLobbyDistanceFilter} distance Specifies the maximum distance.
  * @function_end 
  */
 
@@ -6570,7 +6946,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function sets the maximum number of lobbies to return.
  *
- * @param {Real} max_results
+ * @param {Real} max_results The maximum number of lobbies to return.
  * @function_end 
  */
 
@@ -6580,7 +6956,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function gets the Steam ID of the lobby at the specified index after receiving the ${function.steam_matchmaking_request_lobby_list} results.
  *
- * @param {Real} index
+ * @param {Real} index The index of the lobby to get the Steam ID of, from 0 to the number of matching lobbies.
  * @returns {Real} 
  * @function_end 
  */
@@ -6591,7 +6967,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function leaves a lobby that the user is currently in; this takes effect immediately on the client side of the user.
  *
- * @param {Real} lobby_id
+ * @param {Real} lobby_id The Steam ID of the lobby to leave.
  * @function_end 
  */
 
@@ -6601,8 +6977,8 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function changes who the lobby owner is.
  *
- * @param {Real} lobby_id
- * @param {Real} new_owner_id
+ * @param {Real} lobby_id The Steam ID of the lobby where the owner change will take place.
+ * @param {Real} new_owner_id The Steam ID of the user that will be the new owner of the lobby; they must be in the lobby.
  * @returns {Bool} 
  * @function_end 
  */
@@ -6613,7 +6989,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function returns the current lobby owner.
  *
- * @param {Real} lobby_id
+ * @param {Real} lobby_id The Steam ID of the lobby to get the owner of.
  * @returns {Real} 
  * @function_end 
  */
@@ -6624,7 +7000,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function gets the number of users in a lobby.
  *
- * @param {Real} lobby_id
+ * @param {Real} lobby_id The Steam ID of the lobby to get the number of members of.
  * @returns {Real} 
  * @function_end 
  */
@@ -6635,8 +7011,8 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function gets the Steam ID of the lobby member at the given index.
  *
- * @param {Real} lobby_id
- * @param {Real} member_index
+ * @param {Real} lobby_id This MUST be the same lobby used in the previous call to ${function.steam_matchmaking_get_num_lobby_members}.
+ * @param {Real} member_index An index between 0 and the number of lobby members.
  * @returns {Real} 
  * @function_end 
  */
@@ -6647,9 +7023,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function sets a key/value pair in the lobby metadata.
  *
- * @param {Real} lobby_id
- * @param {String} key
- * @param {String} value
+ * @param {Real} lobby_id The Steam ID of the lobby to set the metadata for.
+ * @param {String} key The key to set the data for. This can not be longer than the maximum lobby key length.
+ * @param {String} value The value to set. This can not be longer than the maximum chat metadata size.
  * @returns {Bool} 
  * @function_end 
  */
@@ -6660,8 +7036,8 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function gets the metadata associated with the specified key from the specified lobby.
  *
- * @param {Real} lobby_id
- * @param {String} key
+ * @param {Real} lobby_id The Steam ID of the lobby to get the metadata from.
+ * @param {String} key The key to get the value of.
  * @returns {String} 
  * @function_end 
  */
@@ -6672,8 +7048,8 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function removes a metadata key from the lobby.
  *
- * @param {Real} lobby_id
- * @param {String} key
+ * @param {Real} lobby_id The Steam ID of the lobby to delete the metadata for.
+ * @param {String} key The key to delete the data for.
  * @returns {Bool} 
  * @function_end 
  */
@@ -6684,7 +7060,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function gets the number of metadata keys set on the specified lobby.
  *
- * @param {Real} lobby_id
+ * @param {Real} lobby_id The Steam ID of the lobby to get the data count from.
  * @returns {Real} 
  * @function_end 
  */
@@ -6695,12 +7071,12 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function gets a lobby metadata key/value pair by index.
  *
- * @param {Real} lobby_id
- * @param {Real} index
- * @param {Buffer} key_out
- * @param {Real} key_max
- * @param {Buffer} val_out
- * @param {Real} val_max
+ * @param {Real} lobby_id This MUST be the same lobby used in the previous call to ${function.steam_matchmaking_get_lobby_data_count}.
+ * @param {Real} index An index between 0 and the lobby data count.
+ * @param {Buffer} key_out Returns the name of the key at the specified index by copying it into this buffer.
+ * @param {Real} key_max The size of the buffer allocated for the key. This typically should be the maximum lobby key length.
+ * @param {Buffer} val_out Returns the value associated with the key at the specified index by copying it into this buffer.
+ * @param {Real} val_max The size of the buffer allocated for the value. This typically should be the maximum chat metadata size.
  * @returns {Bool} 
  * @function_end 
  */
@@ -6711,9 +7087,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function sets per-user metadata for the local user.
  *
- * @param {Real} lobby_id
- * @param {String} key
- * @param {String} value
+ * @param {Real} lobby_id The Steam ID of the lobby to set our metadata in.
+ * @param {String} key The key to set the data for. This can not be longer than the maximum lobby key length.
+ * @param {String} value The value to set. This can not be longer than the maximum chat metadata size.
  * @function_end 
  */
 
@@ -6723,9 +7099,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function gets per-user metadata from another player in the specified lobby.
  *
- * @param {Real} lobby_id
- * @param {Real} member_id
- * @param {String} key
+ * @param {Real} lobby_id The Steam ID of the lobby that the other player is in.
+ * @param {Real} member_id The Steam ID of the player to get the metadata from.
+ * @param {String} key The key to get the value of.
  * @returns {String} 
  * @function_end 
  */
@@ -6736,9 +7112,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function broadcasts a chat (text or binary data) message to the all of the users in the lobby.
  *
- * @param {Real} lobby_id
- * @param {Buffer} msg
- * @param {Real} bytes
+ * @param {Real} lobby_id The Steam ID of the lobby to send the chat message to.
+ * @param {Buffer} msg The buffer holding the message data to send. This can be text or binary data, up to 4 kilobytes in size.
+ * @param {Real} bytes The size in bytes of the message data; if it is a text message then this should include the null terminator.
  * @returns {Bool} 
  * @function_end 
  */
@@ -6749,10 +7125,10 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function gets the data from a lobby chat message after receiving a lobby chat message callback.
  *
- * @param {Real} lobby_id
- * @param {Real} chat_id
- * @param {Buffer} out_buffer
- * @param {Real} out_max_bytes
+ * @param {Real} lobby_id The Steam ID of the lobby to get the chat entry from.
+ * @param {Real} chat_id The index of the chat entry in the lobby.
+ * @param {Buffer} out_buffer Returns the message data by copying it into this buffer. This buffer should be up to 4 kilobytes.
+ * @param {Real} out_max_bytes The size of the buffer allocated for the output data.
  * @returns {Struct.SteamMatchmakingLobbyChatEntry} 
  * @function_end 
  */
@@ -6763,7 +7139,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function filters to only return lobbies with the specified number of open slots available.
  *
- * @param {Real} slots_available
+ * @param {Real} slots_available The number of open slots that must be open.
  * @function_end 
  */
 
@@ -6773,7 +7149,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function refreshes all of the metadata for a lobby that you're not in right now.
  *
- * @param {Real} steam_id_lobby
+ * @param {Real} steam_id_lobby The Steam ID of the lobby to refresh the metadata of.
  * @returns {Bool} 
  * @function_end 
  */
@@ -6784,8 +7160,8 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function sets whether or not a lobby is joinable by other players.
  *
- * @param {Real} steam_id_lobby
- * @param {Bool} joinable
+ * @param {Real} steam_id_lobby The Steam ID of the lobby.
+ * @param {Bool} joinable Enable (true) or disable (false) allowing users to join this lobby.
  * @returns {Bool} 
  * @function_end 
  */
@@ -6796,8 +7172,8 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function invites another user to the lobby.
  *
- * @param {Real} steam_id_lobby
- * @param {Real} steam_id_invitee
+ * @param {Real} steam_id_lobby The Steam ID of the lobby to invite the user to.
+ * @param {Real} steam_id_invitee The Steam ID of the person who will be invited.
  * @returns {Bool} 
  * @function_end 
  */
@@ -6808,10 +7184,10 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function sets the game server associated with the lobby.
  *
- * @param {Real} steam_id_lobby
- * @param {Real} ip
- * @param {Real} port
- * @param {Real} steam_id_gs
+ * @param {Real} steam_id_lobby The Steam ID of the lobby to set the game server information for.
+ * @param {Real} ip Sets the IP address of the game server, in host order, i.e 127.0.0.1 == 0x7f000001.
+ * @param {Real} port Sets the connection port of the game server, in host order.
+ * @param {Real} steam_id_gs Sets the Steam ID of the game server. Use a nil Steam ID if you're not setting this.
  * @function_end 
  */
 
@@ -6821,8 +7197,8 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function links two lobbies for the purposes of checking player compatibility using the frenemy system.
  *
- * @param {Real} steam_id_lobby
- * @param {Real} steam_id_lobby_dependent
+ * @param {Real} steam_id_lobby The Steam ID of the primary lobby.
+ * @param {Real} steam_id_lobby_dependent The Steam ID that will be linked to the primary lobby.
  * @returns {Bool} 
  * @function_end 
  */
@@ -6833,7 +7209,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function gets the details of a game server set in a lobby.
  *
- * @param {Real} steam_id_lobby
+ * @param {Real} steam_id_lobby The Steam ID of the lobby to get the game server information from.
  * @returns {Struct.SteamMatchmakingLobbyGameServer} 
  * @function_end 
  */
@@ -6844,7 +7220,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function 
  *
- * @param {Function} callback
+ * @param {Function} callback The function to be called when a session request event occurs.
  * @function_end 
  */
 
@@ -6863,7 +7239,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function 
  *
- * @param {Function} callback
+ * @param {Function} callback The function to be called when a session failed event occurs.
  * @function_end 
  */
 
@@ -6882,11 +7258,11 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function sends a message to the specified host. If we don't already have a session with that user, a session is implicitly created.
  *
- * @param {Real} steam_id_remote
- * @param {Buffer} data
- * @param {Real} bytes
- * @param {Real} send_flags
- * @param {Real} remote_channel
+ * @param {Real} steam_id_remote The identity of the host to send the message to; if a session does not already exist with that user, one is implicitly created.
+ * @param {Buffer} data The buffer holding the message data to send.
+ * @param {Real} bytes The size of the data to send, in bytes.
+ * @param {Real} send_flags A bitmask of k_nSteamNetworkingSend_xxx options that determine the delivery guarantees for the message.
+ * @param {Real} remote_channel A routing channel number you can use to help route the message to different systems on the remote host.
  * @returns {Real} 
  * @function_end 
  */
@@ -6897,10 +7273,10 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function reads the next message that has been sent from another user via SendMessageToUser() on the given channel.
  *
- * @param {Real} local_channel
- * @param {Buffer} out_data
- * @param {Real} max_bytes
- * @param {Real} offset
+ * @param {Real} local_channel The channel to read messages from (must match the channel used when sending).
+ * @param {Buffer} out_data The buffer into which the received message data will be written.
+ * @param {Real} max_bytes The maximum number of bytes to read into the buffer.
+ * @param {Real} offset The offset within the buffer at which to start writing the received data.
  * @returns {Struct.SteamNetworkingMessagesReceived} 
  * @function_end 
  */
@@ -6911,7 +7287,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function is called in response to a SteamNetworkingMessagesSessionRequest_t callback, which is posted when a user attempts to message you first.
  *
- * @param {Real} steam_id_remote
+ * @param {Real} steam_id_remote The identity of the remote user whose session request you are accepting.
  * @returns {Bool} 
  * @function_end 
  */
@@ -6922,7 +7298,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function is called when you're done talking to a user to immediately free up resources under-the-hood.
  *
- * @param {Real} steam_id_remote
+ * @param {Real} steam_id_remote The identity of the remote user whose session you want to close.
  * @returns {Bool} 
  * @function_end 
  */
@@ -6933,8 +7309,8 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function is called when you're done talking to a user on a specific channel.
  *
- * @param {Real} steam_id_remote
- * @param {Real} local_channel
+ * @param {Real} steam_id_remote The identity of the remote user whose channel you want to close.
+ * @param {Real} local_channel The specific channel to close with the user.
  * @returns {Bool} 
  * @function_end 
  */
@@ -6945,7 +7321,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function 
  *
- * @param {Function} callback
+ * @param {Function} callback The function to be called when the connection status changes.
  * @function_end 
  */
 
@@ -6964,7 +7340,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function creates a "server" socket that listens for clients to connect to by calling ConnectByIPAddress, over ordinary UDP (IPv4 or IPv6).
  *
- * @param {Real} port
+ * @param {Real} port The local port to bind the listen socket to.
  * @returns {Real} 
  * @function_end 
  */
@@ -6975,7 +7351,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function destroys a listen socket.
  *
- * @param {Real} listen_socket
+ * @param {Real} listen_socket The listen socket to destroy; all connections accepted on it are closed ungracefully.
  * @returns {Bool} 
  * @function_end 
  */
@@ -6986,8 +7362,8 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function creates a connection and begins talking to a "server" over UDP at the given IPv4 or IPv6 address.
  *
- * @param {String} ip
- * @param {Real} port
+ * @param {String} ip The IPv4 or IPv6 address of the server to connect to.
+ * @param {Real} port The port of the server to connect to.
  * @returns {Real} 
  * @function_end 
  */
@@ -6998,7 +7374,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function accepts an incoming connection that has been received on a listen socket.
  *
- * @param {Real} conn
+ * @param {Real} conn The handle of the incoming connection to accept.
  * @returns {Real} 
  * @function_end 
  */
@@ -7009,10 +7385,10 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function disconnects from the remote host and invalidates the connection handle.
  *
- * @param {Real} conn
- * @param {Real} reason
- * @param {String} debug
- * @param {Bool} linger
+ * @param {Real} conn The connection to disconnect.
+ * @param {Real} reason An application-defined code that will be received on the other end and recorded for diagnostic purposes.
+ * @param {String} debug An optional human-readable diagnostic string that will be received on the other end.
+ * @param {Bool} linger Whether to attempt to flush any remaining reliable messages before actually closing the connection.
  * @returns {Bool} 
  * @function_end 
  */
@@ -7023,8 +7399,8 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function sets the connection user data, which is returned in various queries and structures.
  *
- * @param {Real} conn
- * @param {Real} user_data
+ * @param {Real} conn The connection handle whose user data you want to set.
+ * @param {Real} user_data The user data value to associate with the connection.
  * @returns {Bool} 
  * @function_end 
  */
@@ -7035,7 +7411,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function fetches connection user data.
  *
- * @param {Real} conn
+ * @param {Real} conn The connection handle whose user data you want to fetch.
  * @returns {Real} 
  * @function_end 
  */
@@ -7046,8 +7422,8 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function sets a name for the connection, used mostly for debugging.
  *
- * @param {Real} conn
- * @param {String} name
+ * @param {Real} conn The connection handle whose name you want to set.
+ * @param {String} name The name to assign to the connection, used mostly for debugging.
  * @function_end 
  */
 
@@ -7057,7 +7433,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function fetches the connection name into your buffer.
  *
- * @param {Real} conn
+ * @param {Real} conn The connection handle whose name you want to fetch.
  * @returns {String} 
  * @function_end 
  */
@@ -7068,10 +7444,10 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function sends a message to the remote host on the specified connection.
  *
- * @param {Real} conn
- * @param {Buffer} data
- * @param {Real} bytes
- * @param {Enum.SteamNetworkingSendFlags} send_flags
+ * @param {Real} conn The connection to send the message on.
+ * @param {Buffer} data The buffer holding the message data to send.
+ * @param {Real} bytes The size of the data to send, in bytes.
+ * @param {Enum.SteamNetworkingSendFlags} send_flags The send flags that determine the delivery guarantees, buffering behaviour, etc. for the message.
  * @returns {Real} 
  * @function_end 
  */
@@ -7082,7 +7458,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function flushes any messages waiting on the Nagle timer and sends them at the next transmission opportunity.
  *
- * @param {Real} conn
+ * @param {Real} conn The connection whose Nagle-buffered messages should be flushed.
  * @returns {Real} 
  * @function_end 
  */
@@ -7093,10 +7469,10 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function fetches the next available message(s) from the connection, if any.
  *
- * @param {Real} conn
- * @param {Buffer} out_data
- * @param {Real} max_bytes
- * @param {Real} offset
+ * @param {Real} conn The connection to read messages from.
+ * @param {Buffer} out_data The buffer into which the received message data will be written.
+ * @param {Real} max_bytes The maximum number of bytes to read into the buffer.
+ * @param {Real} offset The offset within the buffer at which to start writing the received data.
  * @returns {Struct.SteamNetworkingSocketsReceived} 
  * @function_end 
  */
@@ -7107,7 +7483,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function returns basic information about the high-level state of the connection.
  *
- * @param {Real} conn
+ * @param {Real} conn The connection handle to query for basic high-level state information.
  * @returns {Struct.SteamNetworkingSocketsConnectionInfo} 
  * @function_end 
  */
@@ -7118,7 +7494,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function returns very detailed connection stats in diagnostic text format.
  *
- * @param {Real} conn
+ * @param {Real} conn The connection handle to query for detailed diagnostic status.
  * @returns {String} 
  * @function_end 
  */
@@ -7138,7 +7514,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function creates a pair of connections that are talking to each other, e.g. a loopback connection.
  *
- * @param {Bool} use_network_loopback
+ * @param {Bool} use_network_loopback If true, traffic is sent through the local loopback (127.0.0.1), supporting simulated lag and loss; otherwise internal buffers are used.
  * @returns {Array[Real]} 
  * @function_end 
  */
@@ -7149,7 +7525,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function works like CreateListenSocketIP, but the clients connect using ConnectP2P, with the traffic relayed through the Valve network.
  *
- * @param {Real} local_virtual_port
+ * @param {Real} local_virtual_port The local virtual port that specifies how clients can connect to this socket using ConnectP2P; use zero for a single socket.
  * @returns {Real} 
  * @function_end 
  */
@@ -7160,8 +7536,8 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function begins connecting to a peer that is identified using a platform-specific identifier.
  *
- * @param {Real} steam_id_remote
- * @param {Real} remote_virtual_port
+ * @param {Real} steam_id_remote The platform-specific identity of the remote peer to connect to.
+ * @param {Real} remote_virtual_port The remote virtual port on the peer to connect to.
  * @returns {Real} 
  * @function_end 
  */
@@ -7172,7 +7548,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function returns the local IP and port that a listen socket created via CreateListenSocketIP is bound to.
  *
- * @param {Real} listen_socket
+ * @param {Real} listen_socket The listen socket whose bound local IP and port you want to retrieve.
  * @returns {String} 
  * @function_end 
  */
@@ -7193,7 +7569,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function destroys a poll group created with CreatePollGroup.
  *
- * @param {Real} poll_group
+ * @param {Real} poll_group The poll group to destroy.
  * @returns {Bool} 
  * @function_end 
  */
@@ -7204,8 +7580,8 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function assigns a connection to a poll group.
  *
- * @param {Real} conn
- * @param {Real} poll_group
+ * @param {Real} conn The connection to assign to the poll group.
+ * @param {Real} poll_group The target poll group; pass an invalid handle to remove the connection from any group.
  * @returns {Bool} 
  * @function_end 
  */
@@ -7216,10 +7592,10 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function works like ReceiveMessagesOnConnection, but it returns messages from any connection in the poll group.
  *
- * @param {Real} poll_group
- * @param {Buffer} out_data
- * @param {Real} max_bytes
- * @param {Real} offset
+ * @param {Real} poll_group The poll group to read messages from.
+ * @param {Buffer} out_data The buffer into which the received message data will be written.
+ * @param {Real} max_bytes The maximum number of bytes to read into the buffer.
+ * @param {Real} offset The offset within the buffer at which to start writing the received data.
  * @returns {Struct.SteamNetworkingSocketsReceived} 
  * @function_end 
  */
@@ -7230,7 +7606,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function 
  *
- * @param {Function} callback
+ * @param {Function} callback The function to be called when a reservation notification event occurs.
  * @function_end 
  */
 
@@ -7249,7 +7625,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function 
  *
- * @param {Function} callback
+ * @param {Function} callback The function to be called when the available beacon locations are updated.
  * @function_end 
  */
 
@@ -7268,7 +7644,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function 
  *
- * @param {Function} callback
+ * @param {Function} callback The function to be called when the active beacons are updated.
  * @function_end 
  */
 
@@ -7307,14 +7683,23 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function creates a beacon. You can only create one beacon at a time.
  *
- * @param {Real} open_slots
- * @param {Enum.SteamPartiesBeaconLocationType} beacon_location_type
- * @param {Real} beacon_location_id
- * @param {String} connect_string
- * @param {String} metadata
- * @param {Function} [callback]
- * @returns {Bool} 
- * @function_end 
+ * @param {Real} open_slots The number of reservation slots to create for the beacon, normally the party size minus one.
+ * @param {Enum.SteamPartiesBeaconLocationType} beacon_location_type The type of the beacon location, taken from one of the locations returned by ${function.steam_parties_get_available_beacon_locations}.
+ * @param {Real} beacon_location_id The location ID of the beacon location, taken from one of the locations returned by ${function.steam_parties_get_available_beacon_locations}.
+ * @param {String} connect_string The connect string that will be given to the game on launch for a user that follows the beacon.
+ * @param {String} metadata Additional game metadata that can be set on the beacon, and is exposed via ${function.steam_parties_get_beacon_details}.
+ * @param {Function} [callback] The function to call upon completion.
+ * @returns {Bool}
+ *
+ * @event callback
+ * @desc > **Steamworks Callback**: [ISteamParties::CreateBeaconCallback_t](https://partner.steamgames.com/doc/api/ISteamParties#CreateBeaconCallback_t)
+ *
+ * This callback is returned as the response to a call to create a beacon. A successful result means your beacon has been posted in the desired location and you can begin receiving reservation notifications as users follow it.
+ *
+ * @member {Enum.SteamApiResult} result The result of the operation.
+ * @member {Real} beacon_id Beacon ID of the newly created beacon.
+ * @event_end
+ * @function_end
  */
 
 /**
@@ -7323,8 +7708,8 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function notifies Steam that a reserved user has successfully joined your party, once a user who followed your beacon has joined.
  *
- * @param {Real} beacon_id
- * @param {Real} user_steam_id
+ * @param {Real} beacon_id The beacon ID for the beacon created by your process.
+ * @param {Real} user_steam_id The Steam ID of the user joining your party.
  * @returns {Bool} 
  * @function_end 
  */
@@ -7335,9 +7720,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function reduces the number of open slots that Steam is managing through the party beacon when a user joins your party through other matchmaking.
  *
- * @param {Real} beacon_id
- * @param {Real} open_slots
- * @param {Function} [callback]
+ * @param {Real} beacon_id The beacon ID for the beacon created by your process.
+ * @param {Real} open_slots The new number of open slots in your party.
+ * @param {Function} [callback] The function to call upon completion.
  * @returns {Bool} 
  * @function_end 
  */
@@ -7348,7 +7733,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function destroys the Steam party beacon.
  *
- * @param {Real} beacon_id
+ * @param {Real} beacon_id The beacon ID to be destroyed.
  * @returns {Bool} 
  * @function_end 
  */
@@ -7369,7 +7754,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function is used with ${function.steam_parties_get_num_active_beacons} to iterate the active beacons visible to the current user.
  *
- * @param {Real} index
+ * @param {Real} index The index of the beacon.
  * @returns {Real} 
  * @function_end 
  */
@@ -7380,7 +7765,7 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function gets details about the specified beacon.
  *
- * @param {Real} beacon_id
+ * @param {Real} beacon_id The beacon ID to query.
  * @returns {Struct.SteamPartiesBeaconDetails} 
  * @function_end 
  */
@@ -7391,10 +7776,21 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function is called when the user indicates they wish to join the party advertised by a given beacon.
  *
- * @param {Real} beacon_id
- * @param {Function} [callback]
- * @returns {Bool} 
- * @function_end 
+ * @param {Real} beacon_id The beacon ID for the party you wish to join.
+ * @param {Function} [callback] The function to call upon completion.
+ * @returns {Bool}
+ *
+ * @event callback
+ * @desc > **Steamworks Callback**: [ISteamParties::JoinPartyCallback_t](https://partner.steamgames.com/doc/api/ISteamParties#JoinPartyCallback_t)
+ *
+ * This callback serves as the response to a call to join a party. When it succeeds, you have secured a slot in the beacon owner's party and should use the connect string to link up with their game and finish joining.
+ *
+ * @member {Enum.SteamApiResult} result The result of the operation.
+ * @member {Real} beacon_id Beacon ID used in the attempt.
+ * @member {Real} beacon_owner_steam_id Steam ID of the creator of the beacon used in the attempt.
+ * @member {String} connect_string The connect string to use to join the party.
+ * @event_end
+ * @function_end
  */
 
 /**
@@ -7403,9 +7799,9 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
  *
  * This function queries general metadata for the given beacon location.
  *
- * @param {Enum.SteamPartiesBeaconLocationType} beacon_location_type
- * @param {Real} beacon_location_id
- * @param {Enum.SteamPartiesBeaconLocationData} data_kind
+ * @param {Enum.SteamPartiesBeaconLocationType} beacon_location_type The type of the beacon location to query.
+ * @param {Real} beacon_location_id The location ID of the beacon location to query.
+ * @param {Enum.SteamPartiesBeaconLocationData} data_kind The type of location data you wish to get.
  * @returns {String} 
  * @function_end 
  */
@@ -10305,5 +10701,96 @@ you can call use ${function.steam_apps_mark_content_corrupt} to force a verify, 
 
 /**
  * @const_partial macros
+ * @member {Real} SteamApiBreakpadInvalidHandle (value: '0')
+ * @member {Real} SteamApiGameExtraInfoMax (value: '64')
+ * @member {Real} SteamApiSaltSize (value: '8')
+ * @member {Real} SteamApiGidNil (value: '-1')
+ * @member {Real} SteamApiAuthTicketInvalid (value: '0')
+ * @member {Real} SteamApiJobIdNil (value: '-1')
+ * @member {Real} SteamApiTxnIdNil (value: '-1')
+ * @member {Real} SteamApiTxnIdUnknown (value: '0')
+ * @member {Real} SteamApiApiCallInvalid (value: '0x0')
+ * @member {Real} SteamApiAppIdInvalid (value: '0x0')
+ * @member {Real} SteamApiBundleIdInvalid (value: '0')
+ * @member {Real} SteamApiCellIdInvalid (value: '0xFFFFFFFF')
+ * @member {Real} SteamApiDepotIdInvalid (value: '0x0')
+ * @member {Real} SteamApiAssetClassIdInvalid (value: '0x0')
+ * @member {Real} SteamApiManifestIdInvalid (value: '0')
+ * @member {Real} SteamApiSteamAccountIdMask (value: '0xFFFFFFFF')
+ * @member {Real} SteamApiSteamAccountInstanceMask (value: '0x000FFFFF')
+ * @member {Real} SteamApiSteamUserConsoleInstance (value: '2')
+ * @member {Real} SteamApiSteamUserDesktopInstance (value: '1')
+ * @member {Real} SteamApiSteamUserWebInstance (value: '4')
+ * @member {Real} SteamApiPackageIdFreeSub (value: '0x0')
+ * @member {Real} SteamApiPackageIdInvalid (value: '0xFFFFFFFF')
+ * @member {Real} SteamApiPartnerIdInvalid (value: '0')
+ * @member {Real} SteamApiPhysicalItemIdInvalid (value: '0x0')
+ * @member {Real} SteamApiQueryPortError (value: '0xFFFE')
+ * @member {Real} SteamApiQueryPortNotInitialized (value: '0xFFFF')
+ * @member {Real} SteamFriendsMaxFriendsGroupName (value: '64')
+ * @member {Real} SteamFriendsMaxRichPresenceKeyLength (value: '64')
+ * @member {Real} SteamFriendsMaxRichPresenceKeys (value: '20')
+ * @member {Real} SteamFriendsMaxRichPresenceValueLength (value: '256')
+ * @member {Real} SteamFriendsPersonaNameMax (value: '128')
+ * @member {Real} SteamFriendsEnumerateFollowersMax (value: '50')
+ * @member {Real} SteamFriendsFriendsGroupLimit (value: '100')
+ * @member {Real} SteamFriendsChatMetadataMax (value: '8192')
+ * @member {Real} SteamFriendsPersonaNameMaxUtf16 (value: '32')
+ * @member {Real} SteamFriendsGroupIdInvalid (value: '-1')
+ * @member {String} SteamFriendsInterfaceVersion (value: '"SteamFriends015"')
+ * @member {Real} SteamAppsAppProofOfPurchaseKeyMax (value: '240')
+ * @member {String} SteamAppsInterfaceVersion (value: '"STEAMAPPS_INTERFACE_VERSION008"')
+ * @member {Real} SteamScreenshotsInvalidScreenshotHandle (value: '0')
+ * @member {Real} SteamScreenshotsUfsTagTypeMax (value: '255')
+ * @member {Real} SteamScreenshotsUfsTagValueMax (value: '255')
+ * @member {Real} SteamScreenshotsMaxTaggedPublishedFiles (value: '32')
+ * @member {Real} SteamScreenshotsMaxTaggedUsers (value: '32')
+ * @member {Real} SteamScreenshotsThumbWidth (value: '200')
+ * @member {String} SteamScreenshotsInterfaceVersion (value: '"STEAMSCREENSHOTS_INTERFACE_VERSION003"')
+ * @member {String} SteamUserInterfaceVersion (value: '"SteamUser019"')
+ * @member {Real} SteamUserEncryptedAppTicketSymmetricKeyLen (value: '32')
+ * @member {String} SteamUtilsInterfaceVersion (value: '"SteamUtils009"')
+ * @member {Real} SteamUgcNumResultsPerPage (value: '50')
+ * @member {Real} SteamUgcDeveloperMetadataMax (value: '5000')
+ * @member {Real} SteamUgcQueryHandleInvalid (value: '-1')
+ * @member {Real} SteamUgcUpdateHandleInvalid (value: '-1')
+ * @member {String} SteamUgcInterfaceVersion (value: '"STEAMUGC_INTERFACE_VERSION015"')
+ * @member {String} SteamInputInterfaceVersion (value: '"SteamInput001"')
+ * @member {Real} SteamInputHandleAllControllers (value: '-1')
+ * @member {Real} SteamInputMaxAnalogActions (value: '16')
+ * @member {Real} SteamInputMaxAnalogActionData (value: '1.0')
+ * @member {Real} SteamInputMaxCount (value: '16')
+ * @member {Real} SteamInputMaxDigitalActions (value: '128')
+ * @member {Real} SteamInputMaxOrigins (value: '8')
+ * @member {Real} SteamInputMinAnalogActionData (value: '-1.0')
+ * @member {Real} SteamUserStatsLeaderboardNameMax (value: '128')
+ * @member {Real} SteamUserStatsStatNameMax (value: '128')
+ * @member {Real} SteamUserStatsLeaderboardDetailsMax (value: '64')
+ * @member {String} SteamUserStatsInterfaceVersion (value: '"STEAMUSERSTATS_INTERFACE_VERSION011"')
+ * @member {String} SteamMusicInterfaceVersion (value: '"STEAMMUSIC_INTERFACE_VERSION001"')
+ * @member {Real} SteamInventoryResultInvalid (value: '-1')
+ * @member {Real} SteamInventoryItemInstanceIdInvalid (value: '-1')
+ * @member {String} SteamInventoryInterfaceVersion (value: '"STEAMINVENTORY_INTERFACE_V002"')
+ * @member {Real} SteamRemoteStorageFilenameMax (value: '260')
+ * @member {Real} SteamRemoteStoragePublishedDocumentChangeDescriptionMax (value: '8000')
+ * @member {Real} SteamRemoteStoragePublishedDocumentDescriptionMax (value: '8000')
+ * @member {Real} SteamRemoteStoragePublishedDocumentTitleMax (value: '129')
+ * @member {Real} SteamRemoteStoragePublishedFileUrlMax (value: '256')
+ * @member {Real} SteamRemoteStorageTagListMax (value: '1025')
+ * @member {Real} SteamRemoteStoragePublishedFileIdInvalid (value: '0')
+ * @member {Real} SteamRemoteStoragePublishedFileUpdateHandleInvalid (value: '-1')
+ * @member {Real} SteamRemoteStorageUgcFileStreamHandleInvalid (value: '-1')
+ * @member {Real} SteamRemoteStorageUgcHandleInvalid (value: '-1')
+ * @member {Real} SteamRemoteStorageEnumeratePublishedFilesMaxResults (value: '50')
+ * @member {Real} SteamRemoteStorageMaxCloudFileChunkSize (value: '104857600')
+ * @member {String} SteamRemoteStorageInterfaceVersion (value: '"STEAMREMOTESTORAGE_INTERFACE_VERSION014"')
+ * @member {Real} SteamMatchmakingServerQueryInvalid (value: '0xffffffff')
+ * @member {Real} SteamMatchmakingMaxLobbyKeyLength (value: '255')
+ * @member {Real} SteamMatchmakingFavoriteFlagFavorite (value: '0x01')
+ * @member {Real} SteamMatchmakingFavoriteFlagHistory (value: '0x02')
+ * @member {Real} SteamMatchmakingFavoriteFlagNone (value: '0x00')
+ * @member {String} SteamMatchmakingServersInterfaceVersion (value: '"SteamMatchMakingServers002"')
+ * @member {String} SteamMatchmakingInterfaceVersion (value: '"SteamMatchMaking009"')
  * @const_end 
  */
+
