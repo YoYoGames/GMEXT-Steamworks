@@ -1,4 +1,4 @@
-[gml_api]
+﻿[gml_api]
 module Steamworks;
 
 
@@ -356,13 +356,13 @@ function steam_friends_activate_game_overlay(dialog: string): unit;
 function steam_friends_activate_game_overlay_invite_dialog([type_hint=uint64] steam_id_lobby: gmval): unit;
 
 [global, bind = typed_gml]
-function steam_friends_activate_game_overlay_to_store(app_id: uint32, [type_hint=`SteamFriendsOverlayToStoreFlag`] flag: gmval): unit;
+function steam_friends_activate_game_overlay_to_store(app_id: uint32, [type_hint=`SteamFriendsOverlayToStoreFlag`] eFlag: gmval): unit;
 
 [global, bind = typed_gml]
 function steam_friends_activate_game_overlay_to_user(dialog: string, [type_hint=uint64] steam_id: gmval): unit;
 
 [global, bind = typed_gml]
-function steam_friends_activate_game_overlay_to_web_page(url: string, [type_hint=`SteamFriendsOverlayToWebpageMode`] mode: gmval): unit;
+function steam_friends_activate_game_overlay_to_web_page(pchURL: string, [type_hint=`SteamFriendsOverlayToWebpageMode`] eMode: gmval): unit;
 
 [global, bind = typed_gml]
 function steam_friends_clear_rich_presence(): unit;
@@ -422,7 +422,7 @@ enum SteamFriendsOverlayToWebpageMode
 
 // GetChatMemberByIndex
 [global, bind = typed_gml, type_hint=uint64]
-function steam_friends_get_chat_member_by_index([type_hint=uint64] steam_id_clan: gmval, user: int32): gmval;
+function steam_friends_get_chat_member_by_index([type_hint=uint64] steam_id_clan: gmval, iUser: int32): gmval;
 
 // GetClanActivityCounts
 [global, bind = typed_gml, type_hint=`SteamFriendsClanActivityCounts`]
@@ -438,7 +438,7 @@ function steam_friends_get_clan_chat_member_count([type_hint=uint64] steam_id_cl
 
 // GetClanChatMessage
 [global, bind = typed_gml, type_hint=`SteamFriendsClanChatMessage`]
-function steam_friends_get_clan_chat_message([type_hint=uint64] steam_id_clan_chat: gmval, message: int32): gmval;
+function steam_friends_get_clan_chat_message([type_hint=uint64] steam_id_clan_chat: gmval, iMessage: int32): gmval;
 
 // GetClanCount
 [global, bind = typed_gml]
@@ -534,7 +534,7 @@ function steam_friends_get_follower_count([type_hint=uint64] steam_id: gmval, [t
 
 // GetFriendByIndex
 [global, bind = typed_gml, type_hint=uint64]
-function steam_friends_get_friend_by_index(friend: int32, friend_flags: int32): gmval;
+function steam_friends_get_friend_by_index(iFriend: int32, iFriendFlags: int32): gmval;
 
 // GetFriendCoplayGame
 // AppId_t -> uint32
@@ -547,7 +547,7 @@ function steam_friends_get_friend_coplay_time([type_hint=uint64] steam_id_friend
 
 // GetFriendCount
 [global, bind = typed_gml]
-function steam_friends_get_friend_count(friend_flags: int32): int32;
+function steam_friends_get_friend_count(iFriendFlags: int32): int32;
 
 // GetFriendCountFromSource
 [global, bind = typed_gml]
@@ -575,7 +575,7 @@ enum SteamFriendsFriendFlag
 
 // GetFriendFromSourceByIndex
 [global, bind = typed_gml, type_hint=uint64]
-function steam_friends_get_friend_from_source_by_index([type_hint=uint64] steam_id_source: gmval, friend: int32): gmval;
+function steam_friends_get_friend_from_source_by_index([type_hint=uint64] steam_id_source: gmval, iFriend: int32): gmval;
 
 // GetFriendGamePlayed
 [global, bind = typed_gml, type_hint=`SteamFriendsFriendGamePlayed`]
@@ -603,11 +603,11 @@ function steam_friends_get_friend_relationship([type_hint=uint64] steam_id_frien
 
 // GetFriendRichPresence
 [global, bind = typed_gml]
-function steam_friends_get_friend_rich_presence([type_hint=uint64] steam_id_friend: gmval, key: string): string;
+function steam_friends_get_friend_rich_presence([type_hint=uint64] steam_id_friend: gmval, pchKey: string): string;
 
 // GetFriendRichPresenceKeyByIndex
 [global, bind = typed_gml]
-function steam_friends_get_friend_rich_presence_key_by_index([type_hint=uint64] steam_id_friend: gmval, key: int32): string;
+function steam_friends_get_friend_rich_presence_key_by_index([type_hint=uint64] steam_id_friend: gmval, iKey: int32): string;
 
 // GetFriendRichPresenceKeyCount
 [global, bind = typed_gml]
@@ -726,7 +726,7 @@ function steam_friends_get_small_friend_avatar([type_hint=uint64] steam_id_frien
 
 // HasFriend
 [global, bind = typed_gml]
-function steam_friends_has_friend([type_hint=uint64] steam_id_friend: gmval, friend_flags: int32): bool;
+function steam_friends_has_friend([type_hint=uint64] steam_id_friend: gmval, iFriendFlags: int32): bool;
 
 // InviteUserToGame
 [global, bind = typed_gml]
@@ -778,7 +778,7 @@ function steam_friends_set_played_with([type_hint=uint64] steam_id_user_played_w
 
 // SetRichPresence
 [global, bind = typed_gml]
-function steam_friends_set_rich_presence(key: string, value: string): bool;
+function steam_friends_set_rich_presence(pchKey: string, value: string): bool;
 
 [global, bind = typed_gml]
 function steam_friends_set_callback_persona_state_change(callback:func): unit;
@@ -1099,7 +1099,7 @@ function steam_apps_get_launch_command_line(command_line_size: int32): gmval;
 
 // GetLaunchQueryParam
 [global, bind = typed_gml]
-function steam_apps_get_launch_query_param(key: string): string;
+function steam_apps_get_launch_query_param(pchKey: string): string;
 
 // InstallDLC
 [global, bind = typed_gml]
@@ -1202,7 +1202,7 @@ function steam_screenshots_add_screenshot_to_library(
 // AddVRScreenshotToLibrary
 [global, bind = typed_gml]
 function steam_screenshots_add_vr_screenshot_to_library(
-    [type_hint=`SteamScreenshotsVrScreenshotType`] type: gmval,
+    [type_hint=`SteamScreenshotsVrScreenshotType`] eType: gmval,
     filename: string,
     vr_filename: string
 ): uint32;
@@ -3349,7 +3349,7 @@ function steam_input_get_motion_data([type_hint=uint64] input_handle: gmval): gm
 
 // GetStringForActionOrigin
 [global, bind = typed_gml]
-function steam_input_get_string_for_action_origin(origin: int32): string;
+function steam_input_get_string_for_action_origin(eOrigin: int32): string;
 
 // Init
 [global, bind = typed_gml]
@@ -3394,11 +3394,11 @@ function steam_input_trigger_vibration_extended([type_hint=uint64] input_handle:
 
 // GetActionOriginFromXboxOrigin
 [global, bind = typed_gml]
-function steam_input_get_action_origin_from_xbox_origin([type_hint=uint64] input_handle: gmval, origin: int32): int32;
+function steam_input_get_action_origin_from_xbox_origin([type_hint=uint64] input_handle: gmval, eOrigin: int32): int32;
 
 // TranslateActionOrigin
 [global, bind = typed_gml]
-function steam_input_translate_action_origin(destination_input_type: int32, source_origin: int32): int32;
+function steam_input_translate_action_origin(eDestinationInputType: int32, eSourceOrigin: int32): int32;
 
 // GetDeviceBindingRevision
 [global, bind = typed_gml, type_hint=`SteamInputDeviceBindingRevision`]

@@ -1,4 +1,4 @@
-// gm_steam_input.cpp
+﻿// gm_steam_input.cpp
 //
 // Steamworks module: input (ISteamInput)
 
@@ -199,7 +199,7 @@ steam_input_get_analog_action_data(std::uint64_t input_handle, std::uint64_t ana
 
     InputAnalogActionData_t d
         = s->GetAnalogActionData((InputHandle_t)input_handle, (InputAnalogActionHandle_t)analog_action_handle);
-    out.mode = (std::int32_t)d.mode;
+    out.mode = (std::int32_t)d.eMode;
     out.x = d.x;
     out.y = d.y;
     out.active = d.bActive;
@@ -437,7 +437,7 @@ gm_structs::SteamInputMotionData steam_input_get_motion_data(std::uint64_t input
     return out;
 }
 
-std::string steam_input_get_string_for_action_origin(std::int32_t origin)
+std::string steam_input_get_string_for_action_origin(std::int32_t eOrigin)
 {
     STEAM_GUARD_RET("");
 
@@ -445,7 +445,7 @@ std::string steam_input_get_string_for_action_origin(std::int32_t origin)
     if (!s)
         return "";
 
-    const char* p = s->GetStringForActionOrigin((EInputActionOrigin)origin);
+    const char* p = s->GetStringForActionOrigin((EInputActionOrigin)eOrigin);
     return p ? std::string(p) : std::string();
 }
 
@@ -649,7 +649,7 @@ void steam_input_trigger_vibration_extended(
     s->TriggerVibrationExtended((InputHandle_t)input_handle, l, r, lt, rt);
 }
 
-std::int32_t steam_input_get_action_origin_from_xbox_origin(std::uint64_t input_handle, std::int32_t origin)
+std::int32_t steam_input_get_action_origin_from_xbox_origin(std::uint64_t input_handle, std::int32_t eOrigin)
 {
     STEAM_GUARD_RET(0);
 
@@ -657,10 +657,10 @@ std::int32_t steam_input_get_action_origin_from_xbox_origin(std::uint64_t input_
     if (!s)
         return 0;
 
-    return (std::int32_t)s->GetActionOriginFromXboxOrigin((InputHandle_t)input_handle, (EXboxOrigin)origin);
+    return (std::int32_t)s->GetActionOriginFromXboxOrigin((InputHandle_t)input_handle, (EXboxOrigin)eOrigin);
 }
 
-std::int32_t steam_input_translate_action_origin(std::int32_t destination_input_type, std::int32_t source_origin)
+std::int32_t steam_input_translate_action_origin(std::int32_t eDestinationInputType, std::int32_t eSourceOrigin)
 {
     STEAM_GUARD_RET(0);
 
@@ -669,7 +669,7 @@ std::int32_t steam_input_translate_action_origin(std::int32_t destination_input_
         return 0;
 
     return (std::int32_t)s->TranslateActionOrigin(
-        (ESteamInputType)destination_input_type, (EInputActionOrigin)source_origin
+        (ESteamInputType)eDestinationInputType, (EInputActionOrigin)eSourceOrigin
     );
 }
 

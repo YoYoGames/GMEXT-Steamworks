@@ -1,4 +1,4 @@
-// gm_steam_apps.cpp
+﻿// gm_steam_apps.cpp
 //
 // Steamworks module: apps (ISteamApps)
 
@@ -475,14 +475,14 @@ SteamAppsLaunchCommandLine steam_apps_get_launch_command_line(std::int32_t comma
     return out;
 }
 
-std::string steam_apps_get_launch_query_param(std::string_view key)
+std::string steam_apps_get_launch_query_param(std::string_view pchKey)
 {
     STEAM_GUARD_RET("");
     ISteamApps* a = steam_apps_iface();
     if (!a)
         return "";
 
-    std::string key(key);
+    std::string key(pchKey);
     const char* s = a->GetLaunchQueryParam(key.c_str());
     return s ? std::string(s) : std::string();
 }
