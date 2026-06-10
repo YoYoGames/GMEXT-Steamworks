@@ -4539,7 +4539,9 @@
  * @function steam_input_activate_action_set
  * @description > **Steamworks Function**: [ISteamInput::ActivateActionSet](https://partner.steamgames.com/doc/api/ISteamInput#ActivateActionSet)
  *
- * This function reconfigures the controller to use the specified action set.
+ * This function reconfigures the controller to use the specified action set (i.e. "Menu", "Walk", or "Drive").
+ * 
+ * This is cheap, and can be safely called repeatedly. It's often easier to repeatedly call it in your state loops, instead of trying to place it in all of your state transitions.
  *
  * @param {Real} input_handle The handle of the controller you want to activate an action set for.
  * @param {Real} action_set_handle The handle of the action set you want to activate.
@@ -4551,6 +4553,8 @@
  * @description > **Steamworks Function**: [ISteamInput::ActivateActionSetLayer](https://partner.steamgames.com/doc/api/ISteamInput#ActivateActionSetLayer)
  *
  * This function reconfigures the controller to use the specified action set layer.
+ * 
+ * See the [Action Set Layers](https://partner.steamgames.com/doc/features/steam_controller/action_set_layers) article for full details and an in-depth practical example.
  *
  * @param {Real} input_handle The handle of the controller you want to activate an action set layer for.
  * @param {Real} action_set_layer_handle The handle of the action set layer you want to activate.
@@ -4565,7 +4569,7 @@
  *
  * @param {Real} input_handle The handle of the controller you want to deactivate an action set layer for.
  * @param {Real} action_set_layer_handle The handle of the action set layer you want to deactivate.
- * @function_end 
+ * @function_end
  */
 
 /**
@@ -4575,7 +4579,7 @@
  * This function reconfigures the controller to stop using all action set layers.
  *
  * @param {Real} input_handle The handle of the controller you want to deactivate all action set layers for.
- * @function_end 
+ * @function_end
  */
 
 /**
@@ -4586,7 +4590,7 @@
  *
  * @param {Real} input_handle The handle of the controller you want to get active action set layers for.
  * @returns {Struct.SteamInputActiveActionSetLayers} 
- * @function_end 
+ * @function_end
  */
 
 /**
@@ -4597,7 +4601,7 @@
  *
  * @param {String} pszActionSetName The string identifier of an action set defined in the game's VDF file.
  * @returns {Real} 
- * @function_end 
+ * @function_end
  */
 
 /**
@@ -4609,7 +4613,7 @@
  * @param {Real} input_handle The handle of the controller you want to query.
  * @param {Real} analog_action_handle The handle of the analog action you want to query.
  * @returns {Struct.SteamInputAnalogActionData} 
- * @function_end 
+ * @function_end
  */
 
 /**
@@ -4617,23 +4621,25 @@
  * @description > **Steamworks Function**: [ISteamInput::GetAnalogActionHandle](https://partner.steamgames.com/doc/api/ISteamInput#GetAnalogActionHandle)
  *
  * This function gets the handle of the specified analog action.
+ * 
+ * [[Note: This function does not take an action set handle parameter. That means that each action in your VDF file must have a unique string identifier. In other words, if you use an action called "up" in two different action sets, this function will only ever return one of them and the other will be ignored.]]
  *
  * @param {String} pszActionName The string identifier of the analog action defined in the game's VDF file.
  * @returns {Real} 
- * @function_end 
+ * @function_end
  */
 
 /**
  * @function steam_input_get_analog_action_origins
  * @description > **Steamworks Function**: [ISteamInput::GetAnalogActionOrigins](https://partner.steamgames.com/doc/api/ISteamInput#GetAnalogActionOrigins)
  *
- * This function gets the origin(s) for an analog action within an action set.
+ * This function gets the origin(s) for an analog action within an action set. Use this to display the appropriate on-screen prompt for the action.
  *
  * @param {Real} input_handle The handle of the controller you want to query.
  * @param {Real} action_set_handle The handle of the action set you want to query.
  * @param {Real} analog_action_handle The handle of the analog action you want to query.
  * @returns {Struct.SteamInputActionOrigins} 
- * @function_end 
+ * @function_end
  */
 
 /**
@@ -4646,7 +4652,7 @@
  * @param {Real} size The size of the PNG glyph to retrieve, from the `ESteamInputGlyphSize` enum.
  * @param {Real} flags A bit-masked combination of glyph style flags that control the visual appearance of the returned glyph.
  * @returns {String} 
- * @function_end 
+ * @function_end
  */
 
 /**
@@ -4658,28 +4664,28 @@
  * @param {Real} origin The action origin you want to get the glyph image for.
  * @param {Real} flags A bit-masked combination of glyph style flags that control the visual appearance of the returned glyph.
  * @returns {String} 
- * @function_end 
+ * @function_end
  */
 
 /**
  * @function steam_input_get_connected_controllers
  * @description > **Steamworks Function**: [ISteamInput::GetConnectedControllers](https://partner.steamgames.com/doc/api/ISteamInput#GetConnectedControllers)
  *
- * This function enumerates currently connected controllers by filling handlesOut with controller handles.
+ * This function enumerates currently connected controllers.
  *
- * @returns {Array[Real]} 
- * @function_end 
+ * @returns {Array[Real]}
+ * @function_end
  */
 
 /**
  * @function steam_input_get_controller_for_gamepad_index
  * @description > **Steamworks Function**: [ISteamInput::GetControllerForGamepadIndex](https://partner.steamgames.com/doc/api/ISteamInput#GetControllerForGamepadIndex)
  *
- * This function returns the associated controller handle for the specified emulated gamepad.
+ * This function returns the associated controller handle for the specified emulated gamepad. Can be used with ${function.steam_input_get_input_type_for_handle} to determine the type of controller using Steam Input Gamepad Emulation.
  *
  * @param {Real} nIndex The index of the emulated gamepad you want to get a controller handle for.
  * @returns {Real} 
- * @function_end 
+ * @function_end
  */
 
 /**
@@ -4690,7 +4696,7 @@
  *
  * @param {Real} input_handle The handle of the controller you want to query.
  * @returns {Real} 
- * @function_end 
+ * @function_end
  */
 
 /**
@@ -4702,7 +4708,7 @@
  * @param {Real} input_handle The handle of the controller you want to query.
  * @param {Real} digital_action_handle The handle of the digital action you want to query.
  * @returns {Struct.SteamInputDigitalActionData} 
- * @function_end 
+ * @function_end
  */
 
 /**
@@ -4713,7 +4719,7 @@
  *
  * @param {String} pszActionName The string identifier of the digital action defined in the game's VDF file.
  * @returns {Real} 
- * @function_end 
+ * @function_end
  */
 
 /**
@@ -4726,7 +4732,7 @@
  * @param {Real} action_set_handle The handle of the action set you want to query.
  * @param {Real} digital_action_handle The handle of the digital action you want to query.
  * @returns {Struct.SteamInputActionOrigins} 
- * @function_end 
+ * @function_end
  */
 
 /**
@@ -4737,18 +4743,18 @@
  *
  * @param {Real} input_handle The handle of the controller you want to get a gamepad index for.
  * @returns {Real} 
- * @function_end 
+ * @function_end
  */
 
 /**
  * @function steam_input_get_input_type_for_handle
  * @description > **Steamworks Function**: [ISteamInput::GetInputTypeForHandle](https://partner.steamgames.com/doc/api/ISteamInput#GetInputTypeForHandle)
  *
- * This function returns the input type (device model) for the specified controller.
+ * This function returns the input type (device model) for the specified controller. This tells you if a given controller is a Steam controller, Xbox 360 controller, PS4 controller, etc.
  *
  * @param {Real} input_handle The handle of the controller whose input type (device model) you want to query.
- * @returns {Real} 
- * @function_end 
+ * @returns {Enum.SteamInputType}
+ * @function_end
  */
 
 /**
@@ -4759,29 +4765,29 @@
  *
  * @param {Real} input_handle The handle of the controller you want to get motion data for.
  * @returns {Struct.SteamInputMotionData} 
- * @function_end 
+ * @function_end
  */
 
 /**
  * @function steam_input_get_string_for_action_origin
  * @description > **Steamworks Function**: [ISteamInput::GetStringForActionOrigin](https://partner.steamgames.com/doc/api/ISteamInput#GetStringForActionOrigin)
  *
- * This function returns a localized string (from Steam's language setting) for the specified origin.
+ * This function returns a localised string (from Steam's language setting) for the specified origin.
  *
- * @param {Real} origin The action origin you want to get the localized string for.
+ * @param {Real} origin The action origin you want to get the localised string for.
  * @returns {String} 
- * @function_end 
+ * @function_end
  */
 
 /**
  * @function steam_input_init
  * @description > **Steamworks Function**: [ISteamInput::Init](https://partner.steamgames.com/doc/api/ISteamInput#Init)
  *
- * This function must be called when starting use of the ISteamInput interface.
+ * This function must be called when starting use of the [ISteamInput](https://partner.steamgames.com/doc/api/ISteamInput) interface.
  *
  * @param {Bool} explicitly_call_run_frame Set to `true` if you intend to call ${function.steam_input_run_frame} manually instead of having it called automatically.
  * @returns {Bool} 
- * @function_end 
+ * @function_end
  */
 
 /**
@@ -4790,16 +4796,16 @@
  *
  * This function enables SteamInputDeviceConnected and SteamInputDeviceDisconnected callbacks.
  *
- * @function_end 
+ * @function_end
  */
 
 /**
  * @function steam_input_run_frame
  * @description > **Steamworks Function**: [ISteamInput::RunFrame](https://partner.steamgames.com/doc/api/ISteamInput#RunFrame)
  *
- * This function synchronizes API state with the latest Steam Controller inputs available.
+ * This function synchronises API state with the latest Steam Controller inputs available. This is performed automatically by ${function.steam_api_run_callbacks}, but for the absolute lowest possible latency, you can call this directly before reading controller state.
  *
- * @function_end 
+ * @function_end
  */
 
 /**
@@ -4825,7 +4831,7 @@
  * @param {Real} nColorG The green component of the color to set (0-255).
  * @param {Real} nColorB The blue component of the color to set (0-255).
  * @param {Real} nFlags Bit-masked flags combined from values defined in the ESteamControllerLEDFlag enum.
- * @function_end 
+ * @function_end
  */
 
 /**
@@ -4835,29 +4841,31 @@
  * This function invokes the Steam overlay and brings up the binding screen.
  *
  * @param {Real} input_handle The handle of the controller you want to bring up the binding screen for.
- * @returns {Bool} 
- * @function_end 
+ * @returns {Bool} `true` for success; `false` if overlay is disabled/unavailable. If the player is using Big Picture Mode the configuration will open in the overlay. In desktop mode a popup window version of Big Picture will be created and open the configuration.
+ * @function_end
  */
 
 /**
  * @function steam_input_shutdown
  * @description > **Steamworks Function**: [ISteamInput::Shutdown](https://partner.steamgames.com/doc/api/ISteamInput#Shutdown)
  *
- * This function must be called when ending use of the ISteamInput interface.
+ * This function must be called when ending use of the [ISteamInput](https://partner.steamgames.com/doc/api/ISteamInput) interface.
  *
  * @returns {Bool} 
- * @function_end 
+ * @function_end
  */
 
 /**
  * @function steam_input_stop_analog_action_momentum
  * @description > **Steamworks Function**: [ISteamInput::StopAnalogActionMomentum](https://partner.steamgames.com/doc/api/ISteamInput#StopAnalogActionMomentum)
  *
- * This function stops the momentum of an analog action.
+ * This function stops the momentum of an analog action (where applicable, i.e. a touchpad w/ virtual trackball settings).
+ * 
+ * [[Note: This will also stop all associated haptics. This is useful for situations where you want to indicate to the user that the limit of an action has been reached, such as spinning a carousel or scrolling a webpage.]]
  *
  * @param {Real} input_handle The handle of the controller to affect.
  * @param {Real} analog_action_handle The handle of the analog action to stop momentum for.
- * @function_end 
+ * @function_end
  */
 
 /**
@@ -4865,11 +4873,17 @@
  * @description > **Steamworks Function**: [ISteamInput::TriggerVibration](https://partner.steamgames.com/doc/api/ISteamInput#TriggerVibration)
  *
  * This function triggers a vibration event on supported controllers.
+ * 
+ * [[Notes: 
+ * 
+ * * This API call will be ignored for incompatible controller models.
+ * * This generates the traditional "rumble" vibration effect.
+ * * The VSC will emulate traditional rumble using its haptics.]]
  *
  * @param {Real} input_handle The handle of the controller to affect.
  * @param {Real} usLeftSpeed The intensity value for the left rumble motor.
  * @param {Real} usRightSpeed The intensity value of the right rumble motor.
- * @function_end 
+ * @function_end
  */
 
 /**
@@ -4877,25 +4891,27 @@
  * @description > **Steamworks Function**: [ISteamInput::TriggerVibrationExtended](https://partner.steamgames.com/doc/api/ISteamInput#TriggerVibrationExtended)
  *
  * This function triggers a vibration event on supported controllers, including Xbox Impulse Trigger motor values.
+ * 
+ * [[Notes: On Windows support for Xbox Impulse Trigger motor values requires user installation of the Xbox Extended Feature support driver. The Steam Controller and Steam Deck will emulate traditional rumble using their haptics.]]
  *
  * @param {Real} input_handle The handle of the controller to affect.
  * @param {Real} usLeftSpeed The intensity value for the left rumble motor.
  * @param {Real} usRightSpeed The intensity value of the right rumble motor.
  * @param {Real} usLeftTriggerSpeed The intensity value for the left Xbox Impulse Trigger motor.
  * @param {Real} usRightTriggerSpeed The intensity value of the right Xbox Impulse Trigger motor.
- * @function_end 
+ * @function_end
  */
 
 /**
  * @function steam_input_get_action_origin_from_xbox_origin
  * @description > **Steamworks Function**: [ISteamInput::GetActionOriginFromXboxOrigin](https://partner.steamgames.com/doc/api/ISteamInput#GetActionOriginFromXboxOrigin)
  *
- * This function gets an action origin that you can use in your glyph look up table.
+ * This function gets an action origin that you can use in your glyph look up table or passed into ${function.steam_input_get_glyph_png_for_action_origin}, ${function.steam_input_get_glyph_svg_for_action_origin} or ${function.steam_input_get_string_for_action_origin}.
  *
  * @param {Real} input_handle The handle of the controller to query. You can use ${function.steam_input_get_controller_for_gamepad_index} to get this handle.
  * @param {Enum.SteamXboxOrigin} origin The Xbox button you want to get the image for, e.g. `SteamXboxOrigin.A`.
  * @returns {Real} 
- * @function_end 
+ * @function_end
  */
 
 /**
@@ -4907,7 +4923,7 @@
  * @param {Real} destination_input_type The controller type you want to translate to. Steam will pick the closest type from your SDK version if `k_ESteamInputType_Unknown` is used.
  * @param {Enum.SteamInputActionOrigin} source_origin The button you want to translate.
  * @returns {Real} 
- * @function_end 
+ * @function_end
  */
 
 /**
@@ -4918,94 +4934,94 @@
  *
  * @param {Real} input_handle The handle of the controller to query.
  * @returns {Struct.SteamInputDeviceBindingRevision} 
- * @function_end 
+ * @function_end
  */
 
 /**
  * @function steam_input_get_remote_play_session_id
  * @description > **Steamworks Function**: [ISteamInput::GetRemotePlaySessionID](https://partner.steamgames.com/doc/api/ISteamInput#GetRemotePlaySessionID)
  *
- * This function gets the Steam Remote Play session ID associated with a device.
+ * This function gets the Steam Remote Play session ID associated with a device, or 0 if there is no session associated with it.
  *
  * @param {Real} input_handle The handle of the controller to query.
  * @returns {Real} 
- * @function_end 
+ * @function_end
  */
 
 /**
  * @function steam_input_set_callback_device_connected
  * @description > **Steamworks Function**: N / A
  *
- * This function 
+ * This function sets the function to be called when an new device connects.
  *
  * @param {Function} callback The function to be called when an input device is connected.
- * @function_end 
+ * @function_end
  */
 
 /**
  * @function steam_input_clear_callback_device_connected
  * @description > **Steamworks Function**: N / A
  *
- * This function 
+ * This function clears the callback function previously set using ${function.steam_input_set_callback_device_connected}.
  *
- * @function_end 
+ * @function_end
  */
 
 /**
  * @function steam_input_set_callback_device_disconnected
  * @description > **Steamworks Function**: N / A
  *
- * This function 
+ * This function sets the function to be called when a device disconnects.
  *
  * @param {Function} callback The function to be called when an input device is disconnected.
- * @function_end 
+ * @function_end
  */
 
 /**
  * @function steam_input_clear_callback_device_disconnected
  * @description > **Steamworks Function**: N / A
  *
- * This function 
+ * This function clears the callback function previously set using ${function.steam_input_clear_callback_device_disconnected}.
  *
- * @function_end 
+ * @function_end
  */
 
 /**
  * @function steam_input_set_callback_action_set_changed
  * @description > **Steamworks Function**: N / A
  *
- * This function 
+ * This function sets the function to be called when the active action set changes.
  *
  * @param {Function} callback The function to be called when the active action set changes.
- * @function_end 
+ * @function_end
  */
 
 /**
  * @function steam_input_clear_callback_action_set_changed
  * @description > **Steamworks Function**: N / A
  *
- * This function 
+ * This function clears the callback function previously set using ${function.steam_input_clear_callback_action_set_changed}.
  *
- * @function_end 
+ * @function_end
  */
 
 /**
  * @function steam_input_set_callback_controller_battery
  * @description > **Steamworks Function**: N / A
  *
- * This function 
+ * This function sets the function to be called when a controller's battery level changes.
  *
  * @param {Function} callback The function to be called when a controller's battery level changes.
- * @function_end 
+ * @function_end
  */
 
 /**
  * @function steam_input_clear_callback_controller_battery
  * @description > **Steamworks Function**: N / A
  *
- * This function 
+ * This function clears the callback function previously set using ${function.steam_input_set_callback_controller_battery}.
  *
- * @function_end 
+ * @function_end
  */
 
 /**
@@ -5016,7 +5032,7 @@
  *
  * @param {String} stat_name The "API Name" of the stat.
  * @returns {Struct.SteamUserStatsStatInt} 
- * @function_end 
+ * @function_end
  */
 
 /**
@@ -5027,7 +5043,7 @@
  *
  * @param {String} stat_name The "API Name" of the stat.
  * @returns {Struct.SteamUserStatsStatFloat} 
- * @function_end 
+ * @function_end
  */
 
 /**
