@@ -26,6 +26,7 @@
  * @ref module.dlc
  * @ref module.ugc
  * @ref module.lobbies
+ * @ref module.parties
  * @ref module.social
  * @ref module.inventory
  * @ref module.networking

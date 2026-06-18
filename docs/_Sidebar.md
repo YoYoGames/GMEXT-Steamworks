@@ -17,6 +17,7 @@
  * ${module.cloud}
  * ${module.dlc}
  * ${module.ugc}
+ * ${module.parties}
  * ${module.social}
  * ${module.inventory}
  * ${module.networking}
