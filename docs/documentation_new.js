@@ -195,7 +195,7 @@
  * After receiving the callback you can then use ${function.steam_friends_get_clan_activity_counts} to get the up to date user counts.
  *
  * @param {Array[Real]} psteamIDClans A list of steam groups to get the updated data for.
- * @param {Real} cClansToRequest This MUST be the number of groups in `psteamIDClans`.
+ * @param {Real} cClansToRequest This MUST be the number of groups in `steam_id_clans`.
  * @param {Function} [callback] The function to call upon completion.
  * @returns {Bool}
  * 
@@ -1272,7 +1272,7 @@
  *
  * This function checks if the active user is accessing the current app ID via a temporary Family Shared license owned by another user.
  * 
- * If you need to determine the steam ID of the permanent owner of the license, use ${function.steam_apps_get_app_owner}.
+ * If you need to determine the Steam ID of the permanent owner of the license, use ${function.steam_apps_get_app_owner}.
  *
  * @returns {Bool} 
  * @function_end
@@ -3340,7 +3340,7 @@
  * 
  * If the return value is `true` then register and wait for the Callback [DownloadItemResult_t](https://partner.steamgames.com/doc/api/ISteamUGC#DownloadItemResult_t) before calling ${function.steam_ugc_get_item_install_info} or accessing the workshop item on disk.
  * 
- * If the workshop item has an item state of  k_EItemStateNeedsUpdate, then this function can be called to initiate the update. Do not access the workshop item on disk until the callback `DownloadItemResult_t` is called.
+ * If the workshop item has an item state of k_EItemStateNeedsUpdate, then this function can be called to initiate the update. Do not access the workshop item on disk until the callback `DownloadItemResult_t` is called.
  * 
  * The `DownloadItemResult_t` callback contains the app ID associated with the workshop item. It should be compared against the running app ID as the handler will be called for all item downloads regardless of the running application.
  *
@@ -5029,6 +5029,8 @@
  * @description > **Steamworks Function**: [ISteamUserStats::GetStat](https://partner.steamgames.com/doc/api/ISteamUserStats#GetStat)
  *
  * This function gets the current value of the given integer stat for the current user.
+ * 
+ * To receive stats for other users use ${function.steam_userstats_user_stat_int}.
  *
  * @param {String} stat_name The "API Name" of the stat.
  * @returns {Struct.SteamUserStatsStatInt} 
@@ -5040,6 +5042,8 @@
  * @description > **Steamworks Function**: [ISteamUserStats::GetStat](https://partner.steamgames.com/doc/api/ISteamUserStats#GetStat)
  *
  * This function gets the current value of the given floating point stat for the current user.
+ * 
+ * To receive stats for other users use ${function.steam_userstats_user_stat_float}.
  *
  * @param {String} stat_name The "API Name" of the stat.
  * @returns {Struct.SteamUserStatsStatFloat} 
@@ -5051,6 +5055,12 @@
  * @description > **Steamworks Function**: [ISteamUserStats::SetStat](https://partner.steamgames.com/doc/api/ISteamUserStats#SetStat)
  *
  * This function sets / updates the value of a given integer stat for the current user.
+ * 
+ * This call only modifies Steam's in-memory state and is very cheap. Doing so allows Steam to persist the changes even in the event of a game crash or unexpected shutdown.
+ * 
+ * To submit the stats to the server you must call ${function.steam_userstats_store_stats}.
+ * 
+ * If this is returning `false` and everything appears correct, then check to ensure that your changes in the App Admin panel of the Steamworks website are published.
  *
  * @param {String} stat_name The "API Name" of the stat.
  * @param {Real} data The new value of the stat. This must be an absolute value; it will not increment or decrement for you.
@@ -5063,6 +5073,12 @@
  * @description > **Steamworks Function**: [ISteamUserStats::SetStat](https://partner.steamgames.com/doc/api/ISteamUserStats#SetStat)
  *
  * This function sets / updates the value of a given floating point stat for the current user.
+ * 
+ * This call only modifies Steam's in-memory state and is very cheap. Doing so allows Steam to persist the changes even in the event of a game crash or unexpected shutdown.
+ * 
+ * To submit the stats to the server you must call ${function.steam_userstats_store_stats}.
+ * 
+ * If this is returning `false` and everything appears correct, then check to ensure that your changes in the App Admin panel of the Steamworks website are published.
  *
  * @param {String} stat_name The "API Name" of the stat.
  * @param {Real} data The new value of the stat. This must be an absolute value; it will not increment or decrement for you.
@@ -5075,6 +5091,12 @@
  * @description > **Steamworks Function**: [ISteamUserStats::UpdateAvgRateStat](https://partner.steamgames.com/doc/api/ISteamUserStats#UpdateAvgRateStat)
  *
  * This function updates an AVGRATE stat with new values.
+ * 
+ * This call only modifies Steam's in-memory state and is very cheap. Doing so allows Steam to persist the changes even in the event of a game crash or unexpected shutdown.
+ * 
+ * To submit the stats to the server you must call ${function.steam_userstats_store_stats}.
+ * 
+ * If this is returning `false` and everything appears correct, then check to ensure that your changes in the App Admin panel of the Steamworks website are published.
  *
  * @param {String} stat_name The "API Name" of the stat.
  * @param {Real} count_this_session The value accumulation since the last call to this function.
@@ -5088,6 +5110,8 @@
  * @description > **Steamworks Function**: [ISteamUserStats::GetAchievement](https://partner.steamgames.com/doc/api/ISteamUserStats#GetAchievement)
  *
  * This function gets the unlock status of the Achievement.
+ * 
+ * The equivalent function for other users is ${function.steam_userstats_user_achievement}.
  *
  * @param {String} achievement_name The "API Name" of the achievement.
  * @returns {Struct.SteamUserStatsUserAchievement} 
@@ -5099,6 +5123,8 @@
  * @description > **Steamworks Function**: [ISteamUserStats::SetAchievement](https://partner.steamgames.com/doc/api/ISteamUserStats#SetAchievement)
  *
  * This function unlocks an achievement.
+ * 
+ * You can unlock an achievement multiple times so you don't need to worry about only setting achievements that aren't already set. This call only modifies Steam's in-memory state so it is quite cheap. To send the unlock status to the server and to trigger the Steam overlay notification you must call ${function.steam_userstats_store_stats}.
  *
  * @param {String} achievement_name The "API Name" of the achievement to unlock.
  * @returns {Bool} 
@@ -5110,6 +5136,10 @@
  * @description > **Steamworks Function**: [ISteamUserStats::ClearAchievement](https://partner.steamgames.com/doc/api/ISteamUserStats#ClearAchievement)
  *
  * This function resets the unlock status of an achievement.
+ * 
+ * This is primarily only ever used for testing.
+ * 
+ * This call only modifies Steam's in-memory state so it is quite cheap. To send the unlock status to the server and to trigger the Steam overlay notification you must call ${function.steam_userstats_store_stats}.
  *
  * @param {String} achievement_name The "API Name" of the achievement to reset.
  * @returns {Bool} 
@@ -5121,6 +5151,10 @@
  * @description > **Steamworks Function**: [ISteamUserStats::GetAchievementAndUnlockTime](https://partner.steamgames.com/doc/api/ISteamUserStats#GetAchievementAndUnlockTime)
  *
  * This function gets the achievement status, and the time it was unlocked if unlocked.
+ * 
+ * If the return value is `true`, but the unlock time is zero, that means it was unlocked before Steam began tracking achievement unlock times (December 2009). The time is provided in Unix epoch format, seconds since January 1, 1970 UTC.
+ * 
+ * The equivalent function for other users is ${function.steam_userstats_user_achievement_and_unlock_time}.
  *
  * @param {String} achievement_name The "API Name" of the achievement.
  * @returns {Struct.SteamUserStatsAchievementAndUnlockTime} 
@@ -5132,6 +5166,12 @@
  * @description > **Steamworks Function**: [ISteamUserStats::StoreStats](https://partner.steamgames.com/doc/api/ISteamUserStats#StoreStats)
  *
  * This function sends the changed stats and achievements data to the server for permanent storage.
+ * 
+ * If this fails then nothing is sent to the server. You may keep trying until the call is successful. Also note, however, that Steam will make another attempt to store the stats on game exit, if there are any changes.
+ * 
+ * This call can be rate limited. Call frequency should be on the order of minutes, rather than seconds. You should only be calling this during major state changes such as the end of a round, the map changing, or the user leaving a server. This call is required to display the achievement unlock notification dialog though, so if you have called ${function.steam_userstats_set_achievement} then it's advisable to call this soon after that.
+ * 
+ * If you have stats or achievements that you have saved locally but haven't uploaded with this function when your application process ends then this function will automatically be called.
  *
  * @returns {Bool} 
  * @function_end 
@@ -5144,7 +5184,18 @@
  * This function gets the icon for an achievement.
  *
  * @param {String} achievement_name The "API Name" of the achievement.
- * @returns {Real} 
+ * @returns {Real}
+ * 
+ * @event callback
+ * @desc **Steamworks Callback**: [ISteamUserStats::UserAchievementIconFetched_t](https://partner.steamgames.com/doc/api/ISteamUserStats#UserAchievementIconFetched_t)
+ * 
+ * Triggered as a result of an achievement icon that has been fetched.
+ * 
+ * @member {Real} game_id The Game ID this achievement is for.
+ * @member {String} achievement_name The name of the achievement that this callback is for.
+ * @member {Bool} achieved Whether the icon for the achieved (`true`) or unachieved (`false`) version.
+ * @member {Real} icon_handle Handle to the image, which can be used with ${function.steam_utils_get_image_rgba} to get the image data. 0 means no image is set for the achievement.
+ * @event_end
  * @function_end 
  */
 
@@ -5153,6 +5204,13 @@
  * @description > **Steamworks Function**: [ISteamUserStats::GetAchievementDisplayAttribute](https://partner.steamgames.com/doc/api/ISteamUserStats#GetAchievementDisplayAttribute)
  *
  * This function gets general attributes for an achievement. Currently provides: Name, Description, and Hidden status.
+ * 
+ * This receives the value from a dictionary/map keyvalue store, so you must provide one of the following keys.
+ * `"name"` to retrieve the localized achievement name in UTF-8
+ * `"desc"` to retrieve the localized achievement description in UTF-8
+ * `"hidden"` for retrieving if an achievement is hidden. Returns "0" when not hidden, "1" when hidden.
+ * 
+ * This localisation is provided based on the game's language if it's set, otherwise it checks if a localisation is avilable for the users Steam UI Language. If that fails too, then it falls back to English.
  *
  * @param {String} achievement_name The "API Name" of the achievement.
  * @param {String} key The "key" to get a value for.
@@ -5165,6 +5223,8 @@
  * @description > **Steamworks Function**: [ISteamUserStats::IndicateAchievementProgress](https://partner.steamgames.com/doc/api/ISteamUserStats#IndicateAchievementProgress)
  *
  * This function shows the user a pop-up notification with the current progress of an achievement.
+ * 
+ * Calling this function will NOT set the progress or unlock the achievement, the game must do that manually by calling ${function.steam_userstats_set_stat_float}/${function.steam_userstats_set_stat_int}!
  *
  * @param {String} achievement_name The "API Name" of the achievement.
  * @param {Real} cur_progress The current progress.
@@ -5178,6 +5238,10 @@
  * @description > **Steamworks Function**: [ISteamUserStats::GetNumAchievements](https://partner.steamgames.com/doc/api/ISteamUserStats#GetNumAchievements)
  *
  * This function gets the number of achievements defined in the App Admin panel of the Steamworks website.
+ * 
+ * This is used for iterating through all of the achievements with ${function.steam_userstats_achievement_name}.
+ * 
+ * In general games should not need these functions because they should have a list of existing achievements compiled into them.
  *
  * @returns {Real} 
  * @function_end 
@@ -5187,7 +5251,7 @@
  * @function steam_userstats_achievement_name
  * @description > **Steamworks Function**: [ISteamUserStats::GetAchievementName](https://partner.steamgames.com/doc/api/ISteamUserStats#GetAchievementName)
  *
- * This function gets the "API name" for an achievement index between 0 and GetNumAchievements.
+ * This function gets the "API name" for an achievement index between 0 and ${function.steam_userstats_num_achievements}.
  *
  * @param {Real} index The index of the achievement, between 0 and the total number of achievements.
  * @returns {String} 
@@ -5199,6 +5263,10 @@
  * @description > **Steamworks Function**: [ISteamUserStats::RequestUserStats](https://partner.steamgames.com/doc/api/ISteamUserStats#RequestUserStats)
  *
  * This function asynchronously downloads stats and achievements for the specified user from the server.
+ * 
+ * These stats are not automatically updated; you'll need to call this function again to refresh any data that may have change.
+ * 
+ * To keep from using too much memory, an least recently used cache (LRU) is maintained and other user's stats will occasionally be unloaded. When this happens a [UserStatsUnloaded_t](https://partner.steamgames.com/doc/api/ISteamUserStats#UserStatsUnloaded_t) callback is sent. After receiving this callback the user's stats will be unavailable until this function is called again.
  *
  * @param {Real} steam_id_user The Steam ID of the user to request stats for.
  * @param {Function} [callback] The function to call upon completion.
@@ -5212,6 +5280,16 @@
  * @member {Real} steam_id_user The Steam ID of the user whose stats were retrieved.
  * @member {Enum.SteamApiResult} result The result of the operation.
  * @event_end
+ * 
+ * @event callback
+ * @description **Steamworks Callback**: ISteamUserStats::UserStatsUnloaded_t](https://partner.steamgames.com/doc/api/ISteamUserStats#UserStatsUnloaded_t)
+ * 
+ * Callback indicating that a user's stats have been unloaded.
+ * 
+ * Call ${function.steam_userstats_request_user_stats} again before accessing stats for this user.
+ * 
+ * @member {Real} steam_id_user User whose stats have been unloaded.
+ * @event_end
  * @function_end
  */
 
@@ -5220,6 +5298,10 @@
  * @description > **Steamworks Function**: [ISteamUserStats::GetUserStat](https://partner.steamgames.com/doc/api/ISteamUserStats#GetUserStat)
  *
  * This function gets the current value of the given integer stat for the specified user.
+ * 
+ * You must have called ${function.steam_userstats_request_user_stats} and it needs to return successfully via its callback prior to calling this.
+ * 
+ * The equivalent function for the local user is ${function.steam_userstats_get_stat_int}, the equivalent function for game servers is [ISteamGameServerStats::GetUserStat](https://partner.steamgames.com/doc/api/ISteamGameServerStats#GetUserStat).
  *
  * @param {Real} steam_id_user The Steam ID of the user to get the stat for.
  * @param {String} stat_name The "API Name" of the stat.
@@ -5232,6 +5314,10 @@
  * @description > **Steamworks Function**: [ISteamUserStats::GetUserStat](https://partner.steamgames.com/doc/api/ISteamUserStats#GetUserStat)
  *
  * This function gets the current value of the given floating point stat for the specified user.
+ * 
+ * You must have called ${function.steam_userstats_request_user_stats} and it needs to return successfully via its callback prior to calling this.
+ * 
+ * The equivalent function for the local user is ${function.steam_userstats_get_stat_float}, the equivalent function for game servers is [ISteamGameServerStats::GetUserStat](https://partner.steamgames.com/doc/api/ISteamGameServerStats#GetUserStat).
  *
  * @param {Real} steam_id_user The Steam ID of the user to get the stat for.
  * @param {String} stat_name The "API Name" of the stat.
@@ -5244,6 +5330,8 @@
  * @description > **Steamworks Function**: [ISteamUserStats::GetUserAchievement](https://partner.steamgames.com/doc/api/ISteamUserStats#GetUserAchievement)
  *
  * This function gets the unlock status of the Achievement.
+ * 
+ * The equivalent function for the local user is ${function.steam_userstats_user_achievement}, the equivalent function for game servers is [ISteamGameServerStats::GetUserAchievement](https://partner.steamgames.com/doc/api/ISteamGameServerStats#GetUserAchievement).
  *
  * @param {Real} steam_id_user The Steam ID of the user to get the achievement for.
  * @param {String} achievement_name The "API Name" of the achievement.
@@ -5256,6 +5344,10 @@
  * @description > **Steamworks Function**: [ISteamUserStats::GetUserAchievementAndUnlockTime](https://partner.steamgames.com/doc/api/ISteamUserStats#GetUserAchievementAndUnlockTime)
  *
  * This function gets the achievement status, and the time it was unlocked if unlocked.
+ * 
+ * If the return value is `true`, but the unlock time is zero, that means it was unlocked before Steam began tracking achievement unlock times (December 2009). The time is provided in Unix epoch format, seconds since January 1, 1970 UTC.
+ * 
+ * The equivalent function for the local user is ${function.steam_userstats_user_achievement_and_unlock_time}.
  *
  * @param {Real} steam_id_user The Steam ID of the user to get the achievement for.
  * @param {String} achievement_name The "API Name" of the achievement.
@@ -5267,7 +5359,9 @@
  * @function steam_userstats_reset_all_stats
  * @description > **Steamworks Function**: [ISteamUserStats::ResetAllStats](https://partner.steamgames.com/doc/api/ISteamUserStats#ResetAllStats)
  *
- * This function resets the current users stats and, optionally achievements.
+ * This function resets the current users stats and, optionally, achievements.
+ * 
+ * This automatically calls ${function.steam_userstats_store_stats} to persist the changes to the server. This should typically only be used for testing purposes during development.
  *
  * @param {Bool} achievements_too Whether the user's achievements should also be reset.
  * @returns {Bool} 
@@ -5279,6 +5373,8 @@
  * @description > **Steamworks Function**: [ISteamUserStats::FindOrCreateLeaderboard](https://partner.steamgames.com/doc/api/ISteamUserStats#FindOrCreateLeaderboard)
  *
  * This function gets a leaderboard by name, it will create it if it's not yet created.
+ * 
+ * You must call either this or ${function.steam_userstats_find_leaderboard} to obtain the leaderboard handle which is valid for the game session for each leaderboard you wish to access prior to calling any other Leaderboard functions.
  *
  * @param {String} leaderboard_name The name of the leaderboard to find or create.
  * @param {Enum.SteamLeaderboardSortMethod} sort_method The sort order of the new leaderboard if it is created.
@@ -5301,6 +5397,8 @@
  * @description > **Steamworks Function**: [ISteamUserStats::FindLeaderboard](https://partner.steamgames.com/doc/api/ISteamUserStats#FindLeaderboard)
  *
  * This function gets a leaderboard by name.
+ * 
+ * You must call either this or ${function.steam_userstats_find_or_create_leaderboard} to obtain the leaderboard handle which is valid for the game session for each leaderboard you wish to access prior to calling any other Leaderboard functions.
  *
  * @param {String} leaderboard_name The name of the leaderboard to find.
  * @param {Function} [callback] The function to call upon completion.
@@ -5323,7 +5421,7 @@
  * This function returns the name of a leaderboard handle.
  *
  * @param {Real} leaderboard_handle A leaderboard handle obtained from steam_userstats_find_leaderboard or steam_userstats_find_or_create_leaderboard.
- * @returns {String} 
+ * @returns {String} The name of the leaderboard, or an empty string if the leaderboard handle is invalid.
  * @function_end 
  */
 
@@ -5332,6 +5430,8 @@
  * @description > **Steamworks Function**: [ISteamUserStats::GetLeaderboardEntryCount](https://partner.steamgames.com/doc/api/ISteamUserStats#GetLeaderboardEntryCount)
  *
  * This function returns the total number of entries in a leaderboard.
+ * 
+ * This is cached on a per leaderboard basis upon the first call to ${function.steam_userstats_find_leaderboard} or ${function.steam_userstats_find_or_create_leaderboard} and is refreshed on each successful call to ${function.steam_userstats_download_leaderboard_entries}, ${function.steam_userstats_download_leaderboard_entries_for_users}, and ${function.steam_userstats_upload_leaderboard_score}.
  *
  * @param {Real} leaderboard_handle A leaderboard handle obtained from steam_userstats_find_leaderboard or steam_userstats_find_or_create_leaderboard.
  * @returns {Real} 
@@ -5344,7 +5444,7 @@
  *
  * This function returns the sort order of a leaderboard handle.
  *
- * @param {Real} leaderboard_handle A leaderboard handle obtained from steam_userstats_find_leaderboard or steam_userstats_find_or_create_leaderboard.
+ * @param {Real} leaderboard_handle A leaderboard handle obtained from ${function.steam_userstats_find_leaderboard} or ${function.steam_userstats_find_or_create_leaderboard}.
  * @returns {Enum.SteamLeaderboardSortMethod} 
  * @function_end 
  */
@@ -5355,7 +5455,7 @@
  *
  * This function returns the display type of a leaderboard handle.
  *
- * @param {Real} leaderboard_handle A leaderboard handle obtained from steam_userstats_find_leaderboard or steam_userstats_find_or_create_leaderboard.
+ * @param {Real} leaderboard_handle A leaderboard handle obtained from ${function.steam_userstats_find_leaderboard} or ${function.steam_userstats_find_or_create_leaderboard}.
  * @returns {Enum.SteamLeaderboardDisplayType} 
  * @function_end 
  */
@@ -5365,8 +5465,14 @@
  * @description > **Steamworks Function**: [ISteamUserStats::DownloadLeaderboardEntries](https://partner.steamgames.com/doc/api/ISteamUserStats#DownloadLeaderboardEntries)
  *
  * This function fetches a series of leaderboard entries for a specified leaderboard.
+ * 
+ * You can ask for more entries than exist, then this will return as many as do exist.
+ * 
+ * If you want to download entries for an arbitrary set of users, such as all of the users on a server then you can use ${function.steam_userstats_download_leaderboard_entries_for_users} which takes an array of Steam IDs.
+ * 
+ * You must call ${function.steam_userstats_find_leaderboard} or ${function.steam_userstats_find_or_create_leaderboard} to get a [SteamLeaderboard_t](https://partner.steamgames.com/doc/api/ISteamUserStats#SteamLeaderboard_t) prior to calling this function.
  *
- * @param {Real} leaderboard_handle A leaderboard handle obtained from steam_userstats_find_leaderboard or steam_userstats_find_or_create_leaderboard.
+ * @param {Real} leaderboard_handle A leaderboard handle obtained from ${function.steam_userstats_find_leaderboard} or ${function.steam_userstats_find_or_create_leaderboard}.
  * @param {Enum.SteamLeaderboardDataRequest} request The type of data request to make.
  * @param {Real} range_start The index to start downloading entries relative to the data request type.
  * @param {Real} range_end The last index to retrieve entries for relative to the data request type.
@@ -5377,9 +5483,9 @@
  *
  * Called when scores for a leaderboard have been downloaded and are ready to be retrieved.
  *
- * @member {Real} leaderboard_handle The handle of the leaderboard that the scores were downloaded from.
+ * @member {Real} leaderboard_handle The handle to the leaderboard that these entries belong to.
  * @member {Real} entries_handle A handle used to retrieve each downloaded entry's data.
- * @member {Real} entry_count The number of entries that were downloaded.
+ * @member {Real} entry_count The number of entries downloaded.
  * @event_end
  * @function_end
  */
@@ -5389,8 +5495,14 @@
  * @description > **Steamworks Function**: [ISteamUserStats::DownloadLeaderboardEntriesForUsers](https://partner.steamgames.com/doc/api/ISteamUserStats#DownloadLeaderboardEntriesForUsers)
  *
  * This function fetches leaderboard entries for an arbitrary set of users on a specified leaderboard.
+ * 
+ * A maximum of 100 users can be downloaded at a time, with only one outstanding call at a time. If a user doesn't have an entry on the specified leaderboard, they won't be included in the result.
+ * 
+ * If you want to download entries based on their ranking or friends of the current user then you should use ${function.steam_userstats_download_leaderboard_entries}.
+ * 
+ * You must call ${function.steam_userstats_find_leaderboard} or ${function.steam_userstats_find_or_create_leaderboard} to get a [SteamLeaderboard_t](https://partner.steamgames.com/doc/api/ISteamUserStats#SteamLeaderboard_t) prior to calling this function.
  *
- * @param {Real} leaderboard_handle A leaderboard handle obtained from steam_userstats_find_leaderboard or steam_userstats_find_or_create_leaderboard.
+ * @param {Real} leaderboard_handle A leaderboard handle obtained from ${function.steam_userstats_find_leaderboard} or ${function.steam_userstats_find_or_create_leaderboard}.
  * @param {Array[Real]} users An array of Steam IDs to get the leaderboard entries for.
  * @param {Function} [callback] The function to call upon completion.
  *
@@ -5399,9 +5511,9 @@
  *
  * Called when scores for a leaderboard have been downloaded and are ready to be retrieved.
  *
- * @member {Real} leaderboard_handle The handle of the leaderboard that the scores were downloaded from.
+ * @member {Real} leaderboard_handle The handle to the leaderboard that these entries belong to.
  * @member {Real} entries_handle A handle used to retrieve each downloaded entry's data.
- * @member {Real} entry_count The number of entries that were downloaded.
+ * @member {Real} entry_count The number of entries downloaded.
  * @event_end
  * @function_end
  */
@@ -5412,7 +5524,7 @@
  *
  * This function retrieves the data for a single leaderboard entry.
  *
- * @param {Real} leaderboard_entries_handle A leaderboard entries handle obtained from the leaderboard scores downloaded callback.
+ * @param {Real} leaderboard_entries_handle A leaderboard entries handle obtained from the most recently received [LeaderboardScoresDownloaded_t](https://partner.steamgames.com/doc/api/ISteamUserStats#LeaderboardScoresDownloaded_t) call result.
  * @param {Real} entry_index The index of the entry to retrieve, between 0 and the number of entries that were downloaded.
  * @param {Buffer} buffer The buffer into which the entry's score details will be written.
  * @param {Real} buffer_size The size in bytes of the provided buffer.
@@ -5425,13 +5537,30 @@
  * @description > **Steamworks Function**: [ISteamUserStats::UploadLeaderboardScore](https://partner.steamgames.com/doc/api/ISteamUserStats#UploadLeaderboardScore)
  *
  * This function uploads a user score to a specified leaderboard.
+ * 
+ * Details are optional game-defined information which outlines how the user got that score. For example if it's a racing style time based leaderboard you could store the timestamps when the player hits each checkpoint. If you have collectibles along the way you could use bit fields as booleans to store the items the player picked up in the playthrough.
+ * 
+ * Uploading scores to Steam is rate limited to 10 uploads per 10 minutes and you may only have one outstanding call to this function at a time.
  *
- * @param {Real} leaderboard_handle A leaderboard handle obtained from steam_userstats_find_leaderboard or steam_userstats_find_or_create_leaderboard.
+ * @param {Real} leaderboard_handle A leaderboard handle obtained from ${function.steam_userstats_find_leaderboard} or ${function.steam_userstats_find_or_create_leaderboard}.
  * @param {Enum.SteamLeaderboardUploadScoreMethod} method Whether the score change should be forced, or only kept if it is better than the user's existing score.
  * @param {Real} score The score to upload.
  * @param {Buffer} score_details_buffer A buffer containing the optional details surrounding the unlocking of this score.
  * @param {Real} score_details_count The number of detail elements contained in the score details buffer.
  * @param {Function} [callback] The function to call upon completion.
+ * 
+ * @event callback
+ * @description **Steamworks Callback**: [ISteamUserStats::LeaderboardScoreUploaded_t](https://partner.steamgames.com/doc/api/ISteamUserStats#LeaderboardScoreUploaded_t)
+ * 
+ * Result indicating that a leaderboard score has been uploaded.
+ * 
+ * @member {Bool} success Was the call successful? `true` if the call was successful, `false` on failure.
+ * @member {Real} leaderboard_handle Handle to the leaderboard that this score was uploaded to.
+ * @member {Real} score The score that was attempted to set.
+ * @member {Bool} score_changed `true` if the score on the leaderboard changed otherwise `false` if the existing score was better.
+ * @member {Real} global_rank_new The new global rank of the user on this leaderboard.
+ * @member {Real} global_rank_previous The previous global rank of the user on this leaderboard; 0 if the user had no existing entry in the leaderboard.
+ * @event_end
  * @function_end 
  */
 
@@ -5440,9 +5569,16 @@
  * @description > **Steamworks Function**: [ISteamUserStats::AttachLeaderboardUGC](https://partner.steamgames.com/doc/api/ISteamUserStats#AttachLeaderboardUGC)
  *
  * This function attaches a piece of user generated content to the current user's entry on a leaderboard.
+ * 
+ * This content could be a replay of the user achieving the score or a ghost to race against. The attached handle will be available when the entry is retrieved and can be accessed by other users using ${function.steam_userstats_downloaded_leaderboard_entry}.
+ * To create and download user generated content see the documentation for the Steam Workshop.
+ * 
+ * Once attached, the content will be available even if the underlying Cloud file is changed or deleted by the user.
+ * 
+ * You must call ${function.steam_userstats_find_leaderboard} or ${function.steam_userstats_find_or_create_leaderboard} to get a [SteamLeaderboard_t](https://partner.steamgames.com/doc/api/ISteamUserStats#SteamLeaderboard_t) prior to calling this function.
  *
- * @param {Real} leaderboard_handle A leaderboard handle obtained from steam_userstats_find_leaderboard or steam_userstats_find_or_create_leaderboard.
- * @param {Real} ugc_handle A handle to the user generated content that was shared using the steam_ugc functions.
+ * @param {Real} leaderboard_handle A leaderboard handle obtained from ${function.steam_userstats_find_leaderboard} or ${function.steam_userstats_find_or_create_leaderboard}.
+ * @param {Real} ugc_handle A handle to the user generated content that was shared using ${function.steam_remote_storage_file_share}.
  * @param {Function} [callback] The function to call upon completion.
  * @function_end 
  */
@@ -5451,7 +5587,7 @@
  * @function steam_userstats_number_of_current_players
  * @description > **Steamworks Function**: [ISteamUserStats::GetNumberOfCurrentPlayers](https://partner.steamgames.com/doc/api/ISteamUserStats#GetNumberOfCurrentPlayers)
  *
- * This function asynchronously retrieves the total number of players currently playing the current game.
+ * This function asynchronously retrieves the total number of players currently playing the current game. Both online and in offline mode.
  *
  * @param {Function} [callback] The function to call upon completion.
  *
@@ -5490,6 +5626,8 @@
  * @description > **Steamworks Function**: [ISteamUserStats::GetMostAchievedAchievementInfo](https://partner.steamgames.com/doc/api/ISteamUserStats#GetMostAchievedAchievementInfo)
  *
  * This function gets the info on the most achieved achievement for the game.
+ * 
+ * You must have called ${function.steam_userstats_request_global_achievement_percentages} and it needs to return successfully via its callback prior to calling this.
  *
  * @returns {Struct.SteamUserStatsMostAchievedAchievementInfo} 
  * @function_end 
@@ -5500,6 +5638,8 @@
  * @description > **Steamworks Function**: [ISteamUserStats::GetNextMostAchievedAchievementInfo](https://partner.steamgames.com/doc/api/ISteamUserStats#GetNextMostAchievedAchievementInfo)
  *
  * This function gets the info on the next most achieved achievement for the game.
+ * 
+ * You must have called ${function.steam_userstats_request_global_achievement_percentages} and it needs to return successfully via its callback prior to calling this.
  *
  * @param {Real} iterator_prev The iterator returned from the previous call to this function, or from steam_userstats_most_achieved_achievement_info.
  * @returns {Struct.SteamUserStatsMostAchievedAchievementInfo} 
@@ -5511,6 +5651,8 @@
  * @description > **Steamworks Function**: [ISteamUserStats::GetAchievementAchievedPercent](https://partner.steamgames.com/doc/api/ISteamUserStats#GetAchievementAchievedPercent)
  *
  * This function returns the percentage of users who have unlocked the specified achievement.
+ * 
+ * You must have called ${function.steam_userstats_request_global_achievement_percentages} and it needs to return successfully via its callback prior to calling this.
  *
  * @param {String} achievement_name The "API Name" of the achievement.
  * @returns {Real} 
@@ -5542,6 +5684,8 @@
  * @description > **Steamworks Function**: [ISteamUserStats::GetGlobalStat](https://partner.steamgames.com/doc/api/ISteamUserStats#GetGlobalStat)
  *
  * This function gets the lifetime totals for an aggregated integer (int64) stat.
+ * 
+ * You must have called ${function.steam_userstats_request_global_stats} and it needs to return successfully via its callback prior to calling this.
  *
  * @param {String} stat_name The "API Name" of the stat.
  * @returns {Struct.SteamUserStatsGlobalStatInt64} 
@@ -5553,6 +5697,8 @@
  * @description > **Steamworks Function**: [ISteamUserStats::GetGlobalStat](https://partner.steamgames.com/doc/api/ISteamUserStats#GetGlobalStat)
  *
  * This function gets the lifetime totals for an aggregated floating point (double) stat.
+ * 
+ * You must have called ${function.steam_userstats_request_global_stats} and it needs to return successfully via its callback prior to calling this.
  *
  * @param {String} stat_name The "API Name" of the stat.
  * @returns {Struct.SteamUserStatsGlobalStatDouble} 
@@ -5564,6 +5710,8 @@
  * @description > **Steamworks Function**: [ISteamUserStats::GetGlobalStatHistory](https://partner.steamgames.com/doc/api/ISteamUserStats#GetGlobalStatHistory)
  *
  * This function gets the daily history for an aggregated integer (int64) stat.
+ * 
+ * You must have called ${function.steam_userstats_request_global_stats} and it needs to return successfully via its callback prior to calling this.
  *
  * @param {String} stat_name The "API Name" of the stat.
  * @returns {Struct.SteamUserStatsGlobalStatHistoryInt64} 
@@ -5575,6 +5723,8 @@
  * @description > **Steamworks Function**: [ISteamUserStats::GetGlobalStatHistory](https://partner.steamgames.com/doc/api/ISteamUserStats#GetGlobalStatHistory)
  *
  * This function gets the daily history for an aggregated floating point (double) stat.
+ * 
+ * You must have called ${function.steam_userstats_request_global_stats} and it needs to return successfully via its callback prior to calling this.
  *
  * @param {String} stat_name The "API Name" of the stat.
  * @returns {Struct.SteamUserStatsGlobalStatHistoryDouble} 
@@ -5611,7 +5761,9 @@
  * @function steam_userstats_set_callback_user_stats_received
  * @description > **Steamworks Function**: N / A
  *
- * This function 
+ * This function sets the function call when the latest stats and achievements for a specific user (including the local user) have been received from the server.
+ * 
+ * See: [ISteamUserStats::UserStatsReceived_t](https://partner.steamgames.com/doc/api/ISteamUserStats#UserStatsReceived_t)
  *
  * @param {Function} callback The function to be called when user stats are received.
  * @function_end 
@@ -5621,7 +5773,7 @@
  * @function steam_userstats_clear_callback_user_stats_received
  * @description > **Steamworks Function**: N / A
  *
- * This function 
+ * This function clears the callback function previously set using ${function.steam_userstats_set_callback_user_stats_received}.
  *
  * @function_end 
  */
@@ -5630,7 +5782,9 @@
  * @function steam_userstats_set_callback_user_stats_stored
  * @description > **Steamworks Function**: N / A
  *
- * This function 
+ * This function sets the function to call as a result of a request to store the user stats.
+ * 
+ * See: [ISteamUserStats::UserStatsStored_t](https://partner.steamgames.com/doc/api/ISteamUserStats#UserStatsStored_t)
  *
  * @param {Function} callback The function to be called when user stats are stored.
  * @function_end 
@@ -5640,7 +5794,7 @@
  * @function steam_userstats_clear_callback_user_stats_stored
  * @description > **Steamworks Function**: N / A
  *
- * This function 
+ * This function clears the callback function previously set using ${function.steam_userstats_set_callback_user_stats_stored}.
  *
  * @function_end 
  */
@@ -5649,7 +5803,9 @@
  * @function steam_userstats_set_callback_user_achievement_stored
  * @description > **Steamworks Function**: N / A
  *
- * This function 
+ * This function is called as a result of a request to store the achievements on the server, or an "indicate progress" call.
+ * 
+ * See: [ISteamUserStats::UserAchievementStored_t](https://partner.steamgames.com/doc/api/ISteamUserStats#UserAchievementStored_t)
  *
  * @param {Function} callback The function to be called when a user achievement is stored.
  * @function_end 
@@ -5659,7 +5815,7 @@
  * @function steam_userstats_clear_callback_user_achievement_stored
  * @description > **Steamworks Function**: N / A
  *
- * This function 
+ * This function clears the callback function previously set using ${function.steam_userstats_set_callback_user_achievement_stored}.
  *
  * @function_end 
  */
@@ -5678,9 +5834,11 @@
  * @function steam_music_is_playing
  * @description > **Steamworks Function**: [ISteamMusic::BIsPlaying](https://partner.steamgames.com/doc/api/ISteamMusic#BIsPlaying)
  *
- * This function checks if Steam Music is active.
+ * This function checks if Steam Music is active. This does not necessarily a song is currently playing, it may be paused.
+ * 
+ * For finer grain control use ${function.steam_music_get_playback_status}.
  *
- * @returns {Bool} 
+ * @returns {Bool} `true` if a song is currently playing, paused, or queued up to play; otherwise `false`.
  * @function_end 
  */
 
@@ -5754,7 +5912,9 @@
  * @function steam_music_set_callback_playback_status_has_changed
  * @description > **Steamworks Function**: N / A
  *
- * This function
+ * This function sets the function to call when the playback status has changed.
+ * 
+ * See: [ISteamMusic::PlaybackStatusHasChanged_t](https://partner.steamgames.com/doc/api/ISteamMusic#PlaybackStatusHasChanged_t)
  *
  * @param {Function} callback The function to be called when the music playback status changes.
  * @function_end 
@@ -5764,7 +5924,7 @@
  * @function steam_music_clear_callback_playback_status_has_changed
  * @description > **Steamworks Function**: N / A
  *
- * This function 
+ * This function clears the callback function previously set using ${function.steam_music_set_callback_playback_status_has_changed}.
  *
  * @function_end 
  */
@@ -5773,7 +5933,9 @@
  * @function steam_music_set_callback_volume_has_changed
  * @description > **Steamworks Function**: N / A
  *
- * This function
+ * This function sets the function to call when the volume has changed.
+ * 
+ * See: [ISteamMusic::VolumeHasChanged_t](https://partner.steamgames.com/doc/api/ISteamMusic#VolumeHasChanged_t)
  *
  * @param {Function} callback The function to be called when the music volume changes.
  * @function_end 
@@ -5783,7 +5945,7 @@
  * @function steam_music_clear_callback_volume_has_changed
  * @description > **Steamworks Function**: N / A
  *
- * This function 
+ * This function clears the callback function previously set using ${function.steam_music_set_callback_volume_has_changed}.
  *
  * @function_end 
  */
@@ -5792,9 +5954,9 @@
  * @function steam_timeline_set_timeline_tooltip
  * @description > **Steamworks Function**: [ISteamTimeline::SetTimelineTooltip](https://partner.steamgames.com/doc/api/ISteamTimeline#SetTimelineTooltip)
  *
- * This function sets a description for the current game state in the timeline.
+ * This function sets a description for the current game state in the timeline. These help the user to find specific moments in the timeline when saving clips. Setting a new state description replaces any previous description.
  *
- * @param {String} description A localized string in the language returned by the GetSteamUILanguage call.
+ * @param {String} description A localised string in the language returned by the ${function.steam_utils_get_steam_ui_language} call.
  * @param {Real} time_delta_seconds The number of seconds ago that this state change occurred; negative values mark events in the past.
  * @function_end 
  */
@@ -5803,7 +5965,7 @@
  * @function steam_timeline_clear_timeline_tooltip
  * @description > **Steamworks Function**: [ISteamTimeline::ClearTimelineTooltip](https://partner.steamgames.com/doc/api/ISteamTimeline#ClearTimelineTooltip)
  *
- * This function clears the previous set game state in the timeline.
+ * This function clears the previously set game state in the timeline.
  *
  * @param {Real} time_delta_seconds The number of seconds ago that this state change occurred; negative values mark events in the past.
  * @function_end 
@@ -5813,15 +5975,15 @@
  * @function steam_timeline_add_instantaneous_timeline_event
  * @description > **Steamworks Function**: [ISteamTimeline::AddInstantaneousTimelineEvent](https://partner.steamgames.com/doc/api/ISteamTimeline#AddInstantaneousTimelineEvent)
  *
- * This function is used to mark an event on the Timeline. This event will be instantaneous.
+ * This function is used to mark an event on the Timeline. This event will be instantaneous. (See ${function.steam_timeline_add_range_timeline_event} to add events that happened over time.)
  *
- * @param {String} title A title-provided localized string in the UI language.
- * @param {String} description A title-provided localized string in the UI language.
+ * @param {String} title A title-provided localised string in the UI language.
+ * @param {String} description A title-provided localised string in the UI language.
  * @param {String} icon The name of the icon to display; this can be a title-uploaded icon or one of the provided icons whose name begins with `steam_`.
  * @param {Real} priority The priority used to decide which icons to show in crowded areas; higher priority events are shown more prominently, and the value must be between 0 and `k_unMaxTimelinePriority`.
  * @param {Real} start_offset_seconds The number of seconds before the current time that the event started; negative values indicate the past, which is useful for events whose significance only becomes apparent later.
  * @param {Enum.SteamTimelineEventClipPriority} possible_clip Lets the game flag the event as a suggested video clip.
- * @returns {Real} 
+ * @returns {Real} Timeline event handle that can be used with ${function.steam_timeline_remove_timeline_event} or the overlay functions ${function.steam_timeline_does_event_recording_exist} and ${function.steam_timeline_open_overlay_to_timeline_event}.
  * @function_end 
  */
 
@@ -5831,8 +5993,8 @@
  *
  * This function is used to mark an event on the Timeline that takes some amount of time to complete.
  *
- * @param {String} title A title-provided localized string in the UI language.
- * @param {String} description A title-provided localized string in the UI language.
+ * @param {String} title A title-provided localised string in the UI language.
+ * @param {String} description A title-provided localised string in the UI language.
  * @param {String} icon The name of the icon to display; this can be a title-uploaded icon or one of the provided icons whose name begins with `steam_`.
  * @param {Real} priority The priority used to decide which icons to show in crowded areas; higher priority events are shown more prominently, and the value must be between 0 and `k_unMaxTimelinePriority`.
  * @param {Real} start_offset_seconds The number of seconds before the current time that the event started; negative values indicate the past, which is useful for retroactively significant events.
@@ -5846,10 +6008,12 @@
  * @function steam_timeline_start_range_timeline_event
  * @description > **Steamworks Function**: [ISteamTimeline::StartRangeTimelineEvent](https://partner.steamgames.com/doc/api/ISteamTimeline#StartRangeTimelineEvent)
  *
- * This function is used to mark the start of an event on the Timeline that takes some amount of time to complete.
+ * This function is used to mark the start of an event on the Timeline that takes some amount of time to complete. The duration of the event is determined by a matching call to ${function.steam_timeline_end_range_timeline_event}. If the game wants to cancel an event in progress, they can do that with a call to ${function.steam_timeline_remove_timeline_event}.
+ * 
+ * The event in progress can be updated any number of times with ${function.steam_timeline_update_range_timeline_event}.
  *
- * @param {String} title A title-provided localized string in the UI language.
- * @param {String} description A title-provided localized string in the UI language.
+ * @param {String} title A title-provided localised string in the UI language.
+ * @param {String} description A title-provided localised string in the UI language.
  * @param {String} icon The name of the icon to display; this can be a title-uploaded icon or one of the provided icons whose name begins with `steam_`.
  * @param {Real} priority The priority used to decide which icons to show in crowded areas; higher priority events are shown more prominently, and the value must be between 0 and `k_unMaxTimelinePriority`.
  * @param {Real} start_offset_seconds The number of seconds before the current time that the event started; negative values indicate the past, which is useful for retroactively significant events.
@@ -5862,11 +6026,11 @@
  * @function steam_timeline_update_range_timeline_event
  * @description > **Steamworks Function**: [ISteamTimeline::UpdateRangeTimelineEvent](https://partner.steamgames.com/doc/api/ISteamTimeline#UpdateRangeTimelineEvent)
  *
- * This function is used to update the details of an event that was started with StartRangeTimelineEvent.
+ * This function is used to update the details of an event that was started with ${function.steam_timeline_start_range_timeline_event}.
  *
  * @param {Real} event_handle The handle of the event to update.
- * @param {String} title A title-provided localized string in the UI language.
- * @param {String} description A title-provided localized string in the UI language.
+ * @param {String} title A title-provided localised string in the UI language.
+ * @param {String} description A title-provided localised string in the UI language.
  * @param {String} icon The name of the icon to display; this can be a title-uploaded icon or one of the provided icons whose name begins with `steam_`.
  * @param {Real} priority The priority used to decide which icons to show in crowded areas; higher priority events are shown more prominently, and the value must be between 0 and `k_unMaxTimelinePriority`.
  * @param {Enum.SteamTimelineEventClipPriority} possible_clip Lets the game flag the event as a suggested video clip.
@@ -5888,7 +6052,7 @@
  * @function steam_timeline_remove_timeline_event
  * @description > **Steamworks Function**: [ISteamTimeline::RemoveTimelineEvent](https://partner.steamgames.com/doc/api/ISteamTimeline#RemoveTimelineEvent)
  *
- * This function is used to remove an event that was added with AddInstantaneousTimelineEvent or AddRangeTimelineEvent.
+ * This function is used to remove an event that was added with ${function.steam_timeline_add_instantaneous_timeline_event} or ${function.steam_timeline_add_range_timeline_event}.
  *
  * @param {Real} event_handle The handle of the event to remove.
  * @function_end 
@@ -5898,11 +6062,20 @@
  * @function steam_timeline_does_event_recording_exist
  * @description > **Steamworks Function**: [ISteamTimeline::DoesEventRecordingExist](https://partner.steamgames.com/doc/api/ISteamTimeline#DoesEventRecordingExist)
  *
- * This function is used to determine if video recordings exist for the specified event.
+ * This function is used to determine if video recordings exist for the specified event. Steam will sent a [SteamTimelineEventRecordingExists_t](https://partner.steamgames.com/doc/api/ISteamTimeline#SteamTimelineEventRecordingExists_t) callback with the result. This can be useful when the game needs to decide whether or not to show a control that will call ${function.steam_timeline_open_overlay_to_timeline_event}.
  *
  * @param {Real} event_handle The handle of the event to check for recordings.
- * @returns {Real} 
- * @function_end 
+ * @returns {Real}
+ * 
+ * @event callback
+ * @description **Steamworks Callback**: [ISteamTimeline::SteamTimelineEventRecordingExists_t](https://partner.steamgames.com/doc/api/ISteamTimeline#SteamTimelineEventRecordingExists_t)
+ * 
+ * Called when asking if recordings exist for an event handle.
+ * 
+ * @member {Real} event_handle The handle of the event that was asked about
+ * @member {Bool} recording_exists This is `true` if a recording exists for the requested event handle
+ * @event_end
+ * @function_end
  */
 
 /**
@@ -5910,38 +6083,51 @@
  * @description > **Steamworks Function**: [ISteamTimeline::StartGamePhase](https://partner.steamgames.com/doc/api/ISteamTimeline#StartGamePhase)
  *
  * This function is used to start a game phase.
+ * 
+ * Game phases allow the user to navigate their background recordings and clips. Exactly what a game phase means will vary game to game, but the game phase should be a section of gameplay that is usually between 10 minutes and a few hours in length, and should be the main way a user would think to divide up the game.
+ * 
+ * Game phases are started with ${function.steam_timeline_start_game_phase}, and while a phase is still happening, they can have tags and attributes added to them with ${function.steam_timeline_add_game_phase_tag} or ${function.steam_timeline_set_game_phase_attribute}. Only one game phase can be active at a time.
  *
- * @function_end 
+ * @function_end
  */
 
 /**
  * @function steam_timeline_end_game_phase
  * @description > **Steamworks Function**: [ISteamTimeline::EndGamePhase](https://partner.steamgames.com/doc/api/ISteamTimeline#EndGamePhase)
  *
- * This function is used to end a game phase that was started with StartGamePhase.
+ * This function is used to end a game phase that was started with ${function.steam_timeline_start_game_phase}.
  *
- * @function_end 
+ * @function_end
  */
 
 /**
  * @function steam_timeline_set_game_phase_id
  * @description > **Steamworks Function**: [ISteamTimeline::SetGamePhaseID](https://partner.steamgames.com/doc/api/ISteamTimeline#SetGamePhaseID)
  *
- * This function sets a phase ID that is used to let the game identify which phase it is referring to in calls to DoesGamePhaseRecordingExist or OpenOverlayToGamePhase.
+ * This function sets a phase ID that is used to let the game identify which phase it is referring to in calls to ${function.steam_timeline_does_game_phase_recording_exist} or ${function.steam_timeline_open_overlay_to_game_phase}. It may also be used to associate multiple phases with each other.
  *
  * @param {String} phase_id A game-provided persistent ID for a game phase, such as the match ID in a multiplayer game, a chapter name in a single player game, the ID of a character, etc.
- * @function_end 
+ * @function_end
  */
 
 /**
  * @function steam_timeline_does_game_phase_recording_exist
  * @description > **Steamworks Function**: [ISteamTimeline::DoesGamePhaseRecordingExist](https://partner.steamgames.com/doc/api/ISteamTimeline#DoesGamePhaseRecordingExist)
  *
- * This function is used to determine if video recordings exist for the specified game phase.
+ * This function is used to determine if video recordings exist for the specified game phase. Steam will sent a [SteamTimelineGamePhaseRecordingExists_t](https://partner.steamgames.com/doc/api/ISteamTimeline#SteamTimelineGamePhaseRecordingExists_t) callback with the result. This can be useful when the game needs to decide whether or not to show a control that will call ${function.steam_timeline_open_overlay_to_game_phase}.
  *
  * @param {String} phase_id A game-provided persistent ID for a game phase.
- * @returns {Real} 
- * @function_end 
+ * @returns {Real}
+ * 
+ * @event callback
+ * @description **Steamworks Callback**: [ISteamTimeline::SteamTimelineGamePhaseRecordingExists_t](https://partner.steamgames.com/doc/api/ISteamTimeline#SteamTimelineGamePhaseRecordingExists_t)
+ * 
+ * Called when asking if recordings exist for an event handle.
+ * 
+ * @member {Real} event_handle The handle of the event that was asked about
+ * @member {Bool} recording_exists This is `true` if recording exists for the requested event handle
+ * @event_end
+ * @function_end
  */
 
 /**
@@ -5954,19 +6140,19 @@
  * @param {String} tag_icon The name of the icon to show when the tag is displayed in the UI; this can be a title-uploaded icon or one of the provided icons whose name begins with `steam_`.
  * @param {String} tag_group A title-provided localized string; tags within the same group will be shown together in the UI.
  * @param {Real} priority The priority used to decide which icons to show; tags with larger priority values are displayed more prominently, and the value must be between 0 and `k_unMaxTimelinePriority`.
- * @function_end 
+ * @function_end
  */
 
 /**
  * @function steam_timeline_set_game_phase_attribute
  * @description > **Steamworks Function**: [ISteamTimeline::SetGamePhaseAttribute](https://partner.steamgames.com/doc/api/ISteamTimeline#SetGamePhaseAttribute)
  *
- * This function is used to add a game phase attribute.
+ * This function is used to add a game phase attribute. Phase tags represent data with a well defined set of options, which could be data such as match resolution, hero played, game mode, etc. Tags can have an icon in addition to a text name. Multiple tags within the same group may be added per phase and all will be remembered.
  *
- * @param {String} attribute_group A title-provided localized string in the language returned by `SteamUtils()->GetSteamUILanguage()`.
- * @param {String} attribute_value A title-provided localized string in the language returned by `SteamUtils()->GetSteamUILanguage()`.
+ * @param {String} attribute_group A title-provided localised string in the language returned by ${function.steam_utils_get_steam_ui_language}.
+ * @param {String} attribute_value A title-provided localised string in the language returned by ${function.steam_utils_get_steam_ui_language}.
  * @param {Real} priority The priority used to decide which attributes to show; attributes with larger priority values are displayed more prominently, and the value must be between 0 and `k_unMaxTimelinePriority`.
- * @function_end 
+ * @function_end
  */
 
 /**
@@ -5976,7 +6162,7 @@
  * This function changes the color of the timeline bar.
  *
  * @param {Enum.SteamTimelineGameMode} mode The mode that the game is in.
- * @function_end 
+ * @function_end
  */
 
 /**
@@ -5986,55 +6172,59 @@
  * This function opens the Steam overlay to the section of the timeline represented by the game phase.
  *
  * @param {String} phase_id The game phase to show in the overlay.
- * @function_end 
+ * @function_end
  */
 
 /**
  * @function steam_timeline_open_overlay_to_timeline_event
  * @description > **Steamworks Function**: [ISteamTimeline::OpenOverlayToTimelineEvent](https://partner.steamgames.com/doc/api/ISteamTimeline#OpenOverlayToTimelineEvent)
  *
- * This function opens the Steam overlay to the section of the timeline represented by the timeline event.
+ * This function opens the Steam overlay to the section of the timeline represented by the timeline event. This event must be in the current game session, since [TimelineEventHandle_t](https://partner.steamgames.com/doc/api/ISteamTimeline#TimelineEventHandle_t) values are not valid for future runs of the game.
  *
  * @param {Real} event_handle The handle of the event to show in the overlay.
- * @function_end 
+ * @function_end
  */
 
 /**
  * @function steam_timeline_set_callback_game_phase_recording_exists
  * @description > **Steamworks Function**: N / A
  *
- * This function 
+ * This function sets the function to be called when asking if recordings exist for a game phase ID.
+ * 
+ * See: [ISteamTimeline::SteamTimelineGamePhaseRecordingExists_t](https://partner.steamgames.com/doc/api/ISteamTimeline#SteamTimelineGamePhaseRecordingExists_t)
  *
  * @param {Function} callback The function to be called when a game phase recording exists event occurs.
- * @function_end 
+ * @function_end
  */
 
 /**
  * @function steam_timeline_clear_callback_game_phase_recording_exists
  * @description > **Steamworks Function**: N / A
  *
- * This function 
+ * This function clears the callback function previously set using ${function.steam_timeline_set_callback_game_phase_recording_exists}.
  *
- * @function_end 
+ * @function_end
  */
 
 /**
  * @function steam_timeline_set_callback_event_recording_exists
  * @description > **Steamworks Function**: N / A
  *
- * This function 
+ * This function sets the function to be called when asking if recordings exist for an event handle.
+ * 
+ * See: [ISteamTimeline::SteamTimelineEventRecordingExists_t](https://partner.steamgames.com/doc/api/ISteamTimeline#SteamTimelineEventRecordingExists_t)
  *
  * @param {Function} callback The function to be called when an event recording exists event occurs.
- * @function_end 
+ * @function_end
  */
 
 /**
  * @function steam_timeline_clear_callback_event_recording_exists
  * @description > **Steamworks Function**: N / A
  *
- * This function 
+ * This function clears the callback function previously set using ${function.steam_timeline_set_callback_event_recording_exists}.
  *
- * @function_end 
+ * @function_end
  */
 
 /**
@@ -6042,10 +6232,14 @@
  * @description > **Steamworks Function**: [ISteamInventory::AddPromoItem](https://partner.steamgames.com/doc/api/ISteamInventory#AddPromoItem)
  *
  * This function grants a specific one-time promotional item to the current user.
+ * 
+ * This can be safely called from the client because the items it can grant can be locked down via policies in the itemdefs. One of the primary scenarios for this call is to grant an item to users who also own a specific other game. This can be useful if your game has custom UI for showing a specific promo item to the user otherwise if you want to grant multiple promotional items then use ${function.steam_inventory_add_promo_items} or ${function.steam_inventory_grant_promo_items}.
+ * 
+ * [[Note: You must call ${function.steam_inventory_destroy_result} on the provided inventory result when you are done with it.]]
  *
  * @param {Real} item_def_id The item definition id to grant the player.
  * @param {Function} [callback] The function to call upon completion.
- * @returns {Real} 
+ * @returns {Real} The inventory result handle
  * @function_end 
  */
 
@@ -6054,11 +6248,15 @@
  * @description > **Steamworks Function**: [ISteamInventory::AddPromoItems](https://partner.steamgames.com/doc/api/ISteamInventory#AddPromoItems)
  *
  * This function grants a specific one-time promotional item to the current user.
+ * 
+ * This can be safely called from the client because the items it can grant can be locked down via policies in the itemdefs. One of the primary scenarios for this call is to grant an item to users who also own a specific other game. If you want to grant a single promotional item then use AddPromoItem. If you want to grant all possible promo items then use ${function.steam_inventory_grant_promo_items}.
+ * 
+ * [[Note: You must call ${function.steam_inventory_destroy_result} on the provided inventory result when you are done with it.]]
  *
  * @param {Array[Real]} item_def_ids The list of items to grant the user.
  * @param {Real} num_item_defs The number of items in the `item_def_ids` array.
  * @param {Function} [callback] The function to call upon completion.
- * @returns {Real} 
+ * @returns {Real} The inventory result handle
  * @function_end 
  */
 
@@ -6067,6 +6265,8 @@
  * @description > **Steamworks Function**: [ISteamInventory::CheckResultSteamID](https://partner.steamgames.com/doc/api/ISteamInventory#CheckResultSteamID)
  *
  * This function checks whether an inventory result handle belongs to the specified Steam ID.
+ * 
+ * This is important when using ${function.steam_inventory_deserialize_result}, to verify that a remote player is not pretending to have a different user's inventory.
  *
  * @param {Real} result_handle The inventory result handle to check the Steam ID on.
  * @param {Real} steam_id_expected The Steam ID to verify.
@@ -6079,11 +6279,15 @@
  * @description > **Steamworks Function**: [ISteamInventory::ConsumeItem](https://partner.steamgames.com/doc/api/ISteamInventory#ConsumeItem)
  *
  * This function consumes items from a user's inventory. If the quantity of the given item goes to zero, it is permanently removed.
+ * 
+ * Once an item is removed it cannot be recovered. This is not for the faint of heart - if your game implements item removal at all, a high-friction UI confirmation process is highly recommended.
+ * 
+ * [[Note: You must call ${function.steam_inventory_destroy_result} on the provided inventory result when you are done with it.]]
  *
  * @param {Real} item_instance_id The item instance id to consume.
  * @param {Real} quantity The number of items in that stack to consume.
  * @param {Function} [callback] The function to call upon completion.
- * @returns {Real} 
+ * @returns {Real} The inventory result handle
  * @function_end 
  */
 
@@ -6092,6 +6296,10 @@
  * @description > **Steamworks Function**: [ISteamInventory::DeserializeResult](https://partner.steamgames.com/doc/api/ISteamInventory#DeserializeResult)
  *
  * This function deserializes a result set and verifies the signature bytes.
+ * 
+ * You should call ${function.steam_inventory_check_result_steam_id} on the result handle when it completes to verify that a remote player is not pretending to have a different user's inventory.
+ * 
+ * [[Note: You must call ${function.steam_inventory_destroy_result} on the provided inventory result when you are done with it.]]
  *
  * @param {Buffer} data The buffer to deserialize.
  * @param {Real} data_size The size of the `data` buffer.
@@ -6106,7 +6314,7 @@
  * This function destroys a result handle and frees all associated memory.
  *
  * @param {Real} result_handle The inventory result handle to destroy.
- * @function_end 
+ * @function_end
  */
 
 /**
@@ -6114,6 +6322,12 @@
  * @description > **Steamworks Function**: [ISteamInventory::ExchangeItems](https://partner.steamgames.com/doc/api/ISteamInventory#ExchangeItems)
  *
  * This function grants one item in exchange for a set of other items.
+ * 
+ * This can be used to implement crafting recipes or transmutations, or items which unpack themselves into other items (e.g., a chest).
+ * 
+ * See the [Steam Inventory Schema](https://partner.steamgames.com/doc/features/inventory/schema) documentation for more details.
+ * 
+ * [[Note: You must call ${function.steam_inventory_destroy_result} on the provided inventory result when you are done with it.]]
  *
  * @param {Array[Real]} generate_item_defs The list of items that will be created by this call. Currently can only be 1 item.
  * @param {Array[Real]} generate_qty The quantity of each item in `generate_item_defs` to create.
@@ -6122,8 +6336,8 @@
  * @param {Array[Real]} destroy_qty The quantity of each item in `destroy_instance_ids` to destroy.
  * @param {Real} destroy_len The number of items in the `destroy_instance_ids` and `destroy_qty` arrays.
  * @param {Function} [callback] The function to call upon completion.
- * @returns {Real} 
- * @function_end 
+ * @returns {Real} The inventory result handle
+ * @function_end
  */
 
 /**
@@ -6131,12 +6345,16 @@
  * @description > **Steamworks Function**: [ISteamInventory::GenerateItems](https://partner.steamgames.com/doc/api/ISteamInventory#GenerateItems)
  *
  * This function grants specific items to the current user, for developers only.
+ * 
+ * This API is only intended for prototyping - it is only usable by Steam accounts that belong to the publisher group for your game.
+ * 
+ * [[Note: You must call ${function.steam_inventory_destroy_result} on the provided inventory result when you are done with it.]]
  *
  * @param {Array[Real]} item_defs The list of items to grant the user.
  * @param {Array[Real]} quantities The quantity of each item in `item_defs` to grant.
  * @param {Real} count The number of items in the `item_defs` array.
  * @param {Function} [callback] The function to call upon completion.
- * @returns {Real} 
+ * @returns {Real} The inventory result handle
  * @function_end 
  */
 
@@ -6144,9 +6362,13 @@
  * @function steam_inventory_get_all_items
  * @description > **Steamworks Function**: [ISteamInventory::GetAllItems](https://partner.steamgames.com/doc/api/ISteamInventory#GetAllItems)
  *
- * This function starts retrieving all items in the current users inventory.
+ * This function starts retrieving all items in the current user's inventory.
+ * 
+ * [[Note: Calls to this function are subject to rate limits and may return cached results if called too frequently. It is suggested that you call this function only when you are about to display the user's full inventory, or if you expect that the inventory may have changed.]]
+ * 
+ * [[Note: You must call ${function.steam_inventory_destroy_result} on the provided inventory result when you are done with it.]]
  *
- * @returns {Real} 
+ * @returns {Real} The inventory result handle
  * @function_end 
  */
 
@@ -6166,9 +6388,11 @@
  * @description > **Steamworks Function**: [ISteamInventory::GetResultStatus](https://partner.steamgames.com/doc/api/ISteamInventory#GetResultStatus)
  *
  * This function finds out the status of an asynchronous inventory result handle.
+ * 
+ * This is a polling equivalent to registering a callback function for [SteamInventoryResultReady_t](https://partner.steamgames.com/doc/api/ISteamInventory#SteamInventoryResultReady_t) (see ${function.steam_inventory_set_callback_result_ready}).
  *
  * @param {Real} result_handle The inventory result handle to get the status for.
- * @returns {Enum.SteamApiResult} 
+ * @returns {Enum.SteamApiResult} Whether the call was successful or not.
  * @function_end 
  */
 
@@ -6176,7 +6400,9 @@
  * @function steam_inventory_get_result_timestamp
  * @description > **Steamworks Function**: [ISteamInventory::GetResultTimestamp](https://partner.steamgames.com/doc/api/ISteamInventory#GetResultTimestamp)
  *
- * This function gets the server time at which the result was generated.
+ * This function gets the server time at which the result was generated. (as Unix epoch time (Time since Jan 1st, 1970))
+ * 
+ * You can compare this value against ${function.steam_utils_get_server_real_time} to determine the age of the result.
  *
  * @param {Real} result_handle The inventory result handle to get the timestamp for.
  * @returns {Real} 
@@ -6188,6 +6414,8 @@
  * @description > **Steamworks Function**: [ISteamInventory::GetEligiblePromoItemDefinitionIDs](https://partner.steamgames.com/doc/api/ISteamInventory#GetEligiblePromoItemDefinitionIDs)
  *
  * This function gets the list of item definition ids that a user can be granted.
+ * 
+ * You should call this while handling a [SteamInventoryEligiblePromoItemDefIDs_t](https://partner.steamgames.com/doc/api/ISteamInventory#SteamInventoryEligiblePromoItemDefIDs_t) call result to pull out the item definition ids.
  *
  * @param {Real} c_max_item_defs The maximum number of item definition ids to retrieve.
  * @returns {Array[Real]} 
@@ -6199,8 +6427,18 @@
  * @description > **Steamworks Function**: [ISteamInventory::LoadItemDefinitions](https://partner.steamgames.com/doc/api/ISteamInventory#LoadItemDefinitions)
  *
  * This function triggers an asynchronous load and refresh of item definitions.
+ * 
+ * Item definitions are a mapping of "definition IDs" (integers between 1 and 999999999) to a set of string properties. Some of these properties are required to display items on the Steam community web site. Other properties can be defined by applications. There is no reason to call this function if your game hardcoded the numeric definition IDs (e.g. purple face mask = 20, blue weapon mod = 55) and does not allow for adding new item types without a client patch.
  *
- * @returns {Bool} 
+ * @returns {Bool} This call will always return true.
+ * 
+ * @event callback
+ * @description **Steamworks Callback**: [ISteamInventory::SteamInventoryDefinitionUpdate_t](https://partner.steamgames.com/doc/api/ISteamInventory#SteamInventoryDefinitionUpdate_t)
+ * 
+ * Triggered whenever item definitions have been updated, which could be in response to ${function.steam_inventory_load_item_definitions} or any time new item definitions are available (e.g., from the dynamic addition of new item types while players are still in-game).
+ * 
+ * This callback has no fields.
+ * @event_end
  * @function_end 
  */
 
@@ -6209,6 +6447,10 @@
  * @description > **Steamworks Function**: [ISteamInventory::GetItemDefinitionIDs](https://partner.steamgames.com/doc/api/ISteamInventory#GetItemDefinitionIDs)
  *
  * This function returns the set of all item definition IDs which are defined in the App Admin panel of the Steamworks website.
+ * 
+ * These item definitions may not necessarily be contiguous integers.
+ * 
+ * This should be called in response to a [SteamInventoryDefinitionUpdate_t](https://partner.steamgames.com/doc/api/ISteamInventory#SteamInventoryDefinitionUpdate_t) callback. There is no reason to call this function if your game hardcodes the numeric definition IDs (eg, purple face mask = 20, blue weapon mod = 55) and does not allow for adding new item types without a client patch.
  *
  * @param {Real} c_max_item_defs The maximum number of item definition ids to retrieve.
  * @returns {Array[Real]} 
@@ -6220,6 +6462,10 @@
  * @description > **Steamworks Function**: [ISteamInventory::GetItemsByID](https://partner.steamgames.com/doc/api/ISteamInventory#GetItemsByID)
  *
  * This function gets the state of a subset of the current user's inventory.
+ * 
+ * The subset is specified by an array of item instance IDs.
+ * 
+ * [[Note: You must call ${function.steam_inventory_destroy_result} on the provided inventory result when you are done with it.]]
  *
  * @param {Array[Real]} item_instance_ids A list of the item instance ids to update the state of.
  * @param {Function} [callback] The function to call upon completion.
@@ -6231,10 +6477,12 @@
  * @function steam_inventory_serialize_result
  * @description > **Steamworks Function**: [ISteamInventory::SerializeResult](https://partner.steamgames.com/doc/api/ISteamInventory#SerializeResult)
  *
- * This function serializes a result set with a short signature which can't be forged or replayed across different game sessions.
+ * This function serialises a result set with a short signature which can't be forged or replayed across different game sessions.
+ * 
+ * A result set can be serialised on the local client, transmitted to other players via your game networking, and deserialised by the remote players. This is a secure way of preventing hackers from lying about posessing rare/high-value items. Serialises a result set with signature bytes to an output buffer. The size of a serialised result depends on the number of items which are being serialised. When securely transmitting items to other players, it is recommended to use ${function.steam_inventory_get_items_by_id} first to create a minimal result set.
  *
- * @param {Real} result_handle The inventory result handle to serialize.
- * @param {Buffer} out_data The buffer that the serialized result will be copied into.
+ * @param {Real} result_handle The inventory result handle to serialise.
+ * @param {Buffer} out_data The buffer that the serialised result will be copied into.
  * @param {Real} out_capacity The size of the `out_data` buffer.
  * @returns {Struct.SteamInventorySerializeResult} 
  * @function_end 
@@ -6257,6 +6505,8 @@
  * @description > **Steamworks Function**: [ISteamInventory::GetResultItemProperty](https://partner.steamgames.com/doc/api/ISteamInventory#GetResultItemProperty)
  *
  * This function gets the dynamic properties from an item in an inventory result set.
+ * 
+ * Property names are always composed of ASCII letters, numbers, and/or underscores.
  *
  * @param {Real} result_handle The result handle containing the item to get the properties of.
  * @param {Real} item_index The index of the item within the result set to query.
@@ -6269,7 +6519,13 @@
  * @function steam_inventory_start_purchase
  * @description > **Steamworks Function**: [ISteamInventory::StartPurchase](https://partner.steamgames.com/doc/api/ISteamInventory#StartPurchase)
  *
- * This function starts the purchase process for the user, given a "shopping cart" of item definitions that the user would like to buy.
+ * This function starts the purchase process for the user, given a "shopping cart" of item definitions that the user would like to buy. The user will be prompted in the Steam Overlay to complete the purchase in their local currency, funding their Steam Wallet if necessary, etc.
+ * 
+ * If the purchase process was started successfully, then `order_id` and `transaction_id` will be valid in the [SteamInventoryStartPurchaseResult_t](https://partner.steamgames.com/doc/api/ISteamInventory#SteamInventoryStartPurchaseResult_t) call result.
+ * 
+ * If the user authorizes the transaction and completes the purchase, then the callback [SteamInventoryResultReady_t](https://partner.steamgames.com/doc/api/ISteamInventory#SteamInventoryResultReady_t) will be triggered and you can then retrieve what new items the user has acquired.
+ * 
+ * [[Note: You must call ${function.steam_inventory_destroy_result} on the inventory result for when you are done with it.]]
  *
  * @param {Array[Real]} item_def_ids The array of item definition ids that the user wants to purchase.
  * @param {Array[Real]} quantities The array of quantities of each item definition that the user wants to purchase.
@@ -6293,6 +6549,8 @@
  * @description > **Steamworks Function**: [ISteamInventory::RequestPrices](https://partner.steamgames.com/doc/api/ISteamInventory#RequestPrices)
  *
  * This function requests prices for all item definitions that can be purchased in the user's local currency.
+ * 
+ * A [SteamInventoryRequestPricesResult_t](https://partner.steamgames.com/doc/api/ISteamInventory#SteamInventoryRequestPricesResult_t) call result will be returned with the user's local currency code. After that, you can call ${function.steam_inventory_get_num_items_with_prices} and ${function.steam_inventory_get_items_with_prices} to get prices for all the known item definitions, or ${function.steam_inventory_get_item_price} for a specific item definition.
  *
  * @param {Function} [callback] The function to call upon completion.
  *
@@ -6302,7 +6560,7 @@
  * Returned after RequestPrices is called.
  *
  * @member {Enum.SteamApiResult} result The result of the operation.
- * @member {String} currency The string representing the user's local currency code.
+ * @member {String} currency The string representing the user's [local currency](https://partner.steamgames.com/doc/store/pricing/currencies) code.
  * @event_end
  * @function_end
  */
@@ -6311,7 +6569,7 @@
  * @function steam_inventory_get_num_items_with_prices
  * @description > **Steamworks Function**: [ISteamInventory::GetNumItemsWithPrices](https://partner.steamgames.com/doc/api/ISteamInventory#GetNumItemsWithPrices)
  *
- * This function, after a successful call to RequestPrices, returns the number of item definitions with valid pricing.
+ * This function, after a successful call to ${function.steam_inventory_request_prices}, returns the number of item definitions with valid pricing.
  *
  * @returns {Real} 
  * @function_end 
@@ -6321,7 +6579,7 @@
  * @function steam_inventory_get_items_with_prices
  * @description > **Steamworks Function**: [ISteamInventory::GetItemsWithPrices](https://partner.steamgames.com/doc/api/ISteamInventory#GetItemsWithPrices)
  *
- * This function, after a successful call to RequestPrices, gets all the pricing for applicable item definitions.
+ * This function, after a successful call to ${function.steam_inventory_request_prices}, gets all the pricing for applicable item definitions.
  *
  * @param {Real} max The number of item definitions to retrieve, as returned by ${function.steam_inventory_get_num_items_with_prices}.
  * @returns {Struct.SteamInventoryItemsWithPrices} 
@@ -6332,9 +6590,13 @@
  * @function steam_inventory_start_update_properties
  * @description > **Steamworks Function**: [ISteamInventory::StartUpdateProperties](https://partner.steamgames.com/doc/api/ISteamInventory#StartUpdateProperties)
  *
- * This function starts a transaction request to update dynamic properties on items for the current user.
+ * This function starts a transaction request to update [dynamic properties](https://partner.steamgames.com/doc/features/inventory/dynamicproperties) on items for the current user.
+ * 
+ * This call is rate-limited by user, so property modifications should be batched as much as possible (e.g. at the end of a map or game session). After calling `steam_inventory_set_property_*` or `steam_inventory_remove_property_*` for all the items that you want to modify, you will need to call ${function.steam_inventory_submit_update_properties} to send the request to the Steam servers. A [SteamInventoryResultReady_t](https://partner.steamgames.com/doc/api/ISteamInventory#SteamInventoryResultReady_t) callback will be fired with the results of the operation.
+ * 
+ * [[Note: You must call ${function.steam_inventory_destroy_result} on the provided inventory result for ${function.steam_inventory_submit_update_properties} when you are done with it.]]
  *
- * @returns {Real} 
+ * @returns {Real} The inventory update handle
  * @function_end 
  */
 
@@ -6342,7 +6604,7 @@
  * @function steam_inventory_remove_property
  * @description > **Steamworks Function**: [ISteamInventory::RemoveProperty](https://partner.steamgames.com/doc/api/ISteamInventory#RemoveProperty)
  *
- * This function removes a dynamic property for the given item.
+ * This function removes a [dynamic property](https://partner.steamgames.com/doc/features/inventory/dynamicproperties) for the given item.
  *
  * @param {Real} result_handle The update handle corresponding to the transaction request, returned from ${function.steam_inventory_start_update_properties}.
  * @param {Real} item_instance_id The id of the item being modified.
@@ -6355,7 +6617,7 @@
  * @function steam_inventory_set_property_string
  * @description > **Steamworks Function**: [ISteamInventory::SetProperty](https://partner.steamgames.com/doc/api/ISteamInventory#SetProperty)
  *
- * This function sets a dynamic property for the given item.
+ * This function sets a [dynamic property](https://partner.steamgames.com/doc/features/inventory/dynamicproperties) for the given item.
  *
  * @param {Real} result_handle The update handle corresponding to the transaction request, returned from ${function.steam_inventory_start_update_properties}.
  * @param {Real} item_instance_id The id of the item being modified.
@@ -6369,7 +6631,7 @@
  * @function steam_inventory_set_property_bool
  * @description > **Steamworks Function**: [ISteamInventory::SetProperty](https://partner.steamgames.com/doc/api/ISteamInventory#SetProperty)
  *
- * This function sets a dynamic property for the given item.
+ * This function sets a [dynamic property](https://partner.steamgames.com/doc/features/inventory/dynamicproperties) for the given item.
  *
  * @param {Real} result_handle The update handle corresponding to the transaction request, returned from ${function.steam_inventory_start_update_properties}.
  * @param {Real} item_instance_id The id of the item being modified.
@@ -6383,7 +6645,7 @@
  * @function steam_inventory_set_property_int64
  * @description > **Steamworks Function**: [ISteamInventory::SetProperty](https://partner.steamgames.com/doc/api/ISteamInventory#SetProperty)
  *
- * This function sets a dynamic property for the given item.
+ * This function sets a [dynamic property](https://partner.steamgames.com/doc/features/inventory/dynamicproperties) for the given item.
  *
  * @param {Real} result_handle The update handle corresponding to the transaction request, returned from ${function.steam_inventory_start_update_properties}.
  * @param {Real} item_instance_id The id of the item being modified.
@@ -6397,7 +6659,7 @@
  * @function steam_inventory_set_property_float
  * @description > **Steamworks Function**: [ISteamInventory::SetProperty](https://partner.steamgames.com/doc/api/ISteamInventory#SetProperty)
  *
- * This function sets a dynamic property for the given item.
+ * This function sets a [dynamic property](https://partner.steamgames.com/doc/features/inventory/dynamicproperties) for the given item.
  *
  * @param {Real} result_handle The update handle corresponding to the transaction request, returned from ${function.steam_inventory_start_update_properties}.
  * @param {Real} item_instance_id The id of the item being modified.
@@ -6411,11 +6673,13 @@
  * @function steam_inventory_submit_update_properties
  * @description > **Steamworks Function**: [ISteamInventory::SubmitUpdateProperties](https://partner.steamgames.com/doc/api/ISteamInventory#SubmitUpdateProperties)
  *
- * This function submits the transaction request to modify dynamic properties on items for the current user.
+ * This function submits the transaction request to modify [dynamic properties](https://partner.steamgames.com/doc/features/inventory/dynamicproperties) on items for the current user. See ${function.steam_inventory_start_update_properties}.
+ * 
+ * [[Note: You must call ${function.steam_inventory_destroy_result} on the provided inventory result for when you are done with it.]]
  *
  * @param {Real} result_handle The update handle corresponding to the transaction request, returned from ${function.steam_inventory_start_update_properties}.
  * @param {Function} [callback] The function to call upon completion.
- * @returns {Real} 
+ * @returns {Real} The new inventory result handle
  * @function_end 
  */
 
@@ -6424,12 +6688,16 @@
  * @description > **Steamworks Function**: [ISteamInventory::TransferItemQuantity](https://partner.steamgames.com/doc/api/ISteamInventory#TransferItemQuantity)
  *
  * This function transfers items between stacks within a user's inventory.
+ * 
+ * This can be used to stack, split, and move items. The source and destination items must have the same itemdef ID. To move items onto a destination stack specify the source, the quantity to move, and the destination item ID. To split an existing stack, pass `SteamInventoryItemInstanceIdInvalid` into `item_instance_id_dest`. A new item stack will be generated with the requested quantity.
+ * 
+ * [[Note: Tradability/marketability restrictions are copied along with transferred items. The destination stack receives the latest tradability/marketability date of any item in its composition.]]
  *
  * @param {Real} item_instance_id_source The source item to transfer.
  * @param {Real} quantity The quantity of the item that will be transferred from `item_instance_id_source` to `item_instance_id_dest`.
  * @param {Real} item_instance_id_dest The destination item.
  * @param {Function} [callback] The function to call upon completion.
- * @returns {Real} 
+ * @returns {Real} The inventory result handle
  * @function_end 
  */
 
@@ -6438,10 +6706,21 @@
  * @description > **Steamworks Function**: [ISteamInventory::TriggerItemDrop](https://partner.steamgames.com/doc/api/ISteamInventory#TriggerItemDrop)
  *
  * This function triggers an item drop if the user has played a long enough period of time.
+ * 
+ * This period can be customized in two places:
+ * 
+ * * At the application level within Inventory Service: Playtime Item Grants. This will automatically apply to all "playtimegenerator" items that do not specify any overrides.
+ * * In an individual "playtimegenerator" item definition. The settings would take precedence over any application-level settings.
+ * 
+ * Only item definitions which are marked as "playtime item generators" can be spawned.
+ * 
+ * Typically this function should be called at the end of a game or level or match or any point of significance in the game in which an item drop could occur. The granularity of the playtime generator settings is in minutes, so calling it more frequently than minutes is not useful and will be rate limited in the Steam client. The Steam servers will perform playtime accounting to prevent too-frequent drops. The servers will also manage adding the item to the players inventory.
+ * 
+ * [[Note: You must call ${function.steam_inventory_destroy_result} on the provided inventory result when you are done with it.]]
  *
  * @param {Real} item_def_id The item definition id, which must refer to an itemdefid of the type "playtimegenerator".
  * @param {Function} [callback] The function to call upon completion.
- * @returns {Real} 
+ * @returns {Real} The inventory result handle
  * @function_end 
  */
 
@@ -6450,9 +6729,13 @@
  * @description > **Steamworks Function**: [ISteamInventory::GrantPromoItems](https://partner.steamgames.com/doc/api/ISteamInventory#GrantPromoItems)
  *
  * This function grants all potential one-time promotional items to the current user.
+ * 
+ * This can be safely called from the client because the items it can grant can be locked down via policies in the itemdefs. One of the primary scenarios for this call is to grant an item to users who also own a specific other game. If you want to grant specific promotional items rather than all of them see: ${function.steam_inventory_add_promo_item} and ${function.steam_inventory_add_promo_items}.
+ * 
+ * [[Note: You must call ${function.steam_inventory_destroy_result} on the provided inventory result when you are done with it.]]
  *
  * @param {Function} [callback] The function to call upon completion.
- * @returns {Real} 
+ * @returns {Real} The inventory result handle
  * @function_end 
  */
 
@@ -6460,7 +6743,11 @@
  * @function steam_inventory_get_item_definition_property
  * @description > **Steamworks Function**: [ISteamInventory::GetItemDefinitionProperty](https://partner.steamgames.com/doc/api/ISteamInventory#GetItemDefinitionProperty)
  *
- * This function gets a string property from the specified item definition.
+ * This function gets a string property from the specified item definition, or gets a property value for a specific item definition.
+ * 
+ * Note that some properties (for example, "name") may be localised and will depend on the current Steam language settings (see ${function.steam_apps_get_current_game_language}). Property names are always ASCII alphanumeric and underscores.
+ * 
+ * [[Note: Call ${function.steam_inventory_load_item_definitions} first, to ensure that items are ready to be used before calling ${function.steam_inventory_get_item_definition_property}.]]
  *
  * @param {Real} item_def_id The item definition to get the property for.
  * @param {String} property_name The property name to get the value for.
@@ -6473,6 +6760,10 @@
  * @description > **Steamworks Function**: [ISteamInventory::GetItemDefinitionProperty](https://partner.steamgames.com/doc/api/ISteamInventory#GetItemDefinitionProperty)
  *
  * This function gets the list of string property names available on the specified item definition.
+ * 
+ * Note that some properties (for example, "name") may be localised and will depend on the current Steam language settings (see ${function.steam_apps_get_current_game_language}). Property names are always ASCII alphanumeric and underscores.
+ * 
+ * [[Note: Call ${function.steam_inventory_load_item_definitions} first, to ensure that items are ready to be used before calling ${function.steam_inventory_get_item_definition_property}.]]
  *
  * @param {Real} item_def_id The item definition to get the properties for.
  * @returns {Array[String]} 
@@ -6483,7 +6774,7 @@
  * @function steam_inventory_get_item_price
  * @description > **Steamworks Function**: [ISteamInventory::GetItemPrice](https://partner.steamgames.com/doc/api/ISteamInventory#GetItemPrice)
  *
- * This function, after a successful call to RequestPrices, gets the pricing for a specific item definition.
+ * This function, after a successful call to ${function.steam_inventory_request_prices}, gets the pricing for a specific item definition.
  *
  * @param {Real} item_def_id The item definition id to retrieve the price for.
  * @returns {Struct.SteamInventoryItemPrice} 
@@ -6494,7 +6785,9 @@
  * @function steam_inventory_set_callback_result_ready
  * @description > **Steamworks Function**: N / A
  *
- * This function 
+ * This function sets the function to be triggered whenever an inventory result transitions from `SteamApiResult.Pending` to any other completed state, see ${function.steam_inventory_get_result_status} for the complete list of states. There will always be exactly one callback per handle.
+ * 
+ * See: [ISteamInventory::SteamInventoryResultReady_t](https://partner.steamgames.com/doc/api/ISteamInventory#SteamInventoryResultReady_t)
  *
  * @param {Function} callback The function to be called when an inventory result is ready.
  * @function_end 
@@ -6504,7 +6797,7 @@
  * @function steam_inventory_clear_callback_result_ready
  * @description > **Steamworks Function**: N / A
  *
- * This function 
+ * This function clears the callback function previously set using ${function.steam_inventory_set_callback_result_ready}.
  *
  * @function_end 
  */
@@ -6513,7 +6806,11 @@
  * @function steam_inventory_set_callback_full_update
  * @description > **Steamworks Function**: N / A
  *
- * This function 
+ * This function sets the function to be triggered when ${function.steam_inventory_get_all_items} successfully returns a result which is newer / fresher than the last known result. (It will not trigger if the inventory hasn't changed, or if results from two overlapping calls are reversed in flight and the earlier result is already known to be stale/out-of-date.)
+ * 
+ * The regular [SteamInventoryResultReady_t](https://partner.steamgames.com/doc/api/ISteamInventory#SteamInventoryResultReady_t) callback will still be triggered immediately afterwards; this is an additional notification for your convenience.
+ * 
+ * See: [ISteamInventory::SteamInventoryFullUpdate_t](https://partner.steamgames.com/doc/api/ISteamInventory#SteamInventoryFullUpdate_t)
  *
  * @param {Function} callback The function to be called when a full inventory update occurs.
  * @function_end 
@@ -6523,7 +6820,7 @@
  * @function steam_inventory_clear_callback_full_update
  * @description > **Steamworks Function**: N / A
  *
- * This function 
+ * This function clears the callback function previously set using ${function.steam_inventory_set_callback_full_update}.
  *
  * @function_end 
  */
@@ -6532,7 +6829,9 @@
  * @function steam_inventory_set_callback_definition_update
  * @description > **Steamworks Function**: N / A
  *
- * This function 
+ * This function sets the function to be triggered whenever item definitions have been updated, which could be in response to ${function.steam_inventory_load_item_definitions} or any time new item definitions are available (e.g., from the dynamic addition of new item types while players are still in-game).
+ * 
+ * See: [ISteamInventory::SteamInventoryDefinitionUpdate_t](https://partner.steamgames.com/doc/api/ISteamInventory#SteamInventoryDefinitionUpdate_t)
  *
  * @param {Function} callback The function to be called when item definitions are updated.
  * @function_end 
@@ -6542,7 +6841,7 @@
  * @function steam_inventory_clear_callback_definition_update
  * @description > **Steamworks Function**: N / A
  *
- * This function 
+ * This function clears the callback function previously set using ${function.steam_inventory_set_callback_definition_update}.
  *
  * @function_end 
  */
@@ -6551,7 +6850,9 @@
  * @function steam_remote_storage_set_callback_published_file_subscribed
  * @description > **Steamworks Function**: N / A
  *
- * This function
+ * This function sets the function to call when subscribed to a published file on remote storage.
+ * 
+ * See: [ISteamRemoteStorage::RemoteStoragePublishedFileSubscribed_t](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#RemoteStoragePublishedFileSubscribed_t)
  *
  * @param {Function} callback The function to be called when a published file is subscribed to.
  * @function_end 
@@ -6561,7 +6862,7 @@
  * @function steam_remote_storage_clear_callback_published_file_subscribed
  * @description > **Steamworks Function**: N / A
  *
- * This function 
+ * This function clears the callback function previously set using ${function.steam_remote_storage_set_callback_published_file_subscribed}.
  *
  * @function_end 
  */
@@ -6570,7 +6871,9 @@
  * @function steam_remote_storage_set_callback_published_file_unsubscribed
  * @description > **Steamworks Function**: N / A
  *
- * This function
+ * This function sets the function to call when subscribed to a published file on remote storage.
+ * 
+ * See: [ISteamRemoteStorage::RemoteStoragePublishedFileUnsubscribed_t](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#RemoteStoragePublishedFileUnsubscribed_t)
  *
  * @param {Function} callback The function to be called when a published file is unsubscribed from.
  * @function_end 
@@ -6580,7 +6883,7 @@
  * @function steam_remote_storage_clear_callback_published_file_unsubscribed
  * @description > **Steamworks Function**: N / A
  *
- * This function 
+ * This function clears the callback function previously set using ${function.steam_remote_storage_set_callback_published_file_unsubscribed}.
  *
  * @function_end 
  */
@@ -6589,7 +6892,9 @@
  * @function steam_remote_storage_set_callback_local_file_change
  * @description > **Steamworks Function**: N / A
  *
- * This function
+ * This function sets the function to call in case of a local file change. If a Steam app is flagged for supporting dynamic Steam Cloud sync, and a sync occurs, this callback will be posted to the app if any local files changed.
+ * 
+ * See: [ISteamRemoteStorage::RemoteStorageLocalFileChange_t](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#RemoteStorageLocalFileChange_t)
  *
  * @param {Function} callback The function to be called when a local file change is detected.
  * @function_end 
@@ -6599,7 +6904,7 @@
  * @function steam_remote_storage_clear_callback_local_file_change
  * @description > **Steamworks Function**: N / A
  *
- * This function 
+ * This function clears the callback function previously set using ${function.steam_remote_storage_set_callback_local_file_change}.
  *
  * @function_end 
  */
@@ -6608,7 +6913,9 @@
  * @function steam_remote_storage_is_cloud_enabled_for_account
  * @description > **Steamworks Function**: [ISteamRemoteStorage::IsCloudEnabledForAccount](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#IsCloudEnabledForAccount)
  *
- * This function checks if the account wide Steam Cloud setting is enabled for this user.
+ * This function checks if the account wide Steam Cloud setting is enabled for this user; or if they disabled it in the Settings->Cloud dialog.
+ * 
+ * Ensure that you are also checking ${function.steam_remote_storage_is_cloud_enabled_for_app}, as these two options are mutually exclusive.
  *
  * @returns {Bool} 
  * @function_end 
@@ -6618,7 +6925,11 @@
  * @function steam_remote_storage_is_cloud_enabled_for_app
  * @description > **Steamworks Function**: [ISteamRemoteStorage::IsCloudEnabledForApp](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#IsCloudEnabledForApp)
  *
- * This function checks if the per game Steam Cloud setting is enabled for this user.
+ * This function checks if the per game Steam Cloud setting is enabled for this user; or if they disabled it in the Game Properties->Update dialog.
+ * 
+ * Ensure that you are also checking ${function.steam_remote_storage_is_cloud_enabled_for_account}, as these two options are mutually exclusive.
+ * 
+ * It's generally recommended that you allow the user to toggle this setting within your in-game options, you can toggle it with ${function.steam_remote_storage_set_cloud_enabled_for_app}.
  *
  * @returns {Bool} 
  * @function_end 
@@ -6629,6 +6940,10 @@
  * @description > **Steamworks Function**: [ISteamRemoteStorage::SetCloudEnabledForApp](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#SetCloudEnabledForApp)
  *
  * This function toggles whether the Steam Cloud is enabled for your application.
+ * 
+ * This setting can be queried with ${function.steam_remote_storage_is_cloud_enabled_for_app}.
+ * 
+ * [[Note: This must only ever be called as the direct result of the user explicitly requesting that it's enabled or not. This is typically accomplished with a checkbox within your in-game options.]]
  *
  * @param {Bool} enabled Enable (`true`) or disable (`false`) the Steam Cloud for this application.
  * @function_end
@@ -6638,12 +6953,14 @@
  * @function steam_remote_storage_file_write
  * @description > **Steamworks Function**: [ISteamRemoteStorage::FileWrite](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#FileWrite)
  *
- * This function creates a new file, writes the bytes to the file, and then closes the file.
+ * This function creates a new file, writes the bytes to the file, and then closes the file. If the target file already exists, it is overwritten.
+ * 
+ * [[Note: This is a synchronous call and as such is a will block your calling thread on the disk IO, and will also block the SteamAPI, which can cause other threads in your application to block. To avoid "hitching" due to a busy disk on the client machine using ${function.steam_remote_storage_file_write_async}, the asynchronous version of this API is recommended.]]
  *
  * @param {String} file_name The name of the file to write to.
  * @param {Buffer} data The buffer containing the bytes to write to the file.
  * @param {Real} bytes The number of bytes to write to the file.
- * @returns {Bool} 
+ * @returns {Bool}
  * @function_end 
  */
 
@@ -6651,12 +6968,12 @@
  * @function steam_remote_storage_file_read
  * @description > **Steamworks Function**: [ISteamRemoteStorage::FileRead](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#FileRead)
  *
- * This function opens a binary file, reads the contents of the file into a byte array, and then closes the file.
+ * This function opens a binary file, reads the contents of the file into a buffer, and then closes the file.
  *
  * @param {String} file_name The name of the file to read from.
  * @param {Buffer} out_data The buffer that the file will be read into. This buffer must be at least the same size provided to `max_bytes`.
- * @param {Real} max_bytes The amount of bytes to read. Generally obtained from the file's size.
- * @returns {Real} 
+ * @param {Real} max_bytes The amount of bytes to read. Generally obtained from ${function.steam_remote_storage_get_file_size}.
+ * @returns {Real} The number of bytes read, or 0 if the file doesn't exist or the read fails.
  * @function_end 
  */
 
@@ -6665,9 +6982,13 @@
  * @description > **Steamworks Function**: [ISteamRemoteStorage::FileDelete](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#FileDelete)
  *
  * This function deletes a file from the local disk, and propagates that delete to the cloud.
+ * 
+ * This is meant to be used when a user actively deletes a file. Use ${function.steam_remote_storage_file_forget} if you want to remove a file from the Steam Cloud but retain it on the user's local disk.
+ * 
+ * When a file has been deleted it can be re-written with ${function.steam_remote_storage_file_write} to reupload it to the Steam Cloud.
  *
  * @param {String} file_name The name of the file that will be deleted.
- * @returns {Bool} 
+ * @returns {Bool} `true` if the file exists and has been successfully deleted; otherwise, `false` if the file did not exist.
  * @function_end 
  */
 
@@ -6678,7 +6999,7 @@
  * This function checks whether the specified file exists.
  *
  * @param {String} file_name The name of the file.
- * @returns {Bool} 
+ * @returns {Bool} `true` if the file exists; otherwise, `false`.
  * @function_end 
  */
 
@@ -6686,10 +7007,10 @@
  * @function steam_remote_storage_file_persisted
  * @description > **Steamworks Function**: [ISteamRemoteStorage::FilePersisted](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#FilePersisted)
  *
- * This function checks if a specific file is persisted in the steam cloud.
+ * This function checks if a specific file is persisted in the Steam cloud.
  *
  * @param {String} file_name The name of the file.
- * @returns {Bool} 
+ * @returns {Bool} `true` if the file exists and the file is persisted in the Steam Cloud, `false` if ${function.steam_remote_storage_file_forget} was called on it and is only available locally.
  * @function_end 
  */
 
@@ -6697,10 +7018,10 @@
  * @function steam_remote_storage_get_file_size
  * @description > **Steamworks Function**: [ISteamRemoteStorage::GetFileSize](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#GetFileSize)
  *
- * This function gets the specified files size in bytes.
+ * This function gets the specified file's size in bytes.
  *
  * @param {String} file_name The name of the file.
- * @returns {Real} 
+ * @returns {Real} The size of the file in bytes. Returns 0 if the file does not exist.
  * @function_end 
  */
 
@@ -6708,7 +7029,7 @@
  * @function steam_remote_storage_get_file_timestamp
  * @description > **Steamworks Function**: [ISteamRemoteStorage::GetFileTimestamp](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#GetFileTimestamp)
  *
- * This function gets the specified file's last modified timestamp in Unix epoch format.
+ * This function gets the specified file's last modified timestamp in Unix epoch format (seconds since Jan 1st 1970).
  *
  * @param {String} file_name The name of the file.
  * @returns {Real} 
@@ -6720,8 +7041,10 @@
  * @description > **Steamworks Function**: [ISteamRemoteStorage::GetFileCount](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#GetFileCount)
  *
  * This function gets the total number of local files synchronized by Steam Cloud.
+ * 
+ * Used for enumeartion with ${function.steam_remote_storage_get_file_name_and_size}.
  *
- * @returns {Real} 
+ * @returns {Real} The number of files present for the current user, including files in subfolders.
  * @function_end 
  */
 
@@ -6730,6 +7053,8 @@
  * @description > **Steamworks Function**: [ISteamRemoteStorage::GetFileNameAndSize](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#GetFileNameAndSize)
  *
  * This function gets the file name and size of a file from the index.
+ * 
+ * [[Note: You must call ${function.steam_remote_storage_get_file_count} first to get the number of files.]]
  *
  * @param {Real} index The index of the file, this should be between 0 and the value returned by ${function.steam_remote_storage_get_file_count}.
  * @returns {Struct.SteamRemoteStorageFileNameAndSize} 
@@ -6740,7 +7065,7 @@
  * @function steam_remote_storage_get_quota
  * @description > **Steamworks Function**: [ISteamRemoteStorage::GetQuota](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#GetQuota)
  *
- * This function gets the number of bytes available, and used on the users Steam Cloud storage.
+ * This function gets the number of bytes available, and used on the user's Steam Cloud storage.
  *
  * @returns {Struct.SteamRemoteStorageQuota} 
  * @function_end 
@@ -6750,10 +7075,14 @@
  * @function steam_remote_storage_set_sync_platforms
  * @description > **Steamworks Function**: [ISteamRemoteStorage::SetSyncPlatforms](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#SetSyncPlatforms)
  *
- * This function allows you to specify which operating systems a file will be synchronized to.
+ * This function allows you to specify which operating systems a file will be synchronised to.
+ * 
+ * Use this if you have a multiplatform game but have data which is incompatible between platforms.
+ * 
+ * Files default to `SteamRemoteStoragePlatform.All` when they are first created. You can use the bitwise OR operator, "|" to specify multiple platforms.
  *
  * @param {String} file_name The name of the file.
- * @param {Enum.SteamRemoteStoragePlatform} platforms The platforms that the file will be synchronized to.
+ * @param {Enum.SteamRemoteStoragePlatform} platforms The platforms that the file will be synchronised to.
  * @returns {Bool} 
  * @function_end 
  */
@@ -6762,7 +7091,7 @@
  * @function steam_remote_storage_get_sync_platforms
  * @description > **Steamworks Function**: [ISteamRemoteStorage::GetSyncPlatforms](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#GetSyncPlatforms)
  *
- * This function obtains the platforms that the specified file will syncronize to.
+ * This function obtains the platforms that the specified file will synchronise to.
  *
  * @param {String} file_name The name of the file.
  * @returns {Enum.SteamRemoteStoragePlatform} 
@@ -6774,6 +7103,14 @@
  * @description > **Steamworks Function**: [ISteamRemoteStorage::FileForget](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#FileForget)
  *
  * This function deletes the file from remote storage, but leaves it on the local disk and remains accessible from the API.
+ * 
+ * When you are out of Cloud space, this can be used to allow calls to ${function.steam_remote_storage_file_write} to keep working without needing to make the user delete files.
+ * 
+ * How you decide which files to forget are up to you. It could be a simple Least Recently Used (LRU) queue or something more complicated.
+ * 
+ * Requiring the user to manage their Cloud-ised files for a game, while is possible to do, it is never recommended. For instance, "Which file would you like to delete so that you may store this new one?" removes a significant advantage of using the Cloud in the first place: its transparency.
+ * 
+ * Once a file has been deleted or forgotten, calling ${function.steam_remote_storage_file_write} will resynchronise it in the Cloud. Rewriting a forgotten file is the only way to make it persisted again.
  *
  * @param {String} file_name The name of the file that will be forgotten.
  * @returns {Bool} 
@@ -6784,10 +7121,12 @@
  * @function steam_remote_storage_file_write_stream_open
  * @description > **Steamworks Function**: [ISteamRemoteStorage::FileWriteStreamOpen](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#FileWriteStreamOpen)
  *
- * This function creates a new file output stream allowing you to stream out data to the Steam Cloud file in chunks.
+ * This function creates a new file output stream allowing you to stream out data to the Steam Cloud file in chunks. If the target file already exists, it is not overwritten until ${function.steam_remote_storage_file_write_stream_close} has been called.
+ * 
+ * To write data out to this stream you can use ${function.steam_remote_storage_file_write_stream_write_chunk}, and then to close or cancel you use ${function.steam_remote_storage_file_write_stream_close} and ${function.steam_remote_storage_file_write_stream_cancel} respectively.
  *
  * @param {String} file_name The name of the file to write to.
- * @returns {Real} 
+ * @returns {Real} The file write stream handle, or `SteamRemoteStorageUgcFileStreamHandleInvalid` in case the stream couldn't be opened
  * @function_end 
  */
 
@@ -6800,7 +7139,7 @@
  * @param {Real} stream The file write stream to write to.
  * @param {Buffer} data The buffer containing the data to write to the stream.
  * @param {Real} bytes The size of the data to write, in bytes.
- * @returns {Bool} 
+ * @returns {Bool} `true` if the data was successfully written to the file write stream, `false` if not.
  * @function_end 
  */
 
@@ -6808,7 +7147,9 @@
  * @function steam_remote_storage_file_write_stream_close
  * @description > **Steamworks Function**: [ISteamRemoteStorage::FileWriteStreamClose](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#FileWriteStreamClose)
  *
- * This function closes a file write stream that was started by FileWriteStreamOpen.
+ * This function closes a file write stream that was started by ${function.steam_remote_storage_file_write_stream_open}.
+ * 
+ * This flushes the stream to the disk, overwriting the existing file if there was one.
  *
  * @param {Real} stream The file write stream to close.
  * @returns {Bool} 
@@ -6819,7 +7160,9 @@
  * @function steam_remote_storage_file_write_stream_cancel
  * @description > **Steamworks Function**: [ISteamRemoteStorage::FileWriteStreamCancel](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#FileWriteStreamCancel)
  *
- * This function cancels a file write stream that was started by FileWriteStreamOpen.
+ * This function cancels a file write stream that was started by ${steam_remote_storage_file_write_stream_cancel}.
+ * 
+ * This trashes all of the data written and closes the write stream, but if there was an existing file with this name, it remains untouched.
  *
  * @param {Real} stream The file write stream to cancel.
  * @returns {Bool} 
@@ -6830,7 +7173,7 @@
  * @function steam_remote_storage_get_cached_ugc_count
  * @description > **Steamworks Function**: [ISteamRemoteStorage::GetCachedUGCCount](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#GetCachedUGCCount)
  *
- * This function 
+ * This function returns the cached UGC count.
  *
  * @returns {Real} 
  * @function_end 
@@ -6840,7 +7183,7 @@
  * @function steam_remote_storage_get_cached_ugc_handle
  * @description > **Steamworks Function**: [ISteamRemoteStorage::GetCachedUGCHandle](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#GetCachedUGCHandle)
  *
- * This function
+ * This function gets a handle to the cached UGC with the given index.
  *
  * @param {Real} index The index of the cached UGC, between 0 and the cached UGC count.
  * @returns {Real} 
@@ -6851,7 +7194,7 @@
  * @function steam_remote_storage_get_ugc_details
  * @description > **Steamworks Function**: [ISteamRemoteStorage::GetUGCDetails](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#GetUGCDetails)
  *
- * This function
+ * This function gets the details of the UGC content referred to by the given handle.
  *
  * @param {Real} ugc_handle The handle of the UGC content to get the details for.
  * @returns {Struct.SteamRemoteStorageUgcDetails} 
@@ -6862,7 +7205,7 @@
  * @function steam_remote_storage_ugc_read
  * @description > **Steamworks Function**: [ISteamRemoteStorage::UGCRead](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#UGCRead)
  *
- * This function 
+ * This function reads the UGC content referred to by the given handle into a buffer.
  *
  * @param {Real} ugc_handle The handle of the UGC content to read.
  * @param {Buffer} out_data The buffer that the content will be read into.
@@ -6877,7 +7220,7 @@
  * @function steam_remote_storage_file_share
  * @description > **Steamworks Function**: [ISteamRemoteStorage::FileShare](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#FileShare)
  *
- * This function
+ * This function shares the file with the given filename.
  *
  * @param {String} file_name The name of the file to share.
  * @param {Function} [callback] The function to call upon completion.
@@ -6898,7 +7241,7 @@
  * @function steam_remote_storage_ugc_download
  * @description > **Steamworks Function**: [ISteamRemoteStorage::UGCDownload](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#UGCDownload)
  *
- * This function
+ * This function downloads the UGC content referred to by the given handle.
  *
  * @param {Real} ugc_handle The handle of the UGC content to download.
  * @param {Real} priority The download priority, where a lower value indicates a higher priority.
@@ -6923,7 +7266,7 @@
  * @function steam_remote_storage_ugc_download_to_location
  * @description > **Steamworks Function**: [ISteamRemoteStorage::UGCDownloadToLocation](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#UGCDownloadToLocation)
  *
- * This function
+ * This function downloads the UGC content referred to by the given handle to the given location.
  *
  * @param {Real} ugc_handle The handle of the UGC content to download.
  * @param {String} location The absolute file path to download the content to.
@@ -7111,95 +7454,105 @@
  * @function steam_matchmaking_set_callback_lobby_data_update
  * @description > **Steamworks Function**: N / A
  *
- * This function 
+ * This function sets the function to be called when the lobby metadata has changed.
+ * 
+ * See: [ISteamMatchmaking::LobbyDataUpdate_t](https://partner.steamgames.com/doc/api/ISteamMatchmaking#LobbyDataUpdate_t)
  *
  * @param {Function} callback The function to be called when lobby data is updated.
- * @function_end 
+ * @function_end
  */
 
 /**
  * @function steam_matchmaking_clear_callback_lobby_data_update
  * @description > **Steamworks Function**: N / A
  *
- * This function 
+ * This function clears the callback function previously set using ${function.steam_matchmaking_set_callback_lobby_data_update}.
  *
- * @function_end 
+ * @function_end
  */
 
 /**
  * @function steam_matchmaking_set_callback_lobby_chat_update
  * @description > **Steamworks Function**: N / A
  *
- * This function 
+ * This function sets the function to be called when a lobby chat room state has changed. This is usually sent when a user has joined or left the lobby.
+ * 
+ * See: [ISteamMatchmaking::LobbyChatUpdate_t](https://partner.steamgames.com/doc/api/ISteamMatchmaking#LobbyChatUpdate_t)
  *
  * @param {Function} callback The function to be called when a lobby chat update event occurs (a user joins, leaves or disconnects).
- * @function_end 
+ * @function_end
  */
 
 /**
  * @function steam_matchmaking_clear_callback_lobby_chat_update
  * @description > **Steamworks Function**: N / A
  *
- * This function 
+ * This function clears the callback function previously set using ${function.steam_matchmaking_clear_callback_lobby_chat_update}.
  *
- * @function_end 
+ * @function_end
  */
 
 /**
  * @function steam_matchmaking_set_callback_lobby_chat_msg
  * @description > **Steamworks Function**: N / A
  *
- * This function 
+ * This function sets the function to be called when a chat (text or binary) message for this lobby has been received. After getting this you must use ${function.steam_matchmaking_get_lobby_chat_entry} to retrieve the contents of this message.
+ * 
+ * See: [ISteamMatchmaking::LobbyChatMsg_t](https://partner.steamgames.com/doc/api/ISteamMatchmaking#LobbyChatMsg_t)
  *
  * @param {Function} callback The function to be called when a lobby chat message is received.
- * @function_end 
+ * @function_end
  */
 
 /**
  * @function steam_matchmaking_clear_callback_lobby_chat_msg
  * @description > **Steamworks Function**: N / A
  *
- * This function 
+ * This function clears the callback function previously set using ${function.steam_matchmaking_set_callback_lobby_chat_msg}.
  *
- * @function_end 
+ * @function_end
  */
 
 /**
  * @function steam_matchmaking_set_callback_lobby_game_created
  * @description > **Steamworks Function**: N / A
  *
- * This function 
+ * This function sets the function to be called when a game server has been set via ${function.steam_matchmaking_set_lobby_game_server} for all of the members of the lobby to join. It's up to the individual clients to take action on this; the typical game behaviour is to leave the lobby and connect to the specified game server; but the lobby may stay open throughout the session if desired.
+ * 
+ * See: [ISteamMatchmaking::LobbyGameCreated_t](https://partner.steamgames.com/doc/api/ISteamMatchmaking#LobbyGameCreated_t)
  *
  * @param {Function} callback The function to be called when a game server is set for a lobby.
- * @function_end 
+ * @function_end
  */
 
 /**
  * @function steam_matchmaking_clear_callback_lobby_game_created
  * @description > **Steamworks Function**: N / A
  *
- * This function 
+ * This function clears the callback function previously set using ${function.steam_matchmaking_set_callback_lobby_game_created}.
  *
- * @function_end 
+ * @function_end
  */
 
 /**
  * @function steam_matchmaking_set_callback_lobby_invite
  * @description > **Steamworks Function**: N / A
  *
- * This function 
+ * This function sets the function to be called when someone has invited you to join a Lobby. Normally you don't need to do anything with this, as the Steam UI will also display a '<user> has invited you to the lobby, join?' notification and message.
+ * 
+ * See: [ISteamMatchmaking::LobbyInvite_t](https://partner.steamgames.com/doc/api/ISteamMatchmaking#LobbyInvite_t)
  *
  * @param {Function} callback The function to be called when the user receives a lobby invitation.
- * @function_end 
+ * @function_end
  */
 
 /**
  * @function steam_matchmaking_clear_callback_lobby_invite
  * @description > **Steamworks Function**: N / A
  *
- * This function 
+ * This function clears the callback function previously set using ${function.steam_matchmaking_set_callback_lobby_invite}.
  *
- * @function_end 
+ * @function_end
  */
 
 /**
@@ -7215,7 +7568,7 @@
  * @event callback
  * @desc > **Steamworks Callback**: [ISteamMatchmaking::LobbyCreated_t](https://partner.steamgames.com/doc/api/ISteamMatchmaking#LobbyCreated_t)
  *
- * Result of our request to create a Lobby.
+ * Result of our request to create a Lobby. At this point, the lobby has been joined and is ready for use, a [LobbyEnter_t](https://partner.steamgames.com/doc/api/ISteamMatchmaking#LobbyEnter_t) callback will also be received (since the local user is joining their own lobby).
  *
  * @member {Enum.SteamApiResult} result The result of the operation.
  * @member {Real} lobby_id The Steam ID of the lobby that was created, 0 if failed.
@@ -7228,6 +7581,8 @@
  * @description > **Steamworks Function**: [ISteamMatchmaking::JoinLobby](https://partner.steamgames.com/doc/api/ISteamMatchmaking#JoinLobby)
  *
  * This function joins an existing lobby.
+ * 
+ * The lobby Steam ID can be obtained either from a search with ${function.steam_matchmaking_request_lobby_list}, joining on a friend, or from an invite.
  *
  * @param {Real} lobby_id The Steam ID of the lobby to join.
  * @param {Function} [callback] The function to call upon completion.
@@ -7239,7 +7594,7 @@
  *
  * @member {Real} lobby_id The Steam ID of the lobby you have entered.
  * @member {Real} chat_permissions Unused - always 0.
- * @member {Bool} locked If true, then only invited users may join.
+ * @member {Bool} locked If `true`, then only invited users may join.
  * @member {Real} response An EChatRoomEnterResponse value, indicating whether the user successfully joined the lobby.
  * @event_end
  * @function_end
@@ -7250,6 +7605,14 @@
  * @description > **Steamworks Function**: [ISteamMatchmaking::RequestLobbyList](https://partner.steamgames.com/doc/api/ISteamMatchmaking#RequestLobbyList)
  *
  * This function gets a filtered list of relevant lobbies.
+ * 
+ * There can only be one active lobby search at a time. The old request will be canceled if a new one is started. Depending on the user's connection to the Steam back-end, this call can take from 300ms to 5 seconds to complete, and has a timeout of 20 seconds.
+ * 
+ * [[Note: To filter the results you MUST call the `steam_matchmaking_add_request_lobby_list_*` functions before calling this. The filters are cleared on each call to this function.]]
+ * 
+ * [[Note: If ${function.steam_matchmaking_add_request_lobby_list_distance_filter} is not called, `SteamMatchmakingLobbyDistanceFilter.Default` will be used, which will only find matches in the same or nearby regions.]]
+ * 
+ * [[Note: This will only return lobbies that are not full, and only lobbies that are `SteamMatchmakingLobbyType.Public` or `SteamMatchmakingLobbyType.Invisible`, and are set to joinable with ${function.steam_matchmaking_set_lobby_joinable}.]]
  *
  * @param {Function} [callback] The function to call upon completion.
  *
@@ -7291,7 +7654,7 @@
  * @function steam_matchmaking_add_request_lobby_list_near_value_filter
  * @description > **Steamworks Function**: [ISteamMatchmaking::AddRequestLobbyListNearValueFilter](https://partner.steamgames.com/doc/api/ISteamMatchmaking#AddRequestLobbyListNearValueFilter)
  *
- * This function sorts the results closest to the specified value.
+ * This function sorts the results closest to the specified value. Near filters don't actually filter out values, they just influence how the results are sorted. You can specify multiple near filters, with the first near filter influencing the most, and the last near filter influencing the least.
  *
  * @param {String} key The filter key name to match. This can not be longer than the maximum lobby key length.
  * @param {Real} value The value that lobbies will be sorted on.
@@ -7302,7 +7665,7 @@
  * @function steam_matchmaking_add_request_lobby_list_distance_filter
  * @description > **Steamworks Function**: [ISteamMatchmaking::AddRequestLobbyListDistanceFilter](https://partner.steamgames.com/doc/api/ISteamMatchmaking#AddRequestLobbyListDistanceFilter)
  *
- * This function sets the physical distance for which we should search for lobbies, this is based on the users IP address and a IP location map on the Steam backed.
+ * This function sets the physical distance for which we should search for lobbies, this is based on the user's IP address and a IP location map on the Steam backend.
  *
  * @param {Enum.SteamMatchmakingLobbyDistanceFilter} distance Specifies the maximum distance.
  * @function_end 
@@ -7312,7 +7675,7 @@
  * @function steam_matchmaking_add_request_lobby_list_result_count_filter
  * @description > **Steamworks Function**: [ISteamMatchmaking::AddRequestLobbyListResultCountFilter](https://partner.steamgames.com/doc/api/ISteamMatchmaking#AddRequestLobbyListResultCountFilter)
  *
- * This function sets the maximum number of lobbies to return.
+ * This function sets the maximum number of lobbies to return. The lower the count the faster it is to download the lobby results & details to the client.
  *
  * @param {Real} max_results The maximum number of lobbies to return.
  * @function_end 
@@ -7323,6 +7686,8 @@
  * @description > **Steamworks Function**: [ISteamMatchmaking::GetLobbyByIndex](https://partner.steamgames.com/doc/api/ISteamMatchmaking#GetLobbyByIndex)
  *
  * This function gets the Steam ID of the lobby at the specified index after receiving the ${function.steam_matchmaking_request_lobby_list} results.
+ * 
+ * [[Note: This should only be called after a [LobbyMatchList_t](https://partner.steamgames.com/doc/api/ISteamMatchmaking#LobbyMatchList_t) call result is received.]]
  *
  * @param {Real} index The index of the lobby to get the Steam ID of, from 0 to the number of matching lobbies.
  * @returns {Real} 
@@ -7333,7 +7698,7 @@
  * @function steam_matchmaking_leave_lobby
  * @description > **Steamworks Function**: [ISteamMatchmaking::LeaveLobby](https://partner.steamgames.com/doc/api/ISteamMatchmaking#LeaveLobby)
  *
- * This function leaves a lobby that the user is currently in; this takes effect immediately on the client side of the user.
+ * This function leaves a lobby that the user is currently in; this takes effect immediately on the client side, other users in the lobby will be notified by a [LobbyChatUpdate_t](https://partner.steamgames.com/doc/api/ISteamMatchmaking#LobbyChatUpdate_t) callback.
  *
  * @param {Real} lobby_id The Steam ID of the lobby to leave.
  * @function_end 
@@ -7344,6 +7709,8 @@
  * @description > **Steamworks Function**: [ISteamMatchmaking::SetLobbyOwner](https://partner.steamgames.com/doc/api/ISteamMatchmaking#SetLobbyOwner)
  *
  * This function changes who the lobby owner is.
+ * 
+ * This can only be set by the owner of the lobby. This will trigger a [LobbyDataUpdate_t](https://partner.steamgames.com/doc/api/ISteamMatchmaking#LobbyDataUpdate_t) for all of the users in the lobby, each user should update their local state to reflect the new owner. This is typically accomplished by displaying a crown icon next to the owner's name.
  *
  * @param {Real} lobby_id The Steam ID of the lobby where the owner change will take place.
  * @param {Real} new_owner_id The Steam ID of the user that will be the new owner of the lobby; they must be in the lobby.
@@ -7356,6 +7723,10 @@
  * @description > **Steamworks Function**: [ISteamMatchmaking::GetLobbyOwner](https://partner.steamgames.com/doc/api/ISteamMatchmaking#GetLobbyOwner)
  *
  * This function returns the current lobby owner.
+ * 
+ * There always one lobby owner - if the current owner leaves, another user in the lobby will become the owner automatically. It is possible (but rare) to join a lobby just as the owner is leaving, thus entering a lobby with self as the owner.
+ * 
+ * [[Note: You must be a member of the lobby to access this.]]
  *
  * @param {Real} lobby_id The Steam ID of the lobby to get the owner of.
  * @returns {Real} 
@@ -7367,6 +7738,10 @@
  * @description > **Steamworks Function**: [ISteamMatchmaking::GetNumLobbyMembers](https://partner.steamgames.com/doc/api/ISteamMatchmaking#GetNumLobbyMembers)
  *
  * This function gets the number of users in a lobby.
+ * 
+ * This is used for iteration, after calling this then ${function.steam_matchmaking_get_lobby_member_by_index} can be used to get the Steam ID of each person in the lobby. Persona information for other lobby members (name, avatar, etc.) is automatically received and accessible via the ${module.friends} module.
+ * 
+ * [[Note: The current user must be in the lobby to retrieve the Steam IDs of other users in that lobby.]]
  *
  * @param {Real} lobby_id The Steam ID of the lobby to get the number of members of.
  * @returns {Real} 
@@ -7378,6 +7753,10 @@
  * @description > **Steamworks Function**: [ISteamMatchmaking::GetLobbyMemberByIndex](https://partner.steamgames.com/doc/api/ISteamMatchmaking#GetLobbyMemberByIndex)
  *
  * This function gets the Steam ID of the lobby member at the given index.
+ * 
+ * [[Note: You must call ${function.steam_matchmaking_get_num_lobby_members} before calling this.]]
+ * 
+ * [[Note: The current user must be in the lobby to retrieve the Steam IDs of other users in that lobby.]]
  *
  * @param {Real} lobby_id This MUST be the same lobby used in the previous call to ${function.steam_matchmaking_get_num_lobby_members}.
  * @param {Real} member_index An index between 0 and the number of lobby members.
@@ -7389,7 +7768,13 @@
  * @function steam_matchmaking_set_lobby_data
  * @description > **Steamworks Function**: [ISteamMatchmaking::SetLobbyData](https://partner.steamgames.com/doc/api/ISteamMatchmaking#SetLobbyData)
  *
- * This function sets a key/value pair in the lobby metadata.
+ * This function sets a key/value pair in the lobby metadata. This can be used to set the the lobby name, current map, game mode, etc.
+ * 
+ * This can only be set by the owner of the lobby. Lobby members should use ${function.steam_matchmaking_set_lobby_member_data} instead.
+ * 
+ * Each user in the lobby will be receive notification of the lobby data change via a [LobbyDataUpdate_t](https://partner.steamgames.com/doc/api/ISteamMatchmaking#LobbyDataUpdate_t) callback, and any new users joining will receive any existing data.
+ * 
+ * This will only send the data if it has changed. There is a slight delay before sending the data so you can call this repeatedly to set all the data you need to and it will automatically be batched up and sent after the last sequential call.
  *
  * @param {Real} lobby_id The Steam ID of the lobby to set the metadata for.
  * @param {String} key The key to set the data for. This can not be longer than the maximum lobby key length.
@@ -7403,6 +7788,8 @@
  * @description > **Steamworks Function**: [ISteamMatchmaking::GetLobbyData](https://partner.steamgames.com/doc/api/ISteamMatchmaking#GetLobbyData)
  *
  * This function gets the metadata associated with the specified key from the specified lobby.
+ * 
+ * [[Note: This can only get metadata from lobbies that the client knows about, either after receiving a list of lobbies from [LobbyMatchList_t](https://partner.steamgames.com/doc/api/ISteamMatchmaking#LobbyMatchList_t), retrieving the data with ${function.steam_matchmaking_request_lobby_data} or after joining a lobby.]]
  *
  * @param {Real} lobby_id The Steam ID of the lobby to get the metadata from.
  * @param {String} key The key to get the value of.
@@ -7415,6 +7802,10 @@
  * @description > **Steamworks Function**: [ISteamMatchmaking::DeleteLobbyData](https://partner.steamgames.com/doc/api/ISteamMatchmaking#DeleteLobbyData)
  *
  * This function removes a metadata key from the lobby.
+ * 
+ * This can only be done by the owner of the lobby.
+ * 
+ * This will only send the data if the key existed. There is a slight delay before sending the data so you can call this repeatedly to set all the data you need to and it will automatically be batched up and sent after the last sequential call.
  *
  * @param {Real} lobby_id The Steam ID of the lobby to delete the metadata for.
  * @param {String} key The key to delete the data for.
@@ -7427,6 +7818,12 @@
  * @description > **Steamworks Function**: [ISteamMatchmaking::GetLobbyDataCount](https://partner.steamgames.com/doc/api/ISteamMatchmaking#GetLobbyDataCount)
  *
  * This function gets the number of metadata keys set on the specified lobby.
+ * 
+ * This is used for iteration, after calling this then ${function.steam_matchmaking_get_lobby_data_by_index} can be used to get the key/value pair of each piece of metadata.
+ * 
+ * [[Note: This can only get metadata from lobbies that the client knows about, either after receiving a list of lobbies from [LobbyMatchList_t](https://partner.steamgames.com/doc/api/ISteamMatchmaking#LobbyMatchList_t), retrieving the data with ${function.steam_matchmaking_request_lobby_data} or after joining a lobby.]]
+ * 
+ * [[Note: This should typically only ever be used for debugging purposes.]]
  *
  * @param {Real} lobby_id The Steam ID of the lobby to get the data count from.
  * @returns {Real} 
@@ -7438,6 +7835,8 @@
  * @description > **Steamworks Function**: [ISteamMatchmaking::GetLobbyDataByIndex](https://partner.steamgames.com/doc/api/ISteamMatchmaking#GetLobbyDataByIndex)
  *
  * This function gets a lobby metadata key/value pair by index.
+ * 
+ * [[Note: You must call ${function.steam_matchmaking_get_lobby_data_count} before calling this.]]
  *
  * @param {Real} lobby_id This MUST be the same lobby used in the previous call to ${function.steam_matchmaking_get_lobby_data_count}.
  * @param {Real} index An index between 0 and the lobby data count.
@@ -7454,10 +7853,24 @@
  * @description > **Steamworks Function**: [ISteamMatchmaking::SetLobbyMemberData](https://partner.steamgames.com/doc/api/ISteamMatchmaking#SetLobbyMemberData)
  *
  * This function sets per-user metadata for the local user.
+ * 
+ * Each user in the lobby will be receive notification of the lobby data change via a [LobbyDataUpdate_t](https://partner.steamgames.com/doc/api/ISteamMatchmaking#LobbyDataUpdate_t) callback, and any new users joining will receive any existing data.
+ * 
+ * There is a slight delay before sending the data so you can call this repeatedly to set all the data you need to and it will automatically be batched up and sent after the last sequential call.
  *
  * @param {Real} lobby_id The Steam ID of the lobby to set our metadata in.
  * @param {String} key The key to set the data for. This can not be longer than the maximum lobby key length.
  * @param {String} value The value to set. This can not be longer than the maximum chat metadata size.
+ * 
+ * @event callback
+ * @description **Steamworks Callback**: [ISteamMatchmaking::LobbyDataUpdate_t](https://partner.steamgames.com/doc/api/ISteamMatchmaking#LobbyDataUpdate_t)
+ * 
+ * Triggered when the lobby metadata has changed.
+ * 
+ * @member {Real} steam_id_lobby The Steam ID of the Lobby.
+ * @member {Real} steam_id_member Steam ID of either the member whose data changed, or the room itself.
+ * @member {Bool} success `true` if the lobby data was successfully changed, otherwise `false`.
+ * @event_end
  * @function_end 
  */
 
@@ -7466,6 +7879,8 @@
  * @description > **Steamworks Function**: [ISteamMatchmaking::GetLobbyMemberData](https://partner.steamgames.com/doc/api/ISteamMatchmaking#GetLobbyMemberData)
  *
  * This function gets per-user metadata from another player in the specified lobby.
+ * 
+ * This can only be queried from members in lobbies that you are currently in.
  *
  * @param {Real} lobby_id The Steam ID of the lobby that the other player is in.
  * @param {Real} member_id The Steam ID of the player to get the metadata from.
@@ -7479,11 +7894,30 @@
  * @description > **Steamworks Function**: [ISteamMatchmaking::SendLobbyChatMsg](https://partner.steamgames.com/doc/api/ISteamMatchmaking#SendLobbyChatMsg)
  *
  * This function broadcasts a chat (text or binary data) message to the all of the users in the lobby.
+ * 
+ * All users in the lobby (including the local user) will receive a [LobbyChatMsg_t](https://partner.steamgames.com/doc/api/ISteamMatchmaking#LobbyChatMsg_t) callback with the message.
+ * 
+ * If you're sending binary data, you should prefix a header to the message so that you know to treat it as your custom data rather than a plain old text message.
+ * 
+ * For communication that needs to be arbitrated (for example having a user pick from a set of characters, and making sure only one user has picked a character), you can use the lobby owner as the decision maker. ${function.steam_matchmaking_get_lobby_owner} returns the current lobby owner. There is guaranteed to always be one and only one lobby member who is the owner. So for the choose-a-character scenario, the user who is picking a character would send the binary message 'I want to be Zoe', the lobby owner would see that message, see if it was OK, and broadcast the appropriate result (user X is Zoe).
+ * 
+ * These messages are sent via the Steam back-end, and so the bandwidth available is limited. For higher-volume traffic like voice or game data, you'll want to use the [Steam Networking API](https://partner.steamgames.com/doc/features/multiplayer/networking) (${module.networking}).
  *
  * @param {Real} lobby_id The Steam ID of the lobby to send the chat message to.
  * @param {Buffer} msg The buffer holding the message data to send. This can be text or binary data, up to 4 kilobytes in size.
  * @param {Real} bytes The size in bytes of the message data; if it is a text message then this should include the null terminator.
- * @returns {Bool} 
+ * @returns {Bool}
+ * 
+ * @event callback
+ * @description **Steamworks Callback**: [ISteamMatchmaking::LobbyChatMsg_t](https://partner.steamgames.com/doc/api/ISteamMatchmaking#LobbyChatMsg_t)
+ * 
+ * Triggered when chat (text or binary) message for this lobby has been received.
+ * 
+ * @member {Real} steam_id_lobby The Steam ID of the lobby this message was sent in.
+ * @member {Real} steam_id_user Steam ID of the user who sent this message. Note that it could have been the local user.
+ * @member {Enum.SteamFriendsChatEntryType} Type of message received.
+ * @member chat_id The index of the chat entry to use with ${function.steam_matchmaking_get_lobby_chat_entry}, this is not valid outside of the scope of this callback and should never be stored.
+ * @event_end
  * @function_end 
  */
 
@@ -7516,9 +7950,21 @@
  * @description > **Steamworks Function**: [ISteamMatchmaking::RequestLobbyData](https://partner.steamgames.com/doc/api/ISteamMatchmaking#RequestLobbyData)
  *
  * This function refreshes all of the metadata for a lobby that you're not in right now.
+ * 
+ * You will never do this for lobbies you're a member of, that data will always be up to date. You can use this to refresh lobbies that you have obtained from ${function.steam_matchmaking_request_lobby_list} or that are available via friends.
  *
  * @param {Real} steam_id_lobby The Steam ID of the lobby to refresh the metadata of.
- * @returns {Bool} 
+ * @returns {Bool}
+ * 
+ * @event callback
+ * @description **Steamworks Callback**: [ISteamMatchmaking::LobbyDataUpdate_t](https://partner.steamgames.com/doc/api/ISteamMatchmaking#LobbyDataUpdate_t)
+ * 
+ * Triggered when the lobby metadata has changed.
+ * 
+ * @member {Real} steam_id_lobby The Steam ID of the Lobby.
+ * @member {Real} steam_id_member Steam ID of either the member whose data changed, or the room itself.
+ * @member {Bool} success `true` if the lobby data was successfully changed, otherwise `false`.
+ * @event_end
  * @function_end 
  */
 
@@ -7526,7 +7972,11 @@
  * @function steam_matchmaking_set_lobby_joinable
  * @description > **Steamworks Function**: [ISteamMatchmaking::SetLobbyJoinable](https://partner.steamgames.com/doc/api/ISteamMatchmaking#SetLobbyJoinable)
  *
- * This function sets whether or not a lobby is joinable by other players.
+ * This function sets whether or not a lobby is joinable by other players. This always defaults to enabled for a new lobby.
+ * 
+ * If joining is disabled, then no players can join, even if they are a friend or have been invited.
+ * 
+ * Lobbies with joining disabled will not be returned from a lobby search.
  *
  * @param {Real} steam_id_lobby The Steam ID of the lobby.
  * @param {Bool} joinable Enable (true) or disable (false) allowing users to join this lobby.
@@ -7551,11 +8001,28 @@
  * @description > **Steamworks Function**: [ISteamMatchmaking::SetLobbyGameServer](https://partner.steamgames.com/doc/api/ISteamMatchmaking#SetLobbyGameServer)
  *
  * This function sets the game server associated with the lobby.
+ * 
+ * This can only be set by the owner of the lobby.
+ * 
+ * Either the IP/Port or the Steam ID of the game server must be valid, depending on how you want the clients to be able to connect.
+ * 
+ * A [LobbyGameCreated_t](https://partner.steamgames.com/doc/api/ISteamMatchmaking#LobbyGameCreated_t) callback will be sent to all players in the lobby, usually at this point, the users will join the specified game server.
  *
  * @param {Real} steam_id_lobby The Steam ID of the lobby to set the game server information for.
  * @param {Real} ip Sets the IP address of the game server, in host order, i.e 127.0.0.1 == 0x7f000001.
  * @param {Real} port Sets the connection port of the game server, in host order.
  * @param {Real} steam_id_gs Sets the Steam ID of the game server. Use a nil Steam ID if you're not setting this.
+ * 
+ * @event callback
+ * @description **Steamworks Callback**: [ISteamMatchmaking::LobbyGameCreated_t](https://partner.steamgames.com/doc/api/ISteamMatchmaking#LobbyGameCreated_t)
+ * 
+ * Triggered when a game server has been set via ${function.steam_matchmaking_set_lobby_game_server} for all of the members of the lobby to join.
+ * 
+ * @member {Real} steam_id_lobby The lobby that set the game server.
+ * @member {Real} steam_id_game_server The Steam ID of the game server, if it's set.
+ * @member {Real} ip The IP address of the game server in host order, i.e 127.0.0.1 == 0x7f000001, if it's set.
+ * @member {Real} port The connection port of the game server, in host order, if it's set.
+ * @event_end
  * @function_end 
  */
 
@@ -7563,7 +8030,7 @@
  * @function steam_matchmaking_set_linked_lobby
  * @description > **Steamworks Function**: [ISteamMatchmaking::SetLinkedLobby](https://partner.steamgames.com/doc/api/ISteamMatchmaking#SetLinkedLobby)
  *
- * This function links two lobbies for the purposes of checking player compatibility using the frenemy system.
+ * This function links two lobbies for the purposes of checking player compatibility using the frenemy system. The connection port of the game server, in host order, if it's set.
  *
  * @param {Real} steam_id_lobby The Steam ID of the primary lobby.
  * @param {Real} steam_id_lobby_dependent The Steam ID that will be linked to the primary lobby.
@@ -7576,6 +8043,8 @@
  * @description > **Steamworks Function**: [ISteamMatchmaking::GetLobbyGameServer](https://partner.steamgames.com/doc/api/ISteamMatchmaking#GetLobbyGameServer)
  *
  * This function gets the details of a game server set in a lobby.
+ * 
+ * Either the IP/Port or the Steam ID of the game server has to be valid, depending on how you want the clients to be able to connect.
  *
  * @param {Real} steam_id_lobby The Steam ID of the lobby to get the game server information from.
  * @returns {Struct.SteamMatchmakingLobbyGameServer} 
@@ -7586,7 +8055,9 @@
  * @function steam_networking_messages_set_callback_session_request
  * @description > **Steamworks Function**: N / A
  *
- * This function 
+ * This function sets the function to be called when a remote host is sending us a message, and we do not already have a session with them.
+ * 
+ * See: [ISteamNetworkingMessages::SteamNetworkingMessagesSessionRequest_t](https://partner.steamgames.com/doc/api/ISteamNetworkingMessages#SteamNetworkingMessagesSessionRequest_t)
  *
  * @param {Function} callback The function to be called when a session request event occurs.
  * @function_end 
@@ -7596,7 +8067,7 @@
  * @function steam_networking_messages_clear_callback_session_request
  * @description > **Steamworks Function**: N / A
  *
- * This function 
+ * This function clears the callback function previously set using ${function.steam_networking_messages_set_callback_session_request}.
  *
  * @function_end 
  */
@@ -7605,7 +8076,9 @@
  * @function steam_networking_messages_set_callback_session_failed
  * @description > **Steamworks Function**: N / A
  *
- * This function 
+ * This function sets the function to be called when we fail to establish a connection, or we detect that communications have been disrupted in an unusual way. There is no notification when a peer proactively closes the session. ("Closed by peer" is not a concept of UDP-style communications, and ISteamNetworkingMessages is primarily intended to make porting UDP code easy.)
+ * 
+ * See: [ISteamNetworkingMessages::SteamNetworkingMessagesSessionFailed_t](https://partner.steamgames.com/doc/api/ISteamNetworkingMessages#SteamNetworkingMessagesSessionFailed_t)
  *
  * @param {Function} callback The function to be called when a session failed event occurs.
  * @function_end 
@@ -7615,7 +8088,11 @@
  * @function steam_networking_messages_clear_callback_session_failed
  * @description > **Steamworks Function**: N / A
  *
- * This function 
+ * This function clears the callback function previously set using ${function.steam_networking_messages_set_callback_session_failed}.
+ * 
+ * Sending a message to a host will also implicitly accept any incoming connection from that host.
+ * 
+ * It is guaranteed that reliable messages to the same host on the same channel will be be received by the remote host (if they are received at all) exactly once, and in the same order that they were sent.
  *
  * @function_end 
  */
@@ -7624,14 +8101,16 @@
  * @function steam_networking_messages_send_message_to_user
  * @description > **Steamworks Function**: [ISteamNetworkingMessages::SendMessageToUser](https://partner.steamgames.com/doc/api/ISteamNetworkingMessages#SendMessageToUser)
  *
- * This function sends a message to the specified host. If we don't already have a session with that user, a session is implicitly created.
+ * This function sends a message to the specified host. If we don't already have a session with that user, a session is implicitly created. There might be some handshaking that needs to happen before we can actually begin sending message data. If this handshaking fails and we can't get through, an error will be posted via the callback [SteamNetworkingMessagesSessionFailed_t](https://partner.steamgames.com/doc/api/ISteamNetworkingMessages#SteamNetworkingMessagesSessionFailed_t).
+ * 
+ * Sending a message to a host will also implicitly accept any incoming connection from that host.
  *
  * @param {Real} steam_id_remote The identity of the host to send the message to; if a session does not already exist with that user, one is implicitly created.
  * @param {Buffer} data The buffer holding the message data to send.
  * @param {Real} bytes The size of the data to send, in bytes.
- * @param {Real} send_flags A bitmask of k_nSteamNetworkingSend_xxx options that determine the delivery guarantees for the message.
+ * @param {Real} send_flags A bitmask of ${Enum.SteamNetworkingSendFlags} options that determine the delivery guarantees for the message.
  * @param {Real} remote_channel A routing channel number you can use to help route the message to different systems on the remote host.
- * @returns {Real} 
+ * @returns {Real} The number of messages returned into your list. (0 if no message are available on that channel.)
  * @function_end 
  */
 
@@ -7639,7 +8118,7 @@
  * @function steam_networking_messages_receive_one_on_channel
  * @description > **Steamworks Function**: [ISteamNetworkingMessages::ReceiveMessagesOnChannel](https://partner.steamgames.com/doc/api/ISteamNetworkingMessages#ReceiveMessagesOnChannel)
  *
- * This function reads the next message that has been sent from another user via SendMessageToUser() on the given channel.
+ * This function reads the next message that has been sent from another user via ${function.steam_networking_messages_send_message_to_user} on the given channel. 
  *
  * @param {Real} local_channel The channel to read messages from (must match the channel used when sending).
  * @param {Buffer} out_data The buffer into which the received message data will be written.
@@ -7653,7 +8132,11 @@
  * @function steam_networking_messages_accept_session_with_user
  * @description > **Steamworks Function**: [ISteamNetworkingMessages::AcceptSessionWithUser](https://partner.steamgames.com/doc/api/ISteamNetworkingMessages#AcceptSessionWithUser)
  *
- * This function is called in response to a SteamNetworkingMessagesSessionRequest_t callback, which is posted when a user attempts to message you first.
+ * This function is called in response to a [SteamNetworkingMessagesSessionRequest_t](https://partner.steamgames.com/doc/api/ISteamNetworkingMessages#SteamNetworkingMessagesSessionRequest_t) callback, which is posted when a user attempts to message you first.
+ * 
+ * SteamNetworkingMessagesSessionRequest_t are posted when a user tries to send you a message, and you haven't tried to talk to them first. If you don't want to talk to them, just ignore the request. If the user continues to send you messages, SteamNetworkingMessagesSessionRequest_t callbacks will continue to be posted periodically.
+ * 
+ * Calling ${function.steam_networking_messages_send_message_to_user} will implicitly accept any pending session request to that user.
  *
  * @param {Real} steam_id_remote The identity of the remote user whose session request you are accepting.
  * @returns {Bool} 
@@ -7664,7 +8147,9 @@
  * @function steam_networking_messages_close_session_with_user
  * @description > **Steamworks Function**: [ISteamNetworkingMessages::CloseSessionWithUser](https://partner.steamgames.com/doc/api/ISteamNetworkingMessages#CloseSessionWithUser)
  *
- * This function is called when you're done talking to a user to immediately free up resources under-the-hood.
+ * This function is called when you're done talking to a user on a specific channel to immediately free up resources under-the-hood. If the remote user tries to send data to you again, another [SteamNetworkingMessagesSessionRequest_t](https://partner.steamgames.com/doc/api/ISteamNetworkingMessages#SteamNetworkingMessagesSessionRequest_t) callback will be posted.
+ * 
+ * Note that sessions that go unused for a few minutes are automatically timed out.
  *
  * @param {Real} steam_id_remote The identity of the remote user whose session you want to close.
  * @returns {Bool} 
@@ -7675,7 +8160,7 @@
  * @function steam_networking_messages_close_channel_with_user
  * @description > **Steamworks Function**: [ISteamNetworkingMessages::CloseChannelWithUser](https://partner.steamgames.com/doc/api/ISteamNetworkingMessages#CloseChannelWithUser)
  *
- * This function is called when you're done talking to a user on a specific channel.
+ * This function is called when you're done talking to a user on a specific channel. Once all open channels to a user have been closed, the open session to the user will be closed, and any new data from this user will trigger a [SteamNetworkingMessagesSessionRequest_t](https://partner.steamgames.com/doc/api/ISteamNetworkingMessages#SteamNetworkingMessagesSessionRequest_t) callback.
  *
  * @param {Real} steam_id_remote The identity of the remote user whose channel you want to close.
  * @param {Real} local_channel The specific channel to close with the user.
@@ -7687,7 +8172,9 @@
  * @function steam_networking_sockets_set_callback_connection_status_changed
  * @description > **Steamworks Function**: N / A
  *
- * This function 
+ * This function sets the function to be called whenever a connection is created, destroyed, or changes state.
+ * 
+ * See: [ISteamNetworkingSockets::SteamNetConnectionStatusChangedCallback_t](https://partner.steamgames.com/doc/api/ISteamNetworkingSockets#SteamNetConnectionStatusChangedCallback_t)
  *
  * @param {Function} callback The function to be called when the connection status changes.
  * @function_end 
@@ -7697,7 +8184,7 @@
  * @function steam_networking_sockets_clear_callback_connection_status_changed
  * @description > **Steamworks Function**: N / A
  *
- * This function 
+ * This function clears the callback function previously set using ${function.steam_networking_sockets_set_callback_connection_status_changed}.
  *
  * @function_end 
  */
@@ -7706,10 +8193,21 @@
  * @function steam_networking_sockets_create_listen_socket_ip
  * @description > **Steamworks Function**: [ISteamNetworkingSockets::CreateListenSocketIP](https://partner.steamgames.com/doc/api/ISteamNetworkingSockets#CreateListenSocketIP)
  *
- * This function creates a "server" socket that listens for clients to connect to by calling ConnectByIPAddress, over ordinary UDP (IPv4 or IPv6).
+ * This function creates a "server" socket that listens for clients to connect to by calling ${function.steam_networking_sockets_connect_by_ip_address}, over ordinary UDP (IPv4 or IPv6).
+ * 
+ * You must select a specific local port to listen on and set it as the port field of the local address.
+ * 
+ * When a client attempts to connect, a [SteamNetConnectionStatusChangedCallback_t](https://partner.steamgames.com/doc/api/ISteamNetworkingSockets#SteamNetConnectionStatusChangedCallback_t) will be posted. The connection will be in the `SteamNetworkingConnectionState.Connecting` state.
  *
  * @param {Real} port The local port to bind the listen socket to.
- * @returns {Real} 
+ * @returns {Real}
+ * 
+ * @event callback
+ * @description **Steamworks Callback**: [ISteamNetworkingSockets::SteamNetConnectionStatusChangedCallback_t](https://partner.steamgames.com/doc/api/ISteamNetworkingSockets#SteamNetConnectionStatusChangedCallback_t)
+ * 
+ * Triggered whenever a connection is created, destroyed, or changes state.
+ * 
+ * @event_end
  * @function_end 
  */
 
@@ -7717,7 +8215,7 @@
  * @function steam_networking_sockets_close_listen_socket
  * @description > **Steamworks Function**: [ISteamNetworkingSockets::CloseListenSocket](https://partner.steamgames.com/doc/api/ISteamNetworkingSockets#CloseListenSocket)
  *
- * This function destroys a listen socket.
+ * This function destroys a listen socket. All the connections that were accepted on the listen socket are closed ungracefully.
  *
  * @param {Real} listen_socket The listen socket to destroy; all connections accepted on it are closed ungracefully.
  * @returns {Bool} 
@@ -7728,7 +8226,9 @@
  * @function steam_networking_sockets_connect_by_ip_address
  * @description > **Steamworks Function**: [ISteamNetworkingSockets::ConnectByIPAddress](https://partner.steamgames.com/doc/api/ISteamNetworkingSockets#ConnectByIPAddress)
  *
- * This function creates a connection and begins talking to a "server" over UDP at the given IPv4 or IPv6 address.
+ * This function creates a connection and begins talking to a "server" over UDP at the given IPv4 or IPv6 address. The remote host must be listening with a matching call to ${function.steam_networking_sockets_create_listen_socket_ip} on the specified port.
+ * 
+ * A [SteamNetConnectionStatusChangedCallback_t](https://partner.steamgames.com/doc/api/ISteamNetworkingSockets#SteamNetConnectionStatusChangedCallback_t) callback will be triggered when we start connecting, and then another one on either timeout or successful connection.
  *
  * @param {String} ip The IPv4 or IPv6 address of the server to connect to.
  * @param {Real} port The port of the server to connect to.
@@ -7741,6 +8241,8 @@
  * @description > **Steamworks Function**: [ISteamNetworkingSockets::AcceptConnection](https://partner.steamgames.com/doc/api/ISteamNetworkingSockets#AcceptConnection)
  *
  * This function accepts an incoming connection that has been received on a listen socket.
+ * 
+ * When a connection attempt is received (perhaps after a few basic handshake packets have been exchanged to prevent trivial spoofing), a connection interface object is created in the `SteamNetworkingConnectionState.Connecting` state and a [SteamNetConnectionStatusChangedCallback_t](https://partner.steamgames.com/doc/api/ISteamNetworkingSockets#SteamNetConnectionStatusChangedCallback_t) is posted. At this point, your application MUST either accept or close the connection. (It may not ignore it.) Accepting the connection will transition it either into the connected state, or the finding route state, depending on the connection type.
  *
  * @param {Real} conn The handle of the incoming connection to accept.
  * @returns {Real} 
@@ -7751,7 +8253,9 @@
  * @function steam_networking_sockets_close_connection
  * @description > **Steamworks Function**: [ISteamNetworkingSockets::CloseConnection](https://partner.steamgames.com/doc/api/ISteamNetworkingSockets#CloseConnection)
  *
- * This function disconnects from the remote host and invalidates the connection handle.
+ * This function disconnects from the remote host and invalidates the connection handle. Any unread data on the connection is discarded.
+ * 
+ * If the connection has already ended (`SteamNetworkingConnectionState.ClosedByPeer` or `SteamNetworkingConnectionState.ProblemDetectedLocally`) and you are just freeing up the connection object, then `reason`, `debug` and `linger` are ignored.
  *
  * @param {Real} conn The connection to disconnect.
  * @param {Real} reason An application-defined code that will be received on the other end and recorded for diagnostic purposes.
@@ -7780,7 +8284,7 @@
  * This function fetches connection user data.
  *
  * @param {Real} conn The connection handle whose user data you want to fetch.
- * @returns {Real} 
+ * @returns {Real} The user data value, or -1 if the handle is invalid or if you haven't set any userdata on the connection
  * @function_end 
  */
 
@@ -7799,10 +8303,10 @@
  * @function steam_networking_sockets_get_connection_name
  * @description > **Steamworks Function**: [ISteamNetworkingSockets::GetConnectionName](https://partner.steamgames.com/doc/api/ISteamNetworkingSockets#GetConnectionName)
  *
- * This function fetches the connection name into your buffer.
+ * This function fetches the connection name.
  *
  * @param {Real} conn The connection handle whose name you want to fetch.
- * @returns {String} 
+ * @returns {String} The connection name, or an empty string `""` if the handle is invalid
  * @function_end 
  */
 
@@ -7825,6 +8329,8 @@
  * @description > **Steamworks Function**: [ISteamNetworkingSockets::FlushMessagesOnConnection](https://partner.steamgames.com/doc/api/ISteamNetworkingSockets#FlushMessagesOnConnection)
  *
  * This function flushes any messages waiting on the Nagle timer and sends them at the next transmission opportunity.
+ * 
+ * If Nagle is enabled (it's on by default) then when calling ${function.steam_networking_sockets_send_message_to_connection} the message will be buffered, up to the Nagle time before being sent, to merge small messages into the same packet. (See `k_ESteamNetworkingConfig_NagleTime`)
  *
  * @param {Real} conn The connection whose Nagle-buffered messages should be flushed.
  * @returns {Real} 
@@ -7835,7 +8341,11 @@
  * @function steam_networking_sockets_receive_one_on_connection
  * @description > **Steamworks Function**: [ISteamNetworkingSockets::ReceiveMessagesOnConnection](https://partner.steamgames.com/doc/api/ISteamNetworkingSockets#ReceiveMessagesOnConnection)
  *
- * This function fetches the next available message(s) from the connection, if any.
+ * This function fetches the next available message from the connection, if any.
+ * 
+ * The order of the messages returned in the array is relevant. Reliable messages will be received in the order they were sent.
+ * 
+ * Unreliable messages may be dropped, or delivered out of order with respect to each other or with respect to reliable messages.
  *
  * @param {Real} conn The connection to read messages from.
  * @param {Buffer} out_data The buffer into which the received message data will be written.
@@ -7860,10 +8370,10 @@
  * @function steam_networking_sockets_get_detailed_connection_status
  * @description > **Steamworks Function**: [ISteamNetworkingSockets::GetDetailedConnectionStatus](https://partner.steamgames.com/doc/api/ISteamNetworkingSockets#GetDetailedConnectionStatus)
  *
- * This function returns very detailed connection stats in diagnostic text format.
+ * This function returns very detailed connection stats in diagnostic text format. Useful for dumping to a log, etc. The format of this information is subject to change.
  *
  * @param {Real} conn The connection handle to query for detailed diagnostic status.
- * @returns {String} 
+ * @returns {String} Connection stats, or an empty string `""` on failure
  * @function_end 
  */
 
@@ -7871,7 +8381,7 @@
  * @function steam_networking_sockets_run_callbacks
  * @description > **Steamworks Function**: [ISteamNetworkingSockets::RunCallbacks](https://partner.steamgames.com/doc/api/ISteamNetworkingSockets#RunCallbacks)
  *
- * This function 
+ * This function runs the callbacks related to Steamworks' Networking Sockets functionality.
  *
  * @function_end 
  */
@@ -7880,7 +8390,11 @@
  * @function steam_networking_sockets_create_socket_pair
  * @description > **Steamworks Function**: [ISteamNetworkingSockets::CreateSocketPair](https://partner.steamgames.com/doc/api/ISteamNetworkingSockets#CreateSocketPair)
  *
- * This function creates a pair of connections that are talking to each other, e.g. a loopback connection.
+ * This function creates a pair of connections that are talking to each other, e.g. a loopback connection. This is very useful for testing, or so that your client/server code can work the same even when you are running a local "server".
+ * 
+ * The two connections will immediately be placed into the connected state, and no callbacks will be posted immediately. After this, if you close either connection, the other connection will receive a callback, exactly as if they were communicating over the network. You must close *both* sides in order to fully clean up the resources!
+ * 
+ * Both connections will assume a generic "localhost" identity.
  *
  * @param {Bool} use_network_loopback If true, traffic is sent through the local loopback (127.0.0.1), supporting simulated lag and loss; otherwise internal buffers are used.
  * @returns {Array[Real]} 
@@ -7891,7 +8405,7 @@
  * @function steam_networking_sockets_create_listen_socket_p2p
  * @description > **Steamworks Function**: [ISteamNetworkingSockets::CreateListenSocketP2P](https://partner.steamgames.com/doc/api/ISteamNetworkingSockets#CreateListenSocketP2P)
  *
- * This function works like CreateListenSocketIP, but the clients connect using ConnectP2P, with the traffic relayed through the Valve network.
+ * This function works like ${function.steam_networking_sockets_create_listen_socket_ip}, but the clients connect using ${function.steam_networking_sockets_connect_p2p}, with the traffic relayed through the Valve network.
  *
  * @param {Real} local_virtual_port The local virtual port that specifies how clients can connect to this socket using ConnectP2P; use zero for a single socket.
  * @returns {Real} 
@@ -7914,7 +8428,7 @@
  * @function steam_networking_sockets_get_listen_socket_address
  * @description > **Steamworks Function**: [ISteamNetworkingSockets::GetListenSocketAddress](https://partner.steamgames.com/doc/api/ISteamNetworkingSockets#GetListenSocketAddress)
  *
- * This function returns the local IP and port that a listen socket created via CreateListenSocketIP is bound to.
+ * This function returns the local IP and port that a listen socket created via ${function.steam_networking_sockets_create_listen_socket_ip} is bound to.
  *
  * @param {Real} listen_socket The listen socket whose bound local IP and port you want to retrieve.
  * @returns {String} 
@@ -7926,8 +8440,10 @@
  * @description > **Steamworks Function**: [ISteamNetworkingSockets::CreatePollGroup](https://partner.steamgames.com/doc/api/ISteamNetworkingSockets#CreatePollGroup)
  *
  * This function creates a new poll group.
+ * 
+ * You should destroy the poll group when you are done using ${function.steam_networking_sockets_destroy_poll_group}.
  *
- * @returns {Real} 
+ * @returns {Real} The poll group handle
  * @function_end 
  */
 
@@ -7935,7 +8451,9 @@
  * @function steam_networking_sockets_destroy_poll_group
  * @description > **Steamworks Function**: [ISteamNetworkingSockets::DestroyPollGroup](https://partner.steamgames.com/doc/api/ISteamNetworkingSockets#DestroyPollGroup)
  *
- * This function destroys a poll group created with CreatePollGroup.
+ * This function destroys a poll group created with ${function.steam_networking_sockets_create_poll_group}.
+ * 
+ * If there are any connections in the poll group, they are removed from the group, and left in a state where they are not part of any poll group. Returns `false` if passed an invalid poll group handle.
  *
  * @param {Real} poll_group The poll group to destroy.
  * @returns {Bool} 
@@ -7946,8 +8464,10 @@
  * @function steam_networking_sockets_set_connection_poll_group
  * @description > **Steamworks Function**: [ISteamNetworkingSockets::SetConnectionPollGroup](https://partner.steamgames.com/doc/api/ISteamNetworkingSockets#SetConnectionPollGroup)
  *
- * This function assigns a connection to a poll group.
- *
+ * This function assigns a connection to a poll group. Note that a connection may only belong to a single poll group. Adding a connection to a poll group implicitly removes it from any other poll group it is in.
+ * 
+ * 
+ * 
  * @param {Real} conn The connection to assign to the poll group.
  * @param {Real} poll_group The target poll group; pass an invalid handle to remove the connection from any group.
  * @returns {Bool} 
@@ -7959,7 +8479,13 @@
  * @description > **Steamworks Function**: [ISteamNetworkingSockets::ReceiveMessagesOnPollGroup](https://partner.steamgames.com/doc/api/ISteamNetworkingSockets#ReceiveMessagesOnPollGroup)
  *
  * This function works like ReceiveMessagesOnConnection, but it returns messages from any connection in the poll group.
- *
+ * 
+ * You can pass k_HSteamNetPollGroup_Invalid to remove a connection from its current poll group without adding it to a new poll group.
+ * 
+ * If there are received messages currently pending on the connection, an attempt is made to add them to the queue of messages for the poll group in approximately the order that would have applied if the connection was already part of the poll group at the time that the messages were received.
+ * 
+ * Returns `false` if the connection handle is invalid, or if the poll group handle is invalid (and not k_HSteamNetPollGroup_Invalid).
+ * 
  * @param {Real} poll_group The poll group to read messages from.
  * @param {Buffer} out_data The buffer into which the received message data will be written.
  * @param {Real} max_bytes The maximum number of bytes to read into the buffer.
@@ -7972,7 +8498,9 @@
  * @function steam_parties_set_callback_reservation_notification
  * @description > **Steamworks Function**: N / A
  *
- * This function 
+ * This function sets the function to be called by Steam when a user "follows" a previously created beacon. This lets you know that you should be prepared for the user to join your game.
+ * 
+ * See: [ISteamParties::ReservationNotificationCallback_t](https://partner.steamgames.com/doc/api/isteamparties#ReservationNotificationCallback_t)
  *
  * @param {Function} callback The function to be called when a reservation notification event occurs.
  * @function_end 
@@ -7982,7 +8510,7 @@
  * @function steam_parties_clear_callback_reservation_notification
  * @description > **Steamworks Function**: N / A
  *
- * This function 
+ * This function clears the callback function previously set using ${function.steam_parties_set_callback_reservation_notification}.
  *
  * @function_end 
  */
@@ -7991,7 +8519,9 @@
  * @function steam_parties_set_callback_available_beacon_locations_updated
  * @description > **Steamworks Function**: N / A
  *
- * This function 
+ * This function sets the function to be called when the list of available locations for posting a beacon has been updated.
+ * 
+ * See: [ISteamParties::AvailableBeaconLocationsUpdated_t](https://partner.steamgames.com/doc/api/isteamparties#AvailableBeaconLocationsUpdated_t)
  *
  * @param {Function} callback The function to be called when the available beacon locations are updated.
  * @function_end 
@@ -8001,7 +8531,7 @@
  * @function steam_parties_clear_callback_available_beacon_locations_updated
  * @description > **Steamworks Function**: N / A
  *
- * This function 
+ * This function clears the callback function previously set using ${function.steam_parties_set_callback_available_beacon_locations_updated}.
  *
  * @function_end 
  */
@@ -8009,9 +8539,11 @@
 /**
  * @function steam_parties_set_callback_active_beacons_updated
  * @description > **Steamworks Function**: N / A
- *
- * This function 
- *
+ * 
+ * This function sets the function to be called when the list of active beacons visible to the current user has changed.
+ * 
+ * See: [ISteamParties::ActiveBeaconsUpdated_t](https://partner.steamgames.com/doc/api/isteamparties#ActiveBeaconsUpdated_t)
+ * 
  * @param {Function} callback The function to be called when the active beacons are updated.
  * @function_end 
  */
@@ -8020,7 +8552,7 @@
  * @function steam_parties_clear_callback_active_beacons_updated
  * @description > **Steamworks Function**: N / A
  *
- * This function 
+ * This function clears the callback function previously set using ${function.steam_parties_set_callback_active_beacons_updated}.
  *
  * @function_end 
  */
@@ -8039,7 +8571,7 @@
  * @function steam_parties_get_available_beacon_locations
  * @description > **Steamworks Function**: [ISteamParties::GetAvailableBeaconLocations](https://partner.steamgames.com/doc/api/ISteamParties#GetAvailableBeaconLocations)
  *
- * This function gets the list of locations in which you can post a party beacon.
+ * This function gets the list of locations in which you can post a party beacon. 
  *
  * @returns {Struct.SteamPartiesAvailableBeaconLocations} 
  * @function_end 
@@ -8049,7 +8581,9 @@
  * @function steam_parties_create_beacon
  * @description > **Steamworks Function**: [ISteamParties::CreateBeacon](https://partner.steamgames.com/doc/api/ISteamParties#CreateBeacon)
  *
- * This function creates a beacon. You can only create one beacon at a time.
+ * This function creates a beacon. You can only create one beacon at a time. Steam will display the beacon in the specified location, and let up to `open_slots` users "follow" the beacon to your party.
+ * 
+ * If users join your party through other matchmaking, adjust the number of remaining open slots using ${function.steam_parties_change_num_open_slots}.
  *
  * @param {Real} open_slots The number of reservation slots to create for the beacon, normally the party size minus one.
  * @param {Enum.SteamPartiesBeaconLocationType} beacon_location_type The type of the beacon location, taken from one of the locations returned by ${function.steam_parties_get_available_beacon_locations}.
@@ -8089,7 +8623,7 @@
  * This function reduces the number of open slots that Steam is managing through the party beacon when a user joins your party through other matchmaking.
  *
  * @param {Real} beacon_id The beacon ID for the beacon created by your process.
- * @param {Real} open_slots The new number of open slots in your party.
+ * @param {Real} open_slots The new number of open slots in your party. This value represents the total number of *new* users that you would like Steam to send to your party.
  * @param {Function} [callback] The function to call upon completion.
  * @returns {Bool} 
  * @function_end 
@@ -8099,7 +8633,9 @@
  * @function steam_parties_destroy_beacon
  * @description > **Steamworks Function**: [ISteamParties::DestroyBeacon](https://partner.steamgames.com/doc/api/ISteamParties#DestroyBeacon)
  *
- * This function destroys the Steam party beacon.
+ * This function destroys the Steam party beacon. This will immediately cause Steam to stop showing the beacon in the target location. Note that any users currently in-flight may still arrive at your party expecting to join.
+ * 
+ * Your game should call this method when either the party has been filled and the game is beginning, or the user has decided to abandon creating a party. The beacon will be destroyed automatically when your game exits, but the preferred behavior is for the game to call ${function.steam_parties_destroy_beacon} at the right time.
  *
  * @param {Real} beacon_id The beacon ID to be destroyed.
  * @returns {Bool} 
@@ -8123,7 +8659,7 @@
  * This function is used with ${function.steam_parties_get_num_active_beacons} to iterate the active beacons visible to the current user.
  *
  * @param {Real} index The index of the beacon.
- * @returns {Real} 
+ * @returns {Real} Party beacon ID
  * @function_end 
  */
 
@@ -8142,7 +8678,7 @@
  * @function steam_parties_join_party
  * @description > **Steamworks Function**: [ISteamParties::JoinParty](https://partner.steamgames.com/doc/api/ISteamParties#JoinParty)
  *
- * This function is called when the user indicates they wish to join the party advertised by a given beacon.
+ * This function is called when the user indicates they wish to join the party advertised by a given beacon. On success, Steam will reserve a slot for this user in the party and return the necessary "join game" string to use to complete the connection.
  *
  * @param {Real} beacon_id The beacon ID for the party you wish to join.
  * @param {Function} [callback] The function to call upon completion.
@@ -8165,7 +8701,7 @@
  * @function steam_parties_get_beacon_location_data
  * @description > **Steamworks Function**: [ISteamParties::GetBeaconLocationData](https://partner.steamgames.com/doc/api/ISteamParties#GetBeaconLocationData)
  *
- * This function queries general metadata for the given beacon location.
+ * This function queries general metadata for the given beacon location. For instance the Name, or the URL for an icon if the location type supports icons (for example, the icon for a Steam Chat Room Group).
  *
  * @param {Enum.SteamPartiesBeaconLocationType} beacon_location_type The type of the beacon location to query.
  * @param {Real} beacon_location_id The location ID of the beacon location to query.
@@ -10203,324 +10739,324 @@
 
 /**
  * @enum SteamApiAccountType
- * @description > **Steamworks Enum**: [func](url)
+ * @description > **Steamworks Enum**: [EAccountType](https://partner.steamgames.com/doc/api/steam_api#EAccountType)
  *
- * This enum 
+ * This enum holds the different Steam account types.
  *
- * @member Invalid
- * @member Individual
- * @member Multiseat
- * @member GameServer
- * @member AnonGameServer
- * @member Pending
- * @member ContentServer
- * @member Clan
- * @member Chat
- * @member ConsoleUser
- * @member AnonUser
+ * @member Invalid Used for invalid Steam IDs.
+ * @member Individual Regular user account.
+ * @member Multiseat Multiseat (e.g. cybercafe) account.
+ * @member GameServer Persistent (not anonymous) game server account.
+ * @member AnonGameServer Anonymous game server account.
+ * @member Pending Pending.
+ * @member ContentServer Valve internal content server account.
+ * @member Clan Steam Group (clan).
+ * @member Chat Steam group chat or lobby.
+ * @member ConsoleUser Fake Steam ID for local PSN account on PS3 or Live account on 360, etc.
+ * @member AnonUser Anonymous user account. (Used to create an account or reset a password)
  * @enum_end 
  */
 
 /**
  * @enum SteamApiDenyReason
- * @description > **Steamworks Enum**: [func](url)
+ * @description > **Steamworks Enum**: [EDenyReason](https://partner.steamgames.com/doc/api/steam_api#EDenyReason)
  *
- * This enum 
+ * This enum holds the result values when a client failed to join or has been kicked from a game server.
  *
- * @member Invalid
- * @member InvalidVersion
- * @member Generic
- * @member NotLoggedOn
- * @member NoLicense
- * @member Cheater
- * @member LoggedInElsewhere
- * @member UnknownText
- * @member IncompatibleAnticheat
- * @member MemoryCorruption
- * @member IncompatibleSoftware
- * @member SteamConnectionLost
- * @member SteamConnectionError
- * @member SteamResponseTimedOut
- * @member SteamValidationStalled
- * @member SteamOwnerLeftGuestUser
+ * @member Invalid Unknown.
+ * @member InvalidVersion The client and server are not the same version.
+ * @member Generic Generic.
+ * @member NotLoggedOn The client is not logged on.
+ * @member NoLicense The client does not have a license to play this game.
+ * @member Cheater The client is VAC banned.
+ * @member LoggedInElsewhere The client is logged in elsewhere.
+ * @member UnknownText 
+ * @member IncompatibleAnticheat 
+ * @member MemoryCorruption 
+ * @member IncompatibleSoftware 
+ * @member SteamConnectionLost The server lost connection to Steam.
+ * @member SteamConnectionError The server had a general error connecting to Steam.
+ * @member SteamResponseTimedOut The server timed out connecting to Steam.
+ * @member SteamValidationStalled The client has not authed with Steam yet.
+ * @member SteamOwnerLeftGuestUser The owner of the shared game has left, called for each guest of the owner.
  * @enum_end 
  */
 
 /**
  * @enum SteamApiGameIdType
- * @description > **Steamworks Enum**: [func](url)
+ * @description > **Steamworks Enum**: [EGameIDType](https://partner.steamgames.com/doc/api/steam_api#EGameIDType)
  *
- * This enum 
+ * This enum holds the different types of game ID.
  *
- * @member App
- * @member GameMod
- * @member Shortcut
- * @member P2p
+ * @member App The Game ID is a regular Steam app.
+ * @member GameMod The Game ID is a mod.
+ * @member Shortcut The game ID is a shortcut.
+ * @member P2p The game ID is a P2P file.
  * @enum_end 
  */
 
 /**
  * @enum SteamApiLaunchOptionType
- * @description > **Steamworks Enum**: [func](url)
+ * @description > **Steamworks Enum**: [ELaunchOptionType](https://partner.steamgames.com/doc/api/steam_api#ELaunchOptionType)
  *
- * This enum 
+ * This enum contains codes for well defined launch options, corresponds to "Launch Type" in the applications Launch Options which can be found on the [General Installation Settings](https://partner.steamgames.com/apps/config/) page.
  *
- * @member None
- * @member Default
- * @member SafeMode
- * @member Multiplayer
- * @member Config
- * @member Openvr
- * @member Server
- * @member Editor
- * @member Manual
- * @member Benchmark
- * @member Option1
- * @member Option2
- * @member Option3
- * @member OculusVr
- * @member OpenvrOverlay
- * @member Osvr
- * @member Dialog
+ * @member None Unspecified.
+ * @member Default Runs the app in default mode.
+ * @member SafeMode Runs the game in safe mode.
+ * @member Multiplayer Runs the game in multiplayer mode.
+ * @member Config Runs config tool for this game.
+ * @member Openvr Runs game in VR mode using OpenVR.
+ * @member Server Runs dedicated server for this game.
+ * @member Editor Runs game editor.
+ * @member Manual Shows game manual.
+ * @member Benchmark Runs game benchmark.
+ * @member Option1 Generic run option, uses description field for game name.
+ * @member Option2 Generic run option, uses description field for game name.
+ * @member Option3 Generic run option, uses description field for game name.
+ * @member OculusVr Runs game in VR mode using the Oculus SDK.
+ * @member OpenvrOverlay Runs an OpenVR dashboard overlay.
+ * @member Osvr Runs game in VR mode using the OSVR SDK.
+ * @member Dialog Show launch options dialog.
  * @enum_end 
  */
 
 /**
  * @enum SteamApiMarketingMessageFlag
- * @description > **Steamworks Enum**: [func](url)
+ * @description > **Steamworks Enum**: [EMarketingMessageFlags](https://partner.steamgames.com/doc/api/steam_api#EMarketingMessageFlags)
  *
- * This enum 
+ * This enum holds internal Steam marketing message flags that change how a client should handle them.
  *
- * @member None
- * @member HighPriority
- * @member PlatformWindows
- * @member PlatformMac
- * @member PlatformLinux
- * @member PlatformRestrictions
+ * @member None None.
+ * @member HighPriority High priority.
+ * @member PlatformWindows Windows.
+ * @member PlatformMac Mac.
+ * @member PlatformLinux Linux.
+ * @member PlatformRestrictions Aggregate flags.
  * @enum_end 
  */
 
 /**
  * @enum SteamApiNotificationPosition
- * @description > **Steamworks Enum**: [func](url)
+ * @description > **Steamworks Enum**: [ENotificationPosition](https://partner.steamgames.com/doc/api/steam_api#ENotificationPosition)
  *
- * This enum 
+ * This enum holds the possible positions to have the overlay show notifications in.
  *
- * @member TopLeft
- * @member TopRight
- * @member BottomLeft
- * @member BottomRight
+ * @member TopLeft Top-left corner.
+ * @member TopRight Top-right corner.
+ * @member BottomLeft Bottom-left corner.
+ * @member BottomRight Bottom-right corner.
  * @enum_end 
  */
 
 /**
  * @enum SteamApiUniverse
- * @description > **Steamworks Enum**: [func](url)
+ * @description > **Steamworks Enum**: [EUniverse](https://partner.steamgames.com/doc/api/steam_api#EUniverse)
  *
- * This enum 
+ * This enum holds the different Steam universes. Each universe is a self-contained Steam instance.
  *
- * @member Invalid
- * @member Public
- * @member Beta
- * @member Internal
- * @member Dev
- * @member Max
+ * @member Invalid Invalid.
+ * @member Public The standard public universe.
+ * @member Beta Beta universe used inside Valve.
+ * @member Internal Internal universe used inside Valve.
+ * @member Dev Dev universe used inside Valve.
+ * @member Max 
  * @enum_end 
  */
 
 /**
  * @enum SteamApiUserHasLicenseResult
- * @description > **Steamworks Enum**: [func](url)
+ * @description > **Steamworks Enum**: [EUserHasLicenseForAppResult](partner.steamgames.com/doc/api/steam_api#EUserHasLicenseForAppResult)
  *
- * This enum 
+ * This enum holds the possible results of ${function.steam_user_user_has_license_for_app}.
  *
- * @member HasLicense
- * @member DoesNotHaveLicense
- * @member NoAuth
+ * @member HasLicense The user has a license for specified app.
+ * @member DoesNotHaveLicense The user does not have a license for the specified app.
+ * @member NoAuth The user has not been authenticated.
  * @enum_end 
  */
 
 /**
  * @enum SteamApiVoiceResult
- * @description > **Steamworks Enum**: [func](url)
+ * @description > **Steamworks Enum**: [EVoiceResult](https://partner.steamgames.com/doc/api/steam_api#EVoiceResult)
  *
- * This enum 
+ * This enum holds the possible results for use with the [Steam Voice](https://partner.steamgames.com/doc/features/voice) functions.
  *
- * @member Ok
- * @member NotInitialized
- * @member NotRecording
- * @member NoData
- * @member BufferTooSmall
- * @member DataCorrupted
- * @member Restricted
- * @member UnsupportedCodec
- * @member ReceiverOutOfDate
- * @member ReceiverDidNotAnswer
+ * @member Ok The call has completed successfully.
+ * @member NotInitialized The Steam Voice interface has not been initialized.
+ * @member NotRecording Steam Voice is not currently recording.
+ * @member NoData There is no voice data available.
+ * @member BufferTooSmall The provided buffer is too small to receive the data.
+ * @member DataCorrupted The voice data has been corrupted.
+ * @member Restricted The user is chat restricted.
+ * @member UnsupportedCodec Deprecated.
+ * @member ReceiverOutOfDate Deprecated.
+ * @member ReceiverDidNotAnswer Deprecated.
  * @enum_end 
  */
 
 /**
  * @enum SteamApiResult
- * @description > **Steamworks Enum**: [func](url)
+ * @description > **Steamworks Enum**: [EResult](partner.steamgames.com/doc/api/steam_api#EResult)
  *
- * This enum 
+ * This enum holds the possible Steam error result codes.
  *
- * @member Ok
- * @member Fail
- * @member NoConnection
- * @member InvalidPassword
- * @member LoggedInElsewhere
- * @member InvalidProtocolVer
- * @member InvalidParam
- * @member FileNotFound
- * @member Busy
- * @member InvalidState
- * @member InvalidName
- * @member InvalidEmail
- * @member DuplicateName
- * @member AccessDenied
- * @member Timeout
- * @member Banned
- * @member AccountNotFound
- * @member InvalidSteamId
- * @member ServiceUnavailable
- * @member NotLoggedOn
- * @member Pending
- * @member EncryptionFailure
- * @member InsufficientPrivilege
- * @member LimitExceeded
- * @member Revoked
- * @member Expired
- * @member AlreadyRedeemed
- * @member DuplicateRequest
- * @member AlreadyOwned
- * @member IpNotFound
- * @member PersistFailed
- * @member LockingFailed
- * @member LogonSessionReplaced
- * @member ConnectFailed
- * @member HandshakeFailed
- * @member IoFailure
- * @member RemoteDisconnect
- * @member ShoppingCartNotFound
- * @member Blocked
- * @member Ignored
- * @member NoMatch
- * @member AccountDisabled
- * @member ServiceReadOnly
+ * @member Ok Success.
+ * @member Fail Generic failure.
+ * @member NoConnection Your Steam client doesn't have a connection to the back-end.
+ * @member InvalidPassword Password/ticket is invalid.
+ * @member LoggedInElsewhere The user is logged in elsewhere.
+ * @member InvalidProtocolVer Protocol version is incorrect.
+ * @member InvalidParam A parameter is incorrect.
+ * @member FileNotFound File was not found.
+ * @member Busy Called method is busy - action not taken.
+ * @member InvalidState Called object was in an invalid state.
+ * @member InvalidName The name was invalid.
+ * @member InvalidEmail The email was invalid.
+ * @member DuplicateName The name is not unique.
+ * @member AccessDenied Access is denied.
+ * @member Timeout Operation timed out.
+ * @member Banned The user is VAC2 banned.
+ * @member AccountNotFound Account not found.
+ * @member InvalidSteamId The Steam ID was invalid.
+ * @member ServiceUnavailable The requested service is currently unavailable.
+ * @member NotLoggedOn The user is not logged on.
+ * @member Pending Request is pending, it may be in process or waiting on third party.
+ * @member EncryptionFailure Encryption or Decryption failed.
+ * @member InsufficientPrivilege Insufficient privilege.
+ * @member LimitExceeded Too much of a good thing.
+ * @member Revoked Access has been revoked (used for revoked guest passes.)
+ * @member Expired License/Guest pass the user is trying to access is expired.
+ * @member AlreadyRedeemed Guest pass has already been redeemed by account, cannot be used again.
+ * @member DuplicateRequest The request is a duplicate and the action has already occurred in the past, ignored this time.
+ * @member AlreadyOwned All the games in this guest pass redemption request are already owned by the user.
+ * @member IpNotFound IP address not found.
+ * @member PersistFailed Failed to write change to the data store.
+ * @member LockingFailed Failed to acquire access lock for this operation.
+ * @member LogonSessionReplaced The logon session has been replaced.
+ * @member ConnectFailed Failed to connect.
+ * @member HandshakeFailed The authentication handshake has failed.
+ * @member IoFailure There has been a generic IO failure.
+ * @member RemoteDisconnect The remote server has disconnected.
+ * @member ShoppingCartNotFound Failed to find the shopping cart requested.
+ * @member Blocked A user blocked the action.
+ * @member Ignored The target is ignoring sender.
+ * @member NoMatch Nothing matching the request found.
+ * @member AccountDisabled The account is disabled.
+ * @member ServiceReadOnly This service is not accepting content changes right now.
  * @enum_end 
  */
 
 /**
  * @enum SteamFriendsOverlayToStoreFlag
- * @description > **Steamworks Enum**: [func](url)
+ * @description > **Steamworks Enum**: [ISteamFriends::EOverlayToStoreFlag](https://partner.steamgames.com/doc/api/ISteamFriends#EOverlayToStoreFlag)
  *
- * This enum 
+ * This enum holds the values that can be passed as parameters to the store with ${function.steam_friends_activate_game_overlay_to_store} and modify the behaviour when the page opens.
  *
- * @member None
- * @member AddToCart
- * @member AddToCartAndShow
+ * @member None No.
+ * @member AddToCart Deprecated.
+ * @member AddToCartAndShow Add the specified app ID to the user's cart and show the store page.
  * @enum_end 
  */
 
 /**
  * @enum SteamFriendsOverlayToWebpageMode
- * @description > **Steamworks Enum**: [func](url)
+ * @description > **Steamworks Enum**: [ISteamFriends::EActivateGameOverlayToWebPageMode](https://partner.steamgames.com/doc/api/ISteamFriends#EActivateGameOverlayToWebPageMode)
  *
- * This enum 
+ * This enum holds the possible Game Overlay web page modes.
  *
- * @member Default
- * @member Modal
+ * @member Default Browser will open next to all other windows that the user has open in the overlay. The window will remain open, even if the user closes then re-opens the overlay.
+ * @member Modal Browser will be opened in a special overlay configuration which hides all other windows that the user has open in the overlay. When the user closes the overlay, the browser window will also close. When the user closes the browser window, the overlay will automatically close.
  * @enum_end 
  */
 
 /**
  * @enum SteamFriendsChatEntryType
- * @description > **Steamworks Enum**: [func](url)
+ * @description > **Steamworks Enum**: [EChatEntryType](https://partner.steamgames.com/doc/api/steam_api#EChatEntryType)
  *
- * This enum 
+ * This enum holds the possible chat entry types.
  *
- * @member Invalid
- * @member ChatMsg
- * @member Typing
- * @member InviteGame
- * @member Emote
- * @member LeftConversation
- * @member Entered
- * @member WasKicked
- * @member WasBanned
- * @member Disconnected
- * @member HistoricalChat
- * @member LinkBlocked
+ * @member Invalid Invalid.
+ * @member ChatMsg Normal text message from another user.
+ * @member Typing The other user is typing, not used in multi-user chat.
+ * @member InviteGame Invite from other user into that users current game.
+ * @member Emote Text emote message (Deprecated, should be treated as ChatMsg).
+ * @member LeftConversation A user has left the conversation (closed the chat window).
+ * @member Entered User has entered the conversation, used in multi-user chat and group chat.
+ * @member WasKicked User was kicked (Data: Steam ID of the user performing the kick).
+ * @member WasBanned User was banned (Data: Steam ID of the user performing the ban).
+ * @member Disconnected User disconnected.
+ * @member HistoricalChat A chat message from user's chat history or offline message.
+ * @member LinkBlocked A link was removed by the chat filter.
  * @enum_end 
  */
 
 /**
  * @enum SteamFriendsFriendFlag
- * @description > **Steamworks Enum**: [func](url)
+ * @description > **Steamworks Enum**: [ISteamFriends::EFriendFlags](https://partner.steamgames.com/doc/api/ISteamFriends#EFriendFlags)
  *
- * This enum 
+ * This enum holds the possible flags for enumerating friends list, or quickly checking the relationship between users.
  *
- * @member None
- * @member Blocked
- * @member FriendshipRequested
- * @member Immediate
- * @member ClanMember
- * @member OnGameServer
- * @member RequestingFriendship
- * @member RequestingInfo
- * @member Ignored
- * @member IgnoredFriend
- * @member ChatMember
- * @member All
+ * @member None None.
+ * @member Blocked Users that the current user has blocked from contacting.
+ * @member FriendshipRequested Users that have sent a friend invite to the current user.
+ * @member Immediate The current user's "regular" friends.
+ * @member ClanMember Users that are in one of the same (small) Steam groups as the current user.
+ * @member OnGameServer Users that are on the same game server; as set by ${function.steam_friends_set_played_with}.
+ * @member RequestingFriendship Users that the current user has sent friend invites to.
+ * @member RequestingInfo Users that are currently sending additional info about themselves after a call to ${function.steam_friends_request_user_information}.
+ * @member Ignored Users that the current user has ignored from contacting them.
+ * @member IgnoredFriend Users that have ignored the current user; but the current user still knows about them.
+ * @member ChatMember Users in one of the same chats.
+ * @member All All friend flags.
  * @enum_end 
  */
 
 /**
  * @enum SteamFriendsPersonaState
- * @description > **Steamworks Enum**: [func](url)
+ * @description > **Steamworks Enum**: [ISteamFriends::EPersonaState](partner.steamgames.com/doc/api/ISteamFriends#EPersonaState)
  *
- * This enum 
+ * This enum contains the possible states a Steam friend can be in.
  *
- * @member Offline
- * @member Online
- * @member Busy
- * @member Away
- * @member Snooze
- * @member LookingToTrade
- * @member LookingToPlay
+ * @member Offline Friend is not currently logged on.
+ * @member Online Friend is logged on.
+ * @member Busy Friend is logged on, but set to "Do not disturb."
+ * @member Away Auto-away feature.
+ * @member Snooze Auto-away for a long time.
+ * @member LookingToTrade Online, trading.
+ * @member LookingToPlay Online, wanting to play.
  * @enum_end 
  */
 
 /**
  * @enum SteamFriendsRelationship
- * @description > **Steamworks Enum**: [func](url)
+ * @description > **Steamworks Enum**: [ISteamFriends::EFriendRelationship](https://partner.steamgames.com/doc/api/ISteamFriends#EFriendRelationship)
  *
- * This enum 
+ * This enum declares the set of relationships that Steam users may have.
  *
- * @member None
- * @member Blocked
- * @member RequestRecipient
- * @member Friend
- * @member RequestInitiator
- * @member Ignored
- * @member IgnoredFriend
- * @member SuggestedFriend
+ * @member None The users have no relationship.
+ * @member Blocked The user has just clicked Ignore on an friendship invite. This doesn't get stored.
+ * @member RequestRecipient The user has requested to be friends with the current user.
+ * @member Friend A "regular" friend.
+ * @member RequestInitiator The current user has sent a friend invite.
+ * @member Ignored The current user has explicit blocked this other user from comments/chat/etc. This is stored.
+ * @member IgnoredFriend The user has ignored the current user.
+ * @member SuggestedFriend Deprecated -- Unused.
  * @enum_end 
  */
 
 /**
  * @enum SteamScreenshotsVrScreenshotType
- * @description > **Steamworks Enum**: [func](url)
+ * @description > **Steamworks Enum**: [ISteamScreenshots::EVRScreenshotType](partner.steamgames.com/doc/api/ISteamScreenshots#EVRScreenshotType)
  *
- * This enum 
+ * This enum describes the type of VR screenshots.
  *
- * @member None
- * @member Mono
- * @member Stereo
- * @member MonoCubemap
- * @member MonoPanorama
- * @member StereoPanorama
+ * @member None None.
+ * @member Mono Mono.
+ * @member Stereo Stereo.
+ * @member MonoCubemap MonoCubemap.
+ * @member MonoPanorama MonoPanorama.
+ * @member StereoPanorama StereoPanorama.
  * @enum_end 
  */
 
@@ -10541,624 +11077,623 @@
 
 /**
  * @enum SteamNetworkingIdentityType
- * @description > **Steamworks Enum**: [func](url)
+ * @description > **Steamworks Enum**: [ESteamNetworkingIdentityType](partner.steamgames.com/doc/api/steamnetworkingtypes#ESteamNetworkingIdentityType)
  *
- * This enum 
+ * This enum holds the types needed to describe network hosts.
  *
- * @member Invalid
- * @member SteamId
- * @member IpAddress
- * @member GenericString
- * @member GenericBytes
+ * @member Invalid Dummy/unknown/invalid
+ * @member SteamId Basic platform-specific identifiers.
+ * @member IpAddress Use IP address (and port) as the "identity".
+ * @member GenericString Generic string.
+ * @member GenericBytes Generic binary blobs.
  * @enum_end 
  */
 
 /**
  * @enum SteamUserBeginAuthSessionResult
- * @description > **Steamworks Enum**: [func](url)
+ * @description > **Steamworks Enum**: [EBeginAuthSessionResult](https://partner.steamgames.com/doc/api/steam_api#EBeginAuthSessionResult)
  *
- * This enum 
+ * This enum holds the results returned from ${function.steam_user_begin_auth_session} and [ISteamGameServer::BeginAuthSession](https://partner.steamgames.com/doc/api/ISteamGameServer#BeginAuthSession).
  *
- * @member Ok
- * @member InvalidTicket
- * @member DuplicateRequest
- * @member InvalidVersion
- * @member GameMismatch
- * @member ExpiredTicket
+ * @member Ok Ticket is valid for this game and this Steam ID.
+ * @member InvalidTicket The ticket is invalid.
+ * @member DuplicateRequest A ticket has already been submitted for this Steam ID.
+ * @member InvalidVersion Ticket is from an incompatible interface version.
+ * @member GameMismatch Ticket is not for this game.
+ * @member ExpiredTicket Ticket has expired.
  * @enum_end 
  */
 
 /**
  * @enum SteamUserDurationControlOnlineState
- * @description > **Steamworks Enum**: [func](url)
+ * @description > **Steamworks Enum**: [ISteamUser::EDurationControlOnlineState](https://partner.steamgames.com/doc/api/ISteamUser#EDurationControlOnlineState)
  *
- * This enum 
+ * This enum describes the online/offline play state of a game.
  *
- * @member Invalid
- * @member Offline
- * @member Online
- * @member OnlineHighPri
+ * @member Invalid Invalid.
+ * @member Offline Offline play.
+ * @member Online Online play.
+ * @member OnlineHighPri Online play - game requests that Steam not force exit the game.
  * @enum_end 
  */
 
 /**
  * @enum SteamUtilsApiCallFailure
- * @description > **Steamworks Enum**: [func](url)
+ * @description > **Steamworks Enum**: [ISteamUtils::ESteamAPICallFailure](https://partner.steamgames.com/doc/api/ISteamUtils#ESteamAPICallFailure)
  *
- * This enum 
+ * This enum holds the possible Steam API call failure results returned by ${function.steam_utils_get_api_call_failure_reason}.
  *
- * @member None
- * @member SteamGone
- * @member NetworkFailure
- * @member InvalidHandle
- * @member MismatchedCallback
+ * @member None No failure.
+ * @member SteamGone The local Steam process has stopped responding, it may have been forcefully closed or is frozen.
+ * @member NetworkFailure The network connection to the Steam servers has been lost, or was already broken. A [SteamServersDisconnected_t](https://partner.steamgames.com/doc/api/ISteamUser#SteamServersDisconnected_t) callback will be sent around the same time, and a [SteamServersConnected_t](https://partner.steamgames.com/doc/api/ISteamUser#SteamServersConnected_t) callback will be sent when the client is able to talk to the Steam servers again.
+ * @member InvalidHandle The [SteamAPICall_t](https://partner.steamgames.com/doc/api/steam_api#SteamAPICall_t) handle passed in no longer exists.
+ * @member MismatchedCallback [GetAPICallResult](https://partner.steamgames.com/doc/api/ISteamUtils#GetAPICallResult) was called with the wrong callback type for this API call.
  * @enum_end 
  */
 
 /**
  * @enum SteamUtilsGamepadTextInputMode
- * @description > **Steamworks Enum**: [func](url)
+ * @description > **Steamworks Enum**: [ISteamUtils::EGamepadTextInputMode](https://partner.steamgames.com/doc/api/ISteamUtils#EGamepadTextInputMode)
  *
- * This enum 
+ * This enum holds the possible input modes for the Big Picture gamepad text entry.
  *
- * @member Normal
- * @member Password
+ * @member Normal Normal.
+ * @member Password Password.
  * @enum_end 
  */
 
 /**
  * @enum SteamUtilsGamepadTextInputLineMode
- * @description > **Steamworks Enum**: [func](url)
+ * @description > **Steamworks Enum**: [ISteamUtils::EGamepadTextInputLineMode](https://partner.steamgames.com/doc/api/ISteamUtils#EGamepadTextInputLineMode)
  *
- * This enum 
+ * This enum controls the number of allowed lines for the Big Picture gamepad text entry.
  *
- * @member SingleLine
- * @member MultipleLines
+ * @member SingleLine Single line.
+ * @member MultipleLines Multiple lines.
  * @enum_end 
  */
 
 /**
  * @enum SteamUtilsFloatingGamepadTextInputMode
- * @description > **Steamworks Enum**: [func](url)
+ * @description > **Steamworks Enum**: [ISteamUtils::EFloatingGamepadTextInputMode](https://partner.steamgames.com/doc/api/ISteamUtils#EFloatingGamepadTextInputMode)
  *
- * This enum 
+ * This enum controls the mode for the floating keyboard.
  *
- * @member SingleLine
- * @member MultipleLines
- * @member Email
- * @member Numeric
+ * @member SingleLine Enter dismisses the keyboard.
+ * @member MultipleLines User needs to explicitly dismiss the keyboard.
+ * @member Email Keyboard is displayed in a special mode that makes it easier to enter emails.
+ * @member Numeric Numeric keypad is shown.
  * @enum_end 
  */
 
 /**
  * @enum SteamUtilsTextFilteringContext
- * @description > **Steamworks Enum**: [func](url)
+ * @description > **Steamworks Enum**: [ETextFilteringContext](https://partner.steamgames.com/doc/api/steam_api#ETextFilteringContext)
  *
- * This enum 
+ * This enum holds the possible values for the parameter to ${function.steam_utils_filter_text}.
  *
- * @member Unknown
- * @member GameContent
- * @member Chat
- * @member Name
+ * @member Unknown Unknown context.
+ * @member GameContent Game content, only legally required filtering is performed.
+ * @member Chat Chat from another player.
+ * @member Name Character or item name.
  * @enum_end 
  */
 
 /**
  * @enum SteamUgcMatchingUgcType
- * @description > **Steamworks Enum**: [func](url)
+ * @description > **Steamworks Enum**: [ISteamUGC::EUGCMatchingUGCType](https://partner.steamgames.com/doc/api/ISteamUGC#EUGCMatchingUGCType)
  *
- * This enum 
+ * This enum specifies the types of UGC to obtain from a call to ${function.steam_ugc_create_query_user_ugc_request} or ${function.steam_ugc_create_query_all_ugc_request}.
  *
- * @member Items
- * @member Items_Mtx
- * @member Items_ReadyToUse
- * @member Collections
- * @member Artwork
- * @member Videos
- * @member Screenshots
- * @member AllGuides
- * @member WebGuides
- * @member IntegratedGuides
- * @member UsableInGame
- * @member ControllerBindings
- * @member GameManagedItems
- * @member All
+ * @member Items Both Microtransaction items and Ready-to-use items.
+ * @member Items_Mtx Microtransaction items. (See: [Curated Workshop](https://partner.steamgames.com/doc/features/workshop#curated_workshop))
+ * @member Items_ReadyToUse Regular in game items that players have uploaded. (See: [Ready-To-Use Workshop](https://partner.steamgames.com/doc/features/workshop#ready-to-use_workshop))
+ * @member Collections Shared collections of UGC.
+ * @member Artwork Artwork which has been shared.
+ * @member Videos Videos which have been shared.
+ * @member Screenshots Screenshots which have been shared.
+ * @member AllGuides Both web guides and integrated guides.
+ * @member WebGuides Guides that are only available on the Steam Community.
+ * @member IntegratedGuides Guides that you can use within your game. (Like Dota 2's in game character guides.)
+ * @member UsableInGame Ready-to-use items and integrated guides.
+ * @member ControllerBindings Controller Bindings which have been shared.
+ * @member GameManagedItems Game managed items (Not managed by users.)
+ * @member All Return everything.
  * @enum_end 
  */
 
 /**
  * @enum SteamUgcQuery
- * @description > **Steamworks Enum**: [func](url)
+ * @description > **Steamworks Enum**: [ISteamUGC::EUGCQuery](partner.steamgames.com/doc/api/ISteamUGC#EUGCQuery)
  *
- * This enum 
+ * This enum is used with ${function.steam_ugc_create_query_all_ugc_request} to specify the sorting and filtering for queries across all available UGC.
  *
- * @member RankedByVote
- * @member RankedByPublicationDate
- * @member AcceptedForGameRankedByAcceptanceDate
- * @member RankedByTrend
- * @member FavoritedByFriendsRankedByPublicationDate
- * @member CreatedByFriendsRankedByPublicationDate
- * @member RankedByNumTimesReported
- * @member CreatedByFollowedUsersRankedByPublicationDate
- * @member NotYetRated
- * @member RankedByTotalVotesAsc
- * @member RankedByVotesUp
- * @member RankedByTextSearch
- * @member RankedByTotalUniqueSubscriptions
- * @member RankedByPlaytimeTrend
- * @member RankedByTotalPlaytime
- * @member RankedByAveragePlaytimeTrend
- * @member RankedByLifetimeAveragePlaytime
- * @member RankedByPlaytimeSessionsTrend
- * @member RankedByLifetimePlaytimeSessions
- * @member RankedByLastUpdatedDate
+ * @member RankedByVote Sort by vote popularity all-time.
+ * @member RankedByPublicationDate Sort by publication date descending.
+ * @member AcceptedForGameRankedByAcceptanceDate Sort by date accepted (for mtx items).
+ * @member RankedByTrend Sort by vote popularity within the given "trend" period (set in ${function.steam_ugc_set_ranked_by_trend_days})
+ * @member FavoritedByFriendsRankedByPublicationDate Filter to items the user's friends have favorited, sorted by publication date descending.
+ * @member CreatedByFriendsRankedByPublicationDate Filter to items created by friends, sorted by publication date descending.
+ * @member RankedByNumTimesReported Sort by report weight descending.
+ * @member CreatedByFollowedUsersRankedByPublicationDate Filter to items created by users that the current user has followed, sorted by publication date descending.
+ * @member NotYetRated Filtered to the user's voting queue.
+ * @member RankedByTotalVotesAsc Sort by total # of votes ascending (used internally for building the user's voting queue)
+ * @member RankedByVotesUp Sort by number of votes up descending. Will use the "trend" period if specified (set in ${function.steam_ugc_set_ranked_by_trend_days})
+ * @member RankedByTextSearch Sort by keyword text search relevancy.
+ * @member RankedByTotalUniqueSubscriptions Sort by lifetime total unique # of subscribers descending.
+ * @member RankedByPlaytimeTrend Sort by total playtime in the "trend" period descending (set with ${function.steam_ugc_set_ranked_by_trend_days})
+ * @member RankedByTotalPlaytime Sort by total lifetime playtime descending.
+ * @member RankedByAveragePlaytimeTrend Sort by average playtime in the "trend" period descending (set in ${function.steam_ugc_set_ranked_by_trend_days})
+ * @member RankedByLifetimeAveragePlaytime Soft by lifetime average playtime descending.
+ * @member RankedByPlaytimeSessionsTrend Sort by number of play sessions in the "trend" period descending (set in ${function.steam_ugc_set_ranked_by_trend_days})
+ * @member RankedByLifetimePlaytimeSessions Sort by number of lifetime play sessions descending.
+ * @member RankedByLastUpdatedDate Sort by last updated time.
  * @enum_end 
  */
 
 /**
  * @enum SteamUserUgcList
- * @description > **Steamworks Enum**: [func](url)
+ * @description > **Steamworks Enum**: [ISteamUGC::EUserUGCList](partner.steamgames.com/doc/api/ISteamUGC#EUserUGCList)
  *
- * This enum 
+ * This enum is used with ${function.steam_ugc_create_query_user_ugc_request} to obtain different lists of published UGC for a user.
  *
- * @member Published
- * @member VotedOn
- * @member VotedUp
- * @member VotedDown
- * @member WillVoteLater
- * @member Favorited
- * @member Subscribed
- * @member UsedOrPlayed
- * @member Followed
+ * @member Published List of files the user has published. (equivalent to http://steamcommunity.com/my/myworkshopfiles/?browsesort=myfiles)
+ * @member VotedOn List of files the user has voted on. Includes both VotedUp and VotedDown.
+ * @member VotedUp List of files the user has voted up. (Restricted to the current user only).
+ * @member VotedDown List of files the user has voted down. (Restricted to the current user only).
+ * @member WillVoteLater Deprecated. Do not use! (Restricted to the current user only).
+ * @member Favorited List of files the user has favorited. (equivalent to http://steamcommunity.com/my/myworkshopfiles/?browsesort=myfavorites)
+ * @member Subscribed List of files the user has subscribed to. (Restricted to the current user only). (equivalent to http://steamcommunity.com/my/myworkshopfiles/?browsesort=mysubscriptions)
+ * @member UsedOrPlayed List of files the user has spent time in game with. (equivalent to http://steamcommunity.com/my/myworkshopfiles/?browsesort=myplayedfiles)
+ * @member Followed List of files the user is following updates for.
  * @enum_end 
  */
 
 /**
  * @enum SteamUserUgcListSortOrder
- * @description > **Steamworks Enum**: [func](url)
+ * @description > **Steamworks Enum**: [ISteamUGC::EUserUGCListSortOrder](https://partner.steamgames.com/doc/api/ISteamUGC#EUserUGCListSortOrder)
  *
- * This enum 
+ * This enum is used with ${function.steam_ugc_create_query_user_ugc_request} to specify the sort order for user published UGC lists. Defaults to creation order descending.
  *
- * @member CreationOrderDesc
- * @member CreationOrderAsc
- * @member TitleAsc
- * @member LastUpdatedDesc
- * @member SubscriptionDateDesc
- * @member VoteScoreDesc
- * @member ForModeration
+ * @member CreationOrderDesc Returns items by creation date. Descending - the newest items are first. (Corresponds to "sortmethod=newestfirst" on the workshop page)
+ * @member CreationOrderAsc Returns items by creation date. Ascending - the oldest items are first. (Corresponds to "sortmethod=oldestfirst" on the workshop page)
+ * @member TitleAsc Returns items by name. (Corresponds to "sortmethod=alpha" on the workshop page)
+ * @member LastUpdatedDesc Returns the most recently updated items first. (Corresponds to "sortmethod=lastupdated" on the workshop page)
+ * @member SubscriptionDateDesc Returns the most recently subscribed items first. (Corresponds to "sortmethod=subscriptiondate" on the workshop page)
+ * @member VoteScoreDesc Returns the items with the more recent score updates first. (Corresponds to "sortmethod=score" on the workshop page)
+ * @member ForModeration Returns the items that have been reported for moderation. (Corresponds to "sortmethod=formoderation" on the workshop page)
  * @enum_end 
  */
 
 /**
  * @enum SteamWorkshopFileType
- * @description > **Steamworks Enum**: [func](url)
+ * @description > **Steamworks Enum**: [ISteamRemoteStorage::EWorkshopFileType](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#EWorkshopFileType)
  *
- * This enum 
+ * This enum holds the possible ways that a shared file will be shared with the community.
  *
- * @member Community
- * @member Microtransaction
- * @member Collection
- * @member Art
- * @member Video
- * @member Screenshot
- * @member Game
- * @member Software
- * @member Concept
- * @member WebGuide
- * @member IntegratedGuide
- * @member Merch
- * @member ControllerBinding
- * @member SteamworksAccessInvite
- * @member SteamVideo
- * @member GameManagedItem
+ * @member Community Normal Workshop item that can be subscribed to.
+ * @member Microtransaction Workshop item that is meant to be voted on for the purpose of selling in-game. (See: [Curated Workshop](https://partner.steamgames.com/doc/features/workshop#curated_workshop))
+ * @member Collection A collection of Workshop items.
+ * @member Art Artwork.
+ * @member Video External video.
+ * @member Screenshot Screenshot.
+ * @member Game Unused, used to be for Greenlight game entries
+ * @member Software Unused, used to be for Greenlight software entries.
+ * @member Concept Unused, used to be for Greenlight concepts.
+ * @member WebGuide Steam web guide.
+ * @member IntegratedGuide Application integrated guide.
+ * @member Merch Workshop merchandise meant to be voted on for the purpose of being sold.
+ * @member ControllerBinding Steam Controller bindings.
+ * @member SteamworksAccessInvite Only used internally in Steam.
+ * @member SteamVideo Steam video.
+ * @member GameManagedItem Managed completely by the game, not the user, and not shown on the web.
  * @enum_end 
  */
 
 /**
  * @enum SteamItemPreviewType
- * @description > **Steamworks Enum**: [func](url)
+ * @description > **Steamworks Enum**: [ISteamUGC::EItemPreviewType](partner.steamgames.com/doc/api/ISteamUGC#EItemPreviewType)
  *
- * This enum 
+ * This enum holds the flags that specify the type of preview an item has. Set with ${function.steam_ugc_add_item_preview_file}, and received with ${function.steam_ugc_get_query_ugc_additional_preview}.
  *
- * @member Image
- * @member YouTubeVideo
- * @member Sketchfab
- * @member EnvironmentMap_HorizontalCross
- * @member EnvironmentMap_LatLong
- * @member ReservedMax
+ * @member Image Standard web viewable image file. Supported types: PNG, JPG, and GIF.
+ * @member YouTubeVideo YouTube video ID. (e.g. "jHgZh4GV9G0")
+ * @member Sketchfab Sketchfab model ID.
+ * @member EnvironmentMap_HorizontalCross Standard image file containing a map of an environment in a horizontal cross layout. Supported types: PNG, JPG, and GIF.
+ * @member EnvironmentMap_LatLong Standard image file containing a map of an environment in a LatLong layout. Supported types: PNG, JPG, and GIF. Not currently used in web views.
+ * @member ReservedMax Reserved. You can specify your own types above this value.
  * @enum_end 
  */
 
 /**
  * @enum SteamRemoteStoragePublishedFileVisibility
- * @description > **Steamworks Enum**: [func](url)
+ * @description > **Steamworks Enum**: [ISteamRemoteStorage::ERemoteStoragePublishedFileVisibility](partner.steamgames.com/doc/api/ISteamRemoteStorage#ERemoteStoragePublishedFileVisibility)
  *
- * This enum 
+ * This enum holds the possible visibility states that a Workshop item can be in.
  *
- * @member Public
- * @member FriendsOnly
- * @member Private
- * @member Unlisted
+ * @member Public Visible to everyone.
+ * @member FriendsOnly Visible to friends only.
+ * @member Private Only visible to the creator. Setting an item to private is the closest that you can get to deleting a workshop item from the API.
+ * @member Unlisted Visible to everyone, but will not be returned in any global queries. Will also not be returned in any user lists unless the caller is the creator or a subscriber.
  * @enum_end 
  */
 
 /**
  * @enum SteamUgcContentDescriptorId
- * @description > **Steamworks Enum**: [func](url)
+ * @description > **Steamworks Enum**: [ISteamUGC::EUGCContentDescriptorID](partner.steamgames.com/doc/api/ISteamUGC#EUGCContentDescriptorID)
  *
- * This enum 
+ * This enum holds the filters that define what user-generated content users want to see under the *Mature Content Filtering* section in their preferences.
  *
- * @member NudityOrSexualContent
- * @member FrequentViolenceOrGore
- * @member AdultOnlySexualContent
- * @member GratuitousSexualContent
- * @member AnyMatureContent
+ * @member NudityOrSexualContent Some Nudity or Sexual Content: Contains content that has some nudity or sexual themes, but not as the primary focus.
+ * @member FrequentViolenceOrGore Frequent Violence or Gore: Contains content that features extreme violence or gore.
+ * @member AdultOnlySexualContent Adult Only Sexual Content: Contains content that is sexually explicit or graphic and is intended for adults only. Users must affirm that they are at least eighteen years old before they can view content with this content descriptor.
+ * @member GratuitousSexualContent Frequent Nudity or Sexual Content: Contains content that primarily features nudity or sexual themes. Users must affirm that they are at least eighteen years old before they can view content with this content descriptor.
+ * @member AnyMatureContent General Mature Content: Contains mature topics that may not be appropriate for all audiences.
  * @enum_end 
  */
 
 /**
  * @enum SteamUgcStatisticType
- * @description > **Steamworks Enum**: [func](url)
+ * @description > **Steamworks Enum**: [ISteamUGC::EItemStatistic](https://partner.steamgames.com/doc/api/ISteamUGC#EItemStatistic)
  *
- * This enum 
+ * This enum is used to retrieve item statistics with ${function.steam_ugc_get_query_ugc_statistic}.
  *
- * @member NumSubscriptions
- * @member NumFavorites
- * @member NumFollowers
- * @member NumUniqueSubscriptions
- * @member NumUniqueFavorites
- * @member NumUniqueFollowers
- * @member NumUniqueWebsiteViews
- * @member ReportScore
- * @member NumSecondsPlayed
- * @member NumPlaytimeSessions
- * @member NumComments
- * @member NumSecondsPlayedDuringTimePeriod
+ * @member NumSubscriptions Gets the number of subscriptions.
+ * @member NumFavorites Gets the number of favorites.
+ * @member NumFollowers Gets the number of followers.
+ * @member NumUniqueSubscriptions Gets the number of unique subscriptions.
+ * @member NumUniqueFavorites Gets the number of unique favorites.
+ * @member NumUniqueFollowers Gets the number of unique followers.
+ * @member NumUniqueWebsiteViews Gets the number of unique views the item has on its Steam Workshop page.
+ * @member ReportScore Gets the number of times the item has been reported.
+ * @member NumSecondsPlayed Gets the total number of seconds this item has been used across all players.
+ * @member NumPlaytimeSessions Gets the total number of play sessions this item has been used in.
+ * @member NumComments Gets the number of comments on the items that steam has on its Steam Workshop page.
+ * @member NumSecondsPlayedDuringTimePeriod Gets the number of seconds this item has been used over the given time period.
  * @enum_end 
  */
 
 /**
  * @enum SteamLeaderboardDataRequest
- * @description > **Steamworks Enum**: [func](url)
+ * @description > **Steamworks Enum**: [ISteamUserStats::ELeaderboardDataRequest](https://partner.steamgames.com/doc/api/ISteamUserStats#ELeaderboardDataRequest)
  *
- * This enum 
+ * This enum holds the types of data request, used when downloading leaderboard entries with ${function.steam_userstats_download_leaderboard_entries}.
  *
- * @member Global
- * @member GlobalAroundUser
- * @member Friends
+ * @member Global Used to query for a sequential range of leaderboard entries by leaderboard rank. The start and end parameters control the requested range. For example, you can display the top 10 on a leaderboard for your game by setting start to 1 and end to 10.
+ * @member GlobalAroundUser Used to retrieve leaderboard entries relative a user's entry. The start parameter is the number of entries to retrieve before the current user's entry, and the end parameter is the number of entries after the current user's entry. The current user's entry is always included. For example, if the current user is #5 on the leaderboard, setting start to -2 and end to 2 will return 5 entries: ranks #3 through #7. If there are not enough entries in the leaderboard before or after the user's entry, Steam will adjust the range to try to return the number of entries requested. For example, if the user is #1 on the leaderboard and start is set to -2, end is set to 2, Steam will return the first 5 entries in the leaderboard.
+ * @member Friends Used to retrieve all leaderboard entries for friends of the current user. The start and end parameters are ignored.
  * @enum_end 
  */
 
 /**
  * @enum SteamLeaderboardSortMethod
- * @description > **Steamworks Enum**: [func](url)
+ * @description > **Steamworks Enum**: [ISteamUserStats::ELeaderboardSortMethod](partner.steamgames.com/doc/api/ISteamUserStats#ELeaderboardSortMethod)
  *
- * This enum 
+ * This enum defines the sort method used to set whether a higher or lower score is better. You can set the sort method when creating a leaderboard with ${function.steam_userstats_find_or_create_leaderboard} or in App Admin on the Steamworks website. You can retrieve the sort method for a given leaderboard with [GetLeaderboardSortMethod](https://partner.steamgames.com/doc/api/ISteamUserStats#GetLeaderboardSortMethod).
  *
- * @member None
- * @member Ascending
- * @member Descending
+ * @member None Only ever used when a leaderboard is invalid, you should never set this yourself.
+ * @member Ascending The top-score is the lowest number.
+ * @member Descending The top-score is the highest number.
  * @enum_end 
  */
 
 /**
  * @enum SteamLeaderboardDisplayType
- * @description > **Steamworks Enum**: [func](url)
+ * @description > **Steamworks Enum**: [ISteamUserStats::ELeaderboardDisplayType](https://partner.steamgames.com/doc/api/ISteamUserStats#ELeaderboardDisplayType)
  *
- * This enum 
+ * This enum holds the display types used by the Steam Community web site to know how to format the leaderboard scores when displayed. You can set the display type when creating a leaderboard with ${function.steam_userstats_find_or_create_leaderboard} or in the Steamworks partner backend. You can retrieve the display type for a given leaderboard with [GetLeaderboardDisplayType](https://partner.steamgames.com/doc/api/ISteamUserStats#GetLeaderboardDisplayType).
  *
- * @member None
- * @member Numeric
- * @member TimeSeconds
- * @member TimeMilliSeconds
+ * @member None This is only ever used when a leaderboard is invalid, you should never set this yourself.
+ * @member Numeric The score is just a simple numerical value.
+ * @member TimeSeconds The score represents a time, in seconds.
+ * @member TimeMilliSeconds The score represents a time, in milliseconds.
  * @enum_end 
  */
 
 /**
  * @enum SteamLeaderboardUploadScoreMethod
- * @description > **Steamworks Enum**: [func](url)
+ * @description > **Steamworks Enum**: [ISteamUserStats::ELeaderboardUploadScoreMethod](partner.steamgames.com/doc/api/ISteamUserStats#ELeaderboardUploadScoreMethod)
  *
- * This enum 
+ * This enum holds the possible sort methods used to set whether a higher or lower score is better. You can set the sort method when creating a leaderboard with ${function.steam_userstats_find_or_create_leaderboard} or in App Admin on the Steamworks website. You can retrieve the sort method for a given leaderboard with [GetLeaderboardSortMethod](https://partner.steamgames.com/doc/api/ISteamUserStats#GetLeaderboardSortMethod).
  *
- * @member None
- * @member KeepBest
- * @member ForceUpdate
+ * @member None Only ever used when a leaderboard is invalid, you should never set this yourself.
+ * @member KeepBest The top-score is the lowest number.
+ * @member ForceUpdate The top-score is the highest number.
  * @enum_end 
  */
 
 /**
  * @enum SteamMusicPlaybackStatus
- * @description > **Steamworks Enum**: [func](url)
+ * @description > **Steamworks Enum**: [ISteamMusic::AudioPlayback_Status](https://partner.steamgames.com/doc/api/ISteamMusic#AudioPlayback_Status)
  *
- * This enum 
+ * This enum specificies the current playback status.
  *
- * @member Undefined
- * @member Playing
- * @member Paused
- * @member Idle
+ * @member Undefined The Steam music interface probably isn't enabled.
+ * @member Playing Steam Music is currently playing.
+ * @member Paused Steam Music is currently paused.
+ * @member Idle team Music is currently stopped.
  * @enum_end 
  */
 
 /**
  * @enum SteamTimelineGameMode
- * @description > **Steamworks Enum**: [func](url)
+ * @description > **Steamworks Enum**: [ISteamTimeline::ETimelineGameMode](https://partner.steamgames.com/doc/api/ISteamTimeline#ETimelineGameMode)
  *
- * This enum 
+ * This enum controls the color of the timeline bar segments.
  *
- * @member Playing
- * @member Staging
- * @member Menus
- * @member LoadingScreen
+ * @member Playing The player is fully loaded into the game and playing.
+ * @member Staging The player is in a multiplayer lobby.
+ * @member Menus The player is in the game's main menu or a pause menu.
+ * @member LoadingScreen The player is waiting for a loading screen.
  * @enum_end 
  */
 
 /**
  * @enum SteamTimelineEventClipPriority
- * @description > **Steamworks Enum**: [func](url)
+ * @description > **Steamworks Enum**: [ISteamTimeline::ETimelineEventClipPriority](partner.steamgames.com/doc/api/ISteamTimeline#ETimelineEventClipPriority)
  *
- * This enum 
+ * This enum is used in AddTimelineEvent, where Featured events will be offered before Standard events.
  *
- * @member None
- * @member Standard
- * @member Featured
+ * @member None This event is not appropriate as a clip.
+ * @member Standard The user may want to make a clip around this event.
+ * @member Featured The player will be likely to want a clip around event, and those clips should be promoted more prominently than clips with the `SteamTimelineEventClipPriority.Standard` priority.
  * @enum_end 
  */
 
 /**
  * @enum SteamInventoryConst
- * @description > **Steamworks Enum**: [func](url)
+ * @description > **Steamworks Enum**: [ISteamInventory::Constants](partner.steamgames.com/doc/api/isteaminventory#constants)
  *
- * This enum 
+ * This enum represents an invalid Steam inventory result handle.
  *
- * @member InvalidResult
+ * @member InvalidResult An invalid Steam inventory result handle.
  * @enum_end 
  */
 
 /**
  * @enum SteamRemoteStoragePlatform
- * @description > **Steamworks Enum**: [func](url)
+ * @description > **Steamworks Enum**: [ISteamRemoteStorage::ERemoteStoragePlatform](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#ERemoteStoragePlatform)
  *
- * This enum 
+ * This enum holds the possible sync platform flags. These can be used with ${function.steam_remote_storage_set_sync_platforms} to restrict a file to a specific OS.
  *
- * @member None
- * @member Windows
- * @member OSX
- * @member PS3
- * @member Linux
- * @member Reserved2
- * @member All
+ * @member None This file will not be downloaded on any platform.
+ * @member Windows This file will download on Windows.
+ * @member OSX This file will download on macOS.
+ * @member PS3 This file will download on the Playstation 3.
+ * @member Linux This file will download on SteamOS/Linux.
+ * @member Reserved2 Reserved.
+ * @member All This file will download on every platform. This is the default.
  * @enum_end 
  */
 
 /**
  * @enum SteamRemoteStorageUgcReadAction
- * @description > **Steamworks Enum**: [func](url)
+ * @description > **Steamworks Enum**: [ISteamRemoteStorage::EUGCReadAction](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#EUGCReadAction)
  *
- * This enum 
+ * This enum holds the possible UGC Read Actions used with ${function.steam_remote_storage_ugc_read}.
  *
- * @member ContinueReadingUntilFinished
- * @member ContinueReading
- * @member Close
+ * @member ContinueReadingUntilFinished Keeps the file handle open unless the last byte is read. You can use this when reading large files (over 100MB) in sequential chunks.
+ * @member ContinueReading Keeps the file handle open. Use this when using ${function.steam_remote_storage_ugc_read} to seek to different parts of the file.
+ * @member Close This function frees the file handle.
  * @enum_end 
  */
 
 /**
  * @enum SteamRemoteStorageWorkshopFileType
- * @description > **Steamworks Enum**: [func](url)
+ * @description > **Steamworks Enum**: [ISteamRemoteStorage::EWorkshopFileType](partner.steamgames.com/doc/api/ISteamRemoteStorage#EWorkshopFileType)
  *
- * This enum 
+ * This enum holds members that represent the way that a shared file will be shared with the community.
  *
- * @member Community
- * @member Microtransaction
- * @member Collection
- * @member Art
- * @member Video
- * @member Screenshot
- * @member Game
- * @member Software
- * @member Concept
- * @member WebGuide
- * @member IntegratedGuide
- * @member Merch
- * @member ControllerBinding
- * @member SteamworksAccessInvite
- * @member SteamVideo
- * @member GameManagedItem
+ * @member Community Normal Workshop item that can be subscribed to.
+ * @member Microtransaction Workshop item that is meant to be voted on for the purpose of selling in-game. (See: [Curated Workshop](https://partner.steamgames.com/doc/features/workshop#curated_workshop))
+ * @member Collection A collection of Workshop items.
+ * @member Art Artwork.
+ * @member Video External video.
+ * @member Screenshot Screenshot.
+ * @member Game Unused, used to be for Greenlight game entries.
+ * @member Software Unused, used to be for Greenlight software entries.
+ * @member Concept Unused, used to be for Greenlight concepts.
+ * @member WebGuide Steam web guide.
+ * @member IntegratedGuide Application integrated guide.
+ * @member Merch Workshop merchandise meant to be voted on for the purpose of being sold.
+ * @member ControllerBinding Steam Controller bindings.
+ * @member SteamworksAccessInvite Only used internally in Steam.
+ * @member SteamVideo Steam video.
+ * @member GameManagedItem Managed completely by the game, not the user, and not shown on the web.
  * @enum_end 
  */
 
 /**
  * @enum SteamMatchmakingLobbyType
- * @description > **Steamworks Enum**: [func](url)
+ * @description > **Steamworks Enum**: [ISteamMatchmaking::ELobbyType](https://partner.steamgames.com/doc/api/ISteamMatchmaking#ELobbyType)
  *
- * This enum 
+ * This enum specifies the lobby type, this is set from ${function.steam_matchmaking_create_lobby} and ${function.steam_matchmaking_set_lobby_type}.
  *
- * @member Private
- * @member FriendsOnly
- * @member Public
- * @member Invisible
+ * @member Private The only way to join the lobby is from an invite.
+ * @member FriendsOnly Joinable by friends and invitees, but does not show up in the lobby list.
+ * @member Public Returned by search and visible to friends.
+ * @member Invisible Returned by search, but not visible to other friends. This is useful if you want a user in two lobbies, for example matching groups together. A user can be in only one regular lobby, and up to two invisible lobbies.
  * @enum_end 
  */
 
 /**
  * @enum SteamMatchmakingLobbyComparison
- * @description > **Steamworks Enum**: [func](url)
+ * @description > **Steamworks Enum**: [ISteamMatchmaking::ELobbyComparison](https://partner.steamgames.com/doc/api/ISteamMatchmaking#ELobbyComparison)
  *
- * This enum 
+ * This enum contains the possible lobby search filter options. These can be set with ${function.steam_matchmaking_add_request_lobby_list_string_filter} and ${function.steam_matchmaking_add_request_lobby_list_near_value_filter}.
  *
- * @member EqualToOrLessThan
- * @member LessThan
- * @member Equal
- * @member GreaterThan
- * @member EqualToOrGreaterThan
- * @member NotEqual
+ * @member EqualToOrLessThan The lobbies value must be equal to or less than this one.
+ * @member LessThan The lobbies value must be less than this one.
+ * @member Equal The lobbies value must match this this one exactly.
+ * @member GreaterThan The lobbies value must be greater than this one.
+ * @member EqualToOrGreaterThan The lobbies value must be equal to or greater than this one.
+ * @member NotEqual The lobbies value must not match this this.
  * @enum_end 
  */
 
 /**
  * @enum SteamMatchmakingLobbyDistanceFilter
- * @description > **Steamworks Enum**: [func](url)
+ * @description > **Steamworks Enum**: [ISteamMatchmaking::ELobbyDistanceFilter](partner.steamgames.com/doc/api/ISteamMatchmaking#ELobbyDistanceFilter)
  *
- * This enum 
+ * This enum holds the possible lobby search distance filters when requesting the lobby list. Lobby results are sorted from closest to farthest. This can be set with ${function.steam_matchmaking_add_request_lobby_list_distance_filter}.
  *
- * @member Close
- * @member Default
- * @member Far
- * @member Worldwide
+ * @member Close Only lobbies in the same immediate region will be returned.
+ * @member Default Only lobbies in the same region or nearby regions will be returned.
+ * @member Far For games that don't have many latency requirements, will return lobbies about half-way around the globe.
+ * @member Worldwide No filtering, will match lobbies as far as India to NY (not recommended, expect multiple seconds of latency between the clients).
  * @enum_end 
  */
 
 /**
  * @enum SteamNetworkingConnectionState
- * @description > **Steamworks Enum**: [func](url)
+ * @description > **Steamworks Enum**: [ESteamNetworkingState](https://partner.steamgames.com/doc/api/steamnetworkingtypes#ESteamNetworkingState)
  *
- * This enum 
+ * This enum holds high level connection states.
  *
- * @member None
- * @member Connecting
- * @member FindingRoute
- * @member Connected
- * @member ClosedByPeer
- * @member ProblemDetectedLocally
- * @member FinWait
- * @member Linger
- * @member Dead
+ * @member None Dummy value used to indicate an error condition in the API.
+ * @member Connecting We are trying to establish whether peers can talk to each other, whether they WANT to talk to each other, perform basic auth, and exchange crypt keys.
+ * @member FindingRoute Some connection types use a back channel or trusted 3rd party for earliest communication. If the server accepts the connection, then these connections switch into the rendezvous state. During this state, we still have not yet established an end-to-end route (through the relay network), and so if you send any messages unreliable, they are going to be discarded.
+ * @member Connected We've received communications from our peer (and we know who they are) and are all good.
+ * @member ClosedByPeer Connection has been closed by our peer, but not closed locally.
+ * @member ProblemDetectedLocally A disruption in the connection has been detected locally. (E.g. timeout, local internet connection disrupted, etc.)
+ * @member FinWait We've disconnected on our side, and from an API perspective the connection is closed. No more data may be sent or received. All reliable data has been flushed, or else we've given up and discarded it. We do not yet know for sure that the peer knows the connection has been closed.
+ * @member Linger We've disconnected on our side, and from an API perspective the connection is closed. No more data may be sent or received. From a network perspective, however, on the wire, we have not yet given any indication to the peer that the connection is closed. We are in the process of flushing out the last bit of reliable data. Once that is done, we will inform the peer that the connection has been closed, and transition to the `FIN_WAIT` state.
+ * @member Dead Connection is completely inactive and ready to be destroyed.
  * @enum_end 
  */
 
 /**
  * @enum SteamNetworkingSendFlags
- * @description > **Steamworks Enum**: [func](url)
+ * @description > **Steamworks Flags**: [k_nSteamNetworkingSend_*](https://partner.steamgames.com/doc/api/steamnetworkingtypes#message_sending_flags)
  *
- * This enum 
+ * This enum holds values are used in bitmask parameters to functions such as ${function.steam_networking_sockets_send_message_to_connection}.
  *
- * @member Unreliable
- * @member NoNagle
- * @member NoDelay
- * @member Reliable
- * @member UseCurrentThread
- * @member AutoRestartBrokenSession
+ * @member Unreliable Send the message unreliably. Can be lost. Messages *can* be larger than a single MTU (UDP packet), but there is no retransmission, so if any piece of the message is lost, the entire message will be dropped.
+ * @member NoNagle Disable [Nagle's algorithm](https://en.wikipedia.org/wiki/Nagle%27s_algorithm).
+ * @member NoDelay If the message cannot be sent very soon (because the connection is still doing some initial handshaking, route negotiations, etc), then just drop it. This is only applicable for unreliable messages. Using this flag on reliable messages is invalid.
+ * @member Reliable Reliable message send. Can send up to k_cbMaxSteamNetworkingSocketsMessageSizeSend bytes in a single message. Does fragmentation/re-assembly of messages under the hood, as well as a sliding window for efficient sends of large chunks of data.
+ * @member UseCurrentThread 
+ * @member AutoRestartBrokenSession 
  * @enum_end 
  */
 
 /**
  * @enum SteamPartiesBeaconLocationType
- * @description > **Steamworks Enum**: [func](url)
+ * @description > **Steamworks Enum**: [ISteamParties::ESteamPartyBeaconLocationType](https://partner.steamgames.com/doc/api/ISteamParties#ESteamPartyBeaconLocationType)
  *
- * This enum 
+ * This enum holds the types of locations where beacons can be posted.
  *
- * @member Invalid
- * @member ChatGroup
- * @member Max
+ * @member Invalid Invalid location type.
+ * @member ChatGroup A Steam Chat Room Group.
+ * @member Max Value is always one greater than the largest valid location type value.
  * @enum_end 
  */
 
 /**
  * @enum SteamPartiesBeaconLocationData
- * @description > **Steamworks Enum**: [func](url)
+ * @description > **Steamworks Enum**: [ISteamParties::ESteamPartyBeaconLocationData](partner.steamgames.com/doc/api/ISteamParties#ESteamPartyBeaconLocationData)
  *
- * This enum 
+ * This enum holds the types of extended metadata for beacon locations.
  *
- * @member Invalid
- * @member Name
- * @member IconURLSmall
- * @member IconURLMedium
- * @member IconURLLarge
+ * @member Invalid Invalid location data type.
+ * @member Name The name, if any, of the location.
+ * @member IconURLSmall If the location has an associated icon, this is the URL for the small format icon image.
+ * @member IconURLMedium If the location has an associated icon, this is the URL for the medium format icon image.
+ * @member IconURLLarge If the location has an associated icon, this is the URL for the small large icon image.
  * @enum_end 
  */
 
 /**
  * @const_partial macros
- * @member {Real} SteamApiBreakpadInvalidHandle (value: '0')
- * @member {Real} SteamApiGameExtraInfoMax (value: '64')
- * @member {Real} SteamApiSaltSize (value: '8')
- * @member {Real} SteamApiGidNil (value: '-1')
- * @member {Real} SteamApiAuthTicketInvalid (value: '0')
- * @member {Real} SteamApiJobIdNil (value: '-1')
- * @member {Real} SteamApiTxnIdNil (value: '-1')
- * @member {Real} SteamApiTxnIdUnknown (value: '0')
- * @member {Real} SteamApiApiCallInvalid (value: '0x0')
- * @member {Real} SteamApiAppIdInvalid (value: '0x0')
- * @member {Real} SteamApiBundleIdInvalid (value: '0')
- * @member {Real} SteamApiCellIdInvalid (value: '0xFFFFFFFF')
- * @member {Real} SteamApiDepotIdInvalid (value: '0x0')
- * @member {Real} SteamApiAssetClassIdInvalid (value: '0x0')
- * @member {Real} SteamApiManifestIdInvalid (value: '0')
- * @member {Real} SteamApiSteamAccountIdMask (value: '0xFFFFFFFF')
- * @member {Real} SteamApiSteamAccountInstanceMask (value: '0x000FFFFF')
- * @member {Real} SteamApiSteamUserConsoleInstance (value: '2')
- * @member {Real} SteamApiSteamUserDesktopInstance (value: '1')
- * @member {Real} SteamApiSteamUserWebInstance (value: '4')
- * @member {Real} SteamApiPackageIdFreeSub (value: '0x0')
- * @member {Real} SteamApiPackageIdInvalid (value: '0xFFFFFFFF')
- * @member {Real} SteamApiPartnerIdInvalid (value: '0')
- * @member {Real} SteamApiPhysicalItemIdInvalid (value: '0x0')
- * @member {Real} SteamApiQueryPortError (value: '0xFFFE')
- * @member {Real} SteamApiQueryPortNotInitialized (value: '0xFFFF')
- * @member {Real} SteamFriendsMaxFriendsGroupName (value: '64')
- * @member {Real} SteamFriendsMaxRichPresenceKeyLength (value: '64')
- * @member {Real} SteamFriendsMaxRichPresenceKeys (value: '20')
- * @member {Real} SteamFriendsMaxRichPresenceValueLength (value: '256')
- * @member {Real} SteamFriendsPersonaNameMax (value: '128')
- * @member {Real} SteamFriendsEnumerateFollowersMax (value: '50')
- * @member {Real} SteamFriendsFriendsGroupLimit (value: '100')
- * @member {Real} SteamFriendsChatMetadataMax (value: '8192')
- * @member {Real} SteamFriendsPersonaNameMaxUtf16 (value: '32')
- * @member {Real} SteamFriendsGroupIdInvalid (value: '-1')
- * @member {String} SteamFriendsInterfaceVersion (value: '"SteamFriends015"')
- * @member {Real} SteamAppsAppProofOfPurchaseKeyMax (value: '240')
- * @member {String} SteamAppsInterfaceVersion (value: '"STEAMAPPS_INTERFACE_VERSION008"')
- * @member {Real} SteamScreenshotsInvalidScreenshotHandle (value: '0')
- * @member {Real} SteamScreenshotsUfsTagTypeMax (value: '255')
- * @member {Real} SteamScreenshotsUfsTagValueMax (value: '255')
- * @member {Real} SteamScreenshotsMaxTaggedPublishedFiles (value: '32')
- * @member {Real} SteamScreenshotsMaxTaggedUsers (value: '32')
- * @member {Real} SteamScreenshotsThumbWidth (value: '200')
- * @member {String} SteamScreenshotsInterfaceVersion (value: '"STEAMSCREENSHOTS_INTERFACE_VERSION003"')
- * @member {String} SteamUserInterfaceVersion (value: '"SteamUser019"')
- * @member {Real} SteamUserEncryptedAppTicketSymmetricKeyLen (value: '32')
- * @member {String} SteamUtilsInterfaceVersion (value: '"SteamUtils009"')
- * @member {Real} SteamUgcNumResultsPerPage (value: '50')
- * @member {Real} SteamUgcDeveloperMetadataMax (value: '5000')
- * @member {Real} SteamUgcQueryHandleInvalid (value: '-1')
- * @member {Real} SteamUgcUpdateHandleInvalid (value: '-1')
- * @member {String} SteamUgcInterfaceVersion (value: '"STEAMUGC_INTERFACE_VERSION015"')
- * @member {String} SteamInputInterfaceVersion (value: '"SteamInput001"')
- * @member {Real} SteamInputHandleAllControllers (value: '-1')
- * @member {Real} SteamInputMaxAnalogActions (value: '16')
- * @member {Real} SteamInputMaxAnalogActionData (value: '1.0')
- * @member {Real} SteamInputMaxCount (value: '16')
- * @member {Real} SteamInputMaxDigitalActions (value: '128')
- * @member {Real} SteamInputMaxOrigins (value: '8')
- * @member {Real} SteamInputMinAnalogActionData (value: '-1.0')
- * @member {Real} SteamUserStatsLeaderboardNameMax (value: '128')
- * @member {Real} SteamUserStatsStatNameMax (value: '128')
- * @member {Real} SteamUserStatsLeaderboardDetailsMax (value: '64')
- * @member {String} SteamUserStatsInterfaceVersion (value: '"STEAMUSERSTATS_INTERFACE_VERSION011"')
- * @member {String} SteamMusicInterfaceVersion (value: '"STEAMMUSIC_INTERFACE_VERSION001"')
- * @member {Real} SteamInventoryResultInvalid (value: '-1')
- * @member {Real} SteamInventoryItemInstanceIdInvalid (value: '-1')
- * @member {String} SteamInventoryInterfaceVersion (value: '"STEAMINVENTORY_INTERFACE_V002"')
- * @member {Real} SteamRemoteStorageFilenameMax (value: '260')
- * @member {Real} SteamRemoteStoragePublishedDocumentChangeDescriptionMax (value: '8000')
- * @member {Real} SteamRemoteStoragePublishedDocumentDescriptionMax (value: '8000')
- * @member {Real} SteamRemoteStoragePublishedDocumentTitleMax (value: '129')
- * @member {Real} SteamRemoteStoragePublishedFileUrlMax (value: '256')
- * @member {Real} SteamRemoteStorageTagListMax (value: '1025')
- * @member {Real} SteamRemoteStoragePublishedFileIdInvalid (value: '0')
- * @member {Real} SteamRemoteStoragePublishedFileUpdateHandleInvalid (value: '-1')
- * @member {Real} SteamRemoteStorageUgcFileStreamHandleInvalid (value: '-1')
- * @member {Real} SteamRemoteStorageUgcHandleInvalid (value: '-1')
- * @member {Real} SteamRemoteStorageEnumeratePublishedFilesMaxResults (value: '50')
- * @member {Real} SteamRemoteStorageMaxCloudFileChunkSize (value: '104857600')
+ * @member {Real} SteamApiBreakpadInvalidHandle (value: '0') Breakpad invalid handle.
+ * @member {Real} SteamApiGameExtraInfoMax (value: '64') The maximum size (in UTF-8 bytes, including the null terminator) of the `extra_info` parameter of ${function.steam_user_track_app_usage_event}.
+ * @member {Real} SteamApiSaltSize (value: '8') Only used internally in Steam.
+ * @member {Real} SteamApiGidNil (value: '-1') Only used internally in Steam.
+ * @member {Real} SteamApiAuthTicketInvalid (value: '0') An invalid user authentication ticket.
+ * @member {Real} SteamApiJobIdNil (value: '-1') Only used internally in Steam.
+ * @member {Real} SteamApiTxnIdNil (value: '-1') Only used internally in Steam.
+ * @member {Real} SteamApiTxnIdUnknown (value: '0') Only used internally in Steam.
+ * @member {Real} SteamApiApiCallInvalid (value: '0x0') An Invalid Steam API Call handle.
+ * @member {Real} SteamApiAppIdInvalid (value: '0x0') An Invalid App ID.
+ * @member {Real} SteamApiBundleIdInvalid (value: '0') Only used internally in Steam.
+ * @member {Real} SteamApiCellIdInvalid (value: '0xFFFFFFFF') Only used internally in Steam.
+ * @member {Real} SteamApiDepotIdInvalid (value: '0x0') An Invalid Depot ID.
+ * @member {Real} SteamApiAssetClassIdInvalid (value: '0x0') Only used internally in Steam.
+ * @member {Real} SteamApiManifestIdInvalid (value: '0') Only used internally in Steam.
+ * @member {Real} SteamApiSteamAccountIdMask (value: '0xFFFFFFFF') Used in [CSteamID](https://partner.steamgames.com/doc/api/steam_api#CSteamID) to mask out the [AccountID_t](https://partner.steamgames.com/doc/api/steam_api#AccountID_t).
+ * @member {Real} SteamApiSteamAccountInstanceMask (value: '0x000FFFFF') Used in [CSteamID](https://partner.steamgames.com/doc/api/steam_api#CSteamID) to mask out the account instance.
+ * @member {Real} SteamApiSteamUserConsoleInstance (value: '2') Used by [CSteamID](https://partner.steamgames.com/doc/api/steam_api#CSteamID) to identify users logged in from a console.
+ * @member {Real} SteamApiSteamUserDesktopInstance (value: '1') Used by [CSteamID](https://partner.steamgames.com/doc/api/steam_api#CSteamID) to identify users logged in from the desktop client.
+ * @member {Real} SteamApiSteamUserWebInstance (value: '4') Used by [CSteamID](https://partner.steamgames.com/doc/api/steam_api#CSteamID) to identify users logged in from the web.
+ * @member {Real} SteamApiPackageIdFreeSub (value: '0x0') Only used internally in Steam.
+ * @member {Real} SteamApiPackageIdInvalid (value: '0xFFFFFFFF') Only used internally in Steam.
+ * @member {Real} SteamApiPartnerIdInvalid (value: '0') Only used internally in Steam.
+ * @member {Real} SteamApiPhysicalItemIdInvalid (value: '0x0') Only used internally in Steam.
+ * @member {Real} SteamApiQueryPortError (value: '0xFFFE') We were unable to get the query port for this server.
+ * @member {Real} SteamApiQueryPortNotInitialized (value: '0xFFFF') We haven't asked the GS for this query port's actual value yet.
+ * @member {Real} SteamFriendsMaxFriendsGroupName (value: '64') The maximum length that a friends group name can be (not including the null-terminator!)
+ * @member {Real} SteamFriendsMaxRichPresenceKeyLength (value: '64') The maximum length that a rich presence key can be.
+ * @member {Real} SteamFriendsMaxRichPresenceKeys (value: '20')The maximum amount of rich presence keys that can be set.
+ * @member {Real} SteamFriendsMaxRichPresenceValueLength (value: '256') The maximum length that a rich presence value can be.
+ * @member {Real} SteamFriendsPersonaNameMax (value: '128') Maximum number of UTF-8 bytes in a users persona (display) name.
+ * @member {Real} SteamFriendsEnumerateFollowersMax (value: '50') The maximum number of followers that will be returned in a [FriendsEnumerateFollowingList_t](https://partner.steamgames.com/doc/api/ISteamFriends#FriendsEnumerateFollowingList_t) call result at once.
+ * @member {Real} SteamFriendsFriendsGroupLimit (value: '100') Deprecated - Unused.
+ * @member {Real} SteamFriendsChatMetadataMax (value: '8192') Maximum size in bytes that chat room, lobby, or chat/lobby member metadata may have.
+ * @member {Real} SteamFriendsPersonaNameMaxUtf16 (value: '32') The maximum amount of UTF-16 characters in a users persona (display) name.
+ * @member {Real} SteamFriendsGroupIdInvalid (value: '-1') Invalid friends group identifier.
+ * @member {String} SteamFriendsInterfaceVersion (value: '"SteamFriends015"') Steam Friends interface version.
+ * @member {Real} SteamAppsAppProofOfPurchaseKeyMax (value: '240') Only used internally in Steam.
+ * @member {String} SteamAppsInterfaceVersion (value: '"STEAMAPPS_INTERFACE_VERSION008"') Steam Apps interface version.
+ * @member {Real} SteamScreenshotsInvalidScreenshotHandle (value: '0') An invalid screenshot handle, this is returned when writing or adding a screenshot has failed.
+ * @member {Real} SteamScreenshotsUfsTagTypeMax (value: '255') Unused.
+ * @member {Real} SteamScreenshotsUfsTagValueMax (value: '255') The maximum length in bytes of a location metadata string set on a screenshot using ${function.steam_screenshots_set_location}.
+ * @member {Real} SteamScreenshotsMaxTaggedPublishedFiles (value: '32') The maximum number of workshop items that can be tagged in a screenshot using ${function.steam_screenshots_tag_published_file}.
+ * @member {Real} SteamScreenshotsMaxTaggedUsers (value: '32') The maximum number of users that can be tagged in a screenshot using ${function.steam_screenshots_tag_user}.
+ * @member {Real} SteamScreenshotsThumbWidth (value: '200') Required width of a thumbnail provided to ${function.steam_screenshots_add_screenshot_to_library}. If you do not provide a thumbnail then one will be generated automatically.
+ * @member {String} SteamScreenshotsInterfaceVersion (value: '"STEAMSCREENSHOTS_INTERFACE_VERSION003"') Steam Screenshots interface version.
+ * @member {String} SteamUserInterfaceVersion (value: '"SteamUser019"') Steam User interface version.
+ * @member {Real} SteamUserEncryptedAppTicketSymmetricKeyLen (value: '32') The length of a key used with [SteamEncryptedAppTicket::BDecryptTicket](https://partner.steamgames.com/doc/api/SteamEncryptedAppTicket#BDecryptTicket).
+ * @member {String} SteamUtilsInterfaceVersion (value: '"SteamUtils009"') Steam Utils interface version.
+ * @member {Real} SteamUgcNumResultsPerPage (value: '50') The maximum number of results that you'll receive for a query result.
+ * @member {Real} SteamUgcDeveloperMetadataMax (value: '5000') The maximum amount of bytes you can set with ${function.steam_ugc_set_item_metadata}.
+ * @member {Real} SteamUgcQueryHandleInvalid (value: '-1') Used to specify an invalid query handle. This is frequently returned if a call fails.
+ * @member {Real} SteamUgcUpdateHandleInvalid (value: '-1') Used to specify an invalid item update handle. This is frequently returned if a call fails.
+ * @member {String} SteamUgcInterfaceVersion (value: '"STEAMUGC_INTERFACE_VERSION015"') Steam UGC interface version.
+ * @member {String} SteamInputInterfaceVersion (value: '"SteamInput001"') Steam Input interface version.
+ * @member {Real} SteamInputHandleAllControllers (value: '-1') When sending an option to a specific controller handle, you can use this special value in the place of a handle to send the option to all controllers instead.
+ * @member {Real} SteamInputMaxAnalogActions (value: '16') The maximum number of analog actions that can be performed on each controller.
+ * @member {Real} SteamInputMaxAnalogActionData (value: '1.0') The maximum value that can be reported by an analog action on any given axis.
+ * @member {Real} SteamInputMaxCount (value: '16') The maximum number of controllers that can be used simultaneously with the Steam Input Configurator.
+ * @member {Real} SteamInputMaxDigitalActions (value: '128') The maximum number of digital actions that can be performed on each controller.
+ * @member {Real} SteamInputMaxOrigins (value: '8') The maximum number of input origins that can be attached to a single action.
+ * @member {Real} SteamInputMinAnalogActionData (value: '-1.0') The minimum value that can be reported by an analog action on any given axis.
+ * @member {Real} SteamUserStatsLeaderboardNameMax (value: '128') Maximum number of bytes for a leaderboard name (UTF-8 encoded).
+ * @member {Real} SteamUserStatsStatNameMax (value: '128') Maximum number of bytes for stat and achievement names (UTF-8 encoded).
+ * @member {Real} SteamUserStatsLeaderboardDetailsMax (value: '64') Maximum number of details that you can store for a single leaderboard entry.
+ * @member {String} SteamUserStatsInterfaceVersion (value: '"STEAMUSERSTATS_INTERFACE_VERSION011"') Steam Userstats interface version.
+ * @member {String} SteamMusicInterfaceVersion (value: '"STEAMMUSIC_INTERFACE_VERSION001"') Steam Music interface version.
+ * @member {Real} SteamInventoryResultInvalid (value: '-1') An invalid Steam inventory result handle.
+ * @member {Real} SteamInventoryItemInstanceIdInvalid (value: '-1') An invalid item instance id. This is usually returned when an operation has failed. It's recommended that you initialise all new item instances with this value.
+ * @member {String} SteamInventoryInterfaceVersion (value: '"STEAMINVENTORY_INTERFACE_V002"') Steam Inventory interface version.
+ * @member {Real} SteamRemoteStorageFilenameMax (value: '260') The maximum length that a Steam Cloud file path can be.
+ * @member {Real} SteamRemoteStoragePublishedDocumentChangeDescriptionMax (value: '8000') Unused.
+ * @member {Real} SteamRemoteStoragePublishedDocumentDescriptionMax (value: '8000') The maximum size in bytes that a Workshop item description can be.
+ * @member {Real} SteamRemoteStoragePublishedDocumentTitleMax (value: '129') The maximum size in bytes that a Workshop item title can be.
+ * @member {Real} SteamRemoteStoragePublishedFileUrlMax (value: '256') The maximum size in bytes that a Workshop item URL can be.
+ * @member {Real} SteamRemoteStorageTagListMax (value: '1025') The maximum size in bytes that a Workshop item comma separated tag list can be.
+ * @member {Real} SteamRemoteStoragePublishedFileIdInvalid (value: '0') An invalid Workshop item handle.
+ * @member {Real} SteamRemoteStoragePublishedFileUpdateHandleInvalid (value: '-1') Deprecated - Only used with the deprecated RemoteStorage based Workshop API.
+ * @member {Real} SteamRemoteStorageUgcFileStreamHandleInvalid (value: '-1') Returned when an error has occured when using ${function.steam_remote_storage_file_write_stream_open}.
+ * @member {Real} SteamRemoteStorageUgcHandleInvalid (value: '-1') An invalid UGC Handle. This is often returned by functions signifying an error.
+ * @member {Real} SteamRemoteStorageEnumeratePublishedFilesMaxResults (value: '50') Deprecated - Only used with the deprecated RemoteStorage based Workshop API.
+ * @member {Real} SteamRemoteStorageMaxCloudFileChunkSize (value: '104857600') Defines the largest allowed file size for the Steam Cloud. Cloud files cannot be written in a single chunk over 100MiB and cannot be over 200MiB total.
  * @member {String} SteamRemoteStorageInterfaceVersion (value: '"STEAMREMOTESTORAGE_INTERFACE_VERSION014"')
- * @member {Real} SteamMatchmakingServerQueryInvalid (value: '0xffffffff')
- * @member {Real} SteamMatchmakingMaxLobbyKeyLength (value: '255')
- * @member {Real} SteamMatchmakingFavoriteFlagFavorite (value: '0x01')
- * @member {Real} SteamMatchmakingFavoriteFlagHistory (value: '0x02')
- * @member {Real} SteamMatchmakingFavoriteFlagNone (value: '0x00')
- * @member {String} SteamMatchmakingServersInterfaceVersion (value: '"SteamMatchMakingServers002"')
- * @member {String} SteamMatchmakingInterfaceVersion (value: '"SteamMatchMaking009"')
+ * @member {Real} SteamMatchmakingServerQueryInvalid (value: '0xffffffff') Invalid server query.
+ * @member {Real} SteamMatchmakingMaxLobbyKeyLength (value: '255') Maximum number of characters a lobby metadata key can be.
+ * @member {Real} SteamMatchmakingFavoriteFlagFavorite (value: '0x01') This favorite game server entry is for the favorites list.
+ * @member {Real} SteamMatchmakingFavoriteFlagHistory (value: '0x02') This favorite game server entry is for the history list.
+ * @member {Real} SteamMatchmakingFavoriteFlagNone (value: '0x00') This favorite game server has no flags set.
+ * @member {String} SteamMatchmakingServersInterfaceVersion (value: '"SteamMatchMakingServers002"') Steam Matchmaking servers interface version.
+ * @member {String} SteamMatchmakingInterfaceVersion (value: '"SteamMatchMaking009"') Steam Matchmaking interface version.
  * @const_end 
  */
-
