@@ -248,8 +248,9 @@
  * @event steam
  * @member {string} event_type The string value `"lobby_joined"`
  * @member {int64} lobby_id The lobby unique identifier
- * @member {boolean} success Whether or not the task was successful
+ * @member {boolean} success Whether or not the lobby was entered successfully
  * @member {real} result The code of the result
+ * @member {real} enter_response The Steam `EChatRoomEnterResponse` value returned for the join attempt
  * @event_end
  * 
  * @event steam
