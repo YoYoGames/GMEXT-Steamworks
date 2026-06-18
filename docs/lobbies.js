@@ -146,6 +146,55 @@
  */
 
 /**
+ * @func steam_lobby_request_data
+ * @desc This function requests a metadata refresh for the given lobby ID. This is useful when you have a lobby ID from ${function.steam_get_friends_game_info} or a previous lobby list and want to read its latest lobby fields without joining it.
+ *
+ * @param {int64} lobby_id Identifier of the lobby to refresh metadata for
+ *
+ * @returns {boolean}
+ *
+ * @event steam
+ * @member {string} event_type The string value `"lobby_data_update"`
+ * @member {int64} lobby_id The lobby unique identifier
+ * @member {int64} member_id The lobby ID again for lobby metadata updates, or a member Steam ID for member data updates
+ * @member {boolean} success Whether or not the lobby data refresh was successful
+ * @member {real} result The code of the result
+ * @event_end
+ *
+ * @example
+ * ```gml
+ * var _friend_info = steam_get_friends_game_info(_friend_id);
+ * if (_friend_info.lobbyId != 0)
+ * {
+ *     steam_lobby_request_data(_friend_info.lobbyId);
+ * }
+ * ```
+ * The code above requests the latest metadata for a friend's lobby. Handle the `"lobby_data_update"` Steam async event before reading the fields with ${function.steam_lobby_get_data_by_id}.
+ * @func_end
+ */
+
+/**
+ * @func steam_lobby_get_data_by_id
+ * @desc This function returns a cached lobby field value for the given lobby ID, as set by ${function.steam_lobby_set_data}. Use ${function.steam_lobby_request_data} first if you need to refresh metadata for a lobby you are not currently in.
+ *
+ * @param {int64} lobby_id Identifier of the lobby to read cached metadata from
+ * @param {string} key String representation of the data
+ *
+ * @returns {string}
+ *
+ * @example
+ * ```gml
+ * if (async_load[? "event_type"] == "lobby_data_update" && async_load[? "success"])
+ * {
+ *     var _lobby_id = async_load[? "lobby_id"];
+ *     var _title = steam_lobby_get_data_by_id(_lobby_id, "title");
+ * }
+ * ```
+ * The code above reads the cached `title` field after Steam reports that the lobby metadata was refreshed.
+ * @func_end
+ */
+
+/**
  * @func steam_lobby_get_lobby_id
  * @desc This function returns the Steam ID of the current lobby.
  * 
@@ -847,12 +896,14 @@
  * @ref steam_lobby_list_request
  * @ref steam_lobby_list_get_count
  * @ref steam_lobby_list_get_data
+ * @ref steam_lobby_get_data_by_id
  * @ref steam_lobby_list_get_lobby_id
  * @ref steam_lobby_list_get_lobby_member_count
  * @ref steam_lobby_list_get_lobby_member_id
  * @ref steam_lobby_list_get_lobby_owner_id
  * @ref steam_lobby_list_is_loading
  * @ref steam_lobby_list_join
+ * @ref steam_lobby_request_data
  * @section_end
  * 
  * @section_const Constants
