@@ -61,7 +61,7 @@ To use the Steam API extension you should follow these steps:
 
 ## Dedicated Servers
 
-  Dedicated server builds should set **Initialization Mode** to `Dedicated Server`, then initialize Steam with [steam_gameserver_init](dedicated_servers#steam_gameserver_init). Call [steam_gameserver_update](dedicated_servers#steam_gameserver_update) regularly to dispatch GameServer callbacks, and call [steam_gameserver_shutdown](dedicated_servers#steam_gameserver_shutdown) before the process exits.
+  Dedicated server builds should set **Initialization Mode** to `Dedicated Server`, then initialize Steam with [steam_gameserver_init](dedicated_servers#steam_gameserver_init). Call [steam_gameserver_update](dedicated_servers#steam_gameserver_update) or the shared [steam_update](management#steam_update) regularly to dispatch GameServer callbacks, and call [steam_gameserver_shutdown](dedicated_servers#steam_gameserver_shutdown) before the process exits.
 
 
 <br><br>

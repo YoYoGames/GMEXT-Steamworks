@@ -24,18 +24,23 @@ int getAsyncRequestInd()
 
 YYEXPORT void steam_update(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)
 {
-	if (!steam_is_initialised)
-	{
-		Result.kind = VALUE_REAL;
-		Result.val = 0;
-		return;
-	}
+    bool updated = false;
 
-	SteamAPI_RunCallbacks();
-	Steam_UserStats_Process();
+    if (steam_is_initialised)
+    {
+        SteamAPI_RunCallbacks();
+        Steam_UserStats_Process();
+        updated = true;
+    }
+
+    if (steam_gameserver_is_initialised)
+    {
+        SteamGameServer_RunCallbacks();
+        updated = true;
+    }
 
 	Result.kind = VALUE_REAL;
-	Result.val = 1;
+	Result.val = updated ? 1 : 0;
 }
 
 bool steam_is_initialised = false;
@@ -727,12 +732,13 @@ YYEXPORT void steam_gameserver_get_next_outgoing_packet(RValue& Result, CInstanc
     uint32 ip = 0;
     uint16 port = 0;
     int size = p->GetNextOutgoingPacket(packet.data(), maxSize, &ip, &port);
+    bool success = false;
     if (size > 0)
-        BufferWriteContent(bufferIndex, 0, packet.data(), size, false, false);
+        success = BufferWriteContent(bufferIndex, 0, packet.data(), size, false, false) == size;
 
     std::string ipString = SteamGameServer_IPv4ToString(ip);
-    YYStructAddBool(&Result, "success", size > 0);
-    YYStructAddInt(&Result, "size", size);
+    YYStructAddBool(&Result, "success", success);
+    YYStructAddInt(&Result, "size", success ? size : 0);
     YYStructAddDouble(&Result, "ip", static_cast<double>(ip));
     YYStructAddString(&Result, "ip_string", ipString.c_str());
     YYStructAddInt(&Result, "port", port);

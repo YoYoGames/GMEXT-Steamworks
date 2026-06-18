@@ -409,7 +409,7 @@ YYEXPORT void steam_net_sockets_send_messages(
     std::vector<SteamNetworkingMessage_t*> msgs(n, nullptr);
     std::vector<int64> results(n, 0);
 
-    // Allocate all message objects first so we don�t leak payload on partial failure
+    // Allocate all message objects first so we don't leak payload on partial failure.
     for (int i = 0; i < n; ++i)
     {
         msgs[i] = pUtils->AllocateMessage(0); // we provide our own payload
@@ -645,7 +645,7 @@ YYEXPORT void steam_net_sockets_recv_messages_on_poll_group(
         YYStructAddInt(&entry, "lane", (int)msg->m_idxLane);
 
         SET_RValue(&Result, &entry, nullptr, i);
-        YYFree(&entry);
+        // SET_RValue transfers ownership of the struct data into the array slot.
 
         writeOffset += toWrite;
         totalWritten += toWrite;
@@ -797,15 +797,17 @@ YYEXPORT void steam_net_sockets_set_connection_name(
     RValue& Result, CInstance* self, CInstance* other, int argc, RValue* args)
 {
     ISteamNetworkingSockets* p = SteamNetworkingSockets();
+    bool ok = false;
     if (p)
     {
         HSteamNetConnection hConn = (HSteamNetConnection)YYGetReal(args, 0);
         const char* name = YYGetString(args, 1);
         p->SetConnectionName(hConn, name);
+        ok = true;
     }
 
-    Result.kind = VALUE_REAL;
-    Result.val = 1.0;
+    Result.kind = VALUE_BOOL;
+    Result.val = ok;
 }
 
 YYEXPORT void steam_net_sockets_get_connection_name(

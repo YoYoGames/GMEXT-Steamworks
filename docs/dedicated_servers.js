@@ -28,7 +28,7 @@
  * @func steam_gameserver_update
  * @desc > **Steam Function**: [SteamGameServer_RunCallbacks](https://partner.steamgames.com/doc/api/steam_gameserver#SteamGameServer_RunCallbacks)
  *
- * This function dispatches Steam GameServer callbacks. Call it frequently while the dedicated server is running.
+ * This function dispatches Steam GameServer callbacks. Call it frequently while the dedicated server is running. The shared ${function.steam_update} function also dispatches GameServer callbacks after the GameServer API is initialized.
  *
  * @returns {bool}
  *
