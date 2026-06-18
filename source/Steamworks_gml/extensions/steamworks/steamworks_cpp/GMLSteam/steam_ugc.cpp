@@ -995,11 +995,17 @@ YYEXPORT void /*double*/ steam_ugc_set_item_tags(RValue& Result, CInstance* self
 
 	uint64 _ugcUpdateHandle = (uint64)YYGetInt64(arg, 0);
 
-	std::vector<const char*> tags = _SW_GetArrayOfStrings(arg, 1, "steam_ugc_set_item_tags");
+	std::vector<std::string> tags = _SW_GetArrayOfStrings(arg, 1, "steam_ugc_set_item_tags");
+	std::vector<const char*> tagPointers;
+	tagPointers.reserve(tags.size());
+	for (const std::string& tag : tags)
+	{
+		tagPointers.push_back(tag.c_str());
+	}
 
 	SteamParamStringArray_t params;
-	params.m_nNumStrings = (int) tags.size();
-	params.m_ppStrings = tags.data();
+	params.m_nNumStrings = (int) tagPointers.size();
+	params.m_ppStrings = tagPointers.data();
 
 	bool bResult = SteamUGC()->SetItemTags((UGCUpdateHandle_t)_ugcUpdateHandle, &params);
 	if (!bResult)
