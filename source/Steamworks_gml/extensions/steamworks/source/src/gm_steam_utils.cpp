@@ -1,4 +1,4 @@
-﻿// gm_steam_utils.cpp
+// gm_steam_utils.cpp
 //
 // Steamworks module: utils (ISteamUtils)
 
@@ -126,7 +126,7 @@ static inline gm_structs::SteamUtilsCheckFileSignatureResult utils_fromNative(co
     return out;
 }
 
-void steam_utils_check_file_signature(std::string_view sz_file_name,  const std::optional<gm::wire::GMFunction>& callback)
+void steam_utils_check_file_signature(std::string_view file_name,  const std::optional<gm::wire::GMFunction>& callback)
 {
     STEAM_GUARD();
 
@@ -134,7 +134,7 @@ void steam_utils_check_file_signature(std::string_view sz_file_name,  const std:
     if (!u)
         return;
 
-    std::string fn(sz_file_name);
+    std::string fn(file_name);
     SteamAPICall_t call = u->CheckFileSignature(fn.c_str());
 
     if(callback)
@@ -223,21 +223,21 @@ std::uint32_t steam_utils_get_entered_gamepad_text_length()
     return (std::uint32_t)u->GetEnteredGamepadTextLength();
 }
 
-bool steam_utils_get_image_rgba(std::int32_t i_image, gm::wire::GMBuffer dest, std::int32_t n_dest_buffer_size)
+bool steam_utils_get_image_rgba(std::int32_t image_handle, gm::wire::GMBuffer dest, std::int32_t dest_buffer_size)
 {
     STEAM_GUARD_RET(false);
     ISteamUtils* u = steam_utils_iface();
     if (!u)
         return false;
 
-    if (n_dest_buffer_size <= 0) {
-        steam_set_last_error("GetImageRGBA: n_dest_buffer_size must be > 0.");
+    if (dest_buffer_size <= 0) {
+        steam_set_last_error("GetImageRGBA: dest_buffer_size must be > 0.");
         return false;
     }
 
-    std::vector<std::uint8_t> rgba((size_t)n_dest_buffer_size);
+    std::vector<std::uint8_t> rgba((size_t)dest_buffer_size);
 
-    const bool ok = u->GetImageRGBA(i_image, rgba.data(), (int)rgba.size());
+    const bool ok = u->GetImageRGBA(image_handle, rgba.data(), (int)rgba.size());
     if (!ok)
         return false;
 
@@ -246,7 +246,7 @@ bool steam_utils_get_image_rgba(std::int32_t i_image, gm::wire::GMBuffer dest, s
     return true;
 }
 
-SteamUtilsImageSize steam_utils_get_image_size(std::int32_t i_image)
+SteamUtilsImageSize steam_utils_get_image_size(std::int32_t image_handle)
 {
     STEAM_GUARD_RET({});
 
@@ -262,7 +262,7 @@ SteamUtilsImageSize steam_utils_get_image_size(std::int32_t i_image)
     uint32 w = 0;
     uint32 h = 0;
 
-    const bool ok = u->GetImageSize(i_image, &w, &h);
+    const bool ok = u->GetImageSize(image_handle, &w, &h);
     out.ok = ok;
     if (!ok)
         return out;
@@ -460,14 +460,14 @@ bool steam_utils_is_vr_headset_streaming_enabled()
     return u->IsVRHeadsetStreamingEnabled();
 }
 
-void steam_utils_set_overlay_notification_inset(std::int32_t n_horizontal_inset, std::int32_t n_vertical_inset)
+void steam_utils_set_overlay_notification_inset(std::int32_t horizontal_inset, std::int32_t vertical_inset)
 {
     STEAM_GUARD();
     ISteamUtils* u = steam_utils_iface();
     if (!u)
         return;
 
-    u->SetOverlayNotificationInset(n_horizontal_inset, n_vertical_inset);
+    u->SetOverlayNotificationInset(horizontal_inset, vertical_inset);
 }
 
 void steam_utils_set_overlay_notification_position(SteamApiNotificationPosition notification_position)
@@ -480,14 +480,14 @@ void steam_utils_set_overlay_notification_position(SteamApiNotificationPosition 
     u->SetOverlayNotificationPosition((ENotificationPosition)(int)notification_position);
 }
 
-void steam_utils_set_vr_headset_streaming_enabled(bool b_enabled)
+void steam_utils_set_vr_headset_streaming_enabled(bool enabled)
 {
     STEAM_GUARD();
     ISteamUtils* u = steam_utils_iface();
     if (!u)
         return;
 
-    u->SetVRHeadsetStreamingEnabled(b_enabled);
+    u->SetVRHeadsetStreamingEnabled(enabled);
 }
 
 void steam_utils_set_callback_gamepad_text_input_dismissed(const GMFunction& callback)
@@ -660,7 +660,7 @@ void steam_utils_start_vr_dashboard()
     u->StartVRDashboard();
 }
 
-void steam_utils_set_game_launcher_mode(bool b_launcher_mode)
+void steam_utils_set_game_launcher_mode(bool launcher_mode)
 {
     STEAM_GUARD();
 
@@ -668,7 +668,7 @@ void steam_utils_set_game_launcher_mode(bool b_launcher_mode)
     if (!u)
         return;
 
-    u->SetGameLauncherMode(b_launcher_mode);
+    u->SetGameLauncherMode(launcher_mode);
 }
 
 static gm::wire::GMFunction g_cb_ip_country = nullptr;

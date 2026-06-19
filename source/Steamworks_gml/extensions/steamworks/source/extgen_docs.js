@@ -212,7 +212,7 @@
 
 /**
  * @function_partial steam_friends_get_friend_by_index
- * @param {Real} friend
+ * @param {Real} friend_index
  * @param {Real} friend_flags
  * @returns {Real} 
  * @function_end 
@@ -249,7 +249,7 @@
 /**
  * @function_partial steam_friends_get_friend_from_source_by_index
  * @param {Real} steam_id_source
- * @param {Real} friend
+ * @param {Real} friend_index
  * @returns {Real} 
  * @function_end 
  */
@@ -892,15 +892,15 @@
 /**
  * @function_partial steam_user_advertise_game
  * @param {Real} steam_id_game_server
- * @param {Real} un_ip_server
- * @param {Real} us_port_server
+ * @param {Real} server_ip
+ * @param {Real} server_port
  * @function_end 
  */
 
 /**
  * @function_partial steam_user_begin_auth_session
  * @param {Buffer} auth_ticket
- * @param {Real} cb_auth_ticket
+ * @param {Real} auth_ticket_size
  * @param {Real} steam_id
  * @returns {Enum.SteamUserBeginAuthSessionResult} 
  * @function_end 
@@ -951,17 +951,17 @@
 
 /**
  * @function_partial steam_user_cancel_auth_ticket
- * @param {Real} h_auth_ticket
+ * @param {Real} auth_ticket_handle
  * @function_end 
  */
 
 /**
  * @function_partial steam_user_decompress_voice
  * @param {Buffer} compressed
- * @param {Real} cb_compressed
+ * @param {Real} compressed_size
  * @param {Buffer} dest
- * @param {Real} cb_dest_buffer_size
- * @param {Real} n_desired_sample_rate
+ * @param {Real} dest_buffer_size
+ * @param {Real} desired_sample_rate
  * @returns {Enum.SteamApiVoiceResult} 
  * @function_end 
  */
@@ -975,7 +975,7 @@
 /**
  * @function_partial steam_user_get_auth_session_ticket
  * @param {Buffer} out_ticket
- * @param {Real} cb_max_ticket
+ * @param {Real} max_ticket_size
  * @param {Struct.SteamNetworkingIdentity} [remote_identity]
  * @returns {Struct.SteamUserAuthSessionTicket} 
  * @function_end 
@@ -1030,13 +1030,13 @@
 
 /**
  * @function_partial steam_user_get_voice
- * @param {Bool} b_want_compressed
+ * @param {Bool} want_compressed
  * @param {Buffer} dest_compressed
- * @param {Real} cb_dest_compressed
- * @param {Bool} b_want_uncompressed
+ * @param {Real} dest_compressed_size
+ * @param {Bool} want_uncompressed
  * @param {Buffer} dest_uncompressed
- * @param {Real} cb_dest_uncompressed
- * @param {Real} n_desired_sample_rate
+ * @param {Real} dest_uncompressed_size
+ * @param {Real} desired_sample_rate
  * @returns {Struct.SteamUserGetVoiceResult} 
  * @function_end 
  */
@@ -1050,7 +1050,7 @@
 /**
  * @function_partial steam_user_request_encrypted_app_ticket
  * @param {Buffer} data_to_include
- * @param {Real} cb_data_to_include
+ * @param {Real} data_to_include_size
  * @param {Function} [callback]
  * @function_end 
  */
@@ -1058,22 +1058,22 @@
 /**
  * @function_partial steam_user_get_encrypted_app_ticket
  * @param {Buffer} out_ticket
- * @param {Real} cb_max_ticket
+ * @param {Real} max_ticket_size
  * @returns {Struct.SteamUserEncryptedAppTicket} 
  * @function_end 
  */
 
 /**
  * @function_partial steam_user_get_game_badge_level
- * @param {Real} n_series
- * @param {Bool} b_foil
+ * @param {Real} series
+ * @param {Bool} foil
  * @returns {Real} 
  * @function_end 
  */
 
 /**
  * @function_partial steam_user_get_auth_ticket_for_web_api
- * @param {String} pch_identity
+ * @param {String} identity
  * @returns {Real} 
  * @function_end 
  */
@@ -1086,7 +1086,7 @@
 
 /**
  * @function_partial steam_user_request_store_auth_url
- * @param {String} pch_redirect_url
+ * @param {String} redirect_url
  * @param {Function} [callback]
  * @function_end 
  */
@@ -1100,8 +1100,8 @@
 /**
  * @function_partial steam_user_track_app_usage_event
  * @param {Real} game_id
- * @param {Real} e_app_usage_event
- * @param {String} pch_extra_info
+ * @param {Real} app_usage_event
+ * @param {String} extra_info
  * @function_end 
  */
 
@@ -1187,7 +1187,7 @@
 
 /**
  * @function_partial steam_utils_check_file_signature
- * @param {String} sz_file_name
+ * @param {String} file_name
  * @param {Function} [callback]
  * @function_end 
  */
@@ -1296,16 +1296,16 @@
 
 /**
  * @function_partial steam_utils_get_image_rgba
- * @param {Real} i_image
+ * @param {Real} image_handle
  * @param {Buffer} dest
- * @param {Real} n_dest_buffer_size
+ * @param {Real} dest_buffer_size
  * @returns {Bool} 
  * @function_end 
  */
 
 /**
  * @function_partial steam_utils_get_image_size
- * @param {Real} i_image
+ * @param {Real} image_handle
  * @returns {Struct.SteamUtilsImageSize} 
  * @function_end 
  */
@@ -1406,8 +1406,8 @@
 
 /**
  * @function_partial steam_utils_set_overlay_notification_inset
- * @param {Real} n_horizontal_inset
- * @param {Real} n_vertical_inset
+ * @param {Real} horizontal_inset
+ * @param {Real} vertical_inset
  * @function_end 
  */
 
@@ -1419,7 +1419,7 @@
 
 /**
  * @function_partial steam_utils_set_vr_headset_streaming_enabled
- * @param {Bool} b_enabled
+ * @param {Bool} enabled
  * @function_end 
  */
 
@@ -1457,7 +1457,7 @@
 
 /**
  * @function_partial steam_utils_set_game_launcher_mode
- * @param {Bool} b_launcher_mode
+ * @param {Bool} launcher_mode
  * @function_end 
  */
 
@@ -1684,7 +1684,7 @@
 
 /**
  * @function_partial steam_ugc_get_subscribed_items
- * @param {Real} c_max_entries
+ * @param {Real} max_entries
  * @param {Bool} include_locally_disabled
  * @returns {Array[Real]} 
  * @function_end 
@@ -1718,7 +1718,7 @@
  * @function_partial steam_ugc_get_query_ugc_children
  * @param {Real} query_handle
  * @param {Real} index
- * @param {Real} c_max_entries
+ * @param {Real} max_entries
  * @returns {Array[Real]} 
  * @function_end 
  */
@@ -3209,7 +3209,7 @@
 
 /**
  * @function_partial steam_inventory_get_eligible_promo_item_definition_ids
- * @param {Real} c_max_item_defs
+ * @param {Real} max_item_defs
  * @returns {Array[Real]} 
  * @function_end 
  */
@@ -3222,7 +3222,7 @@
 
 /**
  * @function_partial steam_inventory_get_item_definition_ids
- * @param {Real} c_max_item_defs
+ * @param {Real} max_item_defs
  * @returns {Array[Real]} 
  * @function_end 
  */

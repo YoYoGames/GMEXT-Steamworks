@@ -1,4 +1,4 @@
-﻿// gm_steam_ugc.cpp
+// gm_steam_ugc.cpp
 // Steamworks module: ugc (ISteamUGC)
 
 #include "GMSteamworks.h"
@@ -373,7 +373,7 @@ std::uint32_t steam_ugc_get_num_subscribed_items(bool include_locally_disabled)
     return (std::uint32_t)ugc_get_num_subscribed_items_impl(ugc, include_locally_disabled, 0);
 }
 
-std::vector<std::uint64_t> steam_ugc_get_subscribed_items(std::uint32_t c_max_entries, bool include_locally_disabled)
+std::vector<std::uint64_t> steam_ugc_get_subscribed_items(std::uint32_t max_entries, bool include_locally_disabled)
 {
     STEAM_GUARD_RET({});
 
@@ -383,10 +383,10 @@ std::vector<std::uint64_t> steam_ugc_get_subscribed_items(std::uint32_t c_max_en
     if (!ugc)
         return out;
 
-    if (c_max_entries == 0)
+    if (max_entries == 0)
         return out;
 
-    std::vector<PublishedFileId_t> ids((size_t)c_max_entries);
+    std::vector<PublishedFileId_t> ids((size_t)max_entries);
     const uint32 n = ugc_get_subscribed_items_impl(ugc, ids.data(), (uint32)ids.size(), include_locally_disabled, 0);
 
     out.reserve((size_t)n);
@@ -480,7 +480,7 @@ steam_ugc_get_query_ugc_metadata(std::uint64_t query_handle, std::uint32_t index
 }
 
 std::vector<std::uint64_t>
-steam_ugc_get_query_ugc_children(std::uint64_t query_handle, std::uint32_t index, std::uint32_t c_max_entries)
+steam_ugc_get_query_ugc_children(std::uint64_t query_handle, std::uint32_t index, std::uint32_t max_entries)
 {
     STEAM_GUARD_RET({});
 
@@ -489,10 +489,10 @@ steam_ugc_get_query_ugc_children(std::uint64_t query_handle, std::uint32_t index
     if (!ugc)
         return out;
 
-    if (c_max_entries == 0)
+    if (max_entries == 0)
         return out;
 
-    std::vector<PublishedFileId_t> tmp((size_t)c_max_entries);
+    std::vector<PublishedFileId_t> tmp((size_t)max_entries);
     const uint32 n = ugc->GetQueryUGCChildren(qh_from_u64(query_handle), index, tmp.data(), (uint32)tmp.size());
 
     out.reserve((size_t)n);

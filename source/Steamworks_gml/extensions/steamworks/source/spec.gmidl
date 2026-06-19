@@ -1,4 +1,4 @@
-[gml_api]
+﻿[gml_api]
 module Steamworks;
 
 
@@ -534,7 +534,7 @@ function steam_friends_get_follower_count([type_hint=uint64] steam_id: gmval, [t
 
 // GetFriendByIndex
 [global, bind = typed_gml, type_hint=uint64]
-function steam_friends_get_friend_by_index(friend: int32, friend_flags: int32): gmval;
+function steam_friends_get_friend_by_index(friend_index: int32, friend_flags: int32): gmval;
 
 // GetFriendCoplayGame
 // AppId_t -> uint32
@@ -575,7 +575,7 @@ enum SteamFriendsFriendFlag
 
 // GetFriendFromSourceByIndex
 [global, bind = typed_gml, type_hint=uint64]
-function steam_friends_get_friend_from_source_by_index([type_hint=uint64] steam_id_source: gmval, friend: int32): gmval;
+function steam_friends_get_friend_from_source_by_index([type_hint=uint64] steam_id_source: gmval, friend_index: int32): gmval;
 
 // GetFriendGamePlayed
 [global, bind = typed_gml, type_hint=`SteamFriendsFriendGamePlayed`]
@@ -1332,8 +1332,8 @@ class `[[SteamUserMarketEligibilityResponse]]` prototype Object
 [global, bind = typed_gml]
 function steam_user_advertise_game(
     [type_hint=uint64] steam_id_game_server: gmval,
-    un_ip_server: uint32,
-    us_port_server: uint32
+    server_ip: uint32,
+    server_port: uint32
 ): unit;
 
 
@@ -1341,7 +1341,7 @@ function steam_user_advertise_game(
 [global, bind = typed_gml, type_hint=`SteamUserBeginAuthSessionResult`]
 function steam_user_begin_auth_session(
     [type_hint=buffer] auth_ticket: gmval,
-    cb_auth_ticket: int32,
+    auth_ticket_size: int32,
     [type_hint=uint64] steam_id: gmval
 ): gmval;
 
@@ -1377,16 +1377,16 @@ function steam_user_set_duration_control_online_state(
 
 // CancelAuthTicket
 [global, bind = typed_gml]
-function steam_user_cancel_auth_ticket(h_auth_ticket: uint32): unit;
+function steam_user_cancel_auth_ticket(auth_ticket_handle: uint32): unit;
 
 // DecompressVoice
 [global, bind = typed_gml, type_hint=`SteamApiVoiceResult`]
 function steam_user_decompress_voice(
     [type_hint=buffer] compressed: gmval,
-    cb_compressed: uint32,
+    compressed_size: uint32,
     [type_hint=buffer] dest: gmval,
-    cb_dest_buffer_size: uint32,
-    n_desired_sample_rate: uint32
+    dest_buffer_size: uint32,
+    desired_sample_rate: uint32
 ): gmval;
 
 // EndAuthSession
@@ -1436,7 +1436,7 @@ class `[[SteamNetworkingIdentity]]` prototype Object
 [global, bind = typed_gml, type_hint=`SteamUserAuthSessionTicket`]
 function steam_user_get_auth_session_ticket(
     [type_hint=buffer] out_ticket: gmval,
-    cb_max_ticket: int32,
+    max_ticket_size: int32,
     [type_hint=`SteamNetworkingIdentity?`] remote_identity: gmval
 ): gmval;
 
@@ -1509,13 +1509,13 @@ function steam_user_get_available_voice(): gmval;
 // GetVoice
 [global, bind = typed_gml, type_hint=`SteamUserGetVoiceResult`]
 function steam_user_get_voice(
-    b_want_compressed: bool,
+    want_compressed: bool,
     [type_hint=buffer] dest_compressed: gmval,
-    cb_dest_compressed: uint32,
-    b_want_uncompressed: bool,
+    dest_compressed_size: uint32,
+    want_uncompressed: bool,
     [type_hint=buffer] dest_uncompressed: gmval,
-    cb_dest_uncompressed: uint32,
-    n_desired_sample_rate: uint32
+    dest_uncompressed_size: uint32,
+    desired_sample_rate: uint32
 ): gmval;
 
 // GetUserDataFolder (out buffer)
@@ -1526,18 +1526,18 @@ function steam_user_get_user_data_folder(): gmval;
 // RequestEncryptedAppTicket (async SteamAPICall_t)
 [global, bind = typed_gml]
 function steam_user_request_encrypted_app_ticket([type_hint=buffer] data_to_include: gmval,
-    cb_data_to_include: int32, [type_hint=`func?`]callback:gmval): unit;
+    data_to_include_size: int32, [type_hint=`func?`]callback:gmval): unit;
 
 // GetEncryptedAppTicket
 [global, bind = typed_gml, type_hint=`SteamUserEncryptedAppTicket`]
 function steam_user_get_encrypted_app_ticket(
     [type_hint=buffer] out_ticket: gmval,
-    cb_max_ticket: int32
+    max_ticket_size: int32
 ): gmval;
 
 // GetGameBadgeLevel
 [global, bind = typed_gml]
-function steam_user_get_game_badge_level(n_series: int32, b_foil: bool): int32;
+function steam_user_get_game_badge_level(series: int32, foil: bool): int32;
 
 [global]
 class `[[SteamUserAvailableVoice]]` prototype Object
@@ -1597,7 +1597,7 @@ class `[[SteamUserEncryptedAppTicket]]` prototype Object
 
 // GetAuthTicketForWebApi
 [global, bind = typed_gml]
-function steam_user_get_auth_ticket_for_web_api(pch_identity: string): uint32;
+function steam_user_get_auth_ticket_for_web_api(identity: string): uint32;
 
 
 // GetDurationControl
@@ -1607,7 +1607,7 @@ function steam_user_get_duration_control([type_hint=`func?`]callback:gmval): uni
 
 // RequestStoreAuthURL
 [global, bind = typed_gml]
-function steam_user_request_store_auth_url(pch_redirect_url: string, [type_hint=`func?`]callback:gmval): unit;
+function steam_user_request_store_auth_url(redirect_url: string, [type_hint=`func?`]callback:gmval): unit;
 
 // GetMarketEligibility (async SteamAPICall_t)
 [global, bind = typed_gml]
@@ -1617,8 +1617,8 @@ function steam_user_get_market_eligibility([type_hint=`func?`]callback:gmval): u
 [global, bind = typed_gml]
 function steam_user_track_app_usage_event(
     [type_hint = uint64] game_id: gmval,
-    e_app_usage_event: int32,
-    pch_extra_info: string
+    app_usage_event: int32,
+    extra_info: string
 ): unit;
 
 
@@ -1740,7 +1740,7 @@ function steam_utils_overlay_needs_present(): bool;
 
 // CheckFileSignature (Deprecated) -> SteamAPICall_t
 [global, bind = typed_gml]
-function steam_utils_check_file_signature(sz_file_name: string,[type_hint=`func?`]callback:gmval): unit;
+function steam_utils_check_file_signature(file_name: string,[type_hint=`func?`]callback:gmval): unit;
 
 // GetAPICallFailureReason
 [global, bind = typed_gml, type_hint = `SteamUtilsApiCallFailure`]
@@ -1845,14 +1845,14 @@ function steam_utils_get_entered_gamepad_text_length(): uint32;
 // GetImageRGBA (fills RGBA bytes into provided buffer)
 [global, bind = typed_gml]
 function steam_utils_get_image_rgba(
-    i_image: int32,
+    image_handle: int32,
     [type_hint=buffer] dest: gmval,
-    n_dest_buffer_size: int32
+    dest_buffer_size: int32
 ): bool;
 
 // GetImageSize (out width/height)
 [global, bind = typed_gml, type_hint = `SteamUtilsImageSize`]
-function steam_utils_get_image_size(i_image: int32): gmval;
+function steam_utils_get_image_size(image_handle: int32): gmval;
 
 // GetIPCCallCount
 [global, bind = typed_gml]
@@ -1969,7 +1969,7 @@ function steam_utils_is_vr_headset_streaming_enabled(): bool;
 
 // SetOverlayNotificationInset
 [global, bind = typed_gml]
-function steam_utils_set_overlay_notification_inset(n_horizontal_inset: int32, n_vertical_inset: int32): unit;
+function steam_utils_set_overlay_notification_inset(horizontal_inset: int32, vertical_inset: int32): unit;
 
 // SetOverlayNotificationPosition
 [global, bind = typed_gml]
@@ -1979,7 +1979,7 @@ function steam_utils_set_overlay_notification_position(
 
 // SetVRHeadsetStreamingEnabled
 [global, bind = typed_gml]
-function steam_utils_set_vr_headset_streaming_enabled(b_enabled: bool): unit;
+function steam_utils_set_vr_headset_streaming_enabled(enabled: bool): unit;
 
 
 // ShowGamepadTextInput
@@ -2012,7 +2012,7 @@ function steam_utils_start_vr_dashboard(): unit;
 
 // SetGameLauncherMode
 [global, bind = typed_gml]
-function steam_utils_set_game_launcher_mode(b_launcher_mode: bool): unit;
+function steam_utils_set_game_launcher_mode(launcher_mode: bool): unit;
 
 [global, bind = typed_gml]
 function steam_utils_set_callback_gamepad_text_input_dismissed(callback:func): unit;
@@ -2434,7 +2434,7 @@ function steam_ugc_get_num_subscribed_items(include_locally_disabled: bool): uin
 // GetSubscribedItems
 [global, bind = typed_gml, type_hint = `uint64[]`]
 function steam_ugc_get_subscribed_items(
-    c_max_entries: uint32,
+    max_entries: uint32,
     include_locally_disabled: bool
 ): gmval;
 
@@ -2524,7 +2524,7 @@ function steam_ugc_get_query_ugc_metadata(
 function steam_ugc_get_query_ugc_children(
     [type_hint=uint64] query_handle: gmval,
     index: uint32,
-    c_max_entries: uint32
+    max_entries: uint32
 ): gmval;
 
 // GetQueryUGCStatistic
@@ -4330,7 +4330,7 @@ function steam_inventory_get_result_timestamp(result_handle: int32): uint32;
 // GetEligiblePromoItemDefinitionIDs
 [global, bind = typed_gml, type_hint=`uint32[]`]
 function steam_inventory_get_eligible_promo_item_definition_ids(
-    c_max_item_defs: uint32
+    max_item_defs: uint32
 ): gmval;
 
 [global, bind = typed_gml]
@@ -4339,7 +4339,7 @@ function steam_inventory_load_item_definitions(): bool;
 // GetItemDefinitionIDs
 [global, bind = typed_gml, type_hint=`uint32[]`]
 function steam_inventory_get_item_definition_ids(
-    c_max_item_defs: uint32
+    max_item_defs: uint32
 ): gmval;
 
 // GetItemsByID

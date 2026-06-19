@@ -199,7 +199,7 @@ steam_input_get_analog_action_data(std::uint64_t input_handle, std::uint64_t ana
 
     InputAnalogActionData_t d
         = s->GetAnalogActionData((InputHandle_t)input_handle, (InputAnalogActionHandle_t)analog_action_handle);
-    out.mode = (std::int32_t)d.mode;
+    out.mode = (std::int32_t)d.eMode;
     out.x = d.x;
     out.y = d.y;
     out.active = d.bActive;
