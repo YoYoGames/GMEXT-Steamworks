@@ -135,8 +135,8 @@ void steam_friends_activate_game_overlay_to_web_page(
     if (!f)
         return;
 
-    std::string url(url);
-    f->ActivateGameOverlayToWebPage(url.c_str(), (EActivateGameOverlayToWebPageMode)(int)mode);
+    std::string _url(url);
+    f->ActivateGameOverlayToWebPage(_url.c_str(), (EActivateGameOverlayToWebPageMode)(int)mode);
 }
 
 void steam_friends_clear_rich_presence()
@@ -342,14 +342,14 @@ std::int32_t steam_friends_get_coplay_friend_count()
     return (std::int32_t)f->GetCoplayFriendCount();
 }
 
-std::uint64_t steam_friends_get_friend_by_index(std::int32_t friend, std::int32_t friend_flags)
+std::uint64_t steam_friends_get_friend_by_index(std::int32_t friend_index, std::int32_t friend_flags)
 {
     STEAM_GUARD_RET(0);
     ISteamFriends* f = steam_friends_iface();
     if (!f)
         return 0;
 
-    CSteamID id = f->GetFriendByIndex(friend, friend_flags);
+    CSteamID id = f->GetFriendByIndex(friend_index, friend_flags);
     return steam_u64_from_steam_id(id);
 }
 
@@ -397,14 +397,14 @@ std::int32_t steam_friends_get_friend_count_from_source(std::uint64_t steam_id_s
 // ISteamFriends â€” Part 4 (From source + game played + messages + persona)
 // ============================================================
 
-std::uint64_t steam_friends_get_friend_from_source_by_index(std::uint64_t steam_id_source, std::int32_t friend)
+std::uint64_t steam_friends_get_friend_from_source_by_index(std::uint64_t steam_id_source, std::int32_t friend_index)
 {
     STEAM_GUARD_RET(0);
     ISteamFriends* f = steam_friends_iface();
     if (!f)
         return 0;
 
-    CSteamID id = f->GetFriendFromSourceByIndex(steam_id_from_u64(steam_id_source), friend);
+    CSteamID id = f->GetFriendFromSourceByIndex(steam_id_from_u64(steam_id_source), friend_index);
     return steam_u64_from_steam_id(id);
 }
 
@@ -527,8 +527,8 @@ std::string steam_friends_get_friend_rich_presence(std::uint64_t steam_id_friend
     if (!f)
         return "";
 
-    std::string key(key);
-    const char* s = f->GetFriendRichPresence(steam_id_from_u64(steam_id_friend), key.c_str());
+    std::string _key(key);
+    const char* s = f->GetFriendRichPresence(steam_id_from_u64(steam_id_friend), _key.c_str());
     return s ? std::string(s) : std::string();
 }
 
@@ -814,14 +814,14 @@ bool steam_friends_set_rich_presence(std::string_view key, std::string_view valu
     if (!f)
         return false;
 
-    std::string key(key);
+    std::string _key(key);
     std::string val(value);
 
-    const bool ok = f->SetRichPresence(key.c_str(), val.c_str());
-    if (!ok)
+    const bool _ok = f->SetRichPresence(_key.c_str(), val.c_str());
+    if (!_ok)
         steam_set_last_error("SetRichPresence failed (Steam returned false).");
 
-    return ok;
+    return _ok;
 }
 
 static inline gm_structs::SteamFriendsGetFollowerCountResult friends_fromNative(const FriendsGetFollowerCount_t& e)

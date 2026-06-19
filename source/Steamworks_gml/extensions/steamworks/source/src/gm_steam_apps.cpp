@@ -482,8 +482,8 @@ std::string steam_apps_get_launch_query_param(std::string_view key)
     if (!a)
         return "";
 
-    std::string key(key);
-    const char* s = a->GetLaunchQueryParam(key.c_str());
+    std::string _key(key);
+    const char* s = a->GetLaunchQueryParam(_key.c_str());
     return s ? std::string(s) : std::string();
 }
 

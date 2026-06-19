@@ -1,4 +1,4 @@
-﻿#include "GMSteamworks.h"
+#include "GMSteamworks.h"
 
 #include "steam_async_common.h"
 #include <steam/steam_api.h>
@@ -353,7 +353,7 @@ std::uint32_t steam_inventory_get_result_timestamp(int32 result_handle)
 }
 
 // GetEligiblePromoItemDefinitionIDs
-std::vector<std::uint32_t> steam_inventory_get_eligible_promo_item_definition_ids(std::uint32_t c_max_item_defs)
+std::vector<std::uint32_t> steam_inventory_get_eligible_promo_item_definition_ids(std::uint32_t max_item_defs)
 {
     STEAM_GUARD_RET({});
 
@@ -362,14 +362,14 @@ std::vector<std::uint32_t> steam_inventory_get_eligible_promo_item_definition_id
     ISteamInventory* inv = steam_inventory_iface();
     if (!inv) return out;
 
-    if (c_max_item_defs == 0) return out;
+    if (max_item_defs == 0) return out;
 
     // Steam requires a SteamID; with this signature we use the local user.
     CSteamID steam_id = (SteamUser() ? SteamUser()->GetSteamID() : CSteamID());
     if (!steam_id.IsValid()) return out;
 
-    std::vector<SteamItemDef_t> defs((size_t)c_max_item_defs);
-    uint32 count = c_max_item_defs;
+    std::vector<SteamItemDef_t> defs((size_t)max_item_defs);
+    uint32 count = max_item_defs;
 
     const bool ok = inv->GetEligiblePromoItemDefinitionIDs(steam_id, defs.data(), &count);
     if (!ok || count == 0) return out;
@@ -391,7 +391,7 @@ bool steam_inventory_load_item_definitions()
     return inv->LoadItemDefinitions();
 }
 
-std::vector<std::uint32_t> steam_inventory_get_item_definition_ids(std::uint32_t c_max_item_defs)
+std::vector<std::uint32_t> steam_inventory_get_item_definition_ids(std::uint32_t max_item_defs)
 {
     STEAM_GUARD_RET({});
 
@@ -399,10 +399,10 @@ std::vector<std::uint32_t> steam_inventory_get_item_definition_ids(std::uint32_t
     ISteamInventory* inv = steam_inventory_iface();
     if (!inv) return out;
 
-    if (c_max_item_defs == 0) return out;
+    if (max_item_defs == 0) return out;
 
-    std::vector<SteamItemDef_t> defs((size_t)c_max_item_defs);
-    uint32 count = c_max_item_defs;
+    std::vector<SteamItemDef_t> defs((size_t)max_item_defs);
+    uint32 count = max_item_defs;
 
     const bool ok = inv->GetItemDefinitionIDs(defs.data(), &count);
     if (!ok || count == 0) return out;
