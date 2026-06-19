@@ -4,6 +4,7 @@
 #include "Extension_Interface.h"
 #include "YYRValue.h"
 #include "steam_common.h"
+#include <string>
 #include <vector>
 
 YYRunnerInterface gs_runnerInterface;
@@ -45,23 +46,25 @@ void YYStructAddUndefined(RValue* s, const char* key) {
 	FREE_RValue(&v);
 }
 
-std::vector<const char*> _SW_GetArrayOfStrings(RValue* arg, int arg_idx, const char* func)
+std::vector<std::string> _SW_GetArrayOfStrings(RValue* arg, int arg_idx, const char* func)
 {
 	RValue* pV = &(arg[arg_idx]);
 
-	std::vector<const char*> strings;
+	std::vector<std::string> strings;
 
 	if (KIND_RValue(pV) == VALUE_ARRAY)
 	{
-		RValue elem;
+		RValue elem{};
 		for (int i = 0; GET_RValue(&elem, pV, NULL, i); ++i)
 		{
 			if (KIND_RValue(&elem) != VALUE_STRING)
 			{
-				YYError("%s argument %d [array element %d] incorrect type (%s) expecting a String", func, (arg_idx + 1), i, KIND_NAME_RValue(pV));
+				YYError("%s argument %d [array element %d] incorrect type (%s) expecting a String", func, (arg_idx + 1), i, KIND_NAME_RValue(&elem));
 			}
 
-			strings.push_back(elem.GetString());
+			strings.emplace_back(elem.GetString());
+			FREE_RValue(&elem);
+			elem = {};
 		}
 	}
 	else {
@@ -221,4 +224,3 @@ void _SW_SetArrayOfInt64(RValue* _array, std::vector<int64> &values)
 		FREE_RValue(&tag);
 	}
 }
-
