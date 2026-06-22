@@ -170,18 +170,15 @@ bool steam_ugc_add_required_tag_group(std::uint64_t query_handle, const std::vec
     if (!ugc)
         return false;
 
-    std::vector<const char*> result;
-    result.reserve(tags_csv.size());
-
+    // Materialize the views into owning strings so the c_str() pointers are valid and
+    // NUL-terminated (string_view::data() is not guaranteed null-terminated).
+    std::vector<std::string> owned;
+    owned.reserve(tags_csv.size());
     for (auto sv : tags_csv)
-    {
-        std::cout << sv.data() << std::endl;
-        result.push_back(sv.data()); // assumes null-terminated
-    }
+        owned.emplace_back(sv);
 
-    SteamParamStringArray_t arr = {};
-    arr.m_nNumStrings = result.size();
-    arr.m_ppStrings = result.data();
+    std::vector<const char*> cstr;
+    SteamParamStringArray_t arr = make_param_string_array(owned, cstr);
 
     return ugc->AddRequiredTagGroup(qh_from_u64(query_handle), &arr);
 }
@@ -493,10 +490,14 @@ steam_ugc_get_query_ugc_children(std::uint64_t query_handle, std::uint32_t index
         return out;
 
     std::vector<PublishedFileId_t> tmp((size_t)max_entries);
-    const uint32 n = ugc->GetQueryUGCChildren(qh_from_u64(query_handle), index, tmp.data(), (uint32)tmp.size());
+    // GetQueryUGCChildren returns a bool (success), NOT a count. On success it fills
+    // up to cMaxEntries entries; the caller sizes max_entries from m_unNumChildren.
+    const bool ok = ugc->GetQueryUGCChildren(qh_from_u64(query_handle), index, tmp.data(), (uint32)tmp.size());
+    if (!ok)
+        return out;
 
-    out.reserve((size_t)n);
-    for (uint32 i = 0; i < n; ++i)
+    out.reserve((size_t)max_entries);
+    for (uint32 i = 0; i < max_entries; ++i)
         out.push_back((std::uint64_t)tmp[(size_t)i]);
 
     return out;
@@ -542,17 +543,20 @@ gm_structs::SteamUgcAdditionalPreview steam_ugc_get_query_ugc_additional_preview
         return out;
 
     char url[1024] = {};
+    char original_name[1024] = {};
     EItemPreviewType type;// = k_EItemPreviewType_Image;
 
-    std::string str = original_file_name.data();
+    // pchOriginalFileName is an OUTPUT buffer per the SDK; pass a local buffer.
+    // (Surfacing the returned name to GML needs a struct field — deferred to the spec owner.)
+    (void)original_file_name;
     bool ok = ugc->GetQueryUGCAdditionalPreview(
                 qh_from_u64(query_handle),
                 index,
                 preview_index,
                 url,
                 sizeof(url),
-                str.data(),
-                (size_t)str.size(),
+                original_name,
+                (uint32)sizeof(original_name),
                 &type
             );
 
@@ -621,24 +625,29 @@ std::vector<std::int32_t> steam_ugc_get_query_ugc_content_descriptors(
     std::vector<EUGCContentDescriptorID> tmp;
     tmp.resize((size_t)max_descriptors);
 
-    const bool ok = ugc->GetQueryUGCContentDescriptors(
+    // GetQueryUGCContentDescriptors returns the number of descriptors written (uint32),
+    // not a bool. Copy only that many entries to avoid trailing garbage.
+    const uint32 n = ugc->GetQueryUGCContentDescriptors(
         (UGCQueryHandle_t)query_handle,
         (uint32)index,
         tmp.data(),
         (uint32)tmp.size()
     );
 
-    if (!ok) return out;
+    if (n == 0) return out;
 
-    out.reserve(tmp.size());
-    for (auto d : tmp)
-        out.push_back((std::int32_t)d);
+    const uint32 copy = (n < (uint32)tmp.size()) ? n : (uint32)tmp.size();
+    out.reserve((size_t)copy);
+    for (uint32 i = 0; i < copy; ++i)
+        out.push_back((std::int32_t)tmp[(size_t)i]);
 
     return out;
 }
 
 std::uint32_t steam_ugc_get_num_supported_game_versions(std::uint64_t query_handle, std::uint32_t index)
 {
+    STEAM_GUARD_RET(0);
+
     UGCQueryHandle_t query = qh_from_u64(query_handle);
 
     ISteamUGC* ugc = steam_ugc_iface();
@@ -880,18 +889,15 @@ bool steam_ugc_set_item_tags(std::uint64_t update_handle, const std::vector<std:
     if (!ugc)
         return false;
 
-    std::vector<const char*> result;
-    result.reserve(tags_csv.size());
-
+    // Materialize the views into owning strings (string_view::data() is not guaranteed
+    // null-terminated) before handing c_str() pointers to Steam.
+    std::vector<std::string> owned;
+    owned.reserve(tags_csv.size());
     for (auto sv : tags_csv)
-    {
-        std::cout << sv.data() << std::endl;
-        result.push_back(sv.data()); // assumes null-terminated
-    }
-    
-    SteamParamStringArray_t arr = {};
-    arr.m_nNumStrings = result.size();
-    arr.m_ppStrings = result.data();
+        owned.emplace_back(sv);
+
+    std::vector<const char*> cstr;
+    SteamParamStringArray_t arr = make_param_string_array(owned, cstr);
     return ugc->SetItemTags(uh_from_u64(update_handle), &arr);
 }
 

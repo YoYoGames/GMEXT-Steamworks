@@ -882,6 +882,11 @@ void steam_friends_get_follower_count(std::uint64_t steam_id,  const std::option
         return;
 
     SteamAPICall_t call = f->GetFollowerCount(steam_id_from_u64(steam_id));
+    if (!call)
+    {
+        steam_set_last_error("Steam Friends: GetFollowerCount returned NULL SteamAPICall_t.");
+        return;
+    }
     if(callback)
     {
         auto* h = new steam_async::CallResult<gm_structs::SteamFriendsGetFollowerCountResult, FriendsGetFollowerCount_t>(callback.value(), &friends_fromNative);
@@ -898,6 +903,11 @@ void steam_friends_is_following(std::uint64_t steam_id,  const std::optional<gm:
         return;
 
     SteamAPICall_t call = f->IsFollowing(steam_id_from_u64(steam_id));
+    if (!call)
+    {
+        steam_set_last_error("Steam Friends: IsFollowing returned NULL SteamAPICall_t.");
+        return;
+    }
     if(callback)
     {
         auto* h = new steam_async::CallResult<gm_structs::SteamFriendsIsFollowingResult, FriendsIsFollowing_t>(callback.value(), &friends_fromNative);
@@ -914,6 +924,11 @@ void steam_friends_enumerate_following_list(std::uint32_t start_index,  const st
         return;
 
     SteamAPICall_t call = f->EnumerateFollowingList(start_index);
+    if (!call)
+    {
+        steam_set_last_error("Steam Friends: EnumerateFollowingList returned NULL SteamAPICall_t.");
+        return;
+    }
     if(callback)
     {
         auto* h = new steam_async::CallResult<gm_structs::SteamFriendsEnumerateFollowingListResult, FriendsEnumerateFollowingList_t>(callback.value(), &friends_fromNative);
@@ -930,6 +945,11 @@ void steam_friends_request_clan_officer_list(std::uint64_t clan_steam_id,  const
         return;
 
     SteamAPICall_t call = f->RequestClanOfficerList(steam_id_from_u64(clan_steam_id));
+    if (!call)
+    {
+        steam_set_last_error("Steam Friends: RequestClanOfficerList returned NULL SteamAPICall_t.");
+        return;
+    }
     if(callback)
     {
         auto* h = new steam_async::CallResult<gm_structs::SteamFriendsRequestClanOfficerListResult, ClanOfficerListResponse_t>(callback.value(), &friends_fromNative);

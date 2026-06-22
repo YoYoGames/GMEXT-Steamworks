@@ -5,6 +5,7 @@
 #include <steam/isteaminventory.h>
 
 #include <cstdint>
+#include <cstring>
 #include <string>
 #include <string_view>
 #include <vector>
@@ -474,6 +475,8 @@ SteamInventorySerializeResult steam_inventory_serialize_result(int32 result_hand
 //uint32 steam_inventory_get_result_item_properties_num(
 std::vector<std::string> steam_inventory_get_result_item_property_keys_array(int32 result_handle, uint32 item_index)
 {
+    STEAM_GUARD_RET({});
+
     std::vector<std::string> out;
 
     ISteamInventory* inv = steam_inventory_iface();
@@ -817,22 +820,26 @@ std::vector<std::string> steam_inventory_get_item_definition_property_keys(std::
     ISteamInventory* inv = steam_inventory_iface();
     if (!inv) return keys;
 
-    // One call: fetch CSV of keys into a buffer.
-    // Keys should be small; 4KB is plenty.
-    uint32 needed = 4096;
+    // Two-call probe: first call with a NULL buffer to learn the required size, then
+    // allocate exactly that and fetch — avoids silent truncation of large key lists.
+    uint32 needed = 0;
+    if (!inv->GetItemDefinitionProperty((SteamItemDef_t)item_def_id, nullptr, nullptr, &needed) || needed == 0)
+        return keys;
+
     std::vector<char> buf((size_t)needed);
+    uint32 size = needed;
 
     const bool ok = inv->GetItemDefinitionProperty(
         (SteamItemDef_t)item_def_id,
         nullptr, // NULL => "all keys" behavior
         buf.data(),
-        &needed
+        &size
     );
 
     if (!ok)
         return keys;
 
-    std::string csv(buf.data());
+    std::string csv(buf.data(), strnlen(buf.data(), buf.size()));
     if (csv.empty())
         return keys;
 
@@ -880,26 +887,35 @@ SteamInventoryItemsWithPrices steam_inventory_get_items_with_prices(std::uint32_
 
     if (max == 0) return out;
 
-    std::vector<SteamItemDef_t> itemDefs((size_t)max);
-    std::vector<uint64> currentPrices((size_t)max);
-    std::vector<uint64> basePrices((size_t)max);
+    // Clamp to the actual number of items with prices so we never report or read
+    // garbage past what Steam filled.
+    const uint32 available = inv->GetNumItemsWithPrices();
+    const uint32 n = (max < available) ? max : available;
+    if (n == 0) {
+        out.ok = true;
+        return out;
+    }
+
+    std::vector<SteamItemDef_t> itemDefs((size_t)n);
+    std::vector<uint64> currentPrices((size_t)n);
+    std::vector<uint64> basePrices((size_t)n);
 
     const bool ok = inv->GetItemsWithPrices(
         itemDefs.data(),
         currentPrices.data(),
         basePrices.data(),
-        (uint32)max
+        (uint32)n
     );
     if (!ok) return out;
 
     out.ok = true;
-    out.count = max;
+    out.count = n;
 
-    out.item_def_ids.reserve((size_t)max);
-    out.current_prices.reserve((size_t)max);
-    out.base_prices.reserve((size_t)max);
+    out.item_def_ids.reserve((size_t)n);
+    out.current_prices.reserve((size_t)n);
+    out.base_prices.reserve((size_t)n);
 
-    for (uint32 i = 0; i < max; ++i)
+    for (uint32 i = 0; i < n; ++i)
     {
         out.item_def_ids.push_back((std::uint32_t)itemDefs[(size_t)i]);
         out.current_prices.push_back((long long)currentPrices[(size_t)i]);

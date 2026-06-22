@@ -183,6 +183,11 @@ std::int32_t steam_remote_storage_file_read(std::string_view file_name, gm::wire
     int32 read = rs->FileRead(fn.c_str(), tmp.data(), (int32)tmp.size());
     if (read <= 0) return 0;
 
+    if ((std::uint64_t)read > out_data.length()) {
+        steam_set_last_error("steam_remote_storage_file_read: output buffer too small for file contents (query steam_remote_storage_get_file_size first).");
+        return 0;
+    }
+
     auto w = out_data.getWriter();
     w.writeBytes((const char*)tmp.data(), (int)read);
     return (std::int32_t)read;
@@ -417,6 +422,11 @@ std::int32_t steam_remote_storage_ugc_read(std::uint64_t ugc_handle,
     std::vector<std::uint8_t> tmp((size_t)bytes_to_read);
     int32 r = rs->UGCRead((UGCHandle_t)ugc_handle, tmp.data(), bytes_to_read, (uint32)offset, (EUGCReadAction)((int)action));
     if (r <= 0) return 0;
+
+    if ((std::uint64_t)r > out_data.length()) {
+        steam_set_last_error("steam_remote_storage_ugc_read: output buffer too small for UGC data.");
+        return 0;
+    }
 
     auto w = out_data.getWriter();
     w.writeBytes((const char*)tmp.data(), (int)r);
@@ -723,9 +733,9 @@ void steam_remote_storage_unsubscribe_published_file(std::uint64_t published_fil
     ISteamRemoteStorage* rs = steam_remote_storage_iface();
     if (!rs) return;
 
+    SteamAPICall_t call = rs->UnsubscribePublishedFile((PublishedFileId_t)published_file_id);
     if(callback)
     {
-        SteamAPICall_t call = rs->UnsubscribePublishedFile((PublishedFileId_t)published_file_id);
         auto* h = new steam_async::CallResult<gm_structs::SteamRemoteStorageUnsubscribePublishedFileResult, RemoteStorageUnsubscribePublishedFileResult_t>(callback.value(), &rs_fromNative);
         h->set(call);
     }

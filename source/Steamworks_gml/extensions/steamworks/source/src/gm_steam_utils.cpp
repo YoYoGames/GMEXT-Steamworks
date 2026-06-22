@@ -199,7 +199,11 @@ SteamUtilsGamepadTextInput steam_utils_get_entered_gamepad_text_input()
     if (!u)
         return out;
 
-    uint32 cch_text = 1024;
+    // Size the buffer from the actual entered length (includes the NUL) so long input
+    // is not truncated.
+    uint32 cch_text = u->GetEnteredGamepadTextLength();
+    if (cch_text == 0)
+        cch_text = 1; // room for the NUL terminator
     std::vector<char> buf((size_t)cch_text);
     buf[0] = '\0';
 
@@ -431,8 +435,9 @@ SteamUtilsFilterTextResult steam_utils_filter_text(
     if (!u)
         return out;
 
-    uint32 cch_out = 1024;
+    // Output buffer must be at least strlen(input)+1 (filtered text is the same length).
     std::string msg(input_message);
+    uint32 cch_out = (uint32)(msg.size() + 1);
     std::vector<char> buf((size_t)cch_out);
     buf[0] = '\0';
 

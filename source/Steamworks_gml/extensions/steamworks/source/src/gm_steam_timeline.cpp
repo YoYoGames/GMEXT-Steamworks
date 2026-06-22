@@ -9,6 +9,7 @@
 #include <steam/isteamtimeline.h>
 
 #include <cstdint>
+#include <cstring>
 #include <string>
 #include <string_view>
 #include <mutex>
@@ -44,7 +45,8 @@ static GMFunction g_cb_event_recording_exists = nullptr;
 static inline SteamTimelineGamePhaseRecordingExists fromNative(const SteamTimelineGamePhaseRecordingExists_t& e)
 {
     SteamTimelineGamePhaseRecordingExists out{};
-    out.phase_id = e.m_rgchPhaseID;
+    // m_rgchPhaseID is a fixed char buffer; bound the read in case it isn't NUL-terminated.
+    out.phase_id = std::string(e.m_rgchPhaseID, strnlen(e.m_rgchPhaseID, sizeof(e.m_rgchPhaseID)));
     out.recording_ms = (std::uint64_t)e.m_ulRecordingMS;
     out.longest_clip_ms = (std::uint64_t)e.m_ulLongestClipMS;
     out.clip_count = (std::uint32_t)e.m_unClipCount;

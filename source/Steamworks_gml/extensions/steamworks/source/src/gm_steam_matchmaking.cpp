@@ -408,6 +408,10 @@ bool steam_matchmaking_send_lobby_chat_msg(std::uint64_t lobby_id, gm::wire::GMB
     ISteamMatchmaking* mm = steam_matchmaking_iface();
     if (!mm) return false;
     if (bytes <= 0) return false;
+    if ((std::uint64_t)bytes > msg.length()) {
+        steam_set_last_error("steam_matchmaking_send_lobby_chat_msg: bytes exceeds buffer length.");
+        return false;
+    }
     return mm->SendLobbyChatMsg(steam_id_from_u64(lobby_id), (const void*)msg.data(), bytes);
 }
 
@@ -431,6 +435,11 @@ gm_structs::SteamMatchmakingLobbyChatEntry steam_matchmaking_get_lobby_chat_entr
     std::vector<std::uint8_t> tmp((size_t)out_max_bytes);
     int r = mm->GetLobbyChatEntry(steam_id_from_u64(lobby_id), (int)chat_id, &sender, tmp.data(), out_max_bytes, &type);
     if (r <= 0) return out;
+
+    if ((std::uint64_t)r > out_buffer.length()) {
+        steam_set_last_error("steam_matchmaking_get_lobby_chat_entry: output buffer too small for chat entry.");
+        return out;
+    }
 
     auto w = out_buffer.getWriter();
     w.writeBytes((const char*)tmp.data(), r);

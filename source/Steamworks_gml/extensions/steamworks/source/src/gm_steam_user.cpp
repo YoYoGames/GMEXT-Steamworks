@@ -184,11 +184,19 @@ SteamApiVoiceResult steam_user_decompress_voice(
         (uint32)desired_sample_rate
     );
 
-    if (written > 0)
+    // Only the OK result yields valid audio; on BufferTooSmall the SDK sets `written` to the
+    // required size (not decoded data), so writing it would copy garbage.
+    if (vr == k_EVoiceResultOK && written > 0)
     {
-        const uint32 n = std::min<uint32>(written, (uint32)out.size());
-        auto w = dest.getWriter();
-        w.writeBytes((const char*)out.data(), (int)n);
+        if ((std::uint64_t)written > dest.length())
+        {
+            steam_set_last_error("DecompressVoice: destination buffer too small for decompressed audio.");
+        }
+        else
+        {
+            auto w = dest.getWriter();
+            w.writeBytes((const char*)out.data(), (int)written);
+        }
     }
 
     return (SteamApiVoiceResult)(int)vr;
@@ -695,6 +703,11 @@ void steam_user_request_store_auth_url(std::string_view redirect_url,  const std
     std::string url(redirect_url);
     SteamAPICall_t call = u->RequestStoreAuthURL(url.c_str());
 
+    if (call == k_uAPICallInvalid) {
+        steam_set_last_error("steam_user_request_store_auth_url: Steam API call failed to dispatch.");
+        return;
+    }
+
     if(callback)
     {
         auto* h = new steam_async::CallResult<gm_structs::SteamUserStoreAuthUrlResponse, StoreAuthURLResponse_t>(callback.value(), &user_fromNative);
@@ -719,6 +732,11 @@ void steam_user_request_encrypted_app_ticket(gm::wire::GMBuffer data_to_include,
 
     SteamAPICall_t call = u->RequestEncryptedAppTicket(tmp.empty() ? nullptr : tmp.data(), (int)tmp.size());
 
+    if (call == k_uAPICallInvalid) {
+        steam_set_last_error("steam_user_request_encrypted_app_ticket: Steam API call failed to dispatch.");
+        return;
+    }
+
     if(callback)
     {
         auto* h = new steam_async::CallResult<gm_structs::SteamUserEncryptedAppTicketResponse, EncryptedAppTicketResponse_t>(callback.value(), &user_fromNative);
@@ -735,6 +753,11 @@ void steam_user_get_duration_control( const std::optional<gm::wire::GMFunction>&
 
     SteamAPICall_t call = u->GetDurationControl();
 
+    if (call == k_uAPICallInvalid) {
+        steam_set_last_error("steam_user_get_duration_control: Steam API call failed to dispatch.");
+        return;
+    }
+
     if(callback)
     {
         auto* h = new steam_async::CallResult<gm_structs::SteamUserDurationControl, DurationControl_t>(callback.value(), &user_fromNative);
@@ -750,6 +773,11 @@ void steam_user_get_market_eligibility( const std::optional<gm::wire::GMFunction
     if (!u) return;
 
     SteamAPICall_t call = u->GetMarketEligibility();
+
+    if (call == k_uAPICallInvalid) {
+        steam_set_last_error("steam_user_get_market_eligibility: Steam API call failed to dispatch.");
+        return;
+    }
 
     if(callback)
     {

@@ -886,6 +886,16 @@ void steam_userstats_upload_leaderboard_score(
 
     if (score_details_count > 0)
     {
+        // Each detail is an int32; the count must fit in the supplied buffer and
+        // honor the SDK cap. Validate rather than read past the GM buffer.
+        const std::uint64_t max_from_buffer = score_details_buffer.length() / sizeof(int32);
+        if ((std::uint64_t)score_details_count > max_from_buffer ||
+            score_details_count > k_cLeaderboardDetailsMax)
+        {
+            steam_set_last_error("steam_userstats_upload_leaderboard_score: score_details_count exceeds buffer length or the leaderboard details maximum (64).");
+            return;
+        }
+
         pDetails = reinterpret_cast<const int*>(
             score_details_buffer.data());
     }

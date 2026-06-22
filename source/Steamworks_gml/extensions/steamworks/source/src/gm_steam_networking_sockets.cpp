@@ -213,6 +213,11 @@ std::int32_t steam_networking_sockets_send_message_to_connection(std::uint32_t c
 
     if (bytes == 0) return (std::int32_t)k_EResultInvalidParam;
 
+    if ((std::uint64_t)bytes > data.length()) {
+        steam_set_last_error("steam_networking_sockets_send_message_to_connection: bytes exceeds buffer length.");
+        return (std::int32_t)k_EResultInvalidParam;
+    }
+
     return (std::int32_t)s->SendMessageToConnection((HSteamNetConnection)conn,
                                                     (const void*)data.data(),
                                                     (uint32)bytes,
@@ -230,7 +235,6 @@ std::int32_t steam_networking_sockets_flush_messages_on_connection(std::uint32_t
     return (std::int32_t)s->FlushMessagesOnConnection((HSteamNetConnection)conn);
 }
 
-//TODO
 gm_structs::SteamNetworkingSocketsReceived steam_networking_sockets_receive_one_on_connection(std::uint32_t conn,
                                                                                              gm::wire::GMBuffer out_data,
                                                                                              std::uint32_t max_bytes,
@@ -254,15 +258,25 @@ gm_structs::SteamNetworkingSocketsReceived steam_networking_sockets_receive_one_
     if (n <= 0 || !msg) return out;
 
     const uint32 cb = (uint32)msg->m_cbSize;
-    const uint32 to_write = (cb < max_bytes) ? cb : max_bytes;
+    const std::uint64_t buf_len = out_data.length();
+
+    // The whole message must fit in the caller's window AND the real buffer at offset.
+    // Do not truncate (silent data loss) and never let the wire cursor overflow/abort.
+    if ((std::uint64_t)offset > buf_len || cb > max_bytes ||
+        (std::uint64_t)offset + cb > buf_len) {
+        steam_set_last_error("steam_networking_sockets_receive_one_on_connection: output buffer too small for incoming message.");
+        msg->Release();
+        return out;
+    }
 
     auto w = out_data.getWriter();
     w.skip(offset);
-    w.writeBytes((const char*)msg->m_pData, (int)to_write);
+    w.writeBytes((const char*)msg->m_pData, (int)cb);
 
     out.ok = true;
-    out.bytes_written = to_write;
+    out.bytes_written = cb;
     out.flags = (std::int32_t)msg->m_nFlags;
+    out.conn = (std::uint32_t)msg->m_conn;
 
     msg->Release();
     return out;
@@ -429,15 +443,23 @@ gm_structs::SteamNetworkingSocketsReceived steam_networking_sockets_receive_mess
         return out;
 
     const uint32 cb = (uint32)msg->m_cbSize;
-    const uint32 to_write = (cb < max_bytes) ? cb : max_bytes;
+    const std::uint64_t buf_len = out_data.length();
+
+    if ((std::uint64_t)offset > buf_len || cb > max_bytes ||
+        (std::uint64_t)offset + cb > buf_len) {
+        steam_set_last_error("steam_networking_sockets_receive_messages_on_poll_group: output buffer too small for incoming message.");
+        msg->Release();
+        return out;
+    }
 
     auto w = out_data.getWriter();
     w.skip(offset);
-    w.writeBytes((const char*)msg->m_pData, (int)to_write);
+    w.writeBytes((const char*)msg->m_pData, (int)cb);
 
     out.ok = true;
-    out.bytes_written = to_write;
+    out.bytes_written = cb;
     out.flags = (std::int32_t)msg->m_nFlags;
+    out.conn = (std::uint32_t)msg->m_conn;
 
     msg->Release();
     return out;
