@@ -115,7 +115,7 @@
  *
  * This function activates the [Steam-overlay](https://partner.steamgames.com/doc/features/overlay) to open the invite dialog. Invitations sent from this dialog will be for the provided lobby.
  *
- * @param {Real} steamIDLobby The Steam ID of the lobby that selected users will be invited to.
+ * @param {Real} steam_id_lobby The Steam ID of the lobby that selected users will be invited to.
  * @function_end
  */
 
@@ -194,14 +194,14 @@
  * 
  * After receiving the callback you can then use ${function.steam_friends_get_clan_activity_counts} to get the up to date user counts.
  *
- * @param {Array[Real]} psteamIDClans A list of steam groups to get the updated data for.
- * @param {Real} cClansToRequest This MUST be the number of groups in `steam_id_clans`.
+ * @param {Array[Real]} steam_id_clans A list of steam groups to get the updated data for.
+ * @param {Real} clans_to_request This MUST be the number of groups in `steam_id_clans`.
  * @param {Function} [callback] The function to call upon completion.
  * @returns {Bool}
  * 
  * @event callback
  * @desc **Steamworks Callback**: [ISteamFriends::DownloadClanActivityCountsResult_t](https://partner.steamgames.com/doc/api/ISteamFriends#DownloadClanActivityCountsResult_t)
- * @member {Bool} success Was the call successful?
+ * @member {Struct.SteamFriendsDownloadClanActivityCountsResult} result The callback result.
  * @event_end
  * 
  * @function_end
@@ -217,15 +217,12 @@
  * 
  * [[Note: This returns up to `SteamFriendsEnumerateFollowersMax` users at once. If the current user is following more than that, you will need to call this repeatedly, with `start_index` set to the total number of followers that you have received so far.]]
  *
- * @param {Real} unStartIndex The index to start receiving followers from. This should be 0 on the initial call.
+ * @param {Real} start_index The index to start receiving followers from. This should be 0 on the initial call.
  * @param {Function} [callback] The function to call upon completion.
  * 
  * @event callback
  * @desc > **Steamworks Callback**: [ISteamFriends::FriendsEnumerateFollowingList_t](https://partner.steamgames.com/doc/api/ISteamFriends#FriendsEnumerateFollowingList_t)
- * @member {Enum.SteamApiResult} result The result of the operation.
- * @member {Array[Real]} steam_ids The list of users that we are following.
- * @member {Real} results_returned The number of results returned in `steam_ids`.
- * @member {Real} total_result_count The total number of people we are following. If this is greater than `results_returned` then you should make a subsequent call to ${function.steam_friends_enumerate_following_list} with `results_returned` as the index to get the next portion of followers.
+ * @member {Struct.SteamFriendsEnumerateFollowingListResult} result The result of the operation.
  * @event_end
  * @function_end
  */
@@ -360,7 +357,7 @@
  * [[Note: You must call ${function.steam_friends_get_clan_officer_count} before calling this.]]
  *
  * @param {Real} steam_id_clan This must be the same steam group used in the previous call to ${function.steam_friends_get_clan_officer_count}!
- * @param {Real} iOfficer An index between 0 and ${function.steam_friends_get_clan_officer_count}.
+ * @param {Real} officer An index between 0 and ${function.steam_friends_get_clan_officer_count}.
  * @returns {Real}
  * @function_end
  */
@@ -446,9 +443,7 @@
  * 
  * @event callback
  * @desc > **Steamworks Callback**: [ISteamFriends::FriendsGetFollowerCount_t](https://partner.steamgames.com/doc/api/ISteamFriends#FriendsGetFollowerCount_t)
- * @member {Enum.SteamApiResult} result The result of the operation.
- * @member {Real} steam_id The Steam ID of the user we requested the follower count for.
- * @member {Real} count The number of followers the user has.
+ * @member {Struct.SteamFriendsGetFollowerCountResult} result The result of the operation.
  * @event_end
  * @function_end
  */
@@ -461,7 +456,7 @@
  * 
  * [[Note: You must call ${function.steam_friends_get_friend_count} before calling this.]]
  *
- * @param {Real} friend An index between 0 and ${function.steam_friends_get_friend_count}.
+ * @param {Real} friend_index An index between 0 and ${function.steam_friends_get_friend_count}.
  * @param {Real} friend_flags A combined union (binary "or") of ${enum.SteamFriendsFriendFlag}. This must be the same value as used in the previous call to ${function.steam_friends_get_friend_count}.
  * @returns {Real} 
  * @function_end
@@ -528,7 +523,7 @@
  * [[Note: You must call ${function.steam_friends_get_friend_count_from_source} before calling this.]]
  *
  * @param {Real} steam_id_source This MUST be the same source used in the previous call to ${function.steam_friends_get_friend_count_from_source}!
- * @param {Real} friend An index between 0 and ${function.steam_friends_get_friend_count_from_source}.
+ * @param {Real} friend_index An index between 0 and ${function.steam_friends_get_friend_count_from_source}.
  * @returns {Real} 
  * @function_end
  */
@@ -554,7 +549,7 @@
  *
  * @param {Real} steam_id_friend The Steam ID of the friend that sent this message.
  * @param {Real} message_id The index of the message. This should be the `m_iMessageID` field of [GameConnectedFriendChatMsg_t](https://partner.steamgames.com/doc/api/ISteamFriends#GameConnectedFriendChatMsg_t).
- * @param {Real} cubData The maximum number of bytes to read for the message data.
+ * @param {Real} data_size The maximum number of bytes to read for the message data.
  * @returns {Struct.SteamFriendsFriendMessage}
  * @function_end
  */
@@ -585,7 +580,7 @@
  * This only works for display names that the current user has seen on the local computer.
  *
  * @param {Real} steam_id_friend The Steam ID of the other user.
- * @param {Real} iPersonaName The index of the history to receive. 0 is their current persona name, 1 is their most recent before they changed it, etc.
+ * @param {Real} persona_name The index of the history to receive. 0 is their current persona name, 1 is their most recent before they changed it, etc.
  * @returns {String} The player's old persona name at the given index, or an empty string when there are no further items in the history.
  * @function_end
  */
@@ -677,7 +672,7 @@
  * 
  * [[Note: You must call ${function.steam_friends_get_friends_group_count} before calling this.]]
  *
- * @param {Real} iFG An index between 0 and ${function.steam_friends_get_friends_group_count}.
+ * @param {Real} fg An index between 0 and ${function.steam_friends_get_friends_group_count}.
  * @returns {Real} 
  * @function_end
  */
@@ -688,7 +683,7 @@
  *
  * This function gets the name for the given friends group.
  *
- * @param {Real} friendsGroupID The friends group ID to get the name of.
+ * @param {Real} friends_group_id The friends group ID to get the name of.
  * @returns {String} 
  * @function_end
  */
@@ -725,10 +720,7 @@
  * 
  * @event callback
  * @desc > **Steamworks Callback**: [ISteamFriends::AvatarImageLoaded_t](https://partner.steamgames.com/doc/api/ISteamFriends#AvatarImageLoaded_t)
- * @member {Real} steam_id The Steam ID that the avatar has been loaded for.
- * @member {Real} image The Steam image handle of the now loaded image.
- * @member {Real} wide Width of the loaded image.
- * @member {Real} tall Height of the loaded image.
+ * @member {Struct.SteamFriendsAvatarImageLoaded} result The result of the operation.
  * @event_end
  * 
  * @function_end
@@ -776,7 +768,7 @@
  * 
  * This should be called before getting the list of friends with ${function.steam_friends_get_friends_group_members_list}.
  *
- * @param {Real} friendsGroupID The friends group ID to get the number of friends in.
+ * @param {Real} friends_group_id The friends group ID to get the number of friends in.
  * @returns {Real} 
  * @function_end
  */
@@ -789,7 +781,7 @@
  * 
  * If fewer friends exist than requested those positions' Steam IDs will be invalid.
  *
- * @param {Real} friendsGroupID The friends group ID to get the members list of.
+ * @param {Real} friends_group_id The friends group ID to get the members list of.
  * @returns {Array[Real]} 
  * @function_end
  */
@@ -824,7 +816,7 @@
  *
  * This function gets the nickname that the current user has set for the specified user.
  *
- * @param {Real} steamIDPlayer The Steam ID of the user.
+ * @param {Real} steam_id_player The Steam ID of the user.
  * @returns {String} 
  * @function_end
  */
@@ -847,11 +839,11 @@
  *
  * This function invites a friend or clan member to the current game using a special invite string.
  * 
- * If the target user accepts the invite then the `pchConnectString` gets added to the command-line when launching the game.
+ * If the target user accepts the invite then the `connect_string` gets added to the command-line when launching the game.
  * If the game is already running for that user, then they will receive a [GameRichPresenceJoinRequested_t](https://partner.steamgames.com/doc/api/ISteamFriends#GameRichPresenceJoinRequested_t) callback with the connect string.
  *
  * @param {Real} steam_id_friend The Steam ID of the friend to invite.
- * @param {String} pchConnectString A string that lets the friend know how to join the game (i.e. the game server IP). This can not be longer than specified in [k_cchMaxRichPresenceValueLength](https://partner.steamgames.com/doc/api/ISteamFriends#k_cchMaxRichPresenceValueLength).
+ * @param {String} connect_string A string that lets the friend know how to join the game (i.e. the game server IP). This can not be longer than specified in [k_cchMaxRichPresenceValueLength](https://partner.steamgames.com/doc/api/ISteamFriends#k_cchMaxRichPresenceValueLength).
  * @returns {Bool}
  * 
  * @event callback
@@ -859,8 +851,7 @@
  * 
  * [[Note: This callback is made when joining a game. If the user is attempting to join a lobby, then the callback [GameLobbyJoinRequested_t](https://partner.steamgames.com/doc/api/ISteamFriends#GameLobbyJoinRequested_t) will be made.]]
  * 
- * @member {Real} steam_id_friend The friend they joined through. This will be invalid if not directly via a friend.
- * @member {String} connect The value associated with the `"connect"` Rich Presence key.
+ * @member {Struct.SteamFriendsGameRichPresenceJoinRequested} result The result of the operation.
  * @event_end
  * @function_end
  */
@@ -922,9 +913,7 @@
  * @event callback
  * @desc > **Steamworks Callback**: [FriendsIsFollowing_t](https://partner.steamgames.com/doc/api/ISteamFriends#FriendsIsFollowing_t)
  * 
- * @member {Enum.SteamApiResult} result The result of the operation.
- * @member {Real} steam_id The Steam ID that was checked.
- * @member {Bool} is_following Are we following the user? (`true`) or not? (`false`)
+ * @member {Struct.SteamFriendsIsFollowingResult} result The result of the operation.
  * @event_end
  * 
  * @function_end
@@ -959,9 +948,7 @@
  * 
  * @event callback
  * @desc > **Steamworks Callback**: [ISteamFriends::ClanOfficerListResponse_t](https://partner.steamgames.com/doc/api/ISteamFriends#ClanOfficerListResponse_t)
- * @member {Real} steam_id_clan The Steam group that we just got the officer list for.
- * @member {Real} officers The number of officers in the group. This is the same as ${function.steam_friends_get_clan_officer_count}.
- * @member {Bool} success Was the call successful? If it wasn't this may indicate a temporary loss of connection to Steam. If this returns `true`, this does not necessarily mean that all of the info for this Steam group has been downloaded.
+ * @member {Struct.SteamFriendsRequestClanOfficerListResult} result The result of the operation.
  * @event_end
  * @function_end
  */
@@ -980,8 +967,7 @@
  * 
  * @event callback
  * @desc > **Steamworks Callback**: [ISteamFriends::FriendRichPresenceUpdate_t](https://partner.steamgames.com/doc/api/ISteamFriends#FriendRichPresenceUpdate_t)
- * @member {Real} steam_id_friend The Steam ID of the user whose rich presence has changed.
- * @member {Real} app_id The App ID of the game. This should always be the current game.
+ * @member {Struct.SteamFriendsFriendRichPresenceUpdate} result The result of the operation.
  * @event_end
  * @function_end
  */
@@ -1000,8 +986,7 @@
  * 
  * @event callback
  * @desc > **Steamworks Callback**: [ISteamFriends::PersonaStateChange_t](https://partner.steamgames.com/doc/api/ISteamFriends#PersonaStateChange_t)
- * @member {Real} steam_id Steam ID of the user who changed.
- * @member {Real} change_flags A bit-wise union of ${Enum.SteamFriendsPersonaChange} values.
+ * @member {Struct.SteamFriendsPersonaStateChange} result The result of the operation.
  * @event_end
  * @function_end
  */
@@ -1477,10 +1462,7 @@
  * 
  * @event callback
  * @desc > **Steamworks Callback**: [ISteamApps::FileDetailsResult_t](https://partner.steamgames.com/doc/api/ISteamApps#FileDetailsResult_t)
- * @member {Enum.SteamApiResult} result Was the call successful? `SteamApiResult.Ok` if it was; otherwise, `SteamApiResult.FileNotFound` if the file was not found. None of the other fields are filled out if the call was not successful.
- * @member {Real} file_size The original file size in bytes.
- * @member {Real} file_sha The original file SHA-1 hash.
- * @member {Real} flags The file's flags.
+ * @member {Struct.SteamAppsFileDetailsResult} result The result of the operation.
  * @event_end
  * @function_end
  */
@@ -1535,7 +1517,7 @@
  * 
  * Triggered after the current user gains ownership of DLC and that DLC is installed.
  * 
- * @member {Real} app_id App ID of the DLC that was installed.
+ * @member {Struct.SteamAppsDlcInstalled} result The result of the operation.
  * @event_end
  * @function_end
  */
@@ -1609,10 +1591,10 @@
  *
  * This function adds a screenshot to the user's Steam screenshot library from disk.
  *
- * @param {String} pchFilename The absolute file path to the JPG, PNG, or TGA screenshot.
- * @param {String} pchThumbnailFilename The absolute file path to an optional thumbnail image. This must be 200px wide, as described by [k_ScreenshotThumbWidth](https://partner.steamgames.com/doc/api/ISteamScreenshots#k_ScreenshotThumbWidth) and the same aspect ratio. Pass an empty string `""` if there is no thumbnail, one will be created automatically.
- * @param {Real} nWidth The width of the screenshot.
- * @param {Real} nHeight The height of the screenshot.
+ * @param {String} filename The absolute file path to the JPG, PNG, or TGA screenshot.
+ * @param {String} thumbnail_filename The absolute file path to an optional thumbnail image. This must be 200px wide, as described by [k_ScreenshotThumbWidth](https://partner.steamgames.com/doc/api/ISteamScreenshots#k_ScreenshotThumbWidth) and the same aspect ratio. Pass an empty string `""` if there is no thumbnail, one will be created automatically.
+ * @param {Real} width The width of the screenshot.
+ * @param {Real} height The height of the screenshot.
  * @returns {Real} Screenshot handle, or [INVALID_SCREENSHOT_HANDLE](https://partner.steamgames.com/doc/api/ISteamScreenshots#INVALID_SCREENSHOT_HANDLE) if the file could not be saved
  * 
  * @event callback
@@ -1620,12 +1602,7 @@
  * 
  * This is triggered when a screenshot has been successfully written or otherwise added to the library and can now be tagged.
  * 
- * @member {Real} local The screenshot handle that has been written.
- * @member {Enum.SteamApiResult} result The result of the operation. Possible values:
- * 
- * * `SteamApiResult.Ok` - The screenshot was successfully added to the user's library.
- * * `SteamApiResult.Fail` - The screenshot could not be loaded or parsed.
- * * `SteamApiResult.IoFailure` - The screenshot could not be saved to the disk.
+ * @member {Struct.SteamScreenshotsScreenshotReady} result The result of the operation.
  * @event_end
  * @function_end
  */
@@ -1646,14 +1623,8 @@
  * 
  * This is triggered when a screenshot has been successfully written or otherwise added to the library and can now be tagged.
  * 
- * @member {Real} local The screenshot handle that has been written.
- * @member {Enum.SteamApiResult} result The result of the operation. Possible values:
- * 
- * * `SteamApiResult.Ok` - The screenshot was successfully added to the user's library.
- * * `SteamApiResult.Fail` - The screenshot could not be loaded or parsed.
- * * `SteamApiResult.IoFailure` - The screenshot could not be saved to the disk.
+ * @member {Struct.SteamScreenshotsScreenshotReady} result The result of the operation.
  * @event_end
- * 
  * @function_end
  */
 
@@ -1703,7 +1674,7 @@
  * You can get the handle to tag the screenshot once it has been successfully saved from the [ScreenshotReady_t](https://partner.steamgames.com/doc/api/ISteamScreenshots#ScreenshotReady_t) callback or via the ${function.steam_screenshots_write_screenshot}, ${function.steam_screenshots_add_screenshot_to_library}, ${function.steam_screenshots_add_vr_screenshot_to_library} calls.
  *
  * @param {Real} screenshot The handle to the screenshot to tag.
- * @param {String} pchLocation The location in the game where this screenshot was taken. This can not be longer than [k_cubUFSTagValueMax](https://partner.steamgames.com/doc/api/ISteamScreenshots#k_cubUFSTagValueMax).
+ * @param {String} location The location in the game where this screenshot was taken. This can not be longer than [k_cubUFSTagValueMax](https://partner.steamgames.com/doc/api/ISteamScreenshots#k_cubUFSTagValueMax).
  * @returns {Bool} `true` if the location was successfully added to the screenshot. `false` if the screenshot handle was invalid, or the location is invalid or too long.
  * @function_end
  */
@@ -1792,12 +1763,7 @@
  * 
  * This is triggered when a screenshot has been successfully written or otherwise added to the library and can now be tagged.
  * 
- * @member {Real} local The screenshot handle that has been written.
- * @member {Enum.SteamApiResult} result The result of the operation. Possible values:
- * 
- * * `SteamApiResult.Ok` - The screenshot was successfully added to the user's library.
- * * `SteamApiResult.Fail` - The screenshot could not be loaded or parsed.
- * * `SteamApiResult.IoFailure` - The screenshot could not be saved to the disk.
+ * @member {Struct.SteamScreenshotsScreenshotReady} result The result of the operation.
  * @event_end
  * 
  * @function_end
@@ -1854,8 +1820,8 @@
  * When you are using Steam authentication system this call is never required, the auth system automatically sets the appropriate rich presence.
  *
  * @param {Real} steam_id_game_server This should be [k_steamIDNonSteamGS](https://partner.steamgames.com/doc/api/steam_api#k_steamIDNonSteamGS) if you're setting the IP/Port, otherwise it should be [k_steamIDNil](https://partner.steamgames.com/doc/api/steam_api#k_steamIDNil) if you're clearing this.
- * @param {Real} un_ip_server The IP of the game server in host order, i.e 127.0.0.1 == 0x7f000001.
- * @param {Real} us_port_server The connection port of the game server, in host order.
+ * @param {Real} server_ip The IP of the game server in host order, i.e 127.0.0.1 == 0x7f000001.
+ * @param {Real} server_port The connection port of the game server, in host order.
  * @function_end
  */
 
@@ -1874,7 +1840,7 @@
  * See also: [User Authentication and Ownership](https://partner.steamgames.com/doc/features/auth)
  *
  * @param {Buffer} auth_ticket The auth ticket to validate.
- * @param {Real} cb_auth_ticket The size in bytes of the auth ticket. This must be the ticket size provided by the call that created this ticket.
+ * @param {Real} auth_ticket_size The size in bytes of the auth ticket. This must be the ticket size provided by the call that created this ticket.
  * @param {Real} steam_id The entity's Steam ID that sent this ticket.
  * @returns {Enum.SteamUserBeginAuthSessionResult} 
  * 
@@ -1979,7 +1945,7 @@
  * 
  * See also: [User Authentication and Ownership](https://partner.steamgames.com/doc/features/auth)
  *
- * @param {Real} h_auth_ticket The active auth ticket to cancel.
+ * @param {Real} auth_ticket_handle The active auth ticket to cancel.
  * @function_end
  */
 
@@ -1996,10 +1962,10 @@
  * See [Steam Voice](https://partner.steamgames.com/doc/features/voice) for more information.
  *
  * @param {Buffer} compressed The compressed data received from ${function.steam_user_get_voice}.
- * @param {Real} cb_compressed The size of the buffer passed into `compressed`.
+ * @param {Real} compressed_size The size of the buffer passed into `compressed`.
  * @param {Buffer} dest The buffer where the raw audio data will be returned. This can then be passed to your audio subsystems for playback.
- * @param {Real} cb_dest_buffer_size The size of the buffer passed into `dest`.
- * @param {Real} n_desired_sample_rate The sample rate that will be returned. This can be from 11025 to 48000, you should either use the rate that works best for your audio playback system, which likely takes the user's audio hardware into account, or you can use ${function.steam_user_get_voice_optimal_sample_rate} to get the native sample rate of the Steam voice decoder.
+ * @param {Real} dest_buffer_size The size of the buffer passed into `dest`.
+ * @param {Real} desired_sample_rate The sample rate that will be returned. This can be from 11025 to 48000, you should either use the rate that works best for your audio playback system, which likely takes the user's audio hardware into account, or you can use ${function.steam_user_get_voice_optimal_sample_rate} to get the native sample rate of the Steam voice decoder.
  * @returns {Enum.SteamApiVoiceResult}
  * @function_end
  */
@@ -2027,7 +1993,7 @@
  * [[Note: This API can not be used to create a ticket for use by the [ISteamUserAuth/AuthenticateUserTicket](https://partner.steamgames.com/doc/webapi/ISteamUserAuth#AuthenticateUserTicket) Web API. Use the ${function.steam_user_get_auth_ticket_for_web_api} call instead.]]
  *
  * @param {Buffer} out_ticket The buffer where the new auth ticket will be copied into if the call was successful.
- * @param {Real} cb_max_ticket The size of the buffer allocated for `out_ticket`. Typically a buffer size of 1024 will be sufficient. However, in certain cases (e.g., when an application has a large amount of available DLC), a larger buffer size may be required.
+ * @param {Real} max_ticket_size The size of the buffer allocated for `out_ticket`. Typically a buffer size of 1024 will be sufficient. However, in certain cases (e.g., when an application has a large amount of available DLC), a larger buffer size may be required.
  * @param {Struct.SteamNetworkingIdentity} [remote_identity] The identity of the remote system that will authenticate the ticket. If it is peer-to-peer then the user steam ID. If it is a game server, then the game server steam ID may be used if it was obtained from a trusted 3rd party, otherwise use the IP address. If it is a service, a string identifier of that service if one if provided.
  * @returns {Struct.SteamUserAuthSessionTicket} 
  * @function_end
@@ -2146,13 +2112,13 @@
  * 
  * See [Steam Voice](https://partner.steamgames.com/doc/features/voice) for more information.
  *
- * @param {Bool} b_want_compressed This should always be `true`.
+ * @param {Bool} want_compressed This should always be `true`.
  * @param {Buffer} dest_compressed The buffer where the audio data will be copied into.
- * @param {Real} cb_dest_compressed The size of the buffer allocated for `dest_compressed`.
- * @param {Bool} b_want_uncompressed Deprecated.
+ * @param {Real} dest_compressed_size The size of the buffer allocated for `dest_compressed`.
+ * @param {Bool} want_uncompressed Deprecated.
  * @param {Buffer} dest_uncompressed Deprecated.
- * @param {Real} cb_dest_uncompressed Deprecated.
- * @param {Real} n_desired_sample_rate Deprecated.
+ * @param {Real} dest_uncompressed_size Deprecated.
+ * @param {Real} desired_sample_rate Deprecated.
  * @returns {Struct.SteamUserGetVoiceResult} 
  * @function_end
  */
@@ -2180,7 +2146,7 @@
  * After receiving the response you should call ${function.steam_user_get_encrypted_app_ticket} to get the ticket data, and then you need to send it to a secure server to be decrypted with the [SteamEncryptedAppTicket](https://partner.steamgames.com/doc/api/SteamEncryptedAppTicket) functions.
  *
  * @param {Buffer} data_to_include The data which will be encrypted into the ticket.
- * @param {Real} cb_data_to_include The total size in bytes of `data_to_include`.
+ * @param {Real} data_to_include_size The total size in bytes of `data_to_include`.
  * @param {Function} [callback] The function to call upon completion.
  * 
  * @event callback
@@ -2188,13 +2154,7 @@
  * 
  * Called when an encrypted application ticket has been received.
  * 
- * @member {Enum.SteamApiResult} result Was the call successful? Possible results:
- * 
- * * SteamApiResult.Ok - Success!
- * * SteamApiResult.NoConnection - A connection to Steam could not be established.
- * * SteamApiResult.DuplicateRequest - There is already a pending request.
- * * SteamApiResult.LimitExceeded - This call is subject to a 60 second rate limit, and you have exceeded that.
- * 
+ * @member {Struct.SteamUserEncryptedAppTicketResponse} result The result of the operation.
  * @event_end
  * @function_end
  */
@@ -2210,7 +2170,7 @@
  * [[Note: If you call this without calling ${function.steam_user_request_encrypted_app_ticket}, the call may succeed but you will likely get a stale ticket.]]
  *
  * @param {Buffer} out_ticket The encrypted app ticket is copied into this buffer.
- * @param {Real} cb_max_ticket The total size of the `out_ticket` buffer in bytes.
+ * @param {Real} max_ticket_size The total size of the `out_ticket` buffer in bytes.
  * @returns {Struct.SteamUserEncryptedAppTicket}
  * @function_end
  */
@@ -2223,8 +2183,8 @@
  * 
  * The user can have two different badges for a series; the regular badge (max level 5) and the foil badge (max level 1).
  *
- * @param {Real} n_series If you only have one set of cards, the series will be 1.
- * @param {Bool} b_foil Whether to check if they have received the foil badge.
+ * @param {Real} series If you only have one set of cards, the series will be 1.
+ * @param {Bool} foil Whether to check if they have received the foil badge.
  * @returns {Real} 
  * @function_end
  */
@@ -2235,7 +2195,7 @@
  *
  * This function retrieves an authentication ticket for use with the ISteamUserAuth Web API.
  *
- * @param {String} pch_identity The identity of the remote service that will authenticate the ticket, as a string identifier. Pass an empty string if none was provided.
+ * @param {String} identity The identity of the remote service that will authenticate the ticket, as a string identifier. Pass an empty string if none was provided.
  * @returns {Real} 
  * @function_end
  */
@@ -2253,12 +2213,7 @@
  *
  * Called when the user's playtime/duration-control information has been received (used for the anti-addiction / playtime systems required in some regions).
  *
- * @member {Enum.SteamApiResult} result The result of the operation.
- * @member {Real} app_id The app ID the duration control information applies to.
- * @member {Bool} applicable Whether duration control is applicable to this user and app (i.e. whether the user is subject to the playtime restrictions).
- * @member {Real} csecs_last_5h The number of seconds the user has played in the last 5 hours, in centiseconds.
- * @member {Enum.SteamUserDurationControlProgress} progress The current duration-control progress level (an `EDurationControlProgress` value describing whether the user should be encouraged to take a break).
- * @member {Enum.SteamUserDurationControlNotification} notification The notification that should be shown to the user, if any (an `EDurationControlNotification` value).
+ * @member {Struct.SteamUserDurationControl} result The result of the operation.
  * @event_end
  * @function_end
  */
@@ -2275,7 +2230,7 @@
  * 
  * [[Note: The resulting authorization cookie has an expiration time of one day, so it would be a good idea to request and visit a new auth URL every 12 hours.]]
  *
- * @param {String} pch_redirect_url The URL to redirect the user to once the in-game browser has been authenticated for the store.
+ * @param {String} redirect_url The URL to redirect the user to once the in-game browser has been authenticated for the store.
  * @param {Function} [callback] The function to call upon completion.
  *
  * @event callback
@@ -2283,8 +2238,7 @@
  *
  * Called when a store authentication URL has been received.
  *
- * @member {Enum.SteamApiResult} result The result of the operation.
- * @member {String} url The authenticated URL that was requested.
+ * @member {Struct.SteamUserStoreAuthUrlResponse} The result of the operation.
  * @event_end
  * @function_end
  */
@@ -2302,12 +2256,7 @@
  *
  * Called when the user's Steam Community Market eligibility has been received.
  *
- * @member {Bool} allowed Whether the user is allowed to use the Steam Community Market.
- * @member {Real} not_allowed_reason The reason the user is not allowed to use the market, if applicable (an `EMarketNotAllowedReasonFlags` bitfield).
- * @member {Real} allowed_at_time The Unix timestamp of when the user will be allowed to use the market, if currently restricted.
- * @member {Real} steam_purchase_time The Unix timestamp of the user's first Steam purchase, used for some eligibility checks.
- * @member {Real} day_steam_guard_required_days The number of days Steam Guard must have been active before the user is allowed to use the market.
- * @member {Real} day_new_device_cooldown The number of days a newly added device must wait before the user is allowed to use the market.
+ * @member {Struct.SteamUserMarketEligibilityResponse} The result of the operation.
  * @event_end
  * @function_end
  */
@@ -2319,8 +2268,8 @@
  * This function was previously used by a few games to track usage events before Stats and Achievements (now deprecated).
  *
  * @param {Real} game_id The game ID that the usage event applies to.
- * @param {Real} e_app_usage_event The type of app usage event to track.
- * @param {String} pch_extra_info Additional information describing the event.
+ * @param {Real} app_usage_event The type of app usage event to track.
+ * @param {String} extra_info Additional information describing the event.
  * @function_end
  */
 
@@ -2471,7 +2420,7 @@
  * This function checks if the Overlay needs a present. Only required if using event driven render updates.
  *
  * @returns {Bool} 
- * @function_end 
+ * @function_end
  */
 
 /**
@@ -2480,7 +2429,7 @@
  *
  * This function is deprecated.
  *
- * @param {String} sz_file_name The name of the file whose signature is to be checked.
+ * @param {String} file_name The name of the file whose signature is to be checked.
  * @param {Function} [callback] The function to call upon completion.
  *
  * @event callback
@@ -2488,7 +2437,7 @@
  *
  * Called when the file signature check started by ${function.steam_utils_check_file_signature} has completed.
  *
- * @member {Real} result The result of the file signature check (an `ECheckFileSignature` value).
+ * @member {Struct.SteamUtilsCheckFileSignatureResult} result The result of the operation.
  * @event_end
  * @function_end
  */
@@ -2687,9 +2636,9 @@
  * 
  * Prior to calling this you must get the size of the image by calling ${function.steam_utils_get_image_size} so that you can create your buffer with an appropriate size. You can then allocate your buffer with the width and height as: width * height * 4. The image is provided in RGBA format. This call can be somewhat expensive as it converts from the compressed type (JPG, PNG, TGA) and provides no internal caching of returned buffer, thus it is highly recommended to only call this once per image handle and cache the result. This function is only used for Steam Avatars and Achievement images and those are not expected to change mid game.
  *
- * @param {Real} i_image The handle to the image that will be obtained.
+ * @param {Real} image_handle The handle to the image that will be obtained.
  * @param {Buffer} dest The buffer that will be filled.
- * @param {Real} n_dest_buffer_size The total size of the pubDest buffer.
+ * @param {Real} dest_buffer_size The total size of the `dest` buffer.
  * @returns {Bool} 
  * @function_end 
  */
@@ -2702,7 +2651,7 @@
  * 
  * This must be called before calling ${function.steam_utils_get_image_rgba} to create an appropriately sized buffer that will be filled with the raw image data.
  *
- * @param {Real} i_image The image handle to get the size for.
+ * @param {Real} image_handle The image handle to get the size for.
  * @returns {Struct.SteamUtilsImageSize}
  * @function_end 
  */
@@ -2884,8 +2833,8 @@
  * 
  * This position is per-game and is reset each launch.
  *
- * @param {Real} n_horizontal_inset The horizontal (left-right) distance in pixels from the corner.
- * @param {Real} n_vertical_inset The vertical (up-down) distance in pixels from the corner.
+ * @param {Real} horizontal_inset The horizontal (left-right) distance in pixels from the corner.
+ * @param {Real} vertical_inset The vertical (up-down) distance in pixels from the corner.
  * @function_end 
  */
 
@@ -2909,7 +2858,7 @@
  * 
  * This is useful for games that have asymmetric multiplayer gameplay.
  *
- * @param {Bool} b_enabled Turns VR HMD Streaming on (true) or off (false).
+ * @param {Bool} enabled Turns VR HMD Streaming on (`true`) or off (`false`).
  * @function_end
  */
 
@@ -2968,7 +2917,7 @@
  *
  * This function sets the game launcher mode, so that Steam Input translates controller input into mouse and keyboard input to navigate the launcher, for launchers that do not have native controller support.
  *
- * @param {Bool} b_launcher_mode Whether a launcher is active or not.
+ * @param {Bool} launcher_mode Whether a launcher is active or not.
  * @function_end 
  */
 
@@ -3239,9 +3188,7 @@
  *
  * Called when a new workshop item has been created.
  *
- * @member {Enum.SteamApiResult} result The result of the operation.
- * @member {Real} published_file_id The ID of the newly created workshop item.
- * @member {Bool} legal_agreement_required Does the user need to accept the Steam Workshop legal agreement (true) or not (false)? See the [Workshop Legal Agreement](https://partner.steamgames.com/doc/features/workshop/implementation#Legal) for more information.
+ * @member {Struct.SteamUgcCreateItemResult} result The result of the operation.
  * @event_end
  * @function_end
  */
@@ -3326,8 +3273,7 @@
  *
  * Called when a workshop item has been deleted.
  *
- * @member {Enum.SteamApiResult} result The result of the operation.
- * @member {Real} published_file_id The workshop item that was deleted.
+ * @member {Struct.SteamUgcDeleteItemResult} result The result of the operation.
  * @event_end
  * @function_end
  */
@@ -3355,10 +3301,7 @@
  * 
  * [[Note: This callback goes out to all running applications, ensure that the app ID associated with the item matches what you expect.]]
  * 
- * @member {Real} app_id The app ID associated with this workshop item.
- * @member {Real} published_file_id The workshop item that has finished downloading.
- * @member {Enum.SteamApiResult} result The result of the operation.
- * 
+ * @member {Struct.SteamUgcDownloadItemResult} result The result of the operation.
  * @event_end
  * 
  * @function_end
@@ -3452,7 +3395,7 @@
  * 
  * By default, the items are returned in the order that the user subscribed to them. Users can change the ordering in the Steam Client, or you can do so via the ${function.steam_ugc_set_subscriptions_load_order} call.
  *
- * @param {Real} c_max_entries The maximum number of items to return. This typically matches the value returned by ${function.steam_ugc_get_num_subscribed_items}.
+ * @param {Real} max_entries The maximum number of items to return. This typically matches the value returned by ${function.steam_ugc_get_num_subscribed_items}.
  * @param {Bool} include_locally_disabled Whether to include locally disabled items in the return value or not. Defaults to false.
  * @returns {Array[Real]} 
  * @function_end 
@@ -3518,7 +3461,7 @@
  *
  * @param {Real} query_handle The UGC query handle to get the results from.
  * @param {Real} index The index of the item to get the details of.
- * @param {Real} c_max_entries The maximum number of child item ids to return.
+ * @param {Real} max_entries The maximum number of child item ids to return.
  * @returns {Array[Real]} 
  * @function_end 
  */
@@ -4221,9 +4164,7 @@
  *
  * Called when the user has voted on a workshop item.
  *
- * @member {Enum.SteamApiResult} result The result of the operation.
- * @member {Real} published_file_id The workshop item that was voted on.
- * @member {Bool} vote_up The vote that was set; `true` for an up vote, `false` for a down vote.
+ * @member {Struct.SteamUgcSetUserItemVoteResult} result The result of the operation.
  * @event_end
  * @function_end
  */
@@ -4242,11 +4183,7 @@
  *
  * Called when the user's current vote on a workshop item has been retrieved.
  *
- * @member {Enum.SteamApiResult} result The result of the operation.
- * @member {Real} published_file_id The workshop item the vote information is for.
- * @member {Bool} voted_up Whether the user has voted the item up.
- * @member {Bool} voted_down Whether the user has voted the item down.
- * @member {Bool} vote_skipped Whether the user has skipped voting on the item.
+ * @member {Struct.SteamUgcGetUserItemVoteResult} result The result of the operation.
  * @event_end
  * @function_end
  */
@@ -4348,8 +4285,7 @@
  *
  * Called when a workshop item update has been submitted and uploaded.
  *
- * @member {Enum.SteamApiResult} result The result of the operation.
- * @member {Bool} legal_agreement_required Whether the user needs to accept the Steam Workshop legal agreement.
+ * @member {Struct.SteamUgcSubmitItemUpdateResult} result The result of this operation.
  * @event_end
  * @function_end
  */
@@ -4368,8 +4304,7 @@
  *
  * Called when the user has subscribed to a piece of UGC.
  *
- * @member {Enum.SteamApiResult} result The result of the operation.
- * @member {Real} published_file_id The workshop item that the user subscribed to.
+ * @member {Enum.SteamUgcSubscribeItemResult} result The result of this operation.
  * @event_end
  * @function_end
  */
@@ -4400,8 +4335,7 @@
  *
  * Called when the user has unsubscribed from a piece of UGC.
  *
- * @member {Enum.SteamApiResult} result The result of the operation.
- * @member {Real} published_file_id The workshop item that the user unsubscribed from.
+ * @member {Struct.SteamUgcUnsubscribeItemResult} result The result of the operation.
  * @event_end
  * @function_end
  */
@@ -5196,7 +5130,7 @@
  * @member {Bool} achieved Whether the icon for the achieved (`true`) or unachieved (`false`) version.
  * @member {Real} icon_handle Handle to the image, which can be used with ${function.steam_utils_get_image_rgba} to get the image data. 0 means no image is set for the achievement.
  * @event_end
- * @function_end 
+ * @function_end
  */
 
 /**
@@ -5266,7 +5200,7 @@
  * 
  * These stats are not automatically updated; you'll need to call this function again to refresh any data that may have change.
  * 
- * To keep from using too much memory, an least recently used cache (LRU) is maintained and other user's stats will occasionally be unloaded. When this happens a [UserStatsUnloaded_t](https://partner.steamgames.com/doc/api/ISteamUserStats#UserStatsUnloaded_t) callback is sent. After receiving this callback the user's stats will be unavailable until this function is called again.
+ * To keep from using too much memory, a least recently used cache (LRU) is maintained and other user's stats will occasionally be unloaded. When this happens a [UserStatsUnloaded_t](https://partner.steamgames.com/doc/api/ISteamUserStats#UserStatsUnloaded_t) callback is sent. After receiving this callback the user's stats will be unavailable until this function is called again.
  *
  * @param {Real} steam_id_user The Steam ID of the user to request stats for.
  * @param {Function} [callback] The function to call upon completion.
@@ -5276,9 +5210,7 @@
  *
  * Called when the latest stats and achievements for a user have been received from the server.
  *
- * @member {Real} game_id The game ID that these stats are for.
- * @member {Real} steam_id_user The Steam ID of the user whose stats were retrieved.
- * @member {Enum.SteamApiResult} result The result of the operation.
+ * @member {Struct.SteamUserStatsUserStatsReceived} result The result of the operation.
  * @event_end
  * 
  * @event callback
@@ -5386,8 +5318,7 @@
  *
  * Called when a leaderboard has been found, or failed to be found.
  *
- * @member {Real} leaderboard_handle The handle of the leaderboard that was found. Will be 0 if no leaderboard was found.
- * @member {Bool} leaderboard_found Whether a leaderboard was found; `true` if it was found.
+ * @member {Struct.SteamUserStatsLeaderboardFindResult} result The result of the operation.
  * @event_end
  * @function_end
  */
@@ -5408,8 +5339,7 @@
  *
  * Called when a leaderboard has been found, or failed to be found.
  *
- * @member {Real} leaderboard_handle The handle of the leaderboard that was found. Will be 0 if no leaderboard was found.
- * @member {Bool} leaderboard_found Whether a leaderboard was found; `true` if it was found.
+ * @member {Struct.SteamUserStatsLeaderboardFindResult} result The result of the operation.
  * @event_end
  * @function_end
  */
@@ -5596,8 +5526,7 @@
  *
  * Called when the current number of players for the current app has been received.
  *
- * @member {Bool} success Whether the call was successful; `true` if the player count was retrieved.
- * @member {Real} players The number of players currently playing the game.
+ * @member {Struct.SteamUserStatsNumberOfCurrentPlayersResult} result The result of the operation.
  * @event_end
  * @function_end
  */
@@ -5615,8 +5544,7 @@
  *
  * Called when the global achievement unlock percentages have been received from the server.
  *
- * @member {Real} game_id The game ID that the achievement percentages are for.
- * @member {Enum.SteamApiResult} result The result of the operation.
+ * @member {Struct.SteamUserStatsNumberOfCurrentPlayersResult} result The result of the operation.
  * @event_end
  * @function_end
  */
@@ -5673,8 +5601,7 @@
  *
  * Called when the global stats have been received from the server.
  *
- * @member {Real} game_id The game ID that the global stats are for.
- * @member {Enum.SteamApiResult} result The result of the operation.
+ * @member {Struct.SteamUserStatsGlobalStatsReceivedResult} result The result of the operation.
  * @event_end
  * @function_end
  */
@@ -6072,8 +5999,7 @@
  * 
  * Called when asking if recordings exist for an event handle.
  * 
- * @member {Real} event_handle The handle of the event that was asked about
- * @member {Bool} recording_exists This is `true` if a recording exists for the requested event handle
+ * @member {Struct.SteamTimelineEventRecordingExists} result The result of the operation.
  * @event_end
  * @function_end
  */
@@ -6124,8 +6050,7 @@
  * 
  * Called when asking if recordings exist for an event handle.
  * 
- * @member {Real} event_handle The handle of the event that was asked about
- * @member {Bool} recording_exists This is `true` if recording exists for the requested event handle
+ * @member {Struct.SteamTimelineGamePhaseRecordingExists} result The result of the operation.
  * @event_end
  * @function_end
  */
@@ -6417,7 +6342,7 @@
  * 
  * You should call this while handling a [SteamInventoryEligiblePromoItemDefIDs_t](https://partner.steamgames.com/doc/api/ISteamInventory#SteamInventoryEligiblePromoItemDefIDs_t) call result to pull out the item definition ids.
  *
- * @param {Real} c_max_item_defs The maximum number of item definition ids to retrieve.
+ * @param {Real} max_item_defs The maximum number of item definition ids to retrieve.
  * @returns {Array[Real]} 
  * @function_end 
  */
@@ -6439,7 +6364,7 @@
  * 
  * This callback has no fields.
  * @event_end
- * @function_end 
+ * @function_end
  */
 
 /**
@@ -6452,7 +6377,7 @@
  * 
  * This should be called in response to a [SteamInventoryDefinitionUpdate_t](https://partner.steamgames.com/doc/api/ISteamInventory#SteamInventoryDefinitionUpdate_t) callback. There is no reason to call this function if your game hardcodes the numeric definition IDs (eg, purple face mask = 20, blue weapon mod = 55) and does not allow for adding new item types without a client patch.
  *
- * @param {Real} c_max_item_defs The maximum number of item definition ids to retrieve.
+ * @param {Real} max_item_defs The maximum number of item definition ids to retrieve.
  * @returns {Array[Real]} 
  * @function_end 
  */
@@ -6535,11 +6460,9 @@
  * @event callback
  * @desc > **Steamworks Callback**: [ISteamInventory::SteamInventoryStartPurchaseResult_t](https://partner.steamgames.com/doc/api/ISteamInventory#SteamInventoryStartPurchaseResult_t)
  *
- * Returned after StartPurchase is called.
+ * Returned after ${function.steam_inventory_start_purchase} is called.
  *
- * @member {Enum.SteamApiResult} result The result of the operation.
- * @member {Real} order_id The auto-generated order id for the initiated purchase.
- * @member {Real} transaction_id The auto-generated transaction id for the initiated purchase.
+ * @member {Struct.SteamInventoryStartPurchaseResult} result The result of the operation.
  * @event_end
  * @function_end
  */
@@ -6557,10 +6480,9 @@
  * @event callback
  * @desc > **Steamworks Callback**: [ISteamInventory::SteamInventoryRequestPricesResult_t](https://partner.steamgames.com/doc/api/ISteamInventory#SteamInventoryRequestPricesResult_t)
  *
- * Returned after RequestPrices is called.
+ * Returned after ${function.steam_inventory_request_prices} is called.
  *
- * @member {Enum.SteamApiResult} result The result of the operation.
- * @member {String} currency The string representing the user's [local currency](https://partner.steamgames.com/doc/store/pricing/currencies) code.
+ * @member {Struct.SteamInventoryStartPurchaseResult} result The result of the operation.
  * @event_end
  * @function_end
  */
@@ -7230,9 +7152,7 @@
  *
  * This callback is fired in response to sharing a file, and provides a handle that can be used to refer to the shared file.
  *
- * @member {Enum.SteamApiResult} result The result of the operation.
- * @member {Real} ugc_handle The handle that can be shared with users and features.
- * @member {String} file_name The name of the file that was shared.
+ * @member {Struct.SteamRemoteStorageFileShareResult} result The result of the operation.
  * @event_end
  * @function_end
  */
@@ -7252,12 +7172,7 @@
  *
  * This callback is fired in response to a UGC download request, and contains the details of the file that was downloaded.
  *
- * @member {Enum.SteamApiResult} result The result of the operation.
- * @member {Real} ugc_handle The handle of the file that was attempted to be downloaded.
- * @member {Real} app_id The app ID the file was shared from.
- * @member {Real} size_in_bytes The size of the file that was downloaded, in bytes.
- * @member {String} file_name The name of the file that was downloaded.
- * @member {Real} steam_id_owner The Steam ID of the user who created this content.
+ * @member {Struct.SteamRemoteStorageDownloadUgcResult} result The result of the operation.
  * @event_end
  * @function_end
  */
@@ -7278,12 +7193,7 @@
  *
  * This callback is fired in response to a UGC download request, and contains the details of the file that was downloaded.
  *
- * @member {Enum.SteamApiResult} result The result of the operation.
- * @member {Real} ugc_handle The handle of the file that was attempted to be downloaded.
- * @member {Real} app_id The app ID the file was shared from.
- * @member {Real} size_in_bytes The size of the file that was downloaded, in bytes.
- * @member {String} file_name The name of the file that was downloaded.
- * @member {Real} steam_id_owner The Steam ID of the user who created this content.
+ * @member {Struct.SteamRemoteStorageDownloadUgcResult} result The result of the operation.
  * @event_end
  * @function_end
  */
@@ -7309,9 +7219,7 @@
  *
  * This callback is fired when a workshop file has been published, returning the result of the operation and the ID of the newly published file.
  *
- * @member {Enum.SteamApiResult} result The result of the operation.
- * @member {Real} published_file_id The file id of the published file.
- * @member {Bool} user_needs_to_accept_wla Whether the user still needs to accept the Steam Workshop legal agreement.
+ * @member {Struct.SteamRemoteStoragePublishFileResult} result The result of the operation.
  * @event_end
  * @function_end
  */
@@ -7424,8 +7332,7 @@
  *
  * Called when the user has subscribed to a piece of UGC.
  *
- * @member {Enum.SteamApiResult} result The result of the operation.
- * @member {Real} published_file_id The workshop item that the user subscribed to.
+ * @member {Struct.SteamRemoteStorageSubscribePublishedFileResult} result The result of the operation.
  * @event_end
  * @function_end
  */
@@ -7444,8 +7351,7 @@
  *
  * Called when the user has unsubscribed from a piece of UGC.
  *
- * @member {Enum.SteamApiResult} result The result of the operation.
- * @member {Real} published_file_id The workshop item that the user unsubscribed from.
+ * @member {Struct.SteamRemoteStorageUnsubscribePublishedFileResult} result The result of the operation.
  * @event_end
  * @function_end
  */
@@ -7570,8 +7476,7 @@
  *
  * Result of our request to create a Lobby. At this point, the lobby has been joined and is ready for use, a [LobbyEnter_t](https://partner.steamgames.com/doc/api/ISteamMatchmaking#LobbyEnter_t) callback will also be received (since the local user is joining their own lobby).
  *
- * @member {Enum.SteamApiResult} result The result of the operation.
- * @member {Real} lobby_id The Steam ID of the lobby that was created, 0 if failed.
+ * @member {Struct.SteamMatchmakingLobbyCreated} result The result of the operation.
  * @event_end
  * @function_end
  */
@@ -7592,10 +7497,7 @@
  *
  * Received upon attempting to enter a lobby. Lobby metadata is available to use immediately after receiving this.
  *
- * @member {Real} lobby_id The Steam ID of the lobby you have entered.
- * @member {Real} chat_permissions Unused - always 0.
- * @member {Bool} locked If `true`, then only invited users may join.
- * @member {Real} response An EChatRoomEnterResponse value, indicating whether the user successfully joined the lobby.
+ * @member {Struct.SteamMatchmakingLobbyEnter} result The result of the operation.
  * @event_end
  * @function_end
  */
@@ -7621,7 +7523,7 @@
  *
  * Result when requesting the lobby list.
  *
- * @member {Real} lobbies_count Number of lobbies that matched the search criteria and are available via ${function.steam_matchmaking_get_lobby_by_index}.
+ * @member {Struct.SteamMatchmakingLobbyMatchList} result The result of the operation.
  * @event_end
  * @function_end
  */
@@ -7867,11 +7769,9 @@
  * 
  * Triggered when the lobby metadata has changed.
  * 
- * @member {Real} steam_id_lobby The Steam ID of the Lobby.
- * @member {Real} steam_id_member Steam ID of either the member whose data changed, or the room itself.
- * @member {Bool} success `true` if the lobby data was successfully changed, otherwise `false`.
+ * @member {Struct.SteamMatchmakingLobbyDataUpdate} result The result of the operation.
  * @event_end
- * @function_end 
+ * @function_end
  */
 
 /**
@@ -7913,12 +7813,9 @@
  * 
  * Triggered when chat (text or binary) message for this lobby has been received.
  * 
- * @member {Real} steam_id_lobby The Steam ID of the lobby this message was sent in.
- * @member {Real} steam_id_user Steam ID of the user who sent this message. Note that it could have been the local user.
- * @member {Enum.SteamFriendsChatEntryType} Type of message received.
- * @member chat_id The index of the chat entry to use with ${function.steam_matchmaking_get_lobby_chat_entry}, this is not valid outside of the scope of this callback and should never be stored.
+ * @member {Struct.SteamMatchmakingLobbyChatMsg} result The result of the operation.
  * @event_end
- * @function_end 
+ * @function_end
  */
 
 /**
@@ -7961,11 +7858,9 @@
  * 
  * Triggered when the lobby metadata has changed.
  * 
- * @member {Real} steam_id_lobby The Steam ID of the Lobby.
- * @member {Real} steam_id_member Steam ID of either the member whose data changed, or the room itself.
- * @member {Bool} success `true` if the lobby data was successfully changed, otherwise `false`.
+ * @member {Struct.SteamMatchmakingLobbyDataUpdate} result The result of the operation.
  * @event_end
- * @function_end 
+ * @function_end
  */
 
 /**
@@ -8018,12 +7913,9 @@
  * 
  * Triggered when a game server has been set via ${function.steam_matchmaking_set_lobby_game_server} for all of the members of the lobby to join.
  * 
- * @member {Real} steam_id_lobby The lobby that set the game server.
- * @member {Real} steam_id_game_server The Steam ID of the game server, if it's set.
- * @member {Real} ip The IP address of the game server in host order, i.e 127.0.0.1 == 0x7f000001, if it's set.
- * @member {Real} port The connection port of the game server, in host order, if it's set.
+ * @member {Struct.SteamMatchmakingLobbyGameCreated} result The result of the operation.
  * @event_end
- * @function_end 
+ * @function_end
  */
 
 /**
@@ -8735,73 +8627,73 @@
 
 /**
  * @struct SteamFriendsGetFollowerCountResult
- * @description > **Steamworks Struct**: [func](url)
+ * @description > **Steamworks Struct**: [ISteamFriends::FriendsGetFollowerCount_t](https://partner.steamgames.com/doc/api/ISteamFriends#FriendsGetFollowerCount_t)
  *
- * This struct 
+ * This struct holds the result of ${function.steam_friends_get_follower_count}.
  *
- * @member {Real} result
- * @member {Real} steam_id
- * @member {Real} count
- * @struct_end 
+ * @member {Enum.SteamApiResult} result The result of the operation.
+ * @member {Real} steam_id The Steam ID of the user we requested the follower count for.
+ * @member {Real} count The number of followers the user has.
+ * @struct_end
  */
 
 /**
  * @struct SteamFriendsIsFollowingResult
- * @description > **Steamworks Struct**: [func](url)
+ * @description > **Steamworks Struct**: [FriendsIsFollowing_t](https://partner.steamgames.com/doc/api/ISteamFriends#FriendsIsFollowing_t)
  *
- * This struct 
+ * This struct holds the result of ${function.steam_friends_is_following}.
  *
- * @member {Real} result
- * @member {Real} steam_id
- * @member {Bool} is_following
- * @struct_end 
+ * @member {Real} result The result of the operation.
+ * @member {Real} steam_id The Steam ID that was checked.
+ * @member {Bool} is_following Are we following the user? (`true`) or not? (`false`)
+ * @struct_end
  */
 
 /**
  * @struct SteamFriendsEnumerateFollowingListResult
- * @description > **Steamworks Struct**: [func](url)
+ * @description > **Steamworks Struct**: [ISteamFriends::FriendsEnumerateFollowingList_t](https://partner.steamgames.com/doc/api/ISteamFriends#FriendsEnumerateFollowingList_t)
  *
- * This struct 
+ * This struct holds the result of ${function.steam_friends_enumerate_following_list}.
  *
- * @member {Real} result
- * @member {Array[Real]} steam_ids
- * @member {Real} results_returned
- * @member {Real} total_result_count
- * @struct_end 
+ * @member {Enum.SteamApiResult} result The result of the operation.
+ * @member {Array[Real]} steam_ids The list of users that we are following.
+ * @member {Real} results_returned The number of results returned in `steam_ids`.
+ * @member {Real} total_result_count The total number of people we are following. If this is greater than `results_returned` then you should make a subsequent call to ${function.steam_friends_enumerate_following_list} with `results_returned` as the index to get the next portion of followers.
+ * @struct_end
  */
 
 /**
  * @struct SteamFriendsRequestClanOfficerListResult
- * @description > **Steamworks Struct**: [func](url)
+ * @description > **Steamworks Struct**: [ISteamFriends::ClanOfficerListResponse_t](https://partner.steamgames.com/doc/api/ISteamFriends#ClanOfficerListResponse_t)
  *
- * This struct 
+ * This struct holds the return of a request officer list call.
  *
- * @member {Real} result
- * @member {Real} clan_id
- * @member {Real} officers
- * @struct_end 
+ * @member {Real} result Was the call successful? If it wasn't, this may indicate a temporary loss of connection to Steam. If this returns `true`, this does not necessarily mean that all of the info for this Steam group has been downloaded.
+ * @member {Real} clan_id The Steam group that we just got the officer list for.
+ * @member {Real} officers  The number of officers in the group. This is the same as ${function.steam_friends_get_clan_officer_count}.
+ * @struct_end
  */
 
 /**
  * @struct SteamFriendsDownloadClanActivityCountsResult
- * @description > **Steamworks Struct**: [func](url)
+ * @description > **Steamworks Struct**: [ISteamFriends::DownloadClanActivityCountsResult_t](https://partner.steamgames.com/doc/api/ISteamFriends#DownloadClanActivityCountsResult_t)
  *
- * This struct 
+ * Called when a Steam group activity has been received.
  *
- * @member {Real} result
- * @struct_end 
+ * @member {Real} result Was the call successful?
+ * @struct_end
  */
 
 /**
  * @struct SteamFriendsAvatarImageLoaded
- * @description > **Steamworks Struct**: [func](url)
+ * @description > **Steamworks Struct**: [ISteamFriends::AvatarImageLoaded_t](https://partner.steamgames.com/doc/api/ISteamFriends#AvatarImageLoaded_t)
  *
- * This struct 
+ * This struct holds the result of when a large avatar is loaded if you have tried requesting it when it was unavailable.
  *
- * @member {Real} steam_id_64
- * @member {Real} image_handle
- * @member {Real} width
- * @member {Real} height
+ * @member {Real} steam_id_64 The Steam ID that the avatar has been loaded for.
+ * @member {Real} image_handle The Steam image handle of the now loaded image.
+ * @member {Real} width Width of the loaded image.
+ * @member {Real} height Height of the loaded image.
  * @struct_end 
  */
 
@@ -8860,12 +8752,12 @@
 
 /**
  * @struct SteamFriendsPersonaStateChange
- * @description > **Steamworks Struct**: [func](url)
+ * @description > **Steamworks Struct**: [ISteamFriends::PersonaStateChange_t](https://partner.steamgames.com/doc/api/ISteamFriends#PersonaStateChange_t)
  *
- * This struct 
+ * This struct holds information related to a friend's status change.
  *
- * @member {Real} steam_id
- * @member {Real} change_flags
+ * @member {Real} steam_id Steam ID of the user who changed.
+ * @member {Real} change_flags A bit-wise union of ${Enum.SteamFriendsPersonaChange} values.
  * @struct_end 
  */
 
@@ -8876,18 +8768,18 @@
  * This struct 
  *
  * @member {Bool} active
- * @struct_end 
+ * @struct_end
  */
 
 /**
  * @struct SteamFriendsGameRichPresenceJoinRequested
- * @description > **Steamworks Struct**: [func](url)
+ * @description > **Steamworks Struct**: [ISteamFriends::GameRichPresenceJoinRequested_t](https://partner.steamgames.com/doc/api/ISteamFriends#GameRichPresenceJoinRequested_t)
  *
- * This struct 
+ * This struct holds the data of the callback triggered when the user tries to join a game from their friends list or after a user accepts an invite by a friend with ${function.steam_friends_invite_user_to_game}.
  *
- * @member {Real} steam_id_friend
- * @member {String} connect_string
- * @struct_end 
+ * @member {Real} steam_id_friend The friend they joined through. This will be invalid if not directly via a friend.
+ * @member {String} connect_string The value associated with the `"connect"` Rich Presence key.
+ * @struct_end
  */
 
 /**
@@ -8898,18 +8790,18 @@
  *
  * @member {Real} steam_id_friend
  * @member {Real} steam_id_lobby
- * @struct_end 
+ * @struct_end
  */
 
 /**
  * @struct SteamFriendsFriendRichPresenceUpdate
- * @description > **Steamworks Struct**: [func](url)
+ * @description > **Steamworks Struct**: [ISteamFriends::FriendRichPresenceUpdate_t](https://partner.steamgames.com/doc/api/ISteamFriends#FriendRichPresenceUpdate_t)
  *
- * This struct 
+ * This struct holds the result of when Rich Presence data has been updated for a user, this can happen automatically when friends in the same game update their rich presence, or after a call to ${function.steam_friends_request_friend_rich_presence}.
  *
- * @member {Real} steam_id_friend
- * @member {Real} app_id
- * @struct_end 
+ * @member {Real} steam_id_friend The Steam ID of the user whose rich presence has changed.
+ * @member {Real} app_id The App ID of the game. This should always be the current game.
+ * @struct_end
  */
 
 /**
@@ -8925,15 +8817,15 @@
 
 /**
  * @struct SteamAppsFileDetailsResult
- * @description > **Steamworks Struct**: [func](url)
+ * @description > **Steamworks Struct**: [ISteamApps::FileDetailsResult_t](https://partner.steamgames.com/doc/api/ISteamApps#FileDetailsResult_t)
  *
- * This struct 
+ * This struct holds information received after requesting the details of a specific file.
  *
- * @member {Real} result
- * @member {Real} file_size
- * @member {Real} flags
- * @member {String} sha1
- * @struct_end 
+ * @member {Real} result Was the call successful? `SteamApiResult.Ok` if it was; otherwise, `SteamApiResult.FileNotFound` if the file was not found. None of the other fields are filled out if the call was not successful.
+ * @member {Real} file_size The original file size in bytes.
+ * @member {Real} flags The file's flags.
+ * @member {String} sha1 The original file SHA-1 hash.
+ * @struct_end
  */
 
 /**
@@ -9069,74 +8961,83 @@
 
 /**
  * @struct SteamAppsDlcInstalled
- * @description > **Steamworks Struct**: [func](url)
+ * @description > **Steamworks Struct**: [ISteamApps::DlcInstalled_t](https://partner.steamgames.com/doc/api/ISteamApps#DlcInstalled_t)
  *
- * This struct 
+ * This struct holds information received after the current user gains ownership of DLC and that DLC is installed.
  *
- * @member {Real} app_id
+ * @member {Real} app_id App ID of the DLC that was installed.
  * @struct_end 
  */
 
 /**
  * @struct SteamScreenshotsScreenshotReady
- * @description > **Steamworks Struct**: [func](url)
+ * @description > **Steamworks Struct**: [ISteamScreenshots::ScreenshotReady_t](https://partner.steamgames.com/doc/api/ISteamScreenshots#ScreenshotReady_t)
  *
- * This struct 
+ * This struct holds information received when a screenshot has been successfully written or otherwise added to the library and can now be tagged.
  *
- * @member {Real} screenshot_handle
- * @member {Enum.SteamApiResult} result
- * @struct_end 
+ * @member {Real} screenshot_handle The screenshot handle that has been written.
+ * @member {Enum.SteamApiResult} result The result of the operation. Possible values:
+ * 
+ * * `SteamApiResult.Ok` - The screenshot was successfully added to the user's library.
+ * * `SteamApiResult.Fail` - The screenshot could not be loaded or parsed.
+ * * `SteamApiResult.IoFailure` - The screenshot could not be saved to the disk.
+ * @struct_end
  */
 
 /**
  * @struct SteamUserStoreAuthUrlResponse
- * @description > **Steamworks Struct**: [func](url)
+ * @description > **Steamworks Struct**: [ISteamUser::StoreAuthURLResponse_t](https://partner.steamgames.com/doc/api/ISteamUser#StoreAuthURLResponse_t)
  *
- * This struct 
+ * This struct holds information on a received store authentication URL.
  *
- * @member {Real} result
- * @member {String} url
+ * @member {Enum.SteamApiResult} result The result of the operation.
+ * @member {String} url The authenticated URL that was requested.
  * @struct_end 
  */
 
 /**
  * @struct SteamUserEncryptedAppTicketResponse
- * @description > **Steamworks Struct**: [func](url)
+ * @description > **Steamworks Struct**: [ISteamUser::EncryptedAppTicketResponse_t](https://partner.steamgames.com/doc/api/ISteamUser#EncryptedAppTicketResponse_t)
  *
- * This struct 
+ * This struct holds information returned upon receipt of an encrypted application ticket.
  *
- * @member {Real} result
- * @struct_end 
+ * @member {Enum.SteamApiResult} result Was the call successful? Possible results:
+ * 
+ * * SteamApiResult.Ok - Success!
+ * * SteamApiResult.NoConnection - A connection to Steam could not be established.
+ * * SteamApiResult.DuplicateRequest - There is already a pending request.
+ * * SteamApiResult.LimitExceeded - This call is subject to a 60 second rate limit, and you have exceeded that.
+ * @struct_end
  */
 
 /**
  * @struct SteamUserDurationControl
- * @description > **Steamworks Struct**: [func](url)
+ * @description > **Steamworks Struct**: [ISteamUser::DurationControl_t](https://partner.steamgames.com/doc/api/ISteamUser#DurationControl_t)
  *
- * This struct 
+ * This struct holds information on a user's playtime/duration-control information.
  *
- * @member {Real} result
- * @member {Real} app_id
- * @member {Bool} applicable
- * @member {Real} csecs_last_5h
- * @member {Real} progress
- * @member {Real} notification
- * @struct_end 
+ * @member {Enum.SteamApiResult} result The result of the operation.
+ * @member {Real} app_id The app ID the duration control information applies to.
+ * @member {Bool} applicable Whether duration control is applicable to this user and app (i.e. whether the user is subject to the playtime restrictions).
+ * @member {Real} csecs_last_5h The number of seconds the user has played in the last 5 hours, in centiseconds.
+ * @member {Enum.SteamUserDurationControlProgress} progress The current duration-control progress level (a `SteamUserDurationControlProgress` value describing whether the user should be encouraged to take a break).
+ * @member {Enum.SteamUserDurationControlNotification} notification The notification that should be shown to the user, if any.
+ * @struct_end
  */
 
 /**
  * @struct SteamUserMarketEligibilityResponse
- * @description > **Steamworks Struct**: [func](url)
+ * @description > **Steamworks Struct**: [ISteamUser::MarketEligibilityResponse_t](https://partner.steamgames.com/doc/api/ISteamUser#MarketEligibilityResponse_t)
  *
- * This struct 
+ * This struct holds info on a user's Steam Community Market eligibility.
  *
- * @member {Bool} allowed
- * @member {Real} not_allowed_reason
- * @member {Real} allowed_at_time
- * @member {Real} steam_purchase_time
- * @member {Real} day_steam_guard_required_days
- * @member {Real} day_new_device_cooldown
- * @struct_end 
+ * @member {Bool} allowed Whether the user is allowed to use the Steam Community Market.
+ * @member {Real} not_allowed_reason The reason the user is not allowed to use the market, if applicable (an `EMarketNotAllowedReasonFlags` bitfield).
+ * @member {Real} allowed_at_time The Unix timestamp of when the user will be allowed to use the market, if currently restricted.
+ * @member {Real} steam_purchase_time The Unix timestamp of the user's first Steam purchase, used for some eligibility checks.
+ * @member {Real} day_steam_guard_required_days The number of days Steam Guard must have been active before the user is allowed to use the market.
+ * @member {Real} day_new_device_cooldown The number of days a newly added device must wait before the user is allowed to use the market.
+ * @struct_end
  */
 
 /**
@@ -9301,11 +9202,11 @@
 
 /**
  * @struct SteamUtilsCheckFileSignatureResult
- * @description > **Steamworks Struct**: [func](url)
+ * @description > **Steamworks Struct**: [ISteamUtils::CheckFileSignature_t](https://partner.steamgames.com/doc/api/ISteamUtils#CheckFileSignature_t)
  *
- * This struct 
+ * This struct holds information on a file signature check started by ${function.steam_utils_check_file_signature}.
  *
- * @member {Real} result
+ * @member {Real} result The result of the file signature check (an `ECheckFileSignature` value).
  * @struct_end 
  */
 
@@ -9568,60 +9469,60 @@
 
 /**
  * @struct SteamUgcQueryCompleted
- * @description > **Steamworks Struct**: [func](url)
+ * @description > **Steamworks Struct**: [ISteamUGC::SteamUGCQueryCompleted_t](https://partner.steamgames.com/doc/api/ISteamUGC#SteamUGCQueryCompleted_t)
  *
- * This struct 
+ * This struct holds info on a completed UGC query request.
  *
- * @member {Real} query_handle
- * @member {Real} result
- * @member {Real} num_results_returned
- * @member {Real} total_matching_results
- * @member {Bool} cached_data
- * @struct_end 
+ * @member {Real} query_handle The handle of the query that completed.
+ * @member {Enum.SteamApiResult} result The result of the operation.
+ * @member {Real} num_results_returned The number of results returned in this query.
+ * @member {Real} total_matching_results The total number of items that matched the query in the database.
+ * @member {Bool} cached_data Whether the returned data was retrieved from the local cache rather than from the server.
+ * @struct_end
  */
 
 /**
  * @struct SteamUgcCreateItemResult
- * @description > **Steamworks Struct**: [func](url)
+ * @description > **Steamworks Struct**: [ISteamUGC::CreateItemResult_t](https://partner.steamgames.com/doc/api/ISteamUGC#CreateItemResult_t)
  *
- * This struct 
+ * This struct holds info on the creation of a new workshop item.
  *
- * @member {Real} result
- * @member {Real} published_file_id
- * @member {Bool} legal_agreement_required
- * @struct_end 
+ * @member {Real} result The result of the operation.
+ * @member {Real} published_file_id The ID of the newly created workshop item.
+ * @member {Bool} legal_agreement_required Does the user need to accept the Steam Workshop legal agreement (`true`) or not (`false`)? See the [Workshop Legal Agreement](https://partner.steamgames.com/doc/features/workshop/implementation#Legal) for more information.
+ * @struct_end
  */
 
 /**
  * @struct SteamUgcSubmitItemUpdateResult
- * @description > **Steamworks Struct**: [func](url)
+ * @description > **Steamworks Struct**: [ISteamUGC::SubmitItemUpdateResult_t](https://partner.steamgames.com/doc/api/ISteamUGC#SubmitItemUpdateResult_t)
  *
- * This struct 
+ * This struct holds info returned when a workshop item update has been submitted and uploaded.
  *
- * @member {Real} result
- * @member {Bool} legal_agreement_required
- * @struct_end 
+ * @member {Enum.SteamApiResult} result The result of the operation.
+ * @member {Bool} legal_agreement_required Whether the user needs to accept the Steam Workshop legal agreement.
+ * @struct_end
  */
 
 /**
  * @struct SteamUgcSubscribeItemResult
- * @description > **Steamworks Struct**: [func](url)
+ * @description > **Steamworks Struct**: [ISteamRemoteStorage::RemoteStorageSubscribePublishedFileResult_t](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#RemoteStorageSubscribePublishedFileResult_t)
  *
- * This struct 
+ * This struct holds info on the user subscribing to a piece of UGC.
  *
- * @member {Real} result
- * @member {Real} published_file_id
- * @struct_end 
+ * @member {Enum.SteamApiResult} result The result of the operation.
+ * @member {Real} published_file_id The workshop item that the user subscribed to.
+ * @struct_end
  */
 
 /**
  * @struct SteamUgcUnsubscribeItemResult
- * @description > **Steamworks Struct**: [func](url)
+ * @description > **Steamworks Struct**: [ISteamRemoteStorage::RemoteStorageUnsubscribePublishedFileResult_t](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#RemoteStorageUnsubscribePublishedFileResult_t)
  *
- * This struct 
+ * This struct holds info on the user subscribing from a piece of UGC.
  *
- * @member {Real} result
- * @member {Real} published_file_id
+ * @member {Enum.SteamApiResult} result The result of the operation.
+ * @member {Real} published_file_id The workshop item that the user unsubscribed from.
  * @struct_end 
  */
 
@@ -9639,28 +9540,28 @@
 
 /**
  * @struct SteamUgcSetUserItemVoteResult
- * @description > **Steamworks Struct**: [func](url)
+ * @description > **Steamworks Struct**: [ISteamUGC::SetUserItemVoteResult_t](https://partner.steamgames.com/doc/api/ISteamUGC#SetUserItemVoteResult_t)
  *
- * This struct 
+ * This struct holds info on a workshop item vote.
  *
- * @member {Real} result
- * @member {Real} published_file_id
- * @member {Bool} vote_up
- * @struct_end 
+ * @member {Enum.SteamApiResult} result The result of the operation.
+ * @member {Real} published_file_id The workshop item that was voted on.
+ * @member {Bool} vote_up The vote that was set; `true` for an up vote, `false` for a down vote.
+ * @struct_end
  */
 
 /**
  * @struct SteamUgcGetUserItemVoteResult
- * @description > **Steamworks Struct**: [func](url)
+ * @description > **Steamworks Struct**: [ISteamUGC::GetUserItemVoteResult_t](https://partner.steamgames.com/doc/api/ISteamUGC#GetUserItemVoteResult_t)
  *
- * This struct 
+ * This struct holds info on the retrieval of a workshop item.
  *
- * @member {Real} result
- * @member {Real} published_file_id
- * @member {Bool} voted_up
- * @member {Bool} voted_down
- * @member {Bool} vote_skipped
- * @struct_end 
+ * @member {Enum.SteamApiResult} result The result of the operation.
+ * @member {Real} published_file_id The workshop item the vote information is for.
+ * @member {Bool} voted_up Whether the user has voted the item up.
+ * @member {Bool} voted_down Whether the user has voted the item down.
+ * @member {Bool} vote_skipped Whether the user has skipped voting on the item.
+ * @struct_end
  */
 
 /**
@@ -9689,25 +9590,25 @@
 
 /**
  * @struct SteamUgcDeleteItemResult
- * @description > **Steamworks Struct**: [func](url)
+ * @description > **Steamworks Struct**: [ISteamUGC::DeleteItemResult_t](https://partner.steamgames.com/doc/api/ISteamUGC#DeleteItemResult_t)
  *
- * This struct 
+ * This struct holds info on the deletion of a workshop item.
  *
- * @member {Real} result
- * @member {Real} published_file_id
- * @struct_end 
+ * @member {Real} result The result of the operation.
+ * @member {Real} published_file_id The workshop item that was deleted.
+ * @struct_end
  */
 
 /**
  * @struct SteamUgcDownloadItemResult
- * @description > **Steamworks Struct**: [func](url)
+ * @description > **Steamworks Struct**: [ISteamUGC::DownloadItemResult_t](https://partner.steamgames.com/doc/api/ISteamUGC#DownloadItemResult_t)
  *
- * This struct 
+ * This struct holds info on the download of a workshop item.
  *
- * @member {Real} app_id
- * @member {Real} published_file_id
- * @member {Real} result
- * @struct_end 
+ * @member {Real} app_id The app ID associated with this workshop item.
+ * @member {Real} published_file_id The workshop item that has finished downloading.
+ * @member {Real} result The result of the operation.
+ * @struct_end
  */
 
 /**
@@ -9984,12 +9885,12 @@
 
 /**
  * @struct SteamUserStatsLeaderboardFindResult
- * @description > **Steamworks Struct**: [func](url)
+ * @description > **Steamworks Struct**: [ISteamUserStats::LeaderboardFindResult_t](https://partner.steamgames.com/doc/api/ISteamUserStats#LeaderboardFindResult_t)
  *
- * This struct 
+ * This struct holds the result of a leaderboard find request.
  *
- * @member {Real} leaderboard_handle
- * @member {Bool} leaderboard_found
+ * @member {Real} leaderboard_handle The handle of the leaderboard that was found. Will be 0 if no leaderboard was found.
+ * @member {Bool} leaderboard_found Whether a leaderboard was found; `true` if it was found.
  * @struct_end 
  */
 
@@ -10022,35 +9923,35 @@
 
 /**
  * @struct SteamUserStatsNumberOfCurrentPlayersResult
- * @description > **Steamworks Struct**: [func](url)
+ * @description > **Steamworks Struct**: [ISteamUserStats::NumberOfCurrentPlayers_t](https://partner.steamgames.com/doc/api/ISteamUserStats#NumberOfCurrentPlayers_t)
  *
- * This struct 
+ * This struct holds information on the current number of players for the current app if it has been received.
  *
- * @member {Bool} success
- * @member {Real} players
- * @struct_end 
+ * @member {Bool} success Whether the call was successful; `true` if the player count was retrieved.
+ * @member {Real} players The number of players currently playing the game.
+ * @struct_end
  */
 
 /**
  * @struct SteamUserStatsGlobalAchievementPercentagesReadyResult
- * @description > **Steamworks Struct**: [func](url)
+ * @description > **Steamworks Struct**: [ISteamUserStats::GlobalAchievementPercentagesReady_t](https://partner.steamgames.com/doc/api/ISteamUserStats#GlobalAchievementPercentagesReady_t)
  *
- * This struct 
+ * This struct holds global achievement unlock percentages that have been received from the server.
  *
- * @member {Real} game_id
- * @member {Real} result
- * @struct_end 
+ * @member {Real} game_id The game ID that the achievement percentages are for.
+ * @member {Enum.SteamApiResult} result The result of the operation.
+ * @struct_end
  */
 
 /**
  * @struct SteamUserStatsGlobalStatsReceivedResult
- * @description > **Steamworks Struct**: [func](url)
+ * @description > **Steamworks Struct**: [ISteamUserStats::GlobalStatsReceived_t](https://partner.steamgames.com/doc/api/ISteamUserStats#GlobalStatsReceived_t)
  *
- * This struct 
+ * This struct holds the result when global stats have been received from the server.
  *
- * @member {Real} game_id
- * @member {Real} result
- * @struct_end 
+ * @member {Real} game_id The game ID that the global stats are for.
+ * @member {Enum.SteamApiResult} result The result of the operation.
+ * @struct_end
  */
 
 /**
@@ -10067,14 +9968,14 @@
 
 /**
  * @struct SteamUserStatsUserStatsReceived
- * @description > **Steamworks Struct**: [func](url)
+ * @description > **Steamworks Struct**: [ISteamUserStats::UserStatsReceived_t](https://partner.steamgames.com/doc/api/ISteamUserStats#UserStatsReceived_t)
  *
- * This struct 
+ * This struct holds the result of stats and achievements for a user having been received from the server.
  *
- * @member {Real} game_id
- * @member {Real} steam_id_user
- * @member {Real} result
- * @struct_end 
+ * @member {Real} game_id The game ID that these stats are for.
+ * @member {Real} steam_id_user The Steam ID of the user whose stats were retrieved.
+ * @member {Enum.SteamApiResult} result The result of the operation.
+ * @struct_end
  */
 
 /**
@@ -10147,27 +10048,27 @@
 
 /**
  * @struct SteamTimelineGamePhaseRecordingExists
- * @description > **Steamworks Struct**: [func](url)
+ * @description > **Steamworks Struct**: [ISteamTimeline::SteamTimelineGamePhaseRecordingExists_t](https://partner.steamgames.com/doc/api/ISteamTimeline#SteamTimelineGamePhaseRecordingExists_t)
  *
- * This struct 
+ * This struct holds the result when asking if recordings exist for an event handle.
  *
- * @member {String} phase_id
- * @member {Real} recording_ms
- * @member {Real} longest_clip_ms
- * @member {Real} clip_count
- * @member {Real} screenshot_count
+ * @member {String} phase_id The phase ID that this result corresponds with.
+ * @member {Real} recording_ms The total length of the recordings in this phase in milliseconds.
+ * @member {Real} longest_clip_ms The total length of the longest clip in this phase in milliseconds.
+ * @member {Real} clip_count The number of clips that include video from this phase.
+ * @member {Real} screenshot_count The number of screenshots the user has from this phase.
  * @struct_end 
  */
 
 /**
  * @struct SteamTimelineEventRecordingExists
- * @description > **Steamworks Struct**: [func](url)
+ * @description > **Steamworks Struct**: [ISteamTimeline::SteamTimelineEventRecordingExists_t](https://partner.steamgames.com/doc/api/ISteamTimeline#SteamTimelineEventRecordingExists_t)
  *
- * This struct 
+ * This struct holds the result when asking if recordings exist for an event handle.
  *
- * @member {Real} event_id
- * @member {Bool} recording_exists
- * @struct_end 
+ * @member {Real} event_id The handle of the event that was asked about.
+ * @member {Bool} recording_exists This is `true` if a recording exists for the requested event handle.
+ * @struct_end
  */
 
 /**
@@ -10279,9 +10180,9 @@
 
 /**
  * @struct SteamInventoryDefinitionUpdate
- * @description > **Steamworks Struct**: [func](url)
+ * @description > **Steamworks Struct**: [ISteamInventory::SteamInventoryDefinitionUpdate_t](https://partner.steamgames.com/doc/api/ISteamInventory#SteamInventoryDefinitionUpdate_t)
  *
- * This struct 
+ * This struct is received whenever item definitions have been updated, which could be in response to ${function.steam_inventory_load_item_definitions} or any time new item definitions are available (e.g., from the dynamic addition of new item types while players are still in-game).
  *
  * @member {Real} dummy
  * @struct_end 
@@ -10289,25 +10190,25 @@
 
 /**
  * @struct SteamInventoryStartPurchaseResult
- * @description > **Steamworks Struct**: [func](url)
+ * @description > **Steamworks Struct**: [ISteamInventory::SteamInventoryStartPurchaseResult_t](https://partner.steamgames.com/doc/api/ISteamInventory#SteamInventoryStartPurchaseResult_t)
  *
- * This struct 
+ * This struct holds the result of the start of an inventory purchase.
  *
- * @member {Real} result
- * @member {Real} order_id
- * @member {Real} transaction_id
- * @struct_end 
+ * @member {Enum.SteamApiResult} result The result of the operation.
+ * @member {Real} order_id The auto-generated order id for the initiated purchase.
+ * @member {Real} transaction_id The auto-generated transaction id for the initiated purchase.
+ * @struct_end
  */
 
 /**
  * @struct SteamInventoryRequestPricesResult
- * @description > **Steamworks Struct**: [func](url)
+ * @description > **Steamworks Struct**: [ISteamInventory::SteamInventoryRequestPricesResult_t](https://partner.steamgames.com/doc/api/ISteamInventory#SteamInventoryRequestPricesResult_t)
  *
- * This struct 
+ * This struct holds the result of a request of prices.
  *
- * @member {Real} result
- * @member {String} currency
- * @struct_end 
+ * @member {Enum.SteamApiResult} result The result of the operation.
+ * @member {String} currency The string representing the user's [local currency](https://partner.steamgames.com/doc/store/pricing/currencies) code.
+ * @struct_end
  */
 
 /**
@@ -10351,29 +10252,29 @@
 
 /**
  * @struct SteamRemoteStorageFileShareResult
- * @description > **Steamworks Struct**: [func](url)
+ * @description > **Steamworks Struct**: [ISteamRemoteStorage::RemoteStorageFileShareResult_t](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#RemoteStorageFileShareResult_t)
  *
- * This struct 
+ * This struct holds the response to sharing a file, and provides a handle that can be used to refer to the shared file.
  *
- * @member {Real} result
- * @member {Real} ugc_handle
- * @member {String} file_name
- * @struct_end 
+ * @member {Enum.SteamApiResult} result The result of the operation.
+ * @member {Real} ugc_handle The handle that can be shared with users and features.
+ * @member {String} file_name The name of the file that was shared.
+ * @struct_end
  */
 
 /**
  * @struct SteamRemoteStorageDownloadUgcResult
- * @description > **Steamworks Struct**: [func](url)
+ * @description > **Steamworks Struct**: [ISteamRemoteStorage::RemoteStorageDownloadUGCResult_t](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#RemoteStorageDownloadUGCResult_t)
  *
- * This struct 
+ * This struct holds the response to a UGC download request, and contains the details of the file that was downloaded.
  *
- * @member {Real} result
- * @member {Real} ugc_handle
- * @member {Real} app_id
- * @member {Real} size_in_bytes
- * @member {String} file_name
- * @member {Real} steam_id_owner
- * @struct_end 
+ * @member {Enum.SteamApiResult} result The result of the operation.
+ * @member {Real} ugc_handle The handle of the file that was attempted to be downloaded.
+ * @member {Real} app_id The app ID the file was shared from.
+ * @member {Real} size_in_bytes The size of the file that was downloaded, in bytes.
+ * @member {String} file_name The name of the file that was downloaded.
+ * @member {Real} steam_id_owner The Steam ID of the user who created this content.
+ * @struct_end
  */
 
 /**
@@ -10410,14 +10311,14 @@
 
 /**
  * @struct SteamRemoteStoragePublishFileResult
- * @description > **Steamworks Struct**: [func](url)
+ * @description > **Steamworks Struct**: [ISteamRemoteStorage::RemoteStoragePublishFileResult_t](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#RemoteStoragePublishFileResult_t)
  *
- * This struct 
+ * This struct holds then result when a workshop file has been published, returning the result of the operation and the ID of the newly published file.
  *
- * @member {Real} result
- * @member {Real} published_file_id
- * @member {Bool} user_needs_to_accept_wla
- * @struct_end 
+ * @member {Enum.SteamApiResult} result The result of the operation.
+ * @member {Real} published_file_id The file id of the published file.
+ * @member {Bool} user_needs_to_accept_wla Whether the user still needs to accept the Steam Workshop legal agreement.
+ * @struct_end
  */
 
 /**
@@ -10433,69 +10334,69 @@
 
 /**
  * @struct SteamRemoteStorageSubscribePublishedFileResult
- * @description > **Steamworks Struct**: [func](url)
+ * @description > **Steamworks Struct**: [ISteamRemoteStorage::RemoteStorageSubscribePublishedFileResult_t](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#RemoteStorageSubscribePublishedFileResult_t)
  *
- * This struct 
+ * This struct holds the result when the user has subscribed to a piece of UGC.
  *
- * @member {Real} result
- * @member {Real} published_file_id
- * @struct_end 
+ * @member {Enum.SteamApiResult} result The result of the operation.
+ * @member {Real} published_file_id The workshop item that the user subscribed to.
+ * @struct_end
  */
 
 /**
  * @struct SteamRemoteStorageUnsubscribePublishedFileResult
- * @description > **Steamworks Struct**: [func](url)
+ * @description > **Steamworks Struct**: [ISteamRemoteStorage::RemoteStorageUnsubscribePublishedFileResult_t](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#RemoteStorageUnsubscribePublishedFileResult_t)
  *
- * This struct 
+ * This struct holds the result when the user has unsubscribed from a piece of UGC.
  *
- * @member {Real} result
- * @member {Real} published_file_id
- * @struct_end 
+ * @member {Enum.SteamApiResult} result The result of the operation.
+ * @member {Real} published_file_id The workshop item that the user unsubscribed from.
+ * @struct_end
  */
 
 /**
  * @struct SteamMatchmakingLobbyCreated
- * @description > **Steamworks Struct**: [func](url)
+ * @description > **Steamworks Struct**: [ISteamMatchmaking::LobbyCreated_t](https://partner.steamgames.com/doc/api/ISteamMatchmaking#LobbyCreated_t)
  *
- * This struct 
+ * This struct holds the result of a request to create a Lobby.
  *
- * @member {Real} result
- * @member {Real} lobby_id
+ * @member {Enum.SteamApiResult} result The result of the operation.
+ * @member {Real} lobby_id The Steam ID of the lobby that was created, 0 if failed.
  * @struct_end 
  */
 
 /**
  * @struct SteamMatchmakingLobbyEnter
- * @description > **Steamworks Struct**: [func](url)
+ * @description > **Steamworks Struct**: [ISteamMatchmaking::LobbyEnter_t](https://partner.steamgames.com/doc/api/ISteamMatchmaking#LobbyEnter_t)
  *
- * This struct 
+ * This struct holds the result received upon attempting to enter a lobby.
  *
- * @member {Real} lobby_id
- * @member {Real} chat_permissions
- * @member {Bool} locked
- * @member {Real} response
+ * @member {Real} lobby_id The Steam ID of the lobby you have entered.
+ * @member {Real} chat_permissions Unused - always 0.
+ * @member {Bool} locked If `true`, then only invited users may join.
+ * @member {Real} response An EChatRoomEnterResponse value, indicating whether the user successfully joined the lobby.
  * @struct_end 
  */
 
 /**
  * @struct SteamMatchmakingLobbyMatchList
- * @description > **Steamworks Struct**: [func](url)
+ * @description > **Steamworks Struct**: [ISteamMatchmaking::LobbyMatchList_t](https://partner.steamgames.com/doc/api/ISteamMatchmaking#LobbyMatchList_t)
  *
- * This struct 
+ * This struct holds the result of a request of the lobby list.
  *
- * @member {Real} lobbies_count
- * @struct_end 
+ * @member {Real} lobbies_count Number of lobbies that matched the search criteria and are available via ${function.steam_matchmaking_get_lobby_by_index}.
+ * @struct_end
  */
 
 /**
  * @struct SteamMatchmakingLobbyDataUpdate
- * @description > **Steamworks Struct**: [func](url)
+ * @description > **Steamworks Struct**: [ISteamMatchmaking::LobbyDataUpdate_t](https://partner.steamgames.com/doc/api/ISteamMatchmaking#LobbyDataUpdate_t)
  *
- * This struct 
+ * This struct holds the result when the lobby metadata has changed.
  *
- * @member {Real} lobby_id
- * @member {Real} member_id
- * @member {Bool} success
+ * @member {Real} lobby_id The Steam ID of the Lobby.
+ * @member {Real} member_id Steam ID of either the member whose data changed, or the room itself.
+ * @member {Bool} success `true` if the lobby data was successfully changed, otherwise `false`.
  * @struct_end 
  */
 
@@ -10514,27 +10415,27 @@
 
 /**
  * @struct SteamMatchmakingLobbyChatMsg
- * @description > **Steamworks Struct**: [func](url)
+ * @description > **Steamworks Struct**: [ISteamMatchmaking::LobbyChatMsg_t](https://partner.steamgames.com/doc/api/ISteamMatchmaking#LobbyChatMsg_t)
  *
- * This struct 
+ * This struct holds the result when chat (text or binary) message for a lobby has been received.
  *
- * @member {Real} lobby_id
- * @member {Real} sender_id
- * @member {Real} chat_entry_type
- * @member {Real} message_size
- * @struct_end 
+ * @member {Real} lobby_id The Steam ID of the lobby this message was sent in.
+ * @member {Real} sender_id Steam ID of the user who sent this message. Note that it could have been the local user.
+ * @member {Real} chat_entry_type Type of message received.
+ * @member {Real} message_size 
+ * @struct_end
  */
 
 /**
  * @struct SteamMatchmakingLobbyGameCreated
- * @description > **Steamworks Struct**: [func](url)
+ * @description > **Steamworks Struct**: [ISteamMatchmaking::LobbyGameCreated_t](https://partner.steamgames.com/doc/api/ISteamMatchmaking#LobbyGameCreated_t)
  *
- * This struct 
+ * This struct holds the result when a game server has been set via ${function.steam_matchmaking_set_lobby_game_server} for all of the members of the lobby to join.
  *
- * @member {Real} lobby_id
- * @member {Real} server_ip
- * @member {Real} server_port
- * @member {Real} game_server_id
+ * @member {Real} lobby_id The lobby that set the game server.
+ * @member {Real} server_ip The IP address of the game server in host order, i.e 127.0.0.1 == 0x7f000001, if it's set.
+ * @member {Real} server_port The connection port of the game server, in host order, if it's set.
+ * @member {Real} game_server_id The Steam ID of the game server, if it's set.
  * @struct_end 
  */
 
