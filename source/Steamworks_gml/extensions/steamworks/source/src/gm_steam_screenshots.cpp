@@ -247,6 +247,24 @@ std::uint32_t steam_screenshots_write_screenshot(
         return 0;
     }
 
+    if (width <= 0 || height <= 0) {
+        steam_set_last_error("WriteScreenshot: width and height must be > 0.");
+        return 0;
+    }
+
+    // Steam reads width*height*3 bytes (24-bit RGB) regardless of cubRGB, and we must not
+    // read past the supplied GM buffer. Require rgb_size to be exactly the expected size and
+    // to fit within the real buffer.
+    const std::uint64_t expected = (std::uint64_t)width * (std::uint64_t)height * 3u;
+    if ((std::uint64_t)rgb_size < expected) {
+        steam_set_last_error("WriteScreenshot: rgb_size is smaller than width*height*3.");
+        return 0;
+    }
+    if ((std::uint64_t)rgb_size > buff_rgb.length()) {
+        steam_set_last_error("WriteScreenshot: rgb_size exceeds buffer length.");
+        return 0;
+    }
+
     std::vector<std::uint8_t> rgb;
     rgb.resize((size_t)rgb_size);
 

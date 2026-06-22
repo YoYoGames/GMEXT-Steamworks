@@ -673,12 +673,14 @@ std::uint32_t steam_apps_get_app_ownership_ticket_data(
     if (written == 0)
         return 0;
 
-    if (sigOffset > written) sigOffset = written;
-    if (sigOffset + sigSize > written) sigSize = (written > sigOffset) ? (written - sigOffset) : 0;
+    if ((std::uint64_t)written > ticket_buffer.length()) {
+        steam_set_last_error("steam_apps_get_app_ownership_ticket_data: output buffer too small for ticket data.");
+        return 0;
+    }
 
     auto w = ticket_buffer.getWriter();
     w.writeBytes((const char*)tmp.data(), (int)written);
-    
+
     return (std::uint32_t)written;
 }
 

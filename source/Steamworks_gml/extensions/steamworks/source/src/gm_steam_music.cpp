@@ -37,7 +37,11 @@ static GMFunction g_cb_volume_changed = nullptr;
 
 static inline SteamMusicPlaybackStatusHasChanged fromNative(const PlaybackStatusHasChanged_t& e)
 {
+    (void)e; // PlaybackStatusHasChanged_t carries no payload.
     SteamMusicPlaybackStatusHasChanged out {};
+    // Query the current status so the callback delivers something meaningful.
+    if (ISteamMusic* m = SteamMusic())
+        out.playback_status = (std::int32_t)m->GetPlaybackStatus();
     return out;
 }
 
