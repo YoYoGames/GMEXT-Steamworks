@@ -125,7 +125,7 @@
  *
  * This function activates the [Steam-overlay](https://partner.steamgames.com/doc/features/overlay) to the Steam store page for the provided app.
  * 
- * Using `SteamApiAppIdInvalid` brings the user to the front page of the Steam store.
+ * Using `SteamApiAppIdInvalid` brings the user to the front page of the Steam store. (See: ${constant.macros})
  *
  * @param {Real} app_id The app ID to show the store page of.
  * @param {Enum.SteamFriendsOverlayToStoreFlag} flag Flags to modify the behaviour when the page opens.
@@ -197,7 +197,7 @@
  * @param {Array[Real]} steam_id_clans A list of steam groups to get the updated data for.
  * @param {Real} clans_to_request This MUST be the number of groups in `steam_id_clans`.
  * @param {Function} [callback] The function to call upon completion.
- * @returns {Bool}
+ * @returns {Bool} Whether the call was successful.
  * 
  * @event callback
  * @desc **Steamworks Callback**: [ISteamFriends::DownloadClanActivityCountsResult_t](https://partner.steamgames.com/doc/api/ISteamFriends#DownloadClanActivityCountsResult_t)
@@ -1370,7 +1370,7 @@
  *
  * This function gets details about an app beta branch like name, description and state.
  *
- * @param {Real} iBetaIndex Branch index starting at 0 which is always the default branch.
+ * @param {Real} beta_index Branch index starting at 0 which is always the default branch.
  * @returns {Struct.SteamAppsBetaInfo} 
  * @function_end
  */
@@ -1381,7 +1381,7 @@
  *
  * This function selects a beta branch for this app as active, might need the game to restart so Steam can update its content to that branch.
  *
- * @param {String} pchBetaName Beta name the game wants to switch to.
+ * @param {String} beta_name Beta name the game wants to switch to.
  * @returns {Bool} 
  * @function_end
  */
@@ -1616,7 +1616,7 @@
  * @param {Enum.SteamScreenshotsVrScreenshotType} type The type of VR screenshot that this is.
  * @param {String} filename The absolute file path to a 2D JPG, PNG, or TGA version of the screenshot for the library view.
  * @param {String} vr_filename The absolute file path to the VR screenshot, this should be the same type of screenshot specified in `eType`.
- * @returns {Real} Screenshot handle, or [INVALID_SCREENSHOT_HANDLE](https://partner.steamgames.com/doc/api/ISteamScreenshots#INVALID_SCREENSHOT_HANDLE) if the file could not be saved
+ * @returns {Real} Screenshot handle, or `SteamScreenshotsInvalidScreenshotHandle` if the file could not be saved (See: ${constant.macros})
  * 
  * @event callback
  * @desc > **Steamworks Callback**: [ISteamScreenshots::ScreenshotReady_t](https://partner.steamgames.com/doc/api/ISteamScreenshots#ScreenshotReady_t)
@@ -4533,7 +4533,7 @@
  *
  * This function looks up the handle for an action set.
  *
- * @param {String} pszActionSetName The string identifier of an action set defined in the game's VDF file.
+ * @param {String} action_set_name The string identifier of an action set defined in the game's VDF file.
  * @returns {Real} 
  * @function_end
  */
@@ -4558,7 +4558,7 @@
  * 
  * [[Note: This function does not take an action set handle parameter. That means that each action in your VDF file must have a unique string identifier. In other words, if you use an action called "up" in two different action sets, this function will only ever return one of them and the other will be ignored.]]
  *
- * @param {String} pszActionName The string identifier of the analog action defined in the game's VDF file.
+ * @param {String} action_name The string identifier of the analog action defined in the game's VDF file.
  * @returns {Real} 
  * @function_end
  */
@@ -4617,7 +4617,7 @@
  *
  * This function returns the associated controller handle for the specified emulated gamepad. Can be used with ${function.steam_input_get_input_type_for_handle} to determine the type of controller using Steam Input Gamepad Emulation.
  *
- * @param {Real} nIndex The index of the emulated gamepad you want to get a controller handle for.
+ * @param {Real} index The index of the emulated gamepad you want to get a controller handle for.
  * @returns {Real} 
  * @function_end
  */
@@ -4651,7 +4651,7 @@
  *
  * This function gets the handle of the specified digital action.
  *
- * @param {String} pszActionName The string identifier of the digital action defined in the game's VDF file.
+ * @param {String} action_name The string identifier of the digital action defined in the game's VDF file.
  * @returns {Real} 
  * @function_end
  */
@@ -4749,7 +4749,7 @@
  * This function sets the trigger effect for a DualSense controller.
  *
  * @param {Real} input_handle The handle of the controller to affect.
- * @param {Array[Real]} pParam The trigger parameters, as defined in isteamdualsense.h.
+ * @param {Array[Real]} param The trigger parameters, as defined in isteamdualsense.h.
  * @returns {Bool} 
  * @function_end 
  */
@@ -4761,10 +4761,10 @@
  * This function sets the controller LED color on supported controllers.
  *
  * @param {Real} input_handle The handle of the controller to affect.
- * @param {Real} nColorR The red component of the color to set (0-255).
- * @param {Real} nColorG The green component of the color to set (0-255).
- * @param {Real} nColorB The blue component of the color to set (0-255).
- * @param {Real} nFlags Bit-masked flags combined from values defined in the ESteamControllerLEDFlag enum.
+ * @param {Real} color_r The red component of the color to set (0-255).
+ * @param {Real} color_g The green component of the color to set (0-255).
+ * @param {Real} color_b The blue component of the color to set (0-255).
+ * @param {Real} flags Bit-masked flags combined from values defined in the ESteamControllerLEDFlag enum.
  * @function_end
  */
 
@@ -4815,8 +4815,8 @@
  * * The VSC will emulate traditional rumble using its haptics.]]
  *
  * @param {Real} input_handle The handle of the controller to affect.
- * @param {Real} usLeftSpeed The intensity value for the left rumble motor.
- * @param {Real} usRightSpeed The intensity value of the right rumble motor.
+ * @param {Real} left_speed The intensity value for the left rumble motor.
+ * @param {Real} right_speed The intensity value of the right rumble motor.
  * @function_end
  */
 
@@ -4829,10 +4829,10 @@
  * [[Notes: On Windows support for Xbox Impulse Trigger motor values requires user installation of the Xbox Extended Feature support driver. The Steam Controller and Steam Deck will emulate traditional rumble using their haptics.]]
  *
  * @param {Real} input_handle The handle of the controller to affect.
- * @param {Real} usLeftSpeed The intensity value for the left rumble motor.
- * @param {Real} usRightSpeed The intensity value of the right rumble motor.
- * @param {Real} usLeftTriggerSpeed The intensity value for the left Xbox Impulse Trigger motor.
- * @param {Real} usRightTriggerSpeed The intensity value of the right Xbox Impulse Trigger motor.
+ * @param {Real} left_speed The intensity value for the left rumble motor.
+ * @param {Real} right_speed The intensity value of the right rumble motor.
+ * @param {Real} left_trigger_speed The intensity value for the left Xbox Impulse Trigger motor.
+ * @param {Real} right_trigger_speed The intensity value of the right Xbox Impulse Trigger motor.
  * @function_end
  */
 
@@ -8699,55 +8699,55 @@
 
 /**
  * @struct SteamFriendsClanActivityCounts
- * @description > **Steamworks Struct**: [func](url)
+ * @description > **Steamworks Struct**: N / A
  *
- * This struct 
+ * This struct holds the information returned by ${function.steam_friends_get_clan_activity_counts}.
  *
- * @member {Bool} ok
- * @member {Real} online
- * @member {Real} in_game
- * @member {Real} chatting
- * @struct_end 
+ * @member {Bool} ok `true` if the data was successfully returned. `false` if the provided Steam ID is invalid or the local client does not have info about the Steam group and sets all the other parameters to 0.
+ * @member {Real} online The number of members that are online.
+ * @member {Real} in_game The number of members that are in game (excluding those with their status set to offline).
+ * @member {Real} chatting The number of members in the group chat room.
+ * @struct_end
  */
 
 /**
  * @struct SteamFriendsClanChatMessage
- * @description > **Steamworks Struct**: [func](url)
+ * @description > **Steamworks Struct**: N / A
  *
- * This struct 
+ * This struct holds information returned by ${function.steam_friends_get_clan_chat_message}.
  *
- * @member {Real} bytes_copied
- * @member {String} text
- * @member {Enum.SteamFriendsChatEntryType} entry_type
- * @member {Real} chatter_steam_id_64
- * @struct_end 
+ * @member {Real} bytes_copied The number of bytes copied.
+ * @member {String} text The text of the chat message.
+ * @member {Enum.SteamFriendsChatEntryType} entry_type The type of chat entry that was received.
+ * @member {Real} chatter_steam_id_64 The Steam ID of the user that sent the message.
+ * @struct_end
  */
 
 /**
  * @struct SteamFriendsFriendGamePlayed
- * @description > **Steamworks Struct**: [func](url)
+ * @description > **Steamworks Struct**: [ISteamFriends::FriendGameInfo_t](https://partner.steamgames.com/doc/api/ISteamFriends#FriendGameInfo_t)
  *
- * This struct 
+ * This struct holds information returned by ${function.steam_friends_get_friend_game_played}.
  *
- * @member {Bool} ok
- * @member {Real} game_id
- * @member {Real} game_ip_v4
- * @member {Real} game_port
- * @member {Real} query_port
- * @member {Real} lobby_steam_id_64
- * @struct_end 
+ * @member {Bool} ok `true` if the user is a friend and is in a game; otherwise, `false`.
+ * @member {Real} game_id The game ID that the friend is playing.
+ * @member {Real} game_ip_v4 The IP of the server the friend is playing on.
+ * @member {Real} game_port The port of the server the friend is playing on.
+ * @member {Real} query_port The query port of the server the friend is playing on.
+ * @member {Real} lobby_steam_id_64 The Steam ID of the lobby the friend is in.
+ * @struct_end
  */
 
 /**
  * @struct SteamFriendsFriendMessage
- * @description > **Steamworks Struct**: [func](url)
+ * @description > **Steamworks Struct**: N / A
  *
- * This struct 
+ * This struct holds information returned by ${function.steam_friends_get_friend_message}.
  *
- * @member {Real} bytes_copied
- * @member {Enum.SteamFriendsChatEntryType} entry_type
- * @member {String} data
- * @struct_end 
+ * @member {Real} bytes_copied The number of bytes copied.
+ * @member {Enum.SteamFriendsChatEntryType} entry_type The type of chat entry that was received.
+ * @member {String} data The message data.
+ * @struct_end
  */
 
 /**
@@ -8763,11 +8763,11 @@
 
 /**
  * @struct SteamFriendsGameOverlayActivated
- * @description > **Steamworks Struct**: [func](url)
+ * @description > **Steamworks Struct**: [ISteamFriends::GameOverlayActivated_t](partner.steamgames.com/doc/api/ISteamFriends#GameOverlayActivated_t)
  *
- * This struct 
+ * This struct holds information posted when the [Steam Overlay](https://partner.steamgames.com/doc/features/overlay) activates or deactivates.
  *
- * @member {Bool} active
+ * @member {Bool} active `true` if it's just been activated, otherwise `false`.
  * @struct_end
  */
 
@@ -8784,12 +8784,12 @@
 
 /**
  * @struct SteamFriendsGameLobbyJoinRequested
- * @description > **Steamworks Struct**: [func](url)
+ * @description > **Steamworks Struct**: [ISteamFriends::GameLobbyJoinRequested_t](https://partner.steamgames.com/doc/api/ISteamFriends#GameLobbyJoinRequested_t)
  *
- * This struct 
+ * This struct holds information posted when the user tries to join a lobby from their friends list or from an invite.
  *
- * @member {Real} steam_id_friend
- * @member {Real} steam_id_lobby
+ * @member {Real} steam_id_friend The friend they joined through. This will be invalid if not directly via a friend.
+ * @member {Real} steam_id_lobby The Steam ID of the lobby to connect to.
  * @struct_end
  */
 
@@ -9134,36 +9134,36 @@
 
 /**
  * @struct SteamUserSteamServersDisconnected
- * @description > **Steamworks Struct**: [func](url)
+ * @description > **Steamworks Struct**: [ISteamUser::SteamServersDisconnected_t](partner.steamgames.com/doc/api/ISteamUser#SteamServersDisconnected_t)
  *
- * This struct 
+ * This struct holds information about the reason the client has lost connection to the Steam servers.
  *
- * @member {Real} result
+ * @member {Real} result The reason we were disconnected from Steam.
  * @struct_end 
  */
 
 /**
  * @struct SteamUserSteamServerConnectFailure
- * @description > **Steamworks Struct**: [func](url)
+ * @description > **Steamworks Struct**: [ISteamUser::SteamServerConnectFailure_t](https://partner.steamgames.com/doc/api/ISteamUser#SteamServerConnectFailure_t)
  *
- * This struct 
+ * This struct holds information about a failed connection attempt.
  *
- * @member {Real} result
- * @member {Bool} still_retrying
+ * @member {Real} result The reason why the connection failed.
+ * @member {Bool} still_retrying Is the Steam client still trying to connect to the server?
  * @struct_end 
  */
 
 /**
  * @struct SteamUserClientGameServerDeny
- * @description > **Steamworks Struct**: [func](url)
+ * @description > **Steamworks Struct**: [ISteamUser::ClientGameServerDeny_t](https://partner.steamgames.com/doc/api/ISteamUser#ClientGameServerDeny_t)
  *
- * This struct 
+ * This struct holds information Sent by the Steam server to the client telling it to disconnect from the specified game server, which it may be in the process of or already connected to.
  *
- * @member {Real} app_id
- * @member {Real} game_server_ip
- * @member {Real} game_server_port
- * @member {Bool} secure
- * @member {Real} reason
+ * @member {Real} app_id The App ID this call is for. Verify that it's the same as the current App ID with ${function.steam_utils_get_app_id}.
+ * @member {Real} game_server_ip The IP of the game server that is telling us to disconnect, in host order, i.e 127.0.0.1 == 0x7f000001.
+ * @member {Real} game_server_port The port of the game server that is telling us to disconnect, in host order.
+ * @member {Bool} secure Is the game server VAC secure (`true`) or not (`false`)?
+ * @member {Real} reason 
  * @struct_end 
  */
 
@@ -9566,9 +9566,9 @@
 
 /**
  * @struct SteamUgcRequestItemDetailsResult
- * @description > **Steamworks Struct**: [func](url)
+ * @description > **Steamworks Struct**: [ISteamUGC::SteamUGCRequestUGCDetailsResult_t](https://partner.steamgames.com/doc/api/ISteamUGC#SteamUGCRequestUGCDetailsResult_t)
  *
- * This struct 
+ * Deprecated. Former result of a call to ${function.steam_ugc_request_ugc_details}.
  *
  * @member {Real} result
  * @member {Real} published_file_id
