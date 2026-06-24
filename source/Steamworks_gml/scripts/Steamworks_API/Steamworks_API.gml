@@ -3822,9 +3822,10 @@ function __SteamFriendsGetFollowerCountResult_encode(_inst, _buffer, _offset, _w
     buffer_seek(_buffer, buffer_seek_start, _offset);
     with (_inst)
     {
-        // field: result, type: Int32
+        // field: result, type: enum SteamApiResult
+
         if (!is_numeric(self.result)) show_error($"{_where} :: self.result expected number", true);
-        buffer_write(_buffer, buffer_s32, self.result);
+        buffer_write(_buffer, buffer_u64, self.result);
 
         // field: steam_id, type: UInt64
         if (!is_numeric(self.steam_id)) show_error($"{_where} :: self.steam_id expected number", true);
@@ -3851,8 +3852,8 @@ function __SteamFriendsGetFollowerCountResult_decode(_buffer, _offset)
     _inst = new SteamFriendsGetFollowerCountResult();
     with (_inst)
     {
-        // field: result, type: Int32
-        self.result = buffer_read(_buffer, buffer_s32);
+        // field: result, type: enum SteamApiResult
+        self.result = buffer_read(_buffer, buffer_u64);
 
         // field: steam_id, type: UInt64
         self.steam_id = buffer_read(_buffer, buffer_u64);
@@ -3878,9 +3879,10 @@ function __SteamFriendsIsFollowingResult_encode(_inst, _buffer, _offset, _where 
     buffer_seek(_buffer, buffer_seek_start, _offset);
     with (_inst)
     {
-        // field: result, type: Int32
+        // field: result, type: enum SteamApiResult
+
         if (!is_numeric(self.result)) show_error($"{_where} :: self.result expected number", true);
-        buffer_write(_buffer, buffer_s32, self.result);
+        buffer_write(_buffer, buffer_u64, self.result);
 
         // field: steam_id, type: UInt64
         if (!is_numeric(self.steam_id)) show_error($"{_where} :: self.steam_id expected number", true);
@@ -3907,8 +3909,8 @@ function __SteamFriendsIsFollowingResult_decode(_buffer, _offset)
     _inst = new SteamFriendsIsFollowingResult();
     with (_inst)
     {
-        // field: result, type: Int32
-        self.result = buffer_read(_buffer, buffer_s32);
+        // field: result, type: enum SteamApiResult
+        self.result = buffer_read(_buffer, buffer_u64);
 
         // field: steam_id, type: UInt64
         self.steam_id = buffer_read(_buffer, buffer_u64);
@@ -4727,9 +4729,10 @@ function __SteamAppsFileDetailsResult_encode(_inst, _buffer, _offset, _where = _
     buffer_seek(_buffer, buffer_seek_start, _offset);
     with (_inst)
     {
-        // field: result, type: Int32
+        // field: result, type: enum SteamApiResult
+
         if (!is_numeric(self.result)) show_error($"{_where} :: self.result expected number", true);
-        buffer_write(_buffer, buffer_s32, self.result);
+        buffer_write(_buffer, buffer_u64, self.result);
 
         // field: file_size, type: Int32
         if (!is_numeric(self.file_size)) show_error($"{_where} :: self.file_size expected number", true);
@@ -4761,8 +4764,8 @@ function __SteamAppsFileDetailsResult_decode(_buffer, _offset)
     _inst = new SteamAppsFileDetailsResult();
     with (_inst)
     {
-        // field: result, type: Int32
-        self.result = buffer_read(_buffer, buffer_s32);
+        // field: result, type: enum SteamApiResult
+        self.result = buffer_read(_buffer, buffer_u64);
 
         // field: file_size, type: Int32
         self.file_size = buffer_read(_buffer, buffer_s32);
@@ -5511,9 +5514,10 @@ function __SteamUserStoreAuthUrlResponse_encode(_inst, _buffer, _offset, _where 
     buffer_seek(_buffer, buffer_seek_start, _offset);
     with (_inst)
     {
-        // field: result, type: Int32
+        // field: result, type: enum SteamApiResult
+
         if (!is_numeric(self.result)) show_error($"{_where} :: self.result expected number", true);
-        buffer_write(_buffer, buffer_s32, self.result);
+        buffer_write(_buffer, buffer_u64, self.result);
 
         // field: url, type: String
         if (!is_string(self.url)) show_error($"{_where} :: self.url expected string", true);
@@ -5537,8 +5541,8 @@ function __SteamUserStoreAuthUrlResponse_decode(_buffer, _offset)
     _inst = new SteamUserStoreAuthUrlResponse();
     with (_inst)
     {
-        // field: result, type: Int32
-        self.result = buffer_read(_buffer, buffer_s32);
+        // field: result, type: enum SteamApiResult
+        self.result = buffer_read(_buffer, buffer_u64);
 
         // field: url, type: String
         buffer_read(_buffer, buffer_u32);
@@ -5562,9 +5566,10 @@ function __SteamUserEncryptedAppTicketResponse_encode(_inst, _buffer, _offset, _
     buffer_seek(_buffer, buffer_seek_start, _offset);
     with (_inst)
     {
-        // field: result, type: Int32
+        // field: result, type: enum SteamApiResult
+
         if (!is_numeric(self.result)) show_error($"{_where} :: self.result expected number", true);
-        buffer_write(_buffer, buffer_s32, self.result);
+        buffer_write(_buffer, buffer_u64, self.result);
 
     }
 }
@@ -5583,8 +5588,8 @@ function __SteamUserEncryptedAppTicketResponse_decode(_buffer, _offset)
     _inst = new SteamUserEncryptedAppTicketResponse();
     with (_inst)
     {
-        // field: result, type: Int32
-        self.result = buffer_read(_buffer, buffer_s32);
+        // field: result, type: enum SteamApiResult
+        self.result = buffer_read(_buffer, buffer_u64);
 
     }
 
@@ -6229,9 +6234,10 @@ function __SteamUserSteamServerConnectFailure_encode(_inst, _buffer, _offset, _w
     buffer_seek(_buffer, buffer_seek_start, _offset);
     with (_inst)
     {
-        // field: result, type: Int32
+        // field: result, type: enum SteamApiResult
+
         if (!is_numeric(self.result)) show_error($"{_where} :: self.result expected number", true);
-        buffer_write(_buffer, buffer_s32, self.result);
+        buffer_write(_buffer, buffer_u64, self.result);
 
         // field: still_retrying, type: Bool
         if (!is_bool(self.still_retrying)) show_error($"{_where} :: self.still_retrying expected bool", true);
@@ -6254,8 +6260,8 @@ function __SteamUserSteamServerConnectFailure_decode(_buffer, _offset)
     _inst = new SteamUserSteamServerConnectFailure();
     with (_inst)
     {
-        // field: result, type: Int32
-        self.result = buffer_read(_buffer, buffer_s32);
+        // field: result, type: enum SteamApiResult
+        self.result = buffer_read(_buffer, buffer_u64);
 
         // field: still_retrying, type: Bool
         self.still_retrying = buffer_read(_buffer, buffer_bool);
@@ -7746,9 +7752,10 @@ function __SteamUgcQueryCompleted_encode(_inst, _buffer, _offset, _where = _GMFU
         if (!is_numeric(self.query_handle)) show_error($"{_where} :: self.query_handle expected number", true);
         buffer_write(_buffer, buffer_u64, self.query_handle);
 
-        // field: result, type: Int32
+        // field: result, type: enum SteamApiResult
+
         if (!is_numeric(self.result)) show_error($"{_where} :: self.result expected number", true);
-        buffer_write(_buffer, buffer_s32, self.result);
+        buffer_write(_buffer, buffer_u64, self.result);
 
         // field: num_results_returned, type: UInt32
         if (!is_numeric(self.num_results_returned)) show_error($"{_where} :: self.num_results_returned expected number", true);
@@ -7782,8 +7789,8 @@ function __SteamUgcQueryCompleted_decode(_buffer, _offset)
         // field: query_handle, type: UInt64
         self.query_handle = buffer_read(_buffer, buffer_u64);
 
-        // field: result, type: Int32
-        self.result = buffer_read(_buffer, buffer_s32);
+        // field: result, type: enum SteamApiResult
+        self.result = buffer_read(_buffer, buffer_u64);
 
         // field: num_results_returned, type: UInt32
         self.num_results_returned = buffer_read(_buffer, buffer_u32);
@@ -7812,9 +7819,10 @@ function __SteamUgcCreateItemResult_encode(_inst, _buffer, _offset, _where = _GM
     buffer_seek(_buffer, buffer_seek_start, _offset);
     with (_inst)
     {
-        // field: result, type: Int32
+        // field: result, type: enum SteamApiResult
+
         if (!is_numeric(self.result)) show_error($"{_where} :: self.result expected number", true);
-        buffer_write(_buffer, buffer_s32, self.result);
+        buffer_write(_buffer, buffer_u64, self.result);
 
         // field: published_file_id, type: UInt64
         if (!is_numeric(self.published_file_id)) show_error($"{_where} :: self.published_file_id expected number", true);
@@ -7841,8 +7849,8 @@ function __SteamUgcCreateItemResult_decode(_buffer, _offset)
     _inst = new SteamUgcCreateItemResult();
     with (_inst)
     {
-        // field: result, type: Int32
-        self.result = buffer_read(_buffer, buffer_s32);
+        // field: result, type: enum SteamApiResult
+        self.result = buffer_read(_buffer, buffer_u64);
 
         // field: published_file_id, type: UInt64
         self.published_file_id = buffer_read(_buffer, buffer_u64);
@@ -7868,9 +7876,10 @@ function __SteamUgcSubmitItemUpdateResult_encode(_inst, _buffer, _offset, _where
     buffer_seek(_buffer, buffer_seek_start, _offset);
     with (_inst)
     {
-        // field: result, type: Int32
+        // field: result, type: enum SteamApiResult
+
         if (!is_numeric(self.result)) show_error($"{_where} :: self.result expected number", true);
-        buffer_write(_buffer, buffer_s32, self.result);
+        buffer_write(_buffer, buffer_u64, self.result);
 
         // field: legal_agreement_required, type: Bool
         if (!is_bool(self.legal_agreement_required)) show_error($"{_where} :: self.legal_agreement_required expected bool", true);
@@ -7893,8 +7902,8 @@ function __SteamUgcSubmitItemUpdateResult_decode(_buffer, _offset)
     _inst = new SteamUgcSubmitItemUpdateResult();
     with (_inst)
     {
-        // field: result, type: Int32
-        self.result = buffer_read(_buffer, buffer_s32);
+        // field: result, type: enum SteamApiResult
+        self.result = buffer_read(_buffer, buffer_u64);
 
         // field: legal_agreement_required, type: Bool
         self.legal_agreement_required = buffer_read(_buffer, buffer_bool);
@@ -8015,9 +8024,10 @@ function __SteamUgcFavoriteItemsListChanged_encode(_inst, _buffer, _offset, _whe
     buffer_seek(_buffer, buffer_seek_start, _offset);
     with (_inst)
     {
-        // field: result, type: Int32
+        // field: result, type: enum SteamApiResult
+
         if (!is_numeric(self.result)) show_error($"{_where} :: self.result expected number", true);
-        buffer_write(_buffer, buffer_s32, self.result);
+        buffer_write(_buffer, buffer_u64, self.result);
 
         // field: published_file_id, type: UInt64
         if (!is_numeric(self.published_file_id)) show_error($"{_where} :: self.published_file_id expected number", true);
@@ -8044,8 +8054,8 @@ function __SteamUgcFavoriteItemsListChanged_decode(_buffer, _offset)
     _inst = new SteamUgcFavoriteItemsListChanged();
     with (_inst)
     {
-        // field: result, type: Int32
-        self.result = buffer_read(_buffer, buffer_s32);
+        // field: result, type: enum SteamApiResult
+        self.result = buffer_read(_buffer, buffer_u64);
 
         // field: published_file_id, type: UInt64
         self.published_file_id = buffer_read(_buffer, buffer_u64);
@@ -8071,9 +8081,10 @@ function __SteamUgcSetUserItemVoteResult_encode(_inst, _buffer, _offset, _where 
     buffer_seek(_buffer, buffer_seek_start, _offset);
     with (_inst)
     {
-        // field: result, type: Int32
+        // field: result, type: enum SteamApiResult
+
         if (!is_numeric(self.result)) show_error($"{_where} :: self.result expected number", true);
-        buffer_write(_buffer, buffer_s32, self.result);
+        buffer_write(_buffer, buffer_u64, self.result);
 
         // field: published_file_id, type: UInt64
         if (!is_numeric(self.published_file_id)) show_error($"{_where} :: self.published_file_id expected number", true);
@@ -8100,8 +8111,8 @@ function __SteamUgcSetUserItemVoteResult_decode(_buffer, _offset)
     _inst = new SteamUgcSetUserItemVoteResult();
     with (_inst)
     {
-        // field: result, type: Int32
-        self.result = buffer_read(_buffer, buffer_s32);
+        // field: result, type: enum SteamApiResult
+        self.result = buffer_read(_buffer, buffer_u64);
 
         // field: published_file_id, type: UInt64
         self.published_file_id = buffer_read(_buffer, buffer_u64);
@@ -8313,9 +8324,10 @@ function __SteamUgcDeleteItemResult_encode(_inst, _buffer, _offset, _where = _GM
     buffer_seek(_buffer, buffer_seek_start, _offset);
     with (_inst)
     {
-        // field: result, type: Int32
+        // field: result, type: enum SteamApiResult
+
         if (!is_numeric(self.result)) show_error($"{_where} :: self.result expected number", true);
-        buffer_write(_buffer, buffer_s32, self.result);
+        buffer_write(_buffer, buffer_u64, self.result);
 
         // field: published_file_id, type: UInt64
         if (!is_numeric(self.published_file_id)) show_error($"{_where} :: self.published_file_id expected number", true);
@@ -8338,8 +8350,8 @@ function __SteamUgcDeleteItemResult_decode(_buffer, _offset)
     _inst = new SteamUgcDeleteItemResult();
     with (_inst)
     {
-        // field: result, type: Int32
-        self.result = buffer_read(_buffer, buffer_s32);
+        // field: result, type: enum SteamApiResult
+        self.result = buffer_read(_buffer, buffer_u64);
 
         // field: published_file_id, type: UInt64
         self.published_file_id = buffer_read(_buffer, buffer_u64);
@@ -8370,9 +8382,10 @@ function __SteamUgcDownloadItemResult_encode(_inst, _buffer, _offset, _where = _
         if (!is_numeric(self.published_file_id)) show_error($"{_where} :: self.published_file_id expected number", true);
         buffer_write(_buffer, buffer_u64, self.published_file_id);
 
-        // field: result, type: Int32
+        // field: result, type: enum SteamApiResult
+
         if (!is_numeric(self.result)) show_error($"{_where} :: self.result expected number", true);
-        buffer_write(_buffer, buffer_s32, self.result);
+        buffer_write(_buffer, buffer_u64, self.result);
 
     }
 }
@@ -8397,8 +8410,8 @@ function __SteamUgcDownloadItemResult_decode(_buffer, _offset)
         // field: published_file_id, type: UInt64
         self.published_file_id = buffer_read(_buffer, buffer_u64);
 
-        // field: result, type: Int32
-        self.result = buffer_read(_buffer, buffer_s32);
+        // field: result, type: enum SteamApiResult
+        self.result = buffer_read(_buffer, buffer_u64);
 
     }
 
@@ -9961,9 +9974,10 @@ function __SteamUserStatsGlobalAchievementPercentagesReadyResult_encode(_inst, _
         if (!is_numeric(self.game_id)) show_error($"{_where} :: self.game_id expected number", true);
         buffer_write(_buffer, buffer_u64, self.game_id);
 
-        // field: result, type: Int32
+        // field: result, type: enum SteamApiResult
+
         if (!is_numeric(self.result)) show_error($"{_where} :: self.result expected number", true);
-        buffer_write(_buffer, buffer_s32, self.result);
+        buffer_write(_buffer, buffer_u64, self.result);
 
     }
 }
@@ -9985,8 +9999,8 @@ function __SteamUserStatsGlobalAchievementPercentagesReadyResult_decode(_buffer,
         // field: game_id, type: UInt64
         self.game_id = buffer_read(_buffer, buffer_u64);
 
-        // field: result, type: Int32
-        self.result = buffer_read(_buffer, buffer_s32);
+        // field: result, type: enum SteamApiResult
+        self.result = buffer_read(_buffer, buffer_u64);
 
     }
 
@@ -10119,9 +10133,10 @@ function __SteamUserStatsUserStatsReceived_encode(_inst, _buffer, _offset, _wher
         if (!is_numeric(self.steam_id_user)) show_error($"{_where} :: self.steam_id_user expected number", true);
         buffer_write(_buffer, buffer_u64, self.steam_id_user);
 
-        // field: result, type: Int32
+        // field: result, type: enum SteamApiResult
+
         if (!is_numeric(self.result)) show_error($"{_where} :: self.result expected number", true);
-        buffer_write(_buffer, buffer_s32, self.result);
+        buffer_write(_buffer, buffer_u64, self.result);
 
     }
 }
@@ -10146,8 +10161,8 @@ function __SteamUserStatsUserStatsReceived_decode(_buffer, _offset)
         // field: steam_id_user, type: UInt64
         self.steam_id_user = buffer_read(_buffer, buffer_u64);
 
-        // field: result, type: Int32
-        self.result = buffer_read(_buffer, buffer_s32);
+        // field: result, type: enum SteamApiResult
+        self.result = buffer_read(_buffer, buffer_u64);
 
     }
 
@@ -11219,9 +11234,10 @@ function __SteamInventoryStartPurchaseResult_encode(_inst, _buffer, _offset, _wh
     buffer_seek(_buffer, buffer_seek_start, _offset);
     with (_inst)
     {
-        // field: result, type: Int32
+        // field: result, type: enum SteamApiResult
+
         if (!is_numeric(self.result)) show_error($"{_where} :: self.result expected number", true);
-        buffer_write(_buffer, buffer_s32, self.result);
+        buffer_write(_buffer, buffer_u64, self.result);
 
         // field: order_id, type: UInt64
         if (!is_numeric(self.order_id)) show_error($"{_where} :: self.order_id expected number", true);
@@ -11248,8 +11264,8 @@ function __SteamInventoryStartPurchaseResult_decode(_buffer, _offset)
     _inst = new SteamInventoryStartPurchaseResult();
     with (_inst)
     {
-        // field: result, type: Int32
-        self.result = buffer_read(_buffer, buffer_s32);
+        // field: result, type: enum SteamApiResult
+        self.result = buffer_read(_buffer, buffer_u64);
 
         // field: order_id, type: UInt64
         self.order_id = buffer_read(_buffer, buffer_u64);
@@ -11275,9 +11291,10 @@ function __SteamInventoryRequestPricesResult_encode(_inst, _buffer, _offset, _wh
     buffer_seek(_buffer, buffer_seek_start, _offset);
     with (_inst)
     {
-        // field: result, type: Int32
+        // field: result, type: enum SteamApiResult
+
         if (!is_numeric(self.result)) show_error($"{_where} :: self.result expected number", true);
-        buffer_write(_buffer, buffer_s32, self.result);
+        buffer_write(_buffer, buffer_u64, self.result);
 
         // field: currency, type: String
         if (!is_string(self.currency)) show_error($"{_where} :: self.currency expected string", true);
@@ -11301,8 +11318,8 @@ function __SteamInventoryRequestPricesResult_decode(_buffer, _offset)
     _inst = new SteamInventoryRequestPricesResult();
     with (_inst)
     {
-        // field: result, type: Int32
-        self.result = buffer_read(_buffer, buffer_s32);
+        // field: result, type: enum SteamApiResult
+        self.result = buffer_read(_buffer, buffer_u64);
 
         // field: currency, type: String
         buffer_read(_buffer, buffer_u32);
@@ -11519,9 +11536,10 @@ function __SteamRemoteStorageFileShareResult_encode(_inst, _buffer, _offset, _wh
     buffer_seek(_buffer, buffer_seek_start, _offset);
     with (_inst)
     {
-        // field: result, type: Int32
+        // field: result, type: enum SteamApiResult
+
         if (!is_numeric(self.result)) show_error($"{_where} :: self.result expected number", true);
-        buffer_write(_buffer, buffer_s32, self.result);
+        buffer_write(_buffer, buffer_u64, self.result);
 
         // field: ugc_handle, type: UInt64
         if (!is_numeric(self.ugc_handle)) show_error($"{_where} :: self.ugc_handle expected number", true);
@@ -11549,8 +11567,8 @@ function __SteamRemoteStorageFileShareResult_decode(_buffer, _offset)
     _inst = new SteamRemoteStorageFileShareResult();
     with (_inst)
     {
-        // field: result, type: Int32
-        self.result = buffer_read(_buffer, buffer_s32);
+        // field: result, type: enum SteamApiResult
+        self.result = buffer_read(_buffer, buffer_u64);
 
         // field: ugc_handle, type: UInt64
         self.ugc_handle = buffer_read(_buffer, buffer_u64);
@@ -11577,9 +11595,10 @@ function __SteamRemoteStorageDownloadUgcResult_encode(_inst, _buffer, _offset, _
     buffer_seek(_buffer, buffer_seek_start, _offset);
     with (_inst)
     {
-        // field: result, type: Int32
+        // field: result, type: enum SteamApiResult
+
         if (!is_numeric(self.result)) show_error($"{_where} :: self.result expected number", true);
-        buffer_write(_buffer, buffer_s32, self.result);
+        buffer_write(_buffer, buffer_u64, self.result);
 
         // field: ugc_handle, type: UInt64
         if (!is_numeric(self.ugc_handle)) show_error($"{_where} :: self.ugc_handle expected number", true);
@@ -11619,8 +11638,8 @@ function __SteamRemoteStorageDownloadUgcResult_decode(_buffer, _offset)
     _inst = new SteamRemoteStorageDownloadUgcResult();
     with (_inst)
     {
-        // field: result, type: Int32
-        self.result = buffer_read(_buffer, buffer_s32);
+        // field: result, type: enum SteamApiResult
+        self.result = buffer_read(_buffer, buffer_u64);
 
         // field: ugc_handle, type: UInt64
         self.ugc_handle = buffer_read(_buffer, buffer_u64);
@@ -11901,9 +11920,10 @@ function __SteamRemoteStorageSubscribePublishedFileResult_encode(_inst, _buffer,
     buffer_seek(_buffer, buffer_seek_start, _offset);
     with (_inst)
     {
-        // field: result, type: Int32
+        // field: result, type: enum SteamApiResult
+
         if (!is_numeric(self.result)) show_error($"{_where} :: self.result expected number", true);
-        buffer_write(_buffer, buffer_s32, self.result);
+        buffer_write(_buffer, buffer_u64, self.result);
 
         // field: published_file_id, type: UInt64
         if (!is_numeric(self.published_file_id)) show_error($"{_where} :: self.published_file_id expected number", true);
@@ -11926,8 +11946,8 @@ function __SteamRemoteStorageSubscribePublishedFileResult_decode(_buffer, _offse
     _inst = new SteamRemoteStorageSubscribePublishedFileResult();
     with (_inst)
     {
-        // field: result, type: Int32
-        self.result = buffer_read(_buffer, buffer_s32);
+        // field: result, type: enum SteamApiResult
+        self.result = buffer_read(_buffer, buffer_u64);
 
         // field: published_file_id, type: UInt64
         self.published_file_id = buffer_read(_buffer, buffer_u64);
@@ -11999,9 +12019,10 @@ function __SteamMatchmakingLobbyCreated_encode(_inst, _buffer, _offset, _where =
     buffer_seek(_buffer, buffer_seek_start, _offset);
     with (_inst)
     {
-        // field: result, type: Int32
+        // field: result, type: enum SteamApiResult
+
         if (!is_numeric(self.result)) show_error($"{_where} :: self.result expected number", true);
-        buffer_write(_buffer, buffer_s32, self.result);
+        buffer_write(_buffer, buffer_u64, self.result);
 
         // field: lobby_id, type: UInt64
         if (!is_numeric(self.lobby_id)) show_error($"{_where} :: self.lobby_id expected number", true);
@@ -12024,8 +12045,8 @@ function __SteamMatchmakingLobbyCreated_decode(_buffer, _offset)
     _inst = new SteamMatchmakingLobbyCreated();
     with (_inst)
     {
-        // field: result, type: Int32
-        self.result = buffer_read(_buffer, buffer_s32);
+        // field: result, type: enum SteamApiResult
+        self.result = buffer_read(_buffer, buffer_u64);
 
         // field: lobby_id, type: UInt64
         self.lobby_id = buffer_read(_buffer, buffer_u64);

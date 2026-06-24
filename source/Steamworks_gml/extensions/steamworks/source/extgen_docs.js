@@ -4428,7 +4428,7 @@
 
 /**
  * @struct_partial SteamFriendsGetFollowerCountResult
- * @member {Real} result
+ * @member {Enum.SteamApiResult} result
  * @member {Real} steam_id
  * @member {Real} count
  * @struct_end 
@@ -4436,7 +4436,7 @@
 
 /**
  * @struct_partial SteamFriendsIsFollowingResult
- * @member {Real} result
+ * @member {Enum.SteamApiResult} result
  * @member {Real} steam_id
  * @member {Bool} is_following
  * @struct_end 
@@ -4554,7 +4554,7 @@
 
 /**
  * @struct_partial SteamAppsFileDetailsResult
- * @member {Real} result
+ * @member {Enum.SteamApiResult} result
  * @member {Real} file_size
  * @member {Real} flags
  * @member {String} sha1
@@ -4663,14 +4663,14 @@
 
 /**
  * @struct_partial SteamUserStoreAuthUrlResponse
- * @member {Real} result
+ * @member {Enum.SteamApiResult} result
  * @member {String} url
  * @struct_end 
  */
 
 /**
  * @struct_partial SteamUserEncryptedAppTicketResponse
- * @member {Real} result
+ * @member {Enum.SteamApiResult} result
  * @struct_end 
  */
 
@@ -4764,7 +4764,7 @@
 
 /**
  * @struct_partial SteamUserSteamServerConnectFailure
- * @member {Real} result
+ * @member {Enum.SteamApiResult} result
  * @member {Bool} still_retrying
  * @struct_end 
  */
@@ -4978,7 +4978,7 @@
 /**
  * @struct_partial SteamUgcQueryCompleted
  * @member {Real} query_handle
- * @member {Real} result
+ * @member {Enum.SteamApiResult} result
  * @member {Real} num_results_returned
  * @member {Real} total_matching_results
  * @member {Bool} cached_data
@@ -4987,7 +4987,7 @@
 
 /**
  * @struct_partial SteamUgcCreateItemResult
- * @member {Real} result
+ * @member {Enum.SteamApiResult} result
  * @member {Real} published_file_id
  * @member {Bool} legal_agreement_required
  * @struct_end 
@@ -4995,7 +4995,7 @@
 
 /**
  * @struct_partial SteamUgcSubmitItemUpdateResult
- * @member {Real} result
+ * @member {Enum.SteamApiResult} result
  * @member {Bool} legal_agreement_required
  * @struct_end 
  */
@@ -5016,7 +5016,7 @@
 
 /**
  * @struct_partial SteamUgcFavoriteItemsListChanged
- * @member {Real} result
+ * @member {Enum.SteamApiResult} result
  * @member {Real} published_file_id
  * @member {Bool} was_add_request
  * @struct_end 
@@ -5024,7 +5024,7 @@
 
 /**
  * @struct_partial SteamUgcSetUserItemVoteResult
- * @member {Real} result
+ * @member {Enum.SteamApiResult} result
  * @member {Real} published_file_id
  * @member {Bool} vote_up
  * @struct_end 
@@ -5058,7 +5058,7 @@
 
 /**
  * @struct_partial SteamUgcDeleteItemResult
- * @member {Real} result
+ * @member {Enum.SteamApiResult} result
  * @member {Real} published_file_id
  * @struct_end 
  */
@@ -5067,7 +5067,7 @@
  * @struct_partial SteamUgcDownloadItemResult
  * @member {Real} app_id
  * @member {Real} published_file_id
- * @member {Real} result
+ * @member {Enum.SteamApiResult} result
  * @struct_end 
  */
 
@@ -5287,7 +5287,7 @@
 /**
  * @struct_partial SteamUserStatsGlobalAchievementPercentagesReadyResult
  * @member {Real} game_id
- * @member {Real} result
+ * @member {Enum.SteamApiResult} result
  * @struct_end 
  */
 
@@ -5310,7 +5310,7 @@
  * @struct_partial SteamUserStatsUserStatsReceived
  * @member {Real} game_id
  * @member {Real} steam_id_user
- * @member {Real} result
+ * @member {Enum.SteamApiResult} result
  * @struct_end 
  */
 
@@ -5454,7 +5454,7 @@
 
 /**
  * @struct_partial SteamInventoryStartPurchaseResult
- * @member {Real} result
+ * @member {Enum.SteamApiResult} result
  * @member {Real} order_id
  * @member {Real} transaction_id
  * @struct_end 
@@ -5462,7 +5462,7 @@
 
 /**
  * @struct_partial SteamInventoryRequestPricesResult
- * @member {Real} result
+ * @member {Enum.SteamApiResult} result
  * @member {String} currency
  * @struct_end 
  */
@@ -5496,7 +5496,7 @@
 
 /**
  * @struct_partial SteamRemoteStorageFileShareResult
- * @member {Real} result
+ * @member {Enum.SteamApiResult} result
  * @member {Real} ugc_handle
  * @member {String} file_name
  * @struct_end 
@@ -5504,7 +5504,7 @@
 
 /**
  * @struct_partial SteamRemoteStorageDownloadUgcResult
- * @member {Real} result
+ * @member {Enum.SteamApiResult} result
  * @member {Real} ugc_handle
  * @member {Real} app_id
  * @member {Real} size_in_bytes
@@ -5550,7 +5550,7 @@
 
 /**
  * @struct_partial SteamRemoteStorageSubscribePublishedFileResult
- * @member {Real} result
+ * @member {Enum.SteamApiResult} result
  * @member {Real} published_file_id
  * @struct_end 
  */
@@ -5564,7 +5564,7 @@
 
 /**
  * @struct_partial SteamMatchmakingLobbyCreated
- * @member {Real} result
+ * @member {Enum.SteamApiResult} result
  * @member {Real} lobby_id
  * @struct_end 
  */

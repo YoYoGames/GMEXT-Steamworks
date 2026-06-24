@@ -313,7 +313,7 @@ const SteamFriendsInterfaceVersion : string = "SteamFriends015";
 [global]
 class `[[SteamFriendsGetFollowerCountResult]]` prototype Object
 {
-    [field] property result : int32 { get; set; } // EResult numeric
+    [field, type_hint = `SteamApiResult`] property result : gmval { get; set; }
     [field, type_hint=uint64] property steam_id : gmval { get; set; }
     [field] property count : int32 { get; set; }
 }
@@ -321,7 +321,7 @@ class `[[SteamFriendsGetFollowerCountResult]]` prototype Object
 [global]
 class `[[SteamFriendsIsFollowingResult]]` prototype Object
 {
-    [field] property result : int32 { get; set; } // EResult numeric
+    [field, type_hint = `SteamApiResult`] property result : gmval { get; set; }
     [field, type_hint=uint64] property steam_id : gmval { get; set; }
     [field] property is_following : bool { get; set; }
 }
@@ -981,7 +981,7 @@ function steam_apps_get_app_ownership_ticket_data(
 [global]
 class `[[SteamAppsFileDetailsResult]]` prototype Object
 {
-    [field] property result : int32 { get; set; }   // EResult numeric
+    [field, type_hint = `SteamApiResult`] property result : gmval { get; set; }
     [field] property file_size : int32 { get; set; }
     [field] property flags : int32 { get; set; }
     [field] property sha1 : string { get; set; }    // 40 hex chars
@@ -1296,14 +1296,14 @@ const SteamUserEncryptedAppTicketSymmetricKeyLen : int32 = 32;
 [global]
 class `[[SteamUserStoreAuthUrlResponse]]` prototype Object
 {
-    [field] property result : int32 { get; set; } // EResult numeric (0 if unknown)
+    [field, type_hint = `SteamApiResult`] property result : gmval { get; set; }
     [field] property url : string { get; set; }
 }
 
 [global]
 class `[[SteamUserEncryptedAppTicketResponse]]` prototype Object
 {
-    [field] property result : int32 { get; set; } // EResult numeric
+    [field, type_hint = `SteamApiResult`] property result : gmval { get; set; }
 }
 
 [global]
@@ -1682,8 +1682,8 @@ class `[[SteamUserSteamServersDisconnected]]` prototype Object
 [global]
 class `[[SteamUserSteamServerConnectFailure]]` prototype Object
 {
-    [field]
-    property result : int32 { get; set; } // EResult numeric
+    [field, type_hint = `SteamApiResult`]
+    property result : gmval { get; set; }
 
     [field]
     property still_retrying : bool { get; set; }
@@ -3073,7 +3073,7 @@ class `[[SteamUgcFileUnsubscribed]]` prototype Object
 class `[[SteamUgcQueryCompleted]]` prototype Object
 {
     [field, type_hint=uint64] property query_handle : gmval { get; set; }
-    [field] property result : int32 { get; set; }
+    [field, type_hint = `SteamApiResult`] property result : gmval { get; set; }
     [field] property num_results_returned : uint32 { get; set; }
     [field] property total_matching_results : uint32 { get; set; }
     [field] property cached_data : bool { get; set; }
@@ -3082,7 +3082,7 @@ class `[[SteamUgcQueryCompleted]]` prototype Object
 [global]
 class `[[SteamUgcCreateItemResult]]` prototype Object
 {
-    [field] property result : int32 { get; set; }
+    [field, type_hint = `SteamApiResult`] property result : gmval { get; set; }
     [field, type_hint=uint64] property published_file_id : gmval { get; set; }
     [field] property legal_agreement_required : bool { get; set; }
 }
@@ -3090,7 +3090,7 @@ class `[[SteamUgcCreateItemResult]]` prototype Object
 [global]
 class `[[SteamUgcSubmitItemUpdateResult]]` prototype Object
 {
-    [field] property result : int32 { get; set; }
+    [field, type_hint = `SteamApiResult`] property result : gmval { get; set; }
     [field] property legal_agreement_required : bool { get; set; }
 }
 
@@ -3111,7 +3111,7 @@ class `[[SteamUgcUnsubscribeItemResult]]` prototype Object
 [global]
 class `[[SteamUgcFavoriteItemsListChanged]]` prototype Object
 {
-    [field] property result : int32 { get; set; }
+    [field, type_hint = `SteamApiResult`] property result : gmval { get; set; }
     [field, type_hint=uint64] property published_file_id : gmval { get; set; }
     [field] property was_add_request : bool { get; set; }
 }
@@ -3119,7 +3119,7 @@ class `[[SteamUgcFavoriteItemsListChanged]]` prototype Object
 [global]
 class `[[SteamUgcSetUserItemVoteResult]]` prototype Object
 {
-    [field] property result : int32 { get; set; }
+    [field, type_hint = `SteamApiResult`] property result : gmval { get; set; }
     [field, type_hint=uint64] property published_file_id : gmval { get; set; }
     [field] property vote_up : bool { get; set; }
 }
@@ -3153,7 +3153,7 @@ class `[[SteamUgcSupportedGameVersionData]]` prototype Object
 [global]
 class `[[SteamUgcDeleteItemResult]]` prototype Object
 {
-    [field] property result : int32 { get; set; }
+    [field, type_hint = `SteamApiResult`] property result : gmval { get; set; }
     [field, type_hint=uint64] property published_file_id : gmval { get; set; }
 }
 
@@ -3162,7 +3162,7 @@ class `[[SteamUgcDownloadItemResult]]` prototype Object
 {
     [field] property app_id : uint32 { get; set; }
     [field, type_hint=uint64] property published_file_id : gmval { get; set; }
-    [field] property result : int32 { get; set; }
+    [field, type_hint = `SteamApiResult`] property result : gmval { get; set; }
 }
 
 }
@@ -3657,7 +3657,7 @@ class `[[SteamUserStatsNumberOfCurrentPlayersResult]]` prototype Object
 class `[[SteamUserStatsGlobalAchievementPercentagesReadyResult]]` prototype Object
 {
     [field, type_hint=uint64] property game_id : gmval { get; set; }
-    [field] property result : int32 { get; set; } // EResult numeric
+    [field, type_hint = `SteamApiResult`] property result : gmval { get; set; }
 }
 
 [global]
@@ -3905,7 +3905,7 @@ class `[[SteamUserStatsUserStatsReceived]]` prototype Object
 {
     [field, type_hint=uint64] property game_id : gmval { get; set; }
     [field, type_hint=uint64] property steam_id_user : gmval { get; set; }
-    [field] property result : int32 { get; set; } // EResult numeric
+    [field, type_hint = `SteamApiResult`] property result : gmval { get; set; }
 }
 
 [global]
@@ -4569,7 +4569,7 @@ class `[[SteamInventoryDefinitionUpdate]]` prototype Object
 [global]
 class `[[SteamInventoryStartPurchaseResult]]` prototype Object
 {
-    [field] property result : int32 { get; set; } // EResult numeric
+    [field, type_hint = `SteamApiResult`] property result : gmval { get; set; }
     [field, type_hint=uint64] property order_id : gmval { get; set; }
     [field, type_hint=uint64] property transaction_id : gmval { get; set; }
 }
@@ -4577,7 +4577,7 @@ class `[[SteamInventoryStartPurchaseResult]]` prototype Object
 [global]
 class `[[SteamInventoryRequestPricesResult]]` prototype Object
 {
-    [field] property result : int32 { get; set; } // EResult numeric
+    [field, type_hint = `SteamApiResult`] property result : gmval { get; set; }
     [field] property currency : string { get; set; }
 }
 
@@ -4671,7 +4671,7 @@ class `[[SteamRemoteStorageUgcDetails]]` prototype Object
 [global]
 class `[[SteamRemoteStorageFileShareResult]]` prototype Object
 {
-    [field] property result : int32 { get; set; } // EResult numeric
+    [field, type_hint = `SteamApiResult`] property result : gmval { get; set; }
     [field, type_hint=uint64] property ugc_handle : gmval { get; set; } // UGCHandle_t
     [field] property file_name : string { get; set; }
 }
@@ -4679,7 +4679,7 @@ class `[[SteamRemoteStorageFileShareResult]]` prototype Object
 [global]
 class `[[SteamRemoteStorageDownloadUgcResult]]` prototype Object
 {
-    [field] property result : int32 { get; set; } // EResult numeric
+    [field, type_hint = `SteamApiResult`] property result : gmval { get; set; }
     [field, type_hint=uint64] property ugc_handle : gmval { get; set; }
     [field] property app_id : uint32 { get; set; }
     [field] property size_in_bytes : int32 { get; set; }
@@ -4725,7 +4725,7 @@ class `[[SteamRemoteStorageUpdatePublishedFileResult]]` prototype Object
 [global]
 class `[[SteamRemoteStorageSubscribePublishedFileResult]]` prototype Object
 {
-    [field] property result : int32 { get; set; }
+    [field, type_hint = `SteamApiResult`] property result : gmval { get; set; }
     [field, type_hint=uint64] property published_file_id : gmval { get; set; }
 }
 
@@ -4933,7 +4933,7 @@ enum SteamMatchmakingLobbyDistanceFilter
 [global]
 class `[[SteamMatchmakingLobbyCreated]]` prototype Object
 {
-    [field] property result : int32 { get; set; }            // EResult
+    [field, type_hint = `SteamApiResult`] property result : gmval { get; set; }
     [field, type_hint=uint64] property lobby_id : gmval { get; set; } // CSteamID
 }
 

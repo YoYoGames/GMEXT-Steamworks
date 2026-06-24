@@ -13,8 +13,10 @@
 #elif defined(__APPLE__)
 #include <TargetConditionals.h>
 #if TARGET_OS_IOS || TARGET_OS_TV || defined(OS_IOS) || defined(OS_TVOS)
-#define GMEXPORT
-#define YYEXPORT
+// Weak so identical core copies from multiple extgen extensions merge at app
+// link instead of colliding. Kept visible: the runner resolves these by name.
+#define GMEXPORT extern "C" __attribute__((weak))
+#define YYEXPORT __attribute__((weak))
 #define TARGET_APPLE_MOBILE
 #else // macOS, etc.
 #define GMEXPORT extern "C" __attribute__((visibility("default")))
@@ -24,6 +26,15 @@
 // Linux and others
 #define GMEXPORT extern "C" __attribute__((visibility("default")))
 #define YYEXPORT __attribute__((visibility("default")))
+#endif
+
+// Internal core helpers are compiled into every extgen extension's static lib.
+// On Apple, two such libs in one app would collide; mark these weak so the
+// linker merges the identical copies, and hidden so they aren't exported.
+#if defined(TARGET_APPLE_MOBILE)
+#define GM_CORE_LOCAL __attribute__((weak, visibility("hidden")))
+#else
+#define GM_CORE_LOCAL
 #endif
 
 // -------------------------------
@@ -208,7 +219,7 @@ namespace gm::log {
     enum class Level { Debug, Info, Warning, Error };
 
     // Central sink used by TRACE/LOG_* macros.
-    void Write(Level lvl, const char* tag, const char* func, const char* fmt, ...);
+    GM_CORE_LOCAL void Write(Level lvl, const char* tag, const char* func, const char* fmt, ...);
 } // namespace gm::log
 
 // ----------------------------------
@@ -228,10 +239,10 @@ namespace gm {
     using InitHook = void (*)();
 
     // Set or replace the hook (thread-safe store)
-    void SetInitHook(InitHook hook);
+    GM_CORE_LOCAL void SetInitHook(InitHook hook);
 
     // Invoke once (safe if called multiple times)
-    void RunInitHookOnce();
+    GM_CORE_LOCAL void RunInitHookOnce();
 
     // Helper for global-scope registration
     struct AutoInitHook final {
@@ -276,7 +287,7 @@ namespace gm {
         }
 
         // Utility: returns hex string (optionally spaced: "aa bb cc")
-        static std::string BufferToHex(const void* buffer, std::size_t length, bool spaced = true);
+        static GM_CORE_LOCAL std::string BufferToHex(const void* buffer, std::size_t length, bool spaced = true);
 
     private:
         inline static GetExtensionOptionFn s_getExtensionOption = nullptr;
