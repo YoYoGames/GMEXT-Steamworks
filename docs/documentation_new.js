@@ -2967,7 +2967,9 @@
  *
  * This function sets a warning message hook to receive SteamAPI warnings and info messages in a callback function.
  * 
- * The function prototype must match the definition in `SteamAPIWarningMessageHook_t`.
+ * The callback will receive a struct with members defined in ${struct.SteamUtilsWarningMessage}.
+ * 
+ * Callbacks will occur directly after the API function is called that generated the warning or message
  *
  * @param {Function} callback The function to be called when a SteamAPI warning or info message is received.
  * @function_end 
@@ -3109,9 +3111,7 @@
  *
  * Called when an item is added to or removed from the user's list of favorite workshop items.
  *
- * @member {Enum.SteamApiResult} result The result of the operation.
- * @member {Real} published_file_id The item which was added/removed.
- * @member {Bool} was_add_request Whether the item was added to (`true`) or removed from (`false`) the favorites list.
+ * @member {Struct.SteamUgcFavoriteItemsListChanged} result The result of the operation.
  * @event_end
  * @function_end
  */
@@ -4347,6 +4347,8 @@
  * This function sets the function to be called when the user has added or removed an item to/from their subscriptions for the returned app ID.
  * 
  * See: [ISteamUGC::UserSubscribedItemsListChanged_t](https://partner.steamgames.com/doc/api/ISteamUGC#UserSubscribedItemsListChanged_t)
+ * 
+ * See: ${struct.SteamUgcUserSubscribedItemsListChanged}
  *
  * @param {Function} callback The function to be called when the user's list of subscribed items changes.
  * @function_end
@@ -5712,6 +5714,8 @@
  * This function sets the function to call as a result of a request to store the user stats.
  * 
  * See: [ISteamUserStats::UserStatsStored_t](https://partner.steamgames.com/doc/api/ISteamUserStats#UserStatsStored_t)
+ * 
+ * See: ${struct.SteamUserStatsUserStatsStored}
  *
  * @param {Function} callback The function to be called when user stats are stored.
  * @function_end 
@@ -8806,12 +8810,12 @@
 
 /**
  * @struct SteamFriendsGameServerChangeRequested
- * @description > **Steamworks Struct**: [func](url)
+ * @description > **Steamworks Struct**: [ISteamFriends::GameServerChangeRequested_t](https://partner.steamgames.com/doc/api/ISteamFriends#GameServerChangeRequested_t)
  *
- * This struct 
+ * This struct holds information provided when the user tries to join a different game server from their friends list.
  *
- * @member {String} server
- * @member {String} password
+ * @member {String} server Server address (e.g. "127.0.0.1:27015", "tf2.valvesoftware.com")
+ * @member {String} password Server password, if any.
  * @struct_end 
  */
 
@@ -8843,13 +8847,13 @@
 
 /**
  * @struct SteamAppsTimedTrialStatus
- * @description > **Steamworks Struct**: [func](url)
+ * @description > **Steamworks Struct**: [ISteamApps::TimedTrialStatus_t](https://partner.steamgames.com/doc/api/ISteamApps#TimedTrialStatus_t)
  *
- * This struct 
+ * This struct holds information sent every minute when an appID is owned via a timed trial.
  *
- * @member {Bool} ok
- * @member {Real} seconds_allowed
- * @member {Real} seconds_played
+ * @member {Bool} ok `true` if the active user is subscribed to the current appID via a timed trial otherwise `false` for any other type of license.
+ * @member {Real} seconds_allowed The number of seconds the timed trial will list.
+ * @member {Real} seconds_played The number of seconds that the user has played so far.
  * @struct_end 
  */
 
@@ -8879,7 +8883,7 @@
  * @struct SteamAppsNumBetas
  * @description > **Steamworks Struct**: N / A
  *
- * This struct holds information on app and beta branches.
+ * This struct holds information on app and beta branches, as returned by ${function.steam_apps_get_num_betas}.
  *
  * @member {Real} total The total number of known app branches.
  * @member {Real} available The number of beta branches available to the current user.
@@ -8893,7 +8897,7 @@
  *
  * This struct holds details about an app beta branch.
  *
- * @member {Bool} ok `true` is passed in branch index is valid; `false` otherwise.
+ * @member {Bool} ok `true` if passed in branch index is valid; `false` otherwise.
  * @member {Real} flags Set of flags (${Enum.SteamBetaBranchFlags}) describing current branch state.
  * @member {Real} build_id Content BuildID set live on this branch.
  * @member {String} beta_name Beta branch name.
@@ -9042,27 +9046,27 @@
 
 /**
  * @struct SteamNetworkingIdentity
- * @description > **Steamworks Struct**: [func](url)
+ * @description > **Steamworks Struct**: [SteamNetworkingIdentity](https://partner.steamgames.com/doc/api/steamnetworkingtypes#SteamNetworkingIdentity)
  *
- * This struct 
+ * This struct represents the identity of a network host.
  *
- * @member {Enum.SteamNetworkingIdentityType} type
- * @member {Real} steam_id
- * @member {String} ip
- * @member {Real} port
- * @member {String} generic_string
- * @struct_end 
+ * @member {Enum.SteamNetworkingIdentityType} type The type of identity.
+ * @member {Real} steam_id The Steam ID associated with the identity.
+ * @member {String} ip The IP address of the identity.
+ * @member {Real} port The network port of the identity.
+ * @member {String} generic_string A generic string associated with the identity.
+ * @struct_end
  */
 
 /**
  * @struct SteamUserAuthSessionTicket
- * @description > **Steamworks Struct**: [func](url)
+ * @description > **Steamworks Struct**: N / A
  *
- * This struct 
+ * This struct holds the result of a call to ${function.steam_user_get_auth_session_ticket}.
  *
- * @member {Real} auth_ticket_handle
- * @member {Real} ticket_size
- * @struct_end 
+ * @member {Real} auth_ticket_handle The auth ticket handle.
+ * @member {Real} ticket_size The size of the ticket as written to the buffer.
+ * @struct_end
  */
 
 /**
@@ -9074,19 +9078,19 @@
  * @member {Enum.SteamApiVoiceResult} result The result of the request.
  * @member {Real} compressed_bytes The size of the available voice data in bytes.
  * @member {Real} uncompressed_bytes Deprecated.
- * @struct_end 
+ * @struct_end
  */
 
 /**
  * @struct SteamUserGetVoiceResult
- * @description > **Steamworks Struct**: [func](url)
+ * @description > **Steamworks Struct**: N / A
  *
- * This struct 
+ * This struct holds the result of a call to ${function.steam_user_get_voice}.
  *
- * @member {Enum.SteamApiVoiceResult} result
- * @member {Real} written_compressed
- * @member {Real} written_uncompressed
- * @struct_end 
+ * @member {Enum.SteamApiVoiceResult} result The result of the call.
+ * @member {Real} written_compressed The number of bytes written into the buffer passed to the function.
+ * @member {Real} written_uncompressed The number of bytes uncompressed.
+ * @struct_end
  */
 
 /**
@@ -9115,21 +9119,21 @@
  * @struct SteamUserEncryptedAppTicket
  * @description > **Steamworks Struct**: N / A
  *
- * This struct 
+ * This struct holds the result of a call to ${function.steam_user_get_encrypted_app_ticket}.
  *
- * @member {Bool} ok
- * @member {Real} ticket_size
+ * @member {Bool} ok `true` if the call successfully returned an app ticket into the buffer. `false` if not successful.
+ * @member {Real} ticket_size The number of bytes copied into the buffer.
  * @struct_end 
  */
 
 /**
  * @struct SteamUserSteamServersConnected
- * @description > **Steamworks Struct**: [func](url)
+ * @description > **Steamworks Struct**: [ISteamUser::SteamServersConnected_t](https://partner.steamgames.com/doc/api/ISteamUser#SteamServersConnected_t)
  *
- * This struct 
+ * This struct is received in a `ISteamUser::SteamServersConnected_t` callback.
  *
  * @member {Real} dummy
- * @struct_end 
+ * @struct_end
  */
 
 /**
@@ -9169,35 +9173,35 @@
 
 /**
  * @struct SteamUserLicensesUpdated
- * @description > **Steamworks Struct**: [func](url)
+ * @description > **Steamworks Struct**: [ISteamUser::LicensesUpdated_t](https://partner.steamgames.com/doc/api/ISteamUser#LicensesUpdated_t)
  *
- * This struct 
+ * This struct holds information passed in a `ISteamUser::LicensesUpdated_t` callback.
  *
  * @member {Real} dummy
- * @struct_end 
+ * @struct_end
  */
 
 /**
  * @struct SteamUserMicroTxnAuthorizationResponse
- * @description > **Steamworks Struct**: [func](url)
+ * @description > **Steamworks Struct**: [ISteamUser::MicroTxnAuthorizationResponse_t](partner.steamgames.com/doc/api/ISteamUser#MicroTxnAuthorizationResponse_t)
  *
- * This struct 
+ * This struct holds information passed in a `ISteamUser::MicroTxnAuthorizationResponse_t` callback, which is called when a user has responded to a microtransaction authorization request.
  *
- * @member {Real} app_id
- * @member {Real} order_id
- * @member {Bool} authorized
- * @struct_end 
+ * @member {Real} app_id App ID for this microtransaction.
+ * @member {Real} order_id Order ID provided for the microtransaction.
+ * @member {Bool} authorized Did the user authorise the transaction (`true`) or not (`false`)?
+ * @struct_end
  */
 
 /**
  * @struct SteamUtilsApiCallResult
- * @description > **Steamworks Struct**: [func](url)
+ * @description > **Steamworks Struct**: [ISteamUtils::GetAPICallResult](https://partner.steamgames.com/doc/api/ISteamUtils#GetAPICallResult)
  *
- * This struct 
+ * This struct holds information returned by ${function.steam_utils_get_api_call_result}.
  *
- * @member {Bool} ok
- * @member {Bool} failed
- * @struct_end 
+ * @member {Bool} ok `true` upon success if the API Call is valid and has completed, otherwise `false`.
+ * @member {Bool} failed Set to `true` if the API call has encountered a failure.
+ * @struct_end
  */
 
 /**
@@ -9207,29 +9211,29 @@
  * This struct holds information on a file signature check started by ${function.steam_utils_check_file_signature}.
  *
  * @member {Real} result The result of the file signature check (an `ECheckFileSignature` value).
- * @struct_end 
+ * @struct_end
  */
 
 /**
  * @struct SteamUtilsLowBatteryPower
- * @description > **Steamworks Struct**: [func](url)
+ * @description > **Steamworks Struct**: [ISteamUtils::LowBatteryPower_t](partner.steamgames.com/doc/api/ISteamUtils#LowBatteryPower_t)
  *
- * This struct 
+ * This struct holds information about the battery power left.
  *
- * @member {Real} minutes_battery_left
- * @struct_end 
+ * @member {Real} minutes_battery_left The estimated amount of battery life left in minutes.
+ * @struct_end
  */
 
 /**
  * @struct SteamUtilsSteamApiCallCompleted
- * @description > **Steamworks Struct**: [func](url)
+ * @description > **Steamworks Struct**: [ISteamUtils::SteamAPICallCompleted_t](partner.steamgames.com/doc/api/ISteamUtils#SteamAPICallCompleted_t)
  *
- * This struct 
+ * This struct holds information passed in a `ISteamUtils::SteamAPICallCompleted_t` callback.
  *
- * @member {Real} async_call
- * @member {Real} callback_id
- * @member {Real} param_size
- * @struct_end 
+ * @member {Real} async_call The handle of the Steam API Call that completed.
+ * @member {Real} callback_id The k_iCallback constant which uniquely identifies the completed callback.
+ * @member {Real} param_size The size in bytes of the completed callback.
+ * @struct_end
  */
 
 /**
@@ -9246,117 +9250,117 @@
 
 /**
  * @struct SteamUtilsGamepadTextInput
- * @description > **Steamworks Struct**: [func](url)
+ * @description > **Steamworks Struct**: N / A
  *
- * This struct 
+ * This struct holds the information returned by ${function.steam_utils_get_entered_gamepad_text_input}.
  *
- * @member {Bool} ok
- * @member {String} text
- * @struct_end 
+ * @member {Bool} ok `true` if there was text to receive, `false` otherwise.
+ * @member {String} text The gamepad text input from the Big Picture overlay.
+ * @struct_end
  */
 
 /**
  * @struct SteamUtilsImageSize
- * @description > **Steamworks Struct**: [func](url)
+ * @description > **Steamworks Struct**: N / A
  *
- * This struct 
+ * This struct holds the information returned by ${function.steam_utils_get_image_size}.
  *
- * @member {Bool} ok
- * @member {Real} width
- * @member {Real} height
- * @struct_end 
+ * @member {Bool} ok `true` upon success if the image handle is valid and the sizes were filled out, otherwise `false`.
+ * @member {Real} width The width of the image.
+ * @member {Real} height The height of the image.
+ * @struct_end
  */
 
 /**
  * @struct SteamUtilsApiCallCompleted
- * @description > **Steamworks Struct**: [func](url)
+ * @description > **Steamworks Struct**: N / A
  *
- * This struct 
+ * This struct holds the information returned by ${function.steam_utils_is_api_call_completed}.
  *
- * @member {Bool} ok
- * @member {Bool} failed
- * @struct_end 
+ * @member {Bool} ok `true` if the API Call is valid and has completed, otherwise `false`.
+ * @member {Bool} failed Whether the API call has encountered a failure (`true`) or not (`false`).
+ * @struct_end
  */
 
 /**
  * @struct SteamUtilsFilterTextResult
- * @description > **Steamworks Struct**: [func](url)
+ * @description > **Steamworks Struct**: N / A
  *
- * This struct 
+ * This struct holds the information returned by ${function.steam_utils_filter_text}.
  *
- * @member {Bool} ok
- * @member {Real} characters_filtered
- * @member {String} filtered_text
- * @struct_end 
+ * @member {Bool} ok Whether the request was successful or not.
+ * @member {Real} characters_filtered The number of characters (not bytes) filtered.
+ * @member {String} filtered_text The filtered result.
+ * @struct_end
  */
 
 /**
  * @struct SteamUtilsGamepadTextInputDismissed
- * @description > **Steamworks Struct**: [func](url)
+ * @description > **Steamworks Struct**: [ISteamUtils::GamepadTextInputDismissed_t](https://partner.steamgames.com/doc/api/ISteamUtils#GamepadTextInputDismissed_t)
  *
- * This struct 
+ * This struct holds information returned in a `ISteamUtils::GamepadTextInputDismissed_t` callback, which is called when the Big Picture gamepad text input has been closed.
  *
- * @member {Bool} submitted
- * @member {Real} submitted_text_length
- * @struct_end 
+ * @member {Bool} submitted `true` if user entered & accepted text (Call ${function.steam_utils_get_entered_gamepad_text_input} to receive the text), `false` if input was canceled.
+ * @member {Real} submitted_text_length The length in bytes if there was text submitted.
+ * @struct_end
  */
 
 /**
  * @struct SteamUtilsFloatingGamepadTextInputDismissed
- * @description > **Steamworks Struct**: [func](url)
+ * @description > **Steamworks Struct**: [ISteamUtils::FloatingGamepadTextInputDismissed_t](partner.steamgames.com/doc/api/ISteamUtils#FloatingGamepadTextInputDismissed_t)
  *
- * This struct 
+ * This struct holds information returned in a `ISteamUtils::FloatingGamepadTextInputDismissed_t` callback, which is called when the floating keyboard invoked from ${function.steam_utils_show_floating_gamepad_text_input} has been closed.
  *
- * @member {Bool} submitted
- * @struct_end 
+ * @member {Bool} submitted `true` if user entered & accepted text.
+ * @struct_end
  */
 
 /**
  * @struct SteamUtilsWarningMessage
- * @description > **Steamworks Struct**: [func](url)
+ * @description > **Steamworks Struct**: N / A
  *
- * This struct 
+ * This struct holds information passed in a warning message callback.
  *
- * @member {Real} severity
- * @member {String} text
- * @struct_end 
+ * @member {Real} severity the severity; 0 for message, 1 for warning. If you are running in through a debugger only warnings will be sent. If you add `-debug_steamapi` to the command-line then informational messages will also be sent.
+ * @member {String} text The text of the message.
+ * @struct_end
  */
 
 /**
  * @struct SteamUgcItemDownloadInfo
- * @description > **Steamworks Struct**: [func](url)
+ * @description > **Steamworks Struct**: N / A
  *
- * This struct 
+ * This struct holds information returned by ${function.steam_ugc_get_item_download_info}.
  *
- * @member {Bool} ok
- * @member {Real} bytes_downloaded
- * @member {Real} bytes_total
- * @struct_end 
+ * @member {Bool} ok `true` if the download information was available; otherwise, `false`.
+ * @member {Real} bytes_downloaded the current bytes downloaded.
+ * @member {Real} bytes_total The total bytes. This is only valid after the download has started.
+ * @struct_end
  */
 
 /**
  * @struct SteamUgcItemInstallInfo
- * @description > **Steamworks Struct**: [func](url)
+ * @description > **Steamworks Struct**: N / A
  *
- * This struct 
+ * This struct hold information returned by ${function.steam_ugc_get_item_install_info}.
  *
- * @member {Bool} ok
- * @member {Real} size_on_disk
- * @member {String} folder
- * @member {Real} timestamp
- * @struct_end 
+ * @member {Bool} ok `true` if the workshop item is already installed. `false` if the folder is an empty string `""`, the workshop item has no content or the workshop item is not installed.
+ * @member {Real} size_on_disk The size of the workshop item in bytes.
+ * @member {String} folder The absolute path to the folder containing the content by copying it.
+ * @member {Real} timestamp The time when the workshop item was last updated.
+ * @struct_end
  */
 
 /**
  * @struct SteamUgcItemUpdateProgress
- * @description > **Steamworks Struct**: [func](url)
+ * @description > **Steamworks Struct**: N / A
  *
- * This struct 
+ * This struct holds the result of ${function.steam_ugc_get_item_update_progress}.
  *
- * @member {Real} status
- * @member {Real} bytes_processed
- * @member {Real} bytes_total
- * @struct_end 
+ * @member {Real} status The current status.
+ * @member {Real} bytes_processed The current number of bytes uploaded.
+ * @member {Real} bytes_total The total number of bytes that will be uploaded.
+ * @struct_end
  */
 
 /**
@@ -9380,69 +9384,71 @@
 
 /**
  * @struct SteamUgcQueryPreviewUrl
- * @description > **Steamworks Struct**: [func](url)
+ * @description > **Steamworks Struct**: N / A
  *
- * This struct 
+ * This struct holds information returned by ${function.steam_ugc_get_query_ugc_preview_url}.
  *
- * @member {Bool} ok
- * @member {String} url
- * @struct_end 
+ * @member {Bool} ok `true` upon success, indicates that the URL has been filled out. Otherwise, `false` if the UGC query handle is invalid or the index is out of bounds.
+ * @member {String} url The URL to the preview image of the workshop item.
+ * @struct_end
  */
 
 /**
  * @struct SteamUgcQueryMetadata
- * @description > **Steamworks Struct**: [func](url)
+ * @description > **Steamworks Struct**: N / A
  *
- * This struct 
+ * This struct holds information returned by ${function.steam_ugc_get_query_ugc_metadata}.
  *
- * @member {Bool} ok
- * @member {String} metadata
- * @struct_end 
+ * @member {Bool} ok `true` upon success, indicates that the metadata has been filled out. Otherwise, `false` if the UGC query handle is invalid or the index is out of bounds.
+ * @member {String} metadata The developer set metadata of the workshop item.
+ * @struct_end
  */
 
 /**
  * @struct SteamUgcAdditionalPreview
- * @description > **Steamworks Struct**: [func](url)
+ * @description > **Steamworks Struct**: N / A
  *
- * This struct 
+ * This struct holds information returned by ${function.steam_ugc_get_query_ugc_additional_preview}.
  *
- * @member {Bool} ok
- * @member {String} url_or_video_id
- * @member {Real} preview_type
- * @struct_end 
+ * @member {Bool} ok `true` upon success, `false` otherwise.
+ * @member {String} url_or_video_id The URL or Video ID of the additional preview.
+ * @member {Enum.SteamItemPreviewType} preview_type The type of preview that was returned.
+ * @struct_end
  */
 
 /**
  * @struct SteamUgcKeyValueTag
- * @description > **Steamworks Struct**: [func](url)
+ * @description > **Steamworks Struct**: N / A
  *
- * This struct 
+ * This struct holds a key-value tag returned by ${function.steam_ugc_get_query_ugc_key_value_tag}.
  *
- * @member {Bool} ok
- * @member {String} key
- * @member {String} value
- * @struct_end 
+ * @member {Bool} ok `true` upon success, indicates that `key` and `value` have been filled out. `false` otherwise.
+ * @member {String} key The key.
+ * @member {String} value The value.
+ * @struct_end
  */
 
 /**
  * @struct SteamUgcItemInstalled
- * @description > **Steamworks Struct**: [func](url)
+ * @description > **Steamworks Struct**: [ISteamUGC::ItemInstalled_t](partner.steamgames.com/doc/api/ISteamUGC#ItemInstalled_t)
  *
- * This struct 
+ * This struct holds information passed to a `ISteamUGC::ItemInstalled_t` callback, which is called when a workshop item has been installed or updated.
+ * 
+ * [[Note: This callback goes out to all running applications, ensure that the app ID associated with the item matches what you expect.]]
  *
- * @member {Real} app_id
- * @member {Real} published_file_id
- * @struct_end 
+ * @member {Real} app_id The app ID associated with the workshop item.
+ * @member {Real} published_file_id The workshop item that has finished installing. This can be used with ${function.steam_ugc_get_item_install_info} to access the information about the item.
+ * @struct_end
  */
 
 /**
  * @struct SteamUgcUserSubscribedItemsListChanged
- * @description > **Steamworks Struct**: [func](url)
+ * @description > **Steamworks Struct**: [ISteamUGC::UserSubscribedItemsListChanged_t](partner.steamgames.com/doc/api/ISteamUGC#UserSubscribedItemsListChanged_t)
  *
- * This struct 
+ * This struct holds information about when the user has added or removed an item to/from their subscriptions for the returned app ID.
  *
- * @member {Real} app_id
- * @struct_end 
+ * @member {Real} app_id The related app ID.
+ * @struct_end
  */
 
 /**
@@ -9528,14 +9534,14 @@
 
 /**
  * @struct SteamUgcFavoriteItemsListChanged
- * @description > **Steamworks Struct**: [func](url)
+ * @description > **Steamworks Struct**: [ISteamUGC::UserFavoriteItemsListChanged_t](https://partner.steamgames.com/doc/api/ISteamUGC#UserFavoriteItemsListChanged_t)
  *
- * This struct 
+ * This struct holds information received in a `ISteamUGC::UserFavoriteItemsListChanged_t` callback.
  *
- * @member {Real} result
- * @member {Real} published_file_id
- * @member {Bool} was_add_request
- * @struct_end 
+ * @member {Real} result The result of the operation.
+ * @member {Real} published_file_id The item which was added/removed.
+ * @member {Bool} was_add_request Was it added (`true`) or removed (`false`) from the user's favorites?
+ * @struct_end
  */
 
 /**
@@ -9613,89 +9619,91 @@
 
 /**
  * @struct SteamInputAnalogActionData
- * @description > **Steamworks Struct**: [func](url)
+ * @description > **Steamworks Struct**: [ISteamInput::InputAnalogActionData_t](https://partner.steamgames.com/doc/api/ISteamInput#InputAnalogActionData_t)
  *
- * This struct 
+ * This struct holds the current state of an analog action.
  *
- * @member {Real} mode
- * @member {Real} x
- * @member {Real} y
- * @member {Bool} active
- * @struct_end 
+ * @member {Enum.SteamInputControllerSourceMode} mode The type of data coming from this action, this will match what was specified in the action set's VDF definition.
+ * @member {Real} x The current state of this action on the horizontal axis.
+ * @member {Real} y The current state of this action vertical axis.
+ * @member {Bool} active Whether or not this action is currently available to be bound in the active action set. If it is not available, OR does not belong to the active action set, this will be `false`.
+ * @struct_end
  */
 
 /**
  * @struct SteamInputDigitalActionData
- * @description > **Steamworks Struct**: [func](url)
+ * @description > **Steamworks Struct**: [ISteamInput:InputDigitalActionData_t](partner.steamgames.com/doc/api/ISteamInput#InputDigitalActionData_t)
  *
- * This struct 
+ * This struct holds the current state of a digital action.
  *
- * @member {Bool} state
- * @member {Bool} active
- * @struct_end 
+ * @member {Bool} state The current state of this action; `true` if the action is currently pressed, otherwise `false`.
+ * @member {Bool} active Whether or not this action is currently available to be bound in the active action set.
+ * @struct_end
  */
 
 /**
  * @struct SteamInputMotionData
- * @description > **Steamworks Struct**: [func](url)
+ * @description > **Steamworks Struct**: [ISteamInput::InputMotionData_t](partner.steamgames.com/doc/api/ISteamInput#InputMotionData_t)
  *
- * This struct 
+ * This struct holds the current state of a device's motion sensor(s).
  *
- * @member {Real} rot_quat_x
- * @member {Real} rot_quat_y
- * @member {Real} rot_quat_z
- * @member {Real} rot_quat_w
- * @member {Real} pos_accel_x
- * @member {Real} pos_accel_y
- * @member {Real} pos_accel_z
- * @member {Real} rot_vel_x
- * @member {Real} rot_vel_y
- * @member {Real} rot_vel_z
- * @struct_end 
+ * @member {Real} rot_quat_x Sensor-fused absolute rotation (will drift in heading), x axis.
+ * @member {Real} rot_quat_y Sensor-fused absolute rotation (will drift in heading), y axis.
+ * @member {Real} rot_quat_z Sensor-fused absolute rotation (will drift in heading), z axis.
+ * @member {Real} rot_quat_w Sensor-fused absolute rotation (will drift in heading), w axis.
+ * @member {Real} pos_accel_x Positional acceleration, x axis.
+ * @member {Real} pos_accel_y Positional acceleration, y axis.
+ * @member {Real} pos_accel_z Positional acceleration, z axis.
+ * @member {Real} rot_vel_x Angular velocity, x axis.
+ * @member {Real} rot_vel_y Angular velocity, y axis.
+ * @member {Real} rot_vel_z Angular velocity, z axis.
+ * @struct_end
  */
 
 /**
  * @struct SteamInputActiveActionSetLayers
- * @description > **Steamworks Struct**: [func](url)
+ * @description > **Steamworks Struct**: N / A
  *
- * This struct 
+ * This struct holds the information returned by ${function.steam_input_get_active_action_set_layers}.
  *
- * @member {Real} count
- * @member {Array[Real]} handles
- * @struct_end 
+ * @member {Real} count The number of handles returned.
+ * @member {Array[Real]} handles An array holding all input handles.
+ * @struct_end
  */
 
 /**
  * @struct SteamInputActionOrigins
- * @description > **Steamworks Struct**: [func](url)
+ * @description > **Steamworks Struct**: N / A
  *
- * This struct 
+ * This struct holds the information returned by ${function.steam_input_get_analog_action_origins} and ${function.steam_input_get_digital_action_origins}.
  *
- * @member {Real} count
- * @member {Array[Real]} origins
- * @struct_end 
+ * @member {Real} count The number of origins returned.
+ * @member {Array[Enum.SteamInputActionOrigin]} origins An array of action origins.
+ * @struct_end
  */
 
 /**
  * @struct SteamInputDeviceBindingRevision
- * @description > **Steamworks Struct**: [func](url)
+ * @description > **Steamworks Struct**: N / A
  *
- * This struct 
+ * This struct holds the information returned by ${function.steam_input_get_device_binding_revision}.
  *
- * @member {Bool} ok
- * @member {Real} major
- * @member {Real} minor
- * @struct_end 
+ * @member {Bool} ok `true` if a device binding was successfully found and `false` if the binding is still loading.
+ * @member {Real} major Major binding revision.
+ * @member {Real} minor Minor binding revision.
+ * @struct_end
  */
 
 /**
  * @struct SteamInputDeviceEvent
- * @description > **Steamworks Struct**: [func](url)
+ * @description > **Steamworks Struct**: N / A
  *
- * This struct 
+ * This struct holds the handle of the controller that connected (in device connected callback) or disconnected (in device disconnected callback).
+ * 
+ * See: ${function.steam_input_run_frame}, ${function.steam_input_set_callback_device_connected}, ${function.steam_input_set_callback_device_disconnected}
  *
- * @member {Real} controller_handle
- * @struct_end 
+ * @member {Real} controller_handle The controller handle.
+ * @struct_end
  */
 
 /**
@@ -9722,13 +9730,13 @@
 
 /**
  * @struct SteamUserStatsAchievementAndUnlockTime
- * @description > **Steamworks Struct**: [func](url)
+ * @description > **Steamworks Struct**: N / A
  *
- * This struct 
+ * This struct holds information about an achievement's status and unlock time.
  *
- * @member {Bool} achieved
- * @member {Real} unlock_time
- * @struct_end 
+ * @member {Bool} achieved Whether the current user has unlocked the achievement.
+ * @member {Real} unlock_time The time that the achievement was unlocked; if `achieved` is `true`.
+ * @struct_end
  */
 
 /**
@@ -9756,15 +9764,15 @@
 
 /**
  * @struct SteamUserStatsMostAchievedAchievementInfo
- * @description > **Steamworks Struct**: [func](url)
+ * @description > **Steamworks Struct**: N / A
  *
- * This struct 
+ * This struct holds info on the most achieved achievement for the game.
  *
- * @member {Bool} ok
- * @member {String} name
- * @member {Real} percent
- * @member {Bool} achieved
- * @struct_end 
+ * @member {Bool} ok Whether the info could be successfully retrieved.
+ * @member {String} name The 'API Name' of the achievement.
+ * @member {Real} percent The percentage of people that have unlocked this achievement from 0 to 100.
+ * @member {Bool} achieved Whether the current user has unlocked this achievement.
+ * @struct_end
  */
 
 /**
@@ -9873,14 +9881,14 @@
 
 /**
  * @struct SteamUserStatsRequestUserStatsResult
- * @description > **Steamworks Struct**: [func](url)
+ * @description > **Steamworks Struct**: [ISteamUserStats::UserStatsReceived_t](https://partner.steamgames.com/doc/api/ISteamUserStats#UserStatsReceived_t)
  *
  * This struct 
  *
- * @member {Real} game_id
- * @member {Real} steam_id_user
- * @member {Real} result
- * @struct_end 
+ * @member {Real} game_id 
+ * @member {Real} steam_id_user 
+ * @member {Real} result 
+ * @struct_end
  */
 
 /**
@@ -9980,12 +9988,12 @@
 
 /**
  * @struct SteamUserStatsUserStatsStored
- * @description > **Steamworks Struct**: [func](url)
+ * @description > **Steamworks Struct**: [ISteamUserStats::UserStatsStored_t](partner.steamgames.com/doc/api/ISteamUserStats#UserStatsStored_t)
  *
- * This struct 
+ * This struct holds the result of a request to store the user stats.
  *
- * @member {Real} game_id
- * @member {Real} result
+ * @member {Real} game_id Game ID that these stats are for.
+ * @member {Real} result Returns whether the call was successful or not.
  * @struct_end 
  */
 
