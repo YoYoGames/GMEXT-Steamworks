@@ -330,13 +330,13 @@ steam_ugc_get_item_install_info(std::uint64_t published_file_id)
     return out;
 }
 
-std::uint32_t steam_ugc_get_item_state(std::uint64_t published_file_id)
+gm_enums::SteamUgcItemState steam_ugc_get_item_state(std::uint64_t published_file_id)
 {
-    STEAM_GUARD_RET(0);
+    STEAM_GUARD_RET((gm_enums::SteamUgcItemState)0);
     ISteamUGC* ugc = steam_ugc_iface();
     if (!ugc)
-        return 0;
-    return (std::uint32_t)ugc->GetItemState(pubid_from_u64(published_file_id));
+        return (gm_enums::SteamUgcItemState)0;
+    return static_cast<gm_enums::SteamUgcItemState>((int)ugc->GetItemState(pubid_from_u64(published_file_id)));
 }
 
 gm_structs::SteamUgcItemUpdateProgress steam_ugc_get_item_update_progress(std::uint64_t update_handle)
@@ -344,7 +344,7 @@ gm_structs::SteamUgcItemUpdateProgress steam_ugc_get_item_update_progress(std::u
     STEAM_GUARD_RET({});
 
     gm_structs::SteamUgcItemUpdateProgress out {};
-    out.status = 0;
+    out.status = (gm_enums::SteamUgcItemUpdateStatus)0;
     out.bytes_processed = 0;
     out.bytes_total = 0;
 
@@ -355,7 +355,7 @@ gm_structs::SteamUgcItemUpdateProgress steam_ugc_get_item_update_progress(std::u
     uint64 processed = 0, total = 0;
     EItemUpdateStatus st = ugc->GetItemUpdateProgress(uh_from_u64(update_handle), &processed, &total);
 
-    out.status = (int32)st;
+    out.status = static_cast<gm_enums::SteamUgcItemUpdateStatus>((int)st);
     out.bytes_processed = (std::uint64_t)processed;
     out.bytes_total = (std::uint64_t)total;
     return out;
@@ -536,7 +536,7 @@ gm_structs::SteamUgcAdditionalPreview steam_ugc_get_query_ugc_additional_preview
     gm_structs::SteamUgcAdditionalPreview out {};
     out.ok = false;
     out.url_or_video_id = "";
-    out.preview_type = 0;
+    out.preview_type = (gm_enums::SteamItemPreviewType)0;
 
     ISteamUGC* ugc = steam_ugc_iface();
     if (!ugc)
@@ -563,7 +563,40 @@ gm_structs::SteamUgcAdditionalPreview steam_ugc_get_query_ugc_additional_preview
     out.ok = ok;
     if (ok) {
         out.url_or_video_id = url;
-        out.preview_type = (int32)type;
+        out.preview_type = static_cast<gm_enums::SteamItemPreviewType>((int)type);
+    }
+    return out;
+}
+
+gm_structs::SteamUgcSupportedGameVersionData steam_ugc_get_supported_game_version_data(std::uint64_t query_handle, std::uint32_t index, std::uint32_t version_index)
+{
+    STEAM_GUARD_RET({});
+
+    gm_structs::SteamUgcSupportedGameVersionData out {};
+    out.ok = false;
+    out.game_branch_min = "";
+    out.game_branch_max = "";
+
+    ISteamUGC* ugc = steam_ugc_iface();
+    if (!ugc)
+        return out;
+
+    char branch_min[256] = {};
+    char branch_max[256] = {};
+
+    bool ok = ugc->GetSupportedGameVersionData(
+                qh_from_u64(query_handle),
+                index,
+                version_index,
+                branch_min,
+                branch_max,
+                (uint32)sizeof(branch_min)
+            );
+
+    out.ok = ok;
+    if (ok) {
+        out.game_branch_min = branch_min;
+        out.game_branch_max = branch_max;
     }
     return out;
 }
@@ -608,14 +641,14 @@ gm_structs::SteamUgcKeyValueTag steam_ugc_get_query_ugc_key_value_tag(
     return out;
 }
 
-std::vector<std::int32_t> steam_ugc_get_query_ugc_content_descriptors(
+std::vector<gm_enums::SteamUgcContentDescriptorId> steam_ugc_get_query_ugc_content_descriptors(
     std::uint64_t query_handle,
     std::uint32_t index,
     std::uint32_t max_descriptors)
 {
     STEAM_GUARD_RET({});
 
-    std::vector<std::int32_t> out;
+    std::vector<gm_enums::SteamUgcContentDescriptorId> out;
 
     ISteamUGC* ugc = steam_ugc_iface();
     if (!ugc) return out;
@@ -639,7 +672,7 @@ std::vector<std::int32_t> steam_ugc_get_query_ugc_content_descriptors(
     const uint32 copy = (n < (uint32)tmp.size()) ? n : (uint32)tmp.size();
     out.reserve((size_t)copy);
     for (uint32 i = 0; i < copy; ++i)
-        out.push_back((std::int32_t)tmp[(size_t)i]);
+        out.push_back(static_cast<gm_enums::SteamUgcContentDescriptorId>((int)tmp[(size_t)i]));
 
     return out;
 }
@@ -779,7 +812,7 @@ static inline gm_structs::SteamUgcDownloadItemResult ugc_fromNative(const Downlo
     gm_structs::SteamUgcDownloadItemResult out{};
     out.app_id = (std::uint32_t)e.m_unAppID;
     out.published_file_id = (std::uint64_t)e.m_nPublishedFileId;
-    out.result = (std::int32_t)e.m_eResult;
+    out.result = (gm_enums::SteamApiResult)e.m_eResult;
     return out;
 }
 
@@ -1156,7 +1189,7 @@ static inline gm_structs::SteamUgcQueryCompleted ugc_fromNative(const SteamUGCQu
 {
     gm_structs::SteamUgcQueryCompleted out{};
     out.query_handle = (std::uint64_t)e.m_handle;
-    out.result = (int32)e.m_eResult;
+    out.result = (gm_enums::SteamApiResult)e.m_eResult;
     out.num_results_returned = (std::uint32_t)e.m_unNumResultsReturned;
     out.total_matching_results = (std::uint32_t)e.m_unTotalMatchingResults;
     out.cached_data = (e.m_bCachedData != 0);
@@ -1166,7 +1199,7 @@ static inline gm_structs::SteamUgcQueryCompleted ugc_fromNative(const SteamUGCQu
 static inline gm_structs::SteamUgcCreateItemResult ugc_fromNative(const CreateItemResult_t& e)
 {
     gm_structs::SteamUgcCreateItemResult out{};
-    out.result = (int32)e.m_eResult;
+    out.result = (gm_enums::SteamApiResult)e.m_eResult;
     out.published_file_id = (std::uint64_t)e.m_nPublishedFileId;
     out.legal_agreement_required = (e.m_bUserNeedsToAcceptWorkshopLegalAgreement != 0);
     return out;
@@ -1175,7 +1208,7 @@ static inline gm_structs::SteamUgcCreateItemResult ugc_fromNative(const CreateIt
 static inline gm_structs::SteamUgcSubmitItemUpdateResult ugc_fromNative(const SubmitItemUpdateResult_t& e)
 {
     gm_structs::SteamUgcSubmitItemUpdateResult out{};
-    out.result = (int32)e.m_eResult;
+    out.result = (gm_enums::SteamApiResult)e.m_eResult;
     out.legal_agreement_required = (e.m_bUserNeedsToAcceptWorkshopLegalAgreement != 0);
     return out;
 }
@@ -1199,7 +1232,7 @@ static inline gm_structs::SteamUgcUnsubscribeItemResult ugc_fromNative(const Rem
 static inline gm_structs::SteamUgcFavoriteItemsListChanged ugc_fromNative(const UserFavoriteItemsListChanged_t& e)
 {
     gm_structs::SteamUgcFavoriteItemsListChanged out{};
-    out.result = (int32)e.m_eResult;
+    out.result = (gm_enums::SteamApiResult)e.m_eResult;
     out.published_file_id = (std::uint64_t)e.m_nPublishedFileId;
     out.was_add_request = (e.m_bWasAddRequest != 0);
     return out;
@@ -1208,7 +1241,7 @@ static inline gm_structs::SteamUgcFavoriteItemsListChanged ugc_fromNative(const 
 static inline gm_structs::SteamUgcSetUserItemVoteResult ugc_fromNative(const SetUserItemVoteResult_t& e)
 {
     gm_structs::SteamUgcSetUserItemVoteResult out{};
-    out.result = (int32)e.m_eResult;
+    out.result = (gm_enums::SteamApiResult)e.m_eResult;
     out.published_file_id = (std::uint64_t)e.m_nPublishedFileId;
     out.vote_up = (e.m_bVoteUp != 0);
     return out;
@@ -1237,7 +1270,7 @@ static inline gm_structs::SteamUgcRequestItemDetailsResult ugc_fromNative(const 
 static inline gm_structs::SteamUgcDeleteItemResult ugc_fromNative(const DeleteItemResult_t& e)
 {
     gm_structs::SteamUgcDeleteItemResult out{};
-    out.result = (int32)e.m_eResult;
+    out.result = (gm_enums::SteamApiResult)e.m_eResult;
     out.published_file_id = (std::uint64_t)e.m_nPublishedFileId;
     return out;
 }

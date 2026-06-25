@@ -129,7 +129,6 @@
     {"name":"rm_steam_social","order":4,"path":"rooms/rm_steam_social/rm_steam_social.yy",},
     {"name":"rm_steam_ugc","order":7,"path":"rooms/rm_steam_ugc/rm_steam_ugc.yy",},
     {"name":"ExtensionCore_api","order":1,"path":"scripts/ExtensionCore_api/ExtensionCore_api.yy",},
-    {"name":"Steamworks_API_Ext","order":9,"path":"scripts/Steamworks_API_Ext/Steamworks_API_Ext.yy",},
     {"name":"Steamworks_API","order":8,"path":"scripts/Steamworks_API/Steamworks_API.yy",},
     {"name":"spr_gm_background","order":3,"path":"sprites/spr_gm_background/spr_gm_background.yy",},
     {"name":"spr_gm_background1","order":5,"path":"sprites/spr_gm_background1/spr_gm_background1.yy",},

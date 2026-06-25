@@ -1887,6 +1887,23 @@ GMEXPORT double __EXT_NATIVE__steam_user_clear_callback_microtxn_authorization_r
     return 0;
 }
 
+GMEXPORT double __EXT_NATIVE__steam_user_set_callback_get_auth_session_ticket_response(char* __arg_buffer, double __arg_buffer_length)
+{
+    gm::byteio::BufferReader __br{__arg_buffer, static_cast<size_t>(__arg_buffer_length)};
+
+    // field: callback, type: Function
+    gm::wire::GMFunction callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
+
+    steam_user_set_callback_get_auth_session_ticket_response(callback);
+    return 0;
+}
+
+GMEXPORT double __EXT_NATIVE__steam_user_clear_callback_get_auth_session_ticket_response()
+{
+    steam_user_clear_callback_get_auth_session_ticket_response();
+    return 0;
+}
+
 GMEXPORT double __EXT_NATIVE__steam_utils_overlay_needs_present()
 {
     auto&& __result = steam_utils_overlay_needs_present();
@@ -2711,7 +2728,7 @@ GMEXPORT double __EXT_NATIVE__steam_ugc_get_item_install_info(char* __arg_buffer
     return 0;
 }
 
-GMEXPORT double __EXT_NATIVE__steam_ugc_get_item_state(char* __arg_buffer, double __arg_buffer_length)
+GMEXPORT double __EXT_NATIVE__steam_ugc_get_item_state(char* __arg_buffer, double __arg_buffer_length, char* __ret_buffer, double __ret_buffer_length)
 {
     gm::byteio::BufferReader __br{__arg_buffer, static_cast<size_t>(__arg_buffer_length)};
 
@@ -2719,7 +2736,11 @@ GMEXPORT double __EXT_NATIVE__steam_ugc_get_item_state(char* __arg_buffer, doubl
     std::uint64_t published_file_id = gm::wire::codec::readValue<std::uint64_t>(__br);
 
     auto&& __result = steam_ugc_get_item_state(published_file_id);
-    return static_cast<double>(__result);
+    gm::byteio::BufferWriter __bw{__ret_buffer, static_cast<size_t>(__ret_buffer_length)};
+
+    // return: __result, type: enum SteamUgcItemState
+    gm::wire::codec::writeValue(__bw, __result);
+    return 0;
 }
 
 GMEXPORT double __EXT_NATIVE__steam_ugc_get_item_update_progress(char* __arg_buffer, double __arg_buffer_length, char* __ret_buffer, double __ret_buffer_length)
@@ -2887,6 +2908,27 @@ GMEXPORT double __EXT_NATIVE__steam_ugc_get_query_ugc_additional_preview(char* _
     return 0;
 }
 
+GMEXPORT double __EXT_NATIVE__steam_ugc_get_supported_game_version_data(char* __arg_buffer, double __arg_buffer_length, char* __ret_buffer, double __ret_buffer_length)
+{
+    gm::byteio::BufferReader __br{__arg_buffer, static_cast<size_t>(__arg_buffer_length)};
+
+    // field: query_handle, type: UInt64
+    std::uint64_t query_handle = gm::wire::codec::readValue<std::uint64_t>(__br);
+
+    // field: index, type: UInt32
+    std::uint32_t index = gm::wire::codec::readValue<std::uint32_t>(__br);
+
+    // field: version_index, type: UInt32
+    std::uint32_t version_index = gm::wire::codec::readValue<std::uint32_t>(__br);
+
+    auto&& __result = steam_ugc_get_supported_game_version_data(query_handle, index, version_index);
+    gm::byteio::BufferWriter __bw{__ret_buffer, static_cast<size_t>(__ret_buffer_length)};
+
+    // return: __result, type: struct SteamUgcSupportedGameVersionData
+    gm::wire::codec::writeValue(__bw, __result);
+    return 0;
+}
+
 GMEXPORT double __EXT_NATIVE__steam_ugc_get_query_ugc_num_key_value_tags(char* __arg_buffer, double __arg_buffer_length)
 {
     gm::byteio::BufferReader __br{__arg_buffer, static_cast<size_t>(__arg_buffer_length)};
@@ -2938,7 +2980,7 @@ GMEXPORT double __EXT_NATIVE__steam_ugc_get_query_ugc_content_descriptors(char* 
     auto&& __result = steam_ugc_get_query_ugc_content_descriptors(query_handle, index, max_descriptors);
     gm::byteio::BufferWriter __bw{__ret_buffer, static_cast<size_t>(__ret_buffer_length)};
 
-    // return: __result, type: Int32[]
+    // return: __result, type: enum SteamUgcContentDescriptorId[]
     gm::wire::codec::writeValue(__bw, __result);
     return 0;
 }
@@ -4018,7 +4060,7 @@ GMEXPORT double __EXT_NATIVE__steam_input_get_gamepad_index_for_controller(char*
     return static_cast<double>(__result);
 }
 
-GMEXPORT double __EXT_NATIVE__steam_input_get_input_type_for_handle(char* __arg_buffer, double __arg_buffer_length)
+GMEXPORT double __EXT_NATIVE__steam_input_get_input_type_for_handle(char* __arg_buffer, double __arg_buffer_length, char* __ret_buffer, double __ret_buffer_length)
 {
     gm::byteio::BufferReader __br{__arg_buffer, static_cast<size_t>(__arg_buffer_length)};
 
@@ -4026,7 +4068,11 @@ GMEXPORT double __EXT_NATIVE__steam_input_get_input_type_for_handle(char* __arg_
     std::uint64_t input_handle = gm::wire::codec::readValue<std::uint64_t>(__br);
 
     auto&& __result = steam_input_get_input_type_for_handle(input_handle);
-    return static_cast<double>(__result);
+    gm::byteio::BufferWriter __bw{__ret_buffer, static_cast<size_t>(__ret_buffer_length)};
+
+    // return: __result, type: enum SteamInputType
+    gm::wire::codec::writeValue(__bw, __result);
+    return 0;
 }
 
 GMEXPORT double __EXT_NATIVE__steam_input_get_motion_data(char* __arg_buffer, double __arg_buffer_length, char* __ret_buffer, double __ret_buffer_length)
@@ -4044,10 +4090,15 @@ GMEXPORT double __EXT_NATIVE__steam_input_get_motion_data(char* __arg_buffer, do
     return 0;
 }
 
-GMEXPORT char* __EXT_NATIVE__steam_input_get_string_for_action_origin(double origin)
+GMEXPORT char* __EXT_NATIVE__steam_input_get_string_for_action_origin(char* __arg_buffer, double __arg_buffer_length)
 {
+    gm::byteio::BufferReader __br{__arg_buffer, static_cast<size_t>(__arg_buffer_length)};
+
+    // field: origin, type: enum SteamInputActionOrigin
+    gm_enums::SteamInputActionOrigin origin = gm::wire::codec::readValue<gm_enums::SteamInputActionOrigin>(__br);
+
     static std::string __result;
-    __result = steam_input_get_string_for_action_origin(static_cast<std::int32_t>(origin));
+    __result = steam_input_get_string_for_action_origin(origin);
     return (char*)__result.c_str();
 }
 
@@ -4177,24 +4228,40 @@ GMEXPORT double __EXT_NATIVE__steam_input_trigger_vibration_extended(char* __arg
     return 0;
 }
 
-GMEXPORT double __EXT_NATIVE__steam_input_get_action_origin_from_xbox_origin(char* __arg_buffer, double __arg_buffer_length)
+GMEXPORT double __EXT_NATIVE__steam_input_get_action_origin_from_xbox_origin(char* __arg_buffer, double __arg_buffer_length, char* __ret_buffer, double __ret_buffer_length)
 {
     gm::byteio::BufferReader __br{__arg_buffer, static_cast<size_t>(__arg_buffer_length)};
 
     // field: input_handle, type: UInt64
     std::uint64_t input_handle = gm::wire::codec::readValue<std::uint64_t>(__br);
 
-    // field: origin, type: Int32
-    std::int32_t origin = gm::wire::codec::readValue<std::int32_t>(__br);
+    // field: origin, type: enum SteamXboxOrigin
+    gm_enums::SteamXboxOrigin origin = gm::wire::codec::readValue<gm_enums::SteamXboxOrigin>(__br);
 
     auto&& __result = steam_input_get_action_origin_from_xbox_origin(input_handle, origin);
-    return static_cast<double>(__result);
+    gm::byteio::BufferWriter __bw{__ret_buffer, static_cast<size_t>(__ret_buffer_length)};
+
+    // return: __result, type: enum SteamInputActionOrigin
+    gm::wire::codec::writeValue(__bw, __result);
+    return 0;
 }
 
-GMEXPORT double __EXT_NATIVE__steam_input_translate_action_origin(double destination_input_type, double source_origin)
+GMEXPORT double __EXT_NATIVE__steam_input_translate_action_origin(char* __arg_buffer, double __arg_buffer_length, char* __ret_buffer, double __ret_buffer_length)
 {
-    auto&& __result = steam_input_translate_action_origin(static_cast<std::int32_t>(destination_input_type), static_cast<std::int32_t>(source_origin));
-    return static_cast<double>(__result);
+    gm::byteio::BufferReader __br{__arg_buffer, static_cast<size_t>(__arg_buffer_length)};
+
+    // field: destination_input_type, type: enum SteamInputType
+    gm_enums::SteamInputType destination_input_type = gm::wire::codec::readValue<gm_enums::SteamInputType>(__br);
+
+    // field: source_origin, type: enum SteamInputActionOrigin
+    gm_enums::SteamInputActionOrigin source_origin = gm::wire::codec::readValue<gm_enums::SteamInputActionOrigin>(__br);
+
+    auto&& __result = steam_input_translate_action_origin(destination_input_type, source_origin);
+    gm::byteio::BufferWriter __bw{__ret_buffer, static_cast<size_t>(__ret_buffer_length)};
+
+    // return: __result, type: enum SteamInputActionOrigin
+    gm::wire::codec::writeValue(__bw, __result);
+    return 0;
 }
 
 GMEXPORT double __EXT_NATIVE__steam_input_get_device_binding_revision(char* __arg_buffer, double __arg_buffer_length, char* __ret_buffer, double __ret_buffer_length)
@@ -5973,6 +6040,31 @@ GMEXPORT double __EXT_NATIVE__steam_remote_storage_file_write(char* __arg_buffer
     return static_cast<double>(__result);
 }
 
+GMEXPORT double __EXT_NATIVE__steam_remote_storage_file_write_async(char* __arg_buffer, double __arg_buffer_length)
+{
+    gm::byteio::BufferReader __br{__arg_buffer, static_cast<size_t>(__arg_buffer_length)};
+
+    // field: file_name, type: String
+    std::string_view file_name = gm::wire::codec::readValue<std::string_view>(__br);
+
+    // field: data, type: Buffer
+    gm::wire::GMBuffer data = __buffer_queue.front();
+    __buffer_queue.pop();
+
+    // field: bytes, type: UInt32
+    std::uint32_t bytes = gm::wire::codec::readValue<std::uint32_t>(__br);
+
+    // field: callback, type: optional<Function>
+    std::optional<gm::wire::GMFunction> callback = std::nullopt;
+    if (gm::wire::codec::readValue<bool>(__br))
+    {
+        callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
+    }
+
+    steam_remote_storage_file_write_async(file_name, data, bytes, callback);
+    return 0;
+}
+
 GMEXPORT double __EXT_NATIVE__steam_remote_storage_file_read(char* __arg_buffer, double __arg_buffer_length)
 {
     gm::byteio::BufferReader __br{__arg_buffer, static_cast<size_t>(__arg_buffer_length)};
@@ -6906,6 +6998,20 @@ GMEXPORT double __EXT_NATIVE__steam_matchmaking_set_lobby_joinable(char* __arg_b
     return static_cast<double>(__result);
 }
 
+GMEXPORT double __EXT_NATIVE__steam_matchmaking_set_lobby_type(char* __arg_buffer, double __arg_buffer_length)
+{
+    gm::byteio::BufferReader __br{__arg_buffer, static_cast<size_t>(__arg_buffer_length)};
+
+    // field: steam_id_lobby, type: UInt64
+    std::uint64_t steam_id_lobby = gm::wire::codec::readValue<std::uint64_t>(__br);
+
+    // field: lobby_type, type: enum SteamMatchmakingLobbyType
+    gm_enums::SteamMatchmakingLobbyType lobby_type = gm::wire::codec::readValue<gm_enums::SteamMatchmakingLobbyType>(__br);
+
+    auto&& __result = steam_matchmaking_set_lobby_type(steam_id_lobby, lobby_type);
+    return static_cast<double>(__result);
+}
+
 GMEXPORT double __EXT_NATIVE__steam_matchmaking_invite_user_to_lobby(char* __arg_buffer, double __arg_buffer_length)
 {
     gm::byteio::BufferReader __br{__arg_buffer, static_cast<size_t>(__arg_buffer_length)};
@@ -7193,10 +7299,14 @@ GMEXPORT double __EXT_NATIVE__steam_networking_sockets_send_message_to_connectio
     return static_cast<double>(__result);
 }
 
-GMEXPORT double __EXT_NATIVE__steam_networking_sockets_flush_messages_on_connection(double conn)
+GMEXPORT double __EXT_NATIVE__steam_networking_sockets_flush_messages_on_connection(double conn, char* __ret_buffer, double __ret_buffer_length)
 {
     auto&& __result = steam_networking_sockets_flush_messages_on_connection(static_cast<std::uint32_t>(conn));
-    return static_cast<double>(__result);
+    gm::byteio::BufferWriter __bw{__ret_buffer, static_cast<size_t>(__ret_buffer_length)};
+
+    // return: __result, type: enum SteamApiResult
+    gm::wire::codec::writeValue(__bw, __result);
+    return 0;
 }
 
 GMEXPORT double __EXT_NATIVE__steam_networking_sockets_receive_one_on_connection(char* __arg_buffer, double __arg_buffer_length, char* __ret_buffer, double __ret_buffer_length)

@@ -827,7 +827,7 @@ bool steam_friends_set_rich_presence(std::string_view key, std::string_view valu
 static inline gm_structs::SteamFriendsGetFollowerCountResult friends_fromNative(const FriendsGetFollowerCount_t& e)
 {
     gm_structs::SteamFriendsGetFollowerCountResult out{};
-    out.result = (int32)e.m_eResult;
+    out.result = static_cast<gm_enums::SteamApiResult>((int)e.m_eResult);
     out.steam_id = (std::uint64_t)e.m_steamID.ConvertToUint64();
     out.count = (int32)e.m_nCount;
     return out;
@@ -836,7 +836,7 @@ static inline gm_structs::SteamFriendsGetFollowerCountResult friends_fromNative(
 static inline gm_structs::SteamFriendsIsFollowingResult friends_fromNative(const FriendsIsFollowing_t& e)
 {
     gm_structs::SteamFriendsIsFollowingResult out{};
-    out.result = (int32)e.m_eResult;
+    out.result = static_cast<gm_enums::SteamApiResult>((int)e.m_eResult);
     out.steam_id = (std::uint64_t)e.m_steamID.ConvertToUint64();
     out.is_following = (e.m_bIsFollowing != 0);
     return out;

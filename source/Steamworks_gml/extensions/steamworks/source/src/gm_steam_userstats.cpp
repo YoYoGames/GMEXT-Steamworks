@@ -749,7 +749,7 @@ static inline gm_structs::SteamUserStatsGlobalAchievementPercentagesReadyResult 
 {
     gm_structs::SteamUserStatsGlobalAchievementPercentagesReadyResult out{};
     out.game_id = (std::uint64_t)e.m_nGameID;
-    out.result = (int32)e.m_eResult;
+    out.result = (gm_enums::SteamApiResult)e.m_eResult;
     return out;
 }
 
@@ -999,7 +999,7 @@ static inline gm_structs::SteamUserStatsUserStatsReceived userstats_persist_from
     gm_structs::SteamUserStatsUserStatsReceived out{};
     out.game_id = (std::uint64_t)e.m_nGameID;
     out.steam_id_user = (std::uint64_t)e.m_steamIDUser.ConvertToUint64();
-    out.result = (int32)e.m_eResult;
+    out.result = (gm_enums::SteamApiResult)e.m_eResult;
     return out;
 }
 

@@ -155,7 +155,7 @@ void steam_matchmaking_clear_callback_lobby_invite() { steam_clear_last_error();
 static inline gm_structs::SteamMatchmakingLobbyCreated mm_fromNative(const LobbyCreated_t& e)
 {
     gm_structs::SteamMatchmakingLobbyCreated out{};
-    out.result = (std::int32_t)e.m_eResult;
+    out.result = static_cast<gm_enums::SteamApiResult>((int)e.m_eResult);
     out.lobby_id = (std::uint64_t)e.m_ulSteamIDLobby;
     return out;
 }
@@ -166,7 +166,7 @@ static inline gm_structs::SteamMatchmakingLobbyEnter mm_fromNative(const LobbyEn
     out.lobby_id = (std::uint64_t)e.m_ulSteamIDLobby;
     out.chat_permissions = (std::uint32_t)e.m_rgfChatPermissions;
     out.locked = (e.m_bLocked != 0);
-    out.response = (std::uint32_t)e.m_EChatRoomEnterResponse;
+    out.response = static_cast<gm_enums::SteamMatchmakingChatRoomEnterResponse>((int)e.m_EChatRoomEnterResponse);
     return out;
 }
 
@@ -302,6 +302,14 @@ std::uint64_t steam_matchmaking_get_lobby_owner(std::uint64_t lobby_id)
     if (!mm) return 0;
     CSteamID id = mm->GetLobbyOwner(steam_id_from_u64(lobby_id));
     return (std::uint64_t)id.ConvertToUint64();
+}
+
+bool steam_matchmaking_set_lobby_type(std::uint64_t steam_id_lobby, gm_enums::SteamMatchmakingLobbyType lobby_type)
+{
+    STEAM_GUARD_RET(false);
+    ISteamMatchmaking* mm = steam_matchmaking_iface();
+    if (!mm) return false;
+    return mm->SetLobbyType(steam_id_from_u64(steam_id_lobby), static_cast<ELobbyType>((int)lobby_type));
 }
 
 std::int32_t steam_matchmaking_get_num_lobby_members(std::uint64_t lobby_id)

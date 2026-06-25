@@ -655,8 +655,7 @@ SteamApiUserHasLicenseResult steam_user_user_has_license_for_app(std::uint64_t s
 static inline gm_structs::SteamUserStoreAuthUrlResponse user_fromNative(const StoreAuthURLResponse_t& e)
 {
     gm_structs::SteamUserStoreAuthUrlResponse out{};
-    // Some SDKs don't include EResult in this struct; keep 0 if not available.
-    out.result = 0;
+    // StoreAuthURLResponse_t carries no EResult in the SDK struct; only the URL.
     out.url = e.m_szURL;
     return out;
 }
@@ -664,7 +663,7 @@ static inline gm_structs::SteamUserStoreAuthUrlResponse user_fromNative(const St
 static inline gm_structs::SteamUserEncryptedAppTicketResponse user_fromNative(const EncryptedAppTicketResponse_t& e)
 {
     gm_structs::SteamUserEncryptedAppTicketResponse out{};
-    out.result = (int32)e.m_eResult;
+    out.result = (gm_enums::SteamApiResult)e.m_eResult;
     return out;
 }
 
@@ -675,8 +674,8 @@ static inline gm_structs::SteamUserDurationControl user_fromNative(const Duratio
     out.app_id = (std::uint32_t)e.m_appid;
     out.applicable = (e.m_bApplicable != 0);
     out.csecs_last_5h = (int32)e.m_csecsLast5h;
-    out.progress = (int32)e.m_progress;
-    out.notification = (int32)e.m_notification;
+    out.progress = (gm_enums::SteamUserDurationControlProgress)e.m_progress;
+    out.notification = (gm_enums::SteamUserDurationControlNotification)e.m_notification;
     return out;
 }
 
@@ -795,6 +794,7 @@ static gm::wire::GMFunction g_cb_user_steam_servers_disconnected = nullptr;
 static gm::wire::GMFunction g_cb_user_client_game_server_deny = nullptr;
 static gm::wire::GMFunction g_cb_user_licenses_updated = nullptr;
 static gm::wire::GMFunction g_cb_user_microtxn_auth = nullptr;
+static gm::wire::GMFunction g_cb_user_get_auth_session_ticket_response = nullptr;
 
 static inline gm_structs::SteamUserSteamServersConnected user_fromNative(const SteamServersConnected_t&)
 {
@@ -813,7 +813,7 @@ static inline gm_structs::SteamUserSteamServersDisconnected user_fromNative(cons
 static inline gm_structs::SteamUserSteamServerConnectFailure user_fromNative(const SteamServerConnectFailure_t& e)
 {
     gm_structs::SteamUserSteamServerConnectFailure out{};
-    out.result = (int32)e.m_eResult;
+    out.result = (gm_enums::SteamApiResult)e.m_eResult;
     out.still_retrying = (e.m_bStillRetrying != 0);
     return out;
 }
@@ -845,6 +845,14 @@ static inline gm_structs::SteamUserMicroTxnAuthorizationResponse user_fromNative
     return out;
 }
 
+static inline gm_structs::SteamUserGetAuthSessionTicketResponse user_fromNative(const GetAuthSessionTicketResponse_t& e)
+{
+    gm_structs::SteamUserGetAuthSessionTicketResponse out{};
+    out.auth_ticket_handle = (std::uint32_t)e.m_hAuthTicket;
+    out.result = static_cast<gm_enums::SteamApiResult>((int)e.m_eResult);
+    return out;
+}
+
 class SteamUser_PersistentCallbacks
 {
 public:
@@ -854,6 +862,7 @@ public:
     STEAM_CALLBACK(SteamUser_PersistentCallbacks, OnClientGameServerDeny, ClientGameServerDeny_t);
     STEAM_CALLBACK(SteamUser_PersistentCallbacks, OnLicensesUpdated, LicensesUpdated_t);
     STEAM_CALLBACK(SteamUser_PersistentCallbacks, OnMicroTxnAuthorizationResponse, MicroTxnAuthorizationResponse_t);
+    STEAM_CALLBACK(SteamUser_PersistentCallbacks, OnGetAuthSessionTicketResponse, GetAuthSessionTicketResponse_t);
 };
 
 void SteamUser_PersistentCallbacks::OnSteamServersConnected(SteamServersConnected_t* p)
@@ -923,6 +932,18 @@ void SteamUser_PersistentCallbacks::OnMicroTxnAuthorizationResponse(MicroTxnAuth
     {
         std::lock_guard<std::mutex> lock(g_callbacks_mtx);
         cb = g_cb_user_microtxn_auth;
+    }
+    if (cb)
+        cb.call(user_fromNative(*p));
+}
+
+void SteamUser_PersistentCallbacks::OnGetAuthSessionTicketResponse(GetAuthSessionTicketResponse_t* p)
+{
+    if (!p) return;
+    gm::wire::GMFunction cb;
+    {
+        std::lock_guard<std::mutex> lock(g_callbacks_mtx);
+        cb = g_cb_user_get_auth_session_ticket_response;
     }
     if (cb)
         cb.call(user_fromNative(*p));
@@ -1012,6 +1033,20 @@ void steam_user_clear_callback_microtxn_authorization_response()
     steam_clear_last_error();
     std::lock_guard<std::mutex> lock(g_callbacks_mtx);
     g_cb_user_microtxn_auth = nullptr;
+}
+
+void steam_user_set_callback_get_auth_session_ticket_response( const gm::wire::GMFunction& callback)
+{
+    steam_clear_last_error();
+    std::lock_guard<std::mutex> lock(g_callbacks_mtx);
+    g_cb_user_get_auth_session_ticket_response = callback;
+}
+
+void steam_user_clear_callback_get_auth_session_ticket_response()
+{
+    steam_clear_last_error();
+    std::lock_guard<std::mutex> lock(g_callbacks_mtx);
+    g_cb_user_get_auth_session_ticket_response = nullptr;
 }
 
 
