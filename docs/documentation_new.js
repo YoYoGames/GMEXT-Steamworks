@@ -8656,7 +8656,7 @@
  *
  * This struct holds the result of ${function.steam_friends_is_following}.
  *
- * @member {Real} result The result of the operation.
+ * @member {Enum.SteamApiResult} result The result of the operation.
  * @member {Real} steam_id The Steam ID that was checked.
  * @member {Bool} is_following Are we following the user? (`true`) or not? (`false`)
  * @struct_end
@@ -8834,7 +8834,7 @@
  *
  * This struct holds information received after requesting the details of a specific file.
  *
- * @member {Real} result Was the call successful? `SteamApiResult.Ok` if it was; otherwise, `SteamApiResult.FileNotFound` if the file was not found. None of the other fields are filled out if the call was not successful.
+ * @member {SteamFriendsIsFollowingResult} result Was the call successful? `SteamApiResult.Ok` if it was; otherwise, `SteamApiResult.FileNotFound` if the file was not found. None of the other fields are filled out if the call was not successful.
  * @member {Real} file_size The original file size in bytes.
  * @member {Real} flags The file's flags.
  * @member {String} sha1 The original file SHA-1 hash.
@@ -9161,7 +9161,7 @@
  *
  * This struct holds information about a failed connection attempt.
  *
- * @member {Real} result The reason why the connection failed.
+ * @member {Enum.SteamApiResult} result The reason why the connection failed.
  * @member {Bool} still_retrying Is the Steam client still trying to connect to the server?
  * @struct_end 
  */
@@ -9502,7 +9502,7 @@
  *
  * This struct holds info on the creation of a new workshop item.
  *
- * @member {Real} result The result of the operation.
+ * @member {Enum.SteamApiResult} result The result of the operation.
  * @member {Real} published_file_id The ID of the newly created workshop item.
  * @member {Bool} legal_agreement_required Does the user need to accept the Steam Workshop legal agreement (`true`) or not (`false`)? See the [Workshop Legal Agreement](https://partner.steamgames.com/doc/features/workshop/implementation#Legal) for more information.
  * @struct_end
@@ -9547,7 +9547,7 @@
  *
  * This struct holds information received in a `ISteamUGC::UserFavoriteItemsListChanged_t` callback.
  *
- * @member {Real} result The result of the operation.
+ * @member {Enum.SteamApiResult} result The result of the operation.
  * @member {Real} published_file_id The item which was added/removed.
  * @member {Bool} was_add_request Was it added (`true`) or removed (`false`) from the user's favorites?
  * @struct_end
@@ -9609,7 +9609,7 @@
  *
  * This struct holds info on the deletion of a workshop item.
  *
- * @member {Real} result The result of the operation.
+ * @member {Enum.SteamApiResult} result The result of the operation.
  * @member {Real} published_file_id The workshop item that was deleted.
  * @struct_end
  */
@@ -9622,7 +9622,7 @@
  *
  * @member {Real} app_id The app ID associated with this workshop item.
  * @member {Real} published_file_id The workshop item that has finished downloading.
- * @member {Real} result The result of the operation.
+ * @member {Enum.SteamApiResult} result The result of the operation.
  * @struct_end
  */
 
