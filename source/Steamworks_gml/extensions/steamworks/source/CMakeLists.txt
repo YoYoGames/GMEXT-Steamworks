@@ -197,6 +197,18 @@ if(EXT_STRICT_WARNINGS)
 endif()
 
 # ============================================================
+# Objective-C ARC (Apple)
+# ============================================================
+# Enable ARC for all .mm files, like GameMaker does by default.
+# (The build setting is for the Xcode generator; the compile option for Ninja/Make.)
+if(APPLE)
+  set_target_properties(${PROJECT_NAME} PROPERTIES
+    XCODE_ATTRIBUTE_CLANG_ENABLE_OBJC_ARC YES)
+  target_compile_options(${PROJECT_NAME} PRIVATE
+    $<$<COMPILE_LANGUAGE:OBJCXX>:-fobjc-arc>)
+endif()
+
+# ============================================================
 # third_party
 # ============================================================
 set(EXT_THIRDPARTY_DIR "${CMAKE_CURRENT_SOURCE_DIR}/third_party")
