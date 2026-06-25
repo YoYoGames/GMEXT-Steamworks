@@ -1851,7 +1851,7 @@
  * 
  * @member {Real} steam_id The Steam ID of the entity that provided the auth ticket.
  * @member {Enum.SteamAuthSessionResponse} auth_session_response The result of the validation.
- * @member {} owner_steam_id The Steam ID that owns the game, this will be different from `steam_id` if the game is being accessed via Steam Family Sharing.
+ * @member {Real} owner_steam_id The Steam ID that owns the game, this will be different from `steam_id` if the game is being accessed via Steam Family Sharing.
  * @event_end
  * @function_end
  */
@@ -3317,7 +3317,7 @@
  * @param {Function} [callback] The function to call upon completion.
  * 
  * @event callback
- * @description **Steamworks Callback**: [ISteamUGC::GetAppDependenciesResult_t](https://partner.steamgames.com/doc/api/ISteamUGC#GetAppDependenciesResult_t)
+ * @description > **Steamworks Callback**: [ISteamUGC::GetAppDependenciesResult_t](https://partner.steamgames.com/doc/api/ISteamUGC#GetAppDependenciesResult_t)
  * 
  * Called when getting the app dependencies for an item.
  * 
@@ -3361,7 +3361,7 @@
  * This function gets the current state of a workshop item on this client.
  *
  * @param {Real} published_file_id The workshop item to get the state for.
- * @returns {Real} The item state. Should be used with the ${enum.SteamUgcItemState} flags to determine the state of the workshop item.
+ * @returns {Enum.SteamUgcItemState} The item state. Should be used with the ${enum.SteamUgcItemState} flags to determine the state of the workshop item.
  * @function_end 
  */
 
@@ -3498,6 +3498,21 @@
  * @param {Real} query_handle The UGC query handle to get the results from.
  * @param {Real} index The index of the item to get the details of.
  * @returns {Real} 
+ * @function_end 
+ */
+
+/**
+ * @function steam_ugc_get_supported_game_version_data
+ * @desc > **Steamworks Function**: [ISteamUGC::GetSupportedGameVersionData](https://partner.steamgames.com/doc/api/ISteamUGC#GetSupportedGameVersionData)
+ * 
+ * This function to retrieve what Steam (beta) branches this item version is valid for. If the minimum branch is an empty string, then it is valid for all versions up to the maximum branch. If the maximum branch is an empty string, then the this item version is valid for every branch published after the minimum branch. If both strings are empty, then this item version is valid for all Steam branches. The version that is downloaded by the Steam client is dictated by what versions are valid for the item and what Steam (beta) branch the user has opted into.
+ * 
+ * [[Note: This must only be called with the handle obtained from a successful [SteamUGCQueryCompleted_t](https://partner.steamgames.com/doc/api/ISteamUGC#SteamUGCQueryCompleted_t) call result.]]
+ * 
+ * @param {Real} query_handle The UGC query handle to get the results from.
+ * @param {Real} index The index of the item.
+ * @param {Real} version_index The index of the item version.
+ * @returns {Struct.SteamUgcSupportedGameVersionData} 
  * @function_end 
  */
 
@@ -4238,7 +4253,7 @@
  * @param {Function} [callback] The function to call upon completion.
  * 
  * @event callback
- * @description **Steamworks Callback**: [ISteamUGC::StopPlaytimeTrackingResult_t](https://partner.steamgames.com/doc/api/ISteamUGC#StopPlaytimeTrackingResult_t)
+ * @description > **Steamworks Callback**: [ISteamUGC::StopPlaytimeTrackingResult_t](https://partner.steamgames.com/doc/api/ISteamUGC#StopPlaytimeTrackingResult_t)
  * 
  * Called when workshop item playtime tracking has stopped.
  * 
@@ -4259,7 +4274,7 @@
  * @param {Function} [callback] The function to call upon completion.
  * 
  * @event callback
- * @description **Steamworks Callback**: [ISteamUGC::StopPlaytimeTrackingResult_t](https://partner.steamgames.com/doc/api/ISteamUGC#StopPlaytimeTrackingResult_t)
+ * @description > **Steamworks Callback**: [ISteamUGC::StopPlaytimeTrackingResult_t](https://partner.steamgames.com/doc/api/ISteamUGC#StopPlaytimeTrackingResult_t)
  * 
  * Called when workshop item playtime tracking has stopped.
  * 
@@ -4710,7 +4725,7 @@
  *
  * This function returns a localised string (from Steam's language setting) for the specified origin.
  *
- * @param {Real} origin The action origin you want to get the localised string for.
+ * @param {Enum.SteamInputActionOrigin} origin The action origin you want to get the localised string for.
  * @returns {String} 
  * @function_end
  */
@@ -4856,7 +4871,7 @@
  *
  * This function gets the equivalent origin for a given controller type.
  *
- * @param {Real} destination_input_type The controller type you want to translate to. Steam will pick the closest type from your SDK version if `k_ESteamInputType_Unknown` is used.
+ * @param {Enum.SteamInputType} destination_input_type The controller type you want to translate to. Steam will pick the closest type from your SDK version if `SteamInputType.Unknown` is used.
  * @param {Enum.SteamInputActionOrigin} source_origin The button you want to translate.
  * @returns {Real} 
  * @function_end
@@ -5225,7 +5240,7 @@
  * @event_end
  * 
  * @event callback
- * @description **Steamworks Callback**: ISteamUserStats::UserStatsUnloaded_t](https://partner.steamgames.com/doc/api/ISteamUserStats#UserStatsUnloaded_t)
+ * @description > **Steamworks Callback**: ISteamUserStats::UserStatsUnloaded_t](https://partner.steamgames.com/doc/api/ISteamUserStats#UserStatsUnloaded_t)
  * 
  * Callback indicating that a user's stats have been unloaded.
  * 
@@ -5491,7 +5506,7 @@
  * @param {Function} [callback] The function to call upon completion.
  * 
  * @event callback
- * @description **Steamworks Callback**: [ISteamUserStats::LeaderboardScoreUploaded_t](https://partner.steamgames.com/doc/api/ISteamUserStats#LeaderboardScoreUploaded_t)
+ * @description > **Steamworks Callback**: [ISteamUserStats::LeaderboardScoreUploaded_t](https://partner.steamgames.com/doc/api/ISteamUserStats#LeaderboardScoreUploaded_t)
  * 
  * Result indicating that a leaderboard score has been uploaded.
  * 
@@ -6008,7 +6023,7 @@
  * @returns {Real}
  * 
  * @event callback
- * @description **Steamworks Callback**: [ISteamTimeline::SteamTimelineEventRecordingExists_t](https://partner.steamgames.com/doc/api/ISteamTimeline#SteamTimelineEventRecordingExists_t)
+ * @description > **Steamworks Callback**: [ISteamTimeline::SteamTimelineEventRecordingExists_t](https://partner.steamgames.com/doc/api/ISteamTimeline#SteamTimelineEventRecordingExists_t)
  * 
  * Called when asking if recordings exist for an event handle.
  * 
@@ -6059,7 +6074,7 @@
  * @returns {Real}
  * 
  * @event callback
- * @description **Steamworks Callback**: [ISteamTimeline::SteamTimelineGamePhaseRecordingExists_t](https://partner.steamgames.com/doc/api/ISteamTimeline#SteamTimelineGamePhaseRecordingExists_t)
+ * @description > **Steamworks Callback**: [ISteamTimeline::SteamTimelineGamePhaseRecordingExists_t](https://partner.steamgames.com/doc/api/ISteamTimeline#SteamTimelineGamePhaseRecordingExists_t)
  * 
  * Called when asking if recordings exist for an event handle.
  * 
@@ -6371,7 +6386,7 @@
  * @returns {Bool} This call will always return true.
  * 
  * @event callback
- * @description **Steamworks Callback**: [ISteamInventory::SteamInventoryDefinitionUpdate_t](https://partner.steamgames.com/doc/api/ISteamInventory#SteamInventoryDefinitionUpdate_t)
+ * @description > **Steamworks Callback**: [ISteamInventory::SteamInventoryDefinitionUpdate_t](https://partner.steamgames.com/doc/api/ISteamInventory#SteamInventoryDefinitionUpdate_t)
  * 
  * Triggered whenever item definitions have been updated, which could be in response to ${function.steam_inventory_load_item_definitions} or any time new item definitions are available (e.g., from the dynamic addition of new item types while players are still in-game).
  * 
@@ -6897,6 +6912,24 @@
  * @param {Real} bytes The number of bytes to write to the file.
  * @returns {Bool}
  * @function_end 
+ */
+
+/**
+ * @function steam_remote_storage_file_write_async
+ * @description > **Steamworks Function**: [ISteamRemoteStorage::FileWriteAsync](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#FileWriteAsync)
+ * 
+ * This function creates a new file and asynchronously writes the raw byte data to the Steam Cloud, and then closes the file. If the target file already exists, it is overwritten.
+ * 
+ * @param {String} file_name The name of the file to write to.
+ * @param {Buffer} data The bytes to write to the file.
+ * @param {Real} bytes The number of bytes to write to the file. Typically the total size of `data`.
+ * @param {Function} [callback] The callback function to call upon completion.
+ * 
+ * @event callback
+ * @desc **Steamworks Callback**: [ISteamRemoteStorage::RemoteStorageFileWriteAsyncComplete_t](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#RemoteStorageFileWriteAsyncComplete_t)
+ * @member {Struct.SteamRemoteStorageFileWriteAsyncResult} result The result of the operation.
+ * @event_end
+ * @function_end
  */
 
 /**
@@ -7778,7 +7811,7 @@
  * @param {String} value The value to set. This can not be longer than the maximum chat metadata size.
  * 
  * @event callback
- * @description **Steamworks Callback**: [ISteamMatchmaking::LobbyDataUpdate_t](https://partner.steamgames.com/doc/api/ISteamMatchmaking#LobbyDataUpdate_t)
+ * @description > **Steamworks Callback**: [ISteamMatchmaking::LobbyDataUpdate_t](https://partner.steamgames.com/doc/api/ISteamMatchmaking#LobbyDataUpdate_t)
  * 
  * Triggered when the lobby metadata has changed.
  * 
@@ -7822,7 +7855,7 @@
  * @returns {Bool}
  * 
  * @event callback
- * @description **Steamworks Callback**: [ISteamMatchmaking::LobbyChatMsg_t](https://partner.steamgames.com/doc/api/ISteamMatchmaking#LobbyChatMsg_t)
+ * @description > **Steamworks Callback**: [ISteamMatchmaking::LobbyChatMsg_t](https://partner.steamgames.com/doc/api/ISteamMatchmaking#LobbyChatMsg_t)
  * 
  * Triggered when chat (text or binary) message for this lobby has been received.
  * 
@@ -7867,7 +7900,7 @@
  * @returns {Bool}
  * 
  * @event callback
- * @description **Steamworks Callback**: [ISteamMatchmaking::LobbyDataUpdate_t](https://partner.steamgames.com/doc/api/ISteamMatchmaking#LobbyDataUpdate_t)
+ * @description > **Steamworks Callback**: [ISteamMatchmaking::LobbyDataUpdate_t](https://partner.steamgames.com/doc/api/ISteamMatchmaking#LobbyDataUpdate_t)
  * 
  * Triggered when the lobby metadata has changed.
  * 
@@ -7887,9 +7920,24 @@
  * Lobbies with joining disabled will not be returned from a lobby search.
  *
  * @param {Real} steam_id_lobby The Steam ID of the lobby.
- * @param {Bool} joinable Enable (true) or disable (false) allowing users to join this lobby.
+ * @param {Bool} joinable Enable (`true`) or disable (`false`) allowing users to join this lobby.
  * @returns {Bool} 
  * @function_end 
+ */
+
+/**
+ * @function steam_matchmaking_set_lobby_type
+ * @description > **Steamworks Function**: [ISteamMatchmaking::SetLobbyType](https://partner.steamgames.com/doc/api/ISteamMatchmaking#SetLobbyType)
+ * 
+ * This function updates the type of the given lobby.
+ * 
+ * This is also set when you create the lobby with ${function.steam_matchmaking_create_lobby}.
+ * This can only be set by the owner of the lobby.
+ * 
+ * @param {Real} steam_id_lobby The Steam ID of the lobby to set the type of.
+ * @param {Enum.SteamMatchmakingLobbyType} lobby_type The new lobby type to that will be set.
+ * @returns {Bool} `true` upon success; otherwise, `false` if you're not the owner of the lobby.
+ * @function_end
  */
 
 /**
@@ -7922,7 +7970,7 @@
  * @param {Real} steam_id_gs Sets the Steam ID of the game server. Use a nil Steam ID if you're not setting this.
  * 
  * @event callback
- * @description **Steamworks Callback**: [ISteamMatchmaking::LobbyGameCreated_t](https://partner.steamgames.com/doc/api/ISteamMatchmaking#LobbyGameCreated_t)
+ * @description > **Steamworks Callback**: [ISteamMatchmaking::LobbyGameCreated_t](https://partner.steamgames.com/doc/api/ISteamMatchmaking#LobbyGameCreated_t)
  * 
  * Triggered when a game server has been set via ${function.steam_matchmaking_set_lobby_game_server} for all of the members of the lobby to join.
  * 
@@ -8108,7 +8156,7 @@
  * @returns {Real}
  * 
  * @event callback
- * @description **Steamworks Callback**: [ISteamNetworkingSockets::SteamNetConnectionStatusChangedCallback_t](https://partner.steamgames.com/doc/api/ISteamNetworkingSockets#SteamNetConnectionStatusChangedCallback_t)
+ * @description > **Steamworks Callback**: [ISteamNetworkingSockets::SteamNetConnectionStatusChangedCallback_t](https://partner.steamgames.com/doc/api/ISteamNetworkingSockets#SteamNetConnectionStatusChangedCallback_t)
  * 
  * Triggered whenever a connection is created, destroyed, or changes state.
  * 
@@ -8238,7 +8286,7 @@
  * If Nagle is enabled (it's on by default) then when calling ${function.steam_networking_sockets_send_message_to_connection} the message will be buffered, up to the Nagle time before being sent, to merge small messages into the same packet. (See `k_ESteamNetworkingConfig_NagleTime`)
  *
  * @param {Real} conn The connection whose Nagle-buffered messages should be flushed.
- * @returns {Real} 
+ * @returns {Enum.SteamApiResult} 
  * @function_end 
  */
 
@@ -8693,7 +8741,7 @@
  *
  * Called when a Steam group activity has been received.
  *
- * @member {Real} result Was the call successful?
+ * @member {Bool} result Was the call successful?
  * @struct_end
  */
 
@@ -9366,7 +9414,7 @@
  *
  * This struct holds the result of ${function.steam_ugc_get_item_update_progress}.
  *
- * @member {Real} status The current status.
+ * @member {Enum.SteamUgcItemUpdateStatus} status The current status.
  * @member {Real} bytes_processed The current number of bytes uploaded.
  * @member {Real} bytes_total The total number of bytes that will be uploaded.
  * @struct_end
@@ -9593,13 +9641,13 @@
 
 /**
  * @struct SteamUgcSupportedGameVersionData
- * @description > **Steamworks Struct**: [func](url)
+ * @description > **Steamworks Struct**: N / A
  *
- * This struct 
+ * This struct holds information returned by ${function.steam_ugc_get_supported_game_version_data}.
  *
- * @member {Bool} ok
- * @member {String} game_branch_min
- * @member {String} game_branch_max
+ * @member {Bool} ok `true` if the item version at the given index version exists, `false` otherwise.
+ * @member {String} game_branch_min The minimum Steam (beta) branch this version of the item supports.
+ * @member {String} game_branch_max The maximum Steam (beta) branch version this version of the item supports.
  * @struct_end 
  */
 
@@ -10049,7 +10097,7 @@
  *
  * This struct holds information about a `ISteamMusic::PlaybackStatusHasChanged_t` callback.
  *
- * @member {Real} playback_status The new playback status.
+ * @member {Enum.SteamMusicPlaybackStatus} playback_status The new playback status.
  * @struct_end
  */
 
@@ -10282,6 +10330,16 @@
  */
 
 /**
+ * @struct SteamRemoteStorageFileWriteAsyncResult
+ * @description > **Steamworks Struct**: [ISteamRemoteStorage::RemoteStorageFileWriteAsyncComplete_t](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#RemoteStorageFileWriteAsyncComplete_t)
+ * 
+ * This struct holds the response when writing a file asynchronously with ${function.steam_remote_storage_file_write_async}.
+ * 
+ * @member {Enum.SteamApiResult} result If the local write was successful then this will be `SteamApiResult.OK` - any other value likely indicates that the filename is invalid or the available quota would have been exceeded by the requested write.
+ * @struct_end 
+ */
+
+/**
  * @struct SteamRemoteStorageDownloadUgcResult
  * @description > **Steamworks Struct**: [ISteamRemoteStorage::RemoteStorageDownloadUGCResult_t](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#RemoteStorageDownloadUGCResult_t)
  *
@@ -10393,7 +10451,7 @@
  * @member {Real} lobby_id The Steam ID of the lobby you have entered.
  * @member {Real} chat_permissions Unused - always 0.
  * @member {Bool} locked If `true`, then only invited users may join.
- * @member {Real} response An EChatRoomEnterResponse value, indicating whether the user successfully joined the lobby.
+ * @member {Enum.SteamMatchmakingChatRoomEnterResponse} response A chat room enter response value, indicating whether the user successfully joined the lobby.
  * @struct_end 
  */
 
@@ -10966,6 +11024,47 @@
  */
 
 /**
+ * @enum SteamFriendsPersonaChange
+ * @description > **Steamworks Enum**: [ISteamFriends::EPersonaChange](https://partner.steamgames.com/doc/api/ISteamFriends#EPersonaChange)
+ * 
+ * This enum holds the flags to describe what's changed about a user.
+ * 
+ * These flags describe what the client has learned has changed recently, so on startup you'll see a name, avatar & relationship change for every friend.
+ * 
+ * @member Name Name.
+ * @member Status Status.
+ * @member ComeOnline Come online.
+ * @member GoneOffline Gone offline.
+ * @member GamePlayed Game played.
+ * @member GameServer Game server.
+ * @member Avatar Avatar.
+ * @member JoinedSource Joined source.
+ * @member LeftSource Left source.
+ * @member RelationshipChanged Relationship changed.
+ * @member NameFirstSet Name first set.
+ * @member Broadcast Broadcast.
+ * @member Nickname Nickname.
+ * @member SteamLevel Steam level.
+ * @member RichPresence Rich presence.
+ * @enum_end
+ */
+
+/**
+ * @enum SteamAppsBetaBranchFlags
+ * @description > **Steamworks Enum**: [EBetaBranchFlags](https://github.com/ValveSoftware/GameNetworkingSockets/blob/master/include/steam/steamclientpublic.h#L464)
+ * 
+ * This enum hols the possible flags describing current branch state.
+ * 
+ * @member None None.
+ * @member Default  The default branch ("public").
+ * @member Available This branch can be selected (available).
+ * @member Private This is a private branch (password protected).
+ * @member Selected This is the currently selected branch (active).
+ * @member Installed This is the currently installed branch (mounted).
+ * @enum_end 
+ */
+
+/**
  * @enum SteamScreenshotsVrScreenshotType
  * @description > **Steamworks Enum**: [ISteamScreenshots::EVRScreenshotType](partner.steamgames.com/doc/api/ISteamScreenshots#EVRScreenshotType)
  *
@@ -11021,6 +11120,26 @@
  * @member InvalidVersion Ticket is from an incompatible interface version.
  * @member GameMismatch Ticket is not for this game.
  * @member ExpiredTicket Ticket has expired.
+ * @enum_end 
+ */
+
+/**
+ * @enum SteamAuthSessionResponse
+ * @description > **Steamworks Enum**: [EAuthSessionResponse](https://partner.steamgames.com/doc/api/steam_api#EAuthSessionResponse)
+ * 
+ * This enum holds callback return values for the [ISteamUser::ValidateAuthTicketResponse_t](https://partner.steamgames.com/doc/api/ISteamUser#ValidateAuthTicketResponse_t) callback which is posted as a response to ${function.steam_user_begin_auth_session} and [ISteamGameServer::BeginAuthSession](https://partner.steamgames.com/doc/api/ISteamGameServer#BeginAuthSession).
+ * 
+ * @member OK Steam has verified the user is online, the ticket is valid and ticket has not been reused.
+ * @member UserNotConnectedToSteam The user in question is not connected to Steam.
+ * @member NoLicenseOrExpired The user doesn't have a license for this App ID or the ticket has expired.
+ * @member VACBanned The user is VAC banned for this game.
+ * @member LoggedInElseWhere The user account has logged in elsewhere and the session containing the game instance has been disconnected.
+ * @member VACCheckTimedOut VAC has been unable to perform anti-cheat checks on this user.
+ * @member AuthTicketCanceled The ticket has been canceled by the issuer.
+ * @member AuthTicketInvalidAlreadyUsed This ticket has already been used, it is not valid.
+ * @member AuthTicketInvalid This ticket is not from a user instance currently connected to Steam.
+ * @member PublisherIssuedBan The user is banned for this game. The ban came via the web api and not VAC.
+ * @member AuthTicketNetworkIdentityFailure The network identity in the ticket does not match the server authenticating the ticket.
  * @enum_end 
  */
 
@@ -11270,6 +11389,7 @@
  * @member NumPlaytimeSessions Gets the total number of play sessions this item has been used in.
  * @member NumComments Gets the number of comments on the items that steam has on its Steam Workshop page.
  * @member NumSecondsPlayedDuringTimePeriod Gets the number of seconds this item has been used over the given time period.
+ * @member NumPlaytimeSessionsDuringTimePeriod Gets the number of sessions this item has been used in over the given time period.
  * @enum_end 
  */
 
@@ -11357,16 +11477,6 @@
  * @member None This event is not appropriate as a clip.
  * @member Standard The user may want to make a clip around this event.
  * @member Featured The player will be likely to want a clip around event, and those clips should be promoted more prominently than clips with the `SteamTimelineEventClipPriority.Standard` priority.
- * @enum_end 
- */
-
-/**
- * @enum SteamInventoryConst
- * @description > **Steamworks Enum**: [ISteamInventory::Constants](partner.steamgames.com/doc/api/isteaminventory#constants)
- *
- * This enum represents an invalid Steam inventory result handle.
- *
- * @member InvalidResult An invalid Steam inventory result handle.
  * @enum_end 
  */
 
@@ -11462,6 +11572,27 @@
  * @member Far For games that don't have many latency requirements, will return lobbies about half-way around the globe.
  * @member Worldwide No filtering, will match lobbies as far as India to NY (not recommended, expect multiple seconds of latency between the clients).
  * @enum_end 
+ */
+
+/**
+ * @enum SteamMatchmakingChatRoomEnterResponse
+ * @description > **Steamworks Enum**: [EChatRoomEnterResponse](https://partner.steamgames.com/doc/api/steam_api#EChatRoomEnterResponse)
+ * 
+ * This enum holds chat room enter responses.
+ * 
+ * @member Success Success.
+ * @member DoesntExist Chat doesn't exist (probably closed).
+ * @member NotAllowed General Denied - You don't have the permissions needed to join the chat.
+ * @member Full Chat room has reached its maximum size.
+ * @member Error Unexpected Error.
+ * @member Banned You are banned from this chat room and may not join.
+ * @member Limited Joining this chat is not allowed because you are a limited user (no value on account).
+ * @member ClanDisabled Attempt to join a clan chat when the clan is locked or disabled.
+ * @member CommunityBan Attempt to join a chat when the user has a community lock on their account.
+ * @member MemberBlockedYou Join failed - a user that is in the chat has blocked you from joining.
+ * @member YouBlockedMember Join failed - you have blocked a user that is already in the chat.
+ * @member RatelimitExceeded Join failed - too many join attempts in a very short period of time.
+ * @enum_end
  */
 
 /**
