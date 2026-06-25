@@ -5165,8 +5165,17 @@
  * @param {String} achievement_name The "API Name" of the achievement.
  * @param {Real} cur_progress The current progress.
  * @param {Real} max_progress The progress required to unlock the achievement.
- * @returns {Bool} 
- * @function_end 
+ * @returns {Bool}
+ * 
+ * @event callback
+ * @member {Struct.SteamUserStatsUserStatsStored} result The result of the request to store the user stats.
+ * @event_end
+ * 
+ * @event callback
+ * @member {Struct.SteamUserStatsUserAchievementStored} result The result of the "indicate progress" call.
+ * @event_end
+ * 
+ * @function_end
  */
 
 /**
@@ -6309,7 +6318,7 @@
  *
  * @param {Real} result_handle The inventory result handle to get the items for.
  * @returns {Struct.SteamInventoryResultItems} 
- * @function_end 
+ * @function_end
  */
 
 /**
@@ -9999,15 +10008,15 @@
 
 /**
  * @struct SteamUserStatsUserAchievementStored
- * @description > **Steamworks Struct**: [func](url)
+ * @description > **Steamworks Struct**: [ISteamUserStats::UserAchievementStored_t](https://partner.steamgames.com/doc/api/ISteamUserStats#UserAchievementStored_t)
  *
- * This struct 
+ * This struct holds the result of a request to store the achievements on the server, or an "indicate progress" call. If both `cur_progress` and `max_progress` are zero, that means the achievement has been fully unlocked.
  *
- * @member {Real} game_id
- * @member {String} achievement_name
- * @member {Real} cur_progress
- * @member {Real} max_progress
- * @struct_end 
+ * @member {Real} game_id Game ID that this achievement is for.
+ * @member {String} achievement_name Name of the achievement.
+ * @member {Real} cur_progress Current progress towards the achievement.
+ * @member {Real} max_progress The total amount of progress required to unlock.
+ * @struct_end
  */
 
 /**
@@ -10036,22 +10045,22 @@
 
 /**
  * @struct SteamMusicPlaybackStatusHasChanged
- * @description > **Steamworks Struct**: [func](url)
+ * @description > **Steamworks Struct**: [ISteamMusic::PlaybackStatusHasChanged_t](https://partner.steamgames.com/doc/api/ISteamMusic#PlaybackStatusHasChanged_t)
  *
- * This struct 
+ * This struct holds information about a `ISteamMusic::PlaybackStatusHasChanged_t` callback.
  *
- * @member {Real} playback_status
- * @struct_end 
+ * @member {Real} playback_status The new playback status.
+ * @struct_end
  */
 
 /**
  * @struct SteamMusicVolumeHasChanged
- * @description > **Steamworks Struct**: [func](url)
+ * @description > **Steamworks Struct**: [ISteamMusic::VolumeHasChanged_t](https://partner.steamgames.com/doc/api/ISteamMusic#VolumeHasChanged_t)
  *
- * This struct 
+ * This struct holds information about a `ISteamMusic::VolumeHasChanged_t` callback.
  *
- * @member {Real} volume
- * @struct_end 
+ * @member {Real} volume The new volume.
+ * @struct_end
  */
 
 /**
@@ -10081,65 +10090,67 @@
 
 /**
  * @struct SteamInventoryResultItems
- * @description > **Steamworks Struct**: [func](url)
+ * @description > **Steamworks Struct**: N / A
  *
- * This struct 
+ * This struct holds information about result items.
+ * 
+ * See: [ISteamInventory::SteamItemDetails_t](https://partner.steamgames.com/doc/api/ISteamInventory#SteamItemDetails_t)
  *
- * @member {Bool} ok
- * @member {Real} count
- * @member {Array[Real]} item_instance_ids
- * @member {Array[Real]} item_def_ids
- * @member {Array[Real]} quantities
- * @member {Array[Real]} flags
- * @struct_end 
+ * @member {Bool} ok `true` if the call was successful, otherwise `false`.
+ * @member {Real} count The number of items returned.
+ * @member {Array[Real]} item_instance_ids The globally unique item instance handles.
+ * @member {Array[Real]} item_def_ids The item definition numbers for the items.
+ * @member {Array[Real]} quantities The current quantities of each item.
+ * @member {Array[Enum.SteamInventoryItemFlags]} flags A bitmasked collection of item flags for each item.
+ * @struct_end
  */
 
 /**
  * @struct SteamInventoryDeserializeResult
- * @description > **Steamworks Struct**: [func](url)
+ * @description > **Steamworks Struct**: N / A
  *
- * This struct 
+ * This struct holds the result of a request to deserialise a result set.
  *
- * @member {Bool} ok
- * @member {Real} result_handle
- * @member {Enum.SteamApiResult} status
- * @struct_end 
+ * @member {Bool} ok Always `true`.
+ * @member {Real} result_handle The new inventory result handle.
+ * @member {Enum.SteamApiResult} status Whether the call was successful or not.
+ * @struct_end
  */
 
 /**
  * @struct SteamInventorySerializeResult
- * @description > **Steamworks Struct**: [func](url)
+ * @description > **Steamworks Struct**: N / A
  *
- * This struct 
+ * This struct holds the result of a request to serialise a result set.
  *
- * @member {Bool} ok
- * @member {Real} bytes_written
- * @struct_end 
+ * @member {Bool} ok `true` upon success.
+ * @member {Real} bytes_written The number of bytes written.
+ * @struct_end
  */
 
 /**
  * @struct SteamInventoryItemProperty
- * @description > **Steamworks Struct**: [func](url)
+ * @description > **Steamworks Struct**: N / A
  *
- * This struct 
+ * This struct holds the dynamic properties from an item in an inventory result set.
  *
- * @member {Bool} ok
- * @member {String} value
- * @struct_end 
+ * @member {Bool} ok `true` upon success; otherwise, `false` indicating that the inventory result handle was invalid or the provided index does not contain an item.
+ * @member {String} value The value associated with the property name.
+ * @struct_end
  */
 
 /**
  * @struct SteamInventoryItemsWithPrices
- * @description > **Steamworks Struct**: [func](url)
+ * @description > **Steamworks Struct**: N / A
  *
- * This struct 
+ * This struct holds item definitions with prices, as requested using ${function.steam_inventory_get_items_with_prices}.
  *
- * @member {Bool} ok
- * @member {Real} count
- * @member {Array[Real]} item_def_ids
- * @member {Array[Real]} current_prices
- * @member {Array[Real]} base_prices
- * @struct_end 
+ * @member {Bool} ok `true` upon success.
+ * @member {Real} count The number of items.
+ * @member {Array[Real]} item_def_ids An array of the item definition IDs.
+ * @member {Array[Real]} current_prices An array holding the current price for each item definition ID.
+ * @member {Array[Real]} base_prices An array holding the base price for each item definition ID.
+ * @struct_end
  */
 
 /**
