@@ -176,7 +176,6 @@
     {"id":{"name":"rm_steam_ugc","path":"rooms/rm_steam_ugc/rm_steam_ugc.yy",},},
     {"id":{"name":"room_steam_music","path":"rooms/room_steam_music/room_steam_music.yy",},},
     {"id":{"name":"ExtensionCore_api","path":"scripts/ExtensionCore_api/ExtensionCore_api.yy",},},
-    {"id":{"name":"Steamworks_API_Ext","path":"scripts/Steamworks_API_Ext/Steamworks_API_Ext.yy",},},
     {"id":{"name":"Steamworks_API","path":"scripts/Steamworks_API/Steamworks_API.yy",},},
     {"id":{"name":"spr_gm_background","path":"sprites/spr_gm_background/spr_gm_background.yy",},},
     {"id":{"name":"spr_gm_background1","path":"sprites/spr_gm_background1/spr_gm_background1.yy",},},

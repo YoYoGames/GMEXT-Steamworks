@@ -122,7 +122,7 @@ bool steam_utils_overlay_needs_present()
 static inline gm_structs::SteamUtilsCheckFileSignatureResult utils_fromNative(const CheckFileSignature_t& e)
 {
     gm_structs::SteamUtilsCheckFileSignatureResult out{};
-    out.result = (int32)e.m_eCheckFileSignature;
+    out.result = (gm_enums::SteamUtilsCheckFileSignature)e.m_eCheckFileSignature;
     return out;
 }
 

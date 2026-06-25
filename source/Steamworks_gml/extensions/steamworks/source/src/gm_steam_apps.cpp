@@ -542,7 +542,7 @@ void steam_apps_uninstall_dlc(std::uint32_t app_id)
 static inline gm_structs::SteamAppsFileDetailsResult apps_fromNative(const FileDetailsResult_t& e)
 {
     gm_structs::SteamAppsFileDetailsResult out{};
-    out.result = (int32)e.m_eResult;
+    out.result = static_cast<gm_enums::SteamApiResult>((int)e.m_eResult);
     out.file_size = (int32)e.m_ulFileSize;
     out.flags = (int32)e.m_unFlags;
 

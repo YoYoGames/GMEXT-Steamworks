@@ -41,7 +41,7 @@ static inline SteamMusicPlaybackStatusHasChanged fromNative(const PlaybackStatus
     SteamMusicPlaybackStatusHasChanged out {};
     // Query the current status so the callback delivers something meaningful.
     if (ISteamMusic* m = SteamMusic())
-        out.playback_status = (std::int32_t)m->GetPlaybackStatus();
+        out.playback_status = static_cast<gm_enums::SteamMusicPlaybackStatus>((int)m->GetPlaybackStatus());
     return out;
 }
 

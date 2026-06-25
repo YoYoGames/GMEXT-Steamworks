@@ -138,6 +138,8 @@
 
 #macro SteamMusicInterfaceVersion "STEAMMUSIC_INTERFACE_VERSION001"
 
+#macro SteamTimelineMaxTimelinePriority 1000
+
 #macro SteamInventoryResultInvalid -1
 
 #macro SteamInventoryItemInstanceIdInvalid -1
@@ -183,6 +185,8 @@
 #macro SteamMatchmakingServersInterfaceVersion "SteamMatchMakingServers002"
 
 #macro SteamMatchmakingInterfaceVersion "SteamMatchMaking009"
+
+#macro SteamNetworkingPollGroup_Invalid 0
 
 // #####################################################################
 // # Enums
@@ -416,6 +420,35 @@ enum SteamFriendsRelationship
     SuggestedFriend = 7
 }
 
+enum SteamFriendsPersonaChange
+{
+    Name = 1,
+    Status = 2,
+    ComeOnline = 4,
+    GoneOffline = 8,
+    GamePlayed = 16,
+    GameServer = 32,
+    Avatar = 64,
+    JoinedSource = 128,
+    LeftSource = 256,
+    RelationshipChanged = 512,
+    NameFirstSet = 1024,
+    Broadcast = 2048,
+    Nickname = 4096,
+    SteamLevel = 8192,
+    RichPresence = 16384
+}
+
+enum SteamAppsBetaBranchFlags
+{
+    None = 0,
+    Default = 1,
+    Available = 2,
+    Private = 4,
+    Selected = 8,
+    Installed = 16
+}
+
 enum SteamScreenshotsVrScreenshotType
 {
     None = 0,
@@ -434,6 +467,28 @@ enum SteamScreenshotsConst
     MaxTaggedPublishedFiles = 32,
     MaxTaggedUsers = 32,
     ThumbWidth = 200
+}
+
+enum SteamUserDurationControlProgress
+{
+    Full = 0,
+    Half = 1,
+    None = 2,
+    ExitSoon_3h = 3,
+    ExitSoon_5h = 4,
+    ExitSoon_Night = 5
+}
+
+enum SteamUserDurationControlNotification
+{
+    None = 0,
+    OneHour = 1,
+    ThreeHours = 2,
+    HalfProgress = 3,
+    NoProgress = 4,
+    ExitSoon_3h = 5,
+    ExitSoon_5h = 6,
+    ExitSoon_Night = 7
 }
 
 enum SteamNetworkingIdentityType
@@ -455,12 +510,36 @@ enum SteamUserBeginAuthSessionResult
     ExpiredTicket = 5
 }
 
+enum SteamAuthSessionResponse
+{
+    OK = 0,
+    UserNotConnectedToSteam = 1,
+    NoLicenseOrExpired = 2,
+    VACBanned = 3,
+    LoggedInElseWhere = 4,
+    VACCheckTimedOut = 5,
+    AuthTicketCanceled = 6,
+    AuthTicketInvalidAlreadyUsed = 7,
+    AuthTicketInvalid = 8,
+    PublisherIssuedBan = 9,
+    AuthTicketNetworkIdentityFailure = 10
+}
+
 enum SteamUserDurationControlOnlineState
 {
     Invalid = 0,
     Offline = 1,
     Online = 2,
     OnlineHighPri = 3
+}
+
+enum SteamUtilsCheckFileSignature
+{
+    InvalidSignature = 0,
+    ValidSignature = 1,
+    FileNotFound = 2,
+    NoSignaturesFoundForThisApp = 3,
+    NoSignaturesFoundForThisFile = 4
 }
 
 enum SteamUtilsApiCallFailure
@@ -613,6 +692,28 @@ enum SteamUgcContentDescriptorId
     AnyMatureContent = 5
 }
 
+enum SteamUgcItemState
+{
+    None = 0,
+    Subscribed = 1,
+    LegacyItem = 2,
+    Installed = 4,
+    NeedsUpdate = 8,
+    Downloading = 16,
+    DownloadPending = 32,
+    DisabledLocally = 64
+}
+
+enum SteamUgcItemUpdateStatus
+{
+    Invalid = 0,
+    PreparingConfig = 1,
+    PreparingContent = 2,
+    UploadingContent = 3,
+    UploadingPreviewFile = 4,
+    CommittingChanges = 5
+}
+
 enum SteamUgcStatisticType
 {
     NumSubscriptions = 0,
@@ -626,7 +727,590 @@ enum SteamUgcStatisticType
     NumSecondsPlayed = 8,
     NumPlaytimeSessions = 9,
     NumComments = 10,
-    NumSecondsPlayedDuringTimePeriod = 11
+    NumSecondsPlayedDuringTimePeriod = 11,
+    NumPlaytimeSessionsDuringTimePeriod = 12
+}
+
+enum SteamInputControllerSourceMode
+{
+    None = 0,
+    Dpad = 1,
+    Buttons = 2,
+    FourButtons = 3,
+    AbsoluteMouse = 4,
+    RelativeMouse = 5,
+    JoystickMove = 6,
+    JoystickMouse = 7,
+    JoystickCamera = 8,
+    ScrollWheel = 9,
+    Trigger = 10,
+    TouchMenu = 11,
+    MouseJoystick = 12,
+    MouseRegion = 13,
+    RadialMenu = 14,
+    SingleButton = 15,
+    Switches = 16
+}
+
+enum SteamInputControllerLEDFlag
+{
+    SetColor = 0,
+    RestoreUserDefault = 1
+}
+
+enum SteamInputType
+{
+    Unknown = 0,
+    SteamController = 1,
+    XBox360Controller = 2,
+    XBoxOneController = 3,
+    GenericGamepad = 4,
+    PS4Controller = 5,
+    AppleMFiController = 6,
+    AndroidController = 7,
+    SwitchJoyConPair = 8,
+    SwitchJoyConSingle = 9,
+    SwitchProController = 10,
+    MobileTouch = 11,
+    PS3Controller = 12,
+    PS5Controller = 13,
+    SteamDeckController = 14,
+    Count = 15,
+    MaximumPossibleValue = 255
+}
+
+enum SteamXboxOrigin
+{
+    A = 0,
+    B = 1,
+    X = 2,
+    Y = 3,
+    LeftBumper = 4,
+    RightBumper = 5,
+    Menu = 6,
+    View = 7,
+    LeftTrigger_Pull = 8,
+    LeftTrigger_Click = 9,
+    RightTrigger_Pull = 10,
+    RightTrigger_Click = 11,
+    LeftStick_Move = 12,
+    LeftStick_Click = 13,
+    LeftStick_DPadNorth = 14,
+    LeftStick_DPadSouth = 15,
+    LeftStick_DPadWest = 16,
+    LeftStick_DPadEast = 17,
+    RightStick_Move = 18,
+    RightStick_Click = 19,
+    RightStick_DPadNorth = 20,
+    RightStick_DPadSouth = 21,
+    RightStick_DPadWest = 22,
+    RightStick_DPadEast = 23,
+    DPad_North = 24,
+    DPad_South = 25,
+    DPad_West = 26,
+    DPad_East = 27,
+    Count = 28
+}
+
+enum SteamInputActionOrigin
+{
+    None = 0,
+    SteamController_A = 1,
+    SteamController_B = 2,
+    SteamController_X = 3,
+    SteamController_Y = 4,
+    SteamController_LeftBumper = 5,
+    SteamController_RightBumper = 6,
+    SteamController_LeftGrip = 7,
+    SteamController_RightGrip = 8,
+    SteamController_Start = 9,
+    SteamController_Back = 10,
+    SteamController_LeftPad_Touch = 11,
+    SteamController_LeftPad_Swipe = 12,
+    SteamController_LeftPad_Click = 13,
+    SteamController_LeftPad_DPadNorth = 14,
+    SteamController_LeftPad_DPadSouth = 15,
+    SteamController_LeftPad_DPadWest = 16,
+    SteamController_LeftPad_DPadEast = 17,
+    SteamController_RightPad_Touch = 18,
+    SteamController_RightPad_Swipe = 19,
+    SteamController_RightPad_Click = 20,
+    SteamController_RightPad_DPadNorth = 21,
+    SteamController_RightPad_DPadSouth = 22,
+    SteamController_RightPad_DPadWest = 23,
+    SteamController_RightPad_DPadEast = 24,
+    SteamController_LeftTrigger_Pull = 25,
+    SteamController_LeftTrigger_Click = 26,
+    SteamController_RightTrigger_Pull = 27,
+    SteamController_RightTrigger_Click = 28,
+    SteamController_LeftStick_Move = 29,
+    SteamController_LeftStick_Click = 30,
+    SteamController_LeftStick_DPadNorth = 31,
+    SteamController_LeftStick_DPadSouth = 32,
+    SteamController_LeftStick_DPadWest = 33,
+    SteamController_LeftStick_DPadEast = 34,
+    SteamController_Gyro_Move = 35,
+    SteamController_Gyro_Pitch = 36,
+    SteamController_Gyro_Yaw = 37,
+    SteamController_Gyro_Roll = 38,
+    SteamController_Reserved0 = 39,
+    SteamController_Reserved1 = 40,
+    SteamController_Reserved2 = 41,
+    SteamController_Reserved3 = 42,
+    SteamController_Reserved4 = 43,
+    SteamController_Reserved5 = 44,
+    SteamController_Reserved6 = 45,
+    SteamController_Reserved7 = 46,
+    SteamController_Reserved8 = 47,
+    SteamController_Reserved9 = 48,
+    SteamController_Reserved10 = 49,
+    PS4_X = 50,
+    PS4_Circle = 51,
+    PS4_Triangle = 52,
+    PS4_Square = 53,
+    PS4_LeftBumper = 54,
+    PS4_RightBumper = 55,
+    PS4_Options = 56,
+    PS4_Share = 57,
+    PS4_LeftPad_Touch = 58,
+    PS4_LeftPad_Swipe = 59,
+    PS4_LeftPad_Click = 60,
+    PS4_LeftPad_DPadNorth = 61,
+    PS4_LeftPad_DPadSouth = 62,
+    PS4_LeftPad_DPadWest = 63,
+    PS4_LeftPad_DPadEast = 64,
+    PS4_RightPad_Touch = 65,
+    PS4_RightPad_Swipe = 66,
+    PS4_RightPad_Click = 67,
+    PS4_RightPad_DPadNorth = 68,
+    PS4_RightPad_DPadSouth = 69,
+    PS4_RightPad_DPadWest = 70,
+    PS4_RightPad_DPadEast = 71,
+    PS4_CenterPad_Touch = 72,
+    PS4_CenterPad_Swipe = 73,
+    PS4_CenterPad_Click = 74,
+    PS4_CenterPad_DPadNorth = 75,
+    PS4_CenterPad_DPadSouth = 76,
+    PS4_CenterPad_DPadWest = 77,
+    PS4_CenterPad_DPadEast = 78,
+    PS4_LeftTrigger_Pull = 79,
+    PS4_LeftTrigger_Click = 80,
+    PS4_RightTrigger_Pull = 81,
+    PS4_RightTrigger_Click = 82,
+    PS4_LeftStick_Move = 83,
+    PS4_LeftStick_Click = 84,
+    PS4_LeftStick_DPadNorth = 85,
+    PS4_LeftStick_DPadSouth = 86,
+    PS4_LeftStick_DPadWest = 87,
+    PS4_LeftStick_DPadEast = 88,
+    PS4_RightStick_Move = 89,
+    PS4_RightStick_Click = 90,
+    PS4_RightStick_DPadNorth = 91,
+    PS4_RightStick_DPadSouth = 92,
+    PS4_RightStick_DPadWest = 93,
+    PS4_RightStick_DPadEast = 94,
+    PS4_DPad_North = 95,
+    PS4_DPad_South = 96,
+    PS4_DPad_West = 97,
+    PS4_DPad_East = 98,
+    PS4_Gyro_Move = 99,
+    PS4_Gyro_Pitch = 100,
+    PS4_Gyro_Yaw = 101,
+    PS4_Gyro_Roll = 102,
+    PS4_DPad_Move = 103,
+    PS4_Reserved1 = 104,
+    PS4_Reserved2 = 105,
+    PS4_Reserved3 = 106,
+    PS4_Reserved4 = 107,
+    PS4_Reserved5 = 108,
+    PS4_Reserved6 = 109,
+    PS4_Reserved7 = 110,
+    PS4_Reserved8 = 111,
+    PS4_Reserved9 = 112,
+    PS4_Reserved10 = 113,
+    XBoxOne_A = 114,
+    XBoxOne_B = 115,
+    XBoxOne_X = 116,
+    XBoxOne_Y = 117,
+    XBoxOne_LeftBumper = 118,
+    XBoxOne_RightBumper = 119,
+    XBoxOne_Menu = 120,
+    XBoxOne_View = 121,
+    XBoxOne_LeftTrigger_Pull = 122,
+    XBoxOne_LeftTrigger_Click = 123,
+    XBoxOne_RightTrigger_Pull = 124,
+    XBoxOne_RightTrigger_Click = 125,
+    XBoxOne_LeftStick_Move = 126,
+    XBoxOne_LeftStick_Click = 127,
+    XBoxOne_LeftStick_DPadNorth = 128,
+    XBoxOne_LeftStick_DPadSouth = 129,
+    XBoxOne_LeftStick_DPadWest = 130,
+    XBoxOne_LeftStick_DPadEast = 131,
+    XBoxOne_RightStick_Move = 132,
+    XBoxOne_RightStick_Click = 133,
+    XBoxOne_RightStick_DPadNorth = 134,
+    XBoxOne_RightStick_DPadSouth = 135,
+    XBoxOne_RightStick_DPadWest = 136,
+    XBoxOne_RightStick_DPadEast = 137,
+    XBoxOne_DPad_North = 138,
+    XBoxOne_DPad_South = 139,
+    XBoxOne_DPad_West = 140,
+    XBoxOne_DPad_East = 141,
+    XBoxOne_DPad_Move = 142,
+    XBoxOne_LeftGrip_Lower = 143,
+    XBoxOne_LeftGrip_Upper = 144,
+    XBoxOne_RightGrip_Lower = 145,
+    XBoxOne_RightGrip_Upper = 146,
+    XBoxOne_Share = 147,
+    XBoxOne_Reserved6 = 148,
+    XBoxOne_Reserved7 = 149,
+    XBoxOne_Reserved8 = 150,
+    XBoxOne_Reserved9 = 151,
+    XBoxOne_Reserved10 = 152,
+    XBox360_A = 153,
+    XBox360_B = 154,
+    XBox360_X = 155,
+    XBox360_Y = 156,
+    XBox360_LeftBumper = 157,
+    XBox360_RightBumper = 158,
+    XBox360_Start = 159,
+    XBox360_Back = 160,
+    XBox360_LeftTrigger_Pull = 161,
+    XBox360_LeftTrigger_Click = 162,
+    XBox360_RightTrigger_Pull = 163,
+    XBox360_RightTrigger_Click = 164,
+    XBox360_LeftStick_Move = 165,
+    XBox360_LeftStick_Click = 166,
+    XBox360_LeftStick_DPadNorth = 167,
+    XBox360_LeftStick_DPadSouth = 168,
+    XBox360_LeftStick_DPadWest = 169,
+    XBox360_LeftStick_DPadEast = 170,
+    XBox360_RightStick_Move = 171,
+    XBox360_RightStick_Click = 172,
+    XBox360_RightStick_DPadNorth = 173,
+    XBox360_RightStick_DPadSouth = 174,
+    XBox360_RightStick_DPadWest = 175,
+    XBox360_RightStick_DPadEast = 176,
+    XBox360_DPad_North = 177,
+    XBox360_DPad_South = 178,
+    XBox360_DPad_West = 179,
+    XBox360_DPad_East = 180,
+    XBox360_DPad_Move = 181,
+    XBox360_Reserved1 = 182,
+    XBox360_Reserved2 = 183,
+    XBox360_Reserved3 = 184,
+    XBox360_Reserved4 = 185,
+    XBox360_Reserved5 = 186,
+    XBox360_Reserved6 = 187,
+    XBox360_Reserved7 = 188,
+    XBox360_Reserved8 = 189,
+    XBox360_Reserved9 = 190,
+    XBox360_Reserved10 = 191,
+    Switch_A = 192,
+    Switch_B = 193,
+    Switch_X = 194,
+    Switch_Y = 195,
+    Switch_LeftBumper = 196,
+    Switch_RightBumper = 197,
+    Switch_Plus = 198,
+    Switch_Minus = 199,
+    Switch_Capture = 200,
+    Switch_LeftTrigger_Pull = 201,
+    Switch_LeftTrigger_Click = 202,
+    Switch_RightTrigger_Pull = 203,
+    Switch_RightTrigger_Click = 204,
+    Switch_LeftStick_Move = 205,
+    Switch_LeftStick_Click = 206,
+    Switch_LeftStick_DPadNorth = 207,
+    Switch_LeftStick_DPadSouth = 208,
+    Switch_LeftStick_DPadWest = 209,
+    Switch_LeftStick_DPadEast = 210,
+    Switch_RightStick_Move = 211,
+    Switch_RightStick_Click = 212,
+    Switch_RightStick_DPadNorth = 213,
+    Switch_RightStick_DPadSouth = 214,
+    Switch_RightStick_DPadWest = 215,
+    Switch_RightStick_DPadEast = 216,
+    Switch_DPad_North = 217,
+    Switch_DPad_South = 218,
+    Switch_DPad_West = 219,
+    Switch_DPad_East = 220,
+    Switch_ProGyro_Move = 221,
+    Switch_ProGyro_Pitch = 222,
+    Switch_ProGyro_Yaw = 223,
+    Switch_ProGyro_Roll = 224,
+    Switch_DPad_Move = 225,
+    Switch_Reserved1 = 226,
+    Switch_Reserved2 = 227,
+    Switch_Reserved3 = 228,
+    Switch_Reserved4 = 229,
+    Switch_Reserved5 = 230,
+    Switch_Reserved6 = 231,
+    Switch_Reserved7 = 232,
+    Switch_Reserved8 = 233,
+    Switch_Reserved9 = 234,
+    Switch_Reserved10 = 235,
+    Switch_RightGyro_Move = 236,
+    Switch_RightGyro_Pitch = 237,
+    Switch_RightGyro_Yaw = 238,
+    Switch_RightGyro_Roll = 239,
+    Switch_LeftGyro_Move = 240,
+    Switch_LeftGyro_Pitch = 241,
+    Switch_LeftGyro_Yaw = 242,
+    Switch_LeftGyro_Roll = 243,
+    Switch_LeftGrip_Lower = 244,
+    Switch_LeftGrip_Upper = 245,
+    Switch_RightGrip_Lower = 246,
+    Switch_RightGrip_Upper = 247,
+    Switch_JoyConButton_N = 248,
+    Switch_JoyConButton_E = 249,
+    Switch_JoyConButton_S = 250,
+    Switch_JoyConButton_W = 251,
+    Switch_Reserved15 = 252,
+    Switch_Reserved16 = 253,
+    Switch_Reserved17 = 254,
+    Switch_Reserved18 = 255,
+    Switch_Reserved19 = 256,
+    Switch_Reserved20 = 257,
+    PS5_X = 258,
+    PS5_Circle = 259,
+    PS5_Triangle = 260,
+    PS5_Square = 261,
+    PS5_LeftBumper = 262,
+    PS5_RightBumper = 263,
+    PS5_Option = 264,
+    PS5_Create = 265,
+    PS5_Mute = 266,
+    PS5_LeftPad_Touch = 267,
+    PS5_LeftPad_Swipe = 268,
+    PS5_LeftPad_Click = 269,
+    PS5_LeftPad_DPadNorth = 270,
+    PS5_LeftPad_DPadSouth = 271,
+    PS5_LeftPad_DPadWest = 272,
+    PS5_LeftPad_DPadEast = 273,
+    PS5_RightPad_Touch = 274,
+    PS5_RightPad_Swipe = 275,
+    PS5_RightPad_Click = 276,
+    PS5_RightPad_DPadNorth = 277,
+    PS5_RightPad_DPadSouth = 278,
+    PS5_RightPad_DPadWest = 279,
+    PS5_RightPad_DPadEast = 280,
+    PS5_CenterPad_Touch = 281,
+    PS5_CenterPad_Swipe = 282,
+    PS5_CenterPad_Click = 283,
+    PS5_CenterPad_DPadNorth = 284,
+    PS5_CenterPad_DPadSouth = 285,
+    PS5_CenterPad_DPadWest = 286,
+    PS5_CenterPad_DPadEast = 287,
+    PS5_LeftTrigger_Pull = 288,
+    PS5_LeftTrigger_Click = 289,
+    PS5_RightTrigger_Pull = 290,
+    PS5_RightTrigger_Click = 291,
+    PS5_LeftStick_Move = 292,
+    PS5_LeftStick_Click = 293,
+    PS5_LeftStick_DPadNorth = 294,
+    PS5_LeftStick_DPadSouth = 295,
+    PS5_LeftStick_DPadWest = 296,
+    PS5_LeftStick_DPadEast = 297,
+    PS5_RightStick_Move = 298,
+    PS5_RightStick_Click = 299,
+    PS5_RightStick_DPadNorth = 300,
+    PS5_RightStick_DPadSouth = 301,
+    PS5_RightStick_DPadWest = 302,
+    PS5_RightStick_DPadEast = 303,
+    PS5_DPad_North = 304,
+    PS5_DPad_South = 305,
+    PS5_DPad_West = 306,
+    PS5_DPad_East = 307,
+    PS5_Gyro_Move = 308,
+    PS5_Gyro_Pitch = 309,
+    PS5_Gyro_Yaw = 310,
+    PS5_Gyro_Roll = 311,
+    PS5_DPad_Move = 312,
+    PS5_LeftGrip = 313,
+    PS5_RightGrip = 314,
+    PS5_LeftFn = 315,
+    PS5_RightFn = 316,
+    PS5_Reserved5 = 317,
+    PS5_Reserved6 = 318,
+    PS5_Reserved7 = 319,
+    PS5_Reserved8 = 320,
+    PS5_Reserved9 = 321,
+    PS5_Reserved10 = 322,
+    PS5_Reserved11 = 323,
+    PS5_Reserved12 = 324,
+    PS5_Reserved13 = 325,
+    PS5_Reserved14 = 326,
+    PS5_Reserved15 = 327,
+    PS5_Reserved16 = 328,
+    PS5_Reserved17 = 329,
+    PS5_Reserved18 = 330,
+    PS5_Reserved19 = 331,
+    PS5_Reserved20 = 332,
+    SteamDeck_A = 333,
+    SteamDeck_B = 334,
+    SteamDeck_X = 335,
+    SteamDeck_Y = 336,
+    SteamDeck_L1 = 337,
+    SteamDeck_R1 = 338,
+    SteamDeck_Menu = 339,
+    SteamDeck_View = 340,
+    SteamDeck_LeftPad_Touch = 341,
+    SteamDeck_LeftPad_Swipe = 342,
+    SteamDeck_LeftPad_Click = 343,
+    SteamDeck_LeftPad_DPadNorth = 344,
+    SteamDeck_LeftPad_DPadSouth = 345,
+    SteamDeck_LeftPad_DPadWest = 346,
+    SteamDeck_LeftPad_DPadEast = 347,
+    SteamDeck_RightPad_Touch = 348,
+    SteamDeck_RightPad_Swipe = 349,
+    SteamDeck_RightPad_Click = 350,
+    SteamDeck_RightPad_DPadNorth = 351,
+    SteamDeck_RightPad_DPadSouth = 352,
+    SteamDeck_RightPad_DPadWest = 353,
+    SteamDeck_RightPad_DPadEast = 354,
+    SteamDeck_L2_SoftPull = 355,
+    SteamDeck_L2 = 356,
+    SteamDeck_R2_SoftPull = 357,
+    SteamDeck_R2 = 358,
+    SteamDeck_LeftStick_Move = 359,
+    SteamDeck_L3 = 360,
+    SteamDeck_LeftStick_DPadNorth = 361,
+    SteamDeck_LeftStick_DPadSouth = 362,
+    SteamDeck_LeftStick_DPadWest = 363,
+    SteamDeck_LeftStick_DPadEast = 364,
+    SteamDeck_LeftStick_Touch = 365,
+    SteamDeck_RightStick_Move = 366,
+    SteamDeck_R3 = 367,
+    SteamDeck_RightStick_DPadNorth = 368,
+    SteamDeck_RightStick_DPadSouth = 369,
+    SteamDeck_RightStick_DPadWest = 370,
+    SteamDeck_RightStick_DPadEast = 371,
+    SteamDeck_RightStick_Touch = 372,
+    SteamDeck_L4 = 373,
+    SteamDeck_R4 = 374,
+    SteamDeck_L5 = 375,
+    SteamDeck_R5 = 376,
+    SteamDeck_DPad_Move = 377,
+    SteamDeck_DPad_North = 378,
+    SteamDeck_DPad_South = 379,
+    SteamDeck_DPad_West = 380,
+    SteamDeck_DPad_East = 381,
+    SteamDeck_Gyro_Move = 382,
+    SteamDeck_Gyro_Pitch = 383,
+    SteamDeck_Gyro_Yaw = 384,
+    SteamDeck_Gyro_Roll = 385,
+    SteamDeck_Reserved1 = 386,
+    SteamDeck_Reserved2 = 387,
+    SteamDeck_Reserved3 = 388,
+    SteamDeck_Reserved4 = 389,
+    SteamDeck_Reserved5 = 390,
+    SteamDeck_Reserved6 = 391,
+    SteamDeck_Reserved7 = 392,
+    SteamDeck_Reserved8 = 393,
+    SteamDeck_Reserved9 = 394,
+    SteamDeck_Reserved10 = 395,
+    SteamDeck_Reserved11 = 396,
+    SteamDeck_Reserved12 = 397,
+    SteamDeck_Reserved13 = 398,
+    SteamDeck_Reserved14 = 399,
+    SteamDeck_Reserved15 = 400,
+    SteamDeck_Reserved16 = 401,
+    SteamDeck_Reserved17 = 402,
+    SteamDeck_Reserved18 = 403,
+    SteamDeck_Reserved19 = 404,
+    SteamDeck_Reserved20 = 405,
+    Horipad_M1 = 406,
+    Horipad_M2 = 407,
+    Horipad_L4 = 408,
+    Horipad_R4 = 409,
+    LenovoLegionGo_A = 410,
+    LenovoLegionGo_B = 411,
+    LenovoLegionGo_X = 412,
+    LenovoLegionGo_Y = 413,
+    LenovoLegionGo_LB = 414,
+    LenovoLegionGo_RB = 415,
+    LenovoLegionGo_Menu = 416,
+    LenovoLegionGo_View = 417,
+    LenovoLegionGo_LeftPad_Touch = 418,
+    LenovoLegionGo_LeftPad_Swipe = 419,
+    LenovoLegionGo_LeftPad_Click = 420,
+    LenovoLegionGo_LeftPad_DPadNorth = 421,
+    LenovoLegionGo_LeftPad_DPadSouth = 422,
+    LenovoLegionGo_LeftPad_DPadWest = 423,
+    LenovoLegionGo_LeftPad_DPadEast = 424,
+    LenovoLegionGo_RightPad_Touch = 425,
+    LenovoLegionGo_RightPad_Swipe = 426,
+    LenovoLegionGo_RightPad_Click = 427,
+    LenovoLegionGo_RightPad_DPadNorth = 428,
+    LenovoLegionGo_RightPad_DPadSouth = 429,
+    LenovoLegionGo_RightPad_DPadWest = 430,
+    LenovoLegionGo_RightPad_DPadEast = 431,
+    LenovoLegionGo_LT_SoftPull = 432,
+    LenovoLegionGo_LT = 433,
+    LenovoLegionGo_RT_SoftPull = 434,
+    LenovoLegionGo_RT = 435,
+    LenovoLegionGo_LeftStick_Move = 436,
+    LenovoLegionGo_LS = 437,
+    LenovoLegionGo_LeftStick_DPadNorth = 438,
+    LenovoLegionGo_LeftStick_DPadSouth = 439,
+    LenovoLegionGo_LeftStick_DPadWest = 440,
+    LenovoLegionGo_LeftStick_DPadEast = 441,
+    LenovoLegionGo_RightStick_Move = 442,
+    LenovoLegionGo_RS = 443,
+    LenovoLegionGo_RightStick_DPadNorth = 444,
+    LenovoLegionGo_RightStick_DPadSouth = 445,
+    LenovoLegionGo_RightStick_DPadWest = 446,
+    LenovoLegionGo_RightStick_DPadEast = 447,
+    LenovoLegionGo_Y1 = 448,
+    LenovoLegionGo_Y2 = 449,
+    LenovoLegionGo_DPad_Move = 450,
+    LenovoLegionGo_DPad_North = 451,
+    LenovoLegionGo_DPad_South = 452,
+    LenovoLegionGo_DPad_West = 453,
+    LenovoLegionGo_DPad_East = 454,
+    LenovoLegionGo_Gyro_Move = 455,
+    LenovoLegionGo_Gyro_Pitch = 456,
+    LenovoLegionGo_Gyro_Yaw = 457,
+    LenovoLegionGo_Gyro_Roll = 458,
+    LenovoLegionGo_Reserved1 = 459,
+    LenovoLegionGo_Reserved2 = 460,
+    LenovoLegionGo_Reserved3 = 461,
+    LenovoLegionGo_Reserved4 = 462,
+    LenovoLegionGo_Reserved5 = 463,
+    LenovoLegionGo_Reserved6 = 464,
+    LenovoLegionGo_Reserved7 = 465,
+    LenovoLegionGo_Reserved8 = 466,
+    LenovoLegionGo_Reserved9 = 467,
+    LenovoLegionGo_Reserved10 = 468,
+    LenovoLegionGo_Reserved11 = 469,
+    LenovoLegionGo_Reserved12 = 470,
+    LenovoLegionGo_Reserved13 = 471,
+    LenovoLegionGo_Reserved14 = 472,
+    LenovoLegionGo_Reserved15 = 473,
+    LenovoLegionGo_Reserved16 = 474,
+    LenovoLegionGo_Reserved17 = 475,
+    LenovoLegionGo_Reserved18 = 476,
+    LenovoLegionGo_Reserved19 = 477,
+    LenovoLegionGo_Reserved20 = 478,
+    Generic_L4 = 479,
+    Generic_R4 = 480,
+    Generic_L5 = 481,
+    Generic_R5 = 482,
+    Generic_PL = 483,
+    Generic_PR = 484,
+    Generic_C = 485,
+    Generic_Z = 486,
+    Generic_MISC1 = 487,
+    Generic_MISC2 = 488,
+    Generic_MISC3 = 489,
+    Generic_MISC4 = 490,
+    Generic_MISC5 = 491,
+    Generic_MISC6 = 492,
+    Generic_MISC7 = 493,
+    Generic_MISC8 = 494,
+    Count = 495,
+    MaximumPossibleValue = 32767
 }
 
 enum SteamLeaderboardDataRequest
@@ -681,9 +1365,11 @@ enum SteamTimelineEventClipPriority
     Featured = 3
 }
 
-enum SteamInventoryConst
+enum SteamInventoryItemFlags
 {
-    InvalidResult = -1
+    NoTrade = 1,
+    Removed = 256,
+    Consumed = 512
 }
 
 enum SteamRemoteStoragePlatform
@@ -748,6 +1434,22 @@ enum SteamMatchmakingLobbyDistanceFilter
     Default = 1,
     Far = 2,
     Worldwide = 3
+}
+
+enum SteamMatchmakingChatRoomEnterResponse
+{
+    Success = 1,
+    DoesntExist = 2,
+    NotAllowed = 3,
+    Full = 4,
+    Error = 5,
+    Banned = 6,
+    Limited = 7,
+    ClanDisabled = 8,
+    CommunityBan = 9,
+    MemberBlockedYou = 10,
+    YouBlockedMember = 11,
+    RatelimitExceeded = 15
 }
 
 enum SteamNetworkingConnectionState
@@ -1337,7 +2039,6 @@ function SteamUserStoreAuthUrlResponse() constructor
      */
     static __uid = 4276589035;
 
-    self.result = undefined;
     self.url = undefined;
 
 }
@@ -1429,6 +2130,22 @@ function SteamUserAuthSessionTicket() constructor
 
     self.auth_ticket_handle = undefined;
     self.ticket_size = undefined;
+
+}
+
+/**
+ * @returns {Struct.SteamUserGetAuthSessionTicketResponse} 
+ */
+function SteamUserGetAuthSessionTicketResponse() constructor
+{
+    /**
+     * Internally generated hash for quick validation
+     * @ignore 
+     */
+    static __uid = 2373788877;
+
+    self.auth_ticket_handle = undefined;
+    self.result = undefined;
 
 }
 
@@ -3140,6 +3857,21 @@ function SteamRemoteStorageFileShareResult() constructor
 }
 
 /**
+ * @returns {Struct.SteamRemoteStorageFileWriteAsyncResult} 
+ */
+function SteamRemoteStorageFileWriteAsyncResult() constructor
+{
+    /**
+     * Internally generated hash for quick validation
+     * @ignore 
+     */
+    static __uid = 2397601524;
+
+    self.result = undefined;
+
+}
+
+/**
  * @returns {Struct.SteamRemoteStorageDownloadUgcResult} 
  */
 function SteamRemoteStorageDownloadUgcResult() constructor
@@ -4066,9 +4798,9 @@ function __SteamFriendsDownloadClanActivityCountsResult_encode(_inst, _buffer, _
     buffer_seek(_buffer, buffer_seek_start, _offset);
     with (_inst)
     {
-        // field: result, type: Int32
-        if (!is_numeric(self.result)) show_error($"{_where} :: self.result expected number", true);
-        buffer_write(_buffer, buffer_s32, self.result);
+        // field: result, type: Bool
+        if (!is_bool(self.result)) show_error($"{_where} :: self.result expected bool", true);
+        buffer_write(_buffer, buffer_bool, self.result);
 
     }
 }
@@ -4087,8 +4819,8 @@ function __SteamFriendsDownloadClanActivityCountsResult_decode(_buffer, _offset)
     _inst = new SteamFriendsDownloadClanActivityCountsResult();
     with (_inst)
     {
-        // field: result, type: Int32
-        self.result = buffer_read(_buffer, buffer_s32);
+        // field: result, type: Bool
+        self.result = buffer_read(_buffer, buffer_bool);
 
     }
 
@@ -5514,11 +6246,6 @@ function __SteamUserStoreAuthUrlResponse_encode(_inst, _buffer, _offset, _where 
     buffer_seek(_buffer, buffer_seek_start, _offset);
     with (_inst)
     {
-        // field: result, type: enum SteamApiResult
-
-        if (!is_numeric(self.result)) show_error($"{_where} :: self.result expected number", true);
-        buffer_write(_buffer, buffer_u64, self.result);
-
         // field: url, type: String
         if (!is_string(self.url)) show_error($"{_where} :: self.url expected string", true);
         buffer_write(_buffer, buffer_u32, string_byte_length(self.url));
@@ -5541,9 +6268,6 @@ function __SteamUserStoreAuthUrlResponse_decode(_buffer, _offset)
     _inst = new SteamUserStoreAuthUrlResponse();
     with (_inst)
     {
-        // field: result, type: enum SteamApiResult
-        self.result = buffer_read(_buffer, buffer_u64);
-
         // field: url, type: String
         buffer_read(_buffer, buffer_u32);
         self.url = buffer_read(_buffer, buffer_string);
@@ -5625,13 +6349,15 @@ function __SteamUserDurationControl_encode(_inst, _buffer, _offset, _where = _GM
         if (!is_numeric(self.csecs_last_5h)) show_error($"{_where} :: self.csecs_last_5h expected number", true);
         buffer_write(_buffer, buffer_s32, self.csecs_last_5h);
 
-        // field: progress, type: Int32
-        if (!is_numeric(self.progress)) show_error($"{_where} :: self.progress expected number", true);
-        buffer_write(_buffer, buffer_s32, self.progress);
+        // field: progress, type: enum SteamUserDurationControlProgress
 
-        // field: notification, type: Int32
+        if (!is_numeric(self.progress)) show_error($"{_where} :: self.progress expected number", true);
+        buffer_write(_buffer, buffer_u64, self.progress);
+
+        // field: notification, type: enum SteamUserDurationControlNotification
+
         if (!is_numeric(self.notification)) show_error($"{_where} :: self.notification expected number", true);
-        buffer_write(_buffer, buffer_s32, self.notification);
+        buffer_write(_buffer, buffer_u64, self.notification);
 
     }
 }
@@ -5662,11 +6388,11 @@ function __SteamUserDurationControl_decode(_buffer, _offset)
         // field: csecs_last_5h, type: Int32
         self.csecs_last_5h = buffer_read(_buffer, buffer_s32);
 
-        // field: progress, type: Int32
-        self.progress = buffer_read(_buffer, buffer_s32);
+        // field: progress, type: enum SteamUserDurationControlProgress
+        self.progress = buffer_read(_buffer, buffer_u64);
 
-        // field: notification, type: Int32
-        self.notification = buffer_read(_buffer, buffer_s32);
+        // field: notification, type: enum SteamUserDurationControlNotification
+        self.notification = buffer_read(_buffer, buffer_u64);
 
     }
 
@@ -5868,6 +6594,56 @@ function __SteamUserAuthSessionTicket_decode(_buffer, _offset)
 
         // field: ticket_size, type: UInt32
         self.ticket_size = buffer_read(_buffer, buffer_u32);
+
+    }
+
+    return _inst;
+}
+
+/**
+ * @func __SteamUserGetAuthSessionTicketResponse_encode(_inst, _buffer, _offset, _where)
+ * @param {Struct.SteamUserGetAuthSessionTicketResponse} _inst
+ * @param {Id.Buffer} _buffer
+ * @param {Real} _offset
+ * @param {String} _where
+ * @ignore 
+ */
+function __SteamUserGetAuthSessionTicketResponse_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
+{
+    buffer_seek(_buffer, buffer_seek_start, _offset);
+    with (_inst)
+    {
+        // field: auth_ticket_handle, type: UInt32
+        if (!is_numeric(self.auth_ticket_handle)) show_error($"{_where} :: self.auth_ticket_handle expected number", true);
+        buffer_write(_buffer, buffer_u32, self.auth_ticket_handle);
+
+        // field: result, type: enum SteamApiResult
+
+        if (!is_numeric(self.result)) show_error($"{_where} :: self.result expected number", true);
+        buffer_write(_buffer, buffer_u64, self.result);
+
+    }
+}
+
+/**
+ * @func __SteamUserGetAuthSessionTicketResponse_decode(_buffer, _offset)
+ * @param {Id.Buffer} _buffer
+ * @param {Real} _offset
+ * @returns {Struct.SteamUserGetAuthSessionTicketResponse} 
+ * @ignore 
+ */
+function __SteamUserGetAuthSessionTicketResponse_decode(_buffer, _offset)
+{
+    buffer_seek(_buffer, buffer_seek_start, _offset);
+
+    _inst = new SteamUserGetAuthSessionTicketResponse();
+    with (_inst)
+    {
+        // field: auth_ticket_handle, type: UInt32
+        self.auth_ticket_handle = buffer_read(_buffer, buffer_u32);
+
+        // field: result, type: enum SteamApiResult
+        self.result = buffer_read(_buffer, buffer_u64);
 
     }
 
@@ -6501,9 +7277,10 @@ function __SteamUtilsCheckFileSignatureResult_encode(_inst, _buffer, _offset, _w
     buffer_seek(_buffer, buffer_seek_start, _offset);
     with (_inst)
     {
-        // field: result, type: Int32
+        // field: result, type: enum SteamUtilsCheckFileSignature
+
         if (!is_numeric(self.result)) show_error($"{_where} :: self.result expected number", true);
-        buffer_write(_buffer, buffer_s32, self.result);
+        buffer_write(_buffer, buffer_u64, self.result);
 
     }
 }
@@ -6522,8 +7299,8 @@ function __SteamUtilsCheckFileSignatureResult_decode(_buffer, _offset)
     _inst = new SteamUtilsCheckFileSignatureResult();
     with (_inst)
     {
-        // field: result, type: Int32
-        self.result = buffer_read(_buffer, buffer_s32);
+        // field: result, type: enum SteamUtilsCheckFileSignature
+        self.result = buffer_read(_buffer, buffer_u64);
 
     }
 
@@ -7174,9 +7951,10 @@ function __SteamUgcItemUpdateProgress_encode(_inst, _buffer, _offset, _where = _
     buffer_seek(_buffer, buffer_seek_start, _offset);
     with (_inst)
     {
-        // field: status, type: Int32
+        // field: status, type: enum SteamUgcItemUpdateStatus
+
         if (!is_numeric(self.status)) show_error($"{_where} :: self.status expected number", true);
-        buffer_write(_buffer, buffer_s32, self.status);
+        buffer_write(_buffer, buffer_u64, self.status);
 
         // field: bytes_processed, type: UInt64
         if (!is_numeric(self.bytes_processed)) show_error($"{_where} :: self.bytes_processed expected number", true);
@@ -7203,8 +7981,8 @@ function __SteamUgcItemUpdateProgress_decode(_buffer, _offset)
     _inst = new SteamUgcItemUpdateProgress();
     with (_inst)
     {
-        // field: status, type: Int32
-        self.status = buffer_read(_buffer, buffer_s32);
+        // field: status, type: enum SteamUgcItemUpdateStatus
+        self.status = buffer_read(_buffer, buffer_u64);
 
         // field: bytes_processed, type: UInt64
         self.bytes_processed = buffer_read(_buffer, buffer_u64);
@@ -7450,9 +8228,10 @@ function __SteamUgcAdditionalPreview_encode(_inst, _buffer, _offset, _where = _G
         buffer_write(_buffer, buffer_u32, string_byte_length(self.url_or_video_id));
         buffer_write(_buffer, buffer_string, self.url_or_video_id);
 
-        // field: preview_type, type: Int32
+        // field: preview_type, type: enum SteamItemPreviewType
+
         if (!is_numeric(self.preview_type)) show_error($"{_where} :: self.preview_type expected number", true);
-        buffer_write(_buffer, buffer_s32, self.preview_type);
+        buffer_write(_buffer, buffer_u64, self.preview_type);
 
     }
 }
@@ -7478,8 +8257,8 @@ function __SteamUgcAdditionalPreview_decode(_buffer, _offset)
         buffer_read(_buffer, buffer_u32);
         self.url_or_video_id = buffer_read(_buffer, buffer_string);
 
-        // field: preview_type, type: Int32
-        self.preview_type = buffer_read(_buffer, buffer_s32);
+        // field: preview_type, type: enum SteamItemPreviewType
+        self.preview_type = buffer_read(_buffer, buffer_u64);
 
     }
 
@@ -8431,9 +9210,10 @@ function __SteamInputAnalogActionData_encode(_inst, _buffer, _offset, _where = _
     buffer_seek(_buffer, buffer_seek_start, _offset);
     with (_inst)
     {
-        // field: mode, type: Int32
+        // field: mode, type: enum SteamInputControllerSourceMode
+
         if (!is_numeric(self.mode)) show_error($"{_where} :: self.mode expected number", true);
-        buffer_write(_buffer, buffer_s32, self.mode);
+        buffer_write(_buffer, buffer_u64, self.mode);
 
         // field: x, type: Float32
         if (!is_numeric(self.x)) show_error($"{_where} :: self.x expected number", true);
@@ -8464,8 +9244,8 @@ function __SteamInputAnalogActionData_decode(_buffer, _offset)
     _inst = new SteamInputAnalogActionData();
     with (_inst)
     {
-        // field: mode, type: Int32
-        self.mode = buffer_read(_buffer, buffer_s32);
+        // field: mode, type: enum SteamInputControllerSourceMode
+        self.mode = buffer_read(_buffer, buffer_u64);
 
         // field: x, type: Float32
         self.x = buffer_read(_buffer, buffer_f32);
@@ -8712,14 +9492,15 @@ function __SteamInputActionOrigins_encode(_inst, _buffer, _offset, _where = _GMF
         if (!is_numeric(self.count)) show_error($"{_where} :: self.count expected number", true);
         buffer_write(_buffer, buffer_s32, self.count);
 
-        // field: origins, type: Int32[]
+        // field: origins, type: enum SteamInputActionOrigin[]
         if (!is_array(self.origins)) show_error($"{_where} :: self.origins expected array", true);
         var _length = array_length(self.origins);
         buffer_write(_buffer, buffer_u32, _length);
         for (var _i = 0; _i < _length; ++_i)
         {
+
             if (!is_numeric(self.origins[_i])) show_error($"{_where} :: self.origins[_i] expected number", true);
-            buffer_write(_buffer, buffer_s32, self.origins[_i]);
+            buffer_write(_buffer, buffer_u64, self.origins[_i]);
         }
 
     }
@@ -8742,12 +9523,12 @@ function __SteamInputActionOrigins_decode(_buffer, _offset)
         // field: count, type: Int32
         self.count = buffer_read(_buffer, buffer_s32);
 
-        // field: origins, type: Int32[]
+        // field: origins, type: enum SteamInputActionOrigin[]
         var _length = buffer_read(_buffer, buffer_u32);
         self.origins = array_create(_length);
         for (var _i = 0; _i < _length; ++_i)
         {
-            self.origins[_i] = buffer_read(_buffer, buffer_s32);
+            self.origins[_i] = buffer_read(_buffer, buffer_u64);
         }
 
     }
@@ -10408,9 +11189,10 @@ function __SteamMusicPlaybackStatusHasChanged_encode(_inst, _buffer, _offset, _w
     buffer_seek(_buffer, buffer_seek_start, _offset);
     with (_inst)
     {
-        // field: playback_status, type: Int32
+        // field: playback_status, type: enum SteamMusicPlaybackStatus
+
         if (!is_numeric(self.playback_status)) show_error($"{_where} :: self.playback_status expected number", true);
-        buffer_write(_buffer, buffer_s32, self.playback_status);
+        buffer_write(_buffer, buffer_u64, self.playback_status);
 
     }
 }
@@ -10429,8 +11211,8 @@ function __SteamMusicPlaybackStatusHasChanged_decode(_buffer, _offset)
     _inst = new SteamMusicPlaybackStatusHasChanged();
     with (_inst)
     {
-        // field: playback_status, type: Int32
-        self.playback_status = buffer_read(_buffer, buffer_s32);
+        // field: playback_status, type: enum SteamMusicPlaybackStatus
+        self.playback_status = buffer_read(_buffer, buffer_u64);
 
     }
 
@@ -11583,6 +12365,49 @@ function __SteamRemoteStorageFileShareResult_decode(_buffer, _offset)
 }
 
 /**
+ * @func __SteamRemoteStorageFileWriteAsyncResult_encode(_inst, _buffer, _offset, _where)
+ * @param {Struct.SteamRemoteStorageFileWriteAsyncResult} _inst
+ * @param {Id.Buffer} _buffer
+ * @param {Real} _offset
+ * @param {String} _where
+ * @ignore 
+ */
+function __SteamRemoteStorageFileWriteAsyncResult_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
+{
+    buffer_seek(_buffer, buffer_seek_start, _offset);
+    with (_inst)
+    {
+        // field: result, type: enum SteamApiResult
+
+        if (!is_numeric(self.result)) show_error($"{_where} :: self.result expected number", true);
+        buffer_write(_buffer, buffer_u64, self.result);
+
+    }
+}
+
+/**
+ * @func __SteamRemoteStorageFileWriteAsyncResult_decode(_buffer, _offset)
+ * @param {Id.Buffer} _buffer
+ * @param {Real} _offset
+ * @returns {Struct.SteamRemoteStorageFileWriteAsyncResult} 
+ * @ignore 
+ */
+function __SteamRemoteStorageFileWriteAsyncResult_decode(_buffer, _offset)
+{
+    buffer_seek(_buffer, buffer_seek_start, _offset);
+
+    _inst = new SteamRemoteStorageFileWriteAsyncResult();
+    with (_inst)
+    {
+        // field: result, type: enum SteamApiResult
+        self.result = buffer_read(_buffer, buffer_u64);
+
+    }
+
+    return _inst;
+}
+
+/**
  * @func __SteamRemoteStorageDownloadUgcResult_encode(_inst, _buffer, _offset, _where)
  * @param {Struct.SteamRemoteStorageDownloadUgcResult} _inst
  * @param {Id.Buffer} _buffer
@@ -12081,9 +12906,10 @@ function __SteamMatchmakingLobbyEnter_encode(_inst, _buffer, _offset, _where = _
         if (!is_bool(self.locked)) show_error($"{_where} :: self.locked expected bool", true);
         buffer_write(_buffer, buffer_bool, self.locked);
 
-        // field: response, type: UInt32
+        // field: response, type: enum SteamMatchmakingChatRoomEnterResponse
+
         if (!is_numeric(self.response)) show_error($"{_where} :: self.response expected number", true);
-        buffer_write(_buffer, buffer_u32, self.response);
+        buffer_write(_buffer, buffer_u64, self.response);
 
     }
 }
@@ -12111,8 +12937,8 @@ function __SteamMatchmakingLobbyEnter_decode(_buffer, _offset)
         // field: locked, type: Bool
         self.locked = buffer_read(_buffer, buffer_bool);
 
-        // field: response, type: UInt32
-        self.response = buffer_read(_buffer, buffer_u32);
+        // field: response, type: enum SteamMatchmakingChatRoomEnterResponse
+        self.response = buffer_read(_buffer, buffer_u64);
 
     }
 
@@ -15837,6 +16663,28 @@ function steam_user_set_callback_microtxn_authorization_response(_callback)
 // Skipping function steam_user_clear_callback_microtxn_authorization_response (no wrapper is required)
 
 
+/**
+ * @param {Function} _callback
+ */
+function steam_user_set_callback_get_auth_session_ticket_response(_callback)
+{
+    static __dispatcher = __Steamworks_get_dispatcher();
+
+    var __args_buffer = __ext_core_get_args_buffer();
+
+    // param: _callback, type: Function
+    if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
+    var _callback_handle = __ext_core_function_register(_callback, __dispatcher);
+    buffer_write(__args_buffer, buffer_u64, _callback_handle);
+
+    var _return_value = __steam_user_set_callback_get_auth_session_ticket_response(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+
+    return _return_value;
+}
+
+// Skipping function steam_user_clear_callback_get_auth_session_ticket_response (no wrapper is required)
+
+
 // Skipping function steam_utils_overlay_needs_present (no wrapper is required)
 
 
@@ -16985,7 +17833,7 @@ function steam_ugc_get_item_install_info(_published_file_id)
 
 /**
  * @param {Real} _published_file_id
- * @returns {Real} 
+ * @returns {Enum.SteamUgcItemState} 
  */
 function steam_ugc_get_item_state(_published_file_id)
 {
@@ -16995,9 +17843,13 @@ function steam_ugc_get_item_state(_published_file_id)
     if (!is_numeric(_published_file_id)) show_error($"{_GMFUNCTION_} :: _published_file_id expected number", true);
     buffer_write(__args_buffer, buffer_u64, _published_file_id);
 
-    var _return_value = __steam_ugc_get_item_state(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __ret_buffer = __ext_core_get_ret_buffer();
 
-    return _return_value;
+    var _return_value = __steam_ugc_get_item_state(buffer_get_address(__args_buffer), buffer_tell(__args_buffer), buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+
+    var _result = undefined;
+    _result = buffer_read(__ret_buffer, buffer_u64);
+    return _result;
 }
 
 /**
@@ -17253,6 +18105,37 @@ function steam_ugc_get_query_ugc_additional_preview(_query_handle, _index, _prev
 /**
  * @param {Real} _query_handle
  * @param {Real} _index
+ * @param {Real} _version_index
+ * @returns {Struct.SteamUgcSupportedGameVersionData} 
+ */
+function steam_ugc_get_supported_game_version_data(_query_handle, _index, _version_index)
+{
+    var __args_buffer = __ext_core_get_args_buffer();
+
+    // param: _query_handle, type: UInt64
+    if (!is_numeric(_query_handle)) show_error($"{_GMFUNCTION_} :: _query_handle expected number", true);
+    buffer_write(__args_buffer, buffer_u64, _query_handle);
+
+    // param: _index, type: UInt32
+    if (!is_numeric(_index)) show_error($"{_GMFUNCTION_} :: _index expected number", true);
+    buffer_write(__args_buffer, buffer_u32, _index);
+
+    // param: _version_index, type: UInt32
+    if (!is_numeric(_version_index)) show_error($"{_GMFUNCTION_} :: _version_index expected number", true);
+    buffer_write(__args_buffer, buffer_u32, _version_index);
+
+    var __ret_buffer = __ext_core_get_ret_buffer();
+
+    var _return_value = __steam_ugc_get_supported_game_version_data(buffer_get_address(__args_buffer), buffer_tell(__args_buffer), buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+
+    var _result = undefined;
+    _result = __SteamUgcSupportedGameVersionData_decode(__ret_buffer, buffer_tell(__ret_buffer));
+    return _result;
+}
+
+/**
+ * @param {Real} _query_handle
+ * @param {Real} _index
  * @returns {Real} 
  */
 function steam_ugc_get_query_ugc_num_key_value_tags(_query_handle, _index)
@@ -17307,7 +18190,7 @@ function steam_ugc_get_query_ugc_key_value_tag(_query_handle, _index, _key_value
  * @param {Real} _query_handle
  * @param {Real} _index
  * @param {Real} _max_descriptors
- * @returns {Array[Real]} 
+ * @returns {Array[Enum.SteamUgcContentDescriptorId]} 
  */
 function steam_ugc_get_query_ugc_content_descriptors(_query_handle, _index, _max_descriptors)
 {
@@ -17334,7 +18217,7 @@ function steam_ugc_get_query_ugc_content_descriptors(_query_handle, _index, _max
     _result = array_create(_length);
     for (var _i = 0; _i < _length; ++_i)
     {
-        _result[_i] = buffer_read(__ret_buffer, buffer_s32);
+        _result[_i] = buffer_read(__ret_buffer, buffer_u64);
     }
     return _result;
 }
@@ -19065,7 +19948,7 @@ function steam_input_get_gamepad_index_for_controller(_input_handle)
 
 /**
  * @param {Real} _input_handle
- * @returns {Real} 
+ * @returns {Enum.SteamInputType} 
  */
 function steam_input_get_input_type_for_handle(_input_handle)
 {
@@ -19075,9 +19958,13 @@ function steam_input_get_input_type_for_handle(_input_handle)
     if (!is_numeric(_input_handle)) show_error($"{_GMFUNCTION_} :: _input_handle expected number", true);
     buffer_write(__args_buffer, buffer_u64, _input_handle);
 
-    var _return_value = __steam_input_get_input_type_for_handle(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __ret_buffer = __ext_core_get_ret_buffer();
 
-    return _return_value;
+    var _return_value = __steam_input_get_input_type_for_handle(buffer_get_address(__args_buffer), buffer_tell(__args_buffer), buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+
+    var _result = undefined;
+    _result = buffer_read(__ret_buffer, buffer_u64);
+    return _result;
 }
 
 /**
@@ -19101,8 +19988,23 @@ function steam_input_get_motion_data(_input_handle)
     return _result;
 }
 
-// Skipping function steam_input_get_string_for_action_origin (no wrapper is required)
+/**
+ * @param {Enum.SteamInputActionOrigin} _origin
+ * @returns {String} 
+ */
+function steam_input_get_string_for_action_origin(_origin)
+{
+    var __args_buffer = __ext_core_get_args_buffer();
 
+    // param: _origin, type: enum SteamInputActionOrigin
+
+    if (!is_numeric(_origin)) show_error($"{_GMFUNCTION_} :: _origin expected number", true);
+    buffer_write(__args_buffer, buffer_u64, _origin);
+
+    var _return_value = __steam_input_get_string_for_action_origin(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+
+    return _return_value;
+}
 
 // Skipping function steam_input_init (no wrapper is required)
 
@@ -19282,8 +20184,8 @@ function steam_input_trigger_vibration_extended(_input_handle, _left_speed, _rig
 
 /**
  * @param {Real} _input_handle
- * @param {Real} _origin
- * @returns {Real} 
+ * @param {Enum.SteamXboxOrigin} _origin
+ * @returns {Enum.SteamInputActionOrigin} 
  */
 function steam_input_get_action_origin_from_xbox_origin(_input_handle, _origin)
 {
@@ -19293,17 +20195,47 @@ function steam_input_get_action_origin_from_xbox_origin(_input_handle, _origin)
     if (!is_numeric(_input_handle)) show_error($"{_GMFUNCTION_} :: _input_handle expected number", true);
     buffer_write(__args_buffer, buffer_u64, _input_handle);
 
-    // param: _origin, type: Int32
+    // param: _origin, type: enum SteamXboxOrigin
+
     if (!is_numeric(_origin)) show_error($"{_GMFUNCTION_} :: _origin expected number", true);
-    buffer_write(__args_buffer, buffer_s32, _origin);
+    buffer_write(__args_buffer, buffer_u64, _origin);
 
-    var _return_value = __steam_input_get_action_origin_from_xbox_origin(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __ret_buffer = __ext_core_get_ret_buffer();
 
-    return _return_value;
+    var _return_value = __steam_input_get_action_origin_from_xbox_origin(buffer_get_address(__args_buffer), buffer_tell(__args_buffer), buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+
+    var _result = undefined;
+    _result = buffer_read(__ret_buffer, buffer_u64);
+    return _result;
 }
 
-// Skipping function steam_input_translate_action_origin (no wrapper is required)
+/**
+ * @param {Enum.SteamInputType} _destination_input_type
+ * @param {Enum.SteamInputActionOrigin} _source_origin
+ * @returns {Enum.SteamInputActionOrigin} 
+ */
+function steam_input_translate_action_origin(_destination_input_type, _source_origin)
+{
+    var __args_buffer = __ext_core_get_args_buffer();
 
+    // param: _destination_input_type, type: enum SteamInputType
+
+    if (!is_numeric(_destination_input_type)) show_error($"{_GMFUNCTION_} :: _destination_input_type expected number", true);
+    buffer_write(__args_buffer, buffer_u64, _destination_input_type);
+
+    // param: _source_origin, type: enum SteamInputActionOrigin
+
+    if (!is_numeric(_source_origin)) show_error($"{_GMFUNCTION_} :: _source_origin expected number", true);
+    buffer_write(__args_buffer, buffer_u64, _source_origin);
+
+    var __ret_buffer = __ext_core_get_ret_buffer();
+
+    var _return_value = __steam_input_translate_action_origin(buffer_get_address(__args_buffer), buffer_tell(__args_buffer), buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+
+    var _result = undefined;
+    _result = buffer_read(__ret_buffer, buffer_u64);
+    return _result;
+}
 
 /**
  * @param {Real} _input_handle
@@ -21931,6 +22863,49 @@ function steam_remote_storage_file_write(_file_name, _data, _bytes)
 
 /**
  * @param {String} _file_name
+ * @param {Id.Buffer} _data
+ * @param {Real} _bytes
+ * @param {Function} _callback
+ */
+function steam_remote_storage_file_write_async(_file_name, _data, _bytes, _callback)
+{
+    static __dispatcher = __Steamworks_get_dispatcher();
+
+    var __args_buffer = __ext_core_get_args_buffer();
+
+    // param: _file_name, type: String
+    if (!is_string(_file_name)) show_error($"{_GMFUNCTION_} :: _file_name expected string", true);
+    buffer_write(__args_buffer, buffer_u32, string_byte_length(_file_name));
+    buffer_write(__args_buffer, buffer_string, _file_name);
+
+    // param: _data, type: Buffer
+    if (!buffer_exists(_data)) show_error($"{_GMFUNCTION_} :: _data expected Id.Buffer", true);
+    __Steamworks_queue_buffer(buffer_get_address(_data), buffer_get_size(_data));
+
+    // param: _bytes, type: UInt32
+    if (!is_numeric(_bytes)) show_error($"{_GMFUNCTION_} :: _bytes expected number", true);
+    buffer_write(__args_buffer, buffer_u32, _bytes);
+
+    // param: _callback, type: optional<Function>
+    if (is_undefined(_callback))
+    {
+        buffer_write(__args_buffer, buffer_bool, false);
+    }
+    else
+    {
+        buffer_write(__args_buffer, buffer_bool, true);
+        if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
+        var _callback_handle = __ext_core_function_register(_callback, __dispatcher);
+        buffer_write(__args_buffer, buffer_u64, _callback_handle);
+    }
+
+    var _return_value = __steam_remote_storage_file_write_async(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+
+    return _return_value;
+}
+
+/**
+ * @param {String} _file_name
  * @param {Id.Buffer} _out_data
  * @param {Real} _max_bytes
  * @returns {Real} 
@@ -23342,6 +24317,29 @@ function steam_matchmaking_set_lobby_joinable(_steam_id_lobby, _joinable)
 
 /**
  * @param {Real} _steam_id_lobby
+ * @param {Enum.SteamMatchmakingLobbyType} _lobby_type
+ * @returns {Bool} 
+ */
+function steam_matchmaking_set_lobby_type(_steam_id_lobby, _lobby_type)
+{
+    var __args_buffer = __ext_core_get_args_buffer();
+
+    // param: _steam_id_lobby, type: UInt64
+    if (!is_numeric(_steam_id_lobby)) show_error($"{_GMFUNCTION_} :: _steam_id_lobby expected number", true);
+    buffer_write(__args_buffer, buffer_u64, _steam_id_lobby);
+
+    // param: _lobby_type, type: enum SteamMatchmakingLobbyType
+
+    if (!is_numeric(_lobby_type)) show_error($"{_GMFUNCTION_} :: _lobby_type expected number", true);
+    buffer_write(__args_buffer, buffer_u64, _lobby_type);
+
+    var _return_value = __steam_matchmaking_set_lobby_type(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+
+    return _return_value;
+}
+
+/**
+ * @param {Real} _steam_id_lobby
  * @param {Real} _steam_id_invitee
  * @returns {Bool} 
  */
@@ -23722,8 +24720,20 @@ function steam_networking_sockets_send_message_to_connection(_conn, _data, _byte
     return _return_value;
 }
 
-// Skipping function steam_networking_sockets_flush_messages_on_connection (no wrapper is required)
+/**
+ * @param {Real} _conn
+ * @returns {Enum.SteamApiResult} 
+ */
+function steam_networking_sockets_flush_messages_on_connection(_conn)
+{
+    var __ret_buffer = __ext_core_get_ret_buffer();
 
+    var _return_value = __steam_networking_sockets_flush_messages_on_connection(_conn, buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+
+    var _result = undefined;
+    _result = buffer_read(__ret_buffer, buffer_u64);
+    return _result;
+}
 
 /**
  * @param {Real} _conn
@@ -24244,6 +25254,7 @@ function __Steamworks_get_decoders()
         __SteamUserMarketEligibilityResponse_decode,
         __SteamNetworkingIdentity_decode,
         __SteamUserAuthSessionTicket_decode,
+        __SteamUserGetAuthSessionTicketResponse_decode,
         __SteamUserAvailableVoice_decode,
         __SteamUserGetVoiceResult_decode,
         __SteamUserGameConnectionToken_decode,
@@ -24346,6 +25357,7 @@ function __Steamworks_get_decoders()
         __SteamRemoteStorageQuota_decode,
         __SteamRemoteStorageUgcDetails_decode,
         __SteamRemoteStorageFileShareResult_decode,
+        __SteamRemoteStorageFileWriteAsyncResult_decode,
         __SteamRemoteStorageDownloadUgcResult_decode,
         __SteamRemoteStoragePublishedFileSubscribed_decode,
         __SteamRemoteStoragePublishedFileUnsubscribed_decode,

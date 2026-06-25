@@ -225,14 +225,14 @@ std::int32_t steam_networking_sockets_send_message_to_connection(std::uint32_t c
                                                     nullptr);
 }
 
-std::int32_t steam_networking_sockets_flush_messages_on_connection(std::uint32_t conn)
+gm_enums::SteamApiResult steam_networking_sockets_flush_messages_on_connection(std::uint32_t conn)
 {
-    STEAM_GUARD_RET((std::int32_t)k_EResultFail);
+    STEAM_GUARD_RET(static_cast<gm_enums::SteamApiResult>((int)k_EResultFail));
 
     ISteamNetworkingSockets* s = steam_networking_sockets_iface();
-    if (!s) return (std::int32_t)k_EResultFail;
+    if (!s) return static_cast<gm_enums::SteamApiResult>((int)k_EResultFail);
 
-    return (std::int32_t)s->FlushMessagesOnConnection((HSteamNetConnection)conn);
+    return static_cast<gm_enums::SteamApiResult>((int)s->FlushMessagesOnConnection((HSteamNetConnection)conn));
 }
 
 gm_structs::SteamNetworkingSocketsReceived steam_networking_sockets_receive_one_on_connection(std::uint32_t conn,

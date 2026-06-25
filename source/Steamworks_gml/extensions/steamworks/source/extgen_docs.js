@@ -1180,6 +1180,17 @@
  */
 
 /**
+ * @function_partial steam_user_set_callback_get_auth_session_ticket_response
+ * @param {Function} callback
+ * @function_end 
+ */
+
+/**
+ * @function_partial steam_user_clear_callback_get_auth_session_ticket_response
+ * @function_end 
+ */
+
+/**
  * @function_partial steam_utils_overlay_needs_present
  * @returns {Bool} 
  * @function_end 
@@ -1664,7 +1675,7 @@
 /**
  * @function_partial steam_ugc_get_item_state
  * @param {Real} published_file_id
- * @returns {Real} 
+ * @returns {Enum.SteamUgcItemState} 
  * @function_end 
  */
 
@@ -1751,6 +1762,15 @@
  */
 
 /**
+ * @function_partial steam_ugc_get_supported_game_version_data
+ * @param {Real} query_handle
+ * @param {Real} index
+ * @param {Real} version_index
+ * @returns {Struct.SteamUgcSupportedGameVersionData} 
+ * @function_end 
+ */
+
+/**
  * @function_partial steam_ugc_get_query_ugc_num_key_value_tags
  * @param {Real} query_handle
  * @param {Real} index
@@ -1772,7 +1792,7 @@
  * @param {Real} query_handle
  * @param {Real} index
  * @param {Real} max_descriptors
- * @returns {Array[Real]} 
+ * @returns {Array[Enum.SteamUgcContentDescriptorId]} 
  * @function_end 
  */
 
@@ -2346,7 +2366,7 @@
 /**
  * @function_partial steam_input_get_input_type_for_handle
  * @param {Real} input_handle
- * @returns {Real} 
+ * @returns {Enum.SteamInputType} 
  * @function_end 
  */
 
@@ -2359,7 +2379,7 @@
 
 /**
  * @function_partial steam_input_get_string_for_action_origin
- * @param {Real} origin
+ * @param {Enum.SteamInputActionOrigin} origin
  * @returns {String} 
  * @function_end 
  */
@@ -2440,16 +2460,16 @@
 /**
  * @function_partial steam_input_get_action_origin_from_xbox_origin
  * @param {Real} input_handle
- * @param {Real} origin
- * @returns {Real} 
+ * @param {Enum.SteamXboxOrigin} origin
+ * @returns {Enum.SteamInputActionOrigin} 
  * @function_end 
  */
 
 /**
  * @function_partial steam_input_translate_action_origin
- * @param {Real} destination_input_type
- * @param {Real} source_origin
- * @returns {Real} 
+ * @param {Enum.SteamInputType} destination_input_type
+ * @param {Enum.SteamInputActionOrigin} source_origin
+ * @returns {Enum.SteamInputActionOrigin} 
  * @function_end 
  */
 
@@ -3493,6 +3513,15 @@
  */
 
 /**
+ * @function_partial steam_remote_storage_file_write_async
+ * @param {String} file_name
+ * @param {Buffer} data
+ * @param {Real} bytes
+ * @param {Function} [callback]
+ * @function_end 
+ */
+
+/**
  * @function_partial steam_remote_storage_file_read
  * @param {String} file_name
  * @param {Buffer} out_data
@@ -4008,6 +4037,14 @@
  */
 
 /**
+ * @function_partial steam_matchmaking_set_lobby_type
+ * @param {Real} steam_id_lobby
+ * @param {Enum.SteamMatchmakingLobbyType} lobby_type
+ * @returns {Bool} 
+ * @function_end 
+ */
+
+/**
  * @function_partial steam_matchmaking_invite_user_to_lobby
  * @param {Real} steam_id_lobby
  * @param {Real} steam_id_invitee
@@ -4196,7 +4233,7 @@
 /**
  * @function_partial steam_networking_sockets_flush_messages_on_connection
  * @param {Real} conn
- * @returns {Real} 
+ * @returns {Enum.SteamApiResult} 
  * @function_end 
  */
 
@@ -4461,7 +4498,7 @@
 
 /**
  * @struct_partial SteamFriendsDownloadClanActivityCountsResult
- * @member {Real} result
+ * @member {Bool} result
  * @struct_end 
  */
 
@@ -4663,7 +4700,6 @@
 
 /**
  * @struct_partial SteamUserStoreAuthUrlResponse
- * @member {Enum.SteamApiResult} result
  * @member {String} url
  * @struct_end 
  */
@@ -4680,8 +4716,8 @@
  * @member {Real} app_id
  * @member {Bool} applicable
  * @member {Real} csecs_last_5h
- * @member {Real} progress
- * @member {Real} notification
+ * @member {Enum.SteamUserDurationControlProgress} progress
+ * @member {Enum.SteamUserDurationControlNotification} notification
  * @struct_end 
  */
 
@@ -4710,6 +4746,13 @@
  * @struct_partial SteamUserAuthSessionTicket
  * @member {Real} auth_ticket_handle
  * @member {Real} ticket_size
+ * @struct_end 
+ */
+
+/**
+ * @struct_partial SteamUserGetAuthSessionTicketResponse
+ * @member {Real} auth_ticket_handle
+ * @member {Enum.SteamApiResult} result
  * @struct_end 
  */
 
@@ -4802,7 +4845,7 @@
 
 /**
  * @struct_partial SteamUtilsCheckFileSignatureResult
- * @member {Real} result
+ * @member {Enum.SteamUtilsCheckFileSignature} result
  * @struct_end 
  */
 
@@ -4897,7 +4940,7 @@
 
 /**
  * @struct_partial SteamUgcItemUpdateProgress
- * @member {Real} status
+ * @member {Enum.SteamUgcItemUpdateStatus} status
  * @member {Real} bytes_processed
  * @member {Real} bytes_total
  * @struct_end 
@@ -4936,7 +4979,7 @@
  * @struct_partial SteamUgcAdditionalPreview
  * @member {Bool} ok
  * @member {String} url_or_video_id
- * @member {Real} preview_type
+ * @member {Enum.SteamItemPreviewType} preview_type
  * @struct_end 
  */
 
@@ -5073,7 +5116,7 @@
 
 /**
  * @struct_partial SteamInputAnalogActionData
- * @member {Real} mode
+ * @member {Enum.SteamInputControllerSourceMode} mode
  * @member {Real} x
  * @member {Real} y
  * @member {Bool} active
@@ -5112,7 +5155,7 @@
 /**
  * @struct_partial SteamInputActionOrigins
  * @member {Real} count
- * @member {Array[Real]} origins
+ * @member {Array[Enum.SteamInputActionOrigin]} origins
  * @struct_end 
  */
 
@@ -5348,7 +5391,7 @@
 
 /**
  * @struct_partial SteamMusicPlaybackStatusHasChanged
- * @member {Real} playback_status
+ * @member {Enum.SteamMusicPlaybackStatus} playback_status
  * @struct_end 
  */
 
@@ -5503,6 +5546,12 @@
  */
 
 /**
+ * @struct_partial SteamRemoteStorageFileWriteAsyncResult
+ * @member {Enum.SteamApiResult} result
+ * @struct_end 
+ */
+
+/**
  * @struct_partial SteamRemoteStorageDownloadUgcResult
  * @member {Enum.SteamApiResult} result
  * @member {Real} ugc_handle
@@ -5574,7 +5623,7 @@
  * @member {Real} lobby_id
  * @member {Real} chat_permissions
  * @member {Bool} locked
- * @member {Real} response
+ * @member {Enum.SteamMatchmakingChatRoomEnterResponse} response
  * @struct_end 
  */
 
@@ -5999,6 +6048,37 @@
  */
 
 /**
+ * @enum_partial SteamFriendsPersonaChange
+ * @member Name
+ * @member Status
+ * @member ComeOnline
+ * @member GoneOffline
+ * @member GamePlayed
+ * @member GameServer
+ * @member Avatar
+ * @member JoinedSource
+ * @member LeftSource
+ * @member RelationshipChanged
+ * @member NameFirstSet
+ * @member Broadcast
+ * @member Nickname
+ * @member SteamLevel
+ * @member RichPresence
+ * @enum_end 
+ */
+
+/**
+ * @enum_partial SteamAppsBetaBranchFlags
+ * @member None
+ * @member Default
+ * @member Available
+ * @member Private
+ * @member Selected
+ * @member Installed
+ * @enum_end 
+ */
+
+/**
  * @enum_partial SteamScreenshotsVrScreenshotType
  * @member None
  * @member Mono
@@ -6017,6 +6097,30 @@
  * @member MaxTaggedPublishedFiles
  * @member MaxTaggedUsers
  * @member ThumbWidth
+ * @enum_end 
+ */
+
+/**
+ * @enum_partial SteamUserDurationControlProgress
+ * @member Full
+ * @member Half
+ * @member None
+ * @member ExitSoon_3h
+ * @member ExitSoon_5h
+ * @member ExitSoon_Night
+ * @enum_end 
+ */
+
+/**
+ * @enum_partial SteamUserDurationControlNotification
+ * @member None
+ * @member OneHour
+ * @member ThreeHours
+ * @member HalfProgress
+ * @member NoProgress
+ * @member ExitSoon_3h
+ * @member ExitSoon_5h
+ * @member ExitSoon_Night
  * @enum_end 
  */
 
@@ -6042,11 +6146,37 @@
  */
 
 /**
+ * @enum_partial SteamAuthSessionResponse
+ * @member OK
+ * @member UserNotConnectedToSteam
+ * @member NoLicenseOrExpired
+ * @member VACBanned
+ * @member LoggedInElseWhere
+ * @member VACCheckTimedOut
+ * @member AuthTicketCanceled
+ * @member AuthTicketInvalidAlreadyUsed
+ * @member AuthTicketInvalid
+ * @member PublisherIssuedBan
+ * @member AuthTicketNetworkIdentityFailure
+ * @enum_end 
+ */
+
+/**
  * @enum_partial SteamUserDurationControlOnlineState
  * @member Invalid
  * @member Offline
  * @member Online
  * @member OnlineHighPri
+ * @enum_end 
+ */
+
+/**
+ * @enum_partial SteamUtilsCheckFileSignature
+ * @member InvalidSignature
+ * @member ValidSignature
+ * @member FileNotFound
+ * @member NoSignaturesFoundForThisApp
+ * @member NoSignaturesFoundForThisFile
  * @enum_end 
  */
 
@@ -6214,6 +6344,30 @@
  */
 
 /**
+ * @enum_partial SteamUgcItemState
+ * @member None
+ * @member Subscribed
+ * @member LegacyItem
+ * @member Installed
+ * @member NeedsUpdate
+ * @member Downloading
+ * @member DownloadPending
+ * @member DisabledLocally
+ * @enum_end 
+ */
+
+/**
+ * @enum_partial SteamUgcItemUpdateStatus
+ * @member Invalid
+ * @member PreparingConfig
+ * @member PreparingContent
+ * @member UploadingContent
+ * @member UploadingPreviewFile
+ * @member CommittingChanges
+ * @enum_end 
+ */
+
+/**
  * @enum_partial SteamUgcStatisticType
  * @member NumSubscriptions
  * @member NumFavorites
@@ -6227,6 +6381,594 @@
  * @member NumPlaytimeSessions
  * @member NumComments
  * @member NumSecondsPlayedDuringTimePeriod
+ * @member NumPlaytimeSessionsDuringTimePeriod
+ * @enum_end 
+ */
+
+/**
+ * @enum_partial SteamInputControllerSourceMode
+ * @member None
+ * @member Dpad
+ * @member Buttons
+ * @member FourButtons
+ * @member AbsoluteMouse
+ * @member RelativeMouse
+ * @member JoystickMove
+ * @member JoystickMouse
+ * @member JoystickCamera
+ * @member ScrollWheel
+ * @member Trigger
+ * @member TouchMenu
+ * @member MouseJoystick
+ * @member MouseRegion
+ * @member RadialMenu
+ * @member SingleButton
+ * @member Switches
+ * @enum_end 
+ */
+
+/**
+ * @enum_partial SteamInputControllerLEDFlag
+ * @member SetColor
+ * @member RestoreUserDefault
+ * @enum_end 
+ */
+
+/**
+ * @enum_partial SteamInputType
+ * @member Unknown
+ * @member SteamController
+ * @member XBox360Controller
+ * @member XBoxOneController
+ * @member GenericGamepad
+ * @member PS4Controller
+ * @member AppleMFiController
+ * @member AndroidController
+ * @member SwitchJoyConPair
+ * @member SwitchJoyConSingle
+ * @member SwitchProController
+ * @member MobileTouch
+ * @member PS3Controller
+ * @member PS5Controller
+ * @member SteamDeckController
+ * @member Count
+ * @member MaximumPossibleValue
+ * @enum_end 
+ */
+
+/**
+ * @enum_partial SteamXboxOrigin
+ * @member A
+ * @member B
+ * @member X
+ * @member Y
+ * @member LeftBumper
+ * @member RightBumper
+ * @member Menu
+ * @member View
+ * @member LeftTrigger_Pull
+ * @member LeftTrigger_Click
+ * @member RightTrigger_Pull
+ * @member RightTrigger_Click
+ * @member LeftStick_Move
+ * @member LeftStick_Click
+ * @member LeftStick_DPadNorth
+ * @member LeftStick_DPadSouth
+ * @member LeftStick_DPadWest
+ * @member LeftStick_DPadEast
+ * @member RightStick_Move
+ * @member RightStick_Click
+ * @member RightStick_DPadNorth
+ * @member RightStick_DPadSouth
+ * @member RightStick_DPadWest
+ * @member RightStick_DPadEast
+ * @member DPad_North
+ * @member DPad_South
+ * @member DPad_West
+ * @member DPad_East
+ * @member Count
+ * @enum_end 
+ */
+
+/**
+ * @enum_partial SteamInputActionOrigin
+ * @member None
+ * @member SteamController_A
+ * @member SteamController_B
+ * @member SteamController_X
+ * @member SteamController_Y
+ * @member SteamController_LeftBumper
+ * @member SteamController_RightBumper
+ * @member SteamController_LeftGrip
+ * @member SteamController_RightGrip
+ * @member SteamController_Start
+ * @member SteamController_Back
+ * @member SteamController_LeftPad_Touch
+ * @member SteamController_LeftPad_Swipe
+ * @member SteamController_LeftPad_Click
+ * @member SteamController_LeftPad_DPadNorth
+ * @member SteamController_LeftPad_DPadSouth
+ * @member SteamController_LeftPad_DPadWest
+ * @member SteamController_LeftPad_DPadEast
+ * @member SteamController_RightPad_Touch
+ * @member SteamController_RightPad_Swipe
+ * @member SteamController_RightPad_Click
+ * @member SteamController_RightPad_DPadNorth
+ * @member SteamController_RightPad_DPadSouth
+ * @member SteamController_RightPad_DPadWest
+ * @member SteamController_RightPad_DPadEast
+ * @member SteamController_LeftTrigger_Pull
+ * @member SteamController_LeftTrigger_Click
+ * @member SteamController_RightTrigger_Pull
+ * @member SteamController_RightTrigger_Click
+ * @member SteamController_LeftStick_Move
+ * @member SteamController_LeftStick_Click
+ * @member SteamController_LeftStick_DPadNorth
+ * @member SteamController_LeftStick_DPadSouth
+ * @member SteamController_LeftStick_DPadWest
+ * @member SteamController_LeftStick_DPadEast
+ * @member SteamController_Gyro_Move
+ * @member SteamController_Gyro_Pitch
+ * @member SteamController_Gyro_Yaw
+ * @member SteamController_Gyro_Roll
+ * @member SteamController_Reserved0
+ * @member SteamController_Reserved1
+ * @member SteamController_Reserved2
+ * @member SteamController_Reserved3
+ * @member SteamController_Reserved4
+ * @member SteamController_Reserved5
+ * @member SteamController_Reserved6
+ * @member SteamController_Reserved7
+ * @member SteamController_Reserved8
+ * @member SteamController_Reserved9
+ * @member SteamController_Reserved10
+ * @member PS4_X
+ * @member PS4_Circle
+ * @member PS4_Triangle
+ * @member PS4_Square
+ * @member PS4_LeftBumper
+ * @member PS4_RightBumper
+ * @member PS4_Options
+ * @member PS4_Share
+ * @member PS4_LeftPad_Touch
+ * @member PS4_LeftPad_Swipe
+ * @member PS4_LeftPad_Click
+ * @member PS4_LeftPad_DPadNorth
+ * @member PS4_LeftPad_DPadSouth
+ * @member PS4_LeftPad_DPadWest
+ * @member PS4_LeftPad_DPadEast
+ * @member PS4_RightPad_Touch
+ * @member PS4_RightPad_Swipe
+ * @member PS4_RightPad_Click
+ * @member PS4_RightPad_DPadNorth
+ * @member PS4_RightPad_DPadSouth
+ * @member PS4_RightPad_DPadWest
+ * @member PS4_RightPad_DPadEast
+ * @member PS4_CenterPad_Touch
+ * @member PS4_CenterPad_Swipe
+ * @member PS4_CenterPad_Click
+ * @member PS4_CenterPad_DPadNorth
+ * @member PS4_CenterPad_DPadSouth
+ * @member PS4_CenterPad_DPadWest
+ * @member PS4_CenterPad_DPadEast
+ * @member PS4_LeftTrigger_Pull
+ * @member PS4_LeftTrigger_Click
+ * @member PS4_RightTrigger_Pull
+ * @member PS4_RightTrigger_Click
+ * @member PS4_LeftStick_Move
+ * @member PS4_LeftStick_Click
+ * @member PS4_LeftStick_DPadNorth
+ * @member PS4_LeftStick_DPadSouth
+ * @member PS4_LeftStick_DPadWest
+ * @member PS4_LeftStick_DPadEast
+ * @member PS4_RightStick_Move
+ * @member PS4_RightStick_Click
+ * @member PS4_RightStick_DPadNorth
+ * @member PS4_RightStick_DPadSouth
+ * @member PS4_RightStick_DPadWest
+ * @member PS4_RightStick_DPadEast
+ * @member PS4_DPad_North
+ * @member PS4_DPad_South
+ * @member PS4_DPad_West
+ * @member PS4_DPad_East
+ * @member PS4_Gyro_Move
+ * @member PS4_Gyro_Pitch
+ * @member PS4_Gyro_Yaw
+ * @member PS4_Gyro_Roll
+ * @member PS4_DPad_Move
+ * @member PS4_Reserved1
+ * @member PS4_Reserved2
+ * @member PS4_Reserved3
+ * @member PS4_Reserved4
+ * @member PS4_Reserved5
+ * @member PS4_Reserved6
+ * @member PS4_Reserved7
+ * @member PS4_Reserved8
+ * @member PS4_Reserved9
+ * @member PS4_Reserved10
+ * @member XBoxOne_A
+ * @member XBoxOne_B
+ * @member XBoxOne_X
+ * @member XBoxOne_Y
+ * @member XBoxOne_LeftBumper
+ * @member XBoxOne_RightBumper
+ * @member XBoxOne_Menu
+ * @member XBoxOne_View
+ * @member XBoxOne_LeftTrigger_Pull
+ * @member XBoxOne_LeftTrigger_Click
+ * @member XBoxOne_RightTrigger_Pull
+ * @member XBoxOne_RightTrigger_Click
+ * @member XBoxOne_LeftStick_Move
+ * @member XBoxOne_LeftStick_Click
+ * @member XBoxOne_LeftStick_DPadNorth
+ * @member XBoxOne_LeftStick_DPadSouth
+ * @member XBoxOne_LeftStick_DPadWest
+ * @member XBoxOne_LeftStick_DPadEast
+ * @member XBoxOne_RightStick_Move
+ * @member XBoxOne_RightStick_Click
+ * @member XBoxOne_RightStick_DPadNorth
+ * @member XBoxOne_RightStick_DPadSouth
+ * @member XBoxOne_RightStick_DPadWest
+ * @member XBoxOne_RightStick_DPadEast
+ * @member XBoxOne_DPad_North
+ * @member XBoxOne_DPad_South
+ * @member XBoxOne_DPad_West
+ * @member XBoxOne_DPad_East
+ * @member XBoxOne_DPad_Move
+ * @member XBoxOne_LeftGrip_Lower
+ * @member XBoxOne_LeftGrip_Upper
+ * @member XBoxOne_RightGrip_Lower
+ * @member XBoxOne_RightGrip_Upper
+ * @member XBoxOne_Share
+ * @member XBoxOne_Reserved6
+ * @member XBoxOne_Reserved7
+ * @member XBoxOne_Reserved8
+ * @member XBoxOne_Reserved9
+ * @member XBoxOne_Reserved10
+ * @member XBox360_A
+ * @member XBox360_B
+ * @member XBox360_X
+ * @member XBox360_Y
+ * @member XBox360_LeftBumper
+ * @member XBox360_RightBumper
+ * @member XBox360_Start
+ * @member XBox360_Back
+ * @member XBox360_LeftTrigger_Pull
+ * @member XBox360_LeftTrigger_Click
+ * @member XBox360_RightTrigger_Pull
+ * @member XBox360_RightTrigger_Click
+ * @member XBox360_LeftStick_Move
+ * @member XBox360_LeftStick_Click
+ * @member XBox360_LeftStick_DPadNorth
+ * @member XBox360_LeftStick_DPadSouth
+ * @member XBox360_LeftStick_DPadWest
+ * @member XBox360_LeftStick_DPadEast
+ * @member XBox360_RightStick_Move
+ * @member XBox360_RightStick_Click
+ * @member XBox360_RightStick_DPadNorth
+ * @member XBox360_RightStick_DPadSouth
+ * @member XBox360_RightStick_DPadWest
+ * @member XBox360_RightStick_DPadEast
+ * @member XBox360_DPad_North
+ * @member XBox360_DPad_South
+ * @member XBox360_DPad_West
+ * @member XBox360_DPad_East
+ * @member XBox360_DPad_Move
+ * @member XBox360_Reserved1
+ * @member XBox360_Reserved2
+ * @member XBox360_Reserved3
+ * @member XBox360_Reserved4
+ * @member XBox360_Reserved5
+ * @member XBox360_Reserved6
+ * @member XBox360_Reserved7
+ * @member XBox360_Reserved8
+ * @member XBox360_Reserved9
+ * @member XBox360_Reserved10
+ * @member Switch_A
+ * @member Switch_B
+ * @member Switch_X
+ * @member Switch_Y
+ * @member Switch_LeftBumper
+ * @member Switch_RightBumper
+ * @member Switch_Plus
+ * @member Switch_Minus
+ * @member Switch_Capture
+ * @member Switch_LeftTrigger_Pull
+ * @member Switch_LeftTrigger_Click
+ * @member Switch_RightTrigger_Pull
+ * @member Switch_RightTrigger_Click
+ * @member Switch_LeftStick_Move
+ * @member Switch_LeftStick_Click
+ * @member Switch_LeftStick_DPadNorth
+ * @member Switch_LeftStick_DPadSouth
+ * @member Switch_LeftStick_DPadWest
+ * @member Switch_LeftStick_DPadEast
+ * @member Switch_RightStick_Move
+ * @member Switch_RightStick_Click
+ * @member Switch_RightStick_DPadNorth
+ * @member Switch_RightStick_DPadSouth
+ * @member Switch_RightStick_DPadWest
+ * @member Switch_RightStick_DPadEast
+ * @member Switch_DPad_North
+ * @member Switch_DPad_South
+ * @member Switch_DPad_West
+ * @member Switch_DPad_East
+ * @member Switch_ProGyro_Move
+ * @member Switch_ProGyro_Pitch
+ * @member Switch_ProGyro_Yaw
+ * @member Switch_ProGyro_Roll
+ * @member Switch_DPad_Move
+ * @member Switch_Reserved1
+ * @member Switch_Reserved2
+ * @member Switch_Reserved3
+ * @member Switch_Reserved4
+ * @member Switch_Reserved5
+ * @member Switch_Reserved6
+ * @member Switch_Reserved7
+ * @member Switch_Reserved8
+ * @member Switch_Reserved9
+ * @member Switch_Reserved10
+ * @member Switch_RightGyro_Move
+ * @member Switch_RightGyro_Pitch
+ * @member Switch_RightGyro_Yaw
+ * @member Switch_RightGyro_Roll
+ * @member Switch_LeftGyro_Move
+ * @member Switch_LeftGyro_Pitch
+ * @member Switch_LeftGyro_Yaw
+ * @member Switch_LeftGyro_Roll
+ * @member Switch_LeftGrip_Lower
+ * @member Switch_LeftGrip_Upper
+ * @member Switch_RightGrip_Lower
+ * @member Switch_RightGrip_Upper
+ * @member Switch_JoyConButton_N
+ * @member Switch_JoyConButton_E
+ * @member Switch_JoyConButton_S
+ * @member Switch_JoyConButton_W
+ * @member Switch_Reserved15
+ * @member Switch_Reserved16
+ * @member Switch_Reserved17
+ * @member Switch_Reserved18
+ * @member Switch_Reserved19
+ * @member Switch_Reserved20
+ * @member PS5_X
+ * @member PS5_Circle
+ * @member PS5_Triangle
+ * @member PS5_Square
+ * @member PS5_LeftBumper
+ * @member PS5_RightBumper
+ * @member PS5_Option
+ * @member PS5_Create
+ * @member PS5_Mute
+ * @member PS5_LeftPad_Touch
+ * @member PS5_LeftPad_Swipe
+ * @member PS5_LeftPad_Click
+ * @member PS5_LeftPad_DPadNorth
+ * @member PS5_LeftPad_DPadSouth
+ * @member PS5_LeftPad_DPadWest
+ * @member PS5_LeftPad_DPadEast
+ * @member PS5_RightPad_Touch
+ * @member PS5_RightPad_Swipe
+ * @member PS5_RightPad_Click
+ * @member PS5_RightPad_DPadNorth
+ * @member PS5_RightPad_DPadSouth
+ * @member PS5_RightPad_DPadWest
+ * @member PS5_RightPad_DPadEast
+ * @member PS5_CenterPad_Touch
+ * @member PS5_CenterPad_Swipe
+ * @member PS5_CenterPad_Click
+ * @member PS5_CenterPad_DPadNorth
+ * @member PS5_CenterPad_DPadSouth
+ * @member PS5_CenterPad_DPadWest
+ * @member PS5_CenterPad_DPadEast
+ * @member PS5_LeftTrigger_Pull
+ * @member PS5_LeftTrigger_Click
+ * @member PS5_RightTrigger_Pull
+ * @member PS5_RightTrigger_Click
+ * @member PS5_LeftStick_Move
+ * @member PS5_LeftStick_Click
+ * @member PS5_LeftStick_DPadNorth
+ * @member PS5_LeftStick_DPadSouth
+ * @member PS5_LeftStick_DPadWest
+ * @member PS5_LeftStick_DPadEast
+ * @member PS5_RightStick_Move
+ * @member PS5_RightStick_Click
+ * @member PS5_RightStick_DPadNorth
+ * @member PS5_RightStick_DPadSouth
+ * @member PS5_RightStick_DPadWest
+ * @member PS5_RightStick_DPadEast
+ * @member PS5_DPad_North
+ * @member PS5_DPad_South
+ * @member PS5_DPad_West
+ * @member PS5_DPad_East
+ * @member PS5_Gyro_Move
+ * @member PS5_Gyro_Pitch
+ * @member PS5_Gyro_Yaw
+ * @member PS5_Gyro_Roll
+ * @member PS5_DPad_Move
+ * @member PS5_LeftGrip
+ * @member PS5_RightGrip
+ * @member PS5_LeftFn
+ * @member PS5_RightFn
+ * @member PS5_Reserved5
+ * @member PS5_Reserved6
+ * @member PS5_Reserved7
+ * @member PS5_Reserved8
+ * @member PS5_Reserved9
+ * @member PS5_Reserved10
+ * @member PS5_Reserved11
+ * @member PS5_Reserved12
+ * @member PS5_Reserved13
+ * @member PS5_Reserved14
+ * @member PS5_Reserved15
+ * @member PS5_Reserved16
+ * @member PS5_Reserved17
+ * @member PS5_Reserved18
+ * @member PS5_Reserved19
+ * @member PS5_Reserved20
+ * @member SteamDeck_A
+ * @member SteamDeck_B
+ * @member SteamDeck_X
+ * @member SteamDeck_Y
+ * @member SteamDeck_L1
+ * @member SteamDeck_R1
+ * @member SteamDeck_Menu
+ * @member SteamDeck_View
+ * @member SteamDeck_LeftPad_Touch
+ * @member SteamDeck_LeftPad_Swipe
+ * @member SteamDeck_LeftPad_Click
+ * @member SteamDeck_LeftPad_DPadNorth
+ * @member SteamDeck_LeftPad_DPadSouth
+ * @member SteamDeck_LeftPad_DPadWest
+ * @member SteamDeck_LeftPad_DPadEast
+ * @member SteamDeck_RightPad_Touch
+ * @member SteamDeck_RightPad_Swipe
+ * @member SteamDeck_RightPad_Click
+ * @member SteamDeck_RightPad_DPadNorth
+ * @member SteamDeck_RightPad_DPadSouth
+ * @member SteamDeck_RightPad_DPadWest
+ * @member SteamDeck_RightPad_DPadEast
+ * @member SteamDeck_L2_SoftPull
+ * @member SteamDeck_L2
+ * @member SteamDeck_R2_SoftPull
+ * @member SteamDeck_R2
+ * @member SteamDeck_LeftStick_Move
+ * @member SteamDeck_L3
+ * @member SteamDeck_LeftStick_DPadNorth
+ * @member SteamDeck_LeftStick_DPadSouth
+ * @member SteamDeck_LeftStick_DPadWest
+ * @member SteamDeck_LeftStick_DPadEast
+ * @member SteamDeck_LeftStick_Touch
+ * @member SteamDeck_RightStick_Move
+ * @member SteamDeck_R3
+ * @member SteamDeck_RightStick_DPadNorth
+ * @member SteamDeck_RightStick_DPadSouth
+ * @member SteamDeck_RightStick_DPadWest
+ * @member SteamDeck_RightStick_DPadEast
+ * @member SteamDeck_RightStick_Touch
+ * @member SteamDeck_L4
+ * @member SteamDeck_R4
+ * @member SteamDeck_L5
+ * @member SteamDeck_R5
+ * @member SteamDeck_DPad_Move
+ * @member SteamDeck_DPad_North
+ * @member SteamDeck_DPad_South
+ * @member SteamDeck_DPad_West
+ * @member SteamDeck_DPad_East
+ * @member SteamDeck_Gyro_Move
+ * @member SteamDeck_Gyro_Pitch
+ * @member SteamDeck_Gyro_Yaw
+ * @member SteamDeck_Gyro_Roll
+ * @member SteamDeck_Reserved1
+ * @member SteamDeck_Reserved2
+ * @member SteamDeck_Reserved3
+ * @member SteamDeck_Reserved4
+ * @member SteamDeck_Reserved5
+ * @member SteamDeck_Reserved6
+ * @member SteamDeck_Reserved7
+ * @member SteamDeck_Reserved8
+ * @member SteamDeck_Reserved9
+ * @member SteamDeck_Reserved10
+ * @member SteamDeck_Reserved11
+ * @member SteamDeck_Reserved12
+ * @member SteamDeck_Reserved13
+ * @member SteamDeck_Reserved14
+ * @member SteamDeck_Reserved15
+ * @member SteamDeck_Reserved16
+ * @member SteamDeck_Reserved17
+ * @member SteamDeck_Reserved18
+ * @member SteamDeck_Reserved19
+ * @member SteamDeck_Reserved20
+ * @member Horipad_M1
+ * @member Horipad_M2
+ * @member Horipad_L4
+ * @member Horipad_R4
+ * @member LenovoLegionGo_A
+ * @member LenovoLegionGo_B
+ * @member LenovoLegionGo_X
+ * @member LenovoLegionGo_Y
+ * @member LenovoLegionGo_LB
+ * @member LenovoLegionGo_RB
+ * @member LenovoLegionGo_Menu
+ * @member LenovoLegionGo_View
+ * @member LenovoLegionGo_LeftPad_Touch
+ * @member LenovoLegionGo_LeftPad_Swipe
+ * @member LenovoLegionGo_LeftPad_Click
+ * @member LenovoLegionGo_LeftPad_DPadNorth
+ * @member LenovoLegionGo_LeftPad_DPadSouth
+ * @member LenovoLegionGo_LeftPad_DPadWest
+ * @member LenovoLegionGo_LeftPad_DPadEast
+ * @member LenovoLegionGo_RightPad_Touch
+ * @member LenovoLegionGo_RightPad_Swipe
+ * @member LenovoLegionGo_RightPad_Click
+ * @member LenovoLegionGo_RightPad_DPadNorth
+ * @member LenovoLegionGo_RightPad_DPadSouth
+ * @member LenovoLegionGo_RightPad_DPadWest
+ * @member LenovoLegionGo_RightPad_DPadEast
+ * @member LenovoLegionGo_LT_SoftPull
+ * @member LenovoLegionGo_LT
+ * @member LenovoLegionGo_RT_SoftPull
+ * @member LenovoLegionGo_RT
+ * @member LenovoLegionGo_LeftStick_Move
+ * @member LenovoLegionGo_LS
+ * @member LenovoLegionGo_LeftStick_DPadNorth
+ * @member LenovoLegionGo_LeftStick_DPadSouth
+ * @member LenovoLegionGo_LeftStick_DPadWest
+ * @member LenovoLegionGo_LeftStick_DPadEast
+ * @member LenovoLegionGo_RightStick_Move
+ * @member LenovoLegionGo_RS
+ * @member LenovoLegionGo_RightStick_DPadNorth
+ * @member LenovoLegionGo_RightStick_DPadSouth
+ * @member LenovoLegionGo_RightStick_DPadWest
+ * @member LenovoLegionGo_RightStick_DPadEast
+ * @member LenovoLegionGo_Y1
+ * @member LenovoLegionGo_Y2
+ * @member LenovoLegionGo_DPad_Move
+ * @member LenovoLegionGo_DPad_North
+ * @member LenovoLegionGo_DPad_South
+ * @member LenovoLegionGo_DPad_West
+ * @member LenovoLegionGo_DPad_East
+ * @member LenovoLegionGo_Gyro_Move
+ * @member LenovoLegionGo_Gyro_Pitch
+ * @member LenovoLegionGo_Gyro_Yaw
+ * @member LenovoLegionGo_Gyro_Roll
+ * @member LenovoLegionGo_Reserved1
+ * @member LenovoLegionGo_Reserved2
+ * @member LenovoLegionGo_Reserved3
+ * @member LenovoLegionGo_Reserved4
+ * @member LenovoLegionGo_Reserved5
+ * @member LenovoLegionGo_Reserved6
+ * @member LenovoLegionGo_Reserved7
+ * @member LenovoLegionGo_Reserved8
+ * @member LenovoLegionGo_Reserved9
+ * @member LenovoLegionGo_Reserved10
+ * @member LenovoLegionGo_Reserved11
+ * @member LenovoLegionGo_Reserved12
+ * @member LenovoLegionGo_Reserved13
+ * @member LenovoLegionGo_Reserved14
+ * @member LenovoLegionGo_Reserved15
+ * @member LenovoLegionGo_Reserved16
+ * @member LenovoLegionGo_Reserved17
+ * @member LenovoLegionGo_Reserved18
+ * @member LenovoLegionGo_Reserved19
+ * @member LenovoLegionGo_Reserved20
+ * @member Generic_L4
+ * @member Generic_R4
+ * @member Generic_L5
+ * @member Generic_R5
+ * @member Generic_PL
+ * @member Generic_PR
+ * @member Generic_C
+ * @member Generic_Z
+ * @member Generic_MISC1
+ * @member Generic_MISC2
+ * @member Generic_MISC3
+ * @member Generic_MISC4
+ * @member Generic_MISC5
+ * @member Generic_MISC6
+ * @member Generic_MISC7
+ * @member Generic_MISC8
+ * @member Count
+ * @member MaximumPossibleValue
  * @enum_end 
  */
 
@@ -6290,8 +7032,10 @@
  */
 
 /**
- * @enum_partial SteamInventoryConst
- * @member InvalidResult
+ * @enum_partial SteamInventoryItemFlags
+ * @member NoTrade
+ * @member Removed
+ * @member Consumed
  * @enum_end 
  */
 
@@ -6362,6 +7106,23 @@
  * @member Default
  * @member Far
  * @member Worldwide
+ * @enum_end 
+ */
+
+/**
+ * @enum_partial SteamMatchmakingChatRoomEnterResponse
+ * @member Success
+ * @member DoesntExist
+ * @member NotAllowed
+ * @member Full
+ * @member Error
+ * @member Banned
+ * @member Limited
+ * @member ClanDisabled
+ * @member CommunityBan
+ * @member MemberBlockedYou
+ * @member YouBlockedMember
+ * @member RatelimitExceeded
  * @enum_end 
  */
 
@@ -6477,6 +7238,7 @@
  * @member {Real} SteamUserStatsLeaderboardDetailsMax (value: '64')
  * @member {String} SteamUserStatsInterfaceVersion (value: '"STEAMUSERSTATS_INTERFACE_VERSION011"')
  * @member {String} SteamMusicInterfaceVersion (value: '"STEAMMUSIC_INTERFACE_VERSION001"')
+ * @member {Real} SteamTimelineMaxTimelinePriority (value: '1000')
  * @member {Real} SteamInventoryResultInvalid (value: '-1')
  * @member {Real} SteamInventoryItemInstanceIdInvalid (value: '-1')
  * @member {String} SteamInventoryInterfaceVersion (value: '"STEAMINVENTORY_INTERFACE_V002"')
@@ -6500,6 +7262,7 @@
  * @member {Real} SteamMatchmakingFavoriteFlagNone (value: '0x00')
  * @member {String} SteamMatchmakingServersInterfaceVersion (value: '"SteamMatchMakingServers002"')
  * @member {String} SteamMatchmakingInterfaceVersion (value: '"SteamMatchMaking009"')
+ * @member {Real} SteamNetworkingPollGroup_Invalid (value: '0')
  * @const_end 
  */
 

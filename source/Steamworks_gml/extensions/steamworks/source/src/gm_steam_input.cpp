@@ -188,7 +188,7 @@ steam_input_get_analog_action_data(std::uint64_t input_handle, std::uint64_t ana
     STEAM_GUARD_RET({});
 
     gm_structs::SteamInputAnalogActionData out {};
-    out.mode = 0;
+    out.mode = (gm_enums::SteamInputControllerSourceMode)0;
     out.x = 0.0f;
     out.y = 0.0f;
     out.active = false;
@@ -199,7 +199,7 @@ steam_input_get_analog_action_data(std::uint64_t input_handle, std::uint64_t ana
 
     InputAnalogActionData_t d
         = s->GetAnalogActionData((InputHandle_t)input_handle, (InputAnalogActionHandle_t)analog_action_handle);
-    out.mode = (std::int32_t)d.eMode;
+    out.mode = static_cast<gm_enums::SteamInputControllerSourceMode>((int)d.eMode);
     out.x = d.x;
     out.y = d.y;
     out.active = d.bActive;
@@ -239,10 +239,10 @@ gm_structs::SteamInputActionOrigins steam_input_get_analog_action_origins(
     );
     n = std::max(0, std::min(n, (int)STEAM_INPUT_MAX_ORIGINS));
 
-    std::vector<std::int32_t> v;
+    std::vector<gm_enums::SteamInputActionOrigin> v;
     v.reserve((size_t)n);
     for (int i = 0; i < n; ++i)
-        v.push_back((std::int32_t)native[i]);
+        v.push_back(static_cast<gm_enums::SteamInputActionOrigin>((int)native[i]));
 
     out.count = (std::int32_t)n;
     out.origins = std::move(v);
@@ -374,10 +374,10 @@ gm_structs::SteamInputActionOrigins steam_input_get_digital_action_origins(
     );
     n = std::max(0, std::min(n, (int)STEAM_INPUT_MAX_ORIGINS));
 
-    std::vector<std::int32_t> v;
+    std::vector<gm_enums::SteamInputActionOrigin> v;
     v.reserve((size_t)n);
     for (int i = 0; i < n; ++i)
-        v.push_back((std::int32_t)native[i]);
+        v.push_back(static_cast<gm_enums::SteamInputActionOrigin>((int)native[i]));
 
     out.count = (std::int32_t)n;
     out.origins = std::move(v);
@@ -394,15 +394,15 @@ std::int32_t steam_input_get_gamepad_index_for_controller(std::uint64_t input_ha
     return s->GetGamepadIndexForController((InputHandle_t)input_handle);
 }
 
-std::int32_t steam_input_get_input_type_for_handle(std::uint64_t input_handle)
+gm_enums::SteamInputType steam_input_get_input_type_for_handle(std::uint64_t input_handle)
 {
-    STEAM_GUARD_RET(0);
+    STEAM_GUARD_RET((gm_enums::SteamInputType)0);
 
     ISteamInput* s = steam_input_iface();
     if (!s)
-        return 0;
+        return (gm_enums::SteamInputType)0;
 
-    return (std::int32_t)s->GetInputTypeForHandle((InputHandle_t)input_handle);
+    return (gm_enums::SteamInputType)s->GetInputTypeForHandle((InputHandle_t)input_handle);
 }
 
 gm_structs::SteamInputMotionData steam_input_get_motion_data(std::uint64_t input_handle)
@@ -437,7 +437,7 @@ gm_structs::SteamInputMotionData steam_input_get_motion_data(std::uint64_t input
     return out;
 }
 
-std::string steam_input_get_string_for_action_origin(std::int32_t origin)
+std::string steam_input_get_string_for_action_origin(gm_enums::SteamInputActionOrigin origin)
 {
     STEAM_GUARD_RET("");
 
@@ -445,7 +445,7 @@ std::string steam_input_get_string_for_action_origin(std::int32_t origin)
     if (!s)
         return "";
 
-    const char* p = s->GetStringForActionOrigin((EInputActionOrigin)origin);
+    const char* p = s->GetStringForActionOrigin(static_cast<EInputActionOrigin>((int)origin));
     return p ? std::string(p) : std::string();
 }
 
@@ -649,27 +649,32 @@ void steam_input_trigger_vibration_extended(
     s->TriggerVibrationExtended((InputHandle_t)input_handle, l, r, lt, rt);
 }
 
-std::int32_t steam_input_get_action_origin_from_xbox_origin(std::uint64_t input_handle, std::int32_t origin)
+gm_enums::SteamInputActionOrigin steam_input_get_action_origin_from_xbox_origin(std::uint64_t input_handle, gm_enums::SteamXboxOrigin origin)
 {
-    STEAM_GUARD_RET(0);
+    STEAM_GUARD_RET((gm_enums::SteamInputActionOrigin)0);
 
     ISteamInput* s = steam_input_iface();
     if (!s)
-        return 0;
+        return (gm_enums::SteamInputActionOrigin)0;
 
-    return (std::int32_t)s->GetActionOriginFromXboxOrigin((InputHandle_t)input_handle, (EXboxOrigin)origin);
+    return static_cast<gm_enums::SteamInputActionOrigin>(
+        (int)s->GetActionOriginFromXboxOrigin((InputHandle_t)input_handle, static_cast<EXboxOrigin>((int)origin))
+    );
 }
 
-std::int32_t steam_input_translate_action_origin(std::int32_t destination_input_type, std::int32_t source_origin)
+gm_enums::SteamInputActionOrigin steam_input_translate_action_origin(gm_enums::SteamInputType destination_input_type, gm_enums::SteamInputActionOrigin source_origin)
 {
-    STEAM_GUARD_RET(0);
+    STEAM_GUARD_RET((gm_enums::SteamInputActionOrigin)0);
 
     ISteamInput* s = steam_input_iface();
     if (!s)
-        return 0;
+        return (gm_enums::SteamInputActionOrigin)0;
 
-    return (std::int32_t)s->TranslateActionOrigin(
-        (ESteamInputType)destination_input_type, (EInputActionOrigin)source_origin
+    return static_cast<gm_enums::SteamInputActionOrigin>(
+        (int)s->TranslateActionOrigin(
+            static_cast<ESteamInputType>((int)destination_input_type),
+            static_cast<EInputActionOrigin>((int)source_origin)
+        )
     );
 }
 

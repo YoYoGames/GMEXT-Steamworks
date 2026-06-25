@@ -186,6 +186,8 @@ GMEXPORT double __EXT_NATIVE__steam_user_set_callback_licenses_updated(char* __a
 GMEXPORT double __EXT_NATIVE__steam_user_clear_callback_licenses_updated();
 GMEXPORT double __EXT_NATIVE__steam_user_set_callback_microtxn_authorization_response(char* __arg_buffer, double __arg_buffer_length);
 GMEXPORT double __EXT_NATIVE__steam_user_clear_callback_microtxn_authorization_response();
+GMEXPORT double __EXT_NATIVE__steam_user_set_callback_get_auth_session_ticket_response(char* __arg_buffer, double __arg_buffer_length);
+GMEXPORT double __EXT_NATIVE__steam_user_clear_callback_get_auth_session_ticket_response();
 GMEXPORT double __EXT_NATIVE__steam_utils_overlay_needs_present();
 GMEXPORT double __EXT_NATIVE__steam_utils_check_file_signature(char* __arg_buffer, double __arg_buffer_length);
 GMEXPORT double __EXT_NATIVE__steam_utils_get_api_call_failure_reason(char* __arg_buffer, double __arg_buffer_length, char* __ret_buffer, double __ret_buffer_length);
@@ -256,7 +258,7 @@ GMEXPORT double __EXT_NATIVE__steam_ugc_download_item(char* __arg_buffer, double
 GMEXPORT double __EXT_NATIVE__steam_ugc_get_app_dependencies(char* __arg_buffer, double __arg_buffer_length);
 GMEXPORT double __EXT_NATIVE__steam_ugc_get_item_download_info(char* __arg_buffer, double __arg_buffer_length, char* __ret_buffer, double __ret_buffer_length);
 GMEXPORT double __EXT_NATIVE__steam_ugc_get_item_install_info(char* __arg_buffer, double __arg_buffer_length, char* __ret_buffer, double __ret_buffer_length);
-GMEXPORT double __EXT_NATIVE__steam_ugc_get_item_state(char* __arg_buffer, double __arg_buffer_length);
+GMEXPORT double __EXT_NATIVE__steam_ugc_get_item_state(char* __arg_buffer, double __arg_buffer_length, char* __ret_buffer, double __ret_buffer_length);
 GMEXPORT double __EXT_NATIVE__steam_ugc_get_item_update_progress(char* __arg_buffer, double __arg_buffer_length, char* __ret_buffer, double __ret_buffer_length);
 GMEXPORT double __EXT_NATIVE__steam_ugc_get_num_subscribed_items(double include_locally_disabled);
 GMEXPORT double __EXT_NATIVE__steam_ugc_get_subscribed_items(double max_entries, double include_locally_disabled, char* __ret_buffer, double __ret_buffer_length);
@@ -267,6 +269,7 @@ GMEXPORT double __EXT_NATIVE__steam_ugc_get_query_ugc_children(char* __arg_buffe
 GMEXPORT double __EXT_NATIVE__steam_ugc_get_query_ugc_statistic(char* __arg_buffer, double __arg_buffer_length, char* __ret_buffer, double __ret_buffer_length);
 GMEXPORT double __EXT_NATIVE__steam_ugc_get_query_ugc_num_additional_previews(char* __arg_buffer, double __arg_buffer_length);
 GMEXPORT double __EXT_NATIVE__steam_ugc_get_query_ugc_additional_preview(char* __arg_buffer, double __arg_buffer_length, char* __ret_buffer, double __ret_buffer_length);
+GMEXPORT double __EXT_NATIVE__steam_ugc_get_supported_game_version_data(char* __arg_buffer, double __arg_buffer_length, char* __ret_buffer, double __ret_buffer_length);
 GMEXPORT double __EXT_NATIVE__steam_ugc_get_query_ugc_num_key_value_tags(char* __arg_buffer, double __arg_buffer_length);
 GMEXPORT double __EXT_NATIVE__steam_ugc_get_query_ugc_key_value_tag(char* __arg_buffer, double __arg_buffer_length, char* __ret_buffer, double __ret_buffer_length);
 GMEXPORT double __EXT_NATIVE__steam_ugc_get_query_ugc_content_descriptors(char* __arg_buffer, double __arg_buffer_length, char* __ret_buffer, double __ret_buffer_length);
@@ -346,9 +349,9 @@ GMEXPORT double __EXT_NATIVE__steam_input_get_digital_action_data(char* __arg_bu
 GMEXPORT double __EXT_NATIVE__steam_input_get_digital_action_handle(char* action_name, char* __ret_buffer, double __ret_buffer_length);
 GMEXPORT double __EXT_NATIVE__steam_input_get_digital_action_origins(char* __arg_buffer, double __arg_buffer_length, char* __ret_buffer, double __ret_buffer_length);
 GMEXPORT double __EXT_NATIVE__steam_input_get_gamepad_index_for_controller(char* __arg_buffer, double __arg_buffer_length);
-GMEXPORT double __EXT_NATIVE__steam_input_get_input_type_for_handle(char* __arg_buffer, double __arg_buffer_length);
+GMEXPORT double __EXT_NATIVE__steam_input_get_input_type_for_handle(char* __arg_buffer, double __arg_buffer_length, char* __ret_buffer, double __ret_buffer_length);
 GMEXPORT double __EXT_NATIVE__steam_input_get_motion_data(char* __arg_buffer, double __arg_buffer_length, char* __ret_buffer, double __ret_buffer_length);
-GMEXPORT char* __EXT_NATIVE__steam_input_get_string_for_action_origin(double origin);
+GMEXPORT char* __EXT_NATIVE__steam_input_get_string_for_action_origin(char* __arg_buffer, double __arg_buffer_length);
 GMEXPORT double __EXT_NATIVE__steam_input_init(double explicitly_call_run_frame);
 GMEXPORT double __EXT_NATIVE__steam_input_enable_device_callbacks();
 GMEXPORT double __EXT_NATIVE__steam_input_run_frame();
@@ -359,8 +362,8 @@ GMEXPORT double __EXT_NATIVE__steam_input_shutdown();
 GMEXPORT double __EXT_NATIVE__steam_input_stop_analog_action_momentum(char* __arg_buffer, double __arg_buffer_length);
 GMEXPORT double __EXT_NATIVE__steam_input_trigger_vibration(char* __arg_buffer, double __arg_buffer_length);
 GMEXPORT double __EXT_NATIVE__steam_input_trigger_vibration_extended(char* __arg_buffer, double __arg_buffer_length);
-GMEXPORT double __EXT_NATIVE__steam_input_get_action_origin_from_xbox_origin(char* __arg_buffer, double __arg_buffer_length);
-GMEXPORT double __EXT_NATIVE__steam_input_translate_action_origin(double destination_input_type, double source_origin);
+GMEXPORT double __EXT_NATIVE__steam_input_get_action_origin_from_xbox_origin(char* __arg_buffer, double __arg_buffer_length, char* __ret_buffer, double __ret_buffer_length);
+GMEXPORT double __EXT_NATIVE__steam_input_translate_action_origin(char* __arg_buffer, double __arg_buffer_length, char* __ret_buffer, double __ret_buffer_length);
 GMEXPORT double __EXT_NATIVE__steam_input_get_device_binding_revision(char* __arg_buffer, double __arg_buffer_length, char* __ret_buffer, double __ret_buffer_length);
 GMEXPORT double __EXT_NATIVE__steam_input_get_remote_play_session_id(char* __arg_buffer, double __arg_buffer_length);
 GMEXPORT double __EXT_NATIVE__steam_input_set_callback_device_connected(char* __arg_buffer, double __arg_buffer_length);
@@ -508,6 +511,7 @@ GMEXPORT double __EXT_NATIVE__steam_remote_storage_is_cloud_enabled_for_account(
 GMEXPORT double __EXT_NATIVE__steam_remote_storage_is_cloud_enabled_for_app();
 GMEXPORT double __EXT_NATIVE__steam_remote_storage_set_cloud_enabled_for_app(double enabled);
 GMEXPORT double __EXT_NATIVE__steam_remote_storage_file_write(char* __arg_buffer, double __arg_buffer_length);
+GMEXPORT double __EXT_NATIVE__steam_remote_storage_file_write_async(char* __arg_buffer, double __arg_buffer_length);
 GMEXPORT double __EXT_NATIVE__steam_remote_storage_file_read(char* __arg_buffer, double __arg_buffer_length);
 GMEXPORT double __EXT_NATIVE__steam_remote_storage_file_delete(char* file_name);
 GMEXPORT double __EXT_NATIVE__steam_remote_storage_file_exists(char* file_name);
@@ -578,6 +582,7 @@ GMEXPORT double __EXT_NATIVE__steam_matchmaking_get_lobby_chat_entry(char* __arg
 GMEXPORT double __EXT_NATIVE__steam_matchmaking_add_request_lobby_list_filter_slots_available(double slots_available);
 GMEXPORT double __EXT_NATIVE__steam_matchmaking_request_lobby_data(char* __arg_buffer, double __arg_buffer_length);
 GMEXPORT double __EXT_NATIVE__steam_matchmaking_set_lobby_joinable(char* __arg_buffer, double __arg_buffer_length);
+GMEXPORT double __EXT_NATIVE__steam_matchmaking_set_lobby_type(char* __arg_buffer, double __arg_buffer_length);
 GMEXPORT double __EXT_NATIVE__steam_matchmaking_invite_user_to_lobby(char* __arg_buffer, double __arg_buffer_length);
 GMEXPORT double __EXT_NATIVE__steam_matchmaking_set_lobby_game_server(char* __arg_buffer, double __arg_buffer_length);
 GMEXPORT double __EXT_NATIVE__steam_matchmaking_set_linked_lobby(char* __arg_buffer, double __arg_buffer_length);
@@ -603,7 +608,7 @@ GMEXPORT double __EXT_NATIVE__steam_networking_sockets_get_connection_user_data(
 GMEXPORT double __EXT_NATIVE__steam_networking_sockets_set_connection_name(double conn, char* name);
 GMEXPORT char* __EXT_NATIVE__steam_networking_sockets_get_connection_name(double conn);
 GMEXPORT double __EXT_NATIVE__steam_networking_sockets_send_message_to_connection(char* __arg_buffer, double __arg_buffer_length);
-GMEXPORT double __EXT_NATIVE__steam_networking_sockets_flush_messages_on_connection(double conn);
+GMEXPORT double __EXT_NATIVE__steam_networking_sockets_flush_messages_on_connection(double conn, char* __ret_buffer, double __ret_buffer_length);
 GMEXPORT double __EXT_NATIVE__steam_networking_sockets_receive_one_on_connection(char* __arg_buffer, double __arg_buffer_length, char* __ret_buffer, double __ret_buffer_length);
 GMEXPORT double __EXT_NATIVE__steam_networking_sockets_get_connection_info(double conn, char* __ret_buffer, double __ret_buffer_length);
 GMEXPORT char* __EXT_NATIVE__steam_networking_sockets_get_detailed_connection_status(double conn);
