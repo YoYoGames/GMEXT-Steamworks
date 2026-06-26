@@ -2437,6 +2437,8 @@
  * This function sets the function to be called when a user has responded to a microtransaction authorization request.
  * 
  * See: [ISteamUser::MicroTxnAuthorizationResponse_t](https://partner.steamgames.com/doc/api/ISteamUser#MicroTxnAuthorizationResponse_t)
+ * 
+ * See: ${struct.SteamUserMicroTxnAuthorizationResponse}
  *
  * @param {Function} callback The function to be called when the user responds to a microtransaction authorization request.
  * @function_end
@@ -2518,6 +2520,8 @@
  * The country should be updated with ${function.steam_utils_get_ip_country}.
  * 
  * See: [ISteamUtils::IPCountry_t](https://partner.steamgames.com/doc/api/ISteamUtils#IPCountry_t)
+ * 
+ * This callback has no fields.
  *
  * @param {Function} callback The function to be called when the user's IP country changes.
  * @function_end 
@@ -2539,6 +2543,8 @@
  * This function sets the function to be called when running on a laptop and less than 10 minutes of battery is left. The callback then fires every minute afterwards.
  * 
  * See: [ISteamUtils::LowBatteryPower_t](https://partner.steamgames.com/doc/api/ISteamUtils#LowBatteryPower_t)
+ * 
+ * See: ${struct.SteamUtilsLowBatteryPower}
  *
  * @param {Function} callback The function to be called when the system reports the device is low on battery power.
  * @function_end 
@@ -2560,6 +2566,8 @@
  * This function sets the function to be called when a SteamAPICall_t has completed (or failed).
  * 
  * See: [ISteamUtils::SteamAPICallCompleted_t](https://partner.steamgames.com/doc/api/ISteamUtils#SteamAPICallCompleted_t)
+ * 
+ * See: ${sstruct.SteamUtilsSteamApiCallCompleted}
  *
  * @param {Function} callback The function to be called when an asynchronous Steam API call is completed.
  * @function_end 
@@ -2581,6 +2589,8 @@
  * This function sets the function to be called after the device returns from sleep/suspend mode.
  * 
  * See: [ISteamUtils::AppResumingFromSuspend_t](https://partner.steamgames.com/doc/api/ISteamUtils#AppResumingFromSuspend_t)
+ * 
+ * This callback has no fields.
  *
  * @param {Function} callback The function to be called when the app is resuming from suspend.
  * @function_end 
@@ -2602,6 +2612,8 @@
  * This function sets the function to be called when Steam wants to shutdown.
  * 
  * See: [ISteamUtils::SteamShutdown_t](https://partner.steamgames.com/doc/api/ISteamUtils#SteamShutdown_t)
+ * 
+ * This callback has no fields.
  *
  * @param {Function} callback The function to be called when Steam is about to shut down.
  * @function_end 
@@ -2966,6 +2978,8 @@
  * This function sets the function to be called when big picture gamepad text input has been closed.
  * 
  * See: [ISteamUtils::GamepadTextInputDismissed_t](https://partner.steamgames.com/doc/api/ISteamUtils#GamepadTextInputDismissed_t)
+ * 
+ * See: ${struct.SteamUtilsGamepadTextInputDismissed}
  *
  * @param {Function} callback The function to be called when the gamepad text input dialog is dismissed.
  * @function_end 
@@ -2985,6 +2999,8 @@
  * @description > **Steamworks Function**: N / A
  *
  * This function sets the function to be called when the floating keyboard invoked from ${function.steam_utils_show_floating_gamepad_text_input} has been closed.
+ * 
+ * See: ${struct.SteamUtilsFloatingGamepadTextInputDismissed}
  *
  * @param {Function} callback The function to be called when the floating gamepad text input is dismissed.
  * @function_end 
@@ -3823,6 +3839,8 @@
  * [[Note: This callback goes out to all running applications, ensure that the app ID associated with the item matches what you expect.]]
  * 
  * See: [ISteamUGC::ItemInstalled_t](https://partner.steamgames.com/doc/api/ISteamUGC#ItemInstalled_t)
+ * 
+ * See: ${struct.SteamUgcItemInstalled}
  *
  * @param {Function} callback The function to be called when a workshop item is installed.
  * @function_end 
@@ -4475,6 +4493,8 @@
  * This function sets the function to be called when the user subscribed to a file.
  * 
  * See: [ISteamRemoteStorage::RemoteStoragePublishedFileSubscribed_t](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#RemoteStoragePublishedFileSubscribed_t)
+ * 
+ * See: ${struct.SteamUgcFileSubscribed}
  *
  * @param {Function} callback The function to be called when a workshop file is subscribed to.
  * @function_end
@@ -4496,6 +4516,8 @@
  * This function sets the function to be called when the user unsubscribed from a file.
  * 
  * See: [ISteamRemoteStorage::RemoteStoragePublishedFileUnsubscribed_t](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#RemoteStoragePublishedFileUnsubscribed_t)
+ * 
+ * See: ${struct.SteamUgcFileUnsubscribed}
  *
  * @param {Function} callback The function to be called when a workshop file is unsubscribed from.
  * @function_end
@@ -4942,6 +4964,8 @@
  * @description > **Steamworks Function**: N / A
  *
  * This function sets the function to be called when an new device connects.
+ * 
+ * See: ${struct.SteamInputDeviceConnected}
  *
  * @param {Function} callback The function to be called when an input device is connected.
  * @function_end
@@ -4961,6 +4985,8 @@
  * @description > **Steamworks Function**: N / A
  *
  * This function sets the function to be called when a device disconnects.
+ * 
+ * See: ${struct.SteamInputDeviceDisconnected}
  *
  * @param {Function} callback The function to be called when an input device is disconnected.
  * @function_end
@@ -4980,6 +5006,8 @@
  * @description > **Steamworks Function**: N / A
  *
  * This function sets the function to be called when the active action set changes.
+ * 
+ * See: ${struct.SteamInputActionSetChanged}
  *
  * @param {Function} callback The function to be called when the active action set changes.
  * @function_end
@@ -4999,6 +5027,8 @@
  * @description > **Steamworks Function**: N / A
  *
  * This function sets the function to be called when a controller's battery level changes.
+ * 
+ * See: ${struct.SteamInputControllerBattery}
  *
  * @param {Function} callback The function to be called when a controller's battery level changes.
  * @function_end
@@ -5755,6 +5785,8 @@
  * This function sets the function call when the latest stats and achievements for a specific user (including the local user) have been received from the server.
  * 
  * See: [ISteamUserStats::UserStatsReceived_t](https://partner.steamgames.com/doc/api/ISteamUserStats#UserStatsReceived_t)
+ * 
+ * See: ${struct.SteamUserStatsUserStatsReceived}
  *
  * @param {Function} callback The function to be called when user stats are received.
  * @function_end 
@@ -5799,6 +5831,8 @@
  * This function is called as a result of a request to store the achievements on the server, or an "indicate progress" call.
  * 
  * See: [ISteamUserStats::UserAchievementStored_t](https://partner.steamgames.com/doc/api/ISteamUserStats#UserAchievementStored_t)
+ * 
+ * See: ${struct.SteamUserStatsUserAchievementStored}
  *
  * @param {Function} callback The function to be called when a user achievement is stored.
  * @function_end 
@@ -5908,6 +5942,8 @@
  * This function sets the function to call when the playback status has changed.
  * 
  * See: [ISteamMusic::PlaybackStatusHasChanged_t](https://partner.steamgames.com/doc/api/ISteamMusic#PlaybackStatusHasChanged_t)
+ * 
+ * See: ${struct.SteamMusicPlaybackStatusHasChanged}
  *
  * @param {Function} callback The function to be called when the music playback status changes.
  * @function_end 
@@ -5929,6 +5965,8 @@
  * This function sets the function to call when the volume has changed.
  * 
  * See: [ISteamMusic::VolumeHasChanged_t](https://partner.steamgames.com/doc/api/ISteamMusic#VolumeHasChanged_t)
+ * 
+ * See: ${struct.SteamMusicVolumeHasChanged}
  *
  * @param {Function} callback The function to be called when the music volume changes.
  * @function_end 
@@ -6183,6 +6221,8 @@
  * This function sets the function to be called when asking if recordings exist for a game phase ID.
  * 
  * See: [ISteamTimeline::SteamTimelineGamePhaseRecordingExists_t](https://partner.steamgames.com/doc/api/ISteamTimeline#SteamTimelineGamePhaseRecordingExists_t)
+ * 
+ * See: ${struct.SteamTimelineGamePhaseRecordingExists}
  *
  * @param {Function} callback The function to be called when a game phase recording exists event occurs.
  * @function_end
@@ -6204,6 +6244,8 @@
  * This function sets the function to be called when asking if recordings exist for an event handle.
  * 
  * See: [ISteamTimeline::SteamTimelineEventRecordingExists_t](https://partner.steamgames.com/doc/api/ISteamTimeline#SteamTimelineEventRecordingExists_t)
+ * 
+ * See: ${struct.SteamTimelineEventRecordingExists}
  *
  * @param {Function} callback The function to be called when an event recording exists event occurs.
  * @function_end
@@ -6776,6 +6818,8 @@
  * This function sets the function to be triggered whenever an inventory result transitions from `SteamApiResult.Pending` to any other completed state, see ${function.steam_inventory_get_result_status} for the complete list of states. There will always be exactly one callback per handle.
  * 
  * See: [ISteamInventory::SteamInventoryResultReady_t](https://partner.steamgames.com/doc/api/ISteamInventory#SteamInventoryResultReady_t)
+ * 
+ * See: ${struct.SteamInventoryResultReady}
  *
  * @param {Function} callback The function to be called when an inventory result is ready.
  * @function_end 
@@ -6799,6 +6843,8 @@
  * The regular [SteamInventoryResultReady_t](https://partner.steamgames.com/doc/api/ISteamInventory#SteamInventoryResultReady_t) callback will still be triggered immediately afterwards; this is an additional notification for your convenience.
  * 
  * See: [ISteamInventory::SteamInventoryFullUpdate_t](https://partner.steamgames.com/doc/api/ISteamInventory#SteamInventoryFullUpdate_t)
+ * 
+ * See: ${struct.SteamInventoryFullUpdate}
  *
  * @param {Function} callback The function to be called when a full inventory update occurs.
  * @function_end 
@@ -6841,6 +6887,8 @@
  * This function sets the function to call when subscribed to a published file on remote storage.
  * 
  * See: [ISteamRemoteStorage::RemoteStoragePublishedFileSubscribed_t](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#RemoteStoragePublishedFileSubscribed_t)
+ * 
+ * See: ${struct.SteamRemoteStoragePublishedFileSubscribed}
  *
  * @param {Function} callback The function to be called when a published file is subscribed to.
  * @function_end 
@@ -6862,6 +6910,8 @@
  * This function sets the function to call when subscribed to a published file on remote storage.
  * 
  * See: [ISteamRemoteStorage::RemoteStoragePublishedFileUnsubscribed_t](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#RemoteStoragePublishedFileUnsubscribed_t)
+ * 
+ * See: ${struct.SteamRemoteStoragePublishedFileUnsubscribed}
  *
  * @param {Function} callback The function to be called when a published file is unsubscribed from.
  * @function_end 
@@ -6883,6 +6933,8 @@
  * This function sets the function to call in case of a local file change. If a Steam app is flagged for supporting dynamic Steam Cloud sync, and a sync occurs, this callback will be posted to the app if any local files changed.
  * 
  * See: [ISteamRemoteStorage::RemoteStorageLocalFileChange_t](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#RemoteStorageLocalFileChange_t)
+ * 
+ * See: ${struct.SteamRemoteStorageLocalFileChange}
  *
  * @param {Function} callback The function to be called when a local file change is detected.
  * @function_end 
@@ -7447,6 +7499,8 @@
  * This function sets the function to be called when the lobby metadata has changed.
  * 
  * See: [ISteamMatchmaking::LobbyDataUpdate_t](https://partner.steamgames.com/doc/api/ISteamMatchmaking#LobbyDataUpdate_t)
+ * 
+ * See: ${struct.SteamMatchmakingLobbyDataUpdate}
  *
  * @param {Function} callback The function to be called when lobby data is updated.
  * @function_end
@@ -7491,6 +7545,8 @@
  * This function sets the function to be called when a chat (text or binary) message for this lobby has been received. After getting this you must use ${function.steam_matchmaking_get_lobby_chat_entry} to retrieve the contents of this message.
  * 
  * See: [ISteamMatchmaking::LobbyChatMsg_t](https://partner.steamgames.com/doc/api/ISteamMatchmaking#LobbyChatMsg_t)
+ * 
+ * See: ${struct.SteamMatchmakingLobbyChatMsg}
  *
  * @param {Function} callback The function to be called when a lobby chat message is received.
  * @function_end
@@ -7512,6 +7568,8 @@
  * This function sets the function to be called when a game server has been set via ${function.steam_matchmaking_set_lobby_game_server} for all of the members of the lobby to join. It's up to the individual clients to take action on this; the typical game behaviour is to leave the lobby and connect to the specified game server; but the lobby may stay open throughout the session if desired.
  * 
  * See: [ISteamMatchmaking::LobbyGameCreated_t](https://partner.steamgames.com/doc/api/ISteamMatchmaking#LobbyGameCreated_t)
+ * 
+ * See: ${struct.SteamMatchmakingLobbyGameCreated}
  *
  * @param {Function} callback The function to be called when a game server is set for a lobby.
  * @function_end
@@ -8053,6 +8111,8 @@
  * This function sets the function to be called when a remote host is sending us a message, and we do not already have a session with them.
  * 
  * See: [ISteamNetworkingMessages::SteamNetworkingMessagesSessionRequest_t](https://partner.steamgames.com/doc/api/ISteamNetworkingMessages#SteamNetworkingMessagesSessionRequest_t)
+ * 
+ * See: ${struct.SteamNetworkingMessagesSessionRequest}
  *
  * @param {Function} callback The function to be called when a session request event occurs.
  * @function_end 
@@ -8074,6 +8134,8 @@
  * This function sets the function to be called when we fail to establish a connection, or we detect that communications have been disrupted in an unusual way. There is no notification when a peer proactively closes the session. ("Closed by peer" is not a concept of UDP-style communications, and ISteamNetworkingMessages is primarily intended to make porting UDP code easy.)
  * 
  * See: [ISteamNetworkingMessages::SteamNetworkingMessagesSessionFailed_t](https://partner.steamgames.com/doc/api/ISteamNetworkingMessages#SteamNetworkingMessagesSessionFailed_t)
+ * 
+ * See: ${struct.SteamNetworkingMessagesSessionFailed}
  *
  * @param {Function} callback The function to be called when a session failed event occurs.
  * @function_end 
@@ -8170,6 +8232,8 @@
  * This function sets the function to be called whenever a connection is created, destroyed, or changes state.
  * 
  * See: [ISteamNetworkingSockets::SteamNetConnectionStatusChangedCallback_t](https://partner.steamgames.com/doc/api/ISteamNetworkingSockets#SteamNetConnectionStatusChangedCallback_t)
+ * 
+ * See: ${struct.SteamNetworkingSocketsStatusChanged}
  *
  * @param {Function} callback The function to be called when the connection status changes.
  * @function_end 
@@ -8496,6 +8560,8 @@
  * This function sets the function to be called by Steam when a user "follows" a previously created beacon. This lets you know that you should be prepared for the user to join your game.
  * 
  * See: [ISteamParties::ReservationNotificationCallback_t](https://partner.steamgames.com/doc/api/isteamparties#ReservationNotificationCallback_t)
+ * 
+ * See: ${struct.SteamPartiesReservationNotification}
  *
  * @param {Function} callback The function to be called when a reservation notification event occurs.
  * @function_end 
@@ -8517,6 +8583,8 @@
  * This function sets the function to be called when the list of available locations for posting a beacon has been updated.
  * 
  * See: [ISteamParties::AvailableBeaconLocationsUpdated_t](https://partner.steamgames.com/doc/api/isteamparties#AvailableBeaconLocationsUpdated_t)
+ * 
+ * This callback has no members.
  *
  * @param {Function} callback The function to be called when the available beacon locations are updated.
  * @function_end 
@@ -8538,6 +8606,8 @@
  * This function sets the function to be called when the list of active beacons visible to the current user has changed.
  * 
  * See: [ISteamParties::ActiveBeaconsUpdated_t](https://partner.steamgames.com/doc/api/isteamparties#ActiveBeaconsUpdated_t)
+ * 
+ * This callback has no members.
  * 
  * @param {Function} callback The function to be called when the active beacons are updated.
  * @function_end 
@@ -9831,10 +9901,10 @@
  * @struct SteamInputControllerBattery
  * @description > **Steamworks Struct**: [func](url)
  *
- * This struct 
+ * This struct holds information about a controller's battery percentage.
  *
- * @member {Real} controller_handle
- * @member {Real} battery_percent
+ * @member {Real} controller_handle The controller handle.
+ * @member {Real} battery_percent The battery percent.
  * @struct_end 
  */
 
@@ -10645,32 +10715,32 @@
 
 /**
  * @struct SteamNetworkingSocketsConnectionInfo
- * @description > **Steamworks Struct**: [func](url)
+ * @description > **Steamworks Struct**: [SteamNetConnectionInfo_t](partner.steamgames.com/doc/api/steamnetworkingtypes#SteamNetConnectionInfo_t)
  *
- * This struct 
+ * This struct describes the state of a connection.
  *
- * @member {Real} user_data
- * @member {Real} end_reason
- * @member {String} end_debug
- * @member {String} connection_description
- * @member {Real} flags
- * @member {Real} state
- * @member {Real} steam_id_remote
- * @member {String} addr_remote
- * @struct_end 
+ * @member {Real} user_data Arbitrary user data set by the local application code.
+ * @member {Enum.SteamNetConnectionEnd} end_reason Basic cause of the connection termination or problem.
+ * @member {String} end_debug Human-readable, but non-localized explanation for connection termination or problem.  This is intended for debugging / diagnostic purposes only, not to display to users.  It might have some details specific to the issue.
+ * @member {String} connection_description Debug description.  This includes the connection handle, connection type (and peer information), and the app name. This string is used in various internal logging messages.
+ * @member {Real} flags A bitmask of ${enum.SteamNetworkingSendFlags}.
+ * @member {Enum.SteamNetworkingConnectionState} state High level state of the connection.
+ * @member {Real} steam_id_remote The Steam ID associated with the remote identity.
+ * @member {String} addr_remote Remote address. Might be all 0's if we don't know it, or if this is N/A. (E.g. Basically everything except direct UDP connection.)
+ * @struct_end
  */
 
 /**
  * @struct SteamNetworkingSocketsReceived
- * @description > **Steamworks Struct**: [func](url)
+ * @description > **Steamworks Struct**: N / A
  *
- * This struct 
+ * This struct holds the result of a message received on a connection.
  *
- * @member {Bool} ok
- * @member {Real} conn
- * @member {Real} bytes_written
- * @member {Real} flags
- * @struct_end 
+ * @member {Bool} ok Whether successful.
+ * @member {Real} conn The connection handle.
+ * @member {Real} bytes_written The number of bytes written.
+ * @member {Real} flags A bitmask of ${enum.SteamNetworkingSendFlags} flags.
+ * @struct_end
  */
 
 /**
@@ -10758,13 +10828,13 @@
 
 /**
  * @struct SteamNetworkingSocketsStatusChanged
- * @description > **Steamworks Struct**: [ISteamNetworking::SocketStatusCallback_t](https://partner.steamgames.com/doc/api/ISteamNetworking#SocketStatusCallback_t)
+ * @description > **Steamworks Struct**: [ISteamNetworkingSockets::SteamNetConnectionStatusChangedCallback_t](https://partner.steamgames.com/doc/api/ISteamNetworkingSockets#SteamNetConnectionStatusChangedCallback_t)
  *
- * This struct holds the data passed to a socket status callback, called when the status of a socket has changed, used as part of the ${function.steam_networking_sockets_create_listen_socket_ip} and ${function.steam_networking_sockets_create_listen_socket_p2p} and [CreateP2PConnectionSocket](partner.steamgames.com/doc/api/ISteamNetworking#CreateP2PConnectionSocket) calls.
+ * This struct holds the data passed to a callback that is posted whenever a connection is created, destroyed, or changes state. The `info` field will contain a complete description of the connection at the time the change occurred and the callback was posted. In particular, `info.state` will have the new connection state.
  *
- * @member {Real} conn 
- * @member {Real} old_state 
- * @member {Struct.SteamNetworkingSocketsConnectionInfo} info 
+ * @member {Real} conn The connection handle.
+ * @member {Enum.SteamNetworkingConnectionState} old_state The prevoius state. (current state is in `info.state`)
+ * @member {Struct.SteamNetworkingSocketsConnectionInfo} info Full connection info.
  * @struct_end
  */
 
@@ -10801,10 +10871,10 @@
  * @member NoLicense The client does not have a license to play this game.
  * @member Cheater The client is VAC banned.
  * @member LoggedInElsewhere The client is logged in elsewhere.
- * @member UnknownText 
- * @member IncompatibleAnticheat 
- * @member MemoryCorruption 
- * @member IncompatibleSoftware 
+ * @member UnknownText UnknownText.
+ * @member IncompatibleAnticheat IncompatibleAnticheat.
+ * @member MemoryCorruption MemoryCorruption.
+ * @member IncompatibleSoftware IncompatibleSoftware.
  * @member SteamConnectionLost The server lost connection to Steam.
  * @member SteamConnectionError The server had a general error connecting to Steam.
  * @member SteamResponseTimedOut The server timed out connecting to Steam.
