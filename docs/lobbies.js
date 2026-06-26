@@ -2,7 +2,8 @@
 
 /**
  * @func steam_lobby_activate_invite_overlay
- * @desc This function activates the [Steam-overlay](https://partner.steamgames.com/doc/features/overlay) to open the invite dialog. Invitations sent from this dialog will be for the provided lobby.
+ * @desc This function activates the [Steam-overlay](https://partner.steamgames.com/doc/features/overlay) to open the invite dialog. Invitations sent from this dialog will be for the current lobby.
+ * If you need to open the invite dialog for a specific lobby ID, use ${function.steam_activate_overlay_invite_dialog}.
  * 
  * @returns {boolean}
  * 
