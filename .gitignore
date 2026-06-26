@@ -13,6 +13,12 @@
 # Steamworks SDKs
 source/Steamworks_sdk/
 
+# Steamworks third-party runtime libs (deployed at build time by
+# post_build_step.bat/.sh from the SDK, never committed into the extension)
+source/Steamworks_gml/extensions/steamworks/steam_api64.dll
+source/Steamworks_gml/extensions/steamworks/libsteam_api.dylib
+source/Steamworks_gml/extensions/steamworks/libsteam_api.so
+
 # Steamworks DEMO options
 source/Steamworks_gml/options/
 
