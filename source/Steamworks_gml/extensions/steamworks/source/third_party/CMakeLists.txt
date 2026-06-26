@@ -63,8 +63,9 @@ if(WIN32)
   # Link ONLY the import library (.lib). Do NOT link the DLL.
   target_link_libraries(ext_third_party INTERFACE "${_STEAM_LIB}")
 
-  # Package the runtime DLL next to the runner/game (do not link it)
-  _ext_tp_append_runtime("${_STEAM_DLL}")
+  # NOTE: the Steam runtime DLL is intentionally NOT registered for copying.
+  # It is deployed at the game's build time by the extension post-build step
+  # (post_build_step.bat/.sh), which copies it from the Steamworks SDK.
 endif()
 
 # =============================================================================
@@ -120,8 +121,9 @@ if(APPLE)
 
     target_link_libraries(ext_third_party INTERFACE Steamworks::steam_api)
 
-    # Register runtime dylib for packaging/staging
-    _ext_tp_append_runtime("${_STEAM_DYLIB}")
+    # NOTE: the Steam runtime dylib is intentionally NOT registered for copying.
+    # It is deployed (and code-signed) at the game's build time by the extension
+    # post-build step (post_build_step.sh), which copies it from the Steamworks SDK.
   endif()
 endif()
 
@@ -168,8 +170,9 @@ if(UNIX AND NOT APPLE AND NOT ANDROID)
 
   target_link_libraries(ext_third_party INTERFACE Steamworks::steam_api)
 
-  # Register runtime .so for packaging/staging
-  _ext_tp_append_runtime("${_STEAM_SO}")
+  # NOTE: the Steam runtime .so is intentionally NOT registered for copying.
+  # It is deployed at the game's build time by the extension post-build step
+  # (post_build_step.sh), which injects it into the game archive from the SDK.
 endif()
 
 # Export to parent
