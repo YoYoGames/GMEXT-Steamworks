@@ -405,10 +405,18 @@ YYEXPORT void /*double*/ steam_lobby_list_get_lobby_member_id(RValue & Result, C
 
 CCallResult<steam_net_callbacks_t, LobbyEnter_t> steam_lobby_joined;
 void steam_net_callbacks_t::lobby_joined(LobbyEnter_t* e, bool failed) {
-	steam_lobby_current.SetFromUint64(e->m_ulSteamIDLobby);
+	int32 enterResponse = failed ? k_EChatRoomEnterResponseError : e->m_EChatRoomEnterResponse;
+	bool success = !failed && enterResponse == k_EChatRoomEnterResponseSuccess;
+	uint64 lobbyId = failed ? 0 : e->m_ulSteamIDLobby;
+	if (success)
+	{
+		steam_lobby_current.SetFromUint64(lobbyId);
+	}
+
 	steam_net_event q((char*)"lobby_joined");
-	q.set_uint64_all("lobby_id", e->m_ulSteamIDLobby);
-	q.set_success(!failed);
+	q.set_uint64_all("lobby_id", lobbyId);
+	q.set_success(success);
+	q.set((char*)"enter_response", enterResponse);
 	q.dispatch();
 }
 
