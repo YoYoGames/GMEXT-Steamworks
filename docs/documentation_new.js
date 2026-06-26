@@ -234,6 +234,8 @@
  * This function sets the function to be called when a large avatar is loaded if you have tried requesting it when it was unavailable.
  * 
  * See: [ISteamFriends::AvatarImageLoaded_t](https://partner.steamgames.com/doc/api/ISteamFriends#AvatarImageLoaded_t)
+ * 
+ * See: ${struct.SteamFriendsAvatarImageLoaded}
  *
  * @param {Function} callback The function to be called.
  * @function_end
@@ -1044,6 +1046,8 @@
  * 
  * See: [ISteamFriends::PersonaStateChange_t](https://partner.steamgames.com/doc/api/ISteamFriends#PersonaStateChange_t)
  * 
+ * See: ${struct.SteamFriendsPersonaStateChange}
+ * 
  * @param {Function} callback The function to use as the callback function.
  * 
  * @function_end
@@ -1065,6 +1069,8 @@
  * This function sets the callback function to use when the [Steam-overlay](https://partner.steamgames.com/doc/features/overlay) activates or deactivates.
  * 
  * See: [ISteamFriends::GameOverlayActivated_t](https://partner.steamgames.com/doc/api/ISteamFriends#GameOverlayActivated_t)
+ * 
+ * See: ${struct.SteamFriendsGameOverlayActivated}
  *
  * @param {Function} callback The function to use as the callback function.
  * @function_end
@@ -1086,6 +1092,8 @@
  * This function sets the callback function to use when the user tries to join a game from their friends list or after a user accepts an invite by a friend with ${function.steam_friends_invite_user_to_game}.
  * 
  * See: [ISteamFriends::GameRichPresenceJoinRequested_t](https://partner.steamgames.com/doc/api/ISteamFriends#GameRichPresenceJoinRequested_t)
+ * 
+ * See: ${struct.SteamFriendsGameRichPresenceJoinRequested}
  *
  * @param {Function} callback The function to use as the callback function.
  * @function_end
@@ -1107,6 +1115,8 @@
  * This function sets the callback function to use when the user tries to join a lobby from their friends list or from an invite.
  * 
  * See: [ISteamFriends::GameLobbyJoinRequested_t](https://partner.steamgames.com/doc/api/ISteamFriends#GameLobbyJoinRequested_t)
+ * 
+ * See: ${struct.SteamFriendsGameLobbyJoinRequested}
  *
  * @param {Function} callback The function to use as the callback function.
  * @function_end
@@ -1128,6 +1138,8 @@
  * This function sets the callback function to use when Rich Presence data has been updated for a user, this can happen automatically when friends in the same game update their rich presence, or after a call to ${function.steam_friends_request_friend_rich_presence}.
  * 
  * See: [ISteamFriends::FriendRichPresenceUpdate_t](https://partner.steamgames.com/doc/api/ISteamFriends#FriendRichPresenceUpdate_t)
+ * 
+ * See: ${struct.SteamFriendsFriendRichPresenceUpdate}
  *
  * @param {Function} callback The function to use as the callback function.
  * @function_end
@@ -1149,6 +1161,8 @@
  * This function sets the callback function to use when the user tries to join a different game server from their friends list.
  * 
  * See: [ISteamFriends::GameServerChangeRequested_t](https://partner.steamgames.com/doc/api/ISteamFriends#GameServerChangeRequested_t)
+ * 
+ * See: ${struct.SteamFriendsGameServerChangeRequested}
  *
  * @param {Function} callback The function to use as the callback function.
  * @function_end
@@ -1571,6 +1585,8 @@
  * This function sets the callback function to be triggered after the current user gains ownership of DLC and that DLC is installed.
  * 
  * See: [ISteamApps::InstallDLC](https://partner.steamgames.com/doc/api/ISteamApps#InstallDLC)
+ * 
+ * See: ${struct.SteamAppsDlcInstalled}
  *
  * @param {Function} callback The function to be used as the callback function.
  * @function_end
@@ -1776,6 +1792,8 @@
  * This function sets the callback function to be triggered after a screenshot has been successfully written or otherwise added to the library and can now be tagged.
  * 
  * See: [ISteamScreenshots::ScreenshotReady_t](https://partner.steamgames.com/doc/api/ISteamScreenshots#ScreenshotReady_t)
+ * 
+ * See: ${struct.SteamScreenshotsScreenshotReady}
  *
  * @param {Function} callback The callback function to use.
  * @function_end
@@ -1788,6 +1806,8 @@
  * This function sets the callback function to be triggered after a screenshot has been requested by the user from the Steam screenshot hotkey. This will only be called if ${function.steam_screenshots_hook_screenshots} has been enabled, in which case Steam will not take the screenshot itself.
  * 
  * See: [ISteamScreenshots::ScreenshotRequested_t](https://partner.steamgames.com/doc/api/ISteamScreenshots#ScreenshotRequested_t)
+ * 
+ * This callback has no fields.
  *
  * @param {Function} callback The callback function to use.
  * @function_end
@@ -2302,6 +2322,8 @@
  * This function sets the function to be called when a connection to the Steam servers is established.
  * 
  * See: [ISteamUser::SteamServersConnected_t](https://partner.steamgames.com/doc/api/ISteamUser#SteamServersConnected_t)
+ * 
+ * See: ${struct.SteamUserSteamServersConnected}
  *
  * @param {Function} callback The function to be called when a connection to the Steam servers is established.
  * @function_end
@@ -2323,6 +2345,8 @@
  * This function sets the function to be called when a connection attempt has failed.
  * 
  * See: [ISteamUser::SteamServerConnectFailure_t](https://partner.steamgames.com/doc/api/ISteamUser#SteamServerConnectFailure_t)
+ * 
+ * See: ${struct.SteamUserSteamServerConnectFailure}
  *
  * @param {Function} callback The function to be called when a connection attempt to the Steam servers fails.
  * @function_end
@@ -2344,6 +2368,8 @@
  * This function sets the function to be called if the client has lost connection to the Steam servers.
  * 
  * See: [ISteamUser::SteamServersDisconnected_t](https://partner.steamgames.com/doc/api/ISteamUser#SteamServersDisconnected_t)
+ * 
+ * See: ${struct.SteamUserSteamServersDisconnected}
  *
  * @param {Function} callback The function to be called when the connection to the Steam servers is lost.
  * @function_end
@@ -2365,6 +2391,8 @@
  * This function sets the function to be called when a message is sent by the Steam server to the client telling it to disconnect from the specified game server, which it may be in the process of or already connected to. The game client should immediately disconnect upon receiving this message.
  * 
  * See: [ISteamUser::ClientGameServerDeny_t](https://partner.steamgames.com/doc/api/ISteamUser#ClientGameServerDeny_t)
+ * 
+ * See: ${struct.SteamUserClientGameServerDeny}
  *
  * @param {Function} callback The function to be called when Steam requests that the client disconnect from a game server.
  * @function_end
@@ -2386,6 +2414,8 @@
  * This function sets the function to be called whenever the user's licenses (owned packages) changes.
  * 
  * See: [ISteamUser::LicensesUpdated_t](https://partner.steamgames.com/doc/api/ISteamUser#LicensesUpdated_t)
+ * 
+ * See: ${struct.SteamUserLicensesUpdated}
  *
  * @param {Function} callback The function to be called when the user's licenses (owned packages) change.
  * @function_end
@@ -7438,6 +7468,8 @@
  * This function sets the function to be called when a lobby chat room state has changed. This is usually sent when a user has joined or left the lobby.
  * 
  * See: [ISteamMatchmaking::LobbyChatUpdate_t](https://partner.steamgames.com/doc/api/ISteamMatchmaking#LobbyChatUpdate_t)
+ * 
+ * See: ${struct.SteamMatchmakingLobbyChatUpdate}
  *
  * @param {Function} callback The function to be called when a lobby chat update event occurs (a user joins, leaves or disconnects).
  * @function_end
@@ -7501,6 +7533,8 @@
  * This function sets the function to be called when someone has invited you to join a Lobby. Normally you don't need to do anything with this, as the Steam UI will also display a '<user> has invited you to the lobby, join?' notification and message.
  * 
  * See: [ISteamMatchmaking::LobbyInvite_t](https://partner.steamgames.com/doc/api/ISteamMatchmaking#LobbyInvite_t)
+ * 
+ * See: ${struct.SteamMatchmakingLobbyInvite}
  *
  * @param {Function} callback The function to be called when the user receives a lobby invitation.
  * @function_end
@@ -8739,7 +8773,7 @@
  *
  * @member {Real} result Was the call successful? If it wasn't, this may indicate a temporary loss of connection to Steam. If this returns `true`, this does not necessarily mean that all of the info for this Steam group has been downloaded.
  * @member {Real} clan_id The Steam group that we just got the officer list for.
- * @member {Real} officers  The number of officers in the group. This is the same as ${function.steam_friends_get_clan_officer_count}.
+ * @member {Real} officers The number of officers in the group. This is the same as ${function.steam_friends_get_clan_officer_count}.
  * @struct_end
  */
 
@@ -9441,21 +9475,21 @@
 
 /**
  * @struct SteamUgcQueryResult
- * @description > **Steamworks Struct**: [func](url)
+ * @description > **Steamworks Struct**: [ISteamUGC::SteamUGCDetails_t](https://partner.steamgames.com/doc/api/ISteamUGC#SteamUGCDetails_t)
  *
- * This struct 
+ * This struct holds the details of an individual workshop item after receiving a querying UGC call result.
  *
- * @member {Bool} ok
- * @member {Real} published_file_id
- * @member {String} title
- * @member {String} description
- * @member {Real} time_created
- * @member {Real} time_updated
- * @member {Real} visibility
- * @member {Bool} banned
- * @member {Bool} accepted_for_use
- * @member {Bool} tags_truncated
- * @struct_end 
+ * @member {Bool} ok Whether successful.
+ * @member {Real} published_file_id The globally unique item handle to this piece of UGC.
+ * @member {String} title The title of the item.
+ * @member {String} description The description of the item.
+ * @member {Real} time_created Time when the published item was created, provided in Unix epoch format (time since Jan 1st, 1970).
+ * @member {Real} time_updated Time when the published item was last updated, provided in Unix epoch format (time since Jan 1st, 1970).
+ * @member {Enum.SteamRemoteStoragePublishedFileVisibility} visibility The visibility of the item.
+ * @member {Bool} banned Whether the item was banned.
+ * @member {Bool} accepted_for_use Whether the developer of this app has specifically flagged this item as accepted in the Workshop. (See: [Curated Workshop](https://partner.steamgames.com/doc/features/workshop#curated_workshop))
+ * @member {Bool} tags_truncated Whether the list of tags was too long to be returned in the provided buffer, and were therefore truncated.
+ * @struct_end
  */
 
 /**
@@ -9652,9 +9686,9 @@
  *
  * Deprecated. Former result of a call to ${function.steam_ugc_request_ugc_details}.
  *
- * @member {Real} result
- * @member {Real} published_file_id
- * @member {Bool} cached_data
+ * @member {Real} result The result of an item details request.
+ * @member {Real} published_file_id The globally unique item handle to this piece of UGC.
+ * @member {Bool} cached_data Deprecated.
  * @struct_end 
  */
 
@@ -9941,29 +9975,29 @@
 
 /**
  * @struct SteamUserStatsDownloadedLeaderboardEntry
- * @description > **Steamworks Struct**: [func](url)
+ * @description > **Steamworks Struct**: [ISteamUserStats::LeaderboardEntry_t](https://partner.steamgames.com/doc/api/ISteamUserStats#LeaderboardEntry_t)
  *
- * This struct 
+ * This struct holds the data for a single entry in a leaderboard, as returned by ${function.steam_userstats_downloaded_leaderboard_entry}.
  *
- * @member {Bool} ok
- * @member {Real} steam_id_user
- * @member {Real} global_rank
- * @member {Real} score
- * @member {Real} details_count
- * @member {Real} details_written
- * @member {Real} bytes_written
- * @struct_end 
+ * @member {Bool} ok `true` upon success if all of the following conditions are met; otherwise, `false`.
+ * @member {Real} steam_id_user User who this entry belongs to. You can use ${function.steam_friends_get_friend_persona_name} and ${function.steam_friends_get_small_friend_avatar} to get more info.
+ * @member {Real} global_rank The global rank of this entry ranging from [1..N], where N is the number of users with an entry in the leaderboard.
+ * @member {Real} score The raw score as set in the leaderboard.
+ * @member {Real} details_count The number of details available for this entry.
+ * @member {Real} details_written The number of details written.
+ * @member {Real} bytes_written The number of bytes written.
+ * @struct_end
  */
 
 /**
  * @struct SteamUserStatsRequestUserStatsResult
  * @description > **Steamworks Struct**: [ISteamUserStats::UserStatsReceived_t](https://partner.steamgames.com/doc/api/ISteamUserStats#UserStatsReceived_t)
  *
- * This struct 
+ * This struct holds information received about user stats, in a callback called when the latest stats and achievements for a specific user (including the local user) have been received from the server.
  *
- * @member {Real} game_id 
- * @member {Real} steam_id_user 
- * @member {Real} result 
+ * @member {Real} game_id Game ID that these stats are for.
+ * @member {Real} steam_id_user The user whose stats were retrieved.
+ * @member {Real} result Returns whether the call was successful or not.
  * @struct_end
  */
 
@@ -10498,15 +10532,15 @@
 
 /**
  * @struct SteamMatchmakingLobbyChatUpdate
- * @description > **Steamworks Struct**: [func](url)
+ * @description > **Steamworks Struct**: [ISteamMatchmaking::LobbyChatUpdate_t](https://partner.steamgames.com/doc/api/ISteamMatchmaking#LobbyChatUpdate_t)
  *
- * This struct 
+ * This struct holds information passed to a `LobbyChatUpdate_t` callback, which is triggered when a lobby chat room state has changed. This is usually sent when a user has joined or left the lobby.
  *
- * @member {Real} lobby_id
- * @member {Real} user_changed_id
- * @member {Real} making_change_id
- * @member {Real} chat_member_state_change
- * @struct_end 
+ * @member {Real} lobby_id The Steam ID of the lobby.
+ * @member {Real} user_changed_id The user whose status in the lobby just changed - can be recipient.
+ * @member {Real} making_change_id Chat member who made the change. This can be different from m_ulSteamIDUserChanged if kicking, muting, etc. For example, if one user kicks another from the lobby, this will be set to the id of the user who initiated the kick.
+ * @member {Real} chat_member_state_change Bitfield of ${enum.ChatMemberStateChange} values.
+ * @struct_end
  */
 
 /**
@@ -10537,14 +10571,14 @@
 
 /**
  * @struct SteamMatchmakingLobbyInvite
- * @description > **Steamworks Struct**: [func](url)
+ * @description > **Steamworks Struct**: [ISteamMatchmaking::LobbyInvite_t](https://partner.steamgames.com/doc/api/ISteamMatchmaking#LobbyInvite_t)
  *
- * This struct 
+ * This struct holds information passed in a `LobbyInvite_t` callback.
  *
- * @member {Real} inviter_id
- * @member {Real} lobby_id
- * @member {String} game_id
- * @struct_end 
+ * @member {Real} inviter_id Steam ID of the person that sent the invite.
+ * @member {Real} lobby_id Steam ID of the lobby we're invited to.
+ * @member {String} game_id Game ID of the lobby we're invited to.
+ * @struct_end
  */
 
 /**
@@ -10562,15 +10596,15 @@
 
 /**
  * @struct SteamMatchmakingLobbyGameServer
- * @description > **Steamworks Struct**: [func](url)
+ * @description > **Steamworks Struct**: N / A
  *
- * This struct 
+ * This struct holds information returned by ${function.steam_matchmaking_get_lobby_game_server}.
  *
- * @member {Bool} ok
- * @member {Real} ip
- * @member {Real} port
- * @member {Real} steam_id_gs
- * @struct_end 
+ * @member {Bool} ok `true` if the lobby is valid and has a valid game server set; otherwise, `false`.
+ * @member {Real} ip The IP address of the game server, in host order, i.e 127.0.0.1 == 0x7f000001, if it's set.
+ * @member {Real} port The connection port of the game server, in host order, if it's set.
+ * @member {Real} steam_id_gs The Steam ID of the game server, if it's set.
+ * @struct_end
  */
 
 /**
@@ -10699,39 +10733,39 @@
 
 /**
  * @struct SteamPartiesReservationNotification
- * @description > **Steamworks Struct**: [func](url)
+ * @description > **Steamworks Struct**: [ISteamParties::ReservationNotificationCallback_t](https://partner.steamgames.com/doc/api/isteamparties#ReservationNotificationCallback_t)
  *
- * This struct 
+ * This struct holds the information passed to a reservation notification callback. When you receive this callback, be sure to call ${function.steam_parties_on_reservation_completed} to let Steam know.
  *
- * @member {Real} beacon_id
- * @member {Real} joiner_steam_id
- * @struct_end 
+ * @member {Real} beacon_id Beacon ID of your beacon.
+ * @member {Real} joiner_steam_id SteamID of the user following your beacon.
+ * @struct_end
  */
 
 /**
  * @struct SteamPartiesBeaconDetails
- * @description > **Steamworks Struct**: [func](url)
+ * @description > **Steamworks Struct**: N / A
  *
- * This struct 
+ * This struct holds the details of a beacon, as requested using ${function.steam_parties_get_beacon_details}.
  *
- * @member {Bool} ok
- * @member {Real} beacon_owner_steam_id
- * @member {Enum.SteamPartiesBeaconLocationType} location_type
- * @member {Real} location_id
- * @member {String} metadata
- * @struct_end 
+ * @member {Bool} ok Whether the request was successful.
+ * @member {Real} beacon_owner_steam_id Creator of the beacon.
+ * @member {Enum.SteamPartiesBeaconLocationType} location_type The location type.
+ * @member {Real} location_id Opaque identifier of this location.
+ * @member {String} metadata Any additional metadata the game has set on this beacon (e.g. game mode). Will hold an empty string `""` if not successful.
+ * @struct_end
  */
 
 /**
  * @struct SteamNetworkingSocketsStatusChanged
- * @description > **Steamworks Struct**: [func](url)
+ * @description > **Steamworks Struct**: [ISteamNetworking::SocketStatusCallback_t](https://partner.steamgames.com/doc/api/ISteamNetworking#SocketStatusCallback_t)
  *
- * This struct 
+ * This struct holds the data passed to a socket status callback, called when the status of a socket has changed, used as part of the ${function.steam_networking_sockets_create_listen_socket_ip} and ${function.steam_networking_sockets_create_listen_socket_p2p} and [CreateP2PConnectionSocket](partner.steamgames.com/doc/api/ISteamNetworking#CreateP2PConnectionSocket) calls.
  *
- * @member {Real} conn
- * @member {Real} old_state
- * @member {Struct.SteamNetworkingSocketsConnectionInfo} info
- * @struct_end 
+ * @member {Real} conn 
+ * @member {Real} old_state 
+ * @member {Struct.SteamNetworkingSocketsConnectionInfo} info 
+ * @struct_end
  */
 
 /**
