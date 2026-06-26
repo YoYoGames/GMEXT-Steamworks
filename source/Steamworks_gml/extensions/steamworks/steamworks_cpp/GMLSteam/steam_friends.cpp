@@ -289,6 +289,28 @@ YYEXPORT void /*double*/ steam_activate_overlay_store(RValue& Result, CInstance*
 	Result.val = 1.0;
 }
 
+YYEXPORT void /*double*/ steam_activate_overlay_invite_dialog(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)//( int64 _lobbyId )/*Steam_Friends_ActivateGameOverlayInviteDialog*/
+{
+	int64 _lobbyId = YYGetInt64(arg, 0);
+
+	Result.kind = VALUE_BOOL;
+	Result.val = false;
+
+	if (!steam_is_initialised || SteamFriends() == NULL)
+	{
+		return;
+	}
+
+	CSteamID lobbyId((uint64)_lobbyId);
+	if (!lobbyId.IsValid())
+	{
+		return;
+	}
+
+	SteamFriends()->ActivateGameOverlayInviteDialog(lobbyId);
+	Result.val = true;
+}
+
 
 static void SendPersonaNameAsyncEvent( int _asyncId, uint64 _steamId, const char* pszPersonaName )
 {
