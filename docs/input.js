@@ -893,6 +893,8 @@
 /**
  * @func steam_input_get_controller_for_gamepad_index
  * @desc This function returns the input handle for an XInput gamepad slot, or 0 if that slot is not powered by Steam Input. That can be used to match between native GameMaker `gamepad_` slots and Steam Input controllers on Windows. Since on Windows the GameMaker pad slots from 0 to 3 are XInput controllers, and from 4 to 12 are DirectInput controllers. This function only works with emulated XInput controllers.
+ *
+ * [[NOTE: Invalid slot values return `0`.]]
  * 
  * @param {real} index XInput slot from 0 to 3 included.
  * 
@@ -911,7 +913,7 @@
 
 /**
  * @func steam_input_get_gamepad_index_for_controller
- * @desc This function is the reverse of ${function.steam_input_get_controller_for_gamepad_index}, except it allows you to determine whether a Steam Input handle is being emulated as XInput as well or not. See the definition of the reverse function for more information about slots.
+ * @desc This function is the reverse of ${function.steam_input_get_controller_for_gamepad_index}, except it allows you to determine whether a Steam Input handle is being emulated as XInput as well or not. It returns `-1` when no XInput slot maps to the controller handle. See the definition of the reverse function for more information about slots.
  * 
  * @param {real} controller Input handle of the controller.
  * 
