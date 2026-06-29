@@ -1,0 +1,1 @@
+<p align="center">GameMaker ${time.year}</p>
