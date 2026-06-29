@@ -19,6 +19,8 @@
     "linux": {}
   },
   "extras": {
-    "docs": {}
+    "docs": {
+      "outputFile": "../../../../../docs/extgen_docs.js"
+    }
   }
 }
