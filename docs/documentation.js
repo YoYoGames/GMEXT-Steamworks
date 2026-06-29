@@ -12476,97 +12476,97 @@
  */
 
 /**
- * @const_partial macros
- * @member {Real} SteamApiBreakpadInvalidHandle (value: '0') Breakpad invalid handle.
- * @member {Real} SteamApiGameExtraInfoMax (value: '64') The maximum size (in UTF-8 bytes, including the null terminator) of the `extra_info` parameter of ${function.steam_user_track_app_usage_event}.
- * @member {Real} SteamApiSaltSize (value: '8') Only used internally in Steam.
- * @member {Real} SteamApiGidNil (value: '-1') Only used internally in Steam.
- * @member {Real} SteamApiAuthTicketInvalid (value: '0') An invalid user authentication ticket.
- * @member {Real} SteamApiJobIdNil (value: '-1') Only used internally in Steam.
- * @member {Real} SteamApiTxnIdNil (value: '-1') Only used internally in Steam.
- * @member {Real} SteamApiTxnIdUnknown (value: '0') Only used internally in Steam.
- * @member {Real} SteamApiApiCallInvalid (value: '0x0') An Invalid Steam API Call handle.
- * @member {Real} SteamApiAppIdInvalid (value: '0x0') An Invalid App ID.
- * @member {Real} SteamApiBundleIdInvalid (value: '0') Only used internally in Steam.
- * @member {Real} SteamApiCellIdInvalid (value: '0xFFFFFFFF') Only used internally in Steam.
- * @member {Real} SteamApiDepotIdInvalid (value: '0x0') An Invalid Depot ID.
- * @member {Real} SteamApiAssetClassIdInvalid (value: '0x0') Only used internally in Steam.
- * @member {Real} SteamApiManifestIdInvalid (value: '0') Only used internally in Steam.
- * @member {Real} SteamApiSteamAccountIdMask (value: '0xFFFFFFFF') Used in [CSteamID](https://partner.steamgames.com/doc/api/steam_api#CSteamID) to mask out the [AccountID_t](https://partner.steamgames.com/doc/api/steam_api#AccountID_t).
- * @member {Real} SteamApiSteamAccountInstanceMask (value: '0x000FFFFF') Used in [CSteamID](https://partner.steamgames.com/doc/api/steam_api#CSteamID) to mask out the account instance.
- * @member {Real} SteamApiSteamUserConsoleInstance (value: '2') Used by [CSteamID](https://partner.steamgames.com/doc/api/steam_api#CSteamID) to identify users logged in from a console.
- * @member {Real} SteamApiSteamUserDesktopInstance (value: '1') Used by [CSteamID](https://partner.steamgames.com/doc/api/steam_api#CSteamID) to identify users logged in from the desktop client.
- * @member {Real} SteamApiSteamUserWebInstance (value: '4') Used by [CSteamID](https://partner.steamgames.com/doc/api/steam_api#CSteamID) to identify users logged in from the web.
- * @member {Real} SteamApiPackageIdFreeSub (value: '0x0') Only used internally in Steam.
- * @member {Real} SteamApiPackageIdInvalid (value: '0xFFFFFFFF') Only used internally in Steam.
- * @member {Real} SteamApiPartnerIdInvalid (value: '0') Only used internally in Steam.
- * @member {Real} SteamApiPhysicalItemIdInvalid (value: '0x0') Only used internally in Steam.
- * @member {Real} SteamApiQueryPortError (value: '0xFFFE') We were unable to get the query port for this server.
- * @member {Real} SteamApiQueryPortNotInitialized (value: '0xFFFF') We haven't asked the GS for this query port's actual value yet.
- * @member {Real} SteamFriendsMaxFriendsGroupName (value: '64') The maximum length that a friends group name can be (not including the null-terminator!)
- * @member {Real} SteamFriendsMaxRichPresenceKeyLength (value: '64') The maximum length that a rich presence key can be.
- * @member {Real} SteamFriendsMaxRichPresenceKeys (value: '20')The maximum amount of rich presence keys that can be set.
- * @member {Real} SteamFriendsMaxRichPresenceValueLength (value: '256') The maximum length that a rich presence value can be.
- * @member {Real} SteamFriendsPersonaNameMax (value: '128') Maximum number of UTF-8 bytes in a users persona (display) name.
- * @member {Real} SteamFriendsEnumerateFollowersMax (value: '50') The maximum number of followers that will be returned in a [FriendsEnumerateFollowingList_t](https://partner.steamgames.com/doc/api/ISteamFriends#FriendsEnumerateFollowingList_t) call result at once.
- * @member {Real} SteamFriendsFriendsGroupLimit (value: '100') Deprecated - Unused.
- * @member {Real} SteamFriendsChatMetadataMax (value: '8192') Maximum size in bytes that chat room, lobby, or chat/lobby member metadata may have.
- * @member {Real} SteamFriendsPersonaNameMaxUtf16 (value: '32') The maximum amount of UTF-16 characters in a users persona (display) name.
- * @member {Real} SteamFriendsGroupIdInvalid (value: '-1') Invalid friends group identifier.
- * @member {String} SteamFriendsInterfaceVersion (value: '"SteamFriends015"') Steam Friends interface version.
- * @member {Real} SteamAppsAppProofOfPurchaseKeyMax (value: '240') Only used internally in Steam.
- * @member {String} SteamAppsInterfaceVersion (value: '"STEAMAPPS_INTERFACE_VERSION008"') Steam Apps interface version.
- * @member {Real} SteamScreenshotsInvalidScreenshotHandle (value: '0') An invalid screenshot handle, this is returned when writing or adding a screenshot has failed.
- * @member {Real} SteamScreenshotsUfsTagTypeMax (value: '255') Unused.
- * @member {Real} SteamScreenshotsUfsTagValueMax (value: '255') The maximum length in bytes of a location metadata string set on a screenshot using ${function.steam_screenshots_set_location}.
- * @member {Real} SteamScreenshotsMaxTaggedPublishedFiles (value: '32') The maximum number of workshop items that can be tagged in a screenshot using ${function.steam_screenshots_tag_published_file}.
- * @member {Real} SteamScreenshotsMaxTaggedUsers (value: '32') The maximum number of users that can be tagged in a screenshot using ${function.steam_screenshots_tag_user}.
- * @member {Real} SteamScreenshotsThumbWidth (value: '200') Required width of a thumbnail provided to ${function.steam_screenshots_add_screenshot_to_library}. If you do not provide a thumbnail then one will be generated automatically.
- * @member {String} SteamScreenshotsInterfaceVersion (value: '"STEAMSCREENSHOTS_INTERFACE_VERSION003"') Steam Screenshots interface version.
- * @member {String} SteamUserInterfaceVersion (value: '"SteamUser019"') Steam User interface version.
- * @member {Real} SteamUserEncryptedAppTicketSymmetricKeyLen (value: '32') The length of a key used with [SteamEncryptedAppTicket::BDecryptTicket](https://partner.steamgames.com/doc/api/SteamEncryptedAppTicket#BDecryptTicket).
- * @member {String} SteamUtilsInterfaceVersion (value: '"SteamUtils009"') Steam Utils interface version.
- * @member {Real} SteamUgcNumResultsPerPage (value: '50') The maximum number of results that you'll receive for a query result.
- * @member {Real} SteamUgcDeveloperMetadataMax (value: '5000') The maximum amount of bytes you can set with ${function.steam_ugc_set_item_metadata}.
- * @member {Real} SteamUgcQueryHandleInvalid (value: '-1') Used to specify an invalid query handle. This is frequently returned if a call fails.
- * @member {Real} SteamUgcUpdateHandleInvalid (value: '-1') Used to specify an invalid item update handle. This is frequently returned if a call fails.
- * @member {String} SteamUgcInterfaceVersion (value: '"STEAMUGC_INTERFACE_VERSION015"') Steam UGC interface version.
- * @member {String} SteamInputInterfaceVersion (value: '"SteamInput001"') Steam Input interface version.
- * @member {Real} SteamInputHandleAllControllers (value: '-1') When sending an option to a specific controller handle, you can use this special value in the place of a handle to send the option to all controllers instead.
- * @member {Real} SteamInputMaxAnalogActions (value: '16') The maximum number of analog actions that can be performed on each controller.
- * @member {Real} SteamInputMaxAnalogActionData (value: '1.0') The maximum value that can be reported by an analog action on any given axis.
- * @member {Real} SteamInputMaxCount (value: '16') The maximum number of controllers that can be used simultaneously with the Steam Input Configurator.
- * @member {Real} SteamInputMaxDigitalActions (value: '128') The maximum number of digital actions that can be performed on each controller.
- * @member {Real} SteamInputMaxOrigins (value: '8') The maximum number of input origins that can be attached to a single action.
- * @member {Real} SteamInputMinAnalogActionData (value: '-1.0') The minimum value that can be reported by an analog action on any given axis.
- * @member {Real} SteamUserStatsLeaderboardNameMax (value: '128') Maximum number of bytes for a leaderboard name (UTF-8 encoded).
- * @member {Real} SteamUserStatsStatNameMax (value: '128') Maximum number of bytes for stat and achievement names (UTF-8 encoded).
- * @member {Real} SteamUserStatsLeaderboardDetailsMax (value: '64') Maximum number of details that you can store for a single leaderboard entry.
- * @member {String} SteamUserStatsInterfaceVersion (value: '"STEAMUSERSTATS_INTERFACE_VERSION011"') Steam Userstats interface version.
- * @member {String} SteamMusicInterfaceVersion (value: '"STEAMMUSIC_INTERFACE_VERSION001"') Steam Music interface version.
- * @member {Real} SteamInventoryResultInvalid (value: '-1') An invalid Steam inventory result handle.
- * @member {Real} SteamInventoryItemInstanceIdInvalid (value: '-1') An invalid item instance id. This is usually returned when an operation has failed. It's recommended that you initialise all new item instances with this value.
- * @member {String} SteamInventoryInterfaceVersion (value: '"STEAMINVENTORY_INTERFACE_V002"') Steam Inventory interface version.
- * @member {Real} SteamRemoteStorageFilenameMax (value: '260') The maximum length that a Steam Cloud file path can be.
- * @member {Real} SteamRemoteStoragePublishedDocumentChangeDescriptionMax (value: '8000') Unused.
- * @member {Real} SteamRemoteStoragePublishedDocumentDescriptionMax (value: '8000') The maximum size in bytes that a Workshop item description can be.
- * @member {Real} SteamRemoteStoragePublishedDocumentTitleMax (value: '129') The maximum size in bytes that a Workshop item title can be.
- * @member {Real} SteamRemoteStoragePublishedFileUrlMax (value: '256') The maximum size in bytes that a Workshop item URL can be.
- * @member {Real} SteamRemoteStorageTagListMax (value: '1025') The maximum size in bytes that a Workshop item comma separated tag list can be.
- * @member {Real} SteamRemoteStoragePublishedFileIdInvalid (value: '0') An invalid Workshop item handle.
- * @member {Real} SteamRemoteStoragePublishedFileUpdateHandleInvalid (value: '-1') Deprecated - Only used with the deprecated RemoteStorage based Workshop API.
- * @member {Real} SteamRemoteStorageUgcFileStreamHandleInvalid (value: '-1') Returned when an error has occured when using ${function.steam_remote_storage_file_write_stream_open}.
- * @member {Real} SteamRemoteStorageUgcHandleInvalid (value: '-1') An invalid UGC Handle. This is often returned by functions signifying an error.
- * @member {Real} SteamRemoteStorageEnumeratePublishedFilesMaxResults (value: '50') Deprecated - Only used with the deprecated RemoteStorage based Workshop API.
- * @member {Real} SteamRemoteStorageMaxCloudFileChunkSize (value: '104857600') Defines the largest allowed file size for the Steam Cloud. Cloud files cannot be written in a single chunk over 100MiB and cannot be over 200MiB total.
- * @member {String} SteamRemoteStorageInterfaceVersion (value: '"STEAMREMOTESTORAGE_INTERFACE_VERSION014"')
- * @member {Real} SteamMatchmakingServerQueryInvalid (value: '0xffffffff') Invalid server query.
- * @member {Real} SteamMatchmakingMaxLobbyKeyLength (value: '255') Maximum number of characters a lobby metadata key can be.
- * @member {Real} SteamMatchmakingFavoriteFlagFavorite (value: '0x01') This favorite game server entry is for the favorites list.
- * @member {Real} SteamMatchmakingFavoriteFlagHistory (value: '0x02') This favorite game server entry is for the history list.
- * @member {Real} SteamMatchmakingFavoriteFlagNone (value: '0x00') This favorite game server has no flags set.
- * @member {String} SteamMatchmakingServersInterfaceVersion (value: '"SteamMatchMakingServers002"') Steam Matchmaking servers interface version.
- * @member {String} SteamMatchmakingInterfaceVersion (value: '"SteamMatchMaking009"') Steam Matchmaking interface version.
+ * @const macros
+ * @member SteamApiBreakpadInvalidHandle (value: '0') Breakpad invalid handle.
+ * @member SteamApiGameExtraInfoMax (value: '64') The maximum size (in UTF-8 bytes, including the null terminator) of the `extra_info` parameter of ${function.steam_user_track_app_usage_event}.
+ * @member SteamApiSaltSize (value: '8') Only used internally in Steam.
+ * @member SteamApiGidNil (value: '-1') Only used internally in Steam.
+ * @member SteamApiAuthTicketInvalid (value: '0') An invalid user authentication ticket.
+ * @member SteamApiJobIdNil (value: '-1') Only used internally in Steam.
+ * @member SteamApiTxnIdNil (value: '-1') Only used internally in Steam.
+ * @member SteamApiTxnIdUnknown (value: '0') Only used internally in Steam.
+ * @member SteamApiApiCallInvalid (value: '0x0') An Invalid Steam API Call handle.
+ * @member SteamApiAppIdInvalid (value: '0x0') An Invalid App ID.
+ * @member SteamApiBundleIdInvalid (value: '0') Only used internally in Steam.
+ * @member SteamApiCellIdInvalid (value: '0xFFFFFFFF') Only used internally in Steam.
+ * @member SteamApiDepotIdInvalid (value: '0x0') An Invalid Depot ID.
+ * @member SteamApiAssetClassIdInvalid (value: '0x0') Only used internally in Steam.
+ * @member SteamApiManifestIdInvalid (value: '0') Only used internally in Steam.
+ * @member SteamApiSteamAccountIdMask (value: '0xFFFFFFFF') Used in [CSteamID](https://partner.steamgames.com/doc/api/steam_api#CSteamID) to mask out the [AccountID_t](https://partner.steamgames.com/doc/api/steam_api#AccountID_t).
+ * @member SteamApiSteamAccountInstanceMask (value: '0x000FFFFF') Used in [CSteamID](https://partner.steamgames.com/doc/api/steam_api#CSteamID) to mask out the account instance.
+ * @member SteamApiSteamUserConsoleInstance (value: '2') Used by [CSteamID](https://partner.steamgames.com/doc/api/steam_api#CSteamID) to identify users logged in from a console.
+ * @member SteamApiSteamUserDesktopInstance (value: '1') Used by [CSteamID](https://partner.steamgames.com/doc/api/steam_api#CSteamID) to identify users logged in from the desktop client.
+ * @member SteamApiSteamUserWebInstance (value: '4') Used by [CSteamID](https://partner.steamgames.com/doc/api/steam_api#CSteamID) to identify users logged in from the web.
+ * @member SteamApiPackageIdFreeSub (value: '0x0') Only used internally in Steam.
+ * @member SteamApiPackageIdInvalid (value: '0xFFFFFFFF') Only used internally in Steam.
+ * @member SteamApiPartnerIdInvalid (value: '0') Only used internally in Steam.
+ * @member SteamApiPhysicalItemIdInvalid (value: '0x0') Only used internally in Steam.
+ * @member SteamApiQueryPortError (value: '0xFFFE') We were unable to get the query port for this server.
+ * @member SteamApiQueryPortNotInitialized (value: '0xFFFF') We haven't asked the GS for this query port's actual value yet.
+ * @member SteamFriendsMaxFriendsGroupName (value: '64') The maximum length that a friends group name can be (not including the null-terminator!)
+ * @member SteamFriendsMaxRichPresenceKeyLength (value: '64') The maximum length that a rich presence key can be.
+ * @member SteamFriendsMaxRichPresenceKeys (value: '20')The maximum amount of rich presence keys that can be set.
+ * @member SteamFriendsMaxRichPresenceValueLength (value: '256') The maximum length that a rich presence value can be.
+ * @member SteamFriendsPersonaNameMax (value: '128') Maximum number of UTF-8 bytes in a users persona (display) name.
+ * @member SteamFriendsEnumerateFollowersMax (value: '50') The maximum number of followers that will be returned in a [FriendsEnumerateFollowingList_t](https://partner.steamgames.com/doc/api/ISteamFriends#FriendsEnumerateFollowingList_t) call result at once.
+ * @member SteamFriendsFriendsGroupLimit (value: '100') Deprecated - Unused.
+ * @member SteamFriendsChatMetadataMax (value: '8192') Maximum size in bytes that chat room, lobby, or chat/lobby member metadata may have.
+ * @member SteamFriendsPersonaNameMaxUtf16 (value: '32') The maximum amount of UTF-16 characters in a users persona (display) name.
+ * @member SteamFriendsGroupIdInvalid (value: '-1') Invalid friends group identifier.
+ * @member SteamFriendsInterfaceVersion (value: '"SteamFriends015"') Steam Friends interface version.
+ * @member SteamAppsAppProofOfPurchaseKeyMax (value: '240') Only used internally in Steam.
+ * @member SteamAppsInterfaceVersion (value: '"STEAMAPPS_INTERFACE_VERSION008"') Steam Apps interface version.
+ * @member SteamScreenshotsInvalidScreenshotHandle (value: '0') An invalid screenshot handle, this is returned when writing or adding a screenshot has failed.
+ * @member SteamScreenshotsUfsTagTypeMax (value: '255') Unused.
+ * @member SteamScreenshotsUfsTagValueMax (value: '255') The maximum length in bytes of a location metadata string set on a screenshot using ${function.steam_screenshots_set_location}.
+ * @member SteamScreenshotsMaxTaggedPublishedFiles (value: '32') The maximum number of workshop items that can be tagged in a screenshot using ${function.steam_screenshots_tag_published_file}.
+ * @member SteamScreenshotsMaxTaggedUsers (value: '32') The maximum number of users that can be tagged in a screenshot using ${function.steam_screenshots_tag_user}.
+ * @member SteamScreenshotsThumbWidth (value: '200') Required width of a thumbnail provided to ${function.steam_screenshots_add_screenshot_to_library}. If you do not provide a thumbnail then one will be generated automatically.
+ * @member SteamScreenshotsInterfaceVersion (value: '"STEAMSCREENSHOTS_INTERFACE_VERSION003"') Steam Screenshots interface version.
+ * @member SteamUserInterfaceVersion (value: '"SteamUser019"') Steam User interface version.
+ * @member SteamUserEncryptedAppTicketSymmetricKeyLen (value: '32') The length of a key used with [SteamEncryptedAppTicket::BDecryptTicket](https://partner.steamgames.com/doc/api/SteamEncryptedAppTicket#BDecryptTicket).
+ * @member SteamUtilsInterfaceVersion (value: '"SteamUtils009"') Steam Utils interface version.
+ * @member SteamUgcNumResultsPerPage (value: '50') The maximum number of results that you'll receive for a query result.
+ * @member SteamUgcDeveloperMetadataMax (value: '5000') The maximum amount of bytes you can set with ${function.steam_ugc_set_item_metadata}.
+ * @member SteamUgcQueryHandleInvalid (value: '-1') Used to specify an invalid query handle. This is frequently returned if a call fails.
+ * @member SteamUgcUpdateHandleInvalid (value: '-1') Used to specify an invalid item update handle. This is frequently returned if a call fails.
+ * @member SteamUgcInterfaceVersion (value: '"STEAMUGC_INTERFACE_VERSION015"') Steam UGC interface version.
+ * @member SteamInputInterfaceVersion (value: '"SteamInput001"') Steam Input interface version.
+ * @member SteamInputHandleAllControllers (value: '-1') When sending an option to a specific controller handle, you can use this special value in the place of a handle to send the option to all controllers instead.
+ * @member SteamInputMaxAnalogActions (value: '16') The maximum number of analog actions that can be performed on each controller.
+ * @member SteamInputMaxAnalogActionData (value: '1.0') The maximum value that can be reported by an analog action on any given axis.
+ * @member SteamInputMaxCount (value: '16') The maximum number of controllers that can be used simultaneously with the Steam Input Configurator.
+ * @member SteamInputMaxDigitalActions (value: '128') The maximum number of digital actions that can be performed on each controller.
+ * @member SteamInputMaxOrigins (value: '8') The maximum number of input origins that can be attached to a single action.
+ * @member SteamInputMinAnalogActionData (value: '-1.0') The minimum value that can be reported by an analog action on any given axis.
+ * @member SteamUserStatsLeaderboardNameMax (value: '128') Maximum number of bytes for a leaderboard name (UTF-8 encoded).
+ * @member SteamUserStatsStatNameMax (value: '128') Maximum number of bytes for stat and achievement names (UTF-8 encoded).
+ * @member SteamUserStatsLeaderboardDetailsMax (value: '64') Maximum number of details that you can store for a single leaderboard entry.
+ * @member SteamUserStatsInterfaceVersion (value: '"STEAMUSERSTATS_INTERFACE_VERSION011"') Steam Userstats interface version.
+ * @member SteamMusicInterfaceVersion (value: '"STEAMMUSIC_INTERFACE_VERSION001"') Steam Music interface version.
+ * @member SteamInventoryResultInvalid (value: '-1') An invalid Steam inventory result handle.
+ * @member SteamInventoryItemInstanceIdInvalid (value: '-1') An invalid item instance id. This is usually returned when an operation has failed. It's recommended that you initialise all new item instances with this value.
+ * @member SteamInventoryInterfaceVersion (value: '"STEAMINVENTORY_INTERFACE_V002"') Steam Inventory interface version.
+ * @member SteamRemoteStorageFilenameMax (value: '260') The maximum length that a Steam Cloud file path can be.
+ * @member SteamRemoteStoragePublishedDocumentChangeDescriptionMax (value: '8000') Unused.
+ * @member SteamRemoteStoragePublishedDocumentDescriptionMax (value: '8000') The maximum size in bytes that a Workshop item description can be.
+ * @member SteamRemoteStoragePublishedDocumentTitleMax (value: '129') The maximum size in bytes that a Workshop item title can be.
+ * @member SteamRemoteStoragePublishedFileUrlMax (value: '256') The maximum size in bytes that a Workshop item URL can be.
+ * @member SteamRemoteStorageTagListMax (value: '1025') The maximum size in bytes that a Workshop item comma separated tag list can be.
+ * @member SteamRemoteStoragePublishedFileIdInvalid (value: '0') An invalid Workshop item handle.
+ * @member SteamRemoteStoragePublishedFileUpdateHandleInvalid (value: '-1') Deprecated - Only used with the deprecated RemoteStorage based Workshop API.
+ * @member SteamRemoteStorageUgcFileStreamHandleInvalid (value: '-1') Returned when an error has occured when using ${function.steam_remote_storage_file_write_stream_open}.
+ * @member SteamRemoteStorageUgcHandleInvalid (value: '-1') An invalid UGC Handle. This is often returned by functions signifying an error.
+ * @member SteamRemoteStorageEnumeratePublishedFilesMaxResults (value: '50') Deprecated - Only used with the deprecated RemoteStorage based Workshop API.
+ * @member SteamRemoteStorageMaxCloudFileChunkSize (value: '104857600') Defines the largest allowed file size for the Steam Cloud. Cloud files cannot be written in a single chunk over 100MiB and cannot be over 200MiB total.
+ * @member SteamRemoteStorageInterfaceVersion (value: '"STEAMREMOTESTORAGE_INTERFACE_VERSION014"')
+ * @member SteamMatchmakingServerQueryInvalid (value: '0xffffffff') Invalid server query.
+ * @member SteamMatchmakingMaxLobbyKeyLength (value: '255') Maximum number of characters a lobby metadata key can be.
+ * @member SteamMatchmakingFavoriteFlagFavorite (value: '0x01') This favorite game server entry is for the favorites list.
+ * @member SteamMatchmakingFavoriteFlagHistory (value: '0x02') This favorite game server entry is for the history list.
+ * @member SteamMatchmakingFavoriteFlagNone (value: '0x00') This favorite game server has no flags set.
+ * @member SteamMatchmakingServersInterfaceVersion (value: '"SteamMatchMakingServers002"') Steam Matchmaking servers interface version.
+ * @member SteamMatchmakingInterfaceVersion (value: '"SteamMatchMaking009"') Steam Matchmaking interface version.
  * @const_end
  */
 
@@ -12626,6 +12626,12 @@
  * @section_const Constants
  * @desc These are the constants and enums of the API module:
  * @ref SteamApi*
+ * @section_end
+ * 
+ * @section_struct Structs
+ * @desc These are the structs of the API module:
+ * @ref SteamId
+ * @section_end
  * @module_end
  */
 
@@ -12642,6 +12648,7 @@
  * @section_const Constants
  * @desc These are the constants and enums of the Friends module:
  * @ref SteamFriends*
+ * @ref macros
  * @section_end
  * 
  * @section_struct Structs
