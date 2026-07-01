@@ -1297,7 +1297,7 @@
  * 
  * See also: [TimedTrialStatus_t](https://partner.steamgames.com/doc/api/ISteamApps#TimedTrialStatus_t)
  *
- * @returns {Struct.SteamAppsTimedTrialStatus} 
+ * @returns {Struct.SteamAppsIsTimedTrialResult} 
  * @function_end
  */
 
@@ -2311,7 +2311,7 @@
  *
  * @param {Real} steam_id The Steam ID of the user to check.
  * @param {Real} app_id The DLC App ID to check if the user owns it.
- * @returns {Enum.SteamApiUserHasLicenseResult} 
+ * @returns {Enum.SteamApiUserHasLicenseForAppResult} 
  * @function_end
  */
 
@@ -2567,7 +2567,7 @@
  * 
  * See: [ISteamUtils::SteamAPICallCompleted_t](https://partner.steamgames.com/doc/api/ISteamUtils#SteamAPICallCompleted_t)
  * 
- * See: ${sstruct.SteamUtilsSteamApiCallCompleted}
+ * See: ${struct.SteamUtilsSteamApiCallCompleted}
  *
  * @param {Function} callback The function to be called when an asynchronous Steam API call is completed.
  * @function_end 
@@ -3131,7 +3131,7 @@
  *
  * @param {Real} update_handle The workshop item update handle to customize.
  * @param {String} preview_file_path The absolute path to the local image.
- * @param {Enum.SteamItemPreviewType} preview_type The type of this preview.
+ * @param {Enum.SteamUgcItemPreviewType} preview_type The type of this preview.
  * @returns {Bool} 
  * @function_end 
  */
@@ -3415,7 +3415,7 @@
  * This function gets the current state of a workshop item on this client.
  *
  * @param {Real} published_file_id The workshop item to get the state for.
- * @returns {Enum.SteamUgcItemState} The item state. Should be used with the ${enum.SteamUgcItemState} flags to determine the state of the workshop item.
+ * @returns {Enum.SteamUgcItemState} The item state. Should be used with the ${Enum.SteamUgcItemState} flags to determine the state of the workshop item.
  * @function_end 
  */
 
@@ -3863,7 +3863,7 @@
  * 
  * [[Note: This must be set before you send a UGC Query handle using ${function.steam_ugc_send_query_ugc_request}.]]
  *
- * @param {Real} query_handle The UGC query handle to customise, as returned by ${function.steam_ugc_create_query_user} or ${function.steam_ugc_create_query_all}.
+ * @param {Real} query_handle The UGC query handle to customise, as returned by ${function.steam_ugc_create_query_user_ugc_request} or ${function.steam_ugc_create_query_all_ugc_request}.
  * @param {Real} max_age_seconds The maximum amount of time that an item can be returned without a cache invalidation.
  * @returns {Bool} 
  * @function_end 
@@ -3879,7 +3879,7 @@
  * 
  * [[Note: This must be set before you send a UGC Query handle using ${function.steam_ugc_send_query_ugc_request}.]]
  *
- * @param {Real} query_handle The UGC query handle to customise, as returned by ${function.steam_ugc_create_query_user} or ${function.steam_ugc_create_query_all}.
+ * @param {Real} query_handle The UGC query handle to customise, as returned by ${function.steam_ugc_create_query_user_ugc_request} or ${function.steam_ugc_create_query_all_ugc_request}.
  * @param {String} match_cloud_file_name The filename that returned items must have in order to match the query.
  * @returns {Bool} 
  * @function_end 
@@ -4036,7 +4036,7 @@
  * 
  * This must be in the format of the [API Language code](https://partner.steamgames.com/doc/store/localization#supported_languages).
  *
- * @param {Real} query_handle The UGC query handle to customise, as returned by ${function.steam_ugc_create_query_user} or ${function.steam_ugc_create_query_all}.
+ * @param {Real} query_handle The UGC query handle to customise, as returned by ${function.steam_ugc_create_query_user_ugc_request} or ${function.steam_ugc_create_query_all_ugc_request}.
  * @param {String} language The language to return the title and description in, as a Steam supported [API language code](https://partner.steamgames.com/doc/store/localization/languages).
  * @returns {Bool} 
  * @function_end 
@@ -4052,7 +4052,7 @@
  * 
  * [[Note: This must be set before you send a UGC Query handle using ${function.steam_ugc_send_query_ugc_request}.]]
  *
- * @param {Real} query_handle The UGC query handle to customise, as returned by ${function.steam_ugc_create_query_user} or ${function.steam_ugc_create_query_all}.
+ * @param {Real} query_handle The UGC query handle to customise, as returned by ${function.steam_ugc_create_query_user_ugc_request} or ${function.steam_ugc_create_query_all_ugc_request}.
  * @param {Bool} match_any_tag If `true`, items must have at least one of the required tags to match; if `false`, items must have all of the required tags.
  * @returns {Bool} 
  * @function_end 
@@ -4068,7 +4068,7 @@
  * 
  * [[Note: This must be set before you send a UGC Query handle using ${function.steam_ugc_send_query_ugc_request}.]]
  *
- * @param {Real} query_handle The UGC query handle to customise, as returned by ${function.steam_ugc_create_query_all}.
+ * @param {Real} query_handle The UGC query handle to customise, as returned by ${function.steam_ugc_create_query_all_ugc_request}.
  * @param {Real} days The number of days to rank items over, used with the `ugc_query_RankedByTrend` query type.
  * @returns {Bool} 
  * @function_end 
@@ -4082,7 +4082,7 @@
  * 
  * [[Note: This must be set before you send a UGC Query handle using ${function.steam_ugc_send_query_ugc_request}.]]
  *
- * @param {Real} query_handle The UGC query handle to customise, as returned by ${function.steam_ugc_create_query_user} or ${function.steam_ugc_create_query_all}.
+ * @param {Real} query_handle The UGC query handle to customise, as returned by ${function.steam_ugc_create_query_user_ugc_request} or ${function.steam_ugc_create_query_all_ugc_request}.
  * @param {Bool} return_additional_previews Whether to return any additional previews (images and videos) for the items in the query results.
  * @returns {Bool} 
  * @function_end 
@@ -4096,7 +4096,7 @@
  * 
  * [[Note: This must be set before you send a UGC Query handle using ${function.steam_ugc_send_query_ugc_request}.]]
  *
- * @param {Real} query_handle The UGC query handle to customise, as returned by ${function.steam_ugc_create_query_user} or ${function.steam_ugc_create_query_all}.
+ * @param {Real} query_handle The UGC query handle to customise, as returned by ${function.steam_ugc_create_query_user_ugc_request} or ${function.steam_ugc_create_query_all_ugc_request}.
  * @param {Bool} return_children Whether to return the IDs of the child items of each item in the query results.
  * @returns {Bool} 
  * @function_end 
@@ -4110,7 +4110,7 @@
  * 
  * [[Note: This must be set before you send a UGC Query handle using ${function.steam_ugc_send_query_ugc_request}.]]
  *
- * @param {Real} query_handle The UGC query handle to customise, as returned by ${function.steam_ugc_create_query_user} or ${function.steam_ugc_create_query_all}.
+ * @param {Real} query_handle The UGC query handle to customise, as returned by ${function.steam_ugc_create_query_user_ugc_request} or ${function.steam_ugc_create_query_all_ugc_request}.
  * @param {Bool} return_key_value_tags Whether to return any key-value tags for the items in the query results.
  * @returns {Bool} 
  * @function_end 
@@ -4126,7 +4126,7 @@
  * 
  * [[Note: This must be set before you send a UGC Query handle using ${function.steam_ugc_send_query_ugc_request}.]]
  *
- * @param {Real} query_handle The UGC query handle to customise, as returned by ${function.steam_ugc_create_query_user} or ${function.steam_ugc_create_query_all}.
+ * @param {Real} query_handle The UGC query handle to customise, as returned by ${function.steam_ugc_create_query_user_ugc_request} or ${function.steam_ugc_create_query_all_ugc_request}.
  * @param {Bool} return_long_description Whether to return the full description for the items in the query results.
  * @returns {Bool} 
  * @function_end 
@@ -4140,7 +4140,7 @@
  * 
  * [[Note: This must be set before you send a UGC Query handle using ${function.steam_ugc_send_query_ugc_request}.]]
  *
- * @param {Real} query_handle The UGC query handle to customise, as returned by ${function.steam_ugc_create_query_user} or ${function.steam_ugc_create_query_all}.
+ * @param {Real} query_handle The UGC query handle to customise, as returned by ${function.steam_ugc_create_query_user_ugc_request} or ${function.steam_ugc_create_query_all_ugc_request}.
  * @param {Bool} return_metadata Whether to return the developer-specified metadata for the items in the query results.
  * @returns {Bool} 
  * @function_end 
@@ -4156,7 +4156,7 @@
  * 
  * [[Note: This must be set before you send a UGC Query handle using ${function.steam_ugc_send_query_ugc_request}.]]
  *
- * @param {Real} query_handle The UGC query handle to customise, as returned by ${function.steam_ugc_create_query_user} or ${function.steam_ugc_create_query_all}.
+ * @param {Real} query_handle The UGC query handle to customise, as returned by ${function.steam_ugc_create_query_user_ugc_request} or ${function.steam_ugc_create_query_all_ugc_request}.
  * @param {Bool} return_only_ids Whether to only return the IDs of the items, omitting all other details, in the query results.
  * @returns {Bool} 
  * @function_end 
@@ -4170,7 +4170,7 @@
  * 
  * [[Note: This must be set before you send a UGC Query handle using ${function.steam_ugc_send_query_ugc_request}.]]
  *
- * @param {Real} query_handle The UGC query handle to customise, as returned by ${function.steam_ugc_create_query_user} or ${function.steam_ugc_create_query_all}.
+ * @param {Real} query_handle The UGC query handle to customise, as returned by ${function.steam_ugc_create_query_user_ugc_request} or ${function.steam_ugc_create_query_all_ugc_request}.
  * @param {Real} days The number of days worth of playtime stats to return for the items in the query results.
  * @returns {Bool} 
  * @function_end 
@@ -4186,7 +4186,7 @@
  * 
  * [[Note: This must be set before you send a UGC Query handle using ${function.steam_ugc_send_query_ugc_request}.]]
  * 
- * @param {Real} query_handle The UGC query handle to customise, as returned by ${function.steam_ugc_create_query_user} or ${function.steam_ugc_create_query_all}.
+ * @param {Real} query_handle The UGC query handle to customise, as returned by ${function.steam_ugc_create_query_user_ugc_request} or ${function.steam_ugc_create_query_all_ugc_request}.
  * @param {Bool} return_total_only Whether to only return the total number of matching items, without returning any item details.
  * @returns {Bool} 
  * @function_end 
@@ -4202,7 +4202,7 @@
  * 
  * [[Note: This must be set before you send a UGC Query handle using ${function.steam_ugc_send_query_ugc_request}.]]
  * 
- * @param {Real} query_handle The UGC query handle to customise, as returned by ${function.steam_ugc_create_query_all}.
+ * @param {Real} query_handle The UGC query handle to customise, as returned by ${function.steam_ugc_create_query_all_ugc_request}.
  * @param {String} search_text The text that items must match in either their title or description to be returned.
  * @returns {Bool} 
  * @function_end 
@@ -4540,7 +4540,7 @@
  * 
  * [[Note: This must only be called with the handle obtained from a successful [SteamUGCQueryCompleted_t](https://partner.steamgames.com/doc/api/ISteamUGC#SteamUGCQueryCompleted_t) call result.]]
  *
- * @param {Real} query_handle The UGC query handle to query, as returned by ${function.steam_ugc_create_query_user} or ${function.steam_ugc_create_query_all}.
+ * @param {Real} query_handle The UGC query handle to query, as returned by ${function.steam_ugc_create_query_user_ugc_request} or ${function.steam_ugc_create_query_all_ugc_request}.
  * @param {Real} index The (zero-based) index of the item within the query results to get the number of supported game versions for.
  * @returns {Real} 
  * @function_end
@@ -4824,7 +4824,7 @@
  */
 
 /**
- * @function steam_input_set_dual_sense_trigger_effect
+ * @function steam_input_set_dualsense_trigger_effect
  * @description > **Steamworks Function**: [ISteamInput::SetDualSenseTriggerEffect](https://partner.steamgames.com/doc/api/ISteamInput#SetDualSenseTriggerEffect)
  *
  * This function sets the trigger effect for a DualSense controller.
@@ -5757,7 +5757,7 @@
  */
 
 /**
- * @function steam_userstats_achievement_progress_limits_int
+ * @function steam_userstats_achievement_progress_int
  * @description > **Steamworks Function**: [ISteamUserStats::GetAchievementProgressLimits](https://partner.steamgames.com/doc/api/ISteamUserStats#GetAchievementProgressLimits)
  *
  * This function returns the integer progress limits (the minimum and maximum) used to compute the progress bar for a given achievement.
@@ -5770,7 +5770,7 @@
  */
 
 /**
- * @function steam_userstats_achievement_progress_limits_float
+ * @function steam_userstats_achievement_progress_float
  * @description > **Steamworks Function**: [ISteamUserStats::GetAchievementProgressLimits](https://partner.steamgames.com/doc/api/ISteamUserStats#GetAchievementProgressLimits)
  *
  * This function returns the floating point progress limits (the minimum and maximum) used to compute the progress bar for a given achievement.
@@ -6015,7 +6015,7 @@
  * @param {String} title A title-provided localised string in the UI language.
  * @param {String} description A title-provided localised string in the UI language.
  * @param {String} icon The name of the icon to display; this can be a title-uploaded icon or one of the provided icons whose name begins with `steam_`.
- * @param {Real} priority The priority used to decide which icons to show in crowded areas; higher priority events are shown more prominently, and the value must be between 0 and `k_unMaxTimelinePriority`.
+ * @param {Real} priority The priority used to decide which icons to show in crowded areas; higher priority events are shown more prominently, and the value must be between 0 and `SteamTimelineMaxTimelinePriority`.
  * @param {Real} start_offset_seconds The number of seconds before the current time that the event started; negative values indicate the past, which is useful for events whose significance only becomes apparent later.
  * @param {Enum.SteamTimelineEventClipPriority} possible_clip Lets the game flag the event as a suggested video clip.
  * @returns {Real} Timeline event handle that can be used with ${function.steam_timeline_remove_timeline_event} or the overlay functions ${function.steam_timeline_does_event_recording_exist} and ${function.steam_timeline_open_overlay_to_timeline_event}.
@@ -6031,7 +6031,7 @@
  * @param {String} title A title-provided localised string in the UI language.
  * @param {String} description A title-provided localised string in the UI language.
  * @param {String} icon The name of the icon to display; this can be a title-uploaded icon or one of the provided icons whose name begins with `steam_`.
- * @param {Real} priority The priority used to decide which icons to show in crowded areas; higher priority events are shown more prominently, and the value must be between 0 and `k_unMaxTimelinePriority`.
+ * @param {Real} priority The priority used to decide which icons to show in crowded areas; higher priority events are shown more prominently, and the value must be between 0 and `SteamTimelineMaxTimelinePriority`.
  * @param {Real} start_offset_seconds The number of seconds before the current time that the event started; negative values indicate the past, which is useful for retroactively significant events.
  * @param {Real} duration_seconds The length of the event in seconds; use 0 for instantaneous events.
  * @param {Enum.SteamTimelineEventClipPriority} possible_clip Lets the game flag the event as a suggested video clip.
@@ -6050,7 +6050,7 @@
  * @param {String} title A title-provided localised string in the UI language.
  * @param {String} description A title-provided localised string in the UI language.
  * @param {String} icon The name of the icon to display; this can be a title-uploaded icon or one of the provided icons whose name begins with `steam_`.
- * @param {Real} priority The priority used to decide which icons to show in crowded areas; higher priority events are shown more prominently, and the value must be between 0 and `k_unMaxTimelinePriority`.
+ * @param {Real} priority The priority used to decide which icons to show in crowded areas; higher priority events are shown more prominently, and the value must be between 0 and `SteamTimelineMaxTimelinePriority`.
  * @param {Real} start_offset_seconds The number of seconds before the current time that the event started; negative values indicate the past, which is useful for retroactively significant events.
  * @param {Enum.SteamTimelineEventClipPriority} possible_clip Lets the game flag the event as a suggested video clip.
  * @returns {Real} 
@@ -6067,7 +6067,7 @@
  * @param {String} title A title-provided localised string in the UI language.
  * @param {String} description A title-provided localised string in the UI language.
  * @param {String} icon The name of the icon to display; this can be a title-uploaded icon or one of the provided icons whose name begins with `steam_`.
- * @param {Real} priority The priority used to decide which icons to show in crowded areas; higher priority events are shown more prominently, and the value must be between 0 and `k_unMaxTimelinePriority`.
+ * @param {Real} priority The priority used to decide which icons to show in crowded areas; higher priority events are shown more prominently, and the value must be between 0 and `SteamTimelineMaxTimelinePriority`.
  * @param {Enum.SteamTimelineEventClipPriority} possible_clip Lets the game flag the event as a suggested video clip.
  * @function_end 
  */
@@ -6184,7 +6184,7 @@
  *
  * @param {String} attribute_group A title-provided localised string in the language returned by ${function.steam_utils_get_steam_ui_language}.
  * @param {String} attribute_value A title-provided localised string in the language returned by ${function.steam_utils_get_steam_ui_language}.
- * @param {Real} priority The priority used to decide which attributes to show; attributes with larger priority values are displayed more prominently, and the value must be between 0 and `k_unMaxTimelinePriority`.
+ * @param {Real} priority The priority used to decide which attributes to show; attributes with larger priority values are displayed more prominently, and the value must be between 0 and `SteamTimelineMaxTimelinePriority`.
  * @function_end
  */
 
@@ -7222,7 +7222,7 @@
  * @function steam_remote_storage_file_write_stream_cancel
  * @description > **Steamworks Function**: [ISteamRemoteStorage::FileWriteStreamCancel](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#FileWriteStreamCancel)
  *
- * This function cancels a file write stream that was started by ${steam_remote_storage_file_write_stream_cancel}.
+ * This function cancels a file write stream that was started by ${function.steam_remote_storage_file_write_stream_open}.
  * 
  * This trashes all of the data written and closes the write stream, but if there was an existing file with this name, it remains untouched.
  *
@@ -8387,7 +8387,7 @@
  * @param {Real} conn The connection to send the message on.
  * @param {Buffer} data The buffer holding the message data to send.
  * @param {Real} bytes The size of the data to send, in bytes.
- * @param {Enum.SteamNetworkingSendFlags} send_flags The send flags that determine the delivery guarantees, buffering behaviour, etc. for the message.
+ * @param {Enum.SteamNetworkingSendFlags} send_flags The send flags that determine the delivery guarantees, buffering behaviour, etc., for the message.
  * @returns {Real} 
  * @function_end 
  */
@@ -8539,7 +8539,7 @@
  * 
  * 
  * @param {Real} conn The connection to assign to the poll group.
- * @param {Real} poll_group The target poll group; pass an invalid handle to remove the connection from any group.
+ * @param {Real} poll_group The target poll group; pass an invalid handle (`SteamNetworkingPollGroup_Invalid`) to remove the connection from any group.
  * @returns {Bool} 
  * @function_end 
  */
@@ -8674,8 +8674,7 @@
  *
  * This callback is returned as the response to a call to create a beacon. A successful result means your beacon has been posted in the desired location and you can begin receiving reservation notifications as users follow it.
  *
- * @member {Enum.SteamApiResult} result The result of the operation.
- * @member {Real} beacon_id Beacon ID of the newly created beacon.
+ * @member {Struct.SteamPartiesCreateBeaconResult}
  * @event_end
  * @function_end
  */
@@ -8852,7 +8851,7 @@
  *
  * This struct holds the return of a request officer list call.
  *
- * @member {Real} result Was the call successful? If it wasn't, this may indicate a temporary loss of connection to Steam. If this returns `true`, this does not necessarily mean that all of the info for this Steam group has been downloaded.
+ * @member {Bool} success Was the call successful? If it wasn't, this may indicate a temporary loss of connection to Steam. If this returns `true`, this does not necessarily mean that all of the info for this Steam group has been downloaded.
  * @member {Real} clan_id The Steam group that we just got the officer list for.
  * @member {Real} officers The number of officers in the group. This is the same as ${function.steam_friends_get_clan_officer_count}.
  * @struct_end
@@ -9005,7 +9004,7 @@
  *
  * This struct holds information received after requesting the details of a specific file.
  *
- * @member {SteamFriendsIsFollowingResult} result Was the call successful? `SteamApiResult.Ok` if it was; otherwise, `SteamApiResult.FileNotFound` if the file was not found. None of the other fields are filled out if the call was not successful.
+ * @member {Enum.SteamApiResult} result Was the call successful? `SteamApiResult.Ok` if it was; otherwise, `SteamApiResult.FileNotFound` if the file was not found. None of the other fields are filled out if the call was not successful.
  * @member {Real} file_size The original file size in bytes.
  * @member {Real} flags The file's flags.
  * @member {String} sha1 The original file SHA-1 hash.
@@ -9603,7 +9602,7 @@
  *
  * @member {Bool} ok `true` upon success, `false` otherwise.
  * @member {String} url_or_video_id The URL or Video ID of the additional preview.
- * @member {Enum.SteamItemPreviewType} preview_type The type of preview that was returned.
+ * @member {Enum.SteamUgcItemPreviewType} preview_type The type of preview that was returned.
  * @struct_end
  */
 
@@ -10217,7 +10216,7 @@
  * @struct SteamUserStatsFloatMinMax
  * @description > **Steamworks Struct**: N / A
  *
- * This struct holds information returned by ${function.steam_userstats_achievement_progress_limits_float}.
+ * This struct holds information returned by ${function.steam_userstats_achievement_progress_float}.
  *
  * @member {Real} min 
  * @member {Real} max 
@@ -10632,8 +10631,8 @@
  *
  * @member {Real} lobby_id The Steam ID of the lobby this message was sent in.
  * @member {Real} sender_id Steam ID of the user who sent this message. Note that it could have been the local user.
- * @member {Real} chat_entry_type Type of message received.
- * @member {Real} message_size 
+ * @member {Enum.SteamFriendsChatEntryType} chat_entry_type Type of message received.
+ * @member {Real} chat_id The index of the chat entry to use with ${function.steam_matchmaking_get_lobby_chat_entry}, this is not valid outside of the scope of the callback and should never be stored.
  * @struct_end
  */
 
@@ -10780,13 +10779,13 @@
 
 /**
  * @struct SteamPartiesCreateBeaconResult
- * @description > **Steamworks Struct**: [func](url)
+ * @description > **Steamworks Struct**: [ISteamParties#CreateBeaconCallback_t](https://partner.steamgames.com/doc/api/isteamparties#CreateBeaconCallback_t)
  *
  * This struct 
  *
- * @member {Real} result
- * @member {Real} beacon_id
- * @struct_end 
+ * @member {Enum.SteamApiResult} result The result of the attempt to create a beacon.
+ * @member {Real} beacon_id Beacon ID of the newly created beacon.
+ * @struct_end
  */
 
 /**
@@ -10795,7 +10794,7 @@
  *
  * This struct holds the data used as a call response for ${function.steam_parties_join_party}. On success, you will have reserved a slot in the beacon-owner's party, and should use `connect_string` to connect to their game and complete the process.
  *
- * @member {Real} result The result of the attempt to join the party.
+ * @member {Enum.SteamApiResult} result The result of the attempt to join the party.
  * @member {Real} beacon_id The beacon ID used in the attempt.
  * @member {Real} beacon_owner_steam_id Creator of the beacon used in the attempt.
  * @member {String} connect_string If successful, a "join game" string for your game to use to complete the process of joining the desired party.
@@ -10977,7 +10976,7 @@
  */
 
 /**
- * @enum SteamApiUserHasLicenseResult
+ * @enum SteamApiUserHasLicenseForAppResult
  * @description > **Steamworks Enum**: [EUserHasLicenseForAppResult](partner.steamgames.com/doc/api/steam_api#EUserHasLicenseForAppResult)
  *
  * This enum holds the possible results of ${function.steam_user_user_has_license_for_app}.
@@ -11056,7 +11055,94 @@
  * @member NoMatch Nothing matching the request found.
  * @member AccountDisabled The account is disabled.
  * @member ServiceReadOnly This service is not accepting content changes right now.
- * @enum_end 
+ * @member AccountNotFeatured Account doesn't have value, so this feature isn't available.
+ * @member AdministratorOK Allowed to take this action, but only because requester is admin.
+ * @member ContentVersion A Version mismatch in content transmitted within the Steam protocol.
+ * @member TryAnotherCM The current CM can't service the user making a request, user should try another.
+ * @member PasswordRequiredToKickSession You are already logged in elsewhere, this cached credential login has failed.
+ * @member AlreadyLoggedInElsewhere The user is logged in elsewhere. (Use k_EResultLoggedInElsewhere instead!)
+ * @member Suspended Long running operation has suspended/paused. (eg. content download.)
+ * @member Cancelled Operation has been canceled, typically by user. (eg. a content download.)
+ * @member DataCorruption Operation canceled because data is ill formed or unrecoverable.
+ * @member DiskFull Operation canceled - not enough disk space.
+ * @member RemoteCallFailed The remote or IPC call has failed.
+ * @member PasswordUnset Password could not be verified as it's unset server side.
+ * @member ExternalAccountUnlinked External account (PSN, Facebook...) is not linked to a Steam account.
+ * @member PSNTicketInvalid PSN ticket was invalid.
+ * @member ExternalAccountAlreadyLinked External account (PSN, Facebook...) is already linked to some other account, must explicitly request to replace/delete the link first.
+ * @member RemoteFileConflict The sync cannot resume due to a conflict between the local and remote files.
+ * @member IllegalPassword The requested new password is not allowed.
+ * @member SameAsPreviousValue New value is the same as the old one. This is used for secret question and answer.
+ * @member AccountLogonDenied Account login denied due to 2nd factor authentication failure.
+ * @member CannotUseOldPassword The requested new password is not legal.
+ * @member InvalidLoginAuthCode Account login denied due to auth code invalid.
+ * @member AccountLogonDeniedNoMail Account login denied due to 2nd factor auth failure - and no mail has been sent.
+ * @member HardwareNotCapableOfIPT The users hardware does not support Intel's Identity Protection Technology (IPT).
+ * @member IPTInitError Intel's Identity Protection Technology (IPT) has failed to initialize.
+ * @member ParentalControlRestricted Operation failed due to parental control restrictions for current user.
+ * @member FacebookQueryError Facebook query returned an error.
+ * @member ExpiredLoginAuthCode Account login denied due to an expired auth code.
+ * @member IPLoginRestrictionFailed The login failed due to an IP restriction.
+ * @member AccountLockedDown The current users account is currently locked for use. This is likely due to a hijacking and pending ownership verification.
+ * @member AccountLogonDeniedVerifiedEmailRequired The logon failed because the accounts email is not verified.
+ * @member NoMatchingURL There is no URL matching the provided values.
+ * @member BadResponse Bad Response due to a Parse failure, missing field, etc.
+ * @member RequirePasswordReEntry The user cannot complete the action until they re-enter their password.
+ * @member ValueOutOfRange The value entered is outside the acceptable range.
+ * @member UnexpectedError Something happened that we didn't expect to ever happen.
+ * @member Disabled The requested service has been configured to be unavailable.
+ * @member InvalidCEGSubmission The files submitted to the CEG server are not valid.
+ * @member RestrictedDevice The device being used is not allowed to perform this action.
+ * @member RegionLocked The action could not be complete because it is region restricted.
+ * @member RateLimitExceeded Temporary rate limit exceeded, try again later, different from `SteamApiResult.LimitExceeded` which may be permanent.
+ * @member AccountLoginDeniedNeedTwoFactor Need two-factor code to login.
+ * @member ItemDeleted The thing we're trying to access has been deleted.
+ * @member AccountLoginDeniedThrottle Login attempt failed, try to throttle response to possible attacker.
+ * @member TwoFactorCodeMismatch Two factor authentication (Steam Guard) code is incorrect.
+ * @member TwoFactorActivationCodeMismatch The activation code for two-factor authentication (Steam Guard) didn't match.
+ * @member AccountAssociatedToMultiplePartners The current account has been associated with multiple partners.
+ * @member NotModified The data has not been modified.
+ * @member NoMobileDevice The account does not have a mobile device associated with it.
+ * @member TimeNotSynced The time presented is out of range or tolerance.
+ * @member SmsCodeFailed SMS code failure - no match, none pending, etc.
+ * @member AccountLimitExceeded Too many accounts access this resource.
+ * @member AccountActivityLimitExceeded Too many changes to this account.
+ * @member PhoneActivityLimitExceeded Too many changes to this phone.
+ * @member RefundToWallet Cannot refund to payment method, must use wallet.
+ * @member EmailSendFailure Cannot send an email.
+ * @member NotSettled Can't perform operation until payment has settled.
+ * @member NeedCaptcha The user needs to provide a valid captcha.
+ * @member GSLTDenied A game server login token owned by this token's owner has been banned.
+ * @member GSOwnerDenied Game server owner is denied for some other reason such as account locked, community ban, vac ban, missing phone, etc.
+ * @member InvalidItemType The type of thing we were requested to act on is invalid.
+ * @member IPBanned The IP address has been banned from taking this action.
+ * @member GSLTExpired This Game Server Login Token (GSLT) has expired from disuse; it can be reset for use.
+ * @member InsufficientFunds User doesn't have enough wallet funds to complete the action.
+ * @member TooManyPending There are too many of this thing pending already
+ * @member NoSiteLicensesFound NoSiteLicensesFound.
+ * @member WGNetworkSendExceeded WGNetworkSendExceeded.
+ * @member AccountNotFriends AccountNotFriends.
+ * @member LimitedUserAccount LimitedUserAccount.
+ * @member CantRemoveItem CantRemoveItem.
+ * @member AccountDeleted AccountDeleted.
+ * @member ExistingUserCancelledLicense ExistingUserCancelledLicense.
+ * @member CommunityCooldown CommunityCooldown.
+ * @member NoLauncherSpecified NoLauncherSpecified.
+ * @member MustAgreeToSSA MustAgreeToSSA.
+ * @member LauncherMigrated LauncherMigrated.
+ * @member SteamRealmMismatch SteamRealmMismatch.
+ * @member InvalidSignature InvalidSignature.
+ * @member ParseFailure ParseFailure.
+ * @member NoVerifiedPhone NoVerifiedPhone.
+ * @member InsufficientBattery InsufficientBattery.
+ * @member ChargerRequired ChargerRequired.
+ * @member CachedCredentialInvalid CachedCredentialInvalid.
+ * @member PhoneNumberIsVOIP PhoneNumberIsVOIP.
+ * @member NotSupported NotSupported.
+ * @member FamilySizeLimitExceeded FamilySizeLimitExceeded.
+ * @member OfflineAppCacheInvalid OfflineAppCacheInvalid.
+ * @member TryLater TryLater.
+ * @enum_end
  */
 
 /**
@@ -11190,7 +11276,7 @@
  * This enum hols the possible flags describing current branch state.
  * 
  * @member None None.
- * @member Default  The default branch ("public").
+ * @member Default The default branch ("public").
  * @member Available This branch can be selected (available).
  * @member Private This is a private branch (password protected).
  * @member Selected This is the currently selected branch (active).
@@ -11210,21 +11296,6 @@
  * @member MonoCubemap MonoCubemap.
  * @member MonoPanorama MonoPanorama.
  * @member StereoPanorama StereoPanorama.
- * @enum_end 
- */
-
-/**
- * @enum SteamScreenshotsConst
- * @description > **Steamworks Enum**: [func](url)
- *
- * This enum 
- *
- * @member InvalidScreenshotHandle
- * @member TagTypeMax
- * @member TagValueMax
- * @member MaxTaggedPublishedFiles
- * @member MaxTaggedUsers
- * @member ThumbWidth
  * @enum_end 
  */
 
@@ -11510,7 +11581,7 @@
  */
 
 /**
- * @enum SteamItemPreviewType
+ * @enum SteamUgcItemPreviewType
  * @description > **Steamworks Enum**: [ISteamUGC::EItemPreviewType](partner.steamgames.com/doc/api/ISteamUGC#EItemPreviewType)
  *
  * This enum holds the flags that specify the type of preview an item has. Set with ${function.steam_ugc_add_item_preview_file}, and received with ${function.steam_ugc_get_query_ugc_additional_preview}.
@@ -11643,6 +11714,33 @@
  */
 
 /**
+ * @enum SteamInputGlyphSize
+ * @description > **Steamworks Enum**: [ESteamInputGlyphSize]()
+ * 
+ * This enum holds the different glyph sizes.
+ * 
+ * @member Small 32x32 pixels.
+ * @member Medium 128x128 pixels.
+ * @member Large 256x256 pixels.
+ * @member Count Count.
+ * @enum_end
+ */
+
+/**
+ * @enum_ SteamInputGlyphStyle
+ * @description > **Steamworks Enum**: [ESteamInputGlyphStyle]()
+ * 
+ * This enum holds the different glyph styles that you can use.
+ * 
+ * @member Knockout Face buttons will have colored labels/outlines on a knocked out background. Rest of inputs will have white detail/borders on a knocked out background.
+ * @member Light Black detail/borders on a white background.
+ * @member Dark White detail/borders on a black background.
+ * @member NeutralColorABXY ABXY Buttons will match the base style color instead of their normal associated color.
+ * @member SolidABXY ABXY Buttons will have a solid fill.
+ * @enum_end
+ */
+
+/**
  * @enum SteamInputType
  * @description > **Steamworks Enum**: [ISteamInput::ESteamInputType](https://partner.steamgames.com/doc/api/ISteamInput#ESteamInputType)
  * 
@@ -11666,6 +11764,44 @@
  * @member Count Current number of values returned.
  * @member MaximumPossibleValue Maximum possible value returned.
  * @enum_end
+ */
+
+/**
+ * @enum SteamXboxOrigin
+ * @desc > **Steamworks Enum**: [EXboxOrigin]()
+ * 
+ * This enum holds Xbox action origins.
+ * 
+ * @member A A.
+ * @member B B.
+ * @member X X.
+ * @member Y Y.
+ * @member LeftBumper LeftBumper.
+ * @member RightBumper RightBumper.
+ * @member Menu Menu.
+ * @member View View.
+ * @member LeftTrigger_Pull LeftTrigger_Pull.
+ * @member LeftTrigger_Click LeftTrigger_Click.
+ * @member RightTrigger_Pull RightTrigger_Pull.
+ * @member RightTrigger_Click RightTrigger_Click.
+ * @member LeftStick_Move LeftStick_Move.
+ * @member LeftStick_Click LeftStick_Click.
+ * @member LeftStick_DPadNorth LeftStick_DPadNorth.
+ * @member LeftStick_DPadSouth LeftStick_DPadSouth.
+ * @member LeftStick_DPadWest LeftStick_DPadWest.
+ * @member LeftStick_DPadEast LeftStick_DPadEast.
+ * @member RightStick_Move RightStick_Move.
+ * @member RightStick_Click RightStick_Click.
+ * @member RightStick_DPadNorth RightStick_DPadNorth.
+ * @member RightStick_DPadSouth RightStick_DPadSouth.
+ * @member RightStick_DPadWest RightStick_DPadWest.
+ * @member RightStick_DPadEast RightStick_DPadEast.
+ * @member DPad_North DPad_North.
+ * @member DPad_South DPad_South.
+ * @member DPad_West DPad_West.
+ * @member DPad_East DPad_East.
+ * @member Count Count.
+ * @enum_end 
  */
 
 /**
@@ -12415,10 +12551,13 @@
  *
  * @member Unreliable Send the message unreliably. Can be lost. Messages *can* be larger than a single MTU (UDP packet), but there is no retransmission, so if any piece of the message is lost, the entire message will be dropped.
  * @member NoNagle Disable [Nagle's algorithm](https://en.wikipedia.org/wiki/Nagle%27s_algorithm).
+ * @member UnreliableNoNagle Send a message unreliably, bypassing Nagle's algorithm for this message and any messages currently pending on the Nagle timer.
  * @member NoDelay If the message cannot be sent very soon (because the connection is still doing some initial handshaking, route negotiations, etc), then just drop it. This is only applicable for unreliable messages. Using this flag on reliable messages is invalid.
+ * @member UnreliableNoDelay Send an unreliable message, but if it cannot be sent relatively quickly, just drop it instead of queuing it. This is useful for messages that are not useful if they are excessively delayed, such as voice data.
  * @member Reliable Reliable message send. Can send up to k_cbMaxSteamNetworkingSocketsMessageSizeSend bytes in a single message. Does fragmentation/re-assembly of messages under the hood, as well as a sliding window for efficient sends of large chunks of data.
- * @member UseCurrentThread 
- * @member AutoRestartBrokenSession 
+ * @member ReliableNoNagle Send a message reliably, but bypass Nagle's algorithm.
+ * @member UseCurrentThread UseCurrentThread.
+ * @member AutoRestartBrokenSession AutoRestartBrokenSession.
  * @enum_end 
  */
 
@@ -12544,6 +12683,7 @@
  * @member SteamUserStatsLeaderboardDetailsMax (value: '64') Maximum number of details that you can store for a single leaderboard entry.
  * @member SteamUserStatsInterfaceVersion (value: '"STEAMUSERSTATS_INTERFACE_VERSION011"') Steam Userstats interface version.
  * @member SteamMusicInterfaceVersion (value: '"STEAMMUSIC_INTERFACE_VERSION001"') Steam Music interface version.
+ * @member SteamTimelineMaxTimelinePriority (value: '1000') The maximum timeline priority value.
  * @member SteamInventoryResultInvalid (value: '-1') An invalid Steam inventory result handle.
  * @member SteamInventoryItemInstanceIdInvalid (value: '-1') An invalid item instance id. This is usually returned when an operation has failed. It's recommended that you initialise all new item instances with this value.
  * @member SteamInventoryInterfaceVersion (value: '"STEAMINVENTORY_INTERFACE_V002"') Steam Inventory interface version.
@@ -12781,6 +12921,7 @@
  * @section_const Constants
  * @desc These are the constants and enums of the Input module:
  * @ref SteamInput*
+ * @ref SteamXboxOrigin
  * @section_end
  * 
  * @section_struct Structs
@@ -12803,11 +12944,13 @@
  * @section_const Constants
  * @desc These are the constants and enums of the UserStats module:
  * @ref SteamUserStats*
+ * @ref SteamLeaderboard*
  * @section_end
  * 
  * @section_struct Structs
  * @desc These are the structs of the UserStats module:
  * @ref SteamUserStats*
+ * @ref SteamLeaderboard*
  * @section_end
  * @module_end
  */
