@@ -195,8 +195,7 @@
  * After receiving the callback you can then use ${function.steam_friends_get_clan_activity_counts} to get the up to date user counts.
  *
  * @param {Array[Real]} steam_id_clans A list of steam groups to get the updated data for.
- * @param {Real} clans_to_request This MUST be the number of groups in `steam_id_clans`.
- * @param {Function} [callback] The function to call upon completion.
+ * @param {Function} callback The function to call upon completion.
  * @returns {Bool} Whether the call was successful.
  * 
  * @event callback
@@ -218,7 +217,7 @@
  * [[Note: This returns up to `SteamFriendsEnumerateFollowersMax` users at once. If the current user is following more than that, you will need to call this repeatedly, with `start_index` set to the total number of followers that you have received so far.]]
  *
  * @param {Real} start_index The index to start receiving followers from. This should be 0 on the initial call.
- * @param {Function} [callback] The function to call upon completion.
+ * @param {Function} callback The function to call upon completion.
  * 
  * @event callback
  * @desc > **Steamworks Callback**: [ISteamFriends::FriendsEnumerateFollowingList_t](https://partner.steamgames.com/doc/api/ISteamFriends#FriendsEnumerateFollowingList_t)
@@ -441,7 +440,7 @@
  * This function gets the number of users following the specified user.
  *
  * @param {Real} steam_id The user to get the follower count for.
- * @param {Function} [callback] The function to call upon completion.
+ * @param {Function} callback The function to call upon completion.
  * 
  * @event callback
  * @desc > **Steamworks Callback**: [ISteamFriends::FriendsGetFollowerCount_t](https://partner.steamgames.com/doc/api/ISteamFriends#FriendsGetFollowerCount_t)
@@ -551,7 +550,6 @@
  *
  * @param {Real} steam_id_friend The Steam ID of the friend that sent this message.
  * @param {Real} message_id The index of the message. This should be the `m_iMessageID` field of [GameConnectedFriendChatMsg_t](https://partner.steamgames.com/doc/api/ISteamFriends#GameConnectedFriendChatMsg_t).
- * @param {Real} data_size The maximum number of bytes to read for the message data.
  * @returns {Struct.SteamFriendsFriendMessage}
  * @function_end
  */
@@ -910,7 +908,7 @@
  * This function checks if the current user is following the specified user.
  *
  * @param {Real} steam_id The Steam ID of the check if we are following.
- * @param {Function} [callback] The function to call upon completion.
+ * @param {Function} callback The function to call upon completion.
  * 
  * @event callback
  * @desc > **Steamworks Callback**: [FriendsIsFollowing_t](https://partner.steamgames.com/doc/api/ISteamFriends#FriendsIsFollowing_t)
@@ -946,7 +944,7 @@
  * [[Note: This won't download avatars for the officers automatically. If no avatar image is available for an officer, then call ${function.steam_friends_request_user_information} to download the avatar.]]
  *
  * @param {Real} steam_id_clan The Steam group to get the officers list for.
- * @param {Function} [callback] The function to be called upon completion.
+ * @param {Function} callback The function to be called upon completion.
  * 
  * @event callback
  * @desc > **Steamworks Callback**: [ISteamFriends::ClanOfficerListResponse_t](https://partner.steamgames.com/doc/api/ISteamFriends#ClanOfficerListResponse_t)
@@ -1364,7 +1362,7 @@
  *
  * This function checks if the user is running from a beta branch, and gets the name of the branch if they are.
  *
- * @returns {Struct.SteamAppsBetaName} 
+ * @returns {String} 
  * @function_end
  */
 
@@ -1472,7 +1470,7 @@
  * This function asynchronously retrieves metadata details about a specific file in the depot manifest.
  *
  * @param {String} file_name The absolute path and name to the file.
- * @param {Function} [callback] The function to call upon completion.
+ * @param {Function} callback The function to call upon completion.
  * 
  * @event callback
  * @desc > **Steamworks Callback**: [ISteamApps::FileDetailsResult_t](https://partner.steamgames.com/doc/api/ISteamApps#FileDetailsResult_t)
@@ -2175,7 +2173,7 @@
  *
  * @param {Buffer} data_to_include The data which will be encrypted into the ticket.
  * @param {Real} data_to_include_size The total size in bytes of `data_to_include`.
- * @param {Function} [callback] The function to call upon completion.
+ * @param {Function} callback The function to call upon completion.
  * 
  * @event callback
  * @desc > **Steamworks Callback**: [ISteamUser::EncryptedAppTicketResponse_t](https://partner.steamgames.com/doc/api/ISteamUser#EncryptedAppTicketResponse_t)
@@ -2234,7 +2232,7 @@
  *
  * This function retrieves anti indulgence / duration control for the current user / game combination.
  *
- * @param {Function} [callback] The function to call upon completion.
+ * @param {Function} callback The function to call upon completion.
  *
  * @event callback
  * @desc > **Steamworks Callback**: [ISteamUser::DurationControl_t](https://partner.steamgames.com/doc/api/ISteamUser#DurationControl_t)
@@ -2259,7 +2257,7 @@
  * [[Note: The resulting authorization cookie has an expiration time of one day, so it would be a good idea to request and visit a new auth URL every 12 hours.]]
  *
  * @param {String} redirect_url The URL to redirect the user to once the in-game browser has been authenticated for the store.
- * @param {Function} [callback] The function to call upon completion.
+ * @param {Function} callback The function to call upon completion.
  *
  * @event callback
  * @desc > **Steamworks Callback**: [ISteamUser::StoreAuthURLResponse_t](https://partner.steamgames.com/doc/api/ISteamUser#StoreAuthURLResponse_t)
@@ -2277,7 +2275,7 @@
  *
  * This function checks whether or not an account is allowed to use the market.
  *
- * @param {Function} [callback] The function to call upon completion.
+ * @param {Function} callback The function to call upon completion.
  *
  * @event callback
  * @desc > **Steamworks Callback**: [ISteamUser::MarketEligibilityResponse_t](https://partner.steamgames.com/doc/api/ISteamUser#MarketEligibilityResponse_t)
@@ -2470,7 +2468,7 @@
  * This function is deprecated.
  *
  * @param {String} file_name The name of the file whose signature is to be checked.
- * @param {Function} [callback] The function to call upon completion.
+ * @param {Function} callback The function to call upon completion.
  *
  * @event callback
  * @desc > **Steamworks Callback**: [ISteamUtils::CheckFileSignature_t](https://partner.steamgames.com/doc/api/ISteamUtils#CheckFileSignature_t)
@@ -3047,7 +3045,7 @@
  *
  * @param {Real} published_file_id The workshop item to add the dependency to.
  * @param {Real} app_id The required app or DLC to add as a dependency.
- * @param {Function} [callback] The function to call upon completion.
+ * @param {Function} callback The function to call upon completion.
  * 
  * @event callback
  * @desc **Steamworks Callback**: [ISteamUGC::AddAppDependencyResult_t](https://partner.steamgames.com/doc/api/ISteamUGC#AddAppDependencyResult_t)
@@ -3070,7 +3068,7 @@
  *
  * @param {Real} parent_published_file_id The workshop item to add a dependency to.
  * @param {Real} child_published_file_id The dependency to add to the parent.
- * @param {Function} [callback] The function to call upon completion.
+ * @param {Function} callback The function to call upon completion.
  * 
  * @event callback
  * @desc **Steamworks Callback**: [ISteamUGC::AddUGCDependencyResult_t](https://partner.steamgames.com/doc/api/ISteamUGC#AddUGCDependencyResult_t)
@@ -3158,7 +3156,7 @@
  *
  * @param {Real} app_id The app ID that this item belongs to.
  * @param {Real} published_file_id The workshop item to add to the user's favorites list.
- * @param {Function} [callback] The function to call upon completion.
+ * @param {Function} callback The function to call upon completion.
  *
  * @event callback
  * @desc > **Steamworks Callback**: [ISteamUGC::UserFavoriteItemsListChanged_t](https://partner.steamgames.com/doc/api/ISteamUGC#UserFavoriteItemsListChanged_t)
@@ -3235,7 +3233,7 @@
  *
  * @param {Real} consumer_app_id The app ID that will be using this item.
  * @param {Enum.SteamWorkshopFileType} workshop_file_type The type of UGC to create.
- * @param {Function} [callback] The function to call upon completion.
+ * @param {Function} callback The function to call upon completion.
  *
  * @event callback
  * @desc > **Steamworks Callback**: [ISteamUGC::CreateItemResult_t](https://partner.steamgames.com/doc/api/ISteamUGC#CreateItemResult_t)
@@ -3283,7 +3281,6 @@
  * To query all the UGC for your app you can use ${function.steam_ugc_create_query_all_ugc_request} instead.
  *
  * @param {Array[Real]} published_file_ids The list of workshop items to get the details for.
- * @param {Real} num_published_file_ids The number of items in the published file ids array.
  * @returns {Real} 
  * @function_end 
  */
@@ -3320,7 +3317,7 @@
  * This function deletes the item without prompting the user.
  *
  * @param {Real} published_file_id The workshop item to delete.
- * @param {Function} [callback] The function to call upon completion.
+ * @param {Function} callback The function to call upon completion.
  *
  * @event callback
  * @desc > **Steamworks Callback**: [ISteamUGC::DeleteItemResult_t](https://partner.steamgames.com/doc/api/ISteamUGC#DeleteItemResult_t)
@@ -3368,7 +3365,7 @@
  * This function gets the app dependencies associated with the given published file ID. These are "soft" dependencies that are shown on the web. It is up to the application to determine whether an item can be used or not.
  *
  * @param {Real} published_file_id The workshop item to get app dependencies for.
- * @param {Function} [callback] The function to call upon completion.
+ * @param {Function} callback The function to call upon completion.
  * 
  * @event callback
  * @description > **Steamworks Callback**: [ISteamUGC::GetAppDependenciesResult_t](https://partner.steamgames.com/doc/api/ISteamUGC#GetAppDependenciesResult_t)
@@ -3646,7 +3643,7 @@
  *
  * @param {Real} published_file_id The workshop item to remove the dependency from.
  * @param {Real} app_id The app or DLC to remove as a dependency.
- * @param {Function} [callback] The function to call upon completion.
+ * @param {Function} callback The function to call upon completion.
  * 
  * @event callback
  * @desc **Steamworks Callback**: [ISteamUGC::RemoveAppDependencyResult_t](https://partner.steamgames.com/doc/api/ISteamUGC#RemoveAppDependencyResult_t)
@@ -3668,7 +3665,7 @@
  *
  * @param {Real} parent_published_file_id The workshop item to remove a dependency from.
  * @param {Real} child_published_file_id The dependency to remove from the parent.
- * @param {Function} [callback] The function to call upon completion.
+ * @param {Function} callback The function to call upon completion.
  * 
  * @event callback
  * @desc **Steamworks Callback**: [ISteamUGC::RemoveUGCDependencyResult_t](https://partner.steamgames.com/doc/api/ISteamUGC#RemoveUGCDependencyResult_t)
@@ -3690,7 +3687,7 @@
  *
  * @param {Real} app_id The app ID that this item belongs to.
  * @param {Real} published_file_id The workshop item to remove from the user's favorites list.
- * @param {Function} [callback] The function to call upon completion.
+ * @param {Function} callback The function to call upon completion.
  *
  * @event callback
  * @desc > **Steamworks Callback**: [ISteamUGC::UserFavoriteItemsListChanged_t](https://partner.steamgames.com/doc/api/ISteamUGC#UserFavoriteItemsListChanged_t)
@@ -3777,7 +3774,7 @@
  *
  * @param {Real} published_file_id The workshop item to get the details for.
  * @param {Real} max_age_seconds The maximum age (in seconds) that cached data is considered valid for.
- * @param {Function} [callback] The function to call upon completion.
+ * @param {Function} callback The function to call upon completion.
  *
  * @event callback
  * @desc > **Steamworks Callback**: [ISteamUGC::SteamUGCRequestUGCDetailsResult_t](https://partner.steamgames.com/doc/api/ISteamUGC#SteamUGCRequestUGCDetailsResult_t)
@@ -3804,7 +3801,7 @@
  * ${function.steam_ugc_add_required_tag}, ${function.steam_ugc_add_excluded_tag}, ${function.steam_ugc_set_return_only_ids}, ${function.steam_ugc_set_return_key_value_tags}, ${function.steam_ugc_set_return_long_description}, ${function.steam_ugc_set_return_metadata}, ${function.steam_ugc_set_return_children}, ${function.steam_ugc_set_return_additional_previews}, ${function.steam_ugc_set_return_total_only}, ${function.steam_ugc_set_language}, ${function.steam_ugc_set_allow_cached_response}, ${function.steam_ugc_set_cloud_file_name_filter}, ${function.steam_ugc_set_match_any_tag}, ${function.steam_ugc_set_search_text}, ${function.steam_ugc_set_ranked_by_trend_days}, ${function.steam_ugc_add_required_key_value_tag}
  *
  * @param {Real} query_handle The UGC query request handle to send.
- * @param {Function} [callback] The function to call upon completion.
+ * @param {Function} callback The function to call upon completion.
  *
  * @event callback
  * @desc > **Steamworks Callback**: [ISteamUGC::SteamUGCQueryCompleted_t](https://partner.steamgames.com/doc/api/ISteamUGC#SteamUGCQueryCompleted_t)
@@ -4228,7 +4225,7 @@
  *
  * @param {Real} published_file_id The unique ID of the workshop item to vote on.
  * @param {Bool} vote_up Whether to vote the item up (`true`) or down (`false`).
- * @param {Function} [callback] The function to call upon completion.
+ * @param {Function} callback The function to call upon completion.
  *
  * @event callback
  * @desc > **Steamworks Callback**: [ISteamUGC::SetUserItemVoteResult_t](https://partner.steamgames.com/doc/api/ISteamUGC#SetUserItemVoteResult_t)
@@ -4247,7 +4244,7 @@
  * This function gets the user's vote status on a workshop item.
  *
  * @param {Real} published_file_id The unique ID of the workshop item to get the user's vote status for.
- * @param {Function} [callback] The function to call upon completion.
+ * @param {Function} callback The function to call upon completion.
  *
  * @event callback
  * @desc > **Steamworks Callback**: [ISteamUGC::GetUserItemVoteResult_t](https://partner.steamgames.com/doc/api/ISteamUGC#GetUserItemVoteResult_t)
@@ -4282,8 +4279,7 @@
  * When your app shuts down, playtime tracking will automatically stop.
  *
  * @param {Array[Real]} published_file_ids An array of the unique IDs of the workshop items to start tracking playtime for.
- * @param {Real} num_published_file_ids The number of items in the `published_file_ids` array.
- * @param {Function} [callback] The function to call upon completion.
+ * @param {Function} callback The function to call upon completion.
  * 
  * @event callback
  * @desc **Steamworks Callback**: [ISteamUGC::StartPlaytimeTrackingResult_t](https://partner.steamgames.com/doc/api/ISteamUGC#StartPlaytimeTrackingResult_t)
@@ -4306,7 +4302,7 @@
  *
  * @param {Array[Real]} published_file_ids An array of the unique IDs of the workshop items to stop tracking playtime for.
  * @param {Real} num_published_file_ids The number of items in the `published_file_ids` array.
- * @param {Function} [callback] The function to call upon completion.
+ * @param {Function} callback The function to call upon completion.
  * 
  * @event callback
  * @description > **Steamworks Callback**: [ISteamUGC::StopPlaytimeTrackingResult_t](https://partner.steamgames.com/doc/api/ISteamUGC#StopPlaytimeTrackingResult_t)
@@ -4327,7 +4323,7 @@
  * 
  * When your app shuts down, playtime tracking will automatically stop. This will increment the number of "playtime" sessions for those all items that were being tracked by one.
  *
- * @param {Function} [callback] The function to call upon completion.
+ * @param {Function} callback The function to call upon completion.
  * 
  * @event callback
  * @description > **Steamworks Callback**: [ISteamUGC::StopPlaytimeTrackingResult_t](https://partner.steamgames.com/doc/api/ISteamUGC#StopPlaytimeTrackingResult_t)
@@ -4349,7 +4345,7 @@
  *
  * @param {Real} update_handle The item update handle, as returned by ${function.steam_ugc_start_item_update}.
  * @param {String} change_note A change note detailing what was altered in this item update; can be an empty string.
- * @param {Function} [callback] The function to call upon completion.
+ * @param {Function} callback The function to call upon completion.
  *
  * @event callback
  * @desc > **Steamworks Callback**: [ISteamUGC::SubmitItemUpdateResult_t](https://partner.steamgames.com/doc/api/ISteamUGC#SubmitItemUpdateResult_t)
@@ -4368,7 +4364,7 @@
  * This function subscribes to a workshop item. It will be downloaded and installed as soon as possible.
  *
  * @param {Real} published_file_id The unique ID of the workshop item to subscribe to.
- * @param {Function} [callback] The function to call upon completion.
+ * @param {Function} callback The function to call upon completion.
  *
  * @event callback
  * @desc > **Steamworks Callback**: [ISteamRemoteStorage::RemoteStorageSubscribePublishedFileResult_t](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#RemoteStorageSubscribePublishedFileResult_t)
@@ -4399,7 +4395,7 @@
  * This function unsubscribes from a workshop item. This will result in the item being removed after the game quits.
  *
  * @param {Real} published_file_id The unique ID of the workshop item to unsubscribe from.
- * @param {Function} [callback] The function to call upon completion.
+ * @param {Function} callback The function to call upon completion.
  *
  * @event callback
  * @desc > **Steamworks Callback**: [ISteamRemoteStorage::RemoteStorageUnsubscribePublishedFileResult_t](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#RemoteStorageUnsubscribePublishedFileResult_t)
@@ -4482,53 +4478,7 @@
  *
  * This function asynchronously retrieves data about whether the user accepted the Workshop EULA for the current app.
  *
- * @param {Function} [callback] The function to call upon completion.
- * @function_end
- */
-
-/**
- * @function steam_ugc_set_callback_file_subscribed
- * @description > **Steamworks Function**: N / A
- *
- * This function sets the function to be called when the user subscribed to a file.
- * 
- * See: [ISteamRemoteStorage::RemoteStoragePublishedFileSubscribed_t](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#RemoteStoragePublishedFileSubscribed_t)
- * 
- * See: ${struct.SteamUgcFileSubscribed}
- *
- * @param {Function} callback The function to be called when a workshop file is subscribed to.
- * @function_end
- */
-
-/**
- * @function steam_ugc_clear_callback_file_subscribed
- * @description > **Steamworks Function**: N / A
- *
- * This function clears the callback function previously set using ${function.steam_ugc_set_callback_file_subscribed}.
- *
- * @function_end
- */
-
-/**
- * @function steam_ugc_set_callback_file_unsubscribed
- * @description > **Steamworks Function**: N / A
- *
- * This function sets the function to be called when the user unsubscribed from a file.
- * 
- * See: [ISteamRemoteStorage::RemoteStoragePublishedFileUnsubscribed_t](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#RemoteStoragePublishedFileUnsubscribed_t)
- * 
- * See: ${struct.SteamUgcFileUnsubscribed}
- *
- * @param {Function} callback The function to be called when a workshop file is unsubscribed from.
- * @function_end
- */
-
-/**
- * @function steam_ugc_clear_callback_file_unsubscribed
- * @description > **Steamworks Function**: N / A
- *
- * This function clears the callback function previously set using ${function.steam_ugc_set_callback_file_unsubscribed}.
- *
+ * @param {Function} callback The function to call upon completion.
  * @function_end
  */
 
@@ -5301,7 +5251,7 @@
  * To keep from using too much memory, a least recently used cache (LRU) is maintained and other user's stats will occasionally be unloaded. When this happens a [UserStatsUnloaded_t](https://partner.steamgames.com/doc/api/ISteamUserStats#UserStatsUnloaded_t) callback is sent. After receiving this callback the user's stats will be unavailable until this function is called again.
  *
  * @param {Real} steam_id_user The Steam ID of the user to request stats for.
- * @param {Function} [callback] The function to call upon completion.
+ * @param {Function} callback The function to call upon completion.
  *
  * @event callback
  * @desc > **Steamworks Callback**: [ISteamUserStats::UserStatsReceived_t](https://partner.steamgames.com/doc/api/ISteamUserStats#UserStatsReceived_t)
@@ -5409,7 +5359,7 @@
  * @param {String} leaderboard_name The name of the leaderboard to find or create.
  * @param {Enum.SteamLeaderboardSortMethod} sort_method The sort order of the new leaderboard if it is created.
  * @param {Enum.SteamLeaderboardDisplayType} display_type The display type (used by the Steam Community web site) of the new leaderboard if it is created.
- * @param {Function} [callback] The function to call upon completion.
+ * @param {Function} callback The function to call upon completion.
  *
  * @event callback
  * @desc > **Steamworks Callback**: [ISteamUserStats::LeaderboardFindResult_t](https://partner.steamgames.com/doc/api/ISteamUserStats#LeaderboardFindResult_t)
@@ -5430,7 +5380,7 @@
  * You must call either this or ${function.steam_userstats_find_or_create_leaderboard} to obtain the leaderboard handle which is valid for the game session for each leaderboard you wish to access prior to calling any other Leaderboard functions.
  *
  * @param {String} leaderboard_name The name of the leaderboard to find.
- * @param {Function} [callback] The function to call upon completion.
+ * @param {Function} callback The function to call upon completion.
  *
  * @event callback
  * @desc > **Steamworks Callback**: [ISteamUserStats::LeaderboardFindResult_t](https://partner.steamgames.com/doc/api/ISteamUserStats#LeaderboardFindResult_t)
@@ -5504,7 +5454,7 @@
  * @param {Enum.SteamLeaderboardDataRequest} request The type of data request to make.
  * @param {Real} range_start The index to start downloading entries relative to the data request type.
  * @param {Real} range_end The last index to retrieve entries for relative to the data request type.
- * @param {Function} [callback] The function to call upon completion.
+ * @param {Function} callback The function to call upon completion.
  *
  * @event callback
  * @desc > **Steamworks Callback**: [ISteamUserStats::LeaderboardScoresDownloaded_t](https://partner.steamgames.com/doc/api/ISteamUserStats#LeaderboardScoresDownloaded_t)
@@ -5532,7 +5482,7 @@
  *
  * @param {Real} leaderboard_handle A leaderboard handle obtained from ${function.steam_userstats_find_leaderboard} or ${function.steam_userstats_find_or_create_leaderboard}.
  * @param {Array[Real]} users An array of Steam IDs to get the leaderboard entries for.
- * @param {Function} [callback] The function to call upon completion.
+ * @param {Function} callback The function to call upon completion.
  *
  * @event callback
  * @desc > **Steamworks Callback**: [ISteamUserStats::LeaderboardScoresDownloaded_t](https://partner.steamgames.com/doc/api/ISteamUserStats#LeaderboardScoresDownloaded_t)
@@ -5554,8 +5504,6 @@
  *
  * @param {Real} leaderboard_entries_handle A leaderboard entries handle obtained from the most recently received [LeaderboardScoresDownloaded_t](https://partner.steamgames.com/doc/api/ISteamUserStats#LeaderboardScoresDownloaded_t) call result.
  * @param {Real} entry_index The index of the entry to retrieve, between 0 and the number of entries that were downloaded.
- * @param {Buffer} buffer The buffer into which the entry's score details will be written.
- * @param {Real} buffer_size The size in bytes of the provided buffer.
  * @returns {Struct.SteamUserStatsDownloadedLeaderboardEntry} 
  * @function_end 
  */
@@ -5573,9 +5521,8 @@
  * @param {Real} leaderboard_handle A leaderboard handle obtained from ${function.steam_userstats_find_leaderboard} or ${function.steam_userstats_find_or_create_leaderboard}.
  * @param {Enum.SteamLeaderboardUploadScoreMethod} method Whether the score change should be forced, or only kept if it is better than the user's existing score.
  * @param {Real} score The score to upload.
- * @param {Buffer} score_details_buffer A buffer containing the optional details surrounding the unlocking of this score.
- * @param {Real} score_details_count The number of detail elements contained in the score details buffer.
- * @param {Function} [callback] The function to call upon completion.
+ * @param {Array[Real]} score_details An array containing optional detail values surrounding the unlocking of this score. Note that these values are passed to Steamworks SDK as int32.
+ * @param {Function} callback The function to call upon completion.
  * 
  * @event callback
  * @description > **Steamworks Callback**: [ISteamUserStats::LeaderboardScoreUploaded_t](https://partner.steamgames.com/doc/api/ISteamUserStats#LeaderboardScoreUploaded_t)
@@ -5589,7 +5536,7 @@
  * @member {Real} global_rank_new The new global rank of the user on this leaderboard.
  * @member {Real} global_rank_previous The previous global rank of the user on this leaderboard; 0 if the user had no existing entry in the leaderboard.
  * @event_end
- * @function_end 
+ * @function_end
  */
 
 /**
@@ -5607,7 +5554,7 @@
  *
  * @param {Real} leaderboard_handle A leaderboard handle obtained from ${function.steam_userstats_find_leaderboard} or ${function.steam_userstats_find_or_create_leaderboard}.
  * @param {Real} ugc_handle A handle to the user generated content that was shared using ${function.steam_remote_storage_file_share}.
- * @param {Function} [callback] The function to call upon completion.
+ * @param {Function} callback The function to call upon completion.
  * @function_end 
  */
 
@@ -5617,7 +5564,7 @@
  *
  * This function asynchronously retrieves the total number of players currently playing the current game. Both online and in offline mode.
  *
- * @param {Function} [callback] The function to call upon completion.
+ * @param {Function} callback The function to call upon completion.
  *
  * @event callback
  * @desc > **Steamworks Callback**: [ISteamUserStats::NumberOfCurrentPlayers_t](https://partner.steamgames.com/doc/api/ISteamUserStats#NumberOfCurrentPlayers_t)
@@ -5635,7 +5582,7 @@
  *
  * This function asynchronously fetches the data for the percentage of players who have received each achievement for the current game globally.
  *
- * @param {Function} [callback] The function to call upon completion.
+ * @param {Function} callback The function to call upon completion.
  *
  * @event callback
  * @desc > **Steamworks Callback**: [ISteamUserStats::GlobalAchievementPercentagesReady_t](https://partner.steamgames.com/doc/api/ISteamUserStats#GlobalAchievementPercentagesReady_t)
@@ -5692,7 +5639,7 @@
  * This function asynchronously fetches global stats data, which is available for stats marked as "aggregated" in the App Admin panel of the Steamworks website.
  *
  * @param {Real} history_days The number of days of day-by-day history to retrieve in addition to the overall totals. The limit is 60.
- * @param {Function} [callback] The function to call upon completion.
+ * @param {Function} callback The function to call upon completion.
  *
  * @event callback
  * @desc > **Steamworks Callback**: [ISteamUserStats::GlobalStatsReceived_t](https://partner.steamgames.com/doc/api/ISteamUserStats#GlobalStatsReceived_t)
@@ -6275,7 +6222,7 @@
  * [[Note: You must call ${function.steam_inventory_destroy_result} on the provided inventory result when you are done with it.]]
  *
  * @param {Real} item_def_id The item definition id to grant the player.
- * @param {Function} [callback] The function to call upon completion.
+ * @param {Function} callback The function to call upon completion.
  * @returns {Real} The inventory result handle
  * @function_end 
  */
@@ -6292,7 +6239,7 @@
  *
  * @param {Array[Real]} item_def_ids The list of items to grant the user.
  * @param {Real} num_item_defs The number of items in the `item_def_ids` array.
- * @param {Function} [callback] The function to call upon completion.
+ * @param {Function} callback The function to call upon completion.
  * @returns {Real} The inventory result handle
  * @function_end 
  */
@@ -6323,7 +6270,7 @@
  *
  * @param {Real} item_instance_id The item instance id to consume.
  * @param {Real} quantity The number of items in that stack to consume.
- * @param {Function} [callback] The function to call upon completion.
+ * @param {Function} callback The function to call upon completion.
  * @returns {Real} The inventory result handle
  * @function_end 
  */
@@ -6366,13 +6313,9 @@
  * 
  * [[Note: You must call ${function.steam_inventory_destroy_result} on the provided inventory result when you are done with it.]]
  *
- * @param {Array[Real]} generate_item_defs The list of items that will be created by this call. Currently can only be 1 item.
- * @param {Array[Real]} generate_qty The quantity of each item in `generate_item_defs` to create.
- * @param {Real} generate_len The number of items in the `generate_item_defs` and `generate_qty` arrays.
- * @param {Array[Real]} destroy_instance_ids The list of items that will be destroyed by this call.
- * @param {Array[Real]} destroy_qty The quantity of each item in `destroy_instance_ids` to destroy.
- * @param {Real} destroy_len The number of items in the `destroy_instance_ids` and `destroy_qty` arrays.
- * @param {Function} [callback] The function to call upon completion.
+ * @param {Array[Struct.SteamInventoryItemDefQuantity]} generate_items An array of structs holding itemdef IDs with their corresponding quantities.
+ * @param {Array[Struct.SteamInventoryItemInstanceQuantity]} destroy_items An array of structs holding item instance IDs with their corresponding quantities.
+ * @param {Function} callback The function to call upon completion.
  * @returns {Real} The inventory result handle
  * @function_end
  */
@@ -6387,12 +6330,10 @@
  * 
  * [[Note: You must call ${function.steam_inventory_destroy_result} on the provided inventory result when you are done with it.]]
  *
- * @param {Array[Real]} item_defs The list of items to grant the user.
- * @param {Array[Real]} quantities The quantity of each item in `item_defs` to grant.
- * @param {Real} count The number of items in the `item_defs` array.
- * @param {Function} [callback] The function to call upon completion.
+ * @param {Array[Struct.SteamInventoryItemDefQuantity]} items An array of structs holding items to give to the user.
+ * @param {Function} callback The function to call upon completion.
  * @returns {Real} The inventory result handle
- * @function_end 
+ * @function_end
  */
 
 /**
@@ -6505,7 +6446,7 @@
  * [[Note: You must call ${function.steam_inventory_destroy_result} on the provided inventory result when you are done with it.]]
  *
  * @param {Array[Real]} item_instance_ids A list of the item instance ids to update the state of.
- * @param {Function} [callback] The function to call upon completion.
+ * @param {Function} callback The function to call upon completion.
  * @returns {Real} 
  * @function_end 
  */
@@ -6564,10 +6505,8 @@
  * 
  * [[Note: You must call ${function.steam_inventory_destroy_result} on the inventory result for when you are done with it.]]
  *
- * @param {Array[Real]} item_def_ids The array of item definition ids that the user wants to purchase.
- * @param {Array[Real]} quantities The array of quantities of each item definition that the user wants to purchase.
- * @param {Real} count The length of the `item_def_ids` and `quantities` arrays.
- * @param {Function} [callback] The function to call upon completion.
+ * @param {Array[Struct.SteamInventoryItemDefQuantity]} items An array of structs holding itemdef IDs with their corresponding quantity.
+ * @param {Function} callback The function to call upon completion.
  *
  * @event callback
  * @desc > **Steamworks Callback**: [ISteamInventory::SteamInventoryStartPurchaseResult_t](https://partner.steamgames.com/doc/api/ISteamInventory#SteamInventoryStartPurchaseResult_t)
@@ -6587,7 +6526,7 @@
  * 
  * A [SteamInventoryRequestPricesResult_t](https://partner.steamgames.com/doc/api/ISteamInventory#SteamInventoryRequestPricesResult_t) call result will be returned with the user's local currency code. After that, you can call ${function.steam_inventory_get_num_items_with_prices} and ${function.steam_inventory_get_items_with_prices} to get prices for all the known item definitions, or ${function.steam_inventory_get_item_price} for a specific item definition.
  *
- * @param {Function} [callback] The function to call upon completion.
+ * @param {Function} callback The function to call upon completion.
  *
  * @event callback
  * @desc > **Steamworks Callback**: [ISteamInventory::SteamInventoryRequestPricesResult_t](https://partner.steamgames.com/doc/api/ISteamInventory#SteamInventoryRequestPricesResult_t)
@@ -6616,8 +6555,8 @@
  * This function, after a successful call to ${function.steam_inventory_request_prices}, gets all the pricing for applicable item definitions.
  *
  * @param {Real} max The number of item definitions to retrieve, as returned by ${function.steam_inventory_get_num_items_with_prices}.
- * @returns {Struct.SteamInventoryItemsWithPrices} 
- * @function_end 
+ * @returns {Array[Struct.SteamInventoryItemWithPrice]}
+ * @function_end
  */
 
 /**
@@ -6712,7 +6651,7 @@
  * [[Note: You must call ${function.steam_inventory_destroy_result} on the provided inventory result for when you are done with it.]]
  *
  * @param {Real} result_handle The update handle corresponding to the transaction request, returned from ${function.steam_inventory_start_update_properties}.
- * @param {Function} [callback] The function to call upon completion.
+ * @param {Function} callback The function to call upon completion.
  * @returns {Real} The new inventory result handle
  * @function_end 
  */
@@ -6730,7 +6669,7 @@
  * @param {Real} item_instance_id_source The source item to transfer.
  * @param {Real} quantity The quantity of the item that will be transferred from `item_instance_id_source` to `item_instance_id_dest`.
  * @param {Real} item_instance_id_dest The destination item.
- * @param {Function} [callback] The function to call upon completion.
+ * @param {Function} callback The function to call upon completion.
  * @returns {Real} The inventory result handle
  * @function_end 
  */
@@ -6753,7 +6692,7 @@
  * [[Note: You must call ${function.steam_inventory_destroy_result} on the provided inventory result when you are done with it.]]
  *
  * @param {Real} item_def_id The item definition id, which must refer to an itemdefid of the type "playtimegenerator".
- * @param {Function} [callback] The function to call upon completion.
+ * @param {Function} callback The function to call upon completion.
  * @returns {Real} The inventory result handle
  * @function_end 
  */
@@ -6768,7 +6707,7 @@
  * 
  * [[Note: You must call ${function.steam_inventory_destroy_result} on the provided inventory result when you are done with it.]]
  *
- * @param {Function} [callback] The function to call upon completion.
+ * @param {Function} callback The function to call upon completion.
  * @returns {Real} The inventory result handle
  * @function_end 
  */
@@ -7017,7 +6956,7 @@
  * @param {String} file_name The name of the file to write to.
  * @param {Buffer} data The bytes to write to the file.
  * @param {Real} bytes The number of bytes to write to the file. Typically the total size of `data`.
- * @param {Function} [callback] The callback function to call upon completion.
+ * @param {Function} callback The callback function to call upon completion.
  * 
  * @event callback
  * @desc **Steamworks Callback**: [ISteamRemoteStorage::RemoteStorageFileWriteAsyncComplete_t](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#RemoteStorageFileWriteAsyncComplete_t)
@@ -7285,7 +7224,7 @@
  * This function shares the file with the given filename.
  *
  * @param {String} file_name The name of the file to share.
- * @param {Function} [callback] The function to call upon completion.
+ * @param {Function} callback The function to call upon completion.
  *
  * @event callback
  * @desc > **Steamworks Callback**: [ISteamRemoteStorage::RemoteStorageFileShareResult_t](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#RemoteStorageFileShareResult_t)
@@ -7305,7 +7244,7 @@
  *
  * @param {Real} ugc_handle The handle of the UGC content to download.
  * @param {Real} priority The download priority, where a lower value indicates a higher priority.
- * @param {Function} [callback] The function to call upon completion.
+ * @param {Function} callback The function to call upon completion.
  *
  * @event callback
  * @desc > **Steamworks Callback**: [ISteamRemoteStorage::RemoteStorageDownloadUGCResult_t](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#RemoteStorageDownloadUGCResult_t)
@@ -7326,7 +7265,7 @@
  * @param {Real} ugc_handle The handle of the UGC content to download.
  * @param {String} location The absolute file path to download the content to.
  * @param {Real} priority The download priority, where a lower value indicates a higher priority.
- * @param {Function} [callback] The function to call upon completion.
+ * @param {Function} callback The function to call upon completion.
  *
  * @event callback
  * @desc > **Steamworks Callback**: [ISteamRemoteStorage::RemoteStorageDownloadUGCResult_t](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#RemoteStorageDownloadUGCResult_t)
@@ -7352,7 +7291,7 @@
  * @param {Enum.SteamRemoteStoragePublishedFileVisibility} visibility The visibility of the published file.
  * @param {String} tags_csv A comma-separated list of tags to apply to the published file.
  * @param {Enum.SteamRemoteStorageWorkshopFileType} file_type The type of workshop file being published.
- * @param {Function} [callback] The function to call upon completion.
+ * @param {Function} callback The function to call upon completion.
  *
  * @event callback
  * @desc > **Steamworks Callback**: [ISteamRemoteStorage::RemoteStoragePublishFileResult_t](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#RemoteStoragePublishFileResult_t)
@@ -7454,7 +7393,7 @@
  * This function is deprecated and only used with the deprecated RemoteStorage based Workshop API.
  *
  * @param {Real} update_handle The handle of the update request to commit, returned by ${function.steam_remote_storage_create_published_file_update_request}.
- * @param {Function} [callback] The function to call upon completion.
+ * @param {Function} callback The function to call upon completion.
  * @function_end 
  */
 
@@ -7465,7 +7404,7 @@
  * This function is deprecated and only used with the deprecated RemoteStorage based Workshop API.
  *
  * @param {Real} published_file_id The ID of the published file to subscribe to.
- * @param {Function} [callback] The function to call upon completion.
+ * @param {Function} callback The function to call upon completion.
  *
  * @event callback
  * @desc > **Steamworks Callback**: [ISteamRemoteStorage::RemoteStorageSubscribePublishedFileResult_t](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#RemoteStorageSubscribePublishedFileResult_t)
@@ -7484,7 +7423,7 @@
  * This function is deprecated and only used with the deprecated RemoteStorage based Workshop API.
  *
  * @param {Real} published_file_id The ID of the published file to unsubscribe from.
- * @param {Function} [callback] The function to call upon completion.
+ * @param {Function} callback The function to call upon completion.
  *
  * @event callback
  * @desc > **Steamworks Callback**: [ISteamRemoteStorage::RemoteStorageUnsubscribePublishedFileResult_t](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#RemoteStorageUnsubscribePublishedFileResult_t)
@@ -7619,7 +7558,7 @@
  *
  * @param {Enum.SteamMatchmakingLobbyType} lobby_type The type and visibility of this lobby. This can be changed later via the lobby type setting.
  * @param {Real} max_members The maximum number of players that can join this lobby. This can not be above 250.
- * @param {Function} [callback] The function to call upon completion.
+ * @param {Function} callback The function to call upon completion.
  *
  * @event callback
  * @desc > **Steamworks Callback**: [ISteamMatchmaking::LobbyCreated_t](https://partner.steamgames.com/doc/api/ISteamMatchmaking#LobbyCreated_t)
@@ -7640,7 +7579,7 @@
  * The lobby Steam ID can be obtained either from a search with ${function.steam_matchmaking_request_lobby_list}, joining on a friend, or from an invite.
  *
  * @param {Real} lobby_id The Steam ID of the lobby to join.
- * @param {Function} [callback] The function to call upon completion.
+ * @param {Function} callback The function to call upon completion.
  *
  * @event callback
  * @desc > **Steamworks Callback**: [ISteamMatchmaking::LobbyEnter_t](https://partner.steamgames.com/doc/api/ISteamMatchmaking#LobbyEnter_t)
@@ -7666,7 +7605,7 @@
  * 
  * [[Note: This will only return lobbies that are not full, and only lobbies that are `SteamMatchmakingLobbyType.Public` or `SteamMatchmakingLobbyType.Invisible`, and are set to joinable with ${function.steam_matchmaking_set_lobby_joinable}.]]
  *
- * @param {Function} [callback] The function to call upon completion.
+ * @param {Function} callback The function to call upon completion.
  *
  * @event callback
  * @desc > **Steamworks Callback**: [ISteamMatchmaking::LobbyMatchList_t](https://partner.steamgames.com/doc/api/ISteamMatchmaking#LobbyMatchList_t)
@@ -8666,7 +8605,7 @@
  * @param {Real} beacon_location_id The location ID of the beacon location, taken from one of the locations returned by ${function.steam_parties_get_available_beacon_locations}.
  * @param {String} connect_string The connect string that will be given to the game on launch for a user that follows the beacon.
  * @param {String} metadata Additional game metadata that can be set on the beacon, and is exposed via ${function.steam_parties_get_beacon_details}.
- * @param {Function} [callback] The function to call upon completion.
+ * @param {Function} callback The function to call upon completion.
  * @returns {Bool}
  *
  * @event callback
@@ -8699,7 +8638,7 @@
  *
  * @param {Real} beacon_id The beacon ID for the beacon created by your process.
  * @param {Real} open_slots The new number of open slots in your party. This value represents the total number of *new* users that you would like Steam to send to your party.
- * @param {Function} [callback] The function to call upon completion.
+ * @param {Function} callback The function to call upon completion.
  * @returns {Bool} 
  * @function_end 
  */
@@ -8756,7 +8695,7 @@
  * This function is called when the user indicates they wish to join the party advertised by a given beacon. On success, Steam will reserve a slot for this user in the party and return the necessary "join game" string to use to complete the connection.
  *
  * @param {Real} beacon_id The beacon ID for the party you wish to join.
- * @param {Function} [callback] The function to call upon completion.
+ * @param {Function} callback The function to call upon completion.
  * @returns {Bool}
  *
  * @event callback
@@ -8899,7 +8838,6 @@
  *
  * This struct holds information returned by ${function.steam_friends_get_clan_chat_message}.
  *
- * @member {Real} bytes_copied The number of bytes copied.
  * @member {String} text The text of the chat message.
  * @member {Enum.SteamFriendsChatEntryType} entry_type The type of chat entry that was received.
  * @member {Real} chatter_steam_id_64 The Steam ID of the user that sent the message.
@@ -8924,12 +8862,11 @@
 /**
  * @struct SteamFriendsFriendMessage
  * @description > **Steamworks Struct**: N / A
- *
+ * 
  * This struct holds information returned by ${function.steam_friends_get_friend_message}.
- *
- * @member {Real} bytes_copied The number of bytes copied.
+ * 
  * @member {Enum.SteamFriendsChatEntryType} entry_type The type of chat entry that was received.
- * @member {String} data The message data.
+ * @member {Any} data The message data.
  * @struct_end
  */
 
@@ -9569,6 +9506,7 @@
  * @member {Bool} banned Whether the item was banned.
  * @member {Bool} accepted_for_use Whether the developer of this app has specifically flagged this item as accepted in the Workshop. (See: [Curated Workshop](https://partner.steamgames.com/doc/features/workshop#curated_workshop))
  * @member {Bool} tags_truncated Whether the list of tags was too long to be returned in the provided buffer, and were therefore truncated.
+ * @member {String} tags Comma separated list of all tags associated with this item.
  * @struct_end
  */
 
@@ -9639,28 +9577,6 @@
  *
  * @member {Real} app_id The related app ID.
  * @struct_end
- */
-
-/**
- * @struct SteamUgcFileSubscribed
- * @description > **Steamworks Struct**: [func](url)
- *
- * This struct 
- *
- * @member {Real} app_id
- * @member {Real} published_file_id
- * @struct_end 
- */
-
-/**
- * @struct SteamUgcFileUnsubscribed
- * @description > **Steamworks Struct**: [func](url)
- *
- * This struct 
- *
- * @member {Real} app_id
- * @member {Real} published_file_id
- * @struct_end 
  */
 
 /**
@@ -10063,9 +9979,7 @@
  * @member {Real} steam_id_user User who this entry belongs to. You can use ${function.steam_friends_get_friend_persona_name} and ${function.steam_friends_get_small_friend_avatar} to get more info.
  * @member {Real} global_rank The global rank of this entry ranging from [1..N], where N is the number of users with an entry in the leaderboard.
  * @member {Real} score The raw score as set in the leaderboard.
- * @member {Real} details_count The number of details available for this entry.
- * @member {Real} details_written The number of details written.
- * @member {Real} bytes_written The number of bytes written.
+ * @member {Array[Real]} details An array of int32 values holding details about the entry.
  * @struct_end
  */
 
@@ -10270,6 +10184,28 @@
  */
 
 /**
+ * @struct SteamInventoryItemDefQuantity
+ * @description > **Steamworks Struct**: N / A
+ * 
+ * This struct holds an itemdef ID with a corresponding quantity.
+ * 
+ * @member {Real} itemdef_id The itemdef ID.
+ * @member {Real} quantity The quantity of this itemdef ID.
+ * @struct_end
+ */
+
+/**
+ * @struct SteamInventoryItemInstanceQuantity
+ * @description > **Steamworks Struct**: N / A
+ * 
+ * This struct holds an item instance ID with a corresponding quantity.
+ * 
+ * @member {Real} item_instance_id The itemdef ID.
+ * @member {Real} quantity The quantity of this item instance ID.
+ * @struct_end
+ */
+
+/**
  * @struct SteamInventoryResultItems
  * @description > **Steamworks Struct**: N / A
  *
@@ -10321,16 +10257,14 @@
  */
 
 /**
- * @struct SteamInventoryItemsWithPrices
+ * @struct SteamInventoryItemWithPrice
  * @description > **Steamworks Struct**: N / A
- *
- * This struct holds item definitions with prices, as requested using ${function.steam_inventory_get_items_with_prices}.
- *
- * @member {Bool} ok `true` upon success.
- * @member {Real} count The number of items.
- * @member {Array[Real]} item_def_ids An array of the item definition IDs.
- * @member {Array[Real]} current_prices An array holding the current price for each item definition ID.
- * @member {Array[Real]} base_prices An array holding the base price for each item definition ID.
+ * 
+ * This struct holds an item definition ID with its current price and its base price.
+ * 
+ * @member {Real} itemdef_id The item definition ID.
+ * @member {Real} current_price The current price for the item definition ID.
+ * @member {Real} base_price The base price for the item definition ID.
  * @struct_end
  */
 
