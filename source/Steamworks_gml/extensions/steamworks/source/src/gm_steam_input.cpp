@@ -21,10 +21,6 @@ static gm::wire::GMFunction g_cb_input_device_disconnected = nullptr;
 // Internal state for diffing connected controller list
 static std::vector<InputHandle_t> g_prev_connected;
 
-static gm::wire::GMFunction g_cb_input_action_set_changed = nullptr;
-
-static std::unordered_map<InputHandle_t, InputActionSetHandle_t> g_prev_action_set;
-
 void steam_input_set_callback_device_connected( const gm::wire::GMFunction& callback)
 {
     steam_clear_last_error();
@@ -52,22 +48,6 @@ void steam_input_clear_callback_device_disconnected()
     std::lock_guard<std::mutex> lock(g_callbacks_mtx);
     g_cb_input_device_disconnected = nullptr;
 }
-
-void steam_input_set_callback_action_set_changed( const gm::wire::GMFunction& callback)
-{
-    steam_clear_last_error();
-    std::lock_guard<std::mutex> lock(g_callbacks_mtx);
-    g_cb_input_action_set_changed = callback;
-}
-
-void steam_input_clear_callback_action_set_changed()
-{
-    steam_clear_last_error();
-    std::lock_guard<std::mutex> lock(g_callbacks_mtx);
-    g_cb_input_action_set_changed = nullptr;
-    g_prev_action_set.clear();
-}
-
 
 static inline ISteamInput* steam_input_iface()
 {
@@ -621,7 +601,7 @@ void steam_input_trigger_vibration_extended(
     s->TriggerVibrationExtended((InputHandle_t)input_handle, l, r, lt, rt);
 }
 
-gm_enums::SteamInputActionOrigin steam_input_get_action_origin_from_xbox_origin(std::uint64_t input_handle, gm_enums::SteamXboxOrigin origin)
+gm_enums::SteamInputActionOrigin steam_input_get_action_origin_from_xbox_origin(std::uint64_t input_handle, gm_enums::SteamInputXboxOrigin origin)
 {
     STEAM_GUARD_RET((gm_enums::SteamInputActionOrigin)0);
 

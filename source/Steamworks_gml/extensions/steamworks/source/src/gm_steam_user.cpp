@@ -770,11 +770,14 @@ static gm::wire::GMFunction g_cb_user_client_game_server_deny = nullptr;
 static gm::wire::GMFunction g_cb_user_licenses_updated = nullptr;
 static gm::wire::GMFunction g_cb_user_microtxn_auth = nullptr;
 static gm::wire::GMFunction g_cb_user_get_auth_session_ticket_response = nullptr;
+static gm::wire::GMFunction g_cb_user_validate_auth_ticket_response = nullptr;
 
-static inline gm_structs::SteamUserSteamServersConnected user_fromNative(const SteamServersConnected_t&)
+static inline gm_structs::SteamUserValidateAuthTicketResponse user_fromNative(const ValidateAuthTicketResponse_t& e)
 {
-    gm_structs::SteamUserSteamServersConnected out{};
-    out.dummy = 0;
+    gm_structs::SteamUserValidateAuthTicketResponse out{};
+    out.steam_id = (std::uint64_t)e.m_SteamID.ConvertToUint64();
+    out.owner_steam_id = (std::uint64_t)e.m_OwnerSteamID.ConvertToUint64();
+    out.auth_session_response = static_cast<gm_enums::SteamAuthSessionResponse>((int)e.m_eAuthSessionResponse);
     return out;
 }
 
@@ -801,13 +804,6 @@ static inline gm_structs::SteamUserClientGameServerDeny user_fromNative(const Cl
     out.game_server_port = (std::uint32_t)e.m_usGameServerPort;
     out.secure = (e.m_bSecure != 0);
     out.reason = (int32)e.m_uReason;
-    return out;
-}
-
-static inline gm_structs::SteamUserLicensesUpdated user_fromNative(const LicensesUpdated_t&)
-{
-    gm_structs::SteamUserLicensesUpdated out{};
-    out.dummy = 0;
     return out;
 }
 
@@ -838,6 +834,7 @@ public:
     STEAM_CALLBACK(SteamUser_PersistentCallbacks, OnLicensesUpdated, LicensesUpdated_t);
     STEAM_CALLBACK(SteamUser_PersistentCallbacks, OnMicroTxnAuthorizationResponse, MicroTxnAuthorizationResponse_t);
     STEAM_CALLBACK(SteamUser_PersistentCallbacks, OnGetAuthSessionTicketResponse, GetAuthSessionTicketResponse_t);
+    STEAM_CALLBACK(SteamUser_PersistentCallbacks, OnValidateAuthTicketResponse, ValidateAuthTicketResponse_t);
 };
 
 void SteamUser_PersistentCallbacks::OnSteamServersConnected(SteamServersConnected_t* p)
@@ -849,7 +846,7 @@ void SteamUser_PersistentCallbacks::OnSteamServersConnected(SteamServersConnecte
         cb = g_cb_user_steam_servers_connected;
     }
     if (cb)
-        cb.call(user_fromNative(*p));
+        cb.call();
 }
 
 void SteamUser_PersistentCallbacks::OnSteamServerConnectFailure(SteamServerConnectFailure_t* p)
@@ -897,7 +894,7 @@ void SteamUser_PersistentCallbacks::OnLicensesUpdated(LicensesUpdated_t* p)
         cb = g_cb_user_licenses_updated;
     }
     if (cb)
-        cb.call(user_fromNative(*p));
+        cb.call();
 }
 
 void SteamUser_PersistentCallbacks::OnMicroTxnAuthorizationResponse(MicroTxnAuthorizationResponse_t* p)
@@ -924,7 +921,33 @@ void SteamUser_PersistentCallbacks::OnGetAuthSessionTicketResponse(GetAuthSessio
         cb.call(user_fromNative(*p));
 }
 
+void SteamUser_PersistentCallbacks::OnValidateAuthTicketResponse(ValidateAuthTicketResponse_t* p)
+{
+    if (!p) return;
+    gm::wire::GMFunction cb;
+    {
+        std::lock_guard<std::mutex> lock(g_callbacks_mtx);
+        cb = g_cb_user_validate_auth_ticket_response;
+    }
+    if (cb)
+        cb.call(user_fromNative(*p));
+}
+
 static SteamUser_PersistentCallbacks g_user_persistent_callbacks;
+
+void steam_user_set_callback_validate_auth_ticket_response( const gm::wire::GMFunction& callback)
+{
+    steam_clear_last_error();
+    std::lock_guard<std::mutex> lock(g_callbacks_mtx);
+    g_cb_user_validate_auth_ticket_response = callback;
+}
+
+void steam_user_clear_callback_validate_auth_ticket_response()
+{
+    steam_clear_last_error();
+    std::lock_guard<std::mutex> lock(g_callbacks_mtx);
+    g_cb_user_validate_auth_ticket_response = nullptr;
+}
 
 void steam_user_set_callback_steam_servers_connected( const gm::wire::GMFunction& callback)
 {

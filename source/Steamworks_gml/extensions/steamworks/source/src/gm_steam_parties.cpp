@@ -214,47 +214,39 @@ std::optional<std::uint32_t> steam_parties_get_num_available_beacon_locations()
     return (std::uint32_t)count;
 }
 
-gm_structs::SteamPartiesAvailableBeaconLocations steam_parties_get_available_beacon_locations()
+std::vector<gm_structs::SteamPartiesBeaconLocation> steam_parties_get_available_beacon_locations()
 {
     STEAM_GUARD_RET({});
 
+    std::vector<gm_structs::SteamPartiesBeaconLocation> out;
+
     ISteamParties* p = steam_parties_iface();
     if (!p)
-        return {};
+        return out;
 
     uint32 count = 0;
     if (!p->GetNumAvailableBeaconLocations(&count)) {
         steam_set_last_error("Steam Parties: GetNumAvailableBeaconLocations failed.");
-        return {};
-    }
-
-    gm_structs::SteamPartiesAvailableBeaconLocations out {};
-    out.count = (std::uint32_t)count;
-
-    if (count == 0) {
-        out.ok = true;
         return out;
     }
+
+    if (count == 0)
+        return out;
 
     std::vector<SteamPartyBeaconLocation_t> native((size_t)count);
     if (!p->GetAvailableBeaconLocations(native.data(), count)) {
         steam_set_last_error("Steam Parties: GetAvailableBeaconLocations failed.");
-        return {};
+        return out;
     }
 
-    std::vector<gm_enums::SteamPartiesBeaconLocationType> types;
-    std::vector<std::uint64_t> ids;
-    types.reserve((size_t)count);
-    ids.reserve((size_t)count);
-
+    out.reserve((size_t)count);
     for (uint32 i = 0; i < count; ++i) {
-        types.push_back((gm_enums::SteamPartiesBeaconLocationType)(int)native[(size_t)i].m_eType);
-        ids.push_back((std::uint64_t)native[(size_t)i].m_ulLocationID);
+        gm_structs::SteamPartiesBeaconLocation entry{};
+        entry.location_id = (std::uint64_t)native[(size_t)i].m_ulLocationID;
+        entry.location_type = static_cast<gm_enums::SteamPartiesBeaconLocationType>((int)native[(size_t)i].m_eType);
+        out.push_back(std::move(entry));
     }
 
-    out.location_types = std::move(types);
-    out.location_ids = std::move(ids);
-    out.ok = true;
     return out;
 }
 

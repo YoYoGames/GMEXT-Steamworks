@@ -127,7 +127,6 @@ static void steam_api_clear_all_callbacks()
     // input
     steam_input_clear_callback_device_connected();
     steam_input_clear_callback_device_disconnected();
-    steam_input_clear_callback_action_set_changed();
 
     // inventory
     steam_inventory_clear_callback_result_ready();
@@ -183,11 +182,14 @@ static void steam_api_clear_all_callbacks()
     steam_user_clear_callback_client_game_server_deny();
     steam_user_clear_callback_licenses_updated();
     steam_user_clear_callback_microtxn_authorization_response();
+    steam_user_clear_callback_validate_auth_ticket_response();
 
     // userstats
     steam_userstats_clear_callback_user_stats_received();
     steam_userstats_clear_callback_user_stats_stored();
     steam_userstats_clear_callback_user_achievement_stored();
+    steam_userstats_clear_callback_user_achievement_icon_fetched();
+    steam_userstats_clear_callback_user_stats_unloaded();
 
     // utils
     steam_utils_clear_callback_gamepad_text_input_dismissed();

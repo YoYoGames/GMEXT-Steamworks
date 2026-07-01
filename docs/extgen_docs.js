@@ -1188,6 +1188,17 @@
  */
 
 /**
+ * @function_partial steam_user_set_callback_validate_auth_ticket_response
+ * @param {Function} callback
+ * @function_end 
+ */
+
+/**
+ * @function_partial steam_user_clear_callback_validate_auth_ticket_response
+ * @function_end 
+ */
+
+/**
  * @function_partial steam_utils_overlay_needs_present
  * @returns {Bool} 
  * @function_end 
@@ -2433,7 +2444,7 @@
 /**
  * @function_partial steam_input_get_action_origin_from_xbox_origin
  * @param {Real} input_handle
- * @param {Enum.SteamXboxOrigin} origin
+ * @param {Enum.SteamInputXboxOrigin} origin
  * @returns {Enum.SteamInputActionOrigin} 
  * @function_end 
  */
@@ -2479,17 +2490,6 @@
 
 /**
  * @function_partial steam_input_clear_callback_device_disconnected
- * @function_end 
- */
-
-/**
- * @function_partial steam_input_set_callback_action_set_changed
- * @param {Function} callback
- * @function_end 
- */
-
-/**
- * @function_partial steam_input_clear_callback_action_set_changed
  * @function_end 
  */
 
@@ -2853,6 +2853,28 @@
 
 /**
  * @function_partial steam_userstats_clear_callback_user_achievement_stored
+ * @function_end 
+ */
+
+/**
+ * @function_partial steam_userstats_set_callback_user_achievement_icon_fetched
+ * @param {Function} callback
+ * @function_end 
+ */
+
+/**
+ * @function_partial steam_userstats_clear_callback_user_achievement_icon_fetched
+ * @function_end 
+ */
+
+/**
+ * @function_partial steam_userstats_set_callback_user_stats_unloaded
+ * @param {Function} callback
+ * @function_end 
+ */
+
+/**
+ * @function_partial steam_userstats_clear_callback_user_stats_unloaded
  * @function_end 
  */
 
@@ -4061,10 +4083,12 @@
  */
 
 /**
- * @function_partial steam_networking_messages_receive_messages_on_channel
+ * @function_partial steam_networking_messages_receive_one_on_channel
  * @param {Real} local_channel
- * @param {Real} max_messages
- * @returns {Array[Struct.SteamNetworkingMessagesMessage]} 
+ * @param {Buffer} out_data
+ * @param {Real} max_bytes
+ * @param {Real} offset
+ * @returns {Struct.SteamNetworkingMessagesReceived} 
  * @function_end 
  */
 
@@ -4187,10 +4211,12 @@
  */
 
 /**
- * @function_partial steam_networking_sockets_receive_messages_on_connection
+ * @function_partial steam_networking_sockets_receive_one_on_connection
  * @param {Real} conn
- * @param {Real} max_messages
- * @returns {Array[Struct.SteamNetworkingSocketsMessage]} 
+ * @param {Buffer} out_data
+ * @param {Real} max_bytes
+ * @param {Real} offset
+ * @returns {Struct.SteamNetworkingSocketsReceived} 
  * @function_end 
  */
 
@@ -4264,10 +4290,12 @@
  */
 
 /**
- * @function_partial steam_networking_sockets_receive_messages_on_poll_group
+ * @function_partial steam_networking_sockets_receive_one_on_poll_group
  * @param {Real} poll_group
- * @param {Real} max_messages
- * @returns {Array[Struct.SteamNetworkingSocketsMessage]} 
+ * @param {Buffer} out_data
+ * @param {Real} max_bytes
+ * @param {Real} offset
+ * @returns {Struct.SteamNetworkingSocketsReceived} 
  * @function_end 
  */
 
@@ -4312,7 +4340,7 @@
 
 /**
  * @function_partial steam_parties_get_available_beacon_locations
- * @returns {Struct.SteamPartiesAvailableBeaconLocations} 
+ * @returns {Array[Struct.SteamPartiesBeaconLocation]} 
  * @function_end 
  */
 
@@ -4584,13 +4612,6 @@
  */
 
 /**
- * @struct_partial SteamAppsDlcInstallDir
- * @member {Real} bytes_copied
- * @member {String} path
- * @struct_end 
- */
-
-/**
  * @struct_partial SteamAppsDlcInstalled
  * @member {Real} app_id
  * @struct_end 
@@ -4678,8 +4699,10 @@
  */
 
 /**
- * @struct_partial SteamUserSteamServersConnected
- * @member {Real} dummy
+ * @struct_partial SteamUserValidateAuthTicketResponse
+ * @member {Real} steam_id
+ * @member {Real} owner_steam_id
+ * @member {Enum.SteamAuthSessionResponse} auth_session_response
  * @struct_end 
  */
 
@@ -4703,12 +4726,6 @@
  * @member {Real} game_server_port
  * @member {Bool} secure
  * @member {Real} reason
- * @struct_end 
- */
-
-/**
- * @struct_partial SteamUserLicensesUpdated
- * @member {Real} dummy
  * @struct_end 
  */
 
@@ -4814,6 +4831,22 @@
  * @member {Bool} accepted_for_use
  * @member {Bool} tags_truncated
  * @member {String} tags
+ * @member {Enum.SteamApiResult} result
+ * @member {Enum.SteamWorkshopFileType} file_type
+ * @member {Real} creator_app_id
+ * @member {Real} consumer_app_id
+ * @member {Real} time_added_to_user_list
+ * @member {Real} handle_file
+ * @member {Real} handle_preview_file
+ * @member {String} file_name
+ * @member {Real} file_size
+ * @member {Real} preview_file_size
+ * @member {String} url
+ * @member {Real} votes_up
+ * @member {Real} votes_down
+ * @member {Real} score
+ * @member {Real} num_children
+ * @member {Real} total_files_size
  * @struct_end 
  */
 
@@ -4935,6 +4968,60 @@
  */
 
 /**
+ * @struct_partial SteamUgcAddAppDependencyResult
+ * @member {Enum.SteamApiResult} result
+ * @member {Real} published_file_id
+ * @member {Real} app_id
+ * @struct_end 
+ */
+
+/**
+ * @struct_partial SteamUgcRemoveAppDependencyResult
+ * @member {Enum.SteamApiResult} result
+ * @member {Real} published_file_id
+ * @member {Real} app_id
+ * @struct_end 
+ */
+
+/**
+ * @struct_partial SteamUgcAddUGCDependencyResult
+ * @member {Enum.SteamApiResult} result
+ * @member {Real} published_file_id
+ * @member {Real} child_published_file_id
+ * @struct_end 
+ */
+
+/**
+ * @struct_partial SteamUgcRemoveUGCDependencyResult
+ * @member {Enum.SteamApiResult} result
+ * @member {Real} published_file_id
+ * @member {Real} child_published_file_id
+ * @struct_end 
+ */
+
+/**
+ * @struct_partial SteamUgcGetAppDependenciesResult
+ * @member {Enum.SteamApiResult} result
+ * @member {Real} published_file_id
+ * @member {Array[Real]} app_ids
+ * @member {Real} num_app_dependencies
+ * @member {Real} total_num_app_dependencies
+ * @struct_end 
+ */
+
+/**
+ * @struct_partial SteamUgcStartPlaytimeTrackingResult
+ * @member {Enum.SteamApiResult} result
+ * @struct_end 
+ */
+
+/**
+ * @struct_partial SteamUgcStopPlaytimeTrackingResult
+ * @member {Enum.SteamApiResult} result
+ * @struct_end 
+ */
+
+/**
  * @struct_partial SteamUgcDownloadItemResult
  * @member {Real} app_id
  * @member {Real} published_file_id
@@ -5000,13 +5087,6 @@
  */
 
 /**
- * @struct_partial SteamInputActionSetChanged
- * @member {Real} controller_handle
- * @member {Real} action_set_handle
- * @struct_end 
- */
-
-/**
  * @struct_partial SteamUserStatsAchievementAndUnlockTime
  * @member {Bool} achieved
  * @member {Real} unlock_time
@@ -5029,14 +5109,6 @@
  * @member {Real} global_rank
  * @member {Real} score
  * @member {Array[Real]} details
- * @struct_end 
- */
-
-/**
- * @struct_partial SteamUserStatsRequestUserStatsResult
- * @member {Real} game_id
- * @member {Real} steam_id_user
- * @member {Real} result
  * @struct_end 
  */
 
@@ -5091,6 +5163,21 @@
  * @struct_partial SteamUserStatsAttachLeaderboardUgcResult
  * @member {Real} result
  * @member {Real} leaderboard_handle
+ * @struct_end 
+ */
+
+/**
+ * @struct_partial SteamUserStatsAchievementIconFetched
+ * @member {Real} game_id
+ * @member {String} achievement_name
+ * @member {Bool} achieved
+ * @member {Real} icon_handle
+ * @struct_end 
+ */
+
+/**
+ * @struct_partial SteamUserStatsUnloaded
+ * @member {Real} steam_id_user
  * @struct_end 
  */
 
@@ -5226,12 +5313,6 @@
  */
 
 /**
- * @struct_partial SteamInventoryDefinitionUpdate
- * @member {Real} dummy
- * @struct_end 
- */
-
-/**
  * @struct_partial SteamInventoryStartPurchaseResult
  * @member {Enum.SteamApiResult} result
  * @member {Real} order_id
@@ -5309,12 +5390,6 @@
  * @struct_partial SteamRemoteStoragePublishedFileUnsubscribed
  * @member {Real} app_id
  * @member {Real} published_file_id
- * @struct_end 
- */
-
-/**
- * @struct_partial SteamRemoteStorageLocalFileChange
- * @member {Real} dummy
  * @struct_end 
  */
 
@@ -5439,26 +5514,25 @@
 /**
  * @struct_partial SteamNetworkingMessagesSessionFailed
  * @member {Real} steam_id_remote
- * @member {Enum.SteamNetConnectionEnd} end_reason
+ * @member {Enum.SteamNetworkingConnectionEnd} end_reason
  * @member {String} debug_msg
  * @struct_end 
  */
 
 /**
- * @struct_partial SteamNetworkingMessagesMessage
+ * @struct_partial SteamNetworkingMessagesReceived
+ * @member {Bool} ok
  * @member {Real} steam_id_remote
  * @member {Real} channel
- * @member {Real} size
- * @member {String} data
+ * @member {Real} bytes_written
  * @member {Real} send_flags
- * @member {Real} message_number
  * @struct_end 
  */
 
 /**
  * @struct_partial SteamNetworkingSocketsConnectionInfo
  * @member {Real} user_data
- * @member {Enum.SteamNetConnectionEnd} end_reason
+ * @member {Enum.SteamNetworkingConnectionEnd} end_reason
  * @member {String} end_debug
  * @member {String} connection_description
  * @member {Real} flags
@@ -5469,22 +5543,18 @@
  */
 
 /**
- * @struct_partial SteamNetworkingSocketsMessage
+ * @struct_partial SteamNetworkingSocketsReceived
+ * @member {Bool} ok
  * @member {Real} conn
- * @member {Real} size
- * @member {String} data
+ * @member {Real} bytes_written
  * @member {Real} flags
- * @member {Real} message_number
- * @member {Real} identity_peer
  * @struct_end 
  */
 
 /**
- * @struct_partial SteamPartiesAvailableBeaconLocations
- * @member {Bool} ok
- * @member {Real} count
- * @member {Array[Enum.SteamPartiesBeaconLocationType]} location_types
- * @member {Array[Real]} location_ids
+ * @struct_partial SteamPartiesBeaconLocation
+ * @member {Real} location_id
+ * @member {Enum.SteamPartiesBeaconLocationType} location_type
  * @struct_end 
  */
 
@@ -6264,7 +6334,7 @@
  */
 
 /**
- * @enum_partial SteamXboxOrigin
+ * @enum_partial SteamInputXboxOrigin
  * @member A
  * @member B
  * @member X
@@ -6964,7 +7034,7 @@
  */
 
 /**
- * @enum_partial SteamNetConnectionEnd
+ * @enum_partial SteamNetworkingConnectionEnd
  * @member Invalid
  * @member App_Min
  * @member App_Generic

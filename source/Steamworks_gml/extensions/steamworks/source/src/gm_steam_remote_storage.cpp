@@ -48,13 +48,6 @@ static inline gm_structs::SteamRemoteStoragePublishedFileUnsubscribed rs_fromNat
     return out;
 }
 
-static inline gm_structs::SteamRemoteStorageLocalFileChange rs_fromNative(const RemoteStorageLocalFileChange_t&)
-{
-    gm_structs::SteamRemoteStorageLocalFileChange out{};
-    out.dummy = 0;
-    return out;
-}
-
 class SteamRemoteStorage_PersistentCallbacks
 {
 public:
@@ -94,7 +87,7 @@ void SteamRemoteStorage_PersistentCallbacks::OnLocalFileChange(RemoteStorageLoca
         cb = g_cb_rs_local_file_change;
     }
     if (cb)
-        cb.call(rs_fromNative(RemoteStorageLocalFileChange_t{}));
+        cb.call();
 }
 
 static SteamRemoteStorage_PersistentCallbacks g_rs_callbacks;

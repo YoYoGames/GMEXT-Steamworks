@@ -1210,16 +1210,6 @@ function steam_apps_request_app_proof_of_purchase_key(app_id: uint32): unit;
 [global, bind = typed_gml]
 function steam_apps_uninstall_dlc(app_id: uint32): unit;
 
-[global]
-class `[[SteamAppsDlcInstallDir]]` prototype Object
-{
-    [field]
-    property bytes_copied : uint32 { get; set; }
-
-    [field]
-    property path : string { get; set; }
-}
-
 [global, bind = typed_gml]
 function steam_apps_set_callback_dlc_installed(callback:func): unit;
 
@@ -1743,11 +1733,24 @@ function steam_user_set_callback_get_auth_session_ticket_response(callback:func)
 [global, bind = typed_gml]
 function steam_user_clear_callback_get_auth_session_ticket_response(): unit;
 
+// ValidateAuthTicketResponse_t - fired after steam_user_begin_auth_session
+[global, bind = typed_gml]
+function steam_user_set_callback_validate_auth_ticket_response(callback:func): unit;
+
+[global, bind = typed_gml]
+function steam_user_clear_callback_validate_auth_ticket_response(): unit;
+
 [global]
-class `[[SteamUserSteamServersConnected]]` prototype Object
+class `[[SteamUserValidateAuthTicketResponse]]` prototype Object
 {
-    [field]
-    property dummy : int32 { get; set; } // no fields in callback
+    [field, type_hint=uint64]
+    property steam_id : gmval { get; set; }
+
+    [field, type_hint=uint64]
+    property owner_steam_id : gmval { get; set; }
+
+    [field, type_hint=`SteamAuthSessionResponse`]
+    property auth_session_response : gmval { get; set; }
 }
 
 [global]
@@ -1784,13 +1787,6 @@ class `[[SteamUserClientGameServerDeny]]` prototype Object
 
     [field]
     property reason : int32 { get; set; } // EDenyReason numeric
-}
-
-[global]
-class `[[SteamUserLicensesUpdated]]` prototype Object
-{
-    [field]
-    property dummy : int32 { get; set; } // no fields
 }
 
 [global]
@@ -2692,6 +2688,54 @@ class `[[SteamUgcQueryResult]]` prototype Object
 
     [field]
     property tags : string { get; set; }
+
+    [field, type_hint = `SteamApiResult`]
+    property result : gmval { get; set; }
+
+    [field, type_hint = `SteamWorkshopFileType`]
+    property file_type : gmval { get; set; }
+
+    [field]
+    property creator_app_id : uint32 { get; set; }
+
+    [field]
+    property consumer_app_id : uint32 { get; set; }
+
+    [field]
+    property time_added_to_user_list : uint32 { get; set; }
+
+    [field, type_hint = uint64]
+    property handle_file : gmval { get; set; }
+
+    [field, type_hint = uint64]
+    property handle_preview_file : gmval { get; set; }
+
+    [field]
+    property file_name : string { get; set; }
+
+    [field]
+    property file_size : int32 { get; set; }
+
+    [field]
+    property preview_file_size : int32 { get; set; }
+
+    [field]
+    property url : string { get; set; }
+
+    [field]
+    property votes_up : uint32 { get; set; }
+
+    [field]
+    property votes_down : uint32 { get; set; }
+
+    [field]
+    property score : float { get; set; }
+
+    [field]
+    property num_children : uint32 { get; set; }
+
+    [field, type_hint = uint64]
+    property total_files_size : gmval { get; set; }
 }
 
 
@@ -3194,6 +3238,60 @@ class `[[SteamUgcDeleteItemResult]]` prototype Object
 }
 
 [global]
+class `[[SteamUgcAddAppDependencyResult]]` prototype Object
+{
+    [field, type_hint = `SteamApiResult`] property result : gmval { get; set; }
+    [field, type_hint=uint64] property published_file_id : gmval { get; set; }
+    [field] property app_id : uint32 { get; set; }
+}
+
+[global]
+class `[[SteamUgcRemoveAppDependencyResult]]` prototype Object
+{
+    [field, type_hint = `SteamApiResult`] property result : gmval { get; set; }
+    [field, type_hint=uint64] property published_file_id : gmval { get; set; }
+    [field] property app_id : uint32 { get; set; }
+}
+
+[global]
+class `[[SteamUgcAddUGCDependencyResult]]` prototype Object
+{
+    [field, type_hint = `SteamApiResult`] property result : gmval { get; set; }
+    [field, type_hint=uint64] property published_file_id : gmval { get; set; }
+    [field, type_hint=uint64] property child_published_file_id : gmval { get; set; }
+}
+
+[global]
+class `[[SteamUgcRemoveUGCDependencyResult]]` prototype Object
+{
+    [field, type_hint = `SteamApiResult`] property result : gmval { get; set; }
+    [field, type_hint=uint64] property published_file_id : gmval { get; set; }
+    [field, type_hint=uint64] property child_published_file_id : gmval { get; set; }
+}
+
+[global]
+class `[[SteamUgcGetAppDependenciesResult]]` prototype Object
+{
+    [field, type_hint = `SteamApiResult`] property result : gmval { get; set; }
+    [field, type_hint=uint64] property published_file_id : gmval { get; set; }
+    [field, type_hint=`uint32[]`] property app_ids : gmval { get; set; }
+    [field] property num_app_dependencies : uint32 { get; set; }
+    [field] property total_num_app_dependencies : uint32 { get; set; }
+}
+
+[global]
+class `[[SteamUgcStartPlaytimeTrackingResult]]` prototype Object
+{
+    [field, type_hint = `SteamApiResult`] property result : gmval { get; set; }
+}
+
+[global]
+class `[[SteamUgcStopPlaytimeTrackingResult]]` prototype Object
+{
+    [field, type_hint = `SteamApiResult`] property result : gmval { get; set; }
+}
+
+[global]
 class `[[SteamUgcDownloadItemResult]]` prototype Object
 {
     [field] property app_id : uint32 { get; set; }
@@ -3293,7 +3391,7 @@ enum SteamInputType
 
 // From EXboxOrigin - used by steam_input_get_action_origin_from_xbox_origin
 [global, bind = typed_gml]
-enum SteamXboxOrigin
+enum SteamInputXboxOrigin
 {
     A = 0,
     B = 1,
@@ -4038,7 +4136,7 @@ function steam_input_trigger_vibration_extended([type_hint=uint64] input_handle:
 
 // GetActionOriginFromXboxOrigin
 [global, bind = typed_gml, type_hint=`SteamInputActionOrigin`]
-function steam_input_get_action_origin_from_xbox_origin([type_hint=uint64] input_handle: gmval, [type_hint=`SteamXboxOrigin`] origin: gmval): gmval;
+function steam_input_get_action_origin_from_xbox_origin([type_hint=uint64] input_handle: gmval, [type_hint=`SteamInputXboxOrigin`] origin: gmval): gmval;
 
 // TranslateActionOrigin
 [global, bind = typed_gml, type_hint=`SteamInputActionOrigin`]
@@ -4069,23 +4167,6 @@ class `[[SteamInputDeviceEvent]]` prototype Object
 {
     [field, type_hint=uint64]
     property controller_handle : gmval { get; set; }
-}
-
-// Action set change (polling based)
-[global, bind = typed_gml]
-function steam_input_set_callback_action_set_changed(callback:func): unit;
-
-[global, bind = typed_gml]
-function steam_input_clear_callback_action_set_changed(): unit;
-
-[global]
-class `[[SteamInputActionSetChanged]]` prototype Object
-{
-    [field, type_hint=uint64]
-    property controller_handle : gmval { get; set; }
-
-    [field, type_hint=uint64]
-    property action_set_handle : gmval { get; set; }
 }
 
 } // end group SteamInput
@@ -4173,14 +4254,6 @@ class `[[SteamUserStatsDownloadedLeaderboardEntry]]` prototype Object
 
     [field, type_hint=`int32[]`]
     property details : gmval { get; set; }
-}
-
-[global]
-class `[[SteamUserStatsRequestUserStatsResult]]` prototype Object
-{
-    [field, type_hint=uint64] property game_id : gmval { get; set; }
-    [field, type_hint=uint64] property steam_id_user : gmval { get; set; }
-    [field] property result : int32 { get; set; } // EResult numeric
 }
 
 [global]
@@ -4459,6 +4532,35 @@ function steam_userstats_set_callback_user_achievement_stored(callback:func): un
 
 [global, bind = typed_gml]
 function steam_userstats_clear_callback_user_achievement_stored(): unit;
+
+// UserAchievementIconFetched_t
+[global, bind = typed_gml]
+function steam_userstats_set_callback_user_achievement_icon_fetched(callback:func): unit;
+
+[global, bind = typed_gml]
+function steam_userstats_clear_callback_user_achievement_icon_fetched(): unit;
+
+// UserStatsUnloaded_t
+[global, bind = typed_gml]
+function steam_userstats_set_callback_user_stats_unloaded(callback:func): unit;
+
+[global, bind = typed_gml]
+function steam_userstats_clear_callback_user_stats_unloaded(): unit;
+
+[global]
+class `[[SteamUserStatsAchievementIconFetched]]` prototype Object
+{
+    [field, type_hint=uint64] property game_id : gmval { get; set; }
+    [field] property achievement_name : string { get; set; }
+    [field] property achieved : bool { get; set; }
+    [field] property icon_handle : int32 { get; set; }
+}
+
+[global]
+class `[[SteamUserStatsUnloaded]]` prototype Object
+{
+    [field, type_hint=uint64] property steam_id_user : gmval { get; set; }
+}
 
 [global]
 class `[[SteamUserStatsUserStatsReceived]]` prototype Object
@@ -5118,12 +5220,6 @@ class `[[SteamInventoryFullUpdate]]` prototype Object
 }
 
 [global]
-class `[[SteamInventoryDefinitionUpdate]]` prototype Object
-{
-    [field] property dummy : int32 { get; set; } // callback has no meaningful fields
-}
-
-[global]
 class `[[SteamInventoryStartPurchaseResult]]` prototype Object
 {
     [field, type_hint = `SteamApiResult`] property result : gmval { get; set; }
@@ -5269,12 +5365,6 @@ class `[[SteamRemoteStoragePublishedFileUnsubscribed]]` prototype Object
 {
     [field] property app_id : uint32 { get; set; }
     [field, type_hint=uint64] property published_file_id : gmval { get; set; }
-}
-
-[global]
-class `[[SteamRemoteStorageLocalFileChange]]` prototype Object
-{
-    [field] property dummy : int32 { get; set; }
 }
 
 [global]
@@ -5785,17 +5875,20 @@ class `[[SteamNetworkingMessagesSessionFailed]]` prototype Object
     [field, type_hint=uint64]
     property steam_id_remote : gmval { get; set; }
 
-    [field, type_hint=`SteamNetConnectionEnd`]
+    [field, type_hint=`SteamNetworkingConnectionEnd`]
     property end_reason : gmval { get; set; }
 
     [field]
     property debug_msg : string { get; set; }
 }
 
-// Message returned by steam_networking_messages_receive_messages_on_channel
+// Result of steam_networking_messages_receive_one_on_channel (message written to out buffer)
 [global]
-class `[[SteamNetworkingMessagesMessage]]` prototype Object
+class `[[SteamNetworkingMessagesReceived]]` prototype Object
 {
+    [field]
+    property ok : bool { get; set; }
+
     [field, type_hint=uint64]
     property steam_id_remote : gmval { get; set; }
 
@@ -5803,16 +5896,10 @@ class `[[SteamNetworkingMessagesMessage]]` prototype Object
     property channel : int32 { get; set; }
 
     [field]
-    property size : uint32 { get; set; }
-
-    [field]
-    property data : string { get; set; }
+    property bytes_written : uint32 { get; set; }
 
     [field]
     property send_flags : int32 { get; set; }
-
-    [field]
-    property message_number : int64 { get; set; }
 }
 
 [global, bind = typed_gml]
@@ -5836,11 +5923,13 @@ function steam_networking_messages_send_message_to_user(
     remote_channel: int32
 ): int32;
 
-// Receive up to max_messages messages on the given channel.
-[global, bind = typed_gml, type_hint=`SteamNetworkingMessagesMessage[]`]
-function steam_networking_messages_receive_messages_on_channel(
+// Receive one message on channel into out buffer (max messages fixed to 1 due to GameMaker limitations).
+[global, bind = typed_gml, type_hint=`SteamNetworkingMessagesReceived`]
+function steam_networking_messages_receive_one_on_channel(
     local_channel: int32,
-    max_messages: int32
+    [type_hint=buffer] out_data: gmval,
+    max_bytes: uint32,
+    offset: uint32
 ): gmval;
 
 [global, bind = typed_gml]
@@ -5863,7 +5952,7 @@ const SteamNetworkingPollGroup_Invalid : uint32 = 0;//uint64 = 0;
 
 // From ESteamNetConnectionEnd - used by SteamNetworkingSocketsConnectionInfo.end_reason
 [global, bind = typed_gml]
-enum SteamNetConnectionEnd
+enum SteamNetworkingConnectionEnd
 {
     Invalid = 0,
     App_Min = 1000,
@@ -5931,7 +6020,7 @@ enum SteamNetworkingSendFlags
 class `[[SteamNetworkingSocketsConnectionInfo]]` prototype Object
 {
     [field, type_hint=uint64] property user_data : gmval { get; set; }
-    [field, type_hint=`SteamNetConnectionEnd`] property end_reason : gmval { get; set; }
+    [field, type_hint=`SteamNetworkingConnectionEnd`] property end_reason : gmval { get; set; }
     [field] property end_debug : string { get; set; }
     [field] property connection_description : string { get; set; }
     [field] property flags : int32 { get; set; }
@@ -5948,16 +6037,14 @@ class `[[SteamNetworkingSocketsStatusChanged]]` prototype Object
     [field, type_hint=`SteamNetworkingSocketsConnectionInfo`] property info : gmval { get; set; }
 }
 
-// Message returned by steam_networking_sockets_receive_messages_on_connection
+// Result of steam_networking_sockets_receive_one_on_* (message written to out buffer)
 [global]
-class `[[SteamNetworkingSocketsMessage]]` prototype Object
+class `[[SteamNetworkingSocketsReceived]]` prototype Object
 {
+    [field] property ok : bool { get; set; }
     [field] property conn : uint32 { get; set; }
-    [field] property size : uint32 { get; set; }
-    [field] property data : string { get; set; }
+    [field] property bytes_written : uint32 { get; set; }
     [field] property flags : int32 { get; set; }
-    [field] property message_number : int64 { get; set; }
-    [field, type_hint=uint64] property identity_peer : gmval { get; set; }
 }
 
 [global, bind = typed_gml]
@@ -6004,10 +6091,13 @@ function steam_networking_sockets_send_message_to_connection(
 [global, bind = typed_gml, type_hint=`SteamApiResult`]
 function steam_networking_sockets_flush_messages_on_connection(conn: uint32): gmval;
 
-[global, bind = typed_gml, type_hint=`SteamNetworkingSocketsMessage[]`]
-function steam_networking_sockets_receive_messages_on_connection(
+// Receive one message on connection into out buffer (max messages fixed to 1 due to GameMaker limitations).
+[global, bind = typed_gml, type_hint=`SteamNetworkingSocketsReceived`]
+function steam_networking_sockets_receive_one_on_connection(
     conn: uint32,
-    max_messages: int32
+    [type_hint=buffer] out_data: gmval,
+    max_bytes: uint32,
+    offset: uint32
 ): gmval;
 
 [global, bind = typed_gml, type_hint=`SteamNetworkingSocketsConnectionInfo?`]
@@ -6046,10 +6136,13 @@ function steam_networking_sockets_set_connection_poll_group(
     poll_group: uint32
 ): bool;
 
-[global, bind = typed_gml, type_hint=`SteamNetworkingSocketsMessage[]`]
-function steam_networking_sockets_receive_messages_on_poll_group(
+// Receive one message on poll group into out buffer (max messages fixed to 1 due to GameMaker limitations).
+[global, bind = typed_gml, type_hint=`SteamNetworkingSocketsReceived`]
+function steam_networking_sockets_receive_one_on_poll_group(
     poll_group: uint32,
-    max_messages: int32
+    [type_hint=buffer] out_data: gmval,
+    max_bytes: uint32,
+    offset: uint32
 ): gmval;
 
 } // end group SteamNetworkingSockets
@@ -6058,14 +6151,13 @@ group{ // SteamParties
 
 
 [global]
-class `[[SteamPartiesAvailableBeaconLocations]]` prototype Object
+class `[[SteamPartiesBeaconLocation]]` prototype Object
 {
+    [field, type_hint=uint64]
+    property location_id : gmval { get; set; }
 
-    [field]
-    property ok : bool { get; set; }
-    [field] property count : uint32 { get; set; }
-    [field, type_hint=`SteamPartiesBeaconLocationType[]`] property location_types : gmval { get; set; }
-    [field, type_hint=`uint64[]`] property location_ids : gmval { get; set; }
+    [field, type_hint=`SteamPartiesBeaconLocationType`]
+    property location_type : gmval { get; set; }
 }
 
 [global]
@@ -6130,7 +6222,7 @@ function steam_parties_clear_callback_active_beacons_updated(): unit;
 [global, bind = typed_gml, type_hint=`uint32?`]
 function steam_parties_get_num_available_beacon_locations(): gmval;
 
-[global, bind = typed_gml, type_hint=`SteamPartiesAvailableBeaconLocations`]
+[global, bind = typed_gml, type_hint=`SteamPartiesBeaconLocation[]`]
 function steam_parties_get_available_beacon_locations(): gmval;
 
 [global, bind = typed_gml]
