@@ -590,7 +590,7 @@ GMEXPORT double __EXT_NATIVE__steam_networking_messages_clear_callback_session_r
 GMEXPORT double __EXT_NATIVE__steam_networking_messages_set_callback_session_failed(char* __arg_buffer, double __arg_buffer_length);
 GMEXPORT double __EXT_NATIVE__steam_networking_messages_clear_callback_session_failed();
 GMEXPORT double __EXT_NATIVE__steam_networking_messages_send_message_to_user(char* __arg_buffer, double __arg_buffer_length);
-GMEXPORT double __EXT_NATIVE__steam_networking_messages_receive_messages_on_channel(double local_channel, double max_messages, char* __ret_buffer, double __ret_buffer_length);
+GMEXPORT double __EXT_NATIVE__steam_networking_messages_receive_one_on_channel(char* __arg_buffer, double __arg_buffer_length, char* __ret_buffer, double __ret_buffer_length);
 GMEXPORT double __EXT_NATIVE__steam_networking_messages_accept_session_with_user(char* __arg_buffer, double __arg_buffer_length);
 GMEXPORT double __EXT_NATIVE__steam_networking_messages_close_session_with_user(char* __arg_buffer, double __arg_buffer_length);
 GMEXPORT double __EXT_NATIVE__steam_networking_messages_close_channel_with_user(char* __arg_buffer, double __arg_buffer_length);
@@ -607,7 +607,7 @@ GMEXPORT double __EXT_NATIVE__steam_networking_sockets_set_connection_name(doubl
 GMEXPORT char* __EXT_NATIVE__steam_networking_sockets_get_connection_name(double conn);
 GMEXPORT double __EXT_NATIVE__steam_networking_sockets_send_message_to_connection(char* __arg_buffer, double __arg_buffer_length);
 GMEXPORT double __EXT_NATIVE__steam_networking_sockets_flush_messages_on_connection(double conn, char* __ret_buffer, double __ret_buffer_length);
-GMEXPORT double __EXT_NATIVE__steam_networking_sockets_receive_messages_on_connection(double conn, double max_messages, char* __ret_buffer, double __ret_buffer_length);
+GMEXPORT double __EXT_NATIVE__steam_networking_sockets_receive_one_on_connection(char* __arg_buffer, double __arg_buffer_length, char* __ret_buffer, double __ret_buffer_length);
 GMEXPORT double __EXT_NATIVE__steam_networking_sockets_get_connection_info(double conn, char* __ret_buffer, double __ret_buffer_length);
 GMEXPORT char* __EXT_NATIVE__steam_networking_sockets_get_detailed_connection_status(double conn);
 GMEXPORT double __EXT_NATIVE__steam_networking_sockets_run_callbacks();
@@ -618,7 +618,7 @@ GMEXPORT char* __EXT_NATIVE__steam_networking_sockets_get_listen_socket_address(
 GMEXPORT double __EXT_NATIVE__steam_networking_sockets_create_poll_group();
 GMEXPORT double __EXT_NATIVE__steam_networking_sockets_destroy_poll_group(double poll_group);
 GMEXPORT double __EXT_NATIVE__steam_networking_sockets_set_connection_poll_group(double conn, double poll_group);
-GMEXPORT double __EXT_NATIVE__steam_networking_sockets_receive_messages_on_poll_group(double poll_group, double max_messages, char* __ret_buffer, double __ret_buffer_length);
+GMEXPORT double __EXT_NATIVE__steam_networking_sockets_receive_one_on_poll_group(char* __arg_buffer, double __arg_buffer_length, char* __ret_buffer, double __ret_buffer_length);
 GMEXPORT double __EXT_NATIVE__steam_parties_set_callback_reservation_notification(char* __arg_buffer, double __arg_buffer_length);
 GMEXPORT double __EXT_NATIVE__steam_parties_clear_callback_reservation_notification();
 GMEXPORT double __EXT_NATIVE__steam_parties_set_callback_available_beacon_locations_updated(char* __arg_buffer, double __arg_buffer_length);

@@ -4083,10 +4083,12 @@
  */
 
 /**
- * @function_partial steam_networking_messages_receive_messages_on_channel
+ * @function_partial steam_networking_messages_receive_one_on_channel
  * @param {Real} local_channel
- * @param {Real} max_messages
- * @returns {Array[Struct.SteamNetworkingMessagesMessage]} 
+ * @param {Buffer} out_data
+ * @param {Real} max_bytes
+ * @param {Real} offset
+ * @returns {Struct.SteamNetworkingMessagesReceived} 
  * @function_end 
  */
 
@@ -4209,10 +4211,12 @@
  */
 
 /**
- * @function_partial steam_networking_sockets_receive_messages_on_connection
+ * @function_partial steam_networking_sockets_receive_one_on_connection
  * @param {Real} conn
- * @param {Real} max_messages
- * @returns {Array[Struct.SteamNetworkingSocketsMessage]} 
+ * @param {Buffer} out_data
+ * @param {Real} max_bytes
+ * @param {Real} offset
+ * @returns {Struct.SteamNetworkingSocketsReceived} 
  * @function_end 
  */
 
@@ -4286,10 +4290,12 @@
  */
 
 /**
- * @function_partial steam_networking_sockets_receive_messages_on_poll_group
+ * @function_partial steam_networking_sockets_receive_one_on_poll_group
  * @param {Real} poll_group
- * @param {Real} max_messages
- * @returns {Array[Struct.SteamNetworkingSocketsMessage]} 
+ * @param {Buffer} out_data
+ * @param {Real} max_bytes
+ * @param {Real} offset
+ * @returns {Struct.SteamNetworkingSocketsReceived} 
  * @function_end 
  */
 
@@ -5514,13 +5520,12 @@
  */
 
 /**
- * @struct_partial SteamNetworkingMessagesMessage
+ * @struct_partial SteamNetworkingMessagesReceived
+ * @member {Bool} ok
  * @member {Real} steam_id_remote
  * @member {Real} channel
- * @member {Real} size
- * @member {String} data
+ * @member {Real} bytes_written
  * @member {Real} send_flags
- * @member {Real} message_number
  * @struct_end 
  */
 
@@ -5538,13 +5543,11 @@
  */
 
 /**
- * @struct_partial SteamNetworkingSocketsMessage
+ * @struct_partial SteamNetworkingSocketsReceived
+ * @member {Bool} ok
  * @member {Real} conn
- * @member {Real} size
- * @member {String} data
+ * @member {Real} bytes_written
  * @member {Real} flags
- * @member {Real} message_number
- * @member {Real} identity_peer
  * @struct_end 
  */
 

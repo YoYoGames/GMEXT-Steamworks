@@ -5882,10 +5882,13 @@ class `[[SteamNetworkingMessagesSessionFailed]]` prototype Object
     property debug_msg : string { get; set; }
 }
 
-// Message returned by steam_networking_messages_receive_messages_on_channel
+// Result of steam_networking_messages_receive_one_on_channel (message written to out buffer)
 [global]
-class `[[SteamNetworkingMessagesMessage]]` prototype Object
+class `[[SteamNetworkingMessagesReceived]]` prototype Object
 {
+    [field]
+    property ok : bool { get; set; }
+
     [field, type_hint=uint64]
     property steam_id_remote : gmval { get; set; }
 
@@ -5893,16 +5896,10 @@ class `[[SteamNetworkingMessagesMessage]]` prototype Object
     property channel : int32 { get; set; }
 
     [field]
-    property size : uint32 { get; set; }
-
-    [field]
-    property data : string { get; set; }
+    property bytes_written : uint32 { get; set; }
 
     [field]
     property send_flags : int32 { get; set; }
-
-    [field]
-    property message_number : int64 { get; set; }
 }
 
 [global, bind = typed_gml]
@@ -5926,11 +5923,13 @@ function steam_networking_messages_send_message_to_user(
     remote_channel: int32
 ): int32;
 
-// Receive up to max_messages messages on the given channel.
-[global, bind = typed_gml, type_hint=`SteamNetworkingMessagesMessage[]`]
-function steam_networking_messages_receive_messages_on_channel(
+// Receive one message on channel into out buffer (max messages fixed to 1 due to GameMaker limitations).
+[global, bind = typed_gml, type_hint=`SteamNetworkingMessagesReceived`]
+function steam_networking_messages_receive_one_on_channel(
     local_channel: int32,
-    max_messages: int32
+    [type_hint=buffer] out_data: gmval,
+    max_bytes: uint32,
+    offset: uint32
 ): gmval;
 
 [global, bind = typed_gml]
@@ -6038,16 +6037,14 @@ class `[[SteamNetworkingSocketsStatusChanged]]` prototype Object
     [field, type_hint=`SteamNetworkingSocketsConnectionInfo`] property info : gmval { get; set; }
 }
 
-// Message returned by steam_networking_sockets_receive_messages_on_connection
+// Result of steam_networking_sockets_receive_one_on_* (message written to out buffer)
 [global]
-class `[[SteamNetworkingSocketsMessage]]` prototype Object
+class `[[SteamNetworkingSocketsReceived]]` prototype Object
 {
+    [field] property ok : bool { get; set; }
     [field] property conn : uint32 { get; set; }
-    [field] property size : uint32 { get; set; }
-    [field] property data : string { get; set; }
+    [field] property bytes_written : uint32 { get; set; }
     [field] property flags : int32 { get; set; }
-    [field] property message_number : int64 { get; set; }
-    [field, type_hint=uint64] property identity_peer : gmval { get; set; }
 }
 
 [global, bind = typed_gml]
@@ -6094,10 +6091,13 @@ function steam_networking_sockets_send_message_to_connection(
 [global, bind = typed_gml, type_hint=`SteamApiResult`]
 function steam_networking_sockets_flush_messages_on_connection(conn: uint32): gmval;
 
-[global, bind = typed_gml, type_hint=`SteamNetworkingSocketsMessage[]`]
-function steam_networking_sockets_receive_messages_on_connection(
+// Receive one message on connection into out buffer (max messages fixed to 1 due to GameMaker limitations).
+[global, bind = typed_gml, type_hint=`SteamNetworkingSocketsReceived`]
+function steam_networking_sockets_receive_one_on_connection(
     conn: uint32,
-    max_messages: int32
+    [type_hint=buffer] out_data: gmval,
+    max_bytes: uint32,
+    offset: uint32
 ): gmval;
 
 [global, bind = typed_gml, type_hint=`SteamNetworkingSocketsConnectionInfo?`]
@@ -6136,10 +6136,13 @@ function steam_networking_sockets_set_connection_poll_group(
     poll_group: uint32
 ): bool;
 
-[global, bind = typed_gml, type_hint=`SteamNetworkingSocketsMessage[]`]
-function steam_networking_sockets_receive_messages_on_poll_group(
+// Receive one message on poll group into out buffer (max messages fixed to 1 due to GameMaker limitations).
+[global, bind = typed_gml, type_hint=`SteamNetworkingSocketsReceived`]
+function steam_networking_sockets_receive_one_on_poll_group(
     poll_group: uint32,
-    max_messages: int32
+    [type_hint=buffer] out_data: gmval,
+    max_bytes: uint32,
+    offset: uint32
 ): gmval;
 
 } // end group SteamNetworkingSockets

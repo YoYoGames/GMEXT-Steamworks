@@ -6740,12 +6740,27 @@ GMEXPORT double __EXT_NATIVE__steam_networking_messages_send_message_to_user(cha
     return static_cast<double>(__result);
 }
 
-GMEXPORT double __EXT_NATIVE__steam_networking_messages_receive_messages_on_channel(double local_channel, double max_messages, char* __ret_buffer, double __ret_buffer_length)
+GMEXPORT double __EXT_NATIVE__steam_networking_messages_receive_one_on_channel(char* __arg_buffer, double __arg_buffer_length, char* __ret_buffer, double __ret_buffer_length)
 {
-    auto&& __result = steam_networking_messages_receive_messages_on_channel(static_cast<std::int32_t>(local_channel), static_cast<std::int32_t>(max_messages));
+    gm::byteio::BufferReader __br{__arg_buffer, static_cast<size_t>(__arg_buffer_length)};
+
+    // field: local_channel, type: Int32
+    std::int32_t local_channel = gm::wire::codec::readValue<std::int32_t>(__br);
+
+    // field: out_data, type: Buffer
+    gm::wire::GMBuffer out_data = __buffer_queue.front();
+    __buffer_queue.pop();
+
+    // field: max_bytes, type: UInt32
+    std::uint32_t max_bytes = gm::wire::codec::readValue<std::uint32_t>(__br);
+
+    // field: offset, type: UInt32
+    std::uint32_t offset = gm::wire::codec::readValue<std::uint32_t>(__br);
+
+    auto&& __result = steam_networking_messages_receive_one_on_channel(local_channel, out_data, max_bytes, offset);
     gm::byteio::BufferWriter __bw{__ret_buffer, static_cast<size_t>(__ret_buffer_length)};
 
-    // return: __result, type: struct SteamNetworkingMessagesMessage[]
+    // return: __result, type: struct SteamNetworkingMessagesReceived
     gm::wire::codec::writeValue(__bw, __result);
     return 0;
 }
@@ -6901,12 +6916,27 @@ GMEXPORT double __EXT_NATIVE__steam_networking_sockets_flush_messages_on_connect
     return 0;
 }
 
-GMEXPORT double __EXT_NATIVE__steam_networking_sockets_receive_messages_on_connection(double conn, double max_messages, char* __ret_buffer, double __ret_buffer_length)
+GMEXPORT double __EXT_NATIVE__steam_networking_sockets_receive_one_on_connection(char* __arg_buffer, double __arg_buffer_length, char* __ret_buffer, double __ret_buffer_length)
 {
-    auto&& __result = steam_networking_sockets_receive_messages_on_connection(static_cast<std::uint32_t>(conn), static_cast<std::int32_t>(max_messages));
+    gm::byteio::BufferReader __br{__arg_buffer, static_cast<size_t>(__arg_buffer_length)};
+
+    // field: conn, type: UInt32
+    std::uint32_t conn = gm::wire::codec::readValue<std::uint32_t>(__br);
+
+    // field: out_data, type: Buffer
+    gm::wire::GMBuffer out_data = __buffer_queue.front();
+    __buffer_queue.pop();
+
+    // field: max_bytes, type: UInt32
+    std::uint32_t max_bytes = gm::wire::codec::readValue<std::uint32_t>(__br);
+
+    // field: offset, type: UInt32
+    std::uint32_t offset = gm::wire::codec::readValue<std::uint32_t>(__br);
+
+    auto&& __result = steam_networking_sockets_receive_one_on_connection(conn, out_data, max_bytes, offset);
     gm::byteio::BufferWriter __bw{__ret_buffer, static_cast<size_t>(__ret_buffer_length)};
 
-    // return: __result, type: struct SteamNetworkingSocketsMessage[]
+    // return: __result, type: struct SteamNetworkingSocketsReceived
     gm::wire::codec::writeValue(__bw, __result);
     return 0;
 }
@@ -6989,12 +7019,27 @@ GMEXPORT double __EXT_NATIVE__steam_networking_sockets_set_connection_poll_group
     return static_cast<double>(__result);
 }
 
-GMEXPORT double __EXT_NATIVE__steam_networking_sockets_receive_messages_on_poll_group(double poll_group, double max_messages, char* __ret_buffer, double __ret_buffer_length)
+GMEXPORT double __EXT_NATIVE__steam_networking_sockets_receive_one_on_poll_group(char* __arg_buffer, double __arg_buffer_length, char* __ret_buffer, double __ret_buffer_length)
 {
-    auto&& __result = steam_networking_sockets_receive_messages_on_poll_group(static_cast<std::uint32_t>(poll_group), static_cast<std::int32_t>(max_messages));
+    gm::byteio::BufferReader __br{__arg_buffer, static_cast<size_t>(__arg_buffer_length)};
+
+    // field: poll_group, type: UInt32
+    std::uint32_t poll_group = gm::wire::codec::readValue<std::uint32_t>(__br);
+
+    // field: out_data, type: Buffer
+    gm::wire::GMBuffer out_data = __buffer_queue.front();
+    __buffer_queue.pop();
+
+    // field: max_bytes, type: UInt32
+    std::uint32_t max_bytes = gm::wire::codec::readValue<std::uint32_t>(__br);
+
+    // field: offset, type: UInt32
+    std::uint32_t offset = gm::wire::codec::readValue<std::uint32_t>(__br);
+
+    auto&& __result = steam_networking_sockets_receive_one_on_poll_group(poll_group, out_data, max_bytes, offset);
     gm::byteio::BufferWriter __bw{__ret_buffer, static_cast<size_t>(__ret_buffer_length)};
 
-    // return: __result, type: struct SteamNetworkingSocketsMessage[]
+    // return: __result, type: struct SteamNetworkingSocketsReceived
     gm::wire::codec::writeValue(__bw, __result);
     return 0;
 }

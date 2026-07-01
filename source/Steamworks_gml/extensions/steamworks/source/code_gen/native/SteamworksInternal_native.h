@@ -1689,9 +1689,9 @@ namespace gm_structs
     struct SteamMatchmakingLobbyGameServer;
     struct SteamNetworkingMessagesSessionRequest;
     struct SteamNetworkingMessagesSessionFailed;
-    struct SteamNetworkingMessagesMessage;
+    struct SteamNetworkingMessagesReceived;
     struct SteamNetworkingSocketsConnectionInfo;
-    struct SteamNetworkingSocketsMessage;
+    struct SteamNetworkingSocketsReceived;
     struct SteamPartiesBeaconLocation;
     struct SteamPartiesCreateBeaconResult;
     struct SteamPartiesJoinPartyResult;
@@ -2666,14 +2666,13 @@ namespace gm_structs
         std::string debug_msg;
     };
 
-    struct SteamNetworkingMessagesMessage
+    struct SteamNetworkingMessagesReceived
     {
+        bool ok;
         std::uint64_t steam_id_remote;
         std::int32_t channel;
-        std::uint32_t size;
-        std::string data;
+        std::uint32_t bytes_written;
         std::int32_t send_flags;
-        std::int64_t message_number;
     };
 
     struct SteamNetworkingSocketsConnectionInfo
@@ -2688,14 +2687,12 @@ namespace gm_structs
         std::string addr_remote;
     };
 
-    struct SteamNetworkingSocketsMessage
+    struct SteamNetworkingSocketsReceived
     {
+        bool ok;
         std::uint32_t conn;
-        std::uint32_t size;
-        std::string data;
+        std::uint32_t bytes_written;
         std::int32_t flags;
-        std::int64_t message_number;
-        std::uint64_t identity_peer;
     };
 
     struct SteamPartiesBeaconLocation
@@ -5226,26 +5223,24 @@ namespace gm::wire::codec
     }
 
     template<>
-    inline void writeValue<gm_structs::SteamNetworkingMessagesMessage>(gm::byteio::IByteWriter& _buf, const gm_structs::SteamNetworkingMessagesMessage& obj)
+    inline void writeValue<gm_structs::SteamNetworkingMessagesReceived>(gm::byteio::IByteWriter& _buf, const gm_structs::SteamNetworkingMessagesReceived& obj)
     {
+        gm::wire::codec::writeValue(_buf, obj.ok);
         gm::wire::codec::writeValue(_buf, obj.steam_id_remote);
         gm::wire::codec::writeValue(_buf, obj.channel);
-        gm::wire::codec::writeValue(_buf, obj.size);
-        gm::wire::codec::writeValue(_buf, obj.data);
+        gm::wire::codec::writeValue(_buf, obj.bytes_written);
         gm::wire::codec::writeValue(_buf, obj.send_flags);
-        gm::wire::codec::writeValue(_buf, obj.message_number);
     }
 
     template<>
-    inline gm_structs::SteamNetworkingMessagesMessage readValue<gm_structs::SteamNetworkingMessagesMessage>(gm::byteio::BufferReader& _buf)
+    inline gm_structs::SteamNetworkingMessagesReceived readValue<gm_structs::SteamNetworkingMessagesReceived>(gm::byteio::BufferReader& _buf)
     {
-        gm_structs::SteamNetworkingMessagesMessage obj;
+        gm_structs::SteamNetworkingMessagesReceived obj;
+        obj.ok = gm::wire::codec::readValue<bool>(_buf);
         obj.steam_id_remote = gm::wire::codec::readValue<std::uint64_t>(_buf);
         obj.channel = gm::wire::codec::readValue<std::int32_t>(_buf);
-        obj.size = gm::wire::codec::readValue<std::uint32_t>(_buf);
-        obj.data = gm::wire::codec::readValue<std::string>(_buf);
+        obj.bytes_written = gm::wire::codec::readValue<std::uint32_t>(_buf);
         obj.send_flags = gm::wire::codec::readValue<std::int32_t>(_buf);
-        obj.message_number = gm::wire::codec::readValue<std::int64_t>(_buf);
         return obj;
     }
 
@@ -5278,26 +5273,22 @@ namespace gm::wire::codec
     }
 
     template<>
-    inline void writeValue<gm_structs::SteamNetworkingSocketsMessage>(gm::byteio::IByteWriter& _buf, const gm_structs::SteamNetworkingSocketsMessage& obj)
+    inline void writeValue<gm_structs::SteamNetworkingSocketsReceived>(gm::byteio::IByteWriter& _buf, const gm_structs::SteamNetworkingSocketsReceived& obj)
     {
+        gm::wire::codec::writeValue(_buf, obj.ok);
         gm::wire::codec::writeValue(_buf, obj.conn);
-        gm::wire::codec::writeValue(_buf, obj.size);
-        gm::wire::codec::writeValue(_buf, obj.data);
+        gm::wire::codec::writeValue(_buf, obj.bytes_written);
         gm::wire::codec::writeValue(_buf, obj.flags);
-        gm::wire::codec::writeValue(_buf, obj.message_number);
-        gm::wire::codec::writeValue(_buf, obj.identity_peer);
     }
 
     template<>
-    inline gm_structs::SteamNetworkingSocketsMessage readValue<gm_structs::SteamNetworkingSocketsMessage>(gm::byteio::BufferReader& _buf)
+    inline gm_structs::SteamNetworkingSocketsReceived readValue<gm_structs::SteamNetworkingSocketsReceived>(gm::byteio::BufferReader& _buf)
     {
-        gm_structs::SteamNetworkingSocketsMessage obj;
+        gm_structs::SteamNetworkingSocketsReceived obj;
+        obj.ok = gm::wire::codec::readValue<bool>(_buf);
         obj.conn = gm::wire::codec::readValue<std::uint32_t>(_buf);
-        obj.size = gm::wire::codec::readValue<std::uint32_t>(_buf);
-        obj.data = gm::wire::codec::readValue<std::string>(_buf);
+        obj.bytes_written = gm::wire::codec::readValue<std::uint32_t>(_buf);
         obj.flags = gm::wire::codec::readValue<std::int32_t>(_buf);
-        obj.message_number = gm::wire::codec::readValue<std::int64_t>(_buf);
-        obj.identity_peer = gm::wire::codec::readValue<std::uint64_t>(_buf);
         return obj;
     }
 
@@ -6380,7 +6371,7 @@ namespace gm::wire::details
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamNetworkingMessagesMessage>
+    struct gm_struct_traits<gm_structs::SteamNetworkingMessagesReceived>
     {
         static constexpr bool is_gm_struct = true;
         static constexpr std::uint32_t codec_id = 136;
@@ -6394,7 +6385,7 @@ namespace gm::wire::details
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamNetworkingSocketsMessage>
+    struct gm_struct_traits<gm_structs::SteamNetworkingSocketsReceived>
     {
         static constexpr bool is_gm_struct = true;
         static constexpr std::uint32_t codec_id = 138;
@@ -7032,7 +7023,7 @@ void steam_networking_messages_clear_callback_session_request();
 void steam_networking_messages_set_callback_session_failed(const gm::wire::GMFunction& callback);
 void steam_networking_messages_clear_callback_session_failed();
 std::int32_t steam_networking_messages_send_message_to_user(std::uint64_t steam_id_remote, gm::wire::GMBuffer data, std::uint32_t bytes, std::int32_t send_flags, std::int32_t remote_channel);
-std::vector<gm_structs::SteamNetworkingMessagesMessage> steam_networking_messages_receive_messages_on_channel(std::int32_t local_channel, std::int32_t max_messages);
+gm_structs::SteamNetworkingMessagesReceived steam_networking_messages_receive_one_on_channel(std::int32_t local_channel, gm::wire::GMBuffer out_data, std::uint32_t max_bytes, std::uint32_t offset);
 bool steam_networking_messages_accept_session_with_user(std::uint64_t steam_id_remote);
 bool steam_networking_messages_close_session_with_user(std::uint64_t steam_id_remote);
 bool steam_networking_messages_close_channel_with_user(std::uint64_t steam_id_remote, std::int32_t local_channel);
@@ -7049,7 +7040,7 @@ void steam_networking_sockets_set_connection_name(std::uint32_t conn, std::strin
 std::string steam_networking_sockets_get_connection_name(std::uint32_t conn);
 std::int32_t steam_networking_sockets_send_message_to_connection(std::uint32_t conn, gm::wire::GMBuffer data, std::uint32_t bytes, gm_enums::SteamNetworkingSendFlags send_flags);
 gm_enums::SteamApiResult steam_networking_sockets_flush_messages_on_connection(std::uint32_t conn);
-std::vector<gm_structs::SteamNetworkingSocketsMessage> steam_networking_sockets_receive_messages_on_connection(std::uint32_t conn, std::int32_t max_messages);
+gm_structs::SteamNetworkingSocketsReceived steam_networking_sockets_receive_one_on_connection(std::uint32_t conn, gm::wire::GMBuffer out_data, std::uint32_t max_bytes, std::uint32_t offset);
 std::optional<gm_structs::SteamNetworkingSocketsConnectionInfo> steam_networking_sockets_get_connection_info(std::uint32_t conn);
 std::string steam_networking_sockets_get_detailed_connection_status(std::uint32_t conn);
 void steam_networking_sockets_run_callbacks();
@@ -7060,7 +7051,7 @@ std::string steam_networking_sockets_get_listen_socket_address(std::uint32_t lis
 std::uint32_t steam_networking_sockets_create_poll_group();
 bool steam_networking_sockets_destroy_poll_group(std::uint32_t poll_group);
 bool steam_networking_sockets_set_connection_poll_group(std::uint32_t conn, std::uint32_t poll_group);
-std::vector<gm_structs::SteamNetworkingSocketsMessage> steam_networking_sockets_receive_messages_on_poll_group(std::uint32_t poll_group, std::int32_t max_messages);
+gm_structs::SteamNetworkingSocketsReceived steam_networking_sockets_receive_one_on_poll_group(std::uint32_t poll_group, gm::wire::GMBuffer out_data, std::uint32_t max_bytes, std::uint32_t offset);
 void steam_parties_set_callback_reservation_notification(const gm::wire::GMFunction& callback);
 void steam_parties_clear_callback_reservation_notification();
 void steam_parties_set_callback_available_beacon_locations_updated(const gm::wire::GMFunction& callback);

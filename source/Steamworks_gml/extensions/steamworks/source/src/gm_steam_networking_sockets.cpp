@@ -235,42 +235,51 @@ gm_enums::SteamApiResult steam_networking_sockets_flush_messages_on_connection(s
     return static_cast<gm_enums::SteamApiResult>((int)s->FlushMessagesOnConnection((HSteamNetConnection)conn));
 }
 
-std::vector<gm_structs::SteamNetworkingSocketsMessage> steam_networking_sockets_receive_messages_on_connection(
-    std::uint32_t conn,
-    std::int32_t max_messages)
+gm_structs::SteamNetworkingSocketsReceived steam_networking_sockets_receive_one_on_connection(std::uint32_t conn,
+                                                                                             gm::wire::GMBuffer out_data,
+                                                                                             std::uint32_t max_bytes,
+                                                                                             std::uint32_t offset)
 {
-    std::vector<gm_structs::SteamNetworkingSocketsMessage> result;
+    gm_structs::SteamNetworkingSocketsReceived out{};
+    out.ok = false;
+    out.conn = conn;
+    out.bytes_written = 0;
+    out.flags = 0;
 
-    STEAM_GUARD_RET(result);
+    STEAM_GUARD_RET(out);
 
     ISteamNetworkingSockets* s = steam_networking_sockets_iface();
-    if (!s) return result;
+    if (!s) return out;
 
-    if (max_messages <= 0) return result;
+    if (max_bytes == 0) return out;
 
-    std::vector<SteamNetworkingMessage_t*> msgs(static_cast<size_t>(max_messages), nullptr);
-    int n = s->ReceiveMessagesOnConnection((HSteamNetConnection)conn, msgs.data(), max_messages);
-    if (n <= 0) return result;
+    SteamNetworkingMessage_t* msg = nullptr;
+    int n = s->ReceiveMessagesOnConnection((HSteamNetConnection)conn, &msg, 1);
+    if (n <= 0 || !msg) return out;
 
-    result.reserve(static_cast<size_t>(n));
-    for (int i = 0; i < n; ++i)
-    {
-        SteamNetworkingMessage_t* msg = msgs[static_cast<size_t>(i)];
-        if (!msg) continue;
+    const uint32 cb = (uint32)msg->m_cbSize;
+    const std::uint64_t buf_len = out_data.length();
 
-        gm_structs::SteamNetworkingSocketsMessage m{};
-        m.conn            = (std::uint32_t)msg->m_conn;
-        m.size            = (std::uint32_t)msg->m_cbSize;
-        m.data            = std::string((const char*)msg->m_pData, (size_t)msg->m_cbSize);
-        m.flags           = (std::int32_t)msg->m_nFlags;
-        m.message_number  = (std::int64_t)msg->m_nMessageNumber;
-        m.identity_peer   = (std::uint64_t)msg->m_identityPeer.GetSteamID64();
-
+    // The whole message must fit in the caller's window AND the real buffer at offset.
+    // Do not truncate (silent data loss) and never let the wire cursor overflow/abort.
+    if ((std::uint64_t)offset > buf_len || cb > max_bytes ||
+        (std::uint64_t)offset + cb > buf_len) {
+        steam_set_last_error("steam_networking_sockets_receive_one_on_connection: output buffer too small for incoming message.");
         msg->Release();
-        result.push_back(std::move(m));
+        return out;
     }
 
-    return result;
+    auto w = out_data.getWriter();
+    w.skip(offset);
+    w.writeBytes((const char*)msg->m_pData, (int)cb);
+
+    out.ok = true;
+    out.bytes_written = cb;
+    out.flags = (std::int32_t)msg->m_nFlags;
+    out.conn = (std::uint32_t)msg->m_conn;
+
+    msg->Release();
+    return out;
 }
 
 std::optional<gm_structs::SteamNetworkingSocketsConnectionInfo> steam_networking_sockets_get_connection_info(std::uint32_t conn)
@@ -401,37 +410,50 @@ bool steam_networking_sockets_set_connection_poll_group(std::uint32_t conn, std:
     return s->SetConnectionPollGroup((HSteamNetConnection)conn, (HSteamNetPollGroup)poll_group);
 }
 
-std::vector<gm_structs::SteamNetworkingSocketsMessage> steam_networking_sockets_receive_messages_on_poll_group(
+gm_structs::SteamNetworkingSocketsReceived steam_networking_sockets_receive_one_on_poll_group(
     std::uint32_t poll_group,
-    std::int32_t max_messages)
+    gm::wire::GMBuffer out_data,
+    std::uint32_t max_bytes,
+    std::uint32_t offset)
 {
-    STEAM_GUARD_RET({});
+    gm_structs::SteamNetworkingSocketsReceived out{};
+    out.ok = false;
+    out.bytes_written = 0;
+    out.flags = 0;
+
+    STEAM_GUARD_RET(out);
 
     ISteamNetworkingSockets* s = steam_networking_sockets_iface();
-    if (!s) return {};
+    if (!s) return out;
 
-    const int clamp = std::max(1, std::min(max_messages, 256));
-    std::vector<SteamNetworkingMessage_t*> raw((size_t)clamp, nullptr);
+    if (max_bytes == 0) return out;
 
-    const int n = s->ReceiveMessagesOnPollGroup((HSteamNetPollGroup)poll_group, raw.data(), clamp);
-    if (n <= 0)
-        return {};
+    SteamNetworkingMessage_t* msg = nullptr;
 
-    std::vector<gm_structs::SteamNetworkingSocketsMessage> result;
-    result.reserve((size_t)n);
-    for (int i = 0; i < n; ++i) {
-        SteamNetworkingMessage_t* msg = raw[(size_t)i];
-        if (!msg) continue;
-        gm_structs::SteamNetworkingSocketsMessage m{};
-        m.conn = (std::uint32_t)msg->m_conn;
-        m.size = (std::uint32_t)msg->m_cbSize;
-        m.data = std::string((const char*)msg->m_pData, (size_t)msg->m_cbSize);
-        m.flags = (std::int32_t)msg->m_nFlags;
-        m.message_number = (std::int64_t)msg->m_nMessageNumber;
-        m.identity_peer = (std::uint64_t)msg->m_identityPeer.GetSteamID64();
+    const int n = s->ReceiveMessagesOnPollGroup((HSteamNetPollGroup)poll_group, &msg, 1);
+    if (n <= 0 || !msg)
+        return out;
+
+    const uint32 cb = (uint32)msg->m_cbSize;
+    const std::uint64_t buf_len = out_data.length();
+
+    if ((std::uint64_t)offset > buf_len || cb > max_bytes ||
+        (std::uint64_t)offset + cb > buf_len) {
+        steam_set_last_error("steam_networking_sockets_receive_one_on_poll_group: output buffer too small for incoming message.");
         msg->Release();
-        result.push_back(std::move(m));
+        return out;
     }
-    return result;
+
+    auto w = out_data.getWriter();
+    w.skip(offset);
+    w.writeBytes((const char*)msg->m_pData, (int)cb);
+
+    out.ok = true;
+    out.bytes_written = cb;
+    out.flags = (std::int32_t)msg->m_nFlags;
+    out.conn = (std::uint32_t)msg->m_conn;
+
+    msg->Release();
+    return out;
 }
 

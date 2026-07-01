@@ -3,16 +3,16 @@ event_inherited();
 
 var buff = buffer_create(128,buffer_fixed,1)
 
-var data_size = steam_net_messages_receive_on_channel(0,buff,128)
+var _data = steam_networking_messages_receive_one_on_channel(0,buff,128,0)
 
-if(data_size)
+if(_data.bytes_written)
 {
-	show_debug_message($"Last Id: {steam_net_messages_get_last_steam_id()} - size: {steam_net_messages_get_last_size()}")
+	show_debug_message(_data)
 	
 	var Color = buffer_read(buff, buffer_u32);
 	var X = buffer_read(buff, buffer_u16);
 	var Y = buffer_read(buff, buffer_u16);
-	var ins = instance_create_depth(X,Y,0,Obj_Steam_Networking_Circle)
+	var ins = instance_create_depth(X,Y,0,obj_steam_networking_circle)
 	ins.image_blend = Color
 }
 
