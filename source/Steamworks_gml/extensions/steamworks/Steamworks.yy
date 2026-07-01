@@ -3110,6 +3110,39 @@
         },
         {
           "$GMExtensionFunction": "",
+          "%Name": "__steam_user_set_callback_validate_auth_ticket_response",
+          "argCount": 2,
+          "args": [
+            1,
+            2
+          ],
+          "documentation": "@param {Pointer} _arg_buffer\r\n@param {Real} _arg_buffer_length\r\n@returns {Real}",
+          "externalName": "__EXT_NATIVE__steam_user_set_callback_validate_auth_ticket_response",
+          "help": "",
+          "hidden": true,
+          "kind": 4,
+          "name": "__steam_user_set_callback_validate_auth_ticket_response",
+          "resourceType": "GMExtensionFunction",
+          "resourceVersion": "2.0",
+          "returnType": 2
+        },
+        {
+          "$GMExtensionFunction": "",
+          "%Name": "steam_user_clear_callback_validate_auth_ticket_response",
+          "argCount": 0,
+          "args": [],
+          "documentation": "@returns {Real}",
+          "externalName": "__EXT_NATIVE__steam_user_clear_callback_validate_auth_ticket_response",
+          "help": "",
+          "hidden": false,
+          "kind": 4,
+          "name": "steam_user_clear_callback_validate_auth_ticket_response",
+          "resourceType": "GMExtensionFunction",
+          "resourceVersion": "2.0",
+          "returnType": 2
+        },
+        {
+          "$GMExtensionFunction": "",
           "%Name": "steam_utils_overlay_needs_present",
           "argCount": 0,
           "args": [],
@@ -6264,39 +6297,6 @@
         },
         {
           "$GMExtensionFunction": "",
-          "%Name": "__steam_input_set_callback_action_set_changed",
-          "argCount": 2,
-          "args": [
-            1,
-            2
-          ],
-          "documentation": "@param {Pointer} _arg_buffer\r\n@param {Real} _arg_buffer_length\r\n@returns {Real}",
-          "externalName": "__EXT_NATIVE__steam_input_set_callback_action_set_changed",
-          "help": "",
-          "hidden": true,
-          "kind": 4,
-          "name": "__steam_input_set_callback_action_set_changed",
-          "resourceType": "GMExtensionFunction",
-          "resourceVersion": "2.0",
-          "returnType": 2
-        },
-        {
-          "$GMExtensionFunction": "",
-          "%Name": "steam_input_clear_callback_action_set_changed",
-          "argCount": 0,
-          "args": [],
-          "documentation": "@returns {Real}",
-          "externalName": "__EXT_NATIVE__steam_input_clear_callback_action_set_changed",
-          "help": "",
-          "hidden": false,
-          "kind": 4,
-          "name": "steam_input_clear_callback_action_set_changed",
-          "resourceType": "GMExtensionFunction",
-          "resourceVersion": "2.0",
-          "returnType": 2
-        },
-        {
-          "$GMExtensionFunction": "",
           "%Name": "steam_userstats_get_stat_int",
           "argCount": 1,
           "args": [
@@ -7183,6 +7183,72 @@
           "hidden": false,
           "kind": 4,
           "name": "steam_userstats_clear_callback_user_achievement_stored",
+          "resourceType": "GMExtensionFunction",
+          "resourceVersion": "2.0",
+          "returnType": 2
+        },
+        {
+          "$GMExtensionFunction": "",
+          "%Name": "__steam_userstats_set_callback_user_achievement_icon_fetched",
+          "argCount": 2,
+          "args": [
+            1,
+            2
+          ],
+          "documentation": "@param {Pointer} _arg_buffer\r\n@param {Real} _arg_buffer_length\r\n@returns {Real}",
+          "externalName": "__EXT_NATIVE__steam_userstats_set_callback_user_achievement_icon_fetched",
+          "help": "",
+          "hidden": true,
+          "kind": 4,
+          "name": "__steam_userstats_set_callback_user_achievement_icon_fetched",
+          "resourceType": "GMExtensionFunction",
+          "resourceVersion": "2.0",
+          "returnType": 2
+        },
+        {
+          "$GMExtensionFunction": "",
+          "%Name": "steam_userstats_clear_callback_user_achievement_icon_fetched",
+          "argCount": 0,
+          "args": [],
+          "documentation": "@returns {Real}",
+          "externalName": "__EXT_NATIVE__steam_userstats_clear_callback_user_achievement_icon_fetched",
+          "help": "",
+          "hidden": false,
+          "kind": 4,
+          "name": "steam_userstats_clear_callback_user_achievement_icon_fetched",
+          "resourceType": "GMExtensionFunction",
+          "resourceVersion": "2.0",
+          "returnType": 2
+        },
+        {
+          "$GMExtensionFunction": "",
+          "%Name": "__steam_userstats_set_callback_user_stats_unloaded",
+          "argCount": 2,
+          "args": [
+            1,
+            2
+          ],
+          "documentation": "@param {Pointer} _arg_buffer\r\n@param {Real} _arg_buffer_length\r\n@returns {Real}",
+          "externalName": "__EXT_NATIVE__steam_userstats_set_callback_user_stats_unloaded",
+          "help": "",
+          "hidden": true,
+          "kind": 4,
+          "name": "__steam_userstats_set_callback_user_stats_unloaded",
+          "resourceType": "GMExtensionFunction",
+          "resourceVersion": "2.0",
+          "returnType": 2
+        },
+        {
+          "$GMExtensionFunction": "",
+          "%Name": "steam_userstats_clear_callback_user_stats_unloaded",
+          "argCount": 0,
+          "args": [],
+          "documentation": "@returns {Real}",
+          "externalName": "__EXT_NATIVE__steam_userstats_clear_callback_user_stats_unloaded",
+          "help": "",
+          "hidden": false,
+          "kind": 4,
+          "name": "steam_userstats_clear_callback_user_stats_unloaded",
           "resourceType": "GMExtensionFunction",
           "resourceVersion": "2.0",
           "returnType": 2

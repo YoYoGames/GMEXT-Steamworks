@@ -37,7 +37,7 @@ static inline gm_structs::SteamNetworkingSocketsConnectionInfo sn_fromNative(con
 {
     gm_structs::SteamNetworkingSocketsConnectionInfo out{};
     out.user_data = (std::uint64_t)info.m_nUserData;
-    out.end_reason = static_cast<gm_enums::SteamNetConnectionEnd>((int)info.m_eEndReason);
+    out.end_reason = static_cast<gm_enums::SteamNetworkingConnectionEnd>((int)info.m_eEndReason);
     out.end_debug = info.m_szEndDebug ? info.m_szEndDebug : "";
     out.connection_description = info.m_szConnectionDescription ? info.m_szConnectionDescription : "";
     out.flags = (std::int32_t)info.m_nFlags;

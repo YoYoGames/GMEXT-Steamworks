@@ -407,6 +407,23 @@ gm_structs::SteamUgcQueryResult steam_ugc_get_query_ugc_result(std::uint64_t que
     out.tags_truncated = (d.m_bTagsTruncated != 0);
     out.tags = d.m_rgchTags;
 
+    out.result = static_cast<gm_enums::SteamApiResult>((int)d.m_eResult);
+    out.file_type = static_cast<gm_enums::SteamWorkshopFileType>((int)d.m_eFileType);
+    out.creator_app_id = (std::uint32_t)d.m_nCreatorAppID;
+    out.consumer_app_id = (std::uint32_t)d.m_nConsumerAppID;
+    out.time_added_to_user_list = (std::uint32_t)d.m_rtimeAddedToUserList;
+    out.handle_file = (std::uint64_t)d.m_hFile;
+    out.handle_preview_file = (std::uint64_t)d.m_hPreviewFile;
+    out.file_name = d.m_pchFileName;
+    out.file_size = (std::int32_t)d.m_nFileSize;
+    out.preview_file_size = (std::int32_t)d.m_nPreviewFileSize;
+    out.url = d.m_rgchURL;
+    out.votes_up = (std::uint32_t)d.m_unVotesUp;
+    out.votes_down = (std::uint32_t)d.m_unVotesDown;
+    out.score = d.m_flScore;
+    out.num_children = (std::uint32_t)d.m_unNumChildren;
+    out.total_files_size = (std::uint64_t)d.m_ulTotalFilesSize;
+
     out.ok = true;
     return out;
 }
@@ -1237,6 +1254,71 @@ static inline gm_structs::SteamUgcDeleteItemResult ugc_fromNative(const DeleteIt
     return out;
 }
 
+static inline gm_structs::SteamUgcAddAppDependencyResult ugc_fromNative(const AddAppDependencyResult_t& e)
+{
+    gm_structs::SteamUgcAddAppDependencyResult out{};
+    out.result = static_cast<gm_enums::SteamApiResult>((int)e.m_eResult);
+    out.published_file_id = (std::uint64_t)e.m_nPublishedFileId;
+    out.app_id = (std::uint32_t)e.m_nAppID;
+    return out;
+}
+
+static inline gm_structs::SteamUgcRemoveAppDependencyResult ugc_fromNative(const RemoveAppDependencyResult_t& e)
+{
+    gm_structs::SteamUgcRemoveAppDependencyResult out{};
+    out.result = static_cast<gm_enums::SteamApiResult>((int)e.m_eResult);
+    out.published_file_id = (std::uint64_t)e.m_nPublishedFileId;
+    out.app_id = (std::uint32_t)e.m_nAppID;
+    return out;
+}
+
+static inline gm_structs::SteamUgcAddUGCDependencyResult ugc_fromNative(const AddUGCDependencyResult_t& e)
+{
+    gm_structs::SteamUgcAddUGCDependencyResult out{};
+    out.result = static_cast<gm_enums::SteamApiResult>((int)e.m_eResult);
+    out.published_file_id = (std::uint64_t)e.m_nPublishedFileId;
+    out.child_published_file_id = (std::uint64_t)e.m_nChildPublishedFileId;
+    return out;
+}
+
+static inline gm_structs::SteamUgcRemoveUGCDependencyResult ugc_fromNative(const RemoveUGCDependencyResult_t& e)
+{
+    gm_structs::SteamUgcRemoveUGCDependencyResult out{};
+    out.result = static_cast<gm_enums::SteamApiResult>((int)e.m_eResult);
+    out.published_file_id = (std::uint64_t)e.m_nPublishedFileId;
+    out.child_published_file_id = (std::uint64_t)e.m_nChildPublishedFileId;
+    return out;
+}
+
+static inline gm_structs::SteamUgcGetAppDependenciesResult ugc_fromNative(const GetAppDependenciesResult_t& e)
+{
+    gm_structs::SteamUgcGetAppDependenciesResult out{};
+    out.result = static_cast<gm_enums::SteamApiResult>((int)e.m_eResult);
+    out.published_file_id = (std::uint64_t)e.m_nPublishedFileId;
+    out.num_app_dependencies = (std::uint32_t)e.m_nNumAppDependencies;
+    out.total_num_app_dependencies = (std::uint32_t)e.m_nTotalNumAppDependencies;
+
+    const uint32 n = std::min<uint32>(e.m_nNumAppDependencies, (uint32)(sizeof(e.m_rgAppIDs) / sizeof(e.m_rgAppIDs[0])));
+    out.app_ids.reserve((size_t)n);
+    for (uint32 i = 0; i < n; ++i)
+        out.app_ids.push_back((std::uint32_t)e.m_rgAppIDs[(size_t)i]);
+    return out;
+}
+
+static inline gm_structs::SteamUgcStartPlaytimeTrackingResult ugc_fromNative(const StartPlaytimeTrackingResult_t& e)
+{
+    gm_structs::SteamUgcStartPlaytimeTrackingResult out{};
+    out.result = static_cast<gm_enums::SteamApiResult>((int)e.m_eResult);
+    return out;
+}
+
+static inline gm_structs::SteamUgcStopPlaytimeTrackingResult ugc_fromNative(const StopPlaytimeTrackingResult_t& e)
+{
+    gm_structs::SteamUgcStopPlaytimeTrackingResult out{};
+    out.result = static_cast<gm_enums::SteamApiResult>((int)e.m_eResult);
+    return out;
+}
+
 void steam_ugc_send_query_ugc_request(std::uint64_t query_handle,  const gm::wire::GMFunction& callback)
 {
     STEAM_GUARD();
@@ -1422,7 +1504,7 @@ void steam_ugc_add_app_dependency(std::uint64_t published_file_id, std::uint32_t
     if (!ugc) return;
 
     SteamAPICall_t call = ugc->AddAppDependency((PublishedFileId_t)published_file_id, (AppId_t)app_id);
-    auto* h = new steam_async::CallResultNoPayload<AddAppDependencyResult_t>(callback);
+    auto* h = new steam_async::CallResult<gm_structs::SteamUgcAddAppDependencyResult, AddAppDependencyResult_t>(callback, &ugc_fromNative);
     h->set(call);
 }
 
@@ -1434,7 +1516,7 @@ void steam_ugc_remove_app_dependency(std::uint64_t published_file_id, std::uint3
     if (!ugc) return;
 
     SteamAPICall_t call = ugc->RemoveAppDependency((PublishedFileId_t)published_file_id, (AppId_t)app_id);
-    auto* h = new steam_async::CallResultNoPayload<RemoveAppDependencyResult_t>(callback);
+    auto* h = new steam_async::CallResult<gm_structs::SteamUgcRemoveAppDependencyResult, RemoveAppDependencyResult_t>(callback, &ugc_fromNative);
     h->set(call);
 }
 
@@ -1446,7 +1528,7 @@ void steam_ugc_add_dependency(std::uint64_t parent_published_file_id, std::uint6
     if (!ugc) return;
 
     SteamAPICall_t call = ugc->AddDependency((PublishedFileId_t)parent_published_file_id, (PublishedFileId_t)child_published_file_id);
-    auto* h = new steam_async::CallResultNoPayload<AddUGCDependencyResult_t>(callback);
+    auto* h = new steam_async::CallResult<gm_structs::SteamUgcAddUGCDependencyResult, AddUGCDependencyResult_t>(callback, &ugc_fromNative);
     h->set(call);
 }
 
@@ -1458,7 +1540,7 @@ void steam_ugc_remove_dependency(std::uint64_t parent_published_file_id, std::ui
     if (!ugc) return;
 
     SteamAPICall_t call = ugc->RemoveDependency((PublishedFileId_t)parent_published_file_id, (PublishedFileId_t)child_published_file_id);
-    auto* h = new steam_async::CallResultNoPayload<RemoveUGCDependencyResult_t>(callback);
+    auto* h = new steam_async::CallResult<gm_structs::SteamUgcRemoveUGCDependencyResult, RemoveUGCDependencyResult_t>(callback, &ugc_fromNative);
     h->set(call);
 }
 
@@ -1470,7 +1552,7 @@ void steam_ugc_get_app_dependencies(std::uint64_t published_file_id,  const gm::
     if (!ugc) return;
 
     SteamAPICall_t call = ugc->GetAppDependencies((PublishedFileId_t)published_file_id);
-    auto* h = new steam_async::CallResultNoPayload<GetAppDependenciesResult_t>(callback);
+    auto* h = new steam_async::CallResult<gm_structs::SteamUgcGetAppDependenciesResult, GetAppDependenciesResult_t>(callback, &ugc_fromNative);
     h->set(call);
 }
 
@@ -1491,7 +1573,7 @@ void steam_ugc_start_playtime_tracking(const std::vector<std::uint64_t>& publish
         ids.push_back((PublishedFileId_t)published_file_ids[(size_t)i]);
 
     SteamAPICall_t call = ugc->StartPlaytimeTracking(ids.data(), n);
-    auto* h = new steam_async::CallResultNoPayload<StartPlaytimeTrackingResult_t>(callback);
+    auto* h = new steam_async::CallResult<gm_structs::SteamUgcStartPlaytimeTrackingResult, StartPlaytimeTrackingResult_t>(callback, &ugc_fromNative);
     h->set(call);
 }
 
@@ -1513,7 +1595,7 @@ void steam_ugc_stop_playtime_tracking(const std::vector<std::uint64_t>& publishe
         ids.push_back((PublishedFileId_t)published_file_ids[(size_t)i]);
 
     SteamAPICall_t call = ugc->StopPlaytimeTracking(ids.data(), n);
-    auto* h = new steam_async::CallResultNoPayload<StopPlaytimeTrackingResult_t>(callback);
+    auto* h = new steam_async::CallResult<gm_structs::SteamUgcStopPlaytimeTrackingResult, StopPlaytimeTrackingResult_t>(callback, &ugc_fromNative);
     h->set(call);
 }
 
@@ -1525,7 +1607,7 @@ void steam_ugc_stop_playtime_tracking_for_all_items( const gm::wire::GMFunction&
     if (!ugc) return;
 
     SteamAPICall_t call = ugc->StopPlaytimeTrackingForAllItems();
-    auto* h = new steam_async::CallResultNoPayload<StopPlaytimeTrackingResult_t>(callback);
+    auto* h = new steam_async::CallResult<gm_structs::SteamUgcStopPlaytimeTrackingResult, StopPlaytimeTrackingResult_t>(callback, &ugc_fromNative);
     h->set(call);
 }
 

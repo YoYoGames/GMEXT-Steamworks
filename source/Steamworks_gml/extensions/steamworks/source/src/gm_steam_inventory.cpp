@@ -892,13 +892,6 @@ static inline SteamInventoryFullUpdate fromNative(const SteamInventoryFullUpdate
     return out;
 }
 
-static inline SteamInventoryDefinitionUpdate fromNative(const SteamInventoryDefinitionUpdate_t&)
-{
-    SteamInventoryDefinitionUpdate out{};
-    out.dummy = 0;
-    return out;
-}
-
 class SteamInventory_Callbacks
 {
 public:
@@ -955,7 +948,7 @@ void SteamInventory_Callbacks::OnDefinitionUpdate(SteamInventoryDefinitionUpdate
         cb = g_cb_definition_update;
     }
     if (cb)
-        cb.call(fromNative(*p));
+        cb.call();
 }
 
 static SteamInventory_Callbacks g_inventory_callbacks;

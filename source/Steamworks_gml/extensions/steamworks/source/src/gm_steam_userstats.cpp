@@ -616,12 +616,12 @@ gm_structs::SteamUserStatsFloatMinMax steam_userstats_achievement_progress_float
 }
 
 
-static inline gm_structs::SteamUserStatsRequestUserStatsResult userstats_fromNative(const UserStatsReceived_t& e)
+static inline gm_structs::SteamUserStatsUserStatsReceived userstats_fromNative(const UserStatsReceived_t& e)
 {
-    gm_structs::SteamUserStatsRequestUserStatsResult out{};
+    gm_structs::SteamUserStatsUserStatsReceived out{};
     out.game_id = (std::uint64_t)e.m_nGameID;
     out.steam_id_user = (std::uint64_t)e.m_steamIDUser.ConvertToUint64();
-    out.result = (int32)e.m_eResult;
+    out.result = static_cast<gm_enums::SteamApiResult>((int)e.m_eResult);
     return out;
 }
 
@@ -695,7 +695,7 @@ void steam_userstats_request_user_stats(std::uint64_t steam_id_user,  const gm::
     if (!s) return;
 
     SteamAPICall_t call = s->RequestUserStats(steam_id_from_u64(steam_id_user));
-    auto* h = new steam_async::CallResult<gm_structs::SteamUserStatsRequestUserStatsResult, UserStatsReceived_t>(callback, &userstats_fromNative);
+    auto* h = new steam_async::CallResult<gm_structs::SteamUserStatsUserStatsReceived, UserStatsReceived_t>(callback, &userstats_fromNative);
     h->set(call);
 }
 
@@ -873,6 +873,8 @@ static std::mutex g_callbacks_mtx;
 static gm::wire::GMFunction g_cb_user_stats_received = nullptr;
 static gm::wire::GMFunction g_cb_user_stats_stored = nullptr;
 static gm::wire::GMFunction g_cb_user_achievement_stored = nullptr;
+static gm::wire::GMFunction g_cb_user_achievement_icon_fetched = nullptr;
+static gm::wire::GMFunction g_cb_user_stats_unloaded = nullptr;
 
 static inline gm_structs::SteamUserStatsUserStatsReceived userstats_persist_fromNative_received(const UserStatsReceived_t& e)
 {
@@ -901,12 +903,31 @@ static inline gm_structs::SteamUserStatsUserAchievementStored userstats_persist_
     return out;
 }
 
+static inline gm_structs::SteamUserStatsAchievementIconFetched userstats_persist_fromNative_icon_fetched(const UserAchievementIconFetched_t& e)
+{
+    gm_structs::SteamUserStatsAchievementIconFetched out{};
+    out.game_id = (std::uint64_t)e.m_nGameID.ToUint64();
+    out.achievement_name = e.m_rgchAchievementName;
+    out.achieved = (e.m_bAchieved != 0);
+    out.icon_handle = (std::int32_t)e.m_nIconHandle;
+    return out;
+}
+
+static inline gm_structs::SteamUserStatsUnloaded userstats_persist_fromNative_unloaded(const UserStatsUnloaded_t& e)
+{
+    gm_structs::SteamUserStatsUnloaded out{};
+    out.steam_id_user = (std::uint64_t)e.m_steamIDUser.ConvertToUint64();
+    return out;
+}
+
 class SteamUserStats_PersistentCallbacks
 {
 public:
     STEAM_CALLBACK(SteamUserStats_PersistentCallbacks, OnUserStatsReceived, UserStatsReceived_t);
     STEAM_CALLBACK(SteamUserStats_PersistentCallbacks, OnUserStatsStored, UserStatsStored_t);
     STEAM_CALLBACK(SteamUserStats_PersistentCallbacks, OnUserAchievementStored, UserAchievementStored_t);
+    STEAM_CALLBACK(SteamUserStats_PersistentCallbacks, OnUserAchievementIconFetched, UserAchievementIconFetched_t);
+    STEAM_CALLBACK(SteamUserStats_PersistentCallbacks, OnUserStatsUnloaded, UserStatsUnloaded_t);
 };
 
 void SteamUserStats_PersistentCallbacks::OnUserStatsReceived(UserStatsReceived_t* p)
@@ -943,6 +964,30 @@ void SteamUserStats_PersistentCallbacks::OnUserAchievementStored(UserAchievement
     }
     if (cb)
         cb.call(userstats_persist_fromNative_achievement(*p));
+}
+
+void SteamUserStats_PersistentCallbacks::OnUserAchievementIconFetched(UserAchievementIconFetched_t* p)
+{
+    if (!p) return;
+    gm::wire::GMFunction cb;
+    {
+        std::lock_guard<std::mutex> lock(g_callbacks_mtx);
+        cb = g_cb_user_achievement_icon_fetched;
+    }
+    if (cb)
+        cb.call(userstats_persist_fromNative_icon_fetched(*p));
+}
+
+void SteamUserStats_PersistentCallbacks::OnUserStatsUnloaded(UserStatsUnloaded_t* p)
+{
+    if (!p) return;
+    gm::wire::GMFunction cb;
+    {
+        std::lock_guard<std::mutex> lock(g_callbacks_mtx);
+        cb = g_cb_user_stats_unloaded;
+    }
+    if (cb)
+        cb.call(userstats_persist_fromNative_unloaded(*p));
 }
 
 static SteamUserStats_PersistentCallbacks g_userstats_persistent_callbacks;
@@ -987,5 +1032,33 @@ void steam_userstats_clear_callback_user_achievement_stored()
     steam_clear_last_error();
     std::lock_guard<std::mutex> lock(g_callbacks_mtx);
     g_cb_user_achievement_stored = nullptr;
+}
+
+void steam_userstats_set_callback_user_achievement_icon_fetched( const gm::wire::GMFunction& callback)
+{
+    steam_clear_last_error();
+    std::lock_guard<std::mutex> lock(g_callbacks_mtx);
+    g_cb_user_achievement_icon_fetched = callback;
+}
+
+void steam_userstats_clear_callback_user_achievement_icon_fetched()
+{
+    steam_clear_last_error();
+    std::lock_guard<std::mutex> lock(g_callbacks_mtx);
+    g_cb_user_achievement_icon_fetched = nullptr;
+}
+
+void steam_userstats_set_callback_user_stats_unloaded( const gm::wire::GMFunction& callback)
+{
+    steam_clear_last_error();
+    std::lock_guard<std::mutex> lock(g_callbacks_mtx);
+    g_cb_user_stats_unloaded = callback;
+}
+
+void steam_userstats_clear_callback_user_stats_unloaded()
+{
+    steam_clear_last_error();
+    std::lock_guard<std::mutex> lock(g_callbacks_mtx);
+    g_cb_user_stats_unloaded = nullptr;
 }
 

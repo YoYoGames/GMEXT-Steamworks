@@ -46,7 +46,7 @@ static inline gm_structs::SteamNetworkingMessagesSessionFailed snm_fromNative(co
 {
     gm_structs::SteamNetworkingMessagesSessionFailed out{};
     out.steam_id_remote = (std::uint64_t)e.m_info.m_identityRemote.GetSteamID64();
-    out.end_reason = static_cast<gm_enums::SteamNetConnectionEnd>((int)e.m_info.m_eEndReason);
+    out.end_reason = static_cast<gm_enums::SteamNetworkingConnectionEnd>((int)e.m_info.m_eEndReason);
     out.debug_msg = e.m_info.m_szEndDebug ? e.m_info.m_szEndDebug : "";
     return out;
 }
