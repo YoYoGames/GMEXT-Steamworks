@@ -1778,6 +1778,7 @@ function SteamFriendsClanActivityCounts() constructor
      */
     static __uid = 3710411397;
 
+    self.ok = undefined;
     self.online = undefined;
     self.in_game = undefined;
     self.chatting = undefined;
@@ -1812,6 +1813,7 @@ function SteamFriendsFriendGamePlayed() constructor
      */
     static __uid = 2300734433;
 
+    self.ok = undefined;
     self.game_id = undefined;
     self.game_ip_v4 = undefined;
     self.game_port = undefined;
@@ -1960,6 +1962,7 @@ function SteamAppsDlcData() constructor
      */
     static __uid = 549140660;
 
+    self.ok = undefined;
     self.app_id = undefined;
     self.available = undefined;
     self.name = undefined;
@@ -1979,22 +1982,6 @@ function SteamAppsIsTimedTrialResult() constructor
 
     self.seconds_allowed = undefined;
     self.seconds_played = undefined;
-
-}
-
-/**
- * @returns {Struct.SteamAppsInstallDir} 
- */
-function SteamAppsInstallDir() constructor
-{
-    /**
-     * Internally generated hash for quick validation
-     * @ignore 
-     */
-    static __uid = 319641229;
-
-    self.bytes_copied = undefined;
-    self.path = undefined;
 
 }
 
@@ -2026,6 +2013,7 @@ function SteamAppsBetaInfo() constructor
      */
     static __uid = 3058170853;
 
+    self.ok = undefined;
     self.flags = undefined;
     self.build_id = undefined;
     self.beta_name = undefined;
@@ -2044,24 +2032,9 @@ function SteamAppsDlcDownloadProgress() constructor
      */
     static __uid = 1492980319;
 
+    self.ok = undefined;
     self.bytes_downloaded = undefined;
     self.bytes_total = undefined;
-
-}
-
-/**
- * @returns {Struct.SteamAppsLaunchCommandLine} 
- */
-function SteamAppsLaunchCommandLine() constructor
-{
-    /**
-     * Internally generated hash for quick validation
-     * @ignore 
-     */
-    static __uid = 2567012291;
-
-    self.bytes_copied = undefined;
-    self.command_line = undefined;
 
 }
 
@@ -2470,6 +2443,7 @@ function SteamUtilsImageSize() constructor
      */
     static __uid = 2079072888;
 
+    self.ok = undefined;
     self.width = undefined;
     self.height = undefined;
 
@@ -2486,6 +2460,7 @@ function SteamUtilsFilterTextResult() constructor
      */
     static __uid = 1816154716;
 
+    self.ok = undefined;
     self.characters_filtered = undefined;
     self.filtered_text = undefined;
 
@@ -2549,6 +2524,7 @@ function SteamUgcItemDownloadInfo() constructor
      */
     static __uid = 3002068827;
 
+    self.ok = undefined;
     self.bytes_downloaded = undefined;
     self.bytes_total = undefined;
 
@@ -2565,6 +2541,7 @@ function SteamUgcItemInstallInfo() constructor
      */
     static __uid = 3611113442;
 
+    self.ok = undefined;
     self.size_on_disk = undefined;
     self.folder = undefined;
     self.timestamp = undefined;
@@ -2599,6 +2576,7 @@ function SteamUgcQueryResult() constructor
      */
     static __uid = 2158147385;
 
+    self.ok = undefined;
     self.published_file_id = undefined;
     self.title = undefined;
     self.description = undefined;
@@ -2623,6 +2601,7 @@ function SteamUgcAdditionalPreview() constructor
      */
     static __uid = 3322980683;
 
+    self.ok = undefined;
     self.url_or_video_id = undefined;
     self.preview_type = undefined;
 
@@ -2639,6 +2618,7 @@ function SteamUgcKeyValueTag() constructor
      */
     static __uid = 2267694496;
 
+    self.ok = undefined;
     self.key = undefined;
     self.value = undefined;
 
@@ -2840,6 +2820,7 @@ function SteamUgcSupportedGameVersionData() constructor
      */
     static __uid = 2501994908;
 
+    self.ok = undefined;
     self.game_branch_min = undefined;
     self.game_branch_max = undefined;
 
@@ -2977,6 +2958,7 @@ function SteamInputDeviceBindingRevision() constructor
      */
     static __uid = 4021434149;
 
+    self.ok = undefined;
     self.major = undefined;
     self.minor = undefined;
 
@@ -3089,6 +3071,7 @@ function SteamUserStatsMostAchievedAchievementInfo() constructor
      */
     static __uid = 4144113084;
 
+    self.ok = undefined;
     self.name = undefined;
     self.percent = undefined;
     self.achieved = undefined;
@@ -3122,6 +3105,7 @@ function SteamUserStatsDownloadedLeaderboardEntry() constructor
      */
     static __uid = 4102278799;
 
+    self.ok = undefined;
     self.steam_id_user = undefined;
     self.global_rank = undefined;
     self.score = undefined;
@@ -3325,6 +3309,7 @@ function SteamUserStatsIntMinMax() constructor
      */
     static __uid = 3033978254;
 
+    self.ok = undefined;
     self.min = undefined;
     self.max = undefined;
 
@@ -3341,6 +3326,7 @@ function SteamUserStatsFloatMinMax() constructor
      */
     static __uid = 3060986917;
 
+    self.ok = undefined;
     self.min = undefined;
     self.max = undefined;
 
@@ -3471,6 +3457,7 @@ function SteamInventoryResultItems() constructor
      */
     static __uid = 4004490304;
 
+    self.ok = undefined;
     self.count = undefined;
     self.item_instance_ids = undefined;
     self.item_def_ids = undefined;
@@ -3490,6 +3477,7 @@ function SteamInventoryDeserializeResult() constructor
      */
     static __uid = 1416794353;
 
+    self.ok = undefined;
     self.result_handle = undefined;
     self.status = undefined;
 
@@ -3506,6 +3494,7 @@ function SteamInventoryItemPrice() constructor
      */
     static __uid = 1342449503;
 
+    self.ok = undefined;
     self.current_price = undefined;
     self.base_price = undefined;
 
@@ -3601,6 +3590,7 @@ function SteamRemoteStorageFileNameAndSize() constructor
      */
     static __uid = 2152397209;
 
+    self.ok = undefined;
     self.file_name = undefined;
     self.file_size = undefined;
 
@@ -3617,6 +3607,7 @@ function SteamRemoteStorageQuota() constructor
      */
     static __uid = 1951566378;
 
+    self.ok = undefined;
     self.total_bytes = undefined;
     self.available_bytes = undefined;
 
@@ -3633,6 +3624,7 @@ function SteamRemoteStorageUgcDetails() constructor
      */
     static __uid = 448591303;
 
+    self.ok = undefined;
     self.ugc_handle = undefined;
     self.app_id = undefined;
     self.size_in_bytes = undefined;
@@ -3953,6 +3945,7 @@ function SteamMatchmakingLobbyChatEntry() constructor
      */
     static __uid = 3831783599;
 
+    self.ok = undefined;
     self.bytes = undefined;
     self.sender_id = undefined;
     self.entry_type = undefined;
@@ -3970,6 +3963,7 @@ function SteamMatchmakingLobbyGameServer() constructor
      */
     static __uid = 2967224418;
 
+    self.ok = undefined;
     self.ip = undefined;
     self.port = undefined;
     self.steam_id_gs = undefined;
@@ -4081,6 +4075,7 @@ function SteamPartiesAvailableBeaconLocations() constructor
      */
     static __uid = 1478496452;
 
+    self.ok = undefined;
     self.count = undefined;
     self.location_types = undefined;
     self.location_ids = undefined;
@@ -4163,6 +4158,7 @@ function SteamPartiesBeaconDetails() constructor
      */
     static __uid = 253007317;
 
+    self.ok = undefined;
     self.beacon_owner_steam_id = undefined;
     self.location_type = undefined;
     self.location_id = undefined;
@@ -4688,6 +4684,10 @@ function __SteamFriendsClanActivityCounts_encode(_inst, _buffer, _offset, _where
     buffer_seek(_buffer, buffer_seek_start, _offset);
     with (_inst)
     {
+        // field: ok, type: Bool
+        if (!is_bool(self.ok)) show_error($"{_where} :: self.ok expected bool", true);
+        buffer_write(_buffer, buffer_bool, self.ok);
+
         // field: online, type: Int32
         if (!is_numeric(self.online)) show_error($"{_where} :: self.online expected number", true);
         buffer_write(_buffer, buffer_s32, self.online);
@@ -4717,6 +4717,9 @@ function __SteamFriendsClanActivityCounts_decode(_buffer, _offset)
     _inst = new SteamFriendsClanActivityCounts();
     with (_inst)
     {
+        // field: ok, type: Bool
+        self.ok = buffer_read(_buffer, buffer_bool);
+
         // field: online, type: Int32
         self.online = buffer_read(_buffer, buffer_s32);
 
@@ -4803,6 +4806,10 @@ function __SteamFriendsFriendGamePlayed_encode(_inst, _buffer, _offset, _where =
     buffer_seek(_buffer, buffer_seek_start, _offset);
     with (_inst)
     {
+        // field: ok, type: Bool
+        if (!is_bool(self.ok)) show_error($"{_where} :: self.ok expected bool", true);
+        buffer_write(_buffer, buffer_bool, self.ok);
+
         // field: game_id, type: UInt64
         if (!is_numeric(self.game_id)) show_error($"{_where} :: self.game_id expected number", true);
         buffer_write(_buffer, buffer_u64, self.game_id);
@@ -4840,6 +4847,9 @@ function __SteamFriendsFriendGamePlayed_decode(_buffer, _offset)
     _inst = new SteamFriendsFriendGamePlayed();
     with (_inst)
     {
+        // field: ok, type: Bool
+        self.ok = buffer_read(_buffer, buffer_bool);
+
         // field: game_id, type: UInt64
         self.game_id = buffer_read(_buffer, buffer_u64);
 
@@ -5284,6 +5294,10 @@ function __SteamAppsDlcData_encode(_inst, _buffer, _offset, _where = _GMFUNCTION
     buffer_seek(_buffer, buffer_seek_start, _offset);
     with (_inst)
     {
+        // field: ok, type: Bool
+        if (!is_bool(self.ok)) show_error($"{_where} :: self.ok expected bool", true);
+        buffer_write(_buffer, buffer_bool, self.ok);
+
         // field: app_id, type: UInt32
         if (!is_numeric(self.app_id)) show_error($"{_where} :: self.app_id expected number", true);
         buffer_write(_buffer, buffer_u32, self.app_id);
@@ -5314,6 +5328,9 @@ function __SteamAppsDlcData_decode(_buffer, _offset)
     _inst = new SteamAppsDlcData();
     with (_inst)
     {
+        // field: ok, type: Bool
+        self.ok = buffer_read(_buffer, buffer_bool);
+
         // field: app_id, type: UInt32
         self.app_id = buffer_read(_buffer, buffer_u32);
 
@@ -5372,57 +5389,6 @@ function __SteamAppsIsTimedTrialResult_decode(_buffer, _offset)
 
         // field: seconds_played, type: UInt32
         self.seconds_played = buffer_read(_buffer, buffer_u32);
-
-    }
-
-    return _inst;
-}
-
-/**
- * @func __SteamAppsInstallDir_encode(_inst, _buffer, _offset, _where)
- * @param {Struct.SteamAppsInstallDir} _inst
- * @param {Id.Buffer} _buffer
- * @param {Real} _offset
- * @param {String} _where
- * @ignore 
- */
-function __SteamAppsInstallDir_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
-{
-    buffer_seek(_buffer, buffer_seek_start, _offset);
-    with (_inst)
-    {
-        // field: bytes_copied, type: UInt32
-        if (!is_numeric(self.bytes_copied)) show_error($"{_where} :: self.bytes_copied expected number", true);
-        buffer_write(_buffer, buffer_u32, self.bytes_copied);
-
-        // field: path, type: String
-        if (!is_string(self.path)) show_error($"{_where} :: self.path expected string", true);
-        buffer_write(_buffer, buffer_u32, string_byte_length(self.path));
-        buffer_write(_buffer, buffer_string, self.path);
-
-    }
-}
-
-/**
- * @func __SteamAppsInstallDir_decode(_buffer, _offset)
- * @param {Id.Buffer} _buffer
- * @param {Real} _offset
- * @returns {Struct.SteamAppsInstallDir} 
- * @ignore 
- */
-function __SteamAppsInstallDir_decode(_buffer, _offset)
-{
-    buffer_seek(_buffer, buffer_seek_start, _offset);
-
-    _inst = new SteamAppsInstallDir();
-    with (_inst)
-    {
-        // field: bytes_copied, type: UInt32
-        self.bytes_copied = buffer_read(_buffer, buffer_u32);
-
-        // field: path, type: String
-        buffer_read(_buffer, buffer_u32);
-        self.path = buffer_read(_buffer, buffer_string);
 
     }
 
@@ -5498,6 +5464,10 @@ function __SteamAppsBetaInfo_encode(_inst, _buffer, _offset, _where = _GMFUNCTIO
     buffer_seek(_buffer, buffer_seek_start, _offset);
     with (_inst)
     {
+        // field: ok, type: Bool
+        if (!is_bool(self.ok)) show_error($"{_where} :: self.ok expected bool", true);
+        buffer_write(_buffer, buffer_bool, self.ok);
+
         // field: flags, type: UInt32
         if (!is_numeric(self.flags)) show_error($"{_where} :: self.flags expected number", true);
         buffer_write(_buffer, buffer_u32, self.flags);
@@ -5533,6 +5503,9 @@ function __SteamAppsBetaInfo_decode(_buffer, _offset)
     _inst = new SteamAppsBetaInfo();
     with (_inst)
     {
+        // field: ok, type: Bool
+        self.ok = buffer_read(_buffer, buffer_bool);
+
         // field: flags, type: UInt32
         self.flags = buffer_read(_buffer, buffer_u32);
 
@@ -5565,6 +5538,10 @@ function __SteamAppsDlcDownloadProgress_encode(_inst, _buffer, _offset, _where =
     buffer_seek(_buffer, buffer_seek_start, _offset);
     with (_inst)
     {
+        // field: ok, type: Bool
+        if (!is_bool(self.ok)) show_error($"{_where} :: self.ok expected bool", true);
+        buffer_write(_buffer, buffer_bool, self.ok);
+
         // field: bytes_downloaded, type: UInt64
         if (!is_numeric(self.bytes_downloaded)) show_error($"{_where} :: self.bytes_downloaded expected number", true);
         buffer_write(_buffer, buffer_u64, self.bytes_downloaded);
@@ -5590,62 +5567,14 @@ function __SteamAppsDlcDownloadProgress_decode(_buffer, _offset)
     _inst = new SteamAppsDlcDownloadProgress();
     with (_inst)
     {
+        // field: ok, type: Bool
+        self.ok = buffer_read(_buffer, buffer_bool);
+
         // field: bytes_downloaded, type: UInt64
         self.bytes_downloaded = buffer_read(_buffer, buffer_u64);
 
         // field: bytes_total, type: UInt64
         self.bytes_total = buffer_read(_buffer, buffer_u64);
-
-    }
-
-    return _inst;
-}
-
-/**
- * @func __SteamAppsLaunchCommandLine_encode(_inst, _buffer, _offset, _where)
- * @param {Struct.SteamAppsLaunchCommandLine} _inst
- * @param {Id.Buffer} _buffer
- * @param {Real} _offset
- * @param {String} _where
- * @ignore 
- */
-function __SteamAppsLaunchCommandLine_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
-{
-    buffer_seek(_buffer, buffer_seek_start, _offset);
-    with (_inst)
-    {
-        // field: bytes_copied, type: Int32
-        if (!is_numeric(self.bytes_copied)) show_error($"{_where} :: self.bytes_copied expected number", true);
-        buffer_write(_buffer, buffer_s32, self.bytes_copied);
-
-        // field: command_line, type: String
-        if (!is_string(self.command_line)) show_error($"{_where} :: self.command_line expected string", true);
-        buffer_write(_buffer, buffer_u32, string_byte_length(self.command_line));
-        buffer_write(_buffer, buffer_string, self.command_line);
-
-    }
-}
-
-/**
- * @func __SteamAppsLaunchCommandLine_decode(_buffer, _offset)
- * @param {Id.Buffer} _buffer
- * @param {Real} _offset
- * @returns {Struct.SteamAppsLaunchCommandLine} 
- * @ignore 
- */
-function __SteamAppsLaunchCommandLine_decode(_buffer, _offset)
-{
-    buffer_seek(_buffer, buffer_seek_start, _offset);
-
-    _inst = new SteamAppsLaunchCommandLine();
-    with (_inst)
-    {
-        // field: bytes_copied, type: Int32
-        self.bytes_copied = buffer_read(_buffer, buffer_s32);
-
-        // field: command_line, type: String
-        buffer_read(_buffer, buffer_u32);
-        self.command_line = buffer_read(_buffer, buffer_string);
 
     }
 
@@ -6933,6 +6862,10 @@ function __SteamUtilsImageSize_encode(_inst, _buffer, _offset, _where = _GMFUNCT
     buffer_seek(_buffer, buffer_seek_start, _offset);
     with (_inst)
     {
+        // field: ok, type: Bool
+        if (!is_bool(self.ok)) show_error($"{_where} :: self.ok expected bool", true);
+        buffer_write(_buffer, buffer_bool, self.ok);
+
         // field: width, type: UInt32
         if (!is_numeric(self.width)) show_error($"{_where} :: self.width expected number", true);
         buffer_write(_buffer, buffer_u32, self.width);
@@ -6958,6 +6891,9 @@ function __SteamUtilsImageSize_decode(_buffer, _offset)
     _inst = new SteamUtilsImageSize();
     with (_inst)
     {
+        // field: ok, type: Bool
+        self.ok = buffer_read(_buffer, buffer_bool);
+
         // field: width, type: UInt32
         self.width = buffer_read(_buffer, buffer_u32);
 
@@ -6982,6 +6918,10 @@ function __SteamUtilsFilterTextResult_encode(_inst, _buffer, _offset, _where = _
     buffer_seek(_buffer, buffer_seek_start, _offset);
     with (_inst)
     {
+        // field: ok, type: Bool
+        if (!is_bool(self.ok)) show_error($"{_where} :: self.ok expected bool", true);
+        buffer_write(_buffer, buffer_bool, self.ok);
+
         // field: characters_filtered, type: Int32
         if (!is_numeric(self.characters_filtered)) show_error($"{_where} :: self.characters_filtered expected number", true);
         buffer_write(_buffer, buffer_s32, self.characters_filtered);
@@ -7008,6 +6948,9 @@ function __SteamUtilsFilterTextResult_decode(_buffer, _offset)
     _inst = new SteamUtilsFilterTextResult();
     with (_inst)
     {
+        // field: ok, type: Bool
+        self.ok = buffer_read(_buffer, buffer_bool);
+
         // field: characters_filtered, type: Int32
         self.characters_filtered = buffer_read(_buffer, buffer_s32);
 
@@ -7175,6 +7118,10 @@ function __SteamUgcItemDownloadInfo_encode(_inst, _buffer, _offset, _where = _GM
     buffer_seek(_buffer, buffer_seek_start, _offset);
     with (_inst)
     {
+        // field: ok, type: Bool
+        if (!is_bool(self.ok)) show_error($"{_where} :: self.ok expected bool", true);
+        buffer_write(_buffer, buffer_bool, self.ok);
+
         // field: bytes_downloaded, type: UInt64
         if (!is_numeric(self.bytes_downloaded)) show_error($"{_where} :: self.bytes_downloaded expected number", true);
         buffer_write(_buffer, buffer_u64, self.bytes_downloaded);
@@ -7200,6 +7147,9 @@ function __SteamUgcItemDownloadInfo_decode(_buffer, _offset)
     _inst = new SteamUgcItemDownloadInfo();
     with (_inst)
     {
+        // field: ok, type: Bool
+        self.ok = buffer_read(_buffer, buffer_bool);
+
         // field: bytes_downloaded, type: UInt64
         self.bytes_downloaded = buffer_read(_buffer, buffer_u64);
 
@@ -7224,6 +7174,10 @@ function __SteamUgcItemInstallInfo_encode(_inst, _buffer, _offset, _where = _GMF
     buffer_seek(_buffer, buffer_seek_start, _offset);
     with (_inst)
     {
+        // field: ok, type: Bool
+        if (!is_bool(self.ok)) show_error($"{_where} :: self.ok expected bool", true);
+        buffer_write(_buffer, buffer_bool, self.ok);
+
         // field: size_on_disk, type: UInt64
         if (!is_numeric(self.size_on_disk)) show_error($"{_where} :: self.size_on_disk expected number", true);
         buffer_write(_buffer, buffer_u64, self.size_on_disk);
@@ -7254,6 +7208,9 @@ function __SteamUgcItemInstallInfo_decode(_buffer, _offset)
     _inst = new SteamUgcItemInstallInfo();
     with (_inst)
     {
+        // field: ok, type: Bool
+        self.ok = buffer_read(_buffer, buffer_bool);
+
         // field: size_on_disk, type: UInt64
         self.size_on_disk = buffer_read(_buffer, buffer_u64);
 
@@ -7339,6 +7296,10 @@ function __SteamUgcQueryResult_encode(_inst, _buffer, _offset, _where = _GMFUNCT
     buffer_seek(_buffer, buffer_seek_start, _offset);
     with (_inst)
     {
+        // field: ok, type: Bool
+        if (!is_bool(self.ok)) show_error($"{_where} :: self.ok expected bool", true);
+        buffer_write(_buffer, buffer_bool, self.ok);
+
         // field: published_file_id, type: UInt64
         if (!is_numeric(self.published_file_id)) show_error($"{_where} :: self.published_file_id expected number", true);
         buffer_write(_buffer, buffer_u64, self.published_file_id);
@@ -7400,6 +7361,9 @@ function __SteamUgcQueryResult_decode(_buffer, _offset)
     _inst = new SteamUgcQueryResult();
     with (_inst)
     {
+        // field: ok, type: Bool
+        self.ok = buffer_read(_buffer, buffer_bool);
+
         // field: published_file_id, type: UInt64
         self.published_file_id = buffer_read(_buffer, buffer_u64);
 
@@ -7451,6 +7415,10 @@ function __SteamUgcAdditionalPreview_encode(_inst, _buffer, _offset, _where = _G
     buffer_seek(_buffer, buffer_seek_start, _offset);
     with (_inst)
     {
+        // field: ok, type: Bool
+        if (!is_bool(self.ok)) show_error($"{_where} :: self.ok expected bool", true);
+        buffer_write(_buffer, buffer_bool, self.ok);
+
         // field: url_or_video_id, type: String
         if (!is_string(self.url_or_video_id)) show_error($"{_where} :: self.url_or_video_id expected string", true);
         buffer_write(_buffer, buffer_u32, string_byte_length(self.url_or_video_id));
@@ -7478,6 +7446,9 @@ function __SteamUgcAdditionalPreview_decode(_buffer, _offset)
     _inst = new SteamUgcAdditionalPreview();
     with (_inst)
     {
+        // field: ok, type: Bool
+        self.ok = buffer_read(_buffer, buffer_bool);
+
         // field: url_or_video_id, type: String
         buffer_read(_buffer, buffer_u32);
         self.url_or_video_id = buffer_read(_buffer, buffer_string);
@@ -7503,6 +7474,10 @@ function __SteamUgcKeyValueTag_encode(_inst, _buffer, _offset, _where = _GMFUNCT
     buffer_seek(_buffer, buffer_seek_start, _offset);
     with (_inst)
     {
+        // field: ok, type: Bool
+        if (!is_bool(self.ok)) show_error($"{_where} :: self.ok expected bool", true);
+        buffer_write(_buffer, buffer_bool, self.ok);
+
         // field: key, type: String
         if (!is_string(self.key)) show_error($"{_where} :: self.key expected string", true);
         buffer_write(_buffer, buffer_u32, string_byte_length(self.key));
@@ -7530,6 +7505,9 @@ function __SteamUgcKeyValueTag_decode(_buffer, _offset)
     _inst = new SteamUgcKeyValueTag();
     with (_inst)
     {
+        // field: ok, type: Bool
+        self.ok = buffer_read(_buffer, buffer_bool);
+
         // field: key, type: String
         buffer_read(_buffer, buffer_u32);
         self.key = buffer_read(_buffer, buffer_string);
@@ -8163,6 +8141,10 @@ function __SteamUgcSupportedGameVersionData_encode(_inst, _buffer, _offset, _whe
     buffer_seek(_buffer, buffer_seek_start, _offset);
     with (_inst)
     {
+        // field: ok, type: Bool
+        if (!is_bool(self.ok)) show_error($"{_where} :: self.ok expected bool", true);
+        buffer_write(_buffer, buffer_bool, self.ok);
+
         // field: game_branch_min, type: String
         if (!is_string(self.game_branch_min)) show_error($"{_where} :: self.game_branch_min expected string", true);
         buffer_write(_buffer, buffer_u32, string_byte_length(self.game_branch_min));
@@ -8190,6 +8172,9 @@ function __SteamUgcSupportedGameVersionData_decode(_buffer, _offset)
     _inst = new SteamUgcSupportedGameVersionData();
     with (_inst)
     {
+        // field: ok, type: Bool
+        self.ok = buffer_read(_buffer, buffer_bool);
+
         // field: game_branch_min, type: String
         buffer_read(_buffer, buffer_u32);
         self.game_branch_min = buffer_read(_buffer, buffer_string);
@@ -8648,6 +8633,10 @@ function __SteamInputDeviceBindingRevision_encode(_inst, _buffer, _offset, _wher
     buffer_seek(_buffer, buffer_seek_start, _offset);
     with (_inst)
     {
+        // field: ok, type: Bool
+        if (!is_bool(self.ok)) show_error($"{_where} :: self.ok expected bool", true);
+        buffer_write(_buffer, buffer_bool, self.ok);
+
         // field: major, type: Int32
         if (!is_numeric(self.major)) show_error($"{_where} :: self.major expected number", true);
         buffer_write(_buffer, buffer_s32, self.major);
@@ -8673,6 +8662,9 @@ function __SteamInputDeviceBindingRevision_decode(_buffer, _offset)
     _inst = new SteamInputDeviceBindingRevision();
     with (_inst)
     {
+        // field: ok, type: Bool
+        self.ok = buffer_read(_buffer, buffer_bool);
+
         // field: major, type: Int32
         self.major = buffer_read(_buffer, buffer_s32);
 
@@ -8993,6 +8985,10 @@ function __SteamUserStatsMostAchievedAchievementInfo_encode(_inst, _buffer, _off
     buffer_seek(_buffer, buffer_seek_start, _offset);
     with (_inst)
     {
+        // field: ok, type: Bool
+        if (!is_bool(self.ok)) show_error($"{_where} :: self.ok expected bool", true);
+        buffer_write(_buffer, buffer_bool, self.ok);
+
         // field: name, type: String
         if (!is_string(self.name)) show_error($"{_where} :: self.name expected string", true);
         buffer_write(_buffer, buffer_u32, string_byte_length(self.name));
@@ -9023,6 +9019,9 @@ function __SteamUserStatsMostAchievedAchievementInfo_decode(_buffer, _offset)
     _inst = new SteamUserStatsMostAchievedAchievementInfo();
     with (_inst)
     {
+        // field: ok, type: Bool
+        self.ok = buffer_read(_buffer, buffer_bool);
+
         // field: name, type: String
         buffer_read(_buffer, buffer_u32);
         self.name = buffer_read(_buffer, buffer_string);
@@ -9100,6 +9099,10 @@ function __SteamUserStatsDownloadedLeaderboardEntry_encode(_inst, _buffer, _offs
     buffer_seek(_buffer, buffer_seek_start, _offset);
     with (_inst)
     {
+        // field: ok, type: Bool
+        if (!is_bool(self.ok)) show_error($"{_where} :: self.ok expected bool", true);
+        buffer_write(_buffer, buffer_bool, self.ok);
+
         // field: steam_id_user, type: UInt64
         if (!is_numeric(self.steam_id_user)) show_error($"{_where} :: self.steam_id_user expected number", true);
         buffer_write(_buffer, buffer_u64, self.steam_id_user);
@@ -9139,6 +9142,9 @@ function __SteamUserStatsDownloadedLeaderboardEntry_decode(_buffer, _offset)
     _inst = new SteamUserStatsDownloadedLeaderboardEntry();
     with (_inst)
     {
+        // field: ok, type: Bool
+        self.ok = buffer_read(_buffer, buffer_bool);
+
         // field: steam_id_user, type: UInt64
         self.steam_id_user = buffer_read(_buffer, buffer_u64);
 
@@ -9780,6 +9786,10 @@ function __SteamUserStatsIntMinMax_encode(_inst, _buffer, _offset, _where = _GMF
     buffer_seek(_buffer, buffer_seek_start, _offset);
     with (_inst)
     {
+        // field: ok, type: Bool
+        if (!is_bool(self.ok)) show_error($"{_where} :: self.ok expected bool", true);
+        buffer_write(_buffer, buffer_bool, self.ok);
+
         // field: min, type: Int32
         if (!is_numeric(self.min)) show_error($"{_where} :: self.min expected number", true);
         buffer_write(_buffer, buffer_s32, self.min);
@@ -9805,6 +9815,9 @@ function __SteamUserStatsIntMinMax_decode(_buffer, _offset)
     _inst = new SteamUserStatsIntMinMax();
     with (_inst)
     {
+        // field: ok, type: Bool
+        self.ok = buffer_read(_buffer, buffer_bool);
+
         // field: min, type: Int32
         self.min = buffer_read(_buffer, buffer_s32);
 
@@ -9829,6 +9842,10 @@ function __SteamUserStatsFloatMinMax_encode(_inst, _buffer, _offset, _where = _G
     buffer_seek(_buffer, buffer_seek_start, _offset);
     with (_inst)
     {
+        // field: ok, type: Bool
+        if (!is_bool(self.ok)) show_error($"{_where} :: self.ok expected bool", true);
+        buffer_write(_buffer, buffer_bool, self.ok);
+
         // field: min, type: Float64
         if (!is_numeric(self.min)) show_error($"{_where} :: self.min expected number", true);
         buffer_write(_buffer, buffer_f64, self.min);
@@ -9854,6 +9871,9 @@ function __SteamUserStatsFloatMinMax_decode(_buffer, _offset)
     _inst = new SteamUserStatsFloatMinMax();
     with (_inst)
     {
+        // field: ok, type: Bool
+        self.ok = buffer_read(_buffer, buffer_bool);
+
         // field: min, type: Float64
         self.min = buffer_read(_buffer, buffer_f64);
 
@@ -10238,6 +10258,10 @@ function __SteamInventoryResultItems_encode(_inst, _buffer, _offset, _where = _G
     buffer_seek(_buffer, buffer_seek_start, _offset);
     with (_inst)
     {
+        // field: ok, type: Bool
+        if (!is_bool(self.ok)) show_error($"{_where} :: self.ok expected bool", true);
+        buffer_write(_buffer, buffer_bool, self.ok);
+
         // field: count, type: UInt32
         if (!is_numeric(self.count)) show_error($"{_where} :: self.count expected number", true);
         buffer_write(_buffer, buffer_u32, self.count);
@@ -10299,6 +10323,9 @@ function __SteamInventoryResultItems_decode(_buffer, _offset)
     _inst = new SteamInventoryResultItems();
     with (_inst)
     {
+        // field: ok, type: Bool
+        self.ok = buffer_read(_buffer, buffer_bool);
+
         // field: count, type: UInt32
         self.count = buffer_read(_buffer, buffer_u32);
 
@@ -10352,6 +10379,10 @@ function __SteamInventoryDeserializeResult_encode(_inst, _buffer, _offset, _wher
     buffer_seek(_buffer, buffer_seek_start, _offset);
     with (_inst)
     {
+        // field: ok, type: Bool
+        if (!is_bool(self.ok)) show_error($"{_where} :: self.ok expected bool", true);
+        buffer_write(_buffer, buffer_bool, self.ok);
+
         // field: result_handle, type: Int32
         if (!is_numeric(self.result_handle)) show_error($"{_where} :: self.result_handle expected number", true);
         buffer_write(_buffer, buffer_s32, self.result_handle);
@@ -10378,6 +10409,9 @@ function __SteamInventoryDeserializeResult_decode(_buffer, _offset)
     _inst = new SteamInventoryDeserializeResult();
     with (_inst)
     {
+        // field: ok, type: Bool
+        self.ok = buffer_read(_buffer, buffer_bool);
+
         // field: result_handle, type: Int32
         self.result_handle = buffer_read(_buffer, buffer_s32);
 
@@ -10402,6 +10436,10 @@ function __SteamInventoryItemPrice_encode(_inst, _buffer, _offset, _where = _GMF
     buffer_seek(_buffer, buffer_seek_start, _offset);
     with (_inst)
     {
+        // field: ok, type: Bool
+        if (!is_bool(self.ok)) show_error($"{_where} :: self.ok expected bool", true);
+        buffer_write(_buffer, buffer_bool, self.ok);
+
         // field: current_price, type: UInt64
         if (!is_numeric(self.current_price)) show_error($"{_where} :: self.current_price expected number", true);
         buffer_write(_buffer, buffer_u64, self.current_price);
@@ -10427,6 +10465,9 @@ function __SteamInventoryItemPrice_decode(_buffer, _offset)
     _inst = new SteamInventoryItemPrice();
     with (_inst)
     {
+        // field: ok, type: Bool
+        self.ok = buffer_read(_buffer, buffer_bool);
+
         // field: current_price, type: UInt64
         self.current_price = buffer_read(_buffer, buffer_u64);
 
@@ -10694,6 +10735,10 @@ function __SteamRemoteStorageFileNameAndSize_encode(_inst, _buffer, _offset, _wh
     buffer_seek(_buffer, buffer_seek_start, _offset);
     with (_inst)
     {
+        // field: ok, type: Bool
+        if (!is_bool(self.ok)) show_error($"{_where} :: self.ok expected bool", true);
+        buffer_write(_buffer, buffer_bool, self.ok);
+
         // field: file_name, type: String
         if (!is_string(self.file_name)) show_error($"{_where} :: self.file_name expected string", true);
         buffer_write(_buffer, buffer_u32, string_byte_length(self.file_name));
@@ -10720,6 +10765,9 @@ function __SteamRemoteStorageFileNameAndSize_decode(_buffer, _offset)
     _inst = new SteamRemoteStorageFileNameAndSize();
     with (_inst)
     {
+        // field: ok, type: Bool
+        self.ok = buffer_read(_buffer, buffer_bool);
+
         // field: file_name, type: String
         buffer_read(_buffer, buffer_u32);
         self.file_name = buffer_read(_buffer, buffer_string);
@@ -10745,6 +10793,10 @@ function __SteamRemoteStorageQuota_encode(_inst, _buffer, _offset, _where = _GMF
     buffer_seek(_buffer, buffer_seek_start, _offset);
     with (_inst)
     {
+        // field: ok, type: Bool
+        if (!is_bool(self.ok)) show_error($"{_where} :: self.ok expected bool", true);
+        buffer_write(_buffer, buffer_bool, self.ok);
+
         // field: total_bytes, type: UInt64
         if (!is_numeric(self.total_bytes)) show_error($"{_where} :: self.total_bytes expected number", true);
         buffer_write(_buffer, buffer_u64, self.total_bytes);
@@ -10770,6 +10822,9 @@ function __SteamRemoteStorageQuota_decode(_buffer, _offset)
     _inst = new SteamRemoteStorageQuota();
     with (_inst)
     {
+        // field: ok, type: Bool
+        self.ok = buffer_read(_buffer, buffer_bool);
+
         // field: total_bytes, type: UInt64
         self.total_bytes = buffer_read(_buffer, buffer_u64);
 
@@ -10794,6 +10849,10 @@ function __SteamRemoteStorageUgcDetails_encode(_inst, _buffer, _offset, _where =
     buffer_seek(_buffer, buffer_seek_start, _offset);
     with (_inst)
     {
+        // field: ok, type: Bool
+        if (!is_bool(self.ok)) show_error($"{_where} :: self.ok expected bool", true);
+        buffer_write(_buffer, buffer_bool, self.ok);
+
         // field: ugc_handle, type: UInt64
         if (!is_numeric(self.ugc_handle)) show_error($"{_where} :: self.ugc_handle expected number", true);
         buffer_write(_buffer, buffer_u64, self.ugc_handle);
@@ -10832,6 +10891,9 @@ function __SteamRemoteStorageUgcDetails_decode(_buffer, _offset)
     _inst = new SteamRemoteStorageUgcDetails();
     with (_inst)
     {
+        // field: ok, type: Bool
+        self.ok = buffer_read(_buffer, buffer_bool);
+
         // field: ugc_handle, type: UInt64
         self.ugc_handle = buffer_read(_buffer, buffer_u64);
 
@@ -11853,6 +11915,10 @@ function __SteamMatchmakingLobbyChatEntry_encode(_inst, _buffer, _offset, _where
     buffer_seek(_buffer, buffer_seek_start, _offset);
     with (_inst)
     {
+        // field: ok, type: Bool
+        if (!is_bool(self.ok)) show_error($"{_where} :: self.ok expected bool", true);
+        buffer_write(_buffer, buffer_bool, self.ok);
+
         // field: bytes, type: UInt32
         if (!is_numeric(self.bytes)) show_error($"{_where} :: self.bytes expected number", true);
         buffer_write(_buffer, buffer_u32, self.bytes);
@@ -11883,6 +11949,9 @@ function __SteamMatchmakingLobbyChatEntry_decode(_buffer, _offset)
     _inst = new SteamMatchmakingLobbyChatEntry();
     with (_inst)
     {
+        // field: ok, type: Bool
+        self.ok = buffer_read(_buffer, buffer_bool);
+
         // field: bytes, type: UInt32
         self.bytes = buffer_read(_buffer, buffer_u32);
 
@@ -11910,6 +11979,10 @@ function __SteamMatchmakingLobbyGameServer_encode(_inst, _buffer, _offset, _wher
     buffer_seek(_buffer, buffer_seek_start, _offset);
     with (_inst)
     {
+        // field: ok, type: Bool
+        if (!is_bool(self.ok)) show_error($"{_where} :: self.ok expected bool", true);
+        buffer_write(_buffer, buffer_bool, self.ok);
+
         // field: ip, type: UInt32
         if (!is_numeric(self.ip)) show_error($"{_where} :: self.ip expected number", true);
         buffer_write(_buffer, buffer_u32, self.ip);
@@ -11939,6 +12012,9 @@ function __SteamMatchmakingLobbyGameServer_decode(_buffer, _offset)
     _inst = new SteamMatchmakingLobbyGameServer();
     with (_inst)
     {
+        // field: ok, type: Bool
+        self.ok = buffer_read(_buffer, buffer_bool);
+
         // field: ip, type: UInt32
         self.ip = buffer_read(_buffer, buffer_u32);
 
@@ -12324,6 +12400,10 @@ function __SteamPartiesAvailableBeaconLocations_encode(_inst, _buffer, _offset, 
     buffer_seek(_buffer, buffer_seek_start, _offset);
     with (_inst)
     {
+        // field: ok, type: Bool
+        if (!is_bool(self.ok)) show_error($"{_where} :: self.ok expected bool", true);
+        buffer_write(_buffer, buffer_bool, self.ok);
+
         // field: count, type: UInt32
         if (!is_numeric(self.count)) show_error($"{_where} :: self.count expected number", true);
         buffer_write(_buffer, buffer_u32, self.count);
@@ -12366,6 +12446,9 @@ function __SteamPartiesAvailableBeaconLocations_decode(_buffer, _offset)
     _inst = new SteamPartiesAvailableBeaconLocations();
     with (_inst)
     {
+        // field: ok, type: Bool
+        self.ok = buffer_read(_buffer, buffer_bool);
+
         // field: count, type: UInt32
         self.count = buffer_read(_buffer, buffer_u32);
 
@@ -12610,6 +12693,10 @@ function __SteamPartiesBeaconDetails_encode(_inst, _buffer, _offset, _where = _G
     buffer_seek(_buffer, buffer_seek_start, _offset);
     with (_inst)
     {
+        // field: ok, type: Bool
+        if (!is_bool(self.ok)) show_error($"{_where} :: self.ok expected bool", true);
+        buffer_write(_buffer, buffer_bool, self.ok);
+
         // field: beacon_owner_steam_id, type: UInt64
         if (!is_numeric(self.beacon_owner_steam_id)) show_error($"{_where} :: self.beacon_owner_steam_id expected number", true);
         buffer_write(_buffer, buffer_u64, self.beacon_owner_steam_id);
@@ -12645,6 +12732,9 @@ function __SteamPartiesBeaconDetails_decode(_buffer, _offset)
     _inst = new SteamPartiesBeaconDetails();
     with (_inst)
     {
+        // field: ok, type: Bool
+        self.ok = buffer_read(_buffer, buffer_bool);
+
         // field: beacon_owner_steam_id, type: UInt64
         self.beacon_owner_steam_id = buffer_read(_buffer, buffer_u64);
 
@@ -12971,14 +13061,7 @@ function steam_friends_get_clan_activity_counts(_steam_id_clan)
     var _return_value = __steam_friends_get_clan_activity_counts(buffer_get_address(__args_buffer), buffer_tell(__args_buffer), buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
 
     var _result = undefined;
-    if (buffer_read(__ret_buffer, buffer_bool))
-    {
-        _result = __SteamFriendsClanActivityCounts_decode(__ret_buffer, buffer_tell(__ret_buffer));
-    }
-    else
-    {
-        _result = undefined;
-    }
+    _result = __SteamFriendsClanActivityCounts_decode(__ret_buffer, buffer_tell(__ret_buffer));
     return _result;
 }
 
@@ -13296,14 +13379,7 @@ function steam_friends_get_friend_game_played(_steam_id_friend)
     var _return_value = __steam_friends_get_friend_game_played(buffer_get_address(__args_buffer), buffer_tell(__args_buffer), buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
 
     var _result = undefined;
-    if (buffer_read(__ret_buffer, buffer_bool))
-    {
-        _result = __SteamFriendsFriendGamePlayed_decode(__ret_buffer, buffer_tell(__ret_buffer));
-    }
-    else
-    {
-        _result = undefined;
-    }
+    _result = __SteamFriendsFriendGamePlayed_decode(__ret_buffer, buffer_tell(__ret_buffer));
     return _result;
 }
 
@@ -14019,14 +14095,7 @@ function steam_apps_get_dlc_data_by_index(_dlc)
     var _return_value = __steam_apps_get_dlc_data_by_index(_dlc, buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
 
     var _result = undefined;
-    if (buffer_read(__ret_buffer, buffer_bool))
-    {
-        _result = __SteamAppsDlcData_decode(__ret_buffer, buffer_tell(__ret_buffer));
-    }
-    else
-    {
-        _result = undefined;
-    }
+    _result = __SteamAppsDlcData_decode(__ret_buffer, buffer_tell(__ret_buffer));
     return _result;
 }
 
@@ -14081,20 +14150,8 @@ function steam_apps_is_timed_trial()
 // Skipping function steam_apps_get_app_build_id (no wrapper is required)
 
 
-/**
- * @param {Real} _app_id
- * @returns {Struct.SteamAppsInstallDir} 
- */
-function steam_apps_get_app_install_dir(_app_id)
-{
-    var __ret_buffer = __ext_core_get_ret_buffer();
+// Skipping function steam_apps_get_app_install_dir (no wrapper is required)
 
-    var _return_value = __steam_apps_get_app_install_dir(_app_id, buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
-
-    var _result = undefined;
-    _result = __SteamAppsInstallDir_decode(__ret_buffer, buffer_tell(__ret_buffer));
-    return _result;
-}
 
 /**
  * @returns {Real} 
@@ -14141,14 +14198,7 @@ function steam_apps_get_beta_info(_beta_index)
     var _return_value = __steam_apps_get_beta_info(_beta_index, buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
 
     var _result = undefined;
-    if (buffer_read(__ret_buffer, buffer_bool))
-    {
-        _result = __SteamAppsBetaInfo_decode(__ret_buffer, buffer_tell(__ret_buffer));
-    }
-    else
-    {
-        _result = undefined;
-    }
+    _result = __SteamAppsBetaInfo_decode(__ret_buffer, buffer_tell(__ret_buffer));
     return _result;
 }
 
@@ -14172,14 +14222,7 @@ function steam_apps_get_dlc_download_progress(_app_id)
     var _return_value = __steam_apps_get_dlc_download_progress(_app_id, buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
 
     var _result = undefined;
-    if (buffer_read(__ret_buffer, buffer_bool))
-    {
-        _result = __SteamAppsDlcDownloadProgress_decode(__ret_buffer, buffer_tell(__ret_buffer));
-    }
-    else
-    {
-        _result = undefined;
-    }
+    _result = __SteamAppsDlcDownloadProgress_decode(__ret_buffer, buffer_tell(__ret_buffer));
     return _result;
 }
 
@@ -14259,19 +14302,8 @@ function steam_apps_get_installed_depots(_app_id, _max_depots)
     return _result;
 }
 
-/**
- * @returns {Struct.SteamAppsLaunchCommandLine} 
- */
-function steam_apps_get_launch_command_line()
-{
-    var __ret_buffer = __ext_core_get_ret_buffer();
+// Skipping function steam_apps_get_launch_command_line (no wrapper is required)
 
-    var _return_value = __steam_apps_get_launch_command_line(buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
-
-    var _result = undefined;
-    _result = __SteamAppsLaunchCommandLine_decode(__ret_buffer, buffer_tell(__ret_buffer));
-    return _result;
-}
 
 // Skipping function steam_apps_get_launch_query_param (no wrapper is required)
 
@@ -15370,14 +15402,7 @@ function steam_utils_get_image_size(_image_handle)
     var _return_value = __steam_utils_get_image_size(_image_handle, buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
 
     var _result = undefined;
-    if (buffer_read(__ret_buffer, buffer_bool))
-    {
-        _result = __SteamUtilsImageSize_decode(__ret_buffer, buffer_tell(__ret_buffer));
-    }
-    else
-    {
-        _result = undefined;
-    }
+    _result = __SteamUtilsImageSize_decode(__ret_buffer, buffer_tell(__ret_buffer));
     return _result;
 }
 
@@ -15463,14 +15488,7 @@ function steam_utils_filter_text(_context, _source_steam_id, _input_message)
     var _return_value = __steam_utils_filter_text(buffer_get_address(__args_buffer), buffer_tell(__args_buffer), buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
 
     var _result = undefined;
-    if (buffer_read(__ret_buffer, buffer_bool))
-    {
-        _result = __SteamUtilsFilterTextResult_decode(__ret_buffer, buffer_tell(__ret_buffer));
-    }
-    else
-    {
-        _result = undefined;
-    }
+    _result = __SteamUtilsFilterTextResult_decode(__ret_buffer, buffer_tell(__ret_buffer));
     return _result;
 }
 
@@ -16170,14 +16188,7 @@ function steam_ugc_get_item_download_info(_published_file_id)
     var _return_value = __steam_ugc_get_item_download_info(buffer_get_address(__args_buffer), buffer_tell(__args_buffer), buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
 
     var _result = undefined;
-    if (buffer_read(__ret_buffer, buffer_bool))
-    {
-        _result = __SteamUgcItemDownloadInfo_decode(__ret_buffer, buffer_tell(__ret_buffer));
-    }
-    else
-    {
-        _result = undefined;
-    }
+    _result = __SteamUgcItemDownloadInfo_decode(__ret_buffer, buffer_tell(__ret_buffer));
     return _result;
 }
 
@@ -16198,14 +16209,7 @@ function steam_ugc_get_item_install_info(_published_file_id)
     var _return_value = __steam_ugc_get_item_install_info(buffer_get_address(__args_buffer), buffer_tell(__args_buffer), buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
 
     var _result = undefined;
-    if (buffer_read(__ret_buffer, buffer_bool))
-    {
-        _result = __SteamUgcItemInstallInfo_decode(__ret_buffer, buffer_tell(__ret_buffer));
-    }
-    else
-    {
-        _result = undefined;
-    }
+    _result = __SteamUgcItemInstallInfo_decode(__ret_buffer, buffer_tell(__ret_buffer));
     return _result;
 }
 
@@ -16297,14 +16301,7 @@ function steam_ugc_get_query_ugc_result(_query_handle, _index)
     var _return_value = __steam_ugc_get_query_ugc_result(buffer_get_address(__args_buffer), buffer_tell(__args_buffer), buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
 
     var _result = undefined;
-    if (buffer_read(__ret_buffer, buffer_bool))
-    {
-        _result = __SteamUgcQueryResult_decode(__ret_buffer, buffer_tell(__ret_buffer));
-    }
-    else
-    {
-        _result = undefined;
-    }
+    _result = __SteamUgcQueryResult_decode(__ret_buffer, buffer_tell(__ret_buffer));
     return _result;
 }
 
@@ -16475,14 +16472,7 @@ function steam_ugc_get_query_ugc_additional_preview(_query_handle, _index, _prev
     var _return_value = __steam_ugc_get_query_ugc_additional_preview(buffer_get_address(__args_buffer), buffer_tell(__args_buffer), buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
 
     var _result = undefined;
-    if (buffer_read(__ret_buffer, buffer_bool))
-    {
-        _result = __SteamUgcAdditionalPreview_decode(__ret_buffer, buffer_tell(__ret_buffer));
-    }
-    else
-    {
-        _result = undefined;
-    }
+    _result = __SteamUgcAdditionalPreview_decode(__ret_buffer, buffer_tell(__ret_buffer));
     return _result;
 }
 
@@ -16513,14 +16503,7 @@ function steam_ugc_get_supported_game_version_data(_query_handle, _index, _versi
     var _return_value = __steam_ugc_get_supported_game_version_data(buffer_get_address(__args_buffer), buffer_tell(__args_buffer), buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
 
     var _result = undefined;
-    if (buffer_read(__ret_buffer, buffer_bool))
-    {
-        _result = __SteamUgcSupportedGameVersionData_decode(__ret_buffer, buffer_tell(__ret_buffer));
-    }
-    else
-    {
-        _result = undefined;
-    }
+    _result = __SteamUgcSupportedGameVersionData_decode(__ret_buffer, buffer_tell(__ret_buffer));
     return _result;
 }
 
@@ -16573,14 +16556,7 @@ function steam_ugc_get_query_ugc_key_value_tag(_query_handle, _index, _key_value
     var _return_value = __steam_ugc_get_query_ugc_key_value_tag(buffer_get_address(__args_buffer), buffer_tell(__args_buffer), buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
 
     var _result = undefined;
-    if (buffer_read(__ret_buffer, buffer_bool))
-    {
-        _result = __SteamUgcKeyValueTag_decode(__ret_buffer, buffer_tell(__ret_buffer));
-    }
-    else
-    {
-        _result = undefined;
-    }
+    _result = __SteamUgcKeyValueTag_decode(__ret_buffer, buffer_tell(__ret_buffer));
     return _result;
 }
 
@@ -18537,14 +18513,7 @@ function steam_input_get_device_binding_revision(_input_handle)
     var _return_value = __steam_input_get_device_binding_revision(buffer_get_address(__args_buffer), buffer_tell(__args_buffer), buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
 
     var _result = undefined;
-    if (buffer_read(__ret_buffer, buffer_bool))
-    {
-        _result = __SteamInputDeviceBindingRevision_decode(__ret_buffer, buffer_tell(__ret_buffer));
-    }
-    else
-    {
-        _result = undefined;
-    }
+    _result = __SteamInputDeviceBindingRevision_decode(__ret_buffer, buffer_tell(__ret_buffer));
     return _result;
 }
 
@@ -19073,14 +19042,7 @@ function steam_userstats_downloaded_leaderboard_entry(_leaderboard_entries_handl
     var _return_value = __steam_userstats_downloaded_leaderboard_entry(buffer_get_address(__args_buffer), buffer_tell(__args_buffer), buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
 
     var _result = undefined;
-    if (buffer_read(__ret_buffer, buffer_bool))
-    {
-        _result = __SteamUserStatsDownloadedLeaderboardEntry_decode(__ret_buffer, buffer_tell(__ret_buffer));
-    }
-    else
-    {
-        _result = undefined;
-    }
+    _result = __SteamUserStatsDownloadedLeaderboardEntry_decode(__ret_buffer, buffer_tell(__ret_buffer));
     return _result;
 }
 
@@ -19207,14 +19169,7 @@ function steam_userstats_most_achieved_achievement_info()
     var _return_value = __steam_userstats_most_achieved_achievement_info(buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
 
     var _result = undefined;
-    if (buffer_read(__ret_buffer, buffer_bool))
-    {
-        _result = __SteamUserStatsMostAchievedAchievementInfo_decode(__ret_buffer, buffer_tell(__ret_buffer));
-    }
-    else
-    {
-        _result = undefined;
-    }
+    _result = __SteamUserStatsMostAchievedAchievementInfo_decode(__ret_buffer, buffer_tell(__ret_buffer));
     return _result;
 }
 
@@ -19229,14 +19184,7 @@ function steam_userstats_next_most_achieved_achievement_info(_iterator_prev)
     var _return_value = __steam_userstats_next_most_achieved_achievement_info(_iterator_prev, buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
 
     var _result = undefined;
-    if (buffer_read(__ret_buffer, buffer_bool))
-    {
-        _result = __SteamUserStatsMostAchievedAchievementInfo_decode(__ret_buffer, buffer_tell(__ret_buffer));
-    }
-    else
-    {
-        _result = undefined;
-    }
+    _result = __SteamUserStatsMostAchievedAchievementInfo_decode(__ret_buffer, buffer_tell(__ret_buffer));
     return _result;
 }
 
@@ -19341,14 +19289,7 @@ function steam_userstats_achievement_progress_int(_achievement_name, _cur_progre
     var _return_value = __steam_userstats_achievement_progress_int(buffer_get_address(__args_buffer), buffer_tell(__args_buffer), buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
 
     var _result = undefined;
-    if (buffer_read(__ret_buffer, buffer_bool))
-    {
-        _result = __SteamUserStatsIntMinMax_decode(__ret_buffer, buffer_tell(__ret_buffer));
-    }
-    else
-    {
-        _result = undefined;
-    }
+    _result = __SteamUserStatsIntMinMax_decode(__ret_buffer, buffer_tell(__ret_buffer));
     return _result;
 }
 
@@ -19380,14 +19321,7 @@ function steam_userstats_achievement_progress_float(_achievement_name, _cur_prog
     var _return_value = __steam_userstats_achievement_progress_float(buffer_get_address(__args_buffer), buffer_tell(__args_buffer), buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
 
     var _result = undefined;
-    if (buffer_read(__ret_buffer, buffer_bool))
-    {
-        _result = __SteamUserStatsFloatMinMax_decode(__ret_buffer, buffer_tell(__ret_buffer));
-    }
-    else
-    {
-        _result = undefined;
-    }
+    _result = __SteamUserStatsFloatMinMax_decode(__ret_buffer, buffer_tell(__ret_buffer));
     return _result;
 }
 
@@ -20048,14 +19982,7 @@ function steam_inventory_deserialize_result(_data, _data_size)
     var _return_value = __steam_inventory_deserialize_result(buffer_get_address(__args_buffer), buffer_tell(__args_buffer), buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
 
     var _result = undefined;
-    if (buffer_read(__ret_buffer, buffer_bool))
-    {
-        _result = __SteamInventoryDeserializeResult_decode(__ret_buffer, buffer_tell(__ret_buffer));
-    }
-    else
-    {
-        _result = undefined;
-    }
+    _result = __SteamInventoryDeserializeResult_decode(__ret_buffer, buffer_tell(__ret_buffer));
     return _result;
 }
 
@@ -20149,14 +20076,7 @@ function steam_inventory_get_result_items(_result_handle)
     var _return_value = __steam_inventory_get_result_items(_result_handle, buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
 
     var _result = undefined;
-    if (buffer_read(__ret_buffer, buffer_bool))
-    {
-        _result = __SteamInventoryResultItems_decode(__ret_buffer, buffer_tell(__ret_buffer));
-    }
-    else
-    {
-        _result = undefined;
-    }
+    _result = __SteamInventoryResultItems_decode(__ret_buffer, buffer_tell(__ret_buffer));
     return _result;
 }
 
@@ -20679,14 +20599,7 @@ function steam_inventory_get_item_price(_item_def_id)
     var _return_value = __steam_inventory_get_item_price(_item_def_id, buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
 
     var _result = undefined;
-    if (buffer_read(__ret_buffer, buffer_bool))
-    {
-        _result = __SteamInventoryItemPrice_decode(__ret_buffer, buffer_tell(__ret_buffer));
-    }
-    else
-    {
-        _result = undefined;
-    }
+    _result = __SteamInventoryItemPrice_decode(__ret_buffer, buffer_tell(__ret_buffer));
     return _result;
 }
 
@@ -22179,14 +22092,7 @@ function steam_matchmaking_get_lobby_chat_entry(_lobby_id, _chat_id, _out_buffer
     var _return_value = __steam_matchmaking_get_lobby_chat_entry(buffer_get_address(__args_buffer), buffer_tell(__args_buffer), buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
 
     var _result = undefined;
-    if (buffer_read(__ret_buffer, buffer_bool))
-    {
-        _result = __SteamMatchmakingLobbyChatEntry_decode(__ret_buffer, buffer_tell(__ret_buffer));
-    }
-    else
-    {
-        _result = undefined;
-    }
+    _result = __SteamMatchmakingLobbyChatEntry_decode(__ret_buffer, buffer_tell(__ret_buffer));
     return _result;
 }
 
@@ -22347,14 +22253,7 @@ function steam_matchmaking_get_lobby_game_server(_steam_id_lobby)
     var _return_value = __steam_matchmaking_get_lobby_game_server(buffer_get_address(__args_buffer), buffer_tell(__args_buffer), buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
 
     var _result = undefined;
-    if (buffer_read(__ret_buffer, buffer_bool))
-    {
-        _result = __SteamMatchmakingLobbyGameServer_decode(__ret_buffer, buffer_tell(__ret_buffer));
-    }
-    else
-    {
-        _result = undefined;
-    }
+    _result = __SteamMatchmakingLobbyGameServer_decode(__ret_buffer, buffer_tell(__ret_buffer));
     return _result;
 }
 
@@ -22676,7 +22575,14 @@ function steam_networking_sockets_get_connection_info(_conn)
     var _return_value = __steam_networking_sockets_get_connection_info(_conn, buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
 
     var _result = undefined;
-    _result = __SteamNetworkingSocketsConnectionInfo_decode(__ret_buffer, buffer_tell(__ret_buffer));
+    if (buffer_read(__ret_buffer, buffer_bool))
+    {
+        _result = __SteamNetworkingSocketsConnectionInfo_decode(__ret_buffer, buffer_tell(__ret_buffer));
+    }
+    else
+    {
+        _result = undefined;
+    }
     return _result;
 }
 
@@ -22843,14 +22749,7 @@ function steam_parties_get_available_beacon_locations()
     var _return_value = __steam_parties_get_available_beacon_locations(buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
 
     var _result = undefined;
-    if (buffer_read(__ret_buffer, buffer_bool))
-    {
-        _result = __SteamPartiesAvailableBeaconLocations_decode(__ret_buffer, buffer_tell(__ret_buffer));
-    }
-    else
-    {
-        _result = undefined;
-    }
+    _result = __SteamPartiesAvailableBeaconLocations_decode(__ret_buffer, buffer_tell(__ret_buffer));
     return _result;
 }
 
@@ -23006,14 +22905,7 @@ function steam_parties_get_beacon_details(_beacon_id)
     var _return_value = __steam_parties_get_beacon_details(buffer_get_address(__args_buffer), buffer_tell(__args_buffer), buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
 
     var _result = undefined;
-    if (buffer_read(__ret_buffer, buffer_bool))
-    {
-        _result = __SteamPartiesBeaconDetails_decode(__ret_buffer, buffer_tell(__ret_buffer));
-    }
-    else
-    {
-        _result = undefined;
-    }
+    _result = __SteamPartiesBeaconDetails_decode(__ret_buffer, buffer_tell(__ret_buffer));
     return _result;
 }
 
@@ -23095,11 +22987,9 @@ function __Steamworks_get_decoders()
         __SteamAppsFileDetailsResult_decode,
         __SteamAppsDlcData_decode,
         __SteamAppsIsTimedTrialResult_decode,
-        __SteamAppsInstallDir_decode,
         __SteamAppsNumBetas_decode,
         __SteamAppsBetaInfo_decode,
         __SteamAppsDlcDownloadProgress_decode,
-        __SteamAppsLaunchCommandLine_decode,
         __SteamAppsInstallSize_decode,
         __SteamAppsDlcInstallDir_decode,
         __SteamAppsLanguageInfo_decode,

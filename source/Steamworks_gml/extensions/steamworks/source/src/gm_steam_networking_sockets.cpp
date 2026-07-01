@@ -273,26 +273,16 @@ std::vector<gm_structs::SteamNetworkingSocketsMessage> steam_networking_sockets_
     return result;
 }
 
-gm_structs::SteamNetworkingSocketsConnectionInfo steam_networking_sockets_get_connection_info(std::uint32_t conn)
+std::optional<gm_structs::SteamNetworkingSocketsConnectionInfo> steam_networking_sockets_get_connection_info(std::uint32_t conn)
 {
-    gm_structs::SteamNetworkingSocketsConnectionInfo out{};
-    out.user_data = 0;
-    out.end_reason = static_cast<gm_enums::SteamNetConnectionEnd>(0);
-    out.end_debug = "";
-    out.connection_description = "";
-    out.flags = 0;
-    out.state = static_cast<gm_enums::SteamNetworkingConnectionState>(0);
-    out.steam_id_remote = 0;
-    out.addr_remote = "";
-
-    STEAM_GUARD_RET(out);
+    STEAM_GUARD_RET(std::nullopt);
 
     ISteamNetworkingSockets* s = steam_networking_sockets_iface();
-    if (!s) return out;
+    if (!s) return std::nullopt;
 
     SteamNetConnectionInfo_t info{};
     if (!s->GetConnectionInfo((HSteamNetConnection)conn, &info))
-        return out;
+        return std::nullopt;
 
     return sn_fromNative(info);
 }

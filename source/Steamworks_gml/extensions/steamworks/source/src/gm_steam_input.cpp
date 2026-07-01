@@ -672,22 +672,23 @@ gm_enums::SteamInputActionOrigin steam_input_translate_action_origin(gm_enums::S
     );
 }
 
-std::optional<gm_structs::SteamInputDeviceBindingRevision> steam_input_get_device_binding_revision(std::uint64_t input_handle)
+gm_structs::SteamInputDeviceBindingRevision steam_input_get_device_binding_revision(std::uint64_t input_handle)
 {
-    STEAM_GUARD_RET(std::nullopt);
+    STEAM_GUARD_RET({});
 
     ISteamInput* s = steam_input_iface();
     if (!s)
-        return std::nullopt;
+        return {};
 
     int major = 0;
     int minor = 0;
     if (!s->GetDeviceBindingRevision((InputHandle_t)input_handle, &major, &minor))
-        return std::nullopt;
+        return {};
 
     gm_structs::SteamInputDeviceBindingRevision out {};
     out.major = major;
     out.minor = minor;
+    out.ok = true;
     return out;
 }
 

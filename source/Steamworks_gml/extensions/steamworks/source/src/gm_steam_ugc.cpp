@@ -272,34 +272,35 @@ bool steam_ugc_download_item(std::uint64_t published_file_id, bool high_priority
     return ugc->DownloadItem(pubid_from_u64(published_file_id), high_priority);
 }
 
-std::optional<gm_structs::SteamUgcItemDownloadInfo> steam_ugc_get_item_download_info(std::uint64_t published_file_id)
+gm_structs::SteamUgcItemDownloadInfo steam_ugc_get_item_download_info(std::uint64_t published_file_id)
 {
-    STEAM_GUARD_RET(std::nullopt);
+    STEAM_GUARD_RET({});
 
     ISteamUGC* ugc = steam_ugc_iface();
     if (!ugc)
-        return std::nullopt;
+        return {};
 
     uint64 dl = 0, total = 0;
     const bool ok = ugc->GetItemDownloadInfo(pubid_from_u64(published_file_id), &dl, &total);
 
     if (!ok)
-        return std::nullopt;
+        return {};
 
     gm_structs::SteamUgcItemDownloadInfo out {};
     out.bytes_downloaded = (std::uint64_t)dl;
     out.bytes_total = (std::uint64_t)total;
+    out.ok = true;
     return out;
 }
 
-std::optional<gm_structs::SteamUgcItemInstallInfo>
+gm_structs::SteamUgcItemInstallInfo
 steam_ugc_get_item_install_info(std::uint64_t published_file_id)
 {
-    STEAM_GUARD_RET(std::nullopt);
+    STEAM_GUARD_RET({});
 
     ISteamUGC* ugc = steam_ugc_iface();
     if (!ugc)
-        return std::nullopt;
+        return {};
 
     uint32 cch_folder_size = 1024;
     uint64 sizeOnDisk = 0;
@@ -312,12 +313,13 @@ steam_ugc_get_item_install_info(std::uint64_t published_file_id)
     );
 
     if (!ok)
-        return std::nullopt;
+        return {};
 
     gm_structs::SteamUgcItemInstallInfo out {};
     out.size_on_disk = (std::uint64_t)sizeOnDisk;
     out.folder = std::string(folder.data());
     out.timestamp = (std::uint32_t)ts;
+    out.ok = true;
     return out;
 }
 
@@ -380,18 +382,18 @@ std::vector<std::uint64_t> steam_ugc_get_subscribed_items(std::uint32_t max_entr
     return out;
 }
 
-std::optional<gm_structs::SteamUgcQueryResult> steam_ugc_get_query_ugc_result(std::uint64_t query_handle, std::uint32_t index)
+gm_structs::SteamUgcQueryResult steam_ugc_get_query_ugc_result(std::uint64_t query_handle, std::uint32_t index)
 {
-    STEAM_GUARD_RET(std::nullopt);
+    STEAM_GUARD_RET({});
 
     ISteamUGC* ugc = steam_ugc_iface();
     if (!ugc)
-        return std::nullopt;
+        return {};
 
     SteamUGCDetails_t d {};
     const bool ok = ugc->GetQueryUGCResult(qh_from_u64(query_handle), index, &d);
     if (!ok)
-        return std::nullopt;
+        return {};
 
     gm_structs::SteamUgcQueryResult out {};
     out.published_file_id = (std::uint64_t)d.m_nPublishedFileId;
@@ -405,6 +407,7 @@ std::optional<gm_structs::SteamUgcQueryResult> steam_ugc_get_query_ugc_result(st
     out.tags_truncated = (d.m_bTagsTruncated != 0);
     out.tags = d.m_rgchTags;
 
+    out.ok = true;
     return out;
 }
 
@@ -497,13 +500,13 @@ std::uint32_t steam_ugc_get_query_ugc_num_additional_previews(std::uint64_t quer
     return (std::uint32_t)ugc->GetQueryUGCNumAdditionalPreviews(qh_from_u64(query_handle), index);
 }
 
-std::optional<gm_structs::SteamUgcAdditionalPreview> steam_ugc_get_query_ugc_additional_preview(std::uint64_t query_handle, std::uint32_t index, std::uint32_t preview_index, std::string_view original_file_name)
+gm_structs::SteamUgcAdditionalPreview steam_ugc_get_query_ugc_additional_preview(std::uint64_t query_handle, std::uint32_t index, std::uint32_t preview_index, std::string_view original_file_name)
 {
-    STEAM_GUARD_RET(std::nullopt);
+    STEAM_GUARD_RET({});
 
     ISteamUGC* ugc = steam_ugc_iface();
     if (!ugc)
-        return std::nullopt;
+        return {};
 
     char url[1024] = {};
     char original_name[1024] = {};
@@ -524,21 +527,22 @@ std::optional<gm_structs::SteamUgcAdditionalPreview> steam_ugc_get_query_ugc_add
             );
 
     if (!ok)
-        return std::nullopt;
+        return {};
 
     gm_structs::SteamUgcAdditionalPreview out {};
     out.url_or_video_id = url;
     out.preview_type = static_cast<gm_enums::SteamUgcItemPreviewType>((int)type);
+    out.ok = true;
     return out;
 }
 
-std::optional<gm_structs::SteamUgcSupportedGameVersionData> steam_ugc_get_supported_game_version_data(std::uint64_t query_handle, std::uint32_t index, std::uint32_t version_index)
+gm_structs::SteamUgcSupportedGameVersionData steam_ugc_get_supported_game_version_data(std::uint64_t query_handle, std::uint32_t index, std::uint32_t version_index)
 {
-    STEAM_GUARD_RET(std::nullopt);
+    STEAM_GUARD_RET({});
 
     ISteamUGC* ugc = steam_ugc_iface();
     if (!ugc)
-        return std::nullopt;
+        return {};
 
     char branch_min[256] = {};
     char branch_max[256] = {};
@@ -553,11 +557,12 @@ std::optional<gm_structs::SteamUgcSupportedGameVersionData> steam_ugc_get_suppor
             );
 
     if (!ok)
-        return std::nullopt;
+        return {};
 
     gm_structs::SteamUgcSupportedGameVersionData out {};
     out.game_branch_min = branch_min;
     out.game_branch_max = branch_max;
+    out.ok = true;
     return out;
 }
 
@@ -572,15 +577,15 @@ std::uint32_t steam_ugc_get_query_ugc_num_key_value_tags(std::uint64_t query_han
     return (std::uint32_t)ugc->GetQueryUGCNumKeyValueTags(qh_from_u64(query_handle), index);
 }
 
-std::optional<gm_structs::SteamUgcKeyValueTag> steam_ugc_get_query_ugc_key_value_tag(
+gm_structs::SteamUgcKeyValueTag steam_ugc_get_query_ugc_key_value_tag(
     std::uint64_t query_handle, std::uint32_t index, std::uint32_t key_value_tag_index
 )
 {
-    STEAM_GUARD_RET(std::nullopt);
+    STEAM_GUARD_RET({});
 
     ISteamUGC* ugc = steam_ugc_iface();
     if (!ugc)
-        return std::nullopt;
+        return {};
 
     char key[256] = {};
     char val[256] = {};
@@ -589,11 +594,12 @@ std::optional<gm_structs::SteamUgcKeyValueTag> steam_ugc_get_query_ugc_key_value
     );
 
     if (!ok)
-        return std::nullopt;
+        return {};
 
     gm_structs::SteamUgcKeyValueTag out {};
     out.key = key;
     out.value = val;
+    out.ok = true;
     return out;
 }
 

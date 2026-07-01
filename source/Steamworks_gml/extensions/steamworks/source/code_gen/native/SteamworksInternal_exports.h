@@ -106,7 +106,7 @@ GMEXPORT double __EXT_NATIVE__steam_apps_is_subscribed_from_free_weekend();
 GMEXPORT double __EXT_NATIVE__steam_apps_is_timed_trial(char* __ret_buffer, double __ret_buffer_length);
 GMEXPORT double __EXT_NATIVE__steam_apps_is_vac_banned();
 GMEXPORT double __EXT_NATIVE__steam_apps_get_app_build_id();
-GMEXPORT double __EXT_NATIVE__steam_apps_get_app_install_dir(double app_id, char* __ret_buffer, double __ret_buffer_length);
+GMEXPORT double __EXT_NATIVE__steam_apps_get_app_install_dir(double app_id);
 GMEXPORT double __EXT_NATIVE__steam_apps_get_app_owner(char* __ret_buffer, double __ret_buffer_length);
 GMEXPORT char* __EXT_NATIVE__steam_apps_get_available_game_languages();
 GMEXPORT double __EXT_NATIVE__steam_apps_get_current_beta_name();
@@ -120,7 +120,7 @@ GMEXPORT double __EXT_NATIVE__steam_apps_get_app_ownership_ticket_data(char* __a
 GMEXPORT double __EXT_NATIVE__steam_apps_get_earliest_purchase_unix_time(double app_id);
 GMEXPORT double __EXT_NATIVE__steam_apps_get_file_details(char* __arg_buffer, double __arg_buffer_length);
 GMEXPORT double __EXT_NATIVE__steam_apps_get_installed_depots(double app_id, double max_depots, char* __ret_buffer, double __ret_buffer_length);
-GMEXPORT double __EXT_NATIVE__steam_apps_get_launch_command_line(char* __ret_buffer, double __ret_buffer_length);
+GMEXPORT double __EXT_NATIVE__steam_apps_get_launch_command_line();
 GMEXPORT char* __EXT_NATIVE__steam_apps_get_launch_query_param(char* key);
 GMEXPORT double __EXT_NATIVE__steam_apps_install_dlc(double app_id);
 GMEXPORT double __EXT_NATIVE__steam_apps_mark_content_corrupt(double missing_files_only);

@@ -648,7 +648,7 @@
 /**
  * @function_partial steam_apps_get_app_install_dir
  * @param {Real} app_id
- * @returns {Struct.SteamAppsInstallDir} 
+ * @returns {String} 
  * @function_end 
  */
 
@@ -742,7 +742,7 @@
 
 /**
  * @function_partial steam_apps_get_launch_command_line
- * @returns {Struct.SteamAppsLaunchCommandLine} 
+ * @returns {String} 
  * @function_end 
  */
 
@@ -4469,6 +4469,7 @@
 
 /**
  * @struct_partial SteamFriendsClanActivityCounts
+ * @member {Bool} ok
  * @member {Real} online
  * @member {Real} in_game
  * @member {Real} chatting
@@ -4485,6 +4486,7 @@
 
 /**
  * @struct_partial SteamFriendsFriendGamePlayed
+ * @member {Bool} ok
  * @member {Real} game_id
  * @member {Real} game_ip_v4
  * @member {Real} game_port
@@ -4552,6 +4554,7 @@
 
 /**
  * @struct_partial SteamAppsDlcData
+ * @member {Bool} ok
  * @member {Real} app_id
  * @member {Bool} available
  * @member {String} name
@@ -4566,13 +4569,6 @@
  */
 
 /**
- * @struct_partial SteamAppsInstallDir
- * @member {Real} bytes_copied
- * @member {String} path
- * @struct_end 
- */
-
-/**
  * @struct_partial SteamAppsNumBetas
  * @member {Real} total
  * @member {Real} available
@@ -4582,6 +4578,7 @@
 
 /**
  * @struct_partial SteamAppsBetaInfo
+ * @member {Bool} ok
  * @member {Real} flags
  * @member {Real} build_id
  * @member {String} beta_name
@@ -4591,15 +4588,9 @@
 
 /**
  * @struct_partial SteamAppsDlcDownloadProgress
+ * @member {Bool} ok
  * @member {Real} bytes_downloaded
  * @member {Real} bytes_total
- * @struct_end 
- */
-
-/**
- * @struct_partial SteamAppsLaunchCommandLine
- * @member {Real} bytes_copied
- * @member {String} command_line
  * @struct_end 
  */
 
@@ -4783,6 +4774,7 @@
 
 /**
  * @struct_partial SteamUtilsImageSize
+ * @member {Bool} ok
  * @member {Real} width
  * @member {Real} height
  * @struct_end 
@@ -4790,6 +4782,7 @@
 
 /**
  * @struct_partial SteamUtilsFilterTextResult
+ * @member {Bool} ok
  * @member {Real} characters_filtered
  * @member {String} filtered_text
  * @struct_end 
@@ -4817,6 +4810,7 @@
 
 /**
  * @struct_partial SteamUgcItemDownloadInfo
+ * @member {Bool} ok
  * @member {Real} bytes_downloaded
  * @member {Real} bytes_total
  * @struct_end 
@@ -4824,6 +4818,7 @@
 
 /**
  * @struct_partial SteamUgcItemInstallInfo
+ * @member {Bool} ok
  * @member {Real} size_on_disk
  * @member {String} folder
  * @member {Real} timestamp
@@ -4840,6 +4835,7 @@
 
 /**
  * @struct_partial SteamUgcQueryResult
+ * @member {Bool} ok
  * @member {Real} published_file_id
  * @member {String} title
  * @member {String} description
@@ -4855,6 +4851,7 @@
 
 /**
  * @struct_partial SteamUgcAdditionalPreview
+ * @member {Bool} ok
  * @member {String} url_or_video_id
  * @member {Enum.SteamUgcItemPreviewType} preview_type
  * @struct_end 
@@ -4862,6 +4859,7 @@
 
 /**
  * @struct_partial SteamUgcKeyValueTag
+ * @member {Bool} ok
  * @member {String} key
  * @member {String} value
  * @struct_end 
@@ -4955,6 +4953,7 @@
 
 /**
  * @struct_partial SteamUgcSupportedGameVersionData
+ * @member {Bool} ok
  * @member {String} game_branch_min
  * @member {String} game_branch_max
  * @struct_end 
@@ -5020,6 +5019,7 @@
 
 /**
  * @struct_partial SteamInputDeviceBindingRevision
+ * @member {Bool} ok
  * @member {Real} major
  * @member {Real} minor
  * @struct_end 
@@ -5069,6 +5069,7 @@
 
 /**
  * @struct_partial SteamUserStatsMostAchievedAchievementInfo
+ * @member {Bool} ok
  * @member {String} name
  * @member {Real} percent
  * @member {Bool} achieved
@@ -5084,6 +5085,7 @@
 
 /**
  * @struct_partial SteamUserStatsDownloadedLeaderboardEntry
+ * @member {Bool} ok
  * @member {Real} steam_id_user
  * @member {Real} global_rank
  * @member {Real} score
@@ -5179,6 +5181,7 @@
 
 /**
  * @struct_partial SteamUserStatsIntMinMax
+ * @member {Bool} ok
  * @member {Real} min
  * @member {Real} max
  * @struct_end 
@@ -5186,6 +5189,7 @@
 
 /**
  * @struct_partial SteamUserStatsFloatMinMax
+ * @member {Bool} ok
  * @member {Real} min
  * @member {Real} max
  * @struct_end 
@@ -5244,6 +5248,7 @@
 
 /**
  * @struct_partial SteamInventoryResultItems
+ * @member {Bool} ok
  * @member {Real} count
  * @member {Array[Real]} item_instance_ids
  * @member {Array[Real]} item_def_ids
@@ -5254,6 +5259,7 @@
 
 /**
  * @struct_partial SteamInventoryDeserializeResult
+ * @member {Bool} ok
  * @member {Real} result_handle
  * @member {Enum.SteamApiResult} status
  * @struct_end 
@@ -5261,6 +5267,7 @@
 
 /**
  * @struct_partial SteamInventoryItemPrice
+ * @member {Bool} ok
  * @member {Real} current_price
  * @member {Real} base_price
  * @struct_end 
@@ -5302,6 +5309,7 @@
 
 /**
  * @struct_partial SteamRemoteStorageFileNameAndSize
+ * @member {Bool} ok
  * @member {String} file_name
  * @member {Real} file_size
  * @struct_end 
@@ -5309,6 +5317,7 @@
 
 /**
  * @struct_partial SteamRemoteStorageQuota
+ * @member {Bool} ok
  * @member {Real} total_bytes
  * @member {Real} available_bytes
  * @struct_end 
@@ -5316,6 +5325,7 @@
 
 /**
  * @struct_partial SteamRemoteStorageUgcDetails
+ * @member {Bool} ok
  * @member {Real} ugc_handle
  * @member {Real} app_id
  * @member {Real} size_in_bytes
@@ -5465,6 +5475,7 @@
 
 /**
  * @struct_partial SteamMatchmakingLobbyChatEntry
+ * @member {Bool} ok
  * @member {Real} bytes
  * @member {Real} sender_id
  * @member {Enum.SteamFriendsChatEntryType} entry_type
@@ -5473,6 +5484,7 @@
 
 /**
  * @struct_partial SteamMatchmakingLobbyGameServer
+ * @member {Bool} ok
  * @member {Real} ip
  * @member {Real} port
  * @member {Real} steam_id_gs
@@ -5530,6 +5542,7 @@
 
 /**
  * @struct_partial SteamPartiesAvailableBeaconLocations
+ * @member {Bool} ok
  * @member {Real} count
  * @member {Array[Enum.SteamPartiesBeaconLocationType]} location_types
  * @member {Array[Real]} location_ids
@@ -5567,6 +5580,7 @@
 
 /**
  * @struct_partial SteamPartiesBeaconDetails
+ * @member {Bool} ok
  * @member {Real} beacon_owner_steam_id
  * @member {Enum.SteamPartiesBeaconLocationType} location_type
  * @member {Real} location_id

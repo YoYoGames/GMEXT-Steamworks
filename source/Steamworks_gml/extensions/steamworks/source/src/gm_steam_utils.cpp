@@ -241,24 +241,25 @@ bool steam_utils_get_image_rgba(std::int32_t image_handle, gm::wire::GMBuffer de
     return true;
 }
 
-std::optional<SteamUtilsImageSize> steam_utils_get_image_size(std::int32_t image_handle)
+SteamUtilsImageSize steam_utils_get_image_size(std::int32_t image_handle)
 {
-    STEAM_GUARD_RET(std::nullopt);
+    STEAM_GUARD_RET({});
 
     ISteamUtils* u = steam_utils_iface();
     if (!u)
-        return std::nullopt;
+        return {};
 
     uint32 w = 0;
     uint32 h = 0;
 
     const bool ok = u->GetImageSize(image_handle, &w, &h);
     if (!ok)
-        return std::nullopt;
+        return {};
 
     SteamUtilsImageSize out{};
     out.width = (std::uint32_t)w;
     out.height = (std::uint32_t)h;
+    out.ok = true;
     return out;
 }
 
@@ -401,17 +402,17 @@ bool steam_utils_init_filter_text()
     return u->InitFilterText();
 }
 
-std::optional<SteamUtilsFilterTextResult> steam_utils_filter_text(
+SteamUtilsFilterTextResult steam_utils_filter_text(
     SteamUtilsTextFilteringContext context,
     std::uint64_t source_steam_id,
     std::string_view input_message
 )
 {
-    STEAM_GUARD_RET(std::nullopt);
+    STEAM_GUARD_RET({});
 
     ISteamUtils* u = steam_utils_iface();
     if (!u)
-        return std::nullopt;
+        return {};
 
     // Output buffer must be at least strlen(input)+1 (filtered text is the same length).
     std::string msg(input_message);
@@ -430,6 +431,7 @@ std::optional<SteamUtilsFilterTextResult> steam_utils_filter_text(
     SteamUtilsFilterTextResult out{};
     out.characters_filtered = changed;
     out.filtered_text = std::string(buf.data());
+    out.ok = true;
     return out;
 }
 

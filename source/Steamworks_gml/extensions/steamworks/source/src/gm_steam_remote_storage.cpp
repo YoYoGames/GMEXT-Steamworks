@@ -260,6 +260,7 @@ gm_structs::SteamRemoteStorageFileNameAndSize steam_remote_storage_get_file_name
     gm_structs::SteamRemoteStorageFileNameAndSize out{};
     out.file_name = name;
     out.file_size = (std::int32_t)sz;
+    out.ok = true;
     return out;
 }
 
@@ -277,6 +278,7 @@ gm_structs::SteamRemoteStorageQuota steam_remote_storage_get_quota()
     gm_structs::SteamRemoteStorageQuota out{};
     out.total_bytes = (std::uint64_t)total;
     out.available_bytes = (std::uint64_t)avail;
+    out.ok = true;
     return out;
 }
 
@@ -391,6 +393,7 @@ steam_remote_storage_get_ugc_details(std::uint64_t ugc_handle)
     out.file_name = name ? name : "";
     out.steam_id_owner = (std::uint64_t)owner.ConvertToUint64();
 
+    out.ok = true;
     return out;
 }
 

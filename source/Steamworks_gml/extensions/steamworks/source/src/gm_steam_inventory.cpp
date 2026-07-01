@@ -146,17 +146,17 @@ int32 steam_inventory_consume_item(std::uint64_t item_instance_id,
     return out;
 }
 
-std::optional<SteamInventoryDeserializeResult> steam_inventory_deserialize_result(GMBuffer data, std::uint32_t data_size)
+SteamInventoryDeserializeResult steam_inventory_deserialize_result(GMBuffer data, std::uint32_t data_size)
 {
-    STEAM_GUARD_RET(std::nullopt);
+    STEAM_GUARD_RET({});
 
     ISteamInventory* inv = steam_inventory_iface();
-    if (!inv) return std::nullopt;
+    if (!inv) return {};
 
     if (data_size == 0)
     {
         steam_set_last_error("DeserializeResult: data_size must be > 0.");
-        return std::nullopt;
+        return {};
     }
 
     std::vector<std::uint8_t> buf((size_t)data_size);
@@ -167,11 +167,12 @@ std::optional<SteamInventoryDeserializeResult> steam_inventory_deserialize_resul
     const bool ok = inv->DeserializeResult(&rh, buf.data(), (uint32)buf.size(), false);
 
     if (!ok)
-        return std::nullopt;
+        return {};
 
     SteamInventoryDeserializeResult out{};
     out.result_handle = to_i32(rh);
     out.status = (SteamApiResult)(int)inv->GetResultStatus(rh);
+    out.ok = true;
     return out;
 }
 
@@ -272,23 +273,23 @@ int32 steam_inventory_get_all_items()
     return to_i32(rh);
 }
 
-std::optional<SteamInventoryResultItems> steam_inventory_get_result_items(int32 result_handle)
+SteamInventoryResultItems steam_inventory_get_result_items(int32 result_handle)
 {
-    STEAM_GUARD_RET(std::nullopt);
+    STEAM_GUARD_RET({});
 
     ISteamInventory* inv = steam_inventory_iface();
-    if (!inv) return std::nullopt;
+    if (!inv) return {};
 
     uint32 count = 0;
     const bool okCount = inv->GetResultItems(make_result_handle(result_handle), nullptr, &count);
     if (!okCount || count == 0)
-        return std::nullopt;
+        return {};
 
     std::vector<SteamItemDetails_t> items((size_t)count);
     const bool ok = inv->GetResultItems(make_result_handle(result_handle), items.data(), &count);
 
     if (!ok || count == 0)
-        return std::nullopt;
+        return {};
 
     SteamInventoryResultItems out{};
     out.count = count;
@@ -305,6 +306,7 @@ std::optional<SteamInventoryResultItems> steam_inventory_get_result_items(int32 
         out.flags.push_back((uint32)items[(size_t)i].m_unFlags);
     }
 
+    out.ok = true;
     return out;
 }
 
@@ -810,23 +812,24 @@ std::vector<std::string> steam_inventory_get_item_definition_property_keys(std::
     return keys;
 }
 
-std::optional<SteamInventoryItemPrice> steam_inventory_get_item_price(std::uint32_t item_def_id)
+SteamInventoryItemPrice steam_inventory_get_item_price(std::uint32_t item_def_id)
 {
-    STEAM_GUARD_RET(std::nullopt);
+    STEAM_GUARD_RET({});
 
     ISteamInventory* inv = steam_inventory_iface();
-    if (!inv) return std::nullopt;
+    if (!inv) return {};
 
     uint64 cur = 0;
     uint64 base = 0;
 
     const bool ok = inv->GetItemPrice((SteamItemDef_t)item_def_id, &cur, &base);
     if (!ok)
-        return std::nullopt;
+        return {};
 
     SteamInventoryItemPrice out{};
     out.current_price = cur;
     out.base_price = base;
+    out.ok = true;
     return out;
 }
 

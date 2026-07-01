@@ -30,13 +30,13 @@ static inline ISteamApps* steam_apps_iface()
     return a;
 }
 
-std::optional<SteamAppsDlcData> steam_apps_get_dlc_data_by_index(std::int32_t dlc)
+SteamAppsDlcData steam_apps_get_dlc_data_by_index(std::int32_t dlc)
 {
-    STEAM_GUARD_RET(std::nullopt);
+    STEAM_GUARD_RET({});
 
     ISteamApps* a = steam_apps_iface();
     if (!a)
-        return std::nullopt;
+        return {};
 
     AppId_t appId = 0;
     bool available = false;
@@ -49,13 +49,14 @@ std::optional<SteamAppsDlcData> steam_apps_get_dlc_data_by_index(std::int32_t dl
 
     if (!ok) {
         steam_set_last_error("BGetDLCDataByIndex failed.");
-        return std::nullopt;
+        return {};
     }
 
     SteamAppsDlcData out{};
     out.app_id = (std::uint32_t)appId;
     out.available = available;
     out.name = std::string(nameBuf.data());
+    out.ok = true;
     return out;
 }
 
@@ -182,13 +183,13 @@ std::int32_t steam_apps_get_app_build_id()
     return (std::int32_t)a->GetAppBuildId();
 }
 
-SteamAppsInstallDir steam_apps_get_app_install_dir(std::uint32_t app_id)
+std::optional<std::string> steam_apps_get_app_install_dir(std::uint32_t app_id)
 {
-    STEAM_GUARD_RET({});
+    STEAM_GUARD_RET(std::nullopt);
 
     ISteamApps* a = steam_apps_iface();
     if (!a)
-        return {};
+        return std::nullopt;
 
     uint32 cchFolderBufferSize = 1024;
     std::vector<char> buf((size_t)cchFolderBufferSize);
@@ -197,12 +198,9 @@ SteamAppsInstallDir steam_apps_get_app_install_dir(std::uint32_t app_id)
     const uint32 bytes = a->GetAppInstallDir((AppId_t)app_id, buf.data(), (uint32)buf.size());
 
     if (bytes == 0)
-        return {};
+        return std::nullopt;
 
-    SteamAppsInstallDir out{};
-    out.bytes_copied = bytes;
-    out.path = std::string(buf.data());
-    return out;
+    return std::string(buf.data());
 }
 
 std::uint64_t steam_apps_get_app_owner()
@@ -271,14 +269,14 @@ SteamAppsNumBetas steam_apps_get_num_betas()
     return out;
 }
 
-std::optional<SteamAppsBetaInfo>
+SteamAppsBetaInfo
 steam_apps_get_beta_info(std::int32_t beta_index)
 {
-    STEAM_GUARD_RET(std::nullopt);
+    STEAM_GUARD_RET({});
 
     ISteamApps* a = steam_apps_iface();
     if (!a)
-        return std::nullopt;
+        return {};
 
     uint32 cchBetaName = 1024;
     uint32 cchDescription = 1024;
@@ -301,13 +299,14 @@ steam_apps_get_beta_info(std::int32_t beta_index)
     );
 
     if (!success)
-        return std::nullopt;
+        return {};
 
     SteamAppsBetaInfo out{};
     out.flags = (std::uint32_t)flags;
     out.build_id = (std::uint32_t)buildId;
     out.beta_name = std::string(nameBuf.data());
     out.description = std::string(descBuf.data());
+    out.ok = true;
     return out;
 }
 
@@ -348,24 +347,25 @@ std::int32_t steam_apps_get_dlc_count()
     return (std::int32_t)a->GetDLCCount();
 }
 
-std::optional<SteamAppsDlcDownloadProgress> steam_apps_get_dlc_download_progress(std::uint32_t app_id)
+SteamAppsDlcDownloadProgress steam_apps_get_dlc_download_progress(std::uint32_t app_id)
 {
-    STEAM_GUARD_RET(std::nullopt);
+    STEAM_GUARD_RET({});
 
     ISteamApps* a = steam_apps_iface();
     if (!a)
-        return std::nullopt;
+        return {};
 
     uint64 downloaded = 0;
     uint64 total = 0;
     const bool ok = a->GetDlcDownloadProgress((AppId_t)app_id, &downloaded, &total);
 
     if (!ok)
-        return std::nullopt;
+        return {};
 
     SteamAppsDlcDownloadProgress out{};
     out.bytes_downloaded = (std::uint64_t)downloaded;
     out.bytes_total = (std::uint64_t)total;
+    out.ok = true;
     return out;
 }
 
@@ -404,25 +404,22 @@ std::vector<std::uint32_t> steam_apps_get_installed_depots(std::uint32_t app_id,
     return out;
 }
 
-SteamAppsLaunchCommandLine steam_apps_get_launch_command_line()
+std::optional<std::string> steam_apps_get_launch_command_line()
 {
-    STEAM_GUARD_RET({});
+    STEAM_GUARD_RET(std::nullopt);
 
     ISteamApps* a = steam_apps_iface();
     if (!a)
-        return {};
+        return std::nullopt;
 
     std::vector<char> buf(8192, '\0');
 
     const int bytes = a->GetLaunchCommandLine(buf.data(), (int)buf.size());
 
     if (bytes <= 0)
-        return {};
+        return std::nullopt;
 
-    SteamAppsLaunchCommandLine out{};
-    out.bytes_copied = (std::int32_t)bytes;
-    out.command_line = std::string(buf.data());
-    return out;
+    return std::string(buf.data());
 }
 
 std::string steam_apps_get_launch_query_param(std::string_view key)
