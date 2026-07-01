@@ -321,7 +321,7 @@
  * This should only ever be called in response to a [GameConnectedClanChatMsg_t](https://partner.steamgames.com/doc/api/ISteamFriends#GameConnectedClanChatMsg_t) callback.
  *
  * @param {Real} steam_id_clan_chat The Steam ID of the Steam group chat room.
- * @param {Real} message The index of the message. This should be the m_iMessageID field of [GameConnectedClanChatMsg_t](https://partner.steamgames.com/doc/api/ISteamFriends#GameConnectedClanChatMsg_t).
+ * @param {Real} message The index of the message. This should be the `message_id` field of [GameConnectedClanChatMsg_t](https://partner.steamgames.com/doc/api/ISteamFriends#GameConnectedClanChatMsg_t).
  * @returns {Struct.SteamFriendsClanChatMessage}
  * @function_end
  */
@@ -2321,7 +2321,7 @@
  * 
  * See: [ISteamUser::SteamServersConnected_t](https://partner.steamgames.com/doc/api/ISteamUser#SteamServersConnected_t)
  * 
- * See: ${struct.SteamUserSteamServersConnected}
+ * This callback has no fields.
  *
  * @param {Function} callback The function to be called when a connection to the Steam servers is established.
  * @function_end
@@ -2413,7 +2413,7 @@
  * 
  * See: [ISteamUser::LicensesUpdated_t](https://partner.steamgames.com/doc/api/ISteamUser#LicensesUpdated_t)
  * 
- * See: ${struct.SteamUserLicensesUpdated}
+ * This callback has no fields.
  *
  * @param {Function} callback The function to be called when the user's licenses (owned packages) change.
  * @function_end
@@ -4874,7 +4874,7 @@
  * This function gets an action origin that you can use in your glyph look up table or passed into ${function.steam_input_get_glyph_png_for_action_origin}, ${function.steam_input_get_glyph_svg_for_action_origin} or ${function.steam_input_get_string_for_action_origin}.
  *
  * @param {Real} input_handle The handle of the controller to query. You can use ${function.steam_input_get_controller_for_gamepad_index} to get this handle.
- * @param {Enum.SteamXboxOrigin} origin The Xbox button you want to get the image for, e.g. `SteamXboxOrigin.A`.
+ * @param {Enum.SteamInputXboxOrigin} origin The Xbox button you want to get the image for, e.g. `SteamInputXboxOrigin.A`.
  * @returns {Real} 
  * @function_end
  */
@@ -6877,7 +6877,7 @@
  * 
  * See: [ISteamRemoteStorage::RemoteStorageLocalFileChange_t](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#RemoteStorageLocalFileChange_t)
  * 
- * See: ${struct.SteamRemoteStorageLocalFileChange}
+ * This callback has no fields.
  *
  * @param {Function} callback The function to be called when a local file change is detected.
  * @function_end 
@@ -8111,21 +8111,19 @@
  * @param {Real} send_flags A bitmask of ${Enum.SteamNetworkingSendFlags} options that determine the delivery guarantees for the message.
  * @param {Real} remote_channel A routing channel number you can use to help route the message to different systems on the remote host.
  * @returns {Real} The number of messages returned into your list. (0 if no message are available on that channel.)
- * @function_end 
+ * @function_end
  */
 
 /**
- * @function steam_networking_messages_receive_one_on_channel
+ * @function steam_networking_messages_receive_messages_on_channel
  * @description > **Steamworks Function**: [ISteamNetworkingMessages::ReceiveMessagesOnChannel](https://partner.steamgames.com/doc/api/ISteamNetworkingMessages#ReceiveMessagesOnChannel)
  *
  * This function reads the next message that has been sent from another user via ${function.steam_networking_messages_send_message_to_user} on the given channel. 
  *
  * @param {Real} local_channel The channel to read messages from (must match the channel used when sending).
- * @param {Buffer} out_data The buffer into which the received message data will be written.
- * @param {Real} max_bytes The maximum number of bytes to read into the buffer.
- * @param {Real} offset The offset within the buffer at which to start writing the received data.
- * @returns {Struct.SteamNetworkingMessagesReceived} 
- * @function_end 
+ * @param {Real} max_messages The maximum number of messages to receive.
+ * @returns {Array[Struct.SteamNetworkingMessagesMessage]} 
+ * @function_end
  */
 
 /**
@@ -8345,7 +8343,7 @@
  */
 
 /**
- * @function steam_networking_sockets_receive_one_on_connection
+ * @function steam_networking_sockets_receive_messages_on_connection
  * @description > **Steamworks Function**: [ISteamNetworkingSockets::ReceiveMessagesOnConnection](https://partner.steamgames.com/doc/api/ISteamNetworkingSockets#ReceiveMessagesOnConnection)
  *
  * This function fetches the next available message from the connection, if any.
@@ -8588,7 +8586,7 @@
  *
  * This function gets the list of locations in which you can post a party beacon. 
  *
- * @returns {Struct.SteamPartiesAvailableBeaconLocations} 
+ * @returns {Array[Struct.SteamPartiesBeaconLocation]}
  * @function_end 
  */
 
@@ -9254,16 +9252,6 @@
  */
 
 /**
- * @struct SteamUserSteamServersConnected
- * @description > **Steamworks Struct**: [ISteamUser::SteamServersConnected_t](https://partner.steamgames.com/doc/api/ISteamUser#SteamServersConnected_t)
- *
- * This struct is received in a `ISteamUser::SteamServersConnected_t` callback.
- *
- * @member {Real} dummy
- * @struct_end
- */
-
-/**
  * @struct SteamUserSteamServersDisconnected
  * @description > **Steamworks Struct**: [ISteamUser::SteamServersDisconnected_t](partner.steamgames.com/doc/api/ISteamUser#SteamServersDisconnected_t)
  *
@@ -9296,16 +9284,6 @@
  * @member {Bool} secure Is the game server VAC secure (`true`) or not (`false`)?
  * @member {Real} reason 
  * @struct_end 
- */
-
-/**
- * @struct SteamUserLicensesUpdated
- * @description > **Steamworks Struct**: [ISteamUser::LicensesUpdated_t](https://partner.steamgames.com/doc/api/ISteamUser#LicensesUpdated_t)
- *
- * This struct holds information passed in a `ISteamUser::LicensesUpdated_t` callback.
- *
- * @member {Real} dummy
- * @struct_end
  */
 
 /**
@@ -9376,7 +9354,7 @@
  */
 
 /**
- * @struct SteamUtilsGamepadTextInput
+ * @struct SteamUserDataFolder
  * @description > **Steamworks Struct**: N / A
  *
  * This struct holds the information returned by ${function.steam_utils_get_entered_gamepad_text_input}.
@@ -9507,6 +9485,22 @@
  * @member {Bool} accepted_for_use Whether the developer of this app has specifically flagged this item as accepted in the Workshop. (See: [Curated Workshop](https://partner.steamgames.com/doc/features/workshop#curated_workshop))
  * @member {Bool} tags_truncated Whether the list of tags was too long to be returned in the provided buffer, and were therefore truncated.
  * @member {String} tags Comma separated list of all tags associated with this item.
+ * @member {Enum.SteamApiResult} result The result of the operation.
+ * @member {Enum.SteamWorkshopFileType} file_type The type of the item.
+ * @member {Real} creator_app_id App Id of the app that created this item.
+ * @member {Real} consumer_app_id App Id of the app that will consume this item.
+ * @member {Real} time_added_to_user_list Time when the user added the published item to their list (not always applicable), provided in Unix epoch format (time since Jan 1st, 1970).
+ * @member {Real} handle_file The handle of the primary file.
+ * @member {Real} handle_preview_file The handle of the preview file.
+ * @member {String} file_name The cloud filename of the primary file.
+ * @member {Real} file_size The file size of the primary file.
+ * @member {Real} preview_file_size The file size of the preview file.
+ * @member {String} url The URL associated with this item. (For a video or a website.)
+ * @member {Real} votes_up Number of votes up.
+ * @member {Real} votes_down Number of votes down.
+ * @member {Real} score The bayesian average for up votes / total votes, between [0,1].
+ * @member {Real} num_children The number of items in the collection if `file_type` is `SteamWorkshopFileType.Collection`, or the number of items this specific item has a dependency on (see ${function.steam_ugc_add_dependency}).
+ * @member {Real} total_files_size The total file size of all files in the content package.
  * @struct_end
  */
 
@@ -10313,16 +10307,6 @@
  */
 
 /**
- * @struct SteamInventoryDefinitionUpdate
- * @description > **Steamworks Struct**: [ISteamInventory::SteamInventoryDefinitionUpdate_t](https://partner.steamgames.com/doc/api/ISteamInventory#SteamInventoryDefinitionUpdate_t)
- *
- * This struct is received whenever item definitions have been updated, which could be in response to ${function.steam_inventory_load_item_definitions} or any time new item definitions are available (e.g., from the dynamic addition of new item types while players are still in-game).
- *
- * @member {Real} dummy
- * @struct_end 
- */
-
-/**
  * @struct SteamInventoryStartPurchaseResult
  * @description > **Steamworks Struct**: [ISteamInventory::SteamInventoryStartPurchaseResult_t](https://partner.steamgames.com/doc/api/ISteamInventory#SteamInventoryStartPurchaseResult_t)
  *
@@ -10440,16 +10424,6 @@
  *
  * @member {Real} app_id ID of the app that will consume this file.
  * @member {Real} published_file_id The published file ID.
- * @struct_end 
- */
-
-/**
- * @struct SteamRemoteStorageLocalFileChange
- * @description > **Steamworks Struct**: [ISteamRemoteStorage::RemoteStorageLocalFileChange_t](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#RemoteStorageLocalFileChange_t)
- *
- * 
- *
- * @member {Real} dummy
  * @struct_end 
  */
 
@@ -10638,23 +10612,24 @@
  * This struct holds information passed to a `SteamNetworkingMessagesSessionFailed_t` callback.
  *
  * @member {Real} steam_id_remote The Steam ID associated with the remote identity.
- * @member {Enum.SteamNetConnectionEnd} end_reason Basic cause of the connection termination or problem.
+ * @member {Enum.SteamNetworkingConnectionEnd} end_reason Basic cause of the connection termination or problem.
  * @member {String} debug_msg Human-readable, but non-localized explanation for connection termination or problem.  This is intended for debugging / diagnostic purposes only, not to display to users.  It might have some details specific to the issue.
  * @struct_end 
  */
 
 /**
- * @struct SteamNetworkingMessagesReceived
- * @description > **Steamworks Struct**: N / A
- *
- * This struct holds information returned by ${function.steam_networking_messages_receive_one_on_channel}.
- *
- * @member {Bool} ok Whether successful.
- * @member {Real} steam_id_remote The Steam ID associated with the remote identity.
+ * @struct SteamNetworkingMessagesMessage
+ * @description > **Steamworks Struct**: [SteamNetworkingMessage_t](partner.steamgames.com/doc/api/steamnetworkingtypes#SteamNetworkingMessage_t)
+ * 
+ * This struct holds information about a message that has been received.
+ * 
+ * @member {Real} steam_id_remote The SteamID of the user who sent this message.
  * @member {Real} channel The channel number the message was received on.
- * @member {Real} bytes_written The number of bytes written.
- * @member {Real} send_flags A bitmask of ${Enum.SteamNetworkingSendFlags} options.
- * @struct_end
+ * @member {Real} size The size of the message, in bytes.
+ * @member {String} data The message payload.
+ * @member {Real} send_flags A bitmask of ${enum.SteamNetworkingSendFlags}. For received messages, only the `SteamNetworkingSendFlags.Reliable` bit is valid. For outbound messages, all bits are relevant.
+ * @member {Real} message_number The message number assigned by the sender. This is not used for outbound messages.
+ * @struct_end 
  */
 
 /**
@@ -10664,7 +10639,7 @@
  * This struct describes the state of a connection.
  *
  * @member {Real} user_data Arbitrary user data set by the local application code.
- * @member {Enum.SteamNetConnectionEnd} end_reason Basic cause of the connection termination or problem.
+ * @member {Enum.SteamNetworkingConnectionEnd} end_reason Basic cause of the connection termination or problem.
  * @member {String} end_debug Human-readable, but non-localized explanation for connection termination or problem.  This is intended for debugging / diagnostic purposes only, not to display to users.  It might have some details specific to the issue.
  * @member {String} connection_description Debug description. This includes the connection handle, connection type (and peer information), and the app name. This string is used in various internal logging messages.
  * @member {Real} flags A bitmask of ${enum.SteamNetworkingSendFlags}.
@@ -10699,15 +10674,13 @@
  */
 
 /**
- * @struct SteamPartiesAvailableBeaconLocations
- * @description > **Steamworks Struct**: [func](url)
- *
- * This struct 
- *
- * @member {Bool} ok
- * @member {Real} count
- * @member {Array[Enum.SteamPartiesBeaconLocationType]} location_types
- * @member {Array[Real]} location_ids
+ * @struct SteamPartiesBeaconLocation
+ * @description > **Steamworks Struct**: N / A
+ * 
+ * This struct holds information about a beacon location.
+ * 
+ * @member {Real} location_id The location ID.
+ * @member {Enum.SteamPartiesBeaconLocationType} location_type The location type.
  * @struct_end 
  */
 
@@ -11701,7 +11674,7 @@
  */
 
 /**
- * @enum SteamXboxOrigin
+ * @enum SteamInputXboxOrigin
  * @desc > **Steamworks Enum**: [EXboxOrigin]()
  * 
  * This enum holds Xbox action origins.
@@ -12855,7 +12828,6 @@
  * @section_const Constants
  * @desc These are the constants and enums of the Input module:
  * @ref SteamInput*
- * @ref SteamXboxOrigin
  * @section_end
  * 
  * @section_struct Structs
