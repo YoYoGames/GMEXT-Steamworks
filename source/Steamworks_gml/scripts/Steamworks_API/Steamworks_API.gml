@@ -2039,22 +2039,6 @@ function SteamAppsDlcDownloadProgress() constructor
 }
 
 /**
- * @returns {Struct.SteamAppsInstallSize} 
- */
-function SteamAppsInstallSize() constructor
-{
-    /**
-     * Internally generated hash for quick validation
-     * @ignore 
-     */
-    static __uid = 3392103799;
-
-    self.bytes_install_size = undefined;
-    self.bytes_download_size = undefined;
-
-}
-
-/**
  * @returns {Struct.SteamAppsDlcInstallDir} 
  */
 function SteamAppsDlcInstallDir() constructor
@@ -2067,22 +2051,6 @@ function SteamAppsDlcInstallDir() constructor
 
     self.bytes_copied = undefined;
     self.path = undefined;
-
-}
-
-/**
- * @returns {Struct.SteamAppsLanguageInfo} 
- */
-function SteamAppsLanguageInfo() constructor
-{
-    /**
-     * Internally generated hash for quick validation
-     * @ignore 
-     */
-    static __uid = 1005371145;
-
-    self.language_name = undefined;
-    self.language_code = undefined;
 
 }
 
@@ -2413,22 +2381,6 @@ function SteamUtilsSteamApiCallCompleted() constructor
     self.async_call = undefined;
     self.callback_id = undefined;
     self.param_size = undefined;
-
-}
-
-/**
- * @returns {Struct.SteamUtilsCserIpPort} 
- */
-function SteamUtilsCserIpPort() constructor
-{
-    /**
-     * Internally generated hash for quick validation
-     * @ignore 
-     */
-    static __uid = 1117647;
-
-    self.ip_v4 = undefined;
-    self.port = undefined;
 
 }
 
@@ -2996,22 +2948,6 @@ function SteamInputActionSetChanged() constructor
 }
 
 /**
- * @returns {Struct.SteamInputControllerBattery} 
- */
-function SteamInputControllerBattery() constructor
-{
-    /**
-     * Internally generated hash for quick validation
-     * @ignore 
-     */
-    static __uid = 2079938398;
-
-    self.controller_handle = undefined;
-    self.battery_percent = undefined;
-
-}
-
-/**
  * @returns {Struct.SteamUserStatsAchievementAndUnlockTime} 
  */
 function SteamUserStatsAchievementAndUnlockTime() constructor
@@ -3024,39 +2960,6 @@ function SteamUserStatsAchievementAndUnlockTime() constructor
 
     self.achieved = undefined;
     self.unlock_time = undefined;
-
-}
-
-/**
- * @returns {Struct.SteamUserStatsAchievementAndProgress} 
- */
-function SteamUserStatsAchievementAndProgress() constructor
-{
-    /**
-     * Internally generated hash for quick validation
-     * @ignore 
-     */
-    static __uid = 1842473848;
-
-    self.achieved = undefined;
-    self.cur_progress = undefined;
-    self.max_progress = undefined;
-
-}
-
-/**
- * @returns {Struct.SteamUserStatsAchievementNamesAndPercent} 
- */
-function SteamUserStatsAchievementNamesAndPercent() constructor
-{
-    /**
-     * Internally generated hash for quick validation
-     * @ignore 
-     */
-    static __uid = 1265809496;
-
-    self.name = undefined;
-    self.percent = undefined;
 
 }
 
@@ -3075,22 +2978,6 @@ function SteamUserStatsMostAchievedAchievementInfo() constructor
     self.name = undefined;
     self.percent = undefined;
     self.achieved = undefined;
-
-}
-
-/**
- * @returns {Struct.SteamUserStatsNumAchievementsAndHours} 
- */
-function SteamUserStatsNumAchievementsAndHours() constructor
-{
-    /**
-     * Internally generated hash for quick validation
-     * @ignore 
-     */
-    static __uid = 245908757;
-
-    self.num_achievements = undefined;
-    self.hours = undefined;
 
 }
 
@@ -5582,55 +5469,6 @@ function __SteamAppsDlcDownloadProgress_decode(_buffer, _offset)
 }
 
 /**
- * @func __SteamAppsInstallSize_encode(_inst, _buffer, _offset, _where)
- * @param {Struct.SteamAppsInstallSize} _inst
- * @param {Id.Buffer} _buffer
- * @param {Real} _offset
- * @param {String} _where
- * @ignore 
- */
-function __SteamAppsInstallSize_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
-{
-    buffer_seek(_buffer, buffer_seek_start, _offset);
-    with (_inst)
-    {
-        // field: bytes_install_size, type: UInt64
-        if (!is_numeric(self.bytes_install_size)) show_error($"{_where} :: self.bytes_install_size expected number", true);
-        buffer_write(_buffer, buffer_u64, self.bytes_install_size);
-
-        // field: bytes_download_size, type: UInt64
-        if (!is_numeric(self.bytes_download_size)) show_error($"{_where} :: self.bytes_download_size expected number", true);
-        buffer_write(_buffer, buffer_u64, self.bytes_download_size);
-
-    }
-}
-
-/**
- * @func __SteamAppsInstallSize_decode(_buffer, _offset)
- * @param {Id.Buffer} _buffer
- * @param {Real} _offset
- * @returns {Struct.SteamAppsInstallSize} 
- * @ignore 
- */
-function __SteamAppsInstallSize_decode(_buffer, _offset)
-{
-    buffer_seek(_buffer, buffer_seek_start, _offset);
-
-    _inst = new SteamAppsInstallSize();
-    with (_inst)
-    {
-        // field: bytes_install_size, type: UInt64
-        self.bytes_install_size = buffer_read(_buffer, buffer_u64);
-
-        // field: bytes_download_size, type: UInt64
-        self.bytes_download_size = buffer_read(_buffer, buffer_u64);
-
-    }
-
-    return _inst;
-}
-
-/**
  * @func __SteamAppsDlcInstallDir_encode(_inst, _buffer, _offset, _where)
  * @param {Struct.SteamAppsDlcInstallDir} _inst
  * @param {Id.Buffer} _buffer
@@ -5675,59 +5513,6 @@ function __SteamAppsDlcInstallDir_decode(_buffer, _offset)
         // field: path, type: String
         buffer_read(_buffer, buffer_u32);
         self.path = buffer_read(_buffer, buffer_string);
-
-    }
-
-    return _inst;
-}
-
-/**
- * @func __SteamAppsLanguageInfo_encode(_inst, _buffer, _offset, _where)
- * @param {Struct.SteamAppsLanguageInfo} _inst
- * @param {Id.Buffer} _buffer
- * @param {Real} _offset
- * @param {String} _where
- * @ignore 
- */
-function __SteamAppsLanguageInfo_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
-{
-    buffer_seek(_buffer, buffer_seek_start, _offset);
-    with (_inst)
-    {
-        // field: language_name, type: String
-        if (!is_string(self.language_name)) show_error($"{_where} :: self.language_name expected string", true);
-        buffer_write(_buffer, buffer_u32, string_byte_length(self.language_name));
-        buffer_write(_buffer, buffer_string, self.language_name);
-
-        // field: language_code, type: String
-        if (!is_string(self.language_code)) show_error($"{_where} :: self.language_code expected string", true);
-        buffer_write(_buffer, buffer_u32, string_byte_length(self.language_code));
-        buffer_write(_buffer, buffer_string, self.language_code);
-
-    }
-}
-
-/**
- * @func __SteamAppsLanguageInfo_decode(_buffer, _offset)
- * @param {Id.Buffer} _buffer
- * @param {Real} _offset
- * @returns {Struct.SteamAppsLanguageInfo} 
- * @ignore 
- */
-function __SteamAppsLanguageInfo_decode(_buffer, _offset)
-{
-    buffer_seek(_buffer, buffer_seek_start, _offset);
-
-    _inst = new SteamAppsLanguageInfo();
-    with (_inst)
-    {
-        // field: language_name, type: String
-        buffer_read(_buffer, buffer_u32);
-        self.language_name = buffer_read(_buffer, buffer_string);
-
-        // field: language_code, type: String
-        buffer_read(_buffer, buffer_u32);
-        self.language_code = buffer_read(_buffer, buffer_string);
 
     }
 
@@ -6794,55 +6579,6 @@ function __SteamUtilsSteamApiCallCompleted_decode(_buffer, _offset)
 
         // field: param_size, type: UInt32
         self.param_size = buffer_read(_buffer, buffer_u32);
-
-    }
-
-    return _inst;
-}
-
-/**
- * @func __SteamUtilsCserIpPort_encode(_inst, _buffer, _offset, _where)
- * @param {Struct.SteamUtilsCserIpPort} _inst
- * @param {Id.Buffer} _buffer
- * @param {Real} _offset
- * @param {String} _where
- * @ignore 
- */
-function __SteamUtilsCserIpPort_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
-{
-    buffer_seek(_buffer, buffer_seek_start, _offset);
-    with (_inst)
-    {
-        // field: ip_v4, type: UInt32
-        if (!is_numeric(self.ip_v4)) show_error($"{_where} :: self.ip_v4 expected number", true);
-        buffer_write(_buffer, buffer_u32, self.ip_v4);
-
-        // field: port, type: UInt32
-        if (!is_numeric(self.port)) show_error($"{_where} :: self.port expected number", true);
-        buffer_write(_buffer, buffer_u32, self.port);
-
-    }
-}
-
-/**
- * @func __SteamUtilsCserIpPort_decode(_buffer, _offset)
- * @param {Id.Buffer} _buffer
- * @param {Real} _offset
- * @returns {Struct.SteamUtilsCserIpPort} 
- * @ignore 
- */
-function __SteamUtilsCserIpPort_decode(_buffer, _offset)
-{
-    buffer_seek(_buffer, buffer_seek_start, _offset);
-
-    _inst = new SteamUtilsCserIpPort();
-    with (_inst)
-    {
-        // field: ip_v4, type: UInt32
-        self.ip_v4 = buffer_read(_buffer, buffer_u32);
-
-        // field: port, type: UInt32
-        self.port = buffer_read(_buffer, buffer_u32);
 
     }
 
@@ -8768,55 +8504,6 @@ function __SteamInputActionSetChanged_decode(_buffer, _offset)
 }
 
 /**
- * @func __SteamInputControllerBattery_encode(_inst, _buffer, _offset, _where)
- * @param {Struct.SteamInputControllerBattery} _inst
- * @param {Id.Buffer} _buffer
- * @param {Real} _offset
- * @param {String} _where
- * @ignore 
- */
-function __SteamInputControllerBattery_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
-{
-    buffer_seek(_buffer, buffer_seek_start, _offset);
-    with (_inst)
-    {
-        // field: controller_handle, type: UInt64
-        if (!is_numeric(self.controller_handle)) show_error($"{_where} :: self.controller_handle expected number", true);
-        buffer_write(_buffer, buffer_u64, self.controller_handle);
-
-        // field: battery_percent, type: Int32
-        if (!is_numeric(self.battery_percent)) show_error($"{_where} :: self.battery_percent expected number", true);
-        buffer_write(_buffer, buffer_s32, self.battery_percent);
-
-    }
-}
-
-/**
- * @func __SteamInputControllerBattery_decode(_buffer, _offset)
- * @param {Id.Buffer} _buffer
- * @param {Real} _offset
- * @returns {Struct.SteamInputControllerBattery} 
- * @ignore 
- */
-function __SteamInputControllerBattery_decode(_buffer, _offset)
-{
-    buffer_seek(_buffer, buffer_seek_start, _offset);
-
-    _inst = new SteamInputControllerBattery();
-    with (_inst)
-    {
-        // field: controller_handle, type: UInt64
-        self.controller_handle = buffer_read(_buffer, buffer_u64);
-
-        // field: battery_percent, type: Int32
-        self.battery_percent = buffer_read(_buffer, buffer_s32);
-
-    }
-
-    return _inst;
-}
-
-/**
  * @func __SteamUserStatsAchievementAndUnlockTime_encode(_inst, _buffer, _offset, _where)
  * @param {Struct.SteamUserStatsAchievementAndUnlockTime} _inst
  * @param {Id.Buffer} _buffer
@@ -8859,113 +8546,6 @@ function __SteamUserStatsAchievementAndUnlockTime_decode(_buffer, _offset)
 
         // field: unlock_time, type: UInt32
         self.unlock_time = buffer_read(_buffer, buffer_u32);
-
-    }
-
-    return _inst;
-}
-
-/**
- * @func __SteamUserStatsAchievementAndProgress_encode(_inst, _buffer, _offset, _where)
- * @param {Struct.SteamUserStatsAchievementAndProgress} _inst
- * @param {Id.Buffer} _buffer
- * @param {Real} _offset
- * @param {String} _where
- * @ignore 
- */
-function __SteamUserStatsAchievementAndProgress_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
-{
-    buffer_seek(_buffer, buffer_seek_start, _offset);
-    with (_inst)
-    {
-        // field: achieved, type: Bool
-        if (!is_bool(self.achieved)) show_error($"{_where} :: self.achieved expected bool", true);
-        buffer_write(_buffer, buffer_bool, self.achieved);
-
-        // field: cur_progress, type: UInt32
-        if (!is_numeric(self.cur_progress)) show_error($"{_where} :: self.cur_progress expected number", true);
-        buffer_write(_buffer, buffer_u32, self.cur_progress);
-
-        // field: max_progress, type: UInt32
-        if (!is_numeric(self.max_progress)) show_error($"{_where} :: self.max_progress expected number", true);
-        buffer_write(_buffer, buffer_u32, self.max_progress);
-
-    }
-}
-
-/**
- * @func __SteamUserStatsAchievementAndProgress_decode(_buffer, _offset)
- * @param {Id.Buffer} _buffer
- * @param {Real} _offset
- * @returns {Struct.SteamUserStatsAchievementAndProgress} 
- * @ignore 
- */
-function __SteamUserStatsAchievementAndProgress_decode(_buffer, _offset)
-{
-    buffer_seek(_buffer, buffer_seek_start, _offset);
-
-    _inst = new SteamUserStatsAchievementAndProgress();
-    with (_inst)
-    {
-        // field: achieved, type: Bool
-        self.achieved = buffer_read(_buffer, buffer_bool);
-
-        // field: cur_progress, type: UInt32
-        self.cur_progress = buffer_read(_buffer, buffer_u32);
-
-        // field: max_progress, type: UInt32
-        self.max_progress = buffer_read(_buffer, buffer_u32);
-
-    }
-
-    return _inst;
-}
-
-/**
- * @func __SteamUserStatsAchievementNamesAndPercent_encode(_inst, _buffer, _offset, _where)
- * @param {Struct.SteamUserStatsAchievementNamesAndPercent} _inst
- * @param {Id.Buffer} _buffer
- * @param {Real} _offset
- * @param {String} _where
- * @ignore 
- */
-function __SteamUserStatsAchievementNamesAndPercent_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
-{
-    buffer_seek(_buffer, buffer_seek_start, _offset);
-    with (_inst)
-    {
-        // field: name, type: String
-        if (!is_string(self.name)) show_error($"{_where} :: self.name expected string", true);
-        buffer_write(_buffer, buffer_u32, string_byte_length(self.name));
-        buffer_write(_buffer, buffer_string, self.name);
-
-        // field: percent, type: Float32
-        if (!is_numeric(self.percent)) show_error($"{_where} :: self.percent expected number", true);
-        buffer_write(_buffer, buffer_f32, self.percent);
-
-    }
-}
-
-/**
- * @func __SteamUserStatsAchievementNamesAndPercent_decode(_buffer, _offset)
- * @param {Id.Buffer} _buffer
- * @param {Real} _offset
- * @returns {Struct.SteamUserStatsAchievementNamesAndPercent} 
- * @ignore 
- */
-function __SteamUserStatsAchievementNamesAndPercent_decode(_buffer, _offset)
-{
-    buffer_seek(_buffer, buffer_seek_start, _offset);
-
-    _inst = new SteamUserStatsAchievementNamesAndPercent();
-    with (_inst)
-    {
-        // field: name, type: String
-        buffer_read(_buffer, buffer_u32);
-        self.name = buffer_read(_buffer, buffer_string);
-
-        // field: percent, type: Float32
-        self.percent = buffer_read(_buffer, buffer_f32);
 
     }
 
@@ -9031,55 +8611,6 @@ function __SteamUserStatsMostAchievedAchievementInfo_decode(_buffer, _offset)
 
         // field: achieved, type: Bool
         self.achieved = buffer_read(_buffer, buffer_bool);
-
-    }
-
-    return _inst;
-}
-
-/**
- * @func __SteamUserStatsNumAchievementsAndHours_encode(_inst, _buffer, _offset, _where)
- * @param {Struct.SteamUserStatsNumAchievementsAndHours} _inst
- * @param {Id.Buffer} _buffer
- * @param {Real} _offset
- * @param {String} _where
- * @ignore 
- */
-function __SteamUserStatsNumAchievementsAndHours_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
-{
-    buffer_seek(_buffer, buffer_seek_start, _offset);
-    with (_inst)
-    {
-        // field: num_achievements, type: UInt32
-        if (!is_numeric(self.num_achievements)) show_error($"{_where} :: self.num_achievements expected number", true);
-        buffer_write(_buffer, buffer_u32, self.num_achievements);
-
-        // field: hours, type: Float32
-        if (!is_numeric(self.hours)) show_error($"{_where} :: self.hours expected number", true);
-        buffer_write(_buffer, buffer_f32, self.hours);
-
-    }
-}
-
-/**
- * @func __SteamUserStatsNumAchievementsAndHours_decode(_buffer, _offset)
- * @param {Id.Buffer} _buffer
- * @param {Real} _offset
- * @returns {Struct.SteamUserStatsNumAchievementsAndHours} 
- * @ignore 
- */
-function __SteamUserStatsNumAchievementsAndHours_decode(_buffer, _offset)
-{
-    buffer_seek(_buffer, buffer_seek_start, _offset);
-
-    _inst = new SteamUserStatsNumAchievementsAndHours();
-    with (_inst)
-    {
-        // field: num_achievements, type: UInt32
-        self.num_achievements = buffer_read(_buffer, buffer_u32);
-
-        // field: hours, type: Float32
-        self.hours = buffer_read(_buffer, buffer_f32);
 
     }
 
@@ -18600,28 +18131,6 @@ function steam_input_set_callback_action_set_changed(_callback)
 // Skipping function steam_input_clear_callback_action_set_changed (no wrapper is required)
 
 
-/**
- * @param {Function} _callback
- */
-function steam_input_set_callback_controller_battery(_callback)
-{
-    static __dispatcher = __Steamworks_get_dispatcher();
-
-    var __args_buffer = __ext_core_get_args_buffer();
-
-    // param: _callback, type: Function
-    if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
-    var _callback_handle = __ext_core_function_register(_callback, __dispatcher);
-    buffer_write(__args_buffer, buffer_u64, _callback_handle);
-
-    var _return_value = __steam_input_set_callback_controller_battery(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
-
-    return _return_value;
-}
-
-// Skipping function steam_input_clear_callback_controller_battery (no wrapper is required)
-
-
 // Skipping function steam_userstats_get_stat_int (no wrapper is required)
 
 
@@ -22990,9 +22499,7 @@ function __Steamworks_get_decoders()
         __SteamAppsNumBetas_decode,
         __SteamAppsBetaInfo_decode,
         __SteamAppsDlcDownloadProgress_decode,
-        __SteamAppsInstallSize_decode,
         __SteamAppsDlcInstallDir_decode,
-        __SteamAppsLanguageInfo_decode,
         __SteamAppsDlcInstalled_decode,
         __SteamScreenshotsScreenshotReady_decode,
         __SteamUserStoreAuthUrlResponse_decode,
@@ -23013,7 +22520,6 @@ function __Steamworks_get_decoders()
         __SteamUtilsCheckFileSignatureResult_decode,
         __SteamUtilsLowBatteryPower_decode,
         __SteamUtilsSteamApiCallCompleted_decode,
-        __SteamUtilsCserIpPort_decode,
         __SteamUtilsImageSize_decode,
         __SteamUtilsFilterTextResult_decode,
         __SteamUtilsGamepadTextInputDismissed_decode,
@@ -23047,12 +22553,8 @@ function __Steamworks_get_decoders()
         __SteamInputDeviceBindingRevision_decode,
         __SteamInputDeviceEvent_decode,
         __SteamInputActionSetChanged_decode,
-        __SteamInputControllerBattery_decode,
         __SteamUserStatsAchievementAndUnlockTime_decode,
-        __SteamUserStatsAchievementAndProgress_decode,
-        __SteamUserStatsAchievementNamesAndPercent_decode,
         __SteamUserStatsMostAchievedAchievementInfo_decode,
-        __SteamUserStatsNumAchievementsAndHours_decode,
         __SteamUserStatsDownloadedLeaderboardEntry_decode,
         __SteamUserStatsRequestUserStatsResult_decode,
         __SteamUserStatsLeaderboardFindResult_decode,

@@ -2494,17 +2494,6 @@
  */
 
 /**
- * @function_partial steam_input_set_callback_controller_battery
- * @param {Function} callback
- * @function_end 
- */
-
-/**
- * @function_partial steam_input_clear_callback_controller_battery
- * @function_end 
- */
-
-/**
  * @function_partial steam_userstats_get_stat_int
  * @param {String} stat_name
  * @returns {Real} 
@@ -4595,23 +4584,9 @@
  */
 
 /**
- * @struct_partial SteamAppsInstallSize
- * @member {Real} bytes_install_size
- * @member {Real} bytes_download_size
- * @struct_end 
- */
-
-/**
  * @struct_partial SteamAppsDlcInstallDir
  * @member {Real} bytes_copied
  * @member {String} path
- * @struct_end 
- */
-
-/**
- * @struct_partial SteamAppsLanguageInfo
- * @member {String} language_name
- * @member {String} language_code
  * @struct_end 
  */
 
@@ -4762,13 +4737,6 @@
  * @member {Real} async_call
  * @member {Real} callback_id
  * @member {Real} param_size
- * @struct_end 
- */
-
-/**
- * @struct_partial SteamUtilsCserIpPort
- * @member {Real} ip_v4
- * @member {Real} port
  * @struct_end 
  */
 
@@ -5039,31 +5007,9 @@
  */
 
 /**
- * @struct_partial SteamInputControllerBattery
- * @member {Real} controller_handle
- * @member {Real} battery_percent
- * @struct_end 
- */
-
-/**
  * @struct_partial SteamUserStatsAchievementAndUnlockTime
  * @member {Bool} achieved
  * @member {Real} unlock_time
- * @struct_end 
- */
-
-/**
- * @struct_partial SteamUserStatsAchievementAndProgress
- * @member {Bool} achieved
- * @member {Real} cur_progress
- * @member {Real} max_progress
- * @struct_end 
- */
-
-/**
- * @struct_partial SteamUserStatsAchievementNamesAndPercent
- * @member {String} name
- * @member {Real} percent
  * @struct_end 
  */
 
@@ -5073,13 +5019,6 @@
  * @member {String} name
  * @member {Real} percent
  * @member {Bool} achieved
- * @struct_end 
- */
-
-/**
- * @struct_partial SteamUserStatsNumAchievementsAndHours
- * @member {Real} num_achievements
- * @member {Real} hours
  * @struct_end 
  */
 

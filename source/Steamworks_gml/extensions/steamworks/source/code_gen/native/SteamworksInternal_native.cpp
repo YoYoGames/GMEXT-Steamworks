@@ -4150,23 +4150,6 @@ GMEXPORT double __EXT_NATIVE__steam_input_clear_callback_action_set_changed()
     return 0;
 }
 
-GMEXPORT double __EXT_NATIVE__steam_input_set_callback_controller_battery(char* __arg_buffer, double __arg_buffer_length)
-{
-    gm::byteio::BufferReader __br{__arg_buffer, static_cast<size_t>(__arg_buffer_length)};
-
-    // field: callback, type: Function
-    gm::wire::GMFunction callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
-
-    steam_input_set_callback_controller_battery(callback);
-    return 0;
-}
-
-GMEXPORT double __EXT_NATIVE__steam_input_clear_callback_controller_battery()
-{
-    steam_input_clear_callback_controller_battery();
-    return 0;
-}
-
 GMEXPORT double __EXT_NATIVE__steam_userstats_get_stat_int(char* stat_name)
 {
     auto&& __result = steam_userstats_get_stat_int(stat_name);

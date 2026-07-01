@@ -368,8 +368,6 @@ GMEXPORT double __EXT_NATIVE__steam_input_set_callback_device_disconnected(char*
 GMEXPORT double __EXT_NATIVE__steam_input_clear_callback_device_disconnected();
 GMEXPORT double __EXT_NATIVE__steam_input_set_callback_action_set_changed(char* __arg_buffer, double __arg_buffer_length);
 GMEXPORT double __EXT_NATIVE__steam_input_clear_callback_action_set_changed();
-GMEXPORT double __EXT_NATIVE__steam_input_set_callback_controller_battery(char* __arg_buffer, double __arg_buffer_length);
-GMEXPORT double __EXT_NATIVE__steam_input_clear_callback_controller_battery();
 GMEXPORT double __EXT_NATIVE__steam_userstats_get_stat_int(char* stat_name);
 GMEXPORT double __EXT_NATIVE__steam_userstats_get_stat_float(char* stat_name);
 GMEXPORT double __EXT_NATIVE__steam_userstats_set_stat_int(char* stat_name, double data);

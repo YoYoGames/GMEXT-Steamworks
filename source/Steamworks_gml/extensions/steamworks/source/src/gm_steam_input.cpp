@@ -22,11 +22,8 @@ static gm::wire::GMFunction g_cb_input_device_disconnected = nullptr;
 static std::vector<InputHandle_t> g_prev_connected;
 
 static gm::wire::GMFunction g_cb_input_action_set_changed = nullptr;
-static gm::wire::GMFunction g_cb_input_controller_battery = nullptr;
 
 static std::unordered_map<InputHandle_t, InputActionSetHandle_t> g_prev_action_set;
-
-static std::unordered_map<InputHandle_t, int32_t> g_prev_battery;
 
 void steam_input_set_callback_device_connected( const gm::wire::GMFunction& callback)
 {
@@ -71,25 +68,6 @@ void steam_input_clear_callback_action_set_changed()
     g_prev_action_set.clear();
 }
 
-void steam_input_set_callback_controller_battery( const gm::wire::GMFunction& callback)
-{
-    steam_clear_last_error();
-    std::lock_guard<std::mutex> lock(g_callbacks_mtx);
-    g_cb_input_controller_battery = callback;
-}
-
-void steam_input_clear_callback_controller_battery()
-{
-    steam_clear_last_error();
-    std::lock_guard<std::mutex> lock(g_callbacks_mtx);
-    g_cb_input_controller_battery = nullptr;
-    g_prev_battery.clear();
-}
-
-static inline int32_t steam_input_get_battery_percent_best_effort(InputHandle_t /*h*/)
-{
-    return -1;
-}
 
 static inline ISteamInput* steam_input_iface()
 {

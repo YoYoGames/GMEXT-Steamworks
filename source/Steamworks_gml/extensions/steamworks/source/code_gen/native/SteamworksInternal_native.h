@@ -1576,9 +1576,7 @@ namespace gm_structs
     struct SteamAppsNumBetas;
     struct SteamAppsBetaInfo;
     struct SteamAppsDlcDownloadProgress;
-    struct SteamAppsInstallSize;
     struct SteamAppsDlcInstallDir;
-    struct SteamAppsLanguageInfo;
     struct SteamAppsDlcInstalled;
     struct SteamScreenshotsScreenshotReady;
     struct SteamUserStoreAuthUrlResponse;
@@ -1599,7 +1597,6 @@ namespace gm_structs
     struct SteamUtilsCheckFileSignatureResult;
     struct SteamUtilsLowBatteryPower;
     struct SteamUtilsSteamApiCallCompleted;
-    struct SteamUtilsCserIpPort;
     struct SteamUtilsImageSize;
     struct SteamUtilsFilterTextResult;
     struct SteamUtilsGamepadTextInputDismissed;
@@ -1633,12 +1630,8 @@ namespace gm_structs
     struct SteamInputDeviceBindingRevision;
     struct SteamInputDeviceEvent;
     struct SteamInputActionSetChanged;
-    struct SteamInputControllerBattery;
     struct SteamUserStatsAchievementAndUnlockTime;
-    struct SteamUserStatsAchievementAndProgress;
-    struct SteamUserStatsAchievementNamesAndPercent;
     struct SteamUserStatsMostAchievedAchievementInfo;
-    struct SteamUserStatsNumAchievementsAndHours;
     struct SteamUserStatsDownloadedLeaderboardEntry;
     struct SteamUserStatsRequestUserStatsResult;
     struct SteamUserStatsLeaderboardFindResult;
@@ -1875,22 +1868,10 @@ namespace gm_structs
         std::uint64_t bytes_total;
     };
 
-    struct SteamAppsInstallSize
-    {
-        std::uint64_t bytes_install_size;
-        std::uint64_t bytes_download_size;
-    };
-
     struct SteamAppsDlcInstallDir
     {
         std::uint32_t bytes_copied;
         std::string path;
-    };
-
-    struct SteamAppsLanguageInfo
-    {
-        std::string language_name;
-        std::string language_code;
     };
 
     struct SteamAppsDlcInstalled
@@ -2021,12 +2002,6 @@ namespace gm_structs
         std::uint64_t async_call;
         std::int32_t callback_id;
         std::uint32_t param_size;
-    };
-
-    struct SteamUtilsCserIpPort
-    {
-        std::uint32_t ip_v4;
-        std::uint32_t port;
     };
 
     struct SteamUtilsImageSize
@@ -2262,29 +2237,10 @@ namespace gm_structs
         std::uint64_t action_set_handle;
     };
 
-    struct SteamInputControllerBattery
-    {
-        std::uint64_t controller_handle;
-        std::int32_t battery_percent;
-    };
-
     struct SteamUserStatsAchievementAndUnlockTime
     {
         bool achieved;
         std::uint32_t unlock_time;
-    };
-
-    struct SteamUserStatsAchievementAndProgress
-    {
-        bool achieved;
-        std::uint32_t cur_progress;
-        std::uint32_t max_progress;
-    };
-
-    struct SteamUserStatsAchievementNamesAndPercent
-    {
-        std::string name;
-        float percent;
     };
 
     struct SteamUserStatsMostAchievedAchievementInfo
@@ -2293,12 +2249,6 @@ namespace gm_structs
         std::string name;
         float percent;
         bool achieved;
-    };
-
-    struct SteamUserStatsNumAchievementsAndHours
-    {
-        std::uint32_t num_achievements;
-        float hours;
     };
 
     struct SteamUserStatsDownloadedLeaderboardEntry
@@ -3189,22 +3139,6 @@ namespace gm::wire::codec
     }
 
     template<>
-    inline void writeValue<gm_structs::SteamAppsInstallSize>(gm::byteio::IByteWriter& _buf, const gm_structs::SteamAppsInstallSize& obj)
-    {
-        gm::wire::codec::writeValue(_buf, obj.bytes_install_size);
-        gm::wire::codec::writeValue(_buf, obj.bytes_download_size);
-    }
-
-    template<>
-    inline gm_structs::SteamAppsInstallSize readValue<gm_structs::SteamAppsInstallSize>(gm::byteio::BufferReader& _buf)
-    {
-        gm_structs::SteamAppsInstallSize obj;
-        obj.bytes_install_size = gm::wire::codec::readValue<std::uint64_t>(_buf);
-        obj.bytes_download_size = gm::wire::codec::readValue<std::uint64_t>(_buf);
-        return obj;
-    }
-
-    template<>
     inline void writeValue<gm_structs::SteamAppsDlcInstallDir>(gm::byteio::IByteWriter& _buf, const gm_structs::SteamAppsDlcInstallDir& obj)
     {
         gm::wire::codec::writeValue(_buf, obj.bytes_copied);
@@ -3217,22 +3151,6 @@ namespace gm::wire::codec
         gm_structs::SteamAppsDlcInstallDir obj;
         obj.bytes_copied = gm::wire::codec::readValue<std::uint32_t>(_buf);
         obj.path = gm::wire::codec::readValue<std::string>(_buf);
-        return obj;
-    }
-
-    template<>
-    inline void writeValue<gm_structs::SteamAppsLanguageInfo>(gm::byteio::IByteWriter& _buf, const gm_structs::SteamAppsLanguageInfo& obj)
-    {
-        gm::wire::codec::writeValue(_buf, obj.language_name);
-        gm::wire::codec::writeValue(_buf, obj.language_code);
-    }
-
-    template<>
-    inline gm_structs::SteamAppsLanguageInfo readValue<gm_structs::SteamAppsLanguageInfo>(gm::byteio::BufferReader& _buf)
-    {
-        gm_structs::SteamAppsLanguageInfo obj;
-        obj.language_name = gm::wire::codec::readValue<std::string>(_buf);
-        obj.language_code = gm::wire::codec::readValue<std::string>(_buf);
         return obj;
     }
 
@@ -3573,22 +3491,6 @@ namespace gm::wire::codec
         obj.async_call = gm::wire::codec::readValue<std::uint64_t>(_buf);
         obj.callback_id = gm::wire::codec::readValue<std::int32_t>(_buf);
         obj.param_size = gm::wire::codec::readValue<std::uint32_t>(_buf);
-        return obj;
-    }
-
-    template<>
-    inline void writeValue<gm_structs::SteamUtilsCserIpPort>(gm::byteio::IByteWriter& _buf, const gm_structs::SteamUtilsCserIpPort& obj)
-    {
-        gm::wire::codec::writeValue(_buf, obj.ip_v4);
-        gm::wire::codec::writeValue(_buf, obj.port);
-    }
-
-    template<>
-    inline gm_structs::SteamUtilsCserIpPort readValue<gm_structs::SteamUtilsCserIpPort>(gm::byteio::BufferReader& _buf)
-    {
-        gm_structs::SteamUtilsCserIpPort obj;
-        obj.ip_v4 = gm::wire::codec::readValue<std::uint32_t>(_buf);
-        obj.port = gm::wire::codec::readValue<std::uint32_t>(_buf);
         return obj;
     }
 
@@ -4191,22 +4093,6 @@ namespace gm::wire::codec
     }
 
     template<>
-    inline void writeValue<gm_structs::SteamInputControllerBattery>(gm::byteio::IByteWriter& _buf, const gm_structs::SteamInputControllerBattery& obj)
-    {
-        gm::wire::codec::writeValue(_buf, obj.controller_handle);
-        gm::wire::codec::writeValue(_buf, obj.battery_percent);
-    }
-
-    template<>
-    inline gm_structs::SteamInputControllerBattery readValue<gm_structs::SteamInputControllerBattery>(gm::byteio::BufferReader& _buf)
-    {
-        gm_structs::SteamInputControllerBattery obj;
-        obj.controller_handle = gm::wire::codec::readValue<std::uint64_t>(_buf);
-        obj.battery_percent = gm::wire::codec::readValue<std::int32_t>(_buf);
-        return obj;
-    }
-
-    template<>
     inline void writeValue<gm_structs::SteamUserStatsAchievementAndUnlockTime>(gm::byteio::IByteWriter& _buf, const gm_structs::SteamUserStatsAchievementAndUnlockTime& obj)
     {
         gm::wire::codec::writeValue(_buf, obj.achieved);
@@ -4219,40 +4105,6 @@ namespace gm::wire::codec
         gm_structs::SteamUserStatsAchievementAndUnlockTime obj;
         obj.achieved = gm::wire::codec::readValue<bool>(_buf);
         obj.unlock_time = gm::wire::codec::readValue<std::uint32_t>(_buf);
-        return obj;
-    }
-
-    template<>
-    inline void writeValue<gm_structs::SteamUserStatsAchievementAndProgress>(gm::byteio::IByteWriter& _buf, const gm_structs::SteamUserStatsAchievementAndProgress& obj)
-    {
-        gm::wire::codec::writeValue(_buf, obj.achieved);
-        gm::wire::codec::writeValue(_buf, obj.cur_progress);
-        gm::wire::codec::writeValue(_buf, obj.max_progress);
-    }
-
-    template<>
-    inline gm_structs::SteamUserStatsAchievementAndProgress readValue<gm_structs::SteamUserStatsAchievementAndProgress>(gm::byteio::BufferReader& _buf)
-    {
-        gm_structs::SteamUserStatsAchievementAndProgress obj;
-        obj.achieved = gm::wire::codec::readValue<bool>(_buf);
-        obj.cur_progress = gm::wire::codec::readValue<std::uint32_t>(_buf);
-        obj.max_progress = gm::wire::codec::readValue<std::uint32_t>(_buf);
-        return obj;
-    }
-
-    template<>
-    inline void writeValue<gm_structs::SteamUserStatsAchievementNamesAndPercent>(gm::byteio::IByteWriter& _buf, const gm_structs::SteamUserStatsAchievementNamesAndPercent& obj)
-    {
-        gm::wire::codec::writeValue(_buf, obj.name);
-        gm::wire::codec::writeValue(_buf, obj.percent);
-    }
-
-    template<>
-    inline gm_structs::SteamUserStatsAchievementNamesAndPercent readValue<gm_structs::SteamUserStatsAchievementNamesAndPercent>(gm::byteio::BufferReader& _buf)
-    {
-        gm_structs::SteamUserStatsAchievementNamesAndPercent obj;
-        obj.name = gm::wire::codec::readValue<std::string>(_buf);
-        obj.percent = gm::wire::codec::readValue<float>(_buf);
         return obj;
     }
 
@@ -4273,22 +4125,6 @@ namespace gm::wire::codec
         obj.name = gm::wire::codec::readValue<std::string>(_buf);
         obj.percent = gm::wire::codec::readValue<float>(_buf);
         obj.achieved = gm::wire::codec::readValue<bool>(_buf);
-        return obj;
-    }
-
-    template<>
-    inline void writeValue<gm_structs::SteamUserStatsNumAchievementsAndHours>(gm::byteio::IByteWriter& _buf, const gm_structs::SteamUserStatsNumAchievementsAndHours& obj)
-    {
-        gm::wire::codec::writeValue(_buf, obj.num_achievements);
-        gm::wire::codec::writeValue(_buf, obj.hours);
-    }
-
-    template<>
-    inline gm_structs::SteamUserStatsNumAchievementsAndHours readValue<gm_structs::SteamUserStatsNumAchievementsAndHours>(gm::byteio::BufferReader& _buf)
-    {
-        gm_structs::SteamUserStatsNumAchievementsAndHours obj;
-        obj.num_achievements = gm::wire::codec::readValue<std::uint32_t>(_buf);
-        obj.hours = gm::wire::codec::readValue<float>(_buf);
         return obj;
     }
 
@@ -5612,892 +5448,843 @@ namespace gm::wire::details
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamAppsInstallSize>
+    struct gm_struct_traits<gm_structs::SteamAppsDlcInstallDir>
     {
         static constexpr bool is_gm_struct = true;
         static constexpr std::uint32_t codec_id = 23;
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamAppsDlcInstallDir>
+    struct gm_struct_traits<gm_structs::SteamAppsDlcInstalled>
     {
         static constexpr bool is_gm_struct = true;
         static constexpr std::uint32_t codec_id = 24;
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamAppsLanguageInfo>
+    struct gm_struct_traits<gm_structs::SteamScreenshotsScreenshotReady>
     {
         static constexpr bool is_gm_struct = true;
         static constexpr std::uint32_t codec_id = 25;
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamAppsDlcInstalled>
+    struct gm_struct_traits<gm_structs::SteamUserStoreAuthUrlResponse>
     {
         static constexpr bool is_gm_struct = true;
         static constexpr std::uint32_t codec_id = 26;
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamScreenshotsScreenshotReady>
+    struct gm_struct_traits<gm_structs::SteamUserEncryptedAppTicketResponse>
     {
         static constexpr bool is_gm_struct = true;
         static constexpr std::uint32_t codec_id = 27;
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamUserStoreAuthUrlResponse>
+    struct gm_struct_traits<gm_structs::SteamUserDurationControl>
     {
         static constexpr bool is_gm_struct = true;
         static constexpr std::uint32_t codec_id = 28;
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamUserEncryptedAppTicketResponse>
+    struct gm_struct_traits<gm_structs::SteamUserMarketEligibilityResponse>
     {
         static constexpr bool is_gm_struct = true;
         static constexpr std::uint32_t codec_id = 29;
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamUserDurationControl>
+    struct gm_struct_traits<gm_structs::SteamNetworkingIdentity>
     {
         static constexpr bool is_gm_struct = true;
         static constexpr std::uint32_t codec_id = 30;
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamUserMarketEligibilityResponse>
+    struct gm_struct_traits<gm_structs::SteamUserAuthSessionTicket>
     {
         static constexpr bool is_gm_struct = true;
         static constexpr std::uint32_t codec_id = 31;
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamNetworkingIdentity>
+    struct gm_struct_traits<gm_structs::SteamUserGetAuthSessionTicketResponse>
     {
         static constexpr bool is_gm_struct = true;
         static constexpr std::uint32_t codec_id = 32;
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamUserAuthSessionTicket>
+    struct gm_struct_traits<gm_structs::SteamUserAvailableVoice>
     {
         static constexpr bool is_gm_struct = true;
         static constexpr std::uint32_t codec_id = 33;
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamUserGetAuthSessionTicketResponse>
+    struct gm_struct_traits<gm_structs::SteamUserGetVoiceResult>
     {
         static constexpr bool is_gm_struct = true;
         static constexpr std::uint32_t codec_id = 34;
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamUserAvailableVoice>
+    struct gm_struct_traits<gm_structs::SteamUserSteamServersConnected>
     {
         static constexpr bool is_gm_struct = true;
         static constexpr std::uint32_t codec_id = 35;
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamUserGetVoiceResult>
+    struct gm_struct_traits<gm_structs::SteamUserSteamServersDisconnected>
     {
         static constexpr bool is_gm_struct = true;
         static constexpr std::uint32_t codec_id = 36;
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamUserSteamServersConnected>
+    struct gm_struct_traits<gm_structs::SteamUserSteamServerConnectFailure>
     {
         static constexpr bool is_gm_struct = true;
         static constexpr std::uint32_t codec_id = 37;
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamUserSteamServersDisconnected>
+    struct gm_struct_traits<gm_structs::SteamUserClientGameServerDeny>
     {
         static constexpr bool is_gm_struct = true;
         static constexpr std::uint32_t codec_id = 38;
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamUserSteamServerConnectFailure>
+    struct gm_struct_traits<gm_structs::SteamUserLicensesUpdated>
     {
         static constexpr bool is_gm_struct = true;
         static constexpr std::uint32_t codec_id = 39;
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamUserClientGameServerDeny>
+    struct gm_struct_traits<gm_structs::SteamUserMicroTxnAuthorizationResponse>
     {
         static constexpr bool is_gm_struct = true;
         static constexpr std::uint32_t codec_id = 40;
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamUserLicensesUpdated>
+    struct gm_struct_traits<gm_structs::SteamUtilsCheckFileSignatureResult>
     {
         static constexpr bool is_gm_struct = true;
         static constexpr std::uint32_t codec_id = 41;
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamUserMicroTxnAuthorizationResponse>
+    struct gm_struct_traits<gm_structs::SteamUtilsLowBatteryPower>
     {
         static constexpr bool is_gm_struct = true;
         static constexpr std::uint32_t codec_id = 42;
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamUtilsCheckFileSignatureResult>
+    struct gm_struct_traits<gm_structs::SteamUtilsSteamApiCallCompleted>
     {
         static constexpr bool is_gm_struct = true;
         static constexpr std::uint32_t codec_id = 43;
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamUtilsLowBatteryPower>
+    struct gm_struct_traits<gm_structs::SteamUtilsImageSize>
     {
         static constexpr bool is_gm_struct = true;
         static constexpr std::uint32_t codec_id = 44;
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamUtilsSteamApiCallCompleted>
+    struct gm_struct_traits<gm_structs::SteamUtilsFilterTextResult>
     {
         static constexpr bool is_gm_struct = true;
         static constexpr std::uint32_t codec_id = 45;
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamUtilsCserIpPort>
+    struct gm_struct_traits<gm_structs::SteamUtilsGamepadTextInputDismissed>
     {
         static constexpr bool is_gm_struct = true;
         static constexpr std::uint32_t codec_id = 46;
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamUtilsImageSize>
+    struct gm_struct_traits<gm_structs::SteamUtilsFloatingGamepadTextInputDismissed>
     {
         static constexpr bool is_gm_struct = true;
         static constexpr std::uint32_t codec_id = 47;
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamUtilsFilterTextResult>
+    struct gm_struct_traits<gm_structs::SteamUtilsWarningMessage>
     {
         static constexpr bool is_gm_struct = true;
         static constexpr std::uint32_t codec_id = 48;
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamUtilsGamepadTextInputDismissed>
+    struct gm_struct_traits<gm_structs::SteamUgcItemDownloadInfo>
     {
         static constexpr bool is_gm_struct = true;
         static constexpr std::uint32_t codec_id = 49;
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamUtilsFloatingGamepadTextInputDismissed>
+    struct gm_struct_traits<gm_structs::SteamUgcItemInstallInfo>
     {
         static constexpr bool is_gm_struct = true;
         static constexpr std::uint32_t codec_id = 50;
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamUtilsWarningMessage>
+    struct gm_struct_traits<gm_structs::SteamUgcItemUpdateProgress>
     {
         static constexpr bool is_gm_struct = true;
         static constexpr std::uint32_t codec_id = 51;
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamUgcItemDownloadInfo>
+    struct gm_struct_traits<gm_structs::SteamUgcQueryResult>
     {
         static constexpr bool is_gm_struct = true;
         static constexpr std::uint32_t codec_id = 52;
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamUgcItemInstallInfo>
+    struct gm_struct_traits<gm_structs::SteamUgcAdditionalPreview>
     {
         static constexpr bool is_gm_struct = true;
         static constexpr std::uint32_t codec_id = 53;
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamUgcItemUpdateProgress>
+    struct gm_struct_traits<gm_structs::SteamUgcKeyValueTag>
     {
         static constexpr bool is_gm_struct = true;
         static constexpr std::uint32_t codec_id = 54;
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamUgcQueryResult>
+    struct gm_struct_traits<gm_structs::SteamUgcItemInstalled>
     {
         static constexpr bool is_gm_struct = true;
         static constexpr std::uint32_t codec_id = 55;
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamUgcAdditionalPreview>
+    struct gm_struct_traits<gm_structs::SteamUgcUserSubscribedItemsListChanged>
     {
         static constexpr bool is_gm_struct = true;
         static constexpr std::uint32_t codec_id = 56;
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamUgcKeyValueTag>
+    struct gm_struct_traits<gm_structs::SteamUgcQueryCompleted>
     {
         static constexpr bool is_gm_struct = true;
         static constexpr std::uint32_t codec_id = 57;
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamUgcItemInstalled>
+    struct gm_struct_traits<gm_structs::SteamUgcCreateItemResult>
     {
         static constexpr bool is_gm_struct = true;
         static constexpr std::uint32_t codec_id = 58;
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamUgcUserSubscribedItemsListChanged>
+    struct gm_struct_traits<gm_structs::SteamUgcSubmitItemUpdateResult>
     {
         static constexpr bool is_gm_struct = true;
         static constexpr std::uint32_t codec_id = 59;
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamUgcQueryCompleted>
+    struct gm_struct_traits<gm_structs::SteamUgcSubscribeItemResult>
     {
         static constexpr bool is_gm_struct = true;
         static constexpr std::uint32_t codec_id = 60;
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamUgcCreateItemResult>
+    struct gm_struct_traits<gm_structs::SteamUgcUnsubscribeItemResult>
     {
         static constexpr bool is_gm_struct = true;
         static constexpr std::uint32_t codec_id = 61;
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamUgcSubmitItemUpdateResult>
+    struct gm_struct_traits<gm_structs::SteamUgcFavoriteItemsListChanged>
     {
         static constexpr bool is_gm_struct = true;
         static constexpr std::uint32_t codec_id = 62;
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamUgcSubscribeItemResult>
+    struct gm_struct_traits<gm_structs::SteamUgcSetUserItemVoteResult>
     {
         static constexpr bool is_gm_struct = true;
         static constexpr std::uint32_t codec_id = 63;
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamUgcUnsubscribeItemResult>
+    struct gm_struct_traits<gm_structs::SteamUgcGetUserItemVoteResult>
     {
         static constexpr bool is_gm_struct = true;
         static constexpr std::uint32_t codec_id = 64;
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamUgcFavoriteItemsListChanged>
+    struct gm_struct_traits<gm_structs::SteamUgcRequestItemDetailsResult>
     {
         static constexpr bool is_gm_struct = true;
         static constexpr std::uint32_t codec_id = 65;
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamUgcSetUserItemVoteResult>
+    struct gm_struct_traits<gm_structs::SteamUgcSupportedGameVersionData>
     {
         static constexpr bool is_gm_struct = true;
         static constexpr std::uint32_t codec_id = 66;
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamUgcGetUserItemVoteResult>
+    struct gm_struct_traits<gm_structs::SteamUgcDeleteItemResult>
     {
         static constexpr bool is_gm_struct = true;
         static constexpr std::uint32_t codec_id = 67;
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamUgcRequestItemDetailsResult>
+    struct gm_struct_traits<gm_structs::SteamUgcDownloadItemResult>
     {
         static constexpr bool is_gm_struct = true;
         static constexpr std::uint32_t codec_id = 68;
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamUgcSupportedGameVersionData>
+    struct gm_struct_traits<gm_structs::SteamInputAnalogActionData>
     {
         static constexpr bool is_gm_struct = true;
         static constexpr std::uint32_t codec_id = 69;
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamUgcDeleteItemResult>
+    struct gm_struct_traits<gm_structs::SteamInputDigitalActionData>
     {
         static constexpr bool is_gm_struct = true;
         static constexpr std::uint32_t codec_id = 70;
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamUgcDownloadItemResult>
+    struct gm_struct_traits<gm_structs::SteamInputMotionData>
     {
         static constexpr bool is_gm_struct = true;
         static constexpr std::uint32_t codec_id = 71;
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamInputAnalogActionData>
+    struct gm_struct_traits<gm_structs::SteamInputActiveActionSetLayers>
     {
         static constexpr bool is_gm_struct = true;
         static constexpr std::uint32_t codec_id = 72;
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamInputDigitalActionData>
+    struct gm_struct_traits<gm_structs::SteamInputActionOrigins>
     {
         static constexpr bool is_gm_struct = true;
         static constexpr std::uint32_t codec_id = 73;
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamInputMotionData>
+    struct gm_struct_traits<gm_structs::SteamInputDeviceBindingRevision>
     {
         static constexpr bool is_gm_struct = true;
         static constexpr std::uint32_t codec_id = 74;
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamInputActiveActionSetLayers>
+    struct gm_struct_traits<gm_structs::SteamInputDeviceEvent>
     {
         static constexpr bool is_gm_struct = true;
         static constexpr std::uint32_t codec_id = 75;
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamInputActionOrigins>
+    struct gm_struct_traits<gm_structs::SteamInputActionSetChanged>
     {
         static constexpr bool is_gm_struct = true;
         static constexpr std::uint32_t codec_id = 76;
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamInputDeviceBindingRevision>
+    struct gm_struct_traits<gm_structs::SteamUserStatsAchievementAndUnlockTime>
     {
         static constexpr bool is_gm_struct = true;
         static constexpr std::uint32_t codec_id = 77;
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamInputDeviceEvent>
+    struct gm_struct_traits<gm_structs::SteamUserStatsMostAchievedAchievementInfo>
     {
         static constexpr bool is_gm_struct = true;
         static constexpr std::uint32_t codec_id = 78;
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamInputActionSetChanged>
+    struct gm_struct_traits<gm_structs::SteamUserStatsDownloadedLeaderboardEntry>
     {
         static constexpr bool is_gm_struct = true;
         static constexpr std::uint32_t codec_id = 79;
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamInputControllerBattery>
+    struct gm_struct_traits<gm_structs::SteamUserStatsRequestUserStatsResult>
     {
         static constexpr bool is_gm_struct = true;
         static constexpr std::uint32_t codec_id = 80;
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamUserStatsAchievementAndUnlockTime>
+    struct gm_struct_traits<gm_structs::SteamUserStatsLeaderboardFindResult>
     {
         static constexpr bool is_gm_struct = true;
         static constexpr std::uint32_t codec_id = 81;
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamUserStatsAchievementAndProgress>
+    struct gm_struct_traits<gm_structs::SteamUserStatsScoresDownloadedResult>
     {
         static constexpr bool is_gm_struct = true;
         static constexpr std::uint32_t codec_id = 82;
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamUserStatsAchievementNamesAndPercent>
+    struct gm_struct_traits<gm_structs::SteamUserStatsScoreUploadedResult>
     {
         static constexpr bool is_gm_struct = true;
         static constexpr std::uint32_t codec_id = 83;
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamUserStatsMostAchievedAchievementInfo>
+    struct gm_struct_traits<gm_structs::SteamUserStatsNumberOfCurrentPlayersResult>
     {
         static constexpr bool is_gm_struct = true;
         static constexpr std::uint32_t codec_id = 84;
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamUserStatsNumAchievementsAndHours>
+    struct gm_struct_traits<gm_structs::SteamUserStatsGlobalAchievementPercentagesReadyResult>
     {
         static constexpr bool is_gm_struct = true;
         static constexpr std::uint32_t codec_id = 85;
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamUserStatsDownloadedLeaderboardEntry>
+    struct gm_struct_traits<gm_structs::SteamUserStatsGlobalStatsReceivedResult>
     {
         static constexpr bool is_gm_struct = true;
         static constexpr std::uint32_t codec_id = 86;
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamUserStatsRequestUserStatsResult>
+    struct gm_struct_traits<gm_structs::SteamUserStatsAttachLeaderboardUgcResult>
     {
         static constexpr bool is_gm_struct = true;
         static constexpr std::uint32_t codec_id = 87;
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamUserStatsLeaderboardFindResult>
+    struct gm_struct_traits<gm_structs::SteamUserStatsUserStatsReceived>
     {
         static constexpr bool is_gm_struct = true;
         static constexpr std::uint32_t codec_id = 88;
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamUserStatsScoresDownloadedResult>
+    struct gm_struct_traits<gm_structs::SteamUserStatsUserStatsStored>
     {
         static constexpr bool is_gm_struct = true;
         static constexpr std::uint32_t codec_id = 89;
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamUserStatsScoreUploadedResult>
+    struct gm_struct_traits<gm_structs::SteamUserStatsUserAchievementStored>
     {
         static constexpr bool is_gm_struct = true;
         static constexpr std::uint32_t codec_id = 90;
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamUserStatsNumberOfCurrentPlayersResult>
+    struct gm_struct_traits<gm_structs::SteamUserStatsIntMinMax>
     {
         static constexpr bool is_gm_struct = true;
         static constexpr std::uint32_t codec_id = 91;
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamUserStatsGlobalAchievementPercentagesReadyResult>
+    struct gm_struct_traits<gm_structs::SteamUserStatsFloatMinMax>
     {
         static constexpr bool is_gm_struct = true;
         static constexpr std::uint32_t codec_id = 92;
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamUserStatsGlobalStatsReceivedResult>
+    struct gm_struct_traits<gm_structs::SteamMusicPlaybackStatusHasChanged>
     {
         static constexpr bool is_gm_struct = true;
         static constexpr std::uint32_t codec_id = 93;
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamUserStatsAttachLeaderboardUgcResult>
+    struct gm_struct_traits<gm_structs::SteamMusicVolumeHasChanged>
     {
         static constexpr bool is_gm_struct = true;
         static constexpr std::uint32_t codec_id = 94;
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamUserStatsUserStatsReceived>
+    struct gm_struct_traits<gm_structs::SteamTimelineGamePhaseRecordingExists>
     {
         static constexpr bool is_gm_struct = true;
         static constexpr std::uint32_t codec_id = 95;
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamUserStatsUserStatsStored>
+    struct gm_struct_traits<gm_structs::SteamTimelineEventRecordingExists>
     {
         static constexpr bool is_gm_struct = true;
         static constexpr std::uint32_t codec_id = 96;
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamUserStatsUserAchievementStored>
+    struct gm_struct_traits<gm_structs::SteamInventoryItemDefQuantity>
     {
         static constexpr bool is_gm_struct = true;
         static constexpr std::uint32_t codec_id = 97;
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamUserStatsIntMinMax>
+    struct gm_struct_traits<gm_structs::SteamInventoryItemInstanceQuantity>
     {
         static constexpr bool is_gm_struct = true;
         static constexpr std::uint32_t codec_id = 98;
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamUserStatsFloatMinMax>
+    struct gm_struct_traits<gm_structs::SteamInventoryItemWithPrice>
     {
         static constexpr bool is_gm_struct = true;
         static constexpr std::uint32_t codec_id = 99;
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamMusicPlaybackStatusHasChanged>
+    struct gm_struct_traits<gm_structs::SteamInventoryResultItems>
     {
         static constexpr bool is_gm_struct = true;
         static constexpr std::uint32_t codec_id = 100;
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamMusicVolumeHasChanged>
+    struct gm_struct_traits<gm_structs::SteamInventoryDeserializeResult>
     {
         static constexpr bool is_gm_struct = true;
         static constexpr std::uint32_t codec_id = 101;
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamTimelineGamePhaseRecordingExists>
+    struct gm_struct_traits<gm_structs::SteamInventoryItemPrice>
     {
         static constexpr bool is_gm_struct = true;
         static constexpr std::uint32_t codec_id = 102;
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamTimelineEventRecordingExists>
+    struct gm_struct_traits<gm_structs::SteamInventoryResultReady>
     {
         static constexpr bool is_gm_struct = true;
         static constexpr std::uint32_t codec_id = 103;
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamInventoryItemDefQuantity>
+    struct gm_struct_traits<gm_structs::SteamInventoryFullUpdate>
     {
         static constexpr bool is_gm_struct = true;
         static constexpr std::uint32_t codec_id = 104;
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamInventoryItemInstanceQuantity>
+    struct gm_struct_traits<gm_structs::SteamInventoryDefinitionUpdate>
     {
         static constexpr bool is_gm_struct = true;
         static constexpr std::uint32_t codec_id = 105;
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamInventoryItemWithPrice>
+    struct gm_struct_traits<gm_structs::SteamInventoryStartPurchaseResult>
     {
         static constexpr bool is_gm_struct = true;
         static constexpr std::uint32_t codec_id = 106;
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamInventoryResultItems>
+    struct gm_struct_traits<gm_structs::SteamInventoryRequestPricesResult>
     {
         static constexpr bool is_gm_struct = true;
         static constexpr std::uint32_t codec_id = 107;
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamInventoryDeserializeResult>
+    struct gm_struct_traits<gm_structs::SteamRemoteStorageFileNameAndSize>
     {
         static constexpr bool is_gm_struct = true;
         static constexpr std::uint32_t codec_id = 108;
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamInventoryItemPrice>
+    struct gm_struct_traits<gm_structs::SteamRemoteStorageQuota>
     {
         static constexpr bool is_gm_struct = true;
         static constexpr std::uint32_t codec_id = 109;
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamInventoryResultReady>
+    struct gm_struct_traits<gm_structs::SteamRemoteStorageUgcDetails>
     {
         static constexpr bool is_gm_struct = true;
         static constexpr std::uint32_t codec_id = 110;
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamInventoryFullUpdate>
+    struct gm_struct_traits<gm_structs::SteamRemoteStorageFileShareResult>
     {
         static constexpr bool is_gm_struct = true;
         static constexpr std::uint32_t codec_id = 111;
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamInventoryDefinitionUpdate>
+    struct gm_struct_traits<gm_structs::SteamRemoteStorageFileWriteAsyncResult>
     {
         static constexpr bool is_gm_struct = true;
         static constexpr std::uint32_t codec_id = 112;
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamInventoryStartPurchaseResult>
+    struct gm_struct_traits<gm_structs::SteamRemoteStorageDownloadUgcResult>
     {
         static constexpr bool is_gm_struct = true;
         static constexpr std::uint32_t codec_id = 113;
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamInventoryRequestPricesResult>
+    struct gm_struct_traits<gm_structs::SteamRemoteStoragePublishedFileSubscribed>
     {
         static constexpr bool is_gm_struct = true;
         static constexpr std::uint32_t codec_id = 114;
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamRemoteStorageFileNameAndSize>
+    struct gm_struct_traits<gm_structs::SteamRemoteStoragePublishedFileUnsubscribed>
     {
         static constexpr bool is_gm_struct = true;
         static constexpr std::uint32_t codec_id = 115;
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamRemoteStorageQuota>
+    struct gm_struct_traits<gm_structs::SteamRemoteStorageLocalFileChange>
     {
         static constexpr bool is_gm_struct = true;
         static constexpr std::uint32_t codec_id = 116;
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamRemoteStorageUgcDetails>
+    struct gm_struct_traits<gm_structs::SteamRemoteStoragePublishFileResult>
     {
         static constexpr bool is_gm_struct = true;
         static constexpr std::uint32_t codec_id = 117;
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamRemoteStorageFileShareResult>
+    struct gm_struct_traits<gm_structs::SteamRemoteStorageUpdatePublishedFileResult>
     {
         static constexpr bool is_gm_struct = true;
         static constexpr std::uint32_t codec_id = 118;
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamRemoteStorageFileWriteAsyncResult>
+    struct gm_struct_traits<gm_structs::SteamRemoteStorageSubscribePublishedFileResult>
     {
         static constexpr bool is_gm_struct = true;
         static constexpr std::uint32_t codec_id = 119;
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamRemoteStorageDownloadUgcResult>
+    struct gm_struct_traits<gm_structs::SteamRemoteStorageUnsubscribePublishedFileResult>
     {
         static constexpr bool is_gm_struct = true;
         static constexpr std::uint32_t codec_id = 120;
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamRemoteStoragePublishedFileSubscribed>
+    struct gm_struct_traits<gm_structs::SteamMatchmakingLobbyCreated>
     {
         static constexpr bool is_gm_struct = true;
         static constexpr std::uint32_t codec_id = 121;
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamRemoteStoragePublishedFileUnsubscribed>
+    struct gm_struct_traits<gm_structs::SteamMatchmakingLobbyEnter>
     {
         static constexpr bool is_gm_struct = true;
         static constexpr std::uint32_t codec_id = 122;
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamRemoteStorageLocalFileChange>
+    struct gm_struct_traits<gm_structs::SteamMatchmakingLobbyMatchList>
     {
         static constexpr bool is_gm_struct = true;
         static constexpr std::uint32_t codec_id = 123;
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamRemoteStoragePublishFileResult>
+    struct gm_struct_traits<gm_structs::SteamMatchmakingLobbyDataUpdate>
     {
         static constexpr bool is_gm_struct = true;
         static constexpr std::uint32_t codec_id = 124;
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamRemoteStorageUpdatePublishedFileResult>
+    struct gm_struct_traits<gm_structs::SteamMatchmakingLobbyChatUpdate>
     {
         static constexpr bool is_gm_struct = true;
         static constexpr std::uint32_t codec_id = 125;
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamRemoteStorageSubscribePublishedFileResult>
+    struct gm_struct_traits<gm_structs::SteamMatchmakingLobbyChatMsg>
     {
         static constexpr bool is_gm_struct = true;
         static constexpr std::uint32_t codec_id = 126;
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamRemoteStorageUnsubscribePublishedFileResult>
+    struct gm_struct_traits<gm_structs::SteamMatchmakingLobbyGameCreated>
     {
         static constexpr bool is_gm_struct = true;
         static constexpr std::uint32_t codec_id = 127;
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamMatchmakingLobbyCreated>
+    struct gm_struct_traits<gm_structs::SteamMatchmakingLobbyInvite>
     {
         static constexpr bool is_gm_struct = true;
         static constexpr std::uint32_t codec_id = 128;
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamMatchmakingLobbyEnter>
+    struct gm_struct_traits<gm_structs::SteamMatchmakingLobbyChatEntry>
     {
         static constexpr bool is_gm_struct = true;
         static constexpr std::uint32_t codec_id = 129;
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamMatchmakingLobbyMatchList>
+    struct gm_struct_traits<gm_structs::SteamMatchmakingLobbyGameServer>
     {
         static constexpr bool is_gm_struct = true;
         static constexpr std::uint32_t codec_id = 130;
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamMatchmakingLobbyDataUpdate>
+    struct gm_struct_traits<gm_structs::SteamNetworkingMessagesSessionRequest>
     {
         static constexpr bool is_gm_struct = true;
         static constexpr std::uint32_t codec_id = 131;
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamMatchmakingLobbyChatUpdate>
+    struct gm_struct_traits<gm_structs::SteamNetworkingMessagesSessionFailed>
     {
         static constexpr bool is_gm_struct = true;
         static constexpr std::uint32_t codec_id = 132;
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamMatchmakingLobbyChatMsg>
+    struct gm_struct_traits<gm_structs::SteamNetworkingMessagesMessage>
     {
         static constexpr bool is_gm_struct = true;
         static constexpr std::uint32_t codec_id = 133;
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamMatchmakingLobbyGameCreated>
+    struct gm_struct_traits<gm_structs::SteamNetworkingSocketsConnectionInfo>
     {
         static constexpr bool is_gm_struct = true;
         static constexpr std::uint32_t codec_id = 134;
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamMatchmakingLobbyInvite>
+    struct gm_struct_traits<gm_structs::SteamNetworkingSocketsMessage>
     {
         static constexpr bool is_gm_struct = true;
         static constexpr std::uint32_t codec_id = 135;
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamMatchmakingLobbyChatEntry>
+    struct gm_struct_traits<gm_structs::SteamPartiesAvailableBeaconLocations>
     {
         static constexpr bool is_gm_struct = true;
         static constexpr std::uint32_t codec_id = 136;
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamMatchmakingLobbyGameServer>
+    struct gm_struct_traits<gm_structs::SteamPartiesCreateBeaconResult>
     {
         static constexpr bool is_gm_struct = true;
         static constexpr std::uint32_t codec_id = 137;
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamNetworkingMessagesSessionRequest>
+    struct gm_struct_traits<gm_structs::SteamPartiesJoinPartyResult>
     {
         static constexpr bool is_gm_struct = true;
         static constexpr std::uint32_t codec_id = 138;
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamNetworkingMessagesSessionFailed>
+    struct gm_struct_traits<gm_structs::SteamPartiesChangeNumOpenSlotsResult>
     {
         static constexpr bool is_gm_struct = true;
         static constexpr std::uint32_t codec_id = 139;
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamNetworkingMessagesMessage>
+    struct gm_struct_traits<gm_structs::SteamPartiesReservationNotification>
     {
         static constexpr bool is_gm_struct = true;
         static constexpr std::uint32_t codec_id = 140;
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamNetworkingSocketsConnectionInfo>
+    struct gm_struct_traits<gm_structs::SteamPartiesBeaconDetails>
     {
         static constexpr bool is_gm_struct = true;
         static constexpr std::uint32_t codec_id = 141;
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamNetworkingSocketsMessage>
-    {
-        static constexpr bool is_gm_struct = true;
-        static constexpr std::uint32_t codec_id = 142;
-    };
-
-    template<>
-    struct gm_struct_traits<gm_structs::SteamPartiesAvailableBeaconLocations>
-    {
-        static constexpr bool is_gm_struct = true;
-        static constexpr std::uint32_t codec_id = 143;
-    };
-
-    template<>
-    struct gm_struct_traits<gm_structs::SteamPartiesCreateBeaconResult>
-    {
-        static constexpr bool is_gm_struct = true;
-        static constexpr std::uint32_t codec_id = 144;
-    };
-
-    template<>
-    struct gm_struct_traits<gm_structs::SteamPartiesJoinPartyResult>
-    {
-        static constexpr bool is_gm_struct = true;
-        static constexpr std::uint32_t codec_id = 145;
-    };
-
-    template<>
-    struct gm_struct_traits<gm_structs::SteamPartiesChangeNumOpenSlotsResult>
-    {
-        static constexpr bool is_gm_struct = true;
-        static constexpr std::uint32_t codec_id = 146;
-    };
-
-    template<>
-    struct gm_struct_traits<gm_structs::SteamPartiesReservationNotification>
-    {
-        static constexpr bool is_gm_struct = true;
-        static constexpr std::uint32_t codec_id = 147;
-    };
-
-    template<>
-    struct gm_struct_traits<gm_structs::SteamPartiesBeaconDetails>
-    {
-        static constexpr bool is_gm_struct = true;
-        static constexpr std::uint32_t codec_id = 148;
-    };
-
-    template<>
     struct gm_struct_traits<gm_structs::SteamNetworkingSocketsStatusChanged>
     {
         static constexpr bool is_gm_struct = true;
-        static constexpr std::uint32_t codec_id = 149;
+        static constexpr std::uint32_t codec_id = 142;
     };
 
 }
@@ -6861,8 +6648,6 @@ void steam_input_set_callback_device_disconnected(const gm::wire::GMFunction& ca
 void steam_input_clear_callback_device_disconnected();
 void steam_input_set_callback_action_set_changed(const gm::wire::GMFunction& callback);
 void steam_input_clear_callback_action_set_changed();
-void steam_input_set_callback_controller_battery(const gm::wire::GMFunction& callback);
-void steam_input_clear_callback_controller_battery();
 std::optional<std::int32_t> steam_userstats_get_stat_int(std::string_view stat_name);
 std::optional<float> steam_userstats_get_stat_float(std::string_view stat_name);
 bool steam_userstats_set_stat_int(std::string_view stat_name, std::int32_t data);

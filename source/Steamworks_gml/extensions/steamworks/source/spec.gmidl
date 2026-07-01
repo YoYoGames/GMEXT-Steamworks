@@ -1211,16 +1211,6 @@ function steam_apps_request_app_proof_of_purchase_key(app_id: uint32): unit;
 function steam_apps_uninstall_dlc(app_id: uint32): unit;
 
 [global]
-class `[[SteamAppsInstallSize]]` prototype Object
-{
-    [field, type_hint = uint64]
-    property bytes_install_size : gmval { get; set; }
-
-    [field, type_hint = uint64]
-    property bytes_download_size : gmval { get; set; }
-}
-
-[global]
 class `[[SteamAppsDlcInstallDir]]` prototype Object
 {
     [field]
@@ -1228,16 +1218,6 @@ class `[[SteamAppsDlcInstallDir]]` prototype Object
 
     [field]
     property path : string { get; set; }
-}
-
-[global]
-class `[[SteamAppsLanguageInfo]]` prototype Object
-{
-    [field]
-    property language_name : string { get; set; }
-
-    [field]
-    property language_code : string { get; set; }
 }
 
 [global, bind = typed_gml]
@@ -1997,17 +1977,6 @@ function steam_utils_is_steam_running_on_steam_deck(): bool;
 // IsSteamChinaLauncher
 [global, bind = typed_gml]
 function steam_utils_is_steam_china_launcher(): bool;
-
-[global]
-class `[[SteamUtilsCserIpPort]]` prototype Object
-{
-    [field]
-    property ip_v4 : uint32 { get; set; }
-
-    [field]
-    property port : uint32 { get; set; }
-}
-
 
 [global]
 class `[[SteamUtilsImageSize]]` prototype Object
@@ -4109,13 +4078,6 @@ function steam_input_set_callback_action_set_changed(callback:func): unit;
 [global, bind = typed_gml]
 function steam_input_clear_callback_action_set_changed(): unit;
 
-// Controller battery polling (best-effort; may be unsupported on desktop Steam Input)
-[global, bind = typed_gml]
-function steam_input_set_callback_controller_battery(callback:func): unit;
-
-[global, bind = typed_gml]
-function steam_input_clear_callback_controller_battery(): unit;
-
 [global]
 class `[[SteamInputActionSetChanged]]` prototype Object
 {
@@ -4124,17 +4086,6 @@ class `[[SteamInputActionSetChanged]]` prototype Object
 
     [field, type_hint=uint64]
     property action_set_handle : gmval { get; set; }
-}
-
-[global]
-class `[[SteamInputControllerBattery]]` prototype Object
-{
-    [field, type_hint=uint64]
-    property controller_handle : gmval { get; set; }
-
-    // -1 = unknown/unsupported
-    [field]
-    property battery_percent : int32 { get; set; }
 }
 
 } // end group SteamInput
@@ -4190,21 +4141,6 @@ class `[[SteamUserStatsAchievementAndUnlockTime]]` prototype Object
 }
 
 [global]
-class `[[SteamUserStatsAchievementAndProgress]]` prototype Object
-{
-    [field] property achieved : bool { get; set; }
-    [field] property cur_progress : uint32 { get; set; }
-    [field] property max_progress : uint32 { get; set; }
-}
-
-[global]
-class `[[SteamUserStatsAchievementNamesAndPercent]]` prototype Object
-{
-    [field] property name : string { get; set; }
-    [field] property percent : float { get; set; }
-}
-
-[global]
 class `[[SteamUserStatsMostAchievedAchievementInfo]]` prototype Object
 {
 
@@ -4215,12 +4151,6 @@ class `[[SteamUserStatsMostAchievedAchievementInfo]]` prototype Object
     [field] property achieved : bool { get; set; }
 }
 
-[global]
-class `[[SteamUserStatsNumAchievementsAndHours]]` prototype Object
-{
-    [field] property num_achievements : uint32 { get; set; }
-    [field] property hours : float { get; set; }
-}
 
 
 

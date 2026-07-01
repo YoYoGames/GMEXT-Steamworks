@@ -128,7 +128,6 @@ static void steam_api_clear_all_callbacks()
     steam_input_clear_callback_device_connected();
     steam_input_clear_callback_device_disconnected();
     steam_input_clear_callback_action_set_changed();
-    steam_input_clear_callback_controller_battery();
 
     // inventory
     steam_inventory_clear_callback_result_ready();
