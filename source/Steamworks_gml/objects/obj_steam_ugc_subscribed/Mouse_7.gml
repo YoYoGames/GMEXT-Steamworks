@@ -3,7 +3,7 @@ with(obj_steam_ugc_item)
 	instance_destroy();
 
 var array = steam_ugc_get_subscribed_items(5,false)
-var query_handle = steam_ugc_create_query_ugc_details_request(array,array_length(array));
+var query_handle = steam_ugc_create_query_ugc_details_request(array);
 
 // Here are some filter functions you can apply to yout query
 //steam_ugc_add_required_tag(query_handle, "Single-player");

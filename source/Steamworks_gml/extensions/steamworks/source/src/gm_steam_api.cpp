@@ -128,7 +128,6 @@ static void steam_api_clear_all_callbacks()
     steam_input_clear_callback_device_connected();
     steam_input_clear_callback_device_disconnected();
     steam_input_clear_callback_action_set_changed();
-    steam_input_clear_callback_controller_battery();
 
     // inventory
     steam_inventory_clear_callback_result_ready();
@@ -175,8 +174,7 @@ static void steam_api_clear_all_callbacks()
     steam_ugc_clear_callback_item_installed();
     // steam_ugc_clear_callback_download_item_result();
     steam_ugc_clear_callback_user_subscribed_items_list_changed();
-    steam_ugc_clear_callback_file_subscribed();
-    steam_ugc_clear_callback_file_unsubscribed();
+
 
     // user
     steam_user_clear_callback_steam_servers_connected();

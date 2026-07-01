@@ -58,7 +58,7 @@ static inline SteamPartyBeaconLocation_t steam_party_location(
 static inline gm_structs::SteamPartiesCreateBeaconResult fromNative(const CreateBeaconCallback_t& e)
 {
     gm_structs::SteamPartiesCreateBeaconResult out {};
-    out.result = (std::int32_t)e.m_eResult;
+    out.result = (gm_enums::SteamApiResult)e.m_eResult;
     out.beacon_id = (std::uint64_t)e.m_ulBeaconID;
     return out;
 }
@@ -66,7 +66,7 @@ static inline gm_structs::SteamPartiesCreateBeaconResult fromNative(const Create
 static inline gm_structs::SteamPartiesJoinPartyResult fromNative(const JoinPartyCallback_t& e)
 {
     gm_structs::SteamPartiesJoinPartyResult out {};
-    out.result = (std::int32_t)e.m_eResult;
+    out.result = (gm_enums::SteamApiResult)e.m_eResult;
     out.beacon_id = (std::uint64_t)e.m_ulBeaconID;
     out.beacon_owner_steam_id = (std::uint64_t)e.m_SteamIDBeaconOwner.ConvertToUint64();
     out.connect_string = e.m_rgchConnectString;
@@ -196,63 +196,50 @@ void steam_parties_clear_callback_active_beacons_updated()
 // ISteamParties functions
 // ------------------------------------------------------------
 
-gm_structs::SteamPartiesAvailableBeaconLocationCount steam_parties_get_num_available_beacon_locations()
+std::optional<std::uint32_t> steam_parties_get_num_available_beacon_locations()
 {
-    STEAM_GUARD_RET({});
-
-    gm_structs::SteamPartiesAvailableBeaconLocationCount out {};
-    out.ok = false;
-    out.count = 0;
+    STEAM_GUARD_RET(std::nullopt);
 
     ISteamParties* p = steam_parties_iface();
     if (!p)
-        return out;
+        return std::nullopt;
 
     uint32 count = 0;
     const bool ok = p->GetNumAvailableBeaconLocations(&count);
-    out.ok = ok;
-    out.count = (std::uint32_t)count;
-
-    if (!ok)
+    if (!ok) {
         steam_set_last_error("Steam Parties: GetNumAvailableBeaconLocations failed.");
+        return std::nullopt;
+    }
 
-    return out;
+    return (std::uint32_t)count;
 }
 
 gm_structs::SteamPartiesAvailableBeaconLocations steam_parties_get_available_beacon_locations()
 {
     STEAM_GUARD_RET({});
 
-    gm_structs::SteamPartiesAvailableBeaconLocations out {};
-    out.ok = false;
-    out.count = 0;
-    out.location_types = {};
-    out.location_ids = {};
-
     ISteamParties* p = steam_parties_iface();
     if (!p)
-        return out;
+        return {};
 
     uint32 count = 0;
     if (!p->GetNumAvailableBeaconLocations(&count)) {
         steam_set_last_error("Steam Parties: GetNumAvailableBeaconLocations failed.");
+        return {};
+    }
+
+    gm_structs::SteamPartiesAvailableBeaconLocations out {};
+    out.count = (std::uint32_t)count;
+
+    if (count == 0) {
+        out.ok = true;
         return out;
     }
 
-    out.ok = true;
-    out.count = (std::uint32_t)count;
-
-    if (count == 0)
-        return out;
-
     std::vector<SteamPartyBeaconLocation_t> native((size_t)count);
     if (!p->GetAvailableBeaconLocations(native.data(), count)) {
-        out.ok = false;
-        out.count = 0;
-        out.location_types.clear();
-        out.location_ids.clear();
         steam_set_last_error("Steam Parties: GetAvailableBeaconLocations failed.");
-        return out;
+        return {};
     }
 
     std::vector<gm_enums::SteamPartiesBeaconLocationType> types;
@@ -267,6 +254,7 @@ gm_structs::SteamPartiesAvailableBeaconLocations steam_parties_get_available_bea
 
     out.location_types = std::move(types);
     out.location_ids = std::move(ids);
+    out.ok = true;
     return out;
 }
 
@@ -276,7 +264,7 @@ bool steam_parties_create_beacon(
     std::uint64_t beacon_location_id,
     std::string_view connect_string,
     std::string_view metadata,
-    const std::optional<GMFunction>& callback
+    const GMFunction& callback
 )
 {
     STEAM_GUARD_RET(false);
@@ -295,12 +283,10 @@ bool steam_parties_create_beacon(
         return false;
     }
 
-    if (callback) {
-        auto* h = new steam_async::CallResult<gm_structs::SteamPartiesCreateBeaconResult, CreateBeaconCallback_t>(
-            callback.value(), &fromNative
-        );
-        h->set(call);
-    }
+    auto* h = new steam_async::CallResult<gm_structs::SteamPartiesCreateBeaconResult, CreateBeaconCallback_t>(
+        callback, &fromNative
+    );
+    h->set(call);
 
     return true;
 }
@@ -320,7 +306,7 @@ bool steam_parties_on_reservation_completed(std::uint64_t beacon_id, std::uint64
 bool steam_parties_change_num_open_slots(
     std::uint64_t beacon_id,
     std::uint32_t open_slots,
-    const std::optional<GMFunction>& callback
+    const GMFunction& callback
 )
 {
     STEAM_GUARD_RET(false);
@@ -335,13 +321,11 @@ bool steam_parties_change_num_open_slots(
         return false;
     }
 
-    if (callback) {
-        auto* h = new steam_async::CallResult<
-            gm_structs::SteamPartiesChangeNumOpenSlotsResult,
-            ChangeNumOpenSlotsCallback_t
-        >(callback.value(), &fromNative);
-        h->set(call);
-    }
+    auto* h = new steam_async::CallResult<
+        gm_structs::SteamPartiesChangeNumOpenSlotsResult,
+        ChangeNumOpenSlotsCallback_t
+    >(callback, &fromNative);
+    h->set(call);
 
     return true;
 }
@@ -385,20 +369,13 @@ gm_structs::SteamPartiesBeaconDetails steam_parties_get_beacon_details(std::uint
 
     uint32 metadata_max = 1024;
 
-    gm_structs::SteamPartiesBeaconDetails out {};
-    out.ok = false;
-    out.beacon_owner_steam_id = 0;
-    out.location_type = gm_enums::SteamPartiesBeaconLocationType::Invalid;
-    out.location_id = 0;
-    out.metadata = "";
-
     ISteamParties* p = steam_parties_iface();
     if (!p)
-        return out;
+        return {};
 
     if (metadata_max <= 0) {
         steam_set_last_error("Steam Parties: metadata_max must be > 0.");
-        return out;
+        return {};
     }
 
     CSteamID owner {};
@@ -413,20 +390,21 @@ gm_structs::SteamPartiesBeaconDetails steam_parties_get_beacon_details(std::uint
         metadata_max
     );
 
-    out.ok = ok;
     if (!ok) {
         steam_set_last_error("Steam Parties: GetBeaconDetails failed.");
-        return out;
+        return {};
     }
 
+    gm_structs::SteamPartiesBeaconDetails out {};
     out.beacon_owner_steam_id = (std::uint64_t)owner.ConvertToUint64();
     out.location_type = (gm_enums::SteamPartiesBeaconLocationType)(int)loc.m_eType;
     out.location_id = (std::uint64_t)loc.m_ulLocationID;
     out.metadata = std::string(metadata.data());
+    out.ok = true;
     return out;
 }
 
-bool steam_parties_join_party(std::uint64_t beacon_id, const std::optional<GMFunction>& callback)
+bool steam_parties_join_party(std::uint64_t beacon_id, const GMFunction& callback)
 {
     STEAM_GUARD_RET(false);
 
@@ -440,12 +418,10 @@ bool steam_parties_join_party(std::uint64_t beacon_id, const std::optional<GMFun
         return false;
     }
 
-    if (callback) {
-        auto* h = new steam_async::CallResult<gm_structs::SteamPartiesJoinPartyResult, JoinPartyCallback_t>(
-            callback.value(), &fromNative
-        );
-        h->set(call);
-    }
+    auto* h = new steam_async::CallResult<gm_structs::SteamPartiesJoinPartyResult, JoinPartyCallback_t>(
+        callback, &fromNative
+    );
+    h->set(call);
 
     return true;
 }

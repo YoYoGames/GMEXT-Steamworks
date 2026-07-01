@@ -46,7 +46,7 @@ static inline gm_structs::SteamNetworkingMessagesSessionFailed snm_fromNative(co
 {
     gm_structs::SteamNetworkingMessagesSessionFailed out{};
     out.steam_id_remote = (std::uint64_t)e.m_info.m_identityRemote.GetSteamID64();
-    out.end_reason = (std::int32_t)e.m_info.m_eEndReason;
+    out.end_reason = static_cast<gm_enums::SteamNetConnectionEnd>((int)e.m_info.m_eEndReason);
     out.debug_msg = e.m_info.m_szEndDebug ? e.m_info.m_szEndDebug : "";
     return out;
 }
@@ -136,51 +136,42 @@ std::int32_t steam_networking_messages_send_message_to_user(std::uint64_t steam_
     return (std::int32_t)r;
 }
 
-gm_structs::SteamNetworkingMessagesReceived steam_networking_messages_receive_one_on_channel(std::int32_t local_channel,
-                                                                                            gm::wire::GMBuffer out_data,
-                                                                                            std::uint32_t max_bytes,
-                                                                                            std::uint32_t offset)
+std::vector<gm_structs::SteamNetworkingMessagesMessage> steam_networking_messages_receive_messages_on_channel(
+    std::int32_t local_channel,
+    std::int32_t max_messages)
 {
-    gm_structs::SteamNetworkingMessagesReceived out{};
-    out.ok = false;
-    out.steam_id_remote = 0;
-    out.channel = local_channel;
-    out.bytes_written = 0;
-    out.send_flags = 0;
+    std::vector<gm_structs::SteamNetworkingMessagesMessage> result;
 
-    STEAM_GUARD_RET(out);
+    STEAM_GUARD_RET(result);
 
     ISteamNetworkingMessages* m = steam_networking_messages_iface();
-    if (!m) return out;
+    if (!m) return result;
 
-    if (max_bytes == 0) return out;
+    if (max_messages <= 0) return result;
 
-    SteamNetworkingMessage_t* msg = nullptr;
-    int n = m->ReceiveMessagesOnChannel((int)local_channel, &msg, 1);
-    if (n <= 0 || !msg) return out;
+    std::vector<SteamNetworkingMessage_t*> msgs(static_cast<size_t>(max_messages), nullptr);
+    int n = m->ReceiveMessagesOnChannel((int)local_channel, msgs.data(), max_messages);
+    if (n <= 0) return result;
 
-    const uint32 cb = (uint32)msg->m_cbSize;
-    const std::uint64_t buf_len = out_data.length();
+    result.reserve(static_cast<size_t>(n));
+    for (int i = 0; i < n; ++i)
+    {
+        SteamNetworkingMessage_t* msg = msgs[static_cast<size_t>(i)];
+        if (!msg) continue;
 
-    // Deliver the whole message or fail; never truncate or overflow the wire cursor.
-    if ((std::uint64_t)offset > buf_len || cb > max_bytes ||
-        (std::uint64_t)offset + cb > buf_len) {
-        steam_set_last_error("steam_networking_messages_receive_one_on_channel: output buffer too small for incoming message.");
+        gm_structs::SteamNetworkingMessagesMessage entry{};
+        entry.steam_id_remote  = (std::uint64_t)msg->m_identityPeer.GetSteamID64();
+        entry.channel          = local_channel;
+        entry.size             = (std::uint32_t)msg->m_cbSize;
+        entry.data             = std::string((const char*)msg->m_pData, (size_t)msg->m_cbSize);
+        entry.send_flags       = (std::int32_t)msg->m_nFlags;
+        entry.message_number   = (std::int64_t)msg->m_nMessageNumber;
+
         msg->Release();
-        return out;
+        result.push_back(std::move(entry));
     }
 
-    auto w = out_data.getWriter();
-    w.skip(offset);
-    w.writeBytes((const char*)msg->m_pData, (int)cb);
-
-    out.steam_id_remote = (std::uint64_t)msg->m_identityPeer.GetSteamID64();
-    out.bytes_written = cb;
-    out.send_flags = (std::int32_t)msg->m_nFlags;
-    out.ok = true;
-
-    msg->Release();
-    return out;
+    return result;
 }
 
 bool steam_networking_messages_accept_session_with_user(std::uint64_t steam_id_remote)

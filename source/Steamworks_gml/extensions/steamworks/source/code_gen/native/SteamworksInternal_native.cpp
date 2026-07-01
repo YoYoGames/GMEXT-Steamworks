@@ -152,17 +152,10 @@ GMEXPORT double __EXT_NATIVE__steam_friends_download_clan_activity_counts(char* 
     // field: steam_id_clans, type: UInt64[]
     std::vector<std::uint64_t> steam_id_clans = gm::wire::codec::readVector<std::uint64_t>(__br);
 
-    // field: clans_to_request, type: Int32
-    std::int32_t clans_to_request = gm::wire::codec::readValue<std::int32_t>(__br);
+    // field: callback, type: Function
+    gm::wire::GMFunction callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
 
-    // field: callback, type: optional<Function>
-    std::optional<gm::wire::GMFunction> callback = std::nullopt;
-    if (gm::wire::codec::readValue<bool>(__br))
-    {
-        callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
-    }
-
-    auto&& __result = steam_friends_download_clan_activity_counts(steam_id_clans, clans_to_request, callback);
+    auto&& __result = steam_friends_download_clan_activity_counts(steam_id_clans, callback);
     return static_cast<double>(__result);
 }
 
@@ -173,12 +166,8 @@ GMEXPORT double __EXT_NATIVE__steam_friends_enumerate_following_list(char* __arg
     // field: start_index, type: UInt32
     std::uint32_t start_index = gm::wire::codec::readValue<std::uint32_t>(__br);
 
-    // field: callback, type: optional<Function>
-    std::optional<gm::wire::GMFunction> callback = std::nullopt;
-    if (gm::wire::codec::readValue<bool>(__br))
-    {
-        callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
-    }
+    // field: callback, type: Function
+    gm::wire::GMFunction callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
 
     steam_friends_enumerate_following_list(start_index, callback);
     return 0;
@@ -370,12 +359,8 @@ GMEXPORT double __EXT_NATIVE__steam_friends_get_follower_count(char* __arg_buffe
     // field: steam_id, type: UInt64
     std::uint64_t steam_id = gm::wire::codec::readValue<std::uint64_t>(__br);
 
-    // field: callback, type: optional<Function>
-    std::optional<gm::wire::GMFunction> callback = std::nullopt;
-    if (gm::wire::codec::readValue<bool>(__br))
-    {
-        callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
-    }
+    // field: callback, type: Function
+    gm::wire::GMFunction callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
 
     steam_friends_get_follower_count(steam_id, callback);
     return 0;
@@ -473,10 +458,7 @@ GMEXPORT double __EXT_NATIVE__steam_friends_get_friend_message(char* __arg_buffe
     // field: message_id, type: Int32
     std::int32_t message_id = gm::wire::codec::readValue<std::int32_t>(__br);
 
-    // field: data_size, type: Int32
-    std::int32_t data_size = gm::wire::codec::readValue<std::int32_t>(__br);
-
-    auto&& __result = steam_friends_get_friend_message(steam_id_friend, message_id, data_size);
+    auto&& __result = steam_friends_get_friend_message(steam_id_friend, message_id);
     gm::byteio::BufferWriter __bw{__ret_buffer, static_cast<size_t>(__ret_buffer_length)};
 
     // return: __result, type: struct SteamFriendsFriendMessage
@@ -772,12 +754,8 @@ GMEXPORT double __EXT_NATIVE__steam_friends_is_following(char* __arg_buffer, dou
     // field: steam_id, type: UInt64
     std::uint64_t steam_id = gm::wire::codec::readValue<std::uint64_t>(__br);
 
-    // field: callback, type: optional<Function>
-    std::optional<gm::wire::GMFunction> callback = std::nullopt;
-    if (gm::wire::codec::readValue<bool>(__br))
-    {
-        callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
-    }
+    // field: callback, type: Function
+    gm::wire::GMFunction callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
 
     steam_friends_is_following(steam_id, callback);
     return 0;
@@ -804,12 +782,8 @@ GMEXPORT double __EXT_NATIVE__steam_friends_request_clan_officer_list(char* __ar
     // field: steam_id_clan, type: UInt64
     std::uint64_t steam_id_clan = gm::wire::codec::readValue<std::uint64_t>(__br);
 
-    // field: callback, type: optional<Function>
-    std::optional<gm::wire::GMFunction> callback = std::nullopt;
-    if (gm::wire::codec::readValue<bool>(__br))
-    {
-        callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
-    }
+    // field: callback, type: Function
+    gm::wire::GMFunction callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
 
     steam_friends_request_clan_officer_list(steam_id_clan, callback);
     return 0;
@@ -1036,7 +1010,7 @@ GMEXPORT double __EXT_NATIVE__steam_apps_is_timed_trial(char* __ret_buffer, doub
     auto&& __result = steam_apps_is_timed_trial();
     gm::byteio::BufferWriter __bw{__ret_buffer, static_cast<size_t>(__ret_buffer_length)};
 
-    // return: __result, type: struct SteamAppsTimedTrialStatus
+    // return: __result, type: optional<struct SteamAppsIsTimedTrialResult>
     gm::wire::codec::writeValue(__bw, __result);
     return 0;
 }
@@ -1053,13 +1027,9 @@ GMEXPORT double __EXT_NATIVE__steam_apps_get_app_build_id()
     return static_cast<double>(__result);
 }
 
-GMEXPORT double __EXT_NATIVE__steam_apps_get_app_install_dir(double app_id, char* __ret_buffer, double __ret_buffer_length)
+GMEXPORT double __EXT_NATIVE__steam_apps_get_app_install_dir(double app_id)
 {
     auto&& __result = steam_apps_get_app_install_dir(static_cast<std::uint32_t>(app_id));
-    gm::byteio::BufferWriter __bw{__ret_buffer, static_cast<size_t>(__ret_buffer_length)};
-
-    // return: __result, type: struct SteamAppsInstallDir
-    gm::wire::codec::writeValue(__bw, __result);
     return 0;
 }
 
@@ -1080,13 +1050,9 @@ GMEXPORT char* __EXT_NATIVE__steam_apps_get_available_game_languages()
     return (char*)__result.c_str();
 }
 
-GMEXPORT double __EXT_NATIVE__steam_apps_get_current_beta_name(char* __ret_buffer, double __ret_buffer_length)
+GMEXPORT double __EXT_NATIVE__steam_apps_get_current_beta_name()
 {
     auto&& __result = steam_apps_get_current_beta_name();
-    gm::byteio::BufferWriter __bw{__ret_buffer, static_cast<size_t>(__ret_buffer_length)};
-
-    // return: __result, type: struct SteamAppsBetaName
-    gm::wire::codec::writeValue(__bw, __result);
     return 0;
 }
 
@@ -1170,12 +1136,8 @@ GMEXPORT double __EXT_NATIVE__steam_apps_get_file_details(char* __arg_buffer, do
     // field: file_name, type: String
     std::string_view file_name = gm::wire::codec::readValue<std::string_view>(__br);
 
-    // field: callback, type: optional<Function>
-    std::optional<gm::wire::GMFunction> callback = std::nullopt;
-    if (gm::wire::codec::readValue<bool>(__br))
-    {
-        callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
-    }
+    // field: callback, type: Function
+    gm::wire::GMFunction callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
 
     steam_apps_get_file_details(file_name, callback);
     return 0;
@@ -1191,13 +1153,9 @@ GMEXPORT double __EXT_NATIVE__steam_apps_get_installed_depots(double app_id, dou
     return 0;
 }
 
-GMEXPORT double __EXT_NATIVE__steam_apps_get_launch_command_line(double command_line_size, char* __ret_buffer, double __ret_buffer_length)
+GMEXPORT double __EXT_NATIVE__steam_apps_get_launch_command_line()
 {
-    auto&& __result = steam_apps_get_launch_command_line(static_cast<std::int32_t>(command_line_size));
-    gm::byteio::BufferWriter __bw{__ret_buffer, static_cast<size_t>(__ret_buffer_length)};
-
-    // return: __result, type: struct SteamAppsLaunchCommandLine
-    gm::wire::codec::writeValue(__bw, __result);
+    auto&& __result = steam_apps_get_launch_command_line();
     return 0;
 }
 
@@ -1639,13 +1597,9 @@ GMEXPORT double __EXT_NATIVE__steam_user_get_voice(char* __arg_buffer, double __
     return 0;
 }
 
-GMEXPORT double __EXT_NATIVE__steam_user_get_user_data_folder(char* __ret_buffer, double __ret_buffer_length)
+GMEXPORT double __EXT_NATIVE__steam_user_get_user_data_folder()
 {
     auto&& __result = steam_user_get_user_data_folder();
-    gm::byteio::BufferWriter __bw{__ret_buffer, static_cast<size_t>(__ret_buffer_length)};
-
-    // return: __result, type: struct SteamUserDataFolder
-    gm::wire::codec::writeValue(__bw, __result);
     return 0;
 }
 
@@ -1660,18 +1614,14 @@ GMEXPORT double __EXT_NATIVE__steam_user_request_encrypted_app_ticket(char* __ar
     // field: data_to_include_size, type: Int32
     std::int32_t data_to_include_size = gm::wire::codec::readValue<std::int32_t>(__br);
 
-    // field: callback, type: optional<Function>
-    std::optional<gm::wire::GMFunction> callback = std::nullopt;
-    if (gm::wire::codec::readValue<bool>(__br))
-    {
-        callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
-    }
+    // field: callback, type: Function
+    gm::wire::GMFunction callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
 
     steam_user_request_encrypted_app_ticket(data_to_include, data_to_include_size, callback);
     return 0;
 }
 
-GMEXPORT double __EXT_NATIVE__steam_user_get_encrypted_app_ticket(char* __arg_buffer, double __arg_buffer_length, char* __ret_buffer, double __ret_buffer_length)
+GMEXPORT double __EXT_NATIVE__steam_user_get_encrypted_app_ticket(char* __arg_buffer, double __arg_buffer_length)
 {
     gm::byteio::BufferReader __br{__arg_buffer, static_cast<size_t>(__arg_buffer_length)};
 
@@ -1683,10 +1633,6 @@ GMEXPORT double __EXT_NATIVE__steam_user_get_encrypted_app_ticket(char* __arg_bu
     std::int32_t max_ticket_size = gm::wire::codec::readValue<std::int32_t>(__br);
 
     auto&& __result = steam_user_get_encrypted_app_ticket(out_ticket, max_ticket_size);
-    gm::byteio::BufferWriter __bw{__ret_buffer, static_cast<size_t>(__ret_buffer_length)};
-
-    // return: __result, type: struct SteamUserEncryptedAppTicket
-    gm::wire::codec::writeValue(__bw, __result);
     return 0;
 }
 
@@ -1706,12 +1652,8 @@ GMEXPORT double __EXT_NATIVE__steam_user_get_duration_control(char* __arg_buffer
 {
     gm::byteio::BufferReader __br{__arg_buffer, static_cast<size_t>(__arg_buffer_length)};
 
-    // field: callback, type: optional<Function>
-    std::optional<gm::wire::GMFunction> callback = std::nullopt;
-    if (gm::wire::codec::readValue<bool>(__br))
-    {
-        callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
-    }
+    // field: callback, type: Function
+    gm::wire::GMFunction callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
 
     steam_user_get_duration_control(callback);
     return 0;
@@ -1724,12 +1666,8 @@ GMEXPORT double __EXT_NATIVE__steam_user_request_store_auth_url(char* __arg_buff
     // field: redirect_url, type: String
     std::string_view redirect_url = gm::wire::codec::readValue<std::string_view>(__br);
 
-    // field: callback, type: optional<Function>
-    std::optional<gm::wire::GMFunction> callback = std::nullopt;
-    if (gm::wire::codec::readValue<bool>(__br))
-    {
-        callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
-    }
+    // field: callback, type: Function
+    gm::wire::GMFunction callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
 
     steam_user_request_store_auth_url(redirect_url, callback);
     return 0;
@@ -1739,12 +1677,8 @@ GMEXPORT double __EXT_NATIVE__steam_user_get_market_eligibility(char* __arg_buff
 {
     gm::byteio::BufferReader __br{__arg_buffer, static_cast<size_t>(__arg_buffer_length)};
 
-    // field: callback, type: optional<Function>
-    std::optional<gm::wire::GMFunction> callback = std::nullopt;
-    if (gm::wire::codec::readValue<bool>(__br))
-    {
-        callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
-    }
+    // field: callback, type: Function
+    gm::wire::GMFunction callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
 
     steam_user_get_market_eligibility(callback);
     return 0;
@@ -1780,7 +1714,7 @@ GMEXPORT double __EXT_NATIVE__steam_user_user_has_license_for_app(char* __arg_bu
     auto&& __result = steam_user_user_has_license_for_app(steam_id, app_id);
     gm::byteio::BufferWriter __bw{__ret_buffer, static_cast<size_t>(__ret_buffer_length)};
 
-    // return: __result, type: enum SteamApiUserHasLicenseResult
+    // return: __result, type: enum SteamApiUserHasLicenseForAppResult
     gm::wire::codec::writeValue(__bw, __result);
     return 0;
 }
@@ -1917,12 +1851,8 @@ GMEXPORT double __EXT_NATIVE__steam_utils_check_file_signature(char* __arg_buffe
     // field: file_name, type: String
     std::string_view file_name = gm::wire::codec::readValue<std::string_view>(__br);
 
-    // field: callback, type: optional<Function>
-    std::optional<gm::wire::GMFunction> callback = std::nullopt;
-    if (gm::wire::codec::readValue<bool>(__br))
-    {
-        callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
-    }
+    // field: callback, type: Function
+    gm::wire::GMFunction callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
 
     steam_utils_check_file_signature(file_name, callback);
     return 0;
@@ -1943,7 +1873,7 @@ GMEXPORT double __EXT_NATIVE__steam_utils_get_api_call_failure_reason(char* __ar
     return 0;
 }
 
-GMEXPORT double __EXT_NATIVE__steam_utils_get_api_call_result(char* __arg_buffer, double __arg_buffer_length, char* __ret_buffer, double __ret_buffer_length)
+GMEXPORT double __EXT_NATIVE__steam_utils_get_api_call_result(char* __arg_buffer, double __arg_buffer_length)
 {
     gm::byteio::BufferReader __br{__arg_buffer, static_cast<size_t>(__arg_buffer_length)};
 
@@ -1961,10 +1891,6 @@ GMEXPORT double __EXT_NATIVE__steam_utils_get_api_call_result(char* __arg_buffer
     std::int32_t out_callback_size = gm::wire::codec::readValue<std::int32_t>(__br);
 
     auto&& __result = steam_utils_get_api_call_result(steam_api_call, callback_expected, out_callback, out_callback_size);
-    gm::byteio::BufferWriter __bw{__ret_buffer, static_cast<size_t>(__ret_buffer_length)};
-
-    // return: __result, type: struct SteamUtilsApiCallResult
-    gm::wire::codec::writeValue(__bw, __result);
     return 0;
 }
 
@@ -2075,13 +2001,9 @@ GMEXPORT double __EXT_NATIVE__steam_utils_get_current_battery_power()
     return static_cast<double>(__result);
 }
 
-GMEXPORT double __EXT_NATIVE__steam_utils_get_entered_gamepad_text_input(char* __ret_buffer, double __ret_buffer_length)
+GMEXPORT double __EXT_NATIVE__steam_utils_get_entered_gamepad_text_input()
 {
     auto&& __result = steam_utils_get_entered_gamepad_text_input();
-    gm::byteio::BufferWriter __bw{__ret_buffer, static_cast<size_t>(__ret_buffer_length)};
-
-    // return: __result, type: struct SteamUtilsGamepadTextInput
-    gm::wire::codec::writeValue(__bw, __result);
     return 0;
 }
 
@@ -2187,7 +2109,7 @@ GMEXPORT double __EXT_NATIVE__steam_utils_is_steam_china_launcher()
     return static_cast<double>(__result);
 }
 
-GMEXPORT double __EXT_NATIVE__steam_utils_is_api_call_completed(char* __arg_buffer, double __arg_buffer_length, char* __ret_buffer, double __ret_buffer_length)
+GMEXPORT double __EXT_NATIVE__steam_utils_is_api_call_completed(char* __arg_buffer, double __arg_buffer_length)
 {
     gm::byteio::BufferReader __br{__arg_buffer, static_cast<size_t>(__arg_buffer_length)};
 
@@ -2195,10 +2117,6 @@ GMEXPORT double __EXT_NATIVE__steam_utils_is_api_call_completed(char* __arg_buff
     std::uint64_t steam_api_call = gm::wire::codec::readValue<std::uint64_t>(__br);
 
     auto&& __result = steam_utils_is_api_call_completed(steam_api_call);
-    gm::byteio::BufferWriter __bw{__ret_buffer, static_cast<size_t>(__ret_buffer_length)};
-
-    // return: __result, type: struct SteamUtilsApiCallCompleted
-    gm::wire::codec::writeValue(__bw, __result);
     return 0;
 }
 
@@ -2383,12 +2301,8 @@ GMEXPORT double __EXT_NATIVE__steam_ugc_add_app_dependency(char* __arg_buffer, d
     // field: app_id, type: UInt32
     std::uint32_t app_id = gm::wire::codec::readValue<std::uint32_t>(__br);
 
-    // field: callback, type: optional<Function>
-    std::optional<gm::wire::GMFunction> callback = std::nullopt;
-    if (gm::wire::codec::readValue<bool>(__br))
-    {
-        callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
-    }
+    // field: callback, type: Function
+    gm::wire::GMFunction callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
 
     steam_ugc_add_app_dependency(published_file_id, app_id, callback);
     return 0;
@@ -2404,12 +2318,8 @@ GMEXPORT double __EXT_NATIVE__steam_ugc_add_dependency(char* __arg_buffer, doubl
     // field: child_published_file_id, type: UInt64
     std::uint64_t child_published_file_id = gm::wire::codec::readValue<std::uint64_t>(__br);
 
-    // field: callback, type: optional<Function>
-    std::optional<gm::wire::GMFunction> callback = std::nullopt;
-    if (gm::wire::codec::readValue<bool>(__br))
-    {
-        callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
-    }
+    // field: callback, type: Function
+    gm::wire::GMFunction callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
 
     steam_ugc_add_dependency(parent_published_file_id, child_published_file_id, callback);
     return 0;
@@ -2456,8 +2366,8 @@ GMEXPORT double __EXT_NATIVE__steam_ugc_add_item_preview_file(char* __arg_buffer
     // field: preview_file_path, type: String
     std::string_view preview_file_path = gm::wire::codec::readValue<std::string_view>(__br);
 
-    // field: preview_type, type: enum SteamItemPreviewType
-    gm_enums::SteamItemPreviewType preview_type = gm::wire::codec::readValue<gm_enums::SteamItemPreviewType>(__br);
+    // field: preview_type, type: enum SteamUgcItemPreviewType
+    gm_enums::SteamUgcItemPreviewType preview_type = gm::wire::codec::readValue<gm_enums::SteamUgcItemPreviewType>(__br);
 
     auto&& __result = steam_ugc_add_item_preview_file(update_handle, preview_file_path, preview_type);
     return static_cast<double>(__result);
@@ -2487,12 +2397,8 @@ GMEXPORT double __EXT_NATIVE__steam_ugc_add_item_to_favorites(char* __arg_buffer
     // field: published_file_id, type: UInt64
     std::uint64_t published_file_id = gm::wire::codec::readValue<std::uint64_t>(__br);
 
-    // field: callback, type: optional<Function>
-    std::optional<gm::wire::GMFunction> callback = std::nullopt;
-    if (gm::wire::codec::readValue<bool>(__br))
-    {
-        callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
-    }
+    // field: callback, type: Function
+    gm::wire::GMFunction callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
 
     steam_ugc_add_item_to_favorites(app_id, published_file_id, callback);
     return 0;
@@ -2559,12 +2465,8 @@ GMEXPORT double __EXT_NATIVE__steam_ugc_create_item(char* __arg_buffer, double _
     // field: workshop_file_type, type: enum SteamWorkshopFileType
     gm_enums::SteamWorkshopFileType workshop_file_type = gm::wire::codec::readValue<gm_enums::SteamWorkshopFileType>(__br);
 
-    // field: callback, type: optional<Function>
-    std::optional<gm::wire::GMFunction> callback = std::nullopt;
-    if (gm::wire::codec::readValue<bool>(__br))
-    {
-        callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
-    }
+    // field: callback, type: Function
+    gm::wire::GMFunction callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
 
     steam_ugc_create_item(consumer_app_id, workshop_file_type, callback);
     return 0;
@@ -2604,10 +2506,7 @@ GMEXPORT double __EXT_NATIVE__steam_ugc_create_query_ugc_details_request(char* _
     // field: published_file_ids, type: UInt64[]
     std::vector<std::uint64_t> published_file_ids = gm::wire::codec::readVector<std::uint64_t>(__br);
 
-    // field: num_published_file_ids, type: UInt32
-    std::uint32_t num_published_file_ids = gm::wire::codec::readValue<std::uint32_t>(__br);
-
-    auto&& __result = steam_ugc_create_query_ugc_details_request(published_file_ids, num_published_file_ids);
+    auto&& __result = steam_ugc_create_query_ugc_details_request(published_file_ids);
     gm::byteio::BufferWriter __bw{__ret_buffer, static_cast<size_t>(__ret_buffer_length)};
 
     // return: __result, type: UInt64
@@ -2655,12 +2554,8 @@ GMEXPORT double __EXT_NATIVE__steam_ugc_delete_item(char* __arg_buffer, double _
     // field: published_file_id, type: UInt64
     std::uint64_t published_file_id = gm::wire::codec::readValue<std::uint64_t>(__br);
 
-    // field: callback, type: optional<Function>
-    std::optional<gm::wire::GMFunction> callback = std::nullopt;
-    if (gm::wire::codec::readValue<bool>(__br))
-    {
-        callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
-    }
+    // field: callback, type: Function
+    gm::wire::GMFunction callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
 
     steam_ugc_delete_item(published_file_id, callback);
     return 0;
@@ -2687,12 +2582,8 @@ GMEXPORT double __EXT_NATIVE__steam_ugc_get_app_dependencies(char* __arg_buffer,
     // field: published_file_id, type: UInt64
     std::uint64_t published_file_id = gm::wire::codec::readValue<std::uint64_t>(__br);
 
-    // field: callback, type: optional<Function>
-    std::optional<gm::wire::GMFunction> callback = std::nullopt;
-    if (gm::wire::codec::readValue<bool>(__br))
-    {
-        callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
-    }
+    // field: callback, type: Function
+    gm::wire::GMFunction callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
 
     steam_ugc_get_app_dependencies(published_file_id, callback);
     return 0;
@@ -2792,7 +2683,7 @@ GMEXPORT double __EXT_NATIVE__steam_ugc_get_query_ugc_result(char* __arg_buffer,
     return 0;
 }
 
-GMEXPORT double __EXT_NATIVE__steam_ugc_get_query_ugc_preview_url(char* __arg_buffer, double __arg_buffer_length, char* __ret_buffer, double __ret_buffer_length)
+GMEXPORT double __EXT_NATIVE__steam_ugc_get_query_ugc_preview_url(char* __arg_buffer, double __arg_buffer_length)
 {
     gm::byteio::BufferReader __br{__arg_buffer, static_cast<size_t>(__arg_buffer_length)};
 
@@ -2803,14 +2694,10 @@ GMEXPORT double __EXT_NATIVE__steam_ugc_get_query_ugc_preview_url(char* __arg_bu
     std::uint32_t index = gm::wire::codec::readValue<std::uint32_t>(__br);
 
     auto&& __result = steam_ugc_get_query_ugc_preview_url(query_handle, index);
-    gm::byteio::BufferWriter __bw{__ret_buffer, static_cast<size_t>(__ret_buffer_length)};
-
-    // return: __result, type: struct SteamUgcQueryPreviewUrl
-    gm::wire::codec::writeValue(__bw, __result);
     return 0;
 }
 
-GMEXPORT double __EXT_NATIVE__steam_ugc_get_query_ugc_metadata(char* __arg_buffer, double __arg_buffer_length, char* __ret_buffer, double __ret_buffer_length)
+GMEXPORT double __EXT_NATIVE__steam_ugc_get_query_ugc_metadata(char* __arg_buffer, double __arg_buffer_length)
 {
     gm::byteio::BufferReader __br{__arg_buffer, static_cast<size_t>(__arg_buffer_length)};
 
@@ -2821,10 +2708,6 @@ GMEXPORT double __EXT_NATIVE__steam_ugc_get_query_ugc_metadata(char* __arg_buffe
     std::uint32_t index = gm::wire::codec::readValue<std::uint32_t>(__br);
 
     auto&& __result = steam_ugc_get_query_ugc_metadata(query_handle, index);
-    gm::byteio::BufferWriter __bw{__ret_buffer, static_cast<size_t>(__ret_buffer_length)};
-
-    // return: __result, type: struct SteamUgcQueryMetadata
-    gm::wire::codec::writeValue(__bw, __result);
     return 0;
 }
 
@@ -2995,12 +2878,8 @@ GMEXPORT double __EXT_NATIVE__steam_ugc_remove_app_dependency(char* __arg_buffer
     // field: app_id, type: UInt32
     std::uint32_t app_id = gm::wire::codec::readValue<std::uint32_t>(__br);
 
-    // field: callback, type: optional<Function>
-    std::optional<gm::wire::GMFunction> callback = std::nullopt;
-    if (gm::wire::codec::readValue<bool>(__br))
-    {
-        callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
-    }
+    // field: callback, type: Function
+    gm::wire::GMFunction callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
 
     steam_ugc_remove_app_dependency(published_file_id, app_id, callback);
     return 0;
@@ -3016,12 +2895,8 @@ GMEXPORT double __EXT_NATIVE__steam_ugc_remove_dependency(char* __arg_buffer, do
     // field: child_published_file_id, type: UInt64
     std::uint64_t child_published_file_id = gm::wire::codec::readValue<std::uint64_t>(__br);
 
-    // field: callback, type: optional<Function>
-    std::optional<gm::wire::GMFunction> callback = std::nullopt;
-    if (gm::wire::codec::readValue<bool>(__br))
-    {
-        callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
-    }
+    // field: callback, type: Function
+    gm::wire::GMFunction callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
 
     steam_ugc_remove_dependency(parent_published_file_id, child_published_file_id, callback);
     return 0;
@@ -3037,12 +2912,8 @@ GMEXPORT double __EXT_NATIVE__steam_ugc_remove_item_from_favorites(char* __arg_b
     // field: published_file_id, type: UInt64
     std::uint64_t published_file_id = gm::wire::codec::readValue<std::uint64_t>(__br);
 
-    // field: callback, type: optional<Function>
-    std::optional<gm::wire::GMFunction> callback = std::nullopt;
-    if (gm::wire::codec::readValue<bool>(__br))
-    {
-        callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
-    }
+    // field: callback, type: Function
+    gm::wire::GMFunction callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
 
     steam_ugc_remove_item_from_favorites(app_id, published_file_id, callback);
     return 0;
@@ -3131,12 +3002,8 @@ GMEXPORT double __EXT_NATIVE__steam_ugc_request_ugc_details(char* __arg_buffer, 
     // field: max_age_seconds, type: UInt32
     std::uint32_t max_age_seconds = gm::wire::codec::readValue<std::uint32_t>(__br);
 
-    // field: callback, type: optional<Function>
-    std::optional<gm::wire::GMFunction> callback = std::nullopt;
-    if (gm::wire::codec::readValue<bool>(__br))
-    {
-        callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
-    }
+    // field: callback, type: Function
+    gm::wire::GMFunction callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
 
     steam_ugc_request_ugc_details(published_file_id, max_age_seconds, callback);
     return 0;
@@ -3149,12 +3016,8 @@ GMEXPORT double __EXT_NATIVE__steam_ugc_send_query_ugc_request(char* __arg_buffe
     // field: query_handle, type: UInt64
     std::uint64_t query_handle = gm::wire::codec::readValue<std::uint64_t>(__br);
 
-    // field: callback, type: optional<Function>
-    std::optional<gm::wire::GMFunction> callback = std::nullopt;
-    if (gm::wire::codec::readValue<bool>(__br))
-    {
-        callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
-    }
+    // field: callback, type: Function
+    gm::wire::GMFunction callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
 
     steam_ugc_send_query_ugc_request(query_handle, callback);
     return 0;
@@ -3537,12 +3400,8 @@ GMEXPORT double __EXT_NATIVE__steam_ugc_set_user_item_vote(char* __arg_buffer, d
     // field: vote_up, type: Bool
     bool vote_up = gm::wire::codec::readValue<bool>(__br);
 
-    // field: callback, type: optional<Function>
-    std::optional<gm::wire::GMFunction> callback = std::nullopt;
-    if (gm::wire::codec::readValue<bool>(__br))
-    {
-        callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
-    }
+    // field: callback, type: Function
+    gm::wire::GMFunction callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
 
     steam_ugc_set_user_item_vote(published_file_id, vote_up, callback);
     return 0;
@@ -3555,12 +3414,8 @@ GMEXPORT double __EXT_NATIVE__steam_ugc_get_user_item_vote(char* __arg_buffer, d
     // field: published_file_id, type: UInt64
     std::uint64_t published_file_id = gm::wire::codec::readValue<std::uint64_t>(__br);
 
-    // field: callback, type: optional<Function>
-    std::optional<gm::wire::GMFunction> callback = std::nullopt;
-    if (gm::wire::codec::readValue<bool>(__br))
-    {
-        callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
-    }
+    // field: callback, type: Function
+    gm::wire::GMFunction callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
 
     steam_ugc_get_user_item_vote(published_file_id, callback);
     return 0;
@@ -3591,17 +3446,10 @@ GMEXPORT double __EXT_NATIVE__steam_ugc_start_playtime_tracking(char* __arg_buff
     // field: published_file_ids, type: UInt64[]
     std::vector<std::uint64_t> published_file_ids = gm::wire::codec::readVector<std::uint64_t>(__br);
 
-    // field: num_published_file_ids, type: UInt32
-    std::uint32_t num_published_file_ids = gm::wire::codec::readValue<std::uint32_t>(__br);
+    // field: callback, type: Function
+    gm::wire::GMFunction callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
 
-    // field: callback, type: optional<Function>
-    std::optional<gm::wire::GMFunction> callback = std::nullopt;
-    if (gm::wire::codec::readValue<bool>(__br))
-    {
-        callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
-    }
-
-    steam_ugc_start_playtime_tracking(published_file_ids, num_published_file_ids, callback);
+    steam_ugc_start_playtime_tracking(published_file_ids, callback);
     return 0;
 }
 
@@ -3615,12 +3463,8 @@ GMEXPORT double __EXT_NATIVE__steam_ugc_stop_playtime_tracking(char* __arg_buffe
     // field: num_published_file_ids, type: UInt32
     std::uint32_t num_published_file_ids = gm::wire::codec::readValue<std::uint32_t>(__br);
 
-    // field: callback, type: optional<Function>
-    std::optional<gm::wire::GMFunction> callback = std::nullopt;
-    if (gm::wire::codec::readValue<bool>(__br))
-    {
-        callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
-    }
+    // field: callback, type: Function
+    gm::wire::GMFunction callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
 
     steam_ugc_stop_playtime_tracking(published_file_ids, num_published_file_ids, callback);
     return 0;
@@ -3630,12 +3474,8 @@ GMEXPORT double __EXT_NATIVE__steam_ugc_stop_playtime_tracking_for_all_items(cha
 {
     gm::byteio::BufferReader __br{__arg_buffer, static_cast<size_t>(__arg_buffer_length)};
 
-    // field: callback, type: optional<Function>
-    std::optional<gm::wire::GMFunction> callback = std::nullopt;
-    if (gm::wire::codec::readValue<bool>(__br))
-    {
-        callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
-    }
+    // field: callback, type: Function
+    gm::wire::GMFunction callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
 
     steam_ugc_stop_playtime_tracking_for_all_items(callback);
     return 0;
@@ -3651,12 +3491,8 @@ GMEXPORT double __EXT_NATIVE__steam_ugc_submit_item_update(char* __arg_buffer, d
     // field: change_note, type: String
     std::string_view change_note = gm::wire::codec::readValue<std::string_view>(__br);
 
-    // field: callback, type: optional<Function>
-    std::optional<gm::wire::GMFunction> callback = std::nullopt;
-    if (gm::wire::codec::readValue<bool>(__br))
-    {
-        callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
-    }
+    // field: callback, type: Function
+    gm::wire::GMFunction callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
 
     steam_ugc_submit_item_update(update_handle, change_note, callback);
     return 0;
@@ -3669,12 +3505,8 @@ GMEXPORT double __EXT_NATIVE__steam_ugc_subscribe_item(char* __arg_buffer, doubl
     // field: published_file_id, type: UInt64
     std::uint64_t published_file_id = gm::wire::codec::readValue<std::uint64_t>(__br);
 
-    // field: callback, type: optional<Function>
-    std::optional<gm::wire::GMFunction> callback = std::nullopt;
-    if (gm::wire::codec::readValue<bool>(__br))
-    {
-        callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
-    }
+    // field: callback, type: Function
+    gm::wire::GMFunction callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
 
     steam_ugc_subscribe_item(published_file_id, callback);
     return 0;
@@ -3693,12 +3525,8 @@ GMEXPORT double __EXT_NATIVE__steam_ugc_unsubscribe_item(char* __arg_buffer, dou
     // field: published_file_id, type: UInt64
     std::uint64_t published_file_id = gm::wire::codec::readValue<std::uint64_t>(__br);
 
-    // field: callback, type: optional<Function>
-    std::optional<gm::wire::GMFunction> callback = std::nullopt;
-    if (gm::wire::codec::readValue<bool>(__br))
-    {
-        callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
-    }
+    // field: callback, type: Function
+    gm::wire::GMFunction callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
 
     steam_ugc_unsubscribe_item(published_file_id, callback);
     return 0;
@@ -3765,48 +3593,10 @@ GMEXPORT double __EXT_NATIVE__steam_ugc_get_workshop_eula_status(char* __arg_buf
 {
     gm::byteio::BufferReader __br{__arg_buffer, static_cast<size_t>(__arg_buffer_length)};
 
-    // field: callback, type: optional<Function>
-    std::optional<gm::wire::GMFunction> callback = std::nullopt;
-    if (gm::wire::codec::readValue<bool>(__br))
-    {
-        callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
-    }
+    // field: callback, type: Function
+    gm::wire::GMFunction callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
 
     steam_ugc_get_workshop_eula_status(callback);
-    return 0;
-}
-
-GMEXPORT double __EXT_NATIVE__steam_ugc_set_callback_file_subscribed(char* __arg_buffer, double __arg_buffer_length)
-{
-    gm::byteio::BufferReader __br{__arg_buffer, static_cast<size_t>(__arg_buffer_length)};
-
-    // field: callback, type: Function
-    gm::wire::GMFunction callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
-
-    steam_ugc_set_callback_file_subscribed(callback);
-    return 0;
-}
-
-GMEXPORT double __EXT_NATIVE__steam_ugc_clear_callback_file_subscribed()
-{
-    steam_ugc_clear_callback_file_subscribed();
-    return 0;
-}
-
-GMEXPORT double __EXT_NATIVE__steam_ugc_set_callback_file_unsubscribed(char* __arg_buffer, double __arg_buffer_length)
-{
-    gm::byteio::BufferReader __br{__arg_buffer, static_cast<size_t>(__arg_buffer_length)};
-
-    // field: callback, type: Function
-    gm::wire::GMFunction callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
-
-    steam_ugc_set_callback_file_unsubscribed(callback);
-    return 0;
-}
-
-GMEXPORT double __EXT_NATIVE__steam_ugc_clear_callback_file_unsubscribed()
-{
-    steam_ugc_clear_callback_file_unsubscribed();
     return 0;
 }
 
@@ -3951,17 +3741,36 @@ GMEXPORT double __EXT_NATIVE__steam_input_get_analog_action_origins(char* __arg_
     return 0;
 }
 
-GMEXPORT char* __EXT_NATIVE__steam_input_get_glyph_png_for_action_origin(double origin, double size, double flags)
+GMEXPORT char* __EXT_NATIVE__steam_input_get_glyph_png_for_action_origin(char* __arg_buffer, double __arg_buffer_length)
 {
+    gm::byteio::BufferReader __br{__arg_buffer, static_cast<size_t>(__arg_buffer_length)};
+
+    // field: origin, type: enum SteamInputActionOrigin
+    gm_enums::SteamInputActionOrigin origin = gm::wire::codec::readValue<gm_enums::SteamInputActionOrigin>(__br);
+
+    // field: size, type: enum SteamInputGlyphSize
+    gm_enums::SteamInputGlyphSize size = gm::wire::codec::readValue<gm_enums::SteamInputGlyphSize>(__br);
+
+    // field: flags, type: UInt32
+    std::uint32_t flags = gm::wire::codec::readValue<std::uint32_t>(__br);
+
     static std::string __result;
-    __result = steam_input_get_glyph_png_for_action_origin(static_cast<std::uint32_t>(origin), static_cast<std::uint32_t>(size), static_cast<std::uint32_t>(flags));
+    __result = steam_input_get_glyph_png_for_action_origin(origin, size, flags);
     return (char*)__result.c_str();
 }
 
-GMEXPORT char* __EXT_NATIVE__steam_input_get_glyph_svg_for_action_origin(double origin, double flags)
+GMEXPORT char* __EXT_NATIVE__steam_input_get_glyph_svg_for_action_origin(char* __arg_buffer, double __arg_buffer_length)
 {
+    gm::byteio::BufferReader __br{__arg_buffer, static_cast<size_t>(__arg_buffer_length)};
+
+    // field: origin, type: enum SteamInputActionOrigin
+    gm_enums::SteamInputActionOrigin origin = gm::wire::codec::readValue<gm_enums::SteamInputActionOrigin>(__br);
+
+    // field: flags, type: UInt32
+    std::uint32_t flags = gm::wire::codec::readValue<std::uint32_t>(__br);
+
     static std::string __result;
-    __result = steam_input_get_glyph_svg_for_action_origin(static_cast<std::uint32_t>(origin), static_cast<std::uint32_t>(flags));
+    __result = steam_input_get_glyph_svg_for_action_origin(origin, flags);
     return (char*)__result.c_str();
 }
 
@@ -4120,7 +3929,7 @@ GMEXPORT double __EXT_NATIVE__steam_input_run_frame()
     return 0;
 }
 
-GMEXPORT double __EXT_NATIVE__steam_input_set_dual_sense_trigger_effect(char* __arg_buffer, double __arg_buffer_length)
+GMEXPORT double __EXT_NATIVE__steam_input_set_dualsense_trigger_effect(char* __arg_buffer, double __arg_buffer_length)
 {
     gm::byteio::BufferReader __br{__arg_buffer, static_cast<size_t>(__arg_buffer_length)};
 
@@ -4130,7 +3939,7 @@ GMEXPORT double __EXT_NATIVE__steam_input_set_dual_sense_trigger_effect(char* __
     // field: param, type: UInt32[]
     std::vector<std::uint32_t> param = gm::wire::codec::readVector<std::uint32_t>(__br);
 
-    auto&& __result = steam_input_set_dual_sense_trigger_effect(input_handle, param);
+    auto&& __result = steam_input_set_dualsense_trigger_effect(input_handle, param);
     return static_cast<double>(__result);
 }
 
@@ -4341,40 +4150,15 @@ GMEXPORT double __EXT_NATIVE__steam_input_clear_callback_action_set_changed()
     return 0;
 }
 
-GMEXPORT double __EXT_NATIVE__steam_input_set_callback_controller_battery(char* __arg_buffer, double __arg_buffer_length)
-{
-    gm::byteio::BufferReader __br{__arg_buffer, static_cast<size_t>(__arg_buffer_length)};
-
-    // field: callback, type: Function
-    gm::wire::GMFunction callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
-
-    steam_input_set_callback_controller_battery(callback);
-    return 0;
-}
-
-GMEXPORT double __EXT_NATIVE__steam_input_clear_callback_controller_battery()
-{
-    steam_input_clear_callback_controller_battery();
-    return 0;
-}
-
-GMEXPORT double __EXT_NATIVE__steam_userstats_get_stat_int(char* stat_name, char* __ret_buffer, double __ret_buffer_length)
+GMEXPORT double __EXT_NATIVE__steam_userstats_get_stat_int(char* stat_name)
 {
     auto&& __result = steam_userstats_get_stat_int(stat_name);
-    gm::byteio::BufferWriter __bw{__ret_buffer, static_cast<size_t>(__ret_buffer_length)};
-
-    // return: __result, type: struct SteamUserStatsStatInt
-    gm::wire::codec::writeValue(__bw, __result);
     return 0;
 }
 
-GMEXPORT double __EXT_NATIVE__steam_userstats_get_stat_float(char* stat_name, char* __ret_buffer, double __ret_buffer_length)
+GMEXPORT double __EXT_NATIVE__steam_userstats_get_stat_float(char* stat_name)
 {
     auto&& __result = steam_userstats_get_stat_float(stat_name);
-    gm::byteio::BufferWriter __bw{__ret_buffer, static_cast<size_t>(__ret_buffer_length)};
-
-    // return: __result, type: struct SteamUserStatsStatFloat
-    gm::wire::codec::writeValue(__bw, __result);
     return 0;
 }
 
@@ -4396,13 +4180,9 @@ GMEXPORT double __EXT_NATIVE__steam_userstats_update_avg_rate_stat(char* stat_na
     return static_cast<double>(__result);
 }
 
-GMEXPORT double __EXT_NATIVE__steam_userstats_get_achievement(char* achievement_name, char* __ret_buffer, double __ret_buffer_length)
+GMEXPORT double __EXT_NATIVE__steam_userstats_get_achievement(char* achievement_name)
 {
     auto&& __result = steam_userstats_get_achievement(achievement_name);
-    gm::byteio::BufferWriter __bw{__ret_buffer, static_cast<size_t>(__ret_buffer_length)};
-
-    // return: __result, type: struct SteamUserStatsUserAchievement
-    gm::wire::codec::writeValue(__bw, __result);
     return 0;
 }
 
@@ -4473,18 +4253,14 @@ GMEXPORT double __EXT_NATIVE__steam_userstats_request_user_stats(char* __arg_buf
     // field: steam_id_user, type: UInt64
     std::uint64_t steam_id_user = gm::wire::codec::readValue<std::uint64_t>(__br);
 
-    // field: callback, type: optional<Function>
-    std::optional<gm::wire::GMFunction> callback = std::nullopt;
-    if (gm::wire::codec::readValue<bool>(__br))
-    {
-        callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
-    }
+    // field: callback, type: Function
+    gm::wire::GMFunction callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
 
     steam_userstats_request_user_stats(steam_id_user, callback);
     return 0;
 }
 
-GMEXPORT double __EXT_NATIVE__steam_userstats_user_stat_int(char* __arg_buffer, double __arg_buffer_length, char* __ret_buffer, double __ret_buffer_length)
+GMEXPORT double __EXT_NATIVE__steam_userstats_user_stat_int(char* __arg_buffer, double __arg_buffer_length)
 {
     gm::byteio::BufferReader __br{__arg_buffer, static_cast<size_t>(__arg_buffer_length)};
 
@@ -4495,14 +4271,10 @@ GMEXPORT double __EXT_NATIVE__steam_userstats_user_stat_int(char* __arg_buffer, 
     std::string_view stat_name = gm::wire::codec::readValue<std::string_view>(__br);
 
     auto&& __result = steam_userstats_user_stat_int(steam_id_user, stat_name);
-    gm::byteio::BufferWriter __bw{__ret_buffer, static_cast<size_t>(__ret_buffer_length)};
-
-    // return: __result, type: struct SteamUserStatsStatInt
-    gm::wire::codec::writeValue(__bw, __result);
     return 0;
 }
 
-GMEXPORT double __EXT_NATIVE__steam_userstats_user_stat_float(char* __arg_buffer, double __arg_buffer_length, char* __ret_buffer, double __ret_buffer_length)
+GMEXPORT double __EXT_NATIVE__steam_userstats_user_stat_float(char* __arg_buffer, double __arg_buffer_length)
 {
     gm::byteio::BufferReader __br{__arg_buffer, static_cast<size_t>(__arg_buffer_length)};
 
@@ -4513,14 +4285,10 @@ GMEXPORT double __EXT_NATIVE__steam_userstats_user_stat_float(char* __arg_buffer
     std::string_view stat_name = gm::wire::codec::readValue<std::string_view>(__br);
 
     auto&& __result = steam_userstats_user_stat_float(steam_id_user, stat_name);
-    gm::byteio::BufferWriter __bw{__ret_buffer, static_cast<size_t>(__ret_buffer_length)};
-
-    // return: __result, type: struct SteamUserStatsStatFloat
-    gm::wire::codec::writeValue(__bw, __result);
     return 0;
 }
 
-GMEXPORT double __EXT_NATIVE__steam_userstats_user_achievement(char* __arg_buffer, double __arg_buffer_length, char* __ret_buffer, double __ret_buffer_length)
+GMEXPORT double __EXT_NATIVE__steam_userstats_user_achievement(char* __arg_buffer, double __arg_buffer_length)
 {
     gm::byteio::BufferReader __br{__arg_buffer, static_cast<size_t>(__arg_buffer_length)};
 
@@ -4531,10 +4299,6 @@ GMEXPORT double __EXT_NATIVE__steam_userstats_user_achievement(char* __arg_buffe
     std::string_view achievement_name = gm::wire::codec::readValue<std::string_view>(__br);
 
     auto&& __result = steam_userstats_user_achievement(steam_id_user, achievement_name);
-    gm::byteio::BufferWriter __bw{__ret_buffer, static_cast<size_t>(__ret_buffer_length)};
-
-    // return: __result, type: struct SteamUserStatsUserAchievement
-    gm::wire::codec::writeValue(__bw, __result);
     return 0;
 }
 
@@ -4575,12 +4339,8 @@ GMEXPORT double __EXT_NATIVE__steam_userstats_find_or_create_leaderboard(char* _
     // field: display_type, type: enum SteamLeaderboardDisplayType
     gm_enums::SteamLeaderboardDisplayType display_type = gm::wire::codec::readValue<gm_enums::SteamLeaderboardDisplayType>(__br);
 
-    // field: callback, type: optional<Function>
-    std::optional<gm::wire::GMFunction> callback = std::nullopt;
-    if (gm::wire::codec::readValue<bool>(__br))
-    {
-        callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
-    }
+    // field: callback, type: Function
+    gm::wire::GMFunction callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
 
     steam_userstats_find_or_create_leaderboard(leaderboard_name, sort_method, display_type, callback);
     return 0;
@@ -4593,12 +4353,8 @@ GMEXPORT double __EXT_NATIVE__steam_userstats_find_leaderboard(char* __arg_buffe
     // field: leaderboard_name, type: String
     std::string_view leaderboard_name = gm::wire::codec::readValue<std::string_view>(__br);
 
-    // field: callback, type: optional<Function>
-    std::optional<gm::wire::GMFunction> callback = std::nullopt;
-    if (gm::wire::codec::readValue<bool>(__br))
-    {
-        callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
-    }
+    // field: callback, type: Function
+    gm::wire::GMFunction callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
 
     steam_userstats_find_leaderboard(leaderboard_name, callback);
     return 0;
@@ -4673,12 +4429,8 @@ GMEXPORT double __EXT_NATIVE__steam_userstats_download_leaderboard_entries(char*
     // field: range_end, type: Int32
     std::int32_t range_end = gm::wire::codec::readValue<std::int32_t>(__br);
 
-    // field: callback, type: optional<Function>
-    std::optional<gm::wire::GMFunction> callback = std::nullopt;
-    if (gm::wire::codec::readValue<bool>(__br))
-    {
-        callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
-    }
+    // field: callback, type: Function
+    gm::wire::GMFunction callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
 
     steam_userstats_download_leaderboard_entries(leaderboard_handle, request, range_start, range_end, callback);
     return 0;
@@ -4694,12 +4446,8 @@ GMEXPORT double __EXT_NATIVE__steam_userstats_download_leaderboard_entries_for_u
     // field: users, type: UInt64[]
     std::vector<std::uint64_t> users = gm::wire::codec::readVector<std::uint64_t>(__br);
 
-    // field: callback, type: optional<Function>
-    std::optional<gm::wire::GMFunction> callback = std::nullopt;
-    if (gm::wire::codec::readValue<bool>(__br))
-    {
-        callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
-    }
+    // field: callback, type: Function
+    gm::wire::GMFunction callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
 
     steam_userstats_download_leaderboard_entries_for_users(leaderboard_handle, users, callback);
     return 0;
@@ -4715,14 +4463,10 @@ GMEXPORT double __EXT_NATIVE__steam_userstats_downloaded_leaderboard_entry(char*
     // field: entry_index, type: Int32
     std::int32_t entry_index = gm::wire::codec::readValue<std::int32_t>(__br);
 
-    // field: buffer, type: Buffer
-    gm::wire::GMBuffer buffer = __buffer_queue.front();
-    __buffer_queue.pop();
+    // field: max_details, type: Int32
+    std::int32_t max_details = gm::wire::codec::readValue<std::int32_t>(__br);
 
-    // field: buffer_size, type: UInt32
-    std::uint32_t buffer_size = gm::wire::codec::readValue<std::uint32_t>(__br);
-
-    auto&& __result = steam_userstats_downloaded_leaderboard_entry(leaderboard_entries_handle, entry_index, buffer, buffer_size);
+    auto&& __result = steam_userstats_downloaded_leaderboard_entry(leaderboard_entries_handle, entry_index, max_details);
     gm::byteio::BufferWriter __bw{__ret_buffer, static_cast<size_t>(__ret_buffer_length)};
 
     // return: __result, type: struct SteamUserStatsDownloadedLeaderboardEntry
@@ -4743,21 +4487,13 @@ GMEXPORT double __EXT_NATIVE__steam_userstats_upload_leaderboard_score(char* __a
     // field: score, type: Int32
     std::int32_t score = gm::wire::codec::readValue<std::int32_t>(__br);
 
-    // field: score_details_buffer, type: Buffer
-    gm::wire::GMBuffer score_details_buffer = __buffer_queue.front();
-    __buffer_queue.pop();
+    // field: score_details, type: Int32[]
+    std::vector<std::int32_t> score_details = gm::wire::codec::readVector<std::int32_t>(__br);
 
-    // field: score_details_count, type: Int32
-    std::int32_t score_details_count = gm::wire::codec::readValue<std::int32_t>(__br);
+    // field: callback, type: Function
+    gm::wire::GMFunction callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
 
-    // field: callback, type: optional<Function>
-    std::optional<gm::wire::GMFunction> callback = std::nullopt;
-    if (gm::wire::codec::readValue<bool>(__br))
-    {
-        callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
-    }
-
-    steam_userstats_upload_leaderboard_score(leaderboard_handle, method, score, score_details_buffer, score_details_count, callback);
+    steam_userstats_upload_leaderboard_score(leaderboard_handle, method, score, score_details, callback);
     return 0;
 }
 
@@ -4771,12 +4507,8 @@ GMEXPORT double __EXT_NATIVE__steam_userstats_attach_leaderboard_ugc(char* __arg
     // field: ugc_handle, type: UInt64
     std::uint64_t ugc_handle = gm::wire::codec::readValue<std::uint64_t>(__br);
 
-    // field: callback, type: optional<Function>
-    std::optional<gm::wire::GMFunction> callback = std::nullopt;
-    if (gm::wire::codec::readValue<bool>(__br))
-    {
-        callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
-    }
+    // field: callback, type: Function
+    gm::wire::GMFunction callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
 
     steam_userstats_attach_leaderboard_ugc(leaderboard_handle, ugc_handle, callback);
     return 0;
@@ -4786,12 +4518,8 @@ GMEXPORT double __EXT_NATIVE__steam_userstats_number_of_current_players(char* __
 {
     gm::byteio::BufferReader __br{__arg_buffer, static_cast<size_t>(__arg_buffer_length)};
 
-    // field: callback, type: optional<Function>
-    std::optional<gm::wire::GMFunction> callback = std::nullopt;
-    if (gm::wire::codec::readValue<bool>(__br))
-    {
-        callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
-    }
+    // field: callback, type: Function
+    gm::wire::GMFunction callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
 
     steam_userstats_number_of_current_players(callback);
     return 0;
@@ -4801,12 +4529,8 @@ GMEXPORT double __EXT_NATIVE__steam_userstats_request_global_achievement_percent
 {
     gm::byteio::BufferReader __br{__arg_buffer, static_cast<size_t>(__arg_buffer_length)};
 
-    // field: callback, type: optional<Function>
-    std::optional<gm::wire::GMFunction> callback = std::nullopt;
-    if (gm::wire::codec::readValue<bool>(__br))
-    {
-        callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
-    }
+    // field: callback, type: Function
+    gm::wire::GMFunction callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
 
     steam_userstats_request_global_achievement_percentages(callback);
     return 0;
@@ -4845,34 +4569,22 @@ GMEXPORT double __EXT_NATIVE__steam_userstats_request_global_stats(char* __arg_b
     // field: history_days, type: Int32
     std::int32_t history_days = gm::wire::codec::readValue<std::int32_t>(__br);
 
-    // field: callback, type: optional<Function>
-    std::optional<gm::wire::GMFunction> callback = std::nullopt;
-    if (gm::wire::codec::readValue<bool>(__br))
-    {
-        callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
-    }
+    // field: callback, type: Function
+    gm::wire::GMFunction callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
 
     steam_userstats_request_global_stats(history_days, callback);
     return 0;
 }
 
-GMEXPORT double __EXT_NATIVE__steam_userstats_global_stat_int64(char* stat_name, char* __ret_buffer, double __ret_buffer_length)
+GMEXPORT double __EXT_NATIVE__steam_userstats_global_stat_int64(char* stat_name)
 {
     auto&& __result = steam_userstats_global_stat_int64(stat_name);
-    gm::byteio::BufferWriter __bw{__ret_buffer, static_cast<size_t>(__ret_buffer_length)};
-
-    // return: __result, type: struct SteamUserStatsGlobalStatInt64
-    gm::wire::codec::writeValue(__bw, __result);
     return 0;
 }
 
-GMEXPORT double __EXT_NATIVE__steam_userstats_global_stat_double(char* stat_name, char* __ret_buffer, double __ret_buffer_length)
+GMEXPORT double __EXT_NATIVE__steam_userstats_global_stat_double(char* stat_name)
 {
     auto&& __result = steam_userstats_global_stat_double(stat_name);
-    gm::byteio::BufferWriter __bw{__ret_buffer, static_cast<size_t>(__ret_buffer_length)};
-
-    // return: __result, type: struct SteamUserStatsGlobalStatDouble
-    gm::wire::codec::writeValue(__bw, __result);
     return 0;
 }
 
@@ -4881,7 +4593,7 @@ GMEXPORT double __EXT_NATIVE__steam_userstats_global_stat_history_int64(char* st
     auto&& __result = steam_userstats_global_stat_history_int64(stat_name);
     gm::byteio::BufferWriter __bw{__ret_buffer, static_cast<size_t>(__ret_buffer_length)};
 
-    // return: __result, type: struct SteamUserStatsGlobalStatHistoryInt64
+    // return: __result, type: Int64[]
     gm::wire::codec::writeValue(__bw, __result);
     return 0;
 }
@@ -4891,12 +4603,12 @@ GMEXPORT double __EXT_NATIVE__steam_userstats_global_stat_history_double(char* s
     auto&& __result = steam_userstats_global_stat_history_double(stat_name);
     gm::byteio::BufferWriter __bw{__ret_buffer, static_cast<size_t>(__ret_buffer_length)};
 
-    // return: __result, type: struct SteamUserStatsGlobalStatHistoryDouble
+    // return: __result, type: Float64[]
     gm::wire::codec::writeValue(__bw, __result);
     return 0;
 }
 
-GMEXPORT double __EXT_NATIVE__steam_userstats_achievement_progress_limits_int(char* __arg_buffer, double __arg_buffer_length, char* __ret_buffer, double __ret_buffer_length)
+GMEXPORT double __EXT_NATIVE__steam_userstats_achievement_progress_int(char* __arg_buffer, double __arg_buffer_length, char* __ret_buffer, double __ret_buffer_length)
 {
     gm::byteio::BufferReader __br{__arg_buffer, static_cast<size_t>(__arg_buffer_length)};
 
@@ -4909,7 +4621,7 @@ GMEXPORT double __EXT_NATIVE__steam_userstats_achievement_progress_limits_int(ch
     // field: max_progress, type: UInt32
     std::uint32_t max_progress = gm::wire::codec::readValue<std::uint32_t>(__br);
 
-    auto&& __result = steam_userstats_achievement_progress_limits_int(achievement_name, cur_progress, max_progress);
+    auto&& __result = steam_userstats_achievement_progress_int(achievement_name, cur_progress, max_progress);
     gm::byteio::BufferWriter __bw{__ret_buffer, static_cast<size_t>(__ret_buffer_length)};
 
     // return: __result, type: struct SteamUserStatsIntMinMax
@@ -4917,7 +4629,7 @@ GMEXPORT double __EXT_NATIVE__steam_userstats_achievement_progress_limits_int(ch
     return 0;
 }
 
-GMEXPORT double __EXT_NATIVE__steam_userstats_achievement_progress_limits_float(char* __arg_buffer, double __arg_buffer_length, char* __ret_buffer, double __ret_buffer_length)
+GMEXPORT double __EXT_NATIVE__steam_userstats_achievement_progress_float(char* __arg_buffer, double __arg_buffer_length, char* __ret_buffer, double __ret_buffer_length)
 {
     gm::byteio::BufferReader __br{__arg_buffer, static_cast<size_t>(__arg_buffer_length)};
 
@@ -4930,7 +4642,7 @@ GMEXPORT double __EXT_NATIVE__steam_userstats_achievement_progress_limits_float(
     // field: max_progress, type: Float32
     float max_progress = gm::wire::codec::readValue<float>(__br);
 
-    auto&& __result = steam_userstats_achievement_progress_limits_float(achievement_name, cur_progress, max_progress);
+    auto&& __result = steam_userstats_achievement_progress_float(achievement_name, cur_progress, max_progress);
     gm::byteio::BufferWriter __bw{__ret_buffer, static_cast<size_t>(__ret_buffer_length)};
 
     // return: __result, type: struct SteamUserStatsFloatMinMax
@@ -5361,12 +5073,8 @@ GMEXPORT double __EXT_NATIVE__steam_inventory_add_promo_item(char* __arg_buffer,
     // field: item_def_id, type: UInt32
     std::uint32_t item_def_id = gm::wire::codec::readValue<std::uint32_t>(__br);
 
-    // field: callback, type: optional<Function>
-    std::optional<gm::wire::GMFunction> callback = std::nullopt;
-    if (gm::wire::codec::readValue<bool>(__br))
-    {
-        callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
-    }
+    // field: callback, type: Function
+    gm::wire::GMFunction callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
 
     auto&& __result = steam_inventory_add_promo_item(item_def_id, callback);
     return static_cast<double>(__result);
@@ -5382,12 +5090,8 @@ GMEXPORT double __EXT_NATIVE__steam_inventory_add_promo_items(char* __arg_buffer
     // field: num_item_defs, type: UInt32
     std::uint32_t num_item_defs = gm::wire::codec::readValue<std::uint32_t>(__br);
 
-    // field: callback, type: optional<Function>
-    std::optional<gm::wire::GMFunction> callback = std::nullopt;
-    if (gm::wire::codec::readValue<bool>(__br))
-    {
-        callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
-    }
+    // field: callback, type: Function
+    gm::wire::GMFunction callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
 
     auto&& __result = steam_inventory_add_promo_items(item_def_ids, num_item_defs, callback);
     return static_cast<double>(__result);
@@ -5417,12 +5121,8 @@ GMEXPORT double __EXT_NATIVE__steam_inventory_consume_item(char* __arg_buffer, d
     // field: quantity, type: UInt32
     std::uint32_t quantity = gm::wire::codec::readValue<std::uint32_t>(__br);
 
-    // field: callback, type: optional<Function>
-    std::optional<gm::wire::GMFunction> callback = std::nullopt;
-    if (gm::wire::codec::readValue<bool>(__br))
-    {
-        callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
-    }
+    // field: callback, type: Function
+    gm::wire::GMFunction callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
 
     auto&& __result = steam_inventory_consume_item(item_instance_id, quantity, callback);
     return static_cast<double>(__result);
@@ -5457,32 +5157,16 @@ GMEXPORT double __EXT_NATIVE__steam_inventory_exchange_items(char* __arg_buffer,
 {
     gm::byteio::BufferReader __br{__arg_buffer, static_cast<size_t>(__arg_buffer_length)};
 
-    // field: generate_item_defs, type: UInt32[]
-    std::vector<std::uint32_t> generate_item_defs = gm::wire::codec::readVector<std::uint32_t>(__br);
+    // field: generate_items, type: struct SteamInventoryItemDefQuantity[]
+    std::vector<gm_structs::SteamInventoryItemDefQuantity> generate_items = gm::wire::codec::readVector<gm_structs::SteamInventoryItemDefQuantity>(__br);
 
-    // field: generate_qty, type: UInt32[]
-    std::vector<std::uint32_t> generate_qty = gm::wire::codec::readVector<std::uint32_t>(__br);
+    // field: destroy_items, type: struct SteamInventoryItemInstanceQuantity[]
+    std::vector<gm_structs::SteamInventoryItemInstanceQuantity> destroy_items = gm::wire::codec::readVector<gm_structs::SteamInventoryItemInstanceQuantity>(__br);
 
-    // field: generate_len, type: UInt32
-    std::uint32_t generate_len = gm::wire::codec::readValue<std::uint32_t>(__br);
+    // field: callback, type: Function
+    gm::wire::GMFunction callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
 
-    // field: destroy_instance_ids, type: UInt64[]
-    std::vector<std::uint64_t> destroy_instance_ids = gm::wire::codec::readVector<std::uint64_t>(__br);
-
-    // field: destroy_qty, type: UInt32[]
-    std::vector<std::uint32_t> destroy_qty = gm::wire::codec::readVector<std::uint32_t>(__br);
-
-    // field: destroy_len, type: UInt32
-    std::uint32_t destroy_len = gm::wire::codec::readValue<std::uint32_t>(__br);
-
-    // field: callback, type: optional<Function>
-    std::optional<gm::wire::GMFunction> callback = std::nullopt;
-    if (gm::wire::codec::readValue<bool>(__br))
-    {
-        callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
-    }
-
-    auto&& __result = steam_inventory_exchange_items(generate_item_defs, generate_qty, generate_len, destroy_instance_ids, destroy_qty, destroy_len, callback);
+    auto&& __result = steam_inventory_exchange_items(generate_items, destroy_items, callback);
     return static_cast<double>(__result);
 }
 
@@ -5490,23 +5174,13 @@ GMEXPORT double __EXT_NATIVE__steam_inventory_generate_items(char* __arg_buffer,
 {
     gm::byteio::BufferReader __br{__arg_buffer, static_cast<size_t>(__arg_buffer_length)};
 
-    // field: item_defs, type: UInt32[]
-    std::vector<std::uint32_t> item_defs = gm::wire::codec::readVector<std::uint32_t>(__br);
+    // field: items, type: struct SteamInventoryItemDefQuantity[]
+    std::vector<gm_structs::SteamInventoryItemDefQuantity> items = gm::wire::codec::readVector<gm_structs::SteamInventoryItemDefQuantity>(__br);
 
-    // field: quantities, type: UInt32[]
-    std::vector<std::uint32_t> quantities = gm::wire::codec::readVector<std::uint32_t>(__br);
+    // field: callback, type: Function
+    gm::wire::GMFunction callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
 
-    // field: count, type: UInt32
-    std::uint32_t count = gm::wire::codec::readValue<std::uint32_t>(__br);
-
-    // field: callback, type: optional<Function>
-    std::optional<gm::wire::GMFunction> callback = std::nullopt;
-    if (gm::wire::codec::readValue<bool>(__br))
-    {
-        callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
-    }
-
-    auto&& __result = steam_inventory_generate_items(item_defs, quantities, count, callback);
+    auto&& __result = steam_inventory_generate_items(items, callback);
     return static_cast<double>(__result);
 }
 
@@ -5575,18 +5249,14 @@ GMEXPORT double __EXT_NATIVE__steam_inventory_get_items_by_id(char* __arg_buffer
     // field: item_instance_ids, type: UInt64[]
     std::vector<std::uint64_t> item_instance_ids = gm::wire::codec::readVector<std::uint64_t>(__br);
 
-    // field: callback, type: optional<Function>
-    std::optional<gm::wire::GMFunction> callback = std::nullopt;
-    if (gm::wire::codec::readValue<bool>(__br))
-    {
-        callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
-    }
+    // field: callback, type: Function
+    gm::wire::GMFunction callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
 
     auto&& __result = steam_inventory_get_items_by_id(item_instance_ids, callback);
     return static_cast<double>(__result);
 }
 
-GMEXPORT double __EXT_NATIVE__steam_inventory_serialize_result(char* __arg_buffer, double __arg_buffer_length, char* __ret_buffer, double __ret_buffer_length)
+GMEXPORT double __EXT_NATIVE__steam_inventory_serialize_result(char* __arg_buffer, double __arg_buffer_length)
 {
     gm::byteio::BufferReader __br{__arg_buffer, static_cast<size_t>(__arg_buffer_length)};
 
@@ -5601,10 +5271,6 @@ GMEXPORT double __EXT_NATIVE__steam_inventory_serialize_result(char* __arg_buffe
     std::uint32_t out_capacity = gm::wire::codec::readValue<std::uint32_t>(__br);
 
     auto&& __result = steam_inventory_serialize_result(result_handle, out_data, out_capacity);
-    gm::byteio::BufferWriter __bw{__ret_buffer, static_cast<size_t>(__ret_buffer_length)};
-
-    // return: __result, type: struct SteamInventorySerializeResult
-    gm::wire::codec::writeValue(__bw, __result);
     return 0;
 }
 
@@ -5618,24 +5284,9 @@ GMEXPORT double __EXT_NATIVE__steam_inventory_get_result_item_property_keys_arra
     return 0;
 }
 
-GMEXPORT double __EXT_NATIVE__steam_inventory_get_result_item_property(char* __arg_buffer, double __arg_buffer_length, char* __ret_buffer, double __ret_buffer_length)
+GMEXPORT double __EXT_NATIVE__steam_inventory_get_result_item_property(double result_handle, double item_index, char* property_name)
 {
-    gm::byteio::BufferReader __br{__arg_buffer, static_cast<size_t>(__arg_buffer_length)};
-
-    // field: result_handle, type: Int32
-    std::int32_t result_handle = gm::wire::codec::readValue<std::int32_t>(__br);
-
-    // field: item_index, type: UInt32
-    std::uint32_t item_index = gm::wire::codec::readValue<std::uint32_t>(__br);
-
-    // field: property_name, type: String
-    std::string_view property_name = gm::wire::codec::readValue<std::string_view>(__br);
-
-    auto&& __result = steam_inventory_get_result_item_property(result_handle, item_index, property_name);
-    gm::byteio::BufferWriter __bw{__ret_buffer, static_cast<size_t>(__ret_buffer_length)};
-
-    // return: __result, type: struct SteamInventoryItemProperty
-    gm::wire::codec::writeValue(__bw, __result);
+    auto&& __result = steam_inventory_get_result_item_property(static_cast<std::int32_t>(result_handle), static_cast<std::uint32_t>(item_index), property_name);
     return 0;
 }
 
@@ -5643,23 +5294,13 @@ GMEXPORT double __EXT_NATIVE__steam_inventory_start_purchase(char* __arg_buffer,
 {
     gm::byteio::BufferReader __br{__arg_buffer, static_cast<size_t>(__arg_buffer_length)};
 
-    // field: item_def_ids, type: UInt32[]
-    std::vector<std::uint32_t> item_def_ids = gm::wire::codec::readVector<std::uint32_t>(__br);
+    // field: items, type: struct SteamInventoryItemDefQuantity[]
+    std::vector<gm_structs::SteamInventoryItemDefQuantity> items = gm::wire::codec::readVector<gm_structs::SteamInventoryItemDefQuantity>(__br);
 
-    // field: quantities, type: UInt32[]
-    std::vector<std::uint32_t> quantities = gm::wire::codec::readVector<std::uint32_t>(__br);
+    // field: callback, type: Function
+    gm::wire::GMFunction callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
 
-    // field: count, type: UInt32
-    std::uint32_t count = gm::wire::codec::readValue<std::uint32_t>(__br);
-
-    // field: callback, type: optional<Function>
-    std::optional<gm::wire::GMFunction> callback = std::nullopt;
-    if (gm::wire::codec::readValue<bool>(__br))
-    {
-        callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
-    }
-
-    steam_inventory_start_purchase(item_def_ids, quantities, count, callback);
+    steam_inventory_start_purchase(items, callback);
     return 0;
 }
 
@@ -5667,12 +5308,8 @@ GMEXPORT double __EXT_NATIVE__steam_inventory_request_prices(char* __arg_buffer,
 {
     gm::byteio::BufferReader __br{__arg_buffer, static_cast<size_t>(__arg_buffer_length)};
 
-    // field: callback, type: optional<Function>
-    std::optional<gm::wire::GMFunction> callback = std::nullopt;
-    if (gm::wire::codec::readValue<bool>(__br))
-    {
-        callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
-    }
+    // field: callback, type: Function
+    gm::wire::GMFunction callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
 
     steam_inventory_request_prices(callback);
     return 0;
@@ -5684,12 +5321,12 @@ GMEXPORT double __EXT_NATIVE__steam_inventory_get_num_items_with_prices()
     return static_cast<double>(__result);
 }
 
-GMEXPORT double __EXT_NATIVE__steam_inventory_get_items_with_prices(double max, char* __ret_buffer, double __ret_buffer_length)
+GMEXPORT double __EXT_NATIVE__steam_inventory_get_items_with_prices(char* __ret_buffer, double __ret_buffer_length)
 {
-    auto&& __result = steam_inventory_get_items_with_prices(static_cast<std::uint32_t>(max));
+    auto&& __result = steam_inventory_get_items_with_prices();
     gm::byteio::BufferWriter __bw{__ret_buffer, static_cast<size_t>(__ret_buffer_length)};
 
-    // return: __result, type: struct SteamInventoryItemsWithPrices
+    // return: __result, type: struct SteamInventoryItemWithPrice[]
     gm::wire::codec::writeValue(__bw, __result);
     return 0;
 }
@@ -5804,12 +5441,8 @@ GMEXPORT double __EXT_NATIVE__steam_inventory_submit_update_properties(char* __a
     // field: result_handle, type: Int32
     std::int32_t result_handle = gm::wire::codec::readValue<std::int32_t>(__br);
 
-    // field: callback, type: optional<Function>
-    std::optional<gm::wire::GMFunction> callback = std::nullopt;
-    if (gm::wire::codec::readValue<bool>(__br))
-    {
-        callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
-    }
+    // field: callback, type: Function
+    gm::wire::GMFunction callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
 
     auto&& __result = steam_inventory_submit_update_properties(result_handle, callback);
     return static_cast<double>(__result);
@@ -5828,12 +5461,8 @@ GMEXPORT double __EXT_NATIVE__steam_inventory_transfer_item_quantity(char* __arg
     // field: item_instance_id_dest, type: UInt64
     std::uint64_t item_instance_id_dest = gm::wire::codec::readValue<std::uint64_t>(__br);
 
-    // field: callback, type: optional<Function>
-    std::optional<gm::wire::GMFunction> callback = std::nullopt;
-    if (gm::wire::codec::readValue<bool>(__br))
-    {
-        callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
-    }
+    // field: callback, type: Function
+    gm::wire::GMFunction callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
 
     auto&& __result = steam_inventory_transfer_item_quantity(item_instance_id_source, quantity, item_instance_id_dest, callback);
     return static_cast<double>(__result);
@@ -5846,12 +5475,8 @@ GMEXPORT double __EXT_NATIVE__steam_inventory_trigger_item_drop(char* __arg_buff
     // field: item_def_id, type: UInt32
     std::uint32_t item_def_id = gm::wire::codec::readValue<std::uint32_t>(__br);
 
-    // field: callback, type: optional<Function>
-    std::optional<gm::wire::GMFunction> callback = std::nullopt;
-    if (gm::wire::codec::readValue<bool>(__br))
-    {
-        callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
-    }
+    // field: callback, type: Function
+    gm::wire::GMFunction callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
 
     auto&& __result = steam_inventory_trigger_item_drop(item_def_id, callback);
     return static_cast<double>(__result);
@@ -5861,24 +5486,16 @@ GMEXPORT double __EXT_NATIVE__steam_inventory_grant_promo_items(char* __arg_buff
 {
     gm::byteio::BufferReader __br{__arg_buffer, static_cast<size_t>(__arg_buffer_length)};
 
-    // field: callback, type: optional<Function>
-    std::optional<gm::wire::GMFunction> callback = std::nullopt;
-    if (gm::wire::codec::readValue<bool>(__br))
-    {
-        callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
-    }
+    // field: callback, type: Function
+    gm::wire::GMFunction callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
 
     auto&& __result = steam_inventory_grant_promo_items(callback);
     return static_cast<double>(__result);
 }
 
-GMEXPORT double __EXT_NATIVE__steam_inventory_get_item_definition_property(double item_def_id, char* property_name, char* __ret_buffer, double __ret_buffer_length)
+GMEXPORT double __EXT_NATIVE__steam_inventory_get_item_definition_property(double item_def_id, char* property_name)
 {
     auto&& __result = steam_inventory_get_item_definition_property(static_cast<std::uint32_t>(item_def_id), property_name);
-    gm::byteio::BufferWriter __bw{__ret_buffer, static_cast<size_t>(__ret_buffer_length)};
-
-    // return: __result, type: struct SteamInventoryDefProperty
-    gm::wire::codec::writeValue(__bw, __result);
     return 0;
 }
 
@@ -6054,12 +5671,8 @@ GMEXPORT double __EXT_NATIVE__steam_remote_storage_file_write_async(char* __arg_
     // field: bytes, type: UInt32
     std::uint32_t bytes = gm::wire::codec::readValue<std::uint32_t>(__br);
 
-    // field: callback, type: optional<Function>
-    std::optional<gm::wire::GMFunction> callback = std::nullopt;
-    if (gm::wire::codec::readValue<bool>(__br))
-    {
-        callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
-    }
+    // field: callback, type: Function
+    gm::wire::GMFunction callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
 
     steam_remote_storage_file_write_async(file_name, data, bytes, callback);
     return 0;
@@ -6281,12 +5894,8 @@ GMEXPORT double __EXT_NATIVE__steam_remote_storage_file_share(char* __arg_buffer
     // field: file_name, type: String
     std::string_view file_name = gm::wire::codec::readValue<std::string_view>(__br);
 
-    // field: callback, type: optional<Function>
-    std::optional<gm::wire::GMFunction> callback = std::nullopt;
-    if (gm::wire::codec::readValue<bool>(__br))
-    {
-        callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
-    }
+    // field: callback, type: Function
+    gm::wire::GMFunction callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
 
     steam_remote_storage_file_share(file_name, callback);
     return 0;
@@ -6302,12 +5911,8 @@ GMEXPORT double __EXT_NATIVE__steam_remote_storage_ugc_download(char* __arg_buff
     // field: priority, type: UInt32
     std::uint32_t priority = gm::wire::codec::readValue<std::uint32_t>(__br);
 
-    // field: callback, type: optional<Function>
-    std::optional<gm::wire::GMFunction> callback = std::nullopt;
-    if (gm::wire::codec::readValue<bool>(__br))
-    {
-        callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
-    }
+    // field: callback, type: Function
+    gm::wire::GMFunction callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
 
     steam_remote_storage_ugc_download(ugc_handle, priority, callback);
     return 0;
@@ -6326,12 +5931,8 @@ GMEXPORT double __EXT_NATIVE__steam_remote_storage_ugc_download_to_location(char
     // field: priority, type: UInt32
     std::uint32_t priority = gm::wire::codec::readValue<std::uint32_t>(__br);
 
-    // field: callback, type: optional<Function>
-    std::optional<gm::wire::GMFunction> callback = std::nullopt;
-    if (gm::wire::codec::readValue<bool>(__br))
-    {
-        callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
-    }
+    // field: callback, type: Function
+    gm::wire::GMFunction callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
 
     steam_remote_storage_ugc_download_to_location(ugc_handle, location, priority, callback);
     return 0;
@@ -6365,12 +5966,8 @@ GMEXPORT double __EXT_NATIVE__steam_remote_storage_publish_workshop_file(char* _
     // field: file_type, type: enum SteamRemoteStorageWorkshopFileType
     gm_enums::SteamRemoteStorageWorkshopFileType file_type = gm::wire::codec::readValue<gm_enums::SteamRemoteStorageWorkshopFileType>(__br);
 
-    // field: callback, type: optional<Function>
-    std::optional<gm::wire::GMFunction> callback = std::nullopt;
-    if (gm::wire::codec::readValue<bool>(__br))
-    {
-        callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
-    }
+    // field: callback, type: Function
+    gm::wire::GMFunction callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
 
     steam_remote_storage_publish_workshop_file(file, preview_file, app_id_consumer, title, description, visibility, tags_csv, file_type, callback);
     return 0;
@@ -6482,12 +6079,8 @@ GMEXPORT double __EXT_NATIVE__steam_remote_storage_commit_published_file_update(
     // field: update_handle, type: UInt64
     std::uint64_t update_handle = gm::wire::codec::readValue<std::uint64_t>(__br);
 
-    // field: callback, type: optional<Function>
-    std::optional<gm::wire::GMFunction> callback = std::nullopt;
-    if (gm::wire::codec::readValue<bool>(__br))
-    {
-        callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
-    }
+    // field: callback, type: Function
+    gm::wire::GMFunction callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
 
     steam_remote_storage_commit_published_file_update(update_handle, callback);
     return 0;
@@ -6500,12 +6093,8 @@ GMEXPORT double __EXT_NATIVE__steam_remote_storage_subscribe_published_file(char
     // field: published_file_id, type: UInt64
     std::uint64_t published_file_id = gm::wire::codec::readValue<std::uint64_t>(__br);
 
-    // field: callback, type: optional<Function>
-    std::optional<gm::wire::GMFunction> callback = std::nullopt;
-    if (gm::wire::codec::readValue<bool>(__br))
-    {
-        callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
-    }
+    // field: callback, type: Function
+    gm::wire::GMFunction callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
 
     steam_remote_storage_subscribe_published_file(published_file_id, callback);
     return 0;
@@ -6518,12 +6107,8 @@ GMEXPORT double __EXT_NATIVE__steam_remote_storage_unsubscribe_published_file(ch
     // field: published_file_id, type: UInt64
     std::uint64_t published_file_id = gm::wire::codec::readValue<std::uint64_t>(__br);
 
-    // field: callback, type: optional<Function>
-    std::optional<gm::wire::GMFunction> callback = std::nullopt;
-    if (gm::wire::codec::readValue<bool>(__br))
-    {
-        callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
-    }
+    // field: callback, type: Function
+    gm::wire::GMFunction callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
 
     steam_remote_storage_unsubscribe_published_file(published_file_id, callback);
     return 0;
@@ -6624,12 +6209,8 @@ GMEXPORT double __EXT_NATIVE__steam_matchmaking_create_lobby(char* __arg_buffer,
     // field: max_members, type: Int32
     std::int32_t max_members = gm::wire::codec::readValue<std::int32_t>(__br);
 
-    // field: callback, type: optional<Function>
-    std::optional<gm::wire::GMFunction> callback = std::nullopt;
-    if (gm::wire::codec::readValue<bool>(__br))
-    {
-        callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
-    }
+    // field: callback, type: Function
+    gm::wire::GMFunction callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
 
     steam_matchmaking_create_lobby(lobby_type, max_members, callback);
     return 0;
@@ -6642,12 +6223,8 @@ GMEXPORT double __EXT_NATIVE__steam_matchmaking_join_lobby(char* __arg_buffer, d
     // field: lobby_id, type: UInt64
     std::uint64_t lobby_id = gm::wire::codec::readValue<std::uint64_t>(__br);
 
-    // field: callback, type: optional<Function>
-    std::optional<gm::wire::GMFunction> callback = std::nullopt;
-    if (gm::wire::codec::readValue<bool>(__br))
-    {
-        callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
-    }
+    // field: callback, type: Function
+    gm::wire::GMFunction callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
 
     steam_matchmaking_join_lobby(lobby_id, callback);
     return 0;
@@ -6657,12 +6234,8 @@ GMEXPORT double __EXT_NATIVE__steam_matchmaking_request_lobby_list(char* __arg_b
 {
     gm::byteio::BufferReader __br{__arg_buffer, static_cast<size_t>(__arg_buffer_length)};
 
-    // field: callback, type: optional<Function>
-    std::optional<gm::wire::GMFunction> callback = std::nullopt;
-    if (gm::wire::codec::readValue<bool>(__br))
-    {
-        callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
-    }
+    // field: callback, type: Function
+    gm::wire::GMFunction callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
 
     steam_matchmaking_request_lobby_list(callback);
     return 0;
@@ -7133,27 +6706,12 @@ GMEXPORT double __EXT_NATIVE__steam_networking_messages_send_message_to_user(cha
     return static_cast<double>(__result);
 }
 
-GMEXPORT double __EXT_NATIVE__steam_networking_messages_receive_one_on_channel(char* __arg_buffer, double __arg_buffer_length, char* __ret_buffer, double __ret_buffer_length)
+GMEXPORT double __EXT_NATIVE__steam_networking_messages_receive_messages_on_channel(double local_channel, double max_messages, char* __ret_buffer, double __ret_buffer_length)
 {
-    gm::byteio::BufferReader __br{__arg_buffer, static_cast<size_t>(__arg_buffer_length)};
-
-    // field: local_channel, type: Int32
-    std::int32_t local_channel = gm::wire::codec::readValue<std::int32_t>(__br);
-
-    // field: out_data, type: Buffer
-    gm::wire::GMBuffer out_data = __buffer_queue.front();
-    __buffer_queue.pop();
-
-    // field: max_bytes, type: UInt32
-    std::uint32_t max_bytes = gm::wire::codec::readValue<std::uint32_t>(__br);
-
-    // field: offset, type: UInt32
-    std::uint32_t offset = gm::wire::codec::readValue<std::uint32_t>(__br);
-
-    auto&& __result = steam_networking_messages_receive_one_on_channel(local_channel, out_data, max_bytes, offset);
+    auto&& __result = steam_networking_messages_receive_messages_on_channel(static_cast<std::int32_t>(local_channel), static_cast<std::int32_t>(max_messages));
     gm::byteio::BufferWriter __bw{__ret_buffer, static_cast<size_t>(__ret_buffer_length)};
 
-    // return: __result, type: struct SteamNetworkingMessagesReceived
+    // return: __result, type: struct SteamNetworkingMessagesMessage[]
     gm::wire::codec::writeValue(__bw, __result);
     return 0;
 }
@@ -7309,27 +6867,12 @@ GMEXPORT double __EXT_NATIVE__steam_networking_sockets_flush_messages_on_connect
     return 0;
 }
 
-GMEXPORT double __EXT_NATIVE__steam_networking_sockets_receive_one_on_connection(char* __arg_buffer, double __arg_buffer_length, char* __ret_buffer, double __ret_buffer_length)
+GMEXPORT double __EXT_NATIVE__steam_networking_sockets_receive_messages_on_connection(double conn, double max_messages, char* __ret_buffer, double __ret_buffer_length)
 {
-    gm::byteio::BufferReader __br{__arg_buffer, static_cast<size_t>(__arg_buffer_length)};
-
-    // field: conn, type: UInt32
-    std::uint32_t conn = gm::wire::codec::readValue<std::uint32_t>(__br);
-
-    // field: out_data, type: Buffer
-    gm::wire::GMBuffer out_data = __buffer_queue.front();
-    __buffer_queue.pop();
-
-    // field: max_bytes, type: UInt32
-    std::uint32_t max_bytes = gm::wire::codec::readValue<std::uint32_t>(__br);
-
-    // field: offset, type: UInt32
-    std::uint32_t offset = gm::wire::codec::readValue<std::uint32_t>(__br);
-
-    auto&& __result = steam_networking_sockets_receive_one_on_connection(conn, out_data, max_bytes, offset);
+    auto&& __result = steam_networking_sockets_receive_messages_on_connection(static_cast<std::uint32_t>(conn), static_cast<std::int32_t>(max_messages));
     gm::byteio::BufferWriter __bw{__ret_buffer, static_cast<size_t>(__ret_buffer_length)};
 
-    // return: __result, type: struct SteamNetworkingSocketsReceived
+    // return: __result, type: struct SteamNetworkingSocketsMessage[]
     gm::wire::codec::writeValue(__bw, __result);
     return 0;
 }
@@ -7339,7 +6882,7 @@ GMEXPORT double __EXT_NATIVE__steam_networking_sockets_get_connection_info(doubl
     auto&& __result = steam_networking_sockets_get_connection_info(static_cast<std::uint32_t>(conn));
     gm::byteio::BufferWriter __bw{__ret_buffer, static_cast<size_t>(__ret_buffer_length)};
 
-    // return: __result, type: struct SteamNetworkingSocketsConnectionInfo
+    // return: __result, type: optional<struct SteamNetworkingSocketsConnectionInfo>
     gm::wire::codec::writeValue(__bw, __result);
     return 0;
 }
@@ -7412,27 +6955,12 @@ GMEXPORT double __EXT_NATIVE__steam_networking_sockets_set_connection_poll_group
     return static_cast<double>(__result);
 }
 
-GMEXPORT double __EXT_NATIVE__steam_networking_sockets_receive_messages_on_poll_group(char* __arg_buffer, double __arg_buffer_length, char* __ret_buffer, double __ret_buffer_length)
+GMEXPORT double __EXT_NATIVE__steam_networking_sockets_receive_messages_on_poll_group(double poll_group, double max_messages, char* __ret_buffer, double __ret_buffer_length)
 {
-    gm::byteio::BufferReader __br{__arg_buffer, static_cast<size_t>(__arg_buffer_length)};
-
-    // field: poll_group, type: UInt32
-    std::uint32_t poll_group = gm::wire::codec::readValue<std::uint32_t>(__br);
-
-    // field: out_data, type: Buffer
-    gm::wire::GMBuffer out_data = __buffer_queue.front();
-    __buffer_queue.pop();
-
-    // field: max_bytes, type: UInt32
-    std::uint32_t max_bytes = gm::wire::codec::readValue<std::uint32_t>(__br);
-
-    // field: offset, type: UInt32
-    std::uint32_t offset = gm::wire::codec::readValue<std::uint32_t>(__br);
-
-    auto&& __result = steam_networking_sockets_receive_messages_on_poll_group(poll_group, out_data, max_bytes, offset);
+    auto&& __result = steam_networking_sockets_receive_messages_on_poll_group(static_cast<std::uint32_t>(poll_group), static_cast<std::int32_t>(max_messages));
     gm::byteio::BufferWriter __bw{__ret_buffer, static_cast<size_t>(__ret_buffer_length)};
 
-    // return: __result, type: struct SteamNetworkingSocketsReceived
+    // return: __result, type: struct SteamNetworkingSocketsMessage[]
     gm::wire::codec::writeValue(__bw, __result);
     return 0;
 }
@@ -7488,13 +7016,9 @@ GMEXPORT double __EXT_NATIVE__steam_parties_clear_callback_active_beacons_update
     return 0;
 }
 
-GMEXPORT double __EXT_NATIVE__steam_parties_get_num_available_beacon_locations(char* __ret_buffer, double __ret_buffer_length)
+GMEXPORT double __EXT_NATIVE__steam_parties_get_num_available_beacon_locations()
 {
     auto&& __result = steam_parties_get_num_available_beacon_locations();
-    gm::byteio::BufferWriter __bw{__ret_buffer, static_cast<size_t>(__ret_buffer_length)};
-
-    // return: __result, type: struct SteamPartiesAvailableBeaconLocationCount
-    gm::wire::codec::writeValue(__bw, __result);
     return 0;
 }
 
@@ -7527,12 +7051,8 @@ GMEXPORT double __EXT_NATIVE__steam_parties_create_beacon(char* __arg_buffer, do
     // field: metadata, type: String
     std::string_view metadata = gm::wire::codec::readValue<std::string_view>(__br);
 
-    // field: callback, type: optional<Function>
-    std::optional<gm::wire::GMFunction> callback = std::nullopt;
-    if (gm::wire::codec::readValue<bool>(__br))
-    {
-        callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
-    }
+    // field: callback, type: Function
+    gm::wire::GMFunction callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
 
     auto&& __result = steam_parties_create_beacon(open_slots, beacon_location_type, beacon_location_id, connect_string, metadata, callback);
     return static_cast<double>(__result);
@@ -7562,12 +7082,8 @@ GMEXPORT double __EXT_NATIVE__steam_parties_change_num_open_slots(char* __arg_bu
     // field: open_slots, type: UInt32
     std::uint32_t open_slots = gm::wire::codec::readValue<std::uint32_t>(__br);
 
-    // field: callback, type: optional<Function>
-    std::optional<gm::wire::GMFunction> callback = std::nullopt;
-    if (gm::wire::codec::readValue<bool>(__br))
-    {
-        callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
-    }
+    // field: callback, type: Function
+    gm::wire::GMFunction callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
 
     auto&& __result = steam_parties_change_num_open_slots(beacon_id, open_slots, callback);
     return static_cast<double>(__result);
@@ -7622,12 +7138,8 @@ GMEXPORT double __EXT_NATIVE__steam_parties_join_party(char* __arg_buffer, doubl
     // field: beacon_id, type: UInt64
     std::uint64_t beacon_id = gm::wire::codec::readValue<std::uint64_t>(__br);
 
-    // field: callback, type: optional<Function>
-    std::optional<gm::wire::GMFunction> callback = std::nullopt;
-    if (gm::wire::codec::readValue<bool>(__br))
-    {
-        callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
-    }
+    // field: callback, type: Function
+    gm::wire::GMFunction callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
 
     auto&& __result = steam_parties_join_party(beacon_id, callback);
     return static_cast<double>(__result);

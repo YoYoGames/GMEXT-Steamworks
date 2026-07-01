@@ -10,7 +10,7 @@ var num = steam_inventory_get_num_items_with_prices()
 show_debug_message(num)
 
 
-		    var prices = steam_inventory_get_items_with_prices(num);
+		    var prices = steam_inventory_get_items_with_prices();
 		    if (!prices.ok) {
 		        show_debug_message("GetItemsWithPrices failed");
 		        return;

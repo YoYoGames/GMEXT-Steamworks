@@ -539,59 +539,46 @@ SteamUserGetVoiceResult steam_user_get_voice(
 }
 
 
-SteamUserDataFolder steam_user_get_user_data_folder()
+std::optional<std::string> steam_user_get_user_data_folder()
 {
-    STEAM_GUARD_RET({});
-
-    SteamUserDataFolder out{};
-    out.ok = false;
-    out.path = "";
+    STEAM_GUARD_RET(std::nullopt);
 
     ISteamUser* u = steam_user_iface();
-    if (!u) return out;
+    if (!u) return std::nullopt;
 
     uint32 cch_buffer = 1024;
     std::vector<char> buf((size_t)cch_buffer);
     buf[0] = '\0';
 
     const bool ok = u->GetUserDataFolder(buf.data(), (int)buf.size());
-    out.ok = ok;
 
     if (!ok)
-        return out;
+        return std::nullopt;
 
-    out.path = std::string(buf.data());
-    return out;
+    return std::string(buf.data());
 }
 
-SteamUserEncryptedAppTicket steam_user_get_encrypted_app_ticket(gm::wire::GMBuffer out_ticket,
+std::optional<std::uint32_t> steam_user_get_encrypted_app_ticket(gm::wire::GMBuffer out_ticket,
                                                                     std::int32_t max_ticket_size)
 {
-    STEAM_GUARD_RET({});
-
-    SteamUserEncryptedAppTicket out{};
-    out.ok = false;
-    out.ticket_size = 0;
+    STEAM_GUARD_RET(std::nullopt);
 
     ISteamUser* u = steam_user_iface();
-    if (!u) return out;
+    if (!u) return std::nullopt;
 
     if (max_ticket_size <= 0)
     {
         steam_set_last_error("GetEncryptedAppTicket: max_ticket_size must be > 0.");
-        return out;
+        return std::nullopt;
     }
 
     std::vector<std::uint8_t> buf((size_t)max_ticket_size);
     uint32 pcb = 0;
 
     const bool ok = u->GetEncryptedAppTicket(buf.data(), max_ticket_size, &pcb);
-    out.ok = ok;
 
     if (!ok)
-        return out;
-
-    out.ticket_size = pcb;
+        return std::nullopt;
 
     if (pcb > 0)
     {
@@ -600,7 +587,7 @@ SteamUserEncryptedAppTicket steam_user_get_encrypted_app_ticket(gm::wire::GMBuff
         w.writeBytes((const char*)buf.data(), (int)n);
     }
 
-    return out;
+    return (std::uint32_t)pcb;
 }
 
 std::int32_t steam_user_get_game_badge_level(std::int32_t series, bool foil)
@@ -640,15 +627,15 @@ void steam_user_track_app_usage_event(std::uint64_t game_id,
     u->TrackAppUsageEvent(gid, app_usage_event, extra.c_str());
 }
 
-SteamApiUserHasLicenseResult steam_user_user_has_license_for_app(std::uint64_t steam_id,
+gm_enums::SteamApiUserHasLicenseForAppResult steam_user_user_has_license_for_app(std::uint64_t steam_id,
                                                                       std::uint32_t app_id)
 {
     STEAM_GUARD_RET({});
     ISteamUser* u = steam_user_iface();
-    if (!u) return SteamApiUserHasLicenseResult::NoAuth;
+    if (!u) return gm_enums::SteamApiUserHasLicenseForAppResult::NoAuth;
 
     EUserHasLicenseForAppResult r = u->UserHasLicenseForApp(steam_id_from_u64(steam_id), (AppId_t)app_id);
-    return (SteamApiUserHasLicenseResult)(int)r;
+    return static_cast<gm_enums::SteamApiUserHasLicenseForAppResult>((int)r);
 }
 
 
@@ -692,7 +679,7 @@ static inline gm_structs::SteamUserMarketEligibilityResponse user_fromNative(con
     return out;
 }
 
-void steam_user_request_store_auth_url(std::string_view redirect_url,  const std::optional<gm::wire::GMFunction>& callback)
+void steam_user_request_store_auth_url(std::string_view redirect_url,  const gm::wire::GMFunction& callback)
 {
     STEAM_GUARD();
 
@@ -707,14 +694,11 @@ void steam_user_request_store_auth_url(std::string_view redirect_url,  const std
         return;
     }
 
-    if(callback)
-    {
-        auto* h = new steam_async::CallResult<gm_structs::SteamUserStoreAuthUrlResponse, StoreAuthURLResponse_t>(callback.value(), &user_fromNative);
-        h->set(call);
-    }
+    auto* h = new steam_async::CallResult<gm_structs::SteamUserStoreAuthUrlResponse, StoreAuthURLResponse_t>(callback, &user_fromNative);
+    h->set(call);
 }
 
-void steam_user_request_encrypted_app_ticket(gm::wire::GMBuffer data_to_include, std::int32_t data_to_include_size,  const std::optional<gm::wire::GMFunction>& callback)
+void steam_user_request_encrypted_app_ticket(gm::wire::GMBuffer data_to_include, std::int32_t data_to_include_size,  const gm::wire::GMFunction& callback)
 {
     STEAM_GUARD();
 
@@ -736,14 +720,11 @@ void steam_user_request_encrypted_app_ticket(gm::wire::GMBuffer data_to_include,
         return;
     }
 
-    if(callback)
-    {
-        auto* h = new steam_async::CallResult<gm_structs::SteamUserEncryptedAppTicketResponse, EncryptedAppTicketResponse_t>(callback.value(), &user_fromNative);
-        h->set(call);
-    }
+    auto* h = new steam_async::CallResult<gm_structs::SteamUserEncryptedAppTicketResponse, EncryptedAppTicketResponse_t>(callback, &user_fromNative);
+    h->set(call);
 }
 
-void steam_user_get_duration_control( const std::optional<gm::wire::GMFunction>& callback)
+void steam_user_get_duration_control( const gm::wire::GMFunction& callback)
 {
     STEAM_GUARD();
 
@@ -757,14 +738,11 @@ void steam_user_get_duration_control( const std::optional<gm::wire::GMFunction>&
         return;
     }
 
-    if(callback)
-    {
-        auto* h = new steam_async::CallResult<gm_structs::SteamUserDurationControl, DurationControl_t>(callback.value(), &user_fromNative);
-        h->set(call);
-    }
+    auto* h = new steam_async::CallResult<gm_structs::SteamUserDurationControl, DurationControl_t>(callback, &user_fromNative);
+    h->set(call);
 }
 
-void steam_user_get_market_eligibility( const std::optional<gm::wire::GMFunction>& callback)
+void steam_user_get_market_eligibility( const gm::wire::GMFunction& callback)
 {
     STEAM_GUARD();
 
@@ -778,11 +756,8 @@ void steam_user_get_market_eligibility( const std::optional<gm::wire::GMFunction
         return;
     }
 
-    if(callback)
-    {
-        auto* h = new steam_async::CallResult<gm_structs::SteamUserMarketEligibilityResponse, MarketEligibilityResponse_t>(callback.value(), &user_fromNative);
-        h->set(call);
-    }
+    auto* h = new steam_async::CallResult<gm_structs::SteamUserMarketEligibilityResponse, MarketEligibilityResponse_t>(callback, &user_fromNative);
+    h->set(call);
 }
 
 

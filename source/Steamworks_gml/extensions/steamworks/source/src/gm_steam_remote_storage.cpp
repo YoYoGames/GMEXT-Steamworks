@@ -6,6 +6,7 @@
 
 #include <algorithm>
 #include <cstdint>
+#include <optional>
 #include <string>
 #include <string_view>
 #include <vector>
@@ -248,41 +249,36 @@ std::int32_t steam_remote_storage_get_file_count()
 
 gm_structs::SteamRemoteStorageFileNameAndSize steam_remote_storage_get_file_name_and_size(std::int32_t index)
 {
-    gm_structs::SteamRemoteStorageFileNameAndSize out{};
-    out.ok = false;
-    out.file_name = "";
-    out.file_size = 0;
-
-    STEAM_GUARD_RET(out);
+    STEAM_GUARD_RET({});
     ISteamRemoteStorage* rs = steam_remote_storage_iface();
-    if (!rs) return out;
+    if (!rs) return {};
 
     int32 sz = 0;
     const char* name = rs->GetFileNameAndSize((int)index, &sz);
-    if (!name) return out;
+    if (!name) return {};
 
-    out.ok = true;
+    gm_structs::SteamRemoteStorageFileNameAndSize out{};
     out.file_name = name;
     out.file_size = (std::int32_t)sz;
+    out.ok = true;
     return out;
 }
 
 gm_structs::SteamRemoteStorageQuota steam_remote_storage_get_quota()
 {
-    gm_structs::SteamRemoteStorageQuota out{};
-    out.ok = false;
-    out.total_bytes = 0;
-    out.available_bytes = 0;
-
-    STEAM_GUARD_RET(out);
+    STEAM_GUARD_RET({});
     ISteamRemoteStorage* rs = steam_remote_storage_iface();
-    if (!rs) return out;
+    if (!rs) return {};
 
     uint64 total = 0, avail = 0;
     bool ok = rs->GetQuota(&total, &avail);
-    out.ok = ok;
+    if (!ok)
+        return {};
+
+    gm_structs::SteamRemoteStorageQuota out{};
     out.total_bytes = (std::uint64_t)total;
     out.available_bytes = (std::uint64_t)avail;
+    out.ok = true;
     return out;
 }
 
@@ -370,18 +366,10 @@ std::uint64_t steam_remote_storage_get_cached_ugc_handle(std::int32_t index)
 gm_structs::SteamRemoteStorageUgcDetails
 steam_remote_storage_get_ugc_details(std::uint64_t ugc_handle)
 {
-    gm_structs::SteamRemoteStorageUgcDetails out{};
-    out.ok = false;
-    out.ugc_handle = ugc_handle;
-    out.app_id = 0;
-    out.size_in_bytes = 0;
-    out.file_name = "";
-    out.steam_id_owner = 0;
-
-    STEAM_GUARD_RET(out);
+    STEAM_GUARD_RET({});
 
     ISteamRemoteStorage* rs = steam_remote_storage_iface();
-    if (!rs) return out;
+    if (!rs) return {};
 
     AppId_t app = 0;
     char* name = nullptr;               // 👈 IMPORTANT
@@ -395,15 +383,17 @@ steam_remote_storage_get_ugc_details(std::uint64_t ugc_handle)
             &size,
             &owner))
     {
-        return out;
+        return {};
     }
 
-    out.ok = true;
+    gm_structs::SteamRemoteStorageUgcDetails out{};
+    out.ugc_handle = ugc_handle;
     out.app_id = (std::uint32_t)app;
     out.size_in_bytes = (std::int32_t)size;
     out.file_name = name ? name : "";
     out.steam_id_owner = (std::uint64_t)owner.ConvertToUint64();
 
+    out.ok = true;
     return out;
 }
 
@@ -454,7 +444,7 @@ static inline gm_structs::SteamRemoteStorageDownloadUgcResult rs_fromNative(cons
     return out;
 }
 
-void steam_remote_storage_file_share(std::string_view file_name,  const std::optional<gm::wire::GMFunction>& callback)
+void steam_remote_storage_file_share(std::string_view file_name,  const gm::wire::GMFunction& callback)
 {
     STEAM_GUARD();
     ISteamRemoteStorage* rs = steam_remote_storage_iface();
@@ -462,11 +452,8 @@ void steam_remote_storage_file_share(std::string_view file_name,  const std::opt
 
     std::string fn(file_name);
     SteamAPICall_t call = rs->FileShare(fn.c_str());
-    if(callback)
-    {
-        auto* h = new steam_async::CallResult<gm_structs::SteamRemoteStorageFileShareResult, RemoteStorageFileShareResult_t>(callback.value(), &rs_fromNative);
-        h->set(call);
-    }
+    auto* h = new steam_async::CallResult<gm_structs::SteamRemoteStorageFileShareResult, RemoteStorageFileShareResult_t>(callback, &rs_fromNative);
+    h->set(call);
 }
 
 static inline gm_structs::SteamRemoteStorageFileWriteAsyncResult rs_fromNative(const RemoteStorageFileWriteAsyncComplete_t& e)
@@ -476,7 +463,7 @@ static inline gm_structs::SteamRemoteStorageFileWriteAsyncResult rs_fromNative(c
     return out;
 }
 
-void steam_remote_storage_file_write_async(std::string_view file_name, gm::wire::GMBuffer data, std::uint32_t bytes, const std::optional<gm::wire::GMFunction>& callback)
+void steam_remote_storage_file_write_async(std::string_view file_name, gm::wire::GMBuffer data, std::uint32_t bytes, const gm::wire::GMFunction& callback)
 {
     STEAM_GUARD();
     ISteamRemoteStorage* rs = steam_remote_storage_iface();
@@ -485,28 +472,22 @@ void steam_remote_storage_file_write_async(std::string_view file_name, gm::wire:
 
     std::string fn(file_name);
     SteamAPICall_t call = rs->FileWriteAsync(fn.c_str(), (const void*)data.data(), (uint32)bytes);
-    if(callback)
-    {
-        auto* h = new steam_async::CallResult<gm_structs::SteamRemoteStorageFileWriteAsyncResult, RemoteStorageFileWriteAsyncComplete_t>(callback.value(), &rs_fromNative);
-        h->set(call);
-    }
+    auto* h = new steam_async::CallResult<gm_structs::SteamRemoteStorageFileWriteAsyncResult, RemoteStorageFileWriteAsyncComplete_t>(callback, &rs_fromNative);
+    h->set(call);
 }
 
-void steam_remote_storage_ugc_download(std::uint64_t ugc_handle, std::uint32_t priority,  const std::optional<gm::wire::GMFunction>& callback)
+void steam_remote_storage_ugc_download(std::uint64_t ugc_handle, std::uint32_t priority,  const gm::wire::GMFunction& callback)
 {
     STEAM_GUARD();
     ISteamRemoteStorage* rs = steam_remote_storage_iface();
     if (!rs) return;
 
     SteamAPICall_t call = rs->UGCDownload((UGCHandle_t)ugc_handle, (uint32)priority);
-    if(callback)
-    {
-        auto* h = new steam_async::CallResult<gm_structs::SteamRemoteStorageDownloadUgcResult, RemoteStorageDownloadUGCResult_t>(callback.value(), &rs_fromNative);
-        h->set(call);
-    }
+    auto* h = new steam_async::CallResult<gm_structs::SteamRemoteStorageDownloadUgcResult, RemoteStorageDownloadUGCResult_t>(callback, &rs_fromNative);
+    h->set(call);
 }
 
-void steam_remote_storage_ugc_download_to_location(std::uint64_t ugc_handle, std::string_view location, std::uint32_t priority,  const std::optional<gm::wire::GMFunction>& callback)
+void steam_remote_storage_ugc_download_to_location(std::uint64_t ugc_handle, std::string_view location, std::uint32_t priority,  const gm::wire::GMFunction& callback)
 {
     STEAM_GUARD();
     ISteamRemoteStorage* rs = steam_remote_storage_iface();
@@ -514,11 +495,8 @@ void steam_remote_storage_ugc_download_to_location(std::uint64_t ugc_handle, std
 
     std::string loc(location);
     SteamAPICall_t call = rs->UGCDownloadToLocation((UGCHandle_t)ugc_handle, loc.c_str(), (uint32)priority);
-    if(callback)
-    {
-        auto* h = new steam_async::CallResult<gm_structs::SteamRemoteStorageDownloadUgcResult, RemoteStorageDownloadUGCResult_t>(callback.value(), &rs_fromNative);
-        h->set(call);
-    }
+    auto* h = new steam_async::CallResult<gm_structs::SteamRemoteStorageDownloadUgcResult, RemoteStorageDownloadUGCResult_t>(callback, &rs_fromNative);
+    h->set(call);
 }
 
 static inline gm_structs::SteamRemoteStoragePublishFileResult rs_fromNative(const RemoteStoragePublishFileResult_t& e)
@@ -594,7 +572,7 @@ void steam_remote_storage_publish_workshop_file(std::string_view file,
                                                 gm_enums::SteamRemoteStoragePublishedFileVisibility visibility,
                                                 std::string_view tags_csv,
                                                 gm_enums::SteamRemoteStorageWorkshopFileType file_type,
-                                                 const std::optional<gm::wire::GMFunction>& callback)
+                                                 const gm::wire::GMFunction& callback)
 {
     STEAM_GUARD();
 
@@ -622,11 +600,8 @@ void steam_remote_storage_publish_workshop_file(std::string_view file,
         (EWorkshopFileType)(int)file_type
     );
 
-    if(callback)
-    {
-        auto* h = new steam_async::CallResult<gm_structs::SteamRemoteStoragePublishFileResult, RemoteStoragePublishFileResult_t>(callback.value(), &rs_fromNative);
-        h->set(call);
-    }
+    auto* h = new steam_async::CallResult<gm_structs::SteamRemoteStoragePublishFileResult, RemoteStoragePublishFileResult_t>(callback, &rs_fromNative);
+    h->set(call);
 }
 
 std::uint64_t steam_remote_storage_create_published_file_update_request(std::uint64_t published_file_id)
@@ -713,7 +688,7 @@ bool steam_remote_storage_update_published_file_tags(std::uint64_t update_handle
 }
 
 void steam_remote_storage_commit_published_file_update(std::uint64_t update_handle,
-                                                        const std::optional<gm::wire::GMFunction>& callback)
+                                                        const gm::wire::GMFunction& callback)
 {
     STEAM_GUARD();
 
@@ -722,19 +697,16 @@ void steam_remote_storage_commit_published_file_update(std::uint64_t update_hand
 
     SteamAPICall_t call = rs->CommitPublishedFileUpdate((PublishedFileUpdateHandle_t)update_handle);
 
-    if(callback)
-    {
-        auto* h = new steam_async::CallResult<
-            gm_structs::SteamRemoteStorageUpdatePublishedFileResult,
-            RemoteStorageUpdatePublishedFileResult_t
-        >(callback.value(), &rs_fromNative);
+    auto* h = new steam_async::CallResult<
+        gm_structs::SteamRemoteStorageUpdatePublishedFileResult,
+        RemoteStorageUpdatePublishedFileResult_t
+    >(callback, &rs_fromNative);
 
-        h->set(call);
-    }
+    h->set(call);
 }
 
 
-void steam_remote_storage_subscribe_published_file(std::uint64_t published_file_id,  const std::optional<gm::wire::GMFunction>& callback)
+void steam_remote_storage_subscribe_published_file(std::uint64_t published_file_id,  const gm::wire::GMFunction& callback)
 {
     STEAM_GUARD();
 
@@ -742,14 +714,11 @@ void steam_remote_storage_subscribe_published_file(std::uint64_t published_file_
     if (!rs) return;
 
     SteamAPICall_t call = rs->SubscribePublishedFile((PublishedFileId_t)published_file_id);
-    if(callback)
-    {
-        auto* h = new steam_async::CallResult<gm_structs::SteamRemoteStorageSubscribePublishedFileResult, RemoteStorageSubscribePublishedFileResult_t>(callback.value(), &rs_fromNative);
-        h->set(call);
-    }
+    auto* h = new steam_async::CallResult<gm_structs::SteamRemoteStorageSubscribePublishedFileResult, RemoteStorageSubscribePublishedFileResult_t>(callback, &rs_fromNative);
+    h->set(call);
 }
 
-void steam_remote_storage_unsubscribe_published_file(std::uint64_t published_file_id,  const std::optional<gm::wire::GMFunction>& callback)
+void steam_remote_storage_unsubscribe_published_file(std::uint64_t published_file_id,  const gm::wire::GMFunction& callback)
 {
     STEAM_GUARD();
 
@@ -757,10 +726,7 @@ void steam_remote_storage_unsubscribe_published_file(std::uint64_t published_fil
     if (!rs) return;
 
     SteamAPICall_t call = rs->UnsubscribePublishedFile((PublishedFileId_t)published_file_id);
-    if(callback)
-    {
-        auto* h = new steam_async::CallResult<gm_structs::SteamRemoteStorageUnsubscribePublishedFileResult, RemoteStorageUnsubscribePublishedFileResult_t>(callback.value(), &rs_fromNative);
-        h->set(call);
-    }
+    auto* h = new steam_async::CallResult<gm_structs::SteamRemoteStorageUnsubscribePublishedFileResult, RemoteStorageUnsubscribePublishedFileResult_t>(callback, &rs_fromNative);
+    h->set(call);
 }
 

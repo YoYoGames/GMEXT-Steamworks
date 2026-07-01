@@ -648,7 +648,7 @@
 /**
  * @function_partial steam_apps_get_app_install_dir
  * @param {Real} app_id
- * @returns {Struct.SteamAppsInstallDir} 
+ * @returns {String} 
  * @function_end 
  */
 
@@ -742,7 +742,7 @@
 
 /**
  * @function_partial steam_apps_get_launch_command_line
- * @returns {Struct.SteamAppsLaunchCommandLine} 
+ * @returns {String} 
  * @function_end 
  */
 
@@ -2490,17 +2490,6 @@
 
 /**
  * @function_partial steam_input_clear_callback_action_set_changed
- * @function_end 
- */
-
-/**
- * @function_partial steam_input_set_callback_controller_battery
- * @param {Function} callback
- * @function_end 
- */
-
-/**
- * @function_partial steam_input_clear_callback_controller_battery
  * @function_end 
  */
 
@@ -4469,6 +4458,7 @@
 
 /**
  * @struct_partial SteamFriendsClanActivityCounts
+ * @member {Bool} ok
  * @member {Real} online
  * @member {Real} in_game
  * @member {Real} chatting
@@ -4485,6 +4475,7 @@
 
 /**
  * @struct_partial SteamFriendsFriendGamePlayed
+ * @member {Bool} ok
  * @member {Real} game_id
  * @member {Real} game_ip_v4
  * @member {Real} game_port
@@ -4496,7 +4487,7 @@
 /**
  * @struct_partial SteamFriendsFriendMessage
  * @member {Enum.SteamFriendsChatEntryType} entry_type
- * @member {Any} data
+ * @member {String} data
  * @struct_end 
  */
 
@@ -4552,6 +4543,7 @@
 
 /**
  * @struct_partial SteamAppsDlcData
+ * @member {Bool} ok
  * @member {Real} app_id
  * @member {Bool} available
  * @member {String} name
@@ -4566,13 +4558,6 @@
  */
 
 /**
- * @struct_partial SteamAppsInstallDir
- * @member {Real} bytes_copied
- * @member {String} path
- * @struct_end 
- */
-
-/**
  * @struct_partial SteamAppsNumBetas
  * @member {Real} total
  * @member {Real} available
@@ -4582,6 +4567,7 @@
 
 /**
  * @struct_partial SteamAppsBetaInfo
+ * @member {Bool} ok
  * @member {Real} flags
  * @member {Real} build_id
  * @member {String} beta_name
@@ -4591,22 +4577,9 @@
 
 /**
  * @struct_partial SteamAppsDlcDownloadProgress
+ * @member {Bool} ok
  * @member {Real} bytes_downloaded
  * @member {Real} bytes_total
- * @struct_end 
- */
-
-/**
- * @struct_partial SteamAppsLaunchCommandLine
- * @member {Real} bytes_copied
- * @member {String} command_line
- * @struct_end 
- */
-
-/**
- * @struct_partial SteamAppsInstallSize
- * @member {Real} bytes_install_size
- * @member {Real} bytes_download_size
  * @struct_end 
  */
 
@@ -4614,13 +4587,6 @@
  * @struct_partial SteamAppsDlcInstallDir
  * @member {Real} bytes_copied
  * @member {String} path
- * @struct_end 
- */
-
-/**
- * @struct_partial SteamAppsLanguageInfo
- * @member {String} language_name
- * @member {String} language_code
  * @struct_end 
  */
 
@@ -4771,14 +4737,6 @@
  * @member {Real} async_call
  * @member {Real} callback_id
  * @member {Real} param_size
- * @struct_end 
- */
-
-/**
- * @struct_partial SteamUtilsCserIpPort
- * @member {Bool} ok
- * @member {Real} ip_v4
- * @member {Real} port
  * @struct_end 
  */
 
@@ -5049,31 +5007,9 @@
  */
 
 /**
- * @struct_partial SteamInputControllerBattery
- * @member {Real} controller_handle
- * @member {Real} battery_percent
- * @struct_end 
- */
-
-/**
  * @struct_partial SteamUserStatsAchievementAndUnlockTime
  * @member {Bool} achieved
  * @member {Real} unlock_time
- * @struct_end 
- */
-
-/**
- * @struct_partial SteamUserStatsAchievementAndProgress
- * @member {Bool} achieved
- * @member {Real} cur_progress
- * @member {Real} max_progress
- * @struct_end 
- */
-
-/**
- * @struct_partial SteamUserStatsAchievementNamesAndPercent
- * @member {String} name
- * @member {Real} percent
  * @struct_end 
  */
 
@@ -5083,13 +5019,6 @@
  * @member {String} name
  * @member {Real} percent
  * @member {Bool} achieved
- * @struct_end 
- */
-
-/**
- * @struct_partial SteamUserStatsNumAchievementsAndHours
- * @member {Real} num_achievements
- * @member {Real} hours
  * @struct_end 
  */
 
@@ -5160,7 +5089,6 @@
 
 /**
  * @struct_partial SteamUserStatsAttachLeaderboardUgcResult
- * @member {Bool} ok
  * @member {Real} result
  * @member {Real} leaderboard_handle
  * @struct_end 
@@ -5192,17 +5120,17 @@
 
 /**
  * @struct_partial SteamUserStatsIntMinMax
+ * @member {Bool} ok
  * @member {Real} min
  * @member {Real} max
- * @member {Bool} ok
  * @struct_end 
  */
 
 /**
  * @struct_partial SteamUserStatsFloatMinMax
+ * @member {Bool} ok
  * @member {Real} min
  * @member {Real} max
- * @member {Bool} ok
  * @struct_end 
  */
 

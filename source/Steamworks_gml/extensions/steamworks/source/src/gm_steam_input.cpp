@@ -22,11 +22,8 @@ static gm::wire::GMFunction g_cb_input_device_disconnected = nullptr;
 static std::vector<InputHandle_t> g_prev_connected;
 
 static gm::wire::GMFunction g_cb_input_action_set_changed = nullptr;
-static gm::wire::GMFunction g_cb_input_controller_battery = nullptr;
 
 static std::unordered_map<InputHandle_t, InputActionSetHandle_t> g_prev_action_set;
-
-static std::unordered_map<InputHandle_t, int32_t> g_prev_battery;
 
 void steam_input_set_callback_device_connected( const gm::wire::GMFunction& callback)
 {
@@ -71,25 +68,6 @@ void steam_input_clear_callback_action_set_changed()
     g_prev_action_set.clear();
 }
 
-void steam_input_set_callback_controller_battery( const gm::wire::GMFunction& callback)
-{
-    steam_clear_last_error();
-    std::lock_guard<std::mutex> lock(g_callbacks_mtx);
-    g_cb_input_controller_battery = callback;
-}
-
-void steam_input_clear_callback_controller_battery()
-{
-    steam_clear_last_error();
-    std::lock_guard<std::mutex> lock(g_callbacks_mtx);
-    g_cb_input_controller_battery = nullptr;
-    g_prev_battery.clear();
-}
-
-static inline int32_t steam_input_get_battery_percent_best_effort(InputHandle_t /*h*/)
-{
-    return -1;
-}
 
 static inline ISteamInput* steam_input_iface()
 {
@@ -151,7 +129,6 @@ gm_structs::SteamInputActiveActionSetLayers steam_input_get_active_action_set_la
     STEAM_GUARD_RET({});
 
     gm_structs::SteamInputActiveActionSetLayers out {};
-    out.count = 0;
     out.handles = {};
 
     ISteamInput* s = steam_input_iface();
@@ -167,7 +144,6 @@ gm_structs::SteamInputActiveActionSetLayers steam_input_get_active_action_set_la
     for (int i = 0; i < n; ++i)
         v.push_back((std::uint64_t)native[i]);
 
-    out.count = (std::int32_t)n;
     out.handles = std::move(v);
     return out;
 }
@@ -223,7 +199,6 @@ gm_structs::SteamInputActionOrigins steam_input_get_analog_action_origins(
     STEAM_GUARD_RET({});
 
     gm_structs::SteamInputActionOrigins out {};
-    out.count = 0;
     out.origins = {};
 
     ISteamInput* s = steam_input_iface();
@@ -244,12 +219,11 @@ gm_structs::SteamInputActionOrigins steam_input_get_analog_action_origins(
     for (int i = 0; i < n; ++i)
         v.push_back(static_cast<gm_enums::SteamInputActionOrigin>((int)native[i]));
 
-    out.count = (std::int32_t)n;
     out.origins = std::move(v);
     return out;
 }
 
-std::string steam_input_get_glyph_png_for_action_origin(std::uint32_t origin, std::uint32_t size, std::uint32_t flags)
+std::string steam_input_get_glyph_png_for_action_origin(gm_enums::SteamInputActionOrigin origin, gm_enums::SteamInputGlyphSize size, std::uint32_t flags)
 {
     STEAM_GUARD_RET("");
 
@@ -258,13 +232,13 @@ std::string steam_input_get_glyph_png_for_action_origin(std::uint32_t origin, st
         return "";
 
     return s->GetGlyphPNGForActionOrigin(
-        (EInputActionOrigin)origin,
-        (ESteamInputGlyphSize) size,
+        (EInputActionOrigin)(int)origin,
+        (ESteamInputGlyphSize)(int)size,
         flags
     );
 }
 
-std::string steam_input_get_glyph_svg_for_action_origin(std::uint32_t origin, std::uint32_t flags)
+std::string steam_input_get_glyph_svg_for_action_origin(gm_enums::SteamInputActionOrigin origin, std::uint32_t flags)
 {
     STEAM_GUARD_RET("");
 
@@ -273,7 +247,7 @@ std::string steam_input_get_glyph_svg_for_action_origin(std::uint32_t origin, st
         return "";
 
     return s->GetGlyphSVGForActionOrigin(
-        (EInputActionOrigin)origin,
+        (EInputActionOrigin)(int)origin,
         flags
     );
 }
@@ -358,7 +332,6 @@ gm_structs::SteamInputActionOrigins steam_input_get_digital_action_origins(
     STEAM_GUARD_RET({});
 
     gm_structs::SteamInputActionOrigins out {};
-    out.count = 0;
     out.origins = {};
 
     ISteamInput* s = steam_input_iface();
@@ -379,7 +352,6 @@ gm_structs::SteamInputActionOrigins steam_input_get_digital_action_origins(
     for (int i = 0; i < n; ++i)
         v.push_back(static_cast<gm_enums::SteamInputActionOrigin>((int)native[i]));
 
-    out.count = (std::int32_t)n;
     out.origins = std::move(v);
     return out;
 }
@@ -549,7 +521,7 @@ void steam_input_run_frame()
 
 }
 
-bool steam_input_set_dual_sense_trigger_effect(
+bool steam_input_set_dualsense_trigger_effect(
     std::uint64_t, const std::vector<std::uint32_t>&
 )
 {
@@ -682,22 +654,19 @@ gm_structs::SteamInputDeviceBindingRevision steam_input_get_device_binding_revis
 {
     STEAM_GUARD_RET({});
 
-    gm_structs::SteamInputDeviceBindingRevision out {};
-    out.ok = false;
-    out.major = 0;
-    out.minor = 0;
-
     ISteamInput* s = steam_input_iface();
     if (!s)
-        return out;
+        return {};
 
     int major = 0;
     int minor = 0;
-    bool ok = s->GetDeviceBindingRevision((InputHandle_t)input_handle, &major, &minor);
+    if (!s->GetDeviceBindingRevision((InputHandle_t)input_handle, &major, &minor))
+        return {};
 
-    out.ok = ok;
+    gm_structs::SteamInputDeviceBindingRevision out {};
     out.major = major;
     out.minor = minor;
+    out.ok = true;
     return out;
 }
 
