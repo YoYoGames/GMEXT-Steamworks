@@ -170,32 +170,26 @@ std::uint64_t steam_friends_get_chat_member_by_index(std::uint64_t steam_id_clan
     return steam_u64_from_steam_id(id);
 }
 
-gm_structs::SteamFriendsClanActivityCounts steam_friends_get_clan_activity_counts(std::uint64_t steam_id_clan)
+std::optional<gm_structs::SteamFriendsClanActivityCounts> steam_friends_get_clan_activity_counts(std::uint64_t steam_id_clan)
 {
-    STEAM_GUARD_RET({});
-
-    gm_structs::SteamFriendsClanActivityCounts out {};
-    out.ok = false;
-    out.online = 0;
-    out.in_game = 0;
-    out.chatting = 0;
+    STEAM_GUARD_RET(std::nullopt);
 
     ISteamFriends* f = steam_friends_iface();
     if (!f)
-        return out;
+        return std::nullopt;
 
     int online = 0, inGame = 0, chatting = 0;
     const bool ok = f->GetClanActivityCounts(steam_id_from_u64(steam_id_clan), &online, &inGame, &chatting);
 
-    out.ok = ok;
-    if (ok) {
-        out.online = online;
-        out.in_game = inGame;
-        out.chatting = chatting;
-    } else {
+    if (!ok) {
         steam_set_last_error("GetClanActivityCounts failed.");
+        return std::nullopt;
     }
 
+    gm_structs::SteamFriendsClanActivityCounts out{};
+    out.online = online;
+    out.in_game = inGame;
+    out.chatting = chatting;
     return out;
 }
 
@@ -226,7 +220,6 @@ steam_friends_get_clan_chat_message(std::uint64_t steam_id_clan_chat, std::int32
     STEAM_GUARD_RET({});
 
     gm_structs::SteamFriendsClanChatMessage out {};
-    out.bytes_copied = 0;
     out.text = "";
     out.entry_type = gm_enums::SteamFriendsChatEntryType::Invalid;
     out.chatter_steam_id_64 = 0;
@@ -245,7 +238,6 @@ steam_friends_get_clan_chat_message(std::uint64_t steam_id_clan_chat, std::int32
         steam_id_from_u64(steam_id_clan_chat), message, buf.data(), (int)buf.size(), &entry, &chatter
     );
 
-    out.bytes_copied = bytes;
     out.entry_type = (gm_enums::SteamFriendsChatEntryType)(int)entry;
     out.chatter_steam_id_64 = steam_u64_from_steam_id(chatter);
 
@@ -408,29 +400,21 @@ std::uint64_t steam_friends_get_friend_from_source_by_index(std::uint64_t steam_
     return steam_u64_from_steam_id(id);
 }
 
-gm_structs::SteamFriendsFriendGamePlayed steam_friends_get_friend_game_played(std::uint64_t steam_id_friend)
+std::optional<gm_structs::SteamFriendsFriendGamePlayed> steam_friends_get_friend_game_played(std::uint64_t steam_id_friend)
 {
-    STEAM_GUARD_RET({});
-
-    gm_structs::SteamFriendsFriendGamePlayed out {};
-    out.ok = false;
-    out.game_id = 0;
-    out.game_ip_v4 = 0;
-    out.game_port = 0;
-    out.query_port = 0;
-    out.lobby_steam_id_64 = 0;
+    STEAM_GUARD_RET(std::nullopt);
 
     ISteamFriends* f = steam_friends_iface();
     if (!f)
-        return out;
+        return std::nullopt;
 
     FriendGameInfo_t info {};
     const bool ok = f->GetFriendGamePlayed(steam_id_from_u64(steam_id_friend), &info);
 
-    out.ok = ok;
     if (!ok)
-        return out;
+        return std::nullopt;
 
+    gm_structs::SteamFriendsFriendGamePlayed out{};
     out.game_id = (std::uint64_t)info.m_gameID.ToUint64();
     out.game_ip_v4 = (std::uint32_t)info.m_unGameIP;
     out.game_port = (std::uint32_t)info.m_usGamePort;
@@ -441,36 +425,28 @@ gm_structs::SteamFriendsFriendGamePlayed steam_friends_get_friend_game_played(st
 }
 
 gm_structs::SteamFriendsFriendMessage
-steam_friends_get_friend_message(std::uint64_t steam_id_friend, std::int32_t message_id, std::int32_t data_size)
+steam_friends_get_friend_message(std::uint64_t steam_id_friend, std::int32_t message_id)
 {
     STEAM_GUARD_RET({});
 
     gm_structs::SteamFriendsFriendMessage out {};
-    out.bytes_copied = 0;
     out.entry_type = gm_enums::SteamFriendsChatEntryType::Invalid;
-    out.data = "";
 
     ISteamFriends* f = steam_friends_iface();
     if (!f)
         return out;
 
-    if (data_size <= 0) {
-        steam_set_last_error("GetFriendMessage: data_size must be > 0.");
-        return out;
-    }
-
-    std::vector<std::uint8_t> buf((size_t)data_size);
+    std::vector<std::uint8_t> buf(8192);
 
     EChatEntryType entry = k_EChatEntryTypeInvalid;
     const int bytes
         = f->GetFriendMessage(steam_id_from_u64(steam_id_friend), message_id, buf.data(), (int)buf.size(), &entry);
 
-    out.bytes_copied = bytes;
     out.entry_type = (gm_enums::SteamFriendsChatEntryType)(int)entry;
 
     if (bytes > 0) {
         const int n = std::min<int>(bytes, (int)buf.size());
-        out.data.assign((const char*)buf.data(), (const char*)buf.data() + n);
+        out.data = std::string((const char*)buf.data(), (size_t)n);
     }
 
     return out;
@@ -860,7 +836,7 @@ static inline gm_structs::SteamFriendsEnumerateFollowingListResult friends_fromN
 static inline gm_structs::SteamFriendsRequestClanOfficerListResult friends_fromNative(const ClanOfficerListResponse_t& e)
 {
     gm_structs::SteamFriendsRequestClanOfficerListResult out{};
-    out.result = e.m_bSuccess;
+    out.success = e.m_bSuccess;
     out.clan_id = (std::uint64_t)e.m_steamIDClan.ConvertToUint64();
     out.officers = (int32)e.m_cOfficers;
     return out;
@@ -873,7 +849,7 @@ static inline gm_structs::SteamFriendsDownloadClanActivityCountsResult friends_f
     return out;
 }
 
-void steam_friends_get_follower_count(std::uint64_t steam_id,  const std::optional<gm::wire::GMFunction>& callback)
+void steam_friends_get_follower_count(std::uint64_t steam_id,  const gm::wire::GMFunction& callback)
 {
     STEAM_GUARD();
 
@@ -887,14 +863,11 @@ void steam_friends_get_follower_count(std::uint64_t steam_id,  const std::option
         steam_set_last_error("Steam Friends: GetFollowerCount returned NULL SteamAPICall_t.");
         return;
     }
-    if(callback)
-    {
-        auto* h = new steam_async::CallResult<gm_structs::SteamFriendsGetFollowerCountResult, FriendsGetFollowerCount_t>(callback.value(), &friends_fromNative);
-        h->set(call);
-    }
+    auto* h = new steam_async::CallResult<gm_structs::SteamFriendsGetFollowerCountResult, FriendsGetFollowerCount_t>(callback, &friends_fromNative);
+    h->set(call);
 }
 
-void steam_friends_is_following(std::uint64_t steam_id,  const std::optional<gm::wire::GMFunction>& callback)
+void steam_friends_is_following(std::uint64_t steam_id,  const gm::wire::GMFunction& callback)
 {
     STEAM_GUARD();
 
@@ -908,14 +881,11 @@ void steam_friends_is_following(std::uint64_t steam_id,  const std::optional<gm:
         steam_set_last_error("Steam Friends: IsFollowing returned NULL SteamAPICall_t.");
         return;
     }
-    if(callback)
-    {
-        auto* h = new steam_async::CallResult<gm_structs::SteamFriendsIsFollowingResult, FriendsIsFollowing_t>(callback.value(), &friends_fromNative);
-        h->set(call);
-    }
+    auto* h = new steam_async::CallResult<gm_structs::SteamFriendsIsFollowingResult, FriendsIsFollowing_t>(callback, &friends_fromNative);
+    h->set(call);
 }
 
-void steam_friends_enumerate_following_list(std::uint32_t start_index,  const std::optional<gm::wire::GMFunction>& callback)
+void steam_friends_enumerate_following_list(std::uint32_t start_index,  const gm::wire::GMFunction& callback)
 {
     STEAM_GUARD();
 
@@ -929,14 +899,11 @@ void steam_friends_enumerate_following_list(std::uint32_t start_index,  const st
         steam_set_last_error("Steam Friends: EnumerateFollowingList returned NULL SteamAPICall_t.");
         return;
     }
-    if(callback)
-    {
-        auto* h = new steam_async::CallResult<gm_structs::SteamFriendsEnumerateFollowingListResult, FriendsEnumerateFollowingList_t>(callback.value(), &friends_fromNative);
-        h->set(call);
-    }
+    auto* h = new steam_async::CallResult<gm_structs::SteamFriendsEnumerateFollowingListResult, FriendsEnumerateFollowingList_t>(callback, &friends_fromNative);
+    h->set(call);
 }
 
-void steam_friends_request_clan_officer_list(std::uint64_t clan_steam_id,  const std::optional<gm::wire::GMFunction>& callback)
+void steam_friends_request_clan_officer_list(std::uint64_t clan_steam_id,  const gm::wire::GMFunction& callback)
 {
     STEAM_GUARD();
 
@@ -950,17 +917,13 @@ void steam_friends_request_clan_officer_list(std::uint64_t clan_steam_id,  const
         steam_set_last_error("Steam Friends: RequestClanOfficerList returned NULL SteamAPICall_t.");
         return;
     }
-    if(callback)
-    {
-        auto* h = new steam_async::CallResult<gm_structs::SteamFriendsRequestClanOfficerListResult, ClanOfficerListResponse_t>(callback.value(), &friends_fromNative);
-        h->set(call);
-    }
+    auto* h = new steam_async::CallResult<gm_structs::SteamFriendsRequestClanOfficerListResult, ClanOfficerListResponse_t>(callback, &friends_fromNative);
+    h->set(call);
 }
 
 bool steam_friends_download_clan_activity_counts(
     const std::vector<std::uint64_t>& steam_id_clans,
-    std::int32_t clans_to_request,
-    const std::optional<gm::wire::GMFunction>& callback
+    const gm::wire::GMFunction& callback
 )
 {
     STEAM_GUARD_RET(false);
@@ -969,11 +932,7 @@ bool steam_friends_download_clan_activity_counts(
     if (!f)
         return false;
 
-    // Clamp requested count to input vector size
-    const uint32 n = (uint32)std::min<std::size_t>(
-        steam_id_clans.size(),
-        (size_t)std::max<std::int32_t>(0, clans_to_request)
-    );
+    const uint32 n = (uint32)steam_id_clans.size();
 
     if (n == 0)
         return false;
@@ -990,16 +949,13 @@ bool steam_friends_download_clan_activity_counts(
         return false;
     }
 
-    if (callback)
-    {
-        auto* h =
-            new steam_async::CallResult<
-                gm_structs::SteamFriendsDownloadClanActivityCountsResult,
-                DownloadClanActivityCountsResult_t
-            >(callback.value(), &friends_fromNative);
+    auto* h =
+        new steam_async::CallResult<
+            gm_structs::SteamFriendsDownloadClanActivityCountsResult,
+            DownloadClanActivityCountsResult_t
+        >(callback, &friends_fromNative);
 
-        h->set(call);
-    }
+    h->set(call);
 
     return true;
 }

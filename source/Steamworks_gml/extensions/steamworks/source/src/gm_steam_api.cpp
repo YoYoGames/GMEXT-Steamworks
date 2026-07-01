@@ -175,8 +175,7 @@ static void steam_api_clear_all_callbacks()
     steam_ugc_clear_callback_item_installed();
     // steam_ugc_clear_callback_download_item_result();
     steam_ugc_clear_callback_user_subscribed_items_list_changed();
-    steam_ugc_clear_callback_file_subscribed();
-    steam_ugc_clear_callback_file_unsubscribed();
+
 
     // user
     steam_user_clear_callback_steam_servers_connected();

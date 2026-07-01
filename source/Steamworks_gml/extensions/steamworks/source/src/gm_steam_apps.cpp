@@ -30,19 +30,13 @@ static inline ISteamApps* steam_apps_iface()
     return a;
 }
 
-SteamAppsDlcData steam_apps_get_dlc_data_by_index(std::int32_t dlc)
+std::optional<SteamAppsDlcData> steam_apps_get_dlc_data_by_index(std::int32_t dlc)
 {
-    STEAM_GUARD_RET({});
-
-    SteamAppsDlcData out {};
-    out.ok = false;
-    out.app_id = 0;
-    out.available = false;
-    out.name = "";
+    STEAM_GUARD_RET(std::nullopt);
 
     ISteamApps* a = steam_apps_iface();
     if (!a)
-        return out;
+        return std::nullopt;
 
     AppId_t appId = 0;
     bool available = false;
@@ -52,13 +46,13 @@ SteamAppsDlcData steam_apps_get_dlc_data_by_index(std::int32_t dlc)
     nameBuf[0] = '\0';
 
     const bool ok = a->BGetDLCDataByIndex(dlc, &appId, &available, nameBuf.data(), (int)nameBuf.size());
-    out.ok = ok;
 
     if (!ok) {
         steam_set_last_error("BGetDLCDataByIndex failed.");
-        return out;
+        return std::nullopt;
     }
 
+    SteamAppsDlcData out{};
     out.app_id = (std::uint32_t)appId;
     out.available = available;
     out.name = std::string(nameBuf.data());
@@ -145,29 +139,24 @@ bool steam_apps_is_subscribed_from_free_weekend()
     return a->BIsSubscribedFromFreeWeekend();
 }
 
-SteamAppsTimedTrialStatus steam_apps_is_timed_trial()
+std::optional<SteamAppsIsTimedTrialResult> steam_apps_is_timed_trial()
 {
-    STEAM_GUARD_RET({});
-
-    SteamAppsTimedTrialStatus out {};
-    out.ok = false;
-    out.seconds_allowed = 0;
-    out.seconds_played = 0;
+    STEAM_GUARD_RET(std::nullopt);
 
     ISteamApps* a = steam_apps_iface();
     if (!a)
-        return out;
+        return std::nullopt;
 
     uint32 allowed = 0;
     uint32 played = 0;
 
     const bool ok = a->BIsTimedTrial(&allowed, &played);
-    out.ok = ok;
 
     if (!ok) {
-        return out;
+        return std::nullopt;
     }
 
+    SteamAppsIsTimedTrialResult out{};
     out.seconds_allowed = allowed;
     out.seconds_played = played;
     return out;
@@ -197,24 +186,21 @@ SteamAppsInstallDir steam_apps_get_app_install_dir(std::uint32_t app_id)
 {
     STEAM_GUARD_RET({});
 
-    SteamAppsInstallDir out {};
-    out.bytes_copied = 0;
-    out.path = "";
-
     ISteamApps* a = steam_apps_iface();
     if (!a)
-        return out;
+        return {};
 
     uint32 cchFolderBufferSize = 1024;
     std::vector<char> buf((size_t)cchFolderBufferSize);
     buf[0] = '\0';
 
     const uint32 bytes = a->GetAppInstallDir((AppId_t)app_id, buf.data(), (uint32)buf.size());
-    out.bytes_copied = bytes;
 
     if (bytes == 0)
-        return out;
+        return {};
 
+    SteamAppsInstallDir out{};
+    out.bytes_copied = bytes;
     out.path = std::string(buf.data());
     return out;
 }
@@ -241,35 +227,20 @@ std::string steam_apps_get_available_game_languages()
     return s ? std::string(s) : std::string();
 }
 
-SteamAppsBetaName steam_apps_get_current_beta_name()
+std::optional<std::string> steam_apps_get_current_beta_name()
 {
-    STEAM_GUARD_RET({});
-
-    SteamAppsBetaName out {};
-    out.ok = false;
-    out.name = "";
+    STEAM_GUARD_RET(std::nullopt);
 
     ISteamApps* a = steam_apps_iface();
     if (!a)
-        return out;
+        return std::nullopt;
 
-    std::int32_t cchNameBufferSize = 1024;
-    if (cchNameBufferSize <= 0) {
-        steam_set_last_error("GetCurrentBetaName: cchNameBufferSize must be > 0.");
-        return out;
-    }
+    std::vector<char> buf(1024, '\0');
 
-    std::vector<char> buf((size_t)cchNameBufferSize);
-    buf[0] = '\0';
+    if (!a->GetCurrentBetaName(buf.data(), (int)buf.size()))
+        return std::nullopt;
 
-    const bool ok = a->GetCurrentBetaName(buf.data(), (int)buf.size());
-    out.ok = ok;
-
-    if (!ok)
-        return out;
-
-    out.name = std::string(buf.data());
-    return out;
+    return std::string(buf.data());
 }
 
 SteamAppsNumBetas steam_apps_get_num_betas()
@@ -300,21 +271,14 @@ SteamAppsNumBetas steam_apps_get_num_betas()
     return out;
 }
 
-SteamAppsBetaInfo
+std::optional<SteamAppsBetaInfo>
 steam_apps_get_beta_info(std::int32_t beta_index)
 {
-    STEAM_GUARD_RET({});
-
-    SteamAppsBetaInfo out {};
-    out.ok = false;
-    out.flags = 0;
-    out.build_id = 0;
-    out.beta_name = "";
-    out.description = "";
+    STEAM_GUARD_RET(std::nullopt);
 
     ISteamApps* a = steam_apps_iface();
     if (!a)
-        return out;
+        return std::nullopt;
 
     uint32 cchBetaName = 1024;
     uint32 cchDescription = 1024;
@@ -336,10 +300,10 @@ steam_apps_get_beta_info(std::int32_t beta_index)
         cchDescription
     );
 
-    out.ok = success;
     if (!success)
-        return out;
+        return std::nullopt;
 
+    SteamAppsBetaInfo out{};
     out.flags = (std::uint32_t)flags;
     out.build_id = (std::uint32_t)buildId;
     out.beta_name = std::string(nameBuf.data());
@@ -384,27 +348,22 @@ std::int32_t steam_apps_get_dlc_count()
     return (std::int32_t)a->GetDLCCount();
 }
 
-SteamAppsDlcDownloadProgress steam_apps_get_dlc_download_progress(std::uint32_t app_id)
+std::optional<SteamAppsDlcDownloadProgress> steam_apps_get_dlc_download_progress(std::uint32_t app_id)
 {
-    STEAM_GUARD_RET({});
-
-    SteamAppsDlcDownloadProgress out {};
-    out.ok = false;
-    out.bytes_downloaded = 0;
-    out.bytes_total = 0;
+    STEAM_GUARD_RET(std::nullopt);
 
     ISteamApps* a = steam_apps_iface();
     if (!a)
-        return out;
+        return std::nullopt;
 
     uint64 downloaded = 0;
     uint64 total = 0;
     const bool ok = a->GetDlcDownloadProgress((AppId_t)app_id, &downloaded, &total);
 
-    out.ok = ok;
     if (!ok)
-        return out;
+        return std::nullopt;
 
+    SteamAppsDlcDownloadProgress out{};
     out.bytes_downloaded = (std::uint64_t)downloaded;
     out.bytes_total = (std::uint64_t)total;
     return out;
@@ -445,32 +404,23 @@ std::vector<std::uint32_t> steam_apps_get_installed_depots(std::uint32_t app_id,
     return out;
 }
 
-SteamAppsLaunchCommandLine steam_apps_get_launch_command_line(std::int32_t command_line_size)
+SteamAppsLaunchCommandLine steam_apps_get_launch_command_line()
 {
     STEAM_GUARD_RET({});
 
-    SteamAppsLaunchCommandLine out {};
-    out.bytes_copied = 0;
-    out.command_line = "";
-
     ISteamApps* a = steam_apps_iface();
     if (!a)
-        return out;
+        return {};
 
-    if (command_line_size <= 0) {
-        steam_set_last_error("GetLaunchCommandLine: command_line_size must be > 0.");
-        return out;
-    }
-
-    std::vector<char> buf((size_t)command_line_size);
-    buf[0] = '\0';
+    std::vector<char> buf(8192, '\0');
 
     const int bytes = a->GetLaunchCommandLine(buf.data(), (int)buf.size());
-    out.bytes_copied = bytes;
 
     if (bytes <= 0)
-        return out;
+        return {};
 
+    SteamAppsLaunchCommandLine out{};
+    out.bytes_copied = (std::int32_t)bytes;
     out.command_line = std::string(buf.data());
     return out;
 }
@@ -559,7 +509,7 @@ static inline gm_structs::SteamAppsFileDetailsResult apps_fromNative(const FileD
     return out;
 }
 
-void steam_apps_get_file_details(std::string_view filename,  const std::optional<gm::wire::GMFunction>& callback)
+void steam_apps_get_file_details(std::string_view filename,  const gm::wire::GMFunction& callback)
 {
     STEAM_GUARD();
 
@@ -570,11 +520,8 @@ void steam_apps_get_file_details(std::string_view filename,  const std::optional
     std::string fn(filename);
     SteamAPICall_t call = a->GetFileDetails(fn.c_str());
 
-    if(callback)
-    {
-        auto* h = new steam_async::CallResult<gm_structs::SteamAppsFileDetailsResult, FileDetailsResult_t>(callback.value(), &apps_fromNative);
-        h->set(call);
-    }
+    auto* h = new steam_async::CallResult<gm_structs::SteamAppsFileDetailsResult, FileDetailsResult_t>(callback, &apps_fromNative);
+    h->set(call);
 }
 
 static std::mutex g_callbacks_mtx;

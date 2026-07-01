@@ -9,6 +9,7 @@
 #include <steam/isteamuserstats.h>
 
 #include <cstdint>
+#include <optional>
 #include <string>
 #include <string_view>
 #include <vector>
@@ -45,44 +46,38 @@ static inline SteamLeaderboardEntries_t u64_to_leaderboard_entries(std::uint64_t
 
 static inline CSteamID steamid_from_u64(std::uint64_t v) { return steam_id_from_u64(v); }
 
-SteamUserStatsStatInt steam_userstats_get_stat_int(std::string_view stat_name)
+std::optional<std::int32_t> steam_userstats_get_stat_int(std::string_view stat_name)
 {
-    STEAM_GUARD_RET({});
-
-    SteamUserStatsStatInt out {};
-    out.ok = false;
-    out.data = 0;
+    STEAM_GUARD_RET(std::nullopt);
 
     ISteamUserStats* s = steam_userstats_iface();
     if (!s)
-        return out;
+        return std::nullopt;
 
     std::string name(stat_name);
     int32 v = 0;
     const bool ok = s->GetStat(name.c_str(), &v);
-    out.ok = ok;
-    out.data = v;
-    return out;
+    if (!ok)
+        return std::nullopt;
+
+    return (std::int32_t)v;
 }
 
-SteamUserStatsStatFloat steam_userstats_get_stat_float(std::string_view stat_name)
+std::optional<float> steam_userstats_get_stat_float(std::string_view stat_name)
 {
-    STEAM_GUARD_RET({});
-
-    SteamUserStatsStatFloat out {};
-    out.ok = false;
-    out.data = 0.0f;
+    STEAM_GUARD_RET(std::nullopt);
 
     ISteamUserStats* s = steam_userstats_iface();
     if (!s)
-        return out;
+        return std::nullopt;
 
     std::string name(stat_name);
     float v = 0.0f;
     const bool ok = s->GetStat(name.c_str(), &v);
-    out.ok = ok;
-    out.data = v;
-    return out;
+    if (!ok)
+        return std::nullopt;
+
+    return v;
 }
 
 bool steam_userstats_set_stat_int(std::string_view stat_name, std::int32_t data)
@@ -118,25 +113,22 @@ bool steam_userstats_update_avg_rate_stat(std::string_view stat_name, float coun
     return s->UpdateAvgRateStat(name.c_str(), count_this_session, (double)session_length);
 }
 
-SteamUserStatsUserAchievement steam_userstats_get_achievement(std::string_view achievement_name)
+std::optional<bool> steam_userstats_get_achievement(std::string_view achievement_name)
 {
-    STEAM_GUARD_RET({});
-
-    SteamUserStatsUserAchievement out {};
-    out.ok = false;
-    out.achieved = false;
+    STEAM_GUARD_RET(std::nullopt);
 
     ISteamUserStats* s = steam_userstats_iface();
     if (!s)
-        return out;
+        return std::nullopt;
 
     std::string name(achievement_name);
     bool achieved = false;
     const bool ok = s->GetAchievement(name.c_str(), &achieved);
 
-    out.ok = ok;
-    out.achieved = achieved;
-    return out;
+    if (!ok)
+        return std::nullopt;
+
+    return achieved;
 }
 
 bool steam_userstats_set_achievement(std::string_view achievement_name)
@@ -161,17 +153,13 @@ bool steam_userstats_clear_achievement(std::string_view achievement_name)
     return s->ClearAchievement(name.c_str());
 }
 
-SteamUserStatsAchievementAndUnlockTime steam_userstats_achievement_and_unlock_time(std::string_view achievement_name)
+gm_structs::SteamUserStatsAchievementAndUnlockTime steam_userstats_achievement_and_unlock_time(std::string_view achievement_name)
 {
     STEAM_GUARD_RET({});
 
-    SteamUserStatsAchievementAndUnlockTime out {};
-    out.achieved = false;
-    out.unlock_time = 0;
-
     ISteamUserStats* s = steam_userstats_iface();
     if (!s)
-        return out;
+        return {};
 
     std::string name(achievement_name);
     bool achieved = false;
@@ -180,6 +168,7 @@ SteamUserStatsAchievementAndUnlockTime steam_userstats_achievement_and_unlock_ti
     const bool ok = s->GetAchievementAndUnlockTime(name.c_str(), &achieved, &unlock);
     (void)ok;
 
+    SteamUserStatsAchievementAndUnlockTime out {};
     out.achieved = achieved;
     out.unlock_time = unlock;
     return out;
@@ -253,82 +242,69 @@ std::string steam_userstats_achievement_name(std::uint32_t index)
     return n ? std::string(n) : std::string();
 }
 
-SteamUserStatsStatInt steam_userstats_user_stat_int(std::uint64_t steam_id_user, std::string_view stat_name)
+std::optional<std::int32_t> steam_userstats_user_stat_int(std::uint64_t steam_id_user, std::string_view stat_name)
 {
-    STEAM_GUARD_RET({});
-
-    SteamUserStatsStatInt out {};
-    out.ok = false;
-    out.data = 0;
+    STEAM_GUARD_RET(std::nullopt);
 
     ISteamUserStats* s = steam_userstats_iface();
     if (!s)
-        return out;
+        return std::nullopt;
 
     std::string name(stat_name);
     int32 v = 0;
     const bool ok = s->GetUserStat(steamid_from_u64(steam_id_user), name.c_str(), &v);
 
-    out.ok = ok;
-    out.data = v;
-    return out;
+    if (!ok)
+        return std::nullopt;
+
+    return (std::int32_t)v;
 }
 
-SteamUserStatsStatFloat steam_userstats_user_stat_float(std::uint64_t steam_id_user, std::string_view stat_name)
+std::optional<float> steam_userstats_user_stat_float(std::uint64_t steam_id_user, std::string_view stat_name)
 {
-    STEAM_GUARD_RET({});
-
-    SteamUserStatsStatFloat out {};
-    out.ok = false;
-    out.data = 0.0f;
+    STEAM_GUARD_RET(std::nullopt);
 
     ISteamUserStats* s = steam_userstats_iface();
     if (!s)
-        return out;
+        return std::nullopt;
 
     std::string name(stat_name);
     float v = 0.0f;
     const bool ok = s->GetUserStat(steamid_from_u64(steam_id_user), name.c_str(), &v);
 
-    out.ok = ok;
-    out.data = v;
-    return out;
+    if (!ok)
+        return std::nullopt;
+
+    return v;
 }
 
-SteamUserStatsUserAchievement
+std::optional<bool>
 steam_userstats_user_achievement(std::uint64_t steam_id_user, std::string_view achievement_name)
 {
-    STEAM_GUARD_RET({});
-
-    SteamUserStatsUserAchievement out {};
-    out.ok = false;
-    out.achieved = false;
+    STEAM_GUARD_RET(std::nullopt);
 
     ISteamUserStats* s = steam_userstats_iface();
     if (!s)
-        return out;
+        return std::nullopt;
 
     std::string name(achievement_name);
     bool achieved = false;
     const bool ok = s->GetUserAchievement(steamid_from_u64(steam_id_user), name.c_str(), &achieved);
 
-    out.ok = ok;
-    out.achieved = achieved;
-    return out;
+    if (!ok)
+        return std::nullopt;
+
+    return achieved;
 }
 
-SteamUserStatsAchievementAndUnlockTime
+gm_structs::SteamUserStatsAchievementAndUnlockTime
 steam_userstats_user_achievement_and_unlock_time(std::uint64_t steam_id_user, std::string_view achievement_name)
 {
     STEAM_GUARD_RET({});
 
-    SteamUserStatsAchievementAndUnlockTime out {};
-    out.achieved = false;
-    out.unlock_time = 0;
-
     ISteamUserStats* s = steam_userstats_iface();
     if (!s)
-        return out;
+        return {};
 
     std::string name(achievement_name);
     bool achieved = false;
@@ -337,6 +313,7 @@ steam_userstats_user_achievement_and_unlock_time(std::uint64_t steam_id_user, st
         = s->GetUserAchievementAndUnlockTime(steamid_from_u64(steam_id_user), name.c_str(), &achieved, &unlock);
     (void)ok;
 
+    SteamUserStatsAchievementAndUnlockTime out {};
     out.achieved = achieved;
     out.unlock_time = unlock;
     return out;
@@ -397,85 +374,54 @@ gm_enums::SteamLeaderboardDisplayType steam_userstats_leaderboard_display_type(s
     );
 }
 
-SteamUserStatsDownloadedLeaderboardEntry steam_userstats_downloaded_leaderboard_entry(
+std::optional<SteamUserStatsDownloadedLeaderboardEntry> steam_userstats_downloaded_leaderboard_entry(
     std::uint64_t leaderboard_entries_handle,
     std::int32_t entry_index,
-    gm::wire::GMBuffer buffer,
-    std::uint32_t buffer_size
+    std::int32_t max_details
 )
 {
-    STEAM_GUARD_RET({});
-
-    SteamUserStatsDownloadedLeaderboardEntry out {};
-    out.ok = false;
-    out.steam_id_user = 0;
-    out.global_rank = 0;
-    out.score = 0;
-    out.details_count = 0;
-    out.details_written = 0;
-    out.bytes_written   = 0;
+    STEAM_GUARD_RET(std::nullopt);
 
     ISteamUserStats* s = steam_userstats_iface();
     if (!s)
-        return out;
+        return std::nullopt;
 
-    const std::uint32_t max_ints_u32 = buffer_size / static_cast<std::uint32_t>(sizeof(std::int32_t));
-
-    const int details_max = (max_ints_u32 > static_cast<std::uint32_t>(std::numeric_limits<int>::max()))
-        ? std::numeric_limits<int>::max()
-        : static_cast<int>(max_ints_u32);
+    const int max_details_clamped = std::min<int>(max_details, k_cLeaderboardDetailsMax);
 
     LeaderboardEntry_t entry {};
-    std::vector<std::int32_t> details_vec;
-    if (details_max > 0)
-        details_vec.resize(static_cast<size_t>(details_max));
+    std::vector<std::int32_t> details_vec(static_cast<size_t>(max_details_clamped));
 
     const bool ok = s->GetDownloadedLeaderboardEntry(
         u64_to_leaderboard_entries(leaderboard_entries_handle),
         entry_index,
         &entry,
-        (details_max > 0) ? details_vec.data() : nullptr,
-        details_max
+        (max_details_clamped > 0) ? details_vec.data() : nullptr,
+        max_details_clamped
     );
 
-    out.ok = ok;
     if (!ok)
-        return out;
+        return std::nullopt;
 
+    SteamUserStatsDownloadedLeaderboardEntry out {};
     out.steam_id_user = static_cast<std::uint64_t>(entry.m_steamIDUser.ConvertToUint64());
     out.global_rank   = static_cast<std::int32_t>(entry.m_nGlobalRank);
     out.score        = static_cast<std::int32_t>(entry.m_nScore);
 
-    const int n = (details_max > 0)
-        ? std::min<int>(static_cast<int>(entry.m_cDetails), details_max)
-        : 0;
+    const int n = std::min<int>(static_cast<int>(entry.m_cDetails), max_details_clamped);
 
-    if (n > 0)
-    {
-        const int bytes = n * static_cast<int>(sizeof(std::int32_t));
-        auto w = buffer.getWriter();
-        w.writeBytes(reinterpret_cast<const char*>(details_vec.data()), bytes);
-
-        out.details_written = static_cast<std::int32_t>(n);
-        out.bytes_written   = static_cast<std::int32_t>(bytes);
-    }
+    details_vec.resize(static_cast<size_t>(n));
+    out.details = std::move(details_vec);
 
     return out;
 }
 
-SteamUserStatsMostAchievedAchievementInfo steam_userstats_most_achieved_achievement_info()
+std::optional<SteamUserStatsMostAchievedAchievementInfo> steam_userstats_most_achieved_achievement_info()
 {
-    STEAM_GUARD_RET({});
-
-    SteamUserStatsMostAchievedAchievementInfo out {};
-    out.ok = false;
-    out.name = "";
-    out.percent = 0.0f;
-    out.achieved = false;
+    STEAM_GUARD_RET(std::nullopt);
 
     ISteamUserStats* s = steam_userstats_iface();
     if (!s)
-        return out;
+        return std::nullopt;
 
     char nameBuf[256] = {};
     float percent = 0.0f;
@@ -483,29 +429,24 @@ SteamUserStatsMostAchievedAchievementInfo steam_userstats_most_achieved_achievem
 
     const bool ok = s->GetMostAchievedAchievementInfo(nameBuf, (uint32)sizeof(nameBuf), &percent, &achieved);
 
-    out.ok = ok;
-    if (ok) {
-        out.name = nameBuf;
-        out.percent = percent;
-        out.achieved = achieved;
-    }
+    if (!ok)
+        return std::nullopt;
+
+    SteamUserStatsMostAchievedAchievementInfo out {};
+    out.name = nameBuf;
+    out.percent = percent;
+    out.achieved = achieved;
     return out;
 }
 
-SteamUserStatsMostAchievedAchievementInfo
+std::optional<SteamUserStatsMostAchievedAchievementInfo>
 steam_userstats_next_most_achieved_achievement_info(std::int32_t iterator_prev)
 {
-    STEAM_GUARD_RET({});
-
-    SteamUserStatsMostAchievedAchievementInfo out {};
-    out.ok = false;
-    out.name = "";
-    out.percent = 0.0f;
-    out.achieved = false;
+    STEAM_GUARD_RET(std::nullopt);
 
     ISteamUserStats* s = steam_userstats_iface();
     if (!s)
-        return out;
+        return std::nullopt;
 
     char nameBuf[256] = {};
     float percent = 0.0f;
@@ -514,12 +455,13 @@ steam_userstats_next_most_achieved_achievement_info(std::int32_t iterator_prev)
     const bool ok
         = s->GetNextMostAchievedAchievementInfo(iterator_prev, nameBuf, (uint32)sizeof(nameBuf), &percent, &achieved);
 
-    out.ok = ok;
-    if (ok) {
-        out.name = nameBuf;
-        out.percent = percent;
-        out.achieved = achieved;
-    }
+    if (!ok)
+        return std::nullopt;
+
+    SteamUserStatsMostAchievedAchievementInfo out {};
+    out.name = nameBuf;
+    out.percent = percent;
+    out.achieved = achieved;
     return out;
 }
 
@@ -536,90 +478,74 @@ float steam_userstats_achievement_achieved_percent(std::string_view achievement_
     return ok ? p : 0.0f;
 }
 
-SteamUserStatsGlobalStatInt64 steam_userstats_global_stat_int64(std::string_view stat_name)
+std::optional<std::int64_t> steam_userstats_global_stat_int64(std::string_view stat_name)
 {
-    STEAM_GUARD_RET({});
-
-    SteamUserStatsGlobalStatInt64 out {};
-    out.ok = false;
-    out.data = 0;
+    STEAM_GUARD_RET(std::nullopt);
 
     ISteamUserStats* s = steam_userstats_iface();
     if (!s)
-        return out;
+        return std::nullopt;
 
     std::string name(stat_name);
     int64 v = 0;
     const bool ok = s->GetGlobalStat(name.c_str(), &v);
 
-    out.ok = ok;
-    out.data = v;
-    return out;
+    if (!ok)
+        return std::nullopt;
+
+    return (std::int64_t)v;
 }
 
-SteamUserStatsGlobalStatDouble steam_userstats_global_stat_double(std::string_view stat_name)
+std::optional<double> steam_userstats_global_stat_double(std::string_view stat_name)
 {
-    STEAM_GUARD_RET({});
-
-    SteamUserStatsGlobalStatDouble out {};
-    out.ok = false;
-    out.data = 0.0;
+    STEAM_GUARD_RET(std::nullopt);
 
     ISteamUserStats* s = steam_userstats_iface();
     if (!s)
-        return out;
+        return std::nullopt;
 
     std::string name(stat_name);
     double v = 0.0;
     const bool ok = s->GetGlobalStat(name.c_str(), &v);
 
-    out.ok = ok;
-    out.data = v;
-    return out;
+    if (!ok)
+        return std::nullopt;
+
+    return v;
 }
 
-SteamUserStatsGlobalStatHistoryInt64 steam_userstats_global_stat_history_int64(std::string_view stat_name)
+std::vector<std::int64_t> steam_userstats_global_stat_history_int64(std::string_view stat_name)
 {
     STEAM_GUARD_RET({});
 
-    SteamUserStatsGlobalStatHistoryInt64 out {};
-    out.ok = false;
-    out.data = {};
-
     ISteamUserStats* s = steam_userstats_iface();
     if (!s)
-        return out;
+        return {};
 
     std::string name(stat_name);
 
-    // Spec has no max; choose a sane cap.
     const int kMax = 1024;
     std::vector<int64> tmp((size_t)kMax);
 
     const int n = s->GetGlobalStatHistory(name.c_str(), tmp.data(), kMax);
-    out.ok = (n > 0);
+    if (n <= 0)
+        return {};
 
-    if (n > 0) {
-        out.data.clear();
-        out.data.reserve((size_t)n);
-        for (int i = 0; i < n; ++i)
-            out.data.push_back((long long)tmp[(size_t)i]);
-    }
+    std::vector<std::int64_t> out;
+    out.reserve((size_t)n);
+    for (int i = 0; i < n; ++i)
+        out.push_back((std::int64_t)tmp[(size_t)i]);
 
     return out;
 }
 
-SteamUserStatsGlobalStatHistoryDouble steam_userstats_global_stat_history_double(std::string_view stat_name)
+std::vector<double> steam_userstats_global_stat_history_double(std::string_view stat_name)
 {
     STEAM_GUARD_RET({});
 
-    SteamUserStatsGlobalStatHistoryDouble out {};
-    out.ok = false;
-    out.data = {};
-
     ISteamUserStats* s = steam_userstats_iface();
     if (!s)
-        return out;
+        return {};
 
     std::string name(stat_name);
 
@@ -627,29 +553,24 @@ SteamUserStatsGlobalStatHistoryDouble steam_userstats_global_stat_history_double
     std::vector<double> tmp((size_t)kMax);
 
     const int n = s->GetGlobalStatHistory(name.c_str(), tmp.data(), kMax);
-    out.ok = (n > 0);
+    if (n <= 0)
+        return {};
 
-    if (n > 0) {
-        out.data.clear();
-        out.data.reserve((size_t)n);
-        for (int i = 0; i < n; ++i)
-            out.data.push_back(tmp[(size_t)i]);
-    }
+    std::vector<double> out;
+    out.reserve((size_t)n);
+    for (int i = 0; i < n; ++i)
+        out.push_back(tmp[(size_t)i]);
 
     return out;
 }
 
-gm_structs::SteamUserStatsIntMinMax steam_userstats_achievement_progress_limits_int(std::string_view achievement_name, std::uint32_t cur_progress, std::uint32_t max_progress)
+std::optional<gm_structs::SteamUserStatsIntMinMax> steam_userstats_achievement_progress_int(std::string_view achievement_name, std::uint32_t cur_progress, std::uint32_t max_progress)
 {
-    gm_structs::SteamUserStatsIntMinMax out {};
-    STEAM_GUARD_RET(out);
-    out.ok = false;
-    out.max = 0;
-    out.min = 0;
+    STEAM_GUARD_RET(std::nullopt);
 
     ISteamUserStats* s = steam_userstats_iface();
     if (!s)
-        return out;
+        return std::nullopt;
 
     (void)cur_progress;
     (void)max_progress;
@@ -657,23 +578,22 @@ gm_structs::SteamUserStatsIntMinMax steam_userstats_achievement_progress_limits_
     std::string name(achievement_name);
     int32 minV = 0, maxV = 0;
     bool ok = s->GetAchievementProgressLimits(name.c_str(), &minV, &maxV);
-    out.ok = ok;
+    if (!ok)
+        return std::nullopt;
+
+    gm_structs::SteamUserStatsIntMinMax out {};
     out.max = maxV;
     out.min = minV;
     return out;
 }
 
-gm_structs::SteamUserStatsFloatMinMax steam_userstats_achievement_progress_limits_float(std::string_view achievement_name, float cur_progress, float max_progress)
+std::optional<gm_structs::SteamUserStatsFloatMinMax> steam_userstats_achievement_progress_float(std::string_view achievement_name, float cur_progress, float max_progress)
 {
-    gm_structs::SteamUserStatsFloatMinMax out {};
-    STEAM_GUARD_RET(out);
-    out.ok = false;
-    out.max = 0;
-    out.min = 0;
+    STEAM_GUARD_RET(std::nullopt);
 
     ISteamUserStats* s = steam_userstats_iface();
     if (!s)
-        return out;
+        return std::nullopt;
 
     (void)cur_progress;
     (void)max_progress;
@@ -681,10 +601,12 @@ gm_structs::SteamUserStatsFloatMinMax steam_userstats_achievement_progress_limit
     std::string name(achievement_name);
     float minV = 0.0f, maxV = 0.0f;
     bool ok = s->GetAchievementProgressLimits(name.c_str(), &minV, &maxV);
-    out.ok = ok;
+    if (!ok)
+        return std::nullopt;
+
+    gm_structs::SteamUserStatsFloatMinMax out {};
     out.max = maxV;
     out.min = minV;
-
     return out;
 }
 
@@ -731,7 +653,6 @@ static inline gm_structs::SteamUserStatsScoreUploadedResult userstats_fromNative
 static inline gm_structs::SteamUserStatsAttachLeaderboardUgcResult userstats_fromNative(const LeaderboardUGCSet_t& e)
 {
     gm_structs::SteamUserStatsAttachLeaderboardUgcResult out{};
-    out.ok = (e.m_eResult == k_EResultOK);
     out.result = (int32)e.m_eResult;
     out.leaderboard_handle = (std::uint64_t)e.m_hSteamLeaderboard;
     return out;
@@ -761,7 +682,7 @@ static inline gm_structs::SteamUserStatsGlobalStatsReceivedResult userstats_from
     return out;
 }
 
-void steam_userstats_request_user_stats(std::uint64_t steam_id_user,  const std::optional<gm::wire::GMFunction>& callback)
+void steam_userstats_request_user_stats(std::uint64_t steam_id_user,  const gm::wire::GMFunction& callback)
 {
     STEAM_GUARD();
 
@@ -769,17 +690,14 @@ void steam_userstats_request_user_stats(std::uint64_t steam_id_user,  const std:
     if (!s) return;
 
     SteamAPICall_t call = s->RequestUserStats(steam_id_from_u64(steam_id_user));
-    if(callback)
-    {
-        auto* h = new steam_async::CallResult<gm_structs::SteamUserStatsRequestUserStatsResult, UserStatsReceived_t>(callback.value(), &userstats_fromNative);
-        h->set(call);
-    }
+    auto* h = new steam_async::CallResult<gm_structs::SteamUserStatsRequestUserStatsResult, UserStatsReceived_t>(callback, &userstats_fromNative);
+    h->set(call);
 }
 
 void steam_userstats_find_or_create_leaderboard(std::string_view leaderboard_name,
                                                 gm_enums::SteamLeaderboardSortMethod sort_method,
                                                 gm_enums::SteamLeaderboardDisplayType display_type,
-                                                 const std::optional<gm::wire::GMFunction>& callback)
+                                                 const gm::wire::GMFunction& callback)
 {
     STEAM_GUARD();
 
@@ -791,14 +709,11 @@ void steam_userstats_find_or_create_leaderboard(std::string_view leaderboard_nam
                                                      (ELeaderboardSortMethod)(int)sort_method,
                                                      (ELeaderboardDisplayType)(int)display_type);
 
-    if(callback)
-    {
-        auto* h = new steam_async::CallResult<gm_structs::SteamUserStatsLeaderboardFindResult, LeaderboardFindResult_t>(callback.value(), &userstats_fromNative);
-        h->set(call);
-    }
+    auto* h = new steam_async::CallResult<gm_structs::SteamUserStatsLeaderboardFindResult, LeaderboardFindResult_t>(callback, &userstats_fromNative);
+    h->set(call);
 }
 
-void steam_userstats_find_leaderboard(std::string_view leaderboard_name,  const std::optional<gm::wire::GMFunction>& callback)
+void steam_userstats_find_leaderboard(std::string_view leaderboard_name,  const gm::wire::GMFunction& callback)
 {
     STEAM_GUARD();
 
@@ -808,18 +723,15 @@ void steam_userstats_find_leaderboard(std::string_view leaderboard_name,  const 
     std::string name(leaderboard_name);
     SteamAPICall_t call = s->FindLeaderboard(name.c_str());
 
-    if(callback)
-    {
-        auto* h = new steam_async::CallResult<gm_structs::SteamUserStatsLeaderboardFindResult, LeaderboardFindResult_t>(callback.value(), &userstats_fromNative);
-        h->set(call);
-    }
+    auto* h = new steam_async::CallResult<gm_structs::SteamUserStatsLeaderboardFindResult, LeaderboardFindResult_t>(callback, &userstats_fromNative);
+    h->set(call);
 }
 
 void steam_userstats_download_leaderboard_entries(std::uint64_t leaderboard_handle,
                                                   gm_enums::SteamLeaderboardDataRequest request,
                                                   std::int32_t range_start,
                                                   std::int32_t range_end,
-                                                   const std::optional<gm::wire::GMFunction>& callback)
+                                                   const gm::wire::GMFunction& callback)
 {
     STEAM_GUARD();
 
@@ -833,16 +745,13 @@ void steam_userstats_download_leaderboard_entries(std::uint64_t leaderboard_hand
         range_end
     );
 
-    if(callback)
-    {
-        auto* h = new steam_async::CallResult<gm_structs::SteamUserStatsScoresDownloadedResult, LeaderboardScoresDownloaded_t>(callback.value(), &userstats_fromNative);
-        h->set(call);
-    }
+    auto* h = new steam_async::CallResult<gm_structs::SteamUserStatsScoresDownloadedResult, LeaderboardScoresDownloaded_t>(callback, &userstats_fromNative);
+    h->set(call);
 }
 
 void steam_userstats_download_leaderboard_entries_for_users(std::uint64_t leaderboard_handle,
                                                             const std::vector<std::uint64_t>& users,
-                                                             const std::optional<gm::wire::GMFunction>& callback)
+                                                             const gm::wire::GMFunction& callback)
 {
     STEAM_GUARD();
 
@@ -861,20 +770,16 @@ void steam_userstats_download_leaderboard_entries_for_users(std::uint64_t leader
         (int)ids.size()
     );
 
-    if(callback)
-    {
-        auto* h = new steam_async::CallResult<gm_structs::SteamUserStatsScoresDownloadedResult, LeaderboardScoresDownloaded_t>(callback.value(), &userstats_fromNative);
-        h->set(call);
-    }
+    auto* h = new steam_async::CallResult<gm_structs::SteamUserStatsScoresDownloadedResult, LeaderboardScoresDownloaded_t>(callback, &userstats_fromNative);
+    h->set(call);
 }
 
 void steam_userstats_upload_leaderboard_score(
     std::uint64_t leaderboard_handle,
     gm_enums::SteamLeaderboardUploadScoreMethod method,
     std::int32_t score,
-    gm::wire::GMBuffer score_details_buffer,
-    std::int32_t score_details_count,
-     const std::optional<gm::wire::GMFunction>& callback)
+    const std::vector<std::int32_t>& score_details,
+     const gm::wire::GMFunction& callback)
 {
     STEAM_GUARD();
 
@@ -882,44 +787,26 @@ void steam_userstats_upload_leaderboard_score(
     if (!s)
         return;
 
-    const int* pDetails = nullptr;
-
-    if (score_details_count > 0)
-    {
-        // Each detail is an int32; the count must fit in the supplied buffer and
-        // honor the SDK cap. Validate rather than read past the GM buffer.
-        const std::uint64_t max_from_buffer = score_details_buffer.length() / sizeof(int32);
-        if ((std::uint64_t)score_details_count > max_from_buffer ||
-            score_details_count > k_cLeaderboardDetailsMax)
-        {
-            steam_set_last_error("steam_userstats_upload_leaderboard_score: score_details_count exceeds buffer length or the leaderboard details maximum (64).");
-            return;
-        }
-
-        pDetails = reinterpret_cast<const int*>(
-            score_details_buffer.data());
-    }
+    const int clamped_count = std::min<int>(static_cast<int>(score_details.size()), k_cLeaderboardDetailsMax);
+    const int* pDetails = (clamped_count > 0) ? score_details.data() : nullptr;
 
     SteamAPICall_t call = s->UploadLeaderboardScore(
         (SteamLeaderboard_t)leaderboard_handle,
         (ELeaderboardUploadScoreMethod)(int)method,
         (int32)score,
         pDetails,
-        (int)score_details_count
+        clamped_count
     );
 
-    if(callback)
-    {
-        auto* h = new steam_async::CallResult<
-            gm_structs::SteamUserStatsScoreUploadedResult,
-            LeaderboardScoreUploaded_t
-        >(callback.value(), &userstats_fromNative);
+    auto* h = new steam_async::CallResult<
+        gm_structs::SteamUserStatsScoreUploadedResult,
+        LeaderboardScoreUploaded_t
+    >(callback, &userstats_fromNative);
 
-        h->set(call);
-    }
+    h->set(call);
 }
 
-void steam_userstats_attach_leaderboard_ugc(std::uint64_t leaderboard_handle, std::uint64_t ugc_handle,  const std::optional<gm::wire::GMFunction>& callback)
+void steam_userstats_attach_leaderboard_ugc(std::uint64_t leaderboard_handle, std::uint64_t ugc_handle,  const gm::wire::GMFunction& callback)
 {
     STEAM_GUARD();
 
@@ -931,19 +818,16 @@ void steam_userstats_attach_leaderboard_ugc(std::uint64_t leaderboard_handle, st
         (UGCHandle_t)ugc_handle
     );
 
-    if(callback)
-    {
-        auto* h = new steam_async::CallResult<
-            gm_structs::SteamUserStatsAttachLeaderboardUgcResult,
-            LeaderboardUGCSet_t
-        >(callback.value(), &userstats_fromNative);
+    auto* h = new steam_async::CallResult<
+        gm_structs::SteamUserStatsAttachLeaderboardUgcResult,
+        LeaderboardUGCSet_t
+    >(callback, &userstats_fromNative);
 
-        h->set(call);
-    }
+    h->set(call);
 }
 
 
-void steam_userstats_number_of_current_players( const std::optional<gm::wire::GMFunction>& callback)
+void steam_userstats_number_of_current_players( const gm::wire::GMFunction& callback)
 {
     STEAM_GUARD();
 
@@ -951,14 +835,11 @@ void steam_userstats_number_of_current_players( const std::optional<gm::wire::GM
     if (!s) return;
 
     SteamAPICall_t call = s->GetNumberOfCurrentPlayers();
-    if(callback)
-    {
-        auto* h = new steam_async::CallResult<gm_structs::SteamUserStatsNumberOfCurrentPlayersResult, NumberOfCurrentPlayers_t>(callback.value(), &userstats_fromNative);
-        h->set(call);
-    }
+    auto* h = new steam_async::CallResult<gm_structs::SteamUserStatsNumberOfCurrentPlayersResult, NumberOfCurrentPlayers_t>(callback, &userstats_fromNative);
+    h->set(call);
 }
 
-void steam_userstats_request_global_achievement_percentages( const std::optional<gm::wire::GMFunction>& callback)
+void steam_userstats_request_global_achievement_percentages( const gm::wire::GMFunction& callback)
 {
     STEAM_GUARD();
 
@@ -966,14 +847,11 @@ void steam_userstats_request_global_achievement_percentages( const std::optional
     if (!s) return;
 
     SteamAPICall_t call = s->RequestGlobalAchievementPercentages();
-    if(callback)
-    {
-        auto* h = new steam_async::CallResult<gm_structs::SteamUserStatsGlobalAchievementPercentagesReadyResult, GlobalAchievementPercentagesReady_t>(callback.value(), &userstats_fromNative);
-        h->set(call);
-    }
+    auto* h = new steam_async::CallResult<gm_structs::SteamUserStatsGlobalAchievementPercentagesReadyResult, GlobalAchievementPercentagesReady_t>(callback, &userstats_fromNative);
+    h->set(call);
 }
 
-void steam_userstats_request_global_stats(std::int32_t history_days,  const std::optional<gm::wire::GMFunction>& callback)
+void steam_userstats_request_global_stats(std::int32_t history_days,  const gm::wire::GMFunction& callback)
 {
     STEAM_GUARD();
 
@@ -981,11 +859,8 @@ void steam_userstats_request_global_stats(std::int32_t history_days,  const std:
     if (!s) return;
 
     SteamAPICall_t call = s->RequestGlobalStats(history_days);
-    if(callback)
-    {
-        auto* h = new steam_async::CallResult<gm_structs::SteamUserStatsGlobalStatsReceivedResult, GlobalStatsReceived_t>(callback.value(), &userstats_fromNative);
-        h->set(call);
-    }
+    auto* h = new steam_async::CallResult<gm_structs::SteamUserStatsGlobalStatsReceivedResult, GlobalStatsReceived_t>(callback, &userstats_fromNative);
+    h->set(call);
 }
 
 static std::mutex g_callbacks_mtx;

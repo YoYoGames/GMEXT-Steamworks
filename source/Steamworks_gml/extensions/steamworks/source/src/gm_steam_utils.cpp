@@ -126,7 +126,7 @@ static inline gm_structs::SteamUtilsCheckFileSignatureResult utils_fromNative(co
     return out;
 }
 
-void steam_utils_check_file_signature(std::string_view file_name,  const std::optional<gm::wire::GMFunction>& callback)
+void steam_utils_check_file_signature(std::string_view file_name,  const gm::wire::GMFunction& callback)
 {
     STEAM_GUARD();
 
@@ -137,11 +137,8 @@ void steam_utils_check_file_signature(std::string_view file_name,  const std::op
     std::string fn(file_name);
     SteamAPICall_t call = u->CheckFileSignature(fn.c_str());
 
-    if(callback)
-    {
-        auto* h = new steam_async::CallResult<gm_structs::SteamUtilsCheckFileSignatureResult, CheckFileSignature_t>(callback.value(), &utils_fromNative);
-        h->set(call);
-    }
+    auto* h = new steam_async::CallResult<gm_structs::SteamUtilsCheckFileSignatureResult, CheckFileSignature_t>(callback, &utils_fromNative);
+    h->set(call);
 }
 
 SteamUtilsApiCallFailure steam_utils_get_api_call_failure_reason(std::uint64_t steam_api_call)
@@ -187,17 +184,13 @@ std::uint32_t steam_utils_get_current_battery_power()
     return (std::uint32_t)v;
 }
 
-SteamUtilsGamepadTextInput steam_utils_get_entered_gamepad_text_input()
+std::optional<std::string> steam_utils_get_entered_gamepad_text_input()
 {
-    STEAM_GUARD_RET({});
-
-    SteamUtilsGamepadTextInput out {};
-    out.ok = false;
-    out.text = "";
+    STEAM_GUARD_RET(std::nullopt);
 
     ISteamUtils* u = steam_utils_iface();
     if (!u)
-        return out;
+        return std::nullopt;
 
     // Size the buffer from the actual entered length (includes the NUL) so long input
     // is not truncated.
@@ -208,13 +201,11 @@ SteamUtilsGamepadTextInput steam_utils_get_entered_gamepad_text_input()
     buf[0] = '\0';
 
     const bool ok = u->GetEnteredGamepadTextInput(buf.data(), cch_text);
-    out.ok = ok;
 
     if (!ok)
-        return out;
+        return std::nullopt;
 
-    out.text = std::string(buf.data());
-    return out;
+    return std::string(buf.data());
 }
 
 std::uint32_t steam_utils_get_entered_gamepad_text_length()
@@ -250,27 +241,22 @@ bool steam_utils_get_image_rgba(std::int32_t image_handle, gm::wire::GMBuffer de
     return true;
 }
 
-SteamUtilsImageSize steam_utils_get_image_size(std::int32_t image_handle)
+std::optional<SteamUtilsImageSize> steam_utils_get_image_size(std::int32_t image_handle)
 {
-    STEAM_GUARD_RET({});
-
-    SteamUtilsImageSize out {};
-    out.ok = false;
-    out.width = 0;
-    out.height = 0;
+    STEAM_GUARD_RET(std::nullopt);
 
     ISteamUtils* u = steam_utils_iface();
     if (!u)
-        return out;
+        return std::nullopt;
 
     uint32 w = 0;
     uint32 h = 0;
 
     const bool ok = u->GetImageSize(image_handle, &w, &h);
-    out.ok = ok;
     if (!ok)
-        return out;
+        return std::nullopt;
 
+    SteamUtilsImageSize out{};
     out.width = (std::uint32_t)w;
     out.height = (std::uint32_t)h;
     return out;
@@ -388,24 +374,21 @@ bool steam_utils_is_steam_china_launcher()
     return u->IsSteamChinaLauncher();
 }
 
-SteamUtilsApiCallCompleted steam_utils_is_api_call_completed(std::uint64_t steam_api_call)
+std::optional<bool> steam_utils_is_api_call_completed(std::uint64_t steam_api_call)
 {
-    STEAM_GUARD_RET({});
-
-    SteamUtilsApiCallCompleted out {};
-    out.ok = false;
-    out.failed = false;
+    STEAM_GUARD_RET(std::nullopt);
 
     ISteamUtils* u = steam_utils_iface();
     if (!u)
-        return out;
+        return std::nullopt;
 
     bool failed = false;
     const bool ok = u->IsAPICallCompleted((SteamAPICall_t)steam_api_call, &failed);
 
-    out.ok = ok;
-    out.failed = failed;
-    return out;
+    if (!ok)
+        return std::nullopt;
+
+    return failed;
 }
 
 bool steam_utils_init_filter_text()
@@ -418,22 +401,17 @@ bool steam_utils_init_filter_text()
     return u->InitFilterText();
 }
 
-SteamUtilsFilterTextResult steam_utils_filter_text(
+std::optional<SteamUtilsFilterTextResult> steam_utils_filter_text(
     SteamUtilsTextFilteringContext context,
     std::uint64_t source_steam_id,
     std::string_view input_message
 )
 {
-    STEAM_GUARD_RET({});
-
-    SteamUtilsFilterTextResult out {};
-    out.ok = false;
-    out.characters_filtered = 0;
-    out.filtered_text = "";
+    STEAM_GUARD_RET(std::nullopt);
 
     ISteamUtils* u = steam_utils_iface();
     if (!u)
-        return out;
+        return std::nullopt;
 
     // Output buffer must be at least strlen(input)+1 (filtered text is the same length).
     std::string msg(input_message);
@@ -449,7 +427,7 @@ SteamUtilsFilterTextResult steam_utils_filter_text(
         (uint32)buf.size()
     );
 
-    out.ok = true;
+    SteamUtilsFilterTextResult out{};
     out.characters_filtered = changed;
     out.filtered_text = std::string(buf.data());
     return out;
@@ -605,23 +583,19 @@ bool steam_utils_show_floating_gamepad_text_input(
     );
 }
 
-gm_structs::SteamUtilsApiCallResult steam_utils_get_api_call_result(
-    std::uint64_t steam_api_call, int callback_expected, gm::wire::GMBuffer out_callback, int out_callback_size
+std::optional<bool> steam_utils_get_api_call_result(
+    std::uint64_t steam_api_call, std::int32_t callback_expected, gm::wire::GMBuffer out_callback, std::int32_t out_callback_size
 )
 {
-    STEAM_GUARD_RET({});
-
-    gm_structs::SteamUtilsApiCallResult out {};
-    out.ok = false;
-    out.failed = false;
+    STEAM_GUARD_RET(std::nullopt);
 
     ISteamUtils* u = steam_utils_iface();
     if (!u)
-        return out;
+        return std::nullopt;
 
     if (out_callback_size <= 0) {
         steam_set_last_error("GetApiCallResult: out_callback_size must be > 0.");
-        return out;
+        return std::nullopt;
     }
 
     std::vector<std::uint8_t> tmp;
@@ -632,15 +606,13 @@ gm_structs::SteamUtilsApiCallResult steam_utils_get_api_call_result(
     const bool ok
         = u->GetAPICallResult((SteamAPICall_t)steam_api_call, tmp.data(), (int)tmp.size(), callback_expected, &failed);
 
-    out.ok = ok;
-    out.failed = failed;
+    if (!ok)
+        return std::nullopt;
 
-    if (ok) {
-        auto w = out_callback.getWriter();
-        w.writeBytes((const char*)tmp.data(), (int)tmp.size());
-    }
-    
-    return out;
+    auto w = out_callback.getWriter();
+    w.writeBytes((const char*)tmp.data(), (int)tmp.size());
+
+    return failed;
 }
 
 void steam_utils_dismiss_floating_gamepad_text_input()

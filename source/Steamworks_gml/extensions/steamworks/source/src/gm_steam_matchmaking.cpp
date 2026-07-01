@@ -6,6 +6,7 @@
 
 #include <algorithm>
 #include <cstdint>
+#include <optional>
 #include <string>
 #include <string_view>
 #include <vector>
@@ -48,7 +49,7 @@ static inline gm_structs::SteamMatchmakingLobbyChatUpdate mm_fromNative(const Lo
     out.lobby_id = (std::uint64_t)e.m_ulSteamIDLobby;
     out.user_changed_id = (std::uint64_t)e.m_ulSteamIDUserChanged;
     out.making_change_id = (std::uint64_t)e.m_ulSteamIDMakingChange;
-    out.chat_member_state_change = (std::uint32_t)e.m_rgfChatMemberStateChange;
+    out.chat_member_state_change = static_cast<gm_enums::SteamMatchmakingChatMemberStateChange>(e.m_rgfChatMemberStateChange);
     return out;
 }
 
@@ -57,8 +58,8 @@ static inline gm_structs::SteamMatchmakingLobbyChatMsg mm_fromNative(const Lobby
     gm_structs::SteamMatchmakingLobbyChatMsg out{};
     out.lobby_id = (std::uint64_t)e.m_ulSteamIDLobby;
     out.sender_id = (std::uint64_t)e.m_ulSteamIDUser;
-    out.chat_entry_type = (std::int32_t)e.m_eChatEntryType;
-    out.message_size = 0;
+    out.chat_entry_type = (gm_enums::SteamFriendsChatEntryType)e.m_eChatEntryType;
+    out.chat_id = e.m_iChatID;
     return out;
 }
 
@@ -177,7 +178,7 @@ static inline gm_structs::SteamMatchmakingLobbyMatchList mm_fromNative(const Lob
     return out;
 }
 
-void steam_matchmaking_create_lobby(gm_enums::SteamMatchmakingLobbyType lobby_type, std::int32_t max_members,  const std::optional<gm::wire::GMFunction>& callback)
+void steam_matchmaking_create_lobby(gm_enums::SteamMatchmakingLobbyType lobby_type, std::int32_t max_members,  const gm::wire::GMFunction& callback)
 {
     STEAM_GUARD();
 
@@ -185,14 +186,11 @@ void steam_matchmaking_create_lobby(gm_enums::SteamMatchmakingLobbyType lobby_ty
     if (!mm) return;
 
     SteamAPICall_t call = mm->CreateLobby((ELobbyType)(int)lobby_type, (int)max_members);
-    if(callback)
-    {
-        auto* h = new steam_async::CallResult<gm_structs::SteamMatchmakingLobbyCreated, LobbyCreated_t>(callback.value(), &mm_fromNative);
-        h->set(call);
-    }
+    auto* h = new steam_async::CallResult<gm_structs::SteamMatchmakingLobbyCreated, LobbyCreated_t>(callback, &mm_fromNative);
+    h->set(call);
 }
 
-void steam_matchmaking_join_lobby(std::uint64_t lobby_id,  const std::optional<gm::wire::GMFunction>& callback)
+void steam_matchmaking_join_lobby(std::uint64_t lobby_id,  const gm::wire::GMFunction& callback)
 {
     STEAM_GUARD();
 
@@ -200,14 +198,11 @@ void steam_matchmaking_join_lobby(std::uint64_t lobby_id,  const std::optional<g
     if (!mm) return;
 
     SteamAPICall_t call = mm->JoinLobby(steam_id_from_u64(lobby_id));
-    if(callback)
-    {
-        auto* h = new steam_async::CallResult<gm_structs::SteamMatchmakingLobbyEnter, LobbyEnter_t>(callback.value(), &mm_fromNative);
-        h->set(call);
-    }
+    auto* h = new steam_async::CallResult<gm_structs::SteamMatchmakingLobbyEnter, LobbyEnter_t>(callback, &mm_fromNative);
+    h->set(call);
 }
 
-void steam_matchmaking_request_lobby_list( const std::optional<gm::wire::GMFunction>& callback)
+void steam_matchmaking_request_lobby_list( const gm::wire::GMFunction& callback)
 {
     STEAM_GUARD();
 
@@ -215,11 +210,8 @@ void steam_matchmaking_request_lobby_list( const std::optional<gm::wire::GMFunct
     if (!mm) return;
 
     SteamAPICall_t call = mm->RequestLobbyList();
-    if(callback)
-    {
-        auto* h = new steam_async::CallResult<gm_structs::SteamMatchmakingLobbyMatchList, LobbyMatchList_t>(callback.value(), &mm_fromNative);
-        h->set(call);
-    }
+    auto* h = new steam_async::CallResult<gm_structs::SteamMatchmakingLobbyMatchList, LobbyMatchList_t>(callback, &mm_fromNative);
+    h->set(call);
 }
 
 void steam_matchmaking_add_request_lobby_list_string_filter(std::string_view key, std::string_view value, gm_enums::SteamMatchmakingLobbyComparison comparison)
@@ -423,39 +415,33 @@ bool steam_matchmaking_send_lobby_chat_msg(std::uint64_t lobby_id, gm::wire::GMB
     return mm->SendLobbyChatMsg(steam_id_from_u64(lobby_id), (const void*)msg.data(), bytes);
 }
 
-gm_structs::SteamMatchmakingLobbyChatEntry steam_matchmaking_get_lobby_chat_entry(std::uint64_t lobby_id, std::int32_t chat_id, gm::wire::GMBuffer out_buffer, std::int32_t out_max_bytes)
+std::optional<gm_structs::SteamMatchmakingLobbyChatEntry> steam_matchmaking_get_lobby_chat_entry(std::uint64_t lobby_id, std::int32_t chat_id, gm::wire::GMBuffer out_buffer, std::int32_t out_max_bytes)
 {
-    gm_structs::SteamMatchmakingLobbyChatEntry out{};
-    out.ok = false;
-    out.bytes = 0;
-    out.sender_id = 0;
-    out.entry_type = 0;
-
-    STEAM_GUARD_RET(out);
+    STEAM_GUARD_RET(std::nullopt);
 
     ISteamMatchmaking* mm = steam_matchmaking_iface();
-    if (!mm) return out;
-    if (out_max_bytes <= 0) return out;
+    if (!mm) return std::nullopt;
+    if (out_max_bytes <= 0) return std::nullopt;
 
     CSteamID sender;
     EChatEntryType type = k_EChatEntryTypeInvalid;
 
     std::vector<std::uint8_t> tmp((size_t)out_max_bytes);
     int r = mm->GetLobbyChatEntry(steam_id_from_u64(lobby_id), (int)chat_id, &sender, tmp.data(), out_max_bytes, &type);
-    if (r <= 0) return out;
+    if (r <= 0) return std::nullopt;
 
     if ((std::uint64_t)r > out_buffer.length()) {
         steam_set_last_error("steam_matchmaking_get_lobby_chat_entry: output buffer too small for chat entry.");
-        return out;
+        return std::nullopt;
     }
 
     auto w = out_buffer.getWriter();
     w.writeBytes((const char*)tmp.data(), r);
 
-    out.ok = true;
+    gm_structs::SteamMatchmakingLobbyChatEntry out{};
     out.bytes = (std::uint32_t)r;
     out.sender_id = (std::uint64_t)sender.ConvertToUint64();
-    out.entry_type = (std::int32_t)type;
+    out.entry_type = static_cast<gm_enums::SteamFriendsChatEntryType>((int)type);
     return out;
 }
 
@@ -512,25 +498,19 @@ bool steam_matchmaking_set_linked_lobby(std::uint64_t steam_id_lobby, std::uint6
 }
 
 
-gm_structs::SteamMatchmakingLobbyGameServer steam_matchmaking_get_lobby_game_server(std::uint64_t steam_id_lobby)
+std::optional<gm_structs::SteamMatchmakingLobbyGameServer> steam_matchmaking_get_lobby_game_server(std::uint64_t steam_id_lobby)
 {
-    gm_structs::SteamMatchmakingLobbyGameServer out{};
-    out.ok = false;
-    out.ip = 0;
-    out.port = 0;
-    out.steam_id_gs = 0;
-
-    STEAM_GUARD_RET(out);
+    STEAM_GUARD_RET(std::nullopt);
     ISteamMatchmaking* mm = steam_matchmaking_iface();
-    if (!mm) return out;
+    if (!mm) return std::nullopt;
 
     uint32 ip = 0;
     uint16 port = 0;
     CSteamID gs;
     if (!mm->GetLobbyGameServer(CSteamID(steam_id_lobby), &ip, &port, &gs))
-        return out;
+        return std::nullopt;
 
-    out.ok = true;
+    gm_structs::SteamMatchmakingLobbyGameServer out{};
     out.ip = (std::uint32_t)ip;
     out.port = (std::uint16_t)port;
     out.steam_id_gs = (std::uint64_t)gs.ConvertToUint64();

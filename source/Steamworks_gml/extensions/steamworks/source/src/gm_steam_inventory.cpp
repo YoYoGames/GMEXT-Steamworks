@@ -78,7 +78,7 @@ static inline void inv_rr_erase(int32 rh)
 
 // AddPromoItem -> returns result handle (int32)
 int32 steam_inventory_add_promo_item(std::uint32_t item_def_id,
-                                    const std::optional<gm::wire::GMFunction>& callback)
+                                    const gm::wire::GMFunction& callback)
 {
     STEAM_GUARD_RET((int32)k_SteamInventoryResultInvalid);
 
@@ -90,13 +90,13 @@ int32 steam_inventory_add_promo_item(std::uint32_t item_def_id,
     (void)ok;
 
     const int32 out = to_i32(rh);
-    if (callback) inv_rr_register_once(out, callback.value());
+    inv_rr_register_once(out, callback);
     return out;
 }
 
 int32 steam_inventory_add_promo_items(const std::vector<std::uint32_t>& item_def_ids,
                                      std::uint32_t num_item_defs,
-                                     const std::optional<gm::wire::GMFunction>& callback)
+                                     const gm::wire::GMFunction& callback)
 {
     STEAM_GUARD_RET((int32)k_SteamInventoryResultInvalid);
 
@@ -115,7 +115,7 @@ int32 steam_inventory_add_promo_items(const std::vector<std::uint32_t>& item_def
     inv->AddPromoItems(&rh, defs.data(), n);
 
     const int32 out = to_i32(rh);
-    if (callback) inv_rr_register_once(out, callback.value());
+    inv_rr_register_once(out, callback);
     return out;
 }
 
@@ -131,7 +131,7 @@ bool steam_inventory_check_result_steam_id(int32 result_handle, std::uint64_t st
 
 int32 steam_inventory_consume_item(std::uint64_t item_instance_id,
                                   std::uint32_t quantity,
-                                  const std::optional<gm::wire::GMFunction>& callback)
+                                  const gm::wire::GMFunction& callback)
 {
     STEAM_GUARD_RET((int32)k_SteamInventoryResultInvalid);
 
@@ -142,26 +142,21 @@ int32 steam_inventory_consume_item(std::uint64_t item_instance_id,
     inv->ConsumeItem(&rh, inst_from_u64(item_instance_id), (uint32)quantity);
 
     const int32 out = to_i32(rh);
-    if (callback) inv_rr_register_once(out, callback.value());
+    inv_rr_register_once(out, callback);
     return out;
 }
 
-SteamInventoryDeserializeResult steam_inventory_deserialize_result(GMBuffer data, std::uint32_t data_size)
+std::optional<SteamInventoryDeserializeResult> steam_inventory_deserialize_result(GMBuffer data, std::uint32_t data_size)
 {
-    STEAM_GUARD_RET({});
-
-    SteamInventoryDeserializeResult out{};
-    out.ok = false;
-    out.result_handle = (int32)k_SteamInventoryResultInvalid;
-    out.status = SteamApiResult::Fail;
+    STEAM_GUARD_RET(std::nullopt);
 
     ISteamInventory* inv = steam_inventory_iface();
-    if (!inv) return out;
+    if (!inv) return std::nullopt;
 
     if (data_size == 0)
     {
         steam_set_last_error("DeserializeResult: data_size must be > 0.");
-        return out;
+        return std::nullopt;
     }
 
     std::vector<std::uint8_t> buf((size_t)data_size);
@@ -171,7 +166,10 @@ SteamInventoryDeserializeResult steam_inventory_deserialize_result(GMBuffer data
     SteamInventoryResult_t rh = k_SteamInventoryResultInvalid;
     const bool ok = inv->DeserializeResult(&rh, buf.data(), (uint32)buf.size(), false);
 
-    out.ok = ok;
+    if (!ok)
+        return std::nullopt;
+
+    SteamInventoryDeserializeResult out{};
     out.result_handle = to_i32(rh);
     out.status = (SteamApiResult)(int)inv->GetResultStatus(rh);
     return out;
@@ -198,39 +196,32 @@ void steam_inventory_destroy_result(int32 result_handle)
 }
 
 int32 steam_inventory_exchange_items(
-    const std::vector<std::uint32_t>& generate_item_defs,
-    const std::vector<std::uint32_t>& generate_qty,
-    std::uint32_t generate_len,
-    const std::vector<std::uint64_t>& destroy_instance_ids,
-    const std::vector<std::uint32_t>& destroy_qty,
-    std::uint32_t destroy_len,
-    const std::optional<gm::wire::GMFunction>& callback)
+    const std::vector<gm_structs::SteamInventoryItemDefQuantity>& generate_items,
+    const std::vector<gm_structs::SteamInventoryItemInstanceQuantity>& destroy_items,
+    const gm::wire::GMFunction& callback)
 {
     STEAM_GUARD_RET((int32)k_SteamInventoryResultInvalid);
 
     ISteamInventory* inv = steam_inventory_iface();
     if (!inv) return (int32)k_SteamInventoryResultInvalid;
 
-    const uint32 genN = (uint32)std::min<std::size_t>(generate_item_defs.size(), (size_t)generate_len);
-    const uint32 dstN = (uint32)std::min<std::size_t>(destroy_instance_ids.size(), (size_t)destroy_len);
-
-    if (genN == 0 || dstN == 0) return (int32)k_SteamInventoryResultInvalid;
-
     std::vector<SteamItemDef_t> genDefs;
-    genDefs.reserve(genN);
-    for (uint32 i = 0; i < genN; ++i) genDefs.push_back((SteamItemDef_t)generate_item_defs[(size_t)i]);
-
     std::vector<uint32> genQty;
-    genQty.reserve(genN);
-    for (uint32 i = 0; i < genN; ++i) genQty.push_back((uint32)(i < generate_qty.size() ? generate_qty[(size_t)i] : 1));
+    for (auto& item : generate_items) {
+        genDefs.push_back((SteamItemDef_t)item.itemdef_id);
+        genQty.push_back((uint32)item.quantity);
+    }
+    const uint32 genN = (uint32)genDefs.size();
 
     std::vector<SteamItemInstanceID_t> dstIds;
-    dstIds.reserve(dstN);
-    for (uint32 i = 0; i < dstN; ++i) dstIds.push_back(inst_from_u64(destroy_instance_ids[(size_t)i]));
-
     std::vector<uint32> dstQty;
-    dstQty.reserve(dstN);
-    for (uint32 i = 0; i < dstN; ++i) dstQty.push_back((uint32)(i < destroy_qty.size() ? destroy_qty[(size_t)i] : 1));
+    for (auto& item : destroy_items) {
+        dstIds.push_back((SteamItemInstanceID_t)item.item_instance_id);
+        dstQty.push_back((uint32)item.quantity);
+    }
+    const uint32 dstN = (uint32)dstIds.size();
+
+    if (genN == 0 || dstN == 0) return (int32)k_SteamInventoryResultInvalid;
 
     SteamInventoryResult_t rh = k_SteamInventoryResultInvalid;
     inv->ExchangeItems(&rh,
@@ -238,36 +229,33 @@ int32 steam_inventory_exchange_items(
         dstIds.data(), dstQty.data(), dstN);
 
     const int32 out = to_i32(rh);
-    if (callback) inv_rr_register_once(out, callback.value());
+    inv_rr_register_once(out, callback);
     return out;
 }
 
-int32 steam_inventory_generate_items(const std::vector<std::uint32_t>& item_defs,
-                                    const std::vector<std::uint32_t>& quantities,
-                                    std::uint32_t count,
-                                    const std::optional<gm::wire::GMFunction>& callback)
+int32 steam_inventory_generate_items(const std::vector<gm_structs::SteamInventoryItemDefQuantity>& items,
+                                    const gm::wire::GMFunction& callback)
 {
     STEAM_GUARD_RET((int32)k_SteamInventoryResultInvalid);
 
     ISteamInventory* inv = steam_inventory_iface();
     if (!inv) return (int32)k_SteamInventoryResultInvalid;
 
-    const uint32 n = (uint32)std::min<std::size_t>(item_defs.size(), (size_t)count);
-    if (n == 0) return (int32)k_SteamInventoryResultInvalid;
-
     std::vector<SteamItemDef_t> defs;
-    defs.reserve(n);
-    for (uint32 i = 0; i < n; ++i) defs.push_back((SteamItemDef_t)item_defs[(size_t)i]);
-
     std::vector<uint32> qty;
-    qty.reserve(n);
-    for (uint32 i = 0; i < n; ++i) qty.push_back((uint32)(i < quantities.size() ? quantities[(size_t)i] : 1));
+    for (auto& item : items) {
+        defs.push_back((SteamItemDef_t)item.itemdef_id);
+        qty.push_back((uint32)item.quantity);
+    }
+    const uint32 n = (uint32)defs.size();
+
+    if (n == 0) return (int32)k_SteamInventoryResultInvalid;
 
     SteamInventoryResult_t rh = k_SteamInventoryResultInvalid;
     inv->GenerateItems(&rh, defs.data(), qty.data(), n);
 
     const int32 out = to_i32(rh);
-    if (callback) inv_rr_register_once(out, callback.value());
+    inv_rr_register_once(out, callback);
     return out;
 }
 
@@ -284,38 +272,26 @@ int32 steam_inventory_get_all_items()
     return to_i32(rh);
 }
 
-SteamInventoryResultItems steam_inventory_get_result_items(int32 result_handle)
+std::optional<SteamInventoryResultItems> steam_inventory_get_result_items(int32 result_handle)
 {
-    STEAM_GUARD_RET({});
-
-    SteamInventoryResultItems out{};
-    out.ok = false;
-    out.count = 0;
-    out.item_instance_ids = {};
-    out.item_def_ids = {};
-    out.quantities = {};
-    out.flags = {};
+    STEAM_GUARD_RET(std::nullopt);
 
     ISteamInventory* inv = steam_inventory_iface();
-    if (!inv) return out;
+    if (!inv) return std::nullopt;
 
     uint32 count = 0;
     const bool okCount = inv->GetResultItems(make_result_handle(result_handle), nullptr, &count);
     if (!okCount || count == 0)
-    {
-        out.ok = okCount;
-        out.count = 0;
-        return out;
-    }
+        return std::nullopt;
 
     std::vector<SteamItemDetails_t> items((size_t)count);
     const bool ok = inv->GetResultItems(make_result_handle(result_handle), items.data(), &count);
 
-    out.ok = ok;
+    if (!ok || count == 0)
+        return std::nullopt;
+
+    SteamInventoryResultItems out{};
     out.count = count;
-
-    if (!ok || count == 0) return out;
-
     out.item_instance_ids.reserve(count);
     out.item_def_ids.reserve(count);
     out.quantities.reserve(count);
@@ -416,7 +392,7 @@ std::vector<std::uint32_t> steam_inventory_get_item_definition_ids(std::uint32_t
 }
 
 int32 steam_inventory_get_items_by_id(const std::vector<std::uint64_t>& item_instance_ids,
-                                     const std::optional<gm::wire::GMFunction>& callback)
+                                     const gm::wire::GMFunction& callback)
 {
     STEAM_GUARD_RET((int32)k_SteamInventoryResultInvalid);
 
@@ -435,41 +411,36 @@ int32 steam_inventory_get_items_by_id(const std::vector<std::uint64_t>& item_ins
     inv->GetItemsByID(&rh, ids.data(), n);
 
     const int32 out = to_i32(rh);
-    if (callback) inv_rr_register_once(out, callback.value());
+    inv_rr_register_once(out, callback);
     return out;
 }
 
-SteamInventorySerializeResult steam_inventory_serialize_result(int32 result_handle, GMBuffer out_data, std::uint32_t out_capacity)
+std::optional<std::uint32_t> steam_inventory_serialize_result(std::int32_t result_handle, GMBuffer out_data, std::uint32_t out_capacity)
 {
-    STEAM_GUARD_RET({});
-
-    SteamInventorySerializeResult out{};
-    out.ok = false;
-    out.bytes_written = 0;
+    STEAM_GUARD_RET(std::nullopt);
 
     ISteamInventory* inv = steam_inventory_iface();
-    if (!inv) return out;
+    if (!inv) return std::nullopt;
 
     if (out_capacity == 0)
     {
         steam_set_last_error("SerializeResult: out_capacity must be > 0.");
-        return out;
+        return std::nullopt;
     }
 
     std::vector<std::uint8_t> buf((size_t)out_capacity);
     uint32 written = out_capacity;
 
-    const bool ok = inv->SerializeResult(make_result_handle(result_handle), buf.data(), &written);
-    out.ok = ok;
-    out.bytes_written = ok ? written : 0;
+    if (!inv->SerializeResult(make_result_handle(result_handle), buf.data(), &written))
+        return std::nullopt;
 
-    if (ok && written > 0)
+    if (written > 0)
     {
         auto w = out_data.getWriter();
         w.writeBytes((const char*)buf.data(), (int)written);
     }
 
-    return out;
+    return (std::uint32_t)written;
 }
 
 //uint32 steam_inventory_get_result_item_properties_num(
@@ -506,22 +477,18 @@ std::vector<std::string> steam_inventory_get_result_item_property_keys_array(int
     return out;
 }
 
-SteamInventoryItemProperty steam_inventory_get_result_item_property(
-    int32 result_handle,
+std::optional<std::string> steam_inventory_get_result_item_property(
+    std::int32_t result_handle,
     std::uint32_t item_index,
     std::string_view property_name)
 {
-    STEAM_GUARD_RET({});
-
-    SteamInventoryItemProperty out{};
-    out.ok = false;
-    out.value = "";
+    STEAM_GUARD_RET(std::nullopt);
 
     ISteamInventory* inv = steam_inventory_iface();
-    if (!inv) return out;
+    if (!inv) return std::nullopt;
 
     std::string prop(property_name);
-    if (prop.empty()) return out;
+    if (prop.empty()) return std::nullopt;
 
     uint32 needed = 0;
 
@@ -536,7 +503,7 @@ SteamInventoryItemProperty steam_inventory_get_result_item_property(
 
     // Some SDK builds return false on probe; if needed==0, bail.
     (void)ok;
-    if (needed == 0) return out;
+    if (needed == 0) return std::nullopt;
 
     std::vector<char> buf((size_t)needed);
     uint32 size = needed;
@@ -549,9 +516,10 @@ SteamInventoryItemProperty steam_inventory_get_result_item_property(
         &size
     );
 
-    out.ok = ok;
-    if (ok) out.value = std::string(buf.data());
-    return out;
+    if (!ok)
+        return std::nullopt;
+
+    return std::string(buf.data());
 }
 
 std::uint32_t steam_inventory_get_num_items_with_prices()
@@ -674,7 +642,7 @@ bool steam_inventory_set_property_float(int32 result_handle,
 }
 
 int32 steam_inventory_submit_update_properties(int32 result_handle,
-                                              const std::optional<gm::wire::GMFunction>& callback)
+                                              const gm::wire::GMFunction& callback)
 {
     STEAM_GUARD_RET((int32)k_SteamInventoryResultInvalid);
 
@@ -685,14 +653,14 @@ int32 steam_inventory_submit_update_properties(int32 result_handle,
     inv->SubmitUpdateProperties(make_result_handle(result_handle), &rhOut);
 
     const int32 out = to_i32(rhOut);
-    if (callback) inv_rr_register_once(out, callback.value());
+    inv_rr_register_once(out, callback);
     return out;
 }
 
 int32 steam_inventory_transfer_item_quantity(std::uint64_t item_instance_id_source,
                                              std::uint32_t quantity,
                                              std::uint64_t item_instance_id_dest,
-                                             const std::optional<gm::wire::GMFunction>& callback)
+                                             const gm::wire::GMFunction& callback)
 {
     STEAM_GUARD_RET((int32)k_SteamInventoryResultInvalid);
 
@@ -707,12 +675,12 @@ int32 steam_inventory_transfer_item_quantity(std::uint64_t item_instance_id_sour
     );
 
     const int32 out = to_i32(rh);
-    if (callback) inv_rr_register_once(out, callback.value());
+    inv_rr_register_once(out, callback);
     return out;
 }
 
 int32 steam_inventory_trigger_item_drop(std::uint32_t item_def_id,
-                                       const std::optional<gm::wire::GMFunction>& callback)
+                                       const gm::wire::GMFunction& callback)
 {
     STEAM_GUARD_RET((int32)k_SteamInventoryResultInvalid);
 
@@ -723,11 +691,11 @@ int32 steam_inventory_trigger_item_drop(std::uint32_t item_def_id,
     inv->TriggerItemDrop(&rh, (SteamItemDef_t)item_def_id);
 
     const int32 out = to_i32(rh);
-    if (callback) inv_rr_register_once(out, callback.value());
+    inv_rr_register_once(out, callback);
     return out;
 }
 
-int32 steam_inventory_grant_promo_items(const std::optional<gm::wire::GMFunction>& callback)
+int32 steam_inventory_grant_promo_items(const gm::wire::GMFunction& callback)
 {
     STEAM_GUARD_RET((int32)k_SteamInventoryResultInvalid);
 
@@ -738,26 +706,22 @@ int32 steam_inventory_grant_promo_items(const std::optional<gm::wire::GMFunction
     inv->GrantPromoItems(&rh);
 
     const int32 out = to_i32(rh);
-    if (callback) inv_rr_register_once(out, callback.value());
+    inv_rr_register_once(out, callback);
     return out;
 }
 
-SteamInventoryDefProperty steam_inventory_get_item_definition_property(
+std::optional<std::string> steam_inventory_get_item_definition_property(
     std::uint32_t item_def_id,
     std::string_view property_name)
 {
-    STEAM_GUARD_RET({});
-
-    SteamInventoryDefProperty out{};
-    out.ok = false;
-    out.value = "";
+    STEAM_GUARD_RET(std::nullopt);
 
     ISteamInventory* inv = steam_inventory_iface();
-    if (!inv) return out;
+    if (!inv) return std::nullopt;
 
     std::string prop(property_name);
     if (prop.empty())
-        return out;
+        return std::nullopt;
 
     // Probe required size first
     uint32 needed = 0;
@@ -769,7 +733,7 @@ SteamInventoryDefProperty steam_inventory_get_item_definition_property(
     );
 
     if (needed == 0)
-        return out;
+        return std::nullopt;
 
     std::vector<char> buf((size_t)needed);
     uint32 size = needed;
@@ -781,11 +745,10 @@ SteamInventoryDefProperty steam_inventory_get_item_definition_property(
         &size
     );
 
-    out.ok = ok;
-    if (ok)
-        out.value = std::string(buf.data());
+    if (!ok)
+        return std::nullopt;
 
-    return out;
+    return std::string(buf.data());
 }
 
 static inline void _split_csv_to_strings(const std::string& csv, std::vector<std::string>& out)
@@ -847,54 +810,36 @@ std::vector<std::string> steam_inventory_get_item_definition_property_keys(std::
     return keys;
 }
 
-SteamInventoryItemPrice steam_inventory_get_item_price(std::uint32_t item_def_id)
+std::optional<SteamInventoryItemPrice> steam_inventory_get_item_price(std::uint32_t item_def_id)
 {
-    STEAM_GUARD_RET({});
-
-    SteamInventoryItemPrice out{};
-    out.ok = false;
-    out.current_price = (long long)0;
-    out.base_price = (long long)0;
+    STEAM_GUARD_RET(std::nullopt);
 
     ISteamInventory* inv = steam_inventory_iface();
-    if (!inv) return out;
+    if (!inv) return std::nullopt;
 
     uint64 cur = 0;
     uint64 base = 0;
 
     const bool ok = inv->GetItemPrice((SteamItemDef_t)item_def_id, &cur, &base);
-    out.ok = ok;
+    if (!ok)
+        return std::nullopt;
 
-    if (ok)
-    {
-        out.current_price = cur;
-        out.base_price = base;
-    }
-
+    SteamInventoryItemPrice out{};
+    out.current_price = cur;
+    out.base_price = base;
     return out;
 }
 
-SteamInventoryItemsWithPrices steam_inventory_get_items_with_prices(std::uint32_t max)
+std::vector<gm_structs::SteamInventoryItemWithPrice> steam_inventory_get_items_with_prices()
 {
     STEAM_GUARD_RET({});
 
-    SteamInventoryItemsWithPrices out{};
-    out.ok = false;
-    out.count = 0;
-
     ISteamInventory* inv = steam_inventory_iface();
-    if (!inv) return out;
+    if (!inv) return {};
 
-    if (max == 0) return out;
-
-    // Clamp to the actual number of items with prices so we never report or read
-    // garbage past what Steam filled.
-    const uint32 available = inv->GetNumItemsWithPrices();
-    const uint32 n = (max < available) ? max : available;
-    if (n == 0) {
-        out.ok = true;
-        return out;
-    }
+    const uint32 n = inv->GetNumItemsWithPrices();
+    if (n == 0)
+        return {};
 
     std::vector<SteamItemDef_t> itemDefs((size_t)n);
     std::vector<uint64> currentPrices((size_t)n);
@@ -906,23 +851,21 @@ SteamInventoryItemsWithPrices steam_inventory_get_items_with_prices(std::uint32_
         basePrices.data(),
         (uint32)n
     );
-    if (!ok) return out;
+    if (!ok) return {};
 
-    out.ok = true;
-    out.count = n;
-
-    out.item_def_ids.reserve((size_t)n);
-    out.current_prices.reserve((size_t)n);
-    out.base_prices.reserve((size_t)n);
+    std::vector<gm_structs::SteamInventoryItemWithPrice> v;
+    v.reserve((size_t)n);
 
     for (uint32 i = 0; i < n; ++i)
     {
-        out.item_def_ids.push_back((std::uint32_t)itemDefs[(size_t)i]);
-        out.current_prices.push_back((long long)currentPrices[(size_t)i]);
-        out.base_prices.push_back((long long)basePrices[(size_t)i]);
+        gm_structs::SteamInventoryItemWithPrice entry{};
+        entry.itemdef_id = (std::uint32_t)itemDefs[(size_t)i];
+        entry.current_price = (int64_t)currentPrices[(size_t)i];
+        entry.base_price = (int64_t)basePrices[(size_t)i];
+        v.push_back(std::move(entry));
     }
 
-    return out;
+    return v;
 }
 
 static std::mutex g_callbacks_mtx;
@@ -935,7 +878,7 @@ static inline SteamInventoryResultReady fromNative(const SteamInventoryResultRea
 {
     SteamInventoryResultReady out{};
     out.result_handle = (int32)e.m_handle;
-    out.result = (int32)e.m_result;
+    out.result = static_cast<SteamApiResult>((int)e.m_result);
     return out;
 }
 
@@ -1074,7 +1017,7 @@ static inline gm_structs::SteamInventoryStartPurchaseResult inventory_fromNative
     return out;
 }
 
-void steam_inventory_request_prices(const std::optional<gm::wire::GMFunction>& callback)
+void steam_inventory_request_prices(const gm::wire::GMFunction& callback)
 {
     STEAM_GUARD();
 
@@ -1083,43 +1026,32 @@ void steam_inventory_request_prices(const std::optional<gm::wire::GMFunction>& c
 
     SteamAPICall_t call = inv->RequestPrices();
 
-    if (callback)
-    {
-        auto* h = new steam_async::CallResult<gm_structs::SteamInventoryRequestPricesResult, SteamInventoryRequestPricesResult_t>(
-            callback.value(), &inventory_fromNative);
-        h->set(call);
-    }
+    auto* h = new steam_async::CallResult<gm_structs::SteamInventoryRequestPricesResult, SteamInventoryRequestPricesResult_t>(
+        callback, &inventory_fromNative);
+    h->set(call);
 }
 
-void steam_inventory_start_purchase(const std::vector<std::uint32_t>& item_def_ids,
-                                   const std::vector<std::uint32_t>& quantities,
-                                   std::uint32_t count,
-                                   const std::optional<gm::wire::GMFunction>& callback)
+void steam_inventory_start_purchase(const std::vector<gm_structs::SteamInventoryItemDefQuantity>& items,
+                                   const gm::wire::GMFunction& callback)
 {
     STEAM_GUARD();
 
     ISteamInventory* inv = steam_inventory_iface();
     if (!inv) return;
 
-    const uint32 n = (uint32)std::min<std::size_t>(item_def_ids.size(), (size_t)count);
-    if (n == 0) return;
-
     std::vector<SteamItemDef_t> defs;
-    defs.reserve(n);
-    for (uint32 i = 0; i < n; ++i)
-        defs.push_back((SteamItemDef_t)item_def_ids[(size_t)i]);
-
     std::vector<uint32> qty;
-    qty.reserve(n);
-    for (uint32 i = 0; i < n; ++i)
-        qty.push_back((uint32)(i < quantities.size() ? quantities[(size_t)i] : 1));
+    for (auto& item : items) {
+        defs.push_back((SteamItemDef_t)item.itemdef_id);
+        qty.push_back((uint32)item.quantity);
+    }
+    const uint32 n = (uint32)defs.size();
+
+    if (n == 0) return;
 
     SteamAPICall_t call = inv->StartPurchase(defs.data(), qty.data(), n);
 
-    if (callback)
-    {
-        auto* h = new steam_async::CallResult<gm_structs::SteamInventoryStartPurchaseResult, SteamInventoryStartPurchaseResult_t>(
-            callback.value(), &inventory_fromNative);
-        h->set(call);
-    }
+    auto* h = new steam_async::CallResult<gm_structs::SteamInventoryStartPurchaseResult, SteamInventoryStartPurchaseResult_t>(
+        callback, &inventory_fromNative);
+    h->set(call);
 }
