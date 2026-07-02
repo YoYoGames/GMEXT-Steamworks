@@ -374,17 +374,17 @@ gm_enums::SteamLeaderboardDisplayType steam_userstats_leaderboard_display_type(s
     );
 }
 
-SteamUserStatsDownloadedLeaderboardEntry steam_userstats_downloaded_leaderboard_entry(
+std::optional<SteamUserStatsDownloadedLeaderboardEntry> steam_userstats_downloaded_leaderboard_entry(
     std::uint64_t leaderboard_entries_handle,
     std::int32_t entry_index,
     std::int32_t max_details
 )
 {
-    STEAM_GUARD_RET({});
+    STEAM_GUARD_RET(std::nullopt);
 
     ISteamUserStats* s = steam_userstats_iface();
     if (!s)
-        return {};
+        return std::nullopt;
 
     const int max_details_clamped = std::min<int>(max_details, k_cLeaderboardDetailsMax);
 
@@ -400,7 +400,7 @@ SteamUserStatsDownloadedLeaderboardEntry steam_userstats_downloaded_leaderboard_
     );
 
     if (!ok)
-        return {};
+        return std::nullopt;
 
     SteamUserStatsDownloadedLeaderboardEntry out {};
     out.steam_id_user = static_cast<std::uint64_t>(entry.m_steamIDUser.ConvertToUint64());
@@ -412,17 +412,16 @@ SteamUserStatsDownloadedLeaderboardEntry steam_userstats_downloaded_leaderboard_
     details_vec.resize(static_cast<size_t>(n));
     out.details = std::move(details_vec);
 
-    out.ok = true;
     return out;
 }
 
-SteamUserStatsMostAchievedAchievementInfo steam_userstats_most_achieved_achievement_info()
+std::optional<SteamUserStatsMostAchievedAchievementInfo> steam_userstats_most_achieved_achievement_info()
 {
-    STEAM_GUARD_RET({});
+    STEAM_GUARD_RET(std::nullopt);
 
     ISteamUserStats* s = steam_userstats_iface();
     if (!s)
-        return {};
+        return std::nullopt;
 
     char nameBuf[256] = {};
     float percent = 0.0f;
@@ -431,24 +430,23 @@ SteamUserStatsMostAchievedAchievementInfo steam_userstats_most_achieved_achievem
     const bool ok = s->GetMostAchievedAchievementInfo(nameBuf, (uint32)sizeof(nameBuf), &percent, &achieved);
 
     if (!ok)
-        return {};
+        return std::nullopt;
 
     SteamUserStatsMostAchievedAchievementInfo out {};
     out.name = nameBuf;
     out.percent = percent;
     out.achieved = achieved;
-    out.ok = true;
     return out;
 }
 
-SteamUserStatsMostAchievedAchievementInfo
+std::optional<SteamUserStatsMostAchievedAchievementInfo>
 steam_userstats_next_most_achieved_achievement_info(std::int32_t iterator_prev)
 {
-    STEAM_GUARD_RET({});
+    STEAM_GUARD_RET(std::nullopt);
 
     ISteamUserStats* s = steam_userstats_iface();
     if (!s)
-        return {};
+        return std::nullopt;
 
     char nameBuf[256] = {};
     float percent = 0.0f;
@@ -458,13 +456,12 @@ steam_userstats_next_most_achieved_achievement_info(std::int32_t iterator_prev)
         = s->GetNextMostAchievedAchievementInfo(iterator_prev, nameBuf, (uint32)sizeof(nameBuf), &percent, &achieved);
 
     if (!ok)
-        return {};
+        return std::nullopt;
 
     SteamUserStatsMostAchievedAchievementInfo out {};
     out.name = nameBuf;
     out.percent = percent;
     out.achieved = achieved;
-    out.ok = true;
     return out;
 }
 
@@ -567,13 +564,13 @@ std::vector<double> steam_userstats_global_stat_history_double(std::string_view 
     return out;
 }
 
-gm_structs::SteamUserStatsIntMinMax steam_userstats_achievement_progress_int(std::string_view achievement_name, std::uint32_t cur_progress, std::uint32_t max_progress)
+std::optional<gm_structs::SteamUserStatsIntMinMax> steam_userstats_achievement_progress_int(std::string_view achievement_name, std::uint32_t cur_progress, std::uint32_t max_progress)
 {
-    STEAM_GUARD_RET({});
+    STEAM_GUARD_RET(std::nullopt);
 
     ISteamUserStats* s = steam_userstats_iface();
     if (!s)
-        return {};
+        return std::nullopt;
 
     (void)cur_progress;
     (void)max_progress;
@@ -582,22 +579,21 @@ gm_structs::SteamUserStatsIntMinMax steam_userstats_achievement_progress_int(std
     int32 minV = 0, maxV = 0;
     bool ok = s->GetAchievementProgressLimits(name.c_str(), &minV, &maxV);
     if (!ok)
-        return {};
+        return std::nullopt;
 
     gm_structs::SteamUserStatsIntMinMax out {};
     out.max = maxV;
     out.min = minV;
-    out.ok = true;
     return out;
 }
 
-gm_structs::SteamUserStatsFloatMinMax steam_userstats_achievement_progress_float(std::string_view achievement_name, float cur_progress, float max_progress)
+std::optional<gm_structs::SteamUserStatsFloatMinMax> steam_userstats_achievement_progress_float(std::string_view achievement_name, float cur_progress, float max_progress)
 {
-    STEAM_GUARD_RET({});
+    STEAM_GUARD_RET(std::nullopt);
 
     ISteamUserStats* s = steam_userstats_iface();
     if (!s)
-        return {};
+        return std::nullopt;
 
     (void)cur_progress;
     (void)max_progress;
@@ -606,12 +602,11 @@ gm_structs::SteamUserStatsFloatMinMax steam_userstats_achievement_progress_float
     float minV = 0.0f, maxV = 0.0f;
     bool ok = s->GetAchievementProgressLimits(name.c_str(), &minV, &maxV);
     if (!ok)
-        return {};
+        return std::nullopt;
 
     gm_structs::SteamUserStatsFloatMinMax out {};
     out.max = maxV;
     out.min = minV;
-    out.ok = true;
     return out;
 }
 

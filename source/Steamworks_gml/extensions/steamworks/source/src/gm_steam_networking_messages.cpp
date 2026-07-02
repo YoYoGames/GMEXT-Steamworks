@@ -136,28 +136,21 @@ std::int32_t steam_networking_messages_send_message_to_user(std::uint64_t steam_
     return (std::int32_t)r;
 }
 
-gm_structs::SteamNetworkingMessagesReceived steam_networking_messages_receive_one_on_channel(std::int32_t local_channel,
+std::optional<gm_structs::SteamNetworkingMessagesReceived> steam_networking_messages_receive_one_on_channel(std::int32_t local_channel,
                                                                                             gm::wire::GMBuffer out_data,
                                                                                             std::uint32_t max_bytes,
                                                                                             std::uint32_t offset)
 {
-    gm_structs::SteamNetworkingMessagesReceived out{};
-    out.ok = false;
-    out.steam_id_remote = 0;
-    out.channel = local_channel;
-    out.bytes_written = 0;
-    out.send_flags = 0;
-
-    STEAM_GUARD_RET(out);
+    STEAM_GUARD_RET(std::nullopt);
 
     ISteamNetworkingMessages* m = steam_networking_messages_iface();
-    if (!m) return out;
+    if (!m) return std::nullopt;
 
-    if (max_bytes == 0) return out;
+    if (max_bytes == 0) return std::nullopt;
 
     SteamNetworkingMessage_t* msg = nullptr;
     int n = m->ReceiveMessagesOnChannel((int)local_channel, &msg, 1);
-    if (n <= 0 || !msg) return out;
+    if (n <= 0 || !msg) return std::nullopt;
 
     const uint32 cb = (uint32)msg->m_cbSize;
     const std::uint64_t buf_len = out_data.length();
@@ -167,17 +160,18 @@ gm_structs::SteamNetworkingMessagesReceived steam_networking_messages_receive_on
         (std::uint64_t)offset + cb > buf_len) {
         steam_set_last_error("steam_networking_messages_receive_one_on_channel: output buffer too small for incoming message.");
         msg->Release();
-        return out;
+        return std::nullopt;
     }
 
     auto w = out_data.getWriter();
     w.skip(offset);
     w.writeBytes((const char*)msg->m_pData, (int)cb);
 
+    gm_structs::SteamNetworkingMessagesReceived out{};
     out.steam_id_remote = (std::uint64_t)msg->m_identityPeer.GetSteamID64();
+    out.channel = local_channel;
     out.bytes_written = cb;
     out.send_flags = (std::int32_t)msg->m_nFlags;
-    out.ok = true;
 
     msg->Release();
     return out;

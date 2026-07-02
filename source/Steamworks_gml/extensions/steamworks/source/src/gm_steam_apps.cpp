@@ -30,13 +30,13 @@ static inline ISteamApps* steam_apps_iface()
     return a;
 }
 
-SteamAppsDlcData steam_apps_get_dlc_data_by_index(std::int32_t dlc)
+std::optional<SteamAppsDlcData> steam_apps_get_dlc_data_by_index(std::int32_t dlc)
 {
-    STEAM_GUARD_RET({});
+    STEAM_GUARD_RET(std::nullopt);
 
     ISteamApps* a = steam_apps_iface();
     if (!a)
-        return {};
+        return std::nullopt;
 
     AppId_t appId = 0;
     bool available = false;
@@ -49,14 +49,13 @@ SteamAppsDlcData steam_apps_get_dlc_data_by_index(std::int32_t dlc)
 
     if (!ok) {
         steam_set_last_error("BGetDLCDataByIndex failed.");
-        return {};
+        return std::nullopt;
     }
 
     SteamAppsDlcData out{};
     out.app_id = (std::uint32_t)appId;
     out.available = available;
     out.name = std::string(nameBuf.data());
-    out.ok = true;
     return out;
 }
 
@@ -269,14 +268,14 @@ SteamAppsNumBetas steam_apps_get_num_betas()
     return out;
 }
 
-SteamAppsBetaInfo
+std::optional<SteamAppsBetaInfo>
 steam_apps_get_beta_info(std::int32_t beta_index)
 {
-    STEAM_GUARD_RET({});
+    STEAM_GUARD_RET(std::nullopt);
 
     ISteamApps* a = steam_apps_iface();
     if (!a)
-        return {};
+        return std::nullopt;
 
     uint32 cchBetaName = 1024;
     uint32 cchDescription = 1024;
@@ -299,14 +298,13 @@ steam_apps_get_beta_info(std::int32_t beta_index)
     );
 
     if (!success)
-        return {};
+        return std::nullopt;
 
     SteamAppsBetaInfo out{};
     out.flags = (std::uint32_t)flags;
     out.build_id = (std::uint32_t)buildId;
     out.beta_name = std::string(nameBuf.data());
     out.description = std::string(descBuf.data());
-    out.ok = true;
     return out;
 }
 
@@ -347,25 +345,24 @@ std::int32_t steam_apps_get_dlc_count()
     return (std::int32_t)a->GetDLCCount();
 }
 
-SteamAppsDlcDownloadProgress steam_apps_get_dlc_download_progress(std::uint32_t app_id)
+std::optional<SteamAppsDlcDownloadProgress> steam_apps_get_dlc_download_progress(std::uint32_t app_id)
 {
-    STEAM_GUARD_RET({});
+    STEAM_GUARD_RET(std::nullopt);
 
     ISteamApps* a = steam_apps_iface();
     if (!a)
-        return {};
+        return std::nullopt;
 
     uint64 downloaded = 0;
     uint64 total = 0;
     const bool ok = a->GetDlcDownloadProgress((AppId_t)app_id, &downloaded, &total);
 
     if (!ok)
-        return {};
+        return std::nullopt;
 
     SteamAppsDlcDownloadProgress out{};
     out.bytes_downloaded = (std::uint64_t)downloaded;
     out.bytes_total = (std::uint64_t)total;
-    out.ok = true;
     return out;
 }
 

@@ -240,38 +240,36 @@ std::int32_t steam_remote_storage_get_file_count()
     return (std::int32_t)rs->GetFileCount();
 }
 
-gm_structs::SteamRemoteStorageFileNameAndSize steam_remote_storage_get_file_name_and_size(std::int32_t index)
+std::optional<gm_structs::SteamRemoteStorageFileNameAndSize> steam_remote_storage_get_file_name_and_size(std::int32_t index)
 {
-    STEAM_GUARD_RET({});
+    STEAM_GUARD_RET(std::nullopt);
     ISteamRemoteStorage* rs = steam_remote_storage_iface();
-    if (!rs) return {};
+    if (!rs) return std::nullopt;
 
     int32 sz = 0;
     const char* name = rs->GetFileNameAndSize((int)index, &sz);
-    if (!name) return {};
+    if (!name) return std::nullopt;
 
     gm_structs::SteamRemoteStorageFileNameAndSize out{};
     out.file_name = name;
     out.file_size = (std::int32_t)sz;
-    out.ok = true;
     return out;
 }
 
-gm_structs::SteamRemoteStorageQuota steam_remote_storage_get_quota()
+std::optional<gm_structs::SteamRemoteStorageQuota> steam_remote_storage_get_quota()
 {
-    STEAM_GUARD_RET({});
+    STEAM_GUARD_RET(std::nullopt);
     ISteamRemoteStorage* rs = steam_remote_storage_iface();
-    if (!rs) return {};
+    if (!rs) return std::nullopt;
 
     uint64 total = 0, avail = 0;
     bool ok = rs->GetQuota(&total, &avail);
     if (!ok)
-        return {};
+        return std::nullopt;
 
     gm_structs::SteamRemoteStorageQuota out{};
     out.total_bytes = (std::uint64_t)total;
     out.available_bytes = (std::uint64_t)avail;
-    out.ok = true;
     return out;
 }
 
@@ -356,13 +354,13 @@ std::uint64_t steam_remote_storage_get_cached_ugc_handle(std::int32_t index)
     return (std::uint64_t)h;
 }
 
-gm_structs::SteamRemoteStorageUgcDetails
+std::optional<gm_structs::SteamRemoteStorageUgcDetails>
 steam_remote_storage_get_ugc_details(std::uint64_t ugc_handle)
 {
-    STEAM_GUARD_RET({});
+    STEAM_GUARD_RET(std::nullopt);
 
     ISteamRemoteStorage* rs = steam_remote_storage_iface();
-    if (!rs) return {};
+    if (!rs) return std::nullopt;
 
     AppId_t app = 0;
     char* name = nullptr;               // 👈 IMPORTANT
@@ -376,7 +374,7 @@ steam_remote_storage_get_ugc_details(std::uint64_t ugc_handle)
             &size,
             &owner))
     {
-        return {};
+        return std::nullopt;
     }
 
     gm_structs::SteamRemoteStorageUgcDetails out{};
@@ -386,7 +384,6 @@ steam_remote_storage_get_ugc_details(std::uint64_t ugc_handle)
     out.file_name = name ? name : "";
     out.steam_id_owner = (std::uint64_t)owner.ConvertToUint64();
 
-    out.ok = true;
     return out;
 }
 
