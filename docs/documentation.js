@@ -1867,9 +1867,7 @@
  * 
  * Called when an auth ticket has been validated.
  * 
- * @member {Real} steam_id The Steam ID of the entity that provided the auth ticket.
- * @member {Enum.SteamAuthSessionResponse} auth_session_response The result of the validation.
- * @member {Real} owner_steam_id The Steam ID that owns the game, this will be different from `steam_id` if the game is being accessed via Steam Family Sharing.
+ * @member {Struct.SteamUserValidateAuthTicketResponse} result The result of the operation.
  * @event_end
  * @function_end
  */
@@ -3052,9 +3050,7 @@
  * 
  * Triggered upon completion.
  * 
- * @member {Enum.SteamApiResult} result The result of the operation.
- * @member {Real} published_file_id The parent workshop item that the dependency was added to.
- * @member {Real} app_id The app/dlc.
+ * @member {Struct.SteamUgcAddAppDependencyResult} The result of the operation.
  * @event_end
  * 
  * @function_end 
@@ -3075,9 +3071,7 @@
  * 
  * Triggered upon completion.
  * 
- * @member {Enum.SteamApiResult} result The result of the operation.
- * @member {Real} published_file_id The parent workshop item that the dependency was added to.
- * @member {Real} child_published_file_id The child workshop item which was added as a dependency to the parent item.
+ * @member {Struct.SteamUgcAddUGCDependencyResult} result The result of the operation.
  * @event_end
  * @function_end
  */
@@ -3372,10 +3366,7 @@
  * 
  * Called when getting the app dependencies for an item.
  * 
- * @member {Enum.SteamApiResult} result The result of the operation.
- * @member {Real} published_file_id The workshop item to get app dependencies for.
- * @member {Array[Real]} app_ids Array of app dependencies.
- * @member {Real} total_num_app_dependencies Total app dependencies found.
+ * @member {Struct.SteamUgcGetAppDependenciesResult} result The result of the operation.
  * @event_end
  * 
  * @function_end
@@ -3650,11 +3641,9 @@
  * 
  * Triggered upon completion.
  * 
- * @member {Enum.SteamApiResult} result The result of the operation.
- * @member {Real} published_file_id The parent workshop item that the dependency was removed from.
- * @member {Real} app_id The app/dlc.
+ * @member {Struct.SteamUgcRemoveAppDependencyResult} result The result of the operation.
  * @event_end
- * @function_end 
+ * @function_end
  */
 
 /**
@@ -3672,11 +3661,9 @@
  * 
  * Triggered upon completion.
  * 
- * @member {Enum.SteamApiResult} result The result of the operation.
- * @member {Real} published_file_id The parent workshop item that the dependency was removed from.
- * @member {Real} child_published_file_id The child workshop item which was removed as a dependency from the parent item.
+ * @member {Struct.SteamUgcRemoveUGCDependencyResult} result The result of the operation.
  * @event_end
- * @function_end 
+ * @function_end
  */
 
 /**
@@ -4286,7 +4273,7 @@
  * 
  * Called when workshop item playtime tracking has started.
  * 
- * @member {Enum.SteamApiResult} result The result of the operation.
+ * @member {Struct.SteamUgcStartPlaytimeTrackingResult} result The result of the operation.
  * @event_end
  * 
  * @function_end
@@ -4309,7 +4296,7 @@
  * 
  * Called when workshop item playtime tracking has stopped.
  * 
- * @member {Enum.SteamApiResult} result The result of the operation.
+ * @member {Struct.SteamUgcStopPlaytimeTrackingResult} result The result of the operation.
  * @event_end
  * 
  * @function_end
@@ -4330,7 +4317,7 @@
  * 
  * Called when workshop item playtime tracking has stopped.
  * 
- * @member {Enum.SteamApiResult} result The result of the operation.
+ * @member {Struct.SteamUgcStopPlaytimeTrackingResult} result The result of the operation.
  * @event_end
  * @function_end
  */
@@ -5164,10 +5151,7 @@
  * 
  * Triggered as a result of an achievement icon that has been fetched.
  * 
- * @member {Real} game_id The Game ID this achievement is for.
- * @member {String} achievement_name The name of the achievement that this callback is for.
- * @member {Bool} achieved Whether the icon for the achieved (`true`) or unachieved (`false`) version.
- * @member {Real} icon_handle Handle to the image, which can be used with ${function.steam_utils_get_image_rgba} to get the image data. 0 means no image is set for the achievement.
+ * @member {Struct.SteamUserStatsAchievementIconFetched} result The result of the operation.
  * @event_end
  * @function_end
  */
@@ -5262,13 +5246,13 @@
  * @event_end
  * 
  * @event callback
- * @description > **Steamworks Callback**: ISteamUserStats::UserStatsUnloaded_t](https://partner.steamgames.com/doc/api/ISteamUserStats#UserStatsUnloaded_t)
+ * @description > **Steamworks Callback**: [ISteamUserStats::UserStatsUnloaded_t](https://partner.steamgames.com/doc/api/ISteamUserStats#UserStatsUnloaded_t)
  * 
  * Callback indicating that a user's stats have been unloaded.
  * 
  * Call ${function.steam_userstats_request_user_stats} again before accessing stats for this user.
  * 
- * @member {Real} steam_id_user User whose stats have been unloaded.
+ * @member {Struct.SteamUserStatsUnloaded} result The result of the operation.
  * @event_end
  * @function_end
  */
@@ -7043,7 +7027,7 @@
  *
  * This function gets the total number of local files synchronized by Steam Cloud.
  * 
- * Used for enumeartion with ${function.steam_remote_storage_get_file_name_and_size}.
+ * Used for enumeration with ${function.steam_remote_storage_get_file_name_and_size}.
  *
  * @returns {Real} The number of files present for the current user, including files in subfolders.
  * @function_end 
@@ -8822,8 +8806,7 @@
  * @description > **Steamworks Struct**: N / A
  *
  * This struct holds the information returned by ${function.steam_friends_get_clan_activity_counts}.
- *
- * @member {Bool} ok `true` if the data was successfully returned. `false` if the provided Steam ID is invalid or the local client does not have info about the Steam group and sets all the other parameters to 0.
+ * 
  * @member {Real} online The number of members that are online.
  * @member {Real} in_game The number of members that are in game (excluding those with their status set to offline).
  * @member {Real} chatting The number of members in the group chat room.
@@ -8847,8 +8830,7 @@
  * @description > **Steamworks Struct**: [ISteamFriends::FriendGameInfo_t](https://partner.steamgames.com/doc/api/ISteamFriends#FriendGameInfo_t)
  *
  * This struct holds information returned by ${function.steam_friends_get_friend_game_played}.
- *
- * @member {Bool} ok `true` if the user is a friend and is in a game; otherwise, `false`.
+ * 
  * @member {Real} game_id The game ID that the friend is playing.
  * @member {Real} game_ip_v4 The IP of the server the friend is playing on.
  * @member {Real} game_port The port of the server the friend is playing on.
@@ -8952,7 +8934,6 @@
  *
  * This struct holds metadata about a DLC.
  *
- * @member {Bool} ok Whether the request was successful.
  * @member {Real} app_id The App ID of the DLC.
  * @member {Bool} available Whether the DLC is currently available on the Steam store. Will be `false` if the DLC does not have a visible store page.
  * @member {String} name The name of the DLC.
@@ -9010,8 +8991,7 @@
  * @description > **Steamworks Struct**: N / A
  *
  * This struct holds details about an app beta branch.
- *
- * @member {Bool} ok `true` if passed in branch index is valid; `false` otherwise.
+ * 
  * @member {Real} flags Set of flags (${Enum.SteamBetaBranchFlags}) describing current branch state.
  * @member {Real} build_id Content BuildID set live on this branch.
  * @member {String} beta_name Beta branch name.
@@ -9024,8 +9004,7 @@
  * @description > **Steamworks Struct**: N / A
  *
  * This struct holds the download progress for optional DLC.
- *
- * @member {Bool} ok `true` if the specified DLC exists and is currently downloading; otherwise, `false`.
+ * 
  * @member {Real} bytes_downloaded The number of bytes downloaded.
  * @member {Real} bytes_total The total size of the download in bytes.
  * @struct_end 
@@ -9039,41 +9018,6 @@
  *
  * @member {Real} bytes_copied
  * @member {String} command_line
- * @struct_end 
- */
-
-/**
- * @struct SteamAppsInstallSize
- * @description > **Steamworks Struct**: [func](url)
- *
- * This struct 
- *
- * @member {Bool} ok
- * @member {Real} bytes_install_size
- * @member {Real} bytes_download_size
- * @struct_end 
- */
-
-/**
- * @struct SteamAppsDlcInstallDir
- * @description > **Steamworks Struct**: [func](url)
- *
- * This struct 
- *
- * @member {Real} bytes_copied
- * @member {String} path
- * @struct_end 
- */
-
-/**
- * @struct SteamAppsLanguageInfo
- * @description > **Steamworks Struct**: [func](url)
- *
- * This struct 
- *
- * @member {Bool} ok
- * @member {String} language_name
- * @member {String} language_code
  * @struct_end 
  */
 
@@ -9219,14 +9163,15 @@
  */
 
 /**
- * @struct SteamUserGameConnectionToken
- * @description > **Steamworks Struct**: [func](url)
- *
- * This struct 
- *
- * @member {Bool} ok
- * @member {Real} bytes_written
- * @struct_end 
+ * @struct SteamUserValidateAuthTicketResponse
+ * @description > **Steamworks Struct**: [ISteamUser::ValidateAuthTicketResponse_t](https://partner.steamgames.com/doc/api/ISteamUser#ValidateAuthTicketResponse_t)
+ * 
+ * Called when an auth ticket has been validated.
+ * 
+ * @member {Real} steam_id The Steam ID of the entity that provided the auth ticket.
+ * @member {Real} owner_steam_id The Steam ID that owns the game, this will be different from `steam_id` if the game is being accessed via Steam Family Sharing.
+ * @member {Enum.SteamAuthSessionResponse} auth_session_response The result of the validation.
+ * @struct_end
  */
 
 /**
@@ -9342,18 +9287,6 @@
  */
 
 /**
- * @struct SteamUtilsCserIpPort
- * @description > **Steamworks Struct**: [func](url)
- *
- * This struct 
- *
- * @member {Bool} ok
- * @member {Real} ip_v4
- * @member {Real} port
- * @struct_end 
- */
-
-/**
  * @struct SteamUserDataFolder
  * @description > **Steamworks Struct**: N / A
  *
@@ -9369,8 +9302,7 @@
  * @description > **Steamworks Struct**: N / A
  *
  * This struct holds the information returned by ${function.steam_utils_get_image_size}.
- *
- * @member {Bool} ok `true` upon success if the image handle is valid and the sizes were filled out, otherwise `false`.
+ * 
  * @member {Real} width The width of the image.
  * @member {Real} height The height of the image.
  * @struct_end
@@ -9392,8 +9324,7 @@
  * @description > **Steamworks Struct**: N / A
  *
  * This struct holds the information returned by ${function.steam_utils_filter_text}.
- *
- * @member {Bool} ok Whether the request was successful or not.
+ * 
  * @member {Real} characters_filtered The number of characters (not bytes) filtered.
  * @member {String} filtered_text The filtered result.
  * @struct_end
@@ -9436,8 +9367,7 @@
  * @description > **Steamworks Struct**: N / A
  *
  * This struct holds information returned by ${function.steam_ugc_get_item_download_info}.
- *
- * @member {Bool} ok `true` if the download information was available; otherwise, `false`.
+ * 
  * @member {Real} bytes_downloaded the current bytes downloaded.
  * @member {Real} bytes_total The total bytes. This is only valid after the download has started.
  * @struct_end
@@ -9448,8 +9378,7 @@
  * @description > **Steamworks Struct**: N / A
  *
  * This struct hold information returned by ${function.steam_ugc_get_item_install_info}.
- *
- * @member {Bool} ok `true` if the workshop item is already installed. `false` if the folder is an empty string `""`, the workshop item has no content or the workshop item is not installed.
+ * 
  * @member {Real} size_on_disk The size of the workshop item in bytes.
  * @member {String} folder The absolute path to the folder containing the content by copying it.
  * @member {Real} timestamp The time when the workshop item was last updated.
@@ -9474,7 +9403,6 @@
  *
  * This struct holds the details of an individual workshop item after receiving a querying UGC call result.
  *
- * @member {Bool} ok Whether successful.
  * @member {Real} published_file_id The globally unique item handle to this piece of UGC.
  * @member {String} title The title of the item.
  * @member {String} description The description of the item.
@@ -9531,8 +9459,7 @@
  * @description > **Steamworks Struct**: N / A
  *
  * This struct holds information returned by ${function.steam_ugc_get_query_ugc_additional_preview}.
- *
- * @member {Bool} ok `true` upon success, `false` otherwise.
+ * 
  * @member {String} url_or_video_id The URL or Video ID of the additional preview.
  * @member {Enum.SteamUgcItemPreviewType} preview_type The type of preview that was returned.
  * @struct_end
@@ -9543,8 +9470,7 @@
  * @description > **Steamworks Struct**: N / A
  *
  * This struct holds a key-value tag returned by ${function.steam_ugc_get_query_ugc_key_value_tag}.
- *
- * @member {Bool} ok `true` upon success, indicates that `key` and `value` have been filled out. `false` otherwise.
+ * 
  * @member {String} key The key.
  * @member {String} value The value.
  * @struct_end
@@ -9687,8 +9613,7 @@
  * @description > **Steamworks Struct**: N / A
  *
  * This struct holds information returned by ${function.steam_ugc_get_supported_game_version_data}.
- *
- * @member {Bool} ok `true` if the item version at the given index version exists, `false` otherwise.
+ * 
  * @member {String} game_branch_min The minimum Steam (beta) branch this version of the item supports.
  * @member {String} game_branch_max The maximum Steam (beta) branch version this version of the item supports.
  * @struct_end 
@@ -9703,6 +9628,87 @@
  * @member {Enum.SteamApiResult} result The result of the operation.
  * @member {Real} published_file_id The workshop item that was deleted.
  * @struct_end
+ */
+
+/**
+ * @struct SteamUgcAddAppDependencyResult
+ * @description > **Steamworks Struct**: [ISteamUGC::AddAppDependencyResult_t](https://partner.steamgames.com/doc/api/ISteamUGC#AddAppDependencyResult_t)
+ * 
+ * This struct holds information about an app dependency result.
+ * 
+ * @member {Enum.SteamApiResult} result The result of the operation.
+ * @member {Real} published_file_id The parent workshop item that the dependency was added to.
+ * @member {Real} app_id The app/dlc.
+ * @struct_end
+ */
+
+/**
+ * @struct SteamUgcRemoveAppDependencyResult
+ * @description > **Steamworks Struct**: [ISteamUGC::AddAppDependencyResult_t](https://partner.steamgames.com/doc/api/ISteamUGC#AddAppDependencyResult_t)
+ * 
+ * This struct holds information about the removal of an app dependency.
+ * 
+ * @member {Enum.SteamApiResult} result The result of the operation.
+ * @member {Real} published_file_id The parent workshop item that the dependency was removed from.
+ * @member {Real} app_id The app/dlc.
+ * @struct_end
+ */
+
+/**
+ * @struct SteamUgcAddUGCDependencyResult
+ * @description > **Steamworks Struct**: [ISteamUGC::AddUGCDependencyResult_t](https://partner.steamgames.com/doc/api/ISteamUGC#AddUGCDependencyResult_t)
+ * 
+ * This struct holds information about the adding of a dependency.
+ * 
+ * @member {Enum.SteamApiResult} result The result of the operation.
+ * @member {Real} published_file_id The parent workshop item that the dependency was added to.
+ * @member {Real} child_published_file_id The child workshop item which was added as a dependency to the parent item.
+ * @struct_end
+ */
+
+/**
+ * @struct SteamUgcRemoveUGCDependencyResult
+ * @description > **Steamworks Struct**: [ISteamUGC::RemoveUGCDependencyResult_t](partner.steamgames.com/doc/api/ISteamUGC#RemoveUGCDependencyResult_t)
+ * 
+ * This struct holds information about the result of a dependency removal.
+ * 
+ * @member {Enum.SteamApiResult} result The result of the operation.
+ * @member {Real} published_file_id The parent workshop item that the dependency was removed from.
+ * @member {Real} child_published_file_id The child workshop item which was removed as a dependency from the parent item.
+ * @struct_end
+ */
+
+/**
+ * @struct SteamUgcGetAppDependenciesResult
+ * @description > **Steamworks Struct**: [ISteamUGC::GetAppDependenciesResult_t](https://partner.steamgames.com/doc/api/ISteamUGC#GetAppDependenciesResult_t)
+ * 
+ * This struct holds the result of getting the app dependencies for an item.
+ * 
+ * @member {Enum.SteamApiResult} result The result of the operation.
+ * @member {Real} published_file_id The workshop item to get app dependencies for.
+ * @member {Array[Real]} app_ids Array of app dependencies.
+ * @member {Real} total_num_app_dependencies Total app dependencies found.
+ * @struct_end 
+ */
+
+/**
+ * @struct SteamUgcStartPlaytimeTrackingResult
+ * @description > **Steamworks Struct**: [ISteamUGC::StartPlaytimeTrackingResult_t](https://partner.steamgames.com/doc/api/ISteamUGC#StartPlaytimeTrackingResult_t)
+ * 
+ * This struct holds the result when workshop item playtime tracking has started.
+ * 
+ * @member {Enum.SteamApiResult} result The result of the operation.
+ * @struct_end 
+ */
+
+/**
+ * @struct SteamUgcStopPlaytimeTrackingResult
+ * @description > **Steamworks Struct**: [ISteamUGC::StopPlaytimeTrackingResult_t](https://partner.steamgames.com/doc/api/ISteamUGC#StopPlaytimeTrackingResult_t)
+ * 
+ * This struct holds the result when workshop item playtime tracking has stopped.
+ * 
+ * @member {Enum.SteamApiResult} result The result of the operation.
+ * @struct_end 
  */
 
 /**
@@ -9787,8 +9793,7 @@
  * @description > **Steamworks Struct**: N / A
  *
  * This struct holds the information returned by ${function.steam_input_get_device_binding_revision}.
- *
- * @member {Bool} ok `true` if a device binding was successfully found and `false` if the binding is still loading.
+ * 
  * @member {Real} major Major binding revision.
  * @member {Real} minor Minor binding revision.
  * @struct_end
@@ -9840,50 +9845,15 @@
  */
 
 /**
- * @struct SteamUserStatsAchievementAndProgress
- * @description > **Steamworks Struct**: [func](url)
- *
- * This struct 
- *
- * @member {Bool} achieved
- * @member {Real} cur_progress
- * @member {Real} max_progress
- * @struct_end 
- */
-
-/**
- * @struct SteamUserStatsAchievementNamesAndPercent
- * @description > **Steamworks Struct**: [func](url)
- *
- * This struct 
- *
- * @member {String} name
- * @member {Real} percent
- * @struct_end 
- */
-
-/**
  * @struct SteamUserStatsMostAchievedAchievementInfo
  * @description > **Steamworks Struct**: N / A
  *
  * This struct holds info on the most achieved achievement for the game.
- *
- * @member {Bool} ok Whether the info could be successfully retrieved.
+ * 
  * @member {String} name The 'API Name' of the achievement.
  * @member {Real} percent The percentage of people that have unlocked this achievement from 0 to 100.
  * @member {Bool} achieved Whether the current user has unlocked this achievement.
  * @struct_end
- */
-
-/**
- * @struct SteamUserStatsNumAchievementsAndHours
- * @description > **Steamworks Struct**: [func](url)
- *
- * This struct 
- *
- * @member {Real} num_achievements
- * @member {Real} hours
- * @struct_end 
  */
 
 /**
@@ -9968,8 +9938,7 @@
  * @description > **Steamworks Struct**: [ISteamUserStats::LeaderboardEntry_t](https://partner.steamgames.com/doc/api/ISteamUserStats#LeaderboardEntry_t)
  *
  * This struct holds the data for a single entry in a leaderboard, as returned by ${function.steam_userstats_downloaded_leaderboard_entry}.
- *
- * @member {Bool} ok `true` upon success if all of the following conditions are met; otherwise, `false`.
+ * 
  * @member {Real} steam_id_user User who this entry belongs to. You can use ${function.steam_friends_get_friend_persona_name} and ${function.steam_friends_get_small_friend_avatar} to get more info.
  * @member {Real} global_rank The global rank of this entry ranging from [1..N], where N is the number of users with an entry in the leaderboard.
  * @member {Real} score The raw score as set in the leaderboard.
@@ -10069,6 +10038,29 @@
  * @member {Bool} ok
  * @member {Real} result
  * @member {Real} leaderboard_handle
+ * @struct_end
+ */
+
+/**
+ * @struct SteamUserStatsAchievementIconFetched
+ * @description > **Steamworks Struct**: [ISteamUserStats::UserAchievementIconFetched_t](https://partner.steamgames.com/doc/api/ISteamUserStats#UserAchievementIconFetched_t)
+ * 
+ * This struct holds the result of an achievement icon that has been fetched.
+ * 
+ * @member {Real} game_id The Game ID this achievement is for.
+ * @member {String} achievement_name The name of the achievement that this callback is for.
+ * @member {Bool} achieved Whether the icon for the achieved (`true`) or unachieved (`false`) version.
+ * @member {Real} icon_handle Handle to the image, which can be used with ${function.steam_utils_get_image_rgba} to get the image data. 0 means no image is set for the achievement.
+ * @struct_end
+ */
+
+/**
+ * @struct SteamUserStatsUnloaded
+ * @description > **Steamworks Struct**: [ISteamUserStats::UserStatsUnloaded_t](https://partner.steamgames.com/doc/api/ISteamUserStats#UserStatsUnloaded_t)
+ * 
+ * This struct holds information passed in a `UserStatsUnloaded_t` callback, which indicates that a user's stats have been unloaded.
+ * 
+ * @member {Real} steam_id_user User whose stats have been unloaded.
  * @struct_end 
  */
 
@@ -10110,14 +10102,13 @@
 
 /**
  * @struct SteamUserStatsIntMinMax
- * @description > **Steamworks Struct**: [func](url)
+ * @description > **Steamworks Struct**: N / A
  *
- * This struct 
+ * This struct holds information returned by ${function.steam_userstats_achievement_progress_int}.
  *
- * @member {Real} min
- * @member {Real} max
- * @member {Bool} ok
- * @struct_end 
+ * @member {Real} min The minimum value.
+ * @member {Real} max The maximum value.
+ * @struct_end
  */
 
 /**
@@ -10126,10 +10117,9 @@
  *
  * This struct holds information returned by ${function.steam_userstats_achievement_progress_float}.
  *
- * @member {Real} min 
- * @member {Real} max 
- * @member {Bool} ok Whether successful.
- * @struct_end 
+ * @member {Real} min The minimum value.
+ * @member {Real} max The maximum value.
+ * @struct_end
  */
 
 /**
@@ -10200,19 +10190,17 @@
  */
 
 /**
- * @struct SteamInventoryResultItems
+ * @struct SteamInventoryResultItem
  * @description > **Steamworks Struct**: N / A
  *
- * This struct holds information about result items.
+ * This struct holds information about a single result item.
  * 
  * See: [ISteamInventory::SteamItemDetails_t](https://partner.steamgames.com/doc/api/ISteamInventory#SteamItemDetails_t)
- *
- * @member {Bool} ok `true` if the call was successful, otherwise `false`.
- * @member {Real} count The number of items returned.
- * @member {Array[Real]} item_instance_ids The globally unique item instance handles.
- * @member {Array[Real]} item_def_ids The item definition numbers for the items.
- * @member {Array[Real]} quantities The current quantities of each item.
- * @member {Array[Enum.SteamInventoryItemFlags]} flags A bitmasked collection of item flags for each item.
+ * 
+ * @member {Real} item_instance_ids The globally unique item instance handles.
+ * @member {Real} item_def_ids The item definition numbers for the items.
+ * @member {Real} quantities The current quantities of each item.
+ * @member {Enum.SteamInventoryItemFlags} flags A bitmasked collection of item flags for each item.
  * @struct_end
  */
 
@@ -10221,8 +10209,7 @@
  * @description > **Steamworks Struct**: N / A
  *
  * This struct holds the result of a request to deserialise a result set.
- *
- * @member {Bool} ok Always `true`.
+ * 
  * @member {Real} result_handle The new inventory result handle.
  * @member {Enum.SteamApiResult} status Whether the call was successful or not.
  * @struct_end
@@ -10278,8 +10265,7 @@
  * @description > **Steamworks Struct**: N / A
  *
  * This struct holds information returned by ${function.steam_inventory_get_item_price}.
- *
- * @member {Bool} ok Whether successful.
+ * 
  * @member {Real} current_price The item price. Prices are rendered in the user's [local currency](https://partner.steamgames.com/doc/store/pricing/currencies).
  * @member {Real} base_price The item's base price.
  * @struct_end
@@ -10334,8 +10320,7 @@
  * @description > **Steamworks Struct**: N / A
  *
  * This struct holds information returned by ${function.steam_remote_storage_get_file_name_and_size}.
- *
- * @member {Bool} ok Whether successful.
+ * 
  * @member {String} file_name The name of the file at the specified index, if it exists, or an empty string (`""`) if the file doesn't exist.
  * @member {Real} file_size The file size in bytes.
  * @struct_end
@@ -10346,8 +10331,7 @@
  * @description > **Steamworks Struct**: N / A
  *
  * This struct holds information returned by ${function.steam_remote_storage_get_quota}.
- *
- * @member {Bool} ok Whether successful.
+ * 
  * @member {Real} total_bytes The total amount of bytes the user has access to.
  * @member {Real} available_bytes The number of bytes available.
  * @struct_end
@@ -10358,8 +10342,7 @@
  * @description > **Steamworks Struct**: N / A
  *
  * This struct holds information returned by ${function.steam_remote_storage_get_ugc_details}.
- *
- * @member {Bool} ok Whether successful.
+ * 
  * @member {Real} ugc_handle The handle to the piece of user generated content.
  * @member {Real} app_id The app ID.
  * @member {Real} size_in_bytes The size of the file in bytes.
@@ -10575,9 +10558,8 @@
  *
  * This struct holds information returned by ${function.steam_matchmaking_get_lobby_chat_entry}.
  *
- * @member {Bool} ok Whether successful.
  * @member {Real} bytes The number of bytes copied into the buffer.
- * @member {Real} sender_id  The Steam ID of the user who sent this message.
+ * @member {Real} sender_id The Steam ID of the user who sent this message.
  * @member {Enum.SteamFriendsChatEntryType} entry_type This will always be `SteamFriendsChatEntryType.ChatMsg`.
  * @struct_end
  */
@@ -10587,8 +10569,7 @@
  * @description > **Steamworks Struct**: N / A
  *
  * This struct holds information returned by ${function.steam_matchmaking_get_lobby_game_server}.
- *
- * @member {Bool} ok `true` if the lobby is valid and has a valid game server set; otherwise, `false`.
+ * 
  * @member {Real} ip The IP address of the game server, in host order, i.e 127.0.0.1 == 0x7f000001, if it's set.
  * @member {Real} port The connection port of the game server, in host order, if it's set.
  * @member {Real} steam_id_gs The Steam ID of the game server, if it's set.
@@ -10654,8 +10635,7 @@
  * @description > **Steamworks Struct**: N / A
  *
  * This struct holds the result of a message received on a connection.
- *
- * @member {Bool} ok Whether successful.
+ * 
  * @member {Real} conn The connection handle.
  * @member {Real} bytes_written The number of bytes written.
  * @member {Real} flags A bitmask of ${enum.SteamNetworkingSendFlags} flags.
@@ -10734,8 +10714,7 @@
  * @description > **Steamworks Struct**: N / A
  *
  * This struct holds the details of a beacon, as requested using ${function.steam_parties_get_beacon_details}.
- *
- * @member {Bool} ok Whether the request was successful.
+ * 
  * @member {Real} beacon_owner_steam_id Creator of the beacon.
  * @member {Enum.SteamPartiesBeaconLocationType} location_type The location type.
  * @member {Real} location_id Opaque identifier of this location.
