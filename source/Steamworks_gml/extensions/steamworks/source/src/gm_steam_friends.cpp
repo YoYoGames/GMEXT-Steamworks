@@ -14,6 +14,7 @@
 #include <vector>
 #include <algorithm>
 #include <mutex>
+#include <optional>
 
 using namespace gm::wire;
 using namespace gm_structs;
@@ -170,27 +171,26 @@ std::uint64_t steam_friends_get_chat_member_by_index(std::uint64_t steam_id_clan
     return steam_u64_from_steam_id(id);
 }
 
-gm_structs::SteamFriendsClanActivityCounts steam_friends_get_clan_activity_counts(std::uint64_t steam_id_clan)
+std::optional<gm_structs::SteamFriendsClanActivityCounts> steam_friends_get_clan_activity_counts(std::uint64_t steam_id_clan)
 {
-    STEAM_GUARD_RET({});
+    STEAM_GUARD_RET(std::nullopt);
 
     ISteamFriends* f = steam_friends_iface();
     if (!f)
-        return {};
+        return std::nullopt;
 
     int online = 0, inGame = 0, chatting = 0;
     const bool ok = f->GetClanActivityCounts(steam_id_from_u64(steam_id_clan), &online, &inGame, &chatting);
 
     if (!ok) {
         steam_set_last_error("GetClanActivityCounts failed.");
-        return {};
+        return std::nullopt;
     }
 
     gm_structs::SteamFriendsClanActivityCounts out{};
     out.online = online;
     out.in_game = inGame;
     out.chatting = chatting;
-    out.ok = true;
     return out;
 }
 
@@ -401,19 +401,19 @@ std::uint64_t steam_friends_get_friend_from_source_by_index(std::uint64_t steam_
     return steam_u64_from_steam_id(id);
 }
 
-gm_structs::SteamFriendsFriendGamePlayed steam_friends_get_friend_game_played(std::uint64_t steam_id_friend)
+std::optional<gm_structs::SteamFriendsFriendGamePlayed> steam_friends_get_friend_game_played(std::uint64_t steam_id_friend)
 {
-    STEAM_GUARD_RET({});
+    STEAM_GUARD_RET(std::nullopt);
 
     ISteamFriends* f = steam_friends_iface();
     if (!f)
-        return {};
+        return std::nullopt;
 
     FriendGameInfo_t info {};
     const bool ok = f->GetFriendGamePlayed(steam_id_from_u64(steam_id_friend), &info);
 
     if (!ok)
-        return {};
+        return std::nullopt;
 
     gm_structs::SteamFriendsFriendGamePlayed out{};
     out.game_id = (std::uint64_t)info.m_gameID.ToUint64();
@@ -422,7 +422,6 @@ gm_structs::SteamFriendsFriendGamePlayed steam_friends_get_friend_game_played(st
     out.query_port = (std::uint32_t)info.m_usQueryPort;
     out.lobby_steam_id_64 = steam_u64_from_steam_id(info.m_steamIDLobby);
 
-    out.ok = true;
     return out;
 }
 

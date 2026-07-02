@@ -235,27 +235,21 @@ gm_enums::SteamApiResult steam_networking_sockets_flush_messages_on_connection(s
     return static_cast<gm_enums::SteamApiResult>((int)s->FlushMessagesOnConnection((HSteamNetConnection)conn));
 }
 
-gm_structs::SteamNetworkingSocketsReceived steam_networking_sockets_receive_one_on_connection(std::uint32_t conn,
+std::optional<gm_structs::SteamNetworkingSocketsReceived> steam_networking_sockets_receive_one_on_connection(std::uint32_t conn,
                                                                                              gm::wire::GMBuffer out_data,
                                                                                              std::uint32_t max_bytes,
                                                                                              std::uint32_t offset)
 {
-    gm_structs::SteamNetworkingSocketsReceived out{};
-    out.ok = false;
-    out.conn = conn;
-    out.bytes_written = 0;
-    out.flags = 0;
-
-    STEAM_GUARD_RET(out);
+    STEAM_GUARD_RET(std::nullopt);
 
     ISteamNetworkingSockets* s = steam_networking_sockets_iface();
-    if (!s) return out;
+    if (!s) return std::nullopt;
 
-    if (max_bytes == 0) return out;
+    if (max_bytes == 0) return std::nullopt;
 
     SteamNetworkingMessage_t* msg = nullptr;
     int n = s->ReceiveMessagesOnConnection((HSteamNetConnection)conn, &msg, 1);
-    if (n <= 0 || !msg) return out;
+    if (n <= 0 || !msg) return std::nullopt;
 
     const uint32 cb = (uint32)msg->m_cbSize;
     const std::uint64_t buf_len = out_data.length();
@@ -266,17 +260,17 @@ gm_structs::SteamNetworkingSocketsReceived steam_networking_sockets_receive_one_
         (std::uint64_t)offset + cb > buf_len) {
         steam_set_last_error("steam_networking_sockets_receive_one_on_connection: output buffer too small for incoming message.");
         msg->Release();
-        return out;
+        return std::nullopt;
     }
 
     auto w = out_data.getWriter();
     w.skip(offset);
     w.writeBytes((const char*)msg->m_pData, (int)cb);
 
-    out.ok = true;
+    gm_structs::SteamNetworkingSocketsReceived out{};
+    out.conn = (std::uint32_t)msg->m_conn;
     out.bytes_written = cb;
     out.flags = (std::int32_t)msg->m_nFlags;
-    out.conn = (std::uint32_t)msg->m_conn;
 
     msg->Release();
     return out;
@@ -410,29 +404,21 @@ bool steam_networking_sockets_set_connection_poll_group(std::uint32_t conn, std:
     return s->SetConnectionPollGroup((HSteamNetConnection)conn, (HSteamNetPollGroup)poll_group);
 }
 
-gm_structs::SteamNetworkingSocketsReceived steam_networking_sockets_receive_one_on_poll_group(
-    std::uint32_t poll_group,
-    gm::wire::GMBuffer out_data,
-    std::uint32_t max_bytes,
-    std::uint32_t offset)
+std::optional<gm_structs::SteamNetworkingSocketsReceived> steam_networking_sockets_receive_one_on_poll_group(std::uint32_t poll_group, gm::wire::GMBuffer out_data, std::uint32_t max_bytes, std::uint32_t offset)
 {
-    gm_structs::SteamNetworkingSocketsReceived out{};
-    out.ok = false;
-    out.bytes_written = 0;
-    out.flags = 0;
 
-    STEAM_GUARD_RET(out);
+    STEAM_GUARD_RET(std::nullopt);
 
     ISteamNetworkingSockets* s = steam_networking_sockets_iface();
-    if (!s) return out;
+    if (!s) return std::nullopt;
 
-    if (max_bytes == 0) return out;
+    if (max_bytes == 0) return std::nullopt;
 
     SteamNetworkingMessage_t* msg = nullptr;
 
     const int n = s->ReceiveMessagesOnPollGroup((HSteamNetPollGroup)poll_group, &msg, 1);
     if (n <= 0 || !msg)
-        return out;
+        return std::nullopt;
 
     const uint32 cb = (uint32)msg->m_cbSize;
     const std::uint64_t buf_len = out_data.length();
@@ -441,14 +427,15 @@ gm_structs::SteamNetworkingSocketsReceived steam_networking_sockets_receive_one_
         (std::uint64_t)offset + cb > buf_len) {
         steam_set_last_error("steam_networking_sockets_receive_one_on_poll_group: output buffer too small for incoming message.");
         msg->Release();
-        return out;
+        return std::nullopt;
     }
+
+    gm_structs::SteamNetworkingSocketsReceived out{};
 
     auto w = out_data.getWriter();
     w.skip(offset);
     w.writeBytes((const char*)msg->m_pData, (int)cb);
 
-    out.ok = true;
     out.bytes_written = cb;
     out.flags = (std::int32_t)msg->m_nFlags;
     out.conn = (std::uint32_t)msg->m_conn;

@@ -218,7 +218,7 @@ GMEXPORT double __EXT_NATIVE__steam_friends_get_clan_activity_counts(char* __arg
     auto&& __result = steam_friends_get_clan_activity_counts(steam_id_clan);
     gm::byteio::BufferWriter __bw{__ret_buffer, static_cast<size_t>(__ret_buffer_length)};
 
-    // return: __result, type: struct SteamFriendsClanActivityCounts
+    // return: __result, type: optional<struct SteamFriendsClanActivityCounts>
     gm::wire::codec::writeValue(__bw, __result);
     return 0;
 }
@@ -443,7 +443,7 @@ GMEXPORT double __EXT_NATIVE__steam_friends_get_friend_game_played(char* __arg_b
     auto&& __result = steam_friends_get_friend_game_played(steam_id_friend);
     gm::byteio::BufferWriter __bw{__ret_buffer, static_cast<size_t>(__ret_buffer_length)};
 
-    // return: __result, type: struct SteamFriendsFriendGamePlayed
+    // return: __result, type: optional<struct SteamFriendsFriendGamePlayed>
     gm::wire::codec::writeValue(__bw, __result);
     return 0;
 }
@@ -952,7 +952,7 @@ GMEXPORT double __EXT_NATIVE__steam_apps_get_dlc_data_by_index(double dlc, char*
     auto&& __result = steam_apps_get_dlc_data_by_index(static_cast<std::int32_t>(dlc));
     gm::byteio::BufferWriter __bw{__ret_buffer, static_cast<size_t>(__ret_buffer_length)};
 
-    // return: __result, type: struct SteamAppsDlcData
+    // return: __result, type: optional<struct SteamAppsDlcData>
     gm::wire::codec::writeValue(__bw, __result);
     return 0;
 }
@@ -1071,7 +1071,7 @@ GMEXPORT double __EXT_NATIVE__steam_apps_get_beta_info(double beta_index, char* 
     auto&& __result = steam_apps_get_beta_info(static_cast<std::int32_t>(beta_index));
     gm::byteio::BufferWriter __bw{__ret_buffer, static_cast<size_t>(__ret_buffer_length)};
 
-    // return: __result, type: struct SteamAppsBetaInfo
+    // return: __result, type: optional<struct SteamAppsBetaInfo>
     gm::wire::codec::writeValue(__bw, __result);
     return 0;
 }
@@ -1100,7 +1100,7 @@ GMEXPORT double __EXT_NATIVE__steam_apps_get_dlc_download_progress(double app_id
     auto&& __result = steam_apps_get_dlc_download_progress(static_cast<std::uint32_t>(app_id));
     gm::byteio::BufferWriter __bw{__ret_buffer, static_cast<size_t>(__ret_buffer_length)};
 
-    // return: __result, type: struct SteamAppsDlcDownloadProgress
+    // return: __result, type: optional<struct SteamAppsDlcDownloadProgress>
     gm::wire::codec::writeValue(__bw, __result);
     return 0;
 }
@@ -2053,7 +2053,7 @@ GMEXPORT double __EXT_NATIVE__steam_utils_get_image_size(double image_handle, ch
     auto&& __result = steam_utils_get_image_size(static_cast<std::int32_t>(image_handle));
     gm::byteio::BufferWriter __bw{__ret_buffer, static_cast<size_t>(__ret_buffer_length)};
 
-    // return: __result, type: struct SteamUtilsImageSize
+    // return: __result, type: optional<struct SteamUtilsImageSize>
     gm::wire::codec::writeValue(__bw, __result);
     return 0;
 }
@@ -2159,7 +2159,7 @@ GMEXPORT double __EXT_NATIVE__steam_utils_filter_text(char* __arg_buffer, double
     auto&& __result = steam_utils_filter_text(context, source_steam_id, input_message);
     gm::byteio::BufferWriter __bw{__ret_buffer, static_cast<size_t>(__ret_buffer_length)};
 
-    // return: __result, type: struct SteamUtilsFilterTextResult
+    // return: __result, type: optional<struct SteamUtilsFilterTextResult>
     gm::wire::codec::writeValue(__bw, __result);
     return 0;
 }
@@ -2616,7 +2616,7 @@ GMEXPORT double __EXT_NATIVE__steam_ugc_get_item_download_info(char* __arg_buffe
     auto&& __result = steam_ugc_get_item_download_info(published_file_id);
     gm::byteio::BufferWriter __bw{__ret_buffer, static_cast<size_t>(__ret_buffer_length)};
 
-    // return: __result, type: struct SteamUgcItemDownloadInfo
+    // return: __result, type: optional<struct SteamUgcItemDownloadInfo>
     gm::wire::codec::writeValue(__bw, __result);
     return 0;
 }
@@ -2631,7 +2631,7 @@ GMEXPORT double __EXT_NATIVE__steam_ugc_get_item_install_info(char* __arg_buffer
     auto&& __result = steam_ugc_get_item_install_info(published_file_id);
     gm::byteio::BufferWriter __bw{__ret_buffer, static_cast<size_t>(__ret_buffer_length)};
 
-    // return: __result, type: struct SteamUgcItemInstallInfo
+    // return: __result, type: optional<struct SteamUgcItemInstallInfo>
     gm::wire::codec::writeValue(__bw, __result);
     return 0;
 }
@@ -2695,7 +2695,7 @@ GMEXPORT double __EXT_NATIVE__steam_ugc_get_query_ugc_result(char* __arg_buffer,
     auto&& __result = steam_ugc_get_query_ugc_result(query_handle, index);
     gm::byteio::BufferWriter __bw{__ret_buffer, static_cast<size_t>(__ret_buffer_length)};
 
-    // return: __result, type: struct SteamUgcQueryResult
+    // return: __result, type: optional<struct SteamUgcQueryResult>
     gm::wire::codec::writeValue(__bw, __result);
     return 0;
 }
@@ -2803,7 +2803,7 @@ GMEXPORT double __EXT_NATIVE__steam_ugc_get_query_ugc_additional_preview(char* _
     auto&& __result = steam_ugc_get_query_ugc_additional_preview(query_handle, index, preview_index, original_file_name);
     gm::byteio::BufferWriter __bw{__ret_buffer, static_cast<size_t>(__ret_buffer_length)};
 
-    // return: __result, type: struct SteamUgcAdditionalPreview
+    // return: __result, type: optional<struct SteamUgcAdditionalPreview>
     gm::wire::codec::writeValue(__bw, __result);
     return 0;
 }
@@ -2824,7 +2824,7 @@ GMEXPORT double __EXT_NATIVE__steam_ugc_get_supported_game_version_data(char* __
     auto&& __result = steam_ugc_get_supported_game_version_data(query_handle, index, version_index);
     gm::byteio::BufferWriter __bw{__ret_buffer, static_cast<size_t>(__ret_buffer_length)};
 
-    // return: __result, type: struct SteamUgcSupportedGameVersionData
+    // return: __result, type: optional<struct SteamUgcSupportedGameVersionData>
     gm::wire::codec::writeValue(__bw, __result);
     return 0;
 }
@@ -2859,7 +2859,7 @@ GMEXPORT double __EXT_NATIVE__steam_ugc_get_query_ugc_key_value_tag(char* __arg_
     auto&& __result = steam_ugc_get_query_ugc_key_value_tag(query_handle, index, key_value_tag_index);
     gm::byteio::BufferWriter __bw{__ret_buffer, static_cast<size_t>(__ret_buffer_length)};
 
-    // return: __result, type: struct SteamUgcKeyValueTag
+    // return: __result, type: optional<struct SteamUgcKeyValueTag>
     gm::wire::codec::writeValue(__bw, __result);
     return 0;
 }
@@ -4100,7 +4100,7 @@ GMEXPORT double __EXT_NATIVE__steam_input_get_device_binding_revision(char* __ar
     auto&& __result = steam_input_get_device_binding_revision(input_handle);
     gm::byteio::BufferWriter __bw{__ret_buffer, static_cast<size_t>(__ret_buffer_length)};
 
-    // return: __result, type: struct SteamInputDeviceBindingRevision
+    // return: __result, type: optional<struct SteamInputDeviceBindingRevision>
     gm::wire::codec::writeValue(__bw, __result);
     return 0;
 }
@@ -4469,7 +4469,7 @@ GMEXPORT double __EXT_NATIVE__steam_userstats_downloaded_leaderboard_entry(char*
     auto&& __result = steam_userstats_downloaded_leaderboard_entry(leaderboard_entries_handle, entry_index, max_details);
     gm::byteio::BufferWriter __bw{__ret_buffer, static_cast<size_t>(__ret_buffer_length)};
 
-    // return: __result, type: struct SteamUserStatsDownloadedLeaderboardEntry
+    // return: __result, type: optional<struct SteamUserStatsDownloadedLeaderboardEntry>
     gm::wire::codec::writeValue(__bw, __result);
     return 0;
 }
@@ -4541,7 +4541,7 @@ GMEXPORT double __EXT_NATIVE__steam_userstats_most_achieved_achievement_info(cha
     auto&& __result = steam_userstats_most_achieved_achievement_info();
     gm::byteio::BufferWriter __bw{__ret_buffer, static_cast<size_t>(__ret_buffer_length)};
 
-    // return: __result, type: struct SteamUserStatsMostAchievedAchievementInfo
+    // return: __result, type: optional<struct SteamUserStatsMostAchievedAchievementInfo>
     gm::wire::codec::writeValue(__bw, __result);
     return 0;
 }
@@ -4551,7 +4551,7 @@ GMEXPORT double __EXT_NATIVE__steam_userstats_next_most_achieved_achievement_inf
     auto&& __result = steam_userstats_next_most_achieved_achievement_info(static_cast<std::int32_t>(iterator_prev));
     gm::byteio::BufferWriter __bw{__ret_buffer, static_cast<size_t>(__ret_buffer_length)};
 
-    // return: __result, type: struct SteamUserStatsMostAchievedAchievementInfo
+    // return: __result, type: optional<struct SteamUserStatsMostAchievedAchievementInfo>
     gm::wire::codec::writeValue(__bw, __result);
     return 0;
 }
@@ -4624,7 +4624,7 @@ GMEXPORT double __EXT_NATIVE__steam_userstats_achievement_progress_int(char* __a
     auto&& __result = steam_userstats_achievement_progress_int(achievement_name, cur_progress, max_progress);
     gm::byteio::BufferWriter __bw{__ret_buffer, static_cast<size_t>(__ret_buffer_length)};
 
-    // return: __result, type: struct SteamUserStatsIntMinMax
+    // return: __result, type: optional<struct SteamUserStatsIntMinMax>
     gm::wire::codec::writeValue(__bw, __result);
     return 0;
 }
@@ -4645,7 +4645,7 @@ GMEXPORT double __EXT_NATIVE__steam_userstats_achievement_progress_float(char* _
     auto&& __result = steam_userstats_achievement_progress_float(achievement_name, cur_progress, max_progress);
     gm::byteio::BufferWriter __bw{__ret_buffer, static_cast<size_t>(__ret_buffer_length)};
 
-    // return: __result, type: struct SteamUserStatsFloatMinMax
+    // return: __result, type: optional<struct SteamUserStatsFloatMinMax>
     gm::wire::codec::writeValue(__bw, __result);
     return 0;
 }
@@ -5176,7 +5176,7 @@ GMEXPORT double __EXT_NATIVE__steam_inventory_deserialize_result(char* __arg_buf
     auto&& __result = steam_inventory_deserialize_result(data, data_size);
     gm::byteio::BufferWriter __bw{__ret_buffer, static_cast<size_t>(__ret_buffer_length)};
 
-    // return: __result, type: struct SteamInventoryDeserializeResult
+    // return: __result, type: optional<struct SteamInventoryDeserializeResult>
     gm::wire::codec::writeValue(__bw, __result);
     return 0;
 }
@@ -5229,7 +5229,7 @@ GMEXPORT double __EXT_NATIVE__steam_inventory_get_result_items(double result_han
     auto&& __result = steam_inventory_get_result_items(static_cast<std::int32_t>(result_handle));
     gm::byteio::BufferWriter __bw{__ret_buffer, static_cast<size_t>(__ret_buffer_length)};
 
-    // return: __result, type: struct SteamInventoryResultItems
+    // return: __result, type: optional<struct SteamInventoryResultItems>
     gm::wire::codec::writeValue(__bw, __result);
     return 0;
 }
@@ -5548,7 +5548,7 @@ GMEXPORT double __EXT_NATIVE__steam_inventory_get_item_price(double item_def_id,
     auto&& __result = steam_inventory_get_item_price(static_cast<std::uint32_t>(item_def_id));
     gm::byteio::BufferWriter __bw{__ret_buffer, static_cast<size_t>(__ret_buffer_length)};
 
-    // return: __result, type: struct SteamInventoryItemPrice
+    // return: __result, type: optional<struct SteamInventoryItemPrice>
     gm::wire::codec::writeValue(__bw, __result);
     return 0;
 }
@@ -5771,7 +5771,7 @@ GMEXPORT double __EXT_NATIVE__steam_remote_storage_get_file_name_and_size(double
     auto&& __result = steam_remote_storage_get_file_name_and_size(static_cast<std::int32_t>(index));
     gm::byteio::BufferWriter __bw{__ret_buffer, static_cast<size_t>(__ret_buffer_length)};
 
-    // return: __result, type: struct SteamRemoteStorageFileNameAndSize
+    // return: __result, type: optional<struct SteamRemoteStorageFileNameAndSize>
     gm::wire::codec::writeValue(__bw, __result);
     return 0;
 }
@@ -5781,7 +5781,7 @@ GMEXPORT double __EXT_NATIVE__steam_remote_storage_get_quota(char* __ret_buffer,
     auto&& __result = steam_remote_storage_get_quota();
     gm::byteio::BufferWriter __bw{__ret_buffer, static_cast<size_t>(__ret_buffer_length)};
 
-    // return: __result, type: struct SteamRemoteStorageQuota
+    // return: __result, type: optional<struct SteamRemoteStorageQuota>
     gm::wire::codec::writeValue(__bw, __result);
     return 0;
 }
@@ -5892,7 +5892,7 @@ GMEXPORT double __EXT_NATIVE__steam_remote_storage_get_ugc_details(char* __arg_b
     auto&& __result = steam_remote_storage_get_ugc_details(ugc_handle);
     gm::byteio::BufferWriter __bw{__ret_buffer, static_cast<size_t>(__ret_buffer_length)};
 
-    // return: __result, type: struct SteamRemoteStorageUgcDetails
+    // return: __result, type: optional<struct SteamRemoteStorageUgcDetails>
     gm::wire::codec::writeValue(__bw, __result);
     return 0;
 }
@@ -6569,7 +6569,7 @@ GMEXPORT double __EXT_NATIVE__steam_matchmaking_get_lobby_chat_entry(char* __arg
     auto&& __result = steam_matchmaking_get_lobby_chat_entry(lobby_id, chat_id, out_buffer, out_max_bytes);
     gm::byteio::BufferWriter __bw{__ret_buffer, static_cast<size_t>(__ret_buffer_length)};
 
-    // return: __result, type: struct SteamMatchmakingLobbyChatEntry
+    // return: __result, type: optional<struct SteamMatchmakingLobbyChatEntry>
     gm::wire::codec::writeValue(__bw, __result);
     return 0;
 }
@@ -6677,7 +6677,7 @@ GMEXPORT double __EXT_NATIVE__steam_matchmaking_get_lobby_game_server(char* __ar
     auto&& __result = steam_matchmaking_get_lobby_game_server(steam_id_lobby);
     gm::byteio::BufferWriter __bw{__ret_buffer, static_cast<size_t>(__ret_buffer_length)};
 
-    // return: __result, type: struct SteamMatchmakingLobbyGameServer
+    // return: __result, type: optional<struct SteamMatchmakingLobbyGameServer>
     gm::wire::codec::writeValue(__bw, __result);
     return 0;
 }
@@ -6760,7 +6760,7 @@ GMEXPORT double __EXT_NATIVE__steam_networking_messages_receive_one_on_channel(c
     auto&& __result = steam_networking_messages_receive_one_on_channel(local_channel, out_data, max_bytes, offset);
     gm::byteio::BufferWriter __bw{__ret_buffer, static_cast<size_t>(__ret_buffer_length)};
 
-    // return: __result, type: struct SteamNetworkingMessagesReceived
+    // return: __result, type: optional<struct SteamNetworkingMessagesReceived>
     gm::wire::codec::writeValue(__bw, __result);
     return 0;
 }
@@ -6936,7 +6936,7 @@ GMEXPORT double __EXT_NATIVE__steam_networking_sockets_receive_one_on_connection
     auto&& __result = steam_networking_sockets_receive_one_on_connection(conn, out_data, max_bytes, offset);
     gm::byteio::BufferWriter __bw{__ret_buffer, static_cast<size_t>(__ret_buffer_length)};
 
-    // return: __result, type: struct SteamNetworkingSocketsReceived
+    // return: __result, type: optional<struct SteamNetworkingSocketsReceived>
     gm::wire::codec::writeValue(__bw, __result);
     return 0;
 }
@@ -7039,7 +7039,7 @@ GMEXPORT double __EXT_NATIVE__steam_networking_sockets_receive_one_on_poll_group
     auto&& __result = steam_networking_sockets_receive_one_on_poll_group(poll_group, out_data, max_bytes, offset);
     gm::byteio::BufferWriter __bw{__ret_buffer, static_cast<size_t>(__ret_buffer_length)};
 
-    // return: __result, type: struct SteamNetworkingSocketsReceived
+    // return: __result, type: optional<struct SteamNetworkingSocketsReceived>
     gm::wire::codec::writeValue(__bw, __result);
     return 0;
 }
@@ -7205,7 +7205,7 @@ GMEXPORT double __EXT_NATIVE__steam_parties_get_beacon_details(char* __arg_buffe
     auto&& __result = steam_parties_get_beacon_details(beacon_id);
     gm::byteio::BufferWriter __bw{__ret_buffer, static_cast<size_t>(__ret_buffer_length)};
 
-    // return: __result, type: struct SteamPartiesBeaconDetails
+    // return: __result, type: optional<struct SteamPartiesBeaconDetails>
     gm::wire::codec::writeValue(__bw, __result);
     return 0;
 }

@@ -355,19 +355,19 @@ std::uint64_t steam_parties_get_beacon_by_index(std::uint32_t index)
     return (std::uint64_t)p->GetBeaconByIndex(index);
 }
 
-gm_structs::SteamPartiesBeaconDetails steam_parties_get_beacon_details(std::uint64_t beacon_id)
+std::optional<gm_structs::SteamPartiesBeaconDetails> steam_parties_get_beacon_details(std::uint64_t beacon_id)
 {
-    STEAM_GUARD_RET({});
+    STEAM_GUARD_RET(std::nullopt);
 
     uint32 metadata_max = 1024;
 
     ISteamParties* p = steam_parties_iface();
     if (!p)
-        return {};
+        return std::nullopt;
 
     if (metadata_max <= 0) {
         steam_set_last_error("Steam Parties: metadata_max must be > 0.");
-        return {};
+        return std::nullopt;
     }
 
     CSteamID owner {};
@@ -384,7 +384,7 @@ gm_structs::SteamPartiesBeaconDetails steam_parties_get_beacon_details(std::uint
 
     if (!ok) {
         steam_set_last_error("Steam Parties: GetBeaconDetails failed.");
-        return {};
+        return std::nullopt;
     }
 
     gm_structs::SteamPartiesBeaconDetails out {};
@@ -392,7 +392,6 @@ gm_structs::SteamPartiesBeaconDetails steam_parties_get_beacon_details(std::uint
     out.location_type = (gm_enums::SteamPartiesBeaconLocationType)(int)loc.m_eType;
     out.location_id = (std::uint64_t)loc.m_ulLocationID;
     out.metadata = std::string(metadata.data());
-    out.ok = true;
     return out;
 }
 
