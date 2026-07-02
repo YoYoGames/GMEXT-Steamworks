@@ -1328,7 +1328,7 @@
  * This works even if the application is not installed, based on where the game would be installed with the default Steam library location.
  *
  * @param {Real} app_id The App ID to get the install dir for.
- * @returns {Struct.SteamAppsInstallDir} 
+ * @returns {String} 
  * @function_end
  */
 
@@ -1496,9 +1496,8 @@
  * @description > **Steamworks Function**: [ISteamApps::GetLaunchCommandLine](https://partner.steamgames.com/doc/api/ISteamApps#GetLaunchCommandLine)
  *
  * This function gets the command line if the game was launched via Steam URL, e.g. `"steam://run/<appid>//<command line>/"`. This method is preferable to launching with a command line via the operating system, which can be a security risk. In order for rich presence joins to go through this and not be placed on the OS command line, you must enable "Use launch command line" from the Installation > General page on your app.
- *
- * @param {Real} command_line_size The maximum number of bytes to read into the returned command line string.
- * @returns {Struct.SteamAppsLaunchCommandLine}
+ * 
+ * @returns {String}
  * @function_end
  */
 
@@ -2153,7 +2152,7 @@
  *
  * Deprecated. You should use the [ISteamRemoteStorage](https://partner.steamgames.com/doc/api/ISteamRemoteStorage) API from [Steam Cloud](https://partner.steamgames.com/doc/features/cloud) instead.
  *
- * @returns {Struct.SteamUserDataFolder} 
+ * @returns {String}
  * @function_end
  */
 
@@ -4968,8 +4967,6 @@
  * @description > **Steamworks Function**: N / A
  *
  * This function sets the function to be called when a controller's battery level changes.
- * 
- * See: ${struct.SteamInputControllerBattery}
  *
  * @param {Function} callback The function to be called when a controller's battery level changes.
  * @function_end
@@ -4993,7 +4990,7 @@
  * To receive stats for other users use ${function.steam_userstats_user_stat_int}.
  *
  * @param {String} stat_name The "API Name" of the stat.
- * @returns {Struct.SteamUserStatsStatInt} 
+ * @returns {Real}
  * @function_end
  */
 
@@ -5006,7 +5003,7 @@
  * To receive stats for other users use ${function.steam_userstats_user_stat_float}.
  *
  * @param {String} stat_name The "API Name" of the stat.
- * @returns {Struct.SteamUserStatsStatFloat} 
+ * @returns {Real} 
  * @function_end
  */
 
@@ -5074,7 +5071,7 @@
  * The equivalent function for other users is ${function.steam_userstats_user_achievement}.
  *
  * @param {String} achievement_name The "API Name" of the achievement.
- * @returns {Struct.SteamUserStatsUserAchievement} 
+ * @returns {Bool} 
  * @function_end 
  */
 
@@ -5269,7 +5266,7 @@
  *
  * @param {Real} steam_id_user The Steam ID of the user to get the stat for.
  * @param {String} stat_name The "API Name" of the stat.
- * @returns {Struct.SteamUserStatsStatInt} 
+ * @returns {Real} 
  * @function_end 
  */
 
@@ -5285,7 +5282,7 @@
  *
  * @param {Real} steam_id_user The Steam ID of the user to get the stat for.
  * @param {String} stat_name The "API Name" of the stat.
- * @returns {Struct.SteamUserStatsStatFloat} 
+ * @returns {Real} 
  * @function_end 
  */
 
@@ -5299,7 +5296,7 @@
  *
  * @param {Real} steam_id_user The Steam ID of the user to get the achievement for.
  * @param {String} achievement_name The "API Name" of the achievement.
- * @returns {Struct.SteamUserStatsUserAchievement} 
+ * @returns {Bool} 
  * @function_end 
  */
 
@@ -5644,7 +5641,7 @@
  * You must have called ${function.steam_userstats_request_global_stats} and it needs to return successfully via its callback prior to calling this.
  *
  * @param {String} stat_name The "API Name" of the stat.
- * @returns {Struct.SteamUserStatsGlobalStatInt64} 
+ * @returns {Real} 
  * @function_end 
  */
 
@@ -5657,7 +5654,7 @@
  * You must have called ${function.steam_userstats_request_global_stats} and it needs to return successfully via its callback prior to calling this.
  *
  * @param {String} stat_name The "API Name" of the stat.
- * @returns {Struct.SteamUserStatsGlobalStatDouble} 
+ * @returns {Real} 
  * @function_end 
  */
 
@@ -5670,7 +5667,7 @@
  * You must have called ${function.steam_userstats_request_global_stats} and it needs to return successfully via its callback prior to calling this.
  *
  * @param {String} stat_name The "API Name" of the stat.
- * @returns {Struct.SteamUserStatsGlobalStatHistoryInt64} 
+ * @returns {Array[Real]} 
  * @function_end 
  */
 
@@ -5683,7 +5680,7 @@
  * You must have called ${function.steam_userstats_request_global_stats} and it needs to return successfully via its callback prior to calling this.
  *
  * @param {String} stat_name The "API Name" of the stat.
- * @returns {Struct.SteamUserStatsGlobalStatHistoryDouble} 
+ * @returns {Array[Real]} 
  * @function_end 
  */
 
@@ -6708,8 +6705,8 @@
  *
  * @param {Real} item_def_id The item definition to get the property for.
  * @param {String} property_name The property name to get the value for.
- * @returns {Struct.SteamInventoryDefProperty} 
- * @function_end 
+ * @returns {String}
+ * @function_end
  */
 
 /**
@@ -8471,11 +8468,11 @@
  *
  * This function works like ReceiveMessagesOnConnection, but it returns messages from any connection in the poll group.
  * 
- * You can pass k_HSteamNetPollGroup_Invalid to remove a connection from its current poll group without adding it to a new poll group.
+ * You can pass `SteamNetworkingPollGroup_Invalid` to remove a connection from its current poll group without adding it to a new poll group.
  * 
  * If there are received messages currently pending on the connection, an attempt is made to add them to the queue of messages for the poll group in approximately the order that would have applied if the connection was already part of the poll group at the time that the messages were received.
  * 
- * Returns `false` if the connection handle is invalid, or if the poll group handle is invalid (and not k_HSteamNetPollGroup_Invalid).
+ * Returns `false` if the connection handle is invalid, or if the poll group handle is invalid (and not `SteamNetworkingPollGroup_Invalid`).
  * 
  * @param {Real} poll_group The poll group to read messages from.
  * @param {Buffer} out_data The buffer into which the received message data will be written.
@@ -8560,7 +8557,7 @@
  *
  * This function gets the number of locations in which you are able to post a party beacon.
  *
- * @returns {Struct.SteamPartiesAvailableBeaconLocationCount} 
+ * @returns {Real}
  * @function_end 
  */
 
@@ -8621,7 +8618,13 @@
  * @param {Real} beacon_id The beacon ID for the beacon created by your process.
  * @param {Real} open_slots The new number of open slots in your party. This value represents the total number of *new* users that you would like Steam to send to your party.
  * @param {Function} callback The function to call upon completion.
- * @returns {Bool} 
+ * @returns {Bool}
+ * 
+ * @event callback
+ * @description > **Steamworks Callback**: [ISteamParties::ChangeNumOpenSlotsCallback_t](https://partner.steamgames.com/doc/api/ISteamParties#ChangeNumOpenSlotsCallback_t)
+ * 
+ * @member {Struct.SteamPartiesChangeNumOpenSlotsResult} result The result of the operation.
+ * @event_end
  * @function_end 
  */
 
@@ -8685,10 +8688,7 @@
  *
  * This callback serves as the response to a call to join a party. When it succeeds, you have secured a slot in the beacon owner's party and should use the connect string to link up with their game and finish joining.
  *
- * @member {Enum.SteamApiResult} result The result of the operation.
- * @member {Real} beacon_id Beacon ID used in the attempt.
- * @member {Real} beacon_owner_steam_id Steam ID of the creator of the beacon used in the attempt.
- * @member {String} connect_string The connect string to use to join the party.
+ * @member {Struct.SteamPartiesJoinPartyResult} The result of the operation.
  * @event_end
  * @function_end
  */
@@ -8941,40 +8941,6 @@
  */
 
 /**
- * @struct SteamAppsTimedTrialStatus
- * @description > **Steamworks Struct**: [ISteamApps::TimedTrialStatus_t](https://partner.steamgames.com/doc/api/ISteamApps#TimedTrialStatus_t)
- *
- * This struct holds information sent every minute when an appID is owned via a timed trial.
- *
- * @member {Bool} ok `true` if the active user is subscribed to the current appID via a timed trial otherwise `false` for any other type of license.
- * @member {Real} seconds_allowed The number of seconds the timed trial will list.
- * @member {Real} seconds_played The number of seconds that the user has played so far.
- * @struct_end 
- */
-
-/**
- * @struct SteamAppsInstallDir
- * @description > **Steamworks Struct**: N / A
- *
- * This struct 
- *
- * @member {Real} bytes_copied
- * @member {String} path
- * @struct_end 
- */
-
-/**
- * @struct SteamAppsBetaName
- * @description > **Steamworks Struct**: [func](url)
- *
- * This struct 
- *
- * @member {Bool} ok
- * @member {String} name
- * @struct_end 
- */
-
-/**
  * @struct SteamAppsNumBetas
  * @description > **Steamworks Struct**: N / A
  *
@@ -9007,17 +8973,6 @@
  * 
  * @member {Real} bytes_downloaded The number of bytes downloaded.
  * @member {Real} bytes_total The total size of the download in bytes.
- * @struct_end 
- */
-
-/**
- * @struct SteamAppsLaunchCommandLine
- * @description > **Steamworks Struct**: [func](url)
- *
- * This struct 
- *
- * @member {Real} bytes_copied
- * @member {String} command_line
  * @struct_end 
  */
 
@@ -9175,17 +9130,6 @@
  */
 
 /**
- * @struct SteamUserDataFolder
- * @description > **Steamworks Struct**: [func](url)
- *
- * This struct 
- *
- * @member {Bool} ok
- * @member {String} path
- * @struct_end 
- */
-
-/**
  * @struct SteamUserEncryptedAppTicket
  * @description > **Steamworks Struct**: N / A
  *
@@ -9227,7 +9171,7 @@
  * @member {Real} game_server_ip The IP of the game server that is telling us to disconnect, in host order, i.e 127.0.0.1 == 0x7f000001.
  * @member {Real} game_server_port The port of the game server that is telling us to disconnect, in host order.
  * @member {Bool} secure Is the game server VAC secure (`true`) or not (`false`)?
- * @member {Real} reason 
+ * @member {Real} reason The deny reason.
  * @struct_end 
  */
 
@@ -9283,17 +9227,6 @@
  * @member {Real} async_call The handle of the Steam API Call that completed.
  * @member {Real} callback_id The k_iCallback constant which uniquely identifies the completed callback.
  * @member {Real} param_size The size in bytes of the completed callback.
- * @struct_end
- */
-
-/**
- * @struct SteamUserDataFolder
- * @description > **Steamworks Struct**: N / A
- *
- * This struct holds the information returned by ${function.steam_utils_get_entered_gamepad_text_input}.
- *
- * @member {Bool} ok `true` if there was text to receive, `false` otherwise.
- * @member {String} text The gamepad text input from the Big Picture overlay.
  * @struct_end
  */
 
@@ -9823,17 +9756,6 @@
  */
 
 /**
- * @struct SteamInputControllerBattery
- * @description > **Steamworks Struct**: [func](url)
- *
- * This struct holds information about a controller's battery percentage.
- *
- * @member {Real} controller_handle The controller handle.
- * @member {Real} battery_percent The battery percent.
- * @struct_end 
- */
-
-/**
  * @struct SteamUserStatsAchievementAndUnlockTime
  * @description > **Steamworks Struct**: N / A
  *
@@ -9857,83 +9779,6 @@
  */
 
 /**
- * @struct SteamUserStatsStatInt
- * @description > **Steamworks Struct**: [func](url)
- *
- * This struct 
- *
- * @member {Bool} ok
- * @member {Real} data
- * @struct_end 
- */
-
-/**
- * @struct SteamUserStatsStatFloat
- * @description > **Steamworks Struct**: [func](url)
- *
- * This struct 
- *
- * @member {Bool} ok
- * @member {Real} data
- * @struct_end 
- */
-
-/**
- * @struct SteamUserStatsUserAchievement
- * @description > **Steamworks Struct**: [func](url)
- *
- * This struct 
- *
- * @member {Bool} ok
- * @member {Bool} achieved
- * @struct_end 
- */
-
-/**
- * @struct SteamUserStatsGlobalStatInt64
- * @description > **Steamworks Struct**: [func](url)
- *
- * This struct 
- *
- * @member {Bool} ok
- * @member {Real} data
- * @struct_end 
- */
-
-/**
- * @struct SteamUserStatsGlobalStatDouble
- * @description > **Steamworks Struct**: [func](url)
- *
- * This struct 
- *
- * @member {Bool} ok
- * @member {Real} data
- * @struct_end 
- */
-
-/**
- * @struct SteamUserStatsGlobalStatHistoryInt64
- * @description > **Steamworks Struct**: [func](url)
- *
- * This struct 
- *
- * @member {Bool} ok
- * @member {Array[Real]} data
- * @struct_end 
- */
-
-/**
- * @struct SteamUserStatsGlobalStatHistoryDouble
- * @description > **Steamworks Struct**: [func](url)
- *
- * This struct 
- *
- * @member {Bool} ok
- * @member {Array[Real]} data
- * @struct_end 
- */
-
-/**
  * @struct SteamUserStatsDownloadedLeaderboardEntry
  * @description > **Steamworks Struct**: [ISteamUserStats::LeaderboardEntry_t](https://partner.steamgames.com/doc/api/ISteamUserStats#LeaderboardEntry_t)
  *
@@ -9943,18 +9788,6 @@
  * @member {Real} global_rank The global rank of this entry ranging from [1..N], where N is the number of users with an entry in the leaderboard.
  * @member {Real} score The raw score as set in the leaderboard.
  * @member {Array[Real]} details An array of int32 values holding details about the entry.
- * @struct_end
- */
-
-/**
- * @struct SteamUserStatsRequestUserStatsResult
- * @description > **Steamworks Struct**: [ISteamUserStats::UserStatsReceived_t](https://partner.steamgames.com/doc/api/ISteamUserStats#UserStatsReceived_t)
- *
- * This struct holds information received about user stats, in a callback called when the latest stats and achievements for a specific user (including the local user) have been received from the server.
- *
- * @member {Real} game_id Game ID that these stats are for.
- * @member {Real} steam_id_user The user whose stats were retrieved.
- * @member {Real} result Returns whether the call was successful or not.
  * @struct_end
  */
 
@@ -10034,8 +9867,7 @@
  * @description > **Steamworks Struct**: [func](url)
  *
  * This struct 
- *
- * @member {Bool} ok
+ * 
  * @member {Real} result
  * @member {Real} leaderboard_handle
  * @struct_end
@@ -10250,17 +10082,6 @@
  */
 
 /**
- * @struct SteamInventoryDefProperty
- * @description > **Steamworks Struct**: [func](url)
- *
- * This struct holds information
- *
- * @member {Bool} ok
- * @member {String} value
- * @struct_end 
- */
-
-/**
  * @struct SteamInventoryItemPrice
  * @description > **Steamworks Struct**: N / A
  *
@@ -10279,17 +10100,17 @@
  *
  * @member {Real} result_handle The inventory result which is now ready.
  * @member {Enum.SteamApiResult} result The new status of the handle. This is equivalent to calling ${function.steam_inventory_get_result_status}.
- * @struct_end 
+ * @struct_end
  */
 
 /**
  * @struct SteamInventoryFullUpdate
- * @description > **Steamworks Struct**: [func](url)
+ * @description > **Steamworks Struct**: [ISteamInventory::SteamInventoryFullUpdate_t](https://partner.steamgames.com/doc/api/ISteamInventory#SteamInventoryFullUpdate_t)
  *
- * This struct 
+ * This struct holds information returned in a `SteamInventoryFullUpdate_t` callback, which is triggered when ${function.steam_inventory_get_all_items} successfully returns a result which is newer / fresher than the last known result.
  *
- * @member {Real} result_handle
- * @struct_end 
+ * @member {Real} result_handle The new inventory result handle.
+ * @struct_end
  */
 
 /**
@@ -10578,9 +10399,9 @@
 
 /**
  * @struct SteamNetworkingMessagesSessionRequest
- * @description > **Steamworks Struct**: [func](url)
+ * @description > **Steamworks Struct**: [ISteamNetworkingMessages::SteamNetworkingMessagesSessionRequest_t](https://partner.steamgames.com/doc/api/ISteamNetworkingMessages#SteamNetworkingMessagesSessionRequest_t)
  *
- * This struct 
+ * This struct holds information posted when a remote host is sending us a message, and we do not already have a session with them.
  *
  * @member {Real} steam_id_remote The Steam ID associated with the remote identity.
  * @struct_end 
@@ -10643,17 +10464,6 @@
  */
 
 /**
- * @struct SteamPartiesAvailableBeaconLocationCount
- * @description > **Steamworks Struct**: [func](url)
- *
- * This struct 
- *
- * @member {Bool} ok
- * @member {Real} count
- * @struct_end 
- */
-
-/**
  * @struct SteamPartiesBeaconLocation
  * @description > **Steamworks Struct**: N / A
  * 
@@ -10668,7 +10478,7 @@
  * @struct SteamPartiesCreateBeaconResult
  * @description > **Steamworks Struct**: [ISteamParties#CreateBeaconCallback_t](https://partner.steamgames.com/doc/api/isteamparties#CreateBeaconCallback_t)
  *
- * This struct 
+ * This struct holds information about the result of creating a beacon.
  *
  * @member {Enum.SteamApiResult} result The result of the attempt to create a beacon.
  * @member {Real} beacon_id Beacon ID of the newly created beacon.
@@ -10690,11 +10500,11 @@
 
 /**
  * @struct SteamPartiesChangeNumOpenSlotsResult
- * @description > **Steamworks Struct**: [func](url)
+ * @description > **Steamworks Struct**: [ISteamParties::ChangeNumOpenSlotsCallback_t](https://partner.steamgames.com/doc/api/ISteamParties#ChangeNumOpenSlotsCallback_t)
  *
- * This struct 
+ * This struct holds the call result for ${function.steam_parties_change_num_open_slots}.
  *
- * @member {Real} result
+ * @member {Real} result The result of the attempt to change the number of open slots.
  * @struct_end 
  */
 
@@ -11696,8 +11506,7 @@
  * 
  * This enum inputs the player binds to actions in the Steam Input Configurator. The chief purpose of these values is to direct which on-screen button glyphs should appear for a given action, such as "Press [A] to Jump".
  * 
- * @member None 
-.
+ * @member None None.
  * @member SteamController_A (Valve Steam Controller) digital face button A.
  * @member SteamController_B (Valve Steam Controller) digital face button B.
  * @member SteamController_X (Valve Steam Controller) digital face button X.
@@ -12276,7 +12085,7 @@
  * @enum SteamTimelineEventClipPriority
  * @description > **Steamworks Enum**: [ISteamTimeline::ETimelineEventClipPriority](partner.steamgames.com/doc/api/ISteamTimeline#ETimelineEventClipPriority)
  *
- * This enum is used in AddTimelineEvent, where Featured events will be offered before Standard events.
+ * This enum is used in ${function.steam_timeline_add_instantaneous_timeline_event} and ${function.steam_timeline_add_range_timeline_event}, where Featured events will be offered before Standard events.
  *
  * @member None This event is not appropriate as a clip.
  * @member Standard The user may want to make a clip around this event.
@@ -12593,6 +12402,7 @@
  * @member SteamMatchmakingFavoriteFlagNone (value: '0x00') This favorite game server has no flags set.
  * @member SteamMatchmakingServersInterfaceVersion (value: '"SteamMatchMakingServers002"') Steam Matchmaking servers interface version.
  * @member SteamMatchmakingInterfaceVersion (value: '"SteamMatchMaking009"') Steam Matchmaking interface version.
+ * @member SteamNetworkingPollGroup_Invalid (value: '0') Invalid pollgroup handle.
  * @const_end
  */
 
@@ -12964,13 +12774,11 @@
  * @section_const Constants
  * @desc These are the constants and enums of the Networking module:
  * @ref SteamNetworking*
- * @ref SteamNet*
  * @section_end
  * 
  * @section_struct Structs
  * @desc These are the structs of the Networking module:
  * @ref SteamNetworking*
- * @ref SteamNet*
  * @section_end
  * @module_end
  */
