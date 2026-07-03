@@ -279,21 +279,6 @@
  */
 
 /**
- * @function steam_friends_get_clan_by_index
- * @description > **Steamworks Function**: [ISteamFriends::GetClanByIndex](https://partner.steamgames.com/doc/api/ISteamFriends#GetClanByIndex)
- *
- * **This API is deprecated.**
- * 
- * This function gets the Steam group's Steam ID at the given index.
- * 
- * [[Note: You must call ${function.steam_friends_get_clan_count} before calling this.]]
- *
- * @param {Real} clan An index between 0 and ${function.steam_friends_get_clan_count}.
- * @returns {Real}
- * @function_end
- */
-
-/**
  * @function steam_friends_get_clan_chat_member_count
  * @description > **Steamworks Function**: [ISteamFriends::GetClanChatMemberCount](https://partner.steamgames.com/doc/api/ISteamFriends#GetClanChatMemberCount)
  * 
@@ -920,20 +905,6 @@
  */
 
 /**
- * @function steam_friends_is_user_in_source
- * @description > **Steamworks Function**: [ISteamFriends::IsUserInSource](https://partner.steamgames.com/doc/api/ISteamFriends#IsUserInSource)
- * 
- * **This API is deprecated.**
- * 
- * This function checks if a specified user is in a source (Steam group, chat room, lobby, or game server).
- *
- * @param {Real} steam_id_user The user to check if they are in the source.
- * @param {Real} steam_id_source The source to check for the user.
- * @returns {Bool} 
- * @function_end
- */
-
-/**
  * @function steam_friends_request_clan_officer_list
  * @description > **Steamworks Function**: [ISteamFriends::RequestClanOfficerList](https://partner.steamgames.com/doc/api/ISteamFriends#RequestClanOfficerList)
  *
@@ -1196,18 +1167,6 @@
  *
  * @param {Real} app_id The App ID of the DLC to check.
  * @returns {Bool} `true` if the user owns the DLC and it's currently installed, otherwise `false`.
- * @function_end
- */
-
-/**
- * @function steam_apps_is_cybercafe
- * @description > **Steamworks Function**: [ISteamApps::BIsCybercafe](https://partner.steamgames.com/doc/api/ISteamApps#BIsCybercafe)
- *
- * This function checks whether the current App ID is for Cyber Cafes.
- * 
- * [[Note: Deprecated - No longer used.]]
- *
- * @returns {Bool} 
  * @function_end
  */
 
@@ -1543,25 +1502,6 @@
  *
  * @param {Bool} missing_files_only Only scan for missing files, don't verify the checksum of each file.
  * @returns {Bool} 
- * @function_end
- */
-
-/**
- * @function steam_apps_request_all_proof_of_purchase_keys
- * @description > **Steamworks Function**: [ISteamApps::RequestAllProofOfPurchaseKeys](https://partner.steamgames.com/doc/api/ISteamApps#RequestAllProofOfPurchaseKeys)
- *
- * Deprecated.
- *
- * @function_end
- */
-
-/**
- * @function steam_apps_request_app_proof_of_purchase_key
- * @description > **Steamworks Function**: [ISteamApps::RequestAppProofOfPurchaseKey](https://partner.steamgames.com/doc/api/ISteamApps#RequestAppProofOfPurchaseKey)
- *
- * Deprecated.
- *
- * @param {Real} app_id The App ID to request the proof of purchase key for.
  * @function_end
  */
 
@@ -2147,16 +2087,6 @@
  */
 
 /**
- * @function steam_user_get_user_data_folder
- * @description > **Steamworks Function**: [ISteamUser::GetUserDataFolder](https://partner.steamgames.com/doc/api/ISteamUser#GetUserDataFolder)
- *
- * Deprecated. You should use the [ISteamRemoteStorage](https://partner.steamgames.com/doc/api/ISteamRemoteStorage) API from [Steam Cloud](https://partner.steamgames.com/doc/features/cloud) instead.
- *
- * @returns {String}
- * @function_end
- */
-
-/**
  * @function steam_user_request_encrypted_app_ticket
  * @description > **Steamworks Function**: [ISteamUser::RequestEncryptedAppTicket](https://partner.steamgames.com/doc/api/ISteamUser#RequestEncryptedAppTicket)
  *
@@ -2455,25 +2385,6 @@
  * This function checks if the Overlay needs a present. Only required if using event driven render updates.
  *
  * @returns {Bool} 
- * @function_end
- */
-
-/**
- * @function steam_utils_check_file_signature
- * @description > **Steamworks Function**: [ISteamUtils::CheckFileSignature](https://partner.steamgames.com/doc/api/ISteamUtils#CheckFileSignature)
- *
- * This function is deprecated.
- *
- * @param {String} file_name The name of the file whose signature is to be checked.
- * @param {Function} callback The function to call upon completion.
- *
- * @event callback
- * @desc > **Steamworks Callback**: [ISteamUtils::CheckFileSignature_t](https://partner.steamgames.com/doc/api/ISteamUtils#CheckFileSignature_t)
- *
- * Called when the file signature check started by ${function.steam_utils_check_file_signature} has completed.
- *
- * @member {Struct.SteamUtilsCheckFileSignatureResult} result The result of the operation.
- * @event_end
  * @function_end
  */
 
@@ -3750,30 +3661,6 @@
  * @param {String} game_branch_max The name of the maximum Steam branch this item is valid for.
  * @returns {Bool} 
  * @function_end 
- */
-
-/**
- * @function steam_ugc_request_ugc_details
- * @description > **Steamworks Function**: [ISteamUGC::RequestUGCDetails](https://partner.steamgames.com/doc/api/ISteamUGC#RequestUGCDetails)
- *
- * This function is deprecated; use ${function.steam_ugc_create_query_ugc_details_request} instead.
- *
- * @param {Real} published_file_id The workshop item to get the details for.
- * @param {Real} max_age_seconds The maximum age (in seconds) that cached data is considered valid for.
- * @param {Function} callback The function to call upon completion.
- *
- * @event callback
- * @desc > **Steamworks Callback**: [ISteamUGC::SteamUGCRequestUGCDetailsResult_t](https://partner.steamgames.com/doc/api/ISteamUGC#SteamUGCRequestUGCDetailsResult_t)
- *
- * Called when the details of a workshop item have been received.
- *
- * [[Note: This callback is deprecated by Steam and is provided for backwards compatibility.]]
- *
- * @member {Enum.SteamApiResult} result The result of the operation.
- * @member {Real} published_file_id The workshop item the details are for.
- * @member {Bool} cached_data Whether the returned data was retrieved from the local cache.
- * @event_end
- * @function_end
  */
 
 /**
@@ -5442,9 +5329,7 @@
  *
  * Called when scores for a leaderboard have been downloaded and are ready to be retrieved.
  *
- * @member {Real} leaderboard_handle The handle to the leaderboard that these entries belong to.
- * @member {Real} entries_handle A handle used to retrieve each downloaded entry's data.
- * @member {Real} entry_count The number of entries downloaded.
+ * @member {Struct.SteamUserStatsScoresDownloadedResult} result The result of the operation.
  * @event_end
  * @function_end
  */
@@ -5469,10 +5354,8 @@
  * @desc > **Steamworks Callback**: [ISteamUserStats::LeaderboardScoresDownloaded_t](https://partner.steamgames.com/doc/api/ISteamUserStats#LeaderboardScoresDownloaded_t)
  *
  * Called when scores for a leaderboard have been downloaded and are ready to be retrieved.
- *
- * @member {Real} leaderboard_handle The handle to the leaderboard that these entries belong to.
- * @member {Real} entries_handle A handle used to retrieve each downloaded entry's data.
- * @member {Real} entry_count The number of entries downloaded.
+ * 
+ * @member {Struct.SteamUserStatsScoresDownloadedResult} result The result of the operation.
  * @event_end
  * @function_end
  */
@@ -5510,12 +5393,7 @@
  * 
  * Result indicating that a leaderboard score has been uploaded.
  * 
- * @member {Bool} success Was the call successful? `true` if the call was successful, `false` on failure.
- * @member {Real} leaderboard_handle Handle to the leaderboard that this score was uploaded to.
- * @member {Real} score The score that was attempted to set.
- * @member {Bool} score_changed `true` if the score on the leaderboard changed otherwise `false` if the existing score was better.
- * @member {Real} global_rank_new The new global rank of the user on this leaderboard.
- * @member {Real} global_rank_previous The previous global rank of the user on this leaderboard; 0 if the user had no existing entry in the leaderboard.
+ * @member {Struct.SteamUserStatsScoreUploadedResult} result The result of the operation.
  * @event_end
  * @function_end
  */
@@ -5536,6 +5414,11 @@
  * @param {Real} leaderboard_handle A leaderboard handle obtained from ${function.steam_userstats_find_leaderboard} or ${function.steam_userstats_find_or_create_leaderboard}.
  * @param {Real} ugc_handle A handle to the user generated content that was shared using ${function.steam_remote_storage_file_share}.
  * @param {Function} callback The function to call upon completion.
+ * 
+ * @event callback
+ * @description > **Steamworks Callback**: [ISteamUserStats::LeaderboardUGCSet_t](partner.steamgames.com/doc/api/ISteamUserStats#LeaderboardUGCSet_t)
+ * @member {Struct.SteamUserStatsAttachLeaderboardUgcResult} result The result of the operation.
+ * @event_end
  * @function_end 
  */
 
@@ -6338,7 +6221,7 @@
  * This function gets the items associated with an inventory result handle.
  *
  * @param {Real} result_handle The inventory result handle to get the items for.
- * @returns {Struct.SteamInventoryResultItems} 
+ * @returns {Array[Struct.SteamInventoryItemDetails]} 
  * @function_end
  */
 
@@ -7254,164 +7137,6 @@
  * This callback is fired in response to a UGC download request, and contains the details of the file that was downloaded.
  *
  * @member {Struct.SteamRemoteStorageDownloadUgcResult} result The result of the operation.
- * @event_end
- * @function_end
- */
-
-/**
- * @function steam_remote_storage_publish_workshop_file
- * @description > **Steamworks Function**: [ISteamRemoteStorage::PublishWorkshopFile](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#PublishWorkshopFile)
- *
- * This function is deprecated and only used with the deprecated RemoteStorage based Workshop API.
- *
- * @param {String} file The name of the file to publish.
- * @param {String} preview_file The name of the preview image file to publish.
- * @param {Real} app_id_consumer The consumer app ID that this file is published for.
- * @param {String} title The title of the published file.
- * @param {String} description The description of the published file.
- * @param {Enum.SteamRemoteStoragePublishedFileVisibility} visibility The visibility of the published file.
- * @param {String} tags_csv A comma-separated list of tags to apply to the published file.
- * @param {Enum.SteamRemoteStorageWorkshopFileType} file_type The type of workshop file being published.
- * @param {Function} callback The function to call upon completion.
- *
- * @event callback
- * @desc > **Steamworks Callback**: [ISteamRemoteStorage::RemoteStoragePublishFileResult_t](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#RemoteStoragePublishFileResult_t)
- *
- * This callback is fired when a workshop file has been published, returning the result of the operation and the ID of the newly published file.
- *
- * @member {Struct.SteamRemoteStoragePublishFileResult} result The result of the operation.
- * @event_end
- * @function_end
- */
-
-/**
- * @function steam_remote_storage_create_published_file_update_request
- * @description > **Steamworks Function**: [ISteamRemoteStorage::CreatePublishedFileUpdateRequest](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#CreatePublishedFileUpdateRequest)
- *
- * This function is deprecated and only used with the deprecated RemoteStorage based Workshop API.
- *
- * @param {Real} published_file_id The ID of the published file to create an update request for.
- * @returns {Real} 
- * @function_end 
- */
-
-/**
- * @function steam_remote_storage_update_published_file_file
- * @description > **Steamworks Function**: [ISteamRemoteStorage::UpdatePublishedFileFile](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#UpdatePublishedFileFile)
- *
- * This function is deprecated and only used with the deprecated RemoteStorage based Workshop API.
- *
- * @param {Real} update_handle The handle of the update request, returned by ${function.steam_remote_storage_create_published_file_update_request}.
- * @param {String} file The name of the file to set on the published file.
- * @returns {Bool}
- * @function_end 
- */
-
-/**
- * @function steam_remote_storage_update_published_file_preview_file
- * @description > **Steamworks Function**: [ISteamRemoteStorage::UpdatePublishedFilePreviewFile](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#UpdatePublishedFilePreviewFile)
- *
- * This function is deprecated and only used with the deprecated RemoteStorage based Workshop API.
- *
- * @param {Real} update_handle The handle of the update request, returned by ${function.steam_remote_storage_create_published_file_update_request}.
- * @param {String} preview_file The name of the preview image file to set on the published file.
- * @returns {Bool}
- * @function_end 
- */
-
-/**
- * @function steam_remote_storage_update_published_file_title
- * @description > **Steamworks Function**: [ISteamRemoteStorage::UpdatePublishedFileTitle](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#UpdatePublishedFileTitle)
- *
- * This function is deprecated and only used with the deprecated RemoteStorage based Workshop API.
- *
- * @param {Real} update_handle The handle of the update request, returned by ${function.steam_remote_storage_create_published_file_update_request}.
- * @param {String} title The title to set on the published file.
- * @returns {Bool}
- * @function_end 
- */
-
-/**
- * @function steam_remote_storage_update_published_file_description
- * @description > **Steamworks Function**: [ISteamRemoteStorage::UpdatePublishedFileDescription](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#UpdatePublishedFileDescription)
- *
- * This function is deprecated and only used with the deprecated RemoteStorage based Workshop API.
- *
- * @param {Real} update_handle The handle of the update request, returned by ${function.steam_remote_storage_create_published_file_update_request}.
- * @param {String} description The description to set on the published file.
- * @returns {Bool}
- * @function_end 
- */
-
-/**
- * @function steam_remote_storage_update_published_file_visibility
- * @description > **Steamworks Function**: [ISteamRemoteStorage::UpdatePublishedFileVisibility](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#UpdatePublishedFileVisibility)
- *
- * This function is deprecated and only used with the deprecated RemoteStorage based Workshop API.
- *
- * @param {Real} update_handle The handle of the update request, returned by ${function.steam_remote_storage_create_published_file_update_request}.
- * @param {Enum.SteamRemoteStoragePublishedFileVisibility} visibility The visibility to set on the published file.
- * @returns {Bool}
- * @function_end 
- */
-
-/**
- * @function steam_remote_storage_update_published_file_tags
- * @description > **Steamworks Function**: [ISteamRemoteStorage::UpdatePublishedFileTags](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#UpdatePublishedFileTags)
- *
- * This function is deprecated and only used with the deprecated RemoteStorage based Workshop API.
- *
- * @param {Real} update_handle The handle of the update request, returned by ${function.steam_remote_storage_create_published_file_update_request}.
- * @param {String} tags_csv A comma-separated list of tags to set on the published file.
- * @returns {Bool}
- * @function_end 
- */
-
-/**
- * @function steam_remote_storage_commit_published_file_update
- * @description > **Steamworks Function**: [ISteamRemoteStorage::CommitPublishedFileUpdate](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#CommitPublishedFileUpdate)
- *
- * This function is deprecated and only used with the deprecated RemoteStorage based Workshop API.
- *
- * @param {Real} update_handle The handle of the update request to commit, returned by ${function.steam_remote_storage_create_published_file_update_request}.
- * @param {Function} callback The function to call upon completion.
- * @function_end 
- */
-
-/**
- * @function steam_remote_storage_subscribe_published_file
- * @description > **Steamworks Function**: [ISteamRemoteStorage::SubscribePublishedFile](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#SubscribePublishedFile)
- *
- * This function is deprecated and only used with the deprecated RemoteStorage based Workshop API.
- *
- * @param {Real} published_file_id The ID of the published file to subscribe to.
- * @param {Function} callback The function to call upon completion.
- *
- * @event callback
- * @desc > **Steamworks Callback**: [ISteamRemoteStorage::RemoteStorageSubscribePublishedFileResult_t](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#RemoteStorageSubscribePublishedFileResult_t)
- *
- * Called when the user has subscribed to a piece of UGC.
- *
- * @member {Struct.SteamRemoteStorageSubscribePublishedFileResult} result The result of the operation.
- * @event_end
- * @function_end
- */
-
-/**
- * @function steam_remote_storage_unsubscribe_published_file
- * @description > **Steamworks Function**: [ISteamRemoteStorage::UnsubscribePublishedFile](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#UnsubscribePublishedFile)
- *
- * This function is deprecated and only used with the deprecated RemoteStorage based Workshop API.
- *
- * @param {Real} published_file_id The ID of the published file to unsubscribe from.
- * @param {Function} callback The function to call upon completion.
- *
- * @event callback
- * @desc > **Steamworks Callback**: [ISteamRemoteStorage::RemoteStorageUnsubscribePublishedFileResult_t](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#RemoteStorageUnsubscribePublishedFileResult_t)
- *
- * Called when the user has unsubscribed from a piece of UGC.
- *
- * @member {Struct.SteamRemoteStorageUnsubscribePublishedFileResult} result The result of the operation.
  * @event_end
  * @function_end
  */
@@ -9199,16 +8924,6 @@
  */
 
 /**
- * @struct SteamUtilsCheckFileSignatureResult
- * @description > **Steamworks Struct**: [ISteamUtils::CheckFileSignature_t](https://partner.steamgames.com/doc/api/ISteamUtils#CheckFileSignature_t)
- *
- * This struct holds information on a file signature check started by ${function.steam_utils_check_file_signature}.
- *
- * @member {Real} result The result of the file signature check (an `ECheckFileSignature` value).
- * @struct_end
- */
-
-/**
  * @struct SteamUtilsLowBatteryPower
  * @description > **Steamworks Struct**: [ISteamUtils::LowBatteryPower_t](partner.steamgames.com/doc/api/ISteamUtils#LowBatteryPower_t)
  *
@@ -9530,18 +9245,6 @@
  */
 
 /**
- * @struct SteamUgcRequestItemDetailsResult
- * @description > **Steamworks Struct**: [ISteamUGC::SteamUGCRequestUGCDetailsResult_t](https://partner.steamgames.com/doc/api/ISteamUGC#SteamUGCRequestUGCDetailsResult_t)
- *
- * Deprecated. Former result of a call to ${function.steam_ugc_request_ugc_details}.
- *
- * @member {Real} result The result of an item details request.
- * @member {Real} published_file_id The globally unique item handle to this piece of UGC.
- * @member {Bool} cached_data Deprecated.
- * @struct_end 
- */
-
-/**
  * @struct SteamUgcSupportedGameVersionData
  * @description > **Steamworks Struct**: N / A
  *
@@ -9804,29 +9507,29 @@
 
 /**
  * @struct SteamUserStatsScoresDownloadedResult
- * @description > **Steamworks Struct**: [func](url)
+ * @description > **Steamworks Struct**: [ISteamUserStats::LeaderboardScoresDownloaded_t](https://partner.steamgames.com/doc/api/ISteamUserStats#LeaderboardScoresDownloaded_t)
  *
- * This struct 
+ * This struct holds the result when scores for a leaderboard have been downloaded and are ready to be retrieved.
  *
- * @member {Real} leaderboard_handle
- * @member {Real} entries_handle
- * @member {Real} entry_count
+ * @member {Real} leaderboard_handle The handle to the leaderboard that these entries belong to.
+ * @member {Real} entries_handle A handle used to retrieve each downloaded entry's data.
+ * @member {Real} entry_count The number of entries downloaded.
  * @struct_end 
  */
 
 /**
  * @struct SteamUserStatsScoreUploadedResult
- * @description > **Steamworks Struct**: [func](url)
+ * @description > **Steamworks Struct**: [ISteamUserStats::LeaderboardScoreUploaded_t](https://partner.steamgames.com/doc/api/ISteamUserStats#LeaderboardScoreUploaded_t)
  *
- * This struct 
- *
- * @member {Bool} success
- * @member {Real} leaderboard_handle
- * @member {Real} score
- * @member {Bool} score_changed
- * @member {Real} global_rank_new
- * @member {Real} global_rank_previous
- * @struct_end 
+ * This struct holds the result indicating that a leaderboard score has been uploaded.
+ * 
+ * @member {Bool} success Was the call successful? `true` if the call was successful, `false` on failure.
+ * @member {Real} leaderboard_handle Handle to the leaderboard that this score was uploaded to.
+ * @member {Real} score The score that was attempted to set.
+ * @member {Bool} score_changed `true` if the score on the leaderboard changed otherwise `false` if the existing score was better.
+ * @member {Real} global_rank_new The new global rank of the user on this leaderboard.
+ * @member {Real} global_rank_previous The previous global rank of the user on this leaderboard; 0 if the user had no existing entry in the leaderboard.
+ * @struct_end
  */
 
 /**
@@ -9864,12 +9567,12 @@
 
 /**
  * @struct SteamUserStatsAttachLeaderboardUgcResult
- * @description > **Steamworks Struct**: [func](url)
+ * @description > **Steamworks Struct**: [ISteamUserStats::LeaderboardUGCSet_t](partner.steamgames.com/doc/api/ISteamUserStats#LeaderboardUGCSet_t)
  *
- * This struct 
+ * This struct holds a result indicating that user generated content has been attached to one of the current user's leaderboard entries.
  * 
- * @member {Real} result
- * @member {Real} leaderboard_handle
+ * @member {Enum.SteamApiResult} result The result of the operation.
+ * @member {Real} leaderboard_handle Handle to the leaderboard that the UGC was attached to.
  * @struct_end
  */
 
@@ -10022,17 +9725,17 @@
  */
 
 /**
- * @struct SteamInventoryResultItem
+ * @struct SteamInventoryItemDetails
  * @description > **Steamworks Struct**: N / A
  *
  * This struct holds information about a single result item.
  * 
  * See: [ISteamInventory::SteamItemDetails_t](https://partner.steamgames.com/doc/api/ISteamInventory#SteamItemDetails_t)
  * 
- * @member {Real} item_instance_ids The globally unique item instance handles.
- * @member {Real} item_def_ids The item definition numbers for the items.
- * @member {Real} quantities The current quantities of each item.
- * @member {Enum.SteamInventoryItemFlags} flags A bitmasked collection of item flags for each item.
+ * @member {Real} item_instance_id The globally unique item instance handle.
+ * @member {Real} item_def_id The item definition number for the item.
+ * @member {Real} quantity The current quantity of the item.
+ * @member {Enum.SteamInventoryItemFlags} flags A bitmasked collection of item flags for the item.
  * @struct_end
  */
 
@@ -10229,51 +9932,6 @@
  * @member {Real} app_id ID of the app that will consume this file.
  * @member {Real} published_file_id The published file ID.
  * @struct_end 
- */
-
-/**
- * @struct SteamRemoteStoragePublishFileResult
- * @description > **Steamworks Struct**: [ISteamRemoteStorage::RemoteStoragePublishFileResult_t](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#RemoteStoragePublishFileResult_t)
- *
- * This struct holds then result when a workshop file has been published, returning the result of the operation and the ID of the newly published file.
- *
- * @member {Enum.SteamApiResult} result The result of the operation.
- * @member {Real} published_file_id The file id of the published file.
- * @member {Bool} user_needs_to_accept_wla Whether the user still needs to accept the Steam Workshop legal agreement.
- * @struct_end
- */
-
-/**
- * @struct SteamRemoteStorageUpdatePublishedFileResult
- * @description > **Steamworks Struct**: [func](url)
- *
- * This struct 
- *
- * @member {Real} result
- * @member {Bool} user_needs_to_accept_wla
- * @struct_end 
- */
-
-/**
- * @struct SteamRemoteStorageSubscribePublishedFileResult
- * @description > **Steamworks Struct**: [ISteamRemoteStorage::RemoteStorageSubscribePublishedFileResult_t](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#RemoteStorageSubscribePublishedFileResult_t)
- *
- * This struct holds the result when the user has subscribed to a piece of UGC.
- *
- * @member {Enum.SteamApiResult} result The result of the operation.
- * @member {Real} published_file_id The workshop item that the user subscribed to.
- * @struct_end
- */
-
-/**
- * @struct SteamRemoteStorageUnsubscribePublishedFileResult
- * @description > **Steamworks Struct**: [ISteamRemoteStorage::RemoteStorageUnsubscribePublishedFileResult_t](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#RemoteStorageUnsubscribePublishedFileResult_t)
- *
- * This struct holds the result when the user has unsubscribed from a piece of UGC.
- *
- * @member {Enum.SteamApiResult} result The result of the operation.
- * @member {Real} published_file_id The workshop item that the user unsubscribed from.
- * @struct_end
  */
 
 /**
@@ -10504,8 +10162,8 @@
  *
  * This struct holds the call result for ${function.steam_parties_change_num_open_slots}.
  *
- * @member {Real} result The result of the attempt to change the number of open slots.
- * @struct_end 
+ * @member {Enum.SteamApiResult} result The result of the attempt to change the number of open slots.
+ * @struct_end
  */
 
 /**
