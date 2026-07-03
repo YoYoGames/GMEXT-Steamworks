@@ -524,8 +524,4 @@ static inline void rs_build_tag_array(std::string_view tags_csv,
 }
 
 
-    SteamAPICall_t call = rs->UnsubscribePublishedFile((PublishedFileId_t)published_file_id);
-    auto* h = new steam_async::CallResult<gm_structs::SteamRemoteStorageUnsubscribePublishedFileResult, RemoteStorageUnsubscribePublishedFileResult_t>(callback, &rs_fromNative);
-    h->set(call);
-}
 

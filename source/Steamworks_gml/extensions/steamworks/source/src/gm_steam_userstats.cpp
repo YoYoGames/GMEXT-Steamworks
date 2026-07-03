@@ -653,7 +653,7 @@ static inline gm_structs::SteamUserStatsScoreUploadedResult userstats_fromNative
 static inline gm_structs::SteamUserStatsAttachLeaderboardUgcResult userstats_fromNative(const LeaderboardUGCSet_t& e)
 {
     gm_structs::SteamUserStatsAttachLeaderboardUgcResult out{};
-    out.result = (int32)e.m_eResult;
+    out.result = (gm_enums::SteamApiResult)e.m_eResult;
     out.leaderboard_handle = (std::uint64_t)e.m_hSteamLeaderboard;
     return out;
 }

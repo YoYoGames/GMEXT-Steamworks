@@ -76,7 +76,7 @@ static inline gm_structs::SteamPartiesJoinPartyResult fromNative(const JoinParty
 static inline gm_structs::SteamPartiesChangeNumOpenSlotsResult fromNative(const ChangeNumOpenSlotsCallback_t& e)
 {
     gm_structs::SteamPartiesChangeNumOpenSlotsResult out {};
-    out.result = (std::int32_t)e.m_eResult;
+    out.result = (gm_enums::SteamApiResult)e.m_eResult;
     return out;
 }
 
