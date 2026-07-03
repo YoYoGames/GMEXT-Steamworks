@@ -272,7 +272,7 @@ int32 steam_inventory_get_all_items()
     return to_i32(rh);
 }
 
-std::optional<SteamInventoryResultItems> steam_inventory_get_result_items(int32 result_handle)
+std::optional<std::vector<gm_structs::SteamInventoryItemDetails>> steam_inventory_get_result_items(int32 result_handle)
 {
     STEAM_GUARD_RET(std::nullopt);
 
@@ -290,19 +290,17 @@ std::optional<SteamInventoryResultItems> steam_inventory_get_result_items(int32 
     if (!ok || count == 0)
         return std::nullopt;
 
-    SteamInventoryResultItems out{};
-    out.count = count;
-    out.item_instance_ids.reserve(count);
-    out.item_def_ids.reserve(count);
-    out.quantities.reserve(count);
-    out.flags.reserve(count);
+    std::vector<gm_structs::SteamInventoryItemDetails> out;
+    out.reserve(count);
 
     for (uint32 i = 0; i < count; ++i)
     {
-        out.item_instance_ids.push_back(inst_to_u64(items[(size_t)i].m_itemId));
-        out.item_def_ids.push_back((uint32)items[(size_t)i].m_iDefinition);
-        out.quantities.push_back((uint32)items[(size_t)i].m_unQuantity);
-        out.flags.push_back((uint32)items[(size_t)i].m_unFlags);
+        gm_structs::SteamInventoryItemDetails item{};
+        item.item_instance_id = inst_to_u64(items[(size_t)i].m_itemId);
+        item.item_def_id = (uint32)items[(size_t)i].m_iDefinition;
+        item.quantity = (uint32)items[(size_t)i].m_unQuantity;
+        item.flags = (gm_enums::SteamInventoryItemFlags)items[(size_t)i].m_unFlags;
+        out.push_back(item);
     }
 
     return out;
