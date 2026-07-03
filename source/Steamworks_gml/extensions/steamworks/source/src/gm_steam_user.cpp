@@ -539,24 +539,6 @@ SteamUserGetVoiceResult steam_user_get_voice(
 }
 
 
-std::optional<std::string> steam_user_get_user_data_folder()
-{
-    STEAM_GUARD_RET(std::nullopt);
-
-    ISteamUser* u = steam_user_iface();
-    if (!u) return std::nullopt;
-
-    uint32 cch_buffer = 1024;
-    std::vector<char> buf((size_t)cch_buffer);
-    buf[0] = '\0';
-
-    const bool ok = u->GetUserDataFolder(buf.data(), (int)buf.size());
-
-    if (!ok)
-        return std::nullopt;
-
-    return std::string(buf.data());
-}
 
 std::optional<std::uint32_t> steam_user_get_encrypted_app_ticket(gm::wire::GMBuffer out_ticket,
                                                                     std::int32_t max_ticket_size)

@@ -2304,21 +2304,6 @@ function SteamUserMicroTxnAuthorizationResponse() constructor
 }
 
 /**
- * @returns {Struct.SteamUtilsCheckFileSignatureResult} 
- */
-function SteamUtilsCheckFileSignatureResult() constructor
-{
-    /**
-     * Internally generated hash for quick validation
-     * @ignore 
-     */
-    static __uid = 1640139361;
-
-    self.result = undefined;
-
-}
-
-/**
  * @returns {Struct.SteamUtilsLowBatteryPower} 
  */
 function SteamUtilsLowBatteryPower() constructor
@@ -2716,23 +2701,6 @@ function SteamUgcGetUserItemVoteResult() constructor
     self.voted_up = undefined;
     self.voted_down = undefined;
     self.vote_skipped = undefined;
-
-}
-
-/**
- * @returns {Struct.SteamUgcRequestItemDetailsResult} 
- */
-function SteamUgcRequestItemDetailsResult() constructor
-{
-    /**
-     * Internally generated hash for quick validation
-     * @ignore 
-     */
-    static __uid = 2371881405;
-
-    self.result = undefined;
-    self.published_file_id = undefined;
-    self.cached_data = undefined;
 
 }
 
@@ -3665,71 +3633,6 @@ function SteamRemoteStoragePublishedFileUnsubscribed() constructor
     static __uid = 2925934949;
 
     self.app_id = undefined;
-    self.published_file_id = undefined;
-
-}
-
-/**
- * @returns {Struct.SteamRemoteStoragePublishFileResult} 
- */
-function SteamRemoteStoragePublishFileResult() constructor
-{
-    /**
-     * Internally generated hash for quick validation
-     * @ignore 
-     */
-    static __uid = 2774424070;
-
-    self.result = undefined;
-    self.published_file_id = undefined;
-    self.user_needs_to_accept_wla = undefined;
-
-}
-
-/**
- * @returns {Struct.SteamRemoteStorageUpdatePublishedFileResult} 
- */
-function SteamRemoteStorageUpdatePublishedFileResult() constructor
-{
-    /**
-     * Internally generated hash for quick validation
-     * @ignore 
-     */
-    static __uid = 2453285188;
-
-    self.result = undefined;
-    self.user_needs_to_accept_wla = undefined;
-
-}
-
-/**
- * @returns {Struct.SteamRemoteStorageSubscribePublishedFileResult} 
- */
-function SteamRemoteStorageSubscribePublishedFileResult() constructor
-{
-    /**
-     * Internally generated hash for quick validation
-     * @ignore 
-     */
-    static __uid = 502205787;
-
-    self.result = undefined;
-    self.published_file_id = undefined;
-
-}
-
-/**
- * @returns {Struct.SteamRemoteStorageUnsubscribePublishedFileResult} 
- */
-function SteamRemoteStorageUnsubscribePublishedFileResult() constructor
-{
-    /**
-     * Internally generated hash for quick validation
-     * @ignore 
-     */
-    static __uid = 1258648592;
-
-    self.result = undefined;
     self.published_file_id = undefined;
 
 }
@@ -6372,49 +6275,6 @@ function __SteamUserMicroTxnAuthorizationResponse_decode(_buffer, _offset)
 }
 
 /**
- * @func __SteamUtilsCheckFileSignatureResult_encode(_inst, _buffer, _offset, _where)
- * @param {Struct.SteamUtilsCheckFileSignatureResult} _inst
- * @param {Id.Buffer} _buffer
- * @param {Real} _offset
- * @param {String} _where
- * @ignore 
- */
-function __SteamUtilsCheckFileSignatureResult_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
-{
-    buffer_seek(_buffer, buffer_seek_start, _offset);
-    with (_inst)
-    {
-        // field: result, type: enum SteamUtilsCheckFileSignature
-
-        if (!is_numeric(self.result)) show_error($"{_where} :: self.result expected number", true);
-        buffer_write(_buffer, buffer_u64, self.result);
-
-    }
-}
-
-/**
- * @func __SteamUtilsCheckFileSignatureResult_decode(_buffer, _offset)
- * @param {Id.Buffer} _buffer
- * @param {Real} _offset
- * @returns {Struct.SteamUtilsCheckFileSignatureResult} 
- * @ignore 
- */
-function __SteamUtilsCheckFileSignatureResult_decode(_buffer, _offset)
-{
-    buffer_seek(_buffer, buffer_seek_start, _offset);
-
-    _inst = new SteamUtilsCheckFileSignatureResult();
-    with (_inst)
-    {
-        // field: result, type: enum SteamUtilsCheckFileSignature
-        self.result = buffer_read(_buffer, buffer_u64);
-
-    }
-
-    return _inst;
-}
-
-/**
  * @func __SteamUtilsLowBatteryPower_encode(_inst, _buffer, _offset, _where)
  * @param {Struct.SteamUtilsLowBatteryPower} _inst
  * @param {Id.Buffer} _buffer
@@ -7798,62 +7658,6 @@ function __SteamUgcGetUserItemVoteResult_decode(_buffer, _offset)
 
         // field: vote_skipped, type: Bool
         self.vote_skipped = buffer_read(_buffer, buffer_bool);
-
-    }
-
-    return _inst;
-}
-
-/**
- * @func __SteamUgcRequestItemDetailsResult_encode(_inst, _buffer, _offset, _where)
- * @param {Struct.SteamUgcRequestItemDetailsResult} _inst
- * @param {Id.Buffer} _buffer
- * @param {Real} _offset
- * @param {String} _where
- * @ignore 
- */
-function __SteamUgcRequestItemDetailsResult_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
-{
-    buffer_seek(_buffer, buffer_seek_start, _offset);
-    with (_inst)
-    {
-        // field: result, type: Int32
-        if (!is_numeric(self.result)) show_error($"{_where} :: self.result expected number", true);
-        buffer_write(_buffer, buffer_s32, self.result);
-
-        // field: published_file_id, type: UInt64
-        if (!is_numeric(self.published_file_id)) show_error($"{_where} :: self.published_file_id expected number", true);
-        buffer_write(_buffer, buffer_u64, self.published_file_id);
-
-        // field: cached_data, type: Bool
-        if (!is_bool(self.cached_data)) show_error($"{_where} :: self.cached_data expected bool", true);
-        buffer_write(_buffer, buffer_bool, self.cached_data);
-
-    }
-}
-
-/**
- * @func __SteamUgcRequestItemDetailsResult_decode(_buffer, _offset)
- * @param {Id.Buffer} _buffer
- * @param {Real} _offset
- * @returns {Struct.SteamUgcRequestItemDetailsResult} 
- * @ignore 
- */
-function __SteamUgcRequestItemDetailsResult_decode(_buffer, _offset)
-{
-    buffer_seek(_buffer, buffer_seek_start, _offset);
-
-    _inst = new SteamUgcRequestItemDetailsResult();
-    with (_inst)
-    {
-        // field: result, type: Int32
-        self.result = buffer_read(_buffer, buffer_s32);
-
-        // field: published_file_id, type: UInt64
-        self.published_file_id = buffer_read(_buffer, buffer_u64);
-
-        // field: cached_data, type: Bool
-        self.cached_data = buffer_read(_buffer, buffer_bool);
 
     }
 
@@ -9356,9 +9160,10 @@ function __SteamUserStatsAttachLeaderboardUgcResult_encode(_inst, _buffer, _offs
     buffer_seek(_buffer, buffer_seek_start, _offset);
     with (_inst)
     {
-        // field: result, type: Int32
+        // field: result, type: enum SteamApiResult
+
         if (!is_numeric(self.result)) show_error($"{_where} :: self.result expected number", true);
-        buffer_write(_buffer, buffer_s32, self.result);
+        buffer_write(_buffer, buffer_u64, self.result);
 
         // field: leaderboard_handle, type: UInt64
         if (!is_numeric(self.leaderboard_handle)) show_error($"{_where} :: self.leaderboard_handle expected number", true);
@@ -9381,8 +9186,8 @@ function __SteamUserStatsAttachLeaderboardUgcResult_decode(_buffer, _offset)
     _inst = new SteamUserStatsAttachLeaderboardUgcResult();
     with (_inst)
     {
-        // field: result, type: Int32
-        self.result = buffer_read(_buffer, buffer_s32);
+        // field: result, type: enum SteamApiResult
+        self.result = buffer_read(_buffer, buffer_u64);
 
         // field: leaderboard_handle, type: UInt64
         self.leaderboard_handle = buffer_read(_buffer, buffer_u64);
@@ -10995,210 +10800,6 @@ function __SteamRemoteStoragePublishedFileUnsubscribed_decode(_buffer, _offset)
 }
 
 /**
- * @func __SteamRemoteStoragePublishFileResult_encode(_inst, _buffer, _offset, _where)
- * @param {Struct.SteamRemoteStoragePublishFileResult} _inst
- * @param {Id.Buffer} _buffer
- * @param {Real} _offset
- * @param {String} _where
- * @ignore 
- */
-function __SteamRemoteStoragePublishFileResult_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
-{
-    buffer_seek(_buffer, buffer_seek_start, _offset);
-    with (_inst)
-    {
-        // field: result, type: Int32
-        if (!is_numeric(self.result)) show_error($"{_where} :: self.result expected number", true);
-        buffer_write(_buffer, buffer_s32, self.result);
-
-        // field: published_file_id, type: UInt64
-        if (!is_numeric(self.published_file_id)) show_error($"{_where} :: self.published_file_id expected number", true);
-        buffer_write(_buffer, buffer_u64, self.published_file_id);
-
-        // field: user_needs_to_accept_wla, type: Bool
-        if (!is_bool(self.user_needs_to_accept_wla)) show_error($"{_where} :: self.user_needs_to_accept_wla expected bool", true);
-        buffer_write(_buffer, buffer_bool, self.user_needs_to_accept_wla);
-
-    }
-}
-
-/**
- * @func __SteamRemoteStoragePublishFileResult_decode(_buffer, _offset)
- * @param {Id.Buffer} _buffer
- * @param {Real} _offset
- * @returns {Struct.SteamRemoteStoragePublishFileResult} 
- * @ignore 
- */
-function __SteamRemoteStoragePublishFileResult_decode(_buffer, _offset)
-{
-    buffer_seek(_buffer, buffer_seek_start, _offset);
-
-    _inst = new SteamRemoteStoragePublishFileResult();
-    with (_inst)
-    {
-        // field: result, type: Int32
-        self.result = buffer_read(_buffer, buffer_s32);
-
-        // field: published_file_id, type: UInt64
-        self.published_file_id = buffer_read(_buffer, buffer_u64);
-
-        // field: user_needs_to_accept_wla, type: Bool
-        self.user_needs_to_accept_wla = buffer_read(_buffer, buffer_bool);
-
-    }
-
-    return _inst;
-}
-
-/**
- * @func __SteamRemoteStorageUpdatePublishedFileResult_encode(_inst, _buffer, _offset, _where)
- * @param {Struct.SteamRemoteStorageUpdatePublishedFileResult} _inst
- * @param {Id.Buffer} _buffer
- * @param {Real} _offset
- * @param {String} _where
- * @ignore 
- */
-function __SteamRemoteStorageUpdatePublishedFileResult_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
-{
-    buffer_seek(_buffer, buffer_seek_start, _offset);
-    with (_inst)
-    {
-        // field: result, type: Int32
-        if (!is_numeric(self.result)) show_error($"{_where} :: self.result expected number", true);
-        buffer_write(_buffer, buffer_s32, self.result);
-
-        // field: user_needs_to_accept_wla, type: Bool
-        if (!is_bool(self.user_needs_to_accept_wla)) show_error($"{_where} :: self.user_needs_to_accept_wla expected bool", true);
-        buffer_write(_buffer, buffer_bool, self.user_needs_to_accept_wla);
-
-    }
-}
-
-/**
- * @func __SteamRemoteStorageUpdatePublishedFileResult_decode(_buffer, _offset)
- * @param {Id.Buffer} _buffer
- * @param {Real} _offset
- * @returns {Struct.SteamRemoteStorageUpdatePublishedFileResult} 
- * @ignore 
- */
-function __SteamRemoteStorageUpdatePublishedFileResult_decode(_buffer, _offset)
-{
-    buffer_seek(_buffer, buffer_seek_start, _offset);
-
-    _inst = new SteamRemoteStorageUpdatePublishedFileResult();
-    with (_inst)
-    {
-        // field: result, type: Int32
-        self.result = buffer_read(_buffer, buffer_s32);
-
-        // field: user_needs_to_accept_wla, type: Bool
-        self.user_needs_to_accept_wla = buffer_read(_buffer, buffer_bool);
-
-    }
-
-    return _inst;
-}
-
-/**
- * @func __SteamRemoteStorageSubscribePublishedFileResult_encode(_inst, _buffer, _offset, _where)
- * @param {Struct.SteamRemoteStorageSubscribePublishedFileResult} _inst
- * @param {Id.Buffer} _buffer
- * @param {Real} _offset
- * @param {String} _where
- * @ignore 
- */
-function __SteamRemoteStorageSubscribePublishedFileResult_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
-{
-    buffer_seek(_buffer, buffer_seek_start, _offset);
-    with (_inst)
-    {
-        // field: result, type: enum SteamApiResult
-
-        if (!is_numeric(self.result)) show_error($"{_where} :: self.result expected number", true);
-        buffer_write(_buffer, buffer_u64, self.result);
-
-        // field: published_file_id, type: UInt64
-        if (!is_numeric(self.published_file_id)) show_error($"{_where} :: self.published_file_id expected number", true);
-        buffer_write(_buffer, buffer_u64, self.published_file_id);
-
-    }
-}
-
-/**
- * @func __SteamRemoteStorageSubscribePublishedFileResult_decode(_buffer, _offset)
- * @param {Id.Buffer} _buffer
- * @param {Real} _offset
- * @returns {Struct.SteamRemoteStorageSubscribePublishedFileResult} 
- * @ignore 
- */
-function __SteamRemoteStorageSubscribePublishedFileResult_decode(_buffer, _offset)
-{
-    buffer_seek(_buffer, buffer_seek_start, _offset);
-
-    _inst = new SteamRemoteStorageSubscribePublishedFileResult();
-    with (_inst)
-    {
-        // field: result, type: enum SteamApiResult
-        self.result = buffer_read(_buffer, buffer_u64);
-
-        // field: published_file_id, type: UInt64
-        self.published_file_id = buffer_read(_buffer, buffer_u64);
-
-    }
-
-    return _inst;
-}
-
-/**
- * @func __SteamRemoteStorageUnsubscribePublishedFileResult_encode(_inst, _buffer, _offset, _where)
- * @param {Struct.SteamRemoteStorageUnsubscribePublishedFileResult} _inst
- * @param {Id.Buffer} _buffer
- * @param {Real} _offset
- * @param {String} _where
- * @ignore 
- */
-function __SteamRemoteStorageUnsubscribePublishedFileResult_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
-{
-    buffer_seek(_buffer, buffer_seek_start, _offset);
-    with (_inst)
-    {
-        // field: result, type: Int32
-        if (!is_numeric(self.result)) show_error($"{_where} :: self.result expected number", true);
-        buffer_write(_buffer, buffer_s32, self.result);
-
-        // field: published_file_id, type: UInt64
-        if (!is_numeric(self.published_file_id)) show_error($"{_where} :: self.published_file_id expected number", true);
-        buffer_write(_buffer, buffer_u64, self.published_file_id);
-
-    }
-}
-
-/**
- * @func __SteamRemoteStorageUnsubscribePublishedFileResult_decode(_buffer, _offset)
- * @param {Id.Buffer} _buffer
- * @param {Real} _offset
- * @returns {Struct.SteamRemoteStorageUnsubscribePublishedFileResult} 
- * @ignore 
- */
-function __SteamRemoteStorageUnsubscribePublishedFileResult_decode(_buffer, _offset)
-{
-    buffer_seek(_buffer, buffer_seek_start, _offset);
-
-    _inst = new SteamRemoteStorageUnsubscribePublishedFileResult();
-    with (_inst)
-    {
-        // field: result, type: Int32
-        self.result = buffer_read(_buffer, buffer_s32);
-
-        // field: published_file_id, type: UInt64
-        self.published_file_id = buffer_read(_buffer, buffer_u64);
-
-    }
-
-    return _inst;
-}
-
-/**
  * @func __SteamMatchmakingLobbyCreated_encode(_inst, _buffer, _offset, _where)
  * @param {Struct.SteamMatchmakingLobbyCreated} _inst
  * @param {Id.Buffer} _buffer
@@ -12270,9 +11871,10 @@ function __SteamPartiesChangeNumOpenSlotsResult_encode(_inst, _buffer, _offset, 
     buffer_seek(_buffer, buffer_seek_start, _offset);
     with (_inst)
     {
-        // field: result, type: Int32
+        // field: result, type: enum SteamApiResult
+
         if (!is_numeric(self.result)) show_error($"{_where} :: self.result expected number", true);
-        buffer_write(_buffer, buffer_s32, self.result);
+        buffer_write(_buffer, buffer_u64, self.result);
 
     }
 }
@@ -12291,8 +11893,8 @@ function __SteamPartiesChangeNumOpenSlotsResult_decode(_buffer, _offset)
     _inst = new SteamPartiesChangeNumOpenSlotsResult();
     with (_inst)
     {
-        // field: result, type: Int32
-        self.result = buffer_read(_buffer, buffer_s32);
+        // field: result, type: enum SteamApiResult
+        self.result = buffer_read(_buffer, buffer_u64);
 
     }
 
@@ -12731,38 +12333,6 @@ function steam_friends_get_clan_activity_counts(_steam_id_clan)
         _result = undefined;
     }
     return _result;
-}
-
-/**
- * @param {Real} _clan
- * @returns {Real} 
- */
-function steam_friends_get_clan_by_index(_clan)
-{
-    var __ret_buffer = __ext_core_get_ret_buffer();
-
-    var _return_value = __steam_friends_get_clan_by_index(_clan, buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
-
-    var _result = undefined;
-    _result = buffer_read(__ret_buffer, buffer_u64);
-    return _result;
-}
-
-/**
- * @param {Real} _steam_id_clan
- * @returns {Real} 
- */
-function steam_friends_get_clan_chat_member_count(_steam_id_clan)
-{
-    var __args_buffer = __ext_core_get_args_buffer();
-
-    // param: _steam_id_clan, type: UInt64
-    if (!is_numeric(_steam_id_clan)) show_error($"{_GMFUNCTION_} :: _steam_id_clan expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _steam_id_clan);
-
-    var _return_value = __steam_friends_get_clan_chat_member_count(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
-
-    return _return_value;
 }
 
 /**
@@ -13504,28 +13074,6 @@ function steam_friends_is_following(_steam_id, _callback)
 }
 
 /**
- * @param {Real} _steam_id_user
- * @param {Real} _steam_id_source
- * @returns {Bool} 
- */
-function steam_friends_is_user_in_source(_steam_id_user, _steam_id_source)
-{
-    var __args_buffer = __ext_core_get_args_buffer();
-
-    // param: _steam_id_user, type: UInt64
-    if (!is_numeric(_steam_id_user)) show_error($"{_GMFUNCTION_} :: _steam_id_user expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _steam_id_user);
-
-    // param: _steam_id_source, type: UInt64
-    if (!is_numeric(_steam_id_source)) show_error($"{_GMFUNCTION_} :: _steam_id_source expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _steam_id_source);
-
-    var _return_value = __steam_friends_is_user_in_source(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
-
-    return _return_value;
-}
-
-/**
  * @param {Real} _steam_id_clan
  * @param {Function} _callback
  */
@@ -13784,9 +13332,6 @@ function steam_apps_get_dlc_data_by_index(_dlc)
 // Skipping function steam_apps_is_app_installed (no wrapper is required)
 
 
-// Skipping function steam_apps_is_cybercafe (no wrapper is required)
-
-
 // Skipping function steam_apps_is_dlc_installed (no wrapper is required)
 
 
@@ -14008,12 +13553,6 @@ function steam_apps_get_installed_depots(_app_id, _max_depots)
 
 
 // Skipping function steam_apps_mark_content_corrupt (no wrapper is required)
-
-
-// Skipping function steam_apps_request_all_proof_of_purchase_keys (no wrapper is required)
-
-
-// Skipping function steam_apps_request_app_proof_of_purchase_key (no wrapper is required)
 
 
 // Skipping function steam_apps_uninstall_dlc (no wrapper is required)
@@ -14513,9 +14052,6 @@ function steam_user_get_voice(_want_compressed, _dest_compressed, _dest_compress
     return _result;
 }
 
-// Skipping function steam_user_get_user_data_folder (no wrapper is required)
-
-
 /**
  * @param {Id.Buffer} _data_to_include
  * @param {Real} _data_to_include_size
@@ -14867,31 +14403,6 @@ function steam_user_set_callback_validate_auth_ticket_response(_callback)
 
 // Skipping function steam_utils_overlay_needs_present (no wrapper is required)
 
-
-/**
- * @param {String} _file_name
- * @param {Function} _callback
- */
-function steam_utils_check_file_signature(_file_name, _callback)
-{
-    static __dispatcher = __Steamworks_get_dispatcher();
-
-    var __args_buffer = __ext_core_get_args_buffer();
-
-    // param: _file_name, type: String
-    if (!is_string(_file_name)) show_error($"{_GMFUNCTION_} :: _file_name expected string", true);
-    buffer_write(__args_buffer, buffer_u32, string_byte_length(_file_name));
-    buffer_write(__args_buffer, buffer_string, _file_name);
-
-    // param: _callback, type: Function
-    if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
-    var _callback_handle = __ext_core_function_register(_callback, __dispatcher);
-    buffer_write(__args_buffer, buffer_u64, _callback_handle);
-
-    var _return_value = __steam_utils_check_file_signature(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
-
-    return _return_value;
-}
 
 /**
  * @param {Real} _steam_api_call
@@ -16573,35 +16084,6 @@ function steam_ugc_set_required_game_versions(_update_handle, _game_branch_min, 
     buffer_write(__args_buffer, buffer_string, _game_branch_max);
 
     var _return_value = __steam_ugc_set_required_game_versions(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
-
-    return _return_value;
-}
-
-/**
- * @param {Real} _published_file_id
- * @param {Real} _max_age_seconds
- * @param {Function} _callback
- */
-function steam_ugc_request_ugc_details(_published_file_id, _max_age_seconds, _callback)
-{
-    static __dispatcher = __Steamworks_get_dispatcher();
-
-    var __args_buffer = __ext_core_get_args_buffer();
-
-    // param: _published_file_id, type: UInt64
-    if (!is_numeric(_published_file_id)) show_error($"{_GMFUNCTION_} :: _published_file_id expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _published_file_id);
-
-    // param: _max_age_seconds, type: UInt32
-    if (!is_numeric(_max_age_seconds)) show_error($"{_GMFUNCTION_} :: _max_age_seconds expected number", true);
-    buffer_write(__args_buffer, buffer_u32, _max_age_seconds);
-
-    // param: _callback, type: Function
-    if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
-    var _callback_handle = __ext_core_function_register(_callback, __dispatcher);
-    buffer_write(__args_buffer, buffer_u64, _callback_handle);
-
-    var _return_value = __steam_ugc_request_ugc_details(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
 
     return _return_value;
 }
@@ -21025,303 +20507,6 @@ function steam_remote_storage_ugc_download_to_location(_ugc_handle, _location, _
 }
 
 /**
- * @param {String} _file
- * @param {String} _preview_file
- * @param {Real} _app_id_consumer
- * @param {String} _title
- * @param {String} _description
- * @param {Enum.SteamRemoteStoragePublishedFileVisibility} _visibility
- * @param {String} _tags_csv
- * @param {Enum.SteamRemoteStorageWorkshopFileType} _file_type
- * @param {Function} _callback
- */
-function steam_remote_storage_publish_workshop_file(_file, _preview_file, _app_id_consumer, _title, _description, _visibility, _tags_csv, _file_type, _callback)
-{
-    static __dispatcher = __Steamworks_get_dispatcher();
-
-    var __args_buffer = __ext_core_get_args_buffer();
-
-    // param: _file, type: String
-    if (!is_string(_file)) show_error($"{_GMFUNCTION_} :: _file expected string", true);
-    buffer_write(__args_buffer, buffer_u32, string_byte_length(_file));
-    buffer_write(__args_buffer, buffer_string, _file);
-
-    // param: _preview_file, type: String
-    if (!is_string(_preview_file)) show_error($"{_GMFUNCTION_} :: _preview_file expected string", true);
-    buffer_write(__args_buffer, buffer_u32, string_byte_length(_preview_file));
-    buffer_write(__args_buffer, buffer_string, _preview_file);
-
-    // param: _app_id_consumer, type: UInt32
-    if (!is_numeric(_app_id_consumer)) show_error($"{_GMFUNCTION_} :: _app_id_consumer expected number", true);
-    buffer_write(__args_buffer, buffer_u32, _app_id_consumer);
-
-    // param: _title, type: String
-    if (!is_string(_title)) show_error($"{_GMFUNCTION_} :: _title expected string", true);
-    buffer_write(__args_buffer, buffer_u32, string_byte_length(_title));
-    buffer_write(__args_buffer, buffer_string, _title);
-
-    // param: _description, type: String
-    if (!is_string(_description)) show_error($"{_GMFUNCTION_} :: _description expected string", true);
-    buffer_write(__args_buffer, buffer_u32, string_byte_length(_description));
-    buffer_write(__args_buffer, buffer_string, _description);
-
-    // param: _visibility, type: enum SteamRemoteStoragePublishedFileVisibility
-
-    if (!is_numeric(_visibility)) show_error($"{_GMFUNCTION_} :: _visibility expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _visibility);
-
-    // param: _tags_csv, type: String
-    if (!is_string(_tags_csv)) show_error($"{_GMFUNCTION_} :: _tags_csv expected string", true);
-    buffer_write(__args_buffer, buffer_u32, string_byte_length(_tags_csv));
-    buffer_write(__args_buffer, buffer_string, _tags_csv);
-
-    // param: _file_type, type: enum SteamRemoteStorageWorkshopFileType
-
-    if (!is_numeric(_file_type)) show_error($"{_GMFUNCTION_} :: _file_type expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _file_type);
-
-    // param: _callback, type: Function
-    if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
-    var _callback_handle = __ext_core_function_register(_callback, __dispatcher);
-    buffer_write(__args_buffer, buffer_u64, _callback_handle);
-
-    var _return_value = __steam_remote_storage_publish_workshop_file(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
-
-    return _return_value;
-}
-
-/**
- * @param {Real} _published_file_id
- * @returns {Real} 
- */
-function steam_remote_storage_create_published_file_update_request(_published_file_id)
-{
-    var __args_buffer = __ext_core_get_args_buffer();
-
-    // param: _published_file_id, type: UInt64
-    if (!is_numeric(_published_file_id)) show_error($"{_GMFUNCTION_} :: _published_file_id expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _published_file_id);
-
-    var __ret_buffer = __ext_core_get_ret_buffer();
-
-    var _return_value = __steam_remote_storage_create_published_file_update_request(buffer_get_address(__args_buffer), buffer_tell(__args_buffer), buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
-
-    var _result = undefined;
-    _result = buffer_read(__ret_buffer, buffer_u64);
-    return _result;
-}
-
-/**
- * @param {Real} _update_handle
- * @param {String} _file
- * @returns {Bool} 
- */
-function steam_remote_storage_update_published_file_file(_update_handle, _file)
-{
-    var __args_buffer = __ext_core_get_args_buffer();
-
-    // param: _update_handle, type: UInt64
-    if (!is_numeric(_update_handle)) show_error($"{_GMFUNCTION_} :: _update_handle expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _update_handle);
-
-    // param: _file, type: String
-    if (!is_string(_file)) show_error($"{_GMFUNCTION_} :: _file expected string", true);
-    buffer_write(__args_buffer, buffer_u32, string_byte_length(_file));
-    buffer_write(__args_buffer, buffer_string, _file);
-
-    var _return_value = __steam_remote_storage_update_published_file_file(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
-
-    return _return_value;
-}
-
-/**
- * @param {Real} _update_handle
- * @param {String} _preview_file
- * @returns {Bool} 
- */
-function steam_remote_storage_update_published_file_preview_file(_update_handle, _preview_file)
-{
-    var __args_buffer = __ext_core_get_args_buffer();
-
-    // param: _update_handle, type: UInt64
-    if (!is_numeric(_update_handle)) show_error($"{_GMFUNCTION_} :: _update_handle expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _update_handle);
-
-    // param: _preview_file, type: String
-    if (!is_string(_preview_file)) show_error($"{_GMFUNCTION_} :: _preview_file expected string", true);
-    buffer_write(__args_buffer, buffer_u32, string_byte_length(_preview_file));
-    buffer_write(__args_buffer, buffer_string, _preview_file);
-
-    var _return_value = __steam_remote_storage_update_published_file_preview_file(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
-
-    return _return_value;
-}
-
-/**
- * @param {Real} _update_handle
- * @param {String} _title
- * @returns {Bool} 
- */
-function steam_remote_storage_update_published_file_title(_update_handle, _title)
-{
-    var __args_buffer = __ext_core_get_args_buffer();
-
-    // param: _update_handle, type: UInt64
-    if (!is_numeric(_update_handle)) show_error($"{_GMFUNCTION_} :: _update_handle expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _update_handle);
-
-    // param: _title, type: String
-    if (!is_string(_title)) show_error($"{_GMFUNCTION_} :: _title expected string", true);
-    buffer_write(__args_buffer, buffer_u32, string_byte_length(_title));
-    buffer_write(__args_buffer, buffer_string, _title);
-
-    var _return_value = __steam_remote_storage_update_published_file_title(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
-
-    return _return_value;
-}
-
-/**
- * @param {Real} _update_handle
- * @param {String} _description
- * @returns {Bool} 
- */
-function steam_remote_storage_update_published_file_description(_update_handle, _description)
-{
-    var __args_buffer = __ext_core_get_args_buffer();
-
-    // param: _update_handle, type: UInt64
-    if (!is_numeric(_update_handle)) show_error($"{_GMFUNCTION_} :: _update_handle expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _update_handle);
-
-    // param: _description, type: String
-    if (!is_string(_description)) show_error($"{_GMFUNCTION_} :: _description expected string", true);
-    buffer_write(__args_buffer, buffer_u32, string_byte_length(_description));
-    buffer_write(__args_buffer, buffer_string, _description);
-
-    var _return_value = __steam_remote_storage_update_published_file_description(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
-
-    return _return_value;
-}
-
-/**
- * @param {Real} _update_handle
- * @param {Enum.SteamRemoteStoragePublishedFileVisibility} _visibility
- * @returns {Bool} 
- */
-function steam_remote_storage_update_published_file_visibility(_update_handle, _visibility)
-{
-    var __args_buffer = __ext_core_get_args_buffer();
-
-    // param: _update_handle, type: UInt64
-    if (!is_numeric(_update_handle)) show_error($"{_GMFUNCTION_} :: _update_handle expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _update_handle);
-
-    // param: _visibility, type: enum SteamRemoteStoragePublishedFileVisibility
-
-    if (!is_numeric(_visibility)) show_error($"{_GMFUNCTION_} :: _visibility expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _visibility);
-
-    var _return_value = __steam_remote_storage_update_published_file_visibility(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
-
-    return _return_value;
-}
-
-/**
- * @param {Real} _update_handle
- * @param {String} _tags_csv
- * @returns {Bool} 
- */
-function steam_remote_storage_update_published_file_tags(_update_handle, _tags_csv)
-{
-    var __args_buffer = __ext_core_get_args_buffer();
-
-    // param: _update_handle, type: UInt64
-    if (!is_numeric(_update_handle)) show_error($"{_GMFUNCTION_} :: _update_handle expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _update_handle);
-
-    // param: _tags_csv, type: String
-    if (!is_string(_tags_csv)) show_error($"{_GMFUNCTION_} :: _tags_csv expected string", true);
-    buffer_write(__args_buffer, buffer_u32, string_byte_length(_tags_csv));
-    buffer_write(__args_buffer, buffer_string, _tags_csv);
-
-    var _return_value = __steam_remote_storage_update_published_file_tags(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
-
-    return _return_value;
-}
-
-/**
- * @param {Real} _update_handle
- * @param {Function} _callback
- */
-function steam_remote_storage_commit_published_file_update(_update_handle, _callback)
-{
-    static __dispatcher = __Steamworks_get_dispatcher();
-
-    var __args_buffer = __ext_core_get_args_buffer();
-
-    // param: _update_handle, type: UInt64
-    if (!is_numeric(_update_handle)) show_error($"{_GMFUNCTION_} :: _update_handle expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _update_handle);
-
-    // param: _callback, type: Function
-    if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
-    var _callback_handle = __ext_core_function_register(_callback, __dispatcher);
-    buffer_write(__args_buffer, buffer_u64, _callback_handle);
-
-    var _return_value = __steam_remote_storage_commit_published_file_update(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
-
-    return _return_value;
-}
-
-/**
- * @param {Real} _published_file_id
- * @param {Function} _callback
- */
-function steam_remote_storage_subscribe_published_file(_published_file_id, _callback)
-{
-    static __dispatcher = __Steamworks_get_dispatcher();
-
-    var __args_buffer = __ext_core_get_args_buffer();
-
-    // param: _published_file_id, type: UInt64
-    if (!is_numeric(_published_file_id)) show_error($"{_GMFUNCTION_} :: _published_file_id expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _published_file_id);
-
-    // param: _callback, type: Function
-    if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
-    var _callback_handle = __ext_core_function_register(_callback, __dispatcher);
-    buffer_write(__args_buffer, buffer_u64, _callback_handle);
-
-    var _return_value = __steam_remote_storage_subscribe_published_file(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
-
-    return _return_value;
-}
-
-/**
- * @param {Real} _published_file_id
- * @param {Function} _callback
- */
-function steam_remote_storage_unsubscribe_published_file(_published_file_id, _callback)
-{
-    static __dispatcher = __Steamworks_get_dispatcher();
-
-    var __args_buffer = __ext_core_get_args_buffer();
-
-    // param: _published_file_id, type: UInt64
-    if (!is_numeric(_published_file_id)) show_error($"{_GMFUNCTION_} :: _published_file_id expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _published_file_id);
-
-    // param: _callback, type: Function
-    if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
-    var _callback_handle = __ext_core_function_register(_callback, __dispatcher);
-    buffer_write(__args_buffer, buffer_u64, _callback_handle);
-
-    var _return_value = __steam_remote_storage_unsubscribe_published_file(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
-
-    return _return_value;
-}
-
-/**
  * @param {Function} _callback
  */
 function steam_matchmaking_set_callback_lobby_data_update(_callback)
@@ -22956,7 +22141,6 @@ function __Steamworks_get_decoders()
         __SteamUserSteamServerConnectFailure_decode,
         __SteamUserClientGameServerDeny_decode,
         __SteamUserMicroTxnAuthorizationResponse_decode,
-        __SteamUtilsCheckFileSignatureResult_decode,
         __SteamUtilsLowBatteryPower_decode,
         __SteamUtilsSteamApiCallCompleted_decode,
         __SteamUtilsImageSize_decode,
@@ -22980,7 +22164,6 @@ function __Steamworks_get_decoders()
         __SteamUgcFavoriteItemsListChanged_decode,
         __SteamUgcSetUserItemVoteResult_decode,
         __SteamUgcGetUserItemVoteResult_decode,
-        __SteamUgcRequestItemDetailsResult_decode,
         __SteamUgcSupportedGameVersionData_decode,
         __SteamUgcDeleteItemResult_decode,
         __SteamUgcAddAppDependencyResult_decode,
@@ -23037,10 +22220,6 @@ function __Steamworks_get_decoders()
         __SteamRemoteStorageDownloadUgcResult_decode,
         __SteamRemoteStoragePublishedFileSubscribed_decode,
         __SteamRemoteStoragePublishedFileUnsubscribed_decode,
-        __SteamRemoteStoragePublishFileResult_decode,
-        __SteamRemoteStorageUpdatePublishedFileResult_decode,
-        __SteamRemoteStorageSubscribePublishedFileResult_decode,
-        __SteamRemoteStorageUnsubscribePublishedFileResult_decode,
         __SteamMatchmakingLobbyCreated_decode,
         __SteamMatchmakingLobbyEnter_decode,
         __SteamMatchmakingLobbyMatchList_decode,

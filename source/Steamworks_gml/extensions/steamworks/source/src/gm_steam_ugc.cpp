@@ -1231,14 +1231,6 @@ static inline gm_structs::SteamUgcGetUserItemVoteResult ugc_fromNative(const Get
     return out;
 }
 
-static inline gm_structs::SteamUgcRequestItemDetailsResult ugc_fromNative(const SteamUGCRequestUGCDetailsResult_t& e)
-{
-    gm_structs::SteamUgcRequestItemDetailsResult out{};
-    out.result = (int32)e.m_details.m_eResult;
-    out.published_file_id = (std::uint64_t)e.m_details.m_nPublishedFileId;
-    out.cached_data = (e.m_bCachedData != 0);
-    return out;
-}
 
 static inline gm_structs::SteamUgcDeleteItemResult ugc_fromNative(const DeleteItemResult_t& e)
 {
@@ -1466,17 +1458,6 @@ void steam_ugc_get_user_item_vote(std::uint64_t published_file_id,  const gm::wi
     h->set(call);
 }
 
-void steam_ugc_request_ugc_details(std::uint64_t published_file_id, std::uint32_t max_age_seconds,  const gm::wire::GMFunction& callback)
-{
-    STEAM_GUARD();
-
-    ISteamUGC* ugc = steam_ugc_iface();
-    if (!ugc) return;
-
-    SteamAPICall_t call = ugc->RequestUGCDetails((PublishedFileId_t)published_file_id, (uint32)max_age_seconds);
-    auto* h = new steam_async::CallResult<gm_structs::SteamUgcRequestItemDetailsResult, SteamUGCRequestUGCDetailsResult_t>(callback, &ugc_fromNative);
-    h->set(call);
-}
 
 void steam_ugc_delete_item(std::uint64_t published_file_id,  const gm::wire::GMFunction& callback)
 {

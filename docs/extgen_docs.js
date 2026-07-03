@@ -126,20 +126,6 @@
  */
 
 /**
- * @function_partial steam_friends_get_clan_by_index
- * @param {Real} clan
- * @returns {Real} 
- * @function_end 
- */
-
-/**
- * @function_partial steam_friends_get_clan_chat_member_count
- * @param {Real} steam_id_clan
- * @returns {Real} 
- * @function_end 
- */
-
-/**
  * @function_partial steam_friends_get_clan_chat_message
  * @param {Real} steam_id_clan_chat
  * @param {Real} message
@@ -454,14 +440,6 @@
  */
 
 /**
- * @function_partial steam_friends_is_user_in_source
- * @param {Real} steam_id_user
- * @param {Real} steam_id_source
- * @returns {Bool} 
- * @function_end 
- */
-
-/**
  * @function_partial steam_friends_request_clan_officer_list
  * @param {Real} steam_id_clan
  * @param {Function} callback
@@ -579,12 +557,6 @@
 /**
  * @function_partial steam_apps_is_app_installed
  * @param {Real} app_id
- * @returns {Bool} 
- * @function_end 
- */
-
-/**
- * @function_partial steam_apps_is_cybercafe
  * @returns {Bool} 
  * @function_end 
  */
@@ -763,17 +735,6 @@
  * @function_partial steam_apps_mark_content_corrupt
  * @param {Bool} missing_files_only
  * @returns {Bool} 
- * @function_end 
- */
-
-/**
- * @function_partial steam_apps_request_all_proof_of_purchase_keys
- * @function_end 
- */
-
-/**
- * @function_partial steam_apps_request_app_proof_of_purchase_key
- * @param {Real} app_id
  * @function_end 
  */
 
@@ -1039,12 +1000,6 @@
  */
 
 /**
- * @function_partial steam_user_get_user_data_folder
- * @returns {String} 
- * @function_end 
- */
-
-/**
  * @function_partial steam_user_request_encrypted_app_ticket
  * @param {Buffer} data_to_include
  * @param {Real} data_to_include_size
@@ -1201,13 +1156,6 @@
 /**
  * @function_partial steam_utils_overlay_needs_present
  * @returns {Bool} 
- * @function_end 
- */
-
-/**
- * @function_partial steam_utils_check_file_signature
- * @param {String} file_name
- * @param {Function} callback
  * @function_end 
  */
 
@@ -1865,14 +1813,6 @@
  * @param {String} game_branch_min
  * @param {String} game_branch_max
  * @returns {Bool} 
- * @function_end 
- */
-
-/**
- * @function_partial steam_ugc_request_ugc_details
- * @param {Real} published_file_id
- * @param {Real} max_age_seconds
- * @param {Function} callback
  * @function_end 
  */
 
@@ -3665,96 +3605,6 @@
  */
 
 /**
- * @function_partial steam_remote_storage_publish_workshop_file
- * @param {String} file
- * @param {String} preview_file
- * @param {Real} app_id_consumer
- * @param {String} title
- * @param {String} description
- * @param {Enum.SteamRemoteStoragePublishedFileVisibility} visibility
- * @param {String} tags_csv
- * @param {Enum.SteamRemoteStorageWorkshopFileType} file_type
- * @param {Function} callback
- * @function_end 
- */
-
-/**
- * @function_partial steam_remote_storage_create_published_file_update_request
- * @param {Real} published_file_id
- * @returns {Real} 
- * @function_end 
- */
-
-/**
- * @function_partial steam_remote_storage_update_published_file_file
- * @param {Real} update_handle
- * @param {String} file
- * @returns {Bool} 
- * @function_end 
- */
-
-/**
- * @function_partial steam_remote_storage_update_published_file_preview_file
- * @param {Real} update_handle
- * @param {String} preview_file
- * @returns {Bool} 
- * @function_end 
- */
-
-/**
- * @function_partial steam_remote_storage_update_published_file_title
- * @param {Real} update_handle
- * @param {String} title
- * @returns {Bool} 
- * @function_end 
- */
-
-/**
- * @function_partial steam_remote_storage_update_published_file_description
- * @param {Real} update_handle
- * @param {String} description
- * @returns {Bool} 
- * @function_end 
- */
-
-/**
- * @function_partial steam_remote_storage_update_published_file_visibility
- * @param {Real} update_handle
- * @param {Enum.SteamRemoteStoragePublishedFileVisibility} visibility
- * @returns {Bool} 
- * @function_end 
- */
-
-/**
- * @function_partial steam_remote_storage_update_published_file_tags
- * @param {Real} update_handle
- * @param {String} tags_csv
- * @returns {Bool} 
- * @function_end 
- */
-
-/**
- * @function_partial steam_remote_storage_commit_published_file_update
- * @param {Real} update_handle
- * @param {Function} callback
- * @function_end 
- */
-
-/**
- * @function_partial steam_remote_storage_subscribe_published_file
- * @param {Real} published_file_id
- * @param {Function} callback
- * @function_end 
- */
-
-/**
- * @function_partial steam_remote_storage_unsubscribe_published_file
- * @param {Real} published_file_id
- * @param {Function} callback
- * @function_end 
- */
-
-/**
  * @function_partial steam_matchmaking_set_callback_lobby_data_update
  * @param {Function} callback
  * @function_end 
@@ -4733,12 +4583,6 @@
  */
 
 /**
- * @struct_partial SteamUtilsCheckFileSignatureResult
- * @member {Enum.SteamUtilsCheckFileSignature} result
- * @struct_end 
- */
-
-/**
  * @struct_partial SteamUtilsLowBatteryPower
  * @member {Real} minutes_battery_left
  * @struct_end 
@@ -4929,14 +4773,6 @@
  * @member {Bool} voted_up
  * @member {Bool} voted_down
  * @member {Bool} vote_skipped
- * @struct_end 
- */
-
-/**
- * @struct_partial SteamUgcRequestItemDetailsResult
- * @member {Real} result
- * @member {Real} published_file_id
- * @member {Bool} cached_data
  * @struct_end 
  */
 
@@ -5145,7 +4981,7 @@
 
 /**
  * @struct_partial SteamUserStatsAttachLeaderboardUgcResult
- * @member {Real} result
+ * @member {Enum.SteamApiResult} result
  * @member {Real} leaderboard_handle
  * @struct_end 
  */
@@ -5370,35 +5206,6 @@
  */
 
 /**
- * @struct_partial SteamRemoteStoragePublishFileResult
- * @member {Real} result
- * @member {Real} published_file_id
- * @member {Bool} user_needs_to_accept_wla
- * @struct_end 
- */
-
-/**
- * @struct_partial SteamRemoteStorageUpdatePublishedFileResult
- * @member {Real} result
- * @member {Bool} user_needs_to_accept_wla
- * @struct_end 
- */
-
-/**
- * @struct_partial SteamRemoteStorageSubscribePublishedFileResult
- * @member {Enum.SteamApiResult} result
- * @member {Real} published_file_id
- * @struct_end 
- */
-
-/**
- * @struct_partial SteamRemoteStorageUnsubscribePublishedFileResult
- * @member {Real} result
- * @member {Real} published_file_id
- * @struct_end 
- */
-
-/**
  * @struct_partial SteamMatchmakingLobbyCreated
  * @member {Enum.SteamApiResult} result
  * @member {Real} lobby_id
@@ -5548,7 +5355,7 @@
 
 /**
  * @struct_partial SteamPartiesChangeNumOpenSlotsResult
- * @member {Real} result
+ * @member {Enum.SteamApiResult} result
  * @struct_end 
  */
 

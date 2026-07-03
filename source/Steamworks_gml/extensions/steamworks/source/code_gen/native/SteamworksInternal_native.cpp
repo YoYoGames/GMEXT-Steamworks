@@ -223,27 +223,6 @@ GMEXPORT double __EXT_NATIVE__steam_friends_get_clan_activity_counts(char* __arg
     return 0;
 }
 
-GMEXPORT double __EXT_NATIVE__steam_friends_get_clan_by_index(double clan, char* __ret_buffer, double __ret_buffer_length)
-{
-    auto&& __result = steam_friends_get_clan_by_index(static_cast<std::int32_t>(clan));
-    gm::byteio::BufferWriter __bw{__ret_buffer, static_cast<size_t>(__ret_buffer_length)};
-
-    // return: __result, type: UInt64
-    gm::wire::codec::writeValue(__bw, __result);
-    return 0;
-}
-
-GMEXPORT double __EXT_NATIVE__steam_friends_get_clan_chat_member_count(char* __arg_buffer, double __arg_buffer_length)
-{
-    gm::byteio::BufferReader __br{__arg_buffer, static_cast<size_t>(__arg_buffer_length)};
-
-    // field: steam_id_clan, type: UInt64
-    std::uint64_t steam_id_clan = gm::wire::codec::readValue<std::uint64_t>(__br);
-
-    auto&& __result = steam_friends_get_clan_chat_member_count(steam_id_clan);
-    return static_cast<double>(__result);
-}
-
 GMEXPORT double __EXT_NATIVE__steam_friends_get_clan_chat_message(char* __arg_buffer, double __arg_buffer_length, char* __ret_buffer, double __ret_buffer_length)
 {
     gm::byteio::BufferReader __br{__arg_buffer, static_cast<size_t>(__arg_buffer_length)};
@@ -761,20 +740,6 @@ GMEXPORT double __EXT_NATIVE__steam_friends_is_following(char* __arg_buffer, dou
     return 0;
 }
 
-GMEXPORT double __EXT_NATIVE__steam_friends_is_user_in_source(char* __arg_buffer, double __arg_buffer_length)
-{
-    gm::byteio::BufferReader __br{__arg_buffer, static_cast<size_t>(__arg_buffer_length)};
-
-    // field: steam_id_user, type: UInt64
-    std::uint64_t steam_id_user = gm::wire::codec::readValue<std::uint64_t>(__br);
-
-    // field: steam_id_source, type: UInt64
-    std::uint64_t steam_id_source = gm::wire::codec::readValue<std::uint64_t>(__br);
-
-    auto&& __result = steam_friends_is_user_in_source(steam_id_user, steam_id_source);
-    return static_cast<double>(__result);
-}
-
 GMEXPORT double __EXT_NATIVE__steam_friends_request_clan_officer_list(char* __arg_buffer, double __arg_buffer_length)
 {
     gm::byteio::BufferReader __br{__arg_buffer, static_cast<size_t>(__arg_buffer_length)};
@@ -960,12 +925,6 @@ GMEXPORT double __EXT_NATIVE__steam_apps_get_dlc_data_by_index(double dlc, char*
 GMEXPORT double __EXT_NATIVE__steam_apps_is_app_installed(double app_id)
 {
     auto&& __result = steam_apps_is_app_installed(static_cast<std::uint32_t>(app_id));
-    return static_cast<double>(__result);
-}
-
-GMEXPORT double __EXT_NATIVE__steam_apps_is_cybercafe()
-{
-    auto&& __result = steam_apps_is_cybercafe();
     return static_cast<double>(__result);
 }
 
@@ -1176,18 +1135,6 @@ GMEXPORT double __EXT_NATIVE__steam_apps_mark_content_corrupt(double missing_fil
 {
     auto&& __result = steam_apps_mark_content_corrupt(static_cast<bool>(missing_files_only));
     return static_cast<double>(__result);
-}
-
-GMEXPORT double __EXT_NATIVE__steam_apps_request_all_proof_of_purchase_keys()
-{
-    steam_apps_request_all_proof_of_purchase_keys();
-    return 0;
-}
-
-GMEXPORT double __EXT_NATIVE__steam_apps_request_app_proof_of_purchase_key(double app_id)
-{
-    steam_apps_request_app_proof_of_purchase_key(static_cast<std::uint32_t>(app_id));
-    return 0;
 }
 
 GMEXPORT double __EXT_NATIVE__steam_apps_uninstall_dlc(double app_id)
@@ -1597,12 +1544,6 @@ GMEXPORT double __EXT_NATIVE__steam_user_get_voice(char* __arg_buffer, double __
     return 0;
 }
 
-GMEXPORT double __EXT_NATIVE__steam_user_get_user_data_folder()
-{
-    auto&& __result = steam_user_get_user_data_folder();
-    return 0;
-}
-
 GMEXPORT double __EXT_NATIVE__steam_user_request_encrypted_app_ticket(char* __arg_buffer, double __arg_buffer_length)
 {
     gm::byteio::BufferReader __br{__arg_buffer, static_cast<size_t>(__arg_buffer_length)};
@@ -1859,20 +1800,6 @@ GMEXPORT double __EXT_NATIVE__steam_utils_overlay_needs_present()
 {
     auto&& __result = steam_utils_overlay_needs_present();
     return static_cast<double>(__result);
-}
-
-GMEXPORT double __EXT_NATIVE__steam_utils_check_file_signature(char* __arg_buffer, double __arg_buffer_length)
-{
-    gm::byteio::BufferReader __br{__arg_buffer, static_cast<size_t>(__arg_buffer_length)};
-
-    // field: file_name, type: String
-    std::string_view file_name = gm::wire::codec::readValue<std::string_view>(__br);
-
-    // field: callback, type: Function
-    gm::wire::GMFunction callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
-
-    steam_utils_check_file_signature(file_name, callback);
-    return 0;
 }
 
 GMEXPORT double __EXT_NATIVE__steam_utils_get_api_call_failure_reason(char* __arg_buffer, double __arg_buffer_length, char* __ret_buffer, double __ret_buffer_length)
@@ -3007,23 +2934,6 @@ GMEXPORT double __EXT_NATIVE__steam_ugc_set_required_game_versions(char* __arg_b
 
     auto&& __result = steam_ugc_set_required_game_versions(update_handle, game_branch_min, game_branch_max);
     return static_cast<double>(__result);
-}
-
-GMEXPORT double __EXT_NATIVE__steam_ugc_request_ugc_details(char* __arg_buffer, double __arg_buffer_length)
-{
-    gm::byteio::BufferReader __br{__arg_buffer, static_cast<size_t>(__arg_buffer_length)};
-
-    // field: published_file_id, type: UInt64
-    std::uint64_t published_file_id = gm::wire::codec::readValue<std::uint64_t>(__br);
-
-    // field: max_age_seconds, type: UInt32
-    std::uint32_t max_age_seconds = gm::wire::codec::readValue<std::uint32_t>(__br);
-
-    // field: callback, type: Function
-    gm::wire::GMFunction callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
-
-    steam_ugc_request_ugc_details(published_file_id, max_age_seconds, callback);
-    return 0;
 }
 
 GMEXPORT double __EXT_NATIVE__steam_ugc_send_query_ugc_request(char* __arg_buffer, double __arg_buffer_length)
@@ -5969,182 +5879,6 @@ GMEXPORT double __EXT_NATIVE__steam_remote_storage_ugc_download_to_location(char
     gm::wire::GMFunction callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
 
     steam_remote_storage_ugc_download_to_location(ugc_handle, location, priority, callback);
-    return 0;
-}
-
-GMEXPORT double __EXT_NATIVE__steam_remote_storage_publish_workshop_file(char* __arg_buffer, double __arg_buffer_length)
-{
-    gm::byteio::BufferReader __br{__arg_buffer, static_cast<size_t>(__arg_buffer_length)};
-
-    // field: file, type: String
-    std::string_view file = gm::wire::codec::readValue<std::string_view>(__br);
-
-    // field: preview_file, type: String
-    std::string_view preview_file = gm::wire::codec::readValue<std::string_view>(__br);
-
-    // field: app_id_consumer, type: UInt32
-    std::uint32_t app_id_consumer = gm::wire::codec::readValue<std::uint32_t>(__br);
-
-    // field: title, type: String
-    std::string_view title = gm::wire::codec::readValue<std::string_view>(__br);
-
-    // field: description, type: String
-    std::string_view description = gm::wire::codec::readValue<std::string_view>(__br);
-
-    // field: visibility, type: enum SteamRemoteStoragePublishedFileVisibility
-    gm_enums::SteamRemoteStoragePublishedFileVisibility visibility = gm::wire::codec::readValue<gm_enums::SteamRemoteStoragePublishedFileVisibility>(__br);
-
-    // field: tags_csv, type: String
-    std::string_view tags_csv = gm::wire::codec::readValue<std::string_view>(__br);
-
-    // field: file_type, type: enum SteamRemoteStorageWorkshopFileType
-    gm_enums::SteamRemoteStorageWorkshopFileType file_type = gm::wire::codec::readValue<gm_enums::SteamRemoteStorageWorkshopFileType>(__br);
-
-    // field: callback, type: Function
-    gm::wire::GMFunction callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
-
-    steam_remote_storage_publish_workshop_file(file, preview_file, app_id_consumer, title, description, visibility, tags_csv, file_type, callback);
-    return 0;
-}
-
-GMEXPORT double __EXT_NATIVE__steam_remote_storage_create_published_file_update_request(char* __arg_buffer, double __arg_buffer_length, char* __ret_buffer, double __ret_buffer_length)
-{
-    gm::byteio::BufferReader __br{__arg_buffer, static_cast<size_t>(__arg_buffer_length)};
-
-    // field: published_file_id, type: UInt64
-    std::uint64_t published_file_id = gm::wire::codec::readValue<std::uint64_t>(__br);
-
-    auto&& __result = steam_remote_storage_create_published_file_update_request(published_file_id);
-    gm::byteio::BufferWriter __bw{__ret_buffer, static_cast<size_t>(__ret_buffer_length)};
-
-    // return: __result, type: UInt64
-    gm::wire::codec::writeValue(__bw, __result);
-    return 0;
-}
-
-GMEXPORT double __EXT_NATIVE__steam_remote_storage_update_published_file_file(char* __arg_buffer, double __arg_buffer_length)
-{
-    gm::byteio::BufferReader __br{__arg_buffer, static_cast<size_t>(__arg_buffer_length)};
-
-    // field: update_handle, type: UInt64
-    std::uint64_t update_handle = gm::wire::codec::readValue<std::uint64_t>(__br);
-
-    // field: file, type: String
-    std::string_view file = gm::wire::codec::readValue<std::string_view>(__br);
-
-    auto&& __result = steam_remote_storage_update_published_file_file(update_handle, file);
-    return static_cast<double>(__result);
-}
-
-GMEXPORT double __EXT_NATIVE__steam_remote_storage_update_published_file_preview_file(char* __arg_buffer, double __arg_buffer_length)
-{
-    gm::byteio::BufferReader __br{__arg_buffer, static_cast<size_t>(__arg_buffer_length)};
-
-    // field: update_handle, type: UInt64
-    std::uint64_t update_handle = gm::wire::codec::readValue<std::uint64_t>(__br);
-
-    // field: preview_file, type: String
-    std::string_view preview_file = gm::wire::codec::readValue<std::string_view>(__br);
-
-    auto&& __result = steam_remote_storage_update_published_file_preview_file(update_handle, preview_file);
-    return static_cast<double>(__result);
-}
-
-GMEXPORT double __EXT_NATIVE__steam_remote_storage_update_published_file_title(char* __arg_buffer, double __arg_buffer_length)
-{
-    gm::byteio::BufferReader __br{__arg_buffer, static_cast<size_t>(__arg_buffer_length)};
-
-    // field: update_handle, type: UInt64
-    std::uint64_t update_handle = gm::wire::codec::readValue<std::uint64_t>(__br);
-
-    // field: title, type: String
-    std::string_view title = gm::wire::codec::readValue<std::string_view>(__br);
-
-    auto&& __result = steam_remote_storage_update_published_file_title(update_handle, title);
-    return static_cast<double>(__result);
-}
-
-GMEXPORT double __EXT_NATIVE__steam_remote_storage_update_published_file_description(char* __arg_buffer, double __arg_buffer_length)
-{
-    gm::byteio::BufferReader __br{__arg_buffer, static_cast<size_t>(__arg_buffer_length)};
-
-    // field: update_handle, type: UInt64
-    std::uint64_t update_handle = gm::wire::codec::readValue<std::uint64_t>(__br);
-
-    // field: description, type: String
-    std::string_view description = gm::wire::codec::readValue<std::string_view>(__br);
-
-    auto&& __result = steam_remote_storage_update_published_file_description(update_handle, description);
-    return static_cast<double>(__result);
-}
-
-GMEXPORT double __EXT_NATIVE__steam_remote_storage_update_published_file_visibility(char* __arg_buffer, double __arg_buffer_length)
-{
-    gm::byteio::BufferReader __br{__arg_buffer, static_cast<size_t>(__arg_buffer_length)};
-
-    // field: update_handle, type: UInt64
-    std::uint64_t update_handle = gm::wire::codec::readValue<std::uint64_t>(__br);
-
-    // field: visibility, type: enum SteamRemoteStoragePublishedFileVisibility
-    gm_enums::SteamRemoteStoragePublishedFileVisibility visibility = gm::wire::codec::readValue<gm_enums::SteamRemoteStoragePublishedFileVisibility>(__br);
-
-    auto&& __result = steam_remote_storage_update_published_file_visibility(update_handle, visibility);
-    return static_cast<double>(__result);
-}
-
-GMEXPORT double __EXT_NATIVE__steam_remote_storage_update_published_file_tags(char* __arg_buffer, double __arg_buffer_length)
-{
-    gm::byteio::BufferReader __br{__arg_buffer, static_cast<size_t>(__arg_buffer_length)};
-
-    // field: update_handle, type: UInt64
-    std::uint64_t update_handle = gm::wire::codec::readValue<std::uint64_t>(__br);
-
-    // field: tags_csv, type: String
-    std::string_view tags_csv = gm::wire::codec::readValue<std::string_view>(__br);
-
-    auto&& __result = steam_remote_storage_update_published_file_tags(update_handle, tags_csv);
-    return static_cast<double>(__result);
-}
-
-GMEXPORT double __EXT_NATIVE__steam_remote_storage_commit_published_file_update(char* __arg_buffer, double __arg_buffer_length)
-{
-    gm::byteio::BufferReader __br{__arg_buffer, static_cast<size_t>(__arg_buffer_length)};
-
-    // field: update_handle, type: UInt64
-    std::uint64_t update_handle = gm::wire::codec::readValue<std::uint64_t>(__br);
-
-    // field: callback, type: Function
-    gm::wire::GMFunction callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
-
-    steam_remote_storage_commit_published_file_update(update_handle, callback);
-    return 0;
-}
-
-GMEXPORT double __EXT_NATIVE__steam_remote_storage_subscribe_published_file(char* __arg_buffer, double __arg_buffer_length)
-{
-    gm::byteio::BufferReader __br{__arg_buffer, static_cast<size_t>(__arg_buffer_length)};
-
-    // field: published_file_id, type: UInt64
-    std::uint64_t published_file_id = gm::wire::codec::readValue<std::uint64_t>(__br);
-
-    // field: callback, type: Function
-    gm::wire::GMFunction callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
-
-    steam_remote_storage_subscribe_published_file(published_file_id, callback);
-    return 0;
-}
-
-GMEXPORT double __EXT_NATIVE__steam_remote_storage_unsubscribe_published_file(char* __arg_buffer, double __arg_buffer_length)
-{
-    gm::byteio::BufferReader __br{__arg_buffer, static_cast<size_t>(__arg_buffer_length)};
-
-    // field: published_file_id, type: UInt64
-    std::uint64_t published_file_id = gm::wire::codec::readValue<std::uint64_t>(__br);
-
-    // field: callback, type: Function
-    gm::wire::GMFunction callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
-
-    steam_remote_storage_unsubscribe_published_file(published_file_id, callback);
     return 0;
 }
 
