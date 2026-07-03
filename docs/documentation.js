@@ -2413,7 +2413,7 @@
  * @param {Real} callback_expected The k_iCallback number associated with the callback.
  * @param {Buffer} out_callback Returns the callback into the preallocated memory provided.
  * @param {Real} out_callback_size The size of the callback buffer that you are passing in.
- * @returns {Struct.SteamUtilsApiCallResult} 
+ * @returns {Bool} 
  * @function_end 
  */
 
@@ -2570,7 +2570,7 @@
  *
  * This function gets the gamepad text input from the Big Picture overlay. This must be called within the [GamepadTextInputDismissed_t](https://partner.steamgames.com/doc/api/ISteamUtils#GamepadTextInputDismissed_t) callback, and only if `submitted` is true.
  *
- * @returns {Struct.SteamUtilsGamepadTextInput} 
+ * @returns {String} 
  * @function_end 
  */
 
@@ -2742,7 +2742,7 @@
  * This function checks if an API Call is completed. Provides the backend of the CallResult wrapper.
  *
  * @param {Real} steam_api_call The API Call handle to check.
- * @returns {Struct.SteamUtilsApiCallCompleted}
+ * @returns {Bool}
  * @function_end 
  */
 
@@ -3381,7 +3381,7 @@
  *
  * @param {Real} query_handle The UGC query handle to get the results from.
  * @param {Real} index The index of the item to get the details of.
- * @returns {Struct.SteamUgcQueryPreviewUrl} 
+ * @returns {String}
  * @function_end 
  */
 
@@ -3397,7 +3397,7 @@
  *
  * @param {Real} query_handle The UGC query handle to get the results from.
  * @param {Real} index The index of the item to get the details of.
- * @returns {Struct.SteamUgcQueryMetadata} 
+ * @returns {String}
  * @function_end 
  */
 
@@ -4423,7 +4423,7 @@
  * This function fills an array with all of the currently active action set layers for a specified controller handle.
  *
  * @param {Real} input_handle The handle of the controller you want to get active action set layers for.
- * @returns {Struct.SteamInputActiveActionSetLayers} 
+ * @returns {Array[Real]}
  * @function_end
  */
 
@@ -4483,7 +4483,7 @@
  * This function gets a local path to a PNG file for the on-screen glyph for a particular origin.
  *
  * @param {Enum.SteamInputActionOrigin} origin The action origin you want to get the glyph image for.
- * @param {Real} size The size of the PNG glyph to retrieve, from the ${enum.SteamInputGlyphSize} enum.
+ * @param {Enum.SteamInputGlyphSize} size The size of the PNG glyph to retrieve, from the ${enum.SteamInputGlyphSize} enum.
  * @param {Real} flags A bit-masked combination of glyph style flags (${enum.SteamInputGlyphStyle}) that control the visual appearance of the returned glyph.
  * @returns {String}
  * @function_end
@@ -4748,7 +4748,7 @@
  *
  * @param {Real} input_handle The handle of the controller to query. You can use ${function.steam_input_get_controller_for_gamepad_index} to get this handle.
  * @param {Enum.SteamInputXboxOrigin} origin The Xbox button you want to get the image for, e.g. `SteamInputXboxOrigin.A`.
- * @returns {Real} 
+ * @returns {Enum.SteamInputActionOrigin}
  * @function_end
  */
 
@@ -4760,7 +4760,7 @@
  *
  * @param {Enum.SteamInputType} destination_input_type The controller type you want to translate to. Steam will pick the closest type from your SDK version if `SteamInputType.Unknown` is used.
  * @param {Enum.SteamInputActionOrigin} source_origin The button you want to translate.
- * @returns {Real} 
+ * @returns {Enum.SteamInputActionOrigin}
  * @function_end
  */
 
@@ -6353,7 +6353,7 @@
  * @param {Real} result_handle The result handle containing the item to get the properties of.
  * @param {Real} item_index The index of the item within the result set to query.
  * @param {String} property_name The property name to get the value for.
- * @returns {Struct.SteamInventoryItemProperty} 
+ * @returns {String}
  * @function_end 
  */
 
@@ -6417,8 +6417,7 @@
  * @description > **Steamworks Function**: [ISteamInventory::GetItemsWithPrices](https://partner.steamgames.com/doc/api/ISteamInventory#GetItemsWithPrices)
  *
  * This function, after a successful call to ${function.steam_inventory_request_prices}, gets all the pricing for applicable item definitions.
- *
- * @param {Real} max The number of item definitions to retrieve, as returned by ${function.steam_inventory_get_num_items_with_prices}.
+ * 
  * @returns {Array[Struct.SteamInventoryItemWithPrice]}
  * @function_end
  */
@@ -8317,7 +8316,7 @@
  *
  * This callback is returned as the response to a call to create a beacon. A successful result means your beacon has been posted in the desired location and you can begin receiving reservation notifications as users follow it.
  *
- * @member {Struct.SteamPartiesCreateBeaconResult}
+ * @member {Struct.SteamPartiesCreateBeaconResult} result The result of the operation.
  * @event_end
  * @function_end
  */
@@ -8913,17 +8912,6 @@
  */
 
 /**
- * @struct SteamUtilsApiCallResult
- * @description > **Steamworks Struct**: [ISteamUtils::GetAPICallResult](https://partner.steamgames.com/doc/api/ISteamUtils#GetAPICallResult)
- *
- * This struct holds information returned by ${function.steam_utils_get_api_call_result}.
- *
- * @member {Bool} ok `true` upon success if the API Call is valid and has completed, otherwise `false`.
- * @member {Bool} failed Set to `true` if the API call has encountered a failure.
- * @struct_end
- */
-
-/**
  * @struct SteamUtilsLowBatteryPower
  * @description > **Steamworks Struct**: [ISteamUtils::LowBatteryPower_t](partner.steamgames.com/doc/api/ISteamUtils#LowBatteryPower_t)
  *
@@ -9077,28 +9065,6 @@
  * @member {Real} score The bayesian average for up votes / total votes, between [0,1].
  * @member {Real} num_children The number of items in the collection if `file_type` is `SteamWorkshopFileType.Collection`, or the number of items this specific item has a dependency on (see ${function.steam_ugc_add_dependency}).
  * @member {Real} total_files_size The total file size of all files in the content package.
- * @struct_end
- */
-
-/**
- * @struct SteamUgcQueryPreviewUrl
- * @description > **Steamworks Struct**: N / A
- *
- * This struct holds information returned by ${function.steam_ugc_get_query_ugc_preview_url}.
- *
- * @member {Bool} ok `true` upon success, indicates that the URL has been filled out. Otherwise, `false` if the UGC query handle is invalid or the index is out of bounds.
- * @member {String} url The URL to the preview image of the workshop item.
- * @struct_end
- */
-
-/**
- * @struct SteamUgcQueryMetadata
- * @description > **Steamworks Struct**: N / A
- *
- * This struct holds information returned by ${function.steam_ugc_get_query_ugc_metadata}.
- *
- * @member {Bool} ok `true` upon success, indicates that the metadata has been filled out. Otherwise, `false` if the UGC query handle is invalid or the index is out of bounds.
- * @member {String} metadata The developer set metadata of the workshop item.
  * @struct_end
  */
 
@@ -9403,23 +9369,11 @@
  */
 
 /**
- * @struct SteamInputActiveActionSetLayers
- * @description > **Steamworks Struct**: N / A
- *
- * This struct holds the information returned by ${function.steam_input_get_active_action_set_layers}.
- *
- * @member {Real} count The number of handles returned.
- * @member {Array[Real]} handles An array holding all input handles.
- * @struct_end
- */
-
-/**
  * @struct SteamInputActionOrigins
  * @description > **Steamworks Struct**: N / A
  *
  * This struct holds the information returned by ${function.steam_input_get_analog_action_origins} and ${function.steam_input_get_digital_action_origins}.
- *
- * @member {Real} count The number of origins returned.
+ * 
  * @member {Array[Enum.SteamInputActionOrigin]} origins An array of action origins.
  * @struct_end
  */
@@ -9762,17 +9716,6 @@
  */
 
 /**
- * @struct SteamInventoryItemProperty
- * @description > **Steamworks Struct**: N / A
- *
- * This struct holds the dynamic properties from an item in an inventory result set.
- *
- * @member {Bool} ok `true` upon success; otherwise, `false` indicating that the inventory result handle was invalid or the provided index does not contain an item.
- * @member {String} value The value associated with the property name.
- * @struct_end
- */
-
-/**
  * @struct SteamInventoryItemWithPrice
  * @description > **Steamworks Struct**: N / A
  * 
@@ -9989,7 +9932,7 @@
  * @member {Real} lobby_id The Steam ID of the lobby.
  * @member {Real} user_changed_id The user whose status in the lobby just changed - can be recipient.
  * @member {Real} making_change_id Chat member who made the change. This can be different from m_ulSteamIDUserChanged if kicking, muting, etc. For example, if one user kicks another from the lobby, this will be set to the id of the user who initiated the kick.
- * @member {Real} chat_member_state_change Bitfield of ${enum.ChatMemberStateChange} values.
+ * @member {Enum.SteamMatchmakingChatMemberStateChange} chat_member_state_change Bitfield of chat member state change values.
  * @struct_end
  */
 
@@ -11081,7 +11024,7 @@
  */
 
 /**
- * @enum_ SteamInputGlyphStyle
+ * @enum SteamInputGlyphStyle
  * @description > **Steamworks Enum**: [ESteamInputGlyphStyle]()
  * 
  * This enum holds the different glyph styles that you can use.
