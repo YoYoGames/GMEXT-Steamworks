@@ -367,43 +367,6 @@
         },
         {
           "$GMExtensionFunction": "",
-          "%Name": "__steam_friends_get_clan_by_index",
-          "argCount": 3,
-          "args": [
-            2,
-            1,
-            2
-          ],
-          "documentation": "@param {Real} clan\r\n@param {Pointer} _ret_buffer\r\n@param {Real} _ret_buffer_length\r\n@returns {Real}",
-          "externalName": "__EXT_NATIVE__steam_friends_get_clan_by_index",
-          "help": "",
-          "hidden": true,
-          "kind": 4,
-          "name": "__steam_friends_get_clan_by_index",
-          "resourceType": "GMExtensionFunction",
-          "resourceVersion": "2.0",
-          "returnType": 2
-        },
-        {
-          "$GMExtensionFunction": "",
-          "%Name": "__steam_friends_get_clan_chat_member_count",
-          "argCount": 2,
-          "args": [
-            1,
-            2
-          ],
-          "documentation": "@param {Pointer} _arg_buffer\r\n@param {Real} _arg_buffer_length\r\n@returns {Real}",
-          "externalName": "__EXT_NATIVE__steam_friends_get_clan_chat_member_count",
-          "help": "",
-          "hidden": true,
-          "kind": 4,
-          "name": "__steam_friends_get_clan_chat_member_count",
-          "resourceType": "GMExtensionFunction",
-          "resourceVersion": "2.0",
-          "returnType": 2
-        },
-        {
-          "$GMExtensionFunction": "",
           "%Name": "__steam_friends_get_clan_chat_message",
           "argCount": 4,
           "args": [
@@ -1200,24 +1163,6 @@
         },
         {
           "$GMExtensionFunction": "",
-          "%Name": "__steam_friends_is_user_in_source",
-          "argCount": 2,
-          "args": [
-            1,
-            2
-          ],
-          "documentation": "@param {Pointer} _arg_buffer\r\n@param {Real} _arg_buffer_length\r\n@returns {Real}",
-          "externalName": "__EXT_NATIVE__steam_friends_is_user_in_source",
-          "help": "",
-          "hidden": true,
-          "kind": 4,
-          "name": "__steam_friends_is_user_in_source",
-          "resourceType": "GMExtensionFunction",
-          "resourceVersion": "2.0",
-          "returnType": 2
-        },
-        {
-          "$GMExtensionFunction": "",
           "%Name": "__steam_friends_request_clan_officer_list",
           "argCount": 2,
           "args": [
@@ -1554,21 +1499,6 @@
           "hidden": false,
           "kind": 4,
           "name": "steam_apps_is_app_installed",
-          "resourceType": "GMExtensionFunction",
-          "resourceVersion": "2.0",
-          "returnType": 2
-        },
-        {
-          "$GMExtensionFunction": "",
-          "%Name": "steam_apps_is_cybercafe",
-          "argCount": 0,
-          "args": [],
-          "documentation": "@returns {Real}",
-          "externalName": "__EXT_NATIVE__steam_apps_is_cybercafe",
-          "help": "",
-          "hidden": false,
-          "kind": 4,
-          "name": "steam_apps_is_cybercafe",
           "resourceType": "GMExtensionFunction",
           "resourceVersion": "2.0",
           "returnType": 2
@@ -2018,38 +1948,6 @@
           "hidden": false,
           "kind": 4,
           "name": "steam_apps_mark_content_corrupt",
-          "resourceType": "GMExtensionFunction",
-          "resourceVersion": "2.0",
-          "returnType": 2
-        },
-        {
-          "$GMExtensionFunction": "",
-          "%Name": "steam_apps_request_all_proof_of_purchase_keys",
-          "argCount": 0,
-          "args": [],
-          "documentation": "@returns {Real}",
-          "externalName": "__EXT_NATIVE__steam_apps_request_all_proof_of_purchase_keys",
-          "help": "",
-          "hidden": false,
-          "kind": 4,
-          "name": "steam_apps_request_all_proof_of_purchase_keys",
-          "resourceType": "GMExtensionFunction",
-          "resourceVersion": "2.0",
-          "returnType": 2
-        },
-        {
-          "$GMExtensionFunction": "",
-          "%Name": "steam_apps_request_app_proof_of_purchase_key",
-          "argCount": 1,
-          "args": [
-            2
-          ],
-          "documentation": "@param {Real} app_id\r\n@returns {Real}",
-          "externalName": "__EXT_NATIVE__steam_apps_request_app_proof_of_purchase_key",
-          "help": "",
-          "hidden": false,
-          "kind": 4,
-          "name": "steam_apps_request_app_proof_of_purchase_key",
           "resourceType": "GMExtensionFunction",
           "resourceVersion": "2.0",
           "returnType": 2
@@ -2701,21 +2599,6 @@
         },
         {
           "$GMExtensionFunction": "",
-          "%Name": "steam_user_get_user_data_folder",
-          "argCount": 0,
-          "args": [],
-          "documentation": "@returns {Real}",
-          "externalName": "__EXT_NATIVE__steam_user_get_user_data_folder",
-          "help": "",
-          "hidden": false,
-          "kind": 4,
-          "name": "steam_user_get_user_data_folder",
-          "resourceType": "GMExtensionFunction",
-          "resourceVersion": "2.0",
-          "returnType": 2
-        },
-        {
-          "$GMExtensionFunction": "",
           "%Name": "__steam_user_request_encrypted_app_ticket",
           "argCount": 2,
           "args": [
@@ -3152,24 +3035,6 @@
           "hidden": false,
           "kind": 4,
           "name": "steam_utils_overlay_needs_present",
-          "resourceType": "GMExtensionFunction",
-          "resourceVersion": "2.0",
-          "returnType": 2
-        },
-        {
-          "$GMExtensionFunction": "",
-          "%Name": "__steam_utils_check_file_signature",
-          "argCount": 2,
-          "args": [
-            1,
-            2
-          ],
-          "documentation": "@param {Pointer} _arg_buffer\r\n@param {Real} _arg_buffer_length\r\n@returns {Real}",
-          "externalName": "__EXT_NATIVE__steam_utils_check_file_signature",
-          "help": "",
-          "hidden": true,
-          "kind": 4,
-          "name": "__steam_utils_check_file_signature",
           "resourceType": "GMExtensionFunction",
           "resourceVersion": "2.0",
           "returnType": 2
@@ -4759,24 +4624,6 @@
           "hidden": true,
           "kind": 4,
           "name": "__steam_ugc_set_required_game_versions",
-          "resourceType": "GMExtensionFunction",
-          "resourceVersion": "2.0",
-          "returnType": 2
-        },
-        {
-          "$GMExtensionFunction": "",
-          "%Name": "__steam_ugc_request_ugc_details",
-          "argCount": 2,
-          "args": [
-            1,
-            2
-          ],
-          "documentation": "@param {Pointer} _arg_buffer\r\n@param {Real} _arg_buffer_length\r\n@returns {Real}",
-          "externalName": "__EXT_NATIVE__steam_ugc_request_ugc_details",
-          "help": "",
-          "hidden": true,
-          "kind": 4,
-          "name": "__steam_ugc_request_ugc_details",
           "resourceType": "GMExtensionFunction",
           "resourceVersion": "2.0",
           "returnType": 2
@@ -9182,206 +9029,6 @@
           "hidden": true,
           "kind": 4,
           "name": "__steam_remote_storage_ugc_download_to_location",
-          "resourceType": "GMExtensionFunction",
-          "resourceVersion": "2.0",
-          "returnType": 2
-        },
-        {
-          "$GMExtensionFunction": "",
-          "%Name": "__steam_remote_storage_publish_workshop_file",
-          "argCount": 2,
-          "args": [
-            1,
-            2
-          ],
-          "documentation": "@param {Pointer} _arg_buffer\r\n@param {Real} _arg_buffer_length\r\n@returns {Real}",
-          "externalName": "__EXT_NATIVE__steam_remote_storage_publish_workshop_file",
-          "help": "",
-          "hidden": true,
-          "kind": 4,
-          "name": "__steam_remote_storage_publish_workshop_file",
-          "resourceType": "GMExtensionFunction",
-          "resourceVersion": "2.0",
-          "returnType": 2
-        },
-        {
-          "$GMExtensionFunction": "",
-          "%Name": "__steam_remote_storage_create_published_file_update_request",
-          "argCount": 4,
-          "args": [
-            1,
-            2,
-            1,
-            2
-          ],
-          "documentation": "@param {Pointer} _arg_buffer\r\n@param {Real} _arg_buffer_length\r\n@param {Pointer} _ret_buffer\r\n@param {Real} _ret_buffer_length\r\n@returns {Real}",
-          "externalName": "__EXT_NATIVE__steam_remote_storage_create_published_file_update_request",
-          "help": "",
-          "hidden": true,
-          "kind": 4,
-          "name": "__steam_remote_storage_create_published_file_update_request",
-          "resourceType": "GMExtensionFunction",
-          "resourceVersion": "2.0",
-          "returnType": 2
-        },
-        {
-          "$GMExtensionFunction": "",
-          "%Name": "__steam_remote_storage_update_published_file_file",
-          "argCount": 2,
-          "args": [
-            1,
-            2
-          ],
-          "documentation": "@param {Pointer} _arg_buffer\r\n@param {Real} _arg_buffer_length\r\n@returns {Real}",
-          "externalName": "__EXT_NATIVE__steam_remote_storage_update_published_file_file",
-          "help": "",
-          "hidden": true,
-          "kind": 4,
-          "name": "__steam_remote_storage_update_published_file_file",
-          "resourceType": "GMExtensionFunction",
-          "resourceVersion": "2.0",
-          "returnType": 2
-        },
-        {
-          "$GMExtensionFunction": "",
-          "%Name": "__steam_remote_storage_update_published_file_preview_file",
-          "argCount": 2,
-          "args": [
-            1,
-            2
-          ],
-          "documentation": "@param {Pointer} _arg_buffer\r\n@param {Real} _arg_buffer_length\r\n@returns {Real}",
-          "externalName": "__EXT_NATIVE__steam_remote_storage_update_published_file_preview_file",
-          "help": "",
-          "hidden": true,
-          "kind": 4,
-          "name": "__steam_remote_storage_update_published_file_preview_file",
-          "resourceType": "GMExtensionFunction",
-          "resourceVersion": "2.0",
-          "returnType": 2
-        },
-        {
-          "$GMExtensionFunction": "",
-          "%Name": "__steam_remote_storage_update_published_file_title",
-          "argCount": 2,
-          "args": [
-            1,
-            2
-          ],
-          "documentation": "@param {Pointer} _arg_buffer\r\n@param {Real} _arg_buffer_length\r\n@returns {Real}",
-          "externalName": "__EXT_NATIVE__steam_remote_storage_update_published_file_title",
-          "help": "",
-          "hidden": true,
-          "kind": 4,
-          "name": "__steam_remote_storage_update_published_file_title",
-          "resourceType": "GMExtensionFunction",
-          "resourceVersion": "2.0",
-          "returnType": 2
-        },
-        {
-          "$GMExtensionFunction": "",
-          "%Name": "__steam_remote_storage_update_published_file_description",
-          "argCount": 2,
-          "args": [
-            1,
-            2
-          ],
-          "documentation": "@param {Pointer} _arg_buffer\r\n@param {Real} _arg_buffer_length\r\n@returns {Real}",
-          "externalName": "__EXT_NATIVE__steam_remote_storage_update_published_file_description",
-          "help": "",
-          "hidden": true,
-          "kind": 4,
-          "name": "__steam_remote_storage_update_published_file_description",
-          "resourceType": "GMExtensionFunction",
-          "resourceVersion": "2.0",
-          "returnType": 2
-        },
-        {
-          "$GMExtensionFunction": "",
-          "%Name": "__steam_remote_storage_update_published_file_visibility",
-          "argCount": 2,
-          "args": [
-            1,
-            2
-          ],
-          "documentation": "@param {Pointer} _arg_buffer\r\n@param {Real} _arg_buffer_length\r\n@returns {Real}",
-          "externalName": "__EXT_NATIVE__steam_remote_storage_update_published_file_visibility",
-          "help": "",
-          "hidden": true,
-          "kind": 4,
-          "name": "__steam_remote_storage_update_published_file_visibility",
-          "resourceType": "GMExtensionFunction",
-          "resourceVersion": "2.0",
-          "returnType": 2
-        },
-        {
-          "$GMExtensionFunction": "",
-          "%Name": "__steam_remote_storage_update_published_file_tags",
-          "argCount": 2,
-          "args": [
-            1,
-            2
-          ],
-          "documentation": "@param {Pointer} _arg_buffer\r\n@param {Real} _arg_buffer_length\r\n@returns {Real}",
-          "externalName": "__EXT_NATIVE__steam_remote_storage_update_published_file_tags",
-          "help": "",
-          "hidden": true,
-          "kind": 4,
-          "name": "__steam_remote_storage_update_published_file_tags",
-          "resourceType": "GMExtensionFunction",
-          "resourceVersion": "2.0",
-          "returnType": 2
-        },
-        {
-          "$GMExtensionFunction": "",
-          "%Name": "__steam_remote_storage_commit_published_file_update",
-          "argCount": 2,
-          "args": [
-            1,
-            2
-          ],
-          "documentation": "@param {Pointer} _arg_buffer\r\n@param {Real} _arg_buffer_length\r\n@returns {Real}",
-          "externalName": "__EXT_NATIVE__steam_remote_storage_commit_published_file_update",
-          "help": "",
-          "hidden": true,
-          "kind": 4,
-          "name": "__steam_remote_storage_commit_published_file_update",
-          "resourceType": "GMExtensionFunction",
-          "resourceVersion": "2.0",
-          "returnType": 2
-        },
-        {
-          "$GMExtensionFunction": "",
-          "%Name": "__steam_remote_storage_subscribe_published_file",
-          "argCount": 2,
-          "args": [
-            1,
-            2
-          ],
-          "documentation": "@param {Pointer} _arg_buffer\r\n@param {Real} _arg_buffer_length\r\n@returns {Real}",
-          "externalName": "__EXT_NATIVE__steam_remote_storage_subscribe_published_file",
-          "help": "",
-          "hidden": true,
-          "kind": 4,
-          "name": "__steam_remote_storage_subscribe_published_file",
-          "resourceType": "GMExtensionFunction",
-          "resourceVersion": "2.0",
-          "returnType": 2
-        },
-        {
-          "$GMExtensionFunction": "",
-          "%Name": "__steam_remote_storage_unsubscribe_published_file",
-          "argCount": 2,
-          "args": [
-            1,
-            2
-          ],
-          "documentation": "@param {Pointer} _arg_buffer\r\n@param {Real} _arg_buffer_length\r\n@returns {Real}",
-          "externalName": "__EXT_NATIVE__steam_remote_storage_unsubscribe_published_file",
-          "help": "",
-          "hidden": true,
-          "kind": 4,
-          "name": "__steam_remote_storage_unsubscribe_published_file",
           "resourceType": "GMExtensionFunction",
           "resourceVersion": "2.0",
           "returnType": 2

@@ -516,12 +516,6 @@ function steam_friends_get_chat_member_by_index([type_hint=uint64] steam_id_clan
 function steam_friends_get_clan_activity_counts([type_hint=uint64] steam_id_clan: gmval): gmval;
 
 // GetClanByIndex
-[global, bind = typed_gml, type_hint=uint64]
-function steam_friends_get_clan_by_index(clan: int32): gmval;
-
-// GetClanChatMemberCount
-[global, bind = typed_gml]
-function steam_friends_get_clan_chat_member_count([type_hint=uint64] steam_id_clan: gmval): int32;
 
 // GetClanChatMessage
 [global, bind = typed_gml, type_hint=`SteamFriendsClanChatMessage`]
@@ -825,9 +819,6 @@ function steam_friends_is_clan_chat_window_open_in_steam([type_hint=uint64] stea
 [global, bind = typed_gml]
 function steam_friends_is_following([type_hint=uint64] steam_id: gmval, callback:func): unit;
 
-// IsUserInSource
-[global, bind = typed_gml]
-function steam_friends_is_user_in_source([type_hint=uint64] steam_id_user: gmval, [type_hint=uint64] steam_id_source: gmval): bool;
 
 // RequestClanOfficerList
 [global, bind = typed_gml]
@@ -982,9 +973,6 @@ function steam_apps_get_dlc_data_by_index(dlc: int32): gmval;
 [global, bind = typed_gml]
 function steam_apps_is_app_installed(app_id: uint32): bool;
 
-// BIsCybercafe (Deprecated by Valve, but exposed for completeness)
-[global, bind = typed_gml]
-function steam_apps_is_cybercafe(): bool;
 
 // BIsDlcInstalled
 [global, bind = typed_gml]
@@ -1183,13 +1171,6 @@ function steam_apps_install_dlc(app_id: uint32): unit;
 [global, bind = typed_gml]
 function steam_apps_mark_content_corrupt(missing_files_only: bool): bool;
 
-// RequestAllProofOfPurchaseKeys (Deprecated)
-[global, bind = typed_gml]
-function steam_apps_request_all_proof_of_purchase_keys(): unit;
-
-// RequestAppProofOfPurchaseKey (Deprecated)
-[global, bind = typed_gml]
-function steam_apps_request_app_proof_of_purchase_key(app_id: uint32): unit;
 
 // UninstallDLC
 [global, bind = typed_gml]
@@ -1591,9 +1572,6 @@ function steam_user_get_voice(
     desired_sample_rate: uint32
 ): gmval;
 
-// GetUserDataFolder (out buffer)
-[global, bind = typed_gml, type_hint=`string?`]
-function steam_user_get_user_data_folder(): gmval;
 
 
 // RequestEncryptedAppTicket (async SteamAPICall_t)
@@ -1797,9 +1775,6 @@ const SteamUtilsInterfaceVersion : string = "SteamUtils009";
 [global, bind = typed_gml]
 function steam_utils_overlay_needs_present(): bool;
 
-// CheckFileSignature (Deprecated) -> SteamAPICall_t
-[global, bind = typed_gml]
-function steam_utils_check_file_signature(file_name: string,callback:func): unit;
 
 // GetAPICallFailureReason
 [global, bind = typed_gml, type_hint = `SteamUtilsApiCallFailure`]
@@ -1827,10 +1802,6 @@ enum SteamUtilsCheckFileSignature
 }
 
 [global]
-class `[[SteamUtilsCheckFileSignatureResult]]` prototype Object
-{
-    [field, type_hint=`SteamUtilsCheckFileSignature`] property result : gmval { get; set; }
-}
 
 [global, bind = typed_gml]
 function steam_utils_set_callback_ip_country(callback:func): unit;
@@ -2793,12 +2764,6 @@ function steam_ugc_set_required_game_versions(
 ): bool;
 
 
-// RequestUGCDetails (deprecated; async SteamAPICall_t)
-[global, bind = typed_gml]
-function steam_ugc_request_ugc_details(
-    [type_hint=uint64] published_file_id: gmval,
-    max_age_seconds: uint32
-, callback:func): unit;
 
 
 // SendQueryUGCRequest (async SteamAPICall_t)
@@ -3177,12 +3142,6 @@ class `[[SteamUgcGetUserItemVoteResult]]` prototype Object
 }
 
 [global]
-class `[[SteamUgcRequestItemDetailsResult]]` prototype Object
-{
-    [field] property result : int32 { get; set; }
-    [field, type_hint=uint64] property published_file_id : gmval { get; set; }
-    [field] property cached_data : bool { get; set; }
-}
 
 [global]
 class `[[SteamUgcSupportedGameVersionData]]` prototype Object
@@ -4399,7 +4358,7 @@ function steam_userstats_upload_leaderboard_score(
 // Result: AttachLeaderboardUGC
 class `[[SteamUserStatsAttachLeaderboardUgcResult]]` prototype Object
 {
-    [field] property result : int32 { get; set; }
+    [field,type_hint = `SteamApiResult`] property result : gmval { get; set; }
 
     [field, type_hint=`uint64`] property leaderboard_handle : gmval { get; set; }
 }
@@ -5297,33 +5256,8 @@ class `[[SteamRemoteStoragePublishedFileUnsubscribed]]` prototype Object
 }
 
 [global]
-class `[[SteamRemoteStoragePublishFileResult]]` prototype Object
-{
-    [field] property result : int32 { get; set; }
-    [field, type_hint=uint64] property published_file_id : gmval { get; set; }
-    [field] property user_needs_to_accept_wla : bool { get; set; }
-}
 
 [global]
-class `[[SteamRemoteStorageUpdatePublishedFileResult]]` prototype Object
-{
-    [field] property result : int32 { get; set; }
-    [field] property user_needs_to_accept_wla : bool { get; set; }
-}
-
-[global]
-class `[[SteamRemoteStorageSubscribePublishedFileResult]]` prototype Object
-{
-    [field, type_hint = `SteamApiResult`] property result : gmval { get; set; }
-    [field, type_hint=uint64] property published_file_id : gmval { get; set; }
-}
-
-[global]
-class `[[SteamRemoteStorageUnsubscribePublishedFileResult]]` prototype Object
-{
-    [field] property result : int32 { get; set; }
-    [field, type_hint=uint64] property published_file_id : gmval { get; set; }
-}
 
 [global, bind = typed_gml]
 function steam_remote_storage_set_callback_published_file_subscribed(callback:func): unit;
@@ -5435,51 +5369,6 @@ function steam_remote_storage_ugc_download([type_hint=uint64] ugc_handle: gmval,
 [global, bind = typed_gml]
 function steam_remote_storage_ugc_download_to_location([type_hint=uint64] ugc_handle: gmval, location: string, priority: uint32, callback:func): unit;
 
-[global, bind = typed_gml]
-function steam_remote_storage_publish_workshop_file(
-    file: string,
-    preview_file: string,
-    app_id_consumer: uint32,
-    title: string,
-    description: string,
-    [type_hint=`SteamRemoteStoragePublishedFileVisibility`] visibility: gmval,
-    tags_csv: string,
-    [type_hint=`SteamRemoteStorageWorkshopFileType`] file_type: gmval,
-    callback:func
-): unit;
-
-[global, bind = typed_gml, type_hint=uint64]
-function steam_remote_storage_create_published_file_update_request([type_hint=uint64] published_file_id: gmval): gmval;
-
-[global, bind = typed_gml]
-function steam_remote_storage_update_published_file_file([type_hint=uint64] update_handle: gmval, file: string): bool;
-
-[global, bind = typed_gml]
-function steam_remote_storage_update_published_file_preview_file([type_hint=uint64] update_handle: gmval, preview_file: string): bool;
-
-[global, bind = typed_gml]
-function steam_remote_storage_update_published_file_title([type_hint=uint64] update_handle: gmval, title: string): bool;
-
-[global, bind = typed_gml]
-function steam_remote_storage_update_published_file_description([type_hint=uint64] update_handle: gmval, description: string): bool;
-
-[global, bind = typed_gml]
-function steam_remote_storage_update_published_file_visibility([type_hint=uint64] update_handle: gmval, [type_hint=`SteamRemoteStoragePublishedFileVisibility`] visibility: gmval): bool;
-
-[global, bind = typed_gml]
-function steam_remote_storage_update_published_file_tags([type_hint=uint64] update_handle: gmval, tags_csv: string): bool;
-
-[global, bind = typed_gml]
-function steam_remote_storage_commit_published_file_update(
-    [type_hint=uint64] update_handle: gmval,
-    callback:func
-): unit;
-
-[global, bind = typed_gml]
-function steam_remote_storage_subscribe_published_file([type_hint=uint64] published_file_id: gmval, callback:func): unit;
-
-[global, bind = typed_gml]
-function steam_remote_storage_unsubscribe_published_file([type_hint=uint64] published_file_id: gmval, callback:func): unit;
 
 } // end group SteamRemoteStorage
 
@@ -6098,7 +5987,7 @@ class `[[SteamPartiesJoinPartyResult]]` prototype Object
 [global]
 class `[[SteamPartiesChangeNumOpenSlotsResult]]` prototype Object
 {
-    [field] property result : int32 { get; set; } // EResult numeric
+    [field, type_hint = `SteamApiResult`] property result : gmval { get; set; } // EResult numeric
 }
 
 [global]

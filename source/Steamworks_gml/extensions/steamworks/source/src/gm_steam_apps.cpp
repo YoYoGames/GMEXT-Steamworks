@@ -69,15 +69,6 @@ bool steam_apps_is_app_installed(std::uint32_t app_id)
     return a->BIsAppInstalled((AppId_t)app_id);
 }
 
-bool steam_apps_is_cybercafe()
-{
-    STEAM_GUARD_RET(false);
-    ISteamApps* a = steam_apps_iface();
-    if (!a)
-        return false;
-
-    return a->BIsCybercafe();
-}
 
 bool steam_apps_is_dlc_installed(std::uint32_t app_id)
 {
@@ -451,27 +442,6 @@ bool steam_apps_mark_content_corrupt(bool missing_files_only)
     return a->MarkContentCorrupt(missing_files_only);
 }
 
-void steam_apps_request_all_proof_of_purchase_keys()
-{
-    STEAM_GUARD();
-    ISteamApps* a = steam_apps_iface();
-    if (!a)
-        return;
-
-    // Deprecated by Valve, but still present in many SDKs.
-    a->RequestAllProofOfPurchaseKeys();
-}
-
-void steam_apps_request_app_proof_of_purchase_key(std::uint32_t app_id)
-{
-    STEAM_GUARD();
-    ISteamApps* a = steam_apps_iface();
-    if (!a)
-        return;
-
-    // Deprecated by Valve, but still present in many SDKs.
-    a->RequestAppProofOfPurchaseKey((AppId_t)app_id);
-}
 
 void steam_apps_uninstall_dlc(std::uint32_t app_id)
 {

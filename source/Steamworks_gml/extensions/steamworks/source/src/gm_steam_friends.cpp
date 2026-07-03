@@ -194,26 +194,6 @@ std::optional<gm_structs::SteamFriendsClanActivityCounts> steam_friends_get_clan
     return out;
 }
 
-std::uint64_t steam_friends_get_clan_by_index(std::int32_t clan)
-{
-    STEAM_GUARD_RET(0);
-    ISteamFriends* f = steam_friends_iface();
-    if (!f)
-        return 0;
-
-    CSteamID id = f->GetClanByIndex(clan);
-    return steam_u64_from_steam_id(id);
-}
-
-std::int32_t steam_friends_get_clan_chat_member_count(std::uint64_t steam_id_clan)
-{
-    STEAM_GUARD_RET(0);
-    ISteamFriends* f = steam_friends_iface();
-    if (!f)
-        return 0;
-
-    return (std::int32_t)f->GetClanChatMemberCount(steam_id_from_u64(steam_id_clan));
-}
 
 gm_structs::SteamFriendsClanChatMessage
 steam_friends_get_clan_chat_message(std::uint64_t steam_id_clan_chat, std::int32_t message)
@@ -734,15 +714,6 @@ bool steam_friends_is_clan_chat_window_open_in_steam(std::uint64_t steam_id_clan
     return f->IsClanChatWindowOpenInSteam(steam_id_from_u64(steam_id_clan_chat));
 }
 
-bool steam_friends_is_user_in_source(std::uint64_t steam_id_user, std::uint64_t steam_id_source)
-{
-    STEAM_GUARD_RET(false);
-    ISteamFriends* f = steam_friends_iface();
-    if (!f)
-        return false;
-
-    return f->IsUserInSource(steam_id_from_u64(steam_id_user), steam_id_from_u64(steam_id_source));
-}
 
 void steam_friends_request_friend_rich_presence(std::uint64_t steam_id_friend)
 {
