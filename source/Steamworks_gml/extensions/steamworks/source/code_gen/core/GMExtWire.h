@@ -1093,6 +1093,26 @@ namespace gm::wire::codec {
         return gm::wire::GMFunction{ uid, q };
     }
 
+    template<class> struct is_std_vector : std::false_type {};
+    template<class U, class A> struct is_std_vector<std::vector<U, A>> : std::true_type {};
+    template<class> struct is_std_optional : std::false_type {};
+    template<class U> struct is_std_optional<std::optional<U>> : std::true_type {};
+
+    template<class T> inline std::optional<T> readOptional(BufferReader& buf);
+    template<class T> inline std::vector<T> readVector(BufferReader& buf);
+
+    // Routes to the matching reader so composites like optional<vector<T>> can nest.
+    template<class T>
+    inline T readComposite(BufferReader& buf)
+    {
+        if constexpr (is_std_vector<T>::value)
+            return readVector<typename T::value_type>(buf);
+        else if constexpr (is_std_optional<T>::value)
+            return readOptional<typename T::value_type>(buf);
+        else
+            return readValue<T>(buf);
+    }
+
     template<class T>
     inline std::optional<T> readOptional(BufferReader& buf)
     {
@@ -1101,7 +1121,7 @@ namespace gm::wire::codec {
         if (!has)
             return std::nullopt;
 
-        return readValue<T>(buf);
+        return readComposite<T>(buf);
     }
 
     template<class T, std::size_t N>
@@ -1116,7 +1136,7 @@ namespace gm::wire::codec {
         }
         else {
             for (auto& v : arr)
-                v = readValue<T>(buf);
+                v = readComposite<T>(buf);
         }
         return arr;
     }
@@ -1138,7 +1158,7 @@ namespace gm::wire::codec {
         }
         else {
             for (std::uint32_t i = 0; i < sz; ++i)
-                vec.emplace_back(readValue<T>(buf)); // construct in-place
+                vec.emplace_back(readComposite<T>(buf)); // construct in-place
         }
         return vec;
     }
@@ -1189,6 +1209,12 @@ namespace gm::wire::codec {
     inline void writeValue(gm::byteio::IByteWriter& buf, const char* s) { writeValue(buf, std::string_view{ s }); }
 
     inline void writeValue(gm::byteio::IByteWriter& buf, const std::string& s) { writeValue(buf, std::string_view{ s }); }
+
+    // Declared up front so the composite writers below resolve each other regardless of
+    // definition order (e.g. optional<vector<T>>); strict Clang needs this, MSVC tolerates its absence.
+    template<class T> inline void writeValue(gm::byteio::IByteWriter& buf, const std::optional<T>& opt);
+    template<class T, std::size_t N> inline void writeValue(gm::byteio::IByteWriter& buf, const std::array<T, N>& arr);
+    template<class T> inline void writeValue(gm::byteio::IByteWriter& buf, const std::vector<T>& vec);
 
     template<class T>
     inline void writeValue(gm::byteio::IByteWriter& buf, const std::optional<T>& opt)

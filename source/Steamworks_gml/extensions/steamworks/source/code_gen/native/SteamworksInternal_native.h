@@ -1656,7 +1656,7 @@ namespace gm_structs
     struct SteamInventoryItemDefQuantity;
     struct SteamInventoryItemInstanceQuantity;
     struct SteamInventoryItemWithPrice;
-    struct SteamInventoryResultItems;
+    struct SteamInventoryItemDetails;
     struct SteamInventoryDeserializeResult;
     struct SteamInventoryItemPrice;
     struct SteamInventoryResultReady;
@@ -2414,13 +2414,12 @@ namespace gm_structs
         std::int64_t base_price;
     };
 
-    struct SteamInventoryResultItems
+    struct SteamInventoryItemDetails
     {
-        std::uint32_t count;
-        std::vector<std::uint64_t> item_instance_ids;
-        std::vector<std::uint32_t> item_def_ids;
-        std::vector<std::uint32_t> quantities;
-        std::vector<std::uint32_t> flags;
+        std::uint64_t item_instance_id;
+        std::uint32_t item_def_id;
+        std::uint32_t quantity;
+        gm_enums::SteamInventoryItemFlags flags;
     };
 
     struct SteamInventoryDeserializeResult
@@ -4527,24 +4526,22 @@ namespace gm::wire::codec
     }
 
     template<>
-    inline void writeValue<gm_structs::SteamInventoryResultItems>(gm::byteio::IByteWriter& _buf, const gm_structs::SteamInventoryResultItems& obj)
+    inline void writeValue<gm_structs::SteamInventoryItemDetails>(gm::byteio::IByteWriter& _buf, const gm_structs::SteamInventoryItemDetails& obj)
     {
-        gm::wire::codec::writeValue(_buf, obj.count);
-        gm::wire::codec::writeValue(_buf, obj.item_instance_ids);
-        gm::wire::codec::writeValue(_buf, obj.item_def_ids);
-        gm::wire::codec::writeValue(_buf, obj.quantities);
+        gm::wire::codec::writeValue(_buf, obj.item_instance_id);
+        gm::wire::codec::writeValue(_buf, obj.item_def_id);
+        gm::wire::codec::writeValue(_buf, obj.quantity);
         gm::wire::codec::writeValue(_buf, obj.flags);
     }
 
     template<>
-    inline gm_structs::SteamInventoryResultItems readValue<gm_structs::SteamInventoryResultItems>(gm::byteio::BufferReader& _buf)
+    inline gm_structs::SteamInventoryItemDetails readValue<gm_structs::SteamInventoryItemDetails>(gm::byteio::BufferReader& _buf)
     {
-        gm_structs::SteamInventoryResultItems obj;
-        obj.count = gm::wire::codec::readValue<std::uint32_t>(_buf);
-        obj.item_instance_ids = gm::wire::codec::readVector<std::uint64_t>(_buf);
-        obj.item_def_ids = gm::wire::codec::readVector<std::uint32_t>(_buf);
-        obj.quantities = gm::wire::codec::readVector<std::uint32_t>(_buf);
-        obj.flags = gm::wire::codec::readVector<std::uint32_t>(_buf);
+        gm_structs::SteamInventoryItemDetails obj;
+        obj.item_instance_id = gm::wire::codec::readValue<std::uint64_t>(_buf);
+        obj.item_def_id = gm::wire::codec::readValue<std::uint32_t>(_buf);
+        obj.quantity = gm::wire::codec::readValue<std::uint32_t>(_buf);
+        obj.flags = gm::wire::codec::readValue<gm_enums::SteamInventoryItemFlags>(_buf);
         return obj;
     }
 
@@ -5912,7 +5909,7 @@ namespace gm::wire::details
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamInventoryResultItems>
+    struct gm_struct_traits<gm_structs::SteamInventoryItemDetails>
     {
         static constexpr bool is_gm_struct = true;
         static constexpr std::uint32_t codec_id = 103;
@@ -6620,7 +6617,7 @@ void steam_inventory_destroy_result(std::int32_t result_handle);
 std::int32_t steam_inventory_exchange_items(const std::vector<gm_structs::SteamInventoryItemDefQuantity>& generate_items, const std::vector<gm_structs::SteamInventoryItemInstanceQuantity>& destroy_items, const gm::wire::GMFunction& callback);
 std::int32_t steam_inventory_generate_items(const std::vector<gm_structs::SteamInventoryItemDefQuantity>& items, const gm::wire::GMFunction& callback);
 std::int32_t steam_inventory_get_all_items();
-std::optional<gm_structs::SteamInventoryResultItems> steam_inventory_get_result_items(std::int32_t result_handle);
+std::optional<std::vector<gm_structs::SteamInventoryItemDetails>> steam_inventory_get_result_items(std::int32_t result_handle);
 gm_enums::SteamApiResult steam_inventory_get_result_status(std::int32_t result_handle);
 std::uint32_t steam_inventory_get_result_timestamp(std::int32_t result_handle);
 std::vector<std::uint32_t> steam_inventory_get_eligible_promo_item_definition_ids(std::uint32_t max_item_defs);

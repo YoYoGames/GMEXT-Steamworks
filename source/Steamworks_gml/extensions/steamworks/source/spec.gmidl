@@ -4788,7 +4788,7 @@ const SteamInventoryResultInvalid : int32 = -1;
 const SteamInventoryItemInstanceIdInvalid : int64 = -1;
 const SteamInventoryInterfaceVersion : string = "STEAMINVENTORY_INTERFACE_V002";
 
-// From ESteamItemFlags (bit flags) - used by SteamInventoryResultItems.flags
+// From ESteamItemFlags (bit flags) - used by SteamInventoryItemDetails.flags
 [global, bind = typed_gml]
 enum SteamInventoryItemFlags
 {
@@ -4822,23 +4822,14 @@ class `[[SteamInventoryItemWithPrice]]` prototype Object
     [field] property base_price : int64 { get; set; }
 }
 
-// Returned by GetResultItems
+// Individual item from GetResultItems
 [global]
-class `[[SteamInventoryResultItems]]` prototype Object
+class `[[SteamInventoryItemDetails]]` prototype Object
 {
-    [field] property count : uint32 { get; set; }
-
-    [field, type_hint=`uint64[]`]
-    property item_instance_ids : gmval { get; set; }
-
-    [field, type_hint=`uint32[]`]
-    property item_def_ids : gmval { get; set; }
-
-    [field, type_hint=`uint32[]`]
-    property quantities : gmval { get; set; }
-
-    [field, type_hint=`uint32[]`]
-    property flags : gmval { get; set; }
+    [field, type_hint=uint64] property item_instance_id : gmval { get; set; }
+    [field] property item_def_id : uint32 { get; set; }
+    [field] property quantity : uint32 { get; set; }
+    [field, type_hint=`SteamInventoryItemFlags`] property flags : gmval { get; set; }
 }
 
 [global]
@@ -4911,7 +4902,7 @@ function steam_inventory_generate_items(
 function steam_inventory_get_all_items(): int32;
 
 // GetResultItems
-[global, bind = typed_gml, type_hint=`SteamInventoryResultItems?`]
+[global, bind = typed_gml, type_hint=`SteamInventoryItemDetails[]?`]
 function steam_inventory_get_result_items(
     result_handle: int32
 ): gmval;

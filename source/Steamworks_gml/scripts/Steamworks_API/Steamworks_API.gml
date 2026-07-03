@@ -1638,13 +1638,13 @@ enum SteamPartiesBeaconLocationData
 // #####################################################################
 
 /**
- * @returns {Struct.SteamId} 
+ * @returns {Struct.SteamId}
  */
 function SteamId() constructor
 {
     /**
      * Internally generated hash for quick validation
-     * @ignore 
+     * @ignore
      */
     static __uid = 3945585790;
 
@@ -1666,13 +1666,13 @@ function SteamId() constructor
 }
 
 /**
- * @returns {Struct.SteamFriendsGetFollowerCountResult} 
+ * @returns {Struct.SteamFriendsGetFollowerCountResult}
  */
 function SteamFriendsGetFollowerCountResult() constructor
 {
     /**
      * Internally generated hash for quick validation
-     * @ignore 
+     * @ignore
      */
     static __uid = 760337428;
 
@@ -1683,13 +1683,13 @@ function SteamFriendsGetFollowerCountResult() constructor
 }
 
 /**
- * @returns {Struct.SteamFriendsIsFollowingResult} 
+ * @returns {Struct.SteamFriendsIsFollowingResult}
  */
 function SteamFriendsIsFollowingResult() constructor
 {
     /**
      * Internally generated hash for quick validation
-     * @ignore 
+     * @ignore
      */
     static __uid = 499178470;
 
@@ -1700,13 +1700,13 @@ function SteamFriendsIsFollowingResult() constructor
 }
 
 /**
- * @returns {Struct.SteamFriendsEnumerateFollowingListResult} 
+ * @returns {Struct.SteamFriendsEnumerateFollowingListResult}
  */
 function SteamFriendsEnumerateFollowingListResult() constructor
 {
     /**
      * Internally generated hash for quick validation
-     * @ignore 
+     * @ignore
      */
     static __uid = 2082408288;
 
@@ -1718,13 +1718,13 @@ function SteamFriendsEnumerateFollowingListResult() constructor
 }
 
 /**
- * @returns {Struct.SteamFriendsRequestClanOfficerListResult} 
+ * @returns {Struct.SteamFriendsRequestClanOfficerListResult}
  */
 function SteamFriendsRequestClanOfficerListResult() constructor
 {
     /**
      * Internally generated hash for quick validation
-     * @ignore 
+     * @ignore
      */
     static __uid = 3581036;
 
@@ -1735,13 +1735,13 @@ function SteamFriendsRequestClanOfficerListResult() constructor
 }
 
 /**
- * @returns {Struct.SteamFriendsDownloadClanActivityCountsResult} 
+ * @returns {Struct.SteamFriendsDownloadClanActivityCountsResult}
  */
 function SteamFriendsDownloadClanActivityCountsResult() constructor
 {
     /**
      * Internally generated hash for quick validation
-     * @ignore 
+     * @ignore
      */
     static __uid = 2553683852;
 
@@ -1750,13 +1750,13 @@ function SteamFriendsDownloadClanActivityCountsResult() constructor
 }
 
 /**
- * @returns {Struct.SteamFriendsAvatarImageLoaded} 
+ * @returns {Struct.SteamFriendsAvatarImageLoaded}
  */
 function SteamFriendsAvatarImageLoaded() constructor
 {
     /**
      * Internally generated hash for quick validation
-     * @ignore 
+     * @ignore
      */
     static __uid = 3288597523;
 
@@ -1768,13 +1768,13 @@ function SteamFriendsAvatarImageLoaded() constructor
 }
 
 /**
- * @returns {Struct.SteamFriendsClanActivityCounts} 
+ * @returns {Struct.SteamFriendsClanActivityCounts}
  */
 function SteamFriendsClanActivityCounts() constructor
 {
     /**
      * Internally generated hash for quick validation
-     * @ignore 
+     * @ignore
      */
     static __uid = 3710411397;
 
@@ -1785,13 +1785,13 @@ function SteamFriendsClanActivityCounts() constructor
 }
 
 /**
- * @returns {Struct.SteamFriendsClanChatMessage} 
+ * @returns {Struct.SteamFriendsClanChatMessage}
  */
 function SteamFriendsClanChatMessage() constructor
 {
     /**
      * Internally generated hash for quick validation
-     * @ignore 
+     * @ignore
      */
     static __uid = 2186456733;
 
@@ -1802,13 +1802,13 @@ function SteamFriendsClanChatMessage() constructor
 }
 
 /**
- * @returns {Struct.SteamFriendsFriendGamePlayed} 
+ * @returns {Struct.SteamFriendsFriendGamePlayed}
  */
 function SteamFriendsFriendGamePlayed() constructor
 {
     /**
      * Internally generated hash for quick validation
-     * @ignore 
+     * @ignore
      */
     static __uid = 2300734433;
 
@@ -1821,13 +1821,13 @@ function SteamFriendsFriendGamePlayed() constructor
 }
 
 /**
- * @returns {Struct.SteamFriendsFriendMessage} 
+ * @returns {Struct.SteamFriendsFriendMessage}
  */
 function SteamFriendsFriendMessage() constructor
 {
     /**
      * Internally generated hash for quick validation
-     * @ignore 
+     * @ignore
      */
     static __uid = 2609338083;
 
@@ -1837,13 +1837,13 @@ function SteamFriendsFriendMessage() constructor
 }
 
 /**
- * @returns {Struct.SteamFriendsPersonaStateChange} 
+ * @returns {Struct.SteamFriendsPersonaStateChange}
  */
 function SteamFriendsPersonaStateChange() constructor
 {
     /**
      * Internally generated hash for quick validation
-     * @ignore 
+     * @ignore
      */
     static __uid = 3004519013;
 
@@ -1853,13 +1853,13 @@ function SteamFriendsPersonaStateChange() constructor
 }
 
 /**
- * @returns {Struct.SteamFriendsGameOverlayActivated} 
+ * @returns {Struct.SteamFriendsGameOverlayActivated}
  */
 function SteamFriendsGameOverlayActivated() constructor
 {
     /**
      * Internally generated hash for quick validation
-     * @ignore 
+     * @ignore
      */
     static __uid = 2594899553;
 
@@ -1868,13 +1868,13 @@ function SteamFriendsGameOverlayActivated() constructor
 }
 
 /**
- * @returns {Struct.SteamFriendsGameRichPresenceJoinRequested} 
+ * @returns {Struct.SteamFriendsGameRichPresenceJoinRequested}
  */
 function SteamFriendsGameRichPresenceJoinRequested() constructor
 {
     /**
      * Internally generated hash for quick validation
-     * @ignore 
+     * @ignore
      */
     static __uid = 551052451;
 
@@ -1884,13 +1884,13 @@ function SteamFriendsGameRichPresenceJoinRequested() constructor
 }
 
 /**
- * @returns {Struct.SteamFriendsGameLobbyJoinRequested} 
+ * @returns {Struct.SteamFriendsGameLobbyJoinRequested}
  */
 function SteamFriendsGameLobbyJoinRequested() constructor
 {
     /**
      * Internally generated hash for quick validation
-     * @ignore 
+     * @ignore
      */
     static __uid = 197877814;
 
@@ -1900,13 +1900,13 @@ function SteamFriendsGameLobbyJoinRequested() constructor
 }
 
 /**
- * @returns {Struct.SteamFriendsFriendRichPresenceUpdate} 
+ * @returns {Struct.SteamFriendsFriendRichPresenceUpdate}
  */
 function SteamFriendsFriendRichPresenceUpdate() constructor
 {
     /**
      * Internally generated hash for quick validation
-     * @ignore 
+     * @ignore
      */
     static __uid = 1882561134;
 
@@ -1916,13 +1916,13 @@ function SteamFriendsFriendRichPresenceUpdate() constructor
 }
 
 /**
- * @returns {Struct.SteamFriendsGameServerChangeRequested} 
+ * @returns {Struct.SteamFriendsGameServerChangeRequested}
  */
 function SteamFriendsGameServerChangeRequested() constructor
 {
     /**
      * Internally generated hash for quick validation
-     * @ignore 
+     * @ignore
      */
     static __uid = 1391156503;
 
@@ -1932,13 +1932,13 @@ function SteamFriendsGameServerChangeRequested() constructor
 }
 
 /**
- * @returns {Struct.SteamAppsFileDetailsResult} 
+ * @returns {Struct.SteamAppsFileDetailsResult}
  */
 function SteamAppsFileDetailsResult() constructor
 {
     /**
      * Internally generated hash for quick validation
-     * @ignore 
+     * @ignore
      */
     static __uid = 1007679992;
 
@@ -1950,13 +1950,13 @@ function SteamAppsFileDetailsResult() constructor
 }
 
 /**
- * @returns {Struct.SteamAppsDlcData} 
+ * @returns {Struct.SteamAppsDlcData}
  */
 function SteamAppsDlcData() constructor
 {
     /**
      * Internally generated hash for quick validation
-     * @ignore 
+     * @ignore
      */
     static __uid = 549140660;
 
@@ -1967,13 +1967,13 @@ function SteamAppsDlcData() constructor
 }
 
 /**
- * @returns {Struct.SteamAppsIsTimedTrialResult} 
+ * @returns {Struct.SteamAppsIsTimedTrialResult}
  */
 function SteamAppsIsTimedTrialResult() constructor
 {
     /**
      * Internally generated hash for quick validation
-     * @ignore 
+     * @ignore
      */
     static __uid = 919638103;
 
@@ -1983,13 +1983,13 @@ function SteamAppsIsTimedTrialResult() constructor
 }
 
 /**
- * @returns {Struct.SteamAppsNumBetas} 
+ * @returns {Struct.SteamAppsNumBetas}
  */
 function SteamAppsNumBetas() constructor
 {
     /**
      * Internally generated hash for quick validation
-     * @ignore 
+     * @ignore
      */
     static __uid = 805655252;
 
@@ -2000,13 +2000,13 @@ function SteamAppsNumBetas() constructor
 }
 
 /**
- * @returns {Struct.SteamAppsBetaInfo} 
+ * @returns {Struct.SteamAppsBetaInfo}
  */
 function SteamAppsBetaInfo() constructor
 {
     /**
      * Internally generated hash for quick validation
-     * @ignore 
+     * @ignore
      */
     static __uid = 3058170853;
 
@@ -2018,13 +2018,13 @@ function SteamAppsBetaInfo() constructor
 }
 
 /**
- * @returns {Struct.SteamAppsDlcDownloadProgress} 
+ * @returns {Struct.SteamAppsDlcDownloadProgress}
  */
 function SteamAppsDlcDownloadProgress() constructor
 {
     /**
      * Internally generated hash for quick validation
-     * @ignore 
+     * @ignore
      */
     static __uid = 1492980319;
 
@@ -2034,13 +2034,13 @@ function SteamAppsDlcDownloadProgress() constructor
 }
 
 /**
- * @returns {Struct.SteamAppsDlcInstalled} 
+ * @returns {Struct.SteamAppsDlcInstalled}
  */
 function SteamAppsDlcInstalled() constructor
 {
     /**
      * Internally generated hash for quick validation
-     * @ignore 
+     * @ignore
      */
     static __uid = 2560014134;
 
@@ -2049,13 +2049,13 @@ function SteamAppsDlcInstalled() constructor
 }
 
 /**
- * @returns {Struct.SteamScreenshotsScreenshotReady} 
+ * @returns {Struct.SteamScreenshotsScreenshotReady}
  */
 function SteamScreenshotsScreenshotReady() constructor
 {
     /**
      * Internally generated hash for quick validation
-     * @ignore 
+     * @ignore
      */
     static __uid = 1903574551;
 
@@ -2065,13 +2065,13 @@ function SteamScreenshotsScreenshotReady() constructor
 }
 
 /**
- * @returns {Struct.SteamUserStoreAuthUrlResponse} 
+ * @returns {Struct.SteamUserStoreAuthUrlResponse}
  */
 function SteamUserStoreAuthUrlResponse() constructor
 {
     /**
      * Internally generated hash for quick validation
-     * @ignore 
+     * @ignore
      */
     static __uid = 4276589035;
 
@@ -2080,13 +2080,13 @@ function SteamUserStoreAuthUrlResponse() constructor
 }
 
 /**
- * @returns {Struct.SteamUserEncryptedAppTicketResponse} 
+ * @returns {Struct.SteamUserEncryptedAppTicketResponse}
  */
 function SteamUserEncryptedAppTicketResponse() constructor
 {
     /**
      * Internally generated hash for quick validation
-     * @ignore 
+     * @ignore
      */
     static __uid = 1653416272;
 
@@ -2095,13 +2095,13 @@ function SteamUserEncryptedAppTicketResponse() constructor
 }
 
 /**
- * @returns {Struct.SteamUserDurationControl} 
+ * @returns {Struct.SteamUserDurationControl}
  */
 function SteamUserDurationControl() constructor
 {
     /**
      * Internally generated hash for quick validation
-     * @ignore 
+     * @ignore
      */
     static __uid = 111616597;
 
@@ -2115,13 +2115,13 @@ function SteamUserDurationControl() constructor
 }
 
 /**
- * @returns {Struct.SteamUserMarketEligibilityResponse} 
+ * @returns {Struct.SteamUserMarketEligibilityResponse}
  */
 function SteamUserMarketEligibilityResponse() constructor
 {
     /**
      * Internally generated hash for quick validation
-     * @ignore 
+     * @ignore
      */
     static __uid = 3177849834;
 
@@ -2135,13 +2135,13 @@ function SteamUserMarketEligibilityResponse() constructor
 }
 
 /**
- * @returns {Struct.SteamNetworkingIdentity} 
+ * @returns {Struct.SteamNetworkingIdentity}
  */
 function SteamNetworkingIdentity() constructor
 {
     /**
      * Internally generated hash for quick validation
-     * @ignore 
+     * @ignore
      */
     static __uid = 3447469139;
 
@@ -2154,13 +2154,13 @@ function SteamNetworkingIdentity() constructor
 }
 
 /**
- * @returns {Struct.SteamUserAuthSessionTicket} 
+ * @returns {Struct.SteamUserAuthSessionTicket}
  */
 function SteamUserAuthSessionTicket() constructor
 {
     /**
      * Internally generated hash for quick validation
-     * @ignore 
+     * @ignore
      */
     static __uid = 174080998;
 
@@ -2170,13 +2170,13 @@ function SteamUserAuthSessionTicket() constructor
 }
 
 /**
- * @returns {Struct.SteamUserGetAuthSessionTicketResponse} 
+ * @returns {Struct.SteamUserGetAuthSessionTicketResponse}
  */
 function SteamUserGetAuthSessionTicketResponse() constructor
 {
     /**
      * Internally generated hash for quick validation
-     * @ignore 
+     * @ignore
      */
     static __uid = 2373788877;
 
@@ -2186,13 +2186,13 @@ function SteamUserGetAuthSessionTicketResponse() constructor
 }
 
 /**
- * @returns {Struct.SteamUserAvailableVoice} 
+ * @returns {Struct.SteamUserAvailableVoice}
  */
 function SteamUserAvailableVoice() constructor
 {
     /**
      * Internally generated hash for quick validation
-     * @ignore 
+     * @ignore
      */
     static __uid = 890944143;
 
@@ -2203,13 +2203,13 @@ function SteamUserAvailableVoice() constructor
 }
 
 /**
- * @returns {Struct.SteamUserGetVoiceResult} 
+ * @returns {Struct.SteamUserGetVoiceResult}
  */
 function SteamUserGetVoiceResult() constructor
 {
     /**
      * Internally generated hash for quick validation
-     * @ignore 
+     * @ignore
      */
     static __uid = 537562335;
 
@@ -2220,13 +2220,13 @@ function SteamUserGetVoiceResult() constructor
 }
 
 /**
- * @returns {Struct.SteamUserValidateAuthTicketResponse} 
+ * @returns {Struct.SteamUserValidateAuthTicketResponse}
  */
 function SteamUserValidateAuthTicketResponse() constructor
 {
     /**
      * Internally generated hash for quick validation
-     * @ignore 
+     * @ignore
      */
     static __uid = 2629188935;
 
@@ -2237,13 +2237,13 @@ function SteamUserValidateAuthTicketResponse() constructor
 }
 
 /**
- * @returns {Struct.SteamUserSteamServersDisconnected} 
+ * @returns {Struct.SteamUserSteamServersDisconnected}
  */
 function SteamUserSteamServersDisconnected() constructor
 {
     /**
      * Internally generated hash for quick validation
-     * @ignore 
+     * @ignore
      */
     static __uid = 392513291;
 
@@ -2252,13 +2252,13 @@ function SteamUserSteamServersDisconnected() constructor
 }
 
 /**
- * @returns {Struct.SteamUserSteamServerConnectFailure} 
+ * @returns {Struct.SteamUserSteamServerConnectFailure}
  */
 function SteamUserSteamServerConnectFailure() constructor
 {
     /**
      * Internally generated hash for quick validation
-     * @ignore 
+     * @ignore
      */
     static __uid = 899600127;
 
@@ -2268,13 +2268,13 @@ function SteamUserSteamServerConnectFailure() constructor
 }
 
 /**
- * @returns {Struct.SteamUserClientGameServerDeny} 
+ * @returns {Struct.SteamUserClientGameServerDeny}
  */
 function SteamUserClientGameServerDeny() constructor
 {
     /**
      * Internally generated hash for quick validation
-     * @ignore 
+     * @ignore
      */
     static __uid = 675933256;
 
@@ -2287,13 +2287,13 @@ function SteamUserClientGameServerDeny() constructor
 }
 
 /**
- * @returns {Struct.SteamUserMicroTxnAuthorizationResponse} 
+ * @returns {Struct.SteamUserMicroTxnAuthorizationResponse}
  */
 function SteamUserMicroTxnAuthorizationResponse() constructor
 {
     /**
      * Internally generated hash for quick validation
-     * @ignore 
+     * @ignore
      */
     static __uid = 1696404752;
 
@@ -2304,13 +2304,13 @@ function SteamUserMicroTxnAuthorizationResponse() constructor
 }
 
 /**
- * @returns {Struct.SteamUtilsLowBatteryPower} 
+ * @returns {Struct.SteamUtilsLowBatteryPower}
  */
 function SteamUtilsLowBatteryPower() constructor
 {
     /**
      * Internally generated hash for quick validation
-     * @ignore 
+     * @ignore
      */
     static __uid = 993592600;
 
@@ -2319,13 +2319,13 @@ function SteamUtilsLowBatteryPower() constructor
 }
 
 /**
- * @returns {Struct.SteamUtilsSteamApiCallCompleted} 
+ * @returns {Struct.SteamUtilsSteamApiCallCompleted}
  */
 function SteamUtilsSteamApiCallCompleted() constructor
 {
     /**
      * Internally generated hash for quick validation
-     * @ignore 
+     * @ignore
      */
     static __uid = 2065056789;
 
@@ -2336,13 +2336,13 @@ function SteamUtilsSteamApiCallCompleted() constructor
 }
 
 /**
- * @returns {Struct.SteamUtilsImageSize} 
+ * @returns {Struct.SteamUtilsImageSize}
  */
 function SteamUtilsImageSize() constructor
 {
     /**
      * Internally generated hash for quick validation
-     * @ignore 
+     * @ignore
      */
     static __uid = 2079072888;
 
@@ -2352,13 +2352,13 @@ function SteamUtilsImageSize() constructor
 }
 
 /**
- * @returns {Struct.SteamUtilsFilterTextResult} 
+ * @returns {Struct.SteamUtilsFilterTextResult}
  */
 function SteamUtilsFilterTextResult() constructor
 {
     /**
      * Internally generated hash for quick validation
-     * @ignore 
+     * @ignore
      */
     static __uid = 1816154716;
 
@@ -2368,13 +2368,13 @@ function SteamUtilsFilterTextResult() constructor
 }
 
 /**
- * @returns {Struct.SteamUtilsGamepadTextInputDismissed} 
+ * @returns {Struct.SteamUtilsGamepadTextInputDismissed}
  */
 function SteamUtilsGamepadTextInputDismissed() constructor
 {
     /**
      * Internally generated hash for quick validation
-     * @ignore 
+     * @ignore
      */
     static __uid = 1214060977;
 
@@ -2384,13 +2384,13 @@ function SteamUtilsGamepadTextInputDismissed() constructor
 }
 
 /**
- * @returns {Struct.SteamUtilsFloatingGamepadTextInputDismissed} 
+ * @returns {Struct.SteamUtilsFloatingGamepadTextInputDismissed}
  */
 function SteamUtilsFloatingGamepadTextInputDismissed() constructor
 {
     /**
      * Internally generated hash for quick validation
-     * @ignore 
+     * @ignore
      */
     static __uid = 215564439;
 
@@ -2399,13 +2399,13 @@ function SteamUtilsFloatingGamepadTextInputDismissed() constructor
 }
 
 /**
- * @returns {Struct.SteamUtilsWarningMessage} 
+ * @returns {Struct.SteamUtilsWarningMessage}
  */
 function SteamUtilsWarningMessage() constructor
 {
     /**
      * Internally generated hash for quick validation
-     * @ignore 
+     * @ignore
      */
     static __uid = 4133013175;
 
@@ -2415,13 +2415,13 @@ function SteamUtilsWarningMessage() constructor
 }
 
 /**
- * @returns {Struct.SteamUgcItemDownloadInfo} 
+ * @returns {Struct.SteamUgcItemDownloadInfo}
  */
 function SteamUgcItemDownloadInfo() constructor
 {
     /**
      * Internally generated hash for quick validation
-     * @ignore 
+     * @ignore
      */
     static __uid = 3002068827;
 
@@ -2431,13 +2431,13 @@ function SteamUgcItemDownloadInfo() constructor
 }
 
 /**
- * @returns {Struct.SteamUgcItemInstallInfo} 
+ * @returns {Struct.SteamUgcItemInstallInfo}
  */
 function SteamUgcItemInstallInfo() constructor
 {
     /**
      * Internally generated hash for quick validation
-     * @ignore 
+     * @ignore
      */
     static __uid = 3611113442;
 
@@ -2448,13 +2448,13 @@ function SteamUgcItemInstallInfo() constructor
 }
 
 /**
- * @returns {Struct.SteamUgcItemUpdateProgress} 
+ * @returns {Struct.SteamUgcItemUpdateProgress}
  */
 function SteamUgcItemUpdateProgress() constructor
 {
     /**
      * Internally generated hash for quick validation
-     * @ignore 
+     * @ignore
      */
     static __uid = 1277506373;
 
@@ -2465,13 +2465,13 @@ function SteamUgcItemUpdateProgress() constructor
 }
 
 /**
- * @returns {Struct.SteamUgcQueryResult} 
+ * @returns {Struct.SteamUgcQueryResult}
  */
 function SteamUgcQueryResult() constructor
 {
     /**
      * Internally generated hash for quick validation
-     * @ignore 
+     * @ignore
      */
     static __uid = 2158147385;
 
@@ -2505,13 +2505,13 @@ function SteamUgcQueryResult() constructor
 }
 
 /**
- * @returns {Struct.SteamUgcAdditionalPreview} 
+ * @returns {Struct.SteamUgcAdditionalPreview}
  */
 function SteamUgcAdditionalPreview() constructor
 {
     /**
      * Internally generated hash for quick validation
-     * @ignore 
+     * @ignore
      */
     static __uid = 3322980683;
 
@@ -2521,13 +2521,13 @@ function SteamUgcAdditionalPreview() constructor
 }
 
 /**
- * @returns {Struct.SteamUgcKeyValueTag} 
+ * @returns {Struct.SteamUgcKeyValueTag}
  */
 function SteamUgcKeyValueTag() constructor
 {
     /**
      * Internally generated hash for quick validation
-     * @ignore 
+     * @ignore
      */
     static __uid = 2267694496;
 
@@ -2537,13 +2537,13 @@ function SteamUgcKeyValueTag() constructor
 }
 
 /**
- * @returns {Struct.SteamUgcItemInstalled} 
+ * @returns {Struct.SteamUgcItemInstalled}
  */
 function SteamUgcItemInstalled() constructor
 {
     /**
      * Internally generated hash for quick validation
-     * @ignore 
+     * @ignore
      */
     static __uid = 4023767051;
 
@@ -2553,13 +2553,13 @@ function SteamUgcItemInstalled() constructor
 }
 
 /**
- * @returns {Struct.SteamUgcUserSubscribedItemsListChanged} 
+ * @returns {Struct.SteamUgcUserSubscribedItemsListChanged}
  */
 function SteamUgcUserSubscribedItemsListChanged() constructor
 {
     /**
      * Internally generated hash for quick validation
-     * @ignore 
+     * @ignore
      */
     static __uid = 2315828027;
 
@@ -2568,13 +2568,13 @@ function SteamUgcUserSubscribedItemsListChanged() constructor
 }
 
 /**
- * @returns {Struct.SteamUgcQueryCompleted} 
+ * @returns {Struct.SteamUgcQueryCompleted}
  */
 function SteamUgcQueryCompleted() constructor
 {
     /**
      * Internally generated hash for quick validation
-     * @ignore 
+     * @ignore
      */
     static __uid = 2842394473;
 
@@ -2587,13 +2587,13 @@ function SteamUgcQueryCompleted() constructor
 }
 
 /**
- * @returns {Struct.SteamUgcCreateItemResult} 
+ * @returns {Struct.SteamUgcCreateItemResult}
  */
 function SteamUgcCreateItemResult() constructor
 {
     /**
      * Internally generated hash for quick validation
-     * @ignore 
+     * @ignore
      */
     static __uid = 2598362310;
 
@@ -2604,13 +2604,13 @@ function SteamUgcCreateItemResult() constructor
 }
 
 /**
- * @returns {Struct.SteamUgcSubmitItemUpdateResult} 
+ * @returns {Struct.SteamUgcSubmitItemUpdateResult}
  */
 function SteamUgcSubmitItemUpdateResult() constructor
 {
     /**
      * Internally generated hash for quick validation
-     * @ignore 
+     * @ignore
      */
     static __uid = 3063359699;
 
@@ -2620,13 +2620,13 @@ function SteamUgcSubmitItemUpdateResult() constructor
 }
 
 /**
- * @returns {Struct.SteamUgcSubscribeItemResult} 
+ * @returns {Struct.SteamUgcSubscribeItemResult}
  */
 function SteamUgcSubscribeItemResult() constructor
 {
     /**
      * Internally generated hash for quick validation
-     * @ignore 
+     * @ignore
      */
     static __uid = 963936114;
 
@@ -2636,13 +2636,13 @@ function SteamUgcSubscribeItemResult() constructor
 }
 
 /**
- * @returns {Struct.SteamUgcUnsubscribeItemResult} 
+ * @returns {Struct.SteamUgcUnsubscribeItemResult}
  */
 function SteamUgcUnsubscribeItemResult() constructor
 {
     /**
      * Internally generated hash for quick validation
-     * @ignore 
+     * @ignore
      */
     static __uid = 431924523;
 
@@ -2652,13 +2652,13 @@ function SteamUgcUnsubscribeItemResult() constructor
 }
 
 /**
- * @returns {Struct.SteamUgcFavoriteItemsListChanged} 
+ * @returns {Struct.SteamUgcFavoriteItemsListChanged}
  */
 function SteamUgcFavoriteItemsListChanged() constructor
 {
     /**
      * Internally generated hash for quick validation
-     * @ignore 
+     * @ignore
      */
     static __uid = 1569097968;
 
@@ -2669,13 +2669,13 @@ function SteamUgcFavoriteItemsListChanged() constructor
 }
 
 /**
- * @returns {Struct.SteamUgcSetUserItemVoteResult} 
+ * @returns {Struct.SteamUgcSetUserItemVoteResult}
  */
 function SteamUgcSetUserItemVoteResult() constructor
 {
     /**
      * Internally generated hash for quick validation
-     * @ignore 
+     * @ignore
      */
     static __uid = 766475093;
 
@@ -2686,13 +2686,13 @@ function SteamUgcSetUserItemVoteResult() constructor
 }
 
 /**
- * @returns {Struct.SteamUgcGetUserItemVoteResult} 
+ * @returns {Struct.SteamUgcGetUserItemVoteResult}
  */
 function SteamUgcGetUserItemVoteResult() constructor
 {
     /**
      * Internally generated hash for quick validation
-     * @ignore 
+     * @ignore
      */
     static __uid = 2209146033;
 
@@ -2705,13 +2705,13 @@ function SteamUgcGetUserItemVoteResult() constructor
 }
 
 /**
- * @returns {Struct.SteamUgcSupportedGameVersionData} 
+ * @returns {Struct.SteamUgcSupportedGameVersionData}
  */
 function SteamUgcSupportedGameVersionData() constructor
 {
     /**
      * Internally generated hash for quick validation
-     * @ignore 
+     * @ignore
      */
     static __uid = 2501994908;
 
@@ -2721,13 +2721,13 @@ function SteamUgcSupportedGameVersionData() constructor
 }
 
 /**
- * @returns {Struct.SteamUgcDeleteItemResult} 
+ * @returns {Struct.SteamUgcDeleteItemResult}
  */
 function SteamUgcDeleteItemResult() constructor
 {
     /**
      * Internally generated hash for quick validation
-     * @ignore 
+     * @ignore
      */
     static __uid = 2594992913;
 
@@ -2737,13 +2737,13 @@ function SteamUgcDeleteItemResult() constructor
 }
 
 /**
- * @returns {Struct.SteamUgcAddAppDependencyResult} 
+ * @returns {Struct.SteamUgcAddAppDependencyResult}
  */
 function SteamUgcAddAppDependencyResult() constructor
 {
     /**
      * Internally generated hash for quick validation
-     * @ignore 
+     * @ignore
      */
     static __uid = 3251673974;
 
@@ -2754,13 +2754,13 @@ function SteamUgcAddAppDependencyResult() constructor
 }
 
 /**
- * @returns {Struct.SteamUgcRemoveAppDependencyResult} 
+ * @returns {Struct.SteamUgcRemoveAppDependencyResult}
  */
 function SteamUgcRemoveAppDependencyResult() constructor
 {
     /**
      * Internally generated hash for quick validation
-     * @ignore 
+     * @ignore
      */
     static __uid = 2040507435;
 
@@ -2771,13 +2771,13 @@ function SteamUgcRemoveAppDependencyResult() constructor
 }
 
 /**
- * @returns {Struct.SteamUgcAddUGCDependencyResult} 
+ * @returns {Struct.SteamUgcAddUGCDependencyResult}
  */
 function SteamUgcAddUGCDependencyResult() constructor
 {
     /**
      * Internally generated hash for quick validation
-     * @ignore 
+     * @ignore
      */
     static __uid = 356938616;
 
@@ -2788,13 +2788,13 @@ function SteamUgcAddUGCDependencyResult() constructor
 }
 
 /**
- * @returns {Struct.SteamUgcRemoveUGCDependencyResult} 
+ * @returns {Struct.SteamUgcRemoveUGCDependencyResult}
  */
 function SteamUgcRemoveUGCDependencyResult() constructor
 {
     /**
      * Internally generated hash for quick validation
-     * @ignore 
+     * @ignore
      */
     static __uid = 1550332149;
 
@@ -2805,13 +2805,13 @@ function SteamUgcRemoveUGCDependencyResult() constructor
 }
 
 /**
- * @returns {Struct.SteamUgcGetAppDependenciesResult} 
+ * @returns {Struct.SteamUgcGetAppDependenciesResult}
  */
 function SteamUgcGetAppDependenciesResult() constructor
 {
     /**
      * Internally generated hash for quick validation
-     * @ignore 
+     * @ignore
      */
     static __uid = 2482118255;
 
@@ -2824,13 +2824,13 @@ function SteamUgcGetAppDependenciesResult() constructor
 }
 
 /**
- * @returns {Struct.SteamUgcStartPlaytimeTrackingResult} 
+ * @returns {Struct.SteamUgcStartPlaytimeTrackingResult}
  */
 function SteamUgcStartPlaytimeTrackingResult() constructor
 {
     /**
      * Internally generated hash for quick validation
-     * @ignore 
+     * @ignore
      */
     static __uid = 4163037631;
 
@@ -2839,13 +2839,13 @@ function SteamUgcStartPlaytimeTrackingResult() constructor
 }
 
 /**
- * @returns {Struct.SteamUgcStopPlaytimeTrackingResult} 
+ * @returns {Struct.SteamUgcStopPlaytimeTrackingResult}
  */
 function SteamUgcStopPlaytimeTrackingResult() constructor
 {
     /**
      * Internally generated hash for quick validation
-     * @ignore 
+     * @ignore
      */
     static __uid = 1523779339;
 
@@ -2854,13 +2854,13 @@ function SteamUgcStopPlaytimeTrackingResult() constructor
 }
 
 /**
- * @returns {Struct.SteamUgcDownloadItemResult} 
+ * @returns {Struct.SteamUgcDownloadItemResult}
  */
 function SteamUgcDownloadItemResult() constructor
 {
     /**
      * Internally generated hash for quick validation
-     * @ignore 
+     * @ignore
      */
     static __uid = 2015232426;
 
@@ -2871,13 +2871,13 @@ function SteamUgcDownloadItemResult() constructor
 }
 
 /**
- * @returns {Struct.SteamInputAnalogActionData} 
+ * @returns {Struct.SteamInputAnalogActionData}
  */
 function SteamInputAnalogActionData() constructor
 {
     /**
      * Internally generated hash for quick validation
-     * @ignore 
+     * @ignore
      */
     static __uid = 168659087;
 
@@ -2889,13 +2889,13 @@ function SteamInputAnalogActionData() constructor
 }
 
 /**
- * @returns {Struct.SteamInputDigitalActionData} 
+ * @returns {Struct.SteamInputDigitalActionData}
  */
 function SteamInputDigitalActionData() constructor
 {
     /**
      * Internally generated hash for quick validation
-     * @ignore 
+     * @ignore
      */
     static __uid = 1851676037;
 
@@ -2905,13 +2905,13 @@ function SteamInputDigitalActionData() constructor
 }
 
 /**
- * @returns {Struct.SteamInputMotionData} 
+ * @returns {Struct.SteamInputMotionData}
  */
 function SteamInputMotionData() constructor
 {
     /**
      * Internally generated hash for quick validation
-     * @ignore 
+     * @ignore
      */
     static __uid = 4219057907;
 
@@ -2929,13 +2929,13 @@ function SteamInputMotionData() constructor
 }
 
 /**
- * @returns {Struct.SteamInputActiveActionSetLayers} 
+ * @returns {Struct.SteamInputActiveActionSetLayers}
  */
 function SteamInputActiveActionSetLayers() constructor
 {
     /**
      * Internally generated hash for quick validation
-     * @ignore 
+     * @ignore
      */
     static __uid = 3015103601;
 
@@ -2944,13 +2944,13 @@ function SteamInputActiveActionSetLayers() constructor
 }
 
 /**
- * @returns {Struct.SteamInputActionOrigins} 
+ * @returns {Struct.SteamInputActionOrigins}
  */
 function SteamInputActionOrigins() constructor
 {
     /**
      * Internally generated hash for quick validation
-     * @ignore 
+     * @ignore
      */
     static __uid = 3337827802;
 
@@ -2959,13 +2959,13 @@ function SteamInputActionOrigins() constructor
 }
 
 /**
- * @returns {Struct.SteamInputDeviceBindingRevision} 
+ * @returns {Struct.SteamInputDeviceBindingRevision}
  */
 function SteamInputDeviceBindingRevision() constructor
 {
     /**
      * Internally generated hash for quick validation
-     * @ignore 
+     * @ignore
      */
     static __uid = 4021434149;
 
@@ -2975,13 +2975,13 @@ function SteamInputDeviceBindingRevision() constructor
 }
 
 /**
- * @returns {Struct.SteamInputDeviceEvent} 
+ * @returns {Struct.SteamInputDeviceEvent}
  */
 function SteamInputDeviceEvent() constructor
 {
     /**
      * Internally generated hash for quick validation
-     * @ignore 
+     * @ignore
      */
     static __uid = 1245875165;
 
@@ -2990,13 +2990,13 @@ function SteamInputDeviceEvent() constructor
 }
 
 /**
- * @returns {Struct.SteamUserStatsAchievementAndUnlockTime} 
+ * @returns {Struct.SteamUserStatsAchievementAndUnlockTime}
  */
 function SteamUserStatsAchievementAndUnlockTime() constructor
 {
     /**
      * Internally generated hash for quick validation
-     * @ignore 
+     * @ignore
      */
     static __uid = 2667306638;
 
@@ -3006,13 +3006,13 @@ function SteamUserStatsAchievementAndUnlockTime() constructor
 }
 
 /**
- * @returns {Struct.SteamUserStatsMostAchievedAchievementInfo} 
+ * @returns {Struct.SteamUserStatsMostAchievedAchievementInfo}
  */
 function SteamUserStatsMostAchievedAchievementInfo() constructor
 {
     /**
      * Internally generated hash for quick validation
-     * @ignore 
+     * @ignore
      */
     static __uid = 4144113084;
 
@@ -3023,13 +3023,13 @@ function SteamUserStatsMostAchievedAchievementInfo() constructor
 }
 
 /**
- * @returns {Struct.SteamUserStatsDownloadedLeaderboardEntry} 
+ * @returns {Struct.SteamUserStatsDownloadedLeaderboardEntry}
  */
 function SteamUserStatsDownloadedLeaderboardEntry() constructor
 {
     /**
      * Internally generated hash for quick validation
-     * @ignore 
+     * @ignore
      */
     static __uid = 4102278799;
 
@@ -3041,13 +3041,13 @@ function SteamUserStatsDownloadedLeaderboardEntry() constructor
 }
 
 /**
- * @returns {Struct.SteamUserStatsLeaderboardFindResult} 
+ * @returns {Struct.SteamUserStatsLeaderboardFindResult}
  */
 function SteamUserStatsLeaderboardFindResult() constructor
 {
     /**
      * Internally generated hash for quick validation
-     * @ignore 
+     * @ignore
      */
     static __uid = 3474580816;
 
@@ -3057,13 +3057,13 @@ function SteamUserStatsLeaderboardFindResult() constructor
 }
 
 /**
- * @returns {Struct.SteamUserStatsScoresDownloadedResult} 
+ * @returns {Struct.SteamUserStatsScoresDownloadedResult}
  */
 function SteamUserStatsScoresDownloadedResult() constructor
 {
     /**
      * Internally generated hash for quick validation
-     * @ignore 
+     * @ignore
      */
     static __uid = 3634037196;
 
@@ -3074,13 +3074,13 @@ function SteamUserStatsScoresDownloadedResult() constructor
 }
 
 /**
- * @returns {Struct.SteamUserStatsScoreUploadedResult} 
+ * @returns {Struct.SteamUserStatsScoreUploadedResult}
  */
 function SteamUserStatsScoreUploadedResult() constructor
 {
     /**
      * Internally generated hash for quick validation
-     * @ignore 
+     * @ignore
      */
     static __uid = 286504762;
 
@@ -3094,13 +3094,13 @@ function SteamUserStatsScoreUploadedResult() constructor
 }
 
 /**
- * @returns {Struct.SteamUserStatsNumberOfCurrentPlayersResult} 
+ * @returns {Struct.SteamUserStatsNumberOfCurrentPlayersResult}
  */
 function SteamUserStatsNumberOfCurrentPlayersResult() constructor
 {
     /**
      * Internally generated hash for quick validation
-     * @ignore 
+     * @ignore
      */
     static __uid = 339603487;
 
@@ -3110,13 +3110,13 @@ function SteamUserStatsNumberOfCurrentPlayersResult() constructor
 }
 
 /**
- * @returns {Struct.SteamUserStatsGlobalAchievementPercentagesReadyResult} 
+ * @returns {Struct.SteamUserStatsGlobalAchievementPercentagesReadyResult}
  */
 function SteamUserStatsGlobalAchievementPercentagesReadyResult() constructor
 {
     /**
      * Internally generated hash for quick validation
-     * @ignore 
+     * @ignore
      */
     static __uid = 4040813178;
 
@@ -3126,13 +3126,13 @@ function SteamUserStatsGlobalAchievementPercentagesReadyResult() constructor
 }
 
 /**
- * @returns {Struct.SteamUserStatsGlobalStatsReceivedResult} 
+ * @returns {Struct.SteamUserStatsGlobalStatsReceivedResult}
  */
 function SteamUserStatsGlobalStatsReceivedResult() constructor
 {
     /**
      * Internally generated hash for quick validation
-     * @ignore 
+     * @ignore
      */
     static __uid = 1506123869;
 
@@ -3142,13 +3142,13 @@ function SteamUserStatsGlobalStatsReceivedResult() constructor
 }
 
 /**
- * @returns {Struct.SteamUserStatsAttachLeaderboardUgcResult} 
+ * @returns {Struct.SteamUserStatsAttachLeaderboardUgcResult}
  */
 function SteamUserStatsAttachLeaderboardUgcResult() constructor
 {
     /**
      * Internally generated hash for quick validation
-     * @ignore 
+     * @ignore
      */
     static __uid = 1507142583;
 
@@ -3158,13 +3158,13 @@ function SteamUserStatsAttachLeaderboardUgcResult() constructor
 }
 
 /**
- * @returns {Struct.SteamUserStatsAchievementIconFetched} 
+ * @returns {Struct.SteamUserStatsAchievementIconFetched}
  */
 function SteamUserStatsAchievementIconFetched() constructor
 {
     /**
      * Internally generated hash for quick validation
-     * @ignore 
+     * @ignore
      */
     static __uid = 3473613228;
 
@@ -3176,13 +3176,13 @@ function SteamUserStatsAchievementIconFetched() constructor
 }
 
 /**
- * @returns {Struct.SteamUserStatsUnloaded} 
+ * @returns {Struct.SteamUserStatsUnloaded}
  */
 function SteamUserStatsUnloaded() constructor
 {
     /**
      * Internally generated hash for quick validation
-     * @ignore 
+     * @ignore
      */
     static __uid = 3543594793;
 
@@ -3191,13 +3191,13 @@ function SteamUserStatsUnloaded() constructor
 }
 
 /**
- * @returns {Struct.SteamUserStatsUserStatsReceived} 
+ * @returns {Struct.SteamUserStatsUserStatsReceived}
  */
 function SteamUserStatsUserStatsReceived() constructor
 {
     /**
      * Internally generated hash for quick validation
-     * @ignore 
+     * @ignore
      */
     static __uid = 3865380428;
 
@@ -3208,13 +3208,13 @@ function SteamUserStatsUserStatsReceived() constructor
 }
 
 /**
- * @returns {Struct.SteamUserStatsUserStatsStored} 
+ * @returns {Struct.SteamUserStatsUserStatsStored}
  */
 function SteamUserStatsUserStatsStored() constructor
 {
     /**
      * Internally generated hash for quick validation
-     * @ignore 
+     * @ignore
      */
     static __uid = 3431133144;
 
@@ -3224,13 +3224,13 @@ function SteamUserStatsUserStatsStored() constructor
 }
 
 /**
- * @returns {Struct.SteamUserStatsUserAchievementStored} 
+ * @returns {Struct.SteamUserStatsUserAchievementStored}
  */
 function SteamUserStatsUserAchievementStored() constructor
 {
     /**
      * Internally generated hash for quick validation
-     * @ignore 
+     * @ignore
      */
     static __uid = 2884583188;
 
@@ -3242,13 +3242,13 @@ function SteamUserStatsUserAchievementStored() constructor
 }
 
 /**
- * @returns {Struct.SteamUserStatsIntMinMax} 
+ * @returns {Struct.SteamUserStatsIntMinMax}
  */
 function SteamUserStatsIntMinMax() constructor
 {
     /**
      * Internally generated hash for quick validation
-     * @ignore 
+     * @ignore
      */
     static __uid = 3033978254;
 
@@ -3258,13 +3258,13 @@ function SteamUserStatsIntMinMax() constructor
 }
 
 /**
- * @returns {Struct.SteamUserStatsFloatMinMax} 
+ * @returns {Struct.SteamUserStatsFloatMinMax}
  */
 function SteamUserStatsFloatMinMax() constructor
 {
     /**
      * Internally generated hash for quick validation
-     * @ignore 
+     * @ignore
      */
     static __uid = 3060986917;
 
@@ -3274,13 +3274,13 @@ function SteamUserStatsFloatMinMax() constructor
 }
 
 /**
- * @returns {Struct.SteamMusicPlaybackStatusHasChanged} 
+ * @returns {Struct.SteamMusicPlaybackStatusHasChanged}
  */
 function SteamMusicPlaybackStatusHasChanged() constructor
 {
     /**
      * Internally generated hash for quick validation
-     * @ignore 
+     * @ignore
      */
     static __uid = 1445107601;
 
@@ -3289,13 +3289,13 @@ function SteamMusicPlaybackStatusHasChanged() constructor
 }
 
 /**
- * @returns {Struct.SteamMusicVolumeHasChanged} 
+ * @returns {Struct.SteamMusicVolumeHasChanged}
  */
 function SteamMusicVolumeHasChanged() constructor
 {
     /**
      * Internally generated hash for quick validation
-     * @ignore 
+     * @ignore
      */
     static __uid = 3095150156;
 
@@ -3304,13 +3304,13 @@ function SteamMusicVolumeHasChanged() constructor
 }
 
 /**
- * @returns {Struct.SteamTimelineGamePhaseRecordingExists} 
+ * @returns {Struct.SteamTimelineGamePhaseRecordingExists}
  */
 function SteamTimelineGamePhaseRecordingExists() constructor
 {
     /**
      * Internally generated hash for quick validation
-     * @ignore 
+     * @ignore
      */
     static __uid = 1026498664;
 
@@ -3323,13 +3323,13 @@ function SteamTimelineGamePhaseRecordingExists() constructor
 }
 
 /**
- * @returns {Struct.SteamTimelineEventRecordingExists} 
+ * @returns {Struct.SteamTimelineEventRecordingExists}
  */
 function SteamTimelineEventRecordingExists() constructor
 {
     /**
      * Internally generated hash for quick validation
-     * @ignore 
+     * @ignore
      */
     static __uid = 2357313499;
 
@@ -3339,13 +3339,13 @@ function SteamTimelineEventRecordingExists() constructor
 }
 
 /**
- * @returns {Struct.SteamInventoryItemDefQuantity} 
+ * @returns {Struct.SteamInventoryItemDefQuantity}
  */
 function SteamInventoryItemDefQuantity() constructor
 {
     /**
      * Internally generated hash for quick validation
-     * @ignore 
+     * @ignore
      */
     static __uid = 837655736;
 
@@ -3355,13 +3355,13 @@ function SteamInventoryItemDefQuantity() constructor
 }
 
 /**
- * @returns {Struct.SteamInventoryItemInstanceQuantity} 
+ * @returns {Struct.SteamInventoryItemInstanceQuantity}
  */
 function SteamInventoryItemInstanceQuantity() constructor
 {
     /**
      * Internally generated hash for quick validation
-     * @ignore 
+     * @ignore
      */
     static __uid = 37410476;
 
@@ -3371,13 +3371,13 @@ function SteamInventoryItemInstanceQuantity() constructor
 }
 
 /**
- * @returns {Struct.SteamInventoryItemWithPrice} 
+ * @returns {Struct.SteamInventoryItemWithPrice}
  */
 function SteamInventoryItemWithPrice() constructor
 {
     /**
      * Internally generated hash for quick validation
-     * @ignore 
+     * @ignore
      */
     static __uid = 1700799883;
 
@@ -3388,32 +3388,31 @@ function SteamInventoryItemWithPrice() constructor
 }
 
 /**
- * @returns {Struct.SteamInventoryResultItems} 
+ * @returns {Struct.SteamInventoryItemDetails}
  */
-function SteamInventoryResultItems() constructor
+function SteamInventoryItemDetails() constructor
 {
     /**
      * Internally generated hash for quick validation
-     * @ignore 
+     * @ignore
      */
-    static __uid = 4004490304;
+    static __uid = 641884340;
 
-    self.count = undefined;
-    self.item_instance_ids = undefined;
-    self.item_def_ids = undefined;
-    self.quantities = undefined;
+    self.item_instance_id = undefined;
+    self.item_def_id = undefined;
+    self.quantity = undefined;
     self.flags = undefined;
 
 }
 
 /**
- * @returns {Struct.SteamInventoryDeserializeResult} 
+ * @returns {Struct.SteamInventoryDeserializeResult}
  */
 function SteamInventoryDeserializeResult() constructor
 {
     /**
      * Internally generated hash for quick validation
-     * @ignore 
+     * @ignore
      */
     static __uid = 1416794353;
 
@@ -3423,13 +3422,13 @@ function SteamInventoryDeserializeResult() constructor
 }
 
 /**
- * @returns {Struct.SteamInventoryItemPrice} 
+ * @returns {Struct.SteamInventoryItemPrice}
  */
 function SteamInventoryItemPrice() constructor
 {
     /**
      * Internally generated hash for quick validation
-     * @ignore 
+     * @ignore
      */
     static __uid = 1342449503;
 
@@ -3439,13 +3438,13 @@ function SteamInventoryItemPrice() constructor
 }
 
 /**
- * @returns {Struct.SteamInventoryResultReady} 
+ * @returns {Struct.SteamInventoryResultReady}
  */
 function SteamInventoryResultReady() constructor
 {
     /**
      * Internally generated hash for quick validation
-     * @ignore 
+     * @ignore
      */
     static __uid = 673237835;
 
@@ -3455,13 +3454,13 @@ function SteamInventoryResultReady() constructor
 }
 
 /**
- * @returns {Struct.SteamInventoryFullUpdate} 
+ * @returns {Struct.SteamInventoryFullUpdate}
  */
 function SteamInventoryFullUpdate() constructor
 {
     /**
      * Internally generated hash for quick validation
-     * @ignore 
+     * @ignore
      */
     static __uid = 3981795813;
 
@@ -3470,13 +3469,13 @@ function SteamInventoryFullUpdate() constructor
 }
 
 /**
- * @returns {Struct.SteamInventoryStartPurchaseResult} 
+ * @returns {Struct.SteamInventoryStartPurchaseResult}
  */
 function SteamInventoryStartPurchaseResult() constructor
 {
     /**
      * Internally generated hash for quick validation
-     * @ignore 
+     * @ignore
      */
     static __uid = 411774353;
 
@@ -3487,13 +3486,13 @@ function SteamInventoryStartPurchaseResult() constructor
 }
 
 /**
- * @returns {Struct.SteamInventoryRequestPricesResult} 
+ * @returns {Struct.SteamInventoryRequestPricesResult}
  */
 function SteamInventoryRequestPricesResult() constructor
 {
     /**
      * Internally generated hash for quick validation
-     * @ignore 
+     * @ignore
      */
     static __uid = 2486814769;
 
@@ -3503,13 +3502,13 @@ function SteamInventoryRequestPricesResult() constructor
 }
 
 /**
- * @returns {Struct.SteamRemoteStorageFileNameAndSize} 
+ * @returns {Struct.SteamRemoteStorageFileNameAndSize}
  */
 function SteamRemoteStorageFileNameAndSize() constructor
 {
     /**
      * Internally generated hash for quick validation
-     * @ignore 
+     * @ignore
      */
     static __uid = 2152397209;
 
@@ -3519,13 +3518,13 @@ function SteamRemoteStorageFileNameAndSize() constructor
 }
 
 /**
- * @returns {Struct.SteamRemoteStorageQuota} 
+ * @returns {Struct.SteamRemoteStorageQuota}
  */
 function SteamRemoteStorageQuota() constructor
 {
     /**
      * Internally generated hash for quick validation
-     * @ignore 
+     * @ignore
      */
     static __uid = 1951566378;
 
@@ -3535,13 +3534,13 @@ function SteamRemoteStorageQuota() constructor
 }
 
 /**
- * @returns {Struct.SteamRemoteStorageUgcDetails} 
+ * @returns {Struct.SteamRemoteStorageUgcDetails}
  */
 function SteamRemoteStorageUgcDetails() constructor
 {
     /**
      * Internally generated hash for quick validation
-     * @ignore 
+     * @ignore
      */
     static __uid = 448591303;
 
@@ -3554,13 +3553,13 @@ function SteamRemoteStorageUgcDetails() constructor
 }
 
 /**
- * @returns {Struct.SteamRemoteStorageFileShareResult} 
+ * @returns {Struct.SteamRemoteStorageFileShareResult}
  */
 function SteamRemoteStorageFileShareResult() constructor
 {
     /**
      * Internally generated hash for quick validation
-     * @ignore 
+     * @ignore
      */
     static __uid = 2353423750;
 
@@ -3571,13 +3570,13 @@ function SteamRemoteStorageFileShareResult() constructor
 }
 
 /**
- * @returns {Struct.SteamRemoteStorageFileWriteAsyncResult} 
+ * @returns {Struct.SteamRemoteStorageFileWriteAsyncResult}
  */
 function SteamRemoteStorageFileWriteAsyncResult() constructor
 {
     /**
      * Internally generated hash for quick validation
-     * @ignore 
+     * @ignore
      */
     static __uid = 2397601524;
 
@@ -3586,13 +3585,13 @@ function SteamRemoteStorageFileWriteAsyncResult() constructor
 }
 
 /**
- * @returns {Struct.SteamRemoteStorageDownloadUgcResult} 
+ * @returns {Struct.SteamRemoteStorageDownloadUgcResult}
  */
 function SteamRemoteStorageDownloadUgcResult() constructor
 {
     /**
      * Internally generated hash for quick validation
-     * @ignore 
+     * @ignore
      */
     static __uid = 2264363846;
 
@@ -3606,13 +3605,13 @@ function SteamRemoteStorageDownloadUgcResult() constructor
 }
 
 /**
- * @returns {Struct.SteamRemoteStoragePublishedFileSubscribed} 
+ * @returns {Struct.SteamRemoteStoragePublishedFileSubscribed}
  */
 function SteamRemoteStoragePublishedFileSubscribed() constructor
 {
     /**
      * Internally generated hash for quick validation
-     * @ignore 
+     * @ignore
      */
     static __uid = 3140138138;
 
@@ -3622,13 +3621,13 @@ function SteamRemoteStoragePublishedFileSubscribed() constructor
 }
 
 /**
- * @returns {Struct.SteamRemoteStoragePublishedFileUnsubscribed} 
+ * @returns {Struct.SteamRemoteStoragePublishedFileUnsubscribed}
  */
 function SteamRemoteStoragePublishedFileUnsubscribed() constructor
 {
     /**
      * Internally generated hash for quick validation
-     * @ignore 
+     * @ignore
      */
     static __uid = 2925934949;
 
@@ -3638,13 +3637,13 @@ function SteamRemoteStoragePublishedFileUnsubscribed() constructor
 }
 
 /**
- * @returns {Struct.SteamMatchmakingLobbyCreated} 
+ * @returns {Struct.SteamMatchmakingLobbyCreated}
  */
 function SteamMatchmakingLobbyCreated() constructor
 {
     /**
      * Internally generated hash for quick validation
-     * @ignore 
+     * @ignore
      */
     static __uid = 3489071257;
 
@@ -3654,13 +3653,13 @@ function SteamMatchmakingLobbyCreated() constructor
 }
 
 /**
- * @returns {Struct.SteamMatchmakingLobbyEnter} 
+ * @returns {Struct.SteamMatchmakingLobbyEnter}
  */
 function SteamMatchmakingLobbyEnter() constructor
 {
     /**
      * Internally generated hash for quick validation
-     * @ignore 
+     * @ignore
      */
     static __uid = 1535015755;
 
@@ -3672,13 +3671,13 @@ function SteamMatchmakingLobbyEnter() constructor
 }
 
 /**
- * @returns {Struct.SteamMatchmakingLobbyMatchList} 
+ * @returns {Struct.SteamMatchmakingLobbyMatchList}
  */
 function SteamMatchmakingLobbyMatchList() constructor
 {
     /**
      * Internally generated hash for quick validation
-     * @ignore 
+     * @ignore
      */
     static __uid = 3619150160;
 
@@ -3687,13 +3686,13 @@ function SteamMatchmakingLobbyMatchList() constructor
 }
 
 /**
- * @returns {Struct.SteamMatchmakingLobbyDataUpdate} 
+ * @returns {Struct.SteamMatchmakingLobbyDataUpdate}
  */
 function SteamMatchmakingLobbyDataUpdate() constructor
 {
     /**
      * Internally generated hash for quick validation
-     * @ignore 
+     * @ignore
      */
     static __uid = 1989451126;
 
@@ -3704,13 +3703,13 @@ function SteamMatchmakingLobbyDataUpdate() constructor
 }
 
 /**
- * @returns {Struct.SteamMatchmakingLobbyChatUpdate} 
+ * @returns {Struct.SteamMatchmakingLobbyChatUpdate}
  */
 function SteamMatchmakingLobbyChatUpdate() constructor
 {
     /**
      * Internally generated hash for quick validation
-     * @ignore 
+     * @ignore
      */
     static __uid = 1632966816;
 
@@ -3722,13 +3721,13 @@ function SteamMatchmakingLobbyChatUpdate() constructor
 }
 
 /**
- * @returns {Struct.SteamMatchmakingLobbyChatMsg} 
+ * @returns {Struct.SteamMatchmakingLobbyChatMsg}
  */
 function SteamMatchmakingLobbyChatMsg() constructor
 {
     /**
      * Internally generated hash for quick validation
-     * @ignore 
+     * @ignore
      */
     static __uid = 265153878;
 
@@ -3740,13 +3739,13 @@ function SteamMatchmakingLobbyChatMsg() constructor
 }
 
 /**
- * @returns {Struct.SteamMatchmakingLobbyGameCreated} 
+ * @returns {Struct.SteamMatchmakingLobbyGameCreated}
  */
 function SteamMatchmakingLobbyGameCreated() constructor
 {
     /**
      * Internally generated hash for quick validation
-     * @ignore 
+     * @ignore
      */
     static __uid = 3529517803;
 
@@ -3758,13 +3757,13 @@ function SteamMatchmakingLobbyGameCreated() constructor
 }
 
 /**
- * @returns {Struct.SteamMatchmakingLobbyInvite} 
+ * @returns {Struct.SteamMatchmakingLobbyInvite}
  */
 function SteamMatchmakingLobbyInvite() constructor
 {
     /**
      * Internally generated hash for quick validation
-     * @ignore 
+     * @ignore
      */
     static __uid = 3419406010;
 
@@ -3775,13 +3774,13 @@ function SteamMatchmakingLobbyInvite() constructor
 }
 
 /**
- * @returns {Struct.SteamMatchmakingLobbyChatEntry} 
+ * @returns {Struct.SteamMatchmakingLobbyChatEntry}
  */
 function SteamMatchmakingLobbyChatEntry() constructor
 {
     /**
      * Internally generated hash for quick validation
-     * @ignore 
+     * @ignore
      */
     static __uid = 3831783599;
 
@@ -3792,13 +3791,13 @@ function SteamMatchmakingLobbyChatEntry() constructor
 }
 
 /**
- * @returns {Struct.SteamMatchmakingLobbyGameServer} 
+ * @returns {Struct.SteamMatchmakingLobbyGameServer}
  */
 function SteamMatchmakingLobbyGameServer() constructor
 {
     /**
      * Internally generated hash for quick validation
-     * @ignore 
+     * @ignore
      */
     static __uid = 2967224418;
 
@@ -3809,13 +3808,13 @@ function SteamMatchmakingLobbyGameServer() constructor
 }
 
 /**
- * @returns {Struct.SteamNetworkingMessagesSessionRequest} 
+ * @returns {Struct.SteamNetworkingMessagesSessionRequest}
  */
 function SteamNetworkingMessagesSessionRequest() constructor
 {
     /**
      * Internally generated hash for quick validation
-     * @ignore 
+     * @ignore
      */
     static __uid = 884635792;
 
@@ -3824,13 +3823,13 @@ function SteamNetworkingMessagesSessionRequest() constructor
 }
 
 /**
- * @returns {Struct.SteamNetworkingMessagesSessionFailed} 
+ * @returns {Struct.SteamNetworkingMessagesSessionFailed}
  */
 function SteamNetworkingMessagesSessionFailed() constructor
 {
     /**
      * Internally generated hash for quick validation
-     * @ignore 
+     * @ignore
      */
     static __uid = 1294767802;
 
@@ -3841,13 +3840,13 @@ function SteamNetworkingMessagesSessionFailed() constructor
 }
 
 /**
- * @returns {Struct.SteamNetworkingMessagesReceived} 
+ * @returns {Struct.SteamNetworkingMessagesReceived}
  */
 function SteamNetworkingMessagesReceived() constructor
 {
     /**
      * Internally generated hash for quick validation
-     * @ignore 
+     * @ignore
      */
     static __uid = 2694983162;
 
@@ -3859,13 +3858,13 @@ function SteamNetworkingMessagesReceived() constructor
 }
 
 /**
- * @returns {Struct.SteamNetworkingSocketsConnectionInfo} 
+ * @returns {Struct.SteamNetworkingSocketsConnectionInfo}
  */
 function SteamNetworkingSocketsConnectionInfo() constructor
 {
     /**
      * Internally generated hash for quick validation
-     * @ignore 
+     * @ignore
      */
     static __uid = 2071815473;
 
@@ -3881,13 +3880,13 @@ function SteamNetworkingSocketsConnectionInfo() constructor
 }
 
 /**
- * @returns {Struct.SteamNetworkingSocketsReceived} 
+ * @returns {Struct.SteamNetworkingSocketsReceived}
  */
 function SteamNetworkingSocketsReceived() constructor
 {
     /**
      * Internally generated hash for quick validation
-     * @ignore 
+     * @ignore
      */
     static __uid = 1546586274;
 
@@ -3898,13 +3897,13 @@ function SteamNetworkingSocketsReceived() constructor
 }
 
 /**
- * @returns {Struct.SteamPartiesBeaconLocation} 
+ * @returns {Struct.SteamPartiesBeaconLocation}
  */
 function SteamPartiesBeaconLocation() constructor
 {
     /**
      * Internally generated hash for quick validation
-     * @ignore 
+     * @ignore
      */
     static __uid = 1904873686;
 
@@ -3914,13 +3913,13 @@ function SteamPartiesBeaconLocation() constructor
 }
 
 /**
- * @returns {Struct.SteamPartiesCreateBeaconResult} 
+ * @returns {Struct.SteamPartiesCreateBeaconResult}
  */
 function SteamPartiesCreateBeaconResult() constructor
 {
     /**
      * Internally generated hash for quick validation
-     * @ignore 
+     * @ignore
      */
     static __uid = 3070717988;
 
@@ -3930,13 +3929,13 @@ function SteamPartiesCreateBeaconResult() constructor
 }
 
 /**
- * @returns {Struct.SteamPartiesJoinPartyResult} 
+ * @returns {Struct.SteamPartiesJoinPartyResult}
  */
 function SteamPartiesJoinPartyResult() constructor
 {
     /**
      * Internally generated hash for quick validation
-     * @ignore 
+     * @ignore
      */
     static __uid = 4054506566;
 
@@ -3948,13 +3947,13 @@ function SteamPartiesJoinPartyResult() constructor
 }
 
 /**
- * @returns {Struct.SteamPartiesChangeNumOpenSlotsResult} 
+ * @returns {Struct.SteamPartiesChangeNumOpenSlotsResult}
  */
 function SteamPartiesChangeNumOpenSlotsResult() constructor
 {
     /**
      * Internally generated hash for quick validation
-     * @ignore 
+     * @ignore
      */
     static __uid = 1710357493;
 
@@ -3963,13 +3962,13 @@ function SteamPartiesChangeNumOpenSlotsResult() constructor
 }
 
 /**
- * @returns {Struct.SteamPartiesReservationNotification} 
+ * @returns {Struct.SteamPartiesReservationNotification}
  */
 function SteamPartiesReservationNotification() constructor
 {
     /**
      * Internally generated hash for quick validation
-     * @ignore 
+     * @ignore
      */
     static __uid = 3095086470;
 
@@ -3979,13 +3978,13 @@ function SteamPartiesReservationNotification() constructor
 }
 
 /**
- * @returns {Struct.SteamPartiesBeaconDetails} 
+ * @returns {Struct.SteamPartiesBeaconDetails}
  */
 function SteamPartiesBeaconDetails() constructor
 {
     /**
      * Internally generated hash for quick validation
-     * @ignore 
+     * @ignore
      */
     static __uid = 253007317;
 
@@ -3997,13 +3996,13 @@ function SteamPartiesBeaconDetails() constructor
 }
 
 /**
- * @returns {Struct.SteamNetworkingSocketsStatusChanged} 
+ * @returns {Struct.SteamNetworkingSocketsStatusChanged}
  */
 function SteamNetworkingSocketsStatusChanged() constructor
 {
     /**
      * Internally generated hash for quick validation
-     * @ignore 
+     * @ignore
      */
     static __uid = 3310812365;
 
@@ -4023,7 +4022,7 @@ function SteamNetworkingSocketsStatusChanged() constructor
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
  * @param {String} _where
- * @ignore 
+ * @ignore
  */
 function __SteamId_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
 {
@@ -4095,8 +4094,8 @@ function __SteamId_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
  * @func __SteamId_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
- * @returns {Struct.SteamId} 
- * @ignore 
+ * @returns {Struct.SteamId}
+ * @ignore
  */
 function __SteamId_decode(_buffer, _offset)
 {
@@ -4158,7 +4157,7 @@ function __SteamId_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
  * @param {String} _where
- * @ignore 
+ * @ignore
  */
 function __SteamFriendsGetFollowerCountResult_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
 {
@@ -4185,8 +4184,8 @@ function __SteamFriendsGetFollowerCountResult_encode(_inst, _buffer, _offset, _w
  * @func __SteamFriendsGetFollowerCountResult_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
- * @returns {Struct.SteamFriendsGetFollowerCountResult} 
- * @ignore 
+ * @returns {Struct.SteamFriendsGetFollowerCountResult}
+ * @ignore
  */
 function __SteamFriendsGetFollowerCountResult_decode(_buffer, _offset)
 {
@@ -4215,7 +4214,7 @@ function __SteamFriendsGetFollowerCountResult_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
  * @param {String} _where
- * @ignore 
+ * @ignore
  */
 function __SteamFriendsIsFollowingResult_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
 {
@@ -4242,8 +4241,8 @@ function __SteamFriendsIsFollowingResult_encode(_inst, _buffer, _offset, _where 
  * @func __SteamFriendsIsFollowingResult_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
- * @returns {Struct.SteamFriendsIsFollowingResult} 
- * @ignore 
+ * @returns {Struct.SteamFriendsIsFollowingResult}
+ * @ignore
  */
 function __SteamFriendsIsFollowingResult_decode(_buffer, _offset)
 {
@@ -4272,7 +4271,7 @@ function __SteamFriendsIsFollowingResult_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
  * @param {String} _where
- * @ignore 
+ * @ignore
  */
 function __SteamFriendsEnumerateFollowingListResult_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
 {
@@ -4308,8 +4307,8 @@ function __SteamFriendsEnumerateFollowingListResult_encode(_inst, _buffer, _offs
  * @func __SteamFriendsEnumerateFollowingListResult_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
- * @returns {Struct.SteamFriendsEnumerateFollowingListResult} 
- * @ignore 
+ * @returns {Struct.SteamFriendsEnumerateFollowingListResult}
+ * @ignore
  */
 function __SteamFriendsEnumerateFollowingListResult_decode(_buffer, _offset)
 {
@@ -4346,7 +4345,7 @@ function __SteamFriendsEnumerateFollowingListResult_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
  * @param {String} _where
- * @ignore 
+ * @ignore
  */
 function __SteamFriendsRequestClanOfficerListResult_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
 {
@@ -4372,8 +4371,8 @@ function __SteamFriendsRequestClanOfficerListResult_encode(_inst, _buffer, _offs
  * @func __SteamFriendsRequestClanOfficerListResult_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
- * @returns {Struct.SteamFriendsRequestClanOfficerListResult} 
- * @ignore 
+ * @returns {Struct.SteamFriendsRequestClanOfficerListResult}
+ * @ignore
  */
 function __SteamFriendsRequestClanOfficerListResult_decode(_buffer, _offset)
 {
@@ -4402,7 +4401,7 @@ function __SteamFriendsRequestClanOfficerListResult_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
  * @param {String} _where
- * @ignore 
+ * @ignore
  */
 function __SteamFriendsDownloadClanActivityCountsResult_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
 {
@@ -4420,8 +4419,8 @@ function __SteamFriendsDownloadClanActivityCountsResult_encode(_inst, _buffer, _
  * @func __SteamFriendsDownloadClanActivityCountsResult_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
- * @returns {Struct.SteamFriendsDownloadClanActivityCountsResult} 
- * @ignore 
+ * @returns {Struct.SteamFriendsDownloadClanActivityCountsResult}
+ * @ignore
  */
 function __SteamFriendsDownloadClanActivityCountsResult_decode(_buffer, _offset)
 {
@@ -4444,7 +4443,7 @@ function __SteamFriendsDownloadClanActivityCountsResult_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
  * @param {String} _where
- * @ignore 
+ * @ignore
  */
 function __SteamFriendsAvatarImageLoaded_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
 {
@@ -4474,8 +4473,8 @@ function __SteamFriendsAvatarImageLoaded_encode(_inst, _buffer, _offset, _where 
  * @func __SteamFriendsAvatarImageLoaded_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
- * @returns {Struct.SteamFriendsAvatarImageLoaded} 
- * @ignore 
+ * @returns {Struct.SteamFriendsAvatarImageLoaded}
+ * @ignore
  */
 function __SteamFriendsAvatarImageLoaded_decode(_buffer, _offset)
 {
@@ -4507,7 +4506,7 @@ function __SteamFriendsAvatarImageLoaded_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
  * @param {String} _where
- * @ignore 
+ * @ignore
  */
 function __SteamFriendsClanActivityCounts_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
 {
@@ -4533,8 +4532,8 @@ function __SteamFriendsClanActivityCounts_encode(_inst, _buffer, _offset, _where
  * @func __SteamFriendsClanActivityCounts_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
- * @returns {Struct.SteamFriendsClanActivityCounts} 
- * @ignore 
+ * @returns {Struct.SteamFriendsClanActivityCounts}
+ * @ignore
  */
 function __SteamFriendsClanActivityCounts_decode(_buffer, _offset)
 {
@@ -4563,7 +4562,7 @@ function __SteamFriendsClanActivityCounts_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
  * @param {String} _where
- * @ignore 
+ * @ignore
  */
 function __SteamFriendsClanChatMessage_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
 {
@@ -4591,8 +4590,8 @@ function __SteamFriendsClanChatMessage_encode(_inst, _buffer, _offset, _where = 
  * @func __SteamFriendsClanChatMessage_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
- * @returns {Struct.SteamFriendsClanChatMessage} 
- * @ignore 
+ * @returns {Struct.SteamFriendsClanChatMessage}
+ * @ignore
  */
 function __SteamFriendsClanChatMessage_decode(_buffer, _offset)
 {
@@ -4622,7 +4621,7 @@ function __SteamFriendsClanChatMessage_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
  * @param {String} _where
- * @ignore 
+ * @ignore
  */
 function __SteamFriendsFriendGamePlayed_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
 {
@@ -4656,8 +4655,8 @@ function __SteamFriendsFriendGamePlayed_encode(_inst, _buffer, _offset, _where =
  * @func __SteamFriendsFriendGamePlayed_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
- * @returns {Struct.SteamFriendsFriendGamePlayed} 
- * @ignore 
+ * @returns {Struct.SteamFriendsFriendGamePlayed}
+ * @ignore
  */
 function __SteamFriendsFriendGamePlayed_decode(_buffer, _offset)
 {
@@ -4692,7 +4691,7 @@ function __SteamFriendsFriendGamePlayed_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
  * @param {String} _where
- * @ignore 
+ * @ignore
  */
 function __SteamFriendsFriendMessage_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
 {
@@ -4716,8 +4715,8 @@ function __SteamFriendsFriendMessage_encode(_inst, _buffer, _offset, _where = _G
  * @func __SteamFriendsFriendMessage_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
- * @returns {Struct.SteamFriendsFriendMessage} 
- * @ignore 
+ * @returns {Struct.SteamFriendsFriendMessage}
+ * @ignore
  */
 function __SteamFriendsFriendMessage_decode(_buffer, _offset)
 {
@@ -4744,7 +4743,7 @@ function __SteamFriendsFriendMessage_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
  * @param {String} _where
- * @ignore 
+ * @ignore
  */
 function __SteamFriendsPersonaStateChange_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
 {
@@ -4766,8 +4765,8 @@ function __SteamFriendsPersonaStateChange_encode(_inst, _buffer, _offset, _where
  * @func __SteamFriendsPersonaStateChange_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
- * @returns {Struct.SteamFriendsPersonaStateChange} 
- * @ignore 
+ * @returns {Struct.SteamFriendsPersonaStateChange}
+ * @ignore
  */
 function __SteamFriendsPersonaStateChange_decode(_buffer, _offset)
 {
@@ -4793,7 +4792,7 @@ function __SteamFriendsPersonaStateChange_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
  * @param {String} _where
- * @ignore 
+ * @ignore
  */
 function __SteamFriendsGameOverlayActivated_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
 {
@@ -4811,8 +4810,8 @@ function __SteamFriendsGameOverlayActivated_encode(_inst, _buffer, _offset, _whe
  * @func __SteamFriendsGameOverlayActivated_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
- * @returns {Struct.SteamFriendsGameOverlayActivated} 
- * @ignore 
+ * @returns {Struct.SteamFriendsGameOverlayActivated}
+ * @ignore
  */
 function __SteamFriendsGameOverlayActivated_decode(_buffer, _offset)
 {
@@ -4835,7 +4834,7 @@ function __SteamFriendsGameOverlayActivated_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
  * @param {String} _where
- * @ignore 
+ * @ignore
  */
 function __SteamFriendsGameRichPresenceJoinRequested_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
 {
@@ -4858,8 +4857,8 @@ function __SteamFriendsGameRichPresenceJoinRequested_encode(_inst, _buffer, _off
  * @func __SteamFriendsGameRichPresenceJoinRequested_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
- * @returns {Struct.SteamFriendsGameRichPresenceJoinRequested} 
- * @ignore 
+ * @returns {Struct.SteamFriendsGameRichPresenceJoinRequested}
+ * @ignore
  */
 function __SteamFriendsGameRichPresenceJoinRequested_decode(_buffer, _offset)
 {
@@ -4886,7 +4885,7 @@ function __SteamFriendsGameRichPresenceJoinRequested_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
  * @param {String} _where
- * @ignore 
+ * @ignore
  */
 function __SteamFriendsGameLobbyJoinRequested_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
 {
@@ -4908,8 +4907,8 @@ function __SteamFriendsGameLobbyJoinRequested_encode(_inst, _buffer, _offset, _w
  * @func __SteamFriendsGameLobbyJoinRequested_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
- * @returns {Struct.SteamFriendsGameLobbyJoinRequested} 
- * @ignore 
+ * @returns {Struct.SteamFriendsGameLobbyJoinRequested}
+ * @ignore
  */
 function __SteamFriendsGameLobbyJoinRequested_decode(_buffer, _offset)
 {
@@ -4935,7 +4934,7 @@ function __SteamFriendsGameLobbyJoinRequested_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
  * @param {String} _where
- * @ignore 
+ * @ignore
  */
 function __SteamFriendsFriendRichPresenceUpdate_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
 {
@@ -4957,8 +4956,8 @@ function __SteamFriendsFriendRichPresenceUpdate_encode(_inst, _buffer, _offset, 
  * @func __SteamFriendsFriendRichPresenceUpdate_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
- * @returns {Struct.SteamFriendsFriendRichPresenceUpdate} 
- * @ignore 
+ * @returns {Struct.SteamFriendsFriendRichPresenceUpdate}
+ * @ignore
  */
 function __SteamFriendsFriendRichPresenceUpdate_decode(_buffer, _offset)
 {
@@ -4984,7 +4983,7 @@ function __SteamFriendsFriendRichPresenceUpdate_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
  * @param {String} _where
- * @ignore 
+ * @ignore
  */
 function __SteamFriendsGameServerChangeRequested_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
 {
@@ -5008,8 +5007,8 @@ function __SteamFriendsGameServerChangeRequested_encode(_inst, _buffer, _offset,
  * @func __SteamFriendsGameServerChangeRequested_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
- * @returns {Struct.SteamFriendsGameServerChangeRequested} 
- * @ignore 
+ * @returns {Struct.SteamFriendsGameServerChangeRequested}
+ * @ignore
  */
 function __SteamFriendsGameServerChangeRequested_decode(_buffer, _offset)
 {
@@ -5037,7 +5036,7 @@ function __SteamFriendsGameServerChangeRequested_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
  * @param {String} _where
- * @ignore 
+ * @ignore
  */
 function __SteamAppsFileDetailsResult_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
 {
@@ -5069,8 +5068,8 @@ function __SteamAppsFileDetailsResult_encode(_inst, _buffer, _offset, _where = _
  * @func __SteamAppsFileDetailsResult_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
- * @returns {Struct.SteamAppsFileDetailsResult} 
- * @ignore 
+ * @returns {Struct.SteamAppsFileDetailsResult}
+ * @ignore
  */
 function __SteamAppsFileDetailsResult_decode(_buffer, _offset)
 {
@@ -5103,7 +5102,7 @@ function __SteamAppsFileDetailsResult_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
  * @param {String} _where
- * @ignore 
+ * @ignore
  */
 function __SteamAppsDlcData_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
 {
@@ -5130,8 +5129,8 @@ function __SteamAppsDlcData_encode(_inst, _buffer, _offset, _where = _GMFUNCTION
  * @func __SteamAppsDlcData_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
- * @returns {Struct.SteamAppsDlcData} 
- * @ignore 
+ * @returns {Struct.SteamAppsDlcData}
+ * @ignore
  */
 function __SteamAppsDlcData_decode(_buffer, _offset)
 {
@@ -5161,7 +5160,7 @@ function __SteamAppsDlcData_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
  * @param {String} _where
- * @ignore 
+ * @ignore
  */
 function __SteamAppsIsTimedTrialResult_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
 {
@@ -5183,8 +5182,8 @@ function __SteamAppsIsTimedTrialResult_encode(_inst, _buffer, _offset, _where = 
  * @func __SteamAppsIsTimedTrialResult_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
- * @returns {Struct.SteamAppsIsTimedTrialResult} 
- * @ignore 
+ * @returns {Struct.SteamAppsIsTimedTrialResult}
+ * @ignore
  */
 function __SteamAppsIsTimedTrialResult_decode(_buffer, _offset)
 {
@@ -5210,7 +5209,7 @@ function __SteamAppsIsTimedTrialResult_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
  * @param {String} _where
- * @ignore 
+ * @ignore
  */
 function __SteamAppsNumBetas_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
 {
@@ -5236,8 +5235,8 @@ function __SteamAppsNumBetas_encode(_inst, _buffer, _offset, _where = _GMFUNCTIO
  * @func __SteamAppsNumBetas_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
- * @returns {Struct.SteamAppsNumBetas} 
- * @ignore 
+ * @returns {Struct.SteamAppsNumBetas}
+ * @ignore
  */
 function __SteamAppsNumBetas_decode(_buffer, _offset)
 {
@@ -5266,7 +5265,7 @@ function __SteamAppsNumBetas_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
  * @param {String} _where
- * @ignore 
+ * @ignore
  */
 function __SteamAppsBetaInfo_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
 {
@@ -5298,8 +5297,8 @@ function __SteamAppsBetaInfo_encode(_inst, _buffer, _offset, _where = _GMFUNCTIO
  * @func __SteamAppsBetaInfo_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
- * @returns {Struct.SteamAppsBetaInfo} 
- * @ignore 
+ * @returns {Struct.SteamAppsBetaInfo}
+ * @ignore
  */
 function __SteamAppsBetaInfo_decode(_buffer, _offset)
 {
@@ -5333,7 +5332,7 @@ function __SteamAppsBetaInfo_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
  * @param {String} _where
- * @ignore 
+ * @ignore
  */
 function __SteamAppsDlcDownloadProgress_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
 {
@@ -5355,8 +5354,8 @@ function __SteamAppsDlcDownloadProgress_encode(_inst, _buffer, _offset, _where =
  * @func __SteamAppsDlcDownloadProgress_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
- * @returns {Struct.SteamAppsDlcDownloadProgress} 
- * @ignore 
+ * @returns {Struct.SteamAppsDlcDownloadProgress}
+ * @ignore
  */
 function __SteamAppsDlcDownloadProgress_decode(_buffer, _offset)
 {
@@ -5382,7 +5381,7 @@ function __SteamAppsDlcDownloadProgress_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
  * @param {String} _where
- * @ignore 
+ * @ignore
  */
 function __SteamAppsDlcInstalled_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
 {
@@ -5400,8 +5399,8 @@ function __SteamAppsDlcInstalled_encode(_inst, _buffer, _offset, _where = _GMFUN
  * @func __SteamAppsDlcInstalled_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
- * @returns {Struct.SteamAppsDlcInstalled} 
- * @ignore 
+ * @returns {Struct.SteamAppsDlcInstalled}
+ * @ignore
  */
 function __SteamAppsDlcInstalled_decode(_buffer, _offset)
 {
@@ -5424,7 +5423,7 @@ function __SteamAppsDlcInstalled_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
  * @param {String} _where
- * @ignore 
+ * @ignore
  */
 function __SteamScreenshotsScreenshotReady_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
 {
@@ -5447,8 +5446,8 @@ function __SteamScreenshotsScreenshotReady_encode(_inst, _buffer, _offset, _wher
  * @func __SteamScreenshotsScreenshotReady_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
- * @returns {Struct.SteamScreenshotsScreenshotReady} 
- * @ignore 
+ * @returns {Struct.SteamScreenshotsScreenshotReady}
+ * @ignore
  */
 function __SteamScreenshotsScreenshotReady_decode(_buffer, _offset)
 {
@@ -5474,7 +5473,7 @@ function __SteamScreenshotsScreenshotReady_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
  * @param {String} _where
- * @ignore 
+ * @ignore
  */
 function __SteamUserStoreAuthUrlResponse_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
 {
@@ -5493,8 +5492,8 @@ function __SteamUserStoreAuthUrlResponse_encode(_inst, _buffer, _offset, _where 
  * @func __SteamUserStoreAuthUrlResponse_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
- * @returns {Struct.SteamUserStoreAuthUrlResponse} 
- * @ignore 
+ * @returns {Struct.SteamUserStoreAuthUrlResponse}
+ * @ignore
  */
 function __SteamUserStoreAuthUrlResponse_decode(_buffer, _offset)
 {
@@ -5518,7 +5517,7 @@ function __SteamUserStoreAuthUrlResponse_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
  * @param {String} _where
- * @ignore 
+ * @ignore
  */
 function __SteamUserEncryptedAppTicketResponse_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
 {
@@ -5537,8 +5536,8 @@ function __SteamUserEncryptedAppTicketResponse_encode(_inst, _buffer, _offset, _
  * @func __SteamUserEncryptedAppTicketResponse_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
- * @returns {Struct.SteamUserEncryptedAppTicketResponse} 
- * @ignore 
+ * @returns {Struct.SteamUserEncryptedAppTicketResponse}
+ * @ignore
  */
 function __SteamUserEncryptedAppTicketResponse_decode(_buffer, _offset)
 {
@@ -5561,7 +5560,7 @@ function __SteamUserEncryptedAppTicketResponse_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
  * @param {String} _where
- * @ignore 
+ * @ignore
  */
 function __SteamUserDurationControl_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
 {
@@ -5601,8 +5600,8 @@ function __SteamUserDurationControl_encode(_inst, _buffer, _offset, _where = _GM
  * @func __SteamUserDurationControl_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
- * @returns {Struct.SteamUserDurationControl} 
- * @ignore 
+ * @returns {Struct.SteamUserDurationControl}
+ * @ignore
  */
 function __SteamUserDurationControl_decode(_buffer, _offset)
 {
@@ -5640,7 +5639,7 @@ function __SteamUserDurationControl_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
  * @param {String} _where
- * @ignore 
+ * @ignore
  */
 function __SteamUserMarketEligibilityResponse_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
 {
@@ -5678,8 +5677,8 @@ function __SteamUserMarketEligibilityResponse_encode(_inst, _buffer, _offset, _w
  * @func __SteamUserMarketEligibilityResponse_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
- * @returns {Struct.SteamUserMarketEligibilityResponse} 
- * @ignore 
+ * @returns {Struct.SteamUserMarketEligibilityResponse}
+ * @ignore
  */
 function __SteamUserMarketEligibilityResponse_decode(_buffer, _offset)
 {
@@ -5717,7 +5716,7 @@ function __SteamUserMarketEligibilityResponse_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
  * @param {String} _where
- * @ignore 
+ * @ignore
  */
 function __SteamNetworkingIdentity_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
 {
@@ -5754,8 +5753,8 @@ function __SteamNetworkingIdentity_encode(_inst, _buffer, _offset, _where = _GMF
  * @func __SteamNetworkingIdentity_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
- * @returns {Struct.SteamNetworkingIdentity} 
- * @ignore 
+ * @returns {Struct.SteamNetworkingIdentity}
+ * @ignore
  */
 function __SteamNetworkingIdentity_decode(_buffer, _offset)
 {
@@ -5792,7 +5791,7 @@ function __SteamNetworkingIdentity_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
  * @param {String} _where
- * @ignore 
+ * @ignore
  */
 function __SteamUserAuthSessionTicket_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
 {
@@ -5814,8 +5813,8 @@ function __SteamUserAuthSessionTicket_encode(_inst, _buffer, _offset, _where = _
  * @func __SteamUserAuthSessionTicket_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
- * @returns {Struct.SteamUserAuthSessionTicket} 
- * @ignore 
+ * @returns {Struct.SteamUserAuthSessionTicket}
+ * @ignore
  */
 function __SteamUserAuthSessionTicket_decode(_buffer, _offset)
 {
@@ -5841,7 +5840,7 @@ function __SteamUserAuthSessionTicket_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
  * @param {String} _where
- * @ignore 
+ * @ignore
  */
 function __SteamUserGetAuthSessionTicketResponse_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
 {
@@ -5864,8 +5863,8 @@ function __SteamUserGetAuthSessionTicketResponse_encode(_inst, _buffer, _offset,
  * @func __SteamUserGetAuthSessionTicketResponse_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
- * @returns {Struct.SteamUserGetAuthSessionTicketResponse} 
- * @ignore 
+ * @returns {Struct.SteamUserGetAuthSessionTicketResponse}
+ * @ignore
  */
 function __SteamUserGetAuthSessionTicketResponse_decode(_buffer, _offset)
 {
@@ -5891,7 +5890,7 @@ function __SteamUserGetAuthSessionTicketResponse_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
  * @param {String} _where
- * @ignore 
+ * @ignore
  */
 function __SteamUserAvailableVoice_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
 {
@@ -5918,8 +5917,8 @@ function __SteamUserAvailableVoice_encode(_inst, _buffer, _offset, _where = _GMF
  * @func __SteamUserAvailableVoice_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
- * @returns {Struct.SteamUserAvailableVoice} 
- * @ignore 
+ * @returns {Struct.SteamUserAvailableVoice}
+ * @ignore
  */
 function __SteamUserAvailableVoice_decode(_buffer, _offset)
 {
@@ -5948,7 +5947,7 @@ function __SteamUserAvailableVoice_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
  * @param {String} _where
- * @ignore 
+ * @ignore
  */
 function __SteamUserGetVoiceResult_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
 {
@@ -5975,8 +5974,8 @@ function __SteamUserGetVoiceResult_encode(_inst, _buffer, _offset, _where = _GMF
  * @func __SteamUserGetVoiceResult_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
- * @returns {Struct.SteamUserGetVoiceResult} 
- * @ignore 
+ * @returns {Struct.SteamUserGetVoiceResult}
+ * @ignore
  */
 function __SteamUserGetVoiceResult_decode(_buffer, _offset)
 {
@@ -6005,7 +6004,7 @@ function __SteamUserGetVoiceResult_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
  * @param {String} _where
- * @ignore 
+ * @ignore
  */
 function __SteamUserValidateAuthTicketResponse_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
 {
@@ -6032,8 +6031,8 @@ function __SteamUserValidateAuthTicketResponse_encode(_inst, _buffer, _offset, _
  * @func __SteamUserValidateAuthTicketResponse_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
- * @returns {Struct.SteamUserValidateAuthTicketResponse} 
- * @ignore 
+ * @returns {Struct.SteamUserValidateAuthTicketResponse}
+ * @ignore
  */
 function __SteamUserValidateAuthTicketResponse_decode(_buffer, _offset)
 {
@@ -6062,7 +6061,7 @@ function __SteamUserValidateAuthTicketResponse_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
  * @param {String} _where
- * @ignore 
+ * @ignore
  */
 function __SteamUserSteamServersDisconnected_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
 {
@@ -6080,8 +6079,8 @@ function __SteamUserSteamServersDisconnected_encode(_inst, _buffer, _offset, _wh
  * @func __SteamUserSteamServersDisconnected_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
- * @returns {Struct.SteamUserSteamServersDisconnected} 
- * @ignore 
+ * @returns {Struct.SteamUserSteamServersDisconnected}
+ * @ignore
  */
 function __SteamUserSteamServersDisconnected_decode(_buffer, _offset)
 {
@@ -6104,7 +6103,7 @@ function __SteamUserSteamServersDisconnected_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
  * @param {String} _where
- * @ignore 
+ * @ignore
  */
 function __SteamUserSteamServerConnectFailure_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
 {
@@ -6127,8 +6126,8 @@ function __SteamUserSteamServerConnectFailure_encode(_inst, _buffer, _offset, _w
  * @func __SteamUserSteamServerConnectFailure_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
- * @returns {Struct.SteamUserSteamServerConnectFailure} 
- * @ignore 
+ * @returns {Struct.SteamUserSteamServerConnectFailure}
+ * @ignore
  */
 function __SteamUserSteamServerConnectFailure_decode(_buffer, _offset)
 {
@@ -6154,7 +6153,7 @@ function __SteamUserSteamServerConnectFailure_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
  * @param {String} _where
- * @ignore 
+ * @ignore
  */
 function __SteamUserClientGameServerDeny_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
 {
@@ -6188,8 +6187,8 @@ function __SteamUserClientGameServerDeny_encode(_inst, _buffer, _offset, _where 
  * @func __SteamUserClientGameServerDeny_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
- * @returns {Struct.SteamUserClientGameServerDeny} 
- * @ignore 
+ * @returns {Struct.SteamUserClientGameServerDeny}
+ * @ignore
  */
 function __SteamUserClientGameServerDeny_decode(_buffer, _offset)
 {
@@ -6224,7 +6223,7 @@ function __SteamUserClientGameServerDeny_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
  * @param {String} _where
- * @ignore 
+ * @ignore
  */
 function __SteamUserMicroTxnAuthorizationResponse_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
 {
@@ -6250,8 +6249,8 @@ function __SteamUserMicroTxnAuthorizationResponse_encode(_inst, _buffer, _offset
  * @func __SteamUserMicroTxnAuthorizationResponse_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
- * @returns {Struct.SteamUserMicroTxnAuthorizationResponse} 
- * @ignore 
+ * @returns {Struct.SteamUserMicroTxnAuthorizationResponse}
+ * @ignore
  */
 function __SteamUserMicroTxnAuthorizationResponse_decode(_buffer, _offset)
 {
@@ -6280,7 +6279,7 @@ function __SteamUserMicroTxnAuthorizationResponse_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
  * @param {String} _where
- * @ignore 
+ * @ignore
  */
 function __SteamUtilsLowBatteryPower_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
 {
@@ -6298,8 +6297,8 @@ function __SteamUtilsLowBatteryPower_encode(_inst, _buffer, _offset, _where = _G
  * @func __SteamUtilsLowBatteryPower_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
- * @returns {Struct.SteamUtilsLowBatteryPower} 
- * @ignore 
+ * @returns {Struct.SteamUtilsLowBatteryPower}
+ * @ignore
  */
 function __SteamUtilsLowBatteryPower_decode(_buffer, _offset)
 {
@@ -6322,7 +6321,7 @@ function __SteamUtilsLowBatteryPower_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
  * @param {String} _where
- * @ignore 
+ * @ignore
  */
 function __SteamUtilsSteamApiCallCompleted_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
 {
@@ -6348,8 +6347,8 @@ function __SteamUtilsSteamApiCallCompleted_encode(_inst, _buffer, _offset, _wher
  * @func __SteamUtilsSteamApiCallCompleted_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
- * @returns {Struct.SteamUtilsSteamApiCallCompleted} 
- * @ignore 
+ * @returns {Struct.SteamUtilsSteamApiCallCompleted}
+ * @ignore
  */
 function __SteamUtilsSteamApiCallCompleted_decode(_buffer, _offset)
 {
@@ -6378,7 +6377,7 @@ function __SteamUtilsSteamApiCallCompleted_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
  * @param {String} _where
- * @ignore 
+ * @ignore
  */
 function __SteamUtilsImageSize_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
 {
@@ -6400,8 +6399,8 @@ function __SteamUtilsImageSize_encode(_inst, _buffer, _offset, _where = _GMFUNCT
  * @func __SteamUtilsImageSize_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
- * @returns {Struct.SteamUtilsImageSize} 
- * @ignore 
+ * @returns {Struct.SteamUtilsImageSize}
+ * @ignore
  */
 function __SteamUtilsImageSize_decode(_buffer, _offset)
 {
@@ -6427,7 +6426,7 @@ function __SteamUtilsImageSize_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
  * @param {String} _where
- * @ignore 
+ * @ignore
  */
 function __SteamUtilsFilterTextResult_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
 {
@@ -6450,8 +6449,8 @@ function __SteamUtilsFilterTextResult_encode(_inst, _buffer, _offset, _where = _
  * @func __SteamUtilsFilterTextResult_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
- * @returns {Struct.SteamUtilsFilterTextResult} 
- * @ignore 
+ * @returns {Struct.SteamUtilsFilterTextResult}
+ * @ignore
  */
 function __SteamUtilsFilterTextResult_decode(_buffer, _offset)
 {
@@ -6478,7 +6477,7 @@ function __SteamUtilsFilterTextResult_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
  * @param {String} _where
- * @ignore 
+ * @ignore
  */
 function __SteamUtilsGamepadTextInputDismissed_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
 {
@@ -6500,8 +6499,8 @@ function __SteamUtilsGamepadTextInputDismissed_encode(_inst, _buffer, _offset, _
  * @func __SteamUtilsGamepadTextInputDismissed_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
- * @returns {Struct.SteamUtilsGamepadTextInputDismissed} 
- * @ignore 
+ * @returns {Struct.SteamUtilsGamepadTextInputDismissed}
+ * @ignore
  */
 function __SteamUtilsGamepadTextInputDismissed_decode(_buffer, _offset)
 {
@@ -6527,7 +6526,7 @@ function __SteamUtilsGamepadTextInputDismissed_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
  * @param {String} _where
- * @ignore 
+ * @ignore
  */
 function __SteamUtilsFloatingGamepadTextInputDismissed_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
 {
@@ -6545,8 +6544,8 @@ function __SteamUtilsFloatingGamepadTextInputDismissed_encode(_inst, _buffer, _o
  * @func __SteamUtilsFloatingGamepadTextInputDismissed_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
- * @returns {Struct.SteamUtilsFloatingGamepadTextInputDismissed} 
- * @ignore 
+ * @returns {Struct.SteamUtilsFloatingGamepadTextInputDismissed}
+ * @ignore
  */
 function __SteamUtilsFloatingGamepadTextInputDismissed_decode(_buffer, _offset)
 {
@@ -6569,7 +6568,7 @@ function __SteamUtilsFloatingGamepadTextInputDismissed_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
  * @param {String} _where
- * @ignore 
+ * @ignore
  */
 function __SteamUtilsWarningMessage_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
 {
@@ -6592,8 +6591,8 @@ function __SteamUtilsWarningMessage_encode(_inst, _buffer, _offset, _where = _GM
  * @func __SteamUtilsWarningMessage_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
- * @returns {Struct.SteamUtilsWarningMessage} 
- * @ignore 
+ * @returns {Struct.SteamUtilsWarningMessage}
+ * @ignore
  */
 function __SteamUtilsWarningMessage_decode(_buffer, _offset)
 {
@@ -6620,7 +6619,7 @@ function __SteamUtilsWarningMessage_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
  * @param {String} _where
- * @ignore 
+ * @ignore
  */
 function __SteamUgcItemDownloadInfo_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
 {
@@ -6642,8 +6641,8 @@ function __SteamUgcItemDownloadInfo_encode(_inst, _buffer, _offset, _where = _GM
  * @func __SteamUgcItemDownloadInfo_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
- * @returns {Struct.SteamUgcItemDownloadInfo} 
- * @ignore 
+ * @returns {Struct.SteamUgcItemDownloadInfo}
+ * @ignore
  */
 function __SteamUgcItemDownloadInfo_decode(_buffer, _offset)
 {
@@ -6669,7 +6668,7 @@ function __SteamUgcItemDownloadInfo_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
  * @param {String} _where
- * @ignore 
+ * @ignore
  */
 function __SteamUgcItemInstallInfo_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
 {
@@ -6696,8 +6695,8 @@ function __SteamUgcItemInstallInfo_encode(_inst, _buffer, _offset, _where = _GMF
  * @func __SteamUgcItemInstallInfo_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
- * @returns {Struct.SteamUgcItemInstallInfo} 
- * @ignore 
+ * @returns {Struct.SteamUgcItemInstallInfo}
+ * @ignore
  */
 function __SteamUgcItemInstallInfo_decode(_buffer, _offset)
 {
@@ -6727,7 +6726,7 @@ function __SteamUgcItemInstallInfo_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
  * @param {String} _where
- * @ignore 
+ * @ignore
  */
 function __SteamUgcItemUpdateProgress_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
 {
@@ -6754,8 +6753,8 @@ function __SteamUgcItemUpdateProgress_encode(_inst, _buffer, _offset, _where = _
  * @func __SteamUgcItemUpdateProgress_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
- * @returns {Struct.SteamUgcItemUpdateProgress} 
- * @ignore 
+ * @returns {Struct.SteamUgcItemUpdateProgress}
+ * @ignore
  */
 function __SteamUgcItemUpdateProgress_decode(_buffer, _offset)
 {
@@ -6784,7 +6783,7 @@ function __SteamUgcItemUpdateProgress_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
  * @param {String} _where
- * @ignore 
+ * @ignore
  */
 function __SteamUgcQueryResult_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
 {
@@ -6910,8 +6909,8 @@ function __SteamUgcQueryResult_encode(_inst, _buffer, _offset, _where = _GMFUNCT
  * @func __SteamUgcQueryResult_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
- * @returns {Struct.SteamUgcQueryResult} 
- * @ignore 
+ * @returns {Struct.SteamUgcQueryResult}
+ * @ignore
  */
 function __SteamUgcQueryResult_decode(_buffer, _offset)
 {
@@ -7014,7 +7013,7 @@ function __SteamUgcQueryResult_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
  * @param {String} _where
- * @ignore 
+ * @ignore
  */
 function __SteamUgcAdditionalPreview_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
 {
@@ -7038,8 +7037,8 @@ function __SteamUgcAdditionalPreview_encode(_inst, _buffer, _offset, _where = _G
  * @func __SteamUgcAdditionalPreview_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
- * @returns {Struct.SteamUgcAdditionalPreview} 
- * @ignore 
+ * @returns {Struct.SteamUgcAdditionalPreview}
+ * @ignore
  */
 function __SteamUgcAdditionalPreview_decode(_buffer, _offset)
 {
@@ -7066,7 +7065,7 @@ function __SteamUgcAdditionalPreview_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
  * @param {String} _where
- * @ignore 
+ * @ignore
  */
 function __SteamUgcKeyValueTag_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
 {
@@ -7090,8 +7089,8 @@ function __SteamUgcKeyValueTag_encode(_inst, _buffer, _offset, _where = _GMFUNCT
  * @func __SteamUgcKeyValueTag_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
- * @returns {Struct.SteamUgcKeyValueTag} 
- * @ignore 
+ * @returns {Struct.SteamUgcKeyValueTag}
+ * @ignore
  */
 function __SteamUgcKeyValueTag_decode(_buffer, _offset)
 {
@@ -7119,7 +7118,7 @@ function __SteamUgcKeyValueTag_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
  * @param {String} _where
- * @ignore 
+ * @ignore
  */
 function __SteamUgcItemInstalled_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
 {
@@ -7141,8 +7140,8 @@ function __SteamUgcItemInstalled_encode(_inst, _buffer, _offset, _where = _GMFUN
  * @func __SteamUgcItemInstalled_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
- * @returns {Struct.SteamUgcItemInstalled} 
- * @ignore 
+ * @returns {Struct.SteamUgcItemInstalled}
+ * @ignore
  */
 function __SteamUgcItemInstalled_decode(_buffer, _offset)
 {
@@ -7168,7 +7167,7 @@ function __SteamUgcItemInstalled_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
  * @param {String} _where
- * @ignore 
+ * @ignore
  */
 function __SteamUgcUserSubscribedItemsListChanged_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
 {
@@ -7186,8 +7185,8 @@ function __SteamUgcUserSubscribedItemsListChanged_encode(_inst, _buffer, _offset
  * @func __SteamUgcUserSubscribedItemsListChanged_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
- * @returns {Struct.SteamUgcUserSubscribedItemsListChanged} 
- * @ignore 
+ * @returns {Struct.SteamUgcUserSubscribedItemsListChanged}
+ * @ignore
  */
 function __SteamUgcUserSubscribedItemsListChanged_decode(_buffer, _offset)
 {
@@ -7210,7 +7209,7 @@ function __SteamUgcUserSubscribedItemsListChanged_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
  * @param {String} _where
- * @ignore 
+ * @ignore
  */
 function __SteamUgcQueryCompleted_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
 {
@@ -7245,8 +7244,8 @@ function __SteamUgcQueryCompleted_encode(_inst, _buffer, _offset, _where = _GMFU
  * @func __SteamUgcQueryCompleted_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
- * @returns {Struct.SteamUgcQueryCompleted} 
- * @ignore 
+ * @returns {Struct.SteamUgcQueryCompleted}
+ * @ignore
  */
 function __SteamUgcQueryCompleted_decode(_buffer, _offset)
 {
@@ -7281,7 +7280,7 @@ function __SteamUgcQueryCompleted_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
  * @param {String} _where
- * @ignore 
+ * @ignore
  */
 function __SteamUgcCreateItemResult_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
 {
@@ -7308,8 +7307,8 @@ function __SteamUgcCreateItemResult_encode(_inst, _buffer, _offset, _where = _GM
  * @func __SteamUgcCreateItemResult_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
- * @returns {Struct.SteamUgcCreateItemResult} 
- * @ignore 
+ * @returns {Struct.SteamUgcCreateItemResult}
+ * @ignore
  */
 function __SteamUgcCreateItemResult_decode(_buffer, _offset)
 {
@@ -7338,7 +7337,7 @@ function __SteamUgcCreateItemResult_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
  * @param {String} _where
- * @ignore 
+ * @ignore
  */
 function __SteamUgcSubmitItemUpdateResult_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
 {
@@ -7361,8 +7360,8 @@ function __SteamUgcSubmitItemUpdateResult_encode(_inst, _buffer, _offset, _where
  * @func __SteamUgcSubmitItemUpdateResult_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
- * @returns {Struct.SteamUgcSubmitItemUpdateResult} 
- * @ignore 
+ * @returns {Struct.SteamUgcSubmitItemUpdateResult}
+ * @ignore
  */
 function __SteamUgcSubmitItemUpdateResult_decode(_buffer, _offset)
 {
@@ -7388,7 +7387,7 @@ function __SteamUgcSubmitItemUpdateResult_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
  * @param {String} _where
- * @ignore 
+ * @ignore
  */
 function __SteamUgcSubscribeItemResult_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
 {
@@ -7410,8 +7409,8 @@ function __SteamUgcSubscribeItemResult_encode(_inst, _buffer, _offset, _where = 
  * @func __SteamUgcSubscribeItemResult_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
- * @returns {Struct.SteamUgcSubscribeItemResult} 
- * @ignore 
+ * @returns {Struct.SteamUgcSubscribeItemResult}
+ * @ignore
  */
 function __SteamUgcSubscribeItemResult_decode(_buffer, _offset)
 {
@@ -7437,7 +7436,7 @@ function __SteamUgcSubscribeItemResult_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
  * @param {String} _where
- * @ignore 
+ * @ignore
  */
 function __SteamUgcUnsubscribeItemResult_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
 {
@@ -7459,8 +7458,8 @@ function __SteamUgcUnsubscribeItemResult_encode(_inst, _buffer, _offset, _where 
  * @func __SteamUgcUnsubscribeItemResult_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
- * @returns {Struct.SteamUgcUnsubscribeItemResult} 
- * @ignore 
+ * @returns {Struct.SteamUgcUnsubscribeItemResult}
+ * @ignore
  */
 function __SteamUgcUnsubscribeItemResult_decode(_buffer, _offset)
 {
@@ -7486,7 +7485,7 @@ function __SteamUgcUnsubscribeItemResult_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
  * @param {String} _where
- * @ignore 
+ * @ignore
  */
 function __SteamUgcFavoriteItemsListChanged_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
 {
@@ -7513,8 +7512,8 @@ function __SteamUgcFavoriteItemsListChanged_encode(_inst, _buffer, _offset, _whe
  * @func __SteamUgcFavoriteItemsListChanged_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
- * @returns {Struct.SteamUgcFavoriteItemsListChanged} 
- * @ignore 
+ * @returns {Struct.SteamUgcFavoriteItemsListChanged}
+ * @ignore
  */
 function __SteamUgcFavoriteItemsListChanged_decode(_buffer, _offset)
 {
@@ -7543,7 +7542,7 @@ function __SteamUgcFavoriteItemsListChanged_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
  * @param {String} _where
- * @ignore 
+ * @ignore
  */
 function __SteamUgcSetUserItemVoteResult_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
 {
@@ -7570,8 +7569,8 @@ function __SteamUgcSetUserItemVoteResult_encode(_inst, _buffer, _offset, _where 
  * @func __SteamUgcSetUserItemVoteResult_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
- * @returns {Struct.SteamUgcSetUserItemVoteResult} 
- * @ignore 
+ * @returns {Struct.SteamUgcSetUserItemVoteResult}
+ * @ignore
  */
 function __SteamUgcSetUserItemVoteResult_decode(_buffer, _offset)
 {
@@ -7600,7 +7599,7 @@ function __SteamUgcSetUserItemVoteResult_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
  * @param {String} _where
- * @ignore 
+ * @ignore
  */
 function __SteamUgcGetUserItemVoteResult_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
 {
@@ -7634,8 +7633,8 @@ function __SteamUgcGetUserItemVoteResult_encode(_inst, _buffer, _offset, _where 
  * @func __SteamUgcGetUserItemVoteResult_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
- * @returns {Struct.SteamUgcGetUserItemVoteResult} 
- * @ignore 
+ * @returns {Struct.SteamUgcGetUserItemVoteResult}
+ * @ignore
  */
 function __SteamUgcGetUserItemVoteResult_decode(_buffer, _offset)
 {
@@ -7670,7 +7669,7 @@ function __SteamUgcGetUserItemVoteResult_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
  * @param {String} _where
- * @ignore 
+ * @ignore
  */
 function __SteamUgcSupportedGameVersionData_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
 {
@@ -7694,8 +7693,8 @@ function __SteamUgcSupportedGameVersionData_encode(_inst, _buffer, _offset, _whe
  * @func __SteamUgcSupportedGameVersionData_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
- * @returns {Struct.SteamUgcSupportedGameVersionData} 
- * @ignore 
+ * @returns {Struct.SteamUgcSupportedGameVersionData}
+ * @ignore
  */
 function __SteamUgcSupportedGameVersionData_decode(_buffer, _offset)
 {
@@ -7723,7 +7722,7 @@ function __SteamUgcSupportedGameVersionData_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
  * @param {String} _where
- * @ignore 
+ * @ignore
  */
 function __SteamUgcDeleteItemResult_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
 {
@@ -7746,8 +7745,8 @@ function __SteamUgcDeleteItemResult_encode(_inst, _buffer, _offset, _where = _GM
  * @func __SteamUgcDeleteItemResult_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
- * @returns {Struct.SteamUgcDeleteItemResult} 
- * @ignore 
+ * @returns {Struct.SteamUgcDeleteItemResult}
+ * @ignore
  */
 function __SteamUgcDeleteItemResult_decode(_buffer, _offset)
 {
@@ -7773,7 +7772,7 @@ function __SteamUgcDeleteItemResult_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
  * @param {String} _where
- * @ignore 
+ * @ignore
  */
 function __SteamUgcAddAppDependencyResult_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
 {
@@ -7800,8 +7799,8 @@ function __SteamUgcAddAppDependencyResult_encode(_inst, _buffer, _offset, _where
  * @func __SteamUgcAddAppDependencyResult_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
- * @returns {Struct.SteamUgcAddAppDependencyResult} 
- * @ignore 
+ * @returns {Struct.SteamUgcAddAppDependencyResult}
+ * @ignore
  */
 function __SteamUgcAddAppDependencyResult_decode(_buffer, _offset)
 {
@@ -7830,7 +7829,7 @@ function __SteamUgcAddAppDependencyResult_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
  * @param {String} _where
- * @ignore 
+ * @ignore
  */
 function __SteamUgcRemoveAppDependencyResult_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
 {
@@ -7857,8 +7856,8 @@ function __SteamUgcRemoveAppDependencyResult_encode(_inst, _buffer, _offset, _wh
  * @func __SteamUgcRemoveAppDependencyResult_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
- * @returns {Struct.SteamUgcRemoveAppDependencyResult} 
- * @ignore 
+ * @returns {Struct.SteamUgcRemoveAppDependencyResult}
+ * @ignore
  */
 function __SteamUgcRemoveAppDependencyResult_decode(_buffer, _offset)
 {
@@ -7887,7 +7886,7 @@ function __SteamUgcRemoveAppDependencyResult_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
  * @param {String} _where
- * @ignore 
+ * @ignore
  */
 function __SteamUgcAddUGCDependencyResult_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
 {
@@ -7914,8 +7913,8 @@ function __SteamUgcAddUGCDependencyResult_encode(_inst, _buffer, _offset, _where
  * @func __SteamUgcAddUGCDependencyResult_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
- * @returns {Struct.SteamUgcAddUGCDependencyResult} 
- * @ignore 
+ * @returns {Struct.SteamUgcAddUGCDependencyResult}
+ * @ignore
  */
 function __SteamUgcAddUGCDependencyResult_decode(_buffer, _offset)
 {
@@ -7944,7 +7943,7 @@ function __SteamUgcAddUGCDependencyResult_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
  * @param {String} _where
- * @ignore 
+ * @ignore
  */
 function __SteamUgcRemoveUGCDependencyResult_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
 {
@@ -7971,8 +7970,8 @@ function __SteamUgcRemoveUGCDependencyResult_encode(_inst, _buffer, _offset, _wh
  * @func __SteamUgcRemoveUGCDependencyResult_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
- * @returns {Struct.SteamUgcRemoveUGCDependencyResult} 
- * @ignore 
+ * @returns {Struct.SteamUgcRemoveUGCDependencyResult}
+ * @ignore
  */
 function __SteamUgcRemoveUGCDependencyResult_decode(_buffer, _offset)
 {
@@ -8001,7 +8000,7 @@ function __SteamUgcRemoveUGCDependencyResult_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
  * @param {String} _where
- * @ignore 
+ * @ignore
  */
 function __SteamUgcGetAppDependenciesResult_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
 {
@@ -8042,8 +8041,8 @@ function __SteamUgcGetAppDependenciesResult_encode(_inst, _buffer, _offset, _whe
  * @func __SteamUgcGetAppDependenciesResult_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
- * @returns {Struct.SteamUgcGetAppDependenciesResult} 
- * @ignore 
+ * @returns {Struct.SteamUgcGetAppDependenciesResult}
+ * @ignore
  */
 function __SteamUgcGetAppDependenciesResult_decode(_buffer, _offset)
 {
@@ -8083,7 +8082,7 @@ function __SteamUgcGetAppDependenciesResult_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
  * @param {String} _where
- * @ignore 
+ * @ignore
  */
 function __SteamUgcStartPlaytimeTrackingResult_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
 {
@@ -8102,8 +8101,8 @@ function __SteamUgcStartPlaytimeTrackingResult_encode(_inst, _buffer, _offset, _
  * @func __SteamUgcStartPlaytimeTrackingResult_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
- * @returns {Struct.SteamUgcStartPlaytimeTrackingResult} 
- * @ignore 
+ * @returns {Struct.SteamUgcStartPlaytimeTrackingResult}
+ * @ignore
  */
 function __SteamUgcStartPlaytimeTrackingResult_decode(_buffer, _offset)
 {
@@ -8126,7 +8125,7 @@ function __SteamUgcStartPlaytimeTrackingResult_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
  * @param {String} _where
- * @ignore 
+ * @ignore
  */
 function __SteamUgcStopPlaytimeTrackingResult_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
 {
@@ -8145,8 +8144,8 @@ function __SteamUgcStopPlaytimeTrackingResult_encode(_inst, _buffer, _offset, _w
  * @func __SteamUgcStopPlaytimeTrackingResult_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
- * @returns {Struct.SteamUgcStopPlaytimeTrackingResult} 
- * @ignore 
+ * @returns {Struct.SteamUgcStopPlaytimeTrackingResult}
+ * @ignore
  */
 function __SteamUgcStopPlaytimeTrackingResult_decode(_buffer, _offset)
 {
@@ -8169,7 +8168,7 @@ function __SteamUgcStopPlaytimeTrackingResult_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
  * @param {String} _where
- * @ignore 
+ * @ignore
  */
 function __SteamUgcDownloadItemResult_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
 {
@@ -8196,8 +8195,8 @@ function __SteamUgcDownloadItemResult_encode(_inst, _buffer, _offset, _where = _
  * @func __SteamUgcDownloadItemResult_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
- * @returns {Struct.SteamUgcDownloadItemResult} 
- * @ignore 
+ * @returns {Struct.SteamUgcDownloadItemResult}
+ * @ignore
  */
 function __SteamUgcDownloadItemResult_decode(_buffer, _offset)
 {
@@ -8226,7 +8225,7 @@ function __SteamUgcDownloadItemResult_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
  * @param {String} _where
- * @ignore 
+ * @ignore
  */
 function __SteamInputAnalogActionData_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
 {
@@ -8257,8 +8256,8 @@ function __SteamInputAnalogActionData_encode(_inst, _buffer, _offset, _where = _
  * @func __SteamInputAnalogActionData_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
- * @returns {Struct.SteamInputAnalogActionData} 
- * @ignore 
+ * @returns {Struct.SteamInputAnalogActionData}
+ * @ignore
  */
 function __SteamInputAnalogActionData_decode(_buffer, _offset)
 {
@@ -8290,7 +8289,7 @@ function __SteamInputAnalogActionData_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
  * @param {String} _where
- * @ignore 
+ * @ignore
  */
 function __SteamInputDigitalActionData_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
 {
@@ -8312,8 +8311,8 @@ function __SteamInputDigitalActionData_encode(_inst, _buffer, _offset, _where = 
  * @func __SteamInputDigitalActionData_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
- * @returns {Struct.SteamInputDigitalActionData} 
- * @ignore 
+ * @returns {Struct.SteamInputDigitalActionData}
+ * @ignore
  */
 function __SteamInputDigitalActionData_decode(_buffer, _offset)
 {
@@ -8339,7 +8338,7 @@ function __SteamInputDigitalActionData_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
  * @param {String} _where
- * @ignore 
+ * @ignore
  */
 function __SteamInputMotionData_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
 {
@@ -8393,8 +8392,8 @@ function __SteamInputMotionData_encode(_inst, _buffer, _offset, _where = _GMFUNC
  * @func __SteamInputMotionData_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
- * @returns {Struct.SteamInputMotionData} 
- * @ignore 
+ * @returns {Struct.SteamInputMotionData}
+ * @ignore
  */
 function __SteamInputMotionData_decode(_buffer, _offset)
 {
@@ -8444,7 +8443,7 @@ function __SteamInputMotionData_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
  * @param {String} _where
- * @ignore 
+ * @ignore
  */
 function __SteamInputActiveActionSetLayers_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
 {
@@ -8468,8 +8467,8 @@ function __SteamInputActiveActionSetLayers_encode(_inst, _buffer, _offset, _wher
  * @func __SteamInputActiveActionSetLayers_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
- * @returns {Struct.SteamInputActiveActionSetLayers} 
- * @ignore 
+ * @returns {Struct.SteamInputActiveActionSetLayers}
+ * @ignore
  */
 function __SteamInputActiveActionSetLayers_decode(_buffer, _offset)
 {
@@ -8497,7 +8496,7 @@ function __SteamInputActiveActionSetLayers_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
  * @param {String} _where
- * @ignore 
+ * @ignore
  */
 function __SteamInputActionOrigins_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
 {
@@ -8522,8 +8521,8 @@ function __SteamInputActionOrigins_encode(_inst, _buffer, _offset, _where = _GMF
  * @func __SteamInputActionOrigins_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
- * @returns {Struct.SteamInputActionOrigins} 
- * @ignore 
+ * @returns {Struct.SteamInputActionOrigins}
+ * @ignore
  */
 function __SteamInputActionOrigins_decode(_buffer, _offset)
 {
@@ -8551,7 +8550,7 @@ function __SteamInputActionOrigins_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
  * @param {String} _where
- * @ignore 
+ * @ignore
  */
 function __SteamInputDeviceBindingRevision_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
 {
@@ -8573,8 +8572,8 @@ function __SteamInputDeviceBindingRevision_encode(_inst, _buffer, _offset, _wher
  * @func __SteamInputDeviceBindingRevision_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
- * @returns {Struct.SteamInputDeviceBindingRevision} 
- * @ignore 
+ * @returns {Struct.SteamInputDeviceBindingRevision}
+ * @ignore
  */
 function __SteamInputDeviceBindingRevision_decode(_buffer, _offset)
 {
@@ -8600,7 +8599,7 @@ function __SteamInputDeviceBindingRevision_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
  * @param {String} _where
- * @ignore 
+ * @ignore
  */
 function __SteamInputDeviceEvent_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
 {
@@ -8618,8 +8617,8 @@ function __SteamInputDeviceEvent_encode(_inst, _buffer, _offset, _where = _GMFUN
  * @func __SteamInputDeviceEvent_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
- * @returns {Struct.SteamInputDeviceEvent} 
- * @ignore 
+ * @returns {Struct.SteamInputDeviceEvent}
+ * @ignore
  */
 function __SteamInputDeviceEvent_decode(_buffer, _offset)
 {
@@ -8642,7 +8641,7 @@ function __SteamInputDeviceEvent_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
  * @param {String} _where
- * @ignore 
+ * @ignore
  */
 function __SteamUserStatsAchievementAndUnlockTime_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
 {
@@ -8664,8 +8663,8 @@ function __SteamUserStatsAchievementAndUnlockTime_encode(_inst, _buffer, _offset
  * @func __SteamUserStatsAchievementAndUnlockTime_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
- * @returns {Struct.SteamUserStatsAchievementAndUnlockTime} 
- * @ignore 
+ * @returns {Struct.SteamUserStatsAchievementAndUnlockTime}
+ * @ignore
  */
 function __SteamUserStatsAchievementAndUnlockTime_decode(_buffer, _offset)
 {
@@ -8691,7 +8690,7 @@ function __SteamUserStatsAchievementAndUnlockTime_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
  * @param {String} _where
- * @ignore 
+ * @ignore
  */
 function __SteamUserStatsMostAchievedAchievementInfo_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
 {
@@ -8718,8 +8717,8 @@ function __SteamUserStatsMostAchievedAchievementInfo_encode(_inst, _buffer, _off
  * @func __SteamUserStatsMostAchievedAchievementInfo_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
- * @returns {Struct.SteamUserStatsMostAchievedAchievementInfo} 
- * @ignore 
+ * @returns {Struct.SteamUserStatsMostAchievedAchievementInfo}
+ * @ignore
  */
 function __SteamUserStatsMostAchievedAchievementInfo_decode(_buffer, _offset)
 {
@@ -8749,7 +8748,7 @@ function __SteamUserStatsMostAchievedAchievementInfo_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
  * @param {String} _where
- * @ignore 
+ * @ignore
  */
 function __SteamUserStatsDownloadedLeaderboardEntry_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
 {
@@ -8785,8 +8784,8 @@ function __SteamUserStatsDownloadedLeaderboardEntry_encode(_inst, _buffer, _offs
  * @func __SteamUserStatsDownloadedLeaderboardEntry_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
- * @returns {Struct.SteamUserStatsDownloadedLeaderboardEntry} 
- * @ignore 
+ * @returns {Struct.SteamUserStatsDownloadedLeaderboardEntry}
+ * @ignore
  */
 function __SteamUserStatsDownloadedLeaderboardEntry_decode(_buffer, _offset)
 {
@@ -8823,7 +8822,7 @@ function __SteamUserStatsDownloadedLeaderboardEntry_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
  * @param {String} _where
- * @ignore 
+ * @ignore
  */
 function __SteamUserStatsLeaderboardFindResult_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
 {
@@ -8845,8 +8844,8 @@ function __SteamUserStatsLeaderboardFindResult_encode(_inst, _buffer, _offset, _
  * @func __SteamUserStatsLeaderboardFindResult_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
- * @returns {Struct.SteamUserStatsLeaderboardFindResult} 
- * @ignore 
+ * @returns {Struct.SteamUserStatsLeaderboardFindResult}
+ * @ignore
  */
 function __SteamUserStatsLeaderboardFindResult_decode(_buffer, _offset)
 {
@@ -8872,7 +8871,7 @@ function __SteamUserStatsLeaderboardFindResult_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
  * @param {String} _where
- * @ignore 
+ * @ignore
  */
 function __SteamUserStatsScoresDownloadedResult_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
 {
@@ -8898,8 +8897,8 @@ function __SteamUserStatsScoresDownloadedResult_encode(_inst, _buffer, _offset, 
  * @func __SteamUserStatsScoresDownloadedResult_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
- * @returns {Struct.SteamUserStatsScoresDownloadedResult} 
- * @ignore 
+ * @returns {Struct.SteamUserStatsScoresDownloadedResult}
+ * @ignore
  */
 function __SteamUserStatsScoresDownloadedResult_decode(_buffer, _offset)
 {
@@ -8928,7 +8927,7 @@ function __SteamUserStatsScoresDownloadedResult_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
  * @param {String} _where
- * @ignore 
+ * @ignore
  */
 function __SteamUserStatsScoreUploadedResult_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
 {
@@ -8966,8 +8965,8 @@ function __SteamUserStatsScoreUploadedResult_encode(_inst, _buffer, _offset, _wh
  * @func __SteamUserStatsScoreUploadedResult_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
- * @returns {Struct.SteamUserStatsScoreUploadedResult} 
- * @ignore 
+ * @returns {Struct.SteamUserStatsScoreUploadedResult}
+ * @ignore
  */
 function __SteamUserStatsScoreUploadedResult_decode(_buffer, _offset)
 {
@@ -9005,7 +9004,7 @@ function __SteamUserStatsScoreUploadedResult_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
  * @param {String} _where
- * @ignore 
+ * @ignore
  */
 function __SteamUserStatsNumberOfCurrentPlayersResult_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
 {
@@ -9027,8 +9026,8 @@ function __SteamUserStatsNumberOfCurrentPlayersResult_encode(_inst, _buffer, _of
  * @func __SteamUserStatsNumberOfCurrentPlayersResult_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
- * @returns {Struct.SteamUserStatsNumberOfCurrentPlayersResult} 
- * @ignore 
+ * @returns {Struct.SteamUserStatsNumberOfCurrentPlayersResult}
+ * @ignore
  */
 function __SteamUserStatsNumberOfCurrentPlayersResult_decode(_buffer, _offset)
 {
@@ -9054,7 +9053,7 @@ function __SteamUserStatsNumberOfCurrentPlayersResult_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
  * @param {String} _where
- * @ignore 
+ * @ignore
  */
 function __SteamUserStatsGlobalAchievementPercentagesReadyResult_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
 {
@@ -9077,8 +9076,8 @@ function __SteamUserStatsGlobalAchievementPercentagesReadyResult_encode(_inst, _
  * @func __SteamUserStatsGlobalAchievementPercentagesReadyResult_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
- * @returns {Struct.SteamUserStatsGlobalAchievementPercentagesReadyResult} 
- * @ignore 
+ * @returns {Struct.SteamUserStatsGlobalAchievementPercentagesReadyResult}
+ * @ignore
  */
 function __SteamUserStatsGlobalAchievementPercentagesReadyResult_decode(_buffer, _offset)
 {
@@ -9104,7 +9103,7 @@ function __SteamUserStatsGlobalAchievementPercentagesReadyResult_decode(_buffer,
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
  * @param {String} _where
- * @ignore 
+ * @ignore
  */
 function __SteamUserStatsGlobalStatsReceivedResult_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
 {
@@ -9126,8 +9125,8 @@ function __SteamUserStatsGlobalStatsReceivedResult_encode(_inst, _buffer, _offse
  * @func __SteamUserStatsGlobalStatsReceivedResult_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
- * @returns {Struct.SteamUserStatsGlobalStatsReceivedResult} 
- * @ignore 
+ * @returns {Struct.SteamUserStatsGlobalStatsReceivedResult}
+ * @ignore
  */
 function __SteamUserStatsGlobalStatsReceivedResult_decode(_buffer, _offset)
 {
@@ -9153,7 +9152,7 @@ function __SteamUserStatsGlobalStatsReceivedResult_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
  * @param {String} _where
- * @ignore 
+ * @ignore
  */
 function __SteamUserStatsAttachLeaderboardUgcResult_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
 {
@@ -9176,8 +9175,8 @@ function __SteamUserStatsAttachLeaderboardUgcResult_encode(_inst, _buffer, _offs
  * @func __SteamUserStatsAttachLeaderboardUgcResult_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
- * @returns {Struct.SteamUserStatsAttachLeaderboardUgcResult} 
- * @ignore 
+ * @returns {Struct.SteamUserStatsAttachLeaderboardUgcResult}
+ * @ignore
  */
 function __SteamUserStatsAttachLeaderboardUgcResult_decode(_buffer, _offset)
 {
@@ -9203,7 +9202,7 @@ function __SteamUserStatsAttachLeaderboardUgcResult_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
  * @param {String} _where
- * @ignore 
+ * @ignore
  */
 function __SteamUserStatsAchievementIconFetched_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
 {
@@ -9234,8 +9233,8 @@ function __SteamUserStatsAchievementIconFetched_encode(_inst, _buffer, _offset, 
  * @func __SteamUserStatsAchievementIconFetched_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
- * @returns {Struct.SteamUserStatsAchievementIconFetched} 
- * @ignore 
+ * @returns {Struct.SteamUserStatsAchievementIconFetched}
+ * @ignore
  */
 function __SteamUserStatsAchievementIconFetched_decode(_buffer, _offset)
 {
@@ -9268,7 +9267,7 @@ function __SteamUserStatsAchievementIconFetched_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
  * @param {String} _where
- * @ignore 
+ * @ignore
  */
 function __SteamUserStatsUnloaded_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
 {
@@ -9286,8 +9285,8 @@ function __SteamUserStatsUnloaded_encode(_inst, _buffer, _offset, _where = _GMFU
  * @func __SteamUserStatsUnloaded_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
- * @returns {Struct.SteamUserStatsUnloaded} 
- * @ignore 
+ * @returns {Struct.SteamUserStatsUnloaded}
+ * @ignore
  */
 function __SteamUserStatsUnloaded_decode(_buffer, _offset)
 {
@@ -9310,7 +9309,7 @@ function __SteamUserStatsUnloaded_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
  * @param {String} _where
- * @ignore 
+ * @ignore
  */
 function __SteamUserStatsUserStatsReceived_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
 {
@@ -9337,8 +9336,8 @@ function __SteamUserStatsUserStatsReceived_encode(_inst, _buffer, _offset, _wher
  * @func __SteamUserStatsUserStatsReceived_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
- * @returns {Struct.SteamUserStatsUserStatsReceived} 
- * @ignore 
+ * @returns {Struct.SteamUserStatsUserStatsReceived}
+ * @ignore
  */
 function __SteamUserStatsUserStatsReceived_decode(_buffer, _offset)
 {
@@ -9367,7 +9366,7 @@ function __SteamUserStatsUserStatsReceived_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
  * @param {String} _where
- * @ignore 
+ * @ignore
  */
 function __SteamUserStatsUserStatsStored_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
 {
@@ -9389,8 +9388,8 @@ function __SteamUserStatsUserStatsStored_encode(_inst, _buffer, _offset, _where 
  * @func __SteamUserStatsUserStatsStored_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
- * @returns {Struct.SteamUserStatsUserStatsStored} 
- * @ignore 
+ * @returns {Struct.SteamUserStatsUserStatsStored}
+ * @ignore
  */
 function __SteamUserStatsUserStatsStored_decode(_buffer, _offset)
 {
@@ -9416,7 +9415,7 @@ function __SteamUserStatsUserStatsStored_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
  * @param {String} _where
- * @ignore 
+ * @ignore
  */
 function __SteamUserStatsUserAchievementStored_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
 {
@@ -9447,8 +9446,8 @@ function __SteamUserStatsUserAchievementStored_encode(_inst, _buffer, _offset, _
  * @func __SteamUserStatsUserAchievementStored_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
- * @returns {Struct.SteamUserStatsUserAchievementStored} 
- * @ignore 
+ * @returns {Struct.SteamUserStatsUserAchievementStored}
+ * @ignore
  */
 function __SteamUserStatsUserAchievementStored_decode(_buffer, _offset)
 {
@@ -9481,7 +9480,7 @@ function __SteamUserStatsUserAchievementStored_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
  * @param {String} _where
- * @ignore 
+ * @ignore
  */
 function __SteamUserStatsIntMinMax_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
 {
@@ -9503,8 +9502,8 @@ function __SteamUserStatsIntMinMax_encode(_inst, _buffer, _offset, _where = _GMF
  * @func __SteamUserStatsIntMinMax_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
- * @returns {Struct.SteamUserStatsIntMinMax} 
- * @ignore 
+ * @returns {Struct.SteamUserStatsIntMinMax}
+ * @ignore
  */
 function __SteamUserStatsIntMinMax_decode(_buffer, _offset)
 {
@@ -9530,7 +9529,7 @@ function __SteamUserStatsIntMinMax_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
  * @param {String} _where
- * @ignore 
+ * @ignore
  */
 function __SteamUserStatsFloatMinMax_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
 {
@@ -9552,8 +9551,8 @@ function __SteamUserStatsFloatMinMax_encode(_inst, _buffer, _offset, _where = _G
  * @func __SteamUserStatsFloatMinMax_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
- * @returns {Struct.SteamUserStatsFloatMinMax} 
- * @ignore 
+ * @returns {Struct.SteamUserStatsFloatMinMax}
+ * @ignore
  */
 function __SteamUserStatsFloatMinMax_decode(_buffer, _offset)
 {
@@ -9579,7 +9578,7 @@ function __SteamUserStatsFloatMinMax_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
  * @param {String} _where
- * @ignore 
+ * @ignore
  */
 function __SteamMusicPlaybackStatusHasChanged_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
 {
@@ -9598,8 +9597,8 @@ function __SteamMusicPlaybackStatusHasChanged_encode(_inst, _buffer, _offset, _w
  * @func __SteamMusicPlaybackStatusHasChanged_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
- * @returns {Struct.SteamMusicPlaybackStatusHasChanged} 
- * @ignore 
+ * @returns {Struct.SteamMusicPlaybackStatusHasChanged}
+ * @ignore
  */
 function __SteamMusicPlaybackStatusHasChanged_decode(_buffer, _offset)
 {
@@ -9622,7 +9621,7 @@ function __SteamMusicPlaybackStatusHasChanged_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
  * @param {String} _where
- * @ignore 
+ * @ignore
  */
 function __SteamMusicVolumeHasChanged_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
 {
@@ -9640,8 +9639,8 @@ function __SteamMusicVolumeHasChanged_encode(_inst, _buffer, _offset, _where = _
  * @func __SteamMusicVolumeHasChanged_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
- * @returns {Struct.SteamMusicVolumeHasChanged} 
- * @ignore 
+ * @returns {Struct.SteamMusicVolumeHasChanged}
+ * @ignore
  */
 function __SteamMusicVolumeHasChanged_decode(_buffer, _offset)
 {
@@ -9664,7 +9663,7 @@ function __SteamMusicVolumeHasChanged_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
  * @param {String} _where
- * @ignore 
+ * @ignore
  */
 function __SteamTimelineGamePhaseRecordingExists_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
 {
@@ -9699,8 +9698,8 @@ function __SteamTimelineGamePhaseRecordingExists_encode(_inst, _buffer, _offset,
  * @func __SteamTimelineGamePhaseRecordingExists_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
- * @returns {Struct.SteamTimelineGamePhaseRecordingExists} 
- * @ignore 
+ * @returns {Struct.SteamTimelineGamePhaseRecordingExists}
+ * @ignore
  */
 function __SteamTimelineGamePhaseRecordingExists_decode(_buffer, _offset)
 {
@@ -9736,7 +9735,7 @@ function __SteamTimelineGamePhaseRecordingExists_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
  * @param {String} _where
- * @ignore 
+ * @ignore
  */
 function __SteamTimelineEventRecordingExists_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
 {
@@ -9758,8 +9757,8 @@ function __SteamTimelineEventRecordingExists_encode(_inst, _buffer, _offset, _wh
  * @func __SteamTimelineEventRecordingExists_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
- * @returns {Struct.SteamTimelineEventRecordingExists} 
- * @ignore 
+ * @returns {Struct.SteamTimelineEventRecordingExists}
+ * @ignore
  */
 function __SteamTimelineEventRecordingExists_decode(_buffer, _offset)
 {
@@ -9785,7 +9784,7 @@ function __SteamTimelineEventRecordingExists_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
  * @param {String} _where
- * @ignore 
+ * @ignore
  */
 function __SteamInventoryItemDefQuantity_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
 {
@@ -9807,8 +9806,8 @@ function __SteamInventoryItemDefQuantity_encode(_inst, _buffer, _offset, _where 
  * @func __SteamInventoryItemDefQuantity_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
- * @returns {Struct.SteamInventoryItemDefQuantity} 
- * @ignore 
+ * @returns {Struct.SteamInventoryItemDefQuantity}
+ * @ignore
  */
 function __SteamInventoryItemDefQuantity_decode(_buffer, _offset)
 {
@@ -9834,7 +9833,7 @@ function __SteamInventoryItemDefQuantity_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
  * @param {String} _where
- * @ignore 
+ * @ignore
  */
 function __SteamInventoryItemInstanceQuantity_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
 {
@@ -9856,8 +9855,8 @@ function __SteamInventoryItemInstanceQuantity_encode(_inst, _buffer, _offset, _w
  * @func __SteamInventoryItemInstanceQuantity_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
- * @returns {Struct.SteamInventoryItemInstanceQuantity} 
- * @ignore 
+ * @returns {Struct.SteamInventoryItemInstanceQuantity}
+ * @ignore
  */
 function __SteamInventoryItemInstanceQuantity_decode(_buffer, _offset)
 {
@@ -9883,7 +9882,7 @@ function __SteamInventoryItemInstanceQuantity_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
  * @param {String} _where
- * @ignore 
+ * @ignore
  */
 function __SteamInventoryItemWithPrice_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
 {
@@ -9909,8 +9908,8 @@ function __SteamInventoryItemWithPrice_encode(_inst, _buffer, _offset, _where = 
  * @func __SteamInventoryItemWithPrice_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
- * @returns {Struct.SteamInventoryItemWithPrice} 
- * @ignore 
+ * @returns {Struct.SteamInventoryItemWithPrice}
+ * @ignore
  */
 function __SteamInventoryItemWithPrice_decode(_buffer, _offset)
 {
@@ -9934,113 +9933,63 @@ function __SteamInventoryItemWithPrice_decode(_buffer, _offset)
 }
 
 /**
- * @func __SteamInventoryResultItems_encode(_inst, _buffer, _offset, _where)
- * @param {Struct.SteamInventoryResultItems} _inst
+ * @func __SteamInventoryItemDetails_encode(_inst, _buffer, _offset, _where)
+ * @param {Struct.SteamInventoryItemDetails} _inst
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
  * @param {String} _where
- * @ignore 
+ * @ignore
  */
-function __SteamInventoryResultItems_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
+function __SteamInventoryItemDetails_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
 {
     buffer_seek(_buffer, buffer_seek_start, _offset);
     with (_inst)
     {
-        // field: count, type: UInt32
-        if (!is_numeric(self.count)) show_error($"{_where} :: self.count expected number", true);
-        buffer_write(_buffer, buffer_u32, self.count);
+        // field: item_instance_id, type: UInt64
+        if (!is_numeric(self.item_instance_id)) show_error($"{_where} :: self.item_instance_id expected number", true);
+        buffer_write(_buffer, buffer_u64, self.item_instance_id);
 
-        // field: item_instance_ids, type: UInt64[]
-        if (!is_array(self.item_instance_ids)) show_error($"{_where} :: self.item_instance_ids expected array", true);
-        var _length = array_length(self.item_instance_ids);
-        buffer_write(_buffer, buffer_u32, _length);
-        for (var _i = 0; _i < _length; ++_i)
-        {
-            if (!is_numeric(self.item_instance_ids[_i])) show_error($"{_where} :: self.item_instance_ids[_i] expected number", true);
-            buffer_write(_buffer, buffer_u64, self.item_instance_ids[_i]);
-        }
+        // field: item_def_id, type: UInt32
+        if (!is_numeric(self.item_def_id)) show_error($"{_where} :: self.item_def_id expected number", true);
+        buffer_write(_buffer, buffer_u32, self.item_def_id);
 
-        // field: item_def_ids, type: UInt32[]
-        if (!is_array(self.item_def_ids)) show_error($"{_where} :: self.item_def_ids expected array", true);
-        var _length = array_length(self.item_def_ids);
-        buffer_write(_buffer, buffer_u32, _length);
-        for (var _i = 0; _i < _length; ++_i)
-        {
-            if (!is_numeric(self.item_def_ids[_i])) show_error($"{_where} :: self.item_def_ids[_i] expected number", true);
-            buffer_write(_buffer, buffer_u32, self.item_def_ids[_i]);
-        }
+        // field: quantity, type: UInt32
+        if (!is_numeric(self.quantity)) show_error($"{_where} :: self.quantity expected number", true);
+        buffer_write(_buffer, buffer_u32, self.quantity);
 
-        // field: quantities, type: UInt32[]
-        if (!is_array(self.quantities)) show_error($"{_where} :: self.quantities expected array", true);
-        var _length = array_length(self.quantities);
-        buffer_write(_buffer, buffer_u32, _length);
-        for (var _i = 0; _i < _length; ++_i)
-        {
-            if (!is_numeric(self.quantities[_i])) show_error($"{_where} :: self.quantities[_i] expected number", true);
-            buffer_write(_buffer, buffer_u32, self.quantities[_i]);
-        }
+        // field: flags, type: enum SteamInventoryItemFlags
 
-        // field: flags, type: UInt32[]
-        if (!is_array(self.flags)) show_error($"{_where} :: self.flags expected array", true);
-        var _length = array_length(self.flags);
-        buffer_write(_buffer, buffer_u32, _length);
-        for (var _i = 0; _i < _length; ++_i)
-        {
-            if (!is_numeric(self.flags[_i])) show_error($"{_where} :: self.flags[_i] expected number", true);
-            buffer_write(_buffer, buffer_u32, self.flags[_i]);
-        }
+        if (!is_numeric(self.flags)) show_error($"{_where} :: self.flags expected number", true);
+        buffer_write(_buffer, buffer_u64, self.flags);
 
     }
 }
 
 /**
- * @func __SteamInventoryResultItems_decode(_buffer, _offset)
+ * @func __SteamInventoryItemDetails_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
- * @returns {Struct.SteamInventoryResultItems} 
- * @ignore 
+ * @returns {Struct.SteamInventoryItemDetails}
+ * @ignore
  */
-function __SteamInventoryResultItems_decode(_buffer, _offset)
+function __SteamInventoryItemDetails_decode(_buffer, _offset)
 {
     buffer_seek(_buffer, buffer_seek_start, _offset);
 
-    _inst = new SteamInventoryResultItems();
+    _inst = new SteamInventoryItemDetails();
     with (_inst)
     {
-        // field: count, type: UInt32
-        self.count = buffer_read(_buffer, buffer_u32);
+        // field: item_instance_id, type: UInt64
+        self.item_instance_id = buffer_read(_buffer, buffer_u64);
 
-        // field: item_instance_ids, type: UInt64[]
-        var _length = buffer_read(_buffer, buffer_u32);
-        self.item_instance_ids = array_create(_length);
-        for (var _i = 0; _i < _length; ++_i)
-        {
-            self.item_instance_ids[_i] = buffer_read(_buffer, buffer_u64);
-        }
+        // field: item_def_id, type: UInt32
+        self.item_def_id = buffer_read(_buffer, buffer_u32);
 
-        // field: item_def_ids, type: UInt32[]
-        var _length = buffer_read(_buffer, buffer_u32);
-        self.item_def_ids = array_create(_length);
-        for (var _i = 0; _i < _length; ++_i)
-        {
-            self.item_def_ids[_i] = buffer_read(_buffer, buffer_u32);
-        }
+        // field: quantity, type: UInt32
+        self.quantity = buffer_read(_buffer, buffer_u32);
 
-        // field: quantities, type: UInt32[]
-        var _length = buffer_read(_buffer, buffer_u32);
-        self.quantities = array_create(_length);
-        for (var _i = 0; _i < _length; ++_i)
-        {
-            self.quantities[_i] = buffer_read(_buffer, buffer_u32);
-        }
-
-        // field: flags, type: UInt32[]
-        var _length = buffer_read(_buffer, buffer_u32);
-        self.flags = array_create(_length);
-        for (var _i = 0; _i < _length; ++_i)
-        {
-            self.flags[_i] = buffer_read(_buffer, buffer_u32);
-        }
+        // field: flags, type: enum SteamInventoryItemFlags
+        self.flags = buffer_read(_buffer, buffer_u64);
 
     }
 
@@ -10053,7 +10002,7 @@ function __SteamInventoryResultItems_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
  * @param {String} _where
- * @ignore 
+ * @ignore
  */
 function __SteamInventoryDeserializeResult_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
 {
@@ -10076,8 +10025,8 @@ function __SteamInventoryDeserializeResult_encode(_inst, _buffer, _offset, _wher
  * @func __SteamInventoryDeserializeResult_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
- * @returns {Struct.SteamInventoryDeserializeResult} 
- * @ignore 
+ * @returns {Struct.SteamInventoryDeserializeResult}
+ * @ignore
  */
 function __SteamInventoryDeserializeResult_decode(_buffer, _offset)
 {
@@ -10103,7 +10052,7 @@ function __SteamInventoryDeserializeResult_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
  * @param {String} _where
- * @ignore 
+ * @ignore
  */
 function __SteamInventoryItemPrice_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
 {
@@ -10125,8 +10074,8 @@ function __SteamInventoryItemPrice_encode(_inst, _buffer, _offset, _where = _GMF
  * @func __SteamInventoryItemPrice_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
- * @returns {Struct.SteamInventoryItemPrice} 
- * @ignore 
+ * @returns {Struct.SteamInventoryItemPrice}
+ * @ignore
  */
 function __SteamInventoryItemPrice_decode(_buffer, _offset)
 {
@@ -10152,7 +10101,7 @@ function __SteamInventoryItemPrice_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
  * @param {String} _where
- * @ignore 
+ * @ignore
  */
 function __SteamInventoryResultReady_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
 {
@@ -10175,8 +10124,8 @@ function __SteamInventoryResultReady_encode(_inst, _buffer, _offset, _where = _G
  * @func __SteamInventoryResultReady_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
- * @returns {Struct.SteamInventoryResultReady} 
- * @ignore 
+ * @returns {Struct.SteamInventoryResultReady}
+ * @ignore
  */
 function __SteamInventoryResultReady_decode(_buffer, _offset)
 {
@@ -10202,7 +10151,7 @@ function __SteamInventoryResultReady_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
  * @param {String} _where
- * @ignore 
+ * @ignore
  */
 function __SteamInventoryFullUpdate_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
 {
@@ -10220,8 +10169,8 @@ function __SteamInventoryFullUpdate_encode(_inst, _buffer, _offset, _where = _GM
  * @func __SteamInventoryFullUpdate_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
- * @returns {Struct.SteamInventoryFullUpdate} 
- * @ignore 
+ * @returns {Struct.SteamInventoryFullUpdate}
+ * @ignore
  */
 function __SteamInventoryFullUpdate_decode(_buffer, _offset)
 {
@@ -10244,7 +10193,7 @@ function __SteamInventoryFullUpdate_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
  * @param {String} _where
- * @ignore 
+ * @ignore
  */
 function __SteamInventoryStartPurchaseResult_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
 {
@@ -10271,8 +10220,8 @@ function __SteamInventoryStartPurchaseResult_encode(_inst, _buffer, _offset, _wh
  * @func __SteamInventoryStartPurchaseResult_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
- * @returns {Struct.SteamInventoryStartPurchaseResult} 
- * @ignore 
+ * @returns {Struct.SteamInventoryStartPurchaseResult}
+ * @ignore
  */
 function __SteamInventoryStartPurchaseResult_decode(_buffer, _offset)
 {
@@ -10301,7 +10250,7 @@ function __SteamInventoryStartPurchaseResult_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
  * @param {String} _where
- * @ignore 
+ * @ignore
  */
 function __SteamInventoryRequestPricesResult_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
 {
@@ -10325,8 +10274,8 @@ function __SteamInventoryRequestPricesResult_encode(_inst, _buffer, _offset, _wh
  * @func __SteamInventoryRequestPricesResult_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
- * @returns {Struct.SteamInventoryRequestPricesResult} 
- * @ignore 
+ * @returns {Struct.SteamInventoryRequestPricesResult}
+ * @ignore
  */
 function __SteamInventoryRequestPricesResult_decode(_buffer, _offset)
 {
@@ -10353,7 +10302,7 @@ function __SteamInventoryRequestPricesResult_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
  * @param {String} _where
- * @ignore 
+ * @ignore
  */
 function __SteamRemoteStorageFileNameAndSize_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
 {
@@ -10376,8 +10325,8 @@ function __SteamRemoteStorageFileNameAndSize_encode(_inst, _buffer, _offset, _wh
  * @func __SteamRemoteStorageFileNameAndSize_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
- * @returns {Struct.SteamRemoteStorageFileNameAndSize} 
- * @ignore 
+ * @returns {Struct.SteamRemoteStorageFileNameAndSize}
+ * @ignore
  */
 function __SteamRemoteStorageFileNameAndSize_decode(_buffer, _offset)
 {
@@ -10404,7 +10353,7 @@ function __SteamRemoteStorageFileNameAndSize_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
  * @param {String} _where
- * @ignore 
+ * @ignore
  */
 function __SteamRemoteStorageQuota_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
 {
@@ -10426,8 +10375,8 @@ function __SteamRemoteStorageQuota_encode(_inst, _buffer, _offset, _where = _GMF
  * @func __SteamRemoteStorageQuota_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
- * @returns {Struct.SteamRemoteStorageQuota} 
- * @ignore 
+ * @returns {Struct.SteamRemoteStorageQuota}
+ * @ignore
  */
 function __SteamRemoteStorageQuota_decode(_buffer, _offset)
 {
@@ -10453,7 +10402,7 @@ function __SteamRemoteStorageQuota_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
  * @param {String} _where
- * @ignore 
+ * @ignore
  */
 function __SteamRemoteStorageUgcDetails_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
 {
@@ -10488,8 +10437,8 @@ function __SteamRemoteStorageUgcDetails_encode(_inst, _buffer, _offset, _where =
  * @func __SteamRemoteStorageUgcDetails_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
- * @returns {Struct.SteamRemoteStorageUgcDetails} 
- * @ignore 
+ * @returns {Struct.SteamRemoteStorageUgcDetails}
+ * @ignore
  */
 function __SteamRemoteStorageUgcDetails_decode(_buffer, _offset)
 {
@@ -10525,7 +10474,7 @@ function __SteamRemoteStorageUgcDetails_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
  * @param {String} _where
- * @ignore 
+ * @ignore
  */
 function __SteamRemoteStorageFileShareResult_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
 {
@@ -10553,8 +10502,8 @@ function __SteamRemoteStorageFileShareResult_encode(_inst, _buffer, _offset, _wh
  * @func __SteamRemoteStorageFileShareResult_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
- * @returns {Struct.SteamRemoteStorageFileShareResult} 
- * @ignore 
+ * @returns {Struct.SteamRemoteStorageFileShareResult}
+ * @ignore
  */
 function __SteamRemoteStorageFileShareResult_decode(_buffer, _offset)
 {
@@ -10584,7 +10533,7 @@ function __SteamRemoteStorageFileShareResult_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
  * @param {String} _where
- * @ignore 
+ * @ignore
  */
 function __SteamRemoteStorageFileWriteAsyncResult_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
 {
@@ -10603,8 +10552,8 @@ function __SteamRemoteStorageFileWriteAsyncResult_encode(_inst, _buffer, _offset
  * @func __SteamRemoteStorageFileWriteAsyncResult_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
- * @returns {Struct.SteamRemoteStorageFileWriteAsyncResult} 
- * @ignore 
+ * @returns {Struct.SteamRemoteStorageFileWriteAsyncResult}
+ * @ignore
  */
 function __SteamRemoteStorageFileWriteAsyncResult_decode(_buffer, _offset)
 {
@@ -10627,7 +10576,7 @@ function __SteamRemoteStorageFileWriteAsyncResult_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
  * @param {String} _where
- * @ignore 
+ * @ignore
  */
 function __SteamRemoteStorageDownloadUgcResult_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
 {
@@ -10667,8 +10616,8 @@ function __SteamRemoteStorageDownloadUgcResult_encode(_inst, _buffer, _offset, _
  * @func __SteamRemoteStorageDownloadUgcResult_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
- * @returns {Struct.SteamRemoteStorageDownloadUgcResult} 
- * @ignore 
+ * @returns {Struct.SteamRemoteStorageDownloadUgcResult}
+ * @ignore
  */
 function __SteamRemoteStorageDownloadUgcResult_decode(_buffer, _offset)
 {
@@ -10707,7 +10656,7 @@ function __SteamRemoteStorageDownloadUgcResult_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
  * @param {String} _where
- * @ignore 
+ * @ignore
  */
 function __SteamRemoteStoragePublishedFileSubscribed_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
 {
@@ -10729,8 +10678,8 @@ function __SteamRemoteStoragePublishedFileSubscribed_encode(_inst, _buffer, _off
  * @func __SteamRemoteStoragePublishedFileSubscribed_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
- * @returns {Struct.SteamRemoteStoragePublishedFileSubscribed} 
- * @ignore 
+ * @returns {Struct.SteamRemoteStoragePublishedFileSubscribed}
+ * @ignore
  */
 function __SteamRemoteStoragePublishedFileSubscribed_decode(_buffer, _offset)
 {
@@ -10756,7 +10705,7 @@ function __SteamRemoteStoragePublishedFileSubscribed_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
  * @param {String} _where
- * @ignore 
+ * @ignore
  */
 function __SteamRemoteStoragePublishedFileUnsubscribed_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
 {
@@ -10778,8 +10727,8 @@ function __SteamRemoteStoragePublishedFileUnsubscribed_encode(_inst, _buffer, _o
  * @func __SteamRemoteStoragePublishedFileUnsubscribed_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
- * @returns {Struct.SteamRemoteStoragePublishedFileUnsubscribed} 
- * @ignore 
+ * @returns {Struct.SteamRemoteStoragePublishedFileUnsubscribed}
+ * @ignore
  */
 function __SteamRemoteStoragePublishedFileUnsubscribed_decode(_buffer, _offset)
 {
@@ -10805,7 +10754,7 @@ function __SteamRemoteStoragePublishedFileUnsubscribed_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
  * @param {String} _where
- * @ignore 
+ * @ignore
  */
 function __SteamMatchmakingLobbyCreated_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
 {
@@ -10828,8 +10777,8 @@ function __SteamMatchmakingLobbyCreated_encode(_inst, _buffer, _offset, _where =
  * @func __SteamMatchmakingLobbyCreated_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
- * @returns {Struct.SteamMatchmakingLobbyCreated} 
- * @ignore 
+ * @returns {Struct.SteamMatchmakingLobbyCreated}
+ * @ignore
  */
 function __SteamMatchmakingLobbyCreated_decode(_buffer, _offset)
 {
@@ -10855,7 +10804,7 @@ function __SteamMatchmakingLobbyCreated_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
  * @param {String} _where
- * @ignore 
+ * @ignore
  */
 function __SteamMatchmakingLobbyEnter_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
 {
@@ -10886,8 +10835,8 @@ function __SteamMatchmakingLobbyEnter_encode(_inst, _buffer, _offset, _where = _
  * @func __SteamMatchmakingLobbyEnter_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
- * @returns {Struct.SteamMatchmakingLobbyEnter} 
- * @ignore 
+ * @returns {Struct.SteamMatchmakingLobbyEnter}
+ * @ignore
  */
 function __SteamMatchmakingLobbyEnter_decode(_buffer, _offset)
 {
@@ -10919,7 +10868,7 @@ function __SteamMatchmakingLobbyEnter_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
  * @param {String} _where
- * @ignore 
+ * @ignore
  */
 function __SteamMatchmakingLobbyMatchList_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
 {
@@ -10937,8 +10886,8 @@ function __SteamMatchmakingLobbyMatchList_encode(_inst, _buffer, _offset, _where
  * @func __SteamMatchmakingLobbyMatchList_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
- * @returns {Struct.SteamMatchmakingLobbyMatchList} 
- * @ignore 
+ * @returns {Struct.SteamMatchmakingLobbyMatchList}
+ * @ignore
  */
 function __SteamMatchmakingLobbyMatchList_decode(_buffer, _offset)
 {
@@ -10961,7 +10910,7 @@ function __SteamMatchmakingLobbyMatchList_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
  * @param {String} _where
- * @ignore 
+ * @ignore
  */
 function __SteamMatchmakingLobbyDataUpdate_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
 {
@@ -10987,8 +10936,8 @@ function __SteamMatchmakingLobbyDataUpdate_encode(_inst, _buffer, _offset, _wher
  * @func __SteamMatchmakingLobbyDataUpdate_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
- * @returns {Struct.SteamMatchmakingLobbyDataUpdate} 
- * @ignore 
+ * @returns {Struct.SteamMatchmakingLobbyDataUpdate}
+ * @ignore
  */
 function __SteamMatchmakingLobbyDataUpdate_decode(_buffer, _offset)
 {
@@ -11017,7 +10966,7 @@ function __SteamMatchmakingLobbyDataUpdate_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
  * @param {String} _where
- * @ignore 
+ * @ignore
  */
 function __SteamMatchmakingLobbyChatUpdate_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
 {
@@ -11048,8 +10997,8 @@ function __SteamMatchmakingLobbyChatUpdate_encode(_inst, _buffer, _offset, _wher
  * @func __SteamMatchmakingLobbyChatUpdate_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
- * @returns {Struct.SteamMatchmakingLobbyChatUpdate} 
- * @ignore 
+ * @returns {Struct.SteamMatchmakingLobbyChatUpdate}
+ * @ignore
  */
 function __SteamMatchmakingLobbyChatUpdate_decode(_buffer, _offset)
 {
@@ -11081,7 +11030,7 @@ function __SteamMatchmakingLobbyChatUpdate_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
  * @param {String} _where
- * @ignore 
+ * @ignore
  */
 function __SteamMatchmakingLobbyChatMsg_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
 {
@@ -11112,8 +11061,8 @@ function __SteamMatchmakingLobbyChatMsg_encode(_inst, _buffer, _offset, _where =
  * @func __SteamMatchmakingLobbyChatMsg_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
- * @returns {Struct.SteamMatchmakingLobbyChatMsg} 
- * @ignore 
+ * @returns {Struct.SteamMatchmakingLobbyChatMsg}
+ * @ignore
  */
 function __SteamMatchmakingLobbyChatMsg_decode(_buffer, _offset)
 {
@@ -11145,7 +11094,7 @@ function __SteamMatchmakingLobbyChatMsg_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
  * @param {String} _where
- * @ignore 
+ * @ignore
  */
 function __SteamMatchmakingLobbyGameCreated_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
 {
@@ -11175,8 +11124,8 @@ function __SteamMatchmakingLobbyGameCreated_encode(_inst, _buffer, _offset, _whe
  * @func __SteamMatchmakingLobbyGameCreated_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
- * @returns {Struct.SteamMatchmakingLobbyGameCreated} 
- * @ignore 
+ * @returns {Struct.SteamMatchmakingLobbyGameCreated}
+ * @ignore
  */
 function __SteamMatchmakingLobbyGameCreated_decode(_buffer, _offset)
 {
@@ -11208,7 +11157,7 @@ function __SteamMatchmakingLobbyGameCreated_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
  * @param {String} _where
- * @ignore 
+ * @ignore
  */
 function __SteamMatchmakingLobbyInvite_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
 {
@@ -11235,8 +11184,8 @@ function __SteamMatchmakingLobbyInvite_encode(_inst, _buffer, _offset, _where = 
  * @func __SteamMatchmakingLobbyInvite_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
- * @returns {Struct.SteamMatchmakingLobbyInvite} 
- * @ignore 
+ * @returns {Struct.SteamMatchmakingLobbyInvite}
+ * @ignore
  */
 function __SteamMatchmakingLobbyInvite_decode(_buffer, _offset)
 {
@@ -11266,7 +11215,7 @@ function __SteamMatchmakingLobbyInvite_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
  * @param {String} _where
- * @ignore 
+ * @ignore
  */
 function __SteamMatchmakingLobbyChatEntry_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
 {
@@ -11293,8 +11242,8 @@ function __SteamMatchmakingLobbyChatEntry_encode(_inst, _buffer, _offset, _where
  * @func __SteamMatchmakingLobbyChatEntry_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
- * @returns {Struct.SteamMatchmakingLobbyChatEntry} 
- * @ignore 
+ * @returns {Struct.SteamMatchmakingLobbyChatEntry}
+ * @ignore
  */
 function __SteamMatchmakingLobbyChatEntry_decode(_buffer, _offset)
 {
@@ -11323,7 +11272,7 @@ function __SteamMatchmakingLobbyChatEntry_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
  * @param {String} _where
- * @ignore 
+ * @ignore
  */
 function __SteamMatchmakingLobbyGameServer_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
 {
@@ -11349,8 +11298,8 @@ function __SteamMatchmakingLobbyGameServer_encode(_inst, _buffer, _offset, _wher
  * @func __SteamMatchmakingLobbyGameServer_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
- * @returns {Struct.SteamMatchmakingLobbyGameServer} 
- * @ignore 
+ * @returns {Struct.SteamMatchmakingLobbyGameServer}
+ * @ignore
  */
 function __SteamMatchmakingLobbyGameServer_decode(_buffer, _offset)
 {
@@ -11379,7 +11328,7 @@ function __SteamMatchmakingLobbyGameServer_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
  * @param {String} _where
- * @ignore 
+ * @ignore
  */
 function __SteamNetworkingMessagesSessionRequest_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
 {
@@ -11397,8 +11346,8 @@ function __SteamNetworkingMessagesSessionRequest_encode(_inst, _buffer, _offset,
  * @func __SteamNetworkingMessagesSessionRequest_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
- * @returns {Struct.SteamNetworkingMessagesSessionRequest} 
- * @ignore 
+ * @returns {Struct.SteamNetworkingMessagesSessionRequest}
+ * @ignore
  */
 function __SteamNetworkingMessagesSessionRequest_decode(_buffer, _offset)
 {
@@ -11421,7 +11370,7 @@ function __SteamNetworkingMessagesSessionRequest_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
  * @param {String} _where
- * @ignore 
+ * @ignore
  */
 function __SteamNetworkingMessagesSessionFailed_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
 {
@@ -11449,8 +11398,8 @@ function __SteamNetworkingMessagesSessionFailed_encode(_inst, _buffer, _offset, 
  * @func __SteamNetworkingMessagesSessionFailed_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
- * @returns {Struct.SteamNetworkingMessagesSessionFailed} 
- * @ignore 
+ * @returns {Struct.SteamNetworkingMessagesSessionFailed}
+ * @ignore
  */
 function __SteamNetworkingMessagesSessionFailed_decode(_buffer, _offset)
 {
@@ -11480,7 +11429,7 @@ function __SteamNetworkingMessagesSessionFailed_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
  * @param {String} _where
- * @ignore 
+ * @ignore
  */
 function __SteamNetworkingMessagesReceived_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
 {
@@ -11510,8 +11459,8 @@ function __SteamNetworkingMessagesReceived_encode(_inst, _buffer, _offset, _wher
  * @func __SteamNetworkingMessagesReceived_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
- * @returns {Struct.SteamNetworkingMessagesReceived} 
- * @ignore 
+ * @returns {Struct.SteamNetworkingMessagesReceived}
+ * @ignore
  */
 function __SteamNetworkingMessagesReceived_decode(_buffer, _offset)
 {
@@ -11543,7 +11492,7 @@ function __SteamNetworkingMessagesReceived_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
  * @param {String} _where
- * @ignore 
+ * @ignore
  */
 function __SteamNetworkingSocketsConnectionInfo_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
 {
@@ -11594,8 +11543,8 @@ function __SteamNetworkingSocketsConnectionInfo_encode(_inst, _buffer, _offset, 
  * @func __SteamNetworkingSocketsConnectionInfo_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
- * @returns {Struct.SteamNetworkingSocketsConnectionInfo} 
- * @ignore 
+ * @returns {Struct.SteamNetworkingSocketsConnectionInfo}
+ * @ignore
  */
 function __SteamNetworkingSocketsConnectionInfo_decode(_buffer, _offset)
 {
@@ -11642,7 +11591,7 @@ function __SteamNetworkingSocketsConnectionInfo_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
  * @param {String} _where
- * @ignore 
+ * @ignore
  */
 function __SteamNetworkingSocketsReceived_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
 {
@@ -11668,8 +11617,8 @@ function __SteamNetworkingSocketsReceived_encode(_inst, _buffer, _offset, _where
  * @func __SteamNetworkingSocketsReceived_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
- * @returns {Struct.SteamNetworkingSocketsReceived} 
- * @ignore 
+ * @returns {Struct.SteamNetworkingSocketsReceived}
+ * @ignore
  */
 function __SteamNetworkingSocketsReceived_decode(_buffer, _offset)
 {
@@ -11698,7 +11647,7 @@ function __SteamNetworkingSocketsReceived_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
  * @param {String} _where
- * @ignore 
+ * @ignore
  */
 function __SteamPartiesBeaconLocation_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
 {
@@ -11721,8 +11670,8 @@ function __SteamPartiesBeaconLocation_encode(_inst, _buffer, _offset, _where = _
  * @func __SteamPartiesBeaconLocation_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
- * @returns {Struct.SteamPartiesBeaconLocation} 
- * @ignore 
+ * @returns {Struct.SteamPartiesBeaconLocation}
+ * @ignore
  */
 function __SteamPartiesBeaconLocation_decode(_buffer, _offset)
 {
@@ -11748,7 +11697,7 @@ function __SteamPartiesBeaconLocation_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
  * @param {String} _where
- * @ignore 
+ * @ignore
  */
 function __SteamPartiesCreateBeaconResult_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
 {
@@ -11771,8 +11720,8 @@ function __SteamPartiesCreateBeaconResult_encode(_inst, _buffer, _offset, _where
  * @func __SteamPartiesCreateBeaconResult_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
- * @returns {Struct.SteamPartiesCreateBeaconResult} 
- * @ignore 
+ * @returns {Struct.SteamPartiesCreateBeaconResult}
+ * @ignore
  */
 function __SteamPartiesCreateBeaconResult_decode(_buffer, _offset)
 {
@@ -11798,7 +11747,7 @@ function __SteamPartiesCreateBeaconResult_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
  * @param {String} _where
- * @ignore 
+ * @ignore
  */
 function __SteamPartiesJoinPartyResult_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
 {
@@ -11830,8 +11779,8 @@ function __SteamPartiesJoinPartyResult_encode(_inst, _buffer, _offset, _where = 
  * @func __SteamPartiesJoinPartyResult_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
- * @returns {Struct.SteamPartiesJoinPartyResult} 
- * @ignore 
+ * @returns {Struct.SteamPartiesJoinPartyResult}
+ * @ignore
  */
 function __SteamPartiesJoinPartyResult_decode(_buffer, _offset)
 {
@@ -11864,7 +11813,7 @@ function __SteamPartiesJoinPartyResult_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
  * @param {String} _where
- * @ignore 
+ * @ignore
  */
 function __SteamPartiesChangeNumOpenSlotsResult_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
 {
@@ -11883,8 +11832,8 @@ function __SteamPartiesChangeNumOpenSlotsResult_encode(_inst, _buffer, _offset, 
  * @func __SteamPartiesChangeNumOpenSlotsResult_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
- * @returns {Struct.SteamPartiesChangeNumOpenSlotsResult} 
- * @ignore 
+ * @returns {Struct.SteamPartiesChangeNumOpenSlotsResult}
+ * @ignore
  */
 function __SteamPartiesChangeNumOpenSlotsResult_decode(_buffer, _offset)
 {
@@ -11907,7 +11856,7 @@ function __SteamPartiesChangeNumOpenSlotsResult_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
  * @param {String} _where
- * @ignore 
+ * @ignore
  */
 function __SteamPartiesReservationNotification_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
 {
@@ -11929,8 +11878,8 @@ function __SteamPartiesReservationNotification_encode(_inst, _buffer, _offset, _
  * @func __SteamPartiesReservationNotification_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
- * @returns {Struct.SteamPartiesReservationNotification} 
- * @ignore 
+ * @returns {Struct.SteamPartiesReservationNotification}
+ * @ignore
  */
 function __SteamPartiesReservationNotification_decode(_buffer, _offset)
 {
@@ -11956,7 +11905,7 @@ function __SteamPartiesReservationNotification_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
  * @param {String} _where
- * @ignore 
+ * @ignore
  */
 function __SteamPartiesBeaconDetails_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
 {
@@ -11988,8 +11937,8 @@ function __SteamPartiesBeaconDetails_encode(_inst, _buffer, _offset, _where = _G
  * @func __SteamPartiesBeaconDetails_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
- * @returns {Struct.SteamPartiesBeaconDetails} 
- * @ignore 
+ * @returns {Struct.SteamPartiesBeaconDetails}
+ * @ignore
  */
 function __SteamPartiesBeaconDetails_decode(_buffer, _offset)
 {
@@ -12022,7 +11971,7 @@ function __SteamPartiesBeaconDetails_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
  * @param {String} _where
- * @ignore 
+ * @ignore
  */
 function __SteamNetworkingSocketsStatusChanged_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
 {
@@ -12049,8 +11998,8 @@ function __SteamNetworkingSocketsStatusChanged_encode(_inst, _buffer, _offset, _
  * @func __SteamNetworkingSocketsStatusChanged_decode(_buffer, _offset)
  * @param {Id.Buffer} _buffer
  * @param {Real} _offset
- * @returns {Struct.SteamNetworkingSocketsStatusChanged} 
- * @ignore 
+ * @returns {Struct.SteamNetworkingSocketsStatusChanged}
+ * @ignore
  */
 function __SteamNetworkingSocketsStatusChanged_decode(_buffer, _offset)
 {
@@ -12189,7 +12138,7 @@ function steam_friends_activate_game_overlay_to_web_page(_url, _mode)
 
 /**
  * @param {Real} _steam_id_clan_chat
- * @returns {Bool} 
+ * @returns {Bool}
  */
 function steam_friends_close_clan_chat_window_in_steam(_steam_id_clan_chat)
 {
@@ -12207,7 +12156,7 @@ function steam_friends_close_clan_chat_window_in_steam(_steam_id_clan_chat)
 /**
  * @param {Array[Real]} _steam_id_clans
  * @param {Function} _callback
- * @returns {Bool} 
+ * @returns {Bool}
  */
 function steam_friends_download_clan_activity_counts(_steam_id_clans, _callback)
 {
@@ -12284,7 +12233,7 @@ function steam_friends_set_callback_avatar_image_loaded(_callback)
 /**
  * @param {Real} _steam_id_clan
  * @param {Real} _user
- * @returns {Real} 
+ * @returns {Real}
  */
 function steam_friends_get_chat_member_by_index(_steam_id_clan, _user)
 {
@@ -12309,7 +12258,7 @@ function steam_friends_get_chat_member_by_index(_steam_id_clan, _user)
 
 /**
  * @param {Real} _steam_id_clan
- * @returns {Struct.SteamFriendsClanActivityCounts} 
+ * @returns {Struct.SteamFriendsClanActivityCounts}
  */
 function steam_friends_get_clan_activity_counts(_steam_id_clan)
 {
@@ -12338,7 +12287,7 @@ function steam_friends_get_clan_activity_counts(_steam_id_clan)
 /**
  * @param {Real} _steam_id_clan_chat
  * @param {Real} _message
- * @returns {Struct.SteamFriendsClanChatMessage} 
+ * @returns {Struct.SteamFriendsClanChatMessage}
  */
 function steam_friends_get_clan_chat_message(_steam_id_clan_chat, _message)
 {
@@ -12366,7 +12315,7 @@ function steam_friends_get_clan_chat_message(_steam_id_clan_chat, _message)
 
 /**
  * @param {Real} _steam_id_clan
- * @returns {String} 
+ * @returns {String}
  */
 function steam_friends_get_clan_name(_steam_id_clan)
 {
@@ -12384,7 +12333,7 @@ function steam_friends_get_clan_name(_steam_id_clan)
 /**
  * @param {Real} _steam_id_clan
  * @param {Real} _officer
- * @returns {Real} 
+ * @returns {Real}
  */
 function steam_friends_get_clan_officer_by_index(_steam_id_clan, _officer)
 {
@@ -12409,7 +12358,7 @@ function steam_friends_get_clan_officer_by_index(_steam_id_clan, _officer)
 
 /**
  * @param {Real} _steam_id_clan
- * @returns {Real} 
+ * @returns {Real}
  */
 function steam_friends_get_clan_officer_count(_steam_id_clan)
 {
@@ -12426,7 +12375,7 @@ function steam_friends_get_clan_officer_count(_steam_id_clan)
 
 /**
  * @param {Real} _steam_id_clan
- * @returns {Real} 
+ * @returns {Real}
  */
 function steam_friends_get_clan_owner(_steam_id_clan)
 {
@@ -12447,7 +12396,7 @@ function steam_friends_get_clan_owner(_steam_id_clan)
 
 /**
  * @param {Real} _steam_id_clan
- * @returns {String} 
+ * @returns {String}
  */
 function steam_friends_get_clan_tag(_steam_id_clan)
 {
@@ -12464,7 +12413,7 @@ function steam_friends_get_clan_tag(_steam_id_clan)
 
 /**
  * @param {Real} _coplay_friend
- * @returns {Real} 
+ * @returns {Real}
  */
 function steam_friends_get_coplay_friend(_coplay_friend)
 {
@@ -12507,7 +12456,7 @@ function steam_friends_get_follower_count(_steam_id, _callback)
 /**
  * @param {Real} _friend_index
  * @param {Real} _friend_flags
- * @returns {Real} 
+ * @returns {Real}
  */
 function steam_friends_get_friend_by_index(_friend_index, _friend_flags)
 {
@@ -12522,7 +12471,7 @@ function steam_friends_get_friend_by_index(_friend_index, _friend_flags)
 
 /**
  * @param {Real} _steam_id_friend
- * @returns {Real} 
+ * @returns {Real}
  */
 function steam_friends_get_friend_coplay_game(_steam_id_friend)
 {
@@ -12539,7 +12488,7 @@ function steam_friends_get_friend_coplay_game(_steam_id_friend)
 
 /**
  * @param {Real} _steam_id_friend
- * @returns {Real} 
+ * @returns {Real}
  */
 function steam_friends_get_friend_coplay_time(_steam_id_friend)
 {
@@ -12559,7 +12508,7 @@ function steam_friends_get_friend_coplay_time(_steam_id_friend)
 
 /**
  * @param {Real} _steam_id_source
- * @returns {Real} 
+ * @returns {Real}
  */
 function steam_friends_get_friend_count_from_source(_steam_id_source)
 {
@@ -12577,7 +12526,7 @@ function steam_friends_get_friend_count_from_source(_steam_id_source)
 /**
  * @param {Real} _steam_id_source
  * @param {Real} _friend_index
- * @returns {Real} 
+ * @returns {Real}
  */
 function steam_friends_get_friend_from_source_by_index(_steam_id_source, _friend_index)
 {
@@ -12602,7 +12551,7 @@ function steam_friends_get_friend_from_source_by_index(_steam_id_source, _friend
 
 /**
  * @param {Real} _steam_id_friend
- * @returns {Struct.SteamFriendsFriendGamePlayed} 
+ * @returns {Struct.SteamFriendsFriendGamePlayed}
  */
 function steam_friends_get_friend_game_played(_steam_id_friend)
 {
@@ -12631,7 +12580,7 @@ function steam_friends_get_friend_game_played(_steam_id_friend)
 /**
  * @param {Real} _steam_id_friend
  * @param {Real} _message_id
- * @returns {Struct.SteamFriendsFriendMessage} 
+ * @returns {Struct.SteamFriendsFriendMessage}
  */
 function steam_friends_get_friend_message(_steam_id_friend, _message_id)
 {
@@ -12656,7 +12605,7 @@ function steam_friends_get_friend_message(_steam_id_friend, _message_id)
 
 /**
  * @param {Real} _steam_id_friend
- * @returns {String} 
+ * @returns {String}
  */
 function steam_friends_get_friend_persona_name(_steam_id_friend)
 {
@@ -12674,7 +12623,7 @@ function steam_friends_get_friend_persona_name(_steam_id_friend)
 /**
  * @param {Real} _steam_id_friend
  * @param {Real} _persona_name
- * @returns {String} 
+ * @returns {String}
  */
 function steam_friends_get_friend_persona_name_history(_steam_id_friend, _persona_name)
 {
@@ -12695,7 +12644,7 @@ function steam_friends_get_friend_persona_name_history(_steam_id_friend, _person
 
 /**
  * @param {Real} _steam_id_friend
- * @returns {Enum.SteamFriendsPersonaState} 
+ * @returns {Enum.SteamFriendsPersonaState}
  */
 function steam_friends_get_friend_persona_state(_steam_id_friend)
 {
@@ -12716,7 +12665,7 @@ function steam_friends_get_friend_persona_state(_steam_id_friend)
 
 /**
  * @param {Real} _steam_id_friend
- * @returns {Enum.SteamFriendsRelationship} 
+ * @returns {Enum.SteamFriendsRelationship}
  */
 function steam_friends_get_friend_relationship(_steam_id_friend)
 {
@@ -12738,7 +12687,7 @@ function steam_friends_get_friend_relationship(_steam_id_friend)
 /**
  * @param {Real} _steam_id_friend
  * @param {String} _key
- * @returns {String} 
+ * @returns {String}
  */
 function steam_friends_get_friend_rich_presence(_steam_id_friend, _key)
 {
@@ -12761,7 +12710,7 @@ function steam_friends_get_friend_rich_presence(_steam_id_friend, _key)
 /**
  * @param {Real} _steam_id_friend
  * @param {Real} _key
- * @returns {String} 
+ * @returns {String}
  */
 function steam_friends_get_friend_rich_presence_key_by_index(_steam_id_friend, _key)
 {
@@ -12782,7 +12731,7 @@ function steam_friends_get_friend_rich_presence_key_by_index(_steam_id_friend, _
 
 /**
  * @param {Real} _steam_id_friend
- * @returns {Real} 
+ * @returns {Real}
  */
 function steam_friends_get_friend_rich_presence_key_count(_steam_id_friend)
 {
@@ -12808,7 +12757,7 @@ function steam_friends_get_friend_rich_presence_key_count(_steam_id_friend)
 
 /**
  * @param {Real} _steam_id_friend
- * @returns {Real} 
+ * @returns {Real}
  */
 function steam_friends_get_friend_steam_level(_steam_id_friend)
 {
@@ -12825,7 +12774,7 @@ function steam_friends_get_friend_steam_level(_steam_id_friend)
 
 /**
  * @param {Real} _steam_id_friend
- * @returns {Real} 
+ * @returns {Real}
  */
 function steam_friends_get_large_friend_avatar(_steam_id_friend)
 {
@@ -12842,7 +12791,7 @@ function steam_friends_get_large_friend_avatar(_steam_id_friend)
 
 /**
  * @param {Real} _steam_id_friend
- * @returns {Real} 
+ * @returns {Real}
  */
 function steam_friends_get_medium_friend_avatar(_steam_id_friend)
 {
@@ -12862,7 +12811,7 @@ function steam_friends_get_medium_friend_avatar(_steam_id_friend)
 
 /**
  * @param {Real} _friends_group_id
- * @returns {Array[Real]} 
+ * @returns {Array[Real]}
  */
 function steam_friends_get_friends_group_members_list(_friends_group_id)
 {
@@ -12884,7 +12833,7 @@ function steam_friends_get_friends_group_members_list(_friends_group_id)
 
 
 /**
- * @returns {Enum.SteamFriendsPersonaState} 
+ * @returns {Enum.SteamFriendsPersonaState}
  */
 function steam_friends_get_persona_state()
 {
@@ -12899,7 +12848,7 @@ function steam_friends_get_persona_state()
 
 /**
  * @param {Real} _steam_id_player
- * @returns {String} 
+ * @returns {String}
  */
 function steam_friends_get_player_nickname(_steam_id_player)
 {
@@ -12916,7 +12865,7 @@ function steam_friends_get_player_nickname(_steam_id_player)
 
 /**
  * @param {Real} _steam_id_friend
- * @returns {Real} 
+ * @returns {Real}
  */
 function steam_friends_get_small_friend_avatar(_steam_id_friend)
 {
@@ -12934,7 +12883,7 @@ function steam_friends_get_small_friend_avatar(_steam_id_friend)
 /**
  * @param {Real} _steam_id_friend
  * @param {Real} _friend_flags
- * @returns {Bool} 
+ * @returns {Bool}
  */
 function steam_friends_has_friend(_steam_id_friend, _friend_flags)
 {
@@ -12956,7 +12905,7 @@ function steam_friends_has_friend(_steam_id_friend, _friend_flags)
 /**
  * @param {Real} _steam_id_friend
  * @param {String} _connect_string
- * @returns {Bool} 
+ * @returns {Bool}
  */
 function steam_friends_invite_user_to_game(_steam_id_friend, _connect_string)
 {
@@ -12979,7 +12928,7 @@ function steam_friends_invite_user_to_game(_steam_id_friend, _connect_string)
 /**
  * @param {Real} _steam_id_clan_chat
  * @param {Real} _steam_id_user
- * @returns {Bool} 
+ * @returns {Bool}
  */
 function steam_friends_is_clan_chat_admin(_steam_id_clan_chat, _steam_id_user)
 {
@@ -13000,7 +12949,7 @@ function steam_friends_is_clan_chat_admin(_steam_id_clan_chat, _steam_id_user)
 
 /**
  * @param {Real} _steam_id_clan
- * @returns {Bool} 
+ * @returns {Bool}
  */
 function steam_friends_is_clan_public(_steam_id_clan)
 {
@@ -13017,7 +12966,7 @@ function steam_friends_is_clan_public(_steam_id_clan)
 
 /**
  * @param {Real} _steam_id_clan
- * @returns {Bool} 
+ * @returns {Bool}
  */
 function steam_friends_is_clan_official_game_group(_steam_id_clan)
 {
@@ -13034,7 +12983,7 @@ function steam_friends_is_clan_official_game_group(_steam_id_clan)
 
 /**
  * @param {Real} _steam_id_clan_chat
- * @returns {Bool} 
+ * @returns {Bool}
  */
 function steam_friends_is_clan_chat_window_open_in_steam(_steam_id_clan_chat)
 {
@@ -13116,7 +13065,7 @@ function steam_friends_request_friend_rich_presence(_steam_id_friend)
 /**
  * @param {Real} _steam_id_user
  * @param {Bool} _require_name_only
- * @returns {Bool} 
+ * @returns {Bool}
  */
 function steam_friends_request_user_information(_steam_id_user, _require_name_only)
 {
@@ -13309,7 +13258,7 @@ function steam_friends_set_callback_game_server_change_requested(_callback)
 
 /**
  * @param {Real} _dlc
- * @returns {Struct.SteamAppsDlcData} 
+ * @returns {Struct.SteamAppsDlcData}
  */
 function steam_apps_get_dlc_data_by_index(_dlc)
 {
@@ -13351,7 +13300,7 @@ function steam_apps_get_dlc_data_by_index(_dlc)
 
 
 /**
- * @returns {Struct.SteamAppsIsTimedTrialResult} 
+ * @returns {Struct.SteamAppsIsTimedTrialResult}
  */
 function steam_apps_is_timed_trial()
 {
@@ -13381,7 +13330,7 @@ function steam_apps_is_timed_trial()
 
 
 /**
- * @returns {Real} 
+ * @returns {Real}
  */
 function steam_apps_get_app_owner()
 {
@@ -13401,7 +13350,7 @@ function steam_apps_get_app_owner()
 
 
 /**
- * @returns {Struct.SteamAppsNumBetas} 
+ * @returns {Struct.SteamAppsNumBetas}
  */
 function steam_apps_get_num_betas()
 {
@@ -13416,7 +13365,7 @@ function steam_apps_get_num_betas()
 
 /**
  * @param {Real} _beta_index
- * @returns {Struct.SteamAppsBetaInfo} 
+ * @returns {Struct.SteamAppsBetaInfo}
  */
 function steam_apps_get_beta_info(_beta_index)
 {
@@ -13447,7 +13396,7 @@ function steam_apps_get_beta_info(_beta_index)
 
 /**
  * @param {Real} _app_id
- * @returns {Struct.SteamAppsDlcDownloadProgress} 
+ * @returns {Struct.SteamAppsDlcDownloadProgress}
  */
 function steam_apps_get_dlc_download_progress(_app_id)
 {
@@ -13471,7 +13420,7 @@ function steam_apps_get_dlc_download_progress(_app_id)
  * @param {Real} _app_id
  * @param {Id.Buffer} _ticket_buffer
  * @param {Real} _max_bytes
- * @returns {Real} 
+ * @returns {Real}
  */
 function steam_apps_get_app_ownership_ticket_data(_app_id, _ticket_buffer, _max_bytes)
 {
@@ -13525,7 +13474,7 @@ function steam_apps_get_file_details(_file_name, _callback)
 /**
  * @param {Real} _app_id
  * @param {Real} _max_depots
- * @returns {Array[Real]} 
+ * @returns {Array[Real]}
  */
 function steam_apps_get_installed_depots(_app_id, _max_depots)
 {
@@ -13587,7 +13536,7 @@ function steam_apps_set_callback_dlc_installed(_callback)
  * @param {Enum.SteamScreenshotsVrScreenshotType} _type
  * @param {String} _filename
  * @param {String} _vr_filename
- * @returns {Real} 
+ * @returns {Real}
  */
 function steam_screenshots_add_vr_screenshot_to_library(_type, _filename, _vr_filename)
 {
@@ -13625,7 +13574,7 @@ function steam_screenshots_add_vr_screenshot_to_library(_type, _filename, _vr_fi
 /**
  * @param {Real} _screenshot
  * @param {Real} _published_file_id
- * @returns {Bool} 
+ * @returns {Bool}
  */
 function steam_screenshots_tag_published_file(_screenshot, _published_file_id)
 {
@@ -13647,7 +13596,7 @@ function steam_screenshots_tag_published_file(_screenshot, _published_file_id)
 /**
  * @param {Real} _screenshot
  * @param {Real} _steam_id
- * @returns {Bool} 
+ * @returns {Bool}
  */
 function steam_screenshots_tag_user(_screenshot, _steam_id)
 {
@@ -13674,7 +13623,7 @@ function steam_screenshots_tag_user(_screenshot, _steam_id)
  * @param {Real} _rgb_size
  * @param {Real} _width
  * @param {Real} _height
- * @returns {Real} 
+ * @returns {Real}
  */
 function steam_screenshots_write_screenshot(_buff_rgb, _rgb_size, _width, _height)
 {
@@ -13775,7 +13724,7 @@ function steam_user_advertise_game(_steam_id_game_server, _server_ip, _server_po
  * @param {Id.Buffer} _auth_ticket
  * @param {Real} _auth_ticket_size
  * @param {Real} _steam_id
- * @returns {Enum.SteamUserBeginAuthSessionResult} 
+ * @returns {Enum.SteamUserBeginAuthSessionResult}
  */
 function steam_user_begin_auth_session(_auth_ticket, _auth_ticket_size, _steam_id)
 {
@@ -13822,7 +13771,7 @@ function steam_user_begin_auth_session(_auth_ticket, _auth_ticket_size, _steam_i
 
 /**
  * @param {Enum.SteamUserDurationControlOnlineState} _state
- * @returns {Bool} 
+ * @returns {Bool}
  */
 function steam_user_set_duration_control_online_state(_state)
 {
@@ -13847,7 +13796,7 @@ function steam_user_set_duration_control_online_state(_state)
  * @param {Id.Buffer} _dest
  * @param {Real} _dest_buffer_size
  * @param {Real} _desired_sample_rate
- * @returns {Enum.SteamApiVoiceResult} 
+ * @returns {Enum.SteamApiVoiceResult}
  */
 function steam_user_decompress_voice(_compressed, _compressed_size, _dest, _dest_buffer_size, _desired_sample_rate)
 {
@@ -13902,7 +13851,7 @@ function steam_user_end_auth_session(_steam_id)
  * @param {Id.Buffer} _out_ticket
  * @param {Real} _max_ticket_size
  * @param {Struct.SteamNetworkingIdentity} _remote_identity
- * @returns {Struct.SteamUserAuthSessionTicket} 
+ * @returns {Struct.SteamUserAuthSessionTicket}
  */
 function steam_user_get_auth_session_ticket(_out_ticket, _max_ticket_size, _remote_identity)
 {
@@ -13944,7 +13893,7 @@ function steam_user_get_auth_session_ticket(_out_ticket, _max_ticket_size, _remo
 
 
 /**
- * @returns {Real} 
+ * @returns {Real}
  */
 function steam_user_get_steam_id()
 {
@@ -13959,7 +13908,7 @@ function steam_user_get_steam_id()
 
 /**
  * @param {Real} _steam_id
- * @returns {Struct.SteamId} 
+ * @returns {Struct.SteamId}
  */
 function steam_user_decode_steam_id(_steam_id)
 {
@@ -13988,7 +13937,7 @@ function steam_user_decode_steam_id(_steam_id)
 
 
 /**
- * @returns {Struct.SteamUserAvailableVoice} 
+ * @returns {Struct.SteamUserAvailableVoice}
  */
 function steam_user_get_available_voice()
 {
@@ -14009,7 +13958,7 @@ function steam_user_get_available_voice()
  * @param {Id.Buffer} _dest_uncompressed
  * @param {Real} _dest_uncompressed_size
  * @param {Real} _desired_sample_rate
- * @returns {Struct.SteamUserGetVoiceResult} 
+ * @returns {Struct.SteamUserGetVoiceResult}
  */
 function steam_user_get_voice(_want_compressed, _dest_compressed, _dest_compressed_size, _want_uncompressed, _dest_uncompressed, _dest_uncompressed_size, _desired_sample_rate)
 {
@@ -14084,7 +14033,7 @@ function steam_user_request_encrypted_app_ticket(_data_to_include, _data_to_incl
 /**
  * @param {Id.Buffer} _out_ticket
  * @param {Real} _max_ticket_size
- * @returns {Real} 
+ * @returns {Real}
  */
 function steam_user_get_encrypted_app_ticket(_out_ticket, _max_ticket_size)
 {
@@ -14202,7 +14151,7 @@ function steam_user_track_app_usage_event(_game_id, _app_usage_event, _extra_inf
 /**
  * @param {Real} _steam_id
  * @param {Real} _app_id
- * @returns {Enum.SteamApiUserHasLicenseForAppResult} 
+ * @returns {Enum.SteamApiUserHasLicenseForAppResult}
  */
 function steam_user_user_has_license_for_app(_steam_id, _app_id)
 {
@@ -14406,7 +14355,7 @@ function steam_user_set_callback_validate_auth_ticket_response(_callback)
 
 /**
  * @param {Real} _steam_api_call
- * @returns {Enum.SteamUtilsApiCallFailure} 
+ * @returns {Enum.SteamUtilsApiCallFailure}
  */
 function steam_utils_get_api_call_failure_reason(_steam_api_call)
 {
@@ -14430,7 +14379,7 @@ function steam_utils_get_api_call_failure_reason(_steam_api_call)
  * @param {Real} _callback_expected
  * @param {Id.Buffer} _out_callback
  * @param {Real} _out_callback_size
- * @returns {Bool} 
+ * @returns {Bool}
  */
 function steam_utils_get_api_call_result(_steam_api_call, _callback_expected, _out_callback, _out_callback_size)
 {
@@ -14571,7 +14520,7 @@ function steam_utils_set_callback_steam_shutdown(_callback)
 
 
 /**
- * @returns {Enum.SteamApiUniverse} 
+ * @returns {Enum.SteamApiUniverse}
  */
 function steam_utils_get_connected_universe()
 {
@@ -14597,7 +14546,7 @@ function steam_utils_get_connected_universe()
  * @param {Real} _image_handle
  * @param {Id.Buffer} _dest
  * @param {Real} _dest_buffer_size
- * @returns {Bool} 
+ * @returns {Bool}
  */
 function steam_utils_get_image_rgba(_image_handle, _dest, _dest_buffer_size)
 {
@@ -14622,7 +14571,7 @@ function steam_utils_get_image_rgba(_image_handle, _dest, _dest_buffer_size)
 
 /**
  * @param {Real} _image_handle
- * @returns {Struct.SteamUtilsImageSize} 
+ * @returns {Struct.SteamUtilsImageSize}
  */
 function steam_utils_get_image_size(_image_handle)
 {
@@ -14677,7 +14626,7 @@ function steam_utils_get_image_size(_image_handle)
 
 /**
  * @param {Real} _steam_api_call
- * @returns {Bool} 
+ * @returns {Bool}
  */
 function steam_utils_is_api_call_completed(_steam_api_call)
 {
@@ -14699,7 +14648,7 @@ function steam_utils_is_api_call_completed(_steam_api_call)
  * @param {Enum.SteamUtilsTextFilteringContext} _context
  * @param {Real} _source_steam_id
  * @param {String} _input_message
- * @returns {Struct.SteamUtilsFilterTextResult} 
+ * @returns {Struct.SteamUtilsFilterTextResult}
  */
 function steam_utils_filter_text(_context, _source_steam_id, _input_message)
 {
@@ -14767,7 +14716,7 @@ function steam_utils_set_overlay_notification_position(_notification_position)
  * @param {String} _description
  * @param {Real} _char_max
  * @param {String} _existing_text
- * @returns {Bool} 
+ * @returns {Bool}
  */
 function steam_utils_show_gamepad_text_input(_input_mode, _line_mode, _description, _char_max, _existing_text)
 {
@@ -14808,7 +14757,7 @@ function steam_utils_show_gamepad_text_input(_input_mode, _line_mode, _descripti
  * @param {Real} _text_field_y
  * @param {Real} _text_field_width
  * @param {Real} _text_field_height
- * @returns {Bool} 
+ * @returns {Bool}
  */
 function steam_utils_show_floating_gamepad_text_input(_keyboard_mode, _text_field_x, _text_field_y, _text_field_width, _text_field_height)
 {
@@ -14976,7 +14925,7 @@ function steam_ugc_add_dependency(_parent_published_file_id, _child_published_fi
 /**
  * @param {Real} _query_handle
  * @param {String} _tag_name
- * @returns {Bool} 
+ * @returns {Bool}
  */
 function steam_ugc_add_excluded_tag(_query_handle, _tag_name)
 {
@@ -15000,7 +14949,7 @@ function steam_ugc_add_excluded_tag(_query_handle, _tag_name)
  * @param {Real} _update_handle
  * @param {String} _key
  * @param {String} _value
- * @returns {Bool} 
+ * @returns {Bool}
  */
 function steam_ugc_add_item_key_value_tag(_update_handle, _key, _value)
 {
@@ -15029,7 +14978,7 @@ function steam_ugc_add_item_key_value_tag(_update_handle, _key, _value)
  * @param {Real} _update_handle
  * @param {String} _preview_file_path
  * @param {Enum.SteamUgcItemPreviewType} _preview_type
- * @returns {Bool} 
+ * @returns {Bool}
  */
 function steam_ugc_add_item_preview_file(_update_handle, _preview_file_path, _preview_type)
 {
@@ -15057,7 +15006,7 @@ function steam_ugc_add_item_preview_file(_update_handle, _preview_file_path, _pr
 /**
  * @param {Real} _update_handle
  * @param {String} _video_id
- * @returns {Bool} 
+ * @returns {Bool}
  */
 function steam_ugc_add_item_preview_video(_update_handle, _video_id)
 {
@@ -15110,7 +15059,7 @@ function steam_ugc_add_item_to_favorites(_app_id, _published_file_id, _callback)
  * @param {Real} _query_handle
  * @param {String} _key
  * @param {String} _value
- * @returns {Bool} 
+ * @returns {Bool}
  */
 function steam_ugc_add_required_key_value_tag(_query_handle, _key, _value)
 {
@@ -15138,7 +15087,7 @@ function steam_ugc_add_required_key_value_tag(_query_handle, _key, _value)
 /**
  * @param {Real} _query_handle
  * @param {String} _tag_name
- * @returns {Bool} 
+ * @returns {Bool}
  */
 function steam_ugc_add_required_tag(_query_handle, _tag_name)
 {
@@ -15161,7 +15110,7 @@ function steam_ugc_add_required_tag(_query_handle, _tag_name)
 /**
  * @param {Real} _query_handle
  * @param {Array[String]} _tags_csv
- * @returns {Bool} 
+ * @returns {Bool}
  */
 function steam_ugc_add_required_tag_group(_query_handle, _tags_csv)
 {
@@ -15226,7 +15175,7 @@ function steam_ugc_create_item(_consumer_app_id, _workshop_file_type, _callback)
  * @param {Real} _creator_app_id
  * @param {Real} _consumer_app_id
  * @param {Real} _page
- * @returns {Real} 
+ * @returns {Real}
  */
 function steam_ugc_create_query_all_ugc_request(_query_type, _matching_ugc_type, _creator_app_id, _consumer_app_id, _page)
 {
@@ -15265,7 +15214,7 @@ function steam_ugc_create_query_all_ugc_request(_query_type, _matching_ugc_type,
 
 /**
  * @param {Array[Real]} _published_file_ids
- * @returns {Real} 
+ * @returns {Real}
  */
 function steam_ugc_create_query_ugc_details_request(_published_file_ids)
 {
@@ -15298,7 +15247,7 @@ function steam_ugc_create_query_ugc_details_request(_published_file_ids)
  * @param {Real} _creator_app_id
  * @param {Real} _consumer_app_id
  * @param {Real} _page
- * @returns {Real} 
+ * @returns {Real}
  */
 function steam_ugc_create_query_user_ugc_request(_account_id, _list_type, _matching_ugc_type, _sort_order, _creator_app_id, _consumer_app_id, _page)
 {
@@ -15371,7 +15320,7 @@ function steam_ugc_delete_item(_published_file_id, _callback)
 /**
  * @param {Real} _published_file_id
  * @param {Bool} _high_priority
- * @returns {Bool} 
+ * @returns {Bool}
  */
 function steam_ugc_download_item(_published_file_id, _high_priority)
 {
@@ -15416,7 +15365,7 @@ function steam_ugc_get_app_dependencies(_published_file_id, _callback)
 
 /**
  * @param {Real} _published_file_id
- * @returns {Struct.SteamUgcItemDownloadInfo} 
+ * @returns {Struct.SteamUgcItemDownloadInfo}
  */
 function steam_ugc_get_item_download_info(_published_file_id)
 {
@@ -15444,7 +15393,7 @@ function steam_ugc_get_item_download_info(_published_file_id)
 
 /**
  * @param {Real} _published_file_id
- * @returns {Struct.SteamUgcItemInstallInfo} 
+ * @returns {Struct.SteamUgcItemInstallInfo}
  */
 function steam_ugc_get_item_install_info(_published_file_id)
 {
@@ -15472,7 +15421,7 @@ function steam_ugc_get_item_install_info(_published_file_id)
 
 /**
  * @param {Real} _published_file_id
- * @returns {Enum.SteamUgcItemState} 
+ * @returns {Enum.SteamUgcItemState}
  */
 function steam_ugc_get_item_state(_published_file_id)
 {
@@ -15493,7 +15442,7 @@ function steam_ugc_get_item_state(_published_file_id)
 
 /**
  * @param {Real} _update_handle
- * @returns {Struct.SteamUgcItemUpdateProgress} 
+ * @returns {Struct.SteamUgcItemUpdateProgress}
  */
 function steam_ugc_get_item_update_progress(_update_handle)
 {
@@ -15518,7 +15467,7 @@ function steam_ugc_get_item_update_progress(_update_handle)
 /**
  * @param {Real} _max_entries
  * @param {Bool} _include_locally_disabled
- * @returns {Array[Real]} 
+ * @returns {Array[Real]}
  */
 function steam_ugc_get_subscribed_items(_max_entries, _include_locally_disabled)
 {
@@ -15539,7 +15488,7 @@ function steam_ugc_get_subscribed_items(_max_entries, _include_locally_disabled)
 /**
  * @param {Real} _query_handle
  * @param {Real} _index
- * @returns {Struct.SteamUgcQueryResult} 
+ * @returns {Struct.SteamUgcQueryResult}
  */
 function steam_ugc_get_query_ugc_result(_query_handle, _index)
 {
@@ -15572,7 +15521,7 @@ function steam_ugc_get_query_ugc_result(_query_handle, _index)
 /**
  * @param {Real} _query_handle
  * @param {Real} _index
- * @returns {String} 
+ * @returns {String}
  */
 function steam_ugc_get_query_ugc_preview_url(_query_handle, _index)
 {
@@ -15594,7 +15543,7 @@ function steam_ugc_get_query_ugc_preview_url(_query_handle, _index)
 /**
  * @param {Real} _query_handle
  * @param {Real} _index
- * @returns {String} 
+ * @returns {String}
  */
 function steam_ugc_get_query_ugc_metadata(_query_handle, _index)
 {
@@ -15617,7 +15566,7 @@ function steam_ugc_get_query_ugc_metadata(_query_handle, _index)
  * @param {Real} _query_handle
  * @param {Real} _index
  * @param {Real} _max_entries
- * @returns {Array[Real]} 
+ * @returns {Array[Real]}
  */
 function steam_ugc_get_query_ugc_children(_query_handle, _index, _max_entries)
 {
@@ -15653,7 +15602,7 @@ function steam_ugc_get_query_ugc_children(_query_handle, _index, _max_entries)
  * @param {Real} _query_handle
  * @param {Real} _index
  * @param {Enum.SteamUgcStatisticType} _stat_type
- * @returns {Real} 
+ * @returns {Real}
  */
 function steam_ugc_get_query_ugc_statistic(_query_handle, _index, _stat_type)
 {
@@ -15684,7 +15633,7 @@ function steam_ugc_get_query_ugc_statistic(_query_handle, _index, _stat_type)
 /**
  * @param {Real} _query_handle
  * @param {Real} _index
- * @returns {Real} 
+ * @returns {Real}
  */
 function steam_ugc_get_query_ugc_num_additional_previews(_query_handle, _index)
 {
@@ -15708,7 +15657,7 @@ function steam_ugc_get_query_ugc_num_additional_previews(_query_handle, _index)
  * @param {Real} _index
  * @param {Real} _preview_index
  * @param {String} _original_file_name
- * @returns {Struct.SteamUgcAdditionalPreview} 
+ * @returns {Struct.SteamUgcAdditionalPreview}
  */
 function steam_ugc_get_query_ugc_additional_preview(_query_handle, _index, _preview_index, _original_file_name)
 {
@@ -15751,7 +15700,7 @@ function steam_ugc_get_query_ugc_additional_preview(_query_handle, _index, _prev
  * @param {Real} _query_handle
  * @param {Real} _index
  * @param {Real} _version_index
- * @returns {Struct.SteamUgcSupportedGameVersionData} 
+ * @returns {Struct.SteamUgcSupportedGameVersionData}
  */
 function steam_ugc_get_supported_game_version_data(_query_handle, _index, _version_index)
 {
@@ -15788,7 +15737,7 @@ function steam_ugc_get_supported_game_version_data(_query_handle, _index, _versi
 /**
  * @param {Real} _query_handle
  * @param {Real} _index
- * @returns {Real} 
+ * @returns {Real}
  */
 function steam_ugc_get_query_ugc_num_key_value_tags(_query_handle, _index)
 {
@@ -15811,7 +15760,7 @@ function steam_ugc_get_query_ugc_num_key_value_tags(_query_handle, _index)
  * @param {Real} _query_handle
  * @param {Real} _index
  * @param {Real} _key_value_tag_index
- * @returns {Struct.SteamUgcKeyValueTag} 
+ * @returns {Struct.SteamUgcKeyValueTag}
  */
 function steam_ugc_get_query_ugc_key_value_tag(_query_handle, _index, _key_value_tag_index)
 {
@@ -15849,7 +15798,7 @@ function steam_ugc_get_query_ugc_key_value_tag(_query_handle, _index, _key_value
  * @param {Real} _query_handle
  * @param {Real} _index
  * @param {Real} _max_descriptors
- * @returns {Array[Enum.SteamUgcContentDescriptorId]} 
+ * @returns {Array[Enum.SteamUgcContentDescriptorId]}
  */
 function steam_ugc_get_query_ugc_content_descriptors(_query_handle, _index, _max_descriptors)
 {
@@ -15971,7 +15920,7 @@ function steam_ugc_remove_item_from_favorites(_app_id, _published_file_id, _call
 /**
  * @param {Real} _update_handle
  * @param {String} _key
- * @returns {Bool} 
+ * @returns {Bool}
  */
 function steam_ugc_remove_item_key_value_tags(_update_handle, _key)
 {
@@ -15994,7 +15943,7 @@ function steam_ugc_remove_item_key_value_tags(_update_handle, _key)
 /**
  * @param {Real} _update_handle
  * @param {Real} _index
- * @returns {Bool} 
+ * @returns {Bool}
  */
 function steam_ugc_remove_item_preview(_update_handle, _index)
 {
@@ -16016,7 +15965,7 @@ function steam_ugc_remove_item_preview(_update_handle, _index)
 /**
  * @param {Real} _update_handle
  * @param {Enum.SteamUgcContentDescriptorId} _descriptor_id
- * @returns {Bool} 
+ * @returns {Bool}
  */
 function steam_ugc_add_content_descriptor(_update_handle, _descriptor_id)
 {
@@ -16039,7 +15988,7 @@ function steam_ugc_add_content_descriptor(_update_handle, _descriptor_id)
 /**
  * @param {Real} _update_handle
  * @param {Enum.SteamUgcContentDescriptorId} _descriptor_id
- * @returns {Bool} 
+ * @returns {Bool}
  */
 function steam_ugc_remove_content_descriptor(_update_handle, _descriptor_id)
 {
@@ -16063,7 +16012,7 @@ function steam_ugc_remove_content_descriptor(_update_handle, _descriptor_id)
  * @param {Real} _update_handle
  * @param {String} _game_branch_min
  * @param {String} _game_branch_max
- * @returns {Bool} 
+ * @returns {Bool}
  */
 function steam_ugc_set_required_game_versions(_update_handle, _game_branch_min, _game_branch_max)
 {
@@ -16153,7 +16102,7 @@ function steam_ugc_set_callback_item_installed(_callback)
 /**
  * @param {Real} _query_handle
  * @param {Real} _max_age_seconds
- * @returns {Bool} 
+ * @returns {Bool}
  */
 function steam_ugc_set_allow_cached_response(_query_handle, _max_age_seconds)
 {
@@ -16175,7 +16124,7 @@ function steam_ugc_set_allow_cached_response(_query_handle, _max_age_seconds)
 /**
  * @param {Real} _query_handle
  * @param {String} _match_cloud_file_name
- * @returns {Bool} 
+ * @returns {Bool}
  */
 function steam_ugc_set_cloud_file_name_filter(_query_handle, _match_cloud_file_name)
 {
@@ -16198,7 +16147,7 @@ function steam_ugc_set_cloud_file_name_filter(_query_handle, _match_cloud_file_n
 /**
  * @param {Real} _update_handle
  * @param {String} _content_folder
- * @returns {Bool} 
+ * @returns {Bool}
  */
 function steam_ugc_set_item_content(_update_handle, _content_folder)
 {
@@ -16221,7 +16170,7 @@ function steam_ugc_set_item_content(_update_handle, _content_folder)
 /**
  * @param {Real} _update_handle
  * @param {String} _description
- * @returns {Bool} 
+ * @returns {Bool}
  */
 function steam_ugc_set_item_description(_update_handle, _description)
 {
@@ -16244,7 +16193,7 @@ function steam_ugc_set_item_description(_update_handle, _description)
 /**
  * @param {Real} _update_handle
  * @param {String} _metadata
- * @returns {Bool} 
+ * @returns {Bool}
  */
 function steam_ugc_set_item_metadata(_update_handle, _metadata)
 {
@@ -16267,7 +16216,7 @@ function steam_ugc_set_item_metadata(_update_handle, _metadata)
 /**
  * @param {Real} _update_handle
  * @param {String} _preview_file
- * @returns {Bool} 
+ * @returns {Bool}
  */
 function steam_ugc_set_item_preview(_update_handle, _preview_file)
 {
@@ -16290,7 +16239,7 @@ function steam_ugc_set_item_preview(_update_handle, _preview_file)
 /**
  * @param {Real} _update_handle
  * @param {Array[String]} _tags_csv
- * @returns {Bool} 
+ * @returns {Bool}
  */
 function steam_ugc_set_item_tags(_update_handle, _tags_csv)
 {
@@ -16319,7 +16268,7 @@ function steam_ugc_set_item_tags(_update_handle, _tags_csv)
 /**
  * @param {Real} _update_handle
  * @param {String} _title
- * @returns {Bool} 
+ * @returns {Bool}
  */
 function steam_ugc_set_item_title(_update_handle, _title)
 {
@@ -16342,7 +16291,7 @@ function steam_ugc_set_item_title(_update_handle, _title)
 /**
  * @param {Real} _update_handle
  * @param {String} _language
- * @returns {Bool} 
+ * @returns {Bool}
  */
 function steam_ugc_set_item_update_language(_update_handle, _language)
 {
@@ -16366,7 +16315,7 @@ function steam_ugc_set_item_update_language(_update_handle, _language)
  * @param {Array[Real]} _published_file_ids
  * @param {Real} _num_published_file_ids
  * @param {Bool} _disabled_locally
- * @returns {Bool} 
+ * @returns {Bool}
  */
 function steam_ugc_set_items_disabled_locally(_published_file_ids, _num_published_file_ids, _disabled_locally)
 {
@@ -16398,7 +16347,7 @@ function steam_ugc_set_items_disabled_locally(_published_file_ids, _num_publishe
 /**
  * @param {Real} _update_handle
  * @param {Enum.SteamRemoteStoragePublishedFileVisibility} _visibility
- * @returns {Bool} 
+ * @returns {Bool}
  */
 function steam_ugc_set_item_visibility(_update_handle, _visibility)
 {
@@ -16421,7 +16370,7 @@ function steam_ugc_set_item_visibility(_update_handle, _visibility)
 /**
  * @param {Real} _query_handle
  * @param {String} _language
- * @returns {Bool} 
+ * @returns {Bool}
  */
 function steam_ugc_set_language(_query_handle, _language)
 {
@@ -16444,7 +16393,7 @@ function steam_ugc_set_language(_query_handle, _language)
 /**
  * @param {Real} _query_handle
  * @param {Bool} _match_any_tag
- * @returns {Bool} 
+ * @returns {Bool}
  */
 function steam_ugc_set_match_any_tag(_query_handle, _match_any_tag)
 {
@@ -16466,7 +16415,7 @@ function steam_ugc_set_match_any_tag(_query_handle, _match_any_tag)
 /**
  * @param {Real} _query_handle
  * @param {Real} _days
- * @returns {Bool} 
+ * @returns {Bool}
  */
 function steam_ugc_set_ranked_by_trend_days(_query_handle, _days)
 {
@@ -16488,7 +16437,7 @@ function steam_ugc_set_ranked_by_trend_days(_query_handle, _days)
 /**
  * @param {Real} _query_handle
  * @param {Bool} _return_additional_previews
- * @returns {Bool} 
+ * @returns {Bool}
  */
 function steam_ugc_set_return_additional_previews(_query_handle, _return_additional_previews)
 {
@@ -16510,7 +16459,7 @@ function steam_ugc_set_return_additional_previews(_query_handle, _return_additio
 /**
  * @param {Real} _query_handle
  * @param {Bool} _return_children
- * @returns {Bool} 
+ * @returns {Bool}
  */
 function steam_ugc_set_return_children(_query_handle, _return_children)
 {
@@ -16532,7 +16481,7 @@ function steam_ugc_set_return_children(_query_handle, _return_children)
 /**
  * @param {Real} _query_handle
  * @param {Bool} _return_key_value_tags
- * @returns {Bool} 
+ * @returns {Bool}
  */
 function steam_ugc_set_return_key_value_tags(_query_handle, _return_key_value_tags)
 {
@@ -16554,7 +16503,7 @@ function steam_ugc_set_return_key_value_tags(_query_handle, _return_key_value_ta
 /**
  * @param {Real} _query_handle
  * @param {Bool} _return_long_description
- * @returns {Bool} 
+ * @returns {Bool}
  */
 function steam_ugc_set_return_long_description(_query_handle, _return_long_description)
 {
@@ -16576,7 +16525,7 @@ function steam_ugc_set_return_long_description(_query_handle, _return_long_descr
 /**
  * @param {Real} _query_handle
  * @param {Bool} _return_metadata
- * @returns {Bool} 
+ * @returns {Bool}
  */
 function steam_ugc_set_return_metadata(_query_handle, _return_metadata)
 {
@@ -16598,7 +16547,7 @@ function steam_ugc_set_return_metadata(_query_handle, _return_metadata)
 /**
  * @param {Real} _query_handle
  * @param {Bool} _return_only_ids
- * @returns {Bool} 
+ * @returns {Bool}
  */
 function steam_ugc_set_return_only_ids(_query_handle, _return_only_ids)
 {
@@ -16620,7 +16569,7 @@ function steam_ugc_set_return_only_ids(_query_handle, _return_only_ids)
 /**
  * @param {Real} _query_handle
  * @param {Real} _days
- * @returns {Bool} 
+ * @returns {Bool}
  */
 function steam_ugc_set_return_playtime_stats(_query_handle, _days)
 {
@@ -16642,7 +16591,7 @@ function steam_ugc_set_return_playtime_stats(_query_handle, _days)
 /**
  * @param {Real} _query_handle
  * @param {Bool} _return_total_only
- * @returns {Bool} 
+ * @returns {Bool}
  */
 function steam_ugc_set_return_total_only(_query_handle, _return_total_only)
 {
@@ -16664,7 +16613,7 @@ function steam_ugc_set_return_total_only(_query_handle, _return_total_only)
 /**
  * @param {Real} _query_handle
  * @param {String} _search_text
- * @returns {Bool} 
+ * @returns {Bool}
  */
 function steam_ugc_set_search_text(_query_handle, _search_text)
 {
@@ -16687,7 +16636,7 @@ function steam_ugc_set_search_text(_query_handle, _search_text)
 /**
  * @param {Array[Real]} _published_file_ids
  * @param {Real} _num_published_file_ids
- * @returns {Bool} 
+ * @returns {Bool}
  */
 function steam_ugc_set_subscriptions_load_order(_published_file_ids, _num_published_file_ids)
 {
@@ -16768,7 +16717,7 @@ function steam_ugc_get_user_item_vote(_published_file_id, _callback)
 /**
  * @param {Real} _consumer_app_id
  * @param {Real} _published_file_id
- * @returns {Real} 
+ * @returns {Real}
  */
 function steam_ugc_start_item_update(_consumer_app_id, _published_file_id)
 {
@@ -16982,7 +16931,7 @@ function steam_ugc_set_callback_user_subscribed_items_list_changed(_callback)
  * @param {Real} _update_handle
  * @param {Real} _index
  * @param {String} _preview_file
- * @returns {Bool} 
+ * @returns {Bool}
  */
 function steam_ugc_update_item_preview_file(_update_handle, _index, _preview_file)
 {
@@ -17010,7 +16959,7 @@ function steam_ugc_update_item_preview_file(_update_handle, _index, _preview_fil
  * @param {Real} _update_handle
  * @param {Real} _index
  * @param {String} _video_id
- * @returns {Bool} 
+ * @returns {Bool}
  */
 function steam_ugc_update_item_preview_video(_update_handle, _index, _video_id)
 {
@@ -17059,7 +17008,7 @@ function steam_ugc_get_workshop_eula_status(_callback)
 /**
  * @param {Real} _query_handle
  * @param {Real} _index
- * @returns {Real} 
+ * @returns {Real}
  */
 function steam_ugc_get_num_supported_game_versions(_query_handle, _index)
 {
@@ -17159,7 +17108,7 @@ function steam_input_deactivate_all_action_set_layers(_input_handle)
 
 /**
  * @param {Real} _input_handle
- * @returns {Struct.SteamInputActiveActionSetLayers} 
+ * @returns {Struct.SteamInputActiveActionSetLayers}
  */
 function steam_input_get_active_action_set_layers(_input_handle)
 {
@@ -17180,7 +17129,7 @@ function steam_input_get_active_action_set_layers(_input_handle)
 
 /**
  * @param {String} _action_set_name
- * @returns {Real} 
+ * @returns {Real}
  */
 function steam_input_get_action_set_handle(_action_set_name)
 {
@@ -17196,7 +17145,7 @@ function steam_input_get_action_set_handle(_action_set_name)
 /**
  * @param {Real} _input_handle
  * @param {Real} _analog_action_handle
- * @returns {Struct.SteamInputAnalogActionData} 
+ * @returns {Struct.SteamInputAnalogActionData}
  */
 function steam_input_get_analog_action_data(_input_handle, _analog_action_handle)
 {
@@ -17221,7 +17170,7 @@ function steam_input_get_analog_action_data(_input_handle, _analog_action_handle
 
 /**
  * @param {String} _action_name
- * @returns {Real} 
+ * @returns {Real}
  */
 function steam_input_get_analog_action_handle(_action_name)
 {
@@ -17238,7 +17187,7 @@ function steam_input_get_analog_action_handle(_action_name)
  * @param {Real} _input_handle
  * @param {Real} _action_set_handle
  * @param {Real} _analog_action_handle
- * @returns {Struct.SteamInputActionOrigins} 
+ * @returns {Struct.SteamInputActionOrigins}
  */
 function steam_input_get_analog_action_origins(_input_handle, _action_set_handle, _analog_action_handle)
 {
@@ -17269,7 +17218,7 @@ function steam_input_get_analog_action_origins(_input_handle, _action_set_handle
  * @param {Enum.SteamInputActionOrigin} _origin
  * @param {Enum.SteamInputGlyphSize} _size
  * @param {Real} _flags
- * @returns {String} 
+ * @returns {String}
  */
 function steam_input_get_glyph_png_for_action_origin(_origin, _size, _flags)
 {
@@ -17297,7 +17246,7 @@ function steam_input_get_glyph_png_for_action_origin(_origin, _size, _flags)
 /**
  * @param {Enum.SteamInputActionOrigin} _origin
  * @param {Real} _flags
- * @returns {String} 
+ * @returns {String}
  */
 function steam_input_get_glyph_svg_for_action_origin(_origin, _flags)
 {
@@ -17318,7 +17267,7 @@ function steam_input_get_glyph_svg_for_action_origin(_origin, _flags)
 }
 
 /**
- * @returns {Array[Real]} 
+ * @returns {Array[Real]}
  */
 function steam_input_get_connected_controllers()
 {
@@ -17338,7 +17287,7 @@ function steam_input_get_connected_controllers()
 
 /**
  * @param {Real} _index
- * @returns {Real} 
+ * @returns {Real}
  */
 function steam_input_get_controller_for_gamepad_index(_index)
 {
@@ -17353,7 +17302,7 @@ function steam_input_get_controller_for_gamepad_index(_index)
 
 /**
  * @param {Real} _input_handle
- * @returns {Real} 
+ * @returns {Real}
  */
 function steam_input_get_current_action_set(_input_handle)
 {
@@ -17375,7 +17324,7 @@ function steam_input_get_current_action_set(_input_handle)
 /**
  * @param {Real} _input_handle
  * @param {Real} _digital_action_handle
- * @returns {Struct.SteamInputDigitalActionData} 
+ * @returns {Struct.SteamInputDigitalActionData}
  */
 function steam_input_get_digital_action_data(_input_handle, _digital_action_handle)
 {
@@ -17400,7 +17349,7 @@ function steam_input_get_digital_action_data(_input_handle, _digital_action_hand
 
 /**
  * @param {String} _action_name
- * @returns {Real} 
+ * @returns {Real}
  */
 function steam_input_get_digital_action_handle(_action_name)
 {
@@ -17417,7 +17366,7 @@ function steam_input_get_digital_action_handle(_action_name)
  * @param {Real} _input_handle
  * @param {Real} _action_set_handle
  * @param {Real} _digital_action_handle
- * @returns {Struct.SteamInputActionOrigins} 
+ * @returns {Struct.SteamInputActionOrigins}
  */
 function steam_input_get_digital_action_origins(_input_handle, _action_set_handle, _digital_action_handle)
 {
@@ -17446,7 +17395,7 @@ function steam_input_get_digital_action_origins(_input_handle, _action_set_handl
 
 /**
  * @param {Real} _input_handle
- * @returns {Real} 
+ * @returns {Real}
  */
 function steam_input_get_gamepad_index_for_controller(_input_handle)
 {
@@ -17463,7 +17412,7 @@ function steam_input_get_gamepad_index_for_controller(_input_handle)
 
 /**
  * @param {Real} _input_handle
- * @returns {Enum.SteamInputType} 
+ * @returns {Enum.SteamInputType}
  */
 function steam_input_get_input_type_for_handle(_input_handle)
 {
@@ -17484,7 +17433,7 @@ function steam_input_get_input_type_for_handle(_input_handle)
 
 /**
  * @param {Real} _input_handle
- * @returns {Struct.SteamInputMotionData} 
+ * @returns {Struct.SteamInputMotionData}
  */
 function steam_input_get_motion_data(_input_handle)
 {
@@ -17505,7 +17454,7 @@ function steam_input_get_motion_data(_input_handle)
 
 /**
  * @param {Enum.SteamInputActionOrigin} _origin
- * @returns {String} 
+ * @returns {String}
  */
 function steam_input_get_string_for_action_origin(_origin)
 {
@@ -17533,7 +17482,7 @@ function steam_input_get_string_for_action_origin(_origin)
 /**
  * @param {Real} _input_handle
  * @param {Array[Real]} _param
- * @returns {Bool} 
+ * @returns {Bool}
  */
 function steam_input_set_dualsense_trigger_effect(_input_handle, _param)
 {
@@ -17596,7 +17545,7 @@ function steam_input_set_led_color(_input_handle, _color_r, _color_g, _color_b, 
 
 /**
  * @param {Real} _input_handle
- * @returns {Bool} 
+ * @returns {Bool}
  */
 function steam_input_show_binding_panel(_input_handle)
 {
@@ -17700,7 +17649,7 @@ function steam_input_trigger_vibration_extended(_input_handle, _left_speed, _rig
 /**
  * @param {Real} _input_handle
  * @param {Enum.SteamInputXboxOrigin} _origin
- * @returns {Enum.SteamInputActionOrigin} 
+ * @returns {Enum.SteamInputActionOrigin}
  */
 function steam_input_get_action_origin_from_xbox_origin(_input_handle, _origin)
 {
@@ -17727,7 +17676,7 @@ function steam_input_get_action_origin_from_xbox_origin(_input_handle, _origin)
 /**
  * @param {Enum.SteamInputType} _destination_input_type
  * @param {Enum.SteamInputActionOrigin} _source_origin
- * @returns {Enum.SteamInputActionOrigin} 
+ * @returns {Enum.SteamInputActionOrigin}
  */
 function steam_input_translate_action_origin(_destination_input_type, _source_origin)
 {
@@ -17754,7 +17703,7 @@ function steam_input_translate_action_origin(_destination_input_type, _source_or
 
 /**
  * @param {Real} _input_handle
- * @returns {Struct.SteamInputDeviceBindingRevision} 
+ * @returns {Struct.SteamInputDeviceBindingRevision}
  */
 function steam_input_get_device_binding_revision(_input_handle)
 {
@@ -17782,7 +17731,7 @@ function steam_input_get_device_binding_revision(_input_handle)
 
 /**
  * @param {Real} _input_handle
- * @returns {Real} 
+ * @returns {Real}
  */
 function steam_input_get_remote_play_session_id(_input_handle)
 {
@@ -17867,7 +17816,7 @@ function steam_input_set_callback_device_disconnected(_callback)
 
 /**
  * @param {String} _achievement_name
- * @returns {Struct.SteamUserStatsAchievementAndUnlockTime} 
+ * @returns {Struct.SteamUserStatsAchievementAndUnlockTime}
  */
 function steam_userstats_achievement_and_unlock_time(_achievement_name)
 {
@@ -17925,7 +17874,7 @@ function steam_userstats_request_user_stats(_steam_id_user, _callback)
 /**
  * @param {Real} _steam_id_user
  * @param {String} _stat_name
- * @returns {Real} 
+ * @returns {Real}
  */
 function steam_userstats_user_stat_int(_steam_id_user, _stat_name)
 {
@@ -17948,7 +17897,7 @@ function steam_userstats_user_stat_int(_steam_id_user, _stat_name)
 /**
  * @param {Real} _steam_id_user
  * @param {String} _stat_name
- * @returns {Real} 
+ * @returns {Real}
  */
 function steam_userstats_user_stat_float(_steam_id_user, _stat_name)
 {
@@ -17971,7 +17920,7 @@ function steam_userstats_user_stat_float(_steam_id_user, _stat_name)
 /**
  * @param {Real} _steam_id_user
  * @param {String} _achievement_name
- * @returns {Bool} 
+ * @returns {Bool}
  */
 function steam_userstats_user_achievement(_steam_id_user, _achievement_name)
 {
@@ -17994,7 +17943,7 @@ function steam_userstats_user_achievement(_steam_id_user, _achievement_name)
 /**
  * @param {Real} _steam_id_user
  * @param {String} _achievement_name
- * @returns {Struct.SteamUserStatsAchievementAndUnlockTime} 
+ * @returns {Struct.SteamUserStatsAchievementAndUnlockTime}
  */
 function steam_userstats_user_achievement_and_unlock_time(_steam_id_user, _achievement_name)
 {
@@ -18085,7 +18034,7 @@ function steam_userstats_find_leaderboard(_leaderboard_name, _callback)
 
 /**
  * @param {Real} _leaderboard_handle
- * @returns {String} 
+ * @returns {String}
  */
 function steam_userstats_leaderboard_name(_leaderboard_handle)
 {
@@ -18102,7 +18051,7 @@ function steam_userstats_leaderboard_name(_leaderboard_handle)
 
 /**
  * @param {Real} _leaderboard_handle
- * @returns {Real} 
+ * @returns {Real}
  */
 function steam_userstats_leaderboard_entry_count(_leaderboard_handle)
 {
@@ -18119,7 +18068,7 @@ function steam_userstats_leaderboard_entry_count(_leaderboard_handle)
 
 /**
  * @param {Real} _leaderboard_handle
- * @returns {Enum.SteamLeaderboardSortMethod} 
+ * @returns {Enum.SteamLeaderboardSortMethod}
  */
 function steam_userstats_leaderboard_sort_method(_leaderboard_handle)
 {
@@ -18140,7 +18089,7 @@ function steam_userstats_leaderboard_sort_method(_leaderboard_handle)
 
 /**
  * @param {Real} _leaderboard_handle
- * @returns {Enum.SteamLeaderboardDisplayType} 
+ * @returns {Enum.SteamLeaderboardDisplayType}
  */
 function steam_userstats_leaderboard_display_type(_leaderboard_handle)
 {
@@ -18238,7 +18187,7 @@ function steam_userstats_download_leaderboard_entries_for_users(_leaderboard_han
  * @param {Real} _leaderboard_entries_handle
  * @param {Real} _entry_index
  * @param {Real} _max_details
- * @returns {Struct.SteamUserStatsDownloadedLeaderboardEntry} 
+ * @returns {Struct.SteamUserStatsDownloadedLeaderboardEntry}
  */
 function steam_userstats_downloaded_leaderboard_entry(_leaderboard_entries_handle, _entry_index, _max_details)
 {
@@ -18386,7 +18335,7 @@ function steam_userstats_request_global_achievement_percentages(_callback)
 }
 
 /**
- * @returns {Struct.SteamUserStatsMostAchievedAchievementInfo} 
+ * @returns {Struct.SteamUserStatsMostAchievedAchievementInfo}
  */
 function steam_userstats_most_achieved_achievement_info()
 {
@@ -18408,7 +18357,7 @@ function steam_userstats_most_achieved_achievement_info()
 
 /**
  * @param {Real} _iterator_prev
- * @returns {Struct.SteamUserStatsMostAchievedAchievementInfo} 
+ * @returns {Struct.SteamUserStatsMostAchievedAchievementInfo}
  */
 function steam_userstats_next_most_achieved_achievement_info(_iterator_prev)
 {
@@ -18463,7 +18412,7 @@ function steam_userstats_request_global_stats(_history_days, _callback)
 
 /**
  * @param {String} _stat_name
- * @returns {Array[Real]} 
+ * @returns {Array[Real]}
  */
 function steam_userstats_global_stat_history_int64(_stat_name)
 {
@@ -18483,7 +18432,7 @@ function steam_userstats_global_stat_history_int64(_stat_name)
 
 /**
  * @param {String} _stat_name
- * @returns {Array[Real]} 
+ * @returns {Array[Real]}
  */
 function steam_userstats_global_stat_history_double(_stat_name)
 {
@@ -18505,7 +18454,7 @@ function steam_userstats_global_stat_history_double(_stat_name)
  * @param {String} _achievement_name
  * @param {Real} _cur_progress
  * @param {Real} _max_progress
- * @returns {Struct.SteamUserStatsIntMinMax} 
+ * @returns {Struct.SteamUserStatsIntMinMax}
  */
 function steam_userstats_achievement_progress_int(_achievement_name, _cur_progress, _max_progress)
 {
@@ -18544,7 +18493,7 @@ function steam_userstats_achievement_progress_int(_achievement_name, _cur_progre
  * @param {String} _achievement_name
  * @param {Real} _cur_progress
  * @param {Real} _max_progress
- * @returns {Struct.SteamUserStatsFloatMinMax} 
+ * @returns {Struct.SteamUserStatsFloatMinMax}
  */
 function steam_userstats_achievement_progress_float(_achievement_name, _cur_progress, _max_progress)
 {
@@ -18696,7 +18645,7 @@ function steam_userstats_set_callback_user_stats_unloaded(_callback)
 
 
 /**
- * @returns {Enum.SteamMusicPlaybackStatus} 
+ * @returns {Enum.SteamMusicPlaybackStatus}
  */
 function steam_music_get_playback_status()
 {
@@ -18784,7 +18733,7 @@ function steam_music_set_callback_volume_has_changed(_callback)
  * @param {Real} _priority
  * @param {Real} _start_offset_seconds
  * @param {Enum.SteamTimelineEventClipPriority} _possible_clip
- * @returns {Real} 
+ * @returns {Real}
  */
 function steam_timeline_add_instantaneous_timeline_event(_title, _description, _icon, _priority, _start_offset_seconds, _possible_clip)
 {
@@ -18835,7 +18784,7 @@ function steam_timeline_add_instantaneous_timeline_event(_title, _description, _
  * @param {Real} _start_offset_seconds
  * @param {Real} _duration_seconds
  * @param {Enum.SteamTimelineEventClipPriority} _possible_clip
- * @returns {Real} 
+ * @returns {Real}
  */
 function steam_timeline_add_range_timeline_event(_title, _description, _icon, _priority, _start_offset_seconds, _duration_seconds, _possible_clip)
 {
@@ -18889,7 +18838,7 @@ function steam_timeline_add_range_timeline_event(_title, _description, _icon, _p
  * @param {Real} _priority
  * @param {Real} _start_offset_seconds
  * @param {Enum.SteamTimelineEventClipPriority} _possible_clip
- * @returns {Real} 
+ * @returns {Real}
  */
 function steam_timeline_start_range_timeline_event(_title, _description, _icon, _priority, _start_offset_seconds, _possible_clip)
 {
@@ -19016,7 +18965,7 @@ function steam_timeline_remove_timeline_event(_event_handle)
 
 /**
  * @param {Real} _event_handle
- * @returns {Real} 
+ * @returns {Real}
  */
 function steam_timeline_does_event_recording_exist(_event_handle)
 {
@@ -19046,7 +18995,7 @@ function steam_timeline_does_event_recording_exist(_event_handle)
 
 /**
  * @param {String} _phase_id
- * @returns {Real} 
+ * @returns {Real}
  */
 function steam_timeline_does_game_phase_recording_exist(_phase_id)
 {
@@ -19148,7 +19097,7 @@ function steam_timeline_set_callback_event_recording_exists(_callback)
 /**
  * @param {Real} _item_def_id
  * @param {Function} _callback
- * @returns {Real} 
+ * @returns {Real}
  */
 function steam_inventory_add_promo_item(_item_def_id, _callback)
 {
@@ -19174,7 +19123,7 @@ function steam_inventory_add_promo_item(_item_def_id, _callback)
  * @param {Array[Real]} _item_def_ids
  * @param {Real} _num_item_defs
  * @param {Function} _callback
- * @returns {Real} 
+ * @returns {Real}
  */
 function steam_inventory_add_promo_items(_item_def_ids, _num_item_defs, _callback)
 {
@@ -19209,7 +19158,7 @@ function steam_inventory_add_promo_items(_item_def_ids, _num_item_defs, _callbac
 /**
  * @param {Real} _result_handle
  * @param {Real} _steam_id_expected
- * @returns {Bool} 
+ * @returns {Bool}
  */
 function steam_inventory_check_result_steam_id(_result_handle, _steam_id_expected)
 {
@@ -19232,7 +19181,7 @@ function steam_inventory_check_result_steam_id(_result_handle, _steam_id_expecte
  * @param {Real} _item_instance_id
  * @param {Real} _quantity
  * @param {Function} _callback
- * @returns {Real} 
+ * @returns {Real}
  */
 function steam_inventory_consume_item(_item_instance_id, _quantity, _callback)
 {
@@ -19261,7 +19210,7 @@ function steam_inventory_consume_item(_item_instance_id, _quantity, _callback)
 /**
  * @param {Id.Buffer} _data
  * @param {Real} _data_size
- * @returns {Struct.SteamInventoryDeserializeResult} 
+ * @returns {Struct.SteamInventoryDeserializeResult}
  */
 function steam_inventory_deserialize_result(_data, _data_size)
 {
@@ -19298,7 +19247,7 @@ function steam_inventory_deserialize_result(_data, _data_size)
  * @param {Array[Struct.SteamInventoryItemDefQuantity]} _generate_items
  * @param {Array[Struct.SteamInventoryItemInstanceQuantity]} _destroy_items
  * @param {Function} _callback
- * @returns {Real} 
+ * @returns {Real}
  */
 function steam_inventory_exchange_items(_generate_items, _destroy_items, _callback)
 {
@@ -19339,7 +19288,7 @@ function steam_inventory_exchange_items(_generate_items, _destroy_items, _callba
 /**
  * @param {Array[Struct.SteamInventoryItemDefQuantity]} _items
  * @param {Function} _callback
- * @returns {Real} 
+ * @returns {Real}
  */
 function steam_inventory_generate_items(_items, _callback)
 {
@@ -19372,7 +19321,7 @@ function steam_inventory_generate_items(_items, _callback)
 
 /**
  * @param {Real} _result_handle
- * @returns {Struct.SteamInventoryResultItems} 
+ * @returns {Array[Struct.SteamInventoryItemDetails]}
  */
 function steam_inventory_get_result_items(_result_handle)
 {
@@ -19383,7 +19332,12 @@ function steam_inventory_get_result_items(_result_handle)
     var _result = undefined;
     if (buffer_read(__ret_buffer, buffer_bool))
     {
-        _result = __SteamInventoryResultItems_decode(__ret_buffer, buffer_tell(__ret_buffer));
+        var _length = buffer_read(__ret_buffer, buffer_u32);
+        _result = array_create(_length);
+        for (var _i = 0; _i < _length; ++_i)
+        {
+            _result[_i] = __SteamInventoryItemDetails_decode(__ret_buffer, buffer_tell(__ret_buffer));
+        }
     }
     else
     {
@@ -19394,7 +19348,7 @@ function steam_inventory_get_result_items(_result_handle)
 
 /**
  * @param {Real} _result_handle
- * @returns {Enum.SteamApiResult} 
+ * @returns {Enum.SteamApiResult}
  */
 function steam_inventory_get_result_status(_result_handle)
 {
@@ -19412,7 +19366,7 @@ function steam_inventory_get_result_status(_result_handle)
 
 /**
  * @param {Real} _max_item_defs
- * @returns {Array[Real]} 
+ * @returns {Array[Real]}
  */
 function steam_inventory_get_eligible_promo_item_definition_ids(_max_item_defs)
 {
@@ -19435,7 +19389,7 @@ function steam_inventory_get_eligible_promo_item_definition_ids(_max_item_defs)
 
 /**
  * @param {Real} _max_item_defs
- * @returns {Array[Real]} 
+ * @returns {Array[Real]}
  */
 function steam_inventory_get_item_definition_ids(_max_item_defs)
 {
@@ -19456,7 +19410,7 @@ function steam_inventory_get_item_definition_ids(_max_item_defs)
 /**
  * @param {Array[Real]} _item_instance_ids
  * @param {Function} _callback
- * @returns {Real} 
+ * @returns {Real}
  */
 function steam_inventory_get_items_by_id(_item_instance_ids, _callback)
 {
@@ -19488,7 +19442,7 @@ function steam_inventory_get_items_by_id(_item_instance_ids, _callback)
  * @param {Real} _result_handle
  * @param {Id.Buffer} _out_data
  * @param {Real} _out_capacity
- * @returns {Real} 
+ * @returns {Real}
  */
 function steam_inventory_serialize_result(_result_handle, _out_data, _out_capacity)
 {
@@ -19514,7 +19468,7 @@ function steam_inventory_serialize_result(_result_handle, _out_data, _out_capaci
 /**
  * @param {Real} _result_handle
  * @param {Real} _item_index
- * @returns {Array[String]} 
+ * @returns {Array[String]}
  */
 function steam_inventory_get_result_item_property_keys_array(_result_handle, _item_index)
 {
@@ -19589,7 +19543,7 @@ function steam_inventory_request_prices(_callback)
 
 
 /**
- * @returns {Array[Struct.SteamInventoryItemWithPrice]} 
+ * @returns {Array[Struct.SteamInventoryItemWithPrice]}
  */
 function steam_inventory_get_items_with_prices()
 {
@@ -19614,7 +19568,7 @@ function steam_inventory_get_items_with_prices()
  * @param {Real} _result_handle
  * @param {Real} _item_instance_id
  * @param {String} _property_name
- * @returns {Bool} 
+ * @returns {Bool}
  */
 function steam_inventory_remove_property(_result_handle, _item_instance_id, _property_name)
 {
@@ -19643,7 +19597,7 @@ function steam_inventory_remove_property(_result_handle, _item_instance_id, _pro
  * @param {Real} _item_instance_id
  * @param {String} _property_name
  * @param {String} _value
- * @returns {Bool} 
+ * @returns {Bool}
  */
 function steam_inventory_set_property_string(_result_handle, _item_instance_id, _property_name, _value)
 {
@@ -19677,7 +19631,7 @@ function steam_inventory_set_property_string(_result_handle, _item_instance_id, 
  * @param {Real} _item_instance_id
  * @param {String} _property_name
  * @param {Bool} _value
- * @returns {Bool} 
+ * @returns {Bool}
  */
 function steam_inventory_set_property_bool(_result_handle, _item_instance_id, _property_name, _value)
 {
@@ -19710,7 +19664,7 @@ function steam_inventory_set_property_bool(_result_handle, _item_instance_id, _p
  * @param {Real} _item_instance_id
  * @param {String} _property_name
  * @param {Real} _value
- * @returns {Bool} 
+ * @returns {Bool}
  */
 function steam_inventory_set_property_int64(_result_handle, _item_instance_id, _property_name, _value)
 {
@@ -19743,7 +19697,7 @@ function steam_inventory_set_property_int64(_result_handle, _item_instance_id, _
  * @param {Real} _item_instance_id
  * @param {String} _property_name
  * @param {Real} _value
- * @returns {Bool} 
+ * @returns {Bool}
  */
 function steam_inventory_set_property_float(_result_handle, _item_instance_id, _property_name, _value)
 {
@@ -19774,7 +19728,7 @@ function steam_inventory_set_property_float(_result_handle, _item_instance_id, _
 /**
  * @param {Real} _result_handle
  * @param {Function} _callback
- * @returns {Real} 
+ * @returns {Real}
  */
 function steam_inventory_submit_update_properties(_result_handle, _callback)
 {
@@ -19801,7 +19755,7 @@ function steam_inventory_submit_update_properties(_result_handle, _callback)
  * @param {Real} _quantity
  * @param {Real} _item_instance_id_dest
  * @param {Function} _callback
- * @returns {Real} 
+ * @returns {Real}
  */
 function steam_inventory_transfer_item_quantity(_item_instance_id_source, _quantity, _item_instance_id_dest, _callback)
 {
@@ -19834,7 +19788,7 @@ function steam_inventory_transfer_item_quantity(_item_instance_id_source, _quant
 /**
  * @param {Real} _item_def_id
  * @param {Function} _callback
- * @returns {Real} 
+ * @returns {Real}
  */
 function steam_inventory_trigger_item_drop(_item_def_id, _callback)
 {
@@ -19858,7 +19812,7 @@ function steam_inventory_trigger_item_drop(_item_def_id, _callback)
 
 /**
  * @param {Function} _callback
- * @returns {Real} 
+ * @returns {Real}
  */
 function steam_inventory_grant_promo_items(_callback)
 {
@@ -19881,7 +19835,7 @@ function steam_inventory_grant_promo_items(_callback)
 
 /**
  * @param {Real} _item_def_id
- * @returns {Array[String]} 
+ * @returns {Array[String]}
  */
 function steam_inventory_get_item_definition_property_keys(_item_def_id)
 {
@@ -19902,7 +19856,7 @@ function steam_inventory_get_item_definition_property_keys(_item_def_id)
 
 /**
  * @param {Real} _item_def_id
- * @returns {Struct.SteamInventoryItemPrice} 
+ * @returns {Struct.SteamInventoryItemPrice}
  */
 function steam_inventory_get_item_price(_item_def_id)
 {
@@ -20067,7 +20021,7 @@ function steam_remote_storage_set_callback_local_file_change(_callback)
  * @param {String} _file_name
  * @param {Id.Buffer} _data
  * @param {Real} _bytes
- * @returns {Bool} 
+ * @returns {Bool}
  */
 function steam_remote_storage_file_write(_file_name, _data, _bytes)
 {
@@ -20130,7 +20084,7 @@ function steam_remote_storage_file_write_async(_file_name, _data, _bytes, _callb
  * @param {String} _file_name
  * @param {Id.Buffer} _out_data
  * @param {Real} _max_bytes
- * @returns {Real} 
+ * @returns {Real}
  */
 function steam_remote_storage_file_read(_file_name, _out_data, _max_bytes)
 {
@@ -20174,7 +20128,7 @@ function steam_remote_storage_file_read(_file_name, _out_data, _max_bytes)
 
 /**
  * @param {Real} _index
- * @returns {Struct.SteamRemoteStorageFileNameAndSize} 
+ * @returns {Struct.SteamRemoteStorageFileNameAndSize}
  */
 function steam_remote_storage_get_file_name_and_size(_index)
 {
@@ -20195,7 +20149,7 @@ function steam_remote_storage_get_file_name_and_size(_index)
 }
 
 /**
- * @returns {Struct.SteamRemoteStorageQuota} 
+ * @returns {Struct.SteamRemoteStorageQuota}
  */
 function steam_remote_storage_get_quota()
 {
@@ -20218,7 +20172,7 @@ function steam_remote_storage_get_quota()
 /**
  * @param {String} _file_name
  * @param {Enum.SteamRemoteStoragePlatform} _platforms
- * @returns {Bool} 
+ * @returns {Bool}
  */
 function steam_remote_storage_set_sync_platforms(_file_name, _platforms)
 {
@@ -20241,7 +20195,7 @@ function steam_remote_storage_set_sync_platforms(_file_name, _platforms)
 
 /**
  * @param {String} _file_name
- * @returns {Enum.SteamRemoteStoragePlatform} 
+ * @returns {Enum.SteamRemoteStoragePlatform}
  */
 function steam_remote_storage_get_sync_platforms(_file_name)
 {
@@ -20259,7 +20213,7 @@ function steam_remote_storage_get_sync_platforms(_file_name)
 
 /**
  * @param {String} _file_name
- * @returns {Real} 
+ * @returns {Real}
  */
 function steam_remote_storage_file_write_stream_open(_file_name)
 {
@@ -20276,7 +20230,7 @@ function steam_remote_storage_file_write_stream_open(_file_name)
  * @param {Real} _stream
  * @param {Id.Buffer} _data
  * @param {Real} _bytes
- * @returns {Bool} 
+ * @returns {Bool}
  */
 function steam_remote_storage_file_write_stream_write_chunk(_stream, _data, _bytes)
 {
@@ -20301,7 +20255,7 @@ function steam_remote_storage_file_write_stream_write_chunk(_stream, _data, _byt
 
 /**
  * @param {Real} _stream
- * @returns {Bool} 
+ * @returns {Bool}
  */
 function steam_remote_storage_file_write_stream_close(_stream)
 {
@@ -20318,7 +20272,7 @@ function steam_remote_storage_file_write_stream_close(_stream)
 
 /**
  * @param {Real} _stream
- * @returns {Bool} 
+ * @returns {Bool}
  */
 function steam_remote_storage_file_write_stream_cancel(_stream)
 {
@@ -20338,7 +20292,7 @@ function steam_remote_storage_file_write_stream_cancel(_stream)
 
 /**
  * @param {Real} _index
- * @returns {Real} 
+ * @returns {Real}
  */
 function steam_remote_storage_get_cached_ugc_handle(_index)
 {
@@ -20353,7 +20307,7 @@ function steam_remote_storage_get_cached_ugc_handle(_index)
 
 /**
  * @param {Real} _ugc_handle
- * @returns {Struct.SteamRemoteStorageUgcDetails} 
+ * @returns {Struct.SteamRemoteStorageUgcDetails}
  */
 function steam_remote_storage_get_ugc_details(_ugc_handle)
 {
@@ -20385,7 +20339,7 @@ function steam_remote_storage_get_ugc_details(_ugc_handle)
  * @param {Real} _bytes_to_read
  * @param {Real} _offset
  * @param {Enum.SteamRemoteStorageUgcReadAction} _action
- * @returns {Real} 
+ * @returns {Real}
  */
 function steam_remote_storage_ugc_read(_ugc_handle, _out_data, _bytes_to_read, _offset, _action)
 {
@@ -20771,7 +20725,7 @@ function steam_matchmaking_add_request_lobby_list_distance_filter(_distance)
 
 /**
  * @param {Real} _index
- * @returns {Real} 
+ * @returns {Real}
  */
 function steam_matchmaking_get_lobby_by_index(_index)
 {
@@ -20803,7 +20757,7 @@ function steam_matchmaking_leave_lobby(_lobby_id)
 /**
  * @param {Real} _lobby_id
  * @param {Real} _new_owner_id
- * @returns {Bool} 
+ * @returns {Bool}
  */
 function steam_matchmaking_set_lobby_owner(_lobby_id, _new_owner_id)
 {
@@ -20824,7 +20778,7 @@ function steam_matchmaking_set_lobby_owner(_lobby_id, _new_owner_id)
 
 /**
  * @param {Real} _lobby_id
- * @returns {Real} 
+ * @returns {Real}
  */
 function steam_matchmaking_get_lobby_owner(_lobby_id)
 {
@@ -20845,7 +20799,7 @@ function steam_matchmaking_get_lobby_owner(_lobby_id)
 
 /**
  * @param {Real} _lobby_id
- * @returns {Real} 
+ * @returns {Real}
  */
 function steam_matchmaking_get_num_lobby_members(_lobby_id)
 {
@@ -20863,7 +20817,7 @@ function steam_matchmaking_get_num_lobby_members(_lobby_id)
 /**
  * @param {Real} _lobby_id
  * @param {Real} _member_index
- * @returns {Real} 
+ * @returns {Real}
  */
 function steam_matchmaking_get_lobby_member_by_index(_lobby_id, _member_index)
 {
@@ -20890,7 +20844,7 @@ function steam_matchmaking_get_lobby_member_by_index(_lobby_id, _member_index)
  * @param {Real} _lobby_id
  * @param {String} _key
  * @param {String} _value
- * @returns {Bool} 
+ * @returns {Bool}
  */
 function steam_matchmaking_set_lobby_data(_lobby_id, _key, _value)
 {
@@ -20918,7 +20872,7 @@ function steam_matchmaking_set_lobby_data(_lobby_id, _key, _value)
 /**
  * @param {Real} _lobby_id
  * @param {String} _key
- * @returns {String} 
+ * @returns {String}
  */
 function steam_matchmaking_get_lobby_data(_lobby_id, _key)
 {
@@ -20941,7 +20895,7 @@ function steam_matchmaking_get_lobby_data(_lobby_id, _key)
 /**
  * @param {Real} _lobby_id
  * @param {String} _key
- * @returns {Bool} 
+ * @returns {Bool}
  */
 function steam_matchmaking_delete_lobby_data(_lobby_id, _key)
 {
@@ -20963,7 +20917,7 @@ function steam_matchmaking_delete_lobby_data(_lobby_id, _key)
 
 /**
  * @param {Real} _lobby_id
- * @returns {Real} 
+ * @returns {Real}
  */
 function steam_matchmaking_get_lobby_data_count(_lobby_id)
 {
@@ -20985,7 +20939,7 @@ function steam_matchmaking_get_lobby_data_count(_lobby_id)
  * @param {Real} _key_max
  * @param {Id.Buffer} _val_out
  * @param {Real} _val_max
- * @returns {Bool} 
+ * @returns {Bool}
  */
 function steam_matchmaking_get_lobby_data_by_index(_lobby_id, _index, _key_out, _key_max, _val_out, _val_max)
 {
@@ -21052,7 +21006,7 @@ function steam_matchmaking_set_lobby_member_data(_lobby_id, _key, _value)
  * @param {Real} _lobby_id
  * @param {Real} _member_id
  * @param {String} _key
- * @returns {String} 
+ * @returns {String}
  */
 function steam_matchmaking_get_lobby_member_data(_lobby_id, _member_id, _key)
 {
@@ -21080,7 +21034,7 @@ function steam_matchmaking_get_lobby_member_data(_lobby_id, _member_id, _key)
  * @param {Real} _lobby_id
  * @param {Id.Buffer} _msg
  * @param {Real} _bytes
- * @returns {Bool} 
+ * @returns {Bool}
  */
 function steam_matchmaking_send_lobby_chat_msg(_lobby_id, _msg, _bytes)
 {
@@ -21108,7 +21062,7 @@ function steam_matchmaking_send_lobby_chat_msg(_lobby_id, _msg, _bytes)
  * @param {Real} _chat_id
  * @param {Id.Buffer} _out_buffer
  * @param {Real} _out_max_bytes
- * @returns {Struct.SteamMatchmakingLobbyChatEntry} 
+ * @returns {Struct.SteamMatchmakingLobbyChatEntry}
  */
 function steam_matchmaking_get_lobby_chat_entry(_lobby_id, _chat_id, _out_buffer, _out_max_bytes)
 {
@@ -21151,7 +21105,7 @@ function steam_matchmaking_get_lobby_chat_entry(_lobby_id, _chat_id, _out_buffer
 
 /**
  * @param {Real} _steam_id_lobby
- * @returns {Bool} 
+ * @returns {Bool}
  */
 function steam_matchmaking_request_lobby_data(_steam_id_lobby)
 {
@@ -21169,7 +21123,7 @@ function steam_matchmaking_request_lobby_data(_steam_id_lobby)
 /**
  * @param {Real} _steam_id_lobby
  * @param {Bool} _joinable
- * @returns {Bool} 
+ * @returns {Bool}
  */
 function steam_matchmaking_set_lobby_joinable(_steam_id_lobby, _joinable)
 {
@@ -21191,7 +21145,7 @@ function steam_matchmaking_set_lobby_joinable(_steam_id_lobby, _joinable)
 /**
  * @param {Real} _steam_id_lobby
  * @param {Enum.SteamMatchmakingLobbyType} _lobby_type
- * @returns {Bool} 
+ * @returns {Bool}
  */
 function steam_matchmaking_set_lobby_type(_steam_id_lobby, _lobby_type)
 {
@@ -21214,7 +21168,7 @@ function steam_matchmaking_set_lobby_type(_steam_id_lobby, _lobby_type)
 /**
  * @param {Real} _steam_id_lobby
  * @param {Real} _steam_id_invitee
- * @returns {Bool} 
+ * @returns {Bool}
  */
 function steam_matchmaking_invite_user_to_lobby(_steam_id_lobby, _steam_id_invitee)
 {
@@ -21267,7 +21221,7 @@ function steam_matchmaking_set_lobby_game_server(_steam_id_lobby, _ip, _port, _s
 /**
  * @param {Real} _steam_id_lobby
  * @param {Real} _steam_id_lobby_dependent
- * @returns {Bool} 
+ * @returns {Bool}
  */
 function steam_matchmaking_set_linked_lobby(_steam_id_lobby, _steam_id_lobby_dependent)
 {
@@ -21288,7 +21242,7 @@ function steam_matchmaking_set_linked_lobby(_steam_id_lobby, _steam_id_lobby_dep
 
 /**
  * @param {Real} _steam_id_lobby
- * @returns {Struct.SteamMatchmakingLobbyGameServer} 
+ * @returns {Struct.SteamMatchmakingLobbyGameServer}
  */
 function steam_matchmaking_get_lobby_game_server(_steam_id_lobby)
 {
@@ -21364,7 +21318,7 @@ function steam_networking_messages_set_callback_session_failed(_callback)
  * @param {Real} _bytes
  * @param {Real} _send_flags
  * @param {Real} _remote_channel
- * @returns {Real} 
+ * @returns {Real}
  */
 function steam_networking_messages_send_message_to_user(_steam_id_remote, _data, _bytes, _send_flags, _remote_channel)
 {
@@ -21400,7 +21354,7 @@ function steam_networking_messages_send_message_to_user(_steam_id_remote, _data,
  * @param {Id.Buffer} _out_data
  * @param {Real} _max_bytes
  * @param {Real} _offset
- * @returns {Struct.SteamNetworkingMessagesReceived} 
+ * @returns {Struct.SteamNetworkingMessagesReceived}
  */
 function steam_networking_messages_receive_one_on_channel(_local_channel, _out_data, _max_bytes, _offset)
 {
@@ -21440,7 +21394,7 @@ function steam_networking_messages_receive_one_on_channel(_local_channel, _out_d
 
 /**
  * @param {Real} _steam_id_remote
- * @returns {Bool} 
+ * @returns {Bool}
  */
 function steam_networking_messages_accept_session_with_user(_steam_id_remote)
 {
@@ -21457,7 +21411,7 @@ function steam_networking_messages_accept_session_with_user(_steam_id_remote)
 
 /**
  * @param {Real} _steam_id_remote
- * @returns {Bool} 
+ * @returns {Bool}
  */
 function steam_networking_messages_close_session_with_user(_steam_id_remote)
 {
@@ -21475,7 +21429,7 @@ function steam_networking_messages_close_session_with_user(_steam_id_remote)
 /**
  * @param {Real} _steam_id_remote
  * @param {Real} _local_channel
- * @returns {Bool} 
+ * @returns {Bool}
  */
 function steam_networking_messages_close_channel_with_user(_steam_id_remote, _local_channel)
 {
@@ -21534,7 +21488,7 @@ function steam_networking_sockets_set_callback_connection_status_changed(_callba
 /**
  * @param {Real} _conn
  * @param {Real} _user_data
- * @returns {Bool} 
+ * @returns {Bool}
  */
 function steam_networking_sockets_set_connection_user_data(_conn, _user_data)
 {
@@ -21555,7 +21509,7 @@ function steam_networking_sockets_set_connection_user_data(_conn, _user_data)
 
 /**
  * @param {Real} _conn
- * @returns {Real} 
+ * @returns {Real}
  */
 function steam_networking_sockets_get_connection_user_data(_conn)
 {
@@ -21579,7 +21533,7 @@ function steam_networking_sockets_get_connection_user_data(_conn)
  * @param {Id.Buffer} _data
  * @param {Real} _bytes
  * @param {Enum.SteamNetworkingSendFlags} _send_flags
- * @returns {Real} 
+ * @returns {Real}
  */
 function steam_networking_sockets_send_message_to_connection(_conn, _data, _bytes, _send_flags)
 {
@@ -21609,7 +21563,7 @@ function steam_networking_sockets_send_message_to_connection(_conn, _data, _byte
 
 /**
  * @param {Real} _conn
- * @returns {Enum.SteamApiResult} 
+ * @returns {Enum.SteamApiResult}
  */
 function steam_networking_sockets_flush_messages_on_connection(_conn)
 {
@@ -21627,7 +21581,7 @@ function steam_networking_sockets_flush_messages_on_connection(_conn)
  * @param {Id.Buffer} _out_data
  * @param {Real} _max_bytes
  * @param {Real} _offset
- * @returns {Struct.SteamNetworkingSocketsReceived} 
+ * @returns {Struct.SteamNetworkingSocketsReceived}
  */
 function steam_networking_sockets_receive_one_on_connection(_conn, _out_data, _max_bytes, _offset)
 {
@@ -21667,7 +21621,7 @@ function steam_networking_sockets_receive_one_on_connection(_conn, _out_data, _m
 
 /**
  * @param {Real} _conn
- * @returns {Struct.SteamNetworkingSocketsConnectionInfo} 
+ * @returns {Struct.SteamNetworkingSocketsConnectionInfo}
  */
 function steam_networking_sockets_get_connection_info(_conn)
 {
@@ -21695,7 +21649,7 @@ function steam_networking_sockets_get_connection_info(_conn)
 
 /**
  * @param {Bool} _use_network_loopback
- * @returns {Array[Real]} 
+ * @returns {Array[Real]}
  */
 function steam_networking_sockets_create_socket_pair(_use_network_loopback)
 {
@@ -21719,7 +21673,7 @@ function steam_networking_sockets_create_socket_pair(_use_network_loopback)
 /**
  * @param {Real} _steam_id_remote
  * @param {Real} _remote_virtual_port
- * @returns {Real} 
+ * @returns {Real}
  */
 function steam_networking_sockets_connect_p2p(_steam_id_remote, _remote_virtual_port)
 {
@@ -21755,7 +21709,7 @@ function steam_networking_sockets_connect_p2p(_steam_id_remote, _remote_virtual_
  * @param {Id.Buffer} _out_data
  * @param {Real} _max_bytes
  * @param {Real} _offset
- * @returns {Struct.SteamNetworkingSocketsReceived} 
+ * @returns {Struct.SteamNetworkingSocketsReceived}
  */
 function steam_networking_sockets_receive_one_on_poll_group(_poll_group, _out_data, _max_bytes, _offset)
 {
@@ -21863,7 +21817,7 @@ function steam_parties_set_callback_active_beacons_updated(_callback)
 
 
 /**
- * @returns {Array[Struct.SteamPartiesBeaconLocation]} 
+ * @returns {Array[Struct.SteamPartiesBeaconLocation]}
  */
 function steam_parties_get_available_beacon_locations()
 {
@@ -21888,7 +21842,7 @@ function steam_parties_get_available_beacon_locations()
  * @param {String} _connect_string
  * @param {String} _metadata
  * @param {Function} _callback
- * @returns {Bool} 
+ * @returns {Bool}
  */
 function steam_parties_create_beacon(_open_slots, _beacon_location_type, _beacon_location_id, _connect_string, _metadata, _callback)
 {
@@ -21932,7 +21886,7 @@ function steam_parties_create_beacon(_open_slots, _beacon_location_type, _beacon
 /**
  * @param {Real} _beacon_id
  * @param {Real} _user_steam_id
- * @returns {Bool} 
+ * @returns {Bool}
  */
 function steam_parties_on_reservation_completed(_beacon_id, _user_steam_id)
 {
@@ -21955,7 +21909,7 @@ function steam_parties_on_reservation_completed(_beacon_id, _user_steam_id)
  * @param {Real} _beacon_id
  * @param {Real} _open_slots
  * @param {Function} _callback
- * @returns {Bool} 
+ * @returns {Bool}
  */
 function steam_parties_change_num_open_slots(_beacon_id, _open_slots, _callback)
 {
@@ -21983,7 +21937,7 @@ function steam_parties_change_num_open_slots(_beacon_id, _open_slots, _callback)
 
 /**
  * @param {Real} _beacon_id
- * @returns {Bool} 
+ * @returns {Bool}
  */
 function steam_parties_destroy_beacon(_beacon_id)
 {
@@ -22003,7 +21957,7 @@ function steam_parties_destroy_beacon(_beacon_id)
 
 /**
  * @param {Real} _index
- * @returns {Real} 
+ * @returns {Real}
  */
 function steam_parties_get_beacon_by_index(_index)
 {
@@ -22018,7 +21972,7 @@ function steam_parties_get_beacon_by_index(_index)
 
 /**
  * @param {Real} _beacon_id
- * @returns {Struct.SteamPartiesBeaconDetails} 
+ * @returns {Struct.SteamPartiesBeaconDetails}
  */
 function steam_parties_get_beacon_details(_beacon_id)
 {
@@ -22047,7 +22001,7 @@ function steam_parties_get_beacon_details(_beacon_id)
 /**
  * @param {Real} _beacon_id
  * @param {Function} _callback
- * @returns {Bool} 
+ * @returns {Bool}
  */
 function steam_parties_join_party(_beacon_id, _callback)
 {
@@ -22073,7 +22027,7 @@ function steam_parties_join_party(_beacon_id, _callback)
  * @param {Enum.SteamPartiesBeaconLocationType} _beacon_location_type
  * @param {Real} _beacon_location_id
  * @param {Enum.SteamPartiesBeaconLocationData} _data_kind
- * @returns {String} 
+ * @returns {String}
  */
 function steam_parties_get_beacon_location_data(_beacon_location_type, _beacon_location_id, _data_kind)
 {
@@ -22205,7 +22159,7 @@ function __Steamworks_get_decoders()
         __SteamInventoryItemDefQuantity_decode,
         __SteamInventoryItemInstanceQuantity_decode,
         __SteamInventoryItemWithPrice_decode,
-        __SteamInventoryResultItems_decode,
+        __SteamInventoryItemDetails_decode,
         __SteamInventoryDeserializeResult_decode,
         __SteamInventoryItemPrice_decode,
         __SteamInventoryResultReady_decode,

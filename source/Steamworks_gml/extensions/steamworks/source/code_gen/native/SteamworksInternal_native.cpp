@@ -5139,7 +5139,7 @@ GMEXPORT double __EXT_NATIVE__steam_inventory_get_result_items(double result_han
     auto&& __result = steam_inventory_get_result_items(static_cast<std::int32_t>(result_handle));
     gm::byteio::BufferWriter __bw{__ret_buffer, static_cast<size_t>(__ret_buffer_length)};
 
-    // return: __result, type: optional<struct SteamInventoryResultItems>
+    // return: __result, type: optional<struct SteamInventoryItemDetails[]>
     gm::wire::codec::writeValue(__bw, __result);
     return 0;
 }
