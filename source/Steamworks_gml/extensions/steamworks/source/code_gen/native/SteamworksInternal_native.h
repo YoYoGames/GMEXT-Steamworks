@@ -1778,7 +1778,7 @@ namespace gm_structs
     struct SteamFriendsFriendMessage
     {
         gm_enums::SteamFriendsChatEntryType entry_type;
-        std::string data;
+        std::optional<std::string> data;
     };
 
     struct SteamFriendsPersonaStateChange
@@ -2882,7 +2882,7 @@ namespace gm::wire::codec
     {
         gm_structs::SteamFriendsFriendMessage obj;
         obj.entry_type = gm::wire::codec::readValue<gm_enums::SteamFriendsChatEntryType>(_buf);
-        obj.data = gm::wire::codec::readValue<std::string>(_buf);
+        obj.data = gm::wire::codec::readOptional<std::string>(_buf);
         return obj;
     }
 

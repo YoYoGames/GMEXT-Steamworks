@@ -717,8 +717,8 @@ class `[[SteamFriendsFriendMessage]]` prototype Object
     [field, type_hint = `SteamFriendsChatEntryType`]
     property entry_type : gmval { get; set; }
 
-    [field]
-    property data : string { get; set; }
+    [field,type_hint=`string?`]
+    property data : gmval { get; set; }
 }
 
 

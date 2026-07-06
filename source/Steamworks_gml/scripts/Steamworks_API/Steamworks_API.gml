@@ -4681,10 +4681,18 @@ function __SteamFriendsFriendMessage_encode(_inst, _buffer, _offset, _where = _G
         if (!is_numeric(self.entry_type)) show_error($"{_where} :: self.entry_type expected number", true);
         buffer_write(_buffer, buffer_u64, self.entry_type);
 
-        // field: data, type: String
-        if (!is_string(self.data)) show_error($"{_where} :: self.data expected string", true);
-        buffer_write(_buffer, buffer_u32, string_byte_length(self.data));
-        buffer_write(_buffer, buffer_string, self.data);
+        // field: data, type: optional<String>
+        if (is_undefined(self.data))
+        {
+            buffer_write(_buffer, buffer_bool, false);
+        }
+        else
+        {
+            buffer_write(_buffer, buffer_bool, true);
+            if (!is_string(self.data)) show_error($"{_where} :: self.data expected string", true);
+            buffer_write(_buffer, buffer_u32, string_byte_length(self.data));
+            buffer_write(_buffer, buffer_string, self.data);
+        }
 
     }
 }
@@ -4706,9 +4714,16 @@ function __SteamFriendsFriendMessage_decode(_buffer, _offset)
         // field: entry_type, type: enum SteamFriendsChatEntryType
         self.entry_type = buffer_read(_buffer, buffer_u64);
 
-        // field: data, type: String
-        buffer_read(_buffer, buffer_u32);
-        self.data = buffer_read(_buffer, buffer_string);
+        // field: data, type: optional<String>
+        if (buffer_read(_buffer, buffer_bool))
+        {
+            buffer_read(_buffer, buffer_u32);
+            self.data = buffer_read(_buffer, buffer_string);
+        }
+        else
+        {
+            self.data = undefined;
+        }
 
     }
 

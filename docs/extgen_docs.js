@@ -4364,7 +4364,7 @@
 /**
  * @struct_partial SteamFriendsFriendMessage
  * @member {Enum.SteamFriendsChatEntryType} entry_type
- * @member {String} data
+ * @member {String} [data]
  * @struct_end
  */
 
