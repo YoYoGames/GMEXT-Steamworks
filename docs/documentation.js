@@ -2124,7 +2124,7 @@
  *
  * @param {Buffer} out_ticket The encrypted app ticket is copied into this buffer.
  * @param {Real} max_ticket_size The total size of the `out_ticket` buffer in bytes.
- * @returns {Struct.SteamUserEncryptedAppTicket}
+ * @returns {Real} The number of bytes copied into the buffer.
  * @function_end
  */
 
@@ -3878,10 +3878,9 @@
  * This function sets whether the items should be disabled locally or not. This means that it will not be returned in ${function.steam_ugc_get_num_subscribed_items} and ${function.steam_ugc_get_subscribed_items} by default.
  *
  * @param {Array[Real]} published_file_ids An array of the unique IDs of the published items to set the disabled state for.
- * @param {Real} num_published_file_ids The number of items in the `published_file_ids` array.
  * @param {Bool} disabled_locally Whether the items should be disabled locally (`true`) or enabled (`false`).
  * @returns {Bool} 
- * @function_end 
+ * @function_end
  */
 
 /**
@@ -4085,7 +4084,6 @@
  * This function sets the local load order for these items. If there are any items not in the given list, they will sort by the time subscribed.
  *
  * @param {Array[Real]} published_file_ids An array of the unique IDs of the subscribed items, in the desired load order.
- * @param {Real} num_published_file_ids The number of items in the `published_file_ids` array.
  * @returns {Bool} 
  * @function_end 
  */
@@ -4174,7 +4172,6 @@
  * When your app shuts down, playtime tracking will automatically stop.
  *
  * @param {Array[Real]} published_file_ids An array of the unique IDs of the workshop items to stop tracking playtime for.
- * @param {Real} num_published_file_ids The number of items in the `published_file_ids` array.
  * @param {Function} callback The function to call upon completion.
  * 
  * @event callback
@@ -4824,27 +4821,6 @@
  * @description > **Steamworks Function**: N / A
  *
  * This function clears the callback function previously set using ${function.steam_input_clear_callback_device_disconnected}.
- *
- * @function_end
- */
-
-/**
- * @function steam_input_set_callback_action_set_changed
- * @description > **Steamworks Function**: N / A
- *
- * This function sets the function to be called when the active action set changes.
- * 
- * See: ${struct.SteamInputActionSetChanged}
- *
- * @param {Function} callback The function to be called when the active action set changes.
- * @function_end
- */
-
-/**
- * @function steam_input_clear_callback_action_set_changed
- * @description > **Steamworks Function**: N / A
- *
- * This function clears the callback function previously set using ${function.steam_input_clear_callback_action_set_changed}.
  *
  * @function_end
  */
@@ -6102,7 +6078,6 @@
  * [[Note: You must call ${function.steam_inventory_destroy_result} on the provided inventory result when you are done with it.]]
  *
  * @param {Array[Real]} item_def_ids The list of items to grant the user.
- * @param {Real} num_item_defs The number of items in the `item_def_ids` array.
  * @param {Function} callback The function to call upon completion.
  * @returns {Real} The inventory result handle
  * @function_end 
@@ -6326,8 +6301,8 @@
  * @param {Real} result_handle The inventory result handle to serialise.
  * @param {Buffer} out_data The buffer that the serialised result will be copied into.
  * @param {Real} out_capacity The size of the `out_data` buffer.
- * @returns {Struct.SteamInventorySerializeResult} 
- * @function_end 
+ * @returns {Real} The number of bytes written.
+ * @function_end
  */
 
 /**
@@ -8485,7 +8460,6 @@
  *
  * @member {Enum.SteamApiResult} result The result of the operation.
  * @member {Array[Real]} steam_ids The list of users that we are following.
- * @member {Real} results_returned The number of results returned in `steam_ids`.
  * @member {Real} total_result_count The total number of people we are following. If this is greater than `results_returned` then you should make a subsequent call to ${function.steam_friends_enumerate_following_list} with `results_returned` as the index to get the next portion of followers.
  * @struct_end
  */
@@ -8730,8 +8704,7 @@
  * @description > **Steamworks Struct**: [ISteamUser::StoreAuthURLResponse_t](https://partner.steamgames.com/doc/api/ISteamUser#StoreAuthURLResponse_t)
  *
  * This struct holds information on a received store authentication URL.
- *
- * @member {Enum.SteamApiResult} result The result of the operation.
+ * 
  * @member {String} url The authenticated URL that was requested.
  * @struct_end 
  */
@@ -8854,23 +8827,12 @@
  */
 
 /**
- * @struct SteamUserEncryptedAppTicket
- * @description > **Steamworks Struct**: N / A
- *
- * This struct holds the result of a call to ${function.steam_user_get_encrypted_app_ticket}.
- *
- * @member {Bool} ok `true` if the call successfully returned an app ticket into the buffer. `false` if not successful.
- * @member {Real} ticket_size The number of bytes copied into the buffer.
- * @struct_end 
- */
-
-/**
  * @struct SteamUserSteamServersDisconnected
  * @description > **Steamworks Struct**: [ISteamUser::SteamServersDisconnected_t](partner.steamgames.com/doc/api/ISteamUser#SteamServersDisconnected_t)
  *
  * This struct holds information about the reason the client has lost connection to the Steam servers.
  *
- * @member {Real} result The reason we were disconnected from Steam.
+ * @member {Enum.SteamApiResult} result The reason we were disconnected from Steam.
  * @struct_end 
  */
 
@@ -9402,17 +9364,6 @@
  */
 
 /**
- * @struct SteamInputActionSetChanged
- * @description > **Steamworks Struct**: [func](url)
- *
- * This struct 
- *
- * @member {Real} controller_handle
- * @member {Real} action_set_handle
- * @struct_end 
- */
-
-/**
  * @struct SteamUserStatsAchievementAndUnlockTime
  * @description > **Steamworks Struct**: N / A
  *
@@ -9572,7 +9523,7 @@
  * This struct holds the result of a request to store the user stats.
  *
  * @member {Real} game_id Game ID that these stats are for.
- * @member {Real} result Returns whether the call was successful or not.
+ * @member {Enum.SteamApiResult} result Returns whether the call was successful or not.
  * @struct_end 
  */
 
