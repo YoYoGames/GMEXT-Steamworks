@@ -800,7 +800,6 @@ static inline gm_structs::SteamFriendsEnumerateFollowingListResult friends_fromN
     for (int i = 0; i < e.m_nResultsReturned; ++i)
         out.steam_ids.push_back((std::uint64_t)e.m_rgSteamID[i].ConvertToUint64());
 
-    out.results_returned = (int32)e.m_nResultsReturned;
     out.total_result_count = (int32)e.m_nTotalResultCount;
     return out;
 }

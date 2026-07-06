@@ -1712,7 +1712,6 @@ function SteamFriendsEnumerateFollowingListResult() constructor
 
     self.result = undefined;
     self.steam_ids = undefined;
-    self.results_returned = undefined;
     self.total_result_count = undefined;
 
 }
@@ -4293,10 +4292,6 @@ function __SteamFriendsEnumerateFollowingListResult_encode(_inst, _buffer, _offs
             buffer_write(_buffer, buffer_u64, self.steam_ids[_i]);
         }
 
-        // field: results_returned, type: Int32
-        if (!is_numeric(self.results_returned)) show_error($"{_where} :: self.results_returned expected number", true);
-        buffer_write(_buffer, buffer_s32, self.results_returned);
-
         // field: total_result_count, type: Int32
         if (!is_numeric(self.total_result_count)) show_error($"{_where} :: self.total_result_count expected number", true);
         buffer_write(_buffer, buffer_s32, self.total_result_count);
@@ -4328,9 +4323,6 @@ function __SteamFriendsEnumerateFollowingListResult_decode(_buffer, _offset)
         {
             self.steam_ids[_i] = buffer_read(_buffer, buffer_u64);
         }
-
-        // field: results_returned, type: Int32
-        self.results_returned = buffer_read(_buffer, buffer_s32);
 
         // field: total_result_count, type: Int32
         self.total_result_count = buffer_read(_buffer, buffer_s32);
@@ -16455,11 +16447,10 @@ function steam_ugc_set_item_update_language(_update_handle, _language)
 
 /**
  * @param {Array[Real]} _published_file_ids
- * @param {Real} _num_published_file_ids
  * @param {Bool} _disabled_locally
  * @returns {Bool}
  */
-function steam_ugc_set_items_disabled_locally(_published_file_ids, _num_published_file_ids, _disabled_locally)
+function steam_ugc_set_items_disabled_locally(_published_file_ids, _disabled_locally)
 {
     var __args_buffer = __ext_core_get_args_buffer();
 
@@ -16472,10 +16463,6 @@ function steam_ugc_set_items_disabled_locally(_published_file_ids, _num_publishe
         if (!is_numeric(_published_file_ids[_i])) show_error($"{_GMFUNCTION_} :: _published_file_ids[_i] expected number", true);
         buffer_write(__args_buffer, buffer_u64, _published_file_ids[_i]);
     }
-
-    // param: _num_published_file_ids, type: UInt32
-    if (!is_numeric(_num_published_file_ids)) show_error($"{_GMFUNCTION_} :: _num_published_file_ids expected number", true);
-    buffer_write(__args_buffer, buffer_u32, _num_published_file_ids);
 
     // param: _disabled_locally, type: Bool
     if (!is_bool(_disabled_locally)) show_error($"{_GMFUNCTION_} :: _disabled_locally expected bool", true);
@@ -16777,10 +16764,9 @@ function steam_ugc_set_search_text(_query_handle, _search_text)
 
 /**
  * @param {Array[Real]} _published_file_ids
- * @param {Real} _num_published_file_ids
  * @returns {Bool}
  */
-function steam_ugc_set_subscriptions_load_order(_published_file_ids, _num_published_file_ids)
+function steam_ugc_set_subscriptions_load_order(_published_file_ids)
 {
     var __args_buffer = __ext_core_get_args_buffer();
 
@@ -16793,10 +16779,6 @@ function steam_ugc_set_subscriptions_load_order(_published_file_ids, _num_publis
         if (!is_numeric(_published_file_ids[_i])) show_error($"{_GMFUNCTION_} :: _published_file_ids[_i] expected number", true);
         buffer_write(__args_buffer, buffer_u64, _published_file_ids[_i]);
     }
-
-    // param: _num_published_file_ids, type: UInt32
-    if (!is_numeric(_num_published_file_ids)) show_error($"{_GMFUNCTION_} :: _num_published_file_ids expected number", true);
-    buffer_write(__args_buffer, buffer_u32, _num_published_file_ids);
 
     var _return_value = __steam_ugc_set_subscriptions_load_order(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
 
@@ -16914,10 +16896,9 @@ function steam_ugc_start_playtime_tracking(_published_file_ids, _callback)
 
 /**
  * @param {Array[Real]} _published_file_ids
- * @param {Real} _num_published_file_ids
  * @param {Function} _callback
  */
-function steam_ugc_stop_playtime_tracking(_published_file_ids, _num_published_file_ids, _callback)
+function steam_ugc_stop_playtime_tracking(_published_file_ids, _callback)
 {
     static __dispatcher = __Steamworks_get_dispatcher();
 
@@ -16932,10 +16913,6 @@ function steam_ugc_stop_playtime_tracking(_published_file_ids, _num_published_fi
         if (!is_numeric(_published_file_ids[_i])) show_error($"{_GMFUNCTION_} :: _published_file_ids[_i] expected number", true);
         buffer_write(__args_buffer, buffer_u64, _published_file_ids[_i]);
     }
-
-    // param: _num_published_file_ids, type: UInt32
-    if (!is_numeric(_num_published_file_ids)) show_error($"{_GMFUNCTION_} :: _num_published_file_ids expected number", true);
-    buffer_write(__args_buffer, buffer_u32, _num_published_file_ids);
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
@@ -19391,11 +19368,10 @@ function steam_inventory_add_promo_item(_item_def_id, _callback)
 
 /**
  * @param {Array[Real]} _item_def_ids
- * @param {Real} _num_item_defs
  * @param {Function} _callback
  * @returns {Real}
  */
-function steam_inventory_add_promo_items(_item_def_ids, _num_item_defs, _callback)
+function steam_inventory_add_promo_items(_item_def_ids, _callback)
 {
     static __dispatcher = __Steamworks_get_dispatcher();
 
@@ -19410,10 +19386,6 @@ function steam_inventory_add_promo_items(_item_def_ids, _num_item_defs, _callbac
         if (!is_numeric(_item_def_ids[_i])) show_error($"{_GMFUNCTION_} :: _item_def_ids[_i] expected number", true);
         buffer_write(__args_buffer, buffer_u32, _item_def_ids[_i]);
     }
-
-    // param: _num_item_defs, type: UInt32
-    if (!is_numeric(_num_item_defs)) show_error($"{_GMFUNCTION_} :: _num_item_defs expected number", true);
-    buffer_write(__args_buffer, buffer_u32, _num_item_defs);
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);

@@ -3147,13 +3147,10 @@ GMEXPORT double __EXT_NATIVE__steam_ugc_set_items_disabled_locally(char* __arg_b
     // field: published_file_ids, type: UInt64[]
     std::vector<std::uint64_t> published_file_ids = gm::wire::codec::readVector<std::uint64_t>(__br);
 
-    // field: num_published_file_ids, type: UInt32
-    std::uint32_t num_published_file_ids = gm::wire::codec::readValue<std::uint32_t>(__br);
-
     // field: disabled_locally, type: Bool
     bool disabled_locally = gm::wire::codec::readValue<bool>(__br);
 
-    auto&& __result = steam_ugc_set_items_disabled_locally(published_file_ids, num_published_file_ids, disabled_locally);
+    auto&& __result = steam_ugc_set_items_disabled_locally(published_file_ids, disabled_locally);
     return static_cast<double>(__result);
 }
 
@@ -3346,10 +3343,7 @@ GMEXPORT double __EXT_NATIVE__steam_ugc_set_subscriptions_load_order(char* __arg
     // field: published_file_ids, type: UInt64[]
     std::vector<std::uint64_t> published_file_ids = gm::wire::codec::readVector<std::uint64_t>(__br);
 
-    // field: num_published_file_ids, type: UInt32
-    std::uint32_t num_published_file_ids = gm::wire::codec::readValue<std::uint32_t>(__br);
-
-    auto&& __result = steam_ugc_set_subscriptions_load_order(published_file_ids, num_published_file_ids);
+    auto&& __result = steam_ugc_set_subscriptions_load_order(published_file_ids);
     return static_cast<double>(__result);
 }
 
@@ -3423,13 +3417,10 @@ GMEXPORT double __EXT_NATIVE__steam_ugc_stop_playtime_tracking(char* __arg_buffe
     // field: published_file_ids, type: UInt64[]
     std::vector<std::uint64_t> published_file_ids = gm::wire::codec::readVector<std::uint64_t>(__br);
 
-    // field: num_published_file_ids, type: UInt32
-    std::uint32_t num_published_file_ids = gm::wire::codec::readValue<std::uint32_t>(__br);
-
     // field: callback, type: Function
     gm::wire::GMFunction callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
 
-    steam_ugc_stop_playtime_tracking(published_file_ids, num_published_file_ids, callback);
+    steam_ugc_stop_playtime_tracking(published_file_ids, callback);
     return 0;
 }
 
@@ -5099,13 +5090,10 @@ GMEXPORT double __EXT_NATIVE__steam_inventory_add_promo_items(char* __arg_buffer
     // field: item_def_ids, type: UInt32[]
     std::vector<std::uint32_t> item_def_ids = gm::wire::codec::readVector<std::uint32_t>(__br);
 
-    // field: num_item_defs, type: UInt32
-    std::uint32_t num_item_defs = gm::wire::codec::readValue<std::uint32_t>(__br);
-
     // field: callback, type: Function
     gm::wire::GMFunction callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
 
-    auto&& __result = steam_inventory_add_promo_items(item_def_ids, num_item_defs, callback);
+    auto&& __result = steam_inventory_add_promo_items(item_def_ids, callback);
     return static_cast<double>(__result);
 }
 

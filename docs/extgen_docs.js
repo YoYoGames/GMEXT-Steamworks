@@ -1915,7 +1915,6 @@
 /**
  * @function_partial steam_ugc_set_items_disabled_locally
  * @param {Array[Real]} published_file_ids
- * @param {Real} num_published_file_ids
  * @param {Bool} disabled_locally
  * @returns {Bool}
  * @function_end
@@ -2028,7 +2027,6 @@
 /**
  * @function_partial steam_ugc_set_subscriptions_load_order
  * @param {Array[Real]} published_file_ids
- * @param {Real} num_published_file_ids
  * @returns {Bool}
  * @function_end
  */
@@ -2066,7 +2064,6 @@
 /**
  * @function_partial steam_ugc_stop_playtime_tracking
  * @param {Array[Real]} published_file_ids
- * @param {Real} num_published_file_ids
  * @param {Function} callback
  * @function_end
  */
@@ -3062,7 +3059,6 @@
 /**
  * @function_partial steam_inventory_add_promo_items
  * @param {Array[Real]} item_def_ids
- * @param {Real} num_item_defs
  * @param {Function} callback
  * @returns {Real}
  * @function_end
@@ -4306,7 +4302,6 @@
  * @struct_partial SteamFriendsEnumerateFollowingListResult
  * @member {Enum.SteamApiResult} result
  * @member {Array[Real]} steam_ids
- * @member {Real} results_returned
  * @member {Real} total_result_count
  * @struct_end
  */

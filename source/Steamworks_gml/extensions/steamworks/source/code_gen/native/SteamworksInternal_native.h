@@ -1730,7 +1730,6 @@ namespace gm_structs
     {
         gm_enums::SteamApiResult result;
         std::vector<std::uint64_t> steam_ids;
-        std::int32_t results_returned;
         std::int32_t total_result_count;
     };
 
@@ -2754,7 +2753,6 @@ namespace gm::wire::codec
     {
         gm::wire::codec::writeValue(_buf, obj.result);
         gm::wire::codec::writeValue(_buf, obj.steam_ids);
-        gm::wire::codec::writeValue(_buf, obj.results_returned);
         gm::wire::codec::writeValue(_buf, obj.total_result_count);
     }
 
@@ -2764,7 +2762,6 @@ namespace gm::wire::codec
         gm_structs::SteamFriendsEnumerateFollowingListResult obj;
         obj.result = gm::wire::codec::readValue<gm_enums::SteamApiResult>(_buf);
         obj.steam_ids = gm::wire::codec::readVector<std::uint64_t>(_buf);
-        obj.results_returned = gm::wire::codec::readValue<std::int32_t>(_buf);
         obj.total_result_count = gm::wire::codec::readValue<std::int32_t>(_buf);
         return obj;
     }
@@ -6448,7 +6445,7 @@ bool steam_ugc_set_item_preview(std::uint64_t update_handle, std::string_view pr
 bool steam_ugc_set_item_tags(std::uint64_t update_handle, const std::vector<std::string_view>& tags_csv);
 bool steam_ugc_set_item_title(std::uint64_t update_handle, std::string_view title);
 bool steam_ugc_set_item_update_language(std::uint64_t update_handle, std::string_view language);
-bool steam_ugc_set_items_disabled_locally(const std::vector<std::uint64_t>& published_file_ids, std::uint32_t num_published_file_ids, bool disabled_locally);
+bool steam_ugc_set_items_disabled_locally(const std::vector<std::uint64_t>& published_file_ids, bool disabled_locally);
 bool steam_ugc_set_item_visibility(std::uint64_t update_handle, gm_enums::SteamRemoteStoragePublishedFileVisibility visibility);
 bool steam_ugc_set_language(std::uint64_t query_handle, std::string_view language);
 bool steam_ugc_set_match_any_tag(std::uint64_t query_handle, bool match_any_tag);
@@ -6462,12 +6459,12 @@ bool steam_ugc_set_return_only_ids(std::uint64_t query_handle, bool return_only_
 bool steam_ugc_set_return_playtime_stats(std::uint64_t query_handle, std::uint32_t days);
 bool steam_ugc_set_return_total_only(std::uint64_t query_handle, bool return_total_only);
 bool steam_ugc_set_search_text(std::uint64_t query_handle, std::string_view search_text);
-bool steam_ugc_set_subscriptions_load_order(const std::vector<std::uint64_t>& published_file_ids, std::uint32_t num_published_file_ids);
+bool steam_ugc_set_subscriptions_load_order(const std::vector<std::uint64_t>& published_file_ids);
 void steam_ugc_set_user_item_vote(std::uint64_t published_file_id, bool vote_up, const gm::wire::GMFunction& callback);
 void steam_ugc_get_user_item_vote(std::uint64_t published_file_id, const gm::wire::GMFunction& callback);
 std::uint64_t steam_ugc_start_item_update(std::uint32_t consumer_app_id, std::uint64_t published_file_id);
 void steam_ugc_start_playtime_tracking(const std::vector<std::uint64_t>& published_file_ids, const gm::wire::GMFunction& callback);
-void steam_ugc_stop_playtime_tracking(const std::vector<std::uint64_t>& published_file_ids, std::uint32_t num_published_file_ids, const gm::wire::GMFunction& callback);
+void steam_ugc_stop_playtime_tracking(const std::vector<std::uint64_t>& published_file_ids, const gm::wire::GMFunction& callback);
 void steam_ugc_stop_playtime_tracking_for_all_items(const gm::wire::GMFunction& callback);
 void steam_ugc_submit_item_update(std::uint64_t update_handle, std::string_view change_note, const gm::wire::GMFunction& callback);
 void steam_ugc_subscribe_item(std::uint64_t published_file_id, const gm::wire::GMFunction& callback);
@@ -6609,7 +6606,7 @@ void steam_timeline_clear_callback_game_phase_recording_exists();
 void steam_timeline_set_callback_event_recording_exists(const gm::wire::GMFunction& callback);
 void steam_timeline_clear_callback_event_recording_exists();
 std::int32_t steam_inventory_add_promo_item(std::uint32_t item_def_id, const gm::wire::GMFunction& callback);
-std::int32_t steam_inventory_add_promo_items(const std::vector<std::uint32_t>& item_def_ids, std::uint32_t num_item_defs, const gm::wire::GMFunction& callback);
+std::int32_t steam_inventory_add_promo_items(const std::vector<std::uint32_t>& item_def_ids, const gm::wire::GMFunction& callback);
 bool steam_inventory_check_result_steam_id(std::int32_t result_handle, std::uint64_t steam_id_expected);
 std::int32_t steam_inventory_consume_item(std::uint64_t item_instance_id, std::uint32_t quantity, const gm::wire::GMFunction& callback);
 std::optional<gm_structs::SteamInventoryDeserializeResult> steam_inventory_deserialize_result(gm::wire::GMBuffer data, std::uint32_t data_size);
