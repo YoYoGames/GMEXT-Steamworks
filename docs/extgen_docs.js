@@ -2659,7 +2659,6 @@
  * @function_partial steam_userstats_downloaded_leaderboard_entry
  * @param {Real} leaderboard_entries_handle
  * @param {Real} entry_index
- * @param {Real} max_details
  * @returns {Struct.SteamUserStatsDownloadedLeaderboardEntry}
  * @function_end
  */

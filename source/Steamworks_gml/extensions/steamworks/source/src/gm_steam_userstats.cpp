@@ -376,8 +376,7 @@ gm_enums::SteamLeaderboardDisplayType steam_userstats_leaderboard_display_type(s
 
 std::optional<SteamUserStatsDownloadedLeaderboardEntry> steam_userstats_downloaded_leaderboard_entry(
     std::uint64_t leaderboard_entries_handle,
-    std::int32_t entry_index,
-    std::int32_t max_details
+    std::int32_t entry_index
 )
 {
     STEAM_GUARD_RET(std::nullopt);
@@ -386,7 +385,7 @@ std::optional<SteamUserStatsDownloadedLeaderboardEntry> steam_userstats_download
     if (!s)
         return std::nullopt;
 
-    const int max_details_clamped = std::min<int>(max_details, k_cLeaderboardDetailsMax);
+    const int max_details_clamped = k_cLeaderboardDetailsMax;
 
     LeaderboardEntry_t entry {};
     std::vector<std::int32_t> details_vec(static_cast<size_t>(max_details_clamped));

@@ -18349,10 +18349,9 @@ function steam_userstats_download_leaderboard_entries_for_users(_leaderboard_han
 /**
  * @param {Real} _leaderboard_entries_handle
  * @param {Real} _entry_index
- * @param {Real} _max_details
  * @returns {Struct.SteamUserStatsDownloadedLeaderboardEntry}
  */
-function steam_userstats_downloaded_leaderboard_entry(_leaderboard_entries_handle, _entry_index, _max_details)
+function steam_userstats_downloaded_leaderboard_entry(_leaderboard_entries_handle, _entry_index)
 {
     var __args_buffer = __ext_core_get_args_buffer();
 
@@ -18363,10 +18362,6 @@ function steam_userstats_downloaded_leaderboard_entry(_leaderboard_entries_handl
     // param: _entry_index, type: Int32
     if (!is_numeric(_entry_index)) show_error($"{_GMFUNCTION_} :: _entry_index expected number", true);
     buffer_write(__args_buffer, buffer_s32, _entry_index);
-
-    // param: _max_details, type: Int32
-    if (!is_numeric(_max_details)) show_error($"{_GMFUNCTION_} :: _max_details expected number", true);
-    buffer_write(__args_buffer, buffer_s32, _max_details);
 
     var __ret_buffer = __ext_core_get_ret_buffer();
 

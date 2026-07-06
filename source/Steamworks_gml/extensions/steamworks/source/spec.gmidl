@@ -4331,8 +4331,7 @@ function steam_userstats_download_leaderboard_entries_for_users([type_hint=uint6
 [global, bind = typed_gml, type_hint=`SteamUserStatsDownloadedLeaderboardEntry?`]
 function steam_userstats_downloaded_leaderboard_entry(
     [type_hint=uint64]leaderboard_entries_handle: gmval,
-    entry_index: int32,
-    max_details: int32
+    entry_index: int32
 ): gmval;
 
 // UploadLeaderboardScore
