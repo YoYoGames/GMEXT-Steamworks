@@ -12217,6 +12217,23 @@ function steam_friends_get_clan_activity_counts(_steam_id_clan)
 }
 
 /**
+ * @param {Real} _steam_id_clan
+ * @returns {Real}
+ */
+function steam_friends_get_clan_chat_member_count(_steam_id_clan)
+{
+    var __args_buffer = __ext_core_get_args_buffer();
+
+    // param: _steam_id_clan, type: UInt64
+    if (!is_numeric(_steam_id_clan)) show_error($"{_GMFUNCTION_} :: _steam_id_clan expected number", true);
+    buffer_write(__args_buffer, buffer_u64, _steam_id_clan);
+
+    var _return_value = __steam_friends_get_clan_chat_member_count(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+
+    return _return_value;
+}
+
+/**
  * @param {Real} _steam_id_clan_chat
  * @param {Real} _message
  * @returns {Struct.SteamFriendsClanChatMessage}

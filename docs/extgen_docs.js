@@ -126,6 +126,13 @@
  */
 
 /**
+ * @function_partial steam_friends_get_clan_chat_member_count
+ * @param {Real} steam_id_clan
+ * @returns {Real}
+ * @function_end
+ */
+
+/**
  * @function_partial steam_friends_get_clan_chat_message
  * @param {Real} steam_id_clan_chat
  * @param {Real} message

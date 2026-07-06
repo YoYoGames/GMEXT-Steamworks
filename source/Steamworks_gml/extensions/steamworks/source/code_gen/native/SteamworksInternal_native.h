@@ -6159,6 +6159,7 @@ void steam_friends_set_callback_avatar_image_loaded(const gm::wire::GMFunction& 
 void steam_friends_clear_callback_avatar_image_loaded();
 std::uint64_t steam_friends_get_chat_member_by_index(std::uint64_t steam_id_clan, std::int32_t user);
 std::optional<gm_structs::SteamFriendsClanActivityCounts> steam_friends_get_clan_activity_counts(std::uint64_t steam_id_clan);
+std::int32_t steam_friends_get_clan_chat_member_count(std::uint64_t steam_id_clan);
 gm_structs::SteamFriendsClanChatMessage steam_friends_get_clan_chat_message(std::uint64_t steam_id_clan_chat, std::int32_t message);
 std::int32_t steam_friends_get_clan_count();
 std::string steam_friends_get_clan_name(std::uint64_t steam_id_clan);

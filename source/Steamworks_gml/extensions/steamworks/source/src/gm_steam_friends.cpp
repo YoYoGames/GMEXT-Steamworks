@@ -194,6 +194,15 @@ std::optional<gm_structs::SteamFriendsClanActivityCounts> steam_friends_get_clan
     return out;
 }
 
+std::int32_t steam_friends_get_clan_chat_member_count(std::uint64_t steam_id_clan)
+{
+    STEAM_GUARD_RET(0);
+    ISteamFriends* f = steam_friends_iface();
+    if (!f)
+        return 0;
+
+    return (std::int32_t)f->GetClanChatMemberCount(steam_id_from_u64(steam_id_clan));
+}
 
 gm_structs::SteamFriendsClanChatMessage
 steam_friends_get_clan_chat_message(std::uint64_t steam_id_clan_chat, std::int32_t message)

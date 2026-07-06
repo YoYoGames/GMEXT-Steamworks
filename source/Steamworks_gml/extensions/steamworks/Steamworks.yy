@@ -367,6 +367,24 @@
         },
         {
           "$GMExtensionFunction": "",
+          "%Name": "__steam_friends_get_clan_chat_member_count",
+          "argCount": 2,
+          "args": [
+            1,
+            2
+          ],
+          "documentation": "@param {Pointer} _arg_buffer\r\n@param {Real} _arg_buffer_length\r\n@returns {Real}",
+          "externalName": "__EXT_NATIVE__steam_friends_get_clan_chat_member_count",
+          "help": "",
+          "hidden": true,
+          "kind": 4,
+          "name": "__steam_friends_get_clan_chat_member_count",
+          "resourceType": "GMExtensionFunction",
+          "resourceVersion": "2.0",
+          "returnType": 2
+        },
+        {
+          "$GMExtensionFunction": "",
           "%Name": "__steam_friends_get_clan_chat_message",
           "argCount": 4,
           "args": [

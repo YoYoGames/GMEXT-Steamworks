@@ -29,6 +29,7 @@ GMEXPORT double __EXT_NATIVE__steam_friends_set_callback_avatar_image_loaded(cha
 GMEXPORT double __EXT_NATIVE__steam_friends_clear_callback_avatar_image_loaded();
 GMEXPORT double __EXT_NATIVE__steam_friends_get_chat_member_by_index(char* __arg_buffer, double __arg_buffer_length, char* __ret_buffer, double __ret_buffer_length);
 GMEXPORT double __EXT_NATIVE__steam_friends_get_clan_activity_counts(char* __arg_buffer, double __arg_buffer_length, char* __ret_buffer, double __ret_buffer_length);
+GMEXPORT double __EXT_NATIVE__steam_friends_get_clan_chat_member_count(char* __arg_buffer, double __arg_buffer_length);
 GMEXPORT double __EXT_NATIVE__steam_friends_get_clan_chat_message(char* __arg_buffer, double __arg_buffer_length, char* __ret_buffer, double __ret_buffer_length);
 GMEXPORT double __EXT_NATIVE__steam_friends_get_clan_count();
 GMEXPORT char* __EXT_NATIVE__steam_friends_get_clan_name(char* __arg_buffer, double __arg_buffer_length);

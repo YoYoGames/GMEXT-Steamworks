@@ -223,6 +223,17 @@ GMEXPORT double __EXT_NATIVE__steam_friends_get_clan_activity_counts(char* __arg
     return 0;
 }
 
+GMEXPORT double __EXT_NATIVE__steam_friends_get_clan_chat_member_count(char* __arg_buffer, double __arg_buffer_length)
+{
+    gm::byteio::BufferReader __br{__arg_buffer, static_cast<size_t>(__arg_buffer_length)};
+
+    // field: steam_id_clan, type: UInt64
+    std::uint64_t steam_id_clan = gm::wire::codec::readValue<std::uint64_t>(__br);
+
+    auto&& __result = steam_friends_get_clan_chat_member_count(steam_id_clan);
+    return static_cast<double>(__result);
+}
+
 GMEXPORT double __EXT_NATIVE__steam_friends_get_clan_chat_message(char* __arg_buffer, double __arg_buffer_length, char* __ret_buffer, double __ret_buffer_length)
 {
     gm::byteio::BufferReader __br{__arg_buffer, static_cast<size_t>(__arg_buffer_length)};

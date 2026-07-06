@@ -514,7 +514,9 @@ function steam_friends_get_chat_member_by_index([type_hint=uint64] steam_id_clan
 [global, bind = typed_gml, type_hint=`SteamFriendsClanActivityCounts?`]
 function steam_friends_get_clan_activity_counts([type_hint=uint64] steam_id_clan: gmval): gmval;
 
-// GetClanByIndex
+// GetClanChatMemberCount
+[global, bind = typed_gml]
+function steam_friends_get_clan_chat_member_count([type_hint=uint64] steam_id_clan: gmval): int32;
 
 // GetClanChatMessage
 [global, bind = typed_gml, type_hint=`SteamFriendsClanChatMessage`]
