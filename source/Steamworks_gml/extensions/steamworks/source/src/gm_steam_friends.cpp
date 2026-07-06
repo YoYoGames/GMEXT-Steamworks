@@ -436,7 +436,9 @@ steam_friends_get_friend_message(std::uint64_t steam_id_friend, std::int32_t mes
 
     if (bytes > 0) {
         const int n = std::min<int>(bytes, (int)buf.size());
-        out.data = std::string((const char*)buf.data(), (size_t)n);
+
+        if(entry==EChatEntryType::k_EChatEntryTypeChatMsg || entry==EChatEntryType::k_EChatEntryTypeHistoricalChat)
+            out.data = std::string((const char*)buf.data(), (size_t)n);
     }
 
     return out;

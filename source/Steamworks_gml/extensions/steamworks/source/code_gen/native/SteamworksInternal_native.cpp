@@ -4435,10 +4435,7 @@ GMEXPORT double __EXT_NATIVE__steam_userstats_downloaded_leaderboard_entry(char*
     // field: entry_index, type: Int32
     std::int32_t entry_index = gm::wire::codec::readValue<std::int32_t>(__br);
 
-    // field: max_details, type: Int32
-    std::int32_t max_details = gm::wire::codec::readValue<std::int32_t>(__br);
-
-    auto&& __result = steam_userstats_downloaded_leaderboard_entry(leaderboard_entries_handle, entry_index, max_details);
+    auto&& __result = steam_userstats_downloaded_leaderboard_entry(leaderboard_entries_handle, entry_index);
     gm::byteio::BufferWriter __bw{__ret_buffer, static_cast<size_t>(__ret_buffer_length)};
 
     // return: __result, type: optional<struct SteamUserStatsDownloadedLeaderboardEntry>

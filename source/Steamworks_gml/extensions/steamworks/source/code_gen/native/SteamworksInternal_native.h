@@ -1778,7 +1778,7 @@ namespace gm_structs
     struct SteamFriendsFriendMessage
     {
         gm_enums::SteamFriendsChatEntryType entry_type;
-        std::string data;
+        std::optional<std::string> data;
     };
 
     struct SteamFriendsPersonaStateChange
@@ -2882,7 +2882,7 @@ namespace gm::wire::codec
     {
         gm_structs::SteamFriendsFriendMessage obj;
         obj.entry_type = gm::wire::codec::readValue<gm_enums::SteamFriendsChatEntryType>(_buf);
-        obj.data = gm::wire::codec::readValue<std::string>(_buf);
+        obj.data = gm::wire::codec::readOptional<std::string>(_buf);
         return obj;
     }
 
@@ -6519,7 +6519,7 @@ gm_enums::SteamLeaderboardSortMethod steam_userstats_leaderboard_sort_method(std
 gm_enums::SteamLeaderboardDisplayType steam_userstats_leaderboard_display_type(std::uint64_t leaderboard_handle);
 void steam_userstats_download_leaderboard_entries(std::uint64_t leaderboard_handle, gm_enums::SteamLeaderboardDataRequest request, std::int32_t range_start, std::int32_t range_end, const gm::wire::GMFunction& callback);
 void steam_userstats_download_leaderboard_entries_for_users(std::uint64_t leaderboard_handle, const std::vector<std::uint64_t>& users, const gm::wire::GMFunction& callback);
-std::optional<gm_structs::SteamUserStatsDownloadedLeaderboardEntry> steam_userstats_downloaded_leaderboard_entry(std::uint64_t leaderboard_entries_handle, std::int32_t entry_index, std::int32_t max_details);
+std::optional<gm_structs::SteamUserStatsDownloadedLeaderboardEntry> steam_userstats_downloaded_leaderboard_entry(std::uint64_t leaderboard_entries_handle, std::int32_t entry_index);
 void steam_userstats_upload_leaderboard_score(std::uint64_t leaderboard_handle, gm_enums::SteamLeaderboardUploadScoreMethod method, std::int32_t score, const std::vector<std::int32_t>& score_details, const gm::wire::GMFunction& callback);
 void steam_userstats_attach_leaderboard_ugc(std::uint64_t leaderboard_handle, std::uint64_t ugc_handle, const gm::wire::GMFunction& callback);
 void steam_userstats_number_of_current_players(const gm::wire::GMFunction& callback);

@@ -2659,7 +2659,6 @@
  * @function_partial steam_userstats_downloaded_leaderboard_entry
  * @param {Real} leaderboard_entries_handle
  * @param {Real} entry_index
- * @param {Real} max_details
  * @returns {Struct.SteamUserStatsDownloadedLeaderboardEntry}
  * @function_end
  */
@@ -4365,7 +4364,7 @@
 /**
  * @struct_partial SteamFriendsFriendMessage
  * @member {Enum.SteamFriendsChatEntryType} entry_type
- * @member {String} data
+ * @member {String} [data]
  * @struct_end
  */
 
