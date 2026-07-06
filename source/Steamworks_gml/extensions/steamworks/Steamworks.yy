@@ -367,6 +367,24 @@
         },
         {
           "$GMExtensionFunction": "",
+          "%Name": "__steam_friends_get_clan_chat_member_count",
+          "argCount": 2,
+          "args": [
+            1,
+            2
+          ],
+          "documentation": "@param {Pointer} _arg_buffer\r\n@param {Real} _arg_buffer_length\r\n@returns {Real}",
+          "externalName": "__EXT_NATIVE__steam_friends_get_clan_chat_member_count",
+          "help": "",
+          "hidden": true,
+          "kind": 4,
+          "name": "__steam_friends_get_clan_chat_member_count",
+          "resourceType": "GMExtensionFunction",
+          "resourceVersion": "2.0",
+          "returnType": 2
+        },
+        {
+          "$GMExtensionFunction": "",
           "%Name": "__steam_friends_get_clan_chat_message",
           "argCount": 4,
           "args": [
@@ -1647,17 +1665,19 @@
         },
         {
           "$GMExtensionFunction": "",
-          "%Name": "steam_apps_get_app_install_dir",
-          "argCount": 1,
+          "%Name": "__steam_apps_get_app_install_dir",
+          "argCount": 3,
           "args": [
+            2,
+            1,
             2
           ],
-          "documentation": "@param {Real} app_id\r\n@returns {Real}",
+          "documentation": "@param {Real} app_id\r\n@param {Pointer} _ret_buffer\r\n@param {Real} _ret_buffer_length\r\n@returns {Real}",
           "externalName": "__EXT_NATIVE__steam_apps_get_app_install_dir",
           "help": "",
-          "hidden": false,
+          "hidden": true,
           "kind": 4,
-          "name": "steam_apps_get_app_install_dir",
+          "name": "__steam_apps_get_app_install_dir",
           "resourceType": "GMExtensionFunction",
           "resourceVersion": "2.0",
           "returnType": 2
@@ -1697,15 +1717,18 @@
         },
         {
           "$GMExtensionFunction": "",
-          "%Name": "steam_apps_get_current_beta_name",
-          "argCount": 0,
-          "args": [],
-          "documentation": "@returns {Real}",
+          "%Name": "__steam_apps_get_current_beta_name",
+          "argCount": 2,
+          "args": [
+            1,
+            2
+          ],
+          "documentation": "@param {Pointer} _ret_buffer\r\n@param {Real} _ret_buffer_length\r\n@returns {Real}",
           "externalName": "__EXT_NATIVE__steam_apps_get_current_beta_name",
           "help": "",
-          "hidden": false,
+          "hidden": true,
           "kind": 4,
-          "name": "steam_apps_get_current_beta_name",
+          "name": "__steam_apps_get_current_beta_name",
           "resourceType": "GMExtensionFunction",
           "resourceVersion": "2.0",
           "returnType": 2
@@ -1888,15 +1911,18 @@
         },
         {
           "$GMExtensionFunction": "",
-          "%Name": "steam_apps_get_launch_command_line",
-          "argCount": 0,
-          "args": [],
-          "documentation": "@returns {Real}",
+          "%Name": "__steam_apps_get_launch_command_line",
+          "argCount": 2,
+          "args": [
+            1,
+            2
+          ],
+          "documentation": "@param {Pointer} _ret_buffer\r\n@param {Real} _ret_buffer_length\r\n@returns {Real}",
           "externalName": "__EXT_NATIVE__steam_apps_get_launch_command_line",
           "help": "",
-          "hidden": false,
+          "hidden": true,
           "kind": 4,
-          "name": "steam_apps_get_launch_command_line",
+          "name": "__steam_apps_get_launch_command_line",
           "resourceType": "GMExtensionFunction",
           "resourceVersion": "2.0",
           "returnType": 2
@@ -2618,12 +2644,14 @@
         {
           "$GMExtensionFunction": "",
           "%Name": "__steam_user_get_encrypted_app_ticket",
-          "argCount": 2,
+          "argCount": 4,
           "args": [
+            1,
+            2,
             1,
             2
           ],
-          "documentation": "@param {Pointer} _arg_buffer\r\n@param {Real} _arg_buffer_length\r\n@returns {Real}",
+          "documentation": "@param {Pointer} _arg_buffer\r\n@param {Real} _arg_buffer_length\r\n@param {Pointer} _ret_buffer\r\n@param {Real} _ret_buffer_length\r\n@returns {Real}",
           "externalName": "__EXT_NATIVE__steam_user_get_encrypted_app_ticket",
           "help": "",
           "hidden": true,
@@ -3062,12 +3090,14 @@
         {
           "$GMExtensionFunction": "",
           "%Name": "__steam_utils_get_api_call_result",
-          "argCount": 2,
+          "argCount": 4,
           "args": [
+            1,
+            2,
             1,
             2
           ],
-          "documentation": "@param {Pointer} _arg_buffer\r\n@param {Real} _arg_buffer_length\r\n@returns {Real}",
+          "documentation": "@param {Pointer} _arg_buffer\r\n@param {Real} _arg_buffer_length\r\n@param {Pointer} _ret_buffer\r\n@param {Real} _ret_buffer_length\r\n@returns {Real}",
           "externalName": "__EXT_NATIVE__steam_utils_get_api_call_result",
           "help": "",
           "hidden": true,
@@ -3292,15 +3322,18 @@
         },
         {
           "$GMExtensionFunction": "",
-          "%Name": "steam_utils_get_entered_gamepad_text_input",
-          "argCount": 0,
-          "args": [],
-          "documentation": "@returns {Real}",
+          "%Name": "__steam_utils_get_entered_gamepad_text_input",
+          "argCount": 2,
+          "args": [
+            1,
+            2
+          ],
+          "documentation": "@param {Pointer} _ret_buffer\r\n@param {Real} _ret_buffer_length\r\n@returns {Real}",
           "externalName": "__EXT_NATIVE__steam_utils_get_entered_gamepad_text_input",
           "help": "",
-          "hidden": false,
+          "hidden": true,
           "kind": 4,
-          "name": "steam_utils_get_entered_gamepad_text_input",
+          "name": "__steam_utils_get_entered_gamepad_text_input",
           "resourceType": "GMExtensionFunction",
           "resourceVersion": "2.0",
           "returnType": 2
@@ -3525,12 +3558,14 @@
         {
           "$GMExtensionFunction": "",
           "%Name": "__steam_utils_is_api_call_completed",
-          "argCount": 2,
+          "argCount": 4,
           "args": [
+            1,
+            2,
             1,
             2
           ],
-          "documentation": "@param {Pointer} _arg_buffer\r\n@param {Real} _arg_buffer_length\r\n@returns {Real}",
+          "documentation": "@param {Pointer} _arg_buffer\r\n@param {Real} _arg_buffer_length\r\n@param {Pointer} _ret_buffer\r\n@param {Real} _ret_buffer_length\r\n@returns {Real}",
           "externalName": "__EXT_NATIVE__steam_utils_is_api_call_completed",
           "help": "",
           "hidden": true,
@@ -4295,12 +4330,14 @@
         {
           "$GMExtensionFunction": "",
           "%Name": "__steam_ugc_get_query_ugc_preview_url",
-          "argCount": 2,
+          "argCount": 4,
           "args": [
+            1,
+            2,
             1,
             2
           ],
-          "documentation": "@param {Pointer} _arg_buffer\r\n@param {Real} _arg_buffer_length\r\n@returns {Real}",
+          "documentation": "@param {Pointer} _arg_buffer\r\n@param {Real} _arg_buffer_length\r\n@param {Pointer} _ret_buffer\r\n@param {Real} _ret_buffer_length\r\n@returns {Real}",
           "externalName": "__EXT_NATIVE__steam_ugc_get_query_ugc_preview_url",
           "help": "",
           "hidden": true,
@@ -4313,12 +4350,14 @@
         {
           "$GMExtensionFunction": "",
           "%Name": "__steam_ugc_get_query_ugc_metadata",
-          "argCount": 2,
+          "argCount": 4,
           "args": [
+            1,
+            2,
             1,
             2
           ],
-          "documentation": "@param {Pointer} _arg_buffer\r\n@param {Real} _arg_buffer_length\r\n@returns {Real}",
+          "documentation": "@param {Pointer} _arg_buffer\r\n@param {Real} _arg_buffer_length\r\n@param {Pointer} _ret_buffer\r\n@param {Real} _ret_buffer_length\r\n@returns {Real}",
           "externalName": "__EXT_NATIVE__steam_ugc_get_query_ugc_metadata",
           "help": "",
           "hidden": true,
@@ -6144,34 +6183,38 @@
         },
         {
           "$GMExtensionFunction": "",
-          "%Name": "steam_userstats_get_stat_int",
-          "argCount": 1,
+          "%Name": "__steam_userstats_get_stat_int",
+          "argCount": 3,
           "args": [
-            1
+            1,
+            1,
+            2
           ],
-          "documentation": "@param {String} stat_name\r\n@returns {Real}",
+          "documentation": "@param {String} stat_name\r\n@param {Pointer} _ret_buffer\r\n@param {Real} _ret_buffer_length\r\n@returns {Real}",
           "externalName": "__EXT_NATIVE__steam_userstats_get_stat_int",
           "help": "",
-          "hidden": false,
+          "hidden": true,
           "kind": 4,
-          "name": "steam_userstats_get_stat_int",
+          "name": "__steam_userstats_get_stat_int",
           "resourceType": "GMExtensionFunction",
           "resourceVersion": "2.0",
           "returnType": 2
         },
         {
           "$GMExtensionFunction": "",
-          "%Name": "steam_userstats_get_stat_float",
-          "argCount": 1,
+          "%Name": "__steam_userstats_get_stat_float",
+          "argCount": 3,
           "args": [
-            1
+            1,
+            1,
+            2
           ],
-          "documentation": "@param {String} stat_name\r\n@returns {Real}",
+          "documentation": "@param {String} stat_name\r\n@param {Pointer} _ret_buffer\r\n@param {Real} _ret_buffer_length\r\n@returns {Real}",
           "externalName": "__EXT_NATIVE__steam_userstats_get_stat_float",
           "help": "",
-          "hidden": false,
+          "hidden": true,
           "kind": 4,
-          "name": "steam_userstats_get_stat_float",
+          "name": "__steam_userstats_get_stat_float",
           "resourceType": "GMExtensionFunction",
           "resourceVersion": "2.0",
           "returnType": 2
@@ -6233,17 +6276,19 @@
         },
         {
           "$GMExtensionFunction": "",
-          "%Name": "steam_userstats_get_achievement",
-          "argCount": 1,
+          "%Name": "__steam_userstats_get_achievement",
+          "argCount": 3,
           "args": [
-            1
+            1,
+            1,
+            2
           ],
-          "documentation": "@param {String} achievement_name\r\n@returns {Real}",
+          "documentation": "@param {String} achievement_name\r\n@param {Pointer} _ret_buffer\r\n@param {Real} _ret_buffer_length\r\n@returns {Real}",
           "externalName": "__EXT_NATIVE__steam_userstats_get_achievement",
           "help": "",
-          "hidden": false,
+          "hidden": true,
           "kind": 4,
-          "name": "steam_userstats_get_achievement",
+          "name": "__steam_userstats_get_achievement",
           "resourceType": "GMExtensionFunction",
           "resourceVersion": "2.0",
           "returnType": 2
@@ -6423,12 +6468,14 @@
         {
           "$GMExtensionFunction": "",
           "%Name": "__steam_userstats_user_stat_int",
-          "argCount": 2,
+          "argCount": 4,
           "args": [
+            1,
+            2,
             1,
             2
           ],
-          "documentation": "@param {Pointer} _arg_buffer\r\n@param {Real} _arg_buffer_length\r\n@returns {Real}",
+          "documentation": "@param {Pointer} _arg_buffer\r\n@param {Real} _arg_buffer_length\r\n@param {Pointer} _ret_buffer\r\n@param {Real} _ret_buffer_length\r\n@returns {Real}",
           "externalName": "__EXT_NATIVE__steam_userstats_user_stat_int",
           "help": "",
           "hidden": true,
@@ -6441,12 +6488,14 @@
         {
           "$GMExtensionFunction": "",
           "%Name": "__steam_userstats_user_stat_float",
-          "argCount": 2,
+          "argCount": 4,
           "args": [
+            1,
+            2,
             1,
             2
           ],
-          "documentation": "@param {Pointer} _arg_buffer\r\n@param {Real} _arg_buffer_length\r\n@returns {Real}",
+          "documentation": "@param {Pointer} _arg_buffer\r\n@param {Real} _arg_buffer_length\r\n@param {Pointer} _ret_buffer\r\n@param {Real} _ret_buffer_length\r\n@returns {Real}",
           "externalName": "__EXT_NATIVE__steam_userstats_user_stat_float",
           "help": "",
           "hidden": true,
@@ -6459,12 +6508,14 @@
         {
           "$GMExtensionFunction": "",
           "%Name": "__steam_userstats_user_achievement",
-          "argCount": 2,
+          "argCount": 4,
           "args": [
+            1,
+            2,
             1,
             2
           ],
-          "documentation": "@param {Pointer} _arg_buffer\r\n@param {Real} _arg_buffer_length\r\n@returns {Real}",
+          "documentation": "@param {Pointer} _arg_buffer\r\n@param {Real} _arg_buffer_length\r\n@param {Pointer} _ret_buffer\r\n@param {Real} _ret_buffer_length\r\n@returns {Real}",
           "externalName": "__EXT_NATIVE__steam_userstats_user_achievement",
           "help": "",
           "hidden": true,
@@ -6825,34 +6876,38 @@
         },
         {
           "$GMExtensionFunction": "",
-          "%Name": "steam_userstats_global_stat_int64",
-          "argCount": 1,
+          "%Name": "__steam_userstats_global_stat_int64",
+          "argCount": 3,
           "args": [
-            1
+            1,
+            1,
+            2
           ],
-          "documentation": "@param {String} stat_name\r\n@returns {Real}",
+          "documentation": "@param {String} stat_name\r\n@param {Pointer} _ret_buffer\r\n@param {Real} _ret_buffer_length\r\n@returns {Real}",
           "externalName": "__EXT_NATIVE__steam_userstats_global_stat_int64",
           "help": "",
-          "hidden": false,
+          "hidden": true,
           "kind": 4,
-          "name": "steam_userstats_global_stat_int64",
+          "name": "__steam_userstats_global_stat_int64",
           "resourceType": "GMExtensionFunction",
           "resourceVersion": "2.0",
           "returnType": 2
         },
         {
           "$GMExtensionFunction": "",
-          "%Name": "steam_userstats_global_stat_double",
-          "argCount": 1,
+          "%Name": "__steam_userstats_global_stat_double",
+          "argCount": 3,
           "args": [
-            1
+            1,
+            1,
+            2
           ],
-          "documentation": "@param {String} stat_name\r\n@returns {Real}",
+          "documentation": "@param {String} stat_name\r\n@param {Pointer} _ret_buffer\r\n@param {Real} _ret_buffer_length\r\n@returns {Real}",
           "externalName": "__EXT_NATIVE__steam_userstats_global_stat_double",
           "help": "",
-          "hidden": false,
+          "hidden": true,
           "kind": 4,
-          "name": "steam_userstats_global_stat_double",
+          "name": "__steam_userstats_global_stat_double",
           "resourceType": "GMExtensionFunction",
           "resourceVersion": "2.0",
           "returnType": 2
@@ -7988,12 +8043,14 @@
         {
           "$GMExtensionFunction": "",
           "%Name": "__steam_inventory_serialize_result",
-          "argCount": 2,
+          "argCount": 4,
           "args": [
+            1,
+            2,
             1,
             2
           ],
-          "documentation": "@param {Pointer} _arg_buffer\r\n@param {Real} _arg_buffer_length\r\n@returns {Real}",
+          "documentation": "@param {Pointer} _arg_buffer\r\n@param {Real} _arg_buffer_length\r\n@param {Pointer} _ret_buffer\r\n@param {Real} _ret_buffer_length\r\n@returns {Real}",
           "externalName": "__EXT_NATIVE__steam_inventory_serialize_result",
           "help": "",
           "hidden": true,
@@ -8025,19 +8082,20 @@
         },
         {
           "$GMExtensionFunction": "",
-          "%Name": "steam_inventory_get_result_item_property",
-          "argCount": 3,
+          "%Name": "__steam_inventory_get_result_item_property",
+          "argCount": 4,
           "args": [
+            1,
             2,
-            2,
-            1
+            1,
+            2
           ],
-          "documentation": "@param {Real} result_handle\r\n@param {Real} item_index\r\n@param {String} property_name\r\n@returns {Real}",
+          "documentation": "@param {Pointer} _arg_buffer\r\n@param {Real} _arg_buffer_length\r\n@param {Pointer} _ret_buffer\r\n@param {Real} _ret_buffer_length\r\n@returns {Real}",
           "externalName": "__EXT_NATIVE__steam_inventory_get_result_item_property",
           "help": "",
-          "hidden": false,
+          "hidden": true,
           "kind": 4,
-          "name": "steam_inventory_get_result_item_property",
+          "name": "__steam_inventory_get_result_item_property",
           "resourceType": "GMExtensionFunction",
           "resourceVersion": "2.0",
           "returnType": 2
@@ -8290,18 +8348,20 @@
         },
         {
           "$GMExtensionFunction": "",
-          "%Name": "steam_inventory_get_item_definition_property",
-          "argCount": 2,
+          "%Name": "__steam_inventory_get_item_definition_property",
+          "argCount": 4,
           "args": [
             2,
-            1
+            1,
+            1,
+            2
           ],
-          "documentation": "@param {Real} item_def_id\r\n@param {String} property_name\r\n@returns {Real}",
+          "documentation": "@param {Real} item_def_id\r\n@param {String} property_name\r\n@param {Pointer} _ret_buffer\r\n@param {Real} _ret_buffer_length\r\n@returns {Real}",
           "externalName": "__EXT_NATIVE__steam_inventory_get_item_definition_property",
           "help": "",
-          "hidden": false,
+          "hidden": true,
           "kind": 4,
-          "name": "steam_inventory_get_item_definition_property",
+          "name": "__steam_inventory_get_item_definition_property",
           "resourceType": "GMExtensionFunction",
           "resourceVersion": "2.0",
           "returnType": 2
@@ -10465,15 +10525,18 @@
         },
         {
           "$GMExtensionFunction": "",
-          "%Name": "steam_parties_get_num_available_beacon_locations",
-          "argCount": 0,
-          "args": [],
-          "documentation": "@returns {Real}",
+          "%Name": "__steam_parties_get_num_available_beacon_locations",
+          "argCount": 2,
+          "args": [
+            1,
+            2
+          ],
+          "documentation": "@param {Pointer} _ret_buffer\r\n@param {Real} _ret_buffer_length\r\n@returns {Real}",
           "externalName": "__EXT_NATIVE__steam_parties_get_num_available_beacon_locations",
           "help": "",
-          "hidden": false,
+          "hidden": true,
           "kind": 4,
-          "name": "steam_parties_get_num_available_beacon_locations",
+          "name": "__steam_parties_get_num_available_beacon_locations",
           "resourceType": "GMExtensionFunction",
           "resourceVersion": "2.0",
           "returnType": 2

@@ -416,9 +416,8 @@ class `[[SteamFriendsIsFollowingResult]]` prototype Object
 [global]
 class `[[SteamFriendsEnumerateFollowingListResult]]` prototype Object
 {
-    [field] property result : int32 { get; set; } // EResult numeric
+    [field, type_hint = `SteamApiResult`] property result : gmval { get; set; } // EResult numeric
     [field, type_hint=`uint64[]`] property steam_ids : gmval { get; set; }
-    [field] property results_returned : int32 { get; set; }
     [field] property total_result_count : int32 { get; set; }
 }
 
@@ -515,7 +514,9 @@ function steam_friends_get_chat_member_by_index([type_hint=uint64] steam_id_clan
 [global, bind = typed_gml, type_hint=`SteamFriendsClanActivityCounts?`]
 function steam_friends_get_clan_activity_counts([type_hint=uint64] steam_id_clan: gmval): gmval;
 
-// GetClanByIndex
+// GetClanChatMemberCount
+[global, bind = typed_gml]
+function steam_friends_get_clan_chat_member_count([type_hint=uint64] steam_id_clan: gmval): int32;
 
 // GetClanChatMessage
 [global, bind = typed_gml, type_hint=`SteamFriendsClanChatMessage`]
@@ -1307,7 +1308,7 @@ class `[[SteamUserEncryptedAppTicketResponse]]` prototype Object
 [global]
 class `[[SteamUserDurationControl]]` prototype Object
 {
-    [field] property result : int32 { get; set; }       // EResult numeric
+    [field, type_hint = `SteamApiResult`] property result : gmval { get; set; }       // EResult numeric
     [field] property app_id : uint32 { get; set; }
     [field] property applicable : bool { get; set; }
     [field] property csecs_last_5h : int32 { get; set; }
@@ -1719,8 +1720,7 @@ class `[[SteamUserValidateAuthTicketResponse]]` prototype Object
 [global]
 class `[[SteamUserSteamServersDisconnected]]` prototype Object
 {
-    [field]
-    property result : int32 { get; set; } // EResult numeric
+    [field, type_hint = `SteamApiResult`] property result : gmval { get; set; } // EResult numeric
 }
 
 [global]
@@ -2867,7 +2867,6 @@ function steam_ugc_set_item_update_language(
 [global, bind = typed_gml]
 function steam_ugc_set_items_disabled_locally(
     [type_hint=`uint64[]`] published_file_ids: gmval,
-    num_published_file_ids: uint32,
     disabled_locally: bool
 ): bool;
 
@@ -2971,8 +2970,7 @@ function steam_ugc_set_search_text(
 // SetSubscriptionsLoadOrder
 [global, bind = typed_gml]
 function steam_ugc_set_subscriptions_load_order(
-    [type_hint=`uint64[]`] published_file_ids: gmval,
-    num_published_file_ids: uint32
+    [type_hint=`uint64[]`] published_file_ids: gmval
 ): bool;
 
 // SetUserItemVote (async SteamAPICall_t)
@@ -3005,8 +3003,7 @@ function steam_ugc_start_playtime_tracking(
 // StopPlaytimeTracking (async SteamAPICall_t)
 [global, bind = typed_gml]
 function steam_ugc_stop_playtime_tracking(
-    [type_hint=`uint64[]`] published_file_ids: gmval,
-    num_published_file_ids: uint32
+    [type_hint=`uint64[]`] published_file_ids: gmval
 , callback:func): unit;
 
 // StopPlaytimeTrackingForAllItems (async SteamAPICall_t)
@@ -3104,14 +3101,14 @@ class `[[SteamUgcSubmitItemUpdateResult]]` prototype Object
 [global]
 class `[[SteamUgcSubscribeItemResult]]` prototype Object
 {
-    [field] property result : int32 { get; set; }
+    [field, type_hint = `SteamApiResult`] property result : gmval { get; set; }
     [field, type_hint=uint64] property published_file_id : gmval { get; set; }
 }
 
 [global]
 class `[[SteamUgcUnsubscribeItemResult]]` prototype Object
 {
-    [field] property result : int32 { get; set; }
+    [field, type_hint = `SteamApiResult`] property result : gmval { get; set; }
     [field, type_hint=uint64] property published_file_id : gmval { get; set; }
 }
 
@@ -3134,7 +3131,7 @@ class `[[SteamUgcSetUserItemVoteResult]]` prototype Object
 [global]
 class `[[SteamUgcGetUserItemVoteResult]]` prototype Object
 {
-    [field] property result : int32 { get; set; }
+    [field, type_hint = `SteamApiResult`] property result : gmval { get; set; }
     [field, type_hint=uint64] property published_file_id : gmval { get; set; }
     [field] property voted_up : bool { get; set; }
     [field] property voted_down : bool { get; set; }
@@ -3895,13 +3892,6 @@ class `[[SteamInputMotionData]]` prototype Object
 
 
 [global]
-class `[[SteamInputActiveActionSetLayers]]` prototype Object
-{
-    [field, type_hint = `uint64[]`]
-    property handles : gmval { get; set; } // InputActionSetHandle_t[]
-}
-
-[global]
 class `[[SteamInputActionOrigins]]` prototype Object
 {
     [field, type_hint = `SteamInputActionOrigin[]`]
@@ -3936,7 +3926,7 @@ function steam_input_deactivate_action_set_layer([type_hint=uint64] input_handle
 function steam_input_deactivate_all_action_set_layers([type_hint=uint64] input_handle: gmval): unit;
 
 // GetActiveActionSetLayers
-[global, bind = typed_gml, type_hint=`SteamInputActiveActionSetLayers`]
+[global, bind = typed_gml, type_hint=`uint64[]`]
 function steam_input_get_active_action_set_layers([type_hint=uint64] input_handle: gmval): gmval;
 
 // GetActionSetHandle
@@ -4212,7 +4202,7 @@ class `[[SteamUserStatsGlobalAchievementPercentagesReadyResult]]` prototype Obje
 class `[[SteamUserStatsGlobalStatsReceivedResult]]` prototype Object
 {
     [field, type_hint=uint64] property game_id : gmval { get; set; }
-    [field] property result : int32 { get; set; } // EResult numeric
+    [field, type_hint = `SteamApiResult`] property result : gmval { get; set; } // EResult numeric
 }
 
 // GetStat (int32)
@@ -4486,7 +4476,7 @@ class `[[SteamUserStatsUserStatsReceived]]` prototype Object
 class `[[SteamUserStatsUserStatsStored]]` prototype Object
 {
     [field, type_hint=uint64] property game_id : gmval { get; set; }
-    [field] property result : int32 { get; set; } // EResult numeric
+    [field, type_hint = `SteamApiResult`] property result : gmval { get; set; } // EResult numeric
 }
 
 [global]
@@ -4852,7 +4842,6 @@ function steam_inventory_add_promo_item(
 [global, bind = typed_gml]
 function steam_inventory_add_promo_items(
     [type_hint=`uint32[]`] item_def_ids: gmval,
-    num_item_defs: uint32,
     callback: func
 ): int32;
 

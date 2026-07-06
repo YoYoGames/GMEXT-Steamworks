@@ -126,6 +126,13 @@
  */
 
 /**
+ * @function_partial steam_friends_get_clan_chat_member_count
+ * @param {Real} steam_id_clan
+ * @returns {Real}
+ * @function_end
+ */
+
+/**
  * @function_partial steam_friends_get_clan_chat_message
  * @param {Real} steam_id_clan_chat
  * @param {Real} message
@@ -1915,7 +1922,6 @@
 /**
  * @function_partial steam_ugc_set_items_disabled_locally
  * @param {Array[Real]} published_file_ids
- * @param {Real} num_published_file_ids
  * @param {Bool} disabled_locally
  * @returns {Bool}
  * @function_end
@@ -2028,7 +2034,6 @@
 /**
  * @function_partial steam_ugc_set_subscriptions_load_order
  * @param {Array[Real]} published_file_ids
- * @param {Real} num_published_file_ids
  * @returns {Bool}
  * @function_end
  */
@@ -2066,7 +2071,6 @@
 /**
  * @function_partial steam_ugc_stop_playtime_tracking
  * @param {Array[Real]} published_file_ids
- * @param {Real} num_published_file_ids
  * @param {Function} callback
  * @function_end
  */
@@ -2184,7 +2188,7 @@
 /**
  * @function_partial steam_input_get_active_action_set_layers
  * @param {Real} input_handle
- * @returns {Struct.SteamInputActiveActionSetLayers}
+ * @returns {Array[Real]}
  * @function_end
  */
 
@@ -3062,7 +3066,6 @@
 /**
  * @function_partial steam_inventory_add_promo_items
  * @param {Array[Real]} item_def_ids
- * @param {Real} num_item_defs
  * @param {Function} callback
  * @returns {Real}
  * @function_end
@@ -4304,9 +4307,8 @@
 
 /**
  * @struct_partial SteamFriendsEnumerateFollowingListResult
- * @member {Real} result
+ * @member {Enum.SteamApiResult} result
  * @member {Array[Real]} steam_ids
- * @member {Real} results_returned
  * @member {Real} total_result_count
  * @struct_end
  */
@@ -4483,7 +4485,7 @@
 
 /**
  * @struct_partial SteamUserDurationControl
- * @member {Real} result
+ * @member {Enum.SteamApiResult} result
  * @member {Real} app_id
  * @member {Bool} applicable
  * @member {Real} csecs_last_5h
@@ -4553,7 +4555,7 @@
 
 /**
  * @struct_partial SteamUserSteamServersDisconnected
- * @member {Real} result
+ * @member {Enum.SteamApiResult} result
  * @struct_end
  */
 
@@ -4738,14 +4740,14 @@
 
 /**
  * @struct_partial SteamUgcSubscribeItemResult
- * @member {Real} result
+ * @member {Enum.SteamApiResult} result
  * @member {Real} published_file_id
  * @struct_end
  */
 
 /**
  * @struct_partial SteamUgcUnsubscribeItemResult
- * @member {Real} result
+ * @member {Enum.SteamApiResult} result
  * @member {Real} published_file_id
  * @struct_end
  */
@@ -4768,7 +4770,7 @@
 
 /**
  * @struct_partial SteamUgcGetUserItemVoteResult
- * @member {Real} result
+ * @member {Enum.SteamApiResult} result
  * @member {Real} published_file_id
  * @member {Bool} voted_up
  * @member {Bool} voted_down
@@ -4884,12 +4886,6 @@
  */
 
 /**
- * @struct_partial SteamInputActiveActionSetLayers
- * @member {Array[Real]} handles
- * @struct_end
- */
-
-/**
  * @struct_partial SteamInputActionOrigins
  * @member {Array[Enum.SteamInputActionOrigin]} origins
  * @struct_end
@@ -4975,7 +4971,7 @@
 /**
  * @struct_partial SteamUserStatsGlobalStatsReceivedResult
  * @member {Real} game_id
- * @member {Real} result
+ * @member {Enum.SteamApiResult} result
  * @struct_end
  */
 
@@ -5012,7 +5008,7 @@
 /**
  * @struct_partial SteamUserStatsUserStatsStored
  * @member {Real} game_id
- * @member {Real} result
+ * @member {Enum.SteamApiResult} result
  * @struct_end
  */
 

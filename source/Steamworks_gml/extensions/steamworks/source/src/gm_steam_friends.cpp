@@ -194,6 +194,15 @@ std::optional<gm_structs::SteamFriendsClanActivityCounts> steam_friends_get_clan
     return out;
 }
 
+std::int32_t steam_friends_get_clan_chat_member_count(std::uint64_t steam_id_clan)
+{
+    STEAM_GUARD_RET(0);
+    ISteamFriends* f = steam_friends_iface();
+    if (!f)
+        return 0;
+
+    return (std::int32_t)f->GetClanChatMemberCount(steam_id_from_u64(steam_id_clan));
+}
 
 gm_structs::SteamFriendsClanChatMessage
 steam_friends_get_clan_chat_message(std::uint64_t steam_id_clan_chat, std::int32_t message)
@@ -793,14 +802,13 @@ static inline gm_structs::SteamFriendsIsFollowingResult friends_fromNative(const
 static inline gm_structs::SteamFriendsEnumerateFollowingListResult friends_fromNative(const FriendsEnumerateFollowingList_t& e)
 {
     gm_structs::SteamFriendsEnumerateFollowingListResult out{};
-    out.result = (int32)e.m_eResult;
+    out.result = (gm_enums::SteamApiResult)e.m_eResult;
 
     out.steam_ids.clear();
     out.steam_ids.reserve((size_t)e.m_nResultsReturned);
     for (int i = 0; i < e.m_nResultsReturned; ++i)
         out.steam_ids.push_back((std::uint64_t)e.m_rgSteamID[i].ConvertToUint64());
 
-    out.results_returned = (int32)e.m_nResultsReturned;
     out.total_result_count = (int32)e.m_nTotalResultCount;
     return out;
 }

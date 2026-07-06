@@ -94,16 +94,14 @@ int32 steam_inventory_add_promo_item(std::uint32_t item_def_id,
     return out;
 }
 
-int32 steam_inventory_add_promo_items(const std::vector<std::uint32_t>& item_def_ids,
-                                     std::uint32_t num_item_defs,
-                                     const gm::wire::GMFunction& callback)
+int32 steam_inventory_add_promo_items(const std::vector<std::uint32_t>& item_def_ids,const gm::wire::GMFunction& callback)
 {
     STEAM_GUARD_RET((int32)k_SteamInventoryResultInvalid);
 
     ISteamInventory* inv = steam_inventory_iface();
     if (!inv) return (int32)k_SteamInventoryResultInvalid;
 
-    const uint32 n = (uint32)std::min<std::size_t>(item_def_ids.size(), (size_t)num_item_defs);
+    const uint32 n = item_def_ids.size();
     if (n == 0) return (int32)k_SteamInventoryResultInvalid;
 
     std::vector<SteamItemDef_t> defs;

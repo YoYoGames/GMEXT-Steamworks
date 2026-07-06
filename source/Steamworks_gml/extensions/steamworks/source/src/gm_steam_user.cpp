@@ -639,7 +639,7 @@ static inline gm_structs::SteamUserEncryptedAppTicketResponse user_fromNative(co
 static inline gm_structs::SteamUserDurationControl user_fromNative(const DurationControl_t& e)
 {
     gm_structs::SteamUserDurationControl out{};
-    out.result = (int32)e.m_eResult;
+    out.result = (gm_enums::SteamApiResult)e.m_eResult;
     out.app_id = (std::uint32_t)e.m_appid;
     out.applicable = (e.m_bApplicable != 0);
     out.csecs_last_5h = (int32)e.m_csecsLast5h;
@@ -766,7 +766,7 @@ static inline gm_structs::SteamUserValidateAuthTicketResponse user_fromNative(co
 static inline gm_structs::SteamUserSteamServersDisconnected user_fromNative(const SteamServersDisconnected_t& e)
 {
     gm_structs::SteamUserSteamServersDisconnected out{};
-    out.result = (int32)e.m_eResult;
+    out.result = (gm_enums::SteamApiResult)e.m_eResult;
     return out;
 }
 

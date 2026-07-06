@@ -930,7 +930,7 @@ bool steam_ugc_set_item_update_language(std::uint64_t update_handle, std::string
 }
 
 bool steam_ugc_set_items_disabled_locally(
-    const std::vector<std::uint64_t>& published_file_ids, std::uint32_t num_published_file_ids, bool disabled_locally
+    const std::vector<std::uint64_t>& published_file_ids, bool disabled_locally
 )
 {
     STEAM_GUARD_RET(false);
@@ -938,7 +938,7 @@ bool steam_ugc_set_items_disabled_locally(
     if (!ugc)
         return false;
 
-    const uint32 n = (uint32)std::min<std::size_t>(published_file_ids.size(), (size_t)num_published_file_ids);
+    const uint32 n = published_file_ids.size();
     if (n == 0)
         return true;
 
@@ -1082,16 +1082,14 @@ bool steam_ugc_set_search_text(std::uint64_t query_handle, std::string_view sear
     return ugc->SetSearchText(qh_from_u64(query_handle), s.c_str());
 }
 
-bool steam_ugc_set_subscriptions_load_order(
-    const std::vector<std::uint64_t>& published_file_ids, std::uint32_t num_published_file_ids
-)
+bool steam_ugc_set_subscriptions_load_order(const std::vector<std::uint64_t>& published_file_ids)
 {
     STEAM_GUARD_RET(false);
     ISteamUGC* ugc = steam_ugc_iface();
     if (!ugc)
         return false;
 
-    const uint32 n = (uint32)std::min<std::size_t>(published_file_ids.size(), (size_t)num_published_file_ids);
+    const uint32 n = published_file_ids.size();
     if (n == 0)
         return true;
 
@@ -1189,7 +1187,7 @@ static inline gm_structs::SteamUgcSubmitItemUpdateResult ugc_fromNative(const Su
 static inline gm_structs::SteamUgcSubscribeItemResult ugc_fromNative(const RemoteStorageSubscribePublishedFileResult_t& e)
 {
     gm_structs::SteamUgcSubscribeItemResult out{};
-    out.result = (int32)e.m_eResult;
+    out.result = (gm_enums::SteamApiResult)e.m_eResult;
     out.published_file_id = (std::uint64_t)e.m_nPublishedFileId;
     return out;
 }
@@ -1197,7 +1195,7 @@ static inline gm_structs::SteamUgcSubscribeItemResult ugc_fromNative(const Remot
 static inline gm_structs::SteamUgcUnsubscribeItemResult ugc_fromNative(const RemoteStorageUnsubscribePublishedFileResult_t& e)
 {
     gm_structs::SteamUgcUnsubscribeItemResult out{};
-    out.result = (int32)e.m_eResult;
+    out.result = (gm_enums::SteamApiResult)e.m_eResult;
     out.published_file_id = (std::uint64_t)e.m_nPublishedFileId;
     return out;
 }
@@ -1223,7 +1221,7 @@ static inline gm_structs::SteamUgcSetUserItemVoteResult ugc_fromNative(const Set
 static inline gm_structs::SteamUgcGetUserItemVoteResult ugc_fromNative(const GetUserItemVoteResult_t& e)
 {
     gm_structs::SteamUgcGetUserItemVoteResult out{};
-    out.result = (int32)e.m_eResult;
+    out.result = (gm_enums::SteamApiResult)e.m_eResult;
     out.published_file_id = (std::uint64_t)e.m_nPublishedFileId;
     out.voted_up = (e.m_bVotedUp != 0);
     out.voted_down = (e.m_bVotedDown != 0);
@@ -1552,16 +1550,14 @@ void steam_ugc_start_playtime_tracking(const std::vector<std::uint64_t>& publish
     h->set(call);
 }
 
-void steam_ugc_stop_playtime_tracking(const std::vector<std::uint64_t>& published_file_ids,
-                                      std::uint32_t num_published_file_ids,
-                                       const gm::wire::GMFunction& callback)
+void steam_ugc_stop_playtime_tracking(const std::vector<std::uint64_t>& published_file_ids,const gm::wire::GMFunction& callback)
 {
     STEAM_GUARD();
 
     ISteamUGC* ugc = steam_ugc_iface();
     if (!ugc) return;
 
-    const uint32 n = (uint32)std::min<std::size_t>(published_file_ids.size(), (size_t)num_published_file_ids);
+    const uint32 n = published_file_ids.size();
     if (n == 0) { steam_set_last_error("steam_ugc_stop_playtime_tracking: empty ids"); return; }
 
     std::vector<PublishedFileId_t> ids;
