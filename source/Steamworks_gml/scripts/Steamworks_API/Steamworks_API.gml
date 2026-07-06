@@ -2928,21 +2928,6 @@ function SteamInputMotionData() constructor
 }
 
 /**
- * @returns {Struct.SteamInputActiveActionSetLayers}
- */
-function SteamInputActiveActionSetLayers() constructor
-{
-    /**
-     * Internally generated hash for quick validation
-     * @ignore
-     */
-    static __uid = 3015103601;
-
-    self.handles = undefined;
-
-}
-
-/**
  * @returns {Struct.SteamInputActionOrigins}
  */
 function SteamInputActionOrigins() constructor
@@ -8429,59 +8414,6 @@ function __SteamInputMotionData_decode(_buffer, _offset)
 
         // field: rot_vel_z, type: Float32
         self.rot_vel_z = buffer_read(_buffer, buffer_f32);
-
-    }
-
-    return _inst;
-}
-
-/**
- * @func __SteamInputActiveActionSetLayers_encode(_inst, _buffer, _offset, _where)
- * @param {Struct.SteamInputActiveActionSetLayers} _inst
- * @param {Id.Buffer} _buffer
- * @param {Real} _offset
- * @param {String} _where
- * @ignore
- */
-function __SteamInputActiveActionSetLayers_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
-{
-    buffer_seek(_buffer, buffer_seek_start, _offset);
-    with (_inst)
-    {
-        // field: handles, type: UInt64[]
-        if (!is_array(self.handles)) show_error($"{_where} :: self.handles expected array", true);
-        var _length = array_length(self.handles);
-        buffer_write(_buffer, buffer_u32, _length);
-        for (var _i = 0; _i < _length; ++_i)
-        {
-            if (!is_numeric(self.handles[_i])) show_error($"{_where} :: self.handles[_i] expected number", true);
-            buffer_write(_buffer, buffer_u64, self.handles[_i]);
-        }
-
-    }
-}
-
-/**
- * @func __SteamInputActiveActionSetLayers_decode(_buffer, _offset)
- * @param {Id.Buffer} _buffer
- * @param {Real} _offset
- * @returns {Struct.SteamInputActiveActionSetLayers}
- * @ignore
- */
-function __SteamInputActiveActionSetLayers_decode(_buffer, _offset)
-{
-    buffer_seek(_buffer, buffer_seek_start, _offset);
-
-    _inst = new SteamInputActiveActionSetLayers();
-    with (_inst)
-    {
-        // field: handles, type: UInt64[]
-        var _length = buffer_read(_buffer, buffer_u32);
-        self.handles = array_create(_length);
-        for (var _i = 0; _i < _length; ++_i)
-        {
-            self.handles[_i] = buffer_read(_buffer, buffer_u64);
-        }
 
     }
 
@@ -17227,7 +17159,7 @@ function steam_input_deactivate_all_action_set_layers(_input_handle)
 
 /**
  * @param {Real} _input_handle
- * @returns {Struct.SteamInputActiveActionSetLayers}
+ * @returns {Array[Real]}
  */
 function steam_input_get_active_action_set_layers(_input_handle)
 {
@@ -17242,7 +17174,12 @@ function steam_input_get_active_action_set_layers(_input_handle)
     var _return_value = __steam_input_get_active_action_set_layers(buffer_get_address(__args_buffer), buffer_tell(__args_buffer), buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
 
     var _result = undefined;
-    _result = __SteamInputActiveActionSetLayers_decode(__ret_buffer, buffer_tell(__ret_buffer));
+    var _length = buffer_read(__ret_buffer, buffer_u32);
+    _result = array_create(_length);
+    for (var _i = 0; _i < _length; ++_i)
+    {
+        _result[_i] = buffer_read(__ret_buffer, buffer_u64);
+    }
     return _result;
 }
 
@@ -22460,7 +22397,6 @@ function __Steamworks_get_decoders()
         __SteamInputAnalogActionData_decode,
         __SteamInputDigitalActionData_decode,
         __SteamInputMotionData_decode,
-        __SteamInputActiveActionSetLayers_decode,
         __SteamInputActionOrigins_decode,
         __SteamInputDeviceBindingRevision_decode,
         __SteamInputDeviceEvent_decode,

@@ -3890,13 +3890,6 @@ class `[[SteamInputMotionData]]` prototype Object
 
 
 [global]
-class `[[SteamInputActiveActionSetLayers]]` prototype Object
-{
-    [field, type_hint = `uint64[]`]
-    property handles : gmval { get; set; } // InputActionSetHandle_t[]
-}
-
-[global]
 class `[[SteamInputActionOrigins]]` prototype Object
 {
     [field, type_hint = `SteamInputActionOrigin[]`]
@@ -3931,7 +3924,7 @@ function steam_input_deactivate_action_set_layer([type_hint=uint64] input_handle
 function steam_input_deactivate_all_action_set_layers([type_hint=uint64] input_handle: gmval): unit;
 
 // GetActiveActionSetLayers
-[global, bind = typed_gml, type_hint=`SteamInputActiveActionSetLayers`]
+[global, bind = typed_gml, type_hint=`uint64[]`]
 function steam_input_get_active_action_set_layers([type_hint=uint64] input_handle: gmval): gmval;
 
 // GetActionSetHandle

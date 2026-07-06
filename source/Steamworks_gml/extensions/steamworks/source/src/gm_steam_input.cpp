@@ -104,28 +104,25 @@ void steam_input_deactivate_all_action_set_layers(std::uint64_t input_handle)
     s->DeactivateAllActionSetLayers((InputHandle_t)input_handle);
 }
 
-gm_structs::SteamInputActiveActionSetLayers steam_input_get_active_action_set_layers(std::uint64_t input_handle)
+std::vector<std::uint64_t> steam_input_get_active_action_set_layers(std::uint64_t input_handle)
 {
     STEAM_GUARD_RET({});
 
-    gm_structs::SteamInputActiveActionSetLayers out {};
-    out.handles = {};
+    std::vector<std::uint64_t> v;
 
     ISteamInput* s = steam_input_iface();
     if (!s)
-        return out;
+        return v;
 
     InputActionSetHandle_t native[STEAM_INPUT_MAX_ACTIVE_LAYERS] {};
     int n = s->GetActiveActionSetLayers((InputHandle_t)input_handle, native);
     n = std::max(0, std::min(n, (int)STEAM_INPUT_MAX_ACTIVE_LAYERS));
 
-    std::vector<std::uint64_t> v;
     v.reserve((size_t)n);
     for (int i = 0; i < n; ++i)
         v.push_back((std::uint64_t)native[i]);
 
-    out.handles = std::move(v);
-    return out;
+    return v;
 }
 
 std::uint64_t steam_input_get_action_set_handle(std::string_view action_set_name)

@@ -3631,7 +3631,7 @@ GMEXPORT double __EXT_NATIVE__steam_input_get_active_action_set_layers(char* __a
     auto&& __result = steam_input_get_active_action_set_layers(input_handle);
     gm::byteio::BufferWriter __bw{__ret_buffer, static_cast<size_t>(__ret_buffer_length)};
 
-    // return: __result, type: struct SteamInputActiveActionSetLayers
+    // return: __result, type: UInt64[]
     gm::wire::codec::writeValue(__bw, __result);
     return 0;
 }

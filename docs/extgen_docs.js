@@ -2181,7 +2181,7 @@
 /**
  * @function_partial steam_input_get_active_action_set_layers
  * @param {Real} input_handle
- * @returns {Struct.SteamInputActiveActionSetLayers}
+ * @returns {Array[Real]}
  * @function_end
  */
 
@@ -4875,12 +4875,6 @@
  * @member {Real} rot_vel_x
  * @member {Real} rot_vel_y
  * @member {Real} rot_vel_z
- * @struct_end
- */
-
-/**
- * @struct_partial SteamInputActiveActionSetLayers
- * @member {Array[Real]} handles
  * @struct_end
  */
 
