@@ -1728,7 +1728,7 @@ namespace gm_structs
 
     struct SteamFriendsEnumerateFollowingListResult
     {
-        std::int32_t result;
+        gm_enums::SteamApiResult result;
         std::vector<std::uint64_t> steam_ids;
         std::int32_t results_returned;
         std::int32_t total_result_count;
@@ -1883,7 +1883,7 @@ namespace gm_structs
 
     struct SteamUserDurationControl
     {
-        std::int32_t result;
+        gm_enums::SteamApiResult result;
         std::uint32_t app_id;
         bool applicable;
         std::int32_t csecs_last_5h;
@@ -1945,7 +1945,7 @@ namespace gm_structs
 
     struct SteamUserSteamServersDisconnected
     {
-        std::int32_t result;
+        gm_enums::SteamApiResult result;
     };
 
     struct SteamUserSteamServerConnectFailure
@@ -2108,13 +2108,13 @@ namespace gm_structs
 
     struct SteamUgcSubscribeItemResult
     {
-        std::int32_t result;
+        gm_enums::SteamApiResult result;
         std::uint64_t published_file_id;
     };
 
     struct SteamUgcUnsubscribeItemResult
     {
-        std::int32_t result;
+        gm_enums::SteamApiResult result;
         std::uint64_t published_file_id;
     };
 
@@ -2134,7 +2134,7 @@ namespace gm_structs
 
     struct SteamUgcGetUserItemVoteResult
     {
-        std::int32_t result;
+        gm_enums::SteamApiResult result;
         std::uint64_t published_file_id;
         bool voted_up;
         bool voted_down;
@@ -2315,7 +2315,7 @@ namespace gm_structs
     struct SteamUserStatsGlobalStatsReceivedResult
     {
         std::uint64_t game_id;
-        std::int32_t result;
+        gm_enums::SteamApiResult result;
     };
 
     struct SteamUserStatsAttachLeaderboardUgcResult
@@ -2347,7 +2347,7 @@ namespace gm_structs
     struct SteamUserStatsUserStatsStored
     {
         std::uint64_t game_id;
-        std::int32_t result;
+        gm_enums::SteamApiResult result;
     };
 
     struct SteamUserStatsUserAchievementStored
@@ -2762,7 +2762,7 @@ namespace gm::wire::codec
     inline gm_structs::SteamFriendsEnumerateFollowingListResult readValue<gm_structs::SteamFriendsEnumerateFollowingListResult>(gm::byteio::BufferReader& _buf)
     {
         gm_structs::SteamFriendsEnumerateFollowingListResult obj;
-        obj.result = gm::wire::codec::readValue<std::int32_t>(_buf);
+        obj.result = gm::wire::codec::readValue<gm_enums::SteamApiResult>(_buf);
         obj.steam_ids = gm::wire::codec::readVector<std::uint64_t>(_buf);
         obj.results_returned = gm::wire::codec::readValue<std::int32_t>(_buf);
         obj.total_result_count = gm::wire::codec::readValue<std::int32_t>(_buf);
@@ -3170,7 +3170,7 @@ namespace gm::wire::codec
     inline gm_structs::SteamUserDurationControl readValue<gm_structs::SteamUserDurationControl>(gm::byteio::BufferReader& _buf)
     {
         gm_structs::SteamUserDurationControl obj;
-        obj.result = gm::wire::codec::readValue<std::int32_t>(_buf);
+        obj.result = gm::wire::codec::readValue<gm_enums::SteamApiResult>(_buf);
         obj.app_id = gm::wire::codec::readValue<std::uint32_t>(_buf);
         obj.applicable = gm::wire::codec::readValue<bool>(_buf);
         obj.csecs_last_5h = gm::wire::codec::readValue<std::int32_t>(_buf);
@@ -3321,7 +3321,7 @@ namespace gm::wire::codec
     inline gm_structs::SteamUserSteamServersDisconnected readValue<gm_structs::SteamUserSteamServersDisconnected>(gm::byteio::BufferReader& _buf)
     {
         gm_structs::SteamUserSteamServersDisconnected obj;
-        obj.result = gm::wire::codec::readValue<std::int32_t>(_buf);
+        obj.result = gm::wire::codec::readValue<gm_enums::SteamApiResult>(_buf);
         return obj;
     }
 
@@ -3736,7 +3736,7 @@ namespace gm::wire::codec
     inline gm_structs::SteamUgcSubscribeItemResult readValue<gm_structs::SteamUgcSubscribeItemResult>(gm::byteio::BufferReader& _buf)
     {
         gm_structs::SteamUgcSubscribeItemResult obj;
-        obj.result = gm::wire::codec::readValue<std::int32_t>(_buf);
+        obj.result = gm::wire::codec::readValue<gm_enums::SteamApiResult>(_buf);
         obj.published_file_id = gm::wire::codec::readValue<std::uint64_t>(_buf);
         return obj;
     }
@@ -3752,7 +3752,7 @@ namespace gm::wire::codec
     inline gm_structs::SteamUgcUnsubscribeItemResult readValue<gm_structs::SteamUgcUnsubscribeItemResult>(gm::byteio::BufferReader& _buf)
     {
         gm_structs::SteamUgcUnsubscribeItemResult obj;
-        obj.result = gm::wire::codec::readValue<std::int32_t>(_buf);
+        obj.result = gm::wire::codec::readValue<gm_enums::SteamApiResult>(_buf);
         obj.published_file_id = gm::wire::codec::readValue<std::uint64_t>(_buf);
         return obj;
     }
@@ -3807,7 +3807,7 @@ namespace gm::wire::codec
     inline gm_structs::SteamUgcGetUserItemVoteResult readValue<gm_structs::SteamUgcGetUserItemVoteResult>(gm::byteio::BufferReader& _buf)
     {
         gm_structs::SteamUgcGetUserItemVoteResult obj;
-        obj.result = gm::wire::codec::readValue<std::int32_t>(_buf);
+        obj.result = gm::wire::codec::readValue<gm_enums::SteamApiResult>(_buf);
         obj.published_file_id = gm::wire::codec::readValue<std::uint64_t>(_buf);
         obj.voted_up = gm::wire::codec::readValue<bool>(_buf);
         obj.voted_down = gm::wire::codec::readValue<bool>(_buf);
@@ -4269,7 +4269,7 @@ namespace gm::wire::codec
     {
         gm_structs::SteamUserStatsGlobalStatsReceivedResult obj;
         obj.game_id = gm::wire::codec::readValue<std::uint64_t>(_buf);
-        obj.result = gm::wire::codec::readValue<std::int32_t>(_buf);
+        obj.result = gm::wire::codec::readValue<gm_enums::SteamApiResult>(_buf);
         return obj;
     }
 
@@ -4353,7 +4353,7 @@ namespace gm::wire::codec
     {
         gm_structs::SteamUserStatsUserStatsStored obj;
         obj.game_id = gm::wire::codec::readValue<std::uint64_t>(_buf);
-        obj.result = gm::wire::codec::readValue<std::int32_t>(_buf);
+        obj.result = gm::wire::codec::readValue<gm_enums::SteamApiResult>(_buf);
         return obj;
     }
 

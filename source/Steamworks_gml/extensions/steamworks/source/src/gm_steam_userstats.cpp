@@ -678,7 +678,7 @@ static inline gm_structs::SteamUserStatsGlobalStatsReceivedResult userstats_from
 {
     gm_structs::SteamUserStatsGlobalStatsReceivedResult out{};
     out.game_id = (std::uint64_t)e.m_nGameID;
-    out.result = (int32)e.m_eResult;
+    out.result = (gm_enums::SteamApiResult)e.m_eResult;
     return out;
 }
 
@@ -884,7 +884,7 @@ static inline gm_structs::SteamUserStatsUserStatsStored userstats_persist_fromNa
 {
     gm_structs::SteamUserStatsUserStatsStored out{};
     out.game_id = (std::uint64_t)e.m_nGameID;
-    out.result = (int32)e.m_eResult;
+    out.result = (gm_enums::SteamApiResult)e.m_eResult;
     return out;
 }
 

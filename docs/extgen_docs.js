@@ -4304,7 +4304,7 @@
 
 /**
  * @struct_partial SteamFriendsEnumerateFollowingListResult
- * @member {Real} result
+ * @member {Enum.SteamApiResult} result
  * @member {Array[Real]} steam_ids
  * @member {Real} results_returned
  * @member {Real} total_result_count
@@ -4483,7 +4483,7 @@
 
 /**
  * @struct_partial SteamUserDurationControl
- * @member {Real} result
+ * @member {Enum.SteamApiResult} result
  * @member {Real} app_id
  * @member {Bool} applicable
  * @member {Real} csecs_last_5h
@@ -4553,7 +4553,7 @@
 
 /**
  * @struct_partial SteamUserSteamServersDisconnected
- * @member {Real} result
+ * @member {Enum.SteamApiResult} result
  * @struct_end
  */
 
@@ -4738,14 +4738,14 @@
 
 /**
  * @struct_partial SteamUgcSubscribeItemResult
- * @member {Real} result
+ * @member {Enum.SteamApiResult} result
  * @member {Real} published_file_id
  * @struct_end
  */
 
 /**
  * @struct_partial SteamUgcUnsubscribeItemResult
- * @member {Real} result
+ * @member {Enum.SteamApiResult} result
  * @member {Real} published_file_id
  * @struct_end
  */
@@ -4768,7 +4768,7 @@
 
 /**
  * @struct_partial SteamUgcGetUserItemVoteResult
- * @member {Real} result
+ * @member {Enum.SteamApiResult} result
  * @member {Real} published_file_id
  * @member {Bool} voted_up
  * @member {Bool} voted_down
@@ -4975,7 +4975,7 @@
 /**
  * @struct_partial SteamUserStatsGlobalStatsReceivedResult
  * @member {Real} game_id
- * @member {Real} result
+ * @member {Enum.SteamApiResult} result
  * @struct_end
  */
 
@@ -5012,7 +5012,7 @@
 /**
  * @struct_partial SteamUserStatsUserStatsStored
  * @member {Real} game_id
- * @member {Real} result
+ * @member {Enum.SteamApiResult} result
  * @struct_end
  */
 

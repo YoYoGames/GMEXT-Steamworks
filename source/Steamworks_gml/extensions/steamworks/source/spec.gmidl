@@ -416,7 +416,7 @@ class `[[SteamFriendsIsFollowingResult]]` prototype Object
 [global]
 class `[[SteamFriendsEnumerateFollowingListResult]]` prototype Object
 {
-    [field] property result : int32 { get; set; } // EResult numeric
+    [field, type_hint = `SteamApiResult`] property result : gmval { get; set; } // EResult numeric
     [field, type_hint=`uint64[]`] property steam_ids : gmval { get; set; }
     [field] property results_returned : int32 { get; set; }
     [field] property total_result_count : int32 { get; set; }
@@ -1307,7 +1307,7 @@ class `[[SteamUserEncryptedAppTicketResponse]]` prototype Object
 [global]
 class `[[SteamUserDurationControl]]` prototype Object
 {
-    [field] property result : int32 { get; set; }       // EResult numeric
+    [field, type_hint = `SteamApiResult`] property result : gmval { get; set; }       // EResult numeric
     [field] property app_id : uint32 { get; set; }
     [field] property applicable : bool { get; set; }
     [field] property csecs_last_5h : int32 { get; set; }
@@ -1719,8 +1719,7 @@ class `[[SteamUserValidateAuthTicketResponse]]` prototype Object
 [global]
 class `[[SteamUserSteamServersDisconnected]]` prototype Object
 {
-    [field]
-    property result : int32 { get; set; } // EResult numeric
+    [field, type_hint = `SteamApiResult`] property result : gmval { get; set; } // EResult numeric
 }
 
 [global]
@@ -3104,14 +3103,14 @@ class `[[SteamUgcSubmitItemUpdateResult]]` prototype Object
 [global]
 class `[[SteamUgcSubscribeItemResult]]` prototype Object
 {
-    [field] property result : int32 { get; set; }
+    [field, type_hint = `SteamApiResult`] property result : gmval { get; set; }
     [field, type_hint=uint64] property published_file_id : gmval { get; set; }
 }
 
 [global]
 class `[[SteamUgcUnsubscribeItemResult]]` prototype Object
 {
-    [field] property result : int32 { get; set; }
+    [field, type_hint = `SteamApiResult`] property result : gmval { get; set; }
     [field, type_hint=uint64] property published_file_id : gmval { get; set; }
 }
 
@@ -3134,7 +3133,7 @@ class `[[SteamUgcSetUserItemVoteResult]]` prototype Object
 [global]
 class `[[SteamUgcGetUserItemVoteResult]]` prototype Object
 {
-    [field] property result : int32 { get; set; }
+    [field, type_hint = `SteamApiResult`] property result : gmval { get; set; }
     [field, type_hint=uint64] property published_file_id : gmval { get; set; }
     [field] property voted_up : bool { get; set; }
     [field] property voted_down : bool { get; set; }
@@ -4212,7 +4211,7 @@ class `[[SteamUserStatsGlobalAchievementPercentagesReadyResult]]` prototype Obje
 class `[[SteamUserStatsGlobalStatsReceivedResult]]` prototype Object
 {
     [field, type_hint=uint64] property game_id : gmval { get; set; }
-    [field] property result : int32 { get; set; } // EResult numeric
+    [field, type_hint = `SteamApiResult`] property result : gmval { get; set; } // EResult numeric
 }
 
 // GetStat (int32)
@@ -4486,7 +4485,7 @@ class `[[SteamUserStatsUserStatsReceived]]` prototype Object
 class `[[SteamUserStatsUserStatsStored]]` prototype Object
 {
     [field, type_hint=uint64] property game_id : gmval { get; set; }
-    [field] property result : int32 { get; set; } // EResult numeric
+    [field, type_hint = `SteamApiResult`] property result : gmval { get; set; } // EResult numeric
 }
 
 [global]

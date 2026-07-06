@@ -793,7 +793,7 @@ static inline gm_structs::SteamFriendsIsFollowingResult friends_fromNative(const
 static inline gm_structs::SteamFriendsEnumerateFollowingListResult friends_fromNative(const FriendsEnumerateFollowingList_t& e)
 {
     gm_structs::SteamFriendsEnumerateFollowingListResult out{};
-    out.result = (int32)e.m_eResult;
+    out.result = (gm_enums::SteamApiResult)e.m_eResult;
 
     out.steam_ids.clear();
     out.steam_ids.reserve((size_t)e.m_nResultsReturned);

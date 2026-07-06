@@ -1189,7 +1189,7 @@ static inline gm_structs::SteamUgcSubmitItemUpdateResult ugc_fromNative(const Su
 static inline gm_structs::SteamUgcSubscribeItemResult ugc_fromNative(const RemoteStorageSubscribePublishedFileResult_t& e)
 {
     gm_structs::SteamUgcSubscribeItemResult out{};
-    out.result = (int32)e.m_eResult;
+    out.result = (gm_enums::SteamApiResult)e.m_eResult;
     out.published_file_id = (std::uint64_t)e.m_nPublishedFileId;
     return out;
 }
@@ -1197,7 +1197,7 @@ static inline gm_structs::SteamUgcSubscribeItemResult ugc_fromNative(const Remot
 static inline gm_structs::SteamUgcUnsubscribeItemResult ugc_fromNative(const RemoteStorageUnsubscribePublishedFileResult_t& e)
 {
     gm_structs::SteamUgcUnsubscribeItemResult out{};
-    out.result = (int32)e.m_eResult;
+    out.result = (gm_enums::SteamApiResult)e.m_eResult;
     out.published_file_id = (std::uint64_t)e.m_nPublishedFileId;
     return out;
 }
@@ -1223,7 +1223,7 @@ static inline gm_structs::SteamUgcSetUserItemVoteResult ugc_fromNative(const Set
 static inline gm_structs::SteamUgcGetUserItemVoteResult ugc_fromNative(const GetUserItemVoteResult_t& e)
 {
     gm_structs::SteamUgcGetUserItemVoteResult out{};
-    out.result = (int32)e.m_eResult;
+    out.result = (gm_enums::SteamApiResult)e.m_eResult;
     out.published_file_id = (std::uint64_t)e.m_nPublishedFileId;
     out.voted_up = (e.m_bVotedUp != 0);
     out.voted_down = (e.m_bVotedDown != 0);
