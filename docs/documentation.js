@@ -317,7 +317,7 @@
  *
  * This function gets the number of Steam groups that the current user is a member of.
  * 
- * This is used for iteration, after calling this then ${function.steam_friends_get_clan_by_index} can be used to get the Steam ID of each Steam group.
+ * This is used for iteration.
  *
  * @returns {Real}
  * @function_end
@@ -443,7 +443,7 @@
  * [[Note: You must call ${function.steam_friends_get_friend_count} before calling this.]]
  *
  * @param {Real} friend_index An index between 0 and ${function.steam_friends_get_friend_count}.
- * @param {Real} friend_flags A combined union (binary "or") of ${enum.SteamFriendsFriendFlag}. This must be the same value as used in the previous call to ${function.steam_friends_get_friend_count}.
+ * @param {Real} friend_flags A combined union (binary "or") of ${constant.SteamFriendsFriendFlag}. This must be the same value as used in the previous call to ${function.steam_friends_get_friend_count}.
  * @returns {Real} 
  * @function_end
  */
@@ -478,7 +478,7 @@
  * 
  * This can be used to iterate over all of the users by calling ${function.steam_friends_get_friend_by_index} to get the Steam IDs of each user.
  *
- * @param {Real} friend_flags A combined union (binary "or") of one or more ${enum.SteamFriendsFriendFlag}.
+ * @param {Real} friend_flags A combined union (binary "or") of one or more ${constant.SteamFriendsFriendFlag}.
  * @returns {Real} 
  * @function_end
  */
@@ -813,7 +813,7 @@
  * This function checks if the user meets the specified criteria. (Friends, blocked, users on the same server, etc.)
  *
  * @param {Real} steam_id_friend The Steam user to check the friend status of.
- * @param {Real} friend_flags A combined union (binary "or") of one or more ${enum.SteamFriendsFriendFlag}.
+ * @param {Real} friend_flags A combined union (binary "or") of one or more ${constant.SteamFriendsFriendFlag}.
  * @returns {Bool} 
  * @function_end
  */
@@ -1790,7 +1790,7 @@
  * 
  * The ticket is created on the entity with ${function.steam_user_get_auth_session_ticket} or [ISteamGameServer::GetAuthSessionTicket](https://partner.steamgames.com/doc/api/ISteamGameServer#GetAuthSessionTicket) and then needs to be provided over the network for the other end to validate.
  * 
- * This registers for additional [ValidateAuthTicketResponse_t](https://partner.steamgames.com/doc/api/ISteamUser#ValidateAuthTicketResponse_t) callbacks if the entity goes offline or cancels the ticket. See ${Enum.SteamAuthSessionResponse} for more information.
+ * This registers for additional [ValidateAuthTicketResponse_t](https://partner.steamgames.com/doc/api/ISteamUser#ValidateAuthTicketResponse_t) callbacks if the entity goes offline or cancels the ticket. See ${constant.SteamAuthSessionResponse} for more information.
  * 
  * When the multiplayer session terminates you must call ${function.steam_user_end_auth_session}.
  * 
@@ -3359,7 +3359,7 @@
  * This function gets the current state of a workshop item on this client.
  *
  * @param {Real} published_file_id The workshop item to get the state for.
- * @returns {Enum.SteamUgcItemState} The item state. Should be used with the ${Enum.SteamUgcItemState} flags to determine the state of the workshop item.
+ * @returns {Enum.SteamUgcItemState} The item state. Should be used with the ${constant.SteamUgcItemState} flags to determine the state of the workshop item.
  * @function_end 
  */
 
@@ -3573,7 +3573,7 @@
  * @function steam_ugc_get_query_ugc_content_descriptors
  * @description > **Steamworks Function**: [ISteamUGC::GetQueryUGCContentDescriptors](https://partner.steamgames.com/doc/api/ISteamUGC#GetQueryUGCContentDescriptors)
  *
- * This function retrieves an array of ${Enum.SteamUgcContentDescriptorId} set on the item.
+ * This function retrieves an array of ${constant.SteamUgcContentDescriptorId} set on the item.
  *
  * @param {Real} query_handle The UGC query handle to get the results from.
  * @param {Real} index The index of the item to get the details of.
@@ -3676,7 +3676,7 @@
  * @function steam_ugc_add_content_descriptor
  * @description > **Steamworks Function**: [ISteamUGC::AddContentDescriptor](https://partner.steamgames.com/doc/api/ISteamUGC#AddContentDescriptor)
  *
- * This function sets the given ${Enum.SteamUgcContentDescriptorId} on the item.
+ * This function sets the given ${constant.SteamUgcContentDescriptorId} on the item.
  *
  * @param {Real} update_handle The workshop item update handle to customize.
  * @param {Enum.SteamUgcContentDescriptorId} descriptor_id The content descriptor to set on the item.
@@ -3688,7 +3688,7 @@
  * @function steam_ugc_remove_content_descriptor
  * @description > **Steamworks Function**: [ISteamUGC::RemoveContentDescriptor](https://partner.steamgames.com/doc/api/ISteamUGC#RemoveContentDescriptor)
  *
- * This function removes the given ${Enum.SteamUgcContentDescriptorId} from the item.
+ * This function removes the given ${constant.SteamUgcContentDescriptorId} from the item.
  *
  * @param {Real} update_handle The workshop item update handle to customize.
  * @param {Enum.SteamUgcContentDescriptorId} descriptor_id The content descriptor to remove from the item.
@@ -4287,7 +4287,7 @@
  *
  * Called when the user has subscribed to a piece of UGC.
  *
- * @member {Enum.SteamUgcSubscribeItemResult} result The result of this operation.
+ * @member {Struct.SteamUgcSubscribeItemResult} result The result of this operation.
  * @event_end
  * @function_end
  */
@@ -4526,8 +4526,8 @@
  * This function gets a local path to a PNG file for the on-screen glyph for a particular origin.
  *
  * @param {Enum.SteamInputActionOrigin} origin The action origin you want to get the glyph image for.
- * @param {Enum.SteamInputGlyphSize} size The size of the PNG glyph to retrieve, from the ${enum.SteamInputGlyphSize} enum.
- * @param {Real} flags A bit-masked combination of glyph style flags (${enum.SteamInputGlyphStyle}) that control the visual appearance of the returned glyph.
+ * @param {Enum.SteamInputGlyphSize} size The size of the PNG glyph to retrieve, from the ${constant.SteamInputGlyphSize} enum.
+ * @param {Real} flags A bit-masked combination of glyph style flags (${constant.SteamInputGlyphStyle}) that control the visual appearance of the returned glyph.
  * @returns {String}
  * @function_end
  */
@@ -4539,7 +4539,7 @@
  * This function gets a local path to an SVG file for the on-screen glyph for a particular origin.
  *
  * @param {Enum.SteamInputActionOrigin} origin The action origin you want to get the glyph image for.
- * @param {Real} flags A bit-masked combination of glyph style flags (${enum.SteamInputGlyphStyle}) that control the visual appearance of the returned glyph.
+ * @param {Real} flags A bit-masked combination of glyph style flags (${constant.SteamInputGlyphStyle}) that control the visual appearance of the returned glyph.
  * @returns {String}
  * @function_end
  */
@@ -4711,7 +4711,7 @@
  * @param {Real} color_r The red component of the color to set (0-255).
  * @param {Real} color_g The green component of the color to set (0-255).
  * @param {Real} color_b The blue component of the color to set (0-255).
- * @param {Real} flags Bit-masked flags combined from values defined in the ${enum.SteamInputControllerLEDFlag} enum.
+ * @param {Real} flags Bit-masked flags combined from values defined in the ${constant.SteamInputControllerLEDFlag} enum.
  * @function_end
  */
 
@@ -7880,7 +7880,7 @@
  * @param {Real} steam_id_remote The identity of the host to send the message to; if a session does not already exist with that user, one is implicitly created.
  * @param {Buffer} data The buffer holding the message data to send.
  * @param {Real} bytes The size of the data to send, in bytes.
- * @param {Real} send_flags A bitmask of ${Enum.SteamNetworkingSendFlags} options that determine the delivery guarantees for the message.
+ * @param {Real} send_flags A bitmask of ${constant.SteamNetworkingSendFlags} options that determine the delivery guarantees for the message.
  * @param {Real} remote_channel A routing channel number you can use to help route the message to different systems on the remote host.
  * @returns {Real} The number of messages returned into your list. (0 if no message are available on that channel.)
  * @function_end
@@ -8647,7 +8647,7 @@
  * This struct holds information related to a friend's status change.
  *
  * @member {Real} steam_id Steam ID of the user who changed.
- * @member {Real} change_flags A bit-wise union of ${Enum.SteamFriendsPersonaChange} values.
+ * @member {Real} change_flags A bit-wise union of ${constant.SteamFriendsPersonaChange} values.
  * @struct_end 
  */
 
@@ -8759,7 +8759,7 @@
  *
  * This struct holds details about an app beta branch.
  * 
- * @member {Real} flags Set of flags (${Enum.SteamBetaBranchFlags}) describing current branch state.
+ * @member {Real} flags Set of flags (${constant.SteamAppsBetaBranchFlags}) describing current branch state.
  * @member {Real} build_id Content BuildID set live on this branch.
  * @member {String} beta_name Beta branch name.
  * @member {String} description Beta branch description.
@@ -8849,7 +8849,7 @@
  * This struct holds info on a user's Steam Community Market eligibility.
  *
  * @member {Bool} allowed Whether the user is allowed to use the Steam Community Market.
- * @member {Real} not_allowed_reason The reason the user is not allowed to use the market, if applicable (an ${enum.SteamMarketNotAllowedReasonFlags} bitfield).
+ * @member {Real} not_allowed_reason The reason the user is not allowed to use the market, if applicable (an ${constant.SteamMarketNotAllowedReasonFlags} bitfield).
  * @member {Real} allowed_at_time The Unix timestamp of when the user will be allowed to use the market, if currently restricted.
  * @member {Real} steam_purchase_time The Unix timestamp of the user's first Steam purchase, used for some eligibility checks.
  * @member {Real} day_steam_guard_required_days The number of days Steam Guard must have been active before the user is allowed to use the market.
@@ -10084,7 +10084,7 @@
  * @member {Real} channel The channel number the message was received on.
  * @member {Real} size The size of the message, in bytes.
  * @member {String} data The message payload.
- * @member {Real} send_flags A bitmask of ${enum.SteamNetworkingSendFlags}. For received messages, only the `SteamNetworkingSendFlags.Reliable` bit is valid. For outbound messages, all bits are relevant.
+ * @member {Real} send_flags A bitmask of ${constant.SteamNetworkingSendFlags}. For received messages, only the `SteamNetworkingSendFlags.Reliable` bit is valid. For outbound messages, all bits are relevant.
  * @member {Real} message_number The message number assigned by the sender. This is not used for outbound messages.
  * @struct_end 
  */
@@ -10099,7 +10099,7 @@
  * @member {Enum.SteamNetworkingConnectionEnd} end_reason Basic cause of the connection termination or problem.
  * @member {String} end_debug Human-readable, but non-localized explanation for connection termination or problem.  This is intended for debugging / diagnostic purposes only, not to display to users.  It might have some details specific to the issue.
  * @member {String} connection_description Debug description. This includes the connection handle, connection type (and peer information), and the app name. This string is used in various internal logging messages.
- * @member {Real} flags A bitmask of ${enum.SteamNetworkingSendFlags}.
+ * @member {Real} flags A bitmask of ${constant.SteamNetworkingSendFlags}.
  * @member {Enum.SteamNetworkingConnectionState} state High level state of the connection.
  * @member {Real} steam_id_remote The Steam ID associated with the remote identity.
  * @member {String} addr_remote Remote address. Might be all 0's if we don't know it, or if this is N/A. (E.g. Basically everything except direct UDP connection.)
@@ -10114,7 +10114,7 @@
  * 
  * @member {Real} conn The connection handle.
  * @member {Real} bytes_written The number of bytes written.
- * @member {Real} flags A bitmask of ${enum.SteamNetworkingSendFlags} flags.
+ * @member {Real} flags A bitmask of ${constant.SteamNetworkingSendFlags} flags.
  * @struct_end
  */
 
@@ -10748,7 +10748,7 @@
  * @enum SteamUtilsCheckFileSignature
  * @description > **Steamworks Enum**: [ISteamUtils::ECheckFileSignature](https://partner.steamgames.com/doc/api/ISteamUtils#ECheckFileSignature)
  * 
- * This enum holds the possible results of a call to ${function.steam_utils_check_file_signature}.
+ * This enum holds the possible results of a file signature check.
  * 
  * @member InvalidSignature Invalid signature.
  * @member ValidSignature Valid signature.
@@ -12169,6 +12169,8 @@
  * @section_const Constants
  * @desc These are the constants and enums of the API module:
  * @ref SteamApi*
+ * @ref SteamAuthSessionResponse
+ * @ref SteamMarketNotAllowedReasonFlags
  * @ref macros
  * @section_end
  * 
