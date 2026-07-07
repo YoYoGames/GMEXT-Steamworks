@@ -2379,6 +2379,52 @@
  */
 
 /**
+ * @function steam_user_set_callback_get_auth_session_ticket_response
+ * @description > **Steamworks Function**: N / A
+ * 
+ * This function sets the function to call when an auth session ticket has been created.
+ * 
+ * See: [ISteamUser::GetAuthSessionTicketResponse_t](partner.steamgames.com/doc/api/ISteamUser#GetAuthSessionTicketResponse_t)
+ * 
+ * See: ${struct.SteamUserGetAuthSessionTicketResponse}
+ * 
+ * @param {Function} callback The function to be called when an auth session ticket has been created.
+ * @function_end
+ */
+
+/**
+ * @function steam_user_clear_callback_get_auth_session_ticket_response
+ * @description > **Steamworks Function**: N / A
+ * 
+ * This function clears the callback previously set with ${function.steam_user_set_callback_get_auth_session_ticket_response}.
+ * 
+ * @function_end
+ */
+
+/**
+ * @function steam_user_set_callback_validate_auth_ticket_response
+ * @description > **Steamworks Function**: N / A
+ * 
+ * This function sets the function to be called when an auth ticket has been validated.
+ * 
+ * See: [ISteamUser::ValidateAuthTicketResponse_t](partner.steamgames.com/doc/api/ISteamUser#ValidateAuthTicketResponse_t)
+ * 
+ * See: ${struct.SteamUserValidateAuthTicketResponse}
+ * 
+ * @param {Function} callback The function to be called when an auth ticket has been validated.
+ * @function_end
+ */
+
+/**
+ * @function steam_user_clear_callback_validate_auth_ticket_response
+ * @description > **Steamworks Function**: N / A
+ * 
+ * This function clears the callback previously set with ${function.steam_user_set_callback_validate_auth_ticket_response}.
+ * 
+ * @function_end
+ */
+
+/**
  * @function steam_utils_overlay_needs_present
  * @description > **Steamworks Function**: [ISteamUtils::BOverlayNeedsPresent](https://partner.steamgames.com/doc/api/ISteamUtils#BOverlayNeedsPresent)
  *
@@ -5619,7 +5665,7 @@
  * @function steam_userstats_set_callback_user_achievement_stored
  * @description > **Steamworks Function**: N / A
  *
- * This function is called as a result of a request to store the achievements on the server, or an "indicate progress" call.
+ * This function sets the function to call as a result of a request to store the achievements on the server, or an "indicate progress" call.
  * 
  * See: [ISteamUserStats::UserAchievementStored_t](https://partner.steamgames.com/doc/api/ISteamUserStats#UserAchievementStored_t)
  * 
@@ -5636,6 +5682,52 @@
  * This function clears the callback function previously set using ${function.steam_userstats_set_callback_user_achievement_stored}.
  *
  * @function_end 
+ */
+
+/**
+ * @function steam_userstats_set_callback_user_achievement_icon_fetched
+ * @description > **Steamworks Function**: N / A
+ * 
+ * This function sets the function to call when an achievement icon has been fetched.
+ * 
+ * See: [ISteamUserStats::UserAchievementIconFetched_t](https://partner.steamgames.com/doc/api/ISteamUserStats#UserAchievementIconFetched_t)
+ * 
+ * See: ${struct.SteamUserStatsAchievementIconFetched}
+ * 
+ * @param {Function} callback The function to be called when a user achievement icon has been fetched.
+ * @function_end
+ */
+
+/**
+ * @function steam_userstats_clear_callback_user_achievement_icon_fetched
+ * @description > **Steamworks Function**: N / A
+ * 
+ * This function clears the callback function previously set using ${function.steam_userstats_set_callback_user_achievement_icon_fetched}.
+ * 
+ * @function_end
+ */
+
+/**
+ * @function steam_userstats_set_callback_user_stats_unloaded
+ * @description > **Steamworks Function**: N / A
+ * 
+ * This function sets the function to call to indicate that a user's stats have been unloaded.
+ * 
+ * See: [ISteamUserStats::UserStatsUnloaded_t](partner.steamgames.com/doc/api/ISteamUserStats#UserStatsUnloaded_t)
+ * 
+ * See: ${struct.SteamUserStatsUnloaded}
+ * 
+ * @param {Function} callback The function to be called to indicate that a user's stats have been unloaded.
+ * @function_end
+ */
+
+/**
+ * @function steam_userstats_clear_callback_user_stats_unloaded
+ * @description > **Steamworks Function**: N / A
+ * 
+ * This function clears the callback function previously set using ${function.steam_userstats_set_callback_user_stats_unloaded}.
+ * 
+ * @function_end
  */
 
 /**
@@ -8544,7 +8636,7 @@
  * This struct holds information returned by ${function.steam_friends_get_friend_message}.
  * 
  * @member {Enum.SteamFriendsChatEntryType} entry_type The type of chat entry that was received.
- * @member {Any} data The message data.
+ * @member {String} data The message data.
  * @struct_end
  */
 
@@ -8628,7 +8720,7 @@
 
 /**
  * @struct SteamAppsDlcData
- * @description > N / A
+ * @description > **Steamworks Struct**: N / A
  *
  * This struct holds metadata about a DLC.
  *
@@ -8636,6 +8728,17 @@
  * @member {Bool} available Whether the DLC is currently available on the Steam store. Will be `false` if the DLC does not have a visible store page.
  * @member {String} name The name of the DLC.
  * @struct_end 
+ */
+
+/**
+ * @struct SteamAppsIsTimedTrialResult
+ * @description > **Steamworks Struct**: N / A
+ * 
+ * This struct holds information about a timed trial.
+ * 
+ * @member {Real} seconds_allowed The number of seconds the timed trial will last.
+ * @member {Real} seconds_played The number of seconds that the user has played so far.
+ * @struct_end
  */
 
 /**
@@ -11752,6 +11855,20 @@
  */
 
 /**
+ * @enum SteamMatchmakingChatMemberStateChange
+ * @description > **Steamworks Enum**: [ISteamMatchmaking::EChatMemberStateChange](https://partner.steamgames.com/doc/api/ISteamMatchmaking#EChatMemberStateChange)
+ * 
+ * This enum holds flags describing how a user's lobby state has changed. This is provided from [LobbyChatUpdate_t](https://partner.steamgames.com/doc/api/ISteamMatchmaking#LobbyChatUpdate_t).
+ * 
+ * @member Entered This user has joined or is joining the lobby.
+ * @member Left This user has left or is leaving the lobby.
+ * @member Disconnected User disconnected without leaving the lobby first.
+ * @member Kicked The user has been kicked.
+ * @member Banned The user has been kicked and banned.
+ * @enum_end
+ */
+
+/**
  * @enum SteamMatchmakingChatRoomEnterResponse
  * @description > **Steamworks Enum**: [EChatRoomEnterResponse](https://partner.steamgames.com/doc/api/steam_api#EChatRoomEnterResponse)
  * 
@@ -11769,6 +11886,44 @@
  * @member MemberBlockedYou Join failed - a user that is in the chat has blocked you from joining.
  * @member YouBlockedMember Join failed - you have blocked a user that is already in the chat.
  * @member RatelimitExceeded Join failed - too many join attempts in a very short period of time.
+ * @enum_end
+ */
+
+/**
+ * @enum SteamNetworkingConnectionEnd
+ * @description > **Steamworks Struct**: [ESteamNetConnectionEnd](partner.steamgames.com/doc/api/steamnetworkingtypes#ESteamNetConnectionEnd)
+ * @member Invalid Invalid/sentinel value.
+ * @member App_Min 1xxx: Application ended the connection in a "usual" manner. E.g.: user intentionally disconnected from the server, gameplay ended normally, etc.
+ * @member App_Generic Application ended the connection in a "usual" manner.
+ * @member App_Max Max generic value.
+ * @member AppException_Min 2xxx: Application ended the connection in some sort of exceptional or unusual manner that might indicate a bug or configuration issue.
+ * @member AppException_Generic Application ended the connection in some sort of exceptional or unusual manner that might indicate a bug or configuration issue.
+ * @member AppException_Max Max app exception value.
+ * @member Local_Min 3xxx: Connection failed or ended because of problem with the local host or their connection to the Internet.
+ * @member Local_OfflineMode You cannot do what you want to do because you're running in offline mode.
+ * @member Local_ManyRelayConnectivity We don't have any recent successful communication with any relay. We have evidence of recent failures to communicate with multiple relays.
+ * @member Local_HostedServerPrimaryRelay A hosted server is having trouble talking to the relay that the client was using, so the problem is most likely on our end.
+ * @member Local_NetworkConfig We're not able to get the network config. This is *almost* always a local issue, since the network config comes from the CDN.
+ * @member Local_Rights Steam rejected our request because we don't have rights to do this.
+ * @member Local_P2P_ICE_NoPublicAddresses Local_P2P_ICE_NoPublicAddresses.
+ * @member Local_Max Max system codes value.
+ * @member Remote_Min 4xxx: Connection failed or ended, and it appears that the cause does NOT have to do with the local host or their connection to the Internet.  It could be caused by the remote host, or it could be somewhere in between.
+ * @member Remote_Timeout The connection was lost, and as far as we can tell our connection to relevant services (relays) has not been disrupted. This doesn't mean that the problem is "their fault", it just means that it doesn't appear that we are having network issues on our end.
+ * @member Remote_BadCrypt Something was invalid with the cert or crypt handshake info you gave me, I don't understand or like your key types, etc.
+ * @member Remote_BadCert You presented me with a cert that I was able to parseand *technically* we could use encrypted communication. But there was a problem that prevents me from checking your identity or ensuring that somebody int he middle can't observe our communication.
+ * @member Remote_BadProtocolVersion Remote_BadProtocolVersion.
+ * @member Remote_P2P_ICE_NoPublicAddresses Remote_P2P_ICE_NoPublicAddresses.
+ * @member Remote_Max Max "connection failed or ended" value.
+ * @member Misc_Min 5xxx: Connection failed for some other reason.
+ * @member Misc_Generic A failure that isn't necessarily the result of a software bug, but that should happen rarely enough that it isn't worth specifically writing UI or making a localized message for. The debug string should contain further details.
+ * @member Misc_InternalError Generic failure that is most likely a software bug.
+ * @member Misc_Timeout The connection to the remote host timed out, but we don't know if the problem is on our end, in the middle, or on their end.
+ * @member Misc_SteamConnectivity There's some trouble talking to Steam.
+ * @member Misc_NoRelaySessionsToClient A server in a dedicated hosting situation has no relay sessions active with which to talk back to a client.  (It's the client's job to open and maintain those sessions.)
+ * @member Misc_P2P_Rendezvous Misc_P2P_Rendezvous.
+ * @member Misc_P2P_NAT_Firewall Misc_P2P_NAT_Firewall.
+ * @member Misc_PeerSentNoConnection Misc_PeerSentNoConnection.
+ * @member Misc_Max Max "connection failed for some other reason" value.
  * @enum_end
  */
 
@@ -12014,6 +12169,7 @@
  * @section_const Constants
  * @desc These are the constants and enums of the API module:
  * @ref SteamApi*
+ * @ref macros
  * @section_end
  * 
  * @section_struct Structs
@@ -12036,7 +12192,6 @@
  * @section_const Constants
  * @desc These are the constants and enums of the Friends module:
  * @ref SteamFriends*
- * @ref macros
  * @section_end
  * 
  * @section_struct Structs
