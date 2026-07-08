@@ -637,26 +637,6 @@ namespace gm_enums
         ForModeration = 6
     };
 
-    enum class SteamWorkshopFileType : std::int64_t
-    {
-        Community = 0,
-        Microtransaction = 1,
-        Collection = 2,
-        Art = 3,
-        Video = 4,
-        Screenshot = 5,
-        Game = 6,
-        Software = 7,
-        Concept = 8,
-        WebGuide = 9,
-        IntegratedGuide = 10,
-        Merch = 11,
-        ControllerBinding = 12,
-        SteamworksAccessInvite = 13,
-        SteamVideo = 14,
-        GameManagedItem = 15
-    };
-
     enum class SteamUgcItemPreviewType : std::int64_t
     {
         Image = 0,
@@ -1682,6 +1662,7 @@ namespace gm_structs
     struct SteamMatchmakingLobbyGameServer;
     struct SteamNetworkingMessagesSessionRequest;
     struct SteamNetworkingMessagesSessionFailed;
+    struct SteamNetworkingMessage;
     struct SteamNetworkingMessagesReceived;
     struct SteamNetworkingSocketsConnectionInfo;
     struct SteamNetworkingSocketsReceived;
@@ -2042,7 +2023,7 @@ namespace gm_structs
         bool tags_truncated;
         std::string tags;
         gm_enums::SteamApiResult result;
-        gm_enums::SteamWorkshopFileType file_type;
+        gm_enums::SteamRemoteStorageWorkshopFileType file_type;
         std::uint32_t creator_app_id;
         std::uint32_t consumer_app_id;
         std::uint32_t time_added_to_user_list;
@@ -2587,6 +2568,16 @@ namespace gm_structs
         std::uint64_t steam_id_remote;
         gm_enums::SteamNetworkingConnectionEnd end_reason;
         std::string debug_msg;
+    };
+
+    struct SteamNetworkingMessage
+    {
+        std::uint32_t offset;
+        std::uint32_t size;
+        std::uint64_t steam_id_remote;
+        std::uint32_t conn;
+        std::int32_t channel;
+        std::int32_t flags;
     };
 
     struct SteamNetworkingMessagesReceived
@@ -3580,7 +3571,7 @@ namespace gm::wire::codec
         obj.tags_truncated = gm::wire::codec::readValue<bool>(_buf);
         obj.tags = gm::wire::codec::readValue<std::string>(_buf);
         obj.result = gm::wire::codec::readValue<gm_enums::SteamApiResult>(_buf);
-        obj.file_type = gm::wire::codec::readValue<gm_enums::SteamWorkshopFileType>(_buf);
+        obj.file_type = gm::wire::codec::readValue<gm_enums::SteamRemoteStorageWorkshopFileType>(_buf);
         obj.creator_app_id = gm::wire::codec::readValue<std::uint32_t>(_buf);
         obj.consumer_app_id = gm::wire::codec::readValue<std::uint32_t>(_buf);
         obj.time_added_to_user_list = gm::wire::codec::readValue<std::uint32_t>(_buf);
@@ -4975,6 +4966,30 @@ namespace gm::wire::codec
     }
 
     template<>
+    inline void writeValue<gm_structs::SteamNetworkingMessage>(gm::byteio::IByteWriter& _buf, const gm_structs::SteamNetworkingMessage& obj)
+    {
+        gm::wire::codec::writeValue(_buf, obj.offset);
+        gm::wire::codec::writeValue(_buf, obj.size);
+        gm::wire::codec::writeValue(_buf, obj.steam_id_remote);
+        gm::wire::codec::writeValue(_buf, obj.conn);
+        gm::wire::codec::writeValue(_buf, obj.channel);
+        gm::wire::codec::writeValue(_buf, obj.flags);
+    }
+
+    template<>
+    inline gm_structs::SteamNetworkingMessage readValue<gm_structs::SteamNetworkingMessage>(gm::byteio::BufferReader& _buf)
+    {
+        gm_structs::SteamNetworkingMessage obj;
+        obj.offset = gm::wire::codec::readValue<std::uint32_t>(_buf);
+        obj.size = gm::wire::codec::readValue<std::uint32_t>(_buf);
+        obj.steam_id_remote = gm::wire::codec::readValue<std::uint64_t>(_buf);
+        obj.conn = gm::wire::codec::readValue<std::uint32_t>(_buf);
+        obj.channel = gm::wire::codec::readValue<std::int32_t>(_buf);
+        obj.flags = gm::wire::codec::readValue<std::int32_t>(_buf);
+        return obj;
+    }
+
+    template<>
     inline void writeValue<gm_structs::SteamNetworkingMessagesReceived>(gm::byteio::IByteWriter& _buf, const gm_structs::SteamNetworkingMessagesReceived& obj)
     {
         gm::wire::codec::writeValue(_buf, obj.steam_id_remote);
@@ -6068,73 +6083,80 @@ namespace gm::wire::details
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamNetworkingMessagesReceived>
+    struct gm_struct_traits<gm_structs::SteamNetworkingMessage>
     {
         static constexpr bool is_gm_struct = true;
         static constexpr std::uint32_t codec_id = 129;
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamNetworkingSocketsConnectionInfo>
+    struct gm_struct_traits<gm_structs::SteamNetworkingMessagesReceived>
     {
         static constexpr bool is_gm_struct = true;
         static constexpr std::uint32_t codec_id = 130;
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamNetworkingSocketsReceived>
+    struct gm_struct_traits<gm_structs::SteamNetworkingSocketsConnectionInfo>
     {
         static constexpr bool is_gm_struct = true;
         static constexpr std::uint32_t codec_id = 131;
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamPartiesBeaconLocation>
+    struct gm_struct_traits<gm_structs::SteamNetworkingSocketsReceived>
     {
         static constexpr bool is_gm_struct = true;
         static constexpr std::uint32_t codec_id = 132;
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamPartiesCreateBeaconResult>
+    struct gm_struct_traits<gm_structs::SteamPartiesBeaconLocation>
     {
         static constexpr bool is_gm_struct = true;
         static constexpr std::uint32_t codec_id = 133;
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamPartiesJoinPartyResult>
+    struct gm_struct_traits<gm_structs::SteamPartiesCreateBeaconResult>
     {
         static constexpr bool is_gm_struct = true;
         static constexpr std::uint32_t codec_id = 134;
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamPartiesChangeNumOpenSlotsResult>
+    struct gm_struct_traits<gm_structs::SteamPartiesJoinPartyResult>
     {
         static constexpr bool is_gm_struct = true;
         static constexpr std::uint32_t codec_id = 135;
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamPartiesReservationNotification>
+    struct gm_struct_traits<gm_structs::SteamPartiesChangeNumOpenSlotsResult>
     {
         static constexpr bool is_gm_struct = true;
         static constexpr std::uint32_t codec_id = 136;
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamPartiesBeaconDetails>
+    struct gm_struct_traits<gm_structs::SteamPartiesReservationNotification>
     {
         static constexpr bool is_gm_struct = true;
         static constexpr std::uint32_t codec_id = 137;
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamNetworkingSocketsStatusChanged>
+    struct gm_struct_traits<gm_structs::SteamPartiesBeaconDetails>
     {
         static constexpr bool is_gm_struct = true;
         static constexpr std::uint32_t codec_id = 138;
+    };
+
+    template<>
+    struct gm_struct_traits<gm_structs::SteamNetworkingSocketsStatusChanged>
+    {
+        static constexpr bool is_gm_struct = true;
+        static constexpr std::uint32_t codec_id = 139;
     };
 
 }
@@ -6374,7 +6396,7 @@ bool steam_ugc_add_required_key_value_tag(std::uint64_t query_handle, std::strin
 bool steam_ugc_add_required_tag(std::uint64_t query_handle, std::string_view tag_name);
 bool steam_ugc_add_required_tag_group(std::uint64_t query_handle, const std::vector<std::string_view>& tags_csv);
 bool steam_ugc_init_workshop_for_game_server(std::uint32_t workshop_depot_id, std::string_view folder);
-void steam_ugc_create_item(std::uint32_t consumer_app_id, gm_enums::SteamWorkshopFileType workshop_file_type, const gm::wire::GMFunction& callback);
+void steam_ugc_create_item(std::uint32_t consumer_app_id, gm_enums::SteamRemoteStorageWorkshopFileType workshop_file_type, const gm::wire::GMFunction& callback);
 std::uint64_t steam_ugc_create_query_all_ugc_request(gm_enums::SteamUgcQuery query_type, gm_enums::SteamUgcMatchingUgcType matching_ugc_type, std::uint32_t creator_app_id, std::uint32_t consumer_app_id, std::uint32_t page);
 std::uint64_t steam_ugc_create_query_ugc_details_request(const std::vector<std::uint64_t>& published_file_ids);
 std::uint64_t steam_ugc_create_query_user_ugc_request(std::uint32_t account_id, gm_enums::SteamUserUgcList list_type, gm_enums::SteamUgcMatchingUgcType matching_ugc_type, gm_enums::SteamUserUgcListSortOrder sort_order, std::uint32_t creator_app_id, std::uint32_t consumer_app_id, std::uint32_t page);
@@ -6702,6 +6724,7 @@ void steam_networking_messages_set_callback_session_failed(const gm::wire::GMFun
 void steam_networking_messages_clear_callback_session_failed();
 std::int32_t steam_networking_messages_send_message_to_user(std::uint64_t steam_id_remote, gm::wire::GMBuffer data, std::uint32_t bytes, std::int32_t send_flags, std::int32_t remote_channel);
 std::optional<gm_structs::SteamNetworkingMessagesReceived> steam_networking_messages_receive_one_on_channel(std::int32_t local_channel, gm::wire::GMBuffer out_data, std::uint32_t max_bytes, std::uint32_t offset);
+std::vector<gm_structs::SteamNetworkingMessage> steam_networking_messages_receive_messages_on_channel(std::int32_t local_channel, gm::wire::GMBuffer out_data, std::uint32_t buffer_size, std::uint32_t count);
 bool steam_networking_messages_accept_session_with_user(std::uint64_t steam_id_remote);
 bool steam_networking_messages_close_session_with_user(std::uint64_t steam_id_remote);
 bool steam_networking_messages_close_channel_with_user(std::uint64_t steam_id_remote, std::int32_t local_channel);
@@ -6719,6 +6742,7 @@ std::string steam_networking_sockets_get_connection_name(std::uint32_t conn);
 std::int32_t steam_networking_sockets_send_message_to_connection(std::uint32_t conn, gm::wire::GMBuffer data, std::uint32_t bytes, gm_enums::SteamNetworkingSendFlags send_flags);
 gm_enums::SteamApiResult steam_networking_sockets_flush_messages_on_connection(std::uint32_t conn);
 std::optional<gm_structs::SteamNetworkingSocketsReceived> steam_networking_sockets_receive_one_on_connection(std::uint32_t conn, gm::wire::GMBuffer out_data, std::uint32_t max_bytes, std::uint32_t offset);
+std::vector<gm_structs::SteamNetworkingMessage> steam_networking_sockets_receive_messages_on_connection(std::uint32_t conn, gm::wire::GMBuffer out_data, std::uint32_t buffer_size, std::uint32_t count);
 std::optional<gm_structs::SteamNetworkingSocketsConnectionInfo> steam_networking_sockets_get_connection_info(std::uint32_t conn);
 std::string steam_networking_sockets_get_detailed_connection_status(std::uint32_t conn);
 void steam_networking_sockets_run_callbacks();
@@ -6730,6 +6754,7 @@ std::uint32_t steam_networking_sockets_create_poll_group();
 bool steam_networking_sockets_destroy_poll_group(std::uint32_t poll_group);
 bool steam_networking_sockets_set_connection_poll_group(std::uint32_t conn, std::uint32_t poll_group);
 std::optional<gm_structs::SteamNetworkingSocketsReceived> steam_networking_sockets_receive_one_on_poll_group(std::uint32_t poll_group, gm::wire::GMBuffer out_data, std::uint32_t max_bytes, std::uint32_t offset);
+std::vector<gm_structs::SteamNetworkingMessage> steam_networking_sockets_receive_messages_on_poll_group(std::uint32_t poll_group, gm::wire::GMBuffer out_data, std::uint32_t buffer_size, std::uint32_t count);
 void steam_parties_set_callback_reservation_notification(const gm::wire::GMFunction& callback);
 void steam_parties_clear_callback_reservation_notification();
 void steam_parties_set_callback_available_beacon_locations_updated(const gm::wire::GMFunction& callback);

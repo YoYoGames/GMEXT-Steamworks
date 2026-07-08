@@ -1562,7 +1562,7 @@
 /**
  * @function_partial steam_ugc_create_item
  * @param {Real} consumer_app_id
- * @param {Enum.SteamWorkshopFileType} workshop_file_type
+ * @param {Enum.SteamRemoteStorageWorkshopFileType} workshop_file_type
  * @param {Function} callback
  * @function_end
  */
@@ -3945,6 +3945,16 @@
  */
 
 /**
+ * @function_partial steam_networking_messages_receive_messages_on_channel
+ * @param {Real} local_channel
+ * @param {Buffer} out_data
+ * @param {Real} buffer_size
+ * @param {Real} count
+ * @returns {Array[Struct.SteamNetworkingMessage]}
+ * @function_end
+ */
+
+/**
  * @function_partial steam_networking_messages_accept_session_with_user
  * @param {Real} steam_id_remote
  * @returns {Bool}
@@ -4073,6 +4083,16 @@
  */
 
 /**
+ * @function_partial steam_networking_sockets_receive_messages_on_connection
+ * @param {Real} conn
+ * @param {Buffer} out_data
+ * @param {Real} buffer_size
+ * @param {Real} count
+ * @returns {Array[Struct.SteamNetworkingMessage]}
+ * @function_end
+ */
+
+/**
  * @function_partial steam_networking_sockets_get_connection_info
  * @param {Real} conn
  * @returns {Struct.SteamNetworkingSocketsConnectionInfo}
@@ -4148,6 +4168,16 @@
  * @param {Real} max_bytes
  * @param {Real} offset
  * @returns {Struct.SteamNetworkingSocketsReceived}
+ * @function_end
+ */
+
+/**
+ * @function_partial steam_networking_sockets_receive_messages_on_poll_group
+ * @param {Real} poll_group
+ * @param {Buffer} out_data
+ * @param {Real} buffer_size
+ * @param {Real} count
+ * @returns {Array[Struct.SteamNetworkingMessage]}
  * @function_end
  */
 
@@ -4667,7 +4697,7 @@
  * @member {Bool} tags_truncated
  * @member {String} tags
  * @member {Enum.SteamApiResult} result
- * @member {Enum.SteamWorkshopFileType} file_type
+ * @member {Enum.SteamRemoteStorageWorkshopFileType} file_type
  * @member {Real} creator_app_id
  * @member {Real} consumer_app_id
  * @member {Real} time_added_to_user_list
@@ -5291,6 +5321,17 @@
  * @member {Real} steam_id_remote
  * @member {Enum.SteamNetworkingConnectionEnd} end_reason
  * @member {String} debug_msg
+ * @struct_end
+ */
+
+/**
+ * @struct_partial SteamNetworkingMessage
+ * @member {Real} offset
+ * @member {Real} size
+ * @member {Real} steam_id_remote
+ * @member {Real} conn
+ * @member {Real} channel
+ * @member {Real} flags
  * @struct_end
  */
 
@@ -5939,27 +5980,6 @@
  * @member SubscriptionDateDesc
  * @member VoteScoreDesc
  * @member ForModeration
- * @enum_end
- */
-
-/**
- * @enum_partial SteamWorkshopFileType
- * @member Community
- * @member Microtransaction
- * @member Collection
- * @member Art
- * @member Video
- * @member Screenshot
- * @member Game
- * @member Software
- * @member Concept
- * @member WebGuide
- * @member IntegratedGuide
- * @member Merch
- * @member ControllerBinding
- * @member SteamworksAccessInvite
- * @member SteamVideo
- * @member GameManagedItem
  * @enum_end
  */
 

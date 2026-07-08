@@ -722,26 +722,6 @@ enum SteamUserUgcListSortOrder
     ForModeration = 6
 }
 
-enum SteamWorkshopFileType
-{
-    Community = 0,
-    Microtransaction = 1,
-    Collection = 2,
-    Art = 3,
-    Video = 4,
-    Screenshot = 5,
-    Game = 6,
-    Software = 7,
-    Concept = 8,
-    WebGuide = 9,
-    IntegratedGuide = 10,
-    Merch = 11,
-    ControllerBinding = 12,
-    SteamworksAccessInvite = 13,
-    SteamVideo = 14,
-    GameManagedItem = 15
-}
-
 enum SteamUgcItemPreviewType
 {
     Image = 0,
@@ -3824,6 +3804,26 @@ function SteamNetworkingMessagesSessionFailed() constructor
 }
 
 /**
+ * @returns {Struct.SteamNetworkingMessage}
+ */
+function SteamNetworkingMessage() constructor
+{
+    /**
+     * Internally generated hash for quick validation
+     * @ignore
+     */
+    static __uid = 134262172;
+
+    self.offset = undefined;
+    self.size = undefined;
+    self.steam_id_remote = undefined;
+    self.conn = undefined;
+    self.channel = undefined;
+    self.flags = undefined;
+
+}
+
+/**
  * @returns {Struct.SteamNetworkingMessagesReceived}
  */
 function SteamNetworkingMessagesReceived() constructor
@@ -6834,7 +6834,7 @@ function __SteamUgcQueryResult_encode(_inst, _buffer, _offset, _where = _GMFUNCT
         if (!is_numeric(self.result)) show_error($"{_where} :: self.result expected number", true);
         buffer_write(_buffer, buffer_u64, self.result);
 
-        // field: file_type, type: enum SteamWorkshopFileType
+        // field: file_type, type: enum SteamRemoteStorageWorkshopFileType
 
         if (!is_numeric(self.file_type)) show_error($"{_where} :: self.file_type expected number", true);
         buffer_write(_buffer, buffer_u64, self.file_type);
@@ -6950,7 +6950,7 @@ function __SteamUgcQueryResult_decode(_buffer, _offset)
         // field: result, type: enum SteamApiResult
         self.result = buffer_read(_buffer, buffer_u64);
 
-        // field: file_type, type: enum SteamWorkshopFileType
+        // field: file_type, type: enum SteamRemoteStorageWorkshopFileType
         self.file_type = buffer_read(_buffer, buffer_u64);
 
         // field: creator_app_id, type: UInt32
@@ -11371,6 +11371,83 @@ function __SteamNetworkingMessagesSessionFailed_decode(_buffer, _offset)
 }
 
 /**
+ * @func __SteamNetworkingMessage_encode(_inst, _buffer, _offset, _where)
+ * @param {Struct.SteamNetworkingMessage} _inst
+ * @param {Id.Buffer} _buffer
+ * @param {Real} _offset
+ * @param {String} _where
+ * @ignore
+ */
+function __SteamNetworkingMessage_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
+{
+    buffer_seek(_buffer, buffer_seek_start, _offset);
+    with (_inst)
+    {
+        // field: offset, type: UInt32
+        if (!is_numeric(self.offset)) show_error($"{_where} :: self.offset expected number", true);
+        buffer_write(_buffer, buffer_u32, self.offset);
+
+        // field: size, type: UInt32
+        if (!is_numeric(self.size)) show_error($"{_where} :: self.size expected number", true);
+        buffer_write(_buffer, buffer_u32, self.size);
+
+        // field: steam_id_remote, type: UInt64
+        if (!is_numeric(self.steam_id_remote)) show_error($"{_where} :: self.steam_id_remote expected number", true);
+        buffer_write(_buffer, buffer_u64, self.steam_id_remote);
+
+        // field: conn, type: UInt32
+        if (!is_numeric(self.conn)) show_error($"{_where} :: self.conn expected number", true);
+        buffer_write(_buffer, buffer_u32, self.conn);
+
+        // field: channel, type: Int32
+        if (!is_numeric(self.channel)) show_error($"{_where} :: self.channel expected number", true);
+        buffer_write(_buffer, buffer_s32, self.channel);
+
+        // field: flags, type: Int32
+        if (!is_numeric(self.flags)) show_error($"{_where} :: self.flags expected number", true);
+        buffer_write(_buffer, buffer_s32, self.flags);
+
+    }
+}
+
+/**
+ * @func __SteamNetworkingMessage_decode(_buffer, _offset)
+ * @param {Id.Buffer} _buffer
+ * @param {Real} _offset
+ * @returns {Struct.SteamNetworkingMessage}
+ * @ignore
+ */
+function __SteamNetworkingMessage_decode(_buffer, _offset)
+{
+    buffer_seek(_buffer, buffer_seek_start, _offset);
+
+    _inst = new SteamNetworkingMessage();
+    with (_inst)
+    {
+        // field: offset, type: UInt32
+        self.offset = buffer_read(_buffer, buffer_u32);
+
+        // field: size, type: UInt32
+        self.size = buffer_read(_buffer, buffer_u32);
+
+        // field: steam_id_remote, type: UInt64
+        self.steam_id_remote = buffer_read(_buffer, buffer_u64);
+
+        // field: conn, type: UInt32
+        self.conn = buffer_read(_buffer, buffer_u32);
+
+        // field: channel, type: Int32
+        self.channel = buffer_read(_buffer, buffer_s32);
+
+        // field: flags, type: Int32
+        self.flags = buffer_read(_buffer, buffer_s32);
+
+    }
+
+    return _inst;
+}
+
+/**
  * @func __SteamNetworkingMessagesReceived_encode(_inst, _buffer, _offset, _where)
  * @param {Struct.SteamNetworkingMessagesReceived} _inst
  * @param {Id.Buffer} _buffer
@@ -12002,6 +12079,9 @@ function __SteamNetworkingSocketsStatusChanged_decode(_buffer, _offset)
  */
 function steam_friends_activate_game_overlay_invite_dialog(_steam_id_lobby)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _steam_id_lobby, type: UInt64
@@ -12019,6 +12099,9 @@ function steam_friends_activate_game_overlay_invite_dialog(_steam_id_lobby)
  */
 function steam_friends_activate_game_overlay_to_store(_app_id, _flag)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _app_id, type: UInt32
@@ -12041,6 +12124,9 @@ function steam_friends_activate_game_overlay_to_store(_app_id, _flag)
  */
 function steam_friends_activate_game_overlay_to_user(_dialog, _steam_id)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _dialog, type: String
@@ -12063,6 +12149,9 @@ function steam_friends_activate_game_overlay_to_user(_dialog, _steam_id)
  */
 function steam_friends_activate_game_overlay_to_web_page(_url, _mode)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _url, type: String
@@ -12089,6 +12178,9 @@ function steam_friends_activate_game_overlay_to_web_page(_url, _mode)
  */
 function steam_friends_close_clan_chat_window_in_steam(_steam_id_clan_chat)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _steam_id_clan_chat, type: UInt64
@@ -12107,6 +12199,9 @@ function steam_friends_close_clan_chat_window_in_steam(_steam_id_clan_chat)
  */
 function steam_friends_download_clan_activity_counts(_steam_id_clans, _callback)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     static __dispatcher = __Steamworks_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -12137,6 +12232,9 @@ function steam_friends_download_clan_activity_counts(_steam_id_clans, _callback)
  */
 function steam_friends_enumerate_following_list(_start_index, _callback)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     static __dispatcher = __Steamworks_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -12160,6 +12258,9 @@ function steam_friends_enumerate_following_list(_start_index, _callback)
  */
 function steam_friends_set_callback_avatar_image_loaded(_callback)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     static __dispatcher = __Steamworks_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -12184,6 +12285,9 @@ function steam_friends_set_callback_avatar_image_loaded(_callback)
  */
 function steam_friends_get_chat_member_by_index(_steam_id_clan, _user)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _steam_id_clan, type: UInt64
@@ -12209,6 +12313,9 @@ function steam_friends_get_chat_member_by_index(_steam_id_clan, _user)
  */
 function steam_friends_get_clan_activity_counts(_steam_id_clan)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _steam_id_clan, type: UInt64
@@ -12237,6 +12344,9 @@ function steam_friends_get_clan_activity_counts(_steam_id_clan)
  */
 function steam_friends_get_clan_chat_member_count(_steam_id_clan)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _steam_id_clan, type: UInt64
@@ -12255,6 +12365,9 @@ function steam_friends_get_clan_chat_member_count(_steam_id_clan)
  */
 function steam_friends_get_clan_chat_message(_steam_id_clan_chat, _message)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _steam_id_clan_chat, type: UInt64
@@ -12283,6 +12396,9 @@ function steam_friends_get_clan_chat_message(_steam_id_clan_chat, _message)
  */
 function steam_friends_get_clan_name(_steam_id_clan)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _steam_id_clan, type: UInt64
@@ -12301,6 +12417,9 @@ function steam_friends_get_clan_name(_steam_id_clan)
  */
 function steam_friends_get_clan_officer_by_index(_steam_id_clan, _officer)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _steam_id_clan, type: UInt64
@@ -12326,6 +12445,9 @@ function steam_friends_get_clan_officer_by_index(_steam_id_clan, _officer)
  */
 function steam_friends_get_clan_officer_count(_steam_id_clan)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _steam_id_clan, type: UInt64
@@ -12343,6 +12465,9 @@ function steam_friends_get_clan_officer_count(_steam_id_clan)
  */
 function steam_friends_get_clan_owner(_steam_id_clan)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _steam_id_clan, type: UInt64
@@ -12364,6 +12489,9 @@ function steam_friends_get_clan_owner(_steam_id_clan)
  */
 function steam_friends_get_clan_tag(_steam_id_clan)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _steam_id_clan, type: UInt64
@@ -12381,6 +12509,9 @@ function steam_friends_get_clan_tag(_steam_id_clan)
  */
 function steam_friends_get_coplay_friend(_coplay_friend)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __ret_buffer = __ext_core_get_ret_buffer();
 
     var _return_value = __steam_friends_get_coplay_friend(_coplay_friend, buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
@@ -12399,6 +12530,9 @@ function steam_friends_get_coplay_friend(_coplay_friend)
  */
 function steam_friends_get_follower_count(_steam_id, _callback)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     static __dispatcher = __Steamworks_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -12424,6 +12558,9 @@ function steam_friends_get_follower_count(_steam_id, _callback)
  */
 function steam_friends_get_friend_by_index(_friend_index, _friend_flags)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __ret_buffer = __ext_core_get_ret_buffer();
 
     var _return_value = __steam_friends_get_friend_by_index(_friend_index, _friend_flags, buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
@@ -12439,6 +12576,9 @@ function steam_friends_get_friend_by_index(_friend_index, _friend_flags)
  */
 function steam_friends_get_friend_coplay_game(_steam_id_friend)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _steam_id_friend, type: UInt64
@@ -12456,6 +12596,9 @@ function steam_friends_get_friend_coplay_game(_steam_id_friend)
  */
 function steam_friends_get_friend_coplay_time(_steam_id_friend)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _steam_id_friend, type: UInt64
@@ -12476,6 +12619,9 @@ function steam_friends_get_friend_coplay_time(_steam_id_friend)
  */
 function steam_friends_get_friend_count_from_source(_steam_id_source)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _steam_id_source, type: UInt64
@@ -12494,6 +12640,9 @@ function steam_friends_get_friend_count_from_source(_steam_id_source)
  */
 function steam_friends_get_friend_from_source_by_index(_steam_id_source, _friend_index)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _steam_id_source, type: UInt64
@@ -12519,6 +12668,9 @@ function steam_friends_get_friend_from_source_by_index(_steam_id_source, _friend
  */
 function steam_friends_get_friend_game_played(_steam_id_friend)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _steam_id_friend, type: UInt64
@@ -12548,6 +12700,9 @@ function steam_friends_get_friend_game_played(_steam_id_friend)
  */
 function steam_friends_get_friend_message(_steam_id_friend, _message_id)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _steam_id_friend, type: UInt64
@@ -12573,6 +12728,9 @@ function steam_friends_get_friend_message(_steam_id_friend, _message_id)
  */
 function steam_friends_get_friend_persona_name(_steam_id_friend)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _steam_id_friend, type: UInt64
@@ -12591,6 +12749,9 @@ function steam_friends_get_friend_persona_name(_steam_id_friend)
  */
 function steam_friends_get_friend_persona_name_history(_steam_id_friend, _persona_name)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _steam_id_friend, type: UInt64
@@ -12612,6 +12773,9 @@ function steam_friends_get_friend_persona_name_history(_steam_id_friend, _person
  */
 function steam_friends_get_friend_persona_state(_steam_id_friend)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _steam_id_friend, type: UInt64
@@ -12633,6 +12797,9 @@ function steam_friends_get_friend_persona_state(_steam_id_friend)
  */
 function steam_friends_get_friend_relationship(_steam_id_friend)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _steam_id_friend, type: UInt64
@@ -12655,6 +12822,9 @@ function steam_friends_get_friend_relationship(_steam_id_friend)
  */
 function steam_friends_get_friend_rich_presence(_steam_id_friend, _key)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _steam_id_friend, type: UInt64
@@ -12678,6 +12848,9 @@ function steam_friends_get_friend_rich_presence(_steam_id_friend, _key)
  */
 function steam_friends_get_friend_rich_presence_key_by_index(_steam_id_friend, _key)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _steam_id_friend, type: UInt64
@@ -12699,6 +12872,9 @@ function steam_friends_get_friend_rich_presence_key_by_index(_steam_id_friend, _
  */
 function steam_friends_get_friend_rich_presence_key_count(_steam_id_friend)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _steam_id_friend, type: UInt64
@@ -12725,6 +12901,9 @@ function steam_friends_get_friend_rich_presence_key_count(_steam_id_friend)
  */
 function steam_friends_get_friend_steam_level(_steam_id_friend)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _steam_id_friend, type: UInt64
@@ -12742,6 +12921,9 @@ function steam_friends_get_friend_steam_level(_steam_id_friend)
  */
 function steam_friends_get_large_friend_avatar(_steam_id_friend)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _steam_id_friend, type: UInt64
@@ -12759,6 +12941,9 @@ function steam_friends_get_large_friend_avatar(_steam_id_friend)
  */
 function steam_friends_get_medium_friend_avatar(_steam_id_friend)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _steam_id_friend, type: UInt64
@@ -12779,6 +12964,9 @@ function steam_friends_get_medium_friend_avatar(_steam_id_friend)
  */
 function steam_friends_get_friends_group_members_list(_friends_group_id)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __ret_buffer = __ext_core_get_ret_buffer();
 
     var _return_value = __steam_friends_get_friends_group_members_list(_friends_group_id, buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
@@ -12801,6 +12989,9 @@ function steam_friends_get_friends_group_members_list(_friends_group_id)
  */
 function steam_friends_get_persona_state()
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __ret_buffer = __ext_core_get_ret_buffer();
 
     var _return_value = __steam_friends_get_persona_state(buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
@@ -12816,6 +13007,9 @@ function steam_friends_get_persona_state()
  */
 function steam_friends_get_player_nickname(_steam_id_player)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _steam_id_player, type: UInt64
@@ -12833,6 +13027,9 @@ function steam_friends_get_player_nickname(_steam_id_player)
  */
 function steam_friends_get_small_friend_avatar(_steam_id_friend)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _steam_id_friend, type: UInt64
@@ -12851,6 +13048,9 @@ function steam_friends_get_small_friend_avatar(_steam_id_friend)
  */
 function steam_friends_has_friend(_steam_id_friend, _friend_flags)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _steam_id_friend, type: UInt64
@@ -12873,6 +13073,9 @@ function steam_friends_has_friend(_steam_id_friend, _friend_flags)
  */
 function steam_friends_invite_user_to_game(_steam_id_friend, _connect_string)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _steam_id_friend, type: UInt64
@@ -12896,6 +13099,9 @@ function steam_friends_invite_user_to_game(_steam_id_friend, _connect_string)
  */
 function steam_friends_is_clan_chat_admin(_steam_id_clan_chat, _steam_id_user)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _steam_id_clan_chat, type: UInt64
@@ -12917,6 +13123,9 @@ function steam_friends_is_clan_chat_admin(_steam_id_clan_chat, _steam_id_user)
  */
 function steam_friends_is_clan_public(_steam_id_clan)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _steam_id_clan, type: UInt64
@@ -12934,6 +13143,9 @@ function steam_friends_is_clan_public(_steam_id_clan)
  */
 function steam_friends_is_clan_official_game_group(_steam_id_clan)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _steam_id_clan, type: UInt64
@@ -12951,6 +13163,9 @@ function steam_friends_is_clan_official_game_group(_steam_id_clan)
  */
 function steam_friends_is_clan_chat_window_open_in_steam(_steam_id_clan_chat)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _steam_id_clan_chat, type: UInt64
@@ -12968,6 +13183,9 @@ function steam_friends_is_clan_chat_window_open_in_steam(_steam_id_clan_chat)
  */
 function steam_friends_is_following(_steam_id, _callback)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     static __dispatcher = __Steamworks_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -12992,6 +13210,9 @@ function steam_friends_is_following(_steam_id, _callback)
  */
 function steam_friends_request_clan_officer_list(_steam_id_clan, _callback)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     static __dispatcher = __Steamworks_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -13015,6 +13236,9 @@ function steam_friends_request_clan_officer_list(_steam_id_clan, _callback)
  */
 function steam_friends_request_friend_rich_presence(_steam_id_friend)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _steam_id_friend, type: UInt64
@@ -13033,6 +13257,9 @@ function steam_friends_request_friend_rich_presence(_steam_id_friend)
  */
 function steam_friends_request_user_information(_steam_id_user, _require_name_only)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _steam_id_user, type: UInt64
@@ -13054,6 +13281,9 @@ function steam_friends_request_user_information(_steam_id_user, _require_name_on
  */
 function steam_friends_set_in_game_voice_speaking(_steam_id_user, _speaking)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _steam_id_user, type: UInt64
@@ -13074,6 +13304,9 @@ function steam_friends_set_in_game_voice_speaking(_steam_id_user, _speaking)
  */
 function steam_friends_set_played_with(_steam_id_user_played_with)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _steam_id_user_played_with, type: UInt64
@@ -13093,6 +13326,9 @@ function steam_friends_set_played_with(_steam_id_user_played_with)
  */
 function steam_friends_set_callback_persona_state_change(_callback)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     static __dispatcher = __Steamworks_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -13115,6 +13351,9 @@ function steam_friends_set_callback_persona_state_change(_callback)
  */
 function steam_friends_set_callback_game_overlay_activated(_callback)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     static __dispatcher = __Steamworks_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -13137,6 +13376,9 @@ function steam_friends_set_callback_game_overlay_activated(_callback)
  */
 function steam_friends_set_callback_game_rich_presence_join_requested(_callback)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     static __dispatcher = __Steamworks_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -13159,6 +13401,9 @@ function steam_friends_set_callback_game_rich_presence_join_requested(_callback)
  */
 function steam_friends_set_callback_game_lobby_join_requested(_callback)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     static __dispatcher = __Steamworks_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -13181,6 +13426,9 @@ function steam_friends_set_callback_game_lobby_join_requested(_callback)
  */
 function steam_friends_set_callback_friend_rich_presence_update(_callback)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     static __dispatcher = __Steamworks_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -13203,6 +13451,9 @@ function steam_friends_set_callback_friend_rich_presence_update(_callback)
  */
 function steam_friends_set_callback_game_server_change_requested(_callback)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     static __dispatcher = __Steamworks_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -13226,6 +13477,9 @@ function steam_friends_set_callback_game_server_change_requested(_callback)
  */
 function steam_apps_get_dlc_data_by_index(_dlc)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __ret_buffer = __ext_core_get_ret_buffer();
 
     var _return_value = __steam_apps_get_dlc_data_by_index(_dlc, buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
@@ -13268,6 +13522,9 @@ function steam_apps_get_dlc_data_by_index(_dlc)
  */
 function steam_apps_is_timed_trial()
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __ret_buffer = __ext_core_get_ret_buffer();
 
     var _return_value = __steam_apps_is_timed_trial(buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
@@ -13296,6 +13553,9 @@ function steam_apps_is_timed_trial()
  */
 function steam_apps_get_app_install_dir(_app_id)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __ret_buffer = __ext_core_get_ret_buffer();
 
     var _return_value = __steam_apps_get_app_install_dir(_app_id, buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
@@ -13318,6 +13578,9 @@ function steam_apps_get_app_install_dir(_app_id)
  */
 function steam_apps_get_app_owner()
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __ret_buffer = __ext_core_get_ret_buffer();
 
     var _return_value = __steam_apps_get_app_owner(buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
@@ -13335,6 +13598,9 @@ function steam_apps_get_app_owner()
  */
 function steam_apps_get_current_beta_name()
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __ret_buffer = __ext_core_get_ret_buffer();
 
     var _return_value = __steam_apps_get_current_beta_name(buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
@@ -13357,6 +13623,9 @@ function steam_apps_get_current_beta_name()
  */
 function steam_apps_get_num_betas()
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __ret_buffer = __ext_core_get_ret_buffer();
 
     var _return_value = __steam_apps_get_num_betas(buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
@@ -13372,6 +13641,9 @@ function steam_apps_get_num_betas()
  */
 function steam_apps_get_beta_info(_beta_index)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __ret_buffer = __ext_core_get_ret_buffer();
 
     var _return_value = __steam_apps_get_beta_info(_beta_index, buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
@@ -13403,6 +13675,9 @@ function steam_apps_get_beta_info(_beta_index)
  */
 function steam_apps_get_dlc_download_progress(_app_id)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __ret_buffer = __ext_core_get_ret_buffer();
 
     var _return_value = __steam_apps_get_dlc_download_progress(_app_id, buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
@@ -13427,6 +13702,9 @@ function steam_apps_get_dlc_download_progress(_app_id)
  */
 function steam_apps_get_app_ownership_ticket_data(_app_id, _ticket_buffer, _max_bytes)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _app_id, type: UInt32
@@ -13455,6 +13733,9 @@ function steam_apps_get_app_ownership_ticket_data(_app_id, _ticket_buffer, _max_
  */
 function steam_apps_get_file_details(_file_name, _callback)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     static __dispatcher = __Steamworks_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -13481,6 +13762,9 @@ function steam_apps_get_file_details(_file_name, _callback)
  */
 function steam_apps_get_installed_depots(_app_id, _max_depots)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __ret_buffer = __ext_core_get_ret_buffer();
 
     var _return_value = __steam_apps_get_installed_depots(_app_id, _max_depots, buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
@@ -13500,6 +13784,9 @@ function steam_apps_get_installed_depots(_app_id, _max_depots)
  */
 function steam_apps_get_launch_command_line()
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __ret_buffer = __ext_core_get_ret_buffer();
 
     var _return_value = __steam_apps_get_launch_command_line(buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
@@ -13534,6 +13821,9 @@ function steam_apps_get_launch_command_line()
  */
 function steam_apps_set_callback_dlc_installed(_callback)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     static __dispatcher = __Steamworks_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -13562,6 +13852,9 @@ function steam_apps_set_callback_dlc_installed(_callback)
  */
 function steam_screenshots_add_vr_screenshot_to_library(_type, _filename, _vr_filename)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _type, type: enum SteamScreenshotsVrScreenshotType
@@ -13600,6 +13893,9 @@ function steam_screenshots_add_vr_screenshot_to_library(_type, _filename, _vr_fi
  */
 function steam_screenshots_tag_published_file(_screenshot, _published_file_id)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _screenshot, type: UInt32
@@ -13622,6 +13918,9 @@ function steam_screenshots_tag_published_file(_screenshot, _published_file_id)
  */
 function steam_screenshots_tag_user(_screenshot, _steam_id)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _screenshot, type: UInt32
@@ -13649,6 +13948,9 @@ function steam_screenshots_tag_user(_screenshot, _steam_id)
  */
 function steam_screenshots_write_screenshot(_buff_rgb, _rgb_size, _width, _height)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _buff_rgb, type: Buffer
@@ -13677,6 +13979,9 @@ function steam_screenshots_write_screenshot(_buff_rgb, _rgb_size, _width, _heigh
  */
 function steam_screenshots_set_callback_screenshot_ready(_callback)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     static __dispatcher = __Steamworks_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -13696,6 +14001,9 @@ function steam_screenshots_set_callback_screenshot_ready(_callback)
  */
 function steam_screenshots_set_callback_screenshot_requested(_callback)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     static __dispatcher = __Steamworks_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -13723,6 +14031,9 @@ function steam_screenshots_set_callback_screenshot_requested(_callback)
  */
 function steam_user_advertise_game(_steam_id_game_server, _server_ip, _server_port)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _steam_id_game_server, type: UInt64
@@ -13750,6 +14061,9 @@ function steam_user_advertise_game(_steam_id_game_server, _server_ip, _server_po
  */
 function steam_user_begin_auth_session(_auth_ticket, _auth_ticket_size, _steam_id)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _auth_ticket, type: Buffer
@@ -13797,6 +14111,9 @@ function steam_user_begin_auth_session(_auth_ticket, _auth_ticket_size, _steam_i
  */
 function steam_user_set_duration_control_online_state(_state)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _state, type: enum SteamUserDurationControlOnlineState
@@ -13822,6 +14139,9 @@ function steam_user_set_duration_control_online_state(_state)
  */
 function steam_user_decompress_voice(_compressed, _compressed_size, _dest, _dest_buffer_size, _desired_sample_rate)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _compressed, type: Buffer
@@ -13858,6 +14178,9 @@ function steam_user_decompress_voice(_compressed, _compressed_size, _dest, _dest
  */
 function steam_user_end_auth_session(_steam_id)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _steam_id, type: UInt64
@@ -13877,6 +14200,9 @@ function steam_user_end_auth_session(_steam_id)
  */
 function steam_user_get_auth_session_ticket(_out_ticket, _max_ticket_size, _remote_identity)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _out_ticket, type: Buffer
@@ -13919,6 +14245,9 @@ function steam_user_get_auth_session_ticket(_out_ticket, _max_ticket_size, _remo
  */
 function steam_user_get_steam_id()
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __ret_buffer = __ext_core_get_ret_buffer();
 
     var _return_value = __steam_user_get_steam_id(buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
@@ -13934,6 +14263,9 @@ function steam_user_get_steam_id()
  */
 function steam_user_decode_steam_id(_steam_id)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _steam_id, type: UInt64
@@ -13963,6 +14295,9 @@ function steam_user_decode_steam_id(_steam_id)
  */
 function steam_user_get_available_voice()
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __ret_buffer = __ext_core_get_ret_buffer();
 
     var _return_value = __steam_user_get_available_voice(buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
@@ -13984,6 +14319,9 @@ function steam_user_get_available_voice()
  */
 function steam_user_get_voice(_want_compressed, _dest_compressed, _dest_compressed_size, _want_uncompressed, _dest_uncompressed, _dest_uncompressed_size, _desired_sample_rate)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _want_compressed, type: Bool
@@ -14030,6 +14368,9 @@ function steam_user_get_voice(_want_compressed, _dest_compressed, _dest_compress
  */
 function steam_user_request_encrypted_app_ticket(_data_to_include, _data_to_include_size, _callback)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     static __dispatcher = __Steamworks_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -14059,6 +14400,9 @@ function steam_user_request_encrypted_app_ticket(_data_to_include, _data_to_incl
  */
 function steam_user_get_encrypted_app_ticket(_out_ticket, _max_ticket_size)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _out_ticket, type: Buffer
@@ -14096,6 +14440,9 @@ function steam_user_get_encrypted_app_ticket(_out_ticket, _max_ticket_size)
  */
 function steam_user_get_duration_control(_callback)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     static __dispatcher = __Steamworks_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -14116,6 +14463,9 @@ function steam_user_get_duration_control(_callback)
  */
 function steam_user_request_store_auth_url(_redirect_url, _callback)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     static __dispatcher = __Steamworks_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -14140,6 +14490,9 @@ function steam_user_request_store_auth_url(_redirect_url, _callback)
  */
 function steam_user_get_market_eligibility(_callback)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     static __dispatcher = __Steamworks_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -14161,6 +14514,9 @@ function steam_user_get_market_eligibility(_callback)
  */
 function steam_user_track_app_usage_event(_game_id, _app_usage_event, _extra_info)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _game_id, type: UInt64
@@ -14188,6 +14544,9 @@ function steam_user_track_app_usage_event(_game_id, _app_usage_event, _extra_inf
  */
 function steam_user_user_has_license_for_app(_steam_id, _app_id)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _steam_id, type: UInt64
@@ -14212,6 +14571,9 @@ function steam_user_user_has_license_for_app(_steam_id, _app_id)
  */
 function steam_user_set_callback_steam_servers_connected(_callback)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     static __dispatcher = __Steamworks_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -14234,6 +14596,9 @@ function steam_user_set_callback_steam_servers_connected(_callback)
  */
 function steam_user_set_callback_steam_server_connect_failure(_callback)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     static __dispatcher = __Steamworks_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -14256,6 +14621,9 @@ function steam_user_set_callback_steam_server_connect_failure(_callback)
  */
 function steam_user_set_callback_steam_servers_disconnected(_callback)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     static __dispatcher = __Steamworks_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -14278,6 +14646,9 @@ function steam_user_set_callback_steam_servers_disconnected(_callback)
  */
 function steam_user_set_callback_client_game_server_deny(_callback)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     static __dispatcher = __Steamworks_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -14300,6 +14671,9 @@ function steam_user_set_callback_client_game_server_deny(_callback)
  */
 function steam_user_set_callback_licenses_updated(_callback)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     static __dispatcher = __Steamworks_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -14322,6 +14696,9 @@ function steam_user_set_callback_licenses_updated(_callback)
  */
 function steam_user_set_callback_microtxn_authorization_response(_callback)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     static __dispatcher = __Steamworks_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -14344,6 +14721,9 @@ function steam_user_set_callback_microtxn_authorization_response(_callback)
  */
 function steam_user_set_callback_get_auth_session_ticket_response(_callback)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     static __dispatcher = __Steamworks_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -14366,6 +14746,9 @@ function steam_user_set_callback_get_auth_session_ticket_response(_callback)
  */
 function steam_user_set_callback_validate_auth_ticket_response(_callback)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     static __dispatcher = __Steamworks_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -14392,6 +14775,9 @@ function steam_user_set_callback_validate_auth_ticket_response(_callback)
  */
 function steam_utils_get_api_call_failure_reason(_steam_api_call)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _steam_api_call, type: UInt64
@@ -14416,6 +14802,9 @@ function steam_utils_get_api_call_failure_reason(_steam_api_call)
  */
 function steam_utils_get_api_call_result(_steam_api_call, _callback_expected, _out_callback, _out_callback_size)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _steam_api_call, type: UInt64
@@ -14455,6 +14844,9 @@ function steam_utils_get_api_call_result(_steam_api_call, _callback_expected, _o
  */
 function steam_utils_set_callback_ip_country(_callback)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     static __dispatcher = __Steamworks_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -14477,6 +14869,9 @@ function steam_utils_set_callback_ip_country(_callback)
  */
 function steam_utils_set_callback_low_battery_power(_callback)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     static __dispatcher = __Steamworks_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -14499,6 +14894,9 @@ function steam_utils_set_callback_low_battery_power(_callback)
  */
 function steam_utils_set_callback_steam_api_call_completed(_callback)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     static __dispatcher = __Steamworks_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -14521,6 +14919,9 @@ function steam_utils_set_callback_steam_api_call_completed(_callback)
  */
 function steam_utils_set_callback_app_resuming_from_suspend(_callback)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     static __dispatcher = __Steamworks_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -14543,6 +14944,9 @@ function steam_utils_set_callback_app_resuming_from_suspend(_callback)
  */
 function steam_utils_set_callback_steam_shutdown(_callback)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     static __dispatcher = __Steamworks_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -14568,6 +14972,9 @@ function steam_utils_set_callback_steam_shutdown(_callback)
  */
 function steam_utils_get_connected_universe()
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __ret_buffer = __ext_core_get_ret_buffer();
 
     var _return_value = __steam_utils_get_connected_universe(buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
@@ -14585,6 +14992,9 @@ function steam_utils_get_connected_universe()
  */
 function steam_utils_get_entered_gamepad_text_input()
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __ret_buffer = __ext_core_get_ret_buffer();
 
     var _return_value = __steam_utils_get_entered_gamepad_text_input(buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
@@ -14613,6 +15023,9 @@ function steam_utils_get_entered_gamepad_text_input()
  */
 function steam_utils_get_image_rgba(_image_handle, _dest, _dest_buffer_size)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _image_handle, type: Int32
@@ -14638,6 +15051,9 @@ function steam_utils_get_image_rgba(_image_handle, _dest, _dest_buffer_size)
  */
 function steam_utils_get_image_size(_image_handle)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __ret_buffer = __ext_core_get_ret_buffer();
 
     var _return_value = __steam_utils_get_image_size(_image_handle, buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
@@ -14693,6 +15109,9 @@ function steam_utils_get_image_size(_image_handle)
  */
 function steam_utils_is_api_call_completed(_steam_api_call)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _steam_api_call, type: UInt64
@@ -14726,6 +15145,9 @@ function steam_utils_is_api_call_completed(_steam_api_call)
  */
 function steam_utils_filter_text(_context, _source_steam_id, _input_message)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _context, type: enum SteamUtilsTextFilteringContext
@@ -14769,6 +15191,9 @@ function steam_utils_filter_text(_context, _source_steam_id, _input_message)
  */
 function steam_utils_set_overlay_notification_position(_notification_position)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _notification_position, type: enum SteamApiNotificationPosition
@@ -14794,6 +15219,9 @@ function steam_utils_set_overlay_notification_position(_notification_position)
  */
 function steam_utils_show_gamepad_text_input(_input_mode, _line_mode, _description, _char_max, _existing_text)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _input_mode, type: enum SteamUtilsGamepadTextInputMode
@@ -14835,6 +15263,9 @@ function steam_utils_show_gamepad_text_input(_input_mode, _line_mode, _descripti
  */
 function steam_utils_show_floating_gamepad_text_input(_keyboard_mode, _text_field_x, _text_field_y, _text_field_width, _text_field_height)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _keyboard_mode, type: enum SteamUtilsFloatingGamepadTextInputMode
@@ -14877,6 +15308,9 @@ function steam_utils_show_floating_gamepad_text_input(_keyboard_mode, _text_fiel
  */
 function steam_utils_set_callback_gamepad_text_input_dismissed(_callback)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     static __dispatcher = __Steamworks_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -14899,6 +15333,9 @@ function steam_utils_set_callback_gamepad_text_input_dismissed(_callback)
  */
 function steam_utils_set_callback_floating_gamepad_text_input_dismissed(_callback)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     static __dispatcher = __Steamworks_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -14921,6 +15358,9 @@ function steam_utils_set_callback_floating_gamepad_text_input_dismissed(_callbac
  */
 function steam_utils_set_callback_warning_message(_callback)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     static __dispatcher = __Steamworks_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -14945,6 +15385,9 @@ function steam_utils_set_callback_warning_message(_callback)
  */
 function steam_ugc_add_app_dependency(_published_file_id, _app_id, _callback)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     static __dispatcher = __Steamworks_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -14974,6 +15417,9 @@ function steam_ugc_add_app_dependency(_published_file_id, _app_id, _callback)
  */
 function steam_ugc_add_dependency(_parent_published_file_id, _child_published_file_id, _callback)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     static __dispatcher = __Steamworks_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -15003,6 +15449,9 @@ function steam_ugc_add_dependency(_parent_published_file_id, _child_published_fi
  */
 function steam_ugc_add_excluded_tag(_query_handle, _tag_name)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _query_handle, type: UInt64
@@ -15027,6 +15476,9 @@ function steam_ugc_add_excluded_tag(_query_handle, _tag_name)
  */
 function steam_ugc_add_item_key_value_tag(_update_handle, _key, _value)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _update_handle, type: UInt64
@@ -15056,6 +15508,9 @@ function steam_ugc_add_item_key_value_tag(_update_handle, _key, _value)
  */
 function steam_ugc_add_item_preview_file(_update_handle, _preview_file_path, _preview_type)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _update_handle, type: UInt64
@@ -15084,6 +15539,9 @@ function steam_ugc_add_item_preview_file(_update_handle, _preview_file_path, _pr
  */
 function steam_ugc_add_item_preview_video(_update_handle, _video_id)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _update_handle, type: UInt64
@@ -15107,6 +15565,9 @@ function steam_ugc_add_item_preview_video(_update_handle, _video_id)
  */
 function steam_ugc_add_item_to_favorites(_app_id, _published_file_id, _callback)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     static __dispatcher = __Steamworks_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -15137,6 +15598,9 @@ function steam_ugc_add_item_to_favorites(_app_id, _published_file_id, _callback)
  */
 function steam_ugc_add_required_key_value_tag(_query_handle, _key, _value)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _query_handle, type: UInt64
@@ -15165,6 +15629,9 @@ function steam_ugc_add_required_key_value_tag(_query_handle, _key, _value)
  */
 function steam_ugc_add_required_tag(_query_handle, _tag_name)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _query_handle, type: UInt64
@@ -15188,6 +15655,9 @@ function steam_ugc_add_required_tag(_query_handle, _tag_name)
  */
 function steam_ugc_add_required_tag_group(_query_handle, _tags_csv)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _query_handle, type: UInt64
@@ -15215,11 +15685,14 @@ function steam_ugc_add_required_tag_group(_query_handle, _tags_csv)
 
 /**
  * @param {Real} _consumer_app_id
- * @param {Enum.SteamWorkshopFileType} _workshop_file_type
+ * @param {Enum.SteamRemoteStorageWorkshopFileType} _workshop_file_type
  * @param {Function} _callback
  */
 function steam_ugc_create_item(_consumer_app_id, _workshop_file_type, _callback)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     static __dispatcher = __Steamworks_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -15228,7 +15701,7 @@ function steam_ugc_create_item(_consumer_app_id, _workshop_file_type, _callback)
     if (!is_numeric(_consumer_app_id)) show_error($"{_GMFUNCTION_} :: _consumer_app_id expected number", true);
     buffer_write(__args_buffer, buffer_u32, _consumer_app_id);
 
-    // param: _workshop_file_type, type: enum SteamWorkshopFileType
+    // param: _workshop_file_type, type: enum SteamRemoteStorageWorkshopFileType
 
     if (!is_numeric(_workshop_file_type)) show_error($"{_GMFUNCTION_} :: _workshop_file_type expected number", true);
     buffer_write(__args_buffer, buffer_u64, _workshop_file_type);
@@ -15253,6 +15726,9 @@ function steam_ugc_create_item(_consumer_app_id, _workshop_file_type, _callback)
  */
 function steam_ugc_create_query_all_ugc_request(_query_type, _matching_ugc_type, _creator_app_id, _consumer_app_id, _page)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _query_type, type: enum SteamUgcQuery
@@ -15292,6 +15768,9 @@ function steam_ugc_create_query_all_ugc_request(_query_type, _matching_ugc_type,
  */
 function steam_ugc_create_query_ugc_details_request(_published_file_ids)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _published_file_ids, type: UInt64[]
@@ -15325,6 +15804,9 @@ function steam_ugc_create_query_ugc_details_request(_published_file_ids)
  */
 function steam_ugc_create_query_user_ugc_request(_account_id, _list_type, _matching_ugc_type, _sort_order, _creator_app_id, _consumer_app_id, _page)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _account_id, type: UInt32
@@ -15373,6 +15855,9 @@ function steam_ugc_create_query_user_ugc_request(_account_id, _list_type, _match
  */
 function steam_ugc_delete_item(_published_file_id, _callback)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     static __dispatcher = __Steamworks_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -15398,6 +15883,9 @@ function steam_ugc_delete_item(_published_file_id, _callback)
  */
 function steam_ugc_download_item(_published_file_id, _high_priority)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _published_file_id, type: UInt64
@@ -15419,6 +15907,9 @@ function steam_ugc_download_item(_published_file_id, _high_priority)
  */
 function steam_ugc_get_app_dependencies(_published_file_id, _callback)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     static __dispatcher = __Steamworks_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -15443,6 +15934,9 @@ function steam_ugc_get_app_dependencies(_published_file_id, _callback)
  */
 function steam_ugc_get_item_download_info(_published_file_id)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _published_file_id, type: UInt64
@@ -15471,6 +15965,9 @@ function steam_ugc_get_item_download_info(_published_file_id)
  */
 function steam_ugc_get_item_install_info(_published_file_id)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _published_file_id, type: UInt64
@@ -15499,6 +15996,9 @@ function steam_ugc_get_item_install_info(_published_file_id)
  */
 function steam_ugc_get_item_state(_published_file_id)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _published_file_id, type: UInt64
@@ -15520,6 +16020,9 @@ function steam_ugc_get_item_state(_published_file_id)
  */
 function steam_ugc_get_item_update_progress(_update_handle)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _update_handle, type: UInt64
@@ -15545,6 +16048,9 @@ function steam_ugc_get_item_update_progress(_update_handle)
  */
 function steam_ugc_get_subscribed_items(_max_entries, _include_locally_disabled)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __ret_buffer = __ext_core_get_ret_buffer();
 
     var _return_value = __steam_ugc_get_subscribed_items(_max_entries, _include_locally_disabled, buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
@@ -15566,6 +16072,9 @@ function steam_ugc_get_subscribed_items(_max_entries, _include_locally_disabled)
  */
 function steam_ugc_get_query_ugc_result(_query_handle, _index)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _query_handle, type: UInt64
@@ -15599,6 +16108,9 @@ function steam_ugc_get_query_ugc_result(_query_handle, _index)
  */
 function steam_ugc_get_query_ugc_preview_url(_query_handle, _index)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _query_handle, type: UInt64
@@ -15633,6 +16145,9 @@ function steam_ugc_get_query_ugc_preview_url(_query_handle, _index)
  */
 function steam_ugc_get_query_ugc_metadata(_query_handle, _index)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _query_handle, type: UInt64
@@ -15668,6 +16183,9 @@ function steam_ugc_get_query_ugc_metadata(_query_handle, _index)
  */
 function steam_ugc_get_query_ugc_children(_query_handle, _index, _max_entries)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _query_handle, type: UInt64
@@ -15704,6 +16222,9 @@ function steam_ugc_get_query_ugc_children(_query_handle, _index, _max_entries)
  */
 function steam_ugc_get_query_ugc_statistic(_query_handle, _index, _stat_type)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _query_handle, type: UInt64
@@ -15735,6 +16256,9 @@ function steam_ugc_get_query_ugc_statistic(_query_handle, _index, _stat_type)
  */
 function steam_ugc_get_query_ugc_num_additional_previews(_query_handle, _index)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _query_handle, type: UInt64
@@ -15759,6 +16283,9 @@ function steam_ugc_get_query_ugc_num_additional_previews(_query_handle, _index)
  */
 function steam_ugc_get_query_ugc_additional_preview(_query_handle, _index, _preview_index, _original_file_name)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _query_handle, type: UInt64
@@ -15802,6 +16329,9 @@ function steam_ugc_get_query_ugc_additional_preview(_query_handle, _index, _prev
  */
 function steam_ugc_get_supported_game_version_data(_query_handle, _index, _version_index)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _query_handle, type: UInt64
@@ -15839,6 +16369,9 @@ function steam_ugc_get_supported_game_version_data(_query_handle, _index, _versi
  */
 function steam_ugc_get_query_ugc_num_key_value_tags(_query_handle, _index)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _query_handle, type: UInt64
@@ -15862,6 +16395,9 @@ function steam_ugc_get_query_ugc_num_key_value_tags(_query_handle, _index)
  */
 function steam_ugc_get_query_ugc_key_value_tag(_query_handle, _index, _key_value_tag_index)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _query_handle, type: UInt64
@@ -15900,6 +16436,9 @@ function steam_ugc_get_query_ugc_key_value_tag(_query_handle, _index, _key_value
  */
 function steam_ugc_get_query_ugc_content_descriptors(_query_handle, _index, _max_descriptors)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _query_handle, type: UInt64
@@ -15935,6 +16474,9 @@ function steam_ugc_get_query_ugc_content_descriptors(_query_handle, _index, _max
  */
 function steam_ugc_remove_app_dependency(_published_file_id, _app_id, _callback)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     static __dispatcher = __Steamworks_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -15964,6 +16506,9 @@ function steam_ugc_remove_app_dependency(_published_file_id, _app_id, _callback)
  */
 function steam_ugc_remove_dependency(_parent_published_file_id, _child_published_file_id, _callback)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     static __dispatcher = __Steamworks_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -15993,6 +16538,9 @@ function steam_ugc_remove_dependency(_parent_published_file_id, _child_published
  */
 function steam_ugc_remove_item_from_favorites(_app_id, _published_file_id, _callback)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     static __dispatcher = __Steamworks_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -16022,6 +16570,9 @@ function steam_ugc_remove_item_from_favorites(_app_id, _published_file_id, _call
  */
 function steam_ugc_remove_item_key_value_tags(_update_handle, _key)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _update_handle, type: UInt64
@@ -16045,6 +16596,9 @@ function steam_ugc_remove_item_key_value_tags(_update_handle, _key)
  */
 function steam_ugc_remove_item_preview(_update_handle, _index)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _update_handle, type: UInt64
@@ -16067,6 +16621,9 @@ function steam_ugc_remove_item_preview(_update_handle, _index)
  */
 function steam_ugc_add_content_descriptor(_update_handle, _descriptor_id)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _update_handle, type: UInt64
@@ -16090,6 +16647,9 @@ function steam_ugc_add_content_descriptor(_update_handle, _descriptor_id)
  */
 function steam_ugc_remove_content_descriptor(_update_handle, _descriptor_id)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _update_handle, type: UInt64
@@ -16114,6 +16674,9 @@ function steam_ugc_remove_content_descriptor(_update_handle, _descriptor_id)
  */
 function steam_ugc_set_required_game_versions(_update_handle, _game_branch_min, _game_branch_max)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _update_handle, type: UInt64
@@ -16141,6 +16704,9 @@ function steam_ugc_set_required_game_versions(_update_handle, _game_branch_min, 
  */
 function steam_ugc_send_query_ugc_request(_query_handle, _callback)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     static __dispatcher = __Steamworks_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -16164,6 +16730,9 @@ function steam_ugc_send_query_ugc_request(_query_handle, _callback)
  */
 function steam_ugc_release_query_ugc_request(_query_handle)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _query_handle, type: UInt64
@@ -16180,6 +16749,9 @@ function steam_ugc_release_query_ugc_request(_query_handle)
  */
 function steam_ugc_set_callback_item_installed(_callback)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     static __dispatcher = __Steamworks_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -16204,6 +16776,9 @@ function steam_ugc_set_callback_item_installed(_callback)
  */
 function steam_ugc_set_allow_cached_response(_query_handle, _max_age_seconds)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _query_handle, type: UInt64
@@ -16226,6 +16801,9 @@ function steam_ugc_set_allow_cached_response(_query_handle, _max_age_seconds)
  */
 function steam_ugc_set_cloud_file_name_filter(_query_handle, _match_cloud_file_name)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _query_handle, type: UInt64
@@ -16249,6 +16827,9 @@ function steam_ugc_set_cloud_file_name_filter(_query_handle, _match_cloud_file_n
  */
 function steam_ugc_set_item_content(_update_handle, _content_folder)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _update_handle, type: UInt64
@@ -16272,6 +16853,9 @@ function steam_ugc_set_item_content(_update_handle, _content_folder)
  */
 function steam_ugc_set_item_description(_update_handle, _description)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _update_handle, type: UInt64
@@ -16295,6 +16879,9 @@ function steam_ugc_set_item_description(_update_handle, _description)
  */
 function steam_ugc_set_item_metadata(_update_handle, _metadata)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _update_handle, type: UInt64
@@ -16318,6 +16905,9 @@ function steam_ugc_set_item_metadata(_update_handle, _metadata)
  */
 function steam_ugc_set_item_preview(_update_handle, _preview_file)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _update_handle, type: UInt64
@@ -16341,6 +16931,9 @@ function steam_ugc_set_item_preview(_update_handle, _preview_file)
  */
 function steam_ugc_set_item_tags(_update_handle, _tags_csv)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _update_handle, type: UInt64
@@ -16370,6 +16963,9 @@ function steam_ugc_set_item_tags(_update_handle, _tags_csv)
  */
 function steam_ugc_set_item_title(_update_handle, _title)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _update_handle, type: UInt64
@@ -16393,6 +16989,9 @@ function steam_ugc_set_item_title(_update_handle, _title)
  */
 function steam_ugc_set_item_update_language(_update_handle, _language)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _update_handle, type: UInt64
@@ -16416,6 +17015,9 @@ function steam_ugc_set_item_update_language(_update_handle, _language)
  */
 function steam_ugc_set_items_disabled_locally(_published_file_ids, _disabled_locally)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _published_file_ids, type: UInt64[]
@@ -16444,6 +17046,9 @@ function steam_ugc_set_items_disabled_locally(_published_file_ids, _disabled_loc
  */
 function steam_ugc_set_item_visibility(_update_handle, _visibility)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _update_handle, type: UInt64
@@ -16467,6 +17072,9 @@ function steam_ugc_set_item_visibility(_update_handle, _visibility)
  */
 function steam_ugc_set_language(_query_handle, _language)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _query_handle, type: UInt64
@@ -16490,6 +17098,9 @@ function steam_ugc_set_language(_query_handle, _language)
  */
 function steam_ugc_set_match_any_tag(_query_handle, _match_any_tag)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _query_handle, type: UInt64
@@ -16512,6 +17123,9 @@ function steam_ugc_set_match_any_tag(_query_handle, _match_any_tag)
  */
 function steam_ugc_set_ranked_by_trend_days(_query_handle, _days)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _query_handle, type: UInt64
@@ -16534,6 +17148,9 @@ function steam_ugc_set_ranked_by_trend_days(_query_handle, _days)
  */
 function steam_ugc_set_return_additional_previews(_query_handle, _return_additional_previews)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _query_handle, type: UInt64
@@ -16556,6 +17173,9 @@ function steam_ugc_set_return_additional_previews(_query_handle, _return_additio
  */
 function steam_ugc_set_return_children(_query_handle, _return_children)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _query_handle, type: UInt64
@@ -16578,6 +17198,9 @@ function steam_ugc_set_return_children(_query_handle, _return_children)
  */
 function steam_ugc_set_return_key_value_tags(_query_handle, _return_key_value_tags)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _query_handle, type: UInt64
@@ -16600,6 +17223,9 @@ function steam_ugc_set_return_key_value_tags(_query_handle, _return_key_value_ta
  */
 function steam_ugc_set_return_long_description(_query_handle, _return_long_description)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _query_handle, type: UInt64
@@ -16622,6 +17248,9 @@ function steam_ugc_set_return_long_description(_query_handle, _return_long_descr
  */
 function steam_ugc_set_return_metadata(_query_handle, _return_metadata)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _query_handle, type: UInt64
@@ -16644,6 +17273,9 @@ function steam_ugc_set_return_metadata(_query_handle, _return_metadata)
  */
 function steam_ugc_set_return_only_ids(_query_handle, _return_only_ids)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _query_handle, type: UInt64
@@ -16666,6 +17298,9 @@ function steam_ugc_set_return_only_ids(_query_handle, _return_only_ids)
  */
 function steam_ugc_set_return_playtime_stats(_query_handle, _days)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _query_handle, type: UInt64
@@ -16688,6 +17323,9 @@ function steam_ugc_set_return_playtime_stats(_query_handle, _days)
  */
 function steam_ugc_set_return_total_only(_query_handle, _return_total_only)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _query_handle, type: UInt64
@@ -16710,6 +17348,9 @@ function steam_ugc_set_return_total_only(_query_handle, _return_total_only)
  */
 function steam_ugc_set_search_text(_query_handle, _search_text)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _query_handle, type: UInt64
@@ -16732,6 +17373,9 @@ function steam_ugc_set_search_text(_query_handle, _search_text)
  */
 function steam_ugc_set_subscriptions_load_order(_published_file_ids)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _published_file_ids, type: UInt64[]
@@ -16756,6 +17400,9 @@ function steam_ugc_set_subscriptions_load_order(_published_file_ids)
  */
 function steam_ugc_set_user_item_vote(_published_file_id, _vote_up, _callback)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     static __dispatcher = __Steamworks_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -16784,6 +17431,9 @@ function steam_ugc_set_user_item_vote(_published_file_id, _vote_up, _callback)
  */
 function steam_ugc_get_user_item_vote(_published_file_id, _callback)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     static __dispatcher = __Steamworks_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -16809,6 +17459,9 @@ function steam_ugc_get_user_item_vote(_published_file_id, _callback)
  */
 function steam_ugc_start_item_update(_consumer_app_id, _published_file_id)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _consumer_app_id, type: UInt32
@@ -16834,6 +17487,9 @@ function steam_ugc_start_item_update(_consumer_app_id, _published_file_id)
  */
 function steam_ugc_start_playtime_tracking(_published_file_ids, _callback)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     static __dispatcher = __Steamworks_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -16864,6 +17520,9 @@ function steam_ugc_start_playtime_tracking(_published_file_ids, _callback)
  */
 function steam_ugc_stop_playtime_tracking(_published_file_ids, _callback)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     static __dispatcher = __Steamworks_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -16893,6 +17552,9 @@ function steam_ugc_stop_playtime_tracking(_published_file_ids, _callback)
  */
 function steam_ugc_stop_playtime_tracking_for_all_items(_callback)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     static __dispatcher = __Steamworks_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -16914,6 +17576,9 @@ function steam_ugc_stop_playtime_tracking_for_all_items(_callback)
  */
 function steam_ugc_submit_item_update(_update_handle, _change_note, _callback)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     static __dispatcher = __Steamworks_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -16943,6 +17608,9 @@ function steam_ugc_submit_item_update(_update_handle, _change_note, _callback)
  */
 function steam_ugc_subscribe_item(_published_file_id, _callback)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     static __dispatcher = __Steamworks_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -16970,6 +17638,9 @@ function steam_ugc_subscribe_item(_published_file_id, _callback)
  */
 function steam_ugc_unsubscribe_item(_published_file_id, _callback)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     static __dispatcher = __Steamworks_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -16993,6 +17664,9 @@ function steam_ugc_unsubscribe_item(_published_file_id, _callback)
  */
 function steam_ugc_set_callback_user_subscribed_items_list_changed(_callback)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     static __dispatcher = __Steamworks_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -17018,6 +17692,9 @@ function steam_ugc_set_callback_user_subscribed_items_list_changed(_callback)
  */
 function steam_ugc_update_item_preview_file(_update_handle, _index, _preview_file)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _update_handle, type: UInt64
@@ -17046,6 +17723,9 @@ function steam_ugc_update_item_preview_file(_update_handle, _index, _preview_fil
  */
 function steam_ugc_update_item_preview_video(_update_handle, _index, _video_id)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _update_handle, type: UInt64
@@ -17074,6 +17754,9 @@ function steam_ugc_update_item_preview_video(_update_handle, _index, _video_id)
  */
 function steam_ugc_get_workshop_eula_status(_callback)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     static __dispatcher = __Steamworks_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -17095,6 +17778,9 @@ function steam_ugc_get_workshop_eula_status(_callback)
  */
 function steam_ugc_get_num_supported_game_versions(_query_handle, _index)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _query_handle, type: UInt64
@@ -17116,6 +17802,9 @@ function steam_ugc_get_num_supported_game_versions(_query_handle, _index)
  */
 function steam_input_activate_action_set(_input_handle, _action_set_handle)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _input_handle, type: UInt64
@@ -17137,6 +17826,9 @@ function steam_input_activate_action_set(_input_handle, _action_set_handle)
  */
 function steam_input_activate_action_set_layer(_input_handle, _action_set_layer_handle)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _input_handle, type: UInt64
@@ -17158,6 +17850,9 @@ function steam_input_activate_action_set_layer(_input_handle, _action_set_layer_
  */
 function steam_input_deactivate_action_set_layer(_input_handle, _action_set_layer_handle)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _input_handle, type: UInt64
@@ -17178,6 +17873,9 @@ function steam_input_deactivate_action_set_layer(_input_handle, _action_set_laye
  */
 function steam_input_deactivate_all_action_set_layers(_input_handle)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _input_handle, type: UInt64
@@ -17195,6 +17893,9 @@ function steam_input_deactivate_all_action_set_layers(_input_handle)
  */
 function steam_input_get_active_action_set_layers(_input_handle)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _input_handle, type: UInt64
@@ -17221,6 +17922,9 @@ function steam_input_get_active_action_set_layers(_input_handle)
  */
 function steam_input_get_action_set_handle(_action_set_name)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __ret_buffer = __ext_core_get_ret_buffer();
 
     var _return_value = __steam_input_get_action_set_handle(_action_set_name, buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
@@ -17237,6 +17941,9 @@ function steam_input_get_action_set_handle(_action_set_name)
  */
 function steam_input_get_analog_action_data(_input_handle, _analog_action_handle)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _input_handle, type: UInt64
@@ -17262,6 +17969,9 @@ function steam_input_get_analog_action_data(_input_handle, _analog_action_handle
  */
 function steam_input_get_analog_action_handle(_action_name)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __ret_buffer = __ext_core_get_ret_buffer();
 
     var _return_value = __steam_input_get_analog_action_handle(_action_name, buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
@@ -17279,6 +17989,9 @@ function steam_input_get_analog_action_handle(_action_name)
  */
 function steam_input_get_analog_action_origins(_input_handle, _action_set_handle, _analog_action_handle)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _input_handle, type: UInt64
@@ -17310,6 +18023,9 @@ function steam_input_get_analog_action_origins(_input_handle, _action_set_handle
  */
 function steam_input_get_glyph_png_for_action_origin(_origin, _size, _flags)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _origin, type: enum SteamInputActionOrigin
@@ -17338,6 +18054,9 @@ function steam_input_get_glyph_png_for_action_origin(_origin, _size, _flags)
  */
 function steam_input_get_glyph_svg_for_action_origin(_origin, _flags)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _origin, type: enum SteamInputActionOrigin
@@ -17359,6 +18078,9 @@ function steam_input_get_glyph_svg_for_action_origin(_origin, _flags)
  */
 function steam_input_get_connected_controllers()
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __ret_buffer = __ext_core_get_ret_buffer();
 
     var _return_value = __steam_input_get_connected_controllers(buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
@@ -17379,6 +18101,9 @@ function steam_input_get_connected_controllers()
  */
 function steam_input_get_controller_for_gamepad_index(_index)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __ret_buffer = __ext_core_get_ret_buffer();
 
     var _return_value = __steam_input_get_controller_for_gamepad_index(_index, buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
@@ -17394,6 +18119,9 @@ function steam_input_get_controller_for_gamepad_index(_index)
  */
 function steam_input_get_current_action_set(_input_handle)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _input_handle, type: UInt64
@@ -17416,6 +18144,9 @@ function steam_input_get_current_action_set(_input_handle)
  */
 function steam_input_get_digital_action_data(_input_handle, _digital_action_handle)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _input_handle, type: UInt64
@@ -17441,6 +18172,9 @@ function steam_input_get_digital_action_data(_input_handle, _digital_action_hand
  */
 function steam_input_get_digital_action_handle(_action_name)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __ret_buffer = __ext_core_get_ret_buffer();
 
     var _return_value = __steam_input_get_digital_action_handle(_action_name, buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
@@ -17458,6 +18192,9 @@ function steam_input_get_digital_action_handle(_action_name)
  */
 function steam_input_get_digital_action_origins(_input_handle, _action_set_handle, _digital_action_handle)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _input_handle, type: UInt64
@@ -17487,6 +18224,9 @@ function steam_input_get_digital_action_origins(_input_handle, _action_set_handl
  */
 function steam_input_get_gamepad_index_for_controller(_input_handle)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _input_handle, type: UInt64
@@ -17504,6 +18244,9 @@ function steam_input_get_gamepad_index_for_controller(_input_handle)
  */
 function steam_input_get_input_type_for_handle(_input_handle)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _input_handle, type: UInt64
@@ -17525,6 +18268,9 @@ function steam_input_get_input_type_for_handle(_input_handle)
  */
 function steam_input_get_motion_data(_input_handle)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _input_handle, type: UInt64
@@ -17546,6 +18292,9 @@ function steam_input_get_motion_data(_input_handle)
  */
 function steam_input_get_string_for_action_origin(_origin)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _origin, type: enum SteamInputActionOrigin
@@ -17574,6 +18323,9 @@ function steam_input_get_string_for_action_origin(_origin)
  */
 function steam_input_set_dualsense_trigger_effect(_input_handle, _param)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _input_handle, type: UInt64
@@ -17604,6 +18356,9 @@ function steam_input_set_dualsense_trigger_effect(_input_handle, _param)
  */
 function steam_input_set_led_color(_input_handle, _color_r, _color_g, _color_b, _flags)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _input_handle, type: UInt64
@@ -17637,6 +18392,9 @@ function steam_input_set_led_color(_input_handle, _color_r, _color_g, _color_b, 
  */
 function steam_input_show_binding_panel(_input_handle)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _input_handle, type: UInt64
@@ -17657,6 +18415,9 @@ function steam_input_show_binding_panel(_input_handle)
  */
 function steam_input_stop_analog_action_momentum(_input_handle, _analog_action_handle)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _input_handle, type: UInt64
@@ -17679,6 +18440,9 @@ function steam_input_stop_analog_action_momentum(_input_handle, _analog_action_h
  */
 function steam_input_trigger_vibration(_input_handle, _left_speed, _right_speed)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _input_handle, type: UInt64
@@ -17707,6 +18471,9 @@ function steam_input_trigger_vibration(_input_handle, _left_speed, _right_speed)
  */
 function steam_input_trigger_vibration_extended(_input_handle, _left_speed, _right_speed, _left_trigger_speed, _right_trigger_speed)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _input_handle, type: UInt64
@@ -17741,6 +18508,9 @@ function steam_input_trigger_vibration_extended(_input_handle, _left_speed, _rig
  */
 function steam_input_get_action_origin_from_xbox_origin(_input_handle, _origin)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _input_handle, type: UInt64
@@ -17768,6 +18538,9 @@ function steam_input_get_action_origin_from_xbox_origin(_input_handle, _origin)
  */
 function steam_input_translate_action_origin(_destination_input_type, _source_origin)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _destination_input_type, type: enum SteamInputType
@@ -17795,6 +18568,9 @@ function steam_input_translate_action_origin(_destination_input_type, _source_or
  */
 function steam_input_get_device_binding_revision(_input_handle)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _input_handle, type: UInt64
@@ -17823,6 +18599,9 @@ function steam_input_get_device_binding_revision(_input_handle)
  */
 function steam_input_get_remote_play_session_id(_input_handle)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _input_handle, type: UInt64
@@ -17839,6 +18618,9 @@ function steam_input_get_remote_play_session_id(_input_handle)
  */
 function steam_input_set_callback_device_connected(_callback)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     static __dispatcher = __Steamworks_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -17861,6 +18643,9 @@ function steam_input_set_callback_device_connected(_callback)
  */
 function steam_input_set_callback_device_disconnected(_callback)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     static __dispatcher = __Steamworks_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -17884,6 +18669,9 @@ function steam_input_set_callback_device_disconnected(_callback)
  */
 function steam_userstats_get_stat_int(_stat_name)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __ret_buffer = __ext_core_get_ret_buffer();
 
     var _return_value = __steam_userstats_get_stat_int(_stat_name, buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
@@ -17906,6 +18694,9 @@ function steam_userstats_get_stat_int(_stat_name)
  */
 function steam_userstats_get_stat_float(_stat_name)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __ret_buffer = __ext_core_get_ret_buffer();
 
     var _return_value = __steam_userstats_get_stat_float(_stat_name, buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
@@ -17937,6 +18728,9 @@ function steam_userstats_get_stat_float(_stat_name)
  */
 function steam_userstats_get_achievement(_achievement_name)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __ret_buffer = __ext_core_get_ret_buffer();
 
     var _return_value = __steam_userstats_get_achievement(_achievement_name, buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
@@ -17965,6 +18759,9 @@ function steam_userstats_get_achievement(_achievement_name)
  */
 function steam_userstats_achievement_and_unlock_time(_achievement_name)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __ret_buffer = __ext_core_get_ret_buffer();
 
     var _return_value = __steam_userstats_achievement_and_unlock_time(_achievement_name, buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
@@ -17998,6 +18795,9 @@ function steam_userstats_achievement_and_unlock_time(_achievement_name)
  */
 function steam_userstats_request_user_stats(_steam_id_user, _callback)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     static __dispatcher = __Steamworks_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -18023,6 +18823,9 @@ function steam_userstats_request_user_stats(_steam_id_user, _callback)
  */
 function steam_userstats_user_stat_int(_steam_id_user, _stat_name)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _steam_id_user, type: UInt64
@@ -18057,6 +18860,9 @@ function steam_userstats_user_stat_int(_steam_id_user, _stat_name)
  */
 function steam_userstats_user_stat_float(_steam_id_user, _stat_name)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _steam_id_user, type: UInt64
@@ -18091,6 +18897,9 @@ function steam_userstats_user_stat_float(_steam_id_user, _stat_name)
  */
 function steam_userstats_user_achievement(_steam_id_user, _achievement_name)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _steam_id_user, type: UInt64
@@ -18125,6 +18934,9 @@ function steam_userstats_user_achievement(_steam_id_user, _achievement_name)
  */
 function steam_userstats_user_achievement_and_unlock_time(_steam_id_user, _achievement_name)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _steam_id_user, type: UInt64
@@ -18156,6 +18968,9 @@ function steam_userstats_user_achievement_and_unlock_time(_steam_id_user, _achie
  */
 function steam_userstats_find_or_create_leaderboard(_leaderboard_name, _sort_method, _display_type, _callback)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     static __dispatcher = __Steamworks_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -18191,6 +19006,9 @@ function steam_userstats_find_or_create_leaderboard(_leaderboard_name, _sort_met
  */
 function steam_userstats_find_leaderboard(_leaderboard_name, _callback)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     static __dispatcher = __Steamworks_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -18216,6 +19034,9 @@ function steam_userstats_find_leaderboard(_leaderboard_name, _callback)
  */
 function steam_userstats_leaderboard_name(_leaderboard_handle)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _leaderboard_handle, type: UInt64
@@ -18233,6 +19054,9 @@ function steam_userstats_leaderboard_name(_leaderboard_handle)
  */
 function steam_userstats_leaderboard_entry_count(_leaderboard_handle)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _leaderboard_handle, type: UInt64
@@ -18250,6 +19074,9 @@ function steam_userstats_leaderboard_entry_count(_leaderboard_handle)
  */
 function steam_userstats_leaderboard_sort_method(_leaderboard_handle)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _leaderboard_handle, type: UInt64
@@ -18271,6 +19098,9 @@ function steam_userstats_leaderboard_sort_method(_leaderboard_handle)
  */
 function steam_userstats_leaderboard_display_type(_leaderboard_handle)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _leaderboard_handle, type: UInt64
@@ -18295,6 +19125,9 @@ function steam_userstats_leaderboard_display_type(_leaderboard_handle)
  */
 function steam_userstats_download_leaderboard_entries(_leaderboard_handle, _request, _range_start, _range_end, _callback)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     static __dispatcher = __Steamworks_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -18333,6 +19166,9 @@ function steam_userstats_download_leaderboard_entries(_leaderboard_handle, _requ
  */
 function steam_userstats_download_leaderboard_entries_for_users(_leaderboard_handle, _users, _callback)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     static __dispatcher = __Steamworks_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -18368,6 +19204,9 @@ function steam_userstats_download_leaderboard_entries_for_users(_leaderboard_han
  */
 function steam_userstats_downloaded_leaderboard_entry(_leaderboard_entries_handle, _entry_index)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _leaderboard_entries_handle, type: UInt64
@@ -18403,6 +19242,9 @@ function steam_userstats_downloaded_leaderboard_entry(_leaderboard_entries_handl
  */
 function steam_userstats_upload_leaderboard_score(_leaderboard_handle, _method, _score, _score_details, _callback)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     static __dispatcher = __Steamworks_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -18447,6 +19289,9 @@ function steam_userstats_upload_leaderboard_score(_leaderboard_handle, _method, 
  */
 function steam_userstats_attach_leaderboard_ugc(_leaderboard_handle, _ugc_handle, _callback)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     static __dispatcher = __Steamworks_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -18474,6 +19319,9 @@ function steam_userstats_attach_leaderboard_ugc(_leaderboard_handle, _ugc_handle
  */
 function steam_userstats_number_of_current_players(_callback)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     static __dispatcher = __Steamworks_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -18493,6 +19341,9 @@ function steam_userstats_number_of_current_players(_callback)
  */
 function steam_userstats_request_global_achievement_percentages(_callback)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     static __dispatcher = __Steamworks_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -18512,6 +19363,9 @@ function steam_userstats_request_global_achievement_percentages(_callback)
  */
 function steam_userstats_most_achieved_achievement_info()
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __ret_buffer = __ext_core_get_ret_buffer();
 
     var _return_value = __steam_userstats_most_achieved_achievement_info(buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
@@ -18534,6 +19388,9 @@ function steam_userstats_most_achieved_achievement_info()
  */
 function steam_userstats_next_most_achieved_achievement_info(_iterator_prev)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __ret_buffer = __ext_core_get_ret_buffer();
 
     var _return_value = __steam_userstats_next_most_achieved_achievement_info(_iterator_prev, buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
@@ -18559,6 +19416,9 @@ function steam_userstats_next_most_achieved_achievement_info(_iterator_prev)
  */
 function steam_userstats_request_global_stats(_history_days, _callback)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     static __dispatcher = __Steamworks_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -18583,6 +19443,9 @@ function steam_userstats_request_global_stats(_history_days, _callback)
  */
 function steam_userstats_global_stat_int64(_stat_name)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __ret_buffer = __ext_core_get_ret_buffer();
 
     var _return_value = __steam_userstats_global_stat_int64(_stat_name, buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
@@ -18605,6 +19468,9 @@ function steam_userstats_global_stat_int64(_stat_name)
  */
 function steam_userstats_global_stat_double(_stat_name)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __ret_buffer = __ext_core_get_ret_buffer();
 
     var _return_value = __steam_userstats_global_stat_double(_stat_name, buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
@@ -18627,6 +19493,9 @@ function steam_userstats_global_stat_double(_stat_name)
  */
 function steam_userstats_global_stat_history_int64(_stat_name)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __ret_buffer = __ext_core_get_ret_buffer();
 
     var _return_value = __steam_userstats_global_stat_history_int64(_stat_name, buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
@@ -18647,6 +19516,9 @@ function steam_userstats_global_stat_history_int64(_stat_name)
  */
 function steam_userstats_global_stat_history_double(_stat_name)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __ret_buffer = __ext_core_get_ret_buffer();
 
     var _return_value = __steam_userstats_global_stat_history_double(_stat_name, buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
@@ -18669,6 +19541,9 @@ function steam_userstats_global_stat_history_double(_stat_name)
  */
 function steam_userstats_achievement_progress_int(_achievement_name, _cur_progress, _max_progress)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _achievement_name, type: String
@@ -18708,6 +19583,9 @@ function steam_userstats_achievement_progress_int(_achievement_name, _cur_progre
  */
 function steam_userstats_achievement_progress_float(_achievement_name, _cur_progress, _max_progress)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _achievement_name, type: String
@@ -18744,6 +19622,9 @@ function steam_userstats_achievement_progress_float(_achievement_name, _cur_prog
  */
 function steam_userstats_set_callback_user_stats_received(_callback)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     static __dispatcher = __Steamworks_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -18766,6 +19647,9 @@ function steam_userstats_set_callback_user_stats_received(_callback)
  */
 function steam_userstats_set_callback_user_stats_stored(_callback)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     static __dispatcher = __Steamworks_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -18788,6 +19672,9 @@ function steam_userstats_set_callback_user_stats_stored(_callback)
  */
 function steam_userstats_set_callback_user_achievement_stored(_callback)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     static __dispatcher = __Steamworks_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -18810,6 +19697,9 @@ function steam_userstats_set_callback_user_achievement_stored(_callback)
  */
 function steam_userstats_set_callback_user_achievement_icon_fetched(_callback)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     static __dispatcher = __Steamworks_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -18832,6 +19722,9 @@ function steam_userstats_set_callback_user_achievement_icon_fetched(_callback)
  */
 function steam_userstats_set_callback_user_stats_unloaded(_callback)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     static __dispatcher = __Steamworks_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -18860,6 +19753,9 @@ function steam_userstats_set_callback_user_stats_unloaded(_callback)
  */
 function steam_music_get_playback_status()
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __ret_buffer = __ext_core_get_ret_buffer();
 
     var _return_value = __steam_music_get_playback_status(buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
@@ -18892,6 +19788,9 @@ function steam_music_get_playback_status()
  */
 function steam_music_set_callback_playback_status_has_changed(_callback)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     static __dispatcher = __Steamworks_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -18914,6 +19813,9 @@ function steam_music_set_callback_playback_status_has_changed(_callback)
  */
 function steam_music_set_callback_volume_has_changed(_callback)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     static __dispatcher = __Steamworks_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -18948,6 +19850,9 @@ function steam_music_set_callback_volume_has_changed(_callback)
  */
 function steam_timeline_add_instantaneous_timeline_event(_title, _description, _icon, _priority, _start_offset_seconds, _possible_clip)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _title, type: String
@@ -18999,6 +19904,9 @@ function steam_timeline_add_instantaneous_timeline_event(_title, _description, _
  */
 function steam_timeline_add_range_timeline_event(_title, _description, _icon, _priority, _start_offset_seconds, _duration_seconds, _possible_clip)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _title, type: String
@@ -19053,6 +19961,9 @@ function steam_timeline_add_range_timeline_event(_title, _description, _icon, _p
  */
 function steam_timeline_start_range_timeline_event(_title, _description, _icon, _priority, _start_offset_seconds, _possible_clip)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _title, type: String
@@ -19102,6 +20013,9 @@ function steam_timeline_start_range_timeline_event(_title, _description, _icon, 
  */
 function steam_timeline_update_range_timeline_event(_event_handle, _title, _description, _icon, _priority, _possible_clip)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _event_handle, type: UInt64
@@ -19143,6 +20057,9 @@ function steam_timeline_update_range_timeline_event(_event_handle, _title, _desc
  */
 function steam_timeline_end_range_timeline_event(_event_handle, _end_offset_seconds)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _event_handle, type: UInt64
@@ -19163,6 +20080,9 @@ function steam_timeline_end_range_timeline_event(_event_handle, _end_offset_seco
  */
 function steam_timeline_remove_timeline_event(_event_handle)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _event_handle, type: UInt64
@@ -19180,6 +20100,9 @@ function steam_timeline_remove_timeline_event(_event_handle)
  */
 function steam_timeline_does_event_recording_exist(_event_handle)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _event_handle, type: UInt64
@@ -19210,6 +20133,9 @@ function steam_timeline_does_event_recording_exist(_event_handle)
  */
 function steam_timeline_does_game_phase_recording_exist(_phase_id)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __ret_buffer = __ext_core_get_ret_buffer();
 
     var _return_value = __steam_timeline_does_game_phase_recording_exist(_phase_id, buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
@@ -19230,6 +20156,9 @@ function steam_timeline_does_game_phase_recording_exist(_phase_id)
  */
 function steam_timeline_set_timeline_game_mode(_mode)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _mode, type: enum SteamTimelineGameMode
@@ -19250,6 +20179,9 @@ function steam_timeline_set_timeline_game_mode(_mode)
  */
 function steam_timeline_open_overlay_to_timeline_event(_event_handle)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _event_handle, type: UInt64
@@ -19266,6 +20198,9 @@ function steam_timeline_open_overlay_to_timeline_event(_event_handle)
  */
 function steam_timeline_set_callback_game_phase_recording_exists(_callback)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     static __dispatcher = __Steamworks_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -19288,6 +20223,9 @@ function steam_timeline_set_callback_game_phase_recording_exists(_callback)
  */
 function steam_timeline_set_callback_event_recording_exists(_callback)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     static __dispatcher = __Steamworks_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -19312,6 +20250,9 @@ function steam_timeline_set_callback_event_recording_exists(_callback)
  */
 function steam_inventory_add_promo_item(_item_def_id, _callback)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     static __dispatcher = __Steamworks_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -19337,6 +20278,9 @@ function steam_inventory_add_promo_item(_item_def_id, _callback)
  */
 function steam_inventory_add_promo_items(_item_def_ids, _callback)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     static __dispatcher = __Steamworks_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -19368,6 +20312,9 @@ function steam_inventory_add_promo_items(_item_def_ids, _callback)
  */
 function steam_inventory_check_result_steam_id(_result_handle, _steam_id_expected)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _result_handle, type: Int32
@@ -19391,6 +20338,9 @@ function steam_inventory_check_result_steam_id(_result_handle, _steam_id_expecte
  */
 function steam_inventory_consume_item(_item_instance_id, _quantity, _callback)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     static __dispatcher = __Steamworks_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -19420,6 +20370,9 @@ function steam_inventory_consume_item(_item_instance_id, _quantity, _callback)
  */
 function steam_inventory_deserialize_result(_data, _data_size)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _data, type: Buffer
@@ -19457,6 +20410,9 @@ function steam_inventory_deserialize_result(_data, _data_size)
  */
 function steam_inventory_exchange_items(_generate_items, _destroy_items, _callback)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     static __dispatcher = __Steamworks_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -19498,6 +20454,9 @@ function steam_inventory_exchange_items(_generate_items, _destroy_items, _callba
  */
 function steam_inventory_generate_items(_items, _callback)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     static __dispatcher = __Steamworks_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -19531,6 +20490,9 @@ function steam_inventory_generate_items(_items, _callback)
  */
 function steam_inventory_get_result_items(_result_handle)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __ret_buffer = __ext_core_get_ret_buffer();
 
     var _return_value = __steam_inventory_get_result_items(_result_handle, buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
@@ -19558,6 +20520,9 @@ function steam_inventory_get_result_items(_result_handle)
  */
 function steam_inventory_get_result_status(_result_handle)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __ret_buffer = __ext_core_get_ret_buffer();
 
     var _return_value = __steam_inventory_get_result_status(_result_handle, buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
@@ -19576,6 +20541,9 @@ function steam_inventory_get_result_status(_result_handle)
  */
 function steam_inventory_get_eligible_promo_item_definition_ids(_max_item_defs)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __ret_buffer = __ext_core_get_ret_buffer();
 
     var _return_value = __steam_inventory_get_eligible_promo_item_definition_ids(_max_item_defs, buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
@@ -19599,6 +20567,9 @@ function steam_inventory_get_eligible_promo_item_definition_ids(_max_item_defs)
  */
 function steam_inventory_get_item_definition_ids(_max_item_defs)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __ret_buffer = __ext_core_get_ret_buffer();
 
     var _return_value = __steam_inventory_get_item_definition_ids(_max_item_defs, buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
@@ -19620,6 +20591,9 @@ function steam_inventory_get_item_definition_ids(_max_item_defs)
  */
 function steam_inventory_get_items_by_id(_item_instance_ids, _callback)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     static __dispatcher = __Steamworks_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -19652,6 +20626,9 @@ function steam_inventory_get_items_by_id(_item_instance_ids, _callback)
  */
 function steam_inventory_serialize_result(_result_handle, _out_data, _out_capacity)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _result_handle, type: Int32
@@ -19689,6 +20666,9 @@ function steam_inventory_serialize_result(_result_handle, _out_data, _out_capaci
  */
 function steam_inventory_get_result_item_property_keys_array(_result_handle, _item_index)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __ret_buffer = __ext_core_get_ret_buffer();
 
     var _return_value = __steam_inventory_get_result_item_property_keys_array(_result_handle, _item_index, buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
@@ -19712,6 +20692,9 @@ function steam_inventory_get_result_item_property_keys_array(_result_handle, _it
  */
 function steam_inventory_get_result_item_property(_result_handle, _item_index, _property_name)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _result_handle, type: Int32
@@ -19750,6 +20733,9 @@ function steam_inventory_get_result_item_property(_result_handle, _item_index, _
  */
 function steam_inventory_start_purchase(_items, _callback)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     static __dispatcher = __Steamworks_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -19779,6 +20765,9 @@ function steam_inventory_start_purchase(_items, _callback)
  */
 function steam_inventory_request_prices(_callback)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     static __dispatcher = __Steamworks_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -19801,6 +20790,9 @@ function steam_inventory_request_prices(_callback)
  */
 function steam_inventory_get_items_with_prices()
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __ret_buffer = __ext_core_get_ret_buffer();
 
     var _return_value = __steam_inventory_get_items_with_prices(buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
@@ -19826,6 +20818,9 @@ function steam_inventory_get_items_with_prices()
  */
 function steam_inventory_remove_property(_result_handle, _item_instance_id, _property_name)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _result_handle, type: Int32
@@ -19855,6 +20850,9 @@ function steam_inventory_remove_property(_result_handle, _item_instance_id, _pro
  */
 function steam_inventory_set_property_string(_result_handle, _item_instance_id, _property_name, _value)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _result_handle, type: Int32
@@ -19889,6 +20887,9 @@ function steam_inventory_set_property_string(_result_handle, _item_instance_id, 
  */
 function steam_inventory_set_property_bool(_result_handle, _item_instance_id, _property_name, _value)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _result_handle, type: Int32
@@ -19922,6 +20923,9 @@ function steam_inventory_set_property_bool(_result_handle, _item_instance_id, _p
  */
 function steam_inventory_set_property_int64(_result_handle, _item_instance_id, _property_name, _value)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _result_handle, type: Int32
@@ -19955,6 +20959,9 @@ function steam_inventory_set_property_int64(_result_handle, _item_instance_id, _
  */
 function steam_inventory_set_property_float(_result_handle, _item_instance_id, _property_name, _value)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _result_handle, type: Int32
@@ -19986,6 +20993,9 @@ function steam_inventory_set_property_float(_result_handle, _item_instance_id, _
  */
 function steam_inventory_submit_update_properties(_result_handle, _callback)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     static __dispatcher = __Steamworks_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -20013,6 +21023,9 @@ function steam_inventory_submit_update_properties(_result_handle, _callback)
  */
 function steam_inventory_transfer_item_quantity(_item_instance_id_source, _quantity, _item_instance_id_dest, _callback)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     static __dispatcher = __Steamworks_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -20046,6 +21059,9 @@ function steam_inventory_transfer_item_quantity(_item_instance_id_source, _quant
  */
 function steam_inventory_trigger_item_drop(_item_def_id, _callback)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     static __dispatcher = __Steamworks_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -20070,6 +21086,9 @@ function steam_inventory_trigger_item_drop(_item_def_id, _callback)
  */
 function steam_inventory_grant_promo_items(_callback)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     static __dispatcher = __Steamworks_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -20091,6 +21110,9 @@ function steam_inventory_grant_promo_items(_callback)
  */
 function steam_inventory_get_item_definition_property(_item_def_id, _property_name)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __ret_buffer = __ext_core_get_ret_buffer();
 
     var _return_value = __steam_inventory_get_item_definition_property(_item_def_id, _property_name, buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
@@ -20114,6 +21136,9 @@ function steam_inventory_get_item_definition_property(_item_def_id, _property_na
  */
 function steam_inventory_get_item_definition_property_keys(_item_def_id)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __ret_buffer = __ext_core_get_ret_buffer();
 
     var _return_value = __steam_inventory_get_item_definition_property_keys(_item_def_id, buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
@@ -20135,6 +21160,9 @@ function steam_inventory_get_item_definition_property_keys(_item_def_id)
  */
 function steam_inventory_get_item_price(_item_def_id)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __ret_buffer = __ext_core_get_ret_buffer();
 
     var _return_value = __steam_inventory_get_item_price(_item_def_id, buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
@@ -20156,6 +21184,9 @@ function steam_inventory_get_item_price(_item_def_id)
  */
 function steam_inventory_set_callback_result_ready(_callback)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     static __dispatcher = __Steamworks_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -20178,6 +21209,9 @@ function steam_inventory_set_callback_result_ready(_callback)
  */
 function steam_inventory_set_callback_full_update(_callback)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     static __dispatcher = __Steamworks_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -20200,6 +21234,9 @@ function steam_inventory_set_callback_full_update(_callback)
  */
 function steam_inventory_set_callback_definition_update(_callback)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     static __dispatcher = __Steamworks_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -20222,6 +21259,9 @@ function steam_inventory_set_callback_definition_update(_callback)
  */
 function steam_remote_storage_set_callback_published_file_subscribed(_callback)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     static __dispatcher = __Steamworks_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -20244,6 +21284,9 @@ function steam_remote_storage_set_callback_published_file_subscribed(_callback)
  */
 function steam_remote_storage_set_callback_published_file_unsubscribed(_callback)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     static __dispatcher = __Steamworks_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -20266,6 +21309,9 @@ function steam_remote_storage_set_callback_published_file_unsubscribed(_callback
  */
 function steam_remote_storage_set_callback_local_file_change(_callback)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     static __dispatcher = __Steamworks_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -20300,6 +21346,9 @@ function steam_remote_storage_set_callback_local_file_change(_callback)
  */
 function steam_remote_storage_file_write(_file_name, _data, _bytes)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _file_name, type: String
@@ -20328,6 +21377,9 @@ function steam_remote_storage_file_write(_file_name, _data, _bytes)
  */
 function steam_remote_storage_file_write_async(_file_name, _data, _bytes, _callback)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     static __dispatcher = __Steamworks_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -20363,6 +21415,9 @@ function steam_remote_storage_file_write_async(_file_name, _data, _bytes, _callb
  */
 function steam_remote_storage_file_read(_file_name, _out_data, _max_bytes)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _file_name, type: String
@@ -20407,6 +21462,9 @@ function steam_remote_storage_file_read(_file_name, _out_data, _max_bytes)
  */
 function steam_remote_storage_get_file_name_and_size(_index)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __ret_buffer = __ext_core_get_ret_buffer();
 
     var _return_value = __steam_remote_storage_get_file_name_and_size(_index, buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
@@ -20428,6 +21486,9 @@ function steam_remote_storage_get_file_name_and_size(_index)
  */
 function steam_remote_storage_get_quota()
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __ret_buffer = __ext_core_get_ret_buffer();
 
     var _return_value = __steam_remote_storage_get_quota(buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
@@ -20451,6 +21512,9 @@ function steam_remote_storage_get_quota()
  */
 function steam_remote_storage_set_sync_platforms(_file_name, _platforms)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _file_name, type: String
@@ -20474,6 +21538,9 @@ function steam_remote_storage_set_sync_platforms(_file_name, _platforms)
  */
 function steam_remote_storage_get_sync_platforms(_file_name)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __ret_buffer = __ext_core_get_ret_buffer();
 
     var _return_value = __steam_remote_storage_get_sync_platforms(_file_name, buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
@@ -20492,6 +21559,9 @@ function steam_remote_storage_get_sync_platforms(_file_name)
  */
 function steam_remote_storage_file_write_stream_open(_file_name)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __ret_buffer = __ext_core_get_ret_buffer();
 
     var _return_value = __steam_remote_storage_file_write_stream_open(_file_name, buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
@@ -20509,6 +21579,9 @@ function steam_remote_storage_file_write_stream_open(_file_name)
  */
 function steam_remote_storage_file_write_stream_write_chunk(_stream, _data, _bytes)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _stream, type: UInt64
@@ -20534,6 +21607,9 @@ function steam_remote_storage_file_write_stream_write_chunk(_stream, _data, _byt
  */
 function steam_remote_storage_file_write_stream_close(_stream)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _stream, type: UInt64
@@ -20551,6 +21627,9 @@ function steam_remote_storage_file_write_stream_close(_stream)
  */
 function steam_remote_storage_file_write_stream_cancel(_stream)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _stream, type: UInt64
@@ -20571,6 +21650,9 @@ function steam_remote_storage_file_write_stream_cancel(_stream)
  */
 function steam_remote_storage_get_cached_ugc_handle(_index)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __ret_buffer = __ext_core_get_ret_buffer();
 
     var _return_value = __steam_remote_storage_get_cached_ugc_handle(_index, buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
@@ -20586,6 +21668,9 @@ function steam_remote_storage_get_cached_ugc_handle(_index)
  */
 function steam_remote_storage_get_ugc_details(_ugc_handle)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _ugc_handle, type: UInt64
@@ -20618,6 +21703,9 @@ function steam_remote_storage_get_ugc_details(_ugc_handle)
  */
 function steam_remote_storage_ugc_read(_ugc_handle, _out_data, _bytes_to_read, _offset, _action)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _ugc_handle, type: UInt64
@@ -20652,6 +21740,9 @@ function steam_remote_storage_ugc_read(_ugc_handle, _out_data, _bytes_to_read, _
  */
 function steam_remote_storage_file_share(_file_name, _callback)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     static __dispatcher = __Steamworks_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -20678,6 +21769,9 @@ function steam_remote_storage_file_share(_file_name, _callback)
  */
 function steam_remote_storage_ugc_download(_ugc_handle, _priority, _callback)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     static __dispatcher = __Steamworks_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -20708,6 +21802,9 @@ function steam_remote_storage_ugc_download(_ugc_handle, _priority, _callback)
  */
 function steam_remote_storage_ugc_download_to_location(_ugc_handle, _location, _priority, _callback)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     static __dispatcher = __Steamworks_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -20740,6 +21837,9 @@ function steam_remote_storage_ugc_download_to_location(_ugc_handle, _location, _
  */
 function steam_matchmaking_set_callback_lobby_data_update(_callback)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     static __dispatcher = __Steamworks_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -20762,6 +21862,9 @@ function steam_matchmaking_set_callback_lobby_data_update(_callback)
  */
 function steam_matchmaking_set_callback_lobby_chat_update(_callback)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     static __dispatcher = __Steamworks_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -20784,6 +21887,9 @@ function steam_matchmaking_set_callback_lobby_chat_update(_callback)
  */
 function steam_matchmaking_set_callback_lobby_chat_msg(_callback)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     static __dispatcher = __Steamworks_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -20806,6 +21912,9 @@ function steam_matchmaking_set_callback_lobby_chat_msg(_callback)
  */
 function steam_matchmaking_set_callback_lobby_game_created(_callback)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     static __dispatcher = __Steamworks_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -20828,6 +21937,9 @@ function steam_matchmaking_set_callback_lobby_game_created(_callback)
  */
 function steam_matchmaking_set_callback_lobby_invite(_callback)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     static __dispatcher = __Steamworks_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -20852,6 +21964,9 @@ function steam_matchmaking_set_callback_lobby_invite(_callback)
  */
 function steam_matchmaking_create_lobby(_lobby_type, _max_members, _callback)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     static __dispatcher = __Steamworks_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -20881,6 +21996,9 @@ function steam_matchmaking_create_lobby(_lobby_type, _max_members, _callback)
  */
 function steam_matchmaking_join_lobby(_lobby_id, _callback)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     static __dispatcher = __Steamworks_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -20904,6 +22022,9 @@ function steam_matchmaking_join_lobby(_lobby_id, _callback)
  */
 function steam_matchmaking_request_lobby_list(_callback)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     static __dispatcher = __Steamworks_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -20925,6 +22046,9 @@ function steam_matchmaking_request_lobby_list(_callback)
  */
 function steam_matchmaking_add_request_lobby_list_string_filter(_key, _value, _comparison)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _key, type: String
@@ -20954,6 +22078,9 @@ function steam_matchmaking_add_request_lobby_list_string_filter(_key, _value, _c
  */
 function steam_matchmaking_add_request_lobby_list_numerical_filter(_key, _value, _comparison)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _key, type: String
@@ -20983,6 +22110,9 @@ function steam_matchmaking_add_request_lobby_list_numerical_filter(_key, _value,
  */
 function steam_matchmaking_add_request_lobby_list_distance_filter(_distance)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _distance, type: enum SteamMatchmakingLobbyDistanceFilter
@@ -21004,6 +22134,9 @@ function steam_matchmaking_add_request_lobby_list_distance_filter(_distance)
  */
 function steam_matchmaking_get_lobby_by_index(_index)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __ret_buffer = __ext_core_get_ret_buffer();
 
     var _return_value = __steam_matchmaking_get_lobby_by_index(_index, buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
@@ -21018,6 +22151,9 @@ function steam_matchmaking_get_lobby_by_index(_index)
  */
 function steam_matchmaking_leave_lobby(_lobby_id)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _lobby_id, type: UInt64
@@ -21036,6 +22172,9 @@ function steam_matchmaking_leave_lobby(_lobby_id)
  */
 function steam_matchmaking_set_lobby_owner(_lobby_id, _new_owner_id)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _lobby_id, type: UInt64
@@ -21057,6 +22196,9 @@ function steam_matchmaking_set_lobby_owner(_lobby_id, _new_owner_id)
  */
 function steam_matchmaking_get_lobby_owner(_lobby_id)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _lobby_id, type: UInt64
@@ -21078,6 +22220,9 @@ function steam_matchmaking_get_lobby_owner(_lobby_id)
  */
 function steam_matchmaking_get_num_lobby_members(_lobby_id)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _lobby_id, type: UInt64
@@ -21096,6 +22241,9 @@ function steam_matchmaking_get_num_lobby_members(_lobby_id)
  */
 function steam_matchmaking_get_lobby_member_by_index(_lobby_id, _member_index)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _lobby_id, type: UInt64
@@ -21123,6 +22271,9 @@ function steam_matchmaking_get_lobby_member_by_index(_lobby_id, _member_index)
  */
 function steam_matchmaking_set_lobby_data(_lobby_id, _key, _value)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _lobby_id, type: UInt64
@@ -21151,6 +22302,9 @@ function steam_matchmaking_set_lobby_data(_lobby_id, _key, _value)
  */
 function steam_matchmaking_get_lobby_data(_lobby_id, _key)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _lobby_id, type: UInt64
@@ -21174,6 +22328,9 @@ function steam_matchmaking_get_lobby_data(_lobby_id, _key)
  */
 function steam_matchmaking_delete_lobby_data(_lobby_id, _key)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _lobby_id, type: UInt64
@@ -21196,6 +22353,9 @@ function steam_matchmaking_delete_lobby_data(_lobby_id, _key)
  */
 function steam_matchmaking_get_lobby_data_count(_lobby_id)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _lobby_id, type: UInt64
@@ -21218,6 +22378,9 @@ function steam_matchmaking_get_lobby_data_count(_lobby_id)
  */
 function steam_matchmaking_get_lobby_data_by_index(_lobby_id, _index, _key_out, _key_max, _val_out, _val_max)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _lobby_id, type: UInt64
@@ -21256,6 +22419,9 @@ function steam_matchmaking_get_lobby_data_by_index(_lobby_id, _index, _key_out, 
  */
 function steam_matchmaking_set_lobby_member_data(_lobby_id, _key, _value)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _lobby_id, type: UInt64
@@ -21285,6 +22451,9 @@ function steam_matchmaking_set_lobby_member_data(_lobby_id, _key, _value)
  */
 function steam_matchmaking_get_lobby_member_data(_lobby_id, _member_id, _key)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _lobby_id, type: UInt64
@@ -21313,6 +22482,9 @@ function steam_matchmaking_get_lobby_member_data(_lobby_id, _member_id, _key)
  */
 function steam_matchmaking_send_lobby_chat_msg(_lobby_id, _msg, _bytes)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _lobby_id, type: UInt64
@@ -21341,6 +22513,9 @@ function steam_matchmaking_send_lobby_chat_msg(_lobby_id, _msg, _bytes)
  */
 function steam_matchmaking_get_lobby_chat_entry(_lobby_id, _chat_id, _out_buffer, _out_max_bytes)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _lobby_id, type: UInt64
@@ -21384,6 +22559,9 @@ function steam_matchmaking_get_lobby_chat_entry(_lobby_id, _chat_id, _out_buffer
  */
 function steam_matchmaking_request_lobby_data(_steam_id_lobby)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _steam_id_lobby, type: UInt64
@@ -21402,6 +22580,9 @@ function steam_matchmaking_request_lobby_data(_steam_id_lobby)
  */
 function steam_matchmaking_set_lobby_joinable(_steam_id_lobby, _joinable)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _steam_id_lobby, type: UInt64
@@ -21424,6 +22605,9 @@ function steam_matchmaking_set_lobby_joinable(_steam_id_lobby, _joinable)
  */
 function steam_matchmaking_set_lobby_type(_steam_id_lobby, _lobby_type)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _steam_id_lobby, type: UInt64
@@ -21447,6 +22631,9 @@ function steam_matchmaking_set_lobby_type(_steam_id_lobby, _lobby_type)
  */
 function steam_matchmaking_invite_user_to_lobby(_steam_id_lobby, _steam_id_invitee)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _steam_id_lobby, type: UInt64
@@ -21470,6 +22657,9 @@ function steam_matchmaking_invite_user_to_lobby(_steam_id_lobby, _steam_id_invit
  */
 function steam_matchmaking_set_lobby_game_server(_steam_id_lobby, _ip, _port, _steam_id_gs)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _steam_id_lobby, type: UInt64
@@ -21500,6 +22690,9 @@ function steam_matchmaking_set_lobby_game_server(_steam_id_lobby, _ip, _port, _s
  */
 function steam_matchmaking_set_linked_lobby(_steam_id_lobby, _steam_id_lobby_dependent)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _steam_id_lobby, type: UInt64
@@ -21521,6 +22714,9 @@ function steam_matchmaking_set_linked_lobby(_steam_id_lobby, _steam_id_lobby_dep
  */
 function steam_matchmaking_get_lobby_game_server(_steam_id_lobby)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _steam_id_lobby, type: UInt64
@@ -21548,6 +22744,9 @@ function steam_matchmaking_get_lobby_game_server(_steam_id_lobby)
  */
 function steam_networking_messages_set_callback_session_request(_callback)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     static __dispatcher = __Steamworks_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -21570,6 +22769,9 @@ function steam_networking_messages_set_callback_session_request(_callback)
  */
 function steam_networking_messages_set_callback_session_failed(_callback)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     static __dispatcher = __Steamworks_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -21597,6 +22799,9 @@ function steam_networking_messages_set_callback_session_failed(_callback)
  */
 function steam_networking_messages_send_message_to_user(_steam_id_remote, _data, _bytes, _send_flags, _remote_channel)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _steam_id_remote, type: UInt64
@@ -21633,6 +22838,9 @@ function steam_networking_messages_send_message_to_user(_steam_id_remote, _data,
  */
 function steam_networking_messages_receive_one_on_channel(_local_channel, _out_data, _max_bytes, _offset)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _local_channel, type: Int32
@@ -21668,11 +22876,58 @@ function steam_networking_messages_receive_one_on_channel(_local_channel, _out_d
 }
 
 /**
+ * @param {Real} _local_channel
+ * @param {Id.Buffer} _out_data
+ * @param {Real} _buffer_size
+ * @param {Real} _count
+ * @returns {Array[Struct.SteamNetworkingMessage]}
+ */
+function steam_networking_messages_receive_messages_on_channel(_local_channel, _out_data, _buffer_size, _count)
+{
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
+    var __args_buffer = __ext_core_get_args_buffer();
+
+    // param: _local_channel, type: Int32
+    if (!is_numeric(_local_channel)) show_error($"{_GMFUNCTION_} :: _local_channel expected number", true);
+    buffer_write(__args_buffer, buffer_s32, _local_channel);
+
+    // param: _out_data, type: Buffer
+    if (!buffer_exists(_out_data)) show_error($"{_GMFUNCTION_} :: _out_data expected Id.Buffer", true);
+    __Steamworks_queue_buffer(buffer_get_address(_out_data), buffer_get_size(_out_data));
+
+    // param: _buffer_size, type: UInt32
+    if (!is_numeric(_buffer_size)) show_error($"{_GMFUNCTION_} :: _buffer_size expected number", true);
+    buffer_write(__args_buffer, buffer_u32, _buffer_size);
+
+    // param: _count, type: UInt32
+    if (!is_numeric(_count)) show_error($"{_GMFUNCTION_} :: _count expected number", true);
+    buffer_write(__args_buffer, buffer_u32, _count);
+
+    var __ret_buffer = __ext_core_get_ret_buffer();
+
+    var _return_value = __steam_networking_messages_receive_messages_on_channel(buffer_get_address(__args_buffer), buffer_tell(__args_buffer), buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+
+    var _result = undefined;
+    var _length = buffer_read(__ret_buffer, buffer_u32);
+    _result = array_create(_length);
+    for (var _i = 0; _i < _length; ++_i)
+    {
+        _result[_i] = __SteamNetworkingMessage_decode(__ret_buffer, buffer_tell(__ret_buffer));
+    }
+    return _result;
+}
+
+/**
  * @param {Real} _steam_id_remote
  * @returns {Bool}
  */
 function steam_networking_messages_accept_session_with_user(_steam_id_remote)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _steam_id_remote, type: UInt64
@@ -21690,6 +22945,9 @@ function steam_networking_messages_accept_session_with_user(_steam_id_remote)
  */
 function steam_networking_messages_close_session_with_user(_steam_id_remote)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _steam_id_remote, type: UInt64
@@ -21708,6 +22966,9 @@ function steam_networking_messages_close_session_with_user(_steam_id_remote)
  */
 function steam_networking_messages_close_channel_with_user(_steam_id_remote, _local_channel)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _steam_id_remote, type: UInt64
@@ -21728,6 +22989,9 @@ function steam_networking_messages_close_channel_with_user(_steam_id_remote, _lo
  */
 function steam_networking_sockets_set_callback_connection_status_changed(_callback)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     static __dispatcher = __Steamworks_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -21767,6 +23031,9 @@ function steam_networking_sockets_set_callback_connection_status_changed(_callba
  */
 function steam_networking_sockets_set_connection_user_data(_conn, _user_data)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _conn, type: UInt32
@@ -21788,6 +23055,9 @@ function steam_networking_sockets_set_connection_user_data(_conn, _user_data)
  */
 function steam_networking_sockets_get_connection_user_data(_conn)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __ret_buffer = __ext_core_get_ret_buffer();
 
     var _return_value = __steam_networking_sockets_get_connection_user_data(_conn, buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
@@ -21812,6 +23082,9 @@ function steam_networking_sockets_get_connection_user_data(_conn)
  */
 function steam_networking_sockets_send_message_to_connection(_conn, _data, _bytes, _send_flags)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _conn, type: UInt32
@@ -21842,6 +23115,9 @@ function steam_networking_sockets_send_message_to_connection(_conn, _data, _byte
  */
 function steam_networking_sockets_flush_messages_on_connection(_conn)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __ret_buffer = __ext_core_get_ret_buffer();
 
     var _return_value = __steam_networking_sockets_flush_messages_on_connection(_conn, buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
@@ -21860,6 +23136,9 @@ function steam_networking_sockets_flush_messages_on_connection(_conn)
  */
 function steam_networking_sockets_receive_one_on_connection(_conn, _out_data, _max_bytes, _offset)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _conn, type: UInt32
@@ -21896,10 +23175,57 @@ function steam_networking_sockets_receive_one_on_connection(_conn, _out_data, _m
 
 /**
  * @param {Real} _conn
+ * @param {Id.Buffer} _out_data
+ * @param {Real} _buffer_size
+ * @param {Real} _count
+ * @returns {Array[Struct.SteamNetworkingMessage]}
+ */
+function steam_networking_sockets_receive_messages_on_connection(_conn, _out_data, _buffer_size, _count)
+{
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
+    var __args_buffer = __ext_core_get_args_buffer();
+
+    // param: _conn, type: UInt32
+    if (!is_numeric(_conn)) show_error($"{_GMFUNCTION_} :: _conn expected number", true);
+    buffer_write(__args_buffer, buffer_u32, _conn);
+
+    // param: _out_data, type: Buffer
+    if (!buffer_exists(_out_data)) show_error($"{_GMFUNCTION_} :: _out_data expected Id.Buffer", true);
+    __Steamworks_queue_buffer(buffer_get_address(_out_data), buffer_get_size(_out_data));
+
+    // param: _buffer_size, type: UInt32
+    if (!is_numeric(_buffer_size)) show_error($"{_GMFUNCTION_} :: _buffer_size expected number", true);
+    buffer_write(__args_buffer, buffer_u32, _buffer_size);
+
+    // param: _count, type: UInt32
+    if (!is_numeric(_count)) show_error($"{_GMFUNCTION_} :: _count expected number", true);
+    buffer_write(__args_buffer, buffer_u32, _count);
+
+    var __ret_buffer = __ext_core_get_ret_buffer();
+
+    var _return_value = __steam_networking_sockets_receive_messages_on_connection(buffer_get_address(__args_buffer), buffer_tell(__args_buffer), buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+
+    var _result = undefined;
+    var _length = buffer_read(__ret_buffer, buffer_u32);
+    _result = array_create(_length);
+    for (var _i = 0; _i < _length; ++_i)
+    {
+        _result[_i] = __SteamNetworkingMessage_decode(__ret_buffer, buffer_tell(__ret_buffer));
+    }
+    return _result;
+}
+
+/**
+ * @param {Real} _conn
  * @returns {Struct.SteamNetworkingSocketsConnectionInfo}
  */
 function steam_networking_sockets_get_connection_info(_conn)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __ret_buffer = __ext_core_get_ret_buffer();
 
     var _return_value = __steam_networking_sockets_get_connection_info(_conn, buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
@@ -21928,6 +23254,9 @@ function steam_networking_sockets_get_connection_info(_conn)
  */
 function steam_networking_sockets_create_socket_pair(_use_network_loopback)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __ret_buffer = __ext_core_get_ret_buffer();
 
     var _return_value = __steam_networking_sockets_create_socket_pair(_use_network_loopback, buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
@@ -21952,6 +23281,9 @@ function steam_networking_sockets_create_socket_pair(_use_network_loopback)
  */
 function steam_networking_sockets_connect_p2p(_steam_id_remote, _remote_virtual_port)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _steam_id_remote, type: UInt64
@@ -21988,6 +23320,9 @@ function steam_networking_sockets_connect_p2p(_steam_id_remote, _remote_virtual_
  */
 function steam_networking_sockets_receive_one_on_poll_group(_poll_group, _out_data, _max_bytes, _offset)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _poll_group, type: UInt32
@@ -22023,10 +23358,57 @@ function steam_networking_sockets_receive_one_on_poll_group(_poll_group, _out_da
 }
 
 /**
+ * @param {Real} _poll_group
+ * @param {Id.Buffer} _out_data
+ * @param {Real} _buffer_size
+ * @param {Real} _count
+ * @returns {Array[Struct.SteamNetworkingMessage]}
+ */
+function steam_networking_sockets_receive_messages_on_poll_group(_poll_group, _out_data, _buffer_size, _count)
+{
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
+    var __args_buffer = __ext_core_get_args_buffer();
+
+    // param: _poll_group, type: UInt32
+    if (!is_numeric(_poll_group)) show_error($"{_GMFUNCTION_} :: _poll_group expected number", true);
+    buffer_write(__args_buffer, buffer_u32, _poll_group);
+
+    // param: _out_data, type: Buffer
+    if (!buffer_exists(_out_data)) show_error($"{_GMFUNCTION_} :: _out_data expected Id.Buffer", true);
+    __Steamworks_queue_buffer(buffer_get_address(_out_data), buffer_get_size(_out_data));
+
+    // param: _buffer_size, type: UInt32
+    if (!is_numeric(_buffer_size)) show_error($"{_GMFUNCTION_} :: _buffer_size expected number", true);
+    buffer_write(__args_buffer, buffer_u32, _buffer_size);
+
+    // param: _count, type: UInt32
+    if (!is_numeric(_count)) show_error($"{_GMFUNCTION_} :: _count expected number", true);
+    buffer_write(__args_buffer, buffer_u32, _count);
+
+    var __ret_buffer = __ext_core_get_ret_buffer();
+
+    var _return_value = __steam_networking_sockets_receive_messages_on_poll_group(buffer_get_address(__args_buffer), buffer_tell(__args_buffer), buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+
+    var _result = undefined;
+    var _length = buffer_read(__ret_buffer, buffer_u32);
+    _result = array_create(_length);
+    for (var _i = 0; _i < _length; ++_i)
+    {
+        _result[_i] = __SteamNetworkingMessage_decode(__ret_buffer, buffer_tell(__ret_buffer));
+    }
+    return _result;
+}
+
+/**
  * @param {Function} _callback
  */
 function steam_parties_set_callback_reservation_notification(_callback)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     static __dispatcher = __Steamworks_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -22049,6 +23431,9 @@ function steam_parties_set_callback_reservation_notification(_callback)
  */
 function steam_parties_set_callback_available_beacon_locations_updated(_callback)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     static __dispatcher = __Steamworks_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -22071,6 +23456,9 @@ function steam_parties_set_callback_available_beacon_locations_updated(_callback
  */
 function steam_parties_set_callback_active_beacons_updated(_callback)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     static __dispatcher = __Steamworks_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -22093,6 +23481,9 @@ function steam_parties_set_callback_active_beacons_updated(_callback)
  */
 function steam_parties_get_num_available_beacon_locations()
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __ret_buffer = __ext_core_get_ret_buffer();
 
     var _return_value = __steam_parties_get_num_available_beacon_locations(buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
@@ -22114,6 +23505,9 @@ function steam_parties_get_num_available_beacon_locations()
  */
 function steam_parties_get_available_beacon_locations()
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __ret_buffer = __ext_core_get_ret_buffer();
 
     var _return_value = __steam_parties_get_available_beacon_locations(buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
@@ -22139,6 +23533,9 @@ function steam_parties_get_available_beacon_locations()
  */
 function steam_parties_create_beacon(_open_slots, _beacon_location_type, _beacon_location_id, _connect_string, _metadata, _callback)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     static __dispatcher = __Steamworks_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -22183,6 +23580,9 @@ function steam_parties_create_beacon(_open_slots, _beacon_location_type, _beacon
  */
 function steam_parties_on_reservation_completed(_beacon_id, _user_steam_id)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _beacon_id, type: UInt64
@@ -22206,6 +23606,9 @@ function steam_parties_on_reservation_completed(_beacon_id, _user_steam_id)
  */
 function steam_parties_change_num_open_slots(_beacon_id, _open_slots, _callback)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     static __dispatcher = __Steamworks_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -22234,6 +23637,9 @@ function steam_parties_change_num_open_slots(_beacon_id, _open_slots, _callback)
  */
 function steam_parties_destroy_beacon(_beacon_id)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _beacon_id, type: UInt64
@@ -22254,6 +23660,9 @@ function steam_parties_destroy_beacon(_beacon_id)
  */
 function steam_parties_get_beacon_by_index(_index)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __ret_buffer = __ext_core_get_ret_buffer();
 
     var _return_value = __steam_parties_get_beacon_by_index(_index, buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
@@ -22269,6 +23678,9 @@ function steam_parties_get_beacon_by_index(_index)
  */
 function steam_parties_get_beacon_details(_beacon_id)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _beacon_id, type: UInt64
@@ -22298,6 +23710,9 @@ function steam_parties_get_beacon_details(_beacon_id)
  */
 function steam_parties_join_party(_beacon_id, _callback)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     static __dispatcher = __Steamworks_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -22324,6 +23739,9 @@ function steam_parties_join_party(_beacon_id, _callback)
  */
 function steam_parties_get_beacon_location_data(_beacon_location_type, _beacon_location_id, _data_kind)
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _beacon_location_type, type: enum SteamPartiesBeaconLocationType
@@ -22478,6 +23896,7 @@ function __Steamworks_get_decoders()
         __SteamMatchmakingLobbyGameServer_decode,
         __SteamNetworkingMessagesSessionRequest_decode,
         __SteamNetworkingMessagesSessionFailed_decode,
+        __SteamNetworkingMessage_decode,
         __SteamNetworkingMessagesReceived_decode,
         __SteamNetworkingSocketsConnectionInfo_decode,
         __SteamNetworkingSocketsReceived_decode,
@@ -22494,6 +23913,15 @@ function __Steamworks_get_decoders()
 /// @ignore
 function __Steamworks_get_dispatcher()
 {
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
     static __dispatcher = new __GMNativeFunctionDispatcher(__Steamworks_invocation_handler, __Steamworks_get_decoders());
     return __dispatcher;
+}
+/// @ignore
+function __Steamworks_is_available()
+{
+    static __available = extension_exists("Steamworks");
+    return __available;
 }

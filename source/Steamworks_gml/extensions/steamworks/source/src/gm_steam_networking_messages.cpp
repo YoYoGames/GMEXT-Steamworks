@@ -177,6 +177,65 @@ std::optional<gm_structs::SteamNetworkingMessagesReceived> steam_networking_mess
     return out;
 }
 
+std::vector<gm_structs::SteamNetworkingMessage> steam_networking_messages_receive_messages_on_channel(std::int32_t local_channel,
+                                                                                                      gm::wire::GMBuffer out_data,
+                                                                                                      std::uint32_t buffer_size,
+                                                                                                      std::uint32_t count)
+{
+    STEAM_GUARD_RET({});
+
+    std::vector<gm_structs::SteamNetworkingMessage> out;
+
+    ISteamNetworkingMessages* m = steam_networking_messages_iface();
+    if (!m) return out;
+
+    if (buffer_size == 0 || count == 0) return out;
+
+    std::vector<SteamNetworkingMessage_t*> msgs(count, nullptr);
+    int n = m->ReceiveMessagesOnChannel((int)local_channel, msgs.data(), (int)count);
+    if (n <= 0) return out;
+
+    n = std::min((int)count, n);
+
+    std::uint32_t current_offset = 0;
+
+    for (int i = 0; i < n; ++i) {
+        if (!msgs[i]) break;
+
+        const uint32 cb = (uint32)msgs[i]->m_cbSize;
+
+        // Ensure message fits in remaining buffer
+        if (current_offset + cb > buffer_size) {
+            steam_set_last_error("steam_networking_messages_receive_messages_on_channel: output buffer exhausted.");
+            msgs[i]->Release();
+            break;
+        }
+
+        // Write message data to buffer
+        {
+            auto w = out_data.getWriter();
+            w.skip(current_offset);
+            w.writeBytes((const char*)msgs[i]->m_pData, (int)cb);
+        }
+
+        // Create and add message metadata
+        gm_structs::SteamNetworkingMessage msg_out{};
+        msg_out.offset = current_offset;
+        msg_out.size = cb;
+        msg_out.steam_id_remote = (std::uint64_t)msgs[i]->m_identityPeer.GetSteamID64();
+        msg_out.conn = 0;
+        msg_out.channel = local_channel;
+        msg_out.flags = (std::int32_t)msgs[i]->m_nFlags;
+
+        out.push_back(msg_out);
+
+        current_offset += cb;
+        msgs[i]->Release();
+    }
+
+    return out;
+}
+
 bool steam_networking_messages_accept_session_with_user(std::uint64_t steam_id_remote)
 {
     STEAM_GUARD_RET(false);
