@@ -9010,17 +9010,6 @@
  */
 
 /**
- * @struct SteamUtilsApiCallCompleted
- * @description > **Steamworks Struct**: N / A
- *
- * This struct holds the information returned by ${function.steam_utils_is_api_call_completed}.
- *
- * @member {Bool} ok `true` if the API Call is valid and has completed, otherwise `false`.
- * @member {Bool} failed Whether the API call has encountered a failure (`true`) or not (`false`).
- * @struct_end
- */
-
-/**
  * @struct SteamUtilsFilterTextResult
  * @description > **Steamworks Struct**: N / A
  *
@@ -9755,17 +9744,6 @@
  * 
  * @member {Real} result_handle The new inventory result handle.
  * @member {Enum.SteamApiResult} status Whether the call was successful or not.
- * @struct_end
- */
-
-/**
- * @struct SteamInventorySerializeResult
- * @description > **Steamworks Struct**: N / A
- *
- * This struct holds the result of a request to serialise a result set.
- *
- * @member {Bool} ok `true` upon success.
- * @member {Real} bytes_written The number of bytes written.
  * @struct_end
  */
 
