@@ -637,26 +637,6 @@ namespace gm_enums
         ForModeration = 6
     };
 
-    enum class SteamWorkshopFileType : std::int64_t
-    {
-        Community = 0,
-        Microtransaction = 1,
-        Collection = 2,
-        Art = 3,
-        Video = 4,
-        Screenshot = 5,
-        Game = 6,
-        Software = 7,
-        Concept = 8,
-        WebGuide = 9,
-        IntegratedGuide = 10,
-        Merch = 11,
-        ControllerBinding = 12,
-        SteamworksAccessInvite = 13,
-        SteamVideo = 14,
-        GameManagedItem = 15
-    };
-
     enum class SteamUgcItemPreviewType : std::int64_t
     {
         Image = 0,
@@ -2042,7 +2022,7 @@ namespace gm_structs
         bool tags_truncated;
         std::string tags;
         gm_enums::SteamApiResult result;
-        gm_enums::SteamWorkshopFileType file_type;
+        gm_enums::SteamRemoteStorageWorkshopFileType file_type;
         std::uint32_t creator_app_id;
         std::uint32_t consumer_app_id;
         std::uint32_t time_added_to_user_list;
@@ -3580,7 +3560,7 @@ namespace gm::wire::codec
         obj.tags_truncated = gm::wire::codec::readValue<bool>(_buf);
         obj.tags = gm::wire::codec::readValue<std::string>(_buf);
         obj.result = gm::wire::codec::readValue<gm_enums::SteamApiResult>(_buf);
-        obj.file_type = gm::wire::codec::readValue<gm_enums::SteamWorkshopFileType>(_buf);
+        obj.file_type = gm::wire::codec::readValue<gm_enums::SteamRemoteStorageWorkshopFileType>(_buf);
         obj.creator_app_id = gm::wire::codec::readValue<std::uint32_t>(_buf);
         obj.consumer_app_id = gm::wire::codec::readValue<std::uint32_t>(_buf);
         obj.time_added_to_user_list = gm::wire::codec::readValue<std::uint32_t>(_buf);
@@ -6374,7 +6354,7 @@ bool steam_ugc_add_required_key_value_tag(std::uint64_t query_handle, std::strin
 bool steam_ugc_add_required_tag(std::uint64_t query_handle, std::string_view tag_name);
 bool steam_ugc_add_required_tag_group(std::uint64_t query_handle, const std::vector<std::string_view>& tags_csv);
 bool steam_ugc_init_workshop_for_game_server(std::uint32_t workshop_depot_id, std::string_view folder);
-void steam_ugc_create_item(std::uint32_t consumer_app_id, gm_enums::SteamWorkshopFileType workshop_file_type, const gm::wire::GMFunction& callback);
+void steam_ugc_create_item(std::uint32_t consumer_app_id, gm_enums::SteamRemoteStorageWorkshopFileType workshop_file_type, const gm::wire::GMFunction& callback);
 std::uint64_t steam_ugc_create_query_all_ugc_request(gm_enums::SteamUgcQuery query_type, gm_enums::SteamUgcMatchingUgcType matching_ugc_type, std::uint32_t creator_app_id, std::uint32_t consumer_app_id, std::uint32_t page);
 std::uint64_t steam_ugc_create_query_ugc_details_request(const std::vector<std::uint64_t>& published_file_ids);
 std::uint64_t steam_ugc_create_query_user_ugc_request(std::uint32_t account_id, gm_enums::SteamUserUgcList list_type, gm_enums::SteamUgcMatchingUgcType matching_ugc_type, gm_enums::SteamUserUgcListSortOrder sort_order, std::uint32_t creator_app_id, std::uint32_t consumer_app_id, std::uint32_t page);

@@ -406,7 +406,7 @@ std::optional<gm_structs::SteamUgcQueryResult> steam_ugc_get_query_ugc_result(st
     out.tags = d.m_rgchTags;
 
     out.result = static_cast<gm_enums::SteamApiResult>((int)d.m_eResult);
-    out.file_type = static_cast<gm_enums::SteamWorkshopFileType>((int)d.m_eFileType);
+    out.file_type = static_cast<gm_enums::SteamRemoteStorageWorkshopFileType>((int)d.m_eFileType);
     out.creator_app_id = (std::uint32_t)d.m_nCreatorAppID;
     out.consumer_app_id = (std::uint32_t)d.m_nConsumerAppID;
     out.time_added_to_user_list = (std::uint32_t)d.m_rtimeAddedToUserList;
@@ -1315,7 +1315,7 @@ void steam_ugc_send_query_ugc_request(std::uint64_t query_handle,  const gm::wir
     h->set(call);
 }
 
-void steam_ugc_create_item(std::uint32_t consumer_app_id, gm_enums::SteamWorkshopFileType workshop_file_type,  const gm::wire::GMFunction& callback)
+void steam_ugc_create_item(std::uint32_t consumer_app_id, gm_enums::SteamRemoteStorageWorkshopFileType workshop_file_type,  const gm::wire::GMFunction& callback)
 {
     STEAM_GUARD();
 

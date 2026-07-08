@@ -2445,8 +2445,8 @@ GMEXPORT double __EXT_NATIVE__steam_ugc_create_item(char* __arg_buffer, double _
     // field: consumer_app_id, type: UInt32
     std::uint32_t consumer_app_id = gm::wire::codec::readValue<std::uint32_t>(__br);
 
-    // field: workshop_file_type, type: enum SteamWorkshopFileType
-    gm_enums::SteamWorkshopFileType workshop_file_type = gm::wire::codec::readValue<gm_enums::SteamWorkshopFileType>(__br);
+    // field: workshop_file_type, type: enum SteamRemoteStorageWorkshopFileType
+    gm_enums::SteamRemoteStorageWorkshopFileType workshop_file_type = gm::wire::codec::readValue<gm_enums::SteamRemoteStorageWorkshopFileType>(__br);
 
     // field: callback, type: Function
     gm::wire::GMFunction callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);

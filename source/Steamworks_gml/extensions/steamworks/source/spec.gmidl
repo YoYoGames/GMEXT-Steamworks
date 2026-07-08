@@ -2193,27 +2193,6 @@ enum SteamUserUgcListSortOrder
 }
 
 [global, bind = typed_gml]
-enum SteamWorkshopFileType
-{
-    Community = 0,
-    Microtransaction = 1,
-    Collection = 2,
-    Art = 3,
-    Video = 4,
-    Screenshot = 5,
-    Game = 6,
-    Software = 7,
-    Concept = 8,
-    WebGuide = 9,
-    IntegratedGuide = 10,
-    Merch = 11,
-    ControllerBinding = 12,
-    SteamworksAccessInvite = 13,
-    SteamVideo = 14,
-    GameManagedItem = 15,
-}
-
-[global, bind = typed_gml]
 enum SteamUgcItemPreviewType
 {
     Image = 0,
@@ -2337,7 +2316,7 @@ function steam_ugc_init_workshop_for_game_server(
 [global, bind = typed_gml]
 function steam_ugc_create_item(
     consumer_app_id: uint32,
-    [type_hint=`SteamWorkshopFileType`] workshop_file_type: gmval
+    [type_hint=`SteamRemoteStorageWorkshopFileType`] workshop_file_type: gmval
 , callback:func): unit;
 
 // CreateQueryAllUGCRequest (returns UGCQueryHandle_t)
@@ -2633,7 +2612,7 @@ class `[[SteamUgcQueryResult]]` prototype Object
     [field, type_hint = `SteamApiResult`]
     property result : gmval { get; set; }
 
-    [field, type_hint = `SteamWorkshopFileType`]
+    [field, type_hint = `SteamRemoteStorageWorkshopFileType`]
     property file_type : gmval { get; set; }
 
     [field]

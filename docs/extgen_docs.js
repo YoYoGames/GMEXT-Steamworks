@@ -1562,7 +1562,7 @@
 /**
  * @function_partial steam_ugc_create_item
  * @param {Real} consumer_app_id
- * @param {Enum.SteamWorkshopFileType} workshop_file_type
+ * @param {Enum.SteamRemoteStorageWorkshopFileType} workshop_file_type
  * @param {Function} callback
  * @function_end
  */
@@ -4667,7 +4667,7 @@
  * @member {Bool} tags_truncated
  * @member {String} tags
  * @member {Enum.SteamApiResult} result
- * @member {Enum.SteamWorkshopFileType} file_type
+ * @member {Enum.SteamRemoteStorageWorkshopFileType} file_type
  * @member {Real} creator_app_id
  * @member {Real} consumer_app_id
  * @member {Real} time_added_to_user_list
@@ -5939,27 +5939,6 @@
  * @member SubscriptionDateDesc
  * @member VoteScoreDesc
  * @member ForModeration
- * @enum_end
- */
-
-/**
- * @enum_partial SteamWorkshopFileType
- * @member Community
- * @member Microtransaction
- * @member Collection
- * @member Art
- * @member Video
- * @member Screenshot
- * @member Game
- * @member Software
- * @member Concept
- * @member WebGuide
- * @member IntegratedGuide
- * @member Merch
- * @member ControllerBinding
- * @member SteamworksAccessInvite
- * @member SteamVideo
- * @member GameManagedItem
  * @enum_end
  */
 
