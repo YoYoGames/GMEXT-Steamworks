@@ -3182,7 +3182,7 @@
  * This function creates a new workshop item with no content attached yet.
  *
  * @param {Real} consumer_app_id The app ID that will be using this item.
- * @param {Enum.SteamWorkshopFileType} workshop_file_type The type of UGC to create.
+ * @param {Enum.SteamRemoteStorageWorkshopFileType} workshop_file_type The type of UGC to create.
  * @param {Function} callback The function to call upon completion.
  *
  * @event callback
@@ -4671,7 +4671,7 @@
  * @function steam_input_enable_device_callbacks
  * @description > **Steamworks Function**: [ISteamInput::EnableDeviceCallbacks](https://partner.steamgames.com/doc/api/ISteamInput#EnableDeviceCallbacks)
  *
- * This function enables ${struct.SteamInputDeviceConnected} and ${struct.SteamInputDeviceDisconnected} callbacks.
+ * This function enables ${struct.SteamInputDeviceEvent} callbacks.
  * 
  * Each controller that is already connected will generate a device connected callback when you enable them.
  * 
@@ -4835,7 +4835,7 @@
  *
  * This function sets the function to be called when an new device connects.
  * 
- * See: ${struct.SteamInputDeviceConnected}
+ * See: ${struct.SteamInputDeviceEvent}
  *
  * @param {Function} callback The function to be called when an input device is connected.
  * @function_end
@@ -4856,7 +4856,7 @@
  *
  * This function sets the function to be called when a device disconnects.
  * 
- * See: ${struct.SteamInputDeviceDisconnected}
+ * See: ${struct.SteamInputDeviceEvent}
  *
  * @param {Function} callback The function to be called when an input device is disconnected.
  * @function_end
@@ -9115,7 +9115,7 @@
  * @member {Bool} tags_truncated Whether the list of tags was too long to be returned in the provided buffer, and were therefore truncated.
  * @member {String} tags Comma separated list of all tags associated with this item.
  * @member {Enum.SteamApiResult} result The result of the operation.
- * @member {Enum.SteamWorkshopFileType} file_type The type of the item.
+ * @member {Enum.SteamRemoteStorageWorkshopFileType} file_type The type of the item.
  * @member {Real} creator_app_id App Id of the app that created this item.
  * @member {Real} consumer_app_id App Id of the app that will consume this item.
  * @member {Real} time_added_to_user_list Time when the user added the published item to their list (not always applicable), provided in Unix epoch format (time since Jan 1st, 1970).
@@ -9128,7 +9128,7 @@
  * @member {Real} votes_up Number of votes up.
  * @member {Real} votes_down Number of votes down.
  * @member {Real} score The bayesian average for up votes / total votes, between [0,1].
- * @member {Real} num_children The number of items in the collection if `file_type` is `SteamWorkshopFileType.Collection`, or the number of items this specific item has a dependency on (see ${function.steam_ugc_add_dependency}).
+ * @member {Real} num_children The number of items in the collection if `file_type` is `SteamRemoteStorageWorkshopFileType.Collection`, or the number of items this specific item has a dependency on (see ${function.steam_ugc_add_dependency}).
  * @member {Real} total_files_size The total file size of all files in the content package.
  * @struct_end
  */
@@ -9458,7 +9458,7 @@
  * @struct SteamInputDeviceEvent
  * @description > **Steamworks Struct**: N / A
  *
- * This struct holds the handle of the controller that connected (in device connected callback) or disconnected (in device disconnected callback).
+ * This struct holds the handle of the controller that connected (in device connected callback, `SteamInputDeviceConnected_t`) or disconnected (in device disconnected callback, `SteamInputDeviceDisconnected_t`).
  * 
  * See: ${function.steam_input_run_frame}, ${function.steam_input_set_callback_device_connected}, ${function.steam_input_set_callback_device_disconnected}
  *
@@ -10261,7 +10261,7 @@
  * @enum SteamApiLaunchOptionType
  * @description > **Steamworks Enum**: [ELaunchOptionType](https://partner.steamgames.com/doc/api/steam_api#ELaunchOptionType)
  *
- * This enum contains codes for well defined launch options, corresponds to "Launch Type" in the applications Launch Options which can be found on the [General Installation Settings](https://partner.steamgames.com/apps/config/) page.
+ * This enum contains codes for well defined launch options, corresponds to "Launch Type" in the application's Launch Options which can be found on the [General Installation Settings](https://partner.steamgames.com/apps/config/) page.
  *
  * @member None Unspecified.
  * @member Default Runs the app in default mode.
@@ -10322,7 +10322,7 @@
  * @member Beta Beta universe used inside Valve.
  * @member Internal Internal universe used inside Valve.
  * @member Dev Dev universe used inside Valve.
- * @member Max 
+ * @member Max Max value.
  * @enum_end 
  */
 
@@ -10411,9 +10411,9 @@
  * @member ContentVersion A Version mismatch in content transmitted within the Steam protocol.
  * @member TryAnotherCM The current CM can't service the user making a request, user should try another.
  * @member PasswordRequiredToKickSession You are already logged in elsewhere, this cached credential login has failed.
- * @member AlreadyLoggedInElsewhere The user is logged in elsewhere. (Use k_EResultLoggedInElsewhere instead!)
- * @member Suspended Long running operation has suspended/paused. (eg. content download.)
- * @member Cancelled Operation has been canceled, typically by user. (eg. a content download.)
+ * @member AlreadyLoggedInElsewhere The user is logged in elsewhere. (Use `SteamApiResult.LoggedInElsewhere` instead!)
+ * @member Suspended Long running operation has suspended/paused. (e.g. content download.)
+ * @member Cancelled Operation has been canceled, typically by user. (e.g. a content download.)
  * @member DataCorruption Operation canceled because data is ill formed or unrecoverable.
  * @member DiskFull Operation canceled - not enough disk space.
  * @member RemoteCallFailed The remote or IPC call has failed.
@@ -10428,14 +10428,14 @@
  * @member CannotUseOldPassword The requested new password is not legal.
  * @member InvalidLoginAuthCode Account login denied due to auth code invalid.
  * @member AccountLogonDeniedNoMail Account login denied due to 2nd factor auth failure - and no mail has been sent.
- * @member HardwareNotCapableOfIPT The users hardware does not support Intel's Identity Protection Technology (IPT).
+ * @member HardwareNotCapableOfIPT The user's hardware does not support Intel's Identity Protection Technology (IPT).
  * @member IPTInitError Intel's Identity Protection Technology (IPT) has failed to initialize.
  * @member ParentalControlRestricted Operation failed due to parental control restrictions for current user.
  * @member FacebookQueryError Facebook query returned an error.
  * @member ExpiredLoginAuthCode Account login denied due to an expired auth code.
  * @member IPLoginRestrictionFailed The login failed due to an IP restriction.
- * @member AccountLockedDown The current users account is currently locked for use. This is likely due to a hijacking and pending ownership verification.
- * @member AccountLogonDeniedVerifiedEmailRequired The logon failed because the accounts email is not verified.
+ * @member AccountLockedDown The current user's account is currently locked for use. This is likely due to a hijacking and pending ownership verification.
+ * @member AccountLogonDeniedVerifiedEmailRequired The logon failed because the account's email is not verified.
  * @member NoMatchingURL There is no URL matching the provided values.
  * @member BadResponse Bad Response due to a Parse failure, missing field, etc.
  * @member RequirePasswordReEntry The user cannot complete the action until they re-enter their password.
@@ -10903,31 +10903,6 @@
  * @member SubscriptionDateDesc Returns the most recently subscribed items first. (Corresponds to "sortmethod=subscriptiondate" on the workshop page)
  * @member VoteScoreDesc Returns the items with the more recent score updates first. (Corresponds to "sortmethod=score" on the workshop page)
  * @member ForModeration Returns the items that have been reported for moderation. (Corresponds to "sortmethod=formoderation" on the workshop page)
- * @enum_end 
- */
-
-/**
- * @enum SteamWorkshopFileType
- * @description > **Steamworks Enum**: [ISteamRemoteStorage::EWorkshopFileType](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#EWorkshopFileType)
- *
- * This enum holds the possible ways that a shared file will be shared with the community.
- *
- * @member Community Normal Workshop item that can be subscribed to.
- * @member Microtransaction Workshop item that is meant to be voted on for the purpose of selling in-game. (See: [Curated Workshop](https://partner.steamgames.com/doc/features/workshop#curated_workshop))
- * @member Collection A collection of Workshop items.
- * @member Art Artwork.
- * @member Video External video.
- * @member Screenshot Screenshot.
- * @member Game Unused, used to be for Greenlight game entries
- * @member Software Unused, used to be for Greenlight software entries.
- * @member Concept Unused, used to be for Greenlight concepts.
- * @member WebGuide Steam web guide.
- * @member IntegratedGuide Application integrated guide.
- * @member Merch Workshop merchandise meant to be voted on for the purpose of being sold.
- * @member ControllerBinding Steam Controller bindings.
- * @member SteamworksAccessInvite Only used internally in Steam.
- * @member SteamVideo Steam video.
- * @member GameManagedItem Managed completely by the game, not the user, and not shown on the web.
  * @enum_end 
  */
 
