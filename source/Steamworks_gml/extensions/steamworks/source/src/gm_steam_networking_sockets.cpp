@@ -276,6 +276,65 @@ std::optional<gm_structs::SteamNetworkingSocketsReceived> steam_networking_socke
     return out;
 }
 
+std::vector<gm_structs::SteamNetworkingMessage> steam_networking_sockets_receive_messages_on_connection(std::uint32_t conn,
+                                                                                                        gm::wire::GMBuffer out_data,
+                                                                                                        std::uint32_t buffer_size,
+                                                                                                        std::uint32_t count)
+{
+    STEAM_GUARD_RET({});
+
+    std::vector<gm_structs::SteamNetworkingMessage> out;
+
+    ISteamNetworkingSockets* s = steam_networking_sockets_iface();
+    if (!s) return out;
+
+    if (buffer_size == 0 || count == 0) return out;
+
+    std::vector<SteamNetworkingMessage_t*> msgs(count, nullptr);
+    int n = s->ReceiveMessagesOnConnection((HSteamNetConnection)conn, msgs.data(), (int)count);
+    if (n <= 0) return out;
+
+    n = std::min((int)count, n);
+
+    std::uint32_t current_offset = 0;
+
+    for (int i = 0; i < n; ++i) {
+        if (!msgs[i]) break;
+
+        const uint32 cb = (uint32)msgs[i]->m_cbSize;
+
+        // Ensure message fits in remaining buffer
+        if (current_offset + cb > buffer_size) {
+            steam_set_last_error("steam_networking_sockets_receive_messages_on_connection: output buffer exhausted.");
+            msgs[i]->Release();
+            break;
+        }
+
+        // Write message data to buffer
+        {
+            auto w = out_data.getWriter();
+            w.skip(current_offset);
+            w.writeBytes((const char*)msgs[i]->m_pData, (int)cb);
+        }
+
+        // Create and add message metadata
+        gm_structs::SteamNetworkingMessage msg_out{};
+        msg_out.offset = current_offset;
+        msg_out.size = cb;
+        msg_out.steam_id_remote = 0;
+        msg_out.conn = (std::uint32_t)msgs[i]->m_conn;
+        msg_out.channel = -1;
+        msg_out.flags = (std::int32_t)msgs[i]->m_nFlags;
+
+        out.push_back(msg_out);
+
+        current_offset += cb;
+        msgs[i]->Release();
+    }
+
+    return out;
+}
+
 std::optional<gm_structs::SteamNetworkingSocketsConnectionInfo> steam_networking_sockets_get_connection_info(std::uint32_t conn)
 {
     STEAM_GUARD_RET(std::nullopt);
@@ -441,6 +500,65 @@ std::optional<gm_structs::SteamNetworkingSocketsReceived> steam_networking_socke
     out.conn = (std::uint32_t)msg->m_conn;
 
     msg->Release();
+    return out;
+}
+
+std::vector<gm_structs::SteamNetworkingMessage> steam_networking_sockets_receive_messages_on_poll_group(std::uint32_t poll_group,
+                                                                                                        gm::wire::GMBuffer out_data,
+                                                                                                        std::uint32_t buffer_size,
+                                                                                                        std::uint32_t count)
+{
+    STEAM_GUARD_RET({});
+
+    std::vector<gm_structs::SteamNetworkingMessage> out;
+
+    ISteamNetworkingSockets* s = steam_networking_sockets_iface();
+    if (!s) return out;
+
+    if (buffer_size == 0 || count == 0) return out;
+
+    std::vector<SteamNetworkingMessage_t*> msgs(count, nullptr);
+    int n = s->ReceiveMessagesOnPollGroup((HSteamNetPollGroup)poll_group, msgs.data(), (int)count);
+    if (n <= 0) return out;
+
+    n = std::min((int)count, n);
+
+    std::uint32_t current_offset = 0;
+
+    for (int i = 0; i < n; ++i) {
+        if (!msgs[i]) break;
+
+        const uint32 cb = (uint32)msgs[i]->m_cbSize;
+
+        // Ensure message fits in remaining buffer
+        if (current_offset + cb > buffer_size) {
+            steam_set_last_error("steam_networking_sockets_receive_messages_on_poll_group: output buffer exhausted.");
+            msgs[i]->Release();
+            break;
+        }
+
+        // Write message data to buffer
+        {
+            auto w = out_data.getWriter();
+            w.skip(current_offset);
+            w.writeBytes((const char*)msgs[i]->m_pData, (int)cb);
+        }
+
+        // Create and add message metadata
+        gm_structs::SteamNetworkingMessage msg_out{};
+        msg_out.offset = current_offset;
+        msg_out.size = cb;
+        msg_out.steam_id_remote = 0;
+        msg_out.conn = (std::uint32_t)msgs[i]->m_conn;
+        msg_out.channel = -1;
+        msg_out.flags = (std::int32_t)msgs[i]->m_nFlags;
+
+        out.push_back(msg_out);
+
+        current_offset += cb;
+        msgs[i]->Release();
+    }
+
     return out;
 }
 

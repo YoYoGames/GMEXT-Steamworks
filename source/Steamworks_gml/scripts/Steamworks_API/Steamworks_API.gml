@@ -3804,6 +3804,26 @@ function SteamNetworkingMessagesSessionFailed() constructor
 }
 
 /**
+ * @returns {Struct.SteamNetworkingMessage}
+ */
+function SteamNetworkingMessage() constructor
+{
+    /**
+     * Internally generated hash for quick validation
+     * @ignore
+     */
+    static __uid = 134262172;
+
+    self.offset = undefined;
+    self.size = undefined;
+    self.steam_id_remote = undefined;
+    self.conn = undefined;
+    self.channel = undefined;
+    self.flags = undefined;
+
+}
+
+/**
  * @returns {Struct.SteamNetworkingMessagesReceived}
  */
 function SteamNetworkingMessagesReceived() constructor
@@ -11344,6 +11364,83 @@ function __SteamNetworkingMessagesSessionFailed_decode(_buffer, _offset)
         // field: debug_msg, type: String
         buffer_read(_buffer, buffer_u32);
         self.debug_msg = buffer_read(_buffer, buffer_string);
+
+    }
+
+    return _inst;
+}
+
+/**
+ * @func __SteamNetworkingMessage_encode(_inst, _buffer, _offset, _where)
+ * @param {Struct.SteamNetworkingMessage} _inst
+ * @param {Id.Buffer} _buffer
+ * @param {Real} _offset
+ * @param {String} _where
+ * @ignore
+ */
+function __SteamNetworkingMessage_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
+{
+    buffer_seek(_buffer, buffer_seek_start, _offset);
+    with (_inst)
+    {
+        // field: offset, type: UInt32
+        if (!is_numeric(self.offset)) show_error($"{_where} :: self.offset expected number", true);
+        buffer_write(_buffer, buffer_u32, self.offset);
+
+        // field: size, type: UInt32
+        if (!is_numeric(self.size)) show_error($"{_where} :: self.size expected number", true);
+        buffer_write(_buffer, buffer_u32, self.size);
+
+        // field: steam_id_remote, type: UInt64
+        if (!is_numeric(self.steam_id_remote)) show_error($"{_where} :: self.steam_id_remote expected number", true);
+        buffer_write(_buffer, buffer_u64, self.steam_id_remote);
+
+        // field: conn, type: UInt32
+        if (!is_numeric(self.conn)) show_error($"{_where} :: self.conn expected number", true);
+        buffer_write(_buffer, buffer_u32, self.conn);
+
+        // field: channel, type: Int32
+        if (!is_numeric(self.channel)) show_error($"{_where} :: self.channel expected number", true);
+        buffer_write(_buffer, buffer_s32, self.channel);
+
+        // field: flags, type: Int32
+        if (!is_numeric(self.flags)) show_error($"{_where} :: self.flags expected number", true);
+        buffer_write(_buffer, buffer_s32, self.flags);
+
+    }
+}
+
+/**
+ * @func __SteamNetworkingMessage_decode(_buffer, _offset)
+ * @param {Id.Buffer} _buffer
+ * @param {Real} _offset
+ * @returns {Struct.SteamNetworkingMessage}
+ * @ignore
+ */
+function __SteamNetworkingMessage_decode(_buffer, _offset)
+{
+    buffer_seek(_buffer, buffer_seek_start, _offset);
+
+    _inst = new SteamNetworkingMessage();
+    with (_inst)
+    {
+        // field: offset, type: UInt32
+        self.offset = buffer_read(_buffer, buffer_u32);
+
+        // field: size, type: UInt32
+        self.size = buffer_read(_buffer, buffer_u32);
+
+        // field: steam_id_remote, type: UInt64
+        self.steam_id_remote = buffer_read(_buffer, buffer_u64);
+
+        // field: conn, type: UInt32
+        self.conn = buffer_read(_buffer, buffer_u32);
+
+        // field: channel, type: Int32
+        self.channel = buffer_read(_buffer, buffer_s32);
+
+        // field: flags, type: Int32
+        self.flags = buffer_read(_buffer, buffer_s32);
 
     }
 
@@ -22779,6 +22876,50 @@ function steam_networking_messages_receive_one_on_channel(_local_channel, _out_d
 }
 
 /**
+ * @param {Real} _local_channel
+ * @param {Id.Buffer} _out_data
+ * @param {Real} _buffer_size
+ * @param {Real} _count
+ * @returns {Array[Struct.SteamNetworkingMessage]}
+ */
+function steam_networking_messages_receive_messages_on_channel(_local_channel, _out_data, _buffer_size, _count)
+{
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
+    var __args_buffer = __ext_core_get_args_buffer();
+
+    // param: _local_channel, type: Int32
+    if (!is_numeric(_local_channel)) show_error($"{_GMFUNCTION_} :: _local_channel expected number", true);
+    buffer_write(__args_buffer, buffer_s32, _local_channel);
+
+    // param: _out_data, type: Buffer
+    if (!buffer_exists(_out_data)) show_error($"{_GMFUNCTION_} :: _out_data expected Id.Buffer", true);
+    __Steamworks_queue_buffer(buffer_get_address(_out_data), buffer_get_size(_out_data));
+
+    // param: _buffer_size, type: UInt32
+    if (!is_numeric(_buffer_size)) show_error($"{_GMFUNCTION_} :: _buffer_size expected number", true);
+    buffer_write(__args_buffer, buffer_u32, _buffer_size);
+
+    // param: _count, type: UInt32
+    if (!is_numeric(_count)) show_error($"{_GMFUNCTION_} :: _count expected number", true);
+    buffer_write(__args_buffer, buffer_u32, _count);
+
+    var __ret_buffer = __ext_core_get_ret_buffer();
+
+    var _return_value = __steam_networking_messages_receive_messages_on_channel(buffer_get_address(__args_buffer), buffer_tell(__args_buffer), buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+
+    var _result = undefined;
+    var _length = buffer_read(__ret_buffer, buffer_u32);
+    _result = array_create(_length);
+    for (var _i = 0; _i < _length; ++_i)
+    {
+        _result[_i] = __SteamNetworkingMessage_decode(__ret_buffer, buffer_tell(__ret_buffer));
+    }
+    return _result;
+}
+
+/**
  * @param {Real} _steam_id_remote
  * @returns {Bool}
  */
@@ -23034,6 +23175,50 @@ function steam_networking_sockets_receive_one_on_connection(_conn, _out_data, _m
 
 /**
  * @param {Real} _conn
+ * @param {Id.Buffer} _out_data
+ * @param {Real} _buffer_size
+ * @param {Real} _count
+ * @returns {Array[Struct.SteamNetworkingMessage]}
+ */
+function steam_networking_sockets_receive_messages_on_connection(_conn, _out_data, _buffer_size, _count)
+{
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
+    var __args_buffer = __ext_core_get_args_buffer();
+
+    // param: _conn, type: UInt32
+    if (!is_numeric(_conn)) show_error($"{_GMFUNCTION_} :: _conn expected number", true);
+    buffer_write(__args_buffer, buffer_u32, _conn);
+
+    // param: _out_data, type: Buffer
+    if (!buffer_exists(_out_data)) show_error($"{_GMFUNCTION_} :: _out_data expected Id.Buffer", true);
+    __Steamworks_queue_buffer(buffer_get_address(_out_data), buffer_get_size(_out_data));
+
+    // param: _buffer_size, type: UInt32
+    if (!is_numeric(_buffer_size)) show_error($"{_GMFUNCTION_} :: _buffer_size expected number", true);
+    buffer_write(__args_buffer, buffer_u32, _buffer_size);
+
+    // param: _count, type: UInt32
+    if (!is_numeric(_count)) show_error($"{_GMFUNCTION_} :: _count expected number", true);
+    buffer_write(__args_buffer, buffer_u32, _count);
+
+    var __ret_buffer = __ext_core_get_ret_buffer();
+
+    var _return_value = __steam_networking_sockets_receive_messages_on_connection(buffer_get_address(__args_buffer), buffer_tell(__args_buffer), buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+
+    var _result = undefined;
+    var _length = buffer_read(__ret_buffer, buffer_u32);
+    _result = array_create(_length);
+    for (var _i = 0; _i < _length; ++_i)
+    {
+        _result[_i] = __SteamNetworkingMessage_decode(__ret_buffer, buffer_tell(__ret_buffer));
+    }
+    return _result;
+}
+
+/**
+ * @param {Real} _conn
  * @returns {Struct.SteamNetworkingSocketsConnectionInfo}
  */
 function steam_networking_sockets_get_connection_info(_conn)
@@ -23168,6 +23353,50 @@ function steam_networking_sockets_receive_one_on_poll_group(_poll_group, _out_da
     else
     {
         _result = undefined;
+    }
+    return _result;
+}
+
+/**
+ * @param {Real} _poll_group
+ * @param {Id.Buffer} _out_data
+ * @param {Real} _buffer_size
+ * @param {Real} _count
+ * @returns {Array[Struct.SteamNetworkingMessage]}
+ */
+function steam_networking_sockets_receive_messages_on_poll_group(_poll_group, _out_data, _buffer_size, _count)
+{
+    static __available = __Steamworks_is_available();
+    if (!__available) return;
+
+    var __args_buffer = __ext_core_get_args_buffer();
+
+    // param: _poll_group, type: UInt32
+    if (!is_numeric(_poll_group)) show_error($"{_GMFUNCTION_} :: _poll_group expected number", true);
+    buffer_write(__args_buffer, buffer_u32, _poll_group);
+
+    // param: _out_data, type: Buffer
+    if (!buffer_exists(_out_data)) show_error($"{_GMFUNCTION_} :: _out_data expected Id.Buffer", true);
+    __Steamworks_queue_buffer(buffer_get_address(_out_data), buffer_get_size(_out_data));
+
+    // param: _buffer_size, type: UInt32
+    if (!is_numeric(_buffer_size)) show_error($"{_GMFUNCTION_} :: _buffer_size expected number", true);
+    buffer_write(__args_buffer, buffer_u32, _buffer_size);
+
+    // param: _count, type: UInt32
+    if (!is_numeric(_count)) show_error($"{_GMFUNCTION_} :: _count expected number", true);
+    buffer_write(__args_buffer, buffer_u32, _count);
+
+    var __ret_buffer = __ext_core_get_ret_buffer();
+
+    var _return_value = __steam_networking_sockets_receive_messages_on_poll_group(buffer_get_address(__args_buffer), buffer_tell(__args_buffer), buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+
+    var _result = undefined;
+    var _length = buffer_read(__ret_buffer, buffer_u32);
+    _result = array_create(_length);
+    for (var _i = 0; _i < _length; ++_i)
+    {
+        _result[_i] = __SteamNetworkingMessage_decode(__ret_buffer, buffer_tell(__ret_buffer));
     }
     return _result;
 }
@@ -23667,6 +23896,7 @@ function __Steamworks_get_decoders()
         __SteamMatchmakingLobbyGameServer_decode,
         __SteamNetworkingMessagesSessionRequest_decode,
         __SteamNetworkingMessagesSessionFailed_decode,
+        __SteamNetworkingMessage_decode,
         __SteamNetworkingMessagesReceived_decode,
         __SteamNetworkingSocketsConnectionInfo_decode,
         __SteamNetworkingSocketsReceived_decode,
