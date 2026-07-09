@@ -3827,24 +3827,6 @@ function SteamNetworkingMessage() constructor
 }
 
 /**
- * @returns {Struct.SteamNetworkingMessagesReceived}
- */
-function SteamNetworkingMessagesReceived() constructor
-{
-    /**
-     * Internally generated hash for quick validation
-     * @ignore
-     */
-    static __uid = 2694983162;
-
-    self.steam_id_remote = undefined;
-    self.channel = undefined;
-    self.bytes_written = undefined;
-    self.send_flags = undefined;
-
-}
-
-/**
  * @returns {Struct.SteamNetworkingSocketsConnectionInfo}
  */
 function SteamNetworkingSocketsConnectionInfo() constructor
@@ -3863,23 +3845,6 @@ function SteamNetworkingSocketsConnectionInfo() constructor
     self.state = undefined;
     self.steam_id_remote = undefined;
     self.addr_remote = undefined;
-
-}
-
-/**
- * @returns {Struct.SteamNetworkingSocketsReceived}
- */
-function SteamNetworkingSocketsReceived() constructor
-{
-    /**
-     * Internally generated hash for quick validation
-     * @ignore
-     */
-    static __uid = 1546586274;
-
-    self.conn = undefined;
-    self.bytes_written = undefined;
-    self.flags = undefined;
 
 }
 
@@ -11472,69 +11437,6 @@ function __SteamNetworkingMessage_decode(_buffer, _offset)
 }
 
 /**
- * @func __SteamNetworkingMessagesReceived_encode(_inst, _buffer, _offset, _where)
- * @param {Struct.SteamNetworkingMessagesReceived} _inst
- * @param {Id.Buffer} _buffer
- * @param {Real} _offset
- * @param {String} _where
- * @ignore
- */
-function __SteamNetworkingMessagesReceived_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
-{
-    buffer_seek(_buffer, buffer_seek_start, _offset);
-    with (_inst)
-    {
-        // field: steam_id_remote, type: UInt64
-        if (!is_numeric(self.steam_id_remote)) show_error($"{_where} :: self.steam_id_remote expected number", true);
-        buffer_write(_buffer, buffer_u64, self.steam_id_remote);
-
-        // field: channel, type: Int32
-        if (!is_numeric(self.channel)) show_error($"{_where} :: self.channel expected number", true);
-        buffer_write(_buffer, buffer_s32, self.channel);
-
-        // field: bytes_written, type: UInt32
-        if (!is_numeric(self.bytes_written)) show_error($"{_where} :: self.bytes_written expected number", true);
-        buffer_write(_buffer, buffer_u32, self.bytes_written);
-
-        // field: send_flags, type: Int32
-        if (!is_numeric(self.send_flags)) show_error($"{_where} :: self.send_flags expected number", true);
-        buffer_write(_buffer, buffer_s32, self.send_flags);
-
-    }
-}
-
-/**
- * @func __SteamNetworkingMessagesReceived_decode(_buffer, _offset)
- * @param {Id.Buffer} _buffer
- * @param {Real} _offset
- * @returns {Struct.SteamNetworkingMessagesReceived}
- * @ignore
- */
-function __SteamNetworkingMessagesReceived_decode(_buffer, _offset)
-{
-    buffer_seek(_buffer, buffer_seek_start, _offset);
-
-    _inst = new SteamNetworkingMessagesReceived();
-    with (_inst)
-    {
-        // field: steam_id_remote, type: UInt64
-        self.steam_id_remote = buffer_read(_buffer, buffer_u64);
-
-        // field: channel, type: Int32
-        self.channel = buffer_read(_buffer, buffer_s32);
-
-        // field: bytes_written, type: UInt32
-        self.bytes_written = buffer_read(_buffer, buffer_u32);
-
-        // field: send_flags, type: Int32
-        self.send_flags = buffer_read(_buffer, buffer_s32);
-
-    }
-
-    return _inst;
-}
-
-/**
  * @func __SteamNetworkingSocketsConnectionInfo_encode(_inst, _buffer, _offset, _where)
  * @param {Struct.SteamNetworkingSocketsConnectionInfo} _inst
  * @param {Id.Buffer} _buffer
@@ -11627,62 +11529,6 @@ function __SteamNetworkingSocketsConnectionInfo_decode(_buffer, _offset)
         // field: addr_remote, type: String
         buffer_read(_buffer, buffer_u32);
         self.addr_remote = buffer_read(_buffer, buffer_string);
-
-    }
-
-    return _inst;
-}
-
-/**
- * @func __SteamNetworkingSocketsReceived_encode(_inst, _buffer, _offset, _where)
- * @param {Struct.SteamNetworkingSocketsReceived} _inst
- * @param {Id.Buffer} _buffer
- * @param {Real} _offset
- * @param {String} _where
- * @ignore
- */
-function __SteamNetworkingSocketsReceived_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
-{
-    buffer_seek(_buffer, buffer_seek_start, _offset);
-    with (_inst)
-    {
-        // field: conn, type: UInt32
-        if (!is_numeric(self.conn)) show_error($"{_where} :: self.conn expected number", true);
-        buffer_write(_buffer, buffer_u32, self.conn);
-
-        // field: bytes_written, type: UInt32
-        if (!is_numeric(self.bytes_written)) show_error($"{_where} :: self.bytes_written expected number", true);
-        buffer_write(_buffer, buffer_u32, self.bytes_written);
-
-        // field: flags, type: Int32
-        if (!is_numeric(self.flags)) show_error($"{_where} :: self.flags expected number", true);
-        buffer_write(_buffer, buffer_s32, self.flags);
-
-    }
-}
-
-/**
- * @func __SteamNetworkingSocketsReceived_decode(_buffer, _offset)
- * @param {Id.Buffer} _buffer
- * @param {Real} _offset
- * @returns {Struct.SteamNetworkingSocketsReceived}
- * @ignore
- */
-function __SteamNetworkingSocketsReceived_decode(_buffer, _offset)
-{
-    buffer_seek(_buffer, buffer_seek_start, _offset);
-
-    _inst = new SteamNetworkingSocketsReceived();
-    with (_inst)
-    {
-        // field: conn, type: UInt32
-        self.conn = buffer_read(_buffer, buffer_u32);
-
-        // field: bytes_written, type: UInt32
-        self.bytes_written = buffer_read(_buffer, buffer_u32);
-
-        // field: flags, type: Int32
-        self.flags = buffer_read(_buffer, buffer_s32);
 
     }
 
@@ -22856,52 +22702,6 @@ function steam_networking_messages_send_message_to_user(_steam_id_remote, _data,
 /**
  * @param {Real} _local_channel
  * @param {Id.Buffer} _out_data
- * @param {Real} _max_bytes
- * @param {Real} _offset
- * @returns {Struct.SteamNetworkingMessagesReceived}
- */
-function steam_networking_messages_receive_one_on_channel(_local_channel, _out_data, _max_bytes, _offset)
-{
-    static __available = __Steamworks_is_available();
-    if (!__available) return;
-
-    var __args_buffer = __ext_core_get_args_buffer();
-
-    // param: _local_channel, type: Int32
-    if (!is_numeric(_local_channel)) show_error($"{_GMFUNCTION_} :: _local_channel expected number", true);
-    buffer_write(__args_buffer, buffer_s32, _local_channel);
-
-    // param: _out_data, type: Buffer
-    if (!buffer_exists(_out_data)) show_error($"{_GMFUNCTION_} :: _out_data expected Id.Buffer", true);
-    __Steamworks_queue_buffer(buffer_get_address(_out_data), buffer_get_size(_out_data));
-
-    // param: _max_bytes, type: UInt32
-    if (!is_numeric(_max_bytes)) show_error($"{_GMFUNCTION_} :: _max_bytes expected number", true);
-    buffer_write(__args_buffer, buffer_u32, _max_bytes);
-
-    // param: _offset, type: UInt32
-    if (!is_numeric(_offset)) show_error($"{_GMFUNCTION_} :: _offset expected number", true);
-    buffer_write(__args_buffer, buffer_u32, _offset);
-
-    var __ret_buffer = __ext_core_get_ret_buffer();
-
-    var _return_value = __steam_networking_messages_receive_one_on_channel(buffer_get_address(__args_buffer), buffer_tell(__args_buffer), buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
-
-    var _result = undefined;
-    if (buffer_read(__ret_buffer, buffer_bool))
-    {
-        _result = __SteamNetworkingMessagesReceived_decode(__ret_buffer, buffer_tell(__ret_buffer));
-    }
-    else
-    {
-        _result = undefined;
-    }
-    return _result;
-}
-
-/**
- * @param {Real} _local_channel
- * @param {Id.Buffer} _out_data
  * @param {Real} _buffer_size
  * @param {Real} _count
  * @returns {Array[Struct.SteamNetworkingMessage]}
@@ -23154,52 +22954,6 @@ function steam_networking_sockets_flush_messages_on_connection(_conn)
 /**
  * @param {Real} _conn
  * @param {Id.Buffer} _out_data
- * @param {Real} _max_bytes
- * @param {Real} _offset
- * @returns {Struct.SteamNetworkingSocketsReceived}
- */
-function steam_networking_sockets_receive_one_on_connection(_conn, _out_data, _max_bytes, _offset)
-{
-    static __available = __Steamworks_is_available();
-    if (!__available) return;
-
-    var __args_buffer = __ext_core_get_args_buffer();
-
-    // param: _conn, type: UInt32
-    if (!is_numeric(_conn)) show_error($"{_GMFUNCTION_} :: _conn expected number", true);
-    buffer_write(__args_buffer, buffer_u32, _conn);
-
-    // param: _out_data, type: Buffer
-    if (!buffer_exists(_out_data)) show_error($"{_GMFUNCTION_} :: _out_data expected Id.Buffer", true);
-    __Steamworks_queue_buffer(buffer_get_address(_out_data), buffer_get_size(_out_data));
-
-    // param: _max_bytes, type: UInt32
-    if (!is_numeric(_max_bytes)) show_error($"{_GMFUNCTION_} :: _max_bytes expected number", true);
-    buffer_write(__args_buffer, buffer_u32, _max_bytes);
-
-    // param: _offset, type: UInt32
-    if (!is_numeric(_offset)) show_error($"{_GMFUNCTION_} :: _offset expected number", true);
-    buffer_write(__args_buffer, buffer_u32, _offset);
-
-    var __ret_buffer = __ext_core_get_ret_buffer();
-
-    var _return_value = __steam_networking_sockets_receive_one_on_connection(buffer_get_address(__args_buffer), buffer_tell(__args_buffer), buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
-
-    var _result = undefined;
-    if (buffer_read(__ret_buffer, buffer_bool))
-    {
-        _result = __SteamNetworkingSocketsReceived_decode(__ret_buffer, buffer_tell(__ret_buffer));
-    }
-    else
-    {
-        _result = undefined;
-    }
-    return _result;
-}
-
-/**
- * @param {Real} _conn
- * @param {Id.Buffer} _out_data
  * @param {Real} _buffer_size
  * @param {Real} _count
  * @returns {Array[Struct.SteamNetworkingMessage]}
@@ -23334,52 +23088,6 @@ function steam_networking_sockets_connect_p2p(_steam_id_remote, _remote_virtual_
 
 // Skipping function steam_networking_sockets_set_connection_poll_group (no wrapper is required)
 
-
-/**
- * @param {Real} _poll_group
- * @param {Id.Buffer} _out_data
- * @param {Real} _max_bytes
- * @param {Real} _offset
- * @returns {Struct.SteamNetworkingSocketsReceived}
- */
-function steam_networking_sockets_receive_one_on_poll_group(_poll_group, _out_data, _max_bytes, _offset)
-{
-    static __available = __Steamworks_is_available();
-    if (!__available) return;
-
-    var __args_buffer = __ext_core_get_args_buffer();
-
-    // param: _poll_group, type: UInt32
-    if (!is_numeric(_poll_group)) show_error($"{_GMFUNCTION_} :: _poll_group expected number", true);
-    buffer_write(__args_buffer, buffer_u32, _poll_group);
-
-    // param: _out_data, type: Buffer
-    if (!buffer_exists(_out_data)) show_error($"{_GMFUNCTION_} :: _out_data expected Id.Buffer", true);
-    __Steamworks_queue_buffer(buffer_get_address(_out_data), buffer_get_size(_out_data));
-
-    // param: _max_bytes, type: UInt32
-    if (!is_numeric(_max_bytes)) show_error($"{_GMFUNCTION_} :: _max_bytes expected number", true);
-    buffer_write(__args_buffer, buffer_u32, _max_bytes);
-
-    // param: _offset, type: UInt32
-    if (!is_numeric(_offset)) show_error($"{_GMFUNCTION_} :: _offset expected number", true);
-    buffer_write(__args_buffer, buffer_u32, _offset);
-
-    var __ret_buffer = __ext_core_get_ret_buffer();
-
-    var _return_value = __steam_networking_sockets_receive_one_on_poll_group(buffer_get_address(__args_buffer), buffer_tell(__args_buffer), buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
-
-    var _result = undefined;
-    if (buffer_read(__ret_buffer, buffer_bool))
-    {
-        _result = __SteamNetworkingSocketsReceived_decode(__ret_buffer, buffer_tell(__ret_buffer));
-    }
-    else
-    {
-        _result = undefined;
-    }
-    return _result;
-}
 
 /**
  * @param {Real} _poll_group
@@ -23921,9 +23629,7 @@ function __Steamworks_get_decoders()
         __SteamNetworkingMessagesSessionRequest_decode,
         __SteamNetworkingMessagesSessionFailed_decode,
         __SteamNetworkingMessage_decode,
-        __SteamNetworkingMessagesReceived_decode,
         __SteamNetworkingSocketsConnectionInfo_decode,
-        __SteamNetworkingSocketsReceived_decode,
         __SteamPartiesBeaconLocation_decode,
         __SteamPartiesCreateBeaconResult_decode,
         __SteamPartiesJoinPartyResult_decode,

@@ -136,46 +136,6 @@ std::int32_t steam_networking_messages_send_message_to_user(std::uint64_t steam_
     return (std::int32_t)r;
 }
 
-std::optional<gm_structs::SteamNetworkingMessagesReceived> steam_networking_messages_receive_one_on_channel(std::int32_t local_channel,
-                                                                                            gm::wire::GMBuffer out_data,
-                                                                                            std::uint32_t max_bytes,
-                                                                                            std::uint32_t offset)
-{
-    STEAM_GUARD_RET(std::nullopt);
-
-    ISteamNetworkingMessages* m = steam_networking_messages_iface();
-    if (!m) return std::nullopt;
-
-    if (max_bytes == 0) return std::nullopt;
-
-    SteamNetworkingMessage_t* msg = nullptr;
-    int n = m->ReceiveMessagesOnChannel((int)local_channel, &msg, 1);
-    if (n <= 0 || !msg) return std::nullopt;
-
-    const uint32 cb = (uint32)msg->m_cbSize;
-    const std::uint64_t buf_len = out_data.length();
-
-    // Deliver the whole message or fail; never truncate or overflow the wire cursor.
-    if ((std::uint64_t)offset > buf_len || cb > max_bytes ||
-        (std::uint64_t)offset + cb > buf_len) {
-        steam_set_last_error("steam_networking_messages_receive_one_on_channel: output buffer too small for incoming message.");
-        msg->Release();
-        return std::nullopt;
-    }
-
-    auto w = out_data.getWriter();
-    w.skip(offset);
-    w.writeBytes((const char*)msg->m_pData, (int)cb);
-
-    gm_structs::SteamNetworkingMessagesReceived out{};
-    out.steam_id_remote = (std::uint64_t)msg->m_identityPeer.GetSteamID64();
-    out.channel = local_channel;
-    out.bytes_written = cb;
-    out.send_flags = (std::int32_t)msg->m_nFlags;
-
-    msg->Release();
-    return out;
-}
 
 std::vector<gm_structs::SteamNetworkingMessage> steam_networking_messages_receive_messages_on_channel(std::int32_t local_channel,
                                                                                                       gm::wire::GMBuffer out_data,

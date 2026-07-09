@@ -3935,16 +3935,6 @@
  */
 
 /**
- * @function_partial steam_networking_messages_receive_one_on_channel
- * @param {Real} local_channel
- * @param {Buffer} out_data
- * @param {Real} max_bytes
- * @param {Real} offset
- * @returns {Struct.SteamNetworkingMessagesReceived}
- * @function_end
- */
-
-/**
  * @function_partial steam_networking_messages_receive_messages_on_channel
  * @param {Real} local_channel
  * @param {Buffer} out_data
@@ -4073,16 +4063,6 @@
  */
 
 /**
- * @function_partial steam_networking_sockets_receive_one_on_connection
- * @param {Real} conn
- * @param {Buffer} out_data
- * @param {Real} max_bytes
- * @param {Real} offset
- * @returns {Struct.SteamNetworkingSocketsReceived}
- * @function_end
- */
-
-/**
  * @function_partial steam_networking_sockets_receive_messages_on_connection
  * @param {Real} conn
  * @param {Buffer} out_data
@@ -4158,16 +4138,6 @@
  * @param {Real} conn
  * @param {Real} poll_group
  * @returns {Bool}
- * @function_end
- */
-
-/**
- * @function_partial steam_networking_sockets_receive_one_on_poll_group
- * @param {Real} poll_group
- * @param {Buffer} out_data
- * @param {Real} max_bytes
- * @param {Real} offset
- * @returns {Struct.SteamNetworkingSocketsReceived}
  * @function_end
  */
 
@@ -5339,15 +5309,6 @@
  */
 
 /**
- * @struct_partial SteamNetworkingMessagesReceived
- * @member {Real} steam_id_remote
- * @member {Real} channel
- * @member {Real} bytes_written
- * @member {Real} send_flags
- * @struct_end
- */
-
-/**
  * @struct_partial SteamNetworkingSocketsConnectionInfo
  * @member {Real} user_data
  * @member {Enum.SteamNetworkingConnectionEnd} end_reason
@@ -5357,14 +5318,6 @@
  * @member {Enum.SteamNetworkingConnectionState} state
  * @member {Real} steam_id_remote
  * @member {String} addr_remote
- * @struct_end
- */
-
-/**
- * @struct_partial SteamNetworkingSocketsReceived
- * @member {Real} conn
- * @member {Real} bytes_written
- * @member {Real} flags
  * @struct_end
  */
 

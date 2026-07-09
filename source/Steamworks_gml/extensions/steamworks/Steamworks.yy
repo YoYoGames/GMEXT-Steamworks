@@ -9909,26 +9909,6 @@
         },
         {
           "$GMExtensionFunction": "",
-          "%Name": "__steam_networking_messages_receive_one_on_channel",
-          "argCount": 4,
-          "args": [
-            1,
-            2,
-            1,
-            2
-          ],
-          "documentation": "@param {Pointer} _arg_buffer\r\n@param {Real} _arg_buffer_length\r\n@param {Pointer} _ret_buffer\r\n@param {Real} _ret_buffer_length\r\n@returns {Real}",
-          "externalName": "__EXT_NATIVE__steam_networking_messages_receive_one_on_channel",
-          "help": "",
-          "hidden": true,
-          "kind": 4,
-          "name": "__steam_networking_messages_receive_one_on_channel",
-          "resourceType": "GMExtensionFunction",
-          "resourceVersion": "2.0",
-          "returnType": 2
-        },
-        {
-          "$GMExtensionFunction": "",
           "%Name": "__steam_networking_messages_receive_messages_on_channel",
           "argCount": 4,
           "args": [
@@ -10234,26 +10214,6 @@
         },
         {
           "$GMExtensionFunction": "",
-          "%Name": "__steam_networking_sockets_receive_one_on_connection",
-          "argCount": 4,
-          "args": [
-            1,
-            2,
-            1,
-            2
-          ],
-          "documentation": "@param {Pointer} _arg_buffer\r\n@param {Real} _arg_buffer_length\r\n@param {Pointer} _ret_buffer\r\n@param {Real} _ret_buffer_length\r\n@returns {Real}",
-          "externalName": "__EXT_NATIVE__steam_networking_sockets_receive_one_on_connection",
-          "help": "",
-          "hidden": true,
-          "kind": 4,
-          "name": "__steam_networking_sockets_receive_one_on_connection",
-          "resourceType": "GMExtensionFunction",
-          "resourceVersion": "2.0",
-          "returnType": 2
-        },
-        {
-          "$GMExtensionFunction": "",
           "%Name": "__steam_networking_sockets_receive_messages_on_connection",
           "argCount": 4,
           "args": [
@@ -10440,26 +10400,6 @@
           "hidden": false,
           "kind": 4,
           "name": "steam_networking_sockets_set_connection_poll_group",
-          "resourceType": "GMExtensionFunction",
-          "resourceVersion": "2.0",
-          "returnType": 2
-        },
-        {
-          "$GMExtensionFunction": "",
-          "%Name": "__steam_networking_sockets_receive_one_on_poll_group",
-          "argCount": 4,
-          "args": [
-            1,
-            2,
-            1,
-            2
-          ],
-          "documentation": "@param {Pointer} _arg_buffer\r\n@param {Real} _arg_buffer_length\r\n@param {Pointer} _ret_buffer\r\n@param {Real} _ret_buffer_length\r\n@returns {Real}",
-          "externalName": "__EXT_NATIVE__steam_networking_sockets_receive_one_on_poll_group",
-          "help": "",
-          "hidden": true,
-          "kind": 4,
-          "name": "__steam_networking_sockets_receive_one_on_poll_group",
           "resourceType": "GMExtensionFunction",
           "resourceVersion": "2.0",
           "returnType": 2

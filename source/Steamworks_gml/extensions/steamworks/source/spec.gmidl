@@ -5684,23 +5684,6 @@ class `[[SteamNetworkingMessage]]` prototype Object
     property conn_user_data : gmval { get; set; }
 }
 
-// Result of steam_networking_messages_receive_one_on_channel (message written to out buffer)
-[global]
-class `[[SteamNetworkingMessagesReceived]]` prototype Object
-{
-    [field, type_hint=uint64]
-    property steam_id_remote : gmval { get; set; }
-
-    [field]
-    property channel : int32 { get; set; }
-
-    [field]
-    property bytes_written : uint32 { get; set; }
-
-    [field]
-    property send_flags : int32 { get; set; }
-}
-
 [global, bind = typed_gml]
 function steam_networking_messages_set_callback_session_request(callback:func): unit;
 
@@ -5721,15 +5704,6 @@ function steam_networking_messages_send_message_to_user(
     send_flags: int32,
     remote_channel: int32
 ): int32;
-
-// Receive one message on channel into out buffer (max messages fixed to 1 due to GameMaker limitations).
-[global, bind = typed_gml, type_hint=`SteamNetworkingMessagesReceived?`]
-function steam_networking_messages_receive_one_on_channel(
-    local_channel: int32,
-    [type_hint=buffer] out_data: gmval,
-    max_bytes: uint32,
-    offset: uint32
-): gmval;
 
 // Receive multiple messages on channel into out buffer, up to count messages.
 [global, bind = typed_gml, type_hint=`SteamNetworkingMessage[]`]
@@ -5845,14 +5819,6 @@ class `[[SteamNetworkingSocketsStatusChanged]]` prototype Object
     [field, type_hint=`SteamNetworkingSocketsConnectionInfo`] property info : gmval { get; set; }
 }
 
-// Result of steam_networking_sockets_receive_one_on_* (message written to out buffer)
-[global]
-class `[[SteamNetworkingSocketsReceived]]` prototype Object
-{
-    [field] property conn : uint32 { get; set; }
-    [field] property bytes_written : uint32 { get; set; }
-    [field] property flags : int32 { get; set; }
-}
 
 [global, bind = typed_gml]
 function steam_networking_sockets_set_callback_connection_status_changed(callback:func): unit;
@@ -5898,15 +5864,6 @@ function steam_networking_sockets_send_message_to_connection(
 [global, bind = typed_gml, type_hint=`SteamApiResult`]
 function steam_networking_sockets_flush_messages_on_connection(conn: uint32): gmval;
 
-// Receive one message on connection into out buffer (max messages fixed to 1 due to GameMaker limitations).
-[global, bind = typed_gml, type_hint=`SteamNetworkingSocketsReceived?`]
-function steam_networking_sockets_receive_one_on_connection(
-    conn: uint32,
-    [type_hint=buffer] out_data: gmval,
-    max_bytes: uint32,
-    offset: uint32
-): gmval;
-
 // Receive multiple messages on connection into out buffer, up to count messages.
 [global, bind = typed_gml, type_hint=`SteamNetworkingMessage[]`]
 function steam_networking_sockets_receive_messages_on_connection(
@@ -5951,15 +5908,6 @@ function steam_networking_sockets_set_connection_poll_group(
     conn: uint32,
     poll_group: uint32
 ): bool;
-
-// Receive one message on poll group into out buffer (max messages fixed to 1 due to GameMaker limitations).
-[global, bind = typed_gml, type_hint=`SteamNetworkingSocketsReceived?`]
-function steam_networking_sockets_receive_one_on_poll_group(
-    poll_group: uint32,
-    [type_hint=buffer] out_data: gmval,
-    max_bytes: uint32,
-    offset: uint32
-): gmval;
 
 // Receive multiple messages on poll group into out buffer, up to count messages.
 [global, bind = typed_gml, type_hint=`SteamNetworkingMessage[]`]
