@@ -6663,7 +6663,7 @@ void steam_networking_messages_clear_callback_session_request();
 void steam_networking_messages_set_callback_session_failed(const gm::wire::GMFunction& callback);
 void steam_networking_messages_clear_callback_session_failed();
 std::int32_t steam_networking_messages_send_message_to_user(std::uint64_t steam_id_remote, gm::wire::GMBuffer data, std::uint32_t bytes, std::int32_t send_flags, std::int32_t remote_channel);
-std::vector<gm_structs::SteamNetworkingMessage> steam_networking_messages_receive_messages_on_channel(std::int32_t local_channel, gm::wire::GMBuffer out_data, std::uint32_t buffer_size, std::uint32_t count);
+std::vector<gm_structs::SteamNetworkingMessage> steam_networking_messages_receive_messages_on_channel(std::int32_t local_channel, gm::wire::GMBuffer out_data, std::uint32_t count);
 bool steam_networking_messages_accept_session_with_user(std::uint64_t steam_id_remote);
 bool steam_networking_messages_close_session_with_user(std::uint64_t steam_id_remote);
 bool steam_networking_messages_close_channel_with_user(std::uint64_t steam_id_remote, std::int32_t local_channel);
@@ -6680,7 +6680,7 @@ void steam_networking_sockets_set_connection_name(std::uint32_t conn, std::strin
 std::string steam_networking_sockets_get_connection_name(std::uint32_t conn);
 std::int32_t steam_networking_sockets_send_message_to_connection(std::uint32_t conn, gm::wire::GMBuffer data, std::uint32_t bytes, gm_enums::SteamNetworkingSendFlags send_flags);
 gm_enums::SteamApiResult steam_networking_sockets_flush_messages_on_connection(std::uint32_t conn);
-std::vector<gm_structs::SteamNetworkingMessage> steam_networking_sockets_receive_messages_on_connection(std::uint32_t conn, gm::wire::GMBuffer out_data, std::uint32_t buffer_size, std::uint32_t count);
+std::vector<gm_structs::SteamNetworkingMessage> steam_networking_sockets_receive_messages_on_connection(std::uint32_t conn, gm::wire::GMBuffer out_data, std::uint32_t count);
 std::optional<gm_structs::SteamNetworkingSocketsConnectionInfo> steam_networking_sockets_get_connection_info(std::uint32_t conn);
 std::string steam_networking_sockets_get_detailed_connection_status(std::uint32_t conn);
 void steam_networking_sockets_run_callbacks();
@@ -6691,7 +6691,7 @@ std::string steam_networking_sockets_get_listen_socket_address(std::uint32_t lis
 std::uint32_t steam_networking_sockets_create_poll_group();
 bool steam_networking_sockets_destroy_poll_group(std::uint32_t poll_group);
 bool steam_networking_sockets_set_connection_poll_group(std::uint32_t conn, std::uint32_t poll_group);
-std::vector<gm_structs::SteamNetworkingMessage> steam_networking_sockets_receive_messages_on_poll_group(std::uint32_t poll_group, gm::wire::GMBuffer out_data, std::uint32_t buffer_size, std::uint32_t count);
+std::vector<gm_structs::SteamNetworkingMessage> steam_networking_sockets_receive_messages_on_poll_group(std::uint32_t poll_group, gm::wire::GMBuffer out_data, std::uint32_t count);
 void steam_parties_set_callback_reservation_notification(const gm::wire::GMFunction& callback);
 void steam_parties_clear_callback_reservation_notification();
 void steam_parties_set_callback_available_beacon_locations_updated(const gm::wire::GMFunction& callback);

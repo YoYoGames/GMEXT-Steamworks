@@ -22702,11 +22702,10 @@ function steam_networking_messages_send_message_to_user(_steam_id_remote, _data,
 /**
  * @param {Real} _local_channel
  * @param {Id.Buffer} _out_data
- * @param {Real} _buffer_size
  * @param {Real} _count
  * @returns {Array[Struct.SteamNetworkingMessage]}
  */
-function steam_networking_messages_receive_messages_on_channel(_local_channel, _out_data, _buffer_size, _count)
+function steam_networking_messages_receive_messages_on_channel(_local_channel, _out_data, _count)
 {
     static __available = __Steamworks_is_available();
     if (!__available) return;
@@ -22720,10 +22719,6 @@ function steam_networking_messages_receive_messages_on_channel(_local_channel, _
     // param: _out_data, type: Buffer
     if (!buffer_exists(_out_data)) show_error($"{_GMFUNCTION_} :: _out_data expected Id.Buffer", true);
     __Steamworks_queue_buffer(buffer_get_address(_out_data), buffer_get_size(_out_data));
-
-    // param: _buffer_size, type: UInt32
-    if (!is_numeric(_buffer_size)) show_error($"{_GMFUNCTION_} :: _buffer_size expected number", true);
-    buffer_write(__args_buffer, buffer_u32, _buffer_size);
 
     // param: _count, type: UInt32
     if (!is_numeric(_count)) show_error($"{_GMFUNCTION_} :: _count expected number", true);
@@ -22954,11 +22949,10 @@ function steam_networking_sockets_flush_messages_on_connection(_conn)
 /**
  * @param {Real} _conn
  * @param {Id.Buffer} _out_data
- * @param {Real} _buffer_size
  * @param {Real} _count
  * @returns {Array[Struct.SteamNetworkingMessage]}
  */
-function steam_networking_sockets_receive_messages_on_connection(_conn, _out_data, _buffer_size, _count)
+function steam_networking_sockets_receive_messages_on_connection(_conn, _out_data, _count)
 {
     static __available = __Steamworks_is_available();
     if (!__available) return;
@@ -22972,10 +22966,6 @@ function steam_networking_sockets_receive_messages_on_connection(_conn, _out_dat
     // param: _out_data, type: Buffer
     if (!buffer_exists(_out_data)) show_error($"{_GMFUNCTION_} :: _out_data expected Id.Buffer", true);
     __Steamworks_queue_buffer(buffer_get_address(_out_data), buffer_get_size(_out_data));
-
-    // param: _buffer_size, type: UInt32
-    if (!is_numeric(_buffer_size)) show_error($"{_GMFUNCTION_} :: _buffer_size expected number", true);
-    buffer_write(__args_buffer, buffer_u32, _buffer_size);
 
     // param: _count, type: UInt32
     if (!is_numeric(_count)) show_error($"{_GMFUNCTION_} :: _count expected number", true);
@@ -23092,11 +23082,10 @@ function steam_networking_sockets_connect_p2p(_steam_id_remote, _remote_virtual_
 /**
  * @param {Real} _poll_group
  * @param {Id.Buffer} _out_data
- * @param {Real} _buffer_size
  * @param {Real} _count
  * @returns {Array[Struct.SteamNetworkingMessage]}
  */
-function steam_networking_sockets_receive_messages_on_poll_group(_poll_group, _out_data, _buffer_size, _count)
+function steam_networking_sockets_receive_messages_on_poll_group(_poll_group, _out_data, _count)
 {
     static __available = __Steamworks_is_available();
     if (!__available) return;
@@ -23110,10 +23099,6 @@ function steam_networking_sockets_receive_messages_on_poll_group(_poll_group, _o
     // param: _out_data, type: Buffer
     if (!buffer_exists(_out_data)) show_error($"{_GMFUNCTION_} :: _out_data expected Id.Buffer", true);
     __Steamworks_queue_buffer(buffer_get_address(_out_data), buffer_get_size(_out_data));
-
-    // param: _buffer_size, type: UInt32
-    if (!is_numeric(_buffer_size)) show_error($"{_GMFUNCTION_} :: _buffer_size expected number", true);
-    buffer_write(__args_buffer, buffer_u32, _buffer_size);
 
     // param: _count, type: UInt32
     if (!is_numeric(_count)) show_error($"{_GMFUNCTION_} :: _count expected number", true);

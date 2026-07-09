@@ -3938,7 +3938,6 @@
  * @function_partial steam_networking_messages_receive_messages_on_channel
  * @param {Real} local_channel
  * @param {Buffer} out_data
- * @param {Real} buffer_size
  * @param {Real} count
  * @returns {Array[Struct.SteamNetworkingMessage]}
  * @function_end
@@ -4066,7 +4065,6 @@
  * @function_partial steam_networking_sockets_receive_messages_on_connection
  * @param {Real} conn
  * @param {Buffer} out_data
- * @param {Real} buffer_size
  * @param {Real} count
  * @returns {Array[Struct.SteamNetworkingMessage]}
  * @function_end
@@ -4145,7 +4143,6 @@
  * @function_partial steam_networking_sockets_receive_messages_on_poll_group
  * @param {Real} poll_group
  * @param {Buffer} out_data
- * @param {Real} buffer_size
  * @param {Real} count
  * @returns {Array[Struct.SteamNetworkingMessage]}
  * @function_end

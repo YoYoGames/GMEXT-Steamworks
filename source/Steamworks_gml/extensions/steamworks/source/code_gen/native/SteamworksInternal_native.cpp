@@ -6572,13 +6572,10 @@ GMEXPORT double __EXT_NATIVE__steam_networking_messages_receive_messages_on_chan
     gm::wire::GMBuffer out_data = __buffer_queue.front();
     __buffer_queue.pop();
 
-    // field: buffer_size, type: UInt32
-    std::uint32_t buffer_size = gm::wire::codec::readValue<std::uint32_t>(__br);
-
     // field: count, type: UInt32
     std::uint32_t count = gm::wire::codec::readValue<std::uint32_t>(__br);
 
-    auto&& __result = steam_networking_messages_receive_messages_on_channel(local_channel, out_data, buffer_size, count);
+    auto&& __result = steam_networking_messages_receive_messages_on_channel(local_channel, out_data, count);
     gm::byteio::BufferWriter __bw{__ret_buffer, static_cast<size_t>(__ret_buffer_length)};
 
     // return: __result, type: struct SteamNetworkingMessage[]
@@ -6748,13 +6745,10 @@ GMEXPORT double __EXT_NATIVE__steam_networking_sockets_receive_messages_on_conne
     gm::wire::GMBuffer out_data = __buffer_queue.front();
     __buffer_queue.pop();
 
-    // field: buffer_size, type: UInt32
-    std::uint32_t buffer_size = gm::wire::codec::readValue<std::uint32_t>(__br);
-
     // field: count, type: UInt32
     std::uint32_t count = gm::wire::codec::readValue<std::uint32_t>(__br);
 
-    auto&& __result = steam_networking_sockets_receive_messages_on_connection(conn, out_data, buffer_size, count);
+    auto&& __result = steam_networking_sockets_receive_messages_on_connection(conn, out_data, count);
     gm::byteio::BufferWriter __bw{__ret_buffer, static_cast<size_t>(__ret_buffer_length)};
 
     // return: __result, type: struct SteamNetworkingMessage[]
@@ -6851,13 +6845,10 @@ GMEXPORT double __EXT_NATIVE__steam_networking_sockets_receive_messages_on_poll_
     gm::wire::GMBuffer out_data = __buffer_queue.front();
     __buffer_queue.pop();
 
-    // field: buffer_size, type: UInt32
-    std::uint32_t buffer_size = gm::wire::codec::readValue<std::uint32_t>(__br);
-
     // field: count, type: UInt32
     std::uint32_t count = gm::wire::codec::readValue<std::uint32_t>(__br);
 
-    auto&& __result = steam_networking_sockets_receive_messages_on_poll_group(poll_group, out_data, buffer_size, count);
+    auto&& __result = steam_networking_sockets_receive_messages_on_poll_group(poll_group, out_data, count);
     gm::byteio::BufferWriter __bw{__ret_buffer, static_cast<size_t>(__ret_buffer_length)};
 
     // return: __result, type: struct SteamNetworkingMessage[]
