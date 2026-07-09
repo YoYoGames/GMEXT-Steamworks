@@ -3935,20 +3935,9 @@
  */
 
 /**
- * @function_partial steam_networking_messages_receive_one_on_channel
- * @param {Real} local_channel
- * @param {Buffer} out_data
- * @param {Real} max_bytes
- * @param {Real} offset
- * @returns {Struct.SteamNetworkingMessagesReceived}
- * @function_end
- */
-
-/**
  * @function_partial steam_networking_messages_receive_messages_on_channel
  * @param {Real} local_channel
  * @param {Buffer} out_data
- * @param {Real} buffer_size
  * @param {Real} count
  * @returns {Array[Struct.SteamNetworkingMessage]}
  * @function_end
@@ -4073,20 +4062,9 @@
  */
 
 /**
- * @function_partial steam_networking_sockets_receive_one_on_connection
- * @param {Real} conn
- * @param {Buffer} out_data
- * @param {Real} max_bytes
- * @param {Real} offset
- * @returns {Struct.SteamNetworkingSocketsReceived}
- * @function_end
- */
-
-/**
  * @function_partial steam_networking_sockets_receive_messages_on_connection
  * @param {Real} conn
  * @param {Buffer} out_data
- * @param {Real} buffer_size
  * @param {Real} count
  * @returns {Array[Struct.SteamNetworkingMessage]}
  * @function_end
@@ -4162,20 +4140,9 @@
  */
 
 /**
- * @function_partial steam_networking_sockets_receive_one_on_poll_group
- * @param {Real} poll_group
- * @param {Buffer} out_data
- * @param {Real} max_bytes
- * @param {Real} offset
- * @returns {Struct.SteamNetworkingSocketsReceived}
- * @function_end
- */
-
-/**
  * @function_partial steam_networking_sockets_receive_messages_on_poll_group
  * @param {Real} poll_group
  * @param {Buffer} out_data
- * @param {Real} buffer_size
  * @param {Real} count
  * @returns {Array[Struct.SteamNetworkingMessage]}
  * @function_end
@@ -5332,15 +5299,9 @@
  * @member {Real} conn
  * @member {Real} channel
  * @member {Real} flags
- * @struct_end
- */
-
-/**
- * @struct_partial SteamNetworkingMessagesReceived
- * @member {Real} steam_id_remote
- * @member {Real} channel
- * @member {Real} bytes_written
- * @member {Real} send_flags
+ * @member {Real} usec_time_received
+ * @member {Real} message_number
+ * @member {Real} conn_user_data
  * @struct_end
  */
 
@@ -5354,14 +5315,6 @@
  * @member {Enum.SteamNetworkingConnectionState} state
  * @member {Real} steam_id_remote
  * @member {String} addr_remote
- * @struct_end
- */
-
-/**
- * @struct_partial SteamNetworkingSocketsReceived
- * @member {Real} conn
- * @member {Real} bytes_written
- * @member {Real} flags
  * @struct_end
  */
 
