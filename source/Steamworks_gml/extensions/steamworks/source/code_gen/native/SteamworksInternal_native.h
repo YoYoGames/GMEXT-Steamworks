@@ -2578,6 +2578,9 @@ namespace gm_structs
         std::uint32_t conn;
         std::int32_t channel;
         std::int32_t flags;
+        std::uint64_t usec_time_received;
+        std::uint64_t message_number;
+        std::uint64_t conn_user_data;
     };
 
     struct SteamNetworkingMessagesReceived
@@ -4974,6 +4977,9 @@ namespace gm::wire::codec
         gm::wire::codec::writeValue(_buf, obj.conn);
         gm::wire::codec::writeValue(_buf, obj.channel);
         gm::wire::codec::writeValue(_buf, obj.flags);
+        gm::wire::codec::writeValue(_buf, obj.usec_time_received);
+        gm::wire::codec::writeValue(_buf, obj.message_number);
+        gm::wire::codec::writeValue(_buf, obj.conn_user_data);
     }
 
     template<>
@@ -4986,6 +4992,9 @@ namespace gm::wire::codec
         obj.conn = gm::wire::codec::readValue<std::uint32_t>(_buf);
         obj.channel = gm::wire::codec::readValue<std::int32_t>(_buf);
         obj.flags = gm::wire::codec::readValue<std::int32_t>(_buf);
+        obj.usec_time_received = gm::wire::codec::readValue<std::uint64_t>(_buf);
+        obj.message_number = gm::wire::codec::readValue<std::uint64_t>(_buf);
+        obj.conn_user_data = gm::wire::codec::readValue<std::uint64_t>(_buf);
         return obj;
     }
 

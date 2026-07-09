@@ -5673,6 +5673,15 @@ class `[[SteamNetworkingMessage]]` prototype Object
 
     [field]
     property flags : int32 { get; set; }
+
+    [field, type_hint=uint64]
+    property usec_time_received : gmval { get; set; }
+
+    [field, type_hint=uint64]
+    property message_number : gmval { get; set; }
+
+    [field, type_hint=uint64]
+    property conn_user_data : gmval { get; set; }
 }
 
 // Result of steam_networking_messages_receive_one_on_channel (message written to out buffer)

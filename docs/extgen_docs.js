@@ -5332,6 +5332,9 @@
  * @member {Real} conn
  * @member {Real} channel
  * @member {Real} flags
+ * @member {Real} usec_time_received
+ * @member {Real} message_number
+ * @member {Real} conn_user_data
  * @struct_end
  */
 

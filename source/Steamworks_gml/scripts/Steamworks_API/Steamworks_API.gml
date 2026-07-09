@@ -3820,6 +3820,9 @@ function SteamNetworkingMessage() constructor
     self.conn = undefined;
     self.channel = undefined;
     self.flags = undefined;
+    self.usec_time_received = undefined;
+    self.message_number = undefined;
+    self.conn_user_data = undefined;
 
 }
 
@@ -11407,6 +11410,18 @@ function __SteamNetworkingMessage_encode(_inst, _buffer, _offset, _where = _GMFU
         if (!is_numeric(self.flags)) show_error($"{_where} :: self.flags expected number", true);
         buffer_write(_buffer, buffer_s32, self.flags);
 
+        // field: usec_time_received, type: UInt64
+        if (!is_numeric(self.usec_time_received)) show_error($"{_where} :: self.usec_time_received expected number", true);
+        buffer_write(_buffer, buffer_u64, self.usec_time_received);
+
+        // field: message_number, type: UInt64
+        if (!is_numeric(self.message_number)) show_error($"{_where} :: self.message_number expected number", true);
+        buffer_write(_buffer, buffer_u64, self.message_number);
+
+        // field: conn_user_data, type: UInt64
+        if (!is_numeric(self.conn_user_data)) show_error($"{_where} :: self.conn_user_data expected number", true);
+        buffer_write(_buffer, buffer_u64, self.conn_user_data);
+
     }
 }
 
@@ -11441,6 +11456,15 @@ function __SteamNetworkingMessage_decode(_buffer, _offset)
 
         // field: flags, type: Int32
         self.flags = buffer_read(_buffer, buffer_s32);
+
+        // field: usec_time_received, type: UInt64
+        self.usec_time_received = buffer_read(_buffer, buffer_u64);
+
+        // field: message_number, type: UInt64
+        self.message_number = buffer_read(_buffer, buffer_u64);
+
+        // field: conn_user_data, type: UInt64
+        self.conn_user_data = buffer_read(_buffer, buffer_u64);
 
     }
 

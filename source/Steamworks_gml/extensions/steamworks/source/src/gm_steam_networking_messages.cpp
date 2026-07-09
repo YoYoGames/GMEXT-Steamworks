@@ -226,6 +226,9 @@ std::vector<gm_structs::SteamNetworkingMessage> steam_networking_messages_receiv
         msg_out.conn = 0;
         msg_out.channel = local_channel;
         msg_out.flags = (std::int32_t)msgs[i]->m_nFlags;
+        msg_out.usec_time_received = msgs[i]->m_usecTimeReceived;
+        msg_out.message_number = msgs[i]->m_nMessageNumber;
+        msg_out.conn_user_data = msgs[i]->m_nConnUserData;
 
         out.push_back(msg_out);
 
