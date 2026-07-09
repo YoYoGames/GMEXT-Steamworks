@@ -139,7 +139,6 @@ std::int32_t steam_networking_messages_send_message_to_user(std::uint64_t steam_
 
 std::vector<gm_structs::SteamNetworkingMessage> steam_networking_messages_receive_messages_on_channel(std::int32_t local_channel,
                                                                                                       gm::wire::GMBuffer out_data,
-                                                                                                      std::uint32_t buffer_size,
                                                                                                       std::uint32_t count)
 {
     STEAM_GUARD_RET({});
@@ -149,7 +148,7 @@ std::vector<gm_structs::SteamNetworkingMessage> steam_networking_messages_receiv
     ISteamNetworkingMessages* m = steam_networking_messages_iface();
     if (!m) return out;
 
-    if (buffer_size == 0 || count == 0) return out;
+    if (count == 0) return out;
 
     std::vector<SteamNetworkingMessage_t*> msgs(count, nullptr);
     int n = m->ReceiveMessagesOnChannel((int)local_channel, msgs.data(), (int)count);
@@ -158,6 +157,7 @@ std::vector<gm_structs::SteamNetworkingMessage> steam_networking_messages_receiv
     n = std::min((int)count, n);
 
     std::uint32_t current_offset = 0;
+    std::uint64_t buffer_size = out_data.length();
 
     for (int i = 0; i < n; ++i) {
         if (!msgs[i]) break;

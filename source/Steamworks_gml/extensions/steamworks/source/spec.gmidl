@@ -5710,7 +5710,6 @@ function steam_networking_messages_send_message_to_user(
 function steam_networking_messages_receive_messages_on_channel(
     local_channel: int32,
     [type_hint=buffer] out_data: gmval,
-    buffer_size: uint32,
     count: uint32
 ): gmval;
 
@@ -5869,7 +5868,6 @@ function steam_networking_sockets_flush_messages_on_connection(conn: uint32): gm
 function steam_networking_sockets_receive_messages_on_connection(
     conn: uint32,
     [type_hint=buffer] out_data: gmval,
-    buffer_size: uint32,
     count: uint32
 ): gmval;
 
@@ -5914,7 +5912,6 @@ function steam_networking_sockets_set_connection_poll_group(
 function steam_networking_sockets_receive_messages_on_poll_group(
     poll_group: uint32,
     [type_hint=buffer] out_data: gmval,
-    buffer_size: uint32,
     count: uint32
 ): gmval;
 

@@ -237,7 +237,6 @@ gm_enums::SteamApiResult steam_networking_sockets_flush_messages_on_connection(s
 
 std::vector<gm_structs::SteamNetworkingMessage> steam_networking_sockets_receive_messages_on_connection(std::uint32_t conn,
                                                                                                         gm::wire::GMBuffer out_data,
-                                                                                                        std::uint32_t buffer_size,
                                                                                                         std::uint32_t count)
 {
     STEAM_GUARD_RET({});
@@ -247,7 +246,7 @@ std::vector<gm_structs::SteamNetworkingMessage> steam_networking_sockets_receive
     ISteamNetworkingSockets* s = steam_networking_sockets_iface();
     if (!s) return out;
 
-    if (buffer_size == 0 || count == 0) return out;
+    if (count == 0) return out;
 
     std::vector<SteamNetworkingMessage_t*> msgs(count, nullptr);
     int n = s->ReceiveMessagesOnConnection((HSteamNetConnection)conn, msgs.data(), (int)count);
@@ -256,6 +255,7 @@ std::vector<gm_structs::SteamNetworkingMessage> steam_networking_sockets_receive
     n = std::min((int)count, n);
 
     std::uint32_t current_offset = 0;
+    std::uint64_t buffer_size = out_data.length();
 
     for (int i = 0; i < n; ++i) {
         if (!msgs[i]) break;
@@ -424,7 +424,6 @@ bool steam_networking_sockets_set_connection_poll_group(std::uint32_t conn, std:
 
 std::vector<gm_structs::SteamNetworkingMessage> steam_networking_sockets_receive_messages_on_poll_group(std::uint32_t poll_group,
                                                                                                         gm::wire::GMBuffer out_data,
-                                                                                                        std::uint32_t buffer_size,
                                                                                                         std::uint32_t count)
 {
     STEAM_GUARD_RET({});
@@ -434,7 +433,7 @@ std::vector<gm_structs::SteamNetworkingMessage> steam_networking_sockets_receive
     ISteamNetworkingSockets* s = steam_networking_sockets_iface();
     if (!s) return out;
 
-    if (buffer_size == 0 || count == 0) return out;
+    if (count == 0) return out;
 
     std::vector<SteamNetworkingMessage_t*> msgs(count, nullptr);
     int n = s->ReceiveMessagesOnPollGroup((HSteamNetPollGroup)poll_group, msgs.data(), (int)count);
@@ -443,6 +442,7 @@ std::vector<gm_structs::SteamNetworkingMessage> steam_networking_sockets_receive
     n = std::min((int)count, n);
 
     std::uint32_t current_offset = 0;
+    std::uint64_t buffer_size = out_data.length();
 
     for (int i = 0; i < n; ++i) {
         if (!msgs[i]) break;
