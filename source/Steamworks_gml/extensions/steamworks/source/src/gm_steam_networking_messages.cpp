@@ -114,7 +114,6 @@ void steam_networking_messages_clear_callback_session_failed()
 
 std::int32_t steam_networking_messages_send_message_to_user(std::uint64_t steam_id_remote,
                                                             gm::wire::GMBuffer data,
-                                                            std::uint32_t bytes,
                                                             std::int32_t send_flags,
                                                             std::int32_t remote_channel)
 {
@@ -123,16 +122,11 @@ std::int32_t steam_networking_messages_send_message_to_user(std::uint64_t steam_
     ISteamNetworkingMessages* m = steam_networking_messages_iface();
     if (!m) return (std::int32_t)k_EResultFail;
 
-    if (bytes == 0) return (std::int32_t)k_EResultInvalidParam;
-
-    if ((std::uint64_t)bytes > data.length()) {
-        steam_set_last_error("steam_networking_messages_send_message_to_user: bytes exceeds buffer length.");
-        return (std::int32_t)k_EResultInvalidParam;
-    }
+    if (data.length() == 0) return (std::int32_t)k_EResultInvalidParam;
 
     SteamNetworkingIdentity id = snm_identity_from_steamid64(steam_id_remote);
 
-    EResult r = m->SendMessageToUser(id, (const void*)data.data(), (uint32)bytes, (int)send_flags, (int)remote_channel);
+    EResult r = m->SendMessageToUser(id, (const void*)data.data(), (uint32)data.length(), (int)send_flags, (int)remote_channel);
     return (std::int32_t)r;
 }
 

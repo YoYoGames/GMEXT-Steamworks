@@ -144,22 +144,22 @@ int32 steam_inventory_consume_item(std::uint64_t item_instance_id,
     return out;
 }
 
-std::optional<SteamInventoryDeserializeResult> steam_inventory_deserialize_result(GMBuffer data, std::uint32_t data_size)
+std::optional<SteamInventoryDeserializeResult> steam_inventory_deserialize_result(GMBuffer data)
 {
     STEAM_GUARD_RET(std::nullopt);
 
     ISteamInventory* inv = steam_inventory_iface();
     if (!inv) return std::nullopt;
 
-    if (data_size == 0)
+    if (data.length() == 0)
     {
-        steam_set_last_error("DeserializeResult: data_size must be > 0.");
+        steam_set_last_error("DeserializeResult: data buffer must have length > 0.");
         return std::nullopt;
     }
 
-    std::vector<std::uint8_t> buf((size_t)data_size);
+    std::vector<std::uint8_t> buf((size_t)data.length());
     auto r = data.getReader();
-    r.readBytes((char*)buf.data(), (int)data_size);
+    r.readBytes((char*)buf.data(), (int)data.length());
 
     SteamInventoryResult_t rh = k_SteamInventoryResultInvalid;
     const bool ok = inv->DeserializeResult(&rh, buf.data(), (uint32)buf.size(), false);
@@ -411,21 +411,21 @@ int32 steam_inventory_get_items_by_id(const std::vector<std::uint64_t>& item_ins
     return out;
 }
 
-std::optional<std::uint32_t> steam_inventory_serialize_result(std::int32_t result_handle, GMBuffer out_data, std::uint32_t out_capacity)
+std::optional<std::uint32_t> steam_inventory_serialize_result(std::int32_t result_handle, GMBuffer out_data)
 {
     STEAM_GUARD_RET(std::nullopt);
 
     ISteamInventory* inv = steam_inventory_iface();
     if (!inv) return std::nullopt;
 
-    if (out_capacity == 0)
+    if (out_data.length() == 0)
     {
-        steam_set_last_error("SerializeResult: out_capacity must be > 0.");
+        steam_set_last_error("SerializeResult: out_data buffer must have length > 0.");
         return std::nullopt;
     }
 
-    std::vector<std::uint8_t> buf((size_t)out_capacity);
-    uint32 written = out_capacity;
+    std::vector<std::uint8_t> buf((size_t)out_data.length());
+    uint32 written = (uint32)out_data.length();
 
     if (!inv->SerializeResult(make_result_handle(result_handle), buf.data(), &written))
         return std::nullopt;

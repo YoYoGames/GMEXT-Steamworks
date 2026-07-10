@@ -203,7 +203,6 @@ std::string steam_networking_sockets_get_connection_name(std::uint32_t conn)
 
 std::int32_t steam_networking_sockets_send_message_to_connection(std::uint32_t conn,
                                                                  gm::wire::GMBuffer data,
-                                                                 std::uint32_t bytes,
                                                                  gm_enums::SteamNetworkingSendFlags send_flags)
 {
     STEAM_GUARD_RET((std::int32_t)k_EResultFail);
@@ -211,16 +210,11 @@ std::int32_t steam_networking_sockets_send_message_to_connection(std::uint32_t c
     ISteamNetworkingSockets* s = steam_networking_sockets_iface();
     if (!s) return (std::int32_t)k_EResultFail;
 
-    if (bytes == 0) return (std::int32_t)k_EResultInvalidParam;
-
-    if ((std::uint64_t)bytes > data.length()) {
-        steam_set_last_error("steam_networking_sockets_send_message_to_connection: bytes exceeds buffer length.");
-        return (std::int32_t)k_EResultInvalidParam;
-    }
+    if (data.length() == 0) return (std::int32_t)k_EResultInvalidParam;
 
     return (std::int32_t)s->SendMessageToConnection((HSteamNetConnection)conn,
                                                     (const void*)data.data(),
-                                                    (uint32)bytes,
+                                                    (uint32)data.length(),
                                                     (int)send_flags,
                                                     nullptr);
 }

@@ -197,19 +197,19 @@ std::uint32_t steam_utils_get_entered_gamepad_text_length()
     return (std::uint32_t)u->GetEnteredGamepadTextLength();
 }
 
-bool steam_utils_get_image_rgba(std::int32_t image_handle, gm::wire::GMBuffer dest, std::int32_t dest_buffer_size)
+bool steam_utils_get_image_rgba(std::int32_t image_handle, gm::wire::GMBuffer dest)
 {
     STEAM_GUARD_RET(false);
     ISteamUtils* u = steam_utils_iface();
     if (!u)
         return false;
 
-    if (dest_buffer_size <= 0) {
+    if (dest.length() <= 0) {
         steam_set_last_error("GetImageRGBA: dest_buffer_size must be > 0.");
         return false;
     }
 
-    std::vector<std::uint8_t> rgba((size_t)dest_buffer_size);
+    std::vector<std::uint8_t> rgba((size_t)dest.length());
 
     const bool ok = u->GetImageRGBA(image_handle, rgba.data(), (int)rgba.size());
     if (!ok)
@@ -563,7 +563,7 @@ bool steam_utils_show_floating_gamepad_text_input(
 }
 
 std::optional<bool> steam_utils_get_api_call_result(
-    std::uint64_t steam_api_call, std::int32_t callback_expected, gm::wire::GMBuffer out_callback, std::int32_t out_callback_size
+    std::uint64_t steam_api_call, std::int32_t callback_expected, gm::wire::GMBuffer out_callback
 )
 {
     STEAM_GUARD_RET(std::nullopt);
@@ -572,13 +572,13 @@ std::optional<bool> steam_utils_get_api_call_result(
     if (!u)
         return std::nullopt;
 
-    if (out_callback_size <= 0) {
-        steam_set_last_error("GetApiCallResult: out_callback_size must be > 0.");
+    if (out_callback.length() <= 0) {
+        steam_set_last_error("GetApiCallResult: out_callback must have length > 0.");
         return std::nullopt;
     }
 
     std::vector<std::uint8_t> tmp;
-    tmp.resize((size_t)out_callback_size);
+    tmp.resize((size_t)out_callback.length());
 
     bool failed = false;
 

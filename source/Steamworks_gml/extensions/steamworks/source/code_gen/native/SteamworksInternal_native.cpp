@@ -1094,10 +1094,7 @@ GMEXPORT double __EXT_NATIVE__steam_apps_get_app_ownership_ticket_data(char* __a
     gm::wire::GMBuffer ticket_buffer = __buffer_queue.front();
     __buffer_queue.pop();
 
-    // field: max_bytes, type: UInt32
-    std::uint32_t max_bytes = gm::wire::codec::readValue<std::uint32_t>(__br);
-
-    auto&& __result = steam_apps_get_app_ownership_ticket_data(app_id, ticket_buffer, max_bytes);
+    auto&& __result = steam_apps_get_app_ownership_ticket_data(app_id, ticket_buffer);
     return static_cast<double>(__result);
 }
 
@@ -1266,16 +1263,13 @@ GMEXPORT double __EXT_NATIVE__steam_screenshots_write_screenshot(char* __arg_buf
     gm::wire::GMBuffer buff_rgb = __buffer_queue.front();
     __buffer_queue.pop();
 
-    // field: rgb_size, type: UInt32
-    std::uint32_t rgb_size = gm::wire::codec::readValue<std::uint32_t>(__br);
-
     // field: width, type: Int32
     std::int32_t width = gm::wire::codec::readValue<std::int32_t>(__br);
 
     // field: height, type: Int32
     std::int32_t height = gm::wire::codec::readValue<std::int32_t>(__br);
 
-    auto&& __result = steam_screenshots_write_screenshot(buff_rgb, rgb_size, width, height);
+    auto&& __result = steam_screenshots_write_screenshot(buff_rgb, width, height);
     return static_cast<double>(__result);
 }
 
@@ -1338,13 +1332,10 @@ GMEXPORT double __EXT_NATIVE__steam_user_begin_auth_session(char* __arg_buffer, 
     gm::wire::GMBuffer auth_ticket = __buffer_queue.front();
     __buffer_queue.pop();
 
-    // field: auth_ticket_size, type: Int32
-    std::int32_t auth_ticket_size = gm::wire::codec::readValue<std::int32_t>(__br);
-
     // field: steam_id, type: UInt64
     std::uint64_t steam_id = gm::wire::codec::readValue<std::uint64_t>(__br);
 
-    auto&& __result = steam_user_begin_auth_session(auth_ticket, auth_ticket_size, steam_id);
+    auto&& __result = steam_user_begin_auth_session(auth_ticket, steam_id);
     gm::byteio::BufferWriter __bw{__ret_buffer, static_cast<size_t>(__ret_buffer_length)};
 
     // return: __result, type: enum SteamUserBeginAuthSessionResult
@@ -1413,20 +1404,14 @@ GMEXPORT double __EXT_NATIVE__steam_user_decompress_voice(char* __arg_buffer, do
     gm::wire::GMBuffer compressed = __buffer_queue.front();
     __buffer_queue.pop();
 
-    // field: compressed_size, type: UInt32
-    std::uint32_t compressed_size = gm::wire::codec::readValue<std::uint32_t>(__br);
-
     // field: dest, type: Buffer
     gm::wire::GMBuffer dest = __buffer_queue.front();
     __buffer_queue.pop();
 
-    // field: dest_buffer_size, type: UInt32
-    std::uint32_t dest_buffer_size = gm::wire::codec::readValue<std::uint32_t>(__br);
-
     // field: desired_sample_rate, type: UInt32
     std::uint32_t desired_sample_rate = gm::wire::codec::readValue<std::uint32_t>(__br);
 
-    auto&& __result = steam_user_decompress_voice(compressed, compressed_size, dest, dest_buffer_size, desired_sample_rate);
+    auto&& __result = steam_user_decompress_voice(compressed, dest, desired_sample_rate);
     gm::byteio::BufferWriter __bw{__ret_buffer, static_cast<size_t>(__ret_buffer_length)};
 
     // return: __result, type: enum SteamApiVoiceResult
@@ -1453,13 +1438,10 @@ GMEXPORT double __EXT_NATIVE__steam_user_get_auth_session_ticket(char* __arg_buf
     gm::wire::GMBuffer out_ticket = __buffer_queue.front();
     __buffer_queue.pop();
 
-    // field: max_ticket_size, type: Int32
-    std::int32_t max_ticket_size = gm::wire::codec::readValue<std::int32_t>(__br);
-
     // field: remote_identity, type: optional<struct SteamNetworkingIdentity>
     std::optional<gm_structs::SteamNetworkingIdentity> remote_identity = gm::wire::codec::readOptional<gm_structs::SteamNetworkingIdentity>(__br);
 
-    auto&& __result = steam_user_get_auth_session_ticket(out_ticket, max_ticket_size, remote_identity);
+    auto&& __result = steam_user_get_auth_session_ticket(out_ticket, remote_identity);
     gm::byteio::BufferWriter __bw{__ret_buffer, static_cast<size_t>(__ret_buffer_length)};
 
     // return: __result, type: struct SteamUserAuthSessionTicket
@@ -1543,9 +1525,6 @@ GMEXPORT double __EXT_NATIVE__steam_user_get_voice(char* __arg_buffer, double __
     gm::wire::GMBuffer dest_compressed = __buffer_queue.front();
     __buffer_queue.pop();
 
-    // field: dest_compressed_size, type: UInt32
-    std::uint32_t dest_compressed_size = gm::wire::codec::readValue<std::uint32_t>(__br);
-
     // field: want_uncompressed, type: Bool
     bool want_uncompressed = gm::wire::codec::readValue<bool>(__br);
 
@@ -1553,13 +1532,10 @@ GMEXPORT double __EXT_NATIVE__steam_user_get_voice(char* __arg_buffer, double __
     gm::wire::GMBuffer dest_uncompressed = __buffer_queue.front();
     __buffer_queue.pop();
 
-    // field: dest_uncompressed_size, type: UInt32
-    std::uint32_t dest_uncompressed_size = gm::wire::codec::readValue<std::uint32_t>(__br);
-
     // field: desired_sample_rate, type: UInt32
     std::uint32_t desired_sample_rate = gm::wire::codec::readValue<std::uint32_t>(__br);
 
-    auto&& __result = steam_user_get_voice(want_compressed, dest_compressed, dest_compressed_size, want_uncompressed, dest_uncompressed, dest_uncompressed_size, desired_sample_rate);
+    auto&& __result = steam_user_get_voice(want_compressed, dest_compressed, want_uncompressed, dest_uncompressed, desired_sample_rate);
     gm::byteio::BufferWriter __bw{__ret_buffer, static_cast<size_t>(__ret_buffer_length)};
 
     // return: __result, type: struct SteamUserGetVoiceResult
@@ -1575,13 +1551,10 @@ GMEXPORT double __EXT_NATIVE__steam_user_request_encrypted_app_ticket(char* __ar
     gm::wire::GMBuffer data_to_include = __buffer_queue.front();
     __buffer_queue.pop();
 
-    // field: data_to_include_size, type: Int32
-    std::int32_t data_to_include_size = gm::wire::codec::readValue<std::int32_t>(__br);
-
     // field: callback, type: Function
     gm::wire::GMFunction callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
 
-    steam_user_request_encrypted_app_ticket(data_to_include, data_to_include_size, callback);
+    steam_user_request_encrypted_app_ticket(data_to_include, callback);
     return 0;
 }
 
@@ -1593,10 +1566,7 @@ GMEXPORT double __EXT_NATIVE__steam_user_get_encrypted_app_ticket(char* __arg_bu
     gm::wire::GMBuffer out_ticket = __buffer_queue.front();
     __buffer_queue.pop();
 
-    // field: max_ticket_size, type: Int32
-    std::int32_t max_ticket_size = gm::wire::codec::readValue<std::int32_t>(__br);
-
-    auto&& __result = steam_user_get_encrypted_app_ticket(out_ticket, max_ticket_size);
+    auto&& __result = steam_user_get_encrypted_app_ticket(out_ticket);
     gm::byteio::BufferWriter __bw{__ret_buffer, static_cast<size_t>(__ret_buffer_length)};
 
     // return: __result, type: optional<UInt32>
@@ -1858,10 +1828,7 @@ GMEXPORT double __EXT_NATIVE__steam_utils_get_api_call_result(char* __arg_buffer
     gm::wire::GMBuffer out_callback = __buffer_queue.front();
     __buffer_queue.pop();
 
-    // field: out_callback_size, type: Int32
-    std::int32_t out_callback_size = gm::wire::codec::readValue<std::int32_t>(__br);
-
-    auto&& __result = steam_utils_get_api_call_result(steam_api_call, callback_expected, out_callback, out_callback_size);
+    auto&& __result = steam_utils_get_api_call_result(steam_api_call, callback_expected, out_callback);
     gm::byteio::BufferWriter __bw{__ret_buffer, static_cast<size_t>(__ret_buffer_length)};
 
     // return: __result, type: optional<Bool>
@@ -2003,10 +1970,7 @@ GMEXPORT double __EXT_NATIVE__steam_utils_get_image_rgba(char* __arg_buffer, dou
     gm::wire::GMBuffer dest = __buffer_queue.front();
     __buffer_queue.pop();
 
-    // field: dest_buffer_size, type: Int32
-    std::int32_t dest_buffer_size = gm::wire::codec::readValue<std::int32_t>(__br);
-
-    auto&& __result = steam_utils_get_image_rgba(image_handle, dest, dest_buffer_size);
+    auto&& __result = steam_utils_get_image_rgba(image_handle, dest);
     return static_cast<double>(__result);
 }
 
@@ -4585,20 +4549,9 @@ GMEXPORT double __EXT_NATIVE__steam_userstats_global_stat_history_double(char* s
     return 0;
 }
 
-GMEXPORT double __EXT_NATIVE__steam_userstats_achievement_progress_int(char* __arg_buffer, double __arg_buffer_length, char* __ret_buffer, double __ret_buffer_length)
+GMEXPORT double __EXT_NATIVE__steam_userstats_achievement_progress_int(char* achievement_name, char* __ret_buffer, double __ret_buffer_length)
 {
-    gm::byteio::BufferReader __br{__arg_buffer, static_cast<size_t>(__arg_buffer_length)};
-
-    // field: achievement_name, type: String
-    std::string_view achievement_name = gm::wire::codec::readValue<std::string_view>(__br);
-
-    // field: cur_progress, type: UInt32
-    std::uint32_t cur_progress = gm::wire::codec::readValue<std::uint32_t>(__br);
-
-    // field: max_progress, type: UInt32
-    std::uint32_t max_progress = gm::wire::codec::readValue<std::uint32_t>(__br);
-
-    auto&& __result = steam_userstats_achievement_progress_int(achievement_name, cur_progress, max_progress);
+    auto&& __result = steam_userstats_achievement_progress_int(achievement_name);
     gm::byteio::BufferWriter __bw{__ret_buffer, static_cast<size_t>(__ret_buffer_length)};
 
     // return: __result, type: optional<struct SteamUserStatsIntMinMax>
@@ -4606,20 +4559,9 @@ GMEXPORT double __EXT_NATIVE__steam_userstats_achievement_progress_int(char* __a
     return 0;
 }
 
-GMEXPORT double __EXT_NATIVE__steam_userstats_achievement_progress_float(char* __arg_buffer, double __arg_buffer_length, char* __ret_buffer, double __ret_buffer_length)
+GMEXPORT double __EXT_NATIVE__steam_userstats_achievement_progress_float(char* achievement_name, char* __ret_buffer, double __ret_buffer_length)
 {
-    gm::byteio::BufferReader __br{__arg_buffer, static_cast<size_t>(__arg_buffer_length)};
-
-    // field: achievement_name, type: String
-    std::string_view achievement_name = gm::wire::codec::readValue<std::string_view>(__br);
-
-    // field: cur_progress, type: Float32
-    float cur_progress = gm::wire::codec::readValue<float>(__br);
-
-    // field: max_progress, type: Float32
-    float max_progress = gm::wire::codec::readValue<float>(__br);
-
-    auto&& __result = steam_userstats_achievement_progress_float(achievement_name, cur_progress, max_progress);
+    auto&& __result = steam_userstats_achievement_progress_float(achievement_name);
     gm::byteio::BufferWriter __bw{__ret_buffer, static_cast<size_t>(__ret_buffer_length)};
 
     // return: __result, type: optional<struct SteamUserStatsFloatMinMax>
@@ -5144,10 +5086,7 @@ GMEXPORT double __EXT_NATIVE__steam_inventory_deserialize_result(char* __arg_buf
     gm::wire::GMBuffer data = __buffer_queue.front();
     __buffer_queue.pop();
 
-    // field: data_size, type: UInt32
-    std::uint32_t data_size = gm::wire::codec::readValue<std::uint32_t>(__br);
-
-    auto&& __result = steam_inventory_deserialize_result(data, data_size);
+    auto&& __result = steam_inventory_deserialize_result(data);
     gm::byteio::BufferWriter __bw{__ret_buffer, static_cast<size_t>(__ret_buffer_length)};
 
     // return: __result, type: optional<struct SteamInventoryDeserializeResult>
@@ -5275,10 +5214,7 @@ GMEXPORT double __EXT_NATIVE__steam_inventory_serialize_result(char* __arg_buffe
     gm::wire::GMBuffer out_data = __buffer_queue.front();
     __buffer_queue.pop();
 
-    // field: out_capacity, type: UInt32
-    std::uint32_t out_capacity = gm::wire::codec::readValue<std::uint32_t>(__br);
-
-    auto&& __result = steam_inventory_serialize_result(result_handle, out_data, out_capacity);
+    auto&& __result = steam_inventory_serialize_result(result_handle, out_data);
     gm::byteio::BufferWriter __bw{__ret_buffer, static_cast<size_t>(__ret_buffer_length)};
 
     // return: __result, type: optional<UInt32>
@@ -5681,10 +5617,7 @@ GMEXPORT double __EXT_NATIVE__steam_remote_storage_file_write(char* __arg_buffer
     gm::wire::GMBuffer data = __buffer_queue.front();
     __buffer_queue.pop();
 
-    // field: bytes, type: UInt32
-    std::uint32_t bytes = gm::wire::codec::readValue<std::uint32_t>(__br);
-
-    auto&& __result = steam_remote_storage_file_write(file_name, data, bytes);
+    auto&& __result = steam_remote_storage_file_write(file_name, data);
     return static_cast<double>(__result);
 }
 
@@ -5699,13 +5632,10 @@ GMEXPORT double __EXT_NATIVE__steam_remote_storage_file_write_async(char* __arg_
     gm::wire::GMBuffer data = __buffer_queue.front();
     __buffer_queue.pop();
 
-    // field: bytes, type: UInt32
-    std::uint32_t bytes = gm::wire::codec::readValue<std::uint32_t>(__br);
-
     // field: callback, type: Function
     gm::wire::GMFunction callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
 
-    steam_remote_storage_file_write_async(file_name, data, bytes, callback);
+    steam_remote_storage_file_write_async(file_name, data, callback);
     return 0;
 }
 
@@ -5720,10 +5650,7 @@ GMEXPORT double __EXT_NATIVE__steam_remote_storage_file_read(char* __arg_buffer,
     gm::wire::GMBuffer out_data = __buffer_queue.front();
     __buffer_queue.pop();
 
-    // field: max_bytes, type: UInt32
-    std::uint32_t max_bytes = gm::wire::codec::readValue<std::uint32_t>(__br);
-
-    auto&& __result = steam_remote_storage_file_read(file_name, out_data, max_bytes);
+    auto&& __result = steam_remote_storage_file_read(file_name, out_data);
     return static_cast<double>(__result);
 }
 
@@ -5834,10 +5761,7 @@ GMEXPORT double __EXT_NATIVE__steam_remote_storage_file_write_stream_write_chunk
     gm::wire::GMBuffer data = __buffer_queue.front();
     __buffer_queue.pop();
 
-    // field: bytes, type: UInt32
-    std::uint32_t bytes = gm::wire::codec::readValue<std::uint32_t>(__br);
-
-    auto&& __result = steam_remote_storage_file_write_stream_write_chunk(stream, data, bytes);
+    auto&& __result = steam_remote_storage_file_write_stream_write_chunk(stream, data);
     return static_cast<double>(__result);
 }
 
@@ -5905,16 +5829,13 @@ GMEXPORT double __EXT_NATIVE__steam_remote_storage_ugc_read(char* __arg_buffer, 
     gm::wire::GMBuffer out_data = __buffer_queue.front();
     __buffer_queue.pop();
 
-    // field: bytes_to_read, type: Int32
-    std::int32_t bytes_to_read = gm::wire::codec::readValue<std::int32_t>(__br);
-
     // field: offset, type: UInt32
     std::uint32_t offset = gm::wire::codec::readValue<std::uint32_t>(__br);
 
     // field: action, type: enum SteamRemoteStorageUgcReadAction
     gm_enums::SteamRemoteStorageUgcReadAction action = gm::wire::codec::readValue<gm_enums::SteamRemoteStorageUgcReadAction>(__br);
 
-    auto&& __result = steam_remote_storage_ugc_read(ugc_handle, out_data, bytes_to_read, offset, action);
+    auto&& __result = steam_remote_storage_ugc_read(ugc_handle, out_data, offset, action);
     return static_cast<double>(__result);
 }
 
@@ -6303,17 +6224,11 @@ GMEXPORT double __EXT_NATIVE__steam_matchmaking_get_lobby_data_by_index(char* __
     gm::wire::GMBuffer key_out = __buffer_queue.front();
     __buffer_queue.pop();
 
-    // field: key_max, type: Int32
-    std::int32_t key_max = gm::wire::codec::readValue<std::int32_t>(__br);
-
     // field: val_out, type: Buffer
     gm::wire::GMBuffer val_out = __buffer_queue.front();
     __buffer_queue.pop();
 
-    // field: val_max, type: Int32
-    std::int32_t val_max = gm::wire::codec::readValue<std::int32_t>(__br);
-
-    auto&& __result = steam_matchmaking_get_lobby_data_by_index(lobby_id, index, key_out, key_max, val_out, val_max);
+    auto&& __result = steam_matchmaking_get_lobby_data_by_index(lobby_id, index, key_out, val_out);
     return static_cast<double>(__result);
 }
 
@@ -6384,10 +6299,7 @@ GMEXPORT double __EXT_NATIVE__steam_matchmaking_get_lobby_chat_entry(char* __arg
     gm::wire::GMBuffer out_buffer = __buffer_queue.front();
     __buffer_queue.pop();
 
-    // field: out_max_bytes, type: Int32
-    std::int32_t out_max_bytes = gm::wire::codec::readValue<std::int32_t>(__br);
-
-    auto&& __result = steam_matchmaking_get_lobby_chat_entry(lobby_id, chat_id, out_buffer, out_max_bytes);
+    auto&& __result = steam_matchmaking_get_lobby_chat_entry(lobby_id, chat_id, out_buffer);
     gm::byteio::BufferWriter __bw{__ret_buffer, static_cast<size_t>(__ret_buffer_length)};
 
     // return: __result, type: optional<struct SteamMatchmakingLobbyChatEntry>
@@ -6548,16 +6460,13 @@ GMEXPORT double __EXT_NATIVE__steam_networking_messages_send_message_to_user(cha
     gm::wire::GMBuffer data = __buffer_queue.front();
     __buffer_queue.pop();
 
-    // field: bytes, type: UInt32
-    std::uint32_t bytes = gm::wire::codec::readValue<std::uint32_t>(__br);
-
     // field: send_flags, type: Int32
     std::int32_t send_flags = gm::wire::codec::readValue<std::int32_t>(__br);
 
     // field: remote_channel, type: Int32
     std::int32_t remote_channel = gm::wire::codec::readValue<std::int32_t>(__br);
 
-    auto&& __result = steam_networking_messages_send_message_to_user(steam_id_remote, data, bytes, send_flags, remote_channel);
+    auto&& __result = steam_networking_messages_send_message_to_user(steam_id_remote, data, send_flags, remote_channel);
     return static_cast<double>(__result);
 }
 
@@ -6714,13 +6623,10 @@ GMEXPORT double __EXT_NATIVE__steam_networking_sockets_send_message_to_connectio
     gm::wire::GMBuffer data = __buffer_queue.front();
     __buffer_queue.pop();
 
-    // field: bytes, type: UInt32
-    std::uint32_t bytes = gm::wire::codec::readValue<std::uint32_t>(__br);
-
     // field: send_flags, type: enum SteamNetworkingSendFlags
     gm_enums::SteamNetworkingSendFlags send_flags = gm::wire::codec::readValue<gm_enums::SteamNetworkingSendFlags>(__br);
 
-    auto&& __result = steam_networking_sockets_send_message_to_connection(conn, data, bytes, send_flags);
+    auto&& __result = steam_networking_sockets_send_message_to_connection(conn, data, send_flags);
     return static_cast<double>(__result);
 }
 

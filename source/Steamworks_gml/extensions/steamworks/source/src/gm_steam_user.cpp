@@ -55,24 +55,23 @@ void steam_user_advertise_game(std::uint64_t steam_id_game_server,
 
 SteamUserBeginAuthSessionResult
 steam_user_begin_auth_session(gm::wire::GMBuffer auth_ticket,
-                              std::int32_t auth_ticket_size,
                               std::uint64_t steam_id)
 {
     STEAM_GUARD_RET(SteamUserBeginAuthSessionResult::InvalidTicket);
     ISteamUser* u = steam_user_iface();
     if (!u) return SteamUserBeginAuthSessionResult::InvalidTicket;
 
-    if (auth_ticket_size <= 0)
+    if (auth_ticket.length() <= 0)
     {
-        steam_set_last_error("BeginAuthSession: auth_ticket_size must be > 0.");
+        steam_set_last_error("BeginAuthSession: auth_ticket must have length > 0.");
         return SteamUserBeginAuthSessionResult::InvalidTicket;
     }
 
-    std::vector<std::uint8_t> tmp((size_t)auth_ticket_size);
+    std::vector<std::uint8_t> tmp((size_t)auth_ticket.length());
     auto reader = auth_ticket.getReader();
-    reader.readBytes((char*)tmp.data(), auth_ticket_size);
+    reader.readBytes((char*)tmp.data(), (int)auth_ticket.length());
 
-    EBeginAuthSessionResult r = u->BeginAuthSession(tmp.data(), auth_ticket_size, steam_id_from_u64(steam_id));
+    EBeginAuthSessionResult r = u->BeginAuthSession(tmp.data(), (uint32)auth_ticket.length(), steam_id_from_u64(steam_id));
     return (SteamUserBeginAuthSessionResult)(int)r;
 }
 
@@ -151,33 +150,31 @@ void steam_user_cancel_auth_ticket(std::uint32_t h_auth_ticket)
 
 SteamApiVoiceResult steam_user_decompress_voice(
     gm::wire::GMBuffer compressed,
-    std::uint32_t compressed_size,
     gm::wire::GMBuffer dest,
-    std::uint32_t dest_buffer_size,
     std::uint32_t desired_sample_rate)
 {
     STEAM_GUARD_RET(SteamApiVoiceResult::NotInitialized);
     ISteamUser* u = steam_user_iface();
     if (!u) return SteamApiVoiceResult::NotInitialized;
 
-    if (compressed_size == 0 || dest_buffer_size == 0)
+    if (compressed.length() == 0 || dest.length() == 0)
     {
-        steam_set_last_error("DecompressVoice: compressed_size and dest_buffer_size must be > 0.");
+        steam_set_last_error("DecompressVoice: compressed and dest buffers must have length > 0.");
         return SteamApiVoiceResult::BufferTooSmall;
     }
 
-    std::vector<std::uint8_t> in((size_t)compressed_size);
+    std::vector<std::uint8_t> in((size_t)compressed.length());
     {
         auto r = compressed.getReader();
-        r.readBytes((char*)in.data(), (int)compressed_size);
+        r.readBytes((char*)in.data(), (int)compressed.length());
     }
 
-    std::vector<std::uint8_t> out((size_t)dest_buffer_size);
+    std::vector<std::uint8_t> out((size_t)dest.length());
     uint32 written = 0;
 
     EVoiceResult vr = u->DecompressVoice(
         in.data(),
-        (uint32)compressed_size,
+        (uint32)in.size(),
         out.data(),
         (uint32)out.size(),
         &written,
@@ -302,7 +299,6 @@ static bool steam_fill_networking_identity(
 
 gm_structs::SteamUserAuthSessionTicket steam_user_get_auth_session_ticket(
     gm::wire::GMBuffer out_ticket,
-    std::int32_t max_ticket_size,
     const std::optional<gm_structs::SteamNetworkingIdentity>& remote_identity)
 {
     STEAM_GUARD_RET({});
@@ -314,13 +310,13 @@ gm_structs::SteamUserAuthSessionTicket steam_user_get_auth_session_ticket(
     ISteamUser* u = steam_user_iface();
     if (!u) return out;
 
-    if (max_ticket_size <= 0)
+    if (out_ticket.length() <= 0)
     {
-        steam_set_last_error("GetAuthSessionTicket: max_ticket_size must be > 0.");
+        steam_set_last_error("GetAuthSessionTicket: out_ticket must have length > 0.");
         return out;
     }
 
-    std::vector<std::uint8_t> buf((size_t)max_ticket_size);
+    std::vector<std::uint8_t> buf((size_t)out_ticket.length());
     uint32 pcbTicket = 0;
 
     ::SteamNetworkingIdentity native_identity;
@@ -336,7 +332,7 @@ gm_structs::SteamUserAuthSessionTicket steam_user_get_auth_session_ticket(
 
     HAuthTicket h = u->GetAuthSessionTicket(
         buf.data(),
-        max_ticket_size,
+        (int)out_ticket.length(),
         &pcbTicket,
         p_remote
     );
@@ -447,10 +443,8 @@ SteamUserAvailableVoice steam_user_get_available_voice()
 SteamUserGetVoiceResult steam_user_get_voice(
     bool want_compressed,
     gm::wire::GMBuffer dest_compressed,
-    std::uint32_t dest_compressed_size,
     bool want_uncompressed,
     gm::wire::GMBuffer dest_uncompressed,
-    std::uint32_t dest_uncompressed_size,
     std::uint32_t desired_sample_rate)
 {
     STEAM_GUARD_RET({});
@@ -481,28 +475,28 @@ SteamUserGetVoiceResult steam_user_get_voice(
 
     if (want_compressed)
     {
-        if (dest_compressed_size == 0)
+        if (dest_compressed.length() == 0)
         {
-            steam_set_last_error("GetVoice: requested compressed voice but dest_compressed_size==0.");
+            steam_set_last_error("GetVoice: requested compressed voice but dest_compressed buffer has length 0.");
             out.result = SteamApiVoiceResult::BufferTooSmall;
             return out;
         }
-        comp.resize((size_t)dest_compressed_size);
+        comp.resize((size_t)dest_compressed.length());
         pComp = comp.data();
-        capComp = dest_compressed_size;
+        capComp = (uint32)dest_compressed.length();
     }
 
     if (want_uncompressed)
     {
-        if (dest_uncompressed_size == 0)
+        if (dest_uncompressed.length() == 0)
         {
-            steam_set_last_error("GetVoice: requested uncompressed voice but dest_uncompressed_size==0.");
+            steam_set_last_error("GetVoice: requested uncompressed voice but dest_uncompressed buffer has length 0.");
             out.result = SteamApiVoiceResult::BufferTooSmall;
             return out;
         }
-        uncomp.resize((size_t)dest_uncompressed_size);
+        uncomp.resize((size_t)dest_uncompressed.length());
         pUncomp = uncomp.data();
-        capUncomp = dest_uncompressed_size;
+        capUncomp = (uint32)dest_uncompressed.length();
     }
 
     EVoiceResult vr = u->GetVoice(
@@ -540,24 +534,23 @@ SteamUserGetVoiceResult steam_user_get_voice(
 
 
 
-std::optional<std::uint32_t> steam_user_get_encrypted_app_ticket(gm::wire::GMBuffer out_ticket,
-                                                                    std::int32_t max_ticket_size)
+std::optional<std::uint32_t> steam_user_get_encrypted_app_ticket(gm::wire::GMBuffer out_ticket)
 {
     STEAM_GUARD_RET(std::nullopt);
 
     ISteamUser* u = steam_user_iface();
     if (!u) return std::nullopt;
 
-    if (max_ticket_size <= 0)
+    if (out_ticket.length() <= 0)
     {
-        steam_set_last_error("GetEncryptedAppTicket: max_ticket_size must be > 0.");
+        steam_set_last_error("GetEncryptedAppTicket: out_ticket must have length > 0.");
         return std::nullopt;
     }
 
-    std::vector<std::uint8_t> buf((size_t)max_ticket_size);
+    std::vector<std::uint8_t> buf((size_t)out_ticket.length());
     uint32 pcb = 0;
 
-    const bool ok = u->GetEncryptedAppTicket(buf.data(), max_ticket_size, &pcb);
+    const bool ok = u->GetEncryptedAppTicket(buf.data(), (int)out_ticket.length(), &pcb);
 
     if (!ok)
         return std::nullopt;
@@ -680,7 +673,7 @@ void steam_user_request_store_auth_url(std::string_view redirect_url,  const gm:
     h->set(call);
 }
 
-void steam_user_request_encrypted_app_ticket(gm::wire::GMBuffer data_to_include, std::int32_t data_to_include_size,  const gm::wire::GMFunction& callback)
+void steam_user_request_encrypted_app_ticket(gm::wire::GMBuffer data_to_include,  const gm::wire::GMFunction& callback)
 {
     STEAM_GUARD();
 
@@ -688,11 +681,11 @@ void steam_user_request_encrypted_app_ticket(gm::wire::GMBuffer data_to_include,
     if (!u) return;
 
     std::vector<std::uint8_t> tmp;
-    if (data_to_include_size > 0)
+    if (data_to_include.length() > 0)
     {
-        tmp.resize((size_t)data_to_include_size);
+        tmp.resize((size_t)data_to_include.length());
         auto r = data_to_include.getReader();
-        r.readBytes((char*)tmp.data(), (int)data_to_include_size);
+        r.readBytes((char*)tmp.data(), (int)data_to_include.length());
     }
 
     SteamAPICall_t call = u->RequestEncryptedAppTicket(tmp.empty() ? nullptr : tmp.data(), (int)tmp.size());

@@ -360,25 +360,23 @@ std::int32_t steam_matchmaking_get_lobby_data_count(std::uint64_t lobby_id)
 bool steam_matchmaking_get_lobby_data_by_index(std::uint64_t lobby_id,
                                                std::int32_t index,
                                                gm::wire::GMBuffer key_out,
-                                               std::int32_t key_max,
-                                               gm::wire::GMBuffer val_out,
-                                               std::int32_t val_max)
+                                               gm::wire::GMBuffer val_out)
 {
     STEAM_GUARD_RET(false);
     ISteamMatchmaking* mm = steam_matchmaking_iface();
     if (!mm) return false;
-    if (key_max <= 0 || val_max <= 0) return false;
+    if (key_out.length() <= 0 || val_out.length() <= 0) return false;
 
-    std::vector<char> k((size_t)key_max);
-    std::vector<char> v((size_t)val_max);
+    std::vector<char> k((size_t)key_out.length());
+    std::vector<char> v((size_t)val_out.length());
 
-    bool ok = mm->GetLobbyDataByIndex(steam_id_from_u64(lobby_id), (int)index, k.data(), key_max, v.data(), val_max);
+    bool ok = mm->GetLobbyDataByIndex(steam_id_from_u64(lobby_id), (int)index, k.data(), (int)key_out.length(), v.data(), (int)val_out.length());
     if (!ok) return false;
 
     auto kw = key_out.getWriter();
-    kw.writeBytes(k.data(), (int)strnlen(k.data(), (size_t)key_max));
+    kw.writeBytes(k.data(), (int)strnlen(k.data(), (size_t)key_out.length()));
     auto vw = val_out.getWriter();
-    vw.writeBytes(v.data(), (int)strnlen(v.data(), (size_t)val_max));
+    vw.writeBytes(v.data(), (int)strnlen(v.data(), (size_t)val_out.length()));
 
     return true;
 }
@@ -415,19 +413,19 @@ bool steam_matchmaking_send_lobby_chat_msg(std::uint64_t lobby_id, gm::wire::GMB
     return mm->SendLobbyChatMsg(steam_id_from_u64(lobby_id), (const void*)msg.data(), bytes);
 }
 
-std::optional<gm_structs::SteamMatchmakingLobbyChatEntry> steam_matchmaking_get_lobby_chat_entry(std::uint64_t lobby_id, std::int32_t chat_id, gm::wire::GMBuffer out_buffer, std::int32_t out_max_bytes)
+std::optional<gm_structs::SteamMatchmakingLobbyChatEntry> steam_matchmaking_get_lobby_chat_entry(std::uint64_t lobby_id, std::int32_t chat_id, gm::wire::GMBuffer out_buffer)
 {
     STEAM_GUARD_RET(std::nullopt);
 
     ISteamMatchmaking* mm = steam_matchmaking_iface();
     if (!mm) return std::nullopt;
-    if (out_max_bytes <= 0) return std::nullopt;
+    if (out_buffer.length() <= 0) return std::nullopt;
 
     CSteamID sender;
     EChatEntryType type = k_EChatEntryTypeInvalid;
 
-    std::vector<std::uint8_t> tmp((size_t)out_max_bytes);
-    int r = mm->GetLobbyChatEntry(steam_id_from_u64(lobby_id), (int)chat_id, &sender, tmp.data(), out_max_bytes, &type);
+    std::vector<std::uint8_t> tmp((size_t)out_buffer.length());
+    int r = mm->GetLobbyChatEntry(steam_id_from_u64(lobby_id), (int)chat_id, &sender, tmp.data(), (int)out_buffer.length(), &type);
     if (r <= 0) return std::nullopt;
 
     if ((std::uint64_t)r > out_buffer.length()) {

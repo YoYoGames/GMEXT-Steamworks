@@ -539,12 +539,11 @@ void steam_apps_clear_callback_dlc_installed()
 #include <mutex>
 std::uint32_t steam_apps_get_app_ownership_ticket_data(
     std::uint32_t app_id,
-    gm::wire::GMBuffer ticket_buffer,
-    std::uint32_t max_bytes)
+    gm::wire::GMBuffer ticket_buffer)
 {
     STEAM_GUARD_RET(0);
 
-    if (/*!ticket_buffer.is_valid() ||*/ max_bytes == 0)
+    if (ticket_buffer.length() == 0)
         return 0;
 
     ISteamClient* client = SteamClient();
@@ -564,7 +563,7 @@ std::uint32_t steam_apps_get_app_ownership_ticket_data(
         return 0;
     }
 
-    std::vector<std::uint8_t> tmp((size_t)max_bytes);
+    std::vector<std::uint8_t> tmp((size_t)ticket_buffer.length());
 
     uint32 outAppId = 0;
     uint32 outAccountId = 0;          // NOTE: accountID, not SteamID64
