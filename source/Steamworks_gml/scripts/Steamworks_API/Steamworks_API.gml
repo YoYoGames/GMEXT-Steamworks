@@ -56,6 +56,10 @@
 
 #macro SteamApiQueryPortNotInitialized 0xFFFF
 
+#macro SteamIDNil 0
+
+#macro SteamIDNonSteamGS 2
+
 #macro SteamFriendsMaxFriendsGroupName 64
 
 #macro SteamFriendsMaxRichPresenceKeyLength 64
@@ -187,6 +191,8 @@
 #macro SteamMatchmakingInterfaceVersion "SteamMatchMaking009"
 
 #macro SteamNetworkingPollGroup_Invalid 0
+
+#macro SteamCbMaxSteamNetworkingSocketsMessageSizeSend 524288
 
 // #####################################################################
 // # Enums
@@ -1597,6 +1603,26 @@ enum SteamNetworkingSendFlags
     AutoRestartBrokenSession = 32
 }
 
+enum SteamNetworkingConfigValue
+{
+    Invalid = 0,
+    TimeoutInitial = 24,
+    TimeoutConnected = 25,
+    SendBufferSize = 9,
+    RecvBufferSize = 47,
+    RecvBufferMessages = 48,
+    RecvMaxMessageSize = 49,
+    RecvMaxSegmentsPerPacket = 50,
+    ConnectionUserData = 40,
+    SendRateMin = 10,
+    SendRateMax = 11,
+    NagleTime = 12,
+    IPAllowWithoutAuth = 23,
+    MTUSize = 32,
+    LogLevelAcknowledged = 13,
+    LogLevelAlerts = 14
+}
+
 enum SteamPartiesBeaconLocationType
 {
     Invalid = 0,
@@ -2846,6 +2872,26 @@ function SteamUgcDownloadItemResult() constructor
     self.app_id = undefined;
     self.published_file_id = undefined;
     self.result = undefined;
+
+}
+
+/**
+ * @returns {Struct.SteamUgcWorkshopEULAStatusResult}
+ */
+function SteamUgcWorkshopEULAStatusResult() constructor
+{
+    /**
+     * Internally generated hash for quick validation
+     * @ignore
+     */
+    static __uid = 806709963;
+
+    self.result = undefined;
+    self.app_id = undefined;
+    self.version = undefined;
+    self.time_action = undefined;
+    self.accepted = undefined;
+    self.needs_action = undefined;
 
 }
 
@@ -8179,6 +8225,84 @@ function __SteamUgcDownloadItemResult_decode(_buffer, _offset)
 
         // field: result, type: enum SteamApiResult
         self.result = buffer_read(_buffer, buffer_u64);
+
+    }
+
+    return _inst;
+}
+
+/**
+ * @func __SteamUgcWorkshopEULAStatusResult_encode(_inst, _buffer, _offset, _where)
+ * @param {Struct.SteamUgcWorkshopEULAStatusResult} _inst
+ * @param {Id.Buffer} _buffer
+ * @param {Real} _offset
+ * @param {String} _where
+ * @ignore
+ */
+function __SteamUgcWorkshopEULAStatusResult_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
+{
+    buffer_seek(_buffer, buffer_seek_start, _offset);
+    with (_inst)
+    {
+        // field: result, type: enum SteamApiResult
+
+        if (!is_numeric(self.result)) show_error($"{_where} :: self.result expected number", true);
+        buffer_write(_buffer, buffer_u64, self.result);
+
+        // field: app_id, type: UInt32
+        if (!is_numeric(self.app_id)) show_error($"{_where} :: self.app_id expected number", true);
+        buffer_write(_buffer, buffer_u32, self.app_id);
+
+        // field: version, type: UInt32
+        if (!is_numeric(self.version)) show_error($"{_where} :: self.version expected number", true);
+        buffer_write(_buffer, buffer_u32, self.version);
+
+        // field: time_action, type: UInt32
+        if (!is_numeric(self.time_action)) show_error($"{_where} :: self.time_action expected number", true);
+        buffer_write(_buffer, buffer_u32, self.time_action);
+
+        // field: accepted, type: Bool
+        if (!is_bool(self.accepted)) show_error($"{_where} :: self.accepted expected bool", true);
+        buffer_write(_buffer, buffer_bool, self.accepted);
+
+        // field: needs_action, type: Bool
+        if (!is_bool(self.needs_action)) show_error($"{_where} :: self.needs_action expected bool", true);
+        buffer_write(_buffer, buffer_bool, self.needs_action);
+
+    }
+}
+
+/**
+ * @func __SteamUgcWorkshopEULAStatusResult_decode(_buffer, _offset)
+ * @param {Id.Buffer} _buffer
+ * @param {Real} _offset
+ * @returns {Struct.SteamUgcWorkshopEULAStatusResult}
+ * @ignore
+ */
+function __SteamUgcWorkshopEULAStatusResult_decode(_buffer, _offset)
+{
+    buffer_seek(_buffer, buffer_seek_start, _offset);
+
+    _inst = new SteamUgcWorkshopEULAStatusResult();
+    with (_inst)
+    {
+        // field: result, type: enum SteamApiResult
+        self.result = buffer_read(_buffer, buffer_u64);
+
+        // field: app_id, type: UInt32
+        self.app_id = buffer_read(_buffer, buffer_u32);
+
+        // field: version, type: UInt32
+        self.version = buffer_read(_buffer, buffer_u32);
+
+        // field: time_action, type: UInt32
+        self.time_action = buffer_read(_buffer, buffer_u32);
+
+        // field: accepted, type: Bool
+        self.accepted = buffer_read(_buffer, buffer_bool);
+
+        // field: needs_action, type: Bool
+        self.needs_action = buffer_read(_buffer, buffer_bool);
 
     }
 
@@ -23556,6 +23680,7 @@ function __Steamworks_get_decoders()
         __SteamUgcStartPlaytimeTrackingResult_decode,
         __SteamUgcStopPlaytimeTrackingResult_decode,
         __SteamUgcDownloadItemResult_decode,
+        __SteamUgcWorkshopEULAStatusResult_decode,
         __SteamInputAnalogActionData_decode,
         __SteamInputDigitalActionData_decode,
         __SteamInputMotionData_decode,

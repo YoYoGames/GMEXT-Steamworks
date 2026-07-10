@@ -4851,6 +4851,17 @@
  */
 
 /**
+ * @struct_partial SteamUgcWorkshopEULAStatusResult
+ * @member {Enum.SteamApiResult} result
+ * @member {Real} app_id
+ * @member {Real} version
+ * @member {Real} time_action
+ * @member {Bool} accepted
+ * @member {Bool} needs_action
+ * @struct_end
+ */
+
+/**
  * @struct_partial SteamInputAnalogActionData
  * @member {Enum.SteamInputControllerSourceMode} mode
  * @member {Real} x
@@ -6844,6 +6855,27 @@
  */
 
 /**
+ * @enum_partial SteamNetworkingConfigValue
+ * @member Invalid
+ * @member TimeoutInitial
+ * @member TimeoutConnected
+ * @member SendBufferSize
+ * @member RecvBufferSize
+ * @member RecvBufferMessages
+ * @member RecvMaxMessageSize
+ * @member RecvMaxSegmentsPerPacket
+ * @member ConnectionUserData
+ * @member SendRateMin
+ * @member SendRateMax
+ * @member NagleTime
+ * @member IPAllowWithoutAuth
+ * @member MTUSize
+ * @member LogLevelAcknowledged
+ * @member LogLevelAlerts
+ * @enum_end
+ */
+
+/**
  * @enum_partial SteamPartiesBeaconLocationType
  * @member Invalid
  * @member ChatGroup
@@ -6889,6 +6921,8 @@
  * @member {Real} SteamApiPhysicalItemIdInvalid (value: '0x0')
  * @member {Real} SteamApiQueryPortError (value: '0xFFFE')
  * @member {Real} SteamApiQueryPortNotInitialized (value: '0xFFFF')
+ * @member {Real} SteamIDNil (value: '0')
+ * @member {Real} SteamIDNonSteamGS (value: '2')
  * @member {Real} SteamFriendsMaxFriendsGroupName (value: '64')
  * @member {Real} SteamFriendsMaxRichPresenceKeyLength (value: '64')
  * @member {Real} SteamFriendsMaxRichPresenceKeys (value: '20')
@@ -6955,6 +6989,7 @@
  * @member {String} SteamMatchmakingServersInterfaceVersion (value: '"SteamMatchMakingServers002"')
  * @member {String} SteamMatchmakingInterfaceVersion (value: '"SteamMatchMaking009"')
  * @member {Real} SteamNetworkingPollGroup_Invalid (value: '0')
+ * @member {Real} SteamCbMaxSteamNetworkingSocketsMessageSizeSend (value: '524288')
  * @const_end
  */
 
