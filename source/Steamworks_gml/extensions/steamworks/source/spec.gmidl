@@ -5744,7 +5744,7 @@ group{ // SteamNetworkingSockets
 const SteamNetworkingPollGroup_Invalid : uint32 = 0;//uint64 = 0;
 
 // Maximum size of a message that can be sent in a single reliable message
-const SteamCbMaxSteamNetworkingSocketsMessageSizeSend : uint32 = 524288;
+const SteamNetworkingSocketsMaxMessageSizeSend : uint32 = 524288;
 
 // From ESteamNetConnectionEnd - used by SteamNetworkingSocketsConnectionInfo.end_reason
 [global, bind = typed_gml]

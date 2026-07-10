@@ -6989,7 +6989,7 @@
  * @member {String} SteamMatchmakingServersInterfaceVersion (value: '"SteamMatchMakingServers002"')
  * @member {String} SteamMatchmakingInterfaceVersion (value: '"SteamMatchMaking009"')
  * @member {Real} SteamNetworkingPollGroup_Invalid (value: '0')
- * @member {Real} SteamCbMaxSteamNetworkingSocketsMessageSizeSend (value: '524288')
+ * @member {Real} SteamNetworkingSocketsMaxMessageSizeSend (value: '524288')
  * @const_end
  */
 
