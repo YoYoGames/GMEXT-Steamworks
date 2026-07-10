@@ -104,7 +104,7 @@ namespace gm_consts
     inline constexpr std::string_view SteamMatchmakingServersInterfaceVersion = "SteamMatchMakingServers002";
     inline constexpr std::string_view SteamMatchmakingInterfaceVersion = "SteamMatchMaking009";
     inline constexpr std::uint32_t SteamNetworkingPollGroup_Invalid = 0;
-    inline constexpr std::uint32_t SteamCbMaxSteamNetworkingSocketsMessageSizeSend = 524288;
+    inline constexpr std::uint32_t SteamNetworkingSocketsMaxMessageSizeSend = 524288;
 }
 
 

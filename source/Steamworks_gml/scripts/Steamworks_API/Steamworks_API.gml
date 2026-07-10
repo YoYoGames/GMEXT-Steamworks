@@ -192,7 +192,7 @@
 
 #macro SteamNetworkingPollGroup_Invalid 0
 
-#macro SteamCbMaxSteamNetworkingSocketsMessageSizeSend 524288
+#macro SteamNetworkingSocketsMaxMessageSizeSend 524288
 
 // #####################################################################
 // # Enums
