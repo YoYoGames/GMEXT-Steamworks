@@ -100,7 +100,8 @@ const SteamApiPartnerIdInvalid : int32 = 0;
 const SteamApiPhysicalItemIdInvalid : int32 = 0x0;
 const SteamApiQueryPortError : int32 = 0xFFFE;
 const SteamApiQueryPortNotInitialized : int32 = 0xFFFF;
-
+const SteamIDNil : uint32 = 0;
+const SteamIDNonSteamGS : uint32 = 2;
 
 [global, bind = typed_gml]
 function steam_api_last_error(): string;
@@ -3195,6 +3196,17 @@ class `[[SteamUgcDownloadItemResult]]` prototype Object
     [field, type_hint = `SteamApiResult`] property result : gmval { get; set; }
 }
 
+[global]
+class `[[SteamUgcWorkshopEULAStatusResult]]` prototype Object
+{
+    [field, type_hint = `SteamApiResult`] property result : gmval { get; set; }
+    [field] property app_id : uint32 { get; set; }
+    [field] property version : uint32 { get; set; }
+    [field] property time_action : uint32 { get; set; }
+    [field] property accepted : bool { get; set; }
+    [field] property needs_action : bool { get; set; }
+}
+
 }
 
 
@@ -5731,6 +5743,9 @@ group{ // SteamNetworkingSockets
 // (see steam_networking_sockets_set_connection_poll_group)
 const SteamNetworkingPollGroup_Invalid : uint32 = 0;//uint64 = 0;
 
+// Maximum size of a message that can be sent in a single reliable message
+const SteamCbMaxSteamNetworkingSocketsMessageSizeSend : uint32 = 524288;
+
 // From ESteamNetConnectionEnd - used by SteamNetworkingSocketsConnectionInfo.end_reason
 [global, bind = typed_gml]
 enum SteamNetworkingConnectionEnd
@@ -5795,6 +5810,27 @@ enum SteamNetworkingSendFlags
     ReliableNoNagle = 9,
     UseCurrentThread = 16,
     AutoRestartBrokenSession = 32,
+}
+
+[global, bind = typed_gml]
+enum SteamNetworkingConfigValue
+{
+    Invalid = 0,
+    TimeoutInitial = 24,
+    TimeoutConnected = 25,
+    SendBufferSize = 9,
+    RecvBufferSize = 47,
+    RecvBufferMessages = 48,
+    RecvMaxMessageSize = 49,
+    RecvMaxSegmentsPerPacket = 50,
+    ConnectionUserData = 40,
+    SendRateMin = 10,
+    SendRateMax = 11,
+    NagleTime = 12,
+    IPAllowWithoutAuth = 23,
+    MTUSize = 32,
+    LogLevelAcknowledged = 13,
+    LogLevelAlerts = 14,
 }
 
 [global]
