@@ -1408,7 +1408,6 @@
  *
  * @param {Real} app_id The App ID to get the ownership ticket data for.
  * @param {Buffer} ticket_buffer The buffer to write the ownership ticket data into.
- * @param {Real} max_bytes The maximum number of bytes to write into the buffer.
  * @returns {Real}
  * @function_end
  */
@@ -1705,7 +1704,6 @@
  * This function writes a screenshot to the user's Steam screenshot library given the raw image data, which must be in RGB format.
  *
  * @param {Buffer} buff_rgb The buffer containing the raw RGB data from the screenshot.
- * @param {Real} rgb_size The size of `buff_rgb` in bytes.
  * @param {Real} width The width of the screenshot in pixels.
  * @param {Real} height The height of the screenshot in pixels.
  * @returns {Real} Screenshot handle, or `SteamScreenshotsInvalidScreenshotHandle` if the file could not be saved
@@ -1795,8 +1793,7 @@
  * 
  * See also: [User Authentication and Ownership](https://partner.steamgames.com/doc/features/auth)
  *
- * @param {Buffer} auth_ticket The auth ticket to validate.
- * @param {Real} auth_ticket_size The size in bytes of the auth ticket. This must be the ticket size provided by the call that created this ticket.
+ * @param {Buffer} auth_ticket The auth ticket to validate. The size of the buffer must be the ticket size provided by the call that created the ticket.
  * @param {Real} steam_id The entity's Steam ID that sent this ticket.
  * @returns {Enum.SteamUserBeginAuthSessionResult} 
  * 
@@ -1916,9 +1913,7 @@
  * See [Steam Voice](https://partner.steamgames.com/doc/features/voice) for more information.
  *
  * @param {Buffer} compressed The compressed data received from ${function.steam_user_get_voice}.
- * @param {Real} compressed_size The size of the buffer passed into `compressed`.
  * @param {Buffer} dest The buffer where the raw audio data will be returned. This can then be passed to your audio subsystems for playback.
- * @param {Real} dest_buffer_size The size of the buffer passed into `dest`.
  * @param {Real} desired_sample_rate The sample rate that will be returned. This can be from 11025 to 48000, you should either use the rate that works best for your audio playback system, which likely takes the user's audio hardware into account, or you can use ${function.steam_user_get_voice_optimal_sample_rate} to get the native sample rate of the Steam voice decoder.
  * @returns {Enum.SteamApiVoiceResult}
  * @function_end
@@ -1946,8 +1941,7 @@
  * 
  * [[Note: This API can not be used to create a ticket for use by the [ISteamUserAuth::AuthenticateUserTicket](https://partner.steamgames.com/doc/webapi/ISteamUserAuth#AuthenticateUserTicket) Web API. Use the ${function.steam_user_get_auth_ticket_for_web_api} call instead.]]
  *
- * @param {Buffer} out_ticket The buffer where the new auth ticket will be copied into if the call was successful.
- * @param {Real} max_ticket_size The size of the buffer allocated for `out_ticket`. Typically a buffer size of 1024 will be sufficient. However, in certain cases (e.g., when an application has a large amount of available DLC), a larger buffer size may be required.
+ * @param {Buffer} out_ticket The buffer where the new auth ticket will be copied into if the call was successful. Typically a buffer size of 1024 will be sufficient. However, in certain cases (e.g., when an application has a large amount of available DLC), a larger buffer size may be required.
  * @param {Struct.SteamNetworkingIdentity} [remote_identity] The identity of the remote system that will authenticate the ticket. If it is peer-to-peer then the user steam ID. If it is a game server, then the game server steam ID may be used if it was obtained from a trusted 3rd party, otherwise use the IP address. If it is a service, a string identifier of that service if one is provided.
  * @returns {Struct.SteamUserAuthSessionTicket}
  * 
@@ -2076,10 +2070,8 @@
  *
  * @param {Bool} want_compressed This should always be `true`.
  * @param {Buffer} dest_compressed The buffer where the audio data will be copied into.
- * @param {Real} dest_compressed_size The size of the buffer allocated for `dest_compressed`.
  * @param {Bool} want_uncompressed Deprecated.
  * @param {Buffer} dest_uncompressed Deprecated.
- * @param {Real} dest_uncompressed_size Deprecated.
  * @param {Real} desired_sample_rate Deprecated.
  * @returns {Struct.SteamUserGetVoiceResult} 
  * @function_end
@@ -2098,7 +2090,6 @@
  * After receiving the response you should call ${function.steam_user_get_encrypted_app_ticket} to get the ticket data, and then you need to send it to a secure server to be decrypted with the [SteamEncryptedAppTicket](https://partner.steamgames.com/doc/api/SteamEncryptedAppTicket) functions.
  *
  * @param {Buffer} data_to_include The data which will be encrypted into the ticket.
- * @param {Real} data_to_include_size The total size in bytes of `data_to_include`.
  * @param {Function} callback The function to call upon completion.
  * 
  * @event callback
@@ -2122,7 +2113,6 @@
  * [[Note: If you call this without calling ${function.steam_user_request_encrypted_app_ticket}, the call may succeed but you will likely get a stale ticket.]]
  *
  * @param {Buffer} out_ticket The encrypted app ticket is copied into this buffer.
- * @param {Real} max_ticket_size The total size of the `out_ticket` buffer in bytes.
  * @returns {Real} The number of bytes copied into the buffer.
  * @function_end
  */
@@ -2457,7 +2447,6 @@
  * @param {Real} steam_api_call The handle to the API Call.
  * @param {Real} callback_expected The k_iCallback number associated with the callback.
  * @param {Buffer} out_callback Returns the callback into the preallocated memory provided.
- * @param {Real} out_callback_size The size of the callback buffer that you are passing in.
  * @returns {Bool} 
  * @function_end 
  */
@@ -2641,7 +2630,6 @@
  *
  * @param {Real} image_handle The handle to the image that will be obtained.
  * @param {Buffer} dest The buffer that will be filled.
- * @param {Real} dest_buffer_size The total size of the `dest` buffer.
  * @returns {Bool} 
  * @function_end 
  */
@@ -5603,10 +5591,8 @@
  * This function returns the integer progress limits (the minimum and maximum) used to compute the progress bar for a given achievement.
  *
  * @param {String} achievement_name The "API Name" of the achievement.
- * @param {Real} cur_progress The variable into which the current progress towards the achievement is returned.
- * @param {Real} max_progress The variable into which the progress required to unlock the achievement is returned.
  * @returns {Struct.SteamUserStatsIntMinMax} 
- * @function_end 
+ * @function_end
  */
 
 /**
@@ -5616,10 +5602,8 @@
  * This function returns the floating point progress limits (the minimum and maximum) used to compute the progress bar for a given achievement.
  *
  * @param {String} achievement_name The "API Name" of the achievement.
- * @param {Real} cur_progress The variable into which the current progress towards the achievement is returned.
- * @param {Real} max_progress The variable into which the progress required to unlock the achievement is returned.
  * @returns {Struct.SteamUserStatsFloatMinMax} 
- * @function_end 
+ * @function_end
  */
 
 /**
@@ -6224,7 +6208,6 @@
  * [[Note: You must call ${function.steam_inventory_destroy_result} on the provided inventory result when you are done with it.]]
  *
  * @param {Buffer} data The buffer to deserialize.
- * @param {Real} data_size The size of the `data` buffer.
  * @returns {Struct.SteamInventoryDeserializeResult} 
  * @function_end 
  */
@@ -6399,7 +6382,6 @@
  *
  * @param {Real} result_handle The inventory result handle to serialise.
  * @param {Buffer} out_data The buffer that the serialised result will be copied into.
- * @param {Real} out_capacity The size of the `out_data` buffer.
  * @returns {Real} The number of bytes written.
  * @function_end
  */
@@ -6881,7 +6863,6 @@
  *
  * @param {String} file_name The name of the file to write to.
  * @param {Buffer} data The buffer containing the bytes to write to the file.
- * @param {Real} bytes The number of bytes to write to the file. Typically the total size of `data`.
  * @returns {Bool}
  * @function_end 
  */
@@ -6894,7 +6875,6 @@
  * 
  * @param {String} file_name The name of the file to write to.
  * @param {Buffer} data The bytes to write to the file.
- * @param {Real} bytes The number of bytes to write to the file. Typically the total size of `data`.
  * @param {Function} callback The callback function to call upon completion.
  * 
  * @event callback
@@ -6911,8 +6891,7 @@
  * This function opens a binary file, reads the contents of the file into a buffer, and then closes the file.
  *
  * @param {String} file_name The name of the file to read from.
- * @param {Buffer} out_data The buffer that the file will be read into. This buffer must be at least the same size provided to `max_bytes`.
- * @param {Real} max_bytes The amount of bytes to read. Generally obtained from ${function.steam_remote_storage_get_file_size}.
+ * @param {Buffer} out_data The buffer that the file will be read into. The size can be generally obtained from ${function.steam_remote_storage_get_file_size}.
  * @returns {Real} The number of bytes read, or 0 if the file doesn't exist or the read fails.
  * @function_end 
  */
@@ -7078,7 +7057,6 @@
  *
  * @param {Real} stream The file write stream to write to.
  * @param {Buffer} data The buffer containing the data to write to the stream.
- * @param {Real} bytes The size of the data to write, in bytes.
  * @returns {Bool} `true` if the data was successfully written to the file write stream, `false` if not.
  * @function_end 
  */
@@ -7149,7 +7127,6 @@
  *
  * @param {Real} ugc_handle The handle of the UGC content to read.
  * @param {Buffer} out_data The buffer that the content will be read into.
- * @param {Real} bytes_to_read The amount of bytes to read into the buffer.
  * @param {Real} offset The offset, in bytes, within the file at which to start reading.
  * @param {Enum.SteamRemoteStorageUgcReadAction} action The action to take when reading the content (controls how the file is held in memory after the read).
  * @returns {Real} 
@@ -7612,10 +7589,8 @@
  *
  * @param {Real} lobby_id This MUST be the same lobby used in the previous call to ${function.steam_matchmaking_get_lobby_data_count}.
  * @param {Real} index An index between 0 and the lobby data count.
- * @param {Buffer} key_out Returns the name of the key at the specified index by copying it into this buffer.
- * @param {Real} key_max The size of the buffer allocated for the key. This typically should be the maximum lobby key length.
- * @param {Buffer} val_out Returns the value associated with the key at the specified index by copying it into this buffer.
- * @param {Real} val_max The size of the buffer allocated for the value. This typically should be the maximum chat metadata size.
+ * @param {Buffer} key_out Returns the name of the key at the specified index by copying it into this buffer. The size typically should be the maximum lobby key length.
+ * @param {Buffer} val_out Returns the value associated with the key at the specified index by copying it into this buffer. The size typically should be the maximum chat metadata size.
  * @returns {Bool} 
  * @function_end 
  */
@@ -7697,7 +7672,6 @@
  * @param {Real} lobby_id The Steam ID of the lobby to get the chat entry from.
  * @param {Real} chat_id The index of the chat entry in the lobby.
  * @param {Buffer} out_buffer Returns the message data by copying it into this buffer. This buffer should be up to 4 kilobytes.
- * @param {Real} out_max_bytes The size of the buffer allocated for the output data.
  * @returns {Struct.SteamMatchmakingLobbyChatEntry} 
  * @function_end 
  */
@@ -7888,7 +7862,6 @@
  *
  * @param {Real} steam_id_remote The identity of the host to send the message to; if a session does not already exist with that user, one is implicitly created.
  * @param {Buffer} data The buffer holding the message data to send.
- * @param {Real} bytes The size of the data to send, in bytes.
  * @param {Real} send_flags A bitmask of ${constant.SteamNetworkingSendFlags} options that determine the delivery guarantees for the message.
  * @param {Real} remote_channel A routing channel number you can use to help route the message to different systems on the remote host.
  * @returns {Real} The number of messages returned into your list. (0 if no messages are available on that channel.)
@@ -8131,7 +8104,6 @@
  *
  * @param {Real} conn The connection to send the message on.
  * @param {Buffer} data The buffer holding the message data to send.
- * @param {Real} bytes The size of the data to send, in bytes.
  * @param {Enum.SteamNetworkingSendFlags} send_flags The send flags that determine the delivery guarantees, buffering behaviour, etc., for the message.
  * @returns {Real} 
  * @function_end 
