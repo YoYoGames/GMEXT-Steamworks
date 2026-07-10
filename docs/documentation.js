@@ -61,6 +61,8 @@
  * 
  * It's best to call this at >10Hz, the more time between calls, the more potential latency between receiving events or results from the Steamworks API. Most games call this once per render-frame. All registered listener functions will be invoked during this call, in the caller's thread context.
  * 
+ * [[Warning: This function is required to be called in order for the Steamworks extension to work. Certain callbacks are only triggered when you call this function. We recommend you place this function in a persistent controller object that calls it inside its ${event.step}.]]
+ * 
  * @event callback
  * @desc > **Steamworks Callback**: [ISteamUser::SteamServersConnected_t](https://partner.steamgames.com/doc/api/ISteamUser#SteamServersConnected_t)
  * 
@@ -93,6 +95,8 @@
  * You should call this during process shutdown if possible.
  * 
  * This will not unhook the [Steam overlay](https://partner.steamgames.com/doc/features/overlay) from your game as there's no guarantee that your rendering API is done using it.
+ * 
+ * [[Warning: This function is required to be called in order for the Steamworks extension to work. We recommend you place this function in the ${event.game_end} of a controller object. You need to check if this is not a ${function.game_restart}.]]
  *
  * @function_end
  */
@@ -1771,7 +1775,7 @@
  * 
  * When you are using Steam authentication system this call is never required, the auth system automatically sets the appropriate rich presence.
  *
- * @param {Real} steam_id_game_server This should be [k_steamIDNonSteamGS](https://partner.steamgames.com/doc/api/steam_api#k_steamIDNonSteamGS) if you're setting the IP/Port, otherwise it should be [k_steamIDNil](https://partner.steamgames.com/doc/api/steam_api#k_steamIDNil) if you're clearing this.
+ * @param {Real} steam_id_game_server This should be `SteamIDNonSteamGS` ([k_steamIDNonSteamGS](https://partner.steamgames.com/doc/api/steam_api#k_steamIDNonSteamGS)) if you're setting the IP/Port, otherwise it should be `SteamIDNil` ([k_steamIDNil](https://partner.steamgames.com/doc/api/steam_api#k_steamIDNil)) if you're clearing this.
  * @param {Real} server_ip The IP of the game server in host order, i.e 127.0.0.1 == 0x7f000001.
  * @param {Real} server_port The connection port of the game server, in host order.
  * @function_end
@@ -2632,6 +2636,8 @@
  * This function gets the image bytes from an image handle.
  * 
  * Prior to calling this you must get the size of the image by calling ${function.steam_utils_get_image_size} so that you can create your buffer with an appropriate size. You can then allocate your buffer with the width and height as: width * height * 4. The image is provided in RGBA format. This call can be somewhat expensive as it converts from the compressed type (JPG, PNG, TGA) and provides no internal caching of returned buffer, thus it is highly recommended to only call this once per image handle and cache the result. This function is only used for Steam Avatars and Achievement images and those are not expected to change mid game.
+ * 
+ * See also: ${function.buffer_set_surface}
  *
  * @param {Real} image_handle The handle to the image that will be obtained.
  * @param {Buffer} dest The buffer that will be filled.
@@ -2770,7 +2776,7 @@
  * @function steam_utils_is_steam_china_launcher
  * @description > **Steamworks Function**: [ISteamUtils::IsSteamChinaLauncher](https://partner.steamgames.com/doc/api/ISteamUtils#IsSteamChinaLauncher)
  *
- * This function returns whether the current launcher is a Steam China launcher. You can cause the client to behave as the Steam China launcher by adding -dev -steamchina to the command line when running Steam.
+ * This function returns whether the current launcher is a Steam China launcher. You can cause the client to behave as the Steam China launcher by adding `-dev -steamchina` to the command line when running Steam.
  *
  * @returns {Bool} 
  * @function_end 
@@ -2801,7 +2807,7 @@
  * @function steam_utils_filter_text
  * @description > **Steamworks Function**: [ISteamUtils::FilterText](https://partner.steamgames.com/doc/api/ISteamUtils#FilterText)
  *
- * This function filters the provided input message and places the filtered result into pchOutFilteredText.
+ * This function filters the provided input message.
  *
  * @param {Enum.SteamUtilsTextFilteringContext} context The type of content in the input string.
  * @param {Real} source_steam_id The Steam ID that is the source of the input string (e.g. the player with the name, or who said the chat text).
@@ -2864,6 +2870,8 @@
  * @description > **Steamworks Function**: [ISteamUtils::ShowGamepadTextInput](https://partner.steamgames.com/doc/api/ISteamUtils#ShowGamepadTextInput)
  *
  * This function activates the Big Picture text input dialog which only supports gamepad input.
+ * 
+ * [[Note: Steam needs to be in Big Picture mode for this function to work.]]
  *
  * @param {Enum.SteamUtilsGamepadTextInputMode} input_mode Selects the input mode to use, either Normal or Password (hidden text).
  * @param {Enum.SteamUtilsGamepadTextInputLineMode} line_mode Controls whether to use single or multi line input.
@@ -2880,6 +2888,8 @@
  *
  * This function opens a floating keyboard over the game content and sends OS keyboard keys directly to the game.
  * The text field position is specified in pixels relative to the origin of the game window and is used to position the floating keyboard in a way that doesn't cover the text field.
+ * 
+ * [[Note: Steam needs to be in Big Picture mode for this function to work.]]
  *
  * @param {Enum.SteamUtilsFloatingGamepadTextInputMode} keyboard_mode Selects the keyboard type to use.
  * @param {Real} text_field_x X coordinate of text field which shouldn't be obscured by the floating keyboard.
@@ -4384,6 +4394,14 @@
  * This function asynchronously retrieves data about whether the user accepted the Workshop EULA for the current app.
  *
  * @param {Function} callback The function to call upon completion.
+ * 
+ * @event callback
+ * @description > **Steamworks Callback**: [ISteamUGC::WorkshopEULAStatus_t](https://partner.steamgames.com/doc/api/ISteamUGC#WorkshopEULAStatus_t)
+ * 
+ * Triggered upon completion of the request.
+ * 
+ * @member {Struct.SteamUgcWorkshopEULAStatusResult} result The result of the operation.
+ * @event_end
  * @function_end
  */
 
@@ -5125,9 +5143,9 @@
  *
  * This function asynchronously downloads stats and achievements for the specified user from the server.
  * 
- * These stats are not automatically updated; you'll need to call this function again to refresh any data that may have change.
+ * These stats are not automatically updated; you'll need to call this function again to refresh any data that may have changed.
  * 
- * To keep from using too much memory, a least recently used cache (LRU) is maintained and other user's stats will occasionally be unloaded. When this happens a [UserStatsUnloaded_t](https://partner.steamgames.com/doc/api/ISteamUserStats#UserStatsUnloaded_t) callback is sent. After receiving this callback the user's stats will be unavailable until this function is called again.
+ * To keep from using too much memory, a least recently used cache (LRU) is maintained and other users' stats will occasionally be unloaded. When this happens a [UserStatsUnloaded_t](https://partner.steamgames.com/doc/api/ISteamUserStats#UserStatsUnloaded_t) callback is sent. After receiving this callback the user's stats will be unavailable until this function is called again.
  *
  * @param {Real} steam_id_user The Steam ID of the user to request stats for.
  * @param {Function} callback The function to call upon completion.
@@ -5218,7 +5236,7 @@
  * @function steam_userstats_reset_all_stats
  * @description > **Steamworks Function**: [ISteamUserStats::ResetAllStats](https://partner.steamgames.com/doc/api/ISteamUserStats#ResetAllStats)
  *
- * This function resets the current users stats and, optionally, achievements.
+ * This function resets the current user's stats and, optionally, achievements.
  * 
  * This automatically calls ${function.steam_userstats_store_stats} to persist the changes to the server. This should typically only be used for testing purposes during development.
  *
@@ -5277,7 +5295,7 @@
  *
  * This function returns the name of a leaderboard handle.
  *
- * @param {Real} leaderboard_handle A leaderboard handle obtained from steam_userstats_find_leaderboard or steam_userstats_find_or_create_leaderboard.
+ * @param {Real} leaderboard_handle A leaderboard handle obtained from ${function.steam_userstats_find_leaderboard} or ${function.steam_userstats_find_or_create_leaderboard}.
  * @returns {String} The name of the leaderboard, or an empty string if the leaderboard handle is invalid.
  * @function_end 
  */
@@ -5290,7 +5308,7 @@
  * 
  * This is cached on a per leaderboard basis upon the first call to ${function.steam_userstats_find_leaderboard} or ${function.steam_userstats_find_or_create_leaderboard} and is refreshed on each successful call to ${function.steam_userstats_download_leaderboard_entries}, ${function.steam_userstats_download_leaderboard_entries_for_users}, and ${function.steam_userstats_upload_leaderboard_score}.
  *
- * @param {Real} leaderboard_handle A leaderboard handle obtained from steam_userstats_find_leaderboard or steam_userstats_find_or_create_leaderboard.
+ * @param {Real} leaderboard_handle A leaderboard handle obtained from ${function.steam_userstats_find_leaderboard} or ${function.steam_userstats_find_or_create_leaderboard}.
  * @returns {Real} 
  * @function_end 
  */
@@ -5489,7 +5507,7 @@
  * 
  * You must have called ${function.steam_userstats_request_global_achievement_percentages} and it needs to return successfully via its callback prior to calling this.
  *
- * @param {Real} iterator_prev The iterator returned from the previous call to this function, or from steam_userstats_most_achieved_achievement_info.
+ * @param {Real} iterator_prev The iterator returned from the previous call to this function, or from ${function.steam_userstats_most_achieved_achievement_info}.
  * @returns {Struct.SteamUserStatsMostAchievedAchievementInfo} 
  * @function_end 
  */
@@ -6584,6 +6602,8 @@
  * This can be used to stack, split, and move items. The source and destination items must have the same itemdef ID. To move items onto a destination stack specify the source, the quantity to move, and the destination item ID. To split an existing stack, pass `SteamInventoryItemInstanceIdInvalid` into `item_instance_id_dest`. A new item stack will be generated with the requested quantity.
  * 
  * [[Note: Tradability/marketability restrictions are copied along with transferred items. The destination stack receives the latest tradability/marketability date of any item in its composition.]]
+ * 
+ * [[Note: You must call ${function.steam_inventory_destroy_result} on the provided inventory result when you are done with it.]]
  *
  * @param {Real} item_instance_id_source The source item to transfer.
  * @param {Real} quantity The quantity of the item that will be transferred from `item_instance_id_source` to `item_instance_id_dest`.
@@ -6861,7 +6881,7 @@
  *
  * @param {String} file_name The name of the file to write to.
  * @param {Buffer} data The buffer containing the bytes to write to the file.
- * @param {Real} bytes The number of bytes to write to the file.
+ * @param {Real} bytes The number of bytes to write to the file. Typically the total size of `data`.
  * @returns {Bool}
  * @function_end 
  */
@@ -8123,7 +8143,7 @@
  *
  * This function flushes any messages waiting on the Nagle timer and sends them at the next transmission opportunity.
  * 
- * If Nagle is enabled (it's on by default) then when calling ${function.steam_networking_sockets_send_message_to_connection} the message will be buffered, up to the Nagle time before being sent, to merge small messages into the same packet. (See `k_ESteamNetworkingConfig_NagleTime`)
+ * If Nagle is enabled (it's on by default) then when calling ${function.steam_networking_sockets_send_message_to_connection} the message will be buffered, up to the Nagle time before being sent, to merge small messages into the same packet. (See `SteamNetworkingConfigValue.NagleTime`)
  *
  * @param {Real} conn The connection whose Nagle-buffered messages should be flushed.
  * @returns {Enum.SteamApiResult} 
@@ -9393,6 +9413,21 @@
  * @member {Real} app_id The app ID associated with this workshop item.
  * @member {Real} published_file_id The workshop item that has finished downloading.
  * @member {Enum.SteamApiResult} result The result of the operation.
+ * @struct_end
+ */
+
+/**
+ * @struct SteamUgcWorkshopEULAStatusResult
+ * @description > **Steamworks Struct**: [ISteamUGC::WorkshopEULAStatus_t](https://partner.steamgames.com/doc/api/ISteamUGC#WorkshopEULAStatus_t)
+ * 
+ * This struct holds info returned in a workshop EULA status callback.
+ * 
+ * @member {Enum.SteamApiResult} result The result of the operation.
+ * @member {Real} app_id The related app ID.
+ * @member {Real} version The version of the signed EULA, if applicable.
+ * @member {Real} time_action Unix timestamp of when the user signed the EULA, if applicable.
+ * @member {Bool} accepted `true` if the user accepted the given version, `false` otherwise. Note that this can be `true` if the user accepted an older version of the EULA.
+ * @member {Bool} needs_action `true` if the user needs to accept the latest Workshop EULA, `false` otherwise.
  * @struct_end
  */
 
@@ -10754,7 +10789,7 @@
  * @member SteamGone The local Steam process has stopped responding, it may have been forcefully closed or is frozen.
  * @member NetworkFailure The network connection to the Steam servers has been lost, or was already broken. A [SteamServersDisconnected_t](https://partner.steamgames.com/doc/api/ISteamUser#SteamServersDisconnected_t) callback will be sent around the same time, and a [SteamServersConnected_t](https://partner.steamgames.com/doc/api/ISteamUser#SteamServersConnected_t) callback will be sent when the client is able to talk to the Steam servers again.
  * @member InvalidHandle The [SteamAPICall_t](https://partner.steamgames.com/doc/api/steam_api#SteamAPICall_t) handle passed in no longer exists.
- * @member MismatchedCallback [GetAPICallResult](https://partner.steamgames.com/doc/api/ISteamUtils#GetAPICallResult) was called with the wrong callback type for this API call.
+ * @member MismatchedCallback ${function.steam_utils_get_api_call_result} was called with the wrong callback type for this API call.
  * @enum_end 
  */
 
@@ -11917,11 +11952,36 @@
  * @member UnreliableNoNagle Send a message unreliably, bypassing Nagle's algorithm for this message and any messages currently pending on the Nagle timer.
  * @member NoDelay If the message cannot be sent very soon (because the connection is still doing some initial handshaking, route negotiations, etc), then just drop it. This is only applicable for unreliable messages. Using this flag on reliable messages is invalid.
  * @member UnreliableNoDelay Send an unreliable message, but if it cannot be sent relatively quickly, just drop it instead of queuing it. This is useful for messages that are not useful if they are excessively delayed, such as voice data.
- * @member Reliable Reliable message send. Can send up to k_cbMaxSteamNetworkingSocketsMessageSizeSend bytes in a single message. Does fragmentation/re-assembly of messages under the hood, as well as a sliding window for efficient sends of large chunks of data.
+ * @member Reliable Reliable message send. Can send up to `SteamNetworkingSocketsMaxMessageSizeSend` bytes in a single message. Does fragmentation/re-assembly of messages under the hood, as well as a sliding window for efficient sends of large chunks of data.
  * @member ReliableNoNagle Send a message reliably, but bypass Nagle's algorithm.
  * @member UseCurrentThread UseCurrentThread.
  * @member AutoRestartBrokenSession AutoRestartBrokenSession.
  * @enum_end 
+ */
+
+/**
+ * @enum SteamNetworkingConfigValue
+ * @description > **Steamworks Flags**: [ESteamNetworkingConfigValue](https://partner.steamgames.com/doc/api/steamnetworkingtypes#ESteamNetworkingConfigValue)
+ * 
+ * This enumeration holds named identifiers for various config values.
+ * 
+ * @member Invalid Invalid.
+ * @member TimeoutInitial Timeout value (in ms) to use when first connecting
+ * @member TimeoutConnected Timeout value (in ms) to use after connection is established
+ * @member SendBufferSize Upper limit of buffered pending bytes to be sent, if this is reached SendMessage will return `SteamApiResult.LimitExceeded`)
+ * @member RecvBufferSize Upper limit of buffer used for receiving bytes.
+ * @member RecvBufferMessages Upper limit on the number of received messages that will be buffered waiting to be processed by the application. If this limit is exceeded, packets will be dropped.  This is to protect us from a malicious peer flooding us with messages faster than we can pull them off the wire.
+ * @member RecvMaxMessageSize Maximum message size that we are willing to receive. if a client attempts to send us a message larger than this, the connection will be immediately closed.
+ * @member RecvMaxSegmentsPerPacket Max number of segments per packet.
+ * @member ConnectionUserData Get/set userdata as a configuration option.
+ * @member SendRateMin Minimum send rate clamp, 0 is no limit.
+ * @member SendRateMax Maximum send rate clamp, 0 is no limit.
+ * @member NagleTime Nagle time, in microseconds.
+ * @member IPAllowWithoutAuth Don't automatically fail IP connections that don't have strong auth.
+ * @member MTUSize Maximum Transmission Unit size.
+ * @member LogLevelAcknowledged Log level for RTT acknowledged.
+ * @member LogLevelAlerts Log level for alerts.
+ * @enum_end
  */
 
 /**
@@ -12374,6 +12434,14 @@
  * @module inventory
  * @title Inventory
  * @desc > **Steamworks Interface**: [ISteamInventory](https://partner.steamgames.com/doc/api/ISteamInventory)
+ * 
+ * The Inventory module contains functions, constants and structures that allow you to use the [Steam Inventory Service](https://partner.steamgames.com/doc/features/inventory).
+ * 
+ * [[Warning: The Steamworks SDK limits the number of items that can be read from one stack to 65535.
+ * This is a limitation of the SDK rather than of the extension: the data type used for the `m_unQuantity` member of [SteamItemDetails_t](https://partner.steamgames.com/doc/api/ISteamInventory#SteamItemDetails_t) is uint16, which can hold a maximum value of 65535.
+ * 
+ * Since the limitation is per stack, you can work around it by transferring any amount over 65535 to a new stack using the function ${function.steam_inventory_transfer_item_quantity} and add the necessary logic to your game that keeps track of the excess amount on the second stack.
+ * For example, an amount of 100000 would be divided over two stacks as follows: the first stack holds 65535, the other the remaining 34465.]]
  * 
  * @section_func Functions
  * @desc These are the functions of the Inventory module:
