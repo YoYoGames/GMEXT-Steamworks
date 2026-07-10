@@ -563,16 +563,13 @@ std::vector<double> steam_userstats_global_stat_history_double(std::string_view 
     return out;
 }
 
-std::optional<gm_structs::SteamUserStatsIntMinMax> steam_userstats_achievement_progress_int(std::string_view achievement_name, std::uint32_t cur_progress, std::uint32_t max_progress)
+std::optional<gm_structs::SteamUserStatsIntMinMax> steam_userstats_achievement_progress_int(std::string_view achievement_name)
 {
     STEAM_GUARD_RET(std::nullopt);
 
     ISteamUserStats* s = steam_userstats_iface();
     if (!s)
         return std::nullopt;
-
-    (void)cur_progress;
-    (void)max_progress;
 
     std::string name(achievement_name);
     int32 minV = 0, maxV = 0;
@@ -586,16 +583,13 @@ std::optional<gm_structs::SteamUserStatsIntMinMax> steam_userstats_achievement_p
     return out;
 }
 
-std::optional<gm_structs::SteamUserStatsFloatMinMax> steam_userstats_achievement_progress_float(std::string_view achievement_name, float cur_progress, float max_progress)
+std::optional<gm_structs::SteamUserStatsFloatMinMax> steam_userstats_achievement_progress_float(std::string_view achievement_name)
 {
     STEAM_GUARD_RET(std::nullopt);
 
     ISteamUserStats* s = steam_userstats_iface();
     if (!s)
         return std::nullopt;
-
-    (void)cur_progress;
-    (void)max_progress;
 
     std::string name(achievement_name);
     float minV = 0.0f, maxV = 0.0f;

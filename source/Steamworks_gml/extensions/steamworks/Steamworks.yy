@@ -6953,14 +6953,13 @@
         {
           "$GMExtensionFunction": "",
           "%Name": "__steam_userstats_achievement_progress_int",
-          "argCount": 4,
+          "argCount": 3,
           "args": [
             1,
-            2,
             1,
             2
           ],
-          "documentation": "@param {Pointer} _arg_buffer\r\n@param {Real} _arg_buffer_length\r\n@param {Pointer} _ret_buffer\r\n@param {Real} _ret_buffer_length\r\n@returns {Real}",
+          "documentation": "@param {String} achievement_name\r\n@param {Pointer} _ret_buffer\r\n@param {Real} _ret_buffer_length\r\n@returns {Real}",
           "externalName": "__EXT_NATIVE__steam_userstats_achievement_progress_int",
           "help": "",
           "hidden": true,
@@ -6973,14 +6972,13 @@
         {
           "$GMExtensionFunction": "",
           "%Name": "__steam_userstats_achievement_progress_float",
-          "argCount": 4,
+          "argCount": 3,
           "args": [
             1,
-            2,
             1,
             2
           ],
-          "documentation": "@param {Pointer} _arg_buffer\r\n@param {Real} _arg_buffer_length\r\n@param {Pointer} _ret_buffer\r\n@param {Real} _ret_buffer_length\r\n@returns {Real}",
+          "documentation": "@param {String} achievement_name\r\n@param {Pointer} _ret_buffer\r\n@param {Real} _ret_buffer_length\r\n@returns {Real}",
           "externalName": "__EXT_NATIVE__steam_userstats_achievement_progress_float",
           "help": "",
           "hidden": true,

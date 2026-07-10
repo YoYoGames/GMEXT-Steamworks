@@ -1058,8 +1058,7 @@ function steam_apps_get_dlc_download_progress(app_id: uint32): gmval;
 [global, bind = typed_gml]
 function steam_apps_get_app_ownership_ticket_data(
     app_id: uint32,
-    [type_hint=buffer] ticket_buffer: gmval,
-    max_bytes: uint32
+    [type_hint=buffer] ticket_buffer: gmval
 ): uint32;
 
 [global]
@@ -1246,7 +1245,6 @@ function steam_screenshots_trigger_screenshot(): unit;
 [global, bind = typed_gml]
 function steam_screenshots_write_screenshot(
     [type_hint=buffer] buff_rgb,
-    rgb_size: uint32,
     width: int32,
     height: int32
 ): uint32;
@@ -1367,7 +1365,6 @@ function steam_user_advertise_game(
 [global, bind = typed_gml, type_hint=`SteamUserBeginAuthSessionResult`]
 function steam_user_begin_auth_session(
     [type_hint=buffer] auth_ticket: gmval,
-    auth_ticket_size: int32,
     [type_hint=uint64] steam_id: gmval
 ): gmval;
 
@@ -1409,9 +1406,7 @@ function steam_user_cancel_auth_ticket(auth_ticket_handle: uint32): unit;
 [global, bind = typed_gml, type_hint=`SteamApiVoiceResult`]
 function steam_user_decompress_voice(
     [type_hint=buffer] compressed: gmval,
-    compressed_size: uint32,
     [type_hint=buffer] dest: gmval,
-    dest_buffer_size: uint32,
     desired_sample_rate: uint32
 ): gmval;
 
@@ -1462,7 +1457,6 @@ class `[[SteamNetworkingIdentity]]` prototype Object
 [global, bind = typed_gml, type_hint=`SteamUserAuthSessionTicket`]
 function steam_user_get_auth_session_ticket(
     [type_hint=buffer] out_ticket: gmval,
-    max_ticket_size: int32,
     [type_hint=`SteamNetworkingIdentity?`] remote_identity: gmval
 ): gmval;
 
@@ -1567,10 +1561,8 @@ function steam_user_get_available_voice(): gmval;
 function steam_user_get_voice(
     want_compressed: bool,
     [type_hint=buffer] dest_compressed: gmval,
-    dest_compressed_size: uint32,
     want_uncompressed: bool,
     [type_hint=buffer] dest_uncompressed: gmval,
-    dest_uncompressed_size: uint32,
     desired_sample_rate: uint32
 ): gmval;
 
@@ -1579,13 +1571,12 @@ function steam_user_get_voice(
 // RequestEncryptedAppTicket (async SteamAPICall_t)
 [global, bind = typed_gml]
 function steam_user_request_encrypted_app_ticket([type_hint=buffer] data_to_include: gmval,
-    data_to_include_size: int32, callback:func): unit;
+    callback:func): unit;
 
 // GetEncryptedAppTicket
 [global, bind = typed_gml, type_hint=`uint32?`]
 function steam_user_get_encrypted_app_ticket(
-    [type_hint=buffer] out_ticket: gmval,
-    max_ticket_size: int32
+    [type_hint=buffer] out_ticket: gmval
 ): gmval;
 
 // GetGameBadgeLevel
@@ -1786,8 +1777,7 @@ function steam_utils_get_api_call_failure_reason([type_hint=uint64] steam_api_ca
 function steam_utils_get_api_call_result(
     [type_hint=uint64] steam_api_call: gmval,
     callback_expected: int32,
-    [type_hint=buffer] out_callback: gmval,
-    out_callback_size: int32
+    [type_hint=buffer] out_callback: gmval
 ): gmval;
 
 
@@ -1879,8 +1869,7 @@ function steam_utils_get_entered_gamepad_text_length(): uint32;
 [global, bind = typed_gml]
 function steam_utils_get_image_rgba(
     image_handle: int32,
-    [type_hint=buffer] dest: gmval,
-    dest_buffer_size: int32
+    [type_hint=buffer] dest: gmval
 ): bool;
 
 // GetImageSize (out width/height)
@@ -4394,17 +4383,13 @@ function steam_userstats_global_stat_history_double(stat_name: string): gmval;
 // GetAchievementProgressLimits (int32)
 [global, bind = typed_gml,type_hint=`SteamUserStatsIntMinMax?`]
 function steam_userstats_achievement_progress_int(
-    achievement_name: string,
-    cur_progress: uint32,
-    max_progress: uint32
+    achievement_name: string
 ): gmval;
 
 // GetAchievementProgressLimits (float)
 [global, bind = typed_gml,type_hint=`SteamUserStatsFloatMinMax?`]
 function steam_userstats_achievement_progress_float(
-    achievement_name: string,
-    cur_progress: float,
-    max_progress: float
+    achievement_name: string
 ): gmval;
 
 [global, bind = typed_gml]
@@ -4853,8 +4838,7 @@ function steam_inventory_consume_item(
 // DeserializeResult :contentReference[oaicite:7]{index=7}
 [global, bind = typed_gml, type_hint=`SteamInventoryDeserializeResult?`]
 function steam_inventory_deserialize_result(
-    [type_hint=buffer] data: gmval,
-    data_size: uint32
+    [type_hint=buffer] data: gmval
 ): gmval;
 
 // DestroyResult :contentReference[oaicite:8]{index=8}
@@ -4920,8 +4904,7 @@ function steam_inventory_get_items_by_id(
 [global, bind = typed_gml, type_hint=`uint32?`]
 function steam_inventory_serialize_result(
     result_handle: int32,
-    [type_hint=buffer] out_data: gmval,
-    out_capacity: uint32
+    [type_hint=buffer] out_data: gmval
 ): gmval;
 
 [global, bind = typed_gml, type_hint = `string[]`]
@@ -5257,15 +5240,15 @@ function steam_remote_storage_is_cloud_enabled_for_app(): bool;
 function steam_remote_storage_set_cloud_enabled_for_app(enabled: bool): unit;
 
 [global, bind = typed_gml]
-function steam_remote_storage_file_write(file_name: string, [type_hint=buffer] data: gmval, bytes: uint32): bool;
+function steam_remote_storage_file_write(file_name: string, [type_hint=buffer] data: gmval): bool;
 
 // FileWriteAsync - non-blocking alternative to steam_remote_storage_file_write.
 // Delivers a SteamRemoteStorageFileWriteAsyncResult to the optional callback when complete.
 [global, bind = typed_gml]
-function steam_remote_storage_file_write_async(file_name: string, [type_hint=buffer] data: gmval, bytes: uint32, callback:func): unit;
+function steam_remote_storage_file_write_async(file_name: string, [type_hint=buffer] data: gmval, callback:func): unit;
 
 [global, bind = typed_gml]
-function steam_remote_storage_file_read(file_name: string, [type_hint=buffer] out_data: gmval, max_bytes: uint32): int32;
+function steam_remote_storage_file_read(file_name: string, [type_hint=buffer] out_data: gmval): int32;
 
 [global, bind = typed_gml]
 function steam_remote_storage_file_delete(file_name: string): bool;
@@ -5304,7 +5287,7 @@ function steam_remote_storage_file_forget(file_name: string): bool;
 function steam_remote_storage_file_write_stream_open(file_name: string): gmval;
 
 [global, bind = typed_gml]
-function steam_remote_storage_file_write_stream_write_chunk([type_hint=uint64] stream: gmval, [type_hint=buffer] data: gmval, bytes: uint32): bool;
+function steam_remote_storage_file_write_stream_write_chunk([type_hint=uint64] stream: gmval, [type_hint=buffer] data: gmval): bool;
 
 [global, bind = typed_gml]
 function steam_remote_storage_file_write_stream_close([type_hint=uint64] stream: gmval): bool;
@@ -5325,7 +5308,6 @@ function steam_remote_storage_get_ugc_details([type_hint=uint64] ugc_handle: gmv
 function steam_remote_storage_ugc_read(
     [type_hint=uint64] ugc_handle: gmval,
     [type_hint=buffer] out_data: gmval,
-    bytes_to_read: int32,
     offset: uint32,
     [type_hint=`SteamRemoteStorageUgcReadAction`] action: gmval
 ): int32;
@@ -5567,7 +5549,7 @@ function steam_matchmaking_delete_lobby_data([type_hint=uint64] lobby_id: gmval,
 function steam_matchmaking_get_lobby_data_count([type_hint=uint64] lobby_id: gmval): int32;
 
 [global, bind = typed_gml]
-function steam_matchmaking_get_lobby_data_by_index([type_hint=uint64] lobby_id: gmval, index: int32, [type_hint=buffer] key_out: gmval, key_max: int32, [type_hint=buffer] val_out: gmval, val_max: int32): bool;
+function steam_matchmaking_get_lobby_data_by_index([type_hint=uint64] lobby_id: gmval, index: int32, [type_hint=buffer] key_out: gmval, [type_hint=buffer] val_out: gmval): bool;
 
 [global, bind = typed_gml]
 function steam_matchmaking_set_lobby_member_data([type_hint=uint64] lobby_id: gmval, key: string, value: string): unit;
@@ -5595,8 +5577,7 @@ class `[[SteamMatchmakingLobbyChatEntry]]` prototype Object
 function steam_matchmaking_get_lobby_chat_entry(
     [type_hint=uint64] lobby_id: gmval,
     chat_id: int32,
-    [type_hint=buffer] out_buffer: gmval,
-    out_max_bytes: int32
+    [type_hint=buffer] out_buffer: gmval
 ): gmval;
 
 [global, bind = typed_gml]
@@ -5712,7 +5693,6 @@ function steam_networking_messages_clear_callback_session_failed(): unit;
 function steam_networking_messages_send_message_to_user(
     [type_hint=uint64] steam_id_remote: gmval,
     [type_hint=buffer] data: gmval,
-    bytes: uint32,
     send_flags: int32,
     remote_channel: int32
 ): int32;
@@ -5892,7 +5872,6 @@ function steam_networking_sockets_get_connection_name(conn: uint32): string;
 function steam_networking_sockets_send_message_to_connection(
     conn: uint32,
     [type_hint=buffer] data: gmval,
-    bytes: uint32,
     [type_hint=`SteamNetworkingSendFlags`] send_flags: gmval
 ): int32;
 

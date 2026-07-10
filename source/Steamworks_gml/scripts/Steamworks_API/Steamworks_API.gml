@@ -13691,10 +13691,9 @@ function steam_apps_get_dlc_download_progress(_app_id)
 /**
  * @param {Real} _app_id
  * @param {Id.Buffer} _ticket_buffer
- * @param {Real} _max_bytes
  * @returns {Real}
  */
-function steam_apps_get_app_ownership_ticket_data(_app_id, _ticket_buffer, _max_bytes)
+function steam_apps_get_app_ownership_ticket_data(_app_id, _ticket_buffer)
 {
     static __available = __Steamworks_is_available();
     if (!__available) return;
@@ -13708,10 +13707,6 @@ function steam_apps_get_app_ownership_ticket_data(_app_id, _ticket_buffer, _max_
     // param: _ticket_buffer, type: Buffer
     if (!buffer_exists(_ticket_buffer)) show_error($"{_GMFUNCTION_} :: _ticket_buffer expected Id.Buffer", true);
     __Steamworks_queue_buffer(buffer_get_address(_ticket_buffer), buffer_get_size(_ticket_buffer));
-
-    // param: _max_bytes, type: UInt32
-    if (!is_numeric(_max_bytes)) show_error($"{_GMFUNCTION_} :: _max_bytes expected number", true);
-    buffer_write(__args_buffer, buffer_u32, _max_bytes);
 
     var _return_value = __steam_apps_get_app_ownership_ticket_data(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
 
@@ -13935,12 +13930,11 @@ function steam_screenshots_tag_user(_screenshot, _steam_id)
 
 /**
  * @param {Id.Buffer} _buff_rgb
- * @param {Real} _rgb_size
  * @param {Real} _width
  * @param {Real} _height
  * @returns {Real}
  */
-function steam_screenshots_write_screenshot(_buff_rgb, _rgb_size, _width, _height)
+function steam_screenshots_write_screenshot(_buff_rgb, _width, _height)
 {
     static __available = __Steamworks_is_available();
     if (!__available) return;
@@ -13950,10 +13944,6 @@ function steam_screenshots_write_screenshot(_buff_rgb, _rgb_size, _width, _heigh
     // param: _buff_rgb, type: Buffer
     if (!buffer_exists(_buff_rgb)) show_error($"{_GMFUNCTION_} :: _buff_rgb expected Id.Buffer", true);
     __Steamworks_queue_buffer(buffer_get_address(_buff_rgb), buffer_get_size(_buff_rgb));
-
-    // param: _rgb_size, type: UInt32
-    if (!is_numeric(_rgb_size)) show_error($"{_GMFUNCTION_} :: _rgb_size expected number", true);
-    buffer_write(__args_buffer, buffer_u32, _rgb_size);
 
     // param: _width, type: Int32
     if (!is_numeric(_width)) show_error($"{_GMFUNCTION_} :: _width expected number", true);
@@ -14049,11 +14039,10 @@ function steam_user_advertise_game(_steam_id_game_server, _server_ip, _server_po
 
 /**
  * @param {Id.Buffer} _auth_ticket
- * @param {Real} _auth_ticket_size
  * @param {Real} _steam_id
  * @returns {Enum.SteamUserBeginAuthSessionResult}
  */
-function steam_user_begin_auth_session(_auth_ticket, _auth_ticket_size, _steam_id)
+function steam_user_begin_auth_session(_auth_ticket, _steam_id)
 {
     static __available = __Steamworks_is_available();
     if (!__available) return;
@@ -14063,10 +14052,6 @@ function steam_user_begin_auth_session(_auth_ticket, _auth_ticket_size, _steam_i
     // param: _auth_ticket, type: Buffer
     if (!buffer_exists(_auth_ticket)) show_error($"{_GMFUNCTION_} :: _auth_ticket expected Id.Buffer", true);
     __Steamworks_queue_buffer(buffer_get_address(_auth_ticket), buffer_get_size(_auth_ticket));
-
-    // param: _auth_ticket_size, type: Int32
-    if (!is_numeric(_auth_ticket_size)) show_error($"{_GMFUNCTION_} :: _auth_ticket_size expected number", true);
-    buffer_write(__args_buffer, buffer_s32, _auth_ticket_size);
 
     // param: _steam_id, type: UInt64
     if (!is_numeric(_steam_id)) show_error($"{_GMFUNCTION_} :: _steam_id expected number", true);
@@ -14125,13 +14110,11 @@ function steam_user_set_duration_control_online_state(_state)
 
 /**
  * @param {Id.Buffer} _compressed
- * @param {Real} _compressed_size
  * @param {Id.Buffer} _dest
- * @param {Real} _dest_buffer_size
  * @param {Real} _desired_sample_rate
  * @returns {Enum.SteamApiVoiceResult}
  */
-function steam_user_decompress_voice(_compressed, _compressed_size, _dest, _dest_buffer_size, _desired_sample_rate)
+function steam_user_decompress_voice(_compressed, _dest, _desired_sample_rate)
 {
     static __available = __Steamworks_is_available();
     if (!__available) return;
@@ -14142,17 +14125,9 @@ function steam_user_decompress_voice(_compressed, _compressed_size, _dest, _dest
     if (!buffer_exists(_compressed)) show_error($"{_GMFUNCTION_} :: _compressed expected Id.Buffer", true);
     __Steamworks_queue_buffer(buffer_get_address(_compressed), buffer_get_size(_compressed));
 
-    // param: _compressed_size, type: UInt32
-    if (!is_numeric(_compressed_size)) show_error($"{_GMFUNCTION_} :: _compressed_size expected number", true);
-    buffer_write(__args_buffer, buffer_u32, _compressed_size);
-
     // param: _dest, type: Buffer
     if (!buffer_exists(_dest)) show_error($"{_GMFUNCTION_} :: _dest expected Id.Buffer", true);
     __Steamworks_queue_buffer(buffer_get_address(_dest), buffer_get_size(_dest));
-
-    // param: _dest_buffer_size, type: UInt32
-    if (!is_numeric(_dest_buffer_size)) show_error($"{_GMFUNCTION_} :: _dest_buffer_size expected number", true);
-    buffer_write(__args_buffer, buffer_u32, _dest_buffer_size);
 
     // param: _desired_sample_rate, type: UInt32
     if (!is_numeric(_desired_sample_rate)) show_error($"{_GMFUNCTION_} :: _desired_sample_rate expected number", true);
@@ -14188,11 +14163,10 @@ function steam_user_end_auth_session(_steam_id)
 
 /**
  * @param {Id.Buffer} _out_ticket
- * @param {Real} _max_ticket_size
  * @param {Struct.SteamNetworkingIdentity} _remote_identity
  * @returns {Struct.SteamUserAuthSessionTicket}
  */
-function steam_user_get_auth_session_ticket(_out_ticket, _max_ticket_size, _remote_identity)
+function steam_user_get_auth_session_ticket(_out_ticket, _remote_identity)
 {
     static __available = __Steamworks_is_available();
     if (!__available) return;
@@ -14202,10 +14176,6 @@ function steam_user_get_auth_session_ticket(_out_ticket, _max_ticket_size, _remo
     // param: _out_ticket, type: Buffer
     if (!buffer_exists(_out_ticket)) show_error($"{_GMFUNCTION_} :: _out_ticket expected Id.Buffer", true);
     __Steamworks_queue_buffer(buffer_get_address(_out_ticket), buffer_get_size(_out_ticket));
-
-    // param: _max_ticket_size, type: Int32
-    if (!is_numeric(_max_ticket_size)) show_error($"{_GMFUNCTION_} :: _max_ticket_size expected number", true);
-    buffer_write(__args_buffer, buffer_s32, _max_ticket_size);
 
     // param: _remote_identity, type: optional<struct SteamNetworkingIdentity>
     if (is_undefined(_remote_identity))
@@ -14304,14 +14274,12 @@ function steam_user_get_available_voice()
 /**
  * @param {Bool} _want_compressed
  * @param {Id.Buffer} _dest_compressed
- * @param {Real} _dest_compressed_size
  * @param {Bool} _want_uncompressed
  * @param {Id.Buffer} _dest_uncompressed
- * @param {Real} _dest_uncompressed_size
  * @param {Real} _desired_sample_rate
  * @returns {Struct.SteamUserGetVoiceResult}
  */
-function steam_user_get_voice(_want_compressed, _dest_compressed, _dest_compressed_size, _want_uncompressed, _dest_uncompressed, _dest_uncompressed_size, _desired_sample_rate)
+function steam_user_get_voice(_want_compressed, _dest_compressed, _want_uncompressed, _dest_uncompressed, _desired_sample_rate)
 {
     static __available = __Steamworks_is_available();
     if (!__available) return;
@@ -14326,10 +14294,6 @@ function steam_user_get_voice(_want_compressed, _dest_compressed, _dest_compress
     if (!buffer_exists(_dest_compressed)) show_error($"{_GMFUNCTION_} :: _dest_compressed expected Id.Buffer", true);
     __Steamworks_queue_buffer(buffer_get_address(_dest_compressed), buffer_get_size(_dest_compressed));
 
-    // param: _dest_compressed_size, type: UInt32
-    if (!is_numeric(_dest_compressed_size)) show_error($"{_GMFUNCTION_} :: _dest_compressed_size expected number", true);
-    buffer_write(__args_buffer, buffer_u32, _dest_compressed_size);
-
     // param: _want_uncompressed, type: Bool
     if (!is_bool(_want_uncompressed)) show_error($"{_GMFUNCTION_} :: _want_uncompressed expected bool", true);
     buffer_write(__args_buffer, buffer_bool, _want_uncompressed);
@@ -14337,10 +14301,6 @@ function steam_user_get_voice(_want_compressed, _dest_compressed, _dest_compress
     // param: _dest_uncompressed, type: Buffer
     if (!buffer_exists(_dest_uncompressed)) show_error($"{_GMFUNCTION_} :: _dest_uncompressed expected Id.Buffer", true);
     __Steamworks_queue_buffer(buffer_get_address(_dest_uncompressed), buffer_get_size(_dest_uncompressed));
-
-    // param: _dest_uncompressed_size, type: UInt32
-    if (!is_numeric(_dest_uncompressed_size)) show_error($"{_GMFUNCTION_} :: _dest_uncompressed_size expected number", true);
-    buffer_write(__args_buffer, buffer_u32, _dest_uncompressed_size);
 
     // param: _desired_sample_rate, type: UInt32
     if (!is_numeric(_desired_sample_rate)) show_error($"{_GMFUNCTION_} :: _desired_sample_rate expected number", true);
@@ -14357,10 +14317,9 @@ function steam_user_get_voice(_want_compressed, _dest_compressed, _dest_compress
 
 /**
  * @param {Id.Buffer} _data_to_include
- * @param {Real} _data_to_include_size
  * @param {Function} _callback
  */
-function steam_user_request_encrypted_app_ticket(_data_to_include, _data_to_include_size, _callback)
+function steam_user_request_encrypted_app_ticket(_data_to_include, _callback)
 {
     static __available = __Steamworks_is_available();
     if (!__available) return;
@@ -14372,10 +14331,6 @@ function steam_user_request_encrypted_app_ticket(_data_to_include, _data_to_incl
     // param: _data_to_include, type: Buffer
     if (!buffer_exists(_data_to_include)) show_error($"{_GMFUNCTION_} :: _data_to_include expected Id.Buffer", true);
     __Steamworks_queue_buffer(buffer_get_address(_data_to_include), buffer_get_size(_data_to_include));
-
-    // param: _data_to_include_size, type: Int32
-    if (!is_numeric(_data_to_include_size)) show_error($"{_GMFUNCTION_} :: _data_to_include_size expected number", true);
-    buffer_write(__args_buffer, buffer_s32, _data_to_include_size);
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
@@ -14389,10 +14344,9 @@ function steam_user_request_encrypted_app_ticket(_data_to_include, _data_to_incl
 
 /**
  * @param {Id.Buffer} _out_ticket
- * @param {Real} _max_ticket_size
  * @returns {Real}
  */
-function steam_user_get_encrypted_app_ticket(_out_ticket, _max_ticket_size)
+function steam_user_get_encrypted_app_ticket(_out_ticket)
 {
     static __available = __Steamworks_is_available();
     if (!__available) return;
@@ -14402,10 +14356,6 @@ function steam_user_get_encrypted_app_ticket(_out_ticket, _max_ticket_size)
     // param: _out_ticket, type: Buffer
     if (!buffer_exists(_out_ticket)) show_error($"{_GMFUNCTION_} :: _out_ticket expected Id.Buffer", true);
     __Steamworks_queue_buffer(buffer_get_address(_out_ticket), buffer_get_size(_out_ticket));
-
-    // param: _max_ticket_size, type: Int32
-    if (!is_numeric(_max_ticket_size)) show_error($"{_GMFUNCTION_} :: _max_ticket_size expected number", true);
-    buffer_write(__args_buffer, buffer_s32, _max_ticket_size);
 
     var __ret_buffer = __ext_core_get_ret_buffer();
 
@@ -14791,10 +14741,9 @@ function steam_utils_get_api_call_failure_reason(_steam_api_call)
  * @param {Real} _steam_api_call
  * @param {Real} _callback_expected
  * @param {Id.Buffer} _out_callback
- * @param {Real} _out_callback_size
  * @returns {Bool}
  */
-function steam_utils_get_api_call_result(_steam_api_call, _callback_expected, _out_callback, _out_callback_size)
+function steam_utils_get_api_call_result(_steam_api_call, _callback_expected, _out_callback)
 {
     static __available = __Steamworks_is_available();
     if (!__available) return;
@@ -14812,10 +14761,6 @@ function steam_utils_get_api_call_result(_steam_api_call, _callback_expected, _o
     // param: _out_callback, type: Buffer
     if (!buffer_exists(_out_callback)) show_error($"{_GMFUNCTION_} :: _out_callback expected Id.Buffer", true);
     __Steamworks_queue_buffer(buffer_get_address(_out_callback), buffer_get_size(_out_callback));
-
-    // param: _out_callback_size, type: Int32
-    if (!is_numeric(_out_callback_size)) show_error($"{_GMFUNCTION_} :: _out_callback_size expected number", true);
-    buffer_write(__args_buffer, buffer_s32, _out_callback_size);
 
     var __ret_buffer = __ext_core_get_ret_buffer();
 
@@ -15012,10 +14957,9 @@ function steam_utils_get_entered_gamepad_text_input()
 /**
  * @param {Real} _image_handle
  * @param {Id.Buffer} _dest
- * @param {Real} _dest_buffer_size
  * @returns {Bool}
  */
-function steam_utils_get_image_rgba(_image_handle, _dest, _dest_buffer_size)
+function steam_utils_get_image_rgba(_image_handle, _dest)
 {
     static __available = __Steamworks_is_available();
     if (!__available) return;
@@ -15029,10 +14973,6 @@ function steam_utils_get_image_rgba(_image_handle, _dest, _dest_buffer_size)
     // param: _dest, type: Buffer
     if (!buffer_exists(_dest)) show_error($"{_GMFUNCTION_} :: _dest expected Id.Buffer", true);
     __Steamworks_queue_buffer(buffer_get_address(_dest), buffer_get_size(_dest));
-
-    // param: _dest_buffer_size, type: Int32
-    if (!is_numeric(_dest_buffer_size)) show_error($"{_GMFUNCTION_} :: _dest_buffer_size expected number", true);
-    buffer_write(__args_buffer, buffer_s32, _dest_buffer_size);
 
     var _return_value = __steam_utils_get_image_rgba(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
 
@@ -19529,33 +19469,16 @@ function steam_userstats_global_stat_history_double(_stat_name)
 
 /**
  * @param {String} _achievement_name
- * @param {Real} _cur_progress
- * @param {Real} _max_progress
  * @returns {Struct.SteamUserStatsIntMinMax}
  */
-function steam_userstats_achievement_progress_int(_achievement_name, _cur_progress, _max_progress)
+function steam_userstats_achievement_progress_int(_achievement_name)
 {
     static __available = __Steamworks_is_available();
     if (!__available) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
-
-    // param: _achievement_name, type: String
-    if (!is_string(_achievement_name)) show_error($"{_GMFUNCTION_} :: _achievement_name expected string", true);
-    buffer_write(__args_buffer, buffer_u32, string_byte_length(_achievement_name));
-    buffer_write(__args_buffer, buffer_string, _achievement_name);
-
-    // param: _cur_progress, type: UInt32
-    if (!is_numeric(_cur_progress)) show_error($"{_GMFUNCTION_} :: _cur_progress expected number", true);
-    buffer_write(__args_buffer, buffer_u32, _cur_progress);
-
-    // param: _max_progress, type: UInt32
-    if (!is_numeric(_max_progress)) show_error($"{_GMFUNCTION_} :: _max_progress expected number", true);
-    buffer_write(__args_buffer, buffer_u32, _max_progress);
-
     var __ret_buffer = __ext_core_get_ret_buffer();
 
-    var _return_value = __steam_userstats_achievement_progress_int(buffer_get_address(__args_buffer), buffer_tell(__args_buffer), buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var _return_value = __steam_userstats_achievement_progress_int(_achievement_name, buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
 
     var _result = undefined;
     if (buffer_read(__ret_buffer, buffer_bool))
@@ -19571,33 +19494,16 @@ function steam_userstats_achievement_progress_int(_achievement_name, _cur_progre
 
 /**
  * @param {String} _achievement_name
- * @param {Real} _cur_progress
- * @param {Real} _max_progress
  * @returns {Struct.SteamUserStatsFloatMinMax}
  */
-function steam_userstats_achievement_progress_float(_achievement_name, _cur_progress, _max_progress)
+function steam_userstats_achievement_progress_float(_achievement_name)
 {
     static __available = __Steamworks_is_available();
     if (!__available) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
-
-    // param: _achievement_name, type: String
-    if (!is_string(_achievement_name)) show_error($"{_GMFUNCTION_} :: _achievement_name expected string", true);
-    buffer_write(__args_buffer, buffer_u32, string_byte_length(_achievement_name));
-    buffer_write(__args_buffer, buffer_string, _achievement_name);
-
-    // param: _cur_progress, type: Float32
-    if (!is_numeric(_cur_progress)) show_error($"{_GMFUNCTION_} :: _cur_progress expected number", true);
-    buffer_write(__args_buffer, buffer_f32, _cur_progress);
-
-    // param: _max_progress, type: Float32
-    if (!is_numeric(_max_progress)) show_error($"{_GMFUNCTION_} :: _max_progress expected number", true);
-    buffer_write(__args_buffer, buffer_f32, _max_progress);
-
     var __ret_buffer = __ext_core_get_ret_buffer();
 
-    var _return_value = __steam_userstats_achievement_progress_float(buffer_get_address(__args_buffer), buffer_tell(__args_buffer), buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var _return_value = __steam_userstats_achievement_progress_float(_achievement_name, buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
 
     var _result = undefined;
     if (buffer_read(__ret_buffer, buffer_bool))
@@ -20359,10 +20265,9 @@ function steam_inventory_consume_item(_item_instance_id, _quantity, _callback)
 
 /**
  * @param {Id.Buffer} _data
- * @param {Real} _data_size
  * @returns {Struct.SteamInventoryDeserializeResult}
  */
-function steam_inventory_deserialize_result(_data, _data_size)
+function steam_inventory_deserialize_result(_data)
 {
     static __available = __Steamworks_is_available();
     if (!__available) return;
@@ -20372,10 +20277,6 @@ function steam_inventory_deserialize_result(_data, _data_size)
     // param: _data, type: Buffer
     if (!buffer_exists(_data)) show_error($"{_GMFUNCTION_} :: _data expected Id.Buffer", true);
     __Steamworks_queue_buffer(buffer_get_address(_data), buffer_get_size(_data));
-
-    // param: _data_size, type: UInt32
-    if (!is_numeric(_data_size)) show_error($"{_GMFUNCTION_} :: _data_size expected number", true);
-    buffer_write(__args_buffer, buffer_u32, _data_size);
 
     var __ret_buffer = __ext_core_get_ret_buffer();
 
@@ -20615,10 +20516,9 @@ function steam_inventory_get_items_by_id(_item_instance_ids, _callback)
 /**
  * @param {Real} _result_handle
  * @param {Id.Buffer} _out_data
- * @param {Real} _out_capacity
  * @returns {Real}
  */
-function steam_inventory_serialize_result(_result_handle, _out_data, _out_capacity)
+function steam_inventory_serialize_result(_result_handle, _out_data)
 {
     static __available = __Steamworks_is_available();
     if (!__available) return;
@@ -20632,10 +20532,6 @@ function steam_inventory_serialize_result(_result_handle, _out_data, _out_capaci
     // param: _out_data, type: Buffer
     if (!buffer_exists(_out_data)) show_error($"{_GMFUNCTION_} :: _out_data expected Id.Buffer", true);
     __Steamworks_queue_buffer(buffer_get_address(_out_data), buffer_get_size(_out_data));
-
-    // param: _out_capacity, type: UInt32
-    if (!is_numeric(_out_capacity)) show_error($"{_GMFUNCTION_} :: _out_capacity expected number", true);
-    buffer_write(__args_buffer, buffer_u32, _out_capacity);
 
     var __ret_buffer = __ext_core_get_ret_buffer();
 
@@ -21335,10 +21231,9 @@ function steam_remote_storage_set_callback_local_file_change(_callback)
 /**
  * @param {String} _file_name
  * @param {Id.Buffer} _data
- * @param {Real} _bytes
  * @returns {Bool}
  */
-function steam_remote_storage_file_write(_file_name, _data, _bytes)
+function steam_remote_storage_file_write(_file_name, _data)
 {
     static __available = __Steamworks_is_available();
     if (!__available) return;
@@ -21354,10 +21249,6 @@ function steam_remote_storage_file_write(_file_name, _data, _bytes)
     if (!buffer_exists(_data)) show_error($"{_GMFUNCTION_} :: _data expected Id.Buffer", true);
     __Steamworks_queue_buffer(buffer_get_address(_data), buffer_get_size(_data));
 
-    // param: _bytes, type: UInt32
-    if (!is_numeric(_bytes)) show_error($"{_GMFUNCTION_} :: _bytes expected number", true);
-    buffer_write(__args_buffer, buffer_u32, _bytes);
-
     var _return_value = __steam_remote_storage_file_write(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
 
     return _return_value;
@@ -21366,10 +21257,9 @@ function steam_remote_storage_file_write(_file_name, _data, _bytes)
 /**
  * @param {String} _file_name
  * @param {Id.Buffer} _data
- * @param {Real} _bytes
  * @param {Function} _callback
  */
-function steam_remote_storage_file_write_async(_file_name, _data, _bytes, _callback)
+function steam_remote_storage_file_write_async(_file_name, _data, _callback)
 {
     static __available = __Steamworks_is_available();
     if (!__available) return;
@@ -21387,10 +21277,6 @@ function steam_remote_storage_file_write_async(_file_name, _data, _bytes, _callb
     if (!buffer_exists(_data)) show_error($"{_GMFUNCTION_} :: _data expected Id.Buffer", true);
     __Steamworks_queue_buffer(buffer_get_address(_data), buffer_get_size(_data));
 
-    // param: _bytes, type: UInt32
-    if (!is_numeric(_bytes)) show_error($"{_GMFUNCTION_} :: _bytes expected number", true);
-    buffer_write(__args_buffer, buffer_u32, _bytes);
-
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
     var _callback_handle = __ext_core_function_register(_callback, __dispatcher);
@@ -21404,10 +21290,9 @@ function steam_remote_storage_file_write_async(_file_name, _data, _bytes, _callb
 /**
  * @param {String} _file_name
  * @param {Id.Buffer} _out_data
- * @param {Real} _max_bytes
  * @returns {Real}
  */
-function steam_remote_storage_file_read(_file_name, _out_data, _max_bytes)
+function steam_remote_storage_file_read(_file_name, _out_data)
 {
     static __available = __Steamworks_is_available();
     if (!__available) return;
@@ -21422,10 +21307,6 @@ function steam_remote_storage_file_read(_file_name, _out_data, _max_bytes)
     // param: _out_data, type: Buffer
     if (!buffer_exists(_out_data)) show_error($"{_GMFUNCTION_} :: _out_data expected Id.Buffer", true);
     __Steamworks_queue_buffer(buffer_get_address(_out_data), buffer_get_size(_out_data));
-
-    // param: _max_bytes, type: UInt32
-    if (!is_numeric(_max_bytes)) show_error($"{_GMFUNCTION_} :: _max_bytes expected number", true);
-    buffer_write(__args_buffer, buffer_u32, _max_bytes);
 
     var _return_value = __steam_remote_storage_file_read(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
 
@@ -21568,10 +21449,9 @@ function steam_remote_storage_file_write_stream_open(_file_name)
 /**
  * @param {Real} _stream
  * @param {Id.Buffer} _data
- * @param {Real} _bytes
  * @returns {Bool}
  */
-function steam_remote_storage_file_write_stream_write_chunk(_stream, _data, _bytes)
+function steam_remote_storage_file_write_stream_write_chunk(_stream, _data)
 {
     static __available = __Steamworks_is_available();
     if (!__available) return;
@@ -21585,10 +21465,6 @@ function steam_remote_storage_file_write_stream_write_chunk(_stream, _data, _byt
     // param: _data, type: Buffer
     if (!buffer_exists(_data)) show_error($"{_GMFUNCTION_} :: _data expected Id.Buffer", true);
     __Steamworks_queue_buffer(buffer_get_address(_data), buffer_get_size(_data));
-
-    // param: _bytes, type: UInt32
-    if (!is_numeric(_bytes)) show_error($"{_GMFUNCTION_} :: _bytes expected number", true);
-    buffer_write(__args_buffer, buffer_u32, _bytes);
 
     var _return_value = __steam_remote_storage_file_write_stream_write_chunk(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
 
@@ -21690,12 +21566,11 @@ function steam_remote_storage_get_ugc_details(_ugc_handle)
 /**
  * @param {Real} _ugc_handle
  * @param {Id.Buffer} _out_data
- * @param {Real} _bytes_to_read
  * @param {Real} _offset
  * @param {Enum.SteamRemoteStorageUgcReadAction} _action
  * @returns {Real}
  */
-function steam_remote_storage_ugc_read(_ugc_handle, _out_data, _bytes_to_read, _offset, _action)
+function steam_remote_storage_ugc_read(_ugc_handle, _out_data, _offset, _action)
 {
     static __available = __Steamworks_is_available();
     if (!__available) return;
@@ -21709,10 +21584,6 @@ function steam_remote_storage_ugc_read(_ugc_handle, _out_data, _bytes_to_read, _
     // param: _out_data, type: Buffer
     if (!buffer_exists(_out_data)) show_error($"{_GMFUNCTION_} :: _out_data expected Id.Buffer", true);
     __Steamworks_queue_buffer(buffer_get_address(_out_data), buffer_get_size(_out_data));
-
-    // param: _bytes_to_read, type: Int32
-    if (!is_numeric(_bytes_to_read)) show_error($"{_GMFUNCTION_} :: _bytes_to_read expected number", true);
-    buffer_write(__args_buffer, buffer_s32, _bytes_to_read);
 
     // param: _offset, type: UInt32
     if (!is_numeric(_offset)) show_error($"{_GMFUNCTION_} :: _offset expected number", true);
@@ -22365,12 +22236,10 @@ function steam_matchmaking_get_lobby_data_count(_lobby_id)
  * @param {Real} _lobby_id
  * @param {Real} _index
  * @param {Id.Buffer} _key_out
- * @param {Real} _key_max
  * @param {Id.Buffer} _val_out
- * @param {Real} _val_max
  * @returns {Bool}
  */
-function steam_matchmaking_get_lobby_data_by_index(_lobby_id, _index, _key_out, _key_max, _val_out, _val_max)
+function steam_matchmaking_get_lobby_data_by_index(_lobby_id, _index, _key_out, _val_out)
 {
     static __available = __Steamworks_is_available();
     if (!__available) return;
@@ -22389,17 +22258,9 @@ function steam_matchmaking_get_lobby_data_by_index(_lobby_id, _index, _key_out, 
     if (!buffer_exists(_key_out)) show_error($"{_GMFUNCTION_} :: _key_out expected Id.Buffer", true);
     __Steamworks_queue_buffer(buffer_get_address(_key_out), buffer_get_size(_key_out));
 
-    // param: _key_max, type: Int32
-    if (!is_numeric(_key_max)) show_error($"{_GMFUNCTION_} :: _key_max expected number", true);
-    buffer_write(__args_buffer, buffer_s32, _key_max);
-
     // param: _val_out, type: Buffer
     if (!buffer_exists(_val_out)) show_error($"{_GMFUNCTION_} :: _val_out expected Id.Buffer", true);
     __Steamworks_queue_buffer(buffer_get_address(_val_out), buffer_get_size(_val_out));
-
-    // param: _val_max, type: Int32
-    if (!is_numeric(_val_max)) show_error($"{_GMFUNCTION_} :: _val_max expected number", true);
-    buffer_write(__args_buffer, buffer_s32, _val_max);
 
     var _return_value = __steam_matchmaking_get_lobby_data_by_index(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
 
@@ -22502,10 +22363,9 @@ function steam_matchmaking_send_lobby_chat_msg(_lobby_id, _msg, _bytes)
  * @param {Real} _lobby_id
  * @param {Real} _chat_id
  * @param {Id.Buffer} _out_buffer
- * @param {Real} _out_max_bytes
  * @returns {Struct.SteamMatchmakingLobbyChatEntry}
  */
-function steam_matchmaking_get_lobby_chat_entry(_lobby_id, _chat_id, _out_buffer, _out_max_bytes)
+function steam_matchmaking_get_lobby_chat_entry(_lobby_id, _chat_id, _out_buffer)
 {
     static __available = __Steamworks_is_available();
     if (!__available) return;
@@ -22523,10 +22383,6 @@ function steam_matchmaking_get_lobby_chat_entry(_lobby_id, _chat_id, _out_buffer
     // param: _out_buffer, type: Buffer
     if (!buffer_exists(_out_buffer)) show_error($"{_GMFUNCTION_} :: _out_buffer expected Id.Buffer", true);
     __Steamworks_queue_buffer(buffer_get_address(_out_buffer), buffer_get_size(_out_buffer));
-
-    // param: _out_max_bytes, type: Int32
-    if (!is_numeric(_out_max_bytes)) show_error($"{_GMFUNCTION_} :: _out_max_bytes expected number", true);
-    buffer_write(__args_buffer, buffer_s32, _out_max_bytes);
 
     var __ret_buffer = __ext_core_get_ret_buffer();
 
@@ -22786,12 +22642,11 @@ function steam_networking_messages_set_callback_session_failed(_callback)
 /**
  * @param {Real} _steam_id_remote
  * @param {Id.Buffer} _data
- * @param {Real} _bytes
  * @param {Real} _send_flags
  * @param {Real} _remote_channel
  * @returns {Real}
  */
-function steam_networking_messages_send_message_to_user(_steam_id_remote, _data, _bytes, _send_flags, _remote_channel)
+function steam_networking_messages_send_message_to_user(_steam_id_remote, _data, _send_flags, _remote_channel)
 {
     static __available = __Steamworks_is_available();
     if (!__available) return;
@@ -22805,10 +22660,6 @@ function steam_networking_messages_send_message_to_user(_steam_id_remote, _data,
     // param: _data, type: Buffer
     if (!buffer_exists(_data)) show_error($"{_GMFUNCTION_} :: _data expected Id.Buffer", true);
     __Steamworks_queue_buffer(buffer_get_address(_data), buffer_get_size(_data));
-
-    // param: _bytes, type: UInt32
-    if (!is_numeric(_bytes)) show_error($"{_GMFUNCTION_} :: _bytes expected number", true);
-    buffer_write(__args_buffer, buffer_u32, _bytes);
 
     // param: _send_flags, type: Int32
     if (!is_numeric(_send_flags)) show_error($"{_GMFUNCTION_} :: _send_flags expected number", true);
@@ -23019,11 +22870,10 @@ function steam_networking_sockets_get_connection_user_data(_conn)
 /**
  * @param {Real} _conn
  * @param {Id.Buffer} _data
- * @param {Real} _bytes
  * @param {Enum.SteamNetworkingSendFlags} _send_flags
  * @returns {Real}
  */
-function steam_networking_sockets_send_message_to_connection(_conn, _data, _bytes, _send_flags)
+function steam_networking_sockets_send_message_to_connection(_conn, _data, _send_flags)
 {
     static __available = __Steamworks_is_available();
     if (!__available) return;
@@ -23037,10 +22887,6 @@ function steam_networking_sockets_send_message_to_connection(_conn, _data, _byte
     // param: _data, type: Buffer
     if (!buffer_exists(_data)) show_error($"{_GMFUNCTION_} :: _data expected Id.Buffer", true);
     __Steamworks_queue_buffer(buffer_get_address(_data), buffer_get_size(_data));
-
-    // param: _bytes, type: UInt32
-    if (!is_numeric(_bytes)) show_error($"{_GMFUNCTION_} :: _bytes expected number", true);
-    buffer_write(__args_buffer, buffer_u32, _bytes);
 
     // param: _send_flags, type: enum SteamNetworkingSendFlags
 

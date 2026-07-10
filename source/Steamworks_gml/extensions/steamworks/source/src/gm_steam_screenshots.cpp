@@ -1,4 +1,4 @@
-// gm_steam_screenshots.cpp
+﻿// gm_steam_screenshots.cpp
 //
 // Steamworks module: screenshots (ISteamScreenshots)
 
@@ -234,7 +234,7 @@ void steam_screenshots_trigger_screenshot()
 }
 
 std::uint32_t steam_screenshots_write_screenshot(
-    gm::wire::GMBuffer buff_rgb, std::uint32_t rgb_size, std::int32_t width, std::int32_t height
+    gm::wire::GMBuffer buff_rgb, std::int32_t width, std::int32_t height
 )
 {
     STEAM_GUARD_RET(0);
@@ -242,7 +242,7 @@ std::uint32_t steam_screenshots_write_screenshot(
     if (!ss)
         return 0;
 
-    if (rgb_size == 0) {
+    if (buff_rgb.length() == 0) {
         steam_set_last_error("WriteScreenshot: rgb_size must be > 0.");
         return 0;
     }
@@ -256,23 +256,23 @@ std::uint32_t steam_screenshots_write_screenshot(
     // read past the supplied GM buffer. Require rgb_size to be exactly the expected size and
     // to fit within the real buffer.
     const std::uint64_t expected = (std::uint64_t)width * (std::uint64_t)height * 3u;
-    if ((std::uint64_t)rgb_size < expected) {
+    if ((std::uint64_t)buff_rgb.length() < expected) {
         steam_set_last_error("WriteScreenshot: rgb_size is smaller than width*height*3.");
         return 0;
     }
-    if ((std::uint64_t)rgb_size > buff_rgb.length()) {
+    if ((std::uint64_t)buff_rgb.length() > buff_rgb.length()) {
         steam_set_last_error("WriteScreenshot: rgb_size exceeds buffer length.");
         return 0;
     }
 
     std::vector<std::uint8_t> rgb;
-    rgb.resize((size_t)rgb_size);
+    rgb.resize((size_t)buff_rgb.length());
 
     auto reader = buff_rgb.getReader();
-    reader.readBytes((char*)rgb.data(), (int)rgb_size);
+    reader.readBytes((char*)rgb.data(), (int)buff_rgb.length());
 
     // NOTE: Steam expects raw RGB data (no alpha) in a specific packing (typically 24-bit RGB).
     // Ensure your GML side writes the correct format and byte order.
-    return (std::uint32_t)ss->WriteScreenshot(rgb.data(), (uint32)rgb_size, (int)width, (int)height);
+    return (std::uint32_t)ss->WriteScreenshot(rgb.data(), (uint32)buff_rgb.length(), (int)width, (int)height);
 }
 

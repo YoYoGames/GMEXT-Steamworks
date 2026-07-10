@@ -692,7 +692,6 @@
  * @function_partial steam_apps_get_app_ownership_ticket_data
  * @param {Real} app_id
  * @param {Buffer} ticket_buffer
- * @param {Real} max_bytes
  * @returns {Real}
  * @function_end
  */
@@ -825,7 +824,6 @@
 /**
  * @function_partial steam_screenshots_write_screenshot
  * @param {Buffer} buff_rgb
- * @param {Real} rgb_size
  * @param {Real} width
  * @param {Real} height
  * @returns {Real}
@@ -865,7 +863,6 @@
 /**
  * @function_partial steam_user_begin_auth_session
  * @param {Buffer} auth_ticket
- * @param {Real} auth_ticket_size
  * @param {Real} steam_id
  * @returns {Enum.SteamUserBeginAuthSessionResult}
  * @function_end
@@ -923,9 +920,7 @@
 /**
  * @function_partial steam_user_decompress_voice
  * @param {Buffer} compressed
- * @param {Real} compressed_size
  * @param {Buffer} dest
- * @param {Real} dest_buffer_size
  * @param {Real} desired_sample_rate
  * @returns {Enum.SteamApiVoiceResult}
  * @function_end
@@ -940,7 +935,6 @@
 /**
  * @function_partial steam_user_get_auth_session_ticket
  * @param {Buffer} out_ticket
- * @param {Real} max_ticket_size
  * @param {Struct.SteamNetworkingIdentity} [remote_identity]
  * @returns {Struct.SteamUserAuthSessionTicket}
  * @function_end
@@ -997,10 +991,8 @@
  * @function_partial steam_user_get_voice
  * @param {Bool} want_compressed
  * @param {Buffer} dest_compressed
- * @param {Real} dest_compressed_size
  * @param {Bool} want_uncompressed
  * @param {Buffer} dest_uncompressed
- * @param {Real} dest_uncompressed_size
  * @param {Real} desired_sample_rate
  * @returns {Struct.SteamUserGetVoiceResult}
  * @function_end
@@ -1009,7 +1001,6 @@
 /**
  * @function_partial steam_user_request_encrypted_app_ticket
  * @param {Buffer} data_to_include
- * @param {Real} data_to_include_size
  * @param {Function} callback
  * @function_end
  */
@@ -1017,7 +1008,6 @@
 /**
  * @function_partial steam_user_get_encrypted_app_ticket
  * @param {Buffer} out_ticket
- * @param {Real} max_ticket_size
  * @returns {Real}
  * @function_end
  */
@@ -1178,7 +1168,6 @@
  * @param {Real} steam_api_call
  * @param {Real} callback_expected
  * @param {Buffer} out_callback
- * @param {Real} out_callback_size
  * @returns {Bool}
  * @function_end
  */
@@ -1272,7 +1261,6 @@
  * @function_partial steam_utils_get_image_rgba
  * @param {Real} image_handle
  * @param {Buffer} dest
- * @param {Real} dest_buffer_size
  * @returns {Bool}
  * @function_end
  */
@@ -2751,8 +2739,6 @@
 /**
  * @function_partial steam_userstats_achievement_progress_int
  * @param {String} achievement_name
- * @param {Real} cur_progress
- * @param {Real} max_progress
  * @returns {Struct.SteamUserStatsIntMinMax}
  * @function_end
  */
@@ -2760,8 +2746,6 @@
 /**
  * @function_partial steam_userstats_achievement_progress_float
  * @param {String} achievement_name
- * @param {Real} cur_progress
- * @param {Real} max_progress
  * @returns {Struct.SteamUserStatsFloatMinMax}
  * @function_end
  */
@@ -3090,7 +3074,6 @@
 /**
  * @function_partial steam_inventory_deserialize_result
  * @param {Buffer} data
- * @param {Real} data_size
  * @returns {Struct.SteamInventoryDeserializeResult}
  * @function_end
  */
@@ -3177,7 +3160,6 @@
  * @function_partial steam_inventory_serialize_result
  * @param {Real} result_handle
  * @param {Buffer} out_data
- * @param {Real} out_capacity
  * @returns {Real}
  * @function_end
  */
@@ -3422,7 +3404,6 @@
  * @function_partial steam_remote_storage_file_write
  * @param {String} file_name
  * @param {Buffer} data
- * @param {Real} bytes
  * @returns {Bool}
  * @function_end
  */
@@ -3431,7 +3412,6 @@
  * @function_partial steam_remote_storage_file_write_async
  * @param {String} file_name
  * @param {Buffer} data
- * @param {Real} bytes
  * @param {Function} callback
  * @function_end
  */
@@ -3440,7 +3420,6 @@
  * @function_partial steam_remote_storage_file_read
  * @param {String} file_name
  * @param {Buffer} out_data
- * @param {Real} max_bytes
  * @returns {Real}
  * @function_end
  */
@@ -3532,7 +3511,6 @@
  * @function_partial steam_remote_storage_file_write_stream_write_chunk
  * @param {Real} stream
  * @param {Buffer} data
- * @param {Real} bytes
  * @returns {Bool}
  * @function_end
  */
@@ -3575,7 +3553,6 @@
  * @function_partial steam_remote_storage_ugc_read
  * @param {Real} ugc_handle
  * @param {Buffer} out_data
- * @param {Real} bytes_to_read
  * @param {Real} offset
  * @param {Enum.SteamRemoteStorageUgcReadAction} action
  * @returns {Real}
@@ -3797,9 +3774,7 @@
  * @param {Real} lobby_id
  * @param {Real} index
  * @param {Buffer} key_out
- * @param {Real} key_max
  * @param {Buffer} val_out
- * @param {Real} val_max
  * @returns {Bool}
  * @function_end
  */
@@ -3835,7 +3810,6 @@
  * @param {Real} lobby_id
  * @param {Real} chat_id
  * @param {Buffer} out_buffer
- * @param {Real} out_max_bytes
  * @returns {Struct.SteamMatchmakingLobbyChatEntry}
  * @function_end
  */
@@ -3927,7 +3901,6 @@
  * @function_partial steam_networking_messages_send_message_to_user
  * @param {Real} steam_id_remote
  * @param {Buffer} data
- * @param {Real} bytes
  * @param {Real} send_flags
  * @param {Real} remote_channel
  * @returns {Real}
@@ -4048,7 +4021,6 @@
  * @function_partial steam_networking_sockets_send_message_to_connection
  * @param {Real} conn
  * @param {Buffer} data
- * @param {Real} bytes
  * @param {Enum.SteamNetworkingSendFlags} send_flags
  * @returns {Real}
  * @function_end

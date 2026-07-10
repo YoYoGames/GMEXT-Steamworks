@@ -402,8 +402,8 @@ GMEXPORT double __EXT_NATIVE__steam_userstats_global_stat_int64(char* stat_name,
 GMEXPORT double __EXT_NATIVE__steam_userstats_global_stat_double(char* stat_name, char* __ret_buffer, double __ret_buffer_length);
 GMEXPORT double __EXT_NATIVE__steam_userstats_global_stat_history_int64(char* stat_name, char* __ret_buffer, double __ret_buffer_length);
 GMEXPORT double __EXT_NATIVE__steam_userstats_global_stat_history_double(char* stat_name, char* __ret_buffer, double __ret_buffer_length);
-GMEXPORT double __EXT_NATIVE__steam_userstats_achievement_progress_int(char* __arg_buffer, double __arg_buffer_length, char* __ret_buffer, double __ret_buffer_length);
-GMEXPORT double __EXT_NATIVE__steam_userstats_achievement_progress_float(char* __arg_buffer, double __arg_buffer_length, char* __ret_buffer, double __ret_buffer_length);
+GMEXPORT double __EXT_NATIVE__steam_userstats_achievement_progress_int(char* achievement_name, char* __ret_buffer, double __ret_buffer_length);
+GMEXPORT double __EXT_NATIVE__steam_userstats_achievement_progress_float(char* achievement_name, char* __ret_buffer, double __ret_buffer_length);
 GMEXPORT double __EXT_NATIVE__steam_userstats_set_callback_user_stats_received(char* __arg_buffer, double __arg_buffer_length);
 GMEXPORT double __EXT_NATIVE__steam_userstats_clear_callback_user_stats_received();
 GMEXPORT double __EXT_NATIVE__steam_userstats_set_callback_user_stats_stored(char* __arg_buffer, double __arg_buffer_length);

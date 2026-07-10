@@ -153,26 +153,26 @@ void steam_remote_storage_set_cloud_enabled_for_app(bool enabled)
     rs->SetCloudEnabledForApp(enabled);
 }
 
-bool steam_remote_storage_file_write(std::string_view file_name, gm::wire::GMBuffer data, std::uint32_t bytes)
+bool steam_remote_storage_file_write(std::string_view file_name, gm::wire::GMBuffer data)
 {
     STEAM_GUARD_RET(false);
     ISteamRemoteStorage* rs = steam_remote_storage_iface();
     if (!rs) return false;
-    if (bytes == 0) return false;
+    if (data.length() == 0) return false;
 
     std::string fn(file_name);
-    return rs->FileWrite(fn.c_str(), (const void*)data.data(), (int32)bytes);
+    return rs->FileWrite(fn.c_str(), (const void*)data.data(), (int32)data.length());
 }
 
-std::int32_t steam_remote_storage_file_read(std::string_view file_name, gm::wire::GMBuffer out_data, std::uint32_t max_bytes)
+std::int32_t steam_remote_storage_file_read(std::string_view file_name, gm::wire::GMBuffer out_data)
 {
     STEAM_GUARD_RET(0);
     ISteamRemoteStorage* rs = steam_remote_storage_iface();
     if (!rs) return 0;
-    if (max_bytes == 0) return 0;
+    if (out_data.length() == 0) return 0;
 
     std::string fn(file_name);
-    std::vector<std::uint8_t> tmp((size_t)max_bytes);
+    std::vector<std::uint8_t> tmp((size_t)out_data.length());
 
     int32 read = rs->FileRead(fn.c_str(), tmp.data(), (int32)tmp.size());
     if (read <= 0) return 0;
@@ -312,13 +312,13 @@ std::uint64_t steam_remote_storage_file_write_stream_open(std::string_view file_
     return (std::uint64_t)h;
 }
 
-bool steam_remote_storage_file_write_stream_write_chunk(std::uint64_t stream, gm::wire::GMBuffer data, std::uint32_t bytes)
+bool steam_remote_storage_file_write_stream_write_chunk(std::uint64_t stream, gm::wire::GMBuffer data)
 {
     STEAM_GUARD_RET(false);
     ISteamRemoteStorage* rs = steam_remote_storage_iface();
     if (!rs) return false;
-    if (bytes == 0) return false;
-    return rs->FileWriteStreamWriteChunk((UGCFileWriteStreamHandle_t)stream, (const void*)data.data(), (int32)bytes);
+    if (data.length() == 0) return false;
+    return rs->FileWriteStreamWriteChunk((UGCFileWriteStreamHandle_t)stream, (const void*)data.data(), (int32)data.length());
 }
 
 bool steam_remote_storage_file_write_stream_close(std::uint64_t stream)
@@ -390,17 +390,16 @@ steam_remote_storage_get_ugc_details(std::uint64_t ugc_handle)
 
 std::int32_t steam_remote_storage_ugc_read(std::uint64_t ugc_handle,
                                            gm::wire::GMBuffer out_data,
-                                           std::int32_t bytes_to_read,
                                            std::uint32_t offset,
                                            gm_enums::SteamRemoteStorageUgcReadAction action)
 {
     STEAM_GUARD_RET(0);
     ISteamRemoteStorage* rs = steam_remote_storage_iface();
     if (!rs) return 0;
-    if (bytes_to_read <= 0) return 0;
+    if (out_data.length() <= 0) return 0;
 
-    std::vector<std::uint8_t> tmp((size_t)bytes_to_read);
-    int32 r = rs->UGCRead((UGCHandle_t)ugc_handle, tmp.data(), bytes_to_read, (uint32)offset, (EUGCReadAction)((int)action));
+    std::vector<std::uint8_t> tmp((size_t)out_data.length());
+    int32 r = rs->UGCRead((UGCHandle_t)ugc_handle, tmp.data(), (int32)out_data.length(), (uint32)offset, (EUGCReadAction)((int)action));
     if (r <= 0) return 0;
 
     if ((std::uint64_t)r > out_data.length()) {
@@ -453,15 +452,15 @@ static inline gm_structs::SteamRemoteStorageFileWriteAsyncResult rs_fromNative(c
     return out;
 }
 
-void steam_remote_storage_file_write_async(std::string_view file_name, gm::wire::GMBuffer data, std::uint32_t bytes, const gm::wire::GMFunction& callback)
+void steam_remote_storage_file_write_async(std::string_view file_name, gm::wire::GMBuffer data, const gm::wire::GMFunction& callback)
 {
     STEAM_GUARD();
     ISteamRemoteStorage* rs = steam_remote_storage_iface();
     if (!rs) return;
-    if (bytes == 0) return;
+    if (data.length() == 0) return;
 
     std::string fn(file_name);
-    SteamAPICall_t call = rs->FileWriteAsync(fn.c_str(), (const void*)data.data(), (uint32)bytes);
+    SteamAPICall_t call = rs->FileWriteAsync(fn.c_str(), (const void*)data.data(), (uint32)data.length());
     auto* h = new steam_async::CallResult<gm_structs::SteamRemoteStorageFileWriteAsyncResult, RemoteStorageFileWriteAsyncComplete_t>(callback, &rs_fromNative);
     h->set(call);
 }
