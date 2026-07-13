@@ -8401,6 +8401,8 @@
  * @description > **Steamworks Function**: [ISteamParties::OnReservationCompleted](https://partner.steamgames.com/doc/api/ISteamParties#OnReservationCompleted)
  *
  * This function notifies Steam that a reserved user has successfully joined your party, once a user who followed your beacon has joined.
+ * 
+ * See: ${struct.SteamPartiesReservationNotification}
  *
  * @param {Real} beacon_id The beacon ID for the beacon created by your process.
  * @param {Real} user_steam_id The Steam ID of the user joining your party.
@@ -10158,7 +10160,7 @@
 
 /**
  * @struct SteamPartiesReservationNotification
- * @description > **Steamworks Struct**: [ISteamParties::ReservationNotificationCallback_t](https://partner.steamgames.com/doc/api/isteamparties#ReservationNotificationCallback_t)
+ * @description > **Steamworks Struct**: [ISteamParties::ReservationNotificationCallback_t](https://partner.steamgames.com/doc/api/ISteamParties#ReservationNotificationCallback_t)
  *
  * This struct holds the information passed to a reservation notification callback. When you receive this callback, be sure to call ${function.steam_parties_on_reservation_completed} to let Steam know.
  *
