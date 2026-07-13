@@ -12183,6 +12183,8 @@
  * @title Friends
  * @desc > **Steamworks Interface**: [ISteamFriends](https://partner.steamgames.com/doc/api/ISteamFriends)
  * 
+ * This module is used to access information about individual users and interact with the [Steam Overlay](https://partner.steamgames.com/doc/features/overlay).
+ * 
  * @section_func Functions
  * @desc These are the functions of the Friends module:
  * @ref steam_friends_*
@@ -12204,6 +12206,8 @@
  * @module apps
  * @title Apps
  * @desc > **Steamworks Interface**: [ISteamApps](https://partner.steamgames.com/doc/api/ISteamApps)
+ * 
+ * This module exposes a wide range of information and actions for applications and [Downloadable Content (DLC)](https://partner.steamgames.com/doc/store/application/dlc).
  * 
  * @section_func Functions
  * @desc These are the functions of the Apps module:
@@ -12227,6 +12231,10 @@
  * @title Screenshots
  * @desc > **Steamworks Interface**: [ISteamScreenshots](https://partner.steamgames.com/doc/api/ISteamScreenshots)
  * 
+ * This module contains functions for adding screenshots to the user's screenshot library.
+ * 
+ * See [Steam Screenshots](https://partner.steamgames.com/doc/features/screenshots) for more information.
+ * 
  * @section_func Functions
  * @desc These are the functions of the Screenshots module:
  * @ref steam_screenshots_*
@@ -12248,6 +12256,10 @@
  * @module user
  * @title User
  * @desc > **Steamworks Interface**: [ISteamUser](https://partner.steamgames.com/doc/api/ISteamUser)
+ * 
+ * This module contains functions for accessing and manipulating Steam user information.
+ * 
+ * This is also where the APIs for [Steam Voice](https://partner.steamgames.com/doc/features/voice) are exposed.
  * 
  * @section_func Functions
  * @desc These are the functions of the User module:
@@ -12271,6 +12283,8 @@
  * @title Utils
  * @desc > **Steamworks Interface**: [ISteamUtils](https://partner.steamgames.com/doc/api/ISteamUtils)
  * 
+ * This module provides access to a range of miscellaneous utility functions.
+ * 
  * @section_func Functions
  * @desc These are the functions of the Utils module:
  * @ref steam_utils_*
@@ -12292,6 +12306,8 @@
  * @module ugc
  * @title UGC
  * @desc > **Steamworks Interface**: [ISteamUGC](https://partner.steamgames.com/doc/api/ISteamUGC)
+ * 
+ * This module contains functions to create, consume, and interact with the [Steam Workshop](https://partner.steamgames.com/doc/features/workshop).
  * 
  * @section_func Functions
  * @desc These are the functions of the UGC module:
@@ -12315,6 +12331,10 @@
  * @title Input
  * @desc > **Steamworks Interface**: [ISteamInput](https://partner.steamgames.com/doc/api/isteaminput)
  * 
+ * This module contains Steam Input functionality. Steam Input API is a flexible action-based API that supports all major controller types - Xbox, PlayStation, Nintendo Switch Pro, and Steam Controllers.
+ * 
+ * See the [Steam Input](https://partner.steamgames.com/doc/features/steam_controller) documentation for more information.
+ * 
  * @section_func Functions
  * @desc These are the functions of the Input module:
  * @ref steam_input_*
@@ -12337,7 +12357,7 @@
  * @title UserStats
  * @desc > **Steamworks Interface**: [ISteamUserStats](https://partner.steamgames.com/doc/api/ISteamUserStats)
  * 
- * Stats, Achievements and Leaderboards
+ * This module contains functions for accessing and submitting stats, achievements, and leaderboards.
  * 
  * @section_func Functions
  * @desc These are the functions of the UserStats module:
@@ -12363,6 +12383,12 @@
  * @title Music
  * @desc > **Steamworks Interface**: [ISteamMusic](https://partner.steamgames.com/doc/api/ISteamMusic)
  * 
+ * This module contains functions to control music playback in the Steam client.
+ * 
+ * This gives games the opportunity to do things like pause the music or lower the volume, when an important cut scene is shown, and start playing afterwards.
+ * 
+ * See [features/music_player](https://partner.steamgames.com/doc/features/music_player) for more information.
+ * 
  * @section_func Functions
  * @desc These are the functions of the Music module:
  * @ref steam_music_*
@@ -12384,6 +12410,10 @@
  * @module timeline
  * @title Timeline
  * @desc > **Steamworks Interface**: [ISteamTimeline](https://partner.steamgames.com/doc/api/ISteamTimeline)
+ * 
+ * This module contains functions that allow the game to add events to the timeline that is displayed alongside recorded video.
+ * 
+ * See [Steam Timelines](https://partner.steamgames.com/doc/features/timeline) and diagram at the bottom of page for more information.
  * 
  * @section_func Functions
  * @desc These are the functions of the Timeline module:
@@ -12437,6 +12467,10 @@
  * @title Remote Storage
  * @desc > **Steamworks Interface**: [ISteamRemoteStorage](https://partner.steamgames.com/doc/api/ISteamRemoteStorage)
  * 
+ * This module provides functions for reading, writing, and accessing files which can be stored remotely in the Steam Cloud.
+ * 
+ * See [Steam Cloud](https://partner.steamgames.com/doc/features/cloud) for more information.
+ * 
  * @section_func Functions
  * @desc These are the functions of the Remote Storage module:
  * @ref steam_remote_storage_*
@@ -12459,6 +12493,10 @@
  * @title Matchmaking
  * @desc > **Steamworks Interface**: [ISteamMatchmaking](https://partner.steamgames.com/doc/api/ISteamMatchmaking)
  * 
+ * This module contains functions for clients to access matchmaking services, favorites, and to operate on game lobbies.
+ * 
+ * See [Steam Matchmaking & Lobbies](https://partner.steamgames.com/doc/features/multiplayer/matchmaking) for more information.
+ * 
  * @section_func Functions
  * @desc These are the functions of the Matchmaking module:
  * @ref steam_matchmaking_*
@@ -12480,6 +12518,10 @@
  * @module networking
  * @title Networking
  * @desc > **Steamworks Interfaces**: [ISteamNetworking](https://partner.steamgames.com/doc/api/ISteamNetworking), [ISteamNetworkingMessages](https://partner.steamgames.com/doc/api/ISteamNetworkingMessages), [ISteamNetworkingSockets](https://partner.steamgames.com/doc/api/ISteamNetworkingSockets)
+ * 
+ * This module contains networking functions for making connections and sending data between clients, traversing NATs when possible.
+ * 
+ * [[Note: The [ISteamNetworking](https://partner.steamgames.com/doc/api/ISteamNetworking) API is deprecated. This module groups the functionality of the [ISteamNetworkingMessages](https://partner.steamgames.com/doc/api/ISteamNetworkingMessages) and [ISteamNetworkingSockets](https://partner.steamgames.com/doc/api/ISteamNetworkingSockets). See the [Steam Networking](https://partner.steamgames.com/doc/features/multiplayer/networking) overview for more information.]]
  * 
  * @section_func Networking Messages
  * @desc These are the functions available when using the Messages module:
@@ -12507,6 +12549,8 @@
  * @module parties
  * @title Parties
  * @desc > **Steamworks Interface**: [ISteamParties](https://partner.steamgames.com/doc/api/isteamparties)
+ * 
+ * This API can be used to selectively advertise your multiplayer game session in a Steam chat room group. Tell Steam the number of player spots that are available for your party, and a join-game string, and it will show a beacon in the selected group and allow that many users to “follow” the beacon to your party. Adjust the number of open slots if other players join through alternate matchmaking methods.
  * 
  * @section_func Functions
  * @desc These are the functions of the Parties module:
