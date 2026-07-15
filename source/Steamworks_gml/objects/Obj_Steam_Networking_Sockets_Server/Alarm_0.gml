@@ -10,7 +10,11 @@ if(net_connection > 0)
 	buffer_write(b, buffer_u16, mouse_x);//2
 	buffer_write(b, buffer_u16, mouse_y);//2
 
-	steam_networking_sockets_send_message_to_connection(net_connection,b,SteamNetworkingSendFlags.Reliable)
+	steam_networking_sockets_send_message_to_connection(
+		net_connection,
+		b,
+		SteamNetworkingSendFlags.Reliable)
+
 
 	//var res = steam_net_sockets_send_message(
 	//    net_connection,
