@@ -5,9 +5,9 @@ event_inherited()
 
 text = "host"
 
-net_buffer      = buffer_create(1024, buffer_grow, 1);
-net_connection  = -1;
-net_listen      = -1;
+net_buffer       = buffer_create(1024, buffer_grow, 1);
+net_connections  = array_create(0);
+net_listen       = -1;
 
 NET_P2P_PORT = 7
 
@@ -29,17 +29,17 @@ steam_networking_sockets_set_callback_connection_status_changed(function(data){
 		else
 		if (state == SteamNetworkingConnectionState.Connected)
 		{
-		    // Store the connection so we can send/recv
-		    net_connection = conn;
-			steam_networking_sockets_set_connection_poll_group(net_connection,poll_group)
+		    array_push(net_connections, {conn: conn});
+			steam_networking_sockets_set_connection_poll_group(conn, poll_group)
 		    show_debug_message($"SteamNet: CONNECTED on conn {conn}");
 		}
 		else if (state == SteamNetworkingConnectionState.ClosedByPeer || state == SteamNetworkingConnectionState.ProblemDetectedLocally)
 		{
 		    show_debug_message($"SteamNet: connection closed / problem on {conn}");
-		    if (net_connection == conn)
+		    var _idx = array_find_index(net_connections, function(c) { return c.conn == conn; });
+		    if (_idx >= 0)
 		    {
-		        net_connection = -1;
+		        array_delete(net_connections, _idx, 1);
 		    }
 		}
 	})

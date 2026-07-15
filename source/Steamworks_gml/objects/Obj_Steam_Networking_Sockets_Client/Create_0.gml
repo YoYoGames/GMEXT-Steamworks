@@ -13,6 +13,32 @@ net_host_steamid64 = 76561199257286820//0; // set this on the client before conn
 
 NET_P2P_PORT = 7
 
+steam_networking_sockets_set_callback_connection_status_changed(function(data){
+		show_debug_message(data)
+
+		var conn = data.conn
+		var state = data.info.state
+
+		if(state == SteamNetworkingConnectionState.Connecting)
+		{
+			show_debug_message($"SteamNet: CONNECTING on conn {conn}");
+		}
+		else
+		if (state == SteamNetworkingConnectionState.Connected)
+		{
+		    net_connection = conn;
+		    show_debug_message($"SteamNet: CONNECTED on conn {conn}");
+		}
+		else if (state == SteamNetworkingConnectionState.ClosedByPeer || state == SteamNetworkingConnectionState.ProblemDetectedLocally)
+		{
+		    show_debug_message($"SteamNet: connection closed / problem on {conn}");
+		    if (net_connection == conn)
+		    {
+		        net_connection = -1;
+		    }
+		}
+	})
+
 
 
 

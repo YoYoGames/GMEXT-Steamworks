@@ -2,10 +2,9 @@
 
 steam_networking_sockets_destroy_poll_group(poll_group)
 
-if (net_connection > 0)
+for(var i = 0; i < array_length(net_connections); i++)
 {
-    steam_networking_sockets_close_connection(net_connection, 0, "cleanup", true);
-    net_connection = -1;
+    steam_networking_sockets_close_connection(net_connections[i].conn, 0, "cleanup", true);
 }
 
 if (net_listen > 0)

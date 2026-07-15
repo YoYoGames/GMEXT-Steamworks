@@ -11,7 +11,7 @@ if(net_connection > 0)
 		exit
 
 
-	var _array_of_messages = steam_networking_sockets_receive_messages_on_connection(0,buff,10)
+	var _array_of_messages = steam_networking_sockets_receive_messages_on_connection(net_connection,buff,10)
 	for(var _i = 0 ; _i < array_length(_array_of_messages) ; _i++)
 	{
 		var _msg = _array_of_messages[_i]
