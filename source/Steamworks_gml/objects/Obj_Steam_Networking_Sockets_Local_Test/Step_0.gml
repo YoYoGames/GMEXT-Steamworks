@@ -6,7 +6,7 @@ if (!socket_demo_ready) exit;
 
 if (keyboard_check_pressed(vk_space)) {
     send_counter++;
-	
+
     var from_conn;
     var to_conn;
     if (keyboard_check(vk_shift)) {
@@ -21,13 +21,12 @@ if (keyboard_check_pressed(vk_space)) {
 
     buffer_seek(buf, buffer_seek_start, 0);
     buffer_write(buf, buffer_string, msg);
+    buffer_seek(buf, buffer_seek_start, 0);
 
-    var size = buffer_tell(buf);
     var er = steam_networking_sockets_send_message_to_connection(
         from_conn,
         buf,
-        size,
-        0
+        SteamNetworkingSendFlags.Reliable
     );
 
     log_add("SEND: \"" + msg + "\" via conn " + string(from_conn)
@@ -37,18 +36,15 @@ if (keyboard_check_pressed(vk_space)) {
 
 
 function poll_connection(conn_name, conn_handle) {
-    var received = steam_networking_sockets_receive_one_on_connection(
-        conn_handle,
-        buf,
-        buf_size,
-		0
-    );
+    var _array_of_messages = steam_networking_sockets_receive_messages_on_connection(conn_handle, buf, 10);
 
-    if (received.bytes_written > 0) {
-        buffer_seek(buf, buffer_seek_start, 0);
-        var s = buffer_read(buf, buffer_string);
-
-        log_add($"RECV on {conn_name} ( {conn_handle} ): {s}")
+    for(var _i = 0; _i < array_length(_array_of_messages); _i++) {
+        var _msg = _array_of_messages[_i];
+        if(_msg.size) {
+            buffer_seek(buf, buffer_seek_start, _msg.offset);
+            var s = buffer_read(buf, buffer_string);
+            log_add($"RECV on {conn_name} ({conn_handle}): {s}");
+        }
     }
 }
 
