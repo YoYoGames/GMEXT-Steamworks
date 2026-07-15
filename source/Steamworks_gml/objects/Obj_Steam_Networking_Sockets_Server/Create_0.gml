@@ -36,10 +36,13 @@ steam_networking_sockets_set_callback_connection_status_changed(function(data){
 		else if (state == SteamNetworkingConnectionState.ClosedByPeer || state == SteamNetworkingConnectionState.ProblemDetectedLocally)
 		{
 		    show_debug_message($"SteamNet: connection closed / problem on {conn}");
-		    var _idx = array_find_index(net_connections, function(c) { return c.conn == conn; });
-		    if (_idx >= 0)
+		    for(var i = 0; i < array_length(net_connections); i++)
 		    {
-		        array_delete(net_connections, _idx, 1);
+		        if(net_connections[i].conn == conn)
+		        {
+		            array_delete(net_connections, i, 1);
+		            break;
+		        }
 		    }
 		}
 	})
