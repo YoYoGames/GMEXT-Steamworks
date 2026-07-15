@@ -11,7 +11,6 @@ buffer_write(b, buffer_u16, mouse_y);//2
 var res = steam_networking_sockets_send_message_to_connection(
     net_connection,
     b,
-    buffer_tell(b),
     SteamNetworkingSendFlags.Reliable
 );
 		
