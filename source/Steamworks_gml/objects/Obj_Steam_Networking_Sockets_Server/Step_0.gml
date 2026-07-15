@@ -14,7 +14,6 @@ steam_networking_sockets_run_callbacks()
 		(
             poll_group,
             net_buffer,
-            1024,//NET_BUFFER_SIZE
 			0
         );
 		
