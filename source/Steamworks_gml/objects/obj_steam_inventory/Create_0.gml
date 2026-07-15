@@ -35,12 +35,13 @@ steam_inventory_set_callback_full_update(function(data){
 			{
 				var _data = {}
 			    var keys = steam_inventory_get_result_item_property_keys_array(data.result_handle, i);
+				if(!is_undefined(keys))
 			    for (var k = 0; k < array_length(keys); k++)
 			    {
 			        var key = keys[k]
-			        var value_struct = steam_inventory_get_result_item_property(data.result_handle,i,key);
-			        if (value_struct.ok)
-						struct_set(_data,key,value_struct.value)
+			        var _value = steam_inventory_get_result_item_property(data.result_handle,i,key);
+			        if(!is_undefined(_value))
+						struct_set(_data,key,_value)
 			    }
 				show_debug_message($"{i}: {_data}")
 		
@@ -78,8 +79,8 @@ function items_definitions_update(){
 					var value = steam_inventory_get_item_definition_property(item_def,key)
 					//show_debug_message($"{key}:{value}")
 					
-					if(value.ok)
-						struct_set(_data,key,value.value)
+					if(!is_undefined(value))
+						struct_set(_data,key,value)
 				}
 				
 				show_debug_message(_data)

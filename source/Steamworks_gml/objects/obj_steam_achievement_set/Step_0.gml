@@ -1,9 +1,10 @@
 
 event_inherited();
 
-var struct = steam_userstats_get_achievement(achievement)
+var val = steam_userstats_get_achievement(achievement)
 
-if(struct.ok)
-	locked = struct.achieved 
-else
-	locked = true
+locked = true
+
+if(!is_undefined(val))
+if(val)
+	locked = false

@@ -12,8 +12,8 @@ for(var b = 0 ; b < array_length(keys) ; b++)
 	var value = steam_inventory_get_item_definition_property(item_def,key)
 	//show_debug_message($"{key}:{value}")
 					
-	if(value.ok)
-		struct_set(item_def_properties,key,value.value)
+	if(!is_undefined(value))
+		struct_set(item_def_properties,key,value)
 }
 
 show_debug_message(item_def_properties)

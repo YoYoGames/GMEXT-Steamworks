@@ -1,9 +1,9 @@
 
-var _struct
-_struct = steam_userstats_get_stat_int("NumGames")
-if(struct.ok)
-	steam_userstats_set_stat_int("NumGames",struct.data + 1);
+var _val
+_val = steam_userstats_get_stat_int("NumGames")
+if(!is_undefined(_val))
+	steam_userstats_set_stat_int("NumGames",_val + 1);
 
-_struct = steam_userstats_get_stat_int(stat)
-if(struct.ok)
-	steam_userstats_set_stat_int(stat,struct.data + 1);
+_val = steam_userstats_get_stat_int(stat)
+if(!is_undefined(_val))
+	steam_userstats_set_stat_int(stat,_val + 1);
