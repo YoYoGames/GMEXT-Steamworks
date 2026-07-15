@@ -1,7 +1,7 @@
 
 with(obj_steam_friends_friend_select)
 {
-	steam_networking_messages_close_session_with_user(steam_id)
+	steam_networking_messages_close_session_with_user(data.steam_id)
 }
 
 steam_networking_messages_clear_callback_session_request()
