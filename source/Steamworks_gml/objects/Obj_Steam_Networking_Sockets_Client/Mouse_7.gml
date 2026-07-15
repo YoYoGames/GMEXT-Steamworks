@@ -5,7 +5,7 @@ with(obj_steam_friends_friend_select)
 {
 	if(selected)
 	{
-		steam_id = id.steam_id
+		steam_id = id.data.steam_id
 		break
 	}
 }
