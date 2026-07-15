@@ -31,7 +31,7 @@ steam_inventory_set_callback_full_update(function(data){
 			var _y = 150
 			
 			show_debug_message("---- ITEMS ----");	
-			for (var i = 0; i < items.count; i++)
+			for (var i = 0; i < items.quantity; i++)
 			{
 				var _data = {}
 			    var keys = steam_inventory_get_result_item_property_keys_array(data.result_handle, i);
