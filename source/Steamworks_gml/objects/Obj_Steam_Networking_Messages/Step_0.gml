@@ -3,8 +3,11 @@ event_inherited();
 
 var buff = buffer_create(128,buffer_fixed,1)
 
-var _array_of_messages = steam_networking_messages_receive_messages_on_channel(0,buff,1)
+if(keyboard_check(vk_space))//just to simulate interuptions
+	exit
 
+
+var _array_of_messages = steam_networking_messages_receive_messages_on_channel(0,buff,10)
 for(var _i = 0 ; _i < array_length(_array_of_messages) ; _i++)
 {
 	var _msg = _array_of_messages[_i]
