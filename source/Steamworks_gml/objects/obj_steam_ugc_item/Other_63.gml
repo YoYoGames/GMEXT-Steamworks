@@ -30,7 +30,7 @@ if(async_load[?"status"])
 			
 			var install_info = steam_ugc_get_item_install_info(data.published_file_id);
 			
-			if (!install_info.ok) {
+			if (is_undefined(install_info)) {
 				show_debug_message("Item needs to be downloaded first");
 				return;
 			}
@@ -45,9 +45,9 @@ if(async_load[?"status"])
 			// This code will get update information from the UGC
 			// item being installed (after subscription).
 			// NOTE: items needs to be subscribed first
-			exists = steam_ugc_get_item_download_info(data.published_file_id);
+			var struct = steam_ugc_get_item_download_info(data.published_file_id);
 			
-			var struct = show_debug_message("Item needs to be subscribed first");
+			show_debug_message("Item needs to be subscribed first");
 			
 			show_debug_message($"Update Item Info: {struct}")
 		break

@@ -4,7 +4,7 @@
 function steam_image_create_sprite(l_img)
 {
 	var image_size = steam_utils_get_image_size(l_img);
-	if (!image_size.ok) 
+	if (is_undefined(image_size))
 		return -1;
 	
 	var buff_size = image_size.width * image_size.height * 4

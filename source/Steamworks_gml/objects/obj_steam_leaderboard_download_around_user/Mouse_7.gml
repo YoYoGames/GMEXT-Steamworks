@@ -8,21 +8,20 @@ steam_userstats_find_leaderboard(SteamLeaderboard,function(data){
 					show_debug_message(data)
 					for(var i = 0 ; i < data.entry_count ; i++)
 					{
-                        var buff = buffer_create(1024,buffer_fixed,1)
-						var struct = steam_userstats_downloaded_leaderboard_entry(data.entries_handle,i,buff,1024)
-                        if(struct.bytes_written)
-                        {
-                            var num = buffer_read(buff,buffer_u8)
-                            var str = buffer_read(buff,buffer_string)
-                            struct.msg = str
-                            show_debug_message([num,str])
-                        }
-                        else
-                            struct.msg = ""
+						var struct = steam_userstats_downloaded_leaderboard_entry(data.entries_handle,i)
+						var str = "";
+						for (var i = 0; i < array_length(struct.details); i++)
+						{
+						    if (i > 0) str += ", ";
+						    str += string(struct.details[i]);
+						}
+
+						show_debug_message(str);
+						struct.msg = str
 							
 						
 						struct.steam_id = struct.steam_id_user
-						instance_create_depth(800, 110 + i*80, 0, obj_steam_leaderboard_entry,{data:struct,medium: true,print_info: false})
+						instance_create_depth(800, 110 + i*80, 0, obj_steam_leaderboard_entry,{data: struct,medium: true,print_info: false})
                         
                         buffer_delete(buff)
 					}

@@ -18,6 +18,9 @@ items_query_handler = function(data){
 		{
 			var item = steam_ugc_get_query_ugc_result(data.query_handle,i)
 			
+			if(is_undefined(item))
+				continue
+			
 			item.preview_url = steam_ugc_get_query_ugc_preview_url(data.query_handle,i)
 			
 			//steam_ugc_get_query_ugc_metadata(query_handle,i)

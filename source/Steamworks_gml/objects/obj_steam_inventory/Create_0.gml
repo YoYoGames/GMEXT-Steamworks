@@ -24,6 +24,9 @@ steam_inventory_set_callback_full_update(function(data){
 			
 			var items = steam_inventory_get_result_items(data.result_handle);
 
+			if(is_undefined(items))
+				{return}
+			
 			var _x = 800
 			var _y = 150
 			
