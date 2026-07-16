@@ -6713,7 +6713,7 @@ std::int32_t steam_matchmaking_get_lobby_data_count(std::uint64_t lobby_id);
 bool steam_matchmaking_get_lobby_data_by_index(std::uint64_t lobby_id, std::int32_t index, gm::wire::GMBuffer key_out, gm::wire::GMBuffer val_out);
 void steam_matchmaking_set_lobby_member_data(std::uint64_t lobby_id, std::string_view key, std::string_view value);
 std::string steam_matchmaking_get_lobby_member_data(std::uint64_t lobby_id, std::uint64_t member_id, std::string_view key);
-bool steam_matchmaking_send_lobby_chat_msg(std::uint64_t lobby_id, gm::wire::GMBuffer msg, std::uint32_t buffer_offset, std::uint32_t buffer_count, std::int32_t bytes);
+bool steam_matchmaking_send_lobby_chat_msg(std::uint64_t lobby_id, gm::wire::GMBuffer msg, std::uint32_t buffer_offset, std::uint32_t buffer_count);
 std::optional<gm_structs::SteamMatchmakingLobbyChatEntry> steam_matchmaking_get_lobby_chat_entry(std::uint64_t lobby_id, std::int32_t chat_id, gm::wire::GMBuffer out_buffer);
 void steam_matchmaking_add_request_lobby_list_filter_slots_available(std::int32_t slots_available);
 bool steam_matchmaking_request_lobby_data(std::uint64_t steam_id_lobby);

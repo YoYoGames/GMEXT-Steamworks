@@ -21,11 +21,12 @@ if (keyboard_check_pressed(vk_space)) {
 
     buffer_seek(buf, buffer_seek_start, 0);
     buffer_write(buf, buffer_string, msg);
-    buffer_seek(buf, buffer_seek_start, 0);
 
     var er = steam_networking_sockets_send_message_to_connection(
         from_conn,
         buf,
+		0,
+		buffer_tell(buf),
         SteamNetworkingSendFlags.Reliable
     );
 

@@ -400,7 +400,7 @@ std::string steam_matchmaking_get_lobby_member_data(std::uint64_t lobby_id, std:
     return p ? std::string(p) : "";
 }
 
-bool steam_matchmaking_send_lobby_chat_msg(std::uint64_t lobby_id, gm::wire::GMBuffer msg, std::uint32_t buffer_offset, std::uint32_t buffer_count, std::int32_t bytes)
+bool steam_matchmaking_send_lobby_chat_msg(std::uint64_t lobby_id, gm::wire::GMBuffer msg, std::uint32_t buffer_offset, std::uint32_t buffer_count)
 {
     STEAM_GUARD_RET(false);
     ISteamMatchmaking* mm = steam_matchmaking_iface();

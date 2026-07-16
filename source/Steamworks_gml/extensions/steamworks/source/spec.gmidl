@@ -5570,7 +5570,7 @@ function steam_matchmaking_set_lobby_member_data([type_hint=uint64] lobby_id: gm
 function steam_matchmaking_get_lobby_member_data([type_hint=uint64] lobby_id: gmval, [type_hint=uint64] member_id: gmval, key: string): string;
 
 [global, bind = typed_gml]
-function steam_matchmaking_send_lobby_chat_msg([type_hint=uint64] lobby_id: gmval, [type_hint=buffer] msg: gmval, buffer_offset: uint32, buffer_count: uint32, bytes: int32): bool;
+function steam_matchmaking_send_lobby_chat_msg([type_hint=uint64] lobby_id: gmval, [type_hint=buffer] msg: gmval, buffer_offset: uint32, buffer_count: uint32): bool;
 
 [global]
 class `[[SteamMatchmakingLobbyChatEntry]]` prototype Object

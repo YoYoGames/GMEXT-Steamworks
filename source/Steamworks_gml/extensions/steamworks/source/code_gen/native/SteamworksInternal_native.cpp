@@ -6332,10 +6332,7 @@ GMEXPORT double __EXT_NATIVE__steam_matchmaking_send_lobby_chat_msg(char* __arg_
     // field: buffer_count, type: UInt32
     std::uint32_t buffer_count = gm::wire::codec::readValue<std::uint32_t>(__br);
 
-    // field: bytes, type: Int32
-    std::int32_t bytes = gm::wire::codec::readValue<std::int32_t>(__br);
-
-    auto&& __result = steam_matchmaking_send_lobby_chat_msg(lobby_id, msg, buffer_offset, buffer_count, bytes);
+    auto&& __result = steam_matchmaking_send_lobby_chat_msg(lobby_id, msg, buffer_offset, buffer_count);
     return static_cast<double>(__result);
 }
 

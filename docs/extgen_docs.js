@@ -3818,7 +3818,6 @@
  * @param {Buffer} msg
  * @param {Real} buffer_offset
  * @param {Real} buffer_count
- * @param {Real} bytes
  * @returns {Bool}
  * @function_end
  */

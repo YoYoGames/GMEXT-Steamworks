@@ -22414,10 +22414,9 @@ function steam_matchmaking_get_lobby_member_data(_lobby_id, _member_id, _key)
  * @param {Id.Buffer} _msg
  * @param {Real} _buffer_offset
  * @param {Real} _buffer_count
- * @param {Real} _bytes
  * @returns {Bool}
  */
-function steam_matchmaking_send_lobby_chat_msg(_lobby_id, _msg, _buffer_offset, _buffer_count, _bytes)
+function steam_matchmaking_send_lobby_chat_msg(_lobby_id, _msg, _buffer_offset, _buffer_count)
 {
     static __available = __Steamworks_is_available();
     if (!__available) return;
@@ -22439,10 +22438,6 @@ function steam_matchmaking_send_lobby_chat_msg(_lobby_id, _msg, _buffer_offset, 
     // param: _buffer_count, type: UInt32
     if (!is_numeric(_buffer_count)) show_error($"{_GMFUNCTION_} :: _buffer_count expected number", true);
     buffer_write(__args_buffer, buffer_u32, _buffer_count);
-
-    // param: _bytes, type: Int32
-    if (!is_numeric(_bytes)) show_error($"{_GMFUNCTION_} :: _bytes expected number", true);
-    buffer_write(__args_buffer, buffer_s32, _bytes);
 
     var _return_value = __steam_matchmaking_send_lobby_chat_msg(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
 
