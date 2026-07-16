@@ -400,17 +400,20 @@ std::string steam_matchmaking_get_lobby_member_data(std::uint64_t lobby_id, std:
     return p ? std::string(p) : "";
 }
 
-bool steam_matchmaking_send_lobby_chat_msg(std::uint64_t lobby_id, gm::wire::GMBuffer msg, std::int32_t bytes)
+bool steam_matchmaking_send_lobby_chat_msg(std::uint64_t lobby_id, gm::wire::GMBuffer msg, std::uint32_t buffer_offset, std::uint32_t buffer_count, std::int32_t bytes)
 {
     STEAM_GUARD_RET(false);
     ISteamMatchmaking* mm = steam_matchmaking_iface();
     if (!mm) return false;
-    if (bytes <= 0) return false;
-    if ((std::uint64_t)bytes > msg.length()) {
-        steam_set_last_error("steam_matchmaking_send_lobby_chat_msg: bytes exceeds buffer length.");
+    if (buffer_count <= 0) return false;
+    if ((std::uint64_t)buffer_offset + (std::uint64_t)buffer_count > msg.length()) {
+        steam_set_last_error("steam_matchmaking_send_lobby_chat_msg: buffer_offset + buffer_count exceeds buffer length.");
         return false;
     }
-    return mm->SendLobbyChatMsg(steam_id_from_u64(lobby_id), (const void*)msg.data(), bytes);
+    std::vector<std::uint8_t> tmp((size_t)buffer_count);
+    auto reader = msg.getReader();
+    reader.readBytes((char*)tmp.data(), (int)buffer_count);
+    return mm->SendLobbyChatMsg(steam_id_from_u64(lobby_id), (const void*)tmp.data(), buffer_count);
 }
 
 std::optional<gm_structs::SteamMatchmakingLobbyChatEntry> steam_matchmaking_get_lobby_chat_entry(std::uint64_t lobby_id, std::int32_t chat_id, gm::wire::GMBuffer out_buffer)

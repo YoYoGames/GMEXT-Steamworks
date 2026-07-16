@@ -234,7 +234,7 @@ void steam_screenshots_trigger_screenshot()
 }
 
 std::uint32_t steam_screenshots_write_screenshot(
-    gm::wire::GMBuffer buff_rgb, std::int32_t width, std::int32_t height
+    gm::wire::GMBuffer buff_rgb, std::uint32_t buffer_offset, std::uint32_t buffer_count, std::int32_t width, std::int32_t height
 )
 {
     STEAM_GUARD_RET(0);
@@ -242,8 +242,8 @@ std::uint32_t steam_screenshots_write_screenshot(
     if (!ss)
         return 0;
 
-    if (buff_rgb.length() == 0) {
-        steam_set_last_error("WriteScreenshot: rgb_size must be > 0.");
+    if (buffer_count == 0) {
+        steam_set_last_error("WriteScreenshot: buffer_count must be > 0.");
         return 0;
     }
 
@@ -252,27 +252,17 @@ std::uint32_t steam_screenshots_write_screenshot(
         return 0;
     }
 
-    // Steam reads width*height*3 bytes (24-bit RGB) regardless of cubRGB, and we must not
-    // read past the supplied GM buffer. Require rgb_size to be exactly the expected size and
-    // to fit within the real buffer.
-    const std::uint64_t expected = (std::uint64_t)width * (std::uint64_t)height * 3u;
-    if ((std::uint64_t)buff_rgb.length() < expected) {
-        steam_set_last_error("WriteScreenshot: rgb_size is smaller than width*height*3.");
-        return 0;
-    }
-    if ((std::uint64_t)buff_rgb.length() > buff_rgb.length()) {
-        steam_set_last_error("WriteScreenshot: rgb_size exceeds buffer length.");
+    if ((std::uint64_t)buffer_offset + (std::uint64_t)buffer_count > (std::uint64_t)buff_rgb.length()) {
+        steam_set_last_error("WriteScreenshot: buffer_offset + buffer_count exceeds buffer length.");
         return 0;
     }
 
     std::vector<std::uint8_t> rgb;
-    rgb.resize((size_t)buff_rgb.length());
+    rgb.resize((size_t)buffer_count);
 
     auto reader = buff_rgb.getReader();
-    reader.readBytes((char*)rgb.data(), (int)buff_rgb.length());
+    reader.readBytes((char*)rgb.data(), (int)buffer_count);
 
-    // NOTE: Steam expects raw RGB data (no alpha) in a specific packing (typically 24-bit RGB).
-    // Ensure your GML side writes the correct format and byte order.
-    return (std::uint32_t)ss->WriteScreenshot(rgb.data(), (uint32)buff_rgb.length(), (int)width, (int)height);
+    return (std::uint32_t)ss->WriteScreenshot(rgb.data(), (uint32)buffer_count, (int)width, (int)height);
 }
 

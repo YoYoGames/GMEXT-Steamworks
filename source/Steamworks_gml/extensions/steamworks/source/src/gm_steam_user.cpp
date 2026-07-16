@@ -55,23 +55,31 @@ void steam_user_advertise_game(std::uint64_t steam_id_game_server,
 
 SteamUserBeginAuthSessionResult
 steam_user_begin_auth_session(gm::wire::GMBuffer auth_ticket,
+                              std::uint32_t buffer_offset,
+                              std::uint32_t buffer_count,
                               std::uint64_t steam_id)
 {
     STEAM_GUARD_RET(SteamUserBeginAuthSessionResult::InvalidTicket);
     ISteamUser* u = steam_user_iface();
     if (!u) return SteamUserBeginAuthSessionResult::InvalidTicket;
 
-    if (auth_ticket.length() <= 0)
+    if (buffer_count <= 0)
     {
-        steam_set_last_error("BeginAuthSession: auth_ticket must have length > 0.");
+        steam_set_last_error("BeginAuthSession: buffer_count must be > 0.");
         return SteamUserBeginAuthSessionResult::InvalidTicket;
     }
 
-    std::vector<std::uint8_t> tmp((size_t)auth_ticket.length());
-    auto reader = auth_ticket.getReader();
-    reader.readBytes((char*)tmp.data(), (int)auth_ticket.length());
+    if ((std::uint64_t)buffer_offset + (std::uint64_t)buffer_count > (std::uint64_t)auth_ticket.length())
+    {
+        steam_set_last_error("BeginAuthSession: buffer_offset + buffer_count exceeds buffer length.");
+        return SteamUserBeginAuthSessionResult::InvalidTicket;
+    }
 
-    EBeginAuthSessionResult r = u->BeginAuthSession(tmp.data(), (uint32)auth_ticket.length(), steam_id_from_u64(steam_id));
+    std::vector<std::uint8_t> tmp((size_t)buffer_count);
+    auto reader = auth_ticket.getReader();
+    reader.readBytes((char*)tmp.data(), (int)buffer_count);
+
+    EBeginAuthSessionResult r = u->BeginAuthSession(tmp.data(), (uint32)buffer_count, steam_id_from_u64(steam_id));
     return (SteamUserBeginAuthSessionResult)(int)r;
 }
 
@@ -150,6 +158,8 @@ void steam_user_cancel_auth_ticket(std::uint32_t h_auth_ticket)
 
 SteamApiVoiceResult steam_user_decompress_voice(
     gm::wire::GMBuffer compressed,
+    std::uint32_t buffer_offset,
+    std::uint32_t buffer_count,
     gm::wire::GMBuffer dest,
     std::uint32_t desired_sample_rate)
 {
@@ -157,16 +167,22 @@ SteamApiVoiceResult steam_user_decompress_voice(
     ISteamUser* u = steam_user_iface();
     if (!u) return SteamApiVoiceResult::NotInitialized;
 
-    if (compressed.length() == 0 || dest.length() == 0)
+    if (buffer_count == 0 || dest.length() == 0)
     {
-        steam_set_last_error("DecompressVoice: compressed and dest buffers must have length > 0.");
+        steam_set_last_error("DecompressVoice: buffer_count and dest buffer must have length > 0.");
         return SteamApiVoiceResult::BufferTooSmall;
     }
 
-    std::vector<std::uint8_t> in((size_t)compressed.length());
+    if ((std::uint64_t)buffer_offset + (std::uint64_t)buffer_count > (std::uint64_t)compressed.length())
+    {
+        steam_set_last_error("DecompressVoice: buffer_offset + buffer_count exceeds buffer length.");
+        return SteamApiVoiceResult::BufferTooSmall;
+    }
+
+    std::vector<std::uint8_t> in((size_t)buffer_count);
     {
         auto r = compressed.getReader();
-        r.readBytes((char*)in.data(), (int)compressed.length());
+        r.readBytes((char*)in.data(), (int)buffer_count);
     }
 
     std::vector<std::uint8_t> out((size_t)dest.length());
@@ -673,19 +689,25 @@ void steam_user_request_store_auth_url(std::string_view redirect_url,  const gm:
     h->set(call);
 }
 
-void steam_user_request_encrypted_app_ticket(gm::wire::GMBuffer data_to_include,  const gm::wire::GMFunction& callback)
+void steam_user_request_encrypted_app_ticket(gm::wire::GMBuffer data_to_include, std::uint32_t buffer_offset, std::uint32_t buffer_count, const gm::wire::GMFunction& callback)
 {
     STEAM_GUARD();
 
     ISteamUser* u = steam_user_iface();
     if (!u) return;
 
-    std::vector<std::uint8_t> tmp;
-    if (data_to_include.length() > 0)
+    if (buffer_count > 0 && (std::uint64_t)buffer_offset + (std::uint64_t)buffer_count > (std::uint64_t)data_to_include.length())
     {
-        tmp.resize((size_t)data_to_include.length());
+        steam_set_last_error("RequestEncryptedAppTicket: buffer_offset + buffer_count exceeds buffer length.");
+        return;
+    }
+
+    std::vector<std::uint8_t> tmp;
+    if (buffer_count > 0)
+    {
+        tmp.resize((size_t)buffer_count);
         auto r = data_to_include.getReader();
-        r.readBytes((char*)tmp.data(), (int)data_to_include.length());
+        r.readBytes((char*)tmp.data(), (int)buffer_count);
     }
 
     SteamAPICall_t call = u->RequestEncryptedAppTicket(tmp.empty() ? nullptr : tmp.data(), (int)tmp.size());

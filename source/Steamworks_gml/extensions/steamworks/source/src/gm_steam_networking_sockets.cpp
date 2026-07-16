@@ -203,6 +203,8 @@ std::string steam_networking_sockets_get_connection_name(std::uint32_t conn)
 
 std::int32_t steam_networking_sockets_send_message_to_connection(std::uint32_t conn,
                                                                  gm::wire::GMBuffer data,
+                                                                 std::uint32_t buffer_offset,
+                                                                 std::uint32_t buffer_count,
                                                                  gm_enums::SteamNetworkingSendFlags send_flags)
 {
     STEAM_GUARD_RET((std::int32_t)k_EResultFail);
@@ -210,11 +212,20 @@ std::int32_t steam_networking_sockets_send_message_to_connection(std::uint32_t c
     ISteamNetworkingSockets* s = steam_networking_sockets_iface();
     if (!s) return (std::int32_t)k_EResultFail;
 
-    if (data.length() == 0) return (std::int32_t)k_EResultInvalidParam;
+    if (buffer_count == 0) return (std::int32_t)k_EResultInvalidParam;
+
+    if ((std::uint64_t)buffer_offset + (std::uint64_t)buffer_count > (std::uint64_t)data.length()) {
+        steam_set_last_error("SendMessageToConnection: buffer_offset + buffer_count exceeds buffer length.");
+        return (std::int32_t)k_EResultInvalidParam;
+    }
+
+    std::vector<std::uint8_t> tmp((size_t)buffer_count);
+    auto reader = data.getReader();
+    reader.readBytes((char*)tmp.data(), (int)buffer_count);
 
     return (std::int32_t)s->SendMessageToConnection((HSteamNetConnection)conn,
-                                                    (const void*)data.data(),
-                                                    (uint32)data.length(),
+                                                    (const void*)tmp.data(),
+                                                    (uint32)buffer_count,
                                                     (int)send_flags,
                                                     nullptr);
 }

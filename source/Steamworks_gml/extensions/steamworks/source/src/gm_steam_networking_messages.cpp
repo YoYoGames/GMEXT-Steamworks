@@ -114,6 +114,8 @@ void steam_networking_messages_clear_callback_session_failed()
 
 std::int32_t steam_networking_messages_send_message_to_user(std::uint64_t steam_id_remote,
                                                             gm::wire::GMBuffer data,
+                                                            std::uint32_t buffer_offset,
+                                                            std::uint32_t buffer_count,
                                                             std::int32_t send_flags,
                                                             std::int32_t remote_channel)
 {
@@ -122,11 +124,20 @@ std::int32_t steam_networking_messages_send_message_to_user(std::uint64_t steam_
     ISteamNetworkingMessages* m = steam_networking_messages_iface();
     if (!m) return (std::int32_t)k_EResultFail;
 
-    if (data.length() == 0) return (std::int32_t)k_EResultInvalidParam;
+    if (buffer_count == 0) return (std::int32_t)k_EResultInvalidParam;
+
+    if ((std::uint64_t)buffer_offset + (std::uint64_t)buffer_count > (std::uint64_t)data.length()) {
+        steam_set_last_error("SendMessageToUser: buffer_offset + buffer_count exceeds buffer length.");
+        return (std::int32_t)k_EResultInvalidParam;
+    }
 
     SteamNetworkingIdentity id = snm_identity_from_steamid64(steam_id_remote);
 
-    EResult r = m->SendMessageToUser(id, (const void*)data.data(), (uint32)data.length(), (int)send_flags, (int)remote_channel);
+    std::vector<std::uint8_t> tmp((size_t)buffer_count);
+    auto reader = data.getReader();
+    reader.readBytes((char*)tmp.data(), (int)buffer_count);
+
+    EResult r = m->SendMessageToUser(id, (const void*)tmp.data(), (uint32)buffer_count, (int)send_flags, (int)remote_channel);
     return (std::int32_t)r;
 }
 

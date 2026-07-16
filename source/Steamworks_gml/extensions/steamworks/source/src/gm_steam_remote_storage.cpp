@@ -153,15 +153,23 @@ void steam_remote_storage_set_cloud_enabled_for_app(bool enabled)
     rs->SetCloudEnabledForApp(enabled);
 }
 
-bool steam_remote_storage_file_write(std::string_view file_name, gm::wire::GMBuffer data)
+bool steam_remote_storage_file_write(std::string_view file_name, gm::wire::GMBuffer data, std::uint32_t buffer_offset, std::uint32_t buffer_count)
 {
     STEAM_GUARD_RET(false);
     ISteamRemoteStorage* rs = steam_remote_storage_iface();
     if (!rs) return false;
-    if (data.length() == 0) return false;
+    if (buffer_count == 0) return false;
+
+    if ((std::uint64_t)buffer_offset + (std::uint64_t)buffer_count > (std::uint64_t)data.length()) {
+        steam_set_last_error("FileWrite: buffer_offset + buffer_count exceeds buffer length.");
+        return false;
+    }
 
     std::string fn(file_name);
-    return rs->FileWrite(fn.c_str(), (const void*)data.data(), (int32)data.length());
+    std::vector<std::uint8_t> tmp((size_t)buffer_count);
+    auto reader = data.getReader();
+    reader.readBytes((char*)tmp.data(), (int)buffer_count);
+    return rs->FileWrite(fn.c_str(), (const void*)tmp.data(), (int32)buffer_count);
 }
 
 std::int32_t steam_remote_storage_file_read(std::string_view file_name, gm::wire::GMBuffer out_data)
@@ -312,13 +320,22 @@ std::uint64_t steam_remote_storage_file_write_stream_open(std::string_view file_
     return (std::uint64_t)h;
 }
 
-bool steam_remote_storage_file_write_stream_write_chunk(std::uint64_t stream, gm::wire::GMBuffer data)
+bool steam_remote_storage_file_write_stream_write_chunk(std::uint64_t stream, gm::wire::GMBuffer data, std::uint32_t buffer_offset, std::uint32_t buffer_count)
 {
     STEAM_GUARD_RET(false);
     ISteamRemoteStorage* rs = steam_remote_storage_iface();
     if (!rs) return false;
-    if (data.length() == 0) return false;
-    return rs->FileWriteStreamWriteChunk((UGCFileWriteStreamHandle_t)stream, (const void*)data.data(), (int32)data.length());
+    if (buffer_count == 0) return false;
+
+    if ((std::uint64_t)buffer_offset + (std::uint64_t)buffer_count > (std::uint64_t)data.length()) {
+        steam_set_last_error("FileWriteStreamWriteChunk: buffer_offset + buffer_count exceeds buffer length.");
+        return false;
+    }
+
+    std::vector<std::uint8_t> tmp((size_t)buffer_count);
+    auto reader = data.getReader();
+    reader.readBytes((char*)tmp.data(), (int)buffer_count);
+    return rs->FileWriteStreamWriteChunk((UGCFileWriteStreamHandle_t)stream, (const void*)tmp.data(), (int32)buffer_count);
 }
 
 bool steam_remote_storage_file_write_stream_close(std::uint64_t stream)
@@ -452,15 +469,23 @@ static inline gm_structs::SteamRemoteStorageFileWriteAsyncResult rs_fromNative(c
     return out;
 }
 
-void steam_remote_storage_file_write_async(std::string_view file_name, gm::wire::GMBuffer data, const gm::wire::GMFunction& callback)
+void steam_remote_storage_file_write_async(std::string_view file_name, gm::wire::GMBuffer data, std::uint32_t buffer_offset, std::uint32_t buffer_count, const gm::wire::GMFunction& callback)
 {
     STEAM_GUARD();
     ISteamRemoteStorage* rs = steam_remote_storage_iface();
     if (!rs) return;
-    if (data.length() == 0) return;
+    if (buffer_count == 0) return;
+
+    if ((std::uint64_t)buffer_offset + (std::uint64_t)buffer_count > (std::uint64_t)data.length()) {
+        steam_set_last_error("FileWriteAsync: buffer_offset + buffer_count exceeds buffer length.");
+        return;
+    }
 
     std::string fn(file_name);
-    SteamAPICall_t call = rs->FileWriteAsync(fn.c_str(), (const void*)data.data(), (uint32)data.length());
+    std::vector<std::uint8_t> tmp((size_t)buffer_count);
+    auto reader = data.getReader();
+    reader.readBytes((char*)tmp.data(), (int)buffer_count);
+    SteamAPICall_t call = rs->FileWriteAsync(fn.c_str(), (const void*)tmp.data(), (uint32)buffer_count);
     auto* h = new steam_async::CallResult<gm_structs::SteamRemoteStorageFileWriteAsyncResult, RemoteStorageFileWriteAsyncComplete_t>(callback, &rs_fromNative);
     h->set(call);
 }

@@ -824,6 +824,8 @@
 /**
  * @function_partial steam_screenshots_write_screenshot
  * @param {Buffer} buff_rgb
+ * @param {Real} buffer_offset
+ * @param {Real} buffer_count
  * @param {Real} width
  * @param {Real} height
  * @returns {Real}
@@ -863,6 +865,8 @@
 /**
  * @function_partial steam_user_begin_auth_session
  * @param {Buffer} auth_ticket
+ * @param {Real} buffer_offset
+ * @param {Real} buffer_count
  * @param {Real} steam_id
  * @returns {Enum.SteamUserBeginAuthSessionResult}
  * @function_end
@@ -920,6 +924,8 @@
 /**
  * @function_partial steam_user_decompress_voice
  * @param {Buffer} compressed
+ * @param {Real} buffer_offset
+ * @param {Real} buffer_count
  * @param {Buffer} dest
  * @param {Real} desired_sample_rate
  * @returns {Enum.SteamApiVoiceResult}
@@ -1001,6 +1007,8 @@
 /**
  * @function_partial steam_user_request_encrypted_app_ticket
  * @param {Buffer} data_to_include
+ * @param {Real} buffer_offset
+ * @param {Real} buffer_count
  * @param {Function} callback
  * @function_end
  */
@@ -3074,6 +3082,8 @@
 /**
  * @function_partial steam_inventory_deserialize_result
  * @param {Buffer} data
+ * @param {Real} buffer_offset
+ * @param {Real} buffer_count
  * @returns {Struct.SteamInventoryDeserializeResult}
  * @function_end
  */
@@ -3404,6 +3414,8 @@
  * @function_partial steam_remote_storage_file_write
  * @param {String} file_name
  * @param {Buffer} data
+ * @param {Real} buffer_offset
+ * @param {Real} buffer_count
  * @returns {Bool}
  * @function_end
  */
@@ -3412,6 +3424,8 @@
  * @function_partial steam_remote_storage_file_write_async
  * @param {String} file_name
  * @param {Buffer} data
+ * @param {Real} buffer_offset
+ * @param {Real} buffer_count
  * @param {Function} callback
  * @function_end
  */
@@ -3511,6 +3525,8 @@
  * @function_partial steam_remote_storage_file_write_stream_write_chunk
  * @param {Real} stream
  * @param {Buffer} data
+ * @param {Real} buffer_offset
+ * @param {Real} buffer_count
  * @returns {Bool}
  * @function_end
  */
@@ -3800,6 +3816,8 @@
  * @function_partial steam_matchmaking_send_lobby_chat_msg
  * @param {Real} lobby_id
  * @param {Buffer} msg
+ * @param {Real} buffer_offset
+ * @param {Real} buffer_count
  * @param {Real} bytes
  * @returns {Bool}
  * @function_end
@@ -3901,6 +3919,8 @@
  * @function_partial steam_networking_messages_send_message_to_user
  * @param {Real} steam_id_remote
  * @param {Buffer} data
+ * @param {Real} buffer_offset
+ * @param {Real} buffer_count
  * @param {Real} send_flags
  * @param {Real} remote_channel
  * @returns {Real}
@@ -4021,6 +4041,8 @@
  * @function_partial steam_networking_sockets_send_message_to_connection
  * @param {Real} conn
  * @param {Buffer} data
+ * @param {Real} buffer_offset
+ * @param {Real} buffer_count
  * @param {Enum.SteamNetworkingSendFlags} send_flags
  * @returns {Real}
  * @function_end

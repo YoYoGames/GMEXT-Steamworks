@@ -1245,6 +1245,8 @@ function steam_screenshots_trigger_screenshot(): unit;
 [global, bind = typed_gml]
 function steam_screenshots_write_screenshot(
     [type_hint=buffer] buff_rgb,
+    buffer_offset: uint32,
+    buffer_count: uint32,
     width: int32,
     height: int32
 ): uint32;
@@ -1365,6 +1367,8 @@ function steam_user_advertise_game(
 [global, bind = typed_gml, type_hint=`SteamUserBeginAuthSessionResult`]
 function steam_user_begin_auth_session(
     [type_hint=buffer] auth_ticket: gmval,
+    buffer_offset: uint32,
+    buffer_count: uint32,
     [type_hint=uint64] steam_id: gmval
 ): gmval;
 
@@ -1406,6 +1410,8 @@ function steam_user_cancel_auth_ticket(auth_ticket_handle: uint32): unit;
 [global, bind = typed_gml, type_hint=`SteamApiVoiceResult`]
 function steam_user_decompress_voice(
     [type_hint=buffer] compressed: gmval,
+    buffer_offset: uint32,
+    buffer_count: uint32,
     [type_hint=buffer] dest: gmval,
     desired_sample_rate: uint32
 ): gmval;
@@ -1570,8 +1576,12 @@ function steam_user_get_voice(
 
 // RequestEncryptedAppTicket (async SteamAPICall_t)
 [global, bind = typed_gml]
-function steam_user_request_encrypted_app_ticket([type_hint=buffer] data_to_include: gmval,
-    callback:func): unit;
+function steam_user_request_encrypted_app_ticket(
+    [type_hint=buffer] data_to_include: gmval,
+    buffer_offset: uint32,
+    buffer_count: uint32,
+    callback:func
+): unit;
 
 // GetEncryptedAppTicket
 [global, bind = typed_gml, type_hint=`uint32?`]
@@ -4838,7 +4848,9 @@ function steam_inventory_consume_item(
 // DeserializeResult :contentReference[oaicite:7]{index=7}
 [global, bind = typed_gml, type_hint=`SteamInventoryDeserializeResult?`]
 function steam_inventory_deserialize_result(
-    [type_hint=buffer] data: gmval
+    [type_hint=buffer] data: gmval,
+    buffer_offset: uint32,
+    buffer_count: uint32
 ): gmval;
 
 // DestroyResult :contentReference[oaicite:8]{index=8}
@@ -5240,12 +5252,12 @@ function steam_remote_storage_is_cloud_enabled_for_app(): bool;
 function steam_remote_storage_set_cloud_enabled_for_app(enabled: bool): unit;
 
 [global, bind = typed_gml]
-function steam_remote_storage_file_write(file_name: string, [type_hint=buffer] data: gmval): bool;
+function steam_remote_storage_file_write(file_name: string, [type_hint=buffer] data: gmval, buffer_offset: uint32, buffer_count: uint32): bool;
 
 // FileWriteAsync - non-blocking alternative to steam_remote_storage_file_write.
 // Delivers a SteamRemoteStorageFileWriteAsyncResult to the optional callback when complete.
 [global, bind = typed_gml]
-function steam_remote_storage_file_write_async(file_name: string, [type_hint=buffer] data: gmval, callback:func): unit;
+function steam_remote_storage_file_write_async(file_name: string, [type_hint=buffer] data: gmval, buffer_offset: uint32, buffer_count: uint32, callback:func): unit;
 
 [global, bind = typed_gml]
 function steam_remote_storage_file_read(file_name: string, [type_hint=buffer] out_data: gmval): int32;
@@ -5287,7 +5299,7 @@ function steam_remote_storage_file_forget(file_name: string): bool;
 function steam_remote_storage_file_write_stream_open(file_name: string): gmval;
 
 [global, bind = typed_gml]
-function steam_remote_storage_file_write_stream_write_chunk([type_hint=uint64] stream: gmval, [type_hint=buffer] data: gmval): bool;
+function steam_remote_storage_file_write_stream_write_chunk([type_hint=uint64] stream: gmval, [type_hint=buffer] data: gmval, buffer_offset: uint32, buffer_count: uint32): bool;
 
 [global, bind = typed_gml]
 function steam_remote_storage_file_write_stream_close([type_hint=uint64] stream: gmval): bool;
@@ -5558,7 +5570,7 @@ function steam_matchmaking_set_lobby_member_data([type_hint=uint64] lobby_id: gm
 function steam_matchmaking_get_lobby_member_data([type_hint=uint64] lobby_id: gmval, [type_hint=uint64] member_id: gmval, key: string): string;
 
 [global, bind = typed_gml]
-function steam_matchmaking_send_lobby_chat_msg([type_hint=uint64] lobby_id: gmval, [type_hint=buffer] msg: gmval, bytes: int32): bool;
+function steam_matchmaking_send_lobby_chat_msg([type_hint=uint64] lobby_id: gmval, [type_hint=buffer] msg: gmval, buffer_offset: uint32, buffer_count: uint32, bytes: int32): bool;
 
 [global]
 class `[[SteamMatchmakingLobbyChatEntry]]` prototype Object
@@ -5693,6 +5705,8 @@ function steam_networking_messages_clear_callback_session_failed(): unit;
 function steam_networking_messages_send_message_to_user(
     [type_hint=uint64] steam_id_remote: gmval,
     [type_hint=buffer] data: gmval,
+    buffer_offset: uint32,
+    buffer_count: uint32,
     send_flags: int32,
     remote_channel: int32
 ): int32;
@@ -5872,6 +5886,8 @@ function steam_networking_sockets_get_connection_name(conn: uint32): string;
 function steam_networking_sockets_send_message_to_connection(
     conn: uint32,
     [type_hint=buffer] data: gmval,
+    buffer_offset: uint32,
+    buffer_count: uint32,
     [type_hint=`SteamNetworkingSendFlags`] send_flags: gmval
 ): int32;
 
