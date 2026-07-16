@@ -208,6 +208,7 @@ static void steam_api_clear_all_callbacks()
 
 void steamworks_pregraphics_init_func()
 {
+    auto app_id = gm::ExtUtils::GetExtensionOption("Steamworks", "appID");
     if (app_id.empty())
         return;
 
