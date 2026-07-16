@@ -413,6 +413,7 @@ bool steam_matchmaking_send_lobby_chat_msg(std::uint64_t lobby_id, gm::wire::GMB
     std::vector<std::uint8_t> tmp((size_t)buffer_count);
     auto reader = msg.getReader();
     reader.readBytes((char*)tmp.data(), (int)buffer_count);
+
     return mm->SendLobbyChatMsg(steam_id_from_u64(lobby_id), (const void*)tmp.data(), buffer_count);
 }
 

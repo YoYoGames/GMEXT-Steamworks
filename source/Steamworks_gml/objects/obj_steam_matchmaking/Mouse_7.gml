@@ -1,7 +1,7 @@
 
 steam_matchmaking_create_lobby(SteamMatchmakingLobbyType.Public, 2,
 		function(data){
-			if(data.result == SteamResult.OK)
+			if(data.result == SteamApiResult.Ok)
 			{
 				var lobby_id = data.lobby_id
 				
