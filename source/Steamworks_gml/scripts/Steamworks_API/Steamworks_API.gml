@@ -19211,10 +19211,12 @@ function steam_userstats_downloaded_leaderboard_entry(_leaderboard_entries_handl
  * @param {Real} _leaderboard_handle
  * @param {Enum.SteamLeaderboardUploadScoreMethod} _method
  * @param {Real} _score
- * @param {Array[Real]} _score_details
+ * @param {Id.Buffer} _score_details
+ * @param {Real} _buffer_offset
+ * @param {Real} _buffer_count
  * @param {Function} _callback
  */
-function steam_userstats_upload_leaderboard_score(_leaderboard_handle, _method, _score, _score_details, _callback)
+function steam_userstats_upload_leaderboard_score(_leaderboard_handle, _method, _score, _score_details, _buffer_offset, _buffer_count, _callback)
 {
     static __available = __Steamworks_is_available();
     if (!__available) return;
@@ -19236,15 +19238,17 @@ function steam_userstats_upload_leaderboard_score(_leaderboard_handle, _method, 
     if (!is_numeric(_score)) show_error($"{_GMFUNCTION_} :: _score expected number", true);
     buffer_write(__args_buffer, buffer_s32, _score);
 
-    // param: _score_details, type: Int32[]
-    if (!is_array(_score_details)) show_error($"{_GMFUNCTION_} :: _score_details expected array", true);
-    var _length = array_length(_score_details);
-    buffer_write(__args_buffer, buffer_u32, _length);
-    for (var _i = 0; _i < _length; ++_i)
-    {
-        if (!is_numeric(_score_details[_i])) show_error($"{_GMFUNCTION_} :: _score_details[_i] expected number", true);
-        buffer_write(__args_buffer, buffer_s32, _score_details[_i]);
-    }
+    // param: _score_details, type: Buffer
+    if (!buffer_exists(_score_details)) show_error($"{_GMFUNCTION_} :: _score_details expected Id.Buffer", true);
+    __Steamworks_queue_buffer(buffer_get_address(_score_details), buffer_get_size(_score_details));
+
+    // param: _buffer_offset, type: UInt32
+    if (!is_numeric(_buffer_offset)) show_error($"{_GMFUNCTION_} :: _buffer_offset expected number", true);
+    buffer_write(__args_buffer, buffer_u32, _buffer_offset);
+
+    // param: _buffer_count, type: UInt32
+    if (!is_numeric(_buffer_count)) show_error($"{_GMFUNCTION_} :: _buffer_count expected number", true);
+    buffer_write(__args_buffer, buffer_u32, _buffer_count);
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);

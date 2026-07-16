@@ -10,7 +10,8 @@ steam_userstats_find_leaderboard(SteamLeaderboard,function(data){
 				SteamLeaderboardUploadScoreMethod.ForceUpdate,
 				irandom(1000),
 				buff,
-				//buffer_tell(buff),
+				0,
+				buffer_tell(buff),
 				function(data){
 					show_debug_message(data)
 				})

@@ -4330,7 +4330,9 @@ function steam_userstats_upload_leaderboard_score(
     [type_hint=uint64] leaderboard_handle: gmval,
     [type_hint=SteamLeaderboardUploadScoreMethod] method: gmval,
     score: int32,
-    [type_hint=`int32[]`] score_details: gmval,
+    [type_hint=buffer] score_details: gmval,
+    buffer_offset: uint32,
+    buffer_count: uint32,
     callback:func
 ): unit;
 
