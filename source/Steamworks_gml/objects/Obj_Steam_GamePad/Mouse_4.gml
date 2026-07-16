@@ -1,19 +1,24 @@
 
 
-//if(!steam_utils_is_steam_in_big_picture_mode()) //This return false running from GameMaker IDE
-//{
-//	show_message_async("Gamepad need Big Picture mode!")
-//	return
-//}
-
-
-
-// show the dialog:
-steam_utils_show_gamepad_text_input(
+var success = steam_utils_show_gamepad_text_input(
 	SteamUtilsGamepadTextInputMode.Normal,
 	SteamUtilsGamepadTextInputLineMode.SingleLine,
-	"Some Description",
-	100, // up to 100 string characters
-	"" // no default text, can be any string, ex: "Player 1" etc
+	"Enter Player Name",
+	100,
+	""
 );
+
+if(!success) {
+	success = steam_utils_show_floating_gamepad_text_input(
+		SteamUtilsFloatingGamepadTextInputMode.SingleLine,
+		x - 50,
+		y + 50,
+		200,
+		40
+	);
+}
+
+if(success) {
+	input_result = "Waiting for input...";
+}
 
