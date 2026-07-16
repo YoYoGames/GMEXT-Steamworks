@@ -1,7 +1,7 @@
 
 
 query_handle = steam_ugc_create_query_user_ugc_request(
-	steam_user_get_steam_id().account_id,
+	steam_user_get_steam_id(),
 	SteamUserUgcList.Published,
 	SteamUgcMatchingUgcType.Items,
 	SteamUserUgcListSortOrder.TitleAsc,

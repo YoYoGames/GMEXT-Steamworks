@@ -1,5 +1,5 @@
 
-steam_ugc_create_item(steam_utils_get_app_id(), SteamWorkshopFileType.Community,function(data){
+steam_ugc_create_item(steam_utils_get_app_id(), SteamRemoteStorageWorkshopFileType.Community,function(data){
 	
 		show_debug_message(data)
 		//{ published_file_id : 3656236423, legal_agreement_required : 1, result : 1 }
