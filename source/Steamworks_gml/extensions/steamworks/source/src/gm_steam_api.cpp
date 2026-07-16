@@ -208,14 +208,13 @@ static void steam_api_clear_all_callbacks()
 
 void steamworks_pregraphics_init_func()
 {
-    auto app_id = gm::ExtUtils::GetExtensionOption("Steamworks", "app_id");
     if (app_id.empty())
         return;
 
     try {
         steam_api_init(static_cast<uint32_t>(std::stoul(app_id)));
     } catch (const std::exception&) {
-        steam_set_last_error("Steam API: invalid Steamworks app_id extension option.");
+        steam_set_last_error("Steam API: invalid Steamworks appID extension option.");
         steam_set_initialized(false);
     }
 }
