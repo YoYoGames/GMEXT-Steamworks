@@ -19,8 +19,8 @@ var dst_ids  = [coin_instance_id];
 var dst_qty  = [2];
 
 var h = steam_inventory_exchange_items(
-    gen_defs, gen_qty,
-    dst_ids, dst_qty,
+    gen_defs,
+    dst_ids,
     function(data) {
         show_debug_message("exchange callback");
         show_debug_message(data);

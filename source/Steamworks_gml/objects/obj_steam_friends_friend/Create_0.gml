@@ -12,7 +12,7 @@ function steam_image_create_sprite(l_img)
 	var l_sprite, l_ok;
 	
 	var l_surf = surface_create(image_size.width, image_size.height);
-	l_ok = steam_utils_get_image_rgba(l_img, l_cols, buff_size);
+	l_ok = steam_utils_get_image_rgba(l_img, l_cols);
 
 	if(l_ok)
 	{

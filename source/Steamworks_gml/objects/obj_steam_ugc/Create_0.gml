@@ -3,10 +3,6 @@ steam_ugc_set_callback_item_installed(function(data){show_debug_message($"steam_
 
 steam_ugc_set_callback_user_subscribed_items_list_changed(function(data){show_debug_message($"steam_ugc_set_callback_user_subscribed_items_list_changed: {data}")})
 
-steam_ugc_set_callback_file_subscribed(function(data){show_debug_message($"steam_ugc_set_callback_file_subscribed: {data}")})
-
-steam_ugc_set_callback_file_unsubscribed(function(data){show_debug_message($"steam_ugc_set_callback_file_unsubscribed: {data}")})
-
 items_query_handler = function(data){
 		
 		with(obj_steam_ugc_item)
