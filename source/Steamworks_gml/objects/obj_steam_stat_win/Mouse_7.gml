@@ -13,3 +13,6 @@ if(!is_undefined(_val))
 _val = steam_userstats_get_stat_int(stat)
 if(!is_undefined(_val))
 	steam_userstats_indicate_achievement_progress("ACH_WIN_100_GAMES", 100, 100);
+
+var result = steam_userstats_store_stats()
+show_debug_message($"Store Stats: {result}")

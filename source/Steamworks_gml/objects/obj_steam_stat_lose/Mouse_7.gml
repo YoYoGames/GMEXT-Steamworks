@@ -7,3 +7,8 @@ if(!is_undefined(_val))
 _val = steam_userstats_get_stat_int(stat)
 if(!is_undefined(_val))
 	steam_userstats_set_stat_int(stat,_val + 1);
+
+
+var result = steam_userstats_store_stats()
+show_debug_message($"Store Stats: {result}")
+
