@@ -6319,7 +6319,7 @@ bool steam_screenshots_set_location(std::uint32_t screenshot, std::string_view l
 bool steam_screenshots_tag_published_file(std::uint32_t screenshot, std::uint64_t published_file_id);
 bool steam_screenshots_tag_user(std::uint32_t screenshot, std::uint64_t steam_id);
 void steam_screenshots_trigger_screenshot();
-std::uint32_t steam_screenshots_write_screenshot(gm::wire::GMBuffer buff_rgb, std::uint32_t buffer_offset, std::uint32_t buffer_count, std::int32_t width, std::int32_t height);
+std::uint32_t steam_screenshots_write_screenshot(gm::wire::GMBuffer buff_rgb, std::int32_t width, std::int32_t height, std::optional<std::uint32_t> buffer_offset, std::optional<std::uint32_t> buffer_count);
 void steam_screenshots_set_callback_screenshot_ready(const gm::wire::GMFunction& callback);
 void steam_screenshots_set_callback_screenshot_requested(const gm::wire::GMFunction& callback);
 void steam_screenshots_clear_callback_screenshot_ready();

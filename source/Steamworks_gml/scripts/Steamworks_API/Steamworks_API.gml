@@ -13996,13 +13996,13 @@ function steam_screenshots_tag_user(_screenshot, _steam_id)
 
 /**
  * @param {Id.Buffer} _buff_rgb
- * @param {Real} _buffer_offset
- * @param {Real} _buffer_count
  * @param {Real} _width
  * @param {Real} _height
+ * @param {Real} _buffer_offset
+ * @param {Real} _buffer_count
  * @returns {Real}
  */
-function steam_screenshots_write_screenshot(_buff_rgb, _buffer_offset, _buffer_count, _width, _height)
+function steam_screenshots_write_screenshot(_buff_rgb, _width, _height, _buffer_offset, _buffer_count)
 {
     static __available = __Steamworks_is_available();
     if (!__available) return;
@@ -14013,14 +14013,6 @@ function steam_screenshots_write_screenshot(_buff_rgb, _buffer_offset, _buffer_c
     if (!buffer_exists(_buff_rgb)) show_error($"{_GMFUNCTION_} :: _buff_rgb expected Id.Buffer", true);
     __Steamworks_queue_buffer(buffer_get_address(_buff_rgb), buffer_get_size(_buff_rgb));
 
-    // param: _buffer_offset, type: UInt32
-    if (!is_numeric(_buffer_offset)) show_error($"{_GMFUNCTION_} :: _buffer_offset expected number", true);
-    buffer_write(__args_buffer, buffer_u32, _buffer_offset);
-
-    // param: _buffer_count, type: UInt32
-    if (!is_numeric(_buffer_count)) show_error($"{_GMFUNCTION_} :: _buffer_count expected number", true);
-    buffer_write(__args_buffer, buffer_u32, _buffer_count);
-
     // param: _width, type: Int32
     if (!is_numeric(_width)) show_error($"{_GMFUNCTION_} :: _width expected number", true);
     buffer_write(__args_buffer, buffer_s32, _width);
@@ -14028,6 +14020,30 @@ function steam_screenshots_write_screenshot(_buff_rgb, _buffer_offset, _buffer_c
     // param: _height, type: Int32
     if (!is_numeric(_height)) show_error($"{_GMFUNCTION_} :: _height expected number", true);
     buffer_write(__args_buffer, buffer_s32, _height);
+
+    // param: _buffer_offset, type: optional<UInt32>
+    if (is_undefined(_buffer_offset))
+    {
+        buffer_write(__args_buffer, buffer_bool, false);
+    }
+    else
+    {
+        buffer_write(__args_buffer, buffer_bool, true);
+        if (!is_numeric(_buffer_offset)) show_error($"{_GMFUNCTION_} :: _buffer_offset expected number", true);
+        buffer_write(__args_buffer, buffer_u32, _buffer_offset);
+    }
+
+    // param: _buffer_count, type: optional<UInt32>
+    if (is_undefined(_buffer_count))
+    {
+        buffer_write(__args_buffer, buffer_bool, false);
+    }
+    else
+    {
+        buffer_write(__args_buffer, buffer_bool, true);
+        if (!is_numeric(_buffer_count)) show_error($"{_GMFUNCTION_} :: _buffer_count expected number", true);
+        buffer_write(__args_buffer, buffer_u32, _buffer_count);
+    }
 
     var _return_value = __steam_screenshots_write_screenshot(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
 

@@ -1263,19 +1263,19 @@ GMEXPORT double __EXT_NATIVE__steam_screenshots_write_screenshot(char* __arg_buf
     gm::wire::GMBuffer buff_rgb = __buffer_queue.front();
     __buffer_queue.pop();
 
-    // field: buffer_offset, type: UInt32
-    std::uint32_t buffer_offset = gm::wire::codec::readValue<std::uint32_t>(__br);
-
-    // field: buffer_count, type: UInt32
-    std::uint32_t buffer_count = gm::wire::codec::readValue<std::uint32_t>(__br);
-
     // field: width, type: Int32
     std::int32_t width = gm::wire::codec::readValue<std::int32_t>(__br);
 
     // field: height, type: Int32
     std::int32_t height = gm::wire::codec::readValue<std::int32_t>(__br);
 
-    auto&& __result = steam_screenshots_write_screenshot(buff_rgb, buffer_offset, buffer_count, width, height);
+    // field: buffer_offset, type: optional<UInt32>
+    std::optional<std::uint32_t> buffer_offset = gm::wire::codec::readOptional<std::uint32_t>(__br);
+
+    // field: buffer_count, type: optional<UInt32>
+    std::optional<std::uint32_t> buffer_count = gm::wire::codec::readOptional<std::uint32_t>(__br);
+
+    auto&& __result = steam_screenshots_write_screenshot(buff_rgb, width, height, buffer_offset, buffer_count);
     return static_cast<double>(__result);
 }
 

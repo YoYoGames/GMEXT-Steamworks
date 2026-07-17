@@ -234,7 +234,7 @@ void steam_screenshots_trigger_screenshot()
 }
 
 std::uint32_t steam_screenshots_write_screenshot(
-    gm::wire::GMBuffer buff_rgb, std::uint32_t buffer_offset, std::uint32_t buffer_count, std::int32_t width, std::int32_t height
+    gm::wire::GMBuffer buff_rgb, std::int32_t width, std::int32_t height, std::optional<std::uint32_t> buffer_offset, std::optional<std::uint32_t> buffer_count
 )
 {
     STEAM_GUARD_RET(0);
@@ -242,7 +242,10 @@ std::uint32_t steam_screenshots_write_screenshot(
     if (!ss)
         return 0;
 
-    if (buffer_count == 0) {
+    std::uint32_t offset = buffer_offset.value_or(0);
+    std::uint32_t actual_count = buffer_count.value_or((std::uint32_t)std::max(0, (int)buff_rgb.length() - (int)offset));
+
+    if (actual_count == 0) {
         steam_set_last_error("WriteScreenshot: buffer_count must be > 0.");
         return 0;
     }
@@ -252,17 +255,18 @@ std::uint32_t steam_screenshots_write_screenshot(
         return 0;
     }
 
-    if ((std::uint64_t)buffer_offset + (std::uint64_t)buffer_count > (std::uint64_t)buff_rgb.length()) {
+    if ((std::uint64_t)offset + (std::uint64_t)actual_count > (std::uint64_t)buff_rgb.length()) {
         steam_set_last_error("WriteScreenshot: buffer_offset + buffer_count exceeds buffer length.");
         return 0;
     }
 
     std::vector<std::uint8_t> rgb;
-    rgb.resize((size_t)buffer_count);
+    rgb.resize((size_t)actual_count);
 
     auto reader = buff_rgb.getReader();
-    reader.readBytes((char*)rgb.data(), (int)buffer_count);
+    reader.skip((size_t)offset);
+    reader.readBytes((char*)rgb.data(), (int)actual_count);
 
-    return (std::uint32_t)ss->WriteScreenshot(rgb.data(), (uint32)buffer_count, (int)width, (int)height);
+    return (std::uint32_t)ss->WriteScreenshot(rgb.data(), (uint32)actual_count, (int)width, (int)height);
 }
 

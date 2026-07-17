@@ -25,9 +25,9 @@ if (keyboard_check_pressed(vk_space)) {
     var er = steam_networking_sockets_send_message_to_connection(
         from_conn,
         buf,
+        SteamNetworkingSendFlags.Reliable,
 		0,
-		buffer_tell(buf),
-        SteamNetworkingSendFlags.Reliable
+		buffer_tell(buf)
     );
 
     log_add("SEND: \"" + msg + "\" via conn " + string(from_conn)

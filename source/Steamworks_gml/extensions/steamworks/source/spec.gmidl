@@ -1245,10 +1245,10 @@ function steam_screenshots_trigger_screenshot(): unit;
 [global, bind = typed_gml]
 function steam_screenshots_write_screenshot(
     [type_hint=buffer] buff_rgb,
-    buffer_offset: uint32,
-    buffer_count: uint32,
     width: int32,
-    height: int32
+    height: int32,
+    [type_hint=`uint32?`] buffer_offset: gmval,
+    [type_hint=`uint32?`] buffer_count: gmval
 ): uint32;
 
 // EVRScreenshotType 

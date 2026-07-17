@@ -19,9 +19,10 @@ if(array_length(net_connections) > 0)
 		steam_networking_sockets_send_message_to_connection(
 			net_connections[i].conn,
 			b,
+			SteamNetworkingSendFlags.Reliable,
 			0,
-			buffer_tell(b),
-			SteamNetworkingSendFlags.Reliable)
+			buffer_tell(b)
+			)
 	}
 
 	buffer_delete(b);

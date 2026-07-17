@@ -824,10 +824,10 @@
 /**
  * @function_partial steam_screenshots_write_screenshot
  * @param {Buffer} buff_rgb
- * @param {Real} buffer_offset
- * @param {Real} buffer_count
  * @param {Real} width
  * @param {Real} height
+ * @param {Real} [buffer_offset]
+ * @param {Real} [buffer_count]
  * @returns {Real}
  * @function_end
  */
