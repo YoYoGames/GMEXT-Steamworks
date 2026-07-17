@@ -1432,7 +1432,7 @@ GMEXPORT double __EXT_NATIVE__steam_user_decompress_voice(char* __arg_buffer, do
     auto&& __result = steam_user_decompress_voice(compressed, buffer_offset, buffer_count, dest, desired_sample_rate);
     gm::byteio::BufferWriter __bw{__ret_buffer, static_cast<size_t>(__ret_buffer_length)};
 
-    // return: __result, type: enum SteamApiVoiceResult
+    // return: __result, type: struct SteamUserDecompressVoiceResult
     gm::wire::codec::writeValue(__bw, __result);
     return 0;
 }

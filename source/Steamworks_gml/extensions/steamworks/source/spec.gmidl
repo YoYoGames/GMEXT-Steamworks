@@ -1407,7 +1407,7 @@ function steam_user_set_duration_control_online_state(
 function steam_user_cancel_auth_ticket(auth_ticket_handle: uint32): unit;
 
 // DecompressVoice
-[global, bind = typed_gml, type_hint=`SteamApiVoiceResult`]
+[global, bind = typed_gml, type_hint=`SteamUserDecompressVoiceResult`]
 function steam_user_decompress_voice(
     [type_hint=buffer] compressed: gmval,
     buffer_offset: uint32,
@@ -1619,6 +1619,15 @@ class `[[SteamUserGetVoiceResult]]` prototype Object
     property written_uncompressed: uint32 { get; set; }
 }
 
+[global]
+class `[[SteamUserDecompressVoiceResult]]` prototype Object
+{
+    [field, type_hint = `SteamApiVoiceResult`]
+    property result : gmval { get; set; }
+
+    [field]
+    property written_bytes: uint32 { get; set; }
+}
 
 
 

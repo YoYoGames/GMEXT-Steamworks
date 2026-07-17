@@ -156,27 +156,34 @@ void steam_user_cancel_auth_ticket(std::uint32_t h_auth_ticket)
     u->CancelAuthTicket((HAuthTicket)h_auth_ticket);
 }
 
-SteamApiVoiceResult steam_user_decompress_voice(
+SteamUserDecompressVoiceResult steam_user_decompress_voice(
     gm::wire::GMBuffer compressed,
     std::uint32_t buffer_offset,
     std::uint32_t buffer_count,
     gm::wire::GMBuffer dest,
     std::uint32_t desired_sample_rate)
 {
-    STEAM_GUARD_RET(SteamApiVoiceResult::NotInitialized);
+    STEAM_GUARD_RET({});
+
+    SteamUserDecompressVoiceResult out{};
+    out.result = SteamApiVoiceResult::NotInitialized;
+    out.written_bytes = 0;
+
     ISteamUser* u = steam_user_iface();
-    if (!u) return SteamApiVoiceResult::NotInitialized;
+    if (!u) return out;
 
     if (buffer_count == 0 || dest.length() == 0)
     {
         steam_set_last_error("DecompressVoice: buffer_count and dest buffer must have length > 0.");
-        return SteamApiVoiceResult::BufferTooSmall;
+        out.result = SteamApiVoiceResult::BufferTooSmall;
+        return out;
     }
 
     if ((std::uint64_t)buffer_offset + (std::uint64_t)buffer_count > (std::uint64_t)compressed.length())
     {
         steam_set_last_error("DecompressVoice: buffer_offset + buffer_count exceeds buffer length.");
-        return SteamApiVoiceResult::BufferTooSmall;
+        out.result = SteamApiVoiceResult::BufferTooSmall;
+        return out;
     }
 
     std::vector<std::uint8_t> in((size_t)buffer_count);
@@ -185,17 +192,20 @@ SteamApiVoiceResult steam_user_decompress_voice(
         r.readBytes((char*)in.data(), (int)buffer_count);
     }
 
-    std::vector<std::uint8_t> out((size_t)dest.length());
+    std::vector<std::uint8_t> out_buf((size_t)dest.length());
     uint32 written = 0;
 
     EVoiceResult vr = u->DecompressVoice(
         in.data(),
         (uint32)in.size(),
-        out.data(),
-        (uint32)out.size(),
+        out_buf.data(),
+        (uint32)out_buf.size(),
         &written,
         (uint32)desired_sample_rate
     );
+
+    out.result = (SteamApiVoiceResult)(int)vr;
+    out.written_bytes = written;
 
     // Only the OK result yields valid audio; on BufferTooSmall the SDK sets `written` to the
     // required size (not decoded data), so writing it would copy garbage.
@@ -208,11 +218,11 @@ SteamApiVoiceResult steam_user_decompress_voice(
         else
         {
             auto w = dest.getWriter();
-            w.writeBytes((const char*)out.data(), (int)written);
+            w.writeBytes((const char*)out_buf.data(), (int)written);
         }
     }
 
-    return (SteamApiVoiceResult)(int)vr;
+    return out;
 }
 
 void steam_user_end_auth_session(std::uint64_t steam_id)

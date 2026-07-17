@@ -928,7 +928,7 @@
  * @param {Real} buffer_count
  * @param {Buffer} dest
  * @param {Real} desired_sample_rate
- * @returns {Enum.SteamApiVoiceResult}
+ * @returns {Struct.SteamUserDecompressVoiceResult}
  * @function_end
  */
 
@@ -4533,6 +4533,13 @@
  * @member {Enum.SteamApiVoiceResult} result
  * @member {Real} written_compressed
  * @member {Real} written_uncompressed
+ * @struct_end
+ */
+
+/**
+ * @struct_partial SteamUserDecompressVoiceResult
+ * @member {Enum.SteamApiVoiceResult} result
+ * @member {Real} written_bytes
  * @struct_end
  */
 

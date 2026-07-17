@@ -2225,6 +2225,22 @@ function SteamUserGetVoiceResult() constructor
 }
 
 /**
+ * @returns {Struct.SteamUserDecompressVoiceResult}
+ */
+function SteamUserDecompressVoiceResult() constructor
+{
+    /**
+     * Internally generated hash for quick validation
+     * @ignore
+     */
+    static __uid = 4190604938;
+
+    self.result = undefined;
+    self.written_bytes = undefined;
+
+}
+
+/**
  * @returns {Struct.SteamUserValidateAuthTicketResponse}
  */
 function SteamUserValidateAuthTicketResponse() constructor
@@ -6000,6 +6016,56 @@ function __SteamUserGetVoiceResult_decode(_buffer, _offset)
 
         // field: written_uncompressed, type: UInt32
         self.written_uncompressed = buffer_read(_buffer, buffer_u32);
+
+    }
+
+    return _inst;
+}
+
+/**
+ * @func __SteamUserDecompressVoiceResult_encode(_inst, _buffer, _offset, _where)
+ * @param {Struct.SteamUserDecompressVoiceResult} _inst
+ * @param {Id.Buffer} _buffer
+ * @param {Real} _offset
+ * @param {String} _where
+ * @ignore
+ */
+function __SteamUserDecompressVoiceResult_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
+{
+    buffer_seek(_buffer, buffer_seek_start, _offset);
+    with (_inst)
+    {
+        // field: result, type: enum SteamApiVoiceResult
+
+        if (!is_numeric(self.result)) show_error($"{_where} :: self.result expected number", true);
+        buffer_write(_buffer, buffer_u64, self.result);
+
+        // field: written_bytes, type: UInt32
+        if (!is_numeric(self.written_bytes)) show_error($"{_where} :: self.written_bytes expected number", true);
+        buffer_write(_buffer, buffer_u32, self.written_bytes);
+
+    }
+}
+
+/**
+ * @func __SteamUserDecompressVoiceResult_decode(_buffer, _offset)
+ * @param {Id.Buffer} _buffer
+ * @param {Real} _offset
+ * @returns {Struct.SteamUserDecompressVoiceResult}
+ * @ignore
+ */
+function __SteamUserDecompressVoiceResult_decode(_buffer, _offset)
+{
+    buffer_seek(_buffer, buffer_seek_start, _offset);
+
+    _inst = new SteamUserDecompressVoiceResult();
+    with (_inst)
+    {
+        // field: result, type: enum SteamApiVoiceResult
+        self.result = buffer_read(_buffer, buffer_u64);
+
+        // field: written_bytes, type: UInt32
+        self.written_bytes = buffer_read(_buffer, buffer_u32);
 
     }
 
@@ -14134,7 +14200,7 @@ function steam_user_set_duration_control_online_state(_state)
  * @param {Real} _buffer_count
  * @param {Id.Buffer} _dest
  * @param {Real} _desired_sample_rate
- * @returns {Enum.SteamApiVoiceResult}
+ * @returns {Struct.SteamUserDecompressVoiceResult}
  */
 function steam_user_decompress_voice(_compressed, _buffer_offset, _buffer_count, _dest, _desired_sample_rate)
 {
@@ -14168,7 +14234,7 @@ function steam_user_decompress_voice(_compressed, _buffer_offset, _buffer_count,
     var _return_value = __steam_user_decompress_voice(buffer_get_address(__args_buffer), buffer_tell(__args_buffer), buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
 
     var _result = undefined;
-    _result = buffer_read(__ret_buffer, buffer_u64);
+    _result = __SteamUserDecompressVoiceResult_decode(__ret_buffer, buffer_tell(__ret_buffer));
     return _result;
 }
 
@@ -23597,6 +23663,7 @@ function __Steamworks_get_decoders()
         __SteamUserGetAuthSessionTicketResponse_decode,
         __SteamUserAvailableVoice_decode,
         __SteamUserGetVoiceResult_decode,
+        __SteamUserDecompressVoiceResult_decode,
         __SteamUserValidateAuthTicketResponse_decode,
         __SteamUserSteamServersDisconnected_decode,
         __SteamUserSteamServerConnectFailure_decode,
