@@ -203,29 +203,33 @@ std::string steam_networking_sockets_get_connection_name(std::uint32_t conn)
 
 std::int32_t steam_networking_sockets_send_message_to_connection(std::uint32_t conn,
                                                                  gm::wire::GMBuffer data,
-                                                                 std::uint32_t buffer_offset,
-                                                                 std::uint32_t buffer_count,
-                                                                 gm_enums::SteamNetworkingSendFlags send_flags)
+                                                                 gm_enums::SteamNetworkingSendFlags send_flags,
+                                                                 std::optional<std::uint32_t> buffer_offset,
+                                                                 std::optional<std::uint32_t> buffer_count)
 {
     STEAM_GUARD_RET((std::int32_t)k_EResultFail);
 
     ISteamNetworkingSockets* s = steam_networking_sockets_iface();
     if (!s) return (std::int32_t)k_EResultFail;
 
-    if (buffer_count == 0) return (std::int32_t)k_EResultInvalidParam;
+    std::uint32_t offset = buffer_offset.value_or(0);
+    std::uint32_t actual_count = buffer_count.value_or((std::uint32_t)std::max(0, (int)data.length() - (int)offset));
 
-    if ((std::uint64_t)buffer_offset + (std::uint64_t)buffer_count > (std::uint64_t)data.length()) {
+    if (actual_count == 0) return (std::int32_t)k_EResultInvalidParam;
+
+    if ((std::uint64_t)offset + (std::uint64_t)actual_count > (std::uint64_t)data.length()) {
         steam_set_last_error("SendMessageToConnection: buffer_offset + buffer_count exceeds buffer length.");
         return (std::int32_t)k_EResultInvalidParam;
     }
 
-    std::vector<std::uint8_t> tmp((size_t)buffer_count);
+    std::vector<std::uint8_t> tmp((size_t)actual_count);
     auto reader = data.getReader();
-    reader.readBytes((char*)tmp.data(), (int)buffer_count);
+    reader.skip((size_t)offset);
+    reader.readBytes((char*)tmp.data(), (int)actual_count);
 
     return (std::int32_t)s->SendMessageToConnection((HSteamNetConnection)conn,
                                                     (const void*)tmp.data(),
-                                                    (uint32)buffer_count,
+                                                    (uint32)actual_count,
                                                     (int)send_flags,
                                                     nullptr);
 }

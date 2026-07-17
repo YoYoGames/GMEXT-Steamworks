@@ -144,28 +144,32 @@ int32 steam_inventory_consume_item(std::uint64_t item_instance_id,
     return out;
 }
 
-std::optional<SteamInventoryDeserializeResult> steam_inventory_deserialize_result(GMBuffer data, std::uint32_t buffer_offset, std::uint32_t buffer_count)
+std::optional<SteamInventoryDeserializeResult> steam_inventory_deserialize_result(GMBuffer data, std::optional<std::uint32_t> buffer_offset, std::optional<std::uint32_t> buffer_count)
 {
     STEAM_GUARD_RET(std::nullopt);
 
     ISteamInventory* inv = steam_inventory_iface();
     if (!inv) return std::nullopt;
 
-    if (buffer_count == 0)
+    std::uint32_t offset = buffer_offset.value_or(0);
+    std::uint32_t actual_count = buffer_count.value_or((std::uint32_t)std::max(0, (int)data.length() - (int)offset));
+
+    if (actual_count == 0)
     {
         steam_set_last_error("DeserializeResult: buffer_count must be > 0.");
         return std::nullopt;
     }
 
-    if ((std::uint64_t)buffer_offset + (std::uint64_t)buffer_count > (std::uint64_t)data.length())
+    if ((std::uint64_t)offset + (std::uint64_t)actual_count > (std::uint64_t)data.length())
     {
         steam_set_last_error("DeserializeResult: buffer_offset + buffer_count exceeds buffer length.");
         return std::nullopt;
     }
 
-    std::vector<std::uint8_t> buf((size_t)buffer_count);
+    std::vector<std::uint8_t> buf((size_t)actual_count);
     auto r = data.getReader();
-    r.readBytes((char*)buf.data(), (int)buffer_count);
+    r.skip((size_t)offset);
+    r.readBytes((char*)buf.data(), (int)actual_count);
 
     SteamInventoryResult_t rh = k_SteamInventoryResultInvalid;
     const bool ok = inv->DeserializeResult(&rh, buf.data(), (uint32)buf.size(), false);

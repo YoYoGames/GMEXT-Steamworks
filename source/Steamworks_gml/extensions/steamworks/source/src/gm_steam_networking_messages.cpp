@@ -114,30 +114,34 @@ void steam_networking_messages_clear_callback_session_failed()
 
 std::int32_t steam_networking_messages_send_message_to_user(std::uint64_t steam_id_remote,
                                                             gm::wire::GMBuffer data,
-                                                            std::uint32_t buffer_offset,
-                                                            std::uint32_t buffer_count,
                                                             std::int32_t send_flags,
-                                                            std::int32_t remote_channel)
+                                                            std::int32_t remote_channel,
+                                                            std::optional<std::uint32_t> buffer_offset,
+                                                            std::optional<std::uint32_t> buffer_count)
 {
     STEAM_GUARD_RET((std::int32_t)k_EResultFail);
 
     ISteamNetworkingMessages* m = steam_networking_messages_iface();
     if (!m) return (std::int32_t)k_EResultFail;
 
-    if (buffer_count == 0) return (std::int32_t)k_EResultInvalidParam;
+    std::uint32_t offset = buffer_offset.value_or(0);
+    std::uint32_t actual_count = buffer_count.value_or((std::uint32_t)std::max(0, (int)data.length() - (int)offset));
 
-    if ((std::uint64_t)buffer_offset + (std::uint64_t)buffer_count > (std::uint64_t)data.length()) {
+    if (actual_count == 0) return (std::int32_t)k_EResultInvalidParam;
+
+    if ((std::uint64_t)offset + (std::uint64_t)actual_count > (std::uint64_t)data.length()) {
         steam_set_last_error("SendMessageToUser: buffer_offset + buffer_count exceeds buffer length.");
         return (std::int32_t)k_EResultInvalidParam;
     }
 
     SteamNetworkingIdentity id = snm_identity_from_steamid64(steam_id_remote);
 
-    std::vector<std::uint8_t> tmp((size_t)buffer_count);
+    std::vector<std::uint8_t> tmp((size_t)actual_count);
     auto reader = data.getReader();
-    reader.readBytes((char*)tmp.data(), (int)buffer_count);
+    reader.skip((size_t)offset);
+    reader.readBytes((char*)tmp.data(), (int)actual_count);
 
-    EResult r = m->SendMessageToUser(id, (const void*)tmp.data(), (uint32)buffer_count, (int)send_flags, (int)remote_channel);
+    EResult r = m->SendMessageToUser(id, (const void*)tmp.data(), (uint32)actual_count, (int)send_flags, (int)remote_channel);
     return (std::int32_t)r;
 }
 
