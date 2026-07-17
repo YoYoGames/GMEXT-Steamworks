@@ -1,5 +1,6 @@
-var gen_defs = [202];
-var gen_qty  = [1];
+var gen_item = new SteamInventoryItemDefQuantity();
+gen_item.itemdef_id = 202;
+gen_item.quantity = 1;
 
 var coin_instance_id = noone;
 with(obj_steam_inventory_item) {
@@ -16,14 +17,15 @@ if(coin_instance_id == noone) {
 
 show_debug_message($"[ExchangeItems] Found coin: {coin_instance_id}");
 
-var dst_ids  = [coin_instance_id];
-var dst_qty  = [2];
+var consume_item = new SteamInventoryItemInstanceQuantity();
+consume_item.item_instance_id = coin_instance_id;
+consume_item.quantity = 2;
 
-show_debug_message($"[ExchangeItems] Requesting exchange: generate def={gen_defs}, consume def={dst_ids} qty={dst_qty}");
+show_debug_message($"[ExchangeItems] Requesting exchange: generate def=202 qty=1, consume qty=2");
 
 var h = steam_inventory_exchange_items(
-	gen_defs,
-	dst_ids,
+	[gen_item],
+	[consume_item],
 	function(data) {
 		show_debug_message("[ExchangeItems] Callback triggered");
 		show_debug_message($"[ExchangeItems] Result: {data.result}, Handle: {data.result_handle}");

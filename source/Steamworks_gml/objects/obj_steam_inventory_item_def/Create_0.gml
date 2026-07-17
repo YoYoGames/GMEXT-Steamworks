@@ -1,7 +1,6 @@
 event_inherited();
 
 show_debug_message($"[ItemDef] Creating - itemdef={data.itemdefid}");
-show_debug_message($"[ItemDef] Available properties: {struct_names(data)}");
 
 var display_name = "ItemDef " + string(data.itemdefid);
 if (struct_exists(data, "name")) {
