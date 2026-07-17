@@ -12,6 +12,9 @@ var h = steam_inventory_generate_items([item1, item2], function(data) {
 	show_debug_message("[GenerateItems] Callback triggered");
 	show_debug_message($"[GenerateItems] Result: {data.result}, Handle: {data.result_handle}");
 
+	var status = steam_inventory_get_result_status(data.result_handle);
+	show_debug_message($"[GenerateItems] Status: {status}");
+
 	var items = steam_inventory_get_result_items(data.result_handle);
 	if (!is_undefined(items)) {
 		show_debug_message($"[GenerateItems] Items generated: {array_length(items)}");
