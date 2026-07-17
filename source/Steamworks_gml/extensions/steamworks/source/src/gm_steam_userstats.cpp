@@ -771,9 +771,7 @@ void steam_userstats_upload_leaderboard_score(
     std::uint64_t leaderboard_handle,
     gm_enums::SteamLeaderboardUploadScoreMethod method,
     std::int32_t score,
-    gm::wire::GMBuffer score_details,
-    std::uint32_t buffer_offset,
-    std::uint32_t buffer_count,
+    const std::vector<std::int32_t>& score_details,
     const gm::wire::GMFunction& callback)
 {
     STEAM_GUARD();
@@ -782,41 +780,19 @@ void steam_userstats_upload_leaderboard_score(
     if (!s)
         return;
 
-    if (buffer_count == 0) {
-        SteamAPICall_t call = s->UploadLeaderboardScore(
-            (SteamLeaderboard_t)leaderboard_handle,
-            (ELeaderboardUploadScoreMethod)(int)method,
-            (int32)score,
-            nullptr,
-            0
-        );
-        auto* h = new steam_async::CallResult<
-            gm_structs::SteamUserStatsScoreUploadedResult,
-            LeaderboardScoreUploaded_t
-        >(callback, &userstats_fromNative);
-        h->set(call);
-        return;
+    const int32_t* details = nullptr;
+    int clamped_count = 0;
+
+    if (score_details.size() > 0) {
+        clamped_count = std::min<int>((int)score_details.size(), k_cLeaderboardDetailsMax);
+        details = score_details.data();
     }
-
-    if ((std::uint64_t)buffer_offset + (std::uint64_t)buffer_count > (std::uint64_t)score_details.length()) {
-        steam_set_last_error("UploadLeaderboardScore: buffer_offset + buffer_count exceeds buffer length.");
-        return;
-    }
-
-    const int byte_count = static_cast<int>(buffer_count);
-    const int element_count = byte_count / sizeof(int32_t);
-    const int clamped_count = std::min<int>(element_count, k_cLeaderboardDetailsMax);
-
-    std::vector<std::int32_t> details((size_t)clamped_count);
-    auto reader = score_details.getReader();
-    reader.skip((int)buffer_offset);
-    reader.readBytes((char*)details.data(), (int)clamped_count * (int)sizeof(int32_t));
 
     SteamAPICall_t call = s->UploadLeaderboardScore(
         (SteamLeaderboard_t)leaderboard_handle,
         (ELeaderboardUploadScoreMethod)(int)method,
         (int32)score,
-        details.data(),
+        details,
         clamped_count
     );
 

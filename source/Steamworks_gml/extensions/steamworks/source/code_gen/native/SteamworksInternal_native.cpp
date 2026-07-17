@@ -4444,20 +4444,13 @@ GMEXPORT double __EXT_NATIVE__steam_userstats_upload_leaderboard_score(char* __a
     // field: score, type: Int32
     std::int32_t score = gm::wire::codec::readValue<std::int32_t>(__br);
 
-    // field: score_details, type: Buffer
-    gm::wire::GMBuffer score_details = __buffer_queue.front();
-    __buffer_queue.pop();
-
-    // field: buffer_offset, type: UInt32
-    std::uint32_t buffer_offset = gm::wire::codec::readValue<std::uint32_t>(__br);
-
-    // field: buffer_count, type: UInt32
-    std::uint32_t buffer_count = gm::wire::codec::readValue<std::uint32_t>(__br);
+    // field: score_details, type: Int32[]
+    std::vector<std::int32_t> score_details = gm::wire::codec::readVector<std::int32_t>(__br);
 
     // field: callback, type: Function
     gm::wire::GMFunction callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
 
-    steam_userstats_upload_leaderboard_score(leaderboard_handle, method, score, score_details, buffer_offset, buffer_count, callback);
+    steam_userstats_upload_leaderboard_score(leaderboard_handle, method, score, score_details, callback);
     return 0;
 }
 

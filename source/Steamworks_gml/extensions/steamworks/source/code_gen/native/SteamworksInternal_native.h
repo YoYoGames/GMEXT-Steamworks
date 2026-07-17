@@ -6577,7 +6577,7 @@ gm_enums::SteamLeaderboardDisplayType steam_userstats_leaderboard_display_type(s
 void steam_userstats_download_leaderboard_entries(std::uint64_t leaderboard_handle, gm_enums::SteamLeaderboardDataRequest request, std::int32_t range_start, std::int32_t range_end, const gm::wire::GMFunction& callback);
 void steam_userstats_download_leaderboard_entries_for_users(std::uint64_t leaderboard_handle, const std::vector<std::uint64_t>& users, const gm::wire::GMFunction& callback);
 std::optional<gm_structs::SteamUserStatsDownloadedLeaderboardEntry> steam_userstats_downloaded_leaderboard_entry(std::uint64_t leaderboard_entries_handle, std::int32_t entry_index);
-void steam_userstats_upload_leaderboard_score(std::uint64_t leaderboard_handle, gm_enums::SteamLeaderboardUploadScoreMethod method, std::int32_t score, gm::wire::GMBuffer score_details, std::uint32_t buffer_offset, std::uint32_t buffer_count, const gm::wire::GMFunction& callback);
+void steam_userstats_upload_leaderboard_score(std::uint64_t leaderboard_handle, gm_enums::SteamLeaderboardUploadScoreMethod method, std::int32_t score, const std::vector<std::int32_t>& score_details, const gm::wire::GMFunction& callback);
 void steam_userstats_attach_leaderboard_ugc(std::uint64_t leaderboard_handle, std::uint64_t ugc_handle, const gm::wire::GMFunction& callback);
 void steam_userstats_number_of_current_players(const gm::wire::GMFunction& callback);
 void steam_userstats_request_global_achievement_percentages(const gm::wire::GMFunction& callback);

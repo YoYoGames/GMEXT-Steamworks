@@ -2664,9 +2664,7 @@
  * @param {Real} leaderboard_handle
  * @param {Enum.SteamLeaderboardUploadScoreMethod} method
  * @param {Real} score
- * @param {Buffer} score_details
- * @param {Real} buffer_offset
- * @param {Real} buffer_count
+ * @param {Array[Real]} score_details
  * @param {Function} callback
  * @function_end
  */
