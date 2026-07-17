@@ -14,6 +14,10 @@ var query_handle = steam_ugc_create_query_all_ugc_request(
 //steam_ugc_set_search_text(query_handle,"*&^%$#@!")
 //steam_ugc_add_excluded_tag(query_handle,"Single-player")
 
-// Send the query request (triggers async event)
-query_ID = steam_ugc_send_query_ugc_request(query_handle,obj_steam_ugc.items_query_handler);
+query_ID = steam_ugc_send_query_ugc_request(query_handle, obj_steam_ugc.items_query_handler);
 
+if (query_ID == 0) {
+	show_debug_message("[UGC] ERROR: Failed to send query request");
+} else {
+	show_debug_message($"[UGC] Query sent, query_ID={query_ID}");
+}

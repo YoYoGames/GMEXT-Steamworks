@@ -2,12 +2,14 @@
 event_inherited();
 
 text = "Inventory";
+_result_handle_destroyed = false;
 
 steam_inventory_set_callback_result_ready(function(data){
 	show_debug_message("[Inventory] Result ready callback");
 	show_debug_message($"[Inventory] Data: {data}");
-	if (struct_exists(data, "result_handle")) {
+	if (struct_exists(data, "result_handle") && !_result_handle_destroyed) {
 		steam_inventory_destroy_result(data.result_handle);
+		_result_handle_destroyed = true;
 	}
 });
 
@@ -22,6 +24,10 @@ steam_inventory_set_callback_full_update(function(data){
 
 	if(is_undefined(items)) {
 		show_debug_message("[Inventory] No items returned from result");
+		if (!_result_handle_destroyed) {
+			steam_inventory_destroy_result(data.result_handle);
+			_result_handle_destroyed = true;
+		}
 		return;
 	}
 
@@ -47,9 +53,12 @@ steam_inventory_set_callback_full_update(function(data){
 		instance_create_depth(_x, _y, 0, obj_steam_inventory_item, {data: _data});
 		_y += 80;
 	}
-		
-			steam_inventory_destroy_result(data.result_handle);
-		})
+
+	if (!_result_handle_destroyed) {
+		steam_inventory_destroy_result(data.result_handle);
+		_result_handle_destroyed = true;
+	}
+})
 
 
 function items_definitions_update(){
