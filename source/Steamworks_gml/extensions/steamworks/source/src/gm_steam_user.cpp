@@ -64,7 +64,20 @@ steam_user_begin_auth_session(gm::wire::GMBuffer auth_ticket,
     if (!u) return SteamUserBeginAuthSessionResult::InvalidTicket;
 
     std::uint32_t offset = buffer_offset.value_or(0);
-    std::uint32_t actual_count = buffer_count.value_or((std::uint32_t)std::max(0, (int)auth_ticket.length() - (int)offset));
+
+    if (static_cast<std::uint64_t>(offset) >= auth_ticket.length())
+    {
+        steam_set_last_error("BeginAuthSession: buffer_offset exceeds buffer length.");
+        return SteamUserBeginAuthSessionResult::InvalidTicket;
+    }
+
+    std::uint32_t actual_count;
+    if (buffer_count.has_value()) {
+        actual_count = buffer_count.value();
+    } else {
+        std::uint64_t remaining = auth_ticket.length() - static_cast<std::uint64_t>(offset);
+        actual_count = static_cast<std::uint32_t>(std::min(remaining, static_cast<std::uint64_t>(INT_MAX)));
+    }
 
     if (actual_count == 0)
     {
@@ -176,11 +189,32 @@ SteamUserDecompressVoiceResult steam_user_decompress_voice(
     if (!u) return out;
 
     std::uint32_t offset = buffer_offset.value_or(0);
-    std::uint32_t actual_count = buffer_count.value_or((std::uint32_t)std::max(0, (int)compressed.length() - (int)offset));
 
-    if (actual_count == 0 || dest.length() == 0)
+    if (dest.length() == 0)
     {
-        steam_set_last_error("DecompressVoice: buffer_count and dest buffer must have length > 0.");
+        steam_set_last_error("DecompressVoice: dest buffer must have length > 0.");
+        out.result = SteamApiVoiceResult::BufferTooSmall;
+        return out;
+    }
+
+    if (static_cast<std::uint64_t>(offset) >= compressed.length())
+    {
+        steam_set_last_error("DecompressVoice: buffer_offset exceeds buffer length.");
+        out.result = SteamApiVoiceResult::BufferTooSmall;
+        return out;
+    }
+
+    std::uint32_t actual_count;
+    if (buffer_count.has_value()) {
+        actual_count = buffer_count.value();
+    } else {
+        std::uint64_t remaining = compressed.length() - static_cast<std::uint64_t>(offset);
+        actual_count = static_cast<std::uint32_t>(std::min(remaining, static_cast<std::uint64_t>(INT_MAX)));
+    }
+
+    if (actual_count == 0)
+    {
+        steam_set_last_error("DecompressVoice: buffer_count must be > 0.");
         out.result = SteamApiVoiceResult::BufferTooSmall;
         return out;
     }
@@ -711,9 +745,23 @@ void steam_user_request_encrypted_app_ticket(gm::wire::GMBuffer data_to_include,
     if (!u) return;
 
     std::uint32_t offset = buffer_offset.value_or(0);
-    std::uint32_t actual_count = buffer_count.value_or((std::uint32_t)std::max(0, (int)data_to_include.length() - (int)offset));
 
-    if (actual_count > 0 && (std::uint64_t)offset + (std::uint64_t)actual_count > (std::uint64_t)data_to_include.length())
+    // Validate offset; allow zero-length data (offset == length)
+    if (static_cast<std::uint64_t>(offset) > data_to_include.length())
+    {
+        steam_set_last_error("RequestEncryptedAppTicket: buffer_offset exceeds buffer length.");
+        return;
+    }
+
+    std::uint32_t actual_count;
+    if (buffer_count.has_value()) {
+        actual_count = buffer_count.value();
+    } else {
+        std::uint64_t remaining = data_to_include.length() - static_cast<std::uint64_t>(offset);
+        actual_count = static_cast<std::uint32_t>(std::min(remaining, static_cast<std::uint64_t>(INT_MAX)));
+    }
+
+    if ((std::uint64_t)offset + (std::uint64_t)actual_count > (std::uint64_t)data_to_include.length())
     {
         steam_set_last_error("RequestEncryptedAppTicket: buffer_offset + buffer_count exceeds buffer length.");
         return;

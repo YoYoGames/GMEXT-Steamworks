@@ -243,7 +243,23 @@ std::uint32_t steam_screenshots_write_screenshot(
         return 0;
 
     std::uint32_t offset = buffer_offset.value_or(0);
-    std::uint32_t actual_count = buffer_count.value_or((std::uint32_t)std::max(0, (int)buff_rgb.length() - (int)offset));
+
+    if (static_cast<std::uint64_t>(offset) >= buff_rgb.length()) {
+        steam_set_last_error("WriteScreenshot: buffer_offset exceeds buffer length.");
+        return 0;
+    }
+
+    std::uint32_t actual_count;
+    if (buffer_offset.has_value() && !buffer_count.has_value()) {
+        // If offset was explicitly provided but count wasn't, default to remaining
+        std::uint64_t remaining = buff_rgb.length() - static_cast<std::uint64_t>(offset);
+        actual_count = static_cast<std::uint32_t>(std::min(remaining, static_cast<std::uint64_t>(INT_MAX)));
+    } else if (buffer_count.has_value()) {
+        actual_count = buffer_count.value();
+    } else {
+        // Both not provided, use entire buffer
+        actual_count = static_cast<std::uint32_t>(std::min(buff_rgb.length(), static_cast<std::uint64_t>(INT_MAX)));
+    }
 
     if (actual_count == 0) {
         steam_set_last_error("WriteScreenshot: buffer_count must be > 0.");
@@ -264,6 +280,7 @@ std::uint32_t steam_screenshots_write_screenshot(
     reader.skip((size_t)offset);
     const void* rgb_data = reader.data();
 
-    return (std::uint32_t)ss->WriteScreenshot(rgb_data, (uint32)actual_count, (int)width, (int)height);
+    // Safe to cast away const: WriteScreenshot copies data synchronously, doesn't retain pointer
+    return (std::uint32_t)ss->WriteScreenshot(const_cast<void*>(rgb_data), (uint32)actual_count, (int)width, (int)height);
 }
 

@@ -160,7 +160,19 @@ bool steam_remote_storage_file_write(std::string_view file_name, gm::wire::GMBuf
     if (!rs) return false;
 
     std::uint32_t offset = buffer_offset.value_or(0);
-    std::uint32_t actual_count = buffer_count.value_or((std::uint32_t)std::max(0, (int)data.length() - (int)offset));
+
+    if (static_cast<std::uint64_t>(offset) >= data.length()) {
+        steam_set_last_error("FileWrite: buffer_offset exceeds buffer length.");
+        return false;
+    }
+
+    std::uint32_t actual_count;
+    if (buffer_count.has_value()) {
+        actual_count = buffer_count.value();
+    } else {
+        std::uint64_t remaining = data.length() - static_cast<std::uint64_t>(offset);
+        actual_count = static_cast<std::uint32_t>(std::min(remaining, static_cast<std::uint64_t>(INT_MAX)));
+    }
 
     if (actual_count == 0) return false;
 
@@ -331,7 +343,19 @@ bool steam_remote_storage_file_write_stream_write_chunk(std::uint64_t stream, gm
     if (!rs) return false;
 
     std::uint32_t offset = buffer_offset.value_or(0);
-    std::uint32_t actual_count = buffer_count.value_or((std::uint32_t)std::max(0, (int)data.length() - (int)offset));
+
+    if (static_cast<std::uint64_t>(offset) >= data.length()) {
+        steam_set_last_error("FileWriteStreamWriteChunk: buffer_offset exceeds buffer length.");
+        return false;
+    }
+
+    std::uint32_t actual_count;
+    if (buffer_count.has_value()) {
+        actual_count = buffer_count.value();
+    } else {
+        std::uint64_t remaining = data.length() - static_cast<std::uint64_t>(offset);
+        actual_count = static_cast<std::uint32_t>(std::min(remaining, static_cast<std::uint64_t>(INT_MAX)));
+    }
 
     if (actual_count == 0) return false;
 
@@ -484,7 +508,19 @@ void steam_remote_storage_file_write_async(std::string_view file_name, gm::wire:
     if (!rs) return;
 
     std::uint32_t offset = buffer_offset.value_or(0);
-    std::uint32_t actual_count = buffer_count.value_or((std::uint32_t)std::max(0, (int)data.length() - (int)offset));
+
+    if (static_cast<std::uint64_t>(offset) >= data.length()) {
+        steam_set_last_error("FileWriteAsync: buffer_offset exceeds buffer length.");
+        return;
+    }
+
+    std::uint32_t actual_count;
+    if (buffer_count.has_value()) {
+        actual_count = buffer_count.value();
+    } else {
+        std::uint64_t remaining = data.length() - static_cast<std::uint64_t>(offset);
+        actual_count = static_cast<std::uint32_t>(std::min(remaining, static_cast<std::uint64_t>(INT_MAX)));
+    }
 
     if (actual_count == 0) return;
 

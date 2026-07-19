@@ -407,13 +407,30 @@ bool steam_matchmaking_send_lobby_chat_msg(std::uint64_t lobby_id, gm::wire::GMB
     if (!mm) return false;
 
     std::uint32_t offset = buffer_offset.value_or(0);
-    std::uint32_t actual_count = buffer_count.value_or((std::uint32_t)std::max(0, (int)msg.length() - (int)offset));
 
-    if (actual_count <= 0) return false;
-    if ((std::uint64_t)offset + (std::uint64_t)actual_count > msg.length()) {
-        steam_set_last_error("steam_matchmaking_send_lobby_chat_msg: buffer_offset + buffer_count exceeds buffer length.");
+    // Validate offset before calculating default count
+    if (static_cast<std::uint64_t>(offset) >= msg.length()) {
+        steam_set_last_error("SendLobbyChatMsg: buffer_offset exceeds buffer length.");
         return false;
     }
+
+    // Calculate actual_count: use provided value or default to remaining buffer, capped at 4KB (Steam chat limit)
+    std::uint32_t actual_count;
+    if (buffer_count.has_value()) {
+        actual_count = buffer_count.value();
+    } else {
+        std::uint64_t remaining = msg.length() - static_cast<std::uint64_t>(offset);
+        // Steam lobby chat messages are limited to 4KB
+        actual_count = static_cast<std::uint32_t>(std::min(remaining, 4096ULL));
+    }
+
+    if (actual_count == 0) return false;
+
+    if ((std::uint64_t)offset + (std::uint64_t)actual_count > msg.length()) {
+        steam_set_last_error("SendLobbyChatMsg: buffer_offset + buffer_count exceeds buffer length.");
+        return false;
+    }
+
     auto reader = msg.getReader();
     reader.skip((size_t)offset);
     const void* msg_data = reader.data();
