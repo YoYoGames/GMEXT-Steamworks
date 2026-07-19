@@ -222,13 +222,12 @@ std::int32_t steam_networking_sockets_send_message_to_connection(std::uint32_t c
         return (std::int32_t)k_EResultInvalidParam;
     }
 
-    std::vector<std::uint8_t> tmp((size_t)actual_count);
     auto reader = data.getReader();
     reader.skip((size_t)offset);
-    reader.readBytes((char*)tmp.data(), (int)actual_count);
+    const void* msg_data = reader.data();
 
     return (std::int32_t)s->SendMessageToConnection((HSteamNetConnection)conn,
-                                                    (const void*)tmp.data(),
+                                                    msg_data,
                                                     (uint32)actual_count,
                                                     (int)send_flags,
                                                     nullptr);

@@ -414,12 +414,11 @@ bool steam_matchmaking_send_lobby_chat_msg(std::uint64_t lobby_id, gm::wire::GMB
         steam_set_last_error("steam_matchmaking_send_lobby_chat_msg: buffer_offset + buffer_count exceeds buffer length.");
         return false;
     }
-    std::vector<std::uint8_t> tmp((size_t)actual_count);
     auto reader = msg.getReader();
     reader.skip((size_t)offset);
-    reader.readBytes((char*)tmp.data(), (int)actual_count);
+    const void* msg_data = reader.data();
 
-    return mm->SendLobbyChatMsg(steam_id_from_u64(lobby_id), (const void*)tmp.data(), actual_count);
+    return mm->SendLobbyChatMsg(steam_id_from_u64(lobby_id), msg_data, actual_count);
 }
 
 std::optional<gm_structs::SteamMatchmakingLobbyChatEntry> steam_matchmaking_get_lobby_chat_entry(std::uint64_t lobby_id, std::int32_t chat_id, gm::wire::GMBuffer out_buffer)

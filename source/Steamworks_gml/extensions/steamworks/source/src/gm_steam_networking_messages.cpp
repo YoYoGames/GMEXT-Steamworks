@@ -136,12 +136,11 @@ std::int32_t steam_networking_messages_send_message_to_user(std::uint64_t steam_
 
     SteamNetworkingIdentity id = snm_identity_from_steamid64(steam_id_remote);
 
-    std::vector<std::uint8_t> tmp((size_t)actual_count);
     auto reader = data.getReader();
     reader.skip((size_t)offset);
-    reader.readBytes((char*)tmp.data(), (int)actual_count);
+    const void* msg_data = reader.data();
 
-    EResult r = m->SendMessageToUser(id, (const void*)tmp.data(), (uint32)actual_count, (int)send_flags, (int)remote_channel);
+    EResult r = m->SendMessageToUser(id, msg_data, (uint32)actual_count, (int)send_flags, (int)remote_channel);
     return (std::int32_t)r;
 }
 

@@ -260,13 +260,10 @@ std::uint32_t steam_screenshots_write_screenshot(
         return 0;
     }
 
-    std::vector<std::uint8_t> rgb;
-    rgb.resize((size_t)actual_count);
-
     auto reader = buff_rgb.getReader();
     reader.skip((size_t)offset);
-    reader.readBytes((char*)rgb.data(), (int)actual_count);
+    const void* rgb_data = reader.data();
 
-    return (std::uint32_t)ss->WriteScreenshot(rgb.data(), (uint32)actual_count, (int)width, (int)height);
+    return (std::uint32_t)ss->WriteScreenshot(rgb_data, (uint32)actual_count, (int)width, (int)height);
 }
 

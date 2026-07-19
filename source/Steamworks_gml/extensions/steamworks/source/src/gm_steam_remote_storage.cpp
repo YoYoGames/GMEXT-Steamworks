@@ -170,11 +170,10 @@ bool steam_remote_storage_file_write(std::string_view file_name, gm::wire::GMBuf
     }
 
     std::string fn(file_name);
-    std::vector<std::uint8_t> tmp((size_t)actual_count);
     auto reader = data.getReader();
     reader.skip((size_t)offset);
-    reader.readBytes((char*)tmp.data(), (int)actual_count);
-    return rs->FileWrite(fn.c_str(), (const void*)tmp.data(), (int32)actual_count);
+    const void* file_data = reader.data();
+    return rs->FileWrite(fn.c_str(), file_data, (int32)actual_count);
 }
 
 std::int32_t steam_remote_storage_file_read(std::string_view file_name, gm::wire::GMBuffer out_data)
@@ -341,11 +340,10 @@ bool steam_remote_storage_file_write_stream_write_chunk(std::uint64_t stream, gm
         return false;
     }
 
-    std::vector<std::uint8_t> tmp((size_t)actual_count);
     auto reader = data.getReader();
     reader.skip((size_t)offset);
-    reader.readBytes((char*)tmp.data(), (int)actual_count);
-    return rs->FileWriteStreamWriteChunk((UGCFileWriteStreamHandle_t)stream, (const void*)tmp.data(), (int32)actual_count);
+    const void* chunk_data = reader.data();
+    return rs->FileWriteStreamWriteChunk((UGCFileWriteStreamHandle_t)stream, chunk_data, (int32)actual_count);
 }
 
 bool steam_remote_storage_file_write_stream_close(std::uint64_t stream)

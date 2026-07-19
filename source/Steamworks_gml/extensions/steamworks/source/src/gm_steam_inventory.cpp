@@ -166,13 +166,12 @@ std::optional<SteamInventoryDeserializeResult> steam_inventory_deserialize_resul
         return std::nullopt;
     }
 
-    std::vector<std::uint8_t> buf((size_t)actual_count);
     auto r = data.getReader();
     r.skip((size_t)offset);
-    r.readBytes((char*)buf.data(), (int)actual_count);
+    const void* buf_data = r.data();
 
     SteamInventoryResult_t rh = k_SteamInventoryResultInvalid;
-    const bool ok = inv->DeserializeResult(&rh, buf.data(), (uint32)buf.size(), false);
+    const bool ok = inv->DeserializeResult(&rh, buf_data, (uint32)actual_count, false);
 
     if (!ok)
         return std::nullopt;

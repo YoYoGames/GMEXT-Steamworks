@@ -78,12 +78,11 @@ steam_user_begin_auth_session(gm::wire::GMBuffer auth_ticket,
         return SteamUserBeginAuthSessionResult::InvalidTicket;
     }
 
-    std::vector<std::uint8_t> tmp((size_t)actual_count);
     auto reader = auth_ticket.getReader();
     reader.skip((size_t)offset);
-    reader.readBytes((char*)tmp.data(), (int)actual_count);
+    const void* data = reader.data();
 
-    EBeginAuthSessionResult r = u->BeginAuthSession(tmp.data(), (uint32)actual_count, steam_id_from_u64(steam_id));
+    EBeginAuthSessionResult r = u->BeginAuthSession(data, (uint32)actual_count, steam_id_from_u64(steam_id));
     return (SteamUserBeginAuthSessionResult)(int)r;
 }
 
@@ -193,19 +192,16 @@ SteamUserDecompressVoiceResult steam_user_decompress_voice(
         return out;
     }
 
-    std::vector<std::uint8_t> in((size_t)actual_count);
-    {
-        auto r = compressed.getReader();
-        r.skip((size_t)offset);
-        r.readBytes((char*)in.data(), (int)actual_count);
-    }
+    auto r = compressed.getReader();
+    r.skip((size_t)offset);
+    const void* in_data = r.data();
 
     std::vector<std::uint8_t> out_buf((size_t)dest.length());
     uint32 written = 0;
 
     EVoiceResult vr = u->DecompressVoice(
-        in.data(),
-        (uint32)in.size(),
+        in_data,
+        (uint32)actual_count,
         out_buf.data(),
         (uint32)out_buf.size(),
         &written,
