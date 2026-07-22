@@ -1706,6 +1706,8 @@
  * @param {Buffer} buff_rgb The buffer containing the raw RGB data from the screenshot.
  * @param {Real} width The width of the screenshot in pixels.
  * @param {Real} height The height of the screenshot in pixels.
+ * @param {Real} [buffer_offset] The offset into the buffer, in bytes. Defaults to 0.
+ * @param {Real} [buffer_count] The number of bytes to write. Defaults to the buffer size minus the offset.
  * @returns {Real} Screenshot handle, or `SteamScreenshotsInvalidScreenshotHandle` if the file could not be saved
  * 
  * @event callback
@@ -1795,6 +1797,8 @@
  *
  * @param {Buffer} auth_ticket The auth ticket to validate. The size of the buffer must be the ticket size provided by the call that created the ticket.
  * @param {Real} steam_id The entity's Steam ID that sent this ticket.
+ * @param {Real} [buffer_offset] The offset into the buffer, in bytes. Defaults to 0.
+ * @param {Real} [buffer_count] The size of the ticket in bytes. Defaults to the buffer size minus the offset.
  * @returns {Enum.SteamUserBeginAuthSessionResult} 
  * 
  * @event callback
@@ -1915,7 +1919,9 @@
  * @param {Buffer} compressed The compressed data received from ${function.steam_user_get_voice}.
  * @param {Buffer} dest The buffer where the raw audio data will be returned. This can then be passed to your audio subsystems for playback.
  * @param {Real} desired_sample_rate The sample rate that will be returned. This can be from 11025 to 48000, you should either use the rate that works best for your audio playback system, which likely takes the user's audio hardware into account, or you can use ${function.steam_user_get_voice_optimal_sample_rate} to get the native sample rate of the Steam voice decoder.
- * @returns {Enum.SteamApiVoiceResult}
+ * @param {Real} [buffer_offset] The offset into the buffer, in bytes. Defaults to 0.
+ * @param {Real} [buffer_count] The number of bytes. Defaults to the buffer size minus the offset.
+ * @returns {Struct.SteamUserDecompressVoiceResult}
  * @function_end
  */
 
@@ -2091,6 +2097,8 @@
  *
  * @param {Buffer} data_to_include The data which will be encrypted into the ticket.
  * @param {Function} callback The function to call upon completion.
+ * @param {Real} [buffer_offset] The offset into the buffer, in bytes. Defaults to 0.
+ * @param {Real} [buffer_count] The length of the data, in bytes. Defaults to the buffer size minus the offset.
  * 
  * @event callback
  * @desc > **Steamworks Callback**: [ISteamUser::EncryptedAppTicketResponse_t](https://partner.steamgames.com/doc/api/ISteamUser#EncryptedAppTicketResponse_t)
@@ -6207,7 +6215,9 @@
  * 
  * [[Note: You must call ${function.steam_inventory_destroy_result} on the provided inventory result when you are done with it.]]
  *
- * @param {Buffer} data The buffer to deserialize.
+ * @param {Buffer} data The buffer holding the data to deserialise.
+ * @param {Real} [buffer_offset] The offset into the buffer, in bytes. Defaults to 0.
+ * @param {Real} [buffer_count] The length of the data, in bytes. Defaults to the buffer size minus the offset.
  * @returns {Struct.SteamInventoryDeserializeResult} 
  * @function_end 
  */
@@ -6863,6 +6873,8 @@
  *
  * @param {String} file_name The name of the file to write to.
  * @param {Buffer} data The buffer containing the bytes to write to the file.
+ * @param {Real} [buffer_offset] The offset into the buffer, in bytes. Defaults to 0.
+ * @param {Real} [buffer_count] The number of bytes to write, starting at the offset. Defaults to the buffer size minus the offset.
  * @returns {Bool}
  * @function_end 
  */
@@ -6874,8 +6886,10 @@
  * This function creates a new file and asynchronously writes the raw byte data to the Steam Cloud, and then closes the file. If the target file already exists, it is overwritten.
  * 
  * @param {String} file_name The name of the file to write to.
- * @param {Buffer} data The bytes to write to the file.
+ * @param {Buffer} data The buffer holding the bytes to write to the file.
  * @param {Function} callback The callback function to call upon completion.
+ * @param {Real} [buffer_offset] The offset into the buffer, in bytes. Defaults to 0.
+ * @param {Real} [buffer_count] The number of bytes to write. Defaults to the buffer size minus the offset.
  * 
  * @event callback
  * @desc **Steamworks Callback**: [ISteamRemoteStorage::RemoteStorageFileWriteAsyncComplete_t](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#RemoteStorageFileWriteAsyncComplete_t)
@@ -7057,6 +7071,8 @@
  *
  * @param {Real} stream The file write stream to write to.
  * @param {Buffer} data The buffer containing the data to write to the stream.
+ * @param {Real} [buffer_offset] The offset into the buffer, in bytes. Defaults to 0.
+ * @param {Real} [buffer_count] The number of bytes to write, starting at the offset. Defaults to the buffer size minus the offset.
  * @returns {Bool} `true` if the data was successfully written to the file write stream, `false` if not.
  * @function_end 
  */
@@ -7650,7 +7666,8 @@
  *
  * @param {Real} lobby_id The Steam ID of the lobby to send the chat message to.
  * @param {Buffer} msg The buffer holding the message data to send. This can be text or binary data, up to 4 kilobytes in size.
- * @param {Real} bytes The size in bytes of the message data; if it is a text message then this should include the null terminator.
+ * @param {Real} [buffer_offset] The offset into the buffer, in bytes. Defaults to 0.
+ * @param {Real} [buffer_count] The size in bytes of the message data; if it is a text message then this should include the null terminator. Defaults to the buffer size minus the offset.
  * @returns {Bool}
  * 
  * @event callback
@@ -7864,6 +7881,8 @@
  * @param {Buffer} data The buffer holding the message data to send.
  * @param {Real} send_flags A bitmask of ${constant.SteamNetworkingSendFlags} options that determine the delivery guarantees for the message.
  * @param {Real} remote_channel A routing channel number you can use to help route the message to different systems on the remote host.
+ * @param {Real} [buffer_offset] The offset into the buffer, in bytes. Defaults to 0.
+ * @param {Real} [buffer_count] The number of bytes to write. Defaults to the buffer size minus the offset.
  * @returns {Real} The number of messages returned into your list. (0 if no messages are available on that channel.)
  * 
  * @event callback
@@ -8105,6 +8124,8 @@
  * @param {Real} conn The connection to send the message on.
  * @param {Buffer} data The buffer holding the message data to send.
  * @param {Enum.SteamNetworkingSendFlags} send_flags The send flags that determine the delivery guarantees, buffering behaviour, etc., for the message.
+ * @param {Real} [buffer_offset] The offset into the buffer, in bytes. Defaults to 0.
+ * @param {Real} [buffer_count] The number of bytes to write. Defaults to the buffer size minus the offset.
  * @returns {Real} 
  * @function_end 
  */
@@ -8924,6 +8945,17 @@
  * @member {Enum.SteamApiVoiceResult} result The result of the call.
  * @member {Real} written_compressed The number of bytes written into the buffer passed to the function.
  * @member {Real} written_uncompressed The number of bytes uncompressed.
+ * @struct_end
+ */
+
+/**
+ * @struct SteamUserDecompressVoiceResult
+ * @description > **Steamworks Struct**: N / A
+ * 
+ * This struct holds information returned by ${function.steam_user_decompress_voice}.
+ * 
+ * @member {Enum.SteamApiVoiceResult} result The result of the request.
+ * @member {Real} written_bytes The number of bytes written to the buffer.
  * @struct_end
  */
 
