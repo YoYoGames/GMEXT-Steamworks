@@ -209,6 +209,10 @@ namespace gm::details {
 
     struct GMRTRunnerInterface {
         const char* (*ExtOptGetString)(const char* _ext, const char* _opt);
+#if defined(TARGET_APPLE_MOBILE)
+        // Only the Apple-mobile objc initializer currently wires this up.
+        const char* (*ExtGetVersion)(const char* _ext);
+#endif
     };
 
 }
@@ -256,6 +260,10 @@ namespace gm {
         // Matches the runner-provided function signature (const char* return).
         using GetExtensionOptionFn = const char* (*)(const char* extName, const char* optName);
 
+#if defined(TARGET_APPLE_MOBILE)
+        using GetExtensionVersionFn = const char* (*)(const char* extName);
+#endif
+
         // "returns void and has no args"
         using InitCallbackFn = void (*)();
 
@@ -267,6 +275,19 @@ namespace gm {
             const char* s = s_getExtensionOption(extName, optName);
             return s ? std::string(s) : std::string{};
         }
+
+#if defined(TARGET_APPLE_MOBILE)
+        // Extension build version (e.g. "1.2.3"), as registered with the runner.
+        // Only wired on Apple mobile today -- see the objc initializer's
+        // +(void)load, which populates GMRTRunnerInterface::ExtGetVersion.
+        static std::string GetExtensionVersion(const char* extName)
+        {
+            if (!s_getExtensionVersion)
+                return {};
+            const char* s = s_getExtensionVersion(extName);
+            return s ? std::string(s) : std::string{};
+        }
+#endif
 
         static void SetInitializationCallback(InitCallbackFn fn) { s_initCallback = fn; }
 
@@ -281,6 +302,9 @@ namespace gm {
         static void Init(const gm::details::GMRTRunnerInterface& runner)
         {
             s_getExtensionOption = runner.ExtOptGetString;
+#if defined(TARGET_APPLE_MOBILE)
+            s_getExtensionVersion = runner.ExtGetVersion;
+#endif
 
             // Run the single registered hook once.
             gm::RunInitHookOnce();
@@ -291,6 +315,9 @@ namespace gm {
 
     private:
         inline static GetExtensionOptionFn s_getExtensionOption = nullptr;
+#if defined(TARGET_APPLE_MOBILE)
+        inline static GetExtensionVersionFn s_getExtensionVersion = nullptr;
+#endif
         inline static InitCallbackFn s_initCallback = nullptr;
     };
 

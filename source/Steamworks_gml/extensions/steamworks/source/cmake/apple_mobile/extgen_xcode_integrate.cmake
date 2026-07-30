@@ -4,6 +4,12 @@ if(NOT DEFINED EXT_REPO_ROOT OR EXT_REPO_ROOT STREQUAL "")
   message(FATAL_ERROR "EXT_REPO_ROOT is empty (expected repo root path).")
 endif()
 
+# `cmake -E env --unset=<name>` (used below to strip Xcode's injected iOS
+# build env out of the Ruby/Bundler invocations) needs CMake 3.24+.
+if(CMAKE_VERSION VERSION_LESS 3.24)
+  message(FATAL_ERROR "This script requires CMake 3.24+ (found ${CMAKE_VERSION}) for 'cmake -E env --unset'. Upgrade CMake, e.g. `brew upgrade cmake`.")
+endif()
+
 # --- Locate ruby (only) ---
 find_program(RUBY_EXECUTABLE ruby HINTS /opt/homebrew/opt/ruby/bin /usr/bin)
 if(NOT RUBY_EXECUTABLE)
@@ -26,7 +32,37 @@ file(MAKE_DIRECTORY "${_LOCAL_GEM_BIN}")
 set(_BUNDLE_DIR "${CMAKE_BINARY_DIR}/bundle")
 file(MAKE_DIRECTORY "${_BUNDLE_DIR}")
 
+# --- Resolve a known-good, CURRENT macOS SDK path ---
+#
+# The host Ruby's own baked -isysroot (from RbConfig) can go stale after an
+# Xcode upgrade removes the SDK version it was built against, so resolve the
+# actual current macOS SDK fresh instead of trusting it.
+execute_process(
+  COMMAND xcrun --sdk macosx --show-sdk-path
+  OUTPUT_VARIABLE _MACOS_SDK_PATH
+  OUTPUT_STRIP_TRAILING_WHITESPACE
+  RESULT_VARIABLE _sdk_res
+)
+if(NOT _sdk_res EQUAL 0 OR NOT EXISTS "${_MACOS_SDK_PATH}")
+  message(FATAL_ERROR "Could not resolve a valid macOS SDK ('xcrun --sdk macosx --show-sdk-path' returned '${_MACOS_SDK_PATH}', exit ${_sdk_res}). Check your Xcode Command Line Tools: xcode-select -p, xcodebuild -runFirstLaunch.")
+endif()
+
 # Helper: env for ALL ruby/bundler invocations
+#
+# This runs inside an Xcode Run Script build phase for an iOS target, and
+# CMake's Xcode generator applies CMAKE_SYSTEM_NAME=iOS to every target in
+# the .xcodeproj (including this non-compiling one), so the process starts
+# with Xcode's iOS SDK/architecture/compiler env already set. Building a
+# native gem extension (e.g. xcodeproj's nkf dependency) under that
+# environment cross-compiles for iOS instead of the host macOS Ruby it
+# actually links against, and fails at link time.
+#
+# SDKROOT/CFLAGS/CPPFLAGS/LDFLAGS get an explicit macOS sysroot rather than
+# just being unset - Ruby's own mkmf fallback (e.g.
+# `ENV['CFLAGS'] || RbConfig::CONFIG[...]`) treats an empty string as a
+# provided value and skips its own baked default, so an explicit value is
+# needed either way. The platform/toolchain-selection vars a host tool has
+# no use for regardless are genuinely unset (--unset, not an empty string).
 set(_ENV_CMD ${CMAKE_COMMAND} -E env
   "BUNDLE_GEMFILE=${_GEMFILE}"
   "BUNDLE_PATH=${_BUNDLE_DIR}"
@@ -34,6 +70,21 @@ set(_ENV_CMD ${CMAKE_COMMAND} -E env
   "GEM_HOME=${_LOCAL_GEM_HOME}"
   "GEM_PATH=${_LOCAL_GEM_HOME}"
   "PATH=${_LOCAL_GEM_BIN}:$ENV{PATH}"
+  "SDKROOT=${_MACOS_SDK_PATH}"
+  "CFLAGS=-isysroot ${_MACOS_SDK_PATH}"
+  "CPPFLAGS=-isysroot ${_MACOS_SDK_PATH}"
+  "LDFLAGS=-isysroot ${_MACOS_SDK_PATH}"
+  --unset=ARCHS
+  --unset=PLATFORM_NAME
+  --unset=IPHONEOS_DEPLOYMENT_TARGET
+  --unset=CC
+  --unset=CXX
+  --unset=CPP
+  --unset=LD
+  --unset=CXXFLAGS
+  --unset=OTHER_CFLAGS
+  --unset=OTHER_CPLUSPLUSFLAGS
+  --unset=OTHER_LDFLAGS
 )
 
 # --- Ensure bundler is available in the local GEM_HOME ---
