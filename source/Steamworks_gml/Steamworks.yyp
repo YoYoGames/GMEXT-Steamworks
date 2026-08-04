@@ -46,7 +46,7 @@
   "isEcma":false,
   "LibraryEmitters":[],
   "MetaData":{
-    "IDEVersion":"2024.14.4.222",
+    "IDEVersion":"2026.0.0.16",
   },
   "name":"Steamworks",
   "resources":[
@@ -87,6 +87,7 @@
     {"id":{"name":"Obj_Steam_Networking_List","path":"objects/Obj_Steam_Networking_List/Obj_Steam_Networking_List.yy",},},
     {"id":{"name":"Obj_Steam_Networking_Lobby_Chat","path":"objects/Obj_Steam_Networking_Lobby_Chat/Obj_Steam_Networking_Lobby_Chat.yy",},},
     {"id":{"name":"Obj_Steam_Networking_Lobby_Color","path":"objects/Obj_Steam_Networking_Lobby_Color/Obj_Steam_Networking_Lobby_Color.yy",},},
+    {"id":{"name":"Obj_Steam_Networking_Lobby_Invite","path":"objects/Obj_Steam_Networking_Lobby_Invite/Obj_Steam_Networking_Lobby_Invite.yy",},},
     {"id":{"name":"Obj_Steam_Networking_Lobby_setOwner","path":"objects/Obj_Steam_Networking_Lobby_setOwner/Obj_Steam_Networking_Lobby_setOwner.yy",},},
     {"id":{"name":"Obj_Steam_Networking_Lobby","path":"objects/Obj_Steam_Networking_Lobby/Obj_Steam_Networking_Lobby.yy",},},
     {"id":{"name":"Obj_Steam_Networking_Messages","path":"objects/Obj_Steam_Networking_Messages/Obj_Steam_Networking_Messages.yy",},},
