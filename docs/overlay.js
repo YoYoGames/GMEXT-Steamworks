@@ -96,6 +96,27 @@
  */
 
 /**
+ * @func steam_activate_overlay_invite_dialog
+ * @desc With this function you can open the Steam overlay to the invite dialog for the specified lobby ID. This lets the user invite friends directly to that lobby.
+ * Note that Steam IDs can be large numbers and so you may need to cast your lobby ID value as an ${type.int64} before supplying it to the function.
+ *
+ * @param {int64} lobby_id The Steam lobby ID to invite users to.
+ *
+ * @returns {boolean}
+ *
+ * @example
+ * ```gml
+ * var _lobby_id = steam_lobby_get_lobby_id();
+ * if (_lobby_id != 0)
+ * {
+ *     steam_activate_overlay_invite_dialog(_lobby_id);
+ * }
+ * ```
+ * The above code opens the Steam invite dialog for the current lobby.
+ * @func_end
+ */
+
+/**
  * @func steam_activate_overlay_user
  * @desc This function will open the Steam overlay to one of the chosen dialogues relating to the user ID given.
  * Note that Steam IDs can be large numbers and so you may need to cast your ID value as an ${type.int64} before supplying it to the function.
@@ -188,6 +209,7 @@
  * @ref steam_activate_overlay
  * @ref steam_activate_overlay_browser
  * @ref steam_activate_overlay_store
+ * @ref steam_activate_overlay_invite_dialog
  * @ref steam_activate_overlay_user
  * @ref steam_set_overlay_notification_inset
  * @ref steam_set_overlay_notification_position
