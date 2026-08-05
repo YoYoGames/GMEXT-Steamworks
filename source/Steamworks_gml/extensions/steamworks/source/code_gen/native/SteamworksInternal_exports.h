@@ -162,7 +162,8 @@ GMEXPORT double __EXT_NATIVE__steam_user_get_voice(char* __arg_buffer, double __
 GMEXPORT double __EXT_NATIVE__steam_user_request_encrypted_app_ticket(char* __arg_buffer, double __arg_buffer_length);
 GMEXPORT double __EXT_NATIVE__steam_user_get_encrypted_app_ticket(char* __arg_buffer, double __arg_buffer_length, char* __ret_buffer, double __ret_buffer_length);
 GMEXPORT double __EXT_NATIVE__steam_user_get_game_badge_level(double series, double foil);
-GMEXPORT double __EXT_NATIVE__steam_user_get_auth_ticket_for_web_api(char* identity);
+GMEXPORT double __EXT_NATIVE__steam_user_request_auth_ticket_for_web_api(char* __arg_buffer, double __arg_buffer_length);
+GMEXPORT double __EXT_NATIVE__steam_user_fetch_auth_ticket_for_web_api(char* __arg_buffer, double __arg_buffer_length);
 GMEXPORT double __EXT_NATIVE__steam_user_get_duration_control(char* __arg_buffer, double __arg_buffer_length);
 GMEXPORT double __EXT_NATIVE__steam_user_request_store_auth_url(char* __arg_buffer, double __arg_buffer_length);
 GMEXPORT double __EXT_NATIVE__steam_user_get_market_eligibility(char* __arg_buffer, double __arg_buffer_length);
@@ -610,6 +611,7 @@ GMEXPORT double __EXT_NATIVE__steam_parties_get_num_available_beacon_locations(c
 GMEXPORT double __EXT_NATIVE__steam_parties_get_available_beacon_locations(char* __ret_buffer, double __ret_buffer_length);
 GMEXPORT double __EXT_NATIVE__steam_parties_create_beacon(char* __arg_buffer, double __arg_buffer_length);
 GMEXPORT double __EXT_NATIVE__steam_parties_on_reservation_completed(char* __arg_buffer, double __arg_buffer_length);
+GMEXPORT double __EXT_NATIVE__steam_parties_cancel_reservation(char* __arg_buffer, double __arg_buffer_length);
 GMEXPORT double __EXT_NATIVE__steam_parties_change_num_open_slots(char* __arg_buffer, double __arg_buffer_length);
 GMEXPORT double __EXT_NATIVE__steam_parties_destroy_beacon(char* __arg_buffer, double __arg_buffer_length);
 GMEXPORT double __EXT_NATIVE__steam_parties_get_num_active_beacons();

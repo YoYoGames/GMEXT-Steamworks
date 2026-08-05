@@ -1604,9 +1604,32 @@ GMEXPORT double __EXT_NATIVE__steam_user_get_game_badge_level(double series, dou
     return static_cast<double>(__result);
 }
 
-GMEXPORT double __EXT_NATIVE__steam_user_get_auth_ticket_for_web_api(char* identity)
+GMEXPORT double __EXT_NATIVE__steam_user_request_auth_ticket_for_web_api(char* __arg_buffer, double __arg_buffer_length)
 {
-    auto&& __result = steam_user_get_auth_ticket_for_web_api(identity);
+    gm::byteio::BufferReader __br{__arg_buffer, static_cast<size_t>(__arg_buffer_length)};
+
+    // field: identity, type: String
+    std::string_view identity = gm::wire::codec::readValue<std::string_view>(__br);
+
+    // field: callback, type: Function
+    gm::wire::GMFunction callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
+
+    auto&& __result = steam_user_request_auth_ticket_for_web_api(identity, callback);
+    return static_cast<double>(__result);
+}
+
+GMEXPORT double __EXT_NATIVE__steam_user_fetch_auth_ticket_for_web_api(char* __arg_buffer, double __arg_buffer_length)
+{
+    gm::byteio::BufferReader __br{__arg_buffer, static_cast<size_t>(__arg_buffer_length)};
+
+    // field: auth_ticket_handle, type: UInt32
+    std::uint32_t auth_ticket_handle = gm::wire::codec::readValue<std::uint32_t>(__br);
+
+    // field: out_ticket, type: Buffer
+    gm::wire::GMBuffer out_ticket = __buffer_queue.front();
+    __buffer_queue.pop();
+
+    auto&& __result = steam_user_fetch_auth_ticket_for_web_api(auth_ticket_handle, out_ticket);
     return static_cast<double>(__result);
 }
 
@@ -6942,6 +6965,20 @@ GMEXPORT double __EXT_NATIVE__steam_parties_on_reservation_completed(char* __arg
     std::uint64_t user_steam_id = gm::wire::codec::readValue<std::uint64_t>(__br);
 
     auto&& __result = steam_parties_on_reservation_completed(beacon_id, user_steam_id);
+    return static_cast<double>(__result);
+}
+
+GMEXPORT double __EXT_NATIVE__steam_parties_cancel_reservation(char* __arg_buffer, double __arg_buffer_length)
+{
+    gm::byteio::BufferReader __br{__arg_buffer, static_cast<size_t>(__arg_buffer_length)};
+
+    // field: beacon_id, type: UInt64
+    std::uint64_t beacon_id = gm::wire::codec::readValue<std::uint64_t>(__br);
+
+    // field: user_steam_id, type: UInt64
+    std::uint64_t user_steam_id = gm::wire::codec::readValue<std::uint64_t>(__br);
+
+    auto&& __result = steam_parties_cancel_reservation(beacon_id, user_steam_id);
     return static_cast<double>(__result);
 }
 

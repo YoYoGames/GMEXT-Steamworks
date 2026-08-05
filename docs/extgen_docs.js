@@ -1029,9 +1029,18 @@
  */
 
 /**
- * @function_partial steam_user_get_auth_ticket_for_web_api
+ * @function_partial steam_user_request_auth_ticket_for_web_api
  * @param {String} identity
+ * @param {Function} callback
  * @returns {Real}
+ * @function_end
+ */
+
+/**
+ * @function_partial steam_user_fetch_auth_ticket_for_web_api
+ * @param {Real} auth_ticket_handle
+ * @param {Buffer} out_ticket
+ * @returns {Bool}
  * @function_end
  */
 
@@ -4207,6 +4216,14 @@
  */
 
 /**
+ * @function_partial steam_parties_cancel_reservation
+ * @param {Real} beacon_id
+ * @param {Real} user_steam_id
+ * @returns {Bool}
+ * @function_end
+ */
+
+/**
  * @function_partial steam_parties_change_num_open_slots
  * @param {Real} beacon_id
  * @param {Real} open_slots
@@ -4538,6 +4555,14 @@
  * @struct_partial SteamUserDecompressVoiceResult
  * @member {Enum.SteamApiVoiceResult} result
  * @member {Real} written_bytes
+ * @struct_end
+ */
+
+/**
+ * @struct_partial SteamUserGetTicketForWebApiResponse
+ * @member {Real} auth_ticket_handle
+ * @member {Enum.SteamApiResult} result
+ * @member {Real} ticket_size
  * @struct_end
  */
 

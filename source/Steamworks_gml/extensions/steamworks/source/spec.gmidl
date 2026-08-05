@@ -1631,9 +1631,34 @@ class `[[SteamUserDecompressVoiceResult]]` prototype Object
 
 
 
+// GetTicketForWebApiResponse_t - async, persistent SDK callback (no STEAM_CALL_RESULT on
+// GetAuthTicketForWebApi itself); correlated natively by auth_ticket_handle so the request function
+// below can still take a per-call callback. Delivers metadata only - call
+// steam_user_fetch_auth_ticket_for_web_api to copy the held ticket bytes into a GML buffer.
+[global]
+class `[[SteamUserGetTicketForWebApiResponse]]` prototype Object
+{
+    // HAuthTicket (uint32) of the ticket whose bytes are ready to fetch.
+    [field]
+    property auth_ticket_handle : uint32 { get; set; }
+
+    // EResult of the request (k_EResultOK on success).
+    [field, type_hint = `SteamApiResult`]
+    property result : gmval { get; set; }
+
+    // Number of ticket bytes held and available to fetch (0 on failure).
+    [field]
+    property ticket_size : uint32 { get; set; }
+}
+
 // GetAuthTicketForWebApi
 [global, bind = typed_gml]
-function steam_user_get_auth_ticket_for_web_api(identity: string): uint32;
+function steam_user_request_auth_ticket_for_web_api(identity: string, callback:func): uint32;
+
+// Fetch the ticket bytes held natively for a GetTicketForWebApiResponse_t callback, keyed by
+// auth_ticket_handle. Released once fetched.
+[global, bind = typed_gml]
+function steam_user_fetch_auth_ticket_for_web_api(auth_ticket_handle: uint32, [type_hint=buffer] out_ticket: gmval): bool;
 
 
 // GetDurationControl
@@ -6044,6 +6069,9 @@ function steam_parties_create_beacon(
 
 [global, bind = typed_gml]
 function steam_parties_on_reservation_completed([type_hint=uint64] beacon_id: gmval, [type_hint=uint64] user_steam_id: gmval): bool;
+
+[global, bind = typed_gml]
+function steam_parties_cancel_reservation([type_hint=uint64] beacon_id: gmval, [type_hint=uint64] user_steam_id: gmval): bool;
 
 [global, bind = typed_gml]
 function steam_parties_change_num_open_slots([type_hint=uint64] beacon_id: gmval, open_slots: uint32, callback: func): bool;

@@ -2241,6 +2241,23 @@ function SteamUserDecompressVoiceResult() constructor
 }
 
 /**
+ * @returns {Struct.SteamUserGetTicketForWebApiResponse}
+ */
+function SteamUserGetTicketForWebApiResponse() constructor
+{
+    /**
+     * Internally generated hash for quick validation
+     * @ignore
+     */
+    static __uid = 1925345686;
+
+    self.auth_ticket_handle = undefined;
+    self.result = undefined;
+    self.ticket_size = undefined;
+
+}
+
+/**
  * @returns {Struct.SteamUserValidateAuthTicketResponse}
  */
 function SteamUserValidateAuthTicketResponse() constructor
@@ -6066,6 +6083,63 @@ function __SteamUserDecompressVoiceResult_decode(_buffer, _offset)
 
         // field: written_bytes, type: UInt32
         self.written_bytes = buffer_read(_buffer, buffer_u32);
+
+    }
+
+    return _inst;
+}
+
+/**
+ * @func __SteamUserGetTicketForWebApiResponse_encode(_inst, _buffer, _offset, _where)
+ * @param {Struct.SteamUserGetTicketForWebApiResponse} _inst
+ * @param {Id.Buffer} _buffer
+ * @param {Real} _offset
+ * @param {String} _where
+ * @ignore
+ */
+function __SteamUserGetTicketForWebApiResponse_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
+{
+    buffer_seek(_buffer, buffer_seek_start, _offset);
+    with (_inst)
+    {
+        // field: auth_ticket_handle, type: UInt32
+        if (!is_numeric(self.auth_ticket_handle)) show_error($"{_where} :: self.auth_ticket_handle expected number", true);
+        buffer_write(_buffer, buffer_u32, self.auth_ticket_handle);
+
+        // field: result, type: enum SteamApiResult
+
+        if (!is_numeric(self.result)) show_error($"{_where} :: self.result expected number", true);
+        buffer_write(_buffer, buffer_u64, self.result);
+
+        // field: ticket_size, type: UInt32
+        if (!is_numeric(self.ticket_size)) show_error($"{_where} :: self.ticket_size expected number", true);
+        buffer_write(_buffer, buffer_u32, self.ticket_size);
+
+    }
+}
+
+/**
+ * @func __SteamUserGetTicketForWebApiResponse_decode(_buffer, _offset)
+ * @param {Id.Buffer} _buffer
+ * @param {Real} _offset
+ * @returns {Struct.SteamUserGetTicketForWebApiResponse}
+ * @ignore
+ */
+function __SteamUserGetTicketForWebApiResponse_decode(_buffer, _offset)
+{
+    buffer_seek(_buffer, buffer_seek_start, _offset);
+
+    _inst = new SteamUserGetTicketForWebApiResponse();
+    with (_inst)
+    {
+        // field: auth_ticket_handle, type: UInt32
+        self.auth_ticket_handle = buffer_read(_buffer, buffer_u32);
+
+        // field: result, type: enum SteamApiResult
+        self.result = buffer_read(_buffer, buffer_u64);
+
+        // field: ticket_size, type: UInt32
+        self.ticket_size = buffer_read(_buffer, buffer_u32);
 
     }
 
@@ -14546,8 +14620,59 @@ function steam_user_get_encrypted_app_ticket(_out_ticket)
 // Skipping function steam_user_get_game_badge_level (no wrapper is required)
 
 
-// Skipping function steam_user_get_auth_ticket_for_web_api (no wrapper is required)
+/**
+ * @param {String} _identity
+ * @param {Function} _callback
+ * @returns {Real}
+ */
+function steam_user_request_auth_ticket_for_web_api(_identity, _callback)
+{
+    var __available__ = __Steamworks_is_available();
+    if (!__available__) return;
 
+    var __dispatcher__ = __Steamworks_get_dispatcher();
+
+    var __args_buffer = __ext_core_get_args_buffer();
+
+    // param: _identity, type: String
+    if (!is_string(_identity)) show_error($"{_GMFUNCTION_} :: _identity expected string", true);
+    buffer_write(__args_buffer, buffer_u32, string_byte_length(_identity));
+    buffer_write(__args_buffer, buffer_string, _identity);
+
+    // param: _callback, type: Function
+    if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
+    var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
+    buffer_write(__args_buffer, buffer_u64, _callback_handle);
+
+    var __return_value__ = __steam_user_request_auth_ticket_for_web_api(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+
+    return __return_value__;
+}
+
+/**
+ * @param {Real} _auth_ticket_handle
+ * @param {Id.Buffer} _out_ticket
+ * @returns {Bool}
+ */
+function steam_user_fetch_auth_ticket_for_web_api(_auth_ticket_handle, _out_ticket)
+{
+    var __available__ = __Steamworks_is_available();
+    if (!__available__) return;
+
+    var __args_buffer = __ext_core_get_args_buffer();
+
+    // param: _auth_ticket_handle, type: UInt32
+    if (!is_numeric(_auth_ticket_handle)) show_error($"{_GMFUNCTION_} :: _auth_ticket_handle expected number", true);
+    buffer_write(__args_buffer, buffer_u32, _auth_ticket_handle);
+
+    // param: _out_ticket, type: Buffer
+    if (!buffer_exists(_out_ticket)) show_error($"{_GMFUNCTION_} :: _out_ticket expected Id.Buffer", true);
+    __Steamworks_queue_buffer(buffer_get_address(_out_ticket), buffer_get_size(_out_ticket));
+
+    var __return_value__ = __steam_user_fetch_auth_ticket_for_web_api(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+
+    return __return_value__;
+}
 
 /**
  * @param {Function} _callback
@@ -23670,6 +23795,31 @@ function steam_parties_on_reservation_completed(_beacon_id, _user_steam_id)
 
 /**
  * @param {Real} _beacon_id
+ * @param {Real} _user_steam_id
+ * @returns {Bool}
+ */
+function steam_parties_cancel_reservation(_beacon_id, _user_steam_id)
+{
+    var __available__ = __Steamworks_is_available();
+    if (!__available__) return;
+
+    var __args_buffer = __ext_core_get_args_buffer();
+
+    // param: _beacon_id, type: UInt64
+    if (!is_numeric(_beacon_id)) show_error($"{_GMFUNCTION_} :: _beacon_id expected number", true);
+    buffer_write(__args_buffer, buffer_u64, _beacon_id);
+
+    // param: _user_steam_id, type: UInt64
+    if (!is_numeric(_user_steam_id)) show_error($"{_GMFUNCTION_} :: _user_steam_id expected number", true);
+    buffer_write(__args_buffer, buffer_u64, _user_steam_id);
+
+    var __return_value__ = __steam_parties_cancel_reservation(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+
+    return __return_value__;
+}
+
+/**
+ * @param {Real} _beacon_id
  * @param {Real} _open_slots
  * @param {Function} _callback
  * @returns {Bool}
@@ -23872,6 +24022,7 @@ function __Steamworks_get_decoders()
         __SteamUserAvailableVoice_decode,
         __SteamUserGetVoiceResult_decode,
         __SteamUserDecompressVoiceResult_decode,
+        __SteamUserGetTicketForWebApiResponse_decode,
         __SteamUserValidateAuthTicketResponse_decode,
         __SteamUserSteamServersDisconnected_decode,
         __SteamUserSteamServerConnectFailure_decode,

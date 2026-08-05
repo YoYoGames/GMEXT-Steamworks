@@ -2681,17 +2681,36 @@
         },
         {
           "$GMExtensionFunction": "",
-          "%Name": "steam_user_get_auth_ticket_for_web_api",
-          "argCount": 1,
+          "%Name": "__steam_user_request_auth_ticket_for_web_api",
+          "argCount": 2,
           "args": [
-            1
+            1,
+            2
           ],
-          "documentation": "@param {String} identity\r\n@returns {Real}",
-          "externalName": "__EXT_NATIVE__steam_user_get_auth_ticket_for_web_api",
+          "documentation": "@param {Pointer} _arg_buffer\r\n@param {Real} _arg_buffer_length\r\n@returns {Real}",
+          "externalName": "__EXT_NATIVE__steam_user_request_auth_ticket_for_web_api",
           "help": "",
-          "hidden": false,
+          "hidden": true,
           "kind": 4,
-          "name": "steam_user_get_auth_ticket_for_web_api",
+          "name": "__steam_user_request_auth_ticket_for_web_api",
+          "resourceType": "GMExtensionFunction",
+          "resourceVersion": "2.0",
+          "returnType": 2
+        },
+        {
+          "$GMExtensionFunction": "",
+          "%Name": "__steam_user_fetch_auth_ticket_for_web_api",
+          "argCount": 2,
+          "args": [
+            1,
+            2
+          ],
+          "documentation": "@param {Pointer} _arg_buffer\r\n@param {Real} _arg_buffer_length\r\n@returns {Real}",
+          "externalName": "__EXT_NATIVE__steam_user_fetch_auth_ticket_for_web_api",
+          "help": "",
+          "hidden": true,
+          "kind": 4,
+          "name": "__steam_user_fetch_auth_ticket_for_web_api",
           "resourceType": "GMExtensionFunction",
           "resourceVersion": "2.0",
           "returnType": 2
@@ -10595,6 +10614,24 @@
           "hidden": true,
           "kind": 4,
           "name": "__steam_parties_on_reservation_completed",
+          "resourceType": "GMExtensionFunction",
+          "resourceVersion": "2.0",
+          "returnType": 2
+        },
+        {
+          "$GMExtensionFunction": "",
+          "%Name": "__steam_parties_cancel_reservation",
+          "argCount": 2,
+          "args": [
+            1,
+            2
+          ],
+          "documentation": "@param {Pointer} _arg_buffer\r\n@param {Real} _arg_buffer_length\r\n@returns {Real}",
+          "externalName": "__EXT_NATIVE__steam_parties_cancel_reservation",
+          "help": "",
+          "hidden": true,
+          "kind": 4,
+          "name": "__steam_parties_cancel_reservation",
           "resourceType": "GMExtensionFunction",
           "resourceVersion": "2.0",
           "returnType": 2

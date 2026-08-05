@@ -295,6 +295,18 @@ bool steam_parties_on_reservation_completed(std::uint64_t beacon_id, std::uint64
     return true;
 }
 
+bool steam_parties_cancel_reservation(std::uint64_t beacon_id, std::uint64_t user_steam_id)
+{
+    STEAM_GUARD_RET(false);
+
+    ISteamParties* p = steam_parties_iface();
+    if (!p)
+        return false;
+
+    p->CancelReservation((PartyBeaconID_t)beacon_id, steam_id_from_u64(user_steam_id));
+    return true;
+}
+
 bool steam_parties_change_num_open_slots(
     std::uint64_t beacon_id,
     std::uint32_t open_slots,

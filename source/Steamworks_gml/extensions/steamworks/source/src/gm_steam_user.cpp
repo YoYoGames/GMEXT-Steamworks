@@ -15,6 +15,7 @@
 #include <vector>
 #include <algorithm>
 #include <mutex>
+#include <unordered_map>
 
 using namespace gm::wire;
 using namespace gm_structs;
@@ -638,19 +639,6 @@ std::int32_t steam_user_get_game_badge_level(std::int32_t series, bool foil)
     return (std::int32_t)u->GetGameBadgeLevel(series, foil);
 }
 
-std::uint32_t steam_user_get_auth_ticket_for_web_api(std::string_view identity)
-{
-    STEAM_GUARD_RET(0);
-    ISteamUser* u = steam_user_iface();
-    if (!u) return 0;
-
-    std::string tmp;
-    const char* _identity = steam_empty_string_as_null(identity, tmp);
-
-    HAuthTicket h = u->GetAuthTicketForWebApi(_identity);
-    return (std::uint32_t)h;
-}
-
 void steam_user_track_app_usage_event(std::uint64_t game_id,
                                       std::int32_t app_usage_event,
                                       std::string_view extra_info)
@@ -835,6 +823,16 @@ static gm::wire::GMFunction g_cb_user_microtxn_auth = nullptr;
 static gm::wire::GMFunction g_cb_user_get_auth_session_ticket_response = nullptr;
 static gm::wire::GMFunction g_cb_user_validate_auth_ticket_response = nullptr;
 
+// steam_user_request_auth_ticket_for_web_api's per-call callback, correlated by the HAuthTicket handle
+// returned synchronously from GetAuthTicketForWebApi (that SDK call carries no STEAM_CALL_RESULT, so
+// there's no SteamAPICall_t to key a CallResult<> off of - GetTicketForWebApiResponse_t is a plain
+// persistent callback instead).
+static std::unordered_map<std::uint32_t, gm::wire::GMFunction> g_web_api_ticket_callbacks;
+
+// Ticket bytes held natively between the GetTicketForWebApiResponse_t callback and
+// steam_user_fetch_auth_ticket_for_web_api picking them up, keyed by the same handle.
+static std::unordered_map<std::uint32_t, std::vector<std::uint8_t>> g_web_api_ticket_bytes;
+
 static inline gm_structs::SteamUserValidateAuthTicketResponse user_fromNative(const ValidateAuthTicketResponse_t& e)
 {
     gm_structs::SteamUserValidateAuthTicketResponse out{};
@@ -887,6 +885,15 @@ static inline gm_structs::SteamUserGetAuthSessionTicketResponse user_fromNative(
     return out;
 }
 
+static inline gm_structs::SteamUserGetTicketForWebApiResponse user_fromNative(const GetTicketForWebApiResponse_t& e)
+{
+    gm_structs::SteamUserGetTicketForWebApiResponse out{};
+    out.auth_ticket_handle = (std::uint32_t)e.m_hAuthTicket;
+    out.result = static_cast<gm_enums::SteamApiResult>((int)e.m_eResult);
+    out.ticket_size = (e.m_eResult == k_EResultOK) ? (std::uint32_t)e.m_cubTicket : 0;
+    return out;
+}
+
 class SteamUser_PersistentCallbacks
 {
 public:
@@ -898,6 +905,7 @@ public:
     STEAM_CALLBACK(SteamUser_PersistentCallbacks, OnMicroTxnAuthorizationResponse, MicroTxnAuthorizationResponse_t);
     STEAM_CALLBACK(SteamUser_PersistentCallbacks, OnGetAuthSessionTicketResponse, GetAuthSessionTicketResponse_t);
     STEAM_CALLBACK(SteamUser_PersistentCallbacks, OnValidateAuthTicketResponse, ValidateAuthTicketResponse_t);
+    STEAM_CALLBACK(SteamUser_PersistentCallbacks, OnGetTicketForWebApiResponse, GetTicketForWebApiResponse_t);
 };
 
 void SteamUser_PersistentCallbacks::OnSteamServersConnected(SteamServersConnected_t* p)
@@ -992,6 +1000,30 @@ void SteamUser_PersistentCallbacks::OnValidateAuthTicketResponse(ValidateAuthTic
         std::lock_guard<std::mutex> lock(g_callbacks_mtx);
         cb = g_cb_user_validate_auth_ticket_response;
     }
+    if (cb)
+        cb.call(user_fromNative(*p));
+}
+
+void SteamUser_PersistentCallbacks::OnGetTicketForWebApiResponse(GetTicketForWebApiResponse_t* p)
+{
+    if (!p) return;
+
+    gm::wire::GMFunction cb;
+    {
+        std::lock_guard<std::mutex> lock(g_callbacks_mtx);
+
+        auto it = g_web_api_ticket_callbacks.find((std::uint32_t)p->m_hAuthTicket);
+        if (it != g_web_api_ticket_callbacks.end()) {
+            cb = it->second;
+            g_web_api_ticket_callbacks.erase(it);
+        }
+
+        if (p->m_eResult == k_EResultOK && p->m_cubTicket > 0) {
+            g_web_api_ticket_bytes[(std::uint32_t)p->m_hAuthTicket] =
+                std::vector<std::uint8_t>(p->m_rgubTicket, p->m_rgubTicket + p->m_cubTicket);
+        }
+    }
+
     if (cb)
         cb.call(user_fromNative(*p));
 }
@@ -1108,6 +1140,55 @@ void steam_user_clear_callback_get_auth_session_ticket_response()
     steam_clear_last_error();
     std::lock_guard<std::mutex> lock(g_callbacks_mtx);
     g_cb_user_get_auth_session_ticket_response = nullptr;
+}
+
+std::uint32_t steam_user_request_auth_ticket_for_web_api(std::string_view identity, const gm::wire::GMFunction& callback)
+{
+    STEAM_GUARD_RET(0);
+    ISteamUser* u = steam_user_iface();
+    if (!u) return 0;
+
+    std::string tmp;
+    const char* _identity = steam_empty_string_as_null(identity, tmp);
+
+    HAuthTicket h = u->GetAuthTicketForWebApi(_identity);
+    if (h == k_HAuthTicketInvalid) {
+        steam_set_last_error("steam_user_request_auth_ticket_for_web_api: GetAuthTicketForWebApi returned k_HAuthTicketInvalid.");
+        return 0;
+    }
+
+    if (callback) {
+        std::lock_guard<std::mutex> lock(g_callbacks_mtx);
+        g_web_api_ticket_callbacks[(std::uint32_t)h] = callback;
+    }
+
+    return (std::uint32_t)h;
+}
+
+bool steam_user_fetch_auth_ticket_for_web_api(std::uint32_t auth_ticket_handle, gm::wire::GMBuffer out_ticket)
+{
+    STEAM_GUARD_RET(false);
+
+    std::vector<std::uint8_t> bytes;
+    {
+        std::lock_guard<std::mutex> lock(g_callbacks_mtx);
+        auto it = g_web_api_ticket_bytes.find(auth_ticket_handle);
+        if (it == g_web_api_ticket_bytes.end()) {
+            steam_set_last_error("steam_user_fetch_auth_ticket_for_web_api: no ticket held for this handle.");
+            return false;
+        }
+        bytes = std::move(it->second);
+        g_web_api_ticket_bytes.erase(it);
+    }
+
+    if ((std::uint64_t)bytes.size() > out_ticket.length()) {
+        steam_set_last_error("steam_user_fetch_auth_ticket_for_web_api: output buffer too small for ticket.");
+        return false;
+    }
+
+    auto w = out_ticket.getWriter();
+    w.writeBytes((const char*)bytes.data(), (int)bytes.size());
+    return true;
 }
 
 
