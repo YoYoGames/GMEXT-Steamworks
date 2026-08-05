@@ -6517,8 +6517,8 @@ std::uint64_t steam_input_get_action_set_handle(std::string_view action_set_name
 gm_structs::SteamInputAnalogActionData steam_input_get_analog_action_data(std::uint64_t input_handle, std::uint64_t analog_action_handle);
 std::uint64_t steam_input_get_analog_action_handle(std::string_view action_name);
 gm_structs::SteamInputActionOrigins steam_input_get_analog_action_origins(std::uint64_t input_handle, std::uint64_t action_set_handle, std::uint64_t analog_action_handle);
-std::string steam_input_get_glyph_png_for_action_origin(gm_enums::SteamInputActionOrigin origin, gm_enums::SteamInputGlyphSize size, std::uint32_t flags);
-std::string steam_input_get_glyph_svg_for_action_origin(gm_enums::SteamInputActionOrigin origin, std::uint32_t flags);
+std::optional<std::string> steam_input_get_glyph_png_for_action_origin(gm_enums::SteamInputActionOrigin origin, gm_enums::SteamInputGlyphSize size, std::uint32_t flags);
+std::optional<std::string> steam_input_get_glyph_svg_for_action_origin(gm_enums::SteamInputActionOrigin origin, std::uint32_t flags);
 std::vector<std::uint64_t> steam_input_get_connected_controllers();
 std::uint64_t steam_input_get_controller_for_gamepad_index(std::int32_t index);
 std::uint64_t steam_input_get_current_action_set(std::uint64_t input_handle);
@@ -6528,7 +6528,7 @@ gm_structs::SteamInputActionOrigins steam_input_get_digital_action_origins(std::
 std::int32_t steam_input_get_gamepad_index_for_controller(std::uint64_t input_handle);
 gm_enums::SteamInputType steam_input_get_input_type_for_handle(std::uint64_t input_handle);
 gm_structs::SteamInputMotionData steam_input_get_motion_data(std::uint64_t input_handle);
-std::string steam_input_get_string_for_action_origin(gm_enums::SteamInputActionOrigin origin);
+std::optional<std::string> steam_input_get_string_for_action_origin(gm_enums::SteamInputActionOrigin origin);
 bool steam_input_init(bool explicitly_call_run_frame);
 void steam_input_enable_device_callbacks();
 void steam_input_run_frame();

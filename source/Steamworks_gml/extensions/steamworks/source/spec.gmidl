@@ -3945,19 +3945,19 @@ function steam_input_get_analog_action_handle(action_name: string): gmval;
 function steam_input_get_analog_action_origins([type_hint=uint64] input_handle: gmval, [type_hint=uint64] action_set_handle: gmval, [type_hint=uint64] analog_action_handle: gmval): gmval;
 
 // GetGlyphPNGForActionOrigin
-[global, bind = typed_gml]
+[global, bind = typed_gml, type_hint=`string?`]
 function steam_input_get_glyph_png_for_action_origin(
     [type_hint=`SteamInputActionOrigin`] origin: gmval,
     [type_hint=`SteamInputGlyphSize`] size: gmval,
     flags: uint32
-): string;
+): gmval;
 
 // GetGlyphSVGForActionOrigin
-[global, bind = typed_gml]
+[global, bind = typed_gml, type_hint=`string?`]
 function steam_input_get_glyph_svg_for_action_origin(
     [type_hint=`SteamInputActionOrigin`] origin: gmval,
     flags: uint32
-): string;
+): gmval;
 
 // GetConnectedControllers
 [global, bind = typed_gml, type_hint=`uint64[]`]
@@ -3996,8 +3996,8 @@ function steam_input_get_input_type_for_handle([type_hint=uint64] input_handle: 
 function steam_input_get_motion_data([type_hint=uint64] input_handle: gmval): gmval;
 
 // GetStringForActionOrigin
-[global, bind = typed_gml]
-function steam_input_get_string_for_action_origin([type_hint=`SteamInputActionOrigin`] origin: gmval): string;
+[global, bind = typed_gml, type_hint=`string?`]
+function steam_input_get_string_for_action_origin([type_hint=`SteamInputActionOrigin`] origin: gmval): gmval;
 
 // Init
 [global, bind = typed_gml]
@@ -5549,7 +5549,7 @@ function steam_matchmaking_leave_lobby([type_hint=uint64] lobby_id: gmval): unit
 function steam_matchmaking_set_lobby_owner([type_hint=uint64] lobby_id: gmval,[type_hint=uint64] new_owner_id: gmval): bool;
 
 [global, bind = typed_gml, type_hint=uint64]
-function steam_matchmaking_get_lobby_owner([type_hint=uint64] lobby_id: gmval): unit;
+function steam_matchmaking_get_lobby_owner([type_hint=uint64] lobby_id: gmval): gmval;
 
 [global, bind = typed_gml]
 function steam_matchmaking_get_num_lobby_members([type_hint=uint64] lobby_id: gmval): int32;

@@ -330,8 +330,8 @@ GMEXPORT double __EXT_NATIVE__steam_input_get_action_set_handle(char* action_set
 GMEXPORT double __EXT_NATIVE__steam_input_get_analog_action_data(char* __arg_buffer, double __arg_buffer_length, char* __ret_buffer, double __ret_buffer_length);
 GMEXPORT double __EXT_NATIVE__steam_input_get_analog_action_handle(char* action_name, char* __ret_buffer, double __ret_buffer_length);
 GMEXPORT double __EXT_NATIVE__steam_input_get_analog_action_origins(char* __arg_buffer, double __arg_buffer_length, char* __ret_buffer, double __ret_buffer_length);
-GMEXPORT char* __EXT_NATIVE__steam_input_get_glyph_png_for_action_origin(char* __arg_buffer, double __arg_buffer_length);
-GMEXPORT char* __EXT_NATIVE__steam_input_get_glyph_svg_for_action_origin(char* __arg_buffer, double __arg_buffer_length);
+GMEXPORT double __EXT_NATIVE__steam_input_get_glyph_png_for_action_origin(char* __arg_buffer, double __arg_buffer_length, char* __ret_buffer, double __ret_buffer_length);
+GMEXPORT double __EXT_NATIVE__steam_input_get_glyph_svg_for_action_origin(char* __arg_buffer, double __arg_buffer_length, char* __ret_buffer, double __ret_buffer_length);
 GMEXPORT double __EXT_NATIVE__steam_input_get_connected_controllers(char* __ret_buffer, double __ret_buffer_length);
 GMEXPORT double __EXT_NATIVE__steam_input_get_controller_for_gamepad_index(double index, char* __ret_buffer, double __ret_buffer_length);
 GMEXPORT double __EXT_NATIVE__steam_input_get_current_action_set(char* __arg_buffer, double __arg_buffer_length, char* __ret_buffer, double __ret_buffer_length);
@@ -341,7 +341,7 @@ GMEXPORT double __EXT_NATIVE__steam_input_get_digital_action_origins(char* __arg
 GMEXPORT double __EXT_NATIVE__steam_input_get_gamepad_index_for_controller(char* __arg_buffer, double __arg_buffer_length);
 GMEXPORT double __EXT_NATIVE__steam_input_get_input_type_for_handle(char* __arg_buffer, double __arg_buffer_length, char* __ret_buffer, double __ret_buffer_length);
 GMEXPORT double __EXT_NATIVE__steam_input_get_motion_data(char* __arg_buffer, double __arg_buffer_length, char* __ret_buffer, double __ret_buffer_length);
-GMEXPORT char* __EXT_NATIVE__steam_input_get_string_for_action_origin(char* __arg_buffer, double __arg_buffer_length);
+GMEXPORT double __EXT_NATIVE__steam_input_get_string_for_action_origin(char* __arg_buffer, double __arg_buffer_length, char* __ret_buffer, double __ret_buffer_length);
 GMEXPORT double __EXT_NATIVE__steam_input_init(double explicitly_call_run_frame);
 GMEXPORT double __EXT_NATIVE__steam_input_enable_device_callbacks();
 GMEXPORT double __EXT_NATIVE__steam_input_run_frame();

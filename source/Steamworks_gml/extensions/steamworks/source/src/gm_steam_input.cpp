@@ -200,33 +200,35 @@ gm_structs::SteamInputActionOrigins steam_input_get_analog_action_origins(
     return out;
 }
 
-std::string steam_input_get_glyph_png_for_action_origin(gm_enums::SteamInputActionOrigin origin, gm_enums::SteamInputGlyphSize size, std::uint32_t flags)
+std::optional<std::string> steam_input_get_glyph_png_for_action_origin(gm_enums::SteamInputActionOrigin origin, gm_enums::SteamInputGlyphSize size, std::uint32_t flags)
 {
-    STEAM_GUARD_RET("");
+    STEAM_GUARD_RET(std::nullopt);
 
     ISteamInput* s = steam_input_iface();
     if (!s)
-        return "";
+        return std::nullopt;
 
-    return s->GetGlyphPNGForActionOrigin(
+    const char* p = s->GetGlyphPNGForActionOrigin(
         (EInputActionOrigin)(int)origin,
         (ESteamInputGlyphSize)(int)size,
         flags
     );
+    return p ? std::optional<std::string>(p) : std::nullopt;
 }
 
-std::string steam_input_get_glyph_svg_for_action_origin(gm_enums::SteamInputActionOrigin origin, std::uint32_t flags)
+std::optional<std::string> steam_input_get_glyph_svg_for_action_origin(gm_enums::SteamInputActionOrigin origin, std::uint32_t flags)
 {
-    STEAM_GUARD_RET("");
+    STEAM_GUARD_RET(std::nullopt);
 
     ISteamInput* s = steam_input_iface();
     if (!s)
-        return "";
+        return std::nullopt;
 
-    return s->GetGlyphSVGForActionOrigin(
+    const char* p = s->GetGlyphSVGForActionOrigin(
         (EInputActionOrigin)(int)origin,
         flags
     );
+    return p ? std::optional<std::string>(p) : std::nullopt;
 }
 
 
@@ -386,16 +388,16 @@ gm_structs::SteamInputMotionData steam_input_get_motion_data(std::uint64_t input
     return out;
 }
 
-std::string steam_input_get_string_for_action_origin(gm_enums::SteamInputActionOrigin origin)
+std::optional<std::string> steam_input_get_string_for_action_origin(gm_enums::SteamInputActionOrigin origin)
 {
-    STEAM_GUARD_RET("");
+    STEAM_GUARD_RET(std::nullopt);
 
     ISteamInput* s = steam_input_iface();
     if (!s)
-        return "";
+        return std::nullopt;
 
     const char* p = s->GetStringForActionOrigin(static_cast<EInputActionOrigin>((int)origin));
-    return p ? std::string(p) : std::string();
+    return p ? std::optional<std::string>(p) : std::nullopt;
 }
 
 bool steam_input_init(bool explicitly_call_run_frame)

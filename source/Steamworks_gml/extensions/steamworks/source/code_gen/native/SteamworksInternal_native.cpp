@@ -3694,7 +3694,7 @@ GMEXPORT double __EXT_NATIVE__steam_input_get_analog_action_origins(char* __arg_
     return 0;
 }
 
-GMEXPORT char* __EXT_NATIVE__steam_input_get_glyph_png_for_action_origin(char* __arg_buffer, double __arg_buffer_length)
+GMEXPORT double __EXT_NATIVE__steam_input_get_glyph_png_for_action_origin(char* __arg_buffer, double __arg_buffer_length, char* __ret_buffer, double __ret_buffer_length)
 {
     gm::byteio::BufferReader __br{__arg_buffer, static_cast<size_t>(__arg_buffer_length)};
 
@@ -3707,12 +3707,15 @@ GMEXPORT char* __EXT_NATIVE__steam_input_get_glyph_png_for_action_origin(char* _
     // field: flags, type: UInt32
     std::uint32_t flags = gm::wire::codec::readValue<std::uint32_t>(__br);
 
-    static std::string __result;
-    __result = steam_input_get_glyph_png_for_action_origin(origin, size, flags);
-    return (char*)__result.c_str();
+    auto&& __result = steam_input_get_glyph_png_for_action_origin(origin, size, flags);
+    gm::byteio::BufferWriter __bw{__ret_buffer, static_cast<size_t>(__ret_buffer_length)};
+
+    // return: __result, type: optional<String>
+    gm::wire::codec::writeValue(__bw, __result);
+    return 0;
 }
 
-GMEXPORT char* __EXT_NATIVE__steam_input_get_glyph_svg_for_action_origin(char* __arg_buffer, double __arg_buffer_length)
+GMEXPORT double __EXT_NATIVE__steam_input_get_glyph_svg_for_action_origin(char* __arg_buffer, double __arg_buffer_length, char* __ret_buffer, double __ret_buffer_length)
 {
     gm::byteio::BufferReader __br{__arg_buffer, static_cast<size_t>(__arg_buffer_length)};
 
@@ -3722,9 +3725,12 @@ GMEXPORT char* __EXT_NATIVE__steam_input_get_glyph_svg_for_action_origin(char* _
     // field: flags, type: UInt32
     std::uint32_t flags = gm::wire::codec::readValue<std::uint32_t>(__br);
 
-    static std::string __result;
-    __result = steam_input_get_glyph_svg_for_action_origin(origin, flags);
-    return (char*)__result.c_str();
+    auto&& __result = steam_input_get_glyph_svg_for_action_origin(origin, flags);
+    gm::byteio::BufferWriter __bw{__ret_buffer, static_cast<size_t>(__ret_buffer_length)};
+
+    // return: __result, type: optional<String>
+    gm::wire::codec::writeValue(__bw, __result);
+    return 0;
 }
 
 GMEXPORT double __EXT_NATIVE__steam_input_get_connected_controllers(char* __ret_buffer, double __ret_buffer_length)
@@ -3852,16 +3858,19 @@ GMEXPORT double __EXT_NATIVE__steam_input_get_motion_data(char* __arg_buffer, do
     return 0;
 }
 
-GMEXPORT char* __EXT_NATIVE__steam_input_get_string_for_action_origin(char* __arg_buffer, double __arg_buffer_length)
+GMEXPORT double __EXT_NATIVE__steam_input_get_string_for_action_origin(char* __arg_buffer, double __arg_buffer_length, char* __ret_buffer, double __ret_buffer_length)
 {
     gm::byteio::BufferReader __br{__arg_buffer, static_cast<size_t>(__arg_buffer_length)};
 
     // field: origin, type: enum SteamInputActionOrigin
     gm_enums::SteamInputActionOrigin origin = gm::wire::codec::readValue<gm_enums::SteamInputActionOrigin>(__br);
 
-    static std::string __result;
-    __result = steam_input_get_string_for_action_origin(origin);
-    return (char*)__result.c_str();
+    auto&& __result = steam_input_get_string_for_action_origin(origin);
+    gm::byteio::BufferWriter __bw{__ret_buffer, static_cast<size_t>(__ret_buffer_length)};
+
+    // return: __result, type: optional<String>
+    gm::wire::codec::writeValue(__bw, __result);
+    return 0;
 }
 
 GMEXPORT double __EXT_NATIVE__steam_input_init(double explicitly_call_run_frame)

@@ -18146,9 +18146,21 @@ function steam_input_get_glyph_png_for_action_origin(_origin, _size, _flags)
     if (!is_numeric(_flags)) show_error($"{_GMFUNCTION_} :: _flags expected number", true);
     buffer_write(__args_buffer, buffer_u32, _flags);
 
-    var __return_value__ = __steam_input_get_glyph_png_for_action_origin(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __ret_buffer = __ext_core_get_ret_buffer();
 
-    return __return_value__;
+    var __return_value__ = __steam_input_get_glyph_png_for_action_origin(buffer_get_address(__args_buffer), buffer_tell(__args_buffer), buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+
+    var __result__ = undefined;
+    if (buffer_read(__ret_buffer, buffer_bool))
+    {
+        buffer_read(__ret_buffer, buffer_u32);
+        __result__ = buffer_read(__ret_buffer, buffer_string);
+    }
+    else
+    {
+        __result__ = undefined;
+    }
+    return __result__;
 }
 
 /**
@@ -18172,9 +18184,21 @@ function steam_input_get_glyph_svg_for_action_origin(_origin, _flags)
     if (!is_numeric(_flags)) show_error($"{_GMFUNCTION_} :: _flags expected number", true);
     buffer_write(__args_buffer, buffer_u32, _flags);
 
-    var __return_value__ = __steam_input_get_glyph_svg_for_action_origin(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __ret_buffer = __ext_core_get_ret_buffer();
 
-    return __return_value__;
+    var __return_value__ = __steam_input_get_glyph_svg_for_action_origin(buffer_get_address(__args_buffer), buffer_tell(__args_buffer), buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+
+    var __result__ = undefined;
+    if (buffer_read(__ret_buffer, buffer_bool))
+    {
+        buffer_read(__ret_buffer, buffer_u32);
+        __result__ = buffer_read(__ret_buffer, buffer_string);
+    }
+    else
+    {
+        __result__ = undefined;
+    }
+    return __result__;
 }
 
 /**
@@ -18406,9 +18430,21 @@ function steam_input_get_string_for_action_origin(_origin)
     if (!is_numeric(_origin)) show_error($"{_GMFUNCTION_} :: _origin expected number", true);
     buffer_write(__args_buffer, buffer_u64, _origin);
 
-    var __return_value__ = __steam_input_get_string_for_action_origin(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __ret_buffer = __ext_core_get_ret_buffer();
 
-    return __return_value__;
+    var __return_value__ = __steam_input_get_string_for_action_origin(buffer_get_address(__args_buffer), buffer_tell(__args_buffer), buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+
+    var __result__ = undefined;
+    if (buffer_read(__ret_buffer, buffer_bool))
+    {
+        buffer_read(__ret_buffer, buffer_u32);
+        __result__ = buffer_read(__ret_buffer, buffer_string);
+    }
+    else
+    {
+        __result__ = undefined;
+    }
+    return __result__;
 }
 
 // Skipping function steam_input_init (no wrapper is required)
