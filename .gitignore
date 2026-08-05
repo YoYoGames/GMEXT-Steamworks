@@ -2,6 +2,9 @@
 **/.vs/
 **/.vsc/
 
+# AI assistant tooling (never shipped)
+**/.claude/
+
 # Common extensions
 **/*.exp
 **/*.ilk
