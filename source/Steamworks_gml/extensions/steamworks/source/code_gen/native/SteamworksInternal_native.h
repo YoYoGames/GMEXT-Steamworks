@@ -6589,7 +6589,7 @@ bool steam_userstats_update_avg_rate_stat(std::string_view stat_name, float coun
 std::optional<bool> steam_userstats_get_achievement(std::string_view achievement_name);
 bool steam_userstats_set_achievement(std::string_view achievement_name);
 bool steam_userstats_clear_achievement(std::string_view achievement_name);
-gm_structs::SteamUserStatsAchievementAndUnlockTime steam_userstats_achievement_and_unlock_time(std::string_view achievement_name);
+std::optional<gm_structs::SteamUserStatsAchievementAndUnlockTime> steam_userstats_achievement_and_unlock_time(std::string_view achievement_name);
 bool steam_userstats_store_stats();
 std::int32_t steam_userstats_achievement_icon(std::string_view achievement_name);
 std::string steam_userstats_achievement_display_attribute(std::string_view achievement_name, std::string_view key);
@@ -6600,7 +6600,7 @@ void steam_userstats_request_user_stats(std::uint64_t steam_id_user, const gm::w
 std::optional<std::int32_t> steam_userstats_user_stat_int(std::uint64_t steam_id_user, std::string_view stat_name);
 std::optional<float> steam_userstats_user_stat_float(std::uint64_t steam_id_user, std::string_view stat_name);
 std::optional<bool> steam_userstats_user_achievement(std::uint64_t steam_id_user, std::string_view achievement_name);
-gm_structs::SteamUserStatsAchievementAndUnlockTime steam_userstats_user_achievement_and_unlock_time(std::uint64_t steam_id_user, std::string_view achievement_name);
+std::optional<gm_structs::SteamUserStatsAchievementAndUnlockTime> steam_userstats_user_achievement_and_unlock_time(std::uint64_t steam_id_user, std::string_view achievement_name);
 bool steam_userstats_reset_all_stats(bool achievements_too);
 void steam_userstats_find_or_create_leaderboard(std::string_view leaderboard_name, gm_enums::SteamLeaderboardSortMethod sort_method, gm_enums::SteamLeaderboardDisplayType display_type, const gm::wire::GMFunction& callback);
 void steam_userstats_find_leaderboard(std::string_view leaderboard_name, const gm::wire::GMFunction& callback);

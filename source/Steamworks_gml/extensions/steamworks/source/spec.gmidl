@@ -4262,7 +4262,7 @@ function steam_userstats_set_achievement(achievement_name: string): bool;
 function steam_userstats_clear_achievement(achievement_name: string): bool;
 
 // GetAchievementAndUnlockTime
-[global, bind = typed_gml, type_hint = `SteamUserStatsAchievementAndUnlockTime`]
+[global, bind = typed_gml, type_hint = `SteamUserStatsAchievementAndUnlockTime?`]
 function steam_userstats_achievement_and_unlock_time(achievement_name: string): gmval;
 
 // StoreStats
@@ -4306,7 +4306,7 @@ function steam_userstats_user_stat_float([type_hint=uint64] steam_id_user: gmval
 function steam_userstats_user_achievement([type_hint=uint64] steam_id_user: gmval, achievement_name: string): gmval;
 
 // GetUserAchievementAndUnlockTime
-[global, bind = typed_gml, type_hint = `SteamUserStatsAchievementAndUnlockTime`]
+[global, bind = typed_gml, type_hint = `SteamUserStatsAchievementAndUnlockTime?`]
 function steam_userstats_user_achievement_and_unlock_time([type_hint=uint64] steam_id_user: gmval, achievement_name: string): gmval;
 
 // ResetAllStats

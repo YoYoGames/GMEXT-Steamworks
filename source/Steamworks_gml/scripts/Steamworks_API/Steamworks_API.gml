@@ -19032,7 +19032,14 @@ function steam_userstats_achievement_and_unlock_time(_achievement_name)
     var __return_value__ = __steam_userstats_achievement_and_unlock_time(_achievement_name, buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
 
     var __result__ = undefined;
-    __result__ = __SteamUserStatsAchievementAndUnlockTime_decode(__ret_buffer, buffer_tell(__ret_buffer));
+    if (buffer_read(__ret_buffer, buffer_bool))
+    {
+        __result__ = __SteamUserStatsAchievementAndUnlockTime_decode(__ret_buffer, buffer_tell(__ret_buffer));
+    }
+    else
+    {
+        __result__ = undefined;
+    }
     return __result__;
 }
 
@@ -19218,7 +19225,14 @@ function steam_userstats_user_achievement_and_unlock_time(_steam_id_user, _achie
     var __return_value__ = __steam_userstats_user_achievement_and_unlock_time(buffer_get_address(__args_buffer), buffer_tell(__args_buffer), buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
 
     var __result__ = undefined;
-    __result__ = __SteamUserStatsAchievementAndUnlockTime_decode(__ret_buffer, buffer_tell(__ret_buffer));
+    if (buffer_read(__ret_buffer, buffer_bool))
+    {
+        __result__ = __SteamUserStatsAchievementAndUnlockTime_decode(__ret_buffer, buffer_tell(__ret_buffer));
+    }
+    else
+    {
+        __result__ = undefined;
+    }
     return __result__;
 }
 

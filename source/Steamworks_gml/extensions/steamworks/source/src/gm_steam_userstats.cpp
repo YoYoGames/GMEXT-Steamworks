@@ -153,20 +153,21 @@ bool steam_userstats_clear_achievement(std::string_view achievement_name)
     return s->ClearAchievement(name.c_str());
 }
 
-gm_structs::SteamUserStatsAchievementAndUnlockTime steam_userstats_achievement_and_unlock_time(std::string_view achievement_name)
+std::optional<gm_structs::SteamUserStatsAchievementAndUnlockTime> steam_userstats_achievement_and_unlock_time(std::string_view achievement_name)
 {
-    STEAM_GUARD_RET({});
+    STEAM_GUARD_RET(std::nullopt);
 
     ISteamUserStats* s = steam_userstats_iface();
     if (!s)
-        return {};
+        return std::nullopt;
 
     std::string name(achievement_name);
     bool achieved = false;
     uint32 unlock = 0;
 
     const bool ok = s->GetAchievementAndUnlockTime(name.c_str(), &achieved, &unlock);
-    (void)ok;
+    if (!ok)
+        return std::nullopt;
 
     SteamUserStatsAchievementAndUnlockTime out {};
     out.achieved = achieved;
@@ -297,21 +298,22 @@ steam_userstats_user_achievement(std::uint64_t steam_id_user, std::string_view a
     return achieved;
 }
 
-gm_structs::SteamUserStatsAchievementAndUnlockTime
+std::optional<gm_structs::SteamUserStatsAchievementAndUnlockTime>
 steam_userstats_user_achievement_and_unlock_time(std::uint64_t steam_id_user, std::string_view achievement_name)
 {
-    STEAM_GUARD_RET({});
+    STEAM_GUARD_RET(std::nullopt);
 
     ISteamUserStats* s = steam_userstats_iface();
     if (!s)
-        return {};
+        return std::nullopt;
 
     std::string name(achievement_name);
     bool achieved = false;
     uint32 unlock = 0;
     const bool ok
         = s->GetUserAchievementAndUnlockTime(steamid_from_u64(steam_id_user), name.c_str(), &achieved, &unlock);
-    (void)ok;
+    if (!ok)
+        return std::nullopt;
 
     SteamUserStatsAchievementAndUnlockTime out {};
     out.achieved = achieved;

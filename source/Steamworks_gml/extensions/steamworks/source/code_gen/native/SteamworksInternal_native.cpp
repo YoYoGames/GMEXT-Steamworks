@@ -4183,7 +4183,7 @@ GMEXPORT double __EXT_NATIVE__steam_userstats_achievement_and_unlock_time(char* 
     auto&& __result = steam_userstats_achievement_and_unlock_time(achievement_name);
     gm::byteio::BufferWriter __bw{__ret_buffer, static_cast<size_t>(__ret_buffer_length)};
 
-    // return: __result, type: struct SteamUserStatsAchievementAndUnlockTime
+    // return: __result, type: optional<struct SteamUserStatsAchievementAndUnlockTime>
     gm::wire::codec::writeValue(__bw, __result);
     return 0;
 }
@@ -4307,7 +4307,7 @@ GMEXPORT double __EXT_NATIVE__steam_userstats_user_achievement_and_unlock_time(c
     auto&& __result = steam_userstats_user_achievement_and_unlock_time(steam_id_user, achievement_name);
     gm::byteio::BufferWriter __bw{__ret_buffer, static_cast<size_t>(__ret_buffer_length)};
 
-    // return: __result, type: struct SteamUserStatsAchievementAndUnlockTime
+    // return: __result, type: optional<struct SteamUserStatsAchievementAndUnlockTime>
     gm::wire::codec::writeValue(__bw, __result);
     return 0;
 }
