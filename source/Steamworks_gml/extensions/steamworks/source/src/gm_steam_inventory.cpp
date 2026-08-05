@@ -1037,6 +1037,11 @@ void steam_inventory_request_prices(const gm::wire::GMFunction& callback)
 
     SteamAPICall_t call = inv->RequestPrices();
 
+    if (call == k_uAPICallInvalid) {
+        steam_set_last_error("steam_inventory_request_prices: Steam API call failed to dispatch.");
+        return;
+    }
+
     auto* h = new steam_async::CallResult<gm_structs::SteamInventoryRequestPricesResult, SteamInventoryRequestPricesResult_t>(
         callback, &inventory_fromNative);
     h->set(call);
@@ -1061,6 +1066,11 @@ void steam_inventory_start_purchase(const std::vector<gm_structs::SteamInventory
     if (n == 0) return;
 
     SteamAPICall_t call = inv->StartPurchase(defs.data(), qty.data(), n);
+
+    if (call == k_uAPICallInvalid) {
+        steam_set_last_error("steam_inventory_start_purchase: Steam API call failed to dispatch.");
+        return;
+    }
 
     auto* h = new steam_async::CallResult<gm_structs::SteamInventoryStartPurchaseResult, SteamInventoryStartPurchaseResult_t>(
         callback, &inventory_fromNative);

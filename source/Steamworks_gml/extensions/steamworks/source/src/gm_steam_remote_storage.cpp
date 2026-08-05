@@ -490,7 +490,13 @@ void steam_remote_storage_file_share(std::string_view file_name,  const gm::wire
 
     std::string fn(file_name);
     SteamAPICall_t call = rs->FileShare(fn.c_str());
-    auto* h = new steam_async::CallResult<gm_structs::SteamRemoteStorageFileShareResult, RemoteStorageFileShareResult_t>(callback, &rs_fromNative);
+
+    if (call == k_uAPICallInvalid) {
+        steam_set_last_error("steam_remote_storage_file_share: Steam API call failed to dispatch.");
+        return;
+    }
+
+    auto* h = new steam_async::CallResult<gm_structs::SteamRemoteStorageFileShareResult, RemoteStorageFileShareResult_t, true>(callback, &rs_fromNative);
     h->set(call);
 }
 
@@ -535,7 +541,13 @@ void steam_remote_storage_file_write_async(std::string_view file_name, gm::wire:
     reader.skip((size_t)offset);
     reader.readBytes((char*)tmp.data(), (int)actual_count);
     SteamAPICall_t call = rs->FileWriteAsync(fn.c_str(), (const void*)tmp.data(), (uint32)actual_count);
-    auto* h = new steam_async::CallResult<gm_structs::SteamRemoteStorageFileWriteAsyncResult, RemoteStorageFileWriteAsyncComplete_t>(callback, &rs_fromNative);
+
+    if (call == k_uAPICallInvalid) {
+        steam_set_last_error("steam_remote_storage_file_write_async: Steam API call failed to dispatch.");
+        return;
+    }
+
+    auto* h = new steam_async::CallResult<gm_structs::SteamRemoteStorageFileWriteAsyncResult, RemoteStorageFileWriteAsyncComplete_t, true>(callback, &rs_fromNative);
     h->set(call);
 }
 
@@ -546,7 +558,13 @@ void steam_remote_storage_ugc_download(std::uint64_t ugc_handle, std::uint32_t p
     if (!rs) return;
 
     SteamAPICall_t call = rs->UGCDownload((UGCHandle_t)ugc_handle, (uint32)priority);
-    auto* h = new steam_async::CallResult<gm_structs::SteamRemoteStorageDownloadUgcResult, RemoteStorageDownloadUGCResult_t>(callback, &rs_fromNative);
+
+    if (call == k_uAPICallInvalid) {
+        steam_set_last_error("steam_remote_storage_ugc_download: Steam API call failed to dispatch.");
+        return;
+    }
+
+    auto* h = new steam_async::CallResult<gm_structs::SteamRemoteStorageDownloadUgcResult, RemoteStorageDownloadUGCResult_t, true>(callback, &rs_fromNative);
     h->set(call);
 }
 
@@ -558,7 +576,13 @@ void steam_remote_storage_ugc_download_to_location(std::uint64_t ugc_handle, std
 
     std::string loc(location);
     SteamAPICall_t call = rs->UGCDownloadToLocation((UGCHandle_t)ugc_handle, loc.c_str(), (uint32)priority);
-    auto* h = new steam_async::CallResult<gm_structs::SteamRemoteStorageDownloadUgcResult, RemoteStorageDownloadUGCResult_t>(callback, &rs_fromNative);
+
+    if (call == k_uAPICallInvalid) {
+        steam_set_last_error("steam_remote_storage_ugc_download_to_location: Steam API call failed to dispatch.");
+        return;
+    }
+
+    auto* h = new steam_async::CallResult<gm_structs::SteamRemoteStorageDownloadUgcResult, RemoteStorageDownloadUGCResult_t, true>(callback, &rs_fromNative);
     h->set(call);
 }
 

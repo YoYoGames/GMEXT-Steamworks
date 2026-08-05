@@ -683,6 +683,12 @@ void steam_userstats_request_user_stats(std::uint64_t steam_id_user,  const gm::
     if (!s) return;
 
     SteamAPICall_t call = s->RequestUserStats(steam_id_from_u64(steam_id_user));
+
+    if (call == k_uAPICallInvalid) {
+        steam_set_last_error("steam_userstats_request_user_stats: Steam API call failed to dispatch.");
+        return;
+    }
+
     auto* h = new steam_async::CallResult<gm_structs::SteamUserStatsUserStatsReceived, UserStatsReceived_t>(callback, &userstats_fromNative);
     h->set(call);
 }
@@ -702,6 +708,11 @@ void steam_userstats_find_or_create_leaderboard(std::string_view leaderboard_nam
                                                      (ELeaderboardSortMethod)(int)sort_method,
                                                      (ELeaderboardDisplayType)(int)display_type);
 
+    if (call == k_uAPICallInvalid) {
+        steam_set_last_error("steam_userstats_find_or_create_leaderboard: Steam API call failed to dispatch.");
+        return;
+    }
+
     auto* h = new steam_async::CallResult<gm_structs::SteamUserStatsLeaderboardFindResult, LeaderboardFindResult_t>(callback, &userstats_fromNative);
     h->set(call);
 }
@@ -715,6 +726,11 @@ void steam_userstats_find_leaderboard(std::string_view leaderboard_name,  const 
 
     std::string name(leaderboard_name);
     SteamAPICall_t call = s->FindLeaderboard(name.c_str());
+
+    if (call == k_uAPICallInvalid) {
+        steam_set_last_error("steam_userstats_find_leaderboard: Steam API call failed to dispatch.");
+        return;
+    }
 
     auto* h = new steam_async::CallResult<gm_structs::SteamUserStatsLeaderboardFindResult, LeaderboardFindResult_t>(callback, &userstats_fromNative);
     h->set(call);
@@ -737,6 +753,11 @@ void steam_userstats_download_leaderboard_entries(std::uint64_t leaderboard_hand
         range_start,
         range_end
     );
+
+    if (call == k_uAPICallInvalid) {
+        steam_set_last_error("steam_userstats_download_leaderboard_entries: Steam API call failed to dispatch.");
+        return;
+    }
 
     auto* h = new steam_async::CallResult<gm_structs::SteamUserStatsScoresDownloadedResult, LeaderboardScoresDownloaded_t>(callback, &userstats_fromNative);
     h->set(call);
@@ -762,6 +783,11 @@ void steam_userstats_download_leaderboard_entries_for_users(std::uint64_t leader
         ids.data(),
         (int)ids.size()
     );
+
+    if (call == k_uAPICallInvalid) {
+        steam_set_last_error("steam_userstats_download_leaderboard_entries_for_users: Steam API call failed to dispatch.");
+        return;
+    }
 
     auto* h = new steam_async::CallResult<gm_structs::SteamUserStatsScoresDownloadedResult, LeaderboardScoresDownloaded_t>(callback, &userstats_fromNative);
     h->set(call);
@@ -796,6 +822,11 @@ void steam_userstats_upload_leaderboard_score(
         clamped_count
     );
 
+    if (call == k_uAPICallInvalid) {
+        steam_set_last_error("steam_userstats_upload_leaderboard_score: Steam API call failed to dispatch.");
+        return;
+    }
+
     auto* h = new steam_async::CallResult<
         gm_structs::SteamUserStatsScoreUploadedResult,
         LeaderboardScoreUploaded_t
@@ -816,6 +847,11 @@ void steam_userstats_attach_leaderboard_ugc(std::uint64_t leaderboard_handle, st
         (UGCHandle_t)ugc_handle
     );
 
+    if (call == k_uAPICallInvalid) {
+        steam_set_last_error("steam_userstats_attach_leaderboard_ugc: Steam API call failed to dispatch.");
+        return;
+    }
+
     auto* h = new steam_async::CallResult<
         gm_structs::SteamUserStatsAttachLeaderboardUgcResult,
         LeaderboardUGCSet_t
@@ -833,6 +869,12 @@ void steam_userstats_number_of_current_players( const gm::wire::GMFunction& call
     if (!s) return;
 
     SteamAPICall_t call = s->GetNumberOfCurrentPlayers();
+
+    if (call == k_uAPICallInvalid) {
+        steam_set_last_error("steam_userstats_number_of_current_players: Steam API call failed to dispatch.");
+        return;
+    }
+
     auto* h = new steam_async::CallResult<gm_structs::SteamUserStatsNumberOfCurrentPlayersResult, NumberOfCurrentPlayers_t>(callback, &userstats_fromNative);
     h->set(call);
 }
@@ -845,6 +887,12 @@ void steam_userstats_request_global_achievement_percentages( const gm::wire::GMF
     if (!s) return;
 
     SteamAPICall_t call = s->RequestGlobalAchievementPercentages();
+
+    if (call == k_uAPICallInvalid) {
+        steam_set_last_error("steam_userstats_request_global_achievement_percentages: Steam API call failed to dispatch.");
+        return;
+    }
+
     auto* h = new steam_async::CallResult<gm_structs::SteamUserStatsGlobalAchievementPercentagesReadyResult, GlobalAchievementPercentagesReady_t>(callback, &userstats_fromNative);
     h->set(call);
 }
@@ -857,6 +905,12 @@ void steam_userstats_request_global_stats(std::int32_t history_days,  const gm::
     if (!s) return;
 
     SteamAPICall_t call = s->RequestGlobalStats(history_days);
+
+    if (call == k_uAPICallInvalid) {
+        steam_set_last_error("steam_userstats_request_global_stats: Steam API call failed to dispatch.");
+        return;
+    }
+
     auto* h = new steam_async::CallResult<gm_structs::SteamUserStatsGlobalStatsReceivedResult, GlobalStatsReceived_t>(callback, &userstats_fromNative);
     h->set(call);
 }

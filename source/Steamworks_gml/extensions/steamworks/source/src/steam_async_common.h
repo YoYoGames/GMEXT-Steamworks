@@ -10,7 +10,7 @@ namespace steam_async
 {
     bool require_callback(const gm::wire::GMFunction& cb, const char* fn_name);
 
-    template <typename Payload, typename SteamStruct>
+    template <typename Payload, typename SteamStruct, bool ReportIoFailure = false>
     class CallResult
     {
     public:
@@ -32,7 +32,22 @@ namespace steam_async
 
         void on_result(SteamStruct* p, bool io_failure)
         {
-            if (!p || io_failure)
+            if (io_failure)
+            {
+                if constexpr (ReportIoFailure)
+                {
+                    if (cb)
+                    {
+                        Payload out{};
+                        out.result = gm_enums::SteamApiResult::IoFailure;
+                        cb.call(out);
+                    }
+                }
+                delete this;
+                return;
+            }
+
+            if (!p)
             {
                 delete this;
                 return;

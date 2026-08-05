@@ -484,7 +484,12 @@ void steam_apps_get_file_details(std::string_view filename,  const gm::wire::GMF
     std::string fn(filename);
     SteamAPICall_t call = a->GetFileDetails(fn.c_str());
 
-    auto* h = new steam_async::CallResult<gm_structs::SteamAppsFileDetailsResult, FileDetailsResult_t>(callback, &apps_fromNative);
+    if (call == k_uAPICallInvalid) {
+        steam_set_last_error("steam_apps_get_file_details: Steam API call failed to dispatch.");
+        return;
+    }
+
+    auto* h = new steam_async::CallResult<gm_structs::SteamAppsFileDetailsResult, FileDetailsResult_t, true>(callback, &apps_fromNative);
     h->set(call);
 }
 
