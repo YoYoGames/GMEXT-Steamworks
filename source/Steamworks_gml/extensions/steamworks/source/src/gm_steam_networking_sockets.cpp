@@ -285,7 +285,9 @@ std::vector<gm_structs::SteamNetworkingMessage> steam_networking_sockets_receive
         // Ensure message fits in remaining buffer
         if (current_offset + cb > buffer_size) {
             steam_set_last_error("steam_networking_sockets_receive_messages_on_connection: output buffer exhausted.");
-            msgs[i]->Release();
+            for (int j = i; j < n; ++j) {
+                if (msgs[j]) msgs[j]->Release();
+            }
             break;
         }
 
@@ -472,7 +474,9 @@ std::vector<gm_structs::SteamNetworkingMessage> steam_networking_sockets_receive
         // Ensure message fits in remaining buffer
         if (current_offset + cb > buffer_size) {
             steam_set_last_error("steam_networking_sockets_receive_messages_on_poll_group: output buffer exhausted.");
-            msgs[i]->Release();
+            for (int j = i; j < n; ++j) {
+                if (msgs[j]) msgs[j]->Release();
+            }
             break;
         }
 

@@ -187,7 +187,9 @@ std::vector<gm_structs::SteamNetworkingMessage> steam_networking_messages_receiv
         // Ensure message fits in remaining buffer
         if (current_offset + cb > buffer_size) {
             steam_set_last_error("steam_networking_messages_receive_messages_on_channel: output buffer exhausted.");
-            msgs[i]->Release();
+            for (int j = i; j < n; ++j) {
+                if (msgs[j]) msgs[j]->Release();
+            }
             break;
         }
 
