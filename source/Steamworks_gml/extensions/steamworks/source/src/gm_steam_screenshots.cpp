@@ -64,28 +64,28 @@ static SteamScreenshots_Callbacks g_screenshots_callbacks;
 
 void steam_screenshots_set_callback_screenshot_ready(const GMFunction& callback)
 {
-    STEAM_GUARD();
+    steam_clear_last_error();
     std::lock_guard<std::mutex> lock(g_callbacks_mtx);
     g_cb_screenshot_ready = callback;
 }
 
 void steam_screenshots_set_callback_screenshot_requested(const GMFunction& callback)
 {
-    STEAM_GUARD();
+    steam_clear_last_error();
     std::lock_guard<std::mutex> lock(g_callbacks_mtx);
     g_cb_screenshot_requested = callback;
 }
 
 void steam_screenshots_clear_callback_screenshot_ready()
 {
-    STEAM_GUARD();
+    steam_clear_last_error();
     std::lock_guard<std::mutex> lock(g_callbacks_mtx);
     g_cb_screenshot_ready = nullptr;
 }
 
 void steam_screenshots_clear_callback_screenshot_requested()
 {
-    STEAM_GUARD();
+    steam_clear_last_error();
     std::lock_guard<std::mutex> lock(g_callbacks_mtx);
     g_cb_screenshot_requested = nullptr;
 }
@@ -123,6 +123,11 @@ std::uint32_t steam_screenshots_add_screenshot_to_library(std::string_view filen
     std::string fn(filename);
     if (fn.empty()) {
         steam_set_last_error("AddScreenshotToLibrary: filename is required.");
+        return 0;
+    }
+
+    if (width <= 0 || height <= 0) {
+        steam_set_last_error("AddScreenshotToLibrary: width and height must be > 0.");
         return 0;
     }
 
@@ -273,6 +278,11 @@ std::uint32_t steam_screenshots_write_screenshot(
 
     if ((std::uint64_t)offset + (std::uint64_t)actual_count > (std::uint64_t)buff_rgb.length()) {
         steam_set_last_error("WriteScreenshot: buffer_offset + buffer_count exceeds buffer length.");
+        return 0;
+    }
+
+    if ((std::uint64_t)actual_count != (std::uint64_t)width * (std::uint64_t)height * 3) {
+        steam_set_last_error("WriteScreenshot: buffer_count does not match width * height * 3 (RGB data).");
         return 0;
     }
 
