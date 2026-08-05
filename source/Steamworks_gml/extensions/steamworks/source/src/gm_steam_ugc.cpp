@@ -1303,6 +1303,18 @@ static inline gm_structs::SteamUgcStopPlaytimeTrackingResult ugc_fromNative(cons
     return out;
 }
 
+static inline gm_structs::SteamUgcWorkshopEULAStatusResult ugc_fromNative(const WorkshopEULAStatus_t& e)
+{
+    gm_structs::SteamUgcWorkshopEULAStatusResult out{};
+    out.result = static_cast<gm_enums::SteamApiResult>((int)e.m_eResult);
+    out.app_id = (std::uint32_t)e.m_nAppID;
+    out.version = (std::uint32_t)e.m_unVersion;
+    out.time_action = (std::uint32_t)e.m_rtAction;
+    out.accepted = e.m_bAccepted;
+    out.needs_action = e.m_bNeedsAction;
+    return out;
+}
+
 void steam_ugc_send_query_ugc_request(std::uint64_t query_handle,  const gm::wire::GMFunction& callback)
 {
     STEAM_GUARD();
@@ -1590,7 +1602,7 @@ void steam_ugc_get_workshop_eula_status( const gm::wire::GMFunction& callback)
     if (!ugc) return;
 
     SteamAPICall_t call = ugc->GetWorkshopEULAStatus();
-    auto* h = new steam_async::CallResultNoPayload<WorkshopEULAStatus_t>(callback);
+    auto* h = new steam_async::CallResult<gm_structs::SteamUgcWorkshopEULAStatusResult, WorkshopEULAStatus_t>(callback, &ugc_fromNative);
     h->set(call);
 }
 
