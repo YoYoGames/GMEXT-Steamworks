@@ -126,7 +126,13 @@ std::uint32_t steam_networking_sockets_connect_by_ip_address(std::string_view ip
     ISteamNetworkingSockets* s = steam_networking_sockets_iface();
     if (!s) return 0;
 
-    std::string addrStr = std::string(ip) + ":" + std::to_string(port);
+    std::string ipStr(ip);
+    // IPv6 literals must be bracketed before the port per SteamNetworkingIPAddr::ParseString's
+    // documented format (e.g. [::1:2]:80) - an unbracketed IPv6 address is ambiguous with the
+    // trailing ":port" and fails to parse.
+    std::string addrStr = (ipStr.find(':') != std::string::npos)
+        ? "[" + ipStr + "]:" + std::to_string(port)
+        : ipStr + ":" + std::to_string(port);
 
     SteamNetworkingIPAddr addr;
     addr.Clear();
@@ -267,6 +273,12 @@ std::vector<gm_structs::SteamNetworkingMessage> steam_networking_sockets_receive
     if (!s) return out;
 
     if (count == 0) return out;
+
+    constexpr std::uint32_t kMaxReceiveCount = 65536;
+    if (count > kMaxReceiveCount) {
+        steam_set_last_error("steam_networking_sockets_receive_messages_on_connection: count exceeds sanity limit.");
+        return out;
+    }
 
     std::vector<SteamNetworkingMessage_t*> msgs(count, nullptr);
     int n = s->ReceiveMessagesOnConnection((HSteamNetConnection)conn, msgs.data(), (int)count);
@@ -456,6 +468,12 @@ std::vector<gm_structs::SteamNetworkingMessage> steam_networking_sockets_receive
     if (!s) return out;
 
     if (count == 0) return out;
+
+    constexpr std::uint32_t kMaxReceiveCount = 65536;
+    if (count > kMaxReceiveCount) {
+        steam_set_last_error("steam_networking_sockets_receive_messages_on_poll_group: count exceeds sanity limit.");
+        return out;
+    }
 
     std::vector<SteamNetworkingMessage_t*> msgs(count, nullptr);
     int n = s->ReceiveMessagesOnPollGroup((HSteamNetPollGroup)poll_group, msgs.data(), (int)count);

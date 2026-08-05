@@ -380,6 +380,12 @@ std::vector<std::uint32_t> steam_apps_get_installed_depots(std::uint32_t app_id,
     if (max_depots == 0)
         return out;
 
+    constexpr std::uint32_t kMaxDepotsCount = 65536;
+    if (max_depots > kMaxDepotsCount) {
+        steam_set_last_error("steam_apps_get_installed_depots: max_depots exceeds sanity limit.");
+        return out;
+    }
+
     std::vector<DepotId_t> depots;
     depots.resize((size_t)max_depots);
 

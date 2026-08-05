@@ -170,6 +170,12 @@ std::vector<gm_structs::SteamNetworkingMessage> steam_networking_messages_receiv
 
     if (count == 0) return out;
 
+    constexpr std::uint32_t kMaxReceiveCount = 65536;
+    if (count > kMaxReceiveCount) {
+        steam_set_last_error("steam_networking_messages_receive_messages_on_channel: count exceeds sanity limit.");
+        return out;
+    }
+
     std::vector<SteamNetworkingMessage_t*> msgs(count, nullptr);
     int n = m->ReceiveMessagesOnChannel((int)local_channel, msgs.data(), (int)count);
     if (n <= 0) return out;
