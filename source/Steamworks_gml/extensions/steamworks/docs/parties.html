@@ -1,0 +1,1214 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="img/favicon.ico" />
+    <title>Parties - GMEXT-Steamworks</title>
+    <link rel="stylesheet" href="css/theme.css" />
+    <link rel="stylesheet" href="css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+        <link href="assets/css/gmext_style.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Parties";
+        var mkdocs_page_input_path = "parties.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/gml.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="index.html" class="icon icon-home"> GMEXT-Steamworks
+        </a>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="index.html">Welcome to MkDocs</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="_footer.html"> footer</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="_sidebar.html"> sidebar</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="api.html">Api</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="apps.html">Apps</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="friends.html">Friends</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="guides.html">Guides</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="home.html">Home</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="input.html">Input</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="inventory.html">Inventory</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="matchmaking.html">Matchmaking</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="music.html">Music</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="networking.html">Networking</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="#">Parties</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#functions">Functions</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#constants">Constants</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#structs">Structs</a>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="remote_storage.html">Remote storage</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="screenshots.html">Screenshots</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="timeline.html">Timeline</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="ugc.html">Ugc</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="user.html">User</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="userstats.html">Userstats</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="utils.html">Utils</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">GMEXT-Steamworks</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html" class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Parties</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/YoYoGames/GMEXT-Steamworks/edit/master/docs/parties.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <p><a id="top"></a></p>
+<h1 id="parties"><strong>Parties</strong></h1>
+<blockquote>
+<p><strong>Steamworks Interface</strong>: <a href="https://partner.steamgames.com/doc/api/isteamparties">ISteamParties</a></p>
+</blockquote>
+<p>This API can be used to selectively advertise your multiplayer game session in a Steam chat room group. Tell Steam the number of player spots that are available for your party, and a join-game string, and it will show a beacon in the selected group and allow that many users to “follow” the beacon to your party. Adjust the number of open slots if other players join through alternate matchmaking methods.</p>
+<h2 id="functions">Functions</h2>
+<p>These are the functions of the Parties module:</p>
+<ul>
+<li><a href="parties.html#steam_parties_set_callback_reservation_notification">steam_parties_set_callback_reservation_notification</a></li>
+<li><a href="parties.html#steam_parties_clear_callback_reservation_notification">steam_parties_clear_callback_reservation_notification</a></li>
+<li><a href="parties.html#steam_parties_set_callback_available_beacon_locations_updated">steam_parties_set_callback_available_beacon_locations_updated</a></li>
+<li><a href="parties.html#steam_parties_clear_callback_available_beacon_locations_updated">steam_parties_clear_callback_available_beacon_locations_updated</a></li>
+<li><a href="parties.html#steam_parties_set_callback_active_beacons_updated">steam_parties_set_callback_active_beacons_updated</a></li>
+<li><a href="parties.html#steam_parties_clear_callback_active_beacons_updated">steam_parties_clear_callback_active_beacons_updated</a></li>
+<li><a href="parties.html#steam_parties_get_num_available_beacon_locations">steam_parties_get_num_available_beacon_locations</a></li>
+<li><a href="parties.html#steam_parties_get_available_beacon_locations">steam_parties_get_available_beacon_locations</a></li>
+<li><a href="parties.html#steam_parties_create_beacon">steam_parties_create_beacon</a></li>
+<li><a href="parties.html#steam_parties_on_reservation_completed">steam_parties_on_reservation_completed</a></li>
+<li><a href="parties.html#steam_parties_change_num_open_slots">steam_parties_change_num_open_slots</a></li>
+<li><a href="parties.html#steam_parties_destroy_beacon">steam_parties_destroy_beacon</a></li>
+<li><a href="parties.html#steam_parties_get_num_active_beacons">steam_parties_get_num_active_beacons</a></li>
+<li><a href="parties.html#steam_parties_get_beacon_by_index">steam_parties_get_beacon_by_index</a></li>
+<li><a href="parties.html#steam_parties_get_beacon_details">steam_parties_get_beacon_details</a></li>
+<li><a href="parties.html#steam_parties_join_party">steam_parties_join_party</a></li>
+<li><a href="parties.html#steam_parties_get_beacon_location_data">steam_parties_get_beacon_location_data</a></li>
+</ul>
+<h2 id="constants">Constants</h2>
+<p>These are the constants and enums of the Parties module:</p>
+<ul>
+<li><a href="parties.html#steampartiesbeaconlocationtype">SteamPartiesBeaconLocationType</a></li>
+<li><a href="parties.html#steampartiesbeaconlocationdata">SteamPartiesBeaconLocationData</a></li>
+</ul>
+<h2 id="structs">Structs</h2>
+<p>These are the structs of the Parties module:</p>
+<ul>
+<li><a href="parties.html#steampartiesbeaconlocation">SteamPartiesBeaconLocation</a></li>
+<li><a href="parties.html#steampartiescreatebeaconresult">SteamPartiesCreateBeaconResult</a></li>
+<li><a href="parties.html#steampartiesjoinpartyresult">SteamPartiesJoinPartyResult</a></li>
+<li><a href="parties.html#steampartieschangenumopenslotsresult">SteamPartiesChangeNumOpenSlotsResult</a></li>
+<li><a href="parties.html#steampartiesreservationnotification">SteamPartiesReservationNotification</a></li>
+<li><a href="parties.html#steampartiesbeacondetails">SteamPartiesBeaconDetails</a></li>
+</ul>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_parties_set_callback_reservation_notification">steam_parties_set_callback_reservation_notification</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: N / A</p>
+</blockquote>
+<p>This function sets the function to be called by Steam when a user "follows" a previously created beacon. This lets you know that you should be prepared for the user to join your game.</p>
+<p>See: <a href="https://partner.steamgames.com/doc/api/isteamparties#ReservationNotificationCallback_t">ISteamParties::ReservationNotificationCallback_t</a></p>
+<p>See: <a href="parties.html#steampartiesreservationnotification">SteamPartiesReservationNotification</a></p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_parties_set_callback_reservation_notification(callback)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>callback</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Script_Functions.htm">Function</a></td>
+<td>The function to be called when a reservation notification event occurs.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_parties_clear_callback_reservation_notification">steam_parties_clear_callback_reservation_notification</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: N / A</p>
+</blockquote>
+<p>This function clears the callback function previously set using <a href="parties.html#steam_parties_set_callback_reservation_notification">steam_parties_set_callback_reservation_notification</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_parties_clear_callback_reservation_notification()
+</code></pre></div>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_parties_set_callback_available_beacon_locations_updated">steam_parties_set_callback_available_beacon_locations_updated</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: N / A</p>
+</blockquote>
+<p>This function sets the function to be called when the list of available locations for posting a beacon has been updated.</p>
+<p>See: <a href="https://partner.steamgames.com/doc/api/isteamparties#AvailableBeaconLocationsUpdated_t">ISteamParties::AvailableBeaconLocationsUpdated_t</a></p>
+<p>This callback has no members.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_parties_set_callback_available_beacon_locations_updated(callback)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>callback</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Script_Functions.htm">Function</a></td>
+<td>The function to be called when the available beacon locations are updated.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_parties_clear_callback_available_beacon_locations_updated">steam_parties_clear_callback_available_beacon_locations_updated</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: N / A</p>
+</blockquote>
+<p>This function clears the callback function previously set using <a href="parties.html#steam_parties_set_callback_available_beacon_locations_updated">steam_parties_set_callback_available_beacon_locations_updated</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_parties_clear_callback_available_beacon_locations_updated()
+</code></pre></div>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_parties_set_callback_active_beacons_updated">steam_parties_set_callback_active_beacons_updated</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: N / A</p>
+</blockquote>
+<p>This function sets the function to be called when the list of active beacons visible to the current user has changed.</p>
+<p>See: <a href="https://partner.steamgames.com/doc/api/isteamparties#ActiveBeaconsUpdated_t">ISteamParties::ActiveBeaconsUpdated_t</a></p>
+<p>This callback has no members.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_parties_set_callback_active_beacons_updated(callback)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>callback</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Script_Functions.htm">Function</a></td>
+<td>The function to be called when the active beacons are updated.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_parties_clear_callback_active_beacons_updated">steam_parties_clear_callback_active_beacons_updated</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: N / A</p>
+</blockquote>
+<p>This function clears the callback function previously set using <a href="parties.html#steam_parties_set_callback_active_beacons_updated">steam_parties_set_callback_active_beacons_updated</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_parties_clear_callback_active_beacons_updated()
+</code></pre></div>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_parties_get_num_available_beacon_locations">steam_parties_get_num_available_beacon_locations</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamParties#GetNumAvailableBeaconLocations">ISteamParties::GetNumAvailableBeaconLocations</a></p>
+</blockquote>
+<p>This function gets the number of locations in which you are able to post a party beacon.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_parties_get_num_available_beacon_locations()
+</code></pre></div>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_parties_get_available_beacon_locations">steam_parties_get_available_beacon_locations</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamParties#GetAvailableBeaconLocations">ISteamParties::GetAvailableBeaconLocations</a></p>
+</blockquote>
+<p>This function gets the list of locations in which you can post a party beacon.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_parties_get_available_beacon_locations()
+</code></pre></div>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Arrays.htm">Array</a> of <a href="parties.html#steampartiesbeaconlocation">SteamPartiesBeaconLocation</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_parties_create_beacon">steam_parties_create_beacon</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamParties#CreateBeacon">ISteamParties::CreateBeacon</a></p>
+</blockquote>
+<p>This function creates a beacon. You can only create one beacon at a time. Steam will display the beacon in the specified location, and let up to <code>open_slots</code> users "follow" the beacon to your party.</p>
+<p>If users join your party through other matchmaking, adjust the number of remaining open slots using <a href="parties.html#steam_parties_change_num_open_slots">steam_parties_change_num_open_slots</a>.</p>
+<p>This function operates asynchronously, which means that it does not immediately return the requested result. Instead, upon completion of the task, it will trigger the <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_parties_create_beacon(open_slots, beacon_location_type, beacon_location_id, connect_string, metadata, callback)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>open_slots</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The number of reservation slots to create for the beacon, normally the party size minus one.</td>
+</tr>
+<tr>
+<td>beacon_location_type</td>
+<td><a href="parties.html#steampartiesbeaconlocationtype">SteamPartiesBeaconLocationType</a></td>
+<td>The type of the beacon location, taken from one of the locations returned by <a href="parties.html#steam_parties_get_available_beacon_locations">steam_parties_get_available_beacon_locations</a>.</td>
+</tr>
+<tr>
+<td>beacon_location_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The location ID of the beacon location, taken from one of the locations returned by <a href="parties.html#steam_parties_get_available_beacon_locations">steam_parties_get_available_beacon_locations</a>.</td>
+</tr>
+<tr>
+<td>connect_string</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The connect string that will be given to the game on launch for a user that follows the beacon.</td>
+</tr>
+<tr>
+<td>metadata</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>Additional game metadata that can be set on the beacon, and is exposed via <a href="parties.html#steam_parties_get_beacon_details">steam_parties_get_beacon_details</a>.</td>
+</tr>
+<tr>
+<td>callback</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Script_Functions.htm">Function</a></td>
+<td>The function to call upon completion.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Triggers:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a></p>
+<p><strong>Steamworks Callback</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamParties#CreateBeaconCallback_t">ISteamParties::CreateBeaconCallback_t</a></p>
+</blockquote>
+<p>This callback is returned as the response to a call to create a beacon. A successful result means your beacon has been posted in the desired location and you can begin receiving reservation notifications as users follow it.</p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>result</td>
+<td><a href="parties.html#steampartiescreatebeaconresult">SteamPartiesCreateBeaconResult</a></td>
+<td>The result of the operation.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_parties_on_reservation_completed">steam_parties_on_reservation_completed</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamParties#OnReservationCompleted">ISteamParties::OnReservationCompleted</a></p>
+</blockquote>
+<p>This function notifies Steam that a reserved user has successfully joined your party, once a user who followed your beacon has joined.</p>
+<p>See: <a href="parties.html#steampartiesreservationnotification">SteamPartiesReservationNotification</a></p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_parties_on_reservation_completed(beacon_id, user_steam_id)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>beacon_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The beacon ID for the beacon created by your process.</td>
+</tr>
+<tr>
+<td>user_steam_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The Steam ID of the user joining your party.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_parties_change_num_open_slots">steam_parties_change_num_open_slots</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamParties#ChangeNumOpenSlots">ISteamParties::ChangeNumOpenSlots</a></p>
+</blockquote>
+<p>This function reduces the number of open slots that Steam is managing through the party beacon when a user joins your party through other matchmaking.</p>
+<p>This function operates asynchronously, which means that it does not immediately return the requested result. Instead, upon completion of the task, it will trigger the <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_parties_change_num_open_slots(beacon_id, open_slots, callback)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>beacon_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The beacon ID for the beacon created by your process.</td>
+</tr>
+<tr>
+<td>open_slots</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The new number of open slots in your party. This value represents the total number of <em>new</em> users that you would like Steam to send to your party.</td>
+</tr>
+<tr>
+<td>callback</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Script_Functions.htm">Function</a></td>
+<td>The function to call upon completion.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Triggers:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a></p>
+<p><strong>Steamworks Callback</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamParties#ChangeNumOpenSlotsCallback_t">ISteamParties::ChangeNumOpenSlotsCallback_t</a></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>result</td>
+<td><a href="parties.html#steampartieschangenumopenslotsresult">SteamPartiesChangeNumOpenSlotsResult</a></td>
+<td>The result of the operation.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_parties_destroy_beacon">steam_parties_destroy_beacon</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamParties#DestroyBeacon">ISteamParties::DestroyBeacon</a></p>
+</blockquote>
+<p>This function destroys the Steam party beacon. This will immediately cause Steam to stop showing the beacon in the target location. Note that any users currently in-flight may still arrive at your party expecting to join.</p>
+<p>Your game should call this method when either the party has been filled and the game is beginning, or the user has decided to abandon creating a party. The beacon will be destroyed automatically when your game exits, but the preferred behavior is for the game to call <a href="parties.html#steam_parties_destroy_beacon">steam_parties_destroy_beacon</a> at the right time.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_parties_destroy_beacon(beacon_id)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>beacon_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The beacon ID to be destroyed.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_parties_get_num_active_beacons">steam_parties_get_num_active_beacons</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamParties#GetNumActiveBeacons">ISteamParties::GetNumActiveBeacons</a></p>
+</blockquote>
+<p>This function gets the number of active party beacons created by other users for your game, that are visible to the current user.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_parties_get_num_active_beacons()
+</code></pre></div>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_parties_get_beacon_by_index">steam_parties_get_beacon_by_index</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamParties#GetBeaconByIndex">ISteamParties::GetBeaconByIndex</a></p>
+</blockquote>
+<p>This function is used with <a href="parties.html#steam_parties_get_num_active_beacons">steam_parties_get_num_active_beacons</a> to iterate the active beacons visible to the current user.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_parties_get_beacon_by_index(index)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>index</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The index of the beacon.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p>Party beacon ID</p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_parties_get_beacon_details">steam_parties_get_beacon_details</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamParties#GetBeaconDetails">ISteamParties::GetBeaconDetails</a></p>
+</blockquote>
+<p>This function gets details about the specified beacon.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_parties_get_beacon_details(beacon_id)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>beacon_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The beacon ID to query.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="parties.html#steampartiesbeacondetails">SteamPartiesBeaconDetails</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_parties_join_party">steam_parties_join_party</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamParties#JoinParty">ISteamParties::JoinParty</a></p>
+</blockquote>
+<p>This function is called when the user indicates they wish to join the party advertised by a given beacon. On success, Steam will reserve a slot for this user in the party and return the necessary "join game" string to use to complete the connection.</p>
+<p>This function operates asynchronously, which means that it does not immediately return the requested result. Instead, upon completion of the task, it will trigger the <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_parties_join_party(beacon_id, callback)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>beacon_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The beacon ID for the party you wish to join.</td>
+</tr>
+<tr>
+<td>callback</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Script_Functions.htm">Function</a></td>
+<td>The function to call upon completion.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Triggers:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a></p>
+<p><strong>Steamworks Callback</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamParties#JoinPartyCallback_t">ISteamParties::JoinPartyCallback_t</a></p>
+</blockquote>
+<p>This callback serves as the response to a call to join a party. When it succeeds, you have secured a slot in the beacon owner's party and should use the connect string to link up with their game and finish joining.</p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>The</td>
+<td><a href="parties.html#steampartiesjoinpartyresult">SteamPartiesJoinPartyResult</a></td>
+<td>result of the operation.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_parties_get_beacon_location_data">steam_parties_get_beacon_location_data</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamParties#GetBeaconLocationData">ISteamParties::GetBeaconLocationData</a></p>
+</blockquote>
+<p>This function queries general metadata for the given beacon location. For instance the Name, or the URL for an icon if the location type supports icons (for example, the icon for a Steam Chat Room Group).</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_parties_get_beacon_location_data(beacon_location_type, beacon_location_id, data_kind)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>beacon_location_type</td>
+<td><a href="parties.html#steampartiesbeaconlocationtype">SteamPartiesBeaconLocationType</a></td>
+<td>The type of the beacon location to query.</td>
+</tr>
+<tr>
+<td>beacon_location_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The location ID of the beacon location to query.</td>
+</tr>
+<tr>
+<td>data_kind</td>
+<td><a href="parties.html#steampartiesbeaconlocationdata">SteamPartiesBeaconLocationData</a></td>
+<td>The type of location data you wish to get.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steampartiesbeaconlocationtype">SteamPartiesBeaconLocationType</h1>
+<blockquote>
+<p><strong>Steamworks Enum</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamParties#ESteamPartyBeaconLocationType">ISteamParties::ESteamPartyBeaconLocationType</a></p>
+</blockquote>
+<p>This enum holds the types of locations where beacons can be posted.</p>
+<p>These constants are referenced by the following functions:</p>
+<ul>
+<li><a href="parties.html#steam_parties_create_beacon">steam_parties_create_beacon</a></li>
+<li><a href="parties.html#steam_parties_get_beacon_location_data">steam_parties_get_beacon_location_data</a></li>
+</ul>
+<p>These constants are referenced by the following structs:</p>
+<ul>
+<li><a href="parties.html#steampartiesbeaconlocation">SteamPartiesBeaconLocation</a></li>
+<li><a href="parties.html#steampartiesbeacondetails">SteamPartiesBeaconDetails</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Invalid</code></td>
+<td>Invalid location type.</td>
+</tr>
+<tr>
+<td><code>ChatGroup</code></td>
+<td>A Steam Chat Room Group.</td>
+</tr>
+<tr>
+<td><code>Max</code></td>
+<td>Value is always one greater than the largest valid location type value.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steampartiesbeaconlocationdata">SteamPartiesBeaconLocationData</h1>
+<blockquote>
+<p><strong>Steamworks Enum</strong>: <a href="partner.steamgames.com/doc/api/ISteamParties.html#ESteamPartyBeaconLocationData">ISteamParties::ESteamPartyBeaconLocationData</a></p>
+</blockquote>
+<p>This enum holds the types of extended metadata for beacon locations.</p>
+<p>These constants are referenced by the following functions:</p>
+<ul>
+<li><a href="parties.html#steam_parties_get_beacon_location_data">steam_parties_get_beacon_location_data</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Invalid</code></td>
+<td>Invalid location data type.</td>
+</tr>
+<tr>
+<td><code>Name</code></td>
+<td>The name, if any, of the location.</td>
+</tr>
+<tr>
+<td><code>IconURLSmall</code></td>
+<td>If the location has an associated icon, this is the URL for the small format icon image.</td>
+</tr>
+<tr>
+<td><code>IconURLMedium</code></td>
+<td>If the location has an associated icon, this is the URL for the medium format icon image.</td>
+</tr>
+<tr>
+<td><code>IconURLLarge</code></td>
+<td>If the location has an associated icon, this is the URL for the small large icon image.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steampartiesbeaconlocation">SteamPartiesBeaconLocation</h1>
+<blockquote>
+<p><strong>Steamworks Struct</strong>: N / A</p>
+</blockquote>
+<p>This struct holds information about a beacon location.</p>
+<p>This struct is referenced by the following functions:</p>
+<ul>
+<li><a href="parties.html#steam_parties_get_available_beacon_locations">steam_parties_get_available_beacon_locations</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>location_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The location ID.</td>
+</tr>
+<tr>
+<td>location_type</td>
+<td><a href="parties.html#steampartiesbeaconlocationtype">SteamPartiesBeaconLocationType</a></td>
+<td>The location type.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steampartiescreatebeaconresult">SteamPartiesCreateBeaconResult</h1>
+<blockquote>
+<p><strong>Steamworks Struct</strong>: <a href="https://partner.steamgames.com/doc/api/isteamparties#CreateBeaconCallback_t">ISteamParties#CreateBeaconCallback_t</a></p>
+</blockquote>
+<p>This struct holds information about the result of creating a beacon.</p>
+<p>This struct is referenced by the following functions:</p>
+<ul>
+<li><a href="parties.html#steam_parties_create_beacon">steam_parties_create_beacon</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>result</td>
+<td><a href="api.html#steamapiresult">SteamApiResult</a></td>
+<td>The result of the attempt to create a beacon.</td>
+</tr>
+<tr>
+<td>beacon_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>Beacon ID of the newly created beacon.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steampartiesjoinpartyresult">SteamPartiesJoinPartyResult</h1>
+<blockquote>
+<p><strong>Steamworks Struct</strong>: <a href="partner.steamgames.com/doc/api/ISteamParties.html#JoinPartyCallback_t">ISteamParties::JoinPartyCallback_t</a></p>
+</blockquote>
+<p>This struct holds the data used as a call response for <a href="parties.html#steam_parties_join_party">steam_parties_join_party</a>. On success, you will have reserved a slot in the beacon-owner's party, and should use <code>connect_string</code> to connect to their game and complete the process.</p>
+<p>This struct is referenced by the following functions:</p>
+<ul>
+<li><a href="parties.html#steam_parties_join_party">steam_parties_join_party</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>result</td>
+<td><a href="api.html#steamapiresult">SteamApiResult</a></td>
+<td>The result of the attempt to join the party.</td>
+</tr>
+<tr>
+<td>beacon_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The beacon ID used in the attempt.</td>
+</tr>
+<tr>
+<td>beacon_owner_steam_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>Creator of the beacon used in the attempt.</td>
+</tr>
+<tr>
+<td>connect_string</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>If successful, a "join game" string for your game to use to complete the process of joining the desired party.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steampartieschangenumopenslotsresult">SteamPartiesChangeNumOpenSlotsResult</h1>
+<blockquote>
+<p><strong>Steamworks Struct</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamParties#ChangeNumOpenSlotsCallback_t">ISteamParties::ChangeNumOpenSlotsCallback_t</a></p>
+</blockquote>
+<p>This struct holds the call result for <a href="parties.html#steam_parties_change_num_open_slots">steam_parties_change_num_open_slots</a>.</p>
+<p>This struct is referenced by the following functions:</p>
+<ul>
+<li><a href="parties.html#steam_parties_change_num_open_slots">steam_parties_change_num_open_slots</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>result</td>
+<td><a href="api.html#steamapiresult">SteamApiResult</a></td>
+<td>The result of the attempt to change the number of open slots.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steampartiesreservationnotification">SteamPartiesReservationNotification</h1>
+<blockquote>
+<p><strong>Steamworks Struct</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamParties#ReservationNotificationCallback_t">ISteamParties::ReservationNotificationCallback_t</a></p>
+</blockquote>
+<p>This struct holds the information passed to a reservation notification callback. When you receive this callback, be sure to call <a href="parties.html#steam_parties_on_reservation_completed">steam_parties_on_reservation_completed</a> to let Steam know.</p>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>beacon_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>Beacon ID of your beacon.</td>
+</tr>
+<tr>
+<td>joiner_steam_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>SteamID of the user following your beacon.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steampartiesbeacondetails">SteamPartiesBeaconDetails</h1>
+<blockquote>
+<p><strong>Steamworks Struct</strong>: N / A</p>
+</blockquote>
+<p>This struct holds the details of a beacon, as requested using <a href="parties.html#steam_parties_get_beacon_details">steam_parties_get_beacon_details</a>.</p>
+<p>This struct is referenced by the following functions:</p>
+<ul>
+<li><a href="parties.html#steam_parties_get_beacon_details">steam_parties_get_beacon_details</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>beacon_owner_steam_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>Creator of the beacon.</td>
+</tr>
+<tr>
+<td>location_type</td>
+<td><a href="parties.html#steampartiesbeaconlocationtype">SteamPartiesBeaconLocationType</a></td>
+<td>The location type.</td>
+</tr>
+<tr>
+<td>location_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>Opaque identifier of this location.</td>
+</tr>
+<tr>
+<td>metadata</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>Any additional metadata the game has set on this beacon (e.g. game mode). Will hold an empty string <code>""</code> if not successful.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="networking.html" class="btn btn-neutral float-left" title="Networking"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="remote_storage.html" class="btn btn-neutral float-right" title="Remote storage">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+      <p><p align="center">GameMaker 2026</p></p>
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/YoYoGames/GMEXT-Steamworks" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="networking.html" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="remote_storage.html" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = ".";</script>
+    <script src="js/theme_extra.js"></script>
+    <script src="js/theme.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/gml.min.js"></script>
+      <script src="assets/js/gmext_script.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

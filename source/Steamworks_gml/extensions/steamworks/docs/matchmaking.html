@@ -1,0 +1,2746 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="img/favicon.ico" />
+    <title>Matchmaking - GMEXT-Steamworks</title>
+    <link rel="stylesheet" href="css/theme.css" />
+    <link rel="stylesheet" href="css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+        <link href="assets/css/gmext_style.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Matchmaking";
+        var mkdocs_page_input_path = "matchmaking.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/gml.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="index.html" class="icon icon-home"> GMEXT-Steamworks
+        </a>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="index.html">Welcome to MkDocs</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="_footer.html"> footer</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="_sidebar.html"> sidebar</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="api.html">Api</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="apps.html">Apps</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="friends.html">Friends</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="guides.html">Guides</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="home.html">Home</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="input.html">Input</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="inventory.html">Inventory</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="#">Matchmaking</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#functions">Functions</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#constants">Constants</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#structs">Structs</a>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="music.html">Music</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="networking.html">Networking</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="parties.html">Parties</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="remote_storage.html">Remote storage</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="screenshots.html">Screenshots</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="timeline.html">Timeline</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="ugc.html">Ugc</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="user.html">User</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="userstats.html">Userstats</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="utils.html">Utils</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">GMEXT-Steamworks</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html" class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Matchmaking</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/YoYoGames/GMEXT-Steamworks/edit/master/docs/matchmaking.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <p><a id="top"></a></p>
+<h1 id="matchmaking"><strong>Matchmaking</strong></h1>
+<blockquote>
+<p><strong>Steamworks Interface</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamMatchmaking">ISteamMatchmaking</a></p>
+</blockquote>
+<p>This module contains functions for clients to access matchmaking services, favorites, and to operate on game lobbies.</p>
+<p>See <a href="https://partner.steamgames.com/doc/features/multiplayer/matchmaking">Steam Matchmaking &amp; Lobbies</a> for more information.</p>
+<h2 id="functions">Functions</h2>
+<p>These are the functions of the Matchmaking module:</p>
+<ul>
+<li><a href="matchmaking.html#steam_matchmaking_set_callback_lobby_data_update">steam_matchmaking_set_callback_lobby_data_update</a></li>
+<li><a href="matchmaking.html#steam_matchmaking_clear_callback_lobby_data_update">steam_matchmaking_clear_callback_lobby_data_update</a></li>
+<li><a href="matchmaking.html#steam_matchmaking_set_callback_lobby_chat_update">steam_matchmaking_set_callback_lobby_chat_update</a></li>
+<li><a href="matchmaking.html#steam_matchmaking_clear_callback_lobby_chat_update">steam_matchmaking_clear_callback_lobby_chat_update</a></li>
+<li><a href="matchmaking.html#steam_matchmaking_set_callback_lobby_chat_msg">steam_matchmaking_set_callback_lobby_chat_msg</a></li>
+<li><a href="matchmaking.html#steam_matchmaking_clear_callback_lobby_chat_msg">steam_matchmaking_clear_callback_lobby_chat_msg</a></li>
+<li><a href="matchmaking.html#steam_matchmaking_set_callback_lobby_game_created">steam_matchmaking_set_callback_lobby_game_created</a></li>
+<li><a href="matchmaking.html#steam_matchmaking_clear_callback_lobby_game_created">steam_matchmaking_clear_callback_lobby_game_created</a></li>
+<li><a href="matchmaking.html#steam_matchmaking_set_callback_lobby_invite">steam_matchmaking_set_callback_lobby_invite</a></li>
+<li><a href="matchmaking.html#steam_matchmaking_clear_callback_lobby_invite">steam_matchmaking_clear_callback_lobby_invite</a></li>
+<li><a href="matchmaking.html#steam_matchmaking_create_lobby">steam_matchmaking_create_lobby</a></li>
+<li><a href="matchmaking.html#steam_matchmaking_join_lobby">steam_matchmaking_join_lobby</a></li>
+<li><a href="matchmaking.html#steam_matchmaking_request_lobby_list">steam_matchmaking_request_lobby_list</a></li>
+<li><a href="matchmaking.html#steam_matchmaking_add_request_lobby_list_string_filter">steam_matchmaking_add_request_lobby_list_string_filter</a></li>
+<li><a href="matchmaking.html#steam_matchmaking_add_request_lobby_list_numerical_filter">steam_matchmaking_add_request_lobby_list_numerical_filter</a></li>
+<li><a href="matchmaking.html#steam_matchmaking_add_request_lobby_list_near_value_filter">steam_matchmaking_add_request_lobby_list_near_value_filter</a></li>
+<li><a href="matchmaking.html#steam_matchmaking_add_request_lobby_list_distance_filter">steam_matchmaking_add_request_lobby_list_distance_filter</a></li>
+<li><a href="matchmaking.html#steam_matchmaking_add_request_lobby_list_result_count_filter">steam_matchmaking_add_request_lobby_list_result_count_filter</a></li>
+<li><a href="matchmaking.html#steam_matchmaking_get_lobby_by_index">steam_matchmaking_get_lobby_by_index</a></li>
+<li><a href="matchmaking.html#steam_matchmaking_leave_lobby">steam_matchmaking_leave_lobby</a></li>
+<li><a href="matchmaking.html#steam_matchmaking_set_lobby_owner">steam_matchmaking_set_lobby_owner</a></li>
+<li><a href="matchmaking.html#steam_matchmaking_get_lobby_owner">steam_matchmaking_get_lobby_owner</a></li>
+<li><a href="matchmaking.html#steam_matchmaking_get_num_lobby_members">steam_matchmaking_get_num_lobby_members</a></li>
+<li><a href="matchmaking.html#steam_matchmaking_get_lobby_member_by_index">steam_matchmaking_get_lobby_member_by_index</a></li>
+<li><a href="matchmaking.html#steam_matchmaking_set_lobby_data">steam_matchmaking_set_lobby_data</a></li>
+<li><a href="matchmaking.html#steam_matchmaking_get_lobby_data">steam_matchmaking_get_lobby_data</a></li>
+<li><a href="matchmaking.html#steam_matchmaking_delete_lobby_data">steam_matchmaking_delete_lobby_data</a></li>
+<li><a href="matchmaking.html#steam_matchmaking_get_lobby_data_count">steam_matchmaking_get_lobby_data_count</a></li>
+<li><a href="matchmaking.html#steam_matchmaking_get_lobby_data_by_index">steam_matchmaking_get_lobby_data_by_index</a></li>
+<li><a href="matchmaking.html#steam_matchmaking_set_lobby_member_data">steam_matchmaking_set_lobby_member_data</a></li>
+<li><a href="matchmaking.html#steam_matchmaking_get_lobby_member_data">steam_matchmaking_get_lobby_member_data</a></li>
+<li><a href="matchmaking.html#steam_matchmaking_send_lobby_chat_msg">steam_matchmaking_send_lobby_chat_msg</a></li>
+<li><a href="matchmaking.html#steam_matchmaking_get_lobby_chat_entry">steam_matchmaking_get_lobby_chat_entry</a></li>
+<li><a href="matchmaking.html#steam_matchmaking_add_request_lobby_list_filter_slots_available">steam_matchmaking_add_request_lobby_list_filter_slots_available</a></li>
+<li><a href="matchmaking.html#steam_matchmaking_request_lobby_data">steam_matchmaking_request_lobby_data</a></li>
+<li><a href="matchmaking.html#steam_matchmaking_set_lobby_joinable">steam_matchmaking_set_lobby_joinable</a></li>
+<li><a href="matchmaking.html#steam_matchmaking_set_lobby_type">steam_matchmaking_set_lobby_type</a></li>
+<li><a href="matchmaking.html#steam_matchmaking_invite_user_to_lobby">steam_matchmaking_invite_user_to_lobby</a></li>
+<li><a href="matchmaking.html#steam_matchmaking_set_lobby_game_server">steam_matchmaking_set_lobby_game_server</a></li>
+<li><a href="matchmaking.html#steam_matchmaking_set_linked_lobby">steam_matchmaking_set_linked_lobby</a></li>
+<li><a href="matchmaking.html#steam_matchmaking_get_lobby_game_server">steam_matchmaking_get_lobby_game_server</a></li>
+</ul>
+<h2 id="constants">Constants</h2>
+<p>These are the constants and enums of the Matchmaking module:</p>
+<ul>
+<li><a href="matchmaking.html#steammatchmakinglobbytype">SteamMatchmakingLobbyType</a></li>
+<li><a href="matchmaking.html#steammatchmakinglobbycomparison">SteamMatchmakingLobbyComparison</a></li>
+<li><a href="matchmaking.html#steammatchmakinglobbydistancefilter">SteamMatchmakingLobbyDistanceFilter</a></li>
+<li><a href="matchmaking.html#steammatchmakingchatmemberstatechange">SteamMatchmakingChatMemberStateChange</a></li>
+<li><a href="matchmaking.html#steammatchmakingchatroomenterresponse">SteamMatchmakingChatRoomEnterResponse</a></li>
+</ul>
+<h2 id="structs">Structs</h2>
+<p>These are the structs of the Matchmaking module:</p>
+<ul>
+<li><a href="matchmaking.html#steammatchmakinglobbycreated">SteamMatchmakingLobbyCreated</a></li>
+<li><a href="matchmaking.html#steammatchmakinglobbyenter">SteamMatchmakingLobbyEnter</a></li>
+<li><a href="matchmaking.html#steammatchmakinglobbymatchlist">SteamMatchmakingLobbyMatchList</a></li>
+<li><a href="matchmaking.html#steammatchmakinglobbydataupdate">SteamMatchmakingLobbyDataUpdate</a></li>
+<li><a href="matchmaking.html#steammatchmakinglobbychatupdate">SteamMatchmakingLobbyChatUpdate</a></li>
+<li><a href="matchmaking.html#steammatchmakinglobbychatmsg">SteamMatchmakingLobbyChatMsg</a></li>
+<li><a href="matchmaking.html#steammatchmakinglobbygamecreated">SteamMatchmakingLobbyGameCreated</a></li>
+<li><a href="matchmaking.html#steammatchmakinglobbyinvite">SteamMatchmakingLobbyInvite</a></li>
+<li><a href="matchmaking.html#steammatchmakinglobbychatentry">SteamMatchmakingLobbyChatEntry</a></li>
+<li><a href="matchmaking.html#steammatchmakinglobbygameserver">SteamMatchmakingLobbyGameServer</a></li>
+</ul>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_matchmaking_set_callback_lobby_data_update">steam_matchmaking_set_callback_lobby_data_update</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: N / A</p>
+</blockquote>
+<p>This function sets the function to be called when the lobby metadata has changed.</p>
+<p>See: <a href="https://partner.steamgames.com/doc/api/ISteamMatchmaking#LobbyDataUpdate_t">ISteamMatchmaking::LobbyDataUpdate_t</a></p>
+<p>See: <a href="matchmaking.html#steammatchmakinglobbydataupdate">SteamMatchmakingLobbyDataUpdate</a></p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_matchmaking_set_callback_lobby_data_update(callback)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>callback</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Script_Functions.htm">Function</a></td>
+<td>The function to be called when lobby data is updated.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_matchmaking_clear_callback_lobby_data_update">steam_matchmaking_clear_callback_lobby_data_update</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: N / A</p>
+</blockquote>
+<p>This function clears the callback function previously set using <a href="matchmaking.html#steam_matchmaking_set_callback_lobby_data_update">steam_matchmaking_set_callback_lobby_data_update</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_matchmaking_clear_callback_lobby_data_update()
+</code></pre></div>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_matchmaking_set_callback_lobby_chat_update">steam_matchmaking_set_callback_lobby_chat_update</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: N / A</p>
+</blockquote>
+<p>This function sets the function to be called when a lobby chat room state has changed. This is usually sent when a user has joined or left the lobby.</p>
+<p>See: <a href="https://partner.steamgames.com/doc/api/ISteamMatchmaking#LobbyChatUpdate_t">ISteamMatchmaking::LobbyChatUpdate_t</a></p>
+<p>See: <a href="matchmaking.html#steammatchmakinglobbychatupdate">SteamMatchmakingLobbyChatUpdate</a></p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_matchmaking_set_callback_lobby_chat_update(callback)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>callback</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Script_Functions.htm">Function</a></td>
+<td>The function to be called when a lobby chat update event occurs (a user joins, leaves or disconnects).</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_matchmaking_clear_callback_lobby_chat_update">steam_matchmaking_clear_callback_lobby_chat_update</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: N / A</p>
+</blockquote>
+<p>This function clears the callback function previously set using <a href="matchmaking.html#steam_matchmaking_clear_callback_lobby_chat_update">steam_matchmaking_clear_callback_lobby_chat_update</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_matchmaking_clear_callback_lobby_chat_update()
+</code></pre></div>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_matchmaking_set_callback_lobby_chat_msg">steam_matchmaking_set_callback_lobby_chat_msg</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: N / A</p>
+</blockquote>
+<p>This function sets the function to be called when a chat (text or binary) message for this lobby has been received. After getting this you must use <a href="matchmaking.html#steam_matchmaking_get_lobby_chat_entry">steam_matchmaking_get_lobby_chat_entry</a> to retrieve the contents of this message.</p>
+<p>See: <a href="https://partner.steamgames.com/doc/api/ISteamMatchmaking#LobbyChatMsg_t">ISteamMatchmaking::LobbyChatMsg_t</a></p>
+<p>See: <a href="matchmaking.html#steammatchmakinglobbychatmsg">SteamMatchmakingLobbyChatMsg</a></p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_matchmaking_set_callback_lobby_chat_msg(callback)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>callback</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Script_Functions.htm">Function</a></td>
+<td>The function to be called when a lobby chat message is received.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_matchmaking_clear_callback_lobby_chat_msg">steam_matchmaking_clear_callback_lobby_chat_msg</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: N / A</p>
+</blockquote>
+<p>This function clears the callback function previously set using <a href="matchmaking.html#steam_matchmaking_set_callback_lobby_chat_msg">steam_matchmaking_set_callback_lobby_chat_msg</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_matchmaking_clear_callback_lobby_chat_msg()
+</code></pre></div>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_matchmaking_set_callback_lobby_game_created">steam_matchmaking_set_callback_lobby_game_created</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: N / A</p>
+</blockquote>
+<p>This function sets the function to be called when a game server has been set via <a href="matchmaking.html#steam_matchmaking_set_lobby_game_server">steam_matchmaking_set_lobby_game_server</a> for all of the members of the lobby to join. It's up to the individual clients to take action on this; the typical game behaviour is to leave the lobby and connect to the specified game server; but the lobby may stay open throughout the session if desired.</p>
+<p>See: <a href="https://partner.steamgames.com/doc/api/ISteamMatchmaking#LobbyGameCreated_t">ISteamMatchmaking::LobbyGameCreated_t</a></p>
+<p>See: <a href="matchmaking.html#steammatchmakinglobbygamecreated">SteamMatchmakingLobbyGameCreated</a></p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_matchmaking_set_callback_lobby_game_created(callback)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>callback</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Script_Functions.htm">Function</a></td>
+<td>The function to be called when a game server is set for a lobby.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_matchmaking_clear_callback_lobby_game_created">steam_matchmaking_clear_callback_lobby_game_created</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: N / A</p>
+</blockquote>
+<p>This function clears the callback function previously set using <a href="matchmaking.html#steam_matchmaking_set_callback_lobby_game_created">steam_matchmaking_set_callback_lobby_game_created</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_matchmaking_clear_callback_lobby_game_created()
+</code></pre></div>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_matchmaking_set_callback_lobby_invite">steam_matchmaking_set_callback_lobby_invite</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: N / A</p>
+</blockquote>
+<p>This function sets the function to be called when someone has invited you to join a Lobby. Normally you don't need to do anything with this, as the Steam UI will also display a '<user> has invited you to the lobby, join?' notification and message.</p>
+<p>See: <a href="https://partner.steamgames.com/doc/api/ISteamMatchmaking#LobbyInvite_t">ISteamMatchmaking::LobbyInvite_t</a></p>
+<p>See: <a href="matchmaking.html#steammatchmakinglobbyinvite">SteamMatchmakingLobbyInvite</a></p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_matchmaking_set_callback_lobby_invite(callback)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>callback</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Script_Functions.htm">Function</a></td>
+<td>The function to be called when the user receives a lobby invitation.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_matchmaking_clear_callback_lobby_invite">steam_matchmaking_clear_callback_lobby_invite</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: N / A</p>
+</blockquote>
+<p>This function clears the callback function previously set using <a href="matchmaking.html#steam_matchmaking_set_callback_lobby_invite">steam_matchmaking_set_callback_lobby_invite</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_matchmaking_clear_callback_lobby_invite()
+</code></pre></div>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_matchmaking_create_lobby">steam_matchmaking_create_lobby</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamMatchmaking#CreateLobby">ISteamMatchmaking::CreateLobby</a></p>
+</blockquote>
+<p>This function creates a new matchmaking lobby.</p>
+<p>This function operates asynchronously, which means that it does not immediately return the requested result. Instead, upon completion of the task, it will trigger the <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_matchmaking_create_lobby(lobby_type, max_members, callback)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>lobby_type</td>
+<td><a href="matchmaking.html#steammatchmakinglobbytype">SteamMatchmakingLobbyType</a></td>
+<td>The type and visibility of this lobby. This can be changed later via the lobby type setting.</td>
+</tr>
+<tr>
+<td>max_members</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The maximum number of players that can join this lobby. This can not be above 250.</td>
+</tr>
+<tr>
+<td>callback</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Script_Functions.htm">Function</a></td>
+<td>The function to call upon completion.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<p><strong>Triggers:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a></p>
+<p><strong>Steamworks Callback</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamMatchmaking#LobbyCreated_t">ISteamMatchmaking::LobbyCreated_t</a></p>
+</blockquote>
+<p>Result of our request to create a Lobby. At this point, the lobby has been joined and is ready for use, a <a href="https://partner.steamgames.com/doc/api/ISteamMatchmaking#LobbyEnter_t">LobbyEnter_t</a> callback will also be received (since the local user is joining their own lobby).</p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>result</td>
+<td><a href="matchmaking.html#steammatchmakinglobbycreated">SteamMatchmakingLobbyCreated</a></td>
+<td>The result of the operation.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_matchmaking_join_lobby">steam_matchmaking_join_lobby</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamMatchmaking#JoinLobby">ISteamMatchmaking::JoinLobby</a></p>
+</blockquote>
+<p>This function joins an existing lobby.</p>
+<p>The lobby Steam ID can be obtained either from a search with <a href="matchmaking.html#steam_matchmaking_request_lobby_list">steam_matchmaking_request_lobby_list</a>, joining on a friend, or from an invite.</p>
+<p>This function operates asynchronously, which means that it does not immediately return the requested result. Instead, upon completion of the task, it will trigger the <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_matchmaking_join_lobby(lobby_id, callback)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>lobby_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The Steam ID of the lobby to join.</td>
+</tr>
+<tr>
+<td>callback</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Script_Functions.htm">Function</a></td>
+<td>The function to call upon completion.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<p><strong>Triggers:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a></p>
+<p><strong>Steamworks Callback</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamMatchmaking#LobbyEnter_t">ISteamMatchmaking::LobbyEnter_t</a></p>
+</blockquote>
+<p>Received upon attempting to enter a lobby. Lobby metadata is available to use immediately after receiving this.</p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>result</td>
+<td><a href="matchmaking.html#steammatchmakinglobbyenter">SteamMatchmakingLobbyEnter</a></td>
+<td>The result of the operation.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_matchmaking_request_lobby_list">steam_matchmaking_request_lobby_list</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamMatchmaking#RequestLobbyList">ISteamMatchmaking::RequestLobbyList</a></p>
+</blockquote>
+<p>This function gets a filtered list of relevant lobbies.</p>
+<p>There can only be one active lobby search at a time. The old request will be canceled if a new one is started. Depending on the user's connection to the Steam back-end, this call can take from 300ms to 5 seconds to complete, and has a timeout of 20 seconds.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>To filter the results you MUST call the <code>steam_matchmaking_add_request_lobby_list_*</code> functions before calling this. The filters are cleared on each call to this function.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If <a href="matchmaking.html#steam_matchmaking_add_request_lobby_list_distance_filter">steam_matchmaking_add_request_lobby_list_distance_filter</a> is not called, <code>SteamMatchmakingLobbyDistanceFilter.Default</code> will be used, which will only find matches in the same or nearby regions.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This will only return lobbies that are not full, and only lobbies that are <code>SteamMatchmakingLobbyType.Public</code> or <code>SteamMatchmakingLobbyType.Invisible</code>, and are set to joinable with <a href="matchmaking.html#steam_matchmaking_set_lobby_joinable">steam_matchmaking_set_lobby_joinable</a>.</p>
+</div>
+<p>This function operates asynchronously, which means that it does not immediately return the requested result. Instead, upon completion of the task, it will trigger the <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_matchmaking_request_lobby_list(callback)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>callback</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Script_Functions.htm">Function</a></td>
+<td>The function to call upon completion.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<p><strong>Triggers:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a></p>
+<p><strong>Steamworks Callback</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamMatchmaking#LobbyMatchList_t">ISteamMatchmaking::LobbyMatchList_t</a></p>
+</blockquote>
+<p>Result when requesting the lobby list.</p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>result</td>
+<td><a href="matchmaking.html#steammatchmakinglobbymatchlist">SteamMatchmakingLobbyMatchList</a></td>
+<td>The result of the operation.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_matchmaking_add_request_lobby_list_string_filter">steam_matchmaking_add_request_lobby_list_string_filter</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamMatchmaking#AddRequestLobbyListStringFilter">ISteamMatchmaking::AddRequestLobbyListStringFilter</a></p>
+</blockquote>
+<p>This function adds a string comparison filter to the next <a href="matchmaking.html#steam_matchmaking_request_lobby_list">steam_matchmaking_request_lobby_list</a> call.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_matchmaking_add_request_lobby_list_string_filter(key, value, comparison)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>key</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The filter key name to match. This can not be longer than the maximum lobby key length.</td>
+</tr>
+<tr>
+<td>value</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The string to match.</td>
+</tr>
+<tr>
+<td>comparison</td>
+<td><a href="matchmaking.html#steammatchmakinglobbycomparison">SteamMatchmakingLobbyComparison</a></td>
+<td>The type of comparison to make.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_matchmaking_add_request_lobby_list_numerical_filter">steam_matchmaking_add_request_lobby_list_numerical_filter</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamMatchmaking#AddRequestLobbyListNumericalFilter">ISteamMatchmaking::AddRequestLobbyListNumericalFilter</a></p>
+</blockquote>
+<p>This function adds a numerical comparison filter to the next <a href="matchmaking.html#steam_matchmaking_request_lobby_list">steam_matchmaking_request_lobby_list</a> call.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_matchmaking_add_request_lobby_list_numerical_filter(key, value, comparison)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>key</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The filter key name to match. This can not be longer than the maximum lobby key length.</td>
+</tr>
+<tr>
+<td>value</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The number to match.</td>
+</tr>
+<tr>
+<td>comparison</td>
+<td><a href="matchmaking.html#steammatchmakinglobbycomparison">SteamMatchmakingLobbyComparison</a></td>
+<td>The type of comparison to make.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_matchmaking_add_request_lobby_list_near_value_filter">steam_matchmaking_add_request_lobby_list_near_value_filter</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamMatchmaking#AddRequestLobbyListNearValueFilter">ISteamMatchmaking::AddRequestLobbyListNearValueFilter</a></p>
+</blockquote>
+<p>This function sorts the results closest to the specified value. Near filters don't actually filter out values, they just influence how the results are sorted. You can specify multiple near filters, with the first near filter influencing the most, and the last near filter influencing the least.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_matchmaking_add_request_lobby_list_near_value_filter(key, value)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>key</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The filter key name to match. This can not be longer than the maximum lobby key length.</td>
+</tr>
+<tr>
+<td>value</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The value that lobbies will be sorted on.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_matchmaking_add_request_lobby_list_distance_filter">steam_matchmaking_add_request_lobby_list_distance_filter</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamMatchmaking#AddRequestLobbyListDistanceFilter">ISteamMatchmaking::AddRequestLobbyListDistanceFilter</a></p>
+</blockquote>
+<p>This function sets the physical distance for which we should search for lobbies, this is based on the user's IP address and a IP location map on the Steam backend.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_matchmaking_add_request_lobby_list_distance_filter(distance)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>distance</td>
+<td><a href="matchmaking.html#steammatchmakinglobbydistancefilter">SteamMatchmakingLobbyDistanceFilter</a></td>
+<td>Specifies the maximum distance.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_matchmaking_add_request_lobby_list_result_count_filter">steam_matchmaking_add_request_lobby_list_result_count_filter</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamMatchmaking#AddRequestLobbyListResultCountFilter">ISteamMatchmaking::AddRequestLobbyListResultCountFilter</a></p>
+</blockquote>
+<p>This function sets the maximum number of lobbies to return. The lower the count the faster it is to download the lobby results &amp; details to the client.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_matchmaking_add_request_lobby_list_result_count_filter(max_results)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>max_results</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The maximum number of lobbies to return.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_matchmaking_get_lobby_by_index">steam_matchmaking_get_lobby_by_index</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamMatchmaking#GetLobbyByIndex">ISteamMatchmaking::GetLobbyByIndex</a></p>
+</blockquote>
+<p>This function gets the Steam ID of the lobby at the specified index after receiving the <a href="matchmaking.html#steam_matchmaking_request_lobby_list">steam_matchmaking_request_lobby_list</a> results.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This should only be called after a <a href="https://partner.steamgames.com/doc/api/ISteamMatchmaking#LobbyMatchList_t">LobbyMatchList_t</a> call result is received.</p>
+</div>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_matchmaking_get_lobby_by_index(index)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>index</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The index of the lobby to get the Steam ID of, from 0 to the number of matching lobbies.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_matchmaking_leave_lobby">steam_matchmaking_leave_lobby</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamMatchmaking#LeaveLobby">ISteamMatchmaking::LeaveLobby</a></p>
+</blockquote>
+<p>This function leaves a lobby that the user is currently in; this takes effect immediately on the client side, other users in the lobby will be notified by a <a href="https://partner.steamgames.com/doc/api/ISteamMatchmaking#LobbyChatUpdate_t">LobbyChatUpdate_t</a> callback.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_matchmaking_leave_lobby(lobby_id)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>lobby_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The Steam ID of the lobby to leave.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_matchmaking_set_lobby_owner">steam_matchmaking_set_lobby_owner</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamMatchmaking#SetLobbyOwner">ISteamMatchmaking::SetLobbyOwner</a></p>
+</blockquote>
+<p>This function changes who the lobby owner is.</p>
+<p>This can only be set by the owner of the lobby. This will trigger a <a href="https://partner.steamgames.com/doc/api/ISteamMatchmaking#LobbyDataUpdate_t">LobbyDataUpdate_t</a> for all of the users in the lobby, each user should update their local state to reflect the new owner. This is typically accomplished by displaying a crown icon next to the owner's name.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_matchmaking_set_lobby_owner(lobby_id, new_owner_id)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>lobby_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The Steam ID of the lobby where the owner change will take place.</td>
+</tr>
+<tr>
+<td>new_owner_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The Steam ID of the user that will be the new owner of the lobby; they must be in the lobby.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_matchmaking_get_lobby_owner">steam_matchmaking_get_lobby_owner</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamMatchmaking#GetLobbyOwner">ISteamMatchmaking::GetLobbyOwner</a></p>
+</blockquote>
+<p>This function returns the current lobby owner.</p>
+<p>There is always one lobby owner - if the current owner leaves, another user in the lobby will become the owner automatically. It is possible (but rare) to join a lobby just as the owner is leaving, thus entering a lobby with self as the owner.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You must be a member of the lobby to access this.</p>
+</div>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_matchmaking_get_lobby_owner(lobby_id)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>lobby_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The Steam ID of the lobby to get the owner of.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_matchmaking_get_num_lobby_members">steam_matchmaking_get_num_lobby_members</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamMatchmaking#GetNumLobbyMembers">ISteamMatchmaking::GetNumLobbyMembers</a></p>
+</blockquote>
+<p>This function gets the number of users in a lobby.</p>
+<p>This is used for iteration, after calling this then <a href="matchmaking.html#steam_matchmaking_get_lobby_member_by_index">steam_matchmaking_get_lobby_member_by_index</a> can be used to get the Steam ID of each person in the lobby. Persona information for other lobby members (name, avatar, etc.) is automatically received and accessible via the <a href="friends.html">Friends</a> module.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The current user must be in the lobby to retrieve the Steam IDs of other users in that lobby.</p>
+</div>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_matchmaking_get_num_lobby_members(lobby_id)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>lobby_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The Steam ID of the lobby to get the number of members of.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_matchmaking_get_lobby_member_by_index">steam_matchmaking_get_lobby_member_by_index</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamMatchmaking#GetLobbyMemberByIndex">ISteamMatchmaking::GetLobbyMemberByIndex</a></p>
+</blockquote>
+<p>This function gets the Steam ID of the lobby member at the given index.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You must call <a href="matchmaking.html#steam_matchmaking_get_num_lobby_members">steam_matchmaking_get_num_lobby_members</a> before calling this.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The current user must be in the lobby to retrieve the Steam IDs of other users in that lobby.</p>
+</div>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_matchmaking_get_lobby_member_by_index(lobby_id, member_index)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>lobby_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>This MUST be the same lobby used in the previous call to <a href="matchmaking.html#steam_matchmaking_get_num_lobby_members">steam_matchmaking_get_num_lobby_members</a>.</td>
+</tr>
+<tr>
+<td>member_index</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>An index between 0 and the number of lobby members.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_matchmaking_set_lobby_data">steam_matchmaking_set_lobby_data</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamMatchmaking#SetLobbyData">ISteamMatchmaking::SetLobbyData</a></p>
+</blockquote>
+<p>This function sets a key/value pair in the lobby metadata. This can be used to set the the lobby name, current map, game mode, etc.</p>
+<p>This can only be set by the owner of the lobby. Lobby members should use <a href="matchmaking.html#steam_matchmaking_set_lobby_member_data">steam_matchmaking_set_lobby_member_data</a> instead.</p>
+<p>Each user in the lobby will be receive notification of the lobby data change via a <a href="https://partner.steamgames.com/doc/api/ISteamMatchmaking#LobbyDataUpdate_t">LobbyDataUpdate_t</a> callback, and any new users joining will receive any existing data.</p>
+<p>This will only send the data if it has changed. There is a slight delay before sending the data so you can call this repeatedly to set all the data you need to and it will automatically be batched up and sent after the last sequential call.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_matchmaking_set_lobby_data(lobby_id, key, value)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>lobby_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The Steam ID of the lobby to set the metadata for.</td>
+</tr>
+<tr>
+<td>key</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The key to set the data for. This can not be longer than the maximum lobby key length.</td>
+</tr>
+<tr>
+<td>value</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The value to set. This can not be longer than the maximum chat metadata size.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_matchmaking_get_lobby_data">steam_matchmaking_get_lobby_data</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamMatchmaking#GetLobbyData">ISteamMatchmaking::GetLobbyData</a></p>
+</blockquote>
+<p>This function gets the metadata associated with the specified key from the specified lobby.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This can only get metadata from lobbies that the client knows about, either after receiving a list of lobbies from <a href="https://partner.steamgames.com/doc/api/ISteamMatchmaking#LobbyMatchList_t">LobbyMatchList_t</a>, retrieving the data with <a href="matchmaking.html#steam_matchmaking_request_lobby_data">steam_matchmaking_request_lobby_data</a> or after joining a lobby.</p>
+</div>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_matchmaking_get_lobby_data(lobby_id, key)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>lobby_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The Steam ID of the lobby to get the metadata from.</td>
+</tr>
+<tr>
+<td>key</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The key to get the value of.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_matchmaking_delete_lobby_data">steam_matchmaking_delete_lobby_data</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamMatchmaking#DeleteLobbyData">ISteamMatchmaking::DeleteLobbyData</a></p>
+</blockquote>
+<p>This function removes a metadata key from the lobby.</p>
+<p>This can only be done by the owner of the lobby.</p>
+<p>This will only send the data if the key existed. There is a slight delay before sending the data so you can call this repeatedly to set all the data you need to and it will automatically be batched up and sent after the last sequential call.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_matchmaking_delete_lobby_data(lobby_id, key)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>lobby_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The Steam ID of the lobby to delete the metadata for.</td>
+</tr>
+<tr>
+<td>key</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The key to delete the data for.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_matchmaking_get_lobby_data_count">steam_matchmaking_get_lobby_data_count</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamMatchmaking#GetLobbyDataCount">ISteamMatchmaking::GetLobbyDataCount</a></p>
+</blockquote>
+<p>This function gets the number of metadata keys set on the specified lobby.</p>
+<p>This is used for iteration, after calling this then <a href="matchmaking.html#steam_matchmaking_get_lobby_data_by_index">steam_matchmaking_get_lobby_data_by_index</a> can be used to get the key/value pair of each piece of metadata.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This can only get metadata from lobbies that the client knows about, either after receiving a list of lobbies from <a href="https://partner.steamgames.com/doc/api/ISteamMatchmaking#LobbyMatchList_t">LobbyMatchList_t</a>, retrieving the data with <a href="matchmaking.html#steam_matchmaking_request_lobby_data">steam_matchmaking_request_lobby_data</a> or after joining a lobby.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This should typically only ever be used for debugging purposes.</p>
+</div>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_matchmaking_get_lobby_data_count(lobby_id)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>lobby_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The Steam ID of the lobby to get the data count from.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_matchmaking_get_lobby_data_by_index">steam_matchmaking_get_lobby_data_by_index</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamMatchmaking#GetLobbyDataByIndex">ISteamMatchmaking::GetLobbyDataByIndex</a></p>
+</blockquote>
+<p>This function gets a lobby metadata key/value pair by index.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You must call <a href="matchmaking.html#steam_matchmaking_get_lobby_data_count">steam_matchmaking_get_lobby_data_count</a> before calling this.</p>
+</div>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_matchmaking_get_lobby_data_by_index(lobby_id, index, key_out, val_out)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>lobby_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>This MUST be the same lobby used in the previous call to <a href="matchmaking.html#steam_matchmaking_get_lobby_data_count">steam_matchmaking_get_lobby_data_count</a>.</td>
+</tr>
+<tr>
+<td>index</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>An index between 0 and the lobby data count.</td>
+</tr>
+<tr>
+<td>key_out</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Buffers/Buffers.htm">Buffer</a></td>
+<td>Returns the name of the key at the specified index by copying it into this buffer. The size typically should be the maximum lobby key length.</td>
+</tr>
+<tr>
+<td>val_out</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Buffers/Buffers.htm">Buffer</a></td>
+<td>Returns the value associated with the key at the specified index by copying it into this buffer. The size typically should be the maximum chat metadata size.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_matchmaking_set_lobby_member_data">steam_matchmaking_set_lobby_member_data</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamMatchmaking#SetLobbyMemberData">ISteamMatchmaking::SetLobbyMemberData</a></p>
+</blockquote>
+<p>This function sets per-user metadata for the local user.</p>
+<p>Each user in the lobby will be receive notification of the lobby data change via a <a href="https://partner.steamgames.com/doc/api/ISteamMatchmaking#LobbyDataUpdate_t">LobbyDataUpdate_t</a> callback, and any new users joining will receive any existing data.</p>
+<p>There is a slight delay before sending the data so you can call this repeatedly to set all the data you need to and it will automatically be batched up and sent after the last sequential call.</p>
+<p>This function operates asynchronously, which means that it does not immediately return the requested result. Instead, upon completion of the task, it will trigger the <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_matchmaking_set_lobby_member_data(lobby_id, key, value)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>lobby_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The Steam ID of the lobby to set our metadata in.</td>
+</tr>
+<tr>
+<td>key</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The key to set the data for. This can not be longer than the maximum lobby key length.</td>
+</tr>
+<tr>
+<td>value</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The value to set. This can not be longer than the maximum chat metadata size.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<p><strong>Triggers:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a></p>
+<p><strong>Steamworks Callback</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamMatchmaking#LobbyDataUpdate_t">ISteamMatchmaking::LobbyDataUpdate_t</a></p>
+</blockquote>
+<p>Triggered when the lobby metadata has changed.</p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>result</td>
+<td><a href="matchmaking.html#steammatchmakinglobbydataupdate">SteamMatchmakingLobbyDataUpdate</a></td>
+<td>The result of the operation.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_matchmaking_get_lobby_member_data">steam_matchmaking_get_lobby_member_data</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamMatchmaking#GetLobbyMemberData">ISteamMatchmaking::GetLobbyMemberData</a></p>
+</blockquote>
+<p>This function gets per-user metadata from another player in the specified lobby.</p>
+<p>This can only be queried from members in lobbies that you are currently in.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_matchmaking_get_lobby_member_data(lobby_id, member_id, key)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>lobby_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The Steam ID of the lobby that the other player is in.</td>
+</tr>
+<tr>
+<td>member_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The Steam ID of the player to get the metadata from.</td>
+</tr>
+<tr>
+<td>key</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The key to get the value of.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_matchmaking_send_lobby_chat_msg">steam_matchmaking_send_lobby_chat_msg</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamMatchmaking#SendLobbyChatMsg">ISteamMatchmaking::SendLobbyChatMsg</a></p>
+</blockquote>
+<p>This function broadcasts a chat (text or binary data) message to all of the users in the lobby.</p>
+<p>All users in the lobby (including the local user) will receive a <a href="https://partner.steamgames.com/doc/api/ISteamMatchmaking#LobbyChatMsg_t">LobbyChatMsg_t</a> callback with the message.</p>
+<p>If you're sending binary data, you should prefix a header to the message so that you know to treat it as your custom data rather than a plain old text message.</p>
+<p>For communication that needs to be arbitrated (for example having a user pick from a set of characters, and making sure only one user has picked a character), you can use the lobby owner as the decision maker. <a href="matchmaking.html#steam_matchmaking_get_lobby_owner">steam_matchmaking_get_lobby_owner</a> returns the current lobby owner. There is guaranteed to always be one and only one lobby member who is the owner. So for the choose-a-character scenario, the user who is picking a character would send the binary message 'I want to be Zoe', the lobby owner would see that message, see if it was OK, and broadcast the appropriate result (user X is Zoe).</p>
+<p>These messages are sent via the Steam back-end, and so the bandwidth available is limited. For higher-volume traffic like voice or game data, you'll want to use the <a href="https://partner.steamgames.com/doc/features/multiplayer/networking">Steam Networking API</a> (<a href="networking.html">Networking</a>).</p>
+<p>This function operates asynchronously, which means that it does not immediately return the requested result. Instead, upon completion of the task, it will trigger the <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_matchmaking_send_lobby_chat_msg(lobby_id, msg, buffer_offset=undefined, buffer_count=undefined)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>lobby_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The Steam ID of the lobby to send the chat message to.</td>
+</tr>
+<tr>
+<td>msg</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Buffers/Buffers.htm">Buffer</a></td>
+<td>The buffer holding the message data to send. This can be text or binary data, up to 4 kilobytes in size.</td>
+</tr>
+<tr>
+<td>buffer_offset</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The offset into the buffer, in bytes. Defaults to 0.</td>
+</tr>
+<tr>
+<td>buffer_count</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The size in bytes of the message data; if it is a text message then this should include the null terminator. Defaults to the buffer size minus the offset.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Triggers:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a></p>
+<p><strong>Steamworks Callback</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamMatchmaking#LobbyChatMsg_t">ISteamMatchmaking::LobbyChatMsg_t</a></p>
+</blockquote>
+<p>Triggered when chat (text or binary) message for this lobby has been received.</p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>result</td>
+<td><a href="matchmaking.html#steammatchmakinglobbychatmsg">SteamMatchmakingLobbyChatMsg</a></td>
+<td>The result of the operation.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_matchmaking_get_lobby_chat_entry">steam_matchmaking_get_lobby_chat_entry</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamMatchmaking#GetLobbyChatEntry">ISteamMatchmaking::GetLobbyChatEntry</a></p>
+</blockquote>
+<p>This function gets the data from a lobby chat message after receiving a lobby chat message callback.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_matchmaking_get_lobby_chat_entry(lobby_id, chat_id, out_buffer)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>lobby_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The Steam ID of the lobby to get the chat entry from.</td>
+</tr>
+<tr>
+<td>chat_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The index of the chat entry in the lobby.</td>
+</tr>
+<tr>
+<td>out_buffer</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Buffers/Buffers.htm">Buffer</a></td>
+<td>Returns the message data by copying it into this buffer. This buffer should be up to 4 kilobytes.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="matchmaking.html#steammatchmakinglobbychatentry">SteamMatchmakingLobbyChatEntry</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_matchmaking_add_request_lobby_list_filter_slots_available">steam_matchmaking_add_request_lobby_list_filter_slots_available</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamMatchmaking#AddRequestLobbyListFilterSlotsAvailable">ISteamMatchmaking::AddRequestLobbyListFilterSlotsAvailable</a></p>
+</blockquote>
+<p>This function filters to only return lobbies with the specified number of open slots available.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_matchmaking_add_request_lobby_list_filter_slots_available(slots_available)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>slots_available</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The number of open slots that must be open.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_matchmaking_request_lobby_data">steam_matchmaking_request_lobby_data</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamMatchmaking#RequestLobbyData">ISteamMatchmaking::RequestLobbyData</a></p>
+</blockquote>
+<p>This function refreshes all of the metadata for a lobby that you're not in right now.</p>
+<p>You will never do this for lobbies you're a member of, that data will always be up to date. You can use this to refresh lobbies that you have obtained from <a href="matchmaking.html#steam_matchmaking_request_lobby_list">steam_matchmaking_request_lobby_list</a> or that are available via friends.</p>
+<p>This function operates asynchronously, which means that it does not immediately return the requested result. Instead, upon completion of the task, it will trigger the <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_matchmaking_request_lobby_data(steam_id_lobby)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>steam_id_lobby</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The Steam ID of the lobby to refresh the metadata of.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Triggers:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a></p>
+<p><strong>Steamworks Callback</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamMatchmaking#LobbyDataUpdate_t">ISteamMatchmaking::LobbyDataUpdate_t</a></p>
+</blockquote>
+<p>Triggered when the lobby metadata has changed.</p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>result</td>
+<td><a href="matchmaking.html#steammatchmakinglobbydataupdate">SteamMatchmakingLobbyDataUpdate</a></td>
+<td>The result of the operation.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_matchmaking_set_lobby_joinable">steam_matchmaking_set_lobby_joinable</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamMatchmaking#SetLobbyJoinable">ISteamMatchmaking::SetLobbyJoinable</a></p>
+</blockquote>
+<p>This function sets whether or not a lobby is joinable by other players. This always defaults to enabled for a new lobby.</p>
+<p>If joining is disabled, then no players can join, even if they are a friend or have been invited.</p>
+<p>Lobbies with joining disabled will not be returned from a lobby search.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_matchmaking_set_lobby_joinable(steam_id_lobby, joinable)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>steam_id_lobby</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The Steam ID of the lobby.</td>
+</tr>
+<tr>
+<td>joinable</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></td>
+<td>Enable (<code>true</code>) or disable (<code>false</code>) allowing users to join this lobby.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_matchmaking_set_lobby_type">steam_matchmaking_set_lobby_type</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamMatchmaking#SetLobbyType">ISteamMatchmaking::SetLobbyType</a></p>
+</blockquote>
+<p>This function updates the type of the given lobby.</p>
+<p>This is also set when you create the lobby with <a href="matchmaking.html#steam_matchmaking_create_lobby">steam_matchmaking_create_lobby</a>.
+This can only be set by the owner of the lobby.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_matchmaking_set_lobby_type(steam_id_lobby, lobby_type)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>steam_id_lobby</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The Steam ID of the lobby to set the type of.</td>
+</tr>
+<tr>
+<td>lobby_type</td>
+<td><a href="matchmaking.html#steammatchmakinglobbytype">SteamMatchmakingLobbyType</a></td>
+<td>The new lobby type that will be set.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><code>true</code> upon success; otherwise, <code>false</code> if you're not the owner of the lobby.</p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_matchmaking_invite_user_to_lobby">steam_matchmaking_invite_user_to_lobby</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamMatchmaking#InviteUserToLobby">ISteamMatchmaking::InviteUserToLobby</a></p>
+</blockquote>
+<p>This function invites another user to the lobby.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_matchmaking_invite_user_to_lobby(steam_id_lobby, steam_id_invitee)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>steam_id_lobby</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The Steam ID of the lobby to invite the user to.</td>
+</tr>
+<tr>
+<td>steam_id_invitee</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The Steam ID of the person who will be invited.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_matchmaking_set_lobby_game_server">steam_matchmaking_set_lobby_game_server</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamMatchmaking#SetLobbyGameServer">ISteamMatchmaking::SetLobbyGameServer</a></p>
+</blockquote>
+<p>This function sets the game server associated with the lobby.</p>
+<p>This can only be set by the owner of the lobby.</p>
+<p>Either the IP/Port or the Steam ID of the game server must be valid, depending on how you want the clients to be able to connect.</p>
+<p>A <a href="https://partner.steamgames.com/doc/api/ISteamMatchmaking#LobbyGameCreated_t">LobbyGameCreated_t</a> callback will be sent to all players in the lobby, usually at this point, the users will join the specified game server.</p>
+<p>This function operates asynchronously, which means that it does not immediately return the requested result. Instead, upon completion of the task, it will trigger the <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_matchmaking_set_lobby_game_server(steam_id_lobby, ip, port, steam_id_gs)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>steam_id_lobby</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The Steam ID of the lobby to set the game server information for.</td>
+</tr>
+<tr>
+<td>ip</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>Sets the IP address of the game server, in host order, i.e 127.0.0.1 == 0x7f000001.</td>
+</tr>
+<tr>
+<td>port</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>Sets the connection port of the game server, in host order.</td>
+</tr>
+<tr>
+<td>steam_id_gs</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>Sets the Steam ID of the game server. Use a nil Steam ID if you're not setting this.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<p><strong>Triggers:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a></p>
+<p><strong>Steamworks Callback</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamMatchmaking#LobbyGameCreated_t">ISteamMatchmaking::LobbyGameCreated_t</a></p>
+</blockquote>
+<p>Triggered when a game server has been set via <a href="matchmaking.html#steam_matchmaking_set_lobby_game_server">steam_matchmaking_set_lobby_game_server</a> for all of the members of the lobby to join.</p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>result</td>
+<td><a href="matchmaking.html#steammatchmakinglobbygamecreated">SteamMatchmakingLobbyGameCreated</a></td>
+<td>The result of the operation.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_matchmaking_set_linked_lobby">steam_matchmaking_set_linked_lobby</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamMatchmaking#SetLinkedLobby">ISteamMatchmaking::SetLinkedLobby</a></p>
+</blockquote>
+<p>This function links two lobbies for the purposes of checking player compatibility using the frenemy system. The connection port of the game server, in host order, if it's set.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_matchmaking_set_linked_lobby(steam_id_lobby, steam_id_lobby_dependent)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>steam_id_lobby</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The Steam ID of the primary lobby.</td>
+</tr>
+<tr>
+<td>steam_id_lobby_dependent</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The Steam ID that will be linked to the primary lobby.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_matchmaking_get_lobby_game_server">steam_matchmaking_get_lobby_game_server</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamMatchmaking#GetLobbyGameServer">ISteamMatchmaking::GetLobbyGameServer</a></p>
+</blockquote>
+<p>This function gets the details of a game server set in a lobby.</p>
+<p>Either the IP/Port or the Steam ID of the game server has to be valid, depending on how you want the clients to be able to connect.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_matchmaking_get_lobby_game_server(steam_id_lobby)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>steam_id_lobby</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The Steam ID of the lobby to get the game server information from.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="matchmaking.html#steammatchmakinglobbygameserver">SteamMatchmakingLobbyGameServer</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steammatchmakinglobbytype">SteamMatchmakingLobbyType</h1>
+<blockquote>
+<p><strong>Steamworks Enum</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamMatchmaking#ELobbyType">ISteamMatchmaking::ELobbyType</a></p>
+</blockquote>
+<p>This enum specifies the lobby type, this is set from <a href="matchmaking.html#steam_matchmaking_create_lobby">steam_matchmaking_create_lobby</a> and <a href="matchmaking.html#steam_matchmaking_set_lobby_type">steam_matchmaking_set_lobby_type</a>.</p>
+<p>These constants are referenced by the following functions:</p>
+<ul>
+<li><a href="matchmaking.html#steam_matchmaking_create_lobby">steam_matchmaking_create_lobby</a></li>
+<li><a href="matchmaking.html#steam_matchmaking_set_lobby_type">steam_matchmaking_set_lobby_type</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Private</code></td>
+<td>The only way to join the lobby is from an invite.</td>
+</tr>
+<tr>
+<td><code>FriendsOnly</code></td>
+<td>Joinable by friends and invitees, but does not show up in the lobby list.</td>
+</tr>
+<tr>
+<td><code>Public</code></td>
+<td>Returned by search and visible to friends.</td>
+</tr>
+<tr>
+<td><code>Invisible</code></td>
+<td>Returned by search, but not visible to other friends. This is useful if you want a user in two lobbies, for example matching groups together. A user can be in only one regular lobby, and up to two invisible lobbies.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steammatchmakinglobbycomparison">SteamMatchmakingLobbyComparison</h1>
+<blockquote>
+<p><strong>Steamworks Enum</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamMatchmaking#ELobbyComparison">ISteamMatchmaking::ELobbyComparison</a></p>
+</blockquote>
+<p>This enum contains the possible lobby search filter options. These can be set with <a href="matchmaking.html#steam_matchmaking_add_request_lobby_list_string_filter">steam_matchmaking_add_request_lobby_list_string_filter</a> and <a href="matchmaking.html#steam_matchmaking_add_request_lobby_list_near_value_filter">steam_matchmaking_add_request_lobby_list_near_value_filter</a>.</p>
+<p>These constants are referenced by the following functions:</p>
+<ul>
+<li><a href="matchmaking.html#steam_matchmaking_add_request_lobby_list_string_filter">steam_matchmaking_add_request_lobby_list_string_filter</a></li>
+<li><a href="matchmaking.html#steam_matchmaking_add_request_lobby_list_numerical_filter">steam_matchmaking_add_request_lobby_list_numerical_filter</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>EqualToOrLessThan</code></td>
+<td>The lobbies value must be equal to or less than this one.</td>
+</tr>
+<tr>
+<td><code>LessThan</code></td>
+<td>The lobbies value must be less than this one.</td>
+</tr>
+<tr>
+<td><code>Equal</code></td>
+<td>The lobbies value must match this this one exactly.</td>
+</tr>
+<tr>
+<td><code>GreaterThan</code></td>
+<td>The lobbies value must be greater than this one.</td>
+</tr>
+<tr>
+<td><code>EqualToOrGreaterThan</code></td>
+<td>The lobbies value must be equal to or greater than this one.</td>
+</tr>
+<tr>
+<td><code>NotEqual</code></td>
+<td>The lobbies value must not match this this.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steammatchmakinglobbydistancefilter">SteamMatchmakingLobbyDistanceFilter</h1>
+<blockquote>
+<p><strong>Steamworks Enum</strong>: <a href="partner.steamgames.com/doc/api/ISteamMatchmaking.html#ELobbyDistanceFilter">ISteamMatchmaking::ELobbyDistanceFilter</a></p>
+</blockquote>
+<p>This enum holds the possible lobby search distance filters when requesting the lobby list. Lobby results are sorted from closest to farthest. This can be set with <a href="matchmaking.html#steam_matchmaking_add_request_lobby_list_distance_filter">steam_matchmaking_add_request_lobby_list_distance_filter</a>.</p>
+<p>These constants are referenced by the following functions:</p>
+<ul>
+<li><a href="matchmaking.html#steam_matchmaking_add_request_lobby_list_distance_filter">steam_matchmaking_add_request_lobby_list_distance_filter</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Close</code></td>
+<td>Only lobbies in the same immediate region will be returned.</td>
+</tr>
+<tr>
+<td><code>Default</code></td>
+<td>Only lobbies in the same region or nearby regions will be returned.</td>
+</tr>
+<tr>
+<td><code>Far</code></td>
+<td>For games that don't have many latency requirements, will return lobbies about half-way around the globe.</td>
+</tr>
+<tr>
+<td><code>Worldwide</code></td>
+<td>No filtering, will match lobbies as far as India to NY (not recommended, expect multiple seconds of latency between the clients).</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steammatchmakingchatmemberstatechange">SteamMatchmakingChatMemberStateChange</h1>
+<blockquote>
+<p><strong>Steamworks Enum</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamMatchmaking#EChatMemberStateChange">ISteamMatchmaking::EChatMemberStateChange</a></p>
+</blockquote>
+<p>This enum holds flags describing how a user's lobby state has changed. This is provided from <a href="https://partner.steamgames.com/doc/api/ISteamMatchmaking#LobbyChatUpdate_t">LobbyChatUpdate_t</a>.</p>
+<p>These constants are referenced by the following structs:</p>
+<ul>
+<li><a href="matchmaking.html#steammatchmakinglobbychatupdate">SteamMatchmakingLobbyChatUpdate</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Entered</code></td>
+<td>This user has joined or is joining the lobby.</td>
+</tr>
+<tr>
+<td><code>Left</code></td>
+<td>This user has left or is leaving the lobby.</td>
+</tr>
+<tr>
+<td><code>Disconnected</code></td>
+<td>User disconnected without leaving the lobby first.</td>
+</tr>
+<tr>
+<td><code>Kicked</code></td>
+<td>The user has been kicked.</td>
+</tr>
+<tr>
+<td><code>Banned</code></td>
+<td>The user has been kicked and banned.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steammatchmakingchatroomenterresponse">SteamMatchmakingChatRoomEnterResponse</h1>
+<blockquote>
+<p><strong>Steamworks Enum</strong>: <a href="https://partner.steamgames.com/doc/api/steam_api#EChatRoomEnterResponse">EChatRoomEnterResponse</a></p>
+</blockquote>
+<p>This enum holds chat room enter responses.</p>
+<p>These constants are referenced by the following structs:</p>
+<ul>
+<li><a href="matchmaking.html#steammatchmakinglobbyenter">SteamMatchmakingLobbyEnter</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Success</code></td>
+<td>Success.</td>
+</tr>
+<tr>
+<td><code>DoesntExist</code></td>
+<td>Chat doesn't exist (probably closed).</td>
+</tr>
+<tr>
+<td><code>NotAllowed</code></td>
+<td>General Denied - You don't have the permissions needed to join the chat.</td>
+</tr>
+<tr>
+<td><code>Full</code></td>
+<td>Chat room has reached its maximum size.</td>
+</tr>
+<tr>
+<td><code>Error</code></td>
+<td>Unexpected Error.</td>
+</tr>
+<tr>
+<td><code>Banned</code></td>
+<td>You are banned from this chat room and may not join.</td>
+</tr>
+<tr>
+<td><code>Limited</code></td>
+<td>Joining this chat is not allowed because you are a limited user (no value on account).</td>
+</tr>
+<tr>
+<td><code>ClanDisabled</code></td>
+<td>Attempt to join a clan chat when the clan is locked or disabled.</td>
+</tr>
+<tr>
+<td><code>CommunityBan</code></td>
+<td>Attempt to join a chat when the user has a community lock on their account.</td>
+</tr>
+<tr>
+<td><code>MemberBlockedYou</code></td>
+<td>Join failed - a user that is in the chat has blocked you from joining.</td>
+</tr>
+<tr>
+<td><code>YouBlockedMember</code></td>
+<td>Join failed - you have blocked a user that is already in the chat.</td>
+</tr>
+<tr>
+<td><code>RatelimitExceeded</code></td>
+<td>Join failed - too many join attempts in a very short period of time.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steammatchmakinglobbycreated">SteamMatchmakingLobbyCreated</h1>
+<blockquote>
+<p><strong>Steamworks Struct</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamMatchmaking#LobbyCreated_t">ISteamMatchmaking::LobbyCreated_t</a></p>
+</blockquote>
+<p>This struct holds the result of a request to create a Lobby.</p>
+<p>This struct is referenced by the following functions:</p>
+<ul>
+<li><a href="matchmaking.html#steam_matchmaking_create_lobby">steam_matchmaking_create_lobby</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>result</td>
+<td><a href="api.html#steamapiresult">SteamApiResult</a></td>
+<td>The result of the operation.</td>
+</tr>
+<tr>
+<td>lobby_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The Steam ID of the lobby that was created, 0 if failed.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steammatchmakinglobbyenter">SteamMatchmakingLobbyEnter</h1>
+<blockquote>
+<p><strong>Steamworks Struct</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamMatchmaking#LobbyEnter_t">ISteamMatchmaking::LobbyEnter_t</a></p>
+</blockquote>
+<p>This struct holds the result received upon attempting to enter a lobby.</p>
+<p>This struct is referenced by the following functions:</p>
+<ul>
+<li><a href="matchmaking.html#steam_matchmaking_join_lobby">steam_matchmaking_join_lobby</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>lobby_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The Steam ID of the lobby you have entered.</td>
+</tr>
+<tr>
+<td>chat_permissions</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>Unused - always 0.</td>
+</tr>
+<tr>
+<td>locked</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></td>
+<td>If <code>true</code>, then only invited users may join.</td>
+</tr>
+<tr>
+<td>response</td>
+<td><a href="matchmaking.html#steammatchmakingchatroomenterresponse">SteamMatchmakingChatRoomEnterResponse</a></td>
+<td>A chat room enter response value, indicating whether the user successfully joined the lobby.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steammatchmakinglobbymatchlist">SteamMatchmakingLobbyMatchList</h1>
+<blockquote>
+<p><strong>Steamworks Struct</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamMatchmaking#LobbyMatchList_t">ISteamMatchmaking::LobbyMatchList_t</a></p>
+</blockquote>
+<p>This struct holds the result of a request of the lobby list.</p>
+<p>This struct is referenced by the following functions:</p>
+<ul>
+<li><a href="matchmaking.html#steam_matchmaking_request_lobby_list">steam_matchmaking_request_lobby_list</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>lobbies_count</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>Number of lobbies that matched the search criteria and are available via <a href="matchmaking.html#steam_matchmaking_get_lobby_by_index">steam_matchmaking_get_lobby_by_index</a>.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steammatchmakinglobbydataupdate">SteamMatchmakingLobbyDataUpdate</h1>
+<blockquote>
+<p><strong>Steamworks Struct</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamMatchmaking#LobbyDataUpdate_t">ISteamMatchmaking::LobbyDataUpdate_t</a></p>
+</blockquote>
+<p>This struct holds the result when the lobby metadata has changed.</p>
+<p>This struct is referenced by the following functions:</p>
+<ul>
+<li><a href="matchmaking.html#steam_matchmaking_set_lobby_member_data">steam_matchmaking_set_lobby_member_data</a></li>
+<li><a href="matchmaking.html#steam_matchmaking_request_lobby_data">steam_matchmaking_request_lobby_data</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>lobby_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The Steam ID of the Lobby.</td>
+</tr>
+<tr>
+<td>member_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>Steam ID of either the member whose data changed, or the room itself.</td>
+</tr>
+<tr>
+<td>success</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></td>
+<td><code>true</code> if the lobby data was successfully changed, otherwise <code>false</code>.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steammatchmakinglobbychatupdate">SteamMatchmakingLobbyChatUpdate</h1>
+<blockquote>
+<p><strong>Steamworks Struct</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamMatchmaking#LobbyChatUpdate_t">ISteamMatchmaking::LobbyChatUpdate_t</a></p>
+</blockquote>
+<p>This struct holds information passed to a <code>LobbyChatUpdate_t</code> callback, which is triggered when a lobby chat room state has changed. This is usually sent when a user has joined or left the lobby.</p>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>lobby_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The Steam ID of the lobby.</td>
+</tr>
+<tr>
+<td>user_changed_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The user whose status in the lobby just changed - can be recipient.</td>
+</tr>
+<tr>
+<td>making_change_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>Chat member who made the change. This can be different from <code>user_changed_id</code> if kicking, muting, etc. For example, if one user kicks another from the lobby, this will be set to the id of the user who initiated the kick.</td>
+</tr>
+<tr>
+<td>chat_member_state_change</td>
+<td><a href="matchmaking.html#steammatchmakingchatmemberstatechange">SteamMatchmakingChatMemberStateChange</a></td>
+<td>Bitfield of chat member state change values.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steammatchmakinglobbychatmsg">SteamMatchmakingLobbyChatMsg</h1>
+<blockquote>
+<p><strong>Steamworks Struct</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamMatchmaking#LobbyChatMsg_t">ISteamMatchmaking::LobbyChatMsg_t</a></p>
+</blockquote>
+<p>This struct holds the result when chat (text or binary) message for a lobby has been received.</p>
+<p>This struct is referenced by the following functions:</p>
+<ul>
+<li><a href="matchmaking.html#steam_matchmaking_send_lobby_chat_msg">steam_matchmaking_send_lobby_chat_msg</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>lobby_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The Steam ID of the lobby this message was sent in.</td>
+</tr>
+<tr>
+<td>sender_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>Steam ID of the user who sent this message. Note that it could have been the local user.</td>
+</tr>
+<tr>
+<td>chat_entry_type</td>
+<td><a href="friends.html#steamfriendschatentrytype">SteamFriendsChatEntryType</a></td>
+<td>Type of message received.</td>
+</tr>
+<tr>
+<td>chat_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The index of the chat entry to use with <a href="matchmaking.html#steam_matchmaking_get_lobby_chat_entry">steam_matchmaking_get_lobby_chat_entry</a>, this is not valid outside of the scope of the callback and should never be stored.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steammatchmakinglobbygamecreated">SteamMatchmakingLobbyGameCreated</h1>
+<blockquote>
+<p><strong>Steamworks Struct</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamMatchmaking#LobbyGameCreated_t">ISteamMatchmaking::LobbyGameCreated_t</a></p>
+</blockquote>
+<p>This struct holds the result when a game server has been set via <a href="matchmaking.html#steam_matchmaking_set_lobby_game_server">steam_matchmaking_set_lobby_game_server</a> for all of the members of the lobby to join.</p>
+<p>This struct is referenced by the following functions:</p>
+<ul>
+<li><a href="matchmaking.html#steam_matchmaking_set_lobby_game_server">steam_matchmaking_set_lobby_game_server</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>lobby_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The lobby that set the game server.</td>
+</tr>
+<tr>
+<td>server_ip</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The IP address of the game server in host order, i.e 127.0.0.1 == 0x7f000001, if it's set.</td>
+</tr>
+<tr>
+<td>server_port</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The connection port of the game server, in host order, if it's set.</td>
+</tr>
+<tr>
+<td>game_server_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The Steam ID of the game server, if it's set.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steammatchmakinglobbyinvite">SteamMatchmakingLobbyInvite</h1>
+<blockquote>
+<p><strong>Steamworks Struct</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamMatchmaking#LobbyInvite_t">ISteamMatchmaking::LobbyInvite_t</a></p>
+</blockquote>
+<p>This struct holds information passed in a <code>LobbyInvite_t</code> callback.</p>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>inviter_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>Steam ID of the person that sent the invite.</td>
+</tr>
+<tr>
+<td>lobby_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>Steam ID of the lobby we're invited to.</td>
+</tr>
+<tr>
+<td>game_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>Game ID of the lobby we're invited to.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steammatchmakinglobbychatentry">SteamMatchmakingLobbyChatEntry</h1>
+<blockquote>
+<p><strong>Steamworks Struct</strong>: N / A</p>
+</blockquote>
+<p>This struct holds information returned by <a href="matchmaking.html#steam_matchmaking_get_lobby_chat_entry">steam_matchmaking_get_lobby_chat_entry</a>.</p>
+<p>This struct is referenced by the following functions:</p>
+<ul>
+<li><a href="matchmaking.html#steam_matchmaking_get_lobby_chat_entry">steam_matchmaking_get_lobby_chat_entry</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>bytes</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The number of bytes copied into the buffer.</td>
+</tr>
+<tr>
+<td>sender_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The Steam ID of the user who sent this message.</td>
+</tr>
+<tr>
+<td>entry_type</td>
+<td><a href="friends.html#steamfriendschatentrytype">SteamFriendsChatEntryType</a></td>
+<td>This will always be <code>SteamFriendsChatEntryType.ChatMsg</code>.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steammatchmakinglobbygameserver">SteamMatchmakingLobbyGameServer</h1>
+<blockquote>
+<p><strong>Steamworks Struct</strong>: N / A</p>
+</blockquote>
+<p>This struct holds information returned by <a href="matchmaking.html#steam_matchmaking_get_lobby_game_server">steam_matchmaking_get_lobby_game_server</a>.</p>
+<p>This struct is referenced by the following functions:</p>
+<ul>
+<li><a href="matchmaking.html#steam_matchmaking_get_lobby_game_server">steam_matchmaking_get_lobby_game_server</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ip</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The IP address of the game server, in host order, i.e 127.0.0.1 == 0x7f000001, if it's set.</td>
+</tr>
+<tr>
+<td>port</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The connection port of the game server, in host order, if it's set.</td>
+</tr>
+<tr>
+<td>steam_id_gs</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The Steam ID of the game server, if it's set.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="inventory.html" class="btn btn-neutral float-left" title="Inventory"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="music.html" class="btn btn-neutral float-right" title="Music">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+      <p><p align="center">GameMaker 2026</p></p>
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/YoYoGames/GMEXT-Steamworks" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="inventory.html" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="music.html" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = ".";</script>
+    <script src="js/theme_extra.js"></script>
+    <script src="js/theme.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/gml.min.js"></script>
+      <script src="assets/js/gmext_script.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

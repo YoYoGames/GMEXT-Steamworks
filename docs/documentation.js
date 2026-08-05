@@ -129,7 +129,7 @@
  *
  * This function activates the [Steam overlay](https://partner.steamgames.com/doc/features/overlay) to the Steam store page for the provided app.
  * 
- * Using `SteamApiAppIdInvalid` brings the user to the front page of the Steam store. (See: ${constant.macros})
+ * Using `STEAM_API_APP_ID_INVALID` brings the user to the front page of the Steam store. (See: ${constant.macros})
  *
  * @param {Real} app_id The app ID to show the store page of.
  * @param {Enum.SteamFriendsOverlayToStoreFlag} flag Flags to modify the behaviour when the page opens.
@@ -218,7 +218,7 @@
  * 
  * You can be following people that are not your friends. Following allows you to receive updates when the person does things like post a new piece of content to the Steam Workshop.
  * 
- * [[Note: This returns up to `SteamFriendsEnumerateFollowersMax` users at once. If the current user is following more than that, you will need to call this repeatedly, with `start_index` set to the total number of followers that you have received so far.]]
+ * [[Note: This returns up to `STEAM_FRIENDS_ENUMERATE_FOLLOWERS_MAX` users at once. If the current user is following more than that, you will need to call this repeatedly, with `start_index` set to the total number of followers that you have received so far.]]
  *
  * @param {Real} start_index The index to start receiving followers from. This should be 0 on the initial call.
  * @param {Function} callback The function to call upon completion.
@@ -832,7 +832,7 @@
  * If the game is already running for that user, then they will receive a [GameRichPresenceJoinRequested_t](https://partner.steamgames.com/doc/api/ISteamFriends#GameRichPresenceJoinRequested_t) callback with the connect string.
  *
  * @param {Real} steam_id_friend The Steam ID of the friend to invite.
- * @param {String} connect_string A string that lets the friend know how to join the game (i.e. the game server IP). This can not be longer than specified in `SteamFriendsMaxRichPresenceValueLength`.
+ * @param {String} connect_string A string that lets the friend know how to join the game (i.e. the game server IP). This can not be longer than specified in `STEAM_FRIENDS_MAX_RICH_PRESENCE_VALUE_LENGTH`.
  * @returns {Bool}
  * 
  * @event callback
@@ -999,14 +999,14 @@
  *
  * This function sets a Rich Presence key/value for the current user that is automatically shared to all friends playing the same game.
  * 
- * Each user can have up to 20 keys set as defined by `SteamFriendsMaxRichPresenceKeys`.
+ * Each user can have up to 20 keys set as defined by `STEAM_FRIENDS_MAX_RICH_PRESENCE_KEYS`.
  * 
  * You can clear all of the keys for the current user with ${function.steam_friends_clear_rich_presence}.
  * 
  * To get rich presence keys for friends see: ${function.steam_friends_get_friend_rich_presence}.
  *
- * @param {String} key The rich presence 'key' to set. This can not be longer than specified in `SteamFriendsMaxRichPresenceKeyLength`.
- * @param {String} value The rich presence 'value' to associate with `key`. This can not be longer than specified in `SteamFriendsMaxRichPresenceKeyLength`. If this is set to an empty string (`""`) then the key is removed if it's set.
+ * @param {String} key The rich presence 'key' to set. This can not be longer than specified in `STEAM_FRIENDS_MAX_RICH_PRESENCE_KEY_LENGTH`.
+ * @param {String} value The rich presence 'value' to associate with `key`. This can not be longer than specified in `STEAM_FRIENDS_MAX_RICH_PRESENCE_KEY_LENGTH`. If this is set to an empty string (`""`) then the key is removed if it's set.
  * @returns {Bool} `true` if the rich presence was set successfully, `false` if key or value was longer than its respective max length, the key had a length of 0, or the user has reached the maximum number of rich presence keys
  * @function_end
  */
@@ -1551,7 +1551,7 @@
  * @param {String} thumbnail_filename The absolute file path to an optional thumbnail image. This must be 200px wide, as described by [k_ScreenshotThumbWidth](https://partner.steamgames.com/doc/api/ISteamScreenshots#k_ScreenshotThumbWidth) and the same aspect ratio. Pass an empty string `""` if there is no thumbnail, one will be created automatically.
  * @param {Real} width The width of the screenshot.
  * @param {Real} height The height of the screenshot.
- * @returns {Real} Screenshot handle, or `SteamScreenshotsInvalidScreenshotHandle` if the file could not be saved (See: ${constant.macros})
+ * @returns {Real} Screenshot handle, or `STEAM_SCREENSHOTS_INVALID_SCREENSHOT_HANDLE` if the file could not be saved (See: ${constant.macros})
  * 
  * @event callback
  * @desc > **Steamworks Callback**: [ISteamScreenshots::ScreenshotReady_t](https://partner.steamgames.com/doc/api/ISteamScreenshots#ScreenshotReady_t)
@@ -1572,7 +1572,7 @@
  * @param {Enum.SteamScreenshotsVrScreenshotType} type The type of VR screenshot that this is.
  * @param {String} filename The absolute file path to a 2D JPG, PNG, or TGA version of the screenshot for the library view.
  * @param {String} vr_filename The absolute file path to the VR screenshot, this should be the same type of screenshot specified in `type`.
- * @returns {Real} Screenshot handle, or `SteamScreenshotsInvalidScreenshotHandle` if the file could not be saved (See: ${constant.macros})
+ * @returns {Real} Screenshot handle, or `STEAM_SCREENSHOTS_INVALID_SCREENSHOT_HANDLE` if the file could not be saved (See: ${constant.macros})
  * 
  * @event callback
  * @desc > **Steamworks Callback**: [ISteamScreenshots::ScreenshotReady_t](https://partner.steamgames.com/doc/api/ISteamScreenshots#ScreenshotReady_t)
@@ -1630,7 +1630,7 @@
  * You can get the handle to tag the screenshot once it has been successfully saved from the [ScreenshotReady_t](https://partner.steamgames.com/doc/api/ISteamScreenshots#ScreenshotReady_t) callback or via the ${function.steam_screenshots_write_screenshot}, ${function.steam_screenshots_add_screenshot_to_library}, ${function.steam_screenshots_add_vr_screenshot_to_library} calls.
  *
  * @param {Real} screenshot The handle to the screenshot to tag.
- * @param {String} location The location in the game where this screenshot was taken. This can not be longer than `SteamScreenshotsUfsTagValueMax`.
+ * @param {String} location The location in the game where this screenshot was taken. This can not be longer than `STEAM_SCREENSHOTS_UFS_TAG_VALUE_MAX`.
  * @returns {Bool} `true` if the location was successfully added to the screenshot. `false` if the screenshot handle was invalid, or the location is invalid or too long.
  * @function_end
  */
@@ -1641,7 +1641,7 @@
  *
  * This function tags a published file as being visible in the screenshot.
  * 
- * You can tag up to the value declared by `SteamScreenshotsMaxTaggedUsers` ([k_nScreenshotMaxTaggedPublishedFiles](https://partner.steamgames.com/doc/api/ISteamScreenshots#k_nScreenshotMaxTaggedPublishedFiles)) in a single screenshot. Tagging more items than that will just be discarded.
+ * You can tag up to the value declared by `STEAM_SCREENSHOTS_MAX_TAGGED_USERS` ([k_nScreenshotMaxTaggedPublishedFiles](https://partner.steamgames.com/doc/api/ISteamScreenshots#k_nScreenshotMaxTaggedPublishedFiles)) in a single screenshot. Tagging more items than that will just be discarded.
  * 
  * This function has a built-in delay before saving the tag which allows you to call it repeatedly for each item.
  * 
@@ -1659,7 +1659,7 @@
  *
  * This function tags a Steam user as being visible in the screenshot.
  * 
- * You can tag up to the value declared by `SteamScreenshotsMaxTaggedUsers` ([k_nScreenshotMaxTaggedUsers](https://partner.steamgames.com/doc/api/ISteamScreenshots#k_nScreenshotMaxTaggedUsers)) in a single screenshot. Tagging more items than that will just be discarded.
+ * You can tag up to the value declared by `STEAM_SCREENSHOTS_MAX_TAGGED_USERS` ([k_nScreenshotMaxTaggedUsers](https://partner.steamgames.com/doc/api/ISteamScreenshots#k_nScreenshotMaxTaggedUsers)) in a single screenshot. Tagging more items than that will just be discarded.
  * 
  * This function has a built-in delay before saving the tag which allows you to call it repeatedly for each item.
  * 
@@ -1708,7 +1708,7 @@
  * @param {Real} height The height of the screenshot in pixels.
  * @param {Real} [buffer_offset] The offset into the buffer, in bytes. Defaults to 0.
  * @param {Real} [buffer_count] The number of bytes to write. Defaults to the buffer size minus the offset.
- * @returns {Real} Screenshot handle, or `SteamScreenshotsInvalidScreenshotHandle` if the file could not be saved
+ * @returns {Real} Screenshot handle, or `STEAM_SCREENSHOTS_INVALID_SCREENSHOT_HANDLE` if the file could not be saved
  * 
  * @event callback
  * @desc > **Steamworks Callback**: [ISteamScreenshots::ScreenshotReady_t](https://partner.steamgames.com/doc/api/ISteamScreenshots#ScreenshotReady_t)
@@ -1775,7 +1775,7 @@
  * 
  * When you are using Steam authentication system this call is never required, the auth system automatically sets the appropriate rich presence.
  *
- * @param {Real} steam_id_game_server This should be `SteamIDNonSteamGS` ([k_steamIDNonSteamGS](https://partner.steamgames.com/doc/api/steam_api#k_steamIDNonSteamGS)) if you're setting the IP/Port, otherwise it should be `SteamIDNil` ([k_steamIDNil](https://partner.steamgames.com/doc/api/steam_api#k_steamIDNil)) if you're clearing this.
+ * @param {Real} steam_id_game_server This should be `STEAM_ID_NON_STEAM_GS` ([k_steamIDNonSteamGS](https://partner.steamgames.com/doc/api/steam_api#k_steamIDNonSteamGS)) if you're setting the IP/Port, otherwise it should be `STEAM_ID_NIL` ([k_steamIDNil](https://partner.steamgames.com/doc/api/steam_api#k_steamIDNil)) if you're clearing this.
  * @param {Real} server_ip The IP of the game server in host order, i.e 127.0.0.1 == 0x7f000001.
  * @param {Real} server_port The connection port of the game server, in host order.
  * @function_end
@@ -3202,7 +3202,7 @@
  *
  * This function queries for all matching UGC. You can use this to list all of the available UGC for your app.
  * 
- * This will return up to 50 results as declared by `SteamUgcNumResultsPerPage`. You can make subsequent calls to this function, increasing the `page` each time to get the next set of results.
+ * This will return up to 50 results as declared by `STEAM_UGC_NUM_RESULTS_PER_PAGE`. You can make subsequent calls to this function, increasing the `page` each time to get the next set of results.
  * 
  * [[Note: Either `consumer_app_id` or `creator_app_id` must have a valid app ID!]]
  * 
@@ -3242,7 +3242,7 @@
  *
  * This function queries UGC associated with a user. You can use this to list the UGC the user is subscribed to amongst other things.
  * 
- * This will return up to 50 results as declared by `SteamUgcNumResultsPerPage`. You can make subsequent calls to this function, increasing the `page` each time to get the next set of results.
+ * This will return up to 50 results as declared by `STEAM_UGC_NUM_RESULTS_PER_PAGE`. You can make subsequent calls to this function, increasing the `page` each time to get the next set of results.
  * 
  * [[Note: Either `consumer_app_id` or `creator_app_id` must have a valid app ID!]]
  * 
@@ -3818,7 +3818,7 @@
  *
  * This function sets a new description for an item.
  * 
- * The description must be limited to the length defined by `SteamRemoteStoragePublishedDocumentDescriptionMax`.
+ * The description must be limited to the length defined by `STEAM_REMOTE_STORAGE_PUBLISHED_DOCUMENT_DESCRIPTION_MAX`.
  * 
  * You can set what language this is for by using ${function.steam_ugc_set_item_update_language}, if no language is set then "english" is assumed.
  * 
@@ -3836,7 +3836,7 @@
  *
  * This function sets arbitrary metadata for an item. This metadata can be returned from queries without having to download and install the actual content.
  * 
- * The metadata must be limited to the size defined by `SteamUgcDeveloperMetadataMax`.
+ * The metadata must be limited to the size defined by `STEAM_UGC_DEVELOPER_METADATA_MAX`.
  * 
  * [[Note:  This must be set before you submit the UGC update handle using ${function.steam_ugc_submit_item_update}.]]
  *
@@ -3882,7 +3882,7 @@
  *
  * This function sets a new title for an item.
  * 
- * The title must be limited to the size defined by `SteamRemoteStoragePublishedDocumentTitleMax`.
+ * The title must be limited to the size defined by `STEAM_REMOTE_STORAGE_PUBLISHED_DOCUMENT_TITLE_MAX`.
  * 
  * You can set what language this is for by using ${function.steam_ugc_set_item_update_language}, if no language is set then "english" is assumed.
  * 
@@ -5893,7 +5893,7 @@
  * @param {String} title A title-provided localised string in the UI language.
  * @param {String} description A title-provided localised string in the UI language.
  * @param {String} icon The name of the icon to display; this can be a title-uploaded icon or one of the provided icons whose name begins with `"steam_"`.
- * @param {Real} priority The priority used to decide which icons to show in crowded areas; higher priority events are shown more prominently, and the value must be between 0 and `SteamTimelineMaxTimelinePriority`.
+ * @param {Real} priority The priority used to decide which icons to show in crowded areas; higher priority events are shown more prominently, and the value must be between 0 and `STEAM_TIMELINE_MAX_TIMELINE_PRIORITY`.
  * @param {Real} start_offset_seconds The number of seconds before the current time that the event started; negative values indicate the past, which is useful for events whose significance only becomes apparent later.
  * @param {Enum.SteamTimelineEventClipPriority} possible_clip Lets the game flag the event as a suggested video clip.
  * @returns {Real} Timeline event handle that can be used with ${function.steam_timeline_remove_timeline_event} or the overlay functions ${function.steam_timeline_does_event_recording_exist} and ${function.steam_timeline_open_overlay_to_timeline_event}.
@@ -5909,7 +5909,7 @@
  * @param {String} title A title-provided localised string in the UI language.
  * @param {String} description A title-provided localised string in the UI language.
  * @param {String} icon The name of the icon to display; this can be a title-uploaded icon or one of the provided icons whose name begins with `"steam_"`.
- * @param {Real} priority The priority used to decide which icons to show in crowded areas; higher priority events are shown more prominently, and the value must be between 0 and `SteamTimelineMaxTimelinePriority`.
+ * @param {Real} priority The priority used to decide which icons to show in crowded areas; higher priority events are shown more prominently, and the value must be between 0 and `STEAM_TIMELINE_MAX_TIMELINE_PRIORITY`.
  * @param {Real} start_offset_seconds The number of seconds before the current time that the event started; negative values indicate the past, which is useful for retroactively significant events.
  * @param {Real} duration_seconds The length of the event in seconds; use 0 for instantaneous events.
  * @param {Enum.SteamTimelineEventClipPriority} possible_clip Lets the game flag the event as a suggested video clip.
@@ -5928,7 +5928,7 @@
  * @param {String} title A title-provided localised string in the UI language.
  * @param {String} description A title-provided localised string in the UI language.
  * @param {String} icon The name of the icon to display; this can be a title-uploaded icon or one of the provided icons whose name begins with `"steam_"`.
- * @param {Real} priority The priority used to decide which icons to show in crowded areas; higher priority events are shown more prominently, and the value must be between 0 and `SteamTimelineMaxTimelinePriority`.
+ * @param {Real} priority The priority used to decide which icons to show in crowded areas; higher priority events are shown more prominently, and the value must be between 0 and `STEAM_TIMELINE_MAX_TIMELINE_PRIORITY`.
  * @param {Real} start_offset_seconds The number of seconds before the current time that the event started; negative values indicate the past, which is useful for retroactively significant events.
  * @param {Enum.SteamTimelineEventClipPriority} possible_clip Lets the game flag the event as a suggested video clip.
  * @returns {Real} 
@@ -5945,7 +5945,7 @@
  * @param {String} title A title-provided localised string in the UI language.
  * @param {String} description A title-provided localised string in the UI language.
  * @param {String} icon The name of the icon to display; this can be a title-uploaded icon or one of the provided icons whose name begins with `"steam_"`.
- * @param {Real} priority The priority used to decide which icons to show in crowded areas; higher priority events are shown more prominently, and the value must be between 0 and `SteamTimelineMaxTimelinePriority`.
+ * @param {Real} priority The priority used to decide which icons to show in crowded areas; higher priority events are shown more prominently, and the value must be between 0 and `STEAM_TIMELINE_MAX_TIMELINE_PRIORITY`.
  * @param {Enum.SteamTimelineEventClipPriority} possible_clip Lets the game flag the event as a suggested video clip.
  * @function_end 
  */
@@ -6050,7 +6050,7 @@
  * @param {String} tag_name A title-provided localized string in the language returned by ${function.steam_utils_get_steam_ui_language}.
  * @param {String} tag_icon The name of the icon to show when the tag is displayed in the UI; this can be a title-uploaded icon or one of the provided icons whose name begins with `"steam_"`.
  * @param {String} tag_group A title-provided localized string; tags within the same group will be shown together in the UI.
- * @param {Real} priority The priority used to decide which icons to show; tags with larger priority values are displayed more prominently, and the value must be between 0 and `SteamTimelineMaxTimelinePriority`.
+ * @param {Real} priority The priority used to decide which icons to show; tags with larger priority values are displayed more prominently, and the value must be between 0 and `STEAM_TIMELINE_MAX_TIMELINE_PRIORITY`.
  * @function_end
  */
 
@@ -6062,7 +6062,7 @@
  *
  * @param {String} attribute_group A title-provided localised string in the language returned by ${function.steam_utils_get_steam_ui_language}.
  * @param {String} attribute_value A title-provided localised string in the language returned by ${function.steam_utils_get_steam_ui_language}.
- * @param {Real} priority The priority used to decide which attributes to show; attributes with larger priority values are displayed more prominently, and the value must be between 0 and `SteamTimelineMaxTimelinePriority`.
+ * @param {Real} priority The priority used to decide which attributes to show; attributes with larger priority values are displayed more prominently, and the value must be between 0 and `STEAM_TIMELINE_MAX_TIMELINE_PRIORITY`.
  * @function_end
  */
 
@@ -6591,7 +6591,7 @@
  *
  * This function transfers items between stacks within a user's inventory.
  * 
- * This can be used to stack, split, and move items. The source and destination items must have the same itemdef ID. To move items onto a destination stack specify the source, the quantity to move, and the destination item ID. To split an existing stack, pass `SteamInventoryItemInstanceIdInvalid` into `item_instance_id_dest`. A new item stack will be generated with the requested quantity.
+ * This can be used to stack, split, and move items. The source and destination items must have the same itemdef ID. To move items onto a destination stack specify the source, the quantity to move, and the destination item ID. To split an existing stack, pass `STEAM_INVENTORY_ITEM_INSTANCE_ID_INVALID` into `item_instance_id_dest`. A new item stack will be generated with the requested quantity.
  * 
  * [[Note: Tradability/marketability restrictions are copied along with transferred items. The destination stack receives the latest tradability/marketability date of any item in its composition.]]
  * 
@@ -7059,7 +7059,7 @@
  * To write data out to this stream you can use ${function.steam_remote_storage_file_write_stream_write_chunk}, and then to close or cancel you use ${function.steam_remote_storage_file_write_stream_close} and ${function.steam_remote_storage_file_write_stream_cancel} respectively.
  *
  * @param {String} file_name The name of the file to write to.
- * @returns {Real} The file write stream handle, or `SteamRemoteStorageUgcFileStreamHandleInvalid` in case the stream couldn't be opened
+ * @returns {Real} The file write stream handle, or `STEAM_REMOTE_STORAGE_UGC_FILE_STREAM_HANDLE_INVALID` in case the stream couldn't be opened
  * @function_end 
  */
 
@@ -8276,7 +8276,7 @@
  * 
  * 
  * @param {Real} conn The connection to assign to the poll group.
- * @param {Real} poll_group The target poll group; pass an invalid handle (`SteamNetworkingPollGroup_Invalid`) to remove the connection from any group.
+ * @param {Real} poll_group The target poll group; pass an invalid handle (`STEAM_NETWORKING_POLL_GROUP_INVALID`) to remove the connection from any group.
  * @returns {Bool} 
  * @function_end 
  */
@@ -8289,11 +8289,11 @@
  * 
  * The function returns an array of structs, where each struct contains an offset into the buffer and a size.
  * 
- * You can pass `SteamNetworkingPollGroup_Invalid` to remove a connection from its current poll group without adding it to a new poll group.
+ * You can pass `STEAM_NETWORKING_POLL_GROUP_INVALID` to remove a connection from its current poll group without adding it to a new poll group.
  * 
  * If there are received messages currently pending on the connection, an attempt is made to add them to the queue of messages for the poll group in approximately the order that would have applied if the connection was already part of the poll group at the time that the messages were received.
  * 
- * Returns `false` if the connection handle is invalid, or if the poll group handle is invalid (and not `SteamNetworkingPollGroup_Invalid`).
+ * Returns `false` if the connection handle is invalid, or if the poll group handle is invalid (and not `STEAM_NETWORKING_POLL_GROUP_INVALID`).
  * 
  * @param {Real} poll_group The poll group to read messages from.
  * @param {Buffer} out_data The buffer into which the received message data will be written.
@@ -11958,7 +11958,7 @@
  * @member UnreliableNoNagle Send a message unreliably, bypassing Nagle's algorithm for this message and any messages currently pending on the Nagle timer.
  * @member NoDelay If the message cannot be sent very soon (because the connection is still doing some initial handshaking, route negotiations, etc), then just drop it. This is only applicable for unreliable messages. Using this flag on reliable messages is invalid.
  * @member UnreliableNoDelay Send an unreliable message, but if it cannot be sent relatively quickly, just drop it instead of queuing it. This is useful for messages that are not useful if they are excessively delayed, such as voice data.
- * @member Reliable Reliable message send. Can send up to `SteamNetworkingSocketsMaxMessageSizeSend` bytes in a single message. Does fragmentation/re-assembly of messages under the hood, as well as a sliding window for efficient sends of large chunks of data.
+ * @member Reliable Reliable message send. Can send up to `STEAM_NETWORKING_SOCKETS_MAX_MESSAGE_SIZE_SEND` bytes in a single message. Does fragmentation/re-assembly of messages under the hood, as well as a sliding window for efficient sends of large chunks of data.
  * @member ReliableNoNagle Send a message reliably, but bypass Nagle's algorithm.
  * @member UseCurrentThread UseCurrentThread.
  * @member AutoRestartBrokenSession AutoRestartBrokenSession.
@@ -12045,98 +12045,98 @@
 
 /**
  * @const macros
- * @member SteamApiBreakpadInvalidHandle (value: '0') Breakpad invalid handle.
- * @member SteamApiGameExtraInfoMax (value: '64') The maximum size (in UTF-8 bytes, including the null terminator) of the `extra_info` parameter of ${function.steam_user_track_app_usage_event}.
- * @member SteamApiSaltSize (value: '8') Only used internally in Steam.
- * @member SteamApiGidNil (value: '-1') Only used internally in Steam.
- * @member SteamApiAuthTicketInvalid (value: '0') An invalid user authentication ticket.
- * @member SteamApiJobIdNil (value: '-1') Only used internally in Steam.
- * @member SteamApiTxnIdNil (value: '-1') Only used internally in Steam.
- * @member SteamApiTxnIdUnknown (value: '0') Only used internally in Steam.
- * @member SteamApiApiCallInvalid (value: '0x0') An Invalid Steam API Call handle.
- * @member SteamApiAppIdInvalid (value: '0x0') An Invalid App ID.
- * @member SteamApiBundleIdInvalid (value: '0') Only used internally in Steam.
- * @member SteamApiCellIdInvalid (value: '0xFFFFFFFF') Only used internally in Steam.
- * @member SteamApiDepotIdInvalid (value: '0x0') An Invalid Depot ID.
- * @member SteamApiAssetClassIdInvalid (value: '0x0') Only used internally in Steam.
- * @member SteamApiManifestIdInvalid (value: '0') Only used internally in Steam.
- * @member SteamApiSteamAccountIdMask (value: '0xFFFFFFFF') Used in [CSteamID](https://partner.steamgames.com/doc/api/steam_api#CSteamID) to mask out the [AccountID_t](https://partner.steamgames.com/doc/api/steam_api#AccountID_t).
- * @member SteamApiSteamAccountInstanceMask (value: '0x000FFFFF') Used in [CSteamID](https://partner.steamgames.com/doc/api/steam_api#CSteamID) to mask out the account instance.
- * @member SteamApiSteamUserConsoleInstance (value: '2') Used by [CSteamID](https://partner.steamgames.com/doc/api/steam_api#CSteamID) to identify users logged in from a console.
- * @member SteamApiSteamUserDesktopInstance (value: '1') Used by [CSteamID](https://partner.steamgames.com/doc/api/steam_api#CSteamID) to identify users logged in from the desktop client.
- * @member SteamApiSteamUserWebInstance (value: '4') Used by [CSteamID](https://partner.steamgames.com/doc/api/steam_api#CSteamID) to identify users logged in from the web.
- * @member SteamApiPackageIdFreeSub (value: '0x0') Only used internally in Steam.
- * @member SteamApiPackageIdInvalid (value: '0xFFFFFFFF') Only used internally in Steam.
- * @member SteamApiPartnerIdInvalid (value: '0') Only used internally in Steam.
- * @member SteamApiPhysicalItemIdInvalid (value: '0x0') Only used internally in Steam.
- * @member SteamApiQueryPortError (value: '0xFFFE') We were unable to get the query port for this server.
- * @member SteamApiQueryPortNotInitialized (value: '0xFFFF') We haven't asked the GS for this query port's actual value yet.
- * @member SteamFriendsMaxFriendsGroupName (value: '64') The maximum length that a friends group name can be (not including the null-terminator!)
- * @member SteamFriendsMaxRichPresenceKeyLength (value: '64') The maximum length that a rich presence key can be.
- * @member SteamFriendsMaxRichPresenceKeys (value: '20')The maximum amount of rich presence keys that can be set.
- * @member SteamFriendsMaxRichPresenceValueLength (value: '256') The maximum length that a rich presence value can be.
- * @member SteamFriendsPersonaNameMax (value: '128') Maximum number of UTF-8 bytes in a users persona (display) name.
- * @member SteamFriendsEnumerateFollowersMax (value: '50') The maximum number of followers that will be returned in a [FriendsEnumerateFollowingList_t](https://partner.steamgames.com/doc/api/ISteamFriends#FriendsEnumerateFollowingList_t) call result at once.
- * @member SteamFriendsFriendsGroupLimit (value: '100') Deprecated - Unused.
- * @member SteamFriendsChatMetadataMax (value: '8192') Maximum size in bytes that chat room, lobby, or chat/lobby member metadata may have.
- * @member SteamFriendsPersonaNameMaxUtf16 (value: '32') The maximum amount of UTF-16 characters in a users persona (display) name.
- * @member SteamFriendsGroupIdInvalid (value: '-1') Invalid friends group identifier.
- * @member SteamFriendsInterfaceVersion (value: '"SteamFriends015"') Steam Friends interface version.
- * @member SteamAppsAppProofOfPurchaseKeyMax (value: '240') Only used internally in Steam.
- * @member SteamAppsInterfaceVersion (value: '"STEAMAPPS_INTERFACE_VERSION008"') Steam Apps interface version.
- * @member SteamScreenshotsInvalidScreenshotHandle (value: '0') An invalid screenshot handle, this is returned when writing or adding a screenshot has failed.
- * @member SteamScreenshotsUfsTagTypeMax (value: '255') Unused.
- * @member SteamScreenshotsUfsTagValueMax (value: '255') The maximum length in bytes of a location metadata string set on a screenshot using ${function.steam_screenshots_set_location}.
- * @member SteamScreenshotsMaxTaggedPublishedFiles (value: '32') The maximum number of workshop items that can be tagged in a screenshot using ${function.steam_screenshots_tag_published_file}.
- * @member SteamScreenshotsMaxTaggedUsers (value: '32') The maximum number of users that can be tagged in a screenshot using ${function.steam_screenshots_tag_user}.
- * @member SteamScreenshotsThumbWidth (value: '200') Required width of a thumbnail provided to ${function.steam_screenshots_add_screenshot_to_library}. If you do not provide a thumbnail then one will be generated automatically.
- * @member SteamScreenshotsInterfaceVersion (value: '"STEAMSCREENSHOTS_INTERFACE_VERSION003"') Steam Screenshots interface version.
- * @member SteamUserInterfaceVersion (value: '"SteamUser019"') Steam User interface version.
- * @member SteamUserEncryptedAppTicketSymmetricKeyLen (value: '32') The length of a key used with [SteamEncryptedAppTicket::BDecryptTicket](https://partner.steamgames.com/doc/api/SteamEncryptedAppTicket#BDecryptTicket).
- * @member SteamUtilsInterfaceVersion (value: '"SteamUtils009"') Steam Utils interface version.
- * @member SteamUgcNumResultsPerPage (value: '50') The maximum number of results that you'll receive for a query result.
- * @member SteamUgcDeveloperMetadataMax (value: '5000') The maximum amount of bytes you can set with ${function.steam_ugc_set_item_metadata}.
- * @member SteamUgcQueryHandleInvalid (value: '-1') Used to specify an invalid query handle. This is frequently returned if a call fails.
- * @member SteamUgcUpdateHandleInvalid (value: '-1') Used to specify an invalid item update handle. This is frequently returned if a call fails.
- * @member SteamUgcInterfaceVersion (value: '"STEAMUGC_INTERFACE_VERSION015"') Steam UGC interface version.
- * @member SteamInputInterfaceVersion (value: '"SteamInput001"') Steam Input interface version.
- * @member SteamInputHandleAllControllers (value: '-1') When sending an option to a specific controller handle, you can use this special value in the place of a handle to send the option to all controllers instead.
- * @member SteamInputMaxAnalogActions (value: '16') The maximum number of analog actions that can be performed on each controller.
- * @member SteamInputMaxAnalogActionData (value: '1.0') The maximum value that can be reported by an analog action on any given axis.
- * @member SteamInputMaxCount (value: '16') The maximum number of controllers that can be used simultaneously with the Steam Input Configurator.
- * @member SteamInputMaxDigitalActions (value: '128') The maximum number of digital actions that can be performed on each controller.
- * @member SteamInputMaxOrigins (value: '8') The maximum number of input origins that can be attached to a single action.
- * @member SteamInputMinAnalogActionData (value: '-1.0') The minimum value that can be reported by an analog action on any given axis.
- * @member SteamUserStatsLeaderboardNameMax (value: '128') Maximum number of bytes for a leaderboard name (UTF-8 encoded).
- * @member SteamUserStatsStatNameMax (value: '128') Maximum number of bytes for stat and achievement names (UTF-8 encoded).
- * @member SteamUserStatsLeaderboardDetailsMax (value: '64') Maximum number of details that you can store for a single leaderboard entry.
- * @member SteamUserStatsInterfaceVersion (value: '"STEAMUSERSTATS_INTERFACE_VERSION011"') Steam Userstats interface version.
- * @member SteamMusicInterfaceVersion (value: '"STEAMMUSIC_INTERFACE_VERSION001"') Steam Music interface version.
- * @member SteamTimelineMaxTimelinePriority (value: '1000') The maximum timeline priority value.
- * @member SteamInventoryResultInvalid (value: '-1') An invalid Steam inventory result handle.
- * @member SteamInventoryItemInstanceIdInvalid (value: '-1') An invalid item instance id. This is usually returned when an operation has failed. It's recommended that you initialise all new item instances with this value.
- * @member SteamInventoryInterfaceVersion (value: '"STEAMINVENTORY_INTERFACE_V002"') Steam Inventory interface version.
- * @member SteamRemoteStorageFilenameMax (value: '260') The maximum length that a Steam Cloud file path can be.
- * @member SteamRemoteStoragePublishedDocumentChangeDescriptionMax (value: '8000') Unused.
- * @member SteamRemoteStoragePublishedDocumentDescriptionMax (value: '8000') The maximum size in bytes that a Workshop item description can be.
- * @member SteamRemoteStoragePublishedDocumentTitleMax (value: '129') The maximum size in bytes that a Workshop item title can be.
- * @member SteamRemoteStoragePublishedFileUrlMax (value: '256') The maximum size in bytes that a Workshop item URL can be.
- * @member SteamRemoteStorageTagListMax (value: '1025') The maximum size in bytes that a Workshop item comma separated tag list can be.
- * @member SteamRemoteStoragePublishedFileIdInvalid (value: '0') An invalid Workshop item handle.
- * @member SteamRemoteStoragePublishedFileUpdateHandleInvalid (value: '-1') Deprecated - Only used with the deprecated RemoteStorage based Workshop API.
- * @member SteamRemoteStorageUgcFileStreamHandleInvalid (value: '-1') Returned when an error has occured when using ${function.steam_remote_storage_file_write_stream_open}.
- * @member SteamRemoteStorageUgcHandleInvalid (value: '-1') An invalid UGC Handle. This is often returned by functions signifying an error.
- * @member SteamRemoteStorageEnumeratePublishedFilesMaxResults (value: '50') Deprecated - Only used with the deprecated RemoteStorage based Workshop API.
- * @member SteamRemoteStorageMaxCloudFileChunkSize (value: '104857600') Defines the largest allowed file size for the Steam Cloud. Cloud files cannot be written in a single chunk over 100MiB and cannot be over 200MiB total.
- * @member SteamRemoteStorageInterfaceVersion (value: '"STEAMREMOTESTORAGE_INTERFACE_VERSION014"')
- * @member SteamMatchmakingServerQueryInvalid (value: '0xffffffff') Invalid server query.
- * @member SteamMatchmakingMaxLobbyKeyLength (value: '255') Maximum number of characters a lobby metadata key can be.
- * @member SteamMatchmakingFavoriteFlagFavorite (value: '0x01') This favorite game server entry is for the favorites list.
- * @member SteamMatchmakingFavoriteFlagHistory (value: '0x02') This favorite game server entry is for the history list.
- * @member SteamMatchmakingFavoriteFlagNone (value: '0x00') This favorite game server has no flags set.
- * @member SteamMatchmakingServersInterfaceVersion (value: '"SteamMatchMakingServers002"') Steam Matchmaking servers interface version.
- * @member SteamMatchmakingInterfaceVersion (value: '"SteamMatchMaking009"') Steam Matchmaking interface version.
- * @member SteamNetworkingPollGroup_Invalid (value: '0') Invalid pollgroup handle.
+ * @member STEAM_API_BREAKPAD_INVALID_HANDLE (value: '0') Breakpad invalid handle.
+ * @member STEAM_API_GAME_EXTRA_INFO_MAX (value: '64') The maximum size (in UTF-8 bytes, including the null terminator) of the `extra_info` parameter of ${function.steam_user_track_app_usage_event}.
+ * @member STEAM_API_SALT_SIZE (value: '8') Only used internally in Steam.
+ * @member STEAM_API_GID_NIL (value: '-1') Only used internally in Steam.
+ * @member STEAM_API_AUTH_TICKET_INVALID (value: '0') An invalid user authentication ticket.
+ * @member STEAM_API_JOB_ID_NIL (value: '-1') Only used internally in Steam.
+ * @member STEAM_API_TXN_ID_NIL (value: '-1') Only used internally in Steam.
+ * @member STEAM_API_TXN_ID_UNKNOWN (value: '0') Only used internally in Steam.
+ * @member STEAM_API_API_CALL_INVALID (value: '0x0') An Invalid Steam API Call handle.
+ * @member STEAM_API_APP_ID_INVALID (value: '0x0') An Invalid App ID.
+ * @member STEAM_API_BUNDLE_ID_INVALID (value: '0') Only used internally in Steam.
+ * @member STEAM_API_CELL_ID_INVALID (value: '0xFFFFFFFF') Only used internally in Steam.
+ * @member STEAM_API_DEPOT_ID_INVALID (value: '0x0') An Invalid Depot ID.
+ * @member STEAM_API_ASSET_CLASS_ID_INVALID (value: '0x0') Only used internally in Steam.
+ * @member STEAM_API_MANIFEST_ID_INVALID (value: '0') Only used internally in Steam.
+ * @member STEAM_API_STEAM_ACCOUNT_ID_MASK (value: '0xFFFFFFFF') Used in [CSteamID](https://partner.steamgames.com/doc/api/steam_api#CSteamID) to mask out the [AccountID_t](https://partner.steamgames.com/doc/api/steam_api#AccountID_t).
+ * @member STEAM_API_STEAM_ACCOUNT_INSTANCE_MASK (value: '0x000FFFFF') Used in [CSteamID](https://partner.steamgames.com/doc/api/steam_api#CSteamID) to mask out the account instance.
+ * @member STEAM_API_STEAM_USER_CONSOLE_INSTANCE (value: '2') Used by [CSteamID](https://partner.steamgames.com/doc/api/steam_api#CSteamID) to identify users logged in from a console.
+ * @member STEAM_API_STEAM_USER_DESKTOP_INSTANCE (value: '1') Used by [CSteamID](https://partner.steamgames.com/doc/api/steam_api#CSteamID) to identify users logged in from the desktop client.
+ * @member STEAM_API_STEAM_USER_WEB_INSTANCE (value: '4') Used by [CSteamID](https://partner.steamgames.com/doc/api/steam_api#CSteamID) to identify users logged in from the web.
+ * @member STEAM_API_PACKAGE_ID_FREE_SUB (value: '0x0') Only used internally in Steam.
+ * @member STEAM_API_PACKAGE_ID_INVALID (value: '0xFFFFFFFF') Only used internally in Steam.
+ * @member STEAM_API_PARTNER_ID_INVALID (value: '0') Only used internally in Steam.
+ * @member STEAM_API_PHYSICAL_ITEM_ID_INVALID (value: '0x0') Only used internally in Steam.
+ * @member STEAM_API_QUERY_PORT_ERROR (value: '0xFFFE') We were unable to get the query port for this server.
+ * @member STEAM_API_QUERY_PORT_NOT_INITIALIZED (value: '0xFFFF') We haven't asked the GS for this query port's actual value yet.
+ * @member STEAM_FRIENDS_MAX_FRIENDS_GROUP_NAME (value: '64') The maximum length that a friends group name can be (not including the null-terminator!)
+ * @member STEAM_FRIENDS_MAX_RICH_PRESENCE_KEY_LENGTH (value: '64') The maximum length that a rich presence key can be.
+ * @member STEAM_FRIENDS_MAX_RICH_PRESENCE_KEYS (value: '20')The maximum amount of rich presence keys that can be set.
+ * @member STEAM_FRIENDS_MAX_RICH_PRESENCE_VALUE_LENGTH (value: '256') The maximum length that a rich presence value can be.
+ * @member STEAM_FRIENDS_PERSONA_NAME_MAX (value: '128') Maximum number of UTF-8 bytes in a users persona (display) name.
+ * @member STEAM_FRIENDS_ENUMERATE_FOLLOWERS_MAX (value: '50') The maximum number of followers that will be returned in a [FriendsEnumerateFollowingList_t](https://partner.steamgames.com/doc/api/ISteamFriends#FriendsEnumerateFollowingList_t) call result at once.
+ * @member STEAM_FRIENDS_FRIENDS_GROUP_LIMIT (value: '100') Deprecated - Unused.
+ * @member STEAM_FRIENDS_CHAT_METADATA_MAX (value: '8192') Maximum size in bytes that chat room, lobby, or chat/lobby member metadata may have.
+ * @member STEAM_FRIENDS_PERSONA_NAME_MAX_UTF16 (value: '32') The maximum amount of UTF-16 characters in a users persona (display) name.
+ * @member STEAM_FRIENDS_GROUP_ID_INVALID (value: '-1') Invalid friends group identifier.
+ * @member STEAM_FRIENDS_INTERFACE_VERSION (value: '"SteamFriends015"') Steam Friends interface version.
+ * @member STEAM_APPS_APP_PROOF_OF_PURCHASE_KEY_MAX (value: '240') Only used internally in Steam.
+ * @member STEAM_APPS_INTERFACE_VERSION (value: '"STEAMAPPS_INTERFACE_VERSION008"') Steam Apps interface version.
+ * @member STEAM_SCREENSHOTS_INVALID_SCREENSHOT_HANDLE (value: '0') An invalid screenshot handle, this is returned when writing or adding a screenshot has failed.
+ * @member STEAM_SCREENSHOTS_UFS_TAG_TYPE_MAX (value: '255') Unused.
+ * @member STEAM_SCREENSHOTS_UFS_TAG_VALUE_MAX (value: '255') The maximum length in bytes of a location metadata string set on a screenshot using ${function.steam_screenshots_set_location}.
+ * @member STEAM_SCREENSHOTS_MAX_TAGGED_PUBLISHED_FILES (value: '32') The maximum number of workshop items that can be tagged in a screenshot using ${function.steam_screenshots_tag_published_file}.
+ * @member STEAM_SCREENSHOTS_MAX_TAGGED_USERS (value: '32') The maximum number of users that can be tagged in a screenshot using ${function.steam_screenshots_tag_user}.
+ * @member STEAM_SCREENSHOTS_THUMB_WIDTH (value: '200') Required width of a thumbnail provided to ${function.steam_screenshots_add_screenshot_to_library}. If you do not provide a thumbnail then one will be generated automatically.
+ * @member STEAM_SCREENSHOTS_INTERFACE_VERSION (value: '"STEAMSCREENSHOTS_INTERFACE_VERSION003"') Steam Screenshots interface version.
+ * @member STEAM_USER_INTERFACE_VERSION (value: '"SteamUser019"') Steam User interface version.
+ * @member STEAM_USER_ENCRYPTED_APP_TICKET_SYMMETRIC_KEY_LEN (value: '32') The length of a key used with [SteamEncryptedAppTicket::BDecryptTicket](https://partner.steamgames.com/doc/api/SteamEncryptedAppTicket#BDecryptTicket).
+ * @member STEAM_UTILS_INTERFACE_VERSION (value: '"SteamUtils009"') Steam Utils interface version.
+ * @member STEAM_UGC_NUM_RESULTS_PER_PAGE (value: '50') The maximum number of results that you'll receive for a query result.
+ * @member STEAM_UGC_DEVELOPER_METADATA_MAX (value: '5000') The maximum amount of bytes you can set with ${function.steam_ugc_set_item_metadata}.
+ * @member STEAM_UGC_QUERY_HANDLE_INVALID (value: '-1') Used to specify an invalid query handle. This is frequently returned if a call fails.
+ * @member STEAM_UGC_UPDATE_HANDLE_INVALID (value: '-1') Used to specify an invalid item update handle. This is frequently returned if a call fails.
+ * @member STEAM_UGC_INTERFACE_VERSION (value: '"STEAMUGC_INTERFACE_VERSION015"') Steam UGC interface version.
+ * @member STEAM_INPUT_INTERFACE_VERSION (value: '"SteamInput001"') Steam Input interface version.
+ * @member STEAM_INPUT_HANDLE_ALL_CONTROLLERS (value: '-1') When sending an option to a specific controller handle, you can use this special value in the place of a handle to send the option to all controllers instead.
+ * @member STEAM_INPUT_MAX_ANALOG_ACTIONS (value: '16') The maximum number of analog actions that can be performed on each controller.
+ * @member STEAM_INPUT_MAX_ANALOG_ACTION_DATA (value: '1.0') The maximum value that can be reported by an analog action on any given axis.
+ * @member STEAM_INPUT_MAX_COUNT (value: '16') The maximum number of controllers that can be used simultaneously with the Steam Input Configurator.
+ * @member STEAM_INPUT_MAX_DIGITAL_ACTIONS (value: '128') The maximum number of digital actions that can be performed on each controller.
+ * @member STEAM_INPUT_MAX_ORIGINS (value: '8') The maximum number of input origins that can be attached to a single action.
+ * @member STEAM_INPUT_MIN_ANALOG_ACTION_DATA (value: '-1.0') The minimum value that can be reported by an analog action on any given axis.
+ * @member STEAM_USER_STATS_LEADERBOARD_NAME_MAX (value: '128') Maximum number of bytes for a leaderboard name (UTF-8 encoded).
+ * @member STEAM_USER_STATS_STAT_NAME_MAX (value: '128') Maximum number of bytes for stat and achievement names (UTF-8 encoded).
+ * @member STEAM_USER_STATS_LEADERBOARD_DETAILS_MAX (value: '64') Maximum number of details that you can store for a single leaderboard entry.
+ * @member STEAM_USER_STATS_INTERFACE_VERSION (value: '"STEAMUSERSTATS_INTERFACE_VERSION011"') Steam Userstats interface version.
+ * @member STEAM_MUSIC_INTERFACE_VERSION (value: '"STEAMMUSIC_INTERFACE_VERSION001"') Steam Music interface version.
+ * @member STEAM_TIMELINE_MAX_TIMELINE_PRIORITY (value: '1000') The maximum timeline priority value.
+ * @member STEAM_INVENTORY_RESULT_INVALID (value: '-1') An invalid Steam inventory result handle.
+ * @member STEAM_INVENTORY_ITEM_INSTANCE_ID_INVALID (value: '-1') An invalid item instance id. This is usually returned when an operation has failed. It's recommended that you initialise all new item instances with this value.
+ * @member STEAM_INVENTORY_INTERFACE_VERSION (value: '"STEAMINVENTORY_INTERFACE_V002"') Steam Inventory interface version.
+ * @member STEAM_REMOTE_STORAGE_FILENAME_MAX (value: '260') The maximum length that a Steam Cloud file path can be.
+ * @member STEAM_REMOTE_STORAGE_PUBLISHED_DOCUMENT_CHANGE_DESCRIPTION_MAX (value: '8000') Unused.
+ * @member STEAM_REMOTE_STORAGE_PUBLISHED_DOCUMENT_DESCRIPTION_MAX (value: '8000') The maximum size in bytes that a Workshop item description can be.
+ * @member STEAM_REMOTE_STORAGE_PUBLISHED_DOCUMENT_TITLE_MAX (value: '129') The maximum size in bytes that a Workshop item title can be.
+ * @member STEAM_REMOTE_STORAGE_PUBLISHED_FILE_URL_MAX (value: '256') The maximum size in bytes that a Workshop item URL can be.
+ * @member STEAM_REMOTE_STORAGE_TAG_LIST_MAX (value: '1025') The maximum size in bytes that a Workshop item comma separated tag list can be.
+ * @member STEAM_REMOTE_STORAGE_PUBLISHED_FILE_ID_INVALID (value: '0') An invalid Workshop item handle.
+ * @member STEAM_REMOTE_STORAGE_PUBLISHED_FILE_UPDATE_HANDLE_INVALID (value: '-1') Deprecated - Only used with the deprecated RemoteStorage based Workshop API.
+ * @member STEAM_REMOTE_STORAGE_UGC_FILE_STREAM_HANDLE_INVALID (value: '-1') Returned when an error has occured when using ${function.steam_remote_storage_file_write_stream_open}.
+ * @member STEAM_REMOTE_STORAGE_UGC_HANDLE_INVALID (value: '-1') An invalid UGC Handle. This is often returned by functions signifying an error.
+ * @member STEAM_REMOTE_STORAGE_ENUMERATE_PUBLISHED_FILES_MAX_RESULTS (value: '50') Deprecated - Only used with the deprecated RemoteStorage based Workshop API.
+ * @member STEAM_REMOTE_STORAGE_MAX_CLOUD_FILE_CHUNK_SIZE (value: '104857600') Defines the largest allowed file size for the Steam Cloud. Cloud files cannot be written in a single chunk over 100MiB and cannot be over 200MiB total.
+ * @member STEAM_REMOTE_STORAGE_INTERFACE_VERSION (value: '"STEAMREMOTESTORAGE_INTERFACE_VERSION014"')
+ * @member STEAM_MATCHMAKING_SERVER_QUERY_INVALID (value: '0xffffffff') Invalid server query.
+ * @member STEAM_MATCHMAKING_MAX_LOBBY_KEY_LENGTH (value: '255') Maximum number of characters a lobby metadata key can be.
+ * @member STEAM_MATCHMAKING_FAVORITE_FLAG_FAVORITE (value: '0x01') This favorite game server entry is for the favorites list.
+ * @member STEAM_MATCHMAKING_FAVORITE_FLAG_HISTORY (value: '0x02') This favorite game server entry is for the history list.
+ * @member STEAM_MATCHMAKING_FAVORITE_FLAG_NONE (value: '0x00') This favorite game server has no flags set.
+ * @member STEAM_MATCHMAKING_SERVERS_INTERFACE_VERSION (value: '"SteamMatchMakingServers002"') Steam Matchmaking servers interface version.
+ * @member STEAM_MATCHMAKING_INTERFACE_VERSION (value: '"SteamMatchMaking009"') Steam Matchmaking interface version.
+ * @member STEAM_NETWORKING_POLL_GROUP_INVALID (value: '0') Invalid pollgroup handle.
  * @const_end
  */
 

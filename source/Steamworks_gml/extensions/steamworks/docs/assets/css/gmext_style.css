@@ -3,11 +3,11 @@
     white-space: normal; /* Allows text to wrap within cells */
 }
 
-.wy-table-responsive thead, 
+.wy-table-responsive thead,
 .wy-table-responsive tbody,
 .wy-table-responsive th,
 .wy-table-responsive tr {
-    width: 1000px;
+    width: 100%;
 }
 
 .wy-table-responsive th:not(:last-child), 

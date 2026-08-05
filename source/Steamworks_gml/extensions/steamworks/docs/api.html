@@ -1,0 +1,2229 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="img/favicon.ico" />
+    <title>Api - GMEXT-Steamworks</title>
+    <link rel="stylesheet" href="css/theme.css" />
+    <link rel="stylesheet" href="css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+        <link href="assets/css/gmext_style.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Api";
+        var mkdocs_page_input_path = "api.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/gml.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="index.html" class="icon icon-home"> GMEXT-Steamworks
+        </a>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="index.html">Welcome to MkDocs</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="_footer.html"> footer</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="_sidebar.html"> sidebar</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="#">Api</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#functions">Functions</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#constants">Constants</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#structs">Structs</a>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="apps.html">Apps</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="friends.html">Friends</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="guides.html">Guides</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="home.html">Home</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="input.html">Input</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="inventory.html">Inventory</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="matchmaking.html">Matchmaking</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="music.html">Music</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="networking.html">Networking</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="parties.html">Parties</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="remote_storage.html">Remote storage</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="screenshots.html">Screenshots</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="timeline.html">Timeline</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="ugc.html">Ugc</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="user.html">User</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="userstats.html">Userstats</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="utils.html">Utils</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">GMEXT-Steamworks</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html" class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Api</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/YoYoGames/GMEXT-Steamworks/edit/master/docs/api.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <p><a id="top"></a></p>
+<h1 id="api"><strong>API</strong></h1>
+<blockquote>
+<p><strong>Steamworks Interface</strong>: N / A</p>
+</blockquote>
+<p>This module contains general management functions.</p>
+<p>See: https://partner.steamgames.com/doc/api/steam_api</p>
+<h2 id="functions">Functions</h2>
+<p>These are the functions of the API module:</p>
+<ul>
+<li><a href="api.html#steam_api_last_error">steam_api_last_error</a></li>
+<li><a href="api.html#steam_api_is_initialized">steam_api_is_initialized</a></li>
+<li><a href="api.html#steam_api_init">steam_api_init</a></li>
+<li><a href="api.html#steam_api_release_current_thread_memory">steam_api_release_current_thread_memory</a></li>
+<li><a href="api.html#steam_api_restart_app_if_necessary">steam_api_restart_app_if_necessary</a></li>
+<li><a href="api.html#steam_api_run_callbacks">steam_api_run_callbacks</a></li>
+<li><a href="api.html#steam_api_shutdown">steam_api_shutdown</a></li>
+</ul>
+<h2 id="constants">Constants</h2>
+<p>These are the constants and enums of the API module:</p>
+<ul>
+<li><a href="api.html#steamapiaccounttype">SteamApiAccountType</a></li>
+<li><a href="api.html#steamapidenyreason">SteamApiDenyReason</a></li>
+<li><a href="api.html#steamapigameidtype">SteamApiGameIdType</a></li>
+<li><a href="api.html#steamapilaunchoptiontype">SteamApiLaunchOptionType</a></li>
+<li><a href="api.html#steamapimarketingmessageflag">SteamApiMarketingMessageFlag</a></li>
+<li><a href="api.html#steamapinotificationposition">SteamApiNotificationPosition</a></li>
+<li><a href="api.html#steamapiuniverse">SteamApiUniverse</a></li>
+<li><a href="api.html#steamapiuserhaslicenseforappresult">SteamApiUserHasLicenseForAppResult</a></li>
+<li><a href="api.html#steamapivoiceresult">SteamApiVoiceResult</a></li>
+<li><a href="api.html#steamapiresult">SteamApiResult</a></li>
+<li><a href="api.html#steamauthsessionresponse">SteamAuthSessionResponse</a></li>
+<li><a href="api.html#steammarketnotallowedreasonflags">SteamMarketNotAllowedReasonFlags</a></li>
+<li><a href="api.html#macros">macros</a></li>
+</ul>
+<h2 id="structs">Structs</h2>
+<p>These are the structs of the API module:</p>
+<ul>
+<li><a href="api.html#steamid">SteamId</a></li>
+</ul>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_api_last_error">steam_api_last_error</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: N / A</p>
+</blockquote>
+<p>This function returns a string containing the last error that occurred.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_api_last_error()
+</code></pre></div>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_api_is_initialized">steam_api_is_initialized</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: N / A</p>
+</blockquote>
+<p>This function returns whether the Steam API is currently initialised or not.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_api_is_initialized()
+</code></pre></div>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_api_init">steam_api_init</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/steam_api#SteamAPI_Init">SteamAPI_Init</a></p>
+</blockquote>
+<p>This function initialises the Steamworks API and returns if this was successful or not.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_api_init(own_app_id)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>own_app_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The app ID.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_api_release_current_thread_memory">steam_api_release_current_thread_memory</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/steam_api#SteamAPI_ReleaseCurrentThreadMemory">SteamAPI_ReleaseCurrentThreadMemory</a></p>
+</blockquote>
+<p>This function frees the internal Steamworks API memory associated with the calling thread.</p>
+<p>Most Steamworks API functions allocate a small amount of thread-local memory for parameter storage, calling this will manually free such memory. This function is called automatically by <a href="api.html#steam_api_run_callbacks">steam_api_run_callbacks</a>, so a program that only ever accesses the Steamworks API from a single thread never needs to explicitly call this function.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_api_release_current_thread_memory()
+</code></pre></div>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_api_restart_app_if_necessary">steam_api_restart_app_if_necessary</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/steam_api#SteamAPI_RestartAppIfNecessary">SteamAPI_RestartAppIfNecessary</a></p>
+</blockquote>
+<p>This function checks if your executable was launched through Steam and relaunches it through Steam if it wasn't.</p>
+<p>See <a href="https://partner.steamgames.com/doc/sdk/api#initialization_and_shutdown">Initialization and Shutdown</a> for additional information.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_api_restart_app_if_necessary(own_app_id)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>own_app_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The app ID.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_api_run_callbacks">steam_api_run_callbacks</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/steam_api#SteamAPI_RunCallbacks">SteamAPI_RunCallbacks</a></p>
+</blockquote>
+<p>This function dispatches callbacks and call results to all of the registered listeners.</p>
+<p>It's best to call this at &gt;10Hz, the more time between calls, the more potential latency between receiving events or results from the Steamworks API. Most games call this once per render-frame. All registered listener functions will be invoked during this call, in the caller's thread context.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This function is required to be called in order for the Steamworks extension to work. Certain callbacks are only triggered when you call this function. We recommend you place this function in a persistent controller object that calls it inside its <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Object_Events.htm">Step Event</a>.</p>
+</div>
+<p>This function operates asynchronously, which means that it does not immediately return the requested result. Instead, upon completion of the task, it will trigger the <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_api_run_callbacks()
+</code></pre></div>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<p><strong>Triggers:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a></p>
+<p><strong>Steamworks Callback</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUser#SteamServersConnected_t">ISteamUser::SteamServersConnected_t</a></p>
+</blockquote>
+<p>Called when a connection to the Steam back-end has been established.
+This means the Steam client now has a working connection to the Steam servers. Usually this will have occurred before the game has launched, and should only be seen if the user has dropped connection due to a networking issue or a Steam server update.</p>
+<p>This callback has no fields.</p>
+<p><br></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a></p>
+<p><strong>Steamworks Callback</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUser#SteamServersDisconnected_t">ISteamUser::SteamServersDisconnected_t</a></p>
+</blockquote>
+<p>Called if the client has lost connection to the Steam servers.</p>
+<p>Real-time services will be disabled until a matching <a href="https://partner.steamgames.com/doc/api/ISteamUser#SteamServersConnected_t">SteamServersConnected_t</a> has been posted.</p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>result</td>
+<td><a href="api.html#steamapiresult">SteamApiResult</a></td>
+<td>The reason we were disconnected from Steam.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_api_shutdown">steam_api_shutdown</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/steam_api#SteamAPI_Shutdown">SteamAPI_Shutdown</a></p>
+</blockquote>
+<p>This function shuts down the Steamworks API, releases pointers and frees memory.</p>
+<p>You should call this during process shutdown if possible.</p>
+<p>This will not unhook the <a href="https://partner.steamgames.com/doc/features/overlay">Steam overlay</a> from your game as there's no guarantee that your rendering API is done using it.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This function is required to be called in order for the Steamworks extension to work. We recommend you place this function in the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Other_Events.htm">Game End Event</a> of a controller object. You need to check if this is not a <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/General_Game_Control/game_restart.htm">game_restart</a>.</p>
+</div>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_api_shutdown()
+</code></pre></div>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steamapiaccounttype">SteamApiAccountType</h1>
+<blockquote>
+<p><strong>Steamworks Enum</strong>: <a href="https://partner.steamgames.com/doc/api/steam_api#EAccountType">EAccountType</a></p>
+</blockquote>
+<p>This enum holds the different Steam account types.</p>
+<p>These constants are referenced by the following structs:</p>
+<ul>
+<li><a href="api.html#steamid">SteamId</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Invalid</code></td>
+<td>Used for invalid Steam IDs.</td>
+</tr>
+<tr>
+<td><code>Individual</code></td>
+<td>Regular user account.</td>
+</tr>
+<tr>
+<td><code>Multiseat</code></td>
+<td>Multiseat (e.g. cybercafe) account.</td>
+</tr>
+<tr>
+<td><code>GameServer</code></td>
+<td>Persistent (not anonymous) game server account.</td>
+</tr>
+<tr>
+<td><code>AnonGameServer</code></td>
+<td>Anonymous game server account.</td>
+</tr>
+<tr>
+<td><code>Pending</code></td>
+<td>Pending.</td>
+</tr>
+<tr>
+<td><code>ContentServer</code></td>
+<td>Valve internal content server account.</td>
+</tr>
+<tr>
+<td><code>Clan</code></td>
+<td>Steam Group (clan).</td>
+</tr>
+<tr>
+<td><code>Chat</code></td>
+<td>Steam group chat or lobby.</td>
+</tr>
+<tr>
+<td><code>ConsoleUser</code></td>
+<td>Fake Steam ID for local PSN account on PS3 or Live account on 360, etc.</td>
+</tr>
+<tr>
+<td><code>AnonUser</code></td>
+<td>Anonymous user account. (Used to create an account or reset a password)</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steamapidenyreason">SteamApiDenyReason</h1>
+<blockquote>
+<p><strong>Steamworks Enum</strong>: <a href="https://partner.steamgames.com/doc/api/steam_api#EDenyReason">EDenyReason</a></p>
+</blockquote>
+<p>This enum holds the result values when a client failed to join or has been kicked from a game server.</p>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Invalid</code></td>
+<td>Unknown.</td>
+</tr>
+<tr>
+<td><code>InvalidVersion</code></td>
+<td>The client and server are not the same version.</td>
+</tr>
+<tr>
+<td><code>Generic</code></td>
+<td>Generic.</td>
+</tr>
+<tr>
+<td><code>NotLoggedOn</code></td>
+<td>The client is not logged on.</td>
+</tr>
+<tr>
+<td><code>NoLicense</code></td>
+<td>The client does not have a license to play this game.</td>
+</tr>
+<tr>
+<td><code>Cheater</code></td>
+<td>The client is VAC banned.</td>
+</tr>
+<tr>
+<td><code>LoggedInElsewhere</code></td>
+<td>The client is logged in elsewhere.</td>
+</tr>
+<tr>
+<td><code>UnknownText</code></td>
+<td>UnknownText.</td>
+</tr>
+<tr>
+<td><code>IncompatibleAnticheat</code></td>
+<td>IncompatibleAnticheat.</td>
+</tr>
+<tr>
+<td><code>MemoryCorruption</code></td>
+<td>MemoryCorruption.</td>
+</tr>
+<tr>
+<td><code>IncompatibleSoftware</code></td>
+<td>IncompatibleSoftware.</td>
+</tr>
+<tr>
+<td><code>SteamConnectionLost</code></td>
+<td>The server lost connection to Steam.</td>
+</tr>
+<tr>
+<td><code>SteamConnectionError</code></td>
+<td>The server had a general error connecting to Steam.</td>
+</tr>
+<tr>
+<td><code>SteamResponseTimedOut</code></td>
+<td>The server timed out connecting to Steam.</td>
+</tr>
+<tr>
+<td><code>SteamValidationStalled</code></td>
+<td>The client has not authed with Steam yet.</td>
+</tr>
+<tr>
+<td><code>SteamOwnerLeftGuestUser</code></td>
+<td>The owner of the shared game has left, called for each guest of the owner.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steamapigameidtype">SteamApiGameIdType</h1>
+<blockquote>
+<p><strong>Steamworks Enum</strong>: <a href="https://partner.steamgames.com/doc/api/steam_api#EGameIDType">EGameIDType</a></p>
+</blockquote>
+<p>This enum holds the different types of game ID.</p>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>App</code></td>
+<td>The Game ID is a regular Steam app.</td>
+</tr>
+<tr>
+<td><code>GameMod</code></td>
+<td>The Game ID is a mod.</td>
+</tr>
+<tr>
+<td><code>Shortcut</code></td>
+<td>The game ID is a shortcut.</td>
+</tr>
+<tr>
+<td><code>P2p</code></td>
+<td>The game ID is a P2P file.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steamapilaunchoptiontype">SteamApiLaunchOptionType</h1>
+<blockquote>
+<p><strong>Steamworks Enum</strong>: <a href="https://partner.steamgames.com/doc/api/steam_api#ELaunchOptionType">ELaunchOptionType</a></p>
+</blockquote>
+<p>This enum contains codes for well defined launch options, corresponds to "Launch Type" in the application's Launch Options which can be found on the <a href="https://partner.steamgames.com/apps/config/">General Installation Settings</a> page.</p>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>None</code></td>
+<td>Unspecified.</td>
+</tr>
+<tr>
+<td><code>Default</code></td>
+<td>Runs the app in default mode.</td>
+</tr>
+<tr>
+<td><code>SafeMode</code></td>
+<td>Runs the game in safe mode.</td>
+</tr>
+<tr>
+<td><code>Multiplayer</code></td>
+<td>Runs the game in multiplayer mode.</td>
+</tr>
+<tr>
+<td><code>Config</code></td>
+<td>Runs config tool for this game.</td>
+</tr>
+<tr>
+<td><code>Openvr</code></td>
+<td>Runs game in VR mode using OpenVR.</td>
+</tr>
+<tr>
+<td><code>Server</code></td>
+<td>Runs dedicated server for this game.</td>
+</tr>
+<tr>
+<td><code>Editor</code></td>
+<td>Runs game editor.</td>
+</tr>
+<tr>
+<td><code>Manual</code></td>
+<td>Shows game manual.</td>
+</tr>
+<tr>
+<td><code>Benchmark</code></td>
+<td>Runs game benchmark.</td>
+</tr>
+<tr>
+<td><code>Option1</code></td>
+<td>Generic run option, uses description field for game name.</td>
+</tr>
+<tr>
+<td><code>Option2</code></td>
+<td>Generic run option, uses description field for game name.</td>
+</tr>
+<tr>
+<td><code>Option3</code></td>
+<td>Generic run option, uses description field for game name.</td>
+</tr>
+<tr>
+<td><code>OculusVr</code></td>
+<td>Runs game in VR mode using the Oculus SDK.</td>
+</tr>
+<tr>
+<td><code>OpenvrOverlay</code></td>
+<td>Runs an OpenVR dashboard overlay.</td>
+</tr>
+<tr>
+<td><code>Osvr</code></td>
+<td>Runs game in VR mode using the OSVR SDK.</td>
+</tr>
+<tr>
+<td><code>Dialog</code></td>
+<td>Show launch options dialog.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steamapimarketingmessageflag">SteamApiMarketingMessageFlag</h1>
+<blockquote>
+<p><strong>Steamworks Enum</strong>: <a href="https://partner.steamgames.com/doc/api/steam_api#EMarketingMessageFlags">EMarketingMessageFlags</a></p>
+</blockquote>
+<p>This enum holds internal Steam marketing message flags that change how a client should handle them.</p>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>None</code></td>
+<td>None.</td>
+</tr>
+<tr>
+<td><code>HighPriority</code></td>
+<td>High priority.</td>
+</tr>
+<tr>
+<td><code>PlatformWindows</code></td>
+<td>Windows.</td>
+</tr>
+<tr>
+<td><code>PlatformMac</code></td>
+<td>Mac.</td>
+</tr>
+<tr>
+<td><code>PlatformLinux</code></td>
+<td>Linux.</td>
+</tr>
+<tr>
+<td><code>PlatformRestrictions</code></td>
+<td>Aggregate flags.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steamapinotificationposition">SteamApiNotificationPosition</h1>
+<blockquote>
+<p><strong>Steamworks Enum</strong>: <a href="https://partner.steamgames.com/doc/api/steam_api#ENotificationPosition">ENotificationPosition</a></p>
+</blockquote>
+<p>This enum holds the possible positions to have the overlay show notifications in.</p>
+<p>These constants are referenced by the following functions:</p>
+<ul>
+<li><a href="utils.html#steam_utils_set_overlay_notification_position">steam_utils_set_overlay_notification_position</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>TopLeft</code></td>
+<td>Top-left corner.</td>
+</tr>
+<tr>
+<td><code>TopRight</code></td>
+<td>Top-right corner.</td>
+</tr>
+<tr>
+<td><code>BottomLeft</code></td>
+<td>Bottom-left corner.</td>
+</tr>
+<tr>
+<td><code>BottomRight</code></td>
+<td>Bottom-right corner.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steamapiuniverse">SteamApiUniverse</h1>
+<blockquote>
+<p><strong>Steamworks Enum</strong>: <a href="https://partner.steamgames.com/doc/api/steam_api#EUniverse">EUniverse</a></p>
+</blockquote>
+<p>This enum holds the different Steam universes. Each universe is a self-contained Steam instance.</p>
+<p>These constants are referenced by the following functions:</p>
+<ul>
+<li><a href="utils.html#steam_utils_get_connected_universe">steam_utils_get_connected_universe</a></li>
+</ul>
+<p>These constants are referenced by the following structs:</p>
+<ul>
+<li><a href="api.html#steamid">SteamId</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Invalid</code></td>
+<td>Invalid.</td>
+</tr>
+<tr>
+<td><code>Public</code></td>
+<td>The standard public universe.</td>
+</tr>
+<tr>
+<td><code>Beta</code></td>
+<td>Beta universe used inside Valve.</td>
+</tr>
+<tr>
+<td><code>Internal</code></td>
+<td>Internal universe used inside Valve.</td>
+</tr>
+<tr>
+<td><code>Dev</code></td>
+<td>Dev universe used inside Valve.</td>
+</tr>
+<tr>
+<td><code>Max</code></td>
+<td>Max value.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steamapiuserhaslicenseforappresult">SteamApiUserHasLicenseForAppResult</h1>
+<blockquote>
+<p><strong>Steamworks Enum</strong>: <a href="partner.steamgames.com/doc/api/steam_api.html#EUserHasLicenseForAppResult">EUserHasLicenseForAppResult</a></p>
+</blockquote>
+<p>This enum holds the possible results of <a href="user.html#steam_user_user_has_license_for_app">steam_user_user_has_license_for_app</a>.</p>
+<p>These constants are referenced by the following functions:</p>
+<ul>
+<li><a href="user.html#steam_user_user_has_license_for_app">steam_user_user_has_license_for_app</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>HasLicense</code></td>
+<td>The user has a license for specified app.</td>
+</tr>
+<tr>
+<td><code>DoesNotHaveLicense</code></td>
+<td>The user does not have a license for the specified app.</td>
+</tr>
+<tr>
+<td><code>NoAuth</code></td>
+<td>The user has not been authenticated.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steamapivoiceresult">SteamApiVoiceResult</h1>
+<blockquote>
+<p><strong>Steamworks Enum</strong>: <a href="https://partner.steamgames.com/doc/api/steam_api#EVoiceResult">EVoiceResult</a></p>
+</blockquote>
+<p>This enum holds the possible results for use with the <a href="https://partner.steamgames.com/doc/features/voice">Steam Voice</a> functions.</p>
+<p>These constants are referenced by the following structs:</p>
+<ul>
+<li><a href="user.html#steamuseravailablevoice">SteamUserAvailableVoice</a></li>
+<li><a href="user.html#steamusergetvoiceresult">SteamUserGetVoiceResult</a></li>
+<li><a href="user.html#steamuserdecompressvoiceresult">SteamUserDecompressVoiceResult</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Ok</code></td>
+<td>The call has completed successfully.</td>
+</tr>
+<tr>
+<td><code>NotInitialized</code></td>
+<td>The Steam Voice interface has not been initialized.</td>
+</tr>
+<tr>
+<td><code>NotRecording</code></td>
+<td>Steam Voice is not currently recording.</td>
+</tr>
+<tr>
+<td><code>NoData</code></td>
+<td>There is no voice data available.</td>
+</tr>
+<tr>
+<td><code>BufferTooSmall</code></td>
+<td>The provided buffer is too small to receive the data.</td>
+</tr>
+<tr>
+<td><code>DataCorrupted</code></td>
+<td>The voice data has been corrupted.</td>
+</tr>
+<tr>
+<td><code>Restricted</code></td>
+<td>The user is chat restricted.</td>
+</tr>
+<tr>
+<td><code>UnsupportedCodec</code></td>
+<td>Deprecated.</td>
+</tr>
+<tr>
+<td><code>ReceiverOutOfDate</code></td>
+<td>Deprecated.</td>
+</tr>
+<tr>
+<td><code>ReceiverDidNotAnswer</code></td>
+<td>Deprecated.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steamapiresult">SteamApiResult</h1>
+<blockquote>
+<p><strong>Steamworks Enum</strong>: <a href="partner.steamgames.com/doc/api/steam_api.html#EResult">EResult</a></p>
+</blockquote>
+<p>This enum holds the possible Steam error result codes.</p>
+<p>These constants are referenced by the following functions:</p>
+<ul>
+<li><a href="api.html#steam_api_run_callbacks">steam_api_run_callbacks</a></li>
+<li><a href="inventory.html#steam_inventory_get_result_status">steam_inventory_get_result_status</a></li>
+<li><a href="networking.html#steam_networking_sockets_flush_messages_on_connection">steam_networking_sockets_flush_messages_on_connection</a></li>
+</ul>
+<p>These constants are referenced by the following structs:</p>
+<ul>
+<li><a href="friends.html#steamfriendsgetfollowercountresult">SteamFriendsGetFollowerCountResult</a></li>
+<li><a href="friends.html#steamfriendsisfollowingresult">SteamFriendsIsFollowingResult</a></li>
+<li><a href="friends.html#steamfriendsenumeratefollowinglistresult">SteamFriendsEnumerateFollowingListResult</a></li>
+<li><a href="apps.html#steamappsfiledetailsresult">SteamAppsFileDetailsResult</a></li>
+<li><a href="screenshots.html#steamscreenshotsscreenshotready">SteamScreenshotsScreenshotReady</a></li>
+<li><a href="user.html#steamuserencryptedappticketresponse">SteamUserEncryptedAppTicketResponse</a></li>
+<li><a href="user.html#steamuserdurationcontrol">SteamUserDurationControl</a></li>
+<li><a href="user.html#steamusergetauthsessionticketresponse">SteamUserGetAuthSessionTicketResponse</a></li>
+<li><a href="user.html#steamusersteamserversdisconnected">SteamUserSteamServersDisconnected</a></li>
+<li><a href="user.html#steamusersteamserverconnectfailure">SteamUserSteamServerConnectFailure</a></li>
+<li><a href="ugc.html#steamugcqueryresult">SteamUgcQueryResult</a></li>
+<li><a href="ugc.html#steamugcquerycompleted">SteamUgcQueryCompleted</a></li>
+<li><a href="ugc.html#steamugccreateitemresult">SteamUgcCreateItemResult</a></li>
+<li><a href="ugc.html#steamugcsubmititemupdateresult">SteamUgcSubmitItemUpdateResult</a></li>
+<li><a href="ugc.html#steamugcsubscribeitemresult">SteamUgcSubscribeItemResult</a></li>
+<li><a href="ugc.html#steamugcunsubscribeitemresult">SteamUgcUnsubscribeItemResult</a></li>
+<li><a href="ugc.html#steamugcfavoriteitemslistchanged">SteamUgcFavoriteItemsListChanged</a></li>
+<li><a href="ugc.html#steamugcsetuseritemvoteresult">SteamUgcSetUserItemVoteResult</a></li>
+<li><a href="ugc.html#steamugcgetuseritemvoteresult">SteamUgcGetUserItemVoteResult</a></li>
+<li><a href="ugc.html#steamugcdeleteitemresult">SteamUgcDeleteItemResult</a></li>
+<li><a href="ugc.html#steamugcaddappdependencyresult">SteamUgcAddAppDependencyResult</a></li>
+<li><a href="ugc.html#steamugcremoveappdependencyresult">SteamUgcRemoveAppDependencyResult</a></li>
+<li><a href="ugc.html#steamugcaddugcdependencyresult">SteamUgcAddUGCDependencyResult</a></li>
+<li><a href="ugc.html#steamugcremoveugcdependencyresult">SteamUgcRemoveUGCDependencyResult</a></li>
+<li><a href="ugc.html#steamugcgetappdependenciesresult">SteamUgcGetAppDependenciesResult</a></li>
+<li><a href="ugc.html#steamugcstartplaytimetrackingresult">SteamUgcStartPlaytimeTrackingResult</a></li>
+<li><a href="ugc.html#steamugcstopplaytimetrackingresult">SteamUgcStopPlaytimeTrackingResult</a></li>
+<li><a href="ugc.html#steamugcdownloaditemresult">SteamUgcDownloadItemResult</a></li>
+<li><a href="ugc.html#steamugcworkshopeulastatusresult">SteamUgcWorkshopEULAStatusResult</a></li>
+<li><a href="userstats.html#steamuserstatsglobalachievementpercentagesreadyresult">SteamUserStatsGlobalAchievementPercentagesReadyResult</a></li>
+<li><a href="userstats.html#steamuserstatsglobalstatsreceivedresult">SteamUserStatsGlobalStatsReceivedResult</a></li>
+<li><a href="userstats.html#steamuserstatsattachleaderboardugcresult">SteamUserStatsAttachLeaderboardUgcResult</a></li>
+<li><a href="userstats.html#steamuserstatsuserstatsreceived">SteamUserStatsUserStatsReceived</a></li>
+<li><a href="userstats.html#steamuserstatsuserstatsstored">SteamUserStatsUserStatsStored</a></li>
+<li><a href="inventory.html#steaminventorydeserializeresult">SteamInventoryDeserializeResult</a></li>
+<li><a href="inventory.html#steaminventoryresultready">SteamInventoryResultReady</a></li>
+<li><a href="inventory.html#steaminventorystartpurchaseresult">SteamInventoryStartPurchaseResult</a></li>
+<li><a href="inventory.html#steaminventoryrequestpricesresult">SteamInventoryRequestPricesResult</a></li>
+<li><a href="remote_storage.html#steamremotestoragefileshareresult">SteamRemoteStorageFileShareResult</a></li>
+<li><a href="remote_storage.html#steamremotestoragefilewriteasyncresult">SteamRemoteStorageFileWriteAsyncResult</a></li>
+<li><a href="remote_storage.html#steamremotestoragedownloadugcresult">SteamRemoteStorageDownloadUgcResult</a></li>
+<li><a href="matchmaking.html#steammatchmakinglobbycreated">SteamMatchmakingLobbyCreated</a></li>
+<li><a href="parties.html#steampartiescreatebeaconresult">SteamPartiesCreateBeaconResult</a></li>
+<li><a href="parties.html#steampartiesjoinpartyresult">SteamPartiesJoinPartyResult</a></li>
+<li><a href="parties.html#steampartieschangenumopenslotsresult">SteamPartiesChangeNumOpenSlotsResult</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Ok</code></td>
+<td>Success.</td>
+</tr>
+<tr>
+<td><code>Fail</code></td>
+<td>Generic failure.</td>
+</tr>
+<tr>
+<td><code>NoConnection</code></td>
+<td>Your Steam client doesn't have a connection to the back-end.</td>
+</tr>
+<tr>
+<td><code>InvalidPassword</code></td>
+<td>Password/ticket is invalid.</td>
+</tr>
+<tr>
+<td><code>LoggedInElsewhere</code></td>
+<td>The user is logged in elsewhere.</td>
+</tr>
+<tr>
+<td><code>InvalidProtocolVer</code></td>
+<td>Protocol version is incorrect.</td>
+</tr>
+<tr>
+<td><code>InvalidParam</code></td>
+<td>A parameter is incorrect.</td>
+</tr>
+<tr>
+<td><code>FileNotFound</code></td>
+<td>File was not found.</td>
+</tr>
+<tr>
+<td><code>Busy</code></td>
+<td>Called method is busy - action not taken.</td>
+</tr>
+<tr>
+<td><code>InvalidState</code></td>
+<td>Called object was in an invalid state.</td>
+</tr>
+<tr>
+<td><code>InvalidName</code></td>
+<td>The name was invalid.</td>
+</tr>
+<tr>
+<td><code>InvalidEmail</code></td>
+<td>The email was invalid.</td>
+</tr>
+<tr>
+<td><code>DuplicateName</code></td>
+<td>The name is not unique.</td>
+</tr>
+<tr>
+<td><code>AccessDenied</code></td>
+<td>Access is denied.</td>
+</tr>
+<tr>
+<td><code>Timeout</code></td>
+<td>Operation timed out.</td>
+</tr>
+<tr>
+<td><code>Banned</code></td>
+<td>The user is VAC2 banned.</td>
+</tr>
+<tr>
+<td><code>AccountNotFound</code></td>
+<td>Account not found.</td>
+</tr>
+<tr>
+<td><code>InvalidSteamId</code></td>
+<td>The Steam ID was invalid.</td>
+</tr>
+<tr>
+<td><code>ServiceUnavailable</code></td>
+<td>The requested service is currently unavailable.</td>
+</tr>
+<tr>
+<td><code>NotLoggedOn</code></td>
+<td>The user is not logged on.</td>
+</tr>
+<tr>
+<td><code>Pending</code></td>
+<td>Request is pending, it may be in process or waiting on third party.</td>
+</tr>
+<tr>
+<td><code>EncryptionFailure</code></td>
+<td>Encryption or Decryption failed.</td>
+</tr>
+<tr>
+<td><code>InsufficientPrivilege</code></td>
+<td>Insufficient privilege.</td>
+</tr>
+<tr>
+<td><code>LimitExceeded</code></td>
+<td>Too much of a good thing.</td>
+</tr>
+<tr>
+<td><code>Revoked</code></td>
+<td>Access has been revoked (used for revoked guest passes.)</td>
+</tr>
+<tr>
+<td><code>Expired</code></td>
+<td>License/Guest pass the user is trying to access is expired.</td>
+</tr>
+<tr>
+<td><code>AlreadyRedeemed</code></td>
+<td>Guest pass has already been redeemed by account, cannot be used again.</td>
+</tr>
+<tr>
+<td><code>DuplicateRequest</code></td>
+<td>The request is a duplicate and the action has already occurred in the past, ignored this time.</td>
+</tr>
+<tr>
+<td><code>AlreadyOwned</code></td>
+<td>All the games in this guest pass redemption request are already owned by the user.</td>
+</tr>
+<tr>
+<td><code>IpNotFound</code></td>
+<td>IP address not found.</td>
+</tr>
+<tr>
+<td><code>PersistFailed</code></td>
+<td>Failed to write change to the data store.</td>
+</tr>
+<tr>
+<td><code>LockingFailed</code></td>
+<td>Failed to acquire access lock for this operation.</td>
+</tr>
+<tr>
+<td><code>LogonSessionReplaced</code></td>
+<td>The logon session has been replaced.</td>
+</tr>
+<tr>
+<td><code>ConnectFailed</code></td>
+<td>Failed to connect.</td>
+</tr>
+<tr>
+<td><code>HandshakeFailed</code></td>
+<td>The authentication handshake has failed.</td>
+</tr>
+<tr>
+<td><code>IoFailure</code></td>
+<td>There has been a generic IO failure.</td>
+</tr>
+<tr>
+<td><code>RemoteDisconnect</code></td>
+<td>The remote server has disconnected.</td>
+</tr>
+<tr>
+<td><code>ShoppingCartNotFound</code></td>
+<td>Failed to find the shopping cart requested.</td>
+</tr>
+<tr>
+<td><code>Blocked</code></td>
+<td>A user blocked the action.</td>
+</tr>
+<tr>
+<td><code>Ignored</code></td>
+<td>The target is ignoring sender.</td>
+</tr>
+<tr>
+<td><code>NoMatch</code></td>
+<td>Nothing matching the request found.</td>
+</tr>
+<tr>
+<td><code>AccountDisabled</code></td>
+<td>The account is disabled.</td>
+</tr>
+<tr>
+<td><code>ServiceReadOnly</code></td>
+<td>This service is not accepting content changes right now.</td>
+</tr>
+<tr>
+<td><code>AccountNotFeatured</code></td>
+<td>Account doesn't have value, so this feature isn't available.</td>
+</tr>
+<tr>
+<td><code>AdministratorOK</code></td>
+<td>Allowed to take this action, but only because requester is admin.</td>
+</tr>
+<tr>
+<td><code>ContentVersion</code></td>
+<td>A Version mismatch in content transmitted within the Steam protocol.</td>
+</tr>
+<tr>
+<td><code>TryAnotherCM</code></td>
+<td>The current CM can't service the user making a request, user should try another.</td>
+</tr>
+<tr>
+<td><code>PasswordRequiredToKickSession</code></td>
+<td>You are already logged in elsewhere, this cached credential login has failed.</td>
+</tr>
+<tr>
+<td><code>AlreadyLoggedInElsewhere</code></td>
+<td>The user is logged in elsewhere. (Use <code>SteamApiResult.LoggedInElsewhere</code> instead!)</td>
+</tr>
+<tr>
+<td><code>Suspended</code></td>
+<td>Long running operation has suspended/paused. (e.g. content download.)</td>
+</tr>
+<tr>
+<td><code>Cancelled</code></td>
+<td>Operation has been canceled, typically by user. (e.g. a content download.)</td>
+</tr>
+<tr>
+<td><code>DataCorruption</code></td>
+<td>Operation canceled because data is ill formed or unrecoverable.</td>
+</tr>
+<tr>
+<td><code>DiskFull</code></td>
+<td>Operation canceled - not enough disk space.</td>
+</tr>
+<tr>
+<td><code>RemoteCallFailed</code></td>
+<td>The remote or IPC call has failed.</td>
+</tr>
+<tr>
+<td><code>PasswordUnset</code></td>
+<td>Password could not be verified as it's unset server side.</td>
+</tr>
+<tr>
+<td><code>ExternalAccountUnlinked</code></td>
+<td>External account (PSN, Facebook...) is not linked to a Steam account.</td>
+</tr>
+<tr>
+<td><code>PSNTicketInvalid</code></td>
+<td>PSN ticket was invalid.</td>
+</tr>
+<tr>
+<td><code>ExternalAccountAlreadyLinked</code></td>
+<td>External account (PSN, Facebook...) is already linked to some other account, must explicitly request to replace/delete the link first.</td>
+</tr>
+<tr>
+<td><code>RemoteFileConflict</code></td>
+<td>The sync cannot resume due to a conflict between the local and remote files.</td>
+</tr>
+<tr>
+<td><code>IllegalPassword</code></td>
+<td>The requested new password is not allowed.</td>
+</tr>
+<tr>
+<td><code>SameAsPreviousValue</code></td>
+<td>New value is the same as the old one. This is used for secret question and answer.</td>
+</tr>
+<tr>
+<td><code>AccountLogonDenied</code></td>
+<td>Account login denied due to 2nd factor authentication failure.</td>
+</tr>
+<tr>
+<td><code>CannotUseOldPassword</code></td>
+<td>The requested new password is not legal.</td>
+</tr>
+<tr>
+<td><code>InvalidLoginAuthCode</code></td>
+<td>Account login denied due to auth code invalid.</td>
+</tr>
+<tr>
+<td><code>AccountLogonDeniedNoMail</code></td>
+<td>Account login denied due to 2nd factor auth failure - and no mail has been sent.</td>
+</tr>
+<tr>
+<td><code>HardwareNotCapableOfIPT</code></td>
+<td>The user's hardware does not support Intel's Identity Protection Technology (IPT).</td>
+</tr>
+<tr>
+<td><code>IPTInitError</code></td>
+<td>Intel's Identity Protection Technology (IPT) has failed to initialize.</td>
+</tr>
+<tr>
+<td><code>ParentalControlRestricted</code></td>
+<td>Operation failed due to parental control restrictions for current user.</td>
+</tr>
+<tr>
+<td><code>FacebookQueryError</code></td>
+<td>Facebook query returned an error.</td>
+</tr>
+<tr>
+<td><code>ExpiredLoginAuthCode</code></td>
+<td>Account login denied due to an expired auth code.</td>
+</tr>
+<tr>
+<td><code>IPLoginRestrictionFailed</code></td>
+<td>The login failed due to an IP restriction.</td>
+</tr>
+<tr>
+<td><code>AccountLockedDown</code></td>
+<td>The current user's account is currently locked for use. This is likely due to a hijacking and pending ownership verification.</td>
+</tr>
+<tr>
+<td><code>AccountLogonDeniedVerifiedEmailRequired</code></td>
+<td>The logon failed because the account's email is not verified.</td>
+</tr>
+<tr>
+<td><code>NoMatchingURL</code></td>
+<td>There is no URL matching the provided values.</td>
+</tr>
+<tr>
+<td><code>BadResponse</code></td>
+<td>Bad Response due to a Parse failure, missing field, etc.</td>
+</tr>
+<tr>
+<td><code>RequirePasswordReEntry</code></td>
+<td>The user cannot complete the action until they re-enter their password.</td>
+</tr>
+<tr>
+<td><code>ValueOutOfRange</code></td>
+<td>The value entered is outside the acceptable range.</td>
+</tr>
+<tr>
+<td><code>UnexpectedError</code></td>
+<td>Something happened that we didn't expect to ever happen.</td>
+</tr>
+<tr>
+<td><code>Disabled</code></td>
+<td>The requested service has been configured to be unavailable.</td>
+</tr>
+<tr>
+<td><code>InvalidCEGSubmission</code></td>
+<td>The files submitted to the CEG server are not valid.</td>
+</tr>
+<tr>
+<td><code>RestrictedDevice</code></td>
+<td>The device being used is not allowed to perform this action.</td>
+</tr>
+<tr>
+<td><code>RegionLocked</code></td>
+<td>The action could not be complete because it is region restricted.</td>
+</tr>
+<tr>
+<td><code>RateLimitExceeded</code></td>
+<td>Temporary rate limit exceeded, try again later, different from <code>SteamApiResult.LimitExceeded</code> which may be permanent.</td>
+</tr>
+<tr>
+<td><code>AccountLoginDeniedNeedTwoFactor</code></td>
+<td>Need two-factor code to login.</td>
+</tr>
+<tr>
+<td><code>ItemDeleted</code></td>
+<td>The thing we're trying to access has been deleted.</td>
+</tr>
+<tr>
+<td><code>AccountLoginDeniedThrottle</code></td>
+<td>Login attempt failed, try to throttle response to possible attacker.</td>
+</tr>
+<tr>
+<td><code>TwoFactorCodeMismatch</code></td>
+<td>Two factor authentication (Steam Guard) code is incorrect.</td>
+</tr>
+<tr>
+<td><code>TwoFactorActivationCodeMismatch</code></td>
+<td>The activation code for two-factor authentication (Steam Guard) didn't match.</td>
+</tr>
+<tr>
+<td><code>AccountAssociatedToMultiplePartners</code></td>
+<td>The current account has been associated with multiple partners.</td>
+</tr>
+<tr>
+<td><code>NotModified</code></td>
+<td>The data has not been modified.</td>
+</tr>
+<tr>
+<td><code>NoMobileDevice</code></td>
+<td>The account does not have a mobile device associated with it.</td>
+</tr>
+<tr>
+<td><code>TimeNotSynced</code></td>
+<td>The time presented is out of range or tolerance.</td>
+</tr>
+<tr>
+<td><code>SmsCodeFailed</code></td>
+<td>SMS code failure - no match, none pending, etc.</td>
+</tr>
+<tr>
+<td><code>AccountLimitExceeded</code></td>
+<td>Too many accounts access this resource.</td>
+</tr>
+<tr>
+<td><code>AccountActivityLimitExceeded</code></td>
+<td>Too many changes to this account.</td>
+</tr>
+<tr>
+<td><code>PhoneActivityLimitExceeded</code></td>
+<td>Too many changes to this phone.</td>
+</tr>
+<tr>
+<td><code>RefundToWallet</code></td>
+<td>Cannot refund to payment method, must use wallet.</td>
+</tr>
+<tr>
+<td><code>EmailSendFailure</code></td>
+<td>Cannot send an email.</td>
+</tr>
+<tr>
+<td><code>NotSettled</code></td>
+<td>Can't perform operation until payment has settled.</td>
+</tr>
+<tr>
+<td><code>NeedCaptcha</code></td>
+<td>The user needs to provide a valid captcha.</td>
+</tr>
+<tr>
+<td><code>GSLTDenied</code></td>
+<td>A game server login token owned by this token's owner has been banned.</td>
+</tr>
+<tr>
+<td><code>GSOwnerDenied</code></td>
+<td>Game server owner is denied for some other reason such as account locked, community ban, vac ban, missing phone, etc.</td>
+</tr>
+<tr>
+<td><code>InvalidItemType</code></td>
+<td>The type of thing we were requested to act on is invalid.</td>
+</tr>
+<tr>
+<td><code>IPBanned</code></td>
+<td>The IP address has been banned from taking this action.</td>
+</tr>
+<tr>
+<td><code>GSLTExpired</code></td>
+<td>This Game Server Login Token (GSLT) has expired from disuse; it can be reset for use.</td>
+</tr>
+<tr>
+<td><code>InsufficientFunds</code></td>
+<td>User doesn't have enough wallet funds to complete the action.</td>
+</tr>
+<tr>
+<td><code>TooManyPending</code></td>
+<td>There are too many of this thing pending already</td>
+</tr>
+<tr>
+<td><code>NoSiteLicensesFound</code></td>
+<td>NoSiteLicensesFound.</td>
+</tr>
+<tr>
+<td><code>WGNetworkSendExceeded</code></td>
+<td>WGNetworkSendExceeded.</td>
+</tr>
+<tr>
+<td><code>AccountNotFriends</code></td>
+<td>AccountNotFriends.</td>
+</tr>
+<tr>
+<td><code>LimitedUserAccount</code></td>
+<td>LimitedUserAccount.</td>
+</tr>
+<tr>
+<td><code>CantRemoveItem</code></td>
+<td>CantRemoveItem.</td>
+</tr>
+<tr>
+<td><code>AccountDeleted</code></td>
+<td>AccountDeleted.</td>
+</tr>
+<tr>
+<td><code>ExistingUserCancelledLicense</code></td>
+<td>ExistingUserCancelledLicense.</td>
+</tr>
+<tr>
+<td><code>CommunityCooldown</code></td>
+<td>CommunityCooldown.</td>
+</tr>
+<tr>
+<td><code>NoLauncherSpecified</code></td>
+<td>NoLauncherSpecified.</td>
+</tr>
+<tr>
+<td><code>MustAgreeToSSA</code></td>
+<td>MustAgreeToSSA.</td>
+</tr>
+<tr>
+<td><code>LauncherMigrated</code></td>
+<td>LauncherMigrated.</td>
+</tr>
+<tr>
+<td><code>SteamRealmMismatch</code></td>
+<td>SteamRealmMismatch.</td>
+</tr>
+<tr>
+<td><code>InvalidSignature</code></td>
+<td>InvalidSignature.</td>
+</tr>
+<tr>
+<td><code>ParseFailure</code></td>
+<td>ParseFailure.</td>
+</tr>
+<tr>
+<td><code>NoVerifiedPhone</code></td>
+<td>NoVerifiedPhone.</td>
+</tr>
+<tr>
+<td><code>InsufficientBattery</code></td>
+<td>InsufficientBattery.</td>
+</tr>
+<tr>
+<td><code>ChargerRequired</code></td>
+<td>ChargerRequired.</td>
+</tr>
+<tr>
+<td><code>CachedCredentialInvalid</code></td>
+<td>CachedCredentialInvalid.</td>
+</tr>
+<tr>
+<td><code>PhoneNumberIsVOIP</code></td>
+<td>PhoneNumberIsVOIP.</td>
+</tr>
+<tr>
+<td><code>NotSupported</code></td>
+<td>NotSupported.</td>
+</tr>
+<tr>
+<td><code>FamilySizeLimitExceeded</code></td>
+<td>FamilySizeLimitExceeded.</td>
+</tr>
+<tr>
+<td><code>OfflineAppCacheInvalid</code></td>
+<td>OfflineAppCacheInvalid.</td>
+</tr>
+<tr>
+<td><code>TryLater</code></td>
+<td>TryLater.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steamauthsessionresponse">SteamAuthSessionResponse</h1>
+<blockquote>
+<p><strong>Steamworks Enum</strong>: <a href="https://partner.steamgames.com/doc/api/steam_api#EAuthSessionResponse">EAuthSessionResponse</a></p>
+</blockquote>
+<p>This enum holds callback return values for the <a href="https://partner.steamgames.com/doc/api/ISteamUser#ValidateAuthTicketResponse_t">ISteamUser::ValidateAuthTicketResponse_t</a> callback which is posted as a response to <a href="user.html#steam_user_begin_auth_session">steam_user_begin_auth_session</a> and <a href="https://partner.steamgames.com/doc/api/ISteamGameServer#BeginAuthSession">ISteamGameServer::BeginAuthSession</a>.</p>
+<p>These constants are referenced by the following structs:</p>
+<ul>
+<li><a href="user.html#steamuservalidateauthticketresponse">SteamUserValidateAuthTicketResponse</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>OK</code></td>
+<td>Steam has verified the user is online, the ticket is valid and ticket has not been reused.</td>
+</tr>
+<tr>
+<td><code>UserNotConnectedToSteam</code></td>
+<td>The user in question is not connected to Steam.</td>
+</tr>
+<tr>
+<td><code>NoLicenseOrExpired</code></td>
+<td>The user doesn't have a license for this App ID or the ticket has expired.</td>
+</tr>
+<tr>
+<td><code>VACBanned</code></td>
+<td>The user is VAC banned for this game.</td>
+</tr>
+<tr>
+<td><code>LoggedInElseWhere</code></td>
+<td>The user account has logged in elsewhere and the session containing the game instance has been disconnected.</td>
+</tr>
+<tr>
+<td><code>VACCheckTimedOut</code></td>
+<td>VAC has been unable to perform anti-cheat checks on this user.</td>
+</tr>
+<tr>
+<td><code>AuthTicketCanceled</code></td>
+<td>The ticket has been canceled by the issuer.</td>
+</tr>
+<tr>
+<td><code>AuthTicketInvalidAlreadyUsed</code></td>
+<td>This ticket has already been used, it is not valid.</td>
+</tr>
+<tr>
+<td><code>AuthTicketInvalid</code></td>
+<td>This ticket is not from a user instance currently connected to Steam.</td>
+</tr>
+<tr>
+<td><code>PublisherIssuedBan</code></td>
+<td>The user is banned for this game. The ban came via the web api and not VAC.</td>
+</tr>
+<tr>
+<td><code>AuthTicketNetworkIdentityFailure</code></td>
+<td>The network identity in the ticket does not match the server authenticating the ticket.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steammarketnotallowedreasonflags">SteamMarketNotAllowedReasonFlags</h1>
+<blockquote>
+<p><strong>Steamworks Enum</strong>: <a href="">EMarketNotAllowedReasonFlags</a></p>
+</blockquote>
+<p>This enum holds reasons a user may not use the Community Market.</p>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>None</code></td>
+<td>None.</td>
+</tr>
+<tr>
+<td><code>TemporaryFailure</code></td>
+<td>Temporary failure.</td>
+</tr>
+<tr>
+<td><code>AccountDisabled</code></td>
+<td>Disabled account.</td>
+</tr>
+<tr>
+<td><code>AccountLockedDown</code></td>
+<td>Locked account.</td>
+</tr>
+<tr>
+<td><code>AccountLimited</code></td>
+<td>Limited account (no purchases).</td>
+</tr>
+<tr>
+<td><code>TradeBanned</code></td>
+<td>The account is banned from trading items.</td>
+</tr>
+<tr>
+<td><code>AccountNotTrusted</code></td>
+<td>Wallet funds aren't tradable because the user has had no purchase activity in the last year or has had no purchases prior to last month.</td>
+</tr>
+<tr>
+<td><code>SteamGuardNotEnabled</code></td>
+<td>The user doesn't have Steam Guard enabled.</td>
+</tr>
+<tr>
+<td><code>SteamGuardOnlyRecentlyEnabled</code></td>
+<td>The user has Steam Guard, but it hasn't been enabled for the required number of days.</td>
+</tr>
+<tr>
+<td><code>RecentPasswordReset</code></td>
+<td>The user has recently forgotten their password and reset it.</td>
+</tr>
+<tr>
+<td><code>NewPaymentMethod</code></td>
+<td>The user has recently funded his or her wallet with a new payment method.</td>
+</tr>
+<tr>
+<td><code>InvalidCookie</code></td>
+<td>An invalid cookie was sent by the user.</td>
+</tr>
+<tr>
+<td><code>UsingNewDevice</code></td>
+<td>The user has Steam Guard, but is using a new computer or web browser.</td>
+</tr>
+<tr>
+<td><code>RecentSelfRefund</code></td>
+<td>The user has recently refunded a store purchase by his or herself.</td>
+</tr>
+<tr>
+<td><code>NewPaymentMethodCannotBeVerified</code></td>
+<td>The user has recently funded his or her wallet with a new payment method that cannot be verified.</td>
+</tr>
+<tr>
+<td><code>NoRecentPurchases</code></td>
+<td>Not only is the account not trusted, but they have no recent purchases at all.</td>
+</tr>
+<tr>
+<td><code>AcceptedWalletGift</code></td>
+<td>User accepted a wallet gift that was recently purchased.</td>
+</tr>
+<tr>
+<td><code>TradeCooldown</code></td>
+<td>User did something that triggered a trade cooldown (like reversing trades).</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="macros">macros</h1>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>STEAM_API_BREAKPAD_INVALID_HANDLE</code></td>
+<td>(value: '0')</td>
+</tr>
+<tr>
+<td><code>STEAM_API_GAME_EXTRA_INFO_MAX</code></td>
+<td>(value: '64')</td>
+</tr>
+<tr>
+<td><code>STEAM_API_SALT_SIZE</code></td>
+<td>(value: '8')</td>
+</tr>
+<tr>
+<td><code>STEAM_API_GID_NIL</code></td>
+<td>(value: '-1')</td>
+</tr>
+<tr>
+<td><code>STEAM_API_AUTH_TICKET_INVALID</code></td>
+<td>(value: '0')</td>
+</tr>
+<tr>
+<td><code>STEAM_API_JOB_ID_NIL</code></td>
+<td>(value: '-1')</td>
+</tr>
+<tr>
+<td><code>STEAM_API_TXN_ID_NIL</code></td>
+<td>(value: '-1')</td>
+</tr>
+<tr>
+<td><code>STEAM_API_TXN_ID_UNKNOWN</code></td>
+<td>(value: '0')</td>
+</tr>
+<tr>
+<td><code>STEAM_API_API_CALL_INVALID</code></td>
+<td>(value: '0x0')</td>
+</tr>
+<tr>
+<td><code>STEAM_API_APP_ID_INVALID</code></td>
+<td>(value: '0x0')</td>
+</tr>
+<tr>
+<td><code>STEAM_API_BUNDLE_ID_INVALID</code></td>
+<td>(value: '0')</td>
+</tr>
+<tr>
+<td><code>STEAM_API_CELL_ID_INVALID</code></td>
+<td>(value: '0xFFFFFFFF')</td>
+</tr>
+<tr>
+<td><code>STEAM_API_DEPOT_ID_INVALID</code></td>
+<td>(value: '0x0')</td>
+</tr>
+<tr>
+<td><code>STEAM_API_ASSET_CLASS_ID_INVALID</code></td>
+<td>(value: '0x0')</td>
+</tr>
+<tr>
+<td><code>STEAM_API_MANIFEST_ID_INVALID</code></td>
+<td>(value: '0')</td>
+</tr>
+<tr>
+<td><code>STEAM_API_STEAM_ACCOUNT_ID_MASK</code></td>
+<td>(value: '0xFFFFFFFF')</td>
+</tr>
+<tr>
+<td><code>STEAM_API_STEAM_ACCOUNT_INSTANCE_MASK</code></td>
+<td>(value: '0x000FFFFF')</td>
+</tr>
+<tr>
+<td><code>STEAM_API_STEAM_USER_CONSOLE_INSTANCE</code></td>
+<td>(value: '2')</td>
+</tr>
+<tr>
+<td><code>STEAM_API_STEAM_USER_DESKTOP_INSTANCE</code></td>
+<td>(value: '1')</td>
+</tr>
+<tr>
+<td><code>STEAM_API_STEAM_USER_WEB_INSTANCE</code></td>
+<td>(value: '4')</td>
+</tr>
+<tr>
+<td><code>STEAM_API_PACKAGE_ID_FREE_SUB</code></td>
+<td>(value: '0x0')</td>
+</tr>
+<tr>
+<td><code>STEAM_API_PACKAGE_ID_INVALID</code></td>
+<td>(value: '0xFFFFFFFF')</td>
+</tr>
+<tr>
+<td><code>STEAM_API_PARTNER_ID_INVALID</code></td>
+<td>(value: '0')</td>
+</tr>
+<tr>
+<td><code>STEAM_API_PHYSICAL_ITEM_ID_INVALID</code></td>
+<td>(value: '0x0')</td>
+</tr>
+<tr>
+<td><code>STEAM_API_QUERY_PORT_ERROR</code></td>
+<td>(value: '0xFFFE')</td>
+</tr>
+<tr>
+<td><code>STEAM_API_QUERY_PORT_NOT_INITIALIZED</code></td>
+<td>(value: '0xFFFF')</td>
+</tr>
+<tr>
+<td><code>STEAM_ID_NIL</code></td>
+<td>(value: '0')</td>
+</tr>
+<tr>
+<td><code>STEAM_ID_NON_STEAM_GS</code></td>
+<td>(value: '2')</td>
+</tr>
+<tr>
+<td><code>STEAM_FRIENDS_MAX_FRIENDS_GROUP_NAME</code></td>
+<td>(value: '64')</td>
+</tr>
+<tr>
+<td><code>STEAM_FRIENDS_MAX_RICH_PRESENCE_KEY_LENGTH</code></td>
+<td>(value: '64')</td>
+</tr>
+<tr>
+<td><code>STEAM_FRIENDS_MAX_RICH_PRESENCE_KEYS</code></td>
+<td>(value: '20')</td>
+</tr>
+<tr>
+<td><code>STEAM_FRIENDS_MAX_RICH_PRESENCE_VALUE_LENGTH</code></td>
+<td>(value: '256')</td>
+</tr>
+<tr>
+<td><code>STEAM_FRIENDS_PERSONA_NAME_MAX</code></td>
+<td>(value: '128')</td>
+</tr>
+<tr>
+<td><code>STEAM_FRIENDS_ENUMERATE_FOLLOWERS_MAX</code></td>
+<td>(value: '50')</td>
+</tr>
+<tr>
+<td><code>STEAM_FRIENDS_FRIENDS_GROUP_LIMIT</code></td>
+<td>(value: '100')</td>
+</tr>
+<tr>
+<td><code>STEAM_FRIENDS_CHAT_METADATA_MAX</code></td>
+<td>(value: '8192')</td>
+</tr>
+<tr>
+<td><code>STEAM_FRIENDS_PERSONA_NAME_MAX_UTF16</code></td>
+<td>(value: '32')</td>
+</tr>
+<tr>
+<td><code>STEAM_FRIENDS_GROUP_ID_INVALID</code></td>
+<td>(value: '-1')</td>
+</tr>
+<tr>
+<td><code>STEAM_FRIENDS_INTERFACE_VERSION</code></td>
+<td>(value: '"SteamFriends015"')</td>
+</tr>
+<tr>
+<td><code>STEAM_APPS_APP_PROOF_OF_PURCHASE_KEY_MAX</code></td>
+<td>(value: '240')</td>
+</tr>
+<tr>
+<td><code>STEAM_APPS_INTERFACE_VERSION</code></td>
+<td>(value: '"STEAMAPPS_INTERFACE_VERSION008"')</td>
+</tr>
+<tr>
+<td><code>STEAM_SCREENSHOTS_INVALID_SCREENSHOT_HANDLE</code></td>
+<td>(value: '0')</td>
+</tr>
+<tr>
+<td><code>STEAM_SCREENSHOTS_UFS_TAG_TYPE_MAX</code></td>
+<td>(value: '255')</td>
+</tr>
+<tr>
+<td><code>STEAM_SCREENSHOTS_UFS_TAG_VALUE_MAX</code></td>
+<td>(value: '255')</td>
+</tr>
+<tr>
+<td><code>STEAM_SCREENSHOTS_MAX_TAGGED_PUBLISHED_FILES</code></td>
+<td>(value: '32')</td>
+</tr>
+<tr>
+<td><code>STEAM_SCREENSHOTS_MAX_TAGGED_USERS</code></td>
+<td>(value: '32')</td>
+</tr>
+<tr>
+<td><code>STEAM_SCREENSHOTS_THUMB_WIDTH</code></td>
+<td>(value: '200')</td>
+</tr>
+<tr>
+<td><code>STEAM_SCREENSHOTS_INTERFACE_VERSION</code></td>
+<td>(value: '"STEAMSCREENSHOTS_INTERFACE_VERSION003"')</td>
+</tr>
+<tr>
+<td><code>STEAM_USER_INTERFACE_VERSION</code></td>
+<td>(value: '"SteamUser019"')</td>
+</tr>
+<tr>
+<td><code>STEAM_USER_ENCRYPTED_APP_TICKET_SYMMETRIC_KEY_LEN</code></td>
+<td>(value: '32')</td>
+</tr>
+<tr>
+<td><code>STEAM_UTILS_INTERFACE_VERSION</code></td>
+<td>(value: '"SteamUtils009"')</td>
+</tr>
+<tr>
+<td><code>STEAM_UGC_NUM_RESULTS_PER_PAGE</code></td>
+<td>(value: '50')</td>
+</tr>
+<tr>
+<td><code>STEAM_UGC_DEVELOPER_METADATA_MAX</code></td>
+<td>(value: '5000')</td>
+</tr>
+<tr>
+<td><code>STEAM_UGC_QUERY_HANDLE_INVALID</code></td>
+<td>(value: '-1')</td>
+</tr>
+<tr>
+<td><code>STEAM_UGC_UPDATE_HANDLE_INVALID</code></td>
+<td>(value: '-1')</td>
+</tr>
+<tr>
+<td><code>STEAM_UGC_INTERFACE_VERSION</code></td>
+<td>(value: '"STEAMUGC_INTERFACE_VERSION015"')</td>
+</tr>
+<tr>
+<td><code>STEAM_INPUT_INTERFACE_VERSION</code></td>
+<td>(value: '"SteamInput001"')</td>
+</tr>
+<tr>
+<td><code>STEAM_INPUT_HANDLE_ALL_CONTROLLERS</code></td>
+<td>(value: '-1')</td>
+</tr>
+<tr>
+<td><code>STEAM_INPUT_MAX_ANALOG_ACTIONS</code></td>
+<td>(value: '16')</td>
+</tr>
+<tr>
+<td><code>STEAM_INPUT_MAX_ANALOG_ACTION_DATA</code></td>
+<td>(value: '1.0')</td>
+</tr>
+<tr>
+<td><code>STEAM_INPUT_MAX_COUNT</code></td>
+<td>(value: '16')</td>
+</tr>
+<tr>
+<td><code>STEAM_INPUT_MAX_DIGITAL_ACTIONS</code></td>
+<td>(value: '128')</td>
+</tr>
+<tr>
+<td><code>STEAM_INPUT_MAX_ORIGINS</code></td>
+<td>(value: '8')</td>
+</tr>
+<tr>
+<td><code>STEAM_INPUT_MIN_ANALOG_ACTION_DATA</code></td>
+<td>(value: '-1.0')</td>
+</tr>
+<tr>
+<td><code>STEAM_USER_STATS_LEADERBOARD_NAME_MAX</code></td>
+<td>(value: '128')</td>
+</tr>
+<tr>
+<td><code>STEAM_USER_STATS_STAT_NAME_MAX</code></td>
+<td>(value: '128')</td>
+</tr>
+<tr>
+<td><code>STEAM_USER_STATS_LEADERBOARD_DETAILS_MAX</code></td>
+<td>(value: '64')</td>
+</tr>
+<tr>
+<td><code>STEAM_USER_STATS_INTERFACE_VERSION</code></td>
+<td>(value: '"STEAMUSERSTATS_INTERFACE_VERSION011"')</td>
+</tr>
+<tr>
+<td><code>STEAM_MUSIC_INTERFACE_VERSION</code></td>
+<td>(value: '"STEAMMUSIC_INTERFACE_VERSION001"')</td>
+</tr>
+<tr>
+<td><code>STEAM_TIMELINE_MAX_TIMELINE_PRIORITY</code></td>
+<td>(value: '1000')</td>
+</tr>
+<tr>
+<td><code>STEAM_INVENTORY_RESULT_INVALID</code></td>
+<td>(value: '-1')</td>
+</tr>
+<tr>
+<td><code>STEAM_INVENTORY_ITEM_INSTANCE_ID_INVALID</code></td>
+<td>(value: '-1')</td>
+</tr>
+<tr>
+<td><code>STEAM_INVENTORY_INTERFACE_VERSION</code></td>
+<td>(value: '"STEAMINVENTORY_INTERFACE_V002"')</td>
+</tr>
+<tr>
+<td><code>STEAM_REMOTE_STORAGE_FILENAME_MAX</code></td>
+<td>(value: '260')</td>
+</tr>
+<tr>
+<td><code>STEAM_REMOTE_STORAGE_PUBLISHED_DOCUMENT_CHANGE_DESCRIPTION_MAX</code></td>
+<td>(value: '8000')</td>
+</tr>
+<tr>
+<td><code>STEAM_REMOTE_STORAGE_PUBLISHED_DOCUMENT_DESCRIPTION_MAX</code></td>
+<td>(value: '8000')</td>
+</tr>
+<tr>
+<td><code>STEAM_REMOTE_STORAGE_PUBLISHED_DOCUMENT_TITLE_MAX</code></td>
+<td>(value: '129')</td>
+</tr>
+<tr>
+<td><code>STEAM_REMOTE_STORAGE_PUBLISHED_FILE_URL_MAX</code></td>
+<td>(value: '256')</td>
+</tr>
+<tr>
+<td><code>STEAM_REMOTE_STORAGE_TAG_LIST_MAX</code></td>
+<td>(value: '1025')</td>
+</tr>
+<tr>
+<td><code>STEAM_REMOTE_STORAGE_PUBLISHED_FILE_ID_INVALID</code></td>
+<td>(value: '0')</td>
+</tr>
+<tr>
+<td><code>STEAM_REMOTE_STORAGE_PUBLISHED_FILE_UPDATE_HANDLE_INVALID</code></td>
+<td>(value: '-1')</td>
+</tr>
+<tr>
+<td><code>STEAM_REMOTE_STORAGE_UGC_FILE_STREAM_HANDLE_INVALID</code></td>
+<td>(value: '-1')</td>
+</tr>
+<tr>
+<td><code>STEAM_REMOTE_STORAGE_UGC_HANDLE_INVALID</code></td>
+<td>(value: '-1')</td>
+</tr>
+<tr>
+<td><code>STEAM_REMOTE_STORAGE_ENUMERATE_PUBLISHED_FILES_MAX_RESULTS</code></td>
+<td>(value: '50')</td>
+</tr>
+<tr>
+<td><code>STEAM_REMOTE_STORAGE_MAX_CLOUD_FILE_CHUNK_SIZE</code></td>
+<td>(value: '104857600')</td>
+</tr>
+<tr>
+<td><code>STEAM_REMOTE_STORAGE_INTERFACE_VERSION</code></td>
+<td>(value: '"STEAMREMOTESTORAGE_INTERFACE_VERSION014"')</td>
+</tr>
+<tr>
+<td><code>STEAM_MATCHMAKING_SERVER_QUERY_INVALID</code></td>
+<td>(value: '0xffffffff')</td>
+</tr>
+<tr>
+<td><code>STEAM_MATCHMAKING_MAX_LOBBY_KEY_LENGTH</code></td>
+<td>(value: '255')</td>
+</tr>
+<tr>
+<td><code>STEAM_MATCHMAKING_FAVORITE_FLAG_FAVORITE</code></td>
+<td>(value: '0x01')</td>
+</tr>
+<tr>
+<td><code>STEAM_MATCHMAKING_FAVORITE_FLAG_HISTORY</code></td>
+<td>(value: '0x02')</td>
+</tr>
+<tr>
+<td><code>STEAM_MATCHMAKING_FAVORITE_FLAG_NONE</code></td>
+<td>(value: '0x00')</td>
+</tr>
+<tr>
+<td><code>STEAM_MATCHMAKING_SERVERS_INTERFACE_VERSION</code></td>
+<td>(value: '"SteamMatchMakingServers002"')</td>
+</tr>
+<tr>
+<td><code>STEAM_MATCHMAKING_INTERFACE_VERSION</code></td>
+<td>(value: '"SteamMatchMaking009"')</td>
+</tr>
+<tr>
+<td><code>STEAM_NETWORKING_POLL_GROUP_INVALID</code></td>
+<td>(value: '0')</td>
+</tr>
+<tr>
+<td><code>STEAM_NETWORKING_SOCKETS_MAX_MESSAGE_SIZE_SEND</code></td>
+<td>(value: '524288')</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steamid">SteamId</h1>
+<blockquote>
+<p><strong>Steamworks Struct</strong>: <a href="https://partner.steamgames.com/doc/api/steam_api#CSteamID">steam_api::CSteamID</a></p>
+</blockquote>
+<p>This struct holds details about the globally unique identifier for all Steam accounts, Steam groups, Lobbies and Chat rooms.</p>
+<p>This struct is referenced by the following functions:</p>
+<ul>
+<li><a href="user.html#steam_user_decode_steam_id">steam_user_decode_steam_id</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id64</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>Unique ID.</td>
+</tr>
+<tr>
+<td>account_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The account ID.</td>
+</tr>
+<tr>
+<td>account_instance</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The account instance.</td>
+</tr>
+<tr>
+<td>universe</td>
+<td><a href="api.html#steamapiuniverse">SteamApiUniverse</a></td>
+<td>The universe, or self-contained Steam instance, this account belongs to.</td>
+</tr>
+<tr>
+<td>account_type</td>
+<td><a href="api.html#steamapiaccounttype">SteamApiAccountType</a></td>
+<td>The type of account.</td>
+</tr>
+<tr>
+<td>is_valid</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></td>
+<td>Whether this Steam ID is valid.</td>
+</tr>
+<tr>
+<td>is_lobby</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></td>
+<td>Whether this Steam ID is a lobby.</td>
+</tr>
+<tr>
+<td>is_individual</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></td>
+<td>Whether this is an individual user account ID.</td>
+</tr>
+<tr>
+<td>is_game_server</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></td>
+<td>Whether this is a persistent (not anonymous) game server account ID.</td>
+</tr>
+<tr>
+<td>is_anon_game_server</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></td>
+<td>Whether this is an anonymous game server account.</td>
+</tr>
+<tr>
+<td>is_anon_user</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></td>
+<td>Whether this is an anonymous user account.</td>
+</tr>
+<tr>
+<td>is_content_server</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></td>
+<td>Whether this is a content server account ID.</td>
+</tr>
+<tr>
+<td>is_clan</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></td>
+<td>Whether this is a clan account ID.</td>
+</tr>
+<tr>
+<td>is_chat</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></td>
+<td>Whether this is a chat account ID.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="_sidebar.html" class="btn btn-neutral float-left" title=" sidebar"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="apps.html" class="btn btn-neutral float-right" title="Apps">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+      <p><p align="center">GameMaker 2026</p></p>
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/YoYoGames/GMEXT-Steamworks" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="_sidebar.html" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="apps.html" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = ".";</script>
+    <script src="js/theme_extra.js"></script>
+    <script src="js/theme.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/gml.min.js"></script>
+      <script src="assets/js/gmext_script.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

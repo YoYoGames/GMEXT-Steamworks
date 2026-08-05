@@ -1,0 +1,3494 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="img/favicon.ico" />
+    <title>User - GMEXT-Steamworks</title>
+    <link rel="stylesheet" href="css/theme.css" />
+    <link rel="stylesheet" href="css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+        <link href="assets/css/gmext_style.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "User";
+        var mkdocs_page_input_path = "user.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/gml.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="index.html" class="icon icon-home"> GMEXT-Steamworks
+        </a>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="index.html">Welcome to MkDocs</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="_footer.html"> footer</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="_sidebar.html"> sidebar</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="api.html">Api</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="apps.html">Apps</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="friends.html">Friends</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="guides.html">Guides</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="home.html">Home</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="input.html">Input</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="inventory.html">Inventory</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="matchmaking.html">Matchmaking</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="music.html">Music</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="networking.html">Networking</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="parties.html">Parties</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="remote_storage.html">Remote storage</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="screenshots.html">Screenshots</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="timeline.html">Timeline</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="ugc.html">Ugc</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="#">User</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#functions">Functions</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#constants">Constants</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#structs">Structs</a>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="userstats.html">Userstats</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="utils.html">Utils</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">GMEXT-Steamworks</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html" class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">User</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/YoYoGames/GMEXT-Steamworks/edit/master/docs/user.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <p><a id="top"></a></p>
+<h1 id="user"><strong>User</strong></h1>
+<blockquote>
+<p><strong>Steamworks Interface</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUser">ISteamUser</a></p>
+</blockquote>
+<p>This module contains functions for accessing and manipulating Steam user information.</p>
+<p>This is also where the APIs for <a href="https://partner.steamgames.com/doc/features/voice">Steam Voice</a> are exposed.</p>
+<h2 id="functions">Functions</h2>
+<p>These are the functions of the User module:</p>
+<ul>
+<li><a href="user.html#steam_user_advertise_game">steam_user_advertise_game</a></li>
+<li><a href="user.html#steam_user_begin_auth_session">steam_user_begin_auth_session</a></li>
+<li><a href="user.html#steam_user_is_behind_nat">steam_user_is_behind_nat</a></li>
+<li><a href="user.html#steam_user_is_phone_identifying">steam_user_is_phone_identifying</a></li>
+<li><a href="user.html#steam_user_is_phone_requiring_verification">steam_user_is_phone_requiring_verification</a></li>
+<li><a href="user.html#steam_user_is_phone_verified">steam_user_is_phone_verified</a></li>
+<li><a href="user.html#steam_user_is_two_factor_enabled">steam_user_is_two_factor_enabled</a></li>
+<li><a href="user.html#steam_user_logged_on">steam_user_logged_on</a></li>
+<li><a href="user.html#steam_user_set_duration_control_online_state">steam_user_set_duration_control_online_state</a></li>
+<li><a href="user.html#steam_user_cancel_auth_ticket">steam_user_cancel_auth_ticket</a></li>
+<li><a href="user.html#steam_user_decompress_voice">steam_user_decompress_voice</a></li>
+<li><a href="user.html#steam_user_end_auth_session">steam_user_end_auth_session</a></li>
+<li><a href="user.html#steam_user_get_auth_session_ticket">steam_user_get_auth_session_ticket</a></li>
+<li><a href="user.html#steam_user_get_h_steam_user">steam_user_get_h_steam_user</a></li>
+<li><a href="user.html#steam_user_get_player_steam_level">steam_user_get_player_steam_level</a></li>
+<li><a href="user.html#steam_user_get_steam_id">steam_user_get_steam_id</a></li>
+<li><a href="user.html#steam_user_decode_steam_id">steam_user_decode_steam_id</a></li>
+<li><a href="user.html#steam_user_start_voice_recording">steam_user_start_voice_recording</a></li>
+<li><a href="user.html#steam_user_stop_voice_recording">steam_user_stop_voice_recording</a></li>
+<li><a href="user.html#steam_user_get_voice_optimal_sample_rate">steam_user_get_voice_optimal_sample_rate</a></li>
+<li><a href="user.html#steam_user_get_available_voice">steam_user_get_available_voice</a></li>
+<li><a href="user.html#steam_user_get_voice">steam_user_get_voice</a></li>
+<li><a href="user.html#steam_user_request_encrypted_app_ticket">steam_user_request_encrypted_app_ticket</a></li>
+<li><a href="user.html#steam_user_get_encrypted_app_ticket">steam_user_get_encrypted_app_ticket</a></li>
+<li><a href="user.html#steam_user_get_game_badge_level">steam_user_get_game_badge_level</a></li>
+<li><a href="user.html#steam_user_get_auth_ticket_for_web_api">steam_user_get_auth_ticket_for_web_api</a></li>
+<li><a href="user.html#steam_user_get_duration_control">steam_user_get_duration_control</a></li>
+<li><a href="user.html#steam_user_request_store_auth_url">steam_user_request_store_auth_url</a></li>
+<li><a href="user.html#steam_user_get_market_eligibility">steam_user_get_market_eligibility</a></li>
+<li><a href="user.html#steam_user_track_app_usage_event">steam_user_track_app_usage_event</a></li>
+<li><a href="user.html#steam_user_user_has_license_for_app">steam_user_user_has_license_for_app</a></li>
+<li><a href="user.html#steam_user_set_callback_steam_servers_connected">steam_user_set_callback_steam_servers_connected</a></li>
+<li><a href="user.html#steam_user_clear_callback_steam_servers_connected">steam_user_clear_callback_steam_servers_connected</a></li>
+<li><a href="user.html#steam_user_set_callback_steam_server_connect_failure">steam_user_set_callback_steam_server_connect_failure</a></li>
+<li><a href="user.html#steam_user_clear_callback_steam_server_connect_failure">steam_user_clear_callback_steam_server_connect_failure</a></li>
+<li><a href="user.html#steam_user_set_callback_steam_servers_disconnected">steam_user_set_callback_steam_servers_disconnected</a></li>
+<li><a href="user.html#steam_user_clear_callback_steam_servers_disconnected">steam_user_clear_callback_steam_servers_disconnected</a></li>
+<li><a href="user.html#steam_user_set_callback_client_game_server_deny">steam_user_set_callback_client_game_server_deny</a></li>
+<li><a href="user.html#steam_user_clear_callback_client_game_server_deny">steam_user_clear_callback_client_game_server_deny</a></li>
+<li><a href="user.html#steam_user_set_callback_licenses_updated">steam_user_set_callback_licenses_updated</a></li>
+<li><a href="user.html#steam_user_clear_callback_licenses_updated">steam_user_clear_callback_licenses_updated</a></li>
+<li><a href="user.html#steam_user_set_callback_microtxn_authorization_response">steam_user_set_callback_microtxn_authorization_response</a></li>
+<li><a href="user.html#steam_user_clear_callback_microtxn_authorization_response">steam_user_clear_callback_microtxn_authorization_response</a></li>
+<li><a href="user.html#steam_user_set_callback_get_auth_session_ticket_response">steam_user_set_callback_get_auth_session_ticket_response</a></li>
+<li><a href="user.html#steam_user_clear_callback_get_auth_session_ticket_response">steam_user_clear_callback_get_auth_session_ticket_response</a></li>
+<li><a href="user.html#steam_user_set_callback_validate_auth_ticket_response">steam_user_set_callback_validate_auth_ticket_response</a></li>
+<li><a href="user.html#steam_user_clear_callback_validate_auth_ticket_response">steam_user_clear_callback_validate_auth_ticket_response</a></li>
+</ul>
+<h2 id="constants">Constants</h2>
+<p>These are the constants and enums of the User module:</p>
+<ul>
+<li><a href="user.html#steamuserdurationcontrolprogress">SteamUserDurationControlProgress</a></li>
+<li><a href="user.html#steamuserdurationcontrolnotification">SteamUserDurationControlNotification</a></li>
+<li><a href="user.html#steamuserbeginauthsessionresult">SteamUserBeginAuthSessionResult</a></li>
+<li><a href="user.html#steamuserdurationcontrolonlinestate">SteamUserDurationControlOnlineState</a></li>
+<li><a href="user.html#steamuserugclist">SteamUserUgcList</a></li>
+<li><a href="user.html#steamuserugclistsortorder">SteamUserUgcListSortOrder</a></li>
+</ul>
+<h2 id="structs">Structs</h2>
+<p>These are the structs of the User module:</p>
+<ul>
+<li><a href="user.html#steamuserstoreauthurlresponse">SteamUserStoreAuthUrlResponse</a></li>
+<li><a href="user.html#steamuserencryptedappticketresponse">SteamUserEncryptedAppTicketResponse</a></li>
+<li><a href="user.html#steamuserdurationcontrol">SteamUserDurationControl</a></li>
+<li><a href="user.html#steamusermarketeligibilityresponse">SteamUserMarketEligibilityResponse</a></li>
+<li><a href="user.html#steamuserauthsessionticket">SteamUserAuthSessionTicket</a></li>
+<li><a href="user.html#steamusergetauthsessionticketresponse">SteamUserGetAuthSessionTicketResponse</a></li>
+<li><a href="user.html#steamuseravailablevoice">SteamUserAvailableVoice</a></li>
+<li><a href="user.html#steamusergetvoiceresult">SteamUserGetVoiceResult</a></li>
+<li><a href="user.html#steamuserdecompressvoiceresult">SteamUserDecompressVoiceResult</a></li>
+<li><a href="user.html#steamuservalidateauthticketresponse">SteamUserValidateAuthTicketResponse</a></li>
+<li><a href="user.html#steamusersteamserversdisconnected">SteamUserSteamServersDisconnected</a></li>
+<li><a href="user.html#steamusersteamserverconnectfailure">SteamUserSteamServerConnectFailure</a></li>
+<li><a href="user.html#steamuserclientgameserverdeny">SteamUserClientGameServerDeny</a></li>
+<li><a href="user.html#steamusermicrotxnauthorizationresponse">SteamUserMicroTxnAuthorizationResponse</a></li>
+<li><a href="userstats.html#steamuserstatsachievementandunlocktime">SteamUserStatsAchievementAndUnlockTime</a></li>
+<li><a href="userstats.html#steamuserstatsmostachievedachievementinfo">SteamUserStatsMostAchievedAchievementInfo</a></li>
+<li><a href="userstats.html#steamuserstatsdownloadedleaderboardentry">SteamUserStatsDownloadedLeaderboardEntry</a></li>
+<li><a href="userstats.html#steamuserstatsleaderboardfindresult">SteamUserStatsLeaderboardFindResult</a></li>
+<li><a href="userstats.html#steamuserstatsscoresdownloadedresult">SteamUserStatsScoresDownloadedResult</a></li>
+<li><a href="userstats.html#steamuserstatsscoreuploadedresult">SteamUserStatsScoreUploadedResult</a></li>
+<li><a href="userstats.html#steamuserstatsnumberofcurrentplayersresult">SteamUserStatsNumberOfCurrentPlayersResult</a></li>
+<li><a href="userstats.html#steamuserstatsglobalachievementpercentagesreadyresult">SteamUserStatsGlobalAchievementPercentagesReadyResult</a></li>
+<li><a href="userstats.html#steamuserstatsglobalstatsreceivedresult">SteamUserStatsGlobalStatsReceivedResult</a></li>
+<li><a href="userstats.html#steamuserstatsattachleaderboardugcresult">SteamUserStatsAttachLeaderboardUgcResult</a></li>
+<li><a href="userstats.html#steamuserstatsachievementiconfetched">SteamUserStatsAchievementIconFetched</a></li>
+<li><a href="userstats.html#steamuserstatsunloaded">SteamUserStatsUnloaded</a></li>
+<li><a href="userstats.html#steamuserstatsuserstatsreceived">SteamUserStatsUserStatsReceived</a></li>
+<li><a href="userstats.html#steamuserstatsuserstatsstored">SteamUserStatsUserStatsStored</a></li>
+<li><a href="userstats.html#steamuserstatsuserachievementstored">SteamUserStatsUserAchievementStored</a></li>
+<li><a href="userstats.html#steamuserstatsintminmax">SteamUserStatsIntMinMax</a></li>
+<li><a href="userstats.html#steamuserstatsfloatminmax">SteamUserStatsFloatMinMax</a></li>
+</ul>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_user_advertise_game">steam_user_advertise_game</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUser#AdvertiseGame">ISteamUser::AdvertiseGame</a></p>
+</blockquote>
+<p>This function sets the rich presence data for an unsecured game server that the user is playing on. This allows friends to be able to view the game info and join your game.</p>
+<p>When you are using Steam authentication system this call is never required, the auth system automatically sets the appropriate rich presence.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_user_advertise_game(steam_id_game_server, server_ip, server_port)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>steam_id_game_server</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>This should be <code>STEAM_ID_NON_STEAM_GS</code> (<a href="https://partner.steamgames.com/doc/api/steam_api#k_steamIDNonSteamGS">k_steamIDNonSteamGS</a>) if you're setting the IP/Port, otherwise it should be <code>STEAM_ID_NIL</code> (<a href="https://partner.steamgames.com/doc/api/steam_api#k_steamIDNil">k_steamIDNil</a>) if you're clearing this.</td>
+</tr>
+<tr>
+<td>server_ip</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The IP of the game server in host order, i.e 127.0.0.1 == 0x7f000001.</td>
+</tr>
+<tr>
+<td>server_port</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The connection port of the game server, in host order.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_user_begin_auth_session">steam_user_begin_auth_session</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUser#BeginAuthSession">ISteamUser::BeginAuthSession</a></p>
+</blockquote>
+<p>This function authenticates the ticket from the entity Steam ID to be sure it is valid and isn't reused. Note that identity is not confirmed until the response callback is received and the return value in that callback is checked for success.</p>
+<p>The ticket is created on the entity with <a href="user.html#steam_user_get_auth_session_ticket">steam_user_get_auth_session_ticket</a> or <a href="https://partner.steamgames.com/doc/api/ISteamGameServer#GetAuthSessionTicket">ISteamGameServer::GetAuthSessionTicket</a> and then needs to be provided over the network for the other end to validate.</p>
+<p>This registers for additional <a href="https://partner.steamgames.com/doc/api/ISteamUser#ValidateAuthTicketResponse_t">ValidateAuthTicketResponse_t</a> callbacks if the entity goes offline or cancels the ticket. See <a href="api.html#steamauthsessionresponse">SteamAuthSessionResponse</a> for more information.</p>
+<p>When the multiplayer session terminates you must call <a href="user.html#steam_user_end_auth_session">steam_user_end_auth_session</a>.</p>
+<p>See also: <a href="https://partner.steamgames.com/doc/features/auth">User Authentication and Ownership</a></p>
+<p>This function operates asynchronously, which means that it does not immediately return the requested result. Instead, upon completion of the task, it will trigger the <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_user_begin_auth_session(auth_ticket, steam_id, buffer_offset=undefined, buffer_count=undefined)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>auth_ticket</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Buffers/Buffers.htm">Buffer</a></td>
+<td>The auth ticket to validate. The size of the buffer must be the ticket size provided by the call that created the ticket.</td>
+</tr>
+<tr>
+<td>steam_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The entity's Steam ID that sent this ticket.</td>
+</tr>
+<tr>
+<td>buffer_offset</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The offset into the buffer, in bytes. Defaults to 0.</td>
+</tr>
+<tr>
+<td>buffer_count</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The size of the ticket in bytes. Defaults to the buffer size minus the offset.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="user.html#steamuserbeginauthsessionresult">SteamUserBeginAuthSessionResult</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Triggers:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a></p>
+<p><strong>Steamworks Callback</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUser#ValidateAuthTicketResponse_t">ISteamUser::ValidateAuthTicketResponse_t</a></p>
+</blockquote>
+<p>Called when an auth ticket has been validated.</p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>result</td>
+<td><a href="user.html#steamuservalidateauthticketresponse">SteamUserValidateAuthTicketResponse</a></td>
+<td>The result of the operation.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_user_is_behind_nat">steam_user_is_behind_nat</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUser#BIsBehindNAT">ISteamUser::BIsBehindNAT</a></p>
+</blockquote>
+<p>This function checks if the current user looks like they are behind a NAT device.</p>
+<p>This is only valid if the user is connected to the Steam servers and may not catch all forms of NAT.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_user_is_behind_nat()
+</code></pre></div>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_user_is_phone_identifying">steam_user_is_phone_identifying</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUser#BIsPhoneIdentifying">ISteamUser::BIsPhoneIdentifying</a></p>
+</blockquote>
+<p>This function checks whether the user's phone number is used to uniquely identify them.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_user_is_phone_identifying()
+</code></pre></div>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_user_is_phone_requiring_verification">steam_user_is_phone_requiring_verification</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUser#BIsPhoneRequiringVerification">ISteamUser::BIsPhoneRequiringVerification</a></p>
+</blockquote>
+<p>This function checks whether the current user's phone number is awaiting (re)verification.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_user_is_phone_requiring_verification()
+</code></pre></div>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_user_is_phone_verified">steam_user_is_phone_verified</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUser#BIsPhoneVerified">ISteamUser::BIsPhoneVerified</a></p>
+</blockquote>
+<p>This function checks whether the current user has verified their phone number.</p>
+<p>See the <a href="https://support.steampowered.com/kb_article.php?ref=8625-wrah-9030">Steam Guard Mobile Authenticator</a> page on the customer facing Steam Support site for more information.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_user_is_phone_verified()
+</code></pre></div>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_user_is_two_factor_enabled">steam_user_is_two_factor_enabled</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUser#BIsTwoFactorEnabled">ISteamUser::BIsTwoFactorEnabled</a></p>
+</blockquote>
+<p>This function checks whether the current user has Steam Guard two factor authentication enabled on their account.</p>
+<p>See the <a href="https://support.steampowered.com/kb_article.php?ref=8625-wrah-9030">Steam Guard Mobile Authenticator</a> page on the customer facing Steam Support site for more information.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_user_is_two_factor_enabled()
+</code></pre></div>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_user_logged_on">steam_user_logged_on</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUser#BLoggedOn">ISteamUser::BLoggedOn</a></p>
+</blockquote>
+<p>This function checks if the current user's Steam client is connected to the Steam servers.</p>
+<p>If it's not then no real-time services provided by the Steamworks API will be enabled. The Steam client will automatically be trying to recreate the connection as often as possible. When the connection is restored a <a href="https://partner.steamgames.com/doc/api/ISteamUser#SteamServersConnected_t">SteamServersConnected_t</a> callback will be posted.</p>
+<p>You usually don't need to check for this yourself. All of the API calls that rely on this will check internally. Forcefully disabling stuff when the player loses access is usually not a very good experience for the player and you could be preventing them from accessing APIs that do not need a live connection to Steam.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_user_logged_on()
+</code></pre></div>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><code>true</code> if the Steam client current has a live connection to the Steam servers; otherwise, <code>false</code> if there is no active connection due to either a networking issue on the local machine, or the Steam server is down/busy.</p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_user_set_duration_control_online_state">steam_user_set_duration_control_online_state</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUser#BSetDurationControlOnlineState">ISteamUser::BSetDurationControlOnlineState</a></p>
+</blockquote>
+<p>This function allows the game to specify the offline/online gameplay state for Steam china duration control.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_user_set_duration_control_online_state(state)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>state</td>
+<td><a href="user.html#steamuserdurationcontrolonlinestate">SteamUserDurationControlOnlineState</a></td>
+<td>The new gameplay state.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><code>true</code> if the online state was set successfully; otherwise, <code>false</code>.</p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_user_cancel_auth_ticket">steam_user_cancel_auth_ticket</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUser#CancelAuthTicket">ISteamUser::CancelAuthTicket</a></p>
+</blockquote>
+<p>This function cancels an auth ticket received from <a href="user.html#steam_user_get_auth_session_ticket">steam_user_get_auth_session_ticket</a> or <a href="user.html#steam_user_get_auth_ticket_for_web_api">steam_user_get_auth_ticket_for_web_api</a>. This should be called when no longer playing with the specified entity.</p>
+<p>See also: <a href="https://partner.steamgames.com/doc/features/auth">User Authentication and Ownership</a></p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_user_cancel_auth_ticket(auth_ticket_handle)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>auth_ticket_handle</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The active auth ticket to cancel.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_user_decompress_voice">steam_user_decompress_voice</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUser#DecompressVoice">ISteamUser::DecompressVoice</a></p>
+</blockquote>
+<p>This function decodes the compressed voice data returned by <a href="user.html#steam_user_get_voice">steam_user_get_voice</a>.</p>
+<p>The output data is raw single-channel 16-bit PCM audio. The decoder supports any sample rate from 11025 to 48000. See <a href="user.html#steam_user_get_voice_optimal_sample_rate">steam_user_get_voice_optimal_sample_rate</a> for more information.</p>
+<p>It is recommended that you start with a 20KiB buffer and then reallocate as necessary.</p>
+<p>See <a href="https://partner.steamgames.com/doc/features/voice">Steam Voice</a> for more information.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_user_decompress_voice(compressed, dest, desired_sample_rate, buffer_offset=undefined, buffer_count=undefined)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>compressed</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Buffers/Buffers.htm">Buffer</a></td>
+<td>The compressed data received from <a href="user.html#steam_user_get_voice">steam_user_get_voice</a>.</td>
+</tr>
+<tr>
+<td>dest</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Buffers/Buffers.htm">Buffer</a></td>
+<td>The buffer where the raw audio data will be returned. This can then be passed to your audio subsystems for playback.</td>
+</tr>
+<tr>
+<td>desired_sample_rate</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The sample rate that will be returned. This can be from 11025 to 48000, you should either use the rate that works best for your audio playback system, which likely takes the user's audio hardware into account, or you can use <a href="user.html#steam_user_get_voice_optimal_sample_rate">steam_user_get_voice_optimal_sample_rate</a> to get the native sample rate of the Steam voice decoder.</td>
+</tr>
+<tr>
+<td>buffer_offset</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The offset into the buffer, in bytes. Defaults to 0.</td>
+</tr>
+<tr>
+<td>buffer_count</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The number of bytes. Defaults to the buffer size minus the offset.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="user.html#steamuserdecompressvoiceresult">SteamUserDecompressVoiceResult</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_user_end_auth_session">steam_user_end_auth_session</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUser#EndAuthSession">ISteamUser::EndAuthSession</a></p>
+</blockquote>
+<p>This function ends an auth session that was started with <a href="user.html#steam_user_begin_auth_session">steam_user_begin_auth_session</a>. This should be called when no longer playing with the specified entity.</p>
+<p>See: <a href="https://partner.steamgames.com/doc/features/auth">User Authentication and Ownership</a></p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_user_end_auth_session(steam_id)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>steam_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The entity to end the active auth session with.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_user_get_auth_session_ticket">steam_user_get_auth_session_ticket</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUser#GetAuthSessionTicket">ISteamUser::GetAuthSessionTicket</a></p>
+</blockquote>
+<p>This function retrieves an authentication ticket to be sent to the entity who wishes to authenticate you.</p>
+<p>After calling this you can send the ticket to the entity where they can then call <a href="user.html#steam_user_begin_auth_session">steam_user_begin_auth_session</a> / <a href="https://partner.steamgames.com/doc/api/ISteamGameServer#BeginAuthSession">ISteamGameServer::BeginAuthSession</a> to verify this entity's integrity.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This API can not be used to create a ticket for use by the <a href="https://partner.steamgames.com/doc/webapi/ISteamUserAuth#AuthenticateUserTicket">ISteamUserAuth::AuthenticateUserTicket</a> Web API. Use the <a href="user.html#steam_user_get_auth_ticket_for_web_api">steam_user_get_auth_ticket_for_web_api</a> call instead.</p>
+</div>
+<p>This function operates asynchronously, which means that it does not immediately return the requested result. Instead, upon completion of the task, it will trigger the <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_user_get_auth_session_ticket(out_ticket, remote_identity=undefined)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>out_ticket</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Buffers/Buffers.htm">Buffer</a></td>
+<td>The buffer where the new auth ticket will be copied into if the call was successful. Typically a buffer size of 1024 will be sufficient. However, in certain cases (e.g., when an application has a large amount of available DLC), a larger buffer size may be required.</td>
+</tr>
+<tr>
+<td>remote_identity</td>
+<td><a href="networking.html#steamnetworkingidentity">SteamNetworkingIdentity</a></td>
+<td>The identity of the remote system that will authenticate the ticket. If it is peer-to-peer then the user steam ID. If it is a game server, then the game server steam ID may be used if it was obtained from a trusted 3rd party, otherwise use the IP address. If it is a service, a string identifier of that service if one is provided.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="user.html#steamuserauthsessionticket">SteamUserAuthSessionTicket</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Triggers:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a></p>
+<p><strong>Steamworks Callback</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUser#GetAuthSessionTicketResponse_t">ISteamUser::GetAuthSessionTicketResponse_t</a></p>
+</blockquote>
+<p>Result when creating an auth session ticket.</p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>result</td>
+<td><a href="user.html#steamusergetauthsessionticketresponse">SteamUserGetAuthSessionTicketResponse</a></td>
+<td>The result of the operation.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_user_get_h_steam_user">steam_user_get_h_steam_user</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUser#GetHSteamUser">ISteamUser::GetHSteamUser</a></p>
+</blockquote>
+<p>This function gets the Steam user handle that this interface represents.</p>
+<p>This is only used internally by the API, and by a few select interfaces that support multi-user.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_user_get_h_steam_user()
+</code></pre></div>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_user_get_player_steam_level">steam_user_get_player_steam_level</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUser#GetPlayerSteamLevel">ISteamUser::GetPlayerSteamLevel</a></p>
+</blockquote>
+<p>This function gets the Steam level of the user, as shown on their Steam community profile.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_user_get_player_steam_level()
+</code></pre></div>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_user_get_steam_id">steam_user_get_steam_id</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUser#GetSteamID">ISteamUser::GetSteamID</a></p>
+</blockquote>
+<p>This function gets the Steam ID of the account currently logged into the Steam client. This is commonly called the 'current user', or 'local user'.</p>
+<p>A Steam ID is a unique identifier for a Steam accounts, Steam groups, Lobbies and Chat rooms, and used to differentiate users in all parts of the Steamworks API.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_user_get_steam_id()
+</code></pre></div>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_user_decode_steam_id">steam_user_decode_steam_id</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: N / A</p>
+</blockquote>
+<p>This function gets information about the given Steam ID and returns it in a struct.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_user_decode_steam_id(steam_id)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>steam_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The Steam ID to get information about.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="api.html#steamid">SteamId</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_user_start_voice_recording">steam_user_start_voice_recording</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUser#StartVoiceRecording">ISteamUser::StartVoiceRecording</a></p>
+</blockquote>
+<p>This function starts voice recording.</p>
+<p>Once started, use <a href="user.html#steam_user_get_available_voice">steam_user_get_available_voice</a> and <a href="user.html#steam_user_get_voice">steam_user_get_voice</a> to get the data, and then call <a href="user.html#steam_user_stop_voice_recording">steam_user_stop_voice_recording</a> when the user has released their push-to-talk hotkey or the game session has completed.</p>
+<p>See <a href="https://partner.steamgames.com/doc/features/voice">Steam Voice</a> for more information.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_user_start_voice_recording()
+</code></pre></div>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_user_stop_voice_recording">steam_user_stop_voice_recording</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUser#StartVoiceRecording">ISteamUser::StartVoiceRecording</a></p>
+</blockquote>
+<p>This function stops voice recording.</p>
+<p>Because people often release push-to-talk keys early, the system will keep recording for a little bit after this function is called. As such, <a href="user.html#steam_user_get_voice">steam_user_get_voice</a> should continue to be called until it returns <code>SteamApiVoiceResult.NotRecording</code>, only then will voice recording be stopped.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_user_stop_voice_recording()
+</code></pre></div>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_user_get_voice_optimal_sample_rate">steam_user_get_voice_optimal_sample_rate</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUser#GetVoiceOptimalSampleRate">ISteamUser::GetVoiceOptimalSampleRate</a></p>
+</blockquote>
+<p>This function gets the native sample rate of the Steam voice decoder.</p>
+<p>Using this sample rate for <a href="user.html#steam_user_decompress_voice">steam_user_decompress_voice</a> will perform the least CPU processing. However, the final audio quality will depend on how well the audio device (and/or your application's audio output SDK) deals with lower sample rates. You may find that you get the best audio output quality when you ignore this function and use the native sample rate of your audio output device, which is usually 48000 or 44100.</p>
+<p>See <a href="https://partner.steamgames.com/doc/features/voice">Steam Voice</a> for more information.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_user_get_voice_optimal_sample_rate()
+</code></pre></div>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_user_get_available_voice">steam_user_get_available_voice</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUser#GetAvailableVoice">ISteamUser::GetAvailableVoice</a></p>
+</blockquote>
+<p>This function checks to see if there is captured audio data available from <a href="user.html#steam_user_get_voice">steam_user_get_voice</a>, and gets the size of the data.</p>
+<p>Most applications will only use compressed data and should ignore the other parameters, which exist primarily for backwards compatibility. See <a href="user.html#steam_user_get_voice">steam_user_get_voice</a> for further explanation of "uncompressed" data.</p>
+<p>See <a href="https://partner.steamgames.com/doc/features/voice">Steam Voice</a> for more information.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_user_get_available_voice()
+</code></pre></div>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="user.html#steamuseravailablevoice">SteamUserAvailableVoice</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_user_get_voice">steam_user_get_voice</h1>
+<blockquote>
+<p><strong>Stermworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUser#GetVoice">ISteamUser::GetVoice</a></p>
+</blockquote>
+<p>This function reads captured audio data from the microphone buffer.</p>
+<p>The compressed data can be transmitted by your application and decoded back into raw audio data using <a href="user.html#steam_user_decompress_voice">steam_user_decompress_voice</a> on the other side. The compressed data provided is in an arbitrary format and is not meant to be played directly.</p>
+<p>This should be called once per frame, and at worst no more than four times a second to keep the microphone input delay as low as possible. Calling this any less may result in gaps in the returned stream.</p>
+<p>It is recommended that you pass in an 8 kilobytes or larger destination buffer for compressed audio. Static buffers are recommended for performance reasons. However, if you would like to allocate precisely the right amount of space for a buffer before each call you may use <a href="user.html#steam_user_get_available_voice">steam_user_get_available_voice</a> to find out how much data is available to be read.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Uncompressed" audio is a deprecated feature and should not be used by most applications. It is raw single-channel 16-bit PCM wave data which may have been run through preprocessing filters and/or had silence removed, so the uncompressed audio could have a shorter duration than you expect. There may be no data at all during long periods of silence. Also, fetching uncompressed audio will cause <a href="user.html#steam_user_get_voice">steam_user_get_voice</a> to discard any leftover compressed audio, so you must fetch both types at once. Finally, <a href="user.html#steam_user_get_available_voice">steam_user_get_available_voice</a> is not precisely accurate when the uncompressed size is requested. So if you really need to use uncompressed audio, you should call <a href="user.html#steam_user_get_voice">steam_user_get_voice</a> GetVoice frequently with two very large (20KiB+) output buffers instead of trying to allocate perfectly-sized buffers. But most applications should ignore all of these details and simply leave the "uncompressed" parameters as 0.</p>
+</div>
+<p>See <a href="https://partner.steamgames.com/doc/features/voice">Steam Voice</a> for more information.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_user_get_voice(want_compressed, dest_compressed, want_uncompressed, dest_uncompressed, desired_sample_rate)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>want_compressed</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></td>
+<td>This should always be <code>true</code>.</td>
+</tr>
+<tr>
+<td>dest_compressed</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Buffers/Buffers.htm">Buffer</a></td>
+<td>The buffer where the audio data will be copied into.</td>
+</tr>
+<tr>
+<td>want_uncompressed</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></td>
+<td>Deprecated.</td>
+</tr>
+<tr>
+<td>dest_uncompressed</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Buffers/Buffers.htm">Buffer</a></td>
+<td>Deprecated.</td>
+</tr>
+<tr>
+<td>desired_sample_rate</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>Deprecated.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="user.html#steamusergetvoiceresult">SteamUserGetVoiceResult</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_user_request_encrypted_app_ticket">steam_user_request_encrypted_app_ticket</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUser#RequestEncryptedAppTicket">ISteamUser::RequestEncryptedAppTicket</a></p>
+</blockquote>
+<p>This function requests an application ticket encrypted with the secret "encrypted app ticket key".</p>
+<p>The encryption key can be obtained from the <a href="https://partner.steamgames.com/apps/sdkauth/">Encrypted App Ticket Key</a> page on the App Admin for your app.</p>
+<p>There can only be one <a href="https://partner.steamgames.com/doc/api/ISteamUser#EncryptedAppTicketResponse_t">EncryptedAppTicketResponse_t</a> pending, and this call is subject to a 60 second rate limit.</p>
+<p>After receiving the response you should call <a href="user.html#steam_user_get_encrypted_app_ticket">steam_user_get_encrypted_app_ticket</a> to get the ticket data, and then you need to send it to a secure server to be decrypted with the <a href="https://partner.steamgames.com/doc/api/SteamEncryptedAppTicket">SteamEncryptedAppTicket</a> functions.</p>
+<p>This function operates asynchronously, which means that it does not immediately return the requested result. Instead, upon completion of the task, it will trigger the <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_user_request_encrypted_app_ticket(data_to_include, callback, buffer_offset=undefined, buffer_count=undefined)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>data_to_include</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Buffers/Buffers.htm">Buffer</a></td>
+<td>The data which will be encrypted into the ticket.</td>
+</tr>
+<tr>
+<td>callback</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Script_Functions.htm">Function</a></td>
+<td>The function to call upon completion.</td>
+</tr>
+<tr>
+<td>buffer_offset</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The offset into the buffer, in bytes. Defaults to 0.</td>
+</tr>
+<tr>
+<td>buffer_count</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The length of the data, in bytes. Defaults to the buffer size minus the offset.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<p><strong>Triggers:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a></p>
+<p><strong>Steamworks Callback</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUser#EncryptedAppTicketResponse_t">ISteamUser::EncryptedAppTicketResponse_t</a></p>
+</blockquote>
+<p>Called when an encrypted application ticket has been received.</p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>result</td>
+<td><a href="user.html#steamuserencryptedappticketresponse">SteamUserEncryptedAppTicketResponse</a></td>
+<td>The result of the operation.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_user_get_encrypted_app_ticket">steam_user_get_encrypted_app_ticket</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUser#GetEncryptedAppTicket">ISteamUser::GetEncryptedAppTicket</a></p>
+</blockquote>
+<p>This function retrieves an encrypted ticket.</p>
+<p>This should be called after requesting an encrypted app ticket with <a href="user.html#steam_user_request_encrypted_app_ticket">steam_user_request_encrypted_app_ticket</a> and receiving the <a href="https://partner.steamgames.com/doc/api/ISteamUser#EncryptedAppTicketResponse_t">EncryptedAppTicketResponse_t</a> call result. You should then pass this encrypted ticket to your secure servers to be decrypted using your secret key using <a href="https://partner.steamgames.com/doc/api/SteamEncryptedAppTicket#BDecryptTicket">SteamEncryptedAppTicket::BDecryptTicket</a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you call this without calling <a href="user.html#steam_user_request_encrypted_app_ticket">steam_user_request_encrypted_app_ticket</a>, the call may succeed but you will likely get a stale ticket.</p>
+</div>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_user_get_encrypted_app_ticket(out_ticket)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>out_ticket</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Buffers/Buffers.htm">Buffer</a></td>
+<td>The encrypted app ticket is copied into this buffer.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p>The number of bytes copied into the buffer.</p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_user_get_game_badge_level">steam_user_get_game_badge_level</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUser#GetGameBadgeLevel">ISteamUser::GetGameBadgeLevel</a></p>
+</blockquote>
+<p>This function gets the level of the user's Steam badge for your game.</p>
+<p>The user can have two different badges for a series; the regular badge (max level 5) and the foil badge (max level 1).</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_user_get_game_badge_level(series, foil)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>series</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>If you only have one set of cards, the series will be 1.</td>
+</tr>
+<tr>
+<td>foil</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></td>
+<td>Whether to check if they have received the foil badge.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_user_get_auth_ticket_for_web_api">steam_user_get_auth_ticket_for_web_api</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUser#GetAuthTicketForWebApi">ISteamUser::GetAuthTicketForWebApi</a></p>
+</blockquote>
+<p>This function retrieves an authentication ticket for use with the ISteamUserAuth Web API.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_user_get_auth_ticket_for_web_api(identity)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>identity</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The identity of the remote service that will authenticate the ticket, as a string identifier. Pass an empty string if none was provided.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_user_get_duration_control">steam_user_get_duration_control</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUser#GetDurationControl">ISteamUser::GetDurationControl</a></p>
+</blockquote>
+<p>This function retrieves anti indulgence / duration control for the current user / game combination.</p>
+<p>This function operates asynchronously, which means that it does not immediately return the requested result. Instead, upon completion of the task, it will trigger the <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_user_get_duration_control(callback)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>callback</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Script_Functions.htm">Function</a></td>
+<td>The function to call upon completion.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<p><strong>Triggers:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a></p>
+<p><strong>Steamworks Callback</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUser#DurationControl_t">ISteamUser::DurationControl_t</a></p>
+</blockquote>
+<p>Called when the user's playtime/duration-control information has been received (used for the anti-addiction / playtime systems required in some regions).</p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>result</td>
+<td><a href="user.html#steamuserdurationcontrol">SteamUserDurationControl</a></td>
+<td>The result of the operation.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_user_request_store_auth_url">steam_user_request_store_auth_url</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUser#RequestStoreAuthURL">ISteamUser::RequestStoreAuthURL</a></p>
+</blockquote>
+<p>This function requests a URL that authenticates an in-game browser for store checkout, then redirects.</p>
+<p>As long as the in-game browser accepts and handles session cookies, Steam microtransaction checkout pages will automatically recognize the user instead of presenting a login page.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The URL has a very short lifetime to prevent history-snooping attacks, so you should only call this API when you are about to launch the browser, or else immediately navigate to the result URL using a hidden browser window.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The resulting authorization cookie has an expiration time of one day, so it would be a good idea to request and visit a new auth URL every 12 hours.</p>
+</div>
+<p>This function operates asynchronously, which means that it does not immediately return the requested result. Instead, upon completion of the task, it will trigger the <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_user_request_store_auth_url(redirect_url, callback)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>redirect_url</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The URL to redirect the user to once the in-game browser has been authenticated for the store.</td>
+</tr>
+<tr>
+<td>callback</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Script_Functions.htm">Function</a></td>
+<td>The function to call upon completion.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<p><strong>Triggers:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a></p>
+<p><strong>Steamworks Callback</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUser#StoreAuthURLResponse_t">ISteamUser::StoreAuthURLResponse_t</a></p>
+</blockquote>
+<p>Called when a store authentication URL has been received.</p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>The</td>
+<td><a href="user.html#steamuserstoreauthurlresponse">SteamUserStoreAuthUrlResponse</a></td>
+<td>result of the operation.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_user_get_market_eligibility">steam_user_get_market_eligibility</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUser#GetMarketEligibility">ISteamUser::GetMarketEligibility</a></p>
+</blockquote>
+<p>This function checks whether or not an account is allowed to use the market.</p>
+<p>This function operates asynchronously, which means that it does not immediately return the requested result. Instead, upon completion of the task, it will trigger the <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_user_get_market_eligibility(callback)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>callback</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Script_Functions.htm">Function</a></td>
+<td>The function to call upon completion.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<p><strong>Triggers:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a></p>
+<p><strong>Steamworks Callback</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUser#MarketEligibilityResponse_t">ISteamUser::MarketEligibilityResponse_t</a></p>
+</blockquote>
+<p>Called when the user's Steam Community Market eligibility has been received.</p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>result</td>
+<td><a href="user.html#steamusermarketeligibilityresponse">SteamUserMarketEligibilityResponse</a></td>
+<td>The result of the operation.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_user_track_app_usage_event">steam_user_track_app_usage_event</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUser#TrackAppUsageEvent">ISteamUser::TrackAppUsageEvent</a></p>
+</blockquote>
+<p>This function was previously used by a few games to track usage events before Stats and Achievements (now deprecated).</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_user_track_app_usage_event(game_id, app_usage_event, extra_info)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>game_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The game ID that the usage event applies to.</td>
+</tr>
+<tr>
+<td>app_usage_event</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The type of app usage event to track.</td>
+</tr>
+<tr>
+<td>extra_info</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>Additional information describing the event.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_user_user_has_license_for_app">steam_user_user_has_license_for_app</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUser#UserHasLicenseForApp">ISteamUser::UserHasLicenseForApp</a></p>
+</blockquote>
+<p>This function checks if the user owns a specific piece of Downloadable Content (DLC).</p>
+<p>This can only be called after sending the user's auth ticket to <a href="https://partner.steamgames.com/doc/api/ISteamGameServer#BeginAuthSession">ISteamGameServer::BeginAuthSession</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_user_user_has_license_for_app(steam_id, app_id)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>steam_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The Steam ID of the user to check.</td>
+</tr>
+<tr>
+<td>app_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The DLC App ID to check if the user owns it.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="api.html#steamapiuserhaslicenseforappresult">SteamApiUserHasLicenseForAppResult</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_user_set_callback_steam_servers_connected">steam_user_set_callback_steam_servers_connected</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: N / A</p>
+</blockquote>
+<p>This function sets the function to be called when a connection to the Steam servers is established.</p>
+<p>See: <a href="https://partner.steamgames.com/doc/api/ISteamUser#SteamServersConnected_t">ISteamUser::SteamServersConnected_t</a></p>
+<p>This callback has no fields.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_user_set_callback_steam_servers_connected(callback)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>callback</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Script_Functions.htm">Function</a></td>
+<td>The function to be called when a connection to the Steam servers is established.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_user_clear_callback_steam_servers_connected">steam_user_clear_callback_steam_servers_connected</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: N / A</p>
+</blockquote>
+<p>This function clears the callback previously set with <a href="user.html#steam_user_set_callback_steam_servers_connected">steam_user_set_callback_steam_servers_connected</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_user_clear_callback_steam_servers_connected()
+</code></pre></div>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_user_set_callback_steam_server_connect_failure">steam_user_set_callback_steam_server_connect_failure</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: N / A</p>
+</blockquote>
+<p>This function sets the function to be called when a connection attempt has failed.</p>
+<p>See: <a href="https://partner.steamgames.com/doc/api/ISteamUser#SteamServerConnectFailure_t">ISteamUser::SteamServerConnectFailure_t</a></p>
+<p>See: <a href="user.html#steamusersteamserverconnectfailure">SteamUserSteamServerConnectFailure</a></p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_user_set_callback_steam_server_connect_failure(callback)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>callback</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Script_Functions.htm">Function</a></td>
+<td>The function to be called when a connection attempt to the Steam servers fails.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_user_clear_callback_steam_server_connect_failure">steam_user_clear_callback_steam_server_connect_failure</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: N / A</p>
+</blockquote>
+<p>This function clears the callback previously set with <a href="user.html#steam_user_set_callback_steam_server_connect_failure">steam_user_set_callback_steam_server_connect_failure</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_user_clear_callback_steam_server_connect_failure()
+</code></pre></div>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_user_set_callback_steam_servers_disconnected">steam_user_set_callback_steam_servers_disconnected</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: N / A</p>
+</blockquote>
+<p>This function sets the function to be called if the client has lost connection to the Steam servers.</p>
+<p>See: <a href="https://partner.steamgames.com/doc/api/ISteamUser#SteamServersDisconnected_t">ISteamUser::SteamServersDisconnected_t</a></p>
+<p>See: <a href="user.html#steamusersteamserversdisconnected">SteamUserSteamServersDisconnected</a></p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_user_set_callback_steam_servers_disconnected(callback)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>callback</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Script_Functions.htm">Function</a></td>
+<td>The function to be called when the connection to the Steam servers is lost.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_user_clear_callback_steam_servers_disconnected">steam_user_clear_callback_steam_servers_disconnected</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: N / A</p>
+</blockquote>
+<p>This function clears the callback previously set with <a href="user.html#steam_user_set_callback_steam_servers_disconnected">steam_user_set_callback_steam_servers_disconnected</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_user_clear_callback_steam_servers_disconnected()
+</code></pre></div>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_user_set_callback_client_game_server_deny">steam_user_set_callback_client_game_server_deny</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: N / A</p>
+</blockquote>
+<p>This function sets the function to be called when a message is sent by the Steam server to the client telling it to disconnect from the specified game server, which it may be in the process of or already connected to. The game client should immediately disconnect upon receiving this message.</p>
+<p>See: <a href="https://partner.steamgames.com/doc/api/ISteamUser#ClientGameServerDeny_t">ISteamUser::ClientGameServerDeny_t</a></p>
+<p>See: <a href="user.html#steamuserclientgameserverdeny">SteamUserClientGameServerDeny</a></p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_user_set_callback_client_game_server_deny(callback)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>callback</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Script_Functions.htm">Function</a></td>
+<td>The function to be called when Steam requests that the client disconnect from a game server.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_user_clear_callback_client_game_server_deny">steam_user_clear_callback_client_game_server_deny</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: N / A</p>
+</blockquote>
+<p>This function clears the callback previously set with <a href="user.html#steam_user_set_callback_client_game_server_deny">steam_user_set_callback_client_game_server_deny</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_user_clear_callback_client_game_server_deny()
+</code></pre></div>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_user_set_callback_licenses_updated">steam_user_set_callback_licenses_updated</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: N / A</p>
+</blockquote>
+<p>This function sets the function to be called whenever the user's licenses (owned packages) changes.</p>
+<p>See: <a href="https://partner.steamgames.com/doc/api/ISteamUser#LicensesUpdated_t">ISteamUser::LicensesUpdated_t</a></p>
+<p>This callback has no fields.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_user_set_callback_licenses_updated(callback)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>callback</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Script_Functions.htm">Function</a></td>
+<td>The function to be called when the user's licenses (owned packages) change.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_user_clear_callback_licenses_updated">steam_user_clear_callback_licenses_updated</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: N / A</p>
+</blockquote>
+<p>This function clears the callback previously set with <a href="user.html#steam_user_set_callback_licenses_updated">steam_user_set_callback_licenses_updated</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_user_clear_callback_licenses_updated()
+</code></pre></div>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_user_set_callback_microtxn_authorization_response">steam_user_set_callback_microtxn_authorization_response</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: N / A</p>
+</blockquote>
+<p>This function sets the function to be called when a user has responded to a microtransaction authorization request.</p>
+<p>See: <a href="https://partner.steamgames.com/doc/api/ISteamUser#MicroTxnAuthorizationResponse_t">ISteamUser::MicroTxnAuthorizationResponse_t</a></p>
+<p>See: <a href="user.html#steamusermicrotxnauthorizationresponse">SteamUserMicroTxnAuthorizationResponse</a></p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_user_set_callback_microtxn_authorization_response(callback)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>callback</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Script_Functions.htm">Function</a></td>
+<td>The function to be called when the user responds to a microtransaction authorization request.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_user_clear_callback_microtxn_authorization_response">steam_user_clear_callback_microtxn_authorization_response</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: N / A</p>
+</blockquote>
+<p>This function clears the callback previously set with <a href="user.html#steam_user_set_callback_microtxn_authorization_response">steam_user_set_callback_microtxn_authorization_response</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_user_clear_callback_microtxn_authorization_response()
+</code></pre></div>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_user_set_callback_get_auth_session_ticket_response">steam_user_set_callback_get_auth_session_ticket_response</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: N / A</p>
+</blockquote>
+<p>This function sets the function to call when an auth session ticket has been created.</p>
+<p>See: <a href="partner.steamgames.com/doc/api/ISteamUser.html#GetAuthSessionTicketResponse_t">ISteamUser::GetAuthSessionTicketResponse_t</a></p>
+<p>See: <a href="user.html#steamusergetauthsessionticketresponse">SteamUserGetAuthSessionTicketResponse</a></p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_user_set_callback_get_auth_session_ticket_response(callback)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>callback</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Script_Functions.htm">Function</a></td>
+<td>The function to be called when an auth session ticket has been created.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_user_clear_callback_get_auth_session_ticket_response">steam_user_clear_callback_get_auth_session_ticket_response</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: N / A</p>
+</blockquote>
+<p>This function clears the callback previously set with <a href="user.html#steam_user_set_callback_get_auth_session_ticket_response">steam_user_set_callback_get_auth_session_ticket_response</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_user_clear_callback_get_auth_session_ticket_response()
+</code></pre></div>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_user_set_callback_validate_auth_ticket_response">steam_user_set_callback_validate_auth_ticket_response</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: N / A</p>
+</blockquote>
+<p>This function sets the function to be called when an auth ticket has been validated.</p>
+<p>See: <a href="partner.steamgames.com/doc/api/ISteamUser.html#ValidateAuthTicketResponse_t">ISteamUser::ValidateAuthTicketResponse_t</a></p>
+<p>See: <a href="user.html#steamuservalidateauthticketresponse">SteamUserValidateAuthTicketResponse</a></p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_user_set_callback_validate_auth_ticket_response(callback)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>callback</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Script_Functions.htm">Function</a></td>
+<td>The function to be called when an auth ticket has been validated.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_user_clear_callback_validate_auth_ticket_response">steam_user_clear_callback_validate_auth_ticket_response</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: N / A</p>
+</blockquote>
+<p>This function clears the callback previously set with <a href="user.html#steam_user_set_callback_validate_auth_ticket_response">steam_user_set_callback_validate_auth_ticket_response</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_user_clear_callback_validate_auth_ticket_response()
+</code></pre></div>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steamuserdurationcontrolprogress">SteamUserDurationControlProgress</h1>
+<blockquote>
+<p><strong>Steamworks Enum</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUser#EDurationControlProgress">ISteamUser::EDurationControlProgress</a></p>
+</blockquote>
+<p>This enum describes playtime restrictions that apply for games with duration control / anti-indulgence enabled for minor Steam China users.</p>
+<p>These constants are referenced by the following structs:</p>
+<ul>
+<li><a href="user.html#steamuserdurationcontrol">SteamUserDurationControl</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Full</code></td>
+<td>Normal play.</td>
+</tr>
+<tr>
+<td><code>Half</code></td>
+<td>(This value is deprecated)</td>
+</tr>
+<tr>
+<td><code>None</code></td>
+<td>User's playtime has run out. Steam will terminate the game soon.</td>
+</tr>
+<tr>
+<td><code>ExitSoon_3h</code></td>
+<td>Warns that the allowed gameplay limits are about to expire and the user will soon be forced to exit.</td>
+</tr>
+<tr>
+<td><code>ExitSoon_5h</code></td>
+<td>Warns that the allowed gameplay limits are about to expire and the user will soon be forced to exit.</td>
+</tr>
+<tr>
+<td><code>ExitSoon_Night</code></td>
+<td>Warns that the allowed gameplay limits are about to expire and the user will soon be forced to exit.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steamuserdurationcontrolnotification">SteamUserDurationControlNotification</h1>
+<blockquote>
+<p><strong>Steamworks Enum</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUser#EDurationControlNotification">ISteamUser::EDurationControlNotification</a></p>
+</blockquote>
+<p>This enum describes which notification timer has expired, for steam china duration control feature. Some of these notifications are deprecated and are no longer sent.</p>
+<p>These constants are referenced by the following structs:</p>
+<ul>
+<li><a href="user.html#steamuserdurationcontrol">SteamUserDurationControl</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>None</code></td>
+<td>Callback is just informing you about progress, no notification to show.</td>
+</tr>
+<tr>
+<td><code>OneHour</code></td>
+<td>Player has been playing for an hour - game can show something at this time if desired.</td>
+</tr>
+<tr>
+<td><code>ThreeHours</code></td>
+<td>(deprecated)</td>
+</tr>
+<tr>
+<td><code>HalfProgress</code></td>
+<td>(deprecated)</td>
+</tr>
+<tr>
+<td><code>NoProgress</code></td>
+<td>No progress.</td>
+</tr>
+<tr>
+<td><code>ExitSoon_3h</code></td>
+<td>Player has been playing for the allowed time and should exit the game.</td>
+</tr>
+<tr>
+<td><code>ExitSoon_5h</code></td>
+<td>Player has been playing for the allowed time and should exit the game.</td>
+</tr>
+<tr>
+<td><code>ExitSoon_Night</code></td>
+<td>Player has been playing until the locally allowed time of day (10PM) and should exit the game.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steamuserbeginauthsessionresult">SteamUserBeginAuthSessionResult</h1>
+<blockquote>
+<p><strong>Steamworks Enum</strong>: <a href="https://partner.steamgames.com/doc/api/steam_api#EBeginAuthSessionResult">EBeginAuthSessionResult</a></p>
+</blockquote>
+<p>This enum holds the results returned from <a href="user.html#steam_user_begin_auth_session">steam_user_begin_auth_session</a> and <a href="https://partner.steamgames.com/doc/api/ISteamGameServer#BeginAuthSession">ISteamGameServer::BeginAuthSession</a>.</p>
+<p>These constants are referenced by the following functions:</p>
+<ul>
+<li><a href="user.html#steam_user_begin_auth_session">steam_user_begin_auth_session</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Ok</code></td>
+<td>Ticket is valid for this game and this Steam ID.</td>
+</tr>
+<tr>
+<td><code>InvalidTicket</code></td>
+<td>The ticket is invalid.</td>
+</tr>
+<tr>
+<td><code>DuplicateRequest</code></td>
+<td>A ticket has already been submitted for this Steam ID.</td>
+</tr>
+<tr>
+<td><code>InvalidVersion</code></td>
+<td>Ticket is from an incompatible interface version.</td>
+</tr>
+<tr>
+<td><code>GameMismatch</code></td>
+<td>Ticket is not for this game.</td>
+</tr>
+<tr>
+<td><code>ExpiredTicket</code></td>
+<td>Ticket has expired.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steamuserdurationcontrolonlinestate">SteamUserDurationControlOnlineState</h1>
+<blockquote>
+<p><strong>Steamworks Enum</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUser#EDurationControlOnlineState">ISteamUser::EDurationControlOnlineState</a></p>
+</blockquote>
+<p>This enum describes the online/offline play state of a game.</p>
+<p>These constants are referenced by the following functions:</p>
+<ul>
+<li><a href="user.html#steam_user_set_duration_control_online_state">steam_user_set_duration_control_online_state</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Invalid</code></td>
+<td>Invalid.</td>
+</tr>
+<tr>
+<td><code>Offline</code></td>
+<td>Offline play.</td>
+</tr>
+<tr>
+<td><code>Online</code></td>
+<td>Online play.</td>
+</tr>
+<tr>
+<td><code>OnlineHighPri</code></td>
+<td>Online play - game requests that Steam not force exit the game.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steamuserugclist">SteamUserUgcList</h1>
+<blockquote>
+<p><strong>Steamworks Enum</strong>: <a href="partner.steamgames.com/doc/api/ISteamUGC.html#EUserUGCList">ISteamUGC::EUserUGCList</a></p>
+</blockquote>
+<p>This enum is used with <a href="ugc.html#steam_ugc_create_query_user_ugc_request">steam_ugc_create_query_user_ugc_request</a> to obtain different lists of published UGC for a user.</p>
+<p>These constants are referenced by the following functions:</p>
+<ul>
+<li><a href="ugc.html#steam_ugc_create_query_user_ugc_request">steam_ugc_create_query_user_ugc_request</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Published</code></td>
+<td>List of files the user has published. (equivalent to http://steamcommunity.com/my/myworkshopfiles/?browsesort=myfiles)</td>
+</tr>
+<tr>
+<td><code>VotedOn</code></td>
+<td>List of files the user has voted on. Includes both VotedUp and VotedDown.</td>
+</tr>
+<tr>
+<td><code>VotedUp</code></td>
+<td>List of files the user has voted up. (Restricted to the current user only).</td>
+</tr>
+<tr>
+<td><code>VotedDown</code></td>
+<td>List of files the user has voted down. (Restricted to the current user only).</td>
+</tr>
+<tr>
+<td><code>WillVoteLater</code></td>
+<td>Deprecated. Do not use! (Restricted to the current user only).</td>
+</tr>
+<tr>
+<td><code>Favorited</code></td>
+<td>List of files the user has favorited. (equivalent to http://steamcommunity.com/my/myworkshopfiles/?browsesort=myfavorites)</td>
+</tr>
+<tr>
+<td><code>Subscribed</code></td>
+<td>List of files the user has subscribed to. (Restricted to the current user only). (equivalent to http://steamcommunity.com/my/myworkshopfiles/?browsesort=mysubscriptions)</td>
+</tr>
+<tr>
+<td><code>UsedOrPlayed</code></td>
+<td>List of files the user has spent time in game with. (equivalent to http://steamcommunity.com/my/myworkshopfiles/?browsesort=myplayedfiles)</td>
+</tr>
+<tr>
+<td><code>Followed</code></td>
+<td>List of files the user is following updates for.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steamuserugclistsortorder">SteamUserUgcListSortOrder</h1>
+<blockquote>
+<p><strong>Steamworks Enum</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUGC#EUserUGCListSortOrder">ISteamUGC::EUserUGCListSortOrder</a></p>
+</blockquote>
+<p>This enum is used with <a href="ugc.html#steam_ugc_create_query_user_ugc_request">steam_ugc_create_query_user_ugc_request</a> to specify the sort order for user published UGC lists. Defaults to creation order descending.</p>
+<p>These constants are referenced by the following functions:</p>
+<ul>
+<li><a href="ugc.html#steam_ugc_create_query_user_ugc_request">steam_ugc_create_query_user_ugc_request</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>CreationOrderDesc</code></td>
+<td>Returns items by creation date. Descending - the newest items are first. (Corresponds to "sortmethod=newestfirst" on the workshop page)</td>
+</tr>
+<tr>
+<td><code>CreationOrderAsc</code></td>
+<td>Returns items by creation date. Ascending - the oldest items are first. (Corresponds to "sortmethod=oldestfirst" on the workshop page)</td>
+</tr>
+<tr>
+<td><code>TitleAsc</code></td>
+<td>Returns items by name. (Corresponds to "sortmethod=alpha" on the workshop page)</td>
+</tr>
+<tr>
+<td><code>LastUpdatedDesc</code></td>
+<td>Returns the most recently updated items first. (Corresponds to "sortmethod=lastupdated" on the workshop page)</td>
+</tr>
+<tr>
+<td><code>SubscriptionDateDesc</code></td>
+<td>Returns the most recently subscribed items first. (Corresponds to "sortmethod=subscriptiondate" on the workshop page)</td>
+</tr>
+<tr>
+<td><code>VoteScoreDesc</code></td>
+<td>Returns the items with the more recent score updates first. (Corresponds to "sortmethod=score" on the workshop page)</td>
+</tr>
+<tr>
+<td><code>ForModeration</code></td>
+<td>Returns the items that have been reported for moderation. (Corresponds to "sortmethod=formoderation" on the workshop page)</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steamuserstoreauthurlresponse">SteamUserStoreAuthUrlResponse</h1>
+<blockquote>
+<p><strong>Steamworks Struct</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUser#StoreAuthURLResponse_t">ISteamUser::StoreAuthURLResponse_t</a></p>
+</blockquote>
+<p>This struct holds information on a received store authentication URL.</p>
+<p>This struct is referenced by the following functions:</p>
+<ul>
+<li><a href="user.html#steam_user_request_store_auth_url">steam_user_request_store_auth_url</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>url</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The authenticated URL that was requested.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steamuserencryptedappticketresponse">SteamUserEncryptedAppTicketResponse</h1>
+<blockquote>
+<p><strong>Steamworks Struct</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUser#EncryptedAppTicketResponse_t">ISteamUser::EncryptedAppTicketResponse_t</a></p>
+</blockquote>
+<p>This struct holds information returned upon receipt of an encrypted application ticket.</p>
+<p>This struct is referenced by the following functions:</p>
+<ul>
+<li><a href="user.html#steam_user_request_encrypted_app_ticket">steam_user_request_encrypted_app_ticket</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>result</td>
+<td><a href="api.html#steamapiresult">SteamApiResult</a></td>
+<td>Was the call successful? Possible results:<br><br><em> <code>SteamApiResult.Ok</code> - Success!<br></em> <code>SteamApiResult.NoConnection</code> - A connection to Steam could not be established.<br><em> <code>SteamApiResult.DuplicateRequest</code> - There is already a pending request.<br></em> <code>SteamApiResult.LimitExceeded</code> - This call is subject to a 60 second rate limit, and you have exceeded that.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steamuserdurationcontrol">SteamUserDurationControl</h1>
+<blockquote>
+<p><strong>Steamworks Struct</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUser#DurationControl_t">ISteamUser::DurationControl_t</a></p>
+</blockquote>
+<p>This struct holds information on a user's playtime/duration-control information.</p>
+<p>This struct is referenced by the following functions:</p>
+<ul>
+<li><a href="user.html#steam_user_get_duration_control">steam_user_get_duration_control</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>result</td>
+<td><a href="api.html#steamapiresult">SteamApiResult</a></td>
+<td>The result of the operation.</td>
+</tr>
+<tr>
+<td>app_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The app ID the duration control information applies to.</td>
+</tr>
+<tr>
+<td>applicable</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></td>
+<td>Whether duration control is applicable to this user and app (i.e. whether the user is subject to the playtime restrictions).</td>
+</tr>
+<tr>
+<td>csecs_last_5h</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The number of seconds the user has played in the last 5 hours, in centiseconds.</td>
+</tr>
+<tr>
+<td>progress</td>
+<td><a href="user.html#steamuserdurationcontrolprogress">SteamUserDurationControlProgress</a></td>
+<td>The current duration-control progress level (a <code>SteamUserDurationControlProgress</code> value describing whether the user should be encouraged to take a break).</td>
+</tr>
+<tr>
+<td>notification</td>
+<td><a href="user.html#steamuserdurationcontrolnotification">SteamUserDurationControlNotification</a></td>
+<td>The notification that should be shown to the user, if any.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steamusermarketeligibilityresponse">SteamUserMarketEligibilityResponse</h1>
+<blockquote>
+<p><strong>Steamworks Struct</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUser#MarketEligibilityResponse_t">ISteamUser::MarketEligibilityResponse_t</a></p>
+</blockquote>
+<p>This struct holds info on a user's Steam Community Market eligibility.</p>
+<p>This struct is referenced by the following functions:</p>
+<ul>
+<li><a href="user.html#steam_user_get_market_eligibility">steam_user_get_market_eligibility</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>allowed</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></td>
+<td>Whether the user is allowed to use the Steam Community Market.</td>
+</tr>
+<tr>
+<td>not_allowed_reason</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The reason the user is not allowed to use the market, if applicable (an <a href="api.html#steammarketnotallowedreasonflags">SteamMarketNotAllowedReasonFlags</a> bitfield).</td>
+</tr>
+<tr>
+<td>allowed_at_time</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The Unix timestamp of when the user will be allowed to use the market, if currently restricted.</td>
+</tr>
+<tr>
+<td>steam_purchase_time</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The Unix timestamp of the user's first Steam purchase, used for some eligibility checks.</td>
+</tr>
+<tr>
+<td>day_steam_guard_required_days</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The number of days Steam Guard must have been active before the user is allowed to use the market.</td>
+</tr>
+<tr>
+<td>day_new_device_cooldown</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The number of days a newly added device must wait before the user is allowed to use the market.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steamuserauthsessionticket">SteamUserAuthSessionTicket</h1>
+<blockquote>
+<p><strong>Steamworks Struct</strong>: N / A</p>
+</blockquote>
+<p>This struct holds the result of a call to <a href="user.html#steam_user_get_auth_session_ticket">steam_user_get_auth_session_ticket</a>.</p>
+<p>This struct is referenced by the following functions:</p>
+<ul>
+<li><a href="user.html#steam_user_get_auth_session_ticket">steam_user_get_auth_session_ticket</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>auth_ticket_handle</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The auth ticket handle.</td>
+</tr>
+<tr>
+<td>ticket_size</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The size of the ticket as written to the buffer.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steamusergetauthsessionticketresponse">SteamUserGetAuthSessionTicketResponse</h1>
+<blockquote>
+<p><strong>Steamworks Struct</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUser#GetAuthSessionTicketResponse_t">ISteamUser::GetAuthSessionTicketResponse_t</a></p>
+</blockquote>
+<p>This struct holds the result when creating an auth session ticket.</p>
+<p>This struct is referenced by the following functions:</p>
+<ul>
+<li><a href="user.html#steam_user_get_auth_session_ticket">steam_user_get_auth_session_ticket</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>auth_ticket_handle</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The handle to the ticket that was created.</td>
+</tr>
+<tr>
+<td>result</td>
+<td><a href="api.html#steamapiresult">SteamApiResult</a></td>
+<td>The result of the operation.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steamuseravailablevoice">SteamUserAvailableVoice</h1>
+<blockquote>
+<p><strong>Steamworks Struct</strong>: N / A</p>
+</blockquote>
+<p>This struct holds information about the size of available voice data.</p>
+<p>This struct is referenced by the following functions:</p>
+<ul>
+<li><a href="user.html#steam_user_get_available_voice">steam_user_get_available_voice</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>result</td>
+<td><a href="api.html#steamapivoiceresult">SteamApiVoiceResult</a></td>
+<td>The result of the request.</td>
+</tr>
+<tr>
+<td>compressed_bytes</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The size of the available voice data in bytes.</td>
+</tr>
+<tr>
+<td>uncompressed_bytes</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>Deprecated.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steamusergetvoiceresult">SteamUserGetVoiceResult</h1>
+<blockquote>
+<p><strong>Steamworks Struct</strong>: N / A</p>
+</blockquote>
+<p>This struct holds the result of a call to <a href="user.html#steam_user_get_voice">steam_user_get_voice</a>.</p>
+<p>This struct is referenced by the following functions:</p>
+<ul>
+<li><a href="user.html#steam_user_get_voice">steam_user_get_voice</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>result</td>
+<td><a href="api.html#steamapivoiceresult">SteamApiVoiceResult</a></td>
+<td>The result of the call.</td>
+</tr>
+<tr>
+<td>written_compressed</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The number of bytes written into the buffer passed to the function.</td>
+</tr>
+<tr>
+<td>written_uncompressed</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The number of bytes uncompressed.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steamuserdecompressvoiceresult">SteamUserDecompressVoiceResult</h1>
+<blockquote>
+<p><strong>Steamworks Struct</strong>: N / A</p>
+</blockquote>
+<p>This struct holds information returned by <a href="user.html#steam_user_decompress_voice">steam_user_decompress_voice</a>.</p>
+<p>This struct is referenced by the following functions:</p>
+<ul>
+<li><a href="user.html#steam_user_decompress_voice">steam_user_decompress_voice</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>result</td>
+<td><a href="api.html#steamapivoiceresult">SteamApiVoiceResult</a></td>
+<td>The result of the request.</td>
+</tr>
+<tr>
+<td>written_bytes</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The number of bytes written to the buffer.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steamuservalidateauthticketresponse">SteamUserValidateAuthTicketResponse</h1>
+<blockquote>
+<p><strong>Steamworks Struct</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUser#ValidateAuthTicketResponse_t">ISteamUser::ValidateAuthTicketResponse_t</a></p>
+</blockquote>
+<p>Called when an auth ticket has been validated.</p>
+<p>This struct is referenced by the following functions:</p>
+<ul>
+<li><a href="user.html#steam_user_begin_auth_session">steam_user_begin_auth_session</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>steam_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The Steam ID of the entity that provided the auth ticket.</td>
+</tr>
+<tr>
+<td>owner_steam_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The Steam ID that owns the game, this will be different from <code>steam_id</code> if the game is being accessed via Steam Family Sharing.</td>
+</tr>
+<tr>
+<td>auth_session_response</td>
+<td><a href="api.html#steamauthsessionresponse">SteamAuthSessionResponse</a></td>
+<td>The result of the validation.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steamusersteamserversdisconnected">SteamUserSteamServersDisconnected</h1>
+<blockquote>
+<p><strong>Steamworks Struct</strong>: <a href="partner.steamgames.com/doc/api/ISteamUser.html#SteamServersDisconnected_t">ISteamUser::SteamServersDisconnected_t</a></p>
+</blockquote>
+<p>This struct holds information about the reason the client has lost connection to the Steam servers.</p>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>result</td>
+<td><a href="api.html#steamapiresult">SteamApiResult</a></td>
+<td>The reason we were disconnected from Steam.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steamusersteamserverconnectfailure">SteamUserSteamServerConnectFailure</h1>
+<blockquote>
+<p><strong>Steamworks Struct</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUser#SteamServerConnectFailure_t">ISteamUser::SteamServerConnectFailure_t</a></p>
+</blockquote>
+<p>This struct holds information about a failed connection attempt.</p>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>result</td>
+<td><a href="api.html#steamapiresult">SteamApiResult</a></td>
+<td>The reason why the connection failed.</td>
+</tr>
+<tr>
+<td>still_retrying</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></td>
+<td>Is the Steam client still trying to connect to the server?</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steamuserclientgameserverdeny">SteamUserClientGameServerDeny</h1>
+<blockquote>
+<p><strong>Steamworks Struct</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUser#ClientGameServerDeny_t">ISteamUser::ClientGameServerDeny_t</a></p>
+</blockquote>
+<p>This struct holds information Sent by the Steam server to the client telling it to disconnect from the specified game server, which it may be in the process of or already connected to.</p>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>app_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The App ID this call is for. Verify that it's the same as the current App ID with <a href="utils.html#steam_utils_get_app_id">steam_utils_get_app_id</a>.</td>
+</tr>
+<tr>
+<td>game_server_ip</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The IP of the game server that is telling us to disconnect, in host order, i.e 127.0.0.1 == 0x7f000001.</td>
+</tr>
+<tr>
+<td>game_server_port</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The port of the game server that is telling us to disconnect, in host order.</td>
+</tr>
+<tr>
+<td>secure</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></td>
+<td>Is the game server VAC secure (<code>true</code>) or not (<code>false</code>)?</td>
+</tr>
+<tr>
+<td>reason</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The deny reason.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steamusermicrotxnauthorizationresponse">SteamUserMicroTxnAuthorizationResponse</h1>
+<blockquote>
+<p><strong>Steamworks Struct</strong>: <a href="partner.steamgames.com/doc/api/ISteamUser.html#MicroTxnAuthorizationResponse_t">ISteamUser::MicroTxnAuthorizationResponse_t</a></p>
+</blockquote>
+<p>This struct holds information passed in a <code>ISteamUser::MicroTxnAuthorizationResponse_t</code> callback, which is called when a user has responded to a microtransaction authorization request.</p>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>app_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>App ID for this microtransaction.</td>
+</tr>
+<tr>
+<td>order_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>Order ID provided for the microtransaction.</td>
+</tr>
+<tr>
+<td>authorized</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></td>
+<td>Did the user authorise the transaction (<code>true</code>) or not (<code>false</code>)?</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steamuserstatsachievementandunlocktime">SteamUserStatsAchievementAndUnlockTime</h1>
+<blockquote>
+<p><strong>Steamworks Struct</strong>: N / A</p>
+</blockquote>
+<p>This struct holds information about an achievement's status and unlock time.</p>
+<p>This struct is referenced by the following functions:</p>
+<ul>
+<li><a href="userstats.html#steam_userstats_achievement_and_unlock_time">steam_userstats_achievement_and_unlock_time</a></li>
+<li><a href="userstats.html#steam_userstats_user_achievement_and_unlock_time">steam_userstats_user_achievement_and_unlock_time</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>achieved</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></td>
+<td>Whether the current user has unlocked the achievement.</td>
+</tr>
+<tr>
+<td>unlock_time</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The time that the achievement was unlocked; if <code>achieved</code> is <code>true</code>.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steamuserstatsmostachievedachievementinfo">SteamUserStatsMostAchievedAchievementInfo</h1>
+<blockquote>
+<p><strong>Steamworks Struct</strong>: N / A</p>
+</blockquote>
+<p>This struct holds info on the most achieved achievement for the game.</p>
+<p>This struct is referenced by the following functions:</p>
+<ul>
+<li><a href="userstats.html#steam_userstats_most_achieved_achievement_info">steam_userstats_most_achieved_achievement_info</a></li>
+<li><a href="userstats.html#steam_userstats_next_most_achieved_achievement_info">steam_userstats_next_most_achieved_achievement_info</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>name</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The 'API Name' of the achievement.</td>
+</tr>
+<tr>
+<td>percent</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The percentage of people that have unlocked this achievement from 0 to 100.</td>
+</tr>
+<tr>
+<td>achieved</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></td>
+<td>Whether the current user has unlocked this achievement.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steamuserstatsdownloadedleaderboardentry">SteamUserStatsDownloadedLeaderboardEntry</h1>
+<blockquote>
+<p><strong>Steamworks Struct</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#LeaderboardEntry_t">ISteamUserStats::LeaderboardEntry_t</a></p>
+</blockquote>
+<p>This struct holds the data for a single entry in a leaderboard, as returned by <a href="userstats.html#steam_userstats_downloaded_leaderboard_entry">steam_userstats_downloaded_leaderboard_entry</a>.</p>
+<p>This struct is referenced by the following functions:</p>
+<ul>
+<li><a href="userstats.html#steam_userstats_downloaded_leaderboard_entry">steam_userstats_downloaded_leaderboard_entry</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>steam_id_user</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>User who this entry belongs to. You can use <a href="friends.html#steam_friends_get_friend_persona_name">steam_friends_get_friend_persona_name</a> and <a href="friends.html#steam_friends_get_small_friend_avatar">steam_friends_get_small_friend_avatar</a> to get more info.</td>
+</tr>
+<tr>
+<td>global_rank</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The global rank of this entry ranging from [1..N], where N is the number of users with an entry in the leaderboard.</td>
+</tr>
+<tr>
+<td>score</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The raw score as set in the leaderboard.</td>
+</tr>
+<tr>
+<td>details</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Arrays.htm">Array</a> of <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>An array of int32 values holding details about the entry.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steamuserstatsleaderboardfindresult">SteamUserStatsLeaderboardFindResult</h1>
+<blockquote>
+<p><strong>Steamworks Struct</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#LeaderboardFindResult_t">ISteamUserStats::LeaderboardFindResult_t</a></p>
+</blockquote>
+<p>This struct holds the result of a leaderboard find request.</p>
+<p>This struct is referenced by the following functions:</p>
+<ul>
+<li><a href="userstats.html#steam_userstats_find_or_create_leaderboard">steam_userstats_find_or_create_leaderboard</a></li>
+<li><a href="userstats.html#steam_userstats_find_leaderboard">steam_userstats_find_leaderboard</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>leaderboard_handle</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The handle of the leaderboard that was found. Will be 0 if no leaderboard was found.</td>
+</tr>
+<tr>
+<td>leaderboard_found</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></td>
+<td>Whether a leaderboard was found; <code>true</code> if it was found.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steamuserstatsscoresdownloadedresult">SteamUserStatsScoresDownloadedResult</h1>
+<blockquote>
+<p><strong>Steamworks Struct</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#LeaderboardScoresDownloaded_t">ISteamUserStats::LeaderboardScoresDownloaded_t</a></p>
+</blockquote>
+<p>This struct holds the result when scores for a leaderboard have been downloaded and are ready to be retrieved.</p>
+<p>This struct is referenced by the following functions:</p>
+<ul>
+<li><a href="userstats.html#steam_userstats_download_leaderboard_entries">steam_userstats_download_leaderboard_entries</a></li>
+<li><a href="userstats.html#steam_userstats_download_leaderboard_entries_for_users">steam_userstats_download_leaderboard_entries_for_users</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>leaderboard_handle</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The handle to the leaderboard that these entries belong to.</td>
+</tr>
+<tr>
+<td>entries_handle</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>A handle used to retrieve each downloaded entry's data.</td>
+</tr>
+<tr>
+<td>entry_count</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The number of entries downloaded.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steamuserstatsscoreuploadedresult">SteamUserStatsScoreUploadedResult</h1>
+<blockquote>
+<p><strong>Steamworks Struct</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#LeaderboardScoreUploaded_t">ISteamUserStats::LeaderboardScoreUploaded_t</a></p>
+</blockquote>
+<p>This struct holds the result indicating that a leaderboard score has been uploaded.</p>
+<p>This struct is referenced by the following functions:</p>
+<ul>
+<li><a href="userstats.html#steam_userstats_upload_leaderboard_score">steam_userstats_upload_leaderboard_score</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>success</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></td>
+<td>Was the call successful? <code>true</code> if the call was successful, <code>false</code> on failure.</td>
+</tr>
+<tr>
+<td>leaderboard_handle</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>Handle to the leaderboard that this score was uploaded to.</td>
+</tr>
+<tr>
+<td>score</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The score that was attempted to set.</td>
+</tr>
+<tr>
+<td>score_changed</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></td>
+<td><code>true</code> if the score on the leaderboard changed otherwise <code>false</code> if the existing score was better.</td>
+</tr>
+<tr>
+<td>global_rank_new</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The new global rank of the user on this leaderboard.</td>
+</tr>
+<tr>
+<td>global_rank_previous</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The previous global rank of the user on this leaderboard; 0 if the user had no existing entry in the leaderboard.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steamuserstatsnumberofcurrentplayersresult">SteamUserStatsNumberOfCurrentPlayersResult</h1>
+<blockquote>
+<p><strong>Steamworks Struct</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#NumberOfCurrentPlayers_t">ISteamUserStats::NumberOfCurrentPlayers_t</a></p>
+</blockquote>
+<p>This struct holds information on the current number of players for the current app if it has been received.</p>
+<p>This struct is referenced by the following functions:</p>
+<ul>
+<li><a href="userstats.html#steam_userstats_number_of_current_players">steam_userstats_number_of_current_players</a></li>
+<li><a href="userstats.html#steam_userstats_request_global_achievement_percentages">steam_userstats_request_global_achievement_percentages</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>success</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></td>
+<td>Whether the call was successful; <code>true</code> if the player count was retrieved.</td>
+</tr>
+<tr>
+<td>players</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The number of players currently playing the game.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steamuserstatsglobalachievementpercentagesreadyresult">SteamUserStatsGlobalAchievementPercentagesReadyResult</h1>
+<blockquote>
+<p><strong>Steamworks Struct</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#GlobalAchievementPercentagesReady_t">ISteamUserStats::GlobalAchievementPercentagesReady_t</a></p>
+</blockquote>
+<p>This struct holds global achievement unlock percentages that have been received from the server.</p>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>game_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The game ID that the achievement percentages are for.</td>
+</tr>
+<tr>
+<td>result</td>
+<td><a href="api.html#steamapiresult">SteamApiResult</a></td>
+<td>The result of the operation.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steamuserstatsglobalstatsreceivedresult">SteamUserStatsGlobalStatsReceivedResult</h1>
+<blockquote>
+<p><strong>Steamworks Struct</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#GlobalStatsReceived_t">ISteamUserStats::GlobalStatsReceived_t</a></p>
+</blockquote>
+<p>This struct holds the result when global stats have been received from the server.</p>
+<p>This struct is referenced by the following functions:</p>
+<ul>
+<li><a href="userstats.html#steam_userstats_request_global_stats">steam_userstats_request_global_stats</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>game_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The game ID that the global stats are for.</td>
+</tr>
+<tr>
+<td>result</td>
+<td><a href="api.html#steamapiresult">SteamApiResult</a></td>
+<td>The result of the operation.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steamuserstatsattachleaderboardugcresult">SteamUserStatsAttachLeaderboardUgcResult</h1>
+<blockquote>
+<p><strong>Steamworks Struct</strong>: <a href="partner.steamgames.com/doc/api/ISteamUserStats.html#LeaderboardUGCSet_t">ISteamUserStats::LeaderboardUGCSet_t</a></p>
+</blockquote>
+<p>This struct holds a result indicating that user generated content has been attached to one of the current user's leaderboard entries.</p>
+<p>This struct is referenced by the following functions:</p>
+<ul>
+<li><a href="userstats.html#steam_userstats_attach_leaderboard_ugc">steam_userstats_attach_leaderboard_ugc</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>result</td>
+<td><a href="api.html#steamapiresult">SteamApiResult</a></td>
+<td>The result of the operation.</td>
+</tr>
+<tr>
+<td>leaderboard_handle</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>Handle to the leaderboard that the UGC was attached to.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steamuserstatsachievementiconfetched">SteamUserStatsAchievementIconFetched</h1>
+<blockquote>
+<p><strong>Steamworks Struct</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#UserAchievementIconFetched_t">ISteamUserStats::UserAchievementIconFetched_t</a></p>
+</blockquote>
+<p>This struct holds the result of an achievement icon that has been fetched.</p>
+<p>This struct is referenced by the following functions:</p>
+<ul>
+<li><a href="userstats.html#steam_userstats_achievement_icon">steam_userstats_achievement_icon</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>game_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The Game ID this achievement is for.</td>
+</tr>
+<tr>
+<td>achievement_name</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The name of the achievement that this callback is for.</td>
+</tr>
+<tr>
+<td>achieved</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></td>
+<td>Whether the icon for the achieved (<code>true</code>) or unachieved (<code>false</code>) version.</td>
+</tr>
+<tr>
+<td>icon_handle</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>Handle to the image, which can be used with <a href="utils.html#steam_utils_get_image_rgba">steam_utils_get_image_rgba</a> to get the image data. 0 means no image is set for the achievement.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steamuserstatsunloaded">SteamUserStatsUnloaded</h1>
+<blockquote>
+<p><strong>Steamworks Struct</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#UserStatsUnloaded_t">ISteamUserStats::UserStatsUnloaded_t</a></p>
+</blockquote>
+<p>This struct holds information passed in a <code>UserStatsUnloaded_t</code> callback, which indicates that a user's stats have been unloaded.</p>
+<p>This struct is referenced by the following functions:</p>
+<ul>
+<li><a href="userstats.html#steam_userstats_request_user_stats">steam_userstats_request_user_stats</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>steam_id_user</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>User whose stats have been unloaded.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steamuserstatsuserstatsreceived">SteamUserStatsUserStatsReceived</h1>
+<blockquote>
+<p><strong>Steamworks Struct</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#UserStatsReceived_t">ISteamUserStats::UserStatsReceived_t</a></p>
+</blockquote>
+<p>This struct holds the result of stats and achievements for a user having been received from the server.</p>
+<p>This struct is referenced by the following functions:</p>
+<ul>
+<li><a href="userstats.html#steam_userstats_request_user_stats">steam_userstats_request_user_stats</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>game_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The game ID that these stats are for.</td>
+</tr>
+<tr>
+<td>steam_id_user</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The Steam ID of the user whose stats were retrieved.</td>
+</tr>
+<tr>
+<td>result</td>
+<td><a href="api.html#steamapiresult">SteamApiResult</a></td>
+<td>The result of the operation.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steamuserstatsuserstatsstored">SteamUserStatsUserStatsStored</h1>
+<blockquote>
+<p><strong>Steamworks Struct</strong>: <a href="partner.steamgames.com/doc/api/ISteamUserStats.html#UserStatsStored_t">ISteamUserStats::UserStatsStored_t</a></p>
+</blockquote>
+<p>This struct holds the result of a request to store the user stats.</p>
+<p>This struct is referenced by the following functions:</p>
+<ul>
+<li><a href="userstats.html#steam_userstats_indicate_achievement_progress">steam_userstats_indicate_achievement_progress</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>game_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>Game ID that these stats are for.</td>
+</tr>
+<tr>
+<td>result</td>
+<td><a href="api.html#steamapiresult">SteamApiResult</a></td>
+<td>Returns whether the call was successful or not.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steamuserstatsuserachievementstored">SteamUserStatsUserAchievementStored</h1>
+<blockquote>
+<p><strong>Steamworks Struct</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#UserAchievementStored_t">ISteamUserStats::UserAchievementStored_t</a></p>
+</blockquote>
+<p>This struct holds the result of a request to store the achievements on the server, or an "indicate progress" call. If both <code>cur_progress</code> and <code>max_progress</code> are zero, that means the achievement has been fully unlocked.</p>
+<p>This struct is referenced by the following functions:</p>
+<ul>
+<li><a href="userstats.html#steam_userstats_indicate_achievement_progress">steam_userstats_indicate_achievement_progress</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>game_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>Game ID that this achievement is for.</td>
+</tr>
+<tr>
+<td>achievement_name</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>Name of the achievement.</td>
+</tr>
+<tr>
+<td>cur_progress</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>Current progress towards the achievement.</td>
+</tr>
+<tr>
+<td>max_progress</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The total amount of progress required to unlock.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steamuserstatsintminmax">SteamUserStatsIntMinMax</h1>
+<blockquote>
+<p><strong>Steamworks Struct</strong>: N / A</p>
+</blockquote>
+<p>This struct holds information returned by <a href="userstats.html#steam_userstats_achievement_progress_int">steam_userstats_achievement_progress_int</a>.</p>
+<p>This struct is referenced by the following functions:</p>
+<ul>
+<li><a href="userstats.html#steam_userstats_achievement_progress_int">steam_userstats_achievement_progress_int</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>min</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The minimum value.</td>
+</tr>
+<tr>
+<td>max</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The maximum value.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steamuserstatsfloatminmax">SteamUserStatsFloatMinMax</h1>
+<blockquote>
+<p><strong>Steamworks Struct</strong>: N / A</p>
+</blockquote>
+<p>This struct holds information returned by <a href="userstats.html#steam_userstats_achievement_progress_float">steam_userstats_achievement_progress_float</a>.</p>
+<p>This struct is referenced by the following functions:</p>
+<ul>
+<li><a href="userstats.html#steam_userstats_achievement_progress_float">steam_userstats_achievement_progress_float</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>min</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The minimum value.</td>
+</tr>
+<tr>
+<td>max</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The maximum value.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="ugc.html" class="btn btn-neutral float-left" title="Ugc"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="userstats.html" class="btn btn-neutral float-right" title="Userstats">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+      <p><p align="center">GameMaker 2026</p></p>
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/YoYoGames/GMEXT-Steamworks" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="ugc.html" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="userstats.html" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = ".";</script>
+    <script src="js/theme_extra.js"></script>
+    <script src="js/theme.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/gml.min.js"></script>
+      <script src="assets/js/gmext_script.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

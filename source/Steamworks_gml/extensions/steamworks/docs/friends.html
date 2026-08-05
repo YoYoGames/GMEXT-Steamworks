@@ -1,0 +1,4343 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="img/favicon.ico" />
+    <title>Friends - GMEXT-Steamworks</title>
+    <link rel="stylesheet" href="css/theme.css" />
+    <link rel="stylesheet" href="css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+        <link href="assets/css/gmext_style.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Friends";
+        var mkdocs_page_input_path = "friends.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/gml.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="index.html" class="icon icon-home"> GMEXT-Steamworks
+        </a>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="index.html">Welcome to MkDocs</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="_footer.html"> footer</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="_sidebar.html"> sidebar</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="api.html">Api</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="apps.html">Apps</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="#">Friends</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#functions">Functions</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#constants">Constants</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#structs">Structs</a>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="guides.html">Guides</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="home.html">Home</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="input.html">Input</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="inventory.html">Inventory</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="matchmaking.html">Matchmaking</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="music.html">Music</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="networking.html">Networking</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="parties.html">Parties</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="remote_storage.html">Remote storage</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="screenshots.html">Screenshots</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="timeline.html">Timeline</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="ugc.html">Ugc</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="user.html">User</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="userstats.html">Userstats</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="utils.html">Utils</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">GMEXT-Steamworks</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html" class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Friends</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/YoYoGames/GMEXT-Steamworks/edit/master/docs/friends.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <p><a id="top"></a></p>
+<h1 id="friends"><strong>Friends</strong></h1>
+<blockquote>
+<p><strong>Steamworks Interface</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamFriends">ISteamFriends</a></p>
+</blockquote>
+<p>This module is used to access information about individual users and interact with the <a href="https://partner.steamgames.com/doc/features/overlay">Steam Overlay</a>.</p>
+<h2 id="functions">Functions</h2>
+<p>These are the functions of the Friends module:</p>
+<ul>
+<li><a href="friends.html#steam_friends_activate_game_overlay">steam_friends_activate_game_overlay</a></li>
+<li><a href="friends.html#steam_friends_activate_game_overlay_invite_dialog">steam_friends_activate_game_overlay_invite_dialog</a></li>
+<li><a href="friends.html#steam_friends_activate_game_overlay_to_store">steam_friends_activate_game_overlay_to_store</a></li>
+<li><a href="friends.html#steam_friends_activate_game_overlay_to_user">steam_friends_activate_game_overlay_to_user</a></li>
+<li><a href="friends.html#steam_friends_activate_game_overlay_to_web_page">steam_friends_activate_game_overlay_to_web_page</a></li>
+<li><a href="friends.html#steam_friends_clear_rich_presence">steam_friends_clear_rich_presence</a></li>
+<li><a href="friends.html#steam_friends_close_clan_chat_window_in_steam">steam_friends_close_clan_chat_window_in_steam</a></li>
+<li><a href="friends.html#steam_friends_download_clan_activity_counts">steam_friends_download_clan_activity_counts</a></li>
+<li><a href="friends.html#steam_friends_enumerate_following_list">steam_friends_enumerate_following_list</a></li>
+<li><a href="friends.html#steam_friends_set_callback_avatar_image_loaded">steam_friends_set_callback_avatar_image_loaded</a></li>
+<li><a href="friends.html#steam_friends_clear_callback_avatar_image_loaded">steam_friends_clear_callback_avatar_image_loaded</a></li>
+<li><a href="friends.html#steam_friends_get_chat_member_by_index">steam_friends_get_chat_member_by_index</a></li>
+<li><a href="friends.html#steam_friends_get_clan_activity_counts">steam_friends_get_clan_activity_counts</a></li>
+<li><a href="friends.html#steam_friends_get_clan_chat_member_count">steam_friends_get_clan_chat_member_count</a></li>
+<li><a href="friends.html#steam_friends_get_clan_chat_message">steam_friends_get_clan_chat_message</a></li>
+<li><a href="friends.html#steam_friends_get_clan_count">steam_friends_get_clan_count</a></li>
+<li><a href="friends.html#steam_friends_get_clan_name">steam_friends_get_clan_name</a></li>
+<li><a href="friends.html#steam_friends_get_clan_officer_by_index">steam_friends_get_clan_officer_by_index</a></li>
+<li><a href="friends.html#steam_friends_get_clan_officer_count">steam_friends_get_clan_officer_count</a></li>
+<li><a href="friends.html#steam_friends_get_clan_owner">steam_friends_get_clan_owner</a></li>
+<li><a href="friends.html#steam_friends_get_clan_tag">steam_friends_get_clan_tag</a></li>
+<li><a href="friends.html#steam_friends_get_coplay_friend">steam_friends_get_coplay_friend</a></li>
+<li><a href="friends.html#steam_friends_get_coplay_friend_count">steam_friends_get_coplay_friend_count</a></li>
+<li><a href="friends.html#steam_friends_get_follower_count">steam_friends_get_follower_count</a></li>
+<li><a href="friends.html#steam_friends_get_friend_by_index">steam_friends_get_friend_by_index</a></li>
+<li><a href="friends.html#steam_friends_get_friend_coplay_game">steam_friends_get_friend_coplay_game</a></li>
+<li><a href="friends.html#steam_friends_get_friend_coplay_time">steam_friends_get_friend_coplay_time</a></li>
+<li><a href="friends.html#steam_friends_get_friend_count">steam_friends_get_friend_count</a></li>
+<li><a href="friends.html#steam_friends_get_friend_count_from_source">steam_friends_get_friend_count_from_source</a></li>
+<li><a href="friends.html#steam_friends_get_friend_from_source_by_index">steam_friends_get_friend_from_source_by_index</a></li>
+<li><a href="friends.html#steam_friends_get_friend_game_played">steam_friends_get_friend_game_played</a></li>
+<li><a href="friends.html#steam_friends_get_friend_message">steam_friends_get_friend_message</a></li>
+<li><a href="friends.html#steam_friends_get_friend_persona_name">steam_friends_get_friend_persona_name</a></li>
+<li><a href="friends.html#steam_friends_get_friend_persona_name_history">steam_friends_get_friend_persona_name_history</a></li>
+<li><a href="friends.html#steam_friends_get_friend_persona_state">steam_friends_get_friend_persona_state</a></li>
+<li><a href="friends.html#steam_friends_get_friend_relationship">steam_friends_get_friend_relationship</a></li>
+<li><a href="friends.html#steam_friends_get_friend_rich_presence">steam_friends_get_friend_rich_presence</a></li>
+<li><a href="friends.html#steam_friends_get_friend_rich_presence_key_by_index">steam_friends_get_friend_rich_presence_key_by_index</a></li>
+<li><a href="friends.html#steam_friends_get_friend_rich_presence_key_count">steam_friends_get_friend_rich_presence_key_count</a></li>
+<li><a href="friends.html#steam_friends_get_friends_group_count">steam_friends_get_friends_group_count</a></li>
+<li><a href="friends.html#steam_friends_get_friends_group_id_by_index">steam_friends_get_friends_group_id_by_index</a></li>
+<li><a href="friends.html#steam_friends_get_friends_group_name">steam_friends_get_friends_group_name</a></li>
+<li><a href="friends.html#steam_friends_get_friend_steam_level">steam_friends_get_friend_steam_level</a></li>
+<li><a href="friends.html#steam_friends_get_large_friend_avatar">steam_friends_get_large_friend_avatar</a></li>
+<li><a href="friends.html#steam_friends_get_medium_friend_avatar">steam_friends_get_medium_friend_avatar</a></li>
+<li><a href="friends.html#steam_friends_get_small_friend_avatar">steam_friends_get_small_friend_avatar</a></li>
+<li><a href="friends.html#steam_friends_get_friends_group_members_count">steam_friends_get_friends_group_members_count</a></li>
+<li><a href="friends.html#steam_friends_get_friends_group_members_list">steam_friends_get_friends_group_members_list</a></li>
+<li><a href="friends.html#steam_friends_get_persona_name">steam_friends_get_persona_name</a></li>
+<li><a href="friends.html#steam_friends_get_persona_state">steam_friends_get_persona_state</a></li>
+<li><a href="friends.html#steam_friends_get_player_nickname">steam_friends_get_player_nickname</a></li>
+<li><a href="friends.html#steam_friends_has_friend">steam_friends_has_friend</a></li>
+<li><a href="friends.html#steam_friends_invite_user_to_game">steam_friends_invite_user_to_game</a></li>
+<li><a href="friends.html#steam_friends_is_clan_chat_admin">steam_friends_is_clan_chat_admin</a></li>
+<li><a href="friends.html#steam_friends_is_clan_public">steam_friends_is_clan_public</a></li>
+<li><a href="friends.html#steam_friends_is_clan_official_game_group">steam_friends_is_clan_official_game_group</a></li>
+<li><a href="friends.html#steam_friends_is_clan_chat_window_open_in_steam">steam_friends_is_clan_chat_window_open_in_steam</a></li>
+<li><a href="friends.html#steam_friends_is_following">steam_friends_is_following</a></li>
+<li><a href="friends.html#steam_friends_request_clan_officer_list">steam_friends_request_clan_officer_list</a></li>
+<li><a href="friends.html#steam_friends_request_friend_rich_presence">steam_friends_request_friend_rich_presence</a></li>
+<li><a href="friends.html#steam_friends_request_user_information">steam_friends_request_user_information</a></li>
+<li><a href="friends.html#steam_friends_set_in_game_voice_speaking">steam_friends_set_in_game_voice_speaking</a></li>
+<li><a href="friends.html#steam_friends_set_played_with">steam_friends_set_played_with</a></li>
+<li><a href="friends.html#steam_friends_set_rich_presence">steam_friends_set_rich_presence</a></li>
+<li><a href="friends.html#steam_friends_set_callback_persona_state_change">steam_friends_set_callback_persona_state_change</a></li>
+<li><a href="friends.html#steam_friends_clear_callback_persona_state_change">steam_friends_clear_callback_persona_state_change</a></li>
+<li><a href="friends.html#steam_friends_set_callback_game_overlay_activated">steam_friends_set_callback_game_overlay_activated</a></li>
+<li><a href="friends.html#steam_friends_clear_callback_game_overlay_activated">steam_friends_clear_callback_game_overlay_activated</a></li>
+<li><a href="friends.html#steam_friends_set_callback_game_rich_presence_join_requested">steam_friends_set_callback_game_rich_presence_join_requested</a></li>
+<li><a href="friends.html#steam_friends_clear_callback_game_rich_presence_join_requested">steam_friends_clear_callback_game_rich_presence_join_requested</a></li>
+<li><a href="friends.html#steam_friends_set_callback_game_lobby_join_requested">steam_friends_set_callback_game_lobby_join_requested</a></li>
+<li><a href="friends.html#steam_friends_clear_callback_game_lobby_join_requested">steam_friends_clear_callback_game_lobby_join_requested</a></li>
+<li><a href="friends.html#steam_friends_set_callback_friend_rich_presence_update">steam_friends_set_callback_friend_rich_presence_update</a></li>
+<li><a href="friends.html#steam_friends_clear_callback_friend_rich_presence_update">steam_friends_clear_callback_friend_rich_presence_update</a></li>
+<li><a href="friends.html#steam_friends_set_callback_game_server_change_requested">steam_friends_set_callback_game_server_change_requested</a></li>
+<li><a href="friends.html#steam_friends_clear_callback_game_server_change_requested">steam_friends_clear_callback_game_server_change_requested</a></li>
+</ul>
+<h2 id="constants">Constants</h2>
+<p>These are the constants and enums of the Friends module:</p>
+<ul>
+<li><a href="friends.html#steamfriendsoverlaytostoreflag">SteamFriendsOverlayToStoreFlag</a></li>
+<li><a href="friends.html#steamfriendsoverlaytowebpagemode">SteamFriendsOverlayToWebpageMode</a></li>
+<li><a href="friends.html#steamfriendschatentrytype">SteamFriendsChatEntryType</a></li>
+<li><a href="friends.html#steamfriendsfriendflag">SteamFriendsFriendFlag</a></li>
+<li><a href="friends.html#steamfriendspersonastate">SteamFriendsPersonaState</a></li>
+<li><a href="friends.html#steamfriendsrelationship">SteamFriendsRelationship</a></li>
+<li><a href="friends.html#steamfriendspersonachange">SteamFriendsPersonaChange</a></li>
+</ul>
+<h2 id="structs">Structs</h2>
+<p>These are the structs of the Friends module:</p>
+<ul>
+<li><a href="friends.html#steamfriendsgetfollowercountresult">SteamFriendsGetFollowerCountResult</a></li>
+<li><a href="friends.html#steamfriendsisfollowingresult">SteamFriendsIsFollowingResult</a></li>
+<li><a href="friends.html#steamfriendsenumeratefollowinglistresult">SteamFriendsEnumerateFollowingListResult</a></li>
+<li><a href="friends.html#steamfriendsrequestclanofficerlistresult">SteamFriendsRequestClanOfficerListResult</a></li>
+<li><a href="friends.html#steamfriendsdownloadclanactivitycountsresult">SteamFriendsDownloadClanActivityCountsResult</a></li>
+<li><a href="friends.html#steamfriendsavatarimageloaded">SteamFriendsAvatarImageLoaded</a></li>
+<li><a href="friends.html#steamfriendsclanactivitycounts">SteamFriendsClanActivityCounts</a></li>
+<li><a href="friends.html#steamfriendsclanchatmessage">SteamFriendsClanChatMessage</a></li>
+<li><a href="friends.html#steamfriendsfriendgameplayed">SteamFriendsFriendGamePlayed</a></li>
+<li><a href="friends.html#steamfriendsfriendmessage">SteamFriendsFriendMessage</a></li>
+<li><a href="friends.html#steamfriendspersonastatechange">SteamFriendsPersonaStateChange</a></li>
+<li><a href="friends.html#steamfriendsgameoverlayactivated">SteamFriendsGameOverlayActivated</a></li>
+<li><a href="friends.html#steamfriendsgamerichpresencejoinrequested">SteamFriendsGameRichPresenceJoinRequested</a></li>
+<li><a href="friends.html#steamfriendsgamelobbyjoinrequested">SteamFriendsGameLobbyJoinRequested</a></li>
+<li><a href="friends.html#steamfriendsfriendrichpresenceupdate">SteamFriendsFriendRichPresenceUpdate</a></li>
+<li><a href="friends.html#steamfriendsgameserverchangerequested">SteamFriendsGameServerChangeRequested</a></li>
+</ul>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_friends_activate_game_overlay">steam_friends_activate_game_overlay</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamFriends#ActivateGameOverlay">ISteamFriends::ActivateGameOverlay</a></p>
+</blockquote>
+<p>This function activates the <a href="https://partner.steamgames.com/doc/features/overlay">Steam overlay</a> to a specific dialog.</p>
+<p>This is equivalent to calling <a href="friends.html#steam_friends_activate_game_overlay_to_user">steam_friends_activate_game_overlay_to_user</a> with <code>steam_id</code> set to <a href="user.html#steam_user_get_steam_id">steam_user_get_steam_id</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_friends_activate_game_overlay(dialog)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>dialog</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The dialog to open. Valid options are: <code>"friends"</code>, <code>"community"</code>, <code>"players"</code>, <code>"settings"</code>, <code>"officialgamegroup"</code>, <code>"stats"</code>, <code>"achievements"</code>.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_friends_activate_game_overlay_invite_dialog">steam_friends_activate_game_overlay_invite_dialog</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamFriends#ActivateGameOverlayInviteDialog">ISteamFriends::ActivateGameOverlayInviteDialog</a></p>
+</blockquote>
+<p>This function activates the <a href="https://partner.steamgames.com/doc/features/overlay">Steam overlay</a> to open the invite dialog. Invitations sent from this dialog will be for the provided lobby.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_friends_activate_game_overlay_invite_dialog(steam_id_lobby)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>steam_id_lobby</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The Steam ID of the lobby that selected users will be invited to.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_friends_activate_game_overlay_to_store">steam_friends_activate_game_overlay_to_store</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamFriends#ActivateGameOverlayToStore">ISteamFriends::ActivateGameOverlayToStore</a></p>
+</blockquote>
+<p>This function activates the <a href="https://partner.steamgames.com/doc/features/overlay">Steam overlay</a> to the Steam store page for the provided app.</p>
+<p>Using <code>STEAM_API_APP_ID_INVALID</code> brings the user to the front page of the Steam store. (See: <a href="api.html#macros">macros</a>)</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_friends_activate_game_overlay_to_store(app_id, flag)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>app_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The app ID to show the store page of.</td>
+</tr>
+<tr>
+<td>flag</td>
+<td><a href="friends.html#steamfriendsoverlaytostoreflag">SteamFriendsOverlayToStoreFlag</a></td>
+<td>Flags to modify the behaviour when the page opens.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_friends_activate_game_overlay_to_user">steam_friends_activate_game_overlay_to_user</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamFriends#ActivateGameOverlayToUser">ISteamFriends::ActivateGameOverlayToUser</a></p>
+</blockquote>
+<p>This function activates <a href="https://partner.steamgames.com/doc/features/overlay">Steam overlay</a> to a specific dialog.</p>
+<p>Valid <code>dialog</code> options are:</p>
+<ul>
+<li><code>"steamid"</code> - Opens the overlay web browser to the specified user or groups profile.</li>
+<li><code>"chat"</code> - Opens a chat window to the specified user, or joins the group chat.</li>
+<li><code>"jointrade"</code> - Opens a window to a Steam Trading session that was started with the <a href="https://partner.steamgames.com/doc/webapi/ISteamEconomy#StartTrade">ISteamEconomy/StartTrade</a> Web API.</li>
+<li><code>"stats"</code> - Opens the overlay web browser to the specified user's stats.</li>
+<li><code>"achievements"</code> - Opens the overlay web browser to the specified user's achievements.</li>
+<li><code>"friendadd"</code> - Opens the overlay in minimal mode prompting the user to add the target user as a friend.</li>
+<li><code>"friendremove"</code> - Opens the overlay in minimal mode prompting the user to remove the target friend.</li>
+<li><code>"friendrequestaccept"</code> - Opens the overlay in minimal mode prompting the user to accept an incoming friend invite.</li>
+<li><code>"friendrequestignore"</code> - Opens the overlay in minimal mode prompting the user to ignore an incoming friend invite.</li>
+</ul>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_friends_activate_game_overlay_to_user(dialog, steam_id)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>dialog</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The dialog to open.</td>
+</tr>
+<tr>
+<td>steam_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The Steam ID of the context to open this dialog to.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_friends_activate_game_overlay_to_web_page">steam_friends_activate_game_overlay_to_web_page</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamFriends#ActivateGameOverlayToWebPage">ISteamFriends::ActivateGameOverlayToWebPage</a></p>
+</blockquote>
+<p>This function activates <a href="https://partner.steamgames.com/doc/features/overlay">Steam overlay</a> web browser directly to the specified URL.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_friends_activate_game_overlay_to_web_page(url, mode)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>url</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The webpage to open. (A fully qualified address with the protocol is required, e.g. <code>"http://www.steampowered.com"</code>)</td>
+</tr>
+<tr>
+<td>mode</td>
+<td><a href="friends.html#steamfriendsoverlaytowebpagemode">SteamFriendsOverlayToWebpageMode</a></td>
+<td>Mode for the web page. Defaults to <code>SteamFriendsOverlayToWebpageMode.Default</code>.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_friends_clear_rich_presence">steam_friends_clear_rich_presence</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamFriends#ClearRichPresence">ISteamFriends::ClearRichPresence</a></p>
+</blockquote>
+<p>This function clears all of the current user's Rich Presence key/values.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_friends_clear_rich_presence()
+</code></pre></div>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_friends_close_clan_chat_window_in_steam">steam_friends_close_clan_chat_window_in_steam</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamFriends#CloseClanChatWindowInSteam">ISteamFriends::CloseClanChatWindowInSteam</a></p>
+</blockquote>
+<p>This function closes the specified Steam group chat room in the Steam UI. Returns <code>true</code> if the user successfully left the Steam group chat room, <code>false</code> if the user is not in the provided Steam group chat room.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_friends_close_clan_chat_window_in_steam(steam_id_clan_chat)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>steam_id_clan_chat</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The Steam ID of the Steam group chat room to close.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_friends_download_clan_activity_counts">steam_friends_download_clan_activity_counts</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamFriends#DownloadClanActivityCounts">ISteamFriends::DownloadClanActivityCounts</a></p>
+</blockquote>
+<p>This function refreshes the Steam Group activity data or get the data from groups other than one that the current user is a member of.</p>
+<p>After receiving the callback you can then use <a href="friends.html#steam_friends_get_clan_activity_counts">steam_friends_get_clan_activity_counts</a> to get the up to date user counts.</p>
+<p>This function operates asynchronously, which means that it does not immediately return the requested result. Instead, upon completion of the task, it will trigger the <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_friends_download_clan_activity_counts(steam_id_clans, callback)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>steam_id_clans</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Arrays.htm">Array</a> of <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>A list of steam groups to get the updated data for.</td>
+</tr>
+<tr>
+<td>callback</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Script_Functions.htm">Function</a></td>
+<td>The function to call upon completion.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p>Whether the call was successful.</p>
+<p><br></p>
+<p><strong>Triggers:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a></p>
+</blockquote>
+<p><strong>Steamworks Callback</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamFriends#DownloadClanActivityCountsResult_t">ISteamFriends::DownloadClanActivityCountsResult_t</a></p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>result</td>
+<td><a href="friends.html#steamfriendsdownloadclanactivitycountsresult">SteamFriendsDownloadClanActivityCountsResult</a></td>
+<td>The callback result.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_friends_enumerate_following_list">steam_friends_enumerate_following_list</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamFriends#EnumerateFollowingList">ISteamFriends::EnumerateFollowingList</a></p>
+</blockquote>
+<p>This function gets the list of users that the current user is following.</p>
+<p>You can be following people that are not your friends. Following allows you to receive updates when the person does things like post a new piece of content to the Steam Workshop.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This returns up to <code>STEAM_FRIENDS_ENUMERATE_FOLLOWERS_MAX</code> users at once. If the current user is following more than that, you will need to call this repeatedly, with <code>start_index</code> set to the total number of followers that you have received so far.</p>
+</div>
+<p>This function operates asynchronously, which means that it does not immediately return the requested result. Instead, upon completion of the task, it will trigger the <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_friends_enumerate_following_list(start_index, callback)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>start_index</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The index to start receiving followers from. This should be 0 on the initial call.</td>
+</tr>
+<tr>
+<td>callback</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Script_Functions.htm">Function</a></td>
+<td>The function to call upon completion.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<p><strong>Triggers:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a></p>
+<p><strong>Steamworks Callback</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamFriends#FriendsEnumerateFollowingList_t">ISteamFriends::FriendsEnumerateFollowingList_t</a></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>result</td>
+<td><a href="friends.html#steamfriendsenumeratefollowinglistresult">SteamFriendsEnumerateFollowingListResult</a></td>
+<td>The result of the operation.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_friends_set_callback_avatar_image_loaded">steam_friends_set_callback_avatar_image_loaded</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: N / A</p>
+</blockquote>
+<p>This function sets the function to be called when a large avatar is loaded if you have tried requesting it when it was unavailable.</p>
+<p>See: <a href="https://partner.steamgames.com/doc/api/ISteamFriends#AvatarImageLoaded_t">ISteamFriends::AvatarImageLoaded_t</a></p>
+<p>See: <a href="friends.html#steamfriendsavatarimageloaded">SteamFriendsAvatarImageLoaded</a></p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_friends_set_callback_avatar_image_loaded(callback)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>callback</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Script_Functions.htm">Function</a></td>
+<td>The function to be called.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_friends_clear_callback_avatar_image_loaded">steam_friends_clear_callback_avatar_image_loaded</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: N / A</p>
+</blockquote>
+<p>This function clears the callback function previously set using <a href="friends.html#steam_friends_set_callback_avatar_image_loaded">steam_friends_set_callback_avatar_image_loaded</a>.</p>
+<p>See: <a href="https://partner.steamgames.com/doc/api/ISteamFriends#AvatarImageLoaded_t">ISteamFriends::AvatarImageLoaded_t</a></p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_friends_clear_callback_avatar_image_loaded()
+</code></pre></div>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_friends_get_chat_member_by_index">steam_friends_get_chat_member_by_index</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamFriends#GetChatMemberByIndex">ISteamFriends::GetChatMemberByIndex</a></p>
+</blockquote>
+<p>This function gets the Steam ID at the given index in a Steam group chat.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You must call <a href="friends.html#steam_friends_get_clan_chat_member_count">steam_friends_get_clan_chat_member_count</a> before calling this.</p>
+</div>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_friends_get_chat_member_by_index(steam_id_clan, user)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>steam_id_clan</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>This MUST be the same source used in the previous call to <a href="friends.html#steam_friends_get_clan_chat_member_count">steam_friends_get_clan_chat_member_count</a>!</td>
+</tr>
+<tr>
+<td>user</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>An index between 0 and <a href="friends.html#steam_friends_get_clan_chat_member_count">steam_friends_get_clan_chat_member_count</a>.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_friends_get_clan_activity_counts">steam_friends_get_clan_activity_counts</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamFriends#GetClanActivityCounts">ISteamFriends::GetClanActivityCounts</a></p>
+</blockquote>
+<p>This function gets the most recent information we have about what the users in a Steam Group are doing.</p>
+<p>This can only retrieve data that the local client knows about. To refresh the data or get data from a group other than one that the current user is a member of you must call <a href="friends.html#steam_friends_download_clan_activity_counts">steam_friends_download_clan_activity_counts</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_friends_get_clan_activity_counts(steam_id_clan)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>steam_id_clan</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The Steam group to get the activity of.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="friends.html#steamfriendsclanactivitycounts">SteamFriendsClanActivityCounts</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_friends_get_clan_chat_member_count">steam_friends_get_clan_chat_member_count</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamFriends#GetClanChatMemberCount">ISteamFriends::GetClanChatMemberCount</a></p>
+</blockquote>
+<p><strong>This API is deprecated.</strong></p>
+<p>This function gets the number of users in a Steam group chat.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Large steam groups cannot be iterated by the local user.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The current user must be in a lobby to retrieve the Steam IDs of other users in that lobby.</p>
+</div>
+<p>This is used for iteration, after calling this then <a href="friends.html#steam_friends_get_chat_member_by_index">steam_friends_get_chat_member_by_index</a> can be used to get the Steam ID of each person in the chat.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_friends_get_clan_chat_member_count(steam_id_clan)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>steam_id_clan</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The Steam group to get the chat count of.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_friends_get_clan_chat_message">steam_friends_get_clan_chat_message</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamFriends#GetClanChatMessage">ISteamFriends::GetClanChatMessage</a></p>
+</blockquote>
+<p>This function gets the data from a Steam group chat room message.</p>
+<p>This should only ever be called in response to a <a href="https://partner.steamgames.com/doc/api/ISteamFriends#GameConnectedClanChatMsg_t">GameConnectedClanChatMsg_t</a> callback.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_friends_get_clan_chat_message(steam_id_clan_chat, message)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>steam_id_clan_chat</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The Steam ID of the Steam group chat room.</td>
+</tr>
+<tr>
+<td>message</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The index of the message. This should be the <code>message_id</code> field of <a href="https://partner.steamgames.com/doc/api/ISteamFriends#GameConnectedClanChatMsg_t">GameConnectedClanChatMsg_t</a>.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="friends.html#steamfriendsclanchatmessage">SteamFriendsClanChatMessage</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_friends_get_clan_count">steam_friends_get_clan_count</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamFriends#GetClanCount">ISteamFriends::GetClanCount</a></p>
+</blockquote>
+<p>This function gets the number of Steam groups that the current user is a member of.</p>
+<p>This is used for iteration.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_friends_get_clan_count()
+</code></pre></div>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_friends_get_clan_name">steam_friends_get_clan_name</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamFriends#GetClanName">ISteamFriends::GetClanName</a></p>
+</blockquote>
+<p>This function gets the display name for the specified Steam group; if the local client knows about it.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_friends_get_clan_name(steam_id_clan)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>steam_id_clan</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The Steam group to get the name of.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></p>
+</blockquote>
+<p>The Steam group's name in UTF-8 format. Returns an empty string (<code>""</code>) if the provided Steam ID is invalid or the user does not know about the group.</p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_friends_get_clan_officer_by_index">steam_friends_get_clan_officer_by_index</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamFriends#GetClanOfficerByIndex">ISteamFriends::GetClanOfficerByIndex</a></p>
+</blockquote>
+<p>This function gets the Steam ID of the officer at the given index in a Steam group.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You must call <a href="friends.html#steam_friends_get_clan_officer_count">steam_friends_get_clan_officer_count</a> before calling this.</p>
+</div>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_friends_get_clan_officer_by_index(steam_id_clan, officer)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>steam_id_clan</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>This must be the same steam group used in the previous call to <a href="friends.html#steam_friends_get_clan_officer_count">steam_friends_get_clan_officer_count</a>!</td>
+</tr>
+<tr>
+<td>officer</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>An index between 0 and <a href="friends.html#steam_friends_get_clan_officer_count">steam_friends_get_clan_officer_count</a>.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_friends_get_clan_officer_count">steam_friends_get_clan_officer_count</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamFriends#GetClanOfficerCount">ISteamFriends::GetClanOfficerCount</a></p>
+</blockquote>
+<p>This function gets the number of officers (administrators and moderators) in a specified Steam group.</p>
+<p>This also includes the owner of the Steam group.</p>
+<p>This is used for iteration, after calling this then <a href="friends.html#steam_friends_get_clan_officer_by_index">steam_friends_get_clan_officer_by_index</a> can be used to get the Steam ID of each officer.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You must call <a href="friends.html#steam_friends_request_clan_officer_list">steam_friends_request_clan_officer_list</a> before this to get the required data!</p>
+</div>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_friends_get_clan_officer_count(steam_id_clan)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>steam_id_clan</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The Steam group to get the officer count of.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_friends_get_clan_owner">steam_friends_get_clan_owner</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamFriends#GetClanOwner">ISteamFriends::GetClanOwner</a></p>
+</blockquote>
+<p>This function gets the owner of a Steam Group.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You must call <a href="friends.html#steam_friends_request_clan_officer_list">steam_friends_request_clan_officer_list</a> before this to get the required data!</p>
+</div>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_friends_get_clan_owner(steam_id_clan)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>steam_id_clan</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The Steam ID of the Steam group to get the owner for.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_friends_get_clan_tag">steam_friends_get_clan_tag</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamFriends#GetClanTag">ISteamFriends::GetClanTag</a></p>
+</blockquote>
+<p>This function gets the unique tag (abbreviation) for the specified Steam group; If the local client knows about it.</p>
+<p>The Steam group abbreviation is a unique way for people to identify the group and is limited to 12 characters. In some games this will appear next to the name of group members.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_friends_get_clan_tag(steam_id_clan)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>steam_id_clan</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The Steam group to get the tag of.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_friends_get_coplay_friend">steam_friends_get_coplay_friend</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamFriends#GetCoplayFriend">ISteamFriends::GetCoplayFriend</a></p>
+</blockquote>
+<p>This function gets the Steam ID of the recently played with user at the given index.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You must call <a href="friends.html#steam_friends_get_coplay_friend_count">steam_friends_get_coplay_friend_count</a> before calling this.</p>
+</div>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_friends_get_coplay_friend(coplay_friend)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>coplay_friend</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>An index between 0 and <a href="friends.html#steam_friends_get_coplay_friend_count">steam_friends_get_coplay_friend_count</a>.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_friends_get_coplay_friend_count">steam_friends_get_coplay_friend_count</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamFriends#GetCoplayFriendCount">ISteamFriends::GetCoplayFriendCount</a></p>
+</blockquote>
+<p>This function gets the number of players that the current user has recently played with, across all games.</p>
+<p>This is used for iteration, after calling this then <a href="friends.html#steam_friends_get_coplay_friend">steam_friends_get_coplay_friend</a> can be used to get the Steam ID of each player.</p>
+<p>These players have been set with previous calls to <a href="friends.html#steam_friends_set_played_with">steam_friends_set_played_with</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_friends_get_coplay_friend_count()
+</code></pre></div>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_friends_get_follower_count">steam_friends_get_follower_count</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamFriends#GetFollowerCount">ISteamFriends::GetFollowerCount</a></p>
+</blockquote>
+<p>This function gets the number of users following the specified user.</p>
+<p>This function operates asynchronously, which means that it does not immediately return the requested result. Instead, upon completion of the task, it will trigger the <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_friends_get_follower_count(steam_id, callback)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>steam_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The user to get the follower count for.</td>
+</tr>
+<tr>
+<td>callback</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Script_Functions.htm">Function</a></td>
+<td>The function to call upon completion.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<p><strong>Triggers:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a></p>
+<p><strong>Steamworks Callback</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamFriends#FriendsGetFollowerCount_t">ISteamFriends::FriendsGetFollowerCount_t</a></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>result</td>
+<td><a href="friends.html#steamfriendsgetfollowercountresult">SteamFriendsGetFollowerCountResult</a></td>
+<td>The result of the operation.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_friends_get_friend_by_index">steam_friends_get_friend_by_index</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamFriends#GetFriendByIndex">ISteamFriends::GetFriendByIndex</a></p>
+</blockquote>
+<p>This function gets the Steam ID of the user at the given index.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You must call <a href="friends.html#steam_friends_get_friend_count">steam_friends_get_friend_count</a> before calling this.</p>
+</div>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_friends_get_friend_by_index(friend_index, friend_flags)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>friend_index</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>An index between 0 and <a href="friends.html#steam_friends_get_friend_count">steam_friends_get_friend_count</a>.</td>
+</tr>
+<tr>
+<td>friend_flags</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>A combined union (binary "or") of <a href="friends.html#steamfriendsfriendflag">SteamFriendsFriendFlag</a>. This must be the same value as used in the previous call to <a href="friends.html#steam_friends_get_friend_count">steam_friends_get_friend_count</a>.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_friends_get_friend_coplay_game">steam_friends_get_friend_coplay_game</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamFriends#GetFriendCoplayGame">ISteamFriends::GetFriendCoplayGame</a></p>
+</blockquote>
+<p>This function gets the app ID of the game that user played with someone on their recently-played-with list.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_friends_get_friend_coplay_game(steam_id_friend)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>steam_id_friend</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The Steam ID of the user on the recently-played-with list to get the game played.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_friends_get_friend_coplay_time">steam_friends_get_friend_coplay_time</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamFriends#GetFriendCoplayTime">ISteamFriends::GetFriendCoplayTime</a></p>
+</blockquote>
+<p>This function gets the timestamp of when the user played with someone on their recently-played-with list.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_friends_get_friend_coplay_time(steam_id_friend)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>steam_id_friend</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The Steam ID of the user on the recently-played-with list to get the timestamp for.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_friends_get_friend_count">steam_friends_get_friend_count</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamFriends#GetFriendCount">ISteamFriends::GetFriendCount</a></p>
+</blockquote>
+<p>This function gets the number of users the client knows about who meet a specified criteria. (Friends, blocked, users on the same server, etc.)</p>
+<p>This can be used to iterate over all of the users by calling <a href="friends.html#steam_friends_get_friend_by_index">steam_friends_get_friend_by_index</a> to get the Steam IDs of each user.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_friends_get_friend_count(friend_flags)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>friend_flags</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>A combined union (binary "or") of one or more <a href="friends.html#steamfriendsfriendflag">SteamFriendsFriendFlag</a>.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_friends_get_friend_count_from_source">steam_friends_get_friend_count_from_source</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamFriends#GetFriendCountFromSource">ISteamFriends::GetFriendCountFromSource</a></p>
+</blockquote>
+<p>This function gets the number of users in a source (Steam group, chat room, lobby, or game server).</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Large Steam groups cannot be iterated by the local user.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you're getting the number of lobby members then you should use <a href="matchmaking.html#steam_matchmaking_get_num_lobby_members">steam_matchmaking_get_num_lobby_members</a> instead.</p>
+</div>
+<p>This is used for iteration, after calling this then <a href="friends.html#steam_friends_get_friend_from_source_by_index">steam_friends_get_friend_from_source_by_index</a> can be used to get the Steam ID of each person in the source.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_friends_get_friend_count_from_source(steam_id_source)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>steam_id_source</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The Steam group, chat room, lobby or game server to get the user count of.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_friends_get_friend_from_source_by_index">steam_friends_get_friend_from_source_by_index</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamFriends#GetFriendFromSourceByIndex">ISteamFriends::GetFriendFromSourceByIndex</a></p>
+</blockquote>
+<p>This function gets the Steam ID at the given index from a source (Steam group, chat room, lobby, or game server).</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You must call <a href="friends.html#steam_friends_get_friend_count_from_source">steam_friends_get_friend_count_from_source</a> before calling this.</p>
+</div>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_friends_get_friend_from_source_by_index(steam_id_source, friend_index)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>steam_id_source</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>This MUST be the same source used in the previous call to <a href="friends.html#steam_friends_get_friend_count_from_source">steam_friends_get_friend_count_from_source</a>!</td>
+</tr>
+<tr>
+<td>friend_index</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>An index between 0 and <a href="friends.html#steam_friends_get_friend_count_from_source">steam_friends_get_friend_count_from_source</a>.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_friends_get_friend_game_played">steam_friends_get_friend_game_played</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamFriends#GetFriendGamePlayed">ISteamFriends::GetFriendGamePlayed</a></p>
+</blockquote>
+<p>This function checks if the specified friend is in a game, and gets info about the game if they are.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_friends_get_friend_game_played(steam_id_friend)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>steam_id_friend</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The Steam ID of the other user.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="friends.html#steamfriendsfriendgameplayed">SteamFriendsFriendGamePlayed</a></p>
+</blockquote>
+<p>The details if the user is in a game.</p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_friends_get_friend_message">steam_friends_get_friend_message</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamFriends#GetFriendMessage">ISteamFriends::GetFriendMessage</a></p>
+</blockquote>
+<p>This function gets the data from a Steam friends message.</p>
+<p>This should only ever be called in response to a <a href="https://partner.steamgames.com/doc/api/ISteamFriends#GameConnectedFriendChatMsg_t">GameConnectedFriendChatMsg_t</a> callback.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_friends_get_friend_message(steam_id_friend, message_id)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>steam_id_friend</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The Steam ID of the friend that sent this message.</td>
+</tr>
+<tr>
+<td>message_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The index of the message. This should be the <code>m_iMessageID</code> field of <a href="https://partner.steamgames.com/doc/api/ISteamFriends#GameConnectedFriendChatMsg_t">GameConnectedFriendChatMsg_t</a>.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="friends.html#steamfriendsfriendmessage">SteamFriendsFriendMessage</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_friends_get_friend_persona_name">steam_friends_get_friend_persona_name</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamFriends#GetFriendPersonaName">ISteamFriends::GetFriendPersonaName</a></p>
+</blockquote>
+<p>This function gets the specified user's persona (display) name. It returns an empty string (<code>""</code>), or <code>"[unknown]"</code> if the Steam ID is invalid or not known to the caller.</p>
+<p>This will only be known to the current user if the other user is in their friends list, on the same game server, in a chat room or lobby, or in a small Steam group with the local user.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Upon first joining a lobby, chat room, or game server the current user will not known the name of the other users automatically; that information will arrive asynchronously via <a href="https://partner.steamgames.com/doc/api/ISteamFriends#PersonaStateChange_t">PersonaStateChange_t</a> callbacks.</p>
+</div>
+<p>To get the persona name of the current user use <a href="friends.html#steam_friends_get_persona_name">steam_friends_get_persona_name</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_friends_get_friend_persona_name(steam_id_friend)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>steam_id_friend</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The Steam ID of the other user.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_friends_get_friend_persona_name_history">steam_friends_get_friend_persona_name_history</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamFriends#GetFriendPersonaNameHistory">ISteamFriends::GetFriendPersonaNameHistory</a></p>
+</blockquote>
+<p>This function gets one of the previous display names for the specified user.</p>
+<p>This only works for display names that the current user has seen on the local computer.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_friends_get_friend_persona_name_history(steam_id_friend, persona_name)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>steam_id_friend</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The Steam ID of the other user.</td>
+</tr>
+<tr>
+<td>persona_name</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The index of the history to receive. 0 is their current persona name, 1 is their most recent before they changed it, etc.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></p>
+</blockquote>
+<p>The player's old persona name at the given index, or an empty string when there are no further items in the history.</p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_friends_get_friend_persona_state">steam_friends_get_friend_persona_state</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamFriends#GetFriendPersonaState">ISteamFriends::GetFriendPersonaState</a></p>
+</blockquote>
+<p>This function gets the current status of the specified user.</p>
+<p>This will only be known to the current user if the other user is in their friends list, on the same game server, in a chat room or lobby, or in a small Steam group with the local user.</p>
+<p>To get the state of the current user use <a href="friends.html#steam_friends_get_persona_state">steam_friends_get_persona_state</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_friends_get_friend_persona_state(steam_id_friend)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>steam_id_friend</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The Steam ID of the other user.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="friends.html#steamfriendspersonastate">SteamFriendsPersonaState</a></p>
+</blockquote>
+<p>The friend state of the specified user. (Online, Offline, In-Game, etc.)</p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_friends_get_friend_relationship">steam_friends_get_friend_relationship</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamFriends#GetFriendRelationship">ISteamFriends::GetFriendRelationship</a></p>
+</blockquote>
+<p>This function gets a relationship to a specified user.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_friends_get_friend_relationship(steam_id_friend)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>steam_id_friend</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The Steam ID of the other user.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="friends.html#steamfriendsrelationship">SteamFriendsRelationship</a></p>
+</blockquote>
+<p>How the users know each other.</p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_friends_get_friend_rich_presence">steam_friends_get_friend_rich_presence</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamFriends#GetFriendRichPresence">ISteamFriends::GetFriendRichPresence</a></p>
+</blockquote>
+<p>This function gets a Rich Presence value from a specified friend.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_friends_get_friend_rich_presence(steam_id_friend, key)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>steam_id_friend</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The friend to get the Rich Presence value for.</td>
+</tr>
+<tr>
+<td>key</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The Rich Presence key to request.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_friends_get_friend_rich_presence_key_by_index">steam_friends_get_friend_rich_presence_key_by_index</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamFriends#GetFriendRichPresenceKeyByIndex">ISteamFriends::GetFriendRichPresenceKeyByIndex</a></p>
+</blockquote>
+<p>This function gets a Rich Presence value from a specified friend using the index of the key.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_friends_get_friend_rich_presence_key_by_index(steam_id_friend, key)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>steam_id_friend</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>This should be the same user provided to the previous call to <a href="friends.html#steam_friends_get_friend_rich_presence_key_count">steam_friends_get_friend_rich_presence_key_count</a>!</td>
+</tr>
+<tr>
+<td>key</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>An index between 0 and <a href="friends.html#steam_friends_get_friend_rich_presence_key_count">steam_friends_get_friend_rich_presence_key_count</a>.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_friends_get_friend_rich_presence_key_count">steam_friends_get_friend_rich_presence_key_count</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamFriends#GetFriendRichPresenceKeyCount">ISteamFriends::GetFriendRichPresenceKeyCount</a></p>
+</blockquote>
+<p>This function gets the number of Rich Presence keys that are set on the specified user. Returns 0 if there is no Rich Presence information for the specified user.</p>
+<p>This is used for iteration, after calling this then <a href="friends.html#steam_friends_get_friend_rich_presence_key_by_index">steam_friends_get_friend_rich_presence_key_by_index</a> to get the rich presence keys.</p>
+<p>This is typically only ever used for debugging purposes.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_friends_get_friend_rich_presence_key_count(steam_id_friend)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>steam_id_friend</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The Steam ID of the user to get the Rich Presence Key Count of.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_friends_get_friends_group_count">steam_friends_get_friends_group_count</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamFriends#GetFriendsGroupCount">ISteamFriends::GetFriendsGroupCount</a></p>
+</blockquote>
+<p>This function gets the number of friends groups (tags) the user has created.</p>
+<p>This is used for iteration, after calling this then <a href="friends.html#steam_friends_get_friends_group_id_by_index">steam_friends_get_friends_group_id_by_index</a> can be used to get the ID of each friend group.</p>
+<p>This is not to be confused with Steam groups. Those can be obtained with <a href="friends.html#steam_friends_get_clan_count">steam_friends_get_clan_count</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_friends_get_friends_group_count()
+</code></pre></div>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_friends_get_friends_group_id_by_index">steam_friends_get_friends_group_id_by_index</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamFriends#GetFriendsGroupIDByIndex">ISteamFriends::GetFriendsGroupIDByIndex</a></p>
+</blockquote>
+<p>This function gets the friends group ID for the given index.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You must call <a href="friends.html#steam_friends_get_friends_group_count">steam_friends_get_friends_group_count</a> before calling this.</p>
+</div>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_friends_get_friends_group_id_by_index(fg)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>fg</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>An index between 0 and <a href="friends.html#steam_friends_get_friends_group_count">steam_friends_get_friends_group_count</a>.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_friends_get_friends_group_name">steam_friends_get_friends_group_name</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamFriends#GetFriendsGroupName">ISteamFriends::GetFriendsGroupName</a></p>
+</blockquote>
+<p>This function gets the name for the given friends group.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_friends_get_friends_group_name(friends_group_id)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>friends_group_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The friends group ID to get the name of.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_friends_get_friend_steam_level">steam_friends_get_friend_steam_level</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamFriends#GetFriendSteamLevel">ISteamFriends::GetFriendSteamLevel</a></p>
+</blockquote>
+<p>This function gets the Steam level of the specified user.</p>
+<p>You can use the local user's Steam ID (<a href="user.html#steam_user_get_steam_id">steam_user_get_steam_id</a>) to get their level.</p>
+<p>If the Steam level is not immediately available for the specified user then this returns 0 and queues it to be downloaded from the Steam servers. When it gets downloaded a <a href="https://partner.steamgames.com/doc/api/ISteamFriends#PersonaStateChange_t">PersonaStateChange_t</a> callback ($struct.SteamFriendsPersonaStateChange) will be posted with <code>change_flags</code> including <code>SteamFriendsPersonaChange.SteamLevel</code>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_friends_get_friend_steam_level(steam_id_friend)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>steam_id_friend</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The Steam ID of the user.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_friends_get_large_friend_avatar">steam_friends_get_large_friend_avatar</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamFriends#GetLargeFriendAvatar">ISteamFriends::GetLargeFriendAvatar</a></p>
+</blockquote>
+<p>This function gets a handle to the large (128*128px) avatar for the specified user.</p>
+<p>You can pass in <a href="user.html#steam_user_get_steam_id">steam_user_get_steam_id</a> to get the current user's avatar.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This only works for users that the local user knows about. They will automatically know about their friends, people on leaderboards they've requested, or people in the same source as them (Steam group, chat room, lobby, or game server). If they don't know about them then you must call <a href="friends.html#steam_friends_request_user_information">steam_friends_request_user_information</a> to cache the avatar locally.</p>
+</div>
+<p>See: <a href="friends.html#steam_friends_get_medium_friend_avatar">steam_friends_get_medium_friend_avatar</a>, <a href="friends.html#steam_friends_get_small_friend_avatar">steam_friends_get_small_friend_avatar</a></p>
+<p>This function operates asynchronously, which means that it does not immediately return the requested result. Instead, upon completion of the task, it will trigger the <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_friends_get_large_friend_avatar(steam_id_friend)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>steam_id_friend</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The Steam ID of the user.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Triggers:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a></p>
+<p><strong>Steamworks Callback</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamFriends#AvatarImageLoaded_t">ISteamFriends::AvatarImageLoaded_t</a></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>result</td>
+<td><a href="friends.html#steamfriendsavatarimageloaded">SteamFriendsAvatarImageLoaded</a></td>
+<td>The result of the operation.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_friends_get_medium_friend_avatar">steam_friends_get_medium_friend_avatar</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamFriends#GetMediumFriendAvatar">ISteamFriends::GetMediumFriendAvatar</a></p>
+</blockquote>
+<p>This function gets a handle to the medium (64*64px) avatar for the specified user.</p>
+<p>You can pass in <a href="user.html#steam_user_get_steam_id">steam_user_get_steam_id</a> to get the current user's avatar.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This only works for users that the local user knows about. They will automatically know about their friends, people on leaderboards they've requested, or people in the same source as them (Steam group, chat room, lobby, or game server). If they don't know about them then you must call <a href="friends.html#steam_friends_request_user_information">steam_friends_request_user_information</a> to cache the avatar locally.</p>
+</div>
+<p>See: <a href="friends.html#steam_friends_get_large_friend_avatar">steam_friends_get_large_friend_avatar</a>, <a href="friends.html#steam_friends_get_small_friend_avatar">steam_friends_get_small_friend_avatar</a></p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_friends_get_medium_friend_avatar(steam_id_friend)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>steam_id_friend</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The Steam ID of the user.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_friends_get_small_friend_avatar">steam_friends_get_small_friend_avatar</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamFriends#GetSmallFriendAvatar">ISteamFriends::GetSmallFriendAvatar</a></p>
+</blockquote>
+<p>This function gets a handle to the small (32*32px) avatar for the specified user.</p>
+<p>You can pass in <a href="user.html#steam_user_get_steam_id">steam_user_get_steam_id</a> to get the current user's avatar.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This only works for users that the local user knows about. They will automatically know about their friends, people on leaderboards they've requested, or people in the same source as them (Steam group, chat room, lobby, or game server). If they don't know about them then you must call <a href="friends.html#steam_friends_request_user_information">steam_friends_request_user_information</a> to cache the avatar locally.</p>
+</div>
+<p>See: <a href="friends.html#steam_friends_get_large_friend_avatar">steam_friends_get_large_friend_avatar</a>, <a href="friends.html#steam_friends_get_medium_friend_avatar">steam_friends_get_medium_friend_avatar</a></p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_friends_get_small_friend_avatar(steam_id_friend)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>steam_id_friend</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The Steam ID of the user.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_friends_get_friends_group_members_count">steam_friends_get_friends_group_members_count</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamFriends#GetFriendsGroupMembersCount">ISteamFriends::GetFriendsGroupMembersCount</a></p>
+</blockquote>
+<p>This function gets the number of friends in a given friends group.</p>
+<p>This should be called before getting the list of friends with <a href="friends.html#steam_friends_get_friends_group_members_list">steam_friends_get_friends_group_members_list</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_friends_get_friends_group_members_count(friends_group_id)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>friends_group_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The friends group ID to get the number of friends in.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_friends_get_friends_group_members_list">steam_friends_get_friends_group_members_list</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamFriends#GetFriendsGroupMembersList">ISteamFriends::GetFriendsGroupMembersList</a></p>
+</blockquote>
+<p>This function gets the friends in the given friends group.</p>
+<p>If fewer friends exist than requested those positions' Steam IDs will be invalid.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_friends_get_friends_group_members_list(friends_group_id)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>friends_group_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The friends group ID to get the members list of.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Arrays.htm">Array</a> of <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_friends_get_persona_name">steam_friends_get_persona_name</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamFriends#GetPersonaName">ISteamFriends::GetPersonaName</a></p>
+</blockquote>
+<p>This function gets the current user's persona (display) name.</p>
+<p>To get the persona name of other users use <a href="friends.html#steam_friends_get_friend_persona_name">steam_friends_get_friend_persona_name</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_friends_get_persona_name()
+</code></pre></div>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_friends_get_persona_state">steam_friends_get_persona_state</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamFriends#GetPersonaState">ISteamFriends::GetPersonaState</a></p>
+</blockquote>
+<p>This function gets the friend status of the current user.</p>
+<p>To get the state of other users use <a href="friends.html#steam_friends_get_friend_persona_state">steam_friends_get_friend_persona_state</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_friends_get_persona_state()
+</code></pre></div>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="friends.html#steamfriendspersonastate">SteamFriendsPersonaState</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_friends_get_player_nickname">steam_friends_get_player_nickname</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamFriends#GetPlayerNickname">ISteamFriends::GetPlayerNickname</a></p>
+</blockquote>
+<p>This function gets the nickname that the current user has set for the specified user.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_friends_get_player_nickname(steam_id_player)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>steam_id_player</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The Steam ID of the user.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_friends_has_friend">steam_friends_has_friend</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamFriends#HasFriend">ISteamFriends::HasFriend</a></p>
+</blockquote>
+<p>This function checks if the user meets the specified criteria. (Friends, blocked, users on the same server, etc.)</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_friends_has_friend(steam_id_friend, friend_flags)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>steam_id_friend</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The Steam user to check the friend status of.</td>
+</tr>
+<tr>
+<td>friend_flags</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>A combined union (binary "or") of one or more <a href="friends.html#steamfriendsfriendflag">SteamFriendsFriendFlag</a>.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_friends_invite_user_to_game">steam_friends_invite_user_to_game</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamFriends#InviteUserToGame">ISteamFriends::InviteUserToGame</a></p>
+</blockquote>
+<p>This function invites a friend or clan member to the current game using a special invite string.</p>
+<p>If the target user accepts the invite then the <code>connect_string</code> gets added to the command-line when launching the game.
+If the game is already running for that user, then they will receive a <a href="https://partner.steamgames.com/doc/api/ISteamFriends#GameRichPresenceJoinRequested_t">GameRichPresenceJoinRequested_t</a> callback with the connect string.</p>
+<p>This function operates asynchronously, which means that it does not immediately return the requested result. Instead, upon completion of the task, it will trigger the <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_friends_invite_user_to_game(steam_id_friend, connect_string)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>steam_id_friend</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The Steam ID of the friend to invite.</td>
+</tr>
+<tr>
+<td>connect_string</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>A string that lets the friend know how to join the game (i.e. the game server IP). This can not be longer than specified in <code>STEAM_FRIENDS_MAX_RICH_PRESENCE_VALUE_LENGTH</code>.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Triggers:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a></p>
+<p><strong>Steamworks Callback</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamFriends#GameRichPresenceJoinRequested_t">ISteamFriends::GameRichPresenceJoinRequested_t</a></p>
+</blockquote>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This callback is made when joining a game. If the user is attempting to join a lobby, then the callback <a href="https://partner.steamgames.com/doc/api/ISteamFriends#GameLobbyJoinRequested_t">GameLobbyJoinRequested_t</a> will be made.</p>
+</div>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>result</td>
+<td><a href="friends.html#steamfriendsgamerichpresencejoinrequested">SteamFriendsGameRichPresenceJoinRequested</a></td>
+<td>The result of the operation.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_friends_is_clan_chat_admin">steam_friends_is_clan_chat_admin</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamFriends#IsClanChatAdmin">ISteamFriends::IsClanChatAdmin</a></p>
+</blockquote>
+<p>This function checks if a user in the Steam group chat room is an admin.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_friends_is_clan_chat_admin(steam_id_clan_chat, steam_id_user)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>steam_id_clan_chat</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The Steam ID of the Steam group chat room.</td>
+</tr>
+<tr>
+<td>steam_id_user</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The Steam ID of the user to check the admin status of.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_friends_is_clan_public">steam_friends_is_clan_public</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamFriends#IsClanPublic">ISteamFriends::IsClanPublic</a></p>
+</blockquote>
+<p>This function checks if the Steam group is public.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_friends_is_clan_public(steam_id_clan)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>steam_id_clan</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The Steam ID of the Steam group.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_friends_is_clan_official_game_group">steam_friends_is_clan_official_game_group</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamFriends#IsClanOfficialGameGroup">ISteamFriends::IsClanOfficialGameGroup</a></p>
+</blockquote>
+<p>This function checks if the Steam group is an official game group/community hub.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_friends_is_clan_official_game_group(steam_id_clan)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>steam_id_clan</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The Steam ID of the Steam group.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_friends_is_clan_chat_window_open_in_steam">steam_friends_is_clan_chat_window_open_in_steam</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamFriends#IsClanChatWindowOpenInSteam">ISteamFriends::IsClanChatWindowOpenInSteam</a></p>
+</blockquote>
+<p>This function checks if the Steam Group chat room is open in the Steam UI.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_friends_is_clan_chat_window_open_in_steam(steam_id_clan_chat)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>steam_id_clan_chat</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The Steam ID of the Steam group chat room to check.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_friends_is_following">steam_friends_is_following</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamFriends#IsFollowing">ISteamFriends::IsFollowing</a></p>
+</blockquote>
+<p>This function checks if the current user is following the specified user.</p>
+<p>This function operates asynchronously, which means that it does not immediately return the requested result. Instead, upon completion of the task, it will trigger the <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_friends_is_following(steam_id, callback)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>steam_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The Steam ID of the check if we are following.</td>
+</tr>
+<tr>
+<td>callback</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Script_Functions.htm">Function</a></td>
+<td>The function to call upon completion.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<p><strong>Triggers:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a></p>
+<p><strong>Steamworks Callback</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamFriends#FriendsIsFollowing_t">FriendsIsFollowing_t</a></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>result</td>
+<td><a href="friends.html#steamfriendsisfollowingresult">SteamFriendsIsFollowingResult</a></td>
+<td>The result of the operation.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_friends_request_clan_officer_list">steam_friends_request_clan_officer_list</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamFriends#RequestClanOfficerList">ISteamFriends::RequestClanOfficerList</a></p>
+</blockquote>
+<p>This function requests information about a Steam group's officers (administrators and moderators).</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You can only ask about Steam groups that a user is a member of.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This won't download avatars for the officers automatically. If no avatar image is available for an officer, then call <a href="friends.html#steam_friends_request_user_information">steam_friends_request_user_information</a> to download the avatar.</p>
+</div>
+<p>This function operates asynchronously, which means that it does not immediately return the requested result. Instead, upon completion of the task, it will trigger the <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_friends_request_clan_officer_list(steam_id_clan, callback)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>steam_id_clan</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The Steam group to get the officers list for.</td>
+</tr>
+<tr>
+<td>callback</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Script_Functions.htm">Function</a></td>
+<td>The function to be called upon completion.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<p><strong>Triggers:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a></p>
+<p><strong>Steamworks Callback</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamFriends#ClanOfficerListResponse_t">ISteamFriends::ClanOfficerListResponse_t</a></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>result</td>
+<td><a href="friends.html#steamfriendsrequestclanofficerlistresult">SteamFriendsRequestClanOfficerListResult</a></td>
+<td>The result of the operation.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_friends_request_friend_rich_presence">steam_friends_request_friend_rich_presence</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamFriends#RequestFriendRichPresence">ISteamFriends::RequestFriendRichPresence</a></p>
+</blockquote>
+<p>This function requests Rich Presence data from a specific user.</p>
+<p>This is used to get the Rich Presence information from a user that is not a friend of the current user, like someone in the same lobby or game server.</p>
+<p>This function is rate limited, if you call this too frequently for a particular user then it will just immediately post a callback without requesting new data from the server.</p>
+<p>This function operates asynchronously, which means that it does not immediately return the requested result. Instead, upon completion of the task, it will trigger the <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_friends_request_friend_rich_presence(steam_id_friend)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>steam_id_friend</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The Steam ID of the user to request the rich presence of.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<p><strong>Triggers:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a></p>
+<p><strong>Steamworks Callback</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamFriends#FriendRichPresenceUpdate_t">ISteamFriends::FriendRichPresenceUpdate_t</a></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>result</td>
+<td><a href="friends.html#steamfriendsfriendrichpresenceupdate">SteamFriendsFriendRichPresenceUpdate</a></td>
+<td>The result of the operation.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_friends_request_user_information">steam_friends_request_user_information</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamFriends#RequestUserInformation">ISteamFriends::RequestUserInformation</a></p>
+</blockquote>
+<p>This function requests the persona name and optionally the avatar of a specified user.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>It's a lot slower to download avatars and churns the local cache, so if you don't need avatars, don't request them.</p>
+</div>
+<p>This function operates asynchronously, which means that it does not immediately return the requested result. Instead, upon completion of the task, it will trigger the <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_friends_request_user_information(steam_id_user, require_name_only)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>steam_id_user</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The user to request the information of.</td>
+</tr>
+<tr>
+<td>require_name_only</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></td>
+<td>Retrieve the Persona name only (<code>true</code>)? Or both the name and the avatar (<code>false</code>)?</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><code>true</code> means that the data has being requested, and a <a href="https://partner.steamgames.com/doc/api/ISteamFriends#PersonaStateChange_t">PersonaStateChange_t</a> callback (<a href="friends.html#steamfriendspersonastatechange">SteamFriendsPersonaStateChange</a>) will be posted when it's retrieved. <code>false</code> means that we already have all the details about that user, and functions that require this information can be used immediately.</p>
+<p><br></p>
+<p><strong>Triggers:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a></p>
+<p><strong>Steamworks Callback</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamFriends#PersonaStateChange_t">ISteamFriends::PersonaStateChange_t</a></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>result</td>
+<td><a href="friends.html#steamfriendspersonastatechange">SteamFriendsPersonaStateChange</a></td>
+<td>The result of the operation.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_friends_set_in_game_voice_speaking">steam_friends_set_in_game_voice_speaking</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamFriends#SetInGameVoiceSpeaking">ISteamFriends::SetInGameVoiceSpeaking</a></p>
+</blockquote>
+<p>This function lets Steam know that the user is currently using voice chat in game.</p>
+<p>This will suppress the microphone for all voice communication in the Steam UI.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_friends_set_in_game_voice_speaking(steam_id_user, speaking)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>steam_id_user</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>Unused.</td>
+</tr>
+<tr>
+<td>speaking</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></td>
+<td>Did the user start speaking in game (<code>true</code>) or stop speaking in game (<code>false</code>)?</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_friends_set_played_with">steam_friends_set_played_with</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamFriends#SetPlayedWith">ISteamFriends::SetPlayedWith</a></p>
+</blockquote>
+<p>This function marks a target user as 'played with'.</p>
+<p>You can view the players you have recently played with <a href="http://steamcommunity.com/my/friends/coplay/">here</a> on the Steam community and in the <a href="https://partner.steamgames.com/doc/features/overlay">Steam overlay</a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The current user must be in game with the other player for the association to work.</p>
+</div>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_friends_set_played_with(steam_id_user_played_with)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>steam_id_user_played_with</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The other user that we have played with.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_friends_set_rich_presence">steam_friends_set_rich_presence</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamFriends#SetRichPresence">ISteamFriends::SetRichPresence</a></p>
+</blockquote>
+<p>This function sets a Rich Presence key/value for the current user that is automatically shared to all friends playing the same game.</p>
+<p>Each user can have up to 20 keys set as defined by <code>STEAM_FRIENDS_MAX_RICH_PRESENCE_KEYS</code>.</p>
+<p>You can clear all of the keys for the current user with <a href="friends.html#steam_friends_clear_rich_presence">steam_friends_clear_rich_presence</a>.</p>
+<p>To get rich presence keys for friends see: <a href="friends.html#steam_friends_get_friend_rich_presence">steam_friends_get_friend_rich_presence</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_friends_set_rich_presence(key, value)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>key</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The rich presence 'key' to set. This can not be longer than specified in <code>STEAM_FRIENDS_MAX_RICH_PRESENCE_KEY_LENGTH</code>.</td>
+</tr>
+<tr>
+<td>value</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The rich presence 'value' to associate with <code>key</code>. This can not be longer than specified in <code>STEAM_FRIENDS_MAX_RICH_PRESENCE_KEY_LENGTH</code>. If this is set to an empty string (<code>""</code>) then the key is removed if it's set.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><code>true</code> if the rich presence was set successfully, <code>false</code> if key or value was longer than its respective max length, the key had a length of 0, or the user has reached the maximum number of rich presence keys</p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_friends_set_callback_persona_state_change">steam_friends_set_callback_persona_state_change</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: N / A</p>
+</blockquote>
+<p>This function sets the callback function to use whenever a friend's status changes.</p>
+<p>See: <a href="https://partner.steamgames.com/doc/api/ISteamFriends#PersonaStateChange_t">ISteamFriends::PersonaStateChange_t</a></p>
+<p>See: <a href="friends.html#steamfriendspersonastatechange">SteamFriendsPersonaStateChange</a></p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_friends_set_callback_persona_state_change(callback)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>callback</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Script_Functions.htm">Function</a></td>
+<td>The function to use as the callback function.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_friends_clear_callback_persona_state_change">steam_friends_clear_callback_persona_state_change</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: N / A</p>
+</blockquote>
+<p>This function clears the callback previously set using <a href="friends.html#steam_friends_set_callback_persona_state_change">steam_friends_set_callback_persona_state_change</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_friends_clear_callback_persona_state_change()
+</code></pre></div>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_friends_set_callback_game_overlay_activated">steam_friends_set_callback_game_overlay_activated</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: N / A</p>
+</blockquote>
+<p>This function sets the callback function to use when the <a href="https://partner.steamgames.com/doc/features/overlay">Steam overlay</a> activates or deactivates.</p>
+<p>See: <a href="https://partner.steamgames.com/doc/api/ISteamFriends#GameOverlayActivated_t">ISteamFriends::GameOverlayActivated_t</a></p>
+<p>See: <a href="friends.html#steamfriendsgameoverlayactivated">SteamFriendsGameOverlayActivated</a></p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_friends_set_callback_game_overlay_activated(callback)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>callback</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Script_Functions.htm">Function</a></td>
+<td>The function to use as the callback function.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_friends_clear_callback_game_overlay_activated">steam_friends_clear_callback_game_overlay_activated</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: N / A</p>
+</blockquote>
+<p>This function clears the callback previously set using <a href="friends.html#steam_friends_set_callback_game_overlay_activated">steam_friends_set_callback_game_overlay_activated</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_friends_clear_callback_game_overlay_activated()
+</code></pre></div>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_friends_set_callback_game_rich_presence_join_requested">steam_friends_set_callback_game_rich_presence_join_requested</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: N / A</p>
+</blockquote>
+<p>This function sets the callback function to use when the user tries to join a game from their friends list or after a user accepts an invite by a friend with <a href="friends.html#steam_friends_invite_user_to_game">steam_friends_invite_user_to_game</a>.</p>
+<p>See: <a href="https://partner.steamgames.com/doc/api/ISteamFriends#GameRichPresenceJoinRequested_t">ISteamFriends::GameRichPresenceJoinRequested_t</a></p>
+<p>See: <a href="friends.html#steamfriendsgamerichpresencejoinrequested">SteamFriendsGameRichPresenceJoinRequested</a></p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_friends_set_callback_game_rich_presence_join_requested(callback)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>callback</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Script_Functions.htm">Function</a></td>
+<td>The function to use as the callback function.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_friends_clear_callback_game_rich_presence_join_requested">steam_friends_clear_callback_game_rich_presence_join_requested</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: N / A</p>
+</blockquote>
+<p>This function clears the callback previously set using <a href="friends.html#steam_friends_set_callback_game_rich_presence_join_requested">steam_friends_set_callback_game_rich_presence_join_requested</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_friends_clear_callback_game_rich_presence_join_requested()
+</code></pre></div>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_friends_set_callback_game_lobby_join_requested">steam_friends_set_callback_game_lobby_join_requested</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: N / A</p>
+</blockquote>
+<p>This function sets the callback function to use when the user tries to join a lobby from their friends list or from an invite.</p>
+<p>See: <a href="https://partner.steamgames.com/doc/api/ISteamFriends#GameLobbyJoinRequested_t">ISteamFriends::GameLobbyJoinRequested_t</a></p>
+<p>See: <a href="friends.html#steamfriendsgamelobbyjoinrequested">SteamFriendsGameLobbyJoinRequested</a></p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_friends_set_callback_game_lobby_join_requested(callback)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>callback</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Script_Functions.htm">Function</a></td>
+<td>The function to use as the callback function.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_friends_clear_callback_game_lobby_join_requested">steam_friends_clear_callback_game_lobby_join_requested</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: N / A</p>
+</blockquote>
+<p>This function clears the callback previously set using <a href="friends.html#steam_friends_set_callback_game_lobby_join_requested">steam_friends_set_callback_game_lobby_join_requested</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_friends_clear_callback_game_lobby_join_requested()
+</code></pre></div>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_friends_set_callback_friend_rich_presence_update">steam_friends_set_callback_friend_rich_presence_update</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: N / A</p>
+</blockquote>
+<p>This function sets the callback function to use when Rich Presence data has been updated for a user, this can happen automatically when friends in the same game update their rich presence, or after a call to <a href="friends.html#steam_friends_request_friend_rich_presence">steam_friends_request_friend_rich_presence</a>.</p>
+<p>See: <a href="https://partner.steamgames.com/doc/api/ISteamFriends#FriendRichPresenceUpdate_t">ISteamFriends::FriendRichPresenceUpdate_t</a></p>
+<p>See: <a href="friends.html#steamfriendsfriendrichpresenceupdate">SteamFriendsFriendRichPresenceUpdate</a></p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_friends_set_callback_friend_rich_presence_update(callback)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>callback</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Script_Functions.htm">Function</a></td>
+<td>The function to use as the callback function.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_friends_clear_callback_friend_rich_presence_update">steam_friends_clear_callback_friend_rich_presence_update</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: N / A</p>
+</blockquote>
+<p>This function clears the callback previously set using <a href="friends.html#steam_friends_set_callback_friend_rich_presence_update">steam_friends_set_callback_friend_rich_presence_update</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_friends_clear_callback_friend_rich_presence_update()
+</code></pre></div>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_friends_set_callback_game_server_change_requested">steam_friends_set_callback_game_server_change_requested</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: N / A</p>
+</blockquote>
+<p>This function sets the callback function to use when the user tries to join a different game server from their friends list.</p>
+<p>See: <a href="https://partner.steamgames.com/doc/api/ISteamFriends#GameServerChangeRequested_t">ISteamFriends::GameServerChangeRequested_t</a></p>
+<p>See: <a href="friends.html#steamfriendsgameserverchangerequested">SteamFriendsGameServerChangeRequested</a></p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_friends_set_callback_game_server_change_requested(callback)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>callback</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Script_Functions.htm">Function</a></td>
+<td>The function to use as the callback function.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_friends_clear_callback_game_server_change_requested">steam_friends_clear_callback_game_server_change_requested</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>:  N / A</p>
+</blockquote>
+<p>This function clears the callback previously set using <a href="friends.html#steam_friends_set_callback_game_server_change_requested">steam_friends_set_callback_game_server_change_requested</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_friends_clear_callback_game_server_change_requested()
+</code></pre></div>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steamfriendsoverlaytostoreflag">SteamFriendsOverlayToStoreFlag</h1>
+<blockquote>
+<p><strong>Steamworks Enum</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamFriends#EOverlayToStoreFlag">ISteamFriends::EOverlayToStoreFlag</a></p>
+</blockquote>
+<p>This enum holds the values that can be passed as parameters to the store with <a href="friends.html#steam_friends_activate_game_overlay_to_store">steam_friends_activate_game_overlay_to_store</a> and modify the behaviour when the page opens.</p>
+<p>These constants are referenced by the following functions:</p>
+<ul>
+<li><a href="friends.html#steam_friends_activate_game_overlay_to_store">steam_friends_activate_game_overlay_to_store</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>None</code></td>
+<td>No.</td>
+</tr>
+<tr>
+<td><code>AddToCart</code></td>
+<td>Deprecated.</td>
+</tr>
+<tr>
+<td><code>AddToCartAndShow</code></td>
+<td>Add the specified app ID to the user's cart and show the store page.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steamfriendsoverlaytowebpagemode">SteamFriendsOverlayToWebpageMode</h1>
+<blockquote>
+<p><strong>Steamworks Enum</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamFriends#EActivateGameOverlayToWebPageMode">ISteamFriends::EActivateGameOverlayToWebPageMode</a></p>
+</blockquote>
+<p>This enum holds the possible Game Overlay web page modes.</p>
+<p>These constants are referenced by the following functions:</p>
+<ul>
+<li><a href="friends.html#steam_friends_activate_game_overlay_to_web_page">steam_friends_activate_game_overlay_to_web_page</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Default</code></td>
+<td>Browser will open next to all other windows that the user has open in the overlay. The window will remain open, even if the user closes then re-opens the overlay.</td>
+</tr>
+<tr>
+<td><code>Modal</code></td>
+<td>Browser will be opened in a special overlay configuration which hides all other windows that the user has open in the overlay. When the user closes the overlay, the browser window will also close. When the user closes the browser window, the overlay will automatically close.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steamfriendschatentrytype">SteamFriendsChatEntryType</h1>
+<blockquote>
+<p><strong>Steamworks Enum</strong>: <a href="https://partner.steamgames.com/doc/api/steam_api#EChatEntryType">EChatEntryType</a></p>
+</blockquote>
+<p>This enum holds the possible chat entry types.</p>
+<p>These constants are referenced by the following structs:</p>
+<ul>
+<li><a href="friends.html#steamfriendsclanchatmessage">SteamFriendsClanChatMessage</a></li>
+<li><a href="friends.html#steamfriendsfriendmessage">SteamFriendsFriendMessage</a></li>
+<li><a href="matchmaking.html#steammatchmakinglobbychatmsg">SteamMatchmakingLobbyChatMsg</a></li>
+<li><a href="matchmaking.html#steammatchmakinglobbychatentry">SteamMatchmakingLobbyChatEntry</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Invalid</code></td>
+<td>Invalid.</td>
+</tr>
+<tr>
+<td><code>ChatMsg</code></td>
+<td>Normal text message from another user.</td>
+</tr>
+<tr>
+<td><code>Typing</code></td>
+<td>The other user is typing, not used in multi-user chat.</td>
+</tr>
+<tr>
+<td><code>InviteGame</code></td>
+<td>Invite from other user into that user's current game.</td>
+</tr>
+<tr>
+<td><code>Emote</code></td>
+<td>Text emote message (Deprecated, should be treated as ChatMsg).</td>
+</tr>
+<tr>
+<td><code>LeftConversation</code></td>
+<td>A user has left the conversation (closed the chat window).</td>
+</tr>
+<tr>
+<td><code>Entered</code></td>
+<td>User has entered the conversation, used in multi-user chat and group chat.</td>
+</tr>
+<tr>
+<td><code>WasKicked</code></td>
+<td>User was kicked (Data: Steam ID of the user performing the kick).</td>
+</tr>
+<tr>
+<td><code>WasBanned</code></td>
+<td>User was banned (Data: Steam ID of the user performing the ban).</td>
+</tr>
+<tr>
+<td><code>Disconnected</code></td>
+<td>User disconnected.</td>
+</tr>
+<tr>
+<td><code>HistoricalChat</code></td>
+<td>A chat message from user's chat history or offline message.</td>
+</tr>
+<tr>
+<td><code>LinkBlocked</code></td>
+<td>A link was removed by the chat filter.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steamfriendsfriendflag">SteamFriendsFriendFlag</h1>
+<blockquote>
+<p><strong>Steamworks Enum</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamFriends#EFriendFlags">ISteamFriends::EFriendFlags</a></p>
+</blockquote>
+<p>This enum holds the possible flags for enumerating friends list, or quickly checking the relationship between users.</p>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>None</code></td>
+<td>None.</td>
+</tr>
+<tr>
+<td><code>Blocked</code></td>
+<td>Users that the current user has blocked from contacting.</td>
+</tr>
+<tr>
+<td><code>FriendshipRequested</code></td>
+<td>Users that have sent a friend invite to the current user.</td>
+</tr>
+<tr>
+<td><code>Immediate</code></td>
+<td>The current user's "regular" friends.</td>
+</tr>
+<tr>
+<td><code>ClanMember</code></td>
+<td>Users that are in one of the same (small) Steam groups as the current user.</td>
+</tr>
+<tr>
+<td><code>OnGameServer</code></td>
+<td>Users that are on the same game server; as set by <a href="friends.html#steam_friends_set_played_with">steam_friends_set_played_with</a>.</td>
+</tr>
+<tr>
+<td><code>RequestingFriendship</code></td>
+<td>Users that the current user has sent friend invites to.</td>
+</tr>
+<tr>
+<td><code>RequestingInfo</code></td>
+<td>Users that are currently sending additional info about themselves after a call to <a href="friends.html#steam_friends_request_user_information">steam_friends_request_user_information</a>.</td>
+</tr>
+<tr>
+<td><code>Ignored</code></td>
+<td>Users that the current user has ignored from contacting them.</td>
+</tr>
+<tr>
+<td><code>IgnoredFriend</code></td>
+<td>Users that have ignored the current user; but the current user still knows about them.</td>
+</tr>
+<tr>
+<td><code>ChatMember</code></td>
+<td>Users in one of the same chats.</td>
+</tr>
+<tr>
+<td><code>All</code></td>
+<td>All friend flags.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steamfriendspersonastate">SteamFriendsPersonaState</h1>
+<blockquote>
+<p><strong>Steamworks Enum</strong>: <a href="partner.steamgames.com/doc/api/ISteamFriends.html#EPersonaState">ISteamFriends::EPersonaState</a></p>
+</blockquote>
+<p>This enum contains the possible states a Steam friend can be in.</p>
+<p>These constants are referenced by the following functions:</p>
+<ul>
+<li><a href="friends.html#steam_friends_get_friend_persona_state">steam_friends_get_friend_persona_state</a></li>
+<li><a href="friends.html#steam_friends_get_persona_state">steam_friends_get_persona_state</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Offline</code></td>
+<td>Friend is not currently logged on.</td>
+</tr>
+<tr>
+<td><code>Online</code></td>
+<td>Friend is logged on.</td>
+</tr>
+<tr>
+<td><code>Busy</code></td>
+<td>Friend is logged on, but set to "Do not disturb."</td>
+</tr>
+<tr>
+<td><code>Away</code></td>
+<td>Auto-away feature.</td>
+</tr>
+<tr>
+<td><code>Snooze</code></td>
+<td>Auto-away for a long time.</td>
+</tr>
+<tr>
+<td><code>LookingToTrade</code></td>
+<td>Online, trading.</td>
+</tr>
+<tr>
+<td><code>LookingToPlay</code></td>
+<td>Online, wanting to play.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steamfriendsrelationship">SteamFriendsRelationship</h1>
+<blockquote>
+<p><strong>Steamworks Enum</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamFriends#EFriendRelationship">ISteamFriends::EFriendRelationship</a></p>
+</blockquote>
+<p>This enum declares the set of relationships that Steam users may have.</p>
+<p>These constants are referenced by the following functions:</p>
+<ul>
+<li><a href="friends.html#steam_friends_get_friend_relationship">steam_friends_get_friend_relationship</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>None</code></td>
+<td>The users have no relationship.</td>
+</tr>
+<tr>
+<td><code>Blocked</code></td>
+<td>The user has just clicked Ignore on an friendship invite. This doesn't get stored.</td>
+</tr>
+<tr>
+<td><code>RequestRecipient</code></td>
+<td>The user has requested to be friends with the current user.</td>
+</tr>
+<tr>
+<td><code>Friend</code></td>
+<td>A "regular" friend.</td>
+</tr>
+<tr>
+<td><code>RequestInitiator</code></td>
+<td>The current user has sent a friend invite.</td>
+</tr>
+<tr>
+<td><code>Ignored</code></td>
+<td>The current user has explicit blocked this other user from comments/chat/etc. This is stored.</td>
+</tr>
+<tr>
+<td><code>IgnoredFriend</code></td>
+<td>The user has ignored the current user.</td>
+</tr>
+<tr>
+<td><code>SuggestedFriend</code></td>
+<td>Deprecated -- Unused.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steamfriendspersonachange">SteamFriendsPersonaChange</h1>
+<blockquote>
+<p><strong>Steamworks Enum</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamFriends#EPersonaChange">ISteamFriends::EPersonaChange</a></p>
+</blockquote>
+<p>This enum holds the flags to describe what's changed about a user.</p>
+<p>These flags describe what the client has learned has changed recently, so on startup you'll see a name, avatar &amp; relationship change for every friend.</p>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Name</code></td>
+<td>Name.</td>
+</tr>
+<tr>
+<td><code>Status</code></td>
+<td>Status.</td>
+</tr>
+<tr>
+<td><code>ComeOnline</code></td>
+<td>Come online.</td>
+</tr>
+<tr>
+<td><code>GoneOffline</code></td>
+<td>Gone offline.</td>
+</tr>
+<tr>
+<td><code>GamePlayed</code></td>
+<td>Game played.</td>
+</tr>
+<tr>
+<td><code>GameServer</code></td>
+<td>Game server.</td>
+</tr>
+<tr>
+<td><code>Avatar</code></td>
+<td>Avatar.</td>
+</tr>
+<tr>
+<td><code>JoinedSource</code></td>
+<td>Joined source.</td>
+</tr>
+<tr>
+<td><code>LeftSource</code></td>
+<td>Left source.</td>
+</tr>
+<tr>
+<td><code>RelationshipChanged</code></td>
+<td>Relationship changed.</td>
+</tr>
+<tr>
+<td><code>NameFirstSet</code></td>
+<td>Name first set.</td>
+</tr>
+<tr>
+<td><code>Broadcast</code></td>
+<td>Broadcast.</td>
+</tr>
+<tr>
+<td><code>Nickname</code></td>
+<td>Nickname.</td>
+</tr>
+<tr>
+<td><code>SteamLevel</code></td>
+<td>Steam level.</td>
+</tr>
+<tr>
+<td><code>RichPresence</code></td>
+<td>Rich presence.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steamfriendsgetfollowercountresult">SteamFriendsGetFollowerCountResult</h1>
+<blockquote>
+<p><strong>Steamworks Struct</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamFriends#FriendsGetFollowerCount_t">ISteamFriends::FriendsGetFollowerCount_t</a></p>
+</blockquote>
+<p>This struct holds the result of <a href="friends.html#steam_friends_get_follower_count">steam_friends_get_follower_count</a>.</p>
+<p>This struct is referenced by the following functions:</p>
+<ul>
+<li><a href="friends.html#steam_friends_get_follower_count">steam_friends_get_follower_count</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>result</td>
+<td><a href="api.html#steamapiresult">SteamApiResult</a></td>
+<td>The result of the operation.</td>
+</tr>
+<tr>
+<td>steam_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The Steam ID of the user we requested the follower count for.</td>
+</tr>
+<tr>
+<td>count</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The number of followers the user has.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steamfriendsisfollowingresult">SteamFriendsIsFollowingResult</h1>
+<blockquote>
+<p><strong>Steamworks Struct</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamFriends#FriendsIsFollowing_t">FriendsIsFollowing_t</a></p>
+</blockquote>
+<p>This struct holds the result of <a href="friends.html#steam_friends_is_following">steam_friends_is_following</a>.</p>
+<p>This struct is referenced by the following functions:</p>
+<ul>
+<li><a href="friends.html#steam_friends_is_following">steam_friends_is_following</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>result</td>
+<td><a href="api.html#steamapiresult">SteamApiResult</a></td>
+<td>The result of the operation.</td>
+</tr>
+<tr>
+<td>steam_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The Steam ID that was checked.</td>
+</tr>
+<tr>
+<td>is_following</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></td>
+<td>Are we following the user? (<code>true</code>) or not? (<code>false</code>)</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steamfriendsenumeratefollowinglistresult">SteamFriendsEnumerateFollowingListResult</h1>
+<blockquote>
+<p><strong>Steamworks Struct</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamFriends#FriendsEnumerateFollowingList_t">ISteamFriends::FriendsEnumerateFollowingList_t</a></p>
+</blockquote>
+<p>This struct holds the result of <a href="friends.html#steam_friends_enumerate_following_list">steam_friends_enumerate_following_list</a>.</p>
+<p>This struct is referenced by the following functions:</p>
+<ul>
+<li><a href="friends.html#steam_friends_enumerate_following_list">steam_friends_enumerate_following_list</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>result</td>
+<td><a href="api.html#steamapiresult">SteamApiResult</a></td>
+<td>The result of the operation.</td>
+</tr>
+<tr>
+<td>steam_ids</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Arrays.htm">Array</a> of <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The list of users that we are following.</td>
+</tr>
+<tr>
+<td>total_result_count</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The total number of people we are following. If this is greater than <code>results_returned</code> then you should make a subsequent call to <a href="friends.html#steam_friends_enumerate_following_list">steam_friends_enumerate_following_list</a> with <code>results_returned</code> as the index to get the next portion of followers.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steamfriendsrequestclanofficerlistresult">SteamFriendsRequestClanOfficerListResult</h1>
+<blockquote>
+<p><strong>Steamworks Struct</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamFriends#ClanOfficerListResponse_t">ISteamFriends::ClanOfficerListResponse_t</a></p>
+</blockquote>
+<p>This struct holds the return of a request officer list call.</p>
+<p>This struct is referenced by the following functions:</p>
+<ul>
+<li><a href="friends.html#steam_friends_request_clan_officer_list">steam_friends_request_clan_officer_list</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>success</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></td>
+<td>Was the call successful? If it wasn't, this may indicate a temporary loss of connection to Steam. If this returns <code>true</code>, this does not necessarily mean that all of the info for this Steam group has been downloaded.</td>
+</tr>
+<tr>
+<td>clan_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The Steam group that we just got the officer list for.</td>
+</tr>
+<tr>
+<td>officers</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The number of officers in the group. This is the same as <a href="friends.html#steam_friends_get_clan_officer_count">steam_friends_get_clan_officer_count</a>.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steamfriendsdownloadclanactivitycountsresult">SteamFriendsDownloadClanActivityCountsResult</h1>
+<blockquote>
+<p><strong>Steamworks Struct</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamFriends#DownloadClanActivityCountsResult_t">ISteamFriends::DownloadClanActivityCountsResult_t</a></p>
+</blockquote>
+<p>Called when a Steam group activity has been received.</p>
+<p>This struct is referenced by the following functions:</p>
+<ul>
+<li><a href="friends.html#steam_friends_download_clan_activity_counts">steam_friends_download_clan_activity_counts</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>result</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></td>
+<td>Was the call successful?</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steamfriendsavatarimageloaded">SteamFriendsAvatarImageLoaded</h1>
+<blockquote>
+<p><strong>Steamworks Struct</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamFriends#AvatarImageLoaded_t">ISteamFriends::AvatarImageLoaded_t</a></p>
+</blockquote>
+<p>This struct holds the result of when a large avatar is loaded if you have tried requesting it when it was unavailable.</p>
+<p>This struct is referenced by the following functions:</p>
+<ul>
+<li><a href="friends.html#steam_friends_get_large_friend_avatar">steam_friends_get_large_friend_avatar</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>steam_id_64</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The Steam ID that the avatar has been loaded for.</td>
+</tr>
+<tr>
+<td>image_handle</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The Steam image handle of the now loaded image.</td>
+</tr>
+<tr>
+<td>width</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>Width of the loaded image.</td>
+</tr>
+<tr>
+<td>height</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>Height of the loaded image.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steamfriendsclanactivitycounts">SteamFriendsClanActivityCounts</h1>
+<blockquote>
+<p><strong>Steamworks Struct</strong>: N / A</p>
+</blockquote>
+<p>This struct holds the information returned by <a href="friends.html#steam_friends_get_clan_activity_counts">steam_friends_get_clan_activity_counts</a>.</p>
+<p>This struct is referenced by the following functions:</p>
+<ul>
+<li><a href="friends.html#steam_friends_get_clan_activity_counts">steam_friends_get_clan_activity_counts</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>online</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The number of members that are online.</td>
+</tr>
+<tr>
+<td>in_game</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The number of members that are in game (excluding those with their status set to offline).</td>
+</tr>
+<tr>
+<td>chatting</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The number of members in the group chat room.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steamfriendsclanchatmessage">SteamFriendsClanChatMessage</h1>
+<blockquote>
+<p><strong>Steamworks Struct</strong>: N / A</p>
+</blockquote>
+<p>This struct holds information returned by <a href="friends.html#steam_friends_get_clan_chat_message">steam_friends_get_clan_chat_message</a>.</p>
+<p>This struct is referenced by the following functions:</p>
+<ul>
+<li><a href="friends.html#steam_friends_get_clan_chat_message">steam_friends_get_clan_chat_message</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>text</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The text of the chat message.</td>
+</tr>
+<tr>
+<td>entry_type</td>
+<td><a href="friends.html#steamfriendschatentrytype">SteamFriendsChatEntryType</a></td>
+<td>The type of chat entry that was received.</td>
+</tr>
+<tr>
+<td>chatter_steam_id_64</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The Steam ID of the user that sent the message.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steamfriendsfriendgameplayed">SteamFriendsFriendGamePlayed</h1>
+<blockquote>
+<p><strong>Steamworks Struct</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamFriends#FriendGameInfo_t">ISteamFriends::FriendGameInfo_t</a></p>
+</blockquote>
+<p>This struct holds information returned by <a href="friends.html#steam_friends_get_friend_game_played">steam_friends_get_friend_game_played</a>.</p>
+<p>This struct is referenced by the following functions:</p>
+<ul>
+<li><a href="friends.html#steam_friends_get_friend_game_played">steam_friends_get_friend_game_played</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>game_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The game ID that the friend is playing.</td>
+</tr>
+<tr>
+<td>game_ip_v4</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The IP of the server the friend is playing on.</td>
+</tr>
+<tr>
+<td>game_port</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The port of the server the friend is playing on.</td>
+</tr>
+<tr>
+<td>query_port</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The query port of the server the friend is playing on.</td>
+</tr>
+<tr>
+<td>lobby_steam_id_64</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The Steam ID of the lobby the friend is in.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steamfriendsfriendmessage">SteamFriendsFriendMessage</h1>
+<blockquote>
+<p><strong>Steamworks Struct</strong>: N / A</p>
+</blockquote>
+<p>This struct holds information returned by <a href="friends.html#steam_friends_get_friend_message">steam_friends_get_friend_message</a>.</p>
+<p>This struct is referenced by the following functions:</p>
+<ul>
+<li><a href="friends.html#steam_friends_get_friend_message">steam_friends_get_friend_message</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>entry_type</td>
+<td><a href="friends.html#steamfriendschatentrytype">SteamFriendsChatEntryType</a></td>
+<td>The type of chat entry that was received.</td>
+</tr>
+<tr>
+<td>data</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The message data.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steamfriendspersonastatechange">SteamFriendsPersonaStateChange</h1>
+<blockquote>
+<p><strong>Steamworks Struct</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamFriends#PersonaStateChange_t">ISteamFriends::PersonaStateChange_t</a></p>
+</blockquote>
+<p>This struct holds information related to a friend's status change.</p>
+<p>This struct is referenced by the following functions:</p>
+<ul>
+<li><a href="friends.html#steam_friends_request_user_information">steam_friends_request_user_information</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>steam_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>Steam ID of the user who changed.</td>
+</tr>
+<tr>
+<td>change_flags</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>A bit-wise union of <a href="friends.html#steamfriendspersonachange">SteamFriendsPersonaChange</a> values.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steamfriendsgameoverlayactivated">SteamFriendsGameOverlayActivated</h1>
+<blockquote>
+<p><strong>Steamworks Struct</strong>: <a href="partner.steamgames.com/doc/api/ISteamFriends.html#GameOverlayActivated_t">ISteamFriends::GameOverlayActivated_t</a></p>
+</blockquote>
+<p>This struct holds information posted when the <a href="https://partner.steamgames.com/doc/features/overlay">Steam Overlay</a> activates or deactivates.</p>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>active</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></td>
+<td><code>true</code> if it's just been activated, otherwise <code>false</code>.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steamfriendsgamerichpresencejoinrequested">SteamFriendsGameRichPresenceJoinRequested</h1>
+<blockquote>
+<p><strong>Steamworks Struct</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamFriends#GameRichPresenceJoinRequested_t">ISteamFriends::GameRichPresenceJoinRequested_t</a></p>
+</blockquote>
+<p>This struct holds the data of the callback triggered when the user tries to join a game from their friends list or after a user accepts an invite by a friend with <a href="friends.html#steam_friends_invite_user_to_game">steam_friends_invite_user_to_game</a>.</p>
+<p>This struct is referenced by the following functions:</p>
+<ul>
+<li><a href="friends.html#steam_friends_invite_user_to_game">steam_friends_invite_user_to_game</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>steam_id_friend</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The friend they joined through. This will be invalid if not directly via a friend.</td>
+</tr>
+<tr>
+<td>connect_string</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The value associated with the <code>"connect"</code> Rich Presence key.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steamfriendsgamelobbyjoinrequested">SteamFriendsGameLobbyJoinRequested</h1>
+<blockquote>
+<p><strong>Steamworks Struct</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamFriends#GameLobbyJoinRequested_t">ISteamFriends::GameLobbyJoinRequested_t</a></p>
+</blockquote>
+<p>This struct holds information posted when the user tries to join a lobby from their friends list or from an invite.</p>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>steam_id_friend</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The friend they joined through. This will be invalid if not directly via a friend.</td>
+</tr>
+<tr>
+<td>steam_id_lobby</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The Steam ID of the lobby to connect to.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steamfriendsfriendrichpresenceupdate">SteamFriendsFriendRichPresenceUpdate</h1>
+<blockquote>
+<p><strong>Steamworks Struct</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamFriends#FriendRichPresenceUpdate_t">ISteamFriends::FriendRichPresenceUpdate_t</a></p>
+</blockquote>
+<p>This struct holds the result of when Rich Presence data has been updated for a user, this can happen automatically when friends in the same game update their rich presence, or after a call to <a href="friends.html#steam_friends_request_friend_rich_presence">steam_friends_request_friend_rich_presence</a>.</p>
+<p>This struct is referenced by the following functions:</p>
+<ul>
+<li><a href="friends.html#steam_friends_request_friend_rich_presence">steam_friends_request_friend_rich_presence</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>steam_id_friend</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The Steam ID of the user whose rich presence has changed.</td>
+</tr>
+<tr>
+<td>app_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The App ID of the game. This should always be the current game.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steamfriendsgameserverchangerequested">SteamFriendsGameServerChangeRequested</h1>
+<blockquote>
+<p><strong>Steamworks Struct</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamFriends#GameServerChangeRequested_t">ISteamFriends::GameServerChangeRequested_t</a></p>
+</blockquote>
+<p>This struct holds information provided when the user tries to join a different game server from their friends list.</p>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>server</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>Server address (e.g. "127.0.0.1:27015", "tf2.valvesoftware.com")</td>
+</tr>
+<tr>
+<td>password</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>Server password, if any.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="apps.html" class="btn btn-neutral float-left" title="Apps"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="guides.html" class="btn btn-neutral float-right" title="Guides">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+      <p><p align="center">GameMaker 2026</p></p>
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/YoYoGames/GMEXT-Steamworks" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="apps.html" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="guides.html" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = ".";</script>
+    <script src="js/theme_extra.js"></script>
+    <script src="js/theme.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/gml.min.js"></script>
+      <script src="assets/js/gmext_script.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

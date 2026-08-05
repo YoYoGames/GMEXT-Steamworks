@@ -1,0 +1,3476 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="img/favicon.ico" />
+    <title>Userstats - GMEXT-Steamworks</title>
+    <link rel="stylesheet" href="css/theme.css" />
+    <link rel="stylesheet" href="css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+        <link href="assets/css/gmext_style.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Userstats";
+        var mkdocs_page_input_path = "userstats.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/gml.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="index.html" class="icon icon-home"> GMEXT-Steamworks
+        </a>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="index.html">Welcome to MkDocs</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="_footer.html"> footer</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="_sidebar.html"> sidebar</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="api.html">Api</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="apps.html">Apps</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="friends.html">Friends</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="guides.html">Guides</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="home.html">Home</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="input.html">Input</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="inventory.html">Inventory</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="matchmaking.html">Matchmaking</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="music.html">Music</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="networking.html">Networking</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="parties.html">Parties</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="remote_storage.html">Remote storage</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="screenshots.html">Screenshots</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="timeline.html">Timeline</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="ugc.html">Ugc</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="user.html">User</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="#">Userstats</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#functions">Functions</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#constants">Constants</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#structs">Structs</a>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="utils.html">Utils</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">GMEXT-Steamworks</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html" class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Userstats</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/YoYoGames/GMEXT-Steamworks/edit/master/docs/userstats.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <p><a id="top"></a></p>
+<h1 id="userstats"><strong>UserStats</strong></h1>
+<blockquote>
+<p><strong>Steamworks Interface</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats">ISteamUserStats</a></p>
+</blockquote>
+<p>This module contains functions for accessing and submitting stats, achievements, and leaderboards.</p>
+<h2 id="functions">Functions</h2>
+<p>These are the functions of the UserStats module:</p>
+<ul>
+<li><a href="userstats.html#steam_userstats_get_stat_int">steam_userstats_get_stat_int</a></li>
+<li><a href="userstats.html#steam_userstats_get_stat_float">steam_userstats_get_stat_float</a></li>
+<li><a href="userstats.html#steam_userstats_set_stat_int">steam_userstats_set_stat_int</a></li>
+<li><a href="userstats.html#steam_userstats_set_stat_float">steam_userstats_set_stat_float</a></li>
+<li><a href="userstats.html#steam_userstats_update_avg_rate_stat">steam_userstats_update_avg_rate_stat</a></li>
+<li><a href="userstats.html#steam_userstats_get_achievement">steam_userstats_get_achievement</a></li>
+<li><a href="userstats.html#steam_userstats_set_achievement">steam_userstats_set_achievement</a></li>
+<li><a href="userstats.html#steam_userstats_clear_achievement">steam_userstats_clear_achievement</a></li>
+<li><a href="userstats.html#steam_userstats_achievement_and_unlock_time">steam_userstats_achievement_and_unlock_time</a></li>
+<li><a href="userstats.html#steam_userstats_store_stats">steam_userstats_store_stats</a></li>
+<li><a href="userstats.html#steam_userstats_achievement_icon">steam_userstats_achievement_icon</a></li>
+<li><a href="userstats.html#steam_userstats_achievement_display_attribute">steam_userstats_achievement_display_attribute</a></li>
+<li><a href="userstats.html#steam_userstats_indicate_achievement_progress">steam_userstats_indicate_achievement_progress</a></li>
+<li><a href="userstats.html#steam_userstats_num_achievements">steam_userstats_num_achievements</a></li>
+<li><a href="userstats.html#steam_userstats_achievement_name">steam_userstats_achievement_name</a></li>
+<li><a href="userstats.html#steam_userstats_request_user_stats">steam_userstats_request_user_stats</a></li>
+<li><a href="userstats.html#steam_userstats_user_stat_int">steam_userstats_user_stat_int</a></li>
+<li><a href="userstats.html#steam_userstats_user_stat_float">steam_userstats_user_stat_float</a></li>
+<li><a href="userstats.html#steam_userstats_user_achievement">steam_userstats_user_achievement</a></li>
+<li><a href="userstats.html#steam_userstats_user_achievement_and_unlock_time">steam_userstats_user_achievement_and_unlock_time</a></li>
+<li><a href="userstats.html#steam_userstats_reset_all_stats">steam_userstats_reset_all_stats</a></li>
+<li><a href="userstats.html#steam_userstats_find_or_create_leaderboard">steam_userstats_find_or_create_leaderboard</a></li>
+<li><a href="userstats.html#steam_userstats_find_leaderboard">steam_userstats_find_leaderboard</a></li>
+<li><a href="userstats.html#steam_userstats_leaderboard_name">steam_userstats_leaderboard_name</a></li>
+<li><a href="userstats.html#steam_userstats_leaderboard_entry_count">steam_userstats_leaderboard_entry_count</a></li>
+<li><a href="userstats.html#steam_userstats_leaderboard_sort_method">steam_userstats_leaderboard_sort_method</a></li>
+<li><a href="userstats.html#steam_userstats_leaderboard_display_type">steam_userstats_leaderboard_display_type</a></li>
+<li><a href="userstats.html#steam_userstats_download_leaderboard_entries">steam_userstats_download_leaderboard_entries</a></li>
+<li><a href="userstats.html#steam_userstats_download_leaderboard_entries_for_users">steam_userstats_download_leaderboard_entries_for_users</a></li>
+<li><a href="userstats.html#steam_userstats_downloaded_leaderboard_entry">steam_userstats_downloaded_leaderboard_entry</a></li>
+<li><a href="userstats.html#steam_userstats_upload_leaderboard_score">steam_userstats_upload_leaderboard_score</a></li>
+<li><a href="userstats.html#steam_userstats_attach_leaderboard_ugc">steam_userstats_attach_leaderboard_ugc</a></li>
+<li><a href="userstats.html#steam_userstats_number_of_current_players">steam_userstats_number_of_current_players</a></li>
+<li><a href="userstats.html#steam_userstats_request_global_achievement_percentages">steam_userstats_request_global_achievement_percentages</a></li>
+<li><a href="userstats.html#steam_userstats_most_achieved_achievement_info">steam_userstats_most_achieved_achievement_info</a></li>
+<li><a href="userstats.html#steam_userstats_next_most_achieved_achievement_info">steam_userstats_next_most_achieved_achievement_info</a></li>
+<li><a href="userstats.html#steam_userstats_achievement_achieved_percent">steam_userstats_achievement_achieved_percent</a></li>
+<li><a href="userstats.html#steam_userstats_request_global_stats">steam_userstats_request_global_stats</a></li>
+<li><a href="userstats.html#steam_userstats_global_stat_int64">steam_userstats_global_stat_int64</a></li>
+<li><a href="userstats.html#steam_userstats_global_stat_double">steam_userstats_global_stat_double</a></li>
+<li><a href="userstats.html#steam_userstats_global_stat_history_int64">steam_userstats_global_stat_history_int64</a></li>
+<li><a href="userstats.html#steam_userstats_global_stat_history_double">steam_userstats_global_stat_history_double</a></li>
+<li><a href="userstats.html#steam_userstats_achievement_progress_int">steam_userstats_achievement_progress_int</a></li>
+<li><a href="userstats.html#steam_userstats_achievement_progress_float">steam_userstats_achievement_progress_float</a></li>
+<li><a href="userstats.html#steam_userstats_set_callback_user_stats_received">steam_userstats_set_callback_user_stats_received</a></li>
+<li><a href="userstats.html#steam_userstats_clear_callback_user_stats_received">steam_userstats_clear_callback_user_stats_received</a></li>
+<li><a href="userstats.html#steam_userstats_set_callback_user_stats_stored">steam_userstats_set_callback_user_stats_stored</a></li>
+<li><a href="userstats.html#steam_userstats_clear_callback_user_stats_stored">steam_userstats_clear_callback_user_stats_stored</a></li>
+<li><a href="userstats.html#steam_userstats_set_callback_user_achievement_stored">steam_userstats_set_callback_user_achievement_stored</a></li>
+<li><a href="userstats.html#steam_userstats_clear_callback_user_achievement_stored">steam_userstats_clear_callback_user_achievement_stored</a></li>
+<li><a href="userstats.html#steam_userstats_set_callback_user_achievement_icon_fetched">steam_userstats_set_callback_user_achievement_icon_fetched</a></li>
+<li><a href="userstats.html#steam_userstats_clear_callback_user_achievement_icon_fetched">steam_userstats_clear_callback_user_achievement_icon_fetched</a></li>
+<li><a href="userstats.html#steam_userstats_set_callback_user_stats_unloaded">steam_userstats_set_callback_user_stats_unloaded</a></li>
+<li><a href="userstats.html#steam_userstats_clear_callback_user_stats_unloaded">steam_userstats_clear_callback_user_stats_unloaded</a></li>
+</ul>
+<h2 id="constants">Constants</h2>
+<p>These are the constants and enums of the UserStats module:</p>
+<ul>
+<li><a href="userstats.html#steamleaderboarddatarequest">SteamLeaderboardDataRequest</a></li>
+<li><a href="userstats.html#steamleaderboardsortmethod">SteamLeaderboardSortMethod</a></li>
+<li><a href="userstats.html#steamleaderboarddisplaytype">SteamLeaderboardDisplayType</a></li>
+<li><a href="userstats.html#steamleaderboarduploadscoremethod">SteamLeaderboardUploadScoreMethod</a></li>
+</ul>
+<h2 id="structs">Structs</h2>
+<p>These are the structs of the UserStats module:</p>
+<ul>
+<li><a href="userstats.html#steamuserstatsachievementandunlocktime">SteamUserStatsAchievementAndUnlockTime</a></li>
+<li><a href="userstats.html#steamuserstatsmostachievedachievementinfo">SteamUserStatsMostAchievedAchievementInfo</a></li>
+<li><a href="userstats.html#steamuserstatsdownloadedleaderboardentry">SteamUserStatsDownloadedLeaderboardEntry</a></li>
+<li><a href="userstats.html#steamuserstatsleaderboardfindresult">SteamUserStatsLeaderboardFindResult</a></li>
+<li><a href="userstats.html#steamuserstatsscoresdownloadedresult">SteamUserStatsScoresDownloadedResult</a></li>
+<li><a href="userstats.html#steamuserstatsscoreuploadedresult">SteamUserStatsScoreUploadedResult</a></li>
+<li><a href="userstats.html#steamuserstatsnumberofcurrentplayersresult">SteamUserStatsNumberOfCurrentPlayersResult</a></li>
+<li><a href="userstats.html#steamuserstatsglobalachievementpercentagesreadyresult">SteamUserStatsGlobalAchievementPercentagesReadyResult</a></li>
+<li><a href="userstats.html#steamuserstatsglobalstatsreceivedresult">SteamUserStatsGlobalStatsReceivedResult</a></li>
+<li><a href="userstats.html#steamuserstatsattachleaderboardugcresult">SteamUserStatsAttachLeaderboardUgcResult</a></li>
+<li><a href="userstats.html#steamuserstatsachievementiconfetched">SteamUserStatsAchievementIconFetched</a></li>
+<li><a href="userstats.html#steamuserstatsunloaded">SteamUserStatsUnloaded</a></li>
+<li><a href="userstats.html#steamuserstatsuserstatsreceived">SteamUserStatsUserStatsReceived</a></li>
+<li><a href="userstats.html#steamuserstatsuserstatsstored">SteamUserStatsUserStatsStored</a></li>
+<li><a href="userstats.html#steamuserstatsuserachievementstored">SteamUserStatsUserAchievementStored</a></li>
+<li><a href="userstats.html#steamuserstatsintminmax">SteamUserStatsIntMinMax</a></li>
+<li><a href="userstats.html#steamuserstatsfloatminmax">SteamUserStatsFloatMinMax</a></li>
+</ul>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_userstats_get_stat_int">steam_userstats_get_stat_int</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#GetStat">ISteamUserStats::GetStat</a></p>
+</blockquote>
+<p>This function gets the current value of the given integer stat for the current user.</p>
+<p>To receive stats for other users use <a href="userstats.html#steam_userstats_user_stat_int">steam_userstats_user_stat_int</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_userstats_get_stat_int(stat_name)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>stat_name</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The "API Name" of the stat.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_userstats_get_stat_float">steam_userstats_get_stat_float</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#GetStat">ISteamUserStats::GetStat</a></p>
+</blockquote>
+<p>This function gets the current value of the given floating point stat for the current user.</p>
+<p>To receive stats for other users use <a href="userstats.html#steam_userstats_user_stat_float">steam_userstats_user_stat_float</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_userstats_get_stat_float(stat_name)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>stat_name</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The "API Name" of the stat.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_userstats_set_stat_int">steam_userstats_set_stat_int</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#SetStat">ISteamUserStats::SetStat</a></p>
+</blockquote>
+<p>This function sets / updates the value of a given integer stat for the current user.</p>
+<p>This call only modifies Steam's in-memory state and is very cheap. Doing so allows Steam to persist the changes even in the event of a game crash or unexpected shutdown.</p>
+<p>To submit the stats to the server you must call <a href="userstats.html#steam_userstats_store_stats">steam_userstats_store_stats</a>.</p>
+<p>If this is returning <code>false</code> and everything appears correct, then check to ensure that your changes in the App Admin panel of the Steamworks website are published.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_userstats_set_stat_int(stat_name, data)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>stat_name</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The "API Name" of the stat.</td>
+</tr>
+<tr>
+<td>data</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The new value of the stat. This must be an absolute value; it will not increment or decrement for you.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_userstats_set_stat_float">steam_userstats_set_stat_float</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#SetStat">ISteamUserStats::SetStat</a></p>
+</blockquote>
+<p>This function sets / updates the value of a given floating point stat for the current user.</p>
+<p>This call only modifies Steam's in-memory state and is very cheap. Doing so allows Steam to persist the changes even in the event of a game crash or unexpected shutdown.</p>
+<p>To submit the stats to the server you must call <a href="userstats.html#steam_userstats_store_stats">steam_userstats_store_stats</a>.</p>
+<p>If this is returning <code>false</code> and everything appears correct, then check to ensure that your changes in the App Admin panel of the Steamworks website are published.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_userstats_set_stat_float(stat_name, data)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>stat_name</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The "API Name" of the stat.</td>
+</tr>
+<tr>
+<td>data</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The new value of the stat. This must be an absolute value; it will not increment or decrement for you.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_userstats_update_avg_rate_stat">steam_userstats_update_avg_rate_stat</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#UpdateAvgRateStat">ISteamUserStats::UpdateAvgRateStat</a></p>
+</blockquote>
+<p>This function updates an AVGRATE stat with new values.</p>
+<p>This call only modifies Steam's in-memory state and is very cheap. Doing so allows Steam to persist the changes even in the event of a game crash or unexpected shutdown.</p>
+<p>To submit the stats to the server you must call <a href="userstats.html#steam_userstats_store_stats">steam_userstats_store_stats</a>.</p>
+<p>If this is returning <code>false</code> and everything appears correct, then check to ensure that your changes in the App Admin panel of the Steamworks website are published.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_userstats_update_avg_rate_stat(stat_name, count_this_session, session_length)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>stat_name</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The "API Name" of the stat.</td>
+</tr>
+<tr>
+<td>count_this_session</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The value accumulation since the last call to this function.</td>
+</tr>
+<tr>
+<td>session_length</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The amount of time in seconds since the last call to this function.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_userstats_get_achievement">steam_userstats_get_achievement</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#GetAchievement">ISteamUserStats::GetAchievement</a></p>
+</blockquote>
+<p>This function gets the unlock status of the Achievement.</p>
+<p>The equivalent function for other users is <a href="userstats.html#steam_userstats_user_achievement">steam_userstats_user_achievement</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_userstats_get_achievement(achievement_name)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>achievement_name</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The "API Name" of the achievement.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_userstats_set_achievement">steam_userstats_set_achievement</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#SetAchievement">ISteamUserStats::SetAchievement</a></p>
+</blockquote>
+<p>This function unlocks an achievement.</p>
+<p>You can unlock an achievement multiple times so you don't need to worry about only setting achievements that aren't already set. This call only modifies Steam's in-memory state so it is quite cheap. To send the unlock status to the server and to trigger the Steam overlay notification you must call <a href="userstats.html#steam_userstats_store_stats">steam_userstats_store_stats</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_userstats_set_achievement(achievement_name)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>achievement_name</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The "API Name" of the achievement to unlock.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_userstats_clear_achievement">steam_userstats_clear_achievement</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#ClearAchievement">ISteamUserStats::ClearAchievement</a></p>
+</blockquote>
+<p>This function resets the unlock status of an achievement.</p>
+<p>This is primarily only ever used for testing.</p>
+<p>This call only modifies Steam's in-memory state so it is quite cheap. To send the unlock status to the server and to trigger the Steam overlay notification you must call <a href="userstats.html#steam_userstats_store_stats">steam_userstats_store_stats</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_userstats_clear_achievement(achievement_name)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>achievement_name</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The "API Name" of the achievement to reset.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_userstats_achievement_and_unlock_time">steam_userstats_achievement_and_unlock_time</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#GetAchievementAndUnlockTime">ISteamUserStats::GetAchievementAndUnlockTime</a></p>
+</blockquote>
+<p>This function gets the achievement status, and the time it was unlocked if unlocked.</p>
+<p>If the return value is <code>true</code>, but the unlock time is zero, that means it was unlocked before Steam began tracking achievement unlock times (December 2009). The time is provided in Unix epoch format, seconds since January 1, 1970 UTC.</p>
+<p>The equivalent function for other users is <a href="userstats.html#steam_userstats_user_achievement_and_unlock_time">steam_userstats_user_achievement_and_unlock_time</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_userstats_achievement_and_unlock_time(achievement_name)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>achievement_name</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The "API Name" of the achievement.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="userstats.html#steamuserstatsachievementandunlocktime">SteamUserStatsAchievementAndUnlockTime</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_userstats_store_stats">steam_userstats_store_stats</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#StoreStats">ISteamUserStats::StoreStats</a></p>
+</blockquote>
+<p>This function sends the changed stats and achievements data to the server for permanent storage.</p>
+<p>If this fails then nothing is sent to the server. You may keep trying until the call is successful. Also note, however, that Steam will make another attempt to store the stats on game exit, if there are any changes.</p>
+<p>This call can be rate limited. Call frequency should be on the order of minutes, rather than seconds. You should only be calling this during major state changes such as the end of a round, the map changing, or the user leaving a server. This call is required to display the achievement unlock notification dialog though, so if you have called <a href="userstats.html#steam_userstats_set_achievement">steam_userstats_set_achievement</a> then it's advisable to call this soon after that.</p>
+<p>If you have stats or achievements that you have saved locally but haven't uploaded with this function when your application process ends then this function will automatically be called.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_userstats_store_stats()
+</code></pre></div>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_userstats_achievement_icon">steam_userstats_achievement_icon</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#GetAchievementIcon">ISteamUserStats::GetAchievementIcon</a></p>
+</blockquote>
+<p>This function gets the icon for an achievement.</p>
+<p>This function operates asynchronously, which means that it does not immediately return the requested result. Instead, upon completion of the task, it will trigger the <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_userstats_achievement_icon(achievement_name)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>achievement_name</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The "API Name" of the achievement.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Triggers:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a></p>
+</blockquote>
+<p><strong>Steamworks Callback</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#UserAchievementIconFetched_t">ISteamUserStats::UserAchievementIconFetched_t</a></p>
+<p>Triggered as a result of an achievement icon that has been fetched.</p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>result</td>
+<td><a href="userstats.html#steamuserstatsachievementiconfetched">SteamUserStatsAchievementIconFetched</a></td>
+<td>The result of the operation.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_userstats_achievement_display_attribute">steam_userstats_achievement_display_attribute</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#GetAchievementDisplayAttribute">ISteamUserStats::GetAchievementDisplayAttribute</a></p>
+</blockquote>
+<p>This function gets general attributes for an achievement. Currently provides: Name, Description, and Hidden status.</p>
+<p>This receives the value from a dictionary/map keyvalue store, so you must provide one of the following keys.
+<code>"name"</code> to retrieve the localized achievement name in UTF-8
+<code>"desc"</code> to retrieve the localized achievement description in UTF-8
+<code>"hidden"</code> for retrieving if an achievement is hidden. Returns "0" when not hidden, "1" when hidden.</p>
+<p>This localisation is provided based on the game's language if it's set, otherwise it checks if a localisation is avilable for the users Steam UI Language. If that fails too, then it falls back to English.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_userstats_achievement_display_attribute(achievement_name, key)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>achievement_name</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The "API Name" of the achievement.</td>
+</tr>
+<tr>
+<td>key</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The "key" to get a value for.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_userstats_indicate_achievement_progress">steam_userstats_indicate_achievement_progress</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#IndicateAchievementProgress">ISteamUserStats::IndicateAchievementProgress</a></p>
+</blockquote>
+<p>This function shows the user a pop-up notification with the current progress of an achievement.</p>
+<p>Calling this function will NOT set the progress or unlock the achievement, the game must do that manually by calling <a href="userstats.html#steam_userstats_set_stat_float">steam_userstats_set_stat_float</a>/<a href="userstats.html#steam_userstats_set_stat_int">steam_userstats_set_stat_int</a>!</p>
+<p>This function operates asynchronously, which means that it does not immediately return the requested result. Instead, upon completion of the task, it will trigger the <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_userstats_indicate_achievement_progress(achievement_name, cur_progress, max_progress)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>achievement_name</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The "API Name" of the achievement.</td>
+</tr>
+<tr>
+<td>cur_progress</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The current progress.</td>
+</tr>
+<tr>
+<td>max_progress</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The progress required to unlock the achievement.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<p><strong>Triggers:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>result</td>
+<td><a href="userstats.html#steamuserstatsuserstatsstored">SteamUserStatsUserStatsStored</a></td>
+<td>The result of the request to store the user stats.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>result</td>
+<td><a href="userstats.html#steamuserstatsuserachievementstored">SteamUserStatsUserAchievementStored</a></td>
+<td>The result of the "indicate progress" call.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_userstats_num_achievements">steam_userstats_num_achievements</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#GetNumAchievements">ISteamUserStats::GetNumAchievements</a></p>
+</blockquote>
+<p>This function gets the number of achievements defined in the App Admin panel of the Steamworks website.</p>
+<p>This is used for iterating through all of the achievements with <a href="userstats.html#steam_userstats_achievement_name">steam_userstats_achievement_name</a>.</p>
+<p>In general games should not need these functions because they should have a list of existing achievements compiled into them.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_userstats_num_achievements()
+</code></pre></div>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_userstats_achievement_name">steam_userstats_achievement_name</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#GetAchievementName">ISteamUserStats::GetAchievementName</a></p>
+</blockquote>
+<p>This function gets the "API name" for an achievement index between 0 and <a href="userstats.html#steam_userstats_num_achievements">steam_userstats_num_achievements</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_userstats_achievement_name(index)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>index</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The index of the achievement, between 0 and the total number of achievements.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_userstats_request_user_stats">steam_userstats_request_user_stats</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#RequestUserStats">ISteamUserStats::RequestUserStats</a></p>
+</blockquote>
+<p>This function asynchronously downloads stats and achievements for the specified user from the server.</p>
+<p>These stats are not automatically updated; you'll need to call this function again to refresh any data that may have changed.</p>
+<p>To keep from using too much memory, a least recently used cache (LRU) is maintained and other users' stats will occasionally be unloaded. When this happens a <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#UserStatsUnloaded_t">UserStatsUnloaded_t</a> callback is sent. After receiving this callback the user's stats will be unavailable until this function is called again.</p>
+<p>This function operates asynchronously, which means that it does not immediately return the requested result. Instead, upon completion of the task, it will trigger the <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_userstats_request_user_stats(steam_id_user, callback)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>steam_id_user</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The Steam ID of the user to request stats for.</td>
+</tr>
+<tr>
+<td>callback</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Script_Functions.htm">Function</a></td>
+<td>The function to call upon completion.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<p><strong>Triggers:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a></p>
+<p><strong>Steamworks Callback</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#UserStatsReceived_t">ISteamUserStats::UserStatsReceived_t</a></p>
+</blockquote>
+<p>Called when the latest stats and achievements for a user have been received from the server.</p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>result</td>
+<td><a href="userstats.html#steamuserstatsuserstatsreceived">SteamUserStatsUserStatsReceived</a></td>
+<td>The result of the operation.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a></p>
+<p><strong>Steamworks Callback</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#UserStatsUnloaded_t">ISteamUserStats::UserStatsUnloaded_t</a></p>
+</blockquote>
+<p>Callback indicating that a user's stats have been unloaded.</p>
+<p>Call <a href="userstats.html#steam_userstats_request_user_stats">steam_userstats_request_user_stats</a> again before accessing stats for this user.</p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>result</td>
+<td><a href="userstats.html#steamuserstatsunloaded">SteamUserStatsUnloaded</a></td>
+<td>The result of the operation.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_userstats_user_stat_int">steam_userstats_user_stat_int</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#GetUserStat">ISteamUserStats::GetUserStat</a></p>
+</blockquote>
+<p>This function gets the current value of the given integer stat for the specified user.</p>
+<p>You must have called <a href="userstats.html#steam_userstats_request_user_stats">steam_userstats_request_user_stats</a> and it needs to return successfully via its callback prior to calling this.</p>
+<p>The equivalent function for the local user is <a href="userstats.html#steam_userstats_get_stat_int">steam_userstats_get_stat_int</a>, the equivalent function for game servers is <a href="https://partner.steamgames.com/doc/api/ISteamGameServerStats#GetUserStat">ISteamGameServerStats::GetUserStat</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_userstats_user_stat_int(steam_id_user, stat_name)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>steam_id_user</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The Steam ID of the user to get the stat for.</td>
+</tr>
+<tr>
+<td>stat_name</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The "API Name" of the stat.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_userstats_user_stat_float">steam_userstats_user_stat_float</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#GetUserStat">ISteamUserStats::GetUserStat</a></p>
+</blockquote>
+<p>This function gets the current value of the given floating point stat for the specified user.</p>
+<p>You must have called <a href="userstats.html#steam_userstats_request_user_stats">steam_userstats_request_user_stats</a> and it needs to return successfully via its callback prior to calling this.</p>
+<p>The equivalent function for the local user is <a href="userstats.html#steam_userstats_get_stat_float">steam_userstats_get_stat_float</a>, the equivalent function for game servers is <a href="https://partner.steamgames.com/doc/api/ISteamGameServerStats#GetUserStat">ISteamGameServerStats::GetUserStat</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_userstats_user_stat_float(steam_id_user, stat_name)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>steam_id_user</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The Steam ID of the user to get the stat for.</td>
+</tr>
+<tr>
+<td>stat_name</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The "API Name" of the stat.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_userstats_user_achievement">steam_userstats_user_achievement</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#GetUserAchievement">ISteamUserStats::GetUserAchievement</a></p>
+</blockquote>
+<p>This function gets the unlock status of the Achievement.</p>
+<p>The equivalent function for the local user is <a href="userstats.html#steam_userstats_user_achievement">steam_userstats_user_achievement</a>, the equivalent function for game servers is <a href="https://partner.steamgames.com/doc/api/ISteamGameServerStats#GetUserAchievement">ISteamGameServerStats::GetUserAchievement</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_userstats_user_achievement(steam_id_user, achievement_name)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>steam_id_user</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The Steam ID of the user to get the achievement for.</td>
+</tr>
+<tr>
+<td>achievement_name</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The "API Name" of the achievement.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_userstats_user_achievement_and_unlock_time">steam_userstats_user_achievement_and_unlock_time</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#GetUserAchievementAndUnlockTime">ISteamUserStats::GetUserAchievementAndUnlockTime</a></p>
+</blockquote>
+<p>This function gets the achievement status, and the time it was unlocked if unlocked.</p>
+<p>If the return value is <code>true</code>, but the unlock time is zero, that means it was unlocked before Steam began tracking achievement unlock times (December 2009). The time is provided in Unix epoch format, seconds since January 1, 1970 UTC.</p>
+<p>The equivalent function for the local user is <a href="userstats.html#steam_userstats_user_achievement_and_unlock_time">steam_userstats_user_achievement_and_unlock_time</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_userstats_user_achievement_and_unlock_time(steam_id_user, achievement_name)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>steam_id_user</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The Steam ID of the user to get the achievement for.</td>
+</tr>
+<tr>
+<td>achievement_name</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The "API Name" of the achievement.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="userstats.html#steamuserstatsachievementandunlocktime">SteamUserStatsAchievementAndUnlockTime</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_userstats_reset_all_stats">steam_userstats_reset_all_stats</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#ResetAllStats">ISteamUserStats::ResetAllStats</a></p>
+</blockquote>
+<p>This function resets the current user's stats and, optionally, achievements.</p>
+<p>This automatically calls <a href="userstats.html#steam_userstats_store_stats">steam_userstats_store_stats</a> to persist the changes to the server. This should typically only be used for testing purposes during development.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_userstats_reset_all_stats(achievements_too)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>achievements_too</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></td>
+<td>Whether the user's achievements should also be reset.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_userstats_find_or_create_leaderboard">steam_userstats_find_or_create_leaderboard</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#FindOrCreateLeaderboard">ISteamUserStats::FindOrCreateLeaderboard</a></p>
+</blockquote>
+<p>This function gets a leaderboard by name, it will create it if it's not yet created.</p>
+<p>You must call either this or <a href="userstats.html#steam_userstats_find_leaderboard">steam_userstats_find_leaderboard</a> to obtain the leaderboard handle which is valid for the game session for each leaderboard you wish to access prior to calling any other Leaderboard functions.</p>
+<p>This function operates asynchronously, which means that it does not immediately return the requested result. Instead, upon completion of the task, it will trigger the <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_userstats_find_or_create_leaderboard(leaderboard_name, sort_method, display_type, callback)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>leaderboard_name</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The name of the leaderboard to find or create.</td>
+</tr>
+<tr>
+<td>sort_method</td>
+<td><a href="userstats.html#steamleaderboardsortmethod">SteamLeaderboardSortMethod</a></td>
+<td>The sort order of the new leaderboard if it is created.</td>
+</tr>
+<tr>
+<td>display_type</td>
+<td><a href="userstats.html#steamleaderboarddisplaytype">SteamLeaderboardDisplayType</a></td>
+<td>The display type (used by the Steam Community web site) of the new leaderboard if it is created.</td>
+</tr>
+<tr>
+<td>callback</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Script_Functions.htm">Function</a></td>
+<td>The function to call upon completion.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<p><strong>Triggers:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a></p>
+<p><strong>Steamworks Callback</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#LeaderboardFindResult_t">ISteamUserStats::LeaderboardFindResult_t</a></p>
+</blockquote>
+<p>Called when a leaderboard has been found, or failed to be found.</p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>result</td>
+<td><a href="userstats.html#steamuserstatsleaderboardfindresult">SteamUserStatsLeaderboardFindResult</a></td>
+<td>The result of the operation.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_userstats_find_leaderboard">steam_userstats_find_leaderboard</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#FindLeaderboard">ISteamUserStats::FindLeaderboard</a></p>
+</blockquote>
+<p>This function gets a leaderboard by name.</p>
+<p>You must call either this or <a href="userstats.html#steam_userstats_find_or_create_leaderboard">steam_userstats_find_or_create_leaderboard</a> to obtain the leaderboard handle which is valid for the game session for each leaderboard you wish to access prior to calling any other Leaderboard functions.</p>
+<p>This function operates asynchronously, which means that it does not immediately return the requested result. Instead, upon completion of the task, it will trigger the <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_userstats_find_leaderboard(leaderboard_name, callback)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>leaderboard_name</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The name of the leaderboard to find.</td>
+</tr>
+<tr>
+<td>callback</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Script_Functions.htm">Function</a></td>
+<td>The function to call upon completion.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<p><strong>Triggers:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a></p>
+<p><strong>Steamworks Callback</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#LeaderboardFindResult_t">ISteamUserStats::LeaderboardFindResult_t</a></p>
+</blockquote>
+<p>Called when a leaderboard has been found, or failed to be found.</p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>result</td>
+<td><a href="userstats.html#steamuserstatsleaderboardfindresult">SteamUserStatsLeaderboardFindResult</a></td>
+<td>The result of the operation.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_userstats_leaderboard_name">steam_userstats_leaderboard_name</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#GetLeaderboardName">ISteamUserStats::GetLeaderboardName</a></p>
+</blockquote>
+<p>This function returns the name of a leaderboard handle.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_userstats_leaderboard_name(leaderboard_handle)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>leaderboard_handle</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>A leaderboard handle obtained from <a href="userstats.html#steam_userstats_find_leaderboard">steam_userstats_find_leaderboard</a> or <a href="userstats.html#steam_userstats_find_or_create_leaderboard">steam_userstats_find_or_create_leaderboard</a>.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></p>
+</blockquote>
+<p>The name of the leaderboard, or an empty string if the leaderboard handle is invalid.</p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_userstats_leaderboard_entry_count">steam_userstats_leaderboard_entry_count</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#GetLeaderboardEntryCount">ISteamUserStats::GetLeaderboardEntryCount</a></p>
+</blockquote>
+<p>This function returns the total number of entries in a leaderboard.</p>
+<p>This is cached on a per leaderboard basis upon the first call to <a href="userstats.html#steam_userstats_find_leaderboard">steam_userstats_find_leaderboard</a> or <a href="userstats.html#steam_userstats_find_or_create_leaderboard">steam_userstats_find_or_create_leaderboard</a> and is refreshed on each successful call to <a href="userstats.html#steam_userstats_download_leaderboard_entries">steam_userstats_download_leaderboard_entries</a>, <a href="userstats.html#steam_userstats_download_leaderboard_entries_for_users">steam_userstats_download_leaderboard_entries_for_users</a>, and <a href="userstats.html#steam_userstats_upload_leaderboard_score">steam_userstats_upload_leaderboard_score</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_userstats_leaderboard_entry_count(leaderboard_handle)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>leaderboard_handle</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>A leaderboard handle obtained from <a href="userstats.html#steam_userstats_find_leaderboard">steam_userstats_find_leaderboard</a> or <a href="userstats.html#steam_userstats_find_or_create_leaderboard">steam_userstats_find_or_create_leaderboard</a>.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_userstats_leaderboard_sort_method">steam_userstats_leaderboard_sort_method</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#GetLeaderboardSortMethod">ISteamUserStats::GetLeaderboardSortMethod</a></p>
+</blockquote>
+<p>This function returns the sort order of a leaderboard handle.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_userstats_leaderboard_sort_method(leaderboard_handle)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>leaderboard_handle</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>A leaderboard handle obtained from <a href="userstats.html#steam_userstats_find_leaderboard">steam_userstats_find_leaderboard</a> or <a href="userstats.html#steam_userstats_find_or_create_leaderboard">steam_userstats_find_or_create_leaderboard</a>.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="userstats.html#steamleaderboardsortmethod">SteamLeaderboardSortMethod</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_userstats_leaderboard_display_type">steam_userstats_leaderboard_display_type</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#GetLeaderboardDisplayType">ISteamUserStats::GetLeaderboardDisplayType</a></p>
+</blockquote>
+<p>This function returns the display type of a leaderboard handle.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_userstats_leaderboard_display_type(leaderboard_handle)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>leaderboard_handle</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>A leaderboard handle obtained from <a href="userstats.html#steam_userstats_find_leaderboard">steam_userstats_find_leaderboard</a> or <a href="userstats.html#steam_userstats_find_or_create_leaderboard">steam_userstats_find_or_create_leaderboard</a>.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="userstats.html#steamleaderboarddisplaytype">SteamLeaderboardDisplayType</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_userstats_download_leaderboard_entries">steam_userstats_download_leaderboard_entries</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#DownloadLeaderboardEntries">ISteamUserStats::DownloadLeaderboardEntries</a></p>
+</blockquote>
+<p>This function fetches a series of leaderboard entries for a specified leaderboard.</p>
+<p>You can ask for more entries than exist, then this will return as many as do exist.</p>
+<p>If you want to download entries for an arbitrary set of users, such as all of the users on a server then you can use <a href="userstats.html#steam_userstats_download_leaderboard_entries_for_users">steam_userstats_download_leaderboard_entries_for_users</a> which takes an array of Steam IDs.</p>
+<p>You must call <a href="userstats.html#steam_userstats_find_leaderboard">steam_userstats_find_leaderboard</a> or <a href="userstats.html#steam_userstats_find_or_create_leaderboard">steam_userstats_find_or_create_leaderboard</a> to get a <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#SteamLeaderboard_t">SteamLeaderboard_t</a> prior to calling this function.</p>
+<p>This function operates asynchronously, which means that it does not immediately return the requested result. Instead, upon completion of the task, it will trigger the <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_userstats_download_leaderboard_entries(leaderboard_handle, request, range_start, range_end, callback)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>leaderboard_handle</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>A leaderboard handle obtained from <a href="userstats.html#steam_userstats_find_leaderboard">steam_userstats_find_leaderboard</a> or <a href="userstats.html#steam_userstats_find_or_create_leaderboard">steam_userstats_find_or_create_leaderboard</a>.</td>
+</tr>
+<tr>
+<td>request</td>
+<td><a href="userstats.html#steamleaderboarddatarequest">SteamLeaderboardDataRequest</a></td>
+<td>The type of data request to make.</td>
+</tr>
+<tr>
+<td>range_start</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The index to start downloading entries relative to the data request type.</td>
+</tr>
+<tr>
+<td>range_end</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The last index to retrieve entries for relative to the data request type.</td>
+</tr>
+<tr>
+<td>callback</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Script_Functions.htm">Function</a></td>
+<td>The function to call upon completion.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<p><strong>Triggers:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a></p>
+<p><strong>Steamworks Callback</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#LeaderboardScoresDownloaded_t">ISteamUserStats::LeaderboardScoresDownloaded_t</a></p>
+</blockquote>
+<p>Called when scores for a leaderboard have been downloaded and are ready to be retrieved.</p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>result</td>
+<td><a href="userstats.html#steamuserstatsscoresdownloadedresult">SteamUserStatsScoresDownloadedResult</a></td>
+<td>The result of the operation.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_userstats_download_leaderboard_entries_for_users">steam_userstats_download_leaderboard_entries_for_users</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#DownloadLeaderboardEntriesForUsers">ISteamUserStats::DownloadLeaderboardEntriesForUsers</a></p>
+</blockquote>
+<p>This function fetches leaderboard entries for an arbitrary set of users on a specified leaderboard.</p>
+<p>A maximum of 100 users can be downloaded at a time, with only one outstanding call at a time. If a user doesn't have an entry on the specified leaderboard, they won't be included in the result.</p>
+<p>If you want to download entries based on their ranking or friends of the current user then you should use <a href="userstats.html#steam_userstats_download_leaderboard_entries">steam_userstats_download_leaderboard_entries</a>.</p>
+<p>You must call <a href="userstats.html#steam_userstats_find_leaderboard">steam_userstats_find_leaderboard</a> or <a href="userstats.html#steam_userstats_find_or_create_leaderboard">steam_userstats_find_or_create_leaderboard</a> to get a <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#SteamLeaderboard_t">SteamLeaderboard_t</a> prior to calling this function.</p>
+<p>This function operates asynchronously, which means that it does not immediately return the requested result. Instead, upon completion of the task, it will trigger the <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_userstats_download_leaderboard_entries_for_users(leaderboard_handle, users, callback)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>leaderboard_handle</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>A leaderboard handle obtained from <a href="userstats.html#steam_userstats_find_leaderboard">steam_userstats_find_leaderboard</a> or <a href="userstats.html#steam_userstats_find_or_create_leaderboard">steam_userstats_find_or_create_leaderboard</a>.</td>
+</tr>
+<tr>
+<td>users</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Arrays.htm">Array</a> of <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>An array of Steam IDs to get the leaderboard entries for.</td>
+</tr>
+<tr>
+<td>callback</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Script_Functions.htm">Function</a></td>
+<td>The function to call upon completion.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<p><strong>Triggers:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a></p>
+<p><strong>Steamworks Callback</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#LeaderboardScoresDownloaded_t">ISteamUserStats::LeaderboardScoresDownloaded_t</a></p>
+</blockquote>
+<p>Called when scores for a leaderboard have been downloaded and are ready to be retrieved.</p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>result</td>
+<td><a href="userstats.html#steamuserstatsscoresdownloadedresult">SteamUserStatsScoresDownloadedResult</a></td>
+<td>The result of the operation.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_userstats_downloaded_leaderboard_entry">steam_userstats_downloaded_leaderboard_entry</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#GetDownloadedLeaderboardEntry">ISteamUserStats::GetDownloadedLeaderboardEntry</a></p>
+</blockquote>
+<p>This function retrieves the data for a single leaderboard entry.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_userstats_downloaded_leaderboard_entry(leaderboard_entries_handle, entry_index)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>leaderboard_entries_handle</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>A leaderboard entries handle obtained from the most recently received <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#LeaderboardScoresDownloaded_t">LeaderboardScoresDownloaded_t</a> call result.</td>
+</tr>
+<tr>
+<td>entry_index</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The index of the entry to retrieve, between 0 and the number of entries that were downloaded.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="userstats.html#steamuserstatsdownloadedleaderboardentry">SteamUserStatsDownloadedLeaderboardEntry</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_userstats_upload_leaderboard_score">steam_userstats_upload_leaderboard_score</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#UploadLeaderboardScore">ISteamUserStats::UploadLeaderboardScore</a></p>
+</blockquote>
+<p>This function uploads a user score to a specified leaderboard.</p>
+<p>Details are optional game-defined information which outlines how the user got that score. For example if it's a racing style time based leaderboard you could store the timestamps when the player hits each checkpoint. If you have collectibles along the way you could use bit fields as booleans to store the items the player picked up in the playthrough.</p>
+<p>Uploading scores to Steam is rate limited to 10 uploads per 10 minutes and you may only have one outstanding call to this function at a time.</p>
+<p>This function operates asynchronously, which means that it does not immediately return the requested result. Instead, upon completion of the task, it will trigger the <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_userstats_upload_leaderboard_score(leaderboard_handle, method, score, score_details, callback)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>leaderboard_handle</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>A leaderboard handle obtained from <a href="userstats.html#steam_userstats_find_leaderboard">steam_userstats_find_leaderboard</a> or <a href="userstats.html#steam_userstats_find_or_create_leaderboard">steam_userstats_find_or_create_leaderboard</a>.</td>
+</tr>
+<tr>
+<td>method</td>
+<td><a href="userstats.html#steamleaderboarduploadscoremethod">SteamLeaderboardUploadScoreMethod</a></td>
+<td>Whether the score change should be forced, or only kept if it is better than the user's existing score.</td>
+</tr>
+<tr>
+<td>score</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The score to upload.</td>
+</tr>
+<tr>
+<td>score_details</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Arrays.htm">Array</a> of <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>An array containing optional detail values surrounding the unlocking of this score. Note that these values are passed to Steamworks SDK as int32.</td>
+</tr>
+<tr>
+<td>callback</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Script_Functions.htm">Function</a></td>
+<td>The function to call upon completion.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<p><strong>Triggers:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a></p>
+<p><strong>Steamworks Callback</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#LeaderboardScoreUploaded_t">ISteamUserStats::LeaderboardScoreUploaded_t</a></p>
+</blockquote>
+<p>Result indicating that a leaderboard score has been uploaded.</p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>result</td>
+<td><a href="userstats.html#steamuserstatsscoreuploadedresult">SteamUserStatsScoreUploadedResult</a></td>
+<td>The result of the operation.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_userstats_attach_leaderboard_ugc">steam_userstats_attach_leaderboard_ugc</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#AttachLeaderboardUGC">ISteamUserStats::AttachLeaderboardUGC</a></p>
+</blockquote>
+<p>This function attaches a piece of user generated content to the current user's entry on a leaderboard.</p>
+<p>This content could be a replay of the user achieving the score or a ghost to race against. The attached handle will be available when the entry is retrieved and can be accessed by other users using <a href="userstats.html#steam_userstats_downloaded_leaderboard_entry">steam_userstats_downloaded_leaderboard_entry</a>.
+To create and download user generated content see the documentation for the Steam Workshop.</p>
+<p>Once attached, the content will be available even if the underlying Cloud file is changed or deleted by the user.</p>
+<p>You must call <a href="userstats.html#steam_userstats_find_leaderboard">steam_userstats_find_leaderboard</a> or <a href="userstats.html#steam_userstats_find_or_create_leaderboard">steam_userstats_find_or_create_leaderboard</a> to get a <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#SteamLeaderboard_t">SteamLeaderboard_t</a> prior to calling this function.</p>
+<p>This function operates asynchronously, which means that it does not immediately return the requested result. Instead, upon completion of the task, it will trigger the <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_userstats_attach_leaderboard_ugc(leaderboard_handle, ugc_handle, callback)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>leaderboard_handle</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>A leaderboard handle obtained from <a href="userstats.html#steam_userstats_find_leaderboard">steam_userstats_find_leaderboard</a> or <a href="userstats.html#steam_userstats_find_or_create_leaderboard">steam_userstats_find_or_create_leaderboard</a>.</td>
+</tr>
+<tr>
+<td>ugc_handle</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>A handle to the user generated content that was shared using <a href="remote_storage.html#steam_remote_storage_file_share">steam_remote_storage_file_share</a>.</td>
+</tr>
+<tr>
+<td>callback</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Script_Functions.htm">Function</a></td>
+<td>The function to call upon completion.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<p><strong>Triggers:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a></p>
+<p><strong>Steamworks Callback</strong>: <a href="partner.steamgames.com/doc/api/ISteamUserStats.html#LeaderboardUGCSet_t">ISteamUserStats::LeaderboardUGCSet_t</a></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>result</td>
+<td><a href="userstats.html#steamuserstatsattachleaderboardugcresult">SteamUserStatsAttachLeaderboardUgcResult</a></td>
+<td>The result of the operation.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_userstats_number_of_current_players">steam_userstats_number_of_current_players</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#GetNumberOfCurrentPlayers">ISteamUserStats::GetNumberOfCurrentPlayers</a></p>
+</blockquote>
+<p>This function asynchronously retrieves the total number of players currently playing the current game. Both online and in offline mode.</p>
+<p>This function operates asynchronously, which means that it does not immediately return the requested result. Instead, upon completion of the task, it will trigger the <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_userstats_number_of_current_players(callback)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>callback</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Script_Functions.htm">Function</a></td>
+<td>The function to call upon completion.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<p><strong>Triggers:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a></p>
+<p><strong>Steamworks Callback</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#NumberOfCurrentPlayers_t">ISteamUserStats::NumberOfCurrentPlayers_t</a></p>
+</blockquote>
+<p>Called when the current number of players for the current app has been received.</p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>result</td>
+<td><a href="userstats.html#steamuserstatsnumberofcurrentplayersresult">SteamUserStatsNumberOfCurrentPlayersResult</a></td>
+<td>The result of the operation.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_userstats_request_global_achievement_percentages">steam_userstats_request_global_achievement_percentages</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#RequestGlobalAchievementPercentages">ISteamUserStats::RequestGlobalAchievementPercentages</a></p>
+</blockquote>
+<p>This function asynchronously fetches the data for the percentage of players who have received each achievement for the current game globally.</p>
+<p>This function operates asynchronously, which means that it does not immediately return the requested result. Instead, upon completion of the task, it will trigger the <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_userstats_request_global_achievement_percentages(callback)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>callback</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Script_Functions.htm">Function</a></td>
+<td>The function to call upon completion.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<p><strong>Triggers:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a></p>
+<p><strong>Steamworks Callback</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#GlobalAchievementPercentagesReady_t">ISteamUserStats::GlobalAchievementPercentagesReady_t</a></p>
+</blockquote>
+<p>Called when the global achievement unlock percentages have been received from the server.</p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>result</td>
+<td><a href="userstats.html#steamuserstatsnumberofcurrentplayersresult">SteamUserStatsNumberOfCurrentPlayersResult</a></td>
+<td>The result of the operation.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_userstats_most_achieved_achievement_info">steam_userstats_most_achieved_achievement_info</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#GetMostAchievedAchievementInfo">ISteamUserStats::GetMostAchievedAchievementInfo</a></p>
+</blockquote>
+<p>This function gets the info on the most achieved achievement for the game.</p>
+<p>You must have called <a href="userstats.html#steam_userstats_request_global_achievement_percentages">steam_userstats_request_global_achievement_percentages</a> and it needs to return successfully via its callback prior to calling this.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_userstats_most_achieved_achievement_info()
+</code></pre></div>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="userstats.html#steamuserstatsmostachievedachievementinfo">SteamUserStatsMostAchievedAchievementInfo</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_userstats_next_most_achieved_achievement_info">steam_userstats_next_most_achieved_achievement_info</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#GetNextMostAchievedAchievementInfo">ISteamUserStats::GetNextMostAchievedAchievementInfo</a></p>
+</blockquote>
+<p>This function gets the info on the next most achieved achievement for the game.</p>
+<p>You must have called <a href="userstats.html#steam_userstats_request_global_achievement_percentages">steam_userstats_request_global_achievement_percentages</a> and it needs to return successfully via its callback prior to calling this.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_userstats_next_most_achieved_achievement_info(iterator_prev)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>iterator_prev</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The iterator returned from the previous call to this function, or from <a href="userstats.html#steam_userstats_most_achieved_achievement_info">steam_userstats_most_achieved_achievement_info</a>.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="userstats.html#steamuserstatsmostachievedachievementinfo">SteamUserStatsMostAchievedAchievementInfo</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_userstats_achievement_achieved_percent">steam_userstats_achievement_achieved_percent</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#GetAchievementAchievedPercent">ISteamUserStats::GetAchievementAchievedPercent</a></p>
+</blockquote>
+<p>This function returns the percentage of users who have unlocked the specified achievement.</p>
+<p>You must have called <a href="userstats.html#steam_userstats_request_global_achievement_percentages">steam_userstats_request_global_achievement_percentages</a> and it needs to return successfully via its callback prior to calling this.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_userstats_achievement_achieved_percent(achievement_name)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>achievement_name</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The "API Name" of the achievement.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_userstats_request_global_stats">steam_userstats_request_global_stats</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#RequestGlobalStats">ISteamUserStats::RequestGlobalStats</a></p>
+</blockquote>
+<p>This function asynchronously fetches global stats data, which is available for stats marked as "aggregated" in the App Admin panel of the Steamworks website.</p>
+<p>This function operates asynchronously, which means that it does not immediately return the requested result. Instead, upon completion of the task, it will trigger the <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_userstats_request_global_stats(history_days, callback)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>history_days</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The number of days of day-by-day history to retrieve in addition to the overall totals. The limit is 60.</td>
+</tr>
+<tr>
+<td>callback</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Script_Functions.htm">Function</a></td>
+<td>The function to call upon completion.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<p><strong>Triggers:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a></p>
+<p><strong>Steamworks Callback</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#GlobalStatsReceived_t">ISteamUserStats::GlobalStatsReceived_t</a></p>
+</blockquote>
+<p>Called when the global stats have been received from the server.</p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>result</td>
+<td><a href="userstats.html#steamuserstatsglobalstatsreceivedresult">SteamUserStatsGlobalStatsReceivedResult</a></td>
+<td>The result of the operation.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_userstats_global_stat_int64">steam_userstats_global_stat_int64</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#GetGlobalStat">ISteamUserStats::GetGlobalStat</a></p>
+</blockquote>
+<p>This function gets the lifetime totals for an aggregated integer (int64) stat.</p>
+<p>You must have called <a href="userstats.html#steam_userstats_request_global_stats">steam_userstats_request_global_stats</a> and it needs to return successfully via its callback prior to calling this.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_userstats_global_stat_int64(stat_name)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>stat_name</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The "API Name" of the stat.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_userstats_global_stat_double">steam_userstats_global_stat_double</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#GetGlobalStat">ISteamUserStats::GetGlobalStat</a></p>
+</blockquote>
+<p>This function gets the lifetime totals for an aggregated floating point (double) stat.</p>
+<p>You must have called <a href="userstats.html#steam_userstats_request_global_stats">steam_userstats_request_global_stats</a> and it needs to return successfully via its callback prior to calling this.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_userstats_global_stat_double(stat_name)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>stat_name</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The "API Name" of the stat.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_userstats_global_stat_history_int64">steam_userstats_global_stat_history_int64</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#GetGlobalStatHistory">ISteamUserStats::GetGlobalStatHistory</a></p>
+</blockquote>
+<p>This function gets the daily history for an aggregated integer (int64) stat.</p>
+<p>You must have called <a href="userstats.html#steam_userstats_request_global_stats">steam_userstats_request_global_stats</a> and it needs to return successfully via its callback prior to calling this.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_userstats_global_stat_history_int64(stat_name)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>stat_name</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The "API Name" of the stat.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Arrays.htm">Array</a> of <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_userstats_global_stat_history_double">steam_userstats_global_stat_history_double</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#GetGlobalStatHistory">ISteamUserStats::GetGlobalStatHistory</a></p>
+</blockquote>
+<p>This function gets the daily history for an aggregated floating point (double) stat.</p>
+<p>You must have called <a href="userstats.html#steam_userstats_request_global_stats">steam_userstats_request_global_stats</a> and it needs to return successfully via its callback prior to calling this.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_userstats_global_stat_history_double(stat_name)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>stat_name</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The "API Name" of the stat.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Arrays.htm">Array</a> of <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_userstats_achievement_progress_int">steam_userstats_achievement_progress_int</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#GetAchievementProgressLimits">ISteamUserStats::GetAchievementProgressLimits</a></p>
+</blockquote>
+<p>This function returns the integer progress limits (the minimum and maximum) used to compute the progress bar for a given achievement.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_userstats_achievement_progress_int(achievement_name)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>achievement_name</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The "API Name" of the achievement.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="userstats.html#steamuserstatsintminmax">SteamUserStatsIntMinMax</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_userstats_achievement_progress_float">steam_userstats_achievement_progress_float</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#GetAchievementProgressLimits">ISteamUserStats::GetAchievementProgressLimits</a></p>
+</blockquote>
+<p>This function returns the floating point progress limits (the minimum and maximum) used to compute the progress bar for a given achievement.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_userstats_achievement_progress_float(achievement_name)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>achievement_name</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The "API Name" of the achievement.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="userstats.html#steamuserstatsfloatminmax">SteamUserStatsFloatMinMax</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_userstats_set_callback_user_stats_received">steam_userstats_set_callback_user_stats_received</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: N / A</p>
+</blockquote>
+<p>This function sets the function call when the latest stats and achievements for a specific user (including the local user) have been received from the server.</p>
+<p>See: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#UserStatsReceived_t">ISteamUserStats::UserStatsReceived_t</a></p>
+<p>See: <a href="userstats.html#steamuserstatsuserstatsreceived">SteamUserStatsUserStatsReceived</a></p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_userstats_set_callback_user_stats_received(callback)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>callback</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Script_Functions.htm">Function</a></td>
+<td>The function to be called when user stats are received.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_userstats_clear_callback_user_stats_received">steam_userstats_clear_callback_user_stats_received</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: N / A</p>
+</blockquote>
+<p>This function clears the callback function previously set using <a href="userstats.html#steam_userstats_set_callback_user_stats_received">steam_userstats_set_callback_user_stats_received</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_userstats_clear_callback_user_stats_received()
+</code></pre></div>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_userstats_set_callback_user_stats_stored">steam_userstats_set_callback_user_stats_stored</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: N / A</p>
+</blockquote>
+<p>This function sets the function to call as a result of a request to store the user stats.</p>
+<p>See: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#UserStatsStored_t">ISteamUserStats::UserStatsStored_t</a></p>
+<p>See: <a href="userstats.html#steamuserstatsuserstatsstored">SteamUserStatsUserStatsStored</a></p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_userstats_set_callback_user_stats_stored(callback)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>callback</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Script_Functions.htm">Function</a></td>
+<td>The function to be called when user stats are stored.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_userstats_clear_callback_user_stats_stored">steam_userstats_clear_callback_user_stats_stored</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: N / A</p>
+</blockquote>
+<p>This function clears the callback function previously set using <a href="userstats.html#steam_userstats_set_callback_user_stats_stored">steam_userstats_set_callback_user_stats_stored</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_userstats_clear_callback_user_stats_stored()
+</code></pre></div>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_userstats_set_callback_user_achievement_stored">steam_userstats_set_callback_user_achievement_stored</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: N / A</p>
+</blockquote>
+<p>This function sets the function to call as a result of a request to store the achievements on the server, or an "indicate progress" call.</p>
+<p>See: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#UserAchievementStored_t">ISteamUserStats::UserAchievementStored_t</a></p>
+<p>See: <a href="userstats.html#steamuserstatsuserachievementstored">SteamUserStatsUserAchievementStored</a></p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_userstats_set_callback_user_achievement_stored(callback)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>callback</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Script_Functions.htm">Function</a></td>
+<td>The function to be called when a user achievement is stored.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_userstats_clear_callback_user_achievement_stored">steam_userstats_clear_callback_user_achievement_stored</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: N / A</p>
+</blockquote>
+<p>This function clears the callback function previously set using <a href="userstats.html#steam_userstats_set_callback_user_achievement_stored">steam_userstats_set_callback_user_achievement_stored</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_userstats_clear_callback_user_achievement_stored()
+</code></pre></div>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_userstats_set_callback_user_achievement_icon_fetched">steam_userstats_set_callback_user_achievement_icon_fetched</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: N / A</p>
+</blockquote>
+<p>This function sets the function to call when an achievement icon has been fetched.</p>
+<p>See: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#UserAchievementIconFetched_t">ISteamUserStats::UserAchievementIconFetched_t</a></p>
+<p>See: <a href="userstats.html#steamuserstatsachievementiconfetched">SteamUserStatsAchievementIconFetched</a></p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_userstats_set_callback_user_achievement_icon_fetched(callback)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>callback</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Script_Functions.htm">Function</a></td>
+<td>The function to be called when a user achievement icon has been fetched.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_userstats_clear_callback_user_achievement_icon_fetched">steam_userstats_clear_callback_user_achievement_icon_fetched</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: N / A</p>
+</blockquote>
+<p>This function clears the callback function previously set using <a href="userstats.html#steam_userstats_set_callback_user_achievement_icon_fetched">steam_userstats_set_callback_user_achievement_icon_fetched</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_userstats_clear_callback_user_achievement_icon_fetched()
+</code></pre></div>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_userstats_set_callback_user_stats_unloaded">steam_userstats_set_callback_user_stats_unloaded</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: N / A</p>
+</blockquote>
+<p>This function sets the function to call to indicate that a user's stats have been unloaded.</p>
+<p>See: <a href="partner.steamgames.com/doc/api/ISteamUserStats.html#UserStatsUnloaded_t">ISteamUserStats::UserStatsUnloaded_t</a></p>
+<p>See: <a href="userstats.html#steamuserstatsunloaded">SteamUserStatsUnloaded</a></p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_userstats_set_callback_user_stats_unloaded(callback)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>callback</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Script_Functions.htm">Function</a></td>
+<td>The function to be called to indicate that a user's stats have been unloaded.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_userstats_clear_callback_user_stats_unloaded">steam_userstats_clear_callback_user_stats_unloaded</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: N / A</p>
+</blockquote>
+<p>This function clears the callback function previously set using <a href="userstats.html#steam_userstats_set_callback_user_stats_unloaded">steam_userstats_set_callback_user_stats_unloaded</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_userstats_clear_callback_user_stats_unloaded()
+</code></pre></div>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steamleaderboarddatarequest">SteamLeaderboardDataRequest</h1>
+<blockquote>
+<p><strong>Steamworks Enum</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#ELeaderboardDataRequest">ISteamUserStats::ELeaderboardDataRequest</a></p>
+</blockquote>
+<p>This enum holds the types of data request, used when downloading leaderboard entries with <a href="userstats.html#steam_userstats_download_leaderboard_entries">steam_userstats_download_leaderboard_entries</a>.</p>
+<p>These constants are referenced by the following functions:</p>
+<ul>
+<li><a href="userstats.html#steam_userstats_download_leaderboard_entries">steam_userstats_download_leaderboard_entries</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Global</code></td>
+<td>Used to query for a sequential range of leaderboard entries by leaderboard rank. The start and end parameters control the requested range. For example, you can display the top 10 on a leaderboard for your game by setting start to 1 and end to 10.</td>
+</tr>
+<tr>
+<td><code>GlobalAroundUser</code></td>
+<td>Used to retrieve leaderboard entries relative a user's entry. The start parameter is the number of entries to retrieve before the current user's entry, and the end parameter is the number of entries after the current user's entry. The current user's entry is always included. For example, if the current user is #5 on the leaderboard, setting start to -2 and end to 2 will return 5 entries: ranks #3 through #7. If there are not enough entries in the leaderboard before or after the user's entry, Steam will adjust the range to try to return the number of entries requested. For example, if the user is #1 on the leaderboard and start is set to -2, end is set to 2, Steam will return the first 5 entries in the leaderboard.</td>
+</tr>
+<tr>
+<td><code>Friends</code></td>
+<td>Used to retrieve all leaderboard entries for friends of the current user. The start and end parameters are ignored.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steamleaderboardsortmethod">SteamLeaderboardSortMethod</h1>
+<blockquote>
+<p><strong>Steamworks Enum</strong>: <a href="partner.steamgames.com/doc/api/ISteamUserStats.html#ELeaderboardSortMethod">ISteamUserStats::ELeaderboardSortMethod</a></p>
+</blockquote>
+<p>This enum defines the sort method used to set whether a higher or lower score is better. You can set the sort method when creating a leaderboard with <a href="userstats.html#steam_userstats_find_or_create_leaderboard">steam_userstats_find_or_create_leaderboard</a> or in App Admin on the Steamworks website. You can retrieve the sort method for a given leaderboard with <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#GetLeaderboardSortMethod">GetLeaderboardSortMethod</a>.</p>
+<p>These constants are referenced by the following functions:</p>
+<ul>
+<li><a href="userstats.html#steam_userstats_find_or_create_leaderboard">steam_userstats_find_or_create_leaderboard</a></li>
+<li><a href="userstats.html#steam_userstats_leaderboard_sort_method">steam_userstats_leaderboard_sort_method</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>None</code></td>
+<td>Only ever used when a leaderboard is invalid, you should never set this yourself.</td>
+</tr>
+<tr>
+<td><code>Ascending</code></td>
+<td>The top-score is the lowest number.</td>
+</tr>
+<tr>
+<td><code>Descending</code></td>
+<td>The top-score is the highest number.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steamleaderboarddisplaytype">SteamLeaderboardDisplayType</h1>
+<blockquote>
+<p><strong>Steamworks Enum</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#ELeaderboardDisplayType">ISteamUserStats::ELeaderboardDisplayType</a></p>
+</blockquote>
+<p>This enum holds the display types used by the Steam Community web site to know how to format the leaderboard scores when displayed. You can set the display type when creating a leaderboard with <a href="userstats.html#steam_userstats_find_or_create_leaderboard">steam_userstats_find_or_create_leaderboard</a> or in the Steamworks partner backend. You can retrieve the display type for a given leaderboard with <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#GetLeaderboardDisplayType">GetLeaderboardDisplayType</a>.</p>
+<p>These constants are referenced by the following functions:</p>
+<ul>
+<li><a href="userstats.html#steam_userstats_find_or_create_leaderboard">steam_userstats_find_or_create_leaderboard</a></li>
+<li><a href="userstats.html#steam_userstats_leaderboard_display_type">steam_userstats_leaderboard_display_type</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>None</code></td>
+<td>This is only ever used when a leaderboard is invalid, you should never set this yourself.</td>
+</tr>
+<tr>
+<td><code>Numeric</code></td>
+<td>The score is just a simple numerical value.</td>
+</tr>
+<tr>
+<td><code>TimeSeconds</code></td>
+<td>The score represents a time, in seconds.</td>
+</tr>
+<tr>
+<td><code>TimeMilliSeconds</code></td>
+<td>The score represents a time, in milliseconds.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steamleaderboarduploadscoremethod">SteamLeaderboardUploadScoreMethod</h1>
+<blockquote>
+<p><strong>Steamworks Enum</strong>: <a href="partner.steamgames.com/doc/api/ISteamUserStats.html#ELeaderboardUploadScoreMethod">ISteamUserStats::ELeaderboardUploadScoreMethod</a></p>
+</blockquote>
+<p>This enum holds the possible sort methods used to set whether a higher or lower score is better. You can set the sort method when creating a leaderboard with <a href="userstats.html#steam_userstats_find_or_create_leaderboard">steam_userstats_find_or_create_leaderboard</a> or in App Admin on the Steamworks website. You can retrieve the sort method for a given leaderboard with <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#GetLeaderboardSortMethod">GetLeaderboardSortMethod</a>.</p>
+<p>These constants are referenced by the following functions:</p>
+<ul>
+<li><a href="userstats.html#steam_userstats_upload_leaderboard_score">steam_userstats_upload_leaderboard_score</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>None</code></td>
+<td>Only ever used when a leaderboard is invalid, you should never set this yourself.</td>
+</tr>
+<tr>
+<td><code>KeepBest</code></td>
+<td>The top-score is the lowest number.</td>
+</tr>
+<tr>
+<td><code>ForceUpdate</code></td>
+<td>The top-score is the highest number.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steamuserstatsachievementandunlocktime">SteamUserStatsAchievementAndUnlockTime</h1>
+<blockquote>
+<p><strong>Steamworks Struct</strong>: N / A</p>
+</blockquote>
+<p>This struct holds information about an achievement's status and unlock time.</p>
+<p>This struct is referenced by the following functions:</p>
+<ul>
+<li><a href="userstats.html#steam_userstats_achievement_and_unlock_time">steam_userstats_achievement_and_unlock_time</a></li>
+<li><a href="userstats.html#steam_userstats_user_achievement_and_unlock_time">steam_userstats_user_achievement_and_unlock_time</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>achieved</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></td>
+<td>Whether the current user has unlocked the achievement.</td>
+</tr>
+<tr>
+<td>unlock_time</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The time that the achievement was unlocked; if <code>achieved</code> is <code>true</code>.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steamuserstatsmostachievedachievementinfo">SteamUserStatsMostAchievedAchievementInfo</h1>
+<blockquote>
+<p><strong>Steamworks Struct</strong>: N / A</p>
+</blockquote>
+<p>This struct holds info on the most achieved achievement for the game.</p>
+<p>This struct is referenced by the following functions:</p>
+<ul>
+<li><a href="userstats.html#steam_userstats_most_achieved_achievement_info">steam_userstats_most_achieved_achievement_info</a></li>
+<li><a href="userstats.html#steam_userstats_next_most_achieved_achievement_info">steam_userstats_next_most_achieved_achievement_info</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>name</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The 'API Name' of the achievement.</td>
+</tr>
+<tr>
+<td>percent</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The percentage of people that have unlocked this achievement from 0 to 100.</td>
+</tr>
+<tr>
+<td>achieved</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></td>
+<td>Whether the current user has unlocked this achievement.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steamuserstatsdownloadedleaderboardentry">SteamUserStatsDownloadedLeaderboardEntry</h1>
+<blockquote>
+<p><strong>Steamworks Struct</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#LeaderboardEntry_t">ISteamUserStats::LeaderboardEntry_t</a></p>
+</blockquote>
+<p>This struct holds the data for a single entry in a leaderboard, as returned by <a href="userstats.html#steam_userstats_downloaded_leaderboard_entry">steam_userstats_downloaded_leaderboard_entry</a>.</p>
+<p>This struct is referenced by the following functions:</p>
+<ul>
+<li><a href="userstats.html#steam_userstats_downloaded_leaderboard_entry">steam_userstats_downloaded_leaderboard_entry</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>steam_id_user</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>User who this entry belongs to. You can use <a href="friends.html#steam_friends_get_friend_persona_name">steam_friends_get_friend_persona_name</a> and <a href="friends.html#steam_friends_get_small_friend_avatar">steam_friends_get_small_friend_avatar</a> to get more info.</td>
+</tr>
+<tr>
+<td>global_rank</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The global rank of this entry ranging from [1..N], where N is the number of users with an entry in the leaderboard.</td>
+</tr>
+<tr>
+<td>score</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The raw score as set in the leaderboard.</td>
+</tr>
+<tr>
+<td>details</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Arrays.htm">Array</a> of <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>An array of int32 values holding details about the entry.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steamuserstatsleaderboardfindresult">SteamUserStatsLeaderboardFindResult</h1>
+<blockquote>
+<p><strong>Steamworks Struct</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#LeaderboardFindResult_t">ISteamUserStats::LeaderboardFindResult_t</a></p>
+</blockquote>
+<p>This struct holds the result of a leaderboard find request.</p>
+<p>This struct is referenced by the following functions:</p>
+<ul>
+<li><a href="userstats.html#steam_userstats_find_or_create_leaderboard">steam_userstats_find_or_create_leaderboard</a></li>
+<li><a href="userstats.html#steam_userstats_find_leaderboard">steam_userstats_find_leaderboard</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>leaderboard_handle</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The handle of the leaderboard that was found. Will be 0 if no leaderboard was found.</td>
+</tr>
+<tr>
+<td>leaderboard_found</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></td>
+<td>Whether a leaderboard was found; <code>true</code> if it was found.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steamuserstatsscoresdownloadedresult">SteamUserStatsScoresDownloadedResult</h1>
+<blockquote>
+<p><strong>Steamworks Struct</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#LeaderboardScoresDownloaded_t">ISteamUserStats::LeaderboardScoresDownloaded_t</a></p>
+</blockquote>
+<p>This struct holds the result when scores for a leaderboard have been downloaded and are ready to be retrieved.</p>
+<p>This struct is referenced by the following functions:</p>
+<ul>
+<li><a href="userstats.html#steam_userstats_download_leaderboard_entries">steam_userstats_download_leaderboard_entries</a></li>
+<li><a href="userstats.html#steam_userstats_download_leaderboard_entries_for_users">steam_userstats_download_leaderboard_entries_for_users</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>leaderboard_handle</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The handle to the leaderboard that these entries belong to.</td>
+</tr>
+<tr>
+<td>entries_handle</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>A handle used to retrieve each downloaded entry's data.</td>
+</tr>
+<tr>
+<td>entry_count</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The number of entries downloaded.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steamuserstatsscoreuploadedresult">SteamUserStatsScoreUploadedResult</h1>
+<blockquote>
+<p><strong>Steamworks Struct</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#LeaderboardScoreUploaded_t">ISteamUserStats::LeaderboardScoreUploaded_t</a></p>
+</blockquote>
+<p>This struct holds the result indicating that a leaderboard score has been uploaded.</p>
+<p>This struct is referenced by the following functions:</p>
+<ul>
+<li><a href="userstats.html#steam_userstats_upload_leaderboard_score">steam_userstats_upload_leaderboard_score</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>success</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></td>
+<td>Was the call successful? <code>true</code> if the call was successful, <code>false</code> on failure.</td>
+</tr>
+<tr>
+<td>leaderboard_handle</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>Handle to the leaderboard that this score was uploaded to.</td>
+</tr>
+<tr>
+<td>score</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The score that was attempted to set.</td>
+</tr>
+<tr>
+<td>score_changed</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></td>
+<td><code>true</code> if the score on the leaderboard changed otherwise <code>false</code> if the existing score was better.</td>
+</tr>
+<tr>
+<td>global_rank_new</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The new global rank of the user on this leaderboard.</td>
+</tr>
+<tr>
+<td>global_rank_previous</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The previous global rank of the user on this leaderboard; 0 if the user had no existing entry in the leaderboard.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steamuserstatsnumberofcurrentplayersresult">SteamUserStatsNumberOfCurrentPlayersResult</h1>
+<blockquote>
+<p><strong>Steamworks Struct</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#NumberOfCurrentPlayers_t">ISteamUserStats::NumberOfCurrentPlayers_t</a></p>
+</blockquote>
+<p>This struct holds information on the current number of players for the current app if it has been received.</p>
+<p>This struct is referenced by the following functions:</p>
+<ul>
+<li><a href="userstats.html#steam_userstats_number_of_current_players">steam_userstats_number_of_current_players</a></li>
+<li><a href="userstats.html#steam_userstats_request_global_achievement_percentages">steam_userstats_request_global_achievement_percentages</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>success</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></td>
+<td>Whether the call was successful; <code>true</code> if the player count was retrieved.</td>
+</tr>
+<tr>
+<td>players</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The number of players currently playing the game.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steamuserstatsglobalachievementpercentagesreadyresult">SteamUserStatsGlobalAchievementPercentagesReadyResult</h1>
+<blockquote>
+<p><strong>Steamworks Struct</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#GlobalAchievementPercentagesReady_t">ISteamUserStats::GlobalAchievementPercentagesReady_t</a></p>
+</blockquote>
+<p>This struct holds global achievement unlock percentages that have been received from the server.</p>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>game_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The game ID that the achievement percentages are for.</td>
+</tr>
+<tr>
+<td>result</td>
+<td><a href="api.html#steamapiresult">SteamApiResult</a></td>
+<td>The result of the operation.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steamuserstatsglobalstatsreceivedresult">SteamUserStatsGlobalStatsReceivedResult</h1>
+<blockquote>
+<p><strong>Steamworks Struct</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#GlobalStatsReceived_t">ISteamUserStats::GlobalStatsReceived_t</a></p>
+</blockquote>
+<p>This struct holds the result when global stats have been received from the server.</p>
+<p>This struct is referenced by the following functions:</p>
+<ul>
+<li><a href="userstats.html#steam_userstats_request_global_stats">steam_userstats_request_global_stats</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>game_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The game ID that the global stats are for.</td>
+</tr>
+<tr>
+<td>result</td>
+<td><a href="api.html#steamapiresult">SteamApiResult</a></td>
+<td>The result of the operation.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steamuserstatsattachleaderboardugcresult">SteamUserStatsAttachLeaderboardUgcResult</h1>
+<blockquote>
+<p><strong>Steamworks Struct</strong>: <a href="partner.steamgames.com/doc/api/ISteamUserStats.html#LeaderboardUGCSet_t">ISteamUserStats::LeaderboardUGCSet_t</a></p>
+</blockquote>
+<p>This struct holds a result indicating that user generated content has been attached to one of the current user's leaderboard entries.</p>
+<p>This struct is referenced by the following functions:</p>
+<ul>
+<li><a href="userstats.html#steam_userstats_attach_leaderboard_ugc">steam_userstats_attach_leaderboard_ugc</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>result</td>
+<td><a href="api.html#steamapiresult">SteamApiResult</a></td>
+<td>The result of the operation.</td>
+</tr>
+<tr>
+<td>leaderboard_handle</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>Handle to the leaderboard that the UGC was attached to.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steamuserstatsachievementiconfetched">SteamUserStatsAchievementIconFetched</h1>
+<blockquote>
+<p><strong>Steamworks Struct</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#UserAchievementIconFetched_t">ISteamUserStats::UserAchievementIconFetched_t</a></p>
+</blockquote>
+<p>This struct holds the result of an achievement icon that has been fetched.</p>
+<p>This struct is referenced by the following functions:</p>
+<ul>
+<li><a href="userstats.html#steam_userstats_achievement_icon">steam_userstats_achievement_icon</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>game_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The Game ID this achievement is for.</td>
+</tr>
+<tr>
+<td>achievement_name</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The name of the achievement that this callback is for.</td>
+</tr>
+<tr>
+<td>achieved</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></td>
+<td>Whether the icon for the achieved (<code>true</code>) or unachieved (<code>false</code>) version.</td>
+</tr>
+<tr>
+<td>icon_handle</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>Handle to the image, which can be used with <a href="utils.html#steam_utils_get_image_rgba">steam_utils_get_image_rgba</a> to get the image data. 0 means no image is set for the achievement.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steamuserstatsunloaded">SteamUserStatsUnloaded</h1>
+<blockquote>
+<p><strong>Steamworks Struct</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#UserStatsUnloaded_t">ISteamUserStats::UserStatsUnloaded_t</a></p>
+</blockquote>
+<p>This struct holds information passed in a <code>UserStatsUnloaded_t</code> callback, which indicates that a user's stats have been unloaded.</p>
+<p>This struct is referenced by the following functions:</p>
+<ul>
+<li><a href="userstats.html#steam_userstats_request_user_stats">steam_userstats_request_user_stats</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>steam_id_user</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>User whose stats have been unloaded.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steamuserstatsuserstatsreceived">SteamUserStatsUserStatsReceived</h1>
+<blockquote>
+<p><strong>Steamworks Struct</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#UserStatsReceived_t">ISteamUserStats::UserStatsReceived_t</a></p>
+</blockquote>
+<p>This struct holds the result of stats and achievements for a user having been received from the server.</p>
+<p>This struct is referenced by the following functions:</p>
+<ul>
+<li><a href="userstats.html#steam_userstats_request_user_stats">steam_userstats_request_user_stats</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>game_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The game ID that these stats are for.</td>
+</tr>
+<tr>
+<td>steam_id_user</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The Steam ID of the user whose stats were retrieved.</td>
+</tr>
+<tr>
+<td>result</td>
+<td><a href="api.html#steamapiresult">SteamApiResult</a></td>
+<td>The result of the operation.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steamuserstatsuserstatsstored">SteamUserStatsUserStatsStored</h1>
+<blockquote>
+<p><strong>Steamworks Struct</strong>: <a href="partner.steamgames.com/doc/api/ISteamUserStats.html#UserStatsStored_t">ISteamUserStats::UserStatsStored_t</a></p>
+</blockquote>
+<p>This struct holds the result of a request to store the user stats.</p>
+<p>This struct is referenced by the following functions:</p>
+<ul>
+<li><a href="userstats.html#steam_userstats_indicate_achievement_progress">steam_userstats_indicate_achievement_progress</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>game_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>Game ID that these stats are for.</td>
+</tr>
+<tr>
+<td>result</td>
+<td><a href="api.html#steamapiresult">SteamApiResult</a></td>
+<td>Returns whether the call was successful or not.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steamuserstatsuserachievementstored">SteamUserStatsUserAchievementStored</h1>
+<blockquote>
+<p><strong>Steamworks Struct</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#UserAchievementStored_t">ISteamUserStats::UserAchievementStored_t</a></p>
+</blockquote>
+<p>This struct holds the result of a request to store the achievements on the server, or an "indicate progress" call. If both <code>cur_progress</code> and <code>max_progress</code> are zero, that means the achievement has been fully unlocked.</p>
+<p>This struct is referenced by the following functions:</p>
+<ul>
+<li><a href="userstats.html#steam_userstats_indicate_achievement_progress">steam_userstats_indicate_achievement_progress</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>game_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>Game ID that this achievement is for.</td>
+</tr>
+<tr>
+<td>achievement_name</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>Name of the achievement.</td>
+</tr>
+<tr>
+<td>cur_progress</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>Current progress towards the achievement.</td>
+</tr>
+<tr>
+<td>max_progress</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The total amount of progress required to unlock.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steamuserstatsintminmax">SteamUserStatsIntMinMax</h1>
+<blockquote>
+<p><strong>Steamworks Struct</strong>: N / A</p>
+</blockquote>
+<p>This struct holds information returned by <a href="userstats.html#steam_userstats_achievement_progress_int">steam_userstats_achievement_progress_int</a>.</p>
+<p>This struct is referenced by the following functions:</p>
+<ul>
+<li><a href="userstats.html#steam_userstats_achievement_progress_int">steam_userstats_achievement_progress_int</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>min</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The minimum value.</td>
+</tr>
+<tr>
+<td>max</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The maximum value.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steamuserstatsfloatminmax">SteamUserStatsFloatMinMax</h1>
+<blockquote>
+<p><strong>Steamworks Struct</strong>: N / A</p>
+</blockquote>
+<p>This struct holds information returned by <a href="userstats.html#steam_userstats_achievement_progress_float">steam_userstats_achievement_progress_float</a>.</p>
+<p>This struct is referenced by the following functions:</p>
+<ul>
+<li><a href="userstats.html#steam_userstats_achievement_progress_float">steam_userstats_achievement_progress_float</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>min</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The minimum value.</td>
+</tr>
+<tr>
+<td>max</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The maximum value.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="user.html" class="btn btn-neutral float-left" title="User"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="utils.html" class="btn btn-neutral float-right" title="Utils">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+      <p><p align="center">GameMaker 2026</p></p>
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/YoYoGames/GMEXT-Steamworks" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="user.html" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="utils.html" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = ".";</script>
+    <script src="js/theme_extra.js"></script>
+    <script src="js/theme.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/gml.min.js"></script>
+      <script src="assets/js/gmext_script.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

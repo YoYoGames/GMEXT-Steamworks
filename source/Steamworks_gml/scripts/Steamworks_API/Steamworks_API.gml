@@ -4,195 +4,195 @@
 // # Macros
 // #####################################################################
 
-#macro SteamApiBreakpadInvalidHandle 0
+#macro STEAM_API_BREAKPAD_INVALID_HANDLE 0
 
-#macro SteamApiGameExtraInfoMax 64
+#macro STEAM_API_GAME_EXTRA_INFO_MAX 64
 
-#macro SteamApiSaltSize 8
+#macro STEAM_API_SALT_SIZE 8
 
-#macro SteamApiGidNil -1
+#macro STEAM_API_GID_NIL -1
 
-#macro SteamApiAuthTicketInvalid 0
+#macro STEAM_API_AUTH_TICKET_INVALID 0
 
-#macro SteamApiJobIdNil -1
+#macro STEAM_API_JOB_ID_NIL -1
 
-#macro SteamApiTxnIdNil -1
+#macro STEAM_API_TXN_ID_NIL -1
 
-#macro SteamApiTxnIdUnknown 0
+#macro STEAM_API_TXN_ID_UNKNOWN 0
 
-#macro SteamApiApiCallInvalid 0x0
+#macro STEAM_API_API_CALL_INVALID 0x0
 
-#macro SteamApiAppIdInvalid 0x0
+#macro STEAM_API_APP_ID_INVALID 0x0
 
-#macro SteamApiBundleIdInvalid 0
+#macro STEAM_API_BUNDLE_ID_INVALID 0
 
-#macro SteamApiCellIdInvalid 0xFFFFFFFF
+#macro STEAM_API_CELL_ID_INVALID 0xFFFFFFFF
 
-#macro SteamApiDepotIdInvalid 0x0
+#macro STEAM_API_DEPOT_ID_INVALID 0x0
 
-#macro SteamApiAssetClassIdInvalid 0x0
+#macro STEAM_API_ASSET_CLASS_ID_INVALID 0x0
 
-#macro SteamApiManifestIdInvalid 0
+#macro STEAM_API_MANIFEST_ID_INVALID 0
 
-#macro SteamApiSteamAccountIdMask 0xFFFFFFFF
+#macro STEAM_API_STEAM_ACCOUNT_ID_MASK 0xFFFFFFFF
 
-#macro SteamApiSteamAccountInstanceMask 0x000FFFFF
+#macro STEAM_API_STEAM_ACCOUNT_INSTANCE_MASK 0x000FFFFF
 
-#macro SteamApiSteamUserConsoleInstance 2
+#macro STEAM_API_STEAM_USER_CONSOLE_INSTANCE 2
 
-#macro SteamApiSteamUserDesktopInstance 1
+#macro STEAM_API_STEAM_USER_DESKTOP_INSTANCE 1
 
-#macro SteamApiSteamUserWebInstance 4
+#macro STEAM_API_STEAM_USER_WEB_INSTANCE 4
 
-#macro SteamApiPackageIdFreeSub 0x0
+#macro STEAM_API_PACKAGE_ID_FREE_SUB 0x0
 
-#macro SteamApiPackageIdInvalid 0xFFFFFFFF
+#macro STEAM_API_PACKAGE_ID_INVALID 0xFFFFFFFF
 
-#macro SteamApiPartnerIdInvalid 0
+#macro STEAM_API_PARTNER_ID_INVALID 0
 
-#macro SteamApiPhysicalItemIdInvalid 0x0
+#macro STEAM_API_PHYSICAL_ITEM_ID_INVALID 0x0
 
-#macro SteamApiQueryPortError 0xFFFE
+#macro STEAM_API_QUERY_PORT_ERROR 0xFFFE
 
-#macro SteamApiQueryPortNotInitialized 0xFFFF
+#macro STEAM_API_QUERY_PORT_NOT_INITIALIZED 0xFFFF
 
-#macro SteamIDNil 0
+#macro STEAM_ID_NIL 0
 
-#macro SteamIDNonSteamGS 2
+#macro STEAM_ID_NON_STEAM_GS 2
 
-#macro SteamFriendsMaxFriendsGroupName 64
+#macro STEAM_FRIENDS_MAX_FRIENDS_GROUP_NAME 64
 
-#macro SteamFriendsMaxRichPresenceKeyLength 64
+#macro STEAM_FRIENDS_MAX_RICH_PRESENCE_KEY_LENGTH 64
 
-#macro SteamFriendsMaxRichPresenceKeys 20
+#macro STEAM_FRIENDS_MAX_RICH_PRESENCE_KEYS 20
 
-#macro SteamFriendsMaxRichPresenceValueLength 256
+#macro STEAM_FRIENDS_MAX_RICH_PRESENCE_VALUE_LENGTH 256
 
-#macro SteamFriendsPersonaNameMax 128
+#macro STEAM_FRIENDS_PERSONA_NAME_MAX 128
 
-#macro SteamFriendsEnumerateFollowersMax 50
+#macro STEAM_FRIENDS_ENUMERATE_FOLLOWERS_MAX 50
 
-#macro SteamFriendsFriendsGroupLimit 100
+#macro STEAM_FRIENDS_FRIENDS_GROUP_LIMIT 100
 
-#macro SteamFriendsChatMetadataMax 8192
+#macro STEAM_FRIENDS_CHAT_METADATA_MAX 8192
 
-#macro SteamFriendsPersonaNameMaxUtf16 32
+#macro STEAM_FRIENDS_PERSONA_NAME_MAX_UTF16 32
 
-#macro SteamFriendsGroupIdInvalid -1
+#macro STEAM_FRIENDS_GROUP_ID_INVALID -1
 
-#macro SteamFriendsInterfaceVersion "SteamFriends015"
+#macro STEAM_FRIENDS_INTERFACE_VERSION "SteamFriends015"
 
-#macro SteamAppsAppProofOfPurchaseKeyMax 240
+#macro STEAM_APPS_APP_PROOF_OF_PURCHASE_KEY_MAX 240
 
-#macro SteamAppsInterfaceVersion "STEAMAPPS_INTERFACE_VERSION008"
+#macro STEAM_APPS_INTERFACE_VERSION "STEAMAPPS_INTERFACE_VERSION008"
 
-#macro SteamScreenshotsInvalidScreenshotHandle 0
+#macro STEAM_SCREENSHOTS_INVALID_SCREENSHOT_HANDLE 0
 
-#macro SteamScreenshotsUfsTagTypeMax 255
+#macro STEAM_SCREENSHOTS_UFS_TAG_TYPE_MAX 255
 
-#macro SteamScreenshotsUfsTagValueMax 255
+#macro STEAM_SCREENSHOTS_UFS_TAG_VALUE_MAX 255
 
-#macro SteamScreenshotsMaxTaggedPublishedFiles 32
+#macro STEAM_SCREENSHOTS_MAX_TAGGED_PUBLISHED_FILES 32
 
-#macro SteamScreenshotsMaxTaggedUsers 32
+#macro STEAM_SCREENSHOTS_MAX_TAGGED_USERS 32
 
-#macro SteamScreenshotsThumbWidth 200
+#macro STEAM_SCREENSHOTS_THUMB_WIDTH 200
 
-#macro SteamScreenshotsInterfaceVersion "STEAMSCREENSHOTS_INTERFACE_VERSION003"
+#macro STEAM_SCREENSHOTS_INTERFACE_VERSION "STEAMSCREENSHOTS_INTERFACE_VERSION003"
 
-#macro SteamUserInterfaceVersion "SteamUser019"
+#macro STEAM_USER_INTERFACE_VERSION "SteamUser019"
 
-#macro SteamUserEncryptedAppTicketSymmetricKeyLen 32
+#macro STEAM_USER_ENCRYPTED_APP_TICKET_SYMMETRIC_KEY_LEN 32
 
-#macro SteamUtilsInterfaceVersion "SteamUtils009"
+#macro STEAM_UTILS_INTERFACE_VERSION "SteamUtils009"
 
-#macro SteamUgcNumResultsPerPage 50
+#macro STEAM_UGC_NUM_RESULTS_PER_PAGE 50
 
-#macro SteamUgcDeveloperMetadataMax 5000
+#macro STEAM_UGC_DEVELOPER_METADATA_MAX 5000
 
-#macro SteamUgcQueryHandleInvalid -1
+#macro STEAM_UGC_QUERY_HANDLE_INVALID -1
 
-#macro SteamUgcUpdateHandleInvalid -1
+#macro STEAM_UGC_UPDATE_HANDLE_INVALID -1
 
-#macro SteamUgcInterfaceVersion "STEAMUGC_INTERFACE_VERSION015"
+#macro STEAM_UGC_INTERFACE_VERSION "STEAMUGC_INTERFACE_VERSION015"
 
-#macro SteamInputInterfaceVersion "SteamInput001"
+#macro STEAM_INPUT_INTERFACE_VERSION "SteamInput001"
 
-#macro SteamInputHandleAllControllers -1
+#macro STEAM_INPUT_HANDLE_ALL_CONTROLLERS -1
 
-#macro SteamInputMaxAnalogActions 16
+#macro STEAM_INPUT_MAX_ANALOG_ACTIONS 16
 
-#macro SteamInputMaxAnalogActionData 1.0
+#macro STEAM_INPUT_MAX_ANALOG_ACTION_DATA 1.0
 
-#macro SteamInputMaxCount 16
+#macro STEAM_INPUT_MAX_COUNT 16
 
-#macro SteamInputMaxDigitalActions 128
+#macro STEAM_INPUT_MAX_DIGITAL_ACTIONS 128
 
-#macro SteamInputMaxOrigins 8
+#macro STEAM_INPUT_MAX_ORIGINS 8
 
-#macro SteamInputMinAnalogActionData -1.0
+#macro STEAM_INPUT_MIN_ANALOG_ACTION_DATA -1.0
 
-#macro SteamUserStatsLeaderboardNameMax 128
+#macro STEAM_USER_STATS_LEADERBOARD_NAME_MAX 128
 
-#macro SteamUserStatsStatNameMax 128
+#macro STEAM_USER_STATS_STAT_NAME_MAX 128
 
-#macro SteamUserStatsLeaderboardDetailsMax 64
+#macro STEAM_USER_STATS_LEADERBOARD_DETAILS_MAX 64
 
-#macro SteamUserStatsInterfaceVersion "STEAMUSERSTATS_INTERFACE_VERSION011"
+#macro STEAM_USER_STATS_INTERFACE_VERSION "STEAMUSERSTATS_INTERFACE_VERSION011"
 
-#macro SteamMusicInterfaceVersion "STEAMMUSIC_INTERFACE_VERSION001"
+#macro STEAM_MUSIC_INTERFACE_VERSION "STEAMMUSIC_INTERFACE_VERSION001"
 
-#macro SteamTimelineMaxTimelinePriority 1000
+#macro STEAM_TIMELINE_MAX_TIMELINE_PRIORITY 1000
 
-#macro SteamInventoryResultInvalid -1
+#macro STEAM_INVENTORY_RESULT_INVALID -1
 
-#macro SteamInventoryItemInstanceIdInvalid -1
+#macro STEAM_INVENTORY_ITEM_INSTANCE_ID_INVALID -1
 
-#macro SteamInventoryInterfaceVersion "STEAMINVENTORY_INTERFACE_V002"
+#macro STEAM_INVENTORY_INTERFACE_VERSION "STEAMINVENTORY_INTERFACE_V002"
 
-#macro SteamRemoteStorageFilenameMax 260
+#macro STEAM_REMOTE_STORAGE_FILENAME_MAX 260
 
-#macro SteamRemoteStoragePublishedDocumentChangeDescriptionMax 8000
+#macro STEAM_REMOTE_STORAGE_PUBLISHED_DOCUMENT_CHANGE_DESCRIPTION_MAX 8000
 
-#macro SteamRemoteStoragePublishedDocumentDescriptionMax 8000
+#macro STEAM_REMOTE_STORAGE_PUBLISHED_DOCUMENT_DESCRIPTION_MAX 8000
 
-#macro SteamRemoteStoragePublishedDocumentTitleMax 129
+#macro STEAM_REMOTE_STORAGE_PUBLISHED_DOCUMENT_TITLE_MAX 129
 
-#macro SteamRemoteStoragePublishedFileUrlMax 256
+#macro STEAM_REMOTE_STORAGE_PUBLISHED_FILE_URL_MAX 256
 
-#macro SteamRemoteStorageTagListMax 1025
+#macro STEAM_REMOTE_STORAGE_TAG_LIST_MAX 1025
 
-#macro SteamRemoteStoragePublishedFileIdInvalid 0
+#macro STEAM_REMOTE_STORAGE_PUBLISHED_FILE_ID_INVALID 0
 
-#macro SteamRemoteStoragePublishedFileUpdateHandleInvalid -1
+#macro STEAM_REMOTE_STORAGE_PUBLISHED_FILE_UPDATE_HANDLE_INVALID -1
 
-#macro SteamRemoteStorageUgcFileStreamHandleInvalid -1
+#macro STEAM_REMOTE_STORAGE_UGC_FILE_STREAM_HANDLE_INVALID -1
 
-#macro SteamRemoteStorageUgcHandleInvalid -1
+#macro STEAM_REMOTE_STORAGE_UGC_HANDLE_INVALID -1
 
-#macro SteamRemoteStorageEnumeratePublishedFilesMaxResults 50
+#macro STEAM_REMOTE_STORAGE_ENUMERATE_PUBLISHED_FILES_MAX_RESULTS 50
 
-#macro SteamRemoteStorageMaxCloudFileChunkSize 104857600
+#macro STEAM_REMOTE_STORAGE_MAX_CLOUD_FILE_CHUNK_SIZE 104857600
 
-#macro SteamRemoteStorageInterfaceVersion "STEAMREMOTESTORAGE_INTERFACE_VERSION014"
+#macro STEAM_REMOTE_STORAGE_INTERFACE_VERSION "STEAMREMOTESTORAGE_INTERFACE_VERSION014"
 
-#macro SteamMatchmakingServerQueryInvalid 0xffffffff
+#macro STEAM_MATCHMAKING_SERVER_QUERY_INVALID 0xffffffff
 
-#macro SteamMatchmakingMaxLobbyKeyLength 255
+#macro STEAM_MATCHMAKING_MAX_LOBBY_KEY_LENGTH 255
 
-#macro SteamMatchmakingFavoriteFlagFavorite 0x01
+#macro STEAM_MATCHMAKING_FAVORITE_FLAG_FAVORITE 0x01
 
-#macro SteamMatchmakingFavoriteFlagHistory 0x02
+#macro STEAM_MATCHMAKING_FAVORITE_FLAG_HISTORY 0x02
 
-#macro SteamMatchmakingFavoriteFlagNone 0x00
+#macro STEAM_MATCHMAKING_FAVORITE_FLAG_NONE 0x00
 
-#macro SteamMatchmakingServersInterfaceVersion "SteamMatchMakingServers002"
+#macro STEAM_MATCHMAKING_SERVERS_INTERFACE_VERSION "SteamMatchMakingServers002"
 
-#macro SteamMatchmakingInterfaceVersion "SteamMatchMaking009"
+#macro STEAM_MATCHMAKING_INTERFACE_VERSION "SteamMatchMaking009"
 
-#macro SteamNetworkingPollGroup_Invalid 0
+#macro STEAM_NETWORKING_POLL_GROUP_INVALID 0
 
-#macro SteamNetworkingSocketsMaxMessageSizeSend 524288
+#macro STEAM_NETWORKING_SOCKETS_MAX_MESSAGE_SIZE_SEND 524288
 
 // #####################################################################
 // # Enums

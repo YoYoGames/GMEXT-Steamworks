@@ -1,0 +1,2149 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="img/favicon.ico" />
+    <title>Utils - GMEXT-Steamworks</title>
+    <link rel="stylesheet" href="css/theme.css" />
+    <link rel="stylesheet" href="css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+        <link href="assets/css/gmext_style.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Utils";
+        var mkdocs_page_input_path = "utils.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/gml.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="index.html" class="icon icon-home"> GMEXT-Steamworks
+        </a>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="index.html">Welcome to MkDocs</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="_footer.html"> footer</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="_sidebar.html"> sidebar</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="api.html">Api</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="apps.html">Apps</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="friends.html">Friends</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="guides.html">Guides</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="home.html">Home</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="input.html">Input</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="inventory.html">Inventory</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="matchmaking.html">Matchmaking</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="music.html">Music</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="networking.html">Networking</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="parties.html">Parties</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="remote_storage.html">Remote storage</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="screenshots.html">Screenshots</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="timeline.html">Timeline</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="ugc.html">Ugc</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="user.html">User</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="userstats.html">Userstats</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="#">Utils</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#functions">Functions</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#constants">Constants</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#structs">Structs</a>
+    </li>
+    </ul>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">GMEXT-Steamworks</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html" class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Utils</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/YoYoGames/GMEXT-Steamworks/edit/master/docs/utils.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <p><a id="top"></a></p>
+<h1 id="utils"><strong>Utils</strong></h1>
+<blockquote>
+<p><strong>Steamworks Interface</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUtils">ISteamUtils</a></p>
+</blockquote>
+<p>This module provides access to a range of miscellaneous utility functions.</p>
+<h2 id="functions">Functions</h2>
+<p>These are the functions of the Utils module:</p>
+<ul>
+<li><a href="utils.html#steam_utils_overlay_needs_present">steam_utils_overlay_needs_present</a></li>
+<li><a href="utils.html#steam_utils_get_api_call_failure_reason">steam_utils_get_api_call_failure_reason</a></li>
+<li><a href="utils.html#steam_utils_get_api_call_result">steam_utils_get_api_call_result</a></li>
+<li><a href="utils.html#steam_utils_set_callback_ip_country">steam_utils_set_callback_ip_country</a></li>
+<li><a href="utils.html#steam_utils_clear_callback_ip_country">steam_utils_clear_callback_ip_country</a></li>
+<li><a href="utils.html#steam_utils_set_callback_low_battery_power">steam_utils_set_callback_low_battery_power</a></li>
+<li><a href="utils.html#steam_utils_clear_callback_low_battery_power">steam_utils_clear_callback_low_battery_power</a></li>
+<li><a href="utils.html#steam_utils_set_callback_steam_api_call_completed">steam_utils_set_callback_steam_api_call_completed</a></li>
+<li><a href="utils.html#steam_utils_clear_callback_steam_api_call_completed">steam_utils_clear_callback_steam_api_call_completed</a></li>
+<li><a href="utils.html#steam_utils_set_callback_app_resuming_from_suspend">steam_utils_set_callback_app_resuming_from_suspend</a></li>
+<li><a href="utils.html#steam_utils_clear_callback_app_resuming_from_suspend">steam_utils_clear_callback_app_resuming_from_suspend</a></li>
+<li><a href="utils.html#steam_utils_set_callback_steam_shutdown">steam_utils_set_callback_steam_shutdown</a></li>
+<li><a href="utils.html#steam_utils_clear_callback_steam_shutdown">steam_utils_clear_callback_steam_shutdown</a></li>
+<li><a href="utils.html#steam_utils_get_app_id">steam_utils_get_app_id</a></li>
+<li><a href="utils.html#steam_utils_get_connected_universe">steam_utils_get_connected_universe</a></li>
+<li><a href="utils.html#steam_utils_get_current_battery_power">steam_utils_get_current_battery_power</a></li>
+<li><a href="utils.html#steam_utils_get_entered_gamepad_text_input">steam_utils_get_entered_gamepad_text_input</a></li>
+<li><a href="utils.html#steam_utils_get_entered_gamepad_text_length">steam_utils_get_entered_gamepad_text_length</a></li>
+<li><a href="utils.html#steam_utils_get_image_rgba">steam_utils_get_image_rgba</a></li>
+<li><a href="utils.html#steam_utils_get_image_size">steam_utils_get_image_size</a></li>
+<li><a href="utils.html#steam_utils_get_ipc_call_count">steam_utils_get_ipc_call_count</a></li>
+<li><a href="utils.html#steam_utils_get_ip_country">steam_utils_get_ip_country</a></li>
+<li><a href="utils.html#steam_utils_get_seconds_since_app_active">steam_utils_get_seconds_since_app_active</a></li>
+<li><a href="utils.html#steam_utils_get_seconds_since_computer_active">steam_utils_get_seconds_since_computer_active</a></li>
+<li><a href="utils.html#steam_utils_get_server_real_time">steam_utils_get_server_real_time</a></li>
+<li><a href="utils.html#steam_utils_get_steam_ui_language">steam_utils_get_steam_ui_language</a></li>
+<li><a href="utils.html#steam_utils_is_overlay_enabled">steam_utils_is_overlay_enabled</a></li>
+<li><a href="utils.html#steam_utils_is_steam_in_big_picture_mode">steam_utils_is_steam_in_big_picture_mode</a></li>
+<li><a href="utils.html#steam_utils_is_steam_running_in_vr">steam_utils_is_steam_running_in_vr</a></li>
+<li><a href="utils.html#steam_utils_is_steam_running_on_steam_deck">steam_utils_is_steam_running_on_steam_deck</a></li>
+<li><a href="utils.html#steam_utils_is_steam_china_launcher">steam_utils_is_steam_china_launcher</a></li>
+<li><a href="utils.html#steam_utils_is_api_call_completed">steam_utils_is_api_call_completed</a></li>
+<li><a href="utils.html#steam_utils_init_filter_text">steam_utils_init_filter_text</a></li>
+<li><a href="utils.html#steam_utils_filter_text">steam_utils_filter_text</a></li>
+<li><a href="utils.html#steam_utils_is_vr_headset_streaming_enabled">steam_utils_is_vr_headset_streaming_enabled</a></li>
+<li><a href="utils.html#steam_utils_set_overlay_notification_inset">steam_utils_set_overlay_notification_inset</a></li>
+<li><a href="utils.html#steam_utils_set_overlay_notification_position">steam_utils_set_overlay_notification_position</a></li>
+<li><a href="utils.html#steam_utils_set_vr_headset_streaming_enabled">steam_utils_set_vr_headset_streaming_enabled</a></li>
+<li><a href="utils.html#steam_utils_show_gamepad_text_input">steam_utils_show_gamepad_text_input</a></li>
+<li><a href="utils.html#steam_utils_show_floating_gamepad_text_input">steam_utils_show_floating_gamepad_text_input</a></li>
+<li><a href="utils.html#steam_utils_dismiss_floating_gamepad_text_input">steam_utils_dismiss_floating_gamepad_text_input</a></li>
+<li><a href="utils.html#steam_utils_start_vr_dashboard">steam_utils_start_vr_dashboard</a></li>
+<li><a href="utils.html#steam_utils_set_game_launcher_mode">steam_utils_set_game_launcher_mode</a></li>
+<li><a href="utils.html#steam_utils_set_callback_gamepad_text_input_dismissed">steam_utils_set_callback_gamepad_text_input_dismissed</a></li>
+<li><a href="utils.html#steam_utils_clear_callback_gamepad_text_input_dismissed">steam_utils_clear_callback_gamepad_text_input_dismissed</a></li>
+<li><a href="utils.html#steam_utils_set_callback_floating_gamepad_text_input_dismissed">steam_utils_set_callback_floating_gamepad_text_input_dismissed</a></li>
+<li><a href="utils.html#steam_utils_clear_callback_floating_gamepad_text_input_dismissed">steam_utils_clear_callback_floating_gamepad_text_input_dismissed</a></li>
+<li><a href="utils.html#steam_utils_set_callback_warning_message">steam_utils_set_callback_warning_message</a></li>
+<li><a href="utils.html#steam_utils_clear_callback_warning_message">steam_utils_clear_callback_warning_message</a></li>
+</ul>
+<h2 id="constants">Constants</h2>
+<p>These are the constants and enums of the Utils module:</p>
+<ul>
+<li><a href="utils.html#steamutilscheckfilesignature">SteamUtilsCheckFileSignature</a></li>
+<li><a href="utils.html#steamutilsapicallfailure">SteamUtilsApiCallFailure</a></li>
+<li><a href="utils.html#steamutilsgamepadtextinputmode">SteamUtilsGamepadTextInputMode</a></li>
+<li><a href="utils.html#steamutilsgamepadtextinputlinemode">SteamUtilsGamepadTextInputLineMode</a></li>
+<li><a href="utils.html#steamutilsfloatinggamepadtextinputmode">SteamUtilsFloatingGamepadTextInputMode</a></li>
+<li><a href="utils.html#steamutilstextfilteringcontext">SteamUtilsTextFilteringContext</a></li>
+</ul>
+<h2 id="structs">Structs</h2>
+<p>These are the structs of the Utils module:</p>
+<ul>
+<li><a href="utils.html#steamutilslowbatterypower">SteamUtilsLowBatteryPower</a></li>
+<li><a href="utils.html#steamutilssteamapicallcompleted">SteamUtilsSteamApiCallCompleted</a></li>
+<li><a href="utils.html#steamutilsimagesize">SteamUtilsImageSize</a></li>
+<li><a href="utils.html#steamutilsfiltertextresult">SteamUtilsFilterTextResult</a></li>
+<li><a href="utils.html#steamutilsgamepadtextinputdismissed">SteamUtilsGamepadTextInputDismissed</a></li>
+<li><a href="utils.html#steamutilsfloatinggamepadtextinputdismissed">SteamUtilsFloatingGamepadTextInputDismissed</a></li>
+<li><a href="utils.html#steamutilswarningmessage">SteamUtilsWarningMessage</a></li>
+</ul>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_utils_overlay_needs_present">steam_utils_overlay_needs_present</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUtils#BOverlayNeedsPresent">ISteamUtils::BOverlayNeedsPresent</a></p>
+</blockquote>
+<p>This function checks if the Overlay needs a present. Only required if using event driven render updates.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_utils_overlay_needs_present()
+</code></pre></div>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_utils_get_api_call_failure_reason">steam_utils_get_api_call_failure_reason</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUtils#GetAPICallFailureReason">ISteamUtils::GetAPICallFailureReason</a></p>
+</blockquote>
+<p>This function is used to get the failure reason of a call result.</p>
+<p>The primary usage for this function is debugging. The failure reasons are typically out of your control and tend to not be very important. Just keep retrying your API Call until it works.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_utils_get_api_call_failure_reason(steam_api_call)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>steam_api_call</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The Steam API Call handle to check the failure for.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="utils.html#steamutilsapicallfailure">SteamUtilsApiCallFailure</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_utils_get_api_call_result">steam_utils_get_api_call_result</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUtils#GetAPICallResult">ISteamUtils::GetAPICallResult</a></p>
+</blockquote>
+<p>This function gets the content of a completed API Call. Provided for the backend of the CallResult wrapper.</p>
+<p>It's generally not recommended that you use this manually.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_utils_get_api_call_result(steam_api_call, callback_expected, out_callback)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>steam_api_call</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The handle to the API Call.</td>
+</tr>
+<tr>
+<td>callback_expected</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The k_iCallback number associated with the callback.</td>
+</tr>
+<tr>
+<td>out_callback</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Buffers/Buffers.htm">Buffer</a></td>
+<td>Returns the callback into the preallocated memory provided.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_utils_set_callback_ip_country">steam_utils_set_callback_ip_country</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: N / A</p>
+</blockquote>
+<p>This function sets the function to be called when the country of the user changed.</p>
+<p>The country should be updated with <a href="utils.html#steam_utils_get_ip_country">steam_utils_get_ip_country</a>.</p>
+<p>See: <a href="https://partner.steamgames.com/doc/api/ISteamUtils#IPCountry_t">ISteamUtils::IPCountry_t</a></p>
+<p>This callback has no fields.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_utils_set_callback_ip_country(callback)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>callback</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Script_Functions.htm">Function</a></td>
+<td>The function to be called when the user's IP country changes.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_utils_clear_callback_ip_country">steam_utils_clear_callback_ip_country</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: N / A</p>
+</blockquote>
+<p>This function clears the callback previously set with <a href="utils.html#steam_utils_set_callback_ip_country">steam_utils_set_callback_ip_country</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_utils_clear_callback_ip_country()
+</code></pre></div>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_utils_set_callback_low_battery_power">steam_utils_set_callback_low_battery_power</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: N / A</p>
+</blockquote>
+<p>This function sets the function to be called when running on a laptop and less than 10 minutes of battery is left. The callback then fires every minute afterwards.</p>
+<p>See: <a href="https://partner.steamgames.com/doc/api/ISteamUtils#LowBatteryPower_t">ISteamUtils::LowBatteryPower_t</a></p>
+<p>See: <a href="utils.html#steamutilslowbatterypower">SteamUtilsLowBatteryPower</a></p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_utils_set_callback_low_battery_power(callback)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>callback</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Script_Functions.htm">Function</a></td>
+<td>The function to be called when the system reports the device is low on battery power.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_utils_clear_callback_low_battery_power">steam_utils_clear_callback_low_battery_power</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: N / A</p>
+</blockquote>
+<p>This function clears the callback previously set with <a href="utils.html#steam_utils_set_callback_low_battery_power">steam_utils_set_callback_low_battery_power</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_utils_clear_callback_low_battery_power()
+</code></pre></div>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_utils_set_callback_steam_api_call_completed">steam_utils_set_callback_steam_api_call_completed</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: N / A</p>
+</blockquote>
+<p>This function sets the function to be called when a SteamAPICall_t has completed (or failed).</p>
+<p>See: <a href="https://partner.steamgames.com/doc/api/ISteamUtils#SteamAPICallCompleted_t">ISteamUtils::SteamAPICallCompleted_t</a></p>
+<p>See: <a href="utils.html#steamutilssteamapicallcompleted">SteamUtilsSteamApiCallCompleted</a></p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_utils_set_callback_steam_api_call_completed(callback)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>callback</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Script_Functions.htm">Function</a></td>
+<td>The function to be called when an asynchronous Steam API call is completed.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_utils_clear_callback_steam_api_call_completed">steam_utils_clear_callback_steam_api_call_completed</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: N / A</p>
+</blockquote>
+<p>This function clears the callback previously set with <a href="utils.html#steam_utils_set_callback_steam_api_call_completed">steam_utils_set_callback_steam_api_call_completed</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_utils_clear_callback_steam_api_call_completed()
+</code></pre></div>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_utils_set_callback_app_resuming_from_suspend">steam_utils_set_callback_app_resuming_from_suspend</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: N / A</p>
+</blockquote>
+<p>This function sets the function to be called after the device returns from sleep/suspend mode.</p>
+<p>See: <a href="https://partner.steamgames.com/doc/api/ISteamUtils#AppResumingFromSuspend_t">ISteamUtils::AppResumingFromSuspend_t</a></p>
+<p>This callback has no fields.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_utils_set_callback_app_resuming_from_suspend(callback)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>callback</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Script_Functions.htm">Function</a></td>
+<td>The function to be called when the app is resuming from suspend.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_utils_clear_callback_app_resuming_from_suspend">steam_utils_clear_callback_app_resuming_from_suspend</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: N / A</p>
+</blockquote>
+<p>This function clears the callback previously set with <a href="utils.html#steam_utils_set_callback_app_resuming_from_suspend">steam_utils_set_callback_app_resuming_from_suspend</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_utils_clear_callback_app_resuming_from_suspend()
+</code></pre></div>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_utils_set_callback_steam_shutdown">steam_utils_set_callback_steam_shutdown</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: N / A</p>
+</blockquote>
+<p>This function sets the function to be called when Steam wants to shutdown.</p>
+<p>See: <a href="https://partner.steamgames.com/doc/api/ISteamUtils#SteamShutdown_t">ISteamUtils::SteamShutdown_t</a></p>
+<p>This callback has no fields.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_utils_set_callback_steam_shutdown(callback)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>callback</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Script_Functions.htm">Function</a></td>
+<td>The function to be called when Steam is about to shut down.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_utils_clear_callback_steam_shutdown">steam_utils_clear_callback_steam_shutdown</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: N / A</p>
+</blockquote>
+<p>This function clears the callback previously set with <a href="utils.html#steam_utils_set_callback_steam_shutdown">steam_utils_set_callback_steam_shutdown</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_utils_clear_callback_steam_shutdown()
+</code></pre></div>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_utils_get_app_id">steam_utils_get_app_id</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUtils#GetAppID">ISteamUtils::GetAppID</a></p>
+</blockquote>
+<p>This function gets the App ID of the current process.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_utils_get_app_id()
+</code></pre></div>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_utils_get_connected_universe">steam_utils_get_connected_universe</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUtils#GetConnectedUniverse">ISteamUtils::GetConnectedUniverse</a></p>
+</blockquote>
+<p>This function gets the universe that the current client is connecting to. (Valve use only.)</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_utils_get_connected_universe()
+</code></pre></div>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="api.html#steamapiuniverse">SteamApiUniverse</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_utils_get_current_battery_power">steam_utils_get_current_battery_power</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUtils#GetCurrentBatteryPower">ISteamUtils::GetCurrentBatteryPower</a></p>
+</blockquote>
+<p>This function gets the current amount of battery power on the computer.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_utils_get_current_battery_power()
+</code></pre></div>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p>The current battery power ranging between [0..100]%. Returns 255 when the user is on AC power.</p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_utils_get_entered_gamepad_text_input">steam_utils_get_entered_gamepad_text_input</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUtils#GetEnteredGamepadTextInput">ISteamUtils::GetEnteredGamepadTextInput</a></p>
+</blockquote>
+<p>This function gets the gamepad text input from the Big Picture overlay. This must be called within the <a href="https://partner.steamgames.com/doc/api/ISteamUtils#GamepadTextInputDismissed_t">GamepadTextInputDismissed_t</a> callback, and only if <code>submitted</code> is true.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_utils_get_entered_gamepad_text_input()
+</code></pre></div>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_utils_get_entered_gamepad_text_length">steam_utils_get_entered_gamepad_text_length</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUtils#GetEnteredGamepadTextLength">ISteamUtils::GetEnteredGamepadTextLength</a></p>
+</blockquote>
+<p>This function gets the length of the gamepad text input from the Big Picture overlay.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_utils_get_entered_gamepad_text_length()
+</code></pre></div>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_utils_get_image_rgba">steam_utils_get_image_rgba</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUtils#GetImageRGBA">ISteamUtils::GetImageRGBA</a></p>
+</blockquote>
+<p>This function gets the image bytes from an image handle.</p>
+<p>Prior to calling this you must get the size of the image by calling <a href="utils.html#steam_utils_get_image_size">steam_utils_get_image_size</a> so that you can create your buffer with an appropriate size. You can then allocate your buffer with the width and height as: width * height * 4. The image is provided in RGBA format. This call can be somewhat expensive as it converts from the compressed type (JPG, PNG, TGA) and provides no internal caching of returned buffer, thus it is highly recommended to only call this once per image handle and cache the result. This function is only used for Steam Avatars and Achievement images and those are not expected to change mid game.</p>
+<p>See also: ${function.buffer_set_surface}</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_utils_get_image_rgba(image_handle, dest)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>image_handle</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The handle to the image that will be obtained.</td>
+</tr>
+<tr>
+<td>dest</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Buffers/Buffers.htm">Buffer</a></td>
+<td>The buffer that will be filled.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_utils_get_image_size">steam_utils_get_image_size</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUtils#GetImageSize">ISteamUtils::GetImageSize</a></p>
+</blockquote>
+<p>This function gets the size of a Steam image handle.</p>
+<p>This must be called before calling <a href="utils.html#steam_utils_get_image_rgba">steam_utils_get_image_rgba</a> to create an appropriately sized buffer that will be filled with the raw image data.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_utils_get_image_size(image_handle)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>image_handle</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The image handle to get the size for.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="utils.html#steamutilsimagesize">SteamUtilsImageSize</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_utils_get_ipc_call_count">steam_utils_get_ipc_call_count</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUtils#GetIPCCallCount">ISteamUtils::GetIPCCallCount</a></p>
+</blockquote>
+<p>This function returns the number of IPC calls made since the last time this function was called.</p>
+<p>Every IPC call is at minimum a thread context switch if not a process one so you want to rate control how often you do them.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_utils_get_ipc_call_count()
+</code></pre></div>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_utils_get_ip_country">steam_utils_get_ip_country</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUtils#GetIPCountry">ISteamUtils::GetIPCountry</a></p>
+</blockquote>
+<p>This function returns the 2 digit ISO 3166-1-alpha-2 format country code which client is running in.</p>
+<p>This is looked up via an IP-to-location database.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_utils_get_ip_country()
+</code></pre></div>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_utils_get_seconds_since_app_active">steam_utils_get_seconds_since_app_active</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUtils#GetSecondsSinceAppActive">ISteamUtils::GetSecondsSinceAppActive</a></p>
+</blockquote>
+<p>This function returns the number of seconds since the application was active.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_utils_get_seconds_since_app_active()
+</code></pre></div>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_utils_get_seconds_since_computer_active">steam_utils_get_seconds_since_computer_active</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUtils#GetSecondsSinceComputerActive">ISteamUtils::GetSecondsSinceComputerActive</a></p>
+</blockquote>
+<p>This function returns the number of seconds since the user last moved the mouse.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_utils_get_seconds_since_computer_active()
+</code></pre></div>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_utils_get_server_real_time">steam_utils_get_server_real_time</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUtils#GetServerRealTime">ISteamUtils::GetServerRealTime</a></p>
+</blockquote>
+<p>This function returns the Steam server time in Unix epoch format. (Number of seconds since Jan 1, 1970 UTC)</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_utils_get_server_real_time()
+</code></pre></div>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_utils_get_steam_ui_language">steam_utils_get_steam_ui_language</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUtils#GetSteamUILanguage">ISteamUtils::GetSteamUILanguage</a></p>
+</blockquote>
+<p>This function returns the language the Steam client is running in.</p>
+<p>You probably want <a href="apps.html#steam_apps_get_current_game_language">steam_apps_get_current_game_language</a> instead, this should only be used in very special cases.</p>
+<p>For a full list of languages see <a href="https://partner.steamgames.com/doc/store/localization/languages">Supported Languages</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_utils_get_steam_ui_language()
+</code></pre></div>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_utils_is_overlay_enabled">steam_utils_is_overlay_enabled</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUtils#IsOverlayEnabled">ISteamUtils::IsOverlayEnabled</a></p>
+</blockquote>
+<p>This function checks if the <a href="https://partner.steamgames.com/doc/features/overlay">Steam Overlay</a> is running &amp; the user can access it.</p>
+<p>The overlay process could take a few seconds to start &amp; hook the game process, so this function will initially return <code>false</code> while the overlay is loading.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_utils_is_overlay_enabled()
+</code></pre></div>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_utils_is_steam_in_big_picture_mode">steam_utils_is_steam_in_big_picture_mode</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUtils#IsSteamInBigPictureMode">ISteamUtils::IsSteamInBigPictureMode</a></p>
+</blockquote>
+<p>This function checks if Steam &amp; the Steam Overlay are running in Big Picture mode.</p>
+<p>Games must be launched through the Steam client to enable the Big Picture overlay.
+During development, a game can be added as a non-Steam game to the developer's library to test this feature.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_utils_is_steam_in_big_picture_mode()
+</code></pre></div>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_utils_is_steam_running_in_vr">steam_utils_is_steam_running_in_vr</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUtils#IsSteamRunningInVR">ISteamUtils::IsSteamRunningInVR</a></p>
+</blockquote>
+<p>This function checks if Steam is running in VR mode.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_utils_is_steam_running_in_vr()
+</code></pre></div>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_utils_is_steam_running_on_steam_deck">steam_utils_is_steam_running_on_steam_deck</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUtils#IsSteamRunningOnSteamDeck">ISteamUtils::IsSteamRunningOnSteamDeck</a></p>
+</blockquote>
+<p>This function checks if Steam is running on a Steam Deck, or any other SteamOS device.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_utils_is_steam_running_on_steam_deck()
+</code></pre></div>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_utils_is_steam_china_launcher">steam_utils_is_steam_china_launcher</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUtils#IsSteamChinaLauncher">ISteamUtils::IsSteamChinaLauncher</a></p>
+</blockquote>
+<p>This function returns whether the current launcher is a Steam China launcher. You can cause the client to behave as the Steam China launcher by adding <code>-dev -steamchina</code> to the command line when running Steam.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_utils_is_steam_china_launcher()
+</code></pre></div>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_utils_is_api_call_completed">steam_utils_is_api_call_completed</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUtils#IsAPICallCompleted">ISteamUtils::IsAPICallCompleted</a></p>
+</blockquote>
+<p>This function checks if an API Call is completed. Provides the backend of the CallResult wrapper.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_utils_is_api_call_completed(steam_api_call)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>steam_api_call</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The API Call handle to check.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_utils_init_filter_text">steam_utils_init_filter_text</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUtils#InitFilterText">ISteamUtils::InitFilterText</a></p>
+</blockquote>
+<p>This function initializes text filtering, loading dictionaries for the language the game is running in.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_utils_init_filter_text()
+</code></pre></div>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_utils_filter_text">steam_utils_filter_text</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUtils#FilterText">ISteamUtils::FilterText</a></p>
+</blockquote>
+<p>This function filters the provided input message.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_utils_filter_text(context, source_steam_id, input_message)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>context</td>
+<td><a href="utils.html#steamutilstextfilteringcontext">SteamUtilsTextFilteringContext</a></td>
+<td>The type of content in the input string.</td>
+</tr>
+<tr>
+<td>source_steam_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The Steam ID that is the source of the input string (e.g. the player with the name, or who said the chat text).</td>
+</tr>
+<tr>
+<td>input_message</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The input string that should be filtered, which can be ASCII or UTF-8.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="utils.html#steamutilsfiltertextresult">SteamUtilsFilterTextResult</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_utils_is_vr_headset_streaming_enabled">steam_utils_is_vr_headset_streaming_enabled</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUtils#IsVRHeadsetStreamingEnabled">ISteamUtils::IsVRHeadsetStreamingEnabled</a></p>
+</blockquote>
+<p>This function checks if the HMD view is being streamed via Steam Remote Play.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_utils_is_vr_headset_streaming_enabled()
+</code></pre></div>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_utils_set_overlay_notification_inset">steam_utils_set_overlay_notification_inset</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUtils#SetOverlayNotificationInset">ISteamUtils::SetOverlayNotificationInset</a></p>
+</blockquote>
+<p>This function sets the inset of the overlay notification from the corner specified by <a href="utils.html#steam_utils_set_overlay_notification_position">steam_utils_set_overlay_notification_position</a>.</p>
+<p>A value of (0, 0) resets the position into the corner.</p>
+<p>This position is per-game and is reset each launch.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_utils_set_overlay_notification_inset(horizontal_inset, vertical_inset)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>horizontal_inset</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The horizontal (left-right) distance in pixels from the corner.</td>
+</tr>
+<tr>
+<td>vertical_inset</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The vertical (up-down) distance in pixels from the corner.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_utils_set_overlay_notification_position">steam_utils_set_overlay_notification_position</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUtils#SetOverlayNotificationPosition">ISteamUtils::SetOverlayNotificationPosition</a></p>
+</blockquote>
+<p>This function sets which corner the Steam overlay notification popup should display itself in.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_utils_set_overlay_notification_position(notification_position)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>notification_position</td>
+<td><a href="api.html#steamapinotificationposition">SteamApiNotificationPosition</a></td>
+<td>The position on the screen where the overlay notification popup should be displayed.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_utils_set_vr_headset_streaming_enabled">steam_utils_set_vr_headset_streaming_enabled</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUtils#SetVRHeadsetStreamingEnabled">ISteamUtils::SetVRHeadsetStreamingEnabled</a></p>
+</blockquote>
+<p>This function sets whether the HMD content will be streamed via Steam Remote Play.</p>
+<p>If this is enabled, then the scene in the HMD headset will be streamed, and remote input will not be allowed. Otherwise if this is disabled, then the application window will be streamed instead, and remote input will be allowed. VR games default to enabled unless "VRHeadsetStreaming" "0" is in the extended appinfo for a game.</p>
+<p>This is useful for games that have asymmetric multiplayer gameplay.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_utils_set_vr_headset_streaming_enabled(enabled)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>enabled</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></td>
+<td>Turns VR HMD Streaming on (<code>true</code>) or off (<code>false</code>).</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_utils_show_gamepad_text_input">steam_utils_show_gamepad_text_input</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUtils#ShowGamepadTextInput">ISteamUtils::ShowGamepadTextInput</a></p>
+</blockquote>
+<p>This function activates the Big Picture text input dialog which only supports gamepad input.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Steam needs to be in Big Picture mode for this function to work.</p>
+</div>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_utils_show_gamepad_text_input(input_mode, line_mode, description, char_max, existing_text)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>input_mode</td>
+<td><a href="utils.html#steamutilsgamepadtextinputmode">SteamUtilsGamepadTextInputMode</a></td>
+<td>Selects the input mode to use, either Normal or Password (hidden text).</td>
+</tr>
+<tr>
+<td>line_mode</td>
+<td><a href="utils.html#steamutilsgamepadtextinputlinemode">SteamUtilsGamepadTextInputLineMode</a></td>
+<td>Controls whether to use single or multi line input.</td>
+</tr>
+<tr>
+<td>description</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>Sets the description that should inform the user what the input dialog is for.</td>
+</tr>
+<tr>
+<td>char_max</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The maximum number of characters that the user can input.</td>
+</tr>
+<tr>
+<td>existing_text</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>Sets the preexisting text which the user can edit.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_utils_show_floating_gamepad_text_input">steam_utils_show_floating_gamepad_text_input</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUtils#ShowFloatingGamepadTextInput">ISteamUtils::ShowFloatingGamepadTextInput</a></p>
+</blockquote>
+<p>This function opens a floating keyboard over the game content and sends OS keyboard keys directly to the game.
+The text field position is specified in pixels relative to the origin of the game window and is used to position the floating keyboard in a way that doesn't cover the text field.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Steam needs to be in Big Picture mode for this function to work.</p>
+</div>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_utils_show_floating_gamepad_text_input(keyboard_mode, text_field_x, text_field_y, text_field_width, text_field_height)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>keyboard_mode</td>
+<td><a href="utils.html#steamutilsfloatinggamepadtextinputmode">SteamUtilsFloatingGamepadTextInputMode</a></td>
+<td>Selects the keyboard type to use.</td>
+</tr>
+<tr>
+<td>text_field_x</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>X coordinate of text field which shouldn't be obscured by the floating keyboard.</td>
+</tr>
+<tr>
+<td>text_field_y</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>Y coordinate of text field which shouldn't be obscured by the floating keyboard.</td>
+</tr>
+<tr>
+<td>text_field_width</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>Width of text field which shouldn't be obscured by the floating keyboard.</td>
+</tr>
+<tr>
+<td>text_field_height</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>Height of text field which shouldn't be obscured by the floating keyboard.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_utils_dismiss_floating_gamepad_text_input">steam_utils_dismiss_floating_gamepad_text_input</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="">ISteamUtils::DismissFloatingGamepadTextInput</a></p>
+</blockquote>
+<p>This function dismisses the floating keyboard.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_utils_dismiss_floating_gamepad_text_input()
+</code></pre></div>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_utils_start_vr_dashboard">steam_utils_start_vr_dashboard</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUtils#StartVRDashboard">ISteamUtils::StartVRDashboard</a></p>
+</blockquote>
+<p>This function asks Steam to create and render the OpenVR dashboard.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_utils_start_vr_dashboard()
+</code></pre></div>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_utils_set_game_launcher_mode">steam_utils_set_game_launcher_mode</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUtils#SetGameLauncherMode">ISteamUtils::SetGameLauncherMode</a></p>
+</blockquote>
+<p>This function sets the game launcher mode, so that Steam Input translates controller input into mouse and keyboard input to navigate the launcher, for launchers that do not have native controller support.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_utils_set_game_launcher_mode(launcher_mode)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>launcher_mode</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></td>
+<td>Whether a launcher is active or not.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_utils_set_callback_gamepad_text_input_dismissed">steam_utils_set_callback_gamepad_text_input_dismissed</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: N / A</p>
+</blockquote>
+<p>This function sets the function to be called when big picture gamepad text input has been closed.</p>
+<p>See: <a href="https://partner.steamgames.com/doc/api/ISteamUtils#GamepadTextInputDismissed_t">ISteamUtils::GamepadTextInputDismissed_t</a></p>
+<p>See: <a href="utils.html#steamutilsgamepadtextinputdismissed">SteamUtilsGamepadTextInputDismissed</a></p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_utils_set_callback_gamepad_text_input_dismissed(callback)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>callback</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Script_Functions.htm">Function</a></td>
+<td>The function to be called when the gamepad text input dialog is dismissed.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_utils_clear_callback_gamepad_text_input_dismissed">steam_utils_clear_callback_gamepad_text_input_dismissed</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: N / A</p>
+</blockquote>
+<p>This function clears the callback previously set with <a href="utils.html#steam_utils_set_callback_gamepad_text_input_dismissed">steam_utils_set_callback_gamepad_text_input_dismissed</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_utils_clear_callback_gamepad_text_input_dismissed()
+</code></pre></div>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_utils_set_callback_floating_gamepad_text_input_dismissed">steam_utils_set_callback_floating_gamepad_text_input_dismissed</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: N / A</p>
+</blockquote>
+<p>This function sets the function to be called when the floating keyboard invoked from <a href="utils.html#steam_utils_show_floating_gamepad_text_input">steam_utils_show_floating_gamepad_text_input</a> has been closed.</p>
+<p>See: <a href="utils.html#steamutilsfloatinggamepadtextinputdismissed">SteamUtilsFloatingGamepadTextInputDismissed</a></p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_utils_set_callback_floating_gamepad_text_input_dismissed(callback)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>callback</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Script_Functions.htm">Function</a></td>
+<td>The function to be called when the floating gamepad text input is dismissed.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_utils_clear_callback_floating_gamepad_text_input_dismissed">steam_utils_clear_callback_floating_gamepad_text_input_dismissed</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: N / A</p>
+</blockquote>
+<p>This function clears the callback previously set with <a href="utils.html#steam_utils_set_callback_floating_gamepad_text_input_dismissed">steam_utils_set_callback_floating_gamepad_text_input_dismissed</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_utils_clear_callback_floating_gamepad_text_input_dismissed()
+</code></pre></div>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_utils_set_callback_warning_message">steam_utils_set_callback_warning_message</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUtils#SetWarningMessageHook">ISteamUtils::SetWarningMessageHook</a></p>
+</blockquote>
+<p>This function sets a warning message hook to receive SteamAPI warnings and info messages in a callback function.</p>
+<p>The callback will receive a struct with members defined in <a href="utils.html#steamutilswarningmessage">SteamUtilsWarningMessage</a>.</p>
+<p>Callbacks will occur directly after the API function is called that generated the warning or message</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_utils_set_callback_warning_message(callback)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>callback</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Script_Functions.htm">Function</a></td>
+<td>The function to be called when a SteamAPI warning or info message is received.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_utils_clear_callback_warning_message">steam_utils_clear_callback_warning_message</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: N / A</p>
+</blockquote>
+<p>This function clears the callback previously set with <a href="utils.html#steam_utils_set_callback_warning_message">steam_utils_set_callback_warning_message</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_utils_clear_callback_warning_message()
+</code></pre></div>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steamutilscheckfilesignature">SteamUtilsCheckFileSignature</h1>
+<blockquote>
+<p><strong>Steamworks Enum</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUtils#ECheckFileSignature">ISteamUtils::ECheckFileSignature</a></p>
+</blockquote>
+<p>This enum holds the possible results of a file signature check.</p>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>InvalidSignature</code></td>
+<td>Invalid signature.</td>
+</tr>
+<tr>
+<td><code>ValidSignature</code></td>
+<td>Valid signature.</td>
+</tr>
+<tr>
+<td><code>FileNotFound</code></td>
+<td>File not found.</td>
+</tr>
+<tr>
+<td><code>NoSignaturesFoundForThisApp</code></td>
+<td>No signatures found for this app.</td>
+</tr>
+<tr>
+<td><code>NoSignaturesFoundForThisFile</code></td>
+<td>No signatures found for this file.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steamutilsapicallfailure">SteamUtilsApiCallFailure</h1>
+<blockquote>
+<p><strong>Steamworks Enum</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUtils#ESteamAPICallFailure">ISteamUtils::ESteamAPICallFailure</a></p>
+</blockquote>
+<p>This enum holds the possible Steam API call failure results returned by <a href="utils.html#steam_utils_get_api_call_failure_reason">steam_utils_get_api_call_failure_reason</a>.</p>
+<p>These constants are referenced by the following functions:</p>
+<ul>
+<li><a href="utils.html#steam_utils_get_api_call_failure_reason">steam_utils_get_api_call_failure_reason</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>None</code></td>
+<td>No failure.</td>
+</tr>
+<tr>
+<td><code>SteamGone</code></td>
+<td>The local Steam process has stopped responding, it may have been forcefully closed or is frozen.</td>
+</tr>
+<tr>
+<td><code>NetworkFailure</code></td>
+<td>The network connection to the Steam servers has been lost, or was already broken. A <a href="https://partner.steamgames.com/doc/api/ISteamUser#SteamServersDisconnected_t">SteamServersDisconnected_t</a> callback will be sent around the same time, and a <a href="https://partner.steamgames.com/doc/api/ISteamUser#SteamServersConnected_t">SteamServersConnected_t</a> callback will be sent when the client is able to talk to the Steam servers again.</td>
+</tr>
+<tr>
+<td><code>InvalidHandle</code></td>
+<td>The <a href="https://partner.steamgames.com/doc/api/steam_api#SteamAPICall_t">SteamAPICall_t</a> handle passed in no longer exists.</td>
+</tr>
+<tr>
+<td><code>MismatchedCallback</code></td>
+<td><a href="utils.html#steam_utils_get_api_call_result">steam_utils_get_api_call_result</a> was called with the wrong callback type for this API call.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steamutilsgamepadtextinputmode">SteamUtilsGamepadTextInputMode</h1>
+<blockquote>
+<p><strong>Steamworks Enum</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUtils#EGamepadTextInputMode">ISteamUtils::EGamepadTextInputMode</a></p>
+</blockquote>
+<p>This enum holds the possible input modes for the Big Picture gamepad text entry.</p>
+<p>These constants are referenced by the following functions:</p>
+<ul>
+<li><a href="utils.html#steam_utils_show_gamepad_text_input">steam_utils_show_gamepad_text_input</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Normal</code></td>
+<td>Normal.</td>
+</tr>
+<tr>
+<td><code>Password</code></td>
+<td>Password.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steamutilsgamepadtextinputlinemode">SteamUtilsGamepadTextInputLineMode</h1>
+<blockquote>
+<p><strong>Steamworks Enum</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUtils#EGamepadTextInputLineMode">ISteamUtils::EGamepadTextInputLineMode</a></p>
+</blockquote>
+<p>This enum controls the number of allowed lines for the Big Picture gamepad text entry.</p>
+<p>These constants are referenced by the following functions:</p>
+<ul>
+<li><a href="utils.html#steam_utils_show_gamepad_text_input">steam_utils_show_gamepad_text_input</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>SingleLine</code></td>
+<td>Single line.</td>
+</tr>
+<tr>
+<td><code>MultipleLines</code></td>
+<td>Multiple lines.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steamutilsfloatinggamepadtextinputmode">SteamUtilsFloatingGamepadTextInputMode</h1>
+<blockquote>
+<p><strong>Steamworks Enum</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUtils#EFloatingGamepadTextInputMode">ISteamUtils::EFloatingGamepadTextInputMode</a></p>
+</blockquote>
+<p>This enum controls the mode for the floating keyboard.</p>
+<p>These constants are referenced by the following functions:</p>
+<ul>
+<li><a href="utils.html#steam_utils_show_floating_gamepad_text_input">steam_utils_show_floating_gamepad_text_input</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>SingleLine</code></td>
+<td>Enter dismisses the keyboard.</td>
+</tr>
+<tr>
+<td><code>MultipleLines</code></td>
+<td>User needs to explicitly dismiss the keyboard.</td>
+</tr>
+<tr>
+<td><code>Email</code></td>
+<td>Keyboard is displayed in a special mode that makes it easier to enter emails.</td>
+</tr>
+<tr>
+<td><code>Numeric</code></td>
+<td>Numeric keypad is shown.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steamutilstextfilteringcontext">SteamUtilsTextFilteringContext</h1>
+<blockquote>
+<p><strong>Steamworks Enum</strong>: <a href="https://partner.steamgames.com/doc/api/steam_api#ETextFilteringContext">ETextFilteringContext</a></p>
+</blockquote>
+<p>This enum holds the possible values for the parameter to <a href="utils.html#steam_utils_filter_text">steam_utils_filter_text</a>.</p>
+<p>These constants are referenced by the following functions:</p>
+<ul>
+<li><a href="utils.html#steam_utils_filter_text">steam_utils_filter_text</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Unknown</code></td>
+<td>Unknown context.</td>
+</tr>
+<tr>
+<td><code>GameContent</code></td>
+<td>Game content, only legally required filtering is performed.</td>
+</tr>
+<tr>
+<td><code>Chat</code></td>
+<td>Chat from another player.</td>
+</tr>
+<tr>
+<td><code>Name</code></td>
+<td>Character or item name.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steamutilslowbatterypower">SteamUtilsLowBatteryPower</h1>
+<blockquote>
+<p><strong>Steamworks Struct</strong>: <a href="partner.steamgames.com/doc/api/ISteamUtils.html#LowBatteryPower_t">ISteamUtils::LowBatteryPower_t</a></p>
+</blockquote>
+<p>This struct holds information about the battery power left.</p>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>minutes_battery_left</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The estimated amount of battery life left in minutes.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steamutilssteamapicallcompleted">SteamUtilsSteamApiCallCompleted</h1>
+<blockquote>
+<p><strong>Steamworks Struct</strong>: <a href="partner.steamgames.com/doc/api/ISteamUtils.html#SteamAPICallCompleted_t">ISteamUtils::SteamAPICallCompleted_t</a></p>
+</blockquote>
+<p>This struct holds information passed in a <code>ISteamUtils::SteamAPICallCompleted_t</code> callback.</p>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>async_call</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The handle of the Steam API Call that completed.</td>
+</tr>
+<tr>
+<td>callback_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The k_iCallback constant which uniquely identifies the completed callback.</td>
+</tr>
+<tr>
+<td>param_size</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The size in bytes of the completed callback.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steamutilsimagesize">SteamUtilsImageSize</h1>
+<blockquote>
+<p><strong>Steamworks Struct</strong>: N / A</p>
+</blockquote>
+<p>This struct holds the information returned by <a href="utils.html#steam_utils_get_image_size">steam_utils_get_image_size</a>.</p>
+<p>This struct is referenced by the following functions:</p>
+<ul>
+<li><a href="utils.html#steam_utils_get_image_size">steam_utils_get_image_size</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>width</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The width of the image.</td>
+</tr>
+<tr>
+<td>height</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The height of the image.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steamutilsfiltertextresult">SteamUtilsFilterTextResult</h1>
+<blockquote>
+<p><strong>Steamworks Struct</strong>: N / A</p>
+</blockquote>
+<p>This struct holds the information returned by <a href="utils.html#steam_utils_filter_text">steam_utils_filter_text</a>.</p>
+<p>This struct is referenced by the following functions:</p>
+<ul>
+<li><a href="utils.html#steam_utils_filter_text">steam_utils_filter_text</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>characters_filtered</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The number of characters (not bytes) filtered.</td>
+</tr>
+<tr>
+<td>filtered_text</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The filtered result.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steamutilsgamepadtextinputdismissed">SteamUtilsGamepadTextInputDismissed</h1>
+<blockquote>
+<p><strong>Steamworks Struct</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUtils#GamepadTextInputDismissed_t">ISteamUtils::GamepadTextInputDismissed_t</a></p>
+</blockquote>
+<p>This struct holds information returned in a <code>ISteamUtils::GamepadTextInputDismissed_t</code> callback, which is called when the Big Picture gamepad text input has been closed.</p>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>submitted</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></td>
+<td><code>true</code> if user entered &amp; accepted text (Call <a href="utils.html#steam_utils_get_entered_gamepad_text_input">steam_utils_get_entered_gamepad_text_input</a> to receive the text), <code>false</code> if input was canceled.</td>
+</tr>
+<tr>
+<td>submitted_text_length</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The length in bytes if there was text submitted.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steamutilsfloatinggamepadtextinputdismissed">SteamUtilsFloatingGamepadTextInputDismissed</h1>
+<blockquote>
+<p><strong>Steamworks Struct</strong>: <a href="partner.steamgames.com/doc/api/ISteamUtils.html#FloatingGamepadTextInputDismissed_t">ISteamUtils::FloatingGamepadTextInputDismissed_t</a></p>
+</blockquote>
+<p>This struct holds information returned in a <code>ISteamUtils::FloatingGamepadTextInputDismissed_t</code> callback, which is called when the floating keyboard invoked from <a href="utils.html#steam_utils_show_floating_gamepad_text_input">steam_utils_show_floating_gamepad_text_input</a> has been closed.</p>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>submitted</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></td>
+<td><code>true</code> if user entered &amp; accepted text.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steamutilswarningmessage">SteamUtilsWarningMessage</h1>
+<blockquote>
+<p><strong>Steamworks Struct</strong>: N / A</p>
+</blockquote>
+<p>This struct holds information passed in a warning message callback.</p>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>severity</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>the severity; 0 for message, 1 for warning. If you are running in through a debugger only warnings will be sent. If you add <code>-debug_steamapi</code> to the command-line then informational messages will also be sent.</td>
+</tr>
+<tr>
+<td>text</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The text of the message.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="userstats.html" class="btn btn-neutral float-left" title="Userstats"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+      <p><p align="center">GameMaker 2026</p></p>
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/YoYoGames/GMEXT-Steamworks" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="userstats.html" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+  </span>
+</div>
+    <script src="js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = ".";</script>
+    <script src="js/theme_extra.js"></script>
+    <script src="js/theme.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/gml.min.js"></script>
+      <script src="assets/js/gmext_script.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

@@ -74,34 +74,34 @@ enum SteamApiAccountType
 group
 {
 // Steam API / shared constants
-const SteamApiBreakpadInvalidHandle : int32 = 0;
-const SteamApiGameExtraInfoMax : int32 = 64;
-const SteamApiSaltSize : int32 = 8;
-const SteamApiGidNil : int64 = -1;
-const SteamApiAuthTicketInvalid : int32 = 0;
-const SteamApiJobIdNil : int64 = -1;
-const SteamApiTxnIdNil : int64 = -1;
-const SteamApiTxnIdUnknown : int32 = 0;
-const SteamApiApiCallInvalid : int32 = 0x0;
-const SteamApiAppIdInvalid : int32 = 0x0;
-const SteamApiBundleIdInvalid : int32 = 0;
-const SteamApiCellIdInvalid : int32 = 0xFFFFFFFF;
-const SteamApiDepotIdInvalid : int32 = 0x0;
-const SteamApiAssetClassIdInvalid : int32 = 0x0;
-const SteamApiManifestIdInvalid : int32 = 0;
-const SteamApiSteamAccountIdMask : int32 = 0xFFFFFFFF;
-const SteamApiSteamAccountInstanceMask : int32 = 0x000FFFFF;
-const SteamApiSteamUserConsoleInstance : int32 = 2;
-const SteamApiSteamUserDesktopInstance : int32 = 1;
-const SteamApiSteamUserWebInstance : int32 = 4;
-const SteamApiPackageIdFreeSub : int32 = 0x0;
-const SteamApiPackageIdInvalid : int32 = 0xFFFFFFFF;
-const SteamApiPartnerIdInvalid : int32 = 0;
-const SteamApiPhysicalItemIdInvalid : int32 = 0x0;
-const SteamApiQueryPortError : int32 = 0xFFFE;
-const SteamApiQueryPortNotInitialized : int32 = 0xFFFF;
-const SteamIDNil : uint32 = 0;
-const SteamIDNonSteamGS : uint32 = 2;
+const STEAM_API_BREAKPAD_INVALID_HANDLE : int32 = 0;
+const STEAM_API_GAME_EXTRA_INFO_MAX : int32 = 64;
+const STEAM_API_SALT_SIZE : int32 = 8;
+const STEAM_API_GID_NIL : int64 = -1;
+const STEAM_API_AUTH_TICKET_INVALID : int32 = 0;
+const STEAM_API_JOB_ID_NIL : int64 = -1;
+const STEAM_API_TXN_ID_NIL : int64 = -1;
+const STEAM_API_TXN_ID_UNKNOWN : int32 = 0;
+const STEAM_API_API_CALL_INVALID : int32 = 0x0;
+const STEAM_API_APP_ID_INVALID : int32 = 0x0;
+const STEAM_API_BUNDLE_ID_INVALID : int32 = 0;
+const STEAM_API_CELL_ID_INVALID : int32 = 0xFFFFFFFF;
+const STEAM_API_DEPOT_ID_INVALID : int32 = 0x0;
+const STEAM_API_ASSET_CLASS_ID_INVALID : int32 = 0x0;
+const STEAM_API_MANIFEST_ID_INVALID : int32 = 0;
+const STEAM_API_STEAM_ACCOUNT_ID_MASK : int32 = 0xFFFFFFFF;
+const STEAM_API_STEAM_ACCOUNT_INSTANCE_MASK : int32 = 0x000FFFFF;
+const STEAM_API_STEAM_USER_CONSOLE_INSTANCE : int32 = 2;
+const STEAM_API_STEAM_USER_DESKTOP_INSTANCE : int32 = 1;
+const STEAM_API_STEAM_USER_WEB_INSTANCE : int32 = 4;
+const STEAM_API_PACKAGE_ID_FREE_SUB : int32 = 0x0;
+const STEAM_API_PACKAGE_ID_INVALID : int32 = 0xFFFFFFFF;
+const STEAM_API_PARTNER_ID_INVALID : int32 = 0;
+const STEAM_API_PHYSICAL_ITEM_ID_INVALID : int32 = 0x0;
+const STEAM_API_QUERY_PORT_ERROR : int32 = 0xFFFE;
+const STEAM_API_QUERY_PORT_NOT_INITIALIZED : int32 = 0xFFFF;
+const STEAM_ID_NIL : uint32 = 0;
+const STEAM_ID_NON_STEAM_GS : uint32 = 2;
 
 [global, bind = typed_gml]
 function steam_api_last_error(): string;
@@ -386,17 +386,17 @@ enum SteamApiResult
 group{ // SteamFriends
 
 // Steam Friends constants
-const SteamFriendsMaxFriendsGroupName : int32 = 64;
-const SteamFriendsMaxRichPresenceKeyLength : int32 = 64;
-const SteamFriendsMaxRichPresenceKeys : int32 = 20;
-const SteamFriendsMaxRichPresenceValueLength : int32 = 256;
-const SteamFriendsPersonaNameMax : int32 = 128;
-const SteamFriendsEnumerateFollowersMax : int32 = 50;
-const SteamFriendsFriendsGroupLimit : int32 = 100;
-const SteamFriendsChatMetadataMax : int32 = 8192;
-const SteamFriendsPersonaNameMaxUtf16 : int32 = 32;
-const SteamFriendsGroupIdInvalid : int32 = -1;
-const SteamFriendsInterfaceVersion : string = "SteamFriends015";
+const STEAM_FRIENDS_MAX_FRIENDS_GROUP_NAME : int32 = 64;
+const STEAM_FRIENDS_MAX_RICH_PRESENCE_KEY_LENGTH : int32 = 64;
+const STEAM_FRIENDS_MAX_RICH_PRESENCE_KEYS : int32 = 20;
+const STEAM_FRIENDS_MAX_RICH_PRESENCE_VALUE_LENGTH : int32 = 256;
+const STEAM_FRIENDS_PERSONA_NAME_MAX : int32 = 128;
+const STEAM_FRIENDS_ENUMERATE_FOLLOWERS_MAX : int32 = 50;
+const STEAM_FRIENDS_FRIENDS_GROUP_LIMIT : int32 = 100;
+const STEAM_FRIENDS_CHAT_METADATA_MAX : int32 = 8192;
+const STEAM_FRIENDS_PERSONA_NAME_MAX_UTF16 : int32 = 32;
+const STEAM_FRIENDS_GROUP_ID_INVALID : int32 = -1;
+const STEAM_FRIENDS_INTERFACE_VERSION : string = "SteamFriends015";
 
 [global]
 class `[[SteamFriendsGetFollowerCountResult]]` prototype Object
@@ -964,8 +964,8 @@ class `[[SteamFriendsGameServerChangeRequested]]` prototype Object
 group{ // SteamApps
 
 // Steam Apps constants
-const SteamAppsAppProofOfPurchaseKeyMax : int32 = 240;
-const SteamAppsInterfaceVersion : string = "STEAMAPPS_INTERFACE_VERSION008";
+const STEAM_APPS_APP_PROOF_OF_PURCHASE_KEY_MAX : int32 = 240;
+const STEAM_APPS_INTERFACE_VERSION : string = "STEAMAPPS_INTERFACE_VERSION008";
 
 // BGetDLCDataByIndex
 [global, bind = typed_gml, type_hint = `SteamAppsDlcData?`]
@@ -1194,13 +1194,13 @@ class `[[SteamAppsDlcInstalled]]` prototype Object
 group{ // SteamScreenshots
 
 // Steam Screenshots constants
-const SteamScreenshotsInvalidScreenshotHandle : int32 = 0;
-const SteamScreenshotsUfsTagTypeMax : int32 = 255;
-const SteamScreenshotsUfsTagValueMax : int32 = 255;
-const SteamScreenshotsMaxTaggedPublishedFiles : int32 = 32;
-const SteamScreenshotsMaxTaggedUsers : int32 = 32;
-const SteamScreenshotsThumbWidth : int32 = 200;
-const SteamScreenshotsInterfaceVersion : string = "STEAMSCREENSHOTS_INTERFACE_VERSION003";
+const STEAM_SCREENSHOTS_INVALID_SCREENSHOT_HANDLE : int32 = 0;
+const STEAM_SCREENSHOTS_UFS_TAG_TYPE_MAX : int32 = 255;
+const STEAM_SCREENSHOTS_UFS_TAG_VALUE_MAX : int32 = 255;
+const STEAM_SCREENSHOTS_MAX_TAGGED_PUBLISHED_FILES : int32 = 32;
+const STEAM_SCREENSHOTS_MAX_TAGGED_USERS : int32 = 32;
+const STEAM_SCREENSHOTS_THUMB_WIDTH : int32 = 200;
+const STEAM_SCREENSHOTS_INTERFACE_VERSION : string = "STEAMSCREENSHOTS_INTERFACE_VERSION003";
 [global, bind = typed_gml]
 function steam_screenshots_add_screenshot_to_library(
     filename: string,
@@ -1290,8 +1290,8 @@ function steam_screenshots_clear_callback_screenshot_requested(): unit;
 group{ // SteamUser
 
 // Steam User constants
-const SteamUserInterfaceVersion : string = "SteamUser019";
-const SteamUserEncryptedAppTicketSymmetricKeyLen : int32 = 32;
+const STEAM_USER_INTERFACE_VERSION : string = "SteamUser019";
+const STEAM_USER_ENCRYPTED_APP_TICKET_SYMMETRIC_KEY_LEN : int32 = 32;
 
 [global]
 class `[[SteamUserStoreAuthUrlResponse]]` prototype Object
@@ -1782,7 +1782,7 @@ group{
 // BOverlayNeedsPresent
 
 // Steam Utils constants
-const SteamUtilsInterfaceVersion : string = "SteamUtils009";
+const STEAM_UTILS_INTERFACE_VERSION : string = "SteamUtils009";
 [global, bind = typed_gml]
 function steam_utils_overlay_needs_present(): bool;
 
@@ -2125,11 +2125,11 @@ enum SteamUtilsTextFilteringContext
 group{ // SteamUgc
 
 // Steam UGC constants
-const SteamUgcNumResultsPerPage : int32 = 50;
-const SteamUgcDeveloperMetadataMax : int32 = 5000;
-const SteamUgcQueryHandleInvalid : int64 = -1;
-const SteamUgcUpdateHandleInvalid : int64 = -1;
-const SteamUgcInterfaceVersion : string = "STEAMUGC_INTERFACE_VERSION015";
+const STEAM_UGC_NUM_RESULTS_PER_PAGE : int32 = 50;
+const STEAM_UGC_DEVELOPER_METADATA_MAX : int32 = 5000;
+const STEAM_UGC_QUERY_HANDLE_INVALID : int64 = -1;
+const STEAM_UGC_UPDATE_HANDLE_INVALID : int64 = -1;
+const STEAM_UGC_INTERFACE_VERSION : string = "STEAMUGC_INTERFACE_VERSION015";
 
 [global, bind = typed_gml]
 enum SteamUgcMatchingUgcType
@@ -3221,14 +3221,14 @@ class `[[SteamUgcWorkshopEULAStatusResult]]` prototype Object
 group{ // SteamInput
 
 // Steam Input constants
-const SteamInputInterfaceVersion : string = "SteamInput001";
-const SteamInputHandleAllControllers : int64 = -1;
-const SteamInputMaxAnalogActions : int32 = 16;
-const SteamInputMaxAnalogActionData : real = 1.0;
-const SteamInputMaxCount : int32 = 16;
-const SteamInputMaxDigitalActions : int32 = 128;
-const SteamInputMaxOrigins : int32 = 8;
-const SteamInputMinAnalogActionData : real = -1.0;
+const STEAM_INPUT_INTERFACE_VERSION : string = "SteamInput001";
+const STEAM_INPUT_HANDLE_ALL_CONTROLLERS : int64 = -1;
+const STEAM_INPUT_MAX_ANALOG_ACTIONS : int32 = 16;
+const STEAM_INPUT_MAX_ANALOG_ACTION_DATA : real = 1.0;
+const STEAM_INPUT_MAX_COUNT : int32 = 16;
+const STEAM_INPUT_MAX_DIGITAL_ACTIONS : int32 = 128;
+const STEAM_INPUT_MAX_ORIGINS : int32 = 8;
+const STEAM_INPUT_MIN_ANALOG_ACTION_DATA : real = -1.0;
 
 // From EInputSourceMode (docs: EControllerSourceMode) - used by SteamInputAnalogActionData.mode
 [global, bind = typed_gml]
@@ -4082,10 +4082,10 @@ class `[[SteamInputDeviceEvent]]` prototype Object
 group{ // SteamUserStats
 
 // Steam User Stats constants
-const SteamUserStatsLeaderboardNameMax : int32 = 128;
-const SteamUserStatsStatNameMax : int32 = 128;
-const SteamUserStatsLeaderboardDetailsMax : int32 = 64;
-const SteamUserStatsInterfaceVersion : string = "STEAMUSERSTATS_INTERFACE_VERSION011";
+const STEAM_USER_STATS_LEADERBOARD_NAME_MAX : int32 = 128;
+const STEAM_USER_STATS_STAT_NAME_MAX : int32 = 128;
+const STEAM_USER_STATS_LEADERBOARD_DETAILS_MAX : int32 = 64;
+const STEAM_USER_STATS_INTERFACE_VERSION : string = "STEAMUSERSTATS_INTERFACE_VERSION011";
 
 [global, bind = typed_gml]
 enum SteamLeaderboardDataRequest
@@ -4500,7 +4500,7 @@ class `[[SteamUserStatsFloatMinMax]]` prototype Object
 group{ // SteamMusic
 
 // Steam Music constants
-const SteamMusicInterfaceVersion : string = "STEAMMUSIC_INTERFACE_VERSION001";
+const STEAM_MUSIC_INTERFACE_VERSION : string = "STEAMMUSIC_INTERFACE_VERSION001";
 
 // BIsEnabled
 [global, bind = typed_gml]
@@ -4583,7 +4583,7 @@ group{ // SteamTimeline
 // k_unMaxTimelinePriority - max priority for timeline events and game phase attributes
 // (used by steam_timeline_add_instantaneous_timeline_event, steam_timeline_start_range_timeline_event,
 //  steam_timeline_update_range_timeline_event, steam_timeline_set_game_phase_attribute)
-const SteamTimelineMaxTimelinePriority : int32 = 1000;
+const STEAM_TIMELINE_MAX_TIMELINE_PRIORITY : int32 = 1000;
 
 [global, bind = typed_gml]
 enum SteamTimelineGameMode
@@ -4767,10 +4767,10 @@ class `[[SteamTimelineEventRecordingExists]]` prototype Object
 group{ // SteamInventory
 
 // Steam Inventory constants (https://partner.steamgames.com/doc/api/isteaminventory#constants)
-// These are plain constants, not an enum: SteamInventoryResultInvalid is the k_SteamInventoryResultInvalid value.
-const SteamInventoryResultInvalid : int32 = -1;
-const SteamInventoryItemInstanceIdInvalid : int64 = -1;
-const SteamInventoryInterfaceVersion : string = "STEAMINVENTORY_INTERFACE_V002";
+// These are plain constants, not an enum: STEAM_INVENTORY_RESULT_INVALID is the k_SteamInventoryResultInvalid value.
+const STEAM_INVENTORY_RESULT_INVALID : int32 = -1;
+const STEAM_INVENTORY_ITEM_INSTANCE_ID_INVALID : int64 = -1;
+const STEAM_INVENTORY_INTERFACE_VERSION : string = "STEAMINVENTORY_INTERFACE_V002";
 
 // From ESteamItemFlags (bit flags) - used by SteamInventoryItemDetails.flags
 [global, bind = typed_gml]
@@ -5110,19 +5110,19 @@ class `[[SteamInventoryRequestPricesResult]]` prototype Object
 group{ // SteamRemoteStorage
 
 // Steam Remote Storage constants
-const SteamRemoteStorageFilenameMax : int32 = 260;
-const SteamRemoteStoragePublishedDocumentChangeDescriptionMax : int32 = 8000;
-const SteamRemoteStoragePublishedDocumentDescriptionMax : int32 = 8000;
-const SteamRemoteStoragePublishedDocumentTitleMax : int32 = 129;
-const SteamRemoteStoragePublishedFileUrlMax : int32 = 256;
-const SteamRemoteStorageTagListMax : int32 = 1025;
-const SteamRemoteStoragePublishedFileIdInvalid : int32 = 0;
-const SteamRemoteStoragePublishedFileUpdateHandleInvalid : int64 = -1;
-const SteamRemoteStorageUgcFileStreamHandleInvalid : int64 = -1;
-const SteamRemoteStorageUgcHandleInvalid : int64 = -1;
-const SteamRemoteStorageEnumeratePublishedFilesMaxResults : int32 = 50;
-const SteamRemoteStorageMaxCloudFileChunkSize : int32 = 104857600;
-const SteamRemoteStorageInterfaceVersion : string = "STEAMREMOTESTORAGE_INTERFACE_VERSION014";
+const STEAM_REMOTE_STORAGE_FILENAME_MAX : int32 = 260;
+const STEAM_REMOTE_STORAGE_PUBLISHED_DOCUMENT_CHANGE_DESCRIPTION_MAX : int32 = 8000;
+const STEAM_REMOTE_STORAGE_PUBLISHED_DOCUMENT_DESCRIPTION_MAX : int32 = 8000;
+const STEAM_REMOTE_STORAGE_PUBLISHED_DOCUMENT_TITLE_MAX : int32 = 129;
+const STEAM_REMOTE_STORAGE_PUBLISHED_FILE_URL_MAX : int32 = 256;
+const STEAM_REMOTE_STORAGE_TAG_LIST_MAX : int32 = 1025;
+const STEAM_REMOTE_STORAGE_PUBLISHED_FILE_ID_INVALID : int32 = 0;
+const STEAM_REMOTE_STORAGE_PUBLISHED_FILE_UPDATE_HANDLE_INVALID : int64 = -1;
+const STEAM_REMOTE_STORAGE_UGC_FILE_STREAM_HANDLE_INVALID : int64 = -1;
+const STEAM_REMOTE_STORAGE_UGC_HANDLE_INVALID : int64 = -1;
+const STEAM_REMOTE_STORAGE_ENUMERATE_PUBLISHED_FILES_MAX_RESULTS : int32 = 50;
+const STEAM_REMOTE_STORAGE_MAX_CLOUD_FILE_CHUNK_SIZE : int32 = 104857600;
+const STEAM_REMOTE_STORAGE_INTERFACE_VERSION : string = "STEAMREMOTESTORAGE_INTERFACE_VERSION014";
 
 [global, bind = typed_gml]
 enum SteamRemoteStoragePlatform
@@ -5349,13 +5349,13 @@ function steam_remote_storage_ugc_download_to_location([type_hint=uint64] ugc_ha
 group{ // SteamMatchmaking
 
 // Steam Matchmaking constants
-const SteamMatchmakingServerQueryInvalid : int32 = 0xffffffff;
-const SteamMatchmakingMaxLobbyKeyLength : int32 = 255;
-const SteamMatchmakingFavoriteFlagFavorite : int32 = 0x01;
-const SteamMatchmakingFavoriteFlagHistory : int32 = 0x02;
-const SteamMatchmakingFavoriteFlagNone : int32 = 0x00;
-const SteamMatchmakingServersInterfaceVersion : string = "SteamMatchMakingServers002";
-const SteamMatchmakingInterfaceVersion : string = "SteamMatchMaking009";
+const STEAM_MATCHMAKING_SERVER_QUERY_INVALID : int32 = 0xffffffff;
+const STEAM_MATCHMAKING_MAX_LOBBY_KEY_LENGTH : int32 = 255;
+const STEAM_MATCHMAKING_FAVORITE_FLAG_FAVORITE : int32 = 0x01;
+const STEAM_MATCHMAKING_FAVORITE_FLAG_HISTORY : int32 = 0x02;
+const STEAM_MATCHMAKING_FAVORITE_FLAG_NONE : int32 = 0x00;
+const STEAM_MATCHMAKING_SERVERS_INTERFACE_VERSION : string = "SteamMatchMakingServers002";
+const STEAM_MATCHMAKING_INTERFACE_VERSION : string = "SteamMatchMaking009";
 
 [global, bind = typed_gml]
 enum SteamMatchmakingLobbyType
@@ -5744,10 +5744,10 @@ group{ // SteamNetworkingSockets
 
 // k_HSteamNetPollGroup_Invalid - invalid poll group handle
 // (see steam_networking_sockets_set_connection_poll_group)
-const SteamNetworkingPollGroup_Invalid : uint32 = 0;//uint64 = 0;
+const STEAM_NETWORKING_POLL_GROUP_INVALID : uint32 = 0;//uint64 = 0;
 
 // Maximum size of a message that can be sent in a single reliable message
-const SteamNetworkingSocketsMaxMessageSizeSend : uint32 = 524288;
+const STEAM_NETWORKING_SOCKETS_MAX_MESSAGE_SIZE_SEND : uint32 = 524288;
 
 // From ESteamNetConnectionEnd - used by SteamNetworkingSocketsConnectionInfo.end_reason
 [global, bind = typed_gml]
