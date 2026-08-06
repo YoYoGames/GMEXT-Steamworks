@@ -356,9 +356,17 @@ GMEXPORT double __EXT_NATIVE__steam_friends_get_follower_count(char* __arg_buffe
     return 0;
 }
 
-GMEXPORT double __EXT_NATIVE__steam_friends_get_friend_by_index(double friend_index, double friend_flags, char* __ret_buffer, double __ret_buffer_length)
+GMEXPORT double __EXT_NATIVE__steam_friends_get_friend_by_index(char* __arg_buffer, double __arg_buffer_length, char* __ret_buffer, double __ret_buffer_length)
 {
-    auto&& __result = steam_friends_get_friend_by_index(static_cast<std::int32_t>(friend_index), static_cast<std::int32_t>(friend_flags));
+    gm::byteio::BufferReader __br{__arg_buffer, static_cast<size_t>(__arg_buffer_length)};
+
+    // field: friend_index, type: Int32
+    std::int32_t friend_index = gm::wire::codec::readValue<std::int32_t>(__br);
+
+    // field: friend_flags, type: enum SteamFriendsFriendFlag
+    gm_enums::SteamFriendsFriendFlag friend_flags = gm::wire::codec::readValue<gm_enums::SteamFriendsFriendFlag>(__br);
+
+    auto&& __result = steam_friends_get_friend_by_index(friend_index, friend_flags);
     gm::byteio::BufferWriter __bw{__ret_buffer, static_cast<size_t>(__ret_buffer_length)};
 
     // return: __result, type: UInt64
@@ -388,9 +396,14 @@ GMEXPORT double __EXT_NATIVE__steam_friends_get_friend_coplay_time(char* __arg_b
     return static_cast<double>(__result);
 }
 
-GMEXPORT double __EXT_NATIVE__steam_friends_get_friend_count(double friend_flags)
+GMEXPORT double __EXT_NATIVE__steam_friends_get_friend_count(char* __arg_buffer, double __arg_buffer_length)
 {
-    auto&& __result = steam_friends_get_friend_count(static_cast<std::int32_t>(friend_flags));
+    gm::byteio::BufferReader __br{__arg_buffer, static_cast<size_t>(__arg_buffer_length)};
+
+    // field: friend_flags, type: enum SteamFriendsFriendFlag
+    gm_enums::SteamFriendsFriendFlag friend_flags = gm::wire::codec::readValue<gm_enums::SteamFriendsFriendFlag>(__br);
+
+    auto&& __result = steam_friends_get_friend_count(friend_flags);
     return static_cast<double>(__result);
 }
 
@@ -669,8 +682,8 @@ GMEXPORT double __EXT_NATIVE__steam_friends_has_friend(char* __arg_buffer, doubl
     // field: steam_id_friend, type: UInt64
     std::uint64_t steam_id_friend = gm::wire::codec::readValue<std::uint64_t>(__br);
 
-    // field: friend_flags, type: Int32
-    std::int32_t friend_flags = gm::wire::codec::readValue<std::int32_t>(__br);
+    // field: friend_flags, type: enum SteamFriendsFriendFlag
+    gm_enums::SteamFriendsFriendFlag friend_flags = gm::wire::codec::readValue<gm_enums::SteamFriendsFriendFlag>(__br);
 
     auto&& __result = steam_friends_has_friend(steam_id_friend, friend_flags);
     return static_cast<double>(__result);
@@ -1844,6 +1857,20 @@ GMEXPORT double __EXT_NATIVE__steam_utils_overlay_needs_present()
 {
     auto&& __result = steam_utils_overlay_needs_present();
     return static_cast<double>(__result);
+}
+
+GMEXPORT double __EXT_NATIVE__steam_utils_check_file_signature(char* __arg_buffer, double __arg_buffer_length)
+{
+    gm::byteio::BufferReader __br{__arg_buffer, static_cast<size_t>(__arg_buffer_length)};
+
+    // field: file_name, type: String
+    std::string_view file_name = gm::wire::codec::readValue<std::string_view>(__br);
+
+    // field: callback, type: Function
+    gm::wire::GMFunction callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
+
+    steam_utils_check_file_signature(file_name, callback);
+    return 0;
 }
 
 GMEXPORT double __EXT_NATIVE__steam_utils_get_api_call_failure_reason(char* __arg_buffer, double __arg_buffer_length, char* __ret_buffer, double __ret_buffer_length)

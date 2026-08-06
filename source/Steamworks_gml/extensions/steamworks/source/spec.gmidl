@@ -609,7 +609,7 @@ function steam_friends_get_follower_count([type_hint=uint64] steam_id: gmval, ca
 
 // GetFriendByIndex
 [global, bind = typed_gml, type_hint=uint64]
-function steam_friends_get_friend_by_index(friend_index: int32, friend_flags: int32): gmval;
+function steam_friends_get_friend_by_index(friend_index: int32, [type_hint=`SteamFriendsFriendFlag`] friend_flags: gmval): gmval;
 
 // GetFriendCoplayGame
 // AppId_t -> uint32
@@ -622,7 +622,7 @@ function steam_friends_get_friend_coplay_time([type_hint=uint64] steam_id_friend
 
 // GetFriendCount
 [global, bind = typed_gml]
-function steam_friends_get_friend_count(friend_flags: int32): int32;
+function steam_friends_get_friend_count([type_hint=`SteamFriendsFriendFlag`] friend_flags: gmval): int32;
 
 // GetFriendCountFromSource
 [global, bind = typed_gml]
@@ -795,7 +795,7 @@ function steam_friends_get_small_friend_avatar([type_hint=uint64] steam_id_frien
 
 // HasFriend
 [global, bind = typed_gml]
-function steam_friends_has_friend([type_hint=uint64] steam_id_friend: gmval, friend_flags: int32): bool;
+function steam_friends_has_friend([type_hint=uint64] steam_id_friend: gmval, [type_hint=`SteamFriendsFriendFlag`] friend_flags: gmval): bool;
 
 // InviteUserToGame
 [global, bind = typed_gml]
@@ -858,8 +858,8 @@ class `[[SteamFriendsPersonaStateChange]]` prototype Object
     [field, type_hint=uint64]
     property steam_id : gmval { get; set; }
 
-    [field]
-    property change_flags : int32 { get; set; } // bitset (EPersonaChange / SteamFriendsPersonaChange)
+    [field, type_hint=`SteamFriendsPersonaChange`]
+    property change_flags : gmval { get; set; } // bitset (EPersonaChange / SteamFriendsPersonaChange)
 }
 
 // From EPersonaChange (bit flags) - used by SteamFriendsPersonaStateChange.change_flags
@@ -1315,6 +1315,8 @@ class `[[SteamUserDurationControl]]` prototype Object
     [field] property csecs_last_5h : int32 { get; set; }
     [field, type_hint=`SteamUserDurationControlProgress`] property progress : gmval { get; set; }
     [field, type_hint=`SteamUserDurationControlNotification`] property notification : gmval { get; set; }
+    [field] property csecs_today : int32 { get; set; }
+    [field] property csecs_remaining : int32 { get; set; }
 }
 
 // From EDurationControlProgress - used by SteamUserDurationControl.progress
@@ -1347,11 +1349,34 @@ enum SteamUserDurationControlNotification
 class `[[SteamUserMarketEligibilityResponse]]` prototype Object
 {
     [field] property allowed : bool { get; set; }
-    [field] property not_allowed_reason : int32 { get; set; }
+    [field, type_hint=`SteamMarketNotAllowedReasonFlags`] property not_allowed_reason : gmval { get; set; }
     [field] property allowed_at_time : uint32 { get; set; }
-    [field] property steam_purchase_time : uint32 { get; set; }
     [field] property day_steam_guard_required_days : uint32 { get; set; }
     [field] property day_new_device_cooldown : uint32 { get; set; }
+}
+
+// From EMarketNotAllowedReasonFlags (bit flags) - used by SteamUserMarketEligibilityResponse.not_allowed_reason
+[global, bind = typed_gml]
+enum SteamMarketNotAllowedReasonFlags
+{
+    None = 0,
+    TemporaryFailure = 1,
+    AccountDisabled = 2,
+    AccountLockedDown = 4,
+    AccountLimited = 8,
+    TradeBanned = 16,
+    AccountNotTrusted = 32,
+    SteamGuardNotEnabled = 64,
+    SteamGuardOnlyRecentlyEnabled = 128,
+    RecentPasswordReset = 256,
+    NewPaymentMethod = 512,
+    InvalidCookie = 1024,
+    UsingNewDevice = 2048,
+    RecentSelfRefund = 4096,
+    NewPaymentMethodCannotBeVerified = 8192,
+    NoRecentPurchases = 16384,
+    AcceptedWalletGift = 32768,
+    TradeCooldown = 65536,
 }
 
 // AdvertiseGame
@@ -1784,8 +1809,8 @@ class `[[SteamUserClientGameServerDeny]]` prototype Object
     [field]
     property secure : bool { get; set; }
 
-    [field]
-    property reason : int32 { get; set; } // EDenyReason numeric
+    [field, type_hint=`SteamApiDenyReason`]
+    property reason : gmval { get; set; } // EDenyReason numeric
 }
 
 [global]
@@ -1811,6 +1836,9 @@ const STEAM_UTILS_INTERFACE_VERSION : string = "SteamUtils009";
 [global, bind = typed_gml]
 function steam_utils_overlay_needs_present(): bool;
 
+// CheckFileSignature -> SteamAPICall_t
+[global, bind = typed_gml]
+function steam_utils_check_file_signature(file_name: string, callback:func): unit;
 
 // GetAPICallFailureReason
 [global, bind = typed_gml, type_hint = `SteamUtilsApiCallFailure`]
@@ -1836,7 +1864,15 @@ enum SteamUtilsCheckFileSignature
     NoSignaturesFoundForThisFile = 4,
 }
 
+// CheckFileSignature_t carries only this one enum - the wrapper class exists purely because
+// steam_async::CallResult<>'s wire path requires a struct-shaped Payload (a bare custom enum
+// hits GMExtWire.h's "Unsupported enum underlying type" static_assert; that's a code_gen/core
+// codec constraint, not something to work around here).
 [global]
+class `[[SteamUtilsCheckFileSignatureResult]]` prototype Object
+{
+    [field, type_hint=`SteamUtilsCheckFileSignature`] property result : gmval { get; set; }
+}
 
 [global, bind = typed_gml]
 function steam_utils_set_callback_ip_country(callback:func): unit;
@@ -2356,7 +2392,7 @@ function steam_ugc_create_item(
 // CreateQueryAllUGCRequest (returns UGCQueryHandle_t)
 [global, bind = typed_gml, type_hint = uint64]
 function steam_ugc_create_query_all_ugc_request(
-    [type_hint=`SteamUgcQuery`]query_type: int32,
+    [type_hint=`SteamUgcQuery`]query_type: gmval,
     [type_hint=`SteamUgcMatchingUgcType`] matching_ugc_type: gmval,
     creator_app_id: uint32,
     consumer_app_id: uint32,
@@ -3150,8 +3186,6 @@ class `[[SteamUgcGetUserItemVoteResult]]` prototype Object
     [field] property voted_down : bool { get; set; }
     [field] property vote_skipped : bool { get; set; }
 }
-
-[global]
 
 [global]
 class `[[SteamUgcSupportedGameVersionData]]` prototype Object
@@ -4613,6 +4647,7 @@ const STEAM_TIMELINE_MAX_TIMELINE_PRIORITY : int32 = 1000;
 [global, bind = typed_gml]
 enum SteamTimelineGameMode
 {
+    Invalid = 0,
     Playing = 1,
     Staging = 2,
     Menus = 3,
@@ -4622,6 +4657,7 @@ enum SteamTimelineGameMode
 [global, bind = typed_gml]
 enum SteamTimelineEventClipPriority
 {
+    Invalid = 0,
     None = 1,
     Standard = 2,
     Featured = 3,
@@ -5253,10 +5289,6 @@ class `[[SteamRemoteStoragePublishedFileUnsubscribed]]` prototype Object
     [field] property app_id : uint32 { get; set; }
     [field, type_hint=uint64] property published_file_id : gmval { get; set; }
 }
-
-[global]
-
-[global]
 
 [global, bind = typed_gml]
 function steam_remote_storage_set_callback_published_file_subscribed(callback:func): unit;
@@ -6028,7 +6060,7 @@ class `[[SteamPartiesReservationNotification]]` prototype Object
 class `[[SteamPartiesBeaconDetails]]` prototype Object
 {
     [field, type_hint=uint64] property beacon_owner_steam_id : gmval { get; set; }
-    [field, type_hint=`SteamPartiesBeaconLocationType`] property location_type : int32 { get; set; }
+    [field, type_hint=`SteamPartiesBeaconLocationType`] property location_type : gmval { get; set; }
     [field, type_hint=uint64] property location_id : gmval { get; set; }
     [field] property metadata : string { get; set; }
 }
@@ -6095,15 +6127,17 @@ function steam_parties_join_party([type_hint=uint64] beacon_id: gmval, callback:
 function steam_parties_get_beacon_location_data(
     [type_hint=`SteamPartiesBeaconLocationType`]beacon_location_type: gmval,
     [type_hint=uint64] beacon_location_id: gmval,
-    [type_hint=`SteamPartiesBeaconLocationData`]data_kind: int32,
+    [type_hint=`SteamPartiesBeaconLocationData`]data_kind: gmval,
 ): string;
 
+[global, bind = typed_gml]
 enum SteamPartiesBeaconLocationType {
     Invalid = 0,
     ChatGroup = 1,
     Max = 2,
 }
 
+[global, bind = typed_gml]
 enum SteamPartiesBeaconLocationData {
     Invalid = 0,
     Name = 1,

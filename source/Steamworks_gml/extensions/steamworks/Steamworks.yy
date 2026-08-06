@@ -569,12 +569,12 @@
           "%Name": "__steam_friends_get_friend_by_index",
           "argCount": 4,
           "args": [
-            2,
+            1,
             2,
             1,
             2
           ],
-          "documentation": "@param {Real} friend_index\r\n@param {Real} friend_flags\r\n@param {Pointer} _ret_buffer\r\n@param {Real} _ret_buffer_length\r\n@returns {Real}",
+          "documentation": "@param {Pointer} _arg_buffer\r\n@param {Real} _arg_buffer_length\r\n@param {Pointer} _ret_buffer\r\n@param {Real} _ret_buffer_length\r\n@returns {Real}",
           "externalName": "__EXT_NATIVE__steam_friends_get_friend_by_index",
           "help": "",
           "hidden": true,
@@ -622,17 +622,18 @@
         },
         {
           "$GMExtensionFunction": "",
-          "%Name": "steam_friends_get_friend_count",
-          "argCount": 1,
+          "%Name": "__steam_friends_get_friend_count",
+          "argCount": 2,
           "args": [
+            1,
             2
           ],
-          "documentation": "@param {Real} friend_flags\r\n@returns {Real}",
+          "documentation": "@param {Pointer} _arg_buffer\r\n@param {Real} _arg_buffer_length\r\n@returns {Real}",
           "externalName": "__EXT_NATIVE__steam_friends_get_friend_count",
           "help": "",
-          "hidden": false,
+          "hidden": true,
           "kind": 4,
-          "name": "steam_friends_get_friend_count",
+          "name": "__steam_friends_get_friend_count",
           "resourceType": "GMExtensionFunction",
           "resourceVersion": "2.0",
           "returnType": 2
@@ -3082,6 +3083,24 @@
           "hidden": false,
           "kind": 4,
           "name": "steam_utils_overlay_needs_present",
+          "resourceType": "GMExtensionFunction",
+          "resourceVersion": "2.0",
+          "returnType": 2
+        },
+        {
+          "$GMExtensionFunction": "",
+          "%Name": "__steam_utils_check_file_signature",
+          "argCount": 2,
+          "args": [
+            1,
+            2
+          ],
+          "documentation": "@param {Pointer} _arg_buffer\r\n@param {Real} _arg_buffer_length\r\n@returns {Real}",
+          "externalName": "__EXT_NATIVE__steam_utils_check_file_signature",
+          "help": "",
+          "hidden": true,
+          "kind": 4,
+          "name": "__steam_utils_check_file_signature",
           "resourceType": "GMExtensionFunction",
           "resourceVersion": "2.0",
           "returnType": 2

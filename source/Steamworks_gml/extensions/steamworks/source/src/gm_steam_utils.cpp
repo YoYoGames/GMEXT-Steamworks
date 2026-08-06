@@ -119,6 +119,27 @@ bool steam_utils_overlay_needs_present()
     return u->BOverlayNeedsPresent();
 }
 
+static inline gm_structs::SteamUtilsCheckFileSignatureResult utils_fromNative(const CheckFileSignature_t& e)
+{
+    gm_structs::SteamUtilsCheckFileSignatureResult out{};
+    out.result = (gm_enums::SteamUtilsCheckFileSignature)e.m_eCheckFileSignature;
+    return out;
+}
+
+void steam_utils_check_file_signature(std::string_view file_name,  const gm::wire::GMFunction& callback)
+{
+    STEAM_GUARD();
+
+    ISteamUtils* u = steam_utils_iface();
+    if (!u)
+        return;
+
+    std::string fn(file_name);
+    SteamAPICall_t call = u->CheckFileSignature(fn.c_str());
+
+    auto* h = new steam_async::CallResult<gm_structs::SteamUtilsCheckFileSignatureResult, CheckFileSignature_t>(callback, &utils_fromNative);
+    h->set(call);
+}
 
 SteamUtilsApiCallFailure steam_utils_get_api_call_failure_reason(std::uint64_t steam_api_call)
 {

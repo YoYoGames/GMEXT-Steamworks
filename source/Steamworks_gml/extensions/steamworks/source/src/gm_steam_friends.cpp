@@ -324,14 +324,14 @@ std::int32_t steam_friends_get_coplay_friend_count()
     return (std::int32_t)f->GetCoplayFriendCount();
 }
 
-std::uint64_t steam_friends_get_friend_by_index(std::int32_t friend_index, std::int32_t friend_flags)
+std::uint64_t steam_friends_get_friend_by_index(std::int32_t friend_index, gm_enums::SteamFriendsFriendFlag friend_flags)
 {
     STEAM_GUARD_RET(0);
     ISteamFriends* f = steam_friends_iface();
     if (!f)
         return 0;
 
-    CSteamID id = f->GetFriendByIndex(friend_index, friend_flags);
+    CSteamID id = f->GetFriendByIndex(friend_index, (int)friend_flags);
     return steam_u64_from_steam_id(id);
 }
 
@@ -355,14 +355,14 @@ std::int32_t steam_friends_get_friend_coplay_time(std::uint64_t steam_id_friend)
     return (std::int32_t)f->GetFriendCoplayTime(steam_id_from_u64(steam_id_friend));
 }
 
-std::int32_t steam_friends_get_friend_count(std::int32_t friend_flags)
+std::int32_t steam_friends_get_friend_count(gm_enums::SteamFriendsFriendFlag friend_flags)
 {
     STEAM_GUARD_RET(0);
     ISteamFriends* f = steam_friends_iface();
     if (!f)
         return 0;
 
-    return (std::int32_t)f->GetFriendCount(friend_flags);
+    return (std::int32_t)f->GetFriendCount((int)friend_flags);
 }
 
 std::int32_t steam_friends_get_friend_count_from_source(std::uint64_t steam_id_source)
@@ -664,14 +664,14 @@ std::int32_t steam_friends_get_small_friend_avatar(std::uint64_t steam_id_friend
     return (std::int32_t)f->GetSmallFriendAvatar(steam_id_from_u64(steam_id_friend));
 }
 
-bool steam_friends_has_friend(std::uint64_t steam_id_friend, std::int32_t friend_flags)
+bool steam_friends_has_friend(std::uint64_t steam_id_friend, gm_enums::SteamFriendsFriendFlag friend_flags)
 {
     STEAM_GUARD_RET(false);
     ISteamFriends* f = steam_friends_iface();
     if (!f)
         return false;
 
-    return f->HasFriend(steam_id_from_u64(steam_id_friend), friend_flags);
+    return f->HasFriend(steam_id_from_u64(steam_id_friend), (int)friend_flags);
 }
 
 bool steam_friends_invite_user_to_game(std::uint64_t steam_id_friend, std::string_view connect_string)
@@ -948,7 +948,7 @@ static inline gm_structs::SteamFriendsPersonaStateChange friends_fromNative(cons
 {
     gm_structs::SteamFriendsPersonaStateChange out{};
     out.steam_id = (std::uint64_t)e.m_ulSteamID;
-    out.change_flags = (int32)e.m_nChangeFlags;
+    out.change_flags = (gm_enums::SteamFriendsPersonaChange)e.m_nChangeFlags;
     return out;
 }
 

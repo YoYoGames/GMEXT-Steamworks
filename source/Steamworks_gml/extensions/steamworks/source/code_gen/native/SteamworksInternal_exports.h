@@ -40,10 +40,10 @@ GMEXPORT char* __EXT_NATIVE__steam_friends_get_clan_tag(char* __arg_buffer, doub
 GMEXPORT double __EXT_NATIVE__steam_friends_get_coplay_friend(double coplay_friend, char* __ret_buffer, double __ret_buffer_length);
 GMEXPORT double __EXT_NATIVE__steam_friends_get_coplay_friend_count();
 GMEXPORT double __EXT_NATIVE__steam_friends_get_follower_count(char* __arg_buffer, double __arg_buffer_length);
-GMEXPORT double __EXT_NATIVE__steam_friends_get_friend_by_index(double friend_index, double friend_flags, char* __ret_buffer, double __ret_buffer_length);
+GMEXPORT double __EXT_NATIVE__steam_friends_get_friend_by_index(char* __arg_buffer, double __arg_buffer_length, char* __ret_buffer, double __ret_buffer_length);
 GMEXPORT double __EXT_NATIVE__steam_friends_get_friend_coplay_game(char* __arg_buffer, double __arg_buffer_length);
 GMEXPORT double __EXT_NATIVE__steam_friends_get_friend_coplay_time(char* __arg_buffer, double __arg_buffer_length);
-GMEXPORT double __EXT_NATIVE__steam_friends_get_friend_count(double friend_flags);
+GMEXPORT double __EXT_NATIVE__steam_friends_get_friend_count(char* __arg_buffer, double __arg_buffer_length);
 GMEXPORT double __EXT_NATIVE__steam_friends_get_friend_count_from_source(char* __arg_buffer, double __arg_buffer_length);
 GMEXPORT double __EXT_NATIVE__steam_friends_get_friend_from_source_by_index(char* __arg_buffer, double __arg_buffer_length, char* __ret_buffer, double __ret_buffer_length);
 GMEXPORT double __EXT_NATIVE__steam_friends_get_friend_game_played(char* __arg_buffer, double __arg_buffer_length, char* __ret_buffer, double __ret_buffer_length);
@@ -186,6 +186,7 @@ GMEXPORT double __EXT_NATIVE__steam_user_clear_callback_get_auth_session_ticket_
 GMEXPORT double __EXT_NATIVE__steam_user_set_callback_validate_auth_ticket_response(char* __arg_buffer, double __arg_buffer_length);
 GMEXPORT double __EXT_NATIVE__steam_user_clear_callback_validate_auth_ticket_response();
 GMEXPORT double __EXT_NATIVE__steam_utils_overlay_needs_present();
+GMEXPORT double __EXT_NATIVE__steam_utils_check_file_signature(char* __arg_buffer, double __arg_buffer_length);
 GMEXPORT double __EXT_NATIVE__steam_utils_get_api_call_failure_reason(char* __arg_buffer, double __arg_buffer_length, char* __ret_buffer, double __ret_buffer_length);
 GMEXPORT double __EXT_NATIVE__steam_utils_get_api_call_result(char* __arg_buffer, double __arg_buffer_length, char* __ret_buffer, double __ret_buffer_length);
 GMEXPORT double __EXT_NATIVE__steam_utils_set_callback_ip_country(char* __arg_buffer, double __arg_buffer_length);

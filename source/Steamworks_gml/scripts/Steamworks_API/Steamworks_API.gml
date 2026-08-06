@@ -574,6 +574,28 @@ enum SteamUserDurationControlNotification
     ExitSoon_Night = 7
 }
 
+enum SteamMarketNotAllowedReasonFlags
+{
+    None = 0,
+    TemporaryFailure = 1,
+    AccountDisabled = 2,
+    AccountLockedDown = 4,
+    AccountLimited = 8,
+    TradeBanned = 16,
+    AccountNotTrusted = 32,
+    SteamGuardNotEnabled = 64,
+    SteamGuardOnlyRecentlyEnabled = 128,
+    RecentPasswordReset = 256,
+    NewPaymentMethod = 512,
+    InvalidCookie = 1024,
+    UsingNewDevice = 2048,
+    RecentSelfRefund = 4096,
+    NewPaymentMethodCannotBeVerified = 8192,
+    NoRecentPurchases = 16384,
+    AcceptedWalletGift = 32768,
+    TradeCooldown = 65536
+}
+
 enum SteamNetworkingIdentityType
 {
     Invalid = 0,
@@ -1432,6 +1454,7 @@ enum SteamMusicPlaybackStatus
 
 enum SteamTimelineGameMode
 {
+    Invalid = 0,
     Playing = 1,
     Staging = 2,
     Menus = 3,
@@ -1440,6 +1463,7 @@ enum SteamTimelineGameMode
 
 enum SteamTimelineEventClipPriority
 {
+    Invalid = 0,
     None = 1,
     Standard = 2,
     Featured = 3
@@ -2116,6 +2140,8 @@ function SteamUserDurationControl() constructor
     self.csecs_last_5h = undefined;
     self.progress = undefined;
     self.notification = undefined;
+    self.csecs_today = undefined;
+    self.csecs_remaining = undefined;
 
 }
 
@@ -2133,7 +2159,6 @@ function SteamUserMarketEligibilityResponse() constructor
     self.allowed = undefined;
     self.not_allowed_reason = undefined;
     self.allowed_at_time = undefined;
-    self.steam_purchase_time = undefined;
     self.day_steam_guard_required_days = undefined;
     self.day_new_device_cooldown = undefined;
 
@@ -2338,6 +2363,21 @@ function SteamUserMicroTxnAuthorizationResponse() constructor
     self.app_id = undefined;
     self.order_id = undefined;
     self.authorized = undefined;
+
+}
+
+/**
+ * @returns {Struct.SteamUtilsCheckFileSignatureResult}
+ */
+function SteamUtilsCheckFileSignatureResult() constructor
+{
+    /**
+     * Internally generated hash for quick validation
+     * @ignore
+     */
+    static __uid = 1640139361;
+
+    self.result = undefined;
 
 }
 
@@ -4794,9 +4834,10 @@ function __SteamFriendsPersonaStateChange_encode(_inst, _buffer, _offset, _where
         if (!is_numeric(self.steam_id)) show_error($"{_where} :: self.steam_id expected number", true);
         buffer_write(_buffer, buffer_u64, self.steam_id);
 
-        // field: change_flags, type: Int32
+        // field: change_flags, type: enum SteamFriendsPersonaChange
+
         if (!is_numeric(self.change_flags)) show_error($"{_where} :: self.change_flags expected number", true);
-        buffer_write(_buffer, buffer_s32, self.change_flags);
+        buffer_write(_buffer, buffer_u64, self.change_flags);
 
     }
 }
@@ -4818,8 +4859,8 @@ function __SteamFriendsPersonaStateChange_decode(_buffer, _offset)
         // field: steam_id, type: UInt64
         self.steam_id = buffer_read(_buffer, buffer_u64);
 
-        // field: change_flags, type: Int32
-        self.change_flags = buffer_read(_buffer, buffer_s32);
+        // field: change_flags, type: enum SteamFriendsPersonaChange
+        self.change_flags = buffer_read(_buffer, buffer_u64);
 
     }
 
@@ -5634,6 +5675,14 @@ function __SteamUserDurationControl_encode(_inst, _buffer, _offset, _where = _GM
         if (!is_numeric(self.notification)) show_error($"{_where} :: self.notification expected number", true);
         buffer_write(_buffer, buffer_u64, self.notification);
 
+        // field: csecs_today, type: Int32
+        if (!is_numeric(self.csecs_today)) show_error($"{_where} :: self.csecs_today expected number", true);
+        buffer_write(_buffer, buffer_s32, self.csecs_today);
+
+        // field: csecs_remaining, type: Int32
+        if (!is_numeric(self.csecs_remaining)) show_error($"{_where} :: self.csecs_remaining expected number", true);
+        buffer_write(_buffer, buffer_s32, self.csecs_remaining);
+
     }
 }
 
@@ -5669,6 +5718,12 @@ function __SteamUserDurationControl_decode(_buffer, _offset)
         // field: notification, type: enum SteamUserDurationControlNotification
         self.notification = buffer_read(_buffer, buffer_u64);
 
+        // field: csecs_today, type: Int32
+        self.csecs_today = buffer_read(_buffer, buffer_s32);
+
+        // field: csecs_remaining, type: Int32
+        self.csecs_remaining = buffer_read(_buffer, buffer_s32);
+
     }
 
     return _inst;
@@ -5691,17 +5746,14 @@ function __SteamUserMarketEligibilityResponse_encode(_inst, _buffer, _offset, _w
         if (!is_bool(self.allowed)) show_error($"{_where} :: self.allowed expected bool", true);
         buffer_write(_buffer, buffer_bool, self.allowed);
 
-        // field: not_allowed_reason, type: Int32
+        // field: not_allowed_reason, type: enum SteamMarketNotAllowedReasonFlags
+
         if (!is_numeric(self.not_allowed_reason)) show_error($"{_where} :: self.not_allowed_reason expected number", true);
-        buffer_write(_buffer, buffer_s32, self.not_allowed_reason);
+        buffer_write(_buffer, buffer_u64, self.not_allowed_reason);
 
         // field: allowed_at_time, type: UInt32
         if (!is_numeric(self.allowed_at_time)) show_error($"{_where} :: self.allowed_at_time expected number", true);
         buffer_write(_buffer, buffer_u32, self.allowed_at_time);
-
-        // field: steam_purchase_time, type: UInt32
-        if (!is_numeric(self.steam_purchase_time)) show_error($"{_where} :: self.steam_purchase_time expected number", true);
-        buffer_write(_buffer, buffer_u32, self.steam_purchase_time);
 
         // field: day_steam_guard_required_days, type: UInt32
         if (!is_numeric(self.day_steam_guard_required_days)) show_error($"{_where} :: self.day_steam_guard_required_days expected number", true);
@@ -5731,14 +5783,11 @@ function __SteamUserMarketEligibilityResponse_decode(_buffer, _offset)
         // field: allowed, type: Bool
         self.allowed = buffer_read(_buffer, buffer_bool);
 
-        // field: not_allowed_reason, type: Int32
-        self.not_allowed_reason = buffer_read(_buffer, buffer_s32);
+        // field: not_allowed_reason, type: enum SteamMarketNotAllowedReasonFlags
+        self.not_allowed_reason = buffer_read(_buffer, buffer_u64);
 
         // field: allowed_at_time, type: UInt32
         self.allowed_at_time = buffer_read(_buffer, buffer_u32);
-
-        // field: steam_purchase_time, type: UInt32
-        self.steam_purchase_time = buffer_read(_buffer, buffer_u32);
 
         // field: day_steam_guard_required_days, type: UInt32
         self.day_steam_guard_required_days = buffer_read(_buffer, buffer_u32);
@@ -6325,9 +6374,10 @@ function __SteamUserClientGameServerDeny_encode(_inst, _buffer, _offset, _where 
         if (!is_bool(self.secure)) show_error($"{_where} :: self.secure expected bool", true);
         buffer_write(_buffer, buffer_bool, self.secure);
 
-        // field: reason, type: Int32
+        // field: reason, type: enum SteamApiDenyReason
+
         if (!is_numeric(self.reason)) show_error($"{_where} :: self.reason expected number", true);
-        buffer_write(_buffer, buffer_s32, self.reason);
+        buffer_write(_buffer, buffer_u64, self.reason);
 
     }
 }
@@ -6358,8 +6408,8 @@ function __SteamUserClientGameServerDeny_decode(_buffer, _offset)
         // field: secure, type: Bool
         self.secure = buffer_read(_buffer, buffer_bool);
 
-        // field: reason, type: Int32
-        self.reason = buffer_read(_buffer, buffer_s32);
+        // field: reason, type: enum SteamApiDenyReason
+        self.reason = buffer_read(_buffer, buffer_u64);
 
     }
 
@@ -6416,6 +6466,49 @@ function __SteamUserMicroTxnAuthorizationResponse_decode(_buffer, _offset)
 
         // field: authorized, type: Bool
         self.authorized = buffer_read(_buffer, buffer_bool);
+
+    }
+
+    return _inst;
+}
+
+/**
+ * @func __SteamUtilsCheckFileSignatureResult_encode(_inst, _buffer, _offset, _where)
+ * @param {Struct.SteamUtilsCheckFileSignatureResult} _inst
+ * @param {Id.Buffer} _buffer
+ * @param {Real} _offset
+ * @param {String} _where
+ * @ignore
+ */
+function __SteamUtilsCheckFileSignatureResult_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
+{
+    buffer_seek(_buffer, buffer_seek_start, _offset);
+    with (_inst)
+    {
+        // field: result, type: enum SteamUtilsCheckFileSignature
+
+        if (!is_numeric(self.result)) show_error($"{_where} :: self.result expected number", true);
+        buffer_write(_buffer, buffer_u64, self.result);
+
+    }
+}
+
+/**
+ * @func __SteamUtilsCheckFileSignatureResult_decode(_buffer, _offset)
+ * @param {Id.Buffer} _buffer
+ * @param {Real} _offset
+ * @returns {Struct.SteamUtilsCheckFileSignatureResult}
+ * @ignore
+ */
+function __SteamUtilsCheckFileSignatureResult_decode(_buffer, _offset)
+{
+    buffer_seek(_buffer, buffer_seek_start, _offset);
+
+    _inst = new SteamUtilsCheckFileSignatureResult();
+    with (_inst)
+    {
+        // field: result, type: enum SteamUtilsCheckFileSignature
+        self.result = buffer_read(_buffer, buffer_u64);
 
     }
 
@@ -12687,7 +12780,7 @@ function steam_friends_get_follower_count(_steam_id, _callback)
 
 /**
  * @param {Real} _friend_index
- * @param {Real} _friend_flags
+ * @param {Enum.SteamFriendsFriendFlag} _friend_flags
  * @returns {Real}
  */
 function steam_friends_get_friend_by_index(_friend_index, _friend_flags)
@@ -12695,9 +12788,20 @@ function steam_friends_get_friend_by_index(_friend_index, _friend_flags)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
+    var __args_buffer = __ext_core_get_args_buffer();
+
+    // param: _friend_index, type: Int32
+    if (!is_numeric(_friend_index)) show_error($"{_GMFUNCTION_} :: _friend_index expected number", true);
+    buffer_write(__args_buffer, buffer_s32, _friend_index);
+
+    // param: _friend_flags, type: enum SteamFriendsFriendFlag
+
+    if (!is_numeric(_friend_flags)) show_error($"{_GMFUNCTION_} :: _friend_flags expected number", true);
+    buffer_write(__args_buffer, buffer_u64, _friend_flags);
+
     var __ret_buffer = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_friends_get_friend_by_index(_friend_index, _friend_flags, buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_friends_get_friend_by_index(buffer_get_address(__args_buffer), buffer_tell(__args_buffer), buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
 
     var __result__ = undefined;
     __result__ = buffer_read(__ret_buffer, buffer_u64);
@@ -12744,8 +12848,26 @@ function steam_friends_get_friend_coplay_time(_steam_id_friend)
     return __return_value__;
 }
 
-// Skipping function steam_friends_get_friend_count (no wrapper is required)
+/**
+ * @param {Enum.SteamFriendsFriendFlag} _friend_flags
+ * @returns {Real}
+ */
+function steam_friends_get_friend_count(_friend_flags)
+{
+    var __available__ = __Steamworks_is_available();
+    if (!__available__) return;
 
+    var __args_buffer = __ext_core_get_args_buffer();
+
+    // param: _friend_flags, type: enum SteamFriendsFriendFlag
+
+    if (!is_numeric(_friend_flags)) show_error($"{_GMFUNCTION_} :: _friend_flags expected number", true);
+    buffer_write(__args_buffer, buffer_u64, _friend_flags);
+
+    var __return_value__ = __steam_friends_get_friend_count(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+
+    return __return_value__;
+}
 
 /**
  * @param {Real} _steam_id_source
@@ -13177,7 +13299,7 @@ function steam_friends_get_small_friend_avatar(_steam_id_friend)
 
 /**
  * @param {Real} _steam_id_friend
- * @param {Real} _friend_flags
+ * @param {Enum.SteamFriendsFriendFlag} _friend_flags
  * @returns {Bool}
  */
 function steam_friends_has_friend(_steam_id_friend, _friend_flags)
@@ -13191,9 +13313,10 @@ function steam_friends_has_friend(_steam_id_friend, _friend_flags)
     if (!is_numeric(_steam_id_friend)) show_error($"{_GMFUNCTION_} :: _steam_id_friend expected number", true);
     buffer_write(__args_buffer, buffer_u64, _steam_id_friend);
 
-    // param: _friend_flags, type: Int32
+    // param: _friend_flags, type: enum SteamFriendsFriendFlag
+
     if (!is_numeric(_friend_flags)) show_error($"{_GMFUNCTION_} :: _friend_flags expected number", true);
-    buffer_write(__args_buffer, buffer_s32, _friend_flags);
+    buffer_write(__args_buffer, buffer_u64, _friend_flags);
 
     var __return_value__ = __steam_friends_has_friend(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
 
@@ -15007,6 +15130,34 @@ function steam_user_set_callback_validate_auth_ticket_response(_callback)
 
 // Skipping function steam_utils_overlay_needs_present (no wrapper is required)
 
+
+/**
+ * @param {String} _file_name
+ * @param {Function} _callback
+ */
+function steam_utils_check_file_signature(_file_name, _callback)
+{
+    var __available__ = __Steamworks_is_available();
+    if (!__available__) return;
+
+    var __dispatcher__ = __Steamworks_get_dispatcher();
+
+    var __args_buffer = __ext_core_get_args_buffer();
+
+    // param: _file_name, type: String
+    if (!is_string(_file_name)) show_error($"{_GMFUNCTION_} :: _file_name expected string", true);
+    buffer_write(__args_buffer, buffer_u32, string_byte_length(_file_name));
+    buffer_write(__args_buffer, buffer_string, _file_name);
+
+    // param: _callback, type: Function
+    if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
+    var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
+    buffer_write(__args_buffer, buffer_u64, _callback_handle);
+
+    var __return_value__ = __steam_utils_check_file_signature(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+
+    return __return_value__;
+}
 
 /**
  * @param {Real} _steam_api_call
@@ -24042,6 +24193,7 @@ function __Steamworks_get_decoders()
         __SteamUserSteamServerConnectFailure_decode,
         __SteamUserClientGameServerDeny_decode,
         __SteamUserMicroTxnAuthorizationResponse_decode,
+        __SteamUtilsCheckFileSignatureResult_decode,
         __SteamUtilsLowBatteryPower_decode,
         __SteamUtilsSteamApiCallCompleted_decode,
         __SteamUtilsImageSize_decode,

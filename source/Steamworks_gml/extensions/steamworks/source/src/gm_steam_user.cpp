@@ -697,7 +697,7 @@ static inline gm_structs::SteamUserMarketEligibilityResponse user_fromNative(con
 {
     gm_structs::SteamUserMarketEligibilityResponse out{};
     out.allowed = (e.m_bAllowed != 0);
-    out.not_allowed_reason = (int32)e.m_eNotAllowedReason;
+    out.not_allowed_reason = (gm_enums::SteamMarketNotAllowedReasonFlags)e.m_eNotAllowedReason;
     out.allowed_at_time = (std::uint32_t)e.m_rtAllowedAtTime;
 
 	out.day_steam_guard_required_days = e.m_cdaySteamGuardRequiredDays;
@@ -864,7 +864,7 @@ static inline gm_structs::SteamUserClientGameServerDeny user_fromNative(const Cl
     out.game_server_ip = (std::uint32_t)e.m_unGameServerIP;
     out.game_server_port = (std::uint32_t)e.m_usGameServerPort;
     out.secure = (e.m_bSecure != 0);
-    out.reason = (int32)e.m_uReason;
+    out.reason = (gm_enums::SteamApiDenyReason)e.m_uReason;
     return out;
 }
 

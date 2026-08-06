@@ -205,7 +205,7 @@
 /**
  * @function_partial steam_friends_get_friend_by_index
  * @param {Real} friend_index
- * @param {Real} friend_flags
+ * @param {Enum.SteamFriendsFriendFlag} friend_flags
  * @returns {Real}
  * @function_end
  */
@@ -226,7 +226,7 @@
 
 /**
  * @function_partial steam_friends_get_friend_count
- * @param {Real} friend_flags
+ * @param {Enum.SteamFriendsFriendFlag} friend_flags
  * @returns {Real}
  * @function_end
  */
@@ -397,7 +397,7 @@
 /**
  * @function_partial steam_friends_has_friend
  * @param {Real} steam_id_friend
- * @param {Real} friend_flags
+ * @param {Enum.SteamFriendsFriendFlag} friend_flags
  * @returns {Bool}
  * @function_end
  */
@@ -1170,6 +1170,13 @@
 /**
  * @function_partial steam_utils_overlay_needs_present
  * @returns {Bool}
+ * @function_end
+ */
+
+/**
+ * @function_partial steam_utils_check_file_signature
+ * @param {String} file_name
+ * @param {Function} callback
  * @function_end
  */
 
@@ -4378,7 +4385,7 @@
 /**
  * @struct_partial SteamFriendsPersonaStateChange
  * @member {Real} steam_id
- * @member {Real} change_flags
+ * @member {Enum.SteamFriendsPersonaChange} change_flags
  * @struct_end
  */
 
@@ -4497,15 +4504,16 @@
  * @member {Real} csecs_last_5h
  * @member {Enum.SteamUserDurationControlProgress} progress
  * @member {Enum.SteamUserDurationControlNotification} notification
+ * @member {Real} csecs_today
+ * @member {Real} csecs_remaining
  * @struct_end
  */
 
 /**
  * @struct_partial SteamUserMarketEligibilityResponse
  * @member {Bool} allowed
- * @member {Real} not_allowed_reason
+ * @member {Enum.SteamMarketNotAllowedReasonFlags} not_allowed_reason
  * @member {Real} allowed_at_time
- * @member {Real} steam_purchase_time
  * @member {Real} day_steam_guard_required_days
  * @member {Real} day_new_device_cooldown
  * @struct_end
@@ -4593,7 +4601,7 @@
  * @member {Real} game_server_ip
  * @member {Real} game_server_port
  * @member {Bool} secure
- * @member {Real} reason
+ * @member {Enum.SteamApiDenyReason} reason
  * @struct_end
  */
 
@@ -4602,6 +4610,12 @@
  * @member {Real} app_id
  * @member {Real} order_id
  * @member {Bool} authorized
+ * @struct_end
+ */
+
+/**
+ * @struct_partial SteamUtilsCheckFileSignatureResult
+ * @member {Enum.SteamUtilsCheckFileSignature} result
  * @struct_end
  */
 
@@ -5805,6 +5819,29 @@
  */
 
 /**
+ * @enum_partial SteamMarketNotAllowedReasonFlags
+ * @member None
+ * @member TemporaryFailure
+ * @member AccountDisabled
+ * @member AccountLockedDown
+ * @member AccountLimited
+ * @member TradeBanned
+ * @member AccountNotTrusted
+ * @member SteamGuardNotEnabled
+ * @member SteamGuardOnlyRecentlyEnabled
+ * @member RecentPasswordReset
+ * @member NewPaymentMethod
+ * @member InvalidCookie
+ * @member UsingNewDevice
+ * @member RecentSelfRefund
+ * @member NewPaymentMethodCannotBeVerified
+ * @member NoRecentPurchases
+ * @member AcceptedWalletGift
+ * @member TradeCooldown
+ * @enum_end
+ */
+
+/**
  * @enum_partial SteamNetworkingIdentityType
  * @member Invalid
  * @member SteamId
@@ -6694,6 +6731,7 @@
 
 /**
  * @enum_partial SteamTimelineGameMode
+ * @member Invalid
  * @member Playing
  * @member Staging
  * @member Menus
@@ -6703,6 +6741,7 @@
 
 /**
  * @enum_partial SteamTimelineEventClipPriority
+ * @member Invalid
  * @member None
  * @member Standard
  * @member Featured
