@@ -472,7 +472,10 @@ std::vector<std::string> steam_inventory_get_result_item_property_keys_array(int
     if (!inv) return out;
 
     uint32 needed = 0;
-    if (!inv->GetResultItemProperty(make_result_handle(result_handle), item_index, nullptr, nullptr, &needed) || needed == 0)
+    // Some SDK builds return false on probe; if needed==0, bail (matches
+    // steam_inventory_get_result_item_property's own probe-gate convention).
+    inv->GetResultItemProperty(make_result_handle(result_handle), item_index, nullptr, nullptr, &needed);
+    if (needed == 0)
         return out;
 
     std::vector<char> buf((size_t)needed);
@@ -481,7 +484,7 @@ std::vector<std::string> steam_inventory_get_result_item_property_keys_array(int
     if (!inv->GetResultItemProperty(make_result_handle(result_handle), item_index, nullptr, buf.data(), &size))
         return out;
 
-    std::string csv(buf.data());
+    std::string csv(buf.data(), strnlen(buf.data(), buf.size()));
     size_t start = 0;
     while (start < csv.size())
     {
@@ -537,7 +540,7 @@ std::optional<std::string> steam_inventory_get_result_item_property(
     if (!ok)
         return std::nullopt;
 
-    return std::string(buf.data());
+    return std::string(buf.data(), strnlen(buf.data(), buf.size()));
 }
 
 std::uint32_t steam_inventory_get_num_items_with_prices()
@@ -766,7 +769,7 @@ std::optional<std::string> steam_inventory_get_item_definition_property(
     if (!ok)
         return std::nullopt;
 
-    return std::string(buf.data());
+    return std::string(buf.data(), strnlen(buf.data(), buf.size()));
 }
 
 static inline void _split_csv_to_strings(const std::string& csv, std::vector<std::string>& out)
@@ -803,8 +806,11 @@ std::vector<std::string> steam_inventory_get_item_definition_property_keys(std::
 
     // Two-call probe: first call with a NULL buffer to learn the required size, then
     // allocate exactly that and fetch — avoids silent truncation of large key lists.
+    // Some SDK builds return false on probe; if needed==0, bail (matches the file's other
+    // probe-gate sites).
     uint32 needed = 0;
-    if (!inv->GetItemDefinitionProperty((SteamItemDef_t)item_def_id, nullptr, nullptr, &needed) || needed == 0)
+    inv->GetItemDefinitionProperty((SteamItemDef_t)item_def_id, nullptr, nullptr, &needed);
+    if (needed == 0)
         return keys;
 
     std::vector<char> buf((size_t)needed);
