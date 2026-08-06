@@ -774,7 +774,10 @@ void steam_userstats_download_leaderboard_entries_for_users(std::uint64_t leader
     ISteamUserStats* s = steam_userstats_iface();
     if (!s) return;
 
-    if (users.empty()) return;
+    if (users.empty()) {
+        steam_set_last_error("steam_userstats_download_leaderboard_entries_for_users: users must not be empty.");
+        return;
+    }
 
     std::vector<CSteamID> ids;
     ids.reserve(users.size());
