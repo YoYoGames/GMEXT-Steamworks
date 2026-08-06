@@ -5380,18 +5380,22 @@ GMEXPORT double __EXT_NATIVE__steam_inventory_get_items_with_prices(char* __ret_
     return 0;
 }
 
-GMEXPORT double __EXT_NATIVE__steam_inventory_start_update_properties()
+GMEXPORT double __EXT_NATIVE__steam_inventory_start_update_properties(char* __ret_buffer, double __ret_buffer_length)
 {
     auto&& __result = steam_inventory_start_update_properties();
-    return static_cast<double>(__result);
+    gm::byteio::BufferWriter __bw{__ret_buffer, static_cast<size_t>(__ret_buffer_length)};
+
+    // return: __result, type: UInt64
+    gm::wire::codec::writeValue(__bw, __result);
+    return 0;
 }
 
 GMEXPORT double __EXT_NATIVE__steam_inventory_remove_property(char* __arg_buffer, double __arg_buffer_length)
 {
     gm::byteio::BufferReader __br{__arg_buffer, static_cast<size_t>(__arg_buffer_length)};
 
-    // field: result_handle, type: Int32
-    std::int32_t result_handle = gm::wire::codec::readValue<std::int32_t>(__br);
+    // field: update_handle, type: UInt64
+    std::uint64_t update_handle = gm::wire::codec::readValue<std::uint64_t>(__br);
 
     // field: item_instance_id, type: UInt64
     std::uint64_t item_instance_id = gm::wire::codec::readValue<std::uint64_t>(__br);
@@ -5399,7 +5403,7 @@ GMEXPORT double __EXT_NATIVE__steam_inventory_remove_property(char* __arg_buffer
     // field: property_name, type: String
     std::string_view property_name = gm::wire::codec::readValue<std::string_view>(__br);
 
-    auto&& __result = steam_inventory_remove_property(result_handle, item_instance_id, property_name);
+    auto&& __result = steam_inventory_remove_property(update_handle, item_instance_id, property_name);
     return static_cast<double>(__result);
 }
 
@@ -5407,8 +5411,8 @@ GMEXPORT double __EXT_NATIVE__steam_inventory_set_property_string(char* __arg_bu
 {
     gm::byteio::BufferReader __br{__arg_buffer, static_cast<size_t>(__arg_buffer_length)};
 
-    // field: result_handle, type: Int32
-    std::int32_t result_handle = gm::wire::codec::readValue<std::int32_t>(__br);
+    // field: update_handle, type: UInt64
+    std::uint64_t update_handle = gm::wire::codec::readValue<std::uint64_t>(__br);
 
     // field: item_instance_id, type: UInt64
     std::uint64_t item_instance_id = gm::wire::codec::readValue<std::uint64_t>(__br);
@@ -5419,7 +5423,7 @@ GMEXPORT double __EXT_NATIVE__steam_inventory_set_property_string(char* __arg_bu
     // field: value, type: String
     std::string_view value = gm::wire::codec::readValue<std::string_view>(__br);
 
-    auto&& __result = steam_inventory_set_property_string(result_handle, item_instance_id, property_name, value);
+    auto&& __result = steam_inventory_set_property_string(update_handle, item_instance_id, property_name, value);
     return static_cast<double>(__result);
 }
 
@@ -5427,8 +5431,8 @@ GMEXPORT double __EXT_NATIVE__steam_inventory_set_property_bool(char* __arg_buff
 {
     gm::byteio::BufferReader __br{__arg_buffer, static_cast<size_t>(__arg_buffer_length)};
 
-    // field: result_handle, type: Int32
-    std::int32_t result_handle = gm::wire::codec::readValue<std::int32_t>(__br);
+    // field: update_handle, type: UInt64
+    std::uint64_t update_handle = gm::wire::codec::readValue<std::uint64_t>(__br);
 
     // field: item_instance_id, type: UInt64
     std::uint64_t item_instance_id = gm::wire::codec::readValue<std::uint64_t>(__br);
@@ -5439,7 +5443,7 @@ GMEXPORT double __EXT_NATIVE__steam_inventory_set_property_bool(char* __arg_buff
     // field: value, type: Bool
     bool value = gm::wire::codec::readValue<bool>(__br);
 
-    auto&& __result = steam_inventory_set_property_bool(result_handle, item_instance_id, property_name, value);
+    auto&& __result = steam_inventory_set_property_bool(update_handle, item_instance_id, property_name, value);
     return static_cast<double>(__result);
 }
 
@@ -5447,8 +5451,8 @@ GMEXPORT double __EXT_NATIVE__steam_inventory_set_property_int64(char* __arg_buf
 {
     gm::byteio::BufferReader __br{__arg_buffer, static_cast<size_t>(__arg_buffer_length)};
 
-    // field: result_handle, type: Int32
-    std::int32_t result_handle = gm::wire::codec::readValue<std::int32_t>(__br);
+    // field: update_handle, type: UInt64
+    std::uint64_t update_handle = gm::wire::codec::readValue<std::uint64_t>(__br);
 
     // field: item_instance_id, type: UInt64
     std::uint64_t item_instance_id = gm::wire::codec::readValue<std::uint64_t>(__br);
@@ -5459,7 +5463,7 @@ GMEXPORT double __EXT_NATIVE__steam_inventory_set_property_int64(char* __arg_buf
     // field: value, type: Int64
     std::int64_t value = gm::wire::codec::readValue<std::int64_t>(__br);
 
-    auto&& __result = steam_inventory_set_property_int64(result_handle, item_instance_id, property_name, value);
+    auto&& __result = steam_inventory_set_property_int64(update_handle, item_instance_id, property_name, value);
     return static_cast<double>(__result);
 }
 
@@ -5467,8 +5471,8 @@ GMEXPORT double __EXT_NATIVE__steam_inventory_set_property_float(char* __arg_buf
 {
     gm::byteio::BufferReader __br{__arg_buffer, static_cast<size_t>(__arg_buffer_length)};
 
-    // field: result_handle, type: Int32
-    std::int32_t result_handle = gm::wire::codec::readValue<std::int32_t>(__br);
+    // field: update_handle, type: UInt64
+    std::uint64_t update_handle = gm::wire::codec::readValue<std::uint64_t>(__br);
 
     // field: item_instance_id, type: UInt64
     std::uint64_t item_instance_id = gm::wire::codec::readValue<std::uint64_t>(__br);
@@ -5479,7 +5483,7 @@ GMEXPORT double __EXT_NATIVE__steam_inventory_set_property_float(char* __arg_buf
     // field: value, type: Float32
     float value = gm::wire::codec::readValue<float>(__br);
 
-    auto&& __result = steam_inventory_set_property_float(result_handle, item_instance_id, property_name, value);
+    auto&& __result = steam_inventory_set_property_float(update_handle, item_instance_id, property_name, value);
     return static_cast<double>(__result);
 }
 
@@ -5487,13 +5491,13 @@ GMEXPORT double __EXT_NATIVE__steam_inventory_submit_update_properties(char* __a
 {
     gm::byteio::BufferReader __br{__arg_buffer, static_cast<size_t>(__arg_buffer_length)};
 
-    // field: result_handle, type: Int32
-    std::int32_t result_handle = gm::wire::codec::readValue<std::int32_t>(__br);
+    // field: update_handle, type: UInt64
+    std::uint64_t update_handle = gm::wire::codec::readValue<std::uint64_t>(__br);
 
     // field: callback, type: Function
     gm::wire::GMFunction callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
 
-    auto&& __result = steam_inventory_submit_update_properties(result_handle, callback);
+    auto&& __result = steam_inventory_submit_update_properties(update_handle, callback);
     return static_cast<double>(__result);
 }
 
@@ -6318,7 +6322,7 @@ GMEXPORT double __EXT_NATIVE__steam_matchmaking_get_lobby_data_count(char* __arg
     return static_cast<double>(__result);
 }
 
-GMEXPORT double __EXT_NATIVE__steam_matchmaking_get_lobby_data_by_index(char* __arg_buffer, double __arg_buffer_length)
+GMEXPORT double __EXT_NATIVE__steam_matchmaking_get_lobby_data_by_index(char* __arg_buffer, double __arg_buffer_length, char* __ret_buffer, double __ret_buffer_length)
 {
     gm::byteio::BufferReader __br{__arg_buffer, static_cast<size_t>(__arg_buffer_length)};
 
@@ -6328,16 +6332,12 @@ GMEXPORT double __EXT_NATIVE__steam_matchmaking_get_lobby_data_by_index(char* __
     // field: index, type: Int32
     std::int32_t index = gm::wire::codec::readValue<std::int32_t>(__br);
 
-    // field: key_out, type: Buffer
-    gm::wire::GMBuffer key_out = __buffer_queue.front();
-    __buffer_queue.pop();
+    auto&& __result = steam_matchmaking_get_lobby_data_by_index(lobby_id, index);
+    gm::byteio::BufferWriter __bw{__ret_buffer, static_cast<size_t>(__ret_buffer_length)};
 
-    // field: val_out, type: Buffer
-    gm::wire::GMBuffer val_out = __buffer_queue.front();
-    __buffer_queue.pop();
-
-    auto&& __result = steam_matchmaking_get_lobby_data_by_index(lobby_id, index, key_out, val_out);
-    return static_cast<double>(__result);
+    // return: __result, type: optional<struct SteamMatchmakingLobbyDataEntry>
+    gm::wire::codec::writeValue(__bw, __result);
+    return 0;
 }
 
 GMEXPORT double __EXT_NATIVE__steam_matchmaking_set_lobby_member_data(char* __arg_buffer, double __arg_buffer_length)

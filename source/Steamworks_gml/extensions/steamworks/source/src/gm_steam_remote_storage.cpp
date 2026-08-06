@@ -196,18 +196,20 @@ std::int32_t steam_remote_storage_file_read(std::string_view file_name, gm::wire
     if (out_data.length() == 0) return 0;
 
     std::string fn(file_name);
-    std::vector<std::uint8_t> tmp((size_t)out_data.length());
 
-    int32 read = rs->FileRead(fn.c_str(), tmp.data(), (int32)tmp.size());
-    if (read <= 0) return 0;
+    const int32 file_size = rs->GetFileSize(fn.c_str());
+    if (file_size <= 0) return 0;
 
-    if ((std::uint64_t)read > out_data.length()) {
+    if ((std::uint64_t)file_size > out_data.length()) {
         steam_set_last_error("steam_remote_storage_file_read: output buffer too small for file contents (query steam_remote_storage_get_file_size first).");
         return 0;
     }
 
     auto w = out_data.getWriter();
-    w.writeBytes((const char*)tmp.data(), (int)read);
+    int32 read = rs->FileRead(fn.c_str(), w.data(), (int32)file_size);
+    if (read <= 0) return 0;
+
+    w.skip((size_t)read);
     return (std::int32_t)read;
 }
 
@@ -447,17 +449,24 @@ std::int32_t steam_remote_storage_ugc_read(std::uint64_t ugc_handle,
     if (!rs) return 0;
     if (out_data.length() <= 0) return 0;
 
-    std::vector<std::uint8_t> tmp((size_t)out_data.length());
-    int32 r = rs->UGCRead((UGCHandle_t)ugc_handle, tmp.data(), (int32)out_data.length(), (uint32)offset, (EUGCReadAction)((int)action));
-    if (r <= 0) return 0;
+    AppId_t details_app = 0;
+    char* details_name = nullptr;
+    int32 total_size = 0;
+    CSteamID details_owner;
+    if (!rs->GetUGCDetails((UGCHandle_t)ugc_handle, &details_app, &details_name, &total_size, &details_owner))
+        return 0;
 
-    if ((std::uint64_t)r > out_data.length()) {
-        steam_set_last_error("steam_remote_storage_ugc_read: output buffer too small for UGC data.");
+    const std::uint64_t remaining = (offset < (std::uint32_t)total_size) ? ((std::uint64_t)total_size - offset) : 0;
+    if (remaining > out_data.length()) {
+        steam_set_last_error("steam_remote_storage_ugc_read: output buffer too small for UGC data (query steam_remote_storage_get_ugc_details first).");
         return 0;
     }
 
     auto w = out_data.getWriter();
-    w.writeBytes((const char*)tmp.data(), (int)r);
+    int32 r = rs->UGCRead((UGCHandle_t)ugc_handle, w.data(), (int32)out_data.length(), (uint32)offset, (EUGCReadAction)((int)action));
+    if (r <= 0) return 0;
+
+    w.skip((size_t)r);
     return (std::int32_t)r;
 }
 

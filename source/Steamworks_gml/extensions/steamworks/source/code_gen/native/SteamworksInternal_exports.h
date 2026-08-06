@@ -474,7 +474,7 @@ GMEXPORT double __EXT_NATIVE__steam_inventory_start_purchase(char* __arg_buffer,
 GMEXPORT double __EXT_NATIVE__steam_inventory_request_prices(char* __arg_buffer, double __arg_buffer_length);
 GMEXPORT double __EXT_NATIVE__steam_inventory_get_num_items_with_prices();
 GMEXPORT double __EXT_NATIVE__steam_inventory_get_items_with_prices(char* __ret_buffer, double __ret_buffer_length);
-GMEXPORT double __EXT_NATIVE__steam_inventory_start_update_properties();
+GMEXPORT double __EXT_NATIVE__steam_inventory_start_update_properties(char* __ret_buffer, double __ret_buffer_length);
 GMEXPORT double __EXT_NATIVE__steam_inventory_remove_property(char* __arg_buffer, double __arg_buffer_length);
 GMEXPORT double __EXT_NATIVE__steam_inventory_set_property_string(char* __arg_buffer, double __arg_buffer_length);
 GMEXPORT double __EXT_NATIVE__steam_inventory_set_property_bool(char* __arg_buffer, double __arg_buffer_length);
@@ -555,7 +555,7 @@ GMEXPORT double __EXT_NATIVE__steam_matchmaking_set_lobby_data(char* __arg_buffe
 GMEXPORT char* __EXT_NATIVE__steam_matchmaking_get_lobby_data(char* __arg_buffer, double __arg_buffer_length);
 GMEXPORT double __EXT_NATIVE__steam_matchmaking_delete_lobby_data(char* __arg_buffer, double __arg_buffer_length);
 GMEXPORT double __EXT_NATIVE__steam_matchmaking_get_lobby_data_count(char* __arg_buffer, double __arg_buffer_length);
-GMEXPORT double __EXT_NATIVE__steam_matchmaking_get_lobby_data_by_index(char* __arg_buffer, double __arg_buffer_length);
+GMEXPORT double __EXT_NATIVE__steam_matchmaking_get_lobby_data_by_index(char* __arg_buffer, double __arg_buffer_length, char* __ret_buffer, double __ret_buffer_length);
 GMEXPORT double __EXT_NATIVE__steam_matchmaking_set_lobby_member_data(char* __arg_buffer, double __arg_buffer_length);
 GMEXPORT char* __EXT_NATIVE__steam_matchmaking_get_lobby_member_data(char* __arg_buffer, double __arg_buffer_length);
 GMEXPORT double __EXT_NATIVE__steam_matchmaking_send_lobby_chat_msg(char* __arg_buffer, double __arg_buffer_length);

@@ -612,20 +612,18 @@ std::optional<std::uint32_t> steam_user_get_encrypted_app_ticket(gm::wire::GMBuf
         return std::nullopt;
     }
 
-    std::vector<std::uint8_t> buf((size_t)out_ticket.length());
     uint32 pcb = 0;
+    auto w = out_ticket.getWriter();
 
-    const bool ok = u->GetEncryptedAppTicket(buf.data(), (int)out_ticket.length(), &pcb);
+    const bool ok = u->GetEncryptedAppTicket(w.data(), (int)out_ticket.length(), &pcb);
 
     if (!ok)
         return std::nullopt;
 
+    // On success, pcb is documented as the size actually copied into the buffer (bounded by the cap
+    // just passed), not a required size — unlike GetVoice/DecompressVoice's BufferTooSmall case.
     if (pcb > 0)
-    {
-        const uint32 n = std::min<uint32>(pcb, (uint32)buf.size());
-        auto w = out_ticket.getWriter();
-        w.writeBytes((const char*)buf.data(), (int)n);
-    }
+        w.skip((size_t)pcb);
 
     return (std::uint32_t)pcb;
 }

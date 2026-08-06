@@ -574,7 +574,12 @@ std::uint32_t steam_apps_get_app_ownership_ticket_data(
         return 0;
     }
 
-    std::vector<std::uint8_t> tmp((size_t)ticket_buffer.length());
+    // ISteamAppTicket exposes no size-query API and its header carries no documented max ticket size,
+    // so a fixed scratch buffer decoupled from the caller's buffer is required to make the too-small
+    // check below reachable: it lets GetAppOwnershipTicketData report a `written` size larger than
+    // ticket_buffer when the caller's buffer doesn't fit. 4096 is comfortably larger than any realistic
+    // signed app-ownership ticket.
+    std::uint8_t tmp[4096];
 
     uint32 outAppId = 0;
     uint32 outAccountId = 0;          // NOTE: accountID, not SteamID64
@@ -583,8 +588,8 @@ std::uint32_t steam_apps_get_app_ownership_ticket_data(
 
     const uint32 written = appTicket->GetAppOwnershipTicketData(
         (uint32)app_id,
-        (void*)tmp.data(),
-        (uint32)tmp.size(),
+        (void*)tmp,
+        (uint32)sizeof(tmp),
         &outAppId,
         &outAccountId,
         &sigOffset,
@@ -600,7 +605,7 @@ std::uint32_t steam_apps_get_app_ownership_ticket_data(
     }
 
     auto w = ticket_buffer.getWriter();
-    w.writeBytes((const char*)tmp.data(), (int)written);
+    w.writeBytes((const char*)tmp, (int)written);
 
     return (std::uint32_t)written;
 }

@@ -1273,20 +1273,75 @@ static inline gm_structs::SteamUgcRemoveUGCDependencyResult ugc_fromNative(const
     return out;
 }
 
-static inline gm_structs::SteamUgcGetAppDependenciesResult ugc_fromNative(const GetAppDependenciesResult_t& e)
+// GetAppDependencies has no offset/cursor parameter (isteamugc.h: "callback may be called multiple
+// times until all app dependencies have been returned" — results paginate at 32/callback vs.
+// m_nTotalNumAppDependencies). The generic steam_async::CallResult<> template self-deletes after its
+// first firing, which only ever delivers the first batch. This dedicated wrapper instead stays alive
+// across firings for the same SteamAPICall_t, accumulating app_ids until the running total reaches the
+// reported grand total (or io_failure/a defensive cap is hit).
+class UgcAppDependenciesCallResult
 {
-    gm_structs::SteamUgcGetAppDependenciesResult out{};
-    out.result = static_cast<gm_enums::SteamApiResult>((int)e.m_eResult);
-    out.published_file_id = (std::uint64_t)e.m_nPublishedFileId;
-    out.num_app_dependencies = (std::uint32_t)e.m_nNumAppDependencies;
-    out.total_num_app_dependencies = (std::uint32_t)e.m_nTotalNumAppDependencies;
+public:
+    explicit UgcAppDependenciesCallResult(const gm::wire::GMFunction& callback)
+        : cb(callback)
+    {}
 
-    const uint32 n = std::min<uint32>(e.m_nNumAppDependencies, (uint32)(sizeof(e.m_rgAppIDs) / sizeof(e.m_rgAppIDs[0])));
-    out.app_ids.reserve((size_t)n);
-    for (uint32 i = 0; i < n; ++i)
-        out.app_ids.push_back((std::uint32_t)e.m_rgAppIDs[(size_t)i]);
-    return out;
-}
+    void set(SteamAPICall_t call)
+    {
+        cr.Set(call, this, &UgcAppDependenciesCallResult::on_result);
+    }
+
+private:
+    static constexpr std::uint32_t kMaxAccumulated = 65536; // matches this extension's existing unbounded-count clamp precedent
+
+    gm::wire::GMFunction cb;
+    CCallResult<UgcAppDependenciesCallResult, GetAppDependenciesResult_t> cr;
+    gm_structs::SteamUgcGetAppDependenciesResult accumulated{};
+    bool started = false;
+
+    void on_result(GetAppDependenciesResult_t* p, bool io_failure)
+    {
+        if (io_failure)
+        {
+            if (cb)
+            {
+                gm_structs::SteamUgcGetAppDependenciesResult out{};
+                out.result = gm_enums::SteamApiResult::IoFailure;
+                cb.call(out);
+            }
+            delete this;
+            return;
+        }
+
+        if (!p)
+        {
+            delete this;
+            return;
+        }
+
+        if (!started)
+        {
+            started = true;
+            accumulated.result = static_cast<gm_enums::SteamApiResult>((int)p->m_eResult);
+            accumulated.published_file_id = (std::uint64_t)p->m_nPublishedFileId;
+            accumulated.total_num_app_dependencies = (std::uint32_t)p->m_nTotalNumAppDependencies;
+        }
+
+        const uint32 n = std::min<uint32>(p->m_nNumAppDependencies, (uint32)(sizeof(p->m_rgAppIDs) / sizeof(p->m_rgAppIDs[0])));
+        for (uint32 i = 0; i < n; ++i)
+            accumulated.app_ids.push_back((std::uint32_t)p->m_rgAppIDs[(size_t)i]);
+        accumulated.num_app_dependencies = (std::uint32_t)accumulated.app_ids.size();
+
+        const bool done = accumulated.app_ids.size() >= accumulated.total_num_app_dependencies
+                        || accumulated.app_ids.size() >= kMaxAccumulated;
+        if (!done)
+            return; // stay alive: awaiting the next firing of this same SteamAPICall_t
+
+        if (cb)
+            cb.call(accumulated);
+        delete this;
+    }
+};
 
 static inline gm_structs::SteamUgcStartPlaytimeTrackingResult ugc_fromNative(const StartPlaytimeTrackingResult_t& e)
 {
@@ -1536,7 +1591,7 @@ void steam_ugc_get_app_dependencies(std::uint64_t published_file_id,  const gm::
     if (!ugc) return;
 
     SteamAPICall_t call = ugc->GetAppDependencies((PublishedFileId_t)published_file_id);
-    auto* h = new steam_async::CallResult<gm_structs::SteamUgcGetAppDependenciesResult, GetAppDependenciesResult_t>(callback, &ugc_fromNative);
+    auto* h = new UgcAppDependenciesCallResult(callback);
     h->set(call);
 }
 

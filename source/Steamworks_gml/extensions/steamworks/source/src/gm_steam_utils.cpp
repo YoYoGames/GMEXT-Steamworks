@@ -49,13 +49,6 @@ static inline SteamUtilsGamepadTextInputDismissed fromNative(const GamepadTextIn
     return out;
 }
 
-static inline SteamUtilsFloatingGamepadTextInputDismissed fromNative(const FloatingGamepadTextInputDismissed_t&)
-{
-    SteamUtilsFloatingGamepadTextInputDismissed out {};
-    out.submitted = true;
-    return out;
-}
-
 static inline SteamUtilsWarningMessage fromNativeWarning(int severity, const char* text)
 {
     SteamUtilsWarningMessage out {};
@@ -103,8 +96,14 @@ void SteamUtils_Callbacks::OnFloatingGamepadTextInputDismissed(FloatingGamepadTe
         std::lock_guard<std::mutex> lock(g_callbacks_mtx);
         cb = g_cb_floating_gamepad_text_input_dismissed;
     }
-    if (cb)
-        cb.call(fromNative(*p));
+    if (!cb)
+        return;
+
+    // FloatingGamepadTextInputDismissed_t carries no fields (SDK-side), so submission can only be
+    // inferred: empty entered text means the input was canceled, matching GamepadTextInputDismissed_t's
+    // own m_bSubmitted semantics.
+    auto entered = steam_utils_get_entered_gamepad_text_input();
+    cb.call(entered.has_value() && !entered->empty());
 }
 
 static SteamUtils_Callbacks g_utils_callbacks;
@@ -230,14 +229,12 @@ bool steam_utils_get_image_rgba(std::int32_t image_handle, gm::wire::GMBuffer de
         return false;
     }
 
-    std::vector<std::uint8_t> rgba((size_t)dest.length());
-
-    const bool ok = u->GetImageRGBA(image_handle, rgba.data(), (int)rgba.size());
+    auto w = dest.getWriter();
+    const bool ok = u->GetImageRGBA(image_handle, (std::uint8_t*)w.data(), (int)dest.length());
     if (!ok)
         return false;
 
-    auto w = dest.getWriter();
-    w.writeBytes((const char*)rgba.data(), (int)rgba.size());
+    w.skip((size_t)dest.length());
     return true;
 }
 
@@ -598,19 +595,16 @@ std::optional<bool> steam_utils_get_api_call_result(
         return std::nullopt;
     }
 
-    std::vector<std::uint8_t> tmp;
-    tmp.resize((size_t)out_callback.length());
-
     bool failed = false;
+    auto w = out_callback.getWriter();
 
     const bool ok
-        = u->GetAPICallResult((SteamAPICall_t)steam_api_call, tmp.data(), (int)tmp.size(), callback_expected, &failed);
+        = u->GetAPICallResult((SteamAPICall_t)steam_api_call, w.data(), (int)out_callback.length(), callback_expected, &failed);
 
     if (!ok)
         return std::nullopt;
 
-    auto w = out_callback.getWriter();
-    w.writeBytes((const char*)tmp.data(), (int)tmp.size());
+    w.skip((size_t)out_callback.length());
 
     return failed;
 }

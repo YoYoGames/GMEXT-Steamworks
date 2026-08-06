@@ -375,28 +375,26 @@ std::int32_t steam_matchmaking_get_lobby_data_count(std::uint64_t lobby_id)
     return (std::int32_t)mm->GetLobbyDataCount(steam_id_from_u64(lobby_id));
 }
 
-bool steam_matchmaking_get_lobby_data_by_index(std::uint64_t lobby_id,
-                                               std::int32_t index,
-                                               gm::wire::GMBuffer key_out,
-                                               gm::wire::GMBuffer val_out)
+std::optional<gm_structs::SteamMatchmakingLobbyDataEntry> steam_matchmaking_get_lobby_data_by_index(
+    std::uint64_t lobby_id, std::int32_t index)
 {
-    STEAM_GUARD_RET(false);
+    STEAM_GUARD_RET(std::nullopt);
     ISteamMatchmaking* mm = steam_matchmaking_iface();
-    if (!mm) return false;
-    if (key_out.length() <= 0 || val_out.length() <= 0) return false;
+    if (!mm) return std::nullopt;
 
-    std::vector<char> k((size_t)key_out.length());
-    std::vector<char> v((size_t)val_out.length());
+    // Lobby metadata is always text (k_nMaxLobbyKeyLength is defined in char terms; Steam exposes no
+    // value-length query), so a fixed scratch buffer is used rather than a caller-supplied one. 4096
+    // matches this file's own SendLobbyChatMsg clamp, comfortably above any realistic metadata value.
+    char key[k_nMaxLobbyKeyLength] = {};
+    char value[4096] = {};
 
-    bool ok = mm->GetLobbyDataByIndex(steam_id_from_u64(lobby_id), (int)index, k.data(), (int)key_out.length(), v.data(), (int)val_out.length());
-    if (!ok) return false;
+    if (!mm->GetLobbyDataByIndex(steam_id_from_u64(lobby_id), (int)index, key, sizeof(key), value, sizeof(value)))
+        return std::nullopt;
 
-    auto kw = key_out.getWriter();
-    kw.writeBytes(k.data(), (int)strnlen(k.data(), (size_t)key_out.length()));
-    auto vw = val_out.getWriter();
-    vw.writeBytes(v.data(), (int)strnlen(v.data(), (size_t)val_out.length()));
-
-    return true;
+    gm_structs::SteamMatchmakingLobbyDataEntry out{};
+    out.key = key;
+    out.value = value;
+    return out;
 }
 
 void steam_matchmaking_set_lobby_member_data(std::uint64_t lobby_id, std::string_view key, std::string_view value)
@@ -467,8 +465,12 @@ std::optional<gm_structs::SteamMatchmakingLobbyChatEntry> steam_matchmaking_get_
     CSteamID sender;
     EChatEntryType type = k_EChatEntryTypeInvalid;
 
-    std::vector<std::uint8_t> tmp((size_t)out_buffer.length());
-    int r = mm->GetLobbyChatEntry(steam_id_from_u64(lobby_id), (int)chat_id, &sender, tmp.data(), (int)out_buffer.length(), &type);
+    // Steam exposes no chat-entry size query, so a decoupled fixed scratch buffer (independent of the
+    // caller's out_buffer) is required to make the too-small check below actually reachable, same as
+    // apps.cpp's get_app_ownership_ticket_data. 4096 matches this file's own SendLobbyChatMsg send-side
+    // clamp.
+    std::uint8_t tmp[4096];
+    int r = mm->GetLobbyChatEntry(steam_id_from_u64(lobby_id), (int)chat_id, &sender, tmp, (int)sizeof(tmp), &type);
     if (r <= 0) return std::nullopt;
 
     if ((std::uint64_t)r > out_buffer.length()) {
@@ -477,7 +479,7 @@ std::optional<gm_structs::SteamMatchmakingLobbyChatEntry> steam_matchmaking_get_
     }
 
     auto w = out_buffer.getWriter();
-    w.writeBytes((const char*)tmp.data(), r);
+    w.writeBytes((const char*)tmp, r);
 
     gm_structs::SteamMatchmakingLobbyChatEntry out{};
     out.bytes = (std::uint32_t)r;

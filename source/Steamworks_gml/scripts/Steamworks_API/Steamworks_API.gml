@@ -2464,21 +2464,6 @@ function SteamUtilsGamepadTextInputDismissed() constructor
 }
 
 /**
- * @returns {Struct.SteamUtilsFloatingGamepadTextInputDismissed}
- */
-function SteamUtilsFloatingGamepadTextInputDismissed() constructor
-{
-    /**
-     * Internally generated hash for quick validation
-     * @ignore
-     */
-    static __uid = 215564439;
-
-    self.submitted = undefined;
-
-}
-
-/**
  * @returns {Struct.SteamUtilsWarningMessage}
  */
 function SteamUtilsWarningMessage() constructor
@@ -3856,6 +3841,22 @@ function SteamMatchmakingLobbyInvite() constructor
     self.inviter_id = undefined;
     self.lobby_id = undefined;
     self.game_id = undefined;
+
+}
+
+/**
+ * @returns {Struct.SteamMatchmakingLobbyDataEntry}
+ */
+function SteamMatchmakingLobbyDataEntry() constructor
+{
+    /**
+     * Internally generated hash for quick validation
+     * @ignore
+     */
+    static __uid = 4247447009;
+
+    self.key = undefined;
+    self.value = undefined;
 
 }
 
@@ -6773,48 +6774,6 @@ function __SteamUtilsGamepadTextInputDismissed_decode(_buffer, _offset)
 
         // field: submitted_text_length, type: UInt32
         self.submitted_text_length = buffer_read(_buffer, buffer_u32);
-
-    }
-
-    return _inst;
-}
-
-/**
- * @func __SteamUtilsFloatingGamepadTextInputDismissed_encode(_inst, _buffer, _offset, _where)
- * @param {Struct.SteamUtilsFloatingGamepadTextInputDismissed} _inst
- * @param {Id.Buffer} _buffer
- * @param {Real} _offset
- * @param {String} _where
- * @ignore
- */
-function __SteamUtilsFloatingGamepadTextInputDismissed_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
-{
-    buffer_seek(_buffer, buffer_seek_start, _offset);
-    with (_inst)
-    {
-        // field: submitted, type: Bool
-        if (!is_bool(self.submitted)) show_error($"{_where} :: self.submitted expected bool", true);
-        buffer_write(_buffer, buffer_bool, self.submitted);
-
-    }
-}
-
-/**
- * @func __SteamUtilsFloatingGamepadTextInputDismissed_decode(_buffer, _offset)
- * @param {Id.Buffer} _buffer
- * @param {Real} _offset
- * @returns {Struct.SteamUtilsFloatingGamepadTextInputDismissed}
- * @ignore
- */
-function __SteamUtilsFloatingGamepadTextInputDismissed_decode(_buffer, _offset)
-{
-    buffer_seek(_buffer, buffer_seek_start, _offset);
-
-    _inst = new SteamUtilsFloatingGamepadTextInputDismissed();
-    with (_inst)
-    {
-        // field: submitted, type: Bool
-        self.submitted = buffer_read(_buffer, buffer_bool);
 
     }
 
@@ -11501,6 +11460,59 @@ function __SteamMatchmakingLobbyInvite_decode(_buffer, _offset)
         // field: game_id, type: String
         buffer_read(_buffer, buffer_u32);
         self.game_id = buffer_read(_buffer, buffer_string);
+
+    }
+
+    return _inst;
+}
+
+/**
+ * @func __SteamMatchmakingLobbyDataEntry_encode(_inst, _buffer, _offset, _where)
+ * @param {Struct.SteamMatchmakingLobbyDataEntry} _inst
+ * @param {Id.Buffer} _buffer
+ * @param {Real} _offset
+ * @param {String} _where
+ * @ignore
+ */
+function __SteamMatchmakingLobbyDataEntry_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
+{
+    buffer_seek(_buffer, buffer_seek_start, _offset);
+    with (_inst)
+    {
+        // field: key, type: String
+        if (!is_string(self.key)) show_error($"{_where} :: self.key expected string", true);
+        buffer_write(_buffer, buffer_u32, string_byte_length(self.key));
+        buffer_write(_buffer, buffer_string, self.key);
+
+        // field: value, type: String
+        if (!is_string(self.value)) show_error($"{_where} :: self.value expected string", true);
+        buffer_write(_buffer, buffer_u32, string_byte_length(self.value));
+        buffer_write(_buffer, buffer_string, self.value);
+
+    }
+}
+
+/**
+ * @func __SteamMatchmakingLobbyDataEntry_decode(_buffer, _offset)
+ * @param {Id.Buffer} _buffer
+ * @param {Real} _offset
+ * @returns {Struct.SteamMatchmakingLobbyDataEntry}
+ * @ignore
+ */
+function __SteamMatchmakingLobbyDataEntry_decode(_buffer, _offset)
+{
+    buffer_seek(_buffer, buffer_seek_start, _offset);
+
+    _inst = new SteamMatchmakingLobbyDataEntry();
+    with (_inst)
+    {
+        // field: key, type: String
+        buffer_read(_buffer, buffer_u32);
+        self.key = buffer_read(_buffer, buffer_string);
+
+        // field: value, type: String
+        buffer_read(_buffer, buffer_u32);
+        self.value = buffer_read(_buffer, buffer_string);
 
     }
 
@@ -21239,25 +21251,39 @@ function steam_inventory_get_items_with_prices()
     return __result__;
 }
 
-// Skipping function steam_inventory_start_update_properties (no wrapper is required)
+/**
+ * @returns {Real}
+ */
+function steam_inventory_start_update_properties()
+{
+    var __available__ = __Steamworks_is_available();
+    if (!__available__) return;
 
+    var __ret_buffer = __ext_core_get_ret_buffer();
+
+    var __return_value__ = __steam_inventory_start_update_properties(buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+
+    var __result__ = undefined;
+    __result__ = buffer_read(__ret_buffer, buffer_u64);
+    return __result__;
+}
 
 /**
- * @param {Real} _result_handle
+ * @param {Real} _update_handle
  * @param {Real} _item_instance_id
  * @param {String} _property_name
  * @returns {Bool}
  */
-function steam_inventory_remove_property(_result_handle, _item_instance_id, _property_name)
+function steam_inventory_remove_property(_update_handle, _item_instance_id, _property_name)
 {
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
     var __args_buffer = __ext_core_get_args_buffer();
 
-    // param: _result_handle, type: Int32
-    if (!is_numeric(_result_handle)) show_error($"{_GMFUNCTION_} :: _result_handle expected number", true);
-    buffer_write(__args_buffer, buffer_s32, _result_handle);
+    // param: _update_handle, type: UInt64
+    if (!is_numeric(_update_handle)) show_error($"{_GMFUNCTION_} :: _update_handle expected number", true);
+    buffer_write(__args_buffer, buffer_u64, _update_handle);
 
     // param: _item_instance_id, type: UInt64
     if (!is_numeric(_item_instance_id)) show_error($"{_GMFUNCTION_} :: _item_instance_id expected number", true);
@@ -21274,22 +21300,22 @@ function steam_inventory_remove_property(_result_handle, _item_instance_id, _pro
 }
 
 /**
- * @param {Real} _result_handle
+ * @param {Real} _update_handle
  * @param {Real} _item_instance_id
  * @param {String} _property_name
  * @param {String} _value
  * @returns {Bool}
  */
-function steam_inventory_set_property_string(_result_handle, _item_instance_id, _property_name, _value)
+function steam_inventory_set_property_string(_update_handle, _item_instance_id, _property_name, _value)
 {
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
     var __args_buffer = __ext_core_get_args_buffer();
 
-    // param: _result_handle, type: Int32
-    if (!is_numeric(_result_handle)) show_error($"{_GMFUNCTION_} :: _result_handle expected number", true);
-    buffer_write(__args_buffer, buffer_s32, _result_handle);
+    // param: _update_handle, type: UInt64
+    if (!is_numeric(_update_handle)) show_error($"{_GMFUNCTION_} :: _update_handle expected number", true);
+    buffer_write(__args_buffer, buffer_u64, _update_handle);
 
     // param: _item_instance_id, type: UInt64
     if (!is_numeric(_item_instance_id)) show_error($"{_GMFUNCTION_} :: _item_instance_id expected number", true);
@@ -21311,22 +21337,22 @@ function steam_inventory_set_property_string(_result_handle, _item_instance_id, 
 }
 
 /**
- * @param {Real} _result_handle
+ * @param {Real} _update_handle
  * @param {Real} _item_instance_id
  * @param {String} _property_name
  * @param {Bool} _value
  * @returns {Bool}
  */
-function steam_inventory_set_property_bool(_result_handle, _item_instance_id, _property_name, _value)
+function steam_inventory_set_property_bool(_update_handle, _item_instance_id, _property_name, _value)
 {
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
     var __args_buffer = __ext_core_get_args_buffer();
 
-    // param: _result_handle, type: Int32
-    if (!is_numeric(_result_handle)) show_error($"{_GMFUNCTION_} :: _result_handle expected number", true);
-    buffer_write(__args_buffer, buffer_s32, _result_handle);
+    // param: _update_handle, type: UInt64
+    if (!is_numeric(_update_handle)) show_error($"{_GMFUNCTION_} :: _update_handle expected number", true);
+    buffer_write(__args_buffer, buffer_u64, _update_handle);
 
     // param: _item_instance_id, type: UInt64
     if (!is_numeric(_item_instance_id)) show_error($"{_GMFUNCTION_} :: _item_instance_id expected number", true);
@@ -21347,22 +21373,22 @@ function steam_inventory_set_property_bool(_result_handle, _item_instance_id, _p
 }
 
 /**
- * @param {Real} _result_handle
+ * @param {Real} _update_handle
  * @param {Real} _item_instance_id
  * @param {String} _property_name
  * @param {Real} _value
  * @returns {Bool}
  */
-function steam_inventory_set_property_int64(_result_handle, _item_instance_id, _property_name, _value)
+function steam_inventory_set_property_int64(_update_handle, _item_instance_id, _property_name, _value)
 {
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
     var __args_buffer = __ext_core_get_args_buffer();
 
-    // param: _result_handle, type: Int32
-    if (!is_numeric(_result_handle)) show_error($"{_GMFUNCTION_} :: _result_handle expected number", true);
-    buffer_write(__args_buffer, buffer_s32, _result_handle);
+    // param: _update_handle, type: UInt64
+    if (!is_numeric(_update_handle)) show_error($"{_GMFUNCTION_} :: _update_handle expected number", true);
+    buffer_write(__args_buffer, buffer_u64, _update_handle);
 
     // param: _item_instance_id, type: UInt64
     if (!is_numeric(_item_instance_id)) show_error($"{_GMFUNCTION_} :: _item_instance_id expected number", true);
@@ -21383,22 +21409,22 @@ function steam_inventory_set_property_int64(_result_handle, _item_instance_id, _
 }
 
 /**
- * @param {Real} _result_handle
+ * @param {Real} _update_handle
  * @param {Real} _item_instance_id
  * @param {String} _property_name
  * @param {Real} _value
  * @returns {Bool}
  */
-function steam_inventory_set_property_float(_result_handle, _item_instance_id, _property_name, _value)
+function steam_inventory_set_property_float(_update_handle, _item_instance_id, _property_name, _value)
 {
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
     var __args_buffer = __ext_core_get_args_buffer();
 
-    // param: _result_handle, type: Int32
-    if (!is_numeric(_result_handle)) show_error($"{_GMFUNCTION_} :: _result_handle expected number", true);
-    buffer_write(__args_buffer, buffer_s32, _result_handle);
+    // param: _update_handle, type: UInt64
+    if (!is_numeric(_update_handle)) show_error($"{_GMFUNCTION_} :: _update_handle expected number", true);
+    buffer_write(__args_buffer, buffer_u64, _update_handle);
 
     // param: _item_instance_id, type: UInt64
     if (!is_numeric(_item_instance_id)) show_error($"{_GMFUNCTION_} :: _item_instance_id expected number", true);
@@ -21419,11 +21445,11 @@ function steam_inventory_set_property_float(_result_handle, _item_instance_id, _
 }
 
 /**
- * @param {Real} _result_handle
+ * @param {Real} _update_handle
  * @param {Function} _callback
  * @returns {Real}
  */
-function steam_inventory_submit_update_properties(_result_handle, _callback)
+function steam_inventory_submit_update_properties(_update_handle, _callback)
 {
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
@@ -21432,9 +21458,9 @@ function steam_inventory_submit_update_properties(_result_handle, _callback)
 
     var __args_buffer = __ext_core_get_args_buffer();
 
-    // param: _result_handle, type: Int32
-    if (!is_numeric(_result_handle)) show_error($"{_GMFUNCTION_} :: _result_handle expected number", true);
-    buffer_write(__args_buffer, buffer_s32, _result_handle);
+    // param: _update_handle, type: UInt64
+    if (!is_numeric(_update_handle)) show_error($"{_GMFUNCTION_} :: _update_handle expected number", true);
+    buffer_write(__args_buffer, buffer_u64, _update_handle);
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
@@ -22870,11 +22896,9 @@ function steam_matchmaking_get_lobby_data_count(_lobby_id)
 /**
  * @param {Real} _lobby_id
  * @param {Real} _index
- * @param {Id.Buffer} _key_out
- * @param {Id.Buffer} _val_out
- * @returns {Bool}
+ * @returns {Struct.SteamMatchmakingLobbyDataEntry}
  */
-function steam_matchmaking_get_lobby_data_by_index(_lobby_id, _index, _key_out, _val_out)
+function steam_matchmaking_get_lobby_data_by_index(_lobby_id, _index)
 {
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
@@ -22889,17 +22913,20 @@ function steam_matchmaking_get_lobby_data_by_index(_lobby_id, _index, _key_out, 
     if (!is_numeric(_index)) show_error($"{_GMFUNCTION_} :: _index expected number", true);
     buffer_write(__args_buffer, buffer_s32, _index);
 
-    // param: _key_out, type: Buffer
-    if (!buffer_exists(_key_out)) show_error($"{_GMFUNCTION_} :: _key_out expected Id.Buffer", true);
-    __Steamworks_queue_buffer(buffer_get_address(_key_out), buffer_get_size(_key_out));
+    var __ret_buffer = __ext_core_get_ret_buffer();
 
-    // param: _val_out, type: Buffer
-    if (!buffer_exists(_val_out)) show_error($"{_GMFUNCTION_} :: _val_out expected Id.Buffer", true);
-    __Steamworks_queue_buffer(buffer_get_address(_val_out), buffer_get_size(_val_out));
+    var __return_value__ = __steam_matchmaking_get_lobby_data_by_index(buffer_get_address(__args_buffer), buffer_tell(__args_buffer), buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
 
-    var __return_value__ = __steam_matchmaking_get_lobby_data_by_index(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
-
-    return __return_value__;
+    var __result__ = undefined;
+    if (buffer_read(__ret_buffer, buffer_bool))
+    {
+        __result__ = __SteamMatchmakingLobbyDataEntry_decode(__ret_buffer, buffer_tell(__ret_buffer));
+    }
+    else
+    {
+        __result__ = undefined;
+    }
+    return __result__;
 }
 
 /**
@@ -24234,7 +24261,6 @@ function __Steamworks_get_decoders()
         __SteamUtilsImageSize_decode,
         __SteamUtilsFilterTextResult_decode,
         __SteamUtilsGamepadTextInputDismissed_decode,
-        __SteamUtilsFloatingGamepadTextInputDismissed_decode,
         __SteamUtilsWarningMessage_decode,
         __SteamUgcItemDownloadInfo_decode,
         __SteamUgcItemInstallInfo_decode,
@@ -24316,6 +24342,7 @@ function __Steamworks_get_decoders()
         __SteamMatchmakingLobbyChatMsg_decode,
         __SteamMatchmakingLobbyGameCreated_decode,
         __SteamMatchmakingLobbyInvite_decode,
+        __SteamMatchmakingLobbyDataEntry_decode,
         __SteamMatchmakingLobbyChatEntry_decode,
         __SteamMatchmakingLobbyGameServer_decode,
         __SteamNetworkingMessagesSessionRequest_decode,

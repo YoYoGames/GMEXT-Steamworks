@@ -3239,7 +3239,7 @@
 
 /**
  * @function_partial steam_inventory_remove_property
- * @param {Real} result_handle
+ * @param {Real} update_handle
  * @param {Real} item_instance_id
  * @param {String} property_name
  * @returns {Bool}
@@ -3248,7 +3248,7 @@
 
 /**
  * @function_partial steam_inventory_set_property_string
- * @param {Real} result_handle
+ * @param {Real} update_handle
  * @param {Real} item_instance_id
  * @param {String} property_name
  * @param {String} value
@@ -3258,7 +3258,7 @@
 
 /**
  * @function_partial steam_inventory_set_property_bool
- * @param {Real} result_handle
+ * @param {Real} update_handle
  * @param {Real} item_instance_id
  * @param {String} property_name
  * @param {Bool} value
@@ -3268,7 +3268,7 @@
 
 /**
  * @function_partial steam_inventory_set_property_int64
- * @param {Real} result_handle
+ * @param {Real} update_handle
  * @param {Real} item_instance_id
  * @param {String} property_name
  * @param {Real} value
@@ -3278,7 +3278,7 @@
 
 /**
  * @function_partial steam_inventory_set_property_float
- * @param {Real} result_handle
+ * @param {Real} update_handle
  * @param {Real} item_instance_id
  * @param {String} property_name
  * @param {Real} value
@@ -3288,7 +3288,7 @@
 
 /**
  * @function_partial steam_inventory_submit_update_properties
- * @param {Real} result_handle
+ * @param {Real} update_handle
  * @param {Function} callback
  * @returns {Real}
  * @function_end
@@ -3804,9 +3804,7 @@
  * @function_partial steam_matchmaking_get_lobby_data_by_index
  * @param {Real} lobby_id
  * @param {Real} index
- * @param {Buffer} key_out
- * @param {Buffer} val_out
- * @returns {Bool}
+ * @returns {Struct.SteamMatchmakingLobbyDataEntry}
  * @function_end
  */
 
@@ -4656,12 +4654,6 @@
  */
 
 /**
- * @struct_partial SteamUtilsFloatingGamepadTextInputDismissed
- * @member {Bool} submitted
- * @struct_end
- */
-
-/**
  * @struct_partial SteamUtilsWarningMessage
  * @member {Real} severity
  * @member {String} text
@@ -5310,6 +5302,13 @@
  * @member {Real} inviter_id
  * @member {Real} lobby_id
  * @member {String} game_id
+ * @struct_end
+ */
+
+/**
+ * @struct_partial SteamMatchmakingLobbyDataEntry
+ * @member {String} key
+ * @member {String} value
  * @struct_end
  */
 

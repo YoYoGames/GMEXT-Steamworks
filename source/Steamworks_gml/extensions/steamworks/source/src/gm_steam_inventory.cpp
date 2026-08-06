@@ -446,17 +446,14 @@ std::optional<std::uint32_t> steam_inventory_serialize_result(std::int32_t resul
         return std::nullopt;
     }
 
-    std::vector<std::uint8_t> buf((size_t)out_data.length());
     uint32 written = (uint32)out_data.length();
+    auto w = out_data.getWriter();
 
-    if (!inv->SerializeResult(make_result_handle(result_handle), buf.data(), &written))
+    if (!inv->SerializeResult(make_result_handle(result_handle), w.data(), &written))
         return std::nullopt;
 
     if (written > 0)
-    {
-        auto w = out_data.getWriter();
-        w.writeBytes((const char*)buf.data(), (int)written);
-    }
+        w.skip((size_t)written);
 
     return (std::uint32_t)written;
 }
@@ -553,18 +550,19 @@ std::uint32_t steam_inventory_get_num_items_with_prices()
     return (std::uint32_t)inv->GetNumItemsWithPrices();
 }
 
-int32 steam_inventory_start_update_properties()
+std::uint64_t steam_inventory_start_update_properties()
 {
-    STEAM_GUARD_RET((int32)k_SteamInventoryResultInvalid);
+    STEAM_GUARD_RET((std::uint64_t)k_SteamInventoryUpdateHandleInvalid);
 
     ISteamInventory* inv = steam_inventory_iface();
-    if (!inv) return (int32)k_SteamInventoryResultInvalid;
+    if (!inv) return (std::uint64_t)k_SteamInventoryUpdateHandleInvalid;
 
-    SteamInventoryResult_t rh = inv->StartUpdateProperties();
-    return to_i32(rh);
+    // SteamInventoryUpdateHandle_t is uint64 -- a distinct type from SteamInventoryResult_t (int32)
+    // used everywhere else in this file. Carried as uint64 end-to-end, not narrowed.
+    return (std::uint64_t)inv->StartUpdateProperties();
 }
 
-bool steam_inventory_remove_property(int32 result_handle,
+bool steam_inventory_remove_property(std::uint64_t update_handle,
                                      std::uint64_t item_instance_id,
                                      std::string_view property_name)
 {
@@ -575,13 +573,13 @@ bool steam_inventory_remove_property(int32 result_handle,
 
     std::string prop(property_name);
     return inv->RemoveProperty(
-        make_result_handle(result_handle),
+        (SteamInventoryUpdateHandle_t)update_handle,
         inst_from_u64(item_instance_id),
         prop.c_str()
     );
 }
 
-bool steam_inventory_set_property_string(int32 result_handle,
+bool steam_inventory_set_property_string(std::uint64_t update_handle,
                                          std::uint64_t item_instance_id,
                                          std::string_view property_name,
                                          std::string_view value)
@@ -595,14 +593,14 @@ bool steam_inventory_set_property_string(int32 result_handle,
     std::string val(value);
 
     return inv->SetProperty(
-        make_result_handle(result_handle),
+        (SteamInventoryUpdateHandle_t)update_handle,
         inst_from_u64(item_instance_id),
         prop.c_str(),
         val.c_str()
     );
 }
 
-bool steam_inventory_set_property_bool(int32 result_handle,
+bool steam_inventory_set_property_bool(std::uint64_t update_handle,
                                        std::uint64_t item_instance_id,
                                        std::string_view property_name,
                                        bool value)
@@ -615,14 +613,14 @@ bool steam_inventory_set_property_bool(int32 result_handle,
     std::string prop(property_name);
 
     return inv->SetProperty(
-        make_result_handle(result_handle),
+        (SteamInventoryUpdateHandle_t)update_handle,
         inst_from_u64(item_instance_id),
         prop.c_str(),
         value
     );
 }
 
-bool steam_inventory_set_property_int64(int32 result_handle,
+bool steam_inventory_set_property_int64(std::uint64_t update_handle,
                                         std::uint64_t item_instance_id,
                                         std::string_view property_name,
                                         long long value)
@@ -635,14 +633,14 @@ bool steam_inventory_set_property_int64(int32 result_handle,
     std::string prop(property_name);
 
     return inv->SetProperty(
-        make_result_handle(result_handle),
+        (SteamInventoryUpdateHandle_t)update_handle,
         inst_from_u64(item_instance_id),
         prop.c_str(),
         (int64)value
     );
 }
 
-bool steam_inventory_set_property_float(int32 result_handle,
+bool steam_inventory_set_property_float(std::uint64_t update_handle,
                                         std::uint64_t item_instance_id,
                                         std::string_view property_name,
                                         float value)
@@ -655,14 +653,14 @@ bool steam_inventory_set_property_float(int32 result_handle,
     std::string prop(property_name);
 
     return inv->SetProperty(
-        make_result_handle(result_handle),
+        (SteamInventoryUpdateHandle_t)update_handle,
         inst_from_u64(item_instance_id),
         prop.c_str(),
         value
     );
 }
 
-int32 steam_inventory_submit_update_properties(int32 result_handle,
+int32 steam_inventory_submit_update_properties(std::uint64_t update_handle,
                                               const gm::wire::GMFunction& callback)
 {
     STEAM_GUARD_RET((int32)k_SteamInventoryResultInvalid);
@@ -671,7 +669,7 @@ int32 steam_inventory_submit_update_properties(int32 result_handle,
     if (!inv) return (int32)k_SteamInventoryResultInvalid;
 
     SteamInventoryResult_t rhOut = k_SteamInventoryResultInvalid;
-    inv->SubmitUpdateProperties(make_result_handle(result_handle), &rhOut);
+    inv->SubmitUpdateProperties((SteamInventoryUpdateHandle_t)update_handle, &rhOut);
 
     const int32 out = to_i32(rhOut);
     inv_rr_register_once(out, callback);
