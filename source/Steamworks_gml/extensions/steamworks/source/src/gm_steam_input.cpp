@@ -410,16 +410,6 @@ bool steam_input_init(bool explicitly_call_run_frame)
     return s->Init(explicitly_call_run_frame);
 }
 
-void steam_input_enable_device_callbacks()
-{
-    STEAM_GUARD();
-
-    ISteamInput* s = steam_input_iface();
-    if (!s)
-        return;
-    s->EnableDeviceCallbacks();
-}
-
 void steam_input_run_frame()
 {
     STEAM_GUARD();

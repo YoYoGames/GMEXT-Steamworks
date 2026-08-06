@@ -13,7 +13,6 @@ steam_input_set_callback_device_disconnected(function(ev) {
 });
 
 steam_input_init(true);
-steam_input_enable_device_callbacks();
 
 input_setup_done = false
 function input_setup()

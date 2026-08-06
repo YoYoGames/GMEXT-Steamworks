@@ -2331,11 +2331,6 @@
  */
 
 /**
- * @function_partial steam_input_enable_device_callbacks
- * @function_end
- */
-
-/**
  * @function_partial steam_input_run_frame
  * @function_end
  */
@@ -4006,14 +4001,14 @@
 /**
  * @function_partial steam_networking_sockets_accept_connection
  * @param {Real} conn
- * @returns {Real}
+ * @returns {Enum.SteamApiResult}
  * @function_end
  */
 
 /**
  * @function_partial steam_networking_sockets_close_connection
  * @param {Real} conn
- * @param {Real} reason
+ * @param {Enum.SteamNetworkingConnectionEnd} reason
  * @param {String} debug
  * @param {Bool} linger
  * @returns {Bool}
@@ -4056,7 +4051,7 @@
  * @param {Enum.SteamNetworkingSendFlags} send_flags
  * @param {Real} [buffer_offset]
  * @param {Real} [buffer_count]
- * @returns {Real}
+ * @returns {Enum.SteamApiResult}
  * @function_end
  */
 

@@ -345,7 +345,6 @@ GMEXPORT double __EXT_NATIVE__steam_input_get_input_type_for_handle(char* __arg_
 GMEXPORT double __EXT_NATIVE__steam_input_get_motion_data(char* __arg_buffer, double __arg_buffer_length, char* __ret_buffer, double __ret_buffer_length);
 GMEXPORT double __EXT_NATIVE__steam_input_get_string_for_action_origin(char* __arg_buffer, double __arg_buffer_length, char* __ret_buffer, double __ret_buffer_length);
 GMEXPORT double __EXT_NATIVE__steam_input_init(double explicitly_call_run_frame);
-GMEXPORT double __EXT_NATIVE__steam_input_enable_device_callbacks();
 GMEXPORT double __EXT_NATIVE__steam_input_run_frame();
 GMEXPORT double __EXT_NATIVE__steam_input_set_dualsense_trigger_effect(char* __arg_buffer, double __arg_buffer_length);
 GMEXPORT double __EXT_NATIVE__steam_input_set_led_color(char* __arg_buffer, double __arg_buffer_length);
@@ -582,13 +581,13 @@ GMEXPORT double __EXT_NATIVE__steam_networking_sockets_clear_callback_connection
 GMEXPORT double __EXT_NATIVE__steam_networking_sockets_create_listen_socket_ip(double port);
 GMEXPORT double __EXT_NATIVE__steam_networking_sockets_close_listen_socket(double listen_socket);
 GMEXPORT double __EXT_NATIVE__steam_networking_sockets_connect_by_ip_address(char* ip, double port);
-GMEXPORT double __EXT_NATIVE__steam_networking_sockets_accept_connection(double conn);
-GMEXPORT double __EXT_NATIVE__steam_networking_sockets_close_connection(double conn, double reason, char* debug, double linger);
+GMEXPORT double __EXT_NATIVE__steam_networking_sockets_accept_connection(double conn, char* __ret_buffer, double __ret_buffer_length);
+GMEXPORT double __EXT_NATIVE__steam_networking_sockets_close_connection(char* __arg_buffer, double __arg_buffer_length);
 GMEXPORT double __EXT_NATIVE__steam_networking_sockets_set_connection_user_data(char* __arg_buffer, double __arg_buffer_length);
 GMEXPORT double __EXT_NATIVE__steam_networking_sockets_get_connection_user_data(double conn, char* __ret_buffer, double __ret_buffer_length);
 GMEXPORT double __EXT_NATIVE__steam_networking_sockets_set_connection_name(double conn, char* name);
 GMEXPORT char* __EXT_NATIVE__steam_networking_sockets_get_connection_name(double conn);
-GMEXPORT double __EXT_NATIVE__steam_networking_sockets_send_message_to_connection(char* __arg_buffer, double __arg_buffer_length);
+GMEXPORT double __EXT_NATIVE__steam_networking_sockets_send_message_to_connection(char* __arg_buffer, double __arg_buffer_length, char* __ret_buffer, double __ret_buffer_length);
 GMEXPORT double __EXT_NATIVE__steam_networking_sockets_flush_messages_on_connection(double conn, char* __ret_buffer, double __ret_buffer_length);
 GMEXPORT double __EXT_NATIVE__steam_networking_sockets_receive_messages_on_connection(char* __arg_buffer, double __arg_buffer_length, char* __ret_buffer, double __ret_buffer_length);
 GMEXPORT double __EXT_NATIVE__steam_networking_sockets_get_connection_info(double conn, char* __ret_buffer, double __ret_buffer_length);

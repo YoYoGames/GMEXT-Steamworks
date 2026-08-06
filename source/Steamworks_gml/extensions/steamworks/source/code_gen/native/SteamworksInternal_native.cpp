@@ -3926,12 +3926,6 @@ GMEXPORT double __EXT_NATIVE__steam_input_init(double explicitly_call_run_frame)
     return static_cast<double>(__result);
 }
 
-GMEXPORT double __EXT_NATIVE__steam_input_enable_device_callbacks()
-{
-    steam_input_enable_device_callbacks();
-    return 0;
-}
-
 GMEXPORT double __EXT_NATIVE__steam_input_run_frame()
 {
     steam_input_run_frame();
@@ -6680,15 +6674,33 @@ GMEXPORT double __EXT_NATIVE__steam_networking_sockets_connect_by_ip_address(cha
     return static_cast<double>(__result);
 }
 
-GMEXPORT double __EXT_NATIVE__steam_networking_sockets_accept_connection(double conn)
+GMEXPORT double __EXT_NATIVE__steam_networking_sockets_accept_connection(double conn, char* __ret_buffer, double __ret_buffer_length)
 {
     auto&& __result = steam_networking_sockets_accept_connection(static_cast<std::uint32_t>(conn));
-    return static_cast<double>(__result);
+    gm::byteio::BufferWriter __bw{__ret_buffer, static_cast<size_t>(__ret_buffer_length)};
+
+    // return: __result, type: enum SteamApiResult
+    gm::wire::codec::writeValue(__bw, __result);
+    return 0;
 }
 
-GMEXPORT double __EXT_NATIVE__steam_networking_sockets_close_connection(double conn, double reason, char* debug, double linger)
+GMEXPORT double __EXT_NATIVE__steam_networking_sockets_close_connection(char* __arg_buffer, double __arg_buffer_length)
 {
-    auto&& __result = steam_networking_sockets_close_connection(static_cast<std::uint32_t>(conn), static_cast<std::int32_t>(reason), debug, static_cast<bool>(linger));
+    gm::byteio::BufferReader __br{__arg_buffer, static_cast<size_t>(__arg_buffer_length)};
+
+    // field: conn, type: UInt32
+    std::uint32_t conn = gm::wire::codec::readValue<std::uint32_t>(__br);
+
+    // field: reason, type: enum SteamNetworkingConnectionEnd
+    gm_enums::SteamNetworkingConnectionEnd reason = gm::wire::codec::readValue<gm_enums::SteamNetworkingConnectionEnd>(__br);
+
+    // field: debug, type: String
+    std::string_view debug = gm::wire::codec::readValue<std::string_view>(__br);
+
+    // field: linger, type: Bool
+    bool linger = gm::wire::codec::readValue<bool>(__br);
+
+    auto&& __result = steam_networking_sockets_close_connection(conn, reason, debug, linger);
     return static_cast<double>(__result);
 }
 
@@ -6729,7 +6741,7 @@ GMEXPORT char* __EXT_NATIVE__steam_networking_sockets_get_connection_name(double
     return (char*)__result.c_str();
 }
 
-GMEXPORT double __EXT_NATIVE__steam_networking_sockets_send_message_to_connection(char* __arg_buffer, double __arg_buffer_length)
+GMEXPORT double __EXT_NATIVE__steam_networking_sockets_send_message_to_connection(char* __arg_buffer, double __arg_buffer_length, char* __ret_buffer, double __ret_buffer_length)
 {
     gm::byteio::BufferReader __br{__arg_buffer, static_cast<size_t>(__arg_buffer_length)};
 
@@ -6750,7 +6762,11 @@ GMEXPORT double __EXT_NATIVE__steam_networking_sockets_send_message_to_connectio
     std::optional<std::uint32_t> buffer_count = gm::wire::codec::readOptional<std::uint32_t>(__br);
 
     auto&& __result = steam_networking_sockets_send_message_to_connection(conn, data, send_flags, buffer_offset, buffer_count);
-    return static_cast<double>(__result);
+    gm::byteio::BufferWriter __bw{__ret_buffer, static_cast<size_t>(__ret_buffer_length)};
+
+    // return: __result, type: enum SteamApiResult
+    gm::wire::codec::writeValue(__bw, __result);
+    return 0;
 }
 
 GMEXPORT double __EXT_NATIVE__steam_networking_sockets_flush_messages_on_connection(double conn, char* __ret_buffer, double __ret_buffer_length)

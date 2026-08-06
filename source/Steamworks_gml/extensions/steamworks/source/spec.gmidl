@@ -111,7 +111,8 @@ function steam_api_last_error(): string;
 function steam_api_is_initialized(): bool;
 
 // SteamAPI_Init
-[global, bind = typed_gml]
+// Advanced/manual-override only - GM_REGISTER_INIT_HOOK already auto-calls this pre-graphics.
+[global, hidden, bind = typed_gml]
 function steam_api_init(own_app_id: uint32): bool;
 
 // SteamAPI_ReleaseCurrentThreadMemory
@@ -119,7 +120,8 @@ function steam_api_init(own_app_id: uint32): bool;
 function steam_api_release_current_thread_memory(): unit;
 
 // SteamAPI_RestartAppIfNecessary
-[global, bind = typed_gml]
+// Advanced/manual-override only - steam_api_init already calls this as part of the normal init path.
+[global, hidden, bind = typed_gml]
 function steam_api_restart_app_if_necessary(own_app_id: uint32): bool;
 
 // SteamAPI_RunCallbacks
@@ -4061,9 +4063,6 @@ function steam_input_get_string_for_action_origin([type_hint=`SteamInputActionOr
 [global, bind = typed_gml]
 function steam_input_init(explicitly_call_run_frame: bool): bool;
 
-[global, bind = typed_gml]
-function steam_input_enable_device_callbacks(): unit;
-
 // RunFrame
 [global, bind = typed_gml]
 function steam_input_run_frame(): unit;
@@ -5942,11 +5941,11 @@ function steam_networking_sockets_close_listen_socket(listen_socket: uint32): bo
 [global, bind = typed_gml]
 function steam_networking_sockets_connect_by_ip_address(ip: string, port: uint32): uint32;
 
-[global, bind = typed_gml]
-function steam_networking_sockets_accept_connection(conn: uint32): int32;
+[global, bind = typed_gml, type_hint=`SteamApiResult`]
+function steam_networking_sockets_accept_connection(conn: uint32): gmval;
 
 [global, bind = typed_gml]
-function steam_networking_sockets_close_connection(conn: uint32, reason: int32, debug: string, linger: bool): bool;
+function steam_networking_sockets_close_connection(conn: uint32, [type_hint=`SteamNetworkingConnectionEnd`] reason: gmval, debug: string, linger: bool): bool;
 
 [global, bind = typed_gml]
 function steam_networking_sockets_set_connection_user_data(conn: uint32, [type_hint=uint64] user_data: gmval): bool;
@@ -5960,14 +5959,14 @@ function steam_networking_sockets_set_connection_name(conn: uint32, name: string
 [global, bind = typed_gml]
 function steam_networking_sockets_get_connection_name(conn: uint32): string;
 
-[global, bind = typed_gml]
+[global, bind = typed_gml, type_hint=`SteamApiResult`]
 function steam_networking_sockets_send_message_to_connection(
     conn: uint32,
     [type_hint=buffer] data: gmval,
     [type_hint=`SteamNetworkingSendFlags`] send_flags: gmval,
     [type_hint=`uint32?`] buffer_offset: gmval,
     [type_hint=`uint32?`] buffer_count: gmval
-): int32;
+): gmval;
 
 [global, bind = typed_gml, type_hint=`SteamApiResult`]
 function steam_networking_sockets_flush_messages_on_connection(conn: uint32): gmval;

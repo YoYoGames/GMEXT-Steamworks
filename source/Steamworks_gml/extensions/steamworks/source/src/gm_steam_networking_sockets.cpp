@@ -106,6 +106,8 @@ std::uint32_t steam_networking_sockets_create_listen_socket_ip(std::uint32_t por
     addr.m_port = (uint16)port;
 
     HSteamListenSocket h = s->CreateListenSocketIP(addr, 0, nullptr);
+    if (h == k_HSteamListenSocket_Invalid)
+        steam_set_last_error("steam_networking_sockets_create_listen_socket_ip: CreateListenSocketIP failed.");
     return (std::uint32_t)h;
 }
 
@@ -143,17 +145,17 @@ std::uint32_t steam_networking_sockets_connect_by_ip_address(std::string_view ip
     return (std::uint32_t)c;
 }
 
-std::int32_t steam_networking_sockets_accept_connection(std::uint32_t conn)
+gm_enums::SteamApiResult steam_networking_sockets_accept_connection(std::uint32_t conn)
 {
-    STEAM_GUARD_RET((std::int32_t)k_EResultFail);
+    STEAM_GUARD_RET(static_cast<gm_enums::SteamApiResult>((int)k_EResultFail));
 
     ISteamNetworkingSockets* s = steam_networking_sockets_iface();
-    if (!s) return (std::int32_t)k_EResultFail;
+    if (!s) return static_cast<gm_enums::SteamApiResult>((int)k_EResultFail);
 
-    return (std::int32_t)s->AcceptConnection((HSteamNetConnection)conn);
+    return static_cast<gm_enums::SteamApiResult>((int)s->AcceptConnection((HSteamNetConnection)conn));
 }
 
-bool steam_networking_sockets_close_connection(std::uint32_t conn, std::int32_t reason, std::string_view debug, bool linger)
+bool steam_networking_sockets_close_connection(std::uint32_t conn, gm_enums::SteamNetworkingConnectionEnd reason, std::string_view debug, bool linger)
 {
     STEAM_GUARD_RET(false);
 
@@ -161,7 +163,7 @@ bool steam_networking_sockets_close_connection(std::uint32_t conn, std::int32_t 
     if (!s) return false;
 
     std::string d(debug);
-    return s->CloseConnection((HSteamNetConnection)conn, reason, d.c_str(), linger);
+    return s->CloseConnection((HSteamNetConnection)conn, (int)reason, d.c_str(), linger);
 }
 
 bool steam_networking_sockets_set_connection_user_data(std::uint32_t conn, std::uint64_t user_data)
@@ -207,22 +209,22 @@ std::string steam_networking_sockets_get_connection_name(std::uint32_t conn)
     return ok ? std::string(buf) : "";
 }
 
-std::int32_t steam_networking_sockets_send_message_to_connection(std::uint32_t conn,
+gm_enums::SteamApiResult steam_networking_sockets_send_message_to_connection(std::uint32_t conn,
                                                                  gm::wire::GMBuffer data,
                                                                  gm_enums::SteamNetworkingSendFlags send_flags,
                                                                  std::optional<std::uint32_t> buffer_offset,
                                                                  std::optional<std::uint32_t> buffer_count)
 {
-    STEAM_GUARD_RET((std::int32_t)k_EResultFail);
+    STEAM_GUARD_RET(static_cast<gm_enums::SteamApiResult>((int)k_EResultFail));
 
     ISteamNetworkingSockets* s = steam_networking_sockets_iface();
-    if (!s) return (std::int32_t)k_EResultFail;
+    if (!s) return static_cast<gm_enums::SteamApiResult>((int)k_EResultFail);
 
     std::uint32_t offset = buffer_offset.value_or(0);
 
     if (static_cast<std::uint64_t>(offset) >= data.length()) {
         steam_set_last_error("SendMessageToConnection: buffer_offset exceeds buffer length.");
-        return (std::int32_t)k_EResultInvalidParam;
+        return static_cast<gm_enums::SteamApiResult>((int)k_EResultInvalidParam);
     }
 
     std::uint32_t actual_count;
@@ -233,22 +235,22 @@ std::int32_t steam_networking_sockets_send_message_to_connection(std::uint32_t c
         actual_count = static_cast<std::uint32_t>(std::min(remaining, static_cast<std::uint64_t>(INT_MAX)));
     }
 
-    if (actual_count == 0) return (std::int32_t)k_EResultInvalidParam;
+    if (actual_count == 0) return static_cast<gm_enums::SteamApiResult>((int)k_EResultInvalidParam);
 
     if ((std::uint64_t)offset + (std::uint64_t)actual_count > (std::uint64_t)data.length()) {
         steam_set_last_error("SendMessageToConnection: buffer_offset + buffer_count exceeds buffer length.");
-        return (std::int32_t)k_EResultInvalidParam;
+        return static_cast<gm_enums::SteamApiResult>((int)k_EResultInvalidParam);
     }
 
     auto reader = data.getReader();
     reader.skip((size_t)offset);
     const void* msg_data = reader.data();
 
-    return (std::int32_t)s->SendMessageToConnection((HSteamNetConnection)conn,
+    return static_cast<gm_enums::SteamApiResult>((int)s->SendMessageToConnection((HSteamNetConnection)conn,
                                                     msg_data,
                                                     (uint32)actual_count,
                                                     (int)send_flags,
-                                                    nullptr);
+                                                    nullptr));
 }
 
 gm_enums::SteamApiResult steam_networking_sockets_flush_messages_on_connection(std::uint32_t conn)
@@ -377,7 +379,10 @@ std::vector<std::uint32_t> steam_networking_sockets_create_socket_pair(bool use_
     HSteamNetConnection b = k_HSteamNetConnection_Invalid;
 
     const bool ok = s->CreateSocketPair(&a, &b, use_network_loopback, nullptr, nullptr);
-    if (!ok) return out;
+    if (!ok) {
+        steam_set_last_error("steam_networking_sockets_create_socket_pair: CreateSocketPair failed.");
+        return out;
+    }
 
     out.push_back((std::uint32_t)a);
     out.push_back((std::uint32_t)b);
@@ -392,6 +397,8 @@ std::uint32_t steam_networking_sockets_create_listen_socket_p2p(std::int32_t loc
     if (!s) return 0;
 
     HSteamListenSocket h = s->CreateListenSocketP2P((int)local_virtual_port, 0, nullptr);
+    if (h == k_HSteamListenSocket_Invalid)
+        steam_set_last_error("steam_networking_sockets_create_listen_socket_p2p: CreateListenSocketP2P failed.");
     return (std::uint32_t)h;
 }
 
@@ -407,6 +414,8 @@ std::uint32_t steam_networking_sockets_connect_p2p(std::uint64_t steam_id_remote
     ident.SetSteamID64((uint64)steam_id_remote);
 
     HSteamNetConnection c = s->ConnectP2P(ident, (int)remote_virtual_port, 0, nullptr);
+    if (c == k_HSteamNetConnection_Invalid)
+        steam_set_last_error("steam_networking_sockets_connect_p2p: ConnectP2P failed.");
     return (std::uint32_t)c;
 }
 

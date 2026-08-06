@@ -18758,9 +18758,6 @@ function steam_input_get_string_for_action_origin(_origin)
 // Skipping function steam_input_init (no wrapper is required)
 
 
-// Skipping function steam_input_enable_device_callbacks (no wrapper is required)
-
-
 // Skipping function steam_input_run_frame (no wrapper is required)
 
 
@@ -23521,11 +23518,60 @@ function steam_networking_sockets_set_callback_connection_status_changed(_callba
 // Skipping function steam_networking_sockets_connect_by_ip_address (no wrapper is required)
 
 
-// Skipping function steam_networking_sockets_accept_connection (no wrapper is required)
+/**
+ * @param {Real} _conn
+ * @returns {Enum.SteamApiResult}
+ */
+function steam_networking_sockets_accept_connection(_conn)
+{
+    var __available__ = __Steamworks_is_available();
+    if (!__available__) return;
 
+    var __ret_buffer = __ext_core_get_ret_buffer();
 
-// Skipping function steam_networking_sockets_close_connection (no wrapper is required)
+    var __return_value__ = __steam_networking_sockets_accept_connection(_conn, buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
 
+    var __result__ = undefined;
+    __result__ = buffer_read(__ret_buffer, buffer_u64);
+    return __result__;
+}
+
+/**
+ * @param {Real} _conn
+ * @param {Enum.SteamNetworkingConnectionEnd} _reason
+ * @param {String} _debug
+ * @param {Bool} _linger
+ * @returns {Bool}
+ */
+function steam_networking_sockets_close_connection(_conn, _reason, _debug, _linger)
+{
+    var __available__ = __Steamworks_is_available();
+    if (!__available__) return;
+
+    var __args_buffer = __ext_core_get_args_buffer();
+
+    // param: _conn, type: UInt32
+    if (!is_numeric(_conn)) show_error($"{_GMFUNCTION_} :: _conn expected number", true);
+    buffer_write(__args_buffer, buffer_u32, _conn);
+
+    // param: _reason, type: enum SteamNetworkingConnectionEnd
+
+    if (!is_numeric(_reason)) show_error($"{_GMFUNCTION_} :: _reason expected number", true);
+    buffer_write(__args_buffer, buffer_u64, _reason);
+
+    // param: _debug, type: String
+    if (!is_string(_debug)) show_error($"{_GMFUNCTION_} :: _debug expected string", true);
+    buffer_write(__args_buffer, buffer_u32, string_byte_length(_debug));
+    buffer_write(__args_buffer, buffer_string, _debug);
+
+    // param: _linger, type: Bool
+    if (!is_bool(_linger)) show_error($"{_GMFUNCTION_} :: _linger expected bool", true);
+    buffer_write(__args_buffer, buffer_bool, _linger);
+
+    var __return_value__ = __steam_networking_sockets_close_connection(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+
+    return __return_value__;
+}
 
 /**
  * @param {Real} _conn
@@ -23582,7 +23628,7 @@ function steam_networking_sockets_get_connection_user_data(_conn)
  * @param {Enum.SteamNetworkingSendFlags} _send_flags
  * @param {Real} _buffer_offset
  * @param {Real} _buffer_count
- * @returns {Real}
+ * @returns {Enum.SteamApiResult}
  */
 function steam_networking_sockets_send_message_to_connection(_conn, _data, _send_flags, _buffer_offset, _buffer_count)
 {
@@ -23628,9 +23674,13 @@ function steam_networking_sockets_send_message_to_connection(_conn, _data, _send
         buffer_write(__args_buffer, buffer_u32, _buffer_count);
     }
 
-    var __return_value__ = __steam_networking_sockets_send_message_to_connection(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __ret_buffer = __ext_core_get_ret_buffer();
 
-    return __return_value__;
+    var __return_value__ = __steam_networking_sockets_send_message_to_connection(buffer_get_address(__args_buffer), buffer_tell(__args_buffer), buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+
+    var __result__ = undefined;
+    __result__ = buffer_read(__ret_buffer, buffer_u64);
+    return __result__;
 }
 
 /**
