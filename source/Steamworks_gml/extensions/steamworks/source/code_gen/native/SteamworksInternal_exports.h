@@ -260,6 +260,9 @@ GMEXPORT double __EXT_NATIVE__steam_ugc_get_item_update_progress(char* __arg_buf
 GMEXPORT double __EXT_NATIVE__steam_ugc_get_num_subscribed_items(double include_locally_disabled);
 GMEXPORT double __EXT_NATIVE__steam_ugc_get_subscribed_items(double max_entries, double include_locally_disabled, char* __ret_buffer, double __ret_buffer_length);
 GMEXPORT double __EXT_NATIVE__steam_ugc_get_query_ugc_result(char* __arg_buffer, double __arg_buffer_length, char* __ret_buffer, double __ret_buffer_length);
+GMEXPORT double __EXT_NATIVE__steam_ugc_get_query_ugc_num_tags(char* __arg_buffer, double __arg_buffer_length);
+GMEXPORT double __EXT_NATIVE__steam_ugc_get_query_ugc_tag(char* __arg_buffer, double __arg_buffer_length, char* __ret_buffer, double __ret_buffer_length);
+GMEXPORT double __EXT_NATIVE__steam_ugc_get_query_ugc_tag_display_name(char* __arg_buffer, double __arg_buffer_length, char* __ret_buffer, double __ret_buffer_length);
 GMEXPORT double __EXT_NATIVE__steam_ugc_get_query_ugc_preview_url(char* __arg_buffer, double __arg_buffer_length, char* __ret_buffer, double __ret_buffer_length);
 GMEXPORT double __EXT_NATIVE__steam_ugc_get_query_ugc_metadata(char* __arg_buffer, double __arg_buffer_length, char* __ret_buffer, double __ret_buffer_length);
 GMEXPORT double __EXT_NATIVE__steam_ugc_get_query_ugc_children(char* __arg_buffer, double __arg_buffer_length, char* __ret_buffer, double __ret_buffer_length);
@@ -273,6 +276,7 @@ GMEXPORT double __EXT_NATIVE__steam_ugc_get_query_ugc_content_descriptors(char* 
 GMEXPORT double __EXT_NATIVE__steam_ugc_remove_app_dependency(char* __arg_buffer, double __arg_buffer_length);
 GMEXPORT double __EXT_NATIVE__steam_ugc_remove_dependency(char* __arg_buffer, double __arg_buffer_length);
 GMEXPORT double __EXT_NATIVE__steam_ugc_remove_item_from_favorites(char* __arg_buffer, double __arg_buffer_length);
+GMEXPORT double __EXT_NATIVE__steam_ugc_remove_all_item_key_value_tags(char* __arg_buffer, double __arg_buffer_length);
 GMEXPORT double __EXT_NATIVE__steam_ugc_remove_item_key_value_tags(char* __arg_buffer, double __arg_buffer_length);
 GMEXPORT double __EXT_NATIVE__steam_ugc_remove_item_preview(char* __arg_buffer, double __arg_buffer_length);
 GMEXPORT double __EXT_NATIVE__steam_ugc_add_content_descriptor(char* __arg_buffer, double __arg_buffer_length);
@@ -291,6 +295,7 @@ GMEXPORT double __EXT_NATIVE__steam_ugc_set_item_preview(char* __arg_buffer, dou
 GMEXPORT double __EXT_NATIVE__steam_ugc_set_item_tags(char* __arg_buffer, double __arg_buffer_length);
 GMEXPORT double __EXT_NATIVE__steam_ugc_set_item_title(char* __arg_buffer, double __arg_buffer_length);
 GMEXPORT double __EXT_NATIVE__steam_ugc_set_item_update_language(char* __arg_buffer, double __arg_buffer_length);
+GMEXPORT double __EXT_NATIVE__steam_ugc_get_user_content_descriptor_preferences(double max_descriptors, char* __ret_buffer, double __ret_buffer_length);
 GMEXPORT double __EXT_NATIVE__steam_ugc_set_items_disabled_locally(char* __arg_buffer, double __arg_buffer_length);
 GMEXPORT double __EXT_NATIVE__steam_ugc_set_item_visibility(char* __arg_buffer, double __arg_buffer_length);
 GMEXPORT double __EXT_NATIVE__steam_ugc_set_language(char* __arg_buffer, double __arg_buffer_length);

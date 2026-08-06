@@ -433,6 +433,49 @@ std::optional<gm_structs::SteamUgcQueryResult> steam_ugc_get_query_ugc_result(st
     return out;
 }
 
+std::uint32_t steam_ugc_get_query_ugc_num_tags(std::uint64_t query_handle, std::uint32_t index)
+{
+    STEAM_GUARD_RET(0);
+
+    ISteamUGC* ugc = steam_ugc_iface();
+    if (!ugc)
+        return 0;
+
+    return (std::uint32_t)ugc->GetQueryUGCNumTags(qh_from_u64(query_handle), index);
+}
+
+std::optional<std::string> steam_ugc_get_query_ugc_tag(std::uint64_t query_handle, std::uint32_t index, std::uint32_t tag_index)
+{
+    STEAM_GUARD_RET(std::nullopt);
+
+    ISteamUGC* ugc = steam_ugc_iface();
+    if (!ugc)
+        return std::nullopt;
+
+    char buf[256] = {};
+    const bool ok = ugc->GetQueryUGCTag(qh_from_u64(query_handle), index, tag_index, buf, (uint32)sizeof(buf));
+    if (!ok)
+        return std::nullopt;
+
+    return std::string(buf);
+}
+
+std::optional<std::string> steam_ugc_get_query_ugc_tag_display_name(std::uint64_t query_handle, std::uint32_t index, std::uint32_t tag_index)
+{
+    STEAM_GUARD_RET(std::nullopt);
+
+    ISteamUGC* ugc = steam_ugc_iface();
+    if (!ugc)
+        return std::nullopt;
+
+    char buf[256] = {};
+    const bool ok = ugc->GetQueryUGCTagDisplayName(qh_from_u64(query_handle), index, tag_index, buf, (uint32)sizeof(buf));
+    if (!ok)
+        return std::nullopt;
+
+    return std::string(buf);
+}
+
 std::optional<std::string> steam_ugc_get_query_ugc_preview_url(std::uint64_t query_handle, std::uint32_t index)
 {
     STEAM_GUARD_RET(std::nullopt);
@@ -680,6 +723,16 @@ std::uint32_t steam_ugc_get_num_supported_game_versions(std::uint64_t query_hand
         return 0;
 
     return ugc->GetNumSupportedGameVersions(query, index);
+}
+
+bool steam_ugc_remove_all_item_key_value_tags(std::uint64_t update_handle)
+{
+    STEAM_GUARD_RET(false);
+    ISteamUGC* ugc = steam_ugc_iface();
+    if (!ugc)
+        return false;
+
+    return ugc->RemoveAllItemKeyValueTags(uh_from_u64(update_handle));
 }
 
 bool steam_ugc_remove_item_key_value_tags(std::uint64_t update_handle, std::string_view key)
@@ -946,6 +999,40 @@ bool steam_ugc_set_item_update_language(std::uint64_t update_handle, std::string
 
     std::string s(language);
     return ugc->SetItemUpdateLanguage(uh_from_u64(update_handle), s.c_str());
+}
+
+std::vector<gm_enums::SteamUgcContentDescriptorId> steam_ugc_get_user_content_descriptor_preferences(std::uint32_t max_descriptors)
+{
+    STEAM_GUARD_RET({});
+
+    std::vector<gm_enums::SteamUgcContentDescriptorId> out;
+
+    ISteamUGC* ugc = steam_ugc_iface();
+    if (!ugc) return out;
+
+    if (max_descriptors == 0) return out;
+
+    constexpr std::uint32_t kMaxContentDescriptors = 65536;
+    if (max_descriptors > kMaxContentDescriptors) {
+        steam_set_last_error("steam_ugc_get_user_content_descriptor_preferences: max_descriptors exceeds sanity limit.");
+        return out;
+    }
+
+    std::vector<EUGCContentDescriptorID> tmp;
+    tmp.resize((size_t)max_descriptors);
+
+    // GetUserContentDescriptorPreferences returns the number of descriptors written (uint32),
+    // not a bool. Copy only that many entries to avoid trailing garbage.
+    const uint32 n = ugc->GetUserContentDescriptorPreferences(tmp.data(), (uint32)tmp.size());
+
+    if (n == 0) return out;
+
+    const uint32 copy = (n < (uint32)tmp.size()) ? n : (uint32)tmp.size();
+    out.reserve((size_t)copy);
+    for (uint32 i = 0; i < copy; ++i)
+        out.push_back(static_cast<gm_enums::SteamUgcContentDescriptorId>((int)tmp[(size_t)i]));
+
+    return out;
 }
 
 bool steam_ugc_set_items_disabled_locally(

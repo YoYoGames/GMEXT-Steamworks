@@ -16522,6 +16522,115 @@ function steam_ugc_get_query_ugc_result(_query_handle, _index)
 /**
  * @param {Real} _query_handle
  * @param {Real} _index
+ * @returns {Real}
+ */
+function steam_ugc_get_query_ugc_num_tags(_query_handle, _index)
+{
+    var __available__ = __Steamworks_is_available();
+    if (!__available__) return;
+
+    var __args_buffer = __ext_core_get_args_buffer();
+
+    // param: _query_handle, type: UInt64
+    if (!is_numeric(_query_handle)) show_error($"{_GMFUNCTION_} :: _query_handle expected number", true);
+    buffer_write(__args_buffer, buffer_u64, _query_handle);
+
+    // param: _index, type: UInt32
+    if (!is_numeric(_index)) show_error($"{_GMFUNCTION_} :: _index expected number", true);
+    buffer_write(__args_buffer, buffer_u32, _index);
+
+    var __return_value__ = __steam_ugc_get_query_ugc_num_tags(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+
+    return __return_value__;
+}
+
+/**
+ * @param {Real} _query_handle
+ * @param {Real} _index
+ * @param {Real} _tag_index
+ * @returns {String}
+ */
+function steam_ugc_get_query_ugc_tag(_query_handle, _index, _tag_index)
+{
+    var __available__ = __Steamworks_is_available();
+    if (!__available__) return;
+
+    var __args_buffer = __ext_core_get_args_buffer();
+
+    // param: _query_handle, type: UInt64
+    if (!is_numeric(_query_handle)) show_error($"{_GMFUNCTION_} :: _query_handle expected number", true);
+    buffer_write(__args_buffer, buffer_u64, _query_handle);
+
+    // param: _index, type: UInt32
+    if (!is_numeric(_index)) show_error($"{_GMFUNCTION_} :: _index expected number", true);
+    buffer_write(__args_buffer, buffer_u32, _index);
+
+    // param: _tag_index, type: UInt32
+    if (!is_numeric(_tag_index)) show_error($"{_GMFUNCTION_} :: _tag_index expected number", true);
+    buffer_write(__args_buffer, buffer_u32, _tag_index);
+
+    var __ret_buffer = __ext_core_get_ret_buffer();
+
+    var __return_value__ = __steam_ugc_get_query_ugc_tag(buffer_get_address(__args_buffer), buffer_tell(__args_buffer), buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+
+    var __result__ = undefined;
+    if (buffer_read(__ret_buffer, buffer_bool))
+    {
+        buffer_read(__ret_buffer, buffer_u32);
+        __result__ = buffer_read(__ret_buffer, buffer_string);
+    }
+    else
+    {
+        __result__ = undefined;
+    }
+    return __result__;
+}
+
+/**
+ * @param {Real} _query_handle
+ * @param {Real} _index
+ * @param {Real} _tag_index
+ * @returns {String}
+ */
+function steam_ugc_get_query_ugc_tag_display_name(_query_handle, _index, _tag_index)
+{
+    var __available__ = __Steamworks_is_available();
+    if (!__available__) return;
+
+    var __args_buffer = __ext_core_get_args_buffer();
+
+    // param: _query_handle, type: UInt64
+    if (!is_numeric(_query_handle)) show_error($"{_GMFUNCTION_} :: _query_handle expected number", true);
+    buffer_write(__args_buffer, buffer_u64, _query_handle);
+
+    // param: _index, type: UInt32
+    if (!is_numeric(_index)) show_error($"{_GMFUNCTION_} :: _index expected number", true);
+    buffer_write(__args_buffer, buffer_u32, _index);
+
+    // param: _tag_index, type: UInt32
+    if (!is_numeric(_tag_index)) show_error($"{_GMFUNCTION_} :: _tag_index expected number", true);
+    buffer_write(__args_buffer, buffer_u32, _tag_index);
+
+    var __ret_buffer = __ext_core_get_ret_buffer();
+
+    var __return_value__ = __steam_ugc_get_query_ugc_tag_display_name(buffer_get_address(__args_buffer), buffer_tell(__args_buffer), buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+
+    var __result__ = undefined;
+    if (buffer_read(__ret_buffer, buffer_bool))
+    {
+        buffer_read(__ret_buffer, buffer_u32);
+        __result__ = buffer_read(__ret_buffer, buffer_string);
+    }
+    else
+    {
+        __result__ = undefined;
+    }
+    return __result__;
+}
+
+/**
+ * @param {Real} _query_handle
+ * @param {Real} _index
  * @returns {String}
  */
 function steam_ugc_get_query_ugc_preview_url(_query_handle, _index)
@@ -16977,6 +17086,26 @@ function steam_ugc_remove_item_from_favorites(_app_id, _published_file_id, _call
 
 /**
  * @param {Real} _update_handle
+ * @returns {Bool}
+ */
+function steam_ugc_remove_all_item_key_value_tags(_update_handle)
+{
+    var __available__ = __Steamworks_is_available();
+    if (!__available__) return;
+
+    var __args_buffer = __ext_core_get_args_buffer();
+
+    // param: _update_handle, type: UInt64
+    if (!is_numeric(_update_handle)) show_error($"{_GMFUNCTION_} :: _update_handle expected number", true);
+    buffer_write(__args_buffer, buffer_u64, _update_handle);
+
+    var __return_value__ = __steam_ugc_remove_all_item_key_value_tags(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+
+    return __return_value__;
+}
+
+/**
+ * @param {Real} _update_handle
  * @param {String} _key
  * @returns {Bool}
  */
@@ -17418,6 +17547,29 @@ function steam_ugc_set_item_update_language(_update_handle, _language)
     var __return_value__ = __steam_ugc_set_item_update_language(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
 
     return __return_value__;
+}
+
+/**
+ * @param {Real} _max_descriptors
+ * @returns {Array[Enum.SteamUgcContentDescriptorId]}
+ */
+function steam_ugc_get_user_content_descriptor_preferences(_max_descriptors)
+{
+    var __available__ = __Steamworks_is_available();
+    if (!__available__) return;
+
+    var __ret_buffer = __ext_core_get_ret_buffer();
+
+    var __return_value__ = __steam_ugc_get_user_content_descriptor_preferences(_max_descriptors, buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+
+    var __result__ = undefined;
+    var __length__ = buffer_read(__ret_buffer, buffer_u32);
+    __result__ = array_create(__length__);
+    for (var _i = 0; _i < __length__; ++_i)
+    {
+        __result__[_i] = buffer_read(__ret_buffer, buffer_u64);
+    }
+    return __result__;
 }
 
 /**

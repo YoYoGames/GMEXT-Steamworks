@@ -6546,6 +6546,9 @@ gm_structs::SteamUgcItemUpdateProgress steam_ugc_get_item_update_progress(std::u
 std::uint32_t steam_ugc_get_num_subscribed_items(bool include_locally_disabled);
 std::vector<std::uint64_t> steam_ugc_get_subscribed_items(std::uint32_t max_entries, bool include_locally_disabled);
 std::optional<gm_structs::SteamUgcQueryResult> steam_ugc_get_query_ugc_result(std::uint64_t query_handle, std::uint32_t index);
+std::uint32_t steam_ugc_get_query_ugc_num_tags(std::uint64_t query_handle, std::uint32_t index);
+std::optional<std::string> steam_ugc_get_query_ugc_tag(std::uint64_t query_handle, std::uint32_t index, std::uint32_t tag_index);
+std::optional<std::string> steam_ugc_get_query_ugc_tag_display_name(std::uint64_t query_handle, std::uint32_t index, std::uint32_t tag_index);
 std::optional<std::string> steam_ugc_get_query_ugc_preview_url(std::uint64_t query_handle, std::uint32_t index);
 std::optional<std::string> steam_ugc_get_query_ugc_metadata(std::uint64_t query_handle, std::uint32_t index);
 std::vector<std::uint64_t> steam_ugc_get_query_ugc_children(std::uint64_t query_handle, std::uint32_t index, std::uint32_t max_entries);
@@ -6559,6 +6562,7 @@ std::vector<gm_enums::SteamUgcContentDescriptorId> steam_ugc_get_query_ugc_conte
 void steam_ugc_remove_app_dependency(std::uint64_t published_file_id, std::uint32_t app_id, const gm::wire::GMFunction& callback);
 void steam_ugc_remove_dependency(std::uint64_t parent_published_file_id, std::uint64_t child_published_file_id, const gm::wire::GMFunction& callback);
 void steam_ugc_remove_item_from_favorites(std::uint32_t app_id, std::uint64_t published_file_id, const gm::wire::GMFunction& callback);
+bool steam_ugc_remove_all_item_key_value_tags(std::uint64_t update_handle);
 bool steam_ugc_remove_item_key_value_tags(std::uint64_t update_handle, std::string_view key);
 bool steam_ugc_remove_item_preview(std::uint64_t update_handle, std::uint32_t index);
 bool steam_ugc_add_content_descriptor(std::uint64_t update_handle, gm_enums::SteamUgcContentDescriptorId descriptor_id);
@@ -6577,6 +6581,7 @@ bool steam_ugc_set_item_preview(std::uint64_t update_handle, std::string_view pr
 bool steam_ugc_set_item_tags(std::uint64_t update_handle, const std::vector<std::string_view>& tags_csv);
 bool steam_ugc_set_item_title(std::uint64_t update_handle, std::string_view title);
 bool steam_ugc_set_item_update_language(std::uint64_t update_handle, std::string_view language);
+std::vector<gm_enums::SteamUgcContentDescriptorId> steam_ugc_get_user_content_descriptor_preferences(std::uint32_t max_descriptors);
 bool steam_ugc_set_items_disabled_locally(const std::vector<std::uint64_t>& published_file_ids, bool disabled_locally);
 bool steam_ugc_set_item_visibility(std::uint64_t update_handle, gm_enums::SteamRemoteStoragePublishedFileVisibility visibility);
 bool steam_ugc_set_language(std::uint64_t query_handle, std::string_view language);

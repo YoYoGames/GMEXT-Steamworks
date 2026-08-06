@@ -1684,6 +1684,32 @@
  */
 
 /**
+ * @function_partial steam_ugc_get_query_ugc_num_tags
+ * @param {Real} query_handle
+ * @param {Real} index
+ * @returns {Real}
+ * @function_end
+ */
+
+/**
+ * @function_partial steam_ugc_get_query_ugc_tag
+ * @param {Real} query_handle
+ * @param {Real} index
+ * @param {Real} tag_index
+ * @returns {String}
+ * @function_end
+ */
+
+/**
+ * @function_partial steam_ugc_get_query_ugc_tag_display_name
+ * @param {Real} query_handle
+ * @param {Real} index
+ * @param {Real} tag_index
+ * @returns {String}
+ * @function_end
+ */
+
+/**
  * @function_partial steam_ugc_get_query_ugc_preview_url
  * @param {Real} query_handle
  * @param {Real} index
@@ -1790,6 +1816,13 @@
  * @param {Real} app_id
  * @param {Real} published_file_id
  * @param {Function} callback
+ * @function_end
+ */
+
+/**
+ * @function_partial steam_ugc_remove_all_item_key_value_tags
+ * @param {Real} update_handle
+ * @returns {Bool}
  * @function_end
  */
 
@@ -1927,6 +1960,13 @@
  * @param {Real} update_handle
  * @param {String} language
  * @returns {Bool}
+ * @function_end
+ */
+
+/**
+ * @function_partial steam_ugc_get_user_content_descriptor_preferences
+ * @param {Real} max_descriptors
+ * @returns {Array[Enum.SteamUgcContentDescriptorId]}
  * @function_end
  */
 

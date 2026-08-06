@@ -2704,6 +2704,62 @@ GMEXPORT double __EXT_NATIVE__steam_ugc_get_query_ugc_result(char* __arg_buffer,
     return 0;
 }
 
+GMEXPORT double __EXT_NATIVE__steam_ugc_get_query_ugc_num_tags(char* __arg_buffer, double __arg_buffer_length)
+{
+    gm::byteio::BufferReader __br{__arg_buffer, static_cast<size_t>(__arg_buffer_length)};
+
+    // field: query_handle, type: UInt64
+    std::uint64_t query_handle = gm::wire::codec::readValue<std::uint64_t>(__br);
+
+    // field: index, type: UInt32
+    std::uint32_t index = gm::wire::codec::readValue<std::uint32_t>(__br);
+
+    auto&& __result = steam_ugc_get_query_ugc_num_tags(query_handle, index);
+    return static_cast<double>(__result);
+}
+
+GMEXPORT double __EXT_NATIVE__steam_ugc_get_query_ugc_tag(char* __arg_buffer, double __arg_buffer_length, char* __ret_buffer, double __ret_buffer_length)
+{
+    gm::byteio::BufferReader __br{__arg_buffer, static_cast<size_t>(__arg_buffer_length)};
+
+    // field: query_handle, type: UInt64
+    std::uint64_t query_handle = gm::wire::codec::readValue<std::uint64_t>(__br);
+
+    // field: index, type: UInt32
+    std::uint32_t index = gm::wire::codec::readValue<std::uint32_t>(__br);
+
+    // field: tag_index, type: UInt32
+    std::uint32_t tag_index = gm::wire::codec::readValue<std::uint32_t>(__br);
+
+    auto&& __result = steam_ugc_get_query_ugc_tag(query_handle, index, tag_index);
+    gm::byteio::BufferWriter __bw{__ret_buffer, static_cast<size_t>(__ret_buffer_length)};
+
+    // return: __result, type: optional<String>
+    gm::wire::codec::writeValue(__bw, __result);
+    return 0;
+}
+
+GMEXPORT double __EXT_NATIVE__steam_ugc_get_query_ugc_tag_display_name(char* __arg_buffer, double __arg_buffer_length, char* __ret_buffer, double __ret_buffer_length)
+{
+    gm::byteio::BufferReader __br{__arg_buffer, static_cast<size_t>(__arg_buffer_length)};
+
+    // field: query_handle, type: UInt64
+    std::uint64_t query_handle = gm::wire::codec::readValue<std::uint64_t>(__br);
+
+    // field: index, type: UInt32
+    std::uint32_t index = gm::wire::codec::readValue<std::uint32_t>(__br);
+
+    // field: tag_index, type: UInt32
+    std::uint32_t tag_index = gm::wire::codec::readValue<std::uint32_t>(__br);
+
+    auto&& __result = steam_ugc_get_query_ugc_tag_display_name(query_handle, index, tag_index);
+    gm::byteio::BufferWriter __bw{__ret_buffer, static_cast<size_t>(__ret_buffer_length)};
+
+    // return: __result, type: optional<String>
+    gm::wire::codec::writeValue(__bw, __result);
+    return 0;
+}
+
 GMEXPORT double __EXT_NATIVE__steam_ugc_get_query_ugc_preview_url(char* __arg_buffer, double __arg_buffer_length, char* __ret_buffer, double __ret_buffer_length)
 {
     gm::byteio::BufferReader __br{__arg_buffer, static_cast<size_t>(__arg_buffer_length)};
@@ -2945,6 +3001,17 @@ GMEXPORT double __EXT_NATIVE__steam_ugc_remove_item_from_favorites(char* __arg_b
     return 0;
 }
 
+GMEXPORT double __EXT_NATIVE__steam_ugc_remove_all_item_key_value_tags(char* __arg_buffer, double __arg_buffer_length)
+{
+    gm::byteio::BufferReader __br{__arg_buffer, static_cast<size_t>(__arg_buffer_length)};
+
+    // field: update_handle, type: UInt64
+    std::uint64_t update_handle = gm::wire::codec::readValue<std::uint64_t>(__br);
+
+    auto&& __result = steam_ugc_remove_all_item_key_value_tags(update_handle);
+    return static_cast<double>(__result);
+}
+
 GMEXPORT double __EXT_NATIVE__steam_ugc_remove_item_key_value_tags(char* __arg_buffer, double __arg_buffer_length)
 {
     gm::byteio::BufferReader __br{__arg_buffer, static_cast<size_t>(__arg_buffer_length)};
@@ -3184,6 +3251,16 @@ GMEXPORT double __EXT_NATIVE__steam_ugc_set_item_update_language(char* __arg_buf
 
     auto&& __result = steam_ugc_set_item_update_language(update_handle, language);
     return static_cast<double>(__result);
+}
+
+GMEXPORT double __EXT_NATIVE__steam_ugc_get_user_content_descriptor_preferences(double max_descriptors, char* __ret_buffer, double __ret_buffer_length)
+{
+    auto&& __result = steam_ugc_get_user_content_descriptor_preferences(static_cast<std::uint32_t>(max_descriptors));
+    gm::byteio::BufferWriter __bw{__ret_buffer, static_cast<size_t>(__ret_buffer_length)};
+
+    // return: __result, type: enum SteamUgcContentDescriptorId[]
+    gm::wire::codec::writeValue(__bw, __result);
+    return 0;
 }
 
 GMEXPORT double __EXT_NATIVE__steam_ugc_set_items_disabled_locally(char* __arg_buffer, double __arg_buffer_length)
