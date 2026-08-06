@@ -247,13 +247,13 @@ std::int32_t steam_remote_storage_get_file_size(std::string_view file_name)
     return (std::int32_t)rs->GetFileSize(fn.c_str());
 }
 
-std::int32_t steam_remote_storage_get_file_timestamp(std::string_view file_name)
+std::int64_t steam_remote_storage_get_file_timestamp(std::string_view file_name)
 {
     STEAM_GUARD_RET(0);
     ISteamRemoteStorage* rs = steam_remote_storage_iface();
     if (!rs) return 0;
     std::string fn(file_name);
-    return (std::int32_t)rs->GetFileTimestamp(fn.c_str());
+    return (std::int64_t)rs->GetFileTimestamp(fn.c_str());
 }
 
 std::int32_t steam_remote_storage_get_file_count()

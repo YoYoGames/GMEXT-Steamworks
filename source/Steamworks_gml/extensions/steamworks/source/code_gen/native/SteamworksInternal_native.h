@@ -66,12 +66,12 @@ namespace gm_consts
     inline constexpr std::int64_t STEAM_UGC_QUERY_HANDLE_INVALID = -1;
     inline constexpr std::int64_t STEAM_UGC_UPDATE_HANDLE_INVALID = -1;
     inline constexpr std::string_view STEAM_UGC_INTERFACE_VERSION = "STEAMUGC_INTERFACE_VERSION015";
-    inline constexpr std::string_view STEAM_INPUT_INTERFACE_VERSION = "SteamInput001";
+    inline constexpr std::string_view STEAM_INPUT_INTERFACE_VERSION = "SteamInput006";
     inline constexpr std::int64_t STEAM_INPUT_HANDLE_ALL_CONTROLLERS = -1;
-    inline constexpr std::int32_t STEAM_INPUT_MAX_ANALOG_ACTIONS = 16;
+    inline constexpr std::int32_t STEAM_INPUT_MAX_ANALOG_ACTIONS = 24;
     inline constexpr double STEAM_INPUT_MAX_ANALOG_ACTION_DATA = 1.0;
     inline constexpr std::int32_t STEAM_INPUT_MAX_COUNT = 16;
-    inline constexpr std::int32_t STEAM_INPUT_MAX_DIGITAL_ACTIONS = 128;
+    inline constexpr std::int32_t STEAM_INPUT_MAX_DIGITAL_ACTIONS = 256;
     inline constexpr std::int32_t STEAM_INPUT_MAX_ORIGINS = 8;
     inline constexpr double STEAM_INPUT_MIN_ANALOG_ACTION_DATA = -1.0;
     inline constexpr std::int32_t STEAM_USER_STATS_LEADERBOARD_NAME_MAX = 128;
@@ -82,7 +82,7 @@ namespace gm_consts
     inline constexpr std::int32_t STEAM_TIMELINE_MAX_TIMELINE_PRIORITY = 1000;
     inline constexpr std::int32_t STEAM_INVENTORY_RESULT_INVALID = -1;
     inline constexpr std::int64_t STEAM_INVENTORY_ITEM_INSTANCE_ID_INVALID = -1;
-    inline constexpr std::string_view STEAM_INVENTORY_INTERFACE_VERSION = "STEAMINVENTORY_INTERFACE_V002";
+    inline constexpr std::string_view STEAM_INVENTORY_INTERFACE_VERSION = "STEAMINVENTORY_INTERFACE_V003";
     inline constexpr std::int32_t STEAM_REMOTE_STORAGE_FILENAME_MAX = 260;
     inline constexpr std::int32_t STEAM_REMOTE_STORAGE_PUBLISHED_DOCUMENT_CHANGE_DESCRIPTION_MAX = 8000;
     inline constexpr std::int32_t STEAM_REMOTE_STORAGE_PUBLISHED_DOCUMENT_DESCRIPTION_MAX = 8000;
@@ -1820,6 +1820,8 @@ namespace gm_structs
     struct SteamFriendsGameOverlayActivated
     {
         bool active;
+        bool user_initiated;
+        std::uint32_t app_id;
     };
 
     struct SteamFriendsGameRichPresenceJoinRequested
@@ -2112,6 +2114,7 @@ namespace gm_structs
     {
         std::string url_or_video_id;
         gm_enums::SteamUgcItemPreviewType preview_type;
+        std::string original_file_name;
     };
 
     struct SteamUgcKeyValueTag
@@ -2963,6 +2966,8 @@ namespace gm::wire::codec
     inline void writeValue<gm_structs::SteamFriendsGameOverlayActivated>(gm::byteio::IByteWriter& _buf, const gm_structs::SteamFriendsGameOverlayActivated& obj)
     {
         gm::wire::codec::writeValue(_buf, obj.active);
+        gm::wire::codec::writeValue(_buf, obj.user_initiated);
+        gm::wire::codec::writeValue(_buf, obj.app_id);
     }
 
     template<>
@@ -2970,6 +2975,8 @@ namespace gm::wire::codec
     {
         gm_structs::SteamFriendsGameOverlayActivated obj;
         obj.active = gm::wire::codec::readValue<bool>(_buf);
+        obj.user_initiated = gm::wire::codec::readValue<bool>(_buf);
+        obj.app_id = gm::wire::codec::readValue<std::uint32_t>(_buf);
         return obj;
     }
 
@@ -3710,6 +3717,7 @@ namespace gm::wire::codec
     {
         gm::wire::codec::writeValue(_buf, obj.url_or_video_id);
         gm::wire::codec::writeValue(_buf, obj.preview_type);
+        gm::wire::codec::writeValue(_buf, obj.original_file_name);
     }
 
     template<>
@@ -3718,6 +3726,7 @@ namespace gm::wire::codec
         gm_structs::SteamUgcAdditionalPreview obj;
         obj.url_or_video_id = gm::wire::codec::readValue<std::string>(_buf);
         obj.preview_type = gm::wire::codec::readValue<gm_enums::SteamUgcItemPreviewType>(_buf);
+        obj.original_file_name = gm::wire::codec::readValue<std::string>(_buf);
         return obj;
     }
 
@@ -6539,7 +6548,7 @@ std::optional<std::string> steam_ugc_get_query_ugc_metadata(std::uint64_t query_
 std::vector<std::uint64_t> steam_ugc_get_query_ugc_children(std::uint64_t query_handle, std::uint32_t index, std::uint32_t max_entries);
 std::uint64_t steam_ugc_get_query_ugc_statistic(std::uint64_t query_handle, std::uint32_t index, gm_enums::SteamUgcStatisticType stat_type);
 std::uint32_t steam_ugc_get_query_ugc_num_additional_previews(std::uint64_t query_handle, std::uint32_t index);
-std::optional<gm_structs::SteamUgcAdditionalPreview> steam_ugc_get_query_ugc_additional_preview(std::uint64_t query_handle, std::uint32_t index, std::uint32_t preview_index, std::string_view original_file_name);
+std::optional<gm_structs::SteamUgcAdditionalPreview> steam_ugc_get_query_ugc_additional_preview(std::uint64_t query_handle, std::uint32_t index, std::uint32_t preview_index);
 std::optional<gm_structs::SteamUgcSupportedGameVersionData> steam_ugc_get_supported_game_version_data(std::uint64_t query_handle, std::uint32_t index, std::uint32_t version_index);
 std::uint32_t steam_ugc_get_query_ugc_num_key_value_tags(std::uint64_t query_handle, std::uint32_t index);
 std::optional<gm_structs::SteamUgcKeyValueTag> steam_ugc_get_query_ugc_key_value_tag(std::uint64_t query_handle, std::uint32_t index, std::uint32_t key_value_tag_index);
@@ -6783,7 +6792,7 @@ bool steam_remote_storage_file_delete(std::string_view file_name);
 bool steam_remote_storage_file_exists(std::string_view file_name);
 bool steam_remote_storage_file_persisted(std::string_view file_name);
 std::int32_t steam_remote_storage_get_file_size(std::string_view file_name);
-std::int32_t steam_remote_storage_get_file_timestamp(std::string_view file_name);
+std::int64_t steam_remote_storage_get_file_timestamp(std::string_view file_name);
 std::int32_t steam_remote_storage_get_file_count();
 std::optional<gm_structs::SteamRemoteStorageFileNameAndSize> steam_remote_storage_get_file_name_and_size(std::int32_t index);
 std::optional<gm_structs::SteamRemoteStorageQuota> steam_remote_storage_get_quota();

@@ -116,17 +116,17 @@
 
 #macro STEAM_UGC_INTERFACE_VERSION "STEAMUGC_INTERFACE_VERSION015"
 
-#macro STEAM_INPUT_INTERFACE_VERSION "SteamInput001"
+#macro STEAM_INPUT_INTERFACE_VERSION "SteamInput006"
 
 #macro STEAM_INPUT_HANDLE_ALL_CONTROLLERS -1
 
-#macro STEAM_INPUT_MAX_ANALOG_ACTIONS 16
+#macro STEAM_INPUT_MAX_ANALOG_ACTIONS 24
 
 #macro STEAM_INPUT_MAX_ANALOG_ACTION_DATA 1.0
 
 #macro STEAM_INPUT_MAX_COUNT 16
 
-#macro STEAM_INPUT_MAX_DIGITAL_ACTIONS 128
+#macro STEAM_INPUT_MAX_DIGITAL_ACTIONS 256
 
 #macro STEAM_INPUT_MAX_ORIGINS 8
 
@@ -148,7 +148,7 @@
 
 #macro STEAM_INVENTORY_ITEM_INSTANCE_ID_INVALID -1
 
-#macro STEAM_INVENTORY_INTERFACE_VERSION "STEAMINVENTORY_INTERFACE_V002"
+#macro STEAM_INVENTORY_INTERFACE_VERSION "STEAMINVENTORY_INTERFACE_V003"
 
 #macro STEAM_REMOTE_STORAGE_FILENAME_MAX 260
 
@@ -1893,6 +1893,8 @@ function SteamFriendsGameOverlayActivated() constructor
     static __uid = 2594899553;
 
     self.active = undefined;
+    self.user_initiated = undefined;
+    self.app_id = undefined;
 
 }
 
@@ -2595,6 +2597,7 @@ function SteamUgcAdditionalPreview() constructor
 
     self.url_or_video_id = undefined;
     self.preview_type = undefined;
+    self.original_file_name = undefined;
 
 }
 
@@ -4884,6 +4887,14 @@ function __SteamFriendsGameOverlayActivated_encode(_inst, _buffer, _offset, _whe
         if (!is_bool(self.active)) show_error($"{_where} :: self.active expected bool", true);
         buffer_write(_buffer, buffer_bool, self.active);
 
+        // field: user_initiated, type: Bool
+        if (!is_bool(self.user_initiated)) show_error($"{_where} :: self.user_initiated expected bool", true);
+        buffer_write(_buffer, buffer_bool, self.user_initiated);
+
+        // field: app_id, type: UInt32
+        if (!is_numeric(self.app_id)) show_error($"{_where} :: self.app_id expected number", true);
+        buffer_write(_buffer, buffer_u32, self.app_id);
+
     }
 }
 
@@ -4903,6 +4914,12 @@ function __SteamFriendsGameOverlayActivated_decode(_buffer, _offset)
     {
         // field: active, type: Bool
         self.active = buffer_read(_buffer, buffer_bool);
+
+        // field: user_initiated, type: Bool
+        self.user_initiated = buffer_read(_buffer, buffer_bool);
+
+        // field: app_id, type: UInt32
+        self.app_id = buffer_read(_buffer, buffer_u32);
 
     }
 
@@ -7272,6 +7289,11 @@ function __SteamUgcAdditionalPreview_encode(_inst, _buffer, _offset, _where = _G
         if (!is_numeric(self.preview_type)) show_error($"{_where} :: self.preview_type expected number", true);
         buffer_write(_buffer, buffer_u64, self.preview_type);
 
+        // field: original_file_name, type: String
+        if (!is_string(self.original_file_name)) show_error($"{_where} :: self.original_file_name expected string", true);
+        buffer_write(_buffer, buffer_u32, string_byte_length(self.original_file_name));
+        buffer_write(_buffer, buffer_string, self.original_file_name);
+
     }
 }
 
@@ -7295,6 +7317,10 @@ function __SteamUgcAdditionalPreview_decode(_buffer, _offset)
 
         // field: preview_type, type: enum SteamUgcItemPreviewType
         self.preview_type = buffer_read(_buffer, buffer_u64);
+
+        // field: original_file_name, type: String
+        buffer_read(_buffer, buffer_u32);
+        self.original_file_name = buffer_read(_buffer, buffer_string);
 
     }
 
@@ -16658,10 +16684,9 @@ function steam_ugc_get_query_ugc_num_additional_previews(_query_handle, _index)
  * @param {Real} _query_handle
  * @param {Real} _index
  * @param {Real} _preview_index
- * @param {String} _original_file_name
  * @returns {Struct.SteamUgcAdditionalPreview}
  */
-function steam_ugc_get_query_ugc_additional_preview(_query_handle, _index, _preview_index, _original_file_name)
+function steam_ugc_get_query_ugc_additional_preview(_query_handle, _index, _preview_index)
 {
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
@@ -16679,11 +16704,6 @@ function steam_ugc_get_query_ugc_additional_preview(_query_handle, _index, _prev
     // param: _preview_index, type: UInt32
     if (!is_numeric(_preview_index)) show_error($"{_GMFUNCTION_} :: _preview_index expected number", true);
     buffer_write(__args_buffer, buffer_u32, _preview_index);
-
-    // param: _original_file_name, type: String
-    if (!is_string(_original_file_name)) show_error($"{_GMFUNCTION_} :: _original_file_name expected string", true);
-    buffer_write(__args_buffer, buffer_u32, string_byte_length(_original_file_name));
-    buffer_write(__args_buffer, buffer_string, _original_file_name);
 
     var __ret_buffer = __ext_core_get_ret_buffer();
 
@@ -21899,8 +21919,23 @@ function steam_remote_storage_file_read(_file_name, _out_data)
 // Skipping function steam_remote_storage_get_file_size (no wrapper is required)
 
 
-// Skipping function steam_remote_storage_get_file_timestamp (no wrapper is required)
+/**
+ * @param {String} _file_name
+ * @returns {Real}
+ */
+function steam_remote_storage_get_file_timestamp(_file_name)
+{
+    var __available__ = __Steamworks_is_available();
+    if (!__available__) return;
 
+    var __ret_buffer = __ext_core_get_ret_buffer();
+
+    var __return_value__ = __steam_remote_storage_get_file_timestamp(_file_name, buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+
+    var __result__ = undefined;
+    __result__ = buffer_read(__ret_buffer, buffer_u64);
+    return __result__;
+}
 
 // Skipping function steam_remote_storage_get_file_count (no wrapper is required)
 

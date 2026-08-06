@@ -2809,10 +2809,7 @@ GMEXPORT double __EXT_NATIVE__steam_ugc_get_query_ugc_additional_preview(char* _
     // field: preview_index, type: UInt32
     std::uint32_t preview_index = gm::wire::codec::readValue<std::uint32_t>(__br);
 
-    // field: original_file_name, type: String
-    std::string_view original_file_name = gm::wire::codec::readValue<std::string_view>(__br);
-
-    auto&& __result = steam_ugc_get_query_ugc_additional_preview(query_handle, index, preview_index, original_file_name);
+    auto&& __result = steam_ugc_get_query_ugc_additional_preview(query_handle, index, preview_index);
     gm::byteio::BufferWriter __bw{__ret_buffer, static_cast<size_t>(__ret_buffer_length)};
 
     // return: __result, type: optional<struct SteamUgcAdditionalPreview>
@@ -5779,10 +5776,14 @@ GMEXPORT double __EXT_NATIVE__steam_remote_storage_get_file_size(char* file_name
     return static_cast<double>(__result);
 }
 
-GMEXPORT double __EXT_NATIVE__steam_remote_storage_get_file_timestamp(char* file_name)
+GMEXPORT double __EXT_NATIVE__steam_remote_storage_get_file_timestamp(char* file_name, char* __ret_buffer, double __ret_buffer_length)
 {
     auto&& __result = steam_remote_storage_get_file_timestamp(file_name);
-    return static_cast<double>(__result);
+    gm::byteio::BufferWriter __bw{__ret_buffer, static_cast<size_t>(__ret_buffer_length)};
+
+    // return: __result, type: Int64
+    gm::wire::codec::writeValue(__bw, __result);
+    return 0;
 }
 
 GMEXPORT double __EXT_NATIVE__steam_remote_storage_get_file_count()

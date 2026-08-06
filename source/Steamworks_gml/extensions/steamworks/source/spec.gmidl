@@ -127,7 +127,7 @@ function steam_api_restart_app_if_necessary(own_app_id: uint32): bool;
 function steam_api_run_callbacks(): unit;
 
 // SteamAPI_Shutdown
-[global, bind = typed_gml]
+[global, finish_fn, bind = typed_gml]
 function steam_api_shutdown(): unit;
 
 
@@ -912,6 +912,10 @@ class `[[SteamFriendsGameOverlayActivated]]` prototype Object
 {
     [field]
     property active : bool { get; set; }
+    [field]
+    property user_initiated : bool { get; set; }
+    [field]
+    property app_id : uint32 { get; set; }
 }
 
 [global]
@@ -2610,8 +2614,7 @@ function steam_ugc_get_query_ugc_num_additional_previews(
 function steam_ugc_get_query_ugc_additional_preview(
     [type_hint=uint64] query_handle: gmval,
     index: uint32,
-    preview_index: uint32,
-    original_file_name: string
+    preview_index: uint32
 ): gmval;
 
 // GetSupportedGameVersionData
@@ -2738,6 +2741,9 @@ class `[[SteamUgcAdditionalPreview]]` prototype Object
 
     [field, type_hint = `SteamUgcItemPreviewType`]
     property preview_type : gmval { get; set; } // EItemPreviewType
+
+    [field]
+    property original_file_name : string { get; set; }
 }
 
 [global]
@@ -3280,12 +3286,12 @@ class `[[SteamUgcWorkshopEULAStatusResult]]` prototype Object
 group{ // SteamInput
 
 // Steam Input constants
-const STEAM_INPUT_INTERFACE_VERSION : string = "SteamInput001";
+const STEAM_INPUT_INTERFACE_VERSION : string = "SteamInput006";
 const STEAM_INPUT_HANDLE_ALL_CONTROLLERS : int64 = -1;
-const STEAM_INPUT_MAX_ANALOG_ACTIONS : int32 = 16;
+const STEAM_INPUT_MAX_ANALOG_ACTIONS : int32 = 24;
 const STEAM_INPUT_MAX_ANALOG_ACTION_DATA : real = 1.0;
 const STEAM_INPUT_MAX_COUNT : int32 = 16;
-const STEAM_INPUT_MAX_DIGITAL_ACTIONS : int32 = 128;
+const STEAM_INPUT_MAX_DIGITAL_ACTIONS : int32 = 256;
 const STEAM_INPUT_MAX_ORIGINS : int32 = 8;
 const STEAM_INPUT_MIN_ANALOG_ACTION_DATA : real = -1.0;
 
@@ -4831,7 +4837,7 @@ group{ // SteamInventory
 // These are plain constants, not an enum: STEAM_INVENTORY_RESULT_INVALID is the k_SteamInventoryResultInvalid value.
 const STEAM_INVENTORY_RESULT_INVALID : int32 = -1;
 const STEAM_INVENTORY_ITEM_INSTANCE_ID_INVALID : int64 = -1;
-const STEAM_INVENTORY_INTERFACE_VERSION : string = "STEAMINVENTORY_INTERFACE_V002";
+const STEAM_INVENTORY_INTERFACE_VERSION : string = "STEAMINVENTORY_INTERFACE_V003";
 
 // From ESteamItemFlags (bit flags) - used by SteamInventoryItemDetails.flags
 [global, bind = typed_gml]
@@ -5341,7 +5347,7 @@ function steam_remote_storage_file_persisted(file_name: string): bool;
 function steam_remote_storage_get_file_size(file_name: string): int32;
 
 [global, bind = typed_gml]
-function steam_remote_storage_get_file_timestamp(file_name: string): int32;
+function steam_remote_storage_get_file_timestamp(file_name: string): int64;
 
 [global, bind = typed_gml]
 function steam_remote_storage_get_file_count(): int32;

@@ -36,5 +36,11 @@ void Shutdown_Steamworks()
     FunctionPointer fnHandle = nullptr;
     void* libHandle = nullptr;
 
+    libHandle = ExtUtils_GetLibraryHandle("Steamworks.ext");
+    if (libHandle)
+    {
+        fnHandle = (FunctionPointer)SharedLibrary_GetFunctionAddress(libHandle, "__EXT_NATIVE__steam_api_shutdown");
+        if (fnHandle) fnHandle();
+    }
     isInitialized = false;
 }

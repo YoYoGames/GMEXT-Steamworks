@@ -1730,7 +1730,6 @@
  * @param {Real} query_handle
  * @param {Real} index
  * @param {Real} preview_index
- * @param {String} original_file_name
  * @returns {Struct.SteamUgcAdditionalPreview}
  * @function_end
  */
@@ -4392,6 +4391,8 @@
 /**
  * @struct_partial SteamFriendsGameOverlayActivated
  * @member {Bool} active
+ * @member {Bool} user_initiated
+ * @member {Real} app_id
  * @struct_end
  */
 
@@ -4725,6 +4726,7 @@
  * @struct_partial SteamUgcAdditionalPreview
  * @member {String} url_or_video_id
  * @member {Enum.SteamUgcItemPreviewType} preview_type
+ * @member {String} original_file_name
  * @struct_end
  */
 
@@ -7015,12 +7017,12 @@
  * @member STEAM_UGC_QUERY_HANDLE_INVALID (value: '-1')
  * @member STEAM_UGC_UPDATE_HANDLE_INVALID (value: '-1')
  * @member STEAM_UGC_INTERFACE_VERSION (value: '"STEAMUGC_INTERFACE_VERSION015"')
- * @member STEAM_INPUT_INTERFACE_VERSION (value: '"SteamInput001"')
+ * @member STEAM_INPUT_INTERFACE_VERSION (value: '"SteamInput006"')
  * @member STEAM_INPUT_HANDLE_ALL_CONTROLLERS (value: '-1')
- * @member STEAM_INPUT_MAX_ANALOG_ACTIONS (value: '16')
+ * @member STEAM_INPUT_MAX_ANALOG_ACTIONS (value: '24')
  * @member STEAM_INPUT_MAX_ANALOG_ACTION_DATA (value: '1.0')
  * @member STEAM_INPUT_MAX_COUNT (value: '16')
- * @member STEAM_INPUT_MAX_DIGITAL_ACTIONS (value: '128')
+ * @member STEAM_INPUT_MAX_DIGITAL_ACTIONS (value: '256')
  * @member STEAM_INPUT_MAX_ORIGINS (value: '8')
  * @member STEAM_INPUT_MIN_ANALOG_ACTION_DATA (value: '-1.0')
  * @member STEAM_USER_STATS_LEADERBOARD_NAME_MAX (value: '128')
@@ -7031,7 +7033,7 @@
  * @member STEAM_TIMELINE_MAX_TIMELINE_PRIORITY (value: '1000')
  * @member STEAM_INVENTORY_RESULT_INVALID (value: '-1')
  * @member STEAM_INVENTORY_ITEM_INSTANCE_ID_INVALID (value: '-1')
- * @member STEAM_INVENTORY_INTERFACE_VERSION (value: '"STEAMINVENTORY_INTERFACE_V002"')
+ * @member STEAM_INVENTORY_INTERFACE_VERSION (value: '"STEAMINVENTORY_INTERFACE_V003"')
  * @member STEAM_REMOTE_STORAGE_FILENAME_MAX (value: '260')
  * @member STEAM_REMOTE_STORAGE_PUBLISHED_DOCUMENT_CHANGE_DESCRIPTION_MAX (value: '8000')
  * @member STEAM_REMOTE_STORAGE_PUBLISHED_DOCUMENT_DESCRIPTION_MAX (value: '8000')

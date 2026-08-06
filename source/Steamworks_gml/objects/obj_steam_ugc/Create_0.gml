@@ -29,7 +29,7 @@ items_query_handler = function(data) {
         item.additional_previews = []
         var num = steam_ugc_get_query_ugc_num_additional_previews(data.query_handle, i)
         for(var j = 0; j < num; j++) {
-            item.additional_previews[j] = steam_ugc_get_query_ugc_additional_preview(data.query_handle, i, j, "")
+            item.additional_previews[j] = steam_ugc_get_query_ugc_additional_preview(data.query_handle, i, j)
         }
         
         // Key-value tags

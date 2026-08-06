@@ -23,7 +23,7 @@
       "constants": [],
       "copyToTargets": 194,
       "filename": "Steamworks.ext",
-      "final": "",
+      "final": "steam_api_shutdown",
       "functions": [
         {
           "$GMExtensionFunction": "",
@@ -8815,17 +8815,19 @@
         },
         {
           "$GMExtensionFunction": "",
-          "%Name": "steam_remote_storage_get_file_timestamp",
-          "argCount": 1,
+          "%Name": "__steam_remote_storage_get_file_timestamp",
+          "argCount": 3,
           "args": [
-            1
+            1,
+            1,
+            2
           ],
-          "documentation": "@param {String} file_name\r\n@returns {Real}",
+          "documentation": "@param {String} file_name\r\n@param {Pointer} _ret_buffer\r\n@param {Real} _ret_buffer_length\r\n@returns {Real}",
           "externalName": "__EXT_NATIVE__steam_remote_storage_get_file_timestamp",
           "help": "",
-          "hidden": false,
+          "hidden": true,
           "kind": 4,
-          "name": "steam_remote_storage_get_file_timestamp",
+          "name": "__steam_remote_storage_get_file_timestamp",
           "resourceType": "GMExtensionFunction",
           "resourceVersion": "2.0",
           "returnType": 2

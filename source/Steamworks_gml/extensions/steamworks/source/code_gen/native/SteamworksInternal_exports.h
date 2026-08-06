@@ -509,7 +509,7 @@ GMEXPORT double __EXT_NATIVE__steam_remote_storage_file_delete(char* file_name);
 GMEXPORT double __EXT_NATIVE__steam_remote_storage_file_exists(char* file_name);
 GMEXPORT double __EXT_NATIVE__steam_remote_storage_file_persisted(char* file_name);
 GMEXPORT double __EXT_NATIVE__steam_remote_storage_get_file_size(char* file_name);
-GMEXPORT double __EXT_NATIVE__steam_remote_storage_get_file_timestamp(char* file_name);
+GMEXPORT double __EXT_NATIVE__steam_remote_storage_get_file_timestamp(char* file_name, char* __ret_buffer, double __ret_buffer_length);
 GMEXPORT double __EXT_NATIVE__steam_remote_storage_get_file_count();
 GMEXPORT double __EXT_NATIVE__steam_remote_storage_get_file_name_and_size(double index, char* __ret_buffer, double __ret_buffer_length);
 GMEXPORT double __EXT_NATIVE__steam_remote_storage_get_quota(char* __ret_buffer, double __ret_buffer_length);

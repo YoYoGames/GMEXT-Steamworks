@@ -450,7 +450,7 @@ steam_ugc_get_query_ugc_metadata(std::uint64_t query_handle, std::uint32_t index
     if (!ugc)
         return std::nullopt;
 
-    uint32 cch_metadata = 1024;
+    uint32 cch_metadata = k_cchDeveloperMetadataMax;
     std::vector<char> buf((size_t)cch_metadata);
     buf[0] = '\0';
 
@@ -514,7 +514,7 @@ std::uint32_t steam_ugc_get_query_ugc_num_additional_previews(std::uint64_t quer
     return (std::uint32_t)ugc->GetQueryUGCNumAdditionalPreviews(qh_from_u64(query_handle), index);
 }
 
-std::optional<gm_structs::SteamUgcAdditionalPreview> steam_ugc_get_query_ugc_additional_preview(std::uint64_t query_handle, std::uint32_t index, std::uint32_t preview_index, std::string_view original_file_name)
+std::optional<gm_structs::SteamUgcAdditionalPreview> steam_ugc_get_query_ugc_additional_preview(std::uint64_t query_handle, std::uint32_t index, std::uint32_t preview_index)
 {
     STEAM_GUARD_RET(std::nullopt);
 
@@ -526,9 +526,7 @@ std::optional<gm_structs::SteamUgcAdditionalPreview> steam_ugc_get_query_ugc_add
     char original_name[1024] = {};
     EItemPreviewType type;// = k_EItemPreviewType_Image;
 
-    // pchOriginalFileName is an OUTPUT buffer per the SDK; pass a local buffer.
-    // (Surfacing the returned name to GML needs a struct field — deferred to the spec owner.)
-    (void)original_file_name;
+    // pchOriginalFileName is an OUTPUT buffer per the SDK.
     bool ok = ugc->GetQueryUGCAdditionalPreview(
                 qh_from_u64(query_handle),
                 index,
@@ -546,6 +544,7 @@ std::optional<gm_structs::SteamUgcAdditionalPreview> steam_ugc_get_query_ugc_add
     gm_structs::SteamUgcAdditionalPreview out {};
     out.url_or_video_id = url;
     out.preview_type = static_cast<gm_enums::SteamUgcItemPreviewType>((int)type);
+    out.original_file_name = original_name;
     return out;
 }
 

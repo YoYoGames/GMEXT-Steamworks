@@ -995,6 +995,8 @@ static inline gm_structs::SteamFriendsGameOverlayActivated friends_fromNative(co
 {
     gm_structs::SteamFriendsGameOverlayActivated out{};
     out.active = (e.m_bActive != 0);
+    out.user_initiated = e.m_bUserInitiated;
+    out.app_id = (std::uint32_t)e.m_nAppID;
     return out;
 }
 
