@@ -8,8 +8,6 @@
 
 namespace steam_async
 {
-    bool require_callback(const gm::wire::GMFunction& cb, const char* fn_name);
-
     template <typename Payload, typename SteamStruct, bool ReportIoFailure = false>
     class CallResult
     {
