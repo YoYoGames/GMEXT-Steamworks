@@ -208,12 +208,12 @@
 <li><a href="friends.html#steam_friends_get_friend_steam_level">steam_friends_get_friend_steam_level</a></li>
 <li><a href="friends.html#steam_friends_get_large_friend_avatar">steam_friends_get_large_friend_avatar</a></li>
 <li><a href="friends.html#steam_friends_get_medium_friend_avatar">steam_friends_get_medium_friend_avatar</a></li>
-<li><a href="friends.html#steam_friends_get_small_friend_avatar">steam_friends_get_small_friend_avatar</a></li>
 <li><a href="friends.html#steam_friends_get_friends_group_members_count">steam_friends_get_friends_group_members_count</a></li>
 <li><a href="friends.html#steam_friends_get_friends_group_members_list">steam_friends_get_friends_group_members_list</a></li>
 <li><a href="friends.html#steam_friends_get_persona_name">steam_friends_get_persona_name</a></li>
 <li><a href="friends.html#steam_friends_get_persona_state">steam_friends_get_persona_state</a></li>
 <li><a href="friends.html#steam_friends_get_player_nickname">steam_friends_get_player_nickname</a></li>
+<li><a href="friends.html#steam_friends_get_small_friend_avatar">steam_friends_get_small_friend_avatar</a></li>
 <li><a href="friends.html#steam_friends_has_friend">steam_friends_has_friend</a></li>
 <li><a href="friends.html#steam_friends_invite_user_to_game">steam_friends_invite_user_to_game</a></li>
 <li><a href="friends.html#steam_friends_is_clan_chat_admin">steam_friends_is_clan_chat_admin</a></li>
@@ -2099,48 +2099,6 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_friends_get_small_friend_avatar">steam_friends_get_small_friend_avatar</h1>
-<blockquote>
-<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamFriends#GetSmallFriendAvatar">ISteamFriends::GetSmallFriendAvatar</a></p>
-</blockquote>
-<p>This function gets a handle to the small (32*32px) avatar for the specified user.</p>
-<p>You can pass in <a href="user.html#steam_user_get_steam_id">steam_user_get_steam_id</a> to get the current user's avatar.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>This only works for users that the local user knows about. They will automatically know about their friends, people on leaderboards they've requested, or people in the same source as them (Steam group, chat room, lobby, or game server). If they don't know about them then you must call <a href="friends.html#steam_friends_request_user_information">steam_friends_request_user_information</a> to cache the avatar locally.</p>
-</div>
-<p>See: <a href="friends.html#steam_friends_get_large_friend_avatar">steam_friends_get_large_friend_avatar</a>, <a href="friends.html#steam_friends_get_medium_friend_avatar">steam_friends_get_medium_friend_avatar</a></p>
-<p><br></p>
-<p><strong>Syntax:</strong></p>
-<blockquote>
-<div class="highlight"><pre><span></span><code>steam_friends_get_small_friend_avatar(steam_id_friend)
-</code></pre></div>
-</blockquote>
-<table>
-<thead>
-<tr>
-<th>Argument</th>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>steam_id_friend</td>
-<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
-<td>The Steam ID of the user.</td>
-</tr>
-</tbody>
-</table>
-<p><br></p>
-<p><strong>Returns:</strong></p>
-<blockquote>
-<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
-</blockquote>
-<p><br></p>
-<hr />
-<p align="right"><a href="#top">Back To Top</a></p>
-
 <h1 id="steam_friends_get_friends_group_members_count">steam_friends_get_friends_group_members_count</h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamFriends#GetFriendsGroupMembersCount">ISteamFriends::GetFriendsGroupMembersCount</a></p>
@@ -2288,6 +2246,48 @@
 <p><strong>Returns:</strong></p>
 <blockquote>
 <p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_friends_get_small_friend_avatar">steam_friends_get_small_friend_avatar</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamFriends#GetSmallFriendAvatar">ISteamFriends::GetSmallFriendAvatar</a></p>
+</blockquote>
+<p>This function gets a handle to the small (32*32px) avatar for the specified user.</p>
+<p>You can pass in <a href="user.html#steam_user_get_steam_id">steam_user_get_steam_id</a> to get the current user's avatar.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This only works for users that the local user knows about. They will automatically know about their friends, people on leaderboards they've requested, or people in the same source as them (Steam group, chat room, lobby, or game server). If they don't know about them then you must call <a href="friends.html#steam_friends_request_user_information">steam_friends_request_user_information</a> to cache the avatar locally.</p>
+</div>
+<p>See: <a href="friends.html#steam_friends_get_large_friend_avatar">steam_friends_get_large_friend_avatar</a>, <a href="friends.html#steam_friends_get_medium_friend_avatar">steam_friends_get_medium_friend_avatar</a></p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_friends_get_small_friend_avatar(steam_id_friend)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>steam_id_friend</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The Steam ID of the user.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
 </blockquote>
 <p><br></p>
 <hr />

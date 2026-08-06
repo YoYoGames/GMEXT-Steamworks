@@ -223,9 +223,9 @@ For example, an amount of 100000 would be divided over two stacks as follows: th
 <ul>
 <li><a href="inventory.html#steaminventoryitemdefquantity">SteamInventoryItemDefQuantity</a></li>
 <li><a href="inventory.html#steaminventoryiteminstancequantity">SteamInventoryItemInstanceQuantity</a></li>
+<li><a href="inventory.html#steaminventoryitemwithprice">SteamInventoryItemWithPrice</a></li>
 <li><a href="inventory.html#steaminventoryitemdetails">SteamInventoryItemDetails</a></li>
 <li><a href="inventory.html#steaminventorydeserializeresult">SteamInventoryDeserializeResult</a></li>
-<li><a href="inventory.html#steaminventoryitemwithprice">SteamInventoryItemWithPrice</a></li>
 <li><a href="inventory.html#steaminventoryitemprice">SteamInventoryItemPrice</a></li>
 <li><a href="inventory.html#steaminventoryresultready">SteamInventoryResultReady</a></li>
 <li><a href="inventory.html#steaminventoryfullupdate">SteamInventoryFullUpdate</a></li>
@@ -2089,6 +2089,46 @@ For example, an amount of 100000 would be divided over two stacks as follows: th
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
+<h1 id="steaminventoryitemwithprice">SteamInventoryItemWithPrice</h1>
+<blockquote>
+<p><strong>Steamworks Struct</strong>: N / A</p>
+</blockquote>
+<p>This struct holds an item definition ID with its current price and its base price.</p>
+<p>This struct is referenced by the following functions:</p>
+<ul>
+<li><a href="inventory.html#steam_inventory_get_items_with_prices">steam_inventory_get_items_with_prices</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>itemdef_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The item definition ID.</td>
+</tr>
+<tr>
+<td>current_price</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The current price for the item definition ID.</td>
+</tr>
+<tr>
+<td>base_price</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The base price for the item definition ID.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
 <h1 id="steaminventoryitemdetails">SteamInventoryItemDetails</h1>
 <blockquote>
 <p><strong>Steamworks Struct</strong>: N / A</p>
@@ -2163,46 +2203,6 @@ For example, an amount of 100000 would be divided over two stacks as follows: th
 <td>status</td>
 <td><a href="api.html#steamapiresult">SteamApiResult</a></td>
 <td>Whether the call was successful or not.</td>
-</tr>
-</tbody>
-</table>
-<p><br></p>
-<hr />
-<p align="right"><a href="#top">Back To Top</a></p>
-
-<h1 id="steaminventoryitemwithprice">SteamInventoryItemWithPrice</h1>
-<blockquote>
-<p><strong>Steamworks Struct</strong>: N / A</p>
-</blockquote>
-<p>This struct holds an item definition ID with its current price and its base price.</p>
-<p>This struct is referenced by the following functions:</p>
-<ul>
-<li><a href="inventory.html#steam_inventory_get_items_with_prices">steam_inventory_get_items_with_prices</a></li>
-</ul>
-<p><br></p>
-<table>
-<thead>
-<tr>
-<th>Member</th>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>itemdef_id</td>
-<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
-<td>The item definition ID.</td>
-</tr>
-<tr>
-<td>current_price</td>
-<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
-<td>The current price for the item definition ID.</td>
-</tr>
-<tr>
-<td>base_price</td>
-<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
-<td>The base price for the item definition ID.</td>
 </tr>
 </tbody>
 </table>

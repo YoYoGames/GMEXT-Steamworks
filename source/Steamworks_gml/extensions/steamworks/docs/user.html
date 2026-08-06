@@ -235,8 +235,8 @@
 <li><a href="user.html#steamuseravailablevoice">SteamUserAvailableVoice</a></li>
 <li><a href="user.html#steamusergetvoiceresult">SteamUserGetVoiceResult</a></li>
 <li><a href="user.html#steamuserdecompressvoiceresult">SteamUserDecompressVoiceResult</a></li>
-<li><a href="user.html#steamuservalidateauthticketresponse">SteamUserValidateAuthTicketResponse</a></li>
 <li><a href="user.html#steamusergetticketforwebapiresponse">SteamUserGetTicketForWebApiResponse</a></li>
+<li><a href="user.html#steamuservalidateauthticketresponse">SteamUserValidateAuthTicketResponse</a></li>
 <li><a href="user.html#steamusersteamserversdisconnected">SteamUserSteamServersDisconnected</a></li>
 <li><a href="user.html#steamusersteamserverconnectfailure">SteamUserSteamServerConnectFailure</a></li>
 <li><a href="user.html#steamuserclientgameserverdeny">SteamUserClientGameServerDeny</a></li>
@@ -2684,46 +2684,6 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steamuservalidateauthticketresponse">SteamUserValidateAuthTicketResponse</h1>
-<blockquote>
-<p><strong>Steamworks Struct</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUser#ValidateAuthTicketResponse_t">ISteamUser::ValidateAuthTicketResponse_t</a></p>
-</blockquote>
-<p>Called when an auth ticket has been validated.</p>
-<p>This struct is referenced by the following functions:</p>
-<ul>
-<li><a href="user.html#steam_user_begin_auth_session">steam_user_begin_auth_session</a></li>
-</ul>
-<p><br></p>
-<table>
-<thead>
-<tr>
-<th>Member</th>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>steam_id</td>
-<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
-<td>The Steam ID of the entity that provided the auth ticket.</td>
-</tr>
-<tr>
-<td>owner_steam_id</td>
-<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
-<td>The Steam ID that owns the game, this will be different from <code>steam_id</code> if the game is being accessed via Steam Family Sharing.</td>
-</tr>
-<tr>
-<td>auth_session_response</td>
-<td><a href="api.html#steamauthsessionresponse">SteamAuthSessionResponse</a></td>
-<td>The result of the validation.</td>
-</tr>
-</tbody>
-</table>
-<p><br></p>
-<hr />
-<p align="right"><a href="#top">Back To Top</a></p>
-
 <h1 id="steamusergetticketforwebapiresponse">SteamUserGetTicketForWebApiResponse</h1>
 <blockquote>
 <p><strong>Steamworks Struct</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUser#GetTicketForWebApiResponse_t">ISteamUser::GetTicketForWebApiResponse_t</a></p>
@@ -2757,6 +2717,46 @@
 <td>ticket_size</td>
 <td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
 <td>The number of ticket bytes held and available to fetch. <code>0</code> on failure.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steamuservalidateauthticketresponse">SteamUserValidateAuthTicketResponse</h1>
+<blockquote>
+<p><strong>Steamworks Struct</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUser#ValidateAuthTicketResponse_t">ISteamUser::ValidateAuthTicketResponse_t</a></p>
+</blockquote>
+<p>Called when an auth ticket has been validated.</p>
+<p>This struct is referenced by the following functions:</p>
+<ul>
+<li><a href="user.html#steam_user_begin_auth_session">steam_user_begin_auth_session</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>steam_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The Steam ID of the entity that provided the auth ticket.</td>
+</tr>
+<tr>
+<td>owner_steam_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The Steam ID that owns the game, this will be different from <code>steam_id</code> if the game is being accessed via Steam Family Sharing.</td>
+</tr>
+<tr>
+<td>auth_session_response</td>
+<td><a href="api.html#steamauthsessionresponse">SteamAuthSessionResponse</a></td>
+<td>The result of the validation.</td>
 </tr>
 </tbody>
 </table>
