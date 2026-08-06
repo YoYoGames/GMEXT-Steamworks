@@ -186,11 +186,13 @@ bool steam_ugc_add_required_tag_group(std::uint64_t query_handle, const std::vec
 bool steam_ugc_init_workshop_for_game_server(std::uint32_t workshop_depot_id, std::string_view folder)
 {
     STEAM_GUARD_RET(false);
-    ISteamUGC* ugc = steam_ugc_iface();
-    if (!ugc)
-        return false;
-    std::string f(folder);
-    return ugc->BInitWorkshopForGameServer((DepotId_t)workshop_depot_id, f.c_str());
+    (void)workshop_depot_id;
+    (void)folder;
+    // BInitWorkshopForGameServer is meant to be called on the ISteamUGC obtained via
+    // SteamGameServerUGC() - this extension has no game server init path yet, so there
+    // is no such interface pointer to call it on.
+    steam_set_last_error("steam_ugc_init_workshop_for_game_server: game server support is not implemented in this extension.");
+    return false;
 }
 
 std::uint64_t steam_ugc_create_query_all_ugc_request(
@@ -370,6 +372,12 @@ std::vector<std::uint64_t> steam_ugc_get_subscribed_items(std::uint32_t max_entr
     if (max_entries == 0)
         return out;
 
+    constexpr std::uint32_t kMaxSubscribedItems = 65536;
+    if (max_entries > kMaxSubscribedItems) {
+        steam_set_last_error("steam_ugc_get_subscribed_items: max_entries exceeds sanity limit.");
+        return out;
+    }
+
     std::vector<PublishedFileId_t> ids((size_t)max_entries);
     const uint32 n = ugc_get_subscribed_items_impl(ugc, ids.data(), (uint32)ids.size(), include_locally_disabled, 0);
 
@@ -473,6 +481,12 @@ steam_ugc_get_query_ugc_children(std::uint64_t query_handle, std::uint32_t index
 
     if (max_entries == 0)
         return out;
+
+    constexpr std::uint32_t kMaxQueryChildren = 65536;
+    if (max_entries > kMaxQueryChildren) {
+        steam_set_last_error("steam_ugc_get_query_ugc_children: max_entries exceeds sanity limit.");
+        return out;
+    }
 
     std::vector<PublishedFileId_t> tmp((size_t)max_entries);
     // GetQueryUGCChildren returns a bool (success), NOT a count. On success it fills
@@ -626,6 +640,12 @@ std::vector<gm_enums::SteamUgcContentDescriptorId> steam_ugc_get_query_ugc_conte
     if (!ugc) return out;
 
     if (max_descriptors == 0) return out;
+
+    constexpr std::uint32_t kMaxContentDescriptors = 65536;
+    if (max_descriptors > kMaxContentDescriptors) {
+        steam_set_last_error("steam_ugc_get_query_ugc_content_descriptors: max_descriptors exceeds sanity limit.");
+        return out;
+    }
 
     std::vector<EUGCContentDescriptorID> tmp;
     tmp.resize((size_t)max_descriptors);
