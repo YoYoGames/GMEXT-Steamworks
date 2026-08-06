@@ -218,6 +218,8 @@ steam_friends_get_clan_chat_message(std::uint64_t steam_id_clan_chat, std::int32
     if (!f)
         return out;
 
+    // GetClanChatMessage has no size-query companion and gives no truncation signal -
+    // an over-length message is silently cut at cchTextMax with no way to detect it.
     uint32 cchTextMax = 1024;
     std::vector<char> buf((size_t)cchTextMax);
 
@@ -426,6 +428,8 @@ steam_friends_get_friend_message(std::uint64_t steam_id_friend, std::int32_t mes
     if (!f)
         return out;
 
+    // GetFriendMessage has no size-query companion and gives no truncation signal -
+    // an over-length message is silently cut at buf.size() with no way to detect it.
     std::vector<std::uint8_t> buf(8192);
 
     EChatEntryType entry = k_EChatEntryTypeInvalid;
