@@ -164,6 +164,7 @@
 <p>These are the functions of the Utils module:</p>
 <ul>
 <li><a href="utils.html#steam_utils_overlay_needs_present">steam_utils_overlay_needs_present</a></li>
+<li><a href="utils.html#steam_utils_check_file_signature">steam_utils_check_file_signature</a></li>
 <li><a href="utils.html#steam_utils_get_api_call_failure_reason">steam_utils_get_api_call_failure_reason</a></li>
 <li><a href="utils.html#steam_utils_get_api_call_result">steam_utils_get_api_call_result</a></li>
 <li><a href="utils.html#steam_utils_set_callback_ip_country">steam_utils_set_callback_ip_country</a></li>
@@ -227,11 +228,11 @@
 <p>These are the structs of the Utils module:</p>
 <ul>
 <li><a href="utils.html#steamutilslowbatterypower">SteamUtilsLowBatteryPower</a></li>
+<li><a href="utils.html#steamutilscheckfilesignatureresult">SteamUtilsCheckFileSignatureResult</a></li>
 <li><a href="utils.html#steamutilssteamapicallcompleted">SteamUtilsSteamApiCallCompleted</a></li>
 <li><a href="utils.html#steamutilsimagesize">SteamUtilsImageSize</a></li>
 <li><a href="utils.html#steamutilsfiltertextresult">SteamUtilsFilterTextResult</a></li>
 <li><a href="utils.html#steamutilsgamepadtextinputdismissed">SteamUtilsGamepadTextInputDismissed</a></li>
-<li><a href="utils.html#steamutilsfloatinggamepadtextinputdismissed">SteamUtilsFloatingGamepadTextInputDismissed</a></li>
 <li><a href="utils.html#steamutilswarningmessage">SteamUtilsWarningMessage</a></li>
 </ul>
 <p><br></p>
@@ -254,6 +255,71 @@
 <blockquote>
 <p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
 </blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_utils_check_file_signature">steam_utils_check_file_signature</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUtils#CheckFileSignature">ISteamUtils::CheckFileSignature</a></p>
+</blockquote>
+<p>This function checks if a signed file is valid and matches the signature bundled with it.</p>
+<p>This function operates asynchronously, which means that it does not immediately return the requested result. Instead, upon completion of the task, it will trigger the <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_utils_check_file_signature(file_name, callback)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>file_name</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The file to validate the signature of.</td>
+</tr>
+<tr>
+<td>callback</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Script_Functions.htm">Function</a></td>
+<td>The function to call upon completion.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<p><strong>Triggers:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a></p>
+<p><strong>Steamworks Callback</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUtils#CheckFileSignature_t">ISteamUtils::CheckFileSignature_t</a></p>
+</blockquote>
+<p>Called when the file signature check completes.</p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>result</td>
+<td><a href="utils.html#steamutilscheckfilesignatureresult">SteamUtilsCheckFileSignatureResult</a></td>
+<td>The result of the operation.</td>
+</tr>
+</tbody>
+</table>
 <p><br></p>
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
@@ -740,7 +806,7 @@
 </blockquote>
 <p>This function gets the image bytes from an image handle.</p>
 <p>Prior to calling this you must get the size of the image by calling <a href="utils.html#steam_utils_get_image_size">steam_utils_get_image_size</a> so that you can create your buffer with an appropriate size. You can then allocate your buffer with the width and height as: width * height * 4. The image is provided in RGBA format. This call can be somewhat expensive as it converts from the compressed type (JPG, PNG, TGA) and provides no internal caching of returned buffer, thus it is highly recommended to only call this once per image handle and cache the result. This function is only used for Steam Avatars and Achievement images and those are not expected to change mid game.</p>
-<p>See also: ${function.buffer_set_surface}</p>
+<p>See also: <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Buffers/buffer_set_surface.htm">buffer_set_surface</a></p>
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
@@ -1540,7 +1606,11 @@ The text field position is specified in pixels relative to the origin of the gam
 <p><strong>Steamworks Function</strong>: N / A</p>
 </blockquote>
 <p>This function sets the function to be called when the floating keyboard invoked from <a href="utils.html#steam_utils_show_floating_gamepad_text_input">steam_utils_show_floating_gamepad_text_input</a> has been closed.</p>
-<p>See: <a href="utils.html#steamutilsfloatinggamepadtextinputdismissed">SteamUtilsFloatingGamepadTextInputDismissed</a></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><code>FloatingGamepadTextInputDismissed_t</code> carries no fields on the SDK side, so submission is inferred from whether any text was entered.</p>
+</div>
+<p>This function operates asynchronously, which means that it does not immediately return the requested result. Instead, upon completion of the task, it will trigger the <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a>.</p>
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
@@ -1568,6 +1638,29 @@ The text field position is specified in pixels relative to the origin of the gam
 <blockquote>
 <p>N/A</p>
 </blockquote>
+<p><br></p>
+<p><strong>Triggers:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a></p>
+<p><strong>Steamworks Callback</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUtils#FloatingGamepadTextInputDismissed_t">ISteamUtils::FloatingGamepadTextInputDismissed_t</a></p>
+</blockquote>
+<p>Called when the floating gamepad text input is dismissed.</p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>submitted</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></td>
+<td><code>true</code> if the user entered and accepted text, <code>false</code> if the input was canceled.</td>
+</tr>
+</tbody>
+</table>
 <p><br></p>
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
@@ -1655,6 +1748,10 @@ The text field position is specified in pixels relative to the origin of the gam
 <p><strong>Steamworks Enum</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUtils#ECheckFileSignature">ISteamUtils::ECheckFileSignature</a></p>
 </blockquote>
 <p>This enum holds the possible results of a file signature check.</p>
+<p>These constants are referenced by the following structs:</p>
+<ul>
+<li><a href="utils.html#steamutilscheckfilesignatureresult">SteamUtilsCheckFileSignatureResult</a></li>
+</ul>
 <p><br></p>
 <table>
 <thead>
@@ -1904,6 +2001,36 @@ The text field position is specified in pixels relative to the origin of the gam
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
+<h1 id="steamutilscheckfilesignatureresult">SteamUtilsCheckFileSignatureResult</h1>
+<blockquote>
+<p><strong>Steamworks Struct</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUtils#CheckFileSignature_t">ISteamUtils::CheckFileSignature_t</a></p>
+</blockquote>
+<p>This struct holds information returned by <a href="utils.html#steam_utils_check_file_signature">steam_utils_check_file_signature</a>.</p>
+<p>This struct is referenced by the following functions:</p>
+<ul>
+<li><a href="utils.html#steam_utils_check_file_signature">steam_utils_check_file_signature</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>result</td>
+<td><a href="utils.html#steamutilscheckfilesignature">SteamUtilsCheckFileSignature</a></td>
+<td>The result of the file signature check.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
 <h1 id="steamutilssteamapicallcompleted">SteamUtilsSteamApiCallCompleted</h1>
 <blockquote>
 <p><strong>Steamworks Struct</strong>: <a href="partner.steamgames.com/doc/api/ISteamUtils.html#SteamAPICallCompleted_t">ISteamUtils::SteamAPICallCompleted_t</a></p>
@@ -2034,32 +2161,6 @@ The text field position is specified in pixels relative to the origin of the gam
 <td>submitted_text_length</td>
 <td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
 <td>The length in bytes if there was text submitted.</td>
-</tr>
-</tbody>
-</table>
-<p><br></p>
-<hr />
-<p align="right"><a href="#top">Back To Top</a></p>
-
-<h1 id="steamutilsfloatinggamepadtextinputdismissed">SteamUtilsFloatingGamepadTextInputDismissed</h1>
-<blockquote>
-<p><strong>Steamworks Struct</strong>: <a href="partner.steamgames.com/doc/api/ISteamUtils.html#FloatingGamepadTextInputDismissed_t">ISteamUtils::FloatingGamepadTextInputDismissed_t</a></p>
-</blockquote>
-<p>This struct holds information returned in a <code>ISteamUtils::FloatingGamepadTextInputDismissed_t</code> callback, which is called when the floating keyboard invoked from <a href="utils.html#steam_utils_show_floating_gamepad_text_input">steam_utils_show_floating_gamepad_text_input</a> has been closed.</p>
-<p><br></p>
-<table>
-<thead>
-<tr>
-<th>Member</th>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>submitted</td>
-<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></td>
-<td><code>true</code> if user entered &amp; accepted text.</td>
 </tr>
 </tbody>
 </table>

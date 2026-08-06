@@ -447,7 +447,7 @@
  * [[Note: You must call ${function.steam_friends_get_friend_count} before calling this.]]
  *
  * @param {Real} friend_index An index between 0 and ${function.steam_friends_get_friend_count}.
- * @param {Real} friend_flags A combined union (binary "or") of ${constant.SteamFriendsFriendFlag}. This must be the same value as used in the previous call to ${function.steam_friends_get_friend_count}.
+ * @param {Enum.SteamFriendsFriendFlag} friend_flags A combined union (binary "or") of ${constant.SteamFriendsFriendFlag}. This must be the same value as used in the previous call to ${function.steam_friends_get_friend_count}.
  * @returns {Real} 
  * @function_end
  */
@@ -482,7 +482,7 @@
  * 
  * This can be used to iterate over all of the users by calling ${function.steam_friends_get_friend_by_index} to get the Steam IDs of each user.
  *
- * @param {Real} friend_flags A combined union (binary "or") of one or more ${constant.SteamFriendsFriendFlag}.
+ * @param {Enum.SteamFriendsFriendFlag} friend_flags A combined union (binary "or") of one or more ${constant.SteamFriendsFriendFlag}.
  * @returns {Real} 
  * @function_end
  */
@@ -817,7 +817,7 @@
  * This function checks if the user meets the specified criteria. (Friends, blocked, users on the same server, etc.)
  *
  * @param {Real} steam_id_friend The Steam user to check the friend status of.
- * @param {Real} friend_flags A combined union (binary "or") of one or more ${constant.SteamFriendsFriendFlag}.
+ * @param {Enum.SteamFriendsFriendFlag} friend_flags A combined union (binary "or") of one or more ${constant.SteamFriendsFriendFlag}.
  * @returns {Bool} 
  * @function_end
  */
@@ -1896,7 +1896,7 @@
  * @function steam_user_cancel_auth_ticket
  * @description > **Steamworks Function**: [ISteamUser::CancelAuthTicket](https://partner.steamgames.com/doc/api/ISteamUser#CancelAuthTicket)
  *
- * This function cancels an auth ticket received from ${function.steam_user_get_auth_session_ticket} or ${function.steam_user_get_auth_ticket_for_web_api}. This should be called when no longer playing with the specified entity.
+ * This function cancels an auth ticket received from ${function.steam_user_get_auth_session_ticket} or ${function.steam_user_request_auth_ticket_for_web_api}. This should be called when no longer playing with the specified entity.
  * 
  * See also: [User Authentication and Ownership](https://partner.steamgames.com/doc/features/auth)
  *
@@ -1945,7 +1945,7 @@
  * 
  * After calling this you can send the ticket to the entity where they can then call ${function.steam_user_begin_auth_session} / [ISteamGameServer::BeginAuthSession](https://partner.steamgames.com/doc/api/ISteamGameServer#BeginAuthSession) to verify this entity's integrity.
  * 
- * [[Note: This API can not be used to create a ticket for use by the [ISteamUserAuth::AuthenticateUserTicket](https://partner.steamgames.com/doc/webapi/ISteamUserAuth#AuthenticateUserTicket) Web API. Use the ${function.steam_user_get_auth_ticket_for_web_api} call instead.]]
+ * [[Note: This API can not be used to create a ticket for use by the [ISteamUserAuth::AuthenticateUserTicket](https://partner.steamgames.com/doc/webapi/ISteamUserAuth#AuthenticateUserTicket) Web API. Use the ${function.steam_user_request_auth_ticket_for_web_api} call instead.]]
  *
  * @param {Buffer} out_ticket The buffer where the new auth ticket will be copied into if the call was successful. Typically a buffer size of 1024 will be sufficient. However, in certain cases (e.g., when an application has a large amount of available DLC), a larger buffer size may be required.
  * @param {Struct.SteamNetworkingIdentity} [remote_identity] The identity of the remote system that will authenticate the ticket. If it is peer-to-peer then the user steam ID. If it is a game server, then the game server steam ID may be used if it was obtained from a trusted 3rd party, otherwise use the IP address. If it is a service, a string identifier of that service if one is provided.
@@ -2140,13 +2140,36 @@
  */
 
 /**
- * @function steam_user_get_auth_ticket_for_web_api
+ * @function steam_user_request_auth_ticket_for_web_api
  * @description > **Steamworks Function**: [ISteamUser::GetAuthTicketForWebApi](https://partner.steamgames.com/doc/api/ISteamUser#GetAuthTicketForWebApi)
  *
- * This function retrieves an authentication ticket for use with the ISteamUserAuth Web API.
+ * This function requests an authentication ticket for use with the ISteamUserAuth Web API.
+ *
+ * The ticket handle is returned synchronously, but the ticket bytes are not ready until `callback` fires. Once it fires with a successful result, call ${function.steam_user_fetch_auth_ticket_for_web_api} with the same handle to copy the ticket bytes into a buffer.
  *
  * @param {String} identity The identity of the remote service that will authenticate the ticket, as a string identifier. Pass an empty string if none was provided.
- * @returns {Real} 
+ * @param {Function} callback The function to call once the ticket is ready to fetch.
+ * @returns {Real} The ticket handle, used to correlate the callback and to call ${function.steam_user_fetch_auth_ticket_for_web_api}.
+ *
+ * @event callback
+ * @description > **Steamworks Callback**: [ISteamUser::GetTicketForWebApiResponse_t](https://partner.steamgames.com/doc/api/ISteamUser#GetTicketForWebApiResponse_t)
+ *
+ * Called when the requested ticket is ready (or has failed).
+ *
+ * @member {Struct.SteamUserGetTicketForWebApiResponse} result The result of the operation.
+ * @event_end
+ * @function_end
+ */
+
+/**
+ * @function steam_user_fetch_auth_ticket_for_web_api
+ * @description > **Steamworks Function**: N / A
+ *
+ * This function copies the ticket bytes held natively for a completed ${function.steam_user_request_auth_ticket_for_web_api} callback into a GML buffer. The held bytes are released once fetched.
+ *
+ * @param {Real} auth_ticket_handle The ticket handle returned by ${function.steam_user_request_auth_ticket_for_web_api}.
+ * @param {Buffer} out_ticket Returns the ticket bytes by copying them into this buffer. Size it to at least ${struct.SteamUserGetTicketForWebApiResponse}'s `ticket_size` field from the callback.
+ * @returns {Bool}
  * @function_end
  */
 
@@ -2427,7 +2450,26 @@
  *
  * This function checks if the Overlay needs a present. Only required if using event driven render updates.
  *
- * @returns {Bool} 
+ * @returns {Bool}
+ * @function_end
+ */
+
+/**
+ * @function steam_utils_check_file_signature
+ * @description > **Steamworks Function**: [ISteamUtils::CheckFileSignature](https://partner.steamgames.com/doc/api/ISteamUtils#CheckFileSignature)
+ *
+ * This function checks if a signed file is valid and matches the signature bundled with it.
+ *
+ * @param {String} file_name The file to validate the signature of.
+ * @param {Function} callback The function to call upon completion.
+ *
+ * @event callback
+ * @description > **Steamworks Callback**: [ISteamUtils::CheckFileSignature_t](https://partner.steamgames.com/doc/api/ISteamUtils#CheckFileSignature_t)
+ *
+ * Called when the file signature check completes.
+ *
+ * @member {Struct.SteamUtilsCheckFileSignatureResult} result The result of the operation.
+ * @event_end
  * @function_end
  */
 
@@ -2952,11 +2994,19 @@
  * @description > **Steamworks Function**: N / A
  *
  * This function sets the function to be called when the floating keyboard invoked from ${function.steam_utils_show_floating_gamepad_text_input} has been closed.
- * 
- * See: ${struct.SteamUtilsFloatingGamepadTextInputDismissed}
+ *
+ * [[Note: `FloatingGamepadTextInputDismissed_t` carries no fields on the SDK side, so submission is inferred from whether any text was entered.]]
  *
  * @param {Function} callback The function to be called when the floating gamepad text input is dismissed.
- * @function_end 
+ *
+ * @event callback
+ * @description > **Steamworks Callback**: [ISteamUtils::FloatingGamepadTextInputDismissed_t](https://partner.steamgames.com/doc/api/ISteamUtils#FloatingGamepadTextInputDismissed_t)
+ *
+ * Called when the floating gamepad text input is dismissed.
+ *
+ * @member {Bool} submitted `true` if the user entered and accepted text, `false` if the input was canceled.
+ * @event_end
+ * @function_end
  */
 
 /**
@@ -3412,8 +3462,62 @@
  *
  * @param {Real} query_handle The UGC query handle to get the results from.
  * @param {Real} index The index of the item to get the details of.
- * @returns {Struct.SteamUgcQueryResult} 
- * @function_end 
+ * @returns {Struct.SteamUgcQueryResult}
+ * @function_end
+ */
+
+/**
+ * @function steam_ugc_get_query_ugc_num_tags
+ * @description > **Steamworks Function**: [ISteamUGC::GetQueryUGCNumTags](https://partner.steamgames.com/doc/api/ISteamUGC#GetQueryUGCNumTags)
+ *
+ * This function retrieves the number of tags of an individual workshop item after receiving a querying UGC call result.
+ *
+ * You should call this in a loop to get the details of all the workshop items returned.
+ *
+ * [[Note: This must only be called with the handle obtained from a successful [SteamUGCQueryCompleted_t](https://partner.steamgames.com/doc/api/ISteamUGC#SteamUGCQueryCompleted_t) call result.]]
+ *
+ * @param {Real} query_handle The UGC query handle to get the results from.
+ * @param {Real} index The index of the item to get the details of.
+ * @returns {Real}
+ * @function_end
+ */
+
+/**
+ * @function steam_ugc_get_query_ugc_tag
+ * @description > **Steamworks Function**: [ISteamUGC::GetQueryUGCTag](https://partner.steamgames.com/doc/api/ISteamUGC#GetQueryUGCTag)
+ *
+ * This function retrieves a tag associated with an individual workshop item after receiving a querying UGC call result.
+ *
+ * You should call this in a loop to get the details of all the workshop items returned.
+ *
+ * [[Note: This must only be called with the handle obtained from a successful [SteamUGCQueryCompleted_t](https://partner.steamgames.com/doc/api/ISteamUGC#SteamUGCQueryCompleted_t) call result.]]
+ *
+ * Before calling this you should call ${function.steam_ugc_get_query_ugc_num_tags} to get the number of tags.
+ *
+ * @param {Real} query_handle The UGC query handle to get the results from.
+ * @param {Real} index The index of the item to get the details of.
+ * @param {Real} tag_index The index of the tag to get.
+ * @returns {String}
+ * @function_end
+ */
+
+/**
+ * @function steam_ugc_get_query_ugc_tag_display_name
+ * @description > **Steamworks Function**: [ISteamUGC::GetQueryUGCTagDisplayName](https://partner.steamgames.com/doc/api/ISteamUGC#GetQueryUGCTagDisplayName)
+ *
+ * This function retrieves the display name of a tag associated with an individual workshop item after receiving a querying UGC call result.
+ *
+ * You should call this in a loop to get the details of all the workshop items returned.
+ *
+ * [[Note: This must only be called with the handle obtained from a successful [SteamUGCQueryCompleted_t](https://partner.steamgames.com/doc/api/ISteamUGC#SteamUGCQueryCompleted_t) call result.]]
+ *
+ * Before calling this you should call ${function.steam_ugc_get_query_ugc_num_tags} to get the number of tags.
+ *
+ * @param {Real} query_handle The UGC query handle to get the results from.
+ * @param {Real} index The index of the item to get the details of.
+ * @param {Real} tag_index The index of the tag to get the display name of.
+ * @returns {String}
+ * @function_end
  */
 
 /**
@@ -3530,9 +3634,8 @@
  * @param {Real} query_handle The UGC query handle to get the results from.
  * @param {Real} index The index of the item to get the details of.
  * @param {Real} preview_index The index of the additional preview to get the details of.
- * @param {String} original_file_name Whether to also return the original file name of the preview.
- * @returns {Struct.SteamUgcAdditionalPreview} 
- * @function_end 
+ * @returns {Struct.SteamUgcAdditionalPreview}
+ * @function_end
  */
 
 /**
@@ -3579,8 +3682,19 @@
  * @param {Real} query_handle The UGC query handle to get the results from.
  * @param {Real} index The index of the item to get the details of.
  * @param {Real} max_descriptors The maximum number of content descriptors to return.
- * @returns {Array[Enum.SteamUgcContentDescriptorId]} 
- * @function_end 
+ * @returns {Array[Enum.SteamUgcContentDescriptorId]}
+ * @function_end
+ */
+
+/**
+ * @function steam_ugc_get_user_content_descriptor_preferences
+ * @description > **Steamworks Function**: [ISteamUGC::GetUserContentDescriptorPreferences](https://partner.steamgames.com/doc/api/ISteamUGC#GetUserContentDescriptorPreferences)
+ *
+ * This function retrieves an array of ${constant.SteamUgcContentDescriptorId} the local user has excluded from search/download.
+ *
+ * @param {Real} max_descriptors The maximum number of content descriptors to return.
+ * @returns {Array[Enum.SteamUgcContentDescriptorId]}
+ * @function_end
  */
 
 /**
@@ -3640,6 +3754,19 @@
  *
  * @member {Struct.SteamUgcFavoriteItemsListChanged} result The result of the operation.
  * @event_end
+ * @function_end
+ */
+
+/**
+ * @function steam_ugc_remove_all_item_key_value_tags
+ * @description > **Steamworks Function**: [ISteamUGC::RemoveAllItemKeyValueTags](https://partner.steamgames.com/doc/api/ISteamUGC#RemoveAllItemKeyValueTags)
+ *
+ * This function removes all existing key-value tags from an item.
+ *
+ * [[Note: This must be set before you submit the UGC update handle using ${function.steam_ugc_submit_item_update}.]]
+ *
+ * @param {Real} update_handle The workshop item update handle to customise.
+ * @returns {Bool}
  * @function_end
  */
 
@@ -4671,19 +4798,6 @@
  */
 
 /**
- * @function steam_input_enable_device_callbacks
- * @description > **Steamworks Function**: [ISteamInput::EnableDeviceCallbacks](https://partner.steamgames.com/doc/api/ISteamInput#EnableDeviceCallbacks)
- *
- * This function enables ${struct.SteamInputDeviceEvent} callbacks.
- * 
- * Each controller that is already connected will generate a device connected callback when you enable them.
- * 
- * See: ${function.steam_input_set_callback_device_connected}, ${function.steam_input_clear_callback_device_connected}, ${function.steam_input_set_callback_device_disconnected}, ${function.steam_input_clear_callback_device_disconnected}
- *
- * @function_end
- */
-
-/**
  * @function steam_input_run_frame
  * @description > **Steamworks Function**: [ISteamInput::RunFrame](https://partner.steamgames.com/doc/api/ISteamInput#RunFrame)
  *
@@ -4870,25 +4984,6 @@
  * @description > **Steamworks Function**: N / A
  *
  * This function clears the callback function previously set using ${function.steam_input_clear_callback_device_disconnected}.
- *
- * @function_end
- */
-
-/**
- * @function steam_input_set_callback_controller_battery
- * @description > **Steamworks Function**: N / A
- *
- * This function sets the function to be called when a controller's battery level changes.
- *
- * @param {Function} callback The function to be called when a controller's battery level changes.
- * @function_end
- */
-
-/**
- * @function steam_input_clear_callback_controller_battery
- * @description > **Steamworks Function**: N / A
- *
- * This function clears the callback function previously set using ${function.steam_input_set_callback_controller_battery}.
  *
  * @function_end
  */
@@ -6508,7 +6603,7 @@
  *
  * This function removes a [dynamic property](https://partner.steamgames.com/doc/features/inventory/dynamicproperties) for the given item.
  *
- * @param {Real} result_handle The update handle corresponding to the transaction request, returned from ${function.steam_inventory_start_update_properties}.
+ * @param {Real} update_handle The update handle corresponding to the transaction request, returned from ${function.steam_inventory_start_update_properties}.
  * @param {Real} item_instance_id The id of the item being modified.
  * @param {String} property_name The dynamic property being removed.
  * @returns {Bool} 
@@ -6521,7 +6616,7 @@
  *
  * This function sets a [dynamic property](https://partner.steamgames.com/doc/features/inventory/dynamicproperties) for the given item.
  *
- * @param {Real} result_handle The update handle corresponding to the transaction request, returned from ${function.steam_inventory_start_update_properties}.
+ * @param {Real} update_handle The update handle corresponding to the transaction request, returned from ${function.steam_inventory_start_update_properties}.
  * @param {Real} item_instance_id The id of the item being modified.
  * @param {String} property_name The dynamic property being added or updated.
  * @param {String} value The string value being set.
@@ -6535,7 +6630,7 @@
  *
  * This function sets a [dynamic property](https://partner.steamgames.com/doc/features/inventory/dynamicproperties) for the given item.
  *
- * @param {Real} result_handle The update handle corresponding to the transaction request, returned from ${function.steam_inventory_start_update_properties}.
+ * @param {Real} update_handle The update handle corresponding to the transaction request, returned from ${function.steam_inventory_start_update_properties}.
  * @param {Real} item_instance_id The id of the item being modified.
  * @param {String} property_name The dynamic property being added or updated.
  * @param {Bool} value The boolean value being set.
@@ -6549,7 +6644,7 @@
  *
  * This function sets a [dynamic property](https://partner.steamgames.com/doc/features/inventory/dynamicproperties) for the given item.
  *
- * @param {Real} result_handle The update handle corresponding to the transaction request, returned from ${function.steam_inventory_start_update_properties}.
+ * @param {Real} update_handle The update handle corresponding to the transaction request, returned from ${function.steam_inventory_start_update_properties}.
  * @param {Real} item_instance_id The id of the item being modified.
  * @param {String} property_name The dynamic property being added or updated.
  * @param {Real} value The 64 bit integer value being set.
@@ -6563,7 +6658,7 @@
  *
  * This function sets a [dynamic property](https://partner.steamgames.com/doc/features/inventory/dynamicproperties) for the given item.
  *
- * @param {Real} result_handle The update handle corresponding to the transaction request, returned from ${function.steam_inventory_start_update_properties}.
+ * @param {Real} update_handle The update handle corresponding to the transaction request, returned from ${function.steam_inventory_start_update_properties}.
  * @param {Real} item_instance_id The id of the item being modified.
  * @param {String} property_name The dynamic property being added or updated.
  * @param {Real} value The floating point number value being set.
@@ -6579,7 +6674,7 @@
  * 
  * [[Note: You must call ${function.steam_inventory_destroy_result} on the provided inventory result for when you are done with it.]]
  *
- * @param {Real} result_handle The update handle corresponding to the transaction request, returned from ${function.steam_inventory_start_update_properties}.
+ * @param {Real} update_handle The update handle corresponding to the transaction request, returned from ${function.steam_inventory_start_update_properties}.
  * @param {Function} callback The function to call upon completion.
  * @returns {Real} The new inventory result handle
  * @function_end 
@@ -7600,15 +7695,13 @@
  * @description > **Steamworks Function**: [ISteamMatchmaking::GetLobbyDataByIndex](https://partner.steamgames.com/doc/api/ISteamMatchmaking#GetLobbyDataByIndex)
  *
  * This function gets a lobby metadata key/value pair by index.
- * 
+ *
  * [[Note: You must call ${function.steam_matchmaking_get_lobby_data_count} before calling this.]]
  *
  * @param {Real} lobby_id This MUST be the same lobby used in the previous call to ${function.steam_matchmaking_get_lobby_data_count}.
  * @param {Real} index An index between 0 and the lobby data count.
- * @param {Buffer} key_out Returns the name of the key at the specified index by copying it into this buffer. The size typically should be the maximum lobby key length.
- * @param {Buffer} val_out Returns the value associated with the key at the specified index by copying it into this buffer. The size typically should be the maximum chat metadata size.
- * @returns {Bool} 
- * @function_end 
+ * @returns {Struct.SteamMatchmakingLobbyDataEntry}
+ * @function_end
  */
 
 /**
@@ -8042,8 +8135,8 @@
  * When a connection attempt is received (perhaps after a few basic handshake packets have been exchanged to prevent trivial spoofing), a connection interface object is created in the `SteamNetworkingConnectionState.Connecting` state and a [SteamNetConnectionStatusChangedCallback_t](https://partner.steamgames.com/doc/api/ISteamNetworkingSockets#SteamNetConnectionStatusChangedCallback_t) is posted. At this point, your application MUST either accept or close the connection. (It may not ignore it.) Accepting the connection will transition it either into the connected state, or the finding route state, depending on the connection type.
  *
  * @param {Real} conn The handle of the incoming connection to accept.
- * @returns {Real}
- * 
+ * @returns {Enum.SteamApiResult}
+ *
  * @event callback
  * @description > **Steamworks Callback**: [ISteamNetworkingSockets::SteamNetConnectionStatusChangedCallback_t](https://partner.steamgames.com/doc/api/ISteamNetworkingSockets#SteamNetConnectionStatusChangedCallback_t)
  * 
@@ -8063,7 +8156,7 @@
  * If the connection has already ended (`SteamNetworkingConnectionState.ClosedByPeer` or `SteamNetworkingConnectionState.ProblemDetectedLocally`) and you are just freeing up the connection object, then `reason`, `debug` and `linger` are ignored.
  *
  * @param {Real} conn The connection to disconnect.
- * @param {Real} reason An application-defined code that will be received on the other end and recorded for diagnostic purposes.
+ * @param {Enum.SteamNetworkingConnectionEnd} reason An application-defined code that will be received on the other end and recorded for diagnostic purposes.
  * @param {String} debug An optional human-readable diagnostic string that will be received on the other end.
  * @param {Bool} linger Whether to attempt to flush any remaining reliable messages before actually closing the connection.
  * @returns {Bool} 
@@ -8126,8 +8219,8 @@
  * @param {Enum.SteamNetworkingSendFlags} send_flags The send flags that determine the delivery guarantees, buffering behaviour, etc., for the message.
  * @param {Real} [buffer_offset] The offset into the buffer, in bytes. Defaults to 0.
  * @param {Real} [buffer_count] The number of bytes to write. Defaults to the buffer size minus the offset.
- * @returns {Real} 
- * @function_end 
+ * @returns {Enum.SteamApiResult}
+ * @function_end
  */
 
 /**
@@ -8427,8 +8520,22 @@
  *
  * @param {Real} beacon_id The beacon ID for the beacon created by your process.
  * @param {Real} user_steam_id The Steam ID of the user joining your party.
- * @returns {Bool} 
- * @function_end 
+ * @returns {Bool}
+ * @function_end
+ */
+
+/**
+ * @function steam_parties_cancel_reservation
+ * @description > **Steamworks Function**: [ISteamParties::CancelReservation](https://partner.steamgames.com/doc/api/ISteamParties#CancelReservation)
+ *
+ * This function cancels a reservation, notifying Steam that a reserved user did not join your party and is not still waiting to do so.
+ *
+ * See: ${struct.SteamPartiesReservationNotification}
+ *
+ * @param {Real} beacon_id The beacon ID for the beacon created by your process.
+ * @param {Real} user_steam_id The Steam ID of the user whose reservation is being cancelled.
+ * @returns {Bool}
+ * @function_end
  */
 
 /**
@@ -8678,7 +8785,7 @@
  * This struct holds information related to a friend's status change.
  *
  * @member {Real} steam_id Steam ID of the user who changed.
- * @member {Real} change_flags A bit-wise union of ${constant.SteamFriendsPersonaChange} values.
+ * @member {Enum.SteamFriendsPersonaChange} change_flags A bit-wise union of ${constant.SteamFriendsPersonaChange} values.
  * @struct_end 
  */
 
@@ -8880,9 +8987,8 @@
  * This struct holds info on a user's Steam Community Market eligibility.
  *
  * @member {Bool} allowed Whether the user is allowed to use the Steam Community Market.
- * @member {Real} not_allowed_reason The reason the user is not allowed to use the market, if applicable (an ${constant.SteamMarketNotAllowedReasonFlags} bitfield).
+ * @member {Enum.SteamMarketNotAllowedReasonFlags} not_allowed_reason The reason the user is not allowed to use the market, if applicable (an ${constant.SteamMarketNotAllowedReasonFlags} bitfield).
  * @member {Real} allowed_at_time The Unix timestamp of when the user will be allowed to use the market, if currently restricted.
- * @member {Real} steam_purchase_time The Unix timestamp of the user's first Steam purchase, used for some eligibility checks.
  * @member {Real} day_steam_guard_required_days The number of days Steam Guard must have been active before the user is allowed to use the market.
  * @member {Real} day_new_device_cooldown The number of days a newly added device must wait before the user is allowed to use the market.
  * @struct_end
@@ -8972,6 +9078,18 @@
  */
 
 /**
+ * @struct SteamUserGetTicketForWebApiResponse
+ * @description > **Steamworks Struct**: [ISteamUser::GetTicketForWebApiResponse_t](https://partner.steamgames.com/doc/api/ISteamUser#GetTicketForWebApiResponse_t)
+ *
+ * This struct holds information returned by ${function.steam_user_request_auth_ticket_for_web_api}.
+ *
+ * @member {Real} auth_ticket_handle The ticket handle whose bytes are ready to fetch with ${function.steam_user_fetch_auth_ticket_for_web_api}.
+ * @member {Enum.SteamApiResult} result The result of the request.
+ * @member {Real} ticket_size The number of ticket bytes held and available to fetch. `0` on failure.
+ * @struct_end
+ */
+
+/**
  * @struct SteamUserSteamServersDisconnected
  * @description > **Steamworks Struct**: [ISteamUser::SteamServersDisconnected_t](partner.steamgames.com/doc/api/ISteamUser#SteamServersDisconnected_t)
  *
@@ -9002,7 +9120,7 @@
  * @member {Real} game_server_ip The IP of the game server that is telling us to disconnect, in host order, i.e 127.0.0.1 == 0x7f000001.
  * @member {Real} game_server_port The port of the game server that is telling us to disconnect, in host order.
  * @member {Bool} secure Is the game server VAC secure (`true`) or not (`false`)?
- * @member {Real} reason The deny reason.
+ * @member {Enum.SteamApiDenyReason} reason The deny reason.
  * @struct_end 
  */
 
@@ -9025,6 +9143,16 @@
  * This struct holds information about the battery power left.
  *
  * @member {Real} minutes_battery_left The estimated amount of battery life left in minutes.
+ * @struct_end
+ */
+
+/**
+ * @struct SteamUtilsCheckFileSignatureResult
+ * @description > **Steamworks Struct**: [ISteamUtils::CheckFileSignature_t](https://partner.steamgames.com/doc/api/ISteamUtils#CheckFileSignature_t)
+ *
+ * This struct holds information returned by ${function.steam_utils_check_file_signature}.
+ *
+ * @member {Enum.SteamUtilsCheckFileSignature} result The result of the file signature check.
  * @struct_end
  */
 
@@ -9070,16 +9198,6 @@
  *
  * @member {Bool} submitted `true` if user entered & accepted text (Call ${function.steam_utils_get_entered_gamepad_text_input} to receive the text), `false` if input was canceled.
  * @member {Real} submitted_text_length The length in bytes if there was text submitted.
- * @struct_end
- */
-
-/**
- * @struct SteamUtilsFloatingGamepadTextInputDismissed
- * @description > **Steamworks Struct**: [ISteamUtils::FloatingGamepadTextInputDismissed_t](partner.steamgames.com/doc/api/ISteamUtils#FloatingGamepadTextInputDismissed_t)
- *
- * This struct holds information returned in a `ISteamUtils::FloatingGamepadTextInputDismissed_t` callback, which is called when the floating keyboard invoked from ${function.steam_utils_show_floating_gamepad_text_input} has been closed.
- *
- * @member {Bool} submitted `true` if user entered & accepted text.
  * @struct_end
  */
 
@@ -10073,6 +10191,17 @@
  * @member {Real} bytes The number of bytes copied into the buffer.
  * @member {Real} sender_id The Steam ID of the user who sent this message.
  * @member {Enum.SteamFriendsChatEntryType} entry_type This will always be `SteamFriendsChatEntryType.ChatMsg`.
+ * @struct_end
+ */
+
+/**
+ * @struct SteamMatchmakingLobbyDataEntry
+ * @description > **Steamworks Struct**: N / A
+ *
+ * This struct holds a lobby metadata key/value pair, returned by ${function.steam_matchmaking_get_lobby_data_by_index}.
+ *
+ * @member {String} key The metadata key at the requested index.
+ * @member {String} value The metadata value associated with `key`.
  * @struct_end
  */
 

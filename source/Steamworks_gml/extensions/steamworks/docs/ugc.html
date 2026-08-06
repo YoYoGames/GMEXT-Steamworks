@@ -188,6 +188,9 @@
 <li><a href="ugc.html#steam_ugc_get_num_subscribed_items">steam_ugc_get_num_subscribed_items</a></li>
 <li><a href="ugc.html#steam_ugc_get_subscribed_items">steam_ugc_get_subscribed_items</a></li>
 <li><a href="ugc.html#steam_ugc_get_query_ugc_result">steam_ugc_get_query_ugc_result</a></li>
+<li><a href="ugc.html#steam_ugc_get_query_ugc_num_tags">steam_ugc_get_query_ugc_num_tags</a></li>
+<li><a href="ugc.html#steam_ugc_get_query_ugc_tag">steam_ugc_get_query_ugc_tag</a></li>
+<li><a href="ugc.html#steam_ugc_get_query_ugc_tag_display_name">steam_ugc_get_query_ugc_tag_display_name</a></li>
 <li><a href="ugc.html#steam_ugc_get_query_ugc_preview_url">steam_ugc_get_query_ugc_preview_url</a></li>
 <li><a href="ugc.html#steam_ugc_get_query_ugc_metadata">steam_ugc_get_query_ugc_metadata</a></li>
 <li><a href="ugc.html#steam_ugc_get_query_ugc_children">steam_ugc_get_query_ugc_children</a></li>
@@ -198,9 +201,11 @@
 <li><a href="ugc.html#steam_ugc_get_query_ugc_num_key_value_tags">steam_ugc_get_query_ugc_num_key_value_tags</a></li>
 <li><a href="ugc.html#steam_ugc_get_query_ugc_key_value_tag">steam_ugc_get_query_ugc_key_value_tag</a></li>
 <li><a href="ugc.html#steam_ugc_get_query_ugc_content_descriptors">steam_ugc_get_query_ugc_content_descriptors</a></li>
+<li><a href="ugc.html#steam_ugc_get_user_content_descriptor_preferences">steam_ugc_get_user_content_descriptor_preferences</a></li>
 <li><a href="ugc.html#steam_ugc_remove_app_dependency">steam_ugc_remove_app_dependency</a></li>
 <li><a href="ugc.html#steam_ugc_remove_dependency">steam_ugc_remove_dependency</a></li>
 <li><a href="ugc.html#steam_ugc_remove_item_from_favorites">steam_ugc_remove_item_from_favorites</a></li>
+<li><a href="ugc.html#steam_ugc_remove_all_item_key_value_tags">steam_ugc_remove_all_item_key_value_tags</a></li>
 <li><a href="ugc.html#steam_ugc_remove_item_key_value_tags">steam_ugc_remove_item_key_value_tags</a></li>
 <li><a href="ugc.html#steam_ugc_remove_item_preview">steam_ugc_remove_item_preview</a></li>
 <li><a href="ugc.html#steam_ugc_add_content_descriptor">steam_ugc_add_content_descriptor</a></li>
@@ -1614,6 +1619,156 @@ It is up to the application to determine whether the item can actually be used o
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
+<h1 id="steam_ugc_get_query_ugc_num_tags">steam_ugc_get_query_ugc_num_tags</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUGC#GetQueryUGCNumTags">ISteamUGC::GetQueryUGCNumTags</a></p>
+</blockquote>
+<p>This function retrieves the number of tags of an individual workshop item after receiving a querying UGC call result.</p>
+<p>You should call this in a loop to get the details of all the workshop items returned.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This must only be called with the handle obtained from a successful <a href="https://partner.steamgames.com/doc/api/ISteamUGC#SteamUGCQueryCompleted_t">SteamUGCQueryCompleted_t</a> call result.</p>
+</div>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_ugc_get_query_ugc_num_tags(query_handle, index)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>query_handle</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The UGC query handle to get the results from.</td>
+</tr>
+<tr>
+<td>index</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The index of the item to get the details of.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_ugc_get_query_ugc_tag">steam_ugc_get_query_ugc_tag</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUGC#GetQueryUGCTag">ISteamUGC::GetQueryUGCTag</a></p>
+</blockquote>
+<p>This function retrieves a tag associated with an individual workshop item after receiving a querying UGC call result.</p>
+<p>You should call this in a loop to get the details of all the workshop items returned.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This must only be called with the handle obtained from a successful <a href="https://partner.steamgames.com/doc/api/ISteamUGC#SteamUGCQueryCompleted_t">SteamUGCQueryCompleted_t</a> call result.</p>
+</div>
+<p>Before calling this you should call <a href="ugc.html#steam_ugc_get_query_ugc_num_tags">steam_ugc_get_query_ugc_num_tags</a> to get the number of tags.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_ugc_get_query_ugc_tag(query_handle, index, tag_index)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>query_handle</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The UGC query handle to get the results from.</td>
+</tr>
+<tr>
+<td>index</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The index of the item to get the details of.</td>
+</tr>
+<tr>
+<td>tag_index</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The index of the tag to get.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_ugc_get_query_ugc_tag_display_name">steam_ugc_get_query_ugc_tag_display_name</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUGC#GetQueryUGCTagDisplayName">ISteamUGC::GetQueryUGCTagDisplayName</a></p>
+</blockquote>
+<p>This function retrieves the display name of a tag associated with an individual workshop item after receiving a querying UGC call result.</p>
+<p>You should call this in a loop to get the details of all the workshop items returned.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This must only be called with the handle obtained from a successful <a href="https://partner.steamgames.com/doc/api/ISteamUGC#SteamUGCQueryCompleted_t">SteamUGCQueryCompleted_t</a> call result.</p>
+</div>
+<p>Before calling this you should call <a href="ugc.html#steam_ugc_get_query_ugc_num_tags">steam_ugc_get_query_ugc_num_tags</a> to get the number of tags.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_ugc_get_query_ugc_tag_display_name(query_handle, index, tag_index)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>query_handle</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The UGC query handle to get the results from.</td>
+</tr>
+<tr>
+<td>index</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The index of the item to get the details of.</td>
+</tr>
+<tr>
+<td>tag_index</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The index of the tag to get the display name of.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
 <h1 id="steam_ugc_get_query_ugc_preview_url">steam_ugc_get_query_ugc_preview_url</h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUGC#GetQueryUGCPreviewURL">ISteamUGC::GetQueryUGCPreviewURL</a></p>
@@ -1919,7 +2074,7 @@ It is up to the application to determine whether the item can actually be used o
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_ugc_get_query_ugc_additional_preview(query_handle, index, preview_index, original_file_name)
+<div class="highlight"><pre><span></span><code>steam_ugc_get_query_ugc_additional_preview(query_handle, index, preview_index)
 </code></pre></div>
 </blockquote>
 <table>
@@ -1945,11 +2100,6 @@ It is up to the application to determine whether the item can actually be used o
 <td>preview_index</td>
 <td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
 <td>The index of the additional preview to get the details of.</td>
-</tr>
-<tr>
-<td>original_file_name</td>
-<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
-<td>Whether to also return the original file name of the preview.</td>
 </tr>
 </tbody>
 </table>
@@ -2090,6 +2240,42 @@ It is up to the application to determine whether the item can actually be used o
 <td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
 <td>The index of the item to get the details of.</td>
 </tr>
+<tr>
+<td>max_descriptors</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The maximum number of content descriptors to return.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Arrays.htm">Array</a> of <a href="ugc.html#steamugccontentdescriptorid">SteamUgcContentDescriptorId</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_ugc_get_user_content_descriptor_preferences">steam_ugc_get_user_content_descriptor_preferences</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUGC#GetUserContentDescriptorPreferences">ISteamUGC::GetUserContentDescriptorPreferences</a></p>
+</blockquote>
+<p>This function retrieves an array of <a href="ugc.html#steamugccontentdescriptorid">SteamUgcContentDescriptorId</a> the local user has excluded from search/download.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_ugc_get_user_content_descriptor_preferences(max_descriptors)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
 <tr>
 <td>max_descriptors</td>
 <td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
@@ -2312,6 +2498,46 @@ It is up to the application to determine whether the item can actually be used o
 </tr>
 </tbody>
 </table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_ugc_remove_all_item_key_value_tags">steam_ugc_remove_all_item_key_value_tags</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUGC#RemoveAllItemKeyValueTags">ISteamUGC::RemoveAllItemKeyValueTags</a></p>
+</blockquote>
+<p>This function removes all existing key-value tags from an item.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This must be set before you submit the UGC update handle using <a href="ugc.html#steam_ugc_submit_item_update">steam_ugc_submit_item_update</a>.</p>
+</div>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_ugc_remove_all_item_key_value_tags(update_handle)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>update_handle</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The workshop item update handle to customise.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
 <p><br></p>
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
@@ -4923,6 +5149,7 @@ It is up to the application to determine whether the item can actually be used o
 <p>These constants are referenced by the following functions:</p>
 <ul>
 <li><a href="ugc.html#steam_ugc_get_query_ugc_content_descriptors">steam_ugc_get_query_ugc_content_descriptors</a></li>
+<li><a href="ugc.html#steam_ugc_get_user_content_descriptor_preferences">steam_ugc_get_user_content_descriptor_preferences</a></li>
 <li><a href="ugc.html#steam_ugc_add_content_descriptor">steam_ugc_add_content_descriptor</a></li>
 <li><a href="ugc.html#steam_ugc_remove_content_descriptor">steam_ugc_remove_content_descriptor</a></li>
 </ul>
@@ -5439,6 +5666,11 @@ It is up to the application to determine whether the item can actually be used o
 <td>preview_type</td>
 <td><a href="ugc.html#steamugcitempreviewtype">SteamUgcItemPreviewType</a></td>
 <td>The type of preview that was returned.</td>
+</tr>
+<tr>
+<td>original_file_name</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td></td>
 </tr>
 </tbody>
 </table>

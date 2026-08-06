@@ -189,7 +189,8 @@
 <li><a href="user.html#steam_user_request_encrypted_app_ticket">steam_user_request_encrypted_app_ticket</a></li>
 <li><a href="user.html#steam_user_get_encrypted_app_ticket">steam_user_get_encrypted_app_ticket</a></li>
 <li><a href="user.html#steam_user_get_game_badge_level">steam_user_get_game_badge_level</a></li>
-<li><a href="user.html#steam_user_get_auth_ticket_for_web_api">steam_user_get_auth_ticket_for_web_api</a></li>
+<li><a href="user.html#steam_user_request_auth_ticket_for_web_api">steam_user_request_auth_ticket_for_web_api</a></li>
+<li><a href="user.html#steam_user_fetch_auth_ticket_for_web_api">steam_user_fetch_auth_ticket_for_web_api</a></li>
 <li><a href="user.html#steam_user_get_duration_control">steam_user_get_duration_control</a></li>
 <li><a href="user.html#steam_user_request_store_auth_url">steam_user_request_store_auth_url</a></li>
 <li><a href="user.html#steam_user_get_market_eligibility">steam_user_get_market_eligibility</a></li>
@@ -235,6 +236,7 @@
 <li><a href="user.html#steamusergetvoiceresult">SteamUserGetVoiceResult</a></li>
 <li><a href="user.html#steamuserdecompressvoiceresult">SteamUserDecompressVoiceResult</a></li>
 <li><a href="user.html#steamuservalidateauthticketresponse">SteamUserValidateAuthTicketResponse</a></li>
+<li><a href="user.html#steamusergetticketforwebapiresponse">SteamUserGetTicketForWebApiResponse</a></li>
 <li><a href="user.html#steamusersteamserversdisconnected">SteamUserSteamServersDisconnected</a></li>
 <li><a href="user.html#steamusersteamserverconnectfailure">SteamUserSteamServerConnectFailure</a></li>
 <li><a href="user.html#steamuserclientgameserverdeny">SteamUserClientGameServerDeny</a></li>
@@ -554,7 +556,7 @@
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUser#CancelAuthTicket">ISteamUser::CancelAuthTicket</a></p>
 </blockquote>
-<p>This function cancels an auth ticket received from <a href="user.html#steam_user_get_auth_session_ticket">steam_user_get_auth_session_ticket</a> or <a href="user.html#steam_user_get_auth_ticket_for_web_api">steam_user_get_auth_ticket_for_web_api</a>. This should be called when no longer playing with the specified entity.</p>
+<p>This function cancels an auth ticket received from <a href="user.html#steam_user_get_auth_session_ticket">steam_user_get_auth_session_ticket</a> or <a href="user.html#steam_user_request_auth_ticket_for_web_api">steam_user_request_auth_ticket_for_web_api</a>. This should be called when no longer playing with the specified entity.</p>
 <p>See also: <a href="https://partner.steamgames.com/doc/features/auth">User Authentication and Ownership</a></p>
 <p><br></p>
 <p><strong>Syntax:</strong></p>
@@ -691,7 +693,7 @@
 <p>After calling this you can send the ticket to the entity where they can then call <a href="user.html#steam_user_begin_auth_session">steam_user_begin_auth_session</a> / <a href="https://partner.steamgames.com/doc/api/ISteamGameServer#BeginAuthSession">ISteamGameServer::BeginAuthSession</a> to verify this entity's integrity.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>This API can not be used to create a ticket for use by the <a href="https://partner.steamgames.com/doc/webapi/ISteamUserAuth#AuthenticateUserTicket">ISteamUserAuth::AuthenticateUserTicket</a> Web API. Use the <a href="user.html#steam_user_get_auth_ticket_for_web_api">steam_user_get_auth_ticket_for_web_api</a> call instead.</p>
+<p>This API can not be used to create a ticket for use by the <a href="https://partner.steamgames.com/doc/webapi/ISteamUserAuth#AuthenticateUserTicket">ISteamUserAuth::AuthenticateUserTicket</a> Web API. Use the <a href="user.html#steam_user_request_auth_ticket_for_web_api">steam_user_request_auth_ticket_for_web_api</a> call instead.</p>
 </div>
 <p>This function operates asynchronously, which means that it does not immediately return the requested result. Instead, upon completion of the task, it will trigger the <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a>.</p>
 <p><br></p>
@@ -1164,15 +1166,17 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_user_get_auth_ticket_for_web_api">steam_user_get_auth_ticket_for_web_api</h1>
+<h1 id="steam_user_request_auth_ticket_for_web_api">steam_user_request_auth_ticket_for_web_api</h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUser#GetAuthTicketForWebApi">ISteamUser::GetAuthTicketForWebApi</a></p>
 </blockquote>
-<p>This function retrieves an authentication ticket for use with the ISteamUserAuth Web API.</p>
+<p>This function requests an authentication ticket for use with the ISteamUserAuth Web API.</p>
+<p>The ticket handle is returned synchronously, but the ticket bytes are not ready until <code>callback</code> fires. Once it fires with a successful result, call <a href="user.html#steam_user_fetch_auth_ticket_for_web_api">steam_user_fetch_auth_ticket_for_web_api</a> with the same handle to copy the ticket bytes into a buffer.</p>
+<p>This function operates asynchronously, which means that it does not immediately return the requested result. Instead, upon completion of the task, it will trigger the <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a>.</p>
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_user_get_auth_ticket_for_web_api(identity)
+<div class="highlight"><pre><span></span><code>steam_user_request_auth_ticket_for_web_api(identity, callback)
 </code></pre></div>
 </blockquote>
 <table>
@@ -1189,12 +1193,82 @@
 <td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
 <td>The identity of the remote service that will authenticate the ticket, as a string identifier. Pass an empty string if none was provided.</td>
 </tr>
+<tr>
+<td>callback</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Script_Functions.htm">Function</a></td>
+<td>The function to call once the ticket is ready to fetch.</td>
+</tr>
 </tbody>
 </table>
 <p><br></p>
 <p><strong>Returns:</strong></p>
 <blockquote>
 <p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p>The ticket handle, used to correlate the callback and to call <a href="user.html#steam_user_fetch_auth_ticket_for_web_api">steam_user_fetch_auth_ticket_for_web_api</a>.</p>
+<p><br></p>
+<p><strong>Triggers:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a></p>
+<p><strong>Steamworks Callback</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUser#GetTicketForWebApiResponse_t">ISteamUser::GetTicketForWebApiResponse_t</a></p>
+</blockquote>
+<p>Called when the requested ticket is ready (or has failed).</p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>result</td>
+<td><a href="user.html#steamusergetticketforwebapiresponse">SteamUserGetTicketForWebApiResponse</a></td>
+<td>The result of the operation.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_user_fetch_auth_ticket_for_web_api">steam_user_fetch_auth_ticket_for_web_api</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: N / A</p>
+</blockquote>
+<p>This function copies the ticket bytes held natively for a completed <a href="user.html#steam_user_request_auth_ticket_for_web_api">steam_user_request_auth_ticket_for_web_api</a> callback into a GML buffer. The held bytes are released once fetched.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_user_fetch_auth_ticket_for_web_api(auth_ticket_handle, out_ticket)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>auth_ticket_handle</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The ticket handle returned by <a href="user.html#steam_user_request_auth_ticket_for_web_api">steam_user_request_auth_ticket_for_web_api</a>.</td>
+</tr>
+<tr>
+<td>out_ticket</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Buffers/Buffers.htm">Buffer</a></td>
+<td>Returns the ticket bytes by copying them into this buffer. Size it to at least <a href="user.html#steamusergetticketforwebapiresponse">SteamUserGetTicketForWebApiResponse</a>'s <code>ticket_size</code> field from the callback.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
 </blockquote>
 <p><br></p>
 <hr />
@@ -2359,6 +2433,16 @@
 <td><a href="user.html#steamuserdurationcontrolnotification">SteamUserDurationControlNotification</a></td>
 <td>The notification that should be shown to the user, if any.</td>
 </tr>
+<tr>
+<td>csecs_today</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td></td>
+</tr>
+<tr>
+<td>csecs_remaining</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td></td>
+</tr>
 </tbody>
 </table>
 <p><br></p>
@@ -2391,18 +2475,13 @@
 </tr>
 <tr>
 <td>not_allowed_reason</td>
-<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td><a href="api.html#steammarketnotallowedreasonflags">SteamMarketNotAllowedReasonFlags</a></td>
 <td>The reason the user is not allowed to use the market, if applicable (an <a href="api.html#steammarketnotallowedreasonflags">SteamMarketNotAllowedReasonFlags</a> bitfield).</td>
 </tr>
 <tr>
 <td>allowed_at_time</td>
 <td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
 <td>The Unix timestamp of when the user will be allowed to use the market, if currently restricted.</td>
-</tr>
-<tr>
-<td>steam_purchase_time</td>
-<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
-<td>The Unix timestamp of the user's first Steam purchase, used for some eligibility checks.</td>
 </tr>
 <tr>
 <td>day_steam_guard_required_days</td>
@@ -2645,6 +2724,46 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
+<h1 id="steamusergetticketforwebapiresponse">SteamUserGetTicketForWebApiResponse</h1>
+<blockquote>
+<p><strong>Steamworks Struct</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUser#GetTicketForWebApiResponse_t">ISteamUser::GetTicketForWebApiResponse_t</a></p>
+</blockquote>
+<p>This struct holds information returned by <a href="user.html#steam_user_request_auth_ticket_for_web_api">steam_user_request_auth_ticket_for_web_api</a>.</p>
+<p>This struct is referenced by the following functions:</p>
+<ul>
+<li><a href="user.html#steam_user_request_auth_ticket_for_web_api">steam_user_request_auth_ticket_for_web_api</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>auth_ticket_handle</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The ticket handle whose bytes are ready to fetch with <a href="user.html#steam_user_fetch_auth_ticket_for_web_api">steam_user_fetch_auth_ticket_for_web_api</a>.</td>
+</tr>
+<tr>
+<td>result</td>
+<td><a href="api.html#steamapiresult">SteamApiResult</a></td>
+<td>The result of the request.</td>
+</tr>
+<tr>
+<td>ticket_size</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The number of ticket bytes held and available to fetch. <code>0</code> on failure.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
 <h1 id="steamusersteamserversdisconnected">SteamUserSteamServersDisconnected</h1>
 <blockquote>
 <p><strong>Steamworks Struct</strong>: <a href="partner.steamgames.com/doc/api/ISteamUser.html#SteamServersDisconnected_t">ISteamUser::SteamServersDisconnected_t</a></p>
@@ -2739,7 +2858,7 @@
 </tr>
 <tr>
 <td>reason</td>
-<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td><a href="api.html#steamapidenyreason">SteamApiDenyReason</a></td>
 <td>The deny reason.</td>
 </tr>
 </tbody>

@@ -227,6 +227,7 @@
 <li><a href="matchmaking.html#steammatchmakinglobbygamecreated">SteamMatchmakingLobbyGameCreated</a></li>
 <li><a href="matchmaking.html#steammatchmakinglobbyinvite">SteamMatchmakingLobbyInvite</a></li>
 <li><a href="matchmaking.html#steammatchmakinglobbychatentry">SteamMatchmakingLobbyChatEntry</a></li>
+<li><a href="matchmaking.html#steammatchmakinglobbydataentry">SteamMatchmakingLobbyDataEntry</a></li>
 <li><a href="matchmaking.html#steammatchmakinglobbygameserver">SteamMatchmakingLobbyGameServer</a></li>
 </ul>
 <p><br></p>
@@ -1380,7 +1381,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_matchmaking_get_lobby_data_by_index(lobby_id, index, key_out, val_out)
+<div class="highlight"><pre><span></span><code>steam_matchmaking_get_lobby_data_by_index(lobby_id, index)
 </code></pre></div>
 </blockquote>
 <table>
@@ -1402,22 +1403,12 @@
 <td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
 <td>An index between 0 and the lobby data count.</td>
 </tr>
-<tr>
-<td>key_out</td>
-<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Buffers/Buffers.htm">Buffer</a></td>
-<td>Returns the name of the key at the specified index by copying it into this buffer. The size typically should be the maximum lobby key length.</td>
-</tr>
-<tr>
-<td>val_out</td>
-<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Buffers/Buffers.htm">Buffer</a></td>
-<td>Returns the value associated with the key at the specified index by copying it into this buffer. The size typically should be the maximum chat metadata size.</td>
-</tr>
 </tbody>
 </table>
 <p><br></p>
 <p><strong>Returns:</strong></p>
 <blockquote>
-<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+<p><a href="matchmaking.html#steammatchmakinglobbydataentry">SteamMatchmakingLobbyDataEntry</a></p>
 </blockquote>
 <p><br></p>
 <hr />
@@ -2645,6 +2636,41 @@ This can only be set by the owner of the lobby.</p>
 <td>entry_type</td>
 <td><a href="friends.html#steamfriendschatentrytype">SteamFriendsChatEntryType</a></td>
 <td>This will always be <code>SteamFriendsChatEntryType.ChatMsg</code>.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steammatchmakinglobbydataentry">SteamMatchmakingLobbyDataEntry</h1>
+<blockquote>
+<p><strong>Steamworks Struct</strong>: N / A</p>
+</blockquote>
+<p>This struct holds a lobby metadata key/value pair, returned by <a href="matchmaking.html#steam_matchmaking_get_lobby_data_by_index">steam_matchmaking_get_lobby_data_by_index</a>.</p>
+<p>This struct is referenced by the following functions:</p>
+<ul>
+<li><a href="matchmaking.html#steam_matchmaking_get_lobby_data_by_index">steam_matchmaking_get_lobby_data_by_index</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>key</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The metadata key at the requested index.</td>
+</tr>
+<tr>
+<td>value</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The metadata value associated with <code>key</code>.</td>
 </tr>
 </tbody>
 </table>

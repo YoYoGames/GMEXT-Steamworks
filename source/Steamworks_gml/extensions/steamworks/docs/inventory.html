@@ -1240,7 +1240,7 @@ For example, an amount of 100000 would be divided over two stacks as follows: th
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_inventory_remove_property(result_handle, item_instance_id, property_name)
+<div class="highlight"><pre><span></span><code>steam_inventory_remove_property(update_handle, item_instance_id, property_name)
 </code></pre></div>
 </blockquote>
 <table>
@@ -1253,7 +1253,7 @@ For example, an amount of 100000 would be divided over two stacks as follows: th
 </thead>
 <tbody>
 <tr>
-<td>result_handle</td>
+<td>update_handle</td>
 <td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
 <td>The update handle corresponding to the transaction request, returned from <a href="inventory.html#steam_inventory_start_update_properties">steam_inventory_start_update_properties</a>.</td>
 </tr>
@@ -1286,7 +1286,7 @@ For example, an amount of 100000 would be divided over two stacks as follows: th
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_inventory_set_property_string(result_handle, item_instance_id, property_name, value)
+<div class="highlight"><pre><span></span><code>steam_inventory_set_property_string(update_handle, item_instance_id, property_name, value)
 </code></pre></div>
 </blockquote>
 <table>
@@ -1299,7 +1299,7 @@ For example, an amount of 100000 would be divided over two stacks as follows: th
 </thead>
 <tbody>
 <tr>
-<td>result_handle</td>
+<td>update_handle</td>
 <td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
 <td>The update handle corresponding to the transaction request, returned from <a href="inventory.html#steam_inventory_start_update_properties">steam_inventory_start_update_properties</a>.</td>
 </tr>
@@ -1337,7 +1337,7 @@ For example, an amount of 100000 would be divided over two stacks as follows: th
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_inventory_set_property_bool(result_handle, item_instance_id, property_name, value)
+<div class="highlight"><pre><span></span><code>steam_inventory_set_property_bool(update_handle, item_instance_id, property_name, value)
 </code></pre></div>
 </blockquote>
 <table>
@@ -1350,7 +1350,7 @@ For example, an amount of 100000 would be divided over two stacks as follows: th
 </thead>
 <tbody>
 <tr>
-<td>result_handle</td>
+<td>update_handle</td>
 <td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
 <td>The update handle corresponding to the transaction request, returned from <a href="inventory.html#steam_inventory_start_update_properties">steam_inventory_start_update_properties</a>.</td>
 </tr>
@@ -1388,7 +1388,7 @@ For example, an amount of 100000 would be divided over two stacks as follows: th
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_inventory_set_property_int64(result_handle, item_instance_id, property_name, value)
+<div class="highlight"><pre><span></span><code>steam_inventory_set_property_int64(update_handle, item_instance_id, property_name, value)
 </code></pre></div>
 </blockquote>
 <table>
@@ -1401,7 +1401,7 @@ For example, an amount of 100000 would be divided over two stacks as follows: th
 </thead>
 <tbody>
 <tr>
-<td>result_handle</td>
+<td>update_handle</td>
 <td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
 <td>The update handle corresponding to the transaction request, returned from <a href="inventory.html#steam_inventory_start_update_properties">steam_inventory_start_update_properties</a>.</td>
 </tr>
@@ -1439,7 +1439,7 @@ For example, an amount of 100000 would be divided over two stacks as follows: th
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_inventory_set_property_float(result_handle, item_instance_id, property_name, value)
+<div class="highlight"><pre><span></span><code>steam_inventory_set_property_float(update_handle, item_instance_id, property_name, value)
 </code></pre></div>
 </blockquote>
 <table>
@@ -1452,7 +1452,7 @@ For example, an amount of 100000 would be divided over two stacks as follows: th
 </thead>
 <tbody>
 <tr>
-<td>result_handle</td>
+<td>update_handle</td>
 <td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
 <td>The update handle corresponding to the transaction request, returned from <a href="inventory.html#steam_inventory_start_update_properties">steam_inventory_start_update_properties</a>.</td>
 </tr>
@@ -1494,7 +1494,7 @@ For example, an amount of 100000 would be divided over two stacks as follows: th
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_inventory_submit_update_properties(result_handle, callback)
+<div class="highlight"><pre><span></span><code>steam_inventory_submit_update_properties(update_handle, callback)
 </code></pre></div>
 </blockquote>
 <table>
@@ -1507,7 +1507,7 @@ For example, an amount of 100000 would be divided over two stacks as follows: th
 </thead>
 <tbody>
 <tr>
-<td>result_handle</td>
+<td>update_handle</td>
 <td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
 <td>The update handle corresponding to the transaction request, returned from <a href="inventory.html#steam_inventory_start_update_properties">steam_inventory_start_update_properties</a>.</td>
 </tr>

@@ -1283,7 +1283,7 @@
 </tr>
 <tr>
 <td>friend_flags</td>
-<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td><a href="friends.html#steamfriendsfriendflag">SteamFriendsFriendFlag</a></td>
 <td>A combined union (binary "or") of <a href="friends.html#steamfriendsfriendflag">SteamFriendsFriendFlag</a>. This must be the same value as used in the previous call to <a href="friends.html#steam_friends_get_friend_count">steam_friends_get_friend_count</a>.</td>
 </tr>
 </tbody>
@@ -1392,7 +1392,7 @@
 <tbody>
 <tr>
 <td>friend_flags</td>
-<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td><a href="friends.html#steamfriendsfriendflag">SteamFriendsFriendFlag</a></td>
 <td>A combined union (binary "or") of one or more <a href="friends.html#steamfriendsfriendflag">SteamFriendsFriendFlag</a>.</td>
 </tr>
 </tbody>
@@ -2320,7 +2320,7 @@
 </tr>
 <tr>
 <td>friend_flags</td>
-<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td><a href="friends.html#steamfriendsfriendflag">SteamFriendsFriendFlag</a></td>
 <td>A combined union (binary "or") of one or more <a href="friends.html#steamfriendsfriendflag">SteamFriendsFriendFlag</a>.</td>
 </tr>
 </tbody>
@@ -3443,6 +3443,12 @@ If the game is already running for that user, then they will receive a <a href="
 <p><strong>Steamworks Enum</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamFriends#EFriendFlags">ISteamFriends::EFriendFlags</a></p>
 </blockquote>
 <p>This enum holds the possible flags for enumerating friends list, or quickly checking the relationship between users.</p>
+<p>These constants are referenced by the following functions:</p>
+<ul>
+<li><a href="friends.html#steam_friends_get_friend_by_index">steam_friends_get_friend_by_index</a></li>
+<li><a href="friends.html#steam_friends_get_friend_count">steam_friends_get_friend_count</a></li>
+<li><a href="friends.html#steam_friends_has_friend">steam_friends_has_friend</a></li>
+</ul>
 <p><br></p>
 <table>
 <thead>
@@ -3621,6 +3627,10 @@ If the game is already running for that user, then they will receive a <a href="
 </blockquote>
 <p>This enum holds the flags to describe what's changed about a user.</p>
 <p>These flags describe what the client has learned has changed recently, so on startup you'll see a name, avatar &amp; relationship change for every friend.</p>
+<p>These constants are referenced by the following structs:</p>
+<ul>
+<li><a href="friends.html#steamfriendspersonastatechange">SteamFriendsPersonaStateChange</a></li>
+</ul>
 <p><br></p>
 <table>
 <thead>
@@ -4122,7 +4132,7 @@ If the game is already running for that user, then they will receive a <a href="
 </tr>
 <tr>
 <td>change_flags</td>
-<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td><a href="friends.html#steamfriendspersonachange">SteamFriendsPersonaChange</a></td>
 <td>A bit-wise union of <a href="friends.html#steamfriendspersonachange">SteamFriendsPersonaChange</a> values.</td>
 </tr>
 </tbody>
@@ -4150,6 +4160,16 @@ If the game is already running for that user, then they will receive a <a href="
 <td>active</td>
 <td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></td>
 <td><code>true</code> if it's just been activated, otherwise <code>false</code>.</td>
+</tr>
+<tr>
+<td>user_initiated</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></td>
+<td></td>
+</tr>
+<tr>
+<td>app_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td></td>
 </tr>
 </tbody>
 </table>

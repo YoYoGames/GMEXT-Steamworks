@@ -186,7 +186,6 @@
 <li><a href="input.html#steam_input_get_motion_data">steam_input_get_motion_data</a></li>
 <li><a href="input.html#steam_input_get_string_for_action_origin">steam_input_get_string_for_action_origin</a></li>
 <li><a href="input.html#steam_input_init">steam_input_init</a></li>
-<li><a href="input.html#steam_input_enable_device_callbacks">steam_input_enable_device_callbacks</a></li>
 <li><a href="input.html#steam_input_run_frame">steam_input_run_frame</a></li>
 <li><a href="input.html#steam_input_set_dualsense_trigger_effect">steam_input_set_dualsense_trigger_effect</a></li>
 <li><a href="input.html#steam_input_set_led_color">steam_input_set_led_color</a></li>
@@ -203,8 +202,6 @@
 <li><a href="input.html#steam_input_clear_callback_device_connected">steam_input_clear_callback_device_connected</a></li>
 <li><a href="input.html#steam_input_set_callback_device_disconnected">steam_input_set_callback_device_disconnected</a></li>
 <li><a href="input.html#steam_input_clear_callback_device_disconnected">steam_input_clear_callback_device_disconnected</a></li>
-<li><a href="input.html#steam_input_set_callback_controller_battery">steam_input_set_callback_controller_battery</a></li>
-<li><a href="input.html#steam_input_clear_callback_controller_battery">steam_input_clear_callback_controller_battery</a></li>
 </ul>
 <h2 id="constants">Constants</h2>
 <p>These are the constants and enums of the Input module:</p>
@@ -1073,28 +1070,6 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_input_enable_device_callbacks">steam_input_enable_device_callbacks</h1>
-<blockquote>
-<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamInput#EnableDeviceCallbacks">ISteamInput::EnableDeviceCallbacks</a></p>
-</blockquote>
-<p>This function enables <a href="input.html#steaminputdeviceevent">SteamInputDeviceEvent</a> callbacks.</p>
-<p>Each controller that is already connected will generate a device connected callback when you enable them.</p>
-<p>See: <a href="input.html#steam_input_set_callback_device_connected">steam_input_set_callback_device_connected</a>, <a href="input.html#steam_input_clear_callback_device_connected">steam_input_clear_callback_device_connected</a>, <a href="input.html#steam_input_set_callback_device_disconnected">steam_input_set_callback_device_disconnected</a>, <a href="input.html#steam_input_clear_callback_device_disconnected">steam_input_clear_callback_device_disconnected</a></p>
-<p><br></p>
-<p><strong>Syntax:</strong></p>
-<blockquote>
-<div class="highlight"><pre><span></span><code>steam_input_enable_device_callbacks()
-</code></pre></div>
-</blockquote>
-<p><br></p>
-<p><strong>Returns:</strong></p>
-<blockquote>
-<p>N/A</p>
-</blockquote>
-<p><br></p>
-<hr />
-<p align="right"><a href="#top">Back To Top</a></p>
-
 <h1 id="steam_input_run_frame">steam_input_run_frame</h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamInput#RunFrame">ISteamInput::RunFrame</a></p>
@@ -1685,62 +1660,6 @@
 <p><strong>Syntax:</strong></p>
 <blockquote>
 <div class="highlight"><pre><span></span><code>steam_input_clear_callback_device_disconnected()
-</code></pre></div>
-</blockquote>
-<p><br></p>
-<p><strong>Returns:</strong></p>
-<blockquote>
-<p>N/A</p>
-</blockquote>
-<p><br></p>
-<hr />
-<p align="right"><a href="#top">Back To Top</a></p>
-
-<h1 id="steam_input_set_callback_controller_battery">steam_input_set_callback_controller_battery</h1>
-<blockquote>
-<p><strong>Steamworks Function</strong>: N / A</p>
-</blockquote>
-<p>This function sets the function to be called when a controller's battery level changes.</p>
-<p><br></p>
-<p><strong>Syntax:</strong></p>
-<blockquote>
-<div class="highlight"><pre><span></span><code>steam_input_set_callback_controller_battery(callback)
-</code></pre></div>
-</blockquote>
-<table>
-<thead>
-<tr>
-<th>Argument</th>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>callback</td>
-<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Script_Functions.htm">Function</a></td>
-<td>The function to be called when a controller's battery level changes.</td>
-</tr>
-</tbody>
-</table>
-<p><br></p>
-<p><strong>Returns:</strong></p>
-<blockquote>
-<p>N/A</p>
-</blockquote>
-<p><br></p>
-<hr />
-<p align="right"><a href="#top">Back To Top</a></p>
-
-<h1 id="steam_input_clear_callback_controller_battery">steam_input_clear_callback_controller_battery</h1>
-<blockquote>
-<p><strong>Steamworks Function</strong>: N / A</p>
-</blockquote>
-<p>This function clears the callback function previously set using <a href="input.html#steam_input_set_callback_controller_battery">steam_input_set_callback_controller_battery</a>.</p>
-<p><br></p>
-<p><strong>Syntax:</strong></p>
-<blockquote>
-<div class="highlight"><pre><span></span><code>steam_input_clear_callback_controller_battery()
 </code></pre></div>
 </blockquote>
 <p><br></p>

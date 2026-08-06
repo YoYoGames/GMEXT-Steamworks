@@ -489,6 +489,10 @@ This means the Steam client now has a working connection to the Steam servers. U
 <p><strong>Steamworks Enum</strong>: <a href="https://partner.steamgames.com/doc/api/steam_api#EDenyReason">EDenyReason</a></p>
 </blockquote>
 <p>This enum holds the result values when a client failed to join or has been kicked from a game server.</p>
+<p>These constants are referenced by the following structs:</p>
+<ul>
+<li><a href="user.html#steamuserclientgameserverdeny">SteamUserClientGameServerDeny</a></li>
+</ul>
 <p><br></p>
 <table>
 <thead>
@@ -939,6 +943,8 @@ This means the Steam client now has a working connection to the Steam servers. U
 <ul>
 <li><a href="api.html#steam_api_run_callbacks">steam_api_run_callbacks</a></li>
 <li><a href="inventory.html#steam_inventory_get_result_status">steam_inventory_get_result_status</a></li>
+<li><a href="networking.html#steam_networking_sockets_accept_connection">steam_networking_sockets_accept_connection</a></li>
+<li><a href="networking.html#steam_networking_sockets_send_message_to_connection">steam_networking_sockets_send_message_to_connection</a></li>
 <li><a href="networking.html#steam_networking_sockets_flush_messages_on_connection">steam_networking_sockets_flush_messages_on_connection</a></li>
 </ul>
 <p>These constants are referenced by the following structs:</p>
@@ -951,6 +957,7 @@ This means the Steam client now has a working connection to the Steam servers. U
 <li><a href="user.html#steamuserencryptedappticketresponse">SteamUserEncryptedAppTicketResponse</a></li>
 <li><a href="user.html#steamuserdurationcontrol">SteamUserDurationControl</a></li>
 <li><a href="user.html#steamusergetauthsessionticketresponse">SteamUserGetAuthSessionTicketResponse</a></li>
+<li><a href="user.html#steamusergetticketforwebapiresponse">SteamUserGetTicketForWebApiResponse</a></li>
 <li><a href="user.html#steamusersteamserversdisconnected">SteamUserSteamServersDisconnected</a></li>
 <li><a href="user.html#steamusersteamserverconnectfailure">SteamUserSteamServerConnectFailure</a></li>
 <li><a href="ugc.html#steamugcqueryresult">SteamUgcQueryResult</a></li>
@@ -1597,6 +1604,10 @@ This means the Steam client now has a working connection to the Steam servers. U
 <p><strong>Steamworks Enum</strong>: <a href="">EMarketNotAllowedReasonFlags</a></p>
 </blockquote>
 <p>This enum holds reasons a user may not use the Community Market.</p>
+<p>These constants are referenced by the following structs:</p>
+<ul>
+<li><a href="user.html#steamusermarketeligibilityresponse">SteamUserMarketEligibilityResponse</a></li>
+</ul>
 <p><br></p>
 <table>
 <thead>
@@ -1920,7 +1931,7 @@ This means the Steam client now has a working connection to the Steam servers. U
 </tr>
 <tr>
 <td><code>STEAM_INPUT_INTERFACE_VERSION</code></td>
-<td>(value: '"SteamInput001"')</td>
+<td>(value: '"SteamInput006"')</td>
 </tr>
 <tr>
 <td><code>STEAM_INPUT_HANDLE_ALL_CONTROLLERS</code></td>
@@ -1928,7 +1939,7 @@ This means the Steam client now has a working connection to the Steam servers. U
 </tr>
 <tr>
 <td><code>STEAM_INPUT_MAX_ANALOG_ACTIONS</code></td>
-<td>(value: '16')</td>
+<td>(value: '24')</td>
 </tr>
 <tr>
 <td><code>STEAM_INPUT_MAX_ANALOG_ACTION_DATA</code></td>
@@ -1940,7 +1951,7 @@ This means the Steam client now has a working connection to the Steam servers. U
 </tr>
 <tr>
 <td><code>STEAM_INPUT_MAX_DIGITAL_ACTIONS</code></td>
-<td>(value: '128')</td>
+<td>(value: '256')</td>
 </tr>
 <tr>
 <td><code>STEAM_INPUT_MAX_ORIGINS</code></td>
@@ -1984,7 +1995,7 @@ This means the Steam client now has a working connection to the Steam servers. U
 </tr>
 <tr>
 <td><code>STEAM_INVENTORY_INTERFACE_VERSION</code></td>
-<td>(value: '"STEAMINVENTORY_INTERFACE_V002"')</td>
+<td>(value: '"STEAMINVENTORY_INTERFACE_V003"')</td>
 </tr>
 <tr>
 <td><code>STEAM_REMOTE_STORAGE_FILENAME_MAX</code></td>

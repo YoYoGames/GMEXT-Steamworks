@@ -173,6 +173,7 @@
 <li><a href="parties.html#steam_parties_get_available_beacon_locations">steam_parties_get_available_beacon_locations</a></li>
 <li><a href="parties.html#steam_parties_create_beacon">steam_parties_create_beacon</a></li>
 <li><a href="parties.html#steam_parties_on_reservation_completed">steam_parties_on_reservation_completed</a></li>
+<li><a href="parties.html#steam_parties_cancel_reservation">steam_parties_cancel_reservation</a></li>
 <li><a href="parties.html#steam_parties_change_num_open_slots">steam_parties_change_num_open_slots</a></li>
 <li><a href="parties.html#steam_parties_destroy_beacon">steam_parties_destroy_beacon</a></li>
 <li><a href="parties.html#steam_parties_get_num_active_beacons">steam_parties_get_num_active_beacons</a></li>
@@ -531,6 +532,48 @@
 <td>user_steam_id</td>
 <td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
 <td>The Steam ID of the user joining your party.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_parties_cancel_reservation">steam_parties_cancel_reservation</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamParties#CancelReservation">ISteamParties::CancelReservation</a></p>
+</blockquote>
+<p>This function cancels a reservation, notifying Steam that a reserved user did not join your party and is not still waiting to do so.</p>
+<p>See: <a href="parties.html#steampartiesreservationnotification">SteamPartiesReservationNotification</a></p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_parties_cancel_reservation(beacon_id, user_steam_id)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>beacon_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The beacon ID for the beacon created by your process.</td>
+</tr>
+<tr>
+<td>user_steam_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The Steam ID of the user whose reservation is being cancelled.</td>
 </tr>
 </tbody>
 </table>
