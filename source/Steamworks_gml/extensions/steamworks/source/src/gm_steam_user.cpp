@@ -686,6 +686,8 @@ static inline gm_structs::SteamUserDurationControl user_fromNative(const Duratio
     out.app_id = (std::uint32_t)e.m_appid;
     out.applicable = (e.m_bApplicable != 0);
     out.csecs_last_5h = (int32)e.m_csecsLast5h;
+    out.csecs_today = (int32)e.m_csecsToday;
+    out.csecs_remaining = (int32)e.m_csecsRemaining;
     out.progress = (gm_enums::SteamUserDurationControlProgress)e.m_progress;
     out.notification = (gm_enums::SteamUserDurationControlNotification)e.m_notification;
     return out;
