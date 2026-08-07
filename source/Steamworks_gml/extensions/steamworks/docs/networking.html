@@ -216,6 +216,7 @@
 <li><a href="networking.html#steamnetworkingconnectionstate">SteamNetworkingConnectionState</a></li>
 <li><a href="networking.html#steamnetworkingsendflags">SteamNetworkingSendFlags</a></li>
 <li><a href="networking.html#steamnetworkingconfigvalue">SteamNetworkingConfigValue</a></li>
+<li><a href="networking.html#steamnetworkingconnectioninfoflags">SteamNetworkingConnectionInfoFlags</a></li>
 </ul>
 <h2 id="structs">Structs</h2>
 <p>These are the structs of the Networking module:</p>
@@ -382,7 +383,7 @@
 </tr>
 <tr>
 <td>send_flags</td>
-<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td><a href="networking.html#steamnetworkingsendflags">SteamNetworkingSendFlags</a></td>
 <td>A bitmask of <a href="networking.html#steamnetworkingsendflags">SteamNetworkingSendFlags</a> options that determine the delivery guarantees for the message.</td>
 </tr>
 <tr>
@@ -1919,7 +1920,12 @@
 <p>This enum holds values that are used in bitmask parameters to functions such as <a href="networking.html#steam_networking_sockets_send_message_to_connection">steam_networking_sockets_send_message_to_connection</a>.</p>
 <p>These constants are referenced by the following functions:</p>
 <ul>
+<li><a href="networking.html#steam_networking_messages_send_message_to_user">steam_networking_messages_send_message_to_user</a></li>
 <li><a href="networking.html#steam_networking_sockets_send_message_to_connection">steam_networking_sockets_send_message_to_connection</a></li>
+</ul>
+<p>These constants are referenced by the following structs:</p>
+<ul>
+<li><a href="networking.html#steamnetworkingmessage">SteamNetworkingMessage</a></li>
 </ul>
 <p><br></p>
 <table>
@@ -2056,6 +2062,54 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
+<h1 id="steamnetworkingconnectioninfoflags">SteamNetworkingConnectionInfoFlags</h1>
+<blockquote>
+<p><strong>Steamworks Flags</strong>: <a href="https://partner.steamgames.com/doc/api/steamnetworkingtypes#SteamNetConnectionInfo_t">k_nSteamNetworkConnectionInfoFlags_*</a></p>
+</blockquote>
+<p>This enum holds the misc flags found on <a href="networking.html#steamnetworkingsocketsconnectioninfo">SteamNetworkingSocketsConnectionInfo</a>'s <code>flags</code> member.</p>
+<p>These constants are referenced by the following structs:</p>
+<ul>
+<li><a href="networking.html#steamnetworkingsocketsconnectioninfo">SteamNetworkingSocketsConnectionInfo</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Unauthenticated</code></td>
+<td>We don't have a certificate for the remote host.</td>
+</tr>
+<tr>
+<td><code>Unencrypted</code></td>
+<td>Information is being sent out over a wire unencrypted (by this library).</td>
+</tr>
+<tr>
+<td><code>LoopbackBuffers</code></td>
+<td>Internal loopback buffers. Won't be true for localhost. (You can check the address to determine that.) This implies <code>Fast</code>.</td>
+</tr>
+<tr>
+<td><code>Fast</code></td>
+<td>The connection is "fast" and "reliable". Either internal/localhost (check the address to find out), or the peer is on the same LAN. (Probably. It's based on the address and the ping time, this is actually hard to determine unambiguously).</td>
+</tr>
+<tr>
+<td><code>Relayed</code></td>
+<td>The connection is relayed somehow (SDR or TURN).</td>
+</tr>
+<tr>
+<td><code>DualWifi</code></td>
+<td>We're taking advantage of dual-wifi multi-path.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
 <h1 id="steamnetworkingmessagessessionrequest">SteamNetworkingMessagesSessionRequest</h1>
 <blockquote>
 <p><strong>Steamworks Struct</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamNetworkingMessages#SteamNetworkingMessagesSessionRequest_t">ISteamNetworkingMessages::SteamNetworkingMessagesSessionRequest_t</a></p>
@@ -2174,7 +2228,7 @@
 </tr>
 <tr>
 <td>flags</td>
-<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td><a href="networking.html#steamnetworkingsendflags">SteamNetworkingSendFlags</a></td>
 <td>A bitmask of <a href="networking.html#steamnetworkingsendflags">SteamNetworkingSendFlags</a>. For received messages, only the <code>SteamNetworkingSendFlags.Reliable</code> bit is valid. For outbound messages, all bits are relevant.</td>
 </tr>
 <tr>
@@ -2243,8 +2297,8 @@
 </tr>
 <tr>
 <td>flags</td>
-<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
-<td>A bitmask of <a href="networking.html#steamnetworkingsendflags">SteamNetworkingSendFlags</a>.</td>
+<td><a href="networking.html#steamnetworkingconnectioninfoflags">SteamNetworkingConnectionInfoFlags</a></td>
+<td>A bitmask of <a href="networking.html#steamnetworkingconnectioninfoflags">SteamNetworkingConnectionInfoFlags</a>.</td>
 </tr>
 <tr>
 <td>state</td>
