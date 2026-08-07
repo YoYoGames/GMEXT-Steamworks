@@ -99,11 +99,11 @@ void SteamUtils_Callbacks::OnFloatingGamepadTextInputDismissed(FloatingGamepadTe
     if (!cb)
         return;
 
-    // FloatingGamepadTextInputDismissed_t carries no fields (SDK-side), so submission can only be
-    // inferred: empty entered text means the input was canceled, matching GamepadTextInputDismissed_t's
-    // own m_bSubmitted semantics.
-    auto entered = steam_utils_get_entered_gamepad_text_input();
-    cb.call(entered.has_value() && !entered->empty());
+    // FloatingGamepadTextInputDismissed_t carries no fields, and the SDK has no query API for the
+    // floating keyboard's text or submission state at all (GetEnteredGamepadTextInput is documented as
+    // belonging only to the unrelated full-screen ShowGamepadTextInput dialog) - this is purely a "the
+    // floating keyboard just closed" notification.
+    cb.call();
 }
 
 static SteamUtils_Callbacks g_utils_callbacks;

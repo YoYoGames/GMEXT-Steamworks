@@ -552,17 +552,11 @@
  *
  * This function sets the function to be called when the floating keyboard invoked from ${function.steam_utils_show_floating_gamepad_text_input} has been closed.
  *
- * [[Note: `FloatingGamepadTextInputDismissed_t` carries no fields on the SDK side, so submission is inferred from whether any text was entered.]]
+ * See: [ISteamUtils::FloatingGamepadTextInputDismissed_t](https://partner.steamgames.com/doc/api/ISteamUtils#FloatingGamepadTextInputDismissed_t)
+ *
+ * This callback has no fields. Unlike ${function.steam_utils_show_gamepad_text_input}'s full-screen dialog, the floating keyboard sends OS keyboard keys directly to whatever text field the game itself has focused - Steam never sees the typed text, so there is no way to query it or know whether it was submitted or canceled. This is purely a "the floating keyboard just closed" notification.
  *
  * @param {Function} callback The function to be called when the floating gamepad text input is dismissed.
- *
- * @event callback
- * @description > **Steamworks Callback**: [ISteamUtils::FloatingGamepadTextInputDismissed_t](https://partner.steamgames.com/doc/api/ISteamUtils#FloatingGamepadTextInputDismissed_t)
- *
- * Called when the floating gamepad text input is dismissed.
- *
- * @member {Bool} submitted `true` if the user entered and accepted text, `false` if the input was canceled.
- * @event_end
  * @function_end
  */
 
