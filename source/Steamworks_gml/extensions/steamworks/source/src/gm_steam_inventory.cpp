@@ -108,8 +108,14 @@ int32 steam_inventory_add_promo_items(const std::vector<std::uint32_t>& item_def
     ISteamInventory* inv = steam_inventory_iface();
     if (!inv) return (int32)k_SteamInventoryResultInvalid;
 
-    const uint32 n = item_def_ids.size();
-    if (n == 0) return (int32)k_SteamInventoryResultInvalid;
+    if (item_def_ids.empty()) return (int32)k_SteamInventoryResultInvalid;
+
+    constexpr size_t kMaxPromoItemDefs = 65536;
+    if (item_def_ids.size() > kMaxPromoItemDefs) {
+        steam_set_last_error("steam_inventory_add_promo_items: item_def_ids exceeds sanity limit.");
+        return (int32)k_SteamInventoryResultInvalid;
+    }
+    const uint32 n = (uint32)item_def_ids.size();
 
     std::vector<SteamItemDef_t> defs;
     defs.reserve(n);

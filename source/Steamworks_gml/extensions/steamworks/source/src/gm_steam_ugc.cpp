@@ -1045,9 +1045,15 @@ bool steam_ugc_set_items_disabled_locally(
     if (!ugc)
         return false;
 
-    const uint32 n = published_file_ids.size();
-    if (n == 0)
+    if (published_file_ids.empty())
         return true;
+
+    constexpr size_t kMaxItemsDisabledLocally = 65536;
+    if (published_file_ids.size() > kMaxItemsDisabledLocally) {
+        steam_set_last_error("steam_ugc_set_items_disabled_locally: published_file_ids exceeds sanity limit.");
+        return false;
+    }
+    const uint32 n = (uint32)published_file_ids.size();
 
     std::vector<PublishedFileId_t> ids;
     ids.reserve(n);
@@ -1196,9 +1202,15 @@ bool steam_ugc_set_subscriptions_load_order(const std::vector<std::uint64_t>& pu
     if (!ugc)
         return false;
 
-    const uint32 n = published_file_ids.size();
-    if (n == 0)
+    if (published_file_ids.empty())
         return true;
+
+    constexpr size_t kMaxSubscriptionsLoadOrder = 65536;
+    if (published_file_ids.size() > kMaxSubscriptionsLoadOrder) {
+        steam_set_last_error("steam_ugc_set_subscriptions_load_order: published_file_ids exceeds sanity limit.");
+        return false;
+    }
+    const uint32 n = (uint32)published_file_ids.size();
 
     std::vector<PublishedFileId_t> ids;
     ids.reserve(n);
@@ -1719,8 +1731,14 @@ void steam_ugc_start_playtime_tracking(const std::vector<std::uint64_t>& publish
     ISteamUGC* ugc = steam_ugc_iface();
     if (!ugc) return;
 
+    if (published_file_ids.empty()) { steam_set_last_error("steam_ugc_start_playtime_tracking: empty ids"); return; }
+
+    constexpr size_t kMaxStartPlaytimeTracking = 65536;
+    if (published_file_ids.size() > kMaxStartPlaytimeTracking) {
+        steam_set_last_error("steam_ugc_start_playtime_tracking: published_file_ids exceeds sanity limit.");
+        return;
+    }
     const uint32 n = (uint32)published_file_ids.size();
-    if (n == 0) { steam_set_last_error("steam_ugc_start_playtime_tracking: empty ids"); return; }
 
     std::vector<PublishedFileId_t> ids;
     ids.reserve(n);
@@ -1739,8 +1757,14 @@ void steam_ugc_stop_playtime_tracking(const std::vector<std::uint64_t>& publishe
     ISteamUGC* ugc = steam_ugc_iface();
     if (!ugc) return;
 
-    const uint32 n = published_file_ids.size();
-    if (n == 0) { steam_set_last_error("steam_ugc_stop_playtime_tracking: empty ids"); return; }
+    if (published_file_ids.empty()) { steam_set_last_error("steam_ugc_stop_playtime_tracking: empty ids"); return; }
+
+    constexpr size_t kMaxStopPlaytimeTracking = 65536;
+    if (published_file_ids.size() > kMaxStopPlaytimeTracking) {
+        steam_set_last_error("steam_ugc_stop_playtime_tracking: published_file_ids exceeds sanity limit.");
+        return;
+    }
+    const uint32 n = (uint32)published_file_ids.size();
 
     std::vector<PublishedFileId_t> ids;
     ids.reserve(n);
