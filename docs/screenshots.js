@@ -142,7 +142,7 @@
  * 
  * This is triggered when a screenshot has been successfully written or otherwise added to the library and can now be tagged.
  * 
- * @member {struct.SteamScreenshotsScreenshotReady} result The result of the operation.
+ * @member {Struct.SteamScreenshotsScreenshotReady} result The result of the operation.
  * @event_end
  * 
  * @event callback

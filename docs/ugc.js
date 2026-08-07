@@ -17,7 +17,7 @@
  * 
  * Triggered upon completion.
  * 
- * @member {Struct.SteamUgcAddAppDependencyResult} The result of the operation.
+ * @member {Struct.SteamUgcAddAppDependencyResult} result The result of the operation.
  * @event_end
  * 
  * @function_end 

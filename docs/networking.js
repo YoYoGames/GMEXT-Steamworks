@@ -43,12 +43,8 @@
  * @description > **Steamworks Function**: N / A
  *
  * This function clears the callback function previously set using ${function.steam_networking_messages_set_callback_session_failed}.
- * 
- * Sending a message to a host will also implicitly accept any incoming connection from that host.
- * 
- * It is guaranteed that reliable messages to the same host on the same channel will be be received by the remote host (if they are received at all) exactly once, and in the same order that they were sent.
  *
- * @function_end 
+ * @function_end
  */
 
 /**
@@ -58,6 +54,8 @@
  * This function sends a message to the specified host. If we don't already have a session with that user, a session is implicitly created. There might be some handshaking that needs to happen before we can actually begin sending message data. If this handshaking fails and we can't get through, an error will be posted via the callback [SteamNetworkingMessagesSessionFailed_t](https://partner.steamgames.com/doc/api/ISteamNetworkingMessages#SteamNetworkingMessagesSessionFailed_t).
  * 
  * Sending a message to a host will also implicitly accept any incoming connection from that host.
+ *
+ * It is guaranteed that reliable messages to the same host on the same channel will be received by the remote host (if they are received at all) exactly once, and in the same order that they were sent. No other order guarantees exist - unreliable messages may be dropped, received out of order, or received multiple times. Messages on different channels are not guaranteed to be received in the order they were sent.
  *
  * @param {Real} steam_id_remote The identity of the host to send the message to; if a session does not already exist with that user, one is implicitly created.
  * @param {Buffer} data The buffer holding the message data to send.
@@ -123,7 +121,7 @@
  * 
  * Posted when a remote host is sending us a message, and we do not already have a session with them.
  * 
- * @member {struct.SteamNetworkingMessagesSessionRequest} result The result of the operation.
+ * @member {Struct.SteamNetworkingMessagesSessionRequest} result The result of the operation.
  * @event_end
  * @function_end 
  */
@@ -231,7 +229,7 @@
  * 
  * Posted whenever a connection is created, destroyed, or changes state.
  * 
- * @member {struct.SteamNetworkingSocketsStatusChanged} result The result of the operation.
+ * @member {Struct.SteamNetworkingSocketsStatusChanged} result The result of the operation.
  * @event_end
  * @function_end 
  */

@@ -446,7 +446,7 @@
  *
  * Called when a store authentication URL has been received.
  *
- * @member {Struct.SteamUserStoreAuthUrlResponse} The result of the operation.
+ * @member {Struct.SteamUserStoreAuthUrlResponse} result The result of the operation.
  * @event_end
  * @function_end
  */

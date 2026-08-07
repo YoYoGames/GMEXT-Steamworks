@@ -223,7 +223,7 @@
  *
  * This callback serves as the response to a call to join a party. When it succeeds, you have secured a slot in the beacon owner's party and should use the connect string to link up with their game and finish joining.
  *
- * @member {Struct.SteamPartiesJoinPartyResult} The result of the operation.
+ * @member {Struct.SteamPartiesJoinPartyResult} result The result of the operation.
  * @event_end
  * @function_end
  */

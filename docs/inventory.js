@@ -342,7 +342,8 @@
  *
  * Returned after ${function.steam_inventory_request_prices} is called.
  *
- * @member {Struct.SteamInventoryStartPurchaseResult} result The result of the operation.
+ * @member {Enum.SteamApiResult} result The result of the operation.
+ * @member {String} currency The user's local currency code (e.g. "USD").
  * @event_end
  * @function_end
  */
