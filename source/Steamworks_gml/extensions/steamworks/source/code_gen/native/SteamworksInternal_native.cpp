@@ -1469,10 +1469,13 @@ GMEXPORT double __EXT_NATIVE__steam_user_get_auth_session_ticket(char* __arg_buf
     gm::wire::GMBuffer out_ticket = __buffer_queue.front();
     __buffer_queue.pop();
 
-    // field: remote_identity, type: optional<struct SteamNetworkingIdentity>
-    std::optional<gm_structs::SteamNetworkingIdentity> remote_identity = gm::wire::codec::readOptional<gm_structs::SteamNetworkingIdentity>(__br);
+    // field: identity_type, type: optional<enum SteamNetworkingIdentityType>
+    std::optional<gm_enums::SteamNetworkingIdentityType> identity_type = gm::wire::codec::readOptional<gm_enums::SteamNetworkingIdentityType>(__br);
 
-    auto&& __result = steam_user_get_auth_session_ticket(out_ticket, remote_identity);
+    // field: identity_value, type: Any
+    gm::wire::GMValue identity_value = gm::wire::codec::readValue<gm::wire::GMValue>(__br);
+
+    auto&& __result = steam_user_get_auth_session_ticket(out_ticket, identity_type, identity_value);
     gm::byteio::BufferWriter __bw{__ret_buffer, static_cast<size_t>(__ret_buffer_length)};
 
     // return: __result, type: struct SteamUserAuthSessionTicket

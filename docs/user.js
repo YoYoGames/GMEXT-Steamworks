@@ -182,7 +182,8 @@
  * [[Note: This API can not be used to create a ticket for use by the [ISteamUserAuth::AuthenticateUserTicket](https://partner.steamgames.com/doc/webapi/ISteamUserAuth#AuthenticateUserTicket) Web API. Use the ${function.steam_user_request_auth_ticket_for_web_api} call instead.]]
  *
  * @param {Buffer} out_ticket The buffer where the new auth ticket will be copied into if the call was successful. Typically a buffer size of 1024 will be sufficient. However, in certain cases (e.g., when an application has a large amount of available DLC), a larger buffer size may be required.
- * @param {Struct.SteamNetworkingIdentity} [remote_identity] The identity of the remote system that will authenticate the ticket. If it is peer-to-peer then the user steam ID. If it is a game server, then the game server steam ID may be used if it was obtained from a trusted 3rd party, otherwise use the IP address. If it is a service, a string identifier of that service if one is provided.
+ * @param {Enum.SteamNetworkingIdentityType} [identity_type] The type of the remote system's identity that will authenticate the ticket. Omit for no identity. If it is peer-to-peer then the user steam ID (`SteamId`). If it is a game server, then the game server steam ID may be used if it was obtained from a trusted 3rd party (`SteamId`), otherwise use the IP address (`IpAddress`). If it is a service, a string identifier of that service if one is provided (`GenericString`).
+ * @param {Any} [identity_value] The identity's payload - shape depends on `identity_type`: `SteamId` is a Real (the steam ID); `IpAddress` is a `{ip: String, port: Real}` struct; `GenericString` is a String; `GenericBytes` is an Array of Real (0-255 each, up to 32 elements). Omit/undefined when `identity_type` is omitted.
  * @returns {Struct.SteamUserAuthSessionTicket}
  * 
  * @event callback

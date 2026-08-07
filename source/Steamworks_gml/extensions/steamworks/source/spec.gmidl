@@ -1463,39 +1463,15 @@ enum SteamNetworkingIdentityType
     GenericBytes = 4,
 }
 
-[global]
-class `[[SteamNetworkingIdentity]]` prototype Object
-{
-    [field, type_hint=`SteamNetworkingIdentityType`]
-    property type : gmval { get; set; }
-
-    // SteamId variant
-    [field, type_hint=uint64]
-    property steam_id : gmval { get; set; }
-
-    // IP variant
-    [field]
-    property ip : string { get; set; }
-
-    [field]
-    property port : uint32 { get; set; }
-
-    // Generic string variant
-    [field]
-    property generic_string : string { get; set; }
-
-    // Generic bytes variant
-    // [field, type_hint=buffer]
-    // property generic_bytes : gmval { get; set; }
-
-    // [field]
-    // property generic_bytes_size : uint32 { get; set; }
-}
-
+// identity_value's shape depends on identity_type: SteamId -> a Real (steam id);
+// IpAddress -> a {ip: String, port: Real} struct; GenericString -> a String;
+// GenericBytes -> an Array of Real (0-255 each), max 32 elements. Pass undefined/omit both
+// params for no remote identity at all.
 [global, bind = typed_gml, type_hint=`SteamUserAuthSessionTicket`]
 function steam_user_get_auth_session_ticket(
     [type_hint=buffer] out_ticket: gmval,
-    [type_hint=`SteamNetworkingIdentity?`] remote_identity: gmval
+    [type_hint=`SteamNetworkingIdentityType?`] identity_type: gmval,
+    identity_value: gmval
 ): gmval;
 
 // GetHSteamUser

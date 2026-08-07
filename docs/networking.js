@@ -487,20 +487,6 @@
 // STRUCTS
 
 /**
- * @struct SteamNetworkingIdentity
- * @description > **Steamworks Struct**: [SteamNetworkingIdentity](https://partner.steamgames.com/doc/api/steamnetworkingtypes#SteamNetworkingIdentity)
- *
- * This struct represents the identity of a network host.
- *
- * @member {Enum.SteamNetworkingIdentityType} type The type of identity.
- * @member {Real} steam_id The Steam ID associated with the identity.
- * @member {String} ip The IP address of the identity.
- * @member {Real} port The network port of the identity.
- * @member {String} generic_string A generic string associated with the identity.
- * @struct_end
- */
-
-/**
  * @struct SteamNetworkingMessagesSessionRequest
  * @description > **Steamworks Struct**: [ISteamNetworkingMessages::SteamNetworkingMessagesSessionRequest_t](https://partner.steamgames.com/doc/api/ISteamNetworkingMessages#SteamNetworkingMessagesSessionRequest_t)
  *

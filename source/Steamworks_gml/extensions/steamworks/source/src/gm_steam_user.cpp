@@ -274,46 +274,111 @@ void steam_user_end_auth_session(std::uint64_t steam_id)
     u->EndAuthSession(steam_id_from_u64(steam_id));
 }
 
+static inline bool steam_gmvalue_is_numeric(const gm::wire::GMValue& v)
+{
+    switch (v.kind())
+    {
+        case gm::wire::GMKind::UInt8:
+        case gm::wire::GMKind::Int8:
+        case gm::wire::GMKind::UInt16:
+        case gm::wire::GMKind::Int16:
+        case gm::wire::GMKind::UInt32:
+        case gm::wire::GMKind::Int32:
+        case gm::wire::GMKind::UInt64:
+        case gm::wire::GMKind::Float:
+        case gm::wire::GMKind::Double:
+        case gm::wire::GMKind::Bool:
+            return true;
+        default:
+            return false;
+    }
+}
+
+// identity_value's shape depends on type: SteamId -> a number; IpAddress -> a {ip, port}
+// struct; GenericString -> a string; GenericBytes -> an array of byte values. Every path
+// checks kind()/is<>() before extracting, so GMObjectView/GMValue's throwing accessors
+// (operator[]/getIf on a missing key, as<T>() on an incoercible kind) are never reached.
 static bool steam_fill_networking_identity(
-    const gm_structs::SteamNetworkingIdentity& src,
+    gm_enums::SteamNetworkingIdentityType type,
+    const gm::wire::GMValue& value,
     ::SteamNetworkingIdentity& dst)
 {
     dst.Clear();
 
-    switch ((int)src.type)
+    switch ((int)type)
     {
         case (int)gm_enums::SteamNetworkingIdentityType::Invalid:
         {
-            steam_set_last_error("SteamNetworkingIdentity: Invalid cannot be passed as a concrete identity. Use undefined/null to pass nullptr.");
+            steam_set_last_error("SteamNetworkingIdentity: Invalid cannot be passed as a concrete identity. Omit identity_type to pass nullptr.");
             return false;
         }
 
         case (int)gm_enums::SteamNetworkingIdentityType::SteamId:
         {
-            const std::uint64_t sid = (std::uint64_t)src.steam_id;
+            if (!steam_gmvalue_is_numeric(value))
+            {
+                steam_set_last_error("SteamNetworkingIdentity: identity_value must be a number for SteamId.");
+                return false;
+            }
+
+            const std::uint64_t sid = value.as<std::uint64_t>();
             if (sid == 0)
             {
                 steam_set_last_error("SteamNetworkingIdentity: steam_id must be non-zero.");
                 return false;
             }
 
-            dst.SetSteamID64((uint64)sid);
+            dst.SetSteamID64(sid);
             return true;
         }
 
         case (int)gm_enums::SteamNetworkingIdentityType::IpAddress:
         {
+            if (value.kind() != gm::wire::GMKind::Struct)
+            {
+                steam_set_last_error("SteamNetworkingIdentity: identity_value must be a {ip, port} struct for IpAddress.");
+                return false;
+            }
+
+            // GMObjectView::operator[]/getIf() throw on a missing key, so scan its
+            // non-throwing iterator instead - is<>()/kind() checks act as the sole guard.
+            const gm::wire::GMObjectView obj = value.as<gm::wire::GMObjectView>();
+
+            std::optional<std::string_view> ip_sv;
+            std::optional<gm::wire::GMValue> port_val;
+
+            for (const auto& [key, val] : obj)
+            {
+                if (key == "ip" && val.kind() == gm::wire::GMKind::String)
+                    ip_sv = val.as<std::string_view>();
+                else if (key == "port" && steam_gmvalue_is_numeric(val))
+                    port_val = val;
+            }
+
+            if (!ip_sv || ip_sv->empty())
+            {
+                steam_set_last_error("SteamNetworkingIdentity: identity_value.ip is required for IpAddress.");
+                return false;
+            }
+
             SteamNetworkingIPAddr addr;
             addr.Clear();
 
-            if (!addr.ParseString(src.ip.c_str()))
+            const std::string ip_str(*ip_sv);
+            if (!addr.ParseString(ip_str.c_str()))
             {
                 steam_set_last_error("SteamNetworkingIdentity: invalid IP address string.");
                 return false;
             }
 
+            if (!port_val)
+            {
+                steam_set_last_error("SteamNetworkingIdentity: identity_value.port is required for IpAddress.");
+                return false;
+            }
+
             std::uint16_t port16 = 0;
-            if (!steam_u32_to_u16_checked(src.port, port16))
+            if (!steam_u32_to_u16_checked(port_val->as<std::uint32_t>(), port16))
             {
                 steam_set_last_error("SteamNetworkingIdentity: port out of range (must be 0..65535).");
                 return false;
@@ -326,34 +391,60 @@ static bool steam_fill_networking_identity(
 
         case (int)gm_enums::SteamNetworkingIdentityType::GenericString:
         {
-            if (src.generic_string.empty())
+            if (value.kind() != gm::wire::GMKind::String)
             {
-                steam_set_last_error("SteamNetworkingIdentity: generic_string cannot be empty.");
+                steam_set_last_error("SteamNetworkingIdentity: identity_value must be a string for GenericString.");
                 return false;
             }
 
-            dst.SetGenericString(src.generic_string.c_str());
+            const std::string s(value.as<std::string_view>());
+            if (s.empty())
+            {
+                steam_set_last_error("SteamNetworkingIdentity: identity_value cannot be empty for GenericString.");
+                return false;
+            }
+
+            dst.SetGenericString(s.c_str());
             return true;
         }
 
-        // case (int)gm_enums::SteamNetworkingIdentityType::GenericBytes:
-        // {
-        //     const std::uint32_t n = src.generic_bytes_size;
-        //     if (n == 0)
-        //     {
-        //         steam_set_last_error("SteamNetworkingIdentity: generic_bytes_size must be > 0.");
-        //         return false;
-        //     }
+        case (int)gm_enums::SteamNetworkingIdentityType::GenericBytes:
+        {
+            if (value.kind() != gm::wire::GMKind::Array)
+            {
+                steam_set_last_error("SteamNetworkingIdentity: identity_value must be an array for GenericBytes.");
+                return false;
+            }
 
-        //     std::vector<std::uint8_t> tmp((size_t)n);
-        //     {
-        //         auto r = src.generic_bytes.getReader();
-        //         r.readBytes((char*)tmp.data(), (int)n);
-        //     }
+            const gm::wire::GMArrayView arr = value.as<gm::wire::GMArrayView>();
+            const std::size_t n = arr.size();
 
-        //     dst.SetGenericBytes(tmp.data(), (uint32)n);
-        //     return true;
-        // }
+            if (n == 0)
+            {
+                steam_set_last_error("SteamNetworkingIdentity: identity_value cannot be empty for GenericBytes.");
+                return false;
+            }
+            if (n > (std::size_t)::SteamNetworkingIdentity::k_cbMaxGenericBytes)
+            {
+                steam_set_last_error("SteamNetworkingIdentity: identity_value cannot exceed 32 bytes for GenericBytes.");
+                return false;
+            }
+
+            std::vector<std::uint8_t> bytes;
+            bytes.reserve(n);
+            for (std::size_t i = 0; i < n; ++i)
+            {
+                if (!steam_gmvalue_is_numeric(arr[i]))
+                {
+                    steam_set_last_error("SteamNetworkingIdentity: identity_value elements must all be numbers for GenericBytes.");
+                    return false;
+                }
+                bytes.push_back(arr.as<std::uint8_t>(i));
+            }
+
+            dst.SetGenericBytes(bytes.data(), bytes.size());
+            return true;
+        }
 
         default:
         {
@@ -365,7 +456,8 @@ static bool steam_fill_networking_identity(
 
 gm_structs::SteamUserAuthSessionTicket steam_user_get_auth_session_ticket(
     gm::wire::GMBuffer out_ticket,
-    const std::optional<gm_structs::SteamNetworkingIdentity>& remote_identity)
+    std::optional<gm_enums::SteamNetworkingIdentityType> identity_type,
+    const gm::wire::GMValue& identity_value)
 {
     STEAM_GUARD_RET({});
 
@@ -388,9 +480,9 @@ gm_structs::SteamUserAuthSessionTicket steam_user_get_auth_session_ticket(
     ::SteamNetworkingIdentity native_identity;
     ::SteamNetworkingIdentity* p_remote = nullptr;
 
-    if (remote_identity.has_value())
+    if (identity_type.has_value())
     {
-        if (!steam_fill_networking_identity(*remote_identity, native_identity))
+        if (!steam_fill_networking_identity(*identity_type, identity_value, native_identity))
             return out;
 
         p_remote = &native_identity;

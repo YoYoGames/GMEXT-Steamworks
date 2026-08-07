@@ -2171,25 +2171,6 @@ function SteamUserMarketEligibilityResponse() constructor
 }
 
 /**
- * @returns {Struct.SteamNetworkingIdentity}
- */
-function SteamNetworkingIdentity() constructor
-{
-    /**
-     * Internally generated hash for quick validation
-     * @ignore
-     */
-    static __uid = 3447469139;
-
-    self.type = undefined;
-    self.steam_id = undefined;
-    self.ip = undefined;
-    self.port = undefined;
-    self.generic_string = undefined;
-
-}
-
-/**
  * @returns {Struct.SteamUserAuthSessionTicket}
  */
 function SteamUserAuthSessionTicket() constructor
@@ -5837,81 +5818,6 @@ function __SteamUserMarketEligibilityResponse_decode(_buffer, _offset)
 
         // field: day_new_device_cooldown, type: UInt32
         self.day_new_device_cooldown = buffer_read(_buffer, buffer_u32);
-
-    }
-
-    return _inst;
-}
-
-/**
- * @func __SteamNetworkingIdentity_encode(_inst, _buffer, _offset, _where)
- * @param {Struct.SteamNetworkingIdentity} _inst
- * @param {Id.Buffer} _buffer
- * @param {Real} _offset
- * @param {String} _where
- * @ignore
- */
-function __SteamNetworkingIdentity_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
-{
-    buffer_seek(_buffer, buffer_seek_start, _offset);
-    with (_inst)
-    {
-        // field: type, type: enum SteamNetworkingIdentityType
-
-        if (!is_numeric(self.type)) show_error($"{_where} :: self.type expected number", true);
-        buffer_write(_buffer, buffer_u64, self.type);
-
-        // field: steam_id, type: UInt64
-        if (!is_numeric(self.steam_id)) show_error($"{_where} :: self.steam_id expected number", true);
-        buffer_write(_buffer, buffer_u64, self.steam_id);
-
-        // field: ip, type: String
-        if (!is_string(self.ip)) show_error($"{_where} :: self.ip expected string", true);
-        buffer_write(_buffer, buffer_u32, string_byte_length(self.ip));
-        buffer_write(_buffer, buffer_string, self.ip);
-
-        // field: port, type: UInt32
-        if (!is_numeric(self.port)) show_error($"{_where} :: self.port expected number", true);
-        buffer_write(_buffer, buffer_u32, self.port);
-
-        // field: generic_string, type: String
-        if (!is_string(self.generic_string)) show_error($"{_where} :: self.generic_string expected string", true);
-        buffer_write(_buffer, buffer_u32, string_byte_length(self.generic_string));
-        buffer_write(_buffer, buffer_string, self.generic_string);
-
-    }
-}
-
-/**
- * @func __SteamNetworkingIdentity_decode(_buffer, _offset)
- * @param {Id.Buffer} _buffer
- * @param {Real} _offset
- * @returns {Struct.SteamNetworkingIdentity}
- * @ignore
- */
-function __SteamNetworkingIdentity_decode(_buffer, _offset)
-{
-    buffer_seek(_buffer, buffer_seek_start, _offset);
-
-    _inst = new SteamNetworkingIdentity();
-    with (_inst)
-    {
-        // field: type, type: enum SteamNetworkingIdentityType
-        self.type = buffer_read(_buffer, buffer_u64);
-
-        // field: steam_id, type: UInt64
-        self.steam_id = buffer_read(_buffer, buffer_u64);
-
-        // field: ip, type: String
-        buffer_read(_buffer, buffer_u32);
-        self.ip = buffer_read(_buffer, buffer_string);
-
-        // field: port, type: UInt32
-        self.port = buffer_read(_buffer, buffer_u32);
-
-        // field: generic_string, type: String
-        buffer_read(_buffer, buffer_u32);
-        self.generic_string = buffer_read(_buffer, buffer_string);
 
     }
 
@@ -14652,10 +14558,11 @@ function steam_user_end_auth_session(_steam_id)
 
 /**
  * @param {Id.Buffer} _out_ticket
- * @param {Struct.SteamNetworkingIdentity} _remote_identity
+ * @param {Enum.SteamNetworkingIdentityType} _identity_type
+ * @param {Any} _identity_value
  * @returns {Struct.SteamUserAuthSessionTicket}
  */
-function steam_user_get_auth_session_ticket(_out_ticket, _remote_identity)
+function steam_user_get_auth_session_ticket(_out_ticket, _identity_type, _identity_value)
 {
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
@@ -14666,17 +14573,22 @@ function steam_user_get_auth_session_ticket(_out_ticket, _remote_identity)
     if (!buffer_exists(_out_ticket)) show_error($"{_GMFUNCTION_} :: _out_ticket expected Id.Buffer", true);
     __Steamworks_queue_buffer(buffer_get_address(_out_ticket), buffer_get_size(_out_ticket));
 
-    // param: _remote_identity, type: optional<struct SteamNetworkingIdentity>
-    if (is_undefined(_remote_identity))
+    // param: _identity_type, type: optional<enum SteamNetworkingIdentityType>
+    if (is_undefined(_identity_type))
     {
         buffer_write(__args_buffer, buffer_bool, false);
     }
     else
     {
         buffer_write(__args_buffer, buffer_bool, true);
-        if (_remote_identity.__uid != 3447469139) show_error($"{_GMFUNCTION_} :: _remote_identity expected SteamNetworkingIdentity", true);
-        __SteamNetworkingIdentity_encode(_remote_identity, __args_buffer, buffer_tell(__args_buffer), _GMFUNCTION_);
+
+        if (!is_numeric(_identity_type)) show_error($"{_GMFUNCTION_} :: _identity_type expected number", true);
+        buffer_write(__args_buffer, buffer_u64, _identity_type);
     }
+
+    // param: _identity_value, type: Any
+
+    __ext_core_buffer_marshal_value(__args_buffer, _identity_value);
 
     var __ret_buffer = __ext_core_get_ret_buffer();
 
@@ -24605,7 +24517,6 @@ function __Steamworks_get_decoders()
         __SteamUserEncryptedAppTicketResponse_decode,
         __SteamUserDurationControl_decode,
         __SteamUserMarketEligibilityResponse_decode,
-        __SteamNetworkingIdentity_decode,
         __SteamUserAuthSessionTicket_decode,
         __SteamUserGetAuthSessionTicketResponse_decode,
         __SteamUserAvailableVoice_decode,

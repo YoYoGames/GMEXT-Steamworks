@@ -941,7 +941,8 @@
 /**
  * @function_partial steam_user_get_auth_session_ticket
  * @param {Buffer} out_ticket
- * @param {Struct.SteamNetworkingIdentity} [remote_identity]
+ * @param {Enum.SteamNetworkingIdentityType} [identity_type]
+ * @param {Any} identity_value
  * @returns {Struct.SteamUserAuthSessionTicket}
  * @function_end
  */
@@ -4574,16 +4575,6 @@
  * @member {Real} allowed_at_time
  * @member {Real} day_steam_guard_required_days
  * @member {Real} day_new_device_cooldown
- * @struct_end
- */
-
-/**
- * @struct_partial SteamNetworkingIdentity
- * @member {Enum.SteamNetworkingIdentityType} type
- * @member {Real} steam_id
- * @member {String} ip
- * @member {Real} port
- * @member {String} generic_string
  * @struct_end
  */
 
