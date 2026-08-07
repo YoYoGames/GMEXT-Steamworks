@@ -182,6 +182,7 @@ For example, an amount of 100000 would be divided over two stacks as follows: th
 <li><a href="inventory.html#steam_inventory_get_result_items">steam_inventory_get_result_items</a></li>
 <li><a href="inventory.html#steam_inventory_get_result_status">steam_inventory_get_result_status</a></li>
 <li><a href="inventory.html#steam_inventory_get_result_timestamp">steam_inventory_get_result_timestamp</a></li>
+<li><a href="inventory.html#steam_inventory_request_eligible_promo_item_definition_ids">steam_inventory_request_eligible_promo_item_definition_ids</a></li>
 <li><a href="inventory.html#steam_inventory_get_eligible_promo_item_definition_ids">steam_inventory_get_eligible_promo_item_definition_ids</a></li>
 <li><a href="inventory.html#steam_inventory_load_item_definitions">steam_inventory_load_item_definitions</a></li>
 <li><a href="inventory.html#steam_inventory_get_item_definition_ids">steam_inventory_get_item_definition_ids</a></li>
@@ -230,6 +231,7 @@ For example, an amount of 100000 would be divided over two stacks as follows: th
 <li><a href="inventory.html#steaminventoryresultready">SteamInventoryResultReady</a></li>
 <li><a href="inventory.html#steaminventoryfullupdate">SteamInventoryFullUpdate</a></li>
 <li><a href="inventory.html#steaminventorystartpurchaseresult">SteamInventoryStartPurchaseResult</a></li>
+<li><a href="inventory.html#steaminventoryeligiblepromoitemdefidsresult">SteamInventoryEligiblePromoItemDefIdsResult</a></li>
 <li><a href="inventory.html#steaminventoryrequestpricesresult">SteamInventoryRequestPricesResult</a></li>
 </ul>
 <p><br></p>
@@ -747,6 +749,70 @@ For example, an amount of 100000 would be divided over two stacks as follows: th
 <blockquote>
 <p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
 </blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_inventory_request_eligible_promo_item_definition_ids">steam_inventory_request_eligible_promo_item_definition_ids</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamInventory#RequestEligiblePromoItemDefinitionsIDs">ISteamInventory::RequestEligiblePromoItemDefinitionsIDs</a></p>
+</blockquote>
+<p>This function requests the list of "eligible" promo items that can be manually granted to the local user. These are promo items of type "manual" that won't be granted automatically.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You must call this and wait for its callback before calling <a href="inventory.html#steam_inventory_get_eligible_promo_item_definition_ids">steam_inventory_get_eligible_promo_item_definition_ids</a> - there is no offset/cursor parameter, this just primes Steam's client-side cache for the local user.</p>
+</div>
+<p>This function operates asynchronously, which means that it does not immediately return the requested result. Instead, upon completion of the task, it will trigger the <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_inventory_request_eligible_promo_item_definition_ids(callback)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>callback</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Script_Functions.htm">Function</a></td>
+<td>The function to call upon completion.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<p><strong>Triggers:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a></p>
+<p><strong>Steamworks Callback</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamInventory#SteamInventoryEligiblePromoItemDefIDs_t">ISteamInventory::SteamInventoryEligiblePromoItemDefIDs_t</a></p>
+</blockquote>
+<p>Returned after <a href="inventory.html#steam_inventory_request_eligible_promo_item_definition_ids">steam_inventory_request_eligible_promo_item_definition_ids</a> is called.</p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>result</td>
+<td><a href="inventory.html#steaminventoryeligiblepromoitemdefidsresult">SteamInventoryEligiblePromoItemDefIdsResult</a></td>
+<td>The result of the operation.</td>
+</tr>
+</tbody>
+</table>
 <p><br></p>
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
@@ -2336,6 +2402,46 @@ For example, an amount of 100000 would be divided over two stacks as follows: th
 <td>transaction_id</td>
 <td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
 <td>The auto-generated transaction id for the initiated purchase.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steaminventoryeligiblepromoitemdefidsresult">SteamInventoryEligiblePromoItemDefIdsResult</h1>
+<blockquote>
+<p><strong>Steamworks Struct</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamInventory#SteamInventoryEligiblePromoItemDefIDs_t">ISteamInventory::SteamInventoryEligiblePromoItemDefIDs_t</a></p>
+</blockquote>
+<p>This struct holds the result of <a href="inventory.html#steam_inventory_request_eligible_promo_item_definition_ids">steam_inventory_request_eligible_promo_item_definition_ids</a>.</p>
+<p>This struct is referenced by the following functions:</p>
+<ul>
+<li><a href="inventory.html#steam_inventory_request_eligible_promo_item_definition_ids">steam_inventory_request_eligible_promo_item_definition_ids</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>result</td>
+<td><a href="api.html#steamapiresult">SteamApiResult</a></td>
+<td>The result of the operation.</td>
+</tr>
+<tr>
+<td>num_eligible_promo_item_defs</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The number of eligible promo item definition ids available - pass this (or less) as <code>max_item_defs</code> to <a href="inventory.html#steam_inventory_get_eligible_promo_item_definition_ids">steam_inventory_get_eligible_promo_item_definition_ids</a>.</td>
+</tr>
+<tr>
+<td>cached_data</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></td>
+<td>Whether the data was retrieved from the cache and not the server.</td>
 </tr>
 </tbody>
 </table>

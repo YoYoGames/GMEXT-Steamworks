@@ -1606,11 +1606,8 @@ The text field position is specified in pixels relative to the origin of the gam
 <p><strong>Steamworks Function</strong>: N / A</p>
 </blockquote>
 <p>This function sets the function to be called when the floating keyboard invoked from <a href="utils.html#steam_utils_show_floating_gamepad_text_input">steam_utils_show_floating_gamepad_text_input</a> has been closed.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p><code>FloatingGamepadTextInputDismissed_t</code> carries no fields on the SDK side, so submission is inferred from whether any text was entered.</p>
-</div>
-<p>This function operates asynchronously, which means that it does not immediately return the requested result. Instead, upon completion of the task, it will trigger the <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a>.</p>
+<p>See: <a href="https://partner.steamgames.com/doc/api/ISteamUtils#FloatingGamepadTextInputDismissed_t">ISteamUtils::FloatingGamepadTextInputDismissed_t</a></p>
+<p>This callback has no fields. Unlike <a href="utils.html#steam_utils_show_gamepad_text_input">steam_utils_show_gamepad_text_input</a>'s full-screen dialog, the floating keyboard sends OS keyboard keys directly to whatever text field the game itself has focused - Steam never sees the typed text, so there is no way to query it or know whether it was submitted or canceled. This is purely a "the floating keyboard just closed" notification.</p>
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
@@ -1638,29 +1635,6 @@ The text field position is specified in pixels relative to the origin of the gam
 <blockquote>
 <p>N/A</p>
 </blockquote>
-<p><br></p>
-<p><strong>Triggers:</strong></p>
-<blockquote>
-<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a></p>
-<p><strong>Steamworks Callback</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUtils#FloatingGamepadTextInputDismissed_t">ISteamUtils::FloatingGamepadTextInputDismissed_t</a></p>
-</blockquote>
-<p>Called when the floating gamepad text input is dismissed.</p>
-<table>
-<thead>
-<tr>
-<th>Key</th>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>submitted</td>
-<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></td>
-<td><code>true</code> if the user entered and accepted text, <code>false</code> if the input was canceled.</td>
-</tr>
-</tbody>
-</table>
 <p><br></p>
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>

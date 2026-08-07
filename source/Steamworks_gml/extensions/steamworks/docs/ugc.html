@@ -214,6 +214,8 @@
 <li><a href="ugc.html#steam_ugc_release_query_ugc_request">steam_ugc_release_query_ugc_request</a></li>
 <li><a href="ugc.html#steam_ugc_set_callback_item_installed">steam_ugc_set_callback_item_installed</a></li>
 <li><a href="ugc.html#steam_ugc_clear_callback_item_installed">steam_ugc_clear_callback_item_installed</a></li>
+<li><a href="ugc.html#steam_ugc_set_callback_download_item_result">steam_ugc_set_callback_download_item_result</a></li>
+<li><a href="ugc.html#steam_ugc_clear_callback_download_item_result">steam_ugc_clear_callback_download_item_result</a></li>
 <li><a href="ugc.html#steam_ugc_set_allow_cached_response">steam_ugc_set_allow_cached_response</a></li>
 <li><a href="ugc.html#steam_ugc_set_cloud_file_name_filter">steam_ugc_set_cloud_file_name_filter</a></li>
 <li><a href="ugc.html#steam_ugc_set_item_content">steam_ugc_set_item_content</a></li>
@@ -2875,6 +2877,64 @@ It is up to the application to determine whether the item can actually be used o
 <p><strong>Syntax:</strong></p>
 <blockquote>
 <div class="highlight"><pre><span></span><code>steam_ugc_clear_callback_item_installed()
+</code></pre></div>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_ugc_set_callback_download_item_result">steam_ugc_set_callback_download_item_result</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: N / A</p>
+</blockquote>
+<p>This function sets the function to be called when a workshop item download initiated by <a href="ugc.html#steam_ugc_download_item">steam_ugc_download_item</a> has finished (successfully or not).</p>
+<p>See: <a href="https://partner.steamgames.com/doc/api/ISteamUGC#DownloadItemResult_t">ISteamUGC::DownloadItemResult_t</a></p>
+<p>See: <a href="ugc.html#steamugcdownloaditemresult">SteamUgcDownloadItemResult</a></p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_ugc_set_callback_download_item_result(callback)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>callback</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Script_Functions.htm">Function</a></td>
+<td>The function to be called when a workshop item download completes.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_ugc_clear_callback_download_item_result">steam_ugc_clear_callback_download_item_result</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: N / A</p>
+</blockquote>
+<p>This function clears the callback function previously set using <a href="ugc.html#steam_ugc_set_callback_download_item_result">steam_ugc_set_callback_download_item_result</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_ugc_clear_callback_download_item_result()
 </code></pre></div>
 </blockquote>
 <p><br></p>
@@ -5571,6 +5631,11 @@ It is up to the application to determine whether the item can actually be used o
 <td>consumer_app_id</td>
 <td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
 <td>App Id of the app that will consume this item.</td>
+</tr>
+<tr>
+<td>owner_steam_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The Steam ID of the user who created this content.</td>
 </tr>
 <tr>
 <td>time_added_to_user_list</td>
