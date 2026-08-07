@@ -407,6 +407,7 @@ std::optional<SteamUserStatsDownloadedLeaderboardEntry> steam_userstats_download
     out.steam_id_user = static_cast<std::uint64_t>(entry.m_steamIDUser.ConvertToUint64());
     out.global_rank   = static_cast<std::int32_t>(entry.m_nGlobalRank);
     out.score        = static_cast<std::int32_t>(entry.m_nScore);
+    out.ugc_handle   = static_cast<std::uint64_t>(entry.m_hUGC);
 
     const int n = std::min<int>(static_cast<int>(entry.m_cDetails), max_details_clamped);
 
@@ -954,6 +955,7 @@ static inline gm_structs::SteamUserStatsUserAchievementStored userstats_persist_
     out.achievement_name = e.m_rgchAchievementName;
     out.cur_progress = (int32)e.m_nCurProgress;
     out.max_progress = (int32)e.m_nMaxProgress;
+    out.group_achievement = (e.m_bGroupAchievement != 0);
     return out;
 }
 

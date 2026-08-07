@@ -172,15 +172,14 @@ SteamApiUniverse steam_utils_get_connected_universe()
     return (SteamApiUniverse)(int)e;
 }
 
-std::uint32_t steam_utils_get_current_battery_power()
+std::uint8_t steam_utils_get_current_battery_power()
 {
     STEAM_GUARD_RET(0);
     ISteamUtils* u = steam_utils_iface();
     if (!u)
         return 0;
 
-    const uint8 v = u->GetCurrentBatteryPower();
-    return (std::uint32_t)v;
+    return (std::uint8_t)u->GetCurrentBatteryPower();
 }
 
 std::optional<std::string> steam_utils_get_entered_gamepad_text_input()
@@ -609,15 +608,26 @@ std::optional<bool> steam_utils_get_api_call_result(
     return failed;
 }
 
-void steam_utils_dismiss_floating_gamepad_text_input()
+bool steam_utils_dismiss_floating_gamepad_text_input()
 {
-    STEAM_GUARD();
+    STEAM_GUARD_RET(false);
 
     ISteamUtils* u = steam_utils_iface();
     if (!u)
-        return;
+        return false;
 
-    u->DismissFloatingGamepadTextInput();
+    return u->DismissFloatingGamepadTextInput();
+}
+
+bool steam_utils_dismiss_gamepad_text_input()
+{
+    STEAM_GUARD_RET(false);
+
+    ISteamUtils* u = steam_utils_iface();
+    if (!u)
+        return false;
+
+    return u->DismissGamepadTextInput();
 }
 
 void steam_utils_start_vr_dashboard()

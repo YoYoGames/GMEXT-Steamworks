@@ -3114,6 +3114,7 @@ function SteamUserStatsDownloadedLeaderboardEntry() constructor
     self.global_rank = undefined;
     self.score = undefined;
     self.details = undefined;
+    self.ugc_handle = undefined;
 
 }
 
@@ -3315,6 +3316,7 @@ function SteamUserStatsUserAchievementStored() constructor
     self.achievement_name = undefined;
     self.cur_progress = undefined;
     self.max_progress = undefined;
+    self.group_achievement = undefined;
 
 }
 
@@ -9069,6 +9071,10 @@ function __SteamUserStatsDownloadedLeaderboardEntry_encode(_inst, _buffer, _offs
             buffer_write(_buffer, buffer_s32, self.details[_i]);
         }
 
+        // field: ugc_handle, type: UInt64
+        if (!is_numeric(self.ugc_handle)) show_error($"{_where} :: self.ugc_handle expected number", true);
+        buffer_write(_buffer, buffer_u64, self.ugc_handle);
+
     }
 }
 
@@ -9102,6 +9108,9 @@ function __SteamUserStatsDownloadedLeaderboardEntry_decode(_buffer, _offset)
         {
             self.details[_i] = buffer_read(_buffer, buffer_s32);
         }
+
+        // field: ugc_handle, type: UInt64
+        self.ugc_handle = buffer_read(_buffer, buffer_u64);
 
     }
 
@@ -9733,6 +9742,10 @@ function __SteamUserStatsUserAchievementStored_encode(_inst, _buffer, _offset, _
         if (!is_numeric(self.max_progress)) show_error($"{_where} :: self.max_progress expected number", true);
         buffer_write(_buffer, buffer_s32, self.max_progress);
 
+        // field: group_achievement, type: Bool
+        if (!is_bool(self.group_achievement)) show_error($"{_where} :: self.group_achievement expected bool", true);
+        buffer_write(_buffer, buffer_bool, self.group_achievement);
+
     }
 }
 
@@ -9762,6 +9775,9 @@ function __SteamUserStatsUserAchievementStored_decode(_buffer, _offset)
 
         // field: max_progress, type: Int32
         self.max_progress = buffer_read(_buffer, buffer_s32);
+
+        // field: group_achievement, type: Bool
+        self.group_achievement = buffer_read(_buffer, buffer_bool);
 
     }
 
@@ -15807,6 +15823,9 @@ function steam_utils_show_floating_gamepad_text_input(_keyboard_mode, _text_fiel
 }
 
 // Skipping function steam_utils_dismiss_floating_gamepad_text_input (no wrapper is required)
+
+
+// Skipping function steam_utils_dismiss_gamepad_text_input (no wrapper is required)
 
 
 // Skipping function steam_utils_start_vr_dashboard (no wrapper is required)

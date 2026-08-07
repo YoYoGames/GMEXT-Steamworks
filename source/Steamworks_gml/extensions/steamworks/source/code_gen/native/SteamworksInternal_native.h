@@ -2332,6 +2332,7 @@ namespace gm_structs
         std::int32_t global_rank;
         std::int32_t score;
         std::vector<std::int32_t> details;
+        std::uint64_t ugc_handle;
     };
 
     struct SteamUserStatsLeaderboardFindResult
@@ -2413,6 +2414,7 @@ namespace gm_structs
         std::string achievement_name;
         std::int32_t cur_progress;
         std::int32_t max_progress;
+        bool group_achievement;
     };
 
     struct SteamUserStatsIntMinMax
@@ -4276,6 +4278,7 @@ namespace gm::wire::codec
         gm::wire::codec::writeValue(_buf, obj.global_rank);
         gm::wire::codec::writeValue(_buf, obj.score);
         gm::wire::codec::writeValue(_buf, obj.details);
+        gm::wire::codec::writeValue(_buf, obj.ugc_handle);
     }
 
     template<>
@@ -4286,6 +4289,7 @@ namespace gm::wire::codec
         obj.global_rank = gm::wire::codec::readValue<std::int32_t>(_buf);
         obj.score = gm::wire::codec::readValue<std::int32_t>(_buf);
         obj.details = gm::wire::codec::readVector<std::int32_t>(_buf);
+        obj.ugc_handle = gm::wire::codec::readValue<std::uint64_t>(_buf);
         return obj;
     }
 
@@ -4486,6 +4490,7 @@ namespace gm::wire::codec
         gm::wire::codec::writeValue(_buf, obj.achievement_name);
         gm::wire::codec::writeValue(_buf, obj.cur_progress);
         gm::wire::codec::writeValue(_buf, obj.max_progress);
+        gm::wire::codec::writeValue(_buf, obj.group_achievement);
     }
 
     template<>
@@ -4496,6 +4501,7 @@ namespace gm::wire::codec
         obj.achievement_name = gm::wire::codec::readValue<std::string>(_buf);
         obj.cur_progress = gm::wire::codec::readValue<std::int32_t>(_buf);
         obj.max_progress = gm::wire::codec::readValue<std::int32_t>(_buf);
+        obj.group_achievement = gm::wire::codec::readValue<bool>(_buf);
         return obj;
     }
 
@@ -6530,7 +6536,7 @@ void steam_utils_set_callback_steam_shutdown(const gm::wire::GMFunction& callbac
 void steam_utils_clear_callback_steam_shutdown();
 std::uint32_t steam_utils_get_app_id();
 gm_enums::SteamApiUniverse steam_utils_get_connected_universe();
-std::uint32_t steam_utils_get_current_battery_power();
+std::uint8_t steam_utils_get_current_battery_power();
 std::optional<std::string> steam_utils_get_entered_gamepad_text_input();
 std::uint32_t steam_utils_get_entered_gamepad_text_length();
 bool steam_utils_get_image_rgba(std::int32_t image_handle, gm::wire::GMBuffer dest);
@@ -6555,7 +6561,8 @@ void steam_utils_set_overlay_notification_position(gm_enums::SteamApiNotificatio
 void steam_utils_set_vr_headset_streaming_enabled(bool enabled);
 bool steam_utils_show_gamepad_text_input(gm_enums::SteamUtilsGamepadTextInputMode input_mode, gm_enums::SteamUtilsGamepadTextInputLineMode line_mode, std::string_view description, std::uint32_t char_max, std::string_view existing_text);
 bool steam_utils_show_floating_gamepad_text_input(gm_enums::SteamUtilsFloatingGamepadTextInputMode keyboard_mode, std::int32_t text_field_x, std::int32_t text_field_y, std::int32_t text_field_width, std::int32_t text_field_height);
-void steam_utils_dismiss_floating_gamepad_text_input();
+bool steam_utils_dismiss_floating_gamepad_text_input();
+bool steam_utils_dismiss_gamepad_text_input();
 void steam_utils_start_vr_dashboard();
 void steam_utils_set_game_launcher_mode(bool launcher_mode);
 void steam_utils_set_callback_gamepad_text_input_dismissed(const gm::wire::GMFunction& callback);

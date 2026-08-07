@@ -501,7 +501,18 @@
  *
  * This function dismisses the floating keyboard.
  *
- * @function_end 
+ * @returns {Bool} Whether a floating keyboard was actually open to dismiss.
+ * @function_end
+ */
+
+/**
+ * @function steam_utils_dismiss_gamepad_text_input
+ * @description > **Steamworks Function**: [ISteamUtils::DismissGamepadTextInput]()
+ *
+ * This function dismisses the full-screen modal keyboard, as opposed to the floating keyboard dismissed by ${function.steam_utils_dismiss_floating_gamepad_text_input}.
+ *
+ * @returns {Bool} Whether a keyboard was actually open to dismiss.
+ * @function_end
  */
 
 /**

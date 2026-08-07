@@ -227,6 +227,7 @@ GMEXPORT double __EXT_NATIVE__steam_utils_set_vr_headset_streaming_enabled(doubl
 GMEXPORT double __EXT_NATIVE__steam_utils_show_gamepad_text_input(char* __arg_buffer, double __arg_buffer_length);
 GMEXPORT double __EXT_NATIVE__steam_utils_show_floating_gamepad_text_input(char* __arg_buffer, double __arg_buffer_length);
 GMEXPORT double __EXT_NATIVE__steam_utils_dismiss_floating_gamepad_text_input();
+GMEXPORT double __EXT_NATIVE__steam_utils_dismiss_gamepad_text_input();
 GMEXPORT double __EXT_NATIVE__steam_utils_start_vr_dashboard();
 GMEXPORT double __EXT_NATIVE__steam_utils_set_game_launcher_mode(double launcher_mode);
 GMEXPORT double __EXT_NATIVE__steam_utils_set_callback_gamepad_text_input_dismissed(char* __arg_buffer, double __arg_buffer_length);

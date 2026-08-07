@@ -3769,6 +3769,21 @@
         },
         {
           "$GMExtensionFunction": "",
+          "%Name": "steam_utils_dismiss_gamepad_text_input",
+          "argCount": 0,
+          "args": [],
+          "documentation": "@returns {Real}",
+          "externalName": "__EXT_NATIVE__steam_utils_dismiss_gamepad_text_input",
+          "help": "",
+          "hidden": false,
+          "kind": 4,
+          "name": "steam_utils_dismiss_gamepad_text_input",
+          "resourceType": "GMExtensionFunction",
+          "resourceVersion": "2.0",
+          "returnType": 2
+        },
+        {
+          "$GMExtensionFunction": "",
           "%Name": "steam_utils_start_vr_dashboard",
           "argCount": 0,
           "args": [],

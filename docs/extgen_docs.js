@@ -1433,6 +1433,13 @@
 
 /**
  * @function_partial steam_utils_dismiss_floating_gamepad_text_input
+ * @returns {Bool}
+ * @function_end
+ */
+
+/**
+ * @function_partial steam_utils_dismiss_gamepad_text_input
+ * @returns {Bool}
  * @function_end
  */
 
@@ -5019,6 +5026,7 @@
  * @member {Real} global_rank
  * @member {Real} score
  * @member {Array[Real]} details
+ * @member {Real} ugc_handle
  * @struct_end
  */
 
@@ -5112,6 +5120,7 @@
  * @member {String} achievement_name
  * @member {Real} cur_progress
  * @member {Real} max_progress
+ * @member {Bool} group_achievement
  * @struct_end
  */
 

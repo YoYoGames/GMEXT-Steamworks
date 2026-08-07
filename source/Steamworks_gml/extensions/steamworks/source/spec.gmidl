@@ -1940,9 +1940,9 @@ function steam_utils_get_app_id(): uint32;
 [global, bind = typed_gml, type_hint = `SteamApiUniverse`]
 function steam_utils_get_connected_universe(): gmval;
 
-// GetCurrentBatteryPower (uint8)
-[global, bind = typed_gml]
-function steam_utils_get_current_battery_power(): uint32;
+// GetCurrentBatteryPower - percent [0..100], 255 means running on AC power
+[global, bind = typed_gml, type_hint = `uint8`]
+function steam_utils_get_current_battery_power(): gmval;
 
 // GetEnteredGamepadTextInput (out buffer)
 [global, bind = typed_gml, type_hint = `string?`]
@@ -2085,9 +2085,13 @@ function steam_utils_show_floating_gamepad_text_input(
     text_field_height: int32
 ): bool;
 
-// DismissFloatingGamepadTextInput
+// DismissFloatingGamepadTextInput - returns whether a keyboard was actually open to dismiss
 [global, bind = typed_gml]
-function steam_utils_dismiss_floating_gamepad_text_input(): unit;
+function steam_utils_dismiss_floating_gamepad_text_input(): bool;
+
+// DismissGamepadTextInput - dismisses the full-screen modal keyboard (as opposed to the floating one above)
+[global, bind = typed_gml]
+function steam_utils_dismiss_gamepad_text_input(): bool;
 
 // StartVRDashboard
 [global, bind = typed_gml]
@@ -4263,6 +4267,9 @@ class `[[SteamUserStatsDownloadedLeaderboardEntry]]` prototype Object
 
     [field, type_hint=`int32[]`]
     property details : gmval { get; set; }
+
+    [field, type_hint=uint64]
+    property ugc_handle : gmval { get; set; }
 }
 
 [global]
@@ -4588,6 +4595,7 @@ class `[[SteamUserStatsUserAchievementStored]]` prototype Object
     [field] property achievement_name : string { get; set; }
     [field] property cur_progress : int32 { get; set; }
     [field] property max_progress : int32 { get; set; }
+    [field] property group_achievement : bool { get; set; }
 }
 
 [global]

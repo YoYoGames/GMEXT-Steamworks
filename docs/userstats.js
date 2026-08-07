@@ -873,6 +873,7 @@
  * @member {Real} global_rank The global rank of this entry ranging from [1..N], where N is the number of users with an entry in the leaderboard.
  * @member {Real} score The raw score as set in the leaderboard.
  * @member {Array[Real]} details An array of int32 values holding details about the entry.
+ * @member {Real} ugc_handle Handle for the UGC attached to this entry, or 0 if none is attached. See ${function.steam_userstats_attach_leaderboard_ugc}.
  * @struct_end
  */
 
@@ -1014,6 +1015,7 @@
  * @member {String} achievement_name Name of the achievement.
  * @member {Real} cur_progress Current progress towards the achievement.
  * @member {Real} max_progress The total amount of progress required to unlock.
+ * @member {Bool} group_achievement Whether this is a "group" achievement.
  * @struct_end
  */
 

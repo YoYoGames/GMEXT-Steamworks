@@ -2245,8 +2245,14 @@ GMEXPORT double __EXT_NATIVE__steam_utils_show_floating_gamepad_text_input(char*
 
 GMEXPORT double __EXT_NATIVE__steam_utils_dismiss_floating_gamepad_text_input()
 {
-    steam_utils_dismiss_floating_gamepad_text_input();
-    return 0;
+    auto&& __result = steam_utils_dismiss_floating_gamepad_text_input();
+    return static_cast<double>(__result);
+}
+
+GMEXPORT double __EXT_NATIVE__steam_utils_dismiss_gamepad_text_input()
+{
+    auto&& __result = steam_utils_dismiss_gamepad_text_input();
+    return static_cast<double>(__result);
 }
 
 GMEXPORT double __EXT_NATIVE__steam_utils_start_vr_dashboard()
