@@ -186,10 +186,6 @@
 <li><a href="timeline.html#steam_timeline_set_timeline_game_mode">steam_timeline_set_timeline_game_mode</a></li>
 <li><a href="timeline.html#steam_timeline_open_overlay_to_game_phase">steam_timeline_open_overlay_to_game_phase</a></li>
 <li><a href="timeline.html#steam_timeline_open_overlay_to_timeline_event">steam_timeline_open_overlay_to_timeline_event</a></li>
-<li><a href="timeline.html#steam_timeline_set_callback_game_phase_recording_exists">steam_timeline_set_callback_game_phase_recording_exists</a></li>
-<li><a href="timeline.html#steam_timeline_clear_callback_game_phase_recording_exists">steam_timeline_clear_callback_game_phase_recording_exists</a></li>
-<li><a href="timeline.html#steam_timeline_set_callback_event_recording_exists">steam_timeline_set_callback_event_recording_exists</a></li>
-<li><a href="timeline.html#steam_timeline_clear_callback_event_recording_exists">steam_timeline_clear_callback_event_recording_exists</a></li>
 </ul>
 <h2 id="constants">Constants</h2>
 <p>These are the constants and enums of the Timeline module:</p>
@@ -621,7 +617,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_timeline_does_event_recording_exist(event_handle)
+<div class="highlight"><pre><span></span><code>steam_timeline_does_event_recording_exist(event_handle, callback)
 </code></pre></div>
 </blockquote>
 <table>
@@ -638,12 +634,17 @@
 <td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
 <td>The handle of the event to check for recordings.</td>
 </tr>
+<tr>
+<td>callback</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Script_Functions.htm">Function</a></td>
+<td>The function to call with the result.</td>
+</tr>
 </tbody>
 </table>
 <p><br></p>
 <p><strong>Returns:</strong></p>
 <blockquote>
-<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+<p>N/A</p>
 </blockquote>
 <p><br></p>
 <p><strong>Triggers:</strong></p>
@@ -759,7 +760,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_timeline_does_game_phase_recording_exist(phase_id)
+<div class="highlight"><pre><span></span><code>steam_timeline_does_game_phase_recording_exist(phase_id, callback)
 </code></pre></div>
 </blockquote>
 <table>
@@ -776,12 +777,17 @@
 <td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
 <td>A game-provided persistent ID for a game phase.</td>
 </tr>
+<tr>
+<td>callback</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Script_Functions.htm">Function</a></td>
+<td>The function to call with the result.</td>
+</tr>
 </tbody>
 </table>
 <p><br></p>
 <p><strong>Returns:</strong></p>
 <blockquote>
-<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+<p>N/A</p>
 </blockquote>
 <p><br></p>
 <p><strong>Triggers:</strong></p>
@@ -1006,122 +1012,6 @@
 </tr>
 </tbody>
 </table>
-<p><br></p>
-<p><strong>Returns:</strong></p>
-<blockquote>
-<p>N/A</p>
-</blockquote>
-<p><br></p>
-<hr />
-<p align="right"><a href="#top">Back To Top</a></p>
-
-<h1 id="steam_timeline_set_callback_game_phase_recording_exists">steam_timeline_set_callback_game_phase_recording_exists</h1>
-<blockquote>
-<p><strong>Steamworks Function</strong>: N / A</p>
-</blockquote>
-<p>This function sets the function to be called when asking if recordings exist for a game phase ID.</p>
-<p>See: <a href="https://partner.steamgames.com/doc/api/ISteamTimeline#SteamTimelineGamePhaseRecordingExists_t">ISteamTimeline::SteamTimelineGamePhaseRecordingExists_t</a></p>
-<p>See: <a href="timeline.html#steamtimelinegamephaserecordingexists">SteamTimelineGamePhaseRecordingExists</a></p>
-<p><br></p>
-<p><strong>Syntax:</strong></p>
-<blockquote>
-<div class="highlight"><pre><span></span><code>steam_timeline_set_callback_game_phase_recording_exists(callback)
-</code></pre></div>
-</blockquote>
-<table>
-<thead>
-<tr>
-<th>Argument</th>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>callback</td>
-<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Script_Functions.htm">Function</a></td>
-<td>The function to be called when a game phase recording exists event occurs.</td>
-</tr>
-</tbody>
-</table>
-<p><br></p>
-<p><strong>Returns:</strong></p>
-<blockquote>
-<p>N/A</p>
-</blockquote>
-<p><br></p>
-<hr />
-<p align="right"><a href="#top">Back To Top</a></p>
-
-<h1 id="steam_timeline_clear_callback_game_phase_recording_exists">steam_timeline_clear_callback_game_phase_recording_exists</h1>
-<blockquote>
-<p><strong>Steamworks Function</strong>: N / A</p>
-</blockquote>
-<p>This function clears the callback function previously set using <a href="timeline.html#steam_timeline_set_callback_game_phase_recording_exists">steam_timeline_set_callback_game_phase_recording_exists</a>.</p>
-<p><br></p>
-<p><strong>Syntax:</strong></p>
-<blockquote>
-<div class="highlight"><pre><span></span><code>steam_timeline_clear_callback_game_phase_recording_exists()
-</code></pre></div>
-</blockquote>
-<p><br></p>
-<p><strong>Returns:</strong></p>
-<blockquote>
-<p>N/A</p>
-</blockquote>
-<p><br></p>
-<hr />
-<p align="right"><a href="#top">Back To Top</a></p>
-
-<h1 id="steam_timeline_set_callback_event_recording_exists">steam_timeline_set_callback_event_recording_exists</h1>
-<blockquote>
-<p><strong>Steamworks Function</strong>: N / A</p>
-</blockquote>
-<p>This function sets the function to be called when asking if recordings exist for an event handle.</p>
-<p>See: <a href="https://partner.steamgames.com/doc/api/ISteamTimeline#SteamTimelineEventRecordingExists_t">ISteamTimeline::SteamTimelineEventRecordingExists_t</a></p>
-<p>See: <a href="timeline.html#steamtimelineeventrecordingexists">SteamTimelineEventRecordingExists</a></p>
-<p><br></p>
-<p><strong>Syntax:</strong></p>
-<blockquote>
-<div class="highlight"><pre><span></span><code>steam_timeline_set_callback_event_recording_exists(callback)
-</code></pre></div>
-</blockquote>
-<table>
-<thead>
-<tr>
-<th>Argument</th>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>callback</td>
-<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Script_Functions.htm">Function</a></td>
-<td>The function to be called when an event recording exists event occurs.</td>
-</tr>
-</tbody>
-</table>
-<p><br></p>
-<p><strong>Returns:</strong></p>
-<blockquote>
-<p>N/A</p>
-</blockquote>
-<p><br></p>
-<hr />
-<p align="right"><a href="#top">Back To Top</a></p>
-
-<h1 id="steam_timeline_clear_callback_event_recording_exists">steam_timeline_clear_callback_event_recording_exists</h1>
-<blockquote>
-<p><strong>Steamworks Function</strong>: N / A</p>
-</blockquote>
-<p>This function clears the callback function previously set using <a href="timeline.html#steam_timeline_set_callback_event_recording_exists">steam_timeline_set_callback_event_recording_exists</a>.</p>
-<p><br></p>
-<p><strong>Syntax:</strong></p>
-<blockquote>
-<div class="highlight"><pre><span></span><code>steam_timeline_clear_callback_event_recording_exists()
-</code></pre></div>
-</blockquote>
 <p><br></p>
 <p><strong>Returns:</strong></p>
 <blockquote>

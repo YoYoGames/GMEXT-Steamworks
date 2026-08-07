@@ -209,6 +209,10 @@
 <li><a href="matchmaking.html#steam_matchmaking_set_lobby_game_server">steam_matchmaking_set_lobby_game_server</a></li>
 <li><a href="matchmaking.html#steam_matchmaking_set_linked_lobby">steam_matchmaking_set_linked_lobby</a></li>
 <li><a href="matchmaking.html#steam_matchmaking_get_lobby_game_server">steam_matchmaking_get_lobby_game_server</a></li>
+<li><a href="matchmaking.html#steam_matchmaking_get_favorite_game_count">steam_matchmaking_get_favorite_game_count</a></li>
+<li><a href="matchmaking.html#steam_matchmaking_get_favorite_game">steam_matchmaking_get_favorite_game</a></li>
+<li><a href="matchmaking.html#steam_matchmaking_add_favorite_game">steam_matchmaking_add_favorite_game</a></li>
+<li><a href="matchmaking.html#steam_matchmaking_remove_favorite_game">steam_matchmaking_remove_favorite_game</a></li>
 </ul>
 <h2 id="constants">Constants</h2>
 <p>These are the constants and enums of the Matchmaking module:</p>
@@ -233,6 +237,7 @@
 <li><a href="matchmaking.html#steammatchmakinglobbydataentry">SteamMatchmakingLobbyDataEntry</a></li>
 <li><a href="matchmaking.html#steammatchmakinglobbychatentry">SteamMatchmakingLobbyChatEntry</a></li>
 <li><a href="matchmaking.html#steammatchmakinglobbygameserver">SteamMatchmakingLobbyGameServer</a></li>
+<li><a href="matchmaking.html#steammatchmakingfavoritegame">SteamMatchmakingFavoriteGame</a></li>
 </ul>
 <p><br></p>
 <hr />
@@ -2043,6 +2048,181 @@ This can only be set by the owner of the lobby.</p>
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
+<h1 id="steam_matchmaking_get_favorite_game_count">steam_matchmaking_get_favorite_game_count</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamMatchmaking#GetFavoriteGameCount">ISteamMatchmaking::GetFavoriteGameCount</a></p>
+</blockquote>
+<p>This function returns the number of favorite (and recent) game servers the user has stored locally.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_matchmaking_get_favorite_game_count()
+</code></pre></div>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_matchmaking_get_favorite_game">steam_matchmaking_get_favorite_game</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamMatchmaking#GetFavoriteGame">ISteamMatchmaking::GetFavoriteGame</a></p>
+</blockquote>
+<p>This function gets the details of one of the favorite (or recent) game servers the user has stored locally.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_matchmaking_get_favorite_game(index)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>index</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The index of the favorite game server to retrieve, in the range [0, <a href="matchmaking.html#steam_matchmaking_get_favorite_game_count">steam_matchmaking_get_favorite_game_count</a>).</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="matchmaking.html#steammatchmakingfavoritegame">SteamMatchmakingFavoriteGame</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_matchmaking_add_favorite_game">steam_matchmaking_add_favorite_game</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamMatchmaking#AddFavoriteGame">ISteamMatchmaking::AddFavoriteGame</a></p>
+</blockquote>
+<p>This function adds the game server to the local favorites list, or updates its last-played time if it's already in the list.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_matchmaking_add_favorite_game(app_id, ip, conn_port, query_port, flags, last_played_time)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>app_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The App ID of the game.</td>
+</tr>
+<tr>
+<td>ip</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The IP address of the game server, in host order (i.e 127.0.0.1 == 0x7f000001).</td>
+</tr>
+<tr>
+<td>conn_port</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The connection port of the game server, in host order.</td>
+</tr>
+<tr>
+<td>query_port</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The query port of the game server, in host order.</td>
+</tr>
+<tr>
+<td>flags</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>A bitmask of <code>STEAM_MATCHMAKING_FAVORITE_FLAG_*</code> values specifying whether to store this as an explicit favorite or as connection history.</td>
+</tr>
+<tr>
+<td>last_played_time</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The time (as a Unix timestamp) the favorite was last played.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p>The new number of entries in the favorites list.</p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_matchmaking_remove_favorite_game">steam_matchmaking_remove_favorite_game</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamMatchmaking#RemoveFavoriteGame">ISteamMatchmaking::RemoveFavoriteGame</a></p>
+</blockquote>
+<p>This function removes the game server from the local favorites list.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_matchmaking_remove_favorite_game(app_id, ip, conn_port, query_port, flags)
+</code></pre></div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>app_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The App ID of the game.</td>
+</tr>
+<tr>
+<td>ip</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The IP address of the game server, in host order.</td>
+</tr>
+<tr>
+<td>conn_port</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The connection port of the game server, in host order.</td>
+</tr>
+<tr>
+<td>query_port</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The query port of the game server, in host order.</td>
+</tr>
+<tr>
+<td>flags</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>A bitmask of <code>STEAM_MATCHMAKING_FAVORITE_FLAG_*</code> values matching the entry to remove.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p>Whether an entry was removed.</p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
 <h1 id="steammatchmakinglobbytype">SteamMatchmakingLobbyType</h1>
 <blockquote>
 <p><strong>Steamworks Enum</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamMatchmaking#ELobbyType">ISteamMatchmaking::ELobbyType</a></p>
@@ -2715,6 +2895,61 @@ This can only be set by the owner of the lobby.</p>
 <td>steam_id_gs</td>
 <td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
 <td>The Steam ID of the game server, if it's set.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steammatchmakingfavoritegame">SteamMatchmakingFavoriteGame</h1>
+<blockquote>
+<p><strong>Steamworks Struct</strong>: N / A</p>
+</blockquote>
+<p>This struct holds information about one entry in the local favorites (or recent connection history) list, as returned by <a href="matchmaking.html#steam_matchmaking_get_favorite_game">steam_matchmaking_get_favorite_game</a>.</p>
+<p>This struct is referenced by the following functions:</p>
+<ul>
+<li><a href="matchmaking.html#steam_matchmaking_get_favorite_game">steam_matchmaking_get_favorite_game</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>app_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The App ID of the game.</td>
+</tr>
+<tr>
+<td>ip</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The IP address of the game server, in host order.</td>
+</tr>
+<tr>
+<td>conn_port</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The connection port of the game server, in host order.</td>
+</tr>
+<tr>
+<td>query_port</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The query port of the game server, in host order.</td>
+</tr>
+<tr>
+<td>flags</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>A bitmask of <code>STEAM_MATCHMAKING_FAVORITE_FLAG_*</code> values - whether this entry is an explicit favorite or connection history.</td>
+</tr>
+<tr>
+<td>last_played_time</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The time (as a Unix timestamp) the favorite was last played.</td>
 </tr>
 </tbody>
 </table>
