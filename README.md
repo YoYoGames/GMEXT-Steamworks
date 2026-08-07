@@ -5,13 +5,12 @@ This repository was created with the intent of presenting users with the latest 
 
 This extension will work on Windows, macOS and Linux.
 
-SOURCE CODE: `source/steamworks_gml/extensions/steamworks/steamworks_cpp/`
+SOURCE CODE: `source/Steamworks_gml/extensions/steamworks/source/` (`spec.gmidl` API contract, hand-written
+native implementation in `src/`, CMake build files)
 
-VISUAL STUDIO PROJECT: `source/steamworks_gml/extensions/steamworks/steamworks_windows/`
-
-XCODE PROJECT: `source/steamworks_gml/extensions/steamworks/Steamworks_macos/`
-
-LINUX BUILD SCRIPTS: `source/steamworks_gml/extensions/steamworks/steamworks_linux/`
+All platforms (Windows, macOS, Linux, iOS, tvOS, Android) build from this single source folder via CMake
+presets (`CMakePresets.json`) - there are no separate per-platform IDE project folders. See
+`CMakePresets.json` for the full list of presets, or run `cmake --list-presets` from the source folder.
 
 After compilation the exported dll/dylib/so file is automatically copied into the extension folder inside the included GameMaker project folder.
 
