@@ -417,6 +417,7 @@ std::optional<gm_structs::SteamUgcQueryResult> steam_ugc_get_query_ugc_result(st
     out.file_type = static_cast<gm_enums::SteamRemoteStorageWorkshopFileType>((int)d.m_eFileType);
     out.creator_app_id = (std::uint32_t)d.m_nCreatorAppID;
     out.consumer_app_id = (std::uint32_t)d.m_nConsumerAppID;
+    out.owner_steam_id = (std::uint64_t)d.m_ulSteamIDOwner;
     out.time_added_to_user_list = (std::uint32_t)d.m_rtimeAddedToUserList;
     out.handle_file = (std::uint64_t)d.m_hFile;
     out.handle_preview_file = (std::uint64_t)d.m_hPreviewFile;

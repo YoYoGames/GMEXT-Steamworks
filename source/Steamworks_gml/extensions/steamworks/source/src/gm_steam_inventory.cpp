@@ -347,6 +347,41 @@ std::uint32_t steam_inventory_get_result_timestamp(int32 result_handle)
     return (std::uint32_t)inv->GetResultTimestamp(make_result_handle(result_handle));
 }
 
+static inline gm_structs::SteamInventoryEligiblePromoItemDefIdsResult inventory_fromNative(const SteamInventoryEligiblePromoItemDefIDs_t& e)
+{
+    gm_structs::SteamInventoryEligiblePromoItemDefIdsResult out{};
+    out.result = static_cast<gm_enums::SteamApiResult>((int)e.m_result);
+    out.num_eligible_promo_item_defs = (std::int32_t)e.m_numEligiblePromoItemDefs;
+    out.cached_data = (e.m_bCachedData != 0);
+    return out;
+}
+
+// RequestEligiblePromoItemDefinitionsIDs - must complete before GetEligiblePromoItemDefinitionIDs
+// (below) returns anything real; primes Steam's client-side cache for the local user.
+void steam_inventory_request_eligible_promo_item_definition_ids(const gm::wire::GMFunction& callback)
+{
+    STEAM_GUARD();
+
+    ISteamInventory* inv = steam_inventory_iface();
+    if (!inv) return;
+
+    CSteamID steam_id = (SteamUser() ? SteamUser()->GetSteamID() : CSteamID());
+    if (!steam_id.IsValid()) {
+        steam_set_last_error("steam_inventory_request_eligible_promo_item_definition_ids: no valid local user SteamID.");
+        return;
+    }
+
+    SteamAPICall_t call = inv->RequestEligiblePromoItemDefinitionsIDs(steam_id);
+    if (call == k_uAPICallInvalid) {
+        steam_set_last_error("steam_inventory_request_eligible_promo_item_definition_ids: Steam API call failed to dispatch.");
+        return;
+    }
+
+    auto* h = new steam_async::CallResult<gm_structs::SteamInventoryEligiblePromoItemDefIdsResult, SteamInventoryEligiblePromoItemDefIDs_t>(
+        callback, &inventory_fromNative);
+    h->set(call);
+}
+
 // GetEligiblePromoItemDefinitionIDs
 std::vector<std::uint32_t> steam_inventory_get_eligible_promo_item_definition_ids(std::uint32_t max_item_defs)
 {

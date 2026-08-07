@@ -850,7 +850,30 @@
  *
  * This function clears the callback function previously set using ${function.steam_ugc_set_callback_item_installed}.
  *
- * @function_end 
+ * @function_end
+ */
+
+/**
+ * @function steam_ugc_set_callback_download_item_result
+ * @description > **Steamworks Function**: N / A
+ *
+ * This function sets the function to be called when a workshop item download initiated by ${function.steam_ugc_download_item} has finished (successfully or not).
+ *
+ * See: [ISteamUGC::DownloadItemResult_t](https://partner.steamgames.com/doc/api/ISteamUGC#DownloadItemResult_t)
+ *
+ * See: ${struct.SteamUgcDownloadItemResult}
+ *
+ * @param {Function} callback The function to be called when a workshop item download completes.
+ * @function_end
+ */
+
+/**
+ * @function steam_ugc_clear_callback_download_item_result
+ * @description > **Steamworks Function**: N / A
+ *
+ * This function clears the callback function previously set using ${function.steam_ugc_set_callback_download_item_result}.
+ *
+ * @function_end
  */
 
 /**
@@ -1559,6 +1582,7 @@
  * @member {Enum.SteamRemoteStorageWorkshopFileType} file_type The type of the item.
  * @member {Real} creator_app_id App Id of the app that created this item.
  * @member {Real} consumer_app_id App Id of the app that will consume this item.
+ * @member {Real} owner_steam_id The Steam ID of the user who created this content.
  * @member {Real} time_added_to_user_list Time when the user added the published item to their list (not always applicable), provided in Unix epoch format (time since Jan 1st, 1970).
  * @member {Real} handle_file The handle of the primary file.
  * @member {Real} handle_preview_file The handle of the preview file.

@@ -286,6 +286,8 @@ GMEXPORT double __EXT_NATIVE__steam_ugc_send_query_ugc_request(char* __arg_buffe
 GMEXPORT double __EXT_NATIVE__steam_ugc_release_query_ugc_request(char* __arg_buffer, double __arg_buffer_length);
 GMEXPORT double __EXT_NATIVE__steam_ugc_set_callback_item_installed(char* __arg_buffer, double __arg_buffer_length);
 GMEXPORT double __EXT_NATIVE__steam_ugc_clear_callback_item_installed();
+GMEXPORT double __EXT_NATIVE__steam_ugc_set_callback_download_item_result(char* __arg_buffer, double __arg_buffer_length);
+GMEXPORT double __EXT_NATIVE__steam_ugc_clear_callback_download_item_result();
 GMEXPORT double __EXT_NATIVE__steam_ugc_set_allow_cached_response(char* __arg_buffer, double __arg_buffer_length);
 GMEXPORT double __EXT_NATIVE__steam_ugc_set_cloud_file_name_filter(char* __arg_buffer, double __arg_buffer_length);
 GMEXPORT double __EXT_NATIVE__steam_ugc_set_item_content(char* __arg_buffer, double __arg_buffer_length);
@@ -467,6 +469,7 @@ GMEXPORT double __EXT_NATIVE__steam_inventory_get_all_items();
 GMEXPORT double __EXT_NATIVE__steam_inventory_get_result_items(double result_handle, char* __ret_buffer, double __ret_buffer_length);
 GMEXPORT double __EXT_NATIVE__steam_inventory_get_result_status(double result_handle, char* __ret_buffer, double __ret_buffer_length);
 GMEXPORT double __EXT_NATIVE__steam_inventory_get_result_timestamp(double result_handle);
+GMEXPORT double __EXT_NATIVE__steam_inventory_request_eligible_promo_item_definition_ids(char* __arg_buffer, double __arg_buffer_length);
 GMEXPORT double __EXT_NATIVE__steam_inventory_get_eligible_promo_item_definition_ids(double max_item_defs, char* __ret_buffer, double __ret_buffer_length);
 GMEXPORT double __EXT_NATIVE__steam_inventory_load_item_definitions();
 GMEXPORT double __EXT_NATIVE__steam_inventory_get_item_definition_ids(double max_item_defs, char* __ret_buffer, double __ret_buffer_length);

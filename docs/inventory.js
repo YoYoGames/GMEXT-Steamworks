@@ -178,6 +178,26 @@
  */
 
 /**
+ * @function steam_inventory_request_eligible_promo_item_definition_ids
+ * @description > **Steamworks Function**: [ISteamInventory::RequestEligiblePromoItemDefinitionsIDs](https://partner.steamgames.com/doc/api/ISteamInventory#RequestEligiblePromoItemDefinitionsIDs)
+ *
+ * This function requests the list of "eligible" promo items that can be manually granted to the local user. These are promo items of type "manual" that won't be granted automatically.
+ *
+ * [[Note: You must call this and wait for its callback before calling ${function.steam_inventory_get_eligible_promo_item_definition_ids} - there is no offset/cursor parameter, this just primes Steam's client-side cache for the local user.]]
+ *
+ * @param {Function} callback The function to call upon completion.
+ *
+ * @event callback
+ * @desc > **Steamworks Callback**: [ISteamInventory::SteamInventoryEligiblePromoItemDefIDs_t](https://partner.steamgames.com/doc/api/ISteamInventory#SteamInventoryEligiblePromoItemDefIDs_t)
+ *
+ * Returned after ${function.steam_inventory_request_eligible_promo_item_definition_ids} is called.
+ *
+ * @member {Struct.SteamInventoryEligiblePromoItemDefIdsResult} result The result of the operation.
+ * @event_end
+ * @function_end
+ */
+
+/**
  * @function steam_inventory_get_eligible_promo_item_definition_ids
  * @description > **Steamworks Function**: [ISteamInventory::GetEligiblePromoItemDefinitionIDs](https://partner.steamgames.com/doc/api/ISteamInventory#GetEligiblePromoItemDefinitionIDs)
  *
@@ -716,6 +736,18 @@
  * @member {Enum.SteamApiResult} result The result of the operation.
  * @member {Real} order_id The auto-generated order id for the initiated purchase.
  * @member {Real} transaction_id The auto-generated transaction id for the initiated purchase.
+ * @struct_end
+ */
+
+/**
+ * @struct SteamInventoryEligiblePromoItemDefIdsResult
+ * @description > **Steamworks Struct**: [ISteamInventory::SteamInventoryEligiblePromoItemDefIDs_t](https://partner.steamgames.com/doc/api/ISteamInventory#SteamInventoryEligiblePromoItemDefIDs_t)
+ *
+ * This struct holds the result of ${function.steam_inventory_request_eligible_promo_item_definition_ids}.
+ *
+ * @member {Enum.SteamApiResult} result The result of the operation.
+ * @member {Real} num_eligible_promo_item_defs The number of eligible promo item definition ids available - pass this (or less) as `max_item_defs` to ${function.steam_inventory_get_eligible_promo_item_definition_ids}.
+ * @member {Bool} cached_data Whether the data was retrieved from the cache and not the server.
  * @struct_end
  */
 

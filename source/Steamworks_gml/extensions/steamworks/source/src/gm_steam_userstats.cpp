@@ -428,15 +428,16 @@ std::optional<SteamUserStatsMostAchievedAchievementInfo> steam_userstats_most_ac
     float percent = 0.0f;
     bool achieved = false;
 
-    const bool ok = s->GetMostAchievedAchievementInfo(nameBuf, (uint32)sizeof(nameBuf), &percent, &achieved);
+    const int iterator = s->GetMostAchievedAchievementInfo(nameBuf, (uint32)sizeof(nameBuf), &percent, &achieved);
 
-    if (!ok)
+    if (iterator == -1)
         return std::nullopt;
 
     SteamUserStatsMostAchievedAchievementInfo out {};
     out.name = nameBuf;
     out.percent = percent;
     out.achieved = achieved;
+    out.iterator = (std::int32_t)iterator;
     return out;
 }
 
@@ -453,16 +454,17 @@ steam_userstats_next_most_achieved_achievement_info(std::int32_t iterator_prev)
     float percent = 0.0f;
     bool achieved = false;
 
-    const bool ok
+    const int iterator
         = s->GetNextMostAchievedAchievementInfo(iterator_prev, nameBuf, (uint32)sizeof(nameBuf), &percent, &achieved);
 
-    if (!ok)
+    if (iterator == -1)
         return std::nullopt;
 
     SteamUserStatsMostAchievedAchievementInfo out {};
     out.name = nameBuf;
     out.percent = percent;
     out.achieved = achieved;
+    out.iterator = (std::int32_t)iterator;
     return out;
 }
 

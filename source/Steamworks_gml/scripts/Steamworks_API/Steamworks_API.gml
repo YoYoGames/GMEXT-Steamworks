@@ -2554,6 +2554,7 @@ function SteamUgcQueryResult() constructor
     self.file_type = undefined;
     self.creator_app_id = undefined;
     self.consumer_app_id = undefined;
+    self.owner_steam_id = undefined;
     self.time_added_to_user_list = undefined;
     self.handle_file = undefined;
     self.handle_preview_file = undefined;
@@ -3090,6 +3091,7 @@ function SteamUserStatsMostAchievedAchievementInfo() constructor
     self.name = undefined;
     self.percent = undefined;
     self.achieved = undefined;
+    self.iterator = undefined;
 
 }
 
@@ -3553,6 +3555,23 @@ function SteamInventoryStartPurchaseResult() constructor
     self.result = undefined;
     self.order_id = undefined;
     self.transaction_id = undefined;
+
+}
+
+/**
+ * @returns {Struct.SteamInventoryEligiblePromoItemDefIdsResult}
+ */
+function SteamInventoryEligiblePromoItemDefIdsResult() constructor
+{
+    /**
+     * Internally generated hash for quick validation
+     * @ignore
+     */
+    static __uid = 2439804890;
+
+    self.result = undefined;
+    self.num_eligible_promo_item_defs = undefined;
+    self.cached_data = undefined;
 
 }
 
@@ -5147,9 +5166,9 @@ function __SteamAppsFileDetailsResult_encode(_inst, _buffer, _offset, _where = _
         if (!is_numeric(self.result)) show_error($"{_where} :: self.result expected number", true);
         buffer_write(_buffer, buffer_u64, self.result);
 
-        // field: file_size, type: Int32
+        // field: file_size, type: Int64
         if (!is_numeric(self.file_size)) show_error($"{_where} :: self.file_size expected number", true);
-        buffer_write(_buffer, buffer_s32, self.file_size);
+        buffer_write(_buffer, buffer_u64, self.file_size);
 
         // field: flags, type: Int32
         if (!is_numeric(self.flags)) show_error($"{_where} :: self.flags expected number", true);
@@ -5180,8 +5199,8 @@ function __SteamAppsFileDetailsResult_decode(_buffer, _offset)
         // field: result, type: enum SteamApiResult
         self.result = buffer_read(_buffer, buffer_u64);
 
-        // field: file_size, type: Int32
-        self.file_size = buffer_read(_buffer, buffer_s32);
+        // field: file_size, type: Int64
+        self.file_size = buffer_read(_buffer, buffer_u64);
 
         // field: flags, type: Int32
         self.flags = buffer_read(_buffer, buffer_s32);
@@ -7070,6 +7089,10 @@ function __SteamUgcQueryResult_encode(_inst, _buffer, _offset, _where = _GMFUNCT
         if (!is_numeric(self.consumer_app_id)) show_error($"{_where} :: self.consumer_app_id expected number", true);
         buffer_write(_buffer, buffer_u32, self.consumer_app_id);
 
+        // field: owner_steam_id, type: UInt64
+        if (!is_numeric(self.owner_steam_id)) show_error($"{_where} :: self.owner_steam_id expected number", true);
+        buffer_write(_buffer, buffer_u64, self.owner_steam_id);
+
         // field: time_added_to_user_list, type: UInt32
         if (!is_numeric(self.time_added_to_user_list)) show_error($"{_where} :: self.time_added_to_user_list expected number", true);
         buffer_write(_buffer, buffer_u32, self.time_added_to_user_list);
@@ -7181,6 +7204,9 @@ function __SteamUgcQueryResult_decode(_buffer, _offset)
 
         // field: consumer_app_id, type: UInt32
         self.consumer_app_id = buffer_read(_buffer, buffer_u32);
+
+        // field: owner_steam_id, type: UInt64
+        self.owner_steam_id = buffer_read(_buffer, buffer_u64);
 
         // field: time_added_to_user_list, type: UInt32
         self.time_added_to_user_list = buffer_read(_buffer, buffer_u32);
@@ -8965,6 +8991,10 @@ function __SteamUserStatsMostAchievedAchievementInfo_encode(_inst, _buffer, _off
         if (!is_bool(self.achieved)) show_error($"{_where} :: self.achieved expected bool", true);
         buffer_write(_buffer, buffer_bool, self.achieved);
 
+        // field: iterator, type: Int32
+        if (!is_numeric(self.iterator)) show_error($"{_where} :: self.iterator expected number", true);
+        buffer_write(_buffer, buffer_s32, self.iterator);
+
     }
 }
 
@@ -8991,6 +9021,9 @@ function __SteamUserStatsMostAchievedAchievementInfo_decode(_buffer, _offset)
 
         // field: achieved, type: Bool
         self.achieved = buffer_read(_buffer, buffer_bool);
+
+        // field: iterator, type: Int32
+        self.iterator = buffer_read(_buffer, buffer_s32);
 
     }
 
@@ -10495,6 +10528,63 @@ function __SteamInventoryStartPurchaseResult_decode(_buffer, _offset)
 
         // field: transaction_id, type: UInt64
         self.transaction_id = buffer_read(_buffer, buffer_u64);
+
+    }
+
+    return _inst;
+}
+
+/**
+ * @func __SteamInventoryEligiblePromoItemDefIdsResult_encode(_inst, _buffer, _offset, _where)
+ * @param {Struct.SteamInventoryEligiblePromoItemDefIdsResult} _inst
+ * @param {Id.Buffer} _buffer
+ * @param {Real} _offset
+ * @param {String} _where
+ * @ignore
+ */
+function __SteamInventoryEligiblePromoItemDefIdsResult_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
+{
+    buffer_seek(_buffer, buffer_seek_start, _offset);
+    with (_inst)
+    {
+        // field: result, type: enum SteamApiResult
+
+        if (!is_numeric(self.result)) show_error($"{_where} :: self.result expected number", true);
+        buffer_write(_buffer, buffer_u64, self.result);
+
+        // field: num_eligible_promo_item_defs, type: Int32
+        if (!is_numeric(self.num_eligible_promo_item_defs)) show_error($"{_where} :: self.num_eligible_promo_item_defs expected number", true);
+        buffer_write(_buffer, buffer_s32, self.num_eligible_promo_item_defs);
+
+        // field: cached_data, type: Bool
+        if (!is_bool(self.cached_data)) show_error($"{_where} :: self.cached_data expected bool", true);
+        buffer_write(_buffer, buffer_bool, self.cached_data);
+
+    }
+}
+
+/**
+ * @func __SteamInventoryEligiblePromoItemDefIdsResult_decode(_buffer, _offset)
+ * @param {Id.Buffer} _buffer
+ * @param {Real} _offset
+ * @returns {Struct.SteamInventoryEligiblePromoItemDefIdsResult}
+ * @ignore
+ */
+function __SteamInventoryEligiblePromoItemDefIdsResult_decode(_buffer, _offset)
+{
+    buffer_seek(_buffer, buffer_seek_start, _offset);
+
+    _inst = new SteamInventoryEligiblePromoItemDefIdsResult();
+    with (_inst)
+    {
+        // field: result, type: enum SteamApiResult
+        self.result = buffer_read(_buffer, buffer_u64);
+
+        // field: num_eligible_promo_item_defs, type: Int32
+        self.num_eligible_promo_item_defs = buffer_read(_buffer, buffer_s32);
+
+        // field: cached_data, type: Bool
+        self.cached_data = buffer_read(_buffer, buffer_bool);
 
     }
 
@@ -17311,6 +17401,31 @@ function steam_ugc_set_callback_item_installed(_callback)
 
 
 /**
+ * @param {Function} _callback
+ */
+function steam_ugc_set_callback_download_item_result(_callback)
+{
+    var __available__ = __Steamworks_is_available();
+    if (!__available__) return;
+
+    var __dispatcher__ = __Steamworks_get_dispatcher();
+
+    var __args_buffer = __ext_core_get_args_buffer();
+
+    // param: _callback, type: Function
+    if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
+    var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
+    buffer_write(__args_buffer, buffer_u64, _callback_handle);
+
+    var __return_value__ = __steam_ugc_set_callback_download_item_result(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+
+    return __return_value__;
+}
+
+// Skipping function steam_ugc_clear_callback_download_item_result (no wrapper is required)
+
+
+/**
  * @param {Real} _query_handle
  * @param {Real} _max_age_seconds
  * @returns {Bool}
@@ -21134,6 +21249,28 @@ function steam_inventory_get_result_status(_result_handle)
 
 
 /**
+ * @param {Function} _callback
+ */
+function steam_inventory_request_eligible_promo_item_definition_ids(_callback)
+{
+    var __available__ = __Steamworks_is_available();
+    if (!__available__) return;
+
+    var __dispatcher__ = __Steamworks_get_dispatcher();
+
+    var __args_buffer = __ext_core_get_args_buffer();
+
+    // param: _callback, type: Function
+    if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
+    var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
+    buffer_write(__args_buffer, buffer_u64, _callback_handle);
+
+    var __return_value__ = __steam_inventory_request_eligible_promo_item_definition_ids(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+
+    return __return_value__;
+}
+
+/**
  * @param {Real} _max_item_defs
  * @returns {Array[Real]}
  */
@@ -24527,6 +24664,7 @@ function __Steamworks_get_decoders()
         __SteamInventoryResultReady_decode,
         __SteamInventoryFullUpdate_decode,
         __SteamInventoryStartPurchaseResult_decode,
+        __SteamInventoryEligiblePromoItemDefIdsResult_decode,
         __SteamInventoryRequestPricesResult_decode,
         __SteamRemoteStorageFileNameAndSize_decode,
         __SteamRemoteStorageQuota_decode,

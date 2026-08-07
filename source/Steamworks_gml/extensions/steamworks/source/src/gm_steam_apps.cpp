@@ -463,7 +463,7 @@ static inline gm_structs::SteamAppsFileDetailsResult apps_fromNative(const FileD
 {
     gm_structs::SteamAppsFileDetailsResult out{};
     out.result = static_cast<gm_enums::SteamApiResult>((int)e.m_eResult);
-    out.file_size = (int32)e.m_ulFileSize;
+    out.file_size = (std::int64_t)e.m_ulFileSize;
     out.flags = (int32)e.m_unFlags;
 
     char hex[41] = {};

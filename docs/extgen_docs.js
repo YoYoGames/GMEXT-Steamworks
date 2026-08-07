@@ -1892,6 +1892,17 @@
  */
 
 /**
+ * @function_partial steam_ugc_set_callback_download_item_result
+ * @param {Function} callback
+ * @function_end
+ */
+
+/**
+ * @function_partial steam_ugc_clear_callback_download_item_result
+ * @function_end
+ */
+
+/**
  * @function_partial steam_ugc_set_allow_cached_response
  * @param {Real} query_handle
  * @param {Real} max_age_seconds
@@ -3185,6 +3196,12 @@
  * @function_partial steam_inventory_get_result_timestamp
  * @param {Real} result_handle
  * @returns {Real}
+ * @function_end
+ */
+
+/**
+ * @function_partial steam_inventory_request_eligible_promo_item_definition_ids
+ * @param {Function} callback
  * @function_end
  */
 
@@ -4734,6 +4751,7 @@
  * @member {Enum.SteamRemoteStorageWorkshopFileType} file_type
  * @member {Real} creator_app_id
  * @member {Real} consumer_app_id
+ * @member {Real} owner_steam_id
  * @member {Real} time_added_to_user_list
  * @member {Real} handle_file
  * @member {Real} handle_preview_file
@@ -4991,6 +5009,7 @@
  * @member {String} name
  * @member {Real} percent
  * @member {Bool} achieved
+ * @member {Real} iterator
  * @struct_end
  */
 
@@ -5202,6 +5221,14 @@
  * @member {Enum.SteamApiResult} result
  * @member {Real} order_id
  * @member {Real} transaction_id
+ * @struct_end
+ */
+
+/**
+ * @struct_partial SteamInventoryEligiblePromoItemDefIdsResult
+ * @member {Enum.SteamApiResult} result
+ * @member {Real} num_eligible_promo_item_defs
+ * @member {Bool} cached_data
  * @struct_end
  */
 

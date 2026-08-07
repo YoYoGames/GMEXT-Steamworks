@@ -859,6 +859,7 @@
  * @member {String} name The 'API Name' of the achievement.
  * @member {Real} percent The percentage of people that have unlocked this achievement from 0 to 100.
  * @member {Bool} achieved Whether the current user has unlocked this achievement.
+ * @member {Real} iterator Pass this to ${function.steam_userstats_next_most_achieved_achievement_info} to continue enumerating. `-1` means there are no more achievements to enumerate.
  * @struct_end
  */
 

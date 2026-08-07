@@ -4852,6 +4852,39 @@
         },
         {
           "$GMExtensionFunction": "",
+          "%Name": "__steam_ugc_set_callback_download_item_result",
+          "argCount": 2,
+          "args": [
+            1,
+            2
+          ],
+          "documentation": "@param {Pointer} _arg_buffer\r\n@param {Real} _arg_buffer_length\r\n@returns {Real}",
+          "externalName": "__EXT_NATIVE__steam_ugc_set_callback_download_item_result",
+          "help": "",
+          "hidden": true,
+          "kind": 4,
+          "name": "__steam_ugc_set_callback_download_item_result",
+          "resourceType": "GMExtensionFunction",
+          "resourceVersion": "2.0",
+          "returnType": 2
+        },
+        {
+          "$GMExtensionFunction": "",
+          "%Name": "steam_ugc_clear_callback_download_item_result",
+          "argCount": 0,
+          "args": [],
+          "documentation": "@returns {Real}",
+          "externalName": "__EXT_NATIVE__steam_ugc_clear_callback_download_item_result",
+          "help": "",
+          "hidden": false,
+          "kind": 4,
+          "name": "steam_ugc_clear_callback_download_item_result",
+          "resourceType": "GMExtensionFunction",
+          "resourceVersion": "2.0",
+          "returnType": 2
+        },
+        {
+          "$GMExtensionFunction": "",
           "%Name": "__steam_ugc_set_allow_cached_response",
           "argCount": 2,
           "args": [
@@ -8087,6 +8120,24 @@
           "hidden": false,
           "kind": 4,
           "name": "steam_inventory_get_result_timestamp",
+          "resourceType": "GMExtensionFunction",
+          "resourceVersion": "2.0",
+          "returnType": 2
+        },
+        {
+          "$GMExtensionFunction": "",
+          "%Name": "__steam_inventory_request_eligible_promo_item_definition_ids",
+          "argCount": 2,
+          "args": [
+            1,
+            2
+          ],
+          "documentation": "@param {Pointer} _arg_buffer\r\n@param {Real} _arg_buffer_length\r\n@returns {Real}",
+          "externalName": "__EXT_NATIVE__steam_inventory_request_eligible_promo_item_definition_ids",
+          "help": "",
+          "hidden": true,
+          "kind": 4,
+          "name": "__steam_inventory_request_eligible_promo_item_definition_ids",
           "resourceType": "GMExtensionFunction",
           "resourceVersion": "2.0",
           "returnType": 2

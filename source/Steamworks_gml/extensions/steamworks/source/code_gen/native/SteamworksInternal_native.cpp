@@ -3127,6 +3127,23 @@ GMEXPORT double __EXT_NATIVE__steam_ugc_clear_callback_item_installed()
     return 0;
 }
 
+GMEXPORT double __EXT_NATIVE__steam_ugc_set_callback_download_item_result(char* __arg_buffer, double __arg_buffer_length)
+{
+    gm::byteio::BufferReader __br{__arg_buffer, static_cast<size_t>(__arg_buffer_length)};
+
+    // field: callback, type: Function
+    gm::wire::GMFunction callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
+
+    steam_ugc_set_callback_download_item_result(callback);
+    return 0;
+}
+
+GMEXPORT double __EXT_NATIVE__steam_ugc_clear_callback_download_item_result()
+{
+    steam_ugc_clear_callback_download_item_result();
+    return 0;
+}
+
 GMEXPORT double __EXT_NATIVE__steam_ugc_set_allow_cached_response(char* __arg_buffer, double __arg_buffer_length)
 {
     gm::byteio::BufferReader __br{__arg_buffer, static_cast<size_t>(__arg_buffer_length)};
@@ -5318,6 +5335,17 @@ GMEXPORT double __EXT_NATIVE__steam_inventory_get_result_timestamp(double result
 {
     auto&& __result = steam_inventory_get_result_timestamp(static_cast<std::int32_t>(result_handle));
     return static_cast<double>(__result);
+}
+
+GMEXPORT double __EXT_NATIVE__steam_inventory_request_eligible_promo_item_definition_ids(char* __arg_buffer, double __arg_buffer_length)
+{
+    gm::byteio::BufferReader __br{__arg_buffer, static_cast<size_t>(__arg_buffer_length)};
+
+    // field: callback, type: Function
+    gm::wire::GMFunction callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
+
+    steam_inventory_request_eligible_promo_item_definition_ids(callback);
+    return 0;
 }
 
 GMEXPORT double __EXT_NATIVE__steam_inventory_get_eligible_promo_item_definition_ids(double max_item_defs, char* __ret_buffer, double __ret_buffer_length)

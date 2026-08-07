@@ -1071,7 +1071,7 @@ function steam_apps_get_app_ownership_ticket_data(
 class `[[SteamAppsFileDetailsResult]]` prototype Object
 {
     [field, type_hint = `SteamApiResult`] property result : gmval { get; set; }
-    [field] property file_size : int32 { get; set; }
+    [field, type_hint=`int64`] property file_size : gmval { get; set; }
     [field] property flags : int32 { get; set; }
     [field] property sha1 : string { get; set; }    // 40 hex chars
 }
@@ -2712,6 +2712,9 @@ class `[[SteamUgcQueryResult]]` prototype Object
     [field]
     property consumer_app_id : uint32 { get; set; }
 
+    [field, type_hint = uint64]
+    property owner_steam_id : gmval { get; set; }
+
     [field]
     property time_added_to_user_list : uint32 { get; set; }
 
@@ -2860,6 +2863,12 @@ function steam_ugc_set_callback_item_installed(callback:func): unit;
 
 [global, bind = typed_gml]
 function steam_ugc_clear_callback_item_installed(): unit;
+
+[global, bind = typed_gml]
+function steam_ugc_set_callback_download_item_result(callback:func): unit;
+
+[global, bind = typed_gml]
+function steam_ugc_clear_callback_download_item_result(): unit;
 
 [global]
 class `[[SteamUgcItemInstalled]]` prototype Object
@@ -4226,6 +4235,10 @@ class `[[SteamUserStatsMostAchievedAchievementInfo]]` prototype Object
     [field] property name : string { get; set; }
     [field] property percent : float { get; set; }
     [field] property achieved : bool { get; set; }
+    // The iterator value GetMostAchievedAchievementInfo/GetNextMostAchievedAchievementInfo returned for
+    // this entry (not a bool) - pass it as steam_userstats_next_most_achieved_achievement_info's
+    // iterator_prev to continue enumerating.
+    [field] property iterator : int32 { get; set; }
 }
 
 
@@ -4994,6 +5007,12 @@ function steam_inventory_get_result_status(result_handle: int32): gmval;
 [global, bind = typed_gml]
 function steam_inventory_get_result_timestamp(result_handle: int32): uint32;
 
+// RequestEligiblePromoItemDefinitionsIDs - must complete before GetEligiblePromoItemDefinitionIDs
+// returns anything real; there is no offset/cursor param, this primes Steam's client-side cache for the
+// local user.
+[global, bind = typed_gml]
+function steam_inventory_request_eligible_promo_item_definition_ids(callback:func): unit;
+
 // GetEligiblePromoItemDefinitionIDs
 [global, bind = typed_gml, type_hint=`uint32[]`]
 function steam_inventory_get_eligible_promo_item_definition_ids(
@@ -5194,6 +5213,14 @@ class `[[SteamInventoryStartPurchaseResult]]` prototype Object
     [field, type_hint = `SteamApiResult`] property result : gmval { get; set; }
     [field, type_hint=uint64] property order_id : gmval { get; set; }
     [field, type_hint=uint64] property transaction_id : gmval { get; set; }
+}
+
+[global]
+class `[[SteamInventoryEligiblePromoItemDefIdsResult]]` prototype Object
+{
+    [field, type_hint = `SteamApiResult`] property result : gmval { get; set; }
+    [field] property num_eligible_promo_item_defs : int32 { get; set; }
+    [field] property cached_data : bool { get; set; }
 }
 
 [global]
