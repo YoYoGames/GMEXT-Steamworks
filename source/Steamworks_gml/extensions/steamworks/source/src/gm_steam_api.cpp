@@ -183,6 +183,7 @@ static void steam_api_clear_all_callbacks()
     steam_user_clear_callback_licenses_updated();
     steam_user_clear_callback_microtxn_authorization_response();
     steam_user_clear_callback_validate_auth_ticket_response();
+    steam_user_clear_callback_get_auth_session_ticket_response();
 
     // userstats
     steam_userstats_clear_callback_user_stats_received();
