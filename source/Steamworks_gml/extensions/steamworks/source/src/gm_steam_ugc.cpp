@@ -37,26 +37,6 @@ static inline std::uint64_t qh_to_u64(UGCQueryHandle_t v) { return (std::uint64_
 
 static inline UGCUpdateHandle_t uh_from_u64(std::uint64_t v) { return (UGCUpdateHandle_t)v; }
 
-static inline std::uint64_t call_to_u64(SteamAPICall_t c) { return (std::uint64_t)c; }
-
-static inline std::vector<std::string> split_csv(std::string_view csv)
-{
-    std::vector<std::string> out;
-    std::string cur;
-    for (char ch : csv) {
-        if (ch == ',') {
-            if (!cur.empty())
-                out.push_back(cur);
-            cur.clear();
-        } else {
-            cur.push_back(ch);
-        }
-    }
-    if (!cur.empty())
-        out.push_back(cur);
-    return out;
-}
-
 static inline SteamParamStringArray_t
 make_param_string_array(const std::vector<std::string>& strs, std::vector<const char*>& cstr_out)
 {

@@ -5,6 +5,7 @@
 #include <steam/isteamnetworkingutils.h>
 #include <steam/steamnetworkingtypes.h>
 
+#include <climits>
 #include <cstdint>
 #include <string>
 #include <string_view>
@@ -38,8 +39,8 @@ static inline gm_structs::SteamNetworkingSocketsConnectionInfo sn_fromNative(con
     gm_structs::SteamNetworkingSocketsConnectionInfo out{};
     out.user_data = (std::uint64_t)info.m_nUserData;
     out.end_reason = static_cast<gm_enums::SteamNetworkingConnectionEnd>((int)info.m_eEndReason);
-    out.end_debug = info.m_szEndDebug ? info.m_szEndDebug : "";
-    out.connection_description = info.m_szConnectionDescription ? info.m_szConnectionDescription : "";
+    out.end_debug = info.m_szEndDebug;
+    out.connection_description = info.m_szConnectionDescription;
     out.flags = static_cast<gm_enums::SteamNetworkingConnectionInfoFlags>((int)info.m_nFlags);
     out.state = static_cast<gm_enums::SteamNetworkingConnectionState>((int)info.m_eState);
     out.steam_id_remote = (std::uint64_t)info.m_identityRemote.GetSteamID64();

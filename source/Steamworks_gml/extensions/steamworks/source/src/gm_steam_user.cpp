@@ -9,6 +9,7 @@
 #include <steam/steam_api.h>
 #include <steam/isteamuser.h>
 
+#include <climits>
 #include <cstdint>
 #include <string>
 #include <string_view>
@@ -540,7 +541,7 @@ gm_structs::SteamId steam_user_decode_steam_id(std::uint64_t steam_id)
 {
     STEAM_GUARD_RET({});
 
-    CSteamID sid(steam_id);
+    CSteamID sid = steam_id_from_u64(steam_id);
 
     return steam_make_steam_id(sid);
 }

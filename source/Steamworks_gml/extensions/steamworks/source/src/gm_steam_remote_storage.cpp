@@ -5,6 +5,7 @@
 #include <steam/isteamremotestorage.h>
 
 #include <algorithm>
+#include <climits>
 #include <cstdint>
 #include <optional>
 #include <string>
@@ -593,40 +594,6 @@ void steam_remote_storage_ugc_download_to_location(std::uint64_t ugc_handle, std
 
     auto* h = new steam_async::CallResult<gm_structs::SteamRemoteStorageDownloadUgcResult, RemoteStorageDownloadUGCResult_t, true>(callback, &rs_fromNative);
     h->set(call);
-}
-
-
-
-static inline void rs_build_tag_array(std::string_view tags_csv,
-                                      std::vector<std::string>& out_tokens,
-                                      std::vector<const char*>& out_ptrs,
-                                      SteamParamStringArray_t& out_arr)
-{
-    out_tokens.clear();
-    out_ptrs.clear();
-
-    std::string tags(tags_csv);
-    if (!tags.empty())
-    {
-        size_t start = 0;
-        while (true)
-        {
-            size_t comma = tags.find(',', start);
-            std::string tok = (comma == std::string::npos) ? tags.substr(start) : tags.substr(start, comma - start);
-            // trim spaces
-            while (!tok.empty() && (tok.front() == ' ' || tok.front() == '\t')) tok.erase(tok.begin());
-            while (!tok.empty() && (tok.back() == ' ' || tok.back() == '\t')) tok.pop_back();
-            if (!tok.empty()) out_tokens.push_back(tok);
-            if (comma == std::string::npos) break;
-            start = comma + 1;
-        }
-    }
-
-    out_ptrs.reserve(out_tokens.size());
-    for (auto& s : out_tokens) out_ptrs.push_back(s.c_str());
-
-    out_arr.m_nNumStrings = (int)out_ptrs.size();
-    out_arr.m_ppStrings = out_ptrs.empty() ? nullptr : out_ptrs.data();
 }
 
 

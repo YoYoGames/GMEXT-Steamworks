@@ -8,6 +8,7 @@
 #include <steam/steam_api.h>
 #include <steam/isteamscreenshots.h>
 
+#include <climits>
 #include <cstdint>
 #include <string>
 #include <string_view>

@@ -439,7 +439,7 @@ bool steam_matchmaking_send_lobby_chat_msg(std::uint64_t lobby_id, gm::wire::GMB
     } else {
         std::uint64_t remaining = msg.length() - static_cast<std::uint64_t>(offset);
         // Steam lobby chat messages are limited to 4KB
-        actual_count = static_cast<std::uint32_t>(std::min(remaining, 4096ULL));
+        actual_count = static_cast<std::uint32_t>(std::min<std::uint64_t>(remaining, 4096));
     }
 
     if (actual_count == 0) return false;
@@ -505,7 +505,7 @@ bool steam_matchmaking_request_lobby_data(std::uint64_t steam_id_lobby)
     STEAM_GUARD_RET(false);
     ISteamMatchmaking* mm = steam_matchmaking_iface();
     if (!mm) return false;
-    return mm->RequestLobbyData(CSteamID(steam_id_lobby));
+    return mm->RequestLobbyData(steam_id_from_u64(steam_id_lobby));
 }
 
 bool steam_matchmaking_set_lobby_joinable(std::uint64_t steam_id_lobby, bool joinable)
@@ -513,7 +513,7 @@ bool steam_matchmaking_set_lobby_joinable(std::uint64_t steam_id_lobby, bool joi
     STEAM_GUARD_RET(false);
     ISteamMatchmaking* mm = steam_matchmaking_iface();
     if (!mm) return false;
-    return mm->SetLobbyJoinable(CSteamID(steam_id_lobby), joinable);
+    return mm->SetLobbyJoinable(steam_id_from_u64(steam_id_lobby), joinable);
 }
 
 bool steam_matchmaking_invite_user_to_lobby(std::uint64_t steam_id_lobby, std::uint64_t steam_id_invitee)
@@ -521,7 +521,7 @@ bool steam_matchmaking_invite_user_to_lobby(std::uint64_t steam_id_lobby, std::u
     STEAM_GUARD_RET(false);
     ISteamMatchmaking* mm = steam_matchmaking_iface();
     if (!mm) return false;
-    return mm->InviteUserToLobby(CSteamID(steam_id_lobby), CSteamID(steam_id_invitee));
+    return mm->InviteUserToLobby(steam_id_from_u64(steam_id_lobby), steam_id_from_u64(steam_id_invitee));
 }
 
 void steam_matchmaking_set_lobby_game_server(std::uint64_t steam_id_lobby, std::uint32_t ip, std::uint32_t port, std::uint64_t steam_id_gs)
@@ -535,7 +535,7 @@ void steam_matchmaking_set_lobby_game_server(std::uint64_t steam_id_lobby, std::
         return;
     }
 
-    mm->SetLobbyGameServer(CSteamID(steam_id_lobby), (uint32)ip, (uint16)port, CSteamID(steam_id_gs));
+    mm->SetLobbyGameServer(steam_id_from_u64(steam_id_lobby), (uint32)ip, (uint16)port, steam_id_from_u64(steam_id_gs));
 }
 
 bool steam_matchmaking_set_linked_lobby(std::uint64_t steam_id_lobby, std::uint64_t steam_id_lobby_dependent)
@@ -544,7 +544,7 @@ bool steam_matchmaking_set_linked_lobby(std::uint64_t steam_id_lobby, std::uint6
     ISteamMatchmaking* mm = steam_matchmaking_iface();
     if (!mm) return false;
 
-    return mm->SetLinkedLobby(CSteamID(steam_id_lobby), CSteamID(steam_id_lobby_dependent));
+    return mm->SetLinkedLobby(steam_id_from_u64(steam_id_lobby), steam_id_from_u64(steam_id_lobby_dependent));
 }
 
 
@@ -557,7 +557,7 @@ std::optional<gm_structs::SteamMatchmakingLobbyGameServer> steam_matchmaking_get
     uint32 ip = 0;
     uint16 port = 0;
     CSteamID gs;
-    if (!mm->GetLobbyGameServer(CSteamID(steam_id_lobby), &ip, &port, &gs))
+    if (!mm->GetLobbyGameServer(steam_id_from_u64(steam_id_lobby), &ip, &port, &gs))
         return std::nullopt;
 
     gm_structs::SteamMatchmakingLobbyGameServer out{};

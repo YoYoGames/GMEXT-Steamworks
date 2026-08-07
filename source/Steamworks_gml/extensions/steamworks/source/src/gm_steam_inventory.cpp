@@ -4,6 +4,7 @@
 #include <steam/steam_api.h>
 #include <steam/isteaminventory.h>
 
+#include <climits>
 #include <cstdint>
 #include <cstring>
 #include <string>
@@ -32,8 +33,6 @@ static inline ISteamInventory* steam_inventory_iface()
 
     return inv;
 }
-
-static inline std::uint64_t call_to_u64(SteamAPICall_t c) { return (std::uint64_t)c; }
 
 static inline SteamInventoryResult_t make_result_handle(int32 v) { return (SteamInventoryResult_t)v; }
 static inline int32 to_i32(SteamInventoryResult_t h) { return (int32)h; }

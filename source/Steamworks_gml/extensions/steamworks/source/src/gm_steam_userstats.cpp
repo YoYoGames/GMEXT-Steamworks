@@ -33,11 +33,7 @@ static inline ISteamUserStats* steam_userstats_iface()
     return s;
 }
 
-static inline std::uint64_t call_to_u64(SteamAPICall_t c) { return (std::uint64_t)c; }
-static inline SteamAPICall_t u64_to_call(std::uint64_t v) { return (SteamAPICall_t)v; }
-
 static inline SteamLeaderboard_t u64_to_leaderboard(std::uint64_t v) { return (SteamLeaderboard_t)v; }
-static inline std::uint64_t leaderboard_to_u64(SteamLeaderboard_t v) { return (std::uint64_t)v; }
 
 static inline SteamLeaderboardEntries_t u64_to_leaderboard_entries(std::uint64_t v)
 {
