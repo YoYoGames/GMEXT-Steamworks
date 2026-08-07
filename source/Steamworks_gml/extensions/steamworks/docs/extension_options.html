@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="img/favicon.ico" />
-    <title> sidebar - GMEXT-Steamworks</title>
+    <title>Extension options - GMEXT-Steamworks</title>
     <link rel="stylesheet" href="css/theme.css" />
     <link rel="stylesheet" href="css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
@@ -14,8 +14,8 @@
     
       <script>
         // Current page data
-        var mkdocs_page_name = " sidebar";
-        var mkdocs_page_input_path = "_sidebar.md";
+        var mkdocs_page_name = "Extension options";
+        var mkdocs_page_input_path = "extension_options.md";
         var mkdocs_page_url = null;
       </script>
     
@@ -46,8 +46,8 @@
                 <li class="toctree-l1"><a class="reference internal" href="_footer.html"> footer</a>
                 </li>
               </ul>
-              <ul class="current">
-                <li class="toctree-l1 current"><a class="reference internal current" href="#"> sidebar</a>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="_sidebar.html"> sidebar</a>
                 </li>
               </ul>
               <ul>
@@ -58,8 +58,8 @@
                 <li class="toctree-l1"><a class="reference internal" href="apps.html">Apps</a>
                 </li>
               </ul>
-              <ul>
-                <li class="toctree-l1"><a class="reference internal" href="extension_options.html">Extension options</a>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="#">Extension options</a>
                 </li>
               </ul>
               <ul>
@@ -140,9 +140,9 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href="index.html" class="icon icon-home" aria-label="Docs"></a></li>
-      <li class="breadcrumb-item active"> sidebar</li>
+      <li class="breadcrumb-item active">Extension options</li>
     <li class="wy-breadcrumbs-aside">
-          <a href="https://github.com/YoYoGames/GMEXT-Steamworks/edit/master/docs/_sidebar.md" class="icon icon-github"> Edit on GitHub</a>
+          <a href="https://github.com/YoYoGames/GMEXT-Steamworks/edit/master/docs/extension_options.md" class="icon icon-github"> Edit on GitHub</a>
     </li>
   </ul>
   <hr/>
@@ -150,13 +150,39 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                
+                <p>Open the Steamworks extension's Extension Options from the Asset Browser (double-click the extension) to
+configure it. See <a href="getting_started.html">Getting Started (IDE/Runtime 2022.6+)</a> for the full setup walkthrough.</p>
+<ul>
+<li>
+<p><strong>Steam Options</strong></p>
+</li>
+<li>
+<p><strong>Steam SDK</strong>: The path to the folder where you unzipped the downloaded SDK.</p>
+</li>
+<li>
+<p><strong>Application ID</strong>: The Steam App ID for you game (retrieved from the dashboard).</p>
+</li>
+<li>
+<p><strong>Debug</strong>: This is a flag option that allows you to force debug mode or set it to automatic. Debug mode will allow exports of your game to run a non-Steam version of your game (warning, this should be only used during development). We suggest leaving this set to <code>Auto</code>.</p>
+</li>
+<li>
+<p><strong>Build Options</strong></p>
+</li>
+<li>
+<p><strong>Log Level</strong>: The log level to be used when executing the script files.</p>
+<ul>
+<li>0: Show only errors</li>
+<li>1: Show errors and warnings (recommended)</li>
+<li>2: Show everything (use before submitting a bug)</li>
+</ul>
+</li>
+</ul>
               
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="_footer.html" class="btn btn-neutral float-left" title=" footer"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="api.html" class="btn btn-neutral float-right" title="Api">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="apps.html" class="btn btn-neutral float-left" title="Apps"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="friends.html" class="btn btn-neutral float-right" title="Friends">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
   <hr/>
@@ -184,10 +210,10 @@
         </span>
     
     
-      <span><a href="_footer.html" style="color: #fcfcfc">&laquo; Previous</a></span>
+      <span><a href="apps.html" style="color: #fcfcfc">&laquo; Previous</a></span>
     
     
-      <span><a href="api.html" style="color: #fcfcfc">Next &raquo;</a></span>
+      <span><a href="friends.html" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>

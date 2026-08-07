@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="img/favicon.ico" />
-    <title>Guides - GMEXT-Steamworks</title>
+    <title>Getting started - GMEXT-Steamworks</title>
     <link rel="stylesheet" href="css/theme.css" />
     <link rel="stylesheet" href="css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
@@ -14,8 +14,8 @@
     
       <script>
         // Current page data
-        var mkdocs_page_name = "Guides";
-        var mkdocs_page_input_path = "guides.md";
+        var mkdocs_page_name = "Getting started";
+        var mkdocs_page_input_path = "getting_started.md";
         var mkdocs_page_url = null;
       </script>
     
@@ -59,11 +59,15 @@
                 </li>
               </ul>
               <ul>
+                <li class="toctree-l1"><a class="reference internal" href="extension_options.html">Extension options</a>
+                </li>
+              </ul>
+              <ul>
                 <li class="toctree-l1"><a class="reference internal" href="friends.html">Friends</a>
                 </li>
               </ul>
               <ul class="current">
-                <li class="toctree-l1 current"><a class="reference internal current" href="#">Guides</a>
+                <li class="toctree-l1 current"><a class="reference internal current" href="#">Getting started</a>
                 </li>
               </ul>
               <ul>
@@ -136,9 +140,9 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href="index.html" class="icon icon-home" aria-label="Docs"></a></li>
-      <li class="breadcrumb-item active">Guides</li>
+      <li class="breadcrumb-item active">Getting started</li>
     <li class="wy-breadcrumbs-aside">
-          <a href="https://github.com/YoYoGames/GMEXT-Steamworks/edit/master/docs/guides.md" class="icon icon-github"> Edit on GitHub</a>
+          <a href="https://github.com/YoYoGames/GMEXT-Steamworks/edit/master/docs/getting_started.md" class="icon icon-github"> Edit on GitHub</a>
     </li>
   </ul>
   <hr/>
@@ -164,34 +168,9 @@
 </ol>
 <p><img alt="" src="assets/steamworks_setup_asset_browser.jpg" /></p>
 <ol>
-<li>In the bottom section you will see the new extension options. Those are all you will need to configure to use this extension. The build options require the path to the SDK downloaded on step 3 and the application options required your Application ID.</li>
+<li>In the bottom section you will see the new extension options. Those are all you will need to configure to use this extension. The build options require the path to the SDK downloaded on step 3 and the application options required your Application ID. See <a href="extension_options.html">Extension Options</a> for what each one does.</li>
 </ol>
 <p><img alt="" src="assets/steamworks_setup_ext_options.png" /></p>
-<ul>
-<li>
-<p><strong>Steam Options</strong></p>
-</li>
-<li>
-<p><strong>Steam SDK</strong>: The path to the folder where you unzipped the downloaded SDK.</p>
-</li>
-<li>
-<p><strong>Application ID</strong>: The Steam App ID for you game (retrieved from the dashboard).</p>
-</li>
-<li>
-<p><strong>Debug</strong>: This is a flag option that allows you to force debug mode or set it to automatic. Debug mode will allow exports of your game to run a non-Steam version of your game (warning, this should be only used during development). We suggest leaving this set to <code>Auto</code>.</p>
-</li>
-<li>
-<p><strong>Build Options</strong></p>
-</li>
-<li>
-<p><strong>Log Level</strong>: The log level to be used when executing the script files.</p>
-<ul>
-<li>0: Show only errors</li>
-<li>1: Show errors and warnings (recommended)</li>
-<li>2: Show everything (use before submitting a bug)</li>
-</ul>
-</li>
-</ul>
               
             </div>
           </div><footer>
