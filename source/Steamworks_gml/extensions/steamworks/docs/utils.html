@@ -205,6 +205,7 @@
 <li><a href="utils.html#steam_utils_show_gamepad_text_input">steam_utils_show_gamepad_text_input</a></li>
 <li><a href="utils.html#steam_utils_show_floating_gamepad_text_input">steam_utils_show_floating_gamepad_text_input</a></li>
 <li><a href="utils.html#steam_utils_dismiss_floating_gamepad_text_input">steam_utils_dismiss_floating_gamepad_text_input</a></li>
+<li><a href="utils.html#steam_utils_dismiss_gamepad_text_input">steam_utils_dismiss_gamepad_text_input</a></li>
 <li><a href="utils.html#steam_utils_start_vr_dashboard">steam_utils_start_vr_dashboard</a></li>
 <li><a href="utils.html#steam_utils_set_game_launcher_mode">steam_utils_set_game_launcher_mode</a></li>
 <li><a href="utils.html#steam_utils_set_callback_gamepad_text_input_dismissed">steam_utils_set_callback_gamepad_text_input_dismissed</a></li>
@@ -1481,8 +1482,30 @@ The text field position is specified in pixels relative to the origin of the gam
 <p><br></p>
 <p><strong>Returns:</strong></p>
 <blockquote>
-<p>N/A</p>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
 </blockquote>
+<p>Whether a floating keyboard was actually open to dismiss.</p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_utils_dismiss_gamepad_text_input">steam_utils_dismiss_gamepad_text_input</h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="">ISteamUtils::DismissGamepadTextInput</a></p>
+</blockquote>
+<p>This function dismisses the full-screen modal keyboard, as opposed to the floating keyboard dismissed by <a href="utils.html#steam_utils_dismiss_floating_gamepad_text_input">steam_utils_dismiss_floating_gamepad_text_input</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<div class="highlight"><pre><span></span><code>steam_utils_dismiss_gamepad_text_input()
+</code></pre></div>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p>Whether a keyboard was actually open to dismiss.</p>
 <p><br></p>
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
