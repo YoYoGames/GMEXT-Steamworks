@@ -385,7 +385,9 @@ std::optional<gm_structs::SteamMatchmakingLobbyDataEntry> steam_matchmaking_get_
     // Lobby metadata is always text (k_nMaxLobbyKeyLength is defined in char terms; Steam exposes no
     // value-length query), so a fixed scratch buffer is used rather than a caller-supplied one. 4096
     // matches this file's own SendLobbyChatMsg clamp, comfortably above any realistic metadata value.
-    char key[k_nMaxLobbyKeyLength] = {};
+    // key is sized +1: k_nMaxLobbyKeyLength is the max *content* length, leaving no room for the null
+    // terminator on a key of exactly that length otherwise.
+    char key[k_nMaxLobbyKeyLength + 1] = {};
     char value[4096] = {};
 
     if (!mm->GetLobbyDataByIndex(steam_id_from_u64(lobby_id), (int)index, key, sizeof(key), value, sizeof(value)))
