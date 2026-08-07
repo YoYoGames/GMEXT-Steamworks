@@ -1175,13 +1175,12 @@ bool steam_user_fetch_auth_ticket_for_web_api(std::uint32_t auth_ticket_handle, 
             steam_set_last_error("steam_user_fetch_auth_ticket_for_web_api: no ticket held for this handle.");
             return false;
         }
+        if ((std::uint64_t)it->second.size() > out_ticket.length()) {
+            steam_set_last_error("steam_user_fetch_auth_ticket_for_web_api: output buffer too small for ticket.");
+            return false;
+        }
         bytes = std::move(it->second);
         g_web_api_ticket_bytes.erase(it);
-    }
-
-    if ((std::uint64_t)bytes.size() > out_ticket.length()) {
-        steam_set_last_error("steam_user_fetch_auth_ticket_for_web_api: output buffer too small for ticket.");
-        return false;
     }
 
     auto w = out_ticket.getWriter();
