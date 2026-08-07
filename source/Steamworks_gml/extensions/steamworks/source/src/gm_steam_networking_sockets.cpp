@@ -101,6 +101,11 @@ std::uint32_t steam_networking_sockets_create_listen_socket_ip(std::uint32_t por
     ISteamNetworkingSockets* s = steam_networking_sockets_iface();
     if (!s) return 0;
 
+    if (port > 0xFFFF) {
+        steam_set_last_error("steam_networking_sockets_create_listen_socket_ip: port out of range (must be <= 65535).");
+        return 0;
+    }
+
     SteamNetworkingIPAddr addr;
     addr.Clear();
     addr.m_port = (uint16)port;
@@ -138,10 +143,14 @@ std::uint32_t steam_networking_sockets_connect_by_ip_address(std::string_view ip
 
     SteamNetworkingIPAddr addr;
     addr.Clear();
-    if (!addr.ParseString(addrStr.c_str()))
+    if (!addr.ParseString(addrStr.c_str())) {
+        steam_set_last_error("steam_networking_sockets_connect_by_ip_address: failed to parse IP address.");
         return 0;
+    }
 
     HSteamNetConnection c = s->ConnectByIPAddress(addr, 0, nullptr);
+    if (c == k_HSteamNetConnection_Invalid)
+        steam_set_last_error("steam_networking_sockets_connect_by_ip_address: ConnectByIPAddress failed.");
     return (std::uint32_t)c;
 }
 
