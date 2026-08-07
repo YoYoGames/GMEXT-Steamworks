@@ -607,7 +607,7 @@
 
 /**
  * @struct SteamUtilsLowBatteryPower
- * @description > **Steamworks Struct**: [ISteamUtils::LowBatteryPower_t](partner.steamgames.com/doc/api/ISteamUtils#LowBatteryPower_t)
+ * @description > **Steamworks Struct**: [ISteamUtils::LowBatteryPower_t](https://partner.steamgames.com/doc/api/ISteamUtils#LowBatteryPower_t)
  *
  * This struct holds information about the battery power left.
  *
@@ -627,7 +627,7 @@
 
 /**
  * @struct SteamUtilsSteamApiCallCompleted
- * @description > **Steamworks Struct**: [ISteamUtils::SteamAPICallCompleted_t](partner.steamgames.com/doc/api/ISteamUtils#SteamAPICallCompleted_t)
+ * @description > **Steamworks Struct**: [ISteamUtils::SteamAPICallCompleted_t](https://partner.steamgames.com/doc/api/ISteamUtils#SteamAPICallCompleted_t)
  *
  * This struct holds information passed in a `ISteamUtils::SteamAPICallCompleted_t` callback.
  *

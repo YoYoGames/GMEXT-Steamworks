@@ -248,7 +248,7 @@
 
 /**
  * @enum SteamScreenshotsVrScreenshotType
- * @description > **Steamworks Enum**: [ISteamScreenshots::EVRScreenshotType](partner.steamgames.com/doc/api/ISteamScreenshots#EVRScreenshotType)
+ * @description > **Steamworks Enum**: [ISteamScreenshots::EVRScreenshotType](https://partner.steamgames.com/doc/api/ISteamScreenshots#EVRScreenshotType)
  *
  * This enum describes the type of VR screenshots.
  *

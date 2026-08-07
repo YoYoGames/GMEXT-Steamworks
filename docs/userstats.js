@@ -549,7 +549,7 @@
  * @param {Function} callback The function to call upon completion.
  * 
  * @event callback
- * @description > **Steamworks Callback**: [ISteamUserStats::LeaderboardUGCSet_t](partner.steamgames.com/doc/api/ISteamUserStats#LeaderboardUGCSet_t)
+ * @description > **Steamworks Callback**: [ISteamUserStats::LeaderboardUGCSet_t](https://partner.steamgames.com/doc/api/ISteamUserStats#LeaderboardUGCSet_t)
  * @member {Struct.SteamUserStatsAttachLeaderboardUgcResult} result The result of the operation.
  * @event_end
  * @function_end 
@@ -820,7 +820,7 @@
  * 
  * This function sets the function to call to indicate that a user's stats have been unloaded.
  * 
- * See: [ISteamUserStats::UserStatsUnloaded_t](partner.steamgames.com/doc/api/ISteamUserStats#UserStatsUnloaded_t)
+ * See: [ISteamUserStats::UserStatsUnloaded_t](https://partner.steamgames.com/doc/api/ISteamUserStats#UserStatsUnloaded_t)
  * 
  * See: ${struct.SteamUserStatsUnloaded}
  * 
@@ -950,7 +950,7 @@
 
 /**
  * @struct SteamUserStatsAttachLeaderboardUgcResult
- * @description > **Steamworks Struct**: [ISteamUserStats::LeaderboardUGCSet_t](partner.steamgames.com/doc/api/ISteamUserStats#LeaderboardUGCSet_t)
+ * @description > **Steamworks Struct**: [ISteamUserStats::LeaderboardUGCSet_t](https://partner.steamgames.com/doc/api/ISteamUserStats#LeaderboardUGCSet_t)
  *
  * This struct holds a result indicating that user generated content has been attached to one of the current user's leaderboard entries.
  * 
@@ -996,7 +996,7 @@
 
 /**
  * @struct SteamUserStatsUserStatsStored
- * @description > **Steamworks Struct**: [ISteamUserStats::UserStatsStored_t](partner.steamgames.com/doc/api/ISteamUserStats#UserStatsStored_t)
+ * @description > **Steamworks Struct**: [ISteamUserStats::UserStatsStored_t](https://partner.steamgames.com/doc/api/ISteamUserStats#UserStatsStored_t)
  *
  * This struct holds the result of a request to store the user stats.
  *
@@ -1057,7 +1057,7 @@
 
 /**
  * @enum SteamLeaderboardSortMethod
- * @description > **Steamworks Enum**: [ISteamUserStats::ELeaderboardSortMethod](partner.steamgames.com/doc/api/ISteamUserStats#ELeaderboardSortMethod)
+ * @description > **Steamworks Enum**: [ISteamUserStats::ELeaderboardSortMethod](https://partner.steamgames.com/doc/api/ISteamUserStats#ELeaderboardSortMethod)
  *
  * This enum defines the sort method used to set whether a higher or lower score is better. You can set the sort method when creating a leaderboard with ${function.steam_userstats_find_or_create_leaderboard} or in App Admin on the Steamworks website. You can retrieve the sort method for a given leaderboard with [GetLeaderboardSortMethod](https://partner.steamgames.com/doc/api/ISteamUserStats#GetLeaderboardSortMethod).
  *
@@ -1082,7 +1082,7 @@
 
 /**
  * @enum SteamLeaderboardUploadScoreMethod
- * @description > **Steamworks Enum**: [ISteamUserStats::ELeaderboardUploadScoreMethod](partner.steamgames.com/doc/api/ISteamUserStats#ELeaderboardUploadScoreMethod)
+ * @description > **Steamworks Enum**: [ISteamUserStats::ELeaderboardUploadScoreMethod](https://partner.steamgames.com/doc/api/ISteamUserStats#ELeaderboardUploadScoreMethod)
  *
  * This enum holds the possible sort methods used to set whether a higher or lower score is better. You can set the sort method when creating a leaderboard with ${function.steam_userstats_find_or_create_leaderboard} or in App Admin on the Steamworks website. You can retrieve the sort method for a given leaderboard with [GetLeaderboardSortMethod](https://partner.steamgames.com/doc/api/ISteamUserStats#GetLeaderboardSortMethod).
  *

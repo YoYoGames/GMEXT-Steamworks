@@ -260,7 +260,7 @@
 
 /**
  * @enum SteamApiUserHasLicenseForAppResult
- * @description > **Steamworks Enum**: [EUserHasLicenseForAppResult](partner.steamgames.com/doc/api/steam_api#EUserHasLicenseForAppResult)
+ * @description > **Steamworks Enum**: [EUserHasLicenseForAppResult](https://partner.steamgames.com/doc/api/steam_api#EUserHasLicenseForAppResult)
  *
  * This enum holds the possible results of ${function.steam_user_user_has_license_for_app}.
  *
@@ -291,7 +291,7 @@
 
 /**
  * @enum SteamApiResult
- * @description > **Steamworks Enum**: [EResult](partner.steamgames.com/doc/api/steam_api#EResult)
+ * @description > **Steamworks Enum**: [EResult](https://partner.steamgames.com/doc/api/steam_api#EResult)
  *
  * This enum holds the possible Steam error result codes.
  *

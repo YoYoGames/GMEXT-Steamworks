@@ -464,7 +464,7 @@
 
 /**
  * @struct SteamInputDigitalActionData
- * @description > **Steamworks Struct**: [ISteamInput:InputDigitalActionData_t](partner.steamgames.com/doc/api/ISteamInput#InputDigitalActionData_t)
+ * @description > **Steamworks Struct**: [ISteamInput:InputDigitalActionData_t](https://partner.steamgames.com/doc/api/ISteamInput#InputDigitalActionData_t)
  *
  * This struct holds the current state of a digital action.
  *
@@ -475,7 +475,7 @@
 
 /**
  * @struct SteamInputMotionData
- * @description > **Steamworks Struct**: [ISteamInput::InputMotionData_t](partner.steamgames.com/doc/api/ISteamInput#InputMotionData_t)
+ * @description > **Steamworks Struct**: [ISteamInput::InputMotionData_t](https://partner.steamgames.com/doc/api/ISteamInput#InputMotionData_t)
  *
  * This struct holds the current state of a device's motion sensor(s).
  *

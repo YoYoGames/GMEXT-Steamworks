@@ -5,7 +5,8 @@
  * 
  * @section Guides
  * @desc These are the guides for the Steamworks extension:
- * @ref page.guides
+ * @ref page.getting_started
+ * @ref page.extension_options
  * @section_end
  * 
  * @section Management

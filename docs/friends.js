@@ -1185,7 +1185,7 @@
 
 /**
  * @struct SteamFriendsGameOverlayActivated
- * @description > **Steamworks Struct**: [ISteamFriends::GameOverlayActivated_t](partner.steamgames.com/doc/api/ISteamFriends#GameOverlayActivated_t)
+ * @description > **Steamworks Struct**: [ISteamFriends::GameOverlayActivated_t](https://partner.steamgames.com/doc/api/ISteamFriends#GameOverlayActivated_t)
  *
  * This struct holds information posted when the [Steam Overlay](https://partner.steamgames.com/doc/features/overlay) activates or deactivates.
  *
@@ -1306,7 +1306,7 @@
 
 /**
  * @enum SteamFriendsPersonaState
- * @description > **Steamworks Enum**: [ISteamFriends::EPersonaState](partner.steamgames.com/doc/api/ISteamFriends#EPersonaState)
+ * @description > **Steamworks Enum**: [ISteamFriends::EPersonaState](https://partner.steamgames.com/doc/api/ISteamFriends#EPersonaState)
  *
  * This enum contains the possible states a Steam friend can be in.
  *

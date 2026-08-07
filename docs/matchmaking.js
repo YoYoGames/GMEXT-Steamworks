@@ -775,7 +775,7 @@
 
 /**
  * @enum SteamMatchmakingLobbyDistanceFilter
- * @description > **Steamworks Enum**: [ISteamMatchmaking::ELobbyDistanceFilter](partner.steamgames.com/doc/api/ISteamMatchmaking#ELobbyDistanceFilter)
+ * @description > **Steamworks Enum**: [ISteamMatchmaking::ELobbyDistanceFilter](https://partner.steamgames.com/doc/api/ISteamMatchmaking#ELobbyDistanceFilter)
  *
  * This enum holds the possible lobby search distance filters when requesting the lobby list. Lobby results are sorted from closest to farthest. This can be set with ${function.steam_matchmaking_add_request_lobby_list_distance_filter}.
  *

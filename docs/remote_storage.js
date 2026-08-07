@@ -533,7 +533,7 @@
 
 /**
  * @struct SteamRemoteStoragePublishedFileSubscribed
- * @description > **Steamworks Struct**: [ISteamRemoteStorage::RemoteStoragePublishedFileSubscribed_t](partner.steamgames.com/doc/api/ISteamRemoteStorage#RemoteStoragePublishedFileSubscribed_t)
+ * @description > **Steamworks Struct**: [ISteamRemoteStorage::RemoteStoragePublishedFileSubscribed_t](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#RemoteStoragePublishedFileSubscribed_t)
  *
  * This struct holds information passed in a `RemoteStoragePublishedFileSubscribed_t` callback.
  *
@@ -544,7 +544,7 @@
 
 /**
  * @struct SteamRemoteStoragePublishedFileUnsubscribed
- * @description > **Steamworks Struct**: [ISteamRemoteStorage::RemoteStoragePublishedFileUnsubscribed_t](partner.steamgames.com/doc/api/ISteamRemoteStorage#RemoteStoragePublishedFileUnsubscribed_t)
+ * @description > **Steamworks Struct**: [ISteamRemoteStorage::RemoteStoragePublishedFileUnsubscribed_t](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#RemoteStoragePublishedFileUnsubscribed_t)
  *
  * This struct holds information passed in a `RemoteStoragePublishedFileUnsubscribed_t` callback.
  *
@@ -557,7 +557,7 @@
 
 /**
  * @enum SteamRemoteStoragePublishedFileVisibility
- * @description > **Steamworks Enum**: [ISteamRemoteStorage::ERemoteStoragePublishedFileVisibility](partner.steamgames.com/doc/api/ISteamRemoteStorage#ERemoteStoragePublishedFileVisibility)
+ * @description > **Steamworks Enum**: [ISteamRemoteStorage::ERemoteStoragePublishedFileVisibility](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#ERemoteStoragePublishedFileVisibility)
  *
  * This enum holds the possible visibility states that a Workshop item can be in.
  *
@@ -600,7 +600,7 @@
 
 /**
  * @enum SteamRemoteStorageWorkshopFileType
- * @description > **Steamworks Enum**: [ISteamRemoteStorage::EWorkshopFileType](partner.steamgames.com/doc/api/ISteamRemoteStorage#EWorkshopFileType)
+ * @description > **Steamworks Enum**: [ISteamRemoteStorage::EWorkshopFileType](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#EWorkshopFileType)
  *
  * This enum holds members that represent the way that a shared file will be shared with the community.
  *

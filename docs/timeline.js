@@ -324,7 +324,7 @@
 
 /**
  * @enum SteamTimelineEventClipPriority
- * @description > **Steamworks Enum**: [ISteamTimeline::ETimelineEventClipPriority](partner.steamgames.com/doc/api/ISteamTimeline#ETimelineEventClipPriority)
+ * @description > **Steamworks Enum**: [ISteamTimeline::ETimelineEventClipPriority](https://partner.steamgames.com/doc/api/ISteamTimeline#ETimelineEventClipPriority)
  *
  * This enum is used in ${function.steam_timeline_add_instantaneous_timeline_event} and ${function.steam_timeline_add_range_timeline_event}, where Featured events will be offered before Standard events.
  *

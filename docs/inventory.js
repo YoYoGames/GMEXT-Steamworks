@@ -767,7 +767,7 @@
 
 /**
  * @enum SteamInventoryItemFlags
- * @description > **Steamworks Enum**: [ISteamInventory::ESteamItemFlags](partner.steamgames.com/doc/api/ISteamInventory#ESteamItemFlags)
+ * @description > **Steamworks Enum**: [ISteamInventory::ESteamItemFlags](https://partner.steamgames.com/doc/api/ISteamInventory#ESteamItemFlags)
  * 
  * This enum holds bitflags that are set in a `SteamItemDetails_t` callback.
  * 

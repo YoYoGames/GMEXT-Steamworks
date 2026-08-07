@@ -1622,7 +1622,7 @@
 
 /**
  * @struct SteamUgcItemInstalled
- * @description > **Steamworks Struct**: [ISteamUGC::ItemInstalled_t](partner.steamgames.com/doc/api/ISteamUGC#ItemInstalled_t)
+ * @description > **Steamworks Struct**: [ISteamUGC::ItemInstalled_t](https://partner.steamgames.com/doc/api/ISteamUGC#ItemInstalled_t)
  *
  * This struct holds information passed to a `ISteamUGC::ItemInstalled_t` callback, which is called when a workshop item has been installed or updated.
  * 
@@ -1635,7 +1635,7 @@
 
 /**
  * @struct SteamUgcUserSubscribedItemsListChanged
- * @description > **Steamworks Struct**: [ISteamUGC::UserSubscribedItemsListChanged_t](partner.steamgames.com/doc/api/ISteamUGC#UserSubscribedItemsListChanged_t)
+ * @description > **Steamworks Struct**: [ISteamUGC::UserSubscribedItemsListChanged_t](https://partner.steamgames.com/doc/api/ISteamUGC#UserSubscribedItemsListChanged_t)
  *
  * This struct holds information about when the user has added or removed an item to/from their subscriptions for the returned app ID.
  *
@@ -1800,7 +1800,7 @@
 
 /**
  * @struct SteamUgcRemoveUGCDependencyResult
- * @description > **Steamworks Struct**: [ISteamUGC::RemoveUGCDependencyResult_t](partner.steamgames.com/doc/api/ISteamUGC#RemoveUGCDependencyResult_t)
+ * @description > **Steamworks Struct**: [ISteamUGC::RemoveUGCDependencyResult_t](https://partner.steamgames.com/doc/api/ISteamUGC#RemoveUGCDependencyResult_t)
  * 
  * This struct holds information about the result of a dependency removal.
  * 
@@ -1927,7 +1927,7 @@
 
 /**
  * @enum SteamUgcItemPreviewType
- * @description > **Steamworks Enum**: [ISteamUGC::EItemPreviewType](partner.steamgames.com/doc/api/ISteamUGC#EItemPreviewType)
+ * @description > **Steamworks Enum**: [ISteamUGC::EItemPreviewType](https://partner.steamgames.com/doc/api/ISteamUGC#EItemPreviewType)
  *
  * This enum holds the flags that specify the type of preview an item has. Set with ${function.steam_ugc_add_item_preview_file}, and received with ${function.steam_ugc_get_query_ugc_additional_preview}.
  *
@@ -1943,7 +1943,7 @@
 
 /**
  * @enum SteamUgcContentDescriptorId
- * @description > **Steamworks Enum**: [ISteamUGC::EUGCContentDescriptorID](partner.steamgames.com/doc/api/ISteamUGC#EUGCContentDescriptorID)
+ * @description > **Steamworks Enum**: [ISteamUGC::EUGCContentDescriptorID](https://partner.steamgames.com/doc/api/ISteamUGC#EUGCContentDescriptorID)
  *
  * This enum holds the filters that define what user-generated content users want to see under the *Mature Content Filtering* section in their preferences.
  *

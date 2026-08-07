@@ -267,7 +267,7 @@
 
 /**
  * @struct SteamPartiesJoinPartyResult
- * @description > **Steamworks Struct**: [ISteamParties::JoinPartyCallback_t](partner.steamgames.com/doc/api/ISteamParties#JoinPartyCallback_t)
+ * @description > **Steamworks Struct**: [ISteamParties::JoinPartyCallback_t](https://partner.steamgames.com/doc/api/ISteamParties#JoinPartyCallback_t)
  *
  * This struct holds the data used as a call response for ${function.steam_parties_join_party}. On success, you will have reserved a slot in the beacon-owner's party, and should use `connect_string` to connect to their game and complete the process.
  *
@@ -328,7 +328,7 @@
 
 /**
  * @enum SteamPartiesBeaconLocationData
- * @description > **Steamworks Enum**: [ISteamParties::ESteamPartyBeaconLocationData](partner.steamgames.com/doc/api/ISteamParties#ESteamPartyBeaconLocationData)
+ * @description > **Steamworks Enum**: [ISteamParties::ESteamPartyBeaconLocationData](https://partner.steamgames.com/doc/api/ISteamParties#ESteamPartyBeaconLocationData)
  *
  * This enum holds the types of extended metadata for beacon locations.
  *

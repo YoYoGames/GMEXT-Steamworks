@@ -639,7 +639,7 @@
  * 
  * This function sets the function to call when an auth session ticket has been created.
  * 
- * See: [ISteamUser::GetAuthSessionTicketResponse_t](partner.steamgames.com/doc/api/ISteamUser#GetAuthSessionTicketResponse_t)
+ * See: [ISteamUser::GetAuthSessionTicketResponse_t](https://partner.steamgames.com/doc/api/ISteamUser#GetAuthSessionTicketResponse_t)
  * 
  * See: ${struct.SteamUserGetAuthSessionTicketResponse}
  * 
@@ -662,7 +662,7 @@
  * 
  * This function sets the function to be called when an auth ticket has been validated.
  * 
- * See: [ISteamUser::ValidateAuthTicketResponse_t](partner.steamgames.com/doc/api/ISteamUser#ValidateAuthTicketResponse_t)
+ * See: [ISteamUser::ValidateAuthTicketResponse_t](https://partner.steamgames.com/doc/api/ISteamUser#ValidateAuthTicketResponse_t)
  * 
  * See: ${struct.SteamUserValidateAuthTicketResponse}
  * 
@@ -818,7 +818,7 @@
 
 /**
  * @struct SteamUserSteamServersDisconnected
- * @description > **Steamworks Struct**: [ISteamUser::SteamServersDisconnected_t](partner.steamgames.com/doc/api/ISteamUser#SteamServersDisconnected_t)
+ * @description > **Steamworks Struct**: [ISteamUser::SteamServersDisconnected_t](https://partner.steamgames.com/doc/api/ISteamUser#SteamServersDisconnected_t)
  *
  * This struct holds information about the reason the client has lost connection to the Steam servers.
  *
@@ -853,7 +853,7 @@
 
 /**
  * @struct SteamUserMicroTxnAuthorizationResponse
- * @description > **Steamworks Struct**: [ISteamUser::MicroTxnAuthorizationResponse_t](partner.steamgames.com/doc/api/ISteamUser#MicroTxnAuthorizationResponse_t)
+ * @description > **Steamworks Struct**: [ISteamUser::MicroTxnAuthorizationResponse_t](https://partner.steamgames.com/doc/api/ISteamUser#MicroTxnAuthorizationResponse_t)
  *
  * This struct holds information passed in a `ISteamUser::MicroTxnAuthorizationResponse_t` callback, which is called when a user has responded to a microtransaction authorization request.
  *
@@ -927,7 +927,7 @@
 
 /**
  * @enum SteamUserUgcList
- * @description > **Steamworks Enum**: [ISteamUGC::EUserUGCList](partner.steamgames.com/doc/api/ISteamUGC#EUserUGCList)
+ * @description > **Steamworks Enum**: [ISteamUGC::EUserUGCList](https://partner.steamgames.com/doc/api/ISteamUGC#EUserUGCList)
  *
  * This enum is used with ${function.steam_ugc_create_query_user_ugc_request} to obtain different lists of published UGC for a user.
  *

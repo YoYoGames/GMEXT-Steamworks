@@ -508,7 +508,7 @@
 
 /**
  * @struct SteamNetworkingMessage
- * @description > **Steamworks Struct**: [SteamNetworkingMessage_t](partner.steamgames.com/doc/api/steamnetworkingtypes#SteamNetworkingMessage_t)
+ * @description > **Steamworks Struct**: [SteamNetworkingMessage_t](https://partner.steamgames.com/doc/api/steamnetworkingtypes#SteamNetworkingMessage_t)
  * 
  * This struct holds information about a message that has been received.
  * 
@@ -526,7 +526,7 @@
 
 /**
  * @struct SteamNetworkingSocketsConnectionInfo
- * @description > **Steamworks Struct**: [SteamNetConnectionInfo_t](partner.steamgames.com/doc/api/steamnetworkingtypes#SteamNetConnectionInfo_t)
+ * @description > **Steamworks Struct**: [SteamNetConnectionInfo_t](https://partner.steamgames.com/doc/api/steamnetworkingtypes#SteamNetConnectionInfo_t)
  *
  * This struct describes the state of a connection.
  *
@@ -557,7 +557,7 @@
 
 /**
  * @enum SteamNetworkingIdentityType
- * @description > **Steamworks Enum**: [ESteamNetworkingIdentityType](partner.steamgames.com/doc/api/steamnetworkingtypes#ESteamNetworkingIdentityType)
+ * @description > **Steamworks Enum**: [ESteamNetworkingIdentityType](https://partner.steamgames.com/doc/api/steamnetworkingtypes#ESteamNetworkingIdentityType)
  *
  * This enum holds the types needed to describe network hosts.
  *
@@ -571,7 +571,7 @@
 
 /**
  * @enum SteamNetworkingConnectionEnd
- * @description > **Steamworks Struct**: [ESteamNetConnectionEnd](partner.steamgames.com/doc/api/steamnetworkingtypes#ESteamNetConnectionEnd)
+ * @description > **Steamworks Struct**: [ESteamNetConnectionEnd](https://partner.steamgames.com/doc/api/steamnetworkingtypes#ESteamNetConnectionEnd)
  * @member Invalid Invalid/sentinel value.
  * @member App_Min 1xxx: Application ended the connection in a "usual" manner. E.g.: user intentionally disconnected from the server, gameplay ended normally, etc.
  * @member App_Generic Application ended the connection in a "usual" manner.
