@@ -220,7 +220,6 @@
 <h2 id="structs">Structs</h2>
 <p>These are the structs of the Networking module:</p>
 <ul>
-<li><a href="networking.html#steamnetworkingidentity">SteamNetworkingIdentity</a></li>
 <li><a href="networking.html#steamnetworkingmessagessessionrequest">SteamNetworkingMessagesSessionRequest</a></li>
 <li><a href="networking.html#steamnetworkingmessagessessionfailed">SteamNetworkingMessagesSessionFailed</a></li>
 <li><a href="networking.html#steamnetworkingmessage">SteamNetworkingMessage</a></li>
@@ -1657,9 +1656,9 @@
 <p><strong>Steamworks Enum</strong>: <a href="partner.steamgames.com/doc/api/steamnetworkingtypes.html#ESteamNetworkingIdentityType">ESteamNetworkingIdentityType</a></p>
 </blockquote>
 <p>This enum holds the types needed to describe network hosts.</p>
-<p>These constants are referenced by the following structs:</p>
+<p>These constants are referenced by the following functions:</p>
 <ul>
-<li><a href="networking.html#steamnetworkingidentity">SteamNetworkingIdentity</a></li>
+<li><a href="user.html#steam_user_get_auth_session_ticket">steam_user_get_auth_session_ticket</a></li>
 </ul>
 <p><br></p>
 <table>
@@ -2050,56 +2049,6 @@
 <tr>
 <td><code>LogLevelAlerts</code></td>
 <td>Log level for alerts.</td>
-</tr>
-</tbody>
-</table>
-<p><br></p>
-<hr />
-<p align="right"><a href="#top">Back To Top</a></p>
-
-<h1 id="steamnetworkingidentity">SteamNetworkingIdentity</h1>
-<blockquote>
-<p><strong>Steamworks Struct</strong>: <a href="https://partner.steamgames.com/doc/api/steamnetworkingtypes#SteamNetworkingIdentity">SteamNetworkingIdentity</a></p>
-</blockquote>
-<p>This struct represents the identity of a network host.</p>
-<p>This struct is referenced by the following functions:</p>
-<ul>
-<li><a href="user.html#steam_user_get_auth_session_ticket">steam_user_get_auth_session_ticket</a></li>
-</ul>
-<p><br></p>
-<table>
-<thead>
-<tr>
-<th>Member</th>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>type</td>
-<td><a href="networking.html#steamnetworkingidentitytype">SteamNetworkingIdentityType</a></td>
-<td>The type of identity.</td>
-</tr>
-<tr>
-<td>steam_id</td>
-<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
-<td>The Steam ID associated with the identity.</td>
-</tr>
-<tr>
-<td>ip</td>
-<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
-<td>The IP address of the identity.</td>
-</tr>
-<tr>
-<td>port</td>
-<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
-<td>The network port of the identity.</td>
-</tr>
-<tr>
-<td>generic_string</td>
-<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
-<td>A generic string associated with the identity.</td>
 </tr>
 </tbody>
 </table>
