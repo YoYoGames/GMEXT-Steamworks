@@ -3031,7 +3031,7 @@
 /**
  * @function_partial steam_timeline_does_event_recording_exist
  * @param {Real} event_handle
- * @returns {Real}
+ * @param {Function} callback
  * @function_end
  */
 
@@ -3054,7 +3054,7 @@
 /**
  * @function_partial steam_timeline_does_game_phase_recording_exist
  * @param {String} phase_id
- * @returns {Real}
+ * @param {Function} callback
  * @function_end
  */
 
@@ -3090,28 +3090,6 @@
 /**
  * @function_partial steam_timeline_open_overlay_to_timeline_event
  * @param {Real} event_handle
- * @function_end
- */
-
-/**
- * @function_partial steam_timeline_set_callback_game_phase_recording_exists
- * @param {Function} callback
- * @function_end
- */
-
-/**
- * @function_partial steam_timeline_clear_callback_game_phase_recording_exists
- * @function_end
- */
-
-/**
- * @function_partial steam_timeline_set_callback_event_recording_exists
- * @param {Function} callback
- * @function_end
- */
-
-/**
- * @function_partial steam_timeline_clear_callback_event_recording_exists
  * @function_end
  */
 
@@ -3962,6 +3940,42 @@
  * @function_partial steam_matchmaking_get_lobby_game_server
  * @param {Real} steam_id_lobby
  * @returns {Struct.SteamMatchmakingLobbyGameServer}
+ * @function_end
+ */
+
+/**
+ * @function_partial steam_matchmaking_get_favorite_game_count
+ * @returns {Real}
+ * @function_end
+ */
+
+/**
+ * @function_partial steam_matchmaking_get_favorite_game
+ * @param {Real} index
+ * @returns {Struct.SteamMatchmakingFavoriteGame}
+ * @function_end
+ */
+
+/**
+ * @function_partial steam_matchmaking_add_favorite_game
+ * @param {Real} app_id
+ * @param {Real} ip
+ * @param {Real} conn_port
+ * @param {Real} query_port
+ * @param {Real} flags
+ * @param {Real} last_played_time
+ * @returns {Real}
+ * @function_end
+ */
+
+/**
+ * @function_partial steam_matchmaking_remove_favorite_game
+ * @param {Real} app_id
+ * @param {Real} ip
+ * @param {Real} conn_port
+ * @param {Real} query_port
+ * @param {Real} flags
+ * @returns {Bool}
  * @function_end
  */
 
@@ -5387,6 +5401,17 @@
  * @member {Real} ip
  * @member {Real} port
  * @member {Real} steam_id_gs
+ * @struct_end
+ */
+
+/**
+ * @struct_partial SteamMatchmakingFavoriteGame
+ * @member {Real} app_id
+ * @member {Real} ip
+ * @member {Real} conn_port
+ * @member {Real} query_port
+ * @member {Real} flags
+ * @member {Real} last_played_time
  * @struct_end
  */
 

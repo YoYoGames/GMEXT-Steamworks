@@ -5079,18 +5079,17 @@ GMEXPORT double __EXT_NATIVE__steam_timeline_remove_timeline_event(char* __arg_b
     return 0;
 }
 
-GMEXPORT double __EXT_NATIVE__steam_timeline_does_event_recording_exist(char* __arg_buffer, double __arg_buffer_length, char* __ret_buffer, double __ret_buffer_length)
+GMEXPORT double __EXT_NATIVE__steam_timeline_does_event_recording_exist(char* __arg_buffer, double __arg_buffer_length)
 {
     gm::byteio::BufferReader __br{__arg_buffer, static_cast<size_t>(__arg_buffer_length)};
 
     // field: event_handle, type: UInt64
     std::uint64_t event_handle = gm::wire::codec::readValue<std::uint64_t>(__br);
 
-    auto&& __result = steam_timeline_does_event_recording_exist(event_handle);
-    gm::byteio::BufferWriter __bw{__ret_buffer, static_cast<size_t>(__ret_buffer_length)};
+    // field: callback, type: Function
+    gm::wire::GMFunction callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
 
-    // return: __result, type: UInt64
-    gm::wire::codec::writeValue(__bw, __result);
+    steam_timeline_does_event_recording_exist(event_handle, callback);
     return 0;
 }
 
@@ -5112,13 +5111,17 @@ GMEXPORT double __EXT_NATIVE__steam_timeline_set_game_phase_id(char* phase_id)
     return 0;
 }
 
-GMEXPORT double __EXT_NATIVE__steam_timeline_does_game_phase_recording_exist(char* phase_id, char* __ret_buffer, double __ret_buffer_length)
+GMEXPORT double __EXT_NATIVE__steam_timeline_does_game_phase_recording_exist(char* __arg_buffer, double __arg_buffer_length)
 {
-    auto&& __result = steam_timeline_does_game_phase_recording_exist(phase_id);
-    gm::byteio::BufferWriter __bw{__ret_buffer, static_cast<size_t>(__ret_buffer_length)};
+    gm::byteio::BufferReader __br{__arg_buffer, static_cast<size_t>(__arg_buffer_length)};
 
-    // return: __result, type: UInt64
-    gm::wire::codec::writeValue(__bw, __result);
+    // field: phase_id, type: String
+    std::string_view phase_id = gm::wire::codec::readValue<std::string_view>(__br);
+
+    // field: callback, type: Function
+    gm::wire::GMFunction callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
+
+    steam_timeline_does_game_phase_recording_exist(phase_id, callback);
     return 0;
 }
 
@@ -5159,40 +5162,6 @@ GMEXPORT double __EXT_NATIVE__steam_timeline_open_overlay_to_timeline_event(char
     std::uint64_t event_handle = gm::wire::codec::readValue<std::uint64_t>(__br);
 
     steam_timeline_open_overlay_to_timeline_event(event_handle);
-    return 0;
-}
-
-GMEXPORT double __EXT_NATIVE__steam_timeline_set_callback_game_phase_recording_exists(char* __arg_buffer, double __arg_buffer_length)
-{
-    gm::byteio::BufferReader __br{__arg_buffer, static_cast<size_t>(__arg_buffer_length)};
-
-    // field: callback, type: Function
-    gm::wire::GMFunction callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
-
-    steam_timeline_set_callback_game_phase_recording_exists(callback);
-    return 0;
-}
-
-GMEXPORT double __EXT_NATIVE__steam_timeline_clear_callback_game_phase_recording_exists()
-{
-    steam_timeline_clear_callback_game_phase_recording_exists();
-    return 0;
-}
-
-GMEXPORT double __EXT_NATIVE__steam_timeline_set_callback_event_recording_exists(char* __arg_buffer, double __arg_buffer_length)
-{
-    gm::byteio::BufferReader __br{__arg_buffer, static_cast<size_t>(__arg_buffer_length)};
-
-    // field: callback, type: Function
-    gm::wire::GMFunction callback = gm::wire::codec::readFunction(__br, &__dispatch_queue);
-
-    steam_timeline_set_callback_event_recording_exists(callback);
-    return 0;
-}
-
-GMEXPORT double __EXT_NATIVE__steam_timeline_clear_callback_event_recording_exists()
-{
-    steam_timeline_clear_callback_event_recording_exists();
     return 0;
 }
 
@@ -6632,6 +6601,34 @@ GMEXPORT double __EXT_NATIVE__steam_matchmaking_get_lobby_game_server(char* __ar
     // return: __result, type: optional<struct SteamMatchmakingLobbyGameServer>
     gm::wire::codec::writeValue(__bw, __result);
     return 0;
+}
+
+GMEXPORT double __EXT_NATIVE__steam_matchmaking_get_favorite_game_count()
+{
+    auto&& __result = steam_matchmaking_get_favorite_game_count();
+    return static_cast<double>(__result);
+}
+
+GMEXPORT double __EXT_NATIVE__steam_matchmaking_get_favorite_game(double index, char* __ret_buffer, double __ret_buffer_length)
+{
+    auto&& __result = steam_matchmaking_get_favorite_game(static_cast<std::int32_t>(index));
+    gm::byteio::BufferWriter __bw{__ret_buffer, static_cast<size_t>(__ret_buffer_length)};
+
+    // return: __result, type: optional<struct SteamMatchmakingFavoriteGame>
+    gm::wire::codec::writeValue(__bw, __result);
+    return 0;
+}
+
+GMEXPORT double __EXT_NATIVE__steam_matchmaking_add_favorite_game(double app_id, double ip, double conn_port, double query_port, double flags, double last_played_time)
+{
+    auto&& __result = steam_matchmaking_add_favorite_game(static_cast<std::uint32_t>(app_id), static_cast<std::uint32_t>(ip), static_cast<std::uint32_t>(conn_port), static_cast<std::uint32_t>(query_port), static_cast<std::uint32_t>(flags), static_cast<std::uint32_t>(last_played_time));
+    return static_cast<double>(__result);
+}
+
+GMEXPORT double __EXT_NATIVE__steam_matchmaking_remove_favorite_game(double app_id, double ip, double conn_port, double query_port, double flags)
+{
+    auto&& __result = steam_matchmaking_remove_favorite_game(static_cast<std::uint32_t>(app_id), static_cast<std::uint32_t>(ip), static_cast<std::uint32_t>(conn_port), static_cast<std::uint32_t>(query_port), static_cast<std::uint32_t>(flags));
+    return static_cast<double>(__result);
 }
 
 GMEXPORT double __EXT_NATIVE__steam_networking_messages_set_callback_session_request(char* __arg_buffer, double __arg_buffer_length)

@@ -605,8 +605,60 @@
  * Either the IP/Port or the Steam ID of the game server has to be valid, depending on how you want the clients to be able to connect.
  *
  * @param {Real} steam_id_lobby The Steam ID of the lobby to get the game server information from.
- * @returns {Struct.SteamMatchmakingLobbyGameServer} 
- * @function_end 
+ * @returns {Struct.SteamMatchmakingLobbyGameServer}
+ * @function_end
+ */
+
+/**
+ * @function steam_matchmaking_get_favorite_game_count
+ * @description > **Steamworks Function**: [ISteamMatchmaking::GetFavoriteGameCount](https://partner.steamgames.com/doc/api/ISteamMatchmaking#GetFavoriteGameCount)
+ *
+ * This function returns the number of favorite (and recent) game servers the user has stored locally.
+ *
+ * @returns {Real}
+ * @function_end
+ */
+
+/**
+ * @function steam_matchmaking_get_favorite_game
+ * @description > **Steamworks Function**: [ISteamMatchmaking::GetFavoriteGame](https://partner.steamgames.com/doc/api/ISteamMatchmaking#GetFavoriteGame)
+ *
+ * This function gets the details of one of the favorite (or recent) game servers the user has stored locally.
+ *
+ * @param {Real} index The index of the favorite game server to retrieve, in the range [0, ${function.steam_matchmaking_get_favorite_game_count}).
+ * @returns {Struct.SteamMatchmakingFavoriteGame}
+ * @function_end
+ */
+
+/**
+ * @function steam_matchmaking_add_favorite_game
+ * @description > **Steamworks Function**: [ISteamMatchmaking::AddFavoriteGame](https://partner.steamgames.com/doc/api/ISteamMatchmaking#AddFavoriteGame)
+ *
+ * This function adds the game server to the local favorites list, or updates its last-played time if it's already in the list.
+ *
+ * @param {Real} app_id The App ID of the game.
+ * @param {Real} ip The IP address of the game server, in host order (i.e 127.0.0.1 == 0x7f000001).
+ * @param {Real} conn_port The connection port of the game server, in host order.
+ * @param {Real} query_port The query port of the game server, in host order.
+ * @param {Real} flags A bitmask of `STEAM_MATCHMAKING_FAVORITE_FLAG_*` values specifying whether to store this as an explicit favorite or as connection history.
+ * @param {Real} last_played_time The time (as a Unix timestamp) the favorite was last played.
+ * @returns {Real} The new number of entries in the favorites list.
+ * @function_end
+ */
+
+/**
+ * @function steam_matchmaking_remove_favorite_game
+ * @description > **Steamworks Function**: [ISteamMatchmaking::RemoveFavoriteGame](https://partner.steamgames.com/doc/api/ISteamMatchmaking#RemoveFavoriteGame)
+ *
+ * This function removes the game server from the local favorites list.
+ *
+ * @param {Real} app_id The App ID of the game.
+ * @param {Real} ip The IP address of the game server, in host order.
+ * @param {Real} conn_port The connection port of the game server, in host order.
+ * @param {Real} query_port The query port of the game server, in host order.
+ * @param {Real} flags A bitmask of `STEAM_MATCHMAKING_FAVORITE_FLAG_*` values matching the entry to remove.
+ * @returns {Bool} Whether an entry was removed.
+ * @function_end
  */
 
 // STRUCTS
@@ -740,6 +792,21 @@
  * @member {Real} ip The IP address of the game server, in host order, i.e 127.0.0.1 == 0x7f000001, if it's set.
  * @member {Real} port The connection port of the game server, in host order, if it's set.
  * @member {Real} steam_id_gs The Steam ID of the game server, if it's set.
+ * @struct_end
+ */
+
+/**
+ * @struct SteamMatchmakingFavoriteGame
+ * @description > **Steamworks Struct**: N / A
+ *
+ * This struct holds information about one entry in the local favorites (or recent connection history) list, as returned by ${function.steam_matchmaking_get_favorite_game}.
+ *
+ * @member {Real} app_id The App ID of the game.
+ * @member {Real} ip The IP address of the game server, in host order.
+ * @member {Real} conn_port The connection port of the game server, in host order.
+ * @member {Real} query_port The query port of the game server, in host order.
+ * @member {Real} flags A bitmask of `STEAM_MATCHMAKING_FAVORITE_FLAG_*` values - whether this entry is an explicit favorite or connection history.
+ * @member {Real} last_played_time The time (as a Unix timestamp) the favorite was last played.
  * @struct_end
  */
 

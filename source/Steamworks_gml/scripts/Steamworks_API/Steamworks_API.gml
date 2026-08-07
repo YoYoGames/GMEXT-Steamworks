@@ -3912,6 +3912,26 @@ function SteamMatchmakingLobbyGameServer() constructor
 }
 
 /**
+ * @returns {Struct.SteamMatchmakingFavoriteGame}
+ */
+function SteamMatchmakingFavoriteGame() constructor
+{
+    /**
+     * Internally generated hash for quick validation
+     * @ignore
+     */
+    static __uid = 2523847155;
+
+    self.app_id = undefined;
+    self.ip = undefined;
+    self.conn_port = undefined;
+    self.query_port = undefined;
+    self.flags = undefined;
+    self.last_played_time = undefined;
+
+}
+
+/**
  * @returns {Struct.SteamNetworkingMessagesSessionRequest}
  */
 function SteamNetworkingMessagesSessionRequest() constructor
@@ -11654,6 +11674,83 @@ function __SteamMatchmakingLobbyGameServer_decode(_buffer, _offset)
 
         // field: steam_id_gs, type: UInt64
         self.steam_id_gs = buffer_read(_buffer, buffer_u64);
+
+    }
+
+    return _inst;
+}
+
+/**
+ * @func __SteamMatchmakingFavoriteGame_encode(_inst, _buffer, _offset, _where)
+ * @param {Struct.SteamMatchmakingFavoriteGame} _inst
+ * @param {Id.Buffer} _buffer
+ * @param {Real} _offset
+ * @param {String} _where
+ * @ignore
+ */
+function __SteamMatchmakingFavoriteGame_encode(_inst, _buffer, _offset, _where = _GMFUNCTION_)
+{
+    buffer_seek(_buffer, buffer_seek_start, _offset);
+    with (_inst)
+    {
+        // field: app_id, type: UInt32
+        if (!is_numeric(self.app_id)) show_error($"{_where} :: self.app_id expected number", true);
+        buffer_write(_buffer, buffer_u32, self.app_id);
+
+        // field: ip, type: UInt32
+        if (!is_numeric(self.ip)) show_error($"{_where} :: self.ip expected number", true);
+        buffer_write(_buffer, buffer_u32, self.ip);
+
+        // field: conn_port, type: UInt32
+        if (!is_numeric(self.conn_port)) show_error($"{_where} :: self.conn_port expected number", true);
+        buffer_write(_buffer, buffer_u32, self.conn_port);
+
+        // field: query_port, type: UInt32
+        if (!is_numeric(self.query_port)) show_error($"{_where} :: self.query_port expected number", true);
+        buffer_write(_buffer, buffer_u32, self.query_port);
+
+        // field: flags, type: UInt32
+        if (!is_numeric(self.flags)) show_error($"{_where} :: self.flags expected number", true);
+        buffer_write(_buffer, buffer_u32, self.flags);
+
+        // field: last_played_time, type: UInt32
+        if (!is_numeric(self.last_played_time)) show_error($"{_where} :: self.last_played_time expected number", true);
+        buffer_write(_buffer, buffer_u32, self.last_played_time);
+
+    }
+}
+
+/**
+ * @func __SteamMatchmakingFavoriteGame_decode(_buffer, _offset)
+ * @param {Id.Buffer} _buffer
+ * @param {Real} _offset
+ * @returns {Struct.SteamMatchmakingFavoriteGame}
+ * @ignore
+ */
+function __SteamMatchmakingFavoriteGame_decode(_buffer, _offset)
+{
+    buffer_seek(_buffer, buffer_seek_start, _offset);
+
+    _inst = new SteamMatchmakingFavoriteGame();
+    with (_inst)
+    {
+        // field: app_id, type: UInt32
+        self.app_id = buffer_read(_buffer, buffer_u32);
+
+        // field: ip, type: UInt32
+        self.ip = buffer_read(_buffer, buffer_u32);
+
+        // field: conn_port, type: UInt32
+        self.conn_port = buffer_read(_buffer, buffer_u32);
+
+        // field: query_port, type: UInt32
+        self.query_port = buffer_read(_buffer, buffer_u32);
+
+        // field: flags, type: UInt32
+        self.flags = buffer_read(_buffer, buffer_u32);
+
+        // field: last_played_time, type: UInt32
+        self.last_played_time = buffer_read(_buffer, buffer_u32);
 
     }
 
@@ -20740,12 +20837,14 @@ function steam_timeline_remove_timeline_event(_event_handle)
 
 /**
  * @param {Real} _event_handle
- * @returns {Real}
+ * @param {Function} _callback
  */
-function steam_timeline_does_event_recording_exist(_event_handle)
+function steam_timeline_does_event_recording_exist(_event_handle, _callback)
 {
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
+
+    var __dispatcher__ = __Steamworks_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
 
@@ -20753,13 +20852,14 @@ function steam_timeline_does_event_recording_exist(_event_handle)
     if (!is_numeric(_event_handle)) show_error($"{_GMFUNCTION_} :: _event_handle expected number", true);
     buffer_write(__args_buffer, buffer_u64, _event_handle);
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    // param: _callback, type: Function
+    if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
+    var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
+    buffer_write(__args_buffer, buffer_u64, _callback_handle);
 
-    var __return_value__ = __steam_timeline_does_event_recording_exist(buffer_get_address(__args_buffer), buffer_tell(__args_buffer), buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_timeline_does_event_recording_exist(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
 
-    var __result__ = undefined;
-    __result__ = buffer_read(__ret_buffer, buffer_u64);
-    return __result__;
+    return __return_value__;
 }
 
 // Skipping function steam_timeline_start_game_phase (no wrapper is required)
@@ -20773,20 +20873,30 @@ function steam_timeline_does_event_recording_exist(_event_handle)
 
 /**
  * @param {String} _phase_id
- * @returns {Real}
+ * @param {Function} _callback
  */
-function steam_timeline_does_game_phase_recording_exist(_phase_id)
+function steam_timeline_does_game_phase_recording_exist(_phase_id, _callback)
 {
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __dispatcher__ = __Steamworks_get_dispatcher();
 
-    var __return_value__ = __steam_timeline_does_game_phase_recording_exist(_phase_id, buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __args_buffer = __ext_core_get_args_buffer();
 
-    var __result__ = undefined;
-    __result__ = buffer_read(__ret_buffer, buffer_u64);
-    return __result__;
+    // param: _phase_id, type: String
+    if (!is_string(_phase_id)) show_error($"{_GMFUNCTION_} :: _phase_id expected string", true);
+    buffer_write(__args_buffer, buffer_u32, string_byte_length(_phase_id));
+    buffer_write(__args_buffer, buffer_string, _phase_id);
+
+    // param: _callback, type: Function
+    if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
+    var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
+    buffer_write(__args_buffer, buffer_u64, _callback_handle);
+
+    var __return_value__ = __steam_timeline_does_game_phase_recording_exist(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+
+    return __return_value__;
 }
 
 // Skipping function steam_timeline_add_game_phase_tag (no wrapper is required)
@@ -20836,56 +20946,6 @@ function steam_timeline_open_overlay_to_timeline_event(_event_handle)
 
     return __return_value__;
 }
-
-/**
- * @param {Function} _callback
- */
-function steam_timeline_set_callback_game_phase_recording_exists(_callback)
-{
-    var __available__ = __Steamworks_is_available();
-    if (!__available__) return;
-
-    var __dispatcher__ = __Steamworks_get_dispatcher();
-
-    var __args_buffer = __ext_core_get_args_buffer();
-
-    // param: _callback, type: Function
-    if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
-    var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
-    buffer_write(__args_buffer, buffer_u64, _callback_handle);
-
-    var __return_value__ = __steam_timeline_set_callback_game_phase_recording_exists(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
-
-    return __return_value__;
-}
-
-// Skipping function steam_timeline_clear_callback_game_phase_recording_exists (no wrapper is required)
-
-
-/**
- * @param {Function} _callback
- */
-function steam_timeline_set_callback_event_recording_exists(_callback)
-{
-    var __available__ = __Steamworks_is_available();
-    if (!__available__) return;
-
-    var __dispatcher__ = __Steamworks_get_dispatcher();
-
-    var __args_buffer = __ext_core_get_args_buffer();
-
-    // param: _callback, type: Function
-    if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
-    var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
-    buffer_write(__args_buffer, buffer_u64, _callback_handle);
-
-    var __return_value__ = __steam_timeline_set_callback_event_recording_exists(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
-
-    return __return_value__;
-}
-
-// Skipping function steam_timeline_clear_callback_event_recording_exists (no wrapper is required)
-
 
 /**
  * @param {Real} _item_def_id
@@ -23510,6 +23570,40 @@ function steam_matchmaking_get_lobby_game_server(_steam_id_lobby)
     return __result__;
 }
 
+// Skipping function steam_matchmaking_get_favorite_game_count (no wrapper is required)
+
+
+/**
+ * @param {Real} _index
+ * @returns {Struct.SteamMatchmakingFavoriteGame}
+ */
+function steam_matchmaking_get_favorite_game(_index)
+{
+    var __available__ = __Steamworks_is_available();
+    if (!__available__) return;
+
+    var __ret_buffer = __ext_core_get_ret_buffer();
+
+    var __return_value__ = __steam_matchmaking_get_favorite_game(_index, buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+
+    var __result__ = undefined;
+    if (buffer_read(__ret_buffer, buffer_bool))
+    {
+        __result__ = __SteamMatchmakingFavoriteGame_decode(__ret_buffer, buffer_tell(__ret_buffer));
+    }
+    else
+    {
+        __result__ = undefined;
+    }
+    return __result__;
+}
+
+// Skipping function steam_matchmaking_add_favorite_game (no wrapper is required)
+
+
+// Skipping function steam_matchmaking_remove_favorite_game (no wrapper is required)
+
+
 /**
  * @param {Function} _callback
  */
@@ -24637,6 +24731,7 @@ function __Steamworks_get_decoders()
         __SteamMatchmakingLobbyDataEntry_decode,
         __SteamMatchmakingLobbyChatEntry_decode,
         __SteamMatchmakingLobbyGameServer_decode,
+        __SteamMatchmakingFavoriteGame_decode,
         __SteamNetworkingMessagesSessionRequest_decode,
         __SteamNetworkingMessagesSessionFailed_decode,
         __SteamNetworkingMessage_decode,

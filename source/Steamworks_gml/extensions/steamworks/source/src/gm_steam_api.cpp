@@ -165,10 +165,6 @@ static void steam_api_clear_all_callbacks()
     steam_screenshots_clear_callback_screenshot_requested();
     steam_screenshots_clear_callback_screenshot_ready();
 
-    // timeline
-    steam_timeline_clear_callback_event_recording_exists();
-    steam_timeline_clear_callback_game_phase_recording_exists();
-
     // ugc
     steam_ugc_clear_callback_item_installed();
     steam_ugc_clear_callback_download_item_result();

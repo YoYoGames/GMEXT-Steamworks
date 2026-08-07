@@ -7683,14 +7683,12 @@
         {
           "$GMExtensionFunction": "",
           "%Name": "__steam_timeline_does_event_recording_exist",
-          "argCount": 4,
+          "argCount": 2,
           "args": [
-            1,
-            2,
             1,
             2
           ],
-          "documentation": "@param {Pointer} _arg_buffer\r\n@param {Real} _arg_buffer_length\r\n@param {Pointer} _ret_buffer\r\n@param {Real} _ret_buffer_length\r\n@returns {Real}",
+          "documentation": "@param {Pointer} _arg_buffer\r\n@param {Real} _arg_buffer_length\r\n@returns {Real}",
           "externalName": "__EXT_NATIVE__steam_timeline_does_event_recording_exist",
           "help": "",
           "hidden": true,
@@ -7750,13 +7748,12 @@
         {
           "$GMExtensionFunction": "",
           "%Name": "__steam_timeline_does_game_phase_recording_exist",
-          "argCount": 3,
+          "argCount": 2,
           "args": [
-            1,
             1,
             2
           ],
-          "documentation": "@param {String} phase_id\r\n@param {Pointer} _ret_buffer\r\n@param {Real} _ret_buffer_length\r\n@returns {Real}",
+          "documentation": "@param {Pointer} _arg_buffer\r\n@param {Real} _arg_buffer_length\r\n@returns {Real}",
           "externalName": "__EXT_NATIVE__steam_timeline_does_game_phase_recording_exist",
           "help": "",
           "hidden": true,
@@ -7854,72 +7851,6 @@
           "hidden": true,
           "kind": 4,
           "name": "__steam_timeline_open_overlay_to_timeline_event",
-          "resourceType": "GMExtensionFunction",
-          "resourceVersion": "2.0",
-          "returnType": 2
-        },
-        {
-          "$GMExtensionFunction": "",
-          "%Name": "__steam_timeline_set_callback_game_phase_recording_exists",
-          "argCount": 2,
-          "args": [
-            1,
-            2
-          ],
-          "documentation": "@param {Pointer} _arg_buffer\r\n@param {Real} _arg_buffer_length\r\n@returns {Real}",
-          "externalName": "__EXT_NATIVE__steam_timeline_set_callback_game_phase_recording_exists",
-          "help": "",
-          "hidden": true,
-          "kind": 4,
-          "name": "__steam_timeline_set_callback_game_phase_recording_exists",
-          "resourceType": "GMExtensionFunction",
-          "resourceVersion": "2.0",
-          "returnType": 2
-        },
-        {
-          "$GMExtensionFunction": "",
-          "%Name": "steam_timeline_clear_callback_game_phase_recording_exists",
-          "argCount": 0,
-          "args": [],
-          "documentation": "@returns {Real}",
-          "externalName": "__EXT_NATIVE__steam_timeline_clear_callback_game_phase_recording_exists",
-          "help": "",
-          "hidden": false,
-          "kind": 4,
-          "name": "steam_timeline_clear_callback_game_phase_recording_exists",
-          "resourceType": "GMExtensionFunction",
-          "resourceVersion": "2.0",
-          "returnType": 2
-        },
-        {
-          "$GMExtensionFunction": "",
-          "%Name": "__steam_timeline_set_callback_event_recording_exists",
-          "argCount": 2,
-          "args": [
-            1,
-            2
-          ],
-          "documentation": "@param {Pointer} _arg_buffer\r\n@param {Real} _arg_buffer_length\r\n@returns {Real}",
-          "externalName": "__EXT_NATIVE__steam_timeline_set_callback_event_recording_exists",
-          "help": "",
-          "hidden": true,
-          "kind": 4,
-          "name": "__steam_timeline_set_callback_event_recording_exists",
-          "resourceType": "GMExtensionFunction",
-          "resourceVersion": "2.0",
-          "returnType": 2
-        },
-        {
-          "$GMExtensionFunction": "",
-          "%Name": "steam_timeline_clear_callback_event_recording_exists",
-          "argCount": 0,
-          "args": [],
-          "documentation": "@returns {Real}",
-          "externalName": "__EXT_NATIVE__steam_timeline_clear_callback_event_recording_exists",
-          "help": "",
-          "hidden": false,
-          "kind": 4,
-          "name": "steam_timeline_clear_callback_event_recording_exists",
           "resourceType": "GMExtensionFunction",
           "resourceVersion": "2.0",
           "returnType": 2
@@ -10014,6 +9945,83 @@
           "hidden": true,
           "kind": 4,
           "name": "__steam_matchmaking_get_lobby_game_server",
+          "resourceType": "GMExtensionFunction",
+          "resourceVersion": "2.0",
+          "returnType": 2
+        },
+        {
+          "$GMExtensionFunction": "",
+          "%Name": "steam_matchmaking_get_favorite_game_count",
+          "argCount": 0,
+          "args": [],
+          "documentation": "@returns {Real}",
+          "externalName": "__EXT_NATIVE__steam_matchmaking_get_favorite_game_count",
+          "help": "",
+          "hidden": false,
+          "kind": 4,
+          "name": "steam_matchmaking_get_favorite_game_count",
+          "resourceType": "GMExtensionFunction",
+          "resourceVersion": "2.0",
+          "returnType": 2
+        },
+        {
+          "$GMExtensionFunction": "",
+          "%Name": "__steam_matchmaking_get_favorite_game",
+          "argCount": 3,
+          "args": [
+            2,
+            1,
+            2
+          ],
+          "documentation": "@param {Real} index\r\n@param {Pointer} _ret_buffer\r\n@param {Real} _ret_buffer_length\r\n@returns {Real}",
+          "externalName": "__EXT_NATIVE__steam_matchmaking_get_favorite_game",
+          "help": "",
+          "hidden": true,
+          "kind": 4,
+          "name": "__steam_matchmaking_get_favorite_game",
+          "resourceType": "GMExtensionFunction",
+          "resourceVersion": "2.0",
+          "returnType": 2
+        },
+        {
+          "$GMExtensionFunction": "",
+          "%Name": "steam_matchmaking_add_favorite_game",
+          "argCount": 6,
+          "args": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ],
+          "documentation": "@param {Real} app_id\r\n@param {Real} ip\r\n@param {Real} conn_port\r\n@param {Real} query_port\r\n@param {Real} flags\r\n@param {Real} last_played_time\r\n@returns {Real}",
+          "externalName": "__EXT_NATIVE__steam_matchmaking_add_favorite_game",
+          "help": "",
+          "hidden": false,
+          "kind": 4,
+          "name": "steam_matchmaking_add_favorite_game",
+          "resourceType": "GMExtensionFunction",
+          "resourceVersion": "2.0",
+          "returnType": 2
+        },
+        {
+          "$GMExtensionFunction": "",
+          "%Name": "steam_matchmaking_remove_favorite_game",
+          "argCount": 5,
+          "args": [
+            2,
+            2,
+            2,
+            2,
+            2
+          ],
+          "documentation": "@param {Real} app_id\r\n@param {Real} ip\r\n@param {Real} conn_port\r\n@param {Real} query_port\r\n@param {Real} flags\r\n@returns {Real}",
+          "externalName": "__EXT_NATIVE__steam_matchmaking_remove_favorite_game",
+          "help": "",
+          "hidden": false,
+          "kind": 4,
+          "name": "steam_matchmaking_remove_favorite_game",
           "resourceType": "GMExtensionFunction",
           "resourceVersion": "2.0",
           "returnType": 2

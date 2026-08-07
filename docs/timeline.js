@@ -116,8 +116,8 @@
  * This function is used to determine if video recordings exist for the specified event. Steam will sent a [SteamTimelineEventRecordingExists_t](https://partner.steamgames.com/doc/api/ISteamTimeline#SteamTimelineEventRecordingExists_t) callback with the result. This can be useful when the game needs to decide whether or not to show a control that will call ${function.steam_timeline_open_overlay_to_timeline_event}.
  *
  * @param {Real} event_handle The handle of the event to check for recordings.
- * @returns {Real}
- * 
+ * @param {Function} callback The function to call with the result.
+ *
  * @event callback
  * @description > **Steamworks Callback**: [ISteamTimeline::SteamTimelineEventRecordingExists_t](https://partner.steamgames.com/doc/api/ISteamTimeline#SteamTimelineEventRecordingExists_t)
  * 
@@ -167,8 +167,8 @@
  * This function is used to determine if video recordings exist for the specified game phase. Steam will sent a [SteamTimelineGamePhaseRecordingExists_t](https://partner.steamgames.com/doc/api/ISteamTimeline#SteamTimelineGamePhaseRecordingExists_t) callback with the result. This can be useful when the game needs to decide whether or not to show a control that will call ${function.steam_timeline_open_overlay_to_game_phase}.
  *
  * @param {String} phase_id A game-provided persistent ID for a game phase.
- * @returns {Real}
- * 
+ * @param {Function} callback The function to call with the result.
+ *
  * @event callback
  * @description > **Steamworks Callback**: [ISteamTimeline::SteamTimelineGamePhaseRecordingExists_t](https://partner.steamgames.com/doc/api/ISteamTimeline#SteamTimelineGamePhaseRecordingExists_t)
  * 
@@ -231,52 +231,6 @@
  * This function opens the Steam overlay to the section of the timeline represented by the timeline event. This event must be in the current game session, since [TimelineEventHandle_t](https://partner.steamgames.com/doc/api/ISteamTimeline#TimelineEventHandle_t) values are not valid for future runs of the game.
  *
  * @param {Real} event_handle The handle of the event to show in the overlay.
- * @function_end
- */
-
-/**
- * @function steam_timeline_set_callback_game_phase_recording_exists
- * @description > **Steamworks Function**: N / A
- *
- * This function sets the function to be called when asking if recordings exist for a game phase ID.
- * 
- * See: [ISteamTimeline::SteamTimelineGamePhaseRecordingExists_t](https://partner.steamgames.com/doc/api/ISteamTimeline#SteamTimelineGamePhaseRecordingExists_t)
- * 
- * See: ${struct.SteamTimelineGamePhaseRecordingExists}
- *
- * @param {Function} callback The function to be called when a game phase recording exists event occurs.
- * @function_end
- */
-
-/**
- * @function steam_timeline_clear_callback_game_phase_recording_exists
- * @description > **Steamworks Function**: N / A
- *
- * This function clears the callback function previously set using ${function.steam_timeline_set_callback_game_phase_recording_exists}.
- *
- * @function_end
- */
-
-/**
- * @function steam_timeline_set_callback_event_recording_exists
- * @description > **Steamworks Function**: N / A
- *
- * This function sets the function to be called when asking if recordings exist for an event handle.
- * 
- * See: [ISteamTimeline::SteamTimelineEventRecordingExists_t](https://partner.steamgames.com/doc/api/ISteamTimeline#SteamTimelineEventRecordingExists_t)
- * 
- * See: ${struct.SteamTimelineEventRecordingExists}
- *
- * @param {Function} callback The function to be called when an event recording exists event occurs.
- * @function_end
- */
-
-/**
- * @function steam_timeline_clear_callback_event_recording_exists
- * @description > **Steamworks Function**: N / A
- *
- * This function clears the callback function previously set using ${function.steam_timeline_set_callback_event_recording_exists}.
- *
  * @function_end
  */
 

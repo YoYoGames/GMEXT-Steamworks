@@ -567,4 +567,79 @@ std::optional<gm_structs::SteamMatchmakingLobbyGameServer> steam_matchmaking_get
     return out;
 }
 
+std::int32_t steam_matchmaking_get_favorite_game_count()
+{
+    STEAM_GUARD_RET(0);
+    ISteamMatchmaking* mm = steam_matchmaking_iface();
+    if (!mm) return 0;
+
+    return (std::int32_t)mm->GetFavoriteGameCount();
+}
+
+std::optional<gm_structs::SteamMatchmakingFavoriteGame> steam_matchmaking_get_favorite_game(std::int32_t index)
+{
+    STEAM_GUARD_RET(std::nullopt);
+    ISteamMatchmaking* mm = steam_matchmaking_iface();
+    if (!mm) return std::nullopt;
+
+    AppId_t app_id = 0;
+    uint32 ip = 0;
+    uint16 conn_port = 0;
+    uint16 query_port = 0;
+    uint32 flags = 0;
+    uint32 last_played_time = 0;
+
+    if (!mm->GetFavoriteGame((int)index, &app_id, &ip, &conn_port, &query_port, &flags, &last_played_time))
+        return std::nullopt;
+
+    gm_structs::SteamMatchmakingFavoriteGame out{};
+    out.app_id = (std::uint32_t)app_id;
+    out.ip = (std::uint32_t)ip;
+    out.conn_port = (std::uint32_t)conn_port;
+    out.query_port = (std::uint32_t)query_port;
+    out.flags = (std::uint32_t)flags;
+    out.last_played_time = (std::uint32_t)last_played_time;
+    return out;
+}
+
+std::int32_t steam_matchmaking_add_favorite_game(std::uint32_t app_id, std::uint32_t ip, std::uint32_t conn_port, std::uint32_t query_port, std::uint32_t flags, std::uint32_t last_played_time)
+{
+    STEAM_GUARD_RET(-1);
+    ISteamMatchmaking* mm = steam_matchmaking_iface();
+    if (!mm) return -1;
+
+    std::uint16_t conn_port16 = 0;
+    if (!steam_u32_to_u16_checked(conn_port, conn_port16)) {
+        steam_set_last_error("steam_matchmaking_add_favorite_game: conn_port out of range (must be <= 65535).");
+        return -1;
+    }
+    std::uint16_t query_port16 = 0;
+    if (!steam_u32_to_u16_checked(query_port, query_port16)) {
+        steam_set_last_error("steam_matchmaking_add_favorite_game: query_port out of range (must be <= 65535).");
+        return -1;
+    }
+
+    return (std::int32_t)mm->AddFavoriteGame((AppId_t)app_id, (uint32)ip, conn_port16, query_port16, (uint32)flags, (uint32)last_played_time);
+}
+
+bool steam_matchmaking_remove_favorite_game(std::uint32_t app_id, std::uint32_t ip, std::uint32_t conn_port, std::uint32_t query_port, std::uint32_t flags)
+{
+    STEAM_GUARD_RET(false);
+    ISteamMatchmaking* mm = steam_matchmaking_iface();
+    if (!mm) return false;
+
+    std::uint16_t conn_port16 = 0;
+    if (!steam_u32_to_u16_checked(conn_port, conn_port16)) {
+        steam_set_last_error("steam_matchmaking_remove_favorite_game: conn_port out of range (must be <= 65535).");
+        return false;
+    }
+    std::uint16_t query_port16 = 0;
+    if (!steam_u32_to_u16_checked(query_port, query_port16)) {
+        steam_set_last_error("steam_matchmaking_remove_favorite_game: query_port out of range (must be <= 65535).");
+        return false;
+    }
+
+    return mm->RemoveFavoriteGame((AppId_t)app_id, (uint32)ip, conn_port16, query_port16, (uint32)flags);
+}
+
 

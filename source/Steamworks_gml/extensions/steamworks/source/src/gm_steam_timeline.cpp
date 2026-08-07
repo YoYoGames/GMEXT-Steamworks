@@ -5,6 +5,7 @@
 
 #include "GMSteamworks.h"
 
+#include "steam_async_common.h"
 #include <steam/steam_api.h>
 #include <steam/isteamtimeline.h>
 
@@ -12,7 +13,6 @@
 #include <cstring>
 #include <string>
 #include <string_view>
-#include <mutex>
 
 using namespace gm::wire;
 using namespace gm_structs;
@@ -35,13 +35,6 @@ static inline ISteamTimeline* steam_timeline_iface()
 
 static inline std::uint64_t timeline_handle_to_u64(TimelineEventHandle_t h) { return (std::uint64_t)h; }
 static inline TimelineEventHandle_t timeline_handle_from_u64(std::uint64_t v) { return (TimelineEventHandle_t)v; }
-static inline std::uint64_t call_to_u64(SteamAPICall_t c) { return (std::uint64_t)c; }
-
-static std::mutex g_callbacks_mtx;
-
-static GMFunction g_cb_phase_recording_exists = nullptr;
-static GMFunction g_cb_event_recording_exists = nullptr;
-
 static inline SteamTimelineGamePhaseRecordingExists fromNative(const SteamTimelineGamePhaseRecordingExists_t& e)
 {
     SteamTimelineGamePhaseRecordingExists out{};
@@ -60,67 +53,6 @@ static inline SteamTimelineEventRecordingExists fromNative(const SteamTimelineEv
     out.event_id = (std::uint64_t)e.m_ulEventID;
     out.recording_exists = (e.m_bRecordingExists != 0);
     return out;
-}
-
-class SteamTimeline_Callbacks
-{
-public:
-    STEAM_CALLBACK(SteamTimeline_Callbacks, OnPhaseRecordingExists, SteamTimelineGamePhaseRecordingExists_t);
-    STEAM_CALLBACK(SteamTimeline_Callbacks, OnEventRecordingExists, SteamTimelineEventRecordingExists_t);
-};
-
-void SteamTimeline_Callbacks::OnPhaseRecordingExists(SteamTimelineGamePhaseRecordingExists_t* p)
-{
-    if (!p) return;
-    GMFunction cb;
-    {
-        std::lock_guard<std::mutex> lock(g_callbacks_mtx);
-        cb = g_cb_phase_recording_exists;
-    }
-    if (cb)
-        cb.call(fromNative(*p));
-}
-
-void SteamTimeline_Callbacks::OnEventRecordingExists(SteamTimelineEventRecordingExists_t* p)
-{
-    if (!p) return;
-    GMFunction cb;
-    {
-        std::lock_guard<std::mutex> lock(g_callbacks_mtx);
-        cb = g_cb_event_recording_exists;
-    }
-    if (cb)
-        cb.call(fromNative(*p));
-}
-
-static SteamTimeline_Callbacks g_timeline_callbacks;
-
-void steam_timeline_set_callback_game_phase_recording_exists(const GMFunction& callback)
-{
-    steam_clear_last_error();
-    std::lock_guard<std::mutex> lock(g_callbacks_mtx);
-    g_cb_phase_recording_exists = callback;
-}
-
-void steam_timeline_clear_callback_game_phase_recording_exists()
-{
-    steam_clear_last_error();
-    std::lock_guard<std::mutex> lock(g_callbacks_mtx);
-    g_cb_phase_recording_exists = nullptr;
-}
-
-void steam_timeline_set_callback_event_recording_exists(const GMFunction& callback)
-{
-    steam_clear_last_error();
-    std::lock_guard<std::mutex> lock(g_callbacks_mtx);
-    g_cb_event_recording_exists = callback;
-}
-
-void steam_timeline_clear_callback_event_recording_exists()
-{
-    steam_clear_last_error();
-    std::lock_guard<std::mutex> lock(g_callbacks_mtx);
-    g_cb_event_recording_exists = nullptr;
 }
 
 void steam_timeline_set_timeline_tooltip(std::string_view description, float time_delta_seconds)
@@ -249,13 +181,20 @@ void steam_timeline_remove_timeline_event(std::uint64_t event_handle)
     t->RemoveTimelineEvent(timeline_handle_from_u64(event_handle));
 }
 
-std::uint64_t steam_timeline_does_event_recording_exist(std::uint64_t event_handle)
+void steam_timeline_does_event_recording_exist(std::uint64_t event_handle, const gm::wire::GMFunction& callback)
 {
-    STEAM_GUARD_RET(0);
+    STEAM_GUARD();
     ISteamTimeline* t = steam_timeline_iface();
-    if (!t) return 0;
+    if (!t) return;
 
-    return call_to_u64(t->DoesEventRecordingExist(timeline_handle_from_u64(event_handle)));
+    SteamAPICall_t call = t->DoesEventRecordingExist(timeline_handle_from_u64(event_handle));
+    if (call == k_uAPICallInvalid) {
+        steam_set_last_error("steam_timeline_does_event_recording_exist: Steam API call failed to dispatch.");
+        return;
+    }
+
+    auto* h = new steam_async::CallResult<gm_structs::SteamTimelineEventRecordingExists, SteamTimelineEventRecordingExists_t>(callback, &fromNative);
+    h->set(call);
 }
 
 void steam_timeline_start_game_phase()
@@ -286,14 +225,21 @@ void steam_timeline_set_game_phase_id(std::string_view phase_id)
     t->SetGamePhaseID(s.c_str());
 }
 
-std::uint64_t steam_timeline_does_game_phase_recording_exist(std::string_view phase_id)
+void steam_timeline_does_game_phase_recording_exist(std::string_view phase_id, const gm::wire::GMFunction& callback)
 {
-    STEAM_GUARD_RET(0);
+    STEAM_GUARD();
     ISteamTimeline* t = steam_timeline_iface();
-    if (!t) return 0;
+    if (!t) return;
 
     std::string s(phase_id);
-    return call_to_u64(t->DoesGamePhaseRecordingExist(s.c_str()));
+    SteamAPICall_t call = t->DoesGamePhaseRecordingExist(s.c_str());
+    if (call == k_uAPICallInvalid) {
+        steam_set_last_error("steam_timeline_does_game_phase_recording_exist: Steam API call failed to dispatch.");
+        return;
+    }
+
+    auto* h = new steam_async::CallResult<gm_structs::SteamTimelineGamePhaseRecordingExists, SteamTimelineGamePhaseRecordingExists_t>(callback, &fromNative);
+    h->set(call);
 }
 
 void steam_timeline_add_game_phase_tag(std::string_view tag_name, std::string_view tag_icon, std::string_view tag_group, std::uint32_t priority)

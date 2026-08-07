@@ -4764,9 +4764,9 @@ function steam_timeline_end_range_timeline_event(
 [global, bind = typed_gml]
 function steam_timeline_remove_timeline_event([type_hint=uint64] event_handle: gmval): unit;
 
-// DoesEventRecordingExist (async SteamAPICall_t)
-[global, bind = typed_gml, type_hint=uint64]
-function steam_timeline_does_event_recording_exist([type_hint=uint64] event_handle: gmval): gmval;
+// DoesEventRecordingExist
+[global, bind = typed_gml]
+function steam_timeline_does_event_recording_exist([type_hint=uint64] event_handle: gmval, callback:func): unit;
 
 // StartGamePhase
 [global, bind = typed_gml]
@@ -4780,9 +4780,9 @@ function steam_timeline_end_game_phase(): unit;
 [global, bind = typed_gml]
 function steam_timeline_set_game_phase_id(phase_id: string): unit;
 
-// DoesGamePhaseRecordingExist (async SteamAPICall_t)
-[global, bind = typed_gml, type_hint=uint64]
-function steam_timeline_does_game_phase_recording_exist(phase_id: string): gmval;
+// DoesGamePhaseRecordingExist
+[global, bind = typed_gml]
+function steam_timeline_does_game_phase_recording_exist(phase_id: string, callback:func): unit;
 
 // AddGamePhaseTag
 [global, bind = typed_gml]
@@ -4814,18 +4814,6 @@ function steam_timeline_open_overlay_to_game_phase(phase_id: string): unit;
 // OpenOverlayToTimelineEvent
 [global, bind = typed_gml]
 function steam_timeline_open_overlay_to_timeline_event([type_hint=uint64] event_handle: gmval): unit;
-
-[global, bind = typed_gml]
-function steam_timeline_set_callback_game_phase_recording_exists(callback:func): unit;
-
-[global, bind = typed_gml]
-function steam_timeline_clear_callback_game_phase_recording_exists(): unit;
-
-[global, bind = typed_gml]
-function steam_timeline_set_callback_event_recording_exists(callback:func): unit;
-
-[global, bind = typed_gml]
-function steam_timeline_clear_callback_event_recording_exists(): unit;
 
 [global]
 class `[[SteamTimelineGamePhaseRecordingExists]]` prototype Object
@@ -5761,6 +5749,33 @@ class `[[SteamMatchmakingLobbyGameServer]]` prototype Object
 
 [global, bind = typed_gml, type_hint=`SteamMatchmakingLobbyGameServer?`]
 function steam_matchmaking_get_lobby_game_server([type_hint=uint64] steam_id_lobby: gmval): gmval;
+
+// GetFavoriteGameCount
+[global, bind = typed_gml]
+function steam_matchmaking_get_favorite_game_count(): int32;
+
+[global]
+class `[[SteamMatchmakingFavoriteGame]]` prototype Object
+{
+    [field] property app_id : uint32 { get; set; }
+    [field] property ip : uint32 { get; set; }
+    [field] property conn_port : uint32 { get; set; }
+    [field] property query_port : uint32 { get; set; }
+    [field] property flags : uint32 { get; set; } // bitmask of STEAM_MATCHMAKING_FAVORITE_FLAG_*
+    [field] property last_played_time : uint32 { get; set; }
+}
+
+// GetFavoriteGame
+[global, bind = typed_gml, type_hint=`SteamMatchmakingFavoriteGame?`]
+function steam_matchmaking_get_favorite_game(index: int32): gmval;
+
+// AddFavoriteGame - returns the new favorites-list count
+[global, bind = typed_gml]
+function steam_matchmaking_add_favorite_game(app_id: uint32, ip: uint32, conn_port: uint32, query_port: uint32, flags: uint32, last_played_time: uint32): int32;
+
+// RemoveFavoriteGame
+[global, bind = typed_gml]
+function steam_matchmaking_remove_favorite_game(app_id: uint32, ip: uint32, conn_port: uint32, query_port: uint32, flags: uint32): bool;
 
 } // end group SteamMatchmaking
 

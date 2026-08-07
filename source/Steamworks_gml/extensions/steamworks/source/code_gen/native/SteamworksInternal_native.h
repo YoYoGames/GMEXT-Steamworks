@@ -1726,6 +1726,7 @@ namespace gm_structs
     struct SteamMatchmakingLobbyDataEntry;
     struct SteamMatchmakingLobbyChatEntry;
     struct SteamMatchmakingLobbyGameServer;
+    struct SteamMatchmakingFavoriteGame;
     struct SteamNetworkingMessagesSessionRequest;
     struct SteamNetworkingMessagesSessionFailed;
     struct SteamNetworkingMessage;
@@ -2655,6 +2656,16 @@ namespace gm_structs
         std::uint32_t ip;
         std::uint32_t port;
         std::uint64_t steam_id_gs;
+    };
+
+    struct SteamMatchmakingFavoriteGame
+    {
+        std::uint32_t app_id;
+        std::uint32_t ip;
+        std::uint32_t conn_port;
+        std::uint32_t query_port;
+        std::uint32_t flags;
+        std::uint32_t last_played_time;
     };
 
     struct SteamNetworkingMessagesSessionRequest
@@ -5107,6 +5118,30 @@ namespace gm::wire::codec
     }
 
     template<>
+    inline void writeValue<gm_structs::SteamMatchmakingFavoriteGame>(gm::byteio::IByteWriter& _buf, const gm_structs::SteamMatchmakingFavoriteGame& obj)
+    {
+        gm::wire::codec::writeValue(_buf, obj.app_id);
+        gm::wire::codec::writeValue(_buf, obj.ip);
+        gm::wire::codec::writeValue(_buf, obj.conn_port);
+        gm::wire::codec::writeValue(_buf, obj.query_port);
+        gm::wire::codec::writeValue(_buf, obj.flags);
+        gm::wire::codec::writeValue(_buf, obj.last_played_time);
+    }
+
+    template<>
+    inline gm_structs::SteamMatchmakingFavoriteGame readValue<gm_structs::SteamMatchmakingFavoriteGame>(gm::byteio::BufferReader& _buf)
+    {
+        gm_structs::SteamMatchmakingFavoriteGame obj;
+        obj.app_id = gm::wire::codec::readValue<std::uint32_t>(_buf);
+        obj.ip = gm::wire::codec::readValue<std::uint32_t>(_buf);
+        obj.conn_port = gm::wire::codec::readValue<std::uint32_t>(_buf);
+        obj.query_port = gm::wire::codec::readValue<std::uint32_t>(_buf);
+        obj.flags = gm::wire::codec::readValue<std::uint32_t>(_buf);
+        obj.last_played_time = gm::wire::codec::readValue<std::uint32_t>(_buf);
+        return obj;
+    }
+
+    template<>
     inline void writeValue<gm_structs::SteamNetworkingMessagesSessionRequest>(gm::byteio::IByteWriter& _buf, const gm_structs::SteamNetworkingMessagesSessionRequest& obj)
     {
         gm::wire::codec::writeValue(_buf, obj.steam_id_remote);
@@ -6238,80 +6273,87 @@ namespace gm::wire::details
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamNetworkingMessagesSessionRequest>
+    struct gm_struct_traits<gm_structs::SteamMatchmakingFavoriteGame>
     {
         static constexpr bool is_gm_struct = true;
         static constexpr std::uint32_t codec_id = 131;
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamNetworkingMessagesSessionFailed>
+    struct gm_struct_traits<gm_structs::SteamNetworkingMessagesSessionRequest>
     {
         static constexpr bool is_gm_struct = true;
         static constexpr std::uint32_t codec_id = 132;
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamNetworkingMessage>
+    struct gm_struct_traits<gm_structs::SteamNetworkingMessagesSessionFailed>
     {
         static constexpr bool is_gm_struct = true;
         static constexpr std::uint32_t codec_id = 133;
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamNetworkingSocketsConnectionInfo>
+    struct gm_struct_traits<gm_structs::SteamNetworkingMessage>
     {
         static constexpr bool is_gm_struct = true;
         static constexpr std::uint32_t codec_id = 134;
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamPartiesBeaconLocation>
+    struct gm_struct_traits<gm_structs::SteamNetworkingSocketsConnectionInfo>
     {
         static constexpr bool is_gm_struct = true;
         static constexpr std::uint32_t codec_id = 135;
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamPartiesCreateBeaconResult>
+    struct gm_struct_traits<gm_structs::SteamPartiesBeaconLocation>
     {
         static constexpr bool is_gm_struct = true;
         static constexpr std::uint32_t codec_id = 136;
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamPartiesJoinPartyResult>
+    struct gm_struct_traits<gm_structs::SteamPartiesCreateBeaconResult>
     {
         static constexpr bool is_gm_struct = true;
         static constexpr std::uint32_t codec_id = 137;
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamPartiesChangeNumOpenSlotsResult>
+    struct gm_struct_traits<gm_structs::SteamPartiesJoinPartyResult>
     {
         static constexpr bool is_gm_struct = true;
         static constexpr std::uint32_t codec_id = 138;
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamPartiesReservationNotification>
+    struct gm_struct_traits<gm_structs::SteamPartiesChangeNumOpenSlotsResult>
     {
         static constexpr bool is_gm_struct = true;
         static constexpr std::uint32_t codec_id = 139;
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamPartiesBeaconDetails>
+    struct gm_struct_traits<gm_structs::SteamPartiesReservationNotification>
     {
         static constexpr bool is_gm_struct = true;
         static constexpr std::uint32_t codec_id = 140;
     };
 
     template<>
-    struct gm_struct_traits<gm_structs::SteamNetworkingSocketsStatusChanged>
+    struct gm_struct_traits<gm_structs::SteamPartiesBeaconDetails>
     {
         static constexpr bool is_gm_struct = true;
         static constexpr std::uint32_t codec_id = 141;
+    };
+
+    template<>
+    struct gm_struct_traits<gm_structs::SteamNetworkingSocketsStatusChanged>
+    {
+        static constexpr bool is_gm_struct = true;
+        static constexpr std::uint32_t codec_id = 142;
     };
 
 }
@@ -6751,20 +6793,16 @@ std::uint64_t steam_timeline_start_range_timeline_event(std::string_view title, 
 void steam_timeline_update_range_timeline_event(std::uint64_t event_handle, std::string_view title, std::string_view description, std::string_view icon, std::uint32_t priority, gm_enums::SteamTimelineEventClipPriority possible_clip);
 void steam_timeline_end_range_timeline_event(std::uint64_t event_handle, float end_offset_seconds);
 void steam_timeline_remove_timeline_event(std::uint64_t event_handle);
-std::uint64_t steam_timeline_does_event_recording_exist(std::uint64_t event_handle);
+void steam_timeline_does_event_recording_exist(std::uint64_t event_handle, const gm::wire::GMFunction& callback);
 void steam_timeline_start_game_phase();
 void steam_timeline_end_game_phase();
 void steam_timeline_set_game_phase_id(std::string_view phase_id);
-std::uint64_t steam_timeline_does_game_phase_recording_exist(std::string_view phase_id);
+void steam_timeline_does_game_phase_recording_exist(std::string_view phase_id, const gm::wire::GMFunction& callback);
 void steam_timeline_add_game_phase_tag(std::string_view tag_name, std::string_view tag_icon, std::string_view tag_group, std::uint32_t priority);
 void steam_timeline_set_game_phase_attribute(std::string_view attribute_group, std::string_view attribute_value, std::uint32_t priority);
 void steam_timeline_set_timeline_game_mode(gm_enums::SteamTimelineGameMode mode);
 void steam_timeline_open_overlay_to_game_phase(std::string_view phase_id);
 void steam_timeline_open_overlay_to_timeline_event(std::uint64_t event_handle);
-void steam_timeline_set_callback_game_phase_recording_exists(const gm::wire::GMFunction& callback);
-void steam_timeline_clear_callback_game_phase_recording_exists();
-void steam_timeline_set_callback_event_recording_exists(const gm::wire::GMFunction& callback);
-void steam_timeline_clear_callback_event_recording_exists();
 std::int32_t steam_inventory_add_promo_item(std::uint32_t item_def_id, const gm::wire::GMFunction& callback);
 std::int32_t steam_inventory_add_promo_items(const std::vector<std::uint32_t>& item_def_ids, const gm::wire::GMFunction& callback);
 bool steam_inventory_check_result_steam_id(std::int32_t result_handle, std::uint64_t steam_id_expected);
@@ -6883,6 +6921,10 @@ bool steam_matchmaking_invite_user_to_lobby(std::uint64_t steam_id_lobby, std::u
 void steam_matchmaking_set_lobby_game_server(std::uint64_t steam_id_lobby, std::uint32_t ip, std::uint32_t port, std::uint64_t steam_id_gs);
 bool steam_matchmaking_set_linked_lobby(std::uint64_t steam_id_lobby, std::uint64_t steam_id_lobby_dependent);
 std::optional<gm_structs::SteamMatchmakingLobbyGameServer> steam_matchmaking_get_lobby_game_server(std::uint64_t steam_id_lobby);
+std::int32_t steam_matchmaking_get_favorite_game_count();
+std::optional<gm_structs::SteamMatchmakingFavoriteGame> steam_matchmaking_get_favorite_game(std::int32_t index);
+std::int32_t steam_matchmaking_add_favorite_game(std::uint32_t app_id, std::uint32_t ip, std::uint32_t conn_port, std::uint32_t query_port, std::uint32_t flags, std::uint32_t last_played_time);
+bool steam_matchmaking_remove_favorite_game(std::uint32_t app_id, std::uint32_t ip, std::uint32_t conn_port, std::uint32_t query_port, std::uint32_t flags);
 void steam_networking_messages_set_callback_session_request(const gm::wire::GMFunction& callback);
 void steam_networking_messages_clear_callback_session_request();
 void steam_networking_messages_set_callback_session_failed(const gm::wire::GMFunction& callback);
