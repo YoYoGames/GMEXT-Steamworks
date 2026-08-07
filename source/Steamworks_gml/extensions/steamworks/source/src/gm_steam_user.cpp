@@ -14,6 +14,7 @@
 #include <string_view>
 #include <vector>
 #include <algorithm>
+#include <deque>
 #include <mutex>
 #include <unordered_map>
 
@@ -617,8 +618,15 @@ std::optional<std::uint32_t> steam_user_get_encrypted_app_ticket(gm::wire::GMBuf
 
     const bool ok = u->GetEncryptedAppTicket(w.data(), (int)out_ticket.length(), &pcb);
 
-    if (!ok)
+    if (!ok) {
+        // Per the SDK's own doc comment, on failure pcb is either 0 (no ticket available yet) or the
+        // required buffer size (buffer too small) - surface which one happened.
+        if (pcb > 0)
+            steam_set_last_error("steam_user_get_encrypted_app_ticket: output buffer too small, need " + std::to_string(pcb) + " bytes.");
+        else
+            steam_set_last_error("steam_user_get_encrypted_app_ticket: no ticket available yet.");
         return std::nullopt;
+    }
 
     // On success, pcb is documented as the size actually copied into the buffer (bounded by the cap
     // just passed), not a required size — unlike GetVoice/DecompressVoice's BufferTooSmall case.
@@ -831,7 +839,19 @@ static std::unordered_map<std::uint32_t, gm::wire::GMFunction> g_web_api_ticket_
 
 // Ticket bytes held natively between the GetTicketForWebApiResponse_t callback and
 // steam_user_fetch_auth_ticket_for_web_api picking them up, keyed by the same handle.
+// Capped, drop-oldest: a handle whose ticket is never fetched would otherwise leak its entry
+// for the life of the process. g_web_api_ticket_bytes_order tracks insertion order for eviction.
+static constexpr size_t kWebApiTicketBytesCap = 256;
 static std::unordered_map<std::uint32_t, std::vector<std::uint8_t>> g_web_api_ticket_bytes;
+static std::deque<std::uint32_t> g_web_api_ticket_bytes_order;
+
+// Caller holds g_callbacks_mtx.
+static inline void web_api_ticket_bytes_forget(std::uint32_t handle)
+{
+    auto it = std::find(g_web_api_ticket_bytes_order.begin(), g_web_api_ticket_bytes_order.end(), handle);
+    if (it != g_web_api_ticket_bytes_order.end())
+        g_web_api_ticket_bytes_order.erase(it);
+}
 
 static inline gm_structs::SteamUserValidateAuthTicketResponse user_fromNative(const ValidateAuthTicketResponse_t& e)
 {
@@ -1019,7 +1039,18 @@ void SteamUser_PersistentCallbacks::OnGetTicketForWebApiResponse(GetTicketForWeb
         }
 
         if (p->m_eResult == k_EResultOK && p->m_cubTicket > 0) {
-            g_web_api_ticket_bytes[(std::uint32_t)p->m_hAuthTicket] =
+            const std::uint32_t handle = (std::uint32_t)p->m_hAuthTicket;
+
+            if (g_web_api_ticket_bytes.find(handle) == g_web_api_ticket_bytes.end()) {
+                if (g_web_api_ticket_bytes.size() >= kWebApiTicketBytesCap && !g_web_api_ticket_bytes_order.empty()) {
+                    const std::uint32_t oldest = g_web_api_ticket_bytes_order.front();
+                    g_web_api_ticket_bytes_order.pop_front();
+                    g_web_api_ticket_bytes.erase(oldest);
+                }
+                g_web_api_ticket_bytes_order.push_back(handle);
+            }
+
+            g_web_api_ticket_bytes[handle] =
                 std::vector<std::uint8_t>(p->m_rgubTicket, p->m_rgubTicket + p->m_cubTicket);
         }
     }
@@ -1183,6 +1214,7 @@ bool steam_user_fetch_auth_ticket_for_web_api(std::uint32_t auth_ticket_handle, 
         }
         bytes = std::move(it->second);
         g_web_api_ticket_bytes.erase(it);
+        web_api_ticket_bytes_forget(auth_ticket_handle);
     }
 
     auto w = out_ticket.getWriter();
