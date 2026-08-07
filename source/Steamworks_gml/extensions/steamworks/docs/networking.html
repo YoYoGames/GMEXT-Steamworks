@@ -332,8 +332,6 @@
 <p><strong>Steamworks Function</strong>: N / A</p>
 </blockquote>
 <p>This function clears the callback function previously set using <a href="networking.html#steam_networking_messages_set_callback_session_failed">steam_networking_messages_set_callback_session_failed</a>.</p>
-<p>Sending a message to a host will also implicitly accept any incoming connection from that host.</p>
-<p>It is guaranteed that reliable messages to the same host on the same channel will be be received by the remote host (if they are received at all) exactly once, and in the same order that they were sent.</p>
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
@@ -355,6 +353,7 @@
 </blockquote>
 <p>This function sends a message to the specified host. If we don't already have a session with that user, a session is implicitly created. There might be some handshaking that needs to happen before we can actually begin sending message data. If this handshaking fails and we can't get through, an error will be posted via the callback <a href="https://partner.steamgames.com/doc/api/ISteamNetworkingMessages#SteamNetworkingMessagesSessionFailed_t">SteamNetworkingMessagesSessionFailed_t</a>.</p>
 <p>Sending a message to a host will also implicitly accept any incoming connection from that host.</p>
+<p>It is guaranteed that reliable messages to the same host on the same channel will be received by the remote host (if they are received at all) exactly once, and in the same order that they were sent. No other order guarantees exist - unreliable messages may be dropped, received out of order, or received multiple times. Messages on different channels are not guaranteed to be received in the order they were sent.</p>
 <p>This function operates asynchronously, which means that it does not immediately return the requested result. Instead, upon completion of the task, it will trigger the <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a>.</p>
 <p><br></p>
 <p><strong>Syntax:</strong></p>
