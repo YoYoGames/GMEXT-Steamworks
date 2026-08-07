@@ -60,20 +60,27 @@ static inline void inv_rr_register_once(int32 rh, const gm::wire::GMFunction& cb
     g_inv_rr_once[rh] = cb;
 }
 
-static inline gm::wire::GMFunction inv_rr_take_once(int32 rh)
+// Returns true if a map entry existed for rh (erasing it either way). out_cb is left
+// default/falsy when the entry was a tombstone (destroyed before its result ever fired).
+static inline bool inv_rr_take_once(int32 rh, gm::wire::GMFunction& out_cb)
 {
     std::lock_guard<std::mutex> lk(g_inv_rr_mtx);
     auto it = g_inv_rr_once.find(rh);
-    if (it == g_inv_rr_once.end()) return nullptr;
-    gm::wire::GMFunction cb = it->second;
+    if (it == g_inv_rr_once.end()) return false;
+    out_cb = it->second;
     g_inv_rr_once.erase(it);
-    return cb;
+    return true;
 }
 
-static inline void inv_rr_erase(int32 rh)
+// Marks a pending one-shot as destroyed instead of erasing it outright, so a late-arriving
+// OnResultReady for this handle finds the tombstone and suppresses itself instead of falling
+// through to the unrelated global fallback callback.
+static inline void inv_rr_tombstone(int32 rh)
 {
     std::lock_guard<std::mutex> lk(g_inv_rr_mtx);
-    g_inv_rr_once.erase(rh);
+    auto it = g_inv_rr_once.find(rh);
+    if (it != g_inv_rr_once.end())
+        it->second = nullptr;
 }
 
 // AddPromoItem -> returns result handle (int32)
@@ -202,8 +209,9 @@ void steam_inventory_destroy_result(int32 result_handle)
     if (!inv_rr_is_valid_handle(result_handle))
         return;
 
-    // remove any pending one-shot callbacks to avoid stale map entries
-    inv_rr_erase(result_handle);
+    // tombstone any pending one-shot callback rather than erasing it, so a late-arriving
+    // OnResultReady for this handle is suppressed instead of misrouted to the fallback callback
+    inv_rr_tombstone(result_handle);
 
     if (!steam_api_is_initialized())
         return;
@@ -963,10 +971,12 @@ void SteamInventory_Callbacks::OnResultReady(SteamInventoryResultReady_t* p)
     // 1) Per-call one-shot callback (preferred)
     if (inv_rr_is_valid_handle(rh))
     {
-        gm::wire::GMFunction cb = inv_rr_take_once(rh);
-        if (cb)
+        gm::wire::GMFunction cb;
+        if (inv_rr_take_once(rh, cb))
         {
-            cb.call(fromNative(*p));
+            if (cb)
+                cb.call(fromNative(*p));
+            // else: tombstoned (result destroyed before this event fired) - suppress, no fallback
             return;
         }
     }
