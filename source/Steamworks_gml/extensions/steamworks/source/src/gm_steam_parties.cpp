@@ -26,6 +26,12 @@ using namespace gm::wire;
 using namespace gm_structs;
 using namespace gm_enums;
 
+// ISteamParties::CreateBeacon takes an unbounded null-terminated metadata string with no length param
+// and no documented max; GetBeaconDetails reads it back into a caller-sized buffer. Both ends of this
+// extension share this cap so a beacon created here can never produce metadata GetBeaconDetails can't
+// read back in full.
+static constexpr std::uint32_t kPartyBeaconMetadataMax = 1024;
+
 static inline ISteamParties* steam_parties_iface()
 {
     if (!steam_api_is_initialized()) {
@@ -269,6 +275,11 @@ bool steam_parties_create_beacon(
     std::string join(connect_string);
     std::string meta(metadata);
 
+    if (meta.size() >= kPartyBeaconMetadataMax) {
+        steam_set_last_error("Steam Parties: CreateBeacon metadata exceeds the maximum length GetBeaconDetails can read back.");
+        return false;
+    }
+
     SteamAPICall_t call = p->CreateBeacon(open_slots, &loc, join.c_str(), meta.c_str());
     if (!call) {
         steam_set_last_error("Steam Parties: CreateBeacon returned k_uAPICallInvalid.");
@@ -371,27 +382,20 @@ std::optional<gm_structs::SteamPartiesBeaconDetails> steam_parties_get_beacon_de
 {
     STEAM_GUARD_RET(std::nullopt);
 
-    uint32 metadata_max = 1024;
-
     ISteamParties* p = steam_parties_iface();
     if (!p)
         return std::nullopt;
 
-    if (metadata_max <= 0) {
-        steam_set_last_error("Steam Parties: metadata_max must be > 0.");
-        return std::nullopt;
-    }
-
     CSteamID owner {};
     SteamPartyBeaconLocation_t loc {};
-    std::vector<char> metadata((size_t)metadata_max, '\0');
+    std::vector<char> metadata((size_t)kPartyBeaconMetadataMax, '\0');
 
     const bool ok = p->GetBeaconDetails(
         (PartyBeaconID_t)beacon_id,
         &owner,
         &loc,
         metadata.data(),
-        metadata_max
+        kPartyBeaconMetadataMax
     );
 
     if (!ok) {
