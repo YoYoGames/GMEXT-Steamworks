@@ -530,6 +530,11 @@ void steam_matchmaking_set_lobby_game_server(std::uint64_t steam_id_lobby, std::
     ISteamMatchmaking* mm = steam_matchmaking_iface();
     if (!mm) return;
 
+    if (port > 0xFFFF) {
+        steam_set_last_error("steam_matchmaking_set_lobby_game_server: port out of range (must be <= 65535).");
+        return;
+    }
+
     mm->SetLobbyGameServer(CSteamID(steam_id_lobby), (uint32)ip, (uint16)port, CSteamID(steam_id_gs));
 }
 
