@@ -57,37 +57,5 @@ namespace steam_async
             delete this;
         }
     };
-
-    template <typename SteamStruct>
-    class CallResultNoPayload
-    {
-    public:
-        explicit CallResultNoPayload(const gm::wire::GMFunction& callback)
-            : cb(callback)
-        {}
-
-        void set(SteamAPICall_t call)
-        {
-            cr.Set(call, this, &CallResultNoPayload::on_result);
-        }
-
-    private:
-        gm::wire::GMFunction cb;
-        CCallResult<CallResultNoPayload, SteamStruct> cr;
-
-        void on_result(SteamStruct* /*p*/, bool io_failure)
-        {
-            if (io_failure)
-            {
-                delete this;
-                return;
-            }
-
-            if (cb)
-                cb.call();
-
-            delete this;
-        }
-    };
 }
 
