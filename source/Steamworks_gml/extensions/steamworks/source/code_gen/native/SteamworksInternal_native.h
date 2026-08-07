@@ -410,7 +410,8 @@ namespace gm_enums
         Away = 3,
         Snooze = 4,
         LookingToTrade = 5,
-        LookingToPlay = 6
+        LookingToPlay = 6,
+        Invisible = 7
     };
 
     enum class SteamFriendsRelationship : std::int64_t
@@ -669,6 +670,7 @@ namespace gm_enums
         Sketchfab = 2,
         EnvironmentMap_HorizontalCross = 3,
         EnvironmentMap_LatLong = 4,
+        Clip = 5,
         ReservedMax = 255
     };
 
@@ -1395,7 +1397,9 @@ namespace gm_enums
         OSX = 2,
         PS3 = 4,
         Linux = 8,
-        Reserved2 = 16,
+        Switch = 16,
+        Android = 32,
+        IOS = 64,
         All = -1
     };
 

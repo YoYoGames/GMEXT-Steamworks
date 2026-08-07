@@ -5799,6 +5799,7 @@
  * @member Snooze
  * @member LookingToTrade
  * @member LookingToPlay
+ * @member Invisible
  * @enum_end
  */
 
@@ -6079,6 +6080,7 @@
  * @member Sketchfab
  * @member EnvironmentMap_HorizontalCross
  * @member EnvironmentMap_LatLong
+ * @member Clip
  * @member ReservedMax
  * @enum_end
  */
@@ -6826,7 +6828,9 @@
  * @member OSX
  * @member PS3
  * @member Linux
- * @member Reserved2
+ * @member Switch
+ * @member Android
+ * @member IOS
  * @member All
  * @enum_end
  */

@@ -579,9 +579,11 @@
  * @member OSX This file will download on macOS.
  * @member PS3 This file will download on the Playstation 3.
  * @member Linux This file will download on SteamOS/Linux.
- * @member Reserved2 Reserved.
+ * @member Switch This file will download on Nintendo Switch.
+ * @member Android This file will download on Android.
+ * @member IOS This file will download on iOS.
  * @member All This file will download on every platform. This is the default.
- * @enum_end 
+ * @enum_end
  */
 
 /**

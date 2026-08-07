@@ -1936,8 +1936,9 @@
  * @member Sketchfab Sketchfab model ID.
  * @member EnvironmentMap_HorizontalCross Standard image file containing a map of an environment in a horizontal cross layout. Supported types: PNG, JPG, and GIF.
  * @member EnvironmentMap_LatLong Standard image file containing a map of an environment in a LatLong layout. Supported types: PNG, JPG, and GIF. Not currently used in web views.
+ * @member Clip Clip ID is stored.
  * @member ReservedMax Reserved. You can specify your own types above this value.
- * @enum_end 
+ * @enum_end
  */
 
 /**

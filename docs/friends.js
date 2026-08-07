@@ -1317,7 +1317,8 @@
  * @member Snooze Auto-away for a long time.
  * @member LookingToTrade Online, trading.
  * @member LookingToPlay Online, wanting to play.
- * @enum_end 
+ * @member Invisible Online, but appears offline to friends. This status is never published to clients.
+ * @enum_end
  */
 
 /**
