@@ -421,8 +421,9 @@ void steam_input_run_frame()
 
     {
         InputHandle_t cur[STEAM_INPUT_MAX_COUNT] = {};
-        const int cur_count = s->GetConnectedControllers(cur);
-        
+        int cur_count = s->GetConnectedControllers(cur);
+        cur_count = std::max(0, std::min(cur_count, (int)STEAM_INPUT_MAX_COUNT));
+
         std::vector<InputHandle_t> now;
         now.reserve((size_t)cur_count);
         for (int i = 0; i < cur_count; ++i)
