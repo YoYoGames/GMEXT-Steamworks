@@ -3854,8 +3854,8 @@ GMEXPORT double __EXT_NATIVE__steam_input_get_glyph_png_for_action_origin(char* 
     // field: size, type: enum SteamInputGlyphSize
     gm_enums::SteamInputGlyphSize size = gm::wire::codec::readValue<gm_enums::SteamInputGlyphSize>(__br);
 
-    // field: flags, type: UInt32
-    std::uint32_t flags = gm::wire::codec::readValue<std::uint32_t>(__br);
+    // field: flags, type: enum SteamInputGlyphStyle
+    gm_enums::SteamInputGlyphStyle flags = gm::wire::codec::readValue<gm_enums::SteamInputGlyphStyle>(__br);
 
     auto&& __result = steam_input_get_glyph_png_for_action_origin(origin, size, flags);
     gm::byteio::BufferWriter __bw{__ret_buffer, static_cast<size_t>(__ret_buffer_length)};
@@ -3872,8 +3872,8 @@ GMEXPORT double __EXT_NATIVE__steam_input_get_glyph_svg_for_action_origin(char* 
     // field: origin, type: enum SteamInputActionOrigin
     gm_enums::SteamInputActionOrigin origin = gm::wire::codec::readValue<gm_enums::SteamInputActionOrigin>(__br);
 
-    // field: flags, type: UInt32
-    std::uint32_t flags = gm::wire::codec::readValue<std::uint32_t>(__br);
+    // field: flags, type: enum SteamInputGlyphStyle
+    gm_enums::SteamInputGlyphStyle flags = gm::wire::codec::readValue<gm_enums::SteamInputGlyphStyle>(__br);
 
     auto&& __result = steam_input_get_glyph_svg_for_action_origin(origin, flags);
     gm::byteio::BufferWriter __bw{__ret_buffer, static_cast<size_t>(__ret_buffer_length)};
@@ -4065,8 +4065,8 @@ GMEXPORT double __EXT_NATIVE__steam_input_set_led_color(char* __arg_buffer, doub
     // field: color_b, type: UInt32
     std::uint32_t color_b = gm::wire::codec::readValue<std::uint32_t>(__br);
 
-    // field: flags, type: UInt32
-    std::uint32_t flags = gm::wire::codec::readValue<std::uint32_t>(__br);
+    // field: flags, type: enum SteamInputControllerLEDFlag
+    gm_enums::SteamInputControllerLEDFlag flags = gm::wire::codec::readValue<gm_enums::SteamInputControllerLEDFlag>(__br);
 
     steam_input_set_led_color(input_handle, color_r, color_g, color_b, flags);
     return 0;
@@ -6679,8 +6679,8 @@ GMEXPORT double __EXT_NATIVE__steam_networking_messages_send_message_to_user(cha
     gm::wire::GMBuffer data = __buffer_queue.front();
     __buffer_queue.pop();
 
-    // field: send_flags, type: Int32
-    std::int32_t send_flags = gm::wire::codec::readValue<std::int32_t>(__br);
+    // field: send_flags, type: enum SteamNetworkingSendFlags
+    gm_enums::SteamNetworkingSendFlags send_flags = gm::wire::codec::readValue<gm_enums::SteamNetworkingSendFlags>(__br);
 
     // field: remote_channel, type: Int32
     std::int32_t remote_channel = gm::wire::codec::readValue<std::int32_t>(__br);

@@ -448,7 +448,7 @@
  *
  * This struct holds details about an app beta branch.
  * 
- * @member {Real} flags Set of flags (${constant.SteamAppsBetaBranchFlags}) describing current branch state.
+ * @member {Enum.SteamAppsBetaBranchFlags} flags Set of flags describing current branch state.
  * @member {Real} build_id Content BuildID set live on this branch.
  * @member {String} beta_name Beta branch name.
  * @member {String} description Beta branch description.

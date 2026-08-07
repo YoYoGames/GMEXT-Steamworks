@@ -40,7 +40,7 @@ static inline gm_structs::SteamNetworkingSocketsConnectionInfo sn_fromNative(con
     out.end_reason = static_cast<gm_enums::SteamNetworkingConnectionEnd>((int)info.m_eEndReason);
     out.end_debug = info.m_szEndDebug ? info.m_szEndDebug : "";
     out.connection_description = info.m_szConnectionDescription ? info.m_szConnectionDescription : "";
-    out.flags = (std::int32_t)info.m_nFlags;
+    out.flags = static_cast<gm_enums::SteamNetworkingConnectionInfoFlags>((int)info.m_nFlags);
     out.state = static_cast<gm_enums::SteamNetworkingConnectionState>((int)info.m_eState);
     out.steam_id_remote = (std::uint64_t)info.m_identityRemote.GetSteamID64();
     out.addr_remote = sn_addr_to_string(info.m_addrRemote);
@@ -328,7 +328,7 @@ std::vector<gm_structs::SteamNetworkingMessage> steam_networking_sockets_receive
         msg_out.steam_id_remote = msgs[i]->m_identityPeer.GetSteamID64();
         msg_out.conn = (std::uint32_t)msgs[i]->m_conn;
         msg_out.channel = -1;
-        msg_out.flags = (std::int32_t)msgs[i]->m_nFlags;
+        msg_out.flags = static_cast<gm_enums::SteamNetworkingSendFlags>((int)msgs[i]->m_nFlags);
         msg_out.usec_time_received = (std::uint64_t)msgs[i]->m_usecTimeReceived;
         msg_out.message_number = (std::uint64_t)msgs[i]->m_nMessageNumber;
         msg_out.conn_user_data = (std::uint64_t)msgs[i]->m_nConnUserData;
@@ -533,7 +533,7 @@ std::vector<gm_structs::SteamNetworkingMessage> steam_networking_sockets_receive
         msg_out.steam_id_remote = msgs[i]->m_identityPeer.GetSteamID64();
         msg_out.conn = (std::uint32_t)msgs[i]->m_conn;
         msg_out.channel = -1;
-        msg_out.flags = (std::int32_t)msgs[i]->m_nFlags;
+        msg_out.flags = static_cast<gm_enums::SteamNetworkingSendFlags>((int)msgs[i]->m_nFlags);
         msg_out.usec_time_received = (std::uint64_t)msgs[i]->m_usecTimeReceived;
         msg_out.message_number = (std::uint64_t)msgs[i]->m_nMessageNumber;
         msg_out.conn_user_data = (std::uint64_t)msgs[i]->m_nConnUserData;

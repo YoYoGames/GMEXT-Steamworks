@@ -295,6 +295,7 @@
  *
  * This enum holds the possible Steam error result codes.
  *
+ * @member None No result.
  * @member Ok Success.
  * @member Fail Generic failure.
  * @member NoConnection Your Steam client doesn't have a connection to the back-end.

@@ -114,7 +114,7 @@ void steam_networking_messages_clear_callback_session_failed()
 
 std::int32_t steam_networking_messages_send_message_to_user(std::uint64_t steam_id_remote,
                                                             gm::wire::GMBuffer data,
-                                                            std::int32_t send_flags,
+                                                            gm_enums::SteamNetworkingSendFlags send_flags,
                                                             std::int32_t remote_channel,
                                                             std::optional<std::uint32_t> buffer_offset,
                                                             std::optional<std::uint32_t> buffer_count)
@@ -213,7 +213,7 @@ std::vector<gm_structs::SteamNetworkingMessage> steam_networking_messages_receiv
         msg_out.steam_id_remote = (std::uint64_t)msgs[i]->m_identityPeer.GetSteamID64();
         msg_out.conn = 0;
         msg_out.channel = local_channel;
-        msg_out.flags = (std::int32_t)msgs[i]->m_nFlags;
+        msg_out.flags = static_cast<gm_enums::SteamNetworkingSendFlags>((int)msgs[i]->m_nFlags);
         msg_out.usec_time_received = msgs[i]->m_usecTimeReceived;
         msg_out.message_number = msgs[i]->m_nMessageNumber;
         msg_out.conn_user_data = msgs[i]->m_nConnUserData;

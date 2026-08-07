@@ -292,7 +292,7 @@ steam_apps_get_beta_info(std::int32_t beta_index)
         return std::nullopt;
 
     SteamAppsBetaInfo out{};
-    out.flags = (std::uint32_t)flags;
+    out.flags = (gm_enums::SteamAppsBetaBranchFlags)flags;
     out.build_id = (std::uint32_t)buildId;
     out.beta_name = std::string(nameBuf.data());
     out.description = std::string(descBuf.data());

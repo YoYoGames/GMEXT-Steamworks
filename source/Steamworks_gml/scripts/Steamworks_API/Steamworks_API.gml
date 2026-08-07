@@ -313,6 +313,7 @@ enum SteamApiVoiceResult
 
 enum SteamApiResult
 {
+    None = 0,
     Ok = 1,
     Fail = 2,
     NoConnection = 3,
@@ -1649,6 +1650,16 @@ enum SteamNetworkingConfigValue
     MTUSize = 32,
     LogLevelAcknowledged = 13,
     LogLevelAlerts = 14
+}
+
+enum SteamNetworkingConnectionInfoFlags
+{
+    Unauthenticated = 1,
+    Unencrypted = 2,
+    LoopbackBuffers = 4,
+    Fast = 8,
+    Relayed = 16,
+    DualWifi = 32
 }
 
 enum SteamPartiesBeaconLocationType
@@ -5377,9 +5388,10 @@ function __SteamAppsBetaInfo_encode(_inst, _buffer, _offset, _where = _GMFUNCTIO
     buffer_seek(_buffer, buffer_seek_start, _offset);
     with (_inst)
     {
-        // field: flags, type: UInt32
+        // field: flags, type: enum SteamAppsBetaBranchFlags
+
         if (!is_numeric(self.flags)) show_error($"{_where} :: self.flags expected number", true);
-        buffer_write(_buffer, buffer_u32, self.flags);
+        buffer_write(_buffer, buffer_u64, self.flags);
 
         // field: build_id, type: UInt32
         if (!is_numeric(self.build_id)) show_error($"{_where} :: self.build_id expected number", true);
@@ -5412,8 +5424,8 @@ function __SteamAppsBetaInfo_decode(_buffer, _offset)
     _inst = new SteamAppsBetaInfo();
     with (_inst)
     {
-        // field: flags, type: UInt32
-        self.flags = buffer_read(_buffer, buffer_u32);
+        // field: flags, type: enum SteamAppsBetaBranchFlags
+        self.flags = buffer_read(_buffer, buffer_u64);
 
         // field: build_id, type: UInt32
         self.build_id = buffer_read(_buffer, buffer_u32);
@@ -11782,9 +11794,10 @@ function __SteamNetworkingMessage_encode(_inst, _buffer, _offset, _where = _GMFU
         if (!is_numeric(self.channel)) show_error($"{_where} :: self.channel expected number", true);
         buffer_write(_buffer, buffer_s32, self.channel);
 
-        // field: flags, type: Int32
+        // field: flags, type: enum SteamNetworkingSendFlags
+
         if (!is_numeric(self.flags)) show_error($"{_where} :: self.flags expected number", true);
-        buffer_write(_buffer, buffer_s32, self.flags);
+        buffer_write(_buffer, buffer_u64, self.flags);
 
         // field: usec_time_received, type: UInt64
         if (!is_numeric(self.usec_time_received)) show_error($"{_where} :: self.usec_time_received expected number", true);
@@ -11830,8 +11843,8 @@ function __SteamNetworkingMessage_decode(_buffer, _offset)
         // field: channel, type: Int32
         self.channel = buffer_read(_buffer, buffer_s32);
 
-        // field: flags, type: Int32
-        self.flags = buffer_read(_buffer, buffer_s32);
+        // field: flags, type: enum SteamNetworkingSendFlags
+        self.flags = buffer_read(_buffer, buffer_u64);
 
         // field: usec_time_received, type: UInt64
         self.usec_time_received = buffer_read(_buffer, buffer_u64);
@@ -11879,9 +11892,10 @@ function __SteamNetworkingSocketsConnectionInfo_encode(_inst, _buffer, _offset, 
         buffer_write(_buffer, buffer_u32, string_byte_length(self.connection_description));
         buffer_write(_buffer, buffer_string, self.connection_description);
 
-        // field: flags, type: Int32
+        // field: flags, type: enum SteamNetworkingConnectionInfoFlags
+
         if (!is_numeric(self.flags)) show_error($"{_where} :: self.flags expected number", true);
-        buffer_write(_buffer, buffer_s32, self.flags);
+        buffer_write(_buffer, buffer_u64, self.flags);
 
         // field: state, type: enum SteamNetworkingConnectionState
 
@@ -11928,8 +11942,8 @@ function __SteamNetworkingSocketsConnectionInfo_decode(_buffer, _offset)
         buffer_read(_buffer, buffer_u32);
         self.connection_description = buffer_read(_buffer, buffer_string);
 
-        // field: flags, type: Int32
-        self.flags = buffer_read(_buffer, buffer_s32);
+        // field: flags, type: enum SteamNetworkingConnectionInfoFlags
+        self.flags = buffer_read(_buffer, buffer_u64);
 
         // field: state, type: enum SteamNetworkingConnectionState
         self.state = buffer_read(_buffer, buffer_u64);
@@ -18632,7 +18646,7 @@ function steam_input_get_analog_action_origins(_input_handle, _action_set_handle
 /**
  * @param {Enum.SteamInputActionOrigin} _origin
  * @param {Enum.SteamInputGlyphSize} _size
- * @param {Real} _flags
+ * @param {Enum.SteamInputGlyphStyle} _flags
  * @returns {String}
  */
 function steam_input_get_glyph_png_for_action_origin(_origin, _size, _flags)
@@ -18652,9 +18666,10 @@ function steam_input_get_glyph_png_for_action_origin(_origin, _size, _flags)
     if (!is_numeric(_size)) show_error($"{_GMFUNCTION_} :: _size expected number", true);
     buffer_write(__args_buffer, buffer_u64, _size);
 
-    // param: _flags, type: UInt32
+    // param: _flags, type: enum SteamInputGlyphStyle
+
     if (!is_numeric(_flags)) show_error($"{_GMFUNCTION_} :: _flags expected number", true);
-    buffer_write(__args_buffer, buffer_u32, _flags);
+    buffer_write(__args_buffer, buffer_u64, _flags);
 
     var __ret_buffer = __ext_core_get_ret_buffer();
 
@@ -18675,7 +18690,7 @@ function steam_input_get_glyph_png_for_action_origin(_origin, _size, _flags)
 
 /**
  * @param {Enum.SteamInputActionOrigin} _origin
- * @param {Real} _flags
+ * @param {Enum.SteamInputGlyphStyle} _flags
  * @returns {String}
  */
 function steam_input_get_glyph_svg_for_action_origin(_origin, _flags)
@@ -18690,9 +18705,10 @@ function steam_input_get_glyph_svg_for_action_origin(_origin, _flags)
     if (!is_numeric(_origin)) show_error($"{_GMFUNCTION_} :: _origin expected number", true);
     buffer_write(__args_buffer, buffer_u64, _origin);
 
-    // param: _flags, type: UInt32
+    // param: _flags, type: enum SteamInputGlyphStyle
+
     if (!is_numeric(_flags)) show_error($"{_GMFUNCTION_} :: _flags expected number", true);
-    buffer_write(__args_buffer, buffer_u32, _flags);
+    buffer_write(__args_buffer, buffer_u64, _flags);
 
     var __ret_buffer = __ext_core_get_ret_buffer();
 
@@ -18999,7 +19015,7 @@ function steam_input_set_dualsense_trigger_effect(_input_handle, _param)
  * @param {Real} _color_r
  * @param {Real} _color_g
  * @param {Real} _color_b
- * @param {Real} _flags
+ * @param {Enum.SteamInputControllerLEDFlag} _flags
  */
 function steam_input_set_led_color(_input_handle, _color_r, _color_g, _color_b, _flags)
 {
@@ -19024,9 +19040,10 @@ function steam_input_set_led_color(_input_handle, _color_r, _color_g, _color_b, 
     if (!is_numeric(_color_b)) show_error($"{_GMFUNCTION_} :: _color_b expected number", true);
     buffer_write(__args_buffer, buffer_u32, _color_b);
 
-    // param: _flags, type: UInt32
+    // param: _flags, type: enum SteamInputControllerLEDFlag
+
     if (!is_numeric(_flags)) show_error($"{_GMFUNCTION_} :: _flags expected number", true);
-    buffer_write(__args_buffer, buffer_u32, _flags);
+    buffer_write(__args_buffer, buffer_u64, _flags);
 
     var __return_value__ = __steam_input_set_led_color(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
 
@@ -23546,7 +23563,7 @@ function steam_networking_messages_set_callback_session_failed(_callback)
 /**
  * @param {Real} _steam_id_remote
  * @param {Id.Buffer} _data
- * @param {Real} _send_flags
+ * @param {Enum.SteamNetworkingSendFlags} _send_flags
  * @param {Real} _remote_channel
  * @param {Real} _buffer_offset
  * @param {Real} _buffer_count
@@ -23567,9 +23584,10 @@ function steam_networking_messages_send_message_to_user(_steam_id_remote, _data,
     if (!buffer_exists(_data)) show_error($"{_GMFUNCTION_} :: _data expected Id.Buffer", true);
     __Steamworks_queue_buffer(buffer_get_address(_data), buffer_get_size(_data));
 
-    // param: _send_flags, type: Int32
+    // param: _send_flags, type: enum SteamNetworkingSendFlags
+
     if (!is_numeric(_send_flags)) show_error($"{_GMFUNCTION_} :: _send_flags expected number", true);
-    buffer_write(__args_buffer, buffer_s32, _send_flags);
+    buffer_write(__args_buffer, buffer_u64, _send_flags);
 
     // param: _remote_channel, type: Int32
     if (!is_numeric(_remote_channel)) show_error($"{_GMFUNCTION_} :: _remote_channel expected number", true);

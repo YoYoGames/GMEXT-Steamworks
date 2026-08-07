@@ -61,7 +61,7 @@
  *
  * @param {Real} steam_id_remote The identity of the host to send the message to; if a session does not already exist with that user, one is implicitly created.
  * @param {Buffer} data The buffer holding the message data to send.
- * @param {Real} send_flags A bitmask of ${constant.SteamNetworkingSendFlags} options that determine the delivery guarantees for the message.
+ * @param {Enum.SteamNetworkingSendFlags} send_flags A bitmask of ${constant.SteamNetworkingSendFlags} options that determine the delivery guarantees for the message.
  * @param {Real} remote_channel A routing channel number you can use to help route the message to different systems on the remote host.
  * @param {Real} [buffer_offset] The offset into the buffer, in bytes. Defaults to 0.
  * @param {Real} [buffer_count] The number of bytes to write. Defaults to the buffer size minus the offset.
@@ -518,7 +518,7 @@
  * @member {Real} channel The channel number the message was received on.
  * @member {Real} offset The offset in the buffer (in bytes) at which the message data starts.
  * @member {Real} size The size of the message data, in bytes.
- * @member {Real} flags A bitmask of ${constant.SteamNetworkingSendFlags}. For received messages, only the `SteamNetworkingSendFlags.Reliable` bit is valid. For outbound messages, all bits are relevant.
+ * @member {Enum.SteamNetworkingSendFlags} flags A bitmask of ${constant.SteamNetworkingSendFlags}. For received messages, only the `SteamNetworkingSendFlags.Reliable` bit is valid. For outbound messages, all bits are relevant.
  * @member {Real} message_number The message number assigned by the sender. This is not used for outbound messages.
  * @member {Real} usec_time_received Local timestamp when the message was received.
  * @member {Real} conn For messages received on connections: what connection did this come from? For outgoing messages: what connection to send it to?
@@ -536,7 +536,7 @@
  * @member {Enum.SteamNetworkingConnectionEnd} end_reason Basic cause of the connection termination or problem.
  * @member {String} end_debug Human-readable, but non-localized explanation for connection termination or problem.  This is intended for debugging / diagnostic purposes only, not to display to users.  It might have some details specific to the issue.
  * @member {String} connection_description Debug description. This includes the connection handle, connection type (and peer information), and the app name. This string is used in various internal logging messages.
- * @member {Real} flags A bitmask of ${constant.SteamNetworkingSendFlags}.
+ * @member {Enum.SteamNetworkingConnectionInfoFlags} flags A bitmask of ${constant.SteamNetworkingConnectionInfoFlags}.
  * @member {Enum.SteamNetworkingConnectionState} state High level state of the connection.
  * @member {Real} steam_id_remote The Steam ID associated with the remote identity.
  * @member {String} addr_remote Remote address. Might be all 0's if we don't know it, or if this is N/A. (E.g. Basically everything except direct UDP connection.)
@@ -642,7 +642,22 @@
  * @member ReliableNoNagle Send a message reliably, but bypass Nagle's algorithm.
  * @member UseCurrentThread UseCurrentThread.
  * @member AutoRestartBrokenSession AutoRestartBrokenSession.
- * @enum_end 
+ * @enum_end
+ */
+
+/**
+ * @enum SteamNetworkingConnectionInfoFlags
+ * @description > **Steamworks Flags**: [k_nSteamNetworkConnectionInfoFlags_*](https://partner.steamgames.com/doc/api/steamnetworkingtypes#SteamNetConnectionInfo_t)
+ *
+ * This enum holds the misc flags found on ${struct.SteamNetworkingSocketsConnectionInfo}'s `flags` member.
+ *
+ * @member Unauthenticated We don't have a certificate for the remote host.
+ * @member Unencrypted Information is being sent out over a wire unencrypted (by this library).
+ * @member LoopbackBuffers Internal loopback buffers. Won't be true for localhost. (You can check the address to determine that.) This implies `Fast`.
+ * @member Fast The connection is "fast" and "reliable". Either internal/localhost (check the address to find out), or the peer is on the same LAN. (Probably. It's based on the address and the ping time, this is actually hard to determine unambiguously).
+ * @member Relayed The connection is relayed somehow (SDR or TURN).
+ * @member DualWifi We're taking advantage of dual-wifi multi-path.
+ * @enum_end
  */
 
 /**

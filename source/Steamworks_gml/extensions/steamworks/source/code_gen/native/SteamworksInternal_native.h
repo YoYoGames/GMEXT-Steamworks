@@ -225,6 +225,7 @@ namespace gm_enums
 
     enum class SteamApiResult : std::int64_t
     {
+        None = 0,
         Ok = 1,
         Fail = 2,
         NoConnection = 3,
@@ -1563,6 +1564,16 @@ namespace gm_enums
         LogLevelAlerts = 14
     };
 
+    enum class SteamNetworkingConnectionInfoFlags : std::int64_t
+    {
+        Unauthenticated = 1,
+        Unencrypted = 2,
+        LoopbackBuffers = 4,
+        Fast = 8,
+        Relayed = 16,
+        DualWifi = 32
+    };
+
     enum class SteamPartiesBeaconLocationType : std::int64_t
     {
         Invalid = 0,
@@ -1882,7 +1893,7 @@ namespace gm_structs
 
     struct SteamAppsBetaInfo
     {
-        std::uint32_t flags;
+        gm_enums::SteamAppsBetaBranchFlags flags;
         std::uint32_t build_id;
         std::string beta_name;
         std::string description;
@@ -2665,7 +2676,7 @@ namespace gm_structs
         std::uint64_t steam_id_remote;
         std::uint32_t conn;
         std::int32_t channel;
-        std::int32_t flags;
+        gm_enums::SteamNetworkingSendFlags flags;
         std::uint64_t usec_time_received;
         std::uint64_t message_number;
         std::uint64_t conn_user_data;
@@ -2677,7 +2688,7 @@ namespace gm_structs
         gm_enums::SteamNetworkingConnectionEnd end_reason;
         std::string end_debug;
         std::string connection_description;
-        std::int32_t flags;
+        gm_enums::SteamNetworkingConnectionInfoFlags flags;
         gm_enums::SteamNetworkingConnectionState state;
         std::uint64_t steam_id_remote;
         std::string addr_remote;
@@ -3136,7 +3147,7 @@ namespace gm::wire::codec
     inline gm_structs::SteamAppsBetaInfo readValue<gm_structs::SteamAppsBetaInfo>(gm::byteio::BufferReader& _buf)
     {
         gm_structs::SteamAppsBetaInfo obj;
-        obj.flags = gm::wire::codec::readValue<std::uint32_t>(_buf);
+        obj.flags = gm::wire::codec::readValue<gm_enums::SteamAppsBetaBranchFlags>(_buf);
         obj.build_id = gm::wire::codec::readValue<std::uint32_t>(_buf);
         obj.beta_name = gm::wire::codec::readValue<std::string>(_buf);
         obj.description = gm::wire::codec::readValue<std::string>(_buf);
@@ -5150,7 +5161,7 @@ namespace gm::wire::codec
         obj.steam_id_remote = gm::wire::codec::readValue<std::uint64_t>(_buf);
         obj.conn = gm::wire::codec::readValue<std::uint32_t>(_buf);
         obj.channel = gm::wire::codec::readValue<std::int32_t>(_buf);
-        obj.flags = gm::wire::codec::readValue<std::int32_t>(_buf);
+        obj.flags = gm::wire::codec::readValue<gm_enums::SteamNetworkingSendFlags>(_buf);
         obj.usec_time_received = gm::wire::codec::readValue<std::uint64_t>(_buf);
         obj.message_number = gm::wire::codec::readValue<std::uint64_t>(_buf);
         obj.conn_user_data = gm::wire::codec::readValue<std::uint64_t>(_buf);
@@ -5178,7 +5189,7 @@ namespace gm::wire::codec
         obj.end_reason = gm::wire::codec::readValue<gm_enums::SteamNetworkingConnectionEnd>(_buf);
         obj.end_debug = gm::wire::codec::readValue<std::string>(_buf);
         obj.connection_description = gm::wire::codec::readValue<std::string>(_buf);
-        obj.flags = gm::wire::codec::readValue<std::int32_t>(_buf);
+        obj.flags = gm::wire::codec::readValue<gm_enums::SteamNetworkingConnectionInfoFlags>(_buf);
         obj.state = gm::wire::codec::readValue<gm_enums::SteamNetworkingConnectionState>(_buf);
         obj.steam_id_remote = gm::wire::codec::readValue<std::uint64_t>(_buf);
         obj.addr_remote = gm::wire::codec::readValue<std::string>(_buf);
@@ -6636,8 +6647,8 @@ std::uint64_t steam_input_get_action_set_handle(std::string_view action_set_name
 gm_structs::SteamInputAnalogActionData steam_input_get_analog_action_data(std::uint64_t input_handle, std::uint64_t analog_action_handle);
 std::uint64_t steam_input_get_analog_action_handle(std::string_view action_name);
 gm_structs::SteamInputActionOrigins steam_input_get_analog_action_origins(std::uint64_t input_handle, std::uint64_t action_set_handle, std::uint64_t analog_action_handle);
-std::optional<std::string> steam_input_get_glyph_png_for_action_origin(gm_enums::SteamInputActionOrigin origin, gm_enums::SteamInputGlyphSize size, std::uint32_t flags);
-std::optional<std::string> steam_input_get_glyph_svg_for_action_origin(gm_enums::SteamInputActionOrigin origin, std::uint32_t flags);
+std::optional<std::string> steam_input_get_glyph_png_for_action_origin(gm_enums::SteamInputActionOrigin origin, gm_enums::SteamInputGlyphSize size, gm_enums::SteamInputGlyphStyle flags);
+std::optional<std::string> steam_input_get_glyph_svg_for_action_origin(gm_enums::SteamInputActionOrigin origin, gm_enums::SteamInputGlyphStyle flags);
 std::vector<std::uint64_t> steam_input_get_connected_controllers();
 std::uint64_t steam_input_get_controller_for_gamepad_index(std::int32_t index);
 std::uint64_t steam_input_get_current_action_set(std::uint64_t input_handle);
@@ -6651,7 +6662,7 @@ std::optional<std::string> steam_input_get_string_for_action_origin(gm_enums::St
 bool steam_input_init(bool explicitly_call_run_frame);
 void steam_input_run_frame();
 bool steam_input_set_dualsense_trigger_effect(std::uint64_t input_handle, const std::vector<std::uint32_t>& param);
-void steam_input_set_led_color(std::uint64_t input_handle, std::uint32_t color_r, std::uint32_t color_g, std::uint32_t color_b, std::uint32_t flags);
+void steam_input_set_led_color(std::uint64_t input_handle, std::uint32_t color_r, std::uint32_t color_g, std::uint32_t color_b, gm_enums::SteamInputControllerLEDFlag flags);
 bool steam_input_show_binding_panel(std::uint64_t input_handle);
 bool steam_input_shutdown();
 void steam_input_stop_analog_action_momentum(std::uint64_t input_handle, std::uint64_t analog_action_handle);
@@ -6876,7 +6887,7 @@ void steam_networking_messages_set_callback_session_request(const gm::wire::GMFu
 void steam_networking_messages_clear_callback_session_request();
 void steam_networking_messages_set_callback_session_failed(const gm::wire::GMFunction& callback);
 void steam_networking_messages_clear_callback_session_failed();
-std::int32_t steam_networking_messages_send_message_to_user(std::uint64_t steam_id_remote, gm::wire::GMBuffer data, std::int32_t send_flags, std::int32_t remote_channel, std::optional<std::uint32_t> buffer_offset, std::optional<std::uint32_t> buffer_count);
+std::int32_t steam_networking_messages_send_message_to_user(std::uint64_t steam_id_remote, gm::wire::GMBuffer data, gm_enums::SteamNetworkingSendFlags send_flags, std::int32_t remote_channel, std::optional<std::uint32_t> buffer_offset, std::optional<std::uint32_t> buffer_count);
 std::vector<gm_structs::SteamNetworkingMessage> steam_networking_messages_receive_messages_on_channel(std::int32_t local_channel, gm::wire::GMBuffer out_data, std::uint32_t count);
 bool steam_networking_messages_accept_session_with_user(std::uint64_t steam_id_remote);
 bool steam_networking_messages_close_session_with_user(std::uint64_t steam_id_remote);

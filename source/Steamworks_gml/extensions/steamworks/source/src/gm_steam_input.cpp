@@ -200,7 +200,7 @@ gm_structs::SteamInputActionOrigins steam_input_get_analog_action_origins(
     return out;
 }
 
-std::optional<std::string> steam_input_get_glyph_png_for_action_origin(gm_enums::SteamInputActionOrigin origin, gm_enums::SteamInputGlyphSize size, std::uint32_t flags)
+std::optional<std::string> steam_input_get_glyph_png_for_action_origin(gm_enums::SteamInputActionOrigin origin, gm_enums::SteamInputGlyphSize size, gm_enums::SteamInputGlyphStyle flags)
 {
     STEAM_GUARD_RET(std::nullopt);
 
@@ -211,12 +211,12 @@ std::optional<std::string> steam_input_get_glyph_png_for_action_origin(gm_enums:
     const char* p = s->GetGlyphPNGForActionOrigin(
         (EInputActionOrigin)(int)origin,
         (ESteamInputGlyphSize)(int)size,
-        flags
+        (uint32)(int)flags
     );
     return p ? std::optional<std::string>(p) : std::nullopt;
 }
 
-std::optional<std::string> steam_input_get_glyph_svg_for_action_origin(gm_enums::SteamInputActionOrigin origin, std::uint32_t flags)
+std::optional<std::string> steam_input_get_glyph_svg_for_action_origin(gm_enums::SteamInputActionOrigin origin, gm_enums::SteamInputGlyphStyle flags)
 {
     STEAM_GUARD_RET(std::nullopt);
 
@@ -226,7 +226,7 @@ std::optional<std::string> steam_input_get_glyph_svg_for_action_origin(gm_enums:
 
     const char* p = s->GetGlyphSVGForActionOrigin(
         (EInputActionOrigin)(int)origin,
-        flags
+        (uint32)(int)flags
     );
     return p ? std::optional<std::string>(p) : std::nullopt;
 }
@@ -507,7 +507,7 @@ void steam_input_set_led_color(
     std::uint32_t color_r,
     std::uint32_t color_g,
     std::uint32_t color_b,
-    std::uint32_t flags
+    gm_enums::SteamInputControllerLEDFlag flags
 )
 {
     STEAM_GUARD();
@@ -520,7 +520,7 @@ void steam_input_set_led_color(
     std::uint8_t g = (std::uint8_t)clamp_u32(color_g, 0, 255);
     std::uint8_t b = (std::uint8_t)clamp_u32(color_b, 0, 255);
 
-    s->SetLEDColor((InputHandle_t)input_handle, r, g, b, (unsigned int)flags);
+    s->SetLEDColor((InputHandle_t)input_handle, r, g, b, (unsigned int)(int)flags);
 }
 
 bool steam_input_show_binding_panel(std::uint64_t input_handle)

@@ -251,6 +251,7 @@ enum SteamApiVoiceResult
 [global, bind = typed_gml]
 enum SteamApiResult
 {
+    None = 0,
     Ok = 1,
     Fail = 2,
     NoConnection = 3,
@@ -1116,8 +1117,8 @@ class `[[SteamAppsNumBetas]]` prototype Object
 [global]
 class `[[SteamAppsBetaInfo]]` prototype Object
 {
-    [field]
-    property flags : uint32 { get; set; }      // bitset (EBetaBranchFlags)
+    [field, type_hint=`SteamAppsBetaBranchFlags`]
+    property flags : gmval { get; set; }      // bitset (EBetaBranchFlags)
 
     [field]
     property build_id : uint32 { get; set; }
@@ -4036,14 +4037,14 @@ function steam_input_get_analog_action_origins([type_hint=uint64] input_handle: 
 function steam_input_get_glyph_png_for_action_origin(
     [type_hint=`SteamInputActionOrigin`] origin: gmval,
     [type_hint=`SteamInputGlyphSize`] size: gmval,
-    flags: uint32
+    [type_hint=`SteamInputGlyphStyle`] flags: gmval
 ): gmval;
 
 // GetGlyphSVGForActionOrigin
 [global, bind = typed_gml, type_hint=`string?`]
 function steam_input_get_glyph_svg_for_action_origin(
     [type_hint=`SteamInputActionOrigin`] origin: gmval,
-    flags: uint32
+    [type_hint=`SteamInputGlyphStyle`] flags: gmval
 ): gmval;
 
 // GetConnectedControllers
@@ -4101,7 +4102,7 @@ function steam_input_set_dualsense_trigger_effect([type_hint=uint64] input_handl
 
 // SetLEDColor
 [global, bind = typed_gml]
-function steam_input_set_led_color([type_hint=uint64] input_handle: gmval, color_r: uint32, color_g: uint32, color_b: uint32, flags: uint32): unit;
+function steam_input_set_led_color([type_hint=uint64] input_handle: gmval, color_r: uint32, color_g: uint32, color_b: uint32, [type_hint=`SteamInputControllerLEDFlag`] flags: gmval): unit;
 
 // ShowBindingPanel
 [global, bind = typed_gml]
@@ -5804,8 +5805,8 @@ class `[[SteamNetworkingMessage]]` prototype Object
     [field]
     property channel : int32 { get; set; }
 
-    [field]
-    property flags : int32 { get; set; }
+    [field, type_hint=`SteamNetworkingSendFlags`]
+    property flags : gmval { get; set; }
 
     [field, type_hint=uint64]
     property usec_time_received : gmval { get; set; }
@@ -5833,7 +5834,7 @@ function steam_networking_messages_clear_callback_session_failed(): unit;
 function steam_networking_messages_send_message_to_user(
     [type_hint=uint64] steam_id_remote: gmval,
     [type_hint=buffer] data: gmval,
-    send_flags: int32,
+    [type_hint=`SteamNetworkingSendFlags`] send_flags: gmval,
     remote_channel: int32,
     [type_hint=`uint32?`] buffer_offset: gmval,
     [type_hint=`uint32?`] buffer_count: gmval
@@ -5955,6 +5956,18 @@ enum SteamNetworkingConfigValue
     LogLevelAlerts = 14,
 }
 
+// From k_nSteamNetworkConnectionInfoFlags_Xxxx (bit flags) - used by SteamNetworkingSocketsConnectionInfo.flags
+[global, bind = typed_gml]
+enum SteamNetworkingConnectionInfoFlags
+{
+    Unauthenticated = 1,
+    Unencrypted = 2,
+    LoopbackBuffers = 4,
+    Fast = 8,
+    Relayed = 16,
+    DualWifi = 32,
+}
+
 [global]
 class `[[SteamNetworkingSocketsConnectionInfo]]` prototype Object
 {
@@ -5962,7 +5975,7 @@ class `[[SteamNetworkingSocketsConnectionInfo]]` prototype Object
     [field, type_hint=`SteamNetworkingConnectionEnd`] property end_reason : gmval { get; set; }
     [field] property end_debug : string { get; set; }
     [field] property connection_description : string { get; set; }
-    [field] property flags : int32 { get; set; }
+    [field, type_hint=`SteamNetworkingConnectionInfoFlags`] property flags : gmval { get; set; }
     [field, type_hint=`SteamNetworkingConnectionState`] property state : gmval { get; set; }
     [field, type_hint=uint64] property steam_id_remote : gmval { get; set; }
     [field] property addr_remote : string { get; set; }

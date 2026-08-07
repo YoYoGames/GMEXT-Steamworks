@@ -116,7 +116,7 @@
  *
  * @param {Enum.SteamInputActionOrigin} origin The action origin you want to get the glyph image for.
  * @param {Enum.SteamInputGlyphSize} size The size of the PNG glyph to retrieve, from the ${constant.SteamInputGlyphSize} enum.
- * @param {Real} flags A bit-masked combination of glyph style flags (${constant.SteamInputGlyphStyle}) that control the visual appearance of the returned glyph.
+ * @param {Enum.SteamInputGlyphStyle} flags A bit-masked combination of glyph style flags (${constant.SteamInputGlyphStyle}) that control the visual appearance of the returned glyph.
  * @returns {String}
  * @function_end
  */
@@ -128,7 +128,7 @@
  * This function gets a local path to an SVG file for the on-screen glyph for a particular origin.
  *
  * @param {Enum.SteamInputActionOrigin} origin The action origin you want to get the glyph image for.
- * @param {Real} flags A bit-masked combination of glyph style flags (${constant.SteamInputGlyphStyle}) that control the visual appearance of the returned glyph.
+ * @param {Enum.SteamInputGlyphStyle} flags A bit-masked combination of glyph style flags (${constant.SteamInputGlyphStyle}) that control the visual appearance of the returned glyph.
  * @returns {String}
  * @function_end
  */
@@ -287,7 +287,7 @@
  * @param {Real} color_r The red component of the color to set (0-255).
  * @param {Real} color_g The green component of the color to set (0-255).
  * @param {Real} color_b The blue component of the color to set (0-255).
- * @param {Real} flags Bit-masked flags combined from values defined in the ${constant.SteamInputControllerLEDFlag} enum.
+ * @param {Enum.SteamInputControllerLEDFlag} flags Bit-masked flags combined from values defined in the ${constant.SteamInputControllerLEDFlag} enum.
  * @function_end
  */
 

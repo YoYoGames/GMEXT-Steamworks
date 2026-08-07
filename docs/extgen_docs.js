@@ -2297,7 +2297,7 @@
  * @function_partial steam_input_get_glyph_png_for_action_origin
  * @param {Enum.SteamInputActionOrigin} origin
  * @param {Enum.SteamInputGlyphSize} size
- * @param {Real} flags
+ * @param {Enum.SteamInputGlyphStyle} flags
  * @returns {String}
  * @function_end
  */
@@ -2305,7 +2305,7 @@
 /**
  * @function_partial steam_input_get_glyph_svg_for_action_origin
  * @param {Enum.SteamInputActionOrigin} origin
- * @param {Real} flags
+ * @param {Enum.SteamInputGlyphStyle} flags
  * @returns {String}
  * @function_end
  */
@@ -2408,7 +2408,7 @@
  * @param {Real} color_r
  * @param {Real} color_g
  * @param {Real} color_b
- * @param {Real} flags
+ * @param {Enum.SteamInputControllerLEDFlag} flags
  * @function_end
  */
 
@@ -3991,7 +3991,7 @@
  * @function_partial steam_networking_messages_send_message_to_user
  * @param {Real} steam_id_remote
  * @param {Buffer} data
- * @param {Real} send_flags
+ * @param {Enum.SteamNetworkingSendFlags} send_flags
  * @param {Real} remote_channel
  * @param {Real} [buffer_offset]
  * @param {Real} [buffer_count]
@@ -4516,7 +4516,7 @@
 
 /**
  * @struct_partial SteamAppsBetaInfo
- * @member {Real} flags
+ * @member {Enum.SteamAppsBetaBranchFlags} flags
  * @member {Real} build_id
  * @member {String} beta_name
  * @member {String} description
@@ -5411,7 +5411,7 @@
  * @member {Real} steam_id_remote
  * @member {Real} conn
  * @member {Real} channel
- * @member {Real} flags
+ * @member {Enum.SteamNetworkingSendFlags} flags
  * @member {Real} usec_time_received
  * @member {Real} message_number
  * @member {Real} conn_user_data
@@ -5424,7 +5424,7 @@
  * @member {Enum.SteamNetworkingConnectionEnd} end_reason
  * @member {String} end_debug
  * @member {String} connection_description
- * @member {Real} flags
+ * @member {Enum.SteamNetworkingConnectionInfoFlags} flags
  * @member {Enum.SteamNetworkingConnectionState} state
  * @member {Real} steam_id_remote
  * @member {String} addr_remote
@@ -5608,6 +5608,7 @@
 
 /**
  * @enum_partial SteamApiResult
+ * @member None
  * @member Ok
  * @member Fail
  * @member NoConnection
@@ -7003,6 +7004,17 @@
  * @member MTUSize
  * @member LogLevelAcknowledged
  * @member LogLevelAlerts
+ * @enum_end
+ */
+
+/**
+ * @enum_partial SteamNetworkingConnectionInfoFlags
+ * @member Unauthenticated
+ * @member Unencrypted
+ * @member LoopbackBuffers
+ * @member Fast
+ * @member Relayed
+ * @member DualWifi
  * @enum_end
  */
 
