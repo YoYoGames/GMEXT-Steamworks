@@ -316,10 +316,13 @@ std::vector<gm_structs::SteamNetworkingMessage> steam_networking_sockets_receive
         gm_structs::SteamNetworkingMessage msg_out{};
         msg_out.offset = current_offset;
         msg_out.size = cb;
-        msg_out.steam_id_remote = 0;
+        msg_out.steam_id_remote = msgs[i]->m_identityPeer.GetSteamID64();
         msg_out.conn = (std::uint32_t)msgs[i]->m_conn;
         msg_out.channel = -1;
         msg_out.flags = (std::int32_t)msgs[i]->m_nFlags;
+        msg_out.usec_time_received = (std::uint64_t)msgs[i]->m_usecTimeReceived;
+        msg_out.message_number = (std::uint64_t)msgs[i]->m_nMessageNumber;
+        msg_out.conn_user_data = (std::uint64_t)msgs[i]->m_nConnUserData;
 
         out.push_back(msg_out);
 
@@ -518,10 +521,13 @@ std::vector<gm_structs::SteamNetworkingMessage> steam_networking_sockets_receive
         gm_structs::SteamNetworkingMessage msg_out{};
         msg_out.offset = current_offset;
         msg_out.size = cb;
-        msg_out.steam_id_remote = 0;
+        msg_out.steam_id_remote = msgs[i]->m_identityPeer.GetSteamID64();
         msg_out.conn = (std::uint32_t)msgs[i]->m_conn;
         msg_out.channel = -1;
         msg_out.flags = (std::int32_t)msgs[i]->m_nFlags;
+        msg_out.usec_time_received = (std::uint64_t)msgs[i]->m_usecTimeReceived;
+        msg_out.message_number = (std::uint64_t)msgs[i]->m_nMessageNumber;
+        msg_out.conn_user_data = (std::uint64_t)msgs[i]->m_nConnUserData;
 
         out.push_back(msg_out);
 
