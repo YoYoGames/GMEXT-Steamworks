@@ -3,7 +3,7 @@
   "%Name":"ExtensionCore",
   "androidactivityinject":null,
   "androidclassname":"",
-  "androidcodeinjection":"\r\n<YYAndroidBuildToolsVersion>\r\n  compileOptions {\r\n    sourceCompatibility JavaVersion.VERSION_17\r\n    targetCompatibility JavaVersion.VERSION_17\r\n    coreLibraryDesugaringEnabled true\r\n  }\r\n</YYAndroidBuildToolsVersion>\r\n\r\n<YYAndroidGradleDependencies>\r\ncoreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.0.4'\r\n</YYAndroidGradleDependencies>\r\n\r\n",
+  "androidcodeinjection":"\r\n<YYAndroidBuildToolsVersion>\r\n  compileOptions {\r\n    sourceCompatibility JavaVersion.VERSION_17\r\n    targetCompatibility JavaVersion.VERSION_17\r\n    coreLibraryDesugaringEnabled true\r\n  }\r\n</YYAndroidBuildToolsVersion>\r\n\r\n<YYAndroidGradleDependencies>\r\ncoreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.0.4'\r\n</YYAndroidGradleDependencies>\r\n\r\n<YYAndroidProguard>\r\n# Keep all ITypedStruct implementations and their CODEC_ID fields\r\n# Required for GMExtWire reflection-based codec resolution\r\n-keep class * implements ${YYAndroidPackageName}.GMExtWire$ITypedStruct {\r\n    public static final int CODEC_ID;\r\n}\r\n\r\n# Keep the interface itself\r\n-keep interface ${YYAndroidPackageName}.GMExtWire$ITypedStruct\r\n\r\n# Optional: Keep class names for better debugging\r\n-keepnames class * implements ${YYAndroidPackageName}.GMExtWire$ITypedStruct\r\n</YYAndroidProguard>",
   "androidinject":null,
   "androidmanifestinject":null,
   "androidPermissions":[],
