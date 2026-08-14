@@ -1,4 +1,3 @@
-
 #include "pch.h"
 #include "steam_api.h"
 #include "Extension_Interface.h"
@@ -22,8 +21,7 @@ enum eOverlayType
 	eOV_Achievements,
 	eOV_NumOverlays
 };
-
-static const char* s_pszOverlayNames[] = 
+static const char* s_pszOverlayNames[] =
 {	"Friends",	// - opens the Steam Friends dialog
 	"Community",	// - opens the Steam Community web page
 	"Players",		//- opens the list of recently-played with users
@@ -31,9 +29,7 @@ static const char* s_pszOverlayNames[] =
 	"OfficialGameGroup", // - opens the Steam Community web browser to the official game group for this game
 	"Achievements"		// - opens the Steam Community web browser to the achievements stats for this game
 };
-
 static void SendPersonaNameAsyncEvent( int _asyncId, uint64 _steamId, const char* pszPersonaName );
-
 #ifdef OS_Windows
 static void BringWindowToFront()
 {
@@ -51,7 +47,6 @@ static void BringWindowToFront()
 	});
 }
 #endif
-
 class Singleton
 {
 protected:
@@ -61,7 +56,6 @@ protected:
 		  m_CallbackFriendRichPresence(this, &Singleton::OnFriendRichPresenceUpdate),
 		m_bOverlayActivated(false)
 	{}
-
 
 	void OnGameOverlayActivated(GameOverlayActivated_t* callback)
 	{
@@ -81,7 +75,6 @@ protected:
 
 		DsMapAddString(map, "event_type", "overlay_changed");
 		DsMapAddBool(map, "active", m_bOverlayActivated);
-
 		CreateAsyncEventWithDSMap(map, EVENT_OTHER_WEB_STEAM);
 	}
 
@@ -97,7 +90,6 @@ protected:
 
 		CreateAsyncEventWithDSMap(map, EVENT_OTHER_WEB_STEAM);
 	}
-
 	CCallback<Singleton, GameOverlayActivated_t, false>	m_CallbackOverlayActivated;
 	CCallback<Singleton, FriendRichPresenceUpdate_t, false> m_CallbackFriendRichPresence;
 
@@ -120,7 +112,6 @@ public:
 };
 
 Singleton* Singleton::singleton_ = nullptr;;
-
 Singleton* Singleton::GetInstance()
 {
 	if (singleton_ == nullptr) {
@@ -136,12 +127,10 @@ public:
 	int			m_asyncId;
 	uint64	m_steamId;
 	CCallback<CPersonaStateChangeListener, PersonaStateChange_t,false> m_CallbackPersonaStateChanged;
-
 	CPersonaStateChangeListener( int _asyncId, CSteamID _steamId): m_asyncId(_asyncId), m_CallbackPersonaStateChanged(this,&CPersonaStateChangeListener::OnPersonaStateChanged)
 	{
 		m_steamId = _steamId.ConvertToUint64();
 	}
-
 	void OnPersonaStateChanged( PersonaStateChange_t* callback )
 	{
 		//DebugConsoleOutput("OnPersonaStateChanged:%lld\n", callback->m_ulSteamID );
@@ -155,7 +144,6 @@ public:
 	}
 };
 
-
 YYEXPORT void /*double*/ steam_activate_overlay(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)//( int iOverlay)/*Steam_Friends_ActivateGameOverlay*/
 {
 	int iOverlay = (int)YYGetReal(arg, 0);
@@ -166,9 +154,8 @@ YYEXPORT void /*double*/ steam_activate_overlay(RValue& Result, CInstance* selfi
 		Result.val = 0;
 		return;
 	}
-
 	Result.kind = VALUE_REAL;
-	
+
 	if( SteamFriends()!=NULL)
 	{
 		if( iOverlay>=0 && iOverlay < eOV_NumOverlays )
@@ -181,7 +168,6 @@ YYEXPORT void /*double*/ steam_activate_overlay(RValue& Result, CInstance* selfi
 	}
 	Result.val = 0;
 }
-
 YYEXPORT void /*const char**/ steam_get_persona_name(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)//()/*Steam_Friends_GetPersonaName*/
 {
 	if (!steam_is_initialised)
@@ -198,7 +184,6 @@ YYEXPORT void /*const char**/ steam_get_persona_name(RValue& Result, CInstance* 
 	}
 	YYCreateString(&Result, "");
 }
-
 YYEXPORT void /*double*/ steam_is_overlay_enabled(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)//()/*Steam_Utils_IsOverlayEnabled*/
 {
 	if (!steam_is_initialised)
@@ -220,7 +205,6 @@ YYEXPORT void /*double*/ steam_is_overlay_enabled(RValue& Result, CInstance* sel
 	}
 	Result.val = 0.0;
 }
-
 YYEXPORT void /*double*/ steam_is_overlay_activated(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)//()/*Steam_Friends_IsOverlayActive*/
 {
 	if (!steam_is_initialised)
@@ -235,7 +219,6 @@ YYEXPORT void /*double*/ steam_is_overlay_activated(RValue& Result, CInstance* s
 	Result.kind = VALUE_BOOL;
 	Result.val = singleton->value();
 }
-
 YYEXPORT void /*double*/ steam_activate_overlay_browser(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)//( const char* pszUrl )/*Steam_Friends_ActivateOverlayBrowser*/
 {
 	const char* pszUrl = YYGetString(arg, 0);
@@ -252,12 +235,11 @@ YYEXPORT void /*double*/ steam_activate_overlay_browser(RValue& Result, CInstanc
 	Result.kind = VALUE_REAL;
 	Result.val = 1.0;
 }
-
 YYEXPORT void /*double*/ steam_activate_overlay_user(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)//( const char* pszDialog, int64 _steamId )/*Steam_Friends_ActivateOverlayUser*/
 {
 	const char* pszDialog = YYGetString(arg, 0);
 	int64 _steamId = YYGetInt64(arg, 1);
-	
+
 	if (!steam_is_initialised)
 	{
 		Result.kind = VALUE_REAL;
@@ -267,7 +249,6 @@ YYEXPORT void /*double*/ steam_activate_overlay_user(RValue& Result, CInstance* 
 
 	CSteamID steamId( (uint64)_steamId);
 	SteamFriends()->ActivateGameOverlayToUser(pszDialog, steamId );
-
 	Result.kind = VALUE_REAL;
 	Result.val = 1.0;
 }
@@ -284,7 +265,6 @@ YYEXPORT void /*double*/ steam_activate_overlay_store(RValue& Result, CInstance*
 	}
 
 	SteamFriends()->ActivateGameOverlayToStore( (AppId_t)_appId, k_EOverlayToStoreFlag_None );
-
 	Result.kind = VALUE_REAL;
 	Result.val = 1.0;
 }
@@ -306,7 +286,6 @@ YYEXPORT void /*double*/ steam_activate_overlay_invite_dialog(RValue& Result, CI
 	{
 		return;
 	}
-
 	SteamFriends()->ActivateGameOverlayInviteDialog(lobbyId);
 	Result.val = true;
 }
@@ -321,11 +300,11 @@ static void SendPersonaNameAsyncEvent( int _asyncId, uint64 _steamId, const char
 
 	//DebugConsoleOutput("SendPersonaNameAsyncEvent:%lld %s\n", _steamId, pszPersonaName );
 
-	int dsMapIndex = CreateDsMap( 3,
+	int dsMapIndex = CreateDsMap( 4,
 		"id", (double)(_asyncId), NULL,
 		"event_type", (double)0.0, "user_persona_name",
+		"result", (double)k_EResultOK, NULL,
 		"persona_name", (double)0.0, pszPersonaName );
-
 	g_pYYRunnerInterface->DsMapAddInt64(dsMapIndex, "steamid", _steamId);
 
 	g_pYYRunnerInterface->CreateAsyncEventWithDSMap(dsMapIndex, EVENT_OTHER_WEB_STEAM);
@@ -343,7 +322,6 @@ YYEXPORT void /*double*/ steam_get_user_persona_name(RValue& Result, CInstance* 
 	}
 
 	Result.kind = VALUE_REAL;
-
 	CSteamID steamId( (uint64)_steamId);
 	// if returns false, it means that we already have all the details about that user, and functions can be called immediately
 	if( !SteamFriends()->RequestUserInformation( steamId, true ) )
@@ -358,12 +336,11 @@ YYEXPORT void /*double*/ steam_get_user_persona_name(RValue& Result, CInstance* 
 	{
 		//if returns true, it means that data is being requested, and a PersonaStateChanged_t callback will be posted when it's retrieved
 		int async_id = getAsyncRequestInd();
-		//CPersonaStateChangeListener* pListener = new CPersonaStateChangeListener(async_id, steamId );
+		new CPersonaStateChangeListener(async_id, steamId );
 		Result.val = async_id;
 		return;
 	}
 }
-
 YYEXPORT void steam_request_friend_rich_presence(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)
 {
 	if (!steam_is_initialised)
@@ -378,7 +355,6 @@ YYEXPORT void steam_request_friend_rich_presence(RValue& Result, CInstance* self
 	Result.kind = VALUE_REAL;
 	Result.val = 1;
 }
-
 YYEXPORT void steam_get_friend_rich_presence(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)
 {
 	if (!steam_is_initialised)
@@ -391,7 +367,6 @@ YYEXPORT void steam_get_friend_rich_presence(RValue& Result, CInstance* selfinst
 	auto pchKey = YYGetString(arg, 1);
 	YYCreateString(&Result, SteamFriends()->GetFriendRichPresence(CSteamID(uint64(steamIdFriend)), pchKey));
 }
-
 YYEXPORT void steam_get_friend_rich_presence_key_by_index(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)
 {
 	if (!steam_is_initialised)
@@ -404,7 +379,6 @@ YYEXPORT void steam_get_friend_rich_presence_key_by_index(RValue& Result, CInsta
 	int iKey = YYGetInt32(arg, 1);
 	YYCreateString(&Result, SteamFriends()->GetFriendRichPresenceKeyByIndex(CSteamID(uint64(steamIdFriend)), iKey));
 }
-
 YYEXPORT void steam_get_friend_rich_presence_key_count(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)
 {
 	if (!steam_is_initialised)
@@ -418,7 +392,6 @@ YYEXPORT void steam_get_friend_rich_presence_key_count(RValue& Result, CInstance
 	Result.kind = VALUE_REAL;
 	Result.val = SteamFriends()->GetFriendRichPresenceKeyCount(CSteamID(uint64(steamIdFriend)));
 }
-
 void Steam_Friends_Init()
 {
 	//(register callbacks?)
@@ -439,5 +412,3 @@ void Steam_Friends_Shutdown()
 	/*delete m_pFriendsCallback;*/
 	//m_pFriendsCallback = NULL;
 }
-
-
