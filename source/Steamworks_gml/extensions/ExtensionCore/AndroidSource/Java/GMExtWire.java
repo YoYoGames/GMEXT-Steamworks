@@ -4,20 +4,127 @@ import java.nio.BufferUnderflowException;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.charset.StandardCharsets;
-import java.lang.ref.Cleaner;
+import java.lang.ref.PhantomReference;
+import java.lang.ref.ReferenceQueue;
 import java.util.Arrays;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.Set;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class GMExtWire
 {
-    private static final Cleaner CLEANER = Cleaner.create();
+    // ------------------------------------------------------------------
+    // GC-driven cleanup for GMFunction.
+    //
+    // This deliberately does NOT use java.lang.ref.Cleaner. Cleaner was only
+    // added in Android API 33 (Android 13) and is not covered by core library
+    // desugaring, so referencing it here made GMExtWire's static initialiser
+    // throw on every device below Android 13 - taking the whole wire down on
+    // API 24-32, which is well inside the supported range.
+    //
+    // PhantomReference + ReferenceQueue is what Cleaner is built on top of and
+    // has existed since API 1, so the semantics below are the same ones Cleaner
+    // provided:
+    //
+    //   - the action runs once the referent is phantom-reachable, eventually,
+    //     with no ordering or timing guarantee
+    //   - it runs on a background daemon thread, never on the caller's thread
+    //   - it runs at most once, whether triggered by the GC or by release()
+    //   - a failing action can never kill the cleanup thread
+    // ------------------------------------------------------------------
+    private static final GMCleaner CLEANER = GMCleaner.create();
+
+    /** Minimal stand-in for java.lang.ref.Cleaner, compatible with all API levels. */
+    static final class GMCleaner {
+        private final ReferenceQueue<Object> queue = new ReferenceQueue<>();
+
+        // Registered cleanables have to stay strongly reachable. A PhantomReference
+        // that is itself collected is never enqueued, which would silently drop the
+        // Release this mechanism exists to deliver - the classic way a hand-rolled
+        // cleaner fails, and it fails invisibly.
+        private final Set<GMCleanable> registered =
+            Collections.newSetFromMap(new ConcurrentHashMap<GMCleanable, Boolean>());
+
+        private final AtomicBoolean started = new AtomicBoolean(false);
+
+        static GMCleaner create() {
+            return new GMCleaner();
+        }
+
+        GMCleanable register(Object obj, Runnable action) {
+            Objects.requireNonNull(obj, "obj");
+            Objects.requireNonNull(action, "action");
+
+            ensureThread();
+
+            GMCleanable cleanable = new GMCleanable(obj, queue, action, registered);
+            registered.add(cleanable);
+            return cleanable;
+        }
+
+        // Started on first registration rather than at class-init, so an extension
+        // that never passes a GML function across the wire never pays for a thread.
+        private void ensureThread() {
+            if (!started.compareAndSet(false, true))
+                return;
+
+            Thread thread = new Thread(new Runnable() {
+                @Override
+                public void run() { drainForever(); }
+            }, "GMExtWire-Cleaner");
+
+            thread.setDaemon(true);
+            thread.start();
+        }
+
+        private void drainForever() {
+            for (;;) {
+                try {
+                    ((GMCleanable) queue.remove()).clean();
+                }
+                catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                    return;
+                }
+                catch (Throwable ignored) {
+                    // One bad cleanup action must not take the thread with it, or
+                    // every later GMFunction leaks its GML-side reference.
+                }
+            }
+        }
+    }
+
+    /** Stand-in for Cleaner.Cleanable. */
+    static final class GMCleanable extends PhantomReference<Object> {
+        private final Runnable action;
+        private final Set<GMCleanable> registry;
+        private final AtomicBoolean done = new AtomicBoolean(false);
+
+        GMCleanable(Object referent, ReferenceQueue<? super Object> queue,
+                    Runnable action, Set<GMCleanable> registry) {
+            super(referent, queue);
+            this.action = action;
+            this.registry = registry;
+        }
+
+        /** Runs the cleanup action at most once. Safe to call from any thread. */
+        void clean() {
+            if (!done.compareAndSet(false, true))
+                return;
+
+            registry.remove(this);
+            clear();
+            action.run();
+        }
+    }
 
     private static final class GMFunctionReleaser implements Runnable {
         private final long uid;
@@ -58,7 +165,7 @@ public class GMExtWire
         NULL, // encoded as ValueType.Undefined
         BOOL, BYTE, SHORT, INT, LONG, FLOAT, DOUBLE,
         STRING,
-        ARRAY, OBJECT, // �Struct� => object
+        ARRAY, OBJECT, // "Struct" => object
         TYPED_STRUCT, TYPED_ARRAY, BUFFER, POINTER; // extra buckets (optional)
 
         public static GMKind fromTag(byte t) {
@@ -75,7 +182,7 @@ public class GMExtWire
                     return GMKind.INT;
                 case 12: /* UInt64 */
                     return GMKind.LONG;
-                case 7: /* Float16 � we�ll up-cast */
+                case 7: /* Float16 - we'll up-cast */
                 case 8: /* Float */
                     return GMKind.FLOAT;
                 case 9: /* Double */
@@ -114,7 +221,7 @@ public class GMExtWire
     }
 
     /**
-     * Common byte-sink contract — mirrors C++'s IByteWriter. GMByteWriter (growable)
+     * Common byte-sink contract - mirrors C++'s IByteWriter. GMByteWriter (growable)
      * and GMBufferWriter (fixed) both implement it, so ITypedStruct.encode(),
      * Codec.write(), and the collection helpers below are written once and work
      * against either target, exactly like C++'s single writeValue(IByteWriter&, T)
@@ -135,7 +242,7 @@ public class GMExtWire
     }
 
     /**
-     * Growable byte sink — mirrors C++'s VectorWriter. Grows in place instead of
+     * Growable byte sink - mirrors C++'s VectorWriter. Grows in place instead of
      * throwing, so generated ITypedStruct.encode() implementations never need a
      * try/catch to handle running out of room.
      */
@@ -200,7 +307,7 @@ public class GMExtWire
     }
 
     /**
-     * Fixed-capacity byte sink — mirrors C++'s BufferWriter. Wraps an
+     * Fixed-capacity byte sink - mirrors C++'s BufferWriter. Wraps an
      * already-sized destination (e.g. the native return buffer) and never
      * grows: writes past capacity throw, exactly like the raw ByteBuffer
      * primitives always have.
@@ -641,7 +748,7 @@ public class GMExtWire
             return cast(payload);
         }
 
-        /** Generic optional accessor � idiomatic Java 8 style */
+        /** Generic optional accessor - idiomatic Java 8 style */
         @SuppressWarnings("unchecked")
         public <T> Optional<T> getIf(Class<T> type) {
             return type.isInstance(payload) ? Optional.of((T) payload) : Optional.empty();
@@ -713,13 +820,13 @@ public class GMExtWire
     public static final class GMFunction {
         private final long uid;
         private final GMDispatcher dispatcher;
-        private final Cleaner.Cleanable cleanable;
+        private final GMCleanable cleanable;
 
         public GMFunction(long id, GMDispatcher dispatcher) {
             this.uid = id;
             this.dispatcher = dispatcher;
 
-            // Register a cleanup action that sends Release when this GMFunction is GC�d
+            // Register a cleanup action that sends Release when this GMFunction is GC'd
             this.cleanable = CLEANER.register(this, new GMFunctionReleaser(id, dispatcher));
         }
 
@@ -868,7 +975,7 @@ public class GMExtWire
         return new GMFunction(ref, dispatcher);
     }
 
-    // Write Primitives — ByteBuffer target (fixed-capacity; throws if it doesn't fit)
+    // Write Primitives - ByteBuffer target (fixed-capacity; throws if it doesn't fit)
     public static void writeI8(ByteBuffer b, byte v){ need(b,1); b.put(v); }
     public static void writeI16(ByteBuffer b, short v){ need(b,2); b.putShort(v); }
     public static void writeI32(ByteBuffer b, int v){ need(b,4); b.putInt(v); }
@@ -877,8 +984,8 @@ public class GMExtWire
     public static void writeF64(ByteBuffer b, double v){ need(b,8); b.putDouble(v); }
     public static void writeBool(ByteBuffer b, boolean v){ need(b,1); b.put((byte)(v?1:0)); }
 
-    // Write Primitives — IByteWriter target (GMByteWriter grows in place; GMBufferWriter
-    // throws if it doesn't fit — the concrete type decides, this just dispatches)
+    // Write Primitives - IByteWriter target (GMByteWriter grows in place; GMBufferWriter
+    // throws if it doesn't fit - the concrete type decides, this just dispatches)
     public static void writeI8(IByteWriter w, byte v)      { w.writeI8(v); }
     public static void writeI16(IByteWriter w, short v)    { w.writeI16(v); }
     public static void writeI32(IByteWriter w, int v)      { w.writeI32(v); }
@@ -908,7 +1015,7 @@ public class GMExtWire
 
     // Reads always target a fixed, fully-populated ByteBuffer (no growth needed).
     // Writes always build against IByteWriter (see ITypedStruct.encode and
-    // Codec.write — the only producers of these calls; GMByteWriter and
+    // Codec.write - the only producers of these calls; GMByteWriter and
     // GMBufferWriter are the two concrete targets). There is deliberately only
     // one Writer<T> family: a ByteBuffer-flavored twin would have no callers.
     @FunctionalInterface public interface Reader<T>{ T read(ByteBuffer b); }
