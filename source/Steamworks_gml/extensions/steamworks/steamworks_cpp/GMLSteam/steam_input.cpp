@@ -998,6 +998,9 @@ YYEXPORT void steam_input_get_input_type_for_handle(RValue& Result, CInstance* s
 	Result.val = static_cast<double>(API->GetInputTypeForHandle(con));
 }
 
+static constexpr int steam_input_xinput_slot_count = 4;
+static constexpr int steam_input_no_gamepad_index = -1;
+
 /// (index:real)->input_handle
 YYEXPORT void steam_input_get_controller_for_gamepad_index(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)
 {
@@ -1007,6 +1010,12 @@ YYEXPORT void steam_input_get_controller_for_gamepad_index(RValue& Result, CInst
 
 	Result.kind = VALUE_INT64;
 	if (!steam_is_initialised || !API)
+	{
+		Result.v64 = 0;
+		return;
+	}
+
+	if (xinput_ind < 0 || xinput_ind >= steam_input_xinput_slot_count)
 	{
 		Result.v64 = 0;
 		return;
@@ -1029,7 +1038,23 @@ YYEXPORT void steam_input_get_gamepad_index_for_controller(RValue& Result, CInst
 		return;
 	}
 
-	Result.val = API->GetGamepadIndexForController(con);
+	int gamepadIndex = API->GetGamepadIndexForController(con);
+	if (gamepadIndex >= 0 && gamepadIndex < steam_input_xinput_slot_count)
+	{
+		Result.val = gamepadIndex;
+		return;
+	}
+
+	for (int i = 0; i < steam_input_xinput_slot_count; ++i)
+	{
+		if (API->GetControllerForGamepadIndex(i) == con)
+		{
+			Result.val = i;
+			return;
+		}
+	}
+
+	Result.val = steam_input_no_gamepad_index;
 }
 
 /// (origin:xbox_origin)->string
