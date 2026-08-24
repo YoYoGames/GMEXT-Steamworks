@@ -35,15 +35,19 @@ setupmacOS() {
 
     if [[ "$YYTARGET_runtime" == "VM" ]]; then
 
-        # Assert if xcode-tools are installed (required)
-        assertXcodeToolsInstalled
-
-        # Code sign the original library binary
-        codesign -s "${YYPLATFORM_option_mac_signing_identity}" -f --timestamp --verbose --options runtime "./libSteamworks.dylib"
-
-        # Copy and code sign dependencies
+        # Copy the Steam SDK dependency next to the extension binary
         itemCopyTo "$SDK_SOURCE" "./libsteam_api.dylib"
-        codesign -s "${YYPLATFORM_option_mac_signing_identity}" -f --timestamp --verbose --options runtime "./libsteam_api.dylib"
+
+        # Explicitly code sign the dependency (and the extension binary) with the hardened runtime so
+        # exports pass notarization. Only sign when an identity is provided so unsigned local builds
+        # still succeed (same guard as the YYC branch below).
+        if [ -n "${YYPLATFORM_option_mac_signing_identity}" ]; then
+            assertXcodeToolsInstalled
+            codesign -s "${YYPLATFORM_option_mac_signing_identity}" -f --timestamp --options runtime "./libSteamworks.dylib"
+            codesign -s "${YYPLATFORM_option_mac_signing_identity}" -f --timestamp --options runtime "./libsteam_api.dylib"
+        else
+            logWarning "No mac signing identity set; skipping explicit dylib signing (GameMaker will sign the bundle)."
+        fi
 
         # If there is an extra game.zip file here then this is a package command
         # Update the libraries inside the zip file (used for packaging)
@@ -56,11 +60,8 @@ setupmacOS() {
             itemCopyTo "./libsteam_api.dylib" "${TEMP_FOLDER}/assets/libsteam_api.dylib"
 
             zipUpdate "${TEMP_FOLDER}" "game.zip"
-            rm -r ${TEMP_FOLDER}
+            rm -r "${TEMP_FOLDER}"
         fi
-
-
-        logError "Extension is not compatible with the macOS VM export, please use YYC."
     else
 
         # Assert if xcode-tools are installed (required for code signing)
@@ -163,7 +164,7 @@ setupLinux() {
     mkdir "./${TEMP_FOLDER}"
     itemCopyTo "$SDK_SOURCE" "${TEMP_FOLDER}/assets/libsteam_api.so"
     zipUpdate "${TEMP_FOLDER}" "${YYprojectName}.zip"
-    rm -r ${TEMP_FOLDER}
+    rm -r "${TEMP_FOLDER}"
 }
 
 # ######################################################################################
@@ -194,7 +195,13 @@ optionGetValue "debug" DEBUG_MODE
 ERROR_SDK_HASH="Invalid Steam SDK version, sha256 hash mismatch (expected v$SDK_VERSION)."
 
 # Checks IDE and Runtime versions
-versionLockCheck "$YYruntimeVersion" $RUNTIME_VERSION_STABLE $RUNTIME_VERSION_BETA $RUNTIME_VERSION_DEV $RUNTIME_VERSION_LTS
+# NOTE: skipped under GMRT (the new runner). GMRT does not report a legacy GameMaker runtime version
+# in 'YYruntimeVersion', so these 2022/2023-era locks can never be satisfied there - versionLockCheck
+# would fall into the LTS branch and logError out (hard 'exit 1'), killing this script before any
+# dependency is staged.
+if [ "$YYTARGET_runtime" != "GMRT" ]; then
+    versionLockCheck "$YYruntimeVersion" $RUNTIME_VERSION_STABLE $RUNTIME_VERSION_BETA $RUNTIME_VERSION_DEV $RUNTIME_VERSION_LTS
+fi
 
 # Resolve the SDK path (must exist)
 pathResolveExisting "$YYprojectDir" "$SDK_PATH" SDK_PATH

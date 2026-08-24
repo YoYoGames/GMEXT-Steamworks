@@ -29,7 +29,13 @@ call %Utils% optionGetValue "debug" DEBUG_MODE
 set "ERROR_SDK_HASH=Invalid Steam SDK version, sha256 hash mismatch (expected v%SDK_VERSION%)."
 
 :: Checks IDE and Runtime versions
-call %Utils% versionLockCheck "%YYruntimeVersion%" %RUNTIME_VERSION_STABLE% %RUNTIME_VERSION_BETA% %RUNTIME_VERSION_DEV% %RUNTIME_VERSION_LTS%
+:: NOTE: skipped under GMRT (the new runner). GMRT does not report a legacy GameMaker runtime version
+:: in 'YYruntimeVersion', so these 2022/2023-era locks can never be satisfied there - versionLockCheck
+:: would fall into the LTS branch and logError out (hard 'exit 1'), killing this script before any
+:: dependency is staged.
+if not "%YYTARGET_runtime%" == "GMRT" (
+    call %Utils% versionLockCheck "%YYruntimeVersion%" %RUNTIME_VERSION_STABLE% %RUNTIME_VERSION_BETA% %RUNTIME_VERSION_DEV% %RUNTIME_VERSION_LTS%
+)
 
 :: Resolve the SDK path (must exist)
 call %Utils% pathResolveExisting "%YYprojectDir%" "%SDK_PATH%" SDK_PATH
@@ -43,15 +49,21 @@ if "%YYTARGET_runtime%" == "GMRT" (
 )
 
 :: Call setup method depending on the platform
-:: NOTE: the setup method can be (:setupWindows, :setupMacOS or :setupLinux)
+:: NOTE: the setup method can be (:setupWindows, :setupMacOS, :setupMac [GMRT] or :setupLinux)
 call :setup%YYPLATFORM_name%
+
+:: Capture the dispatch result before anything else can reset it (a missing :setup<platform> label or a
+:: failed itemCopyTo is non-fatal to cmd, so it must be propagated explicitly - see the exit below).
+set "SETUP_RESULT=%ERRORLEVEL%"
 
 :: If debug is set to 'Enabled' provide a warning to the user.
 if "%DEBUG_MODE%" equ "Enabled" call %Utils% logWarning "Debug mode is set to 'Enabled', make sure to set it to 'Auto' before publishing."
 
 popd
 
-exit 0
+:: Report the real result. A hard 'logError' already terminates this script with 1, but a missing platform
+:: label or a failed copy does not - 'exit 0' used to swallow both and report a clean build.
+exit %SETUP_RESULT%
 
 :: ----------------------------------------------------------------------------------------------------
 :setupWindows
@@ -60,7 +72,7 @@ exit 0
     call %Utils% assertFileHashEquals %SDK_SOURCE% %SDK_HASH_WIN% "%ERROR_SDK_HASH%"
 
     echo "Copying Windows (64 bit) dependencies"
-    if not exist "steam_api64.dll" call %Utils% itemCopyTo %SDK_SOURCE% "steam_api64.dll"
+    call %Utils% itemCopyTo %SDK_SOURCE% "steam_api64.dll"
 
 exit /b 0
 
@@ -73,8 +85,10 @@ exit /b 0
     echo "Copying macOS (64 bit) dependencies"
 
     if "%YYTARGET_runtime%" == "VM" (
-        :: This is used for VM compilation
-        call %Utils% logError "Extension is not compatible with the macOS VM export, please use YYC."
+        :: VM is only supported when building from a macOS host (post_build_step.sh's setupmacOS), which
+        :: is the only place 'codesign' exists - the VM path stages both dylibs into the game zip and has
+        :: to sign them. From a Windows host there is no way to sign, so VM stays rejected here.
+        call %Utils% logError "Extension is not compatible with the macOS VM export from a Windows host, please use YYC."
     ) else (
         setlocal enabledelayedexpansion
 
@@ -89,6 +103,21 @@ exit /b 0
         call %Utils% itemCopyTo %SDK_SOURCE% "!YYfixedProjectName!\!YYfixedProjectName!\Supporting Files\libsteam_api.dylib"
         endlocal
     )
+exit /b 0
+
+:: ----------------------------------------------------------------------------------------------------
+:: GMRT (the new runner) variant of the macOS setup. Under GMRT the platform name is 'Mac' (legacy is
+:: 'macOS', which dispatches to :setupMacOS above) and the dependency goes bare into the output
+:: 'build\assets' folder we already pushd'd into. No code signing here - that only happens on a macOS
+:: host, via post_build_step.sh's setupMac().
+:setupMac
+
+    set SDK_SOURCE="%SDK_PATH%\redistributable_bin\osx\libsteam_api.dylib"
+    call %Utils% assertFileHashEquals %SDK_SOURCE% %SDK_HASH_OSX% "%ERROR_SDK_HASH%"
+
+    echo "Copying macOS (64 bit) dependencies (GMRT)"
+    call %Utils% itemCopyTo %SDK_SOURCE% "libsteam_api.dylib"
+
 exit /b 0
 
 :: ----------------------------------------------------------------------------------------------------
