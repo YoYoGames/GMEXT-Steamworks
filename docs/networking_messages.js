@@ -10,6 +10,8 @@
  * 
  * * `steam_net_message_on_session_request`
  * * `steam_net_message_on_session_failed`
+ *
+ * Networking Messages establishes its underlying connections implicitly. Those connections can also emit `steam_net_message_on_state_change` events through the extension's shared Networking Sockets connection-status callback. That callback is separate from the callbacks registered by this function.
  * 
  * @returns {bool}
  * 
@@ -39,6 +41,16 @@
  * @member {string} remote_addr Remote address. Might be all 0's if we don't know it, or if this is N/A. (E.g. Basically everything except direct UDP connection.)
  * @member {string} description Debug description. This includes the connection handle, connection type (and peer information), and the app name. This string is used in various internal logging messages.
  * @member {string} debug Human-readable, but non-localized explanation for connection termination or problem.  This is intended for debugging / diagnostic purposes only, not to display to users. It might have some details specific to the issue.
+ * @event_end
+ *
+ * @event steam
+ * @desc This event is triggered whenever a connection established implicitly by Networking Messages is created, destroyed, or changes state. It is emitted by the extension's shared Networking Sockets connection-status callback.
+ * @member {string} event_type The string `"steam_net_message_on_state_change"`
+ * @member {real} connection The connection handle
+ * @member {constant.steam_net_connection_state} state The current state
+ * @member {constant.steam_net_connection_state} old_state The previous state
+ * @member {real} end_reason The end reason (one of [ESteamNetConnectionEnd](https://partner.steamgames.com/doc/api/steamnetworkingtypes#ESteamNetConnectionEnd))
+ * @member {string} debug A debug message
  * @event_end
  * 
  * @func_end
