@@ -522,6 +522,15 @@ YYEXPORT void /*double*/ steam_lobby_create(RValue& Result, CInstance* selfinst,
 
 #pragma region Managing lobbies
 
+void steam_net_callbacks_t::lobby_data_update(LobbyDataUpdate_t* e)
+{
+	steam_net_event q((char*)"lobby_data_update");
+	q.set_uint64_all("lobby_id", e->m_ulSteamIDLobby);
+	q.set_uint64_all("member_id", e->m_ulSteamIDMember);
+	q.set_success(e->m_bSuccess);
+	q.dispatch();
+}
+
 /// [lobby owner only] Sets the data for the current lobby.
 YYEXPORT void /*double*/ steam_lobby_set_data(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)//(char* key, char* value) 
 {
@@ -550,6 +559,38 @@ YYEXPORT void /*char**/ steam_lobby_get_data(RValue& Result, CInstance* selfinst
 		YYCreateString(&Result, SteamMatchmaking()->GetLobbyData(steam_lobby_current, key));
 	} 
 	else YYCreateString(&Result, "");
+}
+
+/// [anyone] Requests a metadata refresh for the given lobby.
+YYEXPORT void /*double*/ steam_lobby_request_data(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)//(int64 lobby_id)
+{
+	uint64 lobby_id = (uint64)YYGetInt64(arg, 0);
+
+	Result.kind = VALUE_BOOL;
+	if (SteamMatchmaking())
+	{
+		Result.val = SteamMatchmaking()->RequestLobbyData(CSteamID(lobby_id));
+	}
+	else
+	{
+		Result.val = false;
+	}
+}
+
+/// [anyone] Retrieves cached data for the given lobby.
+YYEXPORT void /*char**/ steam_lobby_get_data_by_id(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)//(int64 lobby_id, char* key)
+{
+	uint64 lobby_id = (uint64)YYGetInt64(arg, 0);
+	char* key = (char*)YYGetString(arg, 1);
+
+	if (SteamMatchmaking())
+	{
+		YYCreateString(&Result, SteamMatchmaking()->GetLobbyData(CSteamID(lobby_id), key));
+	}
+	else
+	{
+		YYCreateString(&Result, "");
+	}
 }
 
 /// [lobby owner only] Changes the type of the current lobby.
