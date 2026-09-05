@@ -24,7 +24,9 @@ To use the Steam API extension you should follow these steps:
   * **Steam SDK**: The path to the folder where you unzipped the downloaded SDK.
 
   * **Application ID**: The Steam App ID for you game (retrieved from the dashboard).
-  
+
+  * **Initialization Mode**: Controls which Steam API is initialized automatically. Use `Client` for normal game builds. Use `Dedicated Server` for dedicated server builds that call [steam_gameserver_init](dedicated_servers#steam_gameserver_init).
+
   * **Debug**: This is a flag option that allows you to force debug mode or set it to automatic. Debug mode will allow exports of your game to run a non-steam version of your game (warning, this should be only used during developement). We suggest leaving this set to `Auto`.
 
 * **Build Options**
@@ -56,6 +58,10 @@ To use the Steam API extension you should follow these steps:
 * [steam_upload_score_ext](leaderboards#steam_upload_score_ext)
 * [steam_upload_score_buffer_ext](leaderboards#steam_upload_score_buffer_ext)
 * [steam_ugc_delete_item](ugc#steam_ugc_delete_item)
+
+## Dedicated Servers
+
+  Dedicated server builds should set **Initialization Mode** to `Dedicated Server`, then initialize Steam with [steam_gameserver_init](dedicated_servers#steam_gameserver_init). Call [steam_gameserver_update](dedicated_servers#steam_gameserver_update) or the shared [steam_update](management#steam_update) regularly to dispatch GameServer callbacks, and call [steam_gameserver_shutdown](dedicated_servers#steam_gameserver_shutdown) before the process exits.
 
 
 <br><br>

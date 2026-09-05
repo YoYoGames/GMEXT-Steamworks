@@ -32,6 +32,7 @@
  * @ref module.networking
  * @ref module.networking_sockets
  * @ref module.networking_messages
+ * @ref module.dedicated_servers
  * @ref module.input
  * @ref module.music
  * @ref module.timeline

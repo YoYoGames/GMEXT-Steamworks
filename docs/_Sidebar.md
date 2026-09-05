@@ -26,4 +26,5 @@
  * ${module.timeline}
  * ${module.networking_messages}
  * ${module.networking_sockets}
+ * ${module.dedicated_servers}
  * ${module.utilities}
