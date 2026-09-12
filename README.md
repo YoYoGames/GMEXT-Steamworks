@@ -25,6 +25,9 @@ In order to compile for Windows/macOS/Linux you are required to [download the St
 > * `steam_user_get_auth_session_ticket` can no longer be used for HTTP Web API purposes, this is now only for Game Server authentication (NOT HTTP, this is related to Steam Networking).
 > * `steam_user_get_auth_ticket_for_web_api` must now be used for HTTP Web API, along with the identity parameter (not required but heavily recommended by Valve)
 
+> [!NOTE]
+> The 2.x extension targets the GMS2 runtime. LTS2026 GMRT support is planned for a future v3.0.0 release and is expected to require project code changes because the extension API will not be a drop-in replacement.
+
 ## Documentation
 
 * Check [the documentation](../../wiki)
@@ -34,4 +37,3 @@ The online documentation is regularly updated to ensure it contains the most cur
 We encourage users to refer primarily to the GitHub Wiki for the latest information and updates. The HTML version, included with the extension and within the demo project's data files, serves as a secondary, static reference.
 
 Additionally, if you're contributing new features through PR (Pull Requests), we kindly ask that you also provide accompanying documentation for these features, to maintain the comprehensiveness and usefulness of our resources.
-
