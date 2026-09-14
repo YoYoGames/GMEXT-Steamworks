@@ -101,8 +101,36 @@ exit /b 0
 
         :: This is used for YYC compilation
         call %Utils% itemCopyTo %SDK_SOURCE% "!YYfixedProjectName!\!YYfixedProjectName!\Supporting Files\libsteam_api.dylib"
+
+        :: Give the app the entitlements Steam needs under the Hardened Runtime (see
+        :: :entitlementsAddSteamKeys). xcodebuild signs the app on the Mac after this step, so this is
+        :: the last point the entitlements can still be changed.
+        call :entitlementsAddSteamKeys "!YYfixedProjectName!\!YYfixedProjectName!\Supporting Files"
         endlocal
     )
+exit /b 0
+
+:: ----------------------------------------------------------------------------------------------------
+:: Adds the two Hardened Runtime exceptions Steam needs to the Xcode project's entitlements plist
+:: (idempotent). SteamAPI_Init dlopens Valve-signed 'steamclient.dylib' out of the Steam client bundle,
+:: and the overlay is injected through DYLD_INSERT_LIBRARIES; a Hardened Runtime build (which
+:: notarisation requires) refuses both unless the app carries these entitlements. Same pair the SDK's
+:: own 'steamworksexample/osx/steamworksexample.entitlements' ships. The asset compiler only writes the
+:: sandbox/network/sign-in keys into the generated project's entitlements, so they are added here. There
+:: is no PlistBuddy on Windows, so the keys are spliced in as text before the closing </dict>.
+:entitlementsAddSteamKeys supportingFilesFolder
+
+    set "PS_SUPPORTING=%~1"
+    powershell -NoLogo -NoProfile -Command "$files = @(Get-ChildItem -LiteralPath $env:PS_SUPPORTING -Filter *.entitlements -File -ErrorAction SilentlyContinue); if ($files.Count -eq 0) { exit 2 }; foreach ($f in $files) { $c = [IO.File]::ReadAllText($f.FullName); $add = ''; foreach ($k in 'com.apple.security.cs.disable-library-validation', 'com.apple.security.cs.allow-dyld-environment-variables') { if ($c.IndexOf('<key>' + $k + '</key>') -lt 0) { $add += [char]9 + '<key>' + $k + '</key>' + [char]10 + [char]9 + '<true/>' + [char]10 } }; if ($add -ne '') { $i = $c.LastIndexOf('</dict>'); if ($i -lt 0) { exit 1 }; [IO.File]::WriteAllText($f.FullName, $c.Substring(0, $i) + $add + $c.Substring($i)) } }; exit 0"
+    set "PS_RESULT=%ERRORLEVEL%"
+
+    if "%PS_RESULT%"=="2" (
+        call %Utils% logWarning "No .entitlements file found in '%PS_SUPPORTING%', add 'com.apple.security.cs.disable-library-validation' to the Xcode project by hand or Steam will fail to initialise under the Hardened Runtime."
+        exit /b 0
+    )
+    if not "%PS_RESULT%"=="0" call %Utils% logError "Failed to add the Steam entitlements to the .entitlements file in '%PS_SUPPORTING%'."
+    call %Utils% logInformation "Steam Hardened Runtime entitlements present in '%PS_SUPPORTING%'."
+
 exit /b 0
 
 :: ----------------------------------------------------------------------------------------------------

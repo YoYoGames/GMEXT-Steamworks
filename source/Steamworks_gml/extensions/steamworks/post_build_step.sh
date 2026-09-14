@@ -7,6 +7,28 @@ source "$(dirname "$0")/scriptUtils.sh"
 # ######################################################################################
 # Script Functions
 
+# Adds the two Hardened Runtime exceptions Steam needs to an Xcode entitlements plist (idempotent).
+# SteamAPI_Init dlopens Valve-signed 'steamclient.dylib' out of the Steam client bundle, and the overlay is
+# injected through DYLD_INSERT_LIBRARIES; a Hardened Runtime build (which notarisation requires) refuses
+# both unless the app carries these entitlements. Same pair the SDK's own
+# 'steamworksexample/osx/steamworksexample.entitlements' ships. The asset compiler only writes the
+# sandbox/network/sign-in keys into the generated project's entitlements, so they are added here.
+# Usage: entitlementsAddSteamKeys plistPath
+entitlementsAddSteamKeys() {
+    local plist="$1"
+    local key
+
+    for key in "com.apple.security.cs.disable-library-validation" "com.apple.security.cs.allow-dyld-environment-variables"; do
+        if /usr/libexec/PlistBuddy -c "Print :${key}" "$plist" >/dev/null 2>&1; then
+            continue
+        fi
+        if ! /usr/libexec/PlistBuddy -c "Add :${key} bool true" "$plist"; then
+            logError "Failed to add '${key}' to '$plist'."
+        fi
+        logInformation "Added '${key}' to '$plist'."
+    done
+}
+
 setupmacOS() {
 
     SDK_SOURCE="$SDK_PATH/redistributable_bin/osx/libsteam_api.dylib"
@@ -79,6 +101,19 @@ setupmacOS() {
 
         # Copy the Steam SDK dependency next to the extension binary
         itemCopyTo "$SDK_SOURCE" "${SUPPORTING_FILES}/libsteam_api.dylib"
+
+        # Give the app the entitlements Steam needs under the Hardened Runtime (see
+        # entitlementsAddSteamKeys). The generated project is signed by xcodebuild after this step, so
+        # this is the last point the entitlements can still be changed.
+        ENTITLEMENTS_FOUND=0
+        for f in "${SUPPORTING_FILES}"/*.entitlements; do
+            [ -f "$f" ] || continue
+            ENTITLEMENTS_FOUND=1
+            entitlementsAddSteamKeys "$f"
+        done
+        if [ "$ENTITLEMENTS_FOUND" -eq 0 ]; then
+            logWarning "No .entitlements file found in '${SUPPORTING_FILES}'; add 'com.apple.security.cs.disable-library-validation' to the Xcode project by hand or Steam will fail to initialise under the Hardened Runtime."
+        fi
 
         # Explicitly code sign the dependency (and the extension binary) with the
         # hardened runtime so YYC exports pass notarization. Only sign when an

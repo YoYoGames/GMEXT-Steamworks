@@ -205,10 +205,10 @@
  * @function steam_input_get_gamepad_index_for_controller
  * @description > **Steamworks Function**: [ISteamInput::GetGamepadIndexForController](https://partner.steamgames.com/doc/api/ISteamInput#GetGamepadIndexForController)
  *
- * This function returns the associated gamepad index for the specified controller, if emulating a gamepad.
+ * This function returns the XInput slot Steam Input presents the given controller to the game as, or `-1` when the controller has none. A slot is only assigned while Steam Input is handling the controller and emulating an Xbox controller for it, which is the case when Steam Input is enabled for your game in the user's Steam controller settings (or in your game's Steamworks settings). A controller the game reads directly - Steam Input disabled, or a device Steam Input does not emulate - always returns `-1`, even though its handle is valid for every other Steam Input function. The slot maps to the index the GameMaker `gamepad_*` functions use on Windows.
  *
  * @param {Real} input_handle The handle of the controller you want to get a gamepad index for.
- * @returns {Real} 
+ * @returns {Real} The XInput slot of the controller, or `-1` if it has none.
  * @function_end
  */
 

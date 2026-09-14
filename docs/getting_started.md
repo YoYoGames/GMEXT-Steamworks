@@ -93,6 +93,26 @@ The above code registers a callback with ${function.steam_friends_set_callback_g
 
 There is nothing to call: the extension shuts the Steamworks API down when the game ends, clearing every registered callback. ${function.steam_api_shutdown} exists only for the rare case where you want to stop using Steam earlier.
 
+# Building for macOS
+
+A macOS build signed with the Hardened Runtime - which notarisation, and so any release outside the Mac App Store, requires - cannot initialise Steam without two entitlements. `SteamAPI_Init` loads `steamclient.dylib` out of the Steam client's own bundle, and the overlay is injected through `DYLD_INSERT_LIBRARIES`; both are signed by Valve, and the Hardened Runtime refuses code from another Team ID unless the app declares that it allows it:
+
+```xml
+<key>com.apple.security.cs.disable-library-validation</key>
+<true/>
+<key>com.apple.security.cs.allow-dyld-environment-variables</key>
+<true/>
+```
+
+For a YYC build the extension's build step adds both keys to the entitlements file of the generated Xcode project before Xcode signs the app, so there is nothing to do. The same pair is in the `steamworksexample.entitlements` that ships with the Steamworks SDK. If you sign the app yourself, or with a workflow the build step does not reach - the VM export is signed by the IDE after the build step has run - add them to your entitlements; in Xcode that is **Signing & Capabilities** -> **Hardened Runtime** -> **Disable Library Validation** and **Allow DYLD Environment Variables**. `codesign -d --entitlements - "<Game>.app"` prints the entitlements a built app carries.
+
+Without them the only symptom in the game is ${function.steam_api_is_initialized} returning `false` for the whole run; the reason is printed only when the app is started from a terminal:
+
+```
+dlopen(.../Steam.AppBundle/Steam/Contents/MacOS/steamclient.dylib): code signature not valid for use in process: mapping process and mapped file (non-platform) have different Team IDs
+[S_API] SteamAPI_Init(): Failed to load module 'steamclient.dylib'
+```
+
 # Testing
 
 Run the game from the IDE with **Debug** set to `Enabled` and the Steam client logged in. With the default **Application ID** of `480` (Valve's test app, Spacewar) the extension initialises without a Steamworks account of your own, which is enough to try the friends, overlay and inventory functions. Achievements, stats and leaderboards need your own app ID and their definitions set up on the Steamworks dashboard first.

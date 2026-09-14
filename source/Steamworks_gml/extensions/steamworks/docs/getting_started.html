@@ -174,6 +174,18 @@ steam_friends_set_callback_game_overlay_activated(function(_result)
 <p>The above code registers a callback with <a href="friends.html#steam_friends_set_callback_game_overlay_activated">steam_friends_set_callback_game_overlay_activated</a> that pauses the game while the Steam overlay is open. The callback receives a <a href="friends.html#steamfriendsgameoverlayactivated">SteamFriendsGameOverlayActivated</a> struct every time the overlay is shown or hidden.</p>
 <h1 id="shutting-down">Shutting down</h1>
 <p>There is nothing to call: the extension shuts the Steamworks API down when the game ends, clearing every registered callback. <a href="api.html#steam_api_shutdown">steam_api_shutdown</a> exists only for the rare case where you want to stop using Steam earlier.</p>
+<h1 id="building-for-macos">Building for macOS</h1>
+<p>A macOS build signed with the Hardened Runtime - which notarisation, and so any release outside the Mac App Store, requires - cannot initialise Steam without two entitlements. <code>SteamAPI_Init</code> loads <code>steamclient.dylib</code> out of the Steam client's own bundle, and the overlay is injected through <code>DYLD_INSERT_LIBRARIES</code>; both are signed by Valve, and the Hardened Runtime refuses code from another Team ID unless the app declares that it allows it:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">&lt;key&gt;</span>com.apple.security.cs.disable-library-validation<span class="nt">&lt;/key&gt;</span>
+<span class="nt">&lt;true/&gt;</span>
+<span class="nt">&lt;key&gt;</span>com.apple.security.cs.allow-dyld-environment-variables<span class="nt">&lt;/key&gt;</span>
+<span class="nt">&lt;true/&gt;</span>
+</code></pre></div>
+<p>For a YYC build the extension's build step adds both keys to the entitlements file of the generated Xcode project before Xcode signs the app, so there is nothing to do. The same pair is in the <code>steamworksexample.entitlements</code> that ships with the Steamworks SDK. If you sign the app yourself, or with a workflow the build step does not reach - the VM export is signed by the IDE after the build step has run - add them to your entitlements; in Xcode that is <strong>Signing &amp; Capabilities</strong> -&gt; <strong>Hardened Runtime</strong> -&gt; <strong>Disable Library Validation</strong> and <strong>Allow DYLD Environment Variables</strong>. <code>codesign -d --entitlements - "&lt;Game&gt;.app"</code> prints the entitlements a built app carries.</p>
+<p>Without them the only symptom in the game is <a href="api.html#steam_api_is_initialized">steam_api_is_initialized</a> returning <code>false</code> for the whole run; the reason is printed only when the app is started from a terminal:</p>
+<div class="highlight"><pre><span></span><code>dlopen(.../Steam.AppBundle/Steam/Contents/MacOS/steamclient.dylib): code signature not valid for use in process: mapping process and mapped file (non-platform) have different Team IDs
+[S_API] SteamAPI_Init(): Failed to load module &#39;steamclient.dylib&#39;
+</code></pre></div>
 <h1 id="testing">Testing</h1>
 <p>Run the game from the IDE with <strong>Debug</strong> set to <code>Enabled</code> and the Steam client logged in. With the default <strong>Application ID</strong> of <code>480</code> (Valve's test app, Spacewar) the extension initialises without a Steamworks account of your own, which is enough to try the friends, overlay and inventory functions. Achievements, stats and leaderboards need your own app ID and their definitions set up on the Steamworks dashboard first.</p>
               

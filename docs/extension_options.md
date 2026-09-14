@@ -27,4 +27,4 @@ Open the Steamworks extension's options from the Asset Browser (double-click the
 
 ## Platform notes
 
-The extension supports Windows, macOS and Linux. The same options apply to every platform; the build step picks the right library from the **Steam SDK** folder for the target.
+The extension supports Windows, macOS and Linux. The same options apply to every platform; the build step picks the right library from the **Steam SDK** folder for the target. On macOS the build step also adds the Hardened Runtime entitlements Steam needs to a YYC build's Xcode project - see "Building for macOS" in ${page.getting_started}.
