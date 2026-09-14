@@ -185,9 +185,9 @@
  *
  * This function is used to add a game phase tag.
  *
- * @param {String} tag_name A title-provided localized string in the language returned by ${function.steam_utils_get_steam_ui_language}.
+ * @param {String} tag_name A title-provided localised string in the language returned by ${function.steam_utils_get_steam_ui_language}.
  * @param {String} tag_icon The name of the icon to show when the tag is displayed in the UI; this can be a title-uploaded icon or one of the provided icons whose name begins with `"steam_"`.
- * @param {String} tag_group A title-provided localized string; tags within the same group will be shown together in the UI.
+ * @param {String} tag_group A title-provided localised string; tags within the same group will be shown together in the UI.
  * @param {Real} priority The priority used to decide which icons to show; tags with larger priority values are displayed more prominently, and the value must be between 0 and `STEAM_TIMELINE_MAX_TIMELINE_PRIORITY`.
  * @function_end
  */
@@ -208,7 +208,7 @@
  * @function steam_timeline_set_timeline_game_mode
  * @description > **Steamworks Function**: [ISteamTimeline::SetTimelineGameMode](https://partner.steamgames.com/doc/api/ISteamTimeline#SetTimelineGameMode)
  *
- * This function changes the color of the timeline bar.
+ * This function changes the colour of the timeline bar.
  *
  * @param {Enum.SteamTimelineGameMode} mode The mode that the game is in.
  * @function_end
@@ -267,7 +267,7 @@
  * @enum SteamTimelineGameMode
  * @description > **Steamworks Enum**: [ISteamTimeline::ETimelineGameMode](https://partner.steamgames.com/doc/api/ISteamTimeline#ETimelineGameMode)
  *
- * This enum controls the color of the timeline bar segments.
+ * This enum controls the colour of the timeline bar segments.
  *
  * @member Playing The player is fully loaded into the game and playing.
  * @member Staging The player is in a multiplayer lobby.

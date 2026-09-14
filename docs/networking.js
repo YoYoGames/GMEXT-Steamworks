@@ -5,13 +5,17 @@
  * @function steam_networking_messages_set_callback_session_request
  * @description > **Steamworks Function**: N / A
  *
- * This function sets the function to be called when a remote host is sending us a message, and we do not already have a session with them.
- * 
- * See: [ISteamNetworkingMessages::SteamNetworkingMessagesSessionRequest_t](https://partner.steamgames.com/doc/api/ISteamNetworkingMessages#SteamNetworkingMessagesSessionRequest_t)
- * 
- * See: ${struct.SteamNetworkingMessagesSessionRequest}
+ * This function sets the function to be called when a remote host sends a message and no session with that host exists yet.
  *
  * @param {Function} callback The function to be called when a session request event occurs.
+ *
+ * @event callback
+ * @desc > **Steamworks Callback**: [ISteamNetworkingMessages::SteamNetworkingMessagesSessionRequest_t](https://partner.steamgames.com/doc/api/ISteamNetworkingMessages#SteamNetworkingMessagesSessionRequest_t)
+ *
+ * Called when a remote host sends a message and no session with that host exists yet.
+ *
+ * @member {Struct.SteamNetworkingMessagesSessionRequest} result The details of the session request.
+ * @event_end
  * @function_end 
  */
 
@@ -28,13 +32,17 @@
  * @function steam_networking_messages_set_callback_session_failed
  * @description > **Steamworks Function**: N / A
  *
- * This function sets the function to be called when we fail to establish a connection, or we detect that communications have been disrupted in an unusual way. There is no notification when a peer proactively closes the session. ("Closed by peer" is not a concept of UDP-style communications, and ISteamNetworkingMessages is primarily intended to make porting UDP code easy.)
- * 
- * See: [ISteamNetworkingMessages::SteamNetworkingMessagesSessionFailed_t](https://partner.steamgames.com/doc/api/ISteamNetworkingMessages#SteamNetworkingMessagesSessionFailed_t)
- * 
- * See: ${struct.SteamNetworkingMessagesSessionFailed}
+ * This function sets the function to be called when a connection could not be established, or an existing session was disrupted in an unusual way. There is no notification when a peer proactively closes the session. ("Closed by peer" is not a concept of UDP-style communications, and ISteamNetworkingMessages is primarily intended to make porting UDP code easy.)
  *
  * @param {Function} callback The function to be called when a session failed event occurs.
+ *
+ * @event callback
+ * @desc > **Steamworks Callback**: [ISteamNetworkingMessages::SteamNetworkingMessagesSessionFailed_t](https://partner.steamgames.com/doc/api/ISteamNetworkingMessages#SteamNetworkingMessagesSessionFailed_t)
+ *
+ * Called when a connection could not be established, or an existing session was disrupted in an unusual way.
+ *
+ * @member {Struct.SteamNetworkingMessagesSessionFailed} result The details of the failure.
+ * @event_end
  * @function_end 
  */
 
@@ -51,11 +59,13 @@
  * @function steam_networking_messages_send_message_to_user
  * @description > **Steamworks Function**: [ISteamNetworkingMessages::SendMessageToUser](https://partner.steamgames.com/doc/api/ISteamNetworkingMessages#SendMessageToUser)
  *
- * This function sends a message to the specified host. If we don't already have a session with that user, a session is implicitly created. There might be some handshaking that needs to happen before we can actually begin sending message data. If this handshaking fails and we can't get through, an error will be posted via the callback [SteamNetworkingMessagesSessionFailed_t](https://partner.steamgames.com/doc/api/ISteamNetworkingMessages#SteamNetworkingMessagesSessionFailed_t).
+ * This function sends a message to the specified host. If no session with that user exists yet, one is implicitly created. Some handshaking might need to happen before message data can actually be sent. If this handshaking fails, an error is posted via the callback [SteamNetworkingMessagesSessionFailed_t](https://partner.steamgames.com/doc/api/ISteamNetworkingMessages#SteamNetworkingMessagesSessionFailed_t).
  * 
  * Sending a message to a host will also implicitly accept any incoming connection from that host.
  *
  * It is guaranteed that reliable messages to the same host on the same channel will be received by the remote host (if they are received at all) exactly once, and in the same order that they were sent. No other order guarantees exist - unreliable messages may be dropped, received out of order, or received multiple times. Messages on different channels are not guaranteed to be received in the order they were sent.
+ *
+ * Note that a failure to establish or keep the session is reported through the callback set with ${function.steam_networking_messages_set_callback_session_failed}.
  *
  * @param {Real} steam_id_remote The identity of the host to send the message to; if a session does not already exist with that user, one is implicitly created.
  * @param {Buffer} data The buffer holding the message data to send.
@@ -64,14 +74,6 @@
  * @param {Real} [buffer_offset] The offset into the buffer, in bytes. Defaults to 0.
  * @param {Real} [buffer_count] The number of bytes to write. Defaults to the buffer size minus the offset.
  * @returns {Real} The number of messages returned into your list. (0 if no messages are available on that channel.)
- * 
- * @event callback
- * @description > **Steamworks Callback**: [ISteamNetworkingMessages::SteamNetworkingMessagesSessionFailed_t](https://partner.steamgames.com/doc/api/ISteamNetworkingMessages#SteamNetworkingMessagesSessionFailed_t)
- * 
- * Posted when we fail to establish a connection, or we detect that communications have been disrupted in an unusual way.
- * 
- * @member {Struct.SteamNetworkingMessagesSessionFailed} result The result of the operation.
- * @event_end
  * @function_end
  */
 
@@ -113,16 +115,10 @@
  * 
  * Note that sessions that go unused for a few minutes are automatically timed out.
  *
+ * Note that if the remote host sends another message afterwards, a new session request arrives through the callback set with ${function.steam_networking_messages_set_callback_session_request}.
+ *
  * @param {Real} steam_id_remote The identity of the remote user whose session you want to close.
  * @returns {Bool}
- * 
- * @event callback
- * @description > **Steamworks Callback**: [SteamNetworkingMessagesSessionRequest_t](https://partner.steamgames.com/doc/api/ISteamNetworkingMessages#SteamNetworkingMessagesSessionRequest_t)
- * 
- * Posted when a remote host is sending us a message, and we do not already have a session with them.
- * 
- * @member {Struct.SteamNetworkingMessagesSessionRequest} result The result of the operation.
- * @event_end
  * @function_end 
  */
 
@@ -143,12 +139,16 @@
  * @description > **Steamworks Function**: N / A
  *
  * This function sets the function to be called whenever a connection is created, destroyed, or changes state.
- * 
- * See: [ISteamNetworkingSockets::SteamNetConnectionStatusChangedCallback_t](https://partner.steamgames.com/doc/api/ISteamNetworkingSockets#SteamNetConnectionStatusChangedCallback_t)
- * 
- * See: ${struct.SteamNetworkingSocketsStatusChanged}
  *
  * @param {Function} callback The function to be called when the connection status changes.
+ *
+ * @event callback
+ * @desc > **Steamworks Callback**: [ISteamNetworkingSockets::SteamNetConnectionStatusChangedCallback_t](https://partner.steamgames.com/doc/api/ISteamNetworkingSockets#SteamNetConnectionStatusChangedCallback_t)
+ *
+ * Called whenever a connection is created, destroyed or changes state.
+ *
+ * @member {Struct.SteamNetworkingSocketsStatusChanged} result The details of the state change.
+ * @event_end
  * @function_end 
  */
 
@@ -171,15 +171,10 @@
  * 
  * When a client attempts to connect, a [SteamNetConnectionStatusChangedCallback_t](https://partner.steamgames.com/doc/api/ISteamNetworkingSockets#SteamNetConnectionStatusChangedCallback_t) ${struct.SteamNetworkingSocketsStatusChanged} will be posted. The connection will be in the `SteamNetworkingConnectionState.Connecting` state.
  *
+ * Note that incoming connection attempts are reported through the callback set with ${function.steam_networking_sockets_set_callback_connection_status_changed}.
+ *
  * @param {Real} port The local port to bind the listen socket to.
  * @returns {Real} The handle to the listen socket
- * 
- * @event callback
- * @description > **Steamworks Callback**: [ISteamNetworkingSockets::SteamNetConnectionStatusChangedCallback_t](https://partner.steamgames.com/doc/api/ISteamNetworkingSockets#SteamNetConnectionStatusChangedCallback_t)
- * 
- * Triggered whenever a connection is created, destroyed, or changes state.
- * @member {Struct.SteamNetworkingSocketsStatusChanged} data The callback data.
- * @event_end
  * @function_end 
  */
 
@@ -200,15 +195,13 @@
  *
  * This function creates a connection and begins talking to a "server" over UDP at the given IPv4 or IPv6 address. The remote host must be listening with a matching call to ${function.steam_networking_sockets_create_listen_socket_ip} on the specified port.
  * 
- * A [SteamNetConnectionStatusChangedCallback_t](https://partner.steamgames.com/doc/api/ISteamNetworkingSockets#SteamNetConnectionStatusChangedCallback_t) callback will be triggered when we start connecting, and then another one on either timeout or successful connection.
+ * A [SteamNetConnectionStatusChangedCallback_t](https://partner.steamgames.com/doc/api/ISteamNetworkingSockets#SteamNetConnectionStatusChangedCallback_t) callback is triggered when the connection attempt starts, and another one on either timeout or successful connection.
+ *
+ * Note that the progress of the connection is reported through the callback set with ${function.steam_networking_sockets_set_callback_connection_status_changed}.
  *
  * @param {String} ip The IPv4 or IPv6 address of the server to connect to.
  * @param {Real} port The port of the server to connect to.
  * @returns {Real}
- * 
- * @event callback
- * @member {Struct.SteamNetworkingSocketsStatusChanged} data The callback data.
- * @event_end
  * 
  * @function_end 
  */
@@ -221,16 +214,10 @@
  * 
  * When a connection attempt is received (perhaps after a few basic handshake packets have been exchanged to prevent trivial spoofing), a connection interface object is created in the `SteamNetworkingConnectionState.Connecting` state and a [SteamNetConnectionStatusChangedCallback_t](https://partner.steamgames.com/doc/api/ISteamNetworkingSockets#SteamNetConnectionStatusChangedCallback_t) is posted. At this point, your application MUST either accept or close the connection. (It may not ignore it.) Accepting the connection will transition it either into the connected state, or the finding route state, depending on the connection type.
  *
+ * Note that the state changes of the accepted connection are reported through the callback set with ${function.steam_networking_sockets_set_callback_connection_status_changed}.
+ *
  * @param {Real} conn The handle of the incoming connection to accept.
  * @returns {Enum.SteamApiResult}
- *
- * @event callback
- * @description > **Steamworks Callback**: [ISteamNetworkingSockets::SteamNetConnectionStatusChangedCallback_t](https://partner.steamgames.com/doc/api/ISteamNetworkingSockets#SteamNetConnectionStatusChangedCallback_t)
- * 
- * Posted whenever a connection is created, destroyed, or changes state.
- * 
- * @member {Struct.SteamNetworkingSocketsStatusChanged} result The result of the operation.
- * @event_end
  * @function_end 
  */
 
@@ -379,7 +366,7 @@
  *
  * This function creates a pair of connections that are talking to each other, e.g. a loopback connection. This is very useful for testing, or so that your client/server code can work the same even when you are running a local "server".
  * 
- * The two connections will immediately be placed into the connected state, and no callbacks will be posted immediately. After this, if you close either connection, the other connection will receive a callback, exactly as if they were communicating over the network. You must close *both* sides in order to fully clean up the resources!
+ * The two connections will immediately be placed into the connected state, and no callbacks will be posted immediately. After this, if you close either connection, the other connection will receive a callback, exactly as if they were communicating over the network. You must close *both* sides in order to fully clean up the resources.
  * 
  * Both connections will assume a generic "localhost" identity.
  *
@@ -488,7 +475,7 @@
  * @struct SteamNetworkingMessagesSessionRequest
  * @description > **Steamworks Struct**: [ISteamNetworkingMessages::SteamNetworkingMessagesSessionRequest_t](https://partner.steamgames.com/doc/api/ISteamNetworkingMessages#SteamNetworkingMessagesSessionRequest_t)
  *
- * This struct holds information posted when a remote host is sending us a message, and we do not already have a session with them.
+ * This struct holds the information posted when a remote host sends a message and no session with that host exists yet.
  *
  * @member {Real} steam_id_remote The Steam ID associated with the remote identity.
  * @struct_end 
@@ -502,7 +489,7 @@
  *
  * @member {Real} steam_id_remote The Steam ID associated with the remote identity.
  * @member {Enum.SteamNetworkingConnectionEnd} end_reason Basic cause of the connection termination or problem.
- * @member {String} debug_msg Human-readable, but non-localized explanation for connection termination or problem.  This is intended for debugging / diagnostic purposes only, not to display to users.  It might have some details specific to the issue.
+ * @member {String} debug_msg Human-readable, but non-localised explanation for connection termination or problem.  This is intended for debugging / diagnostic purposes only, not to display to users.  It might have some details specific to the issue.
  * @struct_end 
  */
 
@@ -519,7 +506,7 @@
  * @member {Enum.SteamNetworkingSendFlags} flags A bitmask of ${constant.SteamNetworkingSendFlags}. For received messages, only the `SteamNetworkingSendFlags.Reliable` bit is valid. For outbound messages, all bits are relevant.
  * @member {Real} message_number The message number assigned by the sender. This is not used for outbound messages.
  * @member {Real} usec_time_received Local timestamp when the message was received.
- * @member {Real} conn For messages received on connections: what connection did this come from? For outgoing messages: what connection to send it to?
+ * @member {Real} conn The connection the message was received on, or, for outgoing messages, the connection to send it to.
  * @member {Real} conn_user_data Arbitrary user data that you can use when sending messages using ${function.steam_networking_sockets_send_message_to_connection}.
  * @struct_end
  */
@@ -532,12 +519,12 @@
  *
  * @member {Real} user_data Arbitrary user data set by the local application code.
  * @member {Enum.SteamNetworkingConnectionEnd} end_reason Basic cause of the connection termination or problem.
- * @member {String} end_debug Human-readable, but non-localized explanation for connection termination or problem.  This is intended for debugging / diagnostic purposes only, not to display to users.  It might have some details specific to the issue.
+ * @member {String} end_debug Human-readable, but non-localised explanation for connection termination or problem.  This is intended for debugging / diagnostic purposes only, not to display to users.  It might have some details specific to the issue.
  * @member {String} connection_description Debug description. This includes the connection handle, connection type (and peer information), and the app name. This string is used in various internal logging messages.
  * @member {Enum.SteamNetworkingConnectionInfoFlags} flags A bitmask of ${constant.SteamNetworkingConnectionInfoFlags}.
  * @member {Enum.SteamNetworkingConnectionState} state High level state of the connection.
  * @member {Real} steam_id_remote The Steam ID associated with the remote identity.
- * @member {String} addr_remote Remote address. Might be all 0's if we don't know it, or if this is N/A. (E.g. Basically everything except direct UDP connection.)
+ * @member {String} addr_remote The remote address. Might be all zeros if it is unknown or not applicable (basically everything except a direct UDP connection).
  * @struct_end
  */
 
@@ -561,7 +548,7 @@
  *
  * This enum holds the types needed to describe network hosts.
  *
- * @member Invalid Dummy/unknown/invalid
+ * @member Invalid Dummy, unknown or invalid.
  * @member SteamId Basic platform-specific identifiers.
  * @member IpAddress Use IP address (and port) as the "identity".
  * @member GenericString Generic string.
@@ -571,7 +558,10 @@
 
 /**
  * @enum SteamNetworkingConnectionEnd
- * @description > **Steamworks Struct**: [ESteamNetConnectionEnd](https://partner.steamgames.com/doc/api/steamnetworkingtypes#ESteamNetConnectionEnd)
+ * @description > **Steamworks Enum**: [ESteamNetConnectionEnd](https://partner.steamgames.com/doc/api/steamnetworkingtypes#ESteamNetConnectionEnd)
+ *
+ * This enum holds the reason codes for a connection being closed. The named members are the boundaries and generic values of each range; a specific code lies between them.
+ *
  * @member Invalid Invalid/sentinel value.
  * @member App_Min 1xxx: Application ended the connection in a "usual" manner. E.g.: user intentionally disconnected from the server, gameplay ended normally, etc.
  * @member App_Generic Application ended the connection in a "usual" manner.
@@ -581,23 +571,23 @@
  * @member AppException_Max Max app exception value.
  * @member Local_Min 3xxx: Connection failed or ended because of problem with the local host or their connection to the Internet.
  * @member Local_OfflineMode You cannot do what you want to do because you're running in offline mode.
- * @member Local_ManyRelayConnectivity We don't have any recent successful communication with any relay. We have evidence of recent failures to communicate with multiple relays.
+ * @member Local_ManyRelayConnectivity There has been no recent successful communication with any relay, and there is evidence of recent failures to communicate with multiple relays.
  * @member Local_HostedServerPrimaryRelay A hosted server is having trouble talking to the relay that the client was using, so the problem is most likely on our end.
- * @member Local_NetworkConfig We're not able to get the network config. This is *almost* always a local issue, since the network config comes from the CDN.
- * @member Local_Rights Steam rejected our request because we don't have rights to do this.
+ * @member Local_NetworkConfig The network config could not be retrieved. This is *almost* always a local issue, since the network config comes from the CDN.
+ * @member Local_Rights Steam rejected the request because the local user does not have the rights to do this.
  * @member Local_P2P_ICE_NoPublicAddresses Local_P2P_ICE_NoPublicAddresses.
  * @member Local_Max Max system codes value.
  * @member Remote_Min 4xxx: Connection failed or ended, and it appears that the cause does NOT have to do with the local host or their connection to the Internet.  It could be caused by the remote host, or it could be somewhere in between.
- * @member Remote_Timeout The connection was lost, and as far as we can tell our connection to relevant services (relays) has not been disrupted. This doesn't mean that the problem is "their fault", it just means that it doesn't appear that we are having network issues on our end.
+ * @member Remote_Timeout The connection was lost, and as far as can be told the local connection to the relevant services (relays) has not been disrupted. This does not mean that the problem is on the remote side, only that there do not appear to be network issues on the local side.
  * @member Remote_BadCrypt Something was invalid with the cert or crypt handshake info you gave me, I don't understand or like your key types, etc.
- * @member Remote_BadCert You presented me with a cert that I was able to parseand *technically* we could use encrypted communication. But there was a problem that prevents me from checking your identity or ensuring that somebody int he middle can't observe our communication.
+ * @member Remote_BadCert The remote host presented a certificate that could be parsed, so encrypted communication was technically possible, but a problem prevents its identity from being checked or a man-in-the-middle from being ruled out.
  * @member Remote_BadProtocolVersion Remote_BadProtocolVersion.
  * @member Remote_P2P_ICE_NoPublicAddresses Remote_P2P_ICE_NoPublicAddresses.
  * @member Remote_Max Max "connection failed or ended" value.
  * @member Misc_Min 5xxx: Connection failed for some other reason.
- * @member Misc_Generic A failure that isn't necessarily the result of a software bug, but that should happen rarely enough that it isn't worth specifically writing UI or making a localized message for. The debug string should contain further details.
+ * @member Misc_Generic A failure that isn't necessarily the result of a software bug, but that should happen rarely enough that it isn't worth specifically writing UI or making a localised message for. The debug string should contain further details.
  * @member Misc_InternalError Generic failure that is most likely a software bug.
- * @member Misc_Timeout The connection to the remote host timed out, but we don't know if the problem is on our end, in the middle, or on their end.
+ * @member Misc_Timeout The connection to the remote host timed out, but it is not known whether the problem is on the local side, in the middle, or on the remote side.
  * @member Misc_SteamConnectivity There's some trouble talking to Steam.
  * @member Misc_NoRelaySessionsToClient A server in a dedicated hosting situation has no relay sessions active with which to talk back to a client.  (It's the client's job to open and maintain those sessions.)
  * @member Misc_P2P_Rendezvous Misc_P2P_Rendezvous.
@@ -614,13 +604,13 @@
  * This enum holds high level connection states.
  *
  * @member None Dummy value used to indicate an error condition in the API.
- * @member Connecting We are trying to establish whether peers can talk to each other, whether they WANT to talk to each other, perform basic auth, and exchange crypt keys.
- * @member FindingRoute Some connection types use a back channel or trusted 3rd party for earliest communication. If the server accepts the connection, then these connections switch into the rendezvous state. During this state, we still have not yet established an end-to-end route (through the relay network), and so if you send any messages unreliable, they are going to be discarded.
- * @member Connected We've received communications from our peer (and we know who they are) and are all good.
+ * @member Connecting The connection is establishing whether the peers can talk to each other and want to talk to each other, performing basic authentication and exchanging cryptographic keys.
+ * @member FindingRoute Some connection types use a back channel or trusted 3rd party for earliest communication. If the server accepts the connection, then these connections switch into the rendezvous state. During this state an end-to-end route (through the relay network) has not yet been established, so any messages sent unreliably are discarded.
+ * @member Connected Communications have been received from the peer, its identity is known, and the connection is fully usable.
  * @member ClosedByPeer Connection has been closed by our peer, but not closed locally.
  * @member ProblemDetectedLocally A disruption in the connection has been detected locally. (E.g. timeout, local internet connection disrupted, etc.)
- * @member FinWait We've disconnected on our side, and from an API perspective the connection is closed. No more data may be sent or received. All reliable data has been flushed, or else we've given up and discarded it. We do not yet know for sure that the peer knows the connection has been closed.
- * @member Linger We've disconnected on our side, and from an API perspective the connection is closed. No more data may be sent or received. From a network perspective, however, on the wire, we have not yet given any indication to the peer that the connection is closed. We are in the process of flushing out the last bit of reliable data. Once that is done, we will inform the peer that the connection has been closed, and transition to the `FinWait` state.
+ * @member FinWait The local side has disconnected, and from an API perspective the connection is closed. No more data may be sent or received. All reliable data has been flushed, or has been given up on and discarded. It is not yet certain that the peer knows the connection has been closed.
+ * @member Linger The local side has disconnected, and from an API perspective the connection is closed. No more data may be sent or received. On the wire, however, the peer has not yet been told that the connection is closed: the last of the reliable data is still being flushed. Once that is done the peer is informed that the connection has been closed, and the connection transitions to the `FinWait` state.
  * @member Dead Connection is completely inactive and ready to be destroyed.
  * @enum_end
  */
@@ -649,12 +639,12 @@
  *
  * This enum holds the misc flags found on ${struct.SteamNetworkingSocketsConnectionInfo}'s `flags` member.
  *
- * @member Unauthenticated We don't have a certificate for the remote host.
+ * @member Unauthenticated There is no certificate for the remote host.
  * @member Unencrypted Information is being sent out over a wire unencrypted (by this library).
  * @member LoopbackBuffers Internal loopback buffers. Won't be true for localhost. (You can check the address to determine that.) This implies `Fast`.
  * @member Fast The connection is "fast" and "reliable". Either internal/localhost (check the address to find out), or the peer is on the same LAN. (Probably. It's based on the address and the ping time, this is actually hard to determine unambiguously).
  * @member Relayed The connection is relayed somehow (SDR or TURN).
- * @member DualWifi We're taking advantage of dual-wifi multi-path.
+ * @member DualWifi The connection is taking advantage of dual-wifi multi-path.
  * @enum_end
  */
 
@@ -665,12 +655,12 @@
  * This enumeration holds named identifiers for various config values.
  * 
  * @member Invalid Invalid.
- * @member TimeoutInitial Timeout value (in ms) to use when first connecting
- * @member TimeoutConnected Timeout value (in ms) to use after connection is established
+ * @member TimeoutInitial The timeout value to use when first connecting (in ms).
+ * @member TimeoutConnected The timeout value to use after the connection is established (in ms).
  * @member SendBufferSize Upper limit of buffered pending bytes to be sent, if this is reached SendMessage will return `SteamApiResult.LimitExceeded`)
  * @member RecvBufferSize Upper limit of buffer used for receiving bytes.
- * @member RecvBufferMessages Upper limit on the number of received messages that will be buffered waiting to be processed by the application. If this limit is exceeded, packets will be dropped.  This is to protect us from a malicious peer flooding us with messages faster than we can pull them off the wire.
- * @member RecvMaxMessageSize Maximum message size that we are willing to receive. if a client attempts to send us a message larger than this, the connection will be immediately closed.
+ * @member RecvBufferMessages Upper limit on the number of received messages that will be buffered waiting to be processed by the application. If this limit is exceeded, packets will be dropped.  This protects against a malicious peer flooding the local side with messages faster than they can be pulled off the wire.
+ * @member RecvMaxMessageSize The maximum message size the local side is willing to receive. If a client attempts to send a message larger than this, the connection is immediately closed.
  * @member RecvMaxSegmentsPerPacket Max number of segments per packet.
  * @member ConnectionUserData Get/set userdata as a configuration option.
  * @member SendRateMin Minimum send rate clamp, 0 is no limit.

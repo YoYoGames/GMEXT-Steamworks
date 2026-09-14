@@ -65,12 +65,17 @@
  * This function sets the function to be called when the country of the user changed.
  * 
  * The country should be updated with ${function.steam_utils_get_ip_country}.
- * 
- * See: [ISteamUtils::IPCountry_t](https://partner.steamgames.com/doc/api/ISteamUtils#IPCountry_t)
- * 
- * This callback has no fields.
  *
  * @param {Function} callback The function to be called when the user's IP country changes.
+ *
+ * @event callback
+ * @desc > **Steamworks Callback**: [ISteamUtils::IPCountry_t](https://partner.steamgames.com/doc/api/ISteamUtils#IPCountry_t)
+ *
+ * Called when the user's country has changed.
+ *
+ * This callback receives no arguments.
+ *
+ * @event_end
  * @function_end 
  */
 
@@ -88,12 +93,16 @@
  * @description > **Steamworks Function**: N / A
  *
  * This function sets the function to be called when running on a laptop and less than 10 minutes of battery is left. The callback then fires every minute afterwards.
- * 
- * See: [ISteamUtils::LowBatteryPower_t](https://partner.steamgames.com/doc/api/ISteamUtils#LowBatteryPower_t)
- * 
- * See: ${struct.SteamUtilsLowBatteryPower}
  *
  * @param {Function} callback The function to be called when the system reports the device is low on battery power.
+ *
+ * @event callback
+ * @desc > **Steamworks Callback**: [ISteamUtils::LowBatteryPower_t](https://partner.steamgames.com/doc/api/ISteamUtils#LowBatteryPower_t)
+ *
+ * Called when the device is running on battery with less than 10 minutes left, and then once per minute.
+ *
+ * @member {Struct.SteamUtilsLowBatteryPower} result The remaining battery time.
+ * @event_end
  * @function_end 
  */
 
@@ -111,12 +120,16 @@
  * @description > **Steamworks Function**: N / A
  *
  * This function sets the function to be called when a SteamAPICall_t has completed (or failed).
- * 
- * See: [ISteamUtils::SteamAPICallCompleted_t](https://partner.steamgames.com/doc/api/ISteamUtils#SteamAPICallCompleted_t)
- * 
- * See: ${struct.SteamUtilsSteamApiCallCompleted}
  *
  * @param {Function} callback The function to be called when an asynchronous Steam API call is completed.
+ *
+ * @event callback
+ * @desc > **Steamworks Callback**: [ISteamUtils::SteamAPICallCompleted_t](https://partner.steamgames.com/doc/api/ISteamUtils#SteamAPICallCompleted_t)
+ *
+ * Called when a Steam API call has completed or failed.
+ *
+ * @member {Struct.SteamUtilsSteamApiCallCompleted} result The details of the completed call.
+ * @event_end
  * @function_end 
  */
 
@@ -134,12 +147,17 @@
  * @description > **Steamworks Function**: N / A
  *
  * This function sets the function to be called after the device returns from sleep/suspend mode.
- * 
- * See: [ISteamUtils::AppResumingFromSuspend_t](https://partner.steamgames.com/doc/api/ISteamUtils#AppResumingFromSuspend_t)
- * 
- * This callback has no fields.
  *
  * @param {Function} callback The function to be called when the app is resuming from suspend.
+ *
+ * @event callback
+ * @desc > **Steamworks Callback**: [ISteamUtils::AppResumingFromSuspend_t](https://partner.steamgames.com/doc/api/ISteamUtils#AppResumingFromSuspend_t)
+ *
+ * Called after the device returns from sleep or suspend mode.
+ *
+ * This callback receives no arguments.
+ *
+ * @event_end
  * @function_end 
  */
 
@@ -157,12 +175,17 @@
  * @description > **Steamworks Function**: N / A
  *
  * This function sets the function to be called when Steam wants to shutdown.
- * 
- * See: [ISteamUtils::SteamShutdown_t](https://partner.steamgames.com/doc/api/ISteamUtils#SteamShutdown_t)
- * 
- * This callback has no fields.
  *
  * @param {Function} callback The function to be called when Steam is about to shut down.
+ *
+ * @event callback
+ * @desc > **Steamworks Callback**: [ISteamUtils::SteamShutdown_t](https://partner.steamgames.com/doc/api/ISteamUtils#SteamShutdown_t)
+ *
+ * Called when Steam wants to shut down.
+ *
+ * This callback receives no arguments.
+ *
+ * @event_end
  * @function_end 
  */
 
@@ -341,7 +364,7 @@
  * This function checks if Steam & the Steam Overlay are running in Big Picture mode.
  * 
  * Games must be launched through the Steam client to enable the Big Picture overlay.
- * During development, a game can be added as a non-Steam game to the developer's library to test this feature.
+ * During development, you can add the game as a non-Steam game to your library to test this feature.
  *
  * @returns {Bool} 
  * @function_end 
@@ -392,7 +415,7 @@
  * @function steam_utils_init_filter_text
  * @description > **Steamworks Function**: [ISteamUtils::InitFilterText](https://partner.steamgames.com/doc/api/ISteamUtils#InitFilterText)
  *
- * This function initializes text filtering, loading dictionaries for the language the game is running in.
+ * This function initialises text filtering, loading dictionaries for the language the game is running in.
  *
  * @returns {Bool} 
  * @function_end 
@@ -539,12 +562,16 @@
  * @description > **Steamworks Function**: N / A
  *
  * This function sets the function to be called when big picture gamepad text input has been closed.
- * 
- * See: [ISteamUtils::GamepadTextInputDismissed_t](https://partner.steamgames.com/doc/api/ISteamUtils#GamepadTextInputDismissed_t)
- * 
- * See: ${struct.SteamUtilsGamepadTextInputDismissed}
  *
  * @param {Function} callback The function to be called when the gamepad text input dialog is dismissed.
+ *
+ * @event callback
+ * @desc > **Steamworks Callback**: [ISteamUtils::GamepadTextInputDismissed_t](https://partner.steamgames.com/doc/api/ISteamUtils#GamepadTextInputDismissed_t)
+ *
+ * Called when the Big Picture gamepad text input has been closed.
+ *
+ * @member {Struct.SteamUtilsGamepadTextInputDismissed} result The details of the dismissed input.
+ * @event_end
  * @function_end 
  */
 
@@ -563,11 +590,16 @@
  *
  * This function sets the function to be called when the floating keyboard invoked from ${function.steam_utils_show_floating_gamepad_text_input} has been closed.
  *
- * See: [ISteamUtils::FloatingGamepadTextInputDismissed_t](https://partner.steamgames.com/doc/api/ISteamUtils#FloatingGamepadTextInputDismissed_t)
- *
- * This callback has no fields. Unlike ${function.steam_utils_show_gamepad_text_input}'s full-screen dialog, the floating keyboard sends OS keyboard keys directly to whatever text field the game itself has focused - Steam never sees the typed text, so there is no way to query it or know whether it was submitted or canceled. This is purely a "the floating keyboard just closed" notification.
- *
  * @param {Function} callback The function to be called when the floating gamepad text input is dismissed.
+ *
+ * @event callback
+ * @desc > **Steamworks Callback**: [ISteamUtils::FloatingGamepadTextInputDismissed_t](https://partner.steamgames.com/doc/api/ISteamUtils#FloatingGamepadTextInputDismissed_t)
+ *
+ * Called when the floating keyboard opened with ${function.steam_utils_show_floating_gamepad_text_input} has been closed.
+ *
+ * This callback receives no arguments.
+ *
+ * @event_end
  * @function_end
  */
 
@@ -584,13 +616,19 @@
  * @function steam_utils_set_callback_warning_message
  * @description > **Steamworks Function**: [ISteamUtils::SetWarningMessageHook](https://partner.steamgames.com/doc/api/ISteamUtils#SetWarningMessageHook)
  *
- * This function sets a warning message hook to receive SteamAPI warnings and info messages in a callback function.
+ * This function sets the function to be called with every warning and info message the Steam API emits.
  * 
- * The callback will receive a struct with members defined in ${struct.SteamUtilsWarningMessage}.
- * 
- * Callbacks will occur directly after the API function is called that generated the warning or message
+ * The callback is called directly after the API function that generated the message.
  *
- * @param {Function} callback The function to be called when a SteamAPI warning or info message is received.
+ * @param {Function} callback The function to be called when a Steam API warning or info message is received.
+ *
+ * @event callback
+ * @desc > **Steamworks Callback**: N / A
+ *
+ * Called once per warning or info message emitted by the Steam API.
+ *
+ * @member {Struct.SteamUtilsWarningMessage} result The severity and text of the message.
+ * @event_end
  * @function_end 
  */
 
@@ -665,7 +703,7 @@
  *
  * This struct holds information returned in a `ISteamUtils::GamepadTextInputDismissed_t` callback, which is called when the Big Picture gamepad text input has been closed.
  *
- * @member {Bool} submitted `true` if user entered & accepted text (Call ${function.steam_utils_get_entered_gamepad_text_input} to receive the text), `false` if input was canceled.
+ * @member {Bool} submitted `true` if the user entered and accepted text (call ${function.steam_utils_get_entered_gamepad_text_input} to receive it), otherwise `false`.
  * @member {Real} submitted_text_length The length in bytes if there was text submitted.
  * @struct_end
  */

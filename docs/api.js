@@ -25,9 +25,15 @@
  * @function steam_api_init
  * @description > **Steamworks Function**: [SteamAPI_Init](https://partner.steamgames.com/doc/api/steam_api#SteamAPI_Init)
  *
- * This function initialises the Steamworks API and returns if this was successful or not.
+ * This function initialises the Steamworks API for the given app ID and returns whether that succeeded. If the API is already initialised it returns `true` immediately; if it fails, the reason is available from ${function.steam_api_last_error}.
  *
- * @param {Real} own_app_id The app ID.
+ * The extension calls this function itself before the first frame, with the Application ID set in the Extension Options (see ${page.extension_options}), so you do not normally need to call it. It is only useful to retry after the automatic initialisation failed, e.g. because the Steam client was not running.
+ *
+ * With the Debug extension option enabled, a `steam_appid.txt` file holding the app ID is written next to the executable so the game can run outside Steam. Otherwise, that file is removed and, if the game was not launched through Steam, it is relaunched through Steam and the current process exits (see ${function.steam_api_restart_app_if_necessary}).
+ *
+ * [[Note: This function is hidden from code completion, since the automatic initialisation covers the normal case.]]
+ *
+ * @param {Real} own_app_id The app ID of the game.
  * @returns {Bool}
  * @function_end
  */
@@ -47,11 +53,15 @@
  * @function steam_api_restart_app_if_necessary
  * @description > **Steamworks Function**: [SteamAPI_RestartAppIfNecessary](https://partner.steamgames.com/doc/api/steam_api#SteamAPI_RestartAppIfNecessary)
  *
- * This function checks if your executable was launched through Steam and relaunches it through Steam if it wasn't.
- * 
+ * This function checks whether the executable was launched through Steam and, if it was not, relaunches it through Steam. It returns `true` when a relaunch was started, in which case the current process should exit; `false` means the game is already running under Steam and can continue.
+ *
+ * The extension performs this check itself as part of the automatic initialisation (unless the Debug extension option is enabled), so you do not normally need to call it.
+ *
  * See [Initialization and Shutdown](https://partner.steamgames.com/doc/sdk/api#initialization_and_shutdown) for additional information.
  *
- * @param {Real} own_app_id The app ID.
+ * [[Note: This function is hidden from code completion, since the automatic initialisation covers the normal case.]]
+ *
+ * @param {Real} own_app_id The app ID of the game.
  * @returns {Bool}
  * @function_end
  */
@@ -60,31 +70,13 @@
  * @function steam_api_run_callbacks
  * @description > **Steamworks Function**: [SteamAPI_RunCallbacks](https://partner.steamgames.com/doc/api/steam_api#SteamAPI_RunCallbacks)
  *
- * This function dispatches callbacks and call results to all of the registered listeners.
- * 
- * It's best to call this at >10Hz, the more time between calls, the more potential latency between receiving events or results from the Steamworks API. Most games call this once per render-frame. All registered listener functions will be invoked during this call, in the caller's thread context.
- * 
- * [[Warning: This function is required to be called in order for the Steamworks extension to work. Certain callbacks are only triggered when you call this function. We recommend you place this function in a persistent controller object that calls it inside its ${event.step}.]]
- * 
- * @event callback
- * @desc > **Steamworks Callback**: [ISteamUser::SteamServersConnected_t](https://partner.steamgames.com/doc/api/ISteamUser#SteamServersConnected_t)
- * 
- * Called when a connection to the Steam back-end has been established.
- * This means the Steam client now has a working connection to the Steam servers. Usually this will have occurred before the game has launched, and should only be seen if the user has dropped connection due to a networking issue or a Steam server update.
- * 
- * This callback has no fields.
- * 
- * @event_end
- * 
- * @event callback
- * @desc > **Steamworks Callback**: [ISteamUser::SteamServersDisconnected_t](https://partner.steamgames.com/doc/api/ISteamUser#SteamServersDisconnected_t)
- * 
- * Called if the client has lost connection to the Steam servers.
- * 
- * Real-time services will be disabled until a matching [SteamServersConnected_t](https://partner.steamgames.com/doc/api/ISteamUser#SteamServersConnected_t) has been posted.
- * 
- * @member {Enum.SteamApiResult} result The reason we were disconnected from Steam.
- * @event_end
+ * This function dispatches the pending Steam callbacks and call results to the functions registered for them.
+ *
+ * You must call this function regularly: no callback set with any of the `steam_*_set_callback_*` functions, and no callback passed to an asynchronous function, is called until you do. Every registered callback runs during this call, on the calling thread.
+ *
+ * You should call it at least ten times per second, as the time between calls adds latency to every event and result. Most games call it once per frame, from the ${event.step} of a persistent controller object.
+ *
+ * [[Warning: If this function is never called the extension appears to work but no callback ever fires.]]
  *
  * @function_end
  */
@@ -93,13 +85,11 @@
  * @function steam_api_shutdown
  * @description > **Steamworks Function**: [SteamAPI_Shutdown](https://partner.steamgames.com/doc/api/steam_api#SteamAPI_Shutdown)
  *
- * This function shuts down the Steamworks API, releases pointers and frees memory.
- * 
- * You should call this during process shutdown if possible.
- * 
- * This will not unhook the [Steam overlay](https://partner.steamgames.com/doc/features/overlay) from your game as there's no guarantee that your rendering API is done using it.
- * 
- * [[Warning: This function is required to be called in order for the Steamworks extension to work. We recommend you place this function in the ${event.game_end} of a controller object. You need to check if this is not a ${function.game_restart}.]]
+ * This function shuts down the Steamworks API: it clears every registered callback, releases the API's resources and marks the API as no longer initialised. It does nothing when the API is not initialised.
+ *
+ * The extension calls this function itself when the game ends, so you do not normally need to call it. Calling it earlier stops every Steam feature until ${function.steam_api_init} is called again.
+ *
+ * Note that this does not unhook the [Steam overlay](https://partner.steamgames.com/doc/features/overlay) from the game, as there is no guarantee that the rendering API has finished using it.
  *
  * @function_end
  */
@@ -161,7 +151,7 @@
  * @member InvalidVersion The client and server are not the same version.
  * @member Generic Generic.
  * @member NotLoggedOn The client is not logged on.
- * @member NoLicense The client does not have a license to play this game.
+ * @member NoLicense The client does not have a licence to play this game.
  * @member Cheater The client is VAC banned.
  * @member LoggedInElsewhere The client is logged in elsewhere.
  * @member UnknownText UnknownText.
@@ -264,8 +254,8 @@
  *
  * This enum holds the possible results of ${function.steam_user_user_has_license_for_app}.
  *
- * @member HasLicense The user has a license for specified app.
- * @member DoesNotHaveLicense The user does not have a license for the specified app.
+ * @member HasLicense The user has a licence for specified app.
+ * @member DoesNotHaveLicense The user does not have a licence for the specified app.
  * @member NoAuth The user has not been authenticated.
  * @enum_end 
  */
@@ -277,7 +267,7 @@
  * This enum holds the possible results for use with the [Steam Voice](https://partner.steamgames.com/doc/features/voice) functions.
  *
  * @member Ok The call has completed successfully.
- * @member NotInitialized The Steam Voice interface has not been initialized.
+ * @member NotInitialized The Steam Voice interface has not been initialised.
  * @member NotRecording Steam Voice is not currently recording.
  * @member NoData There is no voice data available.
  * @member BufferTooSmall The provided buffer is too small to receive the data.
@@ -344,11 +334,11 @@
  * @member ContentVersion A Version mismatch in content transmitted within the Steam protocol.
  * @member TryAnotherCM The current CM can't service the user making a request, user should try another.
  * @member PasswordRequiredToKickSession You are already logged in elsewhere, this cached credential login has failed.
- * @member AlreadyLoggedInElsewhere The user is logged in elsewhere. (Use `SteamApiResult.LoggedInElsewhere` instead!)
+ * @member AlreadyLoggedInElsewhere The user is logged in elsewhere. (Use `SteamApiResult.LoggedInElsewhere` instead.)
  * @member Suspended Long running operation has suspended/paused. (e.g. content download.)
- * @member Cancelled Operation has been canceled, typically by user. (e.g. a content download.)
- * @member DataCorruption Operation canceled because data is ill formed or unrecoverable.
- * @member DiskFull Operation canceled - not enough disk space.
+ * @member Cancelled Operation has been cancelled, typically by user. (e.g. a content download.)
+ * @member DataCorruption Operation cancelled because data is ill formed or unrecoverable.
+ * @member DiskFull Operation cancelled - not enough disk space.
  * @member RemoteCallFailed The remote or IPC call has failed.
  * @member PasswordUnset Password could not be verified as it's unset server side.
  * @member ExternalAccountUnlinked External account (PSN, Facebook...) is not linked to a Steam account.
@@ -362,7 +352,7 @@
  * @member InvalidLoginAuthCode Account login denied due to auth code invalid.
  * @member AccountLogonDeniedNoMail Account login denied due to 2nd factor auth failure - and no mail has been sent.
  * @member HardwareNotCapableOfIPT The user's hardware does not support Intel's Identity Protection Technology (IPT).
- * @member IPTInitError Intel's Identity Protection Technology (IPT) has failed to initialize.
+ * @member IPTInitError Intel's Identity Protection Technology (IPT) has failed to initialise.
  * @member ParentalControlRestricted Operation failed due to parental control restrictions for current user.
  * @member FacebookQueryError Facebook query returned an error.
  * @member ExpiredLoginAuthCode Account login denied due to an expired auth code.
@@ -373,14 +363,14 @@
  * @member BadResponse Bad Response due to a Parse failure, missing field, etc.
  * @member RequirePasswordReEntry The user cannot complete the action until they re-enter their password.
  * @member ValueOutOfRange The value entered is outside the acceptable range.
- * @member UnexpectedError Something happened that we didn't expect to ever happen.
+ * @member UnexpectedError Something happened that was never expected to happen.
  * @member Disabled The requested service has been configured to be unavailable.
  * @member InvalidCEGSubmission The files submitted to the CEG server are not valid.
  * @member RestrictedDevice The device being used is not allowed to perform this action.
  * @member RegionLocked The action could not be complete because it is region restricted.
  * @member RateLimitExceeded Temporary rate limit exceeded, try again later, different from `SteamApiResult.LimitExceeded` which may be permanent.
  * @member AccountLoginDeniedNeedTwoFactor Need two-factor code to login.
- * @member ItemDeleted The thing we're trying to access has been deleted.
+ * @member ItemDeleted The item being accessed has been deleted.
  * @member AccountLoginDeniedThrottle Login attempt failed, try to throttle response to possible attacker.
  * @member TwoFactorCodeMismatch Two factor authentication (Steam Guard) code is incorrect.
  * @member TwoFactorActivationCodeMismatch The activation code for two-factor authentication (Steam Guard) didn't match.
@@ -398,11 +388,11 @@
  * @member NeedCaptcha The user needs to provide a valid captcha.
  * @member GSLTDenied A game server login token owned by this token's owner has been banned.
  * @member GSOwnerDenied Game server owner is denied for some other reason such as account locked, community ban, vac ban, missing phone, etc.
- * @member InvalidItemType The type of thing we were requested to act on is invalid.
+ * @member InvalidItemType The type of the item to act on is invalid.
  * @member IPBanned The IP address has been banned from taking this action.
  * @member GSLTExpired This Game Server Login Token (GSLT) has expired from disuse; it can be reset for use.
  * @member InsufficientFunds User doesn't have enough wallet funds to complete the action.
- * @member TooManyPending There are too many of this thing pending already
+ * @member TooManyPending There are too many of this item pending already.
  * @member NoSiteLicensesFound NoSiteLicensesFound.
  * @member WGNetworkSendExceeded WGNetworkSendExceeded.
  * @member AccountNotFriends AccountNotFriends.
@@ -437,11 +427,11 @@
  * 
  * @member OK Steam has verified the user is online, the ticket is valid and ticket has not been reused.
  * @member UserNotConnectedToSteam The user in question is not connected to Steam.
- * @member NoLicenseOrExpired The user doesn't have a license for this App ID or the ticket has expired.
+ * @member NoLicenseOrExpired The user doesn't have a licence for this App ID or the ticket has expired.
  * @member VACBanned The user is VAC banned for this game.
  * @member LoggedInElseWhere The user account has logged in elsewhere and the session containing the game instance has been disconnected.
  * @member VACCheckTimedOut VAC has been unable to perform anti-cheat checks on this user.
- * @member AuthTicketCanceled The ticket has been canceled by the issuer.
+ * @member AuthTicketCanceled The ticket has been cancelled by the issuer.
  * @member AuthTicketInvalidAlreadyUsed This ticket has already been used, it is not valid.
  * @member AuthTicketInvalid This ticket is not from a user instance currently connected to Steam.
  * @member PublisherIssuedBan The user is banned for this game. The ban came via the web api and not VAC.
@@ -478,6 +468,10 @@
 
 /**
  * @const macros
+ * @description > **Steamworks Constants**: [steam_api.h](https://partner.steamgames.com/doc/api/steam_api#constants)
+ *
+ * These macros hold the constant values that the Steamworks SDK defines for the client API, under the same names with a `STEAM_` prefix.
+ *
  * @member STEAM_API_BREAKPAD_INVALID_HANDLE (value: '0') Breakpad invalid handle.
  * @member STEAM_API_GAME_EXTRA_INFO_MAX (value: '64') The maximum size (in UTF-8 bytes, including the null terminator) of the `extra_info` parameter of ${function.steam_user_track_app_usage_event}.
  * @member STEAM_API_SALT_SIZE (value: '8') Only used internally in Steam.
@@ -502,9 +496,9 @@
  * @member STEAM_API_PACKAGE_ID_INVALID (value: '0xFFFFFFFF') Only used internally in Steam.
  * @member STEAM_API_PARTNER_ID_INVALID (value: '0') Only used internally in Steam.
  * @member STEAM_API_PHYSICAL_ITEM_ID_INVALID (value: '0x0') Only used internally in Steam.
- * @member STEAM_API_QUERY_PORT_ERROR (value: '0xFFFE') We were unable to get the query port for this server.
- * @member STEAM_API_QUERY_PORT_NOT_INITIALIZED (value: '0xFFFF') We haven't asked the GS for this query port's actual value yet.
- * @member STEAM_FRIENDS_MAX_FRIENDS_GROUP_NAME (value: '64') The maximum length that a friends group name can be (not including the null-terminator!)
+ * @member STEAM_API_QUERY_PORT_ERROR (value: '0xFFFE') The query port for this server could not be retrieved.
+ * @member STEAM_API_QUERY_PORT_NOT_INITIALIZED (value: '0xFFFF') The game server has not been asked for this query port's actual value yet.
+ * @member STEAM_FRIENDS_MAX_FRIENDS_GROUP_NAME (value: '64') The maximum length that a friends group name can be (not including the null terminator).
  * @member STEAM_FRIENDS_MAX_RICH_PRESENCE_KEY_LENGTH (value: '64') The maximum length that a rich presence key can be.
  * @member STEAM_FRIENDS_MAX_RICH_PRESENCE_KEYS (value: '20')The maximum amount of rich presence keys that can be set.
  * @member STEAM_FRIENDS_MAX_RICH_PRESENCE_VALUE_LENGTH (value: '256') The maximum length that a rich presence value can be.
@@ -564,9 +558,9 @@
  * @member STEAM_REMOTE_STORAGE_INTERFACE_VERSION (value: '"STEAMREMOTESTORAGE_INTERFACE_VERSION014"')
  * @member STEAM_MATCHMAKING_SERVER_QUERY_INVALID (value: '0xffffffff') Invalid server query.
  * @member STEAM_MATCHMAKING_MAX_LOBBY_KEY_LENGTH (value: '255') Maximum number of characters a lobby metadata key can be.
- * @member STEAM_MATCHMAKING_FAVORITE_FLAG_FAVORITE (value: '0x01') This favorite game server entry is for the favorites list.
- * @member STEAM_MATCHMAKING_FAVORITE_FLAG_HISTORY (value: '0x02') This favorite game server entry is for the history list.
- * @member STEAM_MATCHMAKING_FAVORITE_FLAG_NONE (value: '0x00') This favorite game server has no flags set.
+ * @member STEAM_MATCHMAKING_FAVORITE_FLAG_FAVORITE (value: '0x01') This favourite game server entry is for the favourites list.
+ * @member STEAM_MATCHMAKING_FAVORITE_FLAG_HISTORY (value: '0x02') This favourite game server entry is for the history list.
+ * @member STEAM_MATCHMAKING_FAVORITE_FLAG_NONE (value: '0x00') This favourite game server has no flags set.
  * @member STEAM_MATCHMAKING_SERVERS_INTERFACE_VERSION (value: '"SteamMatchMakingServers002"') Steam Matchmaking servers interface version.
  * @member STEAM_MATCHMAKING_INTERFACE_VERSION (value: '"SteamMatchMaking009"') Steam Matchmaking interface version.
  * @member STEAM_NETWORKING_POLL_GROUP_INVALID (value: '0') Invalid pollgroup handle.

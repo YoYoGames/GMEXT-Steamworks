@@ -94,12 +94,16 @@
  * @description > **Steamworks Function**: N / A
  *
  * This function sets the function to call when the playback status has changed.
- * 
- * See: [ISteamMusic::PlaybackStatusHasChanged_t](https://partner.steamgames.com/doc/api/ISteamMusic#PlaybackStatusHasChanged_t)
- * 
- * See: ${struct.SteamMusicPlaybackStatusHasChanged}
  *
  * @param {Function} callback The function to be called when the music playback status changes.
+ *
+ * @event callback
+ * @desc > **Steamworks Callback**: [ISteamMusic::PlaybackStatusHasChanged_t](https://partner.steamgames.com/doc/api/ISteamMusic#PlaybackStatusHasChanged_t)
+ *
+ * Called when the playback status of the Steam music player changes.
+ *
+ * @member {Struct.SteamMusicPlaybackStatusHasChanged} result The details of the status change.
+ * @event_end
  * @function_end 
  */
 
@@ -117,12 +121,16 @@
  * @description > **Steamworks Function**: N / A
  *
  * This function sets the function to call when the volume has changed.
- * 
- * See: [ISteamMusic::VolumeHasChanged_t](https://partner.steamgames.com/doc/api/ISteamMusic#VolumeHasChanged_t)
- * 
- * See: ${struct.SteamMusicVolumeHasChanged}
  *
  * @param {Function} callback The function to be called when the music volume changes.
+ *
+ * @event callback
+ * @desc > **Steamworks Callback**: [ISteamMusic::VolumeHasChanged_t](https://partner.steamgames.com/doc/api/ISteamMusic#VolumeHasChanged_t)
+ *
+ * Called when the volume of the Steam music player changes.
+ *
+ * @member {Struct.SteamMusicVolumeHasChanged} result The new volume.
+ * @event_end
  * @function_end 
  */
 

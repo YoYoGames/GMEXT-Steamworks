@@ -6,12 +6,16 @@
  * @description > **Steamworks Function**: N / A
  *
  * This function sets the function to call when subscribed to a published file on remote storage.
- * 
- * See: [ISteamRemoteStorage::RemoteStoragePublishedFileSubscribed_t](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#RemoteStoragePublishedFileSubscribed_t)
- * 
- * See: ${struct.SteamRemoteStoragePublishedFileSubscribed}
  *
  * @param {Function} callback The function to be called when a published file is subscribed to.
+ *
+ * @event callback
+ * @desc > **Steamworks Callback**: [ISteamRemoteStorage::RemoteStoragePublishedFileSubscribed_t](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#RemoteStoragePublishedFileSubscribed_t)
+ *
+ * Called when the user subscribes to a published file.
+ *
+ * @member {Struct.SteamRemoteStoragePublishedFileSubscribed} result The details of the subscription.
+ * @event_end
  * @function_end 
  */
 
@@ -28,13 +32,17 @@
  * @function steam_remote_storage_set_callback_published_file_unsubscribed
  * @description > **Steamworks Function**: N / A
  *
- * This function sets the function to call when subscribed to a published file on remote storage.
- * 
- * See: [ISteamRemoteStorage::RemoteStoragePublishedFileUnsubscribed_t](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#RemoteStoragePublishedFileUnsubscribed_t)
- * 
- * See: ${struct.SteamRemoteStoragePublishedFileUnsubscribed}
+ * This function sets the function to call when the user unsubscribes from a published file on remote storage.
  *
  * @param {Function} callback The function to be called when a published file is unsubscribed from.
+ *
+ * @event callback
+ * @desc > **Steamworks Callback**: [ISteamRemoteStorage::RemoteStoragePublishedFileUnsubscribed_t](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#RemoteStoragePublishedFileUnsubscribed_t)
+ *
+ * Called when the user unsubscribes from a published file.
+ *
+ * @member {Struct.SteamRemoteStoragePublishedFileUnsubscribed} result The details of the unsubscription.
+ * @event_end
  * @function_end 
  */
 
@@ -52,12 +60,17 @@
  * @description > **Steamworks Function**: N / A
  *
  * This function sets the function to call in case of a local file change. If a Steam app is flagged for supporting dynamic Steam Cloud sync, and a sync occurs, this callback will be posted to the app if any local files changed.
- * 
- * See: [ISteamRemoteStorage::RemoteStorageLocalFileChange_t](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#RemoteStorageLocalFileChange_t)
- * 
- * This callback has no fields.
  *
  * @param {Function} callback The function to be called when a local file change is detected.
+ *
+ * @event callback
+ * @desc > **Steamworks Callback**: [ISteamRemoteStorage::RemoteStorageLocalFileChange_t](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#RemoteStorageLocalFileChange_t)
+ *
+ * Called after a Steam Cloud sync changed one or more local files while the game was running.
+ *
+ * This callback receives no arguments.
+ *
+ * @event_end
  * @function_end 
  */
 
@@ -139,7 +152,7 @@
  * @param {Real} [buffer_count] The number of bytes to write. Defaults to the buffer size minus the offset.
  * 
  * @event callback
- * @desc **Steamworks Callback**: [ISteamRemoteStorage::RemoteStorageFileWriteAsyncComplete_t](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#RemoteStorageFileWriteAsyncComplete_t)
+ * @desc > **Steamworks Callback**: [ISteamRemoteStorage::RemoteStorageFileWriteAsyncComplete_t](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#RemoteStorageFileWriteAsyncComplete_t)
  * @member {Struct.SteamRemoteStorageFileWriteAsyncResult} result The result of the operation.
  * @event_end
  * @function_end
@@ -220,7 +233,7 @@
  * @function steam_remote_storage_get_file_count
  * @description > **Steamworks Function**: [ISteamRemoteStorage::GetFileCount](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#GetFileCount)
  *
- * This function gets the total number of local files synchronized by Steam Cloud.
+ * This function gets the total number of local files synchronised by Steam Cloud.
  * 
  * Used for enumeration with ${function.steam_remote_storage_get_file_name_and_size}.
  *

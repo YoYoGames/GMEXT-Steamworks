@@ -42,13 +42,13 @@
  * @function steam_apps_is_low_violence
  * @description > **Steamworks Function**: [ISteamApps::BIsLowViolence](https://partner.steamgames.com/doc/api/ISteamApps#BIsLowViolence)
  *
- * This function checks if the license owned by the user provides low violence depots.
+ * This function checks if the licence owned by the user provides low violence depots.
  * 
  * Low violence depots are useful for copies sold in countries that have content restrictions.
  * 
  * See also: [Depot Mounting Rules](https://partner.steamgames.com/doc/store/application/depots#depot_mounting_rules)
  *
- * @returns {Bool} `true` if the license owned by the user provides low violence depots; otherwise, `false`.
+ * @returns {Bool} `true` if the licence owned by the user provides low violence depots; otherwise, `false`.
  * @function_end
  */
 
@@ -81,9 +81,9 @@
  * @function steam_apps_is_subscribed_from_family_sharing
  * @description > **Steamworks Function**: [ISteamApps::BIsSubscribedFromFamilySharing](https://partner.steamgames.com/doc/api/ISteamApps#BIsSubscribedFromFamilySharing)
  *
- * This function checks if the active user is accessing the current app ID via a temporary Family Shared license owned by another user.
+ * This function checks if the active user is accessing the current app ID via a temporary Family Shared licence owned by another user.
  * 
- * If you need to determine the Steam ID of the permanent owner of the license, use ${function.steam_apps_get_app_owner}.
+ * If you need to determine the Steam ID of the permanent owner of the licence, use ${function.steam_apps_get_app_owner}.
  *
  * @returns {Bool} 
  * @function_end
@@ -323,7 +323,7 @@
  * Parameter names starting with the character `"@"` are reserved for internal use and will always return an empty string `""`.
  * Parameter names starting with an underscore `"_"` are reserved for Steam features -- they can be queried by the game, but it is advised that you do not use param names beginning with an underscore for your own features.
  *
- * @param {String} key The launch key to test for. Ex: `"param1"`
+ * @param {String} key The launch key to test for, e.g. `"param1"`.
  * @returns {String} The value associated with the key provided, or an empty string (`""`) if the specified key does not exist.
  * @function_end
  */
@@ -334,15 +334,9 @@
  *
  * This function allows you to install an optional DLC.
  *
+ * Note that the result is delivered through the callback set with ${function.steam_apps_set_callback_dlc_installed}.
+ *
  * @param {Real} app_id The DLC you want to install.
- * 
- * @event callback
- * @desc > **Steamworks Callback**: [ISteamApps::DlcInstalled_t](https://partner.steamgames.com/doc/api/ISteamApps#DlcInstalled_t)
- * 
- * Triggered after the current user gains ownership of DLC and that DLC is installed.
- * 
- * @member {Struct.SteamAppsDlcInstalled} result The result of the operation.
- * @event_end
  * @function_end
  */
 
@@ -374,12 +368,16 @@
  * @description > **Steamworks Function**: N / A
  *
  * This function sets the callback function to be triggered after the current user gains ownership of DLC and that DLC is installed.
- * 
- * See: [ISteamApps::InstallDLC](https://partner.steamgames.com/doc/api/ISteamApps#InstallDLC)
- * 
- * See: ${struct.SteamAppsDlcInstalled}
  *
  * @param {Function} callback The function to be used as the callback function.
+ *
+ * @event callback
+ * @desc > **Steamworks Callback**: [ISteamApps::DlcInstalled_t](https://partner.steamgames.com/doc/api/ISteamApps#DlcInstalled_t)
+ *
+ * Called after the current user gains ownership of a DLC and that DLC is installed.
+ *
+ * @member {Struct.SteamAppsDlcInstalled} result The details of the installed DLC.
+ * @event_end
  * @function_end
  */
 

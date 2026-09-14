@@ -1,24 +1,28 @@
 /**
  * @module home
  * @title Home
- * @desc This section is for those users that have been given access to the Steam API for publishing your game to that platform. To be able to use these functions you *must* have been accepted onto Steam previously, either through a publisher or through the self-publishing system.
- * 
+ * @desc This extension wraps the [Steamworks API](https://partner.steamgames.com/doc/api) for games published on Steam. To use it your game must have been accepted onto Steam, either through a publisher or through the self-publishing system, and you need its app ID from the [Steamworks dashboard](https://partner.steamgames.com/dashboard).
+ *
+ * The API is initialised for you before the first frame and shut down when the game ends. The one thing every game must do is call ${function.steam_api_run_callbacks} every frame, since no callback fires until it is called. See ${page.getting_started}.
+ *
  * @section Guides
  * @desc These are the guides for the Steamworks extension:
  * @ref page.getting_started
  * @ref page.extension_options
  * @section_end
- * 
+ *
  * @section Management
- * @desc This extension provides the following management functions:
- * 
- *  * ${function.steam_api_init}
- *  * ${function.steam_api_run_callbacks} :warning: REQUIRED
- *  * ${function.steam_api_shutdown} :warning: REQUIRED
+ * @desc These are the functions that control the lifetime of the API:
+ *
+ *  * ${function.steam_api_run_callbacks} - required, once per frame
+ *  * ${function.steam_api_is_initialized}
+ *  * ${function.steam_api_last_error}
+ *  * ${function.steam_api_init} - automatic; only for a manual retry
+ *  * ${function.steam_api_shutdown} - automatic
  * @section_end
  * 
  * @section Modules
- * @desc There are a great number of different functions related to the Steam API. We've split them up into the following sections to make it easier to navigate:
+ * @desc The functions of the Steam API are split into the following modules, one per Steamworks interface:
  * @ref module.api
  * @ref module.friends
  * @ref module.apps

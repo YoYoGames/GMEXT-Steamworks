@@ -29,19 +29,13 @@
  * 
  * See also: [User Authentication and Ownership](https://partner.steamgames.com/doc/features/auth)
  *
+ * Note that the validation result is delivered through the callback set with ${function.steam_user_set_callback_validate_auth_ticket_response}.
+ *
  * @param {Buffer} auth_ticket The auth ticket to validate. The size of the buffer must be the ticket size provided by the call that created the ticket.
  * @param {Real} steam_id The entity's Steam ID that sent this ticket.
  * @param {Real} [buffer_offset] The offset into the buffer, in bytes. Defaults to 0.
  * @param {Real} [buffer_count] The size of the ticket in bytes. Defaults to the buffer size minus the offset.
  * @returns {Enum.SteamUserBeginAuthSessionResult} 
- * 
- * @event callback
- * @desc > **Steamworks Callback**: [ISteamUser::ValidateAuthTicketResponse_t](https://partner.steamgames.com/doc/api/ISteamUser#ValidateAuthTicketResponse_t)
- * 
- * Called when an auth ticket has been validated.
- * 
- * @member {Struct.SteamUserValidateAuthTicketResponse} result The result of the operation.
- * @event_end
  * @function_end
  */
 
@@ -181,18 +175,12 @@
  * 
  * [[Note: This API can not be used to create a ticket for use by the [ISteamUserAuth::AuthenticateUserTicket](https://partner.steamgames.com/doc/webapi/ISteamUserAuth#AuthenticateUserTicket) Web API. Use the ${function.steam_user_request_auth_ticket_for_web_api} call instead.]]
  *
+ * Note that the ticket is only ready to be sent once the callback set with ${function.steam_user_set_callback_get_auth_session_ticket_response} has fired for it.
+ *
  * @param {Buffer} out_ticket The buffer where the new auth ticket will be copied into if the call was successful. Typically a buffer size of 1024 will be sufficient. However, in certain cases (e.g., when an application has a large amount of available DLC), a larger buffer size may be required.
  * @param {Enum.SteamNetworkingIdentityType} [identity_type] The type of the remote system's identity that will authenticate the ticket. Omit for no identity. If it is peer-to-peer then the user steam ID (`SteamId`). If it is a game server, then the game server steam ID may be used if it was obtained from a trusted 3rd party (`SteamId`), otherwise use the IP address (`IpAddress`). If it is a service, a string identifier of that service if one is provided (`GenericString`).
  * @param {Any} [identity_value] The identity's payload - shape depends on `identity_type`: `SteamId` is a Real (the steam ID); `IpAddress` is a `{ip: String, port: Real}` struct; `GenericString` is a String; `GenericBytes` is an Array of Real (0-255 each, up to 32 elements). Omit/undefined when `identity_type` is omitted.
  * @returns {Struct.SteamUserAuthSessionTicket}
- * 
- * @event callback
- * @description > **Steamworks Callback**: [ISteamUser::GetAuthSessionTicketResponse_t](https://partner.steamgames.com/doc/api/ISteamUser#GetAuthSessionTicketResponse_t)
- * 
- * Result when creating an auth session ticket.
- * 
- * @member {Struct.SteamUserGetAuthSessionTicketResponse} result The result of the operation.
- * @event_end
  * @function_end
  */
 
@@ -295,7 +283,7 @@
 
 /**
  * @function steam_user_get_voice
- * @description > **Stermworks Function**: [ISteamUser::GetVoice](https://partner.steamgames.com/doc/api/ISteamUser#GetVoice)
+ * @description > **Steamworks Function**: [ISteamUser::GetVoice](https://partner.steamgames.com/doc/api/ISteamUser#GetVoice)
  * 
  * This function reads captured audio data from the microphone buffer.
  * 
@@ -305,7 +293,7 @@
  * 
  * It is recommended that you pass in an 8 kilobytes or larger destination buffer for compressed audio. Static buffers are recommended for performance reasons. However, if you would like to allocate precisely the right amount of space for a buffer before each call you may use ${function.steam_user_get_available_voice} to find out how much data is available to be read.
  * 
- * [[Note: Uncompressed" audio is a deprecated feature and should not be used by most applications. It is raw single-channel 16-bit PCM wave data which may have been run through preprocessing filters and/or had silence removed, so the uncompressed audio could have a shorter duration than you expect. There may be no data at all during long periods of silence. Also, fetching uncompressed audio will cause ${function.steam_user_get_voice} to discard any leftover compressed audio, so you must fetch both types at once. Finally, ${function.steam_user_get_available_voice} is not precisely accurate when the uncompressed size is requested. So if you really need to use uncompressed audio, you should call ${function.steam_user_get_voice} GetVoice frequently with two very large (20KiB+) output buffers instead of trying to allocate perfectly-sized buffers. But most applications should ignore all of these details and simply leave the "uncompressed" parameters as 0.]]
+ * [[Note: "Uncompressed" audio is a deprecated feature and should not be used by most applications. It is raw single-channel 16-bit PCM wave data which may have been run through preprocessing filters and/or had silence removed, so the uncompressed audio could have a shorter duration than you expect. There may be no data at all during long periods of silence. Also, fetching uncompressed audio will cause ${function.steam_user_get_voice} to discard any leftover compressed audio, so you must fetch both types at once. Finally, ${function.steam_user_get_available_voice} is not precisely accurate when the uncompressed size is requested. So if you really need to use uncompressed audio, you should call ${function.steam_user_get_voice} GetVoice frequently with two very large (20KiB+) output buffers instead of trying to allocate perfectly-sized buffers. Most applications should ignore all of these details and leave the "uncompressed" parameters as 0.]]
  * 
  * See [Steam Voice](https://partner.steamgames.com/doc/features/voice) for more information.
  *
@@ -432,11 +420,11 @@
  *
  * This function requests a URL that authenticates an in-game browser for store checkout, then redirects.
  * 
- * As long as the in-game browser accepts and handles session cookies, Steam microtransaction checkout pages will automatically recognize the user instead of presenting a login page.
+ * As long as the in-game browser accepts and handles session cookies, Steam microtransaction checkout pages will automatically recognise the user instead of presenting a login page.
  * 
  * [[Note: The URL has a very short lifetime to prevent history-snooping attacks, so you should only call this API when you are about to launch the browser, or else immediately navigate to the result URL using a hidden browser window.]]
  * 
- * [[Note: The resulting authorization cookie has an expiration time of one day, so it would be a good idea to request and visit a new auth URL every 12 hours.]]
+ * [[Note: The resulting authorisation cookie has an expiration time of one day, so it would be a good idea to request and visit a new auth URL every 12 hours.]]
  *
  * @param {String} redirect_url The URL to redirect the user to once the in-game browser has been authenticated for the store.
  * @param {Function} callback The function to call upon completion.
@@ -500,12 +488,17 @@
  * @description > **Steamworks Function**: N / A
  *
  * This function sets the function to be called when a connection to the Steam servers is established.
- * 
- * See: [ISteamUser::SteamServersConnected_t](https://partner.steamgames.com/doc/api/ISteamUser#SteamServersConnected_t)
- * 
- * This callback has no fields.
  *
  * @param {Function} callback The function to be called when a connection to the Steam servers is established.
+ *
+ * @event callback
+ * @desc > **Steamworks Callback**: [ISteamUser::SteamServersConnected_t](https://partner.steamgames.com/doc/api/ISteamUser#SteamServersConnected_t)
+ *
+ * Called when a connection to the Steam servers has been established.
+ *
+ * This callback receives no arguments.
+ *
+ * @event_end
  * @function_end
  */
 
@@ -523,12 +516,16 @@
  * @description > **Steamworks Function**: N / A
  *
  * This function sets the function to be called when a connection attempt has failed.
- * 
- * See: [ISteamUser::SteamServerConnectFailure_t](https://partner.steamgames.com/doc/api/ISteamUser#SteamServerConnectFailure_t)
- * 
- * See: ${struct.SteamUserSteamServerConnectFailure}
  *
  * @param {Function} callback The function to be called when a connection attempt to the Steam servers fails.
+ *
+ * @event callback
+ * @desc > **Steamworks Callback**: [ISteamUser::SteamServerConnectFailure_t](https://partner.steamgames.com/doc/api/ISteamUser#SteamServerConnectFailure_t)
+ *
+ * Called when a connection attempt to the Steam servers has failed.
+ *
+ * @member {Struct.SteamUserSteamServerConnectFailure} result The details of the failure.
+ * @event_end
  * @function_end
  */
 
@@ -546,12 +543,16 @@
  * @description > **Steamworks Function**: N / A
  *
  * This function sets the function to be called if the client has lost connection to the Steam servers.
- * 
- * See: [ISteamUser::SteamServersDisconnected_t](https://partner.steamgames.com/doc/api/ISteamUser#SteamServersDisconnected_t)
- * 
- * See: ${struct.SteamUserSteamServersDisconnected}
  *
  * @param {Function} callback The function to be called when the connection to the Steam servers is lost.
+ *
+ * @event callback
+ * @desc > **Steamworks Callback**: [ISteamUser::SteamServersDisconnected_t](https://partner.steamgames.com/doc/api/ISteamUser#SteamServersDisconnected_t)
+ *
+ * Called when the client has lost its connection to the Steam servers.
+ *
+ * @member {Struct.SteamUserSteamServersDisconnected} result The reason for the disconnection.
+ * @event_end
  * @function_end
  */
 
@@ -569,12 +570,16 @@
  * @description > **Steamworks Function**: N / A
  *
  * This function sets the function to be called when a message is sent by the Steam server to the client telling it to disconnect from the specified game server, which it may be in the process of or already connected to. The game client should immediately disconnect upon receiving this message.
- * 
- * See: [ISteamUser::ClientGameServerDeny_t](https://partner.steamgames.com/doc/api/ISteamUser#ClientGameServerDeny_t)
- * 
- * See: ${struct.SteamUserClientGameServerDeny}
  *
  * @param {Function} callback The function to be called when Steam requests that the client disconnect from a game server.
+ *
+ * @event callback
+ * @desc > **Steamworks Callback**: [ISteamUser::ClientGameServerDeny_t](https://partner.steamgames.com/doc/api/ISteamUser#ClientGameServerDeny_t)
+ *
+ * Called when the Steam servers tell the client to disconnect from the given game server.
+ *
+ * @member {Struct.SteamUserClientGameServerDeny} result The details of the denial.
+ * @event_end
  * @function_end
  */
 
@@ -591,13 +596,18 @@
  * @function steam_user_set_callback_licenses_updated
  * @description > **Steamworks Function**: N / A
  *
- * This function sets the function to be called whenever the user's licenses (owned packages) changes.
- * 
- * See: [ISteamUser::LicensesUpdated_t](https://partner.steamgames.com/doc/api/ISteamUser#LicensesUpdated_t)
- * 
- * This callback has no fields.
+ * This function sets the function to be called whenever the user's licences (owned packages) changes.
  *
- * @param {Function} callback The function to be called when the user's licenses (owned packages) change.
+ * @param {Function} callback The function to be called when the user's licences (owned packages) change.
+ *
+ * @event callback
+ * @desc > **Steamworks Callback**: [ISteamUser::LicensesUpdated_t](https://partner.steamgames.com/doc/api/ISteamUser#LicensesUpdated_t)
+ *
+ * Called whenever the user's licences (owned packages) change.
+ *
+ * This callback receives no arguments.
+ *
+ * @event_end
  * @function_end
  */
 
@@ -614,13 +624,17 @@
  * @function steam_user_set_callback_microtxn_authorization_response
  * @description > **Steamworks Function**: N / A
  *
- * This function sets the function to be called when a user has responded to a microtransaction authorization request.
- * 
- * See: [ISteamUser::MicroTxnAuthorizationResponse_t](https://partner.steamgames.com/doc/api/ISteamUser#MicroTxnAuthorizationResponse_t)
- * 
- * See: ${struct.SteamUserMicroTxnAuthorizationResponse}
+ * This function sets the function to be called when a user has responded to a microtransaction authorisation request.
  *
- * @param {Function} callback The function to be called when the user responds to a microtransaction authorization request.
+ * @param {Function} callback The function to be called when the user responds to a microtransaction authorisation request.
+ *
+ * @event callback
+ * @desc > **Steamworks Callback**: [ISteamUser::MicroTxnAuthorizationResponse_t](https://partner.steamgames.com/doc/api/ISteamUser#MicroTxnAuthorizationResponse_t)
+ *
+ * Called when the user has responded to a microtransaction authorisation request.
+ *
+ * @member {Struct.SteamUserMicroTxnAuthorizationResponse} result The details of the response.
+ * @event_end
  * @function_end
  */
 
@@ -639,11 +653,15 @@
  * 
  * This function sets the function to call when an auth session ticket has been created.
  * 
- * See: [ISteamUser::GetAuthSessionTicketResponse_t](https://partner.steamgames.com/doc/api/ISteamUser#GetAuthSessionTicketResponse_t)
- * 
- * See: ${struct.SteamUserGetAuthSessionTicketResponse}
- * 
  * @param {Function} callback The function to be called when an auth session ticket has been created.
+ *
+ * @event callback
+ * @desc > **Steamworks Callback**: [ISteamUser::GetAuthSessionTicketResponse_t](https://partner.steamgames.com/doc/api/ISteamUser#GetAuthSessionTicketResponse_t)
+ *
+ * Called when a ticket requested with ${function.steam_user_get_auth_session_ticket} is ready to be used.
+ *
+ * @member {Struct.SteamUserGetAuthSessionTicketResponse} result The details of the ticket.
+ * @event_end
  * @function_end
  */
 
@@ -662,11 +680,15 @@
  * 
  * This function sets the function to be called when an auth ticket has been validated.
  * 
- * See: [ISteamUser::ValidateAuthTicketResponse_t](https://partner.steamgames.com/doc/api/ISteamUser#ValidateAuthTicketResponse_t)
- * 
- * See: ${struct.SteamUserValidateAuthTicketResponse}
- * 
  * @param {Function} callback The function to be called when an auth ticket has been validated.
+ *
+ * @event callback
+ * @desc > **Steamworks Callback**: [ISteamUser::ValidateAuthTicketResponse_t](https://partner.steamgames.com/doc/api/ISteamUser#ValidateAuthTicketResponse_t)
+ *
+ * Called when an auth ticket passed to ${function.steam_user_begin_auth_session} has been validated, and again if its status changes later.
+ *
+ * @member {Struct.SteamUserValidateAuthTicketResponse} result The details of the validation.
+ * @event_end
  * @function_end
  */
 
@@ -699,7 +721,7 @@
  *
  * @member {Enum.SteamApiResult} result Was the call successful? Possible results:
  * 
- * * `SteamApiResult.Ok` - Success!
+ * * `SteamApiResult.Ok` - Success.
  * * `SteamApiResult.NoConnection` - A connection to Steam could not be established.
  * * `SteamApiResult.DuplicateRequest` - There is already a pending request.
  * * `SteamApiResult.LimitExceeded` - This call is subject to a 60 second rate limit, and you have exceeded that.
@@ -795,8 +817,8 @@
 /**
  * @struct SteamUserValidateAuthTicketResponse
  * @description > **Steamworks Struct**: [ISteamUser::ValidateAuthTicketResponse_t](https://partner.steamgames.com/doc/api/ISteamUser#ValidateAuthTicketResponse_t)
- * 
- * Called when an auth ticket has been validated.
+ *
+ * This struct holds the result of validating an auth ticket.
  * 
  * @member {Real} steam_id The Steam ID of the entity that provided the auth ticket.
  * @member {Real} owner_steam_id The Steam ID that owns the game, this will be different from `steam_id` if the game is being accessed via Steam Family Sharing.
@@ -822,7 +844,7 @@
  *
  * This struct holds information about the reason the client has lost connection to the Steam servers.
  *
- * @member {Enum.SteamApiResult} result The reason we were disconnected from Steam.
+ * @member {Enum.SteamApiResult} result The reason the client was disconnected from Steam.
  * @struct_end 
  */
 
@@ -833,7 +855,7 @@
  * This struct holds information about a failed connection attempt.
  *
  * @member {Enum.SteamApiResult} result The reason why the connection failed.
- * @member {Bool} still_retrying Is the Steam client still trying to connect to the server?
+ * @member {Bool} still_retrying Whether the Steam client is still trying to connect to the server.
  * @struct_end 
  */
 
@@ -846,7 +868,7 @@
  * @member {Real} app_id The App ID this call is for. Verify that it's the same as the current App ID with ${function.steam_utils_get_app_id}.
  * @member {Real} game_server_ip The IP of the game server that is telling us to disconnect, in host order, i.e 127.0.0.1 == 0x7f000001.
  * @member {Real} game_server_port The port of the game server that is telling us to disconnect, in host order.
- * @member {Bool} secure Is the game server VAC secure (`true`) or not (`false`)?
+ * @member {Bool} secure Whether the game server is VAC secure.
  * @member {Enum.SteamApiDenyReason} reason The deny reason.
  * @struct_end 
  */
@@ -855,11 +877,11 @@
  * @struct SteamUserMicroTxnAuthorizationResponse
  * @description > **Steamworks Struct**: [ISteamUser::MicroTxnAuthorizationResponse_t](https://partner.steamgames.com/doc/api/ISteamUser#MicroTxnAuthorizationResponse_t)
  *
- * This struct holds information passed in a `ISteamUser::MicroTxnAuthorizationResponse_t` callback, which is called when a user has responded to a microtransaction authorization request.
+ * This struct holds information passed in a `ISteamUser::MicroTxnAuthorizationResponse_t` callback, which is called when a user has responded to a microtransaction authorisation request.
  *
  * @member {Real} app_id App ID for this microtransaction.
  * @member {Real} order_id Order ID provided for the microtransaction.
- * @member {Bool} authorized Did the user authorise the transaction (`true`) or not (`false`)?
+ * @member {Bool} authorized Whether the user authorised the transaction.
  * @struct_end
  */
 
@@ -935,7 +957,7 @@
  * @member VotedOn List of files the user has voted on. Includes both VotedUp and VotedDown.
  * @member VotedUp List of files the user has voted up. (Restricted to the current user only).
  * @member VotedDown List of files the user has voted down. (Restricted to the current user only).
- * @member WillVoteLater Deprecated. Do not use! (Restricted to the current user only).
+ * @member WillVoteLater Deprecated, do not use (restricted to the current user only).
  * @member Favorited List of files the user has favorited. (equivalent to http://steamcommunity.com/my/myworkshopfiles/?browsesort=myfavorites)
  * @member Subscribed List of files the user has subscribed to. (Restricted to the current user only). (equivalent to http://steamcommunity.com/my/myworkshopfiles/?browsesort=mysubscriptions)
  * @member UsedOrPlayed List of files the user has spent time in game with. (equivalent to http://steamcommunity.com/my/myworkshopfiles/?browsesort=myplayedfiles)

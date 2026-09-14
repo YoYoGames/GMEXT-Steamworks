@@ -160,16 +160,10 @@
  *
  * This function gets the icon for an achievement.
  *
+ * Note that when the icon is not yet available, it is delivered through the callback set with ${function.steam_userstats_set_callback_user_achievement_icon_fetched} once fetched.
+ *
  * @param {String} achievement_name The "API Name" of the achievement.
  * @returns {Real}
- * 
- * @event callback
- * @desc **Steamworks Callback**: [ISteamUserStats::UserAchievementIconFetched_t](https://partner.steamgames.com/doc/api/ISteamUserStats#UserAchievementIconFetched_t)
- * 
- * Triggered as a result of an achievement icon that has been fetched.
- * 
- * @member {Struct.SteamUserStatsAchievementIconFetched} result The result of the operation.
- * @event_end
  * @function_end
  */
 
@@ -180,8 +174,8 @@
  * This function gets general attributes for an achievement. Currently provides: Name, Description, and Hidden status.
  * 
  * This receives the value from a dictionary/map keyvalue store, so you must provide one of the following keys.
- * `"name"` to retrieve the localized achievement name in UTF-8
- * `"desc"` to retrieve the localized achievement description in UTF-8
+ * `"name"` to retrieve the localised achievement name in UTF-8
+ * `"desc"` to retrieve the localised achievement description in UTF-8
  * `"hidden"` for retrieving if an achievement is hidden. Returns "0" when not hidden, "1" when hidden.
  * 
  * This localisation is provided based on the game's language if it's set, otherwise it checks if a localisation is avilable for the users Steam UI Language. If that fails too, then it falls back to English.
@@ -198,20 +192,14 @@
  *
  * This function shows the user a pop-up notification with the current progress of an achievement.
  * 
- * Calling this function will NOT set the progress or unlock the achievement, the game must do that manually by calling ${function.steam_userstats_set_stat_float}/${function.steam_userstats_set_stat_int}!
+ * Note that calling this function does not set the progress or unlock the achievement; the game must do that itself by calling ${function.steam_userstats_set_stat_float} or ${function.steam_userstats_set_stat_int}.
+ *
+ * Note that the outcome is delivered through the callbacks set with ${function.steam_userstats_set_callback_user_stats_stored} and ${function.steam_userstats_set_callback_user_achievement_stored}.
  *
  * @param {String} achievement_name The "API Name" of the achievement.
  * @param {Real} cur_progress The current progress.
  * @param {Real} max_progress The progress required to unlock the achievement.
  * @returns {Bool}
- * 
- * @event callback
- * @member {Struct.SteamUserStatsUserStatsStored} result The result of the request to store the user stats.
- * @event_end
- * 
- * @event callback
- * @member {Struct.SteamUserStatsUserAchievementStored} result The result of the "indicate progress" call.
- * @event_end
  * 
  * @function_end
  */
@@ -249,7 +237,7 @@
  * 
  * These stats are not automatically updated; you'll need to call this function again to refresh any data that may have changed.
  * 
- * To keep from using too much memory, a least recently used cache (LRU) is maintained and other users' stats will occasionally be unloaded. When this happens a [UserStatsUnloaded_t](https://partner.steamgames.com/doc/api/ISteamUserStats#UserStatsUnloaded_t) callback is sent. After receiving this callback the user's stats will be unavailable until this function is called again.
+ * To keep from using too much memory, a least recently used cache (LRU) is maintained and other users' stats will occasionally be unloaded. When this happens the callback set with ${function.steam_userstats_set_callback_user_stats_unloaded} is called, and the user's stats are unavailable until this function is called again.
  *
  * @param {Real} steam_id_user The Steam ID of the user to request stats for.
  * @param {Function} callback The function to call upon completion.
@@ -260,16 +248,6 @@
  * Called when the latest stats and achievements for a user have been received from the server.
  *
  * @member {Struct.SteamUserStatsUserStatsReceived} result The result of the operation.
- * @event_end
- * 
- * @event callback
- * @description > **Steamworks Callback**: [ISteamUserStats::UserStatsUnloaded_t](https://partner.steamgames.com/doc/api/ISteamUserStats#UserStatsUnloaded_t)
- * 
- * Callback indicating that a user's stats have been unloaded.
- * 
- * Call ${function.steam_userstats_request_user_stats} again before accessing stats for this user.
- * 
- * @member {Struct.SteamUserStatsUnloaded} result The result of the operation.
  * @event_end
  * @function_end
  */
@@ -586,7 +564,7 @@
  *
  * Called when the global achievement unlock percentages have been received from the server.
  *
- * @member {Struct.SteamUserStatsNumberOfCurrentPlayersResult} result The result of the operation.
+ * @member {Struct.SteamUserStatsGlobalAchievementPercentagesReadyResult} result The result of the operation.
  * @event_end
  * @function_end
  */
@@ -727,12 +705,16 @@
  * @description > **Steamworks Function**: N / A
  *
  * This function sets the function call when the latest stats and achievements for a specific user (including the local user) have been received from the server.
- * 
- * See: [ISteamUserStats::UserStatsReceived_t](https://partner.steamgames.com/doc/api/ISteamUserStats#UserStatsReceived_t)
- * 
- * See: ${struct.SteamUserStatsUserStatsReceived}
  *
  * @param {Function} callback The function to be called when user stats are received.
+ *
+ * @event callback
+ * @desc > **Steamworks Callback**: [ISteamUserStats::UserStatsReceived_t](https://partner.steamgames.com/doc/api/ISteamUserStats#UserStatsReceived_t)
+ *
+ * Called when the latest stats and achievements for a user have been received from the server.
+ *
+ * @member {Struct.SteamUserStatsUserStatsReceived} result The details of the received stats.
+ * @event_end
  * @function_end 
  */
 
@@ -750,12 +732,16 @@
  * @description > **Steamworks Function**: N / A
  *
  * This function sets the function to call as a result of a request to store the user stats.
- * 
- * See: [ISteamUserStats::UserStatsStored_t](https://partner.steamgames.com/doc/api/ISteamUserStats#UserStatsStored_t)
- * 
- * See: ${struct.SteamUserStatsUserStatsStored}
  *
  * @param {Function} callback The function to be called when user stats are stored.
+ *
+ * @event callback
+ * @desc > **Steamworks Callback**: [ISteamUserStats::UserStatsStored_t](https://partner.steamgames.com/doc/api/ISteamUserStats#UserStatsStored_t)
+ *
+ * Called when a request to store the user stats has completed.
+ *
+ * @member {Struct.SteamUserStatsUserStatsStored} result The details of the store operation.
+ * @event_end
  * @function_end 
  */
 
@@ -773,12 +759,16 @@
  * @description > **Steamworks Function**: N / A
  *
  * This function sets the function to call as a result of a request to store the achievements on the server, or an "indicate progress" call.
- * 
- * See: [ISteamUserStats::UserAchievementStored_t](https://partner.steamgames.com/doc/api/ISteamUserStats#UserAchievementStored_t)
- * 
- * See: ${struct.SteamUserStatsUserAchievementStored}
  *
  * @param {Function} callback The function to be called when a user achievement is stored.
+ *
+ * @event callback
+ * @desc > **Steamworks Callback**: [ISteamUserStats::UserAchievementStored_t](https://partner.steamgames.com/doc/api/ISteamUserStats#UserAchievementStored_t)
+ *
+ * Called when a request to store achievements on the server, or an "indicate progress" call, has completed.
+ *
+ * @member {Struct.SteamUserStatsUserAchievementStored} result The details of the stored achievement.
+ * @event_end
  * @function_end 
  */
 
@@ -797,11 +787,15 @@
  * 
  * This function sets the function to call when an achievement icon has been fetched.
  * 
- * See: [ISteamUserStats::UserAchievementIconFetched_t](https://partner.steamgames.com/doc/api/ISteamUserStats#UserAchievementIconFetched_t)
- * 
- * See: ${struct.SteamUserStatsAchievementIconFetched}
- * 
  * @param {Function} callback The function to be called when a user achievement icon has been fetched.
+ *
+ * @event callback
+ * @desc > **Steamworks Callback**: [ISteamUserStats::UserAchievementIconFetched_t](https://partner.steamgames.com/doc/api/ISteamUserStats#UserAchievementIconFetched_t)
+ *
+ * Called when an achievement icon requested with ${function.steam_userstats_achievement_icon} has been fetched.
+ *
+ * @member {Struct.SteamUserStatsAchievementIconFetched} result The details of the fetched icon.
+ * @event_end
  * @function_end
  */
 
@@ -820,11 +814,15 @@
  * 
  * This function sets the function to call to indicate that a user's stats have been unloaded.
  * 
- * See: [ISteamUserStats::UserStatsUnloaded_t](https://partner.steamgames.com/doc/api/ISteamUserStats#UserStatsUnloaded_t)
- * 
- * See: ${struct.SteamUserStatsUnloaded}
- * 
  * @param {Function} callback The function to be called to indicate that a user's stats have been unloaded.
+ *
+ * @event callback
+ * @desc > **Steamworks Callback**: [ISteamUserStats::UserStatsUnloaded_t](https://partner.steamgames.com/doc/api/ISteamUserStats#UserStatsUnloaded_t)
+ *
+ * Called when a user's stats have been unloaded.
+ *
+ * @member {Struct.SteamUserStatsUnloaded} result The user whose stats were unloaded.
+ * @event_end
  * @function_end
  */
 

@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="img/favicon.ico" />
-    <title>Home - GMEXT-Steamworks</title>
+    <title> sidebar - GMEXT-Steamworks</title>
     <link rel="stylesheet" href="css/theme.css" />
     <link rel="stylesheet" href="css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
@@ -14,8 +14,8 @@
     
       <script>
         // Current page data
-        var mkdocs_page_name = "Home";
-        var mkdocs_page_input_path = "home.md";
+        var mkdocs_page_name = " sidebar";
+        var mkdocs_page_input_path = "_sidebar.md";
         var mkdocs_page_url = null;
       </script>
     
@@ -94,9 +94,9 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href="." class="icon icon-home" aria-label="Docs"></a></li>
-      <li class="breadcrumb-item active">Home</li>
+      <li class="breadcrumb-item active"> sidebar</li>
     <li class="wy-breadcrumbs-aside">
-          <a href="https://github.com/YoYoGames/GMEXT-Steamworks/edit/master/docs/home.md" class="icon icon-github"> Edit on GitHub</a>
+          <a href="https://github.com/YoYoGames/GMEXT-Steamworks/edit/master/docs/_sidebar.md" class="icon icon-github"> Edit on GitHub</a>
     </li>
   </ul>
   <hr/>
@@ -104,47 +104,31 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <p><a id="top"></a></p>
-<h1 id="home"><strong>Home</strong></h1>
-<p>This extension wraps the <a href="https://partner.steamgames.com/doc/api">Steamworks API</a> for games published on Steam. To use it your game must have been accepted onto Steam, either through a publisher or through the self-publishing system, and you need its app ID from the <a href="https://partner.steamgames.com/dashboard">Steamworks dashboard</a>.</p>
-<p>The API is initialised for you before the first frame and shut down when the game ends. The one thing every game must do is call <a href="api.html#steam_api_run_callbacks">steam_api_run_callbacks</a> every frame, since no callback fires until it is called. See <a href="getting_started.html">Getting Started</a>.</p>
-<h2 id="guides">Guides</h2>
-<p>These are the guides for the Steamworks extension:</p>
+                <h2 id="steamworks-extension"><a href="home.html">Steamworks Extension</a></h2>
+<h3 id="guides">Guides</h3>
 <ul>
 <li><a href="getting_started.html">Getting Started</a></li>
 <li><a href="extension_options.html">Extension Options</a></li>
 </ul>
-<h2 id="management">Management</h2>
-<p>These are the functions that control the lifetime of the API:</p>
-<ul>
-<li><a href="api.html#steam_api_run_callbacks">steam_api_run_callbacks</a> - required, once per frame</li>
-<li><a href="api.html#steam_api_is_initialized">steam_api_is_initialized</a></li>
-<li><a href="api.html#steam_api_last_error">steam_api_last_error</a></li>
-<li><a href="api.html#steam_api_init">steam_api_init</a> - automatic; only for a manual retry</li>
-<li><a href="api.html#steam_api_shutdown">steam_api_shutdown</a> - automatic</li>
-</ul>
-<h2 id="modules">Modules</h2>
-<p>The functions of the Steam API are split into the following modules, one per Steamworks interface:</p>
+<h3 id="modules">Modules</h3>
 <ul>
 <li><a href="api.html">API</a></li>
-<li><a href="friends.html">Friends</a></li>
 <li><a href="apps.html">Apps</a></li>
-<li><a href="screenshots.html">Screenshots</a></li>
-<li><a href="user.html">User</a></li>
-<li><a href="utils.html">Utils</a></li>
-<li><a href="ugc.html">UGC</a></li>
+<li><a href="friends.html">Friends</a></li>
 <li><a href="input.html">Input</a></li>
-<li><a href="userstats.html">UserStats</a></li>
-<li><a href="music.html">Music</a></li>
-<li><a href="timeline.html">Timeline</a></li>
 <li><a href="inventory.html">Inventory</a></li>
-<li><a href="remote_storage.html">Remote Storage</a></li>
 <li><a href="matchmaking.html">Matchmaking</a></li>
+<li><a href="music.html">Music</a></li>
 <li><a href="networking.html">Networking</a></li>
 <li><a href="parties.html">Parties</a></li>
+<li><a href="remote_storage.html">Remote Storage</a></li>
+<li><a href="screenshots.html">Screenshots</a></li>
+<li><a href="timeline.html">Timeline</a></li>
+<li><a href="ugc.html">UGC</a></li>
+<li><a href="user.html">User</a></li>
+<li><a href="userstats.html">UserStats</a></li>
+<li><a href="utils.html">Utils</a></li>
 </ul>
-<p><br></p>
-<hr />
               
             </div>
           </div><footer>

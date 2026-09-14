@@ -14,6 +14,14 @@
  * @param {Real} item_def_id The item definition id to grant the player.
  * @param {Function} callback The function to call upon completion.
  * @returns {Real} The inventory result handle
+ *
+ * @event callback
+ * @desc > **Steamworks Callback**: [ISteamInventory::SteamInventoryResultReady_t](https://partner.steamgames.com/doc/api/ISteamInventory#SteamInventoryResultReady_t)
+ *
+ * Called once when the result handle returned by this function leaves the `SteamApiResult.Pending` state.
+ *
+ * @member {Struct.SteamInventoryResultReady} result The handle and status of the completed result.
+ * @event_end
  * @function_end 
  */
 
@@ -30,6 +38,14 @@
  * @param {Array[Real]} item_def_ids The list of items to grant the user.
  * @param {Function} callback The function to call upon completion.
  * @returns {Real} The inventory result handle
+ *
+ * @event callback
+ * @desc > **Steamworks Callback**: [ISteamInventory::SteamInventoryResultReady_t](https://partner.steamgames.com/doc/api/ISteamInventory#SteamInventoryResultReady_t)
+ *
+ * Called once when the result handle returned by this function leaves the `SteamApiResult.Pending` state.
+ *
+ * @member {Struct.SteamInventoryResultReady} result The handle and status of the completed result.
+ * @event_end
  * @function_end 
  */
 
@@ -61,6 +77,14 @@
  * @param {Real} quantity The number of items in that stack to consume.
  * @param {Function} callback The function to call upon completion.
  * @returns {Real} The inventory result handle
+ *
+ * @event callback
+ * @desc > **Steamworks Callback**: [ISteamInventory::SteamInventoryResultReady_t](https://partner.steamgames.com/doc/api/ISteamInventory#SteamInventoryResultReady_t)
+ *
+ * Called once when the result handle returned by this function leaves the `SteamApiResult.Pending` state.
+ *
+ * @member {Struct.SteamInventoryResultReady} result The handle and status of the completed result.
+ * @event_end
  * @function_end 
  */
 
@@ -107,6 +131,14 @@
  * @param {Array[Struct.SteamInventoryItemInstanceQuantity]} destroy_items An array of structs holding item instance IDs with their corresponding quantities.
  * @param {Function} callback The function to call upon completion.
  * @returns {Real} The inventory result handle
+ *
+ * @event callback
+ * @desc > **Steamworks Callback**: [ISteamInventory::SteamInventoryResultReady_t](https://partner.steamgames.com/doc/api/ISteamInventory#SteamInventoryResultReady_t)
+ *
+ * Called once when the result handle returned by this function leaves the `SteamApiResult.Pending` state.
+ *
+ * @member {Struct.SteamInventoryResultReady} result The handle and status of the completed result.
+ * @event_end
  * @function_end
  */
 
@@ -123,6 +155,14 @@
  * @param {Array[Struct.SteamInventoryItemDefQuantity]} items An array of structs holding items to give to the user.
  * @param {Function} callback The function to call upon completion.
  * @returns {Real} The inventory result handle
+ *
+ * @event callback
+ * @desc > **Steamworks Callback**: [ISteamInventory::SteamInventoryResultReady_t](https://partner.steamgames.com/doc/api/ISteamInventory#SteamInventoryResultReady_t)
+ *
+ * Called once when the result handle returned by this function leaves the `SteamApiResult.Pending` state.
+ *
+ * @member {Struct.SteamInventoryResultReady} result The handle and status of the completed result.
+ * @event_end
  * @function_end
  */
 
@@ -218,15 +258,9 @@
  * 
  * Item definitions are a mapping of "definition IDs" (integers between 1 and 999999999) to a set of string properties. Some of these properties are required to display items on the Steam community web site. Other properties can be defined by applications. There is no reason to call this function if your game hardcoded the numeric definition IDs (e.g. purple face mask = 20, blue weapon mod = 55) and does not allow for adding new item types without a client patch.
  *
+ * Note that the completion of the load is signalled through the callback set with ${function.steam_inventory_set_callback_definition_update}.
+ *
  * @returns {Bool} This call will always return true.
- * 
- * @event callback
- * @description > **Steamworks Callback**: [ISteamInventory::SteamInventoryDefinitionUpdate_t](https://partner.steamgames.com/doc/api/ISteamInventory#SteamInventoryDefinitionUpdate_t)
- * 
- * Triggered whenever item definitions have been updated, which could be in response to ${function.steam_inventory_load_item_definitions} or any time new item definitions are available (e.g., from the dynamic addition of new item types while players are still in-game).
- * 
- * This callback has no fields.
- * @event_end
  * @function_end
  */
 
@@ -258,6 +292,14 @@
  * @param {Array[Real]} item_instance_ids A list of the item instance ids to update the state of.
  * @param {Function} callback The function to call upon completion.
  * @returns {Real} 
+ *
+ * @event callback
+ * @desc > **Steamworks Callback**: [ISteamInventory::SteamInventoryResultReady_t](https://partner.steamgames.com/doc/api/ISteamInventory#SteamInventoryResultReady_t)
+ *
+ * Called once when the result handle returned by this function leaves the `SteamApiResult.Pending` state.
+ *
+ * @member {Struct.SteamInventoryResultReady} result The handle and status of the completed result.
+ * @event_end
  * @function_end 
  */
 
@@ -342,8 +384,7 @@
  *
  * Returned after ${function.steam_inventory_request_prices} is called.
  *
- * @member {Enum.SteamApiResult} result The result of the operation.
- * @member {String} currency The user's local currency code (e.g. "USD").
+ * @member {Struct.SteamInventoryRequestPricesResult} result The result of the operation.
  * @event_end
  * @function_end
  */
@@ -462,6 +503,14 @@
  * @param {Real} update_handle The update handle corresponding to the transaction request, returned from ${function.steam_inventory_start_update_properties}.
  * @param {Function} callback The function to call upon completion.
  * @returns {Real} The new inventory result handle
+ *
+ * @event callback
+ * @desc > **Steamworks Callback**: [ISteamInventory::SteamInventoryResultReady_t](https://partner.steamgames.com/doc/api/ISteamInventory#SteamInventoryResultReady_t)
+ *
+ * Called once when the result handle returned by this function leaves the `SteamApiResult.Pending` state.
+ *
+ * @member {Struct.SteamInventoryResultReady} result The handle and status of the completed result.
+ * @event_end
  * @function_end 
  */
 
@@ -482,6 +531,14 @@
  * @param {Real} item_instance_id_dest The destination item.
  * @param {Function} callback The function to call upon completion.
  * @returns {Real} The inventory result handle
+ *
+ * @event callback
+ * @desc > **Steamworks Callback**: [ISteamInventory::SteamInventoryResultReady_t](https://partner.steamgames.com/doc/api/ISteamInventory#SteamInventoryResultReady_t)
+ *
+ * Called once when the result handle returned by this function leaves the `SteamApiResult.Pending` state.
+ *
+ * @member {Struct.SteamInventoryResultReady} result The handle and status of the completed result.
+ * @event_end
  * @function_end 
  */
 
@@ -491,7 +548,7 @@
  *
  * This function triggers an item drop if the user has played a long enough period of time.
  * 
- * This period can be customized in two places:
+ * This period can be customised in two places:
  * 
  * * At the application level within Inventory Service: Playtime Item Grants. This will automatically apply to all "playtimegenerator" items that do not specify any overrides.
  * * In an individual "playtimegenerator" item definition. The settings would take precedence over any application-level settings.
@@ -505,6 +562,14 @@
  * @param {Real} item_def_id The item definition id, which must refer to an itemdefid of the type "playtimegenerator".
  * @param {Function} callback The function to call upon completion.
  * @returns {Real} The inventory result handle
+ *
+ * @event callback
+ * @desc > **Steamworks Callback**: [ISteamInventory::SteamInventoryResultReady_t](https://partner.steamgames.com/doc/api/ISteamInventory#SteamInventoryResultReady_t)
+ *
+ * Called once when the result handle returned by this function leaves the `SteamApiResult.Pending` state.
+ *
+ * @member {Struct.SteamInventoryResultReady} result The handle and status of the completed result.
+ * @event_end
  * @function_end 
  */
 
@@ -520,6 +585,14 @@
  *
  * @param {Function} callback The function to call upon completion.
  * @returns {Real} The inventory result handle
+ *
+ * @event callback
+ * @desc > **Steamworks Callback**: [ISteamInventory::SteamInventoryResultReady_t](https://partner.steamgames.com/doc/api/ISteamInventory#SteamInventoryResultReady_t)
+ *
+ * Called once when the result handle returned by this function leaves the `SteamApiResult.Pending` state.
+ *
+ * @member {Struct.SteamInventoryResultReady} result The handle and status of the completed result.
+ * @event_end
  * @function_end 
  */
 
@@ -570,12 +643,16 @@
  * @description > **Steamworks Function**: N / A
  *
  * This function sets the function to be triggered whenever an inventory result transitions from `SteamApiResult.Pending` to any other completed state, see ${function.steam_inventory_get_result_status} for the complete list of states. There will always be exactly one callback per handle.
- * 
- * See: [ISteamInventory::SteamInventoryResultReady_t](https://partner.steamgames.com/doc/api/ISteamInventory#SteamInventoryResultReady_t)
- * 
- * See: ${struct.SteamInventoryResultReady}
  *
  * @param {Function} callback The function to be called when an inventory result is ready.
+ *
+ * @event callback
+ * @desc > **Steamworks Callback**: [ISteamInventory::SteamInventoryResultReady_t](https://partner.steamgames.com/doc/api/ISteamInventory#SteamInventoryResultReady_t)
+ *
+ * Called when an inventory result handle leaves the `SteamApiResult.Pending` state, for results that were not given their own callback.
+ *
+ * @member {Struct.SteamInventoryResultReady} result The handle and status of the completed result.
+ * @event_end
  * @function_end 
  */
 
@@ -595,12 +672,16 @@
  * This function sets the function to be triggered when ${function.steam_inventory_get_all_items} successfully returns a result which is newer / fresher than the last known result. (It will not trigger if the inventory hasn't changed, or if results from two overlapping calls are reversed in flight and the earlier result is already known to be stale/out-of-date.)
  * 
  * The regular [SteamInventoryResultReady_t](https://partner.steamgames.com/doc/api/ISteamInventory#SteamInventoryResultReady_t) callback will still be triggered immediately afterwards; this is an additional notification for your convenience.
- * 
- * See: [ISteamInventory::SteamInventoryFullUpdate_t](https://partner.steamgames.com/doc/api/ISteamInventory#SteamInventoryFullUpdate_t)
- * 
- * See: ${struct.SteamInventoryFullUpdate}
  *
  * @param {Function} callback The function to be called when a full inventory update occurs.
+ *
+ * @event callback
+ * @desc > **Steamworks Callback**: [ISteamInventory::SteamInventoryFullUpdate_t](https://partner.steamgames.com/doc/api/ISteamInventory#SteamInventoryFullUpdate_t)
+ *
+ * Called when ${function.steam_inventory_get_all_items} returns a result that is newer than the last known one.
+ *
+ * @member {Struct.SteamInventoryFullUpdate} result The handle of the new result.
+ * @event_end
  * @function_end 
  */
 
@@ -618,10 +699,17 @@
  * @description > **Steamworks Function**: N / A
  *
  * This function sets the function to be triggered whenever item definitions have been updated, which could be in response to ${function.steam_inventory_load_item_definitions} or any time new item definitions are available (e.g., from the dynamic addition of new item types while players are still in-game).
- * 
- * See: [ISteamInventory::SteamInventoryDefinitionUpdate_t](https://partner.steamgames.com/doc/api/ISteamInventory#SteamInventoryDefinitionUpdate_t)
  *
  * @param {Function} callback The function to be called when item definitions are updated.
+ *
+ * @event callback
+ * @desc > **Steamworks Callback**: [ISteamInventory::SteamInventoryDefinitionUpdate_t](https://partner.steamgames.com/doc/api/ISteamInventory#SteamInventoryDefinitionUpdate_t)
+ *
+ * Called whenever the item definitions have been updated.
+ *
+ * This callback receives no arguments.
+ *
+ * @event_end
  * @function_end 
  */
 

@@ -6,12 +6,16 @@
  * @description > **Steamworks Function**: N / A
  *
  * This function sets the function to be called by Steam when a user "follows" a previously created beacon. This lets you know that you should be prepared for the user to join your game.
- * 
- * See: [ISteamParties::ReservationNotificationCallback_t](https://partner.steamgames.com/doc/api/isteamparties#ReservationNotificationCallback_t)
- * 
- * See: ${struct.SteamPartiesReservationNotification}
  *
  * @param {Function} callback The function to be called when a reservation notification event occurs.
+ *
+ * @event callback
+ * @desc > **Steamworks Callback**: [ISteamParties::ReservationNotificationCallback_t](https://partner.steamgames.com/doc/api/ISteamParties#ReservationNotificationCallback_t)
+ *
+ * Called when a user "follows" a beacon that the current user created.
+ *
+ * @member {Struct.SteamPartiesReservationNotification} result The details of the reservation.
+ * @event_end
  * @function_end 
  */
 
@@ -30,11 +34,18 @@
  *
  * This function sets the function to be called when the list of available locations for posting a beacon has been updated.
  * 
- * See: [ISteamParties::AvailableBeaconLocationsUpdated_t](https://partner.steamgames.com/doc/api/isteamparties#AvailableBeaconLocationsUpdated_t)
- * 
  * This callback has no members.
  *
  * @param {Function} callback The function to be called when the available beacon locations are updated.
+ *
+ * @event callback
+ * @desc > **Steamworks Callback**: [ISteamParties::AvailableBeaconLocationsUpdated_t](https://partner.steamgames.com/doc/api/ISteamParties#AvailableBeaconLocationsUpdated_t)
+ *
+ * Called when the list of available locations for posting a beacon has been updated.
+ *
+ * This callback receives no arguments.
+ *
+ * @event_end
  * @function_end 
  */
 
@@ -53,11 +64,18 @@
  * 
  * This function sets the function to be called when the list of active beacons visible to the current user has changed.
  * 
- * See: [ISteamParties::ActiveBeaconsUpdated_t](https://partner.steamgames.com/doc/api/isteamparties#ActiveBeaconsUpdated_t)
- * 
  * This callback has no members.
  * 
  * @param {Function} callback The function to be called when the active beacons are updated.
+ *
+ * @event callback
+ * @desc > **Steamworks Callback**: [ISteamParties::ActiveBeaconsUpdated_t](https://partner.steamgames.com/doc/api/ISteamParties#ActiveBeaconsUpdated_t)
+ *
+ * Called when the list of active beacons visible to the current user has changed.
+ *
+ * This callback receives no arguments.
+ *
+ * @event_end
  * @function_end 
  */
 
@@ -122,7 +140,7 @@
  *
  * This function notifies Steam that a reserved user has successfully joined your party, once a user who followed your beacon has joined.
  * 
- * See: ${struct.SteamPartiesReservationNotification}
+ * Both arguments come from the ${struct.SteamPartiesReservationNotification} delivered to the callback set with ${function.steam_parties_set_callback_reservation_notification}.
  *
  * @param {Real} beacon_id The beacon ID for the beacon created by your process.
  * @param {Real} user_steam_id The Steam ID of the user joining your party.
@@ -136,7 +154,7 @@
  *
  * This function cancels a reservation, notifying Steam that a reserved user did not join your party and is not still waiting to do so.
  *
- * See: ${struct.SteamPartiesReservationNotification}
+ * Both arguments come from the ${struct.SteamPartiesReservationNotification} delivered to the callback set with ${function.steam_parties_set_callback_reservation_notification}.
  *
  * @param {Real} beacon_id The beacon ID for the beacon created by your process.
  * @param {Real} user_steam_id The Steam ID of the user whose reservation is being cancelled.
@@ -169,7 +187,7 @@
  *
  * This function destroys the Steam party beacon. This will immediately cause Steam to stop showing the beacon in the target location. Note that any users currently in-flight may still arrive at your party expecting to join.
  * 
- * Your game should call this method when either the party has been filled and the game is beginning, or the user has decided to abandon creating a party. The beacon will be destroyed automatically when your game exits, but the preferred behavior is for the game to call ${function.steam_parties_destroy_beacon} at the right time.
+ * Your game should call this method when either the party has been filled and the game is beginning, or the user has decided to abandon creating a party. The beacon will be destroyed automatically when your game exits, but the preferred behaviour is for the game to call ${function.steam_parties_destroy_beacon} at the right time.
  *
  * @param {Real} beacon_id The beacon ID to be destroyed.
  * @returns {Bool} 
@@ -347,7 +365,7 @@
  * @title Parties
  * @desc > **Steamworks Interface**: [ISteamParties](https://partner.steamgames.com/doc/api/isteamparties)
  * 
- * This API can be used to selectively advertise your multiplayer game session in a Steam chat room group. Tell Steam the number of player spots that are available for your party, and a join-game string, and it will show a beacon in the selected group and allow that many users to “follow” the beacon to your party. Adjust the number of open slots if other players join through alternate matchmaking methods.
+ * This API can be used to selectively advertise your multiplayer game session in a Steam chat room group. Tell Steam the number of player spots that are available for your party, and a join-game string, and it will show a beacon in the selected group and allow that many users to "follow" the beacon to your party. Adjust the number of open slots if other players join through alternate matchmaking methods.
  * 
  * @section_func Functions
  * @desc These are the functions of the Parties module:

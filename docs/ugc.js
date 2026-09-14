@@ -13,7 +13,7 @@
  * @param {Function} callback The function to call upon completion.
  * 
  * @event callback
- * @desc **Steamworks Callback**: [ISteamUGC::AddAppDependencyResult_t](https://partner.steamgames.com/doc/api/ISteamUGC#AddAppDependencyResult_t)
+ * @desc > **Steamworks Callback**: [ISteamUGC::AddAppDependencyResult_t](https://partner.steamgames.com/doc/api/ISteamUGC#AddAppDependencyResult_t)
  * 
  * Triggered upon completion.
  * 
@@ -34,7 +34,7 @@
  * @param {Function} callback The function to call upon completion.
  * 
  * @event callback
- * @desc **Steamworks Callback**: [ISteamUGC::AddUGCDependencyResult_t](https://partner.steamgames.com/doc/api/ISteamUGC#AddUGCDependencyResult_t)
+ * @desc > **Steamworks Callback**: [ISteamUGC::AddUGCDependencyResult_t](https://partner.steamgames.com/doc/api/ISteamUGC#AddUGCDependencyResult_t)
  * 
  * Triggered upon completion.
  * 
@@ -51,7 +51,7 @@
  * 
  * [[Note: This must be set before you send a UGC Query handle using ${function.steam_ugc_send_query_ugc_request}.]]
  *
- * @param {Real} query_handle The UGC query handle to customize.
+ * @param {Real} query_handle The UGC query handle to customise.
  * @param {String} tag_name The tag that must NOT be attached to the UGC for it to be received.
  * @returns {Bool} 
  * @function_end 
@@ -71,7 +71,7 @@
  * 
  * [[Note: This must be set before you submit the UGC update handle using ${function.steam_ugc_submit_item_update}.]]
  *
- * @param {Real} update_handle The workshop item update handle to customize.
+ * @param {Real} update_handle The workshop item update handle to customise.
  * @param {String} key The key to set on the item.
  * @param {String} value The value to map to the key.
  * @returns {Bool} 
@@ -88,7 +88,7 @@
  * 
  * [[Note: This must be set before you submit the UGC update handle using ${function.steam_ugc_submit_item_update}.]]
  *
- * @param {Real} update_handle The workshop item update handle to customize.
+ * @param {Real} update_handle The workshop item update handle to customise.
  * @param {String} preview_file_path The absolute path to the local image.
  * @param {Enum.SteamUgcItemPreviewType} preview_type The type of this preview.
  * @returns {Bool} 
@@ -103,7 +103,7 @@
  * 
  * [[Note: This must be set before you submit the UGC update handle using ${function.steam_ugc_submit_item_update}.]]
  *
- * @param {Real} update_handle The workshop item update handle to customize.
+ * @param {Real} update_handle The workshop item update handle to customise.
  * @param {String} video_id The YouTube video ID to add (e.g. "jHgZh4GV9G0").
  * @returns {Bool} 
  * @function_end 
@@ -113,16 +113,16 @@
  * @function steam_ugc_add_item_to_favorites
  * @description > **Steamworks Function**: [ISteamUGC::AddItemToFavorites](https://partner.steamgames.com/doc/api/ISteamUGC#AddItemToFavorites)
  *
- * This function adds a workshop item to the user's favorites list.
+ * This function adds a workshop item to the user's favourites list.
  *
  * @param {Real} app_id The app ID that this item belongs to.
- * @param {Real} published_file_id The workshop item to add to the user's favorites list.
+ * @param {Real} published_file_id The workshop item to add to the user's favourites list.
  * @param {Function} callback The function to call upon completion.
  *
  * @event callback
  * @desc > **Steamworks Callback**: [ISteamUGC::UserFavoriteItemsListChanged_t](https://partner.steamgames.com/doc/api/ISteamUGC#UserFavoriteItemsListChanged_t)
  *
- * Called when an item is added to or removed from the user's list of favorite workshop items.
+ * Called when an item is added to or removed from the user's list of favourite workshop items.
  *
  * @member {Struct.SteamUgcFavoriteItemsListChanged} result The result of the operation.
  * @event_end
@@ -137,7 +137,7 @@
  * 
  * [[Note: This must be set before you send a UGC Query handle using ${function.steam_ugc_send_query_ugc_request}.]]
  *
- * @param {Real} query_handle The UGC query handle to customize.
+ * @param {Real} query_handle The UGC query handle to customise.
  * @param {String} key The key-value key that must be attached to the UGC for it to be received.
  * @param {String} value The key-value value associated with the key that must be attached to the UGC for it to be received.
  * @returns {Bool} 
@@ -152,7 +152,7 @@
  * 
  * [[Note: This must be set before you send a UGC Query handle using ${function.steam_ugc_send_query_ugc_request}.]]
  *
- * @param {Real} query_handle The UGC query handle to customize.
+ * @param {Real} query_handle The UGC query handle to customise.
  * @param {String} tag_name The tag that must be attached to the UGC for it to be received.
  * @returns {Bool} 
  * @function_end 
@@ -166,7 +166,7 @@
  * 
  * [[Note: This must be set before you send a UGC Query handle using ${function.steam_ugc_send_query_ugc_request}.]]
  *
- * @param {Real} query_handle The UGC query handle to customize.
+ * @param {Real} query_handle The UGC query handle to customise.
  * @param {Array[String]} tags_csv A set of tags where at least one of the tags must be attached to the UGC.
  * @returns {Bool} 
  * @function_end 
@@ -214,9 +214,9 @@
  * 
  * This will return up to 50 results as declared by `STEAM_UGC_NUM_RESULTS_PER_PAGE`. You can make subsequent calls to this function, increasing the `page` each time to get the next set of results.
  * 
- * [[Note: Either `consumer_app_id` or `creator_app_id` must have a valid app ID!]]
+ * [[Note: Either `consumer_app_id` or `creator_app_id` must have a valid app ID.]]
  * 
- * [[Note: You must release the handle returned by this function by calling ${function.steam_ugc_release_query_ugc_request} when you are done with it!]]
+ * [[Note: You must release the handle returned by this function by calling ${function.steam_ugc_release_query_ugc_request} when you are done with it.]]
  * 
  * To query for the UGC associated with a single user you can use ${function.steam_ugc_create_query_user_ugc_request}.
  *
@@ -235,9 +235,9 @@
  *
  * This function queries for the details of specific UGC items. There is currently a 1,000 limit for the number of items you can request, but this may be lifted in the future.
  * 
- * [[Note: Either `consumer_app_id` or `creator_app_id` must have a valid app ID!]]
+ * [[Note: Either `consumer_app_id` or `creator_app_id` must have a valid app ID.]]
  * 
- * [[Note: You must release the handle returned by this function by calling ${function.steam_ugc_release_query_ugc_request} when you are done with it!]]
+ * [[Note: You must release the handle returned by this function by calling ${function.steam_ugc_release_query_ugc_request} when you are done with it.]]
  * 
  * To query all the UGC for your app you can use ${function.steam_ugc_create_query_all_ugc_request} instead.
  *
@@ -254,9 +254,9 @@
  * 
  * This will return up to 50 results as declared by `STEAM_UGC_NUM_RESULTS_PER_PAGE`. You can make subsequent calls to this function, increasing the `page` each time to get the next set of results.
  * 
- * [[Note: Either `consumer_app_id` or `creator_app_id` must have a valid app ID!]]
+ * [[Note: Either `consumer_app_id` or `creator_app_id` must have a valid app ID.]]
  * 
- * [[Note: You must release the handle returned by this function by calling ${function.steam_ugc_release_query_ugc_request} when you are done with it!]]
+ * [[Note: You must release the handle returned by this function by calling ${function.steam_ugc_release_query_ugc_request} when you are done with it.]]
  * 
  * To query all the UGC for your app you can use ${function.steam_ugc_create_query_all_ugc_request} instead.
  *
@@ -302,19 +302,11 @@
  * 
  * The `DownloadItemResult_t` callback contains the app ID associated with the workshop item. It should be compared against the running app ID as the handler will be called for all item downloads regardless of the running application.
  *
+ * Note that the result is delivered through the callback set with ${function.steam_ugc_set_callback_download_item_result}.
+ *
  * @param {Real} published_file_id The workshop item to download.
  * @param {Bool} high_priority Whether to start the download in high priority, pausing any existing in-progress Steam downloads to immediately begin this workshop item.
  * @returns {Bool}
- * 
- * @event callback
- * @desc **Steamworks Callback**: [ISteamUGC::DownloadItemResult_t](https://partner.steamgames.com/doc/api/ISteamUGC#DownloadItemResult_t)
- * 
- * Triggered when a workshop item has been downloaded.
- * 
- * [[Note: This callback goes out to all running applications, ensure that the app ID associated with the item matches what you expect.]]
- * 
- * @member {Struct.SteamUgcDownloadItemResult} result The result of the operation.
- * @event_end
  * 
  * @function_end
  */
@@ -668,7 +660,7 @@
  * @param {Function} callback The function to call upon completion.
  * 
  * @event callback
- * @desc **Steamworks Callback**: [ISteamUGC::RemoveAppDependencyResult_t](https://partner.steamgames.com/doc/api/ISteamUGC#RemoveAppDependencyResult_t)
+ * @desc > **Steamworks Callback**: [ISteamUGC::RemoveAppDependencyResult_t](https://partner.steamgames.com/doc/api/ISteamUGC#RemoveAppDependencyResult_t)
  * 
  * Triggered upon completion.
  * 
@@ -688,7 +680,7 @@
  * @param {Function} callback The function to call upon completion.
  * 
  * @event callback
- * @desc **Steamworks Callback**: [ISteamUGC::RemoveUGCDependencyResult_t](https://partner.steamgames.com/doc/api/ISteamUGC#RemoveUGCDependencyResult_t)
+ * @desc > **Steamworks Callback**: [ISteamUGC::RemoveUGCDependencyResult_t](https://partner.steamgames.com/doc/api/ISteamUGC#RemoveUGCDependencyResult_t)
  * 
  * Triggered upon completion.
  * 
@@ -701,16 +693,16 @@
  * @function steam_ugc_remove_item_from_favorites
  * @description > **Steamworks Function**: [ISteamUGC::RemoveItemFromFavorites](https://partner.steamgames.com/doc/api/ISteamUGC#RemoveItemFromFavorites)
  *
- * This function removes a workshop item from the user's favorites list.
+ * This function removes a workshop item from the user's favourites list.
  *
  * @param {Real} app_id The app ID that this item belongs to.
- * @param {Real} published_file_id The workshop item to remove from the user's favorites list.
+ * @param {Real} published_file_id The workshop item to remove from the user's favourites list.
  * @param {Function} callback The function to call upon completion.
  *
  * @event callback
  * @desc > **Steamworks Callback**: [ISteamUGC::UserFavoriteItemsListChanged_t](https://partner.steamgames.com/doc/api/ISteamUGC#UserFavoriteItemsListChanged_t)
  *
- * Called when an item is added to or removed from the user's list of favorite workshop items.
+ * Called when an item is added to or removed from the user's list of favourite workshop items.
  *
  * @member {Struct.SteamUgcFavoriteItemsListChanged} result The result of the operation.
  * @event_end
@@ -764,7 +756,7 @@
  *
  * This function sets the given ${constant.SteamUgcContentDescriptorId} on the item.
  *
- * @param {Real} update_handle The workshop item update handle to customize.
+ * @param {Real} update_handle The workshop item update handle to customise.
  * @param {Enum.SteamUgcContentDescriptorId} descriptor_id The content descriptor to set on the item.
  * @returns {Bool} 
  * @function_end 
@@ -776,7 +768,7 @@
  *
  * This function removes the given ${constant.SteamUgcContentDescriptorId} from the item.
  *
- * @param {Real} update_handle The workshop item update handle to customize.
+ * @param {Real} update_handle The workshop item update handle to customise.
  * @param {Enum.SteamUgcContentDescriptorId} descriptor_id The content descriptor to remove from the item.
  * @returns {Bool} 
  * @function_end 
@@ -788,7 +780,7 @@
  *
  * This function sets what Steam (beta) branches this item is valid for. An empty string for either `game_branch_min` or `game_branch_max` means that it will match any version on that end of the range. This will only be applied if the actual content has been changed. Users will download the version of the item that is valid for the Steam (beta) branch they have opted into.
  *
- * @param {Real} update_handle The workshop item update handle to customize.
+ * @param {Real} update_handle The workshop item update handle to customise.
  * @param {String} game_branch_min The name of the minimum Steam branch this item is valid for.
  * @param {String} game_branch_max The name of the maximum Steam branch this item is valid for.
  * @returns {Bool} 
@@ -835,12 +827,16 @@
  * This function sets the function to be called when a workshop item has been installed or updated.
  * 
  * [[Note: This callback goes out to all running applications, ensure that the app ID associated with the item matches what you expect.]]
- * 
- * See: [ISteamUGC::ItemInstalled_t](https://partner.steamgames.com/doc/api/ISteamUGC#ItemInstalled_t)
- * 
- * See: ${struct.SteamUgcItemInstalled}
  *
  * @param {Function} callback The function to be called when a workshop item is installed.
+ *
+ * @event callback
+ * @desc > **Steamworks Callback**: [ISteamUGC::ItemInstalled_t](https://partner.steamgames.com/doc/api/ISteamUGC#ItemInstalled_t)
+ *
+ * Called when a workshop item has been installed or updated.
+ *
+ * @member {Struct.SteamUgcItemInstalled} result The details of the installed item.
+ * @event_end
  * @function_end 
  */
 
@@ -859,11 +855,15 @@
  *
  * This function sets the function to be called when a workshop item download initiated by ${function.steam_ugc_download_item} has finished (successfully or not).
  *
- * See: [ISteamUGC::DownloadItemResult_t](https://partner.steamgames.com/doc/api/ISteamUGC#DownloadItemResult_t)
- *
- * See: ${struct.SteamUgcDownloadItemResult}
- *
  * @param {Function} callback The function to be called when a workshop item download completes.
+ *
+ * @event callback
+ * @desc > **Steamworks Callback**: [ISteamUGC::DownloadItemResult_t](https://partner.steamgames.com/doc/api/ISteamUGC#DownloadItemResult_t)
+ *
+ * Called when a workshop item download started with ${function.steam_ugc_download_item} has finished.
+ *
+ * @member {Struct.SteamUgcDownloadItemResult} result The details of the download.
+ * @event_end
  * @function_end
  */
 
@@ -896,7 +896,7 @@
  *
  * This function sets to only return items that have a specific filename on a pending UGC Query.
  * 
- * [[Note: This can only be used with ${function.steam_ugc_create_query_user_ugc_request}!]]
+ * [[Note: This can only be used with ${function.steam_ugc_create_query_user_ugc_request}.]]
  * 
  * [[Note: This must be set before you send a UGC Query handle using ${function.steam_ugc_send_query_ugc_request}.]]
  *
@@ -1068,7 +1068,7 @@
  *
  * This function sets whether workshop items will be returned if they have one or more matching tags, or if all tags need to match on a pending UGC Query.
  * 
- * [[Note: This can only be used with ${function.steam_ugc_create_query_all_ugc_request}!]]
+ * [[Note: This can only be used with ${function.steam_ugc_create_query_all_ugc_request}.]]
  * 
  * [[Note: This must be set before you send a UGC Query handle using ${function.steam_ugc_send_query_ugc_request}.]]
  *
@@ -1084,7 +1084,7 @@
  *
  * This function sets whether the order of the results will be updated based on the rank of items over a number of days on a pending UGC Query.
  * 
- * [[Note: This can only be used with ${function.steam_ugc_create_query_all_ugc_request}!]]
+ * [[Note: This can only be used with ${function.steam_ugc_create_query_all_ugc_request}.]]
  * 
  * [[Note: This must be set before you send a UGC Query handle using ${function.steam_ugc_send_query_ugc_request}.]]
  *
@@ -1172,7 +1172,7 @@
  *
  * This function sets whether to only return IDs instead of all the details on a pending UGC Query.
  * 
- * This is useful for when you don't need all the information (e.g. you just want to get the IDs of the items a user has in their favorites list.)
+ * This is useful for when you don't need all the information (e.g. you just want to get the IDs of the items a user has in their favourites list.)
  * 
  * [[Note: This must be set before you send a UGC Query handle using ${function.steam_ugc_send_query_ugc_request}.]]
  *
@@ -1218,7 +1218,7 @@
  *
  * This function sets a string that items need to match in either the title or the description on a pending UGC Query.
  * 
- * [[Note: This can only be used with ${function.steam_ugc_create_query_all_ugc_request}!]]
+ * [[Note: This can only be used with ${function.steam_ugc_create_query_all_ugc_request}.]]
  * 
  * [[Note: This must be set before you send a UGC Query handle using ${function.steam_ugc_send_query_ugc_request}.]]
  * 
@@ -1304,7 +1304,7 @@
  * @param {Function} callback The function to call upon completion.
  * 
  * @event callback
- * @desc **Steamworks Callback**: [ISteamUGC::StartPlaytimeTrackingResult_t](https://partner.steamgames.com/doc/api/ISteamUGC#StartPlaytimeTrackingResult_t)
+ * @desc > **Steamworks Callback**: [ISteamUGC::StartPlaytimeTrackingResult_t](https://partner.steamgames.com/doc/api/ISteamUGC#StartPlaytimeTrackingResult_t)
  * 
  * Called when workshop item playtime tracking has started.
  * 
@@ -1433,12 +1433,16 @@
  * @description > **Steamworks Function**: N / A
  *
  * This function sets the function to be called when the user has added or removed an item to/from their subscriptions for the returned app ID.
- * 
- * See: [ISteamUGC::UserSubscribedItemsListChanged_t](https://partner.steamgames.com/doc/api/ISteamUGC#UserSubscribedItemsListChanged_t)
- * 
- * See: ${struct.SteamUgcUserSubscribedItemsListChanged}
  *
  * @param {Function} callback The function to be called when the user's list of subscribed items changes.
+ *
+ * @event callback
+ * @desc > **Steamworks Callback**: [ISteamUGC::UserSubscribedItemsListChanged_t](https://partner.steamgames.com/doc/api/ISteamUGC#UserSubscribedItemsListChanged_t)
+ *
+ * Called when the user adds an item to, or removes an item from, their subscriptions.
+ *
+ * @member {Struct.SteamUgcUserSubscribedItemsListChanged} result The app ID whose subscriptions changed.
+ * @event_end
  * @function_end
  */
 
@@ -1710,7 +1714,7 @@
  *
  * @member {Enum.SteamApiResult} result The result of the operation.
  * @member {Real} published_file_id The item which was added/removed.
- * @member {Bool} was_add_request Was it added (`true`) or removed (`false`) from the user's favorites?
+ * @member {Bool} was_add_request Whether the item was added to (`true`) or removed from (`false`) the user's favourites.
  * @struct_end
  */
 
@@ -1994,10 +1998,10 @@
  * This enum is used to retrieve item statistics with ${function.steam_ugc_get_query_ugc_statistic}.
  *
  * @member NumSubscriptions Gets the number of subscriptions.
- * @member NumFavorites Gets the number of favorites.
+ * @member NumFavorites Gets the number of favourites.
  * @member NumFollowers Gets the number of followers.
  * @member NumUniqueSubscriptions Gets the number of unique subscriptions.
- * @member NumUniqueFavorites Gets the number of unique favorites.
+ * @member NumUniqueFavorites Gets the number of unique favourites.
  * @member NumUniqueFollowers Gets the number of unique followers.
  * @member NumUniqueWebsiteViews Gets the number of unique views the item has on its Steam Workshop page.
  * @member ReportScore Gets the number of times the item has been reported.

@@ -6,12 +6,16 @@
  * @description > **Steamworks Function**: N / A
  *
  * This function sets the function to be called when the lobby metadata has changed.
- * 
- * See: [ISteamMatchmaking::LobbyDataUpdate_t](https://partner.steamgames.com/doc/api/ISteamMatchmaking#LobbyDataUpdate_t)
- * 
- * See: ${struct.SteamMatchmakingLobbyDataUpdate}
  *
  * @param {Function} callback The function to be called when lobby data is updated.
+ *
+ * @event callback
+ * @desc > **Steamworks Callback**: [ISteamMatchmaking::LobbyDataUpdate_t](https://partner.steamgames.com/doc/api/ISteamMatchmaking#LobbyDataUpdate_t)
+ *
+ * Called when the metadata of a lobby, or of a member of the lobby, has changed.
+ *
+ * @member {Struct.SteamMatchmakingLobbyDataUpdate} result The details of the update.
+ * @event_end
  * @function_end
  */
 
@@ -29,12 +33,16 @@
  * @description > **Steamworks Function**: N / A
  *
  * This function sets the function to be called when a lobby chat room state has changed. This is usually sent when a user has joined or left the lobby.
- * 
- * See: [ISteamMatchmaking::LobbyChatUpdate_t](https://partner.steamgames.com/doc/api/ISteamMatchmaking#LobbyChatUpdate_t)
- * 
- * See: ${struct.SteamMatchmakingLobbyChatUpdate}
  *
  * @param {Function} callback The function to be called when a lobby chat update event occurs (a user joins, leaves or disconnects).
+ *
+ * @event callback
+ * @desc > **Steamworks Callback**: [ISteamMatchmaking::LobbyChatUpdate_t](https://partner.steamgames.com/doc/api/ISteamMatchmaking#LobbyChatUpdate_t)
+ *
+ * Called when the state of a lobby chat room changes, usually because a user joined or left the lobby.
+ *
+ * @member {Struct.SteamMatchmakingLobbyChatUpdate} result The details of the change.
+ * @event_end
  * @function_end
  */
 
@@ -52,12 +60,16 @@
  * @description > **Steamworks Function**: N / A
  *
  * This function sets the function to be called when a chat (text or binary) message for this lobby has been received. After getting this you must use ${function.steam_matchmaking_get_lobby_chat_entry} to retrieve the contents of this message.
- * 
- * See: [ISteamMatchmaking::LobbyChatMsg_t](https://partner.steamgames.com/doc/api/ISteamMatchmaking#LobbyChatMsg_t)
- * 
- * See: ${struct.SteamMatchmakingLobbyChatMsg}
  *
  * @param {Function} callback The function to be called when a lobby chat message is received.
+ *
+ * @event callback
+ * @desc > **Steamworks Callback**: [ISteamMatchmaking::LobbyChatMsg_t](https://partner.steamgames.com/doc/api/ISteamMatchmaking#LobbyChatMsg_t)
+ *
+ * Called when a chat message (text or binary) has been received for a lobby.
+ *
+ * @member {Struct.SteamMatchmakingLobbyChatMsg} result The details of the received message.
+ * @event_end
  * @function_end
  */
 
@@ -75,12 +87,16 @@
  * @description > **Steamworks Function**: N / A
  *
  * This function sets the function to be called when a game server has been set via ${function.steam_matchmaking_set_lobby_game_server} for all of the members of the lobby to join. It's up to the individual clients to take action on this; the typical game behaviour is to leave the lobby and connect to the specified game server; but the lobby may stay open throughout the session if desired.
- * 
- * See: [ISteamMatchmaking::LobbyGameCreated_t](https://partner.steamgames.com/doc/api/ISteamMatchmaking#LobbyGameCreated_t)
- * 
- * See: ${struct.SteamMatchmakingLobbyGameCreated}
  *
  * @param {Function} callback The function to be called when a game server is set for a lobby.
+ *
+ * @event callback
+ * @desc > **Steamworks Callback**: [ISteamMatchmaking::LobbyGameCreated_t](https://partner.steamgames.com/doc/api/ISteamMatchmaking#LobbyGameCreated_t)
+ *
+ * Called when a game server has been set for the lobby with ${function.steam_matchmaking_set_lobby_game_server}.
+ *
+ * @member {Struct.SteamMatchmakingLobbyGameCreated} result The details of the game server.
+ * @event_end
  * @function_end
  */
 
@@ -98,12 +114,16 @@
  * @description > **Steamworks Function**: N / A
  *
  * This function sets the function to be called when someone has invited you to join a Lobby. Normally you don't need to do anything with this, as the Steam UI will also display a '<user> has invited you to the lobby, join?' notification and message.
- * 
- * See: [ISteamMatchmaking::LobbyInvite_t](https://partner.steamgames.com/doc/api/ISteamMatchmaking#LobbyInvite_t)
- * 
- * See: ${struct.SteamMatchmakingLobbyInvite}
  *
  * @param {Function} callback The function to be called when the user receives a lobby invitation.
+ *
+ * @event callback
+ * @desc > **Steamworks Callback**: [ISteamMatchmaking::LobbyInvite_t](https://partner.steamgames.com/doc/api/ISteamMatchmaking#LobbyInvite_t)
+ *
+ * Called when the user has been invited to join a lobby.
+ *
+ * @member {Struct.SteamMatchmakingLobbyInvite} result The details of the invite.
+ * @event_end
  * @function_end
  */
 
@@ -163,7 +183,7 @@
  *
  * This function gets a filtered list of relevant lobbies.
  * 
- * There can only be one active lobby search at a time. The old request will be canceled if a new one is started. Depending on the user's connection to the Steam back-end, this call can take from 300ms to 5 seconds to complete, and has a timeout of 20 seconds.
+ * There can only be one active lobby search at a time. The old request will be cancelled if a new one is started. Depending on the user's connection to the Steam back-end, this call can take from 300ms to 5 seconds to complete, and has a timeout of 20 seconds.
  * 
  * [[Note: To filter the results you MUST call the `steam_matchmaking_add_request_lobby_list_*` functions before calling this. The filters are cleared on each call to this function.]]
  * 
@@ -222,7 +242,7 @@
  * @function steam_matchmaking_add_request_lobby_list_distance_filter
  * @description > **Steamworks Function**: [ISteamMatchmaking::AddRequestLobbyListDistanceFilter](https://partner.steamgames.com/doc/api/ISteamMatchmaking#AddRequestLobbyListDistanceFilter)
  *
- * This function sets the physical distance for which we should search for lobbies, this is based on the user's IP address and a IP location map on the Steam backend.
+ * This function sets the physical distance within which to search for lobbies. This is based on the user's IP address and an IP location map on the Steam back-end.
  *
  * @param {Enum.SteamMatchmakingLobbyDistanceFilter} distance Specifies the maximum distance.
  * @function_end 
@@ -411,17 +431,11 @@
  * 
  * There is a slight delay before sending the data so you can call this repeatedly to set all the data you need to and it will automatically be batched up and sent after the last sequential call.
  *
+ * Note that the change is announced to every member of the lobby through the callback set with ${function.steam_matchmaking_set_callback_lobby_data_update}.
+ *
  * @param {Real} lobby_id The Steam ID of the lobby to set our metadata in.
  * @param {String} key The key to set the data for. This can not be longer than the maximum lobby key length.
  * @param {String} value The value to set. This can not be longer than the maximum chat metadata size.
- * 
- * @event callback
- * @description > **Steamworks Callback**: [ISteamMatchmaking::LobbyDataUpdate_t](https://partner.steamgames.com/doc/api/ISteamMatchmaking#LobbyDataUpdate_t)
- * 
- * Triggered when the lobby metadata has changed.
- * 
- * @member {Struct.SteamMatchmakingLobbyDataUpdate} result The result of the operation.
- * @event_end
  * @function_end
  */
 
@@ -454,19 +468,13 @@
  * 
  * These messages are sent via the Steam back-end, and so the bandwidth available is limited. For higher-volume traffic like voice or game data, you'll want to use the [Steam Networking API](https://partner.steamgames.com/doc/features/multiplayer/networking) (${module.networking}).
  *
+ * Note that the message is delivered to every member of the lobby, including the sender, through the callback set with ${function.steam_matchmaking_set_callback_lobby_chat_msg}.
+ *
  * @param {Real} lobby_id The Steam ID of the lobby to send the chat message to.
  * @param {Buffer} msg The buffer holding the message data to send. This can be text or binary data, up to 4 kilobytes in size.
  * @param {Real} [buffer_offset] The offset into the buffer, in bytes. Defaults to 0.
  * @param {Real} [buffer_count] The size in bytes of the message data; if it is a text message then this should include the null terminator. Defaults to the buffer size minus the offset.
  * @returns {Bool}
- * 
- * @event callback
- * @description > **Steamworks Callback**: [ISteamMatchmaking::LobbyChatMsg_t](https://partner.steamgames.com/doc/api/ISteamMatchmaking#LobbyChatMsg_t)
- * 
- * Triggered when chat (text or binary) message for this lobby has been received.
- * 
- * @member {Struct.SteamMatchmakingLobbyChatMsg} result The result of the operation.
- * @event_end
  * @function_end
  */
 
@@ -501,16 +509,10 @@
  * 
  * You will never do this for lobbies you're a member of, that data will always be up to date. You can use this to refresh lobbies that you have obtained from ${function.steam_matchmaking_request_lobby_list} or that are available via friends.
  *
+ * Note that the data is delivered through the callback set with ${function.steam_matchmaking_set_callback_lobby_data_update}.
+ *
  * @param {Real} steam_id_lobby The Steam ID of the lobby to refresh the metadata of.
  * @returns {Bool}
- * 
- * @event callback
- * @description > **Steamworks Callback**: [ISteamMatchmaking::LobbyDataUpdate_t](https://partner.steamgames.com/doc/api/ISteamMatchmaking#LobbyDataUpdate_t)
- * 
- * Triggered when the lobby metadata has changed.
- * 
- * @member {Struct.SteamMatchmakingLobbyDataUpdate} result The result of the operation.
- * @event_end
  * @function_end
  */
 
@@ -569,18 +571,12 @@
  * 
  * A [LobbyGameCreated_t](https://partner.steamgames.com/doc/api/ISteamMatchmaking#LobbyGameCreated_t) callback will be sent to all players in the lobby, usually at this point, the users will join the specified game server.
  *
+ * Note that the server details are announced to every member of the lobby through the callback set with ${function.steam_matchmaking_set_callback_lobby_game_created}.
+ *
  * @param {Real} steam_id_lobby The Steam ID of the lobby to set the game server information for.
  * @param {Real} ip Sets the IP address of the game server, in host order, i.e 127.0.0.1 == 0x7f000001.
  * @param {Real} port Sets the connection port of the game server, in host order.
  * @param {Real} steam_id_gs Sets the Steam ID of the game server. Use a nil Steam ID if you're not setting this.
- * 
- * @event callback
- * @description > **Steamworks Callback**: [ISteamMatchmaking::LobbyGameCreated_t](https://partner.steamgames.com/doc/api/ISteamMatchmaking#LobbyGameCreated_t)
- * 
- * Triggered when a game server has been set via ${function.steam_matchmaking_set_lobby_game_server} for all of the members of the lobby to join.
- * 
- * @member {Struct.SteamMatchmakingLobbyGameCreated} result The result of the operation.
- * @event_end
  * @function_end
  */
 
@@ -613,7 +609,7 @@
  * @function steam_matchmaking_get_favorite_game_count
  * @description > **Steamworks Function**: [ISteamMatchmaking::GetFavoriteGameCount](https://partner.steamgames.com/doc/api/ISteamMatchmaking#GetFavoriteGameCount)
  *
- * This function returns the number of favorite (and recent) game servers the user has stored locally.
+ * This function returns the number of favourite (and recent) game servers the user has stored locally.
  *
  * @returns {Real}
  * @function_end
@@ -623,9 +619,9 @@
  * @function steam_matchmaking_get_favorite_game
  * @description > **Steamworks Function**: [ISteamMatchmaking::GetFavoriteGame](https://partner.steamgames.com/doc/api/ISteamMatchmaking#GetFavoriteGame)
  *
- * This function gets the details of one of the favorite (or recent) game servers the user has stored locally.
+ * This function gets the details of one of the favourite (or recent) game servers the user has stored locally.
  *
- * @param {Real} index The index of the favorite game server to retrieve, in the range [0, ${function.steam_matchmaking_get_favorite_game_count}).
+ * @param {Real} index The index of the favourite game server to retrieve, in the range [0, ${function.steam_matchmaking_get_favorite_game_count}).
  * @returns {Struct.SteamMatchmakingFavoriteGame}
  * @function_end
  */
@@ -634,15 +630,15 @@
  * @function steam_matchmaking_add_favorite_game
  * @description > **Steamworks Function**: [ISteamMatchmaking::AddFavoriteGame](https://partner.steamgames.com/doc/api/ISteamMatchmaking#AddFavoriteGame)
  *
- * This function adds the game server to the local favorites list, or updates its last-played time if it's already in the list.
+ * This function adds the game server to the local favourites list, or updates its last-played time if it's already in the list.
  *
  * @param {Real} app_id The App ID of the game.
  * @param {Real} ip The IP address of the game server, in host order (i.e 127.0.0.1 == 0x7f000001).
  * @param {Real} conn_port The connection port of the game server, in host order.
  * @param {Real} query_port The query port of the game server, in host order.
- * @param {Real} flags A bitmask of `STEAM_MATCHMAKING_FAVORITE_FLAG_*` values specifying whether to store this as an explicit favorite or as connection history.
- * @param {Real} last_played_time The time (as a Unix timestamp) the favorite was last played.
- * @returns {Real} The new number of entries in the favorites list.
+ * @param {Real} flags A bitmask of `STEAM_MATCHMAKING_FAVORITE_FLAG_*` values specifying whether to store this as an explicit favourite or as connection history.
+ * @param {Real} last_played_time The time (as a Unix timestamp) the favourite was last played.
+ * @returns {Real} The new number of entries in the favourites list.
  * @function_end
  */
 
@@ -650,7 +646,7 @@
  * @function steam_matchmaking_remove_favorite_game
  * @description > **Steamworks Function**: [ISteamMatchmaking::RemoveFavoriteGame](https://partner.steamgames.com/doc/api/ISteamMatchmaking#RemoveFavoriteGame)
  *
- * This function removes the game server from the local favorites list.
+ * This function removes the game server from the local favourites list.
  *
  * @param {Real} app_id The App ID of the game.
  * @param {Real} ip The IP address of the game server, in host order.
@@ -755,8 +751,8 @@
  * This struct holds information passed in a `LobbyInvite_t` callback.
  *
  * @member {Real} inviter_id Steam ID of the person that sent the invite.
- * @member {Real} lobby_id Steam ID of the lobby we're invited to.
- * @member {String} game_id Game ID of the lobby we're invited to.
+ * @member {Real} lobby_id The Steam ID of the lobby the user is invited to.
+ * @member {String} game_id The game ID of the lobby the user is invited to.
  * @struct_end
  */
 
@@ -799,14 +795,14 @@
  * @struct SteamMatchmakingFavoriteGame
  * @description > **Steamworks Struct**: N / A
  *
- * This struct holds information about one entry in the local favorites (or recent connection history) list, as returned by ${function.steam_matchmaking_get_favorite_game}.
+ * This struct holds information about one entry in the local favourites (or recent connection history) list, as returned by ${function.steam_matchmaking_get_favorite_game}.
  *
  * @member {Real} app_id The App ID of the game.
  * @member {Real} ip The IP address of the game server, in host order.
  * @member {Real} conn_port The connection port of the game server, in host order.
  * @member {Real} query_port The query port of the game server, in host order.
- * @member {Real} flags A bitmask of `STEAM_MATCHMAKING_FAVORITE_FLAG_*` values - whether this entry is an explicit favorite or connection history.
- * @member {Real} last_played_time The time (as a Unix timestamp) the favorite was last played.
+ * @member {Real} flags A bitmask of `STEAM_MATCHMAKING_FAVORITE_FLAG_*` values - whether this entry is an explicit favourite or connection history.
+ * @member {Real} last_played_time The time (as a Unix timestamp) the favourite was last played.
  * @struct_end
  */
 
@@ -895,7 +891,7 @@
  * @title Matchmaking
  * @desc > **Steamworks Interface**: [ISteamMatchmaking](https://partner.steamgames.com/doc/api/ISteamMatchmaking)
  * 
- * This module contains functions for clients to access matchmaking services, favorites, and to operate on game lobbies.
+ * This module contains functions for clients to access matchmaking services, favourites, and to operate on game lobbies.
  * 
  * See [Steam Matchmaking & Lobbies](https://partner.steamgames.com/doc/features/multiplayer/matchmaking) for more information.
  * 

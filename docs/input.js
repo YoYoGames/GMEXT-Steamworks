@@ -281,12 +281,12 @@
  * @function steam_input_set_led_color
  * @description > **Steamworks Function**: [ISteamInput::SetLEDColor](https://partner.steamgames.com/doc/api/ISteamInput#SetLEDColor)
  *
- * This function sets the controller LED color on supported controllers.
+ * This function sets the controller LED colour on supported controllers.
  *
  * @param {Real} input_handle The handle of the controller to affect.
- * @param {Real} color_r The red component of the color to set (0-255).
- * @param {Real} color_g The green component of the color to set (0-255).
- * @param {Real} color_b The blue component of the color to set (0-255).
+ * @param {Real} color_r The red component of the colour to set (0-255).
+ * @param {Real} color_g The green component of the colour to set (0-255).
+ * @param {Real} color_b The blue component of the colour to set (0-255).
  * @param {Enum.SteamInputControllerLEDFlag} flags Bit-masked flags combined from values defined in the ${constant.SteamInputControllerLEDFlag} enum.
  * @function_end
  */
@@ -331,11 +331,7 @@
  *
  * This function triggers a vibration event on supported controllers.
  * 
- * [[Notes: 
- * 
- * * This API call will be ignored for incompatible controller models.
- * * This generates the traditional "rumble" vibration effect.
- * * The VSC will emulate traditional rumble using its haptics.]]
+ * [[Note: This call is ignored for incompatible controller models. It generates the traditional "rumble" vibration effect; the Steam Controller emulates it using its haptics.]]
  *
  * @param {Real} input_handle The handle of the controller to affect.
  * @param {Real} left_speed The intensity value for the left rumble motor.
@@ -349,7 +345,7 @@
  *
  * This function triggers a vibration event on supported controllers, including Xbox Impulse Trigger motor values.
  * 
- * [[Notes: On Windows support for Xbox Impulse Trigger motor values requires user installation of the Xbox Extended Feature support driver. The Steam Controller and Steam Deck will emulate traditional rumble using their haptics.]]
+ * [[Note: On Windows, support for Xbox Impulse Trigger motor values requires user installation of the Xbox Extended Feature support driver. The Steam Controller and Steam Deck will emulate traditional rumble using their haptics.]]
  *
  * @param {Real} input_handle The handle of the controller to affect.
  * @param {Real} left_speed The intensity value for the left rumble motor.
@@ -409,11 +405,17 @@
  * @function steam_input_set_callback_device_connected
  * @description > **Steamworks Function**: N / A
  *
- * This function sets the function to be called when an new device connects.
- * 
- * See: ${struct.SteamInputDeviceEvent}
+ * This function sets the function to be called when a new device connects.
  *
  * @param {Function} callback The function to be called when an input device is connected.
+ *
+ * @event callback
+ * @desc > **Steamworks Callback**: N / A
+ *
+ * Called once for every controller that connects, with its input handle.
+ *
+ * @member {Struct.SteamInputDeviceEvent} result The details of the connected controller.
+ * @event_end
  * @function_end
  */
 
@@ -431,10 +433,16 @@
  * @description > **Steamworks Function**: N / A
  *
  * This function sets the function to be called when a device disconnects.
- * 
- * See: ${struct.SteamInputDeviceEvent}
  *
  * @param {Function} callback The function to be called when an input device is disconnected.
+ *
+ * @event callback
+ * @desc > **Steamworks Callback**: N / A
+ *
+ * Called once for every controller that disconnects, with its input handle.
+ *
+ * @member {Struct.SteamInputDeviceEvent} result The details of the disconnected controller.
+ * @event_end
  * @function_end
  */
 
@@ -536,7 +544,7 @@
  * @member None No input mode.
  * @member Dpad A digital pad -- four digital directional buttons fused together in a cross pattern, such that only one button from each axis can be pressed at any given time.
  * @member Buttons Buttons.
- * @member FourButtons Four digital face buttons, any of which can be pressed simultaneously
+ * @member FourButtons Four digital face buttons, any of which can be pressed simultaneously.
  * @member AbsoluteMouse AbsoluteMouse.
  * @member RelativeMouse RelativeMouse.
  * @member JoystickMove JoystickMove.
@@ -557,10 +565,10 @@
  * @enum SteamInputControllerLEDFlag
  * @description > **Steamworks Enum**: [ISteamInput::ESteamControllerLEDFlag](https://partner.steamgames.com/doc/api/ISteamInput#ESteamControllerLEDFlag)
  * 
- * This enum controls the color of a Steam Controller Device's LED (if the device indeed has one).
+ * This enum controls the colour of a Steam Controller Device's LED (if the device indeed has one).
  * 
- * @member SetColor Set the color to the specified values.
- * @member RestoreUserDefault Restore the color to default (out-of-game) settings.
+ * @member SetColor Set the colour to the specified values.
+ * @member RestoreUserDefault Restore the colour to default (out-of-game) settings.
  * @enum_end
  */
 
@@ -586,7 +594,7 @@
  * @member Knockout Face buttons will have colored labels/outlines on a knocked out background. Rest of inputs will have white detail/borders on a knocked out background.
  * @member Light Black detail/borders on a white background.
  * @member Dark White detail/borders on a black background.
- * @member NeutralColorABXY ABXY Buttons will match the base style color instead of their normal associated color.
+ * @member NeutralColorABXY ABXY Buttons will match the base style colour instead of their normal associated colour.
  * @member SolidABXY ABXY Buttons will have a solid fill.
  * @enum_end
  */

@@ -7,19 +7,13 @@
  *
  * This function adds a screenshot to the user's Steam screenshot library from disk.
  *
+ * Note that the result is delivered through the callback set with ${function.steam_screenshots_set_callback_screenshot_ready}.
+ *
  * @param {String} filename The absolute file path to the JPG, PNG, or TGA screenshot.
  * @param {String} thumbnail_filename The absolute file path to an optional thumbnail image. This must be 200px wide, as described by [k_ScreenshotThumbWidth](https://partner.steamgames.com/doc/api/ISteamScreenshots#k_ScreenshotThumbWidth) and the same aspect ratio. Pass an empty string `""` if there is no thumbnail, one will be created automatically.
  * @param {Real} width The width of the screenshot.
  * @param {Real} height The height of the screenshot.
  * @returns {Real} Screenshot handle, or `STEAM_SCREENSHOTS_INVALID_SCREENSHOT_HANDLE` if the file could not be saved (See: ${constant.macros})
- * 
- * @event callback
- * @desc > **Steamworks Callback**: [ISteamScreenshots::ScreenshotReady_t](https://partner.steamgames.com/doc/api/ISteamScreenshots#ScreenshotReady_t)
- * 
- * This is triggered when a screenshot has been successfully written or otherwise added to the library and can now be tagged.
- * 
- * @member {Struct.SteamScreenshotsScreenshotReady} result The result of the operation.
- * @event_end
  * @function_end
  */
 
@@ -29,18 +23,12 @@
  *
  * This function adds a VR screenshot to the user's Steam screenshot library from disk in the supported type.
  *
+ * Note that the result is delivered through the callback set with ${function.steam_screenshots_set_callback_screenshot_ready}.
+ *
  * @param {Enum.SteamScreenshotsVrScreenshotType} type The type of VR screenshot that this is.
  * @param {String} filename The absolute file path to a 2D JPG, PNG, or TGA version of the screenshot for the library view.
  * @param {String} vr_filename The absolute file path to the VR screenshot, this should be the same type of screenshot specified in `type`.
  * @returns {Real} Screenshot handle, or `STEAM_SCREENSHOTS_INVALID_SCREENSHOT_HANDLE` if the file could not be saved (See: ${constant.macros})
- * 
- * @event callback
- * @desc > **Steamworks Callback**: [ISteamScreenshots::ScreenshotReady_t](https://partner.steamgames.com/doc/api/ISteamScreenshots#ScreenshotReady_t)
- * 
- * This is triggered when a screenshot has been successfully written or otherwise added to the library and can now be tagged.
- * 
- * @member {Struct.SteamScreenshotsScreenshotReady} result The result of the operation.
- * @event_end
  * @function_end
  */
 
@@ -56,16 +44,9 @@
  * 
  * You can check if hooking is enabled with ${function.steam_screenshots_is_screenshots_hooked}.
  *
- * @param {Bool} hook Enable (`true`) or disable (`false`) hooking?
- * 
- * @event callback
- * @desc **Steamworks Callback**: [ISteamScreenshots::ScreenshotRequested_t](https://partner.steamgames.com/doc/api/ISteamScreenshots#ScreenshotRequested_t)
- * 
- * Triggered when a screenshot has been requested by the user from the Steam screenshot hotkey. This will only be called if ${function.steam_screenshots_hook_screenshots} has been enabled, in which case Steam will not take the screenshot itself.
- * 
- * This callback has no fields.
- * 
- * @event_end
+ * Note that while hooked, each request is delivered through the callback set with ${function.steam_screenshots_set_callback_screenshot_requested}.
+ *
+ * @param {Bool} hook Whether to enable (`true`) or disable (`false`) hooking.
  * @function_end
  */
 
@@ -136,24 +117,10 @@
  * @description > **Steamworks Function**: [ISteamScreenshots::TriggerScreenshot](https://partner.steamgames.com/doc/api/ISteamScreenshots#TriggerScreenshot)
  *
  * This function either causes the Steam Overlay to take a screenshot, or tells your screenshot manager that a screenshot needs to be taken. Depending on the value of ${function.steam_screenshots_is_screenshots_hooked}.
- * 
- * @event callback
- * @desc > **Steamworks Callback**: [ISteamScreenshots::ScreenshotReady_t](https://partner.steamgames.com/doc/api/ISteamScreenshots#ScreenshotReady_t)
- * 
- * This is triggered when a screenshot has been successfully written or otherwise added to the library and can now be tagged.
- * 
- * @member {Struct.SteamScreenshotsScreenshotReady} result The result of the operation.
- * @event_end
- * 
- * @event callback
- * @desc **Steamworks Callback**: [ISteamScreenshots::ScreenshotRequested_t](https://partner.steamgames.com/doc/api/ISteamScreenshots#ScreenshotRequested_t)
- * 
- * Triggered when a screenshot has been requested by the user from the Steam screenshot hotkey. This will only be called if ${function.steam_screenshots_hook_screenshots} has been enabled, in which case Steam will not take the screenshot itself.
- * 
- * This callback has no fields.
- * 
- * @event_end
- * 
+ *
+ * Note that the outcome is delivered through the callback set with ${function.steam_screenshots_set_callback_screenshot_ready}, or, when screenshots are hooked, through the one set with ${function.steam_screenshots_set_callback_screenshot_requested}.
+ *
+
  * @function_end
  */
 
@@ -163,20 +130,14 @@
  *
  * This function writes a screenshot to the user's Steam screenshot library given the raw image data, which must be in RGB format.
  *
+ * Note that the result is delivered through the callback set with ${function.steam_screenshots_set_callback_screenshot_ready}.
+ *
  * @param {Buffer} buff_rgb The buffer containing the raw RGB data from the screenshot.
  * @param {Real} width The width of the screenshot in pixels.
  * @param {Real} height The height of the screenshot in pixels.
  * @param {Real} [buffer_offset] The offset into the buffer, in bytes. Defaults to 0.
  * @param {Real} [buffer_count] The number of bytes to write. Defaults to the buffer size minus the offset.
  * @returns {Real} Screenshot handle, or `STEAM_SCREENSHOTS_INVALID_SCREENSHOT_HANDLE` if the file could not be saved
- * 
- * @event callback
- * @desc > **Steamworks Callback**: [ISteamScreenshots::ScreenshotReady_t](https://partner.steamgames.com/doc/api/ISteamScreenshots#ScreenshotReady_t)
- * 
- * This is triggered when a screenshot has been successfully written or otherwise added to the library and can now be tagged.
- * 
- * @member {Struct.SteamScreenshotsScreenshotReady} result The result of the operation.
- * @event_end
  * 
  * @function_end
  */
@@ -186,12 +147,16 @@
  * @description > **Steamworks Function**: N / A
  *
  * This function sets the callback function to be triggered after a screenshot has been successfully written or otherwise added to the library and can now be tagged.
- * 
- * See: [ISteamScreenshots::ScreenshotReady_t](https://partner.steamgames.com/doc/api/ISteamScreenshots#ScreenshotReady_t)
- * 
- * See: ${struct.SteamScreenshotsScreenshotReady}
  *
  * @param {Function} callback The callback function to use.
+ *
+ * @event callback
+ * @desc > **Steamworks Callback**: [ISteamScreenshots::ScreenshotReady_t](https://partner.steamgames.com/doc/api/ISteamScreenshots#ScreenshotReady_t)
+ *
+ * Called when a screenshot has been written or otherwise added to the library and can now be tagged.
+ *
+ * @member {Struct.SteamScreenshotsScreenshotReady} result The details of the screenshot.
+ * @event_end
  * @function_end
  */
 
@@ -200,12 +165,17 @@
  * @description > **Steamworks Function**: N / A
  *
  * This function sets the callback function to be triggered after a screenshot has been requested by the user from the Steam screenshot hotkey. This will only be called if ${function.steam_screenshots_hook_screenshots} has been enabled, in which case Steam will not take the screenshot itself.
- * 
- * See: [ISteamScreenshots::ScreenshotRequested_t](https://partner.steamgames.com/doc/api/ISteamScreenshots#ScreenshotRequested_t)
- * 
- * This callback has no fields.
  *
  * @param {Function} callback The callback function to use.
+ *
+ * @event callback
+ * @desc > **Steamworks Callback**: [ISteamScreenshots::ScreenshotRequested_t](https://partner.steamgames.com/doc/api/ISteamScreenshots#ScreenshotRequested_t)
+ *
+ * Called when the user presses the Steam screenshot hotkey while screenshots are hooked with ${function.steam_screenshots_hook_screenshots}.
+ *
+ * This callback receives no arguments.
+ *
+ * @event_end
  * @function_end
  */
 
