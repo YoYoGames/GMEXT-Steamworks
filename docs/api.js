@@ -576,7 +576,7 @@
  * 
  * This module contains general management functions.
  * 
- * See: https://partner.steamgames.com/doc/api/steam_api
+ * See: [Steam API](https://partner.steamgames.com/doc/api/steam_api)
  * 
  * @section_func Functions
  * @desc These are the functions of the API module:

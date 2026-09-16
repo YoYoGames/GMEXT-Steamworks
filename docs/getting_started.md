@@ -4,23 +4,23 @@
 
 To use the Steamworks extension, follow these steps:
 
-1. Import this Steamworks extension into your project, if you haven't done that already.
-2. The Steam client needs to be **installed**, **running** and with an account **logged in** ([official site](https://store.steampowered.com/)) while testing from the IDE.
-3. Download the Steamworks SDK (version 1.63) from the [Steamworks partner site](https://partner.steamgames.com/dashboard) and extract the contents of the zip into a directory of your choice (e.g. `C:\steamworks\sdk`).
+* Import this Steamworks extension into your project, if you haven't done that already. Download the .yymps file from the [Releases](https://github.com/YoYoGames/GMEXT-Steamworks/releases) page and drag it into your GameMaker window, or use the Tools -> Import Local Package option. Import all files.
+* The Steam client needs to be **installed**, **running** and with an account **logged in** ([official site](https://store.steampowered.com/)) while testing from the IDE.
+* Download the Steamworks SDK (version 1.63) from the [Steamworks partner site](https://partner.steamgames.com/dashboard) and extract the contents of the zip into a directory of your choice (e.g. `C:\steamworks\sdk`).
 
    ![](assets/steamworks_setup_sdk.jpg)
 
-4. To configure the extension, double-click on the Steamworks extension in your Asset Browser in the IDE.
+* To configure the extension, double-click on the Steamworks extension in your Asset Browser in the IDE.
 
    ![](assets/steamworks_setup_asset_browser.jpg)
 
-5. At the bottom of the extension window you will find the configurable options, grouped into **Build Options**, **App Options** and **Extra Options**.
+* At the bottom of the extension window you will find the configurable options, grouped into **Build Options**, **App Options** and **Extra Options**.
 
    ![](assets/steamworks_setup_ext_options.png)
 
    The **Steam SDK** build option must point at the folder you extracted in step 3, and the **Application ID** app option must hold your game's app ID from the [Steamworks dashboard](https://partner.steamgames.com/dashboard). Full details on every option: ${page.extension_options}.
 
-[[Note: While developing from the IDE, set **Debug** to `Enabled`. With `Auto`, a game that was not launched through Steam is relaunched through it and the process started by the IDE exits at once. Set it back to `Auto` before publishing.]]
+   [[Note: While developing from the IDE, set **Debug** to `Enabled`. With `Auto`, a game that was not launched through Steam is relaunched through it and the process started by the IDE exits at once. Set it back to `Auto` before publishing.]]
 
 # Initialising
 

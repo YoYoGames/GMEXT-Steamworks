@@ -589,7 +589,7 @@
  * 
  * You can use the local user's Steam ID (${function.steam_user_get_steam_id}) to get their level.
  * 
- * If the Steam level is not immediately available for the specified user then this returns 0 and queues it to be downloaded from the Steam servers. When it gets downloaded a [PersonaStateChange_t](https://partner.steamgames.com/doc/api/ISteamFriends#PersonaStateChange_t) callback ($struct.SteamFriendsPersonaStateChange) will be posted with `change_flags` including `SteamFriendsPersonaChange.SteamLevel`.
+ * If the Steam level is not immediately available for the specified user then this returns 0 and queues it to be downloaded from the Steam servers. When it gets downloaded a [PersonaStateChange_t](https://partner.steamgames.com/doc/api/ISteamFriends#PersonaStateChange_t) callback (${struct.SteamFriendsPersonaStateChange}) will be posted with `change_flags` including `SteamFriendsPersonaChange.SteamLevel`.
  *
  * @param {Real} steam_id_friend The Steam ID of the user.
  * @returns {Real} 

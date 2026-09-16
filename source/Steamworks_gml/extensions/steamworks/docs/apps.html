@@ -1,125 +1,1931 @@
-<!DOCTYPE html>
-<html class="writer-html5" lang="en" >
-<head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <link rel="shortcut icon" href="img/favicon.ico" />
-    <title>Apps - GMEXT-Steamworks</title>
-    <link rel="stylesheet" href="css/theme.css" />
-    <link rel="stylesheet" href="css/theme_extra.css" />
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
-        <link href="assets/css/gmext_style.css" rel="stylesheet" />
-    
-      <script>
-        // Current page data
-        var mkdocs_page_name = "Apps";
-        var mkdocs_page_input_path = "apps.md";
-        var mkdocs_page_url = null;
-      </script>
-    
-    <!--[if lt IE 9]>
-      <script src="js/html5shiv.min.js"></script>
-    <![endif]-->
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/gml.min.js"></script>
-      <script>hljs.highlightAll();</script> 
-</head>
 
-<body class="wy-body-for-nav" role="document">
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="api.html">
+      
+      
+        <link rel="next" href="friends.html">
+      
+      
+        
+      
+      
+      <link rel="icon" href="assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Apps - GMEXT-Steamworks</title>
+      
+    
+    
+      <link rel="stylesheet" href="assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
 
-  <div class="wy-grid-for-nav">
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
-    <div class="wy-side-scroll">
-      <div class="wy-side-nav-search">
-          <a href="." class="icon icon-home"> GMEXT-Steamworks
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+    
+      <link rel="stylesheet" href="assets/css/extra.css">
+    
+    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  <script>(function(){try{var w=["--gm-nav-width","--gm-toc-width"],i,v;for(i=0;i<w.length;i++){v=localStorage.getItem(w[i]);if(v)document.documentElement.style.setProperty(w[i],v)}}catch(e){}})()</script></head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#apps" class="md-skip">
+          Skip to content
         </a>
-      </div>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
 
-      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption"><span class="caption-text">Guides</span></p>
-              <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting Started</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="extension_options.html">Extension Options</a>
-                  </li>
-              </ul>
-              <p class="caption"><span class="caption-text">Modules</span></p>
-              <ul class="current">
-                  <li class="toctree-l1"><a class="reference internal" href="api.html">API</a>
-                  </li>
-                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Apps</a>
-    <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#functions">Functions</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#constants">Constants</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#structs">Structs</a>
-    </li>
-    </ul>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="friends.html">Friends</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="input.html">Input</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="inventory.html">Inventory</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="matchmaking.html">Matchmaking</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="music.html">Music</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="networking.html">Networking</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="parties.html">Parties</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="remote_storage.html">Remote Storage</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="screenshots.html">Screenshots</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="timeline.html">Timeline</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="ugc.html">UGC</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="user.html">User</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="userstats.html">UserStats</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="utils.html">Utils</a>
-                  </li>
-              </ul>
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="home.html" title="GMEXT-Steamworks" class="md-header__button md-logo" aria-label="GMEXT-Steamworks" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            GMEXT-Steamworks
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Apps
+            
+          </span>
+        </div>
       </div>
     </div>
-    </nav>
-
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href=".">GMEXT-Steamworks</a>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/YoYoGames/GMEXT-Steamworks" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
         
-      </nav>
-      <div class="wy-nav-content">
-        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
-  <ul class="wy-breadcrumbs">
-    <li><a href="." class="icon icon-home" aria-label="Docs"></a></li>
-          <li class="breadcrumb-item">Modules</li>
-      <li class="breadcrumb-item active">Apps</li>
-    <li class="wy-breadcrumbs-aside">
-          <a href="https://github.com/YoYoGames/GMEXT-Steamworks/edit/master/docs/apps.md" class="icon icon-github"> Edit on GitHub</a>
-    </li>
-  </ul>
-  <hr/>
-</div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-            <div class="section" itemprop="articleBody">
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
               
-                <p><a id="top"></a></p>
-<h1 id="apps"><strong>Apps</strong></h1>
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="home.html" title="GMEXT-Steamworks" class="md-nav__button md-logo" aria-label="GMEXT-Steamworks" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    GMEXT-Steamworks
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/YoYoGames/GMEXT-Steamworks" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="home.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Steamworks Extension
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Guides
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Guides
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="getting_started.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="extension_options.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Extension Options
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modules
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Modules
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="api.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Apps
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="apps.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Apps
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#apps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Apps
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Apps">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Functions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#constants" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Constants
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#structs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Structs
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_apps_get_dlc_data_by_index" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_apps_get_dlc_data_by_index
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_apps_is_app_installed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_apps_is_app_installed
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_apps_is_dlc_installed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_apps_is_dlc_installed
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_apps_is_low_violence" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_apps_is_low_violence
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_apps_is_subscribed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_apps_is_subscribed
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_apps_is_subscribed_app" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_apps_is_subscribed_app
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_apps_is_subscribed_from_family_sharing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_apps_is_subscribed_from_family_sharing
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_apps_is_subscribed_from_free_weekend" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_apps_is_subscribed_from_free_weekend
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_apps_is_timed_trial" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_apps_is_timed_trial
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_apps_is_vac_banned" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_apps_is_vac_banned
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_apps_get_app_build_id" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_apps_get_app_build_id
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_apps_get_app_install_dir" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_apps_get_app_install_dir
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_apps_get_app_owner" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_apps_get_app_owner
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_apps_get_available_game_languages" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_apps_get_available_game_languages
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_apps_get_current_beta_name" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_apps_get_current_beta_name
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_apps_get_num_betas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_apps_get_num_betas
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_apps_get_beta_info" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_apps_get_beta_info
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_apps_set_active_beta" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_apps_set_active_beta
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_apps_get_current_game_language" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_apps_get_current_game_language
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_apps_get_dlc_count" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_apps_get_dlc_count
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_apps_get_dlc_download_progress" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_apps_get_dlc_download_progress
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_apps_get_app_ownership_ticket_data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_apps_get_app_ownership_ticket_data
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_apps_get_earliest_purchase_unix_time" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_apps_get_earliest_purchase_unix_time
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_apps_get_file_details" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_apps_get_file_details
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_apps_get_installed_depots" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_apps_get_installed_depots
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_apps_get_launch_command_line" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_apps_get_launch_command_line
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_apps_get_launch_query_param" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_apps_get_launch_query_param
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_apps_install_dlc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_apps_install_dlc
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_apps_mark_content_corrupt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_apps_mark_content_corrupt
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_apps_uninstall_dlc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_apps_uninstall_dlc
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_apps_set_callback_dlc_installed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_apps_set_callback_dlc_installed
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_apps_clear_callback_dlc_installed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_apps_clear_callback_dlc_installed
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steamappsbetabranchflags" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamAppsBetaBranchFlags
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steamappsfiledetailsresult" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamAppsFileDetailsResult
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steamappsdlcdata" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamAppsDlcData
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steamappsistimedtrialresult" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamAppsIsTimedTrialResult
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steamappsnumbetas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamAppsNumBetas
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steamappsbetainfo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamAppsBetaInfo
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steamappsdlcdownloadprogress" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamAppsDlcDownloadProgress
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steamappsdlcinstalled" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamAppsDlcInstalled
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="friends.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Friends
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="input.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Input
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="inventory.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inventory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="matchmaking.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Matchmaking
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="music.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Music
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="networking.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Networking
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="parties.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parties
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="remote_storage.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Remote Storage
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="screenshots.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Screenshots
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="timeline.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Timeline
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ugc.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UGC
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="user.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    User
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="userstats.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UserStats
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="utils.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Utils
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#apps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Apps
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Apps">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Functions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#constants" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Constants
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#structs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Structs
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_apps_get_dlc_data_by_index" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_apps_get_dlc_data_by_index
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_apps_is_app_installed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_apps_is_app_installed
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_apps_is_dlc_installed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_apps_is_dlc_installed
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_apps_is_low_violence" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_apps_is_low_violence
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_apps_is_subscribed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_apps_is_subscribed
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_apps_is_subscribed_app" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_apps_is_subscribed_app
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_apps_is_subscribed_from_family_sharing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_apps_is_subscribed_from_family_sharing
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_apps_is_subscribed_from_free_weekend" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_apps_is_subscribed_from_free_weekend
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_apps_is_timed_trial" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_apps_is_timed_trial
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_apps_is_vac_banned" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_apps_is_vac_banned
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_apps_get_app_build_id" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_apps_get_app_build_id
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_apps_get_app_install_dir" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_apps_get_app_install_dir
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_apps_get_app_owner" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_apps_get_app_owner
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_apps_get_available_game_languages" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_apps_get_available_game_languages
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_apps_get_current_beta_name" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_apps_get_current_beta_name
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_apps_get_num_betas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_apps_get_num_betas
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_apps_get_beta_info" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_apps_get_beta_info
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_apps_set_active_beta" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_apps_set_active_beta
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_apps_get_current_game_language" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_apps_get_current_game_language
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_apps_get_dlc_count" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_apps_get_dlc_count
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_apps_get_dlc_download_progress" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_apps_get_dlc_download_progress
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_apps_get_app_ownership_ticket_data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_apps_get_app_ownership_ticket_data
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_apps_get_earliest_purchase_unix_time" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_apps_get_earliest_purchase_unix_time
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_apps_get_file_details" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_apps_get_file_details
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_apps_get_installed_depots" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_apps_get_installed_depots
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_apps_get_launch_command_line" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_apps_get_launch_command_line
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_apps_get_launch_query_param" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_apps_get_launch_query_param
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_apps_install_dlc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_apps_install_dlc
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_apps_mark_content_corrupt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_apps_mark_content_corrupt
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_apps_uninstall_dlc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_apps_uninstall_dlc
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_apps_set_callback_dlc_installed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_apps_set_callback_dlc_installed
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_apps_clear_callback_dlc_installed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_apps_clear_callback_dlc_installed
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steamappsbetabranchflags" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamAppsBetaBranchFlags
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steamappsfiledetailsresult" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamAppsFileDetailsResult
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steamappsdlcdata" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamAppsDlcData
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steamappsistimedtrialresult" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamAppsIsTimedTrialResult
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steamappsnumbetas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamAppsNumBetas
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steamappsbetainfo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamAppsBetaInfo
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steamappsdlcdownloadprogress" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamAppsDlcDownloadProgress
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steamappsdlcinstalled" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamAppsDlcInstalled
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<p><a id="top"></a></p>
+<h1 id="apps"><strong>Apps</strong><a class="headerlink" href="#apps" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Interface</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamApps">ISteamApps</a></p>
 </blockquote>
 <p>This module exposes a wide range of information and actions for applications and <a href="https://partner.steamgames.com/doc/store/application/dlc">Downloadable Content (DLC)</a>.</p>
-<h2 id="functions">Functions</h2>
+<h2 id="functions">Functions<a class="headerlink" href="#functions" title="Permanent link">&para;</a></h2>
 <p>These are the functions of the Apps module:</p>
 <ul>
 <li><a href="apps.html#steam_apps_get_dlc_data_by_index">steam_apps_get_dlc_data_by_index</a></li>
@@ -155,12 +1961,12 @@
 <li><a href="apps.html#steam_apps_set_callback_dlc_installed">steam_apps_set_callback_dlc_installed</a></li>
 <li><a href="apps.html#steam_apps_clear_callback_dlc_installed">steam_apps_clear_callback_dlc_installed</a></li>
 </ul>
-<h2 id="constants">Constants</h2>
+<h2 id="constants">Constants<a class="headerlink" href="#constants" title="Permanent link">&para;</a></h2>
 <p>These are the constants and enums of the Apps module:</p>
 <ul>
 <li><a href="apps.html#steamappsbetabranchflags">SteamAppsBetaBranchFlags</a></li>
 </ul>
-<h2 id="structs">Structs</h2>
+<h2 id="structs">Structs<a class="headerlink" href="#structs" title="Permanent link">&para;</a></h2>
 <p>These are the structs of the Apps module:</p>
 <ul>
 <li><a href="apps.html#steamappsfiledetailsresult">SteamAppsFileDetailsResult</a></li>
@@ -175,7 +1981,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_apps_get_dlc_data_by_index">steam_apps_get_dlc_data_by_index</h1>
+<h1 id="steam_apps_get_dlc_data_by_index">steam_apps_get_dlc_data_by_index<a class="headerlink" href="#steam_apps_get_dlc_data_by_index" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamApps#BGetDLCDataByIndex">ISteamApps#BGetDLCDataByIndex</a></p>
 </blockquote>
@@ -183,8 +1989,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_apps_get_dlc_data_by_index(dlc)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_apps_get_dlc_data_by_index(dlc)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -211,7 +2016,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_apps_is_app_installed">steam_apps_is_app_installed</h1>
+<h1 id="steam_apps_is_app_installed">steam_apps_is_app_installed<a class="headerlink" href="#steam_apps_is_app_installed" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamApps#BIsAppInstalled">ISteamApps::BIsAppInstalled</a></p>
 </blockquote>
@@ -223,8 +2028,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_apps_is_app_installed(app_id)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_apps_is_app_installed(app_id)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -252,7 +2056,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_apps_is_dlc_installed">steam_apps_is_dlc_installed</h1>
+<h1 id="steam_apps_is_dlc_installed">steam_apps_is_dlc_installed<a class="headerlink" href="#steam_apps_is_dlc_installed" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamApps#BIsDlcInstalled">ISteamApps::BIsDlcInstalled</a></p>
 </blockquote>
@@ -264,8 +2068,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_apps_is_dlc_installed(app_id)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_apps_is_dlc_installed(app_id)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -293,7 +2096,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_apps_is_low_violence">steam_apps_is_low_violence</h1>
+<h1 id="steam_apps_is_low_violence">steam_apps_is_low_violence<a class="headerlink" href="#steam_apps_is_low_violence" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamApps#BIsLowViolence">ISteamApps::BIsLowViolence</a></p>
 </blockquote>
@@ -303,8 +2106,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_apps_is_low_violence()
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_apps_is_low_violence()</code></pre>
 </blockquote>
 <p><br></p>
 <p><strong>Returns:</strong></p>
@@ -316,7 +2118,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_apps_is_subscribed">steam_apps_is_subscribed</h1>
+<h1 id="steam_apps_is_subscribed">steam_apps_is_subscribed<a class="headerlink" href="#steam_apps_is_subscribed" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamApps#BIsSubscribed">ISteamApps::BIsSubscribed</a></p>
 </blockquote>
@@ -328,8 +2130,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_apps_is_subscribed()
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_apps_is_subscribed()</code></pre>
 </blockquote>
 <p><br></p>
 <p><strong>Returns:</strong></p>
@@ -340,7 +2141,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_apps_is_subscribed_app">steam_apps_is_subscribed_app</h1>
+<h1 id="steam_apps_is_subscribed_app">steam_apps_is_subscribed_app<a class="headerlink" href="#steam_apps_is_subscribed_app" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamApps#BIsSubscribedApp">ISteamApps::BIsSubscribedApp</a></p>
 </blockquote>
@@ -349,8 +2150,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_apps_is_subscribed_app(app_id)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_apps_is_subscribed_app(app_id)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -377,7 +2177,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_apps_is_subscribed_from_family_sharing">steam_apps_is_subscribed_from_family_sharing</h1>
+<h1 id="steam_apps_is_subscribed_from_family_sharing">steam_apps_is_subscribed_from_family_sharing<a class="headerlink" href="#steam_apps_is_subscribed_from_family_sharing" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamApps#BIsSubscribedFromFamilySharing">ISteamApps::BIsSubscribedFromFamilySharing</a></p>
 </blockquote>
@@ -386,8 +2186,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_apps_is_subscribed_from_family_sharing()
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_apps_is_subscribed_from_family_sharing()</code></pre>
 </blockquote>
 <p><br></p>
 <p><strong>Returns:</strong></p>
@@ -398,7 +2197,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_apps_is_subscribed_from_free_weekend">steam_apps_is_subscribed_from_free_weekend</h1>
+<h1 id="steam_apps_is_subscribed_from_free_weekend">steam_apps_is_subscribed_from_free_weekend<a class="headerlink" href="#steam_apps_is_subscribed_from_free_weekend" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamApps#BIsSubscribedFromFreeWeekend">ISteamApps::BIsSubscribedFromFreeWeekend</a></p>
 </blockquote>
@@ -407,8 +2206,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_apps_is_subscribed_from_free_weekend()
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_apps_is_subscribed_from_free_weekend()</code></pre>
 </blockquote>
 <p><br></p>
 <p><strong>Returns:</strong></p>
@@ -419,7 +2217,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_apps_is_timed_trial">steam_apps_is_timed_trial</h1>
+<h1 id="steam_apps_is_timed_trial">steam_apps_is_timed_trial<a class="headerlink" href="#steam_apps_is_timed_trial" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamApps#BIsTimedTrial">ISteamApps::BIsTimedTrial</a></p>
 </blockquote>
@@ -428,8 +2226,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_apps_is_timed_trial()
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_apps_is_timed_trial()</code></pre>
 </blockquote>
 <p><br></p>
 <p><strong>Returns:</strong></p>
@@ -440,7 +2237,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_apps_is_vac_banned">steam_apps_is_vac_banned</h1>
+<h1 id="steam_apps_is_vac_banned">steam_apps_is_vac_banned<a class="headerlink" href="#steam_apps_is_vac_banned" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamApps#BIsVACBanned">ISteamApps::BIsVACBanned</a></p>
 </blockquote>
@@ -448,8 +2245,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_apps_is_vac_banned()
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_apps_is_vac_banned()</code></pre>
 </blockquote>
 <p><br></p>
 <p><strong>Returns:</strong></p>
@@ -460,7 +2256,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_apps_get_app_build_id">steam_apps_get_app_build_id</h1>
+<h1 id="steam_apps_get_app_build_id">steam_apps_get_app_build_id<a class="headerlink" href="#steam_apps_get_app_build_id" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamApps#GetAppBuildId">ISteamApps::GetAppBuildId</a></p>
 </blockquote>
@@ -468,8 +2264,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_apps_get_app_build_id()
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_apps_get_app_build_id()</code></pre>
 </blockquote>
 <p><br></p>
 <p><strong>Returns:</strong></p>
@@ -481,7 +2276,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_apps_get_app_install_dir">steam_apps_get_app_install_dir</h1>
+<h1 id="steam_apps_get_app_install_dir">steam_apps_get_app_install_dir<a class="headerlink" href="#steam_apps_get_app_install_dir" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamApps#GetAppInstallDir">ISteamApps::GetAppInstallDir</a></p>
 </blockquote>
@@ -490,8 +2285,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_apps_get_app_install_dir(app_id)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_apps_get_app_install_dir(app_id)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -518,7 +2312,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_apps_get_app_owner">steam_apps_get_app_owner</h1>
+<h1 id="steam_apps_get_app_owner">steam_apps_get_app_owner<a class="headerlink" href="#steam_apps_get_app_owner" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamApps#GetAppOwner">ISteamApps::GetAppOwner</a></p>
 </blockquote>
@@ -526,8 +2320,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_apps_get_app_owner()
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_apps_get_app_owner()</code></pre>
 </blockquote>
 <p><br></p>
 <p><strong>Returns:</strong></p>
@@ -538,7 +2331,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_apps_get_available_game_languages">steam_apps_get_available_game_languages</h1>
+<h1 id="steam_apps_get_available_game_languages">steam_apps_get_available_game_languages<a class="headerlink" href="#steam_apps_get_available_game_languages" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamApps#GetAvailableGameLanguages">ISteamApps::GetAvailableGameLanguages</a></p>
 </blockquote>
@@ -548,8 +2341,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_apps_get_available_game_languages()
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_apps_get_available_game_languages()</code></pre>
 </blockquote>
 <p><br></p>
 <p><strong>Returns:</strong></p>
@@ -560,7 +2352,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_apps_get_current_beta_name">steam_apps_get_current_beta_name</h1>
+<h1 id="steam_apps_get_current_beta_name">steam_apps_get_current_beta_name<a class="headerlink" href="#steam_apps_get_current_beta_name" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamApps#GetCurrentBetaName">ISteamApps::GetCurrentBetaName</a></p>
 </blockquote>
@@ -568,8 +2360,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_apps_get_current_beta_name()
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_apps_get_current_beta_name()</code></pre>
 </blockquote>
 <p><br></p>
 <p><strong>Returns:</strong></p>
@@ -580,7 +2371,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_apps_get_num_betas">steam_apps_get_num_betas</h1>
+<h1 id="steam_apps_get_num_betas">steam_apps_get_num_betas<a class="headerlink" href="#steam_apps_get_num_betas" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamApps#GetNumBetas">ISteamApps::GetNumBetas</a></p>
 </blockquote>
@@ -588,8 +2379,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_apps_get_num_betas()
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_apps_get_num_betas()</code></pre>
 </blockquote>
 <p><br></p>
 <p><strong>Returns:</strong></p>
@@ -600,7 +2390,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_apps_get_beta_info">steam_apps_get_beta_info</h1>
+<h1 id="steam_apps_get_beta_info">steam_apps_get_beta_info<a class="headerlink" href="#steam_apps_get_beta_info" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamApps#GetBetaInfo">ISteamApps::GetBetaInfo</a></p>
 </blockquote>
@@ -608,8 +2398,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_apps_get_beta_info(beta_index)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_apps_get_beta_info(beta_index)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -636,7 +2425,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_apps_set_active_beta">steam_apps_set_active_beta</h1>
+<h1 id="steam_apps_set_active_beta">steam_apps_set_active_beta<a class="headerlink" href="#steam_apps_set_active_beta" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamApps#SetActiveBeta">ISteamApps::SetActiveBeta</a></p>
 </blockquote>
@@ -644,8 +2433,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_apps_set_active_beta(beta_name)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_apps_set_active_beta(beta_name)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -672,7 +2460,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_apps_get_current_game_language">steam_apps_get_current_game_language</h1>
+<h1 id="steam_apps_get_current_game_language">steam_apps_get_current_game_language<a class="headerlink" href="#steam_apps_get_current_game_language" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamApps#GetCurrentGameLanguage">ISteamApps::GetCurrentGameLanguage</a></p>
 </blockquote>
@@ -683,8 +2471,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_apps_get_current_game_language()
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_apps_get_current_game_language()</code></pre>
 </blockquote>
 <p><br></p>
 <p><strong>Returns:</strong></p>
@@ -695,7 +2482,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_apps_get_dlc_count">steam_apps_get_dlc_count</h1>
+<h1 id="steam_apps_get_dlc_count">steam_apps_get_dlc_count<a class="headerlink" href="#steam_apps_get_dlc_count" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamApps#GetDLCCount">ISteamApps::GetDLCCount</a></p>
 </blockquote>
@@ -704,8 +2491,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_apps_get_dlc_count()
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_apps_get_dlc_count()</code></pre>
 </blockquote>
 <p><br></p>
 <p><strong>Returns:</strong></p>
@@ -717,7 +2503,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_apps_get_dlc_download_progress">steam_apps_get_dlc_download_progress</h1>
+<h1 id="steam_apps_get_dlc_download_progress">steam_apps_get_dlc_download_progress<a class="headerlink" href="#steam_apps_get_dlc_download_progress" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamApps#GetDlcDownloadProgress">ISteamApps::GetDlcDownloadProgress</a></p>
 </blockquote>
@@ -725,8 +2511,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_apps_get_dlc_download_progress(app_id)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_apps_get_dlc_download_progress(app_id)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -753,7 +2538,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_apps_get_app_ownership_ticket_data">steam_apps_get_app_ownership_ticket_data</h1>
+<h1 id="steam_apps_get_app_ownership_ticket_data">steam_apps_get_app_ownership_ticket_data<a class="headerlink" href="#steam_apps_get_app_ownership_ticket_data" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamAppTicket">ISteamAppTicket::GetAppOwnershipTicketData</a></p>
 </blockquote>
@@ -761,8 +2546,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_apps_get_app_ownership_ticket_data(app_id, ticket_buffer)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_apps_get_app_ownership_ticket_data(app_id, ticket_buffer)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -794,7 +2578,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_apps_get_earliest_purchase_unix_time">steam_apps_get_earliest_purchase_unix_time</h1>
+<h1 id="steam_apps_get_earliest_purchase_unix_time">steam_apps_get_earliest_purchase_unix_time<a class="headerlink" href="#steam_apps_get_earliest_purchase_unix_time" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamApps#GetEarliestPurchaseUnixTime">ISteamApps::GetEarliestPurchaseUnixTime</a></p>
 </blockquote>
@@ -803,8 +2587,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_apps_get_earliest_purchase_unix_time(app_id)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_apps_get_earliest_purchase_unix_time(app_id)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -831,7 +2614,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_apps_get_file_details">steam_apps_get_file_details</h1>
+<h1 id="steam_apps_get_file_details">steam_apps_get_file_details<a class="headerlink" href="#steam_apps_get_file_details" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamApps#GetFileDetails">ISteamApps::GetFileDetails</a></p>
 </blockquote>
@@ -840,8 +2623,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_apps_get_file_details(file_name, callback)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_apps_get_file_details(file_name, callback)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -895,7 +2677,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_apps_get_installed_depots">steam_apps_get_installed_depots</h1>
+<h1 id="steam_apps_get_installed_depots">steam_apps_get_installed_depots<a class="headerlink" href="#steam_apps_get_installed_depots" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamApps#GetInstalledDepots">ISteamApps::GetInstalledDepots</a></p>
 </blockquote>
@@ -903,8 +2685,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_apps_get_installed_depots(app_id, max_depots)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_apps_get_installed_depots(app_id, max_depots)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -937,7 +2718,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_apps_get_launch_command_line">steam_apps_get_launch_command_line</h1>
+<h1 id="steam_apps_get_launch_command_line">steam_apps_get_launch_command_line<a class="headerlink" href="#steam_apps_get_launch_command_line" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamApps#GetLaunchCommandLine">ISteamApps::GetLaunchCommandLine</a></p>
 </blockquote>
@@ -945,8 +2726,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_apps_get_launch_command_line()
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_apps_get_launch_command_line()</code></pre>
 </blockquote>
 <p><br></p>
 <p><strong>Returns:</strong></p>
@@ -957,7 +2737,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_apps_get_launch_query_param">steam_apps_get_launch_query_param</h1>
+<h1 id="steam_apps_get_launch_query_param">steam_apps_get_launch_query_param<a class="headerlink" href="#steam_apps_get_launch_query_param" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamApps#GetLaunchQueryParam">ISteamApps::GetLaunchQueryParam</a></p>
 </blockquote>
@@ -967,8 +2747,7 @@ Parameter names starting with an underscore <code>"_"</code> are reserved for St
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_apps_get_launch_query_param(key)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_apps_get_launch_query_param(key)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -996,7 +2775,7 @@ Parameter names starting with an underscore <code>"_"</code> are reserved for St
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_apps_install_dlc">steam_apps_install_dlc</h1>
+<h1 id="steam_apps_install_dlc">steam_apps_install_dlc<a class="headerlink" href="#steam_apps_install_dlc" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamApps#InstallDLC">ISteamApps::InstallDLC</a></p>
 </blockquote>
@@ -1005,8 +2784,7 @@ Parameter names starting with an underscore <code>"_"</code> are reserved for St
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_apps_install_dlc(app_id)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_apps_install_dlc(app_id)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -1033,7 +2811,7 @@ Parameter names starting with an underscore <code>"_"</code> are reserved for St
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_apps_mark_content_corrupt">steam_apps_mark_content_corrupt</h1>
+<h1 id="steam_apps_mark_content_corrupt">steam_apps_mark_content_corrupt<a class="headerlink" href="#steam_apps_mark_content_corrupt" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamApps#MarkContentCorrupt">ISteamApps::MarkContentCorrupt</a></p>
 </blockquote>
@@ -1042,8 +2820,7 @@ Parameter names starting with an underscore <code>"_"</code> are reserved for St
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_apps_mark_content_corrupt(missing_files_only)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_apps_mark_content_corrupt(missing_files_only)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -1070,7 +2847,7 @@ Parameter names starting with an underscore <code>"_"</code> are reserved for St
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_apps_uninstall_dlc">steam_apps_uninstall_dlc</h1>
+<h1 id="steam_apps_uninstall_dlc">steam_apps_uninstall_dlc<a class="headerlink" href="#steam_apps_uninstall_dlc" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamApps#UninstallDLC">ISteamApps::UninstallDLC</a></p>
 </blockquote>
@@ -1078,8 +2855,7 @@ Parameter names starting with an underscore <code>"_"</code> are reserved for St
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_apps_uninstall_dlc(app_id)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_apps_uninstall_dlc(app_id)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -1106,7 +2882,7 @@ Parameter names starting with an underscore <code>"_"</code> are reserved for St
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_apps_set_callback_dlc_installed">steam_apps_set_callback_dlc_installed</h1>
+<h1 id="steam_apps_set_callback_dlc_installed">steam_apps_set_callback_dlc_installed<a class="headerlink" href="#steam_apps_set_callback_dlc_installed" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: N / A</p>
 </blockquote>
@@ -1115,8 +2891,7 @@ Parameter names starting with an underscore <code>"_"</code> are reserved for St
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_apps_set_callback_dlc_installed(callback)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_apps_set_callback_dlc_installed(callback)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -1166,7 +2941,7 @@ Parameter names starting with an underscore <code>"_"</code> are reserved for St
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_apps_clear_callback_dlc_installed">steam_apps_clear_callback_dlc_installed</h1>
+<h1 id="steam_apps_clear_callback_dlc_installed">steam_apps_clear_callback_dlc_installed<a class="headerlink" href="#steam_apps_clear_callback_dlc_installed" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: N / A</p>
 </blockquote>
@@ -1174,8 +2949,7 @@ Parameter names starting with an underscore <code>"_"</code> are reserved for St
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_apps_clear_callback_dlc_installed()
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_apps_clear_callback_dlc_installed()</code></pre>
 </blockquote>
 <p><br></p>
 <p><strong>Returns:</strong></p>
@@ -1186,7 +2960,7 @@ Parameter names starting with an underscore <code>"_"</code> are reserved for St
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steamappsbetabranchflags">SteamAppsBetaBranchFlags</h1>
+<h1 id="steamappsbetabranchflags">SteamAppsBetaBranchFlags<a class="headerlink" href="#steamappsbetabranchflags" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Enum</strong>: <a href="https://github.com/ValveSoftware/GameNetworkingSockets/blob/master/include/steam/steamclientpublic.h#L464">EBetaBranchFlags</a></p>
 </blockquote>
@@ -1234,7 +3008,7 @@ Parameter names starting with an underscore <code>"_"</code> are reserved for St
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steamappsfiledetailsresult">SteamAppsFileDetailsResult</h1>
+<h1 id="steamappsfiledetailsresult">SteamAppsFileDetailsResult<a class="headerlink" href="#steamappsfiledetailsresult" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Struct</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamApps#FileDetailsResult_t">ISteamApps::FileDetailsResult_t</a></p>
 </blockquote>
@@ -1279,7 +3053,7 @@ Parameter names starting with an underscore <code>"_"</code> are reserved for St
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steamappsdlcdata">SteamAppsDlcData</h1>
+<h1 id="steamappsdlcdata">SteamAppsDlcData<a class="headerlink" href="#steamappsdlcdata" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Struct</strong>: N / A</p>
 </blockquote>
@@ -1319,7 +3093,7 @@ Parameter names starting with an underscore <code>"_"</code> are reserved for St
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steamappsistimedtrialresult">SteamAppsIsTimedTrialResult</h1>
+<h1 id="steamappsistimedtrialresult">SteamAppsIsTimedTrialResult<a class="headerlink" href="#steamappsistimedtrialresult" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Struct</strong>: N / A</p>
 </blockquote>
@@ -1354,7 +3128,7 @@ Parameter names starting with an underscore <code>"_"</code> are reserved for St
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steamappsnumbetas">SteamAppsNumBetas</h1>
+<h1 id="steamappsnumbetas">SteamAppsNumBetas<a class="headerlink" href="#steamappsnumbetas" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Struct</strong>: N / A</p>
 </blockquote>
@@ -1394,7 +3168,7 @@ Parameter names starting with an underscore <code>"_"</code> are reserved for St
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steamappsbetainfo">SteamAppsBetaInfo</h1>
+<h1 id="steamappsbetainfo">SteamAppsBetaInfo<a class="headerlink" href="#steamappsbetainfo" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Struct</strong>: N / A</p>
 </blockquote>
@@ -1439,7 +3213,7 @@ Parameter names starting with an underscore <code>"_"</code> are reserved for St
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steamappsdlcdownloadprogress">SteamAppsDlcDownloadProgress</h1>
+<h1 id="steamappsdlcdownloadprogress">SteamAppsDlcDownloadProgress<a class="headerlink" href="#steamappsdlcdownloadprogress" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Struct</strong>: N / A</p>
 </blockquote>
@@ -1474,7 +3248,7 @@ Parameter names starting with an underscore <code>"_"</code> are reserved for St
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steamappsdlcinstalled">SteamAppsDlcInstalled</h1>
+<h1 id="steamappsdlcinstalled">SteamAppsDlcInstalled<a class="headerlink" href="#steamappsdlcinstalled" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Struct</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamApps#DlcInstalled_t">ISteamApps::DlcInstalled_t</a></p>
 </blockquote>
@@ -1502,57 +3276,73 @@ Parameter names starting with an underscore <code>"_"</code> are reserved for St
 </table>
 <p><br></p>
 <hr />
-              
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
             </div>
-          </div><footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="api.html" class="btn btn-neutral float-left" title="API"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="friends.html" class="btn btn-neutral float-right" title="Friends">Next <span class="icon icon-circle-arrow-right"></span></a>
-    </div>
-
-  <hr/>
-
-  <div role="contentinfo">
-    <!-- Copyright etc -->
-      <p><p align="center">GameMaker 2026</p></p>
-  </div>
-
-  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
-</footer>
           
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
         </div>
-      </div>
-
-    </section>
-
-  </div>
-
-  <div class="rst-versions" role="note" aria-label="Versions">
-  <span class="rst-current-version" data-toggle="rst-current-version">
-    
-        <span>
-          <a href="https://github.com/YoYoGames/GMEXT-Steamworks" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
-        </span>
-    
-    
-      <span><a href="api.html" style="color: #fcfcfc">&laquo; Previous</a></span>
-    
-    
-      <span><a href="friends.html" style="color: #fcfcfc">Next &raquo;</a></span>
-    
-  </span>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      <p align="center">GameMaker 2026</p>
+    </div>
+  
+  
 </div>
-    <script src="js/jquery-3.6.0.min.js"></script>
-    <script>var base_url = ".";</script>
-    <script src="js/theme_extra.js"></script>
-    <script src="js/theme.js"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/gml.min.js"></script>
-      <script src="assets/js/gmext_script.js"></script>
-    <script>
-        jQuery(function () {
-            SphinxRtdTheme.Navigation.enable(true);
-        });
-    </script>
-
-</body>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["navigation.top", "navigation.tracking", "toc.follow", "content.code.copy"], "search": "assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/gml.min.js"></script>
+      
+        <script src="assets/js/hljs-init.js"></script>
+      
+        <script src="assets/js/resize-columns.js"></script>
+      
+    
+  </body>
 </html>

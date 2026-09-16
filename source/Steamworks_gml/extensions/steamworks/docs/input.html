@@ -1,126 +1,2174 @@
-<!DOCTYPE html>
-<html class="writer-html5" lang="en" >
-<head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <link rel="shortcut icon" href="img/favicon.ico" />
-    <title>Input - GMEXT-Steamworks</title>
-    <link rel="stylesheet" href="css/theme.css" />
-    <link rel="stylesheet" href="css/theme_extra.css" />
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
-        <link href="assets/css/gmext_style.css" rel="stylesheet" />
-    
-      <script>
-        // Current page data
-        var mkdocs_page_name = "Input";
-        var mkdocs_page_input_path = "input.md";
-        var mkdocs_page_url = null;
-      </script>
-    
-    <!--[if lt IE 9]>
-      <script src="js/html5shiv.min.js"></script>
-    <![endif]-->
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/gml.min.js"></script>
-      <script>hljs.highlightAll();</script> 
-</head>
 
-<body class="wy-body-for-nav" role="document">
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="friends.html">
+      
+      
+        <link rel="next" href="inventory.html">
+      
+      
+        
+      
+      
+      <link rel="icon" href="assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Input - GMEXT-Steamworks</title>
+      
+    
+    
+      <link rel="stylesheet" href="assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
 
-  <div class="wy-grid-for-nav">
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
-    <div class="wy-side-scroll">
-      <div class="wy-side-nav-search">
-          <a href="." class="icon icon-home"> GMEXT-Steamworks
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+    
+      <link rel="stylesheet" href="assets/css/extra.css">
+    
+    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  <script>(function(){try{var w=["--gm-nav-width","--gm-toc-width"],i,v;for(i=0;i<w.length;i++){v=localStorage.getItem(w[i]);if(v)document.documentElement.style.setProperty(w[i],v)}}catch(e){}})()</script></head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#input" class="md-skip">
+          Skip to content
         </a>
-      </div>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
 
-      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption"><span class="caption-text">Guides</span></p>
-              <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting Started</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="extension_options.html">Extension Options</a>
-                  </li>
-              </ul>
-              <p class="caption"><span class="caption-text">Modules</span></p>
-              <ul class="current">
-                  <li class="toctree-l1"><a class="reference internal" href="api.html">API</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="apps.html">Apps</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="friends.html">Friends</a>
-                  </li>
-                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Input</a>
-    <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#functions">Functions</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#constants">Constants</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#structs">Structs</a>
-    </li>
-    </ul>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="inventory.html">Inventory</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="matchmaking.html">Matchmaking</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="music.html">Music</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="networking.html">Networking</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="parties.html">Parties</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="remote_storage.html">Remote Storage</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="screenshots.html">Screenshots</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="timeline.html">Timeline</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="ugc.html">UGC</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="user.html">User</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="userstats.html">UserStats</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="utils.html">Utils</a>
-                  </li>
-              </ul>
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="home.html" title="GMEXT-Steamworks" class="md-header__button md-logo" aria-label="GMEXT-Steamworks" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            GMEXT-Steamworks
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Input
+            
+          </span>
+        </div>
       </div>
     </div>
-    </nav>
-
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href=".">GMEXT-Steamworks</a>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/YoYoGames/GMEXT-Steamworks" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
         
-      </nav>
-      <div class="wy-nav-content">
-        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
-  <ul class="wy-breadcrumbs">
-    <li><a href="." class="icon icon-home" aria-label="Docs"></a></li>
-          <li class="breadcrumb-item">Modules</li>
-      <li class="breadcrumb-item active">Input</li>
-    <li class="wy-breadcrumbs-aside">
-          <a href="https://github.com/YoYoGames/GMEXT-Steamworks/edit/master/docs/input.md" class="icon icon-github"> Edit on GitHub</a>
-    </li>
-  </ul>
-  <hr/>
-</div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-            <div class="section" itemprop="articleBody">
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
               
-                <p><a id="top"></a></p>
-<h1 id="input"><strong>Input</strong></h1>
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="home.html" title="GMEXT-Steamworks" class="md-nav__button md-logo" aria-label="GMEXT-Steamworks" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    GMEXT-Steamworks
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/YoYoGames/GMEXT-Steamworks" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="home.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Steamworks Extension
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Guides
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Guides
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="getting_started.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="extension_options.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Extension Options
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modules
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Modules
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="api.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="apps.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Apps
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="friends.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Friends
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Input
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="input.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Input
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#input" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Input
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Input">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Functions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#constants" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Constants
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#structs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Structs
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_input_activate_action_set" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_input_activate_action_set
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_input_activate_action_set_layer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_input_activate_action_set_layer
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_input_deactivate_action_set_layer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_input_deactivate_action_set_layer
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_input_deactivate_all_action_set_layers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_input_deactivate_all_action_set_layers
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_input_get_active_action_set_layers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_input_get_active_action_set_layers
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_input_get_action_set_handle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_input_get_action_set_handle
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_input_get_analog_action_data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_input_get_analog_action_data
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_input_get_analog_action_handle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_input_get_analog_action_handle
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_input_get_analog_action_origins" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_input_get_analog_action_origins
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_input_get_glyph_png_for_action_origin" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_input_get_glyph_png_for_action_origin
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_input_get_glyph_svg_for_action_origin" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_input_get_glyph_svg_for_action_origin
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_input_get_connected_controllers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_input_get_connected_controllers
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_input_get_controller_for_gamepad_index" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_input_get_controller_for_gamepad_index
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_input_get_current_action_set" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_input_get_current_action_set
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_input_get_digital_action_data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_input_get_digital_action_data
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_input_get_digital_action_handle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_input_get_digital_action_handle
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_input_get_digital_action_origins" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_input_get_digital_action_origins
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_input_get_gamepad_index_for_controller" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_input_get_gamepad_index_for_controller
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_input_get_input_type_for_handle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_input_get_input_type_for_handle
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_input_get_motion_data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_input_get_motion_data
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_input_get_string_for_action_origin" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_input_get_string_for_action_origin
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_input_init" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_input_init
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_input_run_frame" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_input_run_frame
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_input_set_dualsense_trigger_effect" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_input_set_dualsense_trigger_effect
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_input_set_led_color" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_input_set_led_color
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_input_show_binding_panel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_input_show_binding_panel
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_input_shutdown" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_input_shutdown
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_input_stop_analog_action_momentum" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_input_stop_analog_action_momentum
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_input_trigger_vibration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_input_trigger_vibration
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_input_trigger_vibration_extended" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_input_trigger_vibration_extended
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_input_get_action_origin_from_xbox_origin" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_input_get_action_origin_from_xbox_origin
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_input_translate_action_origin" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_input_translate_action_origin
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_input_get_device_binding_revision" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_input_get_device_binding_revision
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_input_get_remote_play_session_id" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_input_get_remote_play_session_id
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_input_set_callback_device_connected" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_input_set_callback_device_connected
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_input_clear_callback_device_connected" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_input_clear_callback_device_connected
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_input_set_callback_device_disconnected" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_input_set_callback_device_disconnected
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_input_clear_callback_device_disconnected" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_input_clear_callback_device_disconnected
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steaminputcontrollersourcemode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamInputControllerSourceMode
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steaminputcontrollerledflag" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamInputControllerLEDFlag
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steaminputglyphsize" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamInputGlyphSize
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steaminputglyphstyle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamInputGlyphStyle
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steaminputtype" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamInputType
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steaminputxboxorigin" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamInputXboxOrigin
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steaminputactionorigin" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamInputActionOrigin
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steaminputanalogactiondata" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamInputAnalogActionData
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steaminputdigitalactiondata" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamInputDigitalActionData
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steaminputmotiondata" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamInputMotionData
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steaminputactionorigins" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamInputActionOrigins
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steaminputdevicebindingrevision" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamInputDeviceBindingRevision
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steaminputdeviceevent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamInputDeviceEvent
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="inventory.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inventory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="matchmaking.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Matchmaking
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="music.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Music
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="networking.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Networking
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="parties.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parties
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="remote_storage.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Remote Storage
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="screenshots.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Screenshots
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="timeline.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Timeline
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ugc.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UGC
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="user.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    User
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="userstats.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UserStats
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="utils.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Utils
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#input" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Input
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Input">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Functions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#constants" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Constants
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#structs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Structs
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_input_activate_action_set" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_input_activate_action_set
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_input_activate_action_set_layer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_input_activate_action_set_layer
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_input_deactivate_action_set_layer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_input_deactivate_action_set_layer
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_input_deactivate_all_action_set_layers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_input_deactivate_all_action_set_layers
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_input_get_active_action_set_layers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_input_get_active_action_set_layers
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_input_get_action_set_handle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_input_get_action_set_handle
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_input_get_analog_action_data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_input_get_analog_action_data
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_input_get_analog_action_handle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_input_get_analog_action_handle
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_input_get_analog_action_origins" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_input_get_analog_action_origins
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_input_get_glyph_png_for_action_origin" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_input_get_glyph_png_for_action_origin
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_input_get_glyph_svg_for_action_origin" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_input_get_glyph_svg_for_action_origin
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_input_get_connected_controllers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_input_get_connected_controllers
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_input_get_controller_for_gamepad_index" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_input_get_controller_for_gamepad_index
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_input_get_current_action_set" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_input_get_current_action_set
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_input_get_digital_action_data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_input_get_digital_action_data
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_input_get_digital_action_handle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_input_get_digital_action_handle
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_input_get_digital_action_origins" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_input_get_digital_action_origins
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_input_get_gamepad_index_for_controller" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_input_get_gamepad_index_for_controller
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_input_get_input_type_for_handle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_input_get_input_type_for_handle
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_input_get_motion_data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_input_get_motion_data
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_input_get_string_for_action_origin" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_input_get_string_for_action_origin
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_input_init" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_input_init
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_input_run_frame" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_input_run_frame
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_input_set_dualsense_trigger_effect" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_input_set_dualsense_trigger_effect
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_input_set_led_color" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_input_set_led_color
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_input_show_binding_panel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_input_show_binding_panel
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_input_shutdown" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_input_shutdown
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_input_stop_analog_action_momentum" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_input_stop_analog_action_momentum
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_input_trigger_vibration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_input_trigger_vibration
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_input_trigger_vibration_extended" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_input_trigger_vibration_extended
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_input_get_action_origin_from_xbox_origin" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_input_get_action_origin_from_xbox_origin
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_input_translate_action_origin" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_input_translate_action_origin
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_input_get_device_binding_revision" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_input_get_device_binding_revision
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_input_get_remote_play_session_id" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_input_get_remote_play_session_id
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_input_set_callback_device_connected" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_input_set_callback_device_connected
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_input_clear_callback_device_connected" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_input_clear_callback_device_connected
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_input_set_callback_device_disconnected" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_input_set_callback_device_disconnected
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_input_clear_callback_device_disconnected" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_input_clear_callback_device_disconnected
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steaminputcontrollersourcemode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamInputControllerSourceMode
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steaminputcontrollerledflag" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamInputControllerLEDFlag
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steaminputglyphsize" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamInputGlyphSize
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steaminputglyphstyle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamInputGlyphStyle
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steaminputtype" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamInputType
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steaminputxboxorigin" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamInputXboxOrigin
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steaminputactionorigin" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamInputActionOrigin
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steaminputanalogactiondata" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamInputAnalogActionData
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steaminputdigitalactiondata" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamInputDigitalActionData
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steaminputmotiondata" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamInputMotionData
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steaminputactionorigins" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamInputActionOrigins
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steaminputdevicebindingrevision" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamInputDeviceBindingRevision
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steaminputdeviceevent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamInputDeviceEvent
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<p><a id="top"></a></p>
+<h1 id="input"><strong>Input</strong><a class="headerlink" href="#input" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Interface</strong>: <a href="https://partner.steamgames.com/doc/api/isteaminput">ISteamInput</a></p>
 </blockquote>
 <p>This module contains Steam Input functionality. Steam Input API is a flexible action-based API that supports all major controller types - Xbox, PlayStation, Nintendo Switch Pro, and Steam Controllers.</p>
 <p>See the <a href="https://partner.steamgames.com/doc/features/steam_controller">Steam Input</a> documentation for more information.</p>
-<h2 id="functions">Functions</h2>
+<h2 id="functions">Functions<a class="headerlink" href="#functions" title="Permanent link">&para;</a></h2>
 <p>These are the functions of the Input module:</p>
 <ul>
 <li><a href="input.html#steam_input_activate_action_set">steam_input_activate_action_set</a></li>
@@ -162,7 +2210,7 @@
 <li><a href="input.html#steam_input_set_callback_device_disconnected">steam_input_set_callback_device_disconnected</a></li>
 <li><a href="input.html#steam_input_clear_callback_device_disconnected">steam_input_clear_callback_device_disconnected</a></li>
 </ul>
-<h2 id="constants">Constants</h2>
+<h2 id="constants">Constants<a class="headerlink" href="#constants" title="Permanent link">&para;</a></h2>
 <p>These are the constants and enums of the Input module:</p>
 <ul>
 <li><a href="input.html#steaminputcontrollersourcemode">SteamInputControllerSourceMode</a></li>
@@ -173,7 +2221,7 @@
 <li><a href="input.html#steaminputxboxorigin">SteamInputXboxOrigin</a></li>
 <li><a href="input.html#steaminputactionorigin">SteamInputActionOrigin</a></li>
 </ul>
-<h2 id="structs">Structs</h2>
+<h2 id="structs">Structs<a class="headerlink" href="#structs" title="Permanent link">&para;</a></h2>
 <p>These are the structs of the Input module:</p>
 <ul>
 <li><a href="input.html#steaminputanalogactiondata">SteamInputAnalogActionData</a></li>
@@ -187,7 +2235,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_input_activate_action_set">steam_input_activate_action_set</h1>
+<h1 id="steam_input_activate_action_set">steam_input_activate_action_set<a class="headerlink" href="#steam_input_activate_action_set" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamInput#ActivateActionSet">ISteamInput::ActivateActionSet</a></p>
 </blockquote>
@@ -196,8 +2244,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_input_activate_action_set(input_handle, action_set_handle)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_input_activate_action_set(input_handle, action_set_handle)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -229,7 +2276,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_input_activate_action_set_layer">steam_input_activate_action_set_layer</h1>
+<h1 id="steam_input_activate_action_set_layer">steam_input_activate_action_set_layer<a class="headerlink" href="#steam_input_activate_action_set_layer" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamInput#ActivateActionSetLayer">ISteamInput::ActivateActionSetLayer</a></p>
 </blockquote>
@@ -238,8 +2285,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_input_activate_action_set_layer(input_handle, action_set_layer_handle)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_input_activate_action_set_layer(input_handle, action_set_layer_handle)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -271,7 +2317,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_input_deactivate_action_set_layer">steam_input_deactivate_action_set_layer</h1>
+<h1 id="steam_input_deactivate_action_set_layer">steam_input_deactivate_action_set_layer<a class="headerlink" href="#steam_input_deactivate_action_set_layer" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamInput#DeactivateActionSetLayer">ISteamInput::DeactivateActionSetLayer</a></p>
 </blockquote>
@@ -279,8 +2325,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_input_deactivate_action_set_layer(input_handle, action_set_layer_handle)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_input_deactivate_action_set_layer(input_handle, action_set_layer_handle)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -312,7 +2357,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_input_deactivate_all_action_set_layers">steam_input_deactivate_all_action_set_layers</h1>
+<h1 id="steam_input_deactivate_all_action_set_layers">steam_input_deactivate_all_action_set_layers<a class="headerlink" href="#steam_input_deactivate_all_action_set_layers" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamInput#DeactivateAllActionSetLayers">ISteamInput::DeactivateAllActionSetLayers</a></p>
 </blockquote>
@@ -320,8 +2365,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_input_deactivate_all_action_set_layers(input_handle)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_input_deactivate_all_action_set_layers(input_handle)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -348,7 +2392,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_input_get_active_action_set_layers">steam_input_get_active_action_set_layers</h1>
+<h1 id="steam_input_get_active_action_set_layers">steam_input_get_active_action_set_layers<a class="headerlink" href="#steam_input_get_active_action_set_layers" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamInput#GetActiveActionSetLayers">ISteamInput::GetActiveActionSetLayers</a></p>
 </blockquote>
@@ -356,8 +2400,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_input_get_active_action_set_layers(input_handle)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_input_get_active_action_set_layers(input_handle)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -384,7 +2427,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_input_get_action_set_handle">steam_input_get_action_set_handle</h1>
+<h1 id="steam_input_get_action_set_handle">steam_input_get_action_set_handle<a class="headerlink" href="#steam_input_get_action_set_handle" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamInput#GetActionSetHandle">ISteamInput::GetActionSetHandle</a></p>
 </blockquote>
@@ -392,8 +2435,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_input_get_action_set_handle(action_set_name)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_input_get_action_set_handle(action_set_name)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -420,7 +2462,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_input_get_analog_action_data">steam_input_get_analog_action_data</h1>
+<h1 id="steam_input_get_analog_action_data">steam_input_get_analog_action_data<a class="headerlink" href="#steam_input_get_analog_action_data" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamInput#GetAnalogActionData">ISteamInput::GetAnalogActionData</a></p>
 </blockquote>
@@ -428,8 +2470,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_input_get_analog_action_data(input_handle, analog_action_handle)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_input_get_analog_action_data(input_handle, analog_action_handle)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -461,7 +2502,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_input_get_analog_action_handle">steam_input_get_analog_action_handle</h1>
+<h1 id="steam_input_get_analog_action_handle">steam_input_get_analog_action_handle<a class="headerlink" href="#steam_input_get_analog_action_handle" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamInput#GetAnalogActionHandle">ISteamInput::GetAnalogActionHandle</a></p>
 </blockquote>
@@ -473,8 +2514,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_input_get_analog_action_handle(action_name)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_input_get_analog_action_handle(action_name)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -501,7 +2541,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_input_get_analog_action_origins">steam_input_get_analog_action_origins</h1>
+<h1 id="steam_input_get_analog_action_origins">steam_input_get_analog_action_origins<a class="headerlink" href="#steam_input_get_analog_action_origins" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamInput#GetAnalogActionOrigins">ISteamInput::GetAnalogActionOrigins</a></p>
 </blockquote>
@@ -509,8 +2549,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_input_get_analog_action_origins(input_handle, action_set_handle, analog_action_handle)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_input_get_analog_action_origins(input_handle, action_set_handle, analog_action_handle)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -547,7 +2586,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_input_get_glyph_png_for_action_origin">steam_input_get_glyph_png_for_action_origin</h1>
+<h1 id="steam_input_get_glyph_png_for_action_origin">steam_input_get_glyph_png_for_action_origin<a class="headerlink" href="#steam_input_get_glyph_png_for_action_origin" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamInput#GetGlyphPNGForActionOrigin">ISteamInput::GetGlyphPNGForActionOrigin</a></p>
 </blockquote>
@@ -555,8 +2594,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_input_get_glyph_png_for_action_origin(origin, size, flags)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_input_get_glyph_png_for_action_origin(origin, size, flags)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -593,7 +2631,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_input_get_glyph_svg_for_action_origin">steam_input_get_glyph_svg_for_action_origin</h1>
+<h1 id="steam_input_get_glyph_svg_for_action_origin">steam_input_get_glyph_svg_for_action_origin<a class="headerlink" href="#steam_input_get_glyph_svg_for_action_origin" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamInput#GetGlyphSVGForActionOrigin">ISteamInput::GetGlyphSVGForActionOrigin</a></p>
 </blockquote>
@@ -601,8 +2639,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_input_get_glyph_svg_for_action_origin(origin, flags)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_input_get_glyph_svg_for_action_origin(origin, flags)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -634,7 +2671,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_input_get_connected_controllers">steam_input_get_connected_controllers</h1>
+<h1 id="steam_input_get_connected_controllers">steam_input_get_connected_controllers<a class="headerlink" href="#steam_input_get_connected_controllers" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamInput#GetConnectedControllers">ISteamInput::GetConnectedControllers</a></p>
 </blockquote>
@@ -642,8 +2679,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_input_get_connected_controllers()
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_input_get_connected_controllers()</code></pre>
 </blockquote>
 <p><br></p>
 <p><strong>Returns:</strong></p>
@@ -654,7 +2690,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_input_get_controller_for_gamepad_index">steam_input_get_controller_for_gamepad_index</h1>
+<h1 id="steam_input_get_controller_for_gamepad_index">steam_input_get_controller_for_gamepad_index<a class="headerlink" href="#steam_input_get_controller_for_gamepad_index" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamInput#GetControllerForGamepadIndex">ISteamInput::GetControllerForGamepadIndex</a></p>
 </blockquote>
@@ -662,8 +2698,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_input_get_controller_for_gamepad_index(index)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_input_get_controller_for_gamepad_index(index)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -690,7 +2725,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_input_get_current_action_set">steam_input_get_current_action_set</h1>
+<h1 id="steam_input_get_current_action_set">steam_input_get_current_action_set<a class="headerlink" href="#steam_input_get_current_action_set" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamInput#GetCurrentActionSet">ISteamInput::GetCurrentActionSet</a></p>
 </blockquote>
@@ -698,8 +2733,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_input_get_current_action_set(input_handle)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_input_get_current_action_set(input_handle)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -726,7 +2760,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_input_get_digital_action_data">steam_input_get_digital_action_data</h1>
+<h1 id="steam_input_get_digital_action_data">steam_input_get_digital_action_data<a class="headerlink" href="#steam_input_get_digital_action_data" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamInput#GetDigitalActionData">ISteamInput::GetDigitalActionData</a></p>
 </blockquote>
@@ -734,8 +2768,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_input_get_digital_action_data(input_handle, digital_action_handle)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_input_get_digital_action_data(input_handle, digital_action_handle)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -767,7 +2800,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_input_get_digital_action_handle">steam_input_get_digital_action_handle</h1>
+<h1 id="steam_input_get_digital_action_handle">steam_input_get_digital_action_handle<a class="headerlink" href="#steam_input_get_digital_action_handle" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamInput#GetDigitalActionHandle">ISteamInput::GetDigitalActionHandle</a></p>
 </blockquote>
@@ -775,8 +2808,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_input_get_digital_action_handle(action_name)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_input_get_digital_action_handle(action_name)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -803,7 +2835,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_input_get_digital_action_origins">steam_input_get_digital_action_origins</h1>
+<h1 id="steam_input_get_digital_action_origins">steam_input_get_digital_action_origins<a class="headerlink" href="#steam_input_get_digital_action_origins" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamInput#GetDigitalActionOrigins">ISteamInput::GetDigitalActionOrigins</a></p>
 </blockquote>
@@ -811,8 +2843,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_input_get_digital_action_origins(input_handle, action_set_handle, digital_action_handle)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_input_get_digital_action_origins(input_handle, action_set_handle, digital_action_handle)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -849,7 +2880,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_input_get_gamepad_index_for_controller">steam_input_get_gamepad_index_for_controller</h1>
+<h1 id="steam_input_get_gamepad_index_for_controller">steam_input_get_gamepad_index_for_controller<a class="headerlink" href="#steam_input_get_gamepad_index_for_controller" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamInput#GetGamepadIndexForController">ISteamInput::GetGamepadIndexForController</a></p>
 </blockquote>
@@ -857,8 +2888,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_input_get_gamepad_index_for_controller(input_handle)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_input_get_gamepad_index_for_controller(input_handle)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -886,7 +2916,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_input_get_input_type_for_handle">steam_input_get_input_type_for_handle</h1>
+<h1 id="steam_input_get_input_type_for_handle">steam_input_get_input_type_for_handle<a class="headerlink" href="#steam_input_get_input_type_for_handle" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamInput#GetInputTypeForHandle">ISteamInput::GetInputTypeForHandle</a></p>
 </blockquote>
@@ -894,8 +2924,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_input_get_input_type_for_handle(input_handle)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_input_get_input_type_for_handle(input_handle)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -922,7 +2951,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_input_get_motion_data">steam_input_get_motion_data</h1>
+<h1 id="steam_input_get_motion_data">steam_input_get_motion_data<a class="headerlink" href="#steam_input_get_motion_data" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamInput#GetMotionData">ISteamInput::GetMotionData</a></p>
 </blockquote>
@@ -930,8 +2959,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_input_get_motion_data(input_handle)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_input_get_motion_data(input_handle)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -958,7 +2986,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_input_get_string_for_action_origin">steam_input_get_string_for_action_origin</h1>
+<h1 id="steam_input_get_string_for_action_origin">steam_input_get_string_for_action_origin<a class="headerlink" href="#steam_input_get_string_for_action_origin" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamInput#GetStringForActionOrigin">ISteamInput::GetStringForActionOrigin</a></p>
 </blockquote>
@@ -966,8 +2994,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_input_get_string_for_action_origin(origin)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_input_get_string_for_action_origin(origin)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -994,7 +3021,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_input_init">steam_input_init</h1>
+<h1 id="steam_input_init">steam_input_init<a class="headerlink" href="#steam_input_init" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamInput#Init">ISteamInput::Init</a></p>
 </blockquote>
@@ -1002,8 +3029,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_input_init(explicitly_call_run_frame)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_input_init(explicitly_call_run_frame)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -1030,7 +3056,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_input_run_frame">steam_input_run_frame</h1>
+<h1 id="steam_input_run_frame">steam_input_run_frame<a class="headerlink" href="#steam_input_run_frame" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamInput#RunFrame">ISteamInput::RunFrame</a></p>
 </blockquote>
@@ -1038,8 +3064,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_input_run_frame()
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_input_run_frame()</code></pre>
 </blockquote>
 <p><br></p>
 <p><strong>Returns:</strong></p>
@@ -1050,7 +3075,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_input_set_dualsense_trigger_effect">steam_input_set_dualsense_trigger_effect</h1>
+<h1 id="steam_input_set_dualsense_trigger_effect">steam_input_set_dualsense_trigger_effect<a class="headerlink" href="#steam_input_set_dualsense_trigger_effect" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamInput#SetDualSenseTriggerEffect">ISteamInput::SetDualSenseTriggerEffect</a></p>
 </blockquote>
@@ -1058,8 +3083,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_input_set_dualsense_trigger_effect(input_handle, param)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_input_set_dualsense_trigger_effect(input_handle, param)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -1091,7 +3115,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_input_set_led_color">steam_input_set_led_color</h1>
+<h1 id="steam_input_set_led_color">steam_input_set_led_color<a class="headerlink" href="#steam_input_set_led_color" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamInput#SetLEDColor">ISteamInput::SetLEDColor</a></p>
 </blockquote>
@@ -1099,8 +3123,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_input_set_led_color(input_handle, color_r, color_g, color_b, flags)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_input_set_led_color(input_handle, color_r, color_g, color_b, flags)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -1147,7 +3170,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_input_show_binding_panel">steam_input_show_binding_panel</h1>
+<h1 id="steam_input_show_binding_panel">steam_input_show_binding_panel<a class="headerlink" href="#steam_input_show_binding_panel" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamInput#ShowBindingPanel">ISteamInput::ShowBindingPanel</a></p>
 </blockquote>
@@ -1155,8 +3178,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_input_show_binding_panel(input_handle)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_input_show_binding_panel(input_handle)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -1184,7 +3206,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_input_shutdown">steam_input_shutdown</h1>
+<h1 id="steam_input_shutdown">steam_input_shutdown<a class="headerlink" href="#steam_input_shutdown" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamInput#Shutdown">ISteamInput::Shutdown</a></p>
 </blockquote>
@@ -1192,8 +3214,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_input_shutdown()
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_input_shutdown()</code></pre>
 </blockquote>
 <p><br></p>
 <p><strong>Returns:</strong></p>
@@ -1204,7 +3225,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_input_stop_analog_action_momentum">steam_input_stop_analog_action_momentum</h1>
+<h1 id="steam_input_stop_analog_action_momentum">steam_input_stop_analog_action_momentum<a class="headerlink" href="#steam_input_stop_analog_action_momentum" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamInput#StopAnalogActionMomentum">ISteamInput::StopAnalogActionMomentum</a></p>
 </blockquote>
@@ -1216,8 +3237,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_input_stop_analog_action_momentum(input_handle, analog_action_handle)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_input_stop_analog_action_momentum(input_handle, analog_action_handle)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -1249,7 +3269,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_input_trigger_vibration">steam_input_trigger_vibration</h1>
+<h1 id="steam_input_trigger_vibration">steam_input_trigger_vibration<a class="headerlink" href="#steam_input_trigger_vibration" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamInput#TriggerVibration">ISteamInput::TriggerVibration</a></p>
 </blockquote>
@@ -1261,8 +3281,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_input_trigger_vibration(input_handle, left_speed, right_speed)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_input_trigger_vibration(input_handle, left_speed, right_speed)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -1299,7 +3318,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_input_trigger_vibration_extended">steam_input_trigger_vibration_extended</h1>
+<h1 id="steam_input_trigger_vibration_extended">steam_input_trigger_vibration_extended<a class="headerlink" href="#steam_input_trigger_vibration_extended" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamInput#TriggerVibrationExtended">ISteamInput::TriggerVibrationExtended</a></p>
 </blockquote>
@@ -1311,8 +3330,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_input_trigger_vibration_extended(input_handle, left_speed, right_speed, left_trigger_speed, right_trigger_speed)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_input_trigger_vibration_extended(input_handle, left_speed, right_speed, left_trigger_speed, right_trigger_speed)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -1359,7 +3377,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_input_get_action_origin_from_xbox_origin">steam_input_get_action_origin_from_xbox_origin</h1>
+<h1 id="steam_input_get_action_origin_from_xbox_origin">steam_input_get_action_origin_from_xbox_origin<a class="headerlink" href="#steam_input_get_action_origin_from_xbox_origin" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamInput#GetActionOriginFromXboxOrigin">ISteamInput::GetActionOriginFromXboxOrigin</a></p>
 </blockquote>
@@ -1367,8 +3385,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_input_get_action_origin_from_xbox_origin(input_handle, origin)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_input_get_action_origin_from_xbox_origin(input_handle, origin)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -1400,7 +3417,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_input_translate_action_origin">steam_input_translate_action_origin</h1>
+<h1 id="steam_input_translate_action_origin">steam_input_translate_action_origin<a class="headerlink" href="#steam_input_translate_action_origin" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamInput#TranslateActionOrigin">ISteamInput::TranslateActionOrigin</a></p>
 </blockquote>
@@ -1408,8 +3425,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_input_translate_action_origin(destination_input_type, source_origin)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_input_translate_action_origin(destination_input_type, source_origin)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -1441,7 +3457,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_input_get_device_binding_revision">steam_input_get_device_binding_revision</h1>
+<h1 id="steam_input_get_device_binding_revision">steam_input_get_device_binding_revision<a class="headerlink" href="#steam_input_get_device_binding_revision" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamInput#GetDeviceBindingRevision">ISteamInput::GetDeviceBindingRevision</a></p>
 </blockquote>
@@ -1449,8 +3465,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_input_get_device_binding_revision(input_handle)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_input_get_device_binding_revision(input_handle)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -1477,7 +3492,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_input_get_remote_play_session_id">steam_input_get_remote_play_session_id</h1>
+<h1 id="steam_input_get_remote_play_session_id">steam_input_get_remote_play_session_id<a class="headerlink" href="#steam_input_get_remote_play_session_id" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamInput#GetRemotePlaySessionID">ISteamInput::GetRemotePlaySessionID</a></p>
 </blockquote>
@@ -1485,8 +3500,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_input_get_remote_play_session_id(input_handle)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_input_get_remote_play_session_id(input_handle)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -1513,7 +3527,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_input_set_callback_device_connected">steam_input_set_callback_device_connected</h1>
+<h1 id="steam_input_set_callback_device_connected">steam_input_set_callback_device_connected<a class="headerlink" href="#steam_input_set_callback_device_connected" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: N / A</p>
 </blockquote>
@@ -1522,8 +3536,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_input_set_callback_device_connected(callback)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_input_set_callback_device_connected(callback)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -1573,7 +3586,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_input_clear_callback_device_connected">steam_input_clear_callback_device_connected</h1>
+<h1 id="steam_input_clear_callback_device_connected">steam_input_clear_callback_device_connected<a class="headerlink" href="#steam_input_clear_callback_device_connected" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: N / A</p>
 </blockquote>
@@ -1581,8 +3594,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_input_clear_callback_device_connected()
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_input_clear_callback_device_connected()</code></pre>
 </blockquote>
 <p><br></p>
 <p><strong>Returns:</strong></p>
@@ -1593,7 +3605,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_input_set_callback_device_disconnected">steam_input_set_callback_device_disconnected</h1>
+<h1 id="steam_input_set_callback_device_disconnected">steam_input_set_callback_device_disconnected<a class="headerlink" href="#steam_input_set_callback_device_disconnected" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: N / A</p>
 </blockquote>
@@ -1602,8 +3614,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_input_set_callback_device_disconnected(callback)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_input_set_callback_device_disconnected(callback)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -1653,7 +3664,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_input_clear_callback_device_disconnected">steam_input_clear_callback_device_disconnected</h1>
+<h1 id="steam_input_clear_callback_device_disconnected">steam_input_clear_callback_device_disconnected<a class="headerlink" href="#steam_input_clear_callback_device_disconnected" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: N / A</p>
 </blockquote>
@@ -1661,8 +3672,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_input_clear_callback_device_disconnected()
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_input_clear_callback_device_disconnected()</code></pre>
 </blockquote>
 <p><br></p>
 <p><strong>Returns:</strong></p>
@@ -1673,7 +3683,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steaminputcontrollersourcemode">SteamInputControllerSourceMode</h1>
+<h1 id="steaminputcontrollersourcemode">SteamInputControllerSourceMode<a class="headerlink" href="#steaminputcontrollersourcemode" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Enum</strong>: <a href="https://partner.steamgames.com/doc/api/isteaminput#EControllerSourceMode">ISteamInput::EControllerSourceMode</a></p>
 </blockquote>
@@ -1765,7 +3775,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steaminputcontrollerledflag">SteamInputControllerLEDFlag</h1>
+<h1 id="steaminputcontrollerledflag">SteamInputControllerLEDFlag<a class="headerlink" href="#steaminputcontrollerledflag" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Enum</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamInput#ESteamControllerLEDFlag">ISteamInput::ESteamControllerLEDFlag</a></p>
 </blockquote>
@@ -1797,7 +3807,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steaminputglyphsize">SteamInputGlyphSize</h1>
+<h1 id="steaminputglyphsize">SteamInputGlyphSize<a class="headerlink" href="#steaminputglyphsize" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Enum</strong>: <a href="">ESteamInputGlyphSize</a></p>
 </blockquote>
@@ -1837,7 +3847,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steaminputglyphstyle">SteamInputGlyphStyle</h1>
+<h1 id="steaminputglyphstyle">SteamInputGlyphStyle<a class="headerlink" href="#steaminputglyphstyle" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Enum</strong>: <a href="">ESteamInputGlyphStyle</a></p>
 </blockquote>
@@ -1882,7 +3892,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steaminputtype">SteamInputType</h1>
+<h1 id="steaminputtype">SteamInputType<a class="headerlink" href="#steaminputtype" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Enum</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamInput#ESteamInputType">ISteamInput::ESteamInputType</a></p>
 </blockquote>
@@ -1975,7 +3985,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steaminputxboxorigin">SteamInputXboxOrigin</h1>
+<h1 id="steaminputxboxorigin">SteamInputXboxOrigin<a class="headerlink" href="#steaminputxboxorigin" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Enum</strong>: <a href="">EXboxOrigin</a></p>
 </blockquote>
@@ -2115,7 +4125,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steaminputactionorigin">SteamInputActionOrigin</h1>
+<h1 id="steaminputactionorigin">SteamInputActionOrigin<a class="headerlink" href="#steaminputactionorigin" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Enum</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamInput#EInputActionOrigin">ISteamInput::EInputActionOrigin</a></p>
 </blockquote>
@@ -4135,7 +6145,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steaminputanalogactiondata">SteamInputAnalogActionData</h1>
+<h1 id="steaminputanalogactiondata">SteamInputAnalogActionData<a class="headerlink" href="#steaminputanalogactiondata" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Struct</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamInput#InputAnalogActionData_t">ISteamInput::InputAnalogActionData_t</a></p>
 </blockquote>
@@ -4180,7 +6190,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steaminputdigitalactiondata">SteamInputDigitalActionData</h1>
+<h1 id="steaminputdigitalactiondata">SteamInputDigitalActionData<a class="headerlink" href="#steaminputdigitalactiondata" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Struct</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamInput#InputDigitalActionData_t">ISteamInput:InputDigitalActionData_t</a></p>
 </blockquote>
@@ -4215,7 +6225,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steaminputmotiondata">SteamInputMotionData</h1>
+<h1 id="steaminputmotiondata">SteamInputMotionData<a class="headerlink" href="#steaminputmotiondata" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Struct</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamInput#InputMotionData_t">ISteamInput::InputMotionData_t</a></p>
 </blockquote>
@@ -4290,7 +6300,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steaminputactionorigins">SteamInputActionOrigins</h1>
+<h1 id="steaminputactionorigins">SteamInputActionOrigins<a class="headerlink" href="#steaminputactionorigins" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Struct</strong>: N / A</p>
 </blockquote>
@@ -4321,7 +6331,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steaminputdevicebindingrevision">SteamInputDeviceBindingRevision</h1>
+<h1 id="steaminputdevicebindingrevision">SteamInputDeviceBindingRevision<a class="headerlink" href="#steaminputdevicebindingrevision" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Struct</strong>: N / A</p>
 </blockquote>
@@ -4356,7 +6366,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steaminputdeviceevent">SteamInputDeviceEvent</h1>
+<h1 id="steaminputdeviceevent">SteamInputDeviceEvent<a class="headerlink" href="#steaminputdeviceevent" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Struct</strong>: N / A</p>
 </blockquote>
@@ -4386,57 +6396,73 @@
 </table>
 <p><br></p>
 <hr />
-              
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
             </div>
-          </div><footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="friends.html" class="btn btn-neutral float-left" title="Friends"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="inventory.html" class="btn btn-neutral float-right" title="Inventory">Next <span class="icon icon-circle-arrow-right"></span></a>
-    </div>
-
-  <hr/>
-
-  <div role="contentinfo">
-    <!-- Copyright etc -->
-      <p><p align="center">GameMaker 2026</p></p>
-  </div>
-
-  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
-</footer>
           
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
         </div>
-      </div>
-
-    </section>
-
-  </div>
-
-  <div class="rst-versions" role="note" aria-label="Versions">
-  <span class="rst-current-version" data-toggle="rst-current-version">
-    
-        <span>
-          <a href="https://github.com/YoYoGames/GMEXT-Steamworks" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
-        </span>
-    
-    
-      <span><a href="friends.html" style="color: #fcfcfc">&laquo; Previous</a></span>
-    
-    
-      <span><a href="inventory.html" style="color: #fcfcfc">Next &raquo;</a></span>
-    
-  </span>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      <p align="center">GameMaker 2026</p>
+    </div>
+  
+  
 </div>
-    <script src="js/jquery-3.6.0.min.js"></script>
-    <script>var base_url = ".";</script>
-    <script src="js/theme_extra.js"></script>
-    <script src="js/theme.js"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/gml.min.js"></script>
-      <script src="assets/js/gmext_script.js"></script>
-    <script>
-        jQuery(function () {
-            SphinxRtdTheme.Navigation.enable(true);
-        });
-    </script>
-
-</body>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["navigation.top", "navigation.tracking", "toc.follow", "content.code.copy"], "search": "assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/gml.min.js"></script>
+      
+        <script src="assets/js/hljs-init.js"></script>
+      
+        <script src="assets/js/resize-columns.js"></script>
+      
+    
+  </body>
 </html>
