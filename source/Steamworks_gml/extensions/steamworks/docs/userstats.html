@@ -1,125 +1,2701 @@
-<!DOCTYPE html>
-<html class="writer-html5" lang="en" >
-<head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <link rel="shortcut icon" href="img/favicon.ico" />
-    <title>UserStats - GMEXT-Steamworks</title>
-    <link rel="stylesheet" href="css/theme.css" />
-    <link rel="stylesheet" href="css/theme_extra.css" />
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
-        <link href="assets/css/gmext_style.css" rel="stylesheet" />
-    
-      <script>
-        // Current page data
-        var mkdocs_page_name = "UserStats";
-        var mkdocs_page_input_path = "userstats.md";
-        var mkdocs_page_url = null;
-      </script>
-    
-    <!--[if lt IE 9]>
-      <script src="js/html5shiv.min.js"></script>
-    <![endif]-->
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/gml.min.js"></script>
-      <script>hljs.highlightAll();</script> 
-</head>
 
-<body class="wy-body-for-nav" role="document">
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="user.html">
+      
+      
+        <link rel="next" href="utils.html">
+      
+      
+        
+      
+      
+      <link rel="icon" href="assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>UserStats - GMEXT-Steamworks</title>
+      
+    
+    
+      <link rel="stylesheet" href="assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
 
-  <div class="wy-grid-for-nav">
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
-    <div class="wy-side-scroll">
-      <div class="wy-side-nav-search">
-          <a href="." class="icon icon-home"> GMEXT-Steamworks
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+    
+      <link rel="stylesheet" href="assets/css/extra.css">
+    
+    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  <script>(function(){try{var w=["--gm-nav-width","--gm-toc-width"],i,v;for(i=0;i<w.length;i++){v=localStorage.getItem(w[i]);if(v)document.documentElement.style.setProperty(w[i],v)}}catch(e){}})()</script></head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#userstats" class="md-skip">
+          Skip to content
         </a>
-      </div>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
 
-      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption"><span class="caption-text">Guides</span></p>
-              <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting Started</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="extension_options.html">Extension Options</a>
-                  </li>
-              </ul>
-              <p class="caption"><span class="caption-text">Modules</span></p>
-              <ul class="current">
-                  <li class="toctree-l1"><a class="reference internal" href="api.html">API</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="apps.html">Apps</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="friends.html">Friends</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="input.html">Input</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="inventory.html">Inventory</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="matchmaking.html">Matchmaking</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="music.html">Music</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="networking.html">Networking</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="parties.html">Parties</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="remote_storage.html">Remote Storage</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="screenshots.html">Screenshots</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="timeline.html">Timeline</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="ugc.html">UGC</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="user.html">User</a>
-                  </li>
-                  <li class="toctree-l1 current"><a class="reference internal current" href="#">UserStats</a>
-    <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#functions">Functions</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#constants">Constants</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#structs">Structs</a>
-    </li>
-    </ul>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="utils.html">Utils</a>
-                  </li>
-              </ul>
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="home.html" title="GMEXT-Steamworks" class="md-header__button md-logo" aria-label="GMEXT-Steamworks" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            GMEXT-Steamworks
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              UserStats
+            
+          </span>
+        </div>
       </div>
     </div>
-    </nav>
-
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href=".">GMEXT-Steamworks</a>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/YoYoGames/GMEXT-Steamworks" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
         
-      </nav>
-      <div class="wy-nav-content">
-        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
-  <ul class="wy-breadcrumbs">
-    <li><a href="." class="icon icon-home" aria-label="Docs"></a></li>
-          <li class="breadcrumb-item">Modules</li>
-      <li class="breadcrumb-item active">UserStats</li>
-    <li class="wy-breadcrumbs-aside">
-          <a href="https://github.com/YoYoGames/GMEXT-Steamworks/edit/master/docs/userstats.md" class="icon icon-github"> Edit on GitHub</a>
-    </li>
-  </ul>
-  <hr/>
-</div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-            <div class="section" itemprop="articleBody">
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
               
-                <p><a id="top"></a></p>
-<h1 id="userstats"><strong>UserStats</strong></h1>
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="home.html" title="GMEXT-Steamworks" class="md-nav__button md-logo" aria-label="GMEXT-Steamworks" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    GMEXT-Steamworks
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/YoYoGames/GMEXT-Steamworks" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="home.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Steamworks Extension
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Guides
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Guides
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="getting_started.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="extension_options.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Extension Options
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modules
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Modules
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="api.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="apps.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Apps
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="friends.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Friends
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="input.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Input
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="inventory.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inventory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="matchmaking.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Matchmaking
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="music.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Music
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="networking.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Networking
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="parties.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parties
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="remote_storage.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Remote Storage
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="screenshots.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Screenshots
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="timeline.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Timeline
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ugc.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UGC
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="user.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    User
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UserStats
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="userstats.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UserStats
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#userstats" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        UserStats
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="UserStats">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Functions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#constants" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Constants
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#structs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Structs
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_userstats_get_stat_int" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_userstats_get_stat_int
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_userstats_get_stat_float" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_userstats_get_stat_float
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_userstats_set_stat_int" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_userstats_set_stat_int
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_userstats_set_stat_float" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_userstats_set_stat_float
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_userstats_update_avg_rate_stat" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_userstats_update_avg_rate_stat
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_userstats_get_achievement" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_userstats_get_achievement
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_userstats_set_achievement" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_userstats_set_achievement
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_userstats_clear_achievement" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_userstats_clear_achievement
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_userstats_achievement_and_unlock_time" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_userstats_achievement_and_unlock_time
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_userstats_store_stats" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_userstats_store_stats
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_userstats_achievement_icon" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_userstats_achievement_icon
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_userstats_achievement_display_attribute" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_userstats_achievement_display_attribute
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_userstats_indicate_achievement_progress" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_userstats_indicate_achievement_progress
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_userstats_num_achievements" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_userstats_num_achievements
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_userstats_achievement_name" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_userstats_achievement_name
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_userstats_request_user_stats" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_userstats_request_user_stats
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_userstats_user_stat_int" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_userstats_user_stat_int
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_userstats_user_stat_float" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_userstats_user_stat_float
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_userstats_user_achievement" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_userstats_user_achievement
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_userstats_user_achievement_and_unlock_time" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_userstats_user_achievement_and_unlock_time
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_userstats_reset_all_stats" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_userstats_reset_all_stats
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_userstats_find_or_create_leaderboard" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_userstats_find_or_create_leaderboard
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_userstats_find_leaderboard" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_userstats_find_leaderboard
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_userstats_leaderboard_name" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_userstats_leaderboard_name
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_userstats_leaderboard_entry_count" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_userstats_leaderboard_entry_count
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_userstats_leaderboard_sort_method" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_userstats_leaderboard_sort_method
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_userstats_leaderboard_display_type" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_userstats_leaderboard_display_type
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_userstats_download_leaderboard_entries" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_userstats_download_leaderboard_entries
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_userstats_download_leaderboard_entries_for_users" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_userstats_download_leaderboard_entries_for_users
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_userstats_downloaded_leaderboard_entry" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_userstats_downloaded_leaderboard_entry
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_userstats_upload_leaderboard_score" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_userstats_upload_leaderboard_score
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_userstats_attach_leaderboard_ugc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_userstats_attach_leaderboard_ugc
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_userstats_number_of_current_players" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_userstats_number_of_current_players
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_userstats_request_global_achievement_percentages" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_userstats_request_global_achievement_percentages
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_userstats_most_achieved_achievement_info" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_userstats_most_achieved_achievement_info
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_userstats_next_most_achieved_achievement_info" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_userstats_next_most_achieved_achievement_info
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_userstats_achievement_achieved_percent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_userstats_achievement_achieved_percent
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_userstats_request_global_stats" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_userstats_request_global_stats
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_userstats_global_stat_int64" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_userstats_global_stat_int64
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_userstats_global_stat_double" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_userstats_global_stat_double
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_userstats_global_stat_history_int64" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_userstats_global_stat_history_int64
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_userstats_global_stat_history_double" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_userstats_global_stat_history_double
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_userstats_achievement_progress_int" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_userstats_achievement_progress_int
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_userstats_achievement_progress_float" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_userstats_achievement_progress_float
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_userstats_set_callback_user_stats_received" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_userstats_set_callback_user_stats_received
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_userstats_clear_callback_user_stats_received" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_userstats_clear_callback_user_stats_received
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_userstats_set_callback_user_stats_stored" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_userstats_set_callback_user_stats_stored
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_userstats_clear_callback_user_stats_stored" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_userstats_clear_callback_user_stats_stored
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_userstats_set_callback_user_achievement_stored" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_userstats_set_callback_user_achievement_stored
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_userstats_clear_callback_user_achievement_stored" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_userstats_clear_callback_user_achievement_stored
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_userstats_set_callback_user_achievement_icon_fetched" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_userstats_set_callback_user_achievement_icon_fetched
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_userstats_clear_callback_user_achievement_icon_fetched" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_userstats_clear_callback_user_achievement_icon_fetched
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_userstats_set_callback_user_stats_unloaded" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_userstats_set_callback_user_stats_unloaded
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_userstats_clear_callback_user_stats_unloaded" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_userstats_clear_callback_user_stats_unloaded
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steamleaderboarddatarequest" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamLeaderboardDataRequest
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steamleaderboardsortmethod" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamLeaderboardSortMethod
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steamleaderboarddisplaytype" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamLeaderboardDisplayType
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steamleaderboarduploadscoremethod" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamLeaderboardUploadScoreMethod
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steamuserstatsachievementandunlocktime" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamUserStatsAchievementAndUnlockTime
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steamuserstatsmostachievedachievementinfo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamUserStatsMostAchievedAchievementInfo
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steamuserstatsdownloadedleaderboardentry" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamUserStatsDownloadedLeaderboardEntry
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steamuserstatsleaderboardfindresult" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamUserStatsLeaderboardFindResult
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steamuserstatsscoresdownloadedresult" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamUserStatsScoresDownloadedResult
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steamuserstatsscoreuploadedresult" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamUserStatsScoreUploadedResult
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steamuserstatsnumberofcurrentplayersresult" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamUserStatsNumberOfCurrentPlayersResult
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steamuserstatsglobalachievementpercentagesreadyresult" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamUserStatsGlobalAchievementPercentagesReadyResult
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steamuserstatsglobalstatsreceivedresult" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamUserStatsGlobalStatsReceivedResult
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steamuserstatsattachleaderboardugcresult" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamUserStatsAttachLeaderboardUgcResult
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steamuserstatsachievementiconfetched" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamUserStatsAchievementIconFetched
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steamuserstatsunloaded" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamUserStatsUnloaded
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steamuserstatsuserstatsreceived" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamUserStatsUserStatsReceived
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steamuserstatsuserstatsstored" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamUserStatsUserStatsStored
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steamuserstatsuserachievementstored" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamUserStatsUserAchievementStored
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steamuserstatsintminmax" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamUserStatsIntMinMax
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steamuserstatsfloatminmax" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamUserStatsFloatMinMax
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="utils.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Utils
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#userstats" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        UserStats
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="UserStats">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Functions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#constants" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Constants
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#structs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Structs
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_userstats_get_stat_int" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_userstats_get_stat_int
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_userstats_get_stat_float" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_userstats_get_stat_float
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_userstats_set_stat_int" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_userstats_set_stat_int
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_userstats_set_stat_float" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_userstats_set_stat_float
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_userstats_update_avg_rate_stat" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_userstats_update_avg_rate_stat
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_userstats_get_achievement" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_userstats_get_achievement
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_userstats_set_achievement" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_userstats_set_achievement
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_userstats_clear_achievement" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_userstats_clear_achievement
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_userstats_achievement_and_unlock_time" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_userstats_achievement_and_unlock_time
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_userstats_store_stats" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_userstats_store_stats
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_userstats_achievement_icon" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_userstats_achievement_icon
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_userstats_achievement_display_attribute" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_userstats_achievement_display_attribute
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_userstats_indicate_achievement_progress" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_userstats_indicate_achievement_progress
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_userstats_num_achievements" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_userstats_num_achievements
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_userstats_achievement_name" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_userstats_achievement_name
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_userstats_request_user_stats" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_userstats_request_user_stats
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_userstats_user_stat_int" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_userstats_user_stat_int
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_userstats_user_stat_float" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_userstats_user_stat_float
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_userstats_user_achievement" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_userstats_user_achievement
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_userstats_user_achievement_and_unlock_time" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_userstats_user_achievement_and_unlock_time
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_userstats_reset_all_stats" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_userstats_reset_all_stats
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_userstats_find_or_create_leaderboard" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_userstats_find_or_create_leaderboard
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_userstats_find_leaderboard" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_userstats_find_leaderboard
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_userstats_leaderboard_name" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_userstats_leaderboard_name
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_userstats_leaderboard_entry_count" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_userstats_leaderboard_entry_count
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_userstats_leaderboard_sort_method" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_userstats_leaderboard_sort_method
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_userstats_leaderboard_display_type" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_userstats_leaderboard_display_type
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_userstats_download_leaderboard_entries" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_userstats_download_leaderboard_entries
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_userstats_download_leaderboard_entries_for_users" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_userstats_download_leaderboard_entries_for_users
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_userstats_downloaded_leaderboard_entry" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_userstats_downloaded_leaderboard_entry
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_userstats_upload_leaderboard_score" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_userstats_upload_leaderboard_score
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_userstats_attach_leaderboard_ugc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_userstats_attach_leaderboard_ugc
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_userstats_number_of_current_players" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_userstats_number_of_current_players
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_userstats_request_global_achievement_percentages" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_userstats_request_global_achievement_percentages
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_userstats_most_achieved_achievement_info" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_userstats_most_achieved_achievement_info
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_userstats_next_most_achieved_achievement_info" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_userstats_next_most_achieved_achievement_info
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_userstats_achievement_achieved_percent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_userstats_achievement_achieved_percent
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_userstats_request_global_stats" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_userstats_request_global_stats
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_userstats_global_stat_int64" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_userstats_global_stat_int64
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_userstats_global_stat_double" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_userstats_global_stat_double
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_userstats_global_stat_history_int64" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_userstats_global_stat_history_int64
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_userstats_global_stat_history_double" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_userstats_global_stat_history_double
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_userstats_achievement_progress_int" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_userstats_achievement_progress_int
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_userstats_achievement_progress_float" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_userstats_achievement_progress_float
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_userstats_set_callback_user_stats_received" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_userstats_set_callback_user_stats_received
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_userstats_clear_callback_user_stats_received" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_userstats_clear_callback_user_stats_received
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_userstats_set_callback_user_stats_stored" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_userstats_set_callback_user_stats_stored
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_userstats_clear_callback_user_stats_stored" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_userstats_clear_callback_user_stats_stored
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_userstats_set_callback_user_achievement_stored" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_userstats_set_callback_user_achievement_stored
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_userstats_clear_callback_user_achievement_stored" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_userstats_clear_callback_user_achievement_stored
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_userstats_set_callback_user_achievement_icon_fetched" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_userstats_set_callback_user_achievement_icon_fetched
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_userstats_clear_callback_user_achievement_icon_fetched" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_userstats_clear_callback_user_achievement_icon_fetched
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_userstats_set_callback_user_stats_unloaded" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_userstats_set_callback_user_stats_unloaded
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_userstats_clear_callback_user_stats_unloaded" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_userstats_clear_callback_user_stats_unloaded
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steamleaderboarddatarequest" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamLeaderboardDataRequest
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steamleaderboardsortmethod" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamLeaderboardSortMethod
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steamleaderboarddisplaytype" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamLeaderboardDisplayType
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steamleaderboarduploadscoremethod" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamLeaderboardUploadScoreMethod
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steamuserstatsachievementandunlocktime" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamUserStatsAchievementAndUnlockTime
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steamuserstatsmostachievedachievementinfo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamUserStatsMostAchievedAchievementInfo
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steamuserstatsdownloadedleaderboardentry" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamUserStatsDownloadedLeaderboardEntry
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steamuserstatsleaderboardfindresult" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamUserStatsLeaderboardFindResult
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steamuserstatsscoresdownloadedresult" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamUserStatsScoresDownloadedResult
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steamuserstatsscoreuploadedresult" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamUserStatsScoreUploadedResult
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steamuserstatsnumberofcurrentplayersresult" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamUserStatsNumberOfCurrentPlayersResult
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steamuserstatsglobalachievementpercentagesreadyresult" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamUserStatsGlobalAchievementPercentagesReadyResult
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steamuserstatsglobalstatsreceivedresult" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamUserStatsGlobalStatsReceivedResult
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steamuserstatsattachleaderboardugcresult" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamUserStatsAttachLeaderboardUgcResult
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steamuserstatsachievementiconfetched" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamUserStatsAchievementIconFetched
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steamuserstatsunloaded" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamUserStatsUnloaded
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steamuserstatsuserstatsreceived" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamUserStatsUserStatsReceived
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steamuserstatsuserstatsstored" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamUserStatsUserStatsStored
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steamuserstatsuserachievementstored" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamUserStatsUserAchievementStored
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steamuserstatsintminmax" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamUserStatsIntMinMax
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steamuserstatsfloatminmax" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamUserStatsFloatMinMax
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<p><a id="top"></a></p>
+<h1 id="userstats"><strong>UserStats</strong><a class="headerlink" href="#userstats" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Interface</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats">ISteamUserStats</a></p>
 </blockquote>
 <p>This module contains functions for accessing and submitting stats, achievements, and leaderboards.</p>
-<h2 id="functions">Functions</h2>
+<h2 id="functions">Functions<a class="headerlink" href="#functions" title="Permanent link">&para;</a></h2>
 <p>These are the functions of the UserStats module:</p>
 <ul>
 <li><a href="userstats.html#steam_userstats_get_stat_int">steam_userstats_get_stat_int</a></li>
@@ -177,7 +2753,7 @@
 <li><a href="userstats.html#steam_userstats_set_callback_user_stats_unloaded">steam_userstats_set_callback_user_stats_unloaded</a></li>
 <li><a href="userstats.html#steam_userstats_clear_callback_user_stats_unloaded">steam_userstats_clear_callback_user_stats_unloaded</a></li>
 </ul>
-<h2 id="constants">Constants</h2>
+<h2 id="constants">Constants<a class="headerlink" href="#constants" title="Permanent link">&para;</a></h2>
 <p>These are the constants and enums of the UserStats module:</p>
 <ul>
 <li><a href="userstats.html#steamleaderboarddatarequest">SteamLeaderboardDataRequest</a></li>
@@ -185,7 +2761,7 @@
 <li><a href="userstats.html#steamleaderboarddisplaytype">SteamLeaderboardDisplayType</a></li>
 <li><a href="userstats.html#steamleaderboarduploadscoremethod">SteamLeaderboardUploadScoreMethod</a></li>
 </ul>
-<h2 id="structs">Structs</h2>
+<h2 id="structs">Structs<a class="headerlink" href="#structs" title="Permanent link">&para;</a></h2>
 <p>These are the structs of the UserStats module:</p>
 <ul>
 <li><a href="userstats.html#steamuserstatsachievementandunlocktime">SteamUserStatsAchievementAndUnlockTime</a></li>
@@ -210,7 +2786,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_userstats_get_stat_int">steam_userstats_get_stat_int</h1>
+<h1 id="steam_userstats_get_stat_int">steam_userstats_get_stat_int<a class="headerlink" href="#steam_userstats_get_stat_int" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#GetStat">ISteamUserStats::GetStat</a></p>
 </blockquote>
@@ -219,8 +2795,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_userstats_get_stat_int(stat_name)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_userstats_get_stat_int(stat_name)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -247,7 +2822,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_userstats_get_stat_float">steam_userstats_get_stat_float</h1>
+<h1 id="steam_userstats_get_stat_float">steam_userstats_get_stat_float<a class="headerlink" href="#steam_userstats_get_stat_float" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#GetStat">ISteamUserStats::GetStat</a></p>
 </blockquote>
@@ -256,8 +2831,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_userstats_get_stat_float(stat_name)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_userstats_get_stat_float(stat_name)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -284,7 +2858,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_userstats_set_stat_int">steam_userstats_set_stat_int</h1>
+<h1 id="steam_userstats_set_stat_int">steam_userstats_set_stat_int<a class="headerlink" href="#steam_userstats_set_stat_int" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#SetStat">ISteamUserStats::SetStat</a></p>
 </blockquote>
@@ -295,8 +2869,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_userstats_set_stat_int(stat_name, data)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_userstats_set_stat_int(stat_name, data)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -328,7 +2901,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_userstats_set_stat_float">steam_userstats_set_stat_float</h1>
+<h1 id="steam_userstats_set_stat_float">steam_userstats_set_stat_float<a class="headerlink" href="#steam_userstats_set_stat_float" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#SetStat">ISteamUserStats::SetStat</a></p>
 </blockquote>
@@ -339,8 +2912,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_userstats_set_stat_float(stat_name, data)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_userstats_set_stat_float(stat_name, data)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -372,7 +2944,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_userstats_update_avg_rate_stat">steam_userstats_update_avg_rate_stat</h1>
+<h1 id="steam_userstats_update_avg_rate_stat">steam_userstats_update_avg_rate_stat<a class="headerlink" href="#steam_userstats_update_avg_rate_stat" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#UpdateAvgRateStat">ISteamUserStats::UpdateAvgRateStat</a></p>
 </blockquote>
@@ -383,8 +2955,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_userstats_update_avg_rate_stat(stat_name, count_this_session, session_length)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_userstats_update_avg_rate_stat(stat_name, count_this_session, session_length)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -421,7 +2992,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_userstats_get_achievement">steam_userstats_get_achievement</h1>
+<h1 id="steam_userstats_get_achievement">steam_userstats_get_achievement<a class="headerlink" href="#steam_userstats_get_achievement" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#GetAchievement">ISteamUserStats::GetAchievement</a></p>
 </blockquote>
@@ -430,8 +3001,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_userstats_get_achievement(achievement_name)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_userstats_get_achievement(achievement_name)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -458,7 +3028,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_userstats_set_achievement">steam_userstats_set_achievement</h1>
+<h1 id="steam_userstats_set_achievement">steam_userstats_set_achievement<a class="headerlink" href="#steam_userstats_set_achievement" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#SetAchievement">ISteamUserStats::SetAchievement</a></p>
 </blockquote>
@@ -467,8 +3037,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_userstats_set_achievement(achievement_name)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_userstats_set_achievement(achievement_name)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -495,7 +3064,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_userstats_clear_achievement">steam_userstats_clear_achievement</h1>
+<h1 id="steam_userstats_clear_achievement">steam_userstats_clear_achievement<a class="headerlink" href="#steam_userstats_clear_achievement" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#ClearAchievement">ISteamUserStats::ClearAchievement</a></p>
 </blockquote>
@@ -505,8 +3074,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_userstats_clear_achievement(achievement_name)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_userstats_clear_achievement(achievement_name)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -533,7 +3101,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_userstats_achievement_and_unlock_time">steam_userstats_achievement_and_unlock_time</h1>
+<h1 id="steam_userstats_achievement_and_unlock_time">steam_userstats_achievement_and_unlock_time<a class="headerlink" href="#steam_userstats_achievement_and_unlock_time" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#GetAchievementAndUnlockTime">ISteamUserStats::GetAchievementAndUnlockTime</a></p>
 </blockquote>
@@ -543,8 +3111,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_userstats_achievement_and_unlock_time(achievement_name)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_userstats_achievement_and_unlock_time(achievement_name)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -571,7 +3138,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_userstats_store_stats">steam_userstats_store_stats</h1>
+<h1 id="steam_userstats_store_stats">steam_userstats_store_stats<a class="headerlink" href="#steam_userstats_store_stats" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#StoreStats">ISteamUserStats::StoreStats</a></p>
 </blockquote>
@@ -582,8 +3149,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_userstats_store_stats()
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_userstats_store_stats()</code></pre>
 </blockquote>
 <p><br></p>
 <p><strong>Returns:</strong></p>
@@ -594,7 +3160,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_userstats_achievement_icon">steam_userstats_achievement_icon</h1>
+<h1 id="steam_userstats_achievement_icon">steam_userstats_achievement_icon<a class="headerlink" href="#steam_userstats_achievement_icon" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#GetAchievementIcon">ISteamUserStats::GetAchievementIcon</a></p>
 </blockquote>
@@ -603,8 +3169,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_userstats_achievement_icon(achievement_name)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_userstats_achievement_icon(achievement_name)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -631,7 +3196,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_userstats_achievement_display_attribute">steam_userstats_achievement_display_attribute</h1>
+<h1 id="steam_userstats_achievement_display_attribute">steam_userstats_achievement_display_attribute<a class="headerlink" href="#steam_userstats_achievement_display_attribute" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#GetAchievementDisplayAttribute">ISteamUserStats::GetAchievementDisplayAttribute</a></p>
 </blockquote>
@@ -644,8 +3209,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_userstats_achievement_display_attribute(achievement_name, key)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_userstats_achievement_display_attribute(achievement_name, key)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -677,7 +3241,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_userstats_indicate_achievement_progress">steam_userstats_indicate_achievement_progress</h1>
+<h1 id="steam_userstats_indicate_achievement_progress">steam_userstats_indicate_achievement_progress<a class="headerlink" href="#steam_userstats_indicate_achievement_progress" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#IndicateAchievementProgress">ISteamUserStats::IndicateAchievementProgress</a></p>
 </blockquote>
@@ -687,8 +3251,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_userstats_indicate_achievement_progress(achievement_name, cur_progress, max_progress)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_userstats_indicate_achievement_progress(achievement_name, cur_progress, max_progress)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -725,7 +3288,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_userstats_num_achievements">steam_userstats_num_achievements</h1>
+<h1 id="steam_userstats_num_achievements">steam_userstats_num_achievements<a class="headerlink" href="#steam_userstats_num_achievements" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#GetNumAchievements">ISteamUserStats::GetNumAchievements</a></p>
 </blockquote>
@@ -735,8 +3298,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_userstats_num_achievements()
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_userstats_num_achievements()</code></pre>
 </blockquote>
 <p><br></p>
 <p><strong>Returns:</strong></p>
@@ -747,7 +3309,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_userstats_achievement_name">steam_userstats_achievement_name</h1>
+<h1 id="steam_userstats_achievement_name">steam_userstats_achievement_name<a class="headerlink" href="#steam_userstats_achievement_name" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#GetAchievementName">ISteamUserStats::GetAchievementName</a></p>
 </blockquote>
@@ -755,8 +3317,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_userstats_achievement_name(index)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_userstats_achievement_name(index)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -783,7 +3344,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_userstats_request_user_stats">steam_userstats_request_user_stats</h1>
+<h1 id="steam_userstats_request_user_stats">steam_userstats_request_user_stats<a class="headerlink" href="#steam_userstats_request_user_stats" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#RequestUserStats">ISteamUserStats::RequestUserStats</a></p>
 </blockquote>
@@ -794,8 +3355,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_userstats_request_user_stats(steam_id_user, callback)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_userstats_request_user_stats(steam_id_user, callback)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -850,7 +3410,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_userstats_user_stat_int">steam_userstats_user_stat_int</h1>
+<h1 id="steam_userstats_user_stat_int">steam_userstats_user_stat_int<a class="headerlink" href="#steam_userstats_user_stat_int" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#GetUserStat">ISteamUserStats::GetUserStat</a></p>
 </blockquote>
@@ -860,8 +3420,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_userstats_user_stat_int(steam_id_user, stat_name)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_userstats_user_stat_int(steam_id_user, stat_name)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -893,7 +3452,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_userstats_user_stat_float">steam_userstats_user_stat_float</h1>
+<h1 id="steam_userstats_user_stat_float">steam_userstats_user_stat_float<a class="headerlink" href="#steam_userstats_user_stat_float" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#GetUserStat">ISteamUserStats::GetUserStat</a></p>
 </blockquote>
@@ -903,8 +3462,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_userstats_user_stat_float(steam_id_user, stat_name)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_userstats_user_stat_float(steam_id_user, stat_name)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -936,7 +3494,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_userstats_user_achievement">steam_userstats_user_achievement</h1>
+<h1 id="steam_userstats_user_achievement">steam_userstats_user_achievement<a class="headerlink" href="#steam_userstats_user_achievement" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#GetUserAchievement">ISteamUserStats::GetUserAchievement</a></p>
 </blockquote>
@@ -945,8 +3503,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_userstats_user_achievement(steam_id_user, achievement_name)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_userstats_user_achievement(steam_id_user, achievement_name)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -978,7 +3535,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_userstats_user_achievement_and_unlock_time">steam_userstats_user_achievement_and_unlock_time</h1>
+<h1 id="steam_userstats_user_achievement_and_unlock_time">steam_userstats_user_achievement_and_unlock_time<a class="headerlink" href="#steam_userstats_user_achievement_and_unlock_time" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#GetUserAchievementAndUnlockTime">ISteamUserStats::GetUserAchievementAndUnlockTime</a></p>
 </blockquote>
@@ -988,8 +3545,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_userstats_user_achievement_and_unlock_time(steam_id_user, achievement_name)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_userstats_user_achievement_and_unlock_time(steam_id_user, achievement_name)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -1021,7 +3577,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_userstats_reset_all_stats">steam_userstats_reset_all_stats</h1>
+<h1 id="steam_userstats_reset_all_stats">steam_userstats_reset_all_stats<a class="headerlink" href="#steam_userstats_reset_all_stats" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#ResetAllStats">ISteamUserStats::ResetAllStats</a></p>
 </blockquote>
@@ -1030,8 +3586,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_userstats_reset_all_stats(achievements_too)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_userstats_reset_all_stats(achievements_too)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -1058,7 +3613,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_userstats_find_or_create_leaderboard">steam_userstats_find_or_create_leaderboard</h1>
+<h1 id="steam_userstats_find_or_create_leaderboard">steam_userstats_find_or_create_leaderboard<a class="headerlink" href="#steam_userstats_find_or_create_leaderboard" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#FindOrCreateLeaderboard">ISteamUserStats::FindOrCreateLeaderboard</a></p>
 </blockquote>
@@ -1068,8 +3623,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_userstats_find_or_create_leaderboard(leaderboard_name, sort_method, display_type, callback)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_userstats_find_or_create_leaderboard(leaderboard_name, sort_method, display_type, callback)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -1134,7 +3688,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_userstats_find_leaderboard">steam_userstats_find_leaderboard</h1>
+<h1 id="steam_userstats_find_leaderboard">steam_userstats_find_leaderboard<a class="headerlink" href="#steam_userstats_find_leaderboard" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#FindLeaderboard">ISteamUserStats::FindLeaderboard</a></p>
 </blockquote>
@@ -1144,8 +3698,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_userstats_find_leaderboard(leaderboard_name, callback)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_userstats_find_leaderboard(leaderboard_name, callback)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -1200,7 +3753,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_userstats_leaderboard_name">steam_userstats_leaderboard_name</h1>
+<h1 id="steam_userstats_leaderboard_name">steam_userstats_leaderboard_name<a class="headerlink" href="#steam_userstats_leaderboard_name" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#GetLeaderboardName">ISteamUserStats::GetLeaderboardName</a></p>
 </blockquote>
@@ -1208,8 +3761,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_userstats_leaderboard_name(leaderboard_handle)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_userstats_leaderboard_name(leaderboard_handle)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -1237,7 +3789,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_userstats_leaderboard_entry_count">steam_userstats_leaderboard_entry_count</h1>
+<h1 id="steam_userstats_leaderboard_entry_count">steam_userstats_leaderboard_entry_count<a class="headerlink" href="#steam_userstats_leaderboard_entry_count" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#GetLeaderboardEntryCount">ISteamUserStats::GetLeaderboardEntryCount</a></p>
 </blockquote>
@@ -1246,8 +3798,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_userstats_leaderboard_entry_count(leaderboard_handle)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_userstats_leaderboard_entry_count(leaderboard_handle)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -1274,7 +3825,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_userstats_leaderboard_sort_method">steam_userstats_leaderboard_sort_method</h1>
+<h1 id="steam_userstats_leaderboard_sort_method">steam_userstats_leaderboard_sort_method<a class="headerlink" href="#steam_userstats_leaderboard_sort_method" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#GetLeaderboardSortMethod">ISteamUserStats::GetLeaderboardSortMethod</a></p>
 </blockquote>
@@ -1282,8 +3833,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_userstats_leaderboard_sort_method(leaderboard_handle)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_userstats_leaderboard_sort_method(leaderboard_handle)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -1310,7 +3860,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_userstats_leaderboard_display_type">steam_userstats_leaderboard_display_type</h1>
+<h1 id="steam_userstats_leaderboard_display_type">steam_userstats_leaderboard_display_type<a class="headerlink" href="#steam_userstats_leaderboard_display_type" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#GetLeaderboardDisplayType">ISteamUserStats::GetLeaderboardDisplayType</a></p>
 </blockquote>
@@ -1318,8 +3868,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_userstats_leaderboard_display_type(leaderboard_handle)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_userstats_leaderboard_display_type(leaderboard_handle)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -1346,7 +3895,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_userstats_download_leaderboard_entries">steam_userstats_download_leaderboard_entries</h1>
+<h1 id="steam_userstats_download_leaderboard_entries">steam_userstats_download_leaderboard_entries<a class="headerlink" href="#steam_userstats_download_leaderboard_entries" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#DownloadLeaderboardEntries">ISteamUserStats::DownloadLeaderboardEntries</a></p>
 </blockquote>
@@ -1358,8 +3907,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_userstats_download_leaderboard_entries(leaderboard_handle, request, range_start, range_end, callback)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_userstats_download_leaderboard_entries(leaderboard_handle, request, range_start, range_end, callback)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -1429,7 +3977,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_userstats_download_leaderboard_entries_for_users">steam_userstats_download_leaderboard_entries_for_users</h1>
+<h1 id="steam_userstats_download_leaderboard_entries_for_users">steam_userstats_download_leaderboard_entries_for_users<a class="headerlink" href="#steam_userstats_download_leaderboard_entries_for_users" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#DownloadLeaderboardEntriesForUsers">ISteamUserStats::DownloadLeaderboardEntriesForUsers</a></p>
 </blockquote>
@@ -1441,8 +3989,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_userstats_download_leaderboard_entries_for_users(leaderboard_handle, users, callback)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_userstats_download_leaderboard_entries_for_users(leaderboard_handle, users, callback)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -1502,7 +4049,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_userstats_downloaded_leaderboard_entry">steam_userstats_downloaded_leaderboard_entry</h1>
+<h1 id="steam_userstats_downloaded_leaderboard_entry">steam_userstats_downloaded_leaderboard_entry<a class="headerlink" href="#steam_userstats_downloaded_leaderboard_entry" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#GetDownloadedLeaderboardEntry">ISteamUserStats::GetDownloadedLeaderboardEntry</a></p>
 </blockquote>
@@ -1510,8 +4057,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_userstats_downloaded_leaderboard_entry(leaderboard_entries_handle, entry_index)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_userstats_downloaded_leaderboard_entry(leaderboard_entries_handle, entry_index)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -1543,7 +4089,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_userstats_upload_leaderboard_score">steam_userstats_upload_leaderboard_score</h1>
+<h1 id="steam_userstats_upload_leaderboard_score">steam_userstats_upload_leaderboard_score<a class="headerlink" href="#steam_userstats_upload_leaderboard_score" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#UploadLeaderboardScore">ISteamUserStats::UploadLeaderboardScore</a></p>
 </blockquote>
@@ -1554,8 +4100,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_userstats_upload_leaderboard_score(leaderboard_handle, method, score, score_details, callback)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_userstats_upload_leaderboard_score(leaderboard_handle, method, score, score_details, callback)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -1625,7 +4170,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_userstats_attach_leaderboard_ugc">steam_userstats_attach_leaderboard_ugc</h1>
+<h1 id="steam_userstats_attach_leaderboard_ugc">steam_userstats_attach_leaderboard_ugc<a class="headerlink" href="#steam_userstats_attach_leaderboard_ugc" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#AttachLeaderboardUGC">ISteamUserStats::AttachLeaderboardUGC</a></p>
 </blockquote>
@@ -1638,8 +4183,7 @@ To create and download user generated content see the documentation for the Stea
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_userstats_attach_leaderboard_ugc(leaderboard_handle, ugc_handle, callback)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_userstats_attach_leaderboard_ugc(leaderboard_handle, ugc_handle, callback)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -1698,7 +4242,7 @@ To create and download user generated content see the documentation for the Stea
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_userstats_number_of_current_players">steam_userstats_number_of_current_players</h1>
+<h1 id="steam_userstats_number_of_current_players">steam_userstats_number_of_current_players<a class="headerlink" href="#steam_userstats_number_of_current_players" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#GetNumberOfCurrentPlayers">ISteamUserStats::GetNumberOfCurrentPlayers</a></p>
 </blockquote>
@@ -1707,8 +4251,7 @@ To create and download user generated content see the documentation for the Stea
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_userstats_number_of_current_players(callback)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_userstats_number_of_current_players(callback)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -1758,7 +4301,7 @@ To create and download user generated content see the documentation for the Stea
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_userstats_request_global_achievement_percentages">steam_userstats_request_global_achievement_percentages</h1>
+<h1 id="steam_userstats_request_global_achievement_percentages">steam_userstats_request_global_achievement_percentages<a class="headerlink" href="#steam_userstats_request_global_achievement_percentages" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#RequestGlobalAchievementPercentages">ISteamUserStats::RequestGlobalAchievementPercentages</a></p>
 </blockquote>
@@ -1767,8 +4310,7 @@ To create and download user generated content see the documentation for the Stea
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_userstats_request_global_achievement_percentages(callback)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_userstats_request_global_achievement_percentages(callback)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -1818,7 +4360,7 @@ To create and download user generated content see the documentation for the Stea
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_userstats_most_achieved_achievement_info">steam_userstats_most_achieved_achievement_info</h1>
+<h1 id="steam_userstats_most_achieved_achievement_info">steam_userstats_most_achieved_achievement_info<a class="headerlink" href="#steam_userstats_most_achieved_achievement_info" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#GetMostAchievedAchievementInfo">ISteamUserStats::GetMostAchievedAchievementInfo</a></p>
 </blockquote>
@@ -1827,8 +4369,7 @@ To create and download user generated content see the documentation for the Stea
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_userstats_most_achieved_achievement_info()
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_userstats_most_achieved_achievement_info()</code></pre>
 </blockquote>
 <p><br></p>
 <p><strong>Returns:</strong></p>
@@ -1839,7 +4380,7 @@ To create and download user generated content see the documentation for the Stea
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_userstats_next_most_achieved_achievement_info">steam_userstats_next_most_achieved_achievement_info</h1>
+<h1 id="steam_userstats_next_most_achieved_achievement_info">steam_userstats_next_most_achieved_achievement_info<a class="headerlink" href="#steam_userstats_next_most_achieved_achievement_info" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#GetNextMostAchievedAchievementInfo">ISteamUserStats::GetNextMostAchievedAchievementInfo</a></p>
 </blockquote>
@@ -1848,8 +4389,7 @@ To create and download user generated content see the documentation for the Stea
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_userstats_next_most_achieved_achievement_info(iterator_prev)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_userstats_next_most_achieved_achievement_info(iterator_prev)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -1876,7 +4416,7 @@ To create and download user generated content see the documentation for the Stea
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_userstats_achievement_achieved_percent">steam_userstats_achievement_achieved_percent</h1>
+<h1 id="steam_userstats_achievement_achieved_percent">steam_userstats_achievement_achieved_percent<a class="headerlink" href="#steam_userstats_achievement_achieved_percent" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#GetAchievementAchievedPercent">ISteamUserStats::GetAchievementAchievedPercent</a></p>
 </blockquote>
@@ -1885,8 +4425,7 @@ To create and download user generated content see the documentation for the Stea
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_userstats_achievement_achieved_percent(achievement_name)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_userstats_achievement_achieved_percent(achievement_name)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -1913,7 +4452,7 @@ To create and download user generated content see the documentation for the Stea
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_userstats_request_global_stats">steam_userstats_request_global_stats</h1>
+<h1 id="steam_userstats_request_global_stats">steam_userstats_request_global_stats<a class="headerlink" href="#steam_userstats_request_global_stats" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#RequestGlobalStats">ISteamUserStats::RequestGlobalStats</a></p>
 </blockquote>
@@ -1922,8 +4461,7 @@ To create and download user generated content see the documentation for the Stea
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_userstats_request_global_stats(history_days, callback)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_userstats_request_global_stats(history_days, callback)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -1978,7 +4516,7 @@ To create and download user generated content see the documentation for the Stea
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_userstats_global_stat_int64">steam_userstats_global_stat_int64</h1>
+<h1 id="steam_userstats_global_stat_int64">steam_userstats_global_stat_int64<a class="headerlink" href="#steam_userstats_global_stat_int64" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#GetGlobalStat">ISteamUserStats::GetGlobalStat</a></p>
 </blockquote>
@@ -1987,8 +4525,7 @@ To create and download user generated content see the documentation for the Stea
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_userstats_global_stat_int64(stat_name)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_userstats_global_stat_int64(stat_name)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -2015,7 +4552,7 @@ To create and download user generated content see the documentation for the Stea
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_userstats_global_stat_double">steam_userstats_global_stat_double</h1>
+<h1 id="steam_userstats_global_stat_double">steam_userstats_global_stat_double<a class="headerlink" href="#steam_userstats_global_stat_double" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#GetGlobalStat">ISteamUserStats::GetGlobalStat</a></p>
 </blockquote>
@@ -2024,8 +4561,7 @@ To create and download user generated content see the documentation for the Stea
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_userstats_global_stat_double(stat_name)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_userstats_global_stat_double(stat_name)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -2052,7 +4588,7 @@ To create and download user generated content see the documentation for the Stea
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_userstats_global_stat_history_int64">steam_userstats_global_stat_history_int64</h1>
+<h1 id="steam_userstats_global_stat_history_int64">steam_userstats_global_stat_history_int64<a class="headerlink" href="#steam_userstats_global_stat_history_int64" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#GetGlobalStatHistory">ISteamUserStats::GetGlobalStatHistory</a></p>
 </blockquote>
@@ -2061,8 +4597,7 @@ To create and download user generated content see the documentation for the Stea
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_userstats_global_stat_history_int64(stat_name)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_userstats_global_stat_history_int64(stat_name)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -2089,7 +4624,7 @@ To create and download user generated content see the documentation for the Stea
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_userstats_global_stat_history_double">steam_userstats_global_stat_history_double</h1>
+<h1 id="steam_userstats_global_stat_history_double">steam_userstats_global_stat_history_double<a class="headerlink" href="#steam_userstats_global_stat_history_double" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#GetGlobalStatHistory">ISteamUserStats::GetGlobalStatHistory</a></p>
 </blockquote>
@@ -2098,8 +4633,7 @@ To create and download user generated content see the documentation for the Stea
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_userstats_global_stat_history_double(stat_name)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_userstats_global_stat_history_double(stat_name)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -2126,7 +4660,7 @@ To create and download user generated content see the documentation for the Stea
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_userstats_achievement_progress_int">steam_userstats_achievement_progress_int</h1>
+<h1 id="steam_userstats_achievement_progress_int">steam_userstats_achievement_progress_int<a class="headerlink" href="#steam_userstats_achievement_progress_int" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#GetAchievementProgressLimits">ISteamUserStats::GetAchievementProgressLimits</a></p>
 </blockquote>
@@ -2134,8 +4668,7 @@ To create and download user generated content see the documentation for the Stea
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_userstats_achievement_progress_int(achievement_name)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_userstats_achievement_progress_int(achievement_name)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -2162,7 +4695,7 @@ To create and download user generated content see the documentation for the Stea
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_userstats_achievement_progress_float">steam_userstats_achievement_progress_float</h1>
+<h1 id="steam_userstats_achievement_progress_float">steam_userstats_achievement_progress_float<a class="headerlink" href="#steam_userstats_achievement_progress_float" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#GetAchievementProgressLimits">ISteamUserStats::GetAchievementProgressLimits</a></p>
 </blockquote>
@@ -2170,8 +4703,7 @@ To create and download user generated content see the documentation for the Stea
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_userstats_achievement_progress_float(achievement_name)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_userstats_achievement_progress_float(achievement_name)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -2198,7 +4730,7 @@ To create and download user generated content see the documentation for the Stea
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_userstats_set_callback_user_stats_received">steam_userstats_set_callback_user_stats_received</h1>
+<h1 id="steam_userstats_set_callback_user_stats_received">steam_userstats_set_callback_user_stats_received<a class="headerlink" href="#steam_userstats_set_callback_user_stats_received" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: N / A</p>
 </blockquote>
@@ -2207,8 +4739,7 @@ To create and download user generated content see the documentation for the Stea
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_userstats_set_callback_user_stats_received(callback)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_userstats_set_callback_user_stats_received(callback)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -2258,7 +4789,7 @@ To create and download user generated content see the documentation for the Stea
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_userstats_clear_callback_user_stats_received">steam_userstats_clear_callback_user_stats_received</h1>
+<h1 id="steam_userstats_clear_callback_user_stats_received">steam_userstats_clear_callback_user_stats_received<a class="headerlink" href="#steam_userstats_clear_callback_user_stats_received" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: N / A</p>
 </blockquote>
@@ -2266,8 +4797,7 @@ To create and download user generated content see the documentation for the Stea
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_userstats_clear_callback_user_stats_received()
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_userstats_clear_callback_user_stats_received()</code></pre>
 </blockquote>
 <p><br></p>
 <p><strong>Returns:</strong></p>
@@ -2278,7 +4808,7 @@ To create and download user generated content see the documentation for the Stea
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_userstats_set_callback_user_stats_stored">steam_userstats_set_callback_user_stats_stored</h1>
+<h1 id="steam_userstats_set_callback_user_stats_stored">steam_userstats_set_callback_user_stats_stored<a class="headerlink" href="#steam_userstats_set_callback_user_stats_stored" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: N / A</p>
 </blockquote>
@@ -2287,8 +4817,7 @@ To create and download user generated content see the documentation for the Stea
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_userstats_set_callback_user_stats_stored(callback)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_userstats_set_callback_user_stats_stored(callback)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -2338,7 +4867,7 @@ To create and download user generated content see the documentation for the Stea
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_userstats_clear_callback_user_stats_stored">steam_userstats_clear_callback_user_stats_stored</h1>
+<h1 id="steam_userstats_clear_callback_user_stats_stored">steam_userstats_clear_callback_user_stats_stored<a class="headerlink" href="#steam_userstats_clear_callback_user_stats_stored" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: N / A</p>
 </blockquote>
@@ -2346,8 +4875,7 @@ To create and download user generated content see the documentation for the Stea
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_userstats_clear_callback_user_stats_stored()
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_userstats_clear_callback_user_stats_stored()</code></pre>
 </blockquote>
 <p><br></p>
 <p><strong>Returns:</strong></p>
@@ -2358,7 +4886,7 @@ To create and download user generated content see the documentation for the Stea
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_userstats_set_callback_user_achievement_stored">steam_userstats_set_callback_user_achievement_stored</h1>
+<h1 id="steam_userstats_set_callback_user_achievement_stored">steam_userstats_set_callback_user_achievement_stored<a class="headerlink" href="#steam_userstats_set_callback_user_achievement_stored" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: N / A</p>
 </blockquote>
@@ -2367,8 +4895,7 @@ To create and download user generated content see the documentation for the Stea
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_userstats_set_callback_user_achievement_stored(callback)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_userstats_set_callback_user_achievement_stored(callback)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -2418,7 +4945,7 @@ To create and download user generated content see the documentation for the Stea
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_userstats_clear_callback_user_achievement_stored">steam_userstats_clear_callback_user_achievement_stored</h1>
+<h1 id="steam_userstats_clear_callback_user_achievement_stored">steam_userstats_clear_callback_user_achievement_stored<a class="headerlink" href="#steam_userstats_clear_callback_user_achievement_stored" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: N / A</p>
 </blockquote>
@@ -2426,8 +4953,7 @@ To create and download user generated content see the documentation for the Stea
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_userstats_clear_callback_user_achievement_stored()
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_userstats_clear_callback_user_achievement_stored()</code></pre>
 </blockquote>
 <p><br></p>
 <p><strong>Returns:</strong></p>
@@ -2438,7 +4964,7 @@ To create and download user generated content see the documentation for the Stea
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_userstats_set_callback_user_achievement_icon_fetched">steam_userstats_set_callback_user_achievement_icon_fetched</h1>
+<h1 id="steam_userstats_set_callback_user_achievement_icon_fetched">steam_userstats_set_callback_user_achievement_icon_fetched<a class="headerlink" href="#steam_userstats_set_callback_user_achievement_icon_fetched" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: N / A</p>
 </blockquote>
@@ -2447,8 +4973,7 @@ To create and download user generated content see the documentation for the Stea
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_userstats_set_callback_user_achievement_icon_fetched(callback)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_userstats_set_callback_user_achievement_icon_fetched(callback)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -2498,7 +5023,7 @@ To create and download user generated content see the documentation for the Stea
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_userstats_clear_callback_user_achievement_icon_fetched">steam_userstats_clear_callback_user_achievement_icon_fetched</h1>
+<h1 id="steam_userstats_clear_callback_user_achievement_icon_fetched">steam_userstats_clear_callback_user_achievement_icon_fetched<a class="headerlink" href="#steam_userstats_clear_callback_user_achievement_icon_fetched" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: N / A</p>
 </blockquote>
@@ -2506,8 +5031,7 @@ To create and download user generated content see the documentation for the Stea
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_userstats_clear_callback_user_achievement_icon_fetched()
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_userstats_clear_callback_user_achievement_icon_fetched()</code></pre>
 </blockquote>
 <p><br></p>
 <p><strong>Returns:</strong></p>
@@ -2518,7 +5042,7 @@ To create and download user generated content see the documentation for the Stea
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_userstats_set_callback_user_stats_unloaded">steam_userstats_set_callback_user_stats_unloaded</h1>
+<h1 id="steam_userstats_set_callback_user_stats_unloaded">steam_userstats_set_callback_user_stats_unloaded<a class="headerlink" href="#steam_userstats_set_callback_user_stats_unloaded" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: N / A</p>
 </blockquote>
@@ -2527,8 +5051,7 @@ To create and download user generated content see the documentation for the Stea
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_userstats_set_callback_user_stats_unloaded(callback)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_userstats_set_callback_user_stats_unloaded(callback)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -2578,7 +5101,7 @@ To create and download user generated content see the documentation for the Stea
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_userstats_clear_callback_user_stats_unloaded">steam_userstats_clear_callback_user_stats_unloaded</h1>
+<h1 id="steam_userstats_clear_callback_user_stats_unloaded">steam_userstats_clear_callback_user_stats_unloaded<a class="headerlink" href="#steam_userstats_clear_callback_user_stats_unloaded" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: N / A</p>
 </blockquote>
@@ -2586,8 +5109,7 @@ To create and download user generated content see the documentation for the Stea
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_userstats_clear_callback_user_stats_unloaded()
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_userstats_clear_callback_user_stats_unloaded()</code></pre>
 </blockquote>
 <p><br></p>
 <p><strong>Returns:</strong></p>
@@ -2598,7 +5120,7 @@ To create and download user generated content see the documentation for the Stea
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steamleaderboarddatarequest">SteamLeaderboardDataRequest</h1>
+<h1 id="steamleaderboarddatarequest">SteamLeaderboardDataRequest<a class="headerlink" href="#steamleaderboarddatarequest" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Enum</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#ELeaderboardDataRequest">ISteamUserStats::ELeaderboardDataRequest</a></p>
 </blockquote>
@@ -2634,7 +5156,7 @@ To create and download user generated content see the documentation for the Stea
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steamleaderboardsortmethod">SteamLeaderboardSortMethod</h1>
+<h1 id="steamleaderboardsortmethod">SteamLeaderboardSortMethod<a class="headerlink" href="#steamleaderboardsortmethod" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Enum</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#ELeaderboardSortMethod">ISteamUserStats::ELeaderboardSortMethod</a></p>
 </blockquote>
@@ -2671,7 +5193,7 @@ To create and download user generated content see the documentation for the Stea
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steamleaderboarddisplaytype">SteamLeaderboardDisplayType</h1>
+<h1 id="steamleaderboarddisplaytype">SteamLeaderboardDisplayType<a class="headerlink" href="#steamleaderboarddisplaytype" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Enum</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#ELeaderboardDisplayType">ISteamUserStats::ELeaderboardDisplayType</a></p>
 </blockquote>
@@ -2712,7 +5234,7 @@ To create and download user generated content see the documentation for the Stea
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steamleaderboarduploadscoremethod">SteamLeaderboardUploadScoreMethod</h1>
+<h1 id="steamleaderboarduploadscoremethod">SteamLeaderboardUploadScoreMethod<a class="headerlink" href="#steamleaderboarduploadscoremethod" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Enum</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#ELeaderboardUploadScoreMethod">ISteamUserStats::ELeaderboardUploadScoreMethod</a></p>
 </blockquote>
@@ -2748,7 +5270,7 @@ To create and download user generated content see the documentation for the Stea
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steamuserstatsachievementandunlocktime">SteamUserStatsAchievementAndUnlockTime</h1>
+<h1 id="steamuserstatsachievementandunlocktime">SteamUserStatsAchievementAndUnlockTime<a class="headerlink" href="#steamuserstatsachievementandunlocktime" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Struct</strong>: N / A</p>
 </blockquote>
@@ -2784,7 +5306,7 @@ To create and download user generated content see the documentation for the Stea
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steamuserstatsmostachievedachievementinfo">SteamUserStatsMostAchievedAchievementInfo</h1>
+<h1 id="steamuserstatsmostachievedachievementinfo">SteamUserStatsMostAchievedAchievementInfo<a class="headerlink" href="#steamuserstatsmostachievedachievementinfo" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Struct</strong>: N / A</p>
 </blockquote>
@@ -2830,7 +5352,7 @@ To create and download user generated content see the documentation for the Stea
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steamuserstatsdownloadedleaderboardentry">SteamUserStatsDownloadedLeaderboardEntry</h1>
+<h1 id="steamuserstatsdownloadedleaderboardentry">SteamUserStatsDownloadedLeaderboardEntry<a class="headerlink" href="#steamuserstatsdownloadedleaderboardentry" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Struct</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#LeaderboardEntry_t">ISteamUserStats::LeaderboardEntry_t</a></p>
 </blockquote>
@@ -2880,7 +5402,7 @@ To create and download user generated content see the documentation for the Stea
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steamuserstatsleaderboardfindresult">SteamUserStatsLeaderboardFindResult</h1>
+<h1 id="steamuserstatsleaderboardfindresult">SteamUserStatsLeaderboardFindResult<a class="headerlink" href="#steamuserstatsleaderboardfindresult" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Struct</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#LeaderboardFindResult_t">ISteamUserStats::LeaderboardFindResult_t</a></p>
 </blockquote>
@@ -2916,7 +5438,7 @@ To create and download user generated content see the documentation for the Stea
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steamuserstatsscoresdownloadedresult">SteamUserStatsScoresDownloadedResult</h1>
+<h1 id="steamuserstatsscoresdownloadedresult">SteamUserStatsScoresDownloadedResult<a class="headerlink" href="#steamuserstatsscoresdownloadedresult" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Struct</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#LeaderboardScoresDownloaded_t">ISteamUserStats::LeaderboardScoresDownloaded_t</a></p>
 </blockquote>
@@ -2957,7 +5479,7 @@ To create and download user generated content see the documentation for the Stea
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steamuserstatsscoreuploadedresult">SteamUserStatsScoreUploadedResult</h1>
+<h1 id="steamuserstatsscoreuploadedresult">SteamUserStatsScoreUploadedResult<a class="headerlink" href="#steamuserstatsscoreuploadedresult" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Struct</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#LeaderboardScoreUploaded_t">ISteamUserStats::LeaderboardScoreUploaded_t</a></p>
 </blockquote>
@@ -3012,7 +5534,7 @@ To create and download user generated content see the documentation for the Stea
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steamuserstatsnumberofcurrentplayersresult">SteamUserStatsNumberOfCurrentPlayersResult</h1>
+<h1 id="steamuserstatsnumberofcurrentplayersresult">SteamUserStatsNumberOfCurrentPlayersResult<a class="headerlink" href="#steamuserstatsnumberofcurrentplayersresult" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Struct</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#NumberOfCurrentPlayers_t">ISteamUserStats::NumberOfCurrentPlayers_t</a></p>
 </blockquote>
@@ -3047,7 +5569,7 @@ To create and download user generated content see the documentation for the Stea
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steamuserstatsglobalachievementpercentagesreadyresult">SteamUserStatsGlobalAchievementPercentagesReadyResult</h1>
+<h1 id="steamuserstatsglobalachievementpercentagesreadyresult">SteamUserStatsGlobalAchievementPercentagesReadyResult<a class="headerlink" href="#steamuserstatsglobalachievementpercentagesreadyresult" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Struct</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#GlobalAchievementPercentagesReady_t">ISteamUserStats::GlobalAchievementPercentagesReady_t</a></p>
 </blockquote>
@@ -3082,7 +5604,7 @@ To create and download user generated content see the documentation for the Stea
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steamuserstatsglobalstatsreceivedresult">SteamUserStatsGlobalStatsReceivedResult</h1>
+<h1 id="steamuserstatsglobalstatsreceivedresult">SteamUserStatsGlobalStatsReceivedResult<a class="headerlink" href="#steamuserstatsglobalstatsreceivedresult" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Struct</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#GlobalStatsReceived_t">ISteamUserStats::GlobalStatsReceived_t</a></p>
 </blockquote>
@@ -3117,7 +5639,7 @@ To create and download user generated content see the documentation for the Stea
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steamuserstatsattachleaderboardugcresult">SteamUserStatsAttachLeaderboardUgcResult</h1>
+<h1 id="steamuserstatsattachleaderboardugcresult">SteamUserStatsAttachLeaderboardUgcResult<a class="headerlink" href="#steamuserstatsattachleaderboardugcresult" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Struct</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#LeaderboardUGCSet_t">ISteamUserStats::LeaderboardUGCSet_t</a></p>
 </blockquote>
@@ -3152,7 +5674,7 @@ To create and download user generated content see the documentation for the Stea
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steamuserstatsachievementiconfetched">SteamUserStatsAchievementIconFetched</h1>
+<h1 id="steamuserstatsachievementiconfetched">SteamUserStatsAchievementIconFetched<a class="headerlink" href="#steamuserstatsachievementiconfetched" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Struct</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#UserAchievementIconFetched_t">ISteamUserStats::UserAchievementIconFetched_t</a></p>
 </blockquote>
@@ -3197,7 +5719,7 @@ To create and download user generated content see the documentation for the Stea
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steamuserstatsunloaded">SteamUserStatsUnloaded</h1>
+<h1 id="steamuserstatsunloaded">SteamUserStatsUnloaded<a class="headerlink" href="#steamuserstatsunloaded" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Struct</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#UserStatsUnloaded_t">ISteamUserStats::UserStatsUnloaded_t</a></p>
 </blockquote>
@@ -3227,7 +5749,7 @@ To create and download user generated content see the documentation for the Stea
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steamuserstatsuserstatsreceived">SteamUserStatsUserStatsReceived</h1>
+<h1 id="steamuserstatsuserstatsreceived">SteamUserStatsUserStatsReceived<a class="headerlink" href="#steamuserstatsuserstatsreceived" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Struct</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#UserStatsReceived_t">ISteamUserStats::UserStatsReceived_t</a></p>
 </blockquote>
@@ -3268,7 +5790,7 @@ To create and download user generated content see the documentation for the Stea
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steamuserstatsuserstatsstored">SteamUserStatsUserStatsStored</h1>
+<h1 id="steamuserstatsuserstatsstored">SteamUserStatsUserStatsStored<a class="headerlink" href="#steamuserstatsuserstatsstored" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Struct</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#UserStatsStored_t">ISteamUserStats::UserStatsStored_t</a></p>
 </blockquote>
@@ -3303,7 +5825,7 @@ To create and download user generated content see the documentation for the Stea
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steamuserstatsuserachievementstored">SteamUserStatsUserAchievementStored</h1>
+<h1 id="steamuserstatsuserachievementstored">SteamUserStatsUserAchievementStored<a class="headerlink" href="#steamuserstatsuserachievementstored" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Struct</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#UserAchievementStored_t">ISteamUserStats::UserAchievementStored_t</a></p>
 </blockquote>
@@ -3353,7 +5875,7 @@ To create and download user generated content see the documentation for the Stea
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steamuserstatsintminmax">SteamUserStatsIntMinMax</h1>
+<h1 id="steamuserstatsintminmax">SteamUserStatsIntMinMax<a class="headerlink" href="#steamuserstatsintminmax" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Struct</strong>: N / A</p>
 </blockquote>
@@ -3388,7 +5910,7 @@ To create and download user generated content see the documentation for the Stea
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steamuserstatsfloatminmax">SteamUserStatsFloatMinMax</h1>
+<h1 id="steamuserstatsfloatminmax">SteamUserStatsFloatMinMax<a class="headerlink" href="#steamuserstatsfloatminmax" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Struct</strong>: N / A</p>
 </blockquote>
@@ -3421,57 +5943,73 @@ To create and download user generated content see the documentation for the Stea
 </table>
 <p><br></p>
 <hr />
-              
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
             </div>
-          </div><footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="user.html" class="btn btn-neutral float-left" title="User"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="utils.html" class="btn btn-neutral float-right" title="Utils">Next <span class="icon icon-circle-arrow-right"></span></a>
-    </div>
-
-  <hr/>
-
-  <div role="contentinfo">
-    <!-- Copyright etc -->
-      <p><p align="center">GameMaker 2026</p></p>
-  </div>
-
-  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
-</footer>
           
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
         </div>
-      </div>
-
-    </section>
-
-  </div>
-
-  <div class="rst-versions" role="note" aria-label="Versions">
-  <span class="rst-current-version" data-toggle="rst-current-version">
-    
-        <span>
-          <a href="https://github.com/YoYoGames/GMEXT-Steamworks" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
-        </span>
-    
-    
-      <span><a href="user.html" style="color: #fcfcfc">&laquo; Previous</a></span>
-    
-    
-      <span><a href="utils.html" style="color: #fcfcfc">Next &raquo;</a></span>
-    
-  </span>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      <p align="center">GameMaker 2026</p>
+    </div>
+  
+  
 </div>
-    <script src="js/jquery-3.6.0.min.js"></script>
-    <script>var base_url = ".";</script>
-    <script src="js/theme_extra.js"></script>
-    <script src="js/theme.js"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/gml.min.js"></script>
-      <script src="assets/js/gmext_script.js"></script>
-    <script>
-        jQuery(function () {
-            SphinxRtdTheme.Navigation.enable(true);
-        });
-    </script>
-
-</body>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["navigation.top", "navigation.tracking", "toc.follow", "content.code.copy"], "search": "assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/gml.min.js"></script>
+      
+        <script src="assets/js/hljs-init.js"></script>
+      
+        <script src="assets/js/resize-columns.js"></script>
+      
+    
+  </body>
 </html>

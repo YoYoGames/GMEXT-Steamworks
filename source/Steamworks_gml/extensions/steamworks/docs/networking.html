@@ -1,122 +1,2058 @@
-<!DOCTYPE html>
-<html class="writer-html5" lang="en" >
-<head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <link rel="shortcut icon" href="img/favicon.ico" />
-    <title>Networking - GMEXT-Steamworks</title>
-    <link rel="stylesheet" href="css/theme.css" />
-    <link rel="stylesheet" href="css/theme_extra.css" />
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
-        <link href="assets/css/gmext_style.css" rel="stylesheet" />
-    
-      <script>
-        // Current page data
-        var mkdocs_page_name = "Networking";
-        var mkdocs_page_input_path = "networking.md";
-        var mkdocs_page_url = null;
-      </script>
-    
-    <!--[if lt IE 9]>
-      <script src="js/html5shiv.min.js"></script>
-    <![endif]-->
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/gml.min.js"></script>
-      <script>hljs.highlightAll();</script> 
-</head>
 
-<body class="wy-body-for-nav" role="document">
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="music.html">
+      
+      
+        <link rel="next" href="parties.html">
+      
+      
+        
+      
+      
+      <link rel="icon" href="assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Networking - GMEXT-Steamworks</title>
+      
+    
+    
+      <link rel="stylesheet" href="assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
 
-  <div class="wy-grid-for-nav">
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
-    <div class="wy-side-scroll">
-      <div class="wy-side-nav-search">
-          <a href="." class="icon icon-home"> GMEXT-Steamworks
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+    
+      <link rel="stylesheet" href="assets/css/extra.css">
+    
+    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  <script>(function(){try{var w=["--gm-nav-width","--gm-toc-width"],i,v;for(i=0;i<w.length;i++){v=localStorage.getItem(w[i]);if(v)document.documentElement.style.setProperty(w[i],v)}}catch(e){}})()</script></head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#networking" class="md-skip">
+          Skip to content
         </a>
-      </div>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
 
-      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption"><span class="caption-text">Guides</span></p>
-              <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting Started</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="extension_options.html">Extension Options</a>
-                  </li>
-              </ul>
-              <p class="caption"><span class="caption-text">Modules</span></p>
-              <ul class="current">
-                  <li class="toctree-l1"><a class="reference internal" href="api.html">API</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="apps.html">Apps</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="friends.html">Friends</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="input.html">Input</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="inventory.html">Inventory</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="matchmaking.html">Matchmaking</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="music.html">Music</a>
-                  </li>
-                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Networking</a>
-    <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#networking-messages">Networking Messages</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#networking-sockets">Networking Sockets</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#constants">Constants</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#structs">Structs</a>
-    </li>
-    </ul>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="parties.html">Parties</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="remote_storage.html">Remote Storage</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="screenshots.html">Screenshots</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="timeline.html">Timeline</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="ugc.html">UGC</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="user.html">User</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="userstats.html">UserStats</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="utils.html">Utils</a>
-                  </li>
-              </ul>
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="home.html" title="GMEXT-Steamworks" class="md-header__button md-logo" aria-label="GMEXT-Steamworks" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            GMEXT-Steamworks
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Networking
+            
+          </span>
+        </div>
       </div>
     </div>
-    </nav>
-
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href=".">GMEXT-Steamworks</a>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/YoYoGames/GMEXT-Steamworks" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
         
-      </nav>
-      <div class="wy-nav-content">
-        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
-  <ul class="wy-breadcrumbs">
-    <li><a href="." class="icon icon-home" aria-label="Docs"></a></li>
-          <li class="breadcrumb-item">Modules</li>
-      <li class="breadcrumb-item active">Networking</li>
-    <li class="wy-breadcrumbs-aside">
-          <a href="https://github.com/YoYoGames/GMEXT-Steamworks/edit/master/docs/networking.md" class="icon icon-github"> Edit on GitHub</a>
-    </li>
-  </ul>
-  <hr/>
-</div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-            <div class="section" itemprop="articleBody">
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
               
-                <p><a id="top"></a></p>
-<h1 id="networking"><strong>Networking</strong></h1>
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="home.html" title="GMEXT-Steamworks" class="md-nav__button md-logo" aria-label="GMEXT-Steamworks" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    GMEXT-Steamworks
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/YoYoGames/GMEXT-Steamworks" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="home.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Steamworks Extension
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Guides
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Guides
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="getting_started.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="extension_options.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Extension Options
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modules
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Modules
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="api.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="apps.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Apps
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="friends.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Friends
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="input.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Input
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="inventory.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inventory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="matchmaking.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Matchmaking
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="music.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Music
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Networking
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="networking.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Networking
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#networking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Networking
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Networking">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#networking-messages" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Networking Messages
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#networking-sockets" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Networking Sockets
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#constants" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Constants
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#structs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Structs
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_networking_messages_set_callback_session_request" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_networking_messages_set_callback_session_request
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_networking_messages_clear_callback_session_request" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_networking_messages_clear_callback_session_request
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_networking_messages_set_callback_session_failed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_networking_messages_set_callback_session_failed
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_networking_messages_clear_callback_session_failed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_networking_messages_clear_callback_session_failed
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_networking_messages_send_message_to_user" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_networking_messages_send_message_to_user
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_networking_messages_receive_messages_on_channel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_networking_messages_receive_messages_on_channel
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_networking_messages_accept_session_with_user" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_networking_messages_accept_session_with_user
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_networking_messages_close_session_with_user" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_networking_messages_close_session_with_user
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_networking_messages_close_channel_with_user" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_networking_messages_close_channel_with_user
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_networking_sockets_set_callback_connection_status_changed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_networking_sockets_set_callback_connection_status_changed
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_networking_sockets_clear_callback_connection_status_changed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_networking_sockets_clear_callback_connection_status_changed
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_networking_sockets_create_listen_socket_ip" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_networking_sockets_create_listen_socket_ip
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_networking_sockets_close_listen_socket" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_networking_sockets_close_listen_socket
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_networking_sockets_connect_by_ip_address" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_networking_sockets_connect_by_ip_address
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_networking_sockets_accept_connection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_networking_sockets_accept_connection
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_networking_sockets_close_connection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_networking_sockets_close_connection
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_networking_sockets_set_connection_user_data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_networking_sockets_set_connection_user_data
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_networking_sockets_get_connection_user_data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_networking_sockets_get_connection_user_data
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_networking_sockets_set_connection_name" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_networking_sockets_set_connection_name
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_networking_sockets_get_connection_name" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_networking_sockets_get_connection_name
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_networking_sockets_send_message_to_connection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_networking_sockets_send_message_to_connection
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_networking_sockets_flush_messages_on_connection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_networking_sockets_flush_messages_on_connection
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_networking_sockets_receive_messages_on_connection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_networking_sockets_receive_messages_on_connection
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_networking_sockets_get_connection_info" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_networking_sockets_get_connection_info
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_networking_sockets_get_detailed_connection_status" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_networking_sockets_get_detailed_connection_status
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_networking_sockets_run_callbacks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_networking_sockets_run_callbacks
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_networking_sockets_create_socket_pair" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_networking_sockets_create_socket_pair
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_networking_sockets_create_listen_socket_p2p" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_networking_sockets_create_listen_socket_p2p
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_networking_sockets_connect_p2p" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_networking_sockets_connect_p2p
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_networking_sockets_get_listen_socket_address" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_networking_sockets_get_listen_socket_address
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_networking_sockets_create_poll_group" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_networking_sockets_create_poll_group
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_networking_sockets_destroy_poll_group" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_networking_sockets_destroy_poll_group
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_networking_sockets_set_connection_poll_group" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_networking_sockets_set_connection_poll_group
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_networking_sockets_receive_messages_on_poll_group" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_networking_sockets_receive_messages_on_poll_group
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steamnetworkingidentitytype" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamNetworkingIdentityType
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steamnetworkingconnectionend" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamNetworkingConnectionEnd
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steamnetworkingconnectionstate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamNetworkingConnectionState
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steamnetworkingsendflags" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamNetworkingSendFlags
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steamnetworkingconfigvalue" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamNetworkingConfigValue
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steamnetworkingconnectioninfoflags" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamNetworkingConnectionInfoFlags
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steamnetworkingmessagessessionrequest" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamNetworkingMessagesSessionRequest
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steamnetworkingmessagessessionfailed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamNetworkingMessagesSessionFailed
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steamnetworkingmessage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamNetworkingMessage
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steamnetworkingsocketsconnectioninfo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamNetworkingSocketsConnectionInfo
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steamnetworkingsocketsstatuschanged" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamNetworkingSocketsStatusChanged
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="parties.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parties
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="remote_storage.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Remote Storage
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="screenshots.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Screenshots
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="timeline.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Timeline
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ugc.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UGC
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="user.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    User
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="userstats.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UserStats
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="utils.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Utils
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#networking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Networking
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Networking">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#networking-messages" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Networking Messages
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#networking-sockets" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Networking Sockets
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#constants" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Constants
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#structs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Structs
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_networking_messages_set_callback_session_request" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_networking_messages_set_callback_session_request
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_networking_messages_clear_callback_session_request" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_networking_messages_clear_callback_session_request
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_networking_messages_set_callback_session_failed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_networking_messages_set_callback_session_failed
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_networking_messages_clear_callback_session_failed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_networking_messages_clear_callback_session_failed
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_networking_messages_send_message_to_user" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_networking_messages_send_message_to_user
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_networking_messages_receive_messages_on_channel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_networking_messages_receive_messages_on_channel
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_networking_messages_accept_session_with_user" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_networking_messages_accept_session_with_user
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_networking_messages_close_session_with_user" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_networking_messages_close_session_with_user
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_networking_messages_close_channel_with_user" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_networking_messages_close_channel_with_user
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_networking_sockets_set_callback_connection_status_changed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_networking_sockets_set_callback_connection_status_changed
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_networking_sockets_clear_callback_connection_status_changed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_networking_sockets_clear_callback_connection_status_changed
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_networking_sockets_create_listen_socket_ip" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_networking_sockets_create_listen_socket_ip
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_networking_sockets_close_listen_socket" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_networking_sockets_close_listen_socket
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_networking_sockets_connect_by_ip_address" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_networking_sockets_connect_by_ip_address
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_networking_sockets_accept_connection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_networking_sockets_accept_connection
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_networking_sockets_close_connection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_networking_sockets_close_connection
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_networking_sockets_set_connection_user_data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_networking_sockets_set_connection_user_data
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_networking_sockets_get_connection_user_data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_networking_sockets_get_connection_user_data
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_networking_sockets_set_connection_name" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_networking_sockets_set_connection_name
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_networking_sockets_get_connection_name" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_networking_sockets_get_connection_name
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_networking_sockets_send_message_to_connection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_networking_sockets_send_message_to_connection
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_networking_sockets_flush_messages_on_connection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_networking_sockets_flush_messages_on_connection
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_networking_sockets_receive_messages_on_connection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_networking_sockets_receive_messages_on_connection
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_networking_sockets_get_connection_info" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_networking_sockets_get_connection_info
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_networking_sockets_get_detailed_connection_status" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_networking_sockets_get_detailed_connection_status
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_networking_sockets_run_callbacks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_networking_sockets_run_callbacks
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_networking_sockets_create_socket_pair" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_networking_sockets_create_socket_pair
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_networking_sockets_create_listen_socket_p2p" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_networking_sockets_create_listen_socket_p2p
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_networking_sockets_connect_p2p" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_networking_sockets_connect_p2p
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_networking_sockets_get_listen_socket_address" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_networking_sockets_get_listen_socket_address
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_networking_sockets_create_poll_group" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_networking_sockets_create_poll_group
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_networking_sockets_destroy_poll_group" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_networking_sockets_destroy_poll_group
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_networking_sockets_set_connection_poll_group" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_networking_sockets_set_connection_poll_group
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_networking_sockets_receive_messages_on_poll_group" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_networking_sockets_receive_messages_on_poll_group
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steamnetworkingidentitytype" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamNetworkingIdentityType
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steamnetworkingconnectionend" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamNetworkingConnectionEnd
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steamnetworkingconnectionstate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamNetworkingConnectionState
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steamnetworkingsendflags" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamNetworkingSendFlags
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steamnetworkingconfigvalue" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamNetworkingConfigValue
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steamnetworkingconnectioninfoflags" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamNetworkingConnectionInfoFlags
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steamnetworkingmessagessessionrequest" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamNetworkingMessagesSessionRequest
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steamnetworkingmessagessessionfailed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamNetworkingMessagesSessionFailed
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steamnetworkingmessage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamNetworkingMessage
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steamnetworkingsocketsconnectioninfo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamNetworkingSocketsConnectionInfo
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steamnetworkingsocketsstatuschanged" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamNetworkingSocketsStatusChanged
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<p><a id="top"></a></p>
+<h1 id="networking"><strong>Networking</strong><a class="headerlink" href="#networking" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Interfaces</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamNetworking">ISteamNetworking</a>, <a href="https://partner.steamgames.com/doc/api/ISteamNetworkingMessages">ISteamNetworkingMessages</a>, <a href="https://partner.steamgames.com/doc/api/ISteamNetworkingSockets">ISteamNetworkingSockets</a></p>
 </blockquote>
@@ -125,7 +2061,7 @@
 <p class="admonition-title">Note</p>
 <p>The <a href="https://partner.steamgames.com/doc/api/ISteamNetworking">ISteamNetworking</a> API is deprecated. This module groups the functionality of the <a href="https://partner.steamgames.com/doc/api/ISteamNetworkingMessages">ISteamNetworkingMessages</a> and <a href="https://partner.steamgames.com/doc/api/ISteamNetworkingSockets">ISteamNetworkingSockets</a>. See the <a href="https://partner.steamgames.com/doc/features/multiplayer/networking">Steam Networking</a> overview for more information.</p>
 </div>
-<h2 id="networking-messages">Networking Messages</h2>
+<h2 id="networking-messages">Networking Messages<a class="headerlink" href="#networking-messages" title="Permanent link">&para;</a></h2>
 <p>These are the functions available when using the Messages module:</p>
 <ul>
 <li><a href="networking.html#steam_networking_messages_set_callback_session_request">steam_networking_messages_set_callback_session_request</a></li>
@@ -138,7 +2074,7 @@
 <li><a href="networking.html#steam_networking_messages_close_session_with_user">steam_networking_messages_close_session_with_user</a></li>
 <li><a href="networking.html#steam_networking_messages_close_channel_with_user">steam_networking_messages_close_channel_with_user</a></li>
 </ul>
-<h2 id="networking-sockets">Networking Sockets</h2>
+<h2 id="networking-sockets">Networking Sockets<a class="headerlink" href="#networking-sockets" title="Permanent link">&para;</a></h2>
 <p>These are the functions available when using the Sockets module:</p>
 <ul>
 <li><a href="networking.html#steam_networking_sockets_set_callback_connection_status_changed">steam_networking_sockets_set_callback_connection_status_changed</a></li>
@@ -167,7 +2103,7 @@
 <li><a href="networking.html#steam_networking_sockets_set_connection_poll_group">steam_networking_sockets_set_connection_poll_group</a></li>
 <li><a href="networking.html#steam_networking_sockets_receive_messages_on_poll_group">steam_networking_sockets_receive_messages_on_poll_group</a></li>
 </ul>
-<h2 id="constants">Constants</h2>
+<h2 id="constants">Constants<a class="headerlink" href="#constants" title="Permanent link">&para;</a></h2>
 <p>These are the constants and enums of the Networking module:</p>
 <ul>
 <li><a href="networking.html#steamnetworkingidentitytype">SteamNetworkingIdentityType</a></li>
@@ -177,7 +2113,7 @@
 <li><a href="networking.html#steamnetworkingconfigvalue">SteamNetworkingConfigValue</a></li>
 <li><a href="networking.html#steamnetworkingconnectioninfoflags">SteamNetworkingConnectionInfoFlags</a></li>
 </ul>
-<h2 id="structs">Structs</h2>
+<h2 id="structs">Structs<a class="headerlink" href="#structs" title="Permanent link">&para;</a></h2>
 <p>These are the structs of the Networking module:</p>
 <ul>
 <li><a href="networking.html#steamnetworkingmessagessessionrequest">SteamNetworkingMessagesSessionRequest</a></li>
@@ -190,7 +2126,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_networking_messages_set_callback_session_request">steam_networking_messages_set_callback_session_request</h1>
+<h1 id="steam_networking_messages_set_callback_session_request">steam_networking_messages_set_callback_session_request<a class="headerlink" href="#steam_networking_messages_set_callback_session_request" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: N / A</p>
 </blockquote>
@@ -199,8 +2135,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_networking_messages_set_callback_session_request(callback)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_networking_messages_set_callback_session_request(callback)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -250,7 +2185,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_networking_messages_clear_callback_session_request">steam_networking_messages_clear_callback_session_request</h1>
+<h1 id="steam_networking_messages_clear_callback_session_request">steam_networking_messages_clear_callback_session_request<a class="headerlink" href="#steam_networking_messages_clear_callback_session_request" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: N / A</p>
 </blockquote>
@@ -258,8 +2193,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_networking_messages_clear_callback_session_request()
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_networking_messages_clear_callback_session_request()</code></pre>
 </blockquote>
 <p><br></p>
 <p><strong>Returns:</strong></p>
@@ -270,7 +2204,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_networking_messages_set_callback_session_failed">steam_networking_messages_set_callback_session_failed</h1>
+<h1 id="steam_networking_messages_set_callback_session_failed">steam_networking_messages_set_callback_session_failed<a class="headerlink" href="#steam_networking_messages_set_callback_session_failed" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: N / A</p>
 </blockquote>
@@ -279,8 +2213,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_networking_messages_set_callback_session_failed(callback)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_networking_messages_set_callback_session_failed(callback)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -330,7 +2263,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_networking_messages_clear_callback_session_failed">steam_networking_messages_clear_callback_session_failed</h1>
+<h1 id="steam_networking_messages_clear_callback_session_failed">steam_networking_messages_clear_callback_session_failed<a class="headerlink" href="#steam_networking_messages_clear_callback_session_failed" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: N / A</p>
 </blockquote>
@@ -338,8 +2271,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_networking_messages_clear_callback_session_failed()
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_networking_messages_clear_callback_session_failed()</code></pre>
 </blockquote>
 <p><br></p>
 <p><strong>Returns:</strong></p>
@@ -350,7 +2282,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_networking_messages_send_message_to_user">steam_networking_messages_send_message_to_user</h1>
+<h1 id="steam_networking_messages_send_message_to_user">steam_networking_messages_send_message_to_user<a class="headerlink" href="#steam_networking_messages_send_message_to_user" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamNetworkingMessages#SendMessageToUser">ISteamNetworkingMessages::SendMessageToUser</a></p>
 </blockquote>
@@ -361,8 +2293,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_networking_messages_send_message_to_user(steam_id_remote, data, send_flags, remote_channel, buffer_offset=undefined, buffer_count=undefined)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_networking_messages_send_message_to_user(steam_id_remote, data, send_flags, remote_channel, buffer_offset=undefined, buffer_count=undefined)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -415,7 +2346,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_networking_messages_receive_messages_on_channel">steam_networking_messages_receive_messages_on_channel</h1>
+<h1 id="steam_networking_messages_receive_messages_on_channel">steam_networking_messages_receive_messages_on_channel<a class="headerlink" href="#steam_networking_messages_receive_messages_on_channel" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamNetworkingMessages#ReceiveMessagesOnChannel">ISteamNetworkingMessages::ReceiveMessagesOnChannel</a></p>
 </blockquote>
@@ -424,8 +2355,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_networking_messages_receive_messages_on_channel(local_channel, out_data, count)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_networking_messages_receive_messages_on_channel(local_channel, out_data, count)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -462,7 +2392,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_networking_messages_accept_session_with_user">steam_networking_messages_accept_session_with_user</h1>
+<h1 id="steam_networking_messages_accept_session_with_user">steam_networking_messages_accept_session_with_user<a class="headerlink" href="#steam_networking_messages_accept_session_with_user" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamNetworkingMessages#AcceptSessionWithUser">ISteamNetworkingMessages::AcceptSessionWithUser</a></p>
 </blockquote>
@@ -472,8 +2402,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_networking_messages_accept_session_with_user(steam_id_remote)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_networking_messages_accept_session_with_user(steam_id_remote)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -500,7 +2429,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_networking_messages_close_session_with_user">steam_networking_messages_close_session_with_user</h1>
+<h1 id="steam_networking_messages_close_session_with_user">steam_networking_messages_close_session_with_user<a class="headerlink" href="#steam_networking_messages_close_session_with_user" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamNetworkingMessages#CloseSessionWithUser">ISteamNetworkingMessages::CloseSessionWithUser</a></p>
 </blockquote>
@@ -510,8 +2439,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_networking_messages_close_session_with_user(steam_id_remote)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_networking_messages_close_session_with_user(steam_id_remote)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -538,7 +2466,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_networking_messages_close_channel_with_user">steam_networking_messages_close_channel_with_user</h1>
+<h1 id="steam_networking_messages_close_channel_with_user">steam_networking_messages_close_channel_with_user<a class="headerlink" href="#steam_networking_messages_close_channel_with_user" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamNetworkingMessages#CloseChannelWithUser">ISteamNetworkingMessages::CloseChannelWithUser</a></p>
 </blockquote>
@@ -546,8 +2474,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_networking_messages_close_channel_with_user(steam_id_remote, local_channel)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_networking_messages_close_channel_with_user(steam_id_remote, local_channel)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -579,7 +2506,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_networking_sockets_set_callback_connection_status_changed">steam_networking_sockets_set_callback_connection_status_changed</h1>
+<h1 id="steam_networking_sockets_set_callback_connection_status_changed">steam_networking_sockets_set_callback_connection_status_changed<a class="headerlink" href="#steam_networking_sockets_set_callback_connection_status_changed" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: N / A</p>
 </blockquote>
@@ -588,8 +2515,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_networking_sockets_set_callback_connection_status_changed(callback)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_networking_sockets_set_callback_connection_status_changed(callback)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -639,7 +2565,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_networking_sockets_clear_callback_connection_status_changed">steam_networking_sockets_clear_callback_connection_status_changed</h1>
+<h1 id="steam_networking_sockets_clear_callback_connection_status_changed">steam_networking_sockets_clear_callback_connection_status_changed<a class="headerlink" href="#steam_networking_sockets_clear_callback_connection_status_changed" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: N / A</p>
 </blockquote>
@@ -647,8 +2573,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_networking_sockets_clear_callback_connection_status_changed()
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_networking_sockets_clear_callback_connection_status_changed()</code></pre>
 </blockquote>
 <p><br></p>
 <p><strong>Returns:</strong></p>
@@ -659,7 +2584,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_networking_sockets_create_listen_socket_ip">steam_networking_sockets_create_listen_socket_ip</h1>
+<h1 id="steam_networking_sockets_create_listen_socket_ip">steam_networking_sockets_create_listen_socket_ip<a class="headerlink" href="#steam_networking_sockets_create_listen_socket_ip" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamNetworkingSockets#CreateListenSocketIP">ISteamNetworkingSockets::CreateListenSocketIP</a></p>
 </blockquote>
@@ -670,8 +2595,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_networking_sockets_create_listen_socket_ip(port)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_networking_sockets_create_listen_socket_ip(port)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -699,7 +2623,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_networking_sockets_close_listen_socket">steam_networking_sockets_close_listen_socket</h1>
+<h1 id="steam_networking_sockets_close_listen_socket">steam_networking_sockets_close_listen_socket<a class="headerlink" href="#steam_networking_sockets_close_listen_socket" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamNetworkingSockets#CloseListenSocket">ISteamNetworkingSockets::CloseListenSocket</a></p>
 </blockquote>
@@ -707,8 +2631,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_networking_sockets_close_listen_socket(listen_socket)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_networking_sockets_close_listen_socket(listen_socket)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -735,7 +2658,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_networking_sockets_connect_by_ip_address">steam_networking_sockets_connect_by_ip_address</h1>
+<h1 id="steam_networking_sockets_connect_by_ip_address">steam_networking_sockets_connect_by_ip_address<a class="headerlink" href="#steam_networking_sockets_connect_by_ip_address" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamNetworkingSockets#ConnectByIPAddress">ISteamNetworkingSockets::ConnectByIPAddress</a></p>
 </blockquote>
@@ -745,8 +2668,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_networking_sockets_connect_by_ip_address(ip, port)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_networking_sockets_connect_by_ip_address(ip, port)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -778,7 +2700,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_networking_sockets_accept_connection">steam_networking_sockets_accept_connection</h1>
+<h1 id="steam_networking_sockets_accept_connection">steam_networking_sockets_accept_connection<a class="headerlink" href="#steam_networking_sockets_accept_connection" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamNetworkingSockets#AcceptConnection">ISteamNetworkingSockets::AcceptConnection</a></p>
 </blockquote>
@@ -788,8 +2710,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_networking_sockets_accept_connection(conn)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_networking_sockets_accept_connection(conn)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -816,7 +2737,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_networking_sockets_close_connection">steam_networking_sockets_close_connection</h1>
+<h1 id="steam_networking_sockets_close_connection">steam_networking_sockets_close_connection<a class="headerlink" href="#steam_networking_sockets_close_connection" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamNetworkingSockets#CloseConnection">ISteamNetworkingSockets::CloseConnection</a></p>
 </blockquote>
@@ -825,8 +2746,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_networking_sockets_close_connection(conn, reason, debug, linger)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_networking_sockets_close_connection(conn, reason, debug, linger)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -868,7 +2788,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_networking_sockets_set_connection_user_data">steam_networking_sockets_set_connection_user_data</h1>
+<h1 id="steam_networking_sockets_set_connection_user_data">steam_networking_sockets_set_connection_user_data<a class="headerlink" href="#steam_networking_sockets_set_connection_user_data" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamNetworkingSockets#SetConnectionUserData">ISteamNetworkingSockets::SetConnectionUserData</a></p>
 </blockquote>
@@ -876,8 +2796,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_networking_sockets_set_connection_user_data(conn, user_data)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_networking_sockets_set_connection_user_data(conn, user_data)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -909,7 +2828,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_networking_sockets_get_connection_user_data">steam_networking_sockets_get_connection_user_data</h1>
+<h1 id="steam_networking_sockets_get_connection_user_data">steam_networking_sockets_get_connection_user_data<a class="headerlink" href="#steam_networking_sockets_get_connection_user_data" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamNetworkingSockets#GetConnectionUserData">ISteamNetworkingSockets::GetConnectionUserData</a></p>
 </blockquote>
@@ -917,8 +2836,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_networking_sockets_get_connection_user_data(conn)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_networking_sockets_get_connection_user_data(conn)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -946,7 +2864,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_networking_sockets_set_connection_name">steam_networking_sockets_set_connection_name</h1>
+<h1 id="steam_networking_sockets_set_connection_name">steam_networking_sockets_set_connection_name<a class="headerlink" href="#steam_networking_sockets_set_connection_name" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamNetworkingSockets#SetConnectionName">ISteamNetworkingSockets::SetConnectionName</a></p>
 </blockquote>
@@ -954,8 +2872,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_networking_sockets_set_connection_name(conn, name)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_networking_sockets_set_connection_name(conn, name)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -987,7 +2904,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_networking_sockets_get_connection_name">steam_networking_sockets_get_connection_name</h1>
+<h1 id="steam_networking_sockets_get_connection_name">steam_networking_sockets_get_connection_name<a class="headerlink" href="#steam_networking_sockets_get_connection_name" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamNetworkingSockets#GetConnectionName">ISteamNetworkingSockets::GetConnectionName</a></p>
 </blockquote>
@@ -995,8 +2912,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_networking_sockets_get_connection_name(conn)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_networking_sockets_get_connection_name(conn)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -1024,7 +2940,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_networking_sockets_send_message_to_connection">steam_networking_sockets_send_message_to_connection</h1>
+<h1 id="steam_networking_sockets_send_message_to_connection">steam_networking_sockets_send_message_to_connection<a class="headerlink" href="#steam_networking_sockets_send_message_to_connection" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamNetworkingSockets#SendMessageToConnection">ISteamNetworkingSockets::SendMessageToConnection</a></p>
 </blockquote>
@@ -1032,8 +2948,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_networking_sockets_send_message_to_connection(conn, data, send_flags, buffer_offset=undefined, buffer_count=undefined)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_networking_sockets_send_message_to_connection(conn, data, send_flags, buffer_offset=undefined, buffer_count=undefined)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -1080,7 +2995,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_networking_sockets_flush_messages_on_connection">steam_networking_sockets_flush_messages_on_connection</h1>
+<h1 id="steam_networking_sockets_flush_messages_on_connection">steam_networking_sockets_flush_messages_on_connection<a class="headerlink" href="#steam_networking_sockets_flush_messages_on_connection" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamNetworkingSockets#FlushMessagesOnConnection">ISteamNetworkingSockets::FlushMessagesOnConnection</a></p>
 </blockquote>
@@ -1089,8 +3004,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_networking_sockets_flush_messages_on_connection(conn)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_networking_sockets_flush_messages_on_connection(conn)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -1117,7 +3031,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_networking_sockets_receive_messages_on_connection">steam_networking_sockets_receive_messages_on_connection</h1>
+<h1 id="steam_networking_sockets_receive_messages_on_connection">steam_networking_sockets_receive_messages_on_connection<a class="headerlink" href="#steam_networking_sockets_receive_messages_on_connection" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamNetworkingSockets#ReceiveMessagesOnConnection">ISteamNetworkingSockets::ReceiveMessagesOnConnection</a></p>
 </blockquote>
@@ -1127,8 +3041,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_networking_sockets_receive_messages_on_connection(conn, out_data, count)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_networking_sockets_receive_messages_on_connection(conn, out_data, count)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -1165,7 +3078,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_networking_sockets_get_connection_info">steam_networking_sockets_get_connection_info</h1>
+<h1 id="steam_networking_sockets_get_connection_info">steam_networking_sockets_get_connection_info<a class="headerlink" href="#steam_networking_sockets_get_connection_info" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamNetworkingSockets#GetConnectionInfo">ISteamNetworkingSockets::GetConnectionInfo</a></p>
 </blockquote>
@@ -1173,8 +3086,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_networking_sockets_get_connection_info(conn)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_networking_sockets_get_connection_info(conn)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -1201,7 +3113,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_networking_sockets_get_detailed_connection_status">steam_networking_sockets_get_detailed_connection_status</h1>
+<h1 id="steam_networking_sockets_get_detailed_connection_status">steam_networking_sockets_get_detailed_connection_status<a class="headerlink" href="#steam_networking_sockets_get_detailed_connection_status" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamNetworkingSockets#GetDetailedConnectionStatus">ISteamNetworkingSockets::GetDetailedConnectionStatus</a></p>
 </blockquote>
@@ -1209,8 +3121,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_networking_sockets_get_detailed_connection_status(conn)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_networking_sockets_get_detailed_connection_status(conn)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -1238,7 +3149,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_networking_sockets_run_callbacks">steam_networking_sockets_run_callbacks</h1>
+<h1 id="steam_networking_sockets_run_callbacks">steam_networking_sockets_run_callbacks<a class="headerlink" href="#steam_networking_sockets_run_callbacks" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamNetworkingSockets#RunCallbacks">ISteamNetworkingSockets::RunCallbacks</a></p>
 </blockquote>
@@ -1250,8 +3161,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_networking_sockets_run_callbacks()
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_networking_sockets_run_callbacks()</code></pre>
 </blockquote>
 <p><br></p>
 <p><strong>Returns:</strong></p>
@@ -1262,7 +3172,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_networking_sockets_create_socket_pair">steam_networking_sockets_create_socket_pair</h1>
+<h1 id="steam_networking_sockets_create_socket_pair">steam_networking_sockets_create_socket_pair<a class="headerlink" href="#steam_networking_sockets_create_socket_pair" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamNetworkingSockets#CreateSocketPair">ISteamNetworkingSockets::CreateSocketPair</a></p>
 </blockquote>
@@ -1272,8 +3182,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_networking_sockets_create_socket_pair(use_network_loopback)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_networking_sockets_create_socket_pair(use_network_loopback)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -1300,7 +3209,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_networking_sockets_create_listen_socket_p2p">steam_networking_sockets_create_listen_socket_p2p</h1>
+<h1 id="steam_networking_sockets_create_listen_socket_p2p">steam_networking_sockets_create_listen_socket_p2p<a class="headerlink" href="#steam_networking_sockets_create_listen_socket_p2p" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamNetworkingSockets#CreateListenSocketP2P">ISteamNetworkingSockets::CreateListenSocketP2P</a></p>
 </blockquote>
@@ -1308,8 +3217,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_networking_sockets_create_listen_socket_p2p(local_virtual_port)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_networking_sockets_create_listen_socket_p2p(local_virtual_port)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -1336,7 +3244,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_networking_sockets_connect_p2p">steam_networking_sockets_connect_p2p</h1>
+<h1 id="steam_networking_sockets_connect_p2p">steam_networking_sockets_connect_p2p<a class="headerlink" href="#steam_networking_sockets_connect_p2p" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamNetworkingSockets#ConnectP2P">ISteamNetworkingSockets::ConnectP2P</a></p>
 </blockquote>
@@ -1344,8 +3252,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_networking_sockets_connect_p2p(steam_id_remote, remote_virtual_port)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_networking_sockets_connect_p2p(steam_id_remote, remote_virtual_port)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -1377,7 +3284,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_networking_sockets_get_listen_socket_address">steam_networking_sockets_get_listen_socket_address</h1>
+<h1 id="steam_networking_sockets_get_listen_socket_address">steam_networking_sockets_get_listen_socket_address<a class="headerlink" href="#steam_networking_sockets_get_listen_socket_address" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamNetworkingSockets#GetListenSocketAddress">ISteamNetworkingSockets::GetListenSocketAddress</a></p>
 </blockquote>
@@ -1385,8 +3292,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_networking_sockets_get_listen_socket_address(listen_socket)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_networking_sockets_get_listen_socket_address(listen_socket)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -1413,7 +3319,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_networking_sockets_create_poll_group">steam_networking_sockets_create_poll_group</h1>
+<h1 id="steam_networking_sockets_create_poll_group">steam_networking_sockets_create_poll_group<a class="headerlink" href="#steam_networking_sockets_create_poll_group" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamNetworkingSockets#CreatePollGroup">ISteamNetworkingSockets::CreatePollGroup</a></p>
 </blockquote>
@@ -1422,8 +3328,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_networking_sockets_create_poll_group()
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_networking_sockets_create_poll_group()</code></pre>
 </blockquote>
 <p><br></p>
 <p><strong>Returns:</strong></p>
@@ -1435,7 +3340,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_networking_sockets_destroy_poll_group">steam_networking_sockets_destroy_poll_group</h1>
+<h1 id="steam_networking_sockets_destroy_poll_group">steam_networking_sockets_destroy_poll_group<a class="headerlink" href="#steam_networking_sockets_destroy_poll_group" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamNetworkingSockets#DestroyPollGroup">ISteamNetworkingSockets::DestroyPollGroup</a></p>
 </blockquote>
@@ -1444,8 +3349,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_networking_sockets_destroy_poll_group(poll_group)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_networking_sockets_destroy_poll_group(poll_group)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -1472,7 +3376,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_networking_sockets_set_connection_poll_group">steam_networking_sockets_set_connection_poll_group</h1>
+<h1 id="steam_networking_sockets_set_connection_poll_group">steam_networking_sockets_set_connection_poll_group<a class="headerlink" href="#steam_networking_sockets_set_connection_poll_group" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamNetworkingSockets#SetConnectionPollGroup">ISteamNetworkingSockets::SetConnectionPollGroup</a></p>
 </blockquote>
@@ -1480,8 +3384,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_networking_sockets_set_connection_poll_group(conn, poll_group)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_networking_sockets_set_connection_poll_group(conn, poll_group)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -1513,7 +3416,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_networking_sockets_receive_messages_on_poll_group">steam_networking_sockets_receive_messages_on_poll_group</h1>
+<h1 id="steam_networking_sockets_receive_messages_on_poll_group">steam_networking_sockets_receive_messages_on_poll_group<a class="headerlink" href="#steam_networking_sockets_receive_messages_on_poll_group" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamNetworkingSockets#ReceiveMessagesOnPollGroup">ISteamNetworkingSockets::ReceiveMessagesOnPollGroup</a></p>
 </blockquote>
@@ -1525,8 +3428,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_networking_sockets_receive_messages_on_poll_group(poll_group, out_data, count)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_networking_sockets_receive_messages_on_poll_group(poll_group, out_data, count)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -1563,7 +3465,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steamnetworkingidentitytype">SteamNetworkingIdentityType</h1>
+<h1 id="steamnetworkingidentitytype">SteamNetworkingIdentityType<a class="headerlink" href="#steamnetworkingidentitytype" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Enum</strong>: <a href="https://partner.steamgames.com/doc/api/steamnetworkingtypes#ESteamNetworkingIdentityType">ESteamNetworkingIdentityType</a></p>
 </blockquote>
@@ -1607,7 +3509,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steamnetworkingconnectionend">SteamNetworkingConnectionEnd</h1>
+<h1 id="steamnetworkingconnectionend">SteamNetworkingConnectionEnd<a class="headerlink" href="#steamnetworkingconnectionend" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Enum</strong>: <a href="https://partner.steamgames.com/doc/api/steamnetworkingtypes#ESteamNetConnectionEnd">ESteamNetConnectionEnd</a></p>
 </blockquote>
@@ -1764,7 +3666,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steamnetworkingconnectionstate">SteamNetworkingConnectionState</h1>
+<h1 id="steamnetworkingconnectionstate">SteamNetworkingConnectionState<a class="headerlink" href="#steamnetworkingconnectionstate" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Enum</strong>: <a href="https://partner.steamgames.com/doc/api/steamnetworkingtypes#ESteamNetworkingState">ESteamNetworkingState</a></p>
 </blockquote>
@@ -1825,7 +3727,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steamnetworkingsendflags">SteamNetworkingSendFlags</h1>
+<h1 id="steamnetworkingsendflags">SteamNetworkingSendFlags<a class="headerlink" href="#steamnetworkingsendflags" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Flags</strong>: <a href="https://partner.steamgames.com/doc/api/steamnetworkingtypes#message_sending_flags">k_nSteamNetworkingSend_*</a></p>
 </blockquote>
@@ -1890,7 +3792,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steamnetworkingconfigvalue">SteamNetworkingConfigValue</h1>
+<h1 id="steamnetworkingconfigvalue">SteamNetworkingConfigValue<a class="headerlink" href="#steamnetworkingconfigvalue" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Flags</strong>: <a href="https://partner.steamgames.com/doc/api/steamnetworkingtypes#ESteamNetworkingConfigValue">ESteamNetworkingConfigValue</a></p>
 </blockquote>
@@ -1974,7 +3876,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steamnetworkingconnectioninfoflags">SteamNetworkingConnectionInfoFlags</h1>
+<h1 id="steamnetworkingconnectioninfoflags">SteamNetworkingConnectionInfoFlags<a class="headerlink" href="#steamnetworkingconnectioninfoflags" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Flags</strong>: <a href="https://partner.steamgames.com/doc/api/steamnetworkingtypes#SteamNetConnectionInfo_t">k_nSteamNetworkConnectionInfoFlags_*</a></p>
 </blockquote>
@@ -2022,7 +3924,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steamnetworkingmessagessessionrequest">SteamNetworkingMessagesSessionRequest</h1>
+<h1 id="steamnetworkingmessagessessionrequest">SteamNetworkingMessagesSessionRequest<a class="headerlink" href="#steamnetworkingmessagessessionrequest" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Struct</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamNetworkingMessages#SteamNetworkingMessagesSessionRequest_t">ISteamNetworkingMessages::SteamNetworkingMessagesSessionRequest_t</a></p>
 </blockquote>
@@ -2052,7 +3954,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steamnetworkingmessagessessionfailed">SteamNetworkingMessagesSessionFailed</h1>
+<h1 id="steamnetworkingmessagessessionfailed">SteamNetworkingMessagesSessionFailed<a class="headerlink" href="#steamnetworkingmessagessessionfailed" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Struct</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamNetworkingMessages#SteamNetworkingMessagesSessionFailed_t">ISteamNetworkingMessages::SteamNetworkingMessagesSessionFailed_t</a></p>
 </blockquote>
@@ -2092,7 +3994,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steamnetworkingmessage">SteamNetworkingMessage</h1>
+<h1 id="steamnetworkingmessage">SteamNetworkingMessage<a class="headerlink" href="#steamnetworkingmessage" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Struct</strong>: <a href="https://partner.steamgames.com/doc/api/steamnetworkingtypes#SteamNetworkingMessage_t">SteamNetworkingMessage_t</a></p>
 </blockquote>
@@ -2164,7 +4066,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steamnetworkingsocketsconnectioninfo">SteamNetworkingSocketsConnectionInfo</h1>
+<h1 id="steamnetworkingsocketsconnectioninfo">SteamNetworkingSocketsConnectionInfo<a class="headerlink" href="#steamnetworkingsocketsconnectioninfo" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Struct</strong>: <a href="https://partner.steamgames.com/doc/api/steamnetworkingtypes#SteamNetConnectionInfo_t">SteamNetConnectionInfo_t</a></p>
 </blockquote>
@@ -2233,7 +4135,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steamnetworkingsocketsstatuschanged">SteamNetworkingSocketsStatusChanged</h1>
+<h1 id="steamnetworkingsocketsstatuschanged">SteamNetworkingSocketsStatusChanged<a class="headerlink" href="#steamnetworkingsocketsstatuschanged" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Struct</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamNetworkingSockets#SteamNetConnectionStatusChangedCallback_t">ISteamNetworkingSockets::SteamNetConnectionStatusChangedCallback_t</a></p>
 </blockquote>
@@ -2271,57 +4173,73 @@
 </table>
 <p><br></p>
 <hr />
-              
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
             </div>
-          </div><footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="music.html" class="btn btn-neutral float-left" title="Music"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="parties.html" class="btn btn-neutral float-right" title="Parties">Next <span class="icon icon-circle-arrow-right"></span></a>
-    </div>
-
-  <hr/>
-
-  <div role="contentinfo">
-    <!-- Copyright etc -->
-      <p><p align="center">GameMaker 2026</p></p>
-  </div>
-
-  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
-</footer>
           
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
         </div>
-      </div>
-
-    </section>
-
-  </div>
-
-  <div class="rst-versions" role="note" aria-label="Versions">
-  <span class="rst-current-version" data-toggle="rst-current-version">
-    
-        <span>
-          <a href="https://github.com/YoYoGames/GMEXT-Steamworks" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
-        </span>
-    
-    
-      <span><a href="music.html" style="color: #fcfcfc">&laquo; Previous</a></span>
-    
-    
-      <span><a href="parties.html" style="color: #fcfcfc">Next &raquo;</a></span>
-    
-  </span>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      <p align="center">GameMaker 2026</p>
+    </div>
+  
+  
 </div>
-    <script src="js/jquery-3.6.0.min.js"></script>
-    <script>var base_url = ".";</script>
-    <script src="js/theme_extra.js"></script>
-    <script src="js/theme.js"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/gml.min.js"></script>
-      <script src="assets/js/gmext_script.js"></script>
-    <script>
-        jQuery(function () {
-            SphinxRtdTheme.Navigation.enable(true);
-        });
-    </script>
-
-</body>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["navigation.top", "navigation.tracking", "toc.follow", "content.code.copy"], "search": "assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/gml.min.js"></script>
+      
+        <script src="assets/js/hljs-init.js"></script>
+      
+        <script src="assets/js/resize-columns.js"></script>
+      
+    
+  </body>
 </html>

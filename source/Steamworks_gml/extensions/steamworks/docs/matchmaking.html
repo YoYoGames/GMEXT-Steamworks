@@ -1,126 +1,2416 @@
-<!DOCTYPE html>
-<html class="writer-html5" lang="en" >
-<head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <link rel="shortcut icon" href="img/favicon.ico" />
-    <title>Matchmaking - GMEXT-Steamworks</title>
-    <link rel="stylesheet" href="css/theme.css" />
-    <link rel="stylesheet" href="css/theme_extra.css" />
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
-        <link href="assets/css/gmext_style.css" rel="stylesheet" />
-    
-      <script>
-        // Current page data
-        var mkdocs_page_name = "Matchmaking";
-        var mkdocs_page_input_path = "matchmaking.md";
-        var mkdocs_page_url = null;
-      </script>
-    
-    <!--[if lt IE 9]>
-      <script src="js/html5shiv.min.js"></script>
-    <![endif]-->
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/gml.min.js"></script>
-      <script>hljs.highlightAll();</script> 
-</head>
 
-<body class="wy-body-for-nav" role="document">
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="inventory.html">
+      
+      
+        <link rel="next" href="music.html">
+      
+      
+        
+      
+      
+      <link rel="icon" href="assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Matchmaking - GMEXT-Steamworks</title>
+      
+    
+    
+      <link rel="stylesheet" href="assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
 
-  <div class="wy-grid-for-nav">
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
-    <div class="wy-side-scroll">
-      <div class="wy-side-nav-search">
-          <a href="." class="icon icon-home"> GMEXT-Steamworks
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+    
+      <link rel="stylesheet" href="assets/css/extra.css">
+    
+    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  <script>(function(){try{var w=["--gm-nav-width","--gm-toc-width"],i,v;for(i=0;i<w.length;i++){v=localStorage.getItem(w[i]);if(v)document.documentElement.style.setProperty(w[i],v)}}catch(e){}})()</script></head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#matchmaking" class="md-skip">
+          Skip to content
         </a>
-      </div>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
 
-      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption"><span class="caption-text">Guides</span></p>
-              <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting Started</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="extension_options.html">Extension Options</a>
-                  </li>
-              </ul>
-              <p class="caption"><span class="caption-text">Modules</span></p>
-              <ul class="current">
-                  <li class="toctree-l1"><a class="reference internal" href="api.html">API</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="apps.html">Apps</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="friends.html">Friends</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="input.html">Input</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="inventory.html">Inventory</a>
-                  </li>
-                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Matchmaking</a>
-    <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#functions">Functions</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#constants">Constants</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#structs">Structs</a>
-    </li>
-    </ul>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="music.html">Music</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="networking.html">Networking</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="parties.html">Parties</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="remote_storage.html">Remote Storage</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="screenshots.html">Screenshots</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="timeline.html">Timeline</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="ugc.html">UGC</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="user.html">User</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="userstats.html">UserStats</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="utils.html">Utils</a>
-                  </li>
-              </ul>
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="home.html" title="GMEXT-Steamworks" class="md-header__button md-logo" aria-label="GMEXT-Steamworks" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            GMEXT-Steamworks
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Matchmaking
+            
+          </span>
+        </div>
       </div>
     </div>
-    </nav>
-
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href=".">GMEXT-Steamworks</a>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/YoYoGames/GMEXT-Steamworks" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
         
-      </nav>
-      <div class="wy-nav-content">
-        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
-  <ul class="wy-breadcrumbs">
-    <li><a href="." class="icon icon-home" aria-label="Docs"></a></li>
-          <li class="breadcrumb-item">Modules</li>
-      <li class="breadcrumb-item active">Matchmaking</li>
-    <li class="wy-breadcrumbs-aside">
-          <a href="https://github.com/YoYoGames/GMEXT-Steamworks/edit/master/docs/matchmaking.md" class="icon icon-github"> Edit on GitHub</a>
-    </li>
-  </ul>
-  <hr/>
-</div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-            <div class="section" itemprop="articleBody">
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
               
-                <p><a id="top"></a></p>
-<h1 id="matchmaking"><strong>Matchmaking</strong></h1>
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="home.html" title="GMEXT-Steamworks" class="md-nav__button md-logo" aria-label="GMEXT-Steamworks" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    GMEXT-Steamworks
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/YoYoGames/GMEXT-Steamworks" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="home.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Steamworks Extension
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Guides
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Guides
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="getting_started.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="extension_options.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Extension Options
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modules
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Modules
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="api.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="apps.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Apps
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="friends.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Friends
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="input.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Input
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="inventory.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inventory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Matchmaking
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="matchmaking.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Matchmaking
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#matchmaking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Matchmaking
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Matchmaking">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Functions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#constants" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Constants
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#structs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Structs
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_matchmaking_set_callback_lobby_data_update" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_matchmaking_set_callback_lobby_data_update
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_matchmaking_clear_callback_lobby_data_update" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_matchmaking_clear_callback_lobby_data_update
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_matchmaking_set_callback_lobby_chat_update" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_matchmaking_set_callback_lobby_chat_update
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_matchmaking_clear_callback_lobby_chat_update" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_matchmaking_clear_callback_lobby_chat_update
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_matchmaking_set_callback_lobby_chat_msg" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_matchmaking_set_callback_lobby_chat_msg
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_matchmaking_clear_callback_lobby_chat_msg" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_matchmaking_clear_callback_lobby_chat_msg
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_matchmaking_set_callback_lobby_game_created" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_matchmaking_set_callback_lobby_game_created
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_matchmaking_clear_callback_lobby_game_created" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_matchmaking_clear_callback_lobby_game_created
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_matchmaking_set_callback_lobby_invite" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_matchmaking_set_callback_lobby_invite
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_matchmaking_clear_callback_lobby_invite" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_matchmaking_clear_callback_lobby_invite
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_matchmaking_create_lobby" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_matchmaking_create_lobby
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_matchmaking_join_lobby" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_matchmaking_join_lobby
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_matchmaking_request_lobby_list" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_matchmaking_request_lobby_list
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_matchmaking_add_request_lobby_list_string_filter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_matchmaking_add_request_lobby_list_string_filter
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_matchmaking_add_request_lobby_list_numerical_filter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_matchmaking_add_request_lobby_list_numerical_filter
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_matchmaking_add_request_lobby_list_near_value_filter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_matchmaking_add_request_lobby_list_near_value_filter
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_matchmaking_add_request_lobby_list_distance_filter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_matchmaking_add_request_lobby_list_distance_filter
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_matchmaking_add_request_lobby_list_result_count_filter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_matchmaking_add_request_lobby_list_result_count_filter
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_matchmaking_get_lobby_by_index" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_matchmaking_get_lobby_by_index
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_matchmaking_leave_lobby" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_matchmaking_leave_lobby
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_matchmaking_set_lobby_owner" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_matchmaking_set_lobby_owner
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_matchmaking_get_lobby_owner" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_matchmaking_get_lobby_owner
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_matchmaking_get_num_lobby_members" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_matchmaking_get_num_lobby_members
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_matchmaking_get_lobby_member_by_index" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_matchmaking_get_lobby_member_by_index
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_matchmaking_set_lobby_data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_matchmaking_set_lobby_data
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_matchmaking_get_lobby_data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_matchmaking_get_lobby_data
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_matchmaking_delete_lobby_data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_matchmaking_delete_lobby_data
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_matchmaking_get_lobby_data_count" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_matchmaking_get_lobby_data_count
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_matchmaking_get_lobby_data_by_index" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_matchmaking_get_lobby_data_by_index
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_matchmaking_set_lobby_member_data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_matchmaking_set_lobby_member_data
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_matchmaking_get_lobby_member_data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_matchmaking_get_lobby_member_data
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_matchmaking_send_lobby_chat_msg" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_matchmaking_send_lobby_chat_msg
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_matchmaking_get_lobby_chat_entry" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_matchmaking_get_lobby_chat_entry
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_matchmaking_add_request_lobby_list_filter_slots_available" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_matchmaking_add_request_lobby_list_filter_slots_available
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_matchmaking_request_lobby_data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_matchmaking_request_lobby_data
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_matchmaking_set_lobby_joinable" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_matchmaking_set_lobby_joinable
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_matchmaking_set_lobby_type" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_matchmaking_set_lobby_type
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_matchmaking_invite_user_to_lobby" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_matchmaking_invite_user_to_lobby
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_matchmaking_set_lobby_game_server" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_matchmaking_set_lobby_game_server
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_matchmaking_set_linked_lobby" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_matchmaking_set_linked_lobby
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_matchmaking_get_lobby_game_server" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_matchmaking_get_lobby_game_server
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_matchmaking_get_favorite_game_count" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_matchmaking_get_favorite_game_count
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_matchmaking_get_favorite_game" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_matchmaking_get_favorite_game
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_matchmaking_add_favorite_game" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_matchmaking_add_favorite_game
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_matchmaking_remove_favorite_game" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_matchmaking_remove_favorite_game
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steammatchmakinglobbytype" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamMatchmakingLobbyType
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steammatchmakinglobbycomparison" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamMatchmakingLobbyComparison
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steammatchmakinglobbydistancefilter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamMatchmakingLobbyDistanceFilter
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steammatchmakingchatmemberstatechange" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamMatchmakingChatMemberStateChange
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steammatchmakingchatroomenterresponse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamMatchmakingChatRoomEnterResponse
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steammatchmakinglobbycreated" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamMatchmakingLobbyCreated
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steammatchmakinglobbyenter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamMatchmakingLobbyEnter
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steammatchmakinglobbymatchlist" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamMatchmakingLobbyMatchList
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steammatchmakinglobbydataupdate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamMatchmakingLobbyDataUpdate
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steammatchmakinglobbychatupdate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamMatchmakingLobbyChatUpdate
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steammatchmakinglobbychatmsg" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamMatchmakingLobbyChatMsg
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steammatchmakinglobbygamecreated" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamMatchmakingLobbyGameCreated
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steammatchmakinglobbyinvite" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamMatchmakingLobbyInvite
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steammatchmakinglobbydataentry" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamMatchmakingLobbyDataEntry
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steammatchmakinglobbychatentry" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamMatchmakingLobbyChatEntry
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steammatchmakinglobbygameserver" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamMatchmakingLobbyGameServer
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steammatchmakingfavoritegame" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamMatchmakingFavoriteGame
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="music.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Music
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="networking.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Networking
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="parties.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parties
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="remote_storage.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Remote Storage
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="screenshots.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Screenshots
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="timeline.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Timeline
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ugc.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UGC
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="user.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    User
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="userstats.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UserStats
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="utils.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Utils
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#matchmaking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Matchmaking
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Matchmaking">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Functions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#constants" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Constants
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#structs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Structs
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_matchmaking_set_callback_lobby_data_update" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_matchmaking_set_callback_lobby_data_update
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_matchmaking_clear_callback_lobby_data_update" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_matchmaking_clear_callback_lobby_data_update
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_matchmaking_set_callback_lobby_chat_update" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_matchmaking_set_callback_lobby_chat_update
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_matchmaking_clear_callback_lobby_chat_update" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_matchmaking_clear_callback_lobby_chat_update
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_matchmaking_set_callback_lobby_chat_msg" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_matchmaking_set_callback_lobby_chat_msg
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_matchmaking_clear_callback_lobby_chat_msg" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_matchmaking_clear_callback_lobby_chat_msg
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_matchmaking_set_callback_lobby_game_created" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_matchmaking_set_callback_lobby_game_created
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_matchmaking_clear_callback_lobby_game_created" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_matchmaking_clear_callback_lobby_game_created
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_matchmaking_set_callback_lobby_invite" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_matchmaking_set_callback_lobby_invite
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_matchmaking_clear_callback_lobby_invite" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_matchmaking_clear_callback_lobby_invite
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_matchmaking_create_lobby" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_matchmaking_create_lobby
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_matchmaking_join_lobby" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_matchmaking_join_lobby
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_matchmaking_request_lobby_list" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_matchmaking_request_lobby_list
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_matchmaking_add_request_lobby_list_string_filter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_matchmaking_add_request_lobby_list_string_filter
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_matchmaking_add_request_lobby_list_numerical_filter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_matchmaking_add_request_lobby_list_numerical_filter
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_matchmaking_add_request_lobby_list_near_value_filter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_matchmaking_add_request_lobby_list_near_value_filter
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_matchmaking_add_request_lobby_list_distance_filter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_matchmaking_add_request_lobby_list_distance_filter
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_matchmaking_add_request_lobby_list_result_count_filter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_matchmaking_add_request_lobby_list_result_count_filter
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_matchmaking_get_lobby_by_index" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_matchmaking_get_lobby_by_index
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_matchmaking_leave_lobby" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_matchmaking_leave_lobby
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_matchmaking_set_lobby_owner" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_matchmaking_set_lobby_owner
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_matchmaking_get_lobby_owner" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_matchmaking_get_lobby_owner
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_matchmaking_get_num_lobby_members" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_matchmaking_get_num_lobby_members
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_matchmaking_get_lobby_member_by_index" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_matchmaking_get_lobby_member_by_index
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_matchmaking_set_lobby_data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_matchmaking_set_lobby_data
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_matchmaking_get_lobby_data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_matchmaking_get_lobby_data
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_matchmaking_delete_lobby_data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_matchmaking_delete_lobby_data
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_matchmaking_get_lobby_data_count" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_matchmaking_get_lobby_data_count
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_matchmaking_get_lobby_data_by_index" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_matchmaking_get_lobby_data_by_index
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_matchmaking_set_lobby_member_data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_matchmaking_set_lobby_member_data
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_matchmaking_get_lobby_member_data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_matchmaking_get_lobby_member_data
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_matchmaking_send_lobby_chat_msg" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_matchmaking_send_lobby_chat_msg
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_matchmaking_get_lobby_chat_entry" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_matchmaking_get_lobby_chat_entry
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_matchmaking_add_request_lobby_list_filter_slots_available" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_matchmaking_add_request_lobby_list_filter_slots_available
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_matchmaking_request_lobby_data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_matchmaking_request_lobby_data
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_matchmaking_set_lobby_joinable" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_matchmaking_set_lobby_joinable
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_matchmaking_set_lobby_type" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_matchmaking_set_lobby_type
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_matchmaking_invite_user_to_lobby" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_matchmaking_invite_user_to_lobby
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_matchmaking_set_lobby_game_server" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_matchmaking_set_lobby_game_server
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_matchmaking_set_linked_lobby" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_matchmaking_set_linked_lobby
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_matchmaking_get_lobby_game_server" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_matchmaking_get_lobby_game_server
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_matchmaking_get_favorite_game_count" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_matchmaking_get_favorite_game_count
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_matchmaking_get_favorite_game" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_matchmaking_get_favorite_game
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_matchmaking_add_favorite_game" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_matchmaking_add_favorite_game
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_matchmaking_remove_favorite_game" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_matchmaking_remove_favorite_game
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steammatchmakinglobbytype" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamMatchmakingLobbyType
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steammatchmakinglobbycomparison" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamMatchmakingLobbyComparison
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steammatchmakinglobbydistancefilter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamMatchmakingLobbyDistanceFilter
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steammatchmakingchatmemberstatechange" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamMatchmakingChatMemberStateChange
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steammatchmakingchatroomenterresponse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamMatchmakingChatRoomEnterResponse
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steammatchmakinglobbycreated" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamMatchmakingLobbyCreated
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steammatchmakinglobbyenter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamMatchmakingLobbyEnter
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steammatchmakinglobbymatchlist" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamMatchmakingLobbyMatchList
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steammatchmakinglobbydataupdate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamMatchmakingLobbyDataUpdate
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steammatchmakinglobbychatupdate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamMatchmakingLobbyChatUpdate
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steammatchmakinglobbychatmsg" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamMatchmakingLobbyChatMsg
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steammatchmakinglobbygamecreated" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamMatchmakingLobbyGameCreated
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steammatchmakinglobbyinvite" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamMatchmakingLobbyInvite
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steammatchmakinglobbydataentry" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamMatchmakingLobbyDataEntry
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steammatchmakinglobbychatentry" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamMatchmakingLobbyChatEntry
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steammatchmakinglobbygameserver" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamMatchmakingLobbyGameServer
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steammatchmakingfavoritegame" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamMatchmakingFavoriteGame
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<p><a id="top"></a></p>
+<h1 id="matchmaking"><strong>Matchmaking</strong><a class="headerlink" href="#matchmaking" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Interface</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamMatchmaking">ISteamMatchmaking</a></p>
 </blockquote>
 <p>This module contains functions for clients to access matchmaking services, favourites, and to operate on game lobbies.</p>
 <p>See <a href="https://partner.steamgames.com/doc/features/multiplayer/matchmaking">Steam Matchmaking &amp; Lobbies</a> for more information.</p>
-<h2 id="functions">Functions</h2>
+<h2 id="functions">Functions<a class="headerlink" href="#functions" title="Permanent link">&para;</a></h2>
 <p>These are the functions of the Matchmaking module:</p>
 <ul>
 <li><a href="matchmaking.html#steam_matchmaking_set_callback_lobby_data_update">steam_matchmaking_set_callback_lobby_data_update</a></li>
@@ -169,7 +2459,7 @@
 <li><a href="matchmaking.html#steam_matchmaking_add_favorite_game">steam_matchmaking_add_favorite_game</a></li>
 <li><a href="matchmaking.html#steam_matchmaking_remove_favorite_game">steam_matchmaking_remove_favorite_game</a></li>
 </ul>
-<h2 id="constants">Constants</h2>
+<h2 id="constants">Constants<a class="headerlink" href="#constants" title="Permanent link">&para;</a></h2>
 <p>These are the constants and enums of the Matchmaking module:</p>
 <ul>
 <li><a href="matchmaking.html#steammatchmakinglobbytype">SteamMatchmakingLobbyType</a></li>
@@ -178,7 +2468,7 @@
 <li><a href="matchmaking.html#steammatchmakingchatmemberstatechange">SteamMatchmakingChatMemberStateChange</a></li>
 <li><a href="matchmaking.html#steammatchmakingchatroomenterresponse">SteamMatchmakingChatRoomEnterResponse</a></li>
 </ul>
-<h2 id="structs">Structs</h2>
+<h2 id="structs">Structs<a class="headerlink" href="#structs" title="Permanent link">&para;</a></h2>
 <p>These are the structs of the Matchmaking module:</p>
 <ul>
 <li><a href="matchmaking.html#steammatchmakinglobbycreated">SteamMatchmakingLobbyCreated</a></li>
@@ -198,7 +2488,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_matchmaking_set_callback_lobby_data_update">steam_matchmaking_set_callback_lobby_data_update</h1>
+<h1 id="steam_matchmaking_set_callback_lobby_data_update">steam_matchmaking_set_callback_lobby_data_update<a class="headerlink" href="#steam_matchmaking_set_callback_lobby_data_update" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: N / A</p>
 </blockquote>
@@ -207,8 +2497,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_matchmaking_set_callback_lobby_data_update(callback)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_matchmaking_set_callback_lobby_data_update(callback)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -258,7 +2547,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_matchmaking_clear_callback_lobby_data_update">steam_matchmaking_clear_callback_lobby_data_update</h1>
+<h1 id="steam_matchmaking_clear_callback_lobby_data_update">steam_matchmaking_clear_callback_lobby_data_update<a class="headerlink" href="#steam_matchmaking_clear_callback_lobby_data_update" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: N / A</p>
 </blockquote>
@@ -266,8 +2555,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_matchmaking_clear_callback_lobby_data_update()
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_matchmaking_clear_callback_lobby_data_update()</code></pre>
 </blockquote>
 <p><br></p>
 <p><strong>Returns:</strong></p>
@@ -278,7 +2566,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_matchmaking_set_callback_lobby_chat_update">steam_matchmaking_set_callback_lobby_chat_update</h1>
+<h1 id="steam_matchmaking_set_callback_lobby_chat_update">steam_matchmaking_set_callback_lobby_chat_update<a class="headerlink" href="#steam_matchmaking_set_callback_lobby_chat_update" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: N / A</p>
 </blockquote>
@@ -287,8 +2575,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_matchmaking_set_callback_lobby_chat_update(callback)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_matchmaking_set_callback_lobby_chat_update(callback)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -338,7 +2625,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_matchmaking_clear_callback_lobby_chat_update">steam_matchmaking_clear_callback_lobby_chat_update</h1>
+<h1 id="steam_matchmaking_clear_callback_lobby_chat_update">steam_matchmaking_clear_callback_lobby_chat_update<a class="headerlink" href="#steam_matchmaking_clear_callback_lobby_chat_update" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: N / A</p>
 </blockquote>
@@ -346,8 +2633,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_matchmaking_clear_callback_lobby_chat_update()
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_matchmaking_clear_callback_lobby_chat_update()</code></pre>
 </blockquote>
 <p><br></p>
 <p><strong>Returns:</strong></p>
@@ -358,7 +2644,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_matchmaking_set_callback_lobby_chat_msg">steam_matchmaking_set_callback_lobby_chat_msg</h1>
+<h1 id="steam_matchmaking_set_callback_lobby_chat_msg">steam_matchmaking_set_callback_lobby_chat_msg<a class="headerlink" href="#steam_matchmaking_set_callback_lobby_chat_msg" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: N / A</p>
 </blockquote>
@@ -367,8 +2653,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_matchmaking_set_callback_lobby_chat_msg(callback)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_matchmaking_set_callback_lobby_chat_msg(callback)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -418,7 +2703,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_matchmaking_clear_callback_lobby_chat_msg">steam_matchmaking_clear_callback_lobby_chat_msg</h1>
+<h1 id="steam_matchmaking_clear_callback_lobby_chat_msg">steam_matchmaking_clear_callback_lobby_chat_msg<a class="headerlink" href="#steam_matchmaking_clear_callback_lobby_chat_msg" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: N / A</p>
 </blockquote>
@@ -426,8 +2711,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_matchmaking_clear_callback_lobby_chat_msg()
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_matchmaking_clear_callback_lobby_chat_msg()</code></pre>
 </blockquote>
 <p><br></p>
 <p><strong>Returns:</strong></p>
@@ -438,7 +2722,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_matchmaking_set_callback_lobby_game_created">steam_matchmaking_set_callback_lobby_game_created</h1>
+<h1 id="steam_matchmaking_set_callback_lobby_game_created">steam_matchmaking_set_callback_lobby_game_created<a class="headerlink" href="#steam_matchmaking_set_callback_lobby_game_created" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: N / A</p>
 </blockquote>
@@ -447,8 +2731,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_matchmaking_set_callback_lobby_game_created(callback)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_matchmaking_set_callback_lobby_game_created(callback)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -498,7 +2781,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_matchmaking_clear_callback_lobby_game_created">steam_matchmaking_clear_callback_lobby_game_created</h1>
+<h1 id="steam_matchmaking_clear_callback_lobby_game_created">steam_matchmaking_clear_callback_lobby_game_created<a class="headerlink" href="#steam_matchmaking_clear_callback_lobby_game_created" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: N / A</p>
 </blockquote>
@@ -506,8 +2789,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_matchmaking_clear_callback_lobby_game_created()
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_matchmaking_clear_callback_lobby_game_created()</code></pre>
 </blockquote>
 <p><br></p>
 <p><strong>Returns:</strong></p>
@@ -518,7 +2800,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_matchmaking_set_callback_lobby_invite">steam_matchmaking_set_callback_lobby_invite</h1>
+<h1 id="steam_matchmaking_set_callback_lobby_invite">steam_matchmaking_set_callback_lobby_invite<a class="headerlink" href="#steam_matchmaking_set_callback_lobby_invite" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: N / A</p>
 </blockquote>
@@ -527,8 +2809,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_matchmaking_set_callback_lobby_invite(callback)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_matchmaking_set_callback_lobby_invite(callback)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -578,7 +2859,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_matchmaking_clear_callback_lobby_invite">steam_matchmaking_clear_callback_lobby_invite</h1>
+<h1 id="steam_matchmaking_clear_callback_lobby_invite">steam_matchmaking_clear_callback_lobby_invite<a class="headerlink" href="#steam_matchmaking_clear_callback_lobby_invite" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: N / A</p>
 </blockquote>
@@ -586,8 +2867,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_matchmaking_clear_callback_lobby_invite()
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_matchmaking_clear_callback_lobby_invite()</code></pre>
 </blockquote>
 <p><br></p>
 <p><strong>Returns:</strong></p>
@@ -598,7 +2878,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_matchmaking_create_lobby">steam_matchmaking_create_lobby</h1>
+<h1 id="steam_matchmaking_create_lobby">steam_matchmaking_create_lobby<a class="headerlink" href="#steam_matchmaking_create_lobby" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamMatchmaking#CreateLobby">ISteamMatchmaking::CreateLobby</a></p>
 </blockquote>
@@ -607,8 +2887,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_matchmaking_create_lobby(lobby_type, max_members, callback)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_matchmaking_create_lobby(lobby_type, max_members, callback)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -668,7 +2947,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_matchmaking_join_lobby">steam_matchmaking_join_lobby</h1>
+<h1 id="steam_matchmaking_join_lobby">steam_matchmaking_join_lobby<a class="headerlink" href="#steam_matchmaking_join_lobby" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamMatchmaking#JoinLobby">ISteamMatchmaking::JoinLobby</a></p>
 </blockquote>
@@ -678,8 +2957,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_matchmaking_join_lobby(lobby_id, callback)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_matchmaking_join_lobby(lobby_id, callback)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -734,7 +3012,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_matchmaking_request_lobby_list">steam_matchmaking_request_lobby_list</h1>
+<h1 id="steam_matchmaking_request_lobby_list">steam_matchmaking_request_lobby_list<a class="headerlink" href="#steam_matchmaking_request_lobby_list" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamMatchmaking#RequestLobbyList">ISteamMatchmaking::RequestLobbyList</a></p>
 </blockquote>
@@ -756,8 +3034,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_matchmaking_request_lobby_list(callback)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_matchmaking_request_lobby_list(callback)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -807,7 +3084,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_matchmaking_add_request_lobby_list_string_filter">steam_matchmaking_add_request_lobby_list_string_filter</h1>
+<h1 id="steam_matchmaking_add_request_lobby_list_string_filter">steam_matchmaking_add_request_lobby_list_string_filter<a class="headerlink" href="#steam_matchmaking_add_request_lobby_list_string_filter" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamMatchmaking#AddRequestLobbyListStringFilter">ISteamMatchmaking::AddRequestLobbyListStringFilter</a></p>
 </blockquote>
@@ -815,8 +3092,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_matchmaking_add_request_lobby_list_string_filter(key, value, comparison)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_matchmaking_add_request_lobby_list_string_filter(key, value, comparison)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -853,7 +3129,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_matchmaking_add_request_lobby_list_numerical_filter">steam_matchmaking_add_request_lobby_list_numerical_filter</h1>
+<h1 id="steam_matchmaking_add_request_lobby_list_numerical_filter">steam_matchmaking_add_request_lobby_list_numerical_filter<a class="headerlink" href="#steam_matchmaking_add_request_lobby_list_numerical_filter" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamMatchmaking#AddRequestLobbyListNumericalFilter">ISteamMatchmaking::AddRequestLobbyListNumericalFilter</a></p>
 </blockquote>
@@ -861,8 +3137,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_matchmaking_add_request_lobby_list_numerical_filter(key, value, comparison)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_matchmaking_add_request_lobby_list_numerical_filter(key, value, comparison)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -899,7 +3174,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_matchmaking_add_request_lobby_list_near_value_filter">steam_matchmaking_add_request_lobby_list_near_value_filter</h1>
+<h1 id="steam_matchmaking_add_request_lobby_list_near_value_filter">steam_matchmaking_add_request_lobby_list_near_value_filter<a class="headerlink" href="#steam_matchmaking_add_request_lobby_list_near_value_filter" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamMatchmaking#AddRequestLobbyListNearValueFilter">ISteamMatchmaking::AddRequestLobbyListNearValueFilter</a></p>
 </blockquote>
@@ -907,8 +3182,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_matchmaking_add_request_lobby_list_near_value_filter(key, value)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_matchmaking_add_request_lobby_list_near_value_filter(key, value)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -940,7 +3214,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_matchmaking_add_request_lobby_list_distance_filter">steam_matchmaking_add_request_lobby_list_distance_filter</h1>
+<h1 id="steam_matchmaking_add_request_lobby_list_distance_filter">steam_matchmaking_add_request_lobby_list_distance_filter<a class="headerlink" href="#steam_matchmaking_add_request_lobby_list_distance_filter" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamMatchmaking#AddRequestLobbyListDistanceFilter">ISteamMatchmaking::AddRequestLobbyListDistanceFilter</a></p>
 </blockquote>
@@ -948,8 +3222,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_matchmaking_add_request_lobby_list_distance_filter(distance)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_matchmaking_add_request_lobby_list_distance_filter(distance)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -976,7 +3249,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_matchmaking_add_request_lobby_list_result_count_filter">steam_matchmaking_add_request_lobby_list_result_count_filter</h1>
+<h1 id="steam_matchmaking_add_request_lobby_list_result_count_filter">steam_matchmaking_add_request_lobby_list_result_count_filter<a class="headerlink" href="#steam_matchmaking_add_request_lobby_list_result_count_filter" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamMatchmaking#AddRequestLobbyListResultCountFilter">ISteamMatchmaking::AddRequestLobbyListResultCountFilter</a></p>
 </blockquote>
@@ -984,8 +3257,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_matchmaking_add_request_lobby_list_result_count_filter(max_results)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_matchmaking_add_request_lobby_list_result_count_filter(max_results)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -1012,7 +3284,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_matchmaking_get_lobby_by_index">steam_matchmaking_get_lobby_by_index</h1>
+<h1 id="steam_matchmaking_get_lobby_by_index">steam_matchmaking_get_lobby_by_index<a class="headerlink" href="#steam_matchmaking_get_lobby_by_index" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamMatchmaking#GetLobbyByIndex">ISteamMatchmaking::GetLobbyByIndex</a></p>
 </blockquote>
@@ -1024,8 +3296,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_matchmaking_get_lobby_by_index(index)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_matchmaking_get_lobby_by_index(index)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -1052,7 +3323,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_matchmaking_leave_lobby">steam_matchmaking_leave_lobby</h1>
+<h1 id="steam_matchmaking_leave_lobby">steam_matchmaking_leave_lobby<a class="headerlink" href="#steam_matchmaking_leave_lobby" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamMatchmaking#LeaveLobby">ISteamMatchmaking::LeaveLobby</a></p>
 </blockquote>
@@ -1060,8 +3331,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_matchmaking_leave_lobby(lobby_id)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_matchmaking_leave_lobby(lobby_id)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -1088,7 +3358,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_matchmaking_set_lobby_owner">steam_matchmaking_set_lobby_owner</h1>
+<h1 id="steam_matchmaking_set_lobby_owner">steam_matchmaking_set_lobby_owner<a class="headerlink" href="#steam_matchmaking_set_lobby_owner" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamMatchmaking#SetLobbyOwner">ISteamMatchmaking::SetLobbyOwner</a></p>
 </blockquote>
@@ -1097,8 +3367,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_matchmaking_set_lobby_owner(lobby_id, new_owner_id)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_matchmaking_set_lobby_owner(lobby_id, new_owner_id)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -1130,7 +3399,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_matchmaking_get_lobby_owner">steam_matchmaking_get_lobby_owner</h1>
+<h1 id="steam_matchmaking_get_lobby_owner">steam_matchmaking_get_lobby_owner<a class="headerlink" href="#steam_matchmaking_get_lobby_owner" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamMatchmaking#GetLobbyOwner">ISteamMatchmaking::GetLobbyOwner</a></p>
 </blockquote>
@@ -1143,8 +3412,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_matchmaking_get_lobby_owner(lobby_id)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_matchmaking_get_lobby_owner(lobby_id)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -1171,7 +3439,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_matchmaking_get_num_lobby_members">steam_matchmaking_get_num_lobby_members</h1>
+<h1 id="steam_matchmaking_get_num_lobby_members">steam_matchmaking_get_num_lobby_members<a class="headerlink" href="#steam_matchmaking_get_num_lobby_members" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamMatchmaking#GetNumLobbyMembers">ISteamMatchmaking::GetNumLobbyMembers</a></p>
 </blockquote>
@@ -1184,8 +3452,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_matchmaking_get_num_lobby_members(lobby_id)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_matchmaking_get_num_lobby_members(lobby_id)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -1212,7 +3479,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_matchmaking_get_lobby_member_by_index">steam_matchmaking_get_lobby_member_by_index</h1>
+<h1 id="steam_matchmaking_get_lobby_member_by_index">steam_matchmaking_get_lobby_member_by_index<a class="headerlink" href="#steam_matchmaking_get_lobby_member_by_index" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamMatchmaking#GetLobbyMemberByIndex">ISteamMatchmaking::GetLobbyMemberByIndex</a></p>
 </blockquote>
@@ -1228,8 +3495,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_matchmaking_get_lobby_member_by_index(lobby_id, member_index)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_matchmaking_get_lobby_member_by_index(lobby_id, member_index)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -1261,7 +3527,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_matchmaking_set_lobby_data">steam_matchmaking_set_lobby_data</h1>
+<h1 id="steam_matchmaking_set_lobby_data">steam_matchmaking_set_lobby_data<a class="headerlink" href="#steam_matchmaking_set_lobby_data" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamMatchmaking#SetLobbyData">ISteamMatchmaking::SetLobbyData</a></p>
 </blockquote>
@@ -1272,8 +3538,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_matchmaking_set_lobby_data(lobby_id, key, value)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_matchmaking_set_lobby_data(lobby_id, key, value)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -1310,7 +3575,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_matchmaking_get_lobby_data">steam_matchmaking_get_lobby_data</h1>
+<h1 id="steam_matchmaking_get_lobby_data">steam_matchmaking_get_lobby_data<a class="headerlink" href="#steam_matchmaking_get_lobby_data" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamMatchmaking#GetLobbyData">ISteamMatchmaking::GetLobbyData</a></p>
 </blockquote>
@@ -1322,8 +3587,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_matchmaking_get_lobby_data(lobby_id, key)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_matchmaking_get_lobby_data(lobby_id, key)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -1355,7 +3619,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_matchmaking_delete_lobby_data">steam_matchmaking_delete_lobby_data</h1>
+<h1 id="steam_matchmaking_delete_lobby_data">steam_matchmaking_delete_lobby_data<a class="headerlink" href="#steam_matchmaking_delete_lobby_data" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamMatchmaking#DeleteLobbyData">ISteamMatchmaking::DeleteLobbyData</a></p>
 </blockquote>
@@ -1365,8 +3629,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_matchmaking_delete_lobby_data(lobby_id, key)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_matchmaking_delete_lobby_data(lobby_id, key)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -1398,7 +3661,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_matchmaking_get_lobby_data_count">steam_matchmaking_get_lobby_data_count</h1>
+<h1 id="steam_matchmaking_get_lobby_data_count">steam_matchmaking_get_lobby_data_count<a class="headerlink" href="#steam_matchmaking_get_lobby_data_count" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamMatchmaking#GetLobbyDataCount">ISteamMatchmaking::GetLobbyDataCount</a></p>
 </blockquote>
@@ -1415,8 +3678,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_matchmaking_get_lobby_data_count(lobby_id)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_matchmaking_get_lobby_data_count(lobby_id)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -1443,7 +3705,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_matchmaking_get_lobby_data_by_index">steam_matchmaking_get_lobby_data_by_index</h1>
+<h1 id="steam_matchmaking_get_lobby_data_by_index">steam_matchmaking_get_lobby_data_by_index<a class="headerlink" href="#steam_matchmaking_get_lobby_data_by_index" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamMatchmaking#GetLobbyDataByIndex">ISteamMatchmaking::GetLobbyDataByIndex</a></p>
 </blockquote>
@@ -1455,8 +3717,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_matchmaking_get_lobby_data_by_index(lobby_id, index)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_matchmaking_get_lobby_data_by_index(lobby_id, index)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -1488,7 +3749,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_matchmaking_set_lobby_member_data">steam_matchmaking_set_lobby_member_data</h1>
+<h1 id="steam_matchmaking_set_lobby_member_data">steam_matchmaking_set_lobby_member_data<a class="headerlink" href="#steam_matchmaking_set_lobby_member_data" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamMatchmaking#SetLobbyMemberData">ISteamMatchmaking::SetLobbyMemberData</a></p>
 </blockquote>
@@ -1499,8 +3760,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_matchmaking_set_lobby_member_data(lobby_id, key, value)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_matchmaking_set_lobby_member_data(lobby_id, key, value)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -1537,7 +3797,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_matchmaking_get_lobby_member_data">steam_matchmaking_get_lobby_member_data</h1>
+<h1 id="steam_matchmaking_get_lobby_member_data">steam_matchmaking_get_lobby_member_data<a class="headerlink" href="#steam_matchmaking_get_lobby_member_data" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamMatchmaking#GetLobbyMemberData">ISteamMatchmaking::GetLobbyMemberData</a></p>
 </blockquote>
@@ -1546,8 +3806,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_matchmaking_get_lobby_member_data(lobby_id, member_id, key)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_matchmaking_get_lobby_member_data(lobby_id, member_id, key)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -1584,7 +3843,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_matchmaking_send_lobby_chat_msg">steam_matchmaking_send_lobby_chat_msg</h1>
+<h1 id="steam_matchmaking_send_lobby_chat_msg">steam_matchmaking_send_lobby_chat_msg<a class="headerlink" href="#steam_matchmaking_send_lobby_chat_msg" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamMatchmaking#SendLobbyChatMsg">ISteamMatchmaking::SendLobbyChatMsg</a></p>
 </blockquote>
@@ -1597,8 +3856,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_matchmaking_send_lobby_chat_msg(lobby_id, msg, buffer_offset=undefined, buffer_count=undefined)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_matchmaking_send_lobby_chat_msg(lobby_id, msg, buffer_offset=undefined, buffer_count=undefined)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -1640,7 +3898,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_matchmaking_get_lobby_chat_entry">steam_matchmaking_get_lobby_chat_entry</h1>
+<h1 id="steam_matchmaking_get_lobby_chat_entry">steam_matchmaking_get_lobby_chat_entry<a class="headerlink" href="#steam_matchmaking_get_lobby_chat_entry" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamMatchmaking#GetLobbyChatEntry">ISteamMatchmaking::GetLobbyChatEntry</a></p>
 </blockquote>
@@ -1648,8 +3906,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_matchmaking_get_lobby_chat_entry(lobby_id, chat_id, out_buffer)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_matchmaking_get_lobby_chat_entry(lobby_id, chat_id, out_buffer)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -1686,7 +3943,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_matchmaking_add_request_lobby_list_filter_slots_available">steam_matchmaking_add_request_lobby_list_filter_slots_available</h1>
+<h1 id="steam_matchmaking_add_request_lobby_list_filter_slots_available">steam_matchmaking_add_request_lobby_list_filter_slots_available<a class="headerlink" href="#steam_matchmaking_add_request_lobby_list_filter_slots_available" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamMatchmaking#AddRequestLobbyListFilterSlotsAvailable">ISteamMatchmaking::AddRequestLobbyListFilterSlotsAvailable</a></p>
 </blockquote>
@@ -1694,8 +3951,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_matchmaking_add_request_lobby_list_filter_slots_available(slots_available)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_matchmaking_add_request_lobby_list_filter_slots_available(slots_available)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -1722,7 +3978,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_matchmaking_request_lobby_data">steam_matchmaking_request_lobby_data</h1>
+<h1 id="steam_matchmaking_request_lobby_data">steam_matchmaking_request_lobby_data<a class="headerlink" href="#steam_matchmaking_request_lobby_data" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamMatchmaking#RequestLobbyData">ISteamMatchmaking::RequestLobbyData</a></p>
 </blockquote>
@@ -1732,8 +3988,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_matchmaking_request_lobby_data(steam_id_lobby)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_matchmaking_request_lobby_data(steam_id_lobby)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -1760,7 +4015,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_matchmaking_set_lobby_joinable">steam_matchmaking_set_lobby_joinable</h1>
+<h1 id="steam_matchmaking_set_lobby_joinable">steam_matchmaking_set_lobby_joinable<a class="headerlink" href="#steam_matchmaking_set_lobby_joinable" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamMatchmaking#SetLobbyJoinable">ISteamMatchmaking::SetLobbyJoinable</a></p>
 </blockquote>
@@ -1770,8 +4025,7 @@
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_matchmaking_set_lobby_joinable(steam_id_lobby, joinable)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_matchmaking_set_lobby_joinable(steam_id_lobby, joinable)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -1803,7 +4057,7 @@
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_matchmaking_set_lobby_type">steam_matchmaking_set_lobby_type</h1>
+<h1 id="steam_matchmaking_set_lobby_type">steam_matchmaking_set_lobby_type<a class="headerlink" href="#steam_matchmaking_set_lobby_type" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamMatchmaking#SetLobbyType">ISteamMatchmaking::SetLobbyType</a></p>
 </blockquote>
@@ -1813,8 +4067,7 @@ This can only be set by the owner of the lobby.</p>
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_matchmaking_set_lobby_type(steam_id_lobby, lobby_type)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_matchmaking_set_lobby_type(steam_id_lobby, lobby_type)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -1847,7 +4100,7 @@ This can only be set by the owner of the lobby.</p>
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_matchmaking_invite_user_to_lobby">steam_matchmaking_invite_user_to_lobby</h1>
+<h1 id="steam_matchmaking_invite_user_to_lobby">steam_matchmaking_invite_user_to_lobby<a class="headerlink" href="#steam_matchmaking_invite_user_to_lobby" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamMatchmaking#InviteUserToLobby">ISteamMatchmaking::InviteUserToLobby</a></p>
 </blockquote>
@@ -1855,8 +4108,7 @@ This can only be set by the owner of the lobby.</p>
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_matchmaking_invite_user_to_lobby(steam_id_lobby, steam_id_invitee)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_matchmaking_invite_user_to_lobby(steam_id_lobby, steam_id_invitee)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -1888,7 +4140,7 @@ This can only be set by the owner of the lobby.</p>
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_matchmaking_set_lobby_game_server">steam_matchmaking_set_lobby_game_server</h1>
+<h1 id="steam_matchmaking_set_lobby_game_server">steam_matchmaking_set_lobby_game_server<a class="headerlink" href="#steam_matchmaking_set_lobby_game_server" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamMatchmaking#SetLobbyGameServer">ISteamMatchmaking::SetLobbyGameServer</a></p>
 </blockquote>
@@ -1900,8 +4152,7 @@ This can only be set by the owner of the lobby.</p>
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_matchmaking_set_lobby_game_server(steam_id_lobby, ip, port, steam_id_gs)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_matchmaking_set_lobby_game_server(steam_id_lobby, ip, port, steam_id_gs)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -1943,7 +4194,7 @@ This can only be set by the owner of the lobby.</p>
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_matchmaking_set_linked_lobby">steam_matchmaking_set_linked_lobby</h1>
+<h1 id="steam_matchmaking_set_linked_lobby">steam_matchmaking_set_linked_lobby<a class="headerlink" href="#steam_matchmaking_set_linked_lobby" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamMatchmaking#SetLinkedLobby">ISteamMatchmaking::SetLinkedLobby</a></p>
 </blockquote>
@@ -1951,8 +4202,7 @@ This can only be set by the owner of the lobby.</p>
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_matchmaking_set_linked_lobby(steam_id_lobby, steam_id_lobby_dependent)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_matchmaking_set_linked_lobby(steam_id_lobby, steam_id_lobby_dependent)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -1984,7 +4234,7 @@ This can only be set by the owner of the lobby.</p>
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_matchmaking_get_lobby_game_server">steam_matchmaking_get_lobby_game_server</h1>
+<h1 id="steam_matchmaking_get_lobby_game_server">steam_matchmaking_get_lobby_game_server<a class="headerlink" href="#steam_matchmaking_get_lobby_game_server" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamMatchmaking#GetLobbyGameServer">ISteamMatchmaking::GetLobbyGameServer</a></p>
 </blockquote>
@@ -1993,8 +4243,7 @@ This can only be set by the owner of the lobby.</p>
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_matchmaking_get_lobby_game_server(steam_id_lobby)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_matchmaking_get_lobby_game_server(steam_id_lobby)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -2021,7 +4270,7 @@ This can only be set by the owner of the lobby.</p>
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_matchmaking_get_favorite_game_count">steam_matchmaking_get_favorite_game_count</h1>
+<h1 id="steam_matchmaking_get_favorite_game_count">steam_matchmaking_get_favorite_game_count<a class="headerlink" href="#steam_matchmaking_get_favorite_game_count" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamMatchmaking#GetFavoriteGameCount">ISteamMatchmaking::GetFavoriteGameCount</a></p>
 </blockquote>
@@ -2029,8 +4278,7 @@ This can only be set by the owner of the lobby.</p>
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_matchmaking_get_favorite_game_count()
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_matchmaking_get_favorite_game_count()</code></pre>
 </blockquote>
 <p><br></p>
 <p><strong>Returns:</strong></p>
@@ -2041,7 +4289,7 @@ This can only be set by the owner of the lobby.</p>
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_matchmaking_get_favorite_game">steam_matchmaking_get_favorite_game</h1>
+<h1 id="steam_matchmaking_get_favorite_game">steam_matchmaking_get_favorite_game<a class="headerlink" href="#steam_matchmaking_get_favorite_game" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamMatchmaking#GetFavoriteGame">ISteamMatchmaking::GetFavoriteGame</a></p>
 </blockquote>
@@ -2049,8 +4297,7 @@ This can only be set by the owner of the lobby.</p>
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_matchmaking_get_favorite_game(index)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_matchmaking_get_favorite_game(index)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -2077,7 +4324,7 @@ This can only be set by the owner of the lobby.</p>
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_matchmaking_add_favorite_game">steam_matchmaking_add_favorite_game</h1>
+<h1 id="steam_matchmaking_add_favorite_game">steam_matchmaking_add_favorite_game<a class="headerlink" href="#steam_matchmaking_add_favorite_game" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamMatchmaking#AddFavoriteGame">ISteamMatchmaking::AddFavoriteGame</a></p>
 </blockquote>
@@ -2085,8 +4332,7 @@ This can only be set by the owner of the lobby.</p>
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_matchmaking_add_favorite_game(app_id, ip, conn_port, query_port, flags, last_played_time)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_matchmaking_add_favorite_game(app_id, ip, conn_port, query_port, flags, last_played_time)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -2139,7 +4385,7 @@ This can only be set by the owner of the lobby.</p>
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_matchmaking_remove_favorite_game">steam_matchmaking_remove_favorite_game</h1>
+<h1 id="steam_matchmaking_remove_favorite_game">steam_matchmaking_remove_favorite_game<a class="headerlink" href="#steam_matchmaking_remove_favorite_game" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamMatchmaking#RemoveFavoriteGame">ISteamMatchmaking::RemoveFavoriteGame</a></p>
 </blockquote>
@@ -2147,8 +4393,7 @@ This can only be set by the owner of the lobby.</p>
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
-<div class="highlight"><pre><span></span><code>steam_matchmaking_remove_favorite_game(app_id, ip, conn_port, query_port, flags)
-</code></pre></div>
+<pre class="highlight"><code class="language-gml">steam_matchmaking_remove_favorite_game(app_id, ip, conn_port, query_port, flags)</code></pre>
 </blockquote>
 <table>
 <thead>
@@ -2196,7 +4441,7 @@ This can only be set by the owner of the lobby.</p>
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steammatchmakinglobbytype">SteamMatchmakingLobbyType</h1>
+<h1 id="steammatchmakinglobbytype">SteamMatchmakingLobbyType<a class="headerlink" href="#steammatchmakinglobbytype" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Enum</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamMatchmaking#ELobbyType">ISteamMatchmaking::ELobbyType</a></p>
 </blockquote>
@@ -2237,7 +4482,7 @@ This can only be set by the owner of the lobby.</p>
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steammatchmakinglobbycomparison">SteamMatchmakingLobbyComparison</h1>
+<h1 id="steammatchmakinglobbycomparison">SteamMatchmakingLobbyComparison<a class="headerlink" href="#steammatchmakinglobbycomparison" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Enum</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamMatchmaking#ELobbyComparison">ISteamMatchmaking::ELobbyComparison</a></p>
 </blockquote>
@@ -2286,7 +4531,7 @@ This can only be set by the owner of the lobby.</p>
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steammatchmakinglobbydistancefilter">SteamMatchmakingLobbyDistanceFilter</h1>
+<h1 id="steammatchmakinglobbydistancefilter">SteamMatchmakingLobbyDistanceFilter<a class="headerlink" href="#steammatchmakinglobbydistancefilter" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Enum</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamMatchmaking#ELobbyDistanceFilter">ISteamMatchmaking::ELobbyDistanceFilter</a></p>
 </blockquote>
@@ -2326,7 +4571,7 @@ This can only be set by the owner of the lobby.</p>
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steammatchmakingchatmemberstatechange">SteamMatchmakingChatMemberStateChange</h1>
+<h1 id="steammatchmakingchatmemberstatechange">SteamMatchmakingChatMemberStateChange<a class="headerlink" href="#steammatchmakingchatmemberstatechange" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Enum</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamMatchmaking#EChatMemberStateChange">ISteamMatchmaking::EChatMemberStateChange</a></p>
 </blockquote>
@@ -2370,7 +4615,7 @@ This can only be set by the owner of the lobby.</p>
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steammatchmakingchatroomenterresponse">SteamMatchmakingChatRoomEnterResponse</h1>
+<h1 id="steammatchmakingchatroomenterresponse">SteamMatchmakingChatRoomEnterResponse<a class="headerlink" href="#steammatchmakingchatroomenterresponse" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Enum</strong>: <a href="https://partner.steamgames.com/doc/api/steam_api#EChatRoomEnterResponse">EChatRoomEnterResponse</a></p>
 </blockquote>
@@ -2442,7 +4687,7 @@ This can only be set by the owner of the lobby.</p>
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steammatchmakinglobbycreated">SteamMatchmakingLobbyCreated</h1>
+<h1 id="steammatchmakinglobbycreated">SteamMatchmakingLobbyCreated<a class="headerlink" href="#steammatchmakinglobbycreated" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Struct</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamMatchmaking#LobbyCreated_t">ISteamMatchmaking::LobbyCreated_t</a></p>
 </blockquote>
@@ -2477,7 +4722,7 @@ This can only be set by the owner of the lobby.</p>
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steammatchmakinglobbyenter">SteamMatchmakingLobbyEnter</h1>
+<h1 id="steammatchmakinglobbyenter">SteamMatchmakingLobbyEnter<a class="headerlink" href="#steammatchmakinglobbyenter" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Struct</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamMatchmaking#LobbyEnter_t">ISteamMatchmaking::LobbyEnter_t</a></p>
 </blockquote>
@@ -2522,7 +4767,7 @@ This can only be set by the owner of the lobby.</p>
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steammatchmakinglobbymatchlist">SteamMatchmakingLobbyMatchList</h1>
+<h1 id="steammatchmakinglobbymatchlist">SteamMatchmakingLobbyMatchList<a class="headerlink" href="#steammatchmakinglobbymatchlist" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Struct</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamMatchmaking#LobbyMatchList_t">ISteamMatchmaking::LobbyMatchList_t</a></p>
 </blockquote>
@@ -2552,7 +4797,7 @@ This can only be set by the owner of the lobby.</p>
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steammatchmakinglobbydataupdate">SteamMatchmakingLobbyDataUpdate</h1>
+<h1 id="steammatchmakinglobbydataupdate">SteamMatchmakingLobbyDataUpdate<a class="headerlink" href="#steammatchmakinglobbydataupdate" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Struct</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamMatchmaking#LobbyDataUpdate_t">ISteamMatchmaking::LobbyDataUpdate_t</a></p>
 </blockquote>
@@ -2592,7 +4837,7 @@ This can only be set by the owner of the lobby.</p>
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steammatchmakinglobbychatupdate">SteamMatchmakingLobbyChatUpdate</h1>
+<h1 id="steammatchmakinglobbychatupdate">SteamMatchmakingLobbyChatUpdate<a class="headerlink" href="#steammatchmakinglobbychatupdate" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Struct</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamMatchmaking#LobbyChatUpdate_t">ISteamMatchmaking::LobbyChatUpdate_t</a></p>
 </blockquote>
@@ -2637,7 +4882,7 @@ This can only be set by the owner of the lobby.</p>
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steammatchmakinglobbychatmsg">SteamMatchmakingLobbyChatMsg</h1>
+<h1 id="steammatchmakinglobbychatmsg">SteamMatchmakingLobbyChatMsg<a class="headerlink" href="#steammatchmakinglobbychatmsg" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Struct</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamMatchmaking#LobbyChatMsg_t">ISteamMatchmaking::LobbyChatMsg_t</a></p>
 </blockquote>
@@ -2682,7 +4927,7 @@ This can only be set by the owner of the lobby.</p>
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steammatchmakinglobbygamecreated">SteamMatchmakingLobbyGameCreated</h1>
+<h1 id="steammatchmakinglobbygamecreated">SteamMatchmakingLobbyGameCreated<a class="headerlink" href="#steammatchmakinglobbygamecreated" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Struct</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamMatchmaking#LobbyGameCreated_t">ISteamMatchmaking::LobbyGameCreated_t</a></p>
 </blockquote>
@@ -2727,7 +4972,7 @@ This can only be set by the owner of the lobby.</p>
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steammatchmakinglobbyinvite">SteamMatchmakingLobbyInvite</h1>
+<h1 id="steammatchmakinglobbyinvite">SteamMatchmakingLobbyInvite<a class="headerlink" href="#steammatchmakinglobbyinvite" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Struct</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamMatchmaking#LobbyInvite_t">ISteamMatchmaking::LobbyInvite_t</a></p>
 </blockquote>
@@ -2767,7 +5012,7 @@ This can only be set by the owner of the lobby.</p>
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steammatchmakinglobbydataentry">SteamMatchmakingLobbyDataEntry</h1>
+<h1 id="steammatchmakinglobbydataentry">SteamMatchmakingLobbyDataEntry<a class="headerlink" href="#steammatchmakinglobbydataentry" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Struct</strong>: N / A</p>
 </blockquote>
@@ -2802,7 +5047,7 @@ This can only be set by the owner of the lobby.</p>
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steammatchmakinglobbychatentry">SteamMatchmakingLobbyChatEntry</h1>
+<h1 id="steammatchmakinglobbychatentry">SteamMatchmakingLobbyChatEntry<a class="headerlink" href="#steammatchmakinglobbychatentry" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Struct</strong>: N / A</p>
 </blockquote>
@@ -2842,7 +5087,7 @@ This can only be set by the owner of the lobby.</p>
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steammatchmakinglobbygameserver">SteamMatchmakingLobbyGameServer</h1>
+<h1 id="steammatchmakinglobbygameserver">SteamMatchmakingLobbyGameServer<a class="headerlink" href="#steammatchmakinglobbygameserver" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Struct</strong>: N / A</p>
 </blockquote>
@@ -2882,7 +5127,7 @@ This can only be set by the owner of the lobby.</p>
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steammatchmakingfavoritegame">SteamMatchmakingFavoriteGame</h1>
+<h1 id="steammatchmakingfavoritegame">SteamMatchmakingFavoriteGame<a class="headerlink" href="#steammatchmakingfavoritegame" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Struct</strong>: N / A</p>
 </blockquote>
@@ -2935,57 +5180,73 @@ This can only be set by the owner of the lobby.</p>
 </table>
 <p><br></p>
 <hr />
-              
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
             </div>
-          </div><footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="inventory.html" class="btn btn-neutral float-left" title="Inventory"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="music.html" class="btn btn-neutral float-right" title="Music">Next <span class="icon icon-circle-arrow-right"></span></a>
-    </div>
-
-  <hr/>
-
-  <div role="contentinfo">
-    <!-- Copyright etc -->
-      <p><p align="center">GameMaker 2026</p></p>
-  </div>
-
-  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
-</footer>
           
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
         </div>
-      </div>
-
-    </section>
-
-  </div>
-
-  <div class="rst-versions" role="note" aria-label="Versions">
-  <span class="rst-current-version" data-toggle="rst-current-version">
-    
-        <span>
-          <a href="https://github.com/YoYoGames/GMEXT-Steamworks" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
-        </span>
-    
-    
-      <span><a href="inventory.html" style="color: #fcfcfc">&laquo; Previous</a></span>
-    
-    
-      <span><a href="music.html" style="color: #fcfcfc">Next &raquo;</a></span>
-    
-  </span>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      <p align="center">GameMaker 2026</p>
+    </div>
+  
+  
 </div>
-    <script src="js/jquery-3.6.0.min.js"></script>
-    <script>var base_url = ".";</script>
-    <script src="js/theme_extra.js"></script>
-    <script src="js/theme.js"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/gml.min.js"></script>
-      <script src="assets/js/gmext_script.js"></script>
-    <script>
-        jQuery(function () {
-            SphinxRtdTheme.Navigation.enable(true);
-        });
-    </script>
-
-</body>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["navigation.top", "navigation.tracking", "toc.follow", "content.code.copy"], "search": "assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/gml.min.js"></script>
+      
+        <script src="assets/js/hljs-init.js"></script>
+      
+        <script src="assets/js/resize-columns.js"></script>
+      
+    
+  </body>
 </html>

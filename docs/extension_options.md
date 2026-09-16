@@ -2,7 +2,7 @@
 
 # Extension Options
 
-Open the Steamworks extension's options from the Asset Browser (double-click the extension, or right-click it and choose **Properties**) to configure it. See ${page.getting_started} for the full setup walkthrough.
+Open the Steamworks extension's options from the Asset Browser (double-click the extension, or right-click it and choose **Edit**) to configure it. See ${page.getting_started} for the full setup walkthrough.
 
 ## Build Options
 

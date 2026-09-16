@@ -1,0 +1,418 @@
+/* Site styling for the generated extension manual.
+
+   Ported from the GMRT manual (GMRT_Manual_Test/docs/assets/extra.css). Two of
+   its blocks are left out because this generator emits neither construct: the
+   footer-navigation table, and the indentation of everything following an h3 -
+   these pages have no h3 at all. Everything else is as it is there.
+
+   Copied verbatim into <manual>/assets/css/ by _copy_tool_assets. */
+/* Hand-maintained site styling. The documentation generator only writes
+   <Module>/ folders and index.md, so it will not touch this file. */
+
+:root {
+  --md-primary-fg-color: #575757;
+  --md-primary-fg-color--light: #878787;
+  --md-primary-fg-color--dark: #575757;
+  --md-primary-bg-color: #fff;
+  --md-primary-bg-color--light: hsla(0, 0%, 100%, 0.7);
+
+  --md-accent-fg-color: #25d1de;
+  --md-accent-fg-color-gradient: #25d2de15;
+  --md-accent-fg-color--transparent: hsla(30, 97%, 61%, 0.1);
+  --md-accent-bg-color: #1a1a1a;
+  --md-accent-bg-color--light: hsla(0, 0%, 10%, 0.7);
+
+  --md-code-font-family: "Consolas";
+  --md-typeset-table-color: #4f4f4f;
+}
+
+.md-main__inner {
+  margin-top: 0px;
+}
+
+/* Link Light */
+[data-md-color-scheme="default"] {
+  --md-typeset-a-color: #3a73d7;
+  --md-accent-fg-color: #3a73d7;
+  --md-accent-fg-color-gradient: #3a73d71c;
+  --gm-h1-color: #505050;
+  --md-typeset-table-color: #b6b6b6;
+}
+
+/* Link Dark */
+[data-md-color-scheme="slate"] {
+  --md-default-bg-color: #1a1a1a;
+  --md-code-bg-color: #141414;
+  --md-typeset-a-color: #12beca;
+  --gm-h1-color: #bdbdbd;
+}
+
+/* ==========================================================================
+   Colours that follow the scheme
+
+   Material puts data-md-color-scheme on <body>, but :root is <html>, one
+   element further out. That matters for any colour of ours defined in terms of
+   one of Material's, because a custom property is substituted at the point it
+   computes: written in :root, `var(--md-typeset-table-color)` resolves against
+   <html>, which only ever holds the light value, and it is that
+   already-resolved colour which inherits down. Nothing set on <body>
+   afterwards -- neither Material's slate block nor either of the two above --
+   can reach it. Material hits this itself, and works around it by re-declaring
+   --md-typeset-a-color inside every one of its own scheme blocks.
+
+   So the --gm-* colours further down are deliberately not declared in :root.
+   Each is used as `var(--gm-name, <Material default>)` in the rule that needs
+   it, which defers the substitution to an element inside <body>, where the
+   scheme is known. Setting one still works exactly as you would expect, and
+   now has somewhere useful to be set:
+
+     :root                            { --gm-name: red; }   both schemes
+     [data-md-color-scheme="default"] { --gm-name: red; }   light only
+     [data-md-color-scheme="slate"]   { --gm-name: red; }   dark only
+
+   Add new colour knobs the same way. Sizes are unaffected -- a length has no
+   scheme -- so those stay in :root.
+   ========================================================================== */
+
+/* Material dims the page title to --md-default-fg-color--light, a step below
+   the body text under it. Give it a colour of its own per scheme instead.
+   Kept at this specificity on purpose: Material's own
+   `.md-search-result .md-typeset h1` is one class stronger, so result titles
+   in the search dropdown keep the colour the theme intends for them. */
+.md-typeset h1 {
+  color: var(--gm-h1-color);
+  font-weight: bold;
+}
+
+/* Material sizes tables at .64rem against .8rem body copy, which reads as a
+   step down from the prose around them. The reference pages are mostly tables
+   -- arguments, returns, enum values -- so let them match the description text
+   they sit under. Inheriting rather than restating .8rem keeps them in step if
+   the base size ever changes. */
+.md-typeset table:not([class]) {
+  font-size: inherit;
+}
+
+
+/* Table lines. Material draws two, both .05rem in a colour faint enough that
+   thickening one tends to read as blur rather than as a line -- so if a heavier
+   border looks muddy, reach for --gm-table-line-color before going thicker
+   still. There are no vertical rules between columns to size; Material does not
+   draw any.
+
+   Only the width and the colour are set here, leaving Material's `solid` and
+   the corner radius further down untouched. The selectors have to carry
+   `:not([class])` to match the specificity of the rules they are overriding. */
+:root {
+  --gm-table-border: 0.1rem;   /* the box around a table */
+  --gm-table-rule: 0.1rem;     /* the line between two rows */
+  /* --gm-table-line-color: <colour>; -- not here; see "Colours that follow
+     the scheme" above for where a colour knob goes and why. Left unset, both
+     lines take Material's --md-typeset-table-color for the live scheme, which
+     is the one you want to set if you only mean to recolour the tables. */
+}
+
+.md-typeset table:not([class]) {
+  border-width: var(--gm-table-border);
+  border-color: var(--gm-table-line-color, var(--md-typeset-table-color));
+}
+
+/* The header row has no border of its own: the line beneath it is the top of
+   the first body row, so --gm-table-rule sizes that too. */
+.md-typeset table:not([class]) td {
+  border-top-width: var(--gm-table-rule);
+  border-top-color: var(--gm-table-line-color, var(--md-typeset-table-color));
+}
+
+
+/* Corner rounding. Material rounds most surfaces to .1rem, which is barely
+   visible, and deliberately squares off code blocks sitting directly in the
+   content column so they can bleed to the screen edge on narrow viewports.
+   Next to a rounded table that reads as an unfinished corner, so round them
+   back and lift everything one consistent step. */
+:root {
+  --gm-radius: 0.4rem;
+}
+
+.md-typeset code,
+.md-typeset table:not([class]),
+.md-typeset .highlight > pre > code,
+.md-content__inner > .highlight > pre > code,
+.md-content__inner > pre > code,
+.md-clipboard,
+.md-code__nav {
+  border-radius: var(--gm-radius);
+}
+
+.md-code__nav {
+  border-radius: 0.3rem;
+}
+
+
+/* ==========================================================================
+   Page columns: navigation | content | table of contents
+
+   Everything you are likely to want to change lives in the :root block below.
+   The rules underneath it only read those variables, so you should rarely need
+   to touch them.
+   ========================================================================== */
+
+:root {
+  /* --- The two dividers ------------------------------------------------- */
+  --gm-divider-width: 2px;
+  --gm-divider-style: solid;
+  /* The grey of the two dividers is --gm-divider-color. It is deliberately
+     not set here, because a colour set in :root cannot follow the scheme --
+     see "Colours that follow the scheme" above for why. Unset, it is
+     Material's --md-default-fg-color--lighter. To change it:
+
+       :root                            { --gm-divider-color: #444; }  both
+       [data-md-color-scheme="default"] { --gm-divider-color: #ccc; }  light
+       [data-md-color-scheme="slate"]   { --gm-divider-color: #444; }  dark */
+
+  /* --- Column widths ---------------------------------------------------- */
+  /* The nav and the table of contents are fixed; the content column takes
+     whatever is left of --gm-page-width, so widening a sidebar narrows the
+     article and widening the page widens only the article. */
+  --gm-nav-width: 16rem;
+  --gm-toc-width: 16rem;
+  --gm-page-width: 70rem;
+
+  /* --- Column backgrounds ----------------------------------------------- */
+  /* These paint the column contents, not full-height stripes: the sidebars
+     are zero-height sticky boxes, so a background on them is as tall as the
+     nav inside it. Use var(--md-default-bg-color) or a colour to test. */
+  --gm-nav-bg: transparent;
+  --gm-content-bg: transparent;
+  --gm-toc-bg: transparent;
+
+  /* --- Breathing room between a divider and the text beside it ---------- */
+  --gm-nav-gap: 0.8rem;
+  --gm-toc-gap: 0.8rem;
+
+  /* --- Drag-to-resize ---------------------------------------------------- */
+  /* How far each column can be dragged, and how much article has to survive
+     it. Every drag re-clamps to these, so tightening one here pulls an
+     over-wide saved column back into range the next time it is moved. Keep
+     them in rem: the script reads them as a number of rem. */
+  --gm-nav-min-width: 9rem;
+  --gm-toc-min-width: 8rem;
+  --gm-content-min-width: 20rem;
+
+  /* The grab strip straddling a divider: how wide it is to the pointer. The
+     colour the divider turns while it is grabbed is --gm-resizer-color, set
+     the same way as --gm-divider-color above; unset, it is the accent. */
+  --gm-resizer-hit: 0.5rem;
+}
+
+/* Overall page width. Also governs the header, so the two stay aligned. */
+.md-grid {
+  max-width: var(--gm-page-width);
+}
+
+/* Full-height columns. Material's flex chain already stretches .md-main to the
+   bottom of the viewport on a short page -- that is what holds the footer down
+   there -- but it stops one element short. .md-main__inner is a plain block
+   child of .md-main, so the `height: 100%` Material gives it has no definite
+   height to resolve against and quietly falls back to the height of the
+   article. The dividers are borders on .md-content, which stretches to that
+   row, so both of them ended wherever the markdown happened to end.
+
+   Making .md-main a column and letting the row grow into it gives the borders
+   the whole area to run down, on a two-line page as much as on a long one.
+   `height: auto` because flex-grow is now doing the sizing, and leaving the
+   percentage in place would add Material's 1.5rem top margin on top of a full
+   100% if that margin is ever restored.
+
+   `width: 100%` is not redundant. A flex item only stretches across the cross
+   axis if neither of its margins on that axis is auto, and .md-grid centres the
+   row with `margin-left: auto; margin-right: auto` -- so the moment .md-main
+   became a flex container, the row stopped filling it and shrank to fit its
+   contents instead. On a page of narrow tables that visibly narrows the
+   article, and dragging a divider then widens the row rather than trading
+   space between the columns. Asking for the full width restores what the row
+   had as a block; --gm-page-width still caps it. */
+.md-main {
+  display: flex;
+  flex-direction: column;
+}
+
+.md-main__inner {
+  height: auto;
+  width: 100%;
+  flex-grow: 1;
+}
+
+/* --- 1. Navigation, left ------------------------------------------------ */
+/* Only while the nav is a column. Below 76.25em Material reuses this same
+   element as the slide-out drawer, and the drawer is positioned by hand:
+   `left: -12.1rem` parks it off screen and `translateX(12.1rem)` brings it
+   back, both hardcoded rather than read from the width. Widening it without
+   moving it therefore leaves the difference -- 3.9rem of opaque nav, at
+   z-index 5, over the header and the page -- showing while it is shut, on top
+   of the button that opens it. Same breakpoint as the divider below, which is
+   the other half of this column existing. */
+@media screen and (min-width: 76.25em) {
+  .md-sidebar--primary {
+    width: var(--gm-nav-width);
+  }
+}
+
+.md-sidebar--primary .md-sidebar__inner {
+  background-color: var(--gm-nav-bg);
+  padding-right: var(--gm-nav-gap);
+}
+
+/* --- 2. Content, middle ------------------------------------------------- */
+/* The dividers are borders on the content column rather than on the sidebars,
+   because Material gives the sidebars `height: 0` at desktop widths -- they
+   are sticky anchors whose contents overflow -- so a border on one would have
+   nothing to draw along. */
+.md-content {
+  background-color: var(--gm-content-bg);
+  /* The containing block for the grab strips, which sit on these borders. */
+  position: relative;
+  transition: border-color 0.15s;
+}
+
+/* Each divider only appears while the column it separates is actually on
+   screen: the nav collapses into a drawer below 76.25em, and the table of
+   contents is dropped below 60em or on a page that has no headings. */
+@media screen and (min-width: 76.25em) {
+  .md-sidebar--primary:not([hidden]) ~ .md-content {
+    border-left: var(--gm-divider-width) var(--gm-divider-style)
+      var(--gm-divider-color, var(--md-default-fg-color--lighter));
+  }
+
+  /* Grabbing a divider recolours the border itself rather than laying a second
+     line over it, so the lit line and the resting line are the same pixels by
+     construction and cannot drift apart. */
+  .md-sidebar--primary:not([hidden])
+    ~ .md-content:has(> .gm-resizer--nav:is(:hover, :focus-visible, [data-gm-dragging])) {
+    border-left-color: var(--gm-resizer-color, var(--md-accent-fg-color));
+  }
+}
+
+@media screen and (min-width: 60em) {
+  .md-sidebar--secondary:not([hidden]) ~ .md-content {
+    border-right: var(--gm-divider-width) var(--gm-divider-style)
+      var(--gm-divider-color, var(--md-default-fg-color--lighter));
+  }
+
+  .md-sidebar--secondary:not([hidden])
+    ~ .md-content:has(> .gm-resizer--toc:is(:hover, :focus-visible, [data-gm-dragging])) {
+    border-right-color: var(--gm-resizer-color, var(--md-accent-fg-color));
+  }
+}
+
+/* --- 3. Table of contents, right ---------------------------------------- */
+/* Only while the contents is a column, as with the nav above. Material drops
+   this one below 60em and folds it into the drawer instead, so an unguarded
+   width here is merely unused rather than harmful -- but it is the same rule,
+   and it should not be the reader's luck that decides which. */
+@media screen and (min-width: 60em) {
+  .md-sidebar--secondary {
+    width: var(--gm-toc-width);
+  }
+}
+
+.md-sidebar--secondary .md-sidebar__inner {
+  background-color: var(--gm-toc-bg);
+  padding-left: var(--gm-toc-gap);
+}
+
+/* --- 4. Drag-to-resize --------------------------------------------------- */
+/* One grab strip per divider, added by assets/resize-columns.js. Each is an
+   absolutely positioned child of the content column, straddling the border it
+   grabs: `top: 0; bottom: 0` against a column with no top or bottom border of
+   its own is exactly the span of the left and right ones, so the area you can
+   grab is the line you can see, on a two-line page as much as on a long one.
+
+   The strip itself never paints. What lights up is the border, through the
+   :has() rules in section 2 -- one line, one set of pixels, no overlay to fall
+   out of step with what is underneath it. */
+.gm-resizer {
+  display: none;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  z-index: 3;                 /* below .md-header, which is 4 */
+  width: var(--gm-resizer-hit);
+  cursor: col-resize;
+  touch-action: none;         /* a drag must not scroll the page instead */
+}
+
+/* Centred on the border, so half the strip reaches into the column beside it.
+   Offsets are measured from the padding box, which starts inside the border --
+   hence the divider's own width in the sum. */
+.gm-resizer--nav {
+  left: calc((var(--gm-divider-width) + var(--gm-resizer-hit)) / -2);
+}
+
+.gm-resizer--toc {
+  right: calc((var(--gm-divider-width) + var(--gm-resizer-hit)) / -2);
+}
+
+.gm-resizer:focus-visible {
+  outline: none;              /* the lit divider is the focus indicator */
+}
+
+/* Each strip appears with the divider it grabs, on the same terms: the nav
+   collapses into a drawer below 76.25em, and the table of contents is dropped
+   below 60em or on a page that has no headings. */
+@media screen and (min-width: 76.25em) {
+  .md-sidebar--primary:not([hidden]) ~ .md-content > .gm-resizer--nav {
+    display: block;
+  }
+}
+
+@media screen and (min-width: 60em) {
+  .md-sidebar--secondary:not([hidden]) ~ .md-content > .gm-resizer--toc {
+    display: block;
+  }
+}
+
+/* While a drag is live the cursor keeps its shape wherever the pointer goes,
+   and nothing underneath should select. */
+body[data-gm-resizing] {
+  cursor: col-resize;
+  user-select: none;
+}
+
+/* ==========================================================================
+   Headings, and the function blocks under them
+   ========================================================================== */
+
+:root {
+  /* The rule down the left of an h3 and the gap between it and the heading. */
+  --gm-h3-rule: 6px;
+  --gm-h3-gap: 10px;
+}
+
+.md-typeset h2 {
+  border-bottom: 3px solid var(--md-accent-fg-color);
+  padding-bottom: 5px;
+  /*background: linear-gradient(var(--md-accent-bg-color), var(--md-accent-fg-color-gradient));*/
+  background: linear-gradient(2deg,var(--md-accent-fg-color-gradient) 0%, var(--md-default-bg-color) 50%, var(--md-default-bg-color) 100%);
+  margin: 1.8em 0 1.2em;
+}
+
+.md-typeset h3 {
+  margin-top: 2em;
+  margin-bottom: 1em;
+  border-left: var(--gm-h3-rule) solid var(--md-accent-fg-color);
+  padding-left: var(--gm-h3-gap);
+  background: linear-gradient(90deg, var(--md-accent-fg-color-gradient) 0%, var(--md-default-bg-color) 30%);
+}
+
+/* ==========================================================================
+   Carried over from the readthedocs stylesheet this file replaces
+   ========================================================================== */
+
+/* A module page separates every function with a rule - two dozen to well over a
+   hundred of them - so they are effectively branding. Material draws hr as a 1px
+   --md-default-fg-color--lightest border. */
+hr {
+  height: 2px;
+  background: #03759b;
+}
