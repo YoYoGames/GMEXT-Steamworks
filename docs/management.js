@@ -16,7 +16,7 @@
 
 /**
  * @func steam_update
- * @desc This function updates the Steam APIs.
+ * @desc This function updates the Steam APIs. If the GameServer API has been initialized, it also dispatches Steam GameServer callbacks.
  * 
  * [[WARNING: This function is required to be called in order for the Steamworks extension to work. Certain async events are only triggered when you call this function. We recommend you place this function in a persistent controller object that calls it inside its ${event.step}.]]
  * 
@@ -80,4 +80,3 @@
  * @section_end
  * @module_end
  */
- 
