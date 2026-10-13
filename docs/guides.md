@@ -34,6 +34,19 @@ To use the Steam API extension you should follow these steps:
     - 1: Show errors and warnings (recommended)
     - 2: Show everything (use before submitting a bug)
 
+## Signed macOS Builds
+
+When a macOS build uses the Hardened Runtime, `SteamAPI_Init` can fail because library validation rejects Valve's `steamclient.dylib`, which is signed with a different Team ID from your game. In this case, `steam_initialised()` remains `false` and Steam features are unavailable even though the application builds successfully.
+
+For the game target in Xcode, open **Signing & Capabilities** > **Hardened Runtime** and enable **Disable Library Validation**. This adds the following entitlement to the signed application:
+
+```xml
+<key>com.apple.security.cs.disable-library-validation</key>
+<true/>
+```
+
+See Apple's documentation for the [`com.apple.security.cs.disable-library-validation`](https://developer.apple.com/documentation/BundleResources/Entitlements/com.apple.security.cs.disable-library-validation) entitlement and the [Steamworks macOS documentation](https://partner.steamgames.com/doc/store/application/platforms) for additional platform requirements.
+
 # Migration Changes
 
   During the migration of the Steamworks function library from the base GameMaker runner into this extension, there were some new functions that were added, and others that were slightly changed. This document covers the changes that happened during that migration.
