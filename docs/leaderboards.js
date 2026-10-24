@@ -320,18 +320,26 @@
  * @event_end
  *
  * @example
- * In this example we first upload a score, share the replay file and then attach the shared file to the leaderboard entry. We start by sharing the file and storing the async ID value in a variable:
+ * In this example we first upload a score. Once the score has been uploaded we share the replay file, and once the file has been shared we attach it to the leaderboard entry. We start by uploading the score and storing the async ID value in a variable:
  *
  * ```gml
- * steam_upload_score("Game Scores", score);
- * share_id = steam_file_share("Replay.dat");
+ * upload_id = steam_upload_score("Game Scores", score);
  * ```
- * When the file has been shared the ${event.steam} gives us the UGC handle, which we can then attach to the leaderboard:
+ * Each step is then handled in the ${event.steam}:
  *
  * ```gml
  * var _type = async_load[? "event_type"];
- * if (_type == "file_share" && async_load[? "id"] == share_id)
+ * if (_type == "leaderboard_upload" && async_load[? "post_id"] == upload_id)
  * {
+ *     // The score is on the leaderboard, so we can share the replay file
+ *     if (async_load[? "success"])
+ *     {
+ *         share_id = steam_file_share("Replay.dat");
+ *     }
+ * }
+ * else if (_type == "file_share" && async_load[? "id"] == share_id)
+ * {
+ *     // The replay has been shared, so we can attach its UGC handle to the entry
  *     if (async_load[? "result"] == ugc_result_success)
  *     {
  *         attach_id = steam_attach_leaderboard_ugc("Game Scores", async_load[? "ugc_handle"]);
@@ -345,7 +353,7 @@
  *     }
  * }
  * ```
- * The code above attaches the shared replay to the leaderboard entry and reports when it worked.
+ * The code above waits for each step to finish before starting the next one, and reports when the replay has been attached.
  * @func_end
  */
 

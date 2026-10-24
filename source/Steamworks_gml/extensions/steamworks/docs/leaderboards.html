@@ -908,13 +908,21 @@ In the example we are simply outputting the return values to the compiler window
 </table>
 <p><br></p>
 <p><strong>Example:</strong></p>
-<p>In this example we first upload a score, share the replay file and then attach the shared file to the leaderboard entry. We start by sharing the file and storing the async ID value in a variable:</p>
-<p><pre class="highlight"><code class="language-gml">steam_upload_score("Game Scores", score);
-share_id = steam_file_share("Replay.dat");</code></pre>
-When the file has been shared the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a> gives us the UGC handle, which we can then attach to the leaderboard:</p>
+<p>In this example we first upload a score. Once the score has been uploaded we share the replay file, and once the file has been shared we attach it to the leaderboard entry. We start by uploading the score and storing the async ID value in a variable:</p>
+<p><pre class="highlight"><code class="language-gml">upload_id = steam_upload_score("Game Scores", score);</code></pre>
+Each step is then handled in the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a>:</p>
 <p><pre class="highlight"><code class="language-gml">var _type = async_load[? "event_type"];
-if (_type == "file_share" &amp;&amp; async_load[? "id"] == share_id)
+if (_type == "leaderboard_upload" &amp;&amp; async_load[? "post_id"] == upload_id)
 {
+    // The score is on the leaderboard, so we can share the replay file
+    if (async_load[? "success"])
+    {
+        share_id = steam_file_share("Replay.dat");
+    }
+}
+else if (_type == "file_share" &amp;&amp; async_load[? "id"] == share_id)
+{
+    // The replay has been shared, so we can attach its UGC handle to the entry
     if (async_load[? "result"] == ugc_result_success)
     {
         attach_id = steam_attach_leaderboard_ugc("Game Scores", async_load[? "ugc_handle"]);
@@ -927,7 +935,7 @@ else if (_type == "leaderboard_attach_ugc" &amp;&amp; async_load[? "id"] == atta
         show_debug_message("Replay attached to " + async_load[? "lb_name"]);
     }
 }</code></pre>
-The code above attaches the shared replay to the leaderboard entry and reports when it worked.</p>
+The code above waits for each step to finish before starting the next one, and reports when the replay has been attached.</p>
 <p><br></p>
 <p><br></p>
 <hr />
