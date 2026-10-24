@@ -91,12 +91,17 @@ struct SLBRequest
 	int32* m_pExtraData;
 	int m_extraDataCount;
 
+	bool m_bAttachUGC;	// attach UGC to the user's entry ( m_postId is the async id )
+	UGCHandle_t m_hUGC;	// UGC to attach
+
 	// post cstr
 	SLBRequest(const char* pLBName, int score, int _postId)	 // post
 	{
 		m_pContext = NULL;
 		m_pNext = NULL;
 		m_bPost = true;
+		m_bAttachUGC = false;
+		m_hUGC = k_UGCHandleInvalid;
 		strncpy(m_pszName, pLBName, k_cchLeaderboardNameMax);
 		m_score = score;
 
@@ -111,6 +116,8 @@ struct SLBRequest
 		m_pContext = NULL;
 		m_pNext = NULL;
 		m_bPost = true;
+		m_bAttachUGC = false;
+		m_hUGC = k_UGCHandleInvalid;
 		strncpy(m_pszName, pLBName, k_cchLeaderboardNameMax);
 		m_score = score;
 		m_postId = _postId;
@@ -134,12 +141,29 @@ struct SLBRequest
 	{
 		m_pContext = pContext;
 		m_bPost = false;
+		m_bAttachUGC = false;
+		m_hUGC = k_UGCHandleInvalid;
 		m_pNext = NULL;
 		strncpy(m_pszName, pLBName, k_cchLeaderboardNameMax);
 		m_method = method;
 		m_rangeStart = rangeStart;
 		m_rangeEnd = rangeEnd;
 
+		m_pExtraData = NULL;
+		m_extraDataCount = 0;
+	}
+
+	// attach UGC cstr
+	SLBRequest(int _asyncId, const char* pLBName, UGCHandle_t hUGC)	 // attach UGC
+	{
+		m_pContext = NULL;
+		m_pNext = NULL;
+		m_bPost = false;
+		m_bAttachUGC = true;
+		m_hUGC = hUGC;
+		strncpy(m_pszName, pLBName, k_cchLeaderboardNameMax);
+
+		m_postId = _asyncId;
 		m_pExtraData = NULL;
 		m_extraDataCount = 0;
 	}
@@ -262,9 +286,64 @@ class CLeaderboardDownloadHandler
 	}
 };
 
+void SendAttachUGCEvent(int asyncId, const char* pszName, int result)
+{
+	int map = CreateDsMap(0, 0);
+	g_pYYRunnerInterface->DsMapAddDouble(map, "id", (double)asyncId);
+	g_pYYRunnerInterface->DsMapAddString(map, "event_type", "leaderboard_attach_ugc");
+	g_pYYRunnerInterface->DsMapAddString(map, "lb_name", pszName);
+	g_pYYRunnerInterface->DsMapAddDouble(map, "result", (double)result);
+	g_pYYRunnerInterface->CreateAsyncEventWithDSMap(map, EVENT_OTHER_WEB_STEAM);
+}
+
+// we need to create a new handler for *each* attach UGC request,
+// so that we can report the result of each one via an async event
+class CLeaderboardAttachUGCHandler
+{
+   public:
+	int m_asyncId;
+	char m_pszName[k_cchLeaderboardNameMax];
+
+	CCallResult<CLeaderboardAttachUGCHandler, LeaderboardUGCSet_t> m_SteamCallResultAttachUGC;
+
+	CLeaderboardAttachUGCHandler(int asyncId, const char* pszName) : m_asyncId(asyncId)
+	{
+		strncpy(m_pszName, pszName, k_cchLeaderboardNameMax);
+		m_pszName[k_cchLeaderboardNameMax - 1] = 0;
+	}
+
+	void SetCallResult(SteamAPICall_t apicall) { m_SteamCallResultAttachUGC.Set(apicall, this, &CLeaderboardAttachUGCHandler::OnAttachUGC); }
+
+	void OnAttachUGC(LeaderboardUGCSet_t* pCallback, bool bIOFailure)
+	{
+		SendAttachUGCEvent(m_asyncId, m_pszName, bIOFailure ? 0 : (int)pCallback->m_eResult);
+		// finished with handler, free & deregister
+		delete this;
+	}
+};
+
+// attaches the UGC to the user's entry, the result arrives as a "leaderboard_attach_ugc" async event
+void DoAttachUGC(SteamLeaderboard_t hLeaderboard, UGCHandle_t hUGC, int asyncId, const char* pszName)
+{
+	SteamAPICall_t hSteamAPICall = SteamUserStats()->AttachLeaderboardUGC(hLeaderboard, hUGC);
+	if (hSteamAPICall == k_uAPICallInvalid)
+	{
+		// no result will ever arrive, so report the failure right away
+		SendAttachUGCEvent(asyncId, pszName, 0);
+		return;
+	}
+
+	CLeaderboardAttachUGCHandler* pResultHandler = new CLeaderboardAttachUGCHandler(asyncId, pszName);
+	pResultHandler->SetCallResult(hSteamAPICall);
+}
+
 void DoLBRequest(SLBRequest* pRequest, SteamLeaderboard_t hLeaderboard)
 {
-	if (pRequest->m_bPost)
+	if (pRequest->m_bAttachUGC)
+	{
+		DoAttachUGC(hLeaderboard, pRequest->m_hUGC, pRequest->m_postId, pRequest->m_pszName);
+	}
+	else if (pRequest->m_bPost)
 	{
 		// dbg_csol.Output("Sending queued LB post: %s, %d \n", pszName, pRequest->m_score);
 		SteamAPICall_t hSteamAPICall = SteamUserStats()->UploadLeaderboardScore(hLeaderboard, k_ELeaderboardUploadScoreMethodKeepBest, pRequest->m_score,
@@ -760,6 +839,59 @@ YYEXPORT void /*double*/ steam_upload_score_buffer_ext(RValue& Result,
 	Result.val = Steam_UserStats_UploadScore(pszLeaderboardName, score, _bufferId, _forceupdate);
 }
 
+////////////////////////////////// ATTACH UGC ////////////////////////////////////////////////////
+
+//steam_attach_leaderboard_ugc( lb_name, ugc_handle )
+YYEXPORT void /*double*/ steam_attach_leaderboard_ugc(RValue& Result,
+													  CInstance* selfinst,
+													  CInstance* otherinst,
+													  int argc,
+													  RValue* arg)	//(const char* pszLeaderboardName, uint64 ugcHandle)
+{
+	const char* pszLeaderboardName = YYGetString(arg, 0);
+	UGCHandle_t hUGC = (UGCHandle_t)YYGetInt64(arg, 1);
+
+	if (!steam_is_initialised)
+	{
+		Result.kind = VALUE_REAL;
+		Result.val = 0;
+		return;
+	}
+
+	if (!SteamUser()->BLoggedOn())
+	{
+		DebugConsoleOutput("Attach leaderboard UGC failed: must be logged on\n");
+		Result.kind = VALUE_REAL;
+		Result.val = 0;
+		return;
+	}
+
+	if (hUGC == 0 || hUGC == k_UGCHandleInvalid)
+	{
+		DebugConsoleOutput("Attach leaderboard UGC failed: invalid UGC handle\n");
+		Result.kind = VALUE_REAL;
+		Result.val = 0;
+		return;
+	}
+
+	int async_id = getAsyncRequestInd();
+
+	// if we have stored handle for leaderboard name, attach
+	// otherwise Q the request & request leaderboard name
+	SteamLeaderboard_t hLeaderboard;
+	if (GetLeaderboardHandle(pszLeaderboardName, hLeaderboard))
+	{
+		DoAttachUGC(hLeaderboard, hUGC, async_id, pszLeaderboardName);
+	}
+	else
+	{
+		QueueLBRequest(new SLBRequest(async_id, pszLeaderboardName, hUGC));
+	}
+
+	Result.kind = VALUE_REAL;
+	Result.val = (double)async_id;
+}
+
 /////////////////////////////////////////////////////////// DOWNLOAD /////////////////////////////////////////////////////
 
 //    \brief    Downloads scores using a starting offset
@@ -1043,6 +1175,14 @@ void OnDownloadScoreResult(LeaderboardScoresDownloaded_t* pCallback, bool bIOFai
 					  << " \"data\"  : "
 					  << "\"" << sb64string << "\"";
 			}
+		}
+
+		if (leaderboardEntry.m_hUGC != 0 && leaderboardEntry.m_hUGC != k_UGCHandleInvalid)
+		{
+			// UGC handles are 64-bit, so encode it as an int64json string like the userID
+			sJson << ","
+				  << " \"ugc_handle\": "
+				  << "\"@i64@" << std::hex << (uint64)leaderboardEntry.m_hUGC << std::dec << "$i64$\"";
 		}
 
 		sJson << " }";
