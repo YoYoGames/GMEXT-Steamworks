@@ -837,6 +837,24 @@ public:
 
 ///////////////////////////////////////
 
+// True if the path is absolute, so it should be used as-is instead of inside the save area.
+// Windows: a drive letter followed by a separator ("C:\", "C:/") or a UNC path ("\\server", "//server").
+// macOS/Linux: a leading "/".
+static bool ugc_is_absolute_path(const char* path)
+{
+	if (path == nullptr || path[0] == '\0')
+		return false;
+#ifdef _WIN32
+	char c = path[0];
+	bool isDriveLetter = (c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z');
+	if (isDriveLetter && path[1] == ':' && (path[2] == '\\' || path[2] == '/'))
+		return true;
+	return (path[0] == '\\' || path[0] == '/') && (path[1] == '\\' || path[1] == '/');
+#else
+	return path[0] == '/';
+#endif
+}
+
 //---------------- gml interface -------------------------------------------------------------------------------------
 //steam_ugc_download( ugc_handle, dest_filename )
 YYEXPORT void /*double*/ steam_ugc_download(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)//( uint64 _ugcHandle, const char* pszDestFilename )/*Steam_Ugc_Download*/
@@ -853,7 +871,9 @@ YYEXPORT void /*double*/ steam_ugc_download(RValue& Result, CInstance* selfinst,
 
 	int  async_id= getAsyncRequestInd();
 	char szDestFolder[2048];
-	snprintf( szDestFolder, 2048, "%s%s", g_pYYRunnerInterface->FilePrePend(),pszDestFilename );
+	// Relative paths go inside the save area; absolute paths are used as-is
+	const char* pszPrefix = ugc_is_absolute_path(pszDestFilename) ? "" : g_pYYRunnerInterface->FilePrePend();
+	snprintf( szDestFolder, 2048, "%s%s", pszPrefix, pszDestFilename );
 	
 	CUGCDownloadResultHandler* pResultHandler = new CUGCDownloadResultHandler( async_id, pszDestFilename );
 	//undocumented fn...is pchLocation a filename or directory? it's a path + filename

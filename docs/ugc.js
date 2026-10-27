@@ -968,7 +968,9 @@
  * @func steam_ugc_download
  * @desc With this function you can download a preview image for any given UGC item. The `ugc_handle` is the unique identifying value for the image (which you can get using the function ${function.steam_ugc_send_query}), and the destination filename is the name (and local path within the Steam sandbox) that you wish to give the image file when the download is complete.
  * This is an asynchronous function that will return an asynchronous ID and trigger the ${event.steam} when the task is finished.
- * 
+ *
+ * [[NOTE: If `dest_filename` is a relative path (such as `"UGC/preview_file.png"`), the file is saved inside the game's save area. If it's an absolute path, it's used as-is, even if it points outside the save area. On Windows an absolute path starts with a drive letter (`C:\`) or is a UNC path (`\\server\share`); on macOS and Linux it starts with `/`.]]
+ *
  * @param {int64} ugc_handle The unique handle for the preview to be downloaded.
  * @param {string} dest_filename The filename to save the preview with.
  * 
