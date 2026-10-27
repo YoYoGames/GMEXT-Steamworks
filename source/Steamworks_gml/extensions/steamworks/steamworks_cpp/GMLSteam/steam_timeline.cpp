@@ -133,7 +133,7 @@ YYEXPORT void steam_timeline_add_event(RValue& Result, CInstance* selfinst, CIns
 	ETimelineEventClipPriority possible = argc > 6 ? static_cast<ETimelineEventClipPriority>(YYGetInt32(arg, 6)) : k_ETimelineEventClipPriority_None;
 
 	Result.kind = VALUE_INT64;
-	Result.v64 = API->AddRangeTimelineEvent(icon, title, desc, prio, start, dur, possible);
+	Result.v64 = API->AddRangeTimelineEvent(title, desc, icon, prio, start, dur, possible);
 }
 
 YYEXPORT void steam_timeline_remove_event(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)

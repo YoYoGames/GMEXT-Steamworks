@@ -77,6 +77,22 @@ class CFileShareResultHandler
 {
 public:
 	CCallResult<CFileShareResultHandler,  RemoteStorageFileShareResult_t>		m_SteamCallResultFileShare;
+	int		m_asyncId;
+	char	m_szFilename[k_cchFilenameMax];
+
+	//workshop publish uses this one ( it doesn't fire an async event )
+	CFileShareResultHandler()
+		: m_asyncId( 0 )
+	{
+		m_szFilename[0] = 0;
+	}
+
+	//steam_file_share uses this one ( fires a "file_share" async event )
+	CFileShareResultHandler( int _asyncId, const char* _pszFilename )
+		: m_asyncId( _asyncId )
+	{
+		snprintf( m_szFilename, sizeof(m_szFilename), "%s", _pszFilename );
+	}
 
 	//specifically for workshop publish ( which requires files to be shared 1st )
 	void	SetCallResultWorkshopShare ( SteamAPICall_t apicall )
@@ -84,7 +100,7 @@ public:
 		m_SteamCallResultFileShare.Set(apicall,this,&CFileShareResultHandler::OnFileShareWorkshop);
 	}
 
-	//regular file share callback ( just displays result status )
+	//regular file share callback ( fires the async event with the result and UGC handle )
 	void	SetCallResultFileShare( SteamAPICall_t apicall )
 	{
 		m_SteamCallResultFileShare.Set(apicall, this, &CFileShareResultHandler::OnFileShare );
@@ -92,18 +108,20 @@ public:
 
 	void	OnFileShare( RemoteStorageFileShareResult_t *pCallback, bool bIOFailure  )
 	{
-		if( bIOFailure )
-		{
-			DebugConsoleOutput("File share failed : IO Failure\n");
-		}
-		else if( pCallback->m_eResult != k_EResultOK)
-		{
-			//DebugConsoleOutput("File share failed with error: %d\n", pCallback->m_eResult );
-		}
-		else
-		{
-			DebugConsoleOutput("File share success\n");
-		}
+		int result = (bIOFailure) ? 0 : pCallback->m_eResult;
+		UGCHandle_t hFile = (bIOFailure) ? k_UGCHandleInvalid : pCallback->m_hFile;
+
+		int dsMapIndex = CreateDsMap( 0, 0 );
+		DsMapAddDouble( dsMapIndex, "id", (double)m_asyncId );
+		DsMapAddString( dsMapIndex, "event_type", "file_share" );
+		DsMapAddDouble( dsMapIndex, "result", (double)result );
+		DsMapAddString( dsMapIndex, "filename", m_szFilename );
+		//UGC handles are 64-bit, so they must not go through a double
+		DsMapAddInt64( dsMapIndex, "ugc_handle", (int64)hFile );
+		CreateAsyncEventWithDSMap( dsMapIndex, EVENT_OTHER_WEB_STEAM );
+
+		//finished with handler, free & deregister
+		delete this;
 	}
 
 	void	OnFileShareWorkshop(RemoteStorageFileShareResult_t *pCallback, bool bIOFailure )
@@ -487,10 +505,18 @@ YYEXPORT void /*double*/ steam_file_share(RValue& Result, CInstance* selfinst, C
 
 	//DebugConsoleOutput("Uploading %s to cloud...\n", pFilename);
 	SteamAPICall_t hSteamAPICall =  SteamRemoteStorage()->FileShare(pFilename);
-	//atm just displaying result status in call result
-	CFileShareResultHandler* pHandler = new CFileShareResultHandler();
+	if( hSteamAPICall == k_uAPICallInvalid )
+	{
+		DebugConsoleOutput("File share failed: request could not be made\n");
+		Result.val = 0;
+		return;
+	}
+
+	//the result ( and UGC handle ) arrives later as a "file_share" async event
+	int asyncId = getAsyncRequestInd();
+	CFileShareResultHandler* pHandler = new CFileShareResultHandler( asyncId, pFilename );
 	pHandler->SetCallResultFileShare( hSteamAPICall );
-	Result.val = 1.0;
+	Result.val = asyncId;
 	return;
 }
 

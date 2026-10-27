@@ -2,7 +2,8 @@
 
 /**
  * @func steam_lobby_activate_invite_overlay
- * @desc This function activates the [Steam-overlay](https://partner.steamgames.com/doc/features/overlay) to open the invite dialog. Invitations sent from this dialog will be for the provided lobby.
+ * @desc This function activates the [Steam-overlay](https://partner.steamgames.com/doc/features/overlay) to open the invite dialog. Invitations sent from this dialog will be for the current lobby.
+ * If you need to open the invite dialog for a specific lobby ID, use ${function.steam_activate_overlay_invite_dialog}.
  * 
  * @returns {boolean}
  * 
@@ -248,8 +249,9 @@
  * @event steam
  * @member {string} event_type The string value `"lobby_joined"`
  * @member {int64} lobby_id The lobby unique identifier
- * @member {boolean} success Whether or not the task was successful
+ * @member {boolean} success Whether or not the lobby was entered successfully
  * @member {real} result The code of the result
+ * @member {real} enter_response The Steam `EChatRoomEnterResponse` value returned for the join attempt
  * @event_end
  * 
  * @event steam
