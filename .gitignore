@@ -14,9 +14,12 @@
 **/*.exe
 
 # Steamworks third-party runtime libs (deployed at build time by
-# post_build_step.bat/.sh from the SDK, never committed into the extension)
+# post_build_step.bat/.sh from the SDK, never committed into the extension).
+# libsteam_api.dylib is the exception: a zero-byte PLACEHOLDER is committed and
+# must NOT be ignored. It is declared as a macOS file in Steamworks.yy so the
+# generated macOS Xcode project gets a reference to it at compile time;
+# post_build_step copies the real SDK library into the OUTPUT folder, never here.
 source/Steamworks_gml/extensions/steamworks/steam_api64.dll
-source/Steamworks_gml/extensions/steamworks/libsteam_api.dylib
 source/Steamworks_gml/extensions/steamworks/libsteam_api.so
 
 # Steamworks DEMO options

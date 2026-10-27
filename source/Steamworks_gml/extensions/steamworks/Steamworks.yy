@@ -642,6 +642,7 @@
       ],"init":"","kind":4,"name":"Steamworks.ext","origname":"extensions\\Steamworks.dll","ProxyFiles":[
         {"$GMProxyFile":"","%Name":"Steamworks.dll","name":"Steamworks.dll","resourceType":"GMProxyFile","resourceVersion":"2.0","TargetMask":6,},
       ],"resourceType":"GMExtensionFile","resourceVersion":"2.0","uncompress":false,"usesRunnerInterface":true,},
+    {"$GMExtensionFile":"v1","%Name":"","constants":[],"copyToTargets":2,"filename":"libsteam_api.dylib","final":"","functions":[],"init":"","kind":1,"name":"","origname":"","ProxyFiles":[],"resourceType":"GMExtensionFile","resourceVersion":"2.0","uncompress":false,"usesRunnerInterface":false,},
   ],
   "gradleinject":"",
   "hasConvertedCodeInjection":true,
