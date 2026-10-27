@@ -4534,6 +4534,7 @@
  * @member {Real} build_id
  * @member {String} beta_name
  * @member {String} description
+ * @member {Real} last_updated
  * @struct_end
  */
 

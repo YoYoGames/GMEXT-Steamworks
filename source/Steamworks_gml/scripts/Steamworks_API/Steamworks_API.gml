@@ -2060,6 +2060,7 @@ function SteamAppsBetaInfo() constructor
     self.build_id = undefined;
     self.beta_name = undefined;
     self.description = undefined;
+    self.last_updated = undefined;
 
 }
 
@@ -4232,31 +4233,31 @@ function __SteamId_decode(_buffer, _offset)
         self.account_type = buffer_read(_buffer, buffer_u64);
 
         // field: is_valid, type: Bool
-        self.is_valid = buffer_read(_buffer, buffer_bool);
+        self.is_valid = bool(buffer_read(_buffer, buffer_bool));
 
         // field: is_lobby, type: Bool
-        self.is_lobby = buffer_read(_buffer, buffer_bool);
+        self.is_lobby = bool(buffer_read(_buffer, buffer_bool));
 
         // field: is_individual, type: Bool
-        self.is_individual = buffer_read(_buffer, buffer_bool);
+        self.is_individual = bool(buffer_read(_buffer, buffer_bool));
 
         // field: is_game_server, type: Bool
-        self.is_game_server = buffer_read(_buffer, buffer_bool);
+        self.is_game_server = bool(buffer_read(_buffer, buffer_bool));
 
         // field: is_anon_game_server, type: Bool
-        self.is_anon_game_server = buffer_read(_buffer, buffer_bool);
+        self.is_anon_game_server = bool(buffer_read(_buffer, buffer_bool));
 
         // field: is_anon_user, type: Bool
-        self.is_anon_user = buffer_read(_buffer, buffer_bool);
+        self.is_anon_user = bool(buffer_read(_buffer, buffer_bool));
 
         // field: is_content_server, type: Bool
-        self.is_content_server = buffer_read(_buffer, buffer_bool);
+        self.is_content_server = bool(buffer_read(_buffer, buffer_bool));
 
         // field: is_clan, type: Bool
-        self.is_clan = buffer_read(_buffer, buffer_bool);
+        self.is_clan = bool(buffer_read(_buffer, buffer_bool));
 
         // field: is_chat, type: Bool
-        self.is_chat = buffer_read(_buffer, buffer_bool);
+        self.is_chat = bool(buffer_read(_buffer, buffer_bool));
 
     }
 
@@ -4370,7 +4371,7 @@ function __SteamFriendsIsFollowingResult_decode(_buffer, _offset)
         self.steam_id = buffer_read(_buffer, buffer_u64);
 
         // field: is_following, type: Bool
-        self.is_following = buffer_read(_buffer, buffer_bool);
+        self.is_following = bool(buffer_read(_buffer, buffer_bool));
 
     }
 
@@ -4488,7 +4489,7 @@ function __SteamFriendsRequestClanOfficerListResult_decode(_buffer, _offset)
     with (_inst)
     {
         // field: success, type: Bool
-        self.success = buffer_read(_buffer, buffer_bool);
+        self.success = bool(buffer_read(_buffer, buffer_bool));
 
         // field: clan_id, type: UInt64
         self.clan_id = buffer_read(_buffer, buffer_u64);
@@ -4536,7 +4537,7 @@ function __SteamFriendsDownloadClanActivityCountsResult_decode(_buffer, _offset)
     with (_inst)
     {
         // field: result, type: Bool
-        self.result = buffer_read(_buffer, buffer_bool);
+        self.result = bool(buffer_read(_buffer, buffer_bool));
 
     }
 
@@ -4951,10 +4952,10 @@ function __SteamFriendsGameOverlayActivated_decode(_buffer, _offset)
     with (_inst)
     {
         // field: active, type: Bool
-        self.active = buffer_read(_buffer, buffer_bool);
+        self.active = bool(buffer_read(_buffer, buffer_bool));
 
         // field: user_initiated, type: Bool
-        self.user_initiated = buffer_read(_buffer, buffer_bool);
+        self.user_initiated = bool(buffer_read(_buffer, buffer_bool));
 
         // field: app_id, type: UInt32
         self.app_id = buffer_read(_buffer, buffer_u32);
@@ -5279,7 +5280,7 @@ function __SteamAppsDlcData_decode(_buffer, _offset)
         self.app_id = buffer_read(_buffer, buffer_u32);
 
         // field: available, type: Bool
-        self.available = buffer_read(_buffer, buffer_bool);
+        self.available = bool(buffer_read(_buffer, buffer_bool));
 
         // field: name, type: String
         buffer_read(_buffer, buffer_u32);
@@ -5427,6 +5428,10 @@ function __SteamAppsBetaInfo_encode(_inst, _buffer, _offset, _where = _GMFUNCTIO
         buffer_write(_buffer, buffer_u32, string_byte_length(self.description));
         buffer_write(_buffer, buffer_string, self.description);
 
+        // field: last_updated, type: UInt32
+        if (!is_numeric(self.last_updated)) show_error($"{_where} :: self.last_updated expected number", true);
+        buffer_write(_buffer, buffer_u32, self.last_updated);
+
     }
 }
 
@@ -5457,6 +5462,9 @@ function __SteamAppsBetaInfo_decode(_buffer, _offset)
         // field: description, type: String
         buffer_read(_buffer, buffer_u32);
         self.description = buffer_read(_buffer, buffer_string);
+
+        // field: last_updated, type: UInt32
+        self.last_updated = buffer_read(_buffer, buffer_u32);
 
     }
 
@@ -5763,7 +5771,7 @@ function __SteamUserDurationControl_decode(_buffer, _offset)
         self.app_id = buffer_read(_buffer, buffer_u32);
 
         // field: applicable, type: Bool
-        self.applicable = buffer_read(_buffer, buffer_bool);
+        self.applicable = bool(buffer_read(_buffer, buffer_bool));
 
         // field: csecs_last_5h, type: Int32
         self.csecs_last_5h = buffer_read(_buffer, buffer_s32);
@@ -5837,7 +5845,7 @@ function __SteamUserMarketEligibilityResponse_decode(_buffer, _offset)
     with (_inst)
     {
         // field: allowed, type: Bool
-        self.allowed = buffer_read(_buffer, buffer_bool);
+        self.allowed = bool(buffer_read(_buffer, buffer_bool));
 
         // field: not_allowed_reason, type: enum SteamMarketNotAllowedReasonFlags
         self.not_allowed_reason = buffer_read(_buffer, buffer_u64);
@@ -6319,7 +6327,7 @@ function __SteamUserSteamServerConnectFailure_decode(_buffer, _offset)
         self.result = buffer_read(_buffer, buffer_u64);
 
         // field: still_retrying, type: Bool
-        self.still_retrying = buffer_read(_buffer, buffer_bool);
+        self.still_retrying = bool(buffer_read(_buffer, buffer_bool));
 
     }
 
@@ -6387,7 +6395,7 @@ function __SteamUserClientGameServerDeny_decode(_buffer, _offset)
         self.game_server_port = buffer_read(_buffer, buffer_u32);
 
         // field: secure, type: Bool
-        self.secure = buffer_read(_buffer, buffer_bool);
+        self.secure = bool(buffer_read(_buffer, buffer_bool));
 
         // field: reason, type: enum SteamApiDenyReason
         self.reason = buffer_read(_buffer, buffer_u64);
@@ -6446,7 +6454,7 @@ function __SteamUserMicroTxnAuthorizationResponse_decode(_buffer, _offset)
         self.order_id = buffer_read(_buffer, buffer_u64);
 
         // field: authorized, type: Bool
-        self.authorized = buffer_read(_buffer, buffer_bool);
+        self.authorized = bool(buffer_read(_buffer, buffer_bool));
 
     }
 
@@ -6733,7 +6741,7 @@ function __SteamUtilsGamepadTextInputDismissed_decode(_buffer, _offset)
     with (_inst)
     {
         // field: submitted, type: Bool
-        self.submitted = buffer_read(_buffer, buffer_bool);
+        self.submitted = bool(buffer_read(_buffer, buffer_bool));
 
         // field: submitted_text_length, type: UInt32
         self.submitted_text_length = buffer_read(_buffer, buffer_u32);
@@ -7125,13 +7133,13 @@ function __SteamUgcQueryResult_decode(_buffer, _offset)
         self.visibility = buffer_read(_buffer, buffer_u64);
 
         // field: banned, type: Bool
-        self.banned = buffer_read(_buffer, buffer_bool);
+        self.banned = bool(buffer_read(_buffer, buffer_bool));
 
         // field: accepted_for_use, type: Bool
-        self.accepted_for_use = buffer_read(_buffer, buffer_bool);
+        self.accepted_for_use = bool(buffer_read(_buffer, buffer_bool));
 
         // field: tags_truncated, type: Bool
-        self.tags_truncated = buffer_read(_buffer, buffer_bool);
+        self.tags_truncated = bool(buffer_read(_buffer, buffer_bool));
 
         // field: tags, type: String
         buffer_read(_buffer, buffer_u32);
@@ -7464,7 +7472,7 @@ function __SteamUgcQueryCompleted_decode(_buffer, _offset)
         self.total_matching_results = buffer_read(_buffer, buffer_u32);
 
         // field: cached_data, type: Bool
-        self.cached_data = buffer_read(_buffer, buffer_bool);
+        self.cached_data = bool(buffer_read(_buffer, buffer_bool));
 
     }
 
@@ -7521,7 +7529,7 @@ function __SteamUgcCreateItemResult_decode(_buffer, _offset)
         self.published_file_id = buffer_read(_buffer, buffer_u64);
 
         // field: legal_agreement_required, type: Bool
-        self.legal_agreement_required = buffer_read(_buffer, buffer_bool);
+        self.legal_agreement_required = bool(buffer_read(_buffer, buffer_bool));
 
     }
 
@@ -7571,7 +7579,7 @@ function __SteamUgcSubmitItemUpdateResult_decode(_buffer, _offset)
         self.result = buffer_read(_buffer, buffer_u64);
 
         // field: legal_agreement_required, type: Bool
-        self.legal_agreement_required = buffer_read(_buffer, buffer_bool);
+        self.legal_agreement_required = bool(buffer_read(_buffer, buffer_bool));
 
     }
 
@@ -7728,7 +7736,7 @@ function __SteamUgcFavoriteItemsListChanged_decode(_buffer, _offset)
         self.published_file_id = buffer_read(_buffer, buffer_u64);
 
         // field: was_add_request, type: Bool
-        self.was_add_request = buffer_read(_buffer, buffer_bool);
+        self.was_add_request = bool(buffer_read(_buffer, buffer_bool));
 
     }
 
@@ -7785,7 +7793,7 @@ function __SteamUgcSetUserItemVoteResult_decode(_buffer, _offset)
         self.published_file_id = buffer_read(_buffer, buffer_u64);
 
         // field: vote_up, type: Bool
-        self.vote_up = buffer_read(_buffer, buffer_bool);
+        self.vote_up = bool(buffer_read(_buffer, buffer_bool));
 
     }
 
@@ -7850,13 +7858,13 @@ function __SteamUgcGetUserItemVoteResult_decode(_buffer, _offset)
         self.published_file_id = buffer_read(_buffer, buffer_u64);
 
         // field: voted_up, type: Bool
-        self.voted_up = buffer_read(_buffer, buffer_bool);
+        self.voted_up = bool(buffer_read(_buffer, buffer_bool));
 
         // field: voted_down, type: Bool
-        self.voted_down = buffer_read(_buffer, buffer_bool);
+        self.voted_down = bool(buffer_read(_buffer, buffer_bool));
 
         // field: vote_skipped, type: Bool
-        self.vote_skipped = buffer_read(_buffer, buffer_bool);
+        self.vote_skipped = bool(buffer_read(_buffer, buffer_bool));
 
     }
 
@@ -8487,10 +8495,10 @@ function __SteamUgcWorkshopEULAStatusResult_decode(_buffer, _offset)
         self.time_action = buffer_read(_buffer, buffer_u32);
 
         // field: accepted, type: Bool
-        self.accepted = buffer_read(_buffer, buffer_bool);
+        self.accepted = bool(buffer_read(_buffer, buffer_bool));
 
         // field: needs_action, type: Bool
-        self.needs_action = buffer_read(_buffer, buffer_bool);
+        self.needs_action = bool(buffer_read(_buffer, buffer_bool));
 
     }
 
@@ -8554,7 +8562,7 @@ function __SteamInputAnalogActionData_decode(_buffer, _offset)
         self.y = buffer_read(_buffer, buffer_f32);
 
         // field: active, type: Bool
-        self.active = buffer_read(_buffer, buffer_bool);
+        self.active = bool(buffer_read(_buffer, buffer_bool));
 
     }
 
@@ -8600,10 +8608,10 @@ function __SteamInputDigitalActionData_decode(_buffer, _offset)
     with (_inst)
     {
         // field: state, type: Bool
-        self.state = buffer_read(_buffer, buffer_bool);
+        self.state = bool(buffer_read(_buffer, buffer_bool));
 
         // field: active, type: Bool
-        self.active = buffer_read(_buffer, buffer_bool);
+        self.active = bool(buffer_read(_buffer, buffer_bool));
 
     }
 
@@ -8899,7 +8907,7 @@ function __SteamUserStatsAchievementAndUnlockTime_decode(_buffer, _offset)
     with (_inst)
     {
         // field: achieved, type: Bool
-        self.achieved = buffer_read(_buffer, buffer_bool);
+        self.achieved = bool(buffer_read(_buffer, buffer_bool));
 
         // field: unlock_time, type: UInt32
         self.unlock_time = buffer_read(_buffer, buffer_u32);
@@ -8964,7 +8972,7 @@ function __SteamUserStatsMostAchievedAchievementInfo_decode(_buffer, _offset)
         self.percent = buffer_read(_buffer, buffer_f32);
 
         // field: achieved, type: Bool
-        self.achieved = buffer_read(_buffer, buffer_bool);
+        self.achieved = bool(buffer_read(_buffer, buffer_bool));
 
         // field: iterator, type: Int32
         self.iterator = buffer_read(_buffer, buffer_s32);
@@ -9097,7 +9105,7 @@ function __SteamUserStatsLeaderboardFindResult_decode(_buffer, _offset)
         self.leaderboard_handle = buffer_read(_buffer, buffer_u64);
 
         // field: leaderboard_found, type: Bool
-        self.leaderboard_found = buffer_read(_buffer, buffer_bool);
+        self.leaderboard_found = bool(buffer_read(_buffer, buffer_bool));
 
     }
 
@@ -9215,7 +9223,7 @@ function __SteamUserStatsScoreUploadedResult_decode(_buffer, _offset)
     with (_inst)
     {
         // field: success, type: Bool
-        self.success = buffer_read(_buffer, buffer_bool);
+        self.success = bool(buffer_read(_buffer, buffer_bool));
 
         // field: leaderboard_handle, type: UInt64
         self.leaderboard_handle = buffer_read(_buffer, buffer_u64);
@@ -9224,7 +9232,7 @@ function __SteamUserStatsScoreUploadedResult_decode(_buffer, _offset)
         self.score = buffer_read(_buffer, buffer_s32);
 
         // field: score_changed, type: Bool
-        self.score_changed = buffer_read(_buffer, buffer_bool);
+        self.score_changed = bool(buffer_read(_buffer, buffer_bool));
 
         // field: global_rank_new, type: Int32
         self.global_rank_new = buffer_read(_buffer, buffer_s32);
@@ -9276,7 +9284,7 @@ function __SteamUserStatsNumberOfCurrentPlayersResult_decode(_buffer, _offset)
     with (_inst)
     {
         // field: success, type: Bool
-        self.success = buffer_read(_buffer, buffer_bool);
+        self.success = bool(buffer_read(_buffer, buffer_bool));
 
         // field: players, type: Int32
         self.players = buffer_read(_buffer, buffer_s32);
@@ -9491,7 +9499,7 @@ function __SteamUserStatsAchievementIconFetched_decode(_buffer, _offset)
         self.achievement_name = buffer_read(_buffer, buffer_string);
 
         // field: achieved, type: Bool
-        self.achieved = buffer_read(_buffer, buffer_bool);
+        self.achieved = bool(buffer_read(_buffer, buffer_bool));
 
         // field: icon_handle, type: Int32
         self.icon_handle = buffer_read(_buffer, buffer_s32);
@@ -9715,7 +9723,7 @@ function __SteamUserStatsUserAchievementStored_decode(_buffer, _offset)
         self.max_progress = buffer_read(_buffer, buffer_s32);
 
         // field: group_achievement, type: Bool
-        self.group_achievement = buffer_read(_buffer, buffer_bool);
+        self.group_achievement = bool(buffer_read(_buffer, buffer_bool));
 
     }
 
@@ -10019,7 +10027,7 @@ function __SteamTimelineEventRecordingExists_decode(_buffer, _offset)
         self.event_id = buffer_read(_buffer, buffer_u64);
 
         // field: recording_exists, type: Bool
-        self.recording_exists = buffer_read(_buffer, buffer_bool);
+        self.recording_exists = bool(buffer_read(_buffer, buffer_bool));
 
     }
 
@@ -10542,7 +10550,7 @@ function __SteamInventoryEligiblePromoItemDefIdsResult_decode(_buffer, _offset)
         self.num_eligible_promo_item_defs = buffer_read(_buffer, buffer_s32);
 
         // field: cached_data, type: Bool
-        self.cached_data = buffer_read(_buffer, buffer_bool);
+        self.cached_data = bool(buffer_read(_buffer, buffer_bool));
 
     }
 
@@ -11157,7 +11165,7 @@ function __SteamMatchmakingLobbyEnter_decode(_buffer, _offset)
         self.chat_permissions = buffer_read(_buffer, buffer_u32);
 
         // field: locked, type: Bool
-        self.locked = buffer_read(_buffer, buffer_bool);
+        self.locked = bool(buffer_read(_buffer, buffer_bool));
 
         // field: response, type: enum SteamMatchmakingChatRoomEnterResponse
         self.response = buffer_read(_buffer, buffer_u64);
@@ -11258,7 +11266,7 @@ function __SteamMatchmakingLobbyDataUpdate_decode(_buffer, _offset)
         self.member_id = buffer_read(_buffer, buffer_u64);
 
         // field: success, type: Bool
-        self.success = buffer_read(_buffer, buffer_bool);
+        self.success = bool(buffer_read(_buffer, buffer_bool));
 
     }
 
@@ -12474,13 +12482,13 @@ function steam_friends_activate_game_overlay_invite_dialog(_steam_id_lobby)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _steam_id_lobby, type: UInt64
     if (!is_numeric(_steam_id_lobby)) show_error($"{_GMFUNCTION_} :: _steam_id_lobby expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _steam_id_lobby);
+    buffer_write(__args_buffer__, buffer_u64, _steam_id_lobby);
 
-    var __return_value__ = __steam_friends_activate_game_overlay_invite_dialog(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_friends_activate_game_overlay_invite_dialog(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -12494,18 +12502,18 @@ function steam_friends_activate_game_overlay_to_store(_app_id, _flag)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _app_id, type: UInt32
     if (!is_numeric(_app_id)) show_error($"{_GMFUNCTION_} :: _app_id expected number", true);
-    buffer_write(__args_buffer, buffer_u32, _app_id);
+    buffer_write(__args_buffer__, buffer_u32, _app_id);
 
     // param: _flag, type: enum SteamFriendsOverlayToStoreFlag
 
     if (!is_numeric(_flag)) show_error($"{_GMFUNCTION_} :: _flag expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _flag);
+    buffer_write(__args_buffer__, buffer_u64, _flag);
 
-    var __return_value__ = __steam_friends_activate_game_overlay_to_store(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_friends_activate_game_overlay_to_store(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -12519,18 +12527,18 @@ function steam_friends_activate_game_overlay_to_user(_dialog, _steam_id)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _dialog, type: String
     if (!is_string(_dialog)) show_error($"{_GMFUNCTION_} :: _dialog expected string", true);
-    buffer_write(__args_buffer, buffer_u32, string_byte_length(_dialog));
-    buffer_write(__args_buffer, buffer_string, _dialog);
+    buffer_write(__args_buffer__, buffer_u32, string_byte_length(_dialog));
+    buffer_write(__args_buffer__, buffer_string, _dialog);
 
     // param: _steam_id, type: UInt64
     if (!is_numeric(_steam_id)) show_error($"{_GMFUNCTION_} :: _steam_id expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _steam_id);
+    buffer_write(__args_buffer__, buffer_u64, _steam_id);
 
-    var __return_value__ = __steam_friends_activate_game_overlay_to_user(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_friends_activate_game_overlay_to_user(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -12544,19 +12552,19 @@ function steam_friends_activate_game_overlay_to_web_page(_url, _mode)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _url, type: String
     if (!is_string(_url)) show_error($"{_GMFUNCTION_} :: _url expected string", true);
-    buffer_write(__args_buffer, buffer_u32, string_byte_length(_url));
-    buffer_write(__args_buffer, buffer_string, _url);
+    buffer_write(__args_buffer__, buffer_u32, string_byte_length(_url));
+    buffer_write(__args_buffer__, buffer_string, _url);
 
     // param: _mode, type: enum SteamFriendsOverlayToWebpageMode
 
     if (!is_numeric(_mode)) show_error($"{_GMFUNCTION_} :: _mode expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _mode);
+    buffer_write(__args_buffer__, buffer_u64, _mode);
 
-    var __return_value__ = __steam_friends_activate_game_overlay_to_web_page(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_friends_activate_game_overlay_to_web_page(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -12573,15 +12581,15 @@ function steam_friends_close_clan_chat_window_in_steam(_steam_id_clan_chat)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _steam_id_clan_chat, type: UInt64
     if (!is_numeric(_steam_id_clan_chat)) show_error($"{_GMFUNCTION_} :: _steam_id_clan_chat expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _steam_id_clan_chat);
+    buffer_write(__args_buffer__, buffer_u64, _steam_id_clan_chat);
 
-    var __return_value__ = __steam_friends_close_clan_chat_window_in_steam(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_friends_close_clan_chat_window_in_steam(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
-    return __return_value__;
+    return bool(__return_value__);
 }
 
 /**
@@ -12596,26 +12604,26 @@ function steam_friends_download_clan_activity_counts(_steam_id_clans, _callback)
 
     var __dispatcher__ = __Steamworks_get_dispatcher();
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _steam_id_clans, type: UInt64[]
     if (!is_array(_steam_id_clans)) show_error($"{_GMFUNCTION_} :: _steam_id_clans expected array", true);
     var __length__ = array_length(_steam_id_clans);
-    buffer_write(__args_buffer, buffer_u32, __length__);
+    buffer_write(__args_buffer__, buffer_u32, __length__);
     for (var _i = 0; _i < __length__; ++_i)
     {
         if (!is_numeric(_steam_id_clans[_i])) show_error($"{_GMFUNCTION_} :: _steam_id_clans[_i] expected number", true);
-        buffer_write(__args_buffer, buffer_u64, _steam_id_clans[_i]);
+        buffer_write(__args_buffer__, buffer_u64, _steam_id_clans[_i]);
     }
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
     var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
-    buffer_write(__args_buffer, buffer_u64, _callback_handle);
+    buffer_write(__args_buffer__, buffer_u64, _callback_handle);
 
-    var __return_value__ = __steam_friends_download_clan_activity_counts(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_friends_download_clan_activity_counts(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
-    return __return_value__;
+    return bool(__return_value__);
 }
 
 /**
@@ -12629,18 +12637,18 @@ function steam_friends_enumerate_following_list(_start_index, _callback)
 
     var __dispatcher__ = __Steamworks_get_dispatcher();
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _start_index, type: UInt32
     if (!is_numeric(_start_index)) show_error($"{_GMFUNCTION_} :: _start_index expected number", true);
-    buffer_write(__args_buffer, buffer_u32, _start_index);
+    buffer_write(__args_buffer__, buffer_u32, _start_index);
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
     var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
-    buffer_write(__args_buffer, buffer_u64, _callback_handle);
+    buffer_write(__args_buffer__, buffer_u64, _callback_handle);
 
-    var __return_value__ = __steam_friends_enumerate_following_list(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_friends_enumerate_following_list(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -12655,14 +12663,14 @@ function steam_friends_set_callback_avatar_image_loaded(_callback)
 
     var __dispatcher__ = __Steamworks_get_dispatcher();
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
     var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
-    buffer_write(__args_buffer, buffer_u64, _callback_handle);
+    buffer_write(__args_buffer__, buffer_u64, _callback_handle);
 
-    var __return_value__ = __steam_friends_set_callback_avatar_image_loaded(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_friends_set_callback_avatar_image_loaded(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -12680,22 +12688,22 @@ function steam_friends_get_chat_member_by_index(_steam_id_clan, _user)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _steam_id_clan, type: UInt64
     if (!is_numeric(_steam_id_clan)) show_error($"{_GMFUNCTION_} :: _steam_id_clan expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _steam_id_clan);
+    buffer_write(__args_buffer__, buffer_u64, _steam_id_clan);
 
     // param: _user, type: Int32
     if (!is_numeric(_user)) show_error($"{_GMFUNCTION_} :: _user expected number", true);
-    buffer_write(__args_buffer, buffer_s32, _user);
+    buffer_write(__args_buffer__, buffer_s32, _user);
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __ret_buffer__ = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_friends_get_chat_member_by_index(buffer_get_address(__args_buffer), buffer_tell(__args_buffer), buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_friends_get_chat_member_by_index(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__), buffer_get_address(__ret_buffer__), buffer_get_size(__ret_buffer__));
 
     var __result__ = undefined;
-    __result__ = buffer_read(__ret_buffer, buffer_u64);
+    __result__ = buffer_read(__ret_buffer__, buffer_u64);
     return __result__;
 }
 
@@ -12708,20 +12716,20 @@ function steam_friends_get_clan_activity_counts(_steam_id_clan)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _steam_id_clan, type: UInt64
     if (!is_numeric(_steam_id_clan)) show_error($"{_GMFUNCTION_} :: _steam_id_clan expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _steam_id_clan);
+    buffer_write(__args_buffer__, buffer_u64, _steam_id_clan);
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __ret_buffer__ = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_friends_get_clan_activity_counts(buffer_get_address(__args_buffer), buffer_tell(__args_buffer), buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_friends_get_clan_activity_counts(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__), buffer_get_address(__ret_buffer__), buffer_get_size(__ret_buffer__));
 
     var __result__ = undefined;
-    if (buffer_read(__ret_buffer, buffer_bool))
+    if (buffer_read(__ret_buffer__, buffer_bool))
     {
-        __result__ = __SteamFriendsClanActivityCounts_decode(__ret_buffer, buffer_tell(__ret_buffer));
+        __result__ = __SteamFriendsClanActivityCounts_decode(__ret_buffer__, buffer_tell(__ret_buffer__));
     }
     else
     {
@@ -12739,13 +12747,13 @@ function steam_friends_get_clan_chat_member_count(_steam_id_clan)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _steam_id_clan, type: UInt64
     if (!is_numeric(_steam_id_clan)) show_error($"{_GMFUNCTION_} :: _steam_id_clan expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _steam_id_clan);
+    buffer_write(__args_buffer__, buffer_u64, _steam_id_clan);
 
-    var __return_value__ = __steam_friends_get_clan_chat_member_count(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_friends_get_clan_chat_member_count(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -12760,22 +12768,22 @@ function steam_friends_get_clan_chat_message(_steam_id_clan_chat, _message)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _steam_id_clan_chat, type: UInt64
     if (!is_numeric(_steam_id_clan_chat)) show_error($"{_GMFUNCTION_} :: _steam_id_clan_chat expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _steam_id_clan_chat);
+    buffer_write(__args_buffer__, buffer_u64, _steam_id_clan_chat);
 
     // param: _message, type: Int32
     if (!is_numeric(_message)) show_error($"{_GMFUNCTION_} :: _message expected number", true);
-    buffer_write(__args_buffer, buffer_s32, _message);
+    buffer_write(__args_buffer__, buffer_s32, _message);
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __ret_buffer__ = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_friends_get_clan_chat_message(buffer_get_address(__args_buffer), buffer_tell(__args_buffer), buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_friends_get_clan_chat_message(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__), buffer_get_address(__ret_buffer__), buffer_get_size(__ret_buffer__));
 
     var __result__ = undefined;
-    __result__ = __SteamFriendsClanChatMessage_decode(__ret_buffer, buffer_tell(__ret_buffer));
+    __result__ = __SteamFriendsClanChatMessage_decode(__ret_buffer__, buffer_tell(__ret_buffer__));
     return __result__;
 }
 
@@ -12791,13 +12799,13 @@ function steam_friends_get_clan_name(_steam_id_clan)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _steam_id_clan, type: UInt64
     if (!is_numeric(_steam_id_clan)) show_error($"{_GMFUNCTION_} :: _steam_id_clan expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _steam_id_clan);
+    buffer_write(__args_buffer__, buffer_u64, _steam_id_clan);
 
-    var __return_value__ = __steam_friends_get_clan_name(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_friends_get_clan_name(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -12812,22 +12820,22 @@ function steam_friends_get_clan_officer_by_index(_steam_id_clan, _officer)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _steam_id_clan, type: UInt64
     if (!is_numeric(_steam_id_clan)) show_error($"{_GMFUNCTION_} :: _steam_id_clan expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _steam_id_clan);
+    buffer_write(__args_buffer__, buffer_u64, _steam_id_clan);
 
     // param: _officer, type: Int32
     if (!is_numeric(_officer)) show_error($"{_GMFUNCTION_} :: _officer expected number", true);
-    buffer_write(__args_buffer, buffer_s32, _officer);
+    buffer_write(__args_buffer__, buffer_s32, _officer);
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __ret_buffer__ = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_friends_get_clan_officer_by_index(buffer_get_address(__args_buffer), buffer_tell(__args_buffer), buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_friends_get_clan_officer_by_index(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__), buffer_get_address(__ret_buffer__), buffer_get_size(__ret_buffer__));
 
     var __result__ = undefined;
-    __result__ = buffer_read(__ret_buffer, buffer_u64);
+    __result__ = buffer_read(__ret_buffer__, buffer_u64);
     return __result__;
 }
 
@@ -12840,13 +12848,13 @@ function steam_friends_get_clan_officer_count(_steam_id_clan)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _steam_id_clan, type: UInt64
     if (!is_numeric(_steam_id_clan)) show_error($"{_GMFUNCTION_} :: _steam_id_clan expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _steam_id_clan);
+    buffer_write(__args_buffer__, buffer_u64, _steam_id_clan);
 
-    var __return_value__ = __steam_friends_get_clan_officer_count(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_friends_get_clan_officer_count(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -12860,18 +12868,18 @@ function steam_friends_get_clan_owner(_steam_id_clan)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _steam_id_clan, type: UInt64
     if (!is_numeric(_steam_id_clan)) show_error($"{_GMFUNCTION_} :: _steam_id_clan expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _steam_id_clan);
+    buffer_write(__args_buffer__, buffer_u64, _steam_id_clan);
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __ret_buffer__ = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_friends_get_clan_owner(buffer_get_address(__args_buffer), buffer_tell(__args_buffer), buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_friends_get_clan_owner(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__), buffer_get_address(__ret_buffer__), buffer_get_size(__ret_buffer__));
 
     var __result__ = undefined;
-    __result__ = buffer_read(__ret_buffer, buffer_u64);
+    __result__ = buffer_read(__ret_buffer__, buffer_u64);
     return __result__;
 }
 
@@ -12884,13 +12892,13 @@ function steam_friends_get_clan_tag(_steam_id_clan)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _steam_id_clan, type: UInt64
     if (!is_numeric(_steam_id_clan)) show_error($"{_GMFUNCTION_} :: _steam_id_clan expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _steam_id_clan);
+    buffer_write(__args_buffer__, buffer_u64, _steam_id_clan);
 
-    var __return_value__ = __steam_friends_get_clan_tag(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_friends_get_clan_tag(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -12904,12 +12912,12 @@ function steam_friends_get_coplay_friend(_coplay_friend)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __ret_buffer__ = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_friends_get_coplay_friend(_coplay_friend, buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_friends_get_coplay_friend(_coplay_friend, buffer_get_address(__ret_buffer__), buffer_get_size(__ret_buffer__));
 
     var __result__ = undefined;
-    __result__ = buffer_read(__ret_buffer, buffer_u64);
+    __result__ = buffer_read(__ret_buffer__, buffer_u64);
     return __result__;
 }
 
@@ -12927,18 +12935,18 @@ function steam_friends_get_follower_count(_steam_id, _callback)
 
     var __dispatcher__ = __Steamworks_get_dispatcher();
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _steam_id, type: UInt64
     if (!is_numeric(_steam_id)) show_error($"{_GMFUNCTION_} :: _steam_id expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _steam_id);
+    buffer_write(__args_buffer__, buffer_u64, _steam_id);
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
     var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
-    buffer_write(__args_buffer, buffer_u64, _callback_handle);
+    buffer_write(__args_buffer__, buffer_u64, _callback_handle);
 
-    var __return_value__ = __steam_friends_get_follower_count(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_friends_get_follower_count(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -12953,23 +12961,23 @@ function steam_friends_get_friend_by_index(_friend_index, _friend_flags)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _friend_index, type: Int32
     if (!is_numeric(_friend_index)) show_error($"{_GMFUNCTION_} :: _friend_index expected number", true);
-    buffer_write(__args_buffer, buffer_s32, _friend_index);
+    buffer_write(__args_buffer__, buffer_s32, _friend_index);
 
     // param: _friend_flags, type: enum SteamFriendsFriendFlag
 
     if (!is_numeric(_friend_flags)) show_error($"{_GMFUNCTION_} :: _friend_flags expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _friend_flags);
+    buffer_write(__args_buffer__, buffer_u64, _friend_flags);
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __ret_buffer__ = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_friends_get_friend_by_index(buffer_get_address(__args_buffer), buffer_tell(__args_buffer), buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_friends_get_friend_by_index(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__), buffer_get_address(__ret_buffer__), buffer_get_size(__ret_buffer__));
 
     var __result__ = undefined;
-    __result__ = buffer_read(__ret_buffer, buffer_u64);
+    __result__ = buffer_read(__ret_buffer__, buffer_u64);
     return __result__;
 }
 
@@ -12982,13 +12990,13 @@ function steam_friends_get_friend_coplay_game(_steam_id_friend)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _steam_id_friend, type: UInt64
     if (!is_numeric(_steam_id_friend)) show_error($"{_GMFUNCTION_} :: _steam_id_friend expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _steam_id_friend);
+    buffer_write(__args_buffer__, buffer_u64, _steam_id_friend);
 
-    var __return_value__ = __steam_friends_get_friend_coplay_game(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_friends_get_friend_coplay_game(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -13002,13 +13010,13 @@ function steam_friends_get_friend_coplay_time(_steam_id_friend)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _steam_id_friend, type: UInt64
     if (!is_numeric(_steam_id_friend)) show_error($"{_GMFUNCTION_} :: _steam_id_friend expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _steam_id_friend);
+    buffer_write(__args_buffer__, buffer_u64, _steam_id_friend);
 
-    var __return_value__ = __steam_friends_get_friend_coplay_time(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_friends_get_friend_coplay_time(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -13022,14 +13030,14 @@ function steam_friends_get_friend_count(_friend_flags)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _friend_flags, type: enum SteamFriendsFriendFlag
 
     if (!is_numeric(_friend_flags)) show_error($"{_GMFUNCTION_} :: _friend_flags expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _friend_flags);
+    buffer_write(__args_buffer__, buffer_u64, _friend_flags);
 
-    var __return_value__ = __steam_friends_get_friend_count(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_friends_get_friend_count(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -13043,13 +13051,13 @@ function steam_friends_get_friend_count_from_source(_steam_id_source)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _steam_id_source, type: UInt64
     if (!is_numeric(_steam_id_source)) show_error($"{_GMFUNCTION_} :: _steam_id_source expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _steam_id_source);
+    buffer_write(__args_buffer__, buffer_u64, _steam_id_source);
 
-    var __return_value__ = __steam_friends_get_friend_count_from_source(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_friends_get_friend_count_from_source(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -13064,22 +13072,22 @@ function steam_friends_get_friend_from_source_by_index(_steam_id_source, _friend
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _steam_id_source, type: UInt64
     if (!is_numeric(_steam_id_source)) show_error($"{_GMFUNCTION_} :: _steam_id_source expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _steam_id_source);
+    buffer_write(__args_buffer__, buffer_u64, _steam_id_source);
 
     // param: _friend_index, type: Int32
     if (!is_numeric(_friend_index)) show_error($"{_GMFUNCTION_} :: _friend_index expected number", true);
-    buffer_write(__args_buffer, buffer_s32, _friend_index);
+    buffer_write(__args_buffer__, buffer_s32, _friend_index);
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __ret_buffer__ = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_friends_get_friend_from_source_by_index(buffer_get_address(__args_buffer), buffer_tell(__args_buffer), buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_friends_get_friend_from_source_by_index(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__), buffer_get_address(__ret_buffer__), buffer_get_size(__ret_buffer__));
 
     var __result__ = undefined;
-    __result__ = buffer_read(__ret_buffer, buffer_u64);
+    __result__ = buffer_read(__ret_buffer__, buffer_u64);
     return __result__;
 }
 
@@ -13092,20 +13100,20 @@ function steam_friends_get_friend_game_played(_steam_id_friend)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _steam_id_friend, type: UInt64
     if (!is_numeric(_steam_id_friend)) show_error($"{_GMFUNCTION_} :: _steam_id_friend expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _steam_id_friend);
+    buffer_write(__args_buffer__, buffer_u64, _steam_id_friend);
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __ret_buffer__ = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_friends_get_friend_game_played(buffer_get_address(__args_buffer), buffer_tell(__args_buffer), buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_friends_get_friend_game_played(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__), buffer_get_address(__ret_buffer__), buffer_get_size(__ret_buffer__));
 
     var __result__ = undefined;
-    if (buffer_read(__ret_buffer, buffer_bool))
+    if (buffer_read(__ret_buffer__, buffer_bool))
     {
-        __result__ = __SteamFriendsFriendGamePlayed_decode(__ret_buffer, buffer_tell(__ret_buffer));
+        __result__ = __SteamFriendsFriendGamePlayed_decode(__ret_buffer__, buffer_tell(__ret_buffer__));
     }
     else
     {
@@ -13124,22 +13132,22 @@ function steam_friends_get_friend_message(_steam_id_friend, _message_id)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _steam_id_friend, type: UInt64
     if (!is_numeric(_steam_id_friend)) show_error($"{_GMFUNCTION_} :: _steam_id_friend expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _steam_id_friend);
+    buffer_write(__args_buffer__, buffer_u64, _steam_id_friend);
 
     // param: _message_id, type: Int32
     if (!is_numeric(_message_id)) show_error($"{_GMFUNCTION_} :: _message_id expected number", true);
-    buffer_write(__args_buffer, buffer_s32, _message_id);
+    buffer_write(__args_buffer__, buffer_s32, _message_id);
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __ret_buffer__ = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_friends_get_friend_message(buffer_get_address(__args_buffer), buffer_tell(__args_buffer), buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_friends_get_friend_message(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__), buffer_get_address(__ret_buffer__), buffer_get_size(__ret_buffer__));
 
     var __result__ = undefined;
-    __result__ = __SteamFriendsFriendMessage_decode(__ret_buffer, buffer_tell(__ret_buffer));
+    __result__ = __SteamFriendsFriendMessage_decode(__ret_buffer__, buffer_tell(__ret_buffer__));
     return __result__;
 }
 
@@ -13152,13 +13160,13 @@ function steam_friends_get_friend_persona_name(_steam_id_friend)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _steam_id_friend, type: UInt64
     if (!is_numeric(_steam_id_friend)) show_error($"{_GMFUNCTION_} :: _steam_id_friend expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _steam_id_friend);
+    buffer_write(__args_buffer__, buffer_u64, _steam_id_friend);
 
-    var __return_value__ = __steam_friends_get_friend_persona_name(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_friends_get_friend_persona_name(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -13173,17 +13181,17 @@ function steam_friends_get_friend_persona_name_history(_steam_id_friend, _person
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _steam_id_friend, type: UInt64
     if (!is_numeric(_steam_id_friend)) show_error($"{_GMFUNCTION_} :: _steam_id_friend expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _steam_id_friend);
+    buffer_write(__args_buffer__, buffer_u64, _steam_id_friend);
 
     // param: _persona_name, type: Int32
     if (!is_numeric(_persona_name)) show_error($"{_GMFUNCTION_} :: _persona_name expected number", true);
-    buffer_write(__args_buffer, buffer_s32, _persona_name);
+    buffer_write(__args_buffer__, buffer_s32, _persona_name);
 
-    var __return_value__ = __steam_friends_get_friend_persona_name_history(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_friends_get_friend_persona_name_history(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -13197,18 +13205,18 @@ function steam_friends_get_friend_persona_state(_steam_id_friend)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _steam_id_friend, type: UInt64
     if (!is_numeric(_steam_id_friend)) show_error($"{_GMFUNCTION_} :: _steam_id_friend expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _steam_id_friend);
+    buffer_write(__args_buffer__, buffer_u64, _steam_id_friend);
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __ret_buffer__ = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_friends_get_friend_persona_state(buffer_get_address(__args_buffer), buffer_tell(__args_buffer), buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_friends_get_friend_persona_state(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__), buffer_get_address(__ret_buffer__), buffer_get_size(__ret_buffer__));
 
     var __result__ = undefined;
-    __result__ = buffer_read(__ret_buffer, buffer_u64);
+    __result__ = buffer_read(__ret_buffer__, buffer_u64);
     return __result__;
 }
 
@@ -13221,18 +13229,18 @@ function steam_friends_get_friend_relationship(_steam_id_friend)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _steam_id_friend, type: UInt64
     if (!is_numeric(_steam_id_friend)) show_error($"{_GMFUNCTION_} :: _steam_id_friend expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _steam_id_friend);
+    buffer_write(__args_buffer__, buffer_u64, _steam_id_friend);
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __ret_buffer__ = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_friends_get_friend_relationship(buffer_get_address(__args_buffer), buffer_tell(__args_buffer), buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_friends_get_friend_relationship(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__), buffer_get_address(__ret_buffer__), buffer_get_size(__ret_buffer__));
 
     var __result__ = undefined;
-    __result__ = buffer_read(__ret_buffer, buffer_u64);
+    __result__ = buffer_read(__ret_buffer__, buffer_u64);
     return __result__;
 }
 
@@ -13246,18 +13254,18 @@ function steam_friends_get_friend_rich_presence(_steam_id_friend, _key)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _steam_id_friend, type: UInt64
     if (!is_numeric(_steam_id_friend)) show_error($"{_GMFUNCTION_} :: _steam_id_friend expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _steam_id_friend);
+    buffer_write(__args_buffer__, buffer_u64, _steam_id_friend);
 
     // param: _key, type: String
     if (!is_string(_key)) show_error($"{_GMFUNCTION_} :: _key expected string", true);
-    buffer_write(__args_buffer, buffer_u32, string_byte_length(_key));
-    buffer_write(__args_buffer, buffer_string, _key);
+    buffer_write(__args_buffer__, buffer_u32, string_byte_length(_key));
+    buffer_write(__args_buffer__, buffer_string, _key);
 
-    var __return_value__ = __steam_friends_get_friend_rich_presence(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_friends_get_friend_rich_presence(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -13272,17 +13280,17 @@ function steam_friends_get_friend_rich_presence_key_by_index(_steam_id_friend, _
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _steam_id_friend, type: UInt64
     if (!is_numeric(_steam_id_friend)) show_error($"{_GMFUNCTION_} :: _steam_id_friend expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _steam_id_friend);
+    buffer_write(__args_buffer__, buffer_u64, _steam_id_friend);
 
     // param: _key, type: Int32
     if (!is_numeric(_key)) show_error($"{_GMFUNCTION_} :: _key expected number", true);
-    buffer_write(__args_buffer, buffer_s32, _key);
+    buffer_write(__args_buffer__, buffer_s32, _key);
 
-    var __return_value__ = __steam_friends_get_friend_rich_presence_key_by_index(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_friends_get_friend_rich_presence_key_by_index(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -13296,13 +13304,13 @@ function steam_friends_get_friend_rich_presence_key_count(_steam_id_friend)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _steam_id_friend, type: UInt64
     if (!is_numeric(_steam_id_friend)) show_error($"{_GMFUNCTION_} :: _steam_id_friend expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _steam_id_friend);
+    buffer_write(__args_buffer__, buffer_u64, _steam_id_friend);
 
-    var __return_value__ = __steam_friends_get_friend_rich_presence_key_count(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_friends_get_friend_rich_presence_key_count(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -13325,13 +13333,13 @@ function steam_friends_get_friend_steam_level(_steam_id_friend)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _steam_id_friend, type: UInt64
     if (!is_numeric(_steam_id_friend)) show_error($"{_GMFUNCTION_} :: _steam_id_friend expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _steam_id_friend);
+    buffer_write(__args_buffer__, buffer_u64, _steam_id_friend);
 
-    var __return_value__ = __steam_friends_get_friend_steam_level(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_friends_get_friend_steam_level(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -13345,13 +13353,13 @@ function steam_friends_get_large_friend_avatar(_steam_id_friend)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _steam_id_friend, type: UInt64
     if (!is_numeric(_steam_id_friend)) show_error($"{_GMFUNCTION_} :: _steam_id_friend expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _steam_id_friend);
+    buffer_write(__args_buffer__, buffer_u64, _steam_id_friend);
 
-    var __return_value__ = __steam_friends_get_large_friend_avatar(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_friends_get_large_friend_avatar(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -13365,13 +13373,13 @@ function steam_friends_get_medium_friend_avatar(_steam_id_friend)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _steam_id_friend, type: UInt64
     if (!is_numeric(_steam_id_friend)) show_error($"{_GMFUNCTION_} :: _steam_id_friend expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _steam_id_friend);
+    buffer_write(__args_buffer__, buffer_u64, _steam_id_friend);
 
-    var __return_value__ = __steam_friends_get_medium_friend_avatar(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_friends_get_medium_friend_avatar(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -13388,16 +13396,16 @@ function steam_friends_get_friends_group_members_list(_friends_group_id)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __ret_buffer__ = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_friends_get_friends_group_members_list(_friends_group_id, buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_friends_get_friends_group_members_list(_friends_group_id, buffer_get_address(__ret_buffer__), buffer_get_size(__ret_buffer__));
 
     var __result__ = undefined;
-    var __length__ = buffer_read(__ret_buffer, buffer_u32);
+    var __length__ = buffer_read(__ret_buffer__, buffer_u32);
     __result__ = array_create(__length__);
     for (var _i = 0; _i < __length__; ++_i)
     {
-        __result__[_i] = buffer_read(__ret_buffer, buffer_u64);
+        __result__[_i] = buffer_read(__ret_buffer__, buffer_u64);
     }
     return __result__;
 }
@@ -13413,12 +13421,12 @@ function steam_friends_get_persona_state()
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __ret_buffer__ = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_friends_get_persona_state(buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_friends_get_persona_state(buffer_get_address(__ret_buffer__), buffer_get_size(__ret_buffer__));
 
     var __result__ = undefined;
-    __result__ = buffer_read(__ret_buffer, buffer_u64);
+    __result__ = buffer_read(__ret_buffer__, buffer_u64);
     return __result__;
 }
 
@@ -13431,13 +13439,13 @@ function steam_friends_get_player_nickname(_steam_id_player)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _steam_id_player, type: UInt64
     if (!is_numeric(_steam_id_player)) show_error($"{_GMFUNCTION_} :: _steam_id_player expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _steam_id_player);
+    buffer_write(__args_buffer__, buffer_u64, _steam_id_player);
 
-    var __return_value__ = __steam_friends_get_player_nickname(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_friends_get_player_nickname(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -13451,13 +13459,13 @@ function steam_friends_get_small_friend_avatar(_steam_id_friend)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _steam_id_friend, type: UInt64
     if (!is_numeric(_steam_id_friend)) show_error($"{_GMFUNCTION_} :: _steam_id_friend expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _steam_id_friend);
+    buffer_write(__args_buffer__, buffer_u64, _steam_id_friend);
 
-    var __return_value__ = __steam_friends_get_small_friend_avatar(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_friends_get_small_friend_avatar(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -13472,20 +13480,20 @@ function steam_friends_has_friend(_steam_id_friend, _friend_flags)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _steam_id_friend, type: UInt64
     if (!is_numeric(_steam_id_friend)) show_error($"{_GMFUNCTION_} :: _steam_id_friend expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _steam_id_friend);
+    buffer_write(__args_buffer__, buffer_u64, _steam_id_friend);
 
     // param: _friend_flags, type: enum SteamFriendsFriendFlag
 
     if (!is_numeric(_friend_flags)) show_error($"{_GMFUNCTION_} :: _friend_flags expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _friend_flags);
+    buffer_write(__args_buffer__, buffer_u64, _friend_flags);
 
-    var __return_value__ = __steam_friends_has_friend(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_friends_has_friend(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
-    return __return_value__;
+    return bool(__return_value__);
 }
 
 /**
@@ -13498,20 +13506,20 @@ function steam_friends_invite_user_to_game(_steam_id_friend, _connect_string)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _steam_id_friend, type: UInt64
     if (!is_numeric(_steam_id_friend)) show_error($"{_GMFUNCTION_} :: _steam_id_friend expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _steam_id_friend);
+    buffer_write(__args_buffer__, buffer_u64, _steam_id_friend);
 
     // param: _connect_string, type: String
     if (!is_string(_connect_string)) show_error($"{_GMFUNCTION_} :: _connect_string expected string", true);
-    buffer_write(__args_buffer, buffer_u32, string_byte_length(_connect_string));
-    buffer_write(__args_buffer, buffer_string, _connect_string);
+    buffer_write(__args_buffer__, buffer_u32, string_byte_length(_connect_string));
+    buffer_write(__args_buffer__, buffer_string, _connect_string);
 
-    var __return_value__ = __steam_friends_invite_user_to_game(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_friends_invite_user_to_game(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
-    return __return_value__;
+    return bool(__return_value__);
 }
 
 /**
@@ -13524,19 +13532,19 @@ function steam_friends_is_clan_chat_admin(_steam_id_clan_chat, _steam_id_user)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _steam_id_clan_chat, type: UInt64
     if (!is_numeric(_steam_id_clan_chat)) show_error($"{_GMFUNCTION_} :: _steam_id_clan_chat expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _steam_id_clan_chat);
+    buffer_write(__args_buffer__, buffer_u64, _steam_id_clan_chat);
 
     // param: _steam_id_user, type: UInt64
     if (!is_numeric(_steam_id_user)) show_error($"{_GMFUNCTION_} :: _steam_id_user expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _steam_id_user);
+    buffer_write(__args_buffer__, buffer_u64, _steam_id_user);
 
-    var __return_value__ = __steam_friends_is_clan_chat_admin(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_friends_is_clan_chat_admin(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
-    return __return_value__;
+    return bool(__return_value__);
 }
 
 /**
@@ -13548,15 +13556,15 @@ function steam_friends_is_clan_public(_steam_id_clan)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _steam_id_clan, type: UInt64
     if (!is_numeric(_steam_id_clan)) show_error($"{_GMFUNCTION_} :: _steam_id_clan expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _steam_id_clan);
+    buffer_write(__args_buffer__, buffer_u64, _steam_id_clan);
 
-    var __return_value__ = __steam_friends_is_clan_public(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_friends_is_clan_public(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
-    return __return_value__;
+    return bool(__return_value__);
 }
 
 /**
@@ -13568,15 +13576,15 @@ function steam_friends_is_clan_official_game_group(_steam_id_clan)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _steam_id_clan, type: UInt64
     if (!is_numeric(_steam_id_clan)) show_error($"{_GMFUNCTION_} :: _steam_id_clan expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _steam_id_clan);
+    buffer_write(__args_buffer__, buffer_u64, _steam_id_clan);
 
-    var __return_value__ = __steam_friends_is_clan_official_game_group(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_friends_is_clan_official_game_group(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
-    return __return_value__;
+    return bool(__return_value__);
 }
 
 /**
@@ -13588,15 +13596,15 @@ function steam_friends_is_clan_chat_window_open_in_steam(_steam_id_clan_chat)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _steam_id_clan_chat, type: UInt64
     if (!is_numeric(_steam_id_clan_chat)) show_error($"{_GMFUNCTION_} :: _steam_id_clan_chat expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _steam_id_clan_chat);
+    buffer_write(__args_buffer__, buffer_u64, _steam_id_clan_chat);
 
-    var __return_value__ = __steam_friends_is_clan_chat_window_open_in_steam(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_friends_is_clan_chat_window_open_in_steam(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
-    return __return_value__;
+    return bool(__return_value__);
 }
 
 /**
@@ -13610,18 +13618,18 @@ function steam_friends_is_following(_steam_id, _callback)
 
     var __dispatcher__ = __Steamworks_get_dispatcher();
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _steam_id, type: UInt64
     if (!is_numeric(_steam_id)) show_error($"{_GMFUNCTION_} :: _steam_id expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _steam_id);
+    buffer_write(__args_buffer__, buffer_u64, _steam_id);
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
     var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
-    buffer_write(__args_buffer, buffer_u64, _callback_handle);
+    buffer_write(__args_buffer__, buffer_u64, _callback_handle);
 
-    var __return_value__ = __steam_friends_is_following(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_friends_is_following(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -13637,18 +13645,18 @@ function steam_friends_request_clan_officer_list(_steam_id_clan, _callback)
 
     var __dispatcher__ = __Steamworks_get_dispatcher();
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _steam_id_clan, type: UInt64
     if (!is_numeric(_steam_id_clan)) show_error($"{_GMFUNCTION_} :: _steam_id_clan expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _steam_id_clan);
+    buffer_write(__args_buffer__, buffer_u64, _steam_id_clan);
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
     var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
-    buffer_write(__args_buffer, buffer_u64, _callback_handle);
+    buffer_write(__args_buffer__, buffer_u64, _callback_handle);
 
-    var __return_value__ = __steam_friends_request_clan_officer_list(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_friends_request_clan_officer_list(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -13661,13 +13669,13 @@ function steam_friends_request_friend_rich_presence(_steam_id_friend)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _steam_id_friend, type: UInt64
     if (!is_numeric(_steam_id_friend)) show_error($"{_GMFUNCTION_} :: _steam_id_friend expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _steam_id_friend);
+    buffer_write(__args_buffer__, buffer_u64, _steam_id_friend);
 
-    var __return_value__ = __steam_friends_request_friend_rich_presence(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_friends_request_friend_rich_presence(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -13682,19 +13690,19 @@ function steam_friends_request_user_information(_steam_id_user, _require_name_on
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _steam_id_user, type: UInt64
     if (!is_numeric(_steam_id_user)) show_error($"{_GMFUNCTION_} :: _steam_id_user expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _steam_id_user);
+    buffer_write(__args_buffer__, buffer_u64, _steam_id_user);
 
     // param: _require_name_only, type: Bool
     if (!is_bool(_require_name_only)) show_error($"{_GMFUNCTION_} :: _require_name_only expected bool", true);
-    buffer_write(__args_buffer, buffer_bool, _require_name_only);
+    buffer_write(__args_buffer__, buffer_bool, _require_name_only);
 
-    var __return_value__ = __steam_friends_request_user_information(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_friends_request_user_information(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
-    return __return_value__;
+    return bool(__return_value__);
 }
 
 /**
@@ -13706,17 +13714,17 @@ function steam_friends_set_in_game_voice_speaking(_steam_id_user, _speaking)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _steam_id_user, type: UInt64
     if (!is_numeric(_steam_id_user)) show_error($"{_GMFUNCTION_} :: _steam_id_user expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _steam_id_user);
+    buffer_write(__args_buffer__, buffer_u64, _steam_id_user);
 
     // param: _speaking, type: Bool
     if (!is_bool(_speaking)) show_error($"{_GMFUNCTION_} :: _speaking expected bool", true);
-    buffer_write(__args_buffer, buffer_bool, _speaking);
+    buffer_write(__args_buffer__, buffer_bool, _speaking);
 
-    var __return_value__ = __steam_friends_set_in_game_voice_speaking(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_friends_set_in_game_voice_speaking(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -13729,13 +13737,13 @@ function steam_friends_set_played_with(_steam_id_user_played_with)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _steam_id_user_played_with, type: UInt64
     if (!is_numeric(_steam_id_user_played_with)) show_error($"{_GMFUNCTION_} :: _steam_id_user_played_with expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _steam_id_user_played_with);
+    buffer_write(__args_buffer__, buffer_u64, _steam_id_user_played_with);
 
-    var __return_value__ = __steam_friends_set_played_with(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_friends_set_played_with(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -13753,14 +13761,14 @@ function steam_friends_set_callback_persona_state_change(_callback)
 
     var __dispatcher__ = __Steamworks_get_dispatcher();
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
     var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
-    buffer_write(__args_buffer, buffer_u64, _callback_handle);
+    buffer_write(__args_buffer__, buffer_u64, _callback_handle);
 
-    var __return_value__ = __steam_friends_set_callback_persona_state_change(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_friends_set_callback_persona_state_change(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -13778,14 +13786,14 @@ function steam_friends_set_callback_game_overlay_activated(_callback)
 
     var __dispatcher__ = __Steamworks_get_dispatcher();
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
     var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
-    buffer_write(__args_buffer, buffer_u64, _callback_handle);
+    buffer_write(__args_buffer__, buffer_u64, _callback_handle);
 
-    var __return_value__ = __steam_friends_set_callback_game_overlay_activated(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_friends_set_callback_game_overlay_activated(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -13803,14 +13811,14 @@ function steam_friends_set_callback_game_rich_presence_join_requested(_callback)
 
     var __dispatcher__ = __Steamworks_get_dispatcher();
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
     var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
-    buffer_write(__args_buffer, buffer_u64, _callback_handle);
+    buffer_write(__args_buffer__, buffer_u64, _callback_handle);
 
-    var __return_value__ = __steam_friends_set_callback_game_rich_presence_join_requested(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_friends_set_callback_game_rich_presence_join_requested(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -13828,14 +13836,14 @@ function steam_friends_set_callback_game_lobby_join_requested(_callback)
 
     var __dispatcher__ = __Steamworks_get_dispatcher();
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
     var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
-    buffer_write(__args_buffer, buffer_u64, _callback_handle);
+    buffer_write(__args_buffer__, buffer_u64, _callback_handle);
 
-    var __return_value__ = __steam_friends_set_callback_game_lobby_join_requested(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_friends_set_callback_game_lobby_join_requested(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -13853,14 +13861,14 @@ function steam_friends_set_callback_friend_rich_presence_update(_callback)
 
     var __dispatcher__ = __Steamworks_get_dispatcher();
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
     var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
-    buffer_write(__args_buffer, buffer_u64, _callback_handle);
+    buffer_write(__args_buffer__, buffer_u64, _callback_handle);
 
-    var __return_value__ = __steam_friends_set_callback_friend_rich_presence_update(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_friends_set_callback_friend_rich_presence_update(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -13878,14 +13886,14 @@ function steam_friends_set_callback_game_server_change_requested(_callback)
 
     var __dispatcher__ = __Steamworks_get_dispatcher();
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
     var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
-    buffer_write(__args_buffer, buffer_u64, _callback_handle);
+    buffer_write(__args_buffer__, buffer_u64, _callback_handle);
 
-    var __return_value__ = __steam_friends_set_callback_game_server_change_requested(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_friends_set_callback_game_server_change_requested(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -13902,14 +13910,14 @@ function steam_apps_get_dlc_data_by_index(_dlc)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __ret_buffer__ = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_apps_get_dlc_data_by_index(_dlc, buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_apps_get_dlc_data_by_index(_dlc, buffer_get_address(__ret_buffer__), buffer_get_size(__ret_buffer__));
 
     var __result__ = undefined;
-    if (buffer_read(__ret_buffer, buffer_bool))
+    if (buffer_read(__ret_buffer__, buffer_bool))
     {
-        __result__ = __SteamAppsDlcData_decode(__ret_buffer, buffer_tell(__ret_buffer));
+        __result__ = __SteamAppsDlcData_decode(__ret_buffer__, buffer_tell(__ret_buffer__));
     }
     else
     {
@@ -13947,14 +13955,14 @@ function steam_apps_is_timed_trial()
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __ret_buffer__ = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_apps_is_timed_trial(buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_apps_is_timed_trial(buffer_get_address(__ret_buffer__), buffer_get_size(__ret_buffer__));
 
     var __result__ = undefined;
-    if (buffer_read(__ret_buffer, buffer_bool))
+    if (buffer_read(__ret_buffer__, buffer_bool))
     {
-        __result__ = __SteamAppsIsTimedTrialResult_decode(__ret_buffer, buffer_tell(__ret_buffer));
+        __result__ = __SteamAppsIsTimedTrialResult_decode(__ret_buffer__, buffer_tell(__ret_buffer__));
     }
     else
     {
@@ -13978,15 +13986,15 @@ function steam_apps_get_app_install_dir(_app_id)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __ret_buffer__ = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_apps_get_app_install_dir(_app_id, buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_apps_get_app_install_dir(_app_id, buffer_get_address(__ret_buffer__), buffer_get_size(__ret_buffer__));
 
     var __result__ = undefined;
-    if (buffer_read(__ret_buffer, buffer_bool))
+    if (buffer_read(__ret_buffer__, buffer_bool))
     {
-        buffer_read(__ret_buffer, buffer_u32);
-        __result__ = buffer_read(__ret_buffer, buffer_string);
+        buffer_read(__ret_buffer__, buffer_u32);
+        __result__ = buffer_read(__ret_buffer__, buffer_string);
     }
     else
     {
@@ -14003,12 +14011,12 @@ function steam_apps_get_app_owner()
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __ret_buffer__ = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_apps_get_app_owner(buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_apps_get_app_owner(buffer_get_address(__ret_buffer__), buffer_get_size(__ret_buffer__));
 
     var __result__ = undefined;
-    __result__ = buffer_read(__ret_buffer, buffer_u64);
+    __result__ = buffer_read(__ret_buffer__, buffer_u64);
     return __result__;
 }
 
@@ -14023,15 +14031,15 @@ function steam_apps_get_current_beta_name()
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __ret_buffer__ = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_apps_get_current_beta_name(buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_apps_get_current_beta_name(buffer_get_address(__ret_buffer__), buffer_get_size(__ret_buffer__));
 
     var __result__ = undefined;
-    if (buffer_read(__ret_buffer, buffer_bool))
+    if (buffer_read(__ret_buffer__, buffer_bool))
     {
-        buffer_read(__ret_buffer, buffer_u32);
-        __result__ = buffer_read(__ret_buffer, buffer_string);
+        buffer_read(__ret_buffer__, buffer_u32);
+        __result__ = buffer_read(__ret_buffer__, buffer_string);
     }
     else
     {
@@ -14048,12 +14056,12 @@ function steam_apps_get_num_betas()
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __ret_buffer__ = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_apps_get_num_betas(buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_apps_get_num_betas(buffer_get_address(__ret_buffer__), buffer_get_size(__ret_buffer__));
 
     var __result__ = undefined;
-    __result__ = __SteamAppsNumBetas_decode(__ret_buffer, buffer_tell(__ret_buffer));
+    __result__ = __SteamAppsNumBetas_decode(__ret_buffer__, buffer_tell(__ret_buffer__));
     return __result__;
 }
 
@@ -14066,14 +14074,14 @@ function steam_apps_get_beta_info(_beta_index)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __ret_buffer__ = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_apps_get_beta_info(_beta_index, buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_apps_get_beta_info(_beta_index, buffer_get_address(__ret_buffer__), buffer_get_size(__ret_buffer__));
 
     var __result__ = undefined;
-    if (buffer_read(__ret_buffer, buffer_bool))
+    if (buffer_read(__ret_buffer__, buffer_bool))
     {
-        __result__ = __SteamAppsBetaInfo_decode(__ret_buffer, buffer_tell(__ret_buffer));
+        __result__ = __SteamAppsBetaInfo_decode(__ret_buffer__, buffer_tell(__ret_buffer__));
     }
     else
     {
@@ -14100,14 +14108,14 @@ function steam_apps_get_dlc_download_progress(_app_id)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __ret_buffer__ = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_apps_get_dlc_download_progress(_app_id, buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_apps_get_dlc_download_progress(_app_id, buffer_get_address(__ret_buffer__), buffer_get_size(__ret_buffer__));
 
     var __result__ = undefined;
-    if (buffer_read(__ret_buffer, buffer_bool))
+    if (buffer_read(__ret_buffer__, buffer_bool))
     {
-        __result__ = __SteamAppsDlcDownloadProgress_decode(__ret_buffer, buffer_tell(__ret_buffer));
+        __result__ = __SteamAppsDlcDownloadProgress_decode(__ret_buffer__, buffer_tell(__ret_buffer__));
     }
     else
     {
@@ -14126,17 +14134,17 @@ function steam_apps_get_app_ownership_ticket_data(_app_id, _ticket_buffer)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _app_id, type: UInt32
     if (!is_numeric(_app_id)) show_error($"{_GMFUNCTION_} :: _app_id expected number", true);
-    buffer_write(__args_buffer, buffer_u32, _app_id);
+    buffer_write(__args_buffer__, buffer_u32, _app_id);
 
     // param: _ticket_buffer, type: Buffer
     if (!buffer_exists(_ticket_buffer)) show_error($"{_GMFUNCTION_} :: _ticket_buffer expected Id.Buffer", true);
     __Steamworks_queue_buffer(buffer_get_address(_ticket_buffer), buffer_get_size(_ticket_buffer));
 
-    var __return_value__ = __steam_apps_get_app_ownership_ticket_data(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_apps_get_app_ownership_ticket_data(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -14155,19 +14163,19 @@ function steam_apps_get_file_details(_file_name, _callback)
 
     var __dispatcher__ = __Steamworks_get_dispatcher();
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _file_name, type: String
     if (!is_string(_file_name)) show_error($"{_GMFUNCTION_} :: _file_name expected string", true);
-    buffer_write(__args_buffer, buffer_u32, string_byte_length(_file_name));
-    buffer_write(__args_buffer, buffer_string, _file_name);
+    buffer_write(__args_buffer__, buffer_u32, string_byte_length(_file_name));
+    buffer_write(__args_buffer__, buffer_string, _file_name);
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
     var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
-    buffer_write(__args_buffer, buffer_u64, _callback_handle);
+    buffer_write(__args_buffer__, buffer_u64, _callback_handle);
 
-    var __return_value__ = __steam_apps_get_file_details(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_apps_get_file_details(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -14182,16 +14190,16 @@ function steam_apps_get_installed_depots(_app_id, _max_depots)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __ret_buffer__ = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_apps_get_installed_depots(_app_id, _max_depots, buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_apps_get_installed_depots(_app_id, _max_depots, buffer_get_address(__ret_buffer__), buffer_get_size(__ret_buffer__));
 
     var __result__ = undefined;
-    var __length__ = buffer_read(__ret_buffer, buffer_u32);
+    var __length__ = buffer_read(__ret_buffer__, buffer_u32);
     __result__ = array_create(__length__);
     for (var _i = 0; _i < __length__; ++_i)
     {
-        __result__[_i] = buffer_read(__ret_buffer, buffer_u32);
+        __result__[_i] = buffer_read(__ret_buffer__, buffer_u32);
     }
     return __result__;
 }
@@ -14204,15 +14212,15 @@ function steam_apps_get_launch_command_line()
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __ret_buffer__ = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_apps_get_launch_command_line(buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_apps_get_launch_command_line(buffer_get_address(__ret_buffer__), buffer_get_size(__ret_buffer__));
 
     var __result__ = undefined;
-    if (buffer_read(__ret_buffer, buffer_bool))
+    if (buffer_read(__ret_buffer__, buffer_bool))
     {
-        buffer_read(__ret_buffer, buffer_u32);
-        __result__ = buffer_read(__ret_buffer, buffer_string);
+        buffer_read(__ret_buffer__, buffer_u32);
+        __result__ = buffer_read(__ret_buffer__, buffer_string);
     }
     else
     {
@@ -14243,14 +14251,14 @@ function steam_apps_set_callback_dlc_installed(_callback)
 
     var __dispatcher__ = __Steamworks_get_dispatcher();
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
     var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
-    buffer_write(__args_buffer, buffer_u64, _callback_handle);
+    buffer_write(__args_buffer__, buffer_u64, _callback_handle);
 
-    var __return_value__ = __steam_apps_set_callback_dlc_installed(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_apps_set_callback_dlc_installed(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -14272,24 +14280,24 @@ function steam_screenshots_add_vr_screenshot_to_library(_type, _filename, _vr_fi
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _type, type: enum SteamScreenshotsVrScreenshotType
 
     if (!is_numeric(_type)) show_error($"{_GMFUNCTION_} :: _type expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _type);
+    buffer_write(__args_buffer__, buffer_u64, _type);
 
     // param: _filename, type: String
     if (!is_string(_filename)) show_error($"{_GMFUNCTION_} :: _filename expected string", true);
-    buffer_write(__args_buffer, buffer_u32, string_byte_length(_filename));
-    buffer_write(__args_buffer, buffer_string, _filename);
+    buffer_write(__args_buffer__, buffer_u32, string_byte_length(_filename));
+    buffer_write(__args_buffer__, buffer_string, _filename);
 
     // param: _vr_filename, type: String
     if (!is_string(_vr_filename)) show_error($"{_GMFUNCTION_} :: _vr_filename expected string", true);
-    buffer_write(__args_buffer, buffer_u32, string_byte_length(_vr_filename));
-    buffer_write(__args_buffer, buffer_string, _vr_filename);
+    buffer_write(__args_buffer__, buffer_u32, string_byte_length(_vr_filename));
+    buffer_write(__args_buffer__, buffer_string, _vr_filename);
 
-    var __return_value__ = __steam_screenshots_add_vr_screenshot_to_library(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_screenshots_add_vr_screenshot_to_library(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -14313,19 +14321,19 @@ function steam_screenshots_tag_published_file(_screenshot, _published_file_id)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _screenshot, type: UInt32
     if (!is_numeric(_screenshot)) show_error($"{_GMFUNCTION_} :: _screenshot expected number", true);
-    buffer_write(__args_buffer, buffer_u32, _screenshot);
+    buffer_write(__args_buffer__, buffer_u32, _screenshot);
 
     // param: _published_file_id, type: UInt64
     if (!is_numeric(_published_file_id)) show_error($"{_GMFUNCTION_} :: _published_file_id expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _published_file_id);
+    buffer_write(__args_buffer__, buffer_u64, _published_file_id);
 
-    var __return_value__ = __steam_screenshots_tag_published_file(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_screenshots_tag_published_file(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
-    return __return_value__;
+    return bool(__return_value__);
 }
 
 /**
@@ -14338,19 +14346,19 @@ function steam_screenshots_tag_user(_screenshot, _steam_id)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _screenshot, type: UInt32
     if (!is_numeric(_screenshot)) show_error($"{_GMFUNCTION_} :: _screenshot expected number", true);
-    buffer_write(__args_buffer, buffer_u32, _screenshot);
+    buffer_write(__args_buffer__, buffer_u32, _screenshot);
 
     // param: _steam_id, type: UInt64
     if (!is_numeric(_steam_id)) show_error($"{_GMFUNCTION_} :: _steam_id expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _steam_id);
+    buffer_write(__args_buffer__, buffer_u64, _steam_id);
 
-    var __return_value__ = __steam_screenshots_tag_user(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_screenshots_tag_user(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
-    return __return_value__;
+    return bool(__return_value__);
 }
 
 // Skipping function steam_screenshots_trigger_screenshot (no wrapper is required)
@@ -14369,7 +14377,7 @@ function steam_screenshots_write_screenshot(_buff_rgb, _width, _height, _buffer_
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _buff_rgb, type: Buffer
     if (!buffer_exists(_buff_rgb)) show_error($"{_GMFUNCTION_} :: _buff_rgb expected Id.Buffer", true);
@@ -14377,37 +14385,37 @@ function steam_screenshots_write_screenshot(_buff_rgb, _width, _height, _buffer_
 
     // param: _width, type: Int32
     if (!is_numeric(_width)) show_error($"{_GMFUNCTION_} :: _width expected number", true);
-    buffer_write(__args_buffer, buffer_s32, _width);
+    buffer_write(__args_buffer__, buffer_s32, _width);
 
     // param: _height, type: Int32
     if (!is_numeric(_height)) show_error($"{_GMFUNCTION_} :: _height expected number", true);
-    buffer_write(__args_buffer, buffer_s32, _height);
+    buffer_write(__args_buffer__, buffer_s32, _height);
 
     // param: _buffer_offset, type: optional<UInt32>
     if (is_undefined(_buffer_offset))
     {
-        buffer_write(__args_buffer, buffer_bool, false);
+        buffer_write(__args_buffer__, buffer_bool, false);
     }
     else
     {
-        buffer_write(__args_buffer, buffer_bool, true);
+        buffer_write(__args_buffer__, buffer_bool, true);
         if (!is_numeric(_buffer_offset)) show_error($"{_GMFUNCTION_} :: _buffer_offset expected number", true);
-        buffer_write(__args_buffer, buffer_u32, _buffer_offset);
+        buffer_write(__args_buffer__, buffer_u32, _buffer_offset);
     }
 
     // param: _buffer_count, type: optional<UInt32>
     if (is_undefined(_buffer_count))
     {
-        buffer_write(__args_buffer, buffer_bool, false);
+        buffer_write(__args_buffer__, buffer_bool, false);
     }
     else
     {
-        buffer_write(__args_buffer, buffer_bool, true);
+        buffer_write(__args_buffer__, buffer_bool, true);
         if (!is_numeric(_buffer_count)) show_error($"{_GMFUNCTION_} :: _buffer_count expected number", true);
-        buffer_write(__args_buffer, buffer_u32, _buffer_count);
+        buffer_write(__args_buffer__, buffer_u32, _buffer_count);
     }
 
-    var __return_value__ = __steam_screenshots_write_screenshot(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_screenshots_write_screenshot(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -14422,14 +14430,14 @@ function steam_screenshots_set_callback_screenshot_ready(_callback)
 
     var __dispatcher__ = __Steamworks_get_dispatcher();
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
     var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
-    buffer_write(__args_buffer, buffer_u64, _callback_handle);
+    buffer_write(__args_buffer__, buffer_u64, _callback_handle);
 
-    var __return_value__ = __steam_screenshots_set_callback_screenshot_ready(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_screenshots_set_callback_screenshot_ready(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -14444,14 +14452,14 @@ function steam_screenshots_set_callback_screenshot_requested(_callback)
 
     var __dispatcher__ = __Steamworks_get_dispatcher();
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
     var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
-    buffer_write(__args_buffer, buffer_u64, _callback_handle);
+    buffer_write(__args_buffer__, buffer_u64, _callback_handle);
 
-    var __return_value__ = __steam_screenshots_set_callback_screenshot_requested(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_screenshots_set_callback_screenshot_requested(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -14472,21 +14480,21 @@ function steam_user_advertise_game(_steam_id_game_server, _server_ip, _server_po
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _steam_id_game_server, type: UInt64
     if (!is_numeric(_steam_id_game_server)) show_error($"{_GMFUNCTION_} :: _steam_id_game_server expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _steam_id_game_server);
+    buffer_write(__args_buffer__, buffer_u64, _steam_id_game_server);
 
     // param: _server_ip, type: UInt32
     if (!is_numeric(_server_ip)) show_error($"{_GMFUNCTION_} :: _server_ip expected number", true);
-    buffer_write(__args_buffer, buffer_u32, _server_ip);
+    buffer_write(__args_buffer__, buffer_u32, _server_ip);
 
     // param: _server_port, type: UInt32
     if (!is_numeric(_server_port)) show_error($"{_GMFUNCTION_} :: _server_port expected number", true);
-    buffer_write(__args_buffer, buffer_u32, _server_port);
+    buffer_write(__args_buffer__, buffer_u32, _server_port);
 
-    var __return_value__ = __steam_user_advertise_game(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_user_advertise_game(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -14503,7 +14511,7 @@ function steam_user_begin_auth_session(_auth_ticket, _steam_id, _buffer_offset, 
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _auth_ticket, type: Buffer
     if (!buffer_exists(_auth_ticket)) show_error($"{_GMFUNCTION_} :: _auth_ticket expected Id.Buffer", true);
@@ -14511,38 +14519,38 @@ function steam_user_begin_auth_session(_auth_ticket, _steam_id, _buffer_offset, 
 
     // param: _steam_id, type: UInt64
     if (!is_numeric(_steam_id)) show_error($"{_GMFUNCTION_} :: _steam_id expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _steam_id);
+    buffer_write(__args_buffer__, buffer_u64, _steam_id);
 
     // param: _buffer_offset, type: optional<UInt32>
     if (is_undefined(_buffer_offset))
     {
-        buffer_write(__args_buffer, buffer_bool, false);
+        buffer_write(__args_buffer__, buffer_bool, false);
     }
     else
     {
-        buffer_write(__args_buffer, buffer_bool, true);
+        buffer_write(__args_buffer__, buffer_bool, true);
         if (!is_numeric(_buffer_offset)) show_error($"{_GMFUNCTION_} :: _buffer_offset expected number", true);
-        buffer_write(__args_buffer, buffer_u32, _buffer_offset);
+        buffer_write(__args_buffer__, buffer_u32, _buffer_offset);
     }
 
     // param: _buffer_count, type: optional<UInt32>
     if (is_undefined(_buffer_count))
     {
-        buffer_write(__args_buffer, buffer_bool, false);
+        buffer_write(__args_buffer__, buffer_bool, false);
     }
     else
     {
-        buffer_write(__args_buffer, buffer_bool, true);
+        buffer_write(__args_buffer__, buffer_bool, true);
         if (!is_numeric(_buffer_count)) show_error($"{_GMFUNCTION_} :: _buffer_count expected number", true);
-        buffer_write(__args_buffer, buffer_u32, _buffer_count);
+        buffer_write(__args_buffer__, buffer_u32, _buffer_count);
     }
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __ret_buffer__ = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_user_begin_auth_session(buffer_get_address(__args_buffer), buffer_tell(__args_buffer), buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_user_begin_auth_session(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__), buffer_get_address(__ret_buffer__), buffer_get_size(__ret_buffer__));
 
     var __result__ = undefined;
-    __result__ = buffer_read(__ret_buffer, buffer_u64);
+    __result__ = buffer_read(__ret_buffer__, buffer_u64);
     return __result__;
 }
 
@@ -14573,16 +14581,16 @@ function steam_user_set_duration_control_online_state(_state)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _state, type: enum SteamUserDurationControlOnlineState
 
     if (!is_numeric(_state)) show_error($"{_GMFUNCTION_} :: _state expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _state);
+    buffer_write(__args_buffer__, buffer_u64, _state);
 
-    var __return_value__ = __steam_user_set_duration_control_online_state(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_user_set_duration_control_online_state(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
-    return __return_value__;
+    return bool(__return_value__);
 }
 
 // Skipping function steam_user_cancel_auth_ticket (no wrapper is required)
@@ -14601,7 +14609,7 @@ function steam_user_decompress_voice(_compressed, _dest, _desired_sample_rate, _
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _compressed, type: Buffer
     if (!buffer_exists(_compressed)) show_error($"{_GMFUNCTION_} :: _compressed expected Id.Buffer", true);
@@ -14613,38 +14621,38 @@ function steam_user_decompress_voice(_compressed, _dest, _desired_sample_rate, _
 
     // param: _desired_sample_rate, type: UInt32
     if (!is_numeric(_desired_sample_rate)) show_error($"{_GMFUNCTION_} :: _desired_sample_rate expected number", true);
-    buffer_write(__args_buffer, buffer_u32, _desired_sample_rate);
+    buffer_write(__args_buffer__, buffer_u32, _desired_sample_rate);
 
     // param: _buffer_offset, type: optional<UInt32>
     if (is_undefined(_buffer_offset))
     {
-        buffer_write(__args_buffer, buffer_bool, false);
+        buffer_write(__args_buffer__, buffer_bool, false);
     }
     else
     {
-        buffer_write(__args_buffer, buffer_bool, true);
+        buffer_write(__args_buffer__, buffer_bool, true);
         if (!is_numeric(_buffer_offset)) show_error($"{_GMFUNCTION_} :: _buffer_offset expected number", true);
-        buffer_write(__args_buffer, buffer_u32, _buffer_offset);
+        buffer_write(__args_buffer__, buffer_u32, _buffer_offset);
     }
 
     // param: _buffer_count, type: optional<UInt32>
     if (is_undefined(_buffer_count))
     {
-        buffer_write(__args_buffer, buffer_bool, false);
+        buffer_write(__args_buffer__, buffer_bool, false);
     }
     else
     {
-        buffer_write(__args_buffer, buffer_bool, true);
+        buffer_write(__args_buffer__, buffer_bool, true);
         if (!is_numeric(_buffer_count)) show_error($"{_GMFUNCTION_} :: _buffer_count expected number", true);
-        buffer_write(__args_buffer, buffer_u32, _buffer_count);
+        buffer_write(__args_buffer__, buffer_u32, _buffer_count);
     }
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __ret_buffer__ = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_user_decompress_voice(buffer_get_address(__args_buffer), buffer_tell(__args_buffer), buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_user_decompress_voice(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__), buffer_get_address(__ret_buffer__), buffer_get_size(__ret_buffer__));
 
     var __result__ = undefined;
-    __result__ = __SteamUserDecompressVoiceResult_decode(__ret_buffer, buffer_tell(__ret_buffer));
+    __result__ = __SteamUserDecompressVoiceResult_decode(__ret_buffer__, buffer_tell(__ret_buffer__));
     return __result__;
 }
 
@@ -14656,13 +14664,13 @@ function steam_user_end_auth_session(_steam_id)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _steam_id, type: UInt64
     if (!is_numeric(_steam_id)) show_error($"{_GMFUNCTION_} :: _steam_id expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _steam_id);
+    buffer_write(__args_buffer__, buffer_u64, _steam_id);
 
-    var __return_value__ = __steam_user_end_auth_session(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_user_end_auth_session(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -14678,7 +14686,7 @@ function steam_user_get_auth_session_ticket(_out_ticket, _identity_type, _identi
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _out_ticket, type: Buffer
     if (!buffer_exists(_out_ticket)) show_error($"{_GMFUNCTION_} :: _out_ticket expected Id.Buffer", true);
@@ -14687,26 +14695,26 @@ function steam_user_get_auth_session_ticket(_out_ticket, _identity_type, _identi
     // param: _identity_type, type: optional<enum SteamNetworkingIdentityType>
     if (is_undefined(_identity_type))
     {
-        buffer_write(__args_buffer, buffer_bool, false);
+        buffer_write(__args_buffer__, buffer_bool, false);
     }
     else
     {
-        buffer_write(__args_buffer, buffer_bool, true);
+        buffer_write(__args_buffer__, buffer_bool, true);
 
         if (!is_numeric(_identity_type)) show_error($"{_GMFUNCTION_} :: _identity_type expected number", true);
-        buffer_write(__args_buffer, buffer_u64, _identity_type);
+        buffer_write(__args_buffer__, buffer_u64, _identity_type);
     }
 
     // param: _identity_value, type: Any
 
-    __ext_core_buffer_marshal_value(__args_buffer, _identity_value);
+    __ext_core_buffer_marshal_value(__args_buffer__, _identity_value);
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __ret_buffer__ = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_user_get_auth_session_ticket(buffer_get_address(__args_buffer), buffer_tell(__args_buffer), buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_user_get_auth_session_ticket(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__), buffer_get_address(__ret_buffer__), buffer_get_size(__ret_buffer__));
 
     var __result__ = undefined;
-    __result__ = __SteamUserAuthSessionTicket_decode(__ret_buffer, buffer_tell(__ret_buffer));
+    __result__ = __SteamUserAuthSessionTicket_decode(__ret_buffer__, buffer_tell(__ret_buffer__));
     return __result__;
 }
 
@@ -14724,12 +14732,12 @@ function steam_user_get_steam_id()
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __ret_buffer__ = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_user_get_steam_id(buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_user_get_steam_id(buffer_get_address(__ret_buffer__), buffer_get_size(__ret_buffer__));
 
     var __result__ = undefined;
-    __result__ = buffer_read(__ret_buffer, buffer_u64);
+    __result__ = buffer_read(__ret_buffer__, buffer_u64);
     return __result__;
 }
 
@@ -14742,18 +14750,18 @@ function steam_user_decode_steam_id(_steam_id)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _steam_id, type: UInt64
     if (!is_numeric(_steam_id)) show_error($"{_GMFUNCTION_} :: _steam_id expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _steam_id);
+    buffer_write(__args_buffer__, buffer_u64, _steam_id);
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __ret_buffer__ = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_user_decode_steam_id(buffer_get_address(__args_buffer), buffer_tell(__args_buffer), buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_user_decode_steam_id(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__), buffer_get_address(__ret_buffer__), buffer_get_size(__ret_buffer__));
 
     var __result__ = undefined;
-    __result__ = __SteamId_decode(__ret_buffer, buffer_tell(__ret_buffer));
+    __result__ = __SteamId_decode(__ret_buffer__, buffer_tell(__ret_buffer__));
     return __result__;
 }
 
@@ -14774,12 +14782,12 @@ function steam_user_get_available_voice()
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __ret_buffer__ = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_user_get_available_voice(buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_user_get_available_voice(buffer_get_address(__ret_buffer__), buffer_get_size(__ret_buffer__));
 
     var __result__ = undefined;
-    __result__ = __SteamUserAvailableVoice_decode(__ret_buffer, buffer_tell(__ret_buffer));
+    __result__ = __SteamUserAvailableVoice_decode(__ret_buffer__, buffer_tell(__ret_buffer__));
     return __result__;
 }
 
@@ -14796,11 +14804,11 @@ function steam_user_get_voice(_want_compressed, _dest_compressed, _want_uncompre
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _want_compressed, type: Bool
     if (!is_bool(_want_compressed)) show_error($"{_GMFUNCTION_} :: _want_compressed expected bool", true);
-    buffer_write(__args_buffer, buffer_bool, _want_compressed);
+    buffer_write(__args_buffer__, buffer_bool, _want_compressed);
 
     // param: _dest_compressed, type: Buffer
     if (!buffer_exists(_dest_compressed)) show_error($"{_GMFUNCTION_} :: _dest_compressed expected Id.Buffer", true);
@@ -14808,7 +14816,7 @@ function steam_user_get_voice(_want_compressed, _dest_compressed, _want_uncompre
 
     // param: _want_uncompressed, type: Bool
     if (!is_bool(_want_uncompressed)) show_error($"{_GMFUNCTION_} :: _want_uncompressed expected bool", true);
-    buffer_write(__args_buffer, buffer_bool, _want_uncompressed);
+    buffer_write(__args_buffer__, buffer_bool, _want_uncompressed);
 
     // param: _dest_uncompressed, type: Buffer
     if (!buffer_exists(_dest_uncompressed)) show_error($"{_GMFUNCTION_} :: _dest_uncompressed expected Id.Buffer", true);
@@ -14816,14 +14824,14 @@ function steam_user_get_voice(_want_compressed, _dest_compressed, _want_uncompre
 
     // param: _desired_sample_rate, type: UInt32
     if (!is_numeric(_desired_sample_rate)) show_error($"{_GMFUNCTION_} :: _desired_sample_rate expected number", true);
-    buffer_write(__args_buffer, buffer_u32, _desired_sample_rate);
+    buffer_write(__args_buffer__, buffer_u32, _desired_sample_rate);
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __ret_buffer__ = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_user_get_voice(buffer_get_address(__args_buffer), buffer_tell(__args_buffer), buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_user_get_voice(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__), buffer_get_address(__ret_buffer__), buffer_get_size(__ret_buffer__));
 
     var __result__ = undefined;
-    __result__ = __SteamUserGetVoiceResult_decode(__ret_buffer, buffer_tell(__ret_buffer));
+    __result__ = __SteamUserGetVoiceResult_decode(__ret_buffer__, buffer_tell(__ret_buffer__));
     return __result__;
 }
 
@@ -14840,7 +14848,7 @@ function steam_user_request_encrypted_app_ticket(_data_to_include, _callback, _b
 
     var __dispatcher__ = __Steamworks_get_dispatcher();
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _data_to_include, type: Buffer
     if (!buffer_exists(_data_to_include)) show_error($"{_GMFUNCTION_} :: _data_to_include expected Id.Buffer", true);
@@ -14849,33 +14857,33 @@ function steam_user_request_encrypted_app_ticket(_data_to_include, _callback, _b
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
     var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
-    buffer_write(__args_buffer, buffer_u64, _callback_handle);
+    buffer_write(__args_buffer__, buffer_u64, _callback_handle);
 
     // param: _buffer_offset, type: optional<UInt32>
     if (is_undefined(_buffer_offset))
     {
-        buffer_write(__args_buffer, buffer_bool, false);
+        buffer_write(__args_buffer__, buffer_bool, false);
     }
     else
     {
-        buffer_write(__args_buffer, buffer_bool, true);
+        buffer_write(__args_buffer__, buffer_bool, true);
         if (!is_numeric(_buffer_offset)) show_error($"{_GMFUNCTION_} :: _buffer_offset expected number", true);
-        buffer_write(__args_buffer, buffer_u32, _buffer_offset);
+        buffer_write(__args_buffer__, buffer_u32, _buffer_offset);
     }
 
     // param: _buffer_count, type: optional<UInt32>
     if (is_undefined(_buffer_count))
     {
-        buffer_write(__args_buffer, buffer_bool, false);
+        buffer_write(__args_buffer__, buffer_bool, false);
     }
     else
     {
-        buffer_write(__args_buffer, buffer_bool, true);
+        buffer_write(__args_buffer__, buffer_bool, true);
         if (!is_numeric(_buffer_count)) show_error($"{_GMFUNCTION_} :: _buffer_count expected number", true);
-        buffer_write(__args_buffer, buffer_u32, _buffer_count);
+        buffer_write(__args_buffer__, buffer_u32, _buffer_count);
     }
 
-    var __return_value__ = __steam_user_request_encrypted_app_ticket(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_user_request_encrypted_app_ticket(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -14889,20 +14897,20 @@ function steam_user_get_encrypted_app_ticket(_out_ticket)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _out_ticket, type: Buffer
     if (!buffer_exists(_out_ticket)) show_error($"{_GMFUNCTION_} :: _out_ticket expected Id.Buffer", true);
     __Steamworks_queue_buffer(buffer_get_address(_out_ticket), buffer_get_size(_out_ticket));
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __ret_buffer__ = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_user_get_encrypted_app_ticket(buffer_get_address(__args_buffer), buffer_tell(__args_buffer), buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_user_get_encrypted_app_ticket(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__), buffer_get_address(__ret_buffer__), buffer_get_size(__ret_buffer__));
 
     var __result__ = undefined;
-    if (buffer_read(__ret_buffer, buffer_bool))
+    if (buffer_read(__ret_buffer__, buffer_bool))
     {
-        __result__ = buffer_read(__ret_buffer, buffer_u32);
+        __result__ = buffer_read(__ret_buffer__, buffer_u32);
     }
     else
     {
@@ -14926,19 +14934,19 @@ function steam_user_request_auth_ticket_for_web_api(_identity, _callback)
 
     var __dispatcher__ = __Steamworks_get_dispatcher();
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _identity, type: String
     if (!is_string(_identity)) show_error($"{_GMFUNCTION_} :: _identity expected string", true);
-    buffer_write(__args_buffer, buffer_u32, string_byte_length(_identity));
-    buffer_write(__args_buffer, buffer_string, _identity);
+    buffer_write(__args_buffer__, buffer_u32, string_byte_length(_identity));
+    buffer_write(__args_buffer__, buffer_string, _identity);
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
     var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
-    buffer_write(__args_buffer, buffer_u64, _callback_handle);
+    buffer_write(__args_buffer__, buffer_u64, _callback_handle);
 
-    var __return_value__ = __steam_user_request_auth_ticket_for_web_api(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_user_request_auth_ticket_for_web_api(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -14953,19 +14961,19 @@ function steam_user_fetch_auth_ticket_for_web_api(_auth_ticket_handle, _out_tick
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _auth_ticket_handle, type: UInt32
     if (!is_numeric(_auth_ticket_handle)) show_error($"{_GMFUNCTION_} :: _auth_ticket_handle expected number", true);
-    buffer_write(__args_buffer, buffer_u32, _auth_ticket_handle);
+    buffer_write(__args_buffer__, buffer_u32, _auth_ticket_handle);
 
     // param: _out_ticket, type: Buffer
     if (!buffer_exists(_out_ticket)) show_error($"{_GMFUNCTION_} :: _out_ticket expected Id.Buffer", true);
     __Steamworks_queue_buffer(buffer_get_address(_out_ticket), buffer_get_size(_out_ticket));
 
-    var __return_value__ = __steam_user_fetch_auth_ticket_for_web_api(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_user_fetch_auth_ticket_for_web_api(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
-    return __return_value__;
+    return bool(__return_value__);
 }
 
 /**
@@ -14978,14 +14986,14 @@ function steam_user_get_duration_control(_callback)
 
     var __dispatcher__ = __Steamworks_get_dispatcher();
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
     var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
-    buffer_write(__args_buffer, buffer_u64, _callback_handle);
+    buffer_write(__args_buffer__, buffer_u64, _callback_handle);
 
-    var __return_value__ = __steam_user_get_duration_control(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_user_get_duration_control(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -15001,19 +15009,19 @@ function steam_user_request_store_auth_url(_redirect_url, _callback)
 
     var __dispatcher__ = __Steamworks_get_dispatcher();
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _redirect_url, type: String
     if (!is_string(_redirect_url)) show_error($"{_GMFUNCTION_} :: _redirect_url expected string", true);
-    buffer_write(__args_buffer, buffer_u32, string_byte_length(_redirect_url));
-    buffer_write(__args_buffer, buffer_string, _redirect_url);
+    buffer_write(__args_buffer__, buffer_u32, string_byte_length(_redirect_url));
+    buffer_write(__args_buffer__, buffer_string, _redirect_url);
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
     var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
-    buffer_write(__args_buffer, buffer_u64, _callback_handle);
+    buffer_write(__args_buffer__, buffer_u64, _callback_handle);
 
-    var __return_value__ = __steam_user_request_store_auth_url(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_user_request_store_auth_url(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -15028,14 +15036,14 @@ function steam_user_get_market_eligibility(_callback)
 
     var __dispatcher__ = __Steamworks_get_dispatcher();
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
     var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
-    buffer_write(__args_buffer, buffer_u64, _callback_handle);
+    buffer_write(__args_buffer__, buffer_u64, _callback_handle);
 
-    var __return_value__ = __steam_user_get_market_eligibility(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_user_get_market_eligibility(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -15050,22 +15058,22 @@ function steam_user_track_app_usage_event(_game_id, _app_usage_event, _extra_inf
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _game_id, type: UInt64
     if (!is_numeric(_game_id)) show_error($"{_GMFUNCTION_} :: _game_id expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _game_id);
+    buffer_write(__args_buffer__, buffer_u64, _game_id);
 
     // param: _app_usage_event, type: Int32
     if (!is_numeric(_app_usage_event)) show_error($"{_GMFUNCTION_} :: _app_usage_event expected number", true);
-    buffer_write(__args_buffer, buffer_s32, _app_usage_event);
+    buffer_write(__args_buffer__, buffer_s32, _app_usage_event);
 
     // param: _extra_info, type: String
     if (!is_string(_extra_info)) show_error($"{_GMFUNCTION_} :: _extra_info expected string", true);
-    buffer_write(__args_buffer, buffer_u32, string_byte_length(_extra_info));
-    buffer_write(__args_buffer, buffer_string, _extra_info);
+    buffer_write(__args_buffer__, buffer_u32, string_byte_length(_extra_info));
+    buffer_write(__args_buffer__, buffer_string, _extra_info);
 
-    var __return_value__ = __steam_user_track_app_usage_event(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_user_track_app_usage_event(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -15080,22 +15088,22 @@ function steam_user_user_has_license_for_app(_steam_id, _app_id)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _steam_id, type: UInt64
     if (!is_numeric(_steam_id)) show_error($"{_GMFUNCTION_} :: _steam_id expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _steam_id);
+    buffer_write(__args_buffer__, buffer_u64, _steam_id);
 
     // param: _app_id, type: UInt32
     if (!is_numeric(_app_id)) show_error($"{_GMFUNCTION_} :: _app_id expected number", true);
-    buffer_write(__args_buffer, buffer_u32, _app_id);
+    buffer_write(__args_buffer__, buffer_u32, _app_id);
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __ret_buffer__ = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_user_user_has_license_for_app(buffer_get_address(__args_buffer), buffer_tell(__args_buffer), buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_user_user_has_license_for_app(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__), buffer_get_address(__ret_buffer__), buffer_get_size(__ret_buffer__));
 
     var __result__ = undefined;
-    __result__ = buffer_read(__ret_buffer, buffer_u64);
+    __result__ = buffer_read(__ret_buffer__, buffer_u64);
     return __result__;
 }
 
@@ -15109,14 +15117,14 @@ function steam_user_set_callback_steam_servers_connected(_callback)
 
     var __dispatcher__ = __Steamworks_get_dispatcher();
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
     var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
-    buffer_write(__args_buffer, buffer_u64, _callback_handle);
+    buffer_write(__args_buffer__, buffer_u64, _callback_handle);
 
-    var __return_value__ = __steam_user_set_callback_steam_servers_connected(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_user_set_callback_steam_servers_connected(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -15134,14 +15142,14 @@ function steam_user_set_callback_steam_server_connect_failure(_callback)
 
     var __dispatcher__ = __Steamworks_get_dispatcher();
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
     var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
-    buffer_write(__args_buffer, buffer_u64, _callback_handle);
+    buffer_write(__args_buffer__, buffer_u64, _callback_handle);
 
-    var __return_value__ = __steam_user_set_callback_steam_server_connect_failure(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_user_set_callback_steam_server_connect_failure(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -15159,14 +15167,14 @@ function steam_user_set_callback_steam_servers_disconnected(_callback)
 
     var __dispatcher__ = __Steamworks_get_dispatcher();
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
     var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
-    buffer_write(__args_buffer, buffer_u64, _callback_handle);
+    buffer_write(__args_buffer__, buffer_u64, _callback_handle);
 
-    var __return_value__ = __steam_user_set_callback_steam_servers_disconnected(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_user_set_callback_steam_servers_disconnected(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -15184,14 +15192,14 @@ function steam_user_set_callback_client_game_server_deny(_callback)
 
     var __dispatcher__ = __Steamworks_get_dispatcher();
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
     var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
-    buffer_write(__args_buffer, buffer_u64, _callback_handle);
+    buffer_write(__args_buffer__, buffer_u64, _callback_handle);
 
-    var __return_value__ = __steam_user_set_callback_client_game_server_deny(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_user_set_callback_client_game_server_deny(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -15209,14 +15217,14 @@ function steam_user_set_callback_licenses_updated(_callback)
 
     var __dispatcher__ = __Steamworks_get_dispatcher();
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
     var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
-    buffer_write(__args_buffer, buffer_u64, _callback_handle);
+    buffer_write(__args_buffer__, buffer_u64, _callback_handle);
 
-    var __return_value__ = __steam_user_set_callback_licenses_updated(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_user_set_callback_licenses_updated(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -15234,14 +15242,14 @@ function steam_user_set_callback_microtxn_authorization_response(_callback)
 
     var __dispatcher__ = __Steamworks_get_dispatcher();
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
     var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
-    buffer_write(__args_buffer, buffer_u64, _callback_handle);
+    buffer_write(__args_buffer__, buffer_u64, _callback_handle);
 
-    var __return_value__ = __steam_user_set_callback_microtxn_authorization_response(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_user_set_callback_microtxn_authorization_response(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -15259,14 +15267,14 @@ function steam_user_set_callback_get_auth_session_ticket_response(_callback)
 
     var __dispatcher__ = __Steamworks_get_dispatcher();
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
     var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
-    buffer_write(__args_buffer, buffer_u64, _callback_handle);
+    buffer_write(__args_buffer__, buffer_u64, _callback_handle);
 
-    var __return_value__ = __steam_user_set_callback_get_auth_session_ticket_response(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_user_set_callback_get_auth_session_ticket_response(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -15284,14 +15292,14 @@ function steam_user_set_callback_validate_auth_ticket_response(_callback)
 
     var __dispatcher__ = __Steamworks_get_dispatcher();
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
     var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
-    buffer_write(__args_buffer, buffer_u64, _callback_handle);
+    buffer_write(__args_buffer__, buffer_u64, _callback_handle);
 
-    var __return_value__ = __steam_user_set_callback_validate_auth_ticket_response(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_user_set_callback_validate_auth_ticket_response(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -15313,19 +15321,19 @@ function steam_utils_check_file_signature(_file_name, _callback)
 
     var __dispatcher__ = __Steamworks_get_dispatcher();
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _file_name, type: String
     if (!is_string(_file_name)) show_error($"{_GMFUNCTION_} :: _file_name expected string", true);
-    buffer_write(__args_buffer, buffer_u32, string_byte_length(_file_name));
-    buffer_write(__args_buffer, buffer_string, _file_name);
+    buffer_write(__args_buffer__, buffer_u32, string_byte_length(_file_name));
+    buffer_write(__args_buffer__, buffer_string, _file_name);
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
     var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
-    buffer_write(__args_buffer, buffer_u64, _callback_handle);
+    buffer_write(__args_buffer__, buffer_u64, _callback_handle);
 
-    var __return_value__ = __steam_utils_check_file_signature(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_utils_check_file_signature(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -15339,18 +15347,18 @@ function steam_utils_get_api_call_failure_reason(_steam_api_call)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _steam_api_call, type: UInt64
     if (!is_numeric(_steam_api_call)) show_error($"{_GMFUNCTION_} :: _steam_api_call expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _steam_api_call);
+    buffer_write(__args_buffer__, buffer_u64, _steam_api_call);
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __ret_buffer__ = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_utils_get_api_call_failure_reason(buffer_get_address(__args_buffer), buffer_tell(__args_buffer), buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_utils_get_api_call_failure_reason(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__), buffer_get_address(__ret_buffer__), buffer_get_size(__ret_buffer__));
 
     var __result__ = undefined;
-    __result__ = buffer_read(__ret_buffer, buffer_u64);
+    __result__ = buffer_read(__ret_buffer__, buffer_u64);
     return __result__;
 }
 
@@ -15365,28 +15373,28 @@ function steam_utils_get_api_call_result(_steam_api_call, _callback_expected, _o
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _steam_api_call, type: UInt64
     if (!is_numeric(_steam_api_call)) show_error($"{_GMFUNCTION_} :: _steam_api_call expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _steam_api_call);
+    buffer_write(__args_buffer__, buffer_u64, _steam_api_call);
 
     // param: _callback_expected, type: Int32
     if (!is_numeric(_callback_expected)) show_error($"{_GMFUNCTION_} :: _callback_expected expected number", true);
-    buffer_write(__args_buffer, buffer_s32, _callback_expected);
+    buffer_write(__args_buffer__, buffer_s32, _callback_expected);
 
     // param: _out_callback, type: Buffer
     if (!buffer_exists(_out_callback)) show_error($"{_GMFUNCTION_} :: _out_callback expected Id.Buffer", true);
     __Steamworks_queue_buffer(buffer_get_address(_out_callback), buffer_get_size(_out_callback));
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __ret_buffer__ = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_utils_get_api_call_result(buffer_get_address(__args_buffer), buffer_tell(__args_buffer), buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_utils_get_api_call_result(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__), buffer_get_address(__ret_buffer__), buffer_get_size(__ret_buffer__));
 
     var __result__ = undefined;
-    if (buffer_read(__ret_buffer, buffer_bool))
+    if (buffer_read(__ret_buffer__, buffer_bool))
     {
-        __result__ = buffer_read(__ret_buffer, buffer_bool);
+        __result__ = bool(buffer_read(__ret_buffer__, buffer_bool));
     }
     else
     {
@@ -15405,14 +15413,14 @@ function steam_utils_set_callback_ip_country(_callback)
 
     var __dispatcher__ = __Steamworks_get_dispatcher();
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
     var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
-    buffer_write(__args_buffer, buffer_u64, _callback_handle);
+    buffer_write(__args_buffer__, buffer_u64, _callback_handle);
 
-    var __return_value__ = __steam_utils_set_callback_ip_country(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_utils_set_callback_ip_country(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -15430,14 +15438,14 @@ function steam_utils_set_callback_low_battery_power(_callback)
 
     var __dispatcher__ = __Steamworks_get_dispatcher();
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
     var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
-    buffer_write(__args_buffer, buffer_u64, _callback_handle);
+    buffer_write(__args_buffer__, buffer_u64, _callback_handle);
 
-    var __return_value__ = __steam_utils_set_callback_low_battery_power(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_utils_set_callback_low_battery_power(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -15455,14 +15463,14 @@ function steam_utils_set_callback_steam_api_call_completed(_callback)
 
     var __dispatcher__ = __Steamworks_get_dispatcher();
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
     var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
-    buffer_write(__args_buffer, buffer_u64, _callback_handle);
+    buffer_write(__args_buffer__, buffer_u64, _callback_handle);
 
-    var __return_value__ = __steam_utils_set_callback_steam_api_call_completed(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_utils_set_callback_steam_api_call_completed(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -15480,14 +15488,14 @@ function steam_utils_set_callback_app_resuming_from_suspend(_callback)
 
     var __dispatcher__ = __Steamworks_get_dispatcher();
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
     var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
-    buffer_write(__args_buffer, buffer_u64, _callback_handle);
+    buffer_write(__args_buffer__, buffer_u64, _callback_handle);
 
-    var __return_value__ = __steam_utils_set_callback_app_resuming_from_suspend(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_utils_set_callback_app_resuming_from_suspend(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -15505,14 +15513,14 @@ function steam_utils_set_callback_steam_shutdown(_callback)
 
     var __dispatcher__ = __Steamworks_get_dispatcher();
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
     var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
-    buffer_write(__args_buffer, buffer_u64, _callback_handle);
+    buffer_write(__args_buffer__, buffer_u64, _callback_handle);
 
-    var __return_value__ = __steam_utils_set_callback_steam_shutdown(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_utils_set_callback_steam_shutdown(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -15531,12 +15539,12 @@ function steam_utils_get_connected_universe()
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __ret_buffer__ = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_utils_get_connected_universe(buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_utils_get_connected_universe(buffer_get_address(__ret_buffer__), buffer_get_size(__ret_buffer__));
 
     var __result__ = undefined;
-    __result__ = buffer_read(__ret_buffer, buffer_u64);
+    __result__ = buffer_read(__ret_buffer__, buffer_u64);
     return __result__;
 }
 
@@ -15551,15 +15559,15 @@ function steam_utils_get_entered_gamepad_text_input()
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __ret_buffer__ = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_utils_get_entered_gamepad_text_input(buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_utils_get_entered_gamepad_text_input(buffer_get_address(__ret_buffer__), buffer_get_size(__ret_buffer__));
 
     var __result__ = undefined;
-    if (buffer_read(__ret_buffer, buffer_bool))
+    if (buffer_read(__ret_buffer__, buffer_bool))
     {
-        buffer_read(__ret_buffer, buffer_u32);
-        __result__ = buffer_read(__ret_buffer, buffer_string);
+        buffer_read(__ret_buffer__, buffer_u32);
+        __result__ = buffer_read(__ret_buffer__, buffer_string);
     }
     else
     {
@@ -15581,19 +15589,19 @@ function steam_utils_get_image_rgba(_image_handle, _dest)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _image_handle, type: Int32
     if (!is_numeric(_image_handle)) show_error($"{_GMFUNCTION_} :: _image_handle expected number", true);
-    buffer_write(__args_buffer, buffer_s32, _image_handle);
+    buffer_write(__args_buffer__, buffer_s32, _image_handle);
 
     // param: _dest, type: Buffer
     if (!buffer_exists(_dest)) show_error($"{_GMFUNCTION_} :: _dest expected Id.Buffer", true);
     __Steamworks_queue_buffer(buffer_get_address(_dest), buffer_get_size(_dest));
 
-    var __return_value__ = __steam_utils_get_image_rgba(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_utils_get_image_rgba(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
-    return __return_value__;
+    return bool(__return_value__);
 }
 
 /**
@@ -15605,14 +15613,14 @@ function steam_utils_get_image_size(_image_handle)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __ret_buffer__ = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_utils_get_image_size(_image_handle, buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_utils_get_image_size(_image_handle, buffer_get_address(__ret_buffer__), buffer_get_size(__ret_buffer__));
 
     var __result__ = undefined;
-    if (buffer_read(__ret_buffer, buffer_bool))
+    if (buffer_read(__ret_buffer__, buffer_bool))
     {
-        __result__ = __SteamUtilsImageSize_decode(__ret_buffer, buffer_tell(__ret_buffer));
+        __result__ = __SteamUtilsImageSize_decode(__ret_buffer__, buffer_tell(__ret_buffer__));
     }
     else
     {
@@ -15663,20 +15671,20 @@ function steam_utils_is_api_call_completed(_steam_api_call)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _steam_api_call, type: UInt64
     if (!is_numeric(_steam_api_call)) show_error($"{_GMFUNCTION_} :: _steam_api_call expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _steam_api_call);
+    buffer_write(__args_buffer__, buffer_u64, _steam_api_call);
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __ret_buffer__ = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_utils_is_api_call_completed(buffer_get_address(__args_buffer), buffer_tell(__args_buffer), buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_utils_is_api_call_completed(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__), buffer_get_address(__ret_buffer__), buffer_get_size(__ret_buffer__));
 
     var __result__ = undefined;
-    if (buffer_read(__ret_buffer, buffer_bool))
+    if (buffer_read(__ret_buffer__, buffer_bool))
     {
-        __result__ = buffer_read(__ret_buffer, buffer_bool);
+        __result__ = bool(buffer_read(__ret_buffer__, buffer_bool));
     }
     else
     {
@@ -15699,30 +15707,30 @@ function steam_utils_filter_text(_context, _source_steam_id, _input_message)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _context, type: enum SteamUtilsTextFilteringContext
 
     if (!is_numeric(_context)) show_error($"{_GMFUNCTION_} :: _context expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _context);
+    buffer_write(__args_buffer__, buffer_u64, _context);
 
     // param: _source_steam_id, type: UInt64
     if (!is_numeric(_source_steam_id)) show_error($"{_GMFUNCTION_} :: _source_steam_id expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _source_steam_id);
+    buffer_write(__args_buffer__, buffer_u64, _source_steam_id);
 
     // param: _input_message, type: String
     if (!is_string(_input_message)) show_error($"{_GMFUNCTION_} :: _input_message expected string", true);
-    buffer_write(__args_buffer, buffer_u32, string_byte_length(_input_message));
-    buffer_write(__args_buffer, buffer_string, _input_message);
+    buffer_write(__args_buffer__, buffer_u32, string_byte_length(_input_message));
+    buffer_write(__args_buffer__, buffer_string, _input_message);
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __ret_buffer__ = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_utils_filter_text(buffer_get_address(__args_buffer), buffer_tell(__args_buffer), buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_utils_filter_text(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__), buffer_get_address(__ret_buffer__), buffer_get_size(__ret_buffer__));
 
     var __result__ = undefined;
-    if (buffer_read(__ret_buffer, buffer_bool))
+    if (buffer_read(__ret_buffer__, buffer_bool))
     {
-        __result__ = __SteamUtilsFilterTextResult_decode(__ret_buffer, buffer_tell(__ret_buffer));
+        __result__ = __SteamUtilsFilterTextResult_decode(__ret_buffer__, buffer_tell(__ret_buffer__));
     }
     else
     {
@@ -15745,14 +15753,14 @@ function steam_utils_set_overlay_notification_position(_notification_position)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _notification_position, type: enum SteamApiNotificationPosition
 
     if (!is_numeric(_notification_position)) show_error($"{_GMFUNCTION_} :: _notification_position expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _notification_position);
+    buffer_write(__args_buffer__, buffer_u64, _notification_position);
 
-    var __return_value__ = __steam_utils_set_overlay_notification_position(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_utils_set_overlay_notification_position(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -15773,35 +15781,35 @@ function steam_utils_show_gamepad_text_input(_input_mode, _line_mode, _descripti
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _input_mode, type: enum SteamUtilsGamepadTextInputMode
 
     if (!is_numeric(_input_mode)) show_error($"{_GMFUNCTION_} :: _input_mode expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _input_mode);
+    buffer_write(__args_buffer__, buffer_u64, _input_mode);
 
     // param: _line_mode, type: enum SteamUtilsGamepadTextInputLineMode
 
     if (!is_numeric(_line_mode)) show_error($"{_GMFUNCTION_} :: _line_mode expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _line_mode);
+    buffer_write(__args_buffer__, buffer_u64, _line_mode);
 
     // param: _description, type: String
     if (!is_string(_description)) show_error($"{_GMFUNCTION_} :: _description expected string", true);
-    buffer_write(__args_buffer, buffer_u32, string_byte_length(_description));
-    buffer_write(__args_buffer, buffer_string, _description);
+    buffer_write(__args_buffer__, buffer_u32, string_byte_length(_description));
+    buffer_write(__args_buffer__, buffer_string, _description);
 
     // param: _char_max, type: UInt32
     if (!is_numeric(_char_max)) show_error($"{_GMFUNCTION_} :: _char_max expected number", true);
-    buffer_write(__args_buffer, buffer_u32, _char_max);
+    buffer_write(__args_buffer__, buffer_u32, _char_max);
 
     // param: _existing_text, type: String
     if (!is_string(_existing_text)) show_error($"{_GMFUNCTION_} :: _existing_text expected string", true);
-    buffer_write(__args_buffer, buffer_u32, string_byte_length(_existing_text));
-    buffer_write(__args_buffer, buffer_string, _existing_text);
+    buffer_write(__args_buffer__, buffer_u32, string_byte_length(_existing_text));
+    buffer_write(__args_buffer__, buffer_string, _existing_text);
 
-    var __return_value__ = __steam_utils_show_gamepad_text_input(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_utils_show_gamepad_text_input(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
-    return __return_value__;
+    return bool(__return_value__);
 }
 
 /**
@@ -15817,32 +15825,32 @@ function steam_utils_show_floating_gamepad_text_input(_keyboard_mode, _text_fiel
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _keyboard_mode, type: enum SteamUtilsFloatingGamepadTextInputMode
 
     if (!is_numeric(_keyboard_mode)) show_error($"{_GMFUNCTION_} :: _keyboard_mode expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _keyboard_mode);
+    buffer_write(__args_buffer__, buffer_u64, _keyboard_mode);
 
     // param: _text_field_x, type: Int32
     if (!is_numeric(_text_field_x)) show_error($"{_GMFUNCTION_} :: _text_field_x expected number", true);
-    buffer_write(__args_buffer, buffer_s32, _text_field_x);
+    buffer_write(__args_buffer__, buffer_s32, _text_field_x);
 
     // param: _text_field_y, type: Int32
     if (!is_numeric(_text_field_y)) show_error($"{_GMFUNCTION_} :: _text_field_y expected number", true);
-    buffer_write(__args_buffer, buffer_s32, _text_field_y);
+    buffer_write(__args_buffer__, buffer_s32, _text_field_y);
 
     // param: _text_field_width, type: Int32
     if (!is_numeric(_text_field_width)) show_error($"{_GMFUNCTION_} :: _text_field_width expected number", true);
-    buffer_write(__args_buffer, buffer_s32, _text_field_width);
+    buffer_write(__args_buffer__, buffer_s32, _text_field_width);
 
     // param: _text_field_height, type: Int32
     if (!is_numeric(_text_field_height)) show_error($"{_GMFUNCTION_} :: _text_field_height expected number", true);
-    buffer_write(__args_buffer, buffer_s32, _text_field_height);
+    buffer_write(__args_buffer__, buffer_s32, _text_field_height);
 
-    var __return_value__ = __steam_utils_show_floating_gamepad_text_input(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_utils_show_floating_gamepad_text_input(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
-    return __return_value__;
+    return bool(__return_value__);
 }
 
 // Skipping function steam_utils_dismiss_floating_gamepad_text_input (no wrapper is required)
@@ -15867,14 +15875,14 @@ function steam_utils_set_callback_gamepad_text_input_dismissed(_callback)
 
     var __dispatcher__ = __Steamworks_get_dispatcher();
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
     var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
-    buffer_write(__args_buffer, buffer_u64, _callback_handle);
+    buffer_write(__args_buffer__, buffer_u64, _callback_handle);
 
-    var __return_value__ = __steam_utils_set_callback_gamepad_text_input_dismissed(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_utils_set_callback_gamepad_text_input_dismissed(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -15892,14 +15900,14 @@ function steam_utils_set_callback_floating_gamepad_text_input_dismissed(_callbac
 
     var __dispatcher__ = __Steamworks_get_dispatcher();
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
     var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
-    buffer_write(__args_buffer, buffer_u64, _callback_handle);
+    buffer_write(__args_buffer__, buffer_u64, _callback_handle);
 
-    var __return_value__ = __steam_utils_set_callback_floating_gamepad_text_input_dismissed(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_utils_set_callback_floating_gamepad_text_input_dismissed(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -15917,14 +15925,14 @@ function steam_utils_set_callback_warning_message(_callback)
 
     var __dispatcher__ = __Steamworks_get_dispatcher();
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
     var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
-    buffer_write(__args_buffer, buffer_u64, _callback_handle);
+    buffer_write(__args_buffer__, buffer_u64, _callback_handle);
 
-    var __return_value__ = __steam_utils_set_callback_warning_message(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_utils_set_callback_warning_message(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -15944,22 +15952,22 @@ function steam_ugc_add_app_dependency(_published_file_id, _app_id, _callback)
 
     var __dispatcher__ = __Steamworks_get_dispatcher();
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _published_file_id, type: UInt64
     if (!is_numeric(_published_file_id)) show_error($"{_GMFUNCTION_} :: _published_file_id expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _published_file_id);
+    buffer_write(__args_buffer__, buffer_u64, _published_file_id);
 
     // param: _app_id, type: UInt32
     if (!is_numeric(_app_id)) show_error($"{_GMFUNCTION_} :: _app_id expected number", true);
-    buffer_write(__args_buffer, buffer_u32, _app_id);
+    buffer_write(__args_buffer__, buffer_u32, _app_id);
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
     var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
-    buffer_write(__args_buffer, buffer_u64, _callback_handle);
+    buffer_write(__args_buffer__, buffer_u64, _callback_handle);
 
-    var __return_value__ = __steam_ugc_add_app_dependency(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_ugc_add_app_dependency(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -15976,22 +15984,22 @@ function steam_ugc_add_dependency(_parent_published_file_id, _child_published_fi
 
     var __dispatcher__ = __Steamworks_get_dispatcher();
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _parent_published_file_id, type: UInt64
     if (!is_numeric(_parent_published_file_id)) show_error($"{_GMFUNCTION_} :: _parent_published_file_id expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _parent_published_file_id);
+    buffer_write(__args_buffer__, buffer_u64, _parent_published_file_id);
 
     // param: _child_published_file_id, type: UInt64
     if (!is_numeric(_child_published_file_id)) show_error($"{_GMFUNCTION_} :: _child_published_file_id expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _child_published_file_id);
+    buffer_write(__args_buffer__, buffer_u64, _child_published_file_id);
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
     var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
-    buffer_write(__args_buffer, buffer_u64, _callback_handle);
+    buffer_write(__args_buffer__, buffer_u64, _callback_handle);
 
-    var __return_value__ = __steam_ugc_add_dependency(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_ugc_add_dependency(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -16006,20 +16014,20 @@ function steam_ugc_add_excluded_tag(_query_handle, _tag_name)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _query_handle, type: UInt64
     if (!is_numeric(_query_handle)) show_error($"{_GMFUNCTION_} :: _query_handle expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _query_handle);
+    buffer_write(__args_buffer__, buffer_u64, _query_handle);
 
     // param: _tag_name, type: String
     if (!is_string(_tag_name)) show_error($"{_GMFUNCTION_} :: _tag_name expected string", true);
-    buffer_write(__args_buffer, buffer_u32, string_byte_length(_tag_name));
-    buffer_write(__args_buffer, buffer_string, _tag_name);
+    buffer_write(__args_buffer__, buffer_u32, string_byte_length(_tag_name));
+    buffer_write(__args_buffer__, buffer_string, _tag_name);
 
-    var __return_value__ = __steam_ugc_add_excluded_tag(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_ugc_add_excluded_tag(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
-    return __return_value__;
+    return bool(__return_value__);
 }
 
 /**
@@ -16033,25 +16041,25 @@ function steam_ugc_add_item_key_value_tag(_update_handle, _key, _value)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _update_handle, type: UInt64
     if (!is_numeric(_update_handle)) show_error($"{_GMFUNCTION_} :: _update_handle expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _update_handle);
+    buffer_write(__args_buffer__, buffer_u64, _update_handle);
 
     // param: _key, type: String
     if (!is_string(_key)) show_error($"{_GMFUNCTION_} :: _key expected string", true);
-    buffer_write(__args_buffer, buffer_u32, string_byte_length(_key));
-    buffer_write(__args_buffer, buffer_string, _key);
+    buffer_write(__args_buffer__, buffer_u32, string_byte_length(_key));
+    buffer_write(__args_buffer__, buffer_string, _key);
 
     // param: _value, type: String
     if (!is_string(_value)) show_error($"{_GMFUNCTION_} :: _value expected string", true);
-    buffer_write(__args_buffer, buffer_u32, string_byte_length(_value));
-    buffer_write(__args_buffer, buffer_string, _value);
+    buffer_write(__args_buffer__, buffer_u32, string_byte_length(_value));
+    buffer_write(__args_buffer__, buffer_string, _value);
 
-    var __return_value__ = __steam_ugc_add_item_key_value_tag(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_ugc_add_item_key_value_tag(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
-    return __return_value__;
+    return bool(__return_value__);
 }
 
 /**
@@ -16065,25 +16073,25 @@ function steam_ugc_add_item_preview_file(_update_handle, _preview_file_path, _pr
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _update_handle, type: UInt64
     if (!is_numeric(_update_handle)) show_error($"{_GMFUNCTION_} :: _update_handle expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _update_handle);
+    buffer_write(__args_buffer__, buffer_u64, _update_handle);
 
     // param: _preview_file_path, type: String
     if (!is_string(_preview_file_path)) show_error($"{_GMFUNCTION_} :: _preview_file_path expected string", true);
-    buffer_write(__args_buffer, buffer_u32, string_byte_length(_preview_file_path));
-    buffer_write(__args_buffer, buffer_string, _preview_file_path);
+    buffer_write(__args_buffer__, buffer_u32, string_byte_length(_preview_file_path));
+    buffer_write(__args_buffer__, buffer_string, _preview_file_path);
 
     // param: _preview_type, type: enum SteamUgcItemPreviewType
 
     if (!is_numeric(_preview_type)) show_error($"{_GMFUNCTION_} :: _preview_type expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _preview_type);
+    buffer_write(__args_buffer__, buffer_u64, _preview_type);
 
-    var __return_value__ = __steam_ugc_add_item_preview_file(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_ugc_add_item_preview_file(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
-    return __return_value__;
+    return bool(__return_value__);
 }
 
 /**
@@ -16096,20 +16104,20 @@ function steam_ugc_add_item_preview_video(_update_handle, _video_id)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _update_handle, type: UInt64
     if (!is_numeric(_update_handle)) show_error($"{_GMFUNCTION_} :: _update_handle expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _update_handle);
+    buffer_write(__args_buffer__, buffer_u64, _update_handle);
 
     // param: _video_id, type: String
     if (!is_string(_video_id)) show_error($"{_GMFUNCTION_} :: _video_id expected string", true);
-    buffer_write(__args_buffer, buffer_u32, string_byte_length(_video_id));
-    buffer_write(__args_buffer, buffer_string, _video_id);
+    buffer_write(__args_buffer__, buffer_u32, string_byte_length(_video_id));
+    buffer_write(__args_buffer__, buffer_string, _video_id);
 
-    var __return_value__ = __steam_ugc_add_item_preview_video(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_ugc_add_item_preview_video(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
-    return __return_value__;
+    return bool(__return_value__);
 }
 
 /**
@@ -16124,22 +16132,22 @@ function steam_ugc_add_item_to_favorites(_app_id, _published_file_id, _callback)
 
     var __dispatcher__ = __Steamworks_get_dispatcher();
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _app_id, type: UInt32
     if (!is_numeric(_app_id)) show_error($"{_GMFUNCTION_} :: _app_id expected number", true);
-    buffer_write(__args_buffer, buffer_u32, _app_id);
+    buffer_write(__args_buffer__, buffer_u32, _app_id);
 
     // param: _published_file_id, type: UInt64
     if (!is_numeric(_published_file_id)) show_error($"{_GMFUNCTION_} :: _published_file_id expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _published_file_id);
+    buffer_write(__args_buffer__, buffer_u64, _published_file_id);
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
     var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
-    buffer_write(__args_buffer, buffer_u64, _callback_handle);
+    buffer_write(__args_buffer__, buffer_u64, _callback_handle);
 
-    var __return_value__ = __steam_ugc_add_item_to_favorites(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_ugc_add_item_to_favorites(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -16155,25 +16163,25 @@ function steam_ugc_add_required_key_value_tag(_query_handle, _key, _value)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _query_handle, type: UInt64
     if (!is_numeric(_query_handle)) show_error($"{_GMFUNCTION_} :: _query_handle expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _query_handle);
+    buffer_write(__args_buffer__, buffer_u64, _query_handle);
 
     // param: _key, type: String
     if (!is_string(_key)) show_error($"{_GMFUNCTION_} :: _key expected string", true);
-    buffer_write(__args_buffer, buffer_u32, string_byte_length(_key));
-    buffer_write(__args_buffer, buffer_string, _key);
+    buffer_write(__args_buffer__, buffer_u32, string_byte_length(_key));
+    buffer_write(__args_buffer__, buffer_string, _key);
 
     // param: _value, type: String
     if (!is_string(_value)) show_error($"{_GMFUNCTION_} :: _value expected string", true);
-    buffer_write(__args_buffer, buffer_u32, string_byte_length(_value));
-    buffer_write(__args_buffer, buffer_string, _value);
+    buffer_write(__args_buffer__, buffer_u32, string_byte_length(_value));
+    buffer_write(__args_buffer__, buffer_string, _value);
 
-    var __return_value__ = __steam_ugc_add_required_key_value_tag(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_ugc_add_required_key_value_tag(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
-    return __return_value__;
+    return bool(__return_value__);
 }
 
 /**
@@ -16186,20 +16194,20 @@ function steam_ugc_add_required_tag(_query_handle, _tag_name)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _query_handle, type: UInt64
     if (!is_numeric(_query_handle)) show_error($"{_GMFUNCTION_} :: _query_handle expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _query_handle);
+    buffer_write(__args_buffer__, buffer_u64, _query_handle);
 
     // param: _tag_name, type: String
     if (!is_string(_tag_name)) show_error($"{_GMFUNCTION_} :: _tag_name expected string", true);
-    buffer_write(__args_buffer, buffer_u32, string_byte_length(_tag_name));
-    buffer_write(__args_buffer, buffer_string, _tag_name);
+    buffer_write(__args_buffer__, buffer_u32, string_byte_length(_tag_name));
+    buffer_write(__args_buffer__, buffer_string, _tag_name);
 
-    var __return_value__ = __steam_ugc_add_required_tag(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_ugc_add_required_tag(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
-    return __return_value__;
+    return bool(__return_value__);
 }
 
 /**
@@ -16212,26 +16220,26 @@ function steam_ugc_add_required_tag_group(_query_handle, _tags_csv)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _query_handle, type: UInt64
     if (!is_numeric(_query_handle)) show_error($"{_GMFUNCTION_} :: _query_handle expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _query_handle);
+    buffer_write(__args_buffer__, buffer_u64, _query_handle);
 
     // param: _tags_csv, type: String[]
     if (!is_array(_tags_csv)) show_error($"{_GMFUNCTION_} :: _tags_csv expected array", true);
     var __length__ = array_length(_tags_csv);
-    buffer_write(__args_buffer, buffer_u32, __length__);
+    buffer_write(__args_buffer__, buffer_u32, __length__);
     for (var _i = 0; _i < __length__; ++_i)
     {
         if (!is_string(_tags_csv[_i])) show_error($"{_GMFUNCTION_} :: _tags_csv[_i] expected string", true);
-        buffer_write(__args_buffer, buffer_u32, string_byte_length(_tags_csv[_i]));
-        buffer_write(__args_buffer, buffer_string, _tags_csv[_i]);
+        buffer_write(__args_buffer__, buffer_u32, string_byte_length(_tags_csv[_i]));
+        buffer_write(__args_buffer__, buffer_string, _tags_csv[_i]);
     }
 
-    var __return_value__ = __steam_ugc_add_required_tag_group(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_ugc_add_required_tag_group(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
-    return __return_value__;
+    return bool(__return_value__);
 }
 
 // Skipping function steam_ugc_init_workshop_for_game_server (no wrapper is required)
@@ -16249,23 +16257,23 @@ function steam_ugc_create_item(_consumer_app_id, _workshop_file_type, _callback)
 
     var __dispatcher__ = __Steamworks_get_dispatcher();
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _consumer_app_id, type: UInt32
     if (!is_numeric(_consumer_app_id)) show_error($"{_GMFUNCTION_} :: _consumer_app_id expected number", true);
-    buffer_write(__args_buffer, buffer_u32, _consumer_app_id);
+    buffer_write(__args_buffer__, buffer_u32, _consumer_app_id);
 
     // param: _workshop_file_type, type: enum SteamRemoteStorageWorkshopFileType
 
     if (!is_numeric(_workshop_file_type)) show_error($"{_GMFUNCTION_} :: _workshop_file_type expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _workshop_file_type);
+    buffer_write(__args_buffer__, buffer_u64, _workshop_file_type);
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
     var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
-    buffer_write(__args_buffer, buffer_u64, _callback_handle);
+    buffer_write(__args_buffer__, buffer_u64, _callback_handle);
 
-    var __return_value__ = __steam_ugc_create_item(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_ugc_create_item(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -16283,36 +16291,36 @@ function steam_ugc_create_query_all_ugc_request(_query_type, _matching_ugc_type,
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _query_type, type: enum SteamUgcQuery
 
     if (!is_numeric(_query_type)) show_error($"{_GMFUNCTION_} :: _query_type expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _query_type);
+    buffer_write(__args_buffer__, buffer_u64, _query_type);
 
     // param: _matching_ugc_type, type: enum SteamUgcMatchingUgcType
 
     if (!is_numeric(_matching_ugc_type)) show_error($"{_GMFUNCTION_} :: _matching_ugc_type expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _matching_ugc_type);
+    buffer_write(__args_buffer__, buffer_u64, _matching_ugc_type);
 
     // param: _creator_app_id, type: UInt32
     if (!is_numeric(_creator_app_id)) show_error($"{_GMFUNCTION_} :: _creator_app_id expected number", true);
-    buffer_write(__args_buffer, buffer_u32, _creator_app_id);
+    buffer_write(__args_buffer__, buffer_u32, _creator_app_id);
 
     // param: _consumer_app_id, type: UInt32
     if (!is_numeric(_consumer_app_id)) show_error($"{_GMFUNCTION_} :: _consumer_app_id expected number", true);
-    buffer_write(__args_buffer, buffer_u32, _consumer_app_id);
+    buffer_write(__args_buffer__, buffer_u32, _consumer_app_id);
 
     // param: _page, type: UInt32
     if (!is_numeric(_page)) show_error($"{_GMFUNCTION_} :: _page expected number", true);
-    buffer_write(__args_buffer, buffer_u32, _page);
+    buffer_write(__args_buffer__, buffer_u32, _page);
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __ret_buffer__ = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_ugc_create_query_all_ugc_request(buffer_get_address(__args_buffer), buffer_tell(__args_buffer), buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_ugc_create_query_all_ugc_request(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__), buffer_get_address(__ret_buffer__), buffer_get_size(__ret_buffer__));
 
     var __result__ = undefined;
-    __result__ = buffer_read(__ret_buffer, buffer_u64);
+    __result__ = buffer_read(__ret_buffer__, buffer_u64);
     return __result__;
 }
 
@@ -16325,24 +16333,24 @@ function steam_ugc_create_query_ugc_details_request(_published_file_ids)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _published_file_ids, type: UInt64[]
     if (!is_array(_published_file_ids)) show_error($"{_GMFUNCTION_} :: _published_file_ids expected array", true);
     var __length__ = array_length(_published_file_ids);
-    buffer_write(__args_buffer, buffer_u32, __length__);
+    buffer_write(__args_buffer__, buffer_u32, __length__);
     for (var _i = 0; _i < __length__; ++_i)
     {
         if (!is_numeric(_published_file_ids[_i])) show_error($"{_GMFUNCTION_} :: _published_file_ids[_i] expected number", true);
-        buffer_write(__args_buffer, buffer_u64, _published_file_ids[_i]);
+        buffer_write(__args_buffer__, buffer_u64, _published_file_ids[_i]);
     }
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __ret_buffer__ = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_ugc_create_query_ugc_details_request(buffer_get_address(__args_buffer), buffer_tell(__args_buffer), buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_ugc_create_query_ugc_details_request(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__), buffer_get_address(__ret_buffer__), buffer_get_size(__ret_buffer__));
 
     var __result__ = undefined;
-    __result__ = buffer_read(__ret_buffer, buffer_u64);
+    __result__ = buffer_read(__ret_buffer__, buffer_u64);
     return __result__;
 }
 
@@ -16361,45 +16369,45 @@ function steam_ugc_create_query_user_ugc_request(_account_id, _list_type, _match
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _account_id, type: UInt32
     if (!is_numeric(_account_id)) show_error($"{_GMFUNCTION_} :: _account_id expected number", true);
-    buffer_write(__args_buffer, buffer_u32, _account_id);
+    buffer_write(__args_buffer__, buffer_u32, _account_id);
 
     // param: _list_type, type: enum SteamUserUgcList
 
     if (!is_numeric(_list_type)) show_error($"{_GMFUNCTION_} :: _list_type expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _list_type);
+    buffer_write(__args_buffer__, buffer_u64, _list_type);
 
     // param: _matching_ugc_type, type: enum SteamUgcMatchingUgcType
 
     if (!is_numeric(_matching_ugc_type)) show_error($"{_GMFUNCTION_} :: _matching_ugc_type expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _matching_ugc_type);
+    buffer_write(__args_buffer__, buffer_u64, _matching_ugc_type);
 
     // param: _sort_order, type: enum SteamUserUgcListSortOrder
 
     if (!is_numeric(_sort_order)) show_error($"{_GMFUNCTION_} :: _sort_order expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _sort_order);
+    buffer_write(__args_buffer__, buffer_u64, _sort_order);
 
     // param: _creator_app_id, type: UInt32
     if (!is_numeric(_creator_app_id)) show_error($"{_GMFUNCTION_} :: _creator_app_id expected number", true);
-    buffer_write(__args_buffer, buffer_u32, _creator_app_id);
+    buffer_write(__args_buffer__, buffer_u32, _creator_app_id);
 
     // param: _consumer_app_id, type: UInt32
     if (!is_numeric(_consumer_app_id)) show_error($"{_GMFUNCTION_} :: _consumer_app_id expected number", true);
-    buffer_write(__args_buffer, buffer_u32, _consumer_app_id);
+    buffer_write(__args_buffer__, buffer_u32, _consumer_app_id);
 
     // param: _page, type: UInt32
     if (!is_numeric(_page)) show_error($"{_GMFUNCTION_} :: _page expected number", true);
-    buffer_write(__args_buffer, buffer_u32, _page);
+    buffer_write(__args_buffer__, buffer_u32, _page);
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __ret_buffer__ = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_ugc_create_query_user_ugc_request(buffer_get_address(__args_buffer), buffer_tell(__args_buffer), buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_ugc_create_query_user_ugc_request(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__), buffer_get_address(__ret_buffer__), buffer_get_size(__ret_buffer__));
 
     var __result__ = undefined;
-    __result__ = buffer_read(__ret_buffer, buffer_u64);
+    __result__ = buffer_read(__ret_buffer__, buffer_u64);
     return __result__;
 }
 
@@ -16414,18 +16422,18 @@ function steam_ugc_delete_item(_published_file_id, _callback)
 
     var __dispatcher__ = __Steamworks_get_dispatcher();
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _published_file_id, type: UInt64
     if (!is_numeric(_published_file_id)) show_error($"{_GMFUNCTION_} :: _published_file_id expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _published_file_id);
+    buffer_write(__args_buffer__, buffer_u64, _published_file_id);
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
     var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
-    buffer_write(__args_buffer, buffer_u64, _callback_handle);
+    buffer_write(__args_buffer__, buffer_u64, _callback_handle);
 
-    var __return_value__ = __steam_ugc_delete_item(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_ugc_delete_item(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -16440,19 +16448,19 @@ function steam_ugc_download_item(_published_file_id, _high_priority)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _published_file_id, type: UInt64
     if (!is_numeric(_published_file_id)) show_error($"{_GMFUNCTION_} :: _published_file_id expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _published_file_id);
+    buffer_write(__args_buffer__, buffer_u64, _published_file_id);
 
     // param: _high_priority, type: Bool
     if (!is_bool(_high_priority)) show_error($"{_GMFUNCTION_} :: _high_priority expected bool", true);
-    buffer_write(__args_buffer, buffer_bool, _high_priority);
+    buffer_write(__args_buffer__, buffer_bool, _high_priority);
 
-    var __return_value__ = __steam_ugc_download_item(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_ugc_download_item(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
-    return __return_value__;
+    return bool(__return_value__);
 }
 
 /**
@@ -16466,18 +16474,18 @@ function steam_ugc_get_app_dependencies(_published_file_id, _callback)
 
     var __dispatcher__ = __Steamworks_get_dispatcher();
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _published_file_id, type: UInt64
     if (!is_numeric(_published_file_id)) show_error($"{_GMFUNCTION_} :: _published_file_id expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _published_file_id);
+    buffer_write(__args_buffer__, buffer_u64, _published_file_id);
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
     var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
-    buffer_write(__args_buffer, buffer_u64, _callback_handle);
+    buffer_write(__args_buffer__, buffer_u64, _callback_handle);
 
-    var __return_value__ = __steam_ugc_get_app_dependencies(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_ugc_get_app_dependencies(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -16491,20 +16499,20 @@ function steam_ugc_get_item_download_info(_published_file_id)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _published_file_id, type: UInt64
     if (!is_numeric(_published_file_id)) show_error($"{_GMFUNCTION_} :: _published_file_id expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _published_file_id);
+    buffer_write(__args_buffer__, buffer_u64, _published_file_id);
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __ret_buffer__ = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_ugc_get_item_download_info(buffer_get_address(__args_buffer), buffer_tell(__args_buffer), buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_ugc_get_item_download_info(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__), buffer_get_address(__ret_buffer__), buffer_get_size(__ret_buffer__));
 
     var __result__ = undefined;
-    if (buffer_read(__ret_buffer, buffer_bool))
+    if (buffer_read(__ret_buffer__, buffer_bool))
     {
-        __result__ = __SteamUgcItemDownloadInfo_decode(__ret_buffer, buffer_tell(__ret_buffer));
+        __result__ = __SteamUgcItemDownloadInfo_decode(__ret_buffer__, buffer_tell(__ret_buffer__));
     }
     else
     {
@@ -16522,20 +16530,20 @@ function steam_ugc_get_item_install_info(_published_file_id)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _published_file_id, type: UInt64
     if (!is_numeric(_published_file_id)) show_error($"{_GMFUNCTION_} :: _published_file_id expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _published_file_id);
+    buffer_write(__args_buffer__, buffer_u64, _published_file_id);
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __ret_buffer__ = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_ugc_get_item_install_info(buffer_get_address(__args_buffer), buffer_tell(__args_buffer), buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_ugc_get_item_install_info(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__), buffer_get_address(__ret_buffer__), buffer_get_size(__ret_buffer__));
 
     var __result__ = undefined;
-    if (buffer_read(__ret_buffer, buffer_bool))
+    if (buffer_read(__ret_buffer__, buffer_bool))
     {
-        __result__ = __SteamUgcItemInstallInfo_decode(__ret_buffer, buffer_tell(__ret_buffer));
+        __result__ = __SteamUgcItemInstallInfo_decode(__ret_buffer__, buffer_tell(__ret_buffer__));
     }
     else
     {
@@ -16553,18 +16561,18 @@ function steam_ugc_get_item_state(_published_file_id)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _published_file_id, type: UInt64
     if (!is_numeric(_published_file_id)) show_error($"{_GMFUNCTION_} :: _published_file_id expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _published_file_id);
+    buffer_write(__args_buffer__, buffer_u64, _published_file_id);
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __ret_buffer__ = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_ugc_get_item_state(buffer_get_address(__args_buffer), buffer_tell(__args_buffer), buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_ugc_get_item_state(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__), buffer_get_address(__ret_buffer__), buffer_get_size(__ret_buffer__));
 
     var __result__ = undefined;
-    __result__ = buffer_read(__ret_buffer, buffer_u64);
+    __result__ = buffer_read(__ret_buffer__, buffer_u64);
     return __result__;
 }
 
@@ -16577,18 +16585,18 @@ function steam_ugc_get_item_update_progress(_update_handle)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _update_handle, type: UInt64
     if (!is_numeric(_update_handle)) show_error($"{_GMFUNCTION_} :: _update_handle expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _update_handle);
+    buffer_write(__args_buffer__, buffer_u64, _update_handle);
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __ret_buffer__ = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_ugc_get_item_update_progress(buffer_get_address(__args_buffer), buffer_tell(__args_buffer), buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_ugc_get_item_update_progress(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__), buffer_get_address(__ret_buffer__), buffer_get_size(__ret_buffer__));
 
     var __result__ = undefined;
-    __result__ = __SteamUgcItemUpdateProgress_decode(__ret_buffer, buffer_tell(__ret_buffer));
+    __result__ = __SteamUgcItemUpdateProgress_decode(__ret_buffer__, buffer_tell(__ret_buffer__));
     return __result__;
 }
 
@@ -16605,16 +16613,16 @@ function steam_ugc_get_subscribed_items(_max_entries, _include_locally_disabled)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __ret_buffer__ = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_ugc_get_subscribed_items(_max_entries, _include_locally_disabled, buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_ugc_get_subscribed_items(_max_entries, _include_locally_disabled, buffer_get_address(__ret_buffer__), buffer_get_size(__ret_buffer__));
 
     var __result__ = undefined;
-    var __length__ = buffer_read(__ret_buffer, buffer_u32);
+    var __length__ = buffer_read(__ret_buffer__, buffer_u32);
     __result__ = array_create(__length__);
     for (var _i = 0; _i < __length__; ++_i)
     {
-        __result__[_i] = buffer_read(__ret_buffer, buffer_u64);
+        __result__[_i] = buffer_read(__ret_buffer__, buffer_u64);
     }
     return __result__;
 }
@@ -16629,24 +16637,24 @@ function steam_ugc_get_query_ugc_result(_query_handle, _index)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _query_handle, type: UInt64
     if (!is_numeric(_query_handle)) show_error($"{_GMFUNCTION_} :: _query_handle expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _query_handle);
+    buffer_write(__args_buffer__, buffer_u64, _query_handle);
 
     // param: _index, type: UInt32
     if (!is_numeric(_index)) show_error($"{_GMFUNCTION_} :: _index expected number", true);
-    buffer_write(__args_buffer, buffer_u32, _index);
+    buffer_write(__args_buffer__, buffer_u32, _index);
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __ret_buffer__ = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_ugc_get_query_ugc_result(buffer_get_address(__args_buffer), buffer_tell(__args_buffer), buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_ugc_get_query_ugc_result(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__), buffer_get_address(__ret_buffer__), buffer_get_size(__ret_buffer__));
 
     var __result__ = undefined;
-    if (buffer_read(__ret_buffer, buffer_bool))
+    if (buffer_read(__ret_buffer__, buffer_bool))
     {
-        __result__ = __SteamUgcQueryResult_decode(__ret_buffer, buffer_tell(__ret_buffer));
+        __result__ = __SteamUgcQueryResult_decode(__ret_buffer__, buffer_tell(__ret_buffer__));
     }
     else
     {
@@ -16665,17 +16673,17 @@ function steam_ugc_get_query_ugc_num_tags(_query_handle, _index)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _query_handle, type: UInt64
     if (!is_numeric(_query_handle)) show_error($"{_GMFUNCTION_} :: _query_handle expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _query_handle);
+    buffer_write(__args_buffer__, buffer_u64, _query_handle);
 
     // param: _index, type: UInt32
     if (!is_numeric(_index)) show_error($"{_GMFUNCTION_} :: _index expected number", true);
-    buffer_write(__args_buffer, buffer_u32, _index);
+    buffer_write(__args_buffer__, buffer_u32, _index);
 
-    var __return_value__ = __steam_ugc_get_query_ugc_num_tags(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_ugc_get_query_ugc_num_tags(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -16691,29 +16699,29 @@ function steam_ugc_get_query_ugc_tag(_query_handle, _index, _tag_index)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _query_handle, type: UInt64
     if (!is_numeric(_query_handle)) show_error($"{_GMFUNCTION_} :: _query_handle expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _query_handle);
+    buffer_write(__args_buffer__, buffer_u64, _query_handle);
 
     // param: _index, type: UInt32
     if (!is_numeric(_index)) show_error($"{_GMFUNCTION_} :: _index expected number", true);
-    buffer_write(__args_buffer, buffer_u32, _index);
+    buffer_write(__args_buffer__, buffer_u32, _index);
 
     // param: _tag_index, type: UInt32
     if (!is_numeric(_tag_index)) show_error($"{_GMFUNCTION_} :: _tag_index expected number", true);
-    buffer_write(__args_buffer, buffer_u32, _tag_index);
+    buffer_write(__args_buffer__, buffer_u32, _tag_index);
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __ret_buffer__ = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_ugc_get_query_ugc_tag(buffer_get_address(__args_buffer), buffer_tell(__args_buffer), buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_ugc_get_query_ugc_tag(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__), buffer_get_address(__ret_buffer__), buffer_get_size(__ret_buffer__));
 
     var __result__ = undefined;
-    if (buffer_read(__ret_buffer, buffer_bool))
+    if (buffer_read(__ret_buffer__, buffer_bool))
     {
-        buffer_read(__ret_buffer, buffer_u32);
-        __result__ = buffer_read(__ret_buffer, buffer_string);
+        buffer_read(__ret_buffer__, buffer_u32);
+        __result__ = buffer_read(__ret_buffer__, buffer_string);
     }
     else
     {
@@ -16733,29 +16741,29 @@ function steam_ugc_get_query_ugc_tag_display_name(_query_handle, _index, _tag_in
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _query_handle, type: UInt64
     if (!is_numeric(_query_handle)) show_error($"{_GMFUNCTION_} :: _query_handle expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _query_handle);
+    buffer_write(__args_buffer__, buffer_u64, _query_handle);
 
     // param: _index, type: UInt32
     if (!is_numeric(_index)) show_error($"{_GMFUNCTION_} :: _index expected number", true);
-    buffer_write(__args_buffer, buffer_u32, _index);
+    buffer_write(__args_buffer__, buffer_u32, _index);
 
     // param: _tag_index, type: UInt32
     if (!is_numeric(_tag_index)) show_error($"{_GMFUNCTION_} :: _tag_index expected number", true);
-    buffer_write(__args_buffer, buffer_u32, _tag_index);
+    buffer_write(__args_buffer__, buffer_u32, _tag_index);
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __ret_buffer__ = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_ugc_get_query_ugc_tag_display_name(buffer_get_address(__args_buffer), buffer_tell(__args_buffer), buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_ugc_get_query_ugc_tag_display_name(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__), buffer_get_address(__ret_buffer__), buffer_get_size(__ret_buffer__));
 
     var __result__ = undefined;
-    if (buffer_read(__ret_buffer, buffer_bool))
+    if (buffer_read(__ret_buffer__, buffer_bool))
     {
-        buffer_read(__ret_buffer, buffer_u32);
-        __result__ = buffer_read(__ret_buffer, buffer_string);
+        buffer_read(__ret_buffer__, buffer_u32);
+        __result__ = buffer_read(__ret_buffer__, buffer_string);
     }
     else
     {
@@ -16774,25 +16782,25 @@ function steam_ugc_get_query_ugc_preview_url(_query_handle, _index)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _query_handle, type: UInt64
     if (!is_numeric(_query_handle)) show_error($"{_GMFUNCTION_} :: _query_handle expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _query_handle);
+    buffer_write(__args_buffer__, buffer_u64, _query_handle);
 
     // param: _index, type: UInt32
     if (!is_numeric(_index)) show_error($"{_GMFUNCTION_} :: _index expected number", true);
-    buffer_write(__args_buffer, buffer_u32, _index);
+    buffer_write(__args_buffer__, buffer_u32, _index);
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __ret_buffer__ = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_ugc_get_query_ugc_preview_url(buffer_get_address(__args_buffer), buffer_tell(__args_buffer), buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_ugc_get_query_ugc_preview_url(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__), buffer_get_address(__ret_buffer__), buffer_get_size(__ret_buffer__));
 
     var __result__ = undefined;
-    if (buffer_read(__ret_buffer, buffer_bool))
+    if (buffer_read(__ret_buffer__, buffer_bool))
     {
-        buffer_read(__ret_buffer, buffer_u32);
-        __result__ = buffer_read(__ret_buffer, buffer_string);
+        buffer_read(__ret_buffer__, buffer_u32);
+        __result__ = buffer_read(__ret_buffer__, buffer_string);
     }
     else
     {
@@ -16811,25 +16819,25 @@ function steam_ugc_get_query_ugc_metadata(_query_handle, _index)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _query_handle, type: UInt64
     if (!is_numeric(_query_handle)) show_error($"{_GMFUNCTION_} :: _query_handle expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _query_handle);
+    buffer_write(__args_buffer__, buffer_u64, _query_handle);
 
     // param: _index, type: UInt32
     if (!is_numeric(_index)) show_error($"{_GMFUNCTION_} :: _index expected number", true);
-    buffer_write(__args_buffer, buffer_u32, _index);
+    buffer_write(__args_buffer__, buffer_u32, _index);
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __ret_buffer__ = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_ugc_get_query_ugc_metadata(buffer_get_address(__args_buffer), buffer_tell(__args_buffer), buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_ugc_get_query_ugc_metadata(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__), buffer_get_address(__ret_buffer__), buffer_get_size(__ret_buffer__));
 
     var __result__ = undefined;
-    if (buffer_read(__ret_buffer, buffer_bool))
+    if (buffer_read(__ret_buffer__, buffer_bool))
     {
-        buffer_read(__ret_buffer, buffer_u32);
-        __result__ = buffer_read(__ret_buffer, buffer_string);
+        buffer_read(__ret_buffer__, buffer_u32);
+        __result__ = buffer_read(__ret_buffer__, buffer_string);
     }
     else
     {
@@ -16849,30 +16857,30 @@ function steam_ugc_get_query_ugc_children(_query_handle, _index, _max_entries)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _query_handle, type: UInt64
     if (!is_numeric(_query_handle)) show_error($"{_GMFUNCTION_} :: _query_handle expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _query_handle);
+    buffer_write(__args_buffer__, buffer_u64, _query_handle);
 
     // param: _index, type: UInt32
     if (!is_numeric(_index)) show_error($"{_GMFUNCTION_} :: _index expected number", true);
-    buffer_write(__args_buffer, buffer_u32, _index);
+    buffer_write(__args_buffer__, buffer_u32, _index);
 
     // param: _max_entries, type: UInt32
     if (!is_numeric(_max_entries)) show_error($"{_GMFUNCTION_} :: _max_entries expected number", true);
-    buffer_write(__args_buffer, buffer_u32, _max_entries);
+    buffer_write(__args_buffer__, buffer_u32, _max_entries);
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __ret_buffer__ = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_ugc_get_query_ugc_children(buffer_get_address(__args_buffer), buffer_tell(__args_buffer), buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_ugc_get_query_ugc_children(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__), buffer_get_address(__ret_buffer__), buffer_get_size(__ret_buffer__));
 
     var __result__ = undefined;
-    var __length__ = buffer_read(__ret_buffer, buffer_u32);
+    var __length__ = buffer_read(__ret_buffer__, buffer_u32);
     __result__ = array_create(__length__);
     for (var _i = 0; _i < __length__; ++_i)
     {
-        __result__[_i] = buffer_read(__ret_buffer, buffer_u64);
+        __result__[_i] = buffer_read(__ret_buffer__, buffer_u64);
     }
     return __result__;
 }
@@ -16888,27 +16896,27 @@ function steam_ugc_get_query_ugc_statistic(_query_handle, _index, _stat_type)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _query_handle, type: UInt64
     if (!is_numeric(_query_handle)) show_error($"{_GMFUNCTION_} :: _query_handle expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _query_handle);
+    buffer_write(__args_buffer__, buffer_u64, _query_handle);
 
     // param: _index, type: UInt32
     if (!is_numeric(_index)) show_error($"{_GMFUNCTION_} :: _index expected number", true);
-    buffer_write(__args_buffer, buffer_u32, _index);
+    buffer_write(__args_buffer__, buffer_u32, _index);
 
     // param: _stat_type, type: enum SteamUgcStatisticType
 
     if (!is_numeric(_stat_type)) show_error($"{_GMFUNCTION_} :: _stat_type expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _stat_type);
+    buffer_write(__args_buffer__, buffer_u64, _stat_type);
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __ret_buffer__ = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_ugc_get_query_ugc_statistic(buffer_get_address(__args_buffer), buffer_tell(__args_buffer), buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_ugc_get_query_ugc_statistic(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__), buffer_get_address(__ret_buffer__), buffer_get_size(__ret_buffer__));
 
     var __result__ = undefined;
-    __result__ = buffer_read(__ret_buffer, buffer_u64);
+    __result__ = buffer_read(__ret_buffer__, buffer_u64);
     return __result__;
 }
 
@@ -16922,17 +16930,17 @@ function steam_ugc_get_query_ugc_num_additional_previews(_query_handle, _index)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _query_handle, type: UInt64
     if (!is_numeric(_query_handle)) show_error($"{_GMFUNCTION_} :: _query_handle expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _query_handle);
+    buffer_write(__args_buffer__, buffer_u64, _query_handle);
 
     // param: _index, type: UInt32
     if (!is_numeric(_index)) show_error($"{_GMFUNCTION_} :: _index expected number", true);
-    buffer_write(__args_buffer, buffer_u32, _index);
+    buffer_write(__args_buffer__, buffer_u32, _index);
 
-    var __return_value__ = __steam_ugc_get_query_ugc_num_additional_previews(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_ugc_get_query_ugc_num_additional_previews(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -16948,28 +16956,28 @@ function steam_ugc_get_query_ugc_additional_preview(_query_handle, _index, _prev
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _query_handle, type: UInt64
     if (!is_numeric(_query_handle)) show_error($"{_GMFUNCTION_} :: _query_handle expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _query_handle);
+    buffer_write(__args_buffer__, buffer_u64, _query_handle);
 
     // param: _index, type: UInt32
     if (!is_numeric(_index)) show_error($"{_GMFUNCTION_} :: _index expected number", true);
-    buffer_write(__args_buffer, buffer_u32, _index);
+    buffer_write(__args_buffer__, buffer_u32, _index);
 
     // param: _preview_index, type: UInt32
     if (!is_numeric(_preview_index)) show_error($"{_GMFUNCTION_} :: _preview_index expected number", true);
-    buffer_write(__args_buffer, buffer_u32, _preview_index);
+    buffer_write(__args_buffer__, buffer_u32, _preview_index);
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __ret_buffer__ = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_ugc_get_query_ugc_additional_preview(buffer_get_address(__args_buffer), buffer_tell(__args_buffer), buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_ugc_get_query_ugc_additional_preview(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__), buffer_get_address(__ret_buffer__), buffer_get_size(__ret_buffer__));
 
     var __result__ = undefined;
-    if (buffer_read(__ret_buffer, buffer_bool))
+    if (buffer_read(__ret_buffer__, buffer_bool))
     {
-        __result__ = __SteamUgcAdditionalPreview_decode(__ret_buffer, buffer_tell(__ret_buffer));
+        __result__ = __SteamUgcAdditionalPreview_decode(__ret_buffer__, buffer_tell(__ret_buffer__));
     }
     else
     {
@@ -16989,28 +16997,28 @@ function steam_ugc_get_supported_game_version_data(_query_handle, _index, _versi
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _query_handle, type: UInt64
     if (!is_numeric(_query_handle)) show_error($"{_GMFUNCTION_} :: _query_handle expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _query_handle);
+    buffer_write(__args_buffer__, buffer_u64, _query_handle);
 
     // param: _index, type: UInt32
     if (!is_numeric(_index)) show_error($"{_GMFUNCTION_} :: _index expected number", true);
-    buffer_write(__args_buffer, buffer_u32, _index);
+    buffer_write(__args_buffer__, buffer_u32, _index);
 
     // param: _version_index, type: UInt32
     if (!is_numeric(_version_index)) show_error($"{_GMFUNCTION_} :: _version_index expected number", true);
-    buffer_write(__args_buffer, buffer_u32, _version_index);
+    buffer_write(__args_buffer__, buffer_u32, _version_index);
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __ret_buffer__ = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_ugc_get_supported_game_version_data(buffer_get_address(__args_buffer), buffer_tell(__args_buffer), buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_ugc_get_supported_game_version_data(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__), buffer_get_address(__ret_buffer__), buffer_get_size(__ret_buffer__));
 
     var __result__ = undefined;
-    if (buffer_read(__ret_buffer, buffer_bool))
+    if (buffer_read(__ret_buffer__, buffer_bool))
     {
-        __result__ = __SteamUgcSupportedGameVersionData_decode(__ret_buffer, buffer_tell(__ret_buffer));
+        __result__ = __SteamUgcSupportedGameVersionData_decode(__ret_buffer__, buffer_tell(__ret_buffer__));
     }
     else
     {
@@ -17029,17 +17037,17 @@ function steam_ugc_get_query_ugc_num_key_value_tags(_query_handle, _index)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _query_handle, type: UInt64
     if (!is_numeric(_query_handle)) show_error($"{_GMFUNCTION_} :: _query_handle expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _query_handle);
+    buffer_write(__args_buffer__, buffer_u64, _query_handle);
 
     // param: _index, type: UInt32
     if (!is_numeric(_index)) show_error($"{_GMFUNCTION_} :: _index expected number", true);
-    buffer_write(__args_buffer, buffer_u32, _index);
+    buffer_write(__args_buffer__, buffer_u32, _index);
 
-    var __return_value__ = __steam_ugc_get_query_ugc_num_key_value_tags(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_ugc_get_query_ugc_num_key_value_tags(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -17055,28 +17063,28 @@ function steam_ugc_get_query_ugc_key_value_tag(_query_handle, _index, _key_value
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _query_handle, type: UInt64
     if (!is_numeric(_query_handle)) show_error($"{_GMFUNCTION_} :: _query_handle expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _query_handle);
+    buffer_write(__args_buffer__, buffer_u64, _query_handle);
 
     // param: _index, type: UInt32
     if (!is_numeric(_index)) show_error($"{_GMFUNCTION_} :: _index expected number", true);
-    buffer_write(__args_buffer, buffer_u32, _index);
+    buffer_write(__args_buffer__, buffer_u32, _index);
 
     // param: _key_value_tag_index, type: UInt32
     if (!is_numeric(_key_value_tag_index)) show_error($"{_GMFUNCTION_} :: _key_value_tag_index expected number", true);
-    buffer_write(__args_buffer, buffer_u32, _key_value_tag_index);
+    buffer_write(__args_buffer__, buffer_u32, _key_value_tag_index);
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __ret_buffer__ = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_ugc_get_query_ugc_key_value_tag(buffer_get_address(__args_buffer), buffer_tell(__args_buffer), buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_ugc_get_query_ugc_key_value_tag(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__), buffer_get_address(__ret_buffer__), buffer_get_size(__ret_buffer__));
 
     var __result__ = undefined;
-    if (buffer_read(__ret_buffer, buffer_bool))
+    if (buffer_read(__ret_buffer__, buffer_bool))
     {
-        __result__ = __SteamUgcKeyValueTag_decode(__ret_buffer, buffer_tell(__ret_buffer));
+        __result__ = __SteamUgcKeyValueTag_decode(__ret_buffer__, buffer_tell(__ret_buffer__));
     }
     else
     {
@@ -17096,30 +17104,30 @@ function steam_ugc_get_query_ugc_content_descriptors(_query_handle, _index, _max
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _query_handle, type: UInt64
     if (!is_numeric(_query_handle)) show_error($"{_GMFUNCTION_} :: _query_handle expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _query_handle);
+    buffer_write(__args_buffer__, buffer_u64, _query_handle);
 
     // param: _index, type: UInt32
     if (!is_numeric(_index)) show_error($"{_GMFUNCTION_} :: _index expected number", true);
-    buffer_write(__args_buffer, buffer_u32, _index);
+    buffer_write(__args_buffer__, buffer_u32, _index);
 
     // param: _max_descriptors, type: UInt32
     if (!is_numeric(_max_descriptors)) show_error($"{_GMFUNCTION_} :: _max_descriptors expected number", true);
-    buffer_write(__args_buffer, buffer_u32, _max_descriptors);
+    buffer_write(__args_buffer__, buffer_u32, _max_descriptors);
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __ret_buffer__ = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_ugc_get_query_ugc_content_descriptors(buffer_get_address(__args_buffer), buffer_tell(__args_buffer), buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_ugc_get_query_ugc_content_descriptors(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__), buffer_get_address(__ret_buffer__), buffer_get_size(__ret_buffer__));
 
     var __result__ = undefined;
-    var __length__ = buffer_read(__ret_buffer, buffer_u32);
+    var __length__ = buffer_read(__ret_buffer__, buffer_u32);
     __result__ = array_create(__length__);
     for (var _i = 0; _i < __length__; ++_i)
     {
-        __result__[_i] = buffer_read(__ret_buffer, buffer_u64);
+        __result__[_i] = buffer_read(__ret_buffer__, buffer_u64);
     }
     return __result__;
 }
@@ -17136,22 +17144,22 @@ function steam_ugc_remove_app_dependency(_published_file_id, _app_id, _callback)
 
     var __dispatcher__ = __Steamworks_get_dispatcher();
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _published_file_id, type: UInt64
     if (!is_numeric(_published_file_id)) show_error($"{_GMFUNCTION_} :: _published_file_id expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _published_file_id);
+    buffer_write(__args_buffer__, buffer_u64, _published_file_id);
 
     // param: _app_id, type: UInt32
     if (!is_numeric(_app_id)) show_error($"{_GMFUNCTION_} :: _app_id expected number", true);
-    buffer_write(__args_buffer, buffer_u32, _app_id);
+    buffer_write(__args_buffer__, buffer_u32, _app_id);
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
     var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
-    buffer_write(__args_buffer, buffer_u64, _callback_handle);
+    buffer_write(__args_buffer__, buffer_u64, _callback_handle);
 
-    var __return_value__ = __steam_ugc_remove_app_dependency(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_ugc_remove_app_dependency(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -17168,22 +17176,22 @@ function steam_ugc_remove_dependency(_parent_published_file_id, _child_published
 
     var __dispatcher__ = __Steamworks_get_dispatcher();
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _parent_published_file_id, type: UInt64
     if (!is_numeric(_parent_published_file_id)) show_error($"{_GMFUNCTION_} :: _parent_published_file_id expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _parent_published_file_id);
+    buffer_write(__args_buffer__, buffer_u64, _parent_published_file_id);
 
     // param: _child_published_file_id, type: UInt64
     if (!is_numeric(_child_published_file_id)) show_error($"{_GMFUNCTION_} :: _child_published_file_id expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _child_published_file_id);
+    buffer_write(__args_buffer__, buffer_u64, _child_published_file_id);
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
     var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
-    buffer_write(__args_buffer, buffer_u64, _callback_handle);
+    buffer_write(__args_buffer__, buffer_u64, _callback_handle);
 
-    var __return_value__ = __steam_ugc_remove_dependency(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_ugc_remove_dependency(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -17200,22 +17208,22 @@ function steam_ugc_remove_item_from_favorites(_app_id, _published_file_id, _call
 
     var __dispatcher__ = __Steamworks_get_dispatcher();
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _app_id, type: UInt32
     if (!is_numeric(_app_id)) show_error($"{_GMFUNCTION_} :: _app_id expected number", true);
-    buffer_write(__args_buffer, buffer_u32, _app_id);
+    buffer_write(__args_buffer__, buffer_u32, _app_id);
 
     // param: _published_file_id, type: UInt64
     if (!is_numeric(_published_file_id)) show_error($"{_GMFUNCTION_} :: _published_file_id expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _published_file_id);
+    buffer_write(__args_buffer__, buffer_u64, _published_file_id);
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
     var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
-    buffer_write(__args_buffer, buffer_u64, _callback_handle);
+    buffer_write(__args_buffer__, buffer_u64, _callback_handle);
 
-    var __return_value__ = __steam_ugc_remove_item_from_favorites(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_ugc_remove_item_from_favorites(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -17229,15 +17237,15 @@ function steam_ugc_remove_all_item_key_value_tags(_update_handle)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _update_handle, type: UInt64
     if (!is_numeric(_update_handle)) show_error($"{_GMFUNCTION_} :: _update_handle expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _update_handle);
+    buffer_write(__args_buffer__, buffer_u64, _update_handle);
 
-    var __return_value__ = __steam_ugc_remove_all_item_key_value_tags(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_ugc_remove_all_item_key_value_tags(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
-    return __return_value__;
+    return bool(__return_value__);
 }
 
 /**
@@ -17250,20 +17258,20 @@ function steam_ugc_remove_item_key_value_tags(_update_handle, _key)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _update_handle, type: UInt64
     if (!is_numeric(_update_handle)) show_error($"{_GMFUNCTION_} :: _update_handle expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _update_handle);
+    buffer_write(__args_buffer__, buffer_u64, _update_handle);
 
     // param: _key, type: String
     if (!is_string(_key)) show_error($"{_GMFUNCTION_} :: _key expected string", true);
-    buffer_write(__args_buffer, buffer_u32, string_byte_length(_key));
-    buffer_write(__args_buffer, buffer_string, _key);
+    buffer_write(__args_buffer__, buffer_u32, string_byte_length(_key));
+    buffer_write(__args_buffer__, buffer_string, _key);
 
-    var __return_value__ = __steam_ugc_remove_item_key_value_tags(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_ugc_remove_item_key_value_tags(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
-    return __return_value__;
+    return bool(__return_value__);
 }
 
 /**
@@ -17276,19 +17284,19 @@ function steam_ugc_remove_item_preview(_update_handle, _index)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _update_handle, type: UInt64
     if (!is_numeric(_update_handle)) show_error($"{_GMFUNCTION_} :: _update_handle expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _update_handle);
+    buffer_write(__args_buffer__, buffer_u64, _update_handle);
 
     // param: _index, type: UInt32
     if (!is_numeric(_index)) show_error($"{_GMFUNCTION_} :: _index expected number", true);
-    buffer_write(__args_buffer, buffer_u32, _index);
+    buffer_write(__args_buffer__, buffer_u32, _index);
 
-    var __return_value__ = __steam_ugc_remove_item_preview(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_ugc_remove_item_preview(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
-    return __return_value__;
+    return bool(__return_value__);
 }
 
 /**
@@ -17301,20 +17309,20 @@ function steam_ugc_add_content_descriptor(_update_handle, _descriptor_id)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _update_handle, type: UInt64
     if (!is_numeric(_update_handle)) show_error($"{_GMFUNCTION_} :: _update_handle expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _update_handle);
+    buffer_write(__args_buffer__, buffer_u64, _update_handle);
 
     // param: _descriptor_id, type: enum SteamUgcContentDescriptorId
 
     if (!is_numeric(_descriptor_id)) show_error($"{_GMFUNCTION_} :: _descriptor_id expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _descriptor_id);
+    buffer_write(__args_buffer__, buffer_u64, _descriptor_id);
 
-    var __return_value__ = __steam_ugc_add_content_descriptor(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_ugc_add_content_descriptor(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
-    return __return_value__;
+    return bool(__return_value__);
 }
 
 /**
@@ -17327,20 +17335,20 @@ function steam_ugc_remove_content_descriptor(_update_handle, _descriptor_id)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _update_handle, type: UInt64
     if (!is_numeric(_update_handle)) show_error($"{_GMFUNCTION_} :: _update_handle expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _update_handle);
+    buffer_write(__args_buffer__, buffer_u64, _update_handle);
 
     // param: _descriptor_id, type: enum SteamUgcContentDescriptorId
 
     if (!is_numeric(_descriptor_id)) show_error($"{_GMFUNCTION_} :: _descriptor_id expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _descriptor_id);
+    buffer_write(__args_buffer__, buffer_u64, _descriptor_id);
 
-    var __return_value__ = __steam_ugc_remove_content_descriptor(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_ugc_remove_content_descriptor(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
-    return __return_value__;
+    return bool(__return_value__);
 }
 
 /**
@@ -17354,25 +17362,25 @@ function steam_ugc_set_required_game_versions(_update_handle, _game_branch_min, 
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _update_handle, type: UInt64
     if (!is_numeric(_update_handle)) show_error($"{_GMFUNCTION_} :: _update_handle expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _update_handle);
+    buffer_write(__args_buffer__, buffer_u64, _update_handle);
 
     // param: _game_branch_min, type: String
     if (!is_string(_game_branch_min)) show_error($"{_GMFUNCTION_} :: _game_branch_min expected string", true);
-    buffer_write(__args_buffer, buffer_u32, string_byte_length(_game_branch_min));
-    buffer_write(__args_buffer, buffer_string, _game_branch_min);
+    buffer_write(__args_buffer__, buffer_u32, string_byte_length(_game_branch_min));
+    buffer_write(__args_buffer__, buffer_string, _game_branch_min);
 
     // param: _game_branch_max, type: String
     if (!is_string(_game_branch_max)) show_error($"{_GMFUNCTION_} :: _game_branch_max expected string", true);
-    buffer_write(__args_buffer, buffer_u32, string_byte_length(_game_branch_max));
-    buffer_write(__args_buffer, buffer_string, _game_branch_max);
+    buffer_write(__args_buffer__, buffer_u32, string_byte_length(_game_branch_max));
+    buffer_write(__args_buffer__, buffer_string, _game_branch_max);
 
-    var __return_value__ = __steam_ugc_set_required_game_versions(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_ugc_set_required_game_versions(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
-    return __return_value__;
+    return bool(__return_value__);
 }
 
 /**
@@ -17386,18 +17394,18 @@ function steam_ugc_send_query_ugc_request(_query_handle, _callback)
 
     var __dispatcher__ = __Steamworks_get_dispatcher();
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _query_handle, type: UInt64
     if (!is_numeric(_query_handle)) show_error($"{_GMFUNCTION_} :: _query_handle expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _query_handle);
+    buffer_write(__args_buffer__, buffer_u64, _query_handle);
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
     var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
-    buffer_write(__args_buffer, buffer_u64, _callback_handle);
+    buffer_write(__args_buffer__, buffer_u64, _callback_handle);
 
-    var __return_value__ = __steam_ugc_send_query_ugc_request(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_ugc_send_query_ugc_request(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -17410,13 +17418,13 @@ function steam_ugc_release_query_ugc_request(_query_handle)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _query_handle, type: UInt64
     if (!is_numeric(_query_handle)) show_error($"{_GMFUNCTION_} :: _query_handle expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _query_handle);
+    buffer_write(__args_buffer__, buffer_u64, _query_handle);
 
-    var __return_value__ = __steam_ugc_release_query_ugc_request(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_ugc_release_query_ugc_request(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -17431,14 +17439,14 @@ function steam_ugc_set_callback_item_installed(_callback)
 
     var __dispatcher__ = __Steamworks_get_dispatcher();
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
     var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
-    buffer_write(__args_buffer, buffer_u64, _callback_handle);
+    buffer_write(__args_buffer__, buffer_u64, _callback_handle);
 
-    var __return_value__ = __steam_ugc_set_callback_item_installed(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_ugc_set_callback_item_installed(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -17456,14 +17464,14 @@ function steam_ugc_set_callback_download_item_result(_callback)
 
     var __dispatcher__ = __Steamworks_get_dispatcher();
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
     var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
-    buffer_write(__args_buffer, buffer_u64, _callback_handle);
+    buffer_write(__args_buffer__, buffer_u64, _callback_handle);
 
-    var __return_value__ = __steam_ugc_set_callback_download_item_result(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_ugc_set_callback_download_item_result(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -17481,19 +17489,19 @@ function steam_ugc_set_allow_cached_response(_query_handle, _max_age_seconds)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _query_handle, type: UInt64
     if (!is_numeric(_query_handle)) show_error($"{_GMFUNCTION_} :: _query_handle expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _query_handle);
+    buffer_write(__args_buffer__, buffer_u64, _query_handle);
 
     // param: _max_age_seconds, type: UInt32
     if (!is_numeric(_max_age_seconds)) show_error($"{_GMFUNCTION_} :: _max_age_seconds expected number", true);
-    buffer_write(__args_buffer, buffer_u32, _max_age_seconds);
+    buffer_write(__args_buffer__, buffer_u32, _max_age_seconds);
 
-    var __return_value__ = __steam_ugc_set_allow_cached_response(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_ugc_set_allow_cached_response(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
-    return __return_value__;
+    return bool(__return_value__);
 }
 
 /**
@@ -17506,20 +17514,20 @@ function steam_ugc_set_cloud_file_name_filter(_query_handle, _match_cloud_file_n
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _query_handle, type: UInt64
     if (!is_numeric(_query_handle)) show_error($"{_GMFUNCTION_} :: _query_handle expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _query_handle);
+    buffer_write(__args_buffer__, buffer_u64, _query_handle);
 
     // param: _match_cloud_file_name, type: String
     if (!is_string(_match_cloud_file_name)) show_error($"{_GMFUNCTION_} :: _match_cloud_file_name expected string", true);
-    buffer_write(__args_buffer, buffer_u32, string_byte_length(_match_cloud_file_name));
-    buffer_write(__args_buffer, buffer_string, _match_cloud_file_name);
+    buffer_write(__args_buffer__, buffer_u32, string_byte_length(_match_cloud_file_name));
+    buffer_write(__args_buffer__, buffer_string, _match_cloud_file_name);
 
-    var __return_value__ = __steam_ugc_set_cloud_file_name_filter(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_ugc_set_cloud_file_name_filter(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
-    return __return_value__;
+    return bool(__return_value__);
 }
 
 /**
@@ -17532,20 +17540,20 @@ function steam_ugc_set_item_content(_update_handle, _content_folder)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _update_handle, type: UInt64
     if (!is_numeric(_update_handle)) show_error($"{_GMFUNCTION_} :: _update_handle expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _update_handle);
+    buffer_write(__args_buffer__, buffer_u64, _update_handle);
 
     // param: _content_folder, type: String
     if (!is_string(_content_folder)) show_error($"{_GMFUNCTION_} :: _content_folder expected string", true);
-    buffer_write(__args_buffer, buffer_u32, string_byte_length(_content_folder));
-    buffer_write(__args_buffer, buffer_string, _content_folder);
+    buffer_write(__args_buffer__, buffer_u32, string_byte_length(_content_folder));
+    buffer_write(__args_buffer__, buffer_string, _content_folder);
 
-    var __return_value__ = __steam_ugc_set_item_content(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_ugc_set_item_content(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
-    return __return_value__;
+    return bool(__return_value__);
 }
 
 /**
@@ -17558,20 +17566,20 @@ function steam_ugc_set_item_description(_update_handle, _description)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _update_handle, type: UInt64
     if (!is_numeric(_update_handle)) show_error($"{_GMFUNCTION_} :: _update_handle expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _update_handle);
+    buffer_write(__args_buffer__, buffer_u64, _update_handle);
 
     // param: _description, type: String
     if (!is_string(_description)) show_error($"{_GMFUNCTION_} :: _description expected string", true);
-    buffer_write(__args_buffer, buffer_u32, string_byte_length(_description));
-    buffer_write(__args_buffer, buffer_string, _description);
+    buffer_write(__args_buffer__, buffer_u32, string_byte_length(_description));
+    buffer_write(__args_buffer__, buffer_string, _description);
 
-    var __return_value__ = __steam_ugc_set_item_description(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_ugc_set_item_description(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
-    return __return_value__;
+    return bool(__return_value__);
 }
 
 /**
@@ -17584,20 +17592,20 @@ function steam_ugc_set_item_metadata(_update_handle, _metadata)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _update_handle, type: UInt64
     if (!is_numeric(_update_handle)) show_error($"{_GMFUNCTION_} :: _update_handle expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _update_handle);
+    buffer_write(__args_buffer__, buffer_u64, _update_handle);
 
     // param: _metadata, type: String
     if (!is_string(_metadata)) show_error($"{_GMFUNCTION_} :: _metadata expected string", true);
-    buffer_write(__args_buffer, buffer_u32, string_byte_length(_metadata));
-    buffer_write(__args_buffer, buffer_string, _metadata);
+    buffer_write(__args_buffer__, buffer_u32, string_byte_length(_metadata));
+    buffer_write(__args_buffer__, buffer_string, _metadata);
 
-    var __return_value__ = __steam_ugc_set_item_metadata(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_ugc_set_item_metadata(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
-    return __return_value__;
+    return bool(__return_value__);
 }
 
 /**
@@ -17610,20 +17618,20 @@ function steam_ugc_set_item_preview(_update_handle, _preview_file)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _update_handle, type: UInt64
     if (!is_numeric(_update_handle)) show_error($"{_GMFUNCTION_} :: _update_handle expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _update_handle);
+    buffer_write(__args_buffer__, buffer_u64, _update_handle);
 
     // param: _preview_file, type: String
     if (!is_string(_preview_file)) show_error($"{_GMFUNCTION_} :: _preview_file expected string", true);
-    buffer_write(__args_buffer, buffer_u32, string_byte_length(_preview_file));
-    buffer_write(__args_buffer, buffer_string, _preview_file);
+    buffer_write(__args_buffer__, buffer_u32, string_byte_length(_preview_file));
+    buffer_write(__args_buffer__, buffer_string, _preview_file);
 
-    var __return_value__ = __steam_ugc_set_item_preview(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_ugc_set_item_preview(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
-    return __return_value__;
+    return bool(__return_value__);
 }
 
 /**
@@ -17636,26 +17644,26 @@ function steam_ugc_set_item_tags(_update_handle, _tags_csv)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _update_handle, type: UInt64
     if (!is_numeric(_update_handle)) show_error($"{_GMFUNCTION_} :: _update_handle expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _update_handle);
+    buffer_write(__args_buffer__, buffer_u64, _update_handle);
 
     // param: _tags_csv, type: String[]
     if (!is_array(_tags_csv)) show_error($"{_GMFUNCTION_} :: _tags_csv expected array", true);
     var __length__ = array_length(_tags_csv);
-    buffer_write(__args_buffer, buffer_u32, __length__);
+    buffer_write(__args_buffer__, buffer_u32, __length__);
     for (var _i = 0; _i < __length__; ++_i)
     {
         if (!is_string(_tags_csv[_i])) show_error($"{_GMFUNCTION_} :: _tags_csv[_i] expected string", true);
-        buffer_write(__args_buffer, buffer_u32, string_byte_length(_tags_csv[_i]));
-        buffer_write(__args_buffer, buffer_string, _tags_csv[_i]);
+        buffer_write(__args_buffer__, buffer_u32, string_byte_length(_tags_csv[_i]));
+        buffer_write(__args_buffer__, buffer_string, _tags_csv[_i]);
     }
 
-    var __return_value__ = __steam_ugc_set_item_tags(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_ugc_set_item_tags(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
-    return __return_value__;
+    return bool(__return_value__);
 }
 
 /**
@@ -17668,20 +17676,20 @@ function steam_ugc_set_item_title(_update_handle, _title)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _update_handle, type: UInt64
     if (!is_numeric(_update_handle)) show_error($"{_GMFUNCTION_} :: _update_handle expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _update_handle);
+    buffer_write(__args_buffer__, buffer_u64, _update_handle);
 
     // param: _title, type: String
     if (!is_string(_title)) show_error($"{_GMFUNCTION_} :: _title expected string", true);
-    buffer_write(__args_buffer, buffer_u32, string_byte_length(_title));
-    buffer_write(__args_buffer, buffer_string, _title);
+    buffer_write(__args_buffer__, buffer_u32, string_byte_length(_title));
+    buffer_write(__args_buffer__, buffer_string, _title);
 
-    var __return_value__ = __steam_ugc_set_item_title(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_ugc_set_item_title(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
-    return __return_value__;
+    return bool(__return_value__);
 }
 
 /**
@@ -17694,20 +17702,20 @@ function steam_ugc_set_item_update_language(_update_handle, _language)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _update_handle, type: UInt64
     if (!is_numeric(_update_handle)) show_error($"{_GMFUNCTION_} :: _update_handle expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _update_handle);
+    buffer_write(__args_buffer__, buffer_u64, _update_handle);
 
     // param: _language, type: String
     if (!is_string(_language)) show_error($"{_GMFUNCTION_} :: _language expected string", true);
-    buffer_write(__args_buffer, buffer_u32, string_byte_length(_language));
-    buffer_write(__args_buffer, buffer_string, _language);
+    buffer_write(__args_buffer__, buffer_u32, string_byte_length(_language));
+    buffer_write(__args_buffer__, buffer_string, _language);
 
-    var __return_value__ = __steam_ugc_set_item_update_language(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_ugc_set_item_update_language(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
-    return __return_value__;
+    return bool(__return_value__);
 }
 
 /**
@@ -17719,16 +17727,16 @@ function steam_ugc_get_user_content_descriptor_preferences(_max_descriptors)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __ret_buffer__ = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_ugc_get_user_content_descriptor_preferences(_max_descriptors, buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_ugc_get_user_content_descriptor_preferences(_max_descriptors, buffer_get_address(__ret_buffer__), buffer_get_size(__ret_buffer__));
 
     var __result__ = undefined;
-    var __length__ = buffer_read(__ret_buffer, buffer_u32);
+    var __length__ = buffer_read(__ret_buffer__, buffer_u32);
     __result__ = array_create(__length__);
     for (var _i = 0; _i < __length__; ++_i)
     {
-        __result__[_i] = buffer_read(__ret_buffer, buffer_u64);
+        __result__[_i] = buffer_read(__ret_buffer__, buffer_u64);
     }
     return __result__;
 }
@@ -17743,25 +17751,25 @@ function steam_ugc_set_items_disabled_locally(_published_file_ids, _disabled_loc
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _published_file_ids, type: UInt64[]
     if (!is_array(_published_file_ids)) show_error($"{_GMFUNCTION_} :: _published_file_ids expected array", true);
     var __length__ = array_length(_published_file_ids);
-    buffer_write(__args_buffer, buffer_u32, __length__);
+    buffer_write(__args_buffer__, buffer_u32, __length__);
     for (var _i = 0; _i < __length__; ++_i)
     {
         if (!is_numeric(_published_file_ids[_i])) show_error($"{_GMFUNCTION_} :: _published_file_ids[_i] expected number", true);
-        buffer_write(__args_buffer, buffer_u64, _published_file_ids[_i]);
+        buffer_write(__args_buffer__, buffer_u64, _published_file_ids[_i]);
     }
 
     // param: _disabled_locally, type: Bool
     if (!is_bool(_disabled_locally)) show_error($"{_GMFUNCTION_} :: _disabled_locally expected bool", true);
-    buffer_write(__args_buffer, buffer_bool, _disabled_locally);
+    buffer_write(__args_buffer__, buffer_bool, _disabled_locally);
 
-    var __return_value__ = __steam_ugc_set_items_disabled_locally(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_ugc_set_items_disabled_locally(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
-    return __return_value__;
+    return bool(__return_value__);
 }
 
 /**
@@ -17774,20 +17782,20 @@ function steam_ugc_set_item_visibility(_update_handle, _visibility)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _update_handle, type: UInt64
     if (!is_numeric(_update_handle)) show_error($"{_GMFUNCTION_} :: _update_handle expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _update_handle);
+    buffer_write(__args_buffer__, buffer_u64, _update_handle);
 
     // param: _visibility, type: enum SteamRemoteStoragePublishedFileVisibility
 
     if (!is_numeric(_visibility)) show_error($"{_GMFUNCTION_} :: _visibility expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _visibility);
+    buffer_write(__args_buffer__, buffer_u64, _visibility);
 
-    var __return_value__ = __steam_ugc_set_item_visibility(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_ugc_set_item_visibility(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
-    return __return_value__;
+    return bool(__return_value__);
 }
 
 /**
@@ -17800,20 +17808,20 @@ function steam_ugc_set_language(_query_handle, _language)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _query_handle, type: UInt64
     if (!is_numeric(_query_handle)) show_error($"{_GMFUNCTION_} :: _query_handle expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _query_handle);
+    buffer_write(__args_buffer__, buffer_u64, _query_handle);
 
     // param: _language, type: String
     if (!is_string(_language)) show_error($"{_GMFUNCTION_} :: _language expected string", true);
-    buffer_write(__args_buffer, buffer_u32, string_byte_length(_language));
-    buffer_write(__args_buffer, buffer_string, _language);
+    buffer_write(__args_buffer__, buffer_u32, string_byte_length(_language));
+    buffer_write(__args_buffer__, buffer_string, _language);
 
-    var __return_value__ = __steam_ugc_set_language(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_ugc_set_language(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
-    return __return_value__;
+    return bool(__return_value__);
 }
 
 /**
@@ -17826,19 +17834,19 @@ function steam_ugc_set_match_any_tag(_query_handle, _match_any_tag)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _query_handle, type: UInt64
     if (!is_numeric(_query_handle)) show_error($"{_GMFUNCTION_} :: _query_handle expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _query_handle);
+    buffer_write(__args_buffer__, buffer_u64, _query_handle);
 
     // param: _match_any_tag, type: Bool
     if (!is_bool(_match_any_tag)) show_error($"{_GMFUNCTION_} :: _match_any_tag expected bool", true);
-    buffer_write(__args_buffer, buffer_bool, _match_any_tag);
+    buffer_write(__args_buffer__, buffer_bool, _match_any_tag);
 
-    var __return_value__ = __steam_ugc_set_match_any_tag(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_ugc_set_match_any_tag(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
-    return __return_value__;
+    return bool(__return_value__);
 }
 
 /**
@@ -17851,19 +17859,19 @@ function steam_ugc_set_ranked_by_trend_days(_query_handle, _days)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _query_handle, type: UInt64
     if (!is_numeric(_query_handle)) show_error($"{_GMFUNCTION_} :: _query_handle expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _query_handle);
+    buffer_write(__args_buffer__, buffer_u64, _query_handle);
 
     // param: _days, type: UInt32
     if (!is_numeric(_days)) show_error($"{_GMFUNCTION_} :: _days expected number", true);
-    buffer_write(__args_buffer, buffer_u32, _days);
+    buffer_write(__args_buffer__, buffer_u32, _days);
 
-    var __return_value__ = __steam_ugc_set_ranked_by_trend_days(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_ugc_set_ranked_by_trend_days(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
-    return __return_value__;
+    return bool(__return_value__);
 }
 
 /**
@@ -17876,19 +17884,19 @@ function steam_ugc_set_return_additional_previews(_query_handle, _return_additio
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _query_handle, type: UInt64
     if (!is_numeric(_query_handle)) show_error($"{_GMFUNCTION_} :: _query_handle expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _query_handle);
+    buffer_write(__args_buffer__, buffer_u64, _query_handle);
 
     // param: _return_additional_previews, type: Bool
     if (!is_bool(_return_additional_previews)) show_error($"{_GMFUNCTION_} :: _return_additional_previews expected bool", true);
-    buffer_write(__args_buffer, buffer_bool, _return_additional_previews);
+    buffer_write(__args_buffer__, buffer_bool, _return_additional_previews);
 
-    var __return_value__ = __steam_ugc_set_return_additional_previews(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_ugc_set_return_additional_previews(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
-    return __return_value__;
+    return bool(__return_value__);
 }
 
 /**
@@ -17901,19 +17909,19 @@ function steam_ugc_set_return_children(_query_handle, _return_children)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _query_handle, type: UInt64
     if (!is_numeric(_query_handle)) show_error($"{_GMFUNCTION_} :: _query_handle expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _query_handle);
+    buffer_write(__args_buffer__, buffer_u64, _query_handle);
 
     // param: _return_children, type: Bool
     if (!is_bool(_return_children)) show_error($"{_GMFUNCTION_} :: _return_children expected bool", true);
-    buffer_write(__args_buffer, buffer_bool, _return_children);
+    buffer_write(__args_buffer__, buffer_bool, _return_children);
 
-    var __return_value__ = __steam_ugc_set_return_children(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_ugc_set_return_children(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
-    return __return_value__;
+    return bool(__return_value__);
 }
 
 /**
@@ -17926,19 +17934,19 @@ function steam_ugc_set_return_key_value_tags(_query_handle, _return_key_value_ta
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _query_handle, type: UInt64
     if (!is_numeric(_query_handle)) show_error($"{_GMFUNCTION_} :: _query_handle expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _query_handle);
+    buffer_write(__args_buffer__, buffer_u64, _query_handle);
 
     // param: _return_key_value_tags, type: Bool
     if (!is_bool(_return_key_value_tags)) show_error($"{_GMFUNCTION_} :: _return_key_value_tags expected bool", true);
-    buffer_write(__args_buffer, buffer_bool, _return_key_value_tags);
+    buffer_write(__args_buffer__, buffer_bool, _return_key_value_tags);
 
-    var __return_value__ = __steam_ugc_set_return_key_value_tags(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_ugc_set_return_key_value_tags(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
-    return __return_value__;
+    return bool(__return_value__);
 }
 
 /**
@@ -17951,19 +17959,19 @@ function steam_ugc_set_return_long_description(_query_handle, _return_long_descr
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _query_handle, type: UInt64
     if (!is_numeric(_query_handle)) show_error($"{_GMFUNCTION_} :: _query_handle expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _query_handle);
+    buffer_write(__args_buffer__, buffer_u64, _query_handle);
 
     // param: _return_long_description, type: Bool
     if (!is_bool(_return_long_description)) show_error($"{_GMFUNCTION_} :: _return_long_description expected bool", true);
-    buffer_write(__args_buffer, buffer_bool, _return_long_description);
+    buffer_write(__args_buffer__, buffer_bool, _return_long_description);
 
-    var __return_value__ = __steam_ugc_set_return_long_description(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_ugc_set_return_long_description(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
-    return __return_value__;
+    return bool(__return_value__);
 }
 
 /**
@@ -17976,19 +17984,19 @@ function steam_ugc_set_return_metadata(_query_handle, _return_metadata)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _query_handle, type: UInt64
     if (!is_numeric(_query_handle)) show_error($"{_GMFUNCTION_} :: _query_handle expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _query_handle);
+    buffer_write(__args_buffer__, buffer_u64, _query_handle);
 
     // param: _return_metadata, type: Bool
     if (!is_bool(_return_metadata)) show_error($"{_GMFUNCTION_} :: _return_metadata expected bool", true);
-    buffer_write(__args_buffer, buffer_bool, _return_metadata);
+    buffer_write(__args_buffer__, buffer_bool, _return_metadata);
 
-    var __return_value__ = __steam_ugc_set_return_metadata(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_ugc_set_return_metadata(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
-    return __return_value__;
+    return bool(__return_value__);
 }
 
 /**
@@ -18001,19 +18009,19 @@ function steam_ugc_set_return_only_ids(_query_handle, _return_only_ids)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _query_handle, type: UInt64
     if (!is_numeric(_query_handle)) show_error($"{_GMFUNCTION_} :: _query_handle expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _query_handle);
+    buffer_write(__args_buffer__, buffer_u64, _query_handle);
 
     // param: _return_only_ids, type: Bool
     if (!is_bool(_return_only_ids)) show_error($"{_GMFUNCTION_} :: _return_only_ids expected bool", true);
-    buffer_write(__args_buffer, buffer_bool, _return_only_ids);
+    buffer_write(__args_buffer__, buffer_bool, _return_only_ids);
 
-    var __return_value__ = __steam_ugc_set_return_only_ids(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_ugc_set_return_only_ids(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
-    return __return_value__;
+    return bool(__return_value__);
 }
 
 /**
@@ -18026,19 +18034,19 @@ function steam_ugc_set_return_playtime_stats(_query_handle, _days)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _query_handle, type: UInt64
     if (!is_numeric(_query_handle)) show_error($"{_GMFUNCTION_} :: _query_handle expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _query_handle);
+    buffer_write(__args_buffer__, buffer_u64, _query_handle);
 
     // param: _days, type: UInt32
     if (!is_numeric(_days)) show_error($"{_GMFUNCTION_} :: _days expected number", true);
-    buffer_write(__args_buffer, buffer_u32, _days);
+    buffer_write(__args_buffer__, buffer_u32, _days);
 
-    var __return_value__ = __steam_ugc_set_return_playtime_stats(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_ugc_set_return_playtime_stats(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
-    return __return_value__;
+    return bool(__return_value__);
 }
 
 /**
@@ -18051,19 +18059,19 @@ function steam_ugc_set_return_total_only(_query_handle, _return_total_only)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _query_handle, type: UInt64
     if (!is_numeric(_query_handle)) show_error($"{_GMFUNCTION_} :: _query_handle expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _query_handle);
+    buffer_write(__args_buffer__, buffer_u64, _query_handle);
 
     // param: _return_total_only, type: Bool
     if (!is_bool(_return_total_only)) show_error($"{_GMFUNCTION_} :: _return_total_only expected bool", true);
-    buffer_write(__args_buffer, buffer_bool, _return_total_only);
+    buffer_write(__args_buffer__, buffer_bool, _return_total_only);
 
-    var __return_value__ = __steam_ugc_set_return_total_only(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_ugc_set_return_total_only(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
-    return __return_value__;
+    return bool(__return_value__);
 }
 
 /**
@@ -18076,20 +18084,20 @@ function steam_ugc_set_search_text(_query_handle, _search_text)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _query_handle, type: UInt64
     if (!is_numeric(_query_handle)) show_error($"{_GMFUNCTION_} :: _query_handle expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _query_handle);
+    buffer_write(__args_buffer__, buffer_u64, _query_handle);
 
     // param: _search_text, type: String
     if (!is_string(_search_text)) show_error($"{_GMFUNCTION_} :: _search_text expected string", true);
-    buffer_write(__args_buffer, buffer_u32, string_byte_length(_search_text));
-    buffer_write(__args_buffer, buffer_string, _search_text);
+    buffer_write(__args_buffer__, buffer_u32, string_byte_length(_search_text));
+    buffer_write(__args_buffer__, buffer_string, _search_text);
 
-    var __return_value__ = __steam_ugc_set_search_text(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_ugc_set_search_text(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
-    return __return_value__;
+    return bool(__return_value__);
 }
 
 /**
@@ -18101,21 +18109,21 @@ function steam_ugc_set_subscriptions_load_order(_published_file_ids)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _published_file_ids, type: UInt64[]
     if (!is_array(_published_file_ids)) show_error($"{_GMFUNCTION_} :: _published_file_ids expected array", true);
     var __length__ = array_length(_published_file_ids);
-    buffer_write(__args_buffer, buffer_u32, __length__);
+    buffer_write(__args_buffer__, buffer_u32, __length__);
     for (var _i = 0; _i < __length__; ++_i)
     {
         if (!is_numeric(_published_file_ids[_i])) show_error($"{_GMFUNCTION_} :: _published_file_ids[_i] expected number", true);
-        buffer_write(__args_buffer, buffer_u64, _published_file_ids[_i]);
+        buffer_write(__args_buffer__, buffer_u64, _published_file_ids[_i]);
     }
 
-    var __return_value__ = __steam_ugc_set_subscriptions_load_order(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_ugc_set_subscriptions_load_order(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
-    return __return_value__;
+    return bool(__return_value__);
 }
 
 /**
@@ -18130,22 +18138,22 @@ function steam_ugc_set_user_item_vote(_published_file_id, _vote_up, _callback)
 
     var __dispatcher__ = __Steamworks_get_dispatcher();
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _published_file_id, type: UInt64
     if (!is_numeric(_published_file_id)) show_error($"{_GMFUNCTION_} :: _published_file_id expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _published_file_id);
+    buffer_write(__args_buffer__, buffer_u64, _published_file_id);
 
     // param: _vote_up, type: Bool
     if (!is_bool(_vote_up)) show_error($"{_GMFUNCTION_} :: _vote_up expected bool", true);
-    buffer_write(__args_buffer, buffer_bool, _vote_up);
+    buffer_write(__args_buffer__, buffer_bool, _vote_up);
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
     var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
-    buffer_write(__args_buffer, buffer_u64, _callback_handle);
+    buffer_write(__args_buffer__, buffer_u64, _callback_handle);
 
-    var __return_value__ = __steam_ugc_set_user_item_vote(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_ugc_set_user_item_vote(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -18161,18 +18169,18 @@ function steam_ugc_get_user_item_vote(_published_file_id, _callback)
 
     var __dispatcher__ = __Steamworks_get_dispatcher();
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _published_file_id, type: UInt64
     if (!is_numeric(_published_file_id)) show_error($"{_GMFUNCTION_} :: _published_file_id expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _published_file_id);
+    buffer_write(__args_buffer__, buffer_u64, _published_file_id);
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
     var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
-    buffer_write(__args_buffer, buffer_u64, _callback_handle);
+    buffer_write(__args_buffer__, buffer_u64, _callback_handle);
 
-    var __return_value__ = __steam_ugc_get_user_item_vote(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_ugc_get_user_item_vote(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -18187,22 +18195,22 @@ function steam_ugc_start_item_update(_consumer_app_id, _published_file_id)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _consumer_app_id, type: UInt32
     if (!is_numeric(_consumer_app_id)) show_error($"{_GMFUNCTION_} :: _consumer_app_id expected number", true);
-    buffer_write(__args_buffer, buffer_u32, _consumer_app_id);
+    buffer_write(__args_buffer__, buffer_u32, _consumer_app_id);
 
     // param: _published_file_id, type: UInt64
     if (!is_numeric(_published_file_id)) show_error($"{_GMFUNCTION_} :: _published_file_id expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _published_file_id);
+    buffer_write(__args_buffer__, buffer_u64, _published_file_id);
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __ret_buffer__ = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_ugc_start_item_update(buffer_get_address(__args_buffer), buffer_tell(__args_buffer), buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_ugc_start_item_update(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__), buffer_get_address(__ret_buffer__), buffer_get_size(__ret_buffer__));
 
     var __result__ = undefined;
-    __result__ = buffer_read(__ret_buffer, buffer_u64);
+    __result__ = buffer_read(__ret_buffer__, buffer_u64);
     return __result__;
 }
 
@@ -18217,24 +18225,24 @@ function steam_ugc_start_playtime_tracking(_published_file_ids, _callback)
 
     var __dispatcher__ = __Steamworks_get_dispatcher();
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _published_file_ids, type: UInt64[]
     if (!is_array(_published_file_ids)) show_error($"{_GMFUNCTION_} :: _published_file_ids expected array", true);
     var __length__ = array_length(_published_file_ids);
-    buffer_write(__args_buffer, buffer_u32, __length__);
+    buffer_write(__args_buffer__, buffer_u32, __length__);
     for (var _i = 0; _i < __length__; ++_i)
     {
         if (!is_numeric(_published_file_ids[_i])) show_error($"{_GMFUNCTION_} :: _published_file_ids[_i] expected number", true);
-        buffer_write(__args_buffer, buffer_u64, _published_file_ids[_i]);
+        buffer_write(__args_buffer__, buffer_u64, _published_file_ids[_i]);
     }
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
     var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
-    buffer_write(__args_buffer, buffer_u64, _callback_handle);
+    buffer_write(__args_buffer__, buffer_u64, _callback_handle);
 
-    var __return_value__ = __steam_ugc_start_playtime_tracking(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_ugc_start_playtime_tracking(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -18250,24 +18258,24 @@ function steam_ugc_stop_playtime_tracking(_published_file_ids, _callback)
 
     var __dispatcher__ = __Steamworks_get_dispatcher();
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _published_file_ids, type: UInt64[]
     if (!is_array(_published_file_ids)) show_error($"{_GMFUNCTION_} :: _published_file_ids expected array", true);
     var __length__ = array_length(_published_file_ids);
-    buffer_write(__args_buffer, buffer_u32, __length__);
+    buffer_write(__args_buffer__, buffer_u32, __length__);
     for (var _i = 0; _i < __length__; ++_i)
     {
         if (!is_numeric(_published_file_ids[_i])) show_error($"{_GMFUNCTION_} :: _published_file_ids[_i] expected number", true);
-        buffer_write(__args_buffer, buffer_u64, _published_file_ids[_i]);
+        buffer_write(__args_buffer__, buffer_u64, _published_file_ids[_i]);
     }
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
     var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
-    buffer_write(__args_buffer, buffer_u64, _callback_handle);
+    buffer_write(__args_buffer__, buffer_u64, _callback_handle);
 
-    var __return_value__ = __steam_ugc_stop_playtime_tracking(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_ugc_stop_playtime_tracking(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -18282,14 +18290,14 @@ function steam_ugc_stop_playtime_tracking_for_all_items(_callback)
 
     var __dispatcher__ = __Steamworks_get_dispatcher();
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
     var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
-    buffer_write(__args_buffer, buffer_u64, _callback_handle);
+    buffer_write(__args_buffer__, buffer_u64, _callback_handle);
 
-    var __return_value__ = __steam_ugc_stop_playtime_tracking_for_all_items(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_ugc_stop_playtime_tracking_for_all_items(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -18306,23 +18314,23 @@ function steam_ugc_submit_item_update(_update_handle, _change_note, _callback)
 
     var __dispatcher__ = __Steamworks_get_dispatcher();
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _update_handle, type: UInt64
     if (!is_numeric(_update_handle)) show_error($"{_GMFUNCTION_} :: _update_handle expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _update_handle);
+    buffer_write(__args_buffer__, buffer_u64, _update_handle);
 
     // param: _change_note, type: String
     if (!is_string(_change_note)) show_error($"{_GMFUNCTION_} :: _change_note expected string", true);
-    buffer_write(__args_buffer, buffer_u32, string_byte_length(_change_note));
-    buffer_write(__args_buffer, buffer_string, _change_note);
+    buffer_write(__args_buffer__, buffer_u32, string_byte_length(_change_note));
+    buffer_write(__args_buffer__, buffer_string, _change_note);
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
     var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
-    buffer_write(__args_buffer, buffer_u64, _callback_handle);
+    buffer_write(__args_buffer__, buffer_u64, _callback_handle);
 
-    var __return_value__ = __steam_ugc_submit_item_update(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_ugc_submit_item_update(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -18338,18 +18346,18 @@ function steam_ugc_subscribe_item(_published_file_id, _callback)
 
     var __dispatcher__ = __Steamworks_get_dispatcher();
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _published_file_id, type: UInt64
     if (!is_numeric(_published_file_id)) show_error($"{_GMFUNCTION_} :: _published_file_id expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _published_file_id);
+    buffer_write(__args_buffer__, buffer_u64, _published_file_id);
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
     var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
-    buffer_write(__args_buffer, buffer_u64, _callback_handle);
+    buffer_write(__args_buffer__, buffer_u64, _callback_handle);
 
-    var __return_value__ = __steam_ugc_subscribe_item(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_ugc_subscribe_item(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -18368,18 +18376,18 @@ function steam_ugc_unsubscribe_item(_published_file_id, _callback)
 
     var __dispatcher__ = __Steamworks_get_dispatcher();
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _published_file_id, type: UInt64
     if (!is_numeric(_published_file_id)) show_error($"{_GMFUNCTION_} :: _published_file_id expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _published_file_id);
+    buffer_write(__args_buffer__, buffer_u64, _published_file_id);
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
     var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
-    buffer_write(__args_buffer, buffer_u64, _callback_handle);
+    buffer_write(__args_buffer__, buffer_u64, _callback_handle);
 
-    var __return_value__ = __steam_ugc_unsubscribe_item(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_ugc_unsubscribe_item(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -18394,14 +18402,14 @@ function steam_ugc_set_callback_user_subscribed_items_list_changed(_callback)
 
     var __dispatcher__ = __Steamworks_get_dispatcher();
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
     var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
-    buffer_write(__args_buffer, buffer_u64, _callback_handle);
+    buffer_write(__args_buffer__, buffer_u64, _callback_handle);
 
-    var __return_value__ = __steam_ugc_set_callback_user_subscribed_items_list_changed(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_ugc_set_callback_user_subscribed_items_list_changed(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -18420,24 +18428,24 @@ function steam_ugc_update_item_preview_file(_update_handle, _index, _preview_fil
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _update_handle, type: UInt64
     if (!is_numeric(_update_handle)) show_error($"{_GMFUNCTION_} :: _update_handle expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _update_handle);
+    buffer_write(__args_buffer__, buffer_u64, _update_handle);
 
     // param: _index, type: UInt32
     if (!is_numeric(_index)) show_error($"{_GMFUNCTION_} :: _index expected number", true);
-    buffer_write(__args_buffer, buffer_u32, _index);
+    buffer_write(__args_buffer__, buffer_u32, _index);
 
     // param: _preview_file, type: String
     if (!is_string(_preview_file)) show_error($"{_GMFUNCTION_} :: _preview_file expected string", true);
-    buffer_write(__args_buffer, buffer_u32, string_byte_length(_preview_file));
-    buffer_write(__args_buffer, buffer_string, _preview_file);
+    buffer_write(__args_buffer__, buffer_u32, string_byte_length(_preview_file));
+    buffer_write(__args_buffer__, buffer_string, _preview_file);
 
-    var __return_value__ = __steam_ugc_update_item_preview_file(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_ugc_update_item_preview_file(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
-    return __return_value__;
+    return bool(__return_value__);
 }
 
 /**
@@ -18451,24 +18459,24 @@ function steam_ugc_update_item_preview_video(_update_handle, _index, _video_id)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _update_handle, type: UInt64
     if (!is_numeric(_update_handle)) show_error($"{_GMFUNCTION_} :: _update_handle expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _update_handle);
+    buffer_write(__args_buffer__, buffer_u64, _update_handle);
 
     // param: _index, type: UInt32
     if (!is_numeric(_index)) show_error($"{_GMFUNCTION_} :: _index expected number", true);
-    buffer_write(__args_buffer, buffer_u32, _index);
+    buffer_write(__args_buffer__, buffer_u32, _index);
 
     // param: _video_id, type: String
     if (!is_string(_video_id)) show_error($"{_GMFUNCTION_} :: _video_id expected string", true);
-    buffer_write(__args_buffer, buffer_u32, string_byte_length(_video_id));
-    buffer_write(__args_buffer, buffer_string, _video_id);
+    buffer_write(__args_buffer__, buffer_u32, string_byte_length(_video_id));
+    buffer_write(__args_buffer__, buffer_string, _video_id);
 
-    var __return_value__ = __steam_ugc_update_item_preview_video(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_ugc_update_item_preview_video(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
-    return __return_value__;
+    return bool(__return_value__);
 }
 
 // Skipping function steam_ugc_show_workshop_eula (no wrapper is required)
@@ -18484,14 +18492,14 @@ function steam_ugc_get_workshop_eula_status(_callback)
 
     var __dispatcher__ = __Steamworks_get_dispatcher();
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
     var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
-    buffer_write(__args_buffer, buffer_u64, _callback_handle);
+    buffer_write(__args_buffer__, buffer_u64, _callback_handle);
 
-    var __return_value__ = __steam_ugc_get_workshop_eula_status(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_ugc_get_workshop_eula_status(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -18506,17 +18514,17 @@ function steam_ugc_get_num_supported_game_versions(_query_handle, _index)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _query_handle, type: UInt64
     if (!is_numeric(_query_handle)) show_error($"{_GMFUNCTION_} :: _query_handle expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _query_handle);
+    buffer_write(__args_buffer__, buffer_u64, _query_handle);
 
     // param: _index, type: UInt32
     if (!is_numeric(_index)) show_error($"{_GMFUNCTION_} :: _index expected number", true);
-    buffer_write(__args_buffer, buffer_u32, _index);
+    buffer_write(__args_buffer__, buffer_u32, _index);
 
-    var __return_value__ = __steam_ugc_get_num_supported_game_versions(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_ugc_get_num_supported_game_versions(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -18530,17 +18538,17 @@ function steam_input_activate_action_set(_input_handle, _action_set_handle)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _input_handle, type: UInt64
     if (!is_numeric(_input_handle)) show_error($"{_GMFUNCTION_} :: _input_handle expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _input_handle);
+    buffer_write(__args_buffer__, buffer_u64, _input_handle);
 
     // param: _action_set_handle, type: UInt64
     if (!is_numeric(_action_set_handle)) show_error($"{_GMFUNCTION_} :: _action_set_handle expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _action_set_handle);
+    buffer_write(__args_buffer__, buffer_u64, _action_set_handle);
 
-    var __return_value__ = __steam_input_activate_action_set(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_input_activate_action_set(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -18554,17 +18562,17 @@ function steam_input_activate_action_set_layer(_input_handle, _action_set_layer_
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _input_handle, type: UInt64
     if (!is_numeric(_input_handle)) show_error($"{_GMFUNCTION_} :: _input_handle expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _input_handle);
+    buffer_write(__args_buffer__, buffer_u64, _input_handle);
 
     // param: _action_set_layer_handle, type: UInt64
     if (!is_numeric(_action_set_layer_handle)) show_error($"{_GMFUNCTION_} :: _action_set_layer_handle expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _action_set_layer_handle);
+    buffer_write(__args_buffer__, buffer_u64, _action_set_layer_handle);
 
-    var __return_value__ = __steam_input_activate_action_set_layer(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_input_activate_action_set_layer(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -18578,17 +18586,17 @@ function steam_input_deactivate_action_set_layer(_input_handle, _action_set_laye
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _input_handle, type: UInt64
     if (!is_numeric(_input_handle)) show_error($"{_GMFUNCTION_} :: _input_handle expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _input_handle);
+    buffer_write(__args_buffer__, buffer_u64, _input_handle);
 
     // param: _action_set_layer_handle, type: UInt64
     if (!is_numeric(_action_set_layer_handle)) show_error($"{_GMFUNCTION_} :: _action_set_layer_handle expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _action_set_layer_handle);
+    buffer_write(__args_buffer__, buffer_u64, _action_set_layer_handle);
 
-    var __return_value__ = __steam_input_deactivate_action_set_layer(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_input_deactivate_action_set_layer(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -18601,13 +18609,13 @@ function steam_input_deactivate_all_action_set_layers(_input_handle)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _input_handle, type: UInt64
     if (!is_numeric(_input_handle)) show_error($"{_GMFUNCTION_} :: _input_handle expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _input_handle);
+    buffer_write(__args_buffer__, buffer_u64, _input_handle);
 
-    var __return_value__ = __steam_input_deactivate_all_action_set_layers(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_input_deactivate_all_action_set_layers(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -18621,22 +18629,22 @@ function steam_input_get_active_action_set_layers(_input_handle)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _input_handle, type: UInt64
     if (!is_numeric(_input_handle)) show_error($"{_GMFUNCTION_} :: _input_handle expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _input_handle);
+    buffer_write(__args_buffer__, buffer_u64, _input_handle);
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __ret_buffer__ = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_input_get_active_action_set_layers(buffer_get_address(__args_buffer), buffer_tell(__args_buffer), buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_input_get_active_action_set_layers(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__), buffer_get_address(__ret_buffer__), buffer_get_size(__ret_buffer__));
 
     var __result__ = undefined;
-    var __length__ = buffer_read(__ret_buffer, buffer_u32);
+    var __length__ = buffer_read(__ret_buffer__, buffer_u32);
     __result__ = array_create(__length__);
     for (var _i = 0; _i < __length__; ++_i)
     {
-        __result__[_i] = buffer_read(__ret_buffer, buffer_u64);
+        __result__[_i] = buffer_read(__ret_buffer__, buffer_u64);
     }
     return __result__;
 }
@@ -18650,12 +18658,12 @@ function steam_input_get_action_set_handle(_action_set_name)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __ret_buffer__ = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_input_get_action_set_handle(_action_set_name, buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_input_get_action_set_handle(_action_set_name, buffer_get_address(__ret_buffer__), buffer_get_size(__ret_buffer__));
 
     var __result__ = undefined;
-    __result__ = buffer_read(__ret_buffer, buffer_u64);
+    __result__ = buffer_read(__ret_buffer__, buffer_u64);
     return __result__;
 }
 
@@ -18669,22 +18677,22 @@ function steam_input_get_analog_action_data(_input_handle, _analog_action_handle
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _input_handle, type: UInt64
     if (!is_numeric(_input_handle)) show_error($"{_GMFUNCTION_} :: _input_handle expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _input_handle);
+    buffer_write(__args_buffer__, buffer_u64, _input_handle);
 
     // param: _analog_action_handle, type: UInt64
     if (!is_numeric(_analog_action_handle)) show_error($"{_GMFUNCTION_} :: _analog_action_handle expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _analog_action_handle);
+    buffer_write(__args_buffer__, buffer_u64, _analog_action_handle);
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __ret_buffer__ = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_input_get_analog_action_data(buffer_get_address(__args_buffer), buffer_tell(__args_buffer), buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_input_get_analog_action_data(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__), buffer_get_address(__ret_buffer__), buffer_get_size(__ret_buffer__));
 
     var __result__ = undefined;
-    __result__ = __SteamInputAnalogActionData_decode(__ret_buffer, buffer_tell(__ret_buffer));
+    __result__ = __SteamInputAnalogActionData_decode(__ret_buffer__, buffer_tell(__ret_buffer__));
     return __result__;
 }
 
@@ -18697,12 +18705,12 @@ function steam_input_get_analog_action_handle(_action_name)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __ret_buffer__ = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_input_get_analog_action_handle(_action_name, buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_input_get_analog_action_handle(_action_name, buffer_get_address(__ret_buffer__), buffer_get_size(__ret_buffer__));
 
     var __result__ = undefined;
-    __result__ = buffer_read(__ret_buffer, buffer_u64);
+    __result__ = buffer_read(__ret_buffer__, buffer_u64);
     return __result__;
 }
 
@@ -18717,26 +18725,26 @@ function steam_input_get_analog_action_origins(_input_handle, _action_set_handle
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _input_handle, type: UInt64
     if (!is_numeric(_input_handle)) show_error($"{_GMFUNCTION_} :: _input_handle expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _input_handle);
+    buffer_write(__args_buffer__, buffer_u64, _input_handle);
 
     // param: _action_set_handle, type: UInt64
     if (!is_numeric(_action_set_handle)) show_error($"{_GMFUNCTION_} :: _action_set_handle expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _action_set_handle);
+    buffer_write(__args_buffer__, buffer_u64, _action_set_handle);
 
     // param: _analog_action_handle, type: UInt64
     if (!is_numeric(_analog_action_handle)) show_error($"{_GMFUNCTION_} :: _analog_action_handle expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _analog_action_handle);
+    buffer_write(__args_buffer__, buffer_u64, _analog_action_handle);
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __ret_buffer__ = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_input_get_analog_action_origins(buffer_get_address(__args_buffer), buffer_tell(__args_buffer), buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_input_get_analog_action_origins(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__), buffer_get_address(__ret_buffer__), buffer_get_size(__ret_buffer__));
 
     var __result__ = undefined;
-    __result__ = __SteamInputActionOrigins_decode(__ret_buffer, buffer_tell(__ret_buffer));
+    __result__ = __SteamInputActionOrigins_decode(__ret_buffer__, buffer_tell(__ret_buffer__));
     return __result__;
 }
 
@@ -18751,32 +18759,32 @@ function steam_input_get_glyph_png_for_action_origin(_origin, _size, _flags)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _origin, type: enum SteamInputActionOrigin
 
     if (!is_numeric(_origin)) show_error($"{_GMFUNCTION_} :: _origin expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _origin);
+    buffer_write(__args_buffer__, buffer_u64, _origin);
 
     // param: _size, type: enum SteamInputGlyphSize
 
     if (!is_numeric(_size)) show_error($"{_GMFUNCTION_} :: _size expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _size);
+    buffer_write(__args_buffer__, buffer_u64, _size);
 
     // param: _flags, type: enum SteamInputGlyphStyle
 
     if (!is_numeric(_flags)) show_error($"{_GMFUNCTION_} :: _flags expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _flags);
+    buffer_write(__args_buffer__, buffer_u64, _flags);
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __ret_buffer__ = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_input_get_glyph_png_for_action_origin(buffer_get_address(__args_buffer), buffer_tell(__args_buffer), buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_input_get_glyph_png_for_action_origin(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__), buffer_get_address(__ret_buffer__), buffer_get_size(__ret_buffer__));
 
     var __result__ = undefined;
-    if (buffer_read(__ret_buffer, buffer_bool))
+    if (buffer_read(__ret_buffer__, buffer_bool))
     {
-        buffer_read(__ret_buffer, buffer_u32);
-        __result__ = buffer_read(__ret_buffer, buffer_string);
+        buffer_read(__ret_buffer__, buffer_u32);
+        __result__ = buffer_read(__ret_buffer__, buffer_string);
     }
     else
     {
@@ -18795,27 +18803,27 @@ function steam_input_get_glyph_svg_for_action_origin(_origin, _flags)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _origin, type: enum SteamInputActionOrigin
 
     if (!is_numeric(_origin)) show_error($"{_GMFUNCTION_} :: _origin expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _origin);
+    buffer_write(__args_buffer__, buffer_u64, _origin);
 
     // param: _flags, type: enum SteamInputGlyphStyle
 
     if (!is_numeric(_flags)) show_error($"{_GMFUNCTION_} :: _flags expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _flags);
+    buffer_write(__args_buffer__, buffer_u64, _flags);
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __ret_buffer__ = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_input_get_glyph_svg_for_action_origin(buffer_get_address(__args_buffer), buffer_tell(__args_buffer), buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_input_get_glyph_svg_for_action_origin(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__), buffer_get_address(__ret_buffer__), buffer_get_size(__ret_buffer__));
 
     var __result__ = undefined;
-    if (buffer_read(__ret_buffer, buffer_bool))
+    if (buffer_read(__ret_buffer__, buffer_bool))
     {
-        buffer_read(__ret_buffer, buffer_u32);
-        __result__ = buffer_read(__ret_buffer, buffer_string);
+        buffer_read(__ret_buffer__, buffer_u32);
+        __result__ = buffer_read(__ret_buffer__, buffer_string);
     }
     else
     {
@@ -18832,16 +18840,16 @@ function steam_input_get_connected_controllers()
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __ret_buffer__ = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_input_get_connected_controllers(buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_input_get_connected_controllers(buffer_get_address(__ret_buffer__), buffer_get_size(__ret_buffer__));
 
     var __result__ = undefined;
-    var __length__ = buffer_read(__ret_buffer, buffer_u32);
+    var __length__ = buffer_read(__ret_buffer__, buffer_u32);
     __result__ = array_create(__length__);
     for (var _i = 0; _i < __length__; ++_i)
     {
-        __result__[_i] = buffer_read(__ret_buffer, buffer_u64);
+        __result__[_i] = buffer_read(__ret_buffer__, buffer_u64);
     }
     return __result__;
 }
@@ -18855,12 +18863,12 @@ function steam_input_get_controller_for_gamepad_index(_index)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __ret_buffer__ = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_input_get_controller_for_gamepad_index(_index, buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_input_get_controller_for_gamepad_index(_index, buffer_get_address(__ret_buffer__), buffer_get_size(__ret_buffer__));
 
     var __result__ = undefined;
-    __result__ = buffer_read(__ret_buffer, buffer_u64);
+    __result__ = buffer_read(__ret_buffer__, buffer_u64);
     return __result__;
 }
 
@@ -18873,18 +18881,18 @@ function steam_input_get_current_action_set(_input_handle)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _input_handle, type: UInt64
     if (!is_numeric(_input_handle)) show_error($"{_GMFUNCTION_} :: _input_handle expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _input_handle);
+    buffer_write(__args_buffer__, buffer_u64, _input_handle);
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __ret_buffer__ = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_input_get_current_action_set(buffer_get_address(__args_buffer), buffer_tell(__args_buffer), buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_input_get_current_action_set(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__), buffer_get_address(__ret_buffer__), buffer_get_size(__ret_buffer__));
 
     var __result__ = undefined;
-    __result__ = buffer_read(__ret_buffer, buffer_u64);
+    __result__ = buffer_read(__ret_buffer__, buffer_u64);
     return __result__;
 }
 
@@ -18898,22 +18906,22 @@ function steam_input_get_digital_action_data(_input_handle, _digital_action_hand
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _input_handle, type: UInt64
     if (!is_numeric(_input_handle)) show_error($"{_GMFUNCTION_} :: _input_handle expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _input_handle);
+    buffer_write(__args_buffer__, buffer_u64, _input_handle);
 
     // param: _digital_action_handle, type: UInt64
     if (!is_numeric(_digital_action_handle)) show_error($"{_GMFUNCTION_} :: _digital_action_handle expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _digital_action_handle);
+    buffer_write(__args_buffer__, buffer_u64, _digital_action_handle);
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __ret_buffer__ = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_input_get_digital_action_data(buffer_get_address(__args_buffer), buffer_tell(__args_buffer), buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_input_get_digital_action_data(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__), buffer_get_address(__ret_buffer__), buffer_get_size(__ret_buffer__));
 
     var __result__ = undefined;
-    __result__ = __SteamInputDigitalActionData_decode(__ret_buffer, buffer_tell(__ret_buffer));
+    __result__ = __SteamInputDigitalActionData_decode(__ret_buffer__, buffer_tell(__ret_buffer__));
     return __result__;
 }
 
@@ -18926,12 +18934,12 @@ function steam_input_get_digital_action_handle(_action_name)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __ret_buffer__ = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_input_get_digital_action_handle(_action_name, buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_input_get_digital_action_handle(_action_name, buffer_get_address(__ret_buffer__), buffer_get_size(__ret_buffer__));
 
     var __result__ = undefined;
-    __result__ = buffer_read(__ret_buffer, buffer_u64);
+    __result__ = buffer_read(__ret_buffer__, buffer_u64);
     return __result__;
 }
 
@@ -18946,26 +18954,26 @@ function steam_input_get_digital_action_origins(_input_handle, _action_set_handl
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _input_handle, type: UInt64
     if (!is_numeric(_input_handle)) show_error($"{_GMFUNCTION_} :: _input_handle expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _input_handle);
+    buffer_write(__args_buffer__, buffer_u64, _input_handle);
 
     // param: _action_set_handle, type: UInt64
     if (!is_numeric(_action_set_handle)) show_error($"{_GMFUNCTION_} :: _action_set_handle expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _action_set_handle);
+    buffer_write(__args_buffer__, buffer_u64, _action_set_handle);
 
     // param: _digital_action_handle, type: UInt64
     if (!is_numeric(_digital_action_handle)) show_error($"{_GMFUNCTION_} :: _digital_action_handle expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _digital_action_handle);
+    buffer_write(__args_buffer__, buffer_u64, _digital_action_handle);
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __ret_buffer__ = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_input_get_digital_action_origins(buffer_get_address(__args_buffer), buffer_tell(__args_buffer), buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_input_get_digital_action_origins(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__), buffer_get_address(__ret_buffer__), buffer_get_size(__ret_buffer__));
 
     var __result__ = undefined;
-    __result__ = __SteamInputActionOrigins_decode(__ret_buffer, buffer_tell(__ret_buffer));
+    __result__ = __SteamInputActionOrigins_decode(__ret_buffer__, buffer_tell(__ret_buffer__));
     return __result__;
 }
 
@@ -18978,13 +18986,13 @@ function steam_input_get_gamepad_index_for_controller(_input_handle)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _input_handle, type: UInt64
     if (!is_numeric(_input_handle)) show_error($"{_GMFUNCTION_} :: _input_handle expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _input_handle);
+    buffer_write(__args_buffer__, buffer_u64, _input_handle);
 
-    var __return_value__ = __steam_input_get_gamepad_index_for_controller(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_input_get_gamepad_index_for_controller(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -18998,18 +19006,18 @@ function steam_input_get_input_type_for_handle(_input_handle)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _input_handle, type: UInt64
     if (!is_numeric(_input_handle)) show_error($"{_GMFUNCTION_} :: _input_handle expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _input_handle);
+    buffer_write(__args_buffer__, buffer_u64, _input_handle);
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __ret_buffer__ = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_input_get_input_type_for_handle(buffer_get_address(__args_buffer), buffer_tell(__args_buffer), buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_input_get_input_type_for_handle(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__), buffer_get_address(__ret_buffer__), buffer_get_size(__ret_buffer__));
 
     var __result__ = undefined;
-    __result__ = buffer_read(__ret_buffer, buffer_u64);
+    __result__ = buffer_read(__ret_buffer__, buffer_u64);
     return __result__;
 }
 
@@ -19022,18 +19030,18 @@ function steam_input_get_motion_data(_input_handle)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _input_handle, type: UInt64
     if (!is_numeric(_input_handle)) show_error($"{_GMFUNCTION_} :: _input_handle expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _input_handle);
+    buffer_write(__args_buffer__, buffer_u64, _input_handle);
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __ret_buffer__ = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_input_get_motion_data(buffer_get_address(__args_buffer), buffer_tell(__args_buffer), buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_input_get_motion_data(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__), buffer_get_address(__ret_buffer__), buffer_get_size(__ret_buffer__));
 
     var __result__ = undefined;
-    __result__ = __SteamInputMotionData_decode(__ret_buffer, buffer_tell(__ret_buffer));
+    __result__ = __SteamInputMotionData_decode(__ret_buffer__, buffer_tell(__ret_buffer__));
     return __result__;
 }
 
@@ -19046,22 +19054,22 @@ function steam_input_get_string_for_action_origin(_origin)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _origin, type: enum SteamInputActionOrigin
 
     if (!is_numeric(_origin)) show_error($"{_GMFUNCTION_} :: _origin expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _origin);
+    buffer_write(__args_buffer__, buffer_u64, _origin);
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __ret_buffer__ = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_input_get_string_for_action_origin(buffer_get_address(__args_buffer), buffer_tell(__args_buffer), buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_input_get_string_for_action_origin(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__), buffer_get_address(__ret_buffer__), buffer_get_size(__ret_buffer__));
 
     var __result__ = undefined;
-    if (buffer_read(__ret_buffer, buffer_bool))
+    if (buffer_read(__ret_buffer__, buffer_bool))
     {
-        buffer_read(__ret_buffer, buffer_u32);
-        __result__ = buffer_read(__ret_buffer, buffer_string);
+        buffer_read(__ret_buffer__, buffer_u32);
+        __result__ = buffer_read(__ret_buffer__, buffer_string);
     }
     else
     {
@@ -19086,25 +19094,25 @@ function steam_input_set_dualsense_trigger_effect(_input_handle, _param)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _input_handle, type: UInt64
     if (!is_numeric(_input_handle)) show_error($"{_GMFUNCTION_} :: _input_handle expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _input_handle);
+    buffer_write(__args_buffer__, buffer_u64, _input_handle);
 
     // param: _param, type: UInt32[]
     if (!is_array(_param)) show_error($"{_GMFUNCTION_} :: _param expected array", true);
     var __length__ = array_length(_param);
-    buffer_write(__args_buffer, buffer_u32, __length__);
+    buffer_write(__args_buffer__, buffer_u32, __length__);
     for (var _i = 0; _i < __length__; ++_i)
     {
         if (!is_numeric(_param[_i])) show_error($"{_GMFUNCTION_} :: _param[_i] expected number", true);
-        buffer_write(__args_buffer, buffer_u32, _param[_i]);
+        buffer_write(__args_buffer__, buffer_u32, _param[_i]);
     }
 
-    var __return_value__ = __steam_input_set_dualsense_trigger_effect(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_input_set_dualsense_trigger_effect(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
-    return __return_value__;
+    return bool(__return_value__);
 }
 
 /**
@@ -19119,30 +19127,30 @@ function steam_input_set_led_color(_input_handle, _color_r, _color_g, _color_b, 
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _input_handle, type: UInt64
     if (!is_numeric(_input_handle)) show_error($"{_GMFUNCTION_} :: _input_handle expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _input_handle);
+    buffer_write(__args_buffer__, buffer_u64, _input_handle);
 
     // param: _color_r, type: UInt32
     if (!is_numeric(_color_r)) show_error($"{_GMFUNCTION_} :: _color_r expected number", true);
-    buffer_write(__args_buffer, buffer_u32, _color_r);
+    buffer_write(__args_buffer__, buffer_u32, _color_r);
 
     // param: _color_g, type: UInt32
     if (!is_numeric(_color_g)) show_error($"{_GMFUNCTION_} :: _color_g expected number", true);
-    buffer_write(__args_buffer, buffer_u32, _color_g);
+    buffer_write(__args_buffer__, buffer_u32, _color_g);
 
     // param: _color_b, type: UInt32
     if (!is_numeric(_color_b)) show_error($"{_GMFUNCTION_} :: _color_b expected number", true);
-    buffer_write(__args_buffer, buffer_u32, _color_b);
+    buffer_write(__args_buffer__, buffer_u32, _color_b);
 
     // param: _flags, type: enum SteamInputControllerLEDFlag
 
     if (!is_numeric(_flags)) show_error($"{_GMFUNCTION_} :: _flags expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _flags);
+    buffer_write(__args_buffer__, buffer_u64, _flags);
 
-    var __return_value__ = __steam_input_set_led_color(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_input_set_led_color(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -19156,15 +19164,15 @@ function steam_input_show_binding_panel(_input_handle)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _input_handle, type: UInt64
     if (!is_numeric(_input_handle)) show_error($"{_GMFUNCTION_} :: _input_handle expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _input_handle);
+    buffer_write(__args_buffer__, buffer_u64, _input_handle);
 
-    var __return_value__ = __steam_input_show_binding_panel(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_input_show_binding_panel(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
-    return __return_value__;
+    return bool(__return_value__);
 }
 
 // Skipping function steam_input_shutdown (no wrapper is required)
@@ -19179,17 +19187,17 @@ function steam_input_stop_analog_action_momentum(_input_handle, _analog_action_h
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _input_handle, type: UInt64
     if (!is_numeric(_input_handle)) show_error($"{_GMFUNCTION_} :: _input_handle expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _input_handle);
+    buffer_write(__args_buffer__, buffer_u64, _input_handle);
 
     // param: _analog_action_handle, type: UInt64
     if (!is_numeric(_analog_action_handle)) show_error($"{_GMFUNCTION_} :: _analog_action_handle expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _analog_action_handle);
+    buffer_write(__args_buffer__, buffer_u64, _analog_action_handle);
 
-    var __return_value__ = __steam_input_stop_analog_action_momentum(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_input_stop_analog_action_momentum(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -19204,21 +19212,21 @@ function steam_input_trigger_vibration(_input_handle, _left_speed, _right_speed)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _input_handle, type: UInt64
     if (!is_numeric(_input_handle)) show_error($"{_GMFUNCTION_} :: _input_handle expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _input_handle);
+    buffer_write(__args_buffer__, buffer_u64, _input_handle);
 
     // param: _left_speed, type: UInt32
     if (!is_numeric(_left_speed)) show_error($"{_GMFUNCTION_} :: _left_speed expected number", true);
-    buffer_write(__args_buffer, buffer_u32, _left_speed);
+    buffer_write(__args_buffer__, buffer_u32, _left_speed);
 
     // param: _right_speed, type: UInt32
     if (!is_numeric(_right_speed)) show_error($"{_GMFUNCTION_} :: _right_speed expected number", true);
-    buffer_write(__args_buffer, buffer_u32, _right_speed);
+    buffer_write(__args_buffer__, buffer_u32, _right_speed);
 
-    var __return_value__ = __steam_input_trigger_vibration(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_input_trigger_vibration(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -19235,29 +19243,29 @@ function steam_input_trigger_vibration_extended(_input_handle, _left_speed, _rig
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _input_handle, type: UInt64
     if (!is_numeric(_input_handle)) show_error($"{_GMFUNCTION_} :: _input_handle expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _input_handle);
+    buffer_write(__args_buffer__, buffer_u64, _input_handle);
 
     // param: _left_speed, type: UInt32
     if (!is_numeric(_left_speed)) show_error($"{_GMFUNCTION_} :: _left_speed expected number", true);
-    buffer_write(__args_buffer, buffer_u32, _left_speed);
+    buffer_write(__args_buffer__, buffer_u32, _left_speed);
 
     // param: _right_speed, type: UInt32
     if (!is_numeric(_right_speed)) show_error($"{_GMFUNCTION_} :: _right_speed expected number", true);
-    buffer_write(__args_buffer, buffer_u32, _right_speed);
+    buffer_write(__args_buffer__, buffer_u32, _right_speed);
 
     // param: _left_trigger_speed, type: UInt32
     if (!is_numeric(_left_trigger_speed)) show_error($"{_GMFUNCTION_} :: _left_trigger_speed expected number", true);
-    buffer_write(__args_buffer, buffer_u32, _left_trigger_speed);
+    buffer_write(__args_buffer__, buffer_u32, _left_trigger_speed);
 
     // param: _right_trigger_speed, type: UInt32
     if (!is_numeric(_right_trigger_speed)) show_error($"{_GMFUNCTION_} :: _right_trigger_speed expected number", true);
-    buffer_write(__args_buffer, buffer_u32, _right_trigger_speed);
+    buffer_write(__args_buffer__, buffer_u32, _right_trigger_speed);
 
-    var __return_value__ = __steam_input_trigger_vibration_extended(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_input_trigger_vibration_extended(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -19272,23 +19280,23 @@ function steam_input_get_action_origin_from_xbox_origin(_input_handle, _origin)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _input_handle, type: UInt64
     if (!is_numeric(_input_handle)) show_error($"{_GMFUNCTION_} :: _input_handle expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _input_handle);
+    buffer_write(__args_buffer__, buffer_u64, _input_handle);
 
     // param: _origin, type: enum SteamInputXboxOrigin
 
     if (!is_numeric(_origin)) show_error($"{_GMFUNCTION_} :: _origin expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _origin);
+    buffer_write(__args_buffer__, buffer_u64, _origin);
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __ret_buffer__ = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_input_get_action_origin_from_xbox_origin(buffer_get_address(__args_buffer), buffer_tell(__args_buffer), buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_input_get_action_origin_from_xbox_origin(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__), buffer_get_address(__ret_buffer__), buffer_get_size(__ret_buffer__));
 
     var __result__ = undefined;
-    __result__ = buffer_read(__ret_buffer, buffer_u64);
+    __result__ = buffer_read(__ret_buffer__, buffer_u64);
     return __result__;
 }
 
@@ -19302,24 +19310,24 @@ function steam_input_translate_action_origin(_destination_input_type, _source_or
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _destination_input_type, type: enum SteamInputType
 
     if (!is_numeric(_destination_input_type)) show_error($"{_GMFUNCTION_} :: _destination_input_type expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _destination_input_type);
+    buffer_write(__args_buffer__, buffer_u64, _destination_input_type);
 
     // param: _source_origin, type: enum SteamInputActionOrigin
 
     if (!is_numeric(_source_origin)) show_error($"{_GMFUNCTION_} :: _source_origin expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _source_origin);
+    buffer_write(__args_buffer__, buffer_u64, _source_origin);
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __ret_buffer__ = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_input_translate_action_origin(buffer_get_address(__args_buffer), buffer_tell(__args_buffer), buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_input_translate_action_origin(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__), buffer_get_address(__ret_buffer__), buffer_get_size(__ret_buffer__));
 
     var __result__ = undefined;
-    __result__ = buffer_read(__ret_buffer, buffer_u64);
+    __result__ = buffer_read(__ret_buffer__, buffer_u64);
     return __result__;
 }
 
@@ -19332,20 +19340,20 @@ function steam_input_get_device_binding_revision(_input_handle)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _input_handle, type: UInt64
     if (!is_numeric(_input_handle)) show_error($"{_GMFUNCTION_} :: _input_handle expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _input_handle);
+    buffer_write(__args_buffer__, buffer_u64, _input_handle);
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __ret_buffer__ = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_input_get_device_binding_revision(buffer_get_address(__args_buffer), buffer_tell(__args_buffer), buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_input_get_device_binding_revision(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__), buffer_get_address(__ret_buffer__), buffer_get_size(__ret_buffer__));
 
     var __result__ = undefined;
-    if (buffer_read(__ret_buffer, buffer_bool))
+    if (buffer_read(__ret_buffer__, buffer_bool))
     {
-        __result__ = __SteamInputDeviceBindingRevision_decode(__ret_buffer, buffer_tell(__ret_buffer));
+        __result__ = __SteamInputDeviceBindingRevision_decode(__ret_buffer__, buffer_tell(__ret_buffer__));
     }
     else
     {
@@ -19363,13 +19371,13 @@ function steam_input_get_remote_play_session_id(_input_handle)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _input_handle, type: UInt64
     if (!is_numeric(_input_handle)) show_error($"{_GMFUNCTION_} :: _input_handle expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _input_handle);
+    buffer_write(__args_buffer__, buffer_u64, _input_handle);
 
-    var __return_value__ = __steam_input_get_remote_play_session_id(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_input_get_remote_play_session_id(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -19384,14 +19392,14 @@ function steam_input_set_callback_device_connected(_callback)
 
     var __dispatcher__ = __Steamworks_get_dispatcher();
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
     var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
-    buffer_write(__args_buffer, buffer_u64, _callback_handle);
+    buffer_write(__args_buffer__, buffer_u64, _callback_handle);
 
-    var __return_value__ = __steam_input_set_callback_device_connected(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_input_set_callback_device_connected(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -19409,14 +19417,14 @@ function steam_input_set_callback_device_disconnected(_callback)
 
     var __dispatcher__ = __Steamworks_get_dispatcher();
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
     var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
-    buffer_write(__args_buffer, buffer_u64, _callback_handle);
+    buffer_write(__args_buffer__, buffer_u64, _callback_handle);
 
-    var __return_value__ = __steam_input_set_callback_device_disconnected(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_input_set_callback_device_disconnected(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -19433,14 +19441,14 @@ function steam_userstats_get_stat_int(_stat_name)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __ret_buffer__ = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_userstats_get_stat_int(_stat_name, buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_userstats_get_stat_int(_stat_name, buffer_get_address(__ret_buffer__), buffer_get_size(__ret_buffer__));
 
     var __result__ = undefined;
-    if (buffer_read(__ret_buffer, buffer_bool))
+    if (buffer_read(__ret_buffer__, buffer_bool))
     {
-        __result__ = buffer_read(__ret_buffer, buffer_s32);
+        __result__ = buffer_read(__ret_buffer__, buffer_s32);
     }
     else
     {
@@ -19458,14 +19466,14 @@ function steam_userstats_get_stat_float(_stat_name)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __ret_buffer__ = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_userstats_get_stat_float(_stat_name, buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_userstats_get_stat_float(_stat_name, buffer_get_address(__ret_buffer__), buffer_get_size(__ret_buffer__));
 
     var __result__ = undefined;
-    if (buffer_read(__ret_buffer, buffer_bool))
+    if (buffer_read(__ret_buffer__, buffer_bool))
     {
-        __result__ = buffer_read(__ret_buffer, buffer_f32);
+        __result__ = buffer_read(__ret_buffer__, buffer_f32);
     }
     else
     {
@@ -19492,14 +19500,14 @@ function steam_userstats_get_achievement(_achievement_name)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __ret_buffer__ = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_userstats_get_achievement(_achievement_name, buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_userstats_get_achievement(_achievement_name, buffer_get_address(__ret_buffer__), buffer_get_size(__ret_buffer__));
 
     var __result__ = undefined;
-    if (buffer_read(__ret_buffer, buffer_bool))
+    if (buffer_read(__ret_buffer__, buffer_bool))
     {
-        __result__ = buffer_read(__ret_buffer, buffer_bool);
+        __result__ = bool(buffer_read(__ret_buffer__, buffer_bool));
     }
     else
     {
@@ -19523,14 +19531,14 @@ function steam_userstats_achievement_and_unlock_time(_achievement_name)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __ret_buffer__ = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_userstats_achievement_and_unlock_time(_achievement_name, buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_userstats_achievement_and_unlock_time(_achievement_name, buffer_get_address(__ret_buffer__), buffer_get_size(__ret_buffer__));
 
     var __result__ = undefined;
-    if (buffer_read(__ret_buffer, buffer_bool))
+    if (buffer_read(__ret_buffer__, buffer_bool))
     {
-        __result__ = __SteamUserStatsAchievementAndUnlockTime_decode(__ret_buffer, buffer_tell(__ret_buffer));
+        __result__ = __SteamUserStatsAchievementAndUnlockTime_decode(__ret_buffer__, buffer_tell(__ret_buffer__));
     }
     else
     {
@@ -19568,18 +19576,18 @@ function steam_userstats_request_user_stats(_steam_id_user, _callback)
 
     var __dispatcher__ = __Steamworks_get_dispatcher();
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _steam_id_user, type: UInt64
     if (!is_numeric(_steam_id_user)) show_error($"{_GMFUNCTION_} :: _steam_id_user expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _steam_id_user);
+    buffer_write(__args_buffer__, buffer_u64, _steam_id_user);
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
     var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
-    buffer_write(__args_buffer, buffer_u64, _callback_handle);
+    buffer_write(__args_buffer__, buffer_u64, _callback_handle);
 
-    var __return_value__ = __steam_userstats_request_user_stats(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_userstats_request_user_stats(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -19594,25 +19602,25 @@ function steam_userstats_user_stat_int(_steam_id_user, _stat_name)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _steam_id_user, type: UInt64
     if (!is_numeric(_steam_id_user)) show_error($"{_GMFUNCTION_} :: _steam_id_user expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _steam_id_user);
+    buffer_write(__args_buffer__, buffer_u64, _steam_id_user);
 
     // param: _stat_name, type: String
     if (!is_string(_stat_name)) show_error($"{_GMFUNCTION_} :: _stat_name expected string", true);
-    buffer_write(__args_buffer, buffer_u32, string_byte_length(_stat_name));
-    buffer_write(__args_buffer, buffer_string, _stat_name);
+    buffer_write(__args_buffer__, buffer_u32, string_byte_length(_stat_name));
+    buffer_write(__args_buffer__, buffer_string, _stat_name);
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __ret_buffer__ = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_userstats_user_stat_int(buffer_get_address(__args_buffer), buffer_tell(__args_buffer), buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_userstats_user_stat_int(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__), buffer_get_address(__ret_buffer__), buffer_get_size(__ret_buffer__));
 
     var __result__ = undefined;
-    if (buffer_read(__ret_buffer, buffer_bool))
+    if (buffer_read(__ret_buffer__, buffer_bool))
     {
-        __result__ = buffer_read(__ret_buffer, buffer_s32);
+        __result__ = buffer_read(__ret_buffer__, buffer_s32);
     }
     else
     {
@@ -19631,25 +19639,25 @@ function steam_userstats_user_stat_float(_steam_id_user, _stat_name)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _steam_id_user, type: UInt64
     if (!is_numeric(_steam_id_user)) show_error($"{_GMFUNCTION_} :: _steam_id_user expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _steam_id_user);
+    buffer_write(__args_buffer__, buffer_u64, _steam_id_user);
 
     // param: _stat_name, type: String
     if (!is_string(_stat_name)) show_error($"{_GMFUNCTION_} :: _stat_name expected string", true);
-    buffer_write(__args_buffer, buffer_u32, string_byte_length(_stat_name));
-    buffer_write(__args_buffer, buffer_string, _stat_name);
+    buffer_write(__args_buffer__, buffer_u32, string_byte_length(_stat_name));
+    buffer_write(__args_buffer__, buffer_string, _stat_name);
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __ret_buffer__ = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_userstats_user_stat_float(buffer_get_address(__args_buffer), buffer_tell(__args_buffer), buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_userstats_user_stat_float(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__), buffer_get_address(__ret_buffer__), buffer_get_size(__ret_buffer__));
 
     var __result__ = undefined;
-    if (buffer_read(__ret_buffer, buffer_bool))
+    if (buffer_read(__ret_buffer__, buffer_bool))
     {
-        __result__ = buffer_read(__ret_buffer, buffer_f32);
+        __result__ = buffer_read(__ret_buffer__, buffer_f32);
     }
     else
     {
@@ -19668,25 +19676,25 @@ function steam_userstats_user_achievement(_steam_id_user, _achievement_name)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _steam_id_user, type: UInt64
     if (!is_numeric(_steam_id_user)) show_error($"{_GMFUNCTION_} :: _steam_id_user expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _steam_id_user);
+    buffer_write(__args_buffer__, buffer_u64, _steam_id_user);
 
     // param: _achievement_name, type: String
     if (!is_string(_achievement_name)) show_error($"{_GMFUNCTION_} :: _achievement_name expected string", true);
-    buffer_write(__args_buffer, buffer_u32, string_byte_length(_achievement_name));
-    buffer_write(__args_buffer, buffer_string, _achievement_name);
+    buffer_write(__args_buffer__, buffer_u32, string_byte_length(_achievement_name));
+    buffer_write(__args_buffer__, buffer_string, _achievement_name);
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __ret_buffer__ = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_userstats_user_achievement(buffer_get_address(__args_buffer), buffer_tell(__args_buffer), buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_userstats_user_achievement(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__), buffer_get_address(__ret_buffer__), buffer_get_size(__ret_buffer__));
 
     var __result__ = undefined;
-    if (buffer_read(__ret_buffer, buffer_bool))
+    if (buffer_read(__ret_buffer__, buffer_bool))
     {
-        __result__ = buffer_read(__ret_buffer, buffer_bool);
+        __result__ = bool(buffer_read(__ret_buffer__, buffer_bool));
     }
     else
     {
@@ -19705,25 +19713,25 @@ function steam_userstats_user_achievement_and_unlock_time(_steam_id_user, _achie
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _steam_id_user, type: UInt64
     if (!is_numeric(_steam_id_user)) show_error($"{_GMFUNCTION_} :: _steam_id_user expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _steam_id_user);
+    buffer_write(__args_buffer__, buffer_u64, _steam_id_user);
 
     // param: _achievement_name, type: String
     if (!is_string(_achievement_name)) show_error($"{_GMFUNCTION_} :: _achievement_name expected string", true);
-    buffer_write(__args_buffer, buffer_u32, string_byte_length(_achievement_name));
-    buffer_write(__args_buffer, buffer_string, _achievement_name);
+    buffer_write(__args_buffer__, buffer_u32, string_byte_length(_achievement_name));
+    buffer_write(__args_buffer__, buffer_string, _achievement_name);
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __ret_buffer__ = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_userstats_user_achievement_and_unlock_time(buffer_get_address(__args_buffer), buffer_tell(__args_buffer), buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_userstats_user_achievement_and_unlock_time(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__), buffer_get_address(__ret_buffer__), buffer_get_size(__ret_buffer__));
 
     var __result__ = undefined;
-    if (buffer_read(__ret_buffer, buffer_bool))
+    if (buffer_read(__ret_buffer__, buffer_bool))
     {
-        __result__ = __SteamUserStatsAchievementAndUnlockTime_decode(__ret_buffer, buffer_tell(__ret_buffer));
+        __result__ = __SteamUserStatsAchievementAndUnlockTime_decode(__ret_buffer__, buffer_tell(__ret_buffer__));
     }
     else
     {
@@ -19748,29 +19756,29 @@ function steam_userstats_find_or_create_leaderboard(_leaderboard_name, _sort_met
 
     var __dispatcher__ = __Steamworks_get_dispatcher();
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _leaderboard_name, type: String
     if (!is_string(_leaderboard_name)) show_error($"{_GMFUNCTION_} :: _leaderboard_name expected string", true);
-    buffer_write(__args_buffer, buffer_u32, string_byte_length(_leaderboard_name));
-    buffer_write(__args_buffer, buffer_string, _leaderboard_name);
+    buffer_write(__args_buffer__, buffer_u32, string_byte_length(_leaderboard_name));
+    buffer_write(__args_buffer__, buffer_string, _leaderboard_name);
 
     // param: _sort_method, type: enum SteamLeaderboardSortMethod
 
     if (!is_numeric(_sort_method)) show_error($"{_GMFUNCTION_} :: _sort_method expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _sort_method);
+    buffer_write(__args_buffer__, buffer_u64, _sort_method);
 
     // param: _display_type, type: enum SteamLeaderboardDisplayType
 
     if (!is_numeric(_display_type)) show_error($"{_GMFUNCTION_} :: _display_type expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _display_type);
+    buffer_write(__args_buffer__, buffer_u64, _display_type);
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
     var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
-    buffer_write(__args_buffer, buffer_u64, _callback_handle);
+    buffer_write(__args_buffer__, buffer_u64, _callback_handle);
 
-    var __return_value__ = __steam_userstats_find_or_create_leaderboard(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_userstats_find_or_create_leaderboard(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -19786,19 +19794,19 @@ function steam_userstats_find_leaderboard(_leaderboard_name, _callback)
 
     var __dispatcher__ = __Steamworks_get_dispatcher();
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _leaderboard_name, type: String
     if (!is_string(_leaderboard_name)) show_error($"{_GMFUNCTION_} :: _leaderboard_name expected string", true);
-    buffer_write(__args_buffer, buffer_u32, string_byte_length(_leaderboard_name));
-    buffer_write(__args_buffer, buffer_string, _leaderboard_name);
+    buffer_write(__args_buffer__, buffer_u32, string_byte_length(_leaderboard_name));
+    buffer_write(__args_buffer__, buffer_string, _leaderboard_name);
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
     var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
-    buffer_write(__args_buffer, buffer_u64, _callback_handle);
+    buffer_write(__args_buffer__, buffer_u64, _callback_handle);
 
-    var __return_value__ = __steam_userstats_find_leaderboard(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_userstats_find_leaderboard(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -19812,13 +19820,13 @@ function steam_userstats_leaderboard_name(_leaderboard_handle)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _leaderboard_handle, type: UInt64
     if (!is_numeric(_leaderboard_handle)) show_error($"{_GMFUNCTION_} :: _leaderboard_handle expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _leaderboard_handle);
+    buffer_write(__args_buffer__, buffer_u64, _leaderboard_handle);
 
-    var __return_value__ = __steam_userstats_leaderboard_name(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_userstats_leaderboard_name(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -19832,13 +19840,13 @@ function steam_userstats_leaderboard_entry_count(_leaderboard_handle)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _leaderboard_handle, type: UInt64
     if (!is_numeric(_leaderboard_handle)) show_error($"{_GMFUNCTION_} :: _leaderboard_handle expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _leaderboard_handle);
+    buffer_write(__args_buffer__, buffer_u64, _leaderboard_handle);
 
-    var __return_value__ = __steam_userstats_leaderboard_entry_count(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_userstats_leaderboard_entry_count(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -19852,18 +19860,18 @@ function steam_userstats_leaderboard_sort_method(_leaderboard_handle)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _leaderboard_handle, type: UInt64
     if (!is_numeric(_leaderboard_handle)) show_error($"{_GMFUNCTION_} :: _leaderboard_handle expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _leaderboard_handle);
+    buffer_write(__args_buffer__, buffer_u64, _leaderboard_handle);
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __ret_buffer__ = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_userstats_leaderboard_sort_method(buffer_get_address(__args_buffer), buffer_tell(__args_buffer), buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_userstats_leaderboard_sort_method(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__), buffer_get_address(__ret_buffer__), buffer_get_size(__ret_buffer__));
 
     var __result__ = undefined;
-    __result__ = buffer_read(__ret_buffer, buffer_u64);
+    __result__ = buffer_read(__ret_buffer__, buffer_u64);
     return __result__;
 }
 
@@ -19876,18 +19884,18 @@ function steam_userstats_leaderboard_display_type(_leaderboard_handle)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _leaderboard_handle, type: UInt64
     if (!is_numeric(_leaderboard_handle)) show_error($"{_GMFUNCTION_} :: _leaderboard_handle expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _leaderboard_handle);
+    buffer_write(__args_buffer__, buffer_u64, _leaderboard_handle);
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __ret_buffer__ = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_userstats_leaderboard_display_type(buffer_get_address(__args_buffer), buffer_tell(__args_buffer), buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_userstats_leaderboard_display_type(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__), buffer_get_address(__ret_buffer__), buffer_get_size(__ret_buffer__));
 
     var __result__ = undefined;
-    __result__ = buffer_read(__ret_buffer, buffer_u64);
+    __result__ = buffer_read(__ret_buffer__, buffer_u64);
     return __result__;
 }
 
@@ -19905,31 +19913,31 @@ function steam_userstats_download_leaderboard_entries(_leaderboard_handle, _requ
 
     var __dispatcher__ = __Steamworks_get_dispatcher();
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _leaderboard_handle, type: UInt64
     if (!is_numeric(_leaderboard_handle)) show_error($"{_GMFUNCTION_} :: _leaderboard_handle expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _leaderboard_handle);
+    buffer_write(__args_buffer__, buffer_u64, _leaderboard_handle);
 
     // param: _request, type: enum SteamLeaderboardDataRequest
 
     if (!is_numeric(_request)) show_error($"{_GMFUNCTION_} :: _request expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _request);
+    buffer_write(__args_buffer__, buffer_u64, _request);
 
     // param: _range_start, type: Int32
     if (!is_numeric(_range_start)) show_error($"{_GMFUNCTION_} :: _range_start expected number", true);
-    buffer_write(__args_buffer, buffer_s32, _range_start);
+    buffer_write(__args_buffer__, buffer_s32, _range_start);
 
     // param: _range_end, type: Int32
     if (!is_numeric(_range_end)) show_error($"{_GMFUNCTION_} :: _range_end expected number", true);
-    buffer_write(__args_buffer, buffer_s32, _range_end);
+    buffer_write(__args_buffer__, buffer_s32, _range_end);
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
     var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
-    buffer_write(__args_buffer, buffer_u64, _callback_handle);
+    buffer_write(__args_buffer__, buffer_u64, _callback_handle);
 
-    var __return_value__ = __steam_userstats_download_leaderboard_entries(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_userstats_download_leaderboard_entries(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -19946,28 +19954,28 @@ function steam_userstats_download_leaderboard_entries_for_users(_leaderboard_han
 
     var __dispatcher__ = __Steamworks_get_dispatcher();
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _leaderboard_handle, type: UInt64
     if (!is_numeric(_leaderboard_handle)) show_error($"{_GMFUNCTION_} :: _leaderboard_handle expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _leaderboard_handle);
+    buffer_write(__args_buffer__, buffer_u64, _leaderboard_handle);
 
     // param: _users, type: UInt64[]
     if (!is_array(_users)) show_error($"{_GMFUNCTION_} :: _users expected array", true);
     var __length__ = array_length(_users);
-    buffer_write(__args_buffer, buffer_u32, __length__);
+    buffer_write(__args_buffer__, buffer_u32, __length__);
     for (var _i = 0; _i < __length__; ++_i)
     {
         if (!is_numeric(_users[_i])) show_error($"{_GMFUNCTION_} :: _users[_i] expected number", true);
-        buffer_write(__args_buffer, buffer_u64, _users[_i]);
+        buffer_write(__args_buffer__, buffer_u64, _users[_i]);
     }
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
     var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
-    buffer_write(__args_buffer, buffer_u64, _callback_handle);
+    buffer_write(__args_buffer__, buffer_u64, _callback_handle);
 
-    var __return_value__ = __steam_userstats_download_leaderboard_entries_for_users(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_userstats_download_leaderboard_entries_for_users(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -19982,24 +19990,24 @@ function steam_userstats_downloaded_leaderboard_entry(_leaderboard_entries_handl
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _leaderboard_entries_handle, type: UInt64
     if (!is_numeric(_leaderboard_entries_handle)) show_error($"{_GMFUNCTION_} :: _leaderboard_entries_handle expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _leaderboard_entries_handle);
+    buffer_write(__args_buffer__, buffer_u64, _leaderboard_entries_handle);
 
     // param: _entry_index, type: Int32
     if (!is_numeric(_entry_index)) show_error($"{_GMFUNCTION_} :: _entry_index expected number", true);
-    buffer_write(__args_buffer, buffer_s32, _entry_index);
+    buffer_write(__args_buffer__, buffer_s32, _entry_index);
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __ret_buffer__ = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_userstats_downloaded_leaderboard_entry(buffer_get_address(__args_buffer), buffer_tell(__args_buffer), buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_userstats_downloaded_leaderboard_entry(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__), buffer_get_address(__ret_buffer__), buffer_get_size(__ret_buffer__));
 
     var __result__ = undefined;
-    if (buffer_read(__ret_buffer, buffer_bool))
+    if (buffer_read(__ret_buffer__, buffer_bool))
     {
-        __result__ = __SteamUserStatsDownloadedLeaderboardEntry_decode(__ret_buffer, buffer_tell(__ret_buffer));
+        __result__ = __SteamUserStatsDownloadedLeaderboardEntry_decode(__ret_buffer__, buffer_tell(__ret_buffer__));
     }
     else
     {
@@ -20022,37 +20030,37 @@ function steam_userstats_upload_leaderboard_score(_leaderboard_handle, _method, 
 
     var __dispatcher__ = __Steamworks_get_dispatcher();
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _leaderboard_handle, type: UInt64
     if (!is_numeric(_leaderboard_handle)) show_error($"{_GMFUNCTION_} :: _leaderboard_handle expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _leaderboard_handle);
+    buffer_write(__args_buffer__, buffer_u64, _leaderboard_handle);
 
     // param: _method, type: enum SteamLeaderboardUploadScoreMethod
 
     if (!is_numeric(_method)) show_error($"{_GMFUNCTION_} :: _method expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _method);
+    buffer_write(__args_buffer__, buffer_u64, _method);
 
     // param: _score, type: Int32
     if (!is_numeric(_score)) show_error($"{_GMFUNCTION_} :: _score expected number", true);
-    buffer_write(__args_buffer, buffer_s32, _score);
+    buffer_write(__args_buffer__, buffer_s32, _score);
 
     // param: _score_details, type: Int32[]
     if (!is_array(_score_details)) show_error($"{_GMFUNCTION_} :: _score_details expected array", true);
     var __length__ = array_length(_score_details);
-    buffer_write(__args_buffer, buffer_u32, __length__);
+    buffer_write(__args_buffer__, buffer_u32, __length__);
     for (var _i = 0; _i < __length__; ++_i)
     {
         if (!is_numeric(_score_details[_i])) show_error($"{_GMFUNCTION_} :: _score_details[_i] expected number", true);
-        buffer_write(__args_buffer, buffer_s32, _score_details[_i]);
+        buffer_write(__args_buffer__, buffer_s32, _score_details[_i]);
     }
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
     var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
-    buffer_write(__args_buffer, buffer_u64, _callback_handle);
+    buffer_write(__args_buffer__, buffer_u64, _callback_handle);
 
-    var __return_value__ = __steam_userstats_upload_leaderboard_score(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_userstats_upload_leaderboard_score(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -20069,22 +20077,22 @@ function steam_userstats_attach_leaderboard_ugc(_leaderboard_handle, _ugc_handle
 
     var __dispatcher__ = __Steamworks_get_dispatcher();
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _leaderboard_handle, type: UInt64
     if (!is_numeric(_leaderboard_handle)) show_error($"{_GMFUNCTION_} :: _leaderboard_handle expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _leaderboard_handle);
+    buffer_write(__args_buffer__, buffer_u64, _leaderboard_handle);
 
     // param: _ugc_handle, type: UInt64
     if (!is_numeric(_ugc_handle)) show_error($"{_GMFUNCTION_} :: _ugc_handle expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _ugc_handle);
+    buffer_write(__args_buffer__, buffer_u64, _ugc_handle);
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
     var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
-    buffer_write(__args_buffer, buffer_u64, _callback_handle);
+    buffer_write(__args_buffer__, buffer_u64, _callback_handle);
 
-    var __return_value__ = __steam_userstats_attach_leaderboard_ugc(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_userstats_attach_leaderboard_ugc(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -20099,14 +20107,14 @@ function steam_userstats_number_of_current_players(_callback)
 
     var __dispatcher__ = __Steamworks_get_dispatcher();
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
     var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
-    buffer_write(__args_buffer, buffer_u64, _callback_handle);
+    buffer_write(__args_buffer__, buffer_u64, _callback_handle);
 
-    var __return_value__ = __steam_userstats_number_of_current_players(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_userstats_number_of_current_players(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -20121,14 +20129,14 @@ function steam_userstats_request_global_achievement_percentages(_callback)
 
     var __dispatcher__ = __Steamworks_get_dispatcher();
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
     var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
-    buffer_write(__args_buffer, buffer_u64, _callback_handle);
+    buffer_write(__args_buffer__, buffer_u64, _callback_handle);
 
-    var __return_value__ = __steam_userstats_request_global_achievement_percentages(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_userstats_request_global_achievement_percentages(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -20141,14 +20149,14 @@ function steam_userstats_most_achieved_achievement_info()
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __ret_buffer__ = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_userstats_most_achieved_achievement_info(buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_userstats_most_achieved_achievement_info(buffer_get_address(__ret_buffer__), buffer_get_size(__ret_buffer__));
 
     var __result__ = undefined;
-    if (buffer_read(__ret_buffer, buffer_bool))
+    if (buffer_read(__ret_buffer__, buffer_bool))
     {
-        __result__ = __SteamUserStatsMostAchievedAchievementInfo_decode(__ret_buffer, buffer_tell(__ret_buffer));
+        __result__ = __SteamUserStatsMostAchievedAchievementInfo_decode(__ret_buffer__, buffer_tell(__ret_buffer__));
     }
     else
     {
@@ -20166,14 +20174,14 @@ function steam_userstats_next_most_achieved_achievement_info(_iterator_prev)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __ret_buffer__ = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_userstats_next_most_achieved_achievement_info(_iterator_prev, buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_userstats_next_most_achieved_achievement_info(_iterator_prev, buffer_get_address(__ret_buffer__), buffer_get_size(__ret_buffer__));
 
     var __result__ = undefined;
-    if (buffer_read(__ret_buffer, buffer_bool))
+    if (buffer_read(__ret_buffer__, buffer_bool))
     {
-        __result__ = __SteamUserStatsMostAchievedAchievementInfo_decode(__ret_buffer, buffer_tell(__ret_buffer));
+        __result__ = __SteamUserStatsMostAchievedAchievementInfo_decode(__ret_buffer__, buffer_tell(__ret_buffer__));
     }
     else
     {
@@ -20196,18 +20204,18 @@ function steam_userstats_request_global_stats(_history_days, _callback)
 
     var __dispatcher__ = __Steamworks_get_dispatcher();
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _history_days, type: Int32
     if (!is_numeric(_history_days)) show_error($"{_GMFUNCTION_} :: _history_days expected number", true);
-    buffer_write(__args_buffer, buffer_s32, _history_days);
+    buffer_write(__args_buffer__, buffer_s32, _history_days);
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
     var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
-    buffer_write(__args_buffer, buffer_u64, _callback_handle);
+    buffer_write(__args_buffer__, buffer_u64, _callback_handle);
 
-    var __return_value__ = __steam_userstats_request_global_stats(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_userstats_request_global_stats(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -20221,14 +20229,14 @@ function steam_userstats_global_stat_int64(_stat_name)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __ret_buffer__ = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_userstats_global_stat_int64(_stat_name, buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_userstats_global_stat_int64(_stat_name, buffer_get_address(__ret_buffer__), buffer_get_size(__ret_buffer__));
 
     var __result__ = undefined;
-    if (buffer_read(__ret_buffer, buffer_bool))
+    if (buffer_read(__ret_buffer__, buffer_bool))
     {
-        __result__ = buffer_read(__ret_buffer, buffer_u64);
+        __result__ = buffer_read(__ret_buffer__, buffer_u64);
     }
     else
     {
@@ -20246,14 +20254,14 @@ function steam_userstats_global_stat_double(_stat_name)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __ret_buffer__ = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_userstats_global_stat_double(_stat_name, buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_userstats_global_stat_double(_stat_name, buffer_get_address(__ret_buffer__), buffer_get_size(__ret_buffer__));
 
     var __result__ = undefined;
-    if (buffer_read(__ret_buffer, buffer_bool))
+    if (buffer_read(__ret_buffer__, buffer_bool))
     {
-        __result__ = buffer_read(__ret_buffer, buffer_f64);
+        __result__ = buffer_read(__ret_buffer__, buffer_f64);
     }
     else
     {
@@ -20271,16 +20279,16 @@ function steam_userstats_global_stat_history_int64(_stat_name)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __ret_buffer__ = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_userstats_global_stat_history_int64(_stat_name, buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_userstats_global_stat_history_int64(_stat_name, buffer_get_address(__ret_buffer__), buffer_get_size(__ret_buffer__));
 
     var __result__ = undefined;
-    var __length__ = buffer_read(__ret_buffer, buffer_u32);
+    var __length__ = buffer_read(__ret_buffer__, buffer_u32);
     __result__ = array_create(__length__);
     for (var _i = 0; _i < __length__; ++_i)
     {
-        __result__[_i] = buffer_read(__ret_buffer, buffer_u64);
+        __result__[_i] = buffer_read(__ret_buffer__, buffer_u64);
     }
     return __result__;
 }
@@ -20294,16 +20302,16 @@ function steam_userstats_global_stat_history_double(_stat_name)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __ret_buffer__ = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_userstats_global_stat_history_double(_stat_name, buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_userstats_global_stat_history_double(_stat_name, buffer_get_address(__ret_buffer__), buffer_get_size(__ret_buffer__));
 
     var __result__ = undefined;
-    var __length__ = buffer_read(__ret_buffer, buffer_u32);
+    var __length__ = buffer_read(__ret_buffer__, buffer_u32);
     __result__ = array_create(__length__);
     for (var _i = 0; _i < __length__; ++_i)
     {
-        __result__[_i] = buffer_read(__ret_buffer, buffer_f64);
+        __result__[_i] = buffer_read(__ret_buffer__, buffer_f64);
     }
     return __result__;
 }
@@ -20317,14 +20325,14 @@ function steam_userstats_achievement_progress_int(_achievement_name)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __ret_buffer__ = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_userstats_achievement_progress_int(_achievement_name, buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_userstats_achievement_progress_int(_achievement_name, buffer_get_address(__ret_buffer__), buffer_get_size(__ret_buffer__));
 
     var __result__ = undefined;
-    if (buffer_read(__ret_buffer, buffer_bool))
+    if (buffer_read(__ret_buffer__, buffer_bool))
     {
-        __result__ = __SteamUserStatsIntMinMax_decode(__ret_buffer, buffer_tell(__ret_buffer));
+        __result__ = __SteamUserStatsIntMinMax_decode(__ret_buffer__, buffer_tell(__ret_buffer__));
     }
     else
     {
@@ -20342,14 +20350,14 @@ function steam_userstats_achievement_progress_float(_achievement_name)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __ret_buffer__ = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_userstats_achievement_progress_float(_achievement_name, buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_userstats_achievement_progress_float(_achievement_name, buffer_get_address(__ret_buffer__), buffer_get_size(__ret_buffer__));
 
     var __result__ = undefined;
-    if (buffer_read(__ret_buffer, buffer_bool))
+    if (buffer_read(__ret_buffer__, buffer_bool))
     {
-        __result__ = __SteamUserStatsFloatMinMax_decode(__ret_buffer, buffer_tell(__ret_buffer));
+        __result__ = __SteamUserStatsFloatMinMax_decode(__ret_buffer__, buffer_tell(__ret_buffer__));
     }
     else
     {
@@ -20368,14 +20376,14 @@ function steam_userstats_set_callback_user_stats_received(_callback)
 
     var __dispatcher__ = __Steamworks_get_dispatcher();
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
     var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
-    buffer_write(__args_buffer, buffer_u64, _callback_handle);
+    buffer_write(__args_buffer__, buffer_u64, _callback_handle);
 
-    var __return_value__ = __steam_userstats_set_callback_user_stats_received(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_userstats_set_callback_user_stats_received(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -20393,14 +20401,14 @@ function steam_userstats_set_callback_user_stats_stored(_callback)
 
     var __dispatcher__ = __Steamworks_get_dispatcher();
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
     var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
-    buffer_write(__args_buffer, buffer_u64, _callback_handle);
+    buffer_write(__args_buffer__, buffer_u64, _callback_handle);
 
-    var __return_value__ = __steam_userstats_set_callback_user_stats_stored(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_userstats_set_callback_user_stats_stored(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -20418,14 +20426,14 @@ function steam_userstats_set_callback_user_achievement_stored(_callback)
 
     var __dispatcher__ = __Steamworks_get_dispatcher();
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
     var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
-    buffer_write(__args_buffer, buffer_u64, _callback_handle);
+    buffer_write(__args_buffer__, buffer_u64, _callback_handle);
 
-    var __return_value__ = __steam_userstats_set_callback_user_achievement_stored(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_userstats_set_callback_user_achievement_stored(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -20443,14 +20451,14 @@ function steam_userstats_set_callback_user_achievement_icon_fetched(_callback)
 
     var __dispatcher__ = __Steamworks_get_dispatcher();
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
     var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
-    buffer_write(__args_buffer, buffer_u64, _callback_handle);
+    buffer_write(__args_buffer__, buffer_u64, _callback_handle);
 
-    var __return_value__ = __steam_userstats_set_callback_user_achievement_icon_fetched(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_userstats_set_callback_user_achievement_icon_fetched(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -20468,14 +20476,14 @@ function steam_userstats_set_callback_user_stats_unloaded(_callback)
 
     var __dispatcher__ = __Steamworks_get_dispatcher();
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
     var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
-    buffer_write(__args_buffer, buffer_u64, _callback_handle);
+    buffer_write(__args_buffer__, buffer_u64, _callback_handle);
 
-    var __return_value__ = __steam_userstats_set_callback_user_stats_unloaded(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_userstats_set_callback_user_stats_unloaded(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -20497,12 +20505,12 @@ function steam_music_get_playback_status()
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __ret_buffer__ = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_music_get_playback_status(buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_music_get_playback_status(buffer_get_address(__ret_buffer__), buffer_get_size(__ret_buffer__));
 
     var __result__ = undefined;
-    __result__ = buffer_read(__ret_buffer, buffer_u64);
+    __result__ = buffer_read(__ret_buffer__, buffer_u64);
     return __result__;
 }
 
@@ -20534,14 +20542,14 @@ function steam_music_set_callback_playback_status_has_changed(_callback)
 
     var __dispatcher__ = __Steamworks_get_dispatcher();
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
     var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
-    buffer_write(__args_buffer, buffer_u64, _callback_handle);
+    buffer_write(__args_buffer__, buffer_u64, _callback_handle);
 
-    var __return_value__ = __steam_music_set_callback_playback_status_has_changed(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_music_set_callback_playback_status_has_changed(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -20559,14 +20567,14 @@ function steam_music_set_callback_volume_has_changed(_callback)
 
     var __dispatcher__ = __Steamworks_get_dispatcher();
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
     var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
-    buffer_write(__args_buffer, buffer_u64, _callback_handle);
+    buffer_write(__args_buffer__, buffer_u64, _callback_handle);
 
-    var __return_value__ = __steam_music_set_callback_volume_has_changed(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_music_set_callback_volume_has_changed(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -20594,42 +20602,42 @@ function steam_timeline_add_instantaneous_timeline_event(_title, _description, _
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _title, type: String
     if (!is_string(_title)) show_error($"{_GMFUNCTION_} :: _title expected string", true);
-    buffer_write(__args_buffer, buffer_u32, string_byte_length(_title));
-    buffer_write(__args_buffer, buffer_string, _title);
+    buffer_write(__args_buffer__, buffer_u32, string_byte_length(_title));
+    buffer_write(__args_buffer__, buffer_string, _title);
 
     // param: _description, type: String
     if (!is_string(_description)) show_error($"{_GMFUNCTION_} :: _description expected string", true);
-    buffer_write(__args_buffer, buffer_u32, string_byte_length(_description));
-    buffer_write(__args_buffer, buffer_string, _description);
+    buffer_write(__args_buffer__, buffer_u32, string_byte_length(_description));
+    buffer_write(__args_buffer__, buffer_string, _description);
 
     // param: _icon, type: String
     if (!is_string(_icon)) show_error($"{_GMFUNCTION_} :: _icon expected string", true);
-    buffer_write(__args_buffer, buffer_u32, string_byte_length(_icon));
-    buffer_write(__args_buffer, buffer_string, _icon);
+    buffer_write(__args_buffer__, buffer_u32, string_byte_length(_icon));
+    buffer_write(__args_buffer__, buffer_string, _icon);
 
     // param: _priority, type: UInt32
     if (!is_numeric(_priority)) show_error($"{_GMFUNCTION_} :: _priority expected number", true);
-    buffer_write(__args_buffer, buffer_u32, _priority);
+    buffer_write(__args_buffer__, buffer_u32, _priority);
 
     // param: _start_offset_seconds, type: Float32
     if (!is_numeric(_start_offset_seconds)) show_error($"{_GMFUNCTION_} :: _start_offset_seconds expected number", true);
-    buffer_write(__args_buffer, buffer_f32, _start_offset_seconds);
+    buffer_write(__args_buffer__, buffer_f32, _start_offset_seconds);
 
     // param: _possible_clip, type: enum SteamTimelineEventClipPriority
 
     if (!is_numeric(_possible_clip)) show_error($"{_GMFUNCTION_} :: _possible_clip expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _possible_clip);
+    buffer_write(__args_buffer__, buffer_u64, _possible_clip);
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __ret_buffer__ = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_timeline_add_instantaneous_timeline_event(buffer_get_address(__args_buffer), buffer_tell(__args_buffer), buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_timeline_add_instantaneous_timeline_event(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__), buffer_get_address(__ret_buffer__), buffer_get_size(__ret_buffer__));
 
     var __result__ = undefined;
-    __result__ = buffer_read(__ret_buffer, buffer_u64);
+    __result__ = buffer_read(__ret_buffer__, buffer_u64);
     return __result__;
 }
 
@@ -20648,46 +20656,46 @@ function steam_timeline_add_range_timeline_event(_title, _description, _icon, _p
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _title, type: String
     if (!is_string(_title)) show_error($"{_GMFUNCTION_} :: _title expected string", true);
-    buffer_write(__args_buffer, buffer_u32, string_byte_length(_title));
-    buffer_write(__args_buffer, buffer_string, _title);
+    buffer_write(__args_buffer__, buffer_u32, string_byte_length(_title));
+    buffer_write(__args_buffer__, buffer_string, _title);
 
     // param: _description, type: String
     if (!is_string(_description)) show_error($"{_GMFUNCTION_} :: _description expected string", true);
-    buffer_write(__args_buffer, buffer_u32, string_byte_length(_description));
-    buffer_write(__args_buffer, buffer_string, _description);
+    buffer_write(__args_buffer__, buffer_u32, string_byte_length(_description));
+    buffer_write(__args_buffer__, buffer_string, _description);
 
     // param: _icon, type: String
     if (!is_string(_icon)) show_error($"{_GMFUNCTION_} :: _icon expected string", true);
-    buffer_write(__args_buffer, buffer_u32, string_byte_length(_icon));
-    buffer_write(__args_buffer, buffer_string, _icon);
+    buffer_write(__args_buffer__, buffer_u32, string_byte_length(_icon));
+    buffer_write(__args_buffer__, buffer_string, _icon);
 
     // param: _priority, type: UInt32
     if (!is_numeric(_priority)) show_error($"{_GMFUNCTION_} :: _priority expected number", true);
-    buffer_write(__args_buffer, buffer_u32, _priority);
+    buffer_write(__args_buffer__, buffer_u32, _priority);
 
     // param: _start_offset_seconds, type: Float32
     if (!is_numeric(_start_offset_seconds)) show_error($"{_GMFUNCTION_} :: _start_offset_seconds expected number", true);
-    buffer_write(__args_buffer, buffer_f32, _start_offset_seconds);
+    buffer_write(__args_buffer__, buffer_f32, _start_offset_seconds);
 
     // param: _duration_seconds, type: Float32
     if (!is_numeric(_duration_seconds)) show_error($"{_GMFUNCTION_} :: _duration_seconds expected number", true);
-    buffer_write(__args_buffer, buffer_f32, _duration_seconds);
+    buffer_write(__args_buffer__, buffer_f32, _duration_seconds);
 
     // param: _possible_clip, type: enum SteamTimelineEventClipPriority
 
     if (!is_numeric(_possible_clip)) show_error($"{_GMFUNCTION_} :: _possible_clip expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _possible_clip);
+    buffer_write(__args_buffer__, buffer_u64, _possible_clip);
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __ret_buffer__ = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_timeline_add_range_timeline_event(buffer_get_address(__args_buffer), buffer_tell(__args_buffer), buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_timeline_add_range_timeline_event(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__), buffer_get_address(__ret_buffer__), buffer_get_size(__ret_buffer__));
 
     var __result__ = undefined;
-    __result__ = buffer_read(__ret_buffer, buffer_u64);
+    __result__ = buffer_read(__ret_buffer__, buffer_u64);
     return __result__;
 }
 
@@ -20705,42 +20713,42 @@ function steam_timeline_start_range_timeline_event(_title, _description, _icon, 
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _title, type: String
     if (!is_string(_title)) show_error($"{_GMFUNCTION_} :: _title expected string", true);
-    buffer_write(__args_buffer, buffer_u32, string_byte_length(_title));
-    buffer_write(__args_buffer, buffer_string, _title);
+    buffer_write(__args_buffer__, buffer_u32, string_byte_length(_title));
+    buffer_write(__args_buffer__, buffer_string, _title);
 
     // param: _description, type: String
     if (!is_string(_description)) show_error($"{_GMFUNCTION_} :: _description expected string", true);
-    buffer_write(__args_buffer, buffer_u32, string_byte_length(_description));
-    buffer_write(__args_buffer, buffer_string, _description);
+    buffer_write(__args_buffer__, buffer_u32, string_byte_length(_description));
+    buffer_write(__args_buffer__, buffer_string, _description);
 
     // param: _icon, type: String
     if (!is_string(_icon)) show_error($"{_GMFUNCTION_} :: _icon expected string", true);
-    buffer_write(__args_buffer, buffer_u32, string_byte_length(_icon));
-    buffer_write(__args_buffer, buffer_string, _icon);
+    buffer_write(__args_buffer__, buffer_u32, string_byte_length(_icon));
+    buffer_write(__args_buffer__, buffer_string, _icon);
 
     // param: _priority, type: UInt32
     if (!is_numeric(_priority)) show_error($"{_GMFUNCTION_} :: _priority expected number", true);
-    buffer_write(__args_buffer, buffer_u32, _priority);
+    buffer_write(__args_buffer__, buffer_u32, _priority);
 
     // param: _start_offset_seconds, type: Float32
     if (!is_numeric(_start_offset_seconds)) show_error($"{_GMFUNCTION_} :: _start_offset_seconds expected number", true);
-    buffer_write(__args_buffer, buffer_f32, _start_offset_seconds);
+    buffer_write(__args_buffer__, buffer_f32, _start_offset_seconds);
 
     // param: _possible_clip, type: enum SteamTimelineEventClipPriority
 
     if (!is_numeric(_possible_clip)) show_error($"{_GMFUNCTION_} :: _possible_clip expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _possible_clip);
+    buffer_write(__args_buffer__, buffer_u64, _possible_clip);
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __ret_buffer__ = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_timeline_start_range_timeline_event(buffer_get_address(__args_buffer), buffer_tell(__args_buffer), buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_timeline_start_range_timeline_event(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__), buffer_get_address(__ret_buffer__), buffer_get_size(__ret_buffer__));
 
     var __result__ = undefined;
-    __result__ = buffer_read(__ret_buffer, buffer_u64);
+    __result__ = buffer_read(__ret_buffer__, buffer_u64);
     return __result__;
 }
 
@@ -20757,37 +20765,37 @@ function steam_timeline_update_range_timeline_event(_event_handle, _title, _desc
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _event_handle, type: UInt64
     if (!is_numeric(_event_handle)) show_error($"{_GMFUNCTION_} :: _event_handle expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _event_handle);
+    buffer_write(__args_buffer__, buffer_u64, _event_handle);
 
     // param: _title, type: String
     if (!is_string(_title)) show_error($"{_GMFUNCTION_} :: _title expected string", true);
-    buffer_write(__args_buffer, buffer_u32, string_byte_length(_title));
-    buffer_write(__args_buffer, buffer_string, _title);
+    buffer_write(__args_buffer__, buffer_u32, string_byte_length(_title));
+    buffer_write(__args_buffer__, buffer_string, _title);
 
     // param: _description, type: String
     if (!is_string(_description)) show_error($"{_GMFUNCTION_} :: _description expected string", true);
-    buffer_write(__args_buffer, buffer_u32, string_byte_length(_description));
-    buffer_write(__args_buffer, buffer_string, _description);
+    buffer_write(__args_buffer__, buffer_u32, string_byte_length(_description));
+    buffer_write(__args_buffer__, buffer_string, _description);
 
     // param: _icon, type: String
     if (!is_string(_icon)) show_error($"{_GMFUNCTION_} :: _icon expected string", true);
-    buffer_write(__args_buffer, buffer_u32, string_byte_length(_icon));
-    buffer_write(__args_buffer, buffer_string, _icon);
+    buffer_write(__args_buffer__, buffer_u32, string_byte_length(_icon));
+    buffer_write(__args_buffer__, buffer_string, _icon);
 
     // param: _priority, type: UInt32
     if (!is_numeric(_priority)) show_error($"{_GMFUNCTION_} :: _priority expected number", true);
-    buffer_write(__args_buffer, buffer_u32, _priority);
+    buffer_write(__args_buffer__, buffer_u32, _priority);
 
     // param: _possible_clip, type: enum SteamTimelineEventClipPriority
 
     if (!is_numeric(_possible_clip)) show_error($"{_GMFUNCTION_} :: _possible_clip expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _possible_clip);
+    buffer_write(__args_buffer__, buffer_u64, _possible_clip);
 
-    var __return_value__ = __steam_timeline_update_range_timeline_event(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_timeline_update_range_timeline_event(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -20801,17 +20809,17 @@ function steam_timeline_end_range_timeline_event(_event_handle, _end_offset_seco
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _event_handle, type: UInt64
     if (!is_numeric(_event_handle)) show_error($"{_GMFUNCTION_} :: _event_handle expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _event_handle);
+    buffer_write(__args_buffer__, buffer_u64, _event_handle);
 
     // param: _end_offset_seconds, type: Float32
     if (!is_numeric(_end_offset_seconds)) show_error($"{_GMFUNCTION_} :: _end_offset_seconds expected number", true);
-    buffer_write(__args_buffer, buffer_f32, _end_offset_seconds);
+    buffer_write(__args_buffer__, buffer_f32, _end_offset_seconds);
 
-    var __return_value__ = __steam_timeline_end_range_timeline_event(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_timeline_end_range_timeline_event(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -20824,13 +20832,13 @@ function steam_timeline_remove_timeline_event(_event_handle)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _event_handle, type: UInt64
     if (!is_numeric(_event_handle)) show_error($"{_GMFUNCTION_} :: _event_handle expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _event_handle);
+    buffer_write(__args_buffer__, buffer_u64, _event_handle);
 
-    var __return_value__ = __steam_timeline_remove_timeline_event(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_timeline_remove_timeline_event(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -20846,18 +20854,18 @@ function steam_timeline_does_event_recording_exist(_event_handle, _callback)
 
     var __dispatcher__ = __Steamworks_get_dispatcher();
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _event_handle, type: UInt64
     if (!is_numeric(_event_handle)) show_error($"{_GMFUNCTION_} :: _event_handle expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _event_handle);
+    buffer_write(__args_buffer__, buffer_u64, _event_handle);
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
     var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
-    buffer_write(__args_buffer, buffer_u64, _callback_handle);
+    buffer_write(__args_buffer__, buffer_u64, _callback_handle);
 
-    var __return_value__ = __steam_timeline_does_event_recording_exist(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_timeline_does_event_recording_exist(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -20882,19 +20890,19 @@ function steam_timeline_does_game_phase_recording_exist(_phase_id, _callback)
 
     var __dispatcher__ = __Steamworks_get_dispatcher();
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _phase_id, type: String
     if (!is_string(_phase_id)) show_error($"{_GMFUNCTION_} :: _phase_id expected string", true);
-    buffer_write(__args_buffer, buffer_u32, string_byte_length(_phase_id));
-    buffer_write(__args_buffer, buffer_string, _phase_id);
+    buffer_write(__args_buffer__, buffer_u32, string_byte_length(_phase_id));
+    buffer_write(__args_buffer__, buffer_string, _phase_id);
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
     var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
-    buffer_write(__args_buffer, buffer_u64, _callback_handle);
+    buffer_write(__args_buffer__, buffer_u64, _callback_handle);
 
-    var __return_value__ = __steam_timeline_does_game_phase_recording_exist(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_timeline_does_game_phase_recording_exist(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -20913,14 +20921,14 @@ function steam_timeline_set_timeline_game_mode(_mode)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _mode, type: enum SteamTimelineGameMode
 
     if (!is_numeric(_mode)) show_error($"{_GMFUNCTION_} :: _mode expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _mode);
+    buffer_write(__args_buffer__, buffer_u64, _mode);
 
-    var __return_value__ = __steam_timeline_set_timeline_game_mode(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_timeline_set_timeline_game_mode(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -20936,13 +20944,13 @@ function steam_timeline_open_overlay_to_timeline_event(_event_handle)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _event_handle, type: UInt64
     if (!is_numeric(_event_handle)) show_error($"{_GMFUNCTION_} :: _event_handle expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _event_handle);
+    buffer_write(__args_buffer__, buffer_u64, _event_handle);
 
-    var __return_value__ = __steam_timeline_open_overlay_to_timeline_event(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_timeline_open_overlay_to_timeline_event(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -20959,18 +20967,18 @@ function steam_inventory_add_promo_item(_item_def_id, _callback)
 
     var __dispatcher__ = __Steamworks_get_dispatcher();
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _item_def_id, type: UInt32
     if (!is_numeric(_item_def_id)) show_error($"{_GMFUNCTION_} :: _item_def_id expected number", true);
-    buffer_write(__args_buffer, buffer_u32, _item_def_id);
+    buffer_write(__args_buffer__, buffer_u32, _item_def_id);
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
     var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
-    buffer_write(__args_buffer, buffer_u64, _callback_handle);
+    buffer_write(__args_buffer__, buffer_u64, _callback_handle);
 
-    var __return_value__ = __steam_inventory_add_promo_item(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_inventory_add_promo_item(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -20987,24 +20995,24 @@ function steam_inventory_add_promo_items(_item_def_ids, _callback)
 
     var __dispatcher__ = __Steamworks_get_dispatcher();
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _item_def_ids, type: UInt32[]
     if (!is_array(_item_def_ids)) show_error($"{_GMFUNCTION_} :: _item_def_ids expected array", true);
     var __length__ = array_length(_item_def_ids);
-    buffer_write(__args_buffer, buffer_u32, __length__);
+    buffer_write(__args_buffer__, buffer_u32, __length__);
     for (var _i = 0; _i < __length__; ++_i)
     {
         if (!is_numeric(_item_def_ids[_i])) show_error($"{_GMFUNCTION_} :: _item_def_ids[_i] expected number", true);
-        buffer_write(__args_buffer, buffer_u32, _item_def_ids[_i]);
+        buffer_write(__args_buffer__, buffer_u32, _item_def_ids[_i]);
     }
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
     var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
-    buffer_write(__args_buffer, buffer_u64, _callback_handle);
+    buffer_write(__args_buffer__, buffer_u64, _callback_handle);
 
-    var __return_value__ = __steam_inventory_add_promo_items(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_inventory_add_promo_items(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -21019,19 +21027,19 @@ function steam_inventory_check_result_steam_id(_result_handle, _steam_id_expecte
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _result_handle, type: Int32
     if (!is_numeric(_result_handle)) show_error($"{_GMFUNCTION_} :: _result_handle expected number", true);
-    buffer_write(__args_buffer, buffer_s32, _result_handle);
+    buffer_write(__args_buffer__, buffer_s32, _result_handle);
 
     // param: _steam_id_expected, type: UInt64
     if (!is_numeric(_steam_id_expected)) show_error($"{_GMFUNCTION_} :: _steam_id_expected expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _steam_id_expected);
+    buffer_write(__args_buffer__, buffer_u64, _steam_id_expected);
 
-    var __return_value__ = __steam_inventory_check_result_steam_id(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_inventory_check_result_steam_id(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
-    return __return_value__;
+    return bool(__return_value__);
 }
 
 /**
@@ -21047,22 +21055,22 @@ function steam_inventory_consume_item(_item_instance_id, _quantity, _callback)
 
     var __dispatcher__ = __Steamworks_get_dispatcher();
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _item_instance_id, type: UInt64
     if (!is_numeric(_item_instance_id)) show_error($"{_GMFUNCTION_} :: _item_instance_id expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _item_instance_id);
+    buffer_write(__args_buffer__, buffer_u64, _item_instance_id);
 
     // param: _quantity, type: UInt32
     if (!is_numeric(_quantity)) show_error($"{_GMFUNCTION_} :: _quantity expected number", true);
-    buffer_write(__args_buffer, buffer_u32, _quantity);
+    buffer_write(__args_buffer__, buffer_u32, _quantity);
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
     var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
-    buffer_write(__args_buffer, buffer_u64, _callback_handle);
+    buffer_write(__args_buffer__, buffer_u64, _callback_handle);
 
-    var __return_value__ = __steam_inventory_consume_item(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_inventory_consume_item(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -21078,7 +21086,7 @@ function steam_inventory_deserialize_result(_data, _buffer_offset, _buffer_count
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _data, type: Buffer
     if (!buffer_exists(_data)) show_error($"{_GMFUNCTION_} :: _data expected Id.Buffer", true);
@@ -21087,35 +21095,35 @@ function steam_inventory_deserialize_result(_data, _buffer_offset, _buffer_count
     // param: _buffer_offset, type: optional<UInt32>
     if (is_undefined(_buffer_offset))
     {
-        buffer_write(__args_buffer, buffer_bool, false);
+        buffer_write(__args_buffer__, buffer_bool, false);
     }
     else
     {
-        buffer_write(__args_buffer, buffer_bool, true);
+        buffer_write(__args_buffer__, buffer_bool, true);
         if (!is_numeric(_buffer_offset)) show_error($"{_GMFUNCTION_} :: _buffer_offset expected number", true);
-        buffer_write(__args_buffer, buffer_u32, _buffer_offset);
+        buffer_write(__args_buffer__, buffer_u32, _buffer_offset);
     }
 
     // param: _buffer_count, type: optional<UInt32>
     if (is_undefined(_buffer_count))
     {
-        buffer_write(__args_buffer, buffer_bool, false);
+        buffer_write(__args_buffer__, buffer_bool, false);
     }
     else
     {
-        buffer_write(__args_buffer, buffer_bool, true);
+        buffer_write(__args_buffer__, buffer_bool, true);
         if (!is_numeric(_buffer_count)) show_error($"{_GMFUNCTION_} :: _buffer_count expected number", true);
-        buffer_write(__args_buffer, buffer_u32, _buffer_count);
+        buffer_write(__args_buffer__, buffer_u32, _buffer_count);
     }
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __ret_buffer__ = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_inventory_deserialize_result(buffer_get_address(__args_buffer), buffer_tell(__args_buffer), buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_inventory_deserialize_result(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__), buffer_get_address(__ret_buffer__), buffer_get_size(__ret_buffer__));
 
     var __result__ = undefined;
-    if (buffer_read(__ret_buffer, buffer_bool))
+    if (buffer_read(__ret_buffer__, buffer_bool))
     {
-        __result__ = __SteamInventoryDeserializeResult_decode(__ret_buffer, buffer_tell(__ret_buffer));
+        __result__ = __SteamInventoryDeserializeResult_decode(__ret_buffer__, buffer_tell(__ret_buffer__));
     }
     else
     {
@@ -21140,34 +21148,34 @@ function steam_inventory_exchange_items(_generate_items, _destroy_items, _callba
 
     var __dispatcher__ = __Steamworks_get_dispatcher();
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _generate_items, type: struct SteamInventoryItemDefQuantity[]
     if (!is_array(_generate_items)) show_error($"{_GMFUNCTION_} :: _generate_items expected array", true);
     var __length__ = array_length(_generate_items);
-    buffer_write(__args_buffer, buffer_u32, __length__);
+    buffer_write(__args_buffer__, buffer_u32, __length__);
     for (var _i = 0; _i < __length__; ++_i)
     {
         if (_generate_items[_i].__uid != 837655736) show_error($"{_GMFUNCTION_} :: _generate_items[_i] expected SteamInventoryItemDefQuantity", true);
-        __SteamInventoryItemDefQuantity_encode(_generate_items[_i], __args_buffer, buffer_tell(__args_buffer), _GMFUNCTION_);
+        __SteamInventoryItemDefQuantity_encode(_generate_items[_i], __args_buffer__, buffer_tell(__args_buffer__), _GMFUNCTION_);
     }
 
     // param: _destroy_items, type: struct SteamInventoryItemInstanceQuantity[]
     if (!is_array(_destroy_items)) show_error($"{_GMFUNCTION_} :: _destroy_items expected array", true);
     var __length__ = array_length(_destroy_items);
-    buffer_write(__args_buffer, buffer_u32, __length__);
+    buffer_write(__args_buffer__, buffer_u32, __length__);
     for (var _i = 0; _i < __length__; ++_i)
     {
         if (_destroy_items[_i].__uid != 37410476) show_error($"{_GMFUNCTION_} :: _destroy_items[_i] expected SteamInventoryItemInstanceQuantity", true);
-        __SteamInventoryItemInstanceQuantity_encode(_destroy_items[_i], __args_buffer, buffer_tell(__args_buffer), _GMFUNCTION_);
+        __SteamInventoryItemInstanceQuantity_encode(_destroy_items[_i], __args_buffer__, buffer_tell(__args_buffer__), _GMFUNCTION_);
     }
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
     var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
-    buffer_write(__args_buffer, buffer_u64, _callback_handle);
+    buffer_write(__args_buffer__, buffer_u64, _callback_handle);
 
-    var __return_value__ = __steam_inventory_exchange_items(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_inventory_exchange_items(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -21184,24 +21192,24 @@ function steam_inventory_generate_items(_items, _callback)
 
     var __dispatcher__ = __Steamworks_get_dispatcher();
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _items, type: struct SteamInventoryItemDefQuantity[]
     if (!is_array(_items)) show_error($"{_GMFUNCTION_} :: _items expected array", true);
     var __length__ = array_length(_items);
-    buffer_write(__args_buffer, buffer_u32, __length__);
+    buffer_write(__args_buffer__, buffer_u32, __length__);
     for (var _i = 0; _i < __length__; ++_i)
     {
         if (_items[_i].__uid != 837655736) show_error($"{_GMFUNCTION_} :: _items[_i] expected SteamInventoryItemDefQuantity", true);
-        __SteamInventoryItemDefQuantity_encode(_items[_i], __args_buffer, buffer_tell(__args_buffer), _GMFUNCTION_);
+        __SteamInventoryItemDefQuantity_encode(_items[_i], __args_buffer__, buffer_tell(__args_buffer__), _GMFUNCTION_);
     }
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
     var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
-    buffer_write(__args_buffer, buffer_u64, _callback_handle);
+    buffer_write(__args_buffer__, buffer_u64, _callback_handle);
 
-    var __return_value__ = __steam_inventory_generate_items(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_inventory_generate_items(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -21218,18 +21226,18 @@ function steam_inventory_get_result_items(_result_handle)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __ret_buffer__ = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_inventory_get_result_items(_result_handle, buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_inventory_get_result_items(_result_handle, buffer_get_address(__ret_buffer__), buffer_get_size(__ret_buffer__));
 
     var __result__ = undefined;
-    if (buffer_read(__ret_buffer, buffer_bool))
+    if (buffer_read(__ret_buffer__, buffer_bool))
     {
-        var __length__ = buffer_read(__ret_buffer, buffer_u32);
+        var __length__ = buffer_read(__ret_buffer__, buffer_u32);
         __result__ = array_create(__length__);
         for (var _i = 0; _i < __length__; ++_i)
         {
-            __result__[_i] = __SteamInventoryItemDetails_decode(__ret_buffer, buffer_tell(__ret_buffer));
+            __result__[_i] = __SteamInventoryItemDetails_decode(__ret_buffer__, buffer_tell(__ret_buffer__));
         }
     }
     else
@@ -21248,12 +21256,12 @@ function steam_inventory_get_result_status(_result_handle)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __ret_buffer__ = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_inventory_get_result_status(_result_handle, buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_inventory_get_result_status(_result_handle, buffer_get_address(__ret_buffer__), buffer_get_size(__ret_buffer__));
 
     var __result__ = undefined;
-    __result__ = buffer_read(__ret_buffer, buffer_u64);
+    __result__ = buffer_read(__ret_buffer__, buffer_u64);
     return __result__;
 }
 
@@ -21270,14 +21278,14 @@ function steam_inventory_request_eligible_promo_item_definition_ids(_callback)
 
     var __dispatcher__ = __Steamworks_get_dispatcher();
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
     var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
-    buffer_write(__args_buffer, buffer_u64, _callback_handle);
+    buffer_write(__args_buffer__, buffer_u64, _callback_handle);
 
-    var __return_value__ = __steam_inventory_request_eligible_promo_item_definition_ids(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_inventory_request_eligible_promo_item_definition_ids(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -21291,16 +21299,16 @@ function steam_inventory_get_eligible_promo_item_definition_ids(_max_item_defs)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __ret_buffer__ = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_inventory_get_eligible_promo_item_definition_ids(_max_item_defs, buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_inventory_get_eligible_promo_item_definition_ids(_max_item_defs, buffer_get_address(__ret_buffer__), buffer_get_size(__ret_buffer__));
 
     var __result__ = undefined;
-    var __length__ = buffer_read(__ret_buffer, buffer_u32);
+    var __length__ = buffer_read(__ret_buffer__, buffer_u32);
     __result__ = array_create(__length__);
     for (var _i = 0; _i < __length__; ++_i)
     {
-        __result__[_i] = buffer_read(__ret_buffer, buffer_u32);
+        __result__[_i] = buffer_read(__ret_buffer__, buffer_u32);
     }
     return __result__;
 }
@@ -21317,16 +21325,16 @@ function steam_inventory_get_item_definition_ids(_max_item_defs)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __ret_buffer__ = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_inventory_get_item_definition_ids(_max_item_defs, buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_inventory_get_item_definition_ids(_max_item_defs, buffer_get_address(__ret_buffer__), buffer_get_size(__ret_buffer__));
 
     var __result__ = undefined;
-    var __length__ = buffer_read(__ret_buffer, buffer_u32);
+    var __length__ = buffer_read(__ret_buffer__, buffer_u32);
     __result__ = array_create(__length__);
     for (var _i = 0; _i < __length__; ++_i)
     {
-        __result__[_i] = buffer_read(__ret_buffer, buffer_u32);
+        __result__[_i] = buffer_read(__ret_buffer__, buffer_u32);
     }
     return __result__;
 }
@@ -21343,24 +21351,24 @@ function steam_inventory_get_items_by_id(_item_instance_ids, _callback)
 
     var __dispatcher__ = __Steamworks_get_dispatcher();
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _item_instance_ids, type: UInt64[]
     if (!is_array(_item_instance_ids)) show_error($"{_GMFUNCTION_} :: _item_instance_ids expected array", true);
     var __length__ = array_length(_item_instance_ids);
-    buffer_write(__args_buffer, buffer_u32, __length__);
+    buffer_write(__args_buffer__, buffer_u32, __length__);
     for (var _i = 0; _i < __length__; ++_i)
     {
         if (!is_numeric(_item_instance_ids[_i])) show_error($"{_GMFUNCTION_} :: _item_instance_ids[_i] expected number", true);
-        buffer_write(__args_buffer, buffer_u64, _item_instance_ids[_i]);
+        buffer_write(__args_buffer__, buffer_u64, _item_instance_ids[_i]);
     }
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
     var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
-    buffer_write(__args_buffer, buffer_u64, _callback_handle);
+    buffer_write(__args_buffer__, buffer_u64, _callback_handle);
 
-    var __return_value__ = __steam_inventory_get_items_by_id(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_inventory_get_items_by_id(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -21375,24 +21383,24 @@ function steam_inventory_serialize_result(_result_handle, _out_data)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _result_handle, type: Int32
     if (!is_numeric(_result_handle)) show_error($"{_GMFUNCTION_} :: _result_handle expected number", true);
-    buffer_write(__args_buffer, buffer_s32, _result_handle);
+    buffer_write(__args_buffer__, buffer_s32, _result_handle);
 
     // param: _out_data, type: Buffer
     if (!buffer_exists(_out_data)) show_error($"{_GMFUNCTION_} :: _out_data expected Id.Buffer", true);
     __Steamworks_queue_buffer(buffer_get_address(_out_data), buffer_get_size(_out_data));
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __ret_buffer__ = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_inventory_serialize_result(buffer_get_address(__args_buffer), buffer_tell(__args_buffer), buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_inventory_serialize_result(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__), buffer_get_address(__ret_buffer__), buffer_get_size(__ret_buffer__));
 
     var __result__ = undefined;
-    if (buffer_read(__ret_buffer, buffer_bool))
+    if (buffer_read(__ret_buffer__, buffer_bool))
     {
-        __result__ = buffer_read(__ret_buffer, buffer_u32);
+        __result__ = buffer_read(__ret_buffer__, buffer_u32);
     }
     else
     {
@@ -21411,17 +21419,17 @@ function steam_inventory_get_result_item_property_keys_array(_result_handle, _it
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __ret_buffer__ = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_inventory_get_result_item_property_keys_array(_result_handle, _item_index, buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_inventory_get_result_item_property_keys_array(_result_handle, _item_index, buffer_get_address(__ret_buffer__), buffer_get_size(__ret_buffer__));
 
     var __result__ = undefined;
-    var __length__ = buffer_read(__ret_buffer, buffer_u32);
+    var __length__ = buffer_read(__ret_buffer__, buffer_u32);
     __result__ = array_create(__length__);
     for (var _i = 0; _i < __length__; ++_i)
     {
-        buffer_read(__ret_buffer, buffer_u32);
-        __result__[_i] = buffer_read(__ret_buffer, buffer_string);
+        buffer_read(__ret_buffer__, buffer_u32);
+        __result__[_i] = buffer_read(__ret_buffer__, buffer_string);
     }
     return __result__;
 }
@@ -21437,30 +21445,30 @@ function steam_inventory_get_result_item_property(_result_handle, _item_index, _
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _result_handle, type: Int32
     if (!is_numeric(_result_handle)) show_error($"{_GMFUNCTION_} :: _result_handle expected number", true);
-    buffer_write(__args_buffer, buffer_s32, _result_handle);
+    buffer_write(__args_buffer__, buffer_s32, _result_handle);
 
     // param: _item_index, type: UInt32
     if (!is_numeric(_item_index)) show_error($"{_GMFUNCTION_} :: _item_index expected number", true);
-    buffer_write(__args_buffer, buffer_u32, _item_index);
+    buffer_write(__args_buffer__, buffer_u32, _item_index);
 
     // param: _property_name, type: String
     if (!is_string(_property_name)) show_error($"{_GMFUNCTION_} :: _property_name expected string", true);
-    buffer_write(__args_buffer, buffer_u32, string_byte_length(_property_name));
-    buffer_write(__args_buffer, buffer_string, _property_name);
+    buffer_write(__args_buffer__, buffer_u32, string_byte_length(_property_name));
+    buffer_write(__args_buffer__, buffer_string, _property_name);
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __ret_buffer__ = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_inventory_get_result_item_property(buffer_get_address(__args_buffer), buffer_tell(__args_buffer), buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_inventory_get_result_item_property(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__), buffer_get_address(__ret_buffer__), buffer_get_size(__ret_buffer__));
 
     var __result__ = undefined;
-    if (buffer_read(__ret_buffer, buffer_bool))
+    if (buffer_read(__ret_buffer__, buffer_bool))
     {
-        buffer_read(__ret_buffer, buffer_u32);
-        __result__ = buffer_read(__ret_buffer, buffer_string);
+        buffer_read(__ret_buffer__, buffer_u32);
+        __result__ = buffer_read(__ret_buffer__, buffer_string);
     }
     else
     {
@@ -21480,24 +21488,24 @@ function steam_inventory_start_purchase(_items, _callback)
 
     var __dispatcher__ = __Steamworks_get_dispatcher();
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _items, type: struct SteamInventoryItemDefQuantity[]
     if (!is_array(_items)) show_error($"{_GMFUNCTION_} :: _items expected array", true);
     var __length__ = array_length(_items);
-    buffer_write(__args_buffer, buffer_u32, __length__);
+    buffer_write(__args_buffer__, buffer_u32, __length__);
     for (var _i = 0; _i < __length__; ++_i)
     {
         if (_items[_i].__uid != 837655736) show_error($"{_GMFUNCTION_} :: _items[_i] expected SteamInventoryItemDefQuantity", true);
-        __SteamInventoryItemDefQuantity_encode(_items[_i], __args_buffer, buffer_tell(__args_buffer), _GMFUNCTION_);
+        __SteamInventoryItemDefQuantity_encode(_items[_i], __args_buffer__, buffer_tell(__args_buffer__), _GMFUNCTION_);
     }
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
     var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
-    buffer_write(__args_buffer, buffer_u64, _callback_handle);
+    buffer_write(__args_buffer__, buffer_u64, _callback_handle);
 
-    var __return_value__ = __steam_inventory_start_purchase(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_inventory_start_purchase(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -21512,14 +21520,14 @@ function steam_inventory_request_prices(_callback)
 
     var __dispatcher__ = __Steamworks_get_dispatcher();
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
     var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
-    buffer_write(__args_buffer, buffer_u64, _callback_handle);
+    buffer_write(__args_buffer__, buffer_u64, _callback_handle);
 
-    var __return_value__ = __steam_inventory_request_prices(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_inventory_request_prices(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -21535,16 +21543,16 @@ function steam_inventory_get_items_with_prices()
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __ret_buffer__ = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_inventory_get_items_with_prices(buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_inventory_get_items_with_prices(buffer_get_address(__ret_buffer__), buffer_get_size(__ret_buffer__));
 
     var __result__ = undefined;
-    var __length__ = buffer_read(__ret_buffer, buffer_u32);
+    var __length__ = buffer_read(__ret_buffer__, buffer_u32);
     __result__ = array_create(__length__);
     for (var _i = 0; _i < __length__; ++_i)
     {
-        __result__[_i] = __SteamInventoryItemWithPrice_decode(__ret_buffer, buffer_tell(__ret_buffer));
+        __result__[_i] = __SteamInventoryItemWithPrice_decode(__ret_buffer__, buffer_tell(__ret_buffer__));
     }
     return __result__;
 }
@@ -21557,12 +21565,12 @@ function steam_inventory_start_update_properties()
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __ret_buffer__ = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_inventory_start_update_properties(buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_inventory_start_update_properties(buffer_get_address(__ret_buffer__), buffer_get_size(__ret_buffer__));
 
     var __result__ = undefined;
-    __result__ = buffer_read(__ret_buffer, buffer_u64);
+    __result__ = buffer_read(__ret_buffer__, buffer_u64);
     return __result__;
 }
 
@@ -21577,24 +21585,24 @@ function steam_inventory_remove_property(_update_handle, _item_instance_id, _pro
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _update_handle, type: UInt64
     if (!is_numeric(_update_handle)) show_error($"{_GMFUNCTION_} :: _update_handle expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _update_handle);
+    buffer_write(__args_buffer__, buffer_u64, _update_handle);
 
     // param: _item_instance_id, type: UInt64
     if (!is_numeric(_item_instance_id)) show_error($"{_GMFUNCTION_} :: _item_instance_id expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _item_instance_id);
+    buffer_write(__args_buffer__, buffer_u64, _item_instance_id);
 
     // param: _property_name, type: String
     if (!is_string(_property_name)) show_error($"{_GMFUNCTION_} :: _property_name expected string", true);
-    buffer_write(__args_buffer, buffer_u32, string_byte_length(_property_name));
-    buffer_write(__args_buffer, buffer_string, _property_name);
+    buffer_write(__args_buffer__, buffer_u32, string_byte_length(_property_name));
+    buffer_write(__args_buffer__, buffer_string, _property_name);
 
-    var __return_value__ = __steam_inventory_remove_property(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_inventory_remove_property(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
-    return __return_value__;
+    return bool(__return_value__);
 }
 
 /**
@@ -21609,29 +21617,29 @@ function steam_inventory_set_property_string(_update_handle, _item_instance_id, 
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _update_handle, type: UInt64
     if (!is_numeric(_update_handle)) show_error($"{_GMFUNCTION_} :: _update_handle expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _update_handle);
+    buffer_write(__args_buffer__, buffer_u64, _update_handle);
 
     // param: _item_instance_id, type: UInt64
     if (!is_numeric(_item_instance_id)) show_error($"{_GMFUNCTION_} :: _item_instance_id expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _item_instance_id);
+    buffer_write(__args_buffer__, buffer_u64, _item_instance_id);
 
     // param: _property_name, type: String
     if (!is_string(_property_name)) show_error($"{_GMFUNCTION_} :: _property_name expected string", true);
-    buffer_write(__args_buffer, buffer_u32, string_byte_length(_property_name));
-    buffer_write(__args_buffer, buffer_string, _property_name);
+    buffer_write(__args_buffer__, buffer_u32, string_byte_length(_property_name));
+    buffer_write(__args_buffer__, buffer_string, _property_name);
 
     // param: _value, type: String
     if (!is_string(_value)) show_error($"{_GMFUNCTION_} :: _value expected string", true);
-    buffer_write(__args_buffer, buffer_u32, string_byte_length(_value));
-    buffer_write(__args_buffer, buffer_string, _value);
+    buffer_write(__args_buffer__, buffer_u32, string_byte_length(_value));
+    buffer_write(__args_buffer__, buffer_string, _value);
 
-    var __return_value__ = __steam_inventory_set_property_string(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_inventory_set_property_string(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
-    return __return_value__;
+    return bool(__return_value__);
 }
 
 /**
@@ -21646,28 +21654,28 @@ function steam_inventory_set_property_bool(_update_handle, _item_instance_id, _p
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _update_handle, type: UInt64
     if (!is_numeric(_update_handle)) show_error($"{_GMFUNCTION_} :: _update_handle expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _update_handle);
+    buffer_write(__args_buffer__, buffer_u64, _update_handle);
 
     // param: _item_instance_id, type: UInt64
     if (!is_numeric(_item_instance_id)) show_error($"{_GMFUNCTION_} :: _item_instance_id expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _item_instance_id);
+    buffer_write(__args_buffer__, buffer_u64, _item_instance_id);
 
     // param: _property_name, type: String
     if (!is_string(_property_name)) show_error($"{_GMFUNCTION_} :: _property_name expected string", true);
-    buffer_write(__args_buffer, buffer_u32, string_byte_length(_property_name));
-    buffer_write(__args_buffer, buffer_string, _property_name);
+    buffer_write(__args_buffer__, buffer_u32, string_byte_length(_property_name));
+    buffer_write(__args_buffer__, buffer_string, _property_name);
 
     // param: _value, type: Bool
     if (!is_bool(_value)) show_error($"{_GMFUNCTION_} :: _value expected bool", true);
-    buffer_write(__args_buffer, buffer_bool, _value);
+    buffer_write(__args_buffer__, buffer_bool, _value);
 
-    var __return_value__ = __steam_inventory_set_property_bool(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_inventory_set_property_bool(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
-    return __return_value__;
+    return bool(__return_value__);
 }
 
 /**
@@ -21682,28 +21690,28 @@ function steam_inventory_set_property_int64(_update_handle, _item_instance_id, _
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _update_handle, type: UInt64
     if (!is_numeric(_update_handle)) show_error($"{_GMFUNCTION_} :: _update_handle expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _update_handle);
+    buffer_write(__args_buffer__, buffer_u64, _update_handle);
 
     // param: _item_instance_id, type: UInt64
     if (!is_numeric(_item_instance_id)) show_error($"{_GMFUNCTION_} :: _item_instance_id expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _item_instance_id);
+    buffer_write(__args_buffer__, buffer_u64, _item_instance_id);
 
     // param: _property_name, type: String
     if (!is_string(_property_name)) show_error($"{_GMFUNCTION_} :: _property_name expected string", true);
-    buffer_write(__args_buffer, buffer_u32, string_byte_length(_property_name));
-    buffer_write(__args_buffer, buffer_string, _property_name);
+    buffer_write(__args_buffer__, buffer_u32, string_byte_length(_property_name));
+    buffer_write(__args_buffer__, buffer_string, _property_name);
 
     // param: _value, type: Int64
     if (!is_numeric(_value)) show_error($"{_GMFUNCTION_} :: _value expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _value);
+    buffer_write(__args_buffer__, buffer_u64, _value);
 
-    var __return_value__ = __steam_inventory_set_property_int64(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_inventory_set_property_int64(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
-    return __return_value__;
+    return bool(__return_value__);
 }
 
 /**
@@ -21718,28 +21726,28 @@ function steam_inventory_set_property_float(_update_handle, _item_instance_id, _
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _update_handle, type: UInt64
     if (!is_numeric(_update_handle)) show_error($"{_GMFUNCTION_} :: _update_handle expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _update_handle);
+    buffer_write(__args_buffer__, buffer_u64, _update_handle);
 
     // param: _item_instance_id, type: UInt64
     if (!is_numeric(_item_instance_id)) show_error($"{_GMFUNCTION_} :: _item_instance_id expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _item_instance_id);
+    buffer_write(__args_buffer__, buffer_u64, _item_instance_id);
 
     // param: _property_name, type: String
     if (!is_string(_property_name)) show_error($"{_GMFUNCTION_} :: _property_name expected string", true);
-    buffer_write(__args_buffer, buffer_u32, string_byte_length(_property_name));
-    buffer_write(__args_buffer, buffer_string, _property_name);
+    buffer_write(__args_buffer__, buffer_u32, string_byte_length(_property_name));
+    buffer_write(__args_buffer__, buffer_string, _property_name);
 
     // param: _value, type: Float32
     if (!is_numeric(_value)) show_error($"{_GMFUNCTION_} :: _value expected number", true);
-    buffer_write(__args_buffer, buffer_f32, _value);
+    buffer_write(__args_buffer__, buffer_f32, _value);
 
-    var __return_value__ = __steam_inventory_set_property_float(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_inventory_set_property_float(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
-    return __return_value__;
+    return bool(__return_value__);
 }
 
 /**
@@ -21754,18 +21762,18 @@ function steam_inventory_submit_update_properties(_update_handle, _callback)
 
     var __dispatcher__ = __Steamworks_get_dispatcher();
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _update_handle, type: UInt64
     if (!is_numeric(_update_handle)) show_error($"{_GMFUNCTION_} :: _update_handle expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _update_handle);
+    buffer_write(__args_buffer__, buffer_u64, _update_handle);
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
     var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
-    buffer_write(__args_buffer, buffer_u64, _callback_handle);
+    buffer_write(__args_buffer__, buffer_u64, _callback_handle);
 
-    var __return_value__ = __steam_inventory_submit_update_properties(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_inventory_submit_update_properties(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -21784,26 +21792,26 @@ function steam_inventory_transfer_item_quantity(_item_instance_id_source, _quant
 
     var __dispatcher__ = __Steamworks_get_dispatcher();
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _item_instance_id_source, type: UInt64
     if (!is_numeric(_item_instance_id_source)) show_error($"{_GMFUNCTION_} :: _item_instance_id_source expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _item_instance_id_source);
+    buffer_write(__args_buffer__, buffer_u64, _item_instance_id_source);
 
     // param: _quantity, type: UInt32
     if (!is_numeric(_quantity)) show_error($"{_GMFUNCTION_} :: _quantity expected number", true);
-    buffer_write(__args_buffer, buffer_u32, _quantity);
+    buffer_write(__args_buffer__, buffer_u32, _quantity);
 
     // param: _item_instance_id_dest, type: UInt64
     if (!is_numeric(_item_instance_id_dest)) show_error($"{_GMFUNCTION_} :: _item_instance_id_dest expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _item_instance_id_dest);
+    buffer_write(__args_buffer__, buffer_u64, _item_instance_id_dest);
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
     var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
-    buffer_write(__args_buffer, buffer_u64, _callback_handle);
+    buffer_write(__args_buffer__, buffer_u64, _callback_handle);
 
-    var __return_value__ = __steam_inventory_transfer_item_quantity(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_inventory_transfer_item_quantity(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -21820,18 +21828,18 @@ function steam_inventory_trigger_item_drop(_item_def_id, _callback)
 
     var __dispatcher__ = __Steamworks_get_dispatcher();
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _item_def_id, type: UInt32
     if (!is_numeric(_item_def_id)) show_error($"{_GMFUNCTION_} :: _item_def_id expected number", true);
-    buffer_write(__args_buffer, buffer_u32, _item_def_id);
+    buffer_write(__args_buffer__, buffer_u32, _item_def_id);
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
     var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
-    buffer_write(__args_buffer, buffer_u64, _callback_handle);
+    buffer_write(__args_buffer__, buffer_u64, _callback_handle);
 
-    var __return_value__ = __steam_inventory_trigger_item_drop(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_inventory_trigger_item_drop(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -21847,14 +21855,14 @@ function steam_inventory_grant_promo_items(_callback)
 
     var __dispatcher__ = __Steamworks_get_dispatcher();
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
     var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
-    buffer_write(__args_buffer, buffer_u64, _callback_handle);
+    buffer_write(__args_buffer__, buffer_u64, _callback_handle);
 
-    var __return_value__ = __steam_inventory_grant_promo_items(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_inventory_grant_promo_items(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -21869,15 +21877,15 @@ function steam_inventory_get_item_definition_property(_item_def_id, _property_na
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __ret_buffer__ = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_inventory_get_item_definition_property(_item_def_id, _property_name, buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_inventory_get_item_definition_property(_item_def_id, _property_name, buffer_get_address(__ret_buffer__), buffer_get_size(__ret_buffer__));
 
     var __result__ = undefined;
-    if (buffer_read(__ret_buffer, buffer_bool))
+    if (buffer_read(__ret_buffer__, buffer_bool))
     {
-        buffer_read(__ret_buffer, buffer_u32);
-        __result__ = buffer_read(__ret_buffer, buffer_string);
+        buffer_read(__ret_buffer__, buffer_u32);
+        __result__ = buffer_read(__ret_buffer__, buffer_string);
     }
     else
     {
@@ -21895,17 +21903,17 @@ function steam_inventory_get_item_definition_property_keys(_item_def_id)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __ret_buffer__ = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_inventory_get_item_definition_property_keys(_item_def_id, buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_inventory_get_item_definition_property_keys(_item_def_id, buffer_get_address(__ret_buffer__), buffer_get_size(__ret_buffer__));
 
     var __result__ = undefined;
-    var __length__ = buffer_read(__ret_buffer, buffer_u32);
+    var __length__ = buffer_read(__ret_buffer__, buffer_u32);
     __result__ = array_create(__length__);
     for (var _i = 0; _i < __length__; ++_i)
     {
-        buffer_read(__ret_buffer, buffer_u32);
-        __result__[_i] = buffer_read(__ret_buffer, buffer_string);
+        buffer_read(__ret_buffer__, buffer_u32);
+        __result__[_i] = buffer_read(__ret_buffer__, buffer_string);
     }
     return __result__;
 }
@@ -21919,14 +21927,14 @@ function steam_inventory_get_item_price(_item_def_id)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __ret_buffer__ = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_inventory_get_item_price(_item_def_id, buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_inventory_get_item_price(_item_def_id, buffer_get_address(__ret_buffer__), buffer_get_size(__ret_buffer__));
 
     var __result__ = undefined;
-    if (buffer_read(__ret_buffer, buffer_bool))
+    if (buffer_read(__ret_buffer__, buffer_bool))
     {
-        __result__ = __SteamInventoryItemPrice_decode(__ret_buffer, buffer_tell(__ret_buffer));
+        __result__ = __SteamInventoryItemPrice_decode(__ret_buffer__, buffer_tell(__ret_buffer__));
     }
     else
     {
@@ -21945,14 +21953,14 @@ function steam_inventory_set_callback_result_ready(_callback)
 
     var __dispatcher__ = __Steamworks_get_dispatcher();
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
     var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
-    buffer_write(__args_buffer, buffer_u64, _callback_handle);
+    buffer_write(__args_buffer__, buffer_u64, _callback_handle);
 
-    var __return_value__ = __steam_inventory_set_callback_result_ready(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_inventory_set_callback_result_ready(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -21970,14 +21978,14 @@ function steam_inventory_set_callback_full_update(_callback)
 
     var __dispatcher__ = __Steamworks_get_dispatcher();
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
     var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
-    buffer_write(__args_buffer, buffer_u64, _callback_handle);
+    buffer_write(__args_buffer__, buffer_u64, _callback_handle);
 
-    var __return_value__ = __steam_inventory_set_callback_full_update(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_inventory_set_callback_full_update(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -21995,14 +22003,14 @@ function steam_inventory_set_callback_definition_update(_callback)
 
     var __dispatcher__ = __Steamworks_get_dispatcher();
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
     var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
-    buffer_write(__args_buffer, buffer_u64, _callback_handle);
+    buffer_write(__args_buffer__, buffer_u64, _callback_handle);
 
-    var __return_value__ = __steam_inventory_set_callback_definition_update(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_inventory_set_callback_definition_update(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -22020,14 +22028,14 @@ function steam_remote_storage_set_callback_published_file_subscribed(_callback)
 
     var __dispatcher__ = __Steamworks_get_dispatcher();
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
     var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
-    buffer_write(__args_buffer, buffer_u64, _callback_handle);
+    buffer_write(__args_buffer__, buffer_u64, _callback_handle);
 
-    var __return_value__ = __steam_remote_storage_set_callback_published_file_subscribed(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_remote_storage_set_callback_published_file_subscribed(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -22045,14 +22053,14 @@ function steam_remote_storage_set_callback_published_file_unsubscribed(_callback
 
     var __dispatcher__ = __Steamworks_get_dispatcher();
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
     var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
-    buffer_write(__args_buffer, buffer_u64, _callback_handle);
+    buffer_write(__args_buffer__, buffer_u64, _callback_handle);
 
-    var __return_value__ = __steam_remote_storage_set_callback_published_file_unsubscribed(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_remote_storage_set_callback_published_file_unsubscribed(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -22070,14 +22078,14 @@ function steam_remote_storage_set_callback_local_file_change(_callback)
 
     var __dispatcher__ = __Steamworks_get_dispatcher();
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
     var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
-    buffer_write(__args_buffer, buffer_u64, _callback_handle);
+    buffer_write(__args_buffer__, buffer_u64, _callback_handle);
 
-    var __return_value__ = __steam_remote_storage_set_callback_local_file_change(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_remote_storage_set_callback_local_file_change(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -22106,12 +22114,12 @@ function steam_remote_storage_file_write(_file_name, _data, _buffer_offset, _buf
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _file_name, type: String
     if (!is_string(_file_name)) show_error($"{_GMFUNCTION_} :: _file_name expected string", true);
-    buffer_write(__args_buffer, buffer_u32, string_byte_length(_file_name));
-    buffer_write(__args_buffer, buffer_string, _file_name);
+    buffer_write(__args_buffer__, buffer_u32, string_byte_length(_file_name));
+    buffer_write(__args_buffer__, buffer_string, _file_name);
 
     // param: _data, type: Buffer
     if (!buffer_exists(_data)) show_error($"{_GMFUNCTION_} :: _data expected Id.Buffer", true);
@@ -22120,30 +22128,30 @@ function steam_remote_storage_file_write(_file_name, _data, _buffer_offset, _buf
     // param: _buffer_offset, type: optional<UInt32>
     if (is_undefined(_buffer_offset))
     {
-        buffer_write(__args_buffer, buffer_bool, false);
+        buffer_write(__args_buffer__, buffer_bool, false);
     }
     else
     {
-        buffer_write(__args_buffer, buffer_bool, true);
+        buffer_write(__args_buffer__, buffer_bool, true);
         if (!is_numeric(_buffer_offset)) show_error($"{_GMFUNCTION_} :: _buffer_offset expected number", true);
-        buffer_write(__args_buffer, buffer_u32, _buffer_offset);
+        buffer_write(__args_buffer__, buffer_u32, _buffer_offset);
     }
 
     // param: _buffer_count, type: optional<UInt32>
     if (is_undefined(_buffer_count))
     {
-        buffer_write(__args_buffer, buffer_bool, false);
+        buffer_write(__args_buffer__, buffer_bool, false);
     }
     else
     {
-        buffer_write(__args_buffer, buffer_bool, true);
+        buffer_write(__args_buffer__, buffer_bool, true);
         if (!is_numeric(_buffer_count)) show_error($"{_GMFUNCTION_} :: _buffer_count expected number", true);
-        buffer_write(__args_buffer, buffer_u32, _buffer_count);
+        buffer_write(__args_buffer__, buffer_u32, _buffer_count);
     }
 
-    var __return_value__ = __steam_remote_storage_file_write(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_remote_storage_file_write(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
-    return __return_value__;
+    return bool(__return_value__);
 }
 
 /**
@@ -22160,12 +22168,12 @@ function steam_remote_storage_file_write_async(_file_name, _data, _callback, _bu
 
     var __dispatcher__ = __Steamworks_get_dispatcher();
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _file_name, type: String
     if (!is_string(_file_name)) show_error($"{_GMFUNCTION_} :: _file_name expected string", true);
-    buffer_write(__args_buffer, buffer_u32, string_byte_length(_file_name));
-    buffer_write(__args_buffer, buffer_string, _file_name);
+    buffer_write(__args_buffer__, buffer_u32, string_byte_length(_file_name));
+    buffer_write(__args_buffer__, buffer_string, _file_name);
 
     // param: _data, type: Buffer
     if (!buffer_exists(_data)) show_error($"{_GMFUNCTION_} :: _data expected Id.Buffer", true);
@@ -22174,33 +22182,33 @@ function steam_remote_storage_file_write_async(_file_name, _data, _callback, _bu
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
     var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
-    buffer_write(__args_buffer, buffer_u64, _callback_handle);
+    buffer_write(__args_buffer__, buffer_u64, _callback_handle);
 
     // param: _buffer_offset, type: optional<UInt32>
     if (is_undefined(_buffer_offset))
     {
-        buffer_write(__args_buffer, buffer_bool, false);
+        buffer_write(__args_buffer__, buffer_bool, false);
     }
     else
     {
-        buffer_write(__args_buffer, buffer_bool, true);
+        buffer_write(__args_buffer__, buffer_bool, true);
         if (!is_numeric(_buffer_offset)) show_error($"{_GMFUNCTION_} :: _buffer_offset expected number", true);
-        buffer_write(__args_buffer, buffer_u32, _buffer_offset);
+        buffer_write(__args_buffer__, buffer_u32, _buffer_offset);
     }
 
     // param: _buffer_count, type: optional<UInt32>
     if (is_undefined(_buffer_count))
     {
-        buffer_write(__args_buffer, buffer_bool, false);
+        buffer_write(__args_buffer__, buffer_bool, false);
     }
     else
     {
-        buffer_write(__args_buffer, buffer_bool, true);
+        buffer_write(__args_buffer__, buffer_bool, true);
         if (!is_numeric(_buffer_count)) show_error($"{_GMFUNCTION_} :: _buffer_count expected number", true);
-        buffer_write(__args_buffer, buffer_u32, _buffer_count);
+        buffer_write(__args_buffer__, buffer_u32, _buffer_count);
     }
 
-    var __return_value__ = __steam_remote_storage_file_write_async(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_remote_storage_file_write_async(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -22215,18 +22223,18 @@ function steam_remote_storage_file_read(_file_name, _out_data)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _file_name, type: String
     if (!is_string(_file_name)) show_error($"{_GMFUNCTION_} :: _file_name expected string", true);
-    buffer_write(__args_buffer, buffer_u32, string_byte_length(_file_name));
-    buffer_write(__args_buffer, buffer_string, _file_name);
+    buffer_write(__args_buffer__, buffer_u32, string_byte_length(_file_name));
+    buffer_write(__args_buffer__, buffer_string, _file_name);
 
     // param: _out_data, type: Buffer
     if (!buffer_exists(_out_data)) show_error($"{_GMFUNCTION_} :: _out_data expected Id.Buffer", true);
     __Steamworks_queue_buffer(buffer_get_address(_out_data), buffer_get_size(_out_data));
 
-    var __return_value__ = __steam_remote_storage_file_read(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_remote_storage_file_read(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -22252,12 +22260,12 @@ function steam_remote_storage_get_file_timestamp(_file_name)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __ret_buffer__ = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_remote_storage_get_file_timestamp(_file_name, buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_remote_storage_get_file_timestamp(_file_name, buffer_get_address(__ret_buffer__), buffer_get_size(__ret_buffer__));
 
     var __result__ = undefined;
-    __result__ = buffer_read(__ret_buffer, buffer_u64);
+    __result__ = buffer_read(__ret_buffer__, buffer_u64);
     return __result__;
 }
 
@@ -22273,14 +22281,14 @@ function steam_remote_storage_get_file_name_and_size(_index)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __ret_buffer__ = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_remote_storage_get_file_name_and_size(_index, buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_remote_storage_get_file_name_and_size(_index, buffer_get_address(__ret_buffer__), buffer_get_size(__ret_buffer__));
 
     var __result__ = undefined;
-    if (buffer_read(__ret_buffer, buffer_bool))
+    if (buffer_read(__ret_buffer__, buffer_bool))
     {
-        __result__ = __SteamRemoteStorageFileNameAndSize_decode(__ret_buffer, buffer_tell(__ret_buffer));
+        __result__ = __SteamRemoteStorageFileNameAndSize_decode(__ret_buffer__, buffer_tell(__ret_buffer__));
     }
     else
     {
@@ -22297,14 +22305,14 @@ function steam_remote_storage_get_quota()
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __ret_buffer__ = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_remote_storage_get_quota(buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_remote_storage_get_quota(buffer_get_address(__ret_buffer__), buffer_get_size(__ret_buffer__));
 
     var __result__ = undefined;
-    if (buffer_read(__ret_buffer, buffer_bool))
+    if (buffer_read(__ret_buffer__, buffer_bool))
     {
-        __result__ = __SteamRemoteStorageQuota_decode(__ret_buffer, buffer_tell(__ret_buffer));
+        __result__ = __SteamRemoteStorageQuota_decode(__ret_buffer__, buffer_tell(__ret_buffer__));
     }
     else
     {
@@ -22323,21 +22331,21 @@ function steam_remote_storage_set_sync_platforms(_file_name, _platforms)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _file_name, type: String
     if (!is_string(_file_name)) show_error($"{_GMFUNCTION_} :: _file_name expected string", true);
-    buffer_write(__args_buffer, buffer_u32, string_byte_length(_file_name));
-    buffer_write(__args_buffer, buffer_string, _file_name);
+    buffer_write(__args_buffer__, buffer_u32, string_byte_length(_file_name));
+    buffer_write(__args_buffer__, buffer_string, _file_name);
 
     // param: _platforms, type: enum SteamRemoteStoragePlatform
 
     if (!is_numeric(_platforms)) show_error($"{_GMFUNCTION_} :: _platforms expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _platforms);
+    buffer_write(__args_buffer__, buffer_u64, _platforms);
 
-    var __return_value__ = __steam_remote_storage_set_sync_platforms(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_remote_storage_set_sync_platforms(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
-    return __return_value__;
+    return bool(__return_value__);
 }
 
 /**
@@ -22349,12 +22357,12 @@ function steam_remote_storage_get_sync_platforms(_file_name)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __ret_buffer__ = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_remote_storage_get_sync_platforms(_file_name, buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_remote_storage_get_sync_platforms(_file_name, buffer_get_address(__ret_buffer__), buffer_get_size(__ret_buffer__));
 
     var __result__ = undefined;
-    __result__ = buffer_read(__ret_buffer, buffer_u64);
+    __result__ = buffer_read(__ret_buffer__, buffer_u64);
     return __result__;
 }
 
@@ -22370,12 +22378,12 @@ function steam_remote_storage_file_write_stream_open(_file_name)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __ret_buffer__ = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_remote_storage_file_write_stream_open(_file_name, buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_remote_storage_file_write_stream_open(_file_name, buffer_get_address(__ret_buffer__), buffer_get_size(__ret_buffer__));
 
     var __result__ = undefined;
-    __result__ = buffer_read(__ret_buffer, buffer_u64);
+    __result__ = buffer_read(__ret_buffer__, buffer_u64);
     return __result__;
 }
 
@@ -22391,11 +22399,11 @@ function steam_remote_storage_file_write_stream_write_chunk(_stream, _data, _buf
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _stream, type: UInt64
     if (!is_numeric(_stream)) show_error($"{_GMFUNCTION_} :: _stream expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _stream);
+    buffer_write(__args_buffer__, buffer_u64, _stream);
 
     // param: _data, type: Buffer
     if (!buffer_exists(_data)) show_error($"{_GMFUNCTION_} :: _data expected Id.Buffer", true);
@@ -22404,30 +22412,30 @@ function steam_remote_storage_file_write_stream_write_chunk(_stream, _data, _buf
     // param: _buffer_offset, type: optional<UInt32>
     if (is_undefined(_buffer_offset))
     {
-        buffer_write(__args_buffer, buffer_bool, false);
+        buffer_write(__args_buffer__, buffer_bool, false);
     }
     else
     {
-        buffer_write(__args_buffer, buffer_bool, true);
+        buffer_write(__args_buffer__, buffer_bool, true);
         if (!is_numeric(_buffer_offset)) show_error($"{_GMFUNCTION_} :: _buffer_offset expected number", true);
-        buffer_write(__args_buffer, buffer_u32, _buffer_offset);
+        buffer_write(__args_buffer__, buffer_u32, _buffer_offset);
     }
 
     // param: _buffer_count, type: optional<UInt32>
     if (is_undefined(_buffer_count))
     {
-        buffer_write(__args_buffer, buffer_bool, false);
+        buffer_write(__args_buffer__, buffer_bool, false);
     }
     else
     {
-        buffer_write(__args_buffer, buffer_bool, true);
+        buffer_write(__args_buffer__, buffer_bool, true);
         if (!is_numeric(_buffer_count)) show_error($"{_GMFUNCTION_} :: _buffer_count expected number", true);
-        buffer_write(__args_buffer, buffer_u32, _buffer_count);
+        buffer_write(__args_buffer__, buffer_u32, _buffer_count);
     }
 
-    var __return_value__ = __steam_remote_storage_file_write_stream_write_chunk(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_remote_storage_file_write_stream_write_chunk(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
-    return __return_value__;
+    return bool(__return_value__);
 }
 
 /**
@@ -22439,15 +22447,15 @@ function steam_remote_storage_file_write_stream_close(_stream)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _stream, type: UInt64
     if (!is_numeric(_stream)) show_error($"{_GMFUNCTION_} :: _stream expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _stream);
+    buffer_write(__args_buffer__, buffer_u64, _stream);
 
-    var __return_value__ = __steam_remote_storage_file_write_stream_close(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_remote_storage_file_write_stream_close(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
-    return __return_value__;
+    return bool(__return_value__);
 }
 
 /**
@@ -22459,15 +22467,15 @@ function steam_remote_storage_file_write_stream_cancel(_stream)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _stream, type: UInt64
     if (!is_numeric(_stream)) show_error($"{_GMFUNCTION_} :: _stream expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _stream);
+    buffer_write(__args_buffer__, buffer_u64, _stream);
 
-    var __return_value__ = __steam_remote_storage_file_write_stream_cancel(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_remote_storage_file_write_stream_cancel(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
-    return __return_value__;
+    return bool(__return_value__);
 }
 
 // Skipping function steam_remote_storage_get_cached_ugc_count (no wrapper is required)
@@ -22482,12 +22490,12 @@ function steam_remote_storage_get_cached_ugc_handle(_index)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __ret_buffer__ = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_remote_storage_get_cached_ugc_handle(_index, buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_remote_storage_get_cached_ugc_handle(_index, buffer_get_address(__ret_buffer__), buffer_get_size(__ret_buffer__));
 
     var __result__ = undefined;
-    __result__ = buffer_read(__ret_buffer, buffer_u64);
+    __result__ = buffer_read(__ret_buffer__, buffer_u64);
     return __result__;
 }
 
@@ -22500,20 +22508,20 @@ function steam_remote_storage_get_ugc_details(_ugc_handle)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _ugc_handle, type: UInt64
     if (!is_numeric(_ugc_handle)) show_error($"{_GMFUNCTION_} :: _ugc_handle expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _ugc_handle);
+    buffer_write(__args_buffer__, buffer_u64, _ugc_handle);
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __ret_buffer__ = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_remote_storage_get_ugc_details(buffer_get_address(__args_buffer), buffer_tell(__args_buffer), buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_remote_storage_get_ugc_details(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__), buffer_get_address(__ret_buffer__), buffer_get_size(__ret_buffer__));
 
     var __result__ = undefined;
-    if (buffer_read(__ret_buffer, buffer_bool))
+    if (buffer_read(__ret_buffer__, buffer_bool))
     {
-        __result__ = __SteamRemoteStorageUgcDetails_decode(__ret_buffer, buffer_tell(__ret_buffer));
+        __result__ = __SteamRemoteStorageUgcDetails_decode(__ret_buffer__, buffer_tell(__ret_buffer__));
     }
     else
     {
@@ -22534,11 +22542,11 @@ function steam_remote_storage_ugc_read(_ugc_handle, _out_data, _offset, _action)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _ugc_handle, type: UInt64
     if (!is_numeric(_ugc_handle)) show_error($"{_GMFUNCTION_} :: _ugc_handle expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _ugc_handle);
+    buffer_write(__args_buffer__, buffer_u64, _ugc_handle);
 
     // param: _out_data, type: Buffer
     if (!buffer_exists(_out_data)) show_error($"{_GMFUNCTION_} :: _out_data expected Id.Buffer", true);
@@ -22546,14 +22554,14 @@ function steam_remote_storage_ugc_read(_ugc_handle, _out_data, _offset, _action)
 
     // param: _offset, type: UInt32
     if (!is_numeric(_offset)) show_error($"{_GMFUNCTION_} :: _offset expected number", true);
-    buffer_write(__args_buffer, buffer_u32, _offset);
+    buffer_write(__args_buffer__, buffer_u32, _offset);
 
     // param: _action, type: enum SteamRemoteStorageUgcReadAction
 
     if (!is_numeric(_action)) show_error($"{_GMFUNCTION_} :: _action expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _action);
+    buffer_write(__args_buffer__, buffer_u64, _action);
 
-    var __return_value__ = __steam_remote_storage_ugc_read(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_remote_storage_ugc_read(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -22569,19 +22577,19 @@ function steam_remote_storage_file_share(_file_name, _callback)
 
     var __dispatcher__ = __Steamworks_get_dispatcher();
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _file_name, type: String
     if (!is_string(_file_name)) show_error($"{_GMFUNCTION_} :: _file_name expected string", true);
-    buffer_write(__args_buffer, buffer_u32, string_byte_length(_file_name));
-    buffer_write(__args_buffer, buffer_string, _file_name);
+    buffer_write(__args_buffer__, buffer_u32, string_byte_length(_file_name));
+    buffer_write(__args_buffer__, buffer_string, _file_name);
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
     var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
-    buffer_write(__args_buffer, buffer_u64, _callback_handle);
+    buffer_write(__args_buffer__, buffer_u64, _callback_handle);
 
-    var __return_value__ = __steam_remote_storage_file_share(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_remote_storage_file_share(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -22598,22 +22606,22 @@ function steam_remote_storage_ugc_download(_ugc_handle, _priority, _callback)
 
     var __dispatcher__ = __Steamworks_get_dispatcher();
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _ugc_handle, type: UInt64
     if (!is_numeric(_ugc_handle)) show_error($"{_GMFUNCTION_} :: _ugc_handle expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _ugc_handle);
+    buffer_write(__args_buffer__, buffer_u64, _ugc_handle);
 
     // param: _priority, type: UInt32
     if (!is_numeric(_priority)) show_error($"{_GMFUNCTION_} :: _priority expected number", true);
-    buffer_write(__args_buffer, buffer_u32, _priority);
+    buffer_write(__args_buffer__, buffer_u32, _priority);
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
     var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
-    buffer_write(__args_buffer, buffer_u64, _callback_handle);
+    buffer_write(__args_buffer__, buffer_u64, _callback_handle);
 
-    var __return_value__ = __steam_remote_storage_ugc_download(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_remote_storage_ugc_download(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -22631,27 +22639,27 @@ function steam_remote_storage_ugc_download_to_location(_ugc_handle, _location, _
 
     var __dispatcher__ = __Steamworks_get_dispatcher();
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _ugc_handle, type: UInt64
     if (!is_numeric(_ugc_handle)) show_error($"{_GMFUNCTION_} :: _ugc_handle expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _ugc_handle);
+    buffer_write(__args_buffer__, buffer_u64, _ugc_handle);
 
     // param: _location, type: String
     if (!is_string(_location)) show_error($"{_GMFUNCTION_} :: _location expected string", true);
-    buffer_write(__args_buffer, buffer_u32, string_byte_length(_location));
-    buffer_write(__args_buffer, buffer_string, _location);
+    buffer_write(__args_buffer__, buffer_u32, string_byte_length(_location));
+    buffer_write(__args_buffer__, buffer_string, _location);
 
     // param: _priority, type: UInt32
     if (!is_numeric(_priority)) show_error($"{_GMFUNCTION_} :: _priority expected number", true);
-    buffer_write(__args_buffer, buffer_u32, _priority);
+    buffer_write(__args_buffer__, buffer_u32, _priority);
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
     var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
-    buffer_write(__args_buffer, buffer_u64, _callback_handle);
+    buffer_write(__args_buffer__, buffer_u64, _callback_handle);
 
-    var __return_value__ = __steam_remote_storage_ugc_download_to_location(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_remote_storage_ugc_download_to_location(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -22666,14 +22674,14 @@ function steam_matchmaking_set_callback_lobby_data_update(_callback)
 
     var __dispatcher__ = __Steamworks_get_dispatcher();
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
     var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
-    buffer_write(__args_buffer, buffer_u64, _callback_handle);
+    buffer_write(__args_buffer__, buffer_u64, _callback_handle);
 
-    var __return_value__ = __steam_matchmaking_set_callback_lobby_data_update(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_matchmaking_set_callback_lobby_data_update(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -22691,14 +22699,14 @@ function steam_matchmaking_set_callback_lobby_chat_update(_callback)
 
     var __dispatcher__ = __Steamworks_get_dispatcher();
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
     var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
-    buffer_write(__args_buffer, buffer_u64, _callback_handle);
+    buffer_write(__args_buffer__, buffer_u64, _callback_handle);
 
-    var __return_value__ = __steam_matchmaking_set_callback_lobby_chat_update(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_matchmaking_set_callback_lobby_chat_update(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -22716,14 +22724,14 @@ function steam_matchmaking_set_callback_lobby_chat_msg(_callback)
 
     var __dispatcher__ = __Steamworks_get_dispatcher();
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
     var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
-    buffer_write(__args_buffer, buffer_u64, _callback_handle);
+    buffer_write(__args_buffer__, buffer_u64, _callback_handle);
 
-    var __return_value__ = __steam_matchmaking_set_callback_lobby_chat_msg(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_matchmaking_set_callback_lobby_chat_msg(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -22741,14 +22749,14 @@ function steam_matchmaking_set_callback_lobby_game_created(_callback)
 
     var __dispatcher__ = __Steamworks_get_dispatcher();
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
     var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
-    buffer_write(__args_buffer, buffer_u64, _callback_handle);
+    buffer_write(__args_buffer__, buffer_u64, _callback_handle);
 
-    var __return_value__ = __steam_matchmaking_set_callback_lobby_game_created(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_matchmaking_set_callback_lobby_game_created(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -22766,14 +22774,14 @@ function steam_matchmaking_set_callback_lobby_invite(_callback)
 
     var __dispatcher__ = __Steamworks_get_dispatcher();
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
     var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
-    buffer_write(__args_buffer, buffer_u64, _callback_handle);
+    buffer_write(__args_buffer__, buffer_u64, _callback_handle);
 
-    var __return_value__ = __steam_matchmaking_set_callback_lobby_invite(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_matchmaking_set_callback_lobby_invite(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -22793,23 +22801,23 @@ function steam_matchmaking_create_lobby(_lobby_type, _max_members, _callback)
 
     var __dispatcher__ = __Steamworks_get_dispatcher();
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _lobby_type, type: enum SteamMatchmakingLobbyType
 
     if (!is_numeric(_lobby_type)) show_error($"{_GMFUNCTION_} :: _lobby_type expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _lobby_type);
+    buffer_write(__args_buffer__, buffer_u64, _lobby_type);
 
     // param: _max_members, type: Int32
     if (!is_numeric(_max_members)) show_error($"{_GMFUNCTION_} :: _max_members expected number", true);
-    buffer_write(__args_buffer, buffer_s32, _max_members);
+    buffer_write(__args_buffer__, buffer_s32, _max_members);
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
     var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
-    buffer_write(__args_buffer, buffer_u64, _callback_handle);
+    buffer_write(__args_buffer__, buffer_u64, _callback_handle);
 
-    var __return_value__ = __steam_matchmaking_create_lobby(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_matchmaking_create_lobby(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -22825,18 +22833,18 @@ function steam_matchmaking_join_lobby(_lobby_id, _callback)
 
     var __dispatcher__ = __Steamworks_get_dispatcher();
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _lobby_id, type: UInt64
     if (!is_numeric(_lobby_id)) show_error($"{_GMFUNCTION_} :: _lobby_id expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _lobby_id);
+    buffer_write(__args_buffer__, buffer_u64, _lobby_id);
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
     var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
-    buffer_write(__args_buffer, buffer_u64, _callback_handle);
+    buffer_write(__args_buffer__, buffer_u64, _callback_handle);
 
-    var __return_value__ = __steam_matchmaking_join_lobby(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_matchmaking_join_lobby(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -22851,14 +22859,14 @@ function steam_matchmaking_request_lobby_list(_callback)
 
     var __dispatcher__ = __Steamworks_get_dispatcher();
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
     var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
-    buffer_write(__args_buffer, buffer_u64, _callback_handle);
+    buffer_write(__args_buffer__, buffer_u64, _callback_handle);
 
-    var __return_value__ = __steam_matchmaking_request_lobby_list(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_matchmaking_request_lobby_list(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -22873,24 +22881,24 @@ function steam_matchmaking_add_request_lobby_list_string_filter(_key, _value, _c
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _key, type: String
     if (!is_string(_key)) show_error($"{_GMFUNCTION_} :: _key expected string", true);
-    buffer_write(__args_buffer, buffer_u32, string_byte_length(_key));
-    buffer_write(__args_buffer, buffer_string, _key);
+    buffer_write(__args_buffer__, buffer_u32, string_byte_length(_key));
+    buffer_write(__args_buffer__, buffer_string, _key);
 
     // param: _value, type: String
     if (!is_string(_value)) show_error($"{_GMFUNCTION_} :: _value expected string", true);
-    buffer_write(__args_buffer, buffer_u32, string_byte_length(_value));
-    buffer_write(__args_buffer, buffer_string, _value);
+    buffer_write(__args_buffer__, buffer_u32, string_byte_length(_value));
+    buffer_write(__args_buffer__, buffer_string, _value);
 
     // param: _comparison, type: enum SteamMatchmakingLobbyComparison
 
     if (!is_numeric(_comparison)) show_error($"{_GMFUNCTION_} :: _comparison expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _comparison);
+    buffer_write(__args_buffer__, buffer_u64, _comparison);
 
-    var __return_value__ = __steam_matchmaking_add_request_lobby_list_string_filter(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_matchmaking_add_request_lobby_list_string_filter(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -22905,23 +22913,23 @@ function steam_matchmaking_add_request_lobby_list_numerical_filter(_key, _value,
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _key, type: String
     if (!is_string(_key)) show_error($"{_GMFUNCTION_} :: _key expected string", true);
-    buffer_write(__args_buffer, buffer_u32, string_byte_length(_key));
-    buffer_write(__args_buffer, buffer_string, _key);
+    buffer_write(__args_buffer__, buffer_u32, string_byte_length(_key));
+    buffer_write(__args_buffer__, buffer_string, _key);
 
     // param: _value, type: Int32
     if (!is_numeric(_value)) show_error($"{_GMFUNCTION_} :: _value expected number", true);
-    buffer_write(__args_buffer, buffer_s32, _value);
+    buffer_write(__args_buffer__, buffer_s32, _value);
 
     // param: _comparison, type: enum SteamMatchmakingLobbyComparison
 
     if (!is_numeric(_comparison)) show_error($"{_GMFUNCTION_} :: _comparison expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _comparison);
+    buffer_write(__args_buffer__, buffer_u64, _comparison);
 
-    var __return_value__ = __steam_matchmaking_add_request_lobby_list_numerical_filter(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_matchmaking_add_request_lobby_list_numerical_filter(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -22937,14 +22945,14 @@ function steam_matchmaking_add_request_lobby_list_distance_filter(_distance)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _distance, type: enum SteamMatchmakingLobbyDistanceFilter
 
     if (!is_numeric(_distance)) show_error($"{_GMFUNCTION_} :: _distance expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _distance);
+    buffer_write(__args_buffer__, buffer_u64, _distance);
 
-    var __return_value__ = __steam_matchmaking_add_request_lobby_list_distance_filter(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_matchmaking_add_request_lobby_list_distance_filter(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -22961,12 +22969,12 @@ function steam_matchmaking_get_lobby_by_index(_index)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __ret_buffer__ = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_matchmaking_get_lobby_by_index(_index, buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_matchmaking_get_lobby_by_index(_index, buffer_get_address(__ret_buffer__), buffer_get_size(__ret_buffer__));
 
     var __result__ = undefined;
-    __result__ = buffer_read(__ret_buffer, buffer_u64);
+    __result__ = buffer_read(__ret_buffer__, buffer_u64);
     return __result__;
 }
 
@@ -22978,13 +22986,13 @@ function steam_matchmaking_leave_lobby(_lobby_id)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _lobby_id, type: UInt64
     if (!is_numeric(_lobby_id)) show_error($"{_GMFUNCTION_} :: _lobby_id expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _lobby_id);
+    buffer_write(__args_buffer__, buffer_u64, _lobby_id);
 
-    var __return_value__ = __steam_matchmaking_leave_lobby(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_matchmaking_leave_lobby(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -22999,19 +23007,19 @@ function steam_matchmaking_set_lobby_owner(_lobby_id, _new_owner_id)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _lobby_id, type: UInt64
     if (!is_numeric(_lobby_id)) show_error($"{_GMFUNCTION_} :: _lobby_id expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _lobby_id);
+    buffer_write(__args_buffer__, buffer_u64, _lobby_id);
 
     // param: _new_owner_id, type: UInt64
     if (!is_numeric(_new_owner_id)) show_error($"{_GMFUNCTION_} :: _new_owner_id expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _new_owner_id);
+    buffer_write(__args_buffer__, buffer_u64, _new_owner_id);
 
-    var __return_value__ = __steam_matchmaking_set_lobby_owner(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_matchmaking_set_lobby_owner(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
-    return __return_value__;
+    return bool(__return_value__);
 }
 
 /**
@@ -23023,18 +23031,18 @@ function steam_matchmaking_get_lobby_owner(_lobby_id)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _lobby_id, type: UInt64
     if (!is_numeric(_lobby_id)) show_error($"{_GMFUNCTION_} :: _lobby_id expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _lobby_id);
+    buffer_write(__args_buffer__, buffer_u64, _lobby_id);
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __ret_buffer__ = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_matchmaking_get_lobby_owner(buffer_get_address(__args_buffer), buffer_tell(__args_buffer), buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_matchmaking_get_lobby_owner(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__), buffer_get_address(__ret_buffer__), buffer_get_size(__ret_buffer__));
 
     var __result__ = undefined;
-    __result__ = buffer_read(__ret_buffer, buffer_u64);
+    __result__ = buffer_read(__ret_buffer__, buffer_u64);
     return __result__;
 }
 
@@ -23047,13 +23055,13 @@ function steam_matchmaking_get_num_lobby_members(_lobby_id)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _lobby_id, type: UInt64
     if (!is_numeric(_lobby_id)) show_error($"{_GMFUNCTION_} :: _lobby_id expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _lobby_id);
+    buffer_write(__args_buffer__, buffer_u64, _lobby_id);
 
-    var __return_value__ = __steam_matchmaking_get_num_lobby_members(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_matchmaking_get_num_lobby_members(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -23068,22 +23076,22 @@ function steam_matchmaking_get_lobby_member_by_index(_lobby_id, _member_index)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _lobby_id, type: UInt64
     if (!is_numeric(_lobby_id)) show_error($"{_GMFUNCTION_} :: _lobby_id expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _lobby_id);
+    buffer_write(__args_buffer__, buffer_u64, _lobby_id);
 
     // param: _member_index, type: Int32
     if (!is_numeric(_member_index)) show_error($"{_GMFUNCTION_} :: _member_index expected number", true);
-    buffer_write(__args_buffer, buffer_s32, _member_index);
+    buffer_write(__args_buffer__, buffer_s32, _member_index);
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __ret_buffer__ = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_matchmaking_get_lobby_member_by_index(buffer_get_address(__args_buffer), buffer_tell(__args_buffer), buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_matchmaking_get_lobby_member_by_index(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__), buffer_get_address(__ret_buffer__), buffer_get_size(__ret_buffer__));
 
     var __result__ = undefined;
-    __result__ = buffer_read(__ret_buffer, buffer_u64);
+    __result__ = buffer_read(__ret_buffer__, buffer_u64);
     return __result__;
 }
 
@@ -23098,25 +23106,25 @@ function steam_matchmaking_set_lobby_data(_lobby_id, _key, _value)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _lobby_id, type: UInt64
     if (!is_numeric(_lobby_id)) show_error($"{_GMFUNCTION_} :: _lobby_id expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _lobby_id);
+    buffer_write(__args_buffer__, buffer_u64, _lobby_id);
 
     // param: _key, type: String
     if (!is_string(_key)) show_error($"{_GMFUNCTION_} :: _key expected string", true);
-    buffer_write(__args_buffer, buffer_u32, string_byte_length(_key));
-    buffer_write(__args_buffer, buffer_string, _key);
+    buffer_write(__args_buffer__, buffer_u32, string_byte_length(_key));
+    buffer_write(__args_buffer__, buffer_string, _key);
 
     // param: _value, type: String
     if (!is_string(_value)) show_error($"{_GMFUNCTION_} :: _value expected string", true);
-    buffer_write(__args_buffer, buffer_u32, string_byte_length(_value));
-    buffer_write(__args_buffer, buffer_string, _value);
+    buffer_write(__args_buffer__, buffer_u32, string_byte_length(_value));
+    buffer_write(__args_buffer__, buffer_string, _value);
 
-    var __return_value__ = __steam_matchmaking_set_lobby_data(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_matchmaking_set_lobby_data(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
-    return __return_value__;
+    return bool(__return_value__);
 }
 
 /**
@@ -23129,18 +23137,18 @@ function steam_matchmaking_get_lobby_data(_lobby_id, _key)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _lobby_id, type: UInt64
     if (!is_numeric(_lobby_id)) show_error($"{_GMFUNCTION_} :: _lobby_id expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _lobby_id);
+    buffer_write(__args_buffer__, buffer_u64, _lobby_id);
 
     // param: _key, type: String
     if (!is_string(_key)) show_error($"{_GMFUNCTION_} :: _key expected string", true);
-    buffer_write(__args_buffer, buffer_u32, string_byte_length(_key));
-    buffer_write(__args_buffer, buffer_string, _key);
+    buffer_write(__args_buffer__, buffer_u32, string_byte_length(_key));
+    buffer_write(__args_buffer__, buffer_string, _key);
 
-    var __return_value__ = __steam_matchmaking_get_lobby_data(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_matchmaking_get_lobby_data(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -23155,20 +23163,20 @@ function steam_matchmaking_delete_lobby_data(_lobby_id, _key)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _lobby_id, type: UInt64
     if (!is_numeric(_lobby_id)) show_error($"{_GMFUNCTION_} :: _lobby_id expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _lobby_id);
+    buffer_write(__args_buffer__, buffer_u64, _lobby_id);
 
     // param: _key, type: String
     if (!is_string(_key)) show_error($"{_GMFUNCTION_} :: _key expected string", true);
-    buffer_write(__args_buffer, buffer_u32, string_byte_length(_key));
-    buffer_write(__args_buffer, buffer_string, _key);
+    buffer_write(__args_buffer__, buffer_u32, string_byte_length(_key));
+    buffer_write(__args_buffer__, buffer_string, _key);
 
-    var __return_value__ = __steam_matchmaking_delete_lobby_data(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_matchmaking_delete_lobby_data(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
-    return __return_value__;
+    return bool(__return_value__);
 }
 
 /**
@@ -23180,13 +23188,13 @@ function steam_matchmaking_get_lobby_data_count(_lobby_id)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _lobby_id, type: UInt64
     if (!is_numeric(_lobby_id)) show_error($"{_GMFUNCTION_} :: _lobby_id expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _lobby_id);
+    buffer_write(__args_buffer__, buffer_u64, _lobby_id);
 
-    var __return_value__ = __steam_matchmaking_get_lobby_data_count(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_matchmaking_get_lobby_data_count(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -23201,24 +23209,24 @@ function steam_matchmaking_get_lobby_data_by_index(_lobby_id, _index)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _lobby_id, type: UInt64
     if (!is_numeric(_lobby_id)) show_error($"{_GMFUNCTION_} :: _lobby_id expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _lobby_id);
+    buffer_write(__args_buffer__, buffer_u64, _lobby_id);
 
     // param: _index, type: Int32
     if (!is_numeric(_index)) show_error($"{_GMFUNCTION_} :: _index expected number", true);
-    buffer_write(__args_buffer, buffer_s32, _index);
+    buffer_write(__args_buffer__, buffer_s32, _index);
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __ret_buffer__ = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_matchmaking_get_lobby_data_by_index(buffer_get_address(__args_buffer), buffer_tell(__args_buffer), buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_matchmaking_get_lobby_data_by_index(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__), buffer_get_address(__ret_buffer__), buffer_get_size(__ret_buffer__));
 
     var __result__ = undefined;
-    if (buffer_read(__ret_buffer, buffer_bool))
+    if (buffer_read(__ret_buffer__, buffer_bool))
     {
-        __result__ = __SteamMatchmakingLobbyDataEntry_decode(__ret_buffer, buffer_tell(__ret_buffer));
+        __result__ = __SteamMatchmakingLobbyDataEntry_decode(__ret_buffer__, buffer_tell(__ret_buffer__));
     }
     else
     {
@@ -23237,23 +23245,23 @@ function steam_matchmaking_set_lobby_member_data(_lobby_id, _key, _value)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _lobby_id, type: UInt64
     if (!is_numeric(_lobby_id)) show_error($"{_GMFUNCTION_} :: _lobby_id expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _lobby_id);
+    buffer_write(__args_buffer__, buffer_u64, _lobby_id);
 
     // param: _key, type: String
     if (!is_string(_key)) show_error($"{_GMFUNCTION_} :: _key expected string", true);
-    buffer_write(__args_buffer, buffer_u32, string_byte_length(_key));
-    buffer_write(__args_buffer, buffer_string, _key);
+    buffer_write(__args_buffer__, buffer_u32, string_byte_length(_key));
+    buffer_write(__args_buffer__, buffer_string, _key);
 
     // param: _value, type: String
     if (!is_string(_value)) show_error($"{_GMFUNCTION_} :: _value expected string", true);
-    buffer_write(__args_buffer, buffer_u32, string_byte_length(_value));
-    buffer_write(__args_buffer, buffer_string, _value);
+    buffer_write(__args_buffer__, buffer_u32, string_byte_length(_value));
+    buffer_write(__args_buffer__, buffer_string, _value);
 
-    var __return_value__ = __steam_matchmaking_set_lobby_member_data(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_matchmaking_set_lobby_member_data(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -23269,22 +23277,22 @@ function steam_matchmaking_get_lobby_member_data(_lobby_id, _member_id, _key)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _lobby_id, type: UInt64
     if (!is_numeric(_lobby_id)) show_error($"{_GMFUNCTION_} :: _lobby_id expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _lobby_id);
+    buffer_write(__args_buffer__, buffer_u64, _lobby_id);
 
     // param: _member_id, type: UInt64
     if (!is_numeric(_member_id)) show_error($"{_GMFUNCTION_} :: _member_id expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _member_id);
+    buffer_write(__args_buffer__, buffer_u64, _member_id);
 
     // param: _key, type: String
     if (!is_string(_key)) show_error($"{_GMFUNCTION_} :: _key expected string", true);
-    buffer_write(__args_buffer, buffer_u32, string_byte_length(_key));
-    buffer_write(__args_buffer, buffer_string, _key);
+    buffer_write(__args_buffer__, buffer_u32, string_byte_length(_key));
+    buffer_write(__args_buffer__, buffer_string, _key);
 
-    var __return_value__ = __steam_matchmaking_get_lobby_member_data(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_matchmaking_get_lobby_member_data(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -23301,11 +23309,11 @@ function steam_matchmaking_send_lobby_chat_msg(_lobby_id, _msg, _buffer_offset, 
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _lobby_id, type: UInt64
     if (!is_numeric(_lobby_id)) show_error($"{_GMFUNCTION_} :: _lobby_id expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _lobby_id);
+    buffer_write(__args_buffer__, buffer_u64, _lobby_id);
 
     // param: _msg, type: Buffer
     if (!buffer_exists(_msg)) show_error($"{_GMFUNCTION_} :: _msg expected Id.Buffer", true);
@@ -23314,30 +23322,30 @@ function steam_matchmaking_send_lobby_chat_msg(_lobby_id, _msg, _buffer_offset, 
     // param: _buffer_offset, type: optional<UInt32>
     if (is_undefined(_buffer_offset))
     {
-        buffer_write(__args_buffer, buffer_bool, false);
+        buffer_write(__args_buffer__, buffer_bool, false);
     }
     else
     {
-        buffer_write(__args_buffer, buffer_bool, true);
+        buffer_write(__args_buffer__, buffer_bool, true);
         if (!is_numeric(_buffer_offset)) show_error($"{_GMFUNCTION_} :: _buffer_offset expected number", true);
-        buffer_write(__args_buffer, buffer_u32, _buffer_offset);
+        buffer_write(__args_buffer__, buffer_u32, _buffer_offset);
     }
 
     // param: _buffer_count, type: optional<UInt32>
     if (is_undefined(_buffer_count))
     {
-        buffer_write(__args_buffer, buffer_bool, false);
+        buffer_write(__args_buffer__, buffer_bool, false);
     }
     else
     {
-        buffer_write(__args_buffer, buffer_bool, true);
+        buffer_write(__args_buffer__, buffer_bool, true);
         if (!is_numeric(_buffer_count)) show_error($"{_GMFUNCTION_} :: _buffer_count expected number", true);
-        buffer_write(__args_buffer, buffer_u32, _buffer_count);
+        buffer_write(__args_buffer__, buffer_u32, _buffer_count);
     }
 
-    var __return_value__ = __steam_matchmaking_send_lobby_chat_msg(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_matchmaking_send_lobby_chat_msg(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
-    return __return_value__;
+    return bool(__return_value__);
 }
 
 /**
@@ -23351,28 +23359,28 @@ function steam_matchmaking_get_lobby_chat_entry(_lobby_id, _chat_id, _out_buffer
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _lobby_id, type: UInt64
     if (!is_numeric(_lobby_id)) show_error($"{_GMFUNCTION_} :: _lobby_id expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _lobby_id);
+    buffer_write(__args_buffer__, buffer_u64, _lobby_id);
 
     // param: _chat_id, type: Int32
     if (!is_numeric(_chat_id)) show_error($"{_GMFUNCTION_} :: _chat_id expected number", true);
-    buffer_write(__args_buffer, buffer_s32, _chat_id);
+    buffer_write(__args_buffer__, buffer_s32, _chat_id);
 
     // param: _out_buffer, type: Buffer
     if (!buffer_exists(_out_buffer)) show_error($"{_GMFUNCTION_} :: _out_buffer expected Id.Buffer", true);
     __Steamworks_queue_buffer(buffer_get_address(_out_buffer), buffer_get_size(_out_buffer));
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __ret_buffer__ = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_matchmaking_get_lobby_chat_entry(buffer_get_address(__args_buffer), buffer_tell(__args_buffer), buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_matchmaking_get_lobby_chat_entry(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__), buffer_get_address(__ret_buffer__), buffer_get_size(__ret_buffer__));
 
     var __result__ = undefined;
-    if (buffer_read(__ret_buffer, buffer_bool))
+    if (buffer_read(__ret_buffer__, buffer_bool))
     {
-        __result__ = __SteamMatchmakingLobbyChatEntry_decode(__ret_buffer, buffer_tell(__ret_buffer));
+        __result__ = __SteamMatchmakingLobbyChatEntry_decode(__ret_buffer__, buffer_tell(__ret_buffer__));
     }
     else
     {
@@ -23393,15 +23401,15 @@ function steam_matchmaking_request_lobby_data(_steam_id_lobby)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _steam_id_lobby, type: UInt64
     if (!is_numeric(_steam_id_lobby)) show_error($"{_GMFUNCTION_} :: _steam_id_lobby expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _steam_id_lobby);
+    buffer_write(__args_buffer__, buffer_u64, _steam_id_lobby);
 
-    var __return_value__ = __steam_matchmaking_request_lobby_data(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_matchmaking_request_lobby_data(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
-    return __return_value__;
+    return bool(__return_value__);
 }
 
 /**
@@ -23414,19 +23422,19 @@ function steam_matchmaking_set_lobby_joinable(_steam_id_lobby, _joinable)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _steam_id_lobby, type: UInt64
     if (!is_numeric(_steam_id_lobby)) show_error($"{_GMFUNCTION_} :: _steam_id_lobby expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _steam_id_lobby);
+    buffer_write(__args_buffer__, buffer_u64, _steam_id_lobby);
 
     // param: _joinable, type: Bool
     if (!is_bool(_joinable)) show_error($"{_GMFUNCTION_} :: _joinable expected bool", true);
-    buffer_write(__args_buffer, buffer_bool, _joinable);
+    buffer_write(__args_buffer__, buffer_bool, _joinable);
 
-    var __return_value__ = __steam_matchmaking_set_lobby_joinable(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_matchmaking_set_lobby_joinable(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
-    return __return_value__;
+    return bool(__return_value__);
 }
 
 /**
@@ -23439,20 +23447,20 @@ function steam_matchmaking_set_lobby_type(_steam_id_lobby, _lobby_type)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _steam_id_lobby, type: UInt64
     if (!is_numeric(_steam_id_lobby)) show_error($"{_GMFUNCTION_} :: _steam_id_lobby expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _steam_id_lobby);
+    buffer_write(__args_buffer__, buffer_u64, _steam_id_lobby);
 
     // param: _lobby_type, type: enum SteamMatchmakingLobbyType
 
     if (!is_numeric(_lobby_type)) show_error($"{_GMFUNCTION_} :: _lobby_type expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _lobby_type);
+    buffer_write(__args_buffer__, buffer_u64, _lobby_type);
 
-    var __return_value__ = __steam_matchmaking_set_lobby_type(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_matchmaking_set_lobby_type(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
-    return __return_value__;
+    return bool(__return_value__);
 }
 
 /**
@@ -23465,19 +23473,19 @@ function steam_matchmaking_invite_user_to_lobby(_steam_id_lobby, _steam_id_invit
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _steam_id_lobby, type: UInt64
     if (!is_numeric(_steam_id_lobby)) show_error($"{_GMFUNCTION_} :: _steam_id_lobby expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _steam_id_lobby);
+    buffer_write(__args_buffer__, buffer_u64, _steam_id_lobby);
 
     // param: _steam_id_invitee, type: UInt64
     if (!is_numeric(_steam_id_invitee)) show_error($"{_GMFUNCTION_} :: _steam_id_invitee expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _steam_id_invitee);
+    buffer_write(__args_buffer__, buffer_u64, _steam_id_invitee);
 
-    var __return_value__ = __steam_matchmaking_invite_user_to_lobby(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_matchmaking_invite_user_to_lobby(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
-    return __return_value__;
+    return bool(__return_value__);
 }
 
 /**
@@ -23491,25 +23499,25 @@ function steam_matchmaking_set_lobby_game_server(_steam_id_lobby, _ip, _port, _s
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _steam_id_lobby, type: UInt64
     if (!is_numeric(_steam_id_lobby)) show_error($"{_GMFUNCTION_} :: _steam_id_lobby expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _steam_id_lobby);
+    buffer_write(__args_buffer__, buffer_u64, _steam_id_lobby);
 
     // param: _ip, type: UInt32
     if (!is_numeric(_ip)) show_error($"{_GMFUNCTION_} :: _ip expected number", true);
-    buffer_write(__args_buffer, buffer_u32, _ip);
+    buffer_write(__args_buffer__, buffer_u32, _ip);
 
     // param: _port, type: UInt32
     if (!is_numeric(_port)) show_error($"{_GMFUNCTION_} :: _port expected number", true);
-    buffer_write(__args_buffer, buffer_u32, _port);
+    buffer_write(__args_buffer__, buffer_u32, _port);
 
     // param: _steam_id_gs, type: UInt64
     if (!is_numeric(_steam_id_gs)) show_error($"{_GMFUNCTION_} :: _steam_id_gs expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _steam_id_gs);
+    buffer_write(__args_buffer__, buffer_u64, _steam_id_gs);
 
-    var __return_value__ = __steam_matchmaking_set_lobby_game_server(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_matchmaking_set_lobby_game_server(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -23524,19 +23532,19 @@ function steam_matchmaking_set_linked_lobby(_steam_id_lobby, _steam_id_lobby_dep
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _steam_id_lobby, type: UInt64
     if (!is_numeric(_steam_id_lobby)) show_error($"{_GMFUNCTION_} :: _steam_id_lobby expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _steam_id_lobby);
+    buffer_write(__args_buffer__, buffer_u64, _steam_id_lobby);
 
     // param: _steam_id_lobby_dependent, type: UInt64
     if (!is_numeric(_steam_id_lobby_dependent)) show_error($"{_GMFUNCTION_} :: _steam_id_lobby_dependent expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _steam_id_lobby_dependent);
+    buffer_write(__args_buffer__, buffer_u64, _steam_id_lobby_dependent);
 
-    var __return_value__ = __steam_matchmaking_set_linked_lobby(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_matchmaking_set_linked_lobby(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
-    return __return_value__;
+    return bool(__return_value__);
 }
 
 /**
@@ -23548,20 +23556,20 @@ function steam_matchmaking_get_lobby_game_server(_steam_id_lobby)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _steam_id_lobby, type: UInt64
     if (!is_numeric(_steam_id_lobby)) show_error($"{_GMFUNCTION_} :: _steam_id_lobby expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _steam_id_lobby);
+    buffer_write(__args_buffer__, buffer_u64, _steam_id_lobby);
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __ret_buffer__ = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_matchmaking_get_lobby_game_server(buffer_get_address(__args_buffer), buffer_tell(__args_buffer), buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_matchmaking_get_lobby_game_server(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__), buffer_get_address(__ret_buffer__), buffer_get_size(__ret_buffer__));
 
     var __result__ = undefined;
-    if (buffer_read(__ret_buffer, buffer_bool))
+    if (buffer_read(__ret_buffer__, buffer_bool))
     {
-        __result__ = __SteamMatchmakingLobbyGameServer_decode(__ret_buffer, buffer_tell(__ret_buffer));
+        __result__ = __SteamMatchmakingLobbyGameServer_decode(__ret_buffer__, buffer_tell(__ret_buffer__));
     }
     else
     {
@@ -23582,14 +23590,14 @@ function steam_matchmaking_get_favorite_game(_index)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __ret_buffer__ = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_matchmaking_get_favorite_game(_index, buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_matchmaking_get_favorite_game(_index, buffer_get_address(__ret_buffer__), buffer_get_size(__ret_buffer__));
 
     var __result__ = undefined;
-    if (buffer_read(__ret_buffer, buffer_bool))
+    if (buffer_read(__ret_buffer__, buffer_bool))
     {
-        __result__ = __SteamMatchmakingFavoriteGame_decode(__ret_buffer, buffer_tell(__ret_buffer));
+        __result__ = __SteamMatchmakingFavoriteGame_decode(__ret_buffer__, buffer_tell(__ret_buffer__));
     }
     else
     {
@@ -23614,14 +23622,14 @@ function steam_networking_messages_set_callback_session_request(_callback)
 
     var __dispatcher__ = __Steamworks_get_dispatcher();
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
     var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
-    buffer_write(__args_buffer, buffer_u64, _callback_handle);
+    buffer_write(__args_buffer__, buffer_u64, _callback_handle);
 
-    var __return_value__ = __steam_networking_messages_set_callback_session_request(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_networking_messages_set_callback_session_request(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -23639,14 +23647,14 @@ function steam_networking_messages_set_callback_session_failed(_callback)
 
     var __dispatcher__ = __Steamworks_get_dispatcher();
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
     var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
-    buffer_write(__args_buffer, buffer_u64, _callback_handle);
+    buffer_write(__args_buffer__, buffer_u64, _callback_handle);
 
-    var __return_value__ = __steam_networking_messages_set_callback_session_failed(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_networking_messages_set_callback_session_failed(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -23668,11 +23676,11 @@ function steam_networking_messages_send_message_to_user(_steam_id_remote, _data,
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _steam_id_remote, type: UInt64
     if (!is_numeric(_steam_id_remote)) show_error($"{_GMFUNCTION_} :: _steam_id_remote expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _steam_id_remote);
+    buffer_write(__args_buffer__, buffer_u64, _steam_id_remote);
 
     // param: _data, type: Buffer
     if (!buffer_exists(_data)) show_error($"{_GMFUNCTION_} :: _data expected Id.Buffer", true);
@@ -23681,37 +23689,37 @@ function steam_networking_messages_send_message_to_user(_steam_id_remote, _data,
     // param: _send_flags, type: enum SteamNetworkingSendFlags
 
     if (!is_numeric(_send_flags)) show_error($"{_GMFUNCTION_} :: _send_flags expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _send_flags);
+    buffer_write(__args_buffer__, buffer_u64, _send_flags);
 
     // param: _remote_channel, type: Int32
     if (!is_numeric(_remote_channel)) show_error($"{_GMFUNCTION_} :: _remote_channel expected number", true);
-    buffer_write(__args_buffer, buffer_s32, _remote_channel);
+    buffer_write(__args_buffer__, buffer_s32, _remote_channel);
 
     // param: _buffer_offset, type: optional<UInt32>
     if (is_undefined(_buffer_offset))
     {
-        buffer_write(__args_buffer, buffer_bool, false);
+        buffer_write(__args_buffer__, buffer_bool, false);
     }
     else
     {
-        buffer_write(__args_buffer, buffer_bool, true);
+        buffer_write(__args_buffer__, buffer_bool, true);
         if (!is_numeric(_buffer_offset)) show_error($"{_GMFUNCTION_} :: _buffer_offset expected number", true);
-        buffer_write(__args_buffer, buffer_u32, _buffer_offset);
+        buffer_write(__args_buffer__, buffer_u32, _buffer_offset);
     }
 
     // param: _buffer_count, type: optional<UInt32>
     if (is_undefined(_buffer_count))
     {
-        buffer_write(__args_buffer, buffer_bool, false);
+        buffer_write(__args_buffer__, buffer_bool, false);
     }
     else
     {
-        buffer_write(__args_buffer, buffer_bool, true);
+        buffer_write(__args_buffer__, buffer_bool, true);
         if (!is_numeric(_buffer_count)) show_error($"{_GMFUNCTION_} :: _buffer_count expected number", true);
-        buffer_write(__args_buffer, buffer_u32, _buffer_count);
+        buffer_write(__args_buffer__, buffer_u32, _buffer_count);
     }
 
-    var __return_value__ = __steam_networking_messages_send_message_to_user(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_networking_messages_send_message_to_user(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -23727,11 +23735,11 @@ function steam_networking_messages_receive_messages_on_channel(_local_channel, _
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _local_channel, type: Int32
     if (!is_numeric(_local_channel)) show_error($"{_GMFUNCTION_} :: _local_channel expected number", true);
-    buffer_write(__args_buffer, buffer_s32, _local_channel);
+    buffer_write(__args_buffer__, buffer_s32, _local_channel);
 
     // param: _out_data, type: Buffer
     if (!buffer_exists(_out_data)) show_error($"{_GMFUNCTION_} :: _out_data expected Id.Buffer", true);
@@ -23739,18 +23747,18 @@ function steam_networking_messages_receive_messages_on_channel(_local_channel, _
 
     // param: _count, type: UInt32
     if (!is_numeric(_count)) show_error($"{_GMFUNCTION_} :: _count expected number", true);
-    buffer_write(__args_buffer, buffer_u32, _count);
+    buffer_write(__args_buffer__, buffer_u32, _count);
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __ret_buffer__ = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_networking_messages_receive_messages_on_channel(buffer_get_address(__args_buffer), buffer_tell(__args_buffer), buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_networking_messages_receive_messages_on_channel(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__), buffer_get_address(__ret_buffer__), buffer_get_size(__ret_buffer__));
 
     var __result__ = undefined;
-    var __length__ = buffer_read(__ret_buffer, buffer_u32);
+    var __length__ = buffer_read(__ret_buffer__, buffer_u32);
     __result__ = array_create(__length__);
     for (var _i = 0; _i < __length__; ++_i)
     {
-        __result__[_i] = __SteamNetworkingMessage_decode(__ret_buffer, buffer_tell(__ret_buffer));
+        __result__[_i] = __SteamNetworkingMessage_decode(__ret_buffer__, buffer_tell(__ret_buffer__));
     }
     return __result__;
 }
@@ -23764,15 +23772,15 @@ function steam_networking_messages_accept_session_with_user(_steam_id_remote)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _steam_id_remote, type: UInt64
     if (!is_numeric(_steam_id_remote)) show_error($"{_GMFUNCTION_} :: _steam_id_remote expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _steam_id_remote);
+    buffer_write(__args_buffer__, buffer_u64, _steam_id_remote);
 
-    var __return_value__ = __steam_networking_messages_accept_session_with_user(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_networking_messages_accept_session_with_user(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
-    return __return_value__;
+    return bool(__return_value__);
 }
 
 /**
@@ -23784,15 +23792,15 @@ function steam_networking_messages_close_session_with_user(_steam_id_remote)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _steam_id_remote, type: UInt64
     if (!is_numeric(_steam_id_remote)) show_error($"{_GMFUNCTION_} :: _steam_id_remote expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _steam_id_remote);
+    buffer_write(__args_buffer__, buffer_u64, _steam_id_remote);
 
-    var __return_value__ = __steam_networking_messages_close_session_with_user(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_networking_messages_close_session_with_user(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
-    return __return_value__;
+    return bool(__return_value__);
 }
 
 /**
@@ -23805,19 +23813,19 @@ function steam_networking_messages_close_channel_with_user(_steam_id_remote, _lo
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _steam_id_remote, type: UInt64
     if (!is_numeric(_steam_id_remote)) show_error($"{_GMFUNCTION_} :: _steam_id_remote expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _steam_id_remote);
+    buffer_write(__args_buffer__, buffer_u64, _steam_id_remote);
 
     // param: _local_channel, type: Int32
     if (!is_numeric(_local_channel)) show_error($"{_GMFUNCTION_} :: _local_channel expected number", true);
-    buffer_write(__args_buffer, buffer_s32, _local_channel);
+    buffer_write(__args_buffer__, buffer_s32, _local_channel);
 
-    var __return_value__ = __steam_networking_messages_close_channel_with_user(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_networking_messages_close_channel_with_user(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
-    return __return_value__;
+    return bool(__return_value__);
 }
 
 /**
@@ -23830,14 +23838,14 @@ function steam_networking_sockets_set_callback_connection_status_changed(_callba
 
     var __dispatcher__ = __Steamworks_get_dispatcher();
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
     var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
-    buffer_write(__args_buffer, buffer_u64, _callback_handle);
+    buffer_write(__args_buffer__, buffer_u64, _callback_handle);
 
-    var __return_value__ = __steam_networking_sockets_set_callback_connection_status_changed(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_networking_sockets_set_callback_connection_status_changed(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -23863,12 +23871,12 @@ function steam_networking_sockets_accept_connection(_conn)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __ret_buffer__ = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_networking_sockets_accept_connection(_conn, buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_networking_sockets_accept_connection(_conn, buffer_get_address(__ret_buffer__), buffer_get_size(__ret_buffer__));
 
     var __result__ = undefined;
-    __result__ = buffer_read(__ret_buffer, buffer_u64);
+    __result__ = buffer_read(__ret_buffer__, buffer_u64);
     return __result__;
 }
 
@@ -23884,29 +23892,29 @@ function steam_networking_sockets_close_connection(_conn, _reason, _debug, _ling
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _conn, type: UInt32
     if (!is_numeric(_conn)) show_error($"{_GMFUNCTION_} :: _conn expected number", true);
-    buffer_write(__args_buffer, buffer_u32, _conn);
+    buffer_write(__args_buffer__, buffer_u32, _conn);
 
     // param: _reason, type: enum SteamNetworkingConnectionEnd
 
     if (!is_numeric(_reason)) show_error($"{_GMFUNCTION_} :: _reason expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _reason);
+    buffer_write(__args_buffer__, buffer_u64, _reason);
 
     // param: _debug, type: String
     if (!is_string(_debug)) show_error($"{_GMFUNCTION_} :: _debug expected string", true);
-    buffer_write(__args_buffer, buffer_u32, string_byte_length(_debug));
-    buffer_write(__args_buffer, buffer_string, _debug);
+    buffer_write(__args_buffer__, buffer_u32, string_byte_length(_debug));
+    buffer_write(__args_buffer__, buffer_string, _debug);
 
     // param: _linger, type: Bool
     if (!is_bool(_linger)) show_error($"{_GMFUNCTION_} :: _linger expected bool", true);
-    buffer_write(__args_buffer, buffer_bool, _linger);
+    buffer_write(__args_buffer__, buffer_bool, _linger);
 
-    var __return_value__ = __steam_networking_sockets_close_connection(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_networking_sockets_close_connection(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
-    return __return_value__;
+    return bool(__return_value__);
 }
 
 /**
@@ -23919,19 +23927,19 @@ function steam_networking_sockets_set_connection_user_data(_conn, _user_data)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _conn, type: UInt32
     if (!is_numeric(_conn)) show_error($"{_GMFUNCTION_} :: _conn expected number", true);
-    buffer_write(__args_buffer, buffer_u32, _conn);
+    buffer_write(__args_buffer__, buffer_u32, _conn);
 
     // param: _user_data, type: UInt64
     if (!is_numeric(_user_data)) show_error($"{_GMFUNCTION_} :: _user_data expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _user_data);
+    buffer_write(__args_buffer__, buffer_u64, _user_data);
 
-    var __return_value__ = __steam_networking_sockets_set_connection_user_data(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_networking_sockets_set_connection_user_data(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
-    return __return_value__;
+    return bool(__return_value__);
 }
 
 /**
@@ -23943,12 +23951,12 @@ function steam_networking_sockets_get_connection_user_data(_conn)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __ret_buffer__ = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_networking_sockets_get_connection_user_data(_conn, buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_networking_sockets_get_connection_user_data(_conn, buffer_get_address(__ret_buffer__), buffer_get_size(__ret_buffer__));
 
     var __result__ = undefined;
-    __result__ = buffer_read(__ret_buffer, buffer_u64);
+    __result__ = buffer_read(__ret_buffer__, buffer_u64);
     return __result__;
 }
 
@@ -23971,11 +23979,11 @@ function steam_networking_sockets_send_message_to_connection(_conn, _data, _send
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _conn, type: UInt32
     if (!is_numeric(_conn)) show_error($"{_GMFUNCTION_} :: _conn expected number", true);
-    buffer_write(__args_buffer, buffer_u32, _conn);
+    buffer_write(__args_buffer__, buffer_u32, _conn);
 
     // param: _data, type: Buffer
     if (!buffer_exists(_data)) show_error($"{_GMFUNCTION_} :: _data expected Id.Buffer", true);
@@ -23984,38 +23992,38 @@ function steam_networking_sockets_send_message_to_connection(_conn, _data, _send
     // param: _send_flags, type: enum SteamNetworkingSendFlags
 
     if (!is_numeric(_send_flags)) show_error($"{_GMFUNCTION_} :: _send_flags expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _send_flags);
+    buffer_write(__args_buffer__, buffer_u64, _send_flags);
 
     // param: _buffer_offset, type: optional<UInt32>
     if (is_undefined(_buffer_offset))
     {
-        buffer_write(__args_buffer, buffer_bool, false);
+        buffer_write(__args_buffer__, buffer_bool, false);
     }
     else
     {
-        buffer_write(__args_buffer, buffer_bool, true);
+        buffer_write(__args_buffer__, buffer_bool, true);
         if (!is_numeric(_buffer_offset)) show_error($"{_GMFUNCTION_} :: _buffer_offset expected number", true);
-        buffer_write(__args_buffer, buffer_u32, _buffer_offset);
+        buffer_write(__args_buffer__, buffer_u32, _buffer_offset);
     }
 
     // param: _buffer_count, type: optional<UInt32>
     if (is_undefined(_buffer_count))
     {
-        buffer_write(__args_buffer, buffer_bool, false);
+        buffer_write(__args_buffer__, buffer_bool, false);
     }
     else
     {
-        buffer_write(__args_buffer, buffer_bool, true);
+        buffer_write(__args_buffer__, buffer_bool, true);
         if (!is_numeric(_buffer_count)) show_error($"{_GMFUNCTION_} :: _buffer_count expected number", true);
-        buffer_write(__args_buffer, buffer_u32, _buffer_count);
+        buffer_write(__args_buffer__, buffer_u32, _buffer_count);
     }
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __ret_buffer__ = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_networking_sockets_send_message_to_connection(buffer_get_address(__args_buffer), buffer_tell(__args_buffer), buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_networking_sockets_send_message_to_connection(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__), buffer_get_address(__ret_buffer__), buffer_get_size(__ret_buffer__));
 
     var __result__ = undefined;
-    __result__ = buffer_read(__ret_buffer, buffer_u64);
+    __result__ = buffer_read(__ret_buffer__, buffer_u64);
     return __result__;
 }
 
@@ -24028,12 +24036,12 @@ function steam_networking_sockets_flush_messages_on_connection(_conn)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __ret_buffer__ = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_networking_sockets_flush_messages_on_connection(_conn, buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_networking_sockets_flush_messages_on_connection(_conn, buffer_get_address(__ret_buffer__), buffer_get_size(__ret_buffer__));
 
     var __result__ = undefined;
-    __result__ = buffer_read(__ret_buffer, buffer_u64);
+    __result__ = buffer_read(__ret_buffer__, buffer_u64);
     return __result__;
 }
 
@@ -24048,11 +24056,11 @@ function steam_networking_sockets_receive_messages_on_connection(_conn, _out_dat
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _conn, type: UInt32
     if (!is_numeric(_conn)) show_error($"{_GMFUNCTION_} :: _conn expected number", true);
-    buffer_write(__args_buffer, buffer_u32, _conn);
+    buffer_write(__args_buffer__, buffer_u32, _conn);
 
     // param: _out_data, type: Buffer
     if (!buffer_exists(_out_data)) show_error($"{_GMFUNCTION_} :: _out_data expected Id.Buffer", true);
@@ -24060,18 +24068,18 @@ function steam_networking_sockets_receive_messages_on_connection(_conn, _out_dat
 
     // param: _count, type: UInt32
     if (!is_numeric(_count)) show_error($"{_GMFUNCTION_} :: _count expected number", true);
-    buffer_write(__args_buffer, buffer_u32, _count);
+    buffer_write(__args_buffer__, buffer_u32, _count);
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __ret_buffer__ = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_networking_sockets_receive_messages_on_connection(buffer_get_address(__args_buffer), buffer_tell(__args_buffer), buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_networking_sockets_receive_messages_on_connection(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__), buffer_get_address(__ret_buffer__), buffer_get_size(__ret_buffer__));
 
     var __result__ = undefined;
-    var __length__ = buffer_read(__ret_buffer, buffer_u32);
+    var __length__ = buffer_read(__ret_buffer__, buffer_u32);
     __result__ = array_create(__length__);
     for (var _i = 0; _i < __length__; ++_i)
     {
-        __result__[_i] = __SteamNetworkingMessage_decode(__ret_buffer, buffer_tell(__ret_buffer));
+        __result__[_i] = __SteamNetworkingMessage_decode(__ret_buffer__, buffer_tell(__ret_buffer__));
     }
     return __result__;
 }
@@ -24085,14 +24093,14 @@ function steam_networking_sockets_get_connection_info(_conn)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __ret_buffer__ = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_networking_sockets_get_connection_info(_conn, buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_networking_sockets_get_connection_info(_conn, buffer_get_address(__ret_buffer__), buffer_get_size(__ret_buffer__));
 
     var __result__ = undefined;
-    if (buffer_read(__ret_buffer, buffer_bool))
+    if (buffer_read(__ret_buffer__, buffer_bool))
     {
-        __result__ = __SteamNetworkingSocketsConnectionInfo_decode(__ret_buffer, buffer_tell(__ret_buffer));
+        __result__ = __SteamNetworkingSocketsConnectionInfo_decode(__ret_buffer__, buffer_tell(__ret_buffer__));
     }
     else
     {
@@ -24116,16 +24124,16 @@ function steam_networking_sockets_create_socket_pair(_use_network_loopback)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __ret_buffer__ = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_networking_sockets_create_socket_pair(_use_network_loopback, buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_networking_sockets_create_socket_pair(_use_network_loopback, buffer_get_address(__ret_buffer__), buffer_get_size(__ret_buffer__));
 
     var __result__ = undefined;
-    var __length__ = buffer_read(__ret_buffer, buffer_u32);
+    var __length__ = buffer_read(__ret_buffer__, buffer_u32);
     __result__ = array_create(__length__);
     for (var _i = 0; _i < __length__; ++_i)
     {
-        __result__[_i] = buffer_read(__ret_buffer, buffer_u32);
+        __result__[_i] = buffer_read(__ret_buffer__, buffer_u32);
     }
     return __result__;
 }
@@ -24143,17 +24151,17 @@ function steam_networking_sockets_connect_p2p(_steam_id_remote, _remote_virtual_
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _steam_id_remote, type: UInt64
     if (!is_numeric(_steam_id_remote)) show_error($"{_GMFUNCTION_} :: _steam_id_remote expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _steam_id_remote);
+    buffer_write(__args_buffer__, buffer_u64, _steam_id_remote);
 
     // param: _remote_virtual_port, type: Int32
     if (!is_numeric(_remote_virtual_port)) show_error($"{_GMFUNCTION_} :: _remote_virtual_port expected number", true);
-    buffer_write(__args_buffer, buffer_s32, _remote_virtual_port);
+    buffer_write(__args_buffer__, buffer_s32, _remote_virtual_port);
 
-    var __return_value__ = __steam_networking_sockets_connect_p2p(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_networking_sockets_connect_p2p(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -24181,11 +24189,11 @@ function steam_networking_sockets_receive_messages_on_poll_group(_poll_group, _o
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _poll_group, type: UInt32
     if (!is_numeric(_poll_group)) show_error($"{_GMFUNCTION_} :: _poll_group expected number", true);
-    buffer_write(__args_buffer, buffer_u32, _poll_group);
+    buffer_write(__args_buffer__, buffer_u32, _poll_group);
 
     // param: _out_data, type: Buffer
     if (!buffer_exists(_out_data)) show_error($"{_GMFUNCTION_} :: _out_data expected Id.Buffer", true);
@@ -24193,18 +24201,18 @@ function steam_networking_sockets_receive_messages_on_poll_group(_poll_group, _o
 
     // param: _count, type: UInt32
     if (!is_numeric(_count)) show_error($"{_GMFUNCTION_} :: _count expected number", true);
-    buffer_write(__args_buffer, buffer_u32, _count);
+    buffer_write(__args_buffer__, buffer_u32, _count);
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __ret_buffer__ = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_networking_sockets_receive_messages_on_poll_group(buffer_get_address(__args_buffer), buffer_tell(__args_buffer), buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_networking_sockets_receive_messages_on_poll_group(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__), buffer_get_address(__ret_buffer__), buffer_get_size(__ret_buffer__));
 
     var __result__ = undefined;
-    var __length__ = buffer_read(__ret_buffer, buffer_u32);
+    var __length__ = buffer_read(__ret_buffer__, buffer_u32);
     __result__ = array_create(__length__);
     for (var _i = 0; _i < __length__; ++_i)
     {
-        __result__[_i] = __SteamNetworkingMessage_decode(__ret_buffer, buffer_tell(__ret_buffer));
+        __result__[_i] = __SteamNetworkingMessage_decode(__ret_buffer__, buffer_tell(__ret_buffer__));
     }
     return __result__;
 }
@@ -24219,14 +24227,14 @@ function steam_parties_set_callback_reservation_notification(_callback)
 
     var __dispatcher__ = __Steamworks_get_dispatcher();
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
     var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
-    buffer_write(__args_buffer, buffer_u64, _callback_handle);
+    buffer_write(__args_buffer__, buffer_u64, _callback_handle);
 
-    var __return_value__ = __steam_parties_set_callback_reservation_notification(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_parties_set_callback_reservation_notification(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -24244,14 +24252,14 @@ function steam_parties_set_callback_available_beacon_locations_updated(_callback
 
     var __dispatcher__ = __Steamworks_get_dispatcher();
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
     var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
-    buffer_write(__args_buffer, buffer_u64, _callback_handle);
+    buffer_write(__args_buffer__, buffer_u64, _callback_handle);
 
-    var __return_value__ = __steam_parties_set_callback_available_beacon_locations_updated(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_parties_set_callback_available_beacon_locations_updated(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -24269,14 +24277,14 @@ function steam_parties_set_callback_active_beacons_updated(_callback)
 
     var __dispatcher__ = __Steamworks_get_dispatcher();
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
     var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
-    buffer_write(__args_buffer, buffer_u64, _callback_handle);
+    buffer_write(__args_buffer__, buffer_u64, _callback_handle);
 
-    var __return_value__ = __steam_parties_set_callback_active_beacons_updated(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_parties_set_callback_active_beacons_updated(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -24292,14 +24300,14 @@ function steam_parties_get_num_available_beacon_locations()
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __ret_buffer__ = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_parties_get_num_available_beacon_locations(buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_parties_get_num_available_beacon_locations(buffer_get_address(__ret_buffer__), buffer_get_size(__ret_buffer__));
 
     var __result__ = undefined;
-    if (buffer_read(__ret_buffer, buffer_bool))
+    if (buffer_read(__ret_buffer__, buffer_bool))
     {
-        __result__ = buffer_read(__ret_buffer, buffer_u32);
+        __result__ = buffer_read(__ret_buffer__, buffer_u32);
     }
     else
     {
@@ -24316,16 +24324,16 @@ function steam_parties_get_available_beacon_locations()
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __ret_buffer__ = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_parties_get_available_beacon_locations(buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_parties_get_available_beacon_locations(buffer_get_address(__ret_buffer__), buffer_get_size(__ret_buffer__));
 
     var __result__ = undefined;
-    var __length__ = buffer_read(__ret_buffer, buffer_u32);
+    var __length__ = buffer_read(__ret_buffer__, buffer_u32);
     __result__ = array_create(__length__);
     for (var _i = 0; _i < __length__; ++_i)
     {
-        __result__[_i] = __SteamPartiesBeaconLocation_decode(__ret_buffer, buffer_tell(__ret_buffer));
+        __result__[_i] = __SteamPartiesBeaconLocation_decode(__ret_buffer__, buffer_tell(__ret_buffer__));
     }
     return __result__;
 }
@@ -24346,39 +24354,39 @@ function steam_parties_create_beacon(_open_slots, _beacon_location_type, _beacon
 
     var __dispatcher__ = __Steamworks_get_dispatcher();
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _open_slots, type: UInt32
     if (!is_numeric(_open_slots)) show_error($"{_GMFUNCTION_} :: _open_slots expected number", true);
-    buffer_write(__args_buffer, buffer_u32, _open_slots);
+    buffer_write(__args_buffer__, buffer_u32, _open_slots);
 
     // param: _beacon_location_type, type: enum SteamPartiesBeaconLocationType
 
     if (!is_numeric(_beacon_location_type)) show_error($"{_GMFUNCTION_} :: _beacon_location_type expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _beacon_location_type);
+    buffer_write(__args_buffer__, buffer_u64, _beacon_location_type);
 
     // param: _beacon_location_id, type: UInt64
     if (!is_numeric(_beacon_location_id)) show_error($"{_GMFUNCTION_} :: _beacon_location_id expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _beacon_location_id);
+    buffer_write(__args_buffer__, buffer_u64, _beacon_location_id);
 
     // param: _connect_string, type: String
     if (!is_string(_connect_string)) show_error($"{_GMFUNCTION_} :: _connect_string expected string", true);
-    buffer_write(__args_buffer, buffer_u32, string_byte_length(_connect_string));
-    buffer_write(__args_buffer, buffer_string, _connect_string);
+    buffer_write(__args_buffer__, buffer_u32, string_byte_length(_connect_string));
+    buffer_write(__args_buffer__, buffer_string, _connect_string);
 
     // param: _metadata, type: String
     if (!is_string(_metadata)) show_error($"{_GMFUNCTION_} :: _metadata expected string", true);
-    buffer_write(__args_buffer, buffer_u32, string_byte_length(_metadata));
-    buffer_write(__args_buffer, buffer_string, _metadata);
+    buffer_write(__args_buffer__, buffer_u32, string_byte_length(_metadata));
+    buffer_write(__args_buffer__, buffer_string, _metadata);
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
     var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
-    buffer_write(__args_buffer, buffer_u64, _callback_handle);
+    buffer_write(__args_buffer__, buffer_u64, _callback_handle);
 
-    var __return_value__ = __steam_parties_create_beacon(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_parties_create_beacon(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
-    return __return_value__;
+    return bool(__return_value__);
 }
 
 /**
@@ -24391,19 +24399,19 @@ function steam_parties_on_reservation_completed(_beacon_id, _user_steam_id)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _beacon_id, type: UInt64
     if (!is_numeric(_beacon_id)) show_error($"{_GMFUNCTION_} :: _beacon_id expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _beacon_id);
+    buffer_write(__args_buffer__, buffer_u64, _beacon_id);
 
     // param: _user_steam_id, type: UInt64
     if (!is_numeric(_user_steam_id)) show_error($"{_GMFUNCTION_} :: _user_steam_id expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _user_steam_id);
+    buffer_write(__args_buffer__, buffer_u64, _user_steam_id);
 
-    var __return_value__ = __steam_parties_on_reservation_completed(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_parties_on_reservation_completed(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
-    return __return_value__;
+    return bool(__return_value__);
 }
 
 /**
@@ -24416,19 +24424,19 @@ function steam_parties_cancel_reservation(_beacon_id, _user_steam_id)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _beacon_id, type: UInt64
     if (!is_numeric(_beacon_id)) show_error($"{_GMFUNCTION_} :: _beacon_id expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _beacon_id);
+    buffer_write(__args_buffer__, buffer_u64, _beacon_id);
 
     // param: _user_steam_id, type: UInt64
     if (!is_numeric(_user_steam_id)) show_error($"{_GMFUNCTION_} :: _user_steam_id expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _user_steam_id);
+    buffer_write(__args_buffer__, buffer_u64, _user_steam_id);
 
-    var __return_value__ = __steam_parties_cancel_reservation(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_parties_cancel_reservation(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
-    return __return_value__;
+    return bool(__return_value__);
 }
 
 /**
@@ -24444,24 +24452,24 @@ function steam_parties_change_num_open_slots(_beacon_id, _open_slots, _callback)
 
     var __dispatcher__ = __Steamworks_get_dispatcher();
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _beacon_id, type: UInt64
     if (!is_numeric(_beacon_id)) show_error($"{_GMFUNCTION_} :: _beacon_id expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _beacon_id);
+    buffer_write(__args_buffer__, buffer_u64, _beacon_id);
 
     // param: _open_slots, type: UInt32
     if (!is_numeric(_open_slots)) show_error($"{_GMFUNCTION_} :: _open_slots expected number", true);
-    buffer_write(__args_buffer, buffer_u32, _open_slots);
+    buffer_write(__args_buffer__, buffer_u32, _open_slots);
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
     var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
-    buffer_write(__args_buffer, buffer_u64, _callback_handle);
+    buffer_write(__args_buffer__, buffer_u64, _callback_handle);
 
-    var __return_value__ = __steam_parties_change_num_open_slots(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_parties_change_num_open_slots(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
-    return __return_value__;
+    return bool(__return_value__);
 }
 
 /**
@@ -24473,15 +24481,15 @@ function steam_parties_destroy_beacon(_beacon_id)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _beacon_id, type: UInt64
     if (!is_numeric(_beacon_id)) show_error($"{_GMFUNCTION_} :: _beacon_id expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _beacon_id);
+    buffer_write(__args_buffer__, buffer_u64, _beacon_id);
 
-    var __return_value__ = __steam_parties_destroy_beacon(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_parties_destroy_beacon(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
-    return __return_value__;
+    return bool(__return_value__);
 }
 
 // Skipping function steam_parties_get_num_active_beacons (no wrapper is required)
@@ -24496,12 +24504,12 @@ function steam_parties_get_beacon_by_index(_index)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __ret_buffer__ = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_parties_get_beacon_by_index(_index, buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_parties_get_beacon_by_index(_index, buffer_get_address(__ret_buffer__), buffer_get_size(__ret_buffer__));
 
     var __result__ = undefined;
-    __result__ = buffer_read(__ret_buffer, buffer_u64);
+    __result__ = buffer_read(__ret_buffer__, buffer_u64);
     return __result__;
 }
 
@@ -24514,20 +24522,20 @@ function steam_parties_get_beacon_details(_beacon_id)
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _beacon_id, type: UInt64
     if (!is_numeric(_beacon_id)) show_error($"{_GMFUNCTION_} :: _beacon_id expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _beacon_id);
+    buffer_write(__args_buffer__, buffer_u64, _beacon_id);
 
-    var __ret_buffer = __ext_core_get_ret_buffer();
+    var __ret_buffer__ = __ext_core_get_ret_buffer();
 
-    var __return_value__ = __steam_parties_get_beacon_details(buffer_get_address(__args_buffer), buffer_tell(__args_buffer), buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __steam_parties_get_beacon_details(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__), buffer_get_address(__ret_buffer__), buffer_get_size(__ret_buffer__));
 
     var __result__ = undefined;
-    if (buffer_read(__ret_buffer, buffer_bool))
+    if (buffer_read(__ret_buffer__, buffer_bool))
     {
-        __result__ = __SteamPartiesBeaconDetails_decode(__ret_buffer, buffer_tell(__ret_buffer));
+        __result__ = __SteamPartiesBeaconDetails_decode(__ret_buffer__, buffer_tell(__ret_buffer__));
     }
     else
     {
@@ -24548,20 +24556,20 @@ function steam_parties_join_party(_beacon_id, _callback)
 
     var __dispatcher__ = __Steamworks_get_dispatcher();
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _beacon_id, type: UInt64
     if (!is_numeric(_beacon_id)) show_error($"{_GMFUNCTION_} :: _beacon_id expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _beacon_id);
+    buffer_write(__args_buffer__, buffer_u64, _beacon_id);
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
     var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
-    buffer_write(__args_buffer, buffer_u64, _callback_handle);
+    buffer_write(__args_buffer__, buffer_u64, _callback_handle);
 
-    var __return_value__ = __steam_parties_join_party(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_parties_join_party(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
-    return __return_value__;
+    return bool(__return_value__);
 }
 
 /**
@@ -24575,23 +24583,23 @@ function steam_parties_get_beacon_location_data(_beacon_location_type, _beacon_l
     var __available__ = __Steamworks_is_available();
     if (!__available__) return;
 
-    var __args_buffer = __ext_core_get_args_buffer();
+    var __args_buffer__ = __ext_core_get_args_buffer();
 
     // param: _beacon_location_type, type: enum SteamPartiesBeaconLocationType
 
     if (!is_numeric(_beacon_location_type)) show_error($"{_GMFUNCTION_} :: _beacon_location_type expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _beacon_location_type);
+    buffer_write(__args_buffer__, buffer_u64, _beacon_location_type);
 
     // param: _beacon_location_id, type: UInt64
     if (!is_numeric(_beacon_location_id)) show_error($"{_GMFUNCTION_} :: _beacon_location_id expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _beacon_location_id);
+    buffer_write(__args_buffer__, buffer_u64, _beacon_location_id);
 
     // param: _data_kind, type: enum SteamPartiesBeaconLocationData
 
     if (!is_numeric(_data_kind)) show_error($"{_GMFUNCTION_} :: _data_kind expected number", true);
-    buffer_write(__args_buffer, buffer_u64, _data_kind);
+    buffer_write(__args_buffer__, buffer_u64, _data_kind);
 
-    var __return_value__ = __steam_parties_get_beacon_location_data(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __steam_parties_get_beacon_location_data(buffer_get_address(__args_buffer__), buffer_tell(__args_buffer__));
 
     return __return_value__;
 }
@@ -24758,3 +24766,8 @@ function __Steamworks_is_available()
     static __available__ = extension_exists("Steamworks");
     return __available__;
 }
+// #####################################################################
+// # Exports
+// #####################################################################
+
+#export STEAM_API_BREAKPAD_INVALID_HANDLE, STEAM_API_GAME_EXTRA_INFO_MAX, STEAM_API_SALT_SIZE, STEAM_API_GID_NIL, STEAM_API_AUTH_TICKET_INVALID, STEAM_API_JOB_ID_NIL, STEAM_API_TXN_ID_NIL, STEAM_API_TXN_ID_UNKNOWN, STEAM_API_API_CALL_INVALID, STEAM_API_APP_ID_INVALID, STEAM_API_BUNDLE_ID_INVALID, STEAM_API_CELL_ID_INVALID, STEAM_API_DEPOT_ID_INVALID, STEAM_API_ASSET_CLASS_ID_INVALID, STEAM_API_MANIFEST_ID_INVALID, STEAM_API_STEAM_ACCOUNT_ID_MASK, STEAM_API_STEAM_ACCOUNT_INSTANCE_MASK, STEAM_API_STEAM_USER_CONSOLE_INSTANCE, STEAM_API_STEAM_USER_DESKTOP_INSTANCE, STEAM_API_STEAM_USER_WEB_INSTANCE, STEAM_API_PACKAGE_ID_FREE_SUB, STEAM_API_PACKAGE_ID_INVALID, STEAM_API_PARTNER_ID_INVALID, STEAM_API_PHYSICAL_ITEM_ID_INVALID, STEAM_API_QUERY_PORT_ERROR, STEAM_API_QUERY_PORT_NOT_INITIALIZED, STEAM_ID_NIL, STEAM_ID_NON_STEAM_GS, STEAM_FRIENDS_MAX_FRIENDS_GROUP_NAME, STEAM_FRIENDS_MAX_RICH_PRESENCE_KEY_LENGTH, STEAM_FRIENDS_MAX_RICH_PRESENCE_KEYS, STEAM_FRIENDS_MAX_RICH_PRESENCE_VALUE_LENGTH, STEAM_FRIENDS_PERSONA_NAME_MAX, STEAM_FRIENDS_ENUMERATE_FOLLOWERS_MAX, STEAM_FRIENDS_FRIENDS_GROUP_LIMIT, STEAM_FRIENDS_CHAT_METADATA_MAX, STEAM_FRIENDS_PERSONA_NAME_MAX_UTF16, STEAM_FRIENDS_GROUP_ID_INVALID, STEAM_FRIENDS_INTERFACE_VERSION, STEAM_APPS_APP_PROOF_OF_PURCHASE_KEY_MAX, STEAM_APPS_INTERFACE_VERSION, STEAM_SCREENSHOTS_INVALID_SCREENSHOT_HANDLE, STEAM_SCREENSHOTS_UFS_TAG_TYPE_MAX, STEAM_SCREENSHOTS_UFS_TAG_VALUE_MAX, STEAM_SCREENSHOTS_MAX_TAGGED_PUBLISHED_FILES, STEAM_SCREENSHOTS_MAX_TAGGED_USERS, STEAM_SCREENSHOTS_THUMB_WIDTH, STEAM_SCREENSHOTS_INTERFACE_VERSION, STEAM_USER_INTERFACE_VERSION, STEAM_USER_ENCRYPTED_APP_TICKET_SYMMETRIC_KEY_LEN, STEAM_UTILS_INTERFACE_VERSION, STEAM_UGC_NUM_RESULTS_PER_PAGE, STEAM_UGC_DEVELOPER_METADATA_MAX, STEAM_UGC_QUERY_HANDLE_INVALID, STEAM_UGC_UPDATE_HANDLE_INVALID, STEAM_UGC_INTERFACE_VERSION, STEAM_INPUT_INTERFACE_VERSION, STEAM_INPUT_HANDLE_ALL_CONTROLLERS, STEAM_INPUT_MAX_ANALOG_ACTIONS, STEAM_INPUT_MAX_ANALOG_ACTION_DATA, STEAM_INPUT_MAX_COUNT, STEAM_INPUT_MAX_DIGITAL_ACTIONS, STEAM_INPUT_MAX_ORIGINS, STEAM_INPUT_MIN_ANALOG_ACTION_DATA, STEAM_USER_STATS_LEADERBOARD_NAME_MAX, STEAM_USER_STATS_STAT_NAME_MAX, STEAM_USER_STATS_LEADERBOARD_DETAILS_MAX, STEAM_USER_STATS_INTERFACE_VERSION, STEAM_MUSIC_INTERFACE_VERSION, STEAM_TIMELINE_MAX_TIMELINE_PRIORITY, STEAM_INVENTORY_RESULT_INVALID, STEAM_INVENTORY_ITEM_INSTANCE_ID_INVALID, STEAM_INVENTORY_INTERFACE_VERSION, STEAM_REMOTE_STORAGE_FILENAME_MAX, STEAM_REMOTE_STORAGE_PUBLISHED_DOCUMENT_CHANGE_DESCRIPTION_MAX, STEAM_REMOTE_STORAGE_PUBLISHED_DOCUMENT_DESCRIPTION_MAX, STEAM_REMOTE_STORAGE_PUBLISHED_DOCUMENT_TITLE_MAX, STEAM_REMOTE_STORAGE_PUBLISHED_FILE_URL_MAX, STEAM_REMOTE_STORAGE_TAG_LIST_MAX, STEAM_REMOTE_STORAGE_PUBLISHED_FILE_ID_INVALID, STEAM_REMOTE_STORAGE_PUBLISHED_FILE_UPDATE_HANDLE_INVALID, STEAM_REMOTE_STORAGE_UGC_FILE_STREAM_HANDLE_INVALID, STEAM_REMOTE_STORAGE_UGC_HANDLE_INVALID, STEAM_REMOTE_STORAGE_ENUMERATE_PUBLISHED_FILES_MAX_RESULTS, STEAM_REMOTE_STORAGE_MAX_CLOUD_FILE_CHUNK_SIZE, STEAM_REMOTE_STORAGE_INTERFACE_VERSION, STEAM_MATCHMAKING_SERVER_QUERY_INVALID, STEAM_MATCHMAKING_MAX_LOBBY_KEY_LENGTH, STEAM_MATCHMAKING_FAVORITE_FLAG_FAVORITE, STEAM_MATCHMAKING_FAVORITE_FLAG_HISTORY, STEAM_MATCHMAKING_FAVORITE_FLAG_NONE, STEAM_MATCHMAKING_SERVERS_INTERFACE_VERSION, STEAM_MATCHMAKING_INTERFACE_VERSION, STEAM_NETWORKING_POLL_GROUP_INVALID, STEAM_NETWORKING_SOCKETS_MAX_MESSAGE_SIZE_SEND, SteamApiAccountType, SteamApiDenyReason, SteamApiGameIdType, SteamApiLaunchOptionType, SteamApiMarketingMessageFlag, SteamApiNotificationPosition, SteamApiUniverse, SteamApiUserHasLicenseForAppResult, SteamApiVoiceResult, SteamApiResult, SteamFriendsOverlayToStoreFlag, SteamFriendsOverlayToWebpageMode, SteamFriendsChatEntryType, SteamFriendsFriendFlag, SteamFriendsPersonaState, SteamFriendsRelationship, SteamFriendsPersonaChange, SteamAppsBetaBranchFlags, SteamScreenshotsVrScreenshotType, SteamUserDurationControlProgress, SteamUserDurationControlNotification, SteamMarketNotAllowedReasonFlags, SteamNetworkingIdentityType, SteamUserBeginAuthSessionResult, SteamAuthSessionResponse, SteamUserDurationControlOnlineState, SteamUtilsCheckFileSignature, SteamUtilsApiCallFailure, SteamUtilsGamepadTextInputMode, SteamUtilsGamepadTextInputLineMode, SteamUtilsFloatingGamepadTextInputMode, SteamUtilsTextFilteringContext, SteamUgcMatchingUgcType, SteamUgcQuery, SteamUserUgcList, SteamUserUgcListSortOrder, SteamUgcItemPreviewType, SteamRemoteStoragePublishedFileVisibility, SteamUgcContentDescriptorId, SteamUgcItemState, SteamUgcItemUpdateStatus, SteamUgcStatisticType, SteamInputControllerSourceMode, SteamInputControllerLEDFlag, SteamInputGlyphSize, SteamInputGlyphStyle, SteamInputType, SteamInputXboxOrigin, SteamInputActionOrigin, SteamLeaderboardDataRequest, SteamLeaderboardSortMethod, SteamLeaderboardDisplayType, SteamLeaderboardUploadScoreMethod, SteamMusicPlaybackStatus, SteamTimelineGameMode, SteamTimelineEventClipPriority, SteamInventoryItemFlags, SteamRemoteStoragePlatform, SteamRemoteStorageUgcReadAction, SteamRemoteStorageWorkshopFileType, SteamMatchmakingLobbyType, SteamMatchmakingLobbyComparison, SteamMatchmakingLobbyDistanceFilter, SteamMatchmakingChatMemberStateChange, SteamMatchmakingChatRoomEnterResponse, SteamNetworkingConnectionEnd, SteamNetworkingConnectionState, SteamNetworkingSendFlags, SteamNetworkingConfigValue, SteamNetworkingConnectionInfoFlags, SteamPartiesBeaconLocationType, SteamPartiesBeaconLocationData, SteamId, SteamFriendsGetFollowerCountResult, SteamFriendsIsFollowingResult, SteamFriendsEnumerateFollowingListResult, SteamFriendsRequestClanOfficerListResult, SteamFriendsDownloadClanActivityCountsResult, SteamFriendsAvatarImageLoaded, SteamFriendsClanActivityCounts, SteamFriendsClanChatMessage, SteamFriendsFriendGamePlayed, SteamFriendsFriendMessage, SteamFriendsPersonaStateChange, SteamFriendsGameOverlayActivated, SteamFriendsGameRichPresenceJoinRequested, SteamFriendsGameLobbyJoinRequested, SteamFriendsFriendRichPresenceUpdate, SteamFriendsGameServerChangeRequested, SteamAppsFileDetailsResult, SteamAppsDlcData, SteamAppsIsTimedTrialResult, SteamAppsNumBetas, SteamAppsBetaInfo, SteamAppsDlcDownloadProgress, SteamAppsDlcInstalled, SteamScreenshotsScreenshotReady, SteamUserStoreAuthUrlResponse, SteamUserEncryptedAppTicketResponse, SteamUserDurationControl, SteamUserMarketEligibilityResponse, SteamUserAuthSessionTicket, SteamUserGetAuthSessionTicketResponse, SteamUserAvailableVoice, SteamUserGetVoiceResult, SteamUserDecompressVoiceResult, SteamUserGetTicketForWebApiResponse, SteamUserValidateAuthTicketResponse, SteamUserSteamServersDisconnected, SteamUserSteamServerConnectFailure, SteamUserClientGameServerDeny, SteamUserMicroTxnAuthorizationResponse, SteamUtilsCheckFileSignatureResult, SteamUtilsLowBatteryPower, SteamUtilsSteamApiCallCompleted, SteamUtilsImageSize, SteamUtilsFilterTextResult, SteamUtilsGamepadTextInputDismissed, SteamUtilsWarningMessage, SteamUgcItemDownloadInfo, SteamUgcItemInstallInfo, SteamUgcItemUpdateProgress, SteamUgcQueryResult, SteamUgcAdditionalPreview, SteamUgcKeyValueTag, SteamUgcItemInstalled, SteamUgcUserSubscribedItemsListChanged, SteamUgcQueryCompleted, SteamUgcCreateItemResult, SteamUgcSubmitItemUpdateResult, SteamUgcSubscribeItemResult, SteamUgcUnsubscribeItemResult, SteamUgcFavoriteItemsListChanged, SteamUgcSetUserItemVoteResult, SteamUgcGetUserItemVoteResult, SteamUgcSupportedGameVersionData, SteamUgcDeleteItemResult, SteamUgcAddAppDependencyResult, SteamUgcRemoveAppDependencyResult, SteamUgcAddUGCDependencyResult, SteamUgcRemoveUGCDependencyResult, SteamUgcGetAppDependenciesResult, SteamUgcStartPlaytimeTrackingResult, SteamUgcStopPlaytimeTrackingResult, SteamUgcDownloadItemResult, SteamUgcWorkshopEULAStatusResult, SteamInputAnalogActionData, SteamInputDigitalActionData, SteamInputMotionData, SteamInputActionOrigins, SteamInputDeviceBindingRevision, SteamInputDeviceEvent, SteamUserStatsAchievementAndUnlockTime, SteamUserStatsMostAchievedAchievementInfo, SteamUserStatsDownloadedLeaderboardEntry, SteamUserStatsLeaderboardFindResult, SteamUserStatsScoresDownloadedResult, SteamUserStatsScoreUploadedResult, SteamUserStatsNumberOfCurrentPlayersResult, SteamUserStatsGlobalAchievementPercentagesReadyResult, SteamUserStatsGlobalStatsReceivedResult, SteamUserStatsAttachLeaderboardUgcResult, SteamUserStatsAchievementIconFetched, SteamUserStatsUnloaded, SteamUserStatsUserStatsReceived, SteamUserStatsUserStatsStored, SteamUserStatsUserAchievementStored, SteamUserStatsIntMinMax, SteamUserStatsFloatMinMax, SteamMusicPlaybackStatusHasChanged, SteamMusicVolumeHasChanged, SteamTimelineGamePhaseRecordingExists, SteamTimelineEventRecordingExists, SteamInventoryItemDefQuantity, SteamInventoryItemInstanceQuantity, SteamInventoryItemWithPrice, SteamInventoryItemDetails, SteamInventoryDeserializeResult, SteamInventoryItemPrice, SteamInventoryResultReady, SteamInventoryFullUpdate, SteamInventoryStartPurchaseResult, SteamInventoryEligiblePromoItemDefIdsResult, SteamInventoryRequestPricesResult, SteamRemoteStorageFileNameAndSize, SteamRemoteStorageQuota, SteamRemoteStorageUgcDetails, SteamRemoteStorageFileShareResult, SteamRemoteStorageFileWriteAsyncResult, SteamRemoteStorageDownloadUgcResult, SteamRemoteStoragePublishedFileSubscribed, SteamRemoteStoragePublishedFileUnsubscribed, SteamMatchmakingLobbyCreated, SteamMatchmakingLobbyEnter, SteamMatchmakingLobbyMatchList, SteamMatchmakingLobbyDataUpdate, SteamMatchmakingLobbyChatUpdate, SteamMatchmakingLobbyChatMsg, SteamMatchmakingLobbyGameCreated, SteamMatchmakingLobbyInvite, SteamMatchmakingLobbyDataEntry, SteamMatchmakingLobbyChatEntry, SteamMatchmakingLobbyGameServer, SteamMatchmakingFavoriteGame, SteamNetworkingMessagesSessionRequest, SteamNetworkingMessagesSessionFailed, SteamNetworkingMessage, SteamNetworkingSocketsConnectionInfo, SteamPartiesBeaconLocation, SteamPartiesCreateBeaconResult, SteamPartiesJoinPartyResult, SteamPartiesChangeNumOpenSlotsResult, SteamPartiesReservationNotification, SteamPartiesBeaconDetails, SteamNetworkingSocketsStatusChanged, steam_friends_activate_game_overlay_invite_dialog, steam_friends_activate_game_overlay_to_store, steam_friends_activate_game_overlay_to_user, steam_friends_activate_game_overlay_to_web_page, steam_friends_close_clan_chat_window_in_steam, steam_friends_download_clan_activity_counts, steam_friends_enumerate_following_list, steam_friends_set_callback_avatar_image_loaded, steam_friends_get_chat_member_by_index, steam_friends_get_clan_activity_counts, steam_friends_get_clan_chat_member_count, steam_friends_get_clan_chat_message, steam_friends_get_clan_name, steam_friends_get_clan_officer_by_index, steam_friends_get_clan_officer_count, steam_friends_get_clan_owner, steam_friends_get_clan_tag, steam_friends_get_coplay_friend, steam_friends_get_follower_count, steam_friends_get_friend_by_index, steam_friends_get_friend_coplay_game, steam_friends_get_friend_coplay_time, steam_friends_get_friend_count, steam_friends_get_friend_count_from_source, steam_friends_get_friend_from_source_by_index, steam_friends_get_friend_game_played, steam_friends_get_friend_message, steam_friends_get_friend_persona_name, steam_friends_get_friend_persona_name_history, steam_friends_get_friend_persona_state, steam_friends_get_friend_relationship, steam_friends_get_friend_rich_presence, steam_friends_get_friend_rich_presence_key_by_index, steam_friends_get_friend_rich_presence_key_count, steam_friends_get_friend_steam_level, steam_friends_get_large_friend_avatar, steam_friends_get_medium_friend_avatar, steam_friends_get_friends_group_members_list, steam_friends_get_persona_state, steam_friends_get_player_nickname, steam_friends_get_small_friend_avatar, steam_friends_has_friend, steam_friends_invite_user_to_game, steam_friends_is_clan_chat_admin, steam_friends_is_clan_public, steam_friends_is_clan_official_game_group, steam_friends_is_clan_chat_window_open_in_steam, steam_friends_is_following, steam_friends_request_clan_officer_list, steam_friends_request_friend_rich_presence, steam_friends_request_user_information, steam_friends_set_in_game_voice_speaking, steam_friends_set_played_with, steam_friends_set_callback_persona_state_change, steam_friends_set_callback_game_overlay_activated, steam_friends_set_callback_game_rich_presence_join_requested, steam_friends_set_callback_game_lobby_join_requested, steam_friends_set_callback_friend_rich_presence_update, steam_friends_set_callback_game_server_change_requested, steam_apps_get_dlc_data_by_index, steam_apps_is_timed_trial, steam_apps_get_app_install_dir, steam_apps_get_app_owner, steam_apps_get_current_beta_name, steam_apps_get_num_betas, steam_apps_get_beta_info, steam_apps_get_dlc_download_progress, steam_apps_get_app_ownership_ticket_data, steam_apps_get_file_details, steam_apps_get_installed_depots, steam_apps_get_launch_command_line, steam_apps_set_callback_dlc_installed, steam_screenshots_add_vr_screenshot_to_library, steam_screenshots_tag_published_file, steam_screenshots_tag_user, steam_screenshots_write_screenshot, steam_screenshots_set_callback_screenshot_ready, steam_screenshots_set_callback_screenshot_requested, steam_user_advertise_game, steam_user_begin_auth_session, steam_user_set_duration_control_online_state, steam_user_decompress_voice, steam_user_end_auth_session, steam_user_get_auth_session_ticket, steam_user_get_steam_id, steam_user_decode_steam_id, steam_user_get_available_voice, steam_user_get_voice, steam_user_request_encrypted_app_ticket, steam_user_get_encrypted_app_ticket, steam_user_request_auth_ticket_for_web_api, steam_user_fetch_auth_ticket_for_web_api, steam_user_get_duration_control, steam_user_request_store_auth_url, steam_user_get_market_eligibility, steam_user_track_app_usage_event, steam_user_user_has_license_for_app, steam_user_set_callback_steam_servers_connected, steam_user_set_callback_steam_server_connect_failure, steam_user_set_callback_steam_servers_disconnected, steam_user_set_callback_client_game_server_deny, steam_user_set_callback_licenses_updated, steam_user_set_callback_microtxn_authorization_response, steam_user_set_callback_get_auth_session_ticket_response, steam_user_set_callback_validate_auth_ticket_response, steam_utils_check_file_signature, steam_utils_get_api_call_failure_reason, steam_utils_get_api_call_result, steam_utils_set_callback_ip_country, steam_utils_set_callback_low_battery_power, steam_utils_set_callback_steam_api_call_completed, steam_utils_set_callback_app_resuming_from_suspend, steam_utils_set_callback_steam_shutdown, steam_utils_get_connected_universe, steam_utils_get_entered_gamepad_text_input, steam_utils_get_image_rgba, steam_utils_get_image_size, steam_utils_is_api_call_completed, steam_utils_filter_text, steam_utils_set_overlay_notification_position, steam_utils_show_gamepad_text_input, steam_utils_show_floating_gamepad_text_input, steam_utils_set_callback_gamepad_text_input_dismissed, steam_utils_set_callback_floating_gamepad_text_input_dismissed, steam_utils_set_callback_warning_message, steam_ugc_add_app_dependency, steam_ugc_add_dependency, steam_ugc_add_excluded_tag, steam_ugc_add_item_key_value_tag, steam_ugc_add_item_preview_file, steam_ugc_add_item_preview_video, steam_ugc_add_item_to_favorites, steam_ugc_add_required_key_value_tag, steam_ugc_add_required_tag, steam_ugc_add_required_tag_group, steam_ugc_create_item, steam_ugc_create_query_all_ugc_request, steam_ugc_create_query_ugc_details_request, steam_ugc_create_query_user_ugc_request, steam_ugc_delete_item, steam_ugc_download_item, steam_ugc_get_app_dependencies, steam_ugc_get_item_download_info, steam_ugc_get_item_install_info, steam_ugc_get_item_state, steam_ugc_get_item_update_progress, steam_ugc_get_subscribed_items, steam_ugc_get_query_ugc_result, steam_ugc_get_query_ugc_num_tags, steam_ugc_get_query_ugc_tag, steam_ugc_get_query_ugc_tag_display_name, steam_ugc_get_query_ugc_preview_url, steam_ugc_get_query_ugc_metadata, steam_ugc_get_query_ugc_children, steam_ugc_get_query_ugc_statistic, steam_ugc_get_query_ugc_num_additional_previews, steam_ugc_get_query_ugc_additional_preview, steam_ugc_get_supported_game_version_data, steam_ugc_get_query_ugc_num_key_value_tags, steam_ugc_get_query_ugc_key_value_tag, steam_ugc_get_query_ugc_content_descriptors, steam_ugc_remove_app_dependency, steam_ugc_remove_dependency, steam_ugc_remove_item_from_favorites, steam_ugc_remove_all_item_key_value_tags, steam_ugc_remove_item_key_value_tags, steam_ugc_remove_item_preview, steam_ugc_add_content_descriptor, steam_ugc_remove_content_descriptor, steam_ugc_set_required_game_versions, steam_ugc_send_query_ugc_request, steam_ugc_release_query_ugc_request, steam_ugc_set_callback_item_installed, steam_ugc_set_callback_download_item_result, steam_ugc_set_allow_cached_response, steam_ugc_set_cloud_file_name_filter, steam_ugc_set_item_content, steam_ugc_set_item_description, steam_ugc_set_item_metadata, steam_ugc_set_item_preview, steam_ugc_set_item_tags, steam_ugc_set_item_title, steam_ugc_set_item_update_language, steam_ugc_get_user_content_descriptor_preferences, steam_ugc_set_items_disabled_locally, steam_ugc_set_item_visibility, steam_ugc_set_language, steam_ugc_set_match_any_tag, steam_ugc_set_ranked_by_trend_days, steam_ugc_set_return_additional_previews, steam_ugc_set_return_children, steam_ugc_set_return_key_value_tags, steam_ugc_set_return_long_description, steam_ugc_set_return_metadata, steam_ugc_set_return_only_ids, steam_ugc_set_return_playtime_stats, steam_ugc_set_return_total_only, steam_ugc_set_search_text, steam_ugc_set_subscriptions_load_order, steam_ugc_set_user_item_vote, steam_ugc_get_user_item_vote, steam_ugc_start_item_update, steam_ugc_start_playtime_tracking, steam_ugc_stop_playtime_tracking, steam_ugc_stop_playtime_tracking_for_all_items, steam_ugc_submit_item_update, steam_ugc_subscribe_item, steam_ugc_unsubscribe_item, steam_ugc_set_callback_user_subscribed_items_list_changed, steam_ugc_update_item_preview_file, steam_ugc_update_item_preview_video, steam_ugc_get_workshop_eula_status, steam_ugc_get_num_supported_game_versions, steam_input_activate_action_set, steam_input_activate_action_set_layer, steam_input_deactivate_action_set_layer, steam_input_deactivate_all_action_set_layers, steam_input_get_active_action_set_layers, steam_input_get_action_set_handle, steam_input_get_analog_action_data, steam_input_get_analog_action_handle, steam_input_get_analog_action_origins, steam_input_get_glyph_png_for_action_origin, steam_input_get_glyph_svg_for_action_origin, steam_input_get_connected_controllers, steam_input_get_controller_for_gamepad_index, steam_input_get_current_action_set, steam_input_get_digital_action_data, steam_input_get_digital_action_handle, steam_input_get_digital_action_origins, steam_input_get_gamepad_index_for_controller, steam_input_get_input_type_for_handle, steam_input_get_motion_data, steam_input_get_string_for_action_origin, steam_input_set_dualsense_trigger_effect, steam_input_set_led_color, steam_input_show_binding_panel, steam_input_stop_analog_action_momentum, steam_input_trigger_vibration, steam_input_trigger_vibration_extended, steam_input_get_action_origin_from_xbox_origin, steam_input_translate_action_origin, steam_input_get_device_binding_revision, steam_input_get_remote_play_session_id, steam_input_set_callback_device_connected, steam_input_set_callback_device_disconnected, steam_userstats_get_stat_int, steam_userstats_get_stat_float, steam_userstats_get_achievement, steam_userstats_achievement_and_unlock_time, steam_userstats_request_user_stats, steam_userstats_user_stat_int, steam_userstats_user_stat_float, steam_userstats_user_achievement, steam_userstats_user_achievement_and_unlock_time, steam_userstats_find_or_create_leaderboard, steam_userstats_find_leaderboard, steam_userstats_leaderboard_name, steam_userstats_leaderboard_entry_count, steam_userstats_leaderboard_sort_method, steam_userstats_leaderboard_display_type, steam_userstats_download_leaderboard_entries, steam_userstats_download_leaderboard_entries_for_users, steam_userstats_downloaded_leaderboard_entry, steam_userstats_upload_leaderboard_score, steam_userstats_attach_leaderboard_ugc, steam_userstats_number_of_current_players, steam_userstats_request_global_achievement_percentages, steam_userstats_most_achieved_achievement_info, steam_userstats_next_most_achieved_achievement_info, steam_userstats_request_global_stats, steam_userstats_global_stat_int64, steam_userstats_global_stat_double, steam_userstats_global_stat_history_int64, steam_userstats_global_stat_history_double, steam_userstats_achievement_progress_int, steam_userstats_achievement_progress_float, steam_userstats_set_callback_user_stats_received, steam_userstats_set_callback_user_stats_stored, steam_userstats_set_callback_user_achievement_stored, steam_userstats_set_callback_user_achievement_icon_fetched, steam_userstats_set_callback_user_stats_unloaded, steam_music_get_playback_status, steam_music_set_callback_playback_status_has_changed, steam_music_set_callback_volume_has_changed, steam_timeline_add_instantaneous_timeline_event, steam_timeline_add_range_timeline_event, steam_timeline_start_range_timeline_event, steam_timeline_update_range_timeline_event, steam_timeline_end_range_timeline_event, steam_timeline_remove_timeline_event, steam_timeline_does_event_recording_exist, steam_timeline_does_game_phase_recording_exist, steam_timeline_set_timeline_game_mode, steam_timeline_open_overlay_to_timeline_event, steam_inventory_add_promo_item, steam_inventory_add_promo_items, steam_inventory_check_result_steam_id, steam_inventory_consume_item, steam_inventory_deserialize_result, steam_inventory_exchange_items, steam_inventory_generate_items, steam_inventory_get_result_items, steam_inventory_get_result_status, steam_inventory_request_eligible_promo_item_definition_ids, steam_inventory_get_eligible_promo_item_definition_ids, steam_inventory_get_item_definition_ids, steam_inventory_get_items_by_id, steam_inventory_serialize_result, steam_inventory_get_result_item_property_keys_array, steam_inventory_get_result_item_property, steam_inventory_start_purchase, steam_inventory_request_prices, steam_inventory_get_items_with_prices, steam_inventory_start_update_properties, steam_inventory_remove_property, steam_inventory_set_property_string, steam_inventory_set_property_bool, steam_inventory_set_property_int64, steam_inventory_set_property_float, steam_inventory_submit_update_properties, steam_inventory_transfer_item_quantity, steam_inventory_trigger_item_drop, steam_inventory_grant_promo_items, steam_inventory_get_item_definition_property, steam_inventory_get_item_definition_property_keys, steam_inventory_get_item_price, steam_inventory_set_callback_result_ready, steam_inventory_set_callback_full_update, steam_inventory_set_callback_definition_update, steam_remote_storage_set_callback_published_file_subscribed, steam_remote_storage_set_callback_published_file_unsubscribed, steam_remote_storage_set_callback_local_file_change, steam_remote_storage_file_write, steam_remote_storage_file_write_async, steam_remote_storage_file_read, steam_remote_storage_get_file_timestamp, steam_remote_storage_get_file_name_and_size, steam_remote_storage_get_quota, steam_remote_storage_set_sync_platforms, steam_remote_storage_get_sync_platforms, steam_remote_storage_file_write_stream_open, steam_remote_storage_file_write_stream_write_chunk, steam_remote_storage_file_write_stream_close, steam_remote_storage_file_write_stream_cancel, steam_remote_storage_get_cached_ugc_handle, steam_remote_storage_get_ugc_details, steam_remote_storage_ugc_read, steam_remote_storage_file_share, steam_remote_storage_ugc_download, steam_remote_storage_ugc_download_to_location, steam_matchmaking_set_callback_lobby_data_update, steam_matchmaking_set_callback_lobby_chat_update, steam_matchmaking_set_callback_lobby_chat_msg, steam_matchmaking_set_callback_lobby_game_created, steam_matchmaking_set_callback_lobby_invite, steam_matchmaking_create_lobby, steam_matchmaking_join_lobby, steam_matchmaking_request_lobby_list, steam_matchmaking_add_request_lobby_list_string_filter, steam_matchmaking_add_request_lobby_list_numerical_filter, steam_matchmaking_add_request_lobby_list_distance_filter, steam_matchmaking_get_lobby_by_index, steam_matchmaking_leave_lobby, steam_matchmaking_set_lobby_owner, steam_matchmaking_get_lobby_owner, steam_matchmaking_get_num_lobby_members, steam_matchmaking_get_lobby_member_by_index, steam_matchmaking_set_lobby_data, steam_matchmaking_get_lobby_data, steam_matchmaking_delete_lobby_data, steam_matchmaking_get_lobby_data_count, steam_matchmaking_get_lobby_data_by_index, steam_matchmaking_set_lobby_member_data, steam_matchmaking_get_lobby_member_data, steam_matchmaking_send_lobby_chat_msg, steam_matchmaking_get_lobby_chat_entry, steam_matchmaking_request_lobby_data, steam_matchmaking_set_lobby_joinable, steam_matchmaking_set_lobby_type, steam_matchmaking_invite_user_to_lobby, steam_matchmaking_set_lobby_game_server, steam_matchmaking_set_linked_lobby, steam_matchmaking_get_lobby_game_server, steam_matchmaking_get_favorite_game, steam_networking_messages_set_callback_session_request, steam_networking_messages_set_callback_session_failed, steam_networking_messages_send_message_to_user, steam_networking_messages_receive_messages_on_channel, steam_networking_messages_accept_session_with_user, steam_networking_messages_close_session_with_user, steam_networking_messages_close_channel_with_user, steam_networking_sockets_set_callback_connection_status_changed, steam_networking_sockets_accept_connection, steam_networking_sockets_close_connection, steam_networking_sockets_set_connection_user_data, steam_networking_sockets_get_connection_user_data, steam_networking_sockets_send_message_to_connection, steam_networking_sockets_flush_messages_on_connection, steam_networking_sockets_receive_messages_on_connection, steam_networking_sockets_get_connection_info, steam_networking_sockets_create_socket_pair, steam_networking_sockets_connect_p2p, steam_networking_sockets_receive_messages_on_poll_group, steam_parties_set_callback_reservation_notification, steam_parties_set_callback_available_beacon_locations_updated, steam_parties_set_callback_active_beacons_updated, steam_parties_get_num_available_beacon_locations, steam_parties_get_available_beacon_locations, steam_parties_create_beacon, steam_parties_on_reservation_completed, steam_parties_cancel_reservation, steam_parties_change_num_open_slots, steam_parties_destroy_beacon, steam_parties_get_beacon_by_index, steam_parties_get_beacon_details, steam_parties_join_party, steam_parties_get_beacon_location_data

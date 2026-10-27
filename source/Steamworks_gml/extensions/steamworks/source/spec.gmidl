@@ -1128,6 +1128,9 @@ class `[[SteamAppsBetaInfo]]` prototype Object
 
     [field]
     property description : string { get; set; }
+
+    [field]
+    property last_updated : uint32 { get; set; }  // Unix time of the branch's last update (SDK 1.64+)
 }
 
 // From EBetaBranchFlags (bit flags) - used by SteamAppsBetaInfo.flags

@@ -25,4 +25,13 @@ find_library(_log_lib log)
 find_library(_android_lib android)
 target_link_libraries(${PROJECT_NAME} PRIVATE ${_log_lib} ${_android_lib})
 
+# The NDK compiles with -g in every configuration, so an unstripped Release .so
+# is mostly DWARF. Drop the debug sections and keep .symtab so a native crash
+# still resolves to function names. The static runtime archives (libc++,
+# libc++abi, libunwind) are private to this library: hide their symbols so
+# nothing from them is exported.
+target_link_options(${PROJECT_NAME} PRIVATE
+  "LINKER:--exclude-libs,ALL"
+  "$<$<CONFIG:Release>:LINKER:--strip-debug>")
+
 message(STATUS "Android ABI=${CMAKE_ANDROID_ARCH_ABI}, STL=c++_static")

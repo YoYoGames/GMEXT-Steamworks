@@ -450,7 +450,8 @@
  * @member {Real} build_id Content BuildID set live on this branch.
  * @member {String} beta_name Beta branch name.
  * @member {String} description Beta branch description.
- * @struct_end 
+ * @member {Real} last_updated The Unix time (in seconds) at which the branch was last updated.
+ * @struct_end
  */
 
 /**

@@ -8,7 +8,7 @@
   "configurePresets": [
     {
       "name": "ps4-paths",
-      "description": "PlayStation 4 SDK compiler and linker paths — edit to match your SCE_ORBIS_SDK_DIR installation",
+      "description": "PlayStation 4 SDK compiler and linker paths - edit to match your SCE_ORBIS_SDK_DIR installation",
       "hidden": true,
       "cacheVariables": {
         "CMAKE_C_COMPILER": {
@@ -40,7 +40,7 @@
 
     {
       "name": "ps5-paths",
-      "description": "PlayStation 5 SDK compiler and linker paths — edit to match your SCE_PROSPERO_SDK_DIR installation",
+      "description": "PlayStation 5 SDK compiler and linker paths - edit to match your SCE_PROSPERO_SDK_DIR installation",
       "hidden": true,
       "cacheVariables": {
         "CMAKE_C_COMPILER": {

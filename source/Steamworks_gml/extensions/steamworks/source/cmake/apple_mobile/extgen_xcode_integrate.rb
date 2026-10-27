@@ -214,7 +214,7 @@ abort_msg("GM target '#{gm_target.name}' has no Frameworks build phase") unless 
 already_linked = frameworks_phase.files.any? { |bf| bf.file_ref == ref_proxy }
 unless already_linked
   frameworks_phase.add_file_reference(ref_proxy, true)
-  puts "Linked #{lib_name} into #{gm_target.name} → Frameworks"
+  puts "Linked #{lib_name} into #{gm_target.name} -> Frameworks"
 else
   puts "#{lib_name} already linked in Frameworks"
 end

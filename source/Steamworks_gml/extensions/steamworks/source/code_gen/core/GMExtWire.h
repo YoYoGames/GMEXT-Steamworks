@@ -17,14 +17,14 @@
 #include "GMExtUtils.h"
 
 // ---------------------------------------------------------------------------
-// GMWIRE_THROW — portable throw / fatal-abort for exception-disabled platforms
+// GMWIRE_THROW - portable throw / fatal-abort for exception-disabled platforms
 //
 // When C++ exceptions are enabled (__cpp_exceptions defined), GMWIRE_THROW(ex)
 // is a normal throw that callers can catch.
 //
 // When exceptions are disabled (e.g. Nintendo Switch, PS4 ORBIS toolset default),
 // throw is a compile error. GMWIRE_THROW instead prints a diagnostic via
-// GMWIRE_TRACE and calls std::abort(). This fires in BOTH Debug and Release —
+// GMWIRE_TRACE and calls std::abort(). This fires in BOTH Debug and Release -
 // unlike assert() which is stripped in Release builds.
 //
 // Override GMWIRE_TRACE before including this header to redirect output
@@ -1354,6 +1354,13 @@ namespace gm::wire {
             return *this;
         }
 
+        // non-templated 'undefined' helper (Swift cannot call the std::optional operator<<)
+        void writeUndefined()
+        {
+            gm::byteio::VectorWriter w(buffer);
+            gm::wire::codec::writeValue(w, gm::wire::GMKind::Undefined);
+        }
+
         const std::vector<std::byte>& getBuffer() const { return buffer; }
 
         size_t getLength() { return buffer.size(); }
@@ -1362,9 +1369,9 @@ namespace gm::wire {
 
         virtual void writeTo(gm::byteio::IByteWriter& output) const { output.writeBytes(buffer.data(), buffer.size()); }
 
-    protected:
         virtual void buildFrom(gm::byteio::BufferReader& bv) { buffer.assign(bv.data(), bv.data() + bv.remaining()); }
 
+    protected:
         friend class GMFunction;
     };
 
@@ -1404,6 +1411,12 @@ namespace gm::wire::details {
             gm::wire::codec::writeValue(out, length);
             return true;
         }
+
+    public:
+        // What writeTo() emits: the kind and count header, then the payload.
+        size_t getSerializedLength() const { return sizeof(uint8_t) + sizeof(uint16_t) + getBuffer().size(); }
+
+    protected:
 
         inline bool parseCollectionHeader(gm::byteio::BufferReader& bufferView, gm::wire::GMKind type)
         {
@@ -1497,6 +1510,9 @@ namespace gm::wire {
         // collection helpers (if you want Swift to pass these too)
         void push(const ArrayStream& arr) { *this << arr; }
         void push(const StructStream& obj) { *this << obj; }
+
+        // 'undefined' element; non-templated so Swift can call it
+        void pushUndefined() { *this << std::optional<double>{}; }
     };
 
     class StructStream : public gm::wire::details::CollectionStream {
@@ -1561,6 +1577,9 @@ namespace gm::wire {
         void add(const char* key, const ArrayStream& arr) { addKeyValue(key, arr); }
 
         void add(const char* key, const StructStream& obj) { addKeyValue(key, obj); }
+
+        // 'undefined' value; non-templated so Swift can call it
+        void addUndefined(const char* key) { addKeyValue(key, std::optional<double>{}); }
 
         void writeTo(gm::byteio::IByteWriter& output) const override
         {
@@ -1676,8 +1695,7 @@ namespace gm::runtime {
 
     inline double DispatchQueue::fetch(gm::byteio::BufferWriter& output)
     {
-        std::size_t bytesNeeded = m_packed.getLength();
-        if (bytesNeeded == 0) // no pending stream
+        if (m_packed.getLength() == 0) // no pending stream
         {
             std::vector<gm::wire::DataStream> local;
             {
@@ -1690,10 +1708,11 @@ namespace gm::runtime {
             for (auto& ev : local) {
                 m_packed << std::move(ev); // append into ArrayStream
             }
-
-            bytesNeeded = m_packed.getLength();
         }
 
+        // writeTo() puts the array header in front of the payload, so the size
+        // reported back has to count it or the caller's buffer ends 3 bytes short.
+        std::size_t bytesNeeded = m_packed.getSerializedLength();
         if (bytesNeeded > output.remaining()) {
             return -static_cast<double>(bytesNeeded);
         }
@@ -1708,14 +1727,31 @@ namespace gm::runtime {
 
 namespace gm::wire::codec {
 
+    // BufferReader::data() is already cursor-relative (span data + position), so the start of the
+    // value has to be captured *before* readValue advances past it. Adding the old position to the
+    // post-read data() double-counts the offset and slices from the wrong place entirely.
+
+    template<>
+    inline gm::wire::DataStream readValue<gm::wire::DataStream>(BufferReader& buf)
+    {
+        const std::byte* _begin = buf.data();
+        size_t _init = buf.position();
+        readValue(buf);
+
+        BufferReader _sub(_begin, buf.position() - _init);
+        gm::wire::DataStream ds;
+        ds.buildFrom(_sub);
+        return ds;
+    }
+
     template<>
     inline gm::wire::ArrayStream readValue<gm::wire::ArrayStream>(BufferReader& buf)
     {
+        const std::byte* _begin = buf.data();
         size_t _init = buf.position();
         readValue(buf);
-        size_t _end = buf.position();
 
-        BufferReader _sub(buf.data() + _init, _end - _init);
+        BufferReader _sub(_begin, buf.position() - _init);
         gm::wire::ArrayStream as;
         as.buildFrom(_sub);
         return as;
@@ -1724,11 +1760,11 @@ namespace gm::wire::codec {
     template<>
     inline gm::wire::StructStream readValue<gm::wire::StructStream>(BufferReader& buf)
     {
+        const std::byte* _begin = buf.data();
         size_t _init = buf.position();
         readValue(buf);
-        size_t _end = buf.position();
 
-        BufferReader _sub(buf.data() + _init, _end - _init);
+        BufferReader _sub(_begin, buf.position() - _init);
         gm::wire::StructStream ss;
         ss.buildFrom(_sub);
         return ss;

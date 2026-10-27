@@ -1898,6 +1898,7 @@ namespace gm_structs
         std::uint32_t build_id;
         std::string beta_name;
         std::string description;
+        std::uint32_t last_updated;
     };
 
     struct SteamAppsDlcDownloadProgress
@@ -3152,6 +3153,7 @@ namespace gm::wire::codec
         gm::wire::codec::writeValue(_buf, obj.build_id);
         gm::wire::codec::writeValue(_buf, obj.beta_name);
         gm::wire::codec::writeValue(_buf, obj.description);
+        gm::wire::codec::writeValue(_buf, obj.last_updated);
     }
 
     template<>
@@ -3162,6 +3164,7 @@ namespace gm::wire::codec
         obj.build_id = gm::wire::codec::readValue<std::uint32_t>(_buf);
         obj.beta_name = gm::wire::codec::readValue<std::string>(_buf);
         obj.description = gm::wire::codec::readValue<std::string>(_buf);
+        obj.last_updated = gm::wire::codec::readValue<std::uint32_t>(_buf);
         return obj;
     }
 

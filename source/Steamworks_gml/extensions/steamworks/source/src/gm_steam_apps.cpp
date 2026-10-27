@@ -277,6 +277,7 @@ steam_apps_get_beta_info(std::int32_t beta_index)
 
     uint32 flags = 0;
     uint32 buildId = 0;
+    uint32 lastUpdated = 0;
 
     bool success = a->GetBetaInfo(
         beta_index,
@@ -285,7 +286,8 @@ steam_apps_get_beta_info(std::int32_t beta_index)
         nameBuf.data(),
         cchBetaName,
         descBuf.data(),
-        cchDescription
+        cchDescription,
+        &lastUpdated
     );
 
     if (!success)
@@ -296,6 +298,7 @@ steam_apps_get_beta_info(std::int32_t beta_index)
     out.build_id = (std::uint32_t)buildId;
     out.beta_name = std::string(nameBuf.data());
     out.description = std::string(descBuf.data());
+    out.last_updated = (std::uint32_t)lastUpdated;
     return out;
 }
 

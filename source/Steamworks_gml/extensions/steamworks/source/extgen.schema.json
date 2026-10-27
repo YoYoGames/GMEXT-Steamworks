@@ -328,6 +328,9 @@
             "overwrite": {
               "type": "boolean"
             },
+            "macrosGroup": {
+              "type": "string"
+            },
             "enabled": {
               "type": "boolean"
             },

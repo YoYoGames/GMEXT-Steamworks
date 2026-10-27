@@ -143,9 +143,9 @@ set_target_properties(${PROJECT_NAME} PROPERTIES
 
 # ============================================================
 # Platform post-project hook: code_gen source discovery, includes, defines
-# Each platform file is self-contained — it GLOBs exactly the code_gen
+# Each platform file is self-contained - it GLOBs exactly the code_gen
 # sources it needs and adds them alongside its platform-specific setup.
-# Note: Xbox and consoles checked before WIN32 — GDK builds have WIN32=TRUE.
+# Note: Xbox and consoles checked before WIN32 - GDK builds have WIN32=TRUE.
 # ============================================================
 if(ANDROID)
   include(cmake/android/extgen_post_project.cmake)
@@ -240,7 +240,7 @@ else()
   )
 endif()
 
-# Note: Xbox and consoles checked before WIN32 — GDK builds have WIN32=TRUE.
+# Note: Xbox and consoles checked before WIN32 - GDK builds have WIN32=TRUE.
 if(ANDROID)
   include(cmake/android/extgen_post_build.cmake)
 elseif(EXTGEN_IS_APPLE_MOBILE)
