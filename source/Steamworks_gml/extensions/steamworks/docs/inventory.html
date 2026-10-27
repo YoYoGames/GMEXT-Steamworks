@@ -1,163 +1,1926 @@
-<!DOCTYPE html>
-<html class="writer-html5" lang="en" >
-<head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <link rel="shortcut icon" href="img/favicon.ico" />
-    <title>Inventory - GMEXT-Steamworks</title>
-    <link rel="stylesheet" href="css/theme.css" />
-    <link rel="stylesheet" href="css/theme_extra.css" />
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
-        <link href="assets/css/gmext_style.css" rel="stylesheet" />
-    
-      <script>
-        // Current page data
-        var mkdocs_page_name = "Inventory";
-        var mkdocs_page_input_path = "inventory.md";
-        var mkdocs_page_url = null;
-      </script>
-    
-    <!--[if lt IE 9]>
-      <script src="js/html5shiv.min.js"></script>
-    <![endif]-->
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/gml.min.js"></script>
-      <script>hljs.highlightAll();</script> 
-</head>
 
-<body class="wy-body-for-nav" role="document">
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="social.html">
+      
+      
+        <link rel="next" href="networking.html">
+      
+      
+        
+      
+      
+      <link rel="icon" href="assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Inventory - GMEXT-Steamworks</title>
+      
+    
+    
+      <link rel="stylesheet" href="assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
 
-  <div class="wy-grid-for-nav">
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
-    <div class="wy-side-scroll">
-      <div class="wy-side-nav-search">
-          <a href="." class="icon icon-home"> GMEXT-Steamworks
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+    
+      <link rel="stylesheet" href="assets/css/extra.css">
+    
+    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  <script>(function(){try{var w=["--gm-nav-width","--gm-toc-width"],i,v;for(i=0;i<w.length;i++){v=localStorage.getItem(w[i]);if(v)document.documentElement.style.setProperty(w[i],v)}}catch(e){}})()</script></head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#inventory" class="md-skip">
+          Skip to content
         </a>
-      </div>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
 
-      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <ul>
-                <li class="toctree-l1"><a class="reference internal" href="home.html">Steamworks Extension</a>
-                </li>
-              </ul>
-              <ul>
-                <li class="toctree-l1"><a class="reference internal" href="guides.html">Setup Guide (IDE/Runtime 2022.6+)</a>
-                </li>
-              </ul>
-              <ul>
-                <li class="toctree-l1"><a class="reference internal" href="management.html">Management</a>
-                </li>
-              </ul>
-              <ul>
-                <li class="toctree-l1"><a class="reference internal" href="general.html">General</a>
-                </li>
-              </ul>
-              <ul>
-                <li class="toctree-l1"><a class="reference internal" href="overlay.html">Overlay</a>
-                </li>
-              </ul>
-              <ul>
-                <li class="toctree-l1"><a class="reference internal" href="leaderboards.html">Leaderboards</a>
-                </li>
-              </ul>
-              <ul>
-                <li class="toctree-l1"><a class="reference internal" href="lobbies.html">Lobbies and Matchmaking</a>
-                </li>
-              </ul>
-              <ul>
-                <li class="toctree-l1"><a class="reference internal" href="achievements.html">Stats and Achievements</a>
-                </li>
-              </ul>
-              <ul>
-                <li class="toctree-l1"><a class="reference internal" href="cloud.html">Cloud</a>
-                </li>
-              </ul>
-              <ul>
-                <li class="toctree-l1"><a class="reference internal" href="dlc.html">DLC</a>
-                </li>
-              </ul>
-              <ul>
-                <li class="toctree-l1"><a class="reference internal" href="ugc.html">UGC</a>
-                </li>
-              </ul>
-              <ul>
-                <li class="toctree-l1"><a class="reference internal" href="social.html">Social</a>
-                </li>
-              </ul>
-              <ul class="current">
-                <li class="toctree-l1 current"><a class="reference internal current" href="#">Inventory</a>
-    <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#pricing-and-consumables">Pricing and Consumables</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#inventory-management-async-result">Inventory Management (Async Result)</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#inventory-result-information">Inventory Result Information</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#dynamic-properties">Dynamic Properties</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#constants">Constants</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#structures">Structures</a>
-    </li>
-    </ul>
-                </li>
-              </ul>
-              <ul>
-                <li class="toctree-l1"><a class="reference internal" href="networking.html">Networking</a>
-                </li>
-              </ul>
-              <ul>
-                <li class="toctree-l1"><a class="reference internal" href="input.html">Input</a>
-                </li>
-              </ul>
-              <ul>
-                <li class="toctree-l1"><a class="reference internal" href="music.html">Music</a>
-                </li>
-              </ul>
-              <ul>
-                <li class="toctree-l1"><a class="reference internal" href="timeline.html">Timeline</a>
-                </li>
-              </ul>
-              <ul>
-                <li class="toctree-l1"><a class="reference internal" href="networking_messages.html">Networking Messages</a>
-                </li>
-              </ul>
-              <ul>
-                <li class="toctree-l1"><a class="reference internal" href="networking_sockets.html">Networking Sockets</a>
-                </li>
-              </ul>
-              <ul>
-                <li class="toctree-l1"><a class="reference internal" href="utilities.html">Utilities</a>
-                </li>
-              </ul>
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="home.html" title="GMEXT-Steamworks" class="md-header__button md-logo" aria-label="GMEXT-Steamworks" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            GMEXT-Steamworks
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Inventory
+            
+          </span>
+        </div>
       </div>
     </div>
-    </nav>
-
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href=".">GMEXT-Steamworks</a>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/YoYoGames/GMEXT-Steamworks" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
         
-      </nav>
-      <div class="wy-nav-content">
-        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
-  <ul class="wy-breadcrumbs">
-    <li><a href="." class="icon icon-home" aria-label="Docs"></a></li>
-      <li class="breadcrumb-item active">Inventory</li>
-    <li class="wy-breadcrumbs-aside">
-          <a href="https://github.com/YoYoGames/GMEXT-Steamworks/edit/master/docs/inventory.md" class="icon icon-github"> Edit on GitHub</a>
-    </li>
-  </ul>
-  <hr/>
-</div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-            <div class="section" itemprop="articleBody">
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
               
-                <p><a id="top"></a></p>
-<h1 id="inventory"><strong>Inventory</strong></h1>
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="home.html" title="GMEXT-Steamworks" class="md-nav__button md-logo" aria-label="GMEXT-Steamworks" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    GMEXT-Steamworks
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/YoYoGames/GMEXT-Steamworks" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="home.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Steamworks Extension
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Guides
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Guides
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="guides.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Setup Guide (IDE/Runtime 2022.6+)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Setup
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Setup
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="management.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Management
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modules
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Modules
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="general.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    General
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="overlay.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overlay
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="leaderboards.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Leaderboards
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="lobbies.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lobbies and Matchmaking
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="achievements.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Stats and Achievements
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="cloud.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cloud
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="dlc.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DLC
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ugc.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UGC
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="parties.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parties
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="social.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Social
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inventory
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="inventory.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inventory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#inventory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Inventory
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Inventory">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pricing-and-consumables" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pricing and Consumables
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inventory-management-async-result" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Inventory Management (Async Result)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inventory-result-information" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Inventory Result Information
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dynamic-properties" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dynamic Properties
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#constants" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Constants
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#structures" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Structures
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_inventory_consume_item" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_inventory_consume_item
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_inventory_get_item_price" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_inventory_get_item_price
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_inventory_get_items_with_prices" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_inventory_get_items_with_prices
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_inventory_request_eligible_promo_item_defs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_inventory_request_eligible_promo_item_defs
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_inventory_request_prices" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_inventory_request_prices
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_inventory_start_purchase" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_inventory_start_purchase
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_inventory_add_promo_item" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_inventory_add_promo_item
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_inventory_add_promo_items" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_inventory_add_promo_items
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_inventory_exchange_items" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_inventory_exchange_items
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_inventory_generate_items" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_inventory_generate_items
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_inventory_get_all_items" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_inventory_get_all_items
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_inventory_get_items_by_id" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_inventory_get_items_by_id
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_inventory_submit_update_properties" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_inventory_submit_update_properties
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_inventory_get_item_definition_property" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_inventory_get_item_definition_property
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_inventory_transfer_item_quantity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_inventory_transfer_item_quantity
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_inventory_trigger_item_drop" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_inventory_trigger_item_drop
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_inventory_result_destroy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_inventory_result_destroy
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_inventory_load_item_definitions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_inventory_load_item_definitions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_inventory_result_get_item_property" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_inventory_result_get_item_property
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_inventory_result_get_items" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_inventory_result_get_items
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_inventory_result_get_status" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_inventory_result_get_status
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_inventory_result_get_unix_timestamp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_inventory_result_get_unix_timestamp
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_inventory_start_update_properties" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_inventory_start_update_properties
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_inventory_remove_property" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_inventory_remove_property
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_inventory_set_property_bool" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_inventory_set_property_bool
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_inventory_set_property_float" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_inventory_set_property_float
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_inventory_set_property_int" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_inventory_set_property_int
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_inventory_set_property_string" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_inventory_set_property_string
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#inventoryresultstatus" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        InventoryResultStatus
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#inventoryitemconsumptiondata" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        InventoryItemConsumptionData
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#inventoryitemcreationdata" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        InventoryItemCreationData
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resultitem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ResultItem
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="networking.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Networking
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="input.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Input
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="music.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Music
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="timeline.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Timeline
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="networking_messages.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Networking Messages
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="networking_sockets.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Networking Sockets
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="utilities.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Utilities
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#inventory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Inventory
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Inventory">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pricing-and-consumables" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pricing and Consumables
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inventory-management-async-result" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Inventory Management (Async Result)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inventory-result-information" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Inventory Result Information
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dynamic-properties" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dynamic Properties
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#constants" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Constants
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#structures" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Structures
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_inventory_consume_item" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_inventory_consume_item
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_inventory_get_item_price" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_inventory_get_item_price
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_inventory_get_items_with_prices" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_inventory_get_items_with_prices
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_inventory_request_eligible_promo_item_defs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_inventory_request_eligible_promo_item_defs
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_inventory_request_prices" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_inventory_request_prices
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_inventory_start_purchase" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_inventory_start_purchase
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_inventory_add_promo_item" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_inventory_add_promo_item
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_inventory_add_promo_items" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_inventory_add_promo_items
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_inventory_exchange_items" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_inventory_exchange_items
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_inventory_generate_items" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_inventory_generate_items
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_inventory_get_all_items" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_inventory_get_all_items
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_inventory_get_items_by_id" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_inventory_get_items_by_id
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_inventory_submit_update_properties" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_inventory_submit_update_properties
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_inventory_get_item_definition_property" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_inventory_get_item_definition_property
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_inventory_transfer_item_quantity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_inventory_transfer_item_quantity
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_inventory_trigger_item_drop" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_inventory_trigger_item_drop
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_inventory_result_destroy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_inventory_result_destroy
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_inventory_load_item_definitions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_inventory_load_item_definitions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_inventory_result_get_item_property" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_inventory_result_get_item_property
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_inventory_result_get_items" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_inventory_result_get_items
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_inventory_result_get_status" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_inventory_result_get_status
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_inventory_result_get_unix_timestamp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_inventory_result_get_unix_timestamp
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_inventory_start_update_properties" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_inventory_start_update_properties
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_inventory_remove_property" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_inventory_remove_property
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_inventory_set_property_bool" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_inventory_set_property_bool
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_inventory_set_property_float" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_inventory_set_property_float
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_inventory_set_property_int" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_inventory_set_property_int
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_inventory_set_property_string" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_inventory_set_property_string
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#inventoryresultstatus" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        InventoryResultStatus
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#inventoryitemconsumptiondata" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        InventoryItemConsumptionData
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#inventoryitemcreationdata" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        InventoryItemCreationData
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resultitem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ResultItem
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<p><a id="top"></a></p>
+<h1 id="inventory"><strong>Inventory</strong><a class="headerlink" href="#inventory" title="Permanent link">&para;</a></h1>
 <p>The Inventory module contains functions, constants and structures that allow you to use the <a href="https://partner.steamgames.com/doc/features/inventory">Steam Inventory Service</a>.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
@@ -166,7 +1929,7 @@ This is a limitation of the SDK rather than of the extension: the data type used
 <p>Since the limitation is per stack, you can work around it by transferring any amount over 65535 to a new stack using the function <a href="inventory.html#steam_inventory_transfer_item_quantity">steam_inventory_transfer_item_quantity</a> and add the necessary logic to your game that keeps track of the excess amount on the second stack.
 For example, an amount of 100000 would be divided over two stacks as follows: the first stack holds 65535, the other the remaining 34465.</p>
 </div>
-<h2 id="pricing-and-consumables">Pricing and Consumables</h2>
+<h2 id="pricing-and-consumables">Pricing and Consumables<a class="headerlink" href="#pricing-and-consumables" title="Permanent link">&para;</a></h2>
 <p>These functions are provided for handling pricing, purchases and consumables:</p>
 <ul>
 <li><a href="inventory.html#steam_inventory_consume_item">steam_inventory_consume_item</a></li>
@@ -176,7 +1939,7 @@ For example, an amount of 100000 would be divided over two stacks as follows: th
 <li><a href="inventory.html#steam_inventory_request_prices">steam_inventory_request_prices</a></li>
 <li><a href="inventory.html#steam_inventory_start_purchase">steam_inventory_start_purchase</a></li>
 </ul>
-<h2 id="inventory-management-async-result">Inventory Management (Async Result)</h2>
+<h2 id="inventory-management-async-result">Inventory Management (Async Result)<a class="headerlink" href="#inventory-management-async-result" title="Permanent link">&para;</a></h2>
 <p>These asynchronous functions will return an <strong>inventory result handle</strong> that can be used to get additional information (see section below):</p>
 <ul>
 <li><a href="inventory.html#steam_inventory_add_promo_item">steam_inventory_add_promo_item</a></li>
@@ -189,7 +1952,7 @@ For example, an amount of 100000 would be divided over two stacks as follows: th
 <li><a href="inventory.html#steam_inventory_transfer_item_quantity">steam_inventory_transfer_item_quantity</a></li>
 <li><a href="inventory.html#steam_inventory_trigger_item_drop">steam_inventory_trigger_item_drop</a></li>
 </ul>
-<h2 id="inventory-result-information">Inventory Result Information</h2>
+<h2 id="inventory-result-information">Inventory Result Information<a class="headerlink" href="#inventory-result-information" title="Permanent link">&para;</a></h2>
 <p>These functions can be called with the <strong>inventory result handle</strong> (from previous section) to get additional information:</p>
 <ul>
 <li><a href="inventory.html#steam_inventory_result_destroy">steam_inventory_result_destroy</a></li>
@@ -198,7 +1961,7 @@ For example, an amount of 100000 would be divided over two stacks as follows: th
 <li><a href="inventory.html#steam_inventory_result_get_status">steam_inventory_result_get_status</a></li>
 <li><a href="inventory.html#steam_inventory_result_get_unix_timestamp">steam_inventory_result_get_unix_timestamp</a></li>
 </ul>
-<h2 id="dynamic-properties">Dynamic Properties</h2>
+<h2 id="dynamic-properties">Dynamic Properties<a class="headerlink" href="#dynamic-properties" title="Permanent link">&para;</a></h2>
 <p>This set of functions can be used to author items dynamic properties:</p>
 <ul>
 <li><a href="inventory.html#steam_inventory_start_update_properties">steam_inventory_start_update_properties</a></li>
@@ -211,12 +1974,12 @@ For example, an amount of 100000 would be divided over two stacks as follows: th
 <li><a href="inventory.html#steam_inventory_load_item_definitions">steam_inventory_load_item_definitions</a></li>
 <li><a href="inventory.html#steam_inventory_get_item_definition_property">steam_inventory_get_item_definition_property</a></li>
 </ul>
-<h2 id="constants">Constants</h2>
+<h2 id="constants">Constants<a class="headerlink" href="#constants" title="Permanent link">&para;</a></h2>
 <p>These are the constants used by this API:</p>
 <ul>
 <li><a href="inventory.html#inventoryresultstatus">InventoryResultStatus</a></li>
 </ul>
-<h2 id="structures">Structures</h2>
+<h2 id="structures">Structures<a class="headerlink" href="#structures" title="Permanent link">&para;</a></h2>
 <p>These are the structures used by this API:</p>
 <ul>
 <li><a href="inventory.html#inventoryitemconsumptiondata">InventoryItemConsumptionData</a></li>
@@ -227,7 +1990,7 @@ For example, an amount of 100000 would be divided over two stacks as follows: th
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_inventory_consume_item">steam_inventory_consume_item</h1>
+<h1 id="steam_inventory_consume_item">steam_inventory_consume_item<a class="headerlink" href="#steam_inventory_consume_item" title="Permanent link">&para;</a></h1>
 <p>This function consumes items from a user's inventory. If the quantity of the given item goes to zero, it is permanently removed.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
@@ -264,8 +2027,6 @@ For example, an amount of 100000 would be divided over two stacks as follows: th
 </tr>
 </tbody>
 </table>
-<p><br></p>
-<p><br></p>
 <p><br></p>
 <p><strong>Returns:</strong></p>
 <blockquote>
@@ -312,11 +2073,10 @@ For example, an amount of 100000 would be divided over two stacks as follows: th
 <p><pre class="highlight"><code class="language-gml">steam_inventory_consume_item(player.apple, 1);</code></pre>
 The code sample above will try to consume one item (<code>apple</code>,  <a href="https://partner.steamgames.com/doc/api/ISteamInventory#SteamItemInstanceID_t">steam_inventory_item_id</a>), and trigger an async event with the task result.</p>
 <p><br></p>
-<p><br></p>
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_inventory_get_item_price">steam_inventory_get_item_price</h1>
+<h1 id="steam_inventory_get_item_price">steam_inventory_get_item_price<a class="headerlink" href="#steam_inventory_get_item_price" title="Permanent link">&para;</a></h1>
 <p>After a successful call to <a href="inventory.html#steam_inventory_request_prices">steam_inventory_request_prices</a>, you can call this method to get the pricing for a specific item definition.</p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
@@ -344,8 +2104,6 @@ The code sample above will try to consume one item (<code>apple</code>,  <a href
 </tbody>
 </table>
 <p><br></p>
-<p><br></p>
-<p><br></p>
 <p><strong>Returns:</strong></p>
 <blockquote>
 <p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Int64</a></p>
@@ -355,11 +2113,10 @@ The code sample above will try to consume one item (<code>apple</code>,  <a href
 <p><pre class="highlight"><code class="language-gml">var _price = steam_inventory_get_item_price(item);</code></pre>
 The code sample above will return you the price for the specified item definition. For a more detailed example on using the function check <a href="inventory.html#steam_inventory_request_prices">steam_inventory_request_prices</a>.</p>
 <p><br></p>
-<p><br></p>
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_inventory_get_items_with_prices">steam_inventory_get_items_with_prices</h1>
+<h1 id="steam_inventory_get_items_with_prices">steam_inventory_get_items_with_prices<a class="headerlink" href="#steam_inventory_get_items_with_prices" title="Permanent link">&para;</a></h1>
 <p>After a successful call to <a href="inventory.html#steam_inventory_request_prices">steam_inventory_request_prices</a>, you can call this method to get all the prices for applicable item definitions.</p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
@@ -397,8 +2154,6 @@ The code sample above will return you the price for the specified item definitio
 </tbody>
 </table>
 <p><br></p>
-<p><br></p>
-<p><br></p>
 <p><strong>Returns:</strong></p>
 <blockquote>
 <p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Arrays.htm">Array</a> of <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Structs.htm">Struct</a></p>
@@ -415,11 +2170,10 @@ if(array_length(_array) &gt; 0)
 }</code></pre>
 The code above will get items with prices and if the returning array size is greater than zero (meaning there is at least one item with a configured price) it prints to the console the item's price.</p>
 <p><br></p>
-<p><br></p>
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_inventory_request_eligible_promo_item_defs">steam_inventory_request_eligible_promo_item_defs</h1>
+<h1 id="steam_inventory_request_eligible_promo_item_defs">steam_inventory_request_eligible_promo_item_defs<a class="headerlink" href="#steam_inventory_request_eligible_promo_item_defs" title="Permanent link">&para;</a></h1>
 <p>This function requests the list of "eligible" promo items that can be manually granted to the given user.</p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
@@ -447,8 +2201,6 @@ The code above will get items with prices and if the returning array size is gre
 </tr>
 </tbody>
 </table>
-<p><br></p>
-<p><br></p>
 <p><br></p>
 <p><strong>Returns:</strong></p>
 <blockquote>
@@ -500,11 +2252,10 @@ The code above will get items with prices and if the returning array size is gre
 <p><pre class="highlight"><code class="language-gml">steam_inventory_request_eligible_promo_item_defs(user_id);</code></pre>
 For more information on this function call please refer to the official manual.</p>
 <p><br></p>
-<p><br></p>
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_inventory_request_prices">steam_inventory_request_prices</h1>
+<h1 id="steam_inventory_request_prices">steam_inventory_request_prices<a class="headerlink" href="#steam_inventory_request_prices" title="Permanent link">&para;</a></h1>
 <p>This function requests prices for all item definitions that can be purchased in the user's local currency.</p>
 <ul>
 <li><a href="inventory.html#steam_inventory_get_item_price">steam_inventory_get_item_price</a></li>
@@ -520,8 +2271,6 @@ For more information on this function call please refer to the official manual.<
 <blockquote>
 <pre class="highlight"><code class="language-gml">steam_inventory_request_prices()</code></pre>
 </blockquote>
-<p><br></p>
-<p><br></p>
 <p><br></p>
 <p><strong>Returns:</strong></p>
 <blockquote>
@@ -580,11 +2329,10 @@ if (async_load[? "success"])
 </code></pre>
 The code above matches the event type and if so shows the currency being used. It also gets the price for a specific item using the <a href="inventory.html#steam_inventory_get_item_price">steam_inventory_get_item_price</a> function.</p>
 <p><br></p>
-<p><br></p>
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_inventory_start_purchase">steam_inventory_start_purchase</h1>
+<h1 id="steam_inventory_start_purchase">steam_inventory_start_purchase<a class="headerlink" href="#steam_inventory_start_purchase" title="Permanent link">&para;</a></h1>
 <p>This function starts the purchase process for the user, given a "shopping cart" of item definitions that the user would like to buy.
 The user will be prompted in the Steam Overlay to complete the purchase in their local currency, funding their Steam Wallet if necessary, etc.</p>
 <div class="admonition tip">
@@ -613,8 +2361,6 @@ The user will be prompted in the Steam Overlay to complete the purchase in their
 </tbody>
 </table>
 <p><br></p>
-<p><br></p>
-<p><br></p>
 <p><strong>Returns:</strong></p>
 <blockquote>
 <p>N/A</p>
@@ -629,11 +2375,10 @@ The user will be prompted in the Steam Overlay to complete the purchase in their
 steam_inventory_start_purchase();</code></pre>
 The code above will initialize a purchase intent that will be finalized in the Steam Overlay.</p>
 <p><br></p>
-<p><br></p>
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_inventory_add_promo_item">steam_inventory_add_promo_item</h1>
+<h1 id="steam_inventory_add_promo_item">steam_inventory_add_promo_item<a class="headerlink" href="#steam_inventory_add_promo_item" title="Permanent link">&para;</a></h1>
 <p>This function takes an Item Definition and grants the user the promo item. Item Definitions are integer numbers ranging from 1 to 999999999. Values below the range are invalid and values above the range are reserved.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
@@ -665,8 +2410,6 @@ The code above will initialize a purchase intent that will be finalized in the S
 </tr>
 </tbody>
 </table>
-<p><br></p>
-<p><br></p>
 <p><br></p>
 <p><strong>Returns:</strong></p>
 <blockquote>
@@ -713,11 +2456,10 @@ The code above will initialize a purchase intent that will be finalized in the S
 <p><pre class="highlight"><code class="language-gml">steam_inventory_add_promo_item(item);</code></pre>
 The above code will grant the user with a specific item. For an example on how to use the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a> to read the callback response, refer to the function <a href="inventory.html#steam_inventory_get_all_items">steam_inventory_get_all_items</a>.</p>
 <p><br></p>
-<p><br></p>
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_inventory_add_promo_items">steam_inventory_add_promo_items</h1>
+<h1 id="steam_inventory_add_promo_items">steam_inventory_add_promo_items<a class="headerlink" href="#steam_inventory_add_promo_items" title="Permanent link">&para;</a></h1>
 <p>This function takes an array of Item Definitions and grants the user multiple items. Item Definitions are integer numbers ranging from 1 to 999999999. Values below the range are invalid and values above the range are reserved.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
@@ -749,8 +2491,6 @@ The above code will grant the user with a specific item. For an example on how t
 </tr>
 </tbody>
 </table>
-<p><br></p>
-<p><br></p>
 <p><br></p>
 <p><strong>Returns:</strong></p>
 <blockquote>
@@ -797,11 +2537,10 @@ The above code will grant the user with a specific item. For an example on how t
 <p><pre class="highlight"><code class="language-gml">steam_inventory_add_promo_items([item1, item2, item3]);</code></pre>
 The above code will grant the user with an multiple items specified in an array format. For an example on how to use the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a> to read the callback response, refer to the function <a href="inventory.html#steam_inventory_get_all_items">steam_inventory_get_all_items</a>.</p>
 <p><br></p>
-<p><br></p>
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_inventory_exchange_items">steam_inventory_exchange_items</h1>
+<h1 id="steam_inventory_exchange_items">steam_inventory_exchange_items<a class="headerlink" href="#steam_inventory_exchange_items" title="Permanent link">&para;</a></h1>
 <p>This function grants one item in exchange for a set of other items.</p>
 <p>The API currently takes an array of items to generate but at this time the size of that array must be 1 and the quantity of the new item must be 1.</p>
 <div class="admonition note">
@@ -843,8 +2582,6 @@ The above code will grant the user with an multiple items specified in an array 
 </tr>
 </tbody>
 </table>
-<p><br></p>
-<p><br></p>
 <p><br></p>
 <p><strong>Returns:</strong></p>
 <blockquote>
@@ -920,11 +2657,10 @@ steam_inventory_result_destroy(handle);
 handle = undefined;</code></pre>
 The code above matches the event type and checks if the handle ID matches the one that initialized the request and if so we print a debug message with the success of the task. In the end we also use a call to <a href="inventory.html#steam_inventory_result_destroy">steam_inventory_result_destroy</a> to make sure we dispose and free all the used memory.</p>
 <p><br></p>
-<p><br></p>
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_inventory_generate_items">steam_inventory_generate_items</h1>
+<h1 id="steam_inventory_generate_items">steam_inventory_generate_items<a class="headerlink" href="#steam_inventory_generate_items" title="Permanent link">&para;</a></h1>
 <p>This function generates specific items for the current user.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -960,8 +2696,6 @@ The code above matches the event type and checks if the handle ID matches the on
 </tr>
 </tbody>
 </table>
-<p><br></p>
-<p><br></p>
 <p><br></p>
 <p><strong>Returns:</strong></p>
 <blockquote>
@@ -1013,11 +2747,10 @@ The code above matches the event type and checks if the handle ID matches the on
 steam_inventory_generate_items(_arrayCreate);</code></pre>
 The code above will grant the specific items to the current user. For an example on how to use the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a> to read the callback response, refer to the function <a href="inventory.html#steam_inventory_get_all_items">steam_inventory_get_all_items</a>.</p>
 <p><br></p>
-<p><br></p>
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_inventory_get_all_items">steam_inventory_get_all_items</h1>
+<h1 id="steam_inventory_get_all_items">steam_inventory_get_all_items<a class="headerlink" href="#steam_inventory_get_all_items" title="Permanent link">&para;</a></h1>
 <p>This function starts retrieving all items in the current user's inventory.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
@@ -1033,8 +2766,6 @@ The code above will grant the specific items to the current user. For an example
 <blockquote>
 <pre class="highlight"><code class="language-gml">steam_inventory_get_all_items()</code></pre>
 </blockquote>
-<p><br></p>
-<p><br></p>
 <p><br></p>
 <p><strong>Returns:</strong></p>
 <blockquote>
@@ -1078,6 +2809,7 @@ The code above will grant the specific items to the current user. For an example
 </table>
 <p><br></p>
 <blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a></p>
 <p><strong><img alt="✴️" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/2734.png" title=":eight_pointed_black_star:" /> OPTIONAL</strong></p>
 <p>The asynchronous event presented below is only triggered when the result is newer/fresher than the last known result. It will not trigger if the inventory hasn't changed, or if results from two overlapping calls are reversed in flight and the earlier result is already known to be stale/out-of-date. The regular callback will still be triggered immediately afterwards; this is an additional notification for your convenience.</p>
 </blockquote>
@@ -1139,11 +2871,10 @@ steam_inventory_result_destroy(handle);
 handle = undefined;</code></pre>
 The code above matches the event type and checks if the handle ID matches the one that initialized the request and if so gets the items from the result using the function <a href="inventory.html#steam_inventory_result_get_items">steam_inventory_result_get_items</a> and loops through them. In the end we also use a call to <a href="inventory.html#steam_inventory_result_destroy">steam_inventory_result_destroy</a> to make sure we dispose and free all the used memory.</p>
 <p><br></p>
-<p><br></p>
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_inventory_get_items_by_id">steam_inventory_get_items_by_id</h1>
+<h1 id="steam_inventory_get_items_by_id">steam_inventory_get_items_by_id<a class="headerlink" href="#steam_inventory_get_items_by_id" title="Permanent link">&para;</a></h1>
 <p>This function requests information about a subset of the current user's inventory.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
@@ -1175,8 +2906,6 @@ The code above matches the event type and checks if the handle ID matches the on
 </tr>
 </tbody>
 </table>
-<p><br></p>
-<p><br></p>
 <p><br></p>
 <p><strong>Returns:</strong></p>
 <blockquote>
@@ -1223,11 +2952,10 @@ The code above matches the event type and checks if the handle ID matches the on
 <p><pre class="highlight"><code class="language-gml">handle = steam_inventory_get_items_by_id([item1, item2]);</code></pre>
 Similar to <a href="inventory.html#steam_inventory_get_all_items">steam_inventory_get_all_items</a> but you can specify an array of items to query information instead of querying all of them. For an example on how to use the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a> to read the callback response, refer to the function <a href="inventory.html#steam_inventory_get_all_items">steam_inventory_get_all_items</a>.</p>
 <p><br></p>
-<p><br></p>
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_inventory_submit_update_properties">steam_inventory_submit_update_properties</h1>
+<h1 id="steam_inventory_submit_update_properties">steam_inventory_submit_update_properties<a class="headerlink" href="#steam_inventory_submit_update_properties" title="Permanent link">&para;</a></h1>
 <p>Submits the transaction request to modify <a href="https://partner.steamgames.com/doc/features/inventory/dynamicproperties">dynamic properties</a> on items for the current user. See <a href="https://partner.steamgames.com/doc/api/ISteamInventory#StartUpdateProperties">StartUpdateProperties</a>.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
@@ -1259,8 +2987,6 @@ Similar to <a href="inventory.html#steam_inventory_get_all_items">steam_inventor
 </tr>
 </tbody>
 </table>
-<p><br></p>
-<p><br></p>
 <p><br></p>
 <p><strong>Returns:</strong></p>
 <blockquote>
@@ -1324,11 +3050,10 @@ Starting with a <a href="inventory.html#steam_inventory_start_update_properties"
 </ul>
 <p>Finishing with the submission of the update using the function call <a href="inventory.html#steam_inventory_submit_update_properties">steam_inventory_submit_update_properties</a>. For an example on how to use the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a> to read the callback response, refer to the function <a href="inventory.html#steam_inventory_get_all_items">steam_inventory_get_all_items</a>.</p>
 <p><br></p>
-<p><br></p>
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_inventory_get_item_definition_property">steam_inventory_get_item_definition_property</h1>
+<h1 id="steam_inventory_get_item_definition_property">steam_inventory_get_item_definition_property<a class="headerlink" href="#steam_inventory_get_item_definition_property" title="Permanent link">&para;</a></h1>
 <p>This function gets a string property from the specified item definition.</p>
 <p>The function returns the value associated with the property as a string upon success, or an empty string <code>""</code> in the following cases:</p>
 <ul>
@@ -1367,8 +3092,6 @@ Starting with a <a href="inventory.html#steam_inventory_start_update_properties"
 </tbody>
 </table>
 <p><br></p>
-<p><br></p>
-<p><br></p>
 <p><strong>Returns:</strong></p>
 <blockquote>
 <p>N/A</p>
@@ -1382,11 +3105,10 @@ if (_value != "") {
 }</code></pre>
 The code above shows a call to the function being used to retrieve the value for a property <code>"power"</code>. If the returned value is not an empty string, it is converted to a real and assigned to the instance variable <code>power</code>.</p>
 <p><br></p>
-<p><br></p>
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_inventory_transfer_item_quantity">steam_inventory_transfer_item_quantity</h1>
+<h1 id="steam_inventory_transfer_item_quantity">steam_inventory_transfer_item_quantity<a class="headerlink" href="#steam_inventory_transfer_item_quantity" title="Permanent link">&para;</a></h1>
 <p>Transfer items between stacks within a user's inventory.</p>
 <p>This can be used to stack, split, and move items. The source and destination items must have the same itemdef id. To move items onto a destination stack specify the source, the quantity to move, and the destination item id. To split an existing stack, pass <code>steam_item_instance_id_invalid</code> into <code>dest_item_id</code>. A new item stack will be generated with the requested quantity.</p>
 <div class="admonition warning">
@@ -1429,8 +3151,6 @@ The code above shows a call to the function being used to retrieve the value for
 </tr>
 </tbody>
 </table>
-<p><br></p>
-<p><br></p>
 <p><br></p>
 <p><strong>Returns:</strong></p>
 <blockquote>
@@ -1477,11 +3197,10 @@ The code above shows a call to the function being used to retrieve the value for
 <p><pre class="highlight"><code class="language-gml">handle = steam_inventory_transfer_item_quantity(global.apples[0], 2, global.apples[1]);</code></pre>
 The above code will trigger a transfer between two item stacks owned by the user the amount to be transferred in the example, this will move 2 apples from stack 0 to stack 1. For an example on how to use the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a> to read the callback response, refer to the function <a href="inventory.html#steam_inventory_get_all_items">steam_inventory_get_all_items</a>.</p>
 <p><br></p>
-<p><br></p>
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_inventory_trigger_item_drop">steam_inventory_trigger_item_drop</h1>
+<h1 id="steam_inventory_trigger_item_drop">steam_inventory_trigger_item_drop<a class="headerlink" href="#steam_inventory_trigger_item_drop" title="Permanent link">&para;</a></h1>
 <p>This function triggers an item drop if the user has played a long enough period of time.</p>
 <p>This period can be customized in two places:</p>
 <ul>
@@ -1520,8 +3239,6 @@ The above code will trigger a transfer between two item stacks owned by the user
 </tr>
 </tbody>
 </table>
-<p><br></p>
-<p><br></p>
 <p><br></p>
 <p><strong>Returns:</strong></p>
 <blockquote>
@@ -1568,11 +3285,10 @@ The above code will trigger a transfer between two item stacks owned by the user
 <p><pre class="highlight"><code class="language-gml">handle = steam_inventory_trigger_item_drop(item_def);</code></pre>
 For more information on this function call please refer to the official manual. For an example on how to use the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a> to read the callback response, refer to the function <a href="inventory.html#steam_inventory_get_all_items">steam_inventory_get_all_items</a>.</p>
 <p><br></p>
-<p><br></p>
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_inventory_result_destroy">steam_inventory_result_destroy</h1>
+<h1 id="steam_inventory_result_destroy">steam_inventory_result_destroy<a class="headerlink" href="#steam_inventory_result_destroy" title="Permanent link">&para;</a></h1>
 <p>Destroys a result handle and frees all associated memory.
 This handle is returned by the following functions:</p>
 <ul>
@@ -1617,8 +3333,6 @@ This handle is returned by the following functions:</p>
 </tbody>
 </table>
 <p><br></p>
-<p><br></p>
-<p><br></p>
 <p><strong>Returns:</strong></p>
 <blockquote>
 <p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
@@ -1646,19 +3360,16 @@ steam_inventory_result_destroy(handle);
 handle = undefined;</code></pre>
 In the code above we have an example of a asynchronous callback that generates a result handle by the end of which we execute a call to <a href="inventory.html#steam_inventory_result_destroy">steam_inventory_result_destroy</a> to make sure we dispose and free all the used memory.</p>
 <p><br></p>
-<p><br></p>
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_inventory_load_item_definitions">steam_inventory_load_item_definitions</h1>
+<h1 id="steam_inventory_load_item_definitions">steam_inventory_load_item_definitions<a class="headerlink" href="#steam_inventory_load_item_definitions" title="Permanent link">&para;</a></h1>
 <p>This function triggers an asynchronous load and refresh of item definitions.</p>
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
 <pre class="highlight"><code class="language-gml">steam_inventory_load_item_definitions()</code></pre>
 </blockquote>
-<p><br></p>
-<p><br></p>
 <p><br></p>
 <p><strong>Returns:</strong></p>
 <blockquote>
@@ -1668,11 +3379,10 @@ In the code above we have an example of a asynchronous callback that generates a
 <p><strong>Example:</strong></p>
 <pre class="highlight"><code class="language-gml">steam_inventory_load_item_definitions();</code></pre>
 <p><br></p>
-<p><br></p>
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_inventory_result_get_item_property">steam_inventory_result_get_item_property</h1>
+<h1 id="steam_inventory_result_get_item_property">steam_inventory_result_get_item_property<a class="headerlink" href="#steam_inventory_result_get_item_property" title="Permanent link">&para;</a></h1>
 <p>This function gets the dynamic properties from an item in an inventory result set.
 Property names are always composed of ASCII letters, numbers, and/or underscores.</p>
 <div class="admonition note">
@@ -1715,8 +3425,6 @@ Property names are always composed of ASCII letters, numbers, and/or underscores
 </tbody>
 </table>
 <p><br></p>
-<p><br></p>
-<p><br></p>
 <p><strong>Returns:</strong></p>
 <blockquote>
 <p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></p>
@@ -1753,11 +3461,10 @@ handle = undefined;
 </code></pre>
 The code above matches the event type and checks if the handle ID matches the one that initialized the request and if so gets the items from the result using the function <a href="inventory.html#steam_inventory_result_get_items">steam_inventory_result_get_items</a> and loops through them to get the item properties we want. In the end we also use a call to <a href="inventory.html#steam_inventory_result_destroy">steam_inventory_result_destroy</a> to make sure we dispose and free all the used memory.</p>
 <p><br></p>
-<p><br></p>
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_inventory_result_get_items">steam_inventory_result_get_items</h1>
+<h1 id="steam_inventory_result_get_items">steam_inventory_result_get_items<a class="headerlink" href="#steam_inventory_result_get_items" title="Permanent link">&para;</a></h1>
 <p>This function gets the items associated with an inventory result handle.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -1789,8 +3496,6 @@ The code above matches the event type and checks if the handle ID matches the on
 </tbody>
 </table>
 <p><br></p>
-<p><br></p>
-<p><br></p>
 <p><strong>Returns:</strong></p>
 <blockquote>
 <p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Arrays.htm">Array</a> of <a href="inventory.html#resultitem">ResultItem</a></p>
@@ -1807,11 +3512,10 @@ for(var i = 0 ; i &lt; array_length(_array) ; i++)
 }</code></pre>
 For a more detailed implementation sample please refer to the <a href="inventory.html#steam_inventory_get_all_items">steam_inventory_get_all_items</a> function.</p>
 <p><br></p>
-<p><br></p>
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_inventory_result_get_status">steam_inventory_result_get_status</h1>
+<h1 id="steam_inventory_result_get_status">steam_inventory_result_get_status<a class="headerlink" href="#steam_inventory_result_get_status" title="Permanent link">&para;</a></h1>
 <p>This function returns the status code of a result.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -1843,8 +3547,6 @@ For a more detailed implementation sample please refer to the <a href="inventory
 </tbody>
 </table>
 <p><br></p>
-<p><br></p>
-<p><br></p>
 <p><strong>Returns:</strong></p>
 <blockquote>
 <p><a href="inventory.html#inventoryresultstatus">InventoryResultStatus</a></p>
@@ -1855,11 +3557,10 @@ For a more detailed implementation sample please refer to the <a href="inventory
      exit;</code></pre>
 For a more detailed implementation sample please refer to the <a href="inventory.html#steam_inventory_result_get_item_property">steam_inventory_result_get_item_property</a> function.</p>
 <p><br></p>
-<p><br></p>
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_inventory_result_get_unix_timestamp">steam_inventory_result_get_unix_timestamp</h1>
+<h1 id="steam_inventory_result_get_unix_timestamp">steam_inventory_result_get_unix_timestamp<a class="headerlink" href="#steam_inventory_result_get_unix_timestamp" title="Permanent link">&para;</a></h1>
 <p>This function returns a Unix timestamp for the server time at which the result was generated.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -1891,8 +3592,6 @@ For a more detailed implementation sample please refer to the <a href="inventory
 </tbody>
 </table>
 <p><br></p>
-<p><br></p>
-<p><br></p>
 <p><strong>Returns:</strong></p>
 <blockquote>
 <p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Int64</a></p>
@@ -1902,11 +3601,10 @@ For a more detailed implementation sample please refer to the <a href="inventory
 <p><pre class="highlight"><code class="language-gml">var _timestamp = steam_inventory_result_get_unix_timestamp(inv_result);</code></pre>
 For a more detailed implementation sample please refer to the <a href="inventory.html#steam_inventory_result_get_item_property">steam_inventory_result_get_item_property</a> function.</p>
 <p><br></p>
-<p><br></p>
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_inventory_start_update_properties">steam_inventory_start_update_properties</h1>
+<h1 id="steam_inventory_start_update_properties">steam_inventory_start_update_properties<a class="headerlink" href="#steam_inventory_start_update_properties" title="Permanent link">&para;</a></h1>
 <p>This function starts a transaction request to update dynamic properties on items for the current user.
 It returns a steam_inventory_update_handle that can be used with the following functions:</p>
 <ul>
@@ -1925,8 +3623,6 @@ It returns a steam_inventory_update_handle that can be used with the following f
 <blockquote>
 <pre class="highlight"><code class="language-gml">steam_inventory_start_update_properties()</code></pre>
 </blockquote>
-<p><br></p>
-<p><br></p>
 <p><br></p>
 <p><strong>Returns:</strong></p>
 <blockquote>
@@ -1951,11 +3647,10 @@ Starting with a <a href="inventory.html#steam_inventory_start_update_properties"
 </ul>
 <p>Finishing with the submission of the update using the function call <a href="inventory.html#steam_inventory_submit_update_properties">steam_inventory_submit_update_properties</a>.</p>
 <p><br></p>
-<p><br></p>
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_inventory_remove_property">steam_inventory_remove_property</h1>
+<h1 id="steam_inventory_remove_property">steam_inventory_remove_property<a class="headerlink" href="#steam_inventory_remove_property" title="Permanent link">&para;</a></h1>
 <p>This function removes a <a href="https://partner.steamgames.com/doc/features/inventory/dynamicproperties">dynamic property</a> of the given item.</p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
@@ -1993,8 +3688,6 @@ Starting with a <a href="inventory.html#steam_inventory_start_update_properties"
 </tbody>
 </table>
 <p><br></p>
-<p><br></p>
-<p><br></p>
 <p><strong>Returns:</strong></p>
 <blockquote>
 <p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
@@ -2021,11 +3714,10 @@ Starting with a <a href="inventory.html#steam_inventory_start_update_properties"
 </ul>
 <p>Finishing with the submission of the update using the function call <a href="inventory.html#steam_inventory_submit_update_properties">steam_inventory_submit_update_properties</a>.</p>
 <p><br></p>
-<p><br></p>
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_inventory_set_property_bool">steam_inventory_set_property_bool</h1>
+<h1 id="steam_inventory_set_property_bool">steam_inventory_set_property_bool<a class="headerlink" href="#steam_inventory_set_property_bool" title="Permanent link">&para;</a></h1>
 <p>This function sets a <a href="https://partner.steamgames.com/doc/features/inventory/dynamicproperties">dynamic property</a> for the boolean given item.</p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
@@ -2063,8 +3755,6 @@ Starting with a <a href="inventory.html#steam_inventory_start_update_properties"
 </tbody>
 </table>
 <p><br></p>
-<p><br></p>
-<p><br></p>
 <p><strong>Returns:</strong></p>
 <blockquote>
 <p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
@@ -2091,11 +3781,10 @@ Starting with a <a href="inventory.html#steam_inventory_start_update_properties"
 </ul>
 <p>Finishing with the submission of the update using the function call <a href="inventory.html#steam_inventory_submit_update_properties">steam_inventory_submit_update_properties</a>.</p>
 <p><br></p>
-<p><br></p>
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_inventory_set_property_float">steam_inventory_set_property_float</h1>
+<h1 id="steam_inventory_set_property_float">steam_inventory_set_property_float<a class="headerlink" href="#steam_inventory_set_property_float" title="Permanent link">&para;</a></h1>
 <p>This function sets a <a href="https://partner.steamgames.com/doc/features/inventory/dynamicproperties">dynamic property</a> for the float given item.</p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
@@ -2133,8 +3822,6 @@ Starting with a <a href="inventory.html#steam_inventory_start_update_properties"
 </tbody>
 </table>
 <p><br></p>
-<p><br></p>
-<p><br></p>
 <p><strong>Returns:</strong></p>
 <blockquote>
 <p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
@@ -2161,11 +3848,10 @@ Starting with a <a href="inventory.html#steam_inventory_start_update_properties"
 </ul>
 <p>Finishing with the submission of the update using the function call <a href="inventory.html#steam_inventory_submit_update_properties">steam_inventory_submit_update_properties</a>.</p>
 <p><br></p>
-<p><br></p>
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_inventory_set_property_int">steam_inventory_set_property_int</h1>
+<h1 id="steam_inventory_set_property_int">steam_inventory_set_property_int<a class="headerlink" href="#steam_inventory_set_property_int" title="Permanent link">&para;</a></h1>
 <p>This function sets a <a href="https://partner.steamgames.com/doc/features/inventory/dynamicproperties">dynamic property</a> for the int given item.</p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
@@ -2203,8 +3889,6 @@ Starting with a <a href="inventory.html#steam_inventory_start_update_properties"
 </tbody>
 </table>
 <p><br></p>
-<p><br></p>
-<p><br></p>
 <p><strong>Returns:</strong></p>
 <blockquote>
 <p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
@@ -2231,11 +3915,10 @@ Starting with a <a href="inventory.html#steam_inventory_start_update_properties"
 </ul>
 <p>Finishing with the submission of the update using the function call <a href="inventory.html#steam_inventory_submit_update_properties">steam_inventory_submit_update_properties</a>.</p>
 <p><br></p>
-<p><br></p>
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_inventory_set_property_string">steam_inventory_set_property_string</h1>
+<h1 id="steam_inventory_set_property_string">steam_inventory_set_property_string<a class="headerlink" href="#steam_inventory_set_property_string" title="Permanent link">&para;</a></h1>
 <p>This function sets a <a href="https://partner.steamgames.com/doc/features/inventory/dynamicproperties">dynamic property</a> for the string given item.</p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
@@ -2273,8 +3956,6 @@ Starting with a <a href="inventory.html#steam_inventory_start_update_properties"
 </tbody>
 </table>
 <p><br></p>
-<p><br></p>
-<p><br></p>
 <p><strong>Returns:</strong></p>
 <blockquote>
 <p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
@@ -2301,11 +3982,10 @@ Starting with a <a href="inventory.html#steam_inventory_start_update_properties"
 </ul>
 <p>Finishing with the submission of the update using the function call <a href="inventory.html#steam_inventory_submit_update_properties">steam_inventory_submit_update_properties</a>.</p>
 <p><br></p>
-<p><br></p>
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="inventoryresultstatus">InventoryResultStatus</h1>
+<h1 id="inventoryresultstatus">InventoryResultStatus<a class="headerlink" href="#inventoryresultstatus" title="Permanent link">&para;</a></h1>
 <p>These constants represent the status of an inventory result async event.</p>
 <p>These constants are referenced by the following functions:</p>
 <ul>
@@ -2369,7 +4049,7 @@ Starting with a <a href="inventory.html#steam_inventory_start_update_properties"
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="inventoryitemconsumptiondata">InventoryItemConsumptionData</h1>
+<h1 id="inventoryitemconsumptiondata">InventoryItemConsumptionData<a class="headerlink" href="#inventoryitemconsumptiondata" title="Permanent link">&para;</a></h1>
 <p>This struct contains items consumption data. It contains the following details about an item consumption:</p>
 <p>This struct is referenced by the following functions:</p>
 <ul>
@@ -2401,7 +4081,7 @@ Starting with a <a href="inventory.html#steam_inventory_start_update_properties"
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="inventoryitemcreationdata">InventoryItemCreationData</h1>
+<h1 id="inventoryitemcreationdata">InventoryItemCreationData<a class="headerlink" href="#inventoryitemcreationdata" title="Permanent link">&para;</a></h1>
 <p>This struct contains Inventory item creation data. It contains the following details about an item creation/purchase:</p>
 <p>This struct is referenced by the following functions:</p>
 <ul>
@@ -2435,7 +4115,7 @@ Starting with a <a href="inventory.html#steam_inventory_start_update_properties"
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="resultitem">ResultItem</h1>
+<h1 id="resultitem">ResultItem<a class="headerlink" href="#resultitem" title="Permanent link">&para;</a></h1>
 <p>This struct is referenced by the following functions:</p>
 <ul>
 <li><a href="inventory.html#steam_inventory_result_get_items">steam_inventory_result_get_items</a></li>
@@ -2473,57 +4153,74 @@ Starting with a <a href="inventory.html#steam_inventory_start_update_properties"
 </tbody>
 </table>
 <p><br></p>
-              
+<hr />
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
             </div>
-          </div><footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="social.html" class="btn btn-neutral float-left" title="Social"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="networking.html" class="btn btn-neutral float-right" title="Networking">Next <span class="icon icon-circle-arrow-right"></span></a>
-    </div>
-
-  <hr/>
-
-  <div role="contentinfo">
-    <!-- Copyright etc -->
-      <p><p align="center">GameMaker 2026</p></p>
-  </div>
-
-  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
-</footer>
           
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
         </div>
-      </div>
-
-    </section>
-
-  </div>
-
-  <div class="rst-versions" role="note" aria-label="Versions">
-  <span class="rst-current-version" data-toggle="rst-current-version">
-    
-        <span>
-          <a href="https://github.com/YoYoGames/GMEXT-Steamworks" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
-        </span>
-    
-    
-      <span><a href="social.html" style="color: #fcfcfc">&laquo; Previous</a></span>
-    
-    
-      <span><a href="networking.html" style="color: #fcfcfc">Next &raquo;</a></span>
-    
-  </span>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      <p align="center">GameMaker 2026</p>
+    </div>
+  
+  
 </div>
-    <script src="js/jquery-3.6.0.min.js"></script>
-    <script>var base_url = ".";</script>
-    <script src="js/theme_extra.js"></script>
-    <script src="js/theme.js"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/gml.min.js"></script>
-      <script src="assets/js/gmext_script.js"></script>
-    <script>
-        jQuery(function () {
-            SphinxRtdTheme.Navigation.enable(true);
-        });
-    </script>
-
-</body>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["navigation.top", "navigation.tracking", "toc.follow", "content.code.copy"], "search": "assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/gml.min.js"></script>
+      
+        <script src="assets/js/hljs-init.js"></script>
+      
+        <script src="assets/js/resize-columns.js"></script>
+      
+    
+  </body>
 </html>
