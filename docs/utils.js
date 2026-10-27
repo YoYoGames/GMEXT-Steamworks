@@ -382,9 +382,9 @@
 
 /**
  * @function steam_utils_is_steam_running_on_steam_deck
- * @description > **Steamworks Function**: [ISteamUtils::IsSteamRunningOnSteamDeck](https://partner.steamgames.com/doc/api/ISteamUtils#IsSteamRunningOnSteamDeck)
+ * @description > **Steamworks Function**: [ISteamUtils::IsRunningOnSteamHardware](https://partner.steamgames.com/doc/api/ISteamUtils#IsRunningOnSteamHardware)
  *
- * This function checks if Steam is running on a Steam Deck, or any other SteamOS device.
+ * This function checks if the game is running on a Steam Deck. Other Steam hardware, such as the Steam Machine or the Steam Frame, returns `false`.
  *
  * @returns {Bool} 
  * @function_end 

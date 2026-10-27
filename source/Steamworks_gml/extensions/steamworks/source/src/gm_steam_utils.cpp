@@ -357,7 +357,8 @@ bool steam_utils_is_steam_running_on_steam_deck()
     if (!u)
         return false;
 
-    return u->IsSteamRunningOnSteamDeck();
+    // SDK 1.65 removed IsSteamRunningOnSteamDeck(); the hardware type query replaces it.
+    return u->IsRunningOnSteamHardware() == k_ESteamHardwareTypeSteamDeck;
 }
 
 bool steam_utils_is_steam_china_launcher()

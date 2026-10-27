@@ -8,7 +8,7 @@ Open the Steamworks extension's options from the Asset Browser (double-click the
 
 | Option | Required | What it does |
 |---|---|---|
-| **Steam SDK** | Yes | The path to the folder where you extracted the Steamworks SDK (version 1.63). It may be relative to the project folder. The build step copies the Steam runtime library for the target platform from here, and fails the build if the SDK version does not match. |
+| **Steam SDK** | Yes | The path to the folder where you extracted the Steamworks SDK (version 1.65). It may be relative to the project folder. The build step copies the Steam runtime library for the target platform from here, and fails the build if the SDK version does not match. |
 
 ## App Options
 

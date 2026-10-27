@@ -1976,7 +1976,7 @@ function steam_utils_is_steam_in_big_picture_mode(): bool;
 [global, bind = typed_gml]
 function steam_utils_is_steam_running_in_vr(): bool;
 
-// IsSteamRunningOnSteamDeck
+// IsRunningOnSteamHardware == k_ESteamHardwareTypeSteamDeck (SDK 1.65 removed IsSteamRunningOnSteamDeck)
 [global, bind = typed_gml]
 function steam_utils_is_steam_running_on_steam_deck(): bool;
 

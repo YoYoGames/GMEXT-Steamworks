@@ -6,7 +6,7 @@ To use the Steamworks extension, follow these steps:
 
 * Import this Steamworks extension into your project, if you haven't done that already. Download the .yymps file from the [Releases](https://github.com/YoYoGames/GMEXT-Steamworks/releases) page and drag it into your GameMaker window, or use the Tools -> Import Local Package option. Import all files.
 * The Steam client needs to be **installed**, **running** and with an account **logged in** ([official site](https://store.steampowered.com/)) while testing from the IDE.
-* Download the Steamworks SDK (version 1.63) from the [Steamworks partner site](https://partner.steamgames.com/dashboard) and extract the contents of the zip into a directory of your choice (e.g. `C:\steamworks\sdk`).
+* Download the Steamworks SDK (version 1.65) from the [Steamworks partner site](https://partner.steamgames.com/dashboard) and extract the contents of the zip into a directory of your choice (e.g. `C:\steamworks\sdk`).
 
    ![](assets/steamworks_setup_sdk.jpg)
 
