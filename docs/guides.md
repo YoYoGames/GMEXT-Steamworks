@@ -34,6 +34,12 @@ To use the Steam API extension you should follow these steps:
     - 1: Show errors and warnings (recommended)
     - 2: Show everything (use before submitting a bug)
 
+## Runtime Support
+
+This 2.x version of the Steamworks extension is intended for the GMS2 runtime targets. Do not treat it as a drop-in compatible package for LTS2026 GMRT targets.
+
+[[WARNING: GMRT support is planned for a future v3.0.0 release of the extension. That release is expected to include breaking API changes, so existing projects will need code changes when moving from the 2.x API to the GMRT-compatible API.]]
+
 ## Signed macOS Builds
 
 When a macOS build uses the Hardened Runtime, `SteamAPI_Init` can fail because library validation rejects Valve's `steamclient.dylib`, which is signed with a different Team ID from your game. In this case, `steam_initialised()` remains `false` and Steam features are unavailable even though the application builds successfully.

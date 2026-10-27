@@ -1183,6 +1183,7 @@
  * @member ugc_visibility_public Set the item to be publicly visible
  * @member ugc_visibility_friends_only Set the item to be visible to only people on the users friends list
  * @member ugc_visibility_private Set the item to be private
+ * @member ugc_visibility_unlisted Set the item to be unlisted, so it is hidden from searches and browsing but can still be accessed by anyone who has a direct link to it
  * @const_end
  */
 

@@ -315,9 +315,9 @@
  *
  * This enum contains the location types used by party beacon locations.
  *
- * @member STEAM_PARTIES_BEACON_LOCATION.TYPE_INVALID Invalid location type.
- * @member STEAM_PARTIES_BEACON_LOCATION.CHAT_GROUP Steam chat group location.
- * @member STEAM_PARTIES_BEACON_LOCATION.TYPE_MAX Sentinel value.
+ * @member TYPE_INVALID Invalid location type.
+ * @member CHAT_GROUP Steam chat group location.
+ * @member TYPE_MAX Sentinel value.
  * @constant_end
  */
 
@@ -327,11 +327,11 @@
  *
  * This enum contains the data fields that can be read with ${function.steam_parties_get_beacon_location_data}.
  *
- * @member STEAM_PARTIES_BEACON_LOCATION_DATA.DATA_INVALID Invalid data field.
- * @member STEAM_PARTIES_BEACON_LOCATION_DATA.DATA_NAME Display name for the location.
- * @member STEAM_PARTIES_BEACON_LOCATION_DATA.ICON_URL_SMALL Small icon URL for the location.
- * @member STEAM_PARTIES_BEACON_LOCATION_DATA.ICON_URL_MEDIUM Medium icon URL for the location.
- * @member STEAM_PARTIES_BEACON_LOCATION_DATA.ICON_URL_LARGE Large icon URL for the location.
+ * @member DATA_INVALID Invalid data field.
+ * @member DATA_NAME Display name for the location.
+ * @member ICON_URL_SMALL Small icon URL for the location.
+ * @member ICON_URL_MEDIUM Medium icon URL for the location.
+ * @member ICON_URL_LARGE Large icon URL for the location.
  * @constant_end
  */
 

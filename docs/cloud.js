@@ -34,7 +34,7 @@
  *     steam_file_share("Save.txt");
  * }
  * ```
- * The above code checks to see if the user has the Steam Cloud enabled and if it returns `true`, it will then synchronize the given file.
+ * The above code checks to see if the user has the Steam Cloud enabled and if it returns `true`, it will then upload and share the given file right away.
  * @func_end
  */
 
@@ -122,7 +122,7 @@
  *     steam_file_share("Save.txt");
  * }
  * ```
- * The above code will check to see if a file has been stored to the Steam Cloud, and if it has not it will then synchronize it.
+ * The above code will check to see if a file has been stored to the Steam Cloud, and if it has not it will then upload and share it right away.
  * @func_end
  */
 
@@ -234,20 +234,48 @@
 
 /**
  * @func steam_file_share
- * @desc With this function you can force your game to synchronize the given file with the Steam Cloud. This is not normally necessary due to the fact that the game will synchronize automatically at the end of the player's session, nor is it recommended by Steam, but it can be useful to ensure sensitive information is synchronized immediately. The function will return a value of 0 if it fails for whatever reason and a value greater than 0 if it succeeds.
- * 
- * @param {string} filename The name of the file synchronize.
- * 
+ * @desc > **Steamworks Function**: [ISteamRemoteStorage::FileShare](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#FileShare)
+ *
+ * With this function you can share a file that is stored in the Steam Cloud. Steam uploads the file right away and gives back a UGC handle for it. You can pass this handle to functions that work with shared content, such as ${function.steam_ugc_download}. The file must already have been written to the Steam Cloud (for example with ${function.steam_file_write}).
+ *
+ * [[NOTE: You don't need this function to save normal game files. Steam synchronizes Cloud files automatically at the end of the player's session.]]
+ *
+ * This is an asynchronous function that will return an asynchronous ID and trigger the ${event.steam} when the task is finished. It returns 0 if the request couldn't be made, for example because the user isn't logged on to Steam or the file doesn't exist.
+ *
+ * @param {string} filename The name of the Steam Cloud file to share.
+ *
  * @returns {real}
- * 
+ *
+ * @event steam
+ * @member {real} id The asynchronous request ID
+ * @member {string} event_type The string value `"file_share"`
+ * @member {real} result This will either be the GML constant `ugc_result_success` or some other real number (see the [Steam docs](https://partner.steamgames.com/doc/api/steam_api) under **EResult** for more details). It is 0 if the request failed because of an IO failure.
+ * @member {string} filename The name of the file you passed in
+ * @member {int64} ugc_handle The UGC handle of the shared file. This is only valid if `result` is `ugc_result_success`.
+ * @event_end
+ *
  * @example
+ * In this example we first share a file and store the async ID value in a variable:
+ *
  * ```gml
- * if (!steam_file_persisted("Save.txt"))
+ * share_id = steam_file_share("Replay.dat");
+ * ```
+ * This sends the request to the Steam API, which will trigger an async event that we can handle as follows:
+ *
+ * ```gml
+ * if (async_load[? "id"] == share_id && async_load[? "event_type"] == "file_share")
  * {
- *     steam_file_share("Save.txt");
+ *     if (async_load[? "result"] == ugc_result_success)
+ *     {
+ *         replay_handle = async_load[? "ugc_handle"];
+ *     }
+ *     else
+ *     {
+ *         show_debug_message("Could not share " + async_load[? "filename"]);
+ *     }
  * }
  * ```
- * The above code will check to see if a file has been stored to the Steam Cloud, and if it has not it will then synchronize it.
+ * The above code checks the result of the share and, if it worked, stores the UGC handle of the file so it can be used later.
  * @func_end
  */
 

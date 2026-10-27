@@ -394,7 +394,7 @@
  *
  * You **must** call ${function.steam_user_end_auth_session} when done with the session.
  *
- * @param {Id.Buffer} auth_ticket_buffer The buffer containing auth ticket bytes from the other player.
+ * @param {buffer} auth_ticket_buffer The buffer containing auth ticket bytes from the other player.
  * @param {Int64} steam_id The Steam ID of the user who created the ticket.
  *
  * @returns {Real} A `STEAMWORKS_BEGIN_AUTH_SESSION_RESULT` value (0 = OK, 1 = Invalid Ticket, 2 = Duplicate Request, 3 = Invalid Version, 4 = Game Mismatch, 5 = Expired Ticket)
