@@ -15,7 +15,7 @@
   "copyToTargets":194,
   "description":"",
   "exportToGame":true,
-  "extensionVersion":"2.1.6",
+  "extensionVersion":"3.0.0",
   "files":[
     {"$GMExtensionFile":"v1","%Name":"Steamworks.ext","constants":[],"copyToTargets":194,"filename":"Steamworks.ext","final":"steam_api_shutdown","functions":[
         {"$GMExtensionFunction":"","%Name":"steam_api_last_error","argCount":0,"args":[],"documentation":"@returns {String}","externalName":"__EXT_NATIVE__steam_api_last_error","help":"","hidden":false,"kind":4,"name":"steam_api_last_error","resourceType":"GMExtensionFunction","resourceVersion":"2.0","returnType":1,},

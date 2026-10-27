@@ -212,7 +212,7 @@ exit /b 0
 
     set "PS_TARGET=%~1"
 
-    powershell -NoLogo -NoProfile -Command "New-Item -ItemType Directory -Path $env:PS_TARGET -Force | Out-Null; Get-ChildItem -LiteralPath $env:PS_TARGET -Force | Remove-Item -Recurse -Force"
+    powershell -NoLogo -NoProfile -Command "$ErrorActionPreference = 'Stop'; New-Item -ItemType Directory -Path $env:PS_TARGET -Force | Out-Null; Get-ChildItem -LiteralPath $env:PS_TARGET -Force | Remove-Item -Recurse -Force"
 
     set "PS_TARGET="
 
@@ -425,7 +425,14 @@ exit /b 0
 
 :: General log function
 :log tag message
-    echo [%LOG_LABEL%] %~1: %~2
+    :: Echo through delayed expansion so characters that are special to cmd
+    :: (> < | &) are printed instead of being parsed as redirection/piping.
+    :: The set must come before setlocal, or a literal ! in the message is lost.
+    set "_msg=%~2"
+    setlocal enabledelayedexpansion
+    echo [%LOG_LABEL%] %~1: !_msg!
+    endlocal
+    set "_msg="
 exit /b 0
 
 
