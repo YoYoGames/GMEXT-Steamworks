@@ -677,6 +677,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#steam_attach_leaderboard_ugc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_attach_leaderboard_ugc
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#steam_download_scores" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1321,6 +1332,17 @@
     <span class="md-ellipsis">
       
         steam_upload_score_buffer_ext
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_attach_leaderboard_ugc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_attach_leaderboard_ugc
       
     </span>
   </a>
@@ -2095,7 +2117,7 @@ In the example we are simply outputting the return values to the compiler window
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_attach_leaderboard_ugc">steam_attach_leaderboard_ugc</h1>
+<h1 id="steam_attach_leaderboard_ugc">steam_attach_leaderboard_ugc<a class="headerlink" href="#steam_attach_leaderboard_ugc" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamUserStats#AttachLeaderboardUGC">ISteamUserStats::AttachLeaderboardUGC</a></p>
 </blockquote>
@@ -2133,8 +2155,6 @@ In the example we are simply outputting the return values to the compiler window
 </tr>
 </tbody>
 </table>
-<p><br></p>
-<p><br></p>
 <p><br></p>
 <p><strong>Returns:</strong></p>
 <blockquote>
@@ -2207,11 +2227,10 @@ else if (_type == "leaderboard_attach_ugc" &amp;&amp; async_load[? "id"] == atta
 }</code></pre>
 The code above waits for each step to finish before starting the next one, and reports when the replay has been attached.</p>
 <p><br></p>
-<p><br></p>
 <hr />
 <p align="right"><a href="#top">Back To Top</a></p>
 
-<h1 id="steam_download_scores">steam_download_scores</h1>
+<h1 id="steam_download_scores">steam_download_scores<a class="headerlink" href="#steam_download_scores" title="Permanent link">&para;</a></h1>
 <p>This function is used to retrieve a sequential range of leaderboard entries by leaderboard ranking. The <code>start_idx</code> and <code>end_idx</code> parameters control the requested range of ranks, for example, you can display the top 10 on a leaderboard for your game by setting the start value to 1 and the end value to 10. The leaderboard name is a string that was defined when you created the leaderboard using the function <a href="leaderboards.html#steam_create_leaderboard">steam_create_leaderboard</a>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
