@@ -3,7 +3,7 @@
 /**
  * @func steam_net_sockets_create_listen_socket_ip
  * @desc > **Steam Function**: [ISteamnetworkingSockets::CreateListenSocketIP](https://partner.steamgames.com/doc/api/ISteamnetworkingSockets#CreateListenSocketIP)
- * 
+ *
  * This function creates a "server" socket that listens for clients to connect to by calling ${function.steam_net_sockets_connect_by_ip}, over ordinary UDP (IPv4 or IPv6). You must select a specific local port to listen on and set it as the port field of the local address.
  * 
  * @param {string} ip The local IP address
@@ -454,6 +454,111 @@
  * @func_end
  */
 
+/**
+ * @func steam_net_sockets_received_relay_auth_ticket
+ * @desc > **Steam Function**: [ISteamNetworkingSockets::ReceivedRelayAuthTicket](https://partner.steamgames.com/doc/api/ISteamNetworkingSockets#ReceivedRelayAuthTicket)
+ *
+ * This function provides a relay auth ticket received from your game coordinator to the Steam Networking Sockets client interface.
+ *
+ * @param {buffer} ticket_buffer The buffer holding the relay auth ticket
+ * @param {real} ticket_size The ticket size in bytes
+ *
+ * @returns {bool}
+ *
+ * @func_end
+ */
+
+/**
+ * @func steam_net_sockets_find_relay_auth_ticket_for_server
+ * @desc > **Steam Function**: [ISteamNetworkingSockets::FindRelayAuthTicketForServer](https://partner.steamgames.com/doc/api/ISteamNetworkingSockets#FindRelayAuthTicketForServer)
+ *
+ * This function checks whether a relay auth ticket is available for the requested hosted dedicated server.
+ *
+ * @param {int64} steam_id The hosted dedicated server SteamID
+ * @param {real} remote_virtual_port The remote virtual port
+ *
+ * @returns {real} The number of seconds until the ticket expires, 0 if no ticket is available, or a negative value on error
+ *
+ * @func_end
+ */
+
+/**
+ * @func steam_net_sockets_connect_to_hosted_dedicated_server
+ * @desc > **Steam Function**: [ISteamNetworkingSockets::ConnectToHostedDedicatedServer](https://partner.steamgames.com/doc/api/ISteamNetworkingSockets#ConnectToHostedDedicatedServer)
+ *
+ * This function begins connecting to a hosted dedicated server through Steam Datagram Relay.
+ *
+ * @param {int64} steam_id The hosted dedicated server SteamID
+ * @param {real} remote_virtual_port The remote virtual port
+ *
+ * @returns {real} Connection handle (>= 0) or -1
+ *
+ * @func_end
+ */
+
+/**
+ * @func steam_net_sockets_get_hosted_dedicated_server_port
+ * @desc > **Steam Function**: [ISteamNetworkingSockets::GetHostedDedicatedServerPort](https://partner.steamgames.com/doc/api/ISteamNetworkingSockets#GetHostedDedicatedServerPort)
+ *
+ * This function gets the physical port used by the hosted dedicated server Steam Networking Sockets interface.
+ *
+ * @returns {real}
+ *
+ * @func_end
+ */
+
+/**
+ * @func steam_net_sockets_get_hosted_dedicated_server_popid
+ * @desc > **Steam Function**: [ISteamNetworkingSockets::GetHostedDedicatedServerPOPID](https://partner.steamgames.com/doc/api/ISteamNetworkingSockets#GetHostedDedicatedServerPOPID)
+ *
+ * This function gets the data center ID selected for the hosted dedicated server Steam Networking Sockets interface.
+ *
+ * @returns {real}
+ *
+ * @func_end
+ */
+
+/**
+ * @func steam_net_sockets_get_hosted_dedicated_server_address
+ * @desc > **Steam Function**: [ISteamNetworkingSockets::GetHostedDedicatedServerAddress](https://partner.steamgames.com/doc/api/ISteamNetworkingSockets#GetHostedDedicatedServerAddress)
+ *
+ * This function writes the hosted dedicated server routing address to a buffer.
+ *
+ * @param {buffer} routing_buffer The buffer to receive the SteamDatagramHostedAddress data
+ *
+ * @returns {real} A Steam [EResult](https://partner.steamgames.com/doc/api/steam_api#EResult) code
+ *
+ * @func_end
+ */
+
+/**
+ * @func steam_net_sockets_create_hosted_dedicated_server_listen_socket
+ * @desc > **Steam Function**: [ISteamNetworkingSockets::CreateHostedDedicatedServerListenSocket](https://partner.steamgames.com/doc/api/ISteamNetworkingSockets#CreateHostedDedicatedServerListenSocket)
+ *
+ * This function creates a listen socket for a hosted dedicated server using Steam Datagram Relay.
+ *
+ * @param {real} local_virtual_port The local virtual port
+ *
+ * @returns {real} Listen socket handle (>= 0) or -1
+ *
+ * @func_end
+ */
+
+/**
+ * @func steam_net_sockets_get_game_coordinator_server_login
+ * @desc > **Steam Function**: [ISteamNetworkingSockets::GetGameCoordinatorServerLogin](https://partner.steamgames.com/doc/api/ISteamNetworkingSockets#GetGameCoordinatorServerLogin)
+ *
+ * This function writes game coordinator login data for a hosted dedicated server.
+ *
+ * @param {buffer} login_buffer The buffer holding SteamDatagramGameCoordinatorServerLogin data
+ * @param {buffer} blob_buffer The buffer to receive the signed blob
+ * @param {real} blob_max_size The maximum signed blob size to write
+ *
+ * @returns {struct.GameCoordinatorServerLoginResult}
+ *
+ * @func_end
+ */
+
 // CONSTANTS
 
 /**
@@ -612,6 +717,15 @@
  * @struct_end
  */
 
+/**
+ * @struct GameCoordinatorServerLoginResult
+ * @desc This struct is returned by ${function.steam_net_sockets_get_game_coordinator_server_login}.
+ *
+ * @member {real} result The Steam [EResult](https://partner.steamgames.com/doc/api/steam_api#EResult) code
+ * @member {real} blob_size The signed blob size in bytes
+ * @struct_end
+ */
+
 // MODULES
 
 /**
@@ -653,7 +767,7 @@
  * The extension will trigger a ${event.steam} of `event_type` `"steam_net_message_on_state_change"` for callbacks of this type.
  * 
  * @section_end
- * 
+ *
  * @section_func Basic Sockets
  * @desc These are the basic functions for working with sockets:
  * @ref steam_net_sockets_create_listen_socket_ip
@@ -664,7 +778,7 @@
  * @ref steam_net_sockets_close_connection
  * @ref steam_net_sockets_close_listen_socket
  * @section_end
- * 
+ *
  * @section_func Socket Pair (Local Connection)
  * @desc These functions allow working with socket pairs:
  * @ref steam_net_sockets_create_socket_pair
@@ -714,6 +828,18 @@
  * @ref steam_net_sockets_get_authentication_status
  * @section_end
  * 
+ * @section_func Hosted Dedicated Server SDR
+ * @desc These functions are used by hosted dedicated servers and clients that connect to them through Steam Datagram Relay:
+ * @ref steam_net_sockets_received_relay_auth_ticket
+ * @ref steam_net_sockets_find_relay_auth_ticket_for_server
+ * @ref steam_net_sockets_connect_to_hosted_dedicated_server
+ * @ref steam_net_sockets_get_hosted_dedicated_server_port
+ * @ref steam_net_sockets_get_hosted_dedicated_server_popid
+ * @ref steam_net_sockets_get_hosted_dedicated_server_address
+ * @ref steam_net_sockets_create_hosted_dedicated_server_listen_socket
+ * @ref steam_net_sockets_get_game_coordinator_server_login
+ * @section_end
+ *
  * @section_const Constants
  * @desc These are the constants used by the Steam extension's networking sockets and messages modules:
  * @ref steam_net_fake_ip_type
@@ -728,6 +854,7 @@
  * @ref Identity
  * @ref ConnectionInfo
  * @ref ConnectionRealTimeStatus
+ * @ref GameCoordinatorServerLoginResult
  * @section_end
  * 
  * @module_end

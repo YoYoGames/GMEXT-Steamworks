@@ -13,6 +13,7 @@
 
 const int EVENT_OTHER_WEB_STEAM = 69;
 extern bool steam_is_initialised;
+extern bool steam_gameserver_is_initialised;
 
 extern void Steam_UserStats_Init();
 extern void Steam_Friends_Init();
