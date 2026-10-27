@@ -1,0 +1,4 @@
+
+steam_remote_storage_clear_callback_published_file_subscribed()
+steam_remote_storage_clear_callback_published_file_unsubscribed()
+steam_remote_storage_clear_callback_local_file_change()

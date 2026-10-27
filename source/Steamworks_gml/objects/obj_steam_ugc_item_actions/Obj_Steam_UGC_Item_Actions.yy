@@ -1,11 +1,11 @@
 {
   "$GMObject":"",
-  "%Name":"Obj_Steam_UGC_Item_Actions",
+  "%Name":"obj_steam_ugc_item_actions",
   "eventList":[
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
   ],
   "managed":true,
-  "name":"Obj_Steam_UGC_Item_Actions",
+  "name":"obj_steam_ugc_item_actions",
   "overriddenProperties":[],
   "parent":{
     "name":"UGC",

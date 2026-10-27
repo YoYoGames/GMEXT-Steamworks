@@ -1,419 +1,317 @@
+
 // FUNCTIONS
 
 /**
- * @func steam_timeline_set_state_description
- * @desc Sets a description (B) for the current game state in the timeline. These help the user to find specific moments in the timeline when saving clips. Setting a new state description replaces any previous description.
- * 
- * Examples could include:
- * - Where the user is in the world in a single player game
- * - Which round is happening in a multiplayer game
- * - The current score for a sports game
- * 
- * @param {string} description A localized string in the game language
- * @param {real} timeDelta The time offset in seconds to apply to this state change. Negative times indicate an event that happened in the past.
- * @returns {bool}
- * 
- * @example
- * ```gml
- * steam_timeline_set_state_description("Earned x10 points as Cirno", -seconds);
- * ```
- * This sets some description for an event that happened `seconds` seconds ago.
- * @func_end
+ * @function steam_timeline_set_timeline_tooltip
+ * @description > **Steamworks Function**: [ISteamTimeline::SetTimelineTooltip](https://partner.steamgames.com/doc/api/ISteamTimeline#SetTimelineTooltip)
+ *
+ * This function sets a description for the current game state in the timeline. These help the user to find specific moments in the timeline when saving clips. Setting a new state description replaces any previous description.
+ *
+ * @param {String} description A localised string in the language returned by the ${function.steam_utils_get_steam_ui_language} call.
+ * @param {Real} time_delta_seconds The number of seconds ago that this state change occurred; negative values mark events in the past.
+ * @function_end 
  */
 
-
 /**
- * @func steam_timeline_clear_state_description
- * @desc Clears the previous set game state in the timeline.
- * 
- * @param {real} timeDelta The time offset in seconds to apply to this state change. Negative times indicate an event that happened in the past.
- * @returns {bool}
- * 
- * @example
- * ```gml
- * steam_timeline_clear_state_description(-seconds);
- * ```
- * This clears description for an event that happened `seconds` seconds ago.
- * @func_end
+ * @function steam_timeline_clear_timeline_tooltip
+ * @description > **Steamworks Function**: [ISteamTimeline::ClearTimelineTooltip](https://partner.steamgames.com/doc/api/ISteamTimeline#ClearTimelineTooltip)
+ *
+ * This function clears the previously set game state in the timeline.
+ *
+ * @param {Real} time_delta_seconds The number of seconds ago that this state change occurred; negative values mark events in the past.
+ * @function_end 
  */
 
-
 /**
- * @func steam_timeline_add_event
- * @desc Use this to mark an event (A) on the Timeline. The event can be instantaneous or take some amount of time to complete, depending on the value passed in durationSeconds.
- * 
- * @param {string} icon The name of the icon to show at the timeline at this point. This can be one of the icons uploaded through the Steamworks partner Site for your title, or one of the provided icons that start with steam_. The Steam Timelines overview includes a list of available icons.
- * @param {string} title Title-provided localized string in the game language
- * @param {string} description Title-provided localized string in the game language
- * @param {real|constant.TimelineMaxPriority} priority Provide the priority to use when the UI is deciding which icons to display in crowded parts of the timeline. Events with larger priority values will be displayed more prominently than events with smaller priority values. This value must be between 0 and ${constant.TimelineMaxPriority}.
- * @param {real|constant.TimelineMaxEventDuration} startOffsetSeconds The time offset in seconds to apply to the start of the event. Negative times indicate an event that happened in the past. One use of this parameter is to handle events whose significance is not clear until after the fact. For instance if the player starts a damage over time effect on another player, which kills them 3.5 seconds later, the game could pass -3.5 as the start offset and cause the event to appear in the timeline where the effect started.
- * @param {real|constant.TimelineMaxEventDuration} durationSeconds The duration of the event, in seconds. Pass 0 for instantaneous events. The final duration of the event cannot be larger than ${constant.TimelineMaxEventDuration}.
- * @param {constant.TimelineEventClipPriority} possibleClip Allows the game to describe events that should be suggested to the user as possible video clips.
- * @returns {bool}
- * 
- * @example
- * ```gml
- * steam_timeline_add_event(
- *     "steam_achievement",                   // default steam_ icon name
- *     "Rensenware",                          // this should be in the user's preferred language
- *     "Scored 0.2 bln pts. in LUNATIC mode", // this should be in the user's preferred language
- *     100,                                   // between 0 and steam_timeline_max_timeline_priority inclusive
- *     -1.0,                                  // this event happened one second in the past
- *     10.0,                                  // this event took 10 seconds
- *     steam_timeline_clip_priority_standard  // you might want to clip this awesome event
- * );
- * ```
- * This example demonstrates how to add a timeline event.
- * @func_end
+ * @function steam_timeline_add_instantaneous_timeline_event
+ * @description > **Steamworks Function**: [ISteamTimeline::AddInstantaneousTimelineEvent](https://partner.steamgames.com/doc/api/ISteamTimeline#AddInstantaneousTimelineEvent)
+ *
+ * This function is used to mark an event on the Timeline. This event will be instantaneous. (See ${function.steam_timeline_add_range_timeline_event} to add events that happened over time.)
+ *
+ * @param {String} title A title-provided localised string in the UI language.
+ * @param {String} description A title-provided localised string in the UI language.
+ * @param {String} icon The name of the icon to display; this can be a title-uploaded icon or one of the provided icons whose name begins with `"steam_"`.
+ * @param {Real} priority The priority used to decide which icons to show in crowded areas; higher priority events are shown more prominently, and the value must be between 0 and `STEAM_TIMELINE_MAX_TIMELINE_PRIORITY`.
+ * @param {Real} start_offset_seconds The number of seconds before the current time that the event started; negative values indicate the past, which is useful for events whose significance only becomes apparent later.
+ * @param {Enum.SteamTimelineEventClipPriority} possible_clip Lets the game flag the event as a suggested video clip.
+ * @returns {Real} Timeline event handle that can be used with ${function.steam_timeline_remove_timeline_event} or the overlay functions ${function.steam_timeline_does_event_recording_exist} and ${function.steam_timeline_open_overlay_to_timeline_event}.
+ * @function_end 
  */
 
-
 /**
- * @func steam_timeline_start_event
- * @desc Use this to mark the start of an event (A) on the Timeline that takes some amount of time to complete. The duration of the event is determined by a matching call to EndRangeTimelineEvent. If the game wants to cancel an event in progress, they can do that with a call to ${function.steam_timeline_remove_event}.
- * 
- * The event in progress can be updated any number of times with ${function.steam_timeline_update_event}.
- * 
- * @param {string} icon The name of the icon to show at the timeline at this point. This can be one of the icons uploaded through the Steamworks partner Site for your title, or one of the provided icons that start with steam_. The Steam Timelines overview includes a list of available icons.
- * @param {string} title Title-provided localized string in the game language
- * @param {string} description Title-provided localized string in the game language
- * @param {real|constant.TimelineMaxPriority} priority Provide the priority to use when the UI is deciding which icons to display in crowded parts of the timeline. Events with larger priority values will be displayed more prominently than events with smaller priority values. This value must be between 0 and ${constant.TimelineMaxPriority}.
- * @param {real|constant.TimelineMaxEventDuration} startOffsetSeconds The time offset in seconds to apply to the start of the event. Negative times indicate an event that happened in the past. One use of this parameter is to handle events whose significance is not clear until after the fact. For instance if the player starts a damage over time effect on another player, which kills them 3.5 seconds later, the game could pass -3.5 as the start offset and cause the event to appear in the timeline where the effect started.
- * @param {constant.TimelineEventClipPriority} possibleClip Allows the game to describe events that should be suggested to the user as possible video clips.
- * @returns {bool}
- * 
- * @example
- * ```gml
- * event_handle = steam_timeline_start_event(
- *     "steam_achievement",                   // default steam_ icon name
- *     "Rensenware",                          // this should be in the user's preferred language
- *     "Scored 0.2 bln pts. in LUNATIC mode", // this should be in the user's preferred language
- *     100,                                   // between 0 and steam_timeline_max_timeline_priority inclusive
- *     -1.0,                                  // this event started one second in the past
- *     steam_timeline_clip_priority_standard  // you might want to clip this awesome event
- * );
- * ```
- * This example demonstrates how to start a timeline event (where the duration is unknown).
- * @func_end
+ * @function steam_timeline_add_range_timeline_event
+ * @description > **Steamworks Function**: [ISteamTimeline::AddRangeTimelineEvent](https://partner.steamgames.com/doc/api/ISteamTimeline#AddRangeTimelineEvent)
+ *
+ * This function is used to mark an event on the Timeline that takes some amount of time to complete.
+ *
+ * @param {String} title A title-provided localised string in the UI language.
+ * @param {String} description A title-provided localised string in the UI language.
+ * @param {String} icon The name of the icon to display; this can be a title-uploaded icon or one of the provided icons whose name begins with `"steam_"`.
+ * @param {Real} priority The priority used to decide which icons to show in crowded areas; higher priority events are shown more prominently, and the value must be between 0 and `STEAM_TIMELINE_MAX_TIMELINE_PRIORITY`.
+ * @param {Real} start_offset_seconds The number of seconds before the current time that the event started; negative values indicate the past, which is useful for retroactively significant events.
+ * @param {Real} duration_seconds The length of the event in seconds; use 0 for instantaneous events.
+ * @param {Enum.SteamTimelineEventClipPriority} possible_clip Lets the game flag the event as a suggested video clip.
+ * @returns {Real} 
+ * @function_end 
  */
 
-
 /**
- * @func steam_timeline_update_event
- * @desc Use this to update the details of an event that was started with ${function.steam_timeline_start_event}.
+ * @function steam_timeline_start_range_timeline_event
+ * @description > **Steamworks Function**: [ISteamTimeline::StartRangeTimelineEvent](https://partner.steamgames.com/doc/api/ISteamTimeline#StartRangeTimelineEvent)
+ *
+ * This function is used to mark the start of an event on the Timeline that takes some amount of time to complete. The duration of the event is determined by a matching call to ${function.steam_timeline_end_range_timeline_event}. If the game wants to cancel an event in progress, they can do that with a call to ${function.steam_timeline_remove_timeline_event}.
  * 
- * @param {real} handle The handle for a previously created event.
- * @param {string} icon The name of the icon to show at the timeline at this point. This can be one of the icons uploaded through the Steamworks partner Site for your title, or one of the provided icons that start with steam_. The Steam Timelines overview includes a list of available icons.
- * @param {string} title Title-provided localized string in the game language
- * @param {string} description Title-provided localized string in the game language
- * @param {real|constant.TimelineMaxPriority} priority Provide the priority to use when the UI is deciding which icons to display in crowded parts of the timeline. Events with larger priority values will be displayed more prominently than events with smaller priority values. This value must be between 0 and ${constant.TimelineMaxPriority}.
- * @param {real|constant.TimelineMaxEventDuration} startOffsetSeconds The time offset in seconds to apply to the start of the event. Negative times indicate an event that happened in the past. One use of this parameter is to handle events whose significance is not clear until after the fact. For instance if the player starts a damage over time effect on another player, which kills them 3.5 seconds later, the game could pass -3.5 as the start offset and cause the event to appear in the timeline where the effect started.
- * @param {constant.TimelineEventClipPriority} possibleClip Allows the game to describe events that should be suggested to the user as possible video clips.
- * @returns {bool}
- * 
- * @example
- * ```gml
- * steam_timeline_update_event(
- *     event_handle,                          // handle to a previously created event
- *     "steam_achievement",                   // default steam_ icon name
- *     "Rensenware",                          // this should be in the user's preferred language
- *     "Scored 0.2 bln pts. in LUNATIC mode", // this should be in the user's preferred language
- *     100,                                   // between 0 and steam_timeline_max_timeline_priority inclusive
- *     -1.0,                                  // this event happened one second in the past
- *     steam_timeline_clip_priority_standard  // you might want to clip this awesome event
- * );
- * ```
- * This example demonstrates how to add a timeline event.
- * @func_end
+ * The event in progress can be updated any number of times with ${function.steam_timeline_update_range_timeline_event}.
+ *
+ * @param {String} title A title-provided localised string in the UI language.
+ * @param {String} description A title-provided localised string in the UI language.
+ * @param {String} icon The name of the icon to display; this can be a title-uploaded icon or one of the provided icons whose name begins with `"steam_"`.
+ * @param {Real} priority The priority used to decide which icons to show in crowded areas; higher priority events are shown more prominently, and the value must be between 0 and `STEAM_TIMELINE_MAX_TIMELINE_PRIORITY`.
+ * @param {Real} start_offset_seconds The number of seconds before the current time that the event started; negative values indicate the past, which is useful for retroactively significant events.
+ * @param {Enum.SteamTimelineEventClipPriority} possible_clip Lets the game flag the event as a suggested video clip.
+ * @returns {Real} 
+ * @function_end 
  */
 
-
 /**
- * @func steam_timeline_end_event
- * @desc Use this to identify the end of an event that was started with ${function.steam_timeline_start_event}.
- * 
- * @param {real} handle The handle for a previously created event.
- * @param {real|constant.TimelineMaxEventDuration} endOffsetSeconds The time offset in seconds to apply to the start of the event. Negative times indicate an event that happened in the past. One use of this parameter is to handle events whose significance is not clear until after the fact. For instance if the player starts a damage over time effect on another player, which kills them 3.5 seconds later, the game could pass -3.5 as the start offset and cause the event to appear in the timeline where the effect started.
- * 
- * @returns {bool}
- * 
- * @example
- * ```gml
- * steam_timeline_end_event(
- *     event_handle,                          // handle to a previously created event
- *     -2.0,                                  // this event ended 2 seconds ago
- * );
- * ```
- * This example demonstrates how to add a timeline event.
- * @func_end
+ * @function steam_timeline_update_range_timeline_event
+ * @description > **Steamworks Function**: [ISteamTimeline::UpdateRangeTimelineEvent](https://partner.steamgames.com/doc/api/ISteamTimeline#UpdateRangeTimelineEvent)
+ *
+ * This function is used to update the details of an event that was started with ${function.steam_timeline_start_range_timeline_event}.
+ *
+ * @param {Real} event_handle The handle of the event to update.
+ * @param {String} title A title-provided localised string in the UI language.
+ * @param {String} description A title-provided localised string in the UI language.
+ * @param {String} icon The name of the icon to display; this can be a title-uploaded icon or one of the provided icons whose name begins with `"steam_"`.
+ * @param {Real} priority The priority used to decide which icons to show in crowded areas; higher priority events are shown more prominently, and the value must be between 0 and `STEAM_TIMELINE_MAX_TIMELINE_PRIORITY`.
+ * @param {Enum.SteamTimelineEventClipPriority} possible_clip Lets the game flag the event as a suggested video clip.
+ * @function_end 
  */
 
-
 /**
- * @func steam_timeline_remove_event
- * @desc Use this to remove a previously created event from the timeline.
- * 
- * @param {string} handle The handle for a previously created event.
- * @returns {bool}
- * 
- * @func_end
+ * @function steam_timeline_end_range_timeline_event
+ * @description > **Steamworks Function**: [ISteamTimeline::EndRangeTimelineEvent](https://partner.steamgames.com/doc/api/ISteamTimeline#EndRangeTimelineEvent)
+ *
+ * This function is used to end an event that was started with ${function.steam_timeline_start_range_timeline_event}.
+ *
+ * @param {Real} event_handle The handle of the event to end.
+ * @param {Real} end_offset_seconds The number of seconds before the current time that the event ended; negative values indicate the past.
+ * @function_end 
  */
 
+/**
+ * @function steam_timeline_remove_timeline_event
+ * @description > **Steamworks Function**: [ISteamTimeline::RemoveTimelineEvent](https://partner.steamgames.com/doc/api/ISteamTimeline#RemoveTimelineEvent)
+ *
+ * This function is used to remove an event that was added with ${function.steam_timeline_add_instantaneous_timeline_event} or ${function.steam_timeline_add_range_timeline_event}.
+ *
+ * @param {Real} event_handle The handle of the event to remove.
+ * @function_end 
+ */
 
 /**
- * @func steam_timeline_event_recording_exists
- * @desc Use this to determine if video recordings exist for the specified game phase. This can be useful when the game needs to decide whether or not to show a control that will call ${function.steam_timeline_game_phase_open_overlay}.
- *  
- * @param {string} event_handle Handle of the event to check for recordings. 
- * @returns {bool}
+ * @function steam_timeline_does_event_recording_exist
+ * @description > **Steamworks Function**: [ISteamTimeline::DoesEventRecordingExist](https://partner.steamgames.com/doc/api/ISteamTimeline#DoesEventRecordingExist)
+ *
+ * This function is used to determine if video recordings exist for the specified event. Steam will sent a [SteamTimelineEventRecordingExists_t](https://partner.steamgames.com/doc/api/ISteamTimeline#SteamTimelineEventRecordingExists_t) callback with the result. This can be useful when the game needs to decide whether or not to show a control that will call ${function.steam_timeline_open_overlay_to_timeline_event}.
+ *
+ * @param {Real} event_handle The handle of the event to check for recordings.
+ * @param {Function} callback The function to call with the result.
+ *
+ * @event callback
+ * @description > **Steamworks Callback**: [ISteamTimeline::SteamTimelineEventRecordingExists_t](https://partner.steamgames.com/doc/api/ISteamTimeline#SteamTimelineEventRecordingExists_t)
  * 
- * @event steam
- * @member {string} event_type The string `"steam_timeline_event_recording_exists"`
- * @member {bool} success Whether or not the current task succeeded.
- * @member {string} recording_exists This is true if recording exists for the requested event handle.
- * @member {real} event_id The handle of the event that was asked about.
+ * Called when asking if recordings exist for an event handle.
+ * 
+ * @member {Struct.SteamTimelineEventRecordingExists} result The result of the operation.
  * @event_end
- * 
- * @func_end
+ * @function_end
  */
 
-
 /**
- * @func steam_timeline_event_open_overlay
- * @desc Opens the Steam overlay to the section of the timeline represented by the timeline event. This event must be in the current game session, since event handles values are not valid for future runs of the game.
+ * @function steam_timeline_start_game_phase
+ * @description > **Steamworks Function**: [ISteamTimeline::StartGamePhase](https://partner.steamgames.com/doc/api/ISteamTimeline#StartGamePhase)
+ *
+ * This function is used to start a game phase.
  * 
- * @param {real} event_handle Handle of the event to show in the overlay.
- * @returns {bool}
+ * Game phases allow the user to navigate their background recordings and clips. Exactly what a game phase means will vary game to game, but the game phase should be a section of gameplay that is usually between 10 minutes and a few hours in length, and should be the main way a user would think to divide up the game.
  * 
- * @example
- * ```gml
- * steam_timeline_event_open_overlay(event_handle);
- * ```
- * This call will open the steam overlay showing the requested event.
- * @func_end
+ * Game phases are started with ${function.steam_timeline_start_game_phase}, and while a phase is still happening, they can have tags and attributes added to them with ${function.steam_timeline_add_game_phase_tag} or ${function.steam_timeline_set_game_phase_attribute}. Only one game phase can be active at a time.
+ *
+ * @function_end
  */
 
-
 /**
- * @func steam_timeline_game_phase_start
- * @desc Use this to start a game phase. Game phases allow the user to navigate their background recordings and clips. Exactly what a game phase means will vary game to game, but the game phase should be a section of gameplay that is usually between 10 minutes and a few hours in length, and should be the main way a user would think to divide up the game. These are presented to the user in a UI that shows the date the game was played, with one row per game slice. Game phases should be used to mark sections of gameplay that the user might be interested in watching.
- * 
- * Game phases are started with `steam_timeline_game_phase_start`, and while a phase is still happening, they can have tags and attributes added to them with ${function.steam_timeline_game_phase_add_tag} or ${function.steam_timeline_game_phase_set_attribute}. Only one game phase can be active at a time.
- * 
- * @returns {bool}
- * 
- * @example
- * ```gml
- * steam_timeline_game_phase_start();
- * ```
- * This call will start a new game phase.
- * @func_end
+ * @function steam_timeline_end_game_phase
+ * @description > **Steamworks Function**: [ISteamTimeline::EndGamePhase](https://partner.steamgames.com/doc/api/ISteamTimeline#EndGamePhase)
+ *
+ * This function is used to end a game phase that was started with ${function.steam_timeline_start_game_phase}.
+ *
+ * @function_end
  */
 
-
 /**
- * @func steam_timeline_game_phase_end
- * @desc Use this to end a game phase that was started with ${function.steam_timeline_game_phase_start}.
- * 
- * @returns {bool}
- * 
- * @example
- * ```gml
- * steam_timeline_game_phase_end();
- * ```
- * This call will end a current active phase.
- * @func_end
+ * @function steam_timeline_set_game_phase_id
+ * @description > **Steamworks Function**: [ISteamTimeline::SetGamePhaseID](https://partner.steamgames.com/doc/api/ISteamTimeline#SetGamePhaseID)
+ *
+ * This function sets a phase ID that is used to let the game identify which phase it is referring to in calls to ${function.steam_timeline_does_game_phase_recording_exist} or ${function.steam_timeline_open_overlay_to_game_phase}. It may also be used to associate multiple phases with each other.
+ *
+ * @param {String} phase_id A game-provided persistent ID for a game phase, such as the match ID in a multiplayer game, a chapter name in a single player game, the ID of a character, etc.
+ * @function_end
  */
 
-
 /**
- * @func steam_timeline_game_phase_set_id
- * @desc The phase ID is used to let the game identify which phase it is referring to in calls to ${function.steam_timeline_game_phase_recording_exists} or ${function.steam_timeline_game_phase_open_overlay}. It may also be used to associated multiple phases with each other.
+ * @function steam_timeline_does_game_phase_recording_exist
+ * @description > **Steamworks Function**: [ISteamTimeline::DoesGamePhaseRecordingExist](https://partner.steamgames.com/doc/api/ISteamTimeline#DoesGamePhaseRecordingExist)
+ *
+ * This function is used to determine if video recordings exist for the specified game phase. Steam will sent a [SteamTimelineGamePhaseRecordingExists_t](https://partner.steamgames.com/doc/api/ISteamTimeline#SteamTimelineGamePhaseRecordingExists_t) callback with the result. This can be useful when the game needs to decide whether or not to show a control that will call ${function.steam_timeline_open_overlay_to_game_phase}.
+ *
+ * @param {String} phase_id A game-provided persistent ID for a game phase.
+ * @param {Function} callback The function to call with the result.
+ *
+ * @event callback
+ * @description > **Steamworks Callback**: [ISteamTimeline::SteamTimelineGamePhaseRecordingExists_t](https://partner.steamgames.com/doc/api/ISteamTimeline#SteamTimelineGamePhaseRecordingExists_t)
  * 
- * @param {string} phase_id A game-provided persistent ID for a game phase. This could be a the match ID in a multiplayer game, a chapter name in a single player game, the ID of a character, etc. 
- * @returns {bool}
+ * Called when asking if recordings exist for an event handle.
  * 
- * @example
- * ```gml
- * steam_timeline_game_phase_set_id("Chapter I");
- * ```
- * This call will set the current phase id to "Chapter I".
- * @func_end
- */
-
-
-/**
- * @func steam_timeline_game_phase_recording_exists
- * @desc Use this to determine if video recordings exist for the specified game phase. This can be useful when the game needs to decide whether or not to show a control that will call ${function.steam_timeline_game_phase_open_overlay}.
- *  
- * @param {string} phase_id A game-provided persistent ID for a game phase. 
- * @returns {bool}
- * 
- * @event steam
- * @member {string} event_type The string `"steam_timeline_game_phase_recording_exists"`
- * @member {bool} success Whether or not the current task succeeded.
- * @member {string} phase_id The phase ID that this result corresponds with.
- * @member {real} longest_clip_ms The total length of the longest clip in this phase in milliseconds.
- * @member {real} recording_ms The total length of the recordings in this phase in milliseconds.
- * @member {real} clip_count The number of clips that include video from this phase.
- * @member {real} screenshot_count The number of screenshots the user has from this phase.
+ * @member {Struct.SteamTimelineGamePhaseRecordingExists} result The result of the operation.
  * @event_end
- * 
- * @func_end
+ * @function_end
  */
-
 
 /**
- * @func steam_timeline_game_phase_add_tag
- * @desc Use this to add a game phase tag (F). Phase tags represent data with a well defined set of options, which could be data such as match resolution, hero played, game mode, etc. Tags can have an icon in addition to a text name. Multiple tags within the same group may be added per phase and all will be remembered. For example, `steam_timeline_game_phase_add_tag` may be called multiple times for a "Bosses Defeated" group, with different names and icons for each boss defeated during the phase, all of which will be shown to the user.
- * 
- * @param {string} name Title-provided localized string in the game language. 
- * @param {string} icon The name of the icon to show at the timeline at this point. This can be one of the icons uploaded through the Steamworks partner Site for your title, or one of the provided icons that start with steam_. The Steam Timelines overview includes a list of available icons.
- * @param {string} group Title-provided localized string in the game language. Tags within the same group will be shown together in the UI.
- * @param {real|constant.TimelineMaxPriority} priority Provide the priority to use when the UI is deciding which attributes to display. Attributes with larger priority values will be displayed more prominently than attributes with smaller priority values. This value must be between 0 and ${constant.TimelineMaxPriority}. 
- * @returns {bool}
- * 
- * @example
- * ```gml
- * steam_timeline_game_phase_set_attribute("My attribute", "0/0/0", 0.3);
- * ```
- * This call will set an attribute on the currently active game phase.
- * @func_end
+ * @function steam_timeline_add_game_phase_tag
+ * @description > **Steamworks Function**: [ISteamTimeline::AddGamePhaseTag](https://partner.steamgames.com/doc/api/ISteamTimeline#AddGamePhaseTag)
+ *
+ * This function is used to add a game phase tag.
+ *
+ * @param {String} tag_name A title-provided localised string in the language returned by ${function.steam_utils_get_steam_ui_language}.
+ * @param {String} tag_icon The name of the icon to show when the tag is displayed in the UI; this can be a title-uploaded icon or one of the provided icons whose name begins with `"steam_"`.
+ * @param {String} tag_group A title-provided localised string; tags within the same group will be shown together in the UI.
+ * @param {Real} priority The priority used to decide which icons to show; tags with larger priority values are displayed more prominently, and the value must be between 0 and `STEAM_TIMELINE_MAX_TIMELINE_PRIORITY`.
+ * @function_end
  */
-
 
 /**
- * @func steam_timeline_game_phase_set_attribute
- * @desc Use this to add a game phase attribute (E). Phase attributes represent generic text fields that can be updated throughout the duration of the phase. 
- * They are meant to be used for phase metadata that is not part of a well defined set of options. For example, a KDA attribute that starts with the value "0/0/0" and updates as the phase progresses, or something like a played-entered character name. Attributes can be set as many times as the game likes with `steam_timeline_game_phase_set_attribute`, and only the last value will be shown to the user.
- * 
- * @param {string} attribute_group Title-provided localized string in the game language. 
- * @param {string} attribute_value Title-provided localized string in the game language.
- * @param {real|constant.TimelineMaxPriority} priority Provide the priority to use when the UI is deciding which attributes to display. Attributes with larger priority values will be displayed more prominently than attributes with smaller priority values. This value must be between 0 and ${constant.TimelineMaxPriority}. 
- * @returns {bool}
- * 
- * @example
- * ```gml
- * steam_timeline_game_phase_set_attribute("My attribute", "0/0/0", 0.3);
- * ```
- * This call will set an attribute on the currently active game phase.
- * @func_end
+ * @function steam_timeline_set_game_phase_attribute
+ * @description > **Steamworks Function**: [ISteamTimeline::SetGamePhaseAttribute](https://partner.steamgames.com/doc/api/ISteamTimeline#SetGamePhaseAttribute)
+ *
+ * This function is used to add a game phase attribute. Phase tags represent data with a well defined set of options, which could be data such as match resolution, hero played, game mode, etc. Tags can have an icon in addition to a text name. Multiple tags within the same group may be added per phase and all will be remembered.
+ *
+ * @param {String} attribute_group A title-provided localised string in the language returned by ${function.steam_utils_get_steam_ui_language}.
+ * @param {String} attribute_value A title-provided localised string in the language returned by ${function.steam_utils_get_steam_ui_language}.
+ * @param {Real} priority The priority used to decide which attributes to show; attributes with larger priority values are displayed more prominently, and the value must be between 0 and `STEAM_TIMELINE_MAX_TIMELINE_PRIORITY`.
+ * @function_end
  */
-
 
 /**
- * @func steam_timeline_game_phase_open_overlay
- * @desc Opens the Steam overlay to the section of the timeline represented by the game phase.
- * 
- * @param {string} phase_id The game phase to show in the overlay.
- * @returns {bool}
- * 
- * @example
- * ```gml
- * steam_timeline_game_phase_open_overlay("Chapter I");
- * ```
- * This call will open the steam overlay showing the requested phase.
- * @func_end
+ * @function steam_timeline_set_timeline_game_mode
+ * @description > **Steamworks Function**: [ISteamTimeline::SetTimelineGameMode](https://partner.steamgames.com/doc/api/ISteamTimeline#SetTimelineGameMode)
+ *
+ * This function changes the colour of the timeline bar.
+ *
+ * @param {Enum.SteamTimelineGameMode} mode The mode that the game is in.
+ * @function_end
  */
-
 
 /**
- * @func steam_timeline_set_game_mode
- * @desc Changes the color of the timeline bar (C). See ${constant.TimelineGameMode} for how to use each value.
- * 
- * @param {constant.TimelineGameMode} mode The mode that the game is in.
- * @returns {bool}
- * 
- * @example
- * ```gml
- * steam_timeline_set_game_mode(steam_timeline_game_mode_playing);
- * ```
- * This call will change the current game mode to Playing.
- * @func_end
+ * @function steam_timeline_open_overlay_to_game_phase
+ * @description > **Steamworks Function**: [ISteamTimeline::OpenOverlayToGamePhase](https://partner.steamgames.com/doc/api/ISteamTimeline#OpenOverlayToGamePhase)
+ *
+ * This function opens the Steam overlay to the section of the timeline represented by the game phase.
+ *
+ * @param {String} phase_id The game phase to show in the overlay.
+ * @function_end
  */
 
+/**
+ * @function steam_timeline_open_overlay_to_timeline_event
+ * @description > **Steamworks Function**: [ISteamTimeline::OpenOverlayToTimelineEvent](https://partner.steamgames.com/doc/api/ISteamTimeline#OpenOverlayToTimelineEvent)
+ *
+ * This function opens the Steam overlay to the section of the timeline represented by the timeline event. This event must be in the current game session, since [TimelineEventHandle_t](https://partner.steamgames.com/doc/api/ISteamTimeline#TimelineEventHandle_t) values are not valid for future runs of the game.
+ *
+ * @param {Real} event_handle The handle of the event to show in the overlay.
+ * @function_end
+ */
+
+// STRUCTS
+
+/**
+ * @struct SteamTimelineGamePhaseRecordingExists
+ * @description > **Steamworks Struct**: [ISteamTimeline::SteamTimelineGamePhaseRecordingExists_t](https://partner.steamgames.com/doc/api/ISteamTimeline#SteamTimelineGamePhaseRecordingExists_t)
+ *
+ * This struct holds the result when asking if recordings exist for an event handle.
+ *
+ * @member {String} phase_id The phase ID that this result corresponds with.
+ * @member {Real} recording_ms The total length of the recordings in this phase in milliseconds.
+ * @member {Real} longest_clip_ms The total length of the longest clip in this phase in milliseconds.
+ * @member {Real} clip_count The number of clips that include video from this phase.
+ * @member {Real} screenshot_count The number of screenshots the user has from this phase.
+ * @struct_end 
+ */
+
+/**
+ * @struct SteamTimelineEventRecordingExists
+ * @description > **Steamworks Struct**: [ISteamTimeline::SteamTimelineEventRecordingExists_t](https://partner.steamgames.com/doc/api/ISteamTimeline#SteamTimelineEventRecordingExists_t)
+ *
+ * This struct holds the result when asking if recordings exist for an event handle.
+ *
+ * @member {Real} event_id The handle of the event that was asked about.
+ * @member {Bool} recording_exists This is `true` if a recording exists for the requested event handle.
+ * @struct_end
+ */
 
 // CONSTANTS
 
 /**
- * @const TimelineGameMode
- * @desc Represents the possible game mode tags a timeline can have (influences the color scheme).
- * @member steam_timeline_game_mode_invalid Invalid dummy value.
- * @member steam_timeline_game_mode_playing Used when the player is fully loaded into the game and playing - for example inside the dungeon fighting monsters.
- * @member steam_timeline_game_mode_staging Used when some loading action is happening ingame - for example player is in a multiplayer lobby or for when a dungeon is loading.
- * @member steam_timeline_game_mode_menus Used when inside menus - for example the player adjusting settings or in a town buying items
- * @member steam_timeline_game_mode_loading_screen Used for loading screens.
- * @member steam_timeline_game_mode_max One past the last valid value.
- * @const_end
+ * @enum SteamTimelineGameMode
+ * @description > **Steamworks Enum**: [ISteamTimeline::ETimelineGameMode](https://partner.steamgames.com/doc/api/ISteamTimeline#ETimelineGameMode)
+ *
+ * This enum controls the colour of the timeline bar segments.
+ *
+ * @member Playing The player is fully loaded into the game and playing.
+ * @member Staging The player is in a multiplayer lobby.
+ * @member Menus The player is in the game's main menu or a pause menu.
+ * @member LoadingScreen The player is waiting for a loading screen.
+ * @enum_end 
  */
 
 /**
- * @const TimelineEventClipPriority
- * @desc Represents the possible priority a timeline event can have. Where 'steam_timeline_clip_priority_featured' is higher than 'steam_timeline_clip_priority_standard'.
- * @member steam_timeline_clip_priority_invalid Invalid dummy value.
- * @member steam_timeline_clip_priority_none This event is not appropriate as a clip.
- * @member steam_timeline_clip_priority_standard The user may want to make a clip around this event.
- * @member steam_timeline_clip_priority_featured The player will be likely to want a clip around event, and those clips should be promoted more prominently.
- * @const_end
+ * @enum SteamTimelineEventClipPriority
+ * @description > **Steamworks Enum**: [ISteamTimeline::ETimelineEventClipPriority](https://partner.steamgames.com/doc/api/ISteamTimeline#ETimelineEventClipPriority)
+ *
+ * This enum is used in ${function.steam_timeline_add_instantaneous_timeline_event} and ${function.steam_timeline_add_range_timeline_event}, where Featured events will be offered before Standard events.
+ *
+ * @member None This event is not appropriate as a clip.
+ * @member Standard The user may want to make a clip around this event.
+ * @member Featured The player will be likely to want a clip around event, and those clips should be promoted more prominently than clips with the `SteamTimelineEventClipPriority.Standard` priority.
+ * @enum_end
  */
 
-/**
- * @const TimelineMaxPriority
- * @desc Represents the maximum possible priority a timeline event can have.
- * @member steam_timeline_max_timeline_priority Maximum timeline event priority value.
- * @const_end
- */
-
-/**
- * @const TimelineMaxEventDuration
- * @desc Represents the maximum possible duration a timeline event can have.
- * @member steam_timeline_max_timeline_event_duration Maximum timeline event duration value.
- * @const_end
- */
-
-// MODULES
+// MODULE
 
 /**
  * @module timeline
  * @title Timeline
- * @desc Functions that allow the game to add events to the timeline that is displayed alongside recorded video.
+ * @desc > **Steamworks Interface**: [ISteamTimeline](https://partner.steamgames.com/doc/api/ISteamTimeline)
  * 
- * Due to the experimental nature of Steam Timeline (currently), all extension functions return a boolean.
- * If it's true, it means that the Steam Timeline API is available and the call was made.
- * If it's false, it means that the Steam Timeline API is not available, the Steam Client is probably too old or not a Beta.
+ * This module contains functions that allow the game to add events to the timeline that is displayed alongside recorded video.
  * 
- * The (A), (B) and (C) marks in the function documentation refer to the parts of the Diagram image below.
- * 
- * Diagrams:
- * ![](assets/steam_timeline_diagram.png)
+ * See [Steam Timelines](https://partner.steamgames.com/doc/features/timeline) and diagram at the bottom of page for more information.
  * 
  * @section_func Functions
- * @desc The following functions can be used to access Steam Timeline from within GameMaker: 
- * @ref steam_timeline_set_state_description
- * @ref steam_timeline_clear_state_description
- * @ref steam_timeline_add_event
- * @ref steam_timeline_start_event
- * @ref steam_timeline_update_event
- * @ref steam_timeline_end_event
- * @ref steam_timeline_remove_event
- * @ref steam_timeline_event_overlay
- * @ref steam_timeline_event_recording_exists
- * @ref steam_timeline_game_phase_start
- * @ref steam_timeline_game_phase_end
- * @ref steam_timeline_game_phase_set_id
- * @ref steam_timeline_game_phase_add_tag
- * @ref steam_timeline_game_phase_set_attribute
- * @ref steam_timeline_game_phase_open_overlay
- * @ref steam_timeline_game_phase_recording_exists
- * @ref steam_timeline_set_game_mode
+ * @desc These are the functions of the Timeline module:
+ * @ref steam_timeline_*
  * @section_end
  * 
  * @section_const Constants
- * @desc This section also provides the following constants to use with the functions:
- * @ref TimelineGameMode
- * @ref TimelineEventClipPriority
- * @ref TimelineMaxPriority
- * @ref TimelineMaxEventDuration
+ * @desc These are the constants and enums of the Timeline module:
+ * @ref SteamTimeline*
+ * @section_end
+ * 
+ * @section_struct Structs
+ * @desc These are the structs of the Timeline module:
+ * @ref SteamTimeline*
  * @section_end
  * @module_end
  */

@@ -1,0 +1,4094 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="parties.html">
+      
+      
+        <link rel="next" href="screenshots.html">
+      
+      
+        
+      
+      
+      <link rel="icon" href="assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Remote Storage - GMEXT-Steamworks</title>
+      
+    
+    
+      <link rel="stylesheet" href="assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+    
+      <link rel="stylesheet" href="assets/css/extra.css">
+    
+    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  <script>(function(){try{var w=["--gm-nav-width","--gm-toc-width"],i,v;for(i=0;i<w.length;i++){v=localStorage.getItem(w[i]);if(v)document.documentElement.style.setProperty(w[i],v)}}catch(e){}})()</script></head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#remote-storage" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="home.html" title="GMEXT-Steamworks" class="md-header__button md-logo" aria-label="GMEXT-Steamworks" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            GMEXT-Steamworks
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Remote Storage
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/YoYoGames/GMEXT-Steamworks" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="home.html" title="GMEXT-Steamworks" class="md-nav__button md-logo" aria-label="GMEXT-Steamworks" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    GMEXT-Steamworks
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/YoYoGames/GMEXT-Steamworks" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="home.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Steamworks Extension
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Guides
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Guides
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="getting_started.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="extension_options.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Extension Options
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modules
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Modules
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="api.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="apps.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Apps
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="friends.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Friends
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="input.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Input
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="inventory.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inventory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="matchmaking.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Matchmaking
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="music.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Music
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="networking.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Networking
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="parties.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parties
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Remote Storage
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="remote_storage.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Remote Storage
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#remote-storage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Remote Storage
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Remote Storage">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Functions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#constants" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Constants
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#structs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Structs
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_remote_storage_set_callback_published_file_subscribed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_remote_storage_set_callback_published_file_subscribed
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_remote_storage_clear_callback_published_file_subscribed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_remote_storage_clear_callback_published_file_subscribed
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_remote_storage_set_callback_published_file_unsubscribed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_remote_storage_set_callback_published_file_unsubscribed
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_remote_storage_clear_callback_published_file_unsubscribed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_remote_storage_clear_callback_published_file_unsubscribed
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_remote_storage_set_callback_local_file_change" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_remote_storage_set_callback_local_file_change
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_remote_storage_clear_callback_local_file_change" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_remote_storage_clear_callback_local_file_change
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_remote_storage_is_cloud_enabled_for_account" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_remote_storage_is_cloud_enabled_for_account
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_remote_storage_is_cloud_enabled_for_app" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_remote_storage_is_cloud_enabled_for_app
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_remote_storage_set_cloud_enabled_for_app" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_remote_storage_set_cloud_enabled_for_app
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_remote_storage_file_write" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_remote_storage_file_write
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_remote_storage_file_write_async" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_remote_storage_file_write_async
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_remote_storage_file_read" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_remote_storage_file_read
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_remote_storage_file_delete" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_remote_storage_file_delete
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_remote_storage_file_exists" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_remote_storage_file_exists
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_remote_storage_file_persisted" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_remote_storage_file_persisted
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_remote_storage_get_file_size" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_remote_storage_get_file_size
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_remote_storage_get_file_timestamp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_remote_storage_get_file_timestamp
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_remote_storage_get_file_count" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_remote_storage_get_file_count
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_remote_storage_get_file_name_and_size" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_remote_storage_get_file_name_and_size
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_remote_storage_get_quota" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_remote_storage_get_quota
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_remote_storage_set_sync_platforms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_remote_storage_set_sync_platforms
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_remote_storage_get_sync_platforms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_remote_storage_get_sync_platforms
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_remote_storage_file_forget" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_remote_storage_file_forget
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_remote_storage_file_write_stream_open" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_remote_storage_file_write_stream_open
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_remote_storage_file_write_stream_write_chunk" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_remote_storage_file_write_stream_write_chunk
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_remote_storage_file_write_stream_close" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_remote_storage_file_write_stream_close
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_remote_storage_file_write_stream_cancel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_remote_storage_file_write_stream_cancel
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_remote_storage_get_cached_ugc_count" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_remote_storage_get_cached_ugc_count
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_remote_storage_get_cached_ugc_handle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_remote_storage_get_cached_ugc_handle
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_remote_storage_get_ugc_details" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_remote_storage_get_ugc_details
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_remote_storage_ugc_read" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_remote_storage_ugc_read
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_remote_storage_file_share" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_remote_storage_file_share
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_remote_storage_ugc_download" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_remote_storage_ugc_download
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_remote_storage_ugc_download_to_location" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_remote_storage_ugc_download_to_location
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steamremotestoragepublishedfilevisibility" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamRemoteStoragePublishedFileVisibility
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steamremotestorageplatform" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamRemoteStoragePlatform
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steamremotestorageugcreadaction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamRemoteStorageUgcReadAction
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steamremotestorageworkshopfiletype" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamRemoteStorageWorkshopFileType
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steamremotestoragefilenameandsize" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamRemoteStorageFileNameAndSize
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steamremotestoragequota" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamRemoteStorageQuota
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steamremotestorageugcdetails" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamRemoteStorageUgcDetails
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steamremotestoragefileshareresult" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamRemoteStorageFileShareResult
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steamremotestoragefilewriteasyncresult" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamRemoteStorageFileWriteAsyncResult
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steamremotestoragedownloadugcresult" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamRemoteStorageDownloadUgcResult
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steamremotestoragepublishedfilesubscribed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamRemoteStoragePublishedFileSubscribed
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steamremotestoragepublishedfileunsubscribed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamRemoteStoragePublishedFileUnsubscribed
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="screenshots.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Screenshots
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="timeline.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Timeline
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ugc.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UGC
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="user.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    User
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="userstats.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UserStats
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="utils.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Utils
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#remote-storage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Remote Storage
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Remote Storage">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Functions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#constants" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Constants
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#structs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Structs
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_remote_storage_set_callback_published_file_subscribed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_remote_storage_set_callback_published_file_subscribed
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_remote_storage_clear_callback_published_file_subscribed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_remote_storage_clear_callback_published_file_subscribed
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_remote_storage_set_callback_published_file_unsubscribed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_remote_storage_set_callback_published_file_unsubscribed
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_remote_storage_clear_callback_published_file_unsubscribed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_remote_storage_clear_callback_published_file_unsubscribed
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_remote_storage_set_callback_local_file_change" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_remote_storage_set_callback_local_file_change
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_remote_storage_clear_callback_local_file_change" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_remote_storage_clear_callback_local_file_change
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_remote_storage_is_cloud_enabled_for_account" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_remote_storage_is_cloud_enabled_for_account
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_remote_storage_is_cloud_enabled_for_app" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_remote_storage_is_cloud_enabled_for_app
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_remote_storage_set_cloud_enabled_for_app" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_remote_storage_set_cloud_enabled_for_app
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_remote_storage_file_write" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_remote_storage_file_write
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_remote_storage_file_write_async" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_remote_storage_file_write_async
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_remote_storage_file_read" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_remote_storage_file_read
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_remote_storage_file_delete" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_remote_storage_file_delete
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_remote_storage_file_exists" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_remote_storage_file_exists
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_remote_storage_file_persisted" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_remote_storage_file_persisted
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_remote_storage_get_file_size" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_remote_storage_get_file_size
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_remote_storage_get_file_timestamp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_remote_storage_get_file_timestamp
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_remote_storage_get_file_count" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_remote_storage_get_file_count
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_remote_storage_get_file_name_and_size" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_remote_storage_get_file_name_and_size
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_remote_storage_get_quota" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_remote_storage_get_quota
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_remote_storage_set_sync_platforms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_remote_storage_set_sync_platforms
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_remote_storage_get_sync_platforms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_remote_storage_get_sync_platforms
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_remote_storage_file_forget" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_remote_storage_file_forget
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_remote_storage_file_write_stream_open" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_remote_storage_file_write_stream_open
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_remote_storage_file_write_stream_write_chunk" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_remote_storage_file_write_stream_write_chunk
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_remote_storage_file_write_stream_close" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_remote_storage_file_write_stream_close
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_remote_storage_file_write_stream_cancel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_remote_storage_file_write_stream_cancel
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_remote_storage_get_cached_ugc_count" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_remote_storage_get_cached_ugc_count
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_remote_storage_get_cached_ugc_handle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_remote_storage_get_cached_ugc_handle
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_remote_storage_get_ugc_details" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_remote_storage_get_ugc_details
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_remote_storage_ugc_read" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_remote_storage_ugc_read
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_remote_storage_file_share" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_remote_storage_file_share
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_remote_storage_ugc_download" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_remote_storage_ugc_download
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_remote_storage_ugc_download_to_location" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_remote_storage_ugc_download_to_location
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steamremotestoragepublishedfilevisibility" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamRemoteStoragePublishedFileVisibility
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steamremotestorageplatform" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamRemoteStoragePlatform
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steamremotestorageugcreadaction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamRemoteStorageUgcReadAction
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steamremotestorageworkshopfiletype" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamRemoteStorageWorkshopFileType
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steamremotestoragefilenameandsize" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamRemoteStorageFileNameAndSize
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steamremotestoragequota" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamRemoteStorageQuota
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steamremotestorageugcdetails" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamRemoteStorageUgcDetails
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steamremotestoragefileshareresult" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamRemoteStorageFileShareResult
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steamremotestoragefilewriteasyncresult" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamRemoteStorageFileWriteAsyncResult
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steamremotestoragedownloadugcresult" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamRemoteStorageDownloadUgcResult
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steamremotestoragepublishedfilesubscribed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamRemoteStoragePublishedFileSubscribed
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steamremotestoragepublishedfileunsubscribed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamRemoteStoragePublishedFileUnsubscribed
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<p><a id="top"></a></p>
+<h1 id="remote-storage"><strong>Remote Storage</strong><a class="headerlink" href="#remote-storage" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p><strong>Steamworks Interface</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamRemoteStorage">ISteamRemoteStorage</a></p>
+</blockquote>
+<p>This module provides functions for reading, writing, and accessing files which can be stored remotely in the Steam Cloud.</p>
+<p>See <a href="https://partner.steamgames.com/doc/features/cloud">Steam Cloud</a> for more information.</p>
+<h2 id="functions">Functions<a class="headerlink" href="#functions" title="Permanent link">&para;</a></h2>
+<p>These are the functions of the Remote Storage module:</p>
+<ul>
+<li><a href="remote_storage.html#steam_remote_storage_set_callback_published_file_subscribed">steam_remote_storage_set_callback_published_file_subscribed</a></li>
+<li><a href="remote_storage.html#steam_remote_storage_clear_callback_published_file_subscribed">steam_remote_storage_clear_callback_published_file_subscribed</a></li>
+<li><a href="remote_storage.html#steam_remote_storage_set_callback_published_file_unsubscribed">steam_remote_storage_set_callback_published_file_unsubscribed</a></li>
+<li><a href="remote_storage.html#steam_remote_storage_clear_callback_published_file_unsubscribed">steam_remote_storage_clear_callback_published_file_unsubscribed</a></li>
+<li><a href="remote_storage.html#steam_remote_storage_set_callback_local_file_change">steam_remote_storage_set_callback_local_file_change</a></li>
+<li><a href="remote_storage.html#steam_remote_storage_clear_callback_local_file_change">steam_remote_storage_clear_callback_local_file_change</a></li>
+<li><a href="remote_storage.html#steam_remote_storage_is_cloud_enabled_for_account">steam_remote_storage_is_cloud_enabled_for_account</a></li>
+<li><a href="remote_storage.html#steam_remote_storage_is_cloud_enabled_for_app">steam_remote_storage_is_cloud_enabled_for_app</a></li>
+<li><a href="remote_storage.html#steam_remote_storage_set_cloud_enabled_for_app">steam_remote_storage_set_cloud_enabled_for_app</a></li>
+<li><a href="remote_storage.html#steam_remote_storage_file_write">steam_remote_storage_file_write</a></li>
+<li><a href="remote_storage.html#steam_remote_storage_file_write_async">steam_remote_storage_file_write_async</a></li>
+<li><a href="remote_storage.html#steam_remote_storage_file_read">steam_remote_storage_file_read</a></li>
+<li><a href="remote_storage.html#steam_remote_storage_file_delete">steam_remote_storage_file_delete</a></li>
+<li><a href="remote_storage.html#steam_remote_storage_file_exists">steam_remote_storage_file_exists</a></li>
+<li><a href="remote_storage.html#steam_remote_storage_file_persisted">steam_remote_storage_file_persisted</a></li>
+<li><a href="remote_storage.html#steam_remote_storage_get_file_size">steam_remote_storage_get_file_size</a></li>
+<li><a href="remote_storage.html#steam_remote_storage_get_file_timestamp">steam_remote_storage_get_file_timestamp</a></li>
+<li><a href="remote_storage.html#steam_remote_storage_get_file_count">steam_remote_storage_get_file_count</a></li>
+<li><a href="remote_storage.html#steam_remote_storage_get_file_name_and_size">steam_remote_storage_get_file_name_and_size</a></li>
+<li><a href="remote_storage.html#steam_remote_storage_get_quota">steam_remote_storage_get_quota</a></li>
+<li><a href="remote_storage.html#steam_remote_storage_set_sync_platforms">steam_remote_storage_set_sync_platforms</a></li>
+<li><a href="remote_storage.html#steam_remote_storage_get_sync_platforms">steam_remote_storage_get_sync_platforms</a></li>
+<li><a href="remote_storage.html#steam_remote_storage_file_forget">steam_remote_storage_file_forget</a></li>
+<li><a href="remote_storage.html#steam_remote_storage_file_write_stream_open">steam_remote_storage_file_write_stream_open</a></li>
+<li><a href="remote_storage.html#steam_remote_storage_file_write_stream_write_chunk">steam_remote_storage_file_write_stream_write_chunk</a></li>
+<li><a href="remote_storage.html#steam_remote_storage_file_write_stream_close">steam_remote_storage_file_write_stream_close</a></li>
+<li><a href="remote_storage.html#steam_remote_storage_file_write_stream_cancel">steam_remote_storage_file_write_stream_cancel</a></li>
+<li><a href="remote_storage.html#steam_remote_storage_get_cached_ugc_count">steam_remote_storage_get_cached_ugc_count</a></li>
+<li><a href="remote_storage.html#steam_remote_storage_get_cached_ugc_handle">steam_remote_storage_get_cached_ugc_handle</a></li>
+<li><a href="remote_storage.html#steam_remote_storage_get_ugc_details">steam_remote_storage_get_ugc_details</a></li>
+<li><a href="remote_storage.html#steam_remote_storage_ugc_read">steam_remote_storage_ugc_read</a></li>
+<li><a href="remote_storage.html#steam_remote_storage_file_share">steam_remote_storage_file_share</a></li>
+<li><a href="remote_storage.html#steam_remote_storage_ugc_download">steam_remote_storage_ugc_download</a></li>
+<li><a href="remote_storage.html#steam_remote_storage_ugc_download_to_location">steam_remote_storage_ugc_download_to_location</a></li>
+</ul>
+<h2 id="constants">Constants<a class="headerlink" href="#constants" title="Permanent link">&para;</a></h2>
+<p>These are the constants and enums of the Remote Storage module:</p>
+<ul>
+<li><a href="remote_storage.html#steamremotestoragepublishedfilevisibility">SteamRemoteStoragePublishedFileVisibility</a></li>
+<li><a href="remote_storage.html#steamremotestorageplatform">SteamRemoteStoragePlatform</a></li>
+<li><a href="remote_storage.html#steamremotestorageugcreadaction">SteamRemoteStorageUgcReadAction</a></li>
+<li><a href="remote_storage.html#steamremotestorageworkshopfiletype">SteamRemoteStorageWorkshopFileType</a></li>
+</ul>
+<h2 id="structs">Structs<a class="headerlink" href="#structs" title="Permanent link">&para;</a></h2>
+<p>These are the structs of the Remote Storage module:</p>
+<ul>
+<li><a href="remote_storage.html#steamremotestoragefilenameandsize">SteamRemoteStorageFileNameAndSize</a></li>
+<li><a href="remote_storage.html#steamremotestoragequota">SteamRemoteStorageQuota</a></li>
+<li><a href="remote_storage.html#steamremotestorageugcdetails">SteamRemoteStorageUgcDetails</a></li>
+<li><a href="remote_storage.html#steamremotestoragefileshareresult">SteamRemoteStorageFileShareResult</a></li>
+<li><a href="remote_storage.html#steamremotestoragefilewriteasyncresult">SteamRemoteStorageFileWriteAsyncResult</a></li>
+<li><a href="remote_storage.html#steamremotestoragedownloadugcresult">SteamRemoteStorageDownloadUgcResult</a></li>
+<li><a href="remote_storage.html#steamremotestoragepublishedfilesubscribed">SteamRemoteStoragePublishedFileSubscribed</a></li>
+<li><a href="remote_storage.html#steamremotestoragepublishedfileunsubscribed">SteamRemoteStoragePublishedFileUnsubscribed</a></li>
+</ul>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_remote_storage_set_callback_published_file_subscribed">steam_remote_storage_set_callback_published_file_subscribed<a class="headerlink" href="#steam_remote_storage_set_callback_published_file_subscribed" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: N / A</p>
+</blockquote>
+<p>This function sets the function to call when subscribed to a published file on remote storage.</p>
+<p>This function operates asynchronously, which means that it does not immediately return the requested result. Instead, upon completion of the task, it will trigger the <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<pre class="highlight"><code class="language-gml">steam_remote_storage_set_callback_published_file_subscribed(callback)</code></pre>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>callback</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Script_Functions.htm">Function</a></td>
+<td>The function to be called when a published file is subscribed to.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<p><strong>Triggers:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a></p>
+<p><strong>Steamworks Callback</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamRemoteStorage#RemoteStoragePublishedFileSubscribed_t">ISteamRemoteStorage::RemoteStoragePublishedFileSubscribed_t</a></p>
+</blockquote>
+<p>Called when the user subscribes to a published file.</p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>result</td>
+<td><a href="remote_storage.html#steamremotestoragepublishedfilesubscribed">SteamRemoteStoragePublishedFileSubscribed</a></td>
+<td>The details of the subscription.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_remote_storage_clear_callback_published_file_subscribed">steam_remote_storage_clear_callback_published_file_subscribed<a class="headerlink" href="#steam_remote_storage_clear_callback_published_file_subscribed" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: N / A</p>
+</blockquote>
+<p>This function clears the callback function previously set using <a href="remote_storage.html#steam_remote_storage_set_callback_published_file_subscribed">steam_remote_storage_set_callback_published_file_subscribed</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<pre class="highlight"><code class="language-gml">steam_remote_storage_clear_callback_published_file_subscribed()</code></pre>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_remote_storage_set_callback_published_file_unsubscribed">steam_remote_storage_set_callback_published_file_unsubscribed<a class="headerlink" href="#steam_remote_storage_set_callback_published_file_unsubscribed" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: N / A</p>
+</blockquote>
+<p>This function sets the function to call when the user unsubscribes from a published file on remote storage.</p>
+<p>This function operates asynchronously, which means that it does not immediately return the requested result. Instead, upon completion of the task, it will trigger the <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<pre class="highlight"><code class="language-gml">steam_remote_storage_set_callback_published_file_unsubscribed(callback)</code></pre>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>callback</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Script_Functions.htm">Function</a></td>
+<td>The function to be called when a published file is unsubscribed from.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<p><strong>Triggers:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a></p>
+<p><strong>Steamworks Callback</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamRemoteStorage#RemoteStoragePublishedFileUnsubscribed_t">ISteamRemoteStorage::RemoteStoragePublishedFileUnsubscribed_t</a></p>
+</blockquote>
+<p>Called when the user unsubscribes from a published file.</p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>result</td>
+<td><a href="remote_storage.html#steamremotestoragepublishedfileunsubscribed">SteamRemoteStoragePublishedFileUnsubscribed</a></td>
+<td>The details of the unsubscription.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_remote_storage_clear_callback_published_file_unsubscribed">steam_remote_storage_clear_callback_published_file_unsubscribed<a class="headerlink" href="#steam_remote_storage_clear_callback_published_file_unsubscribed" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: N / A</p>
+</blockquote>
+<p>This function clears the callback function previously set using <a href="remote_storage.html#steam_remote_storage_set_callback_published_file_unsubscribed">steam_remote_storage_set_callback_published_file_unsubscribed</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<pre class="highlight"><code class="language-gml">steam_remote_storage_clear_callback_published_file_unsubscribed()</code></pre>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_remote_storage_set_callback_local_file_change">steam_remote_storage_set_callback_local_file_change<a class="headerlink" href="#steam_remote_storage_set_callback_local_file_change" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: N / A</p>
+</blockquote>
+<p>This function sets the function to call in case of a local file change. If a Steam app is flagged for supporting dynamic Steam Cloud sync, and a sync occurs, this callback will be posted to the app if any local files changed.</p>
+<p>This function operates asynchronously, which means that it does not immediately return the requested result. Instead, upon completion of the task, it will trigger the <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<pre class="highlight"><code class="language-gml">steam_remote_storage_set_callback_local_file_change(callback)</code></pre>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>callback</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Script_Functions.htm">Function</a></td>
+<td>The function to be called when a local file change is detected.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<p><strong>Triggers:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a></p>
+<p><strong>Steamworks Callback</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamRemoteStorage#RemoteStorageLocalFileChange_t">ISteamRemoteStorage::RemoteStorageLocalFileChange_t</a></p>
+</blockquote>
+<p>Called after a Steam Cloud sync changed one or more local files while the game was running.</p>
+<p>This callback receives no arguments.</p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_remote_storage_clear_callback_local_file_change">steam_remote_storage_clear_callback_local_file_change<a class="headerlink" href="#steam_remote_storage_clear_callback_local_file_change" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: N / A</p>
+</blockquote>
+<p>This function clears the callback function previously set using <a href="remote_storage.html#steam_remote_storage_set_callback_local_file_change">steam_remote_storage_set_callback_local_file_change</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<pre class="highlight"><code class="language-gml">steam_remote_storage_clear_callback_local_file_change()</code></pre>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_remote_storage_is_cloud_enabled_for_account">steam_remote_storage_is_cloud_enabled_for_account<a class="headerlink" href="#steam_remote_storage_is_cloud_enabled_for_account" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamRemoteStorage#IsCloudEnabledForAccount">ISteamRemoteStorage::IsCloudEnabledForAccount</a></p>
+</blockquote>
+<p>This function checks if the account wide Steam Cloud setting is enabled for this user; or if they disabled it in the Settings-&gt;Cloud dialog.</p>
+<p>Ensure that you are also checking <a href="remote_storage.html#steam_remote_storage_is_cloud_enabled_for_app">steam_remote_storage_is_cloud_enabled_for_app</a>, as these two options are mutually exclusive.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<pre class="highlight"><code class="language-gml">steam_remote_storage_is_cloud_enabled_for_account()</code></pre>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_remote_storage_is_cloud_enabled_for_app">steam_remote_storage_is_cloud_enabled_for_app<a class="headerlink" href="#steam_remote_storage_is_cloud_enabled_for_app" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamRemoteStorage#IsCloudEnabledForApp">ISteamRemoteStorage::IsCloudEnabledForApp</a></p>
+</blockquote>
+<p>This function checks if the per game Steam Cloud setting is enabled for this user; or if they disabled it in the Game Properties-&gt;Update dialog.</p>
+<p>Ensure that you are also checking <a href="remote_storage.html#steam_remote_storage_is_cloud_enabled_for_account">steam_remote_storage_is_cloud_enabled_for_account</a>, as these two options are mutually exclusive.</p>
+<p>It's generally recommended that you allow the user to toggle this setting within your in-game options, you can toggle it with <a href="remote_storage.html#steam_remote_storage_set_cloud_enabled_for_app">steam_remote_storage_set_cloud_enabled_for_app</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<pre class="highlight"><code class="language-gml">steam_remote_storage_is_cloud_enabled_for_app()</code></pre>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_remote_storage_set_cloud_enabled_for_app">steam_remote_storage_set_cloud_enabled_for_app<a class="headerlink" href="#steam_remote_storage_set_cloud_enabled_for_app" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamRemoteStorage#SetCloudEnabledForApp">ISteamRemoteStorage::SetCloudEnabledForApp</a></p>
+</blockquote>
+<p>This function toggles whether the Steam Cloud is enabled for your application.</p>
+<p>This setting can be queried with <a href="remote_storage.html#steam_remote_storage_is_cloud_enabled_for_app">steam_remote_storage_is_cloud_enabled_for_app</a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This must only ever be called as the direct result of the user explicitly requesting that it's enabled or not. This is typically accomplished with a checkbox within your in-game options.</p>
+</div>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<pre class="highlight"><code class="language-gml">steam_remote_storage_set_cloud_enabled_for_app(enabled)</code></pre>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>enabled</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></td>
+<td>Enable (<code>true</code>) or disable (<code>false</code>) the Steam Cloud for this application.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_remote_storage_file_write">steam_remote_storage_file_write<a class="headerlink" href="#steam_remote_storage_file_write" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamRemoteStorage#FileWrite">ISteamRemoteStorage::FileWrite</a></p>
+</blockquote>
+<p>This function creates a new file, writes the bytes to the file, and then closes the file. If the target file already exists, it is overwritten.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This is a synchronous call and as such is a will block your calling thread on the disk IO, and will also block the SteamAPI, which can cause other threads in your application to block. To avoid "hitching" due to a busy disk on the client machine using <a href="remote_storage.html#steam_remote_storage_file_write_async">steam_remote_storage_file_write_async</a>, the asynchronous version of this API is recommended.</p>
+</div>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<pre class="highlight"><code class="language-gml">steam_remote_storage_file_write(file_name, data, buffer_offset=undefined, buffer_count=undefined)</code></pre>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>file_name</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The name of the file to write to.</td>
+</tr>
+<tr>
+<td>data</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Buffers/Buffers.htm">Buffer</a></td>
+<td>The buffer containing the bytes to write to the file.</td>
+</tr>
+<tr>
+<td>buffer_offset</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The offset into the buffer, in bytes. Defaults to 0.</td>
+</tr>
+<tr>
+<td>buffer_count</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The number of bytes to write, starting at the offset. Defaults to the buffer size minus the offset.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_remote_storage_file_write_async">steam_remote_storage_file_write_async<a class="headerlink" href="#steam_remote_storage_file_write_async" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamRemoteStorage#FileWriteAsync">ISteamRemoteStorage::FileWriteAsync</a></p>
+</blockquote>
+<p>This function creates a new file and asynchronously writes the raw byte data to the Steam Cloud, and then closes the file. If the target file already exists, it is overwritten.</p>
+<p>This function operates asynchronously, which means that it does not immediately return the requested result. Instead, upon completion of the task, it will trigger the <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<pre class="highlight"><code class="language-gml">steam_remote_storage_file_write_async(file_name, data, callback, buffer_offset=undefined, buffer_count=undefined)</code></pre>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>file_name</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The name of the file to write to.</td>
+</tr>
+<tr>
+<td>data</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Buffers/Buffers.htm">Buffer</a></td>
+<td>The buffer holding the bytes to write to the file.</td>
+</tr>
+<tr>
+<td>callback</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Script_Functions.htm">Function</a></td>
+<td>The callback function to call upon completion.</td>
+</tr>
+<tr>
+<td>buffer_offset</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The offset into the buffer, in bytes. Defaults to 0.</td>
+</tr>
+<tr>
+<td>buffer_count</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The number of bytes to write. Defaults to the buffer size minus the offset.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<p><strong>Triggers:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a></p>
+<p><strong>Steamworks Callback</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamRemoteStorage#RemoteStorageFileWriteAsyncComplete_t">ISteamRemoteStorage::RemoteStorageFileWriteAsyncComplete_t</a></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>result</td>
+<td><a href="remote_storage.html#steamremotestoragefilewriteasyncresult">SteamRemoteStorageFileWriteAsyncResult</a></td>
+<td>The result of the operation.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_remote_storage_file_read">steam_remote_storage_file_read<a class="headerlink" href="#steam_remote_storage_file_read" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamRemoteStorage#FileRead">ISteamRemoteStorage::FileRead</a></p>
+</blockquote>
+<p>This function opens a binary file, reads the contents of the file into a buffer, and then closes the file.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<pre class="highlight"><code class="language-gml">steam_remote_storage_file_read(file_name, out_data)</code></pre>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>file_name</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The name of the file to read from.</td>
+</tr>
+<tr>
+<td>out_data</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Buffers/Buffers.htm">Buffer</a></td>
+<td>The buffer that the file will be read into. The size can be generally obtained from <a href="remote_storage.html#steam_remote_storage_get_file_size">steam_remote_storage_get_file_size</a>.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p>The number of bytes read, or 0 if the file doesn't exist or the read fails.</p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_remote_storage_file_delete">steam_remote_storage_file_delete<a class="headerlink" href="#steam_remote_storage_file_delete" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamRemoteStorage#FileDelete">ISteamRemoteStorage::FileDelete</a></p>
+</blockquote>
+<p>This function deletes a file from the local disk, and propagates that delete to the cloud.</p>
+<p>This is meant to be used when a user actively deletes a file. Use <a href="remote_storage.html#steam_remote_storage_file_forget">steam_remote_storage_file_forget</a> if you want to remove a file from the Steam Cloud but retain it on the user's local disk.</p>
+<p>When a file has been deleted it can be re-written with <a href="remote_storage.html#steam_remote_storage_file_write">steam_remote_storage_file_write</a> to reupload it to the Steam Cloud.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<pre class="highlight"><code class="language-gml">steam_remote_storage_file_delete(file_name)</code></pre>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>file_name</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The name of the file that will be deleted.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><code>true</code> if the file exists and has been successfully deleted; otherwise, <code>false</code> if the file did not exist.</p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_remote_storage_file_exists">steam_remote_storage_file_exists<a class="headerlink" href="#steam_remote_storage_file_exists" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamRemoteStorage#FileExists">ISteamRemoteStorage::FileExists</a></p>
+</blockquote>
+<p>This function checks whether the specified file exists.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<pre class="highlight"><code class="language-gml">steam_remote_storage_file_exists(file_name)</code></pre>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>file_name</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The name of the file.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><code>true</code> if the file exists; otherwise, <code>false</code>.</p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_remote_storage_file_persisted">steam_remote_storage_file_persisted<a class="headerlink" href="#steam_remote_storage_file_persisted" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamRemoteStorage#FilePersisted">ISteamRemoteStorage::FilePersisted</a></p>
+</blockquote>
+<p>This function checks if a specific file is persisted in the Steam cloud.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<pre class="highlight"><code class="language-gml">steam_remote_storage_file_persisted(file_name)</code></pre>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>file_name</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The name of the file.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><code>true</code> if the file exists and the file is persisted in the Steam Cloud, <code>false</code> if <a href="remote_storage.html#steam_remote_storage_file_forget">steam_remote_storage_file_forget</a> was called on it and is only available locally.</p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_remote_storage_get_file_size">steam_remote_storage_get_file_size<a class="headerlink" href="#steam_remote_storage_get_file_size" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamRemoteStorage#GetFileSize">ISteamRemoteStorage::GetFileSize</a></p>
+</blockquote>
+<p>This function gets the specified file's size in bytes.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<pre class="highlight"><code class="language-gml">steam_remote_storage_get_file_size(file_name)</code></pre>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>file_name</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The name of the file.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p>The size of the file in bytes. Returns 0 if the file does not exist.</p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_remote_storage_get_file_timestamp">steam_remote_storage_get_file_timestamp<a class="headerlink" href="#steam_remote_storage_get_file_timestamp" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamRemoteStorage#GetFileTimestamp">ISteamRemoteStorage::GetFileTimestamp</a></p>
+</blockquote>
+<p>This function gets the specified file's last modified timestamp in Unix epoch format (seconds since Jan 1st 1970).</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<pre class="highlight"><code class="language-gml">steam_remote_storage_get_file_timestamp(file_name)</code></pre>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>file_name</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The name of the file.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_remote_storage_get_file_count">steam_remote_storage_get_file_count<a class="headerlink" href="#steam_remote_storage_get_file_count" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamRemoteStorage#GetFileCount">ISteamRemoteStorage::GetFileCount</a></p>
+</blockquote>
+<p>This function gets the total number of local files synchronised by Steam Cloud.</p>
+<p>Used for enumeration with <a href="remote_storage.html#steam_remote_storage_get_file_name_and_size">steam_remote_storage_get_file_name_and_size</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<pre class="highlight"><code class="language-gml">steam_remote_storage_get_file_count()</code></pre>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p>The number of files present for the current user, including files in subfolders.</p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_remote_storage_get_file_name_and_size">steam_remote_storage_get_file_name_and_size<a class="headerlink" href="#steam_remote_storage_get_file_name_and_size" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamRemoteStorage#GetFileNameAndSize">ISteamRemoteStorage::GetFileNameAndSize</a></p>
+</blockquote>
+<p>This function gets the file name and size of a file from the index.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You must call <a href="remote_storage.html#steam_remote_storage_get_file_count">steam_remote_storage_get_file_count</a> first to get the number of files.</p>
+</div>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<pre class="highlight"><code class="language-gml">steam_remote_storage_get_file_name_and_size(index)</code></pre>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>index</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The index of the file, this should be between 0 and the value returned by <a href="remote_storage.html#steam_remote_storage_get_file_count">steam_remote_storage_get_file_count</a>.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="remote_storage.html#steamremotestoragefilenameandsize">SteamRemoteStorageFileNameAndSize</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_remote_storage_get_quota">steam_remote_storage_get_quota<a class="headerlink" href="#steam_remote_storage_get_quota" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamRemoteStorage#GetQuota">ISteamRemoteStorage::GetQuota</a></p>
+</blockquote>
+<p>This function gets the number of bytes available, and used on the user's Steam Cloud storage.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<pre class="highlight"><code class="language-gml">steam_remote_storage_get_quota()</code></pre>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="remote_storage.html#steamremotestoragequota">SteamRemoteStorageQuota</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_remote_storage_set_sync_platforms">steam_remote_storage_set_sync_platforms<a class="headerlink" href="#steam_remote_storage_set_sync_platforms" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamRemoteStorage#SetSyncPlatforms">ISteamRemoteStorage::SetSyncPlatforms</a></p>
+</blockquote>
+<p>This function allows you to specify which operating systems a file will be synchronised to.</p>
+<p>Use this if you have a multiplatform game but have data which is incompatible between platforms.</p>
+<p>Files default to <code>SteamRemoteStoragePlatform.All</code> when they are first created. You can use the bitwise OR operator, <code>|</code> to specify multiple platforms.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<pre class="highlight"><code class="language-gml">steam_remote_storage_set_sync_platforms(file_name, platforms)</code></pre>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>file_name</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The name of the file.</td>
+</tr>
+<tr>
+<td>platforms</td>
+<td><a href="remote_storage.html#steamremotestorageplatform">SteamRemoteStoragePlatform</a></td>
+<td>The platforms that the file will be synchronised to.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_remote_storage_get_sync_platforms">steam_remote_storage_get_sync_platforms<a class="headerlink" href="#steam_remote_storage_get_sync_platforms" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamRemoteStorage#GetSyncPlatforms">ISteamRemoteStorage::GetSyncPlatforms</a></p>
+</blockquote>
+<p>This function obtains the platforms that the specified file will synchronise to.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<pre class="highlight"><code class="language-gml">steam_remote_storage_get_sync_platforms(file_name)</code></pre>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>file_name</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The name of the file.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="remote_storage.html#steamremotestorageplatform">SteamRemoteStoragePlatform</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_remote_storage_file_forget">steam_remote_storage_file_forget<a class="headerlink" href="#steam_remote_storage_file_forget" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamRemoteStorage#FileForget">ISteamRemoteStorage::FileForget</a></p>
+</blockquote>
+<p>This function deletes the file from remote storage, but leaves it on the local disk and remains accessible from the API.</p>
+<p>When you are out of Cloud space, this can be used to allow calls to <a href="remote_storage.html#steam_remote_storage_file_write">steam_remote_storage_file_write</a> to keep working without needing to make the user delete files.</p>
+<p>How you decide which files to forget are up to you. It could be a simple Least Recently Used (LRU) queue or something more complicated.</p>
+<p>Requiring the user to manage their Cloud-ised files for a game, while is possible to do, it is never recommended. For instance, "Which file would you like to delete so that you may store this new one?" removes a significant advantage of using the Cloud in the first place: its transparency.</p>
+<p>Once a file has been deleted or forgotten, calling <a href="remote_storage.html#steam_remote_storage_file_write">steam_remote_storage_file_write</a> will resynchronise it in the Cloud. Rewriting a forgotten file is the only way to make it persisted again.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<pre class="highlight"><code class="language-gml">steam_remote_storage_file_forget(file_name)</code></pre>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>file_name</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The name of the file that will be forgotten.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_remote_storage_file_write_stream_open">steam_remote_storage_file_write_stream_open<a class="headerlink" href="#steam_remote_storage_file_write_stream_open" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamRemoteStorage#FileWriteStreamOpen">ISteamRemoteStorage::FileWriteStreamOpen</a></p>
+</blockquote>
+<p>This function creates a new file output stream allowing you to stream out data to the Steam Cloud file in chunks. If the target file already exists, it is not overwritten until <a href="remote_storage.html#steam_remote_storage_file_write_stream_close">steam_remote_storage_file_write_stream_close</a> has been called.</p>
+<p>To write data out to this stream you can use <a href="remote_storage.html#steam_remote_storage_file_write_stream_write_chunk">steam_remote_storage_file_write_stream_write_chunk</a>, and then to close or cancel you use <a href="remote_storage.html#steam_remote_storage_file_write_stream_close">steam_remote_storage_file_write_stream_close</a> and <a href="remote_storage.html#steam_remote_storage_file_write_stream_cancel">steam_remote_storage_file_write_stream_cancel</a> respectively.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<pre class="highlight"><code class="language-gml">steam_remote_storage_file_write_stream_open(file_name)</code></pre>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>file_name</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The name of the file to write to.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p>The file write stream handle, or <code>STEAM_REMOTE_STORAGE_UGC_FILE_STREAM_HANDLE_INVALID</code> in case the stream couldn't be opened</p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_remote_storage_file_write_stream_write_chunk">steam_remote_storage_file_write_stream_write_chunk<a class="headerlink" href="#steam_remote_storage_file_write_stream_write_chunk" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamRemoteStorage#FileWriteStreamWriteChunk">ISteamRemoteStorage::FileWriteStreamWriteChunk</a></p>
+</blockquote>
+<p>This function writes a blob of data to the file write stream.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<pre class="highlight"><code class="language-gml">steam_remote_storage_file_write_stream_write_chunk(stream, data, buffer_offset=undefined, buffer_count=undefined)</code></pre>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>stream</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The file write stream to write to.</td>
+</tr>
+<tr>
+<td>data</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Buffers/Buffers.htm">Buffer</a></td>
+<td>The buffer containing the data to write to the stream.</td>
+</tr>
+<tr>
+<td>buffer_offset</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The offset into the buffer, in bytes. Defaults to 0.</td>
+</tr>
+<tr>
+<td>buffer_count</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The number of bytes to write, starting at the offset. Defaults to the buffer size minus the offset.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><code>true</code> if the data was successfully written to the file write stream, <code>false</code> if not.</p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_remote_storage_file_write_stream_close">steam_remote_storage_file_write_stream_close<a class="headerlink" href="#steam_remote_storage_file_write_stream_close" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamRemoteStorage#FileWriteStreamClose">ISteamRemoteStorage::FileWriteStreamClose</a></p>
+</blockquote>
+<p>This function closes a file write stream that was started by <a href="remote_storage.html#steam_remote_storage_file_write_stream_open">steam_remote_storage_file_write_stream_open</a>.</p>
+<p>This flushes the stream to the disk, overwriting the existing file if there was one.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<pre class="highlight"><code class="language-gml">steam_remote_storage_file_write_stream_close(stream)</code></pre>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>stream</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The file write stream to close.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_remote_storage_file_write_stream_cancel">steam_remote_storage_file_write_stream_cancel<a class="headerlink" href="#steam_remote_storage_file_write_stream_cancel" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamRemoteStorage#FileWriteStreamCancel">ISteamRemoteStorage::FileWriteStreamCancel</a></p>
+</blockquote>
+<p>This function cancels a file write stream that was started by <a href="remote_storage.html#steam_remote_storage_file_write_stream_open">steam_remote_storage_file_write_stream_open</a>.</p>
+<p>This trashes all of the data written and closes the write stream, but if there was an existing file with this name, it remains untouched.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<pre class="highlight"><code class="language-gml">steam_remote_storage_file_write_stream_cancel(stream)</code></pre>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>stream</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The file write stream to cancel.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_remote_storage_get_cached_ugc_count">steam_remote_storage_get_cached_ugc_count<a class="headerlink" href="#steam_remote_storage_get_cached_ugc_count" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamRemoteStorage#GetCachedUGCCount">ISteamRemoteStorage::GetCachedUGCCount</a></p>
+</blockquote>
+<p>This function returns the cached UGC count.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<pre class="highlight"><code class="language-gml">steam_remote_storage_get_cached_ugc_count()</code></pre>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_remote_storage_get_cached_ugc_handle">steam_remote_storage_get_cached_ugc_handle<a class="headerlink" href="#steam_remote_storage_get_cached_ugc_handle" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamRemoteStorage#GetCachedUGCHandle">ISteamRemoteStorage::GetCachedUGCHandle</a></p>
+</blockquote>
+<p>This function gets a handle to the cached UGC with the given index.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<pre class="highlight"><code class="language-gml">steam_remote_storage_get_cached_ugc_handle(index)</code></pre>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>index</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The index of the cached UGC, between 0 and the cached UGC count.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_remote_storage_get_ugc_details">steam_remote_storage_get_ugc_details<a class="headerlink" href="#steam_remote_storage_get_ugc_details" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamRemoteStorage#GetUGCDetails">ISteamRemoteStorage::GetUGCDetails</a></p>
+</blockquote>
+<p>This function gets the details of the UGC content referred to by the given handle.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<pre class="highlight"><code class="language-gml">steam_remote_storage_get_ugc_details(ugc_handle)</code></pre>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ugc_handle</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The handle of the UGC content to get the details for.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="remote_storage.html#steamremotestorageugcdetails">SteamRemoteStorageUgcDetails</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_remote_storage_ugc_read">steam_remote_storage_ugc_read<a class="headerlink" href="#steam_remote_storage_ugc_read" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamRemoteStorage#UGCRead">ISteamRemoteStorage::UGCRead</a></p>
+</blockquote>
+<p>This function reads the UGC content referred to by the given handle into a buffer.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<pre class="highlight"><code class="language-gml">steam_remote_storage_ugc_read(ugc_handle, out_data, offset, action)</code></pre>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ugc_handle</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The handle of the UGC content to read.</td>
+</tr>
+<tr>
+<td>out_data</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Buffers/Buffers.htm">Buffer</a></td>
+<td>The buffer that the content will be read into.</td>
+</tr>
+<tr>
+<td>offset</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The offset, in bytes, within the file at which to start reading.</td>
+</tr>
+<tr>
+<td>action</td>
+<td><a href="remote_storage.html#steamremotestorageugcreadaction">SteamRemoteStorageUgcReadAction</a></td>
+<td>The action to take when reading the content (controls how the file is held in memory after the read).</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_remote_storage_file_share">steam_remote_storage_file_share<a class="headerlink" href="#steam_remote_storage_file_share" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamRemoteStorage#FileShare">ISteamRemoteStorage::FileShare</a></p>
+</blockquote>
+<p>This function shares the file with the given filename.</p>
+<p>This function operates asynchronously, which means that it does not immediately return the requested result. Instead, upon completion of the task, it will trigger the <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<pre class="highlight"><code class="language-gml">steam_remote_storage_file_share(file_name, callback)</code></pre>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>file_name</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The name of the file to share.</td>
+</tr>
+<tr>
+<td>callback</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Script_Functions.htm">Function</a></td>
+<td>The function to call upon completion.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<p><strong>Triggers:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a></p>
+<p><strong>Steamworks Callback</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamRemoteStorage#RemoteStorageFileShareResult_t">ISteamRemoteStorage::RemoteStorageFileShareResult_t</a></p>
+</blockquote>
+<p>This callback is fired in response to sharing a file, and provides a handle that can be used to refer to the shared file.</p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>result</td>
+<td><a href="remote_storage.html#steamremotestoragefileshareresult">SteamRemoteStorageFileShareResult</a></td>
+<td>The result of the operation.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_remote_storage_ugc_download">steam_remote_storage_ugc_download<a class="headerlink" href="#steam_remote_storage_ugc_download" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamRemoteStorage#UGCDownload">ISteamRemoteStorage::UGCDownload</a></p>
+</blockquote>
+<p>This function downloads the UGC content referred to by the given handle.</p>
+<p>This function operates asynchronously, which means that it does not immediately return the requested result. Instead, upon completion of the task, it will trigger the <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<pre class="highlight"><code class="language-gml">steam_remote_storage_ugc_download(ugc_handle, priority, callback)</code></pre>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ugc_handle</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The handle of the UGC content to download.</td>
+</tr>
+<tr>
+<td>priority</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The download priority, where a lower value indicates a higher priority.</td>
+</tr>
+<tr>
+<td>callback</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Script_Functions.htm">Function</a></td>
+<td>The function to call upon completion.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<p><strong>Triggers:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a></p>
+<p><strong>Steamworks Callback</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamRemoteStorage#RemoteStorageDownloadUGCResult_t">ISteamRemoteStorage::RemoteStorageDownloadUGCResult_t</a></p>
+</blockquote>
+<p>This callback is fired in response to a UGC download request, and contains the details of the file that was downloaded.</p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>result</td>
+<td><a href="remote_storage.html#steamremotestoragedownloadugcresult">SteamRemoteStorageDownloadUgcResult</a></td>
+<td>The result of the operation.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_remote_storage_ugc_download_to_location">steam_remote_storage_ugc_download_to_location<a class="headerlink" href="#steam_remote_storage_ugc_download_to_location" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamRemoteStorage#UGCDownloadToLocation">ISteamRemoteStorage::UGCDownloadToLocation</a></p>
+</blockquote>
+<p>This function downloads the UGC content referred to by the given handle to the given location.</p>
+<p>This function operates asynchronously, which means that it does not immediately return the requested result. Instead, upon completion of the task, it will trigger the <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<pre class="highlight"><code class="language-gml">steam_remote_storage_ugc_download_to_location(ugc_handle, location, priority, callback)</code></pre>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ugc_handle</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The handle of the UGC content to download.</td>
+</tr>
+<tr>
+<td>location</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The absolute file path to download the content to.</td>
+</tr>
+<tr>
+<td>priority</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The download priority, where a lower value indicates a higher priority.</td>
+</tr>
+<tr>
+<td>callback</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Script_Functions.htm">Function</a></td>
+<td>The function to call upon completion.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<p><strong>Triggers:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a></p>
+<p><strong>Steamworks Callback</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamRemoteStorage#RemoteStorageDownloadUGCResult_t">ISteamRemoteStorage::RemoteStorageDownloadUGCResult_t</a></p>
+</blockquote>
+<p>This callback is fired in response to a UGC download request, and contains the details of the file that was downloaded.</p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>result</td>
+<td><a href="remote_storage.html#steamremotestoragedownloadugcresult">SteamRemoteStorageDownloadUgcResult</a></td>
+<td>The result of the operation.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steamremotestoragepublishedfilevisibility">SteamRemoteStoragePublishedFileVisibility<a class="headerlink" href="#steamremotestoragepublishedfilevisibility" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p><strong>Steamworks Enum</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamRemoteStorage#ERemoteStoragePublishedFileVisibility">ISteamRemoteStorage::ERemoteStoragePublishedFileVisibility</a></p>
+</blockquote>
+<p>This enum holds the possible visibility states that a Workshop item can be in.</p>
+<p>These constants are referenced by the following functions:</p>
+<ul>
+<li><a href="ugc.html#steam_ugc_set_item_visibility">steam_ugc_set_item_visibility</a></li>
+</ul>
+<p>These constants are referenced by the following structs:</p>
+<ul>
+<li><a href="ugc.html#steamugcqueryresult">SteamUgcQueryResult</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Public</code></td>
+<td>Visible to everyone.</td>
+</tr>
+<tr>
+<td><code>FriendsOnly</code></td>
+<td>Visible to friends only.</td>
+</tr>
+<tr>
+<td><code>Private</code></td>
+<td>Only visible to the creator. Setting an item to private is the closest that you can get to deleting a workshop item from the API.</td>
+</tr>
+<tr>
+<td><code>Unlisted</code></td>
+<td>Visible to everyone, but will not be returned in any global queries. Will also not be returned in any user lists unless the caller is the creator or a subscriber.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steamremotestorageplatform">SteamRemoteStoragePlatform<a class="headerlink" href="#steamremotestorageplatform" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p><strong>Steamworks Enum</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamRemoteStorage#ERemoteStoragePlatform">ISteamRemoteStorage::ERemoteStoragePlatform</a></p>
+</blockquote>
+<p>This enum holds the possible sync platform flags. These can be used with <a href="remote_storage.html#steam_remote_storage_set_sync_platforms">steam_remote_storage_set_sync_platforms</a> to restrict a file to a specific OS.</p>
+<p>These constants are referenced by the following functions:</p>
+<ul>
+<li><a href="remote_storage.html#steam_remote_storage_set_sync_platforms">steam_remote_storage_set_sync_platforms</a></li>
+<li><a href="remote_storage.html#steam_remote_storage_get_sync_platforms">steam_remote_storage_get_sync_platforms</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>None</code></td>
+<td>This file will not be downloaded on any platform.</td>
+</tr>
+<tr>
+<td><code>Windows</code></td>
+<td>This file will download on Windows.</td>
+</tr>
+<tr>
+<td><code>OSX</code></td>
+<td>This file will download on macOS.</td>
+</tr>
+<tr>
+<td><code>PS3</code></td>
+<td>This file will download on the Playstation 3.</td>
+</tr>
+<tr>
+<td><code>Linux</code></td>
+<td>This file will download on SteamOS/Linux.</td>
+</tr>
+<tr>
+<td><code>Switch</code></td>
+<td>This file will download on Nintendo Switch.</td>
+</tr>
+<tr>
+<td><code>Android</code></td>
+<td>This file will download on Android.</td>
+</tr>
+<tr>
+<td><code>IOS</code></td>
+<td>This file will download on iOS.</td>
+</tr>
+<tr>
+<td><code>All</code></td>
+<td>This file will download on every platform. This is the default.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steamremotestorageugcreadaction">SteamRemoteStorageUgcReadAction<a class="headerlink" href="#steamremotestorageugcreadaction" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p><strong>Steamworks Enum</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamRemoteStorage#EUGCReadAction">ISteamRemoteStorage::EUGCReadAction</a></p>
+</blockquote>
+<p>This enum holds the possible UGC Read Actions used with <a href="remote_storage.html#steam_remote_storage_ugc_read">steam_remote_storage_ugc_read</a>.</p>
+<p>These constants are referenced by the following functions:</p>
+<ul>
+<li><a href="remote_storage.html#steam_remote_storage_ugc_read">steam_remote_storage_ugc_read</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ContinueReadingUntilFinished</code></td>
+<td>Keeps the file handle open unless the last byte is read. You can use this when reading large files (over 100MB) in sequential chunks.</td>
+</tr>
+<tr>
+<td><code>ContinueReading</code></td>
+<td>Keeps the file handle open. Use this when using <a href="remote_storage.html#steam_remote_storage_ugc_read">steam_remote_storage_ugc_read</a> to seek to different parts of the file.</td>
+</tr>
+<tr>
+<td><code>Close</code></td>
+<td>Frees the file handle.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steamremotestorageworkshopfiletype">SteamRemoteStorageWorkshopFileType<a class="headerlink" href="#steamremotestorageworkshopfiletype" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p><strong>Steamworks Enum</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamRemoteStorage#EWorkshopFileType">ISteamRemoteStorage::EWorkshopFileType</a></p>
+</blockquote>
+<p>This enum holds members that represent the way that a shared file will be shared with the community.</p>
+<p>These constants are referenced by the following functions:</p>
+<ul>
+<li><a href="ugc.html#steam_ugc_create_item">steam_ugc_create_item</a></li>
+</ul>
+<p>These constants are referenced by the following structs:</p>
+<ul>
+<li><a href="ugc.html#steamugcqueryresult">SteamUgcQueryResult</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Community</code></td>
+<td>Normal Workshop item that can be subscribed to.</td>
+</tr>
+<tr>
+<td><code>Microtransaction</code></td>
+<td>Workshop item that is meant to be voted on for the purpose of selling in-game. (See: <a href="https://partner.steamgames.com/doc/features/workshop#curated_workshop">Curated Workshop</a>)</td>
+</tr>
+<tr>
+<td><code>Collection</code></td>
+<td>A collection of Workshop items.</td>
+</tr>
+<tr>
+<td><code>Art</code></td>
+<td>Artwork.</td>
+</tr>
+<tr>
+<td><code>Video</code></td>
+<td>External video.</td>
+</tr>
+<tr>
+<td><code>Screenshot</code></td>
+<td>Screenshot.</td>
+</tr>
+<tr>
+<td><code>Game</code></td>
+<td>Unused, used to be for Greenlight game entries.</td>
+</tr>
+<tr>
+<td><code>Software</code></td>
+<td>Unused, used to be for Greenlight software entries.</td>
+</tr>
+<tr>
+<td><code>Concept</code></td>
+<td>Unused, used to be for Greenlight concepts.</td>
+</tr>
+<tr>
+<td><code>WebGuide</code></td>
+<td>Steam web guide.</td>
+</tr>
+<tr>
+<td><code>IntegratedGuide</code></td>
+<td>Application integrated guide.</td>
+</tr>
+<tr>
+<td><code>Merch</code></td>
+<td>Workshop merchandise meant to be voted on for the purpose of being sold.</td>
+</tr>
+<tr>
+<td><code>ControllerBinding</code></td>
+<td>Steam Controller bindings.</td>
+</tr>
+<tr>
+<td><code>SteamworksAccessInvite</code></td>
+<td>Only used internally in Steam.</td>
+</tr>
+<tr>
+<td><code>SteamVideo</code></td>
+<td>Steam video.</td>
+</tr>
+<tr>
+<td><code>GameManagedItem</code></td>
+<td>Managed completely by the game, not the user, and not shown on the web.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steamremotestoragefilenameandsize">SteamRemoteStorageFileNameAndSize<a class="headerlink" href="#steamremotestoragefilenameandsize" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p><strong>Steamworks Struct</strong>: N / A</p>
+</blockquote>
+<p>This struct holds information returned by <a href="remote_storage.html#steam_remote_storage_get_file_name_and_size">steam_remote_storage_get_file_name_and_size</a>.</p>
+<p>This struct is referenced by the following functions:</p>
+<ul>
+<li><a href="remote_storage.html#steam_remote_storage_get_file_name_and_size">steam_remote_storage_get_file_name_and_size</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>file_name</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The name of the file at the specified index, if it exists, or an empty string (<code>""</code>) if the file doesn't exist.</td>
+</tr>
+<tr>
+<td>file_size</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The file size in bytes.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steamremotestoragequota">SteamRemoteStorageQuota<a class="headerlink" href="#steamremotestoragequota" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p><strong>Steamworks Struct</strong>: N / A</p>
+</blockquote>
+<p>This struct holds information returned by <a href="remote_storage.html#steam_remote_storage_get_quota">steam_remote_storage_get_quota</a>.</p>
+<p>This struct is referenced by the following functions:</p>
+<ul>
+<li><a href="remote_storage.html#steam_remote_storage_get_quota">steam_remote_storage_get_quota</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>total_bytes</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The total amount of bytes the user has access to.</td>
+</tr>
+<tr>
+<td>available_bytes</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The number of bytes available.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steamremotestorageugcdetails">SteamRemoteStorageUgcDetails<a class="headerlink" href="#steamremotestorageugcdetails" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p><strong>Steamworks Struct</strong>: N / A</p>
+</blockquote>
+<p>This struct holds information returned by <a href="remote_storage.html#steam_remote_storage_get_ugc_details">steam_remote_storage_get_ugc_details</a>.</p>
+<p>This struct is referenced by the following functions:</p>
+<ul>
+<li><a href="remote_storage.html#steam_remote_storage_get_ugc_details">steam_remote_storage_get_ugc_details</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ugc_handle</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The handle to the piece of user generated content.</td>
+</tr>
+<tr>
+<td>app_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The app ID.</td>
+</tr>
+<tr>
+<td>size_in_bytes</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The size of the file in bytes.</td>
+</tr>
+<tr>
+<td>file_name</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The file name.</td>
+</tr>
+<tr>
+<td>steam_id_owner</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The Steam ID of the owner.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steamremotestoragefileshareresult">SteamRemoteStorageFileShareResult<a class="headerlink" href="#steamremotestoragefileshareresult" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p><strong>Steamworks Struct</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamRemoteStorage#RemoteStorageFileShareResult_t">ISteamRemoteStorage::RemoteStorageFileShareResult_t</a></p>
+</blockquote>
+<p>This struct holds the response to sharing a file, and provides a handle that can be used to refer to the shared file.</p>
+<p>This struct is referenced by the following functions:</p>
+<ul>
+<li><a href="remote_storage.html#steam_remote_storage_file_share">steam_remote_storage_file_share</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>result</td>
+<td><a href="api.html#steamapiresult">SteamApiResult</a></td>
+<td>The result of the operation.</td>
+</tr>
+<tr>
+<td>ugc_handle</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The handle that can be shared with users and features.</td>
+</tr>
+<tr>
+<td>file_name</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The name of the file that was shared.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steamremotestoragefilewriteasyncresult">SteamRemoteStorageFileWriteAsyncResult<a class="headerlink" href="#steamremotestoragefilewriteasyncresult" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p><strong>Steamworks Struct</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamRemoteStorage#RemoteStorageFileWriteAsyncComplete_t">ISteamRemoteStorage::RemoteStorageFileWriteAsyncComplete_t</a></p>
+</blockquote>
+<p>This struct holds the response when writing a file asynchronously with <a href="remote_storage.html#steam_remote_storage_file_write_async">steam_remote_storage_file_write_async</a>.</p>
+<p>This struct is referenced by the following functions:</p>
+<ul>
+<li><a href="remote_storage.html#steam_remote_storage_file_write_async">steam_remote_storage_file_write_async</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>result</td>
+<td><a href="api.html#steamapiresult">SteamApiResult</a></td>
+<td>If the local write was successful then this will be <code>SteamApiResult.OK</code> - any other value likely indicates that the filename is invalid or the available quota would have been exceeded by the requested write.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steamremotestoragedownloadugcresult">SteamRemoteStorageDownloadUgcResult<a class="headerlink" href="#steamremotestoragedownloadugcresult" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p><strong>Steamworks Struct</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamRemoteStorage#RemoteStorageDownloadUGCResult_t">ISteamRemoteStorage::RemoteStorageDownloadUGCResult_t</a></p>
+</blockquote>
+<p>This struct holds the response to a UGC download request, and contains the details of the file that was downloaded.</p>
+<p>This struct is referenced by the following functions:</p>
+<ul>
+<li><a href="remote_storage.html#steam_remote_storage_ugc_download">steam_remote_storage_ugc_download</a></li>
+<li><a href="remote_storage.html#steam_remote_storage_ugc_download_to_location">steam_remote_storage_ugc_download_to_location</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>result</td>
+<td><a href="api.html#steamapiresult">SteamApiResult</a></td>
+<td>The result of the operation.</td>
+</tr>
+<tr>
+<td>ugc_handle</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The handle of the file that was attempted to be downloaded.</td>
+</tr>
+<tr>
+<td>app_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The app ID the file was shared from.</td>
+</tr>
+<tr>
+<td>size_in_bytes</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The size of the file that was downloaded, in bytes.</td>
+</tr>
+<tr>
+<td>file_name</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The name of the file that was downloaded.</td>
+</tr>
+<tr>
+<td>steam_id_owner</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The Steam ID of the user who created this content.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steamremotestoragepublishedfilesubscribed">SteamRemoteStoragePublishedFileSubscribed<a class="headerlink" href="#steamremotestoragepublishedfilesubscribed" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p><strong>Steamworks Struct</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamRemoteStorage#RemoteStoragePublishedFileSubscribed_t">ISteamRemoteStorage::RemoteStoragePublishedFileSubscribed_t</a></p>
+</blockquote>
+<p>This struct holds information passed in a <code>RemoteStoragePublishedFileSubscribed_t</code> callback.</p>
+<p>This struct is referenced by the following functions:</p>
+<ul>
+<li><a href="remote_storage.html#steam_remote_storage_set_callback_published_file_subscribed">steam_remote_storage_set_callback_published_file_subscribed</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>app_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>ID of the app that will consume this file.</td>
+</tr>
+<tr>
+<td>published_file_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The published file ID.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steamremotestoragepublishedfileunsubscribed">SteamRemoteStoragePublishedFileUnsubscribed<a class="headerlink" href="#steamremotestoragepublishedfileunsubscribed" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p><strong>Steamworks Struct</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamRemoteStorage#RemoteStoragePublishedFileUnsubscribed_t">ISteamRemoteStorage::RemoteStoragePublishedFileUnsubscribed_t</a></p>
+</blockquote>
+<p>This struct holds information passed in a <code>RemoteStoragePublishedFileUnsubscribed_t</code> callback.</p>
+<p>This struct is referenced by the following functions:</p>
+<ul>
+<li><a href="remote_storage.html#steam_remote_storage_set_callback_published_file_unsubscribed">steam_remote_storage_set_callback_published_file_unsubscribed</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>app_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>ID of the app that will consume this file.</td>
+</tr>
+<tr>
+<td>published_file_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The published file ID.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      <p align="center">GameMaker 2026</p>
+    </div>
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["navigation.top", "navigation.tracking", "toc.follow", "content.code.copy"], "search": "assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/gml.min.js"></script>
+      
+        <script src="assets/js/hljs-init.js"></script>
+      
+        <script src="assets/js/resize-columns.js"></script>
+      
+    
+  </body>
+</html>

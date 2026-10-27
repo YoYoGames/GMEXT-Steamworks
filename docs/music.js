@@ -1,184 +1,211 @@
+
 // FUNCTIONS
 
 /**
- * @func steam_music_is_enabled
- * @desc This function returns whether Steam music is enabled.
- * 
- * @returns {boolean}
- * 
- * @example
- * ```gml
- * global.steam_music_enabled = steam_music_is_enabled();
- * ```
- * The above code gets if Steam music player is enabled and stores the result in a global variable.
- * @func_end
+ * @function steam_music_is_enabled
+ * @description > **Steamworks Function**: [ISteamMusic::BIsEnabled](https://partner.steamgames.com/doc/api/ISteamMusic#BIsEnabled)
+ *
+ * This function checks if Steam Music is enabled.
+ *
+ * @returns {Bool} 
+ * @function_end 
  */
 
 /**
- * @func steam_music_is_playing
- * @desc This function returns whether Steam music is playing.
+ * @function steam_music_is_playing
+ * @description > **Steamworks Function**: [ISteamMusic::BIsPlaying](https://partner.steamgames.com/doc/api/ISteamMusic#BIsPlaying)
+ *
+ * This function checks if Steam Music is active. This does not necessarily mean a song is currently playing, it may be paused.
  * 
- * [[NOTE: This function returns true even if a track is paused.]]
- * 
- * @returns {boolean}
- * 
- * @example
- * ```gml
- * global.steam_music_playing = steam_music_is_playing();
- * ```
- * The above code gets if the Steam music player is playing and stores the result in a global variable.
- * @func_end
+ * For finer grain control use ${function.steam_music_get_playback_status}.
+ *
+ * @returns {Bool} `true` if a song is currently playing, paused, or queued up to play; otherwise `false`.
+ * @function_end 
  */
 
 /**
- * @func steam_music_get_status
- * @desc This function gets the current status of the media player as ${constant.SteamMusicStatus}.
- * 
- * @returns {real}
- * 
- * @example
- * ```gml
- * if (steam_music_get_status == steam_music_playing) {
- *     steam_music_pause();
- * }
- * ```
- * The above code gets if the Steam music player is playing. If it is, it pauses the playback.
- * @func_end
+ * @function steam_music_get_playback_status
+ * @description > **Steamworks Function**: [ISteamMusic::GetPlaybackStatus](https://partner.steamgames.com/doc/api/ISteamMusic#GetPlaybackStatus)
+ *
+ * This function gets the current status of the Steam Music player.
+ *
+ * @returns {Enum.SteamMusicPlaybackStatus} 
+ * @function_end 
  */
 
 /**
- * @func steam_music_play
- * @desc This function resumes playback of the current track. Returns `true` if successful.
- * 
- * @returns {boolean}
- * 
- * @example
- * ```gml
- * if (steam_music_get_status == steam_music_paused) {
- *     steam_music_play();
- * }
- * ```
- * The above code gets if the Steam music player is paused. If it is, it resumes playback.
- * 
- * @event steam
- * @member {string} event_type The string value `"steam_music_playback_status_has_changed"`
+ * @function steam_music_play
+ * @description > **Steamworks Function**: [ISteamMusic::Play](https://partner.steamgames.com/doc/api/ISteamMusic#Play)
+ *
+ * This function has the Steam Music player resume playing.
+ *
+ * @function_end 
+ */
+
+/**
+ * @function steam_music_pause
+ * @description > **Steamworks Function**: [ISteamMusic::Pause](https://partner.steamgames.com/doc/api/ISteamMusic#Pause)
+ *
+ * This function pauses the Steam Music player.
+ *
+ * @function_end 
+ */
+
+/**
+ * @function steam_music_play_previous
+ * @description > **Steamworks Function**: [ISteamMusic::PlayPrevious](https://partner.steamgames.com/doc/api/ISteamMusic#PlayPrevious)
+ *
+ * This function has the Steam Music player play the previous song.
+ *
+ * @function_end 
+ */
+
+/**
+ * @function steam_music_play_next
+ * @description > **Steamworks Function**: [ISteamMusic::PlayNext](https://partner.steamgames.com/doc/api/ISteamMusic#PlayNext)
+ *
+ * This function has the Steam Music player skip to the next song.
+ *
+ * @function_end 
+ */
+
+/**
+ * @function steam_music_set_volume
+ * @description > **Steamworks Function**: [ISteamMusic::SetVolume](https://partner.steamgames.com/doc/api/ISteamMusic#SetVolume)
+ *
+ * This function sets the volume of the Steam Music player.
+ *
+ * @param {Real} volume The volume to set, as a value ranging from 0.0 (silent) to 1.0 (maximum).
+ * @function_end
+ */
+
+/**
+ * @function steam_music_get_volume
+ * @description > **Steamworks Function**: [ISteamMusic::GetVolume](https://partner.steamgames.com/doc/api/ISteamMusic#GetVolume)
+ *
+ * This function gets the current volume of the Steam Music player.
+ *
+ * @returns {Real} 
+ * @function_end 
+ */
+
+/**
+ * @function steam_music_set_callback_playback_status_has_changed
+ * @description > **Steamworks Function**: N / A
+ *
+ * This function sets the function to call when the playback status has changed.
+ *
+ * @param {Function} callback The function to be called when the music playback status changes.
+ *
+ * @event callback
+ * @desc > **Steamworks Callback**: [ISteamMusic::PlaybackStatusHasChanged_t](https://partner.steamgames.com/doc/api/ISteamMusic#PlaybackStatusHasChanged_t)
+ *
+ * Called when the playback status of the Steam music player changes.
+ *
+ * @member {Struct.SteamMusicPlaybackStatusHasChanged} result The details of the status change.
  * @event_end
- * @func_end
+ * @function_end 
  */
 
 /**
- * @func steam_music_pause
- * @desc This function pauses the current track. Returns `true` if successful.
- * 
- * @returns {boolean}
- * 
- *  * @example
- * ```gml
- * if (steam_music_get_status == steam_music_playing) {
- *     steam_music_pause();
- * }
- * ```
- * The above code gets if Steam music player is playing. if it is, it pauses playback.
- * 
- * @event steam
- * @member {string} event_type The string value `"steam_music_playback_status_has_changed"`
+ * @function steam_music_clear_callback_playback_status_has_changed
+ * @description > **Steamworks Function**: N / A
+ *
+ * This function clears the callback function previously set using ${function.steam_music_set_callback_playback_status_has_changed}.
+ *
+ * @function_end 
+ */
+
+/**
+ * @function steam_music_set_callback_volume_has_changed
+ * @description > **Steamworks Function**: N / A
+ *
+ * This function sets the function to call when the volume has changed.
+ *
+ * @param {Function} callback The function to be called when the music volume changes.
+ *
+ * @event callback
+ * @desc > **Steamworks Callback**: [ISteamMusic::VolumeHasChanged_t](https://partner.steamgames.com/doc/api/ISteamMusic#VolumeHasChanged_t)
+ *
+ * Called when the volume of the Steam music player changes.
+ *
+ * @member {Struct.SteamMusicVolumeHasChanged} result The new volume.
  * @event_end
- * @func_end
+ * @function_end 
  */
 
 /**
- * @func steam_music_play_next
- * @desc This function plays the next track. If the current track is the last, it loops to the first one. Returns `true` if successful.
- * 
- * @returns {boolean}
- * 
- *  * @example
- * ```gml
- * if (keyboard_check_pressed(vk_right)) {
- *     steam_music_play_next();
- * }
- * ```
- * The above code checks if the right arrow has been pressed and if it has, it skips to the next track.
- * 
- * @event steam
- * @member {string} event_type The string value `"playback_status_has_changed"`
- * @event_end
- * @func_end
+ * @function steam_music_clear_callback_volume_has_changed
+ * @description > **Steamworks Function**: N / A
+ *
+ * This function clears the callback function previously set using ${function.steam_music_set_callback_volume_has_changed}.
+ *
+ * @function_end 
+ */
+
+// STRUCTS
+
+/**
+ * @struct SteamMusicPlaybackStatusHasChanged
+ * @description > **Steamworks Struct**: [ISteamMusic::PlaybackStatusHasChanged_t](https://partner.steamgames.com/doc/api/ISteamMusic#PlaybackStatusHasChanged_t)
+ *
+ * This struct holds information about a `ISteamMusic::PlaybackStatusHasChanged_t` callback.
+ *
+ * @member {Enum.SteamMusicPlaybackStatus} playback_status The new playback status.
+ * @struct_end
  */
 
 /**
- * @func steam_music_play_previous
- * @desc This function plays the previous track. It resets the current track first, and goes to the last one if called again.
- * If the current track is the first, it DOES NOT loop to the last one. Returns `true` if successful.
- * 
- * @returns {boolean}
- * 
- *  * @example
- * ```gml
- * if (keyboard_check_pressed(vk_left)) {
- *     steam_music_play_previous();
- * }
- * ```
- * The above code checks if the left arrow has been pressed and if it has, it goes back to the previous track.
- * 
- * @event steam
- * @member {string} event_type The string value `"steam_music_playback_status_has_changed"`
- * @event_end
- * @func_end
+ * @struct SteamMusicVolumeHasChanged
+ * @description > **Steamworks Struct**: [ISteamMusic::VolumeHasChanged_t](https://partner.steamgames.com/doc/api/ISteamMusic#VolumeHasChanged_t)
+ *
+ * This struct holds information about a `ISteamMusic::VolumeHasChanged_t` callback.
+ *
+ * @member {Real} volume The new volume.
+ * @struct_end
  */
 
-/**
- * @func steam_music_set_volume
- * @desc This function sets the volume of Steam music player only (not the system volume). 
- * If a number higher than 1 is entered, it defaults to 1. Returns `true` if successful.
- * 
- * @param {real} volume The volume that you want to set as a real.
- * 
- * @event steam
- * @desc This callback is triggered whenever the volume is changed via the Steam client UI.
- * @member {string} event_type The string value `"steam_music_volume_has_changed"`
- * @member {real} volume The current volume of the music player
- * @event_end
- * @func_end
- */
+// CONSTANTS
 
 /**
- * @const SteamMusicStatus
- * @desc These constants represent the status of the music player.
- * 
- * @member steam_music_playback_undefined 0
- * @member steam_music_playback_playing 1
- * @member steam_music_playback_paused 2
- * @member steam_music_playback_idle 3
- * @const_end
+ * @enum SteamMusicPlaybackStatus
+ * @description > **Steamworks Enum**: [ISteamMusic::AudioPlayback_Status](https://partner.steamgames.com/doc/api/ISteamMusic#AudioPlayback_Status)
+ *
+ * This enum specificies the current playback status.
+ *
+ * @member Undefined The Steam music interface probably isn't enabled.
+ * @member Playing Steam Music is currently playing.
+ * @member Paused Steam Music is currently paused.
+ * @member Idle Steam Music is currently stopped.
+ * @enum_end 
  */
+
+// MODULE
 
 /**
  * @module music
  * @title Music
- * @desc The following functions, constants and structures allow you to use the [Steam Music API](https://partner.steamgames.com/doc/api/ISteamMusic).
+ * @desc > **Steamworks Interface**: [ISteamMusic](https://partner.steamgames.com/doc/api/ISteamMusic)
+ * 
+ * This module contains functions to control music playback in the Steam client.
+ * 
+ * This gives games the opportunity to do things like pause the music or lower the volume, when an important cut scene is shown, and start playing afterwards.
+ * 
+ * See [features/music_player](https://partner.steamgames.com/doc/features/music_player) for more information.
  * 
  * @section_func Functions
- * @desc These functions are provided for getting and setting the media player playback:
- * 
- * @ref steam_music_is_enabled
- * @ref steam_music_is_playing
- * @ref steam_music_get_status
- * @ref steam_music_play
- * @ref steam_music_pause
- * @ref steam_music_play_next
- * @ref steam_music_play_previous
- * @ref steam_music_set_volume
- * 
+ * @desc These are the functions of the Music module:
+ * @ref steam_music_*
  * @section_end
  * 
  * @section_const Constants
- * @desc These are the constants used by this API:
- * 
- * @ref SteamMusicStatus
- * 
+ * @desc These are the constants and enums of the Music module:
+ * @ref SteamMusic*
  * @section_end
  * 
+ * @section_struct Structs
+ * @desc These are the structs of the Music module:
+ * @ref SteamMusic*
+ * @section_end
  * @module_end
- * 
  */

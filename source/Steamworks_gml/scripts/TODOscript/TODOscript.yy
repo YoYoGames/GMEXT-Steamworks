@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"TODOscript",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"TODOscript",
+  "parent":{
+    "name":"Steamworks",
+    "path":"Steamworks.yyp",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

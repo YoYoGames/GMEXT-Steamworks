@@ -5,28 +5,35 @@ This repository was created with the intent of presenting users with the latest 
 
 This extension will work on Windows, macOS and Linux.
 
-SOURCE CODE: `source/steamworks_gml/extensions/steamworks/steamworks_cpp/`
+> [!IMPORTANT]
+> **Version 3.0.0 is a breaking change.** The extension has been fully rewritten, with the native
+> bindings generated from a single GMIDL spec and the API organised by Steamworks interface (Apps,
+> Friends, Matchmaking, Remote Storage, User Stats, ...). Function names and signatures differ from
+> 2.x, and results are delivered to a GML callback function instead of the Steam Async Event.
+> Projects upgrading from an earlier (2.x) version will need to rewrite their Steamworks code, and
+> projects that need the old API should stay on the final 2.2.2 release. Check
+> [the documentation](../../wiki) for the current API.
 
-VISUAL STUDIO PROJECT: `source/steamworks_gml/extensions/steamworks/steamworks_windows/`
+SOURCE CODE: `source/Steamworks_gml/extensions/steamworks/source/` (`spec.gmidl` API contract, hand-written
+native implementation in `src/`, CMake build files)
 
-XCODE PROJECT: `source/steamworks_gml/extensions/steamworks/Steamworks_macos/`
-
-LINUX BUILD SCRIPTS: `source/steamworks_gml/extensions/steamworks/steamworks_linux/`
+All platforms (Windows, macOS, Linux, iOS, tvOS, Android) build from this single source folder via CMake
+presets (`CMakePresets.json`) - there are no separate per-platform IDE project folders. See
+`CMakePresets.json` for the full list of presets, or run `cmake --list-presets` from the source folder.
 
 After compilation the exported dll/dylib/so file is automatically copied into the extension folder inside the included GameMaker project folder.
 
 ## Requirements
 
-In order to compile for Windows/macOS/Linux you are required to [download the Steam SDK v1.63](https://partner.steamgames.com/dashboard) and place it inside `source/Steamworks_sdk/`
+In order to compile for Windows/macOS/Linux you are required to [download the Steam SDK v1.65](https://partner.steamgames.com/dashboard) and place it inside `source/Steamworks_sdk/`
 
 > [!IMPORTANT]
-> Version 2.1.X requires Steamworks SDK version v1.63 and won't work correctly with previous versions of the SDK. If for any reason you need to keep using a previous SDK version please refrain from updating to the v2.1.X version.
+> This version requires Steamworks SDK version v1.65 and won't work correctly with previous versions of the SDK. If for any reason you need to keep using a previous SDK version please refrain from updating to this version.
+>
+> Since version 2.1.X:
 >
 > * `steam_user_get_auth_session_ticket` can no longer be used for HTTP Web API purposes, this is now only for Game Server authentication (NOT HTTP, this is related to Steam Networking).
 > * `steam_user_get_auth_ticket_for_web_api` must now be used for HTTP Web API, along with the identity parameter (not required but heavily recommended by Valve)
-
-> [!NOTE]
-> The 2.x extension targets the GMS2 runtime. LTS2026 GMRT support is planned for a future v3.0.0 release and is expected to require project code changes because the extension API will not be a drop-in replacement.
 
 ## Documentation
 
@@ -37,3 +44,4 @@ The online documentation is regularly updated to ensure it contains the most cur
 We encourage users to refer primarily to the GitHub Wiki for the latest information and updates. The HTML version, included with the extension and within the demo project's data files, serves as a secondary, static reference.
 
 Additionally, if you're contributing new features through PR (Pull Requests), we kindly ask that you also provide accompanying documentation for these features, to maintain the comprehensiveness and usefulness of our resources.
+

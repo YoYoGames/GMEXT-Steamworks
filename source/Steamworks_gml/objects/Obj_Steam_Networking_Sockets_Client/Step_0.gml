@@ -1,28 +1,32 @@
 
 event_inherited()
 
+steam_networking_sockets_run_callbacks()
+
 if(net_connection > 0)
 {	
-    while(true)
-    {
-        buffer_seek(net_buffer, buffer_seek_start, 0);
-        var struct = steam_net_sockets_recv_messages_on_connection(
-	            net_connection,
-	            net_buffer,
-	            1024//NET_BUFFER_SIZE
-	        );
-		
-		if(!struct.ok) break
-		
-        if(struct.bytes_written <= 0)break;
+	var buff = buffer_create(128,buffer_fixed,1)
 
-        buffer_seek(net_buffer, buffer_seek_start, 0);
+	if(keyboard_check(vk_space))//just to simulate interuptions
+		exit
 
-		var Color = buffer_read(net_buffer, buffer_u32);
-		var X = buffer_read(net_buffer, buffer_u16);
-		var Y = buffer_read(net_buffer, buffer_u16);
+
+	var _array_of_messages = steam_networking_sockets_receive_messages_on_connection(net_connection,buff,10)
+	for(var _i = 0 ; _i < array_length(_array_of_messages) ; _i++)
+	{
+		var _msg = _array_of_messages[_i]
+		if(_msg.size)
+		{
+			show_debug_message(_msg)
 		
-		var ins = instance_create_depth(X,Y,0,Obj_Steam_Networking_Circle)
-		ins.image_blend = Color
-    }
+			buffer_seek(buff,buffer_seek_start,_msg.offset)
+		
+			var Color = buffer_read(buff, buffer_u32);
+			var X = buffer_read(buff, buffer_u16);
+			var Y = buffer_read(buff, buffer_u16);
+			var ins = instance_create_depth(X,Y,0,obj_steam_networking_circle)
+			ins.image_blend = Color
+		}
+	}
+	buffer_delete(buff)
 }

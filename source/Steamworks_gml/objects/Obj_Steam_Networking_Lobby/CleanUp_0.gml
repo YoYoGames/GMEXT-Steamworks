@@ -1,3 +1,3 @@
 
-steam_lobby_leave();
+steam_matchmaking_leave_lobby(global.lobby_id);
 

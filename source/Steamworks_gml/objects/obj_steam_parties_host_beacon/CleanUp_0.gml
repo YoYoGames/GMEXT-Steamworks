@@ -1,2 +1,5 @@
 
 steam_parties_destroy_beacon(beacon_id)
+
+steam_parties_clear_callback_reservation_notification();
+steam_parties_clear_callback_active_beacons_updated();

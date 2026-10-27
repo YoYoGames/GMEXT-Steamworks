@@ -1,19 +1,17 @@
 {
   "$GMObject":"",
-  "%Name":"Obj_Steam_Networking_Lobby",
+  "%Name":"obj_steam_networking_lobby",
   "eventList":[
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
-    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":3,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":8,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":12,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
-    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":2,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
   ],
   "managed":true,
-  "name":"Obj_Steam_Networking_Lobby",
+  "name":"obj_steam_networking_lobby",
   "overriddenProperties":[],
   "parent":{
-    "name":"Lobbies",
-    "path":"folders/Steamworks Demo/Networking/Lobbies.yy",
+    "name":"Lobby",
+    "path":"folders/Steamworks Demo/Networking/Matchmaking/Lobby.yy",
   },
   "parentObjectId":null,
   "persistent":false,

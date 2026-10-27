@@ -29,24 +29,41 @@ call %Utils% optionGetValue "debug" DEBUG_MODE
 set "ERROR_SDK_HASH=Invalid Steam SDK version, sha256 hash mismatch (expected v%SDK_VERSION%)."
 
 :: Checks IDE and Runtime versions
-call %Utils% versionLockCheck "%YYruntimeVersion%" %RUNTIME_VERSION_STABLE% %RUNTIME_VERSION_BETA% %RUNTIME_VERSION_DEV% %RUNTIME_VERSION_LTS%
+:: NOTE: skipped under GMRT (the new runner). GMRT does not report a legacy GameMaker runtime version
+:: in 'YYruntimeVersion', so these 2022/2023-era locks can never be satisfied there - versionLockCheck
+:: would fall into the LTS branch and logError out (hard 'exit 1'), killing this script before any
+:: dependency is staged.
+if not "%YYTARGET_runtime%" == "GMRT" (
+    call %Utils% versionLockCheck "%YYruntimeVersion%" %RUNTIME_VERSION_STABLE% %RUNTIME_VERSION_BETA% %RUNTIME_VERSION_DEV% %RUNTIME_VERSION_LTS%
+)
 
 :: Resolve the SDK path (must exist)
 call %Utils% pathResolveExisting "%YYprojectDir%" "%SDK_PATH%" SDK_PATH
 
 :: Ensure we are on the output path
-pushd "%YYoutputFolder%"
+:: NOTE: GMRT (the new runner) expects the dependencies inside the 'build\assets' folder
+if "%YYTARGET_runtime%" == "GMRT" (
+    pushd "%YYoutputFolder%\build\assets"
+) else (
+    pushd "%YYoutputFolder%"
+)
 
 :: Call setup method depending on the platform
-:: NOTE: the setup method can be (:setupWindows, :setupMacOS or :setupLinux)
+:: NOTE: the setup method can be (:setupWindows, :setupMacOS, :setupMac [GMRT] or :setupLinux)
 call :setup%YYPLATFORM_name%
+
+:: Capture the dispatch result before anything else can reset it (a missing :setup<platform> label or a
+:: failed itemCopyTo is non-fatal to cmd, so it must be propagated explicitly - see the exit below).
+set "SETUP_RESULT=%ERRORLEVEL%"
 
 :: If debug is set to 'Enabled' provide a warning to the user.
 if "%DEBUG_MODE%" equ "Enabled" call %Utils% logWarning "Debug mode is set to 'Enabled', make sure to set it to 'Auto' before publishing."
 
 popd
 
-exit 0
+:: Report the real result. A hard 'logError' already terminates this script with 1, but a missing platform
+:: label or a failed copy does not - 'exit 0' used to swallow both and report a clean build.
+exit %SETUP_RESULT%
 
 :: ----------------------------------------------------------------------------------------------------
 :setupWindows
@@ -55,7 +72,7 @@ exit 0
     call %Utils% assertFileHashEquals %SDK_SOURCE% %SDK_HASH_WIN% "%ERROR_SDK_HASH%"
 
     echo "Copying Windows (64 bit) dependencies"
-    if not exist "steam_api64.dll" call %Utils% itemCopyTo %SDK_SOURCE% "steam_api64.dll"
+    call %Utils% itemCopyTo %SDK_SOURCE% "steam_api64.dll"
 
 exit /b 0
 
@@ -66,10 +83,12 @@ exit /b 0
     call %Utils% assertFileHashEquals %SDK_SOURCE% %SDK_HASH_OSX% "%ERROR_SDK_HASH%"
 
     echo "Copying macOS (64 bit) dependencies"
-    
+
     if "%YYTARGET_runtime%" == "VM" (
-        :: This is used for VM compilation
-        call %Utils% logError "Extension is not compatible with the macOS VM export, please use YYC."
+        :: VM is only supported when building from a macOS host (post_build_step.sh's setupmacOS), which
+        :: is the only place 'codesign' exists - the VM path stages both dylibs into the game zip and has
+        :: to sign them. From a Windows host there is no way to sign, so VM stays rejected here.
+        call %Utils% logError "Extension is not compatible with the macOS VM export from a Windows host, please use YYC."
     ) else (
         setlocal enabledelayedexpansion
 
@@ -82,8 +101,51 @@ exit /b 0
 
         :: This is used for YYC compilation
         call %Utils% itemCopyTo %SDK_SOURCE% "!YYfixedProjectName!\!YYfixedProjectName!\Supporting Files\libsteam_api.dylib"
+
+        :: Give the app the entitlements Steam needs under the Hardened Runtime (see
+        :: :entitlementsAddSteamKeys). xcodebuild signs the app on the Mac after this step, so this is
+        :: the last point the entitlements can still be changed.
+        call :entitlementsAddSteamKeys "!YYfixedProjectName!\!YYfixedProjectName!\Supporting Files"
         endlocal
     )
+exit /b 0
+
+:: ----------------------------------------------------------------------------------------------------
+:: Adds the two Hardened Runtime exceptions Steam needs to the Xcode project's entitlements plist
+:: (idempotent). SteamAPI_Init dlopens Valve-signed 'steamclient.dylib' out of the Steam client bundle,
+:: and the overlay is injected through DYLD_INSERT_LIBRARIES; a Hardened Runtime build (which
+:: notarisation requires) refuses both unless the app carries these entitlements. Same pair the SDK's
+:: own 'steamworksexample/osx/steamworksexample.entitlements' ships. The asset compiler only writes the
+:: sandbox/network/sign-in keys into the generated project's entitlements, so they are added here. There
+:: is no PlistBuddy on Windows, so the keys are spliced in as text before the closing </dict>.
+:entitlementsAddSteamKeys supportingFilesFolder
+
+    set "PS_SUPPORTING=%~1"
+    powershell -NoLogo -NoProfile -Command "$files = @(Get-ChildItem -LiteralPath $env:PS_SUPPORTING -Filter *.entitlements -File -ErrorAction SilentlyContinue); if ($files.Count -eq 0) { exit 2 }; foreach ($f in $files) { $c = [IO.File]::ReadAllText($f.FullName); $add = ''; foreach ($k in 'com.apple.security.cs.disable-library-validation', 'com.apple.security.cs.allow-dyld-environment-variables') { if ($c.IndexOf('<key>' + $k + '</key>') -lt 0) { $add += [char]9 + '<key>' + $k + '</key>' + [char]10 + [char]9 + '<true/>' + [char]10 } }; if ($add -ne '') { $i = $c.LastIndexOf('</dict>'); if ($i -lt 0) { exit 1 }; [IO.File]::WriteAllText($f.FullName, $c.Substring(0, $i) + $add + $c.Substring($i)) } }; exit 0"
+    set "PS_RESULT=%ERRORLEVEL%"
+
+    if "%PS_RESULT%"=="2" (
+        call %Utils% logWarning "No .entitlements file found in '%PS_SUPPORTING%', add 'com.apple.security.cs.disable-library-validation' to the Xcode project by hand or Steam will fail to initialise under the Hardened Runtime."
+        exit /b 0
+    )
+    if not "%PS_RESULT%"=="0" call %Utils% logError "Failed to add the Steam entitlements to the .entitlements file in '%PS_SUPPORTING%'."
+    call %Utils% logInformation "Steam Hardened Runtime entitlements present in '%PS_SUPPORTING%'."
+
+exit /b 0
+
+:: ----------------------------------------------------------------------------------------------------
+:: GMRT (the new runner) variant of the macOS setup. Under GMRT the platform name is 'Mac' (legacy is
+:: 'macOS', which dispatches to :setupMacOS above) and the dependency goes bare into the output
+:: 'build\assets' folder we already pushd'd into. No code signing here - that only happens on a macOS
+:: host, via post_build_step.sh's setupMac().
+:setupMac
+
+    set SDK_SOURCE="%SDK_PATH%\redistributable_bin\osx\libsteam_api.dylib"
+    call %Utils% assertFileHashEquals %SDK_SOURCE% %SDK_HASH_OSX% "%ERROR_SDK_HASH%"
+
+    echo "Copying macOS (64 bit) dependencies (GMRT)"
+    call %Utils% itemCopyTo %SDK_SOURCE% "libsteam_api.dylib"
+
 exit /b 0
 
 :: ----------------------------------------------------------------------------------------------------
@@ -93,7 +155,7 @@ exit /b 0
     call %Utils% assertFileHashEquals %SDK_SOURCE% %SDK_HASH_LINUX% "%ERROR_SDK_HASH%"
 
     echo "Copying Linux (64 bit) dependencies"
-    
+
     setlocal enabledelayedexpansion
 
     :: When running from CI the 'YYprojectName' will not be set use 'YYprojectPath' instead.
@@ -107,6 +169,6 @@ exit /b 0
     call %Utils% zipUpdate "_temp" "!YYprojectName!.zip"
     rmdir /s /q _temp
 
-    endlocal 
+    endlocal
 
 exit /b 0

@@ -1,0 +1,3353 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="api.html">
+      
+      
+        <link rel="next" href="friends.html">
+      
+      
+        
+      
+      
+      <link rel="icon" href="assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Apps - GMEXT-Steamworks</title>
+      
+    
+    
+      <link rel="stylesheet" href="assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+    
+      <link rel="stylesheet" href="assets/css/extra.css">
+    
+    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  <script>(function(){try{var w=["--gm-nav-width","--gm-toc-width"],i,v;for(i=0;i<w.length;i++){v=localStorage.getItem(w[i]);if(v)document.documentElement.style.setProperty(w[i],v)}}catch(e){}})()</script></head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#apps" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="home.html" title="GMEXT-Steamworks" class="md-header__button md-logo" aria-label="GMEXT-Steamworks" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            GMEXT-Steamworks
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Apps
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/YoYoGames/GMEXT-Steamworks" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="home.html" title="GMEXT-Steamworks" class="md-nav__button md-logo" aria-label="GMEXT-Steamworks" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    GMEXT-Steamworks
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/YoYoGames/GMEXT-Steamworks" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="home.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Steamworks Extension
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Guides
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Guides
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="getting_started.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="extension_options.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Extension Options
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modules
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Modules
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="api.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Apps
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="apps.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Apps
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#apps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Apps
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Apps">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Functions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#constants" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Constants
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#structs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Structs
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_apps_get_dlc_data_by_index" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_apps_get_dlc_data_by_index
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_apps_is_app_installed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_apps_is_app_installed
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_apps_is_dlc_installed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_apps_is_dlc_installed
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_apps_is_low_violence" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_apps_is_low_violence
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_apps_is_subscribed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_apps_is_subscribed
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_apps_is_subscribed_app" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_apps_is_subscribed_app
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_apps_is_subscribed_from_family_sharing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_apps_is_subscribed_from_family_sharing
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_apps_is_subscribed_from_free_weekend" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_apps_is_subscribed_from_free_weekend
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_apps_is_timed_trial" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_apps_is_timed_trial
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_apps_is_vac_banned" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_apps_is_vac_banned
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_apps_get_app_build_id" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_apps_get_app_build_id
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_apps_get_app_install_dir" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_apps_get_app_install_dir
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_apps_get_app_owner" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_apps_get_app_owner
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_apps_get_available_game_languages" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_apps_get_available_game_languages
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_apps_get_current_beta_name" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_apps_get_current_beta_name
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_apps_get_num_betas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_apps_get_num_betas
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_apps_get_beta_info" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_apps_get_beta_info
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_apps_set_active_beta" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_apps_set_active_beta
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_apps_get_current_game_language" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_apps_get_current_game_language
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_apps_get_dlc_count" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_apps_get_dlc_count
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_apps_get_dlc_download_progress" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_apps_get_dlc_download_progress
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_apps_get_app_ownership_ticket_data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_apps_get_app_ownership_ticket_data
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_apps_get_earliest_purchase_unix_time" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_apps_get_earliest_purchase_unix_time
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_apps_get_file_details" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_apps_get_file_details
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_apps_get_installed_depots" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_apps_get_installed_depots
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_apps_get_launch_command_line" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_apps_get_launch_command_line
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_apps_get_launch_query_param" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_apps_get_launch_query_param
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_apps_install_dlc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_apps_install_dlc
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_apps_mark_content_corrupt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_apps_mark_content_corrupt
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_apps_uninstall_dlc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_apps_uninstall_dlc
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_apps_set_callback_dlc_installed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_apps_set_callback_dlc_installed
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_apps_clear_callback_dlc_installed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_apps_clear_callback_dlc_installed
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steamappsbetabranchflags" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamAppsBetaBranchFlags
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steamappsfiledetailsresult" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamAppsFileDetailsResult
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steamappsdlcdata" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamAppsDlcData
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steamappsistimedtrialresult" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamAppsIsTimedTrialResult
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steamappsnumbetas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamAppsNumBetas
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steamappsbetainfo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamAppsBetaInfo
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steamappsdlcdownloadprogress" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamAppsDlcDownloadProgress
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steamappsdlcinstalled" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamAppsDlcInstalled
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="friends.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Friends
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="input.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Input
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="inventory.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inventory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="matchmaking.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Matchmaking
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="music.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Music
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="networking.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Networking
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="parties.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parties
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="remote_storage.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Remote Storage
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="screenshots.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Screenshots
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="timeline.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Timeline
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ugc.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UGC
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="user.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    User
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="userstats.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UserStats
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="utils.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Utils
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#apps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Apps
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Apps">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Functions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#constants" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Constants
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#structs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Structs
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_apps_get_dlc_data_by_index" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_apps_get_dlc_data_by_index
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_apps_is_app_installed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_apps_is_app_installed
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_apps_is_dlc_installed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_apps_is_dlc_installed
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_apps_is_low_violence" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_apps_is_low_violence
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_apps_is_subscribed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_apps_is_subscribed
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_apps_is_subscribed_app" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_apps_is_subscribed_app
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_apps_is_subscribed_from_family_sharing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_apps_is_subscribed_from_family_sharing
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_apps_is_subscribed_from_free_weekend" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_apps_is_subscribed_from_free_weekend
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_apps_is_timed_trial" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_apps_is_timed_trial
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_apps_is_vac_banned" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_apps_is_vac_banned
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_apps_get_app_build_id" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_apps_get_app_build_id
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_apps_get_app_install_dir" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_apps_get_app_install_dir
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_apps_get_app_owner" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_apps_get_app_owner
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_apps_get_available_game_languages" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_apps_get_available_game_languages
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_apps_get_current_beta_name" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_apps_get_current_beta_name
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_apps_get_num_betas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_apps_get_num_betas
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_apps_get_beta_info" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_apps_get_beta_info
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_apps_set_active_beta" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_apps_set_active_beta
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_apps_get_current_game_language" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_apps_get_current_game_language
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_apps_get_dlc_count" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_apps_get_dlc_count
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_apps_get_dlc_download_progress" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_apps_get_dlc_download_progress
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_apps_get_app_ownership_ticket_data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_apps_get_app_ownership_ticket_data
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_apps_get_earliest_purchase_unix_time" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_apps_get_earliest_purchase_unix_time
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_apps_get_file_details" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_apps_get_file_details
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_apps_get_installed_depots" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_apps_get_installed_depots
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_apps_get_launch_command_line" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_apps_get_launch_command_line
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_apps_get_launch_query_param" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_apps_get_launch_query_param
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_apps_install_dlc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_apps_install_dlc
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_apps_mark_content_corrupt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_apps_mark_content_corrupt
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_apps_uninstall_dlc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_apps_uninstall_dlc
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_apps_set_callback_dlc_installed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_apps_set_callback_dlc_installed
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steam_apps_clear_callback_dlc_installed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        steam_apps_clear_callback_dlc_installed
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steamappsbetabranchflags" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamAppsBetaBranchFlags
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steamappsfiledetailsresult" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamAppsFileDetailsResult
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steamappsdlcdata" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamAppsDlcData
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steamappsistimedtrialresult" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamAppsIsTimedTrialResult
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steamappsnumbetas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamAppsNumBetas
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steamappsbetainfo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamAppsBetaInfo
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steamappsdlcdownloadprogress" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamAppsDlcDownloadProgress
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steamappsdlcinstalled" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SteamAppsDlcInstalled
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<p><a id="top"></a></p>
+<h1 id="apps"><strong>Apps</strong><a class="headerlink" href="#apps" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p><strong>Steamworks Interface</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamApps">ISteamApps</a></p>
+</blockquote>
+<p>This module exposes a wide range of information and actions for applications and <a href="https://partner.steamgames.com/doc/store/application/dlc">Downloadable Content (DLC)</a>.</p>
+<h2 id="functions">Functions<a class="headerlink" href="#functions" title="Permanent link">&para;</a></h2>
+<p>These are the functions of the Apps module:</p>
+<ul>
+<li><a href="apps.html#steam_apps_get_dlc_data_by_index">steam_apps_get_dlc_data_by_index</a></li>
+<li><a href="apps.html#steam_apps_is_app_installed">steam_apps_is_app_installed</a></li>
+<li><a href="apps.html#steam_apps_is_dlc_installed">steam_apps_is_dlc_installed</a></li>
+<li><a href="apps.html#steam_apps_is_low_violence">steam_apps_is_low_violence</a></li>
+<li><a href="apps.html#steam_apps_is_subscribed">steam_apps_is_subscribed</a></li>
+<li><a href="apps.html#steam_apps_is_subscribed_app">steam_apps_is_subscribed_app</a></li>
+<li><a href="apps.html#steam_apps_is_subscribed_from_family_sharing">steam_apps_is_subscribed_from_family_sharing</a></li>
+<li><a href="apps.html#steam_apps_is_subscribed_from_free_weekend">steam_apps_is_subscribed_from_free_weekend</a></li>
+<li><a href="apps.html#steam_apps_is_timed_trial">steam_apps_is_timed_trial</a></li>
+<li><a href="apps.html#steam_apps_is_vac_banned">steam_apps_is_vac_banned</a></li>
+<li><a href="apps.html#steam_apps_get_app_build_id">steam_apps_get_app_build_id</a></li>
+<li><a href="apps.html#steam_apps_get_app_install_dir">steam_apps_get_app_install_dir</a></li>
+<li><a href="apps.html#steam_apps_get_app_owner">steam_apps_get_app_owner</a></li>
+<li><a href="apps.html#steam_apps_get_available_game_languages">steam_apps_get_available_game_languages</a></li>
+<li><a href="apps.html#steam_apps_get_current_beta_name">steam_apps_get_current_beta_name</a></li>
+<li><a href="apps.html#steam_apps_get_num_betas">steam_apps_get_num_betas</a></li>
+<li><a href="apps.html#steam_apps_get_beta_info">steam_apps_get_beta_info</a></li>
+<li><a href="apps.html#steam_apps_set_active_beta">steam_apps_set_active_beta</a></li>
+<li><a href="apps.html#steam_apps_get_current_game_language">steam_apps_get_current_game_language</a></li>
+<li><a href="apps.html#steam_apps_get_dlc_count">steam_apps_get_dlc_count</a></li>
+<li><a href="apps.html#steam_apps_get_dlc_download_progress">steam_apps_get_dlc_download_progress</a></li>
+<li><a href="apps.html#steam_apps_get_app_ownership_ticket_data">steam_apps_get_app_ownership_ticket_data</a></li>
+<li><a href="apps.html#steam_apps_get_earliest_purchase_unix_time">steam_apps_get_earliest_purchase_unix_time</a></li>
+<li><a href="apps.html#steam_apps_get_file_details">steam_apps_get_file_details</a></li>
+<li><a href="apps.html#steam_apps_get_installed_depots">steam_apps_get_installed_depots</a></li>
+<li><a href="apps.html#steam_apps_get_launch_command_line">steam_apps_get_launch_command_line</a></li>
+<li><a href="apps.html#steam_apps_get_launch_query_param">steam_apps_get_launch_query_param</a></li>
+<li><a href="apps.html#steam_apps_install_dlc">steam_apps_install_dlc</a></li>
+<li><a href="apps.html#steam_apps_mark_content_corrupt">steam_apps_mark_content_corrupt</a></li>
+<li><a href="apps.html#steam_apps_uninstall_dlc">steam_apps_uninstall_dlc</a></li>
+<li><a href="apps.html#steam_apps_set_callback_dlc_installed">steam_apps_set_callback_dlc_installed</a></li>
+<li><a href="apps.html#steam_apps_clear_callback_dlc_installed">steam_apps_clear_callback_dlc_installed</a></li>
+</ul>
+<h2 id="constants">Constants<a class="headerlink" href="#constants" title="Permanent link">&para;</a></h2>
+<p>These are the constants and enums of the Apps module:</p>
+<ul>
+<li><a href="apps.html#steamappsbetabranchflags">SteamAppsBetaBranchFlags</a></li>
+</ul>
+<h2 id="structs">Structs<a class="headerlink" href="#structs" title="Permanent link">&para;</a></h2>
+<p>These are the structs of the Apps module:</p>
+<ul>
+<li><a href="apps.html#steamappsfiledetailsresult">SteamAppsFileDetailsResult</a></li>
+<li><a href="apps.html#steamappsdlcdata">SteamAppsDlcData</a></li>
+<li><a href="apps.html#steamappsistimedtrialresult">SteamAppsIsTimedTrialResult</a></li>
+<li><a href="apps.html#steamappsnumbetas">SteamAppsNumBetas</a></li>
+<li><a href="apps.html#steamappsbetainfo">SteamAppsBetaInfo</a></li>
+<li><a href="apps.html#steamappsdlcdownloadprogress">SteamAppsDlcDownloadProgress</a></li>
+<li><a href="apps.html#steamappsdlcinstalled">SteamAppsDlcInstalled</a></li>
+</ul>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_apps_get_dlc_data_by_index">steam_apps_get_dlc_data_by_index<a class="headerlink" href="#steam_apps_get_dlc_data_by_index" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamApps#BGetDLCDataByIndex">ISteamApps#BGetDLCDataByIndex</a></p>
+</blockquote>
+<p>This function returns metadata for a DLC by index.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<pre class="highlight"><code class="language-gml">steam_apps_get_dlc_data_by_index(dlc)</code></pre>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>dlc</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>Index of the DLC to get between 0 and <a href="apps.html#steam_apps_get_dlc_count">steam_apps_get_dlc_count</a>.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="apps.html#steamappsdlcdata">SteamAppsDlcData</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_apps_is_app_installed">steam_apps_is_app_installed<a class="headerlink" href="#steam_apps_is_app_installed" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamApps#BIsAppInstalled">ISteamApps::BIsAppInstalled</a></p>
+</blockquote>
+<p>This function checks if a specific app is installed.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Should only be used for simple client side checks - not intended for granting in-game items.</p>
+</div>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<pre class="highlight"><code class="language-gml">steam_apps_is_app_installed(app_id)</code></pre>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>app_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The App ID of the DLC to check.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><code>true</code> if the user owns the DLC and it's currently installed, otherwise <code>false</code>.</p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_apps_is_dlc_installed">steam_apps_is_dlc_installed<a class="headerlink" href="#steam_apps_is_dlc_installed" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamApps#BIsDlcInstalled">ISteamApps::BIsDlcInstalled</a></p>
+</blockquote>
+<p>This function checks if the user owns a specific DLC and if the DLC is installed.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Should only be used for simple client side checks - not intended for granting in-game items.</p>
+</div>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<pre class="highlight"><code class="language-gml">steam_apps_is_dlc_installed(app_id)</code></pre>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>app_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The App ID of the DLC to check.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><code>true</code> if the user owns the DLC and it's currently installed, otherwise <code>false</code>.</p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_apps_is_low_violence">steam_apps_is_low_violence<a class="headerlink" href="#steam_apps_is_low_violence" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamApps#BIsLowViolence">ISteamApps::BIsLowViolence</a></p>
+</blockquote>
+<p>This function checks if the licence owned by the user provides low violence depots.</p>
+<p>Low violence depots are useful for copies sold in countries that have content restrictions.</p>
+<p>See also: <a href="https://partner.steamgames.com/doc/store/application/depots#depot_mounting_rules">Depot Mounting Rules</a></p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<pre class="highlight"><code class="language-gml">steam_apps_is_low_violence()</code></pre>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><code>true</code> if the licence owned by the user provides low violence depots; otherwise, <code>false</code>.</p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_apps_is_subscribed">steam_apps_is_subscribed<a class="headerlink" href="#steam_apps_is_subscribed" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamApps#BIsSubscribed">ISteamApps::BIsSubscribed</a></p>
+</blockquote>
+<p>This function checks if the active user is subscribed to the current App ID.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This will always return <code>true</code> if you're using Steam DRM or calling <a href="api.html#steam_api_restart_app_if_necessary">steam_api_restart_app_if_necessary</a>.</p>
+</div>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<pre class="highlight"><code class="language-gml">steam_apps_is_subscribed()</code></pre>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_apps_is_subscribed_app">steam_apps_is_subscribed_app<a class="headerlink" href="#steam_apps_is_subscribed_app" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamApps#BIsSubscribedApp">ISteamApps::BIsSubscribedApp</a></p>
+</blockquote>
+<p>This function checks if the active user is subscribed to a specified App ID.</p>
+<p>Only use this if you need to check ownership of another game related to yours, a demo for example.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<pre class="highlight"><code class="language-gml">steam_apps_is_subscribed_app(app_id)</code></pre>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>app_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The App ID to check.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_apps_is_subscribed_from_family_sharing">steam_apps_is_subscribed_from_family_sharing<a class="headerlink" href="#steam_apps_is_subscribed_from_family_sharing" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamApps#BIsSubscribedFromFamilySharing">ISteamApps::BIsSubscribedFromFamilySharing</a></p>
+</blockquote>
+<p>This function checks if the active user is accessing the current app ID via a temporary Family Shared licence owned by another user.</p>
+<p>If you need to determine the Steam ID of the permanent owner of the licence, use <a href="apps.html#steam_apps_get_app_owner">steam_apps_get_app_owner</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<pre class="highlight"><code class="language-gml">steam_apps_is_subscribed_from_family_sharing()</code></pre>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_apps_is_subscribed_from_free_weekend">steam_apps_is_subscribed_from_free_weekend<a class="headerlink" href="#steam_apps_is_subscribed_from_free_weekend" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamApps#BIsSubscribedFromFreeWeekend">ISteamApps::BIsSubscribedFromFreeWeekend</a></p>
+</blockquote>
+<p>This function checks if the user is subscribed to the current app ID through a free weekend.</p>
+<p>Before using this please contact a Valve technical account manager via the <a href="http://steamcommunity.com/groups/steamworks/discussions">Steamworks Discussion Board</a> to properly package and secure your free weekend.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<pre class="highlight"><code class="language-gml">steam_apps_is_subscribed_from_free_weekend()</code></pre>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_apps_is_timed_trial">steam_apps_is_timed_trial<a class="headerlink" href="#steam_apps_is_timed_trial" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamApps#BIsTimedTrial">ISteamApps::BIsTimedTrial</a></p>
+</blockquote>
+<p>This function checks if the user is subscribed to the current app ID through a timed trial. If so, returns a valid struct containing the total time the timed trial is allowed to play, along with the current amount of time the user has played.</p>
+<p>See also: <a href="https://partner.steamgames.com/doc/api/ISteamApps#TimedTrialStatus_t">TimedTrialStatus_t</a></p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<pre class="highlight"><code class="language-gml">steam_apps_is_timed_trial()</code></pre>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="apps.html#steamappsistimedtrialresult">SteamAppsIsTimedTrialResult</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_apps_is_vac_banned">steam_apps_is_vac_banned<a class="headerlink" href="#steam_apps_is_vac_banned" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamApps#BIsVACBanned">ISteamApps::BIsVACBanned</a></p>
+</blockquote>
+<p>This function checks if the user has a VAC ban on their account.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<pre class="highlight"><code class="language-gml">steam_apps_is_vac_banned()</code></pre>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_apps_get_app_build_id">steam_apps_get_app_build_id<a class="headerlink" href="#steam_apps_get_app_build_id" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamApps#GetAppBuildId">ISteamApps::GetAppBuildId</a></p>
+</blockquote>
+<p>This function gets the buildid of this app, may change at any time based on backend updates to the game.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<pre class="highlight"><code class="language-gml">steam_apps_get_app_build_id()</code></pre>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p>The current Build Id of this App. Defaults to 0 if you're not running a build downloaded from Steam.</p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_apps_get_app_install_dir">steam_apps_get_app_install_dir<a class="headerlink" href="#steam_apps_get_app_install_dir" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamApps#GetAppInstallDir">ISteamApps::GetAppInstallDir</a></p>
+</blockquote>
+<p>This function gets the install folder for a specific App ID.</p>
+<p>This works even if the application is not installed, based on where the game would be installed with the default Steam library location.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<pre class="highlight"><code class="language-gml">steam_apps_get_app_install_dir(app_id)</code></pre>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>app_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The App ID to get the install dir for.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_apps_get_app_owner">steam_apps_get_app_owner<a class="headerlink" href="#steam_apps_get_app_owner" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamApps#GetAppOwner">ISteamApps::GetAppOwner</a></p>
+</blockquote>
+<p>This function gets the Steam ID of the true owner of the current app. This is different from the current user if they are accessing this app via Family Sharing.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<pre class="highlight"><code class="language-gml">steam_apps_get_app_owner()</code></pre>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_apps_get_available_game_languages">steam_apps_get_available_game_languages<a class="headerlink" href="#steam_apps_get_available_game_languages" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamApps#GetAvailableGameLanguages">ISteamApps::GetAvailableGameLanguages</a></p>
+</blockquote>
+<p>This function gets a comma separated list of the languages the current app supports.</p>
+<p>For the full list of languages that may be returned see <a href="https://partner.steamgames.com/doc/store/localization">Localization and Languages</a>.</p>
+<p>See also: <a href="apps.html#steam_apps_get_current_game_language">steam_apps_get_current_game_language</a>, <a href="utils.html#steam_utils_get_steam_ui_language">steam_utils_get_steam_ui_language</a></p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<pre class="highlight"><code class="language-gml">steam_apps_get_available_game_languages()</code></pre>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_apps_get_current_beta_name">steam_apps_get_current_beta_name<a class="headerlink" href="#steam_apps_get_current_beta_name" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamApps#GetCurrentBetaName">ISteamApps::GetCurrentBetaName</a></p>
+</blockquote>
+<p>This function checks if the user is running from a beta branch, and gets the name of the branch if they are.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<pre class="highlight"><code class="language-gml">steam_apps_get_current_beta_name()</code></pre>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_apps_get_num_betas">steam_apps_get_num_betas<a class="headerlink" href="#steam_apps_get_num_betas" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamApps#GetNumBetas">ISteamApps::GetNumBetas</a></p>
+</blockquote>
+<p>This function returns the total number of known app branches (including default "public" branch) which can be iterated with <a href="apps.html#steam_apps_get_beta_info">steam_apps_get_beta_info</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<pre class="highlight"><code class="language-gml">steam_apps_get_num_betas()</code></pre>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="apps.html#steamappsnumbetas">SteamAppsNumBetas</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_apps_get_beta_info">steam_apps_get_beta_info<a class="headerlink" href="#steam_apps_get_beta_info" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamApps#GetBetaInfo">ISteamApps::GetBetaInfo</a></p>
+</blockquote>
+<p>This function gets details about an app beta branch like name, description and state.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<pre class="highlight"><code class="language-gml">steam_apps_get_beta_info(beta_index)</code></pre>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>beta_index</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>Branch index starting at 0 which is always the default branch.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="apps.html#steamappsbetainfo">SteamAppsBetaInfo</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_apps_set_active_beta">steam_apps_set_active_beta<a class="headerlink" href="#steam_apps_set_active_beta" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamApps#SetActiveBeta">ISteamApps::SetActiveBeta</a></p>
+</blockquote>
+<p>This function selects a beta branch for this app as active, might need the game to restart so Steam can update its content to that branch.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<pre class="highlight"><code class="language-gml">steam_apps_set_active_beta(beta_name)</code></pre>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>beta_name</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>Beta name the game wants to switch to.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_apps_get_current_game_language">steam_apps_get_current_game_language<a class="headerlink" href="#steam_apps_get_current_game_language" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamApps#GetCurrentGameLanguage">ISteamApps::GetCurrentGameLanguage</a></p>
+</blockquote>
+<p>This function gets the current language that the user has set.</p>
+<p>This falls back to the Steam UI language if the user hasn't explicitly picked a language for the title.</p>
+<p>For the full list of languages see <a href="https://partner.steamgames.com/doc/store/localization/languages">Supported Languages</a>.</p>
+<p>See also: <a href="apps.html#steam_apps_get_available_game_languages">steam_apps_get_available_game_languages</a>, <a href="utils.html#steam_utils_get_steam_ui_language">steam_utils_get_steam_ui_language</a></p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<pre class="highlight"><code class="language-gml">steam_apps_get_current_game_language()</code></pre>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_apps_get_dlc_count">steam_apps_get_dlc_count<a class="headerlink" href="#steam_apps_get_dlc_count" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamApps#GetDLCCount">ISteamApps::GetDLCCount</a></p>
+</blockquote>
+<p>This function gets the number of DLC pieces for the current app.</p>
+<p>This is typically used to loop through each piece of DLC and get the info about each one with <a href="apps.html#steam_apps_get_dlc_data_by_index">steam_apps_get_dlc_data_by_index</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<pre class="highlight"><code class="language-gml">steam_apps_get_dlc_count()</code></pre>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p>The number of DLC pieces for the current app. Note that this value may max out at 64, depending on how much unowned DLC the user has. If your app has a large number of DLC, you should set your own internal list of known DLC to check against.</p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_apps_get_dlc_download_progress">steam_apps_get_dlc_download_progress<a class="headerlink" href="#steam_apps_get_dlc_download_progress" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamApps#GetDlcDownloadProgress">ISteamApps::GetDlcDownloadProgress</a></p>
+</blockquote>
+<p>This function gets the download progress for optional DLC.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<pre class="highlight"><code class="language-gml">steam_apps_get_dlc_download_progress(app_id)</code></pre>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>app_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The App ID of the DLC to monitor.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="apps.html#steamappsdlcdownloadprogress">SteamAppsDlcDownloadProgress</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_apps_get_app_ownership_ticket_data">steam_apps_get_app_ownership_ticket_data<a class="headerlink" href="#steam_apps_get_app_ownership_ticket_data" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamAppTicket">ISteamAppTicket::GetAppOwnershipTicketData</a></p>
+</blockquote>
+<p>This function gets the app ownership ticket data for the given app ID.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<pre class="highlight"><code class="language-gml">steam_apps_get_app_ownership_ticket_data(app_id, ticket_buffer)</code></pre>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>app_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The App ID to get the ownership ticket data for.</td>
+</tr>
+<tr>
+<td>ticket_buffer</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Buffers/Buffers.htm">Buffer</a></td>
+<td>The buffer to write the ownership ticket data into.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_apps_get_earliest_purchase_unix_time">steam_apps_get_earliest_purchase_unix_time<a class="headerlink" href="#steam_apps_get_earliest_purchase_unix_time" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamApps#GetEarliestPurchaseUnixTime">ISteamApps::GetEarliestPurchaseUnixTime</a></p>
+</blockquote>
+<p>This function gets the time of purchase of the specified app in Unix epoch format (time since Jan 1st, 1970).</p>
+<p>This is useful for rewarding users based on their initial purchase date.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<pre class="highlight"><code class="language-gml">steam_apps_get_earliest_purchase_unix_time(app_id)</code></pre>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>app_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The App ID to get the purchase time for.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_apps_get_file_details">steam_apps_get_file_details<a class="headerlink" href="#steam_apps_get_file_details" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamApps#GetFileDetails">ISteamApps::GetFileDetails</a></p>
+</blockquote>
+<p>This function asynchronously retrieves metadata details about a specific file in the depot manifest.</p>
+<p>This function operates asynchronously, which means that it does not immediately return the requested result. Instead, upon completion of the task, it will trigger the <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<pre class="highlight"><code class="language-gml">steam_apps_get_file_details(file_name, callback)</code></pre>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>file_name</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The absolute path and name to the file.</td>
+</tr>
+<tr>
+<td>callback</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Script_Functions.htm">Function</a></td>
+<td>The function to call upon completion.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<p><strong>Triggers:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a></p>
+<p><strong>Steamworks Callback</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamApps#FileDetailsResult_t">ISteamApps::FileDetailsResult_t</a></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>result</td>
+<td><a href="apps.html#steamappsfiledetailsresult">SteamAppsFileDetailsResult</a></td>
+<td>The result of the operation.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_apps_get_installed_depots">steam_apps_get_installed_depots<a class="headerlink" href="#steam_apps_get_installed_depots" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamApps#GetInstalledDepots">ISteamApps::GetInstalledDepots</a></p>
+</blockquote>
+<p>This function gets a list of all installed depots for a given App ID in mount order.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<pre class="highlight"><code class="language-gml">steam_apps_get_installed_depots(app_id, max_depots)</code></pre>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>app_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The App to list the depots for.</td>
+</tr>
+<tr>
+<td>max_depots</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The maximum number of depots to obtain.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Arrays.htm">Array</a> of <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p>An array holding the unique identifiers of the depots.</p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_apps_get_launch_command_line">steam_apps_get_launch_command_line<a class="headerlink" href="#steam_apps_get_launch_command_line" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamApps#GetLaunchCommandLine">ISteamApps::GetLaunchCommandLine</a></p>
+</blockquote>
+<p>This function gets the command line if the game was launched via Steam URL, e.g. <code>"steam://run/&lt;appid&gt;//&lt;command line&gt;/"</code>. This method is preferable to launching with a command line via the operating system, which can be a security risk. In order for rich presence joins to go through this and not be placed on the OS command line, you must enable "Use launch command line" from the Installation &gt; General page on your app.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<pre class="highlight"><code class="language-gml">steam_apps_get_launch_command_line()</code></pre>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_apps_get_launch_query_param">steam_apps_get_launch_query_param<a class="headerlink" href="#steam_apps_get_launch_query_param" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamApps#GetLaunchQueryParam">ISteamApps::GetLaunchQueryParam</a></p>
+</blockquote>
+<p>This function gets the associated launch parameter if the game is run via <code>"steam://run/&lt;appid&gt;/?param1=value1;param2=value2;param3=value3"</code>, etc.</p>
+<p>Parameter names starting with the character <code>"@"</code> are reserved for internal use and will always return an empty string <code>""</code>.
+Parameter names starting with an underscore <code>"_"</code> are reserved for Steam features -- they can be queried by the game, but it is advised that you do not use param names beginning with an underscore for your own features.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<pre class="highlight"><code class="language-gml">steam_apps_get_launch_query_param(key)</code></pre>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>key</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The launch key to test for, e.g. <code>"param1"</code>.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></p>
+</blockquote>
+<p>The value associated with the key provided, or an empty string (<code>""</code>) if the specified key does not exist.</p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_apps_install_dlc">steam_apps_install_dlc<a class="headerlink" href="#steam_apps_install_dlc" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamApps#InstallDLC">ISteamApps::InstallDLC</a></p>
+</blockquote>
+<p>This function allows you to install an optional DLC.</p>
+<p>Note that the result is delivered through the callback set with <a href="apps.html#steam_apps_set_callback_dlc_installed">steam_apps_set_callback_dlc_installed</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<pre class="highlight"><code class="language-gml">steam_apps_install_dlc(app_id)</code></pre>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>app_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The DLC you want to install.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_apps_mark_content_corrupt">steam_apps_mark_content_corrupt<a class="headerlink" href="#steam_apps_mark_content_corrupt" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamApps#MarkContentCorrupt">ISteamApps::MarkContentCorrupt</a></p>
+</blockquote>
+<p>This function allows you to force verify game content on next launch.</p>
+<p>If you detect the game is out-of-date (for example, by having the client detect a version mismatch with a server), you can call <a href="apps.html#steam_apps_mark_content_corrupt">steam_apps_mark_content_corrupt</a> to force a verify, show a message to the user, and then quit.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<pre class="highlight"><code class="language-gml">steam_apps_mark_content_corrupt(missing_files_only)</code></pre>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>missing_files_only</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></td>
+<td>Only scan for missing files, don't verify the checksum of each file.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_apps_uninstall_dlc">steam_apps_uninstall_dlc<a class="headerlink" href="#steam_apps_uninstall_dlc" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamApps#UninstallDLC">ISteamApps::UninstallDLC</a></p>
+</blockquote>
+<p>This function allows you to uninstall an optional DLC.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<pre class="highlight"><code class="language-gml">steam_apps_uninstall_dlc(app_id)</code></pre>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>app_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The DLC you want to uninstall.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_apps_set_callback_dlc_installed">steam_apps_set_callback_dlc_installed<a class="headerlink" href="#steam_apps_set_callback_dlc_installed" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: N / A</p>
+</blockquote>
+<p>This function sets the callback function to be triggered after the current user gains ownership of DLC and that DLC is installed.</p>
+<p>This function operates asynchronously, which means that it does not immediately return the requested result. Instead, upon completion of the task, it will trigger the <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<pre class="highlight"><code class="language-gml">steam_apps_set_callback_dlc_installed(callback)</code></pre>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>callback</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Script_Functions.htm">Function</a></td>
+<td>The function to be used as the callback function.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<p><strong>Triggers:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a></p>
+<p><strong>Steamworks Callback</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamApps#DlcInstalled_t">ISteamApps::DlcInstalled_t</a></p>
+</blockquote>
+<p>Called after the current user gains ownership of a DLC and that DLC is installed.</p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>result</td>
+<td><a href="apps.html#steamappsdlcinstalled">SteamAppsDlcInstalled</a></td>
+<td>The details of the installed DLC.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steam_apps_clear_callback_dlc_installed">steam_apps_clear_callback_dlc_installed<a class="headerlink" href="#steam_apps_clear_callback_dlc_installed" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p><strong>Steamworks Function</strong>: N / A</p>
+</blockquote>
+<p>This function clears the callback function previously set using <a href="apps.html#steam_apps_set_callback_dlc_installed">steam_apps_set_callback_dlc_installed</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<pre class="highlight"><code class="language-gml">steam_apps_clear_callback_dlc_installed()</code></pre>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p>N/A</p>
+</blockquote>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steamappsbetabranchflags">SteamAppsBetaBranchFlags<a class="headerlink" href="#steamappsbetabranchflags" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p><strong>Steamworks Enum</strong>: <a href="https://github.com/ValveSoftware/GameNetworkingSockets/blob/master/include/steam/steamclientpublic.h#L464">EBetaBranchFlags</a></p>
+</blockquote>
+<p>This enum holds the possible flags describing current branch state.</p>
+<p>These constants are referenced by the following structs:</p>
+<ul>
+<li><a href="apps.html#steamappsbetainfo">SteamAppsBetaInfo</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>None</code></td>
+<td>None.</td>
+</tr>
+<tr>
+<td><code>Default</code></td>
+<td>The default branch ("public").</td>
+</tr>
+<tr>
+<td><code>Available</code></td>
+<td>This branch can be selected (available).</td>
+</tr>
+<tr>
+<td><code>Private</code></td>
+<td>This is a private branch (password protected).</td>
+</tr>
+<tr>
+<td><code>Selected</code></td>
+<td>This is the currently selected branch (active).</td>
+</tr>
+<tr>
+<td><code>Installed</code></td>
+<td>This is the currently installed branch (mounted).</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steamappsfiledetailsresult">SteamAppsFileDetailsResult<a class="headerlink" href="#steamappsfiledetailsresult" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p><strong>Steamworks Struct</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamApps#FileDetailsResult_t">ISteamApps::FileDetailsResult_t</a></p>
+</blockquote>
+<p>This struct holds information received after requesting the details of a specific file.</p>
+<p>This struct is referenced by the following functions:</p>
+<ul>
+<li><a href="apps.html#steam_apps_get_file_details">steam_apps_get_file_details</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>result</td>
+<td><a href="api.html#steamapiresult">SteamApiResult</a></td>
+<td>Was the call successful? <code>SteamApiResult.Ok</code> if it was; otherwise, <code>SteamApiResult.FileNotFound</code> if the file was not found. None of the other fields are filled out if the call was not successful.</td>
+</tr>
+<tr>
+<td>file_size</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The original file size in bytes.</td>
+</tr>
+<tr>
+<td>flags</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The file's flags.</td>
+</tr>
+<tr>
+<td>sha1</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The original file SHA-1 hash.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steamappsdlcdata">SteamAppsDlcData<a class="headerlink" href="#steamappsdlcdata" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p><strong>Steamworks Struct</strong>: N / A</p>
+</blockquote>
+<p>This struct holds metadata about a DLC.</p>
+<p>This struct is referenced by the following functions:</p>
+<ul>
+<li><a href="apps.html#steam_apps_get_dlc_data_by_index">steam_apps_get_dlc_data_by_index</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>app_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The App ID of the DLC.</td>
+</tr>
+<tr>
+<td>available</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></td>
+<td>Whether the DLC is currently available on the Steam store. Will be <code>false</code> if the DLC does not have a visible store page.</td>
+</tr>
+<tr>
+<td>name</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The name of the DLC.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steamappsistimedtrialresult">SteamAppsIsTimedTrialResult<a class="headerlink" href="#steamappsistimedtrialresult" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p><strong>Steamworks Struct</strong>: N / A</p>
+</blockquote>
+<p>This struct holds information about a timed trial.</p>
+<p>This struct is referenced by the following functions:</p>
+<ul>
+<li><a href="apps.html#steam_apps_is_timed_trial">steam_apps_is_timed_trial</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>seconds_allowed</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The number of seconds the timed trial will last.</td>
+</tr>
+<tr>
+<td>seconds_played</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The number of seconds that the user has played so far.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steamappsnumbetas">SteamAppsNumBetas<a class="headerlink" href="#steamappsnumbetas" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p><strong>Steamworks Struct</strong>: N / A</p>
+</blockquote>
+<p>This struct holds information on app and beta branches, as returned by <a href="apps.html#steam_apps_get_num_betas">steam_apps_get_num_betas</a>.</p>
+<p>This struct is referenced by the following functions:</p>
+<ul>
+<li><a href="apps.html#steam_apps_get_num_betas">steam_apps_get_num_betas</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>total</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The total number of known app branches.</td>
+</tr>
+<tr>
+<td>available</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The number of beta branches available to the current user.</td>
+</tr>
+<tr>
+<td>private_count</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>How many of these are private betas.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steamappsbetainfo">SteamAppsBetaInfo<a class="headerlink" href="#steamappsbetainfo" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p><strong>Steamworks Struct</strong>: N / A</p>
+</blockquote>
+<p>This struct holds details about an app beta branch.</p>
+<p>This struct is referenced by the following functions:</p>
+<ul>
+<li><a href="apps.html#steam_apps_get_beta_info">steam_apps_get_beta_info</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>flags</td>
+<td><a href="apps.html#steamappsbetabranchflags">SteamAppsBetaBranchFlags</a></td>
+<td>Set of flags describing current branch state.</td>
+</tr>
+<tr>
+<td>build_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>Content BuildID set live on this branch.</td>
+</tr>
+<tr>
+<td>beta_name</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>Beta branch name.</td>
+</tr>
+<tr>
+<td>description</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>Beta branch description.</td>
+</tr>
+<tr>
+<td>last_updated</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The Unix time (in seconds) at which the branch was last updated.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steamappsdlcdownloadprogress">SteamAppsDlcDownloadProgress<a class="headerlink" href="#steamappsdlcdownloadprogress" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p><strong>Steamworks Struct</strong>: N / A</p>
+</blockquote>
+<p>This struct holds the download progress for optional DLC.</p>
+<p>This struct is referenced by the following functions:</p>
+<ul>
+<li><a href="apps.html#steam_apps_get_dlc_download_progress">steam_apps_get_dlc_download_progress</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>bytes_downloaded</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The number of bytes downloaded.</td>
+</tr>
+<tr>
+<td>bytes_total</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The total size of the download in bytes.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="steamappsdlcinstalled">SteamAppsDlcInstalled<a class="headerlink" href="#steamappsdlcinstalled" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p><strong>Steamworks Struct</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamApps#DlcInstalled_t">ISteamApps::DlcInstalled_t</a></p>
+</blockquote>
+<p>This struct holds information received after the current user gains ownership of DLC and that DLC is installed.</p>
+<p>This struct is referenced by the following functions:</p>
+<ul>
+<li><a href="apps.html#steam_apps_set_callback_dlc_installed">steam_apps_set_callback_dlc_installed</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>app_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>App ID of the DLC that was installed.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      <p align="center">GameMaker 2026</p>
+    </div>
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["navigation.top", "navigation.tracking", "toc.follow", "content.code.copy"], "search": "assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/gml.min.js"></script>
+      
+        <script src="assets/js/hljs-init.js"></script>
+      
+        <script src="assets/js/resize-columns.js"></script>
+      
+    
+  </body>
+</html>

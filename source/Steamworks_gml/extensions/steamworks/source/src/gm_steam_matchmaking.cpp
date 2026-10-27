@@ -1,0 +1,645 @@
+﻿#include "GMSteamworks.h"
+#include "steam_async_common.h"
+
+#include <steam/steam_api.h>
+#include <steam/isteammatchmaking.h>
+
+#include <algorithm>
+#include <cstdint>
+#include <optional>
+#include <string>
+#include <string_view>
+#include <vector>
+#include <mutex>
+
+static inline ISteamMatchmaking* steam_matchmaking_iface()
+{
+    if (!steam_api_is_initialized()) {
+        steam_set_last_error("Steam Matchmaking: Steam API not initialized (call steam_api_init first).");
+        return nullptr;
+    }
+
+    ISteamMatchmaking* mm = SteamMatchmaking();
+    if (!mm)
+        steam_set_last_error("Steam Matchmaking: SteamMatchmaking() returned NULL.");
+
+    return mm;
+}
+
+static std::mutex g_callbacks_mtx;
+
+static gm::wire::GMFunction g_cb_lobby_data_update = nullptr;
+static gm::wire::GMFunction g_cb_lobby_chat_update = nullptr;
+static gm::wire::GMFunction g_cb_lobby_chat_msg = nullptr;
+static gm::wire::GMFunction g_cb_lobby_game_created = nullptr;
+static gm::wire::GMFunction g_cb_lobby_invite = nullptr;
+
+static inline gm_structs::SteamMatchmakingLobbyDataUpdate mm_fromNative(const LobbyDataUpdate_t& e)
+{
+    gm_structs::SteamMatchmakingLobbyDataUpdate out{};
+    out.lobby_id = (std::uint64_t)e.m_ulSteamIDLobby;
+    out.member_id = (std::uint64_t)e.m_ulSteamIDMember;
+    out.success = (e.m_bSuccess != 0);
+    return out;
+}
+
+static inline gm_structs::SteamMatchmakingLobbyChatUpdate mm_fromNative(const LobbyChatUpdate_t& e)
+{
+    gm_structs::SteamMatchmakingLobbyChatUpdate out{};
+    out.lobby_id = (std::uint64_t)e.m_ulSteamIDLobby;
+    out.user_changed_id = (std::uint64_t)e.m_ulSteamIDUserChanged;
+    out.making_change_id = (std::uint64_t)e.m_ulSteamIDMakingChange;
+    out.chat_member_state_change = static_cast<gm_enums::SteamMatchmakingChatMemberStateChange>(e.m_rgfChatMemberStateChange);
+    return out;
+}
+
+static inline gm_structs::SteamMatchmakingLobbyChatMsg mm_fromNative(const LobbyChatMsg_t& e)
+{
+    gm_structs::SteamMatchmakingLobbyChatMsg out{};
+    out.lobby_id = (std::uint64_t)e.m_ulSteamIDLobby;
+    out.sender_id = (std::uint64_t)e.m_ulSteamIDUser;
+    out.chat_entry_type = (gm_enums::SteamFriendsChatEntryType)e.m_eChatEntryType;
+    out.chat_id = e.m_iChatID;
+    return out;
+}
+
+static inline gm_structs::SteamMatchmakingLobbyGameCreated mm_fromNative(const LobbyGameCreated_t& e)
+{
+    gm_structs::SteamMatchmakingLobbyGameCreated out{};
+    out.lobby_id = (std::uint64_t)e.m_ulSteamIDLobby;
+    out.server_ip = (std::uint32_t)e.m_unIP;
+    out.server_port = (std::uint32_t)e.m_usPort;
+    out.game_server_id = (std::uint64_t)e.m_ulSteamIDGameServer;
+    return out;
+}
+
+static inline gm_structs::SteamMatchmakingLobbyInvite mm_fromNative(const LobbyInvite_t& e)
+{
+    gm_structs::SteamMatchmakingLobbyInvite out{};
+    out.inviter_id = (std::uint64_t)e.m_ulSteamIDUser;
+    out.lobby_id = (std::uint64_t)e.m_ulSteamIDLobby;
+
+    char buf[32] = {};
+    snprintf(buf, sizeof(buf), "%llu", (unsigned long long)e.m_ulGameID);
+    out.game_id = buf;
+
+    return out;
+}
+
+class SteamMatchmaking_PersistentCallbacks
+{
+public:
+    STEAM_CALLBACK(SteamMatchmaking_PersistentCallbacks, OnLobbyDataUpdate, LobbyDataUpdate_t);
+    STEAM_CALLBACK(SteamMatchmaking_PersistentCallbacks, OnLobbyChatUpdate, LobbyChatUpdate_t);
+    STEAM_CALLBACK(SteamMatchmaking_PersistentCallbacks, OnLobbyChatMsg, LobbyChatMsg_t);
+    STEAM_CALLBACK(SteamMatchmaking_PersistentCallbacks, OnLobbyGameCreated, LobbyGameCreated_t);
+    STEAM_CALLBACK(SteamMatchmaking_PersistentCallbacks, OnLobbyInvite, LobbyInvite_t);
+};
+
+void SteamMatchmaking_PersistentCallbacks::OnLobbyDataUpdate(LobbyDataUpdate_t* p)
+{
+    if (!p) return;
+    gm::wire::GMFunction cb;
+    { std::lock_guard<std::mutex> lock(g_callbacks_mtx); cb = g_cb_lobby_data_update; }
+    if (cb) cb.call(mm_fromNative(*p));
+}
+
+void SteamMatchmaking_PersistentCallbacks::OnLobbyChatUpdate(LobbyChatUpdate_t* p)
+{
+    if (!p) return;
+    gm::wire::GMFunction cb;
+    { std::lock_guard<std::mutex> lock(g_callbacks_mtx); cb = g_cb_lobby_chat_update; }
+    if (cb) cb.call(mm_fromNative(*p));
+}
+
+void SteamMatchmaking_PersistentCallbacks::OnLobbyChatMsg(LobbyChatMsg_t* p)
+{
+    if (!p) return;
+    gm::wire::GMFunction cb;
+    { std::lock_guard<std::mutex> lock(g_callbacks_mtx); cb = g_cb_lobby_chat_msg; }
+    if (cb) cb.call(mm_fromNative(*p));
+}
+
+void SteamMatchmaking_PersistentCallbacks::OnLobbyGameCreated(LobbyGameCreated_t* p)
+{
+    if (!p) return;
+    gm::wire::GMFunction cb;
+    { std::lock_guard<std::mutex> lock(g_callbacks_mtx); cb = g_cb_lobby_game_created; }
+    if (cb) cb.call(mm_fromNative(*p));
+}
+
+void SteamMatchmaking_PersistentCallbacks::OnLobbyInvite(LobbyInvite_t* p)
+{
+    if (!p) return;
+    gm::wire::GMFunction cb;
+    { std::lock_guard<std::mutex> lock(g_callbacks_mtx); cb = g_cb_lobby_invite; }
+    if (cb) cb.call(mm_fromNative(*p));
+}
+
+static SteamMatchmaking_PersistentCallbacks g_mm_callbacks;
+
+void steam_matchmaking_set_callback_lobby_data_update(const gm::wire::GMFunction& cb) { steam_clear_last_error(); std::lock_guard<std::mutex> lock(g_callbacks_mtx); g_cb_lobby_data_update = cb; }
+void steam_matchmaking_clear_callback_lobby_data_update() { steam_clear_last_error(); std::lock_guard<std::mutex> lock(g_callbacks_mtx); g_cb_lobby_data_update = nullptr; }
+
+void steam_matchmaking_set_callback_lobby_chat_update(const gm::wire::GMFunction& cb) { steam_clear_last_error(); std::lock_guard<std::mutex> lock(g_callbacks_mtx); g_cb_lobby_chat_update = cb; }
+void steam_matchmaking_clear_callback_lobby_chat_update() { steam_clear_last_error(); std::lock_guard<std::mutex> lock(g_callbacks_mtx); g_cb_lobby_chat_update = nullptr; }
+
+void steam_matchmaking_set_callback_lobby_chat_msg(const gm::wire::GMFunction& cb) { steam_clear_last_error(); std::lock_guard<std::mutex> lock(g_callbacks_mtx); g_cb_lobby_chat_msg = cb; }
+void steam_matchmaking_clear_callback_lobby_chat_msg() { steam_clear_last_error(); std::lock_guard<std::mutex> lock(g_callbacks_mtx); g_cb_lobby_chat_msg = nullptr; }
+
+void steam_matchmaking_set_callback_lobby_game_created(const gm::wire::GMFunction& cb) { steam_clear_last_error(); std::lock_guard<std::mutex> lock(g_callbacks_mtx); g_cb_lobby_game_created = cb; }
+void steam_matchmaking_clear_callback_lobby_game_created() { steam_clear_last_error(); std::lock_guard<std::mutex> lock(g_callbacks_mtx); g_cb_lobby_game_created = nullptr; }
+
+void steam_matchmaking_set_callback_lobby_invite(const gm::wire::GMFunction& cb) { steam_clear_last_error(); std::lock_guard<std::mutex> lock(g_callbacks_mtx); g_cb_lobby_invite = cb; }
+void steam_matchmaking_clear_callback_lobby_invite() { steam_clear_last_error(); std::lock_guard<std::mutex> lock(g_callbacks_mtx); g_cb_lobby_invite = nullptr; }
+
+static inline gm_structs::SteamMatchmakingLobbyCreated mm_fromNative(const LobbyCreated_t& e)
+{
+    gm_structs::SteamMatchmakingLobbyCreated out{};
+    out.result = static_cast<gm_enums::SteamApiResult>((int)e.m_eResult);
+    out.lobby_id = (std::uint64_t)e.m_ulSteamIDLobby;
+    return out;
+}
+
+static inline gm_structs::SteamMatchmakingLobbyEnter mm_fromNative(const LobbyEnter_t& e)
+{
+    gm_structs::SteamMatchmakingLobbyEnter out{};
+    out.lobby_id = (std::uint64_t)e.m_ulSteamIDLobby;
+    out.chat_permissions = (std::uint32_t)e.m_rgfChatPermissions;
+    out.locked = (e.m_bLocked != 0);
+    out.response = static_cast<gm_enums::SteamMatchmakingChatRoomEnterResponse>((int)e.m_EChatRoomEnterResponse);
+    return out;
+}
+
+static inline gm_structs::SteamMatchmakingLobbyMatchList mm_fromNative(const LobbyMatchList_t& e)
+{
+    gm_structs::SteamMatchmakingLobbyMatchList out{};
+    out.lobbies_count = (std::uint32_t)e.m_nLobbiesMatching;
+    return out;
+}
+
+void steam_matchmaking_create_lobby(gm_enums::SteamMatchmakingLobbyType lobby_type, std::int32_t max_members,  const gm::wire::GMFunction& callback)
+{
+    STEAM_GUARD();
+
+    ISteamMatchmaking* mm = steam_matchmaking_iface();
+    if (!mm) return;
+
+    SteamAPICall_t call = mm->CreateLobby((ELobbyType)(int)lobby_type, (int)max_members);
+
+    if (call == k_uAPICallInvalid) {
+        steam_set_last_error("steam_matchmaking_create_lobby: Steam API call failed to dispatch.");
+        return;
+    }
+
+    auto* h = new steam_async::CallResult<gm_structs::SteamMatchmakingLobbyCreated, LobbyCreated_t>(callback, &mm_fromNative);
+    h->set(call);
+}
+
+void steam_matchmaking_join_lobby(std::uint64_t lobby_id,  const gm::wire::GMFunction& callback)
+{
+    STEAM_GUARD();
+
+    ISteamMatchmaking* mm = steam_matchmaking_iface();
+    if (!mm) return;
+
+    SteamAPICall_t call = mm->JoinLobby(steam_id_from_u64(lobby_id));
+
+    if (call == k_uAPICallInvalid) {
+        steam_set_last_error("steam_matchmaking_join_lobby: Steam API call failed to dispatch.");
+        return;
+    }
+
+    auto* h = new steam_async::CallResult<gm_structs::SteamMatchmakingLobbyEnter, LobbyEnter_t>(callback, &mm_fromNative);
+    h->set(call);
+}
+
+void steam_matchmaking_request_lobby_list( const gm::wire::GMFunction& callback)
+{
+    STEAM_GUARD();
+
+    ISteamMatchmaking* mm = steam_matchmaking_iface();
+    if (!mm) return;
+
+    SteamAPICall_t call = mm->RequestLobbyList();
+
+    if (call == k_uAPICallInvalid) {
+        steam_set_last_error("steam_matchmaking_request_lobby_list: Steam API call failed to dispatch.");
+        return;
+    }
+
+    auto* h = new steam_async::CallResult<gm_structs::SteamMatchmakingLobbyMatchList, LobbyMatchList_t>(callback, &mm_fromNative);
+    h->set(call);
+}
+
+void steam_matchmaking_add_request_lobby_list_string_filter(std::string_view key, std::string_view value, gm_enums::SteamMatchmakingLobbyComparison comparison)
+{
+    STEAM_GUARD();
+    ISteamMatchmaking* mm = steam_matchmaking_iface();
+    if (!mm) return;
+    std::string k(key), v(value);
+    mm->AddRequestLobbyListStringFilter(k.c_str(), v.c_str(), (ELobbyComparison)(int)comparison);
+}
+
+void steam_matchmaking_add_request_lobby_list_numerical_filter(std::string_view key, std::int32_t value, gm_enums::SteamMatchmakingLobbyComparison comparison)
+{
+    STEAM_GUARD();
+    ISteamMatchmaking* mm = steam_matchmaking_iface();
+    if (!mm) return;
+    std::string k(key);
+    mm->AddRequestLobbyListNumericalFilter(k.c_str(), (int)value, (ELobbyComparison)(int)comparison);
+}
+
+void steam_matchmaking_add_request_lobby_list_near_value_filter(std::string_view key, std::int32_t value)
+{
+    STEAM_GUARD();
+    ISteamMatchmaking* mm = steam_matchmaking_iface();
+    if (!mm) return;
+    std::string k(key);
+    mm->AddRequestLobbyListNearValueFilter(k.c_str(), (int)value);
+}
+
+void steam_matchmaking_add_request_lobby_list_distance_filter(gm_enums::SteamMatchmakingLobbyDistanceFilter distance)
+{
+    STEAM_GUARD();
+    ISteamMatchmaking* mm = steam_matchmaking_iface();
+    if (!mm) return;
+    mm->AddRequestLobbyListDistanceFilter((ELobbyDistanceFilter)(int)distance);
+}
+
+void steam_matchmaking_add_request_lobby_list_result_count_filter(std::int32_t max_results)
+{
+    STEAM_GUARD();
+    ISteamMatchmaking* mm = steam_matchmaking_iface();
+    if (!mm) return;
+    mm->AddRequestLobbyListResultCountFilter((int)max_results);
+}
+
+std::uint64_t steam_matchmaking_get_lobby_by_index(std::int32_t index)
+{
+    STEAM_GUARD_RET(0);
+    ISteamMatchmaking* mm = steam_matchmaking_iface();
+    if (!mm) return 0;
+    CSteamID id = mm->GetLobbyByIndex((int)index);
+    return (std::uint64_t)id.ConvertToUint64();
+}
+
+void steam_matchmaking_leave_lobby(std::uint64_t lobby_id)
+{
+    STEAM_GUARD();
+    ISteamMatchmaking* mm = steam_matchmaking_iface();
+    if (!mm) return;
+    mm->LeaveLobby(steam_id_from_u64(lobby_id));
+}
+
+bool steam_matchmaking_set_lobby_owner(std::uint64_t lobby_id, std::uint64_t new_owner_id)
+{
+    STEAM_GUARD_RET(false);
+
+    ISteamMatchmaking* mm = steam_matchmaking_iface();
+    if (!mm) return false;
+
+    return mm->SetLobbyOwner(
+        steam_id_from_u64(lobby_id),
+        steam_id_from_u64(new_owner_id)
+    );
+}
+
+std::uint64_t steam_matchmaking_get_lobby_owner(std::uint64_t lobby_id)
+{
+    STEAM_GUARD_RET(0);
+    ISteamMatchmaking* mm = steam_matchmaking_iface();
+    if (!mm) return 0;
+    CSteamID id = mm->GetLobbyOwner(steam_id_from_u64(lobby_id));
+    return (std::uint64_t)id.ConvertToUint64();
+}
+
+bool steam_matchmaking_set_lobby_type(std::uint64_t steam_id_lobby, gm_enums::SteamMatchmakingLobbyType lobby_type)
+{
+    STEAM_GUARD_RET(false);
+    ISteamMatchmaking* mm = steam_matchmaking_iface();
+    if (!mm) return false;
+    return mm->SetLobbyType(steam_id_from_u64(steam_id_lobby), static_cast<ELobbyType>((int)lobby_type));
+}
+
+std::int32_t steam_matchmaking_get_num_lobby_members(std::uint64_t lobby_id)
+{
+    STEAM_GUARD_RET(0);
+    ISteamMatchmaking* mm = steam_matchmaking_iface();
+    if (!mm) return 0;
+    return (std::int32_t)mm->GetNumLobbyMembers(steam_id_from_u64(lobby_id));
+}
+
+std::uint64_t steam_matchmaking_get_lobby_member_by_index(std::uint64_t lobby_id, std::int32_t member_index)
+{
+    STEAM_GUARD_RET(0);
+    ISteamMatchmaking* mm = steam_matchmaking_iface();
+    if (!mm) return 0;
+    CSteamID id = mm->GetLobbyMemberByIndex(steam_id_from_u64(lobby_id), (int)member_index);
+    return (std::uint64_t)id.ConvertToUint64();
+}
+
+bool steam_matchmaking_set_lobby_data(std::uint64_t lobby_id, std::string_view key, std::string_view value)
+{
+    STEAM_GUARD_RET(false);
+    ISteamMatchmaking* mm = steam_matchmaking_iface();
+    if (!mm) return false;
+    std::string k(key), v(value);
+    return mm->SetLobbyData(steam_id_from_u64(lobby_id), k.c_str(), v.c_str());
+}
+
+std::string steam_matchmaking_get_lobby_data(std::uint64_t lobby_id, std::string_view key)
+{
+    STEAM_GUARD_RET("");
+    ISteamMatchmaking* mm = steam_matchmaking_iface();
+    if (!mm) return "";
+    std::string k(key);
+    const char* p = mm->GetLobbyData(steam_id_from_u64(lobby_id), k.c_str());
+    return p ? std::string(p) : "";
+}
+
+bool steam_matchmaking_delete_lobby_data(std::uint64_t lobby_id, std::string_view key)
+{
+    STEAM_GUARD_RET(false);
+    ISteamMatchmaking* mm = steam_matchmaking_iface();
+    if (!mm) return false;
+    std::string k(key);
+    return mm->DeleteLobbyData(steam_id_from_u64(lobby_id), k.c_str());
+}
+
+std::int32_t steam_matchmaking_get_lobby_data_count(std::uint64_t lobby_id)
+{
+    STEAM_GUARD_RET(0);
+    ISteamMatchmaking* mm = steam_matchmaking_iface();
+    if (!mm) return 0;
+    return (std::int32_t)mm->GetLobbyDataCount(steam_id_from_u64(lobby_id));
+}
+
+std::optional<gm_structs::SteamMatchmakingLobbyDataEntry> steam_matchmaking_get_lobby_data_by_index(
+    std::uint64_t lobby_id, std::int32_t index)
+{
+    STEAM_GUARD_RET(std::nullopt);
+    ISteamMatchmaking* mm = steam_matchmaking_iface();
+    if (!mm) return std::nullopt;
+
+    // Lobby metadata is always text (k_nMaxLobbyKeyLength is defined in char terms; Steam exposes no
+    // value-length query), so a fixed scratch buffer is used rather than a caller-supplied one. 4096
+    // matches this file's own SendLobbyChatMsg clamp, comfortably above any realistic metadata value.
+    // key is sized +1: k_nMaxLobbyKeyLength is the max *content* length, leaving no room for the null
+    // terminator on a key of exactly that length otherwise.
+    char key[k_nMaxLobbyKeyLength + 1] = {};
+    char value[4096] = {};
+
+    if (!mm->GetLobbyDataByIndex(steam_id_from_u64(lobby_id), (int)index, key, sizeof(key), value, sizeof(value)))
+        return std::nullopt;
+
+    gm_structs::SteamMatchmakingLobbyDataEntry out{};
+    out.key = key;
+    out.value = value;
+    return out;
+}
+
+void steam_matchmaking_set_lobby_member_data(std::uint64_t lobby_id, std::string_view key, std::string_view value)
+{
+    STEAM_GUARD();
+    ISteamMatchmaking* mm = steam_matchmaking_iface();
+    if (!mm) return;
+    std::string k(key), v(value);
+    mm->SetLobbyMemberData(steam_id_from_u64(lobby_id), k.c_str(), v.c_str());
+}
+
+std::string steam_matchmaking_get_lobby_member_data(std::uint64_t lobby_id, std::uint64_t member_id, std::string_view key)
+{
+    STEAM_GUARD_RET("");
+    ISteamMatchmaking* mm = steam_matchmaking_iface();
+    if (!mm) return "";
+    std::string k(key);
+    const char* p = mm->GetLobbyMemberData(steam_id_from_u64(lobby_id), steam_id_from_u64(member_id), k.c_str());
+    return p ? std::string(p) : "";
+}
+
+bool steam_matchmaking_send_lobby_chat_msg(std::uint64_t lobby_id, gm::wire::GMBuffer msg, std::optional<std::uint32_t> buffer_offset, std::optional<std::uint32_t> buffer_count)
+{
+    STEAM_GUARD_RET(false);
+    ISteamMatchmaking* mm = steam_matchmaking_iface();
+    if (!mm) return false;
+
+    std::uint32_t offset = buffer_offset.value_or(0);
+
+    // Validate offset before calculating default count
+    if (static_cast<std::uint64_t>(offset) >= msg.length()) {
+        steam_set_last_error("SendLobbyChatMsg: buffer_offset exceeds buffer length.");
+        return false;
+    }
+
+    // Calculate actual_count: use provided value or default to remaining buffer, capped at 4KB (Steam chat limit)
+    std::uint32_t actual_count;
+    if (buffer_count.has_value()) {
+        actual_count = buffer_count.value();
+    } else {
+        std::uint64_t remaining = msg.length() - static_cast<std::uint64_t>(offset);
+        // Steam lobby chat messages are limited to 4KB
+        actual_count = static_cast<std::uint32_t>(std::min<std::uint64_t>(remaining, 4096));
+    }
+
+    if (actual_count == 0) return false;
+
+    if ((std::uint64_t)offset + (std::uint64_t)actual_count > msg.length()) {
+        steam_set_last_error("SendLobbyChatMsg: buffer_offset + buffer_count exceeds buffer length.");
+        return false;
+    }
+
+    auto reader = msg.getReader();
+    reader.skip((size_t)offset);
+    const void* msg_data = reader.data();
+
+    return mm->SendLobbyChatMsg(steam_id_from_u64(lobby_id), msg_data, actual_count);
+}
+
+std::optional<gm_structs::SteamMatchmakingLobbyChatEntry> steam_matchmaking_get_lobby_chat_entry(std::uint64_t lobby_id, std::int32_t chat_id, gm::wire::GMBuffer out_buffer)
+{
+    STEAM_GUARD_RET(std::nullopt);
+
+    ISteamMatchmaking* mm = steam_matchmaking_iface();
+    if (!mm) return std::nullopt;
+    if (out_buffer.length() <= 0) return std::nullopt;
+
+    CSteamID sender;
+    EChatEntryType type = k_EChatEntryTypeInvalid;
+
+    // Steam exposes no chat-entry size query, so a decoupled fixed scratch buffer (independent of the
+    // caller's out_buffer) is required to make the too-small check below actually reachable, same as
+    // apps.cpp's get_app_ownership_ticket_data. 4096 matches this file's own SendLobbyChatMsg send-side
+    // clamp.
+    std::uint8_t tmp[4096];
+    int r = mm->GetLobbyChatEntry(steam_id_from_u64(lobby_id), (int)chat_id, &sender, tmp, (int)sizeof(tmp), &type);
+    if (r <= 0) return std::nullopt;
+
+    if ((std::uint64_t)r > out_buffer.length()) {
+        steam_set_last_error("steam_matchmaking_get_lobby_chat_entry: output buffer too small for chat entry.");
+        return std::nullopt;
+    }
+
+    auto w = out_buffer.getWriter();
+    w.writeBytes((const char*)tmp, r);
+
+    gm_structs::SteamMatchmakingLobbyChatEntry out{};
+    out.bytes = (std::uint32_t)r;
+    out.sender_id = (std::uint64_t)sender.ConvertToUint64();
+    out.entry_type = static_cast<gm_enums::SteamFriendsChatEntryType>((int)type);
+    return out;
+}
+
+void steam_matchmaking_add_request_lobby_list_filter_slots_available(std::int32_t slots_available)
+{
+    STEAM_GUARD();
+    ISteamMatchmaking* mm = steam_matchmaking_iface();
+    if (!mm) return;
+
+    mm->AddRequestLobbyListFilterSlotsAvailable((int)slots_available);
+}
+
+
+bool steam_matchmaking_request_lobby_data(std::uint64_t steam_id_lobby)
+{
+    STEAM_GUARD_RET(false);
+    ISteamMatchmaking* mm = steam_matchmaking_iface();
+    if (!mm) return false;
+    return mm->RequestLobbyData(steam_id_from_u64(steam_id_lobby));
+}
+
+bool steam_matchmaking_set_lobby_joinable(std::uint64_t steam_id_lobby, bool joinable)
+{
+    STEAM_GUARD_RET(false);
+    ISteamMatchmaking* mm = steam_matchmaking_iface();
+    if (!mm) return false;
+    return mm->SetLobbyJoinable(steam_id_from_u64(steam_id_lobby), joinable);
+}
+
+bool steam_matchmaking_invite_user_to_lobby(std::uint64_t steam_id_lobby, std::uint64_t steam_id_invitee)
+{
+    STEAM_GUARD_RET(false);
+    ISteamMatchmaking* mm = steam_matchmaking_iface();
+    if (!mm) return false;
+    return mm->InviteUserToLobby(steam_id_from_u64(steam_id_lobby), steam_id_from_u64(steam_id_invitee));
+}
+
+void steam_matchmaking_set_lobby_game_server(std::uint64_t steam_id_lobby, std::uint32_t ip, std::uint32_t port, std::uint64_t steam_id_gs)
+{
+    STEAM_GUARD();
+    ISteamMatchmaking* mm = steam_matchmaking_iface();
+    if (!mm) return;
+
+    if (port > 0xFFFF) {
+        steam_set_last_error("steam_matchmaking_set_lobby_game_server: port out of range (must be <= 65535).");
+        return;
+    }
+
+    mm->SetLobbyGameServer(steam_id_from_u64(steam_id_lobby), (uint32)ip, (uint16)port, steam_id_from_u64(steam_id_gs));
+}
+
+bool steam_matchmaking_set_linked_lobby(std::uint64_t steam_id_lobby, std::uint64_t steam_id_lobby_dependent)
+{
+    STEAM_GUARD_RET(false);
+    ISteamMatchmaking* mm = steam_matchmaking_iface();
+    if (!mm) return false;
+
+    return mm->SetLinkedLobby(steam_id_from_u64(steam_id_lobby), steam_id_from_u64(steam_id_lobby_dependent));
+}
+
+
+std::optional<gm_structs::SteamMatchmakingLobbyGameServer> steam_matchmaking_get_lobby_game_server(std::uint64_t steam_id_lobby)
+{
+    STEAM_GUARD_RET(std::nullopt);
+    ISteamMatchmaking* mm = steam_matchmaking_iface();
+    if (!mm) return std::nullopt;
+
+    uint32 ip = 0;
+    uint16 port = 0;
+    CSteamID gs;
+    if (!mm->GetLobbyGameServer(steam_id_from_u64(steam_id_lobby), &ip, &port, &gs))
+        return std::nullopt;
+
+    gm_structs::SteamMatchmakingLobbyGameServer out{};
+    out.ip = (std::uint32_t)ip;
+    out.port = (std::uint16_t)port;
+    out.steam_id_gs = (std::uint64_t)gs.ConvertToUint64();
+    return out;
+}
+
+std::int32_t steam_matchmaking_get_favorite_game_count()
+{
+    STEAM_GUARD_RET(0);
+    ISteamMatchmaking* mm = steam_matchmaking_iface();
+    if (!mm) return 0;
+
+    return (std::int32_t)mm->GetFavoriteGameCount();
+}
+
+std::optional<gm_structs::SteamMatchmakingFavoriteGame> steam_matchmaking_get_favorite_game(std::int32_t index)
+{
+    STEAM_GUARD_RET(std::nullopt);
+    ISteamMatchmaking* mm = steam_matchmaking_iface();
+    if (!mm) return std::nullopt;
+
+    AppId_t app_id = 0;
+    uint32 ip = 0;
+    uint16 conn_port = 0;
+    uint16 query_port = 0;
+    uint32 flags = 0;
+    uint32 last_played_time = 0;
+
+    if (!mm->GetFavoriteGame((int)index, &app_id, &ip, &conn_port, &query_port, &flags, &last_played_time))
+        return std::nullopt;
+
+    gm_structs::SteamMatchmakingFavoriteGame out{};
+    out.app_id = (std::uint32_t)app_id;
+    out.ip = (std::uint32_t)ip;
+    out.conn_port = (std::uint32_t)conn_port;
+    out.query_port = (std::uint32_t)query_port;
+    out.flags = (std::uint32_t)flags;
+    out.last_played_time = (std::uint32_t)last_played_time;
+    return out;
+}
+
+std::int32_t steam_matchmaking_add_favorite_game(std::uint32_t app_id, std::uint32_t ip, std::uint32_t conn_port, std::uint32_t query_port, std::uint32_t flags, std::uint32_t last_played_time)
+{
+    STEAM_GUARD_RET(-1);
+    ISteamMatchmaking* mm = steam_matchmaking_iface();
+    if (!mm) return -1;
+
+    std::uint16_t conn_port16 = 0;
+    if (!steam_u32_to_u16_checked(conn_port, conn_port16)) {
+        steam_set_last_error("steam_matchmaking_add_favorite_game: conn_port out of range (must be <= 65535).");
+        return -1;
+    }
+    std::uint16_t query_port16 = 0;
+    if (!steam_u32_to_u16_checked(query_port, query_port16)) {
+        steam_set_last_error("steam_matchmaking_add_favorite_game: query_port out of range (must be <= 65535).");
+        return -1;
+    }
+
+    return (std::int32_t)mm->AddFavoriteGame((AppId_t)app_id, (uint32)ip, conn_port16, query_port16, (uint32)flags, (uint32)last_played_time);
+}
+
+bool steam_matchmaking_remove_favorite_game(std::uint32_t app_id, std::uint32_t ip, std::uint32_t conn_port, std::uint32_t query_port, std::uint32_t flags)
+{
+    STEAM_GUARD_RET(false);
+    ISteamMatchmaking* mm = steam_matchmaking_iface();
+    if (!mm) return false;
+
+    std::uint16_t conn_port16 = 0;
+    if (!steam_u32_to_u16_checked(conn_port, conn_port16)) {
+        steam_set_last_error("steam_matchmaking_remove_favorite_game: conn_port out of range (must be <= 65535).");
+        return false;
+    }
+    std::uint16_t query_port16 = 0;
+    if (!steam_u32_to_u16_checked(query_port, query_port16)) {
+        steam_set_last_error("steam_matchmaking_remove_favorite_game: query_port out of range (must be <= 65535).");
+        return false;
+    }
+
+    return mm->RemoveFavoriteGame((AppId_t)app_id, (uint32)ip, conn_port16, query_port16, (uint32)flags);
+}
+
+

@@ -1,0 +1,4 @@
+
+steam_ugc_clear_callback_item_installed()
+steam_ugc_clear_callback_user_subscribed_items_list_changed()
+

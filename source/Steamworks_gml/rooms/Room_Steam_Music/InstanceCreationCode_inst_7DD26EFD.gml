@@ -1,3 +1,3 @@
 text = "Back";
 
-targetRoom = Room_Steam_Main
+targetRoom = rm_steam_main

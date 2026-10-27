@@ -1,3 +1,3 @@
 
-steam_lobby_activate_invite_overlay()
+steam_friends_activate_game_overlay_invite_dialog(global.lobby_id)
 

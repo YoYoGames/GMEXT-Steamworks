@@ -7,6 +7,28 @@ source "$(dirname "$0")/scriptUtils.sh"
 # ######################################################################################
 # Script Functions
 
+# Adds the two Hardened Runtime exceptions Steam needs to an Xcode entitlements plist (idempotent).
+# SteamAPI_Init dlopens Valve-signed 'steamclient.dylib' out of the Steam client bundle, and the overlay is
+# injected through DYLD_INSERT_LIBRARIES; a Hardened Runtime build (which notarisation requires) refuses
+# both unless the app carries these entitlements. Same pair the SDK's own
+# 'steamworksexample/osx/steamworksexample.entitlements' ships. The asset compiler only writes the
+# sandbox/network/sign-in keys into the generated project's entitlements, so they are added here.
+# Usage: entitlementsAddSteamKeys plistPath
+entitlementsAddSteamKeys() {
+    local plist="$1"
+    local key
+
+    for key in "com.apple.security.cs.disable-library-validation" "com.apple.security.cs.allow-dyld-environment-variables"; do
+        if /usr/libexec/PlistBuddy -c "Print :${key}" "$plist" >/dev/null 2>&1; then
+            continue
+        fi
+        if ! /usr/libexec/PlistBuddy -c "Add :${key} bool true" "$plist"; then
+            logError "Failed to add '${key}' to '$plist'."
+        fi
+        logInformation "Added '${key}' to '$plist'."
+    done
+}
+
 setupmacOS() {
 
     SDK_SOURCE="$SDK_PATH/redistributable_bin/osx/libsteam_api.dylib"
@@ -35,15 +57,19 @@ setupmacOS() {
 
     if [[ "$YYTARGET_runtime" == "VM" ]]; then
 
-        # Assert if xcode-tools are installed (required)
-        assertXcodeToolsInstalled
-
-        # Code sign the original library binary
-        codesign -s "${YYPLATFORM_option_mac_signing_identity}" -f --timestamp --verbose --options runtime "./libSteamworks.dylib"
-
-        # Copy and code sign dependencies
+        # Copy the Steam SDK dependency next to the extension binary
         itemCopyTo "$SDK_SOURCE" "./libsteam_api.dylib"
-        codesign -s "${YYPLATFORM_option_mac_signing_identity}" -f --timestamp --verbose --options runtime "./libsteam_api.dylib"
+
+        # Explicitly code sign the dependency (and the extension binary) with the hardened runtime so
+        # exports pass notarization. Only sign when an identity is provided so unsigned local builds
+        # still succeed (same guard as the YYC branch below).
+        if [ -n "${YYPLATFORM_option_mac_signing_identity}" ]; then
+            assertXcodeToolsInstalled
+            codesign -s "${YYPLATFORM_option_mac_signing_identity}" -f --timestamp --options runtime "./libSteamworks.dylib"
+            codesign -s "${YYPLATFORM_option_mac_signing_identity}" -f --timestamp --options runtime "./libsteam_api.dylib"
+        else
+            logWarning "No mac signing identity set; skipping explicit dylib signing (GameMaker will sign the bundle)."
+        fi
 
         # If there is an extra game.zip file here then this is a package command
         # Update the libraries inside the zip file (used for packaging)
@@ -54,14 +80,15 @@ setupmacOS() {
 
             itemCopyTo "./libSteamworks.dylib" "${TEMP_FOLDER}/assets/libSteamworks.dylib"
             itemCopyTo "./libsteam_api.dylib" "${TEMP_FOLDER}/assets/libsteam_api.dylib"
-    
+
             zipUpdate "${TEMP_FOLDER}" "game.zip"
-            rm -r ${TEMP_FOLDER}
+            rm -r "${TEMP_FOLDER}"
         fi
-
-
-        logError "Extension is not compatible with the macOS VM export, please use YYC."
     else
+
+        # Assert if xcode-tools are installed (required for code signing)
+        assertXcodeToolsInstalled
+
         # When running from CI the 'YYprojectName' will not be set use 'YYprojectPath' instead.
         if [ -z "$YYprojectName" ]; then
             YYprojectName=$(basename "${YYprojectPath%.*}")
@@ -70,8 +97,85 @@ setupmacOS() {
         # Replace spaces with underscores (this matches the assetcompiler output)
         YYfixedProjectName="${YYprojectName// /_}"
 
-        itemCopyTo "$SDK_SOURCE" "${YYfixedProjectName}/${YYfixedProjectName}/Supporting Files/libsteam_api.dylib"
+        SUPPORTING_FILES="${YYfixedProjectName}/${YYfixedProjectName}/Supporting Files"
+
+        # Copy the Steam SDK dependency next to the extension binary
+        itemCopyTo "$SDK_SOURCE" "${SUPPORTING_FILES}/libsteam_api.dylib"
+
+        # Give the app the entitlements Steam needs under the Hardened Runtime (see
+        # entitlementsAddSteamKeys). The generated project is signed by xcodebuild after this step, so
+        # this is the last point the entitlements can still be changed.
+        ENTITLEMENTS_FOUND=0
+        for f in "${SUPPORTING_FILES}"/*.entitlements; do
+            [ -f "$f" ] || continue
+            ENTITLEMENTS_FOUND=1
+            entitlementsAddSteamKeys "$f"
+        done
+        if [ "$ENTITLEMENTS_FOUND" -eq 0 ]; then
+            logWarning "No .entitlements file found in '${SUPPORTING_FILES}'; add 'com.apple.security.cs.disable-library-validation' to the Xcode project by hand or Steam will fail to initialise under the Hardened Runtime."
+        fi
+
+        # Explicitly code sign the dependency (and the extension binary) with the
+        # hardened runtime so YYC exports pass notarization. Only sign when an
+        # identity is provided so unsigned local builds still succeed.
+        if [ -n "${YYPLATFORM_option_mac_signing_identity}" ]; then
+            codesign -s "${YYPLATFORM_option_mac_signing_identity}" -f --timestamp --options runtime "${SUPPORTING_FILES}/libsteam_api.dylib"
+            if [ -f "${SUPPORTING_FILES}/libSteamworks.dylib" ]; then
+                codesign -s "${YYPLATFORM_option_mac_signing_identity}" -f --timestamp --options runtime "${SUPPORTING_FILES}/libSteamworks.dylib"
+            fi
+        else
+            logWarning "No mac signing identity set; skipping explicit dylib signing (GameMaker will sign the bundle)."
+        fi
     fi
+}
+
+# GMRT (the new runner) variant of the macOS setup.
+# Under GMRT the platform name is 'Mac' (this dispatches here) and the
+# dependencies must live inside the output 'build/assets' folder.
+setupMac() {
+
+    SDK_SOURCE="$SDK_PATH/redistributable_bin/osx/libsteam_api.dylib"
+    assertFileHashEquals $SDK_SOURCE $SDK_HASH_OSX "$ERROR_SDK_HASH"
+
+    for f in "${SDK_SOURCE}"; do
+        # Skip empty vars
+        [ -n "$f" ] || continue
+
+        if [ ! -e "$f" ]; then
+            logWarning "Not found: $f"
+            continue
+        fi
+
+        if xattr -p com.apple.quarantine "$f" >/dev/null 2>&1; then
+            logWarning "'$(basename "$f")' is quarantined. Removing com.apple.quarantine…"
+            if xattr -d com.apple.quarantine "$f" >/dev/null 2>&1; then
+                logInformation "Removed quarantine from '$f'"
+            else
+                logError "Failed to remove quarantine from '$f' (permissions/path?)."
+            fi
+        fi
+    done
+
+    echo "Copying macOS (64 bit) dependencies (GMRT)"
+
+    # GMRT expects the dependencies inside the 'build/assets' folder
+    pushd "./build/assets/" >/dev/null
+
+    itemCopyTo "$SDK_SOURCE" "./libsteam_api.dylib"
+
+    # Explicitly code sign the dependency (and the extension binary) with the
+    # hardened runtime when an identity is provided so unsigned local builds still succeed.
+    if [ -n "${YYPLATFORM_option_mac_signing_identity}" ]; then
+        assertXcodeToolsInstalled
+        codesign -s "${YYPLATFORM_option_mac_signing_identity}" -f --timestamp --options runtime "./libsteam_api.dylib"
+        if [ -f "./libSteamworks.dylib" ]; then
+            codesign -s "${YYPLATFORM_option_mac_signing_identity}" -f --timestamp --options runtime "./libSteamworks.dylib"
+        fi
+    else
+        logWarning "No mac signing identity set; skipping explicit dylib signing (GameMaker will sign the bundle)."
+    fi
+
+    popd >/dev/null
 }
 
 setupLinux() {
@@ -80,7 +184,7 @@ setupLinux() {
     assertFileHashEquals $SDK_SOURCE $SDK_HASH_LINUX "$ERROR_SDK_HASH"
 
     echo "Copying Linux (64 bit) dependencies"
-    
+
     # When running from CI the 'YYprojectName' will not be set use 'YYprojectPath' instead.
     if [ -z "$YYprojectName" ]; then
         YYprojectName=$(basename "${YYprojectPath%.*}")
@@ -95,7 +199,7 @@ setupLinux() {
     mkdir "./${TEMP_FOLDER}"
     itemCopyTo "$SDK_SOURCE" "${TEMP_FOLDER}/assets/libsteam_api.so"
     zipUpdate "${TEMP_FOLDER}" "${YYprojectName}.zip"
-    rm -r ${TEMP_FOLDER}
+    rm -r "${TEMP_FOLDER}"
 }
 
 # ######################################################################################
@@ -126,7 +230,13 @@ optionGetValue "debug" DEBUG_MODE
 ERROR_SDK_HASH="Invalid Steam SDK version, sha256 hash mismatch (expected v$SDK_VERSION)."
 
 # Checks IDE and Runtime versions
-versionLockCheck "$YYruntimeVersion" $RUNTIME_VERSION_STABLE $RUNTIME_VERSION_BETA $RUNTIME_VERSION_DEV $RUNTIME_VERSION_LTS
+# NOTE: skipped under GMRT (the new runner). GMRT does not report a legacy GameMaker runtime version
+# in 'YYruntimeVersion', so these 2022/2023-era locks can never be satisfied there - versionLockCheck
+# would fall into the LTS branch and logError out (hard 'exit 1'), killing this script before any
+# dependency is staged.
+if [ "$YYTARGET_runtime" != "GMRT" ]; then
+    versionLockCheck "$YYruntimeVersion" $RUNTIME_VERSION_STABLE $RUNTIME_VERSION_BETA $RUNTIME_VERSION_DEV $RUNTIME_VERSION_LTS
+fi
 
 # Resolve the SDK path (must exist)
 pathResolveExisting "$YYprojectDir" "$SDK_PATH" SDK_PATH
@@ -135,7 +245,7 @@ pathResolveExisting "$YYprojectDir" "$SDK_PATH" SDK_PATH
 pushd "$YYoutputFolder" >/dev/null
 
 # Call setup method depending on the platform
-# NOTE: the setup method can be (:setupmacOS or :setupLinux)
+# NOTE: the setup method can be (setupmacOS, setupMac [GMRT], setupLinux)
 setup$YYPLATFORM_name
 
 # If debug is set to 'Enabled' provide a warning to the user.

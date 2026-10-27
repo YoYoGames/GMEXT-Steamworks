@@ -1,377 +1,385 @@
+
 // FUNCTIONS
 
 /**
- * @func steam_parties_get_num_available_beacon_locations
- * @desc > **Steamworks Function**: [ISteamParties::GetNumAvailableBeaconLocations](https://partner.steamgames.com/doc/api/isteamparties#GetNumAvailableBeaconLocations)
+ * @function steam_parties_set_callback_reservation_notification
+ * @description > **Steamworks Function**: N / A
  *
- * This function returns the number of Steam locations where the local user can post a party beacon. Use the returned `count` to size UI and to decide whether ${function.steam_parties_get_available_beacon_locations} has anything useful to return.
+ * This function sets the function to be called by Steam when a user "follows" a previously created beacon. This lets you know that you should be prepared for the user to join your game.
  *
- * @returns {struct} A struct containing `ok` (${type.bool}) and `count` (${type.real}). `count` is `0` when `ok` is `false`.
+ * @param {Function} callback The function to be called when a reservation notification event occurs.
  *
- * @event steam
- * @desc This event is triggered when Steam updates the list of locations where the local user can post a party beacon.
- * @member {string} event_type The string `"steam_parties_available_beacon_locations_updated"`.
- * @member {real} count Number of available beacon locations after the update.
+ * @event callback
+ * @desc > **Steamworks Callback**: [ISteamParties::ReservationNotificationCallback_t](https://partner.steamgames.com/doc/api/ISteamParties#ReservationNotificationCallback_t)
+ *
+ * Called when a user "follows" a beacon that the current user created.
+ *
+ * @member {Struct.SteamPartiesReservationNotification} result The details of the reservation.
  * @event_end
- *
- * @example
- * ```gml
- * var _locations = steam_parties_get_num_available_beacon_locations();
- * if (_locations.ok && _locations.count > 0)
- * {
- *     show_debug_message("Party beacon locations: " + string(_locations.count));
- * }
- * ```
- * The above code checks whether Steam has any locations where this user can advertise a party.
- * @func_end
+ * @function_end 
  */
 
 /**
- * @func steam_parties_get_available_beacon_locations
- * @desc > **Steamworks Function**: [ISteamParties::GetAvailableBeaconLocations](https://partner.steamgames.com/doc/api/isteamparties#GetAvailableBeaconLocations)
+ * @function steam_parties_clear_callback_reservation_notification
+ * @description > **Steamworks Function**: N / A
  *
- * This function returns the Steam locations where the local user can post a party beacon. The `location_types` and `location_ids` arrays use matching indexes, so `location_types[i]` and `location_ids[i]` describe the same location.
+ * This function clears the callback function previously set using ${function.steam_parties_set_callback_reservation_notification}.
  *
- * @returns {struct} A struct containing `ok` (${type.bool}), `count` (${type.real}), `location_types` (${type.array}), and `location_ids` (${type.array}). The `location_types` array contains real-valued location types. The `location_ids` array contains int64 location IDs.
- *
- * @example
- * ```gml
- * var _locations = steam_parties_get_available_beacon_locations();
- * if (_locations.ok)
- * {
- *     for (var i = 0; i < _locations.count; i++)
- *     {
- *         var _type = _locations.location_types[i];
- *         var _id = _locations.location_ids[i];
- *         var _name = steam_parties_get_beacon_location_data(_type, _id, STEAM_PARTIES_BEACON_LOCATION_DATA.DATA_NAME);
- *         show_debug_message("Beacon location: " + _name);
- *     }
- * }
- * ```
- * The above code lists every location returned by Steam and reads the display name for each one.
- * @func_end
+ * @function_end 
  */
 
 /**
- * @func steam_parties_get_num_active_beacons
- * @desc > **Steamworks Function**: [ISteamParties::GetNumActiveBeacons](https://partner.steamgames.com/doc/api/isteamparties#GetNumActiveBeacons)
+ * @function steam_parties_set_callback_available_beacon_locations_updated
+ * @description > **Steamworks Function**: N / A
  *
- * This function returns the number of active party beacons visible to the local user.
+ * This function sets the function to be called when the list of available locations for posting a beacon has been updated.
+ * 
+ * This callback has no members.
  *
- * @returns {real}
+ * @param {Function} callback The function to be called when the available beacon locations are updated.
  *
- * @event steam
- * @desc This event is triggered when Steam updates the visible active beacon list.
- * @member {string} event_type The string `"steam_parties_active_beacons_updated"`.
- * @member {real} count Number of active beacons after the update.
+ * @event callback
+ * @desc > **Steamworks Callback**: [ISteamParties::AvailableBeaconLocationsUpdated_t](https://partner.steamgames.com/doc/api/ISteamParties#AvailableBeaconLocationsUpdated_t)
+ *
+ * Called when the list of available locations for posting a beacon has been updated.
+ *
+ * This callback receives no arguments.
+ *
  * @event_end
- *
- * @example
- * ```gml
- * var _count = steam_parties_get_num_active_beacons();
- * for (var i = 0; i < _count; i++)
- * {
- *     var _beacon_id = steam_parties_get_beacon_by_index(i);
- *     var _details = steam_parties_get_beacon_details(_beacon_id);
- *     if (_details.ok)
- *     {
- *         show_debug_message("Beacon metadata: " + _details.metadata);
- *     }
- * }
- * ```
- * The above code iterates through the active beacons visible to the local user.
- * @func_end
+ * @function_end 
  */
 
 /**
- * @func steam_parties_get_beacon_by_index
- * @desc > **Steamworks Function**: [ISteamParties::GetBeaconByIndex](https://partner.steamgames.com/doc/api/isteamparties#GetBeaconByIndex)
+ * @function steam_parties_clear_callback_available_beacon_locations_updated
+ * @description > **Steamworks Function**: N / A
  *
- * This function returns the beacon ID at the given active-beacon index. Valid indexes are from `0` to one less than the value returned by ${function.steam_parties_get_num_active_beacons}.
+ * This function clears the callback function previously set using ${function.steam_parties_set_callback_available_beacon_locations_updated}.
  *
- * @param {real} index The active beacon index.
- *
- * @returns {int64}
- *
- * @example
- * ```gml
- * var _beacon_id = steam_parties_get_beacon_by_index(0);
- * if (_beacon_id != 0)
- * {
- *     steam_parties_join_party(_beacon_id);
- * }
- * ```
- * The above code requests to join the first active beacon, if one exists.
- * @func_end
+ * @function_end 
  */
 
 /**
- * @func steam_parties_get_beacon_details
- * @desc > **Steamworks Function**: [ISteamParties::GetBeaconDetails](https://partner.steamgames.com/doc/api/isteamparties#GetBeaconDetails)
+ * @function steam_parties_set_callback_active_beacons_updated
+ * @description > **Steamworks Function**: N / A
+ * 
+ * This function sets the function to be called when the list of active beacons visible to the current user has changed.
+ * 
+ * This callback has no members.
+ * 
+ * @param {Function} callback The function to be called when the active beacons are updated.
  *
- * This function returns details for a visible active party beacon.
+ * @event callback
+ * @desc > **Steamworks Callback**: [ISteamParties::ActiveBeaconsUpdated_t](https://partner.steamgames.com/doc/api/ISteamParties#ActiveBeaconsUpdated_t)
  *
- * @param {int64} beacon_id The beacon ID returned by ${function.steam_parties_get_beacon_by_index}.
+ * Called when the list of active beacons visible to the current user has changed.
  *
- * @returns {struct} A struct containing `ok` (${type.bool}), `beacon_owner_steam_id` (${type.int64}), `location_type` (${type.real}), `location_id` (${type.int64}), and `metadata` (${type.string}). The ID fields are `0` and `metadata` is an empty string when `ok` is `false`.
+ * This callback receives no arguments.
  *
- * @example
- * ```gml
- * var _details = steam_parties_get_beacon_details(beacon_id);
- * if (_details.ok)
- * {
- *     show_debug_message("Beacon owner: " + string(_details.beacon_owner_steam_id));
- *     show_debug_message("Beacon metadata: " + _details.metadata);
- * }
- * ```
- * The above code reads the owner and metadata for a beacon.
- * @func_end
- */
-
-/**
- * @func steam_parties_get_beacon_location_data
- * @desc > **Steamworks Function**: [ISteamParties::GetBeaconLocationData](https://partner.steamgames.com/doc/api/isteamparties#GetBeaconLocationData)
- *
- * This function returns a display string for a beacon location, such as its name or icon URL.
- *
- * @param {real} location_type Beacon location type.
- * @param {int64} location_id Beacon location ID.
- * @param {constant.STEAM_PARTIES_BEACON_LOCATION_DATA} data_kind The location data field to read.
- *
- * @returns {string}
- *
- * @example
- * ```gml
- * var _locations = steam_parties_get_available_beacon_locations();
- * if (_locations.ok && _locations.count > 0)
- * {
- *     var _name = steam_parties_get_beacon_location_data(
- *         _locations.location_types[0],
- *         _locations.location_ids[0],
- *         STEAM_PARTIES_BEACON_LOCATION_DATA.DATA_NAME
- *     );
- * }
- * ```
- * The above code reads the display name for the first available beacon location.
- * @func_end
- */
-
-/**
- * @func steam_parties_create_beacon
- * @desc > **Steamworks Function**: [ISteamParties::CreateBeacon](https://partner.steamgames.com/doc/api/isteamparties#CreateBeacon)
- *
- * This function starts creating a party beacon at a Steam location. Steam shows the beacon in that location and lets up to `open_slots` users reserve a place in the party. Only one beacon can be active for the local process at a time.
- *
- * @param {real} open_slots Number of open reservation slots.
- * @param {real} location_type Beacon location type returned by ${function.steam_parties_get_available_beacon_locations}.
- * @param {int64} location_id Beacon location ID returned by ${function.steam_parties_get_available_beacon_locations}.
- * @param {string} connect_string String passed to users who join through this beacon.
- * @param {string} metadata Metadata visible to users browsing beacons.
- *
- * @returns {bool}
- *
- * @event steam
- * @desc This event is triggered when Steam completes the create-beacon request.
- * @member {string} event_type The string `"steam_parties_create_beacon"`.
- * @member {bool} success Whether Steam created the beacon successfully.
- * @member {real} result Steam `EResult` value for the operation.
- * @member {int64} beacon_id ID of the created beacon.
  * @event_end
+ * @function_end 
+ */
+
+/**
+ * @function steam_parties_clear_callback_active_beacons_updated
+ * @description > **Steamworks Function**: N / A
  *
- * @event steam
- * @desc This event is triggered when a user reserves a slot in one of the local user's party beacons. After the user has connected to the game, call ${function.steam_parties_on_reservation_completed}.
- * @member {string} event_type The string `"steam_parties_reservation_notification"`.
- * @member {int64} beacon_id Beacon ID that received the reservation.
- * @member {int64} joiner_steam_id Steam ID of the user who reserved a slot.
+ * This function clears the callback function previously set using ${function.steam_parties_set_callback_active_beacons_updated}.
+ *
+ * @function_end 
+ */
+
+/**
+ * @function steam_parties_get_num_available_beacon_locations
+ * @description > **Steamworks Function**: [ISteamParties::GetNumAvailableBeaconLocations](https://partner.steamgames.com/doc/api/ISteamParties#GetNumAvailableBeaconLocations)
+ *
+ * This function gets the number of locations in which you are able to post a party beacon.
+ *
+ * @returns {Real}
+ * @function_end 
+ */
+
+/**
+ * @function steam_parties_get_available_beacon_locations
+ * @description > **Steamworks Function**: [ISteamParties::GetAvailableBeaconLocations](https://partner.steamgames.com/doc/api/ISteamParties#GetAvailableBeaconLocations)
+ *
+ * This function gets the list of locations in which you can post a party beacon. 
+ *
+ * @returns {Array[Struct.SteamPartiesBeaconLocation]}
+ * @function_end 
+ */
+
+/**
+ * @function steam_parties_create_beacon
+ * @description > **Steamworks Function**: [ISteamParties::CreateBeacon](https://partner.steamgames.com/doc/api/ISteamParties#CreateBeacon)
+ *
+ * This function creates a beacon. You can only create one beacon at a time. Steam will display the beacon in the specified location, and let up to `open_slots` users "follow" the beacon to your party.
+ * 
+ * If users join your party through other matchmaking, adjust the number of remaining open slots using ${function.steam_parties_change_num_open_slots}.
+ *
+ * @param {Real} open_slots The number of reservation slots to create for the beacon, normally the party size minus one.
+ * @param {Enum.SteamPartiesBeaconLocationType} beacon_location_type The type of the beacon location, taken from one of the locations returned by ${function.steam_parties_get_available_beacon_locations}.
+ * @param {Real} beacon_location_id The location ID of the beacon location, taken from one of the locations returned by ${function.steam_parties_get_available_beacon_locations}.
+ * @param {String} connect_string The connect string that will be given to the game on launch for a user that follows the beacon.
+ * @param {String} metadata Additional game metadata that can be set on the beacon, and is exposed via ${function.steam_parties_get_beacon_details}.
+ * @param {Function} callback The function to call upon completion.
+ * @returns {Bool}
+ *
+ * @event callback
+ * @desc > **Steamworks Callback**: [ISteamParties::CreateBeaconCallback_t](https://partner.steamgames.com/doc/api/ISteamParties#CreateBeaconCallback_t)
+ *
+ * This callback is returned as the response to a call to create a beacon. A successful result means your beacon has been posted in the desired location and you can begin receiving reservation notifications as users follow it.
+ *
+ * @member {Struct.SteamPartiesCreateBeaconResult} result The result of the operation.
  * @event_end
- *
- * @example
- * ```gml
- * var _locations = steam_parties_get_available_beacon_locations();
- * if (_locations.ok && _locations.count > 0)
- * {
- *     steam_parties_create_beacon(
- *         3,
- *         _locations.location_types[0],
- *         _locations.location_ids[0],
- *         "join:127.0.0.1:7777",
- *         "Public party"
- *     );
- * }
- * ```
- * The above code creates a party beacon at the first available Steam location.
- * @func_end
+ * @function_end
  */
 
 /**
- * @func steam_parties_on_reservation_completed
- * @desc > **Steamworks Function**: [ISteamParties::OnReservationCompleted](https://partner.steamgames.com/doc/api/isteamparties#OnReservationCompleted)
+ * @function steam_parties_on_reservation_completed
+ * @description > **Steamworks Function**: [ISteamParties::OnReservationCompleted](https://partner.steamgames.com/doc/api/ISteamParties#OnReservationCompleted)
  *
- * This function tells Steam that the game accepted a user who reserved a slot through a beacon. Call it after handling a `"steam_parties_reservation_notification"` event and after the user has connected to the game.
+ * This function notifies Steam that a reserved user has successfully joined your party, once a user who followed your beacon has joined.
+ * 
+ * Both arguments come from the ${struct.SteamPartiesReservationNotification} delivered to the callback set with ${function.steam_parties_set_callback_reservation_notification}.
  *
- * @param {int64} beacon_id Beacon ID from the reservation notification.
- * @param {int64} user_steam_id Steam ID of the user whose reservation was completed.
- *
- * @returns {bool}
- *
- * @example
- * ```gml
- * if (async_load[? "event_type"] == "steam_parties_reservation_notification")
- * {
- *     var _beacon_id = async_load[? "beacon_id"];
- *     var _joiner = async_load[? "joiner_steam_id"];
- *     steam_parties_on_reservation_completed(_beacon_id, _joiner);
- * }
- * ```
- * The above code acknowledges a completed reservation after receiving Steam's notification.
- * @func_end
+ * @param {Real} beacon_id The beacon ID for the beacon created by your process.
+ * @param {Real} user_steam_id The Steam ID of the user joining your party.
+ * @returns {Bool}
+ * @function_end
  */
 
 /**
- * @func steam_parties_destroy_beacon
- * @desc > **Steamworks Function**: [ISteamParties::DestroyBeacon](https://partner.steamgames.com/doc/api/isteamparties#DestroyBeacon)
+ * @function steam_parties_cancel_reservation
+ * @description > **Steamworks Function**: [ISteamParties::CancelReservation](https://partner.steamgames.com/doc/api/ISteamParties#CancelReservation)
  *
- * This function destroys a party beacon created by the local user.
+ * This function cancels a reservation, notifying Steam that a reserved user did not join your party and is not still waiting to do so.
  *
- * @param {int64} beacon_id The beacon ID to destroy.
+ * Both arguments come from the ${struct.SteamPartiesReservationNotification} delivered to the callback set with ${function.steam_parties_set_callback_reservation_notification}.
  *
- * @returns {bool}
- *
- * @example
- * ```gml
- * steam_parties_destroy_beacon(global.beacon_id);
- * ```
- * The above code stops advertising the stored party beacon.
- * @func_end
+ * @param {Real} beacon_id The beacon ID for the beacon created by your process.
+ * @param {Real} user_steam_id The Steam ID of the user whose reservation is being cancelled.
+ * @returns {Bool}
+ * @function_end
  */
 
 /**
- * @func steam_parties_change_num_open_slots
- * @desc > **Steamworks Function**: [ISteamParties::ChangeNumOpenSlots](https://partner.steamgames.com/doc/api/isteamparties#ChangeNumOpenSlots)
+ * @function steam_parties_change_num_open_slots
+ * @description > **Steamworks Function**: [ISteamParties::ChangeNumOpenSlots](https://partner.steamgames.com/doc/api/ISteamParties#ChangeNumOpenSlots)
  *
- * This function starts updating the number of open reservation slots on a party beacon. Call it when users join or leave through another route so Steam can advertise the current number of available slots.
+ * This function reduces the number of open slots that Steam is managing through the party beacon when a user joins your party through other matchmaking.
  *
- * @param {int64} beacon_id The beacon ID to update.
- * @param {real} open_slots New number of open reservation slots.
- *
- * @returns {bool}
- *
- * @event steam
- * @desc This event is triggered when Steam completes the open-slot update request.
- * @member {string} event_type The string `"steam_parties_change_num_open_slots"`.
- * @member {bool} success Whether Steam updated the slot count successfully.
- * @member {real} result Steam `EResult` value for the operation.
+ * @param {Real} beacon_id The beacon ID for the beacon created by your process.
+ * @param {Real} open_slots The new number of open slots in your party. This value represents the total number of *new* users that you would like Steam to send to your party.
+ * @param {Function} callback The function to call upon completion.
+ * @returns {Bool}
+ * 
+ * @event callback
+ * @description > **Steamworks Callback**: [ISteamParties::ChangeNumOpenSlotsCallback_t](https://partner.steamgames.com/doc/api/ISteamParties#ChangeNumOpenSlotsCallback_t)
+ * 
+ * @member {Struct.SteamPartiesChangeNumOpenSlotsResult} result The result of the operation.
  * @event_end
- *
- * @example
- * ```gml
- * steam_parties_change_num_open_slots(global.beacon_id, 2);
- * ```
- * The above code updates an existing beacon to advertise two open slots.
- * @func_end
+ * @function_end 
  */
 
 /**
- * @func steam_parties_join_party
- * @desc > **Steamworks Function**: [ISteamParties::JoinParty](https://partner.steamgames.com/doc/api/isteamparties#JoinParty)
+ * @function steam_parties_destroy_beacon
+ * @description > **Steamworks Function**: [ISteamParties::DestroyBeacon](https://partner.steamgames.com/doc/api/ISteamParties#DestroyBeacon)
  *
- * This function starts a request to join the party advertised by a beacon. If Steam accepts the join, the async event includes the beacon owner's Steam ID and the connection string supplied by the host.
+ * This function destroys the Steam party beacon. This will immediately cause Steam to stop showing the beacon in the target location. Note that any users currently in-flight may still arrive at your party expecting to join.
+ * 
+ * Your game should call this method when either the party has been filled and the game is beginning, or the user has decided to abandon creating a party. The beacon will be destroyed automatically when your game exits, but the preferred behaviour is for the game to call ${function.steam_parties_destroy_beacon} at the right time.
  *
- * @param {int64} beacon_id The beacon ID to join.
+ * @param {Real} beacon_id The beacon ID to be destroyed.
+ * @returns {Bool} 
+ * @function_end 
+ */
+
+/**
+ * @function steam_parties_get_num_active_beacons
+ * @description > **Steamworks Function**: [ISteamParties::GetNumActiveBeacons](https://partner.steamgames.com/doc/api/ISteamParties#GetNumActiveBeacons)
  *
- * @returns {bool}
+ * This function gets the number of active party beacons created by other users for your game, that are visible to the current user.
  *
- * @event steam
- * @desc This event is triggered when Steam completes the join-party request.
- * @member {string} event_type The string `"steam_parties_join_party"`.
- * @member {bool} success Whether Steam accepted the join request.
- * @member {real} result Steam `EResult` value for the operation.
- * @member {int64} beacon_id Beacon ID that was joined.
- * @member {int64} beacon_owner_steam_id Steam ID of the beacon owner.
- * @member {string} connect_string Connection string supplied by the beacon owner.
+ * @returns {Real} 
+ * @function_end 
+ */
+
+/**
+ * @function steam_parties_get_beacon_by_index
+ * @description > **Steamworks Function**: [ISteamParties::GetBeaconByIndex](https://partner.steamgames.com/doc/api/ISteamParties#GetBeaconByIndex)
+ *
+ * This function is used with ${function.steam_parties_get_num_active_beacons} to iterate the active beacons visible to the current user.
+ *
+ * @param {Real} index The index of the beacon.
+ * @returns {Real} Party beacon ID
+ * @function_end 
+ */
+
+/**
+ * @function steam_parties_get_beacon_details
+ * @description > **Steamworks Function**: [ISteamParties::GetBeaconDetails](https://partner.steamgames.com/doc/api/ISteamParties#GetBeaconDetails)
+ *
+ * This function gets details about the specified beacon.
+ *
+ * @param {Real} beacon_id The beacon ID to query.
+ * @returns {Struct.SteamPartiesBeaconDetails} 
+ * @function_end 
+ */
+
+/**
+ * @function steam_parties_join_party
+ * @description > **Steamworks Function**: [ISteamParties::JoinParty](https://partner.steamgames.com/doc/api/ISteamParties#JoinParty)
+ *
+ * This function is called when the user indicates they wish to join the party advertised by a given beacon. On success, Steam will reserve a slot for this user in the party and return the necessary "join game" string to use to complete the connection.
+ *
+ * @param {Real} beacon_id The beacon ID for the party you wish to join.
+ * @param {Function} callback The function to call upon completion.
+ * @returns {Bool}
+ *
+ * @event callback
+ * @desc > **Steamworks Callback**: [ISteamParties::JoinPartyCallback_t](https://partner.steamgames.com/doc/api/ISteamParties#JoinPartyCallback_t)
+ *
+ * This callback serves as the response to a call to join a party. When it succeeds, you have secured a slot in the beacon owner's party and should use the connect string to link up with their game and finish joining.
+ *
+ * @member {Struct.SteamPartiesJoinPartyResult} result The result of the operation.
  * @event_end
+ * @function_end
+ */
+
+/**
+ * @function steam_parties_get_beacon_location_data
+ * @description > **Steamworks Function**: [ISteamParties::GetBeaconLocationData](https://partner.steamgames.com/doc/api/ISteamParties#GetBeaconLocationData)
  *
- * @example
- * ```gml
- * steam_parties_join_party(beacon_id);
- * ```
+ * This function queries general metadata for the given beacon location. For instance the Name, or the URL for an icon if the location type supports icons (for example, the icon for a Steam Chat Room Group).
  *
- * ```gml
- * if (async_load[? "event_type"] == "steam_parties_join_party" && async_load[? "success"])
- * {
- *     var _connect_string = async_load[? "connect_string"];
- *     show_debug_message("Connect with: " + _connect_string);
- * }
- * ```
- * The above code requests to join a beacon and handles the connection string returned by Steam.
- * @func_end
+ * @param {Enum.SteamPartiesBeaconLocationType} beacon_location_type The type of the beacon location to query.
+ * @param {Real} beacon_location_id The location ID of the beacon location to query.
+ * @param {Enum.SteamPartiesBeaconLocationData} data_kind The type of location data you wish to get.
+ * @returns {String} 
+ * @function_end 
+ */
+
+// STRUCTS
+
+/**
+ * @struct SteamPartiesBeaconLocation
+ * @description > **Steamworks Struct**: N / A
+ * 
+ * This struct holds information about a beacon location.
+ * 
+ * @member {Real} location_id The location ID.
+ * @member {Enum.SteamPartiesBeaconLocationType} location_type The location type.
+ * @struct_end 
+ */
+
+/**
+ * @struct SteamPartiesCreateBeaconResult
+ * @description > **Steamworks Struct**: [ISteamParties#CreateBeaconCallback_t](https://partner.steamgames.com/doc/api/isteamparties#CreateBeaconCallback_t)
+ *
+ * This struct holds information about the result of creating a beacon.
+ *
+ * @member {Enum.SteamApiResult} result The result of the attempt to create a beacon.
+ * @member {Real} beacon_id Beacon ID of the newly created beacon.
+ * @struct_end
+ */
+
+/**
+ * @struct SteamPartiesJoinPartyResult
+ * @description > **Steamworks Struct**: [ISteamParties::JoinPartyCallback_t](https://partner.steamgames.com/doc/api/ISteamParties#JoinPartyCallback_t)
+ *
+ * This struct holds the data used as a call response for ${function.steam_parties_join_party}. On success, you will have reserved a slot in the beacon-owner's party, and should use `connect_string` to connect to their game and complete the process.
+ *
+ * @member {Enum.SteamApiResult} result The result of the attempt to join the party.
+ * @member {Real} beacon_id The beacon ID used in the attempt.
+ * @member {Real} beacon_owner_steam_id Creator of the beacon used in the attempt.
+ * @member {String} connect_string If successful, a "join game" string for your game to use to complete the process of joining the desired party.
+ * @struct_end
+ */
+
+/**
+ * @struct SteamPartiesChangeNumOpenSlotsResult
+ * @description > **Steamworks Struct**: [ISteamParties::ChangeNumOpenSlotsCallback_t](https://partner.steamgames.com/doc/api/ISteamParties#ChangeNumOpenSlotsCallback_t)
+ *
+ * This struct holds the call result for ${function.steam_parties_change_num_open_slots}.
+ *
+ * @member {Enum.SteamApiResult} result The result of the attempt to change the number of open slots.
+ * @struct_end
+ */
+
+/**
+ * @struct SteamPartiesReservationNotification
+ * @description > **Steamworks Struct**: [ISteamParties::ReservationNotificationCallback_t](https://partner.steamgames.com/doc/api/ISteamParties#ReservationNotificationCallback_t)
+ *
+ * This struct holds the information passed to a reservation notification callback. When you receive this callback, be sure to call ${function.steam_parties_on_reservation_completed} to let Steam know.
+ *
+ * @member {Real} beacon_id Beacon ID of your beacon.
+ * @member {Real} joiner_steam_id SteamID of the user following your beacon.
+ * @struct_end
+ */
+
+/**
+ * @struct SteamPartiesBeaconDetails
+ * @description > **Steamworks Struct**: N / A
+ *
+ * This struct holds the details of a beacon, as requested using ${function.steam_parties_get_beacon_details}.
+ * 
+ * @member {Real} beacon_owner_steam_id Creator of the beacon.
+ * @member {Enum.SteamPartiesBeaconLocationType} location_type The location type.
+ * @member {Real} location_id Opaque identifier of this location.
+ * @member {String} metadata Any additional metadata the game has set on this beacon (e.g. game mode). Will hold an empty string `""` if not successful.
+ * @struct_end
  */
 
 // CONSTANTS
 
 /**
- * @constant STEAM_PARTIES_BEACON_LOCATION
- * @desc > **Steamworks Enumeration**: [ESteamPartyBeaconLocationType](https://partner.steamgames.com/doc/api/isteamparties#ESteamPartyBeaconLocationType)
+ * @enum SteamPartiesBeaconLocationType
+ * @description > **Steamworks Enum**: [ISteamParties::ESteamPartyBeaconLocationType](https://partner.steamgames.com/doc/api/ISteamParties#ESteamPartyBeaconLocationType)
  *
- * This enum contains the location types used by party beacon locations.
+ * This enum holds the types of locations where beacons can be posted.
  *
- * @member TYPE_INVALID Invalid location type.
- * @member CHAT_GROUP Steam chat group location.
- * @member TYPE_MAX Sentinel value.
- * @constant_end
+ * @member Invalid Invalid location type.
+ * @member ChatGroup A Steam Chat Room Group.
+ * @member Max Value is always one greater than the largest valid location type value.
+ * @enum_end 
  */
 
 /**
- * @constant STEAM_PARTIES_BEACON_LOCATION_DATA
- * @desc > **Steamworks Enumeration**: [ESteamPartyBeaconLocationData](https://partner.steamgames.com/doc/api/isteamparties#ESteamPartyBeaconLocationData)
+ * @enum SteamPartiesBeaconLocationData
+ * @description > **Steamworks Enum**: [ISteamParties::ESteamPartyBeaconLocationData](https://partner.steamgames.com/doc/api/ISteamParties#ESteamPartyBeaconLocationData)
  *
- * This enum contains the data fields that can be read with ${function.steam_parties_get_beacon_location_data}.
+ * This enum holds the types of extended metadata for beacon locations.
  *
- * @member DATA_INVALID Invalid data field.
- * @member DATA_NAME Display name for the location.
- * @member ICON_URL_SMALL Small icon URL for the location.
- * @member ICON_URL_MEDIUM Medium icon URL for the location.
- * @member ICON_URL_LARGE Large icon URL for the location.
- * @constant_end
+ * @member Invalid Invalid location data type.
+ * @member Name The name, if any, of the location.
+ * @member IconURLSmall If the location has an associated icon, this is the URL for the small format icon image.
+ * @member IconURLMedium If the location has an associated icon, this is the URL for the medium format icon image.
+ * @member IconURLLarge If the location has an associated icon, this is the URL for the small large icon image.
+ * @enum_end 
  */
 
-// MODULES
+// MODULE
 
 /**
  * @module parties
  * @title Parties
  * @desc > **Steamworks Interface**: [ISteamParties](https://partner.steamgames.com/doc/api/isteamparties)
- *
- * The Parties module exposes Steam's party beacon API. Party beacons let a game advertise open party slots in Steam locations, let other users discover those beacons through Steam, and return a connection string when a user joins.
- *
- * @section_func Beacon locations
- * @desc These functions query locations where the local user can post a party beacon:
- * @ref steam_parties_get_num_available_beacon_locations
- * @ref steam_parties_get_available_beacon_locations
- * @ref steam_parties_get_beacon_location_data
+ * 
+ * This API can be used to selectively advertise your multiplayer game session in a Steam chat room group. Tell Steam the number of player spots that are available for your party, and a join-game string, and it will show a beacon in the selected group and allow that many users to "follow" the beacon to your party. Adjust the number of open slots if other players join through alternate matchmaking methods.
+ * 
+ * @section_func Functions
+ * @desc These are the functions of the Parties module:
+ * @ref steam_parties_*
  * @section_end
- *
- * @section_func Hosting beacons
- * @desc These functions create and manage the local user's party beacon:
- * @ref steam_parties_create_beacon
- * @ref steam_parties_on_reservation_completed
- * @ref steam_parties_change_num_open_slots
- * @ref steam_parties_destroy_beacon
- * @section_end
- *
- * @section_func Joining beacons
- * @desc These functions browse and join party beacons visible to the local user:
- * @ref steam_parties_get_num_active_beacons
- * @ref steam_parties_get_beacon_by_index
- * @ref steam_parties_get_beacon_details
- * @ref steam_parties_join_party
- * @section_end
- *
+ * 
  * @section_const Constants
- * @desc These enums are used by the Parties module:
- * @ref STEAM_PARTIES_BEACON_LOCATION
- * @ref STEAM_PARTIES_BEACON_LOCATION_DATA
+ * @desc These are the constants and enums of the Parties module:
+ * @ref SteamParties*
  * @section_end
- *
+ * 
+ * @section_struct Structs
+ * @desc These are the structs of the Parties module:
+ * @ref SteamParties*
+ * @section_end
  * @module_end
  */

@@ -1,1384 +1,2040 @@
+
 // FUNCTIONS
 
 /**
- * @func steam_is_screenshot_requested
- * @desc This function will poll the Steam API to see if the key for taking a screenshot of the game has been pressed. The function will only return `true` for one step (game tick) when the key is pressed, and will return `false` at all other times.
- * Please note that if the screenshot key is pressed, this function will only return `true` once for each step that it is pressed, and return `false` for any subsequent calls *within the same step* . For example, if a screenshot is requested in the current frame and you call this function in the Step event to find that out, you will get `true`; however, if you call it again in Draw GUI to check whether a screenshot was requested, you will get `false` as the function had already been "used up" in the ${event.step}. To use the function's return value multiple times within the same frame, it is recommended to store it in a variable and read that instead of calling the function again.
- * 
- * [[NOTE: This function does not take a screenshot for you. This only signals that the key has been pressed and you must use the GameMaker functions ${function.screen_save} or ${function.screen_save_part} to save a local copy of the file to be uploaded.]]
- * 
- * @returns {boolean}
- * 
- * @example
- * ```gml
- * if (steam_is_screenshot_requested())
- * {
- *     var _file = "Catch_The_Haggis_" + string(global.scrn_num) + ".png";
- *     screen_save(_file);
- *     steam_send_screenshot(_file, window_get_width(), window_get_height());
- *     global.scrn_num += 1;
- * }
- * ```
- * The above code will poll the Steam API for a screenshot request. If there is one, a unique name for the image file will be generated, a screenshot will be taken, and the file will be sent to the Steam Community page for the user.
- * @func_end
- */
-
-/**
- * @func steam_send_screenshot
- * @desc With this function you can upload a screenshot to the Steam Community profile page of the currently logged in user. The filename you supply is the name of the local file that was created when you took the screenshot using the GameMaker functions ${function.screen_save} or ${function.screen_save_part}. The width and height define the image size, and the function will return a value of 0 if it fails for whatever reason and a value greater than 0 if it succeeds.
- * 
- * @param {string} filename The name of the image file to upload.
- * @param {real} width The width of the image.
- * @param {real} height The height of the image.
- * 
- * @returns {real}
- * 
- * @example
- * ```gml
- * if (steam_is_screenshot_requested())
- * {
- *     var _file = "Catch_The_Haggis_" + string(global.scrn_num) + ".png";
- *     screen_save(_file);
- *     steam_send_screenshot(_file, window_get_width(), window_get_height());
- *     global.scrn_num += 1;
- * }
- * ```
- * The above code will poll the Steam API for a screenshot request. If there is one, a unique name for the image file will be generated, a screenshot will be taken, and the file will be sent to the Steam Community page for the user.
- * @func_end
- */
-
-/**
- * @func steam_ugc_create_item
- * @desc This function is used to prepare the Workshop API and generate a published file ID for the item to be added. The function *must* be called before doing anything else with the item to be uploaded, as you will be required to use the unique published ID value that it returns in the Steam Async Event for updating.
- * This is an asynchronous function that will return an asynchronous id and trigger the ${event.steam} when the task is finished.
- * 
- * @param {real} consumer_app_id The unique App ID for your game on Steam.
- * @param {constant.UGCFileType} file_type One of the available file type constants (see ${constant.UGCFileType} constants).
- * 
- * @returns {real}
- * 
- * @event steam
- * @member {real} id The asynchronous request ID
- * @member {string} event_type The string value `"ugc_create_item"`
- * @member {real} result This will either be the GML constant `ugc_result_success` or some other real number (see the [Steam docs](https://partner.steamgames.com/doc/api/steam_api#EResult), for more details)
- * @member {boolean} legal_agreement_required Will be `true` or `false` (see the [Steam docs](https://partner.steamgames.com/documentation/ugc#Legal) for more details)
- * @member {int64} published_file_id This key holds the unique published ID for the item (you may need to cast it using the ${type.int64} function).
- * @event_end
+ * @function steam_ugc_add_app_dependency
+ * @description > **Steamworks Function**: [ISteamUGC::AddAppDependency](https://partner.steamgames.com/doc/api/ISteamUGC#AddAppDependency)
  *
- * @example
- * In this example we first call the function and store the async ID value in a variable:
- * 
- * ```gml
- * var _app_id = steam_get_app_id();
- * new_item = steam_ugc_create_item(_app_id, ugc_filetype_community);
- * ```
- * This would then send off a request to the Steam API to create the new Workshop item, generating an async event which we would deal with as follows:
- * 
- * ```gml
- * var _event_id = async_load[? "id"];
- * if (_event_id == new_item)
- * {
- *     var _type = async_load[? "event_type"];
- *     if (_type == "ugc_create_item")
- *     {
- *         global.Publish_ID = async_load[? "published_file_id"];
- *     }
- * }
- * ```
- * The above code checks the event type and if it is "ugc_create_item" then it retrieves the published file ID and stores it in a global variable for future reference.
- * @func_end
- */
-
-/**
- * @func steam_ugc_delete_item
- * @desc This function attempts to delete a previously published UGC item.
- * This is an asynchronous function that will return an asynchronous ID and trigger the ${event.steam} when the task is finished.
- * 
- * @param {real} ugc_query_handle The query handle to use.
- * 
- * @returns {real}
- * 
- * @event steam
- * @member {real} id The asynchronous request ID
- * @member {string} event_type The string value `"ugc_item_delete"`
- * @member {real} result This will either be the GML constant `ugc_result_success` or some other real number (see the [Steam docs](https://partner.steamgames.com/doc/api/steam_api#EResult), for more details)
- * @event_end
- * 
- * @example
- * ```gml
- * steam_ugc_delete_item(ugc_query_handle);
- * ```
- * The above code creates a deletion request for `ugc_query_handle`.
- * @func_end
- */
-
-/**
- * @func steam_ugc_start_item_update
- * @desc This function must be called before adding or updating information on a UGC item. You need to supply the unique App ID for your game on Steam, along with the unique published file ID that was returned for the item when you created it using the function ${function.steam_ugc_create_item}. The function will return a unique update handle for the item, which you can then use in the UGC item functions to update (or add) information for uploading.
- * 
- * @param {real} consumer_app_id The unique App ID for your game on Steam.
- * @param {int64} published_file_id The unique published file ID value for the item.
- * 
- * @returns {real}
- * 
- * @example
- * ```gml
- * var _app_id = steam_get_app_id();
- * var _updateHandle = steam_ugc_start_item_update(_app_id, global.Publish_ID);
- * steam_ugc_set_item_title(_updateHandle, "My workshop item(3)!");
- * steam_ugc_set_item_description(_updateHandle, "testing workshop...");
- * steam_ugc_set_item_visibility(_updateHandle, ugc_visibility_public);
- * var _tagArray;
- * _tagArray[0] = "Test";
- * _tagArray[1] = "New";
- * steam_ugc_set_item_tags(_updateHandle, _tagArray);
- * steam_ugc_set_item_preview(_updateHandle, "promo.jpg");
- * steam_ugc_set_item_content(_updateHandle, "WorkshopContent1");
- * requestId = steam_ugc_submit_item_update(_updateHandle, "Version 1.2");
- * ```
- * The above code gets the game ID, then uses that along with a previously stored published file ID to generate an update handle for the item. This handle is then used to update various pieces of information before the update is pushed to the Workshop servers.
- * @func_end
- */
-
-/**
- * @func steam_ugc_set_item_title
- * @desc This function will set the title to be used for the given item.
- * The function will return `true` if the API was successfully accessed and `false` if there was an issue.
- * 
- * @param {real} ugc_update_handle The unique handle for the UGC to be updated (returned from ${function.steam_ugc_start_item_update})
- * @param {string} title The title (max 128 characters) to be used for the item.
- * 
- * @returns {boolean}
- * 
- * @example
- * ```gml
- * var _app_id = steam_get_app_id();
- * var _updateHandle = steam_ugc_start_item_update(_app_id, global.Publish_ID);
- * steam_ugc_set_item_title(_updateHandle, "My workshop item(3)!");
- * steam_ugc_set_item_description(_updateHandle, "testing workshop...");
- * steam_ugc_set_item_visibility(_updateHandle, ugc_visibility_public);
- * var _tagArray;
- * _tagArray[0] = "Test";
- * _tagArray[1] = "New";
- * steam_ugc_set_item_tags(_updateHandle, _tagArray);
- * steam_ugc_set_item_preview(_updateHandle, "promo.jpg");
- * steam_ugc_set_item_content(_updateHandle, "WorkshopContent1");
- * requestId = steam_ugc_submit_item_update(_updateHandle, "Version 1.2");
- * ```
- * The above code gets the game ID, then uses that along with a previously stored published file ID to generate an update handle for the item. This handle is then used to update various pieces of information before the update is pushed to the Workshop servers.
- * @func_end
- */
-
-/**
- * @func steam_ugc_set_item_description
- * @desc This function will set the description to be used for the given item.
- * The function will return `true` if the API was successfully accessed and `false` if there was an issue.
- * 
- * @param {real} ugc_update_handle The unique handle for the UGC to be updated (returned from ${function.steam_ugc_start_item_update})
- * @param {string} description The description (max 8000 characters) to be used for the item.
- * 
- * @returns {boolean}
- * 
- * @example
- * ```gml
- * var _app_id = steam_get_app_id();
- * var _updateHandle = steam_ugc_start_item_update(_app_id, global.Publish_ID);
- * steam_ugc_set_item_title(_updateHandle, "My workshop item(3)!");
- * steam_ugc_set_item_description(_updateHandle, "testing workshop...");
- * steam_ugc_set_item_visibility(_updateHandle, ugc_visibility_public);
- * var _tagArray;
- * _tagArray[0] = "Test";
- * _tagArray[1] = "New";
- * steam_ugc_set_item_tags(_updateHandle, _tagArray);
- * steam_ugc_set_item_preview(_updateHandle, "promo.jpg");
- * steam_ugc_set_item_content(_updateHandle, "WorkshopContent1");
- * requestId = steam_ugc_submit_item_update(_updateHandle, "Version 1.2");
- * ```
- * The above code gets the game ID, then uses that along with a previously stored published file ID to generate an update handle for the item. This handle is then used to update various pieces of information before the update is pushed to the Workshop servers.
- * @func_end
- */
-
-/**
- * @func steam_ugc_set_item_visibility
- * @desc This function will set the visibility of the given item, using one of the ${constant.UGCFileVisibility} constants.
- * The function will return `true` if the API was successfully accessed and `false` if there was an issue.
- * 
- * @param {real} ugc_update_handle The unique handle for the UGC to be updated (returned from ${function.steam_ugc_start_item_update})
- * @param {constant.UGCFileVisibility} visibility The visibility to be used for the item (see ${constant.UGCFileVisibility} constant)
- * 
- * @returns {boolean}
- * 
- * @example
- * ```gml
- * var _app_id = steam_get_app_id();
- * var _updateHandle = steam_ugc_start_item_update(_app_id, global.Publish_ID);
- * steam_ugc_set_item_title(_updateHandle, "My workshop item(3)!");
- * steam_ugc_set_item_description(_updateHandle, "testing workshop...");
- * steam_ugc_set_item_visibility(_updateHandle, ugc_visibility_public);
- * var _tagArray;
- * _tagArray[0] = "Test";
- * _tagArray[1] = "New";
- * steam_ugc_set_item_tags(_updateHandle, _tagArray);
- * steam_ugc_set_item_preview(_updateHandle, "promo.jpg");
- * steam_ugc_set_item_content(_updateHandle, "WorkshopContent1");
- * requestId = steam_ugc_submit_item_update(_updateHandle, "Version 1.2");
- * ```
- * The above code gets the game ID, then uses that along with a previously stored published file ID to generate an update handle for the item. This handle is then used to update various pieces of information before the update is pushed to the Workshop servers.
- * @func_end
- */
-
-/**
- * @func steam_ugc_set_item_tags
- * @desc This function will set the tags to be used for the given item. The tags should be added to a 1D array as string elements and the array passed to the function.
- * The function will return `true` if the API was successfully accessed and `false` if there was an issue.
- * 
- * @param {real} ugc_update_handle The unique handle for the UGC to be updated (returned from ${function.steam_ugc_start_item_update})
- * @param {string} tags The tags (as an string JSON array) to be used for the item.
- * 
- * @returns {boolean}
- * 
- * @example
- * ```gml
- * var _app_id = steam_get_app_id();
- * var _updateHandle = steam_ugc_start_item_update(_app_id, global.Publish_ID);
- * steam_ugc_set_item_title(_updateHandle, "My workshop item(3)!");
- * steam_ugc_set_item_description(_updateHandle, "testing workshop...");
- * steam_ugc_set_item_visibility(_updateHandle, ugc_visibility_public);
- * var _tagArray;
- * _tagArray[0] = "Test";
- * _tagArray[1] = "New";
- * steam_ugc_set_item_tags(_updateHandle, _tagArray);
- * steam_ugc_set_item_preview(_updateHandle, "promo.jpg");
- * steam_ugc_set_item_content(_updateHandle, "WorkshopContent1");
- * requestId = steam_ugc_submit_item_update(_updateHandle, "Version 1.2");
- * ```
- * The above code gets the game ID, then uses that along with a previously stored published file ID to generate an update handle for the item. This handle is then used to update various pieces of information before the update is pushed to the Workshop servers.
- * @func_end
- */
-
-/**
- * @func steam_ugc_set_item_content
- * @desc This function will set the content path to be used for the given item, and it should be a relative path to the folder which contains the content files to upload - which in turn should be in the save area *or* the game bundle (i.e.: an included file).
- * The function will return `true` if the API was successfully accessed and `false` if there was an issue.
- * 
- * @param {real} ugc_update_handle The unique handle for the UGC to be updated (returned from ${function.steam_ugc_start_item_update})
- * @param {string} content The content path to be used for the item
- * 
- * @returns {boolean}
- * 
- * @example
- * ```gml
- * var _app_id = steam_get_app_id();
- * var _updateHandle = steam_ugc_start_item_update(_app_id, global.Publish_ID);
- * steam_ugc_set_item_title(_updateHandle, "My workshop item(3)!");
- * steam_ugc_set_item_description(_updateHandle, "testing workshop...");
- * steam_ugc_set_item_visibility(_updateHandle, ugc_visibility_public);
- * var _tagArray;
- * _tagArray[0] = "Test";
- * _tagArray[1] = "New";
- * steam_ugc_set_item_tags(_updateHandle, _tagArray);
- * steam_ugc_set_item_preview(_updateHandle, "promo.jpg");
- * steam_ugc_set_item_content(_updateHandle, "WorkshopContent1");
- * requestId = steam_ugc_submit_item_update(_updateHandle, "Version 1.2");
- * ```
- * The above code gets the game ID, then uses that along with a previously stored published file ID to generate an update handle for the item. This handle is then used to update various pieces of information before the update is pushed to the Workshop servers.
- * @func_end
- */
-
-/**
- * @func steam_ugc_set_item_preview
- * @desc This function will set the preview image to be used for the given item. The image should be supplied as either a PNG, JPG or GIF format file with a maximum size of 1MB. The path to the image should be a relative path in the save area *or* the game bundle (i.e.: an included file).
- * The function will return `true` if the API was successfully accessed and `false` if there was an issue.
- * 
- * @param {real} ugc_update_handle The unique handle for the UGC to be updated (returned from ${function.steam_ugc_start_item_update})
- * @param {string} preview The preview image (JPG, GIF or PNG - max size 1MB) to be used for the item.
- * 
- * @returns {boolean}
- * 
- * @example
- * ```gml
- * var _app_id = steam_get_app_id();
- * var _updateHandle = steam_ugc_start_item_update(_app_id, global.Publish_ID);
- * steam_ugc_set_item_title(_updateHandle, "My workshop item(3)!");
- * steam_ugc_set_item_description(_updateHandle, "testing workshop...");
- * steam_ugc_set_item_visibility(_updateHandle, ugc_visibility_public);
- * var _tagArray;
- * _tagArray[0] = "Test";
- * _tagArray[1] = "New";
- * steam_ugc_set_item_tags(_updateHandle, _tagArray);
- * steam_ugc_set_item_preview(_updateHandle, "promo.jpg");
- * steam_ugc_set_item_content(_updateHandle, "WorkshopContent1");
- * requestId = steam_ugc_submit_item_update(_updateHandle, "Version 1.2");
- * ```
- * The above code gets the game ID, then uses that along with a previously stored published file ID to generate an update handle for the item. This handle is then used to update various pieces of information before the update is pushed to the Workshop servers.
- * @func_end
- */
-
-/**
- * @func steam_ugc_set_item_metadata
- * @desc This function sets the metadata for the given UGC item.
- * The function will return `true` if the API was successfully accessed and `false` if there was an issue.
- * 
- * @param {real} ugc_update_handle The unique handle for the UGC to be updated.
- * @param {string} metadata The metadata to be associated with the current UGC.
- * 
- * @returns {boolean}
- * 
- * @func_end
- */
-
-/**
- * @func steam_ugc_query_set_return_metadata
- * @desc This function sets whether to return the developer-specified metadata for the items on a pending UGC Query.
- * The function will return `true` if the API was successfully accessed and `false` if there was an issue.
- * 
- * [[Note: This must be set before you send a UGC Query handle using ${function.steam_ugc_send_query}.]]
- * 
- * @param {real} ugc_query_handle The query handle to use.
- * @param {bool} return_metadata Whether to have the query return the metadata information.
- * 
- * @func_end
- */
-
-/**
- * @func steam_ugc_submit_item_update
- * @desc This function will submit the UGC item indexed by the given handle to the Steam Workshop servers, adding the change notes to be used for the given item.
- * This is an asynchronous function that will return an asynchronous ID and trigger the ${event.steam} when the task is finished.
- * 
- * @param {real} ugc_update_handle The unique handle for the UGC to be updated (returned from ${function.steam_ugc_start_item_update})
- * @param {string} change_note The change notes to be used for the item.
- * 
- * @returns {real}
- * 
- * @event steam
- * @member {real} id The asynchronous request ID
- * @member {string} event_type The string value `"ugc_update_item"`
- * @member {real} result This will either be the GML constant `ugc_result_success` or some other real number (see the [Steam docs](https://partner.steamgames.com/doc/api/steam_api#EResult), for more details)
- * @member {boolean} legal_agreement_required Will be `true` or `false` (see the [Steam docs](https://partner.steamgames.com/documentation/ugc#Legal) for more details)
- * @event_end
- * 
- * @example
- * ```gml
- * var _app_id = steam_get_app_id();
- * var _updateHandle = steam_ugc_start_item_update(_app_id, global.Publish_ID);
- * steam_ugc_set_item_title(_updateHandle, "My workshop item(3)!");
- * steam_ugc_set_item_description(_updateHandle, "testing workshop...");
- * steam_ugc_set_item_visibility(_updateHandle, ugc_visibility_public);
- * var _tagArray;
- * _tagArray[0] = "Test";
- * _tagArray[1] = "New";
- * steam_ugc_set_item_tags(_updateHandle, _tagArray);
- * steam_ugc_set_item_preview(_updateHandle, "promo.jpg");
- * steam_ugc_set_item_content(_updateHandle, "WorkshopContent1");
- * requestId = steam_ugc_submit_item_update(_updateHandle, "Version 1.2");
- * ```
- * The above code gets the game ID, then uses that along with a previously stored published file ID to generate an update handle for the item. This handle is then used to update various pieces of information before the update is pushed to the Workshop servers.
- * @func_end
- */
-
-/**
- * @func steam_ugc_get_item_update_progress
- * @desc This function can be used to track the update status for an item. You give the item handle (as returned by the function ${function.steam_ugc_start_item_update}) and an empty ${type.ds_map} which will then be populated with the update information (see table below).
- * If there is an error the function will return `false` and the map will be empty, otherwise the function returns `true`.
- * 
- * |Key|Type|Description|
- * |----|----|----|
- * |status_code|${type.real}|The Steam status code|
- * |status_string|${type.string}|A string for the current status|
- * |bytes_processed|${type.real}|The bytes processed so far|
- * |bytes_total|${type.real}|The total number of bytes in the update|
- * 
- * @param {real} ugc_update_handle The unique handle for the UGC to be updated.
- * @param {type.ds_map} info_map A (previously created) DS map
- * 
- * @returns {boolean}
- * 
- * @example
- * ```gml
- * var _uploadMap = ds_map_create();
- * steam_ugc_get_item_update_progress(global.itemHandle, _uploadMap);
- * var _statusCode = _uploadMap[? "status_code"];
- * var _status = _uploadMap[? "status_string"];
- * var _processed = _uploadMap[? "bytes_processed"];
- * var _total = _uploadMap[? "bytes_total"];
- * draw_text(32, 0, "Upload info for item:" + string(global.itemHandle));
- * draw_text(32, 15, "status code:" + string(_statusCode));
- * draw_text(32, 30, "status:" + string(_status));
- * draw_text(32, 45, "bytes processed:" +string(_processed));
- * draw_text(32, 60, "bytes total:" + string(_total));
- * ds_map_destroy(_uploadMap);
- * ```
- * The above code will query the upload status of the item indexed in the global variable "itemHandle", using a ${type.ds_map} to store the information. This is then parsed and the resulting values drawn to the screen.
- * @func_end
- */
-
-/**
- * @func steam_ugc_subscribe_item
- * @desc This function can be used to subscribe to a UGC item.
- * This is an asynchronous function that will return an asynchronous ID and trigger the ${event.steam} when the task is finished.
- * 
- * @param {int64} published_file_id The unique file ID for the UGC to subscribe to.
- * 
- * @returns {real}
- * 
- * @event steam
- * @member {real} id The asynchronous request ID
- * @member {string} event_type The string value `"ugc_subscribe_item"`
- * @member {real} result This will either be the GML constant `ugc_result_success` or some other real number (see the [Steam docs](https://partner.steamgames.com/doc/api/steam_api#EResult), for more details)
- * @member {int64} published_file_id This key holds the unique published ID for the item (you may need to cast it using the ${function.int64} function, before passing it to subsequent functions
- * @event_end
+ * This function adds a dependency between the given item and the app ID. This list of dependencies can be retrieved by calling ${function.steam_ugc_get_app_dependencies}. This is a soft-dependency that is displayed on the web.
+ * It is up to the application to determine whether the item can actually be used or not.
  *
- * @example
- * ```gml
- * steam_sub = steam_ugc_subscribe_item(global.pubFileID);
- * ```
- * The above code will subscribe (and download) the item with the file ID stored in the global variable "pubFileID".
- * @func_end
- */
-
-/**
- * @func steam_ugc_unsubscribe_item
- * @desc This function can be used to unsubscribe from a UGC item.
- * This is an asynchronous function that will return an asynchronous ID and trigger the ${event.steam} when the task is finished.
+ * @param {Real} published_file_id The workshop item to add the dependency to.
+ * @param {Real} app_id The required app or DLC to add as a dependency.
+ * @param {Function} callback The function to call upon completion.
  * 
- * @param {int64} published_file_id The unique file ID for the UGC to unsubscribe from.
+ * @event callback
+ * @desc > **Steamworks Callback**: [ISteamUGC::AddAppDependencyResult_t](https://partner.steamgames.com/doc/api/ISteamUGC#AddAppDependencyResult_t)
  * 
- * @returns {real}
+ * Triggered upon completion.
  * 
- * @event steam
- * @member {real} id The asynchronous request ID
- * @member {string} event_type The string value `"ugc_unsubscribe_item"`
- * @member {real} result This will either be the GML constant `ugc_result_success` or some other real number (see the [Steam docs](https://partner.steamgames.com/doc/api/steam_api#EResult), for more details)
- * @member published_file_id This key holds the unique published ID for the item (you may need to cast it using the ${function.int64} function)
+ * @member {Struct.SteamUgcAddAppDependencyResult} result The result of the operation.
  * @event_end
  * 
- * @example
- * ```gml
- * steam_sub = steam_ugc_unsubscribe_item(global.pubFileID);
- * ```
- * The above code will unsubscribe (and remove) the item with the file ID stored in the global variable "pubFileID".
- * @func_end
- * 
- * @func steam_ugc_num_subscribed_items
- * @desc This function can be used to get the number of items that the current user has subscribed to.
- * 
- * @returns {real}
- * 
- * @example
- * ```gml
- * numSub = steam_ugc_num_subscribed_items();
- * ```
- * The above code will store the number of subscribed items in a variable.
- * @func_end
+ * @function_end 
  */
 
 /**
- * @func steam_ugc_get_subscribed_items
- * @desc This function will populate a DS list with all the published file IDs for the items that the user is currently subscribed to. You must first create the list and store the index in a variable, then pass this to the function.
- * The function will return `true` if everything is correct and the Steam API is initialized, or `false` if there is an error.
- * 
- * @param {type.ds_list} item_list A (previously created) DS list index.
- * 
- * @returns {boolean}
- * 
- * @example
- * ```gml
- * steam_list = ds_list_create();
- * steam_ugc_get_subscribed_items(steam_list);
- * ```
- * The above code will create an empty DS list and then populate it with the file IDs for all subscribed items for the user.
- * @func_end
- */
-
-/**
- * @func steam_ugc_get_item_install_info
- * @desc This function can be used to retrieve information about any given published file item that has been subscribed to and downloaded to the Steam local storage area for your game. You give the item ID and supply the index to an empty ${type.ds_map} which will then be populated with the install information (see table below).
- * If the item exists (i.e.: as been subscribed and download was complete) then the function will return `true` and populate the map, otherwise it will return `false` and the map will remain empty.
- * 
- * |Key|Type|Description|
- * |----|----|----|
- * |size_on_disk|${type.real}|The file size on disk (in bytes)|
- * |legacy_item|${type.boolean}|Will be `true` or `false` depending on whether it is a legacy file or not|
- * |folder|${type.string}|This is the full path to the installed content (please refer to "Item Installation" in Steam SDK docs, as "legacy" items uploaded with the old method, are treated differently)|
- * 
- * @param {int64} published_file_id The unique handle for the UGC to be updated.
- * @param {type.ds_map} info_map A (previously created) DS map index.
- * 
- * @returns {boolean}
- * 
- * @example
- * ```gml
- * var _item_map = ds_map_create();
- * steam_ugc_get_item_install_info(global.fileID, _item_map);
- * ```
- * The above code will query the install status of the item indexed in the global variable "fileID", using a `DS Map` to store the information.
- * @func_end
- */
-
-/**
- * @func steam_ugc_get_item_update_info
- * @desc This function can be used to retrieve information about the current download state for the given file ID. You give the item ID and supply the index to an empty ${type.ds_map} which will then be populated with the update information (see table below).
- * If the item exists then the function will return `true` and populate the map, otherwise it will return `false` and the map will remain empty.
- * 
- * |Key|Type|Description|
- * |----|----|----|
- * |needs_update|${type.boolean}|Whether the item needs an update or not|
- * |is_downloading|${type.boolean}|Whether the item is currently downloading or not|
- * |bytes_downloaded|${type.real}|The number of bytes that has been downloaded|
- * |bytes_total|${type.real}|The total size (number of bytes) required for the item on disk|
- * 
- * @param {int64} published_file_id The unique file ID for the UGC to be checked.
- * @param {type.ds_map} info_map A (previously created) DS map index.
- * 
- * @returns {boolean}
- * 
- * @example
- * ```gml
- * var _info_map = ds_map_create();
- * var _info = steam_ugc_get_item_update_info(global.fileID, _info_map);
- * 
- * if (_info)
- * {
- *     draw_text(32, 15, "needs_update: " + string(_info_map[? "needs_update"]));
- *     draw_text(32, 30, "is_downloading: " + string(_info_map[? "is_downloading"]));
- *     draw_text(32, 45, "bytes_downloaded: " + string(_info_map[? "bytes_downloaded"]));
- *     draw_text(32, 60, "bytes_total: " + string(_info_map[? "bytes_total"]));
- * }
- * ```
- * The above code will query the download status of the item indexed in the global variable "fileID", using a ${type.ds_map} to store the information.
- * @func_end
- */
-
-/**
- * @func steam_ugc_request_item_details
- * @desc **Steamworks Function:** [ISteamUGC::GetQueryUGCResult](https://partner.steamgames.com/doc/api/ISteamUGC#GetQueryUGCResult)
- * 
- * This function can be used to retrieve information about a given file ID. You give the file ID and supply a maximum age for checking.
- * 
- * The function returns the async event ID.
- * 
- * @param {real} published_file_id The unique file ID for the UGC to be checked.
- * @param {real} max_age_seconds The age of the data to check (recommended 30 - 60 seconds).
- * 
- * @returns {real}
- * 
- * @event steam
- * @member {real} id The asynchronous request ID
- * @member {string} event_type The string value `"ugc_item_details"`
- * @member {boolean} cached_data Will be `true` if the returned details are from the local cache or `false` if they are taken from the server
- * @member {int64} published_file_id This key holds the unique published ID for the item (you may need to cast it using the ${function.int64} function)
- * @member {real} result This will either be the GML constant `ugc_result_success` or some other real number (see the [Steam docs](https://partner.steamgames.com/doc/api/steam_api#EResult), for more details)
- * @member {string} file_type The type of file used
- * @member {real} creator_app_id The Steam ID of the item creator
- * @member {real} consumer_app_id The Steam ID of the item consumer
- * @member {string} title The title of the item
- * @member {string} description The description of the item
- * @member {real} steam_id_owner The Steam ID of the item owner
- * @member {real} time_created The time the item was first created
- * @member {real} time_updated The last time the item was updated
- * @member {real} time_added_to_user_list The time that the item was subscribed to
- * @member {constant.UGCFileVisibility} visibility The visibility of the item (see ${constant.UGCFileVisibility} constant)
- * @member {boolean} banned Whether the item has been banned or not
- * @member {boolean} accepted_for_use Whether the item has been accepted for use or not
- * @member {boolean} tags_truncated Whether the tag list in `tags` has been truncated.
- * @member {array[string]} tags An array of the tags for the item. This array may be incomplete or contain incomplete tag names when `tags_truncated` is `true`. (Note that the Steamworks function returns the tags as a comma-separated list (string) instead)
- * @member {int64} handle_file The unique file handle for the item
- * @member {int64} handle_preview_file The unique handle for the image preview for the item (can be used with ${function.steam_ugc_download} to download a preview image)
- * @member {string} filename The name of the item file
- * @member {real} file_size The size of the item file
- * @member {real} preview_file_size The size of the preview image
- * @member {string} url The full URL associated with this item. (For a video or a website.)
- * @member {real} up_votes The number of up-votes received
- * @member {real} down_votes The number of down-votes received
- * @member {real} score The overall score of the item
- * @member {real} account_id_owner The account ID from the Steam ID owner (this can be used in function ${function.steam_ugc_create_query_user_ex})
- * @event_end
- * 
- * @example
- * In this example we send off a details request for an item and then parse the resulting ${var.async_load} DS map to set some variables. First we send off the request:
- * 
- * ```gml
- * steam_details = steam_ugc_request_item_details(global.fileID, 60);
- * ```
- * The above code will request details on the item with the file ID stored in the global variable and will trigger a ${event.steam} with the returned information. In this event we can then parse the map and store some of the values in variables which can then be used to display the information to the user:
- * 
- * ```gml
- * var _map_id = async_load[? "id"];
- * var _result = async_load[? "result"];
- * if (_map_id == steam_details && _result == ugc_result_success)
- * {
- *     mTitle = async_load[? "title"];
- *     mDesc = async_load[? "description"];
- *     mTags = async_load[? "tags"];
- *     m_hPreviewFile = async_load[? "handle_preview_file"];
- *     m_hOwnerSteamId = async_load[? "steam_id_owner"];
- *     mOwnerAccountId = async_load[? "account_id_owner"];
- *     mPubFileId = async_load[? "published_file_id"];
- *     mScore = async_load[? "score"];
- * }
- * ```
- * @func_end
- */
-
-/**
- * @func steam_ugc_create_query_user
- * @desc This function can be used to query the UGC database. The function automatically uses the default ID for the app, user and assumes that the query is being done by the consumer (rather than the creator). The function requires you to use the following constants for the type of data to query (${constant.UGCListType}), the type of item to match (${constant.UGCMatchType}) and the order in which the returned items will be sorted (${constant.UGCListSortOrder}), as well as a page number - note that a query will return a *maximum* number of 50 items.
- * The function returns a unique query handle value which should be stored in a variable for use in the other query functions. Note that this function only prepares the query but does not actually send it - for that you must call the function ${function.steam_ugc_send_query} - and you can use further `steam_ugc_query_*()` functions to refine the search request before it is actually sent.
- * 
- * @param {constant.UGCListType} list_type The type of data list to create
- * @param {constant.UGCMatchType} match_type The type of UGC items to query
- * @param {constant.UGCListSortOrder} sort_order The way that data should be ordered
- * @param {real} page The page number to query.
- * 
- * @returns {real}
- * 
- * @example
- * ```gml
- * query_handle = steam_ugc_create_query_user(ugc_list_Published, ugc_match_Items, ugc_sortorder_TitleAsc, 1);
- * ```
- * The above code creates a query request and stores its handle in a variable for future use.
- * @func_end
- */
-
-/**
- * @func steam_ugc_create_query_user_ex
- * @desc This function can be used to query the UGC database. The function requires the ID value for the user and the ID of the game that is going to consume the item and/or the ID of the game that created the item. You also need to use the following constants for the type of data to query (${constant.UGCListType}), the type of item to query (${constant.UGCMatchType}) and the order in which the returned items will be sorted (${constant.UGCListSortOrder}), as well as a page number - note that a query will return a *maximum* number of 50 items.
- * The function returns a unique query handle value which should be stored in a variable for use in the other query functions. Note that this function only prepares the query but does not actually send it - for that you must call the function ${function.steam_ugc_send_query} - and you can use further `steam_ugc_query_*()` functions to refine the search request before it is actually sent.
- * 
- * @param {constant.UGCListType} list_type The type of data list to create
- * @param {constant.UGCMatchType} match_type The type of UGC items to query
- * @param {constant.UGCListSortOrder} sort_order The way that data should be ordered
- * @param {real} page The page number to query
- * @param {real} account_id The Steam account ID
- * @param {real} creator_app_id The item creator app ID
- * @param {real} consumer_app_id The consumer app ID
- * 
- * @returns {real}
- * 
- * @example
- * ```gml
- * query_handle = steam_ugc_create_query_user_ex(ugc_list_Published, ugc_match_Items, ugc_sortorder_TitleAsc, page, global.AccountID, 0, global.GameID);
- * ```
- * The above code creates a query request and stores its handle in a variable for future use.
- * @func_end
- */
-
-/**
- * @func steam_ugc_create_query_all
- * @desc This function can be used to query the UGC database using some predefined query types. The function requires the following constants for the type of query to create (${constant.UGCQueryType}), the type of item to match (${constant.UGCMatchType}) and the page number to query - note that a query will return a *maximum* number of 50 items.
- * The function returns a unique query handle value which should be stored in a variable for use in the other query functions. Note that this function only prepares the query but does not actually send it - for that you must call the function ${function.steam_ugc_send_query} - and you can use further `steam_ugc_query_*()` functions to refine the search request before it is actually sent.
- * 
- * @param {constant.UGCQueryType} query_type The type of query to create
- * @param {constant.UGCMatchType} match_type The type of UGC items to query
- * @param {real} page The page number to query
- * 
- * @returns {real}
- * 
- * @example
- * ```gml
- * query_handle = steam_ugc_create_query_all(ugc_query_RankedByVote, ugc_match_Items, 1);
- * ```
- * The above code creates a general query request and stores its handle in a variable for future use.
- * @func_end
- */
-
-/**
- * @func steam_ugc_create_query_all_ex
- * @desc This function can be used to query the UGC database. The function requires the ID of the game that is going to consume the item and/or the ID of the game that created the item, and you need to use the following constants for the type of query to create (${constant.UGCQueryType}), the type of item to match (${constant.UGCMatchType}) and the page number to query. Note that a query will return a *maximum* number of 50 items.
- * The function returns a unique query handle value which should be stored in a variable for use in the other query functions. Note that this function only prepares the query but does not actually send it - for that you must call the function ${function.steam_ugc_send_query} - and you can use further `steam_ugc_query_*()` functions to refine the search request before it is actually sent.
- * 
- * @param {constant.UGCQueryType} query_type The type of query to create
- * @param {constant.UGCMatchType} match_type The type of UGC items to query
- * @param {real} page The page number to query
- * @param {real} creator_app_id The item creator's app ID
- * @param {real} consumer_app_id The consumer's app ID
- * 
- * @returns {real}
- * 
- * @example
- * ```gml
- * query_handle = steam_ugc_create_query_all_ex(ugc_query_RankedByVote, page, global.AccountID, 0, global.GameID);
- * ```
- * The above code creates a query request and stores its handle in a variable for future use.
- * @func_end
- */
-
-/**
- * @func steam_ugc_query_set_cloud_filename_filter
- * @desc This function can be used to further filter any given UGC query, specifically to check and see if a Workshop item file name must match or not. The query handle is the value returned when you created the query (using, for example, ${function.steam_ugc_create_query_user}) and the second argument is either `true` or `false`, depending on whether you require the file names to match.
- * The function will return `true` if the query filter was correctly set, or `false` otherwise.
- * 
- * @param {real} ugc_query_handle The query handle to use.
- * @param {boolean} match_cloud_filename Sets whether the UGC item file name should match or not.
- * 
- * @returns {boolean}
- * 
- * @example
- * ```gml
- * var _query_handle = steam_ugc_create_query_all(ugc_query_RankedByVote, ugc_match_Items, 1);
- * steam_ugc_query_set_cloud_filename_filter(_query_handle, true);
- * steam_ugc_query_add_excluded_tag(_query_handle, "nasty chips");
- * steam_ugc_query_set_return_long_description(_query_handle, true);
- * steam_ugc_query_set_allow_cached_response(_query_handle, true);
- * query_ID = steam_ugc_send_query(_query_handle);
- * ```
- * The above code creates a query request and stores its handle in a local variable for future use in the rest of the functions which further define the query request before sending the query.
- * @func_end
- */
-
-/**
- * @func steam_ugc_query_set_match_any_tag
- * @desc This function can be used to further filter any given UGC query, specifically to switch on or off tag matching. The query handle is the value returned when you created the query (using, for example, ${function.steam_ugc_create_query_user}) and the second argument is either `true` or `false`, depending on whether you require a check for matching tags.
- * The function will return `true` if the query filter was correctly set, or `false` otherwise.
- * 
- * @param {real} ugc_query_handle The query handle to use.
- * @param {boolean} match_any_tag Sets whether the UGC item tags should match anything or not.
- * 
- * @returns {boolean}
- * 
- * @example
- * ```gml
- * var _query_handle = steam_ugc_create_query_all(ugc_query_RankedByVote, ugc_match_Items, 1);
- * steam_ugc_query_set_match_any_tag(_query_handle, false);
- * steam_ugc_query_add_excluded_tag(_query_handle, "walking simulator");
- * steam_ugc_query_set_return_long_description(_query_handle, true);
- * steam_ugc_query_set_allow_cached_response(_query_handle, true);
- * query_ID = steam_ugc_send_query(_query_handle);
- * ```
- * The above code creates a query request and stores its handle in a local variable for future use in the rest of the functions which further define the query request before sending the query.
- * @func_end
- */
-
-/**
- * @func steam_ugc_query_set_search_text
- * @desc This function can be used to further filter any given UGC query, specifically to search for the given string in the title and description of the UGC items. The query handle is the value returned when you created the query (using, for example, ${function.steam_ugc_create_query_user}) and the second argument is a string you want to use as the search term.
- * The function will return `true` if the query filter was correctly set, or `false` otherwise.
- * 
- * @param {real} ugc_query_handle The query handle to use.
- * @param {string} search_text The search text to use for the query.
- * 
- * @returns {boolean}
- * 
- * @example
- * ```gml
- * var _query_handle = steam_ugc_create_query_all(ugc_query_RankedByVote, ugc_match_Items, 1);
- * steam_ugc_query_set_search_text(_query_handle, "texture");
- * steam_ugc_query_set_return_long_description(_query_handle, true);
- * steam_ugc_query_set_allow_cached_response(_query_handle, true);
- * query_ID = steam_ugc_send_query(_query_handle);
- * ```
- * The above code creates a query request and stores its handle in a local variable for future use in the rest of the functions which further define the query request before sending the query.
- * @func_end
- */
-
-/**
- * @func steam_ugc_query_set_ranked_by_trend_days
- * @desc This function can be used to further filter any UGC query made using the `ugc_query_RankedByTrend` constant (${constant.UGCQueryType}), specifically to search over a number of days. The query handle is the value returned when you created the query (using, for example, ${function.steam_ugc_create_query_user}) and the second argument is the number of days over which you want the query to run.
- * The function will return `true` if the query filter was correctly set, or `false` otherwise.
- * 
- * @param {real} ugc_query_handle The query handle to use.
- * @param {real} days The number of days to query.
- * 
- * @returns {boolean}
- * 
- * @example
- * ```gml
- * var _query_handle = steam_ugc_create_query_all(ugc_query_RankedByTrend, ugc_match_Items, 1);
- * steam_ugc_query_set_ranked_by_trend_days(_query_handle, 5);
- * steam_ugc_query_set_return_long_description(_query_handle, true);
- * steam_ugc_query_set_allow_cached_response(_query_handle, true);
- * query_ID = steam_ugc_send_query(_query_handle);
- * ```
- * The above code creates a query request and stores its handle in a local variable for future use in the rest of the functions which further define the query request before sending the query.
- * @func_end
- */
-
-/**
- * @func steam_ugc_query_add_required_tag
- * @desc This function can be used to further filter any given UGC query, specifically to search only those UGC items with the given tag. The query handle is the value returned when you created the query (using, for example, ${function.steam_ugc_create_query_user}) and the second argument is a string you want to use as the tag to include.
- * The function will return `true` if the query filter was correctly set, or `false` otherwise.
- * 
- * @param {real} ugc_query_handle The query handle to use.
- * @param {string} tag_name The tag name to include.
- * 
- * @returns {boolean}
- * 
- * @example
- * ```gml
- * var _query_handle = steam_ugc_create_query_all(ugc_query_RankedByTrend, ugc_match_Items, 1);
- * steam_ugc_query_add_required_tag(_query_handle, "RPG");
- * steam_ugc_query_set_return_long_description(_query_handle, true);
- * steam_ugc_query_set_allow_cached_response(_query_handle, true);
- * query_ID = steam_ugc_send_query(_query_handle);
- * ```
- * The above code creates a query request and stores its handle in a local variable for future use in the rest of the functions which further define the query request before sending the query.
- * @func_end
- */
-
-/**
- * @func steam_ugc_query_add_excluded_tag
- * @desc This function can be used to further filter any given UGC query, specifically to exclude a given UGC from the query request. The query handle is the value returned when you created the query (using, for example, ${function.steam_ugc_create_query_user}) and the second argument is a string you want to use as the tag to exclude.
- * The function will return `true` if the query filter was correctly set, or `false` otherwise.
- * 
- * @param {real} ugc_query_handle The query handle to use.
- * @param {string} tag_name The tag name to exclude.
- * 
- * @returns {boolean}
- * 
- * @example
- * ```gml
- * var _query_handle = steam_ugc_create_query_all(ugc_query_RankedByVote, ugc_match_Items, 1);
- * steam_ugc_query_add_excluded_tag(_query_handle, "walking simulator");
- * steam_ugc_query_set_return_long_description(_query_handle, true);
- * steam_ugc_query_set_allow_cached_response(_query_handle, true);
- * query_ID = steam_ugc_send_query(_query_handle);
- * ```
- * The above code creates a query request and stores its handle in a local variable for future use in the rest of the functions which further define the query request before sending the query.
- * @func_end
- */
-
-/**
- * @func steam_ugc_query_set_return_long_description
- * @desc This function can be used to further filter any given UGC query, specifically to retrieve the long description text in the call back event triggered when the query was sent. The query handle is the value returned when you created the query (using, for example,  ${function.steam_ugc_create_query_user}) and the second argument is either `true` or `false`.
- * The function will return `true` if the query filter was correctly set, or `false` otherwise.
- * 
- * @param {real} ugc_query_handle The query handle to use.
- * @param {boolean} long_description Whether to have the query return the long description text.
- * 
- * @returns {boolean}
- * 
- * @example
- * ```gml
- * var _query_handle = steam_ugc_create_query_all(ugc_query_RankedByVote, ugc_match_Items, 1);
- * steam_ugc_query_set_return_long_description(_query_handle, true);
- * steam_ugc_query_set_allow_cached_response(_query_handle, true);
- * query_ID = steam_ugc_send_query(_query_handle);
- * ```
- * The above code creates a query request and stores its handle in a local variable for future use in the rest of the functions which further define the query request before sending the query.
- * @func_end
- */
-
-/**
- * @func steam_ugc_query_set_return_total_only
- * @desc This function can be used to further filter any given UGC query, specifically to request only the number of results without any other information (meaning that the DS map generated by the send function will contain the key "num_results" without any further map data). The query handle is the value returned when you created the query (using, for example, ${function.steam_ugc_create_query_user}) and the second argument is either `true` or `false`.
- * The function will return `true` if the query filter was correctly set, or `false` otherwise.
- * 
- * @param {real} ugc_query_handle The query handle to use.
- * @param {boolean} total_only Whether to have the query return only the total number of hits or not.
- * 
- * @returns {boolean}
- * 
- * @example
- * ```gml
- * var _query_handle = steam_ugc_create_query_all(ugc_query_RankedByVote, ugc_match_Items, 1);
- * steam_ugc_query_set_return_total_only(_query_handle, true);
- * steam_ugc_query_set_allow_cached_response(_query_handle, true);
- * query_ID = steam_ugc_send_query(_query_handle);
- * ```
- * The above code creates a query request and stores its handle in a local variable for future use in the rest of the functions which further define the query request before sending the query.
- * @func_end
- */
-
-/**
- * @func steam_ugc_query_set_allow_cached_response
- * @desc This function can be used to further filter any given UGC query, specifically to request that the query check the local cache rather than online. The query handle is the value returned when you created the query (using, for example, ${function.steam_ugc_create_query_user}) and the second argument is either `true` or `false`.
- * The function will return `true` if the query filter was correctly set, or `false` otherwise.
- * 
- * @param {real} ugc_query_handle The query handle to use.
- * @param {boolean} cache Whether to have the query check the local cache or not.
- * 
- * @returns {boolean}
- * 
- * @example
- * ```gml
- * var _query_handle = steam_ugc_create_query_all(ugc_query_RankedByTrend, ugc_match_Items, 1);
- * steam_ugc_query_add_required_tag(_query_handle, "RPG");
- * steam_ugc_query_set_return_long_description(_query_handle, true);
- * steam_ugc_query_set_allow_cached_response(_query_handle, true);
- * query_ID = steam_ugc_send_query(_query_handle);
- * ```
- * The above code creates a query request and stores its handle in a local variable for future use in the rest of the functions which further define the query request before sending the query.
- * @func_end
- */
-
-/**
- * @func steam_ugc_send_query
- * @desc This function can be used to send a query request. You first define the query using one of the following functions:
- * 
- * * ${function.steam_ugc_create_query_all}
- * * ${function.steam_ugc_create_query_all_ex}
- * * ${function.steam_ugc_create_query_user}
- * * ${function.steam_ugc_create_query_user_ex}
- * 
- * which will return a query handle. This handle is then used to set filters, etc. before being used in this function to send off the query request.
- * This is an asynchronous function that will return an asynchronous ID and trigger the ${event.steam} when the task is finished.
- * 
- * @param {real} ugc_query_handle The query handle to send.
- * 
- * @returns {real}
- * 
- * @event steam
- * @member {real} id The asynchronous request ID
- * @member {string} event_type The string value `"ugc_query"`
- * @member {real} result This will either be the GML constant `ugc_result_success` or some other real number (see the [Steam docs](https://partner.steamgames.com/doc/api/steam_api#EResult), for more details)
- * @member {boolean} cached_data Will be `true` if the returned details are from the local cache or `false` if they are taken from the server
- * @member {real} total_matching The total number of matching results
- * @member {real} num_results The number of results returned (max 50)
- * @member {type.ds_list} results_list A DS List index, where each list entry is a DS Map index containing details of the particular item (see table below)
- * @member {int64} published_file_id This key holds the unique published ID for the item (you may need to cast it using the ${function.int64} function)
- * @member {string} file_type The type of file used
- * @member {real} creator_app_id The Steam ID of the item creator
- * @member {real} consumer_app_id The Steam ID of the item consumer
- * @member {string} title The title of the item
- * @member {string} description The description of the item
- * @member {real} steam_id_owner The Steam ID of the item owner
- * @member {real} time_created The time the item was first created
- * @member {real} time_uploaded The last time the item was updated
- * @member {real} time_added_to_user_list The time that the item was subscribed to
- * @member {constant.UGCFileVisibility} visibility The visibility of the item
- * @member {boolean} banned Whether the item has been banned or not
- * @member {boolean} accepted_for_use Whether the item has been accepted for use or not
- * @member {array} tags_truncated Short version of the tags as an array
- * @member {array[string]} tags An array of the tags for the item
- * @member {int64} handle_file The unique file handle for the item
- * @member {int64} handle_preview_file The unique handle for the image preview for the item (can be used with ${function.steam_ugc_download} to download a preview image)
- * @member {string} filename The name of the item file
- * @member {real} file_size The size of the item file
- * @member {real} preview_file_size The size of the preview image
- * @member {string} url The full URL for the item
- * @member {real} up_votes The number of upvotes received
- * @member {real} down_votes The number of downvotes received
- * @member {real} score The overall score of the item
- * @member {real} account_id_owner The account ID from the Steam ID owner (can be used in the function ${function.steam_ugc_create_query_user})
- * @event_end
+ * @function steam_ugc_add_dependency
+ * @description > **Steamworks Function**: [ISteamUGC::AddDependency](https://partner.steamgames.com/doc/api/ISteamUGC#AddDependency)
  *
- * @example
- * ```gml
- * var _query_handle = steam_ugc_create_query_all(ugc_query_RankedByTrend, ugc_match_Items, 1);
- * steam_ugc_query_add_required_tag(_query_handle, "RPG");
- * steam_ugc_query_set_return_long_description(_query_handle, true);
- * steam_ugc_query_set_allow_cached_response(_query_handle, true);
- * query_ID = steam_ugc_send_query(_query_handle);
- * ```
- * The above code creates a query request and stores its handle in a local variable for future use in the rest of the functions which further define the query request before sending the query.
- * @func_end
+ * This function adds a workshop item as a dependency to the specified item.
+ *
+ * @param {Real} parent_published_file_id The workshop item to add a dependency to.
+ * @param {Real} child_published_file_id The dependency to add to the parent.
+ * @param {Function} callback The function to call upon completion.
+ * 
+ * @event callback
+ * @desc > **Steamworks Callback**: [ISteamUGC::AddUGCDependencyResult_t](https://partner.steamgames.com/doc/api/ISteamUGC#AddUGCDependencyResult_t)
+ * 
+ * Triggered upon completion.
+ * 
+ * @member {Struct.SteamUgcAddUGCDependencyResult} result The result of the operation.
+ * @event_end
+ * @function_end
  */
 
 /**
- * @func steam_ugc_download
- * @desc With this function you can download a preview image for any given UGC item. The `ugc_handle` is the unique identifying value for the image (which you can get using the function ${function.steam_ugc_send_query}), and the destination filename is the name (and local path within the Steam sandbox) that you wish to give the image file when the download is complete.
- * This is an asynchronous function that will return an asynchronous ID and trigger the ${event.steam} when the task is finished.
+ * @function steam_ugc_add_excluded_tag
+ * @description > **Steamworks Function**: [ISteamUGC::AddExcludedTag](https://partner.steamgames.com/doc/api/ISteamUGC#AddExcludedTag)
+ *
+ * This function adds an excluded tag to a pending UGC Query. This will only return UGC without the specified tag.
  * 
- * @param {int64} ugc_handle The unique handle for the preview to be downloaded.
- * @param {string} dest_filename The filename to save the preview with.
+ * [[Note: This must be set before you send a UGC Query handle using ${function.steam_ugc_send_query_ugc_request}.]]
+ *
+ * @param {Real} query_handle The UGC query handle to customise.
+ * @param {String} tag_name The tag that must NOT be attached to the UGC for it to be received.
+ * @returns {Bool} 
+ * @function_end 
+ */
+
+/**
+ * @function steam_ugc_add_item_key_value_tag
+ * @description > **Steamworks Function**: [ISteamUGC::AddItemKeyValueTag](https://partner.steamgames.com/doc/api/ISteamUGC#AddItemKeyValueTag)
+ *
+ * This function adds a key-value tag pair to an item. Keys can map to multiple different values (1-to-many relationship).
  * 
- * @returns {real}
+ * Key names are restricted to alpha-numeric characters and the '_' character.
  * 
- * @event steam
- * @member {real} id The asynchronous request ID
- * @member {string} event_type The string value `"ugc_create_item"`
- * @member {real} result This will either be the GML constant `ugc_result_success` or some other real number (see the [Steam docs](https://partner.steamgames.com/doc/api/steam_api) under **EResult** for more details)
- * @member {string} original_filename This key holds the original name of the image file *on the server* (a string)
- * @member {string} dest_filename This key holds the image file name you passed in (a string)
- * @member {real} ugc_handle The unique identifying value for the image
+ * Both keys and values cannot exceed 255 characters in length.
+ * 
+ * Key-value tags are searchable by exact match only.
+ * 
+ * [[Note: This must be set before you submit the UGC update handle using ${function.steam_ugc_submit_item_update}.]]
+ *
+ * @param {Real} update_handle The workshop item update handle to customise.
+ * @param {String} key The key to set on the item.
+ * @param {String} value The value to map to the key.
+ * @returns {Bool} 
+ * @function_end 
+ */
+
+/**
+ * @function steam_ugc_add_item_preview_file
+ * @description > **Steamworks Function**: [ISteamUGC::AddItemPreviewFile](https://partner.steamgames.com/doc/api/ISteamUGC#AddItemPreviewFile)
+ *
+ * This function adds an additional preview file for the item.
+ * 
+ * Then the format of the image should be one that both the web and the application (if necessary) can render and must be under 1MB. Suggested formats include JPG, PNG and GIF.
+ * 
+ * [[Note: This must be set before you submit the UGC update handle using ${function.steam_ugc_submit_item_update}.]]
+ *
+ * @param {Real} update_handle The workshop item update handle to customise.
+ * @param {String} preview_file_path The absolute path to the local image.
+ * @param {Enum.SteamUgcItemPreviewType} preview_type The type of this preview.
+ * @returns {Bool} 
+ * @function_end 
+ */
+
+/**
+ * @function steam_ugc_add_item_preview_video
+ * @description > **Steamworks Function**: [ISteamUGC::AddItemPreviewVideo](https://partner.steamgames.com/doc/api/ISteamUGC#AddItemPreviewVideo)
+ *
+ * This function adds an additional video preview from YouTube for the item.
+ * 
+ * [[Note: This must be set before you submit the UGC update handle using ${function.steam_ugc_submit_item_update}.]]
+ *
+ * @param {Real} update_handle The workshop item update handle to customise.
+ * @param {String} video_id The YouTube video ID to add (e.g. "jHgZh4GV9G0").
+ * @returns {Bool} 
+ * @function_end 
+ */
+
+/**
+ * @function steam_ugc_add_item_to_favorites
+ * @description > **Steamworks Function**: [ISteamUGC::AddItemToFavorites](https://partner.steamgames.com/doc/api/ISteamUGC#AddItemToFavorites)
+ *
+ * This function adds a workshop item to the user's favourites list.
+ *
+ * @param {Real} app_id The app ID that this item belongs to.
+ * @param {Real} published_file_id The workshop item to add to the user's favourites list.
+ * @param {Function} callback The function to call upon completion.
+ *
+ * @event callback
+ * @desc > **Steamworks Callback**: [ISteamUGC::UserFavoriteItemsListChanged_t](https://partner.steamgames.com/doc/api/ISteamUGC#UserFavoriteItemsListChanged_t)
+ *
+ * Called when an item is added to or removed from the user's list of favourite workshop items.
+ *
+ * @member {Struct.SteamUgcFavoriteItemsListChanged} result The result of the operation.
+ * @event_end
+ * @function_end
+ */
+
+/**
+ * @function steam_ugc_add_required_key_value_tag
+ * @description > **Steamworks Function**: [ISteamUGC::AddRequiredKeyValueTag](https://partner.steamgames.com/doc/api/ISteamUGC#AddRequiredKeyValueTag)
+ *
+ * This function adds a required key-value tag to a pending UGC Query. This will only return workshop items that have a key = `key` and a value = `value`.
+ * 
+ * [[Note: This must be set before you send a UGC Query handle using ${function.steam_ugc_send_query_ugc_request}.]]
+ *
+ * @param {Real} query_handle The UGC query handle to customise.
+ * @param {String} key The key-value key that must be attached to the UGC for it to be received.
+ * @param {String} value The key-value value associated with the key that must be attached to the UGC for it to be received.
+ * @returns {Bool} 
+ * @function_end 
+ */
+
+/**
+ * @function steam_ugc_add_required_tag
+ * @description > **Steamworks Function**: [ISteamUGC::AddRequiredTag](https://partner.steamgames.com/doc/api/ISteamUGC#AddRequiredTag)
+ *
+ * This function adds a required tag to a pending UGC Query.
+ * 
+ * [[Note: This must be set before you send a UGC Query handle using ${function.steam_ugc_send_query_ugc_request}.]]
+ *
+ * @param {Real} query_handle The UGC query handle to customise.
+ * @param {String} tag_name The tag that must be attached to the UGC for it to be received.
+ * @returns {Bool} 
+ * @function_end 
+ */
+
+/**
+ * @function steam_ugc_add_required_tag_group
+ * @description > **Steamworks Function**: [ISteamUGC::AddRequiredTagGroup](https://partner.steamgames.com/doc/api/ISteamUGC#AddRequiredTagGroup)
+ *
+ * This function adds the requirement that the returned items from the pending UGC Query have at least one of the tags in the given set (logical "or"). For each tag group that is added, at least one tag from each group is required to be on the matching items.
+ * 
+ * [[Note: This must be set before you send a UGC Query handle using ${function.steam_ugc_send_query_ugc_request}.]]
+ *
+ * @param {Real} query_handle The UGC query handle to customise.
+ * @param {Array[String]} tags_csv A set of tags where at least one of the tags must be attached to the UGC.
+ * @returns {Bool} 
+ * @function_end 
+ */
+
+/**
+ * @function steam_ugc_init_workshop_for_game_server
+ * @description > **Steamworks Function**: [ISteamUGC::BInitWorkshopForGameServer](https://partner.steamgames.com/doc/api/ISteamUGC#BInitWorkshopForGameServer)
+ *
+ * This function lets game servers set a specific workshop folder before issuing any UGC commands.
+ * 
+ * This is helpful if you want to support multiple game servers running out of the same install folder.
+ *
+ * @param {Real} workshop_depot_id The depot ID of the game server.
+ * @param {String} folder The absolute path to store the workshop content.
+ * @returns {Bool} 
+ * @function_end 
+ */
+
+/**
+ * @function steam_ugc_create_item
+ * @description > **Steamworks Function**: [ISteamUGC::CreateItem](https://partner.steamgames.com/doc/api/ISteamUGC#CreateItem)
+ *
+ * This function creates a new workshop item with no content attached yet.
+ *
+ * @param {Real} consumer_app_id The app ID that will be using this item.
+ * @param {Enum.SteamRemoteStorageWorkshopFileType} workshop_file_type The type of UGC to create.
+ * @param {Function} callback The function to call upon completion.
+ *
+ * @event callback
+ * @desc > **Steamworks Callback**: [ISteamUGC::CreateItemResult_t](https://partner.steamgames.com/doc/api/ISteamUGC#CreateItemResult_t)
+ *
+ * Called when a new workshop item has been created.
+ *
+ * @member {Struct.SteamUgcCreateItemResult} result The result of the operation.
+ * @event_end
+ * @function_end
+ */
+
+/**
+ * @function steam_ugc_create_query_all_ugc_request
+ * @description > **Steamworks Function**: [ISteamUGC::CreateQueryAllUGCRequest](https://partner.steamgames.com/doc/api/ISteamUGC#CreateQueryAllUGCRequest)
+ *
+ * This function queries for all matching UGC. You can use this to list all of the available UGC for your app.
+ * 
+ * This will return up to 50 results as declared by `STEAM_UGC_NUM_RESULTS_PER_PAGE`. You can make subsequent calls to this function, increasing the `page` each time to get the next set of results.
+ * 
+ * [[Note: Either `consumer_app_id` or `creator_app_id` must have a valid app ID.]]
+ * 
+ * [[Note: You must release the handle returned by this function by calling ${function.steam_ugc_release_query_ugc_request} when you are done with it.]]
+ * 
+ * To query for the UGC associated with a single user you can use ${function.steam_ugc_create_query_user_ugc_request}.
+ *
+ * @param {Enum.SteamUgcQuery} query_type Used to specify the sorting and filtering for this call.
+ * @param {Enum.SteamUgcMatchingUgcType} matching_ugc_type Used to specify the type of UGC queried for.
+ * @param {Real} creator_app_id The app ID where the item was created. This may be different than `consumer_app_id` if your item creation tool is a separate App ID.
+ * @param {Real} consumer_app_id The app ID of the current game. Do not pass the creation tool's app ID if it is a separate app.
+ * @param {Real} page The page number of the results to receive. This should start at 1 on the first call.
+ * @returns {Real} 
+ * @function_end 
+ */
+
+/**
+ * @function steam_ugc_create_query_ugc_details_request
+ * @description > **Steamworks Function**: [ISteamUGC::CreateQueryUGCDetailsRequest](https://partner.steamgames.com/doc/api/ISteamUGC#CreateQueryUGCDetailsRequest)
+ *
+ * This function queries for the details of specific UGC items. There is currently a 1,000 limit for the number of items you can request, but this may be lifted in the future.
+ * 
+ * [[Note: Either `consumer_app_id` or `creator_app_id` must have a valid app ID.]]
+ * 
+ * [[Note: You must release the handle returned by this function by calling ${function.steam_ugc_release_query_ugc_request} when you are done with it.]]
+ * 
+ * To query all the UGC for your app you can use ${function.steam_ugc_create_query_all_ugc_request} instead.
+ *
+ * @param {Array[Real]} published_file_ids The list of workshop items to get the details for.
+ * @returns {Real} 
+ * @function_end 
+ */
+
+/**
+ * @function steam_ugc_create_query_user_ugc_request
+ * @description > **Steamworks Function**: [ISteamUGC::CreateQueryUserUGCRequest](https://partner.steamgames.com/doc/api/ISteamUGC#CreateQueryUserUGCRequest)
+ *
+ * This function queries UGC associated with a user. You can use this to list the UGC the user is subscribed to amongst other things.
+ * 
+ * This will return up to 50 results as declared by `STEAM_UGC_NUM_RESULTS_PER_PAGE`. You can make subsequent calls to this function, increasing the `page` each time to get the next set of results.
+ * 
+ * [[Note: Either `consumer_app_id` or `creator_app_id` must have a valid app ID.]]
+ * 
+ * [[Note: You must release the handle returned by this function by calling ${function.steam_ugc_release_query_ugc_request} when you are done with it.]]
+ * 
+ * To query all the UGC for your app you can use ${function.steam_ugc_create_query_all_ugc_request} instead.
+ *
+ * @param {Real} account_id The account ID to query UGC for.
+ * @param {Enum.SteamUserUgcList} list_type Used to specify the type of list to get.
+ * @param {Enum.SteamUgcMatchingUgcType} matching_ugc_type Used to specify the type of UGC queried for.
+ * @param {Enum.SteamUserUgcListSortOrder} sort_order Used to specify the order that the list will be sorted in.
+ * @param {Real} creator_app_id The app ID where the item was created. This may differ if your creation tool is a separate app from the game.
+ * @param {Real} consumer_app_id The app ID of the current game. Do not pass the creation tool's app ID if it is a separate app.
+ * @param {Real} page The page number of the results to receive. This should start at 1 on the first call.
+ * @returns {Real} 
+ * @function_end 
+ */
+
+/**
+ * @function steam_ugc_delete_item
+ * @description > **Steamworks Function**: [ISteamUGC::DeleteItem](https://partner.steamgames.com/doc/api/ISteamUGC#DeleteItem)
+ *
+ * This function deletes the item without prompting the user.
+ *
+ * @param {Real} published_file_id The workshop item to delete.
+ * @param {Function} callback The function to call upon completion.
+ *
+ * @event callback
+ * @desc > **Steamworks Callback**: [ISteamUGC::DeleteItemResult_t](https://partner.steamgames.com/doc/api/ISteamUGC#DeleteItemResult_t)
+ *
+ * Called when a workshop item has been deleted.
+ *
+ * @member {Struct.SteamUgcDeleteItemResult} result The result of the operation.
+ * @event_end
+ * @function_end
+ */
+
+/**
+ * @function steam_ugc_download_item
+ * @description > **Steamworks Function**: [ISteamUGC::DownloadItem](https://partner.steamgames.com/doc/api/ISteamUGC#DownloadItem)
+ *
+ * This function downloads or updates a workshop item.
+ * 
+ * If the return value is `true` then register and wait for the Callback [DownloadItemResult_t](https://partner.steamgames.com/doc/api/ISteamUGC#DownloadItemResult_t) before calling ${function.steam_ugc_get_item_install_info} or accessing the workshop item on disk.
+ * 
+ * If the workshop item has an item state of `SteamUgcItemState.NeedsUpdate`, then this function can be called to initiate the update. Do not access the workshop item on disk until the callback `DownloadItemResult_t` is called.
+ * 
+ * The `DownloadItemResult_t` callback contains the app ID associated with the workshop item. It should be compared against the running app ID as the handler will be called for all item downloads regardless of the running application.
+ *
+ * Note that the result is delivered through the callback set with ${function.steam_ugc_set_callback_download_item_result}.
+ *
+ * @param {Real} published_file_id The workshop item to download.
+ * @param {Bool} high_priority Whether to start the download in high priority, pausing any existing in-progress Steam downloads to immediately begin this workshop item.
+ * @returns {Bool}
+ * 
+ * @function_end
+ */
+
+/**
+ * @function steam_ugc_get_app_dependencies
+ * @description > **Steamworks Function**: [ISteamUGC::GetAppDependencies](https://partner.steamgames.com/doc/api/ISteamUGC#GetAppDependencies)
+ *
+ * This function gets the app dependencies associated with the given published file ID. These are "soft" dependencies that are shown on the web. It is up to the application to determine whether an item can be used or not.
+ *
+ * @param {Real} published_file_id The workshop item to get app dependencies for.
+ * @param {Function} callback The function to call upon completion.
+ * 
+ * @event callback
+ * @description > **Steamworks Callback**: [ISteamUGC::GetAppDependenciesResult_t](https://partner.steamgames.com/doc/api/ISteamUGC#GetAppDependenciesResult_t)
+ * 
+ * Called when getting the app dependencies for an item.
+ * 
+ * @member {Struct.SteamUgcGetAppDependenciesResult} result The result of the operation.
  * @event_end
  * 
- * @example
- * In this example we first call the function and store the async ID value in a variable:
- * 
- * ```gml
- * steam_get = steam_ugc_download(steam_handle, "\UGC\Preview_file.png");
- * ```
- * This would then send off a file request to the Steam API, generating an async event which we would deal with as follows:
- * 
- * ```gml
- * var _event_id = async_load[? "id"];
- * if (_event_id == steam_get)
- * {
- *     var _type = async_load[? "event_type"];
- *     if (_type == "ugc_download")
- *     {
- *         sprite_delete(preview_sprite);
- *         preview_sprite = sprite_add(async_load[? "dest_filename"], 0, false, false, 0, 0);
- *     }
- * }
- * ```
- * The above code checks the event type and then creates a sprite from the downloaded image.
- * @func_end
+ * @function_end
  */
 
 /**
- * @func steam_ugc_add_item_to_favorites
- * @desc > **Steamworks Function**: [ISteamUGC::AddItemToFavorites](https://partner.steamgames.com/doc/api/ISteamUGC#AddItemToFavorites)
+ * @function steam_ugc_get_item_download_info
+ * @description > **Steamworks Function**: [ISteamUGC::GetItemDownloadInfo](https://partner.steamgames.com/doc/api/ISteamUGC#GetItemDownloadInfo)
+ *
+ * This function gets info about a pending download of a workshop item that has `SteamUgcItemState.NeedsUpdate` set.
+ *
+ * @param {Real} published_file_id The workshop item to get the download info for.
+ * @returns {Struct.SteamUgcItemDownloadInfo} 
+ * @function_end 
+ */
+
+/**
+ * @function steam_ugc_get_item_install_info
+ * @description > **Steamworks Function**: [ISteamUGC::GetItemInstallInfo](https://partner.steamgames.com/doc/api/ISteamUGC#GetItemInstallInfo)
+ *
+ * This function gets info about currently installed content on the disc for workshop items that have `SteamUgcItemState.Installed` set.
  * 
- * This function adds a workshop item to the user's favorites list.
+ * Calling this sets the "used" flag on the workshop item for the current player and adds it to their `SteamUserUgcList.UsedOrPlayed` list.
+ *
+ * @param {Real} published_file_id The workshop item to get the install info for.
+ * @returns {Struct.SteamUgcItemInstallInfo} 
+ * @function_end 
+ */
+
+/**
+ * @function steam_ugc_get_item_state
+ * @description > **Steamworks Function**: [ISteamUGC::GetItemState](https://partner.steamgames.com/doc/api/ISteamUGC#GetItemState)
+ *
+ * This function gets the current state of a workshop item on this client.
+ *
+ * @param {Real} published_file_id The workshop item to get the state for.
+ * @returns {Enum.SteamUgcItemState} The item state. Should be used with the ${constant.SteamUgcItemState} flags to determine the state of the workshop item.
+ * @function_end 
+ */
+
+/**
+ * @function steam_ugc_get_item_update_progress
+ * @description > **Steamworks Function**: [ISteamUGC::GetItemUpdateProgress](https://partner.steamgames.com/doc/api/ISteamUGC#GetItemUpdateProgress)
+ *
+ * This function gets the progress of an item update.
+ *
+ * @param {Real} update_handle The update handle to get the progress for.
+ * @returns {Struct.SteamUgcItemUpdateProgress} 
+ * @function_end 
+ */
+
+/**
+ * @function steam_ugc_get_num_subscribed_items
+ * @description > **Steamworks Function**: [ISteamUGC::GetNumSubscribedItems](https://partner.steamgames.com/doc/api/ISteamUGC#GetNumSubscribedItems)
+ *
+ * This function gets the total number of items the current user is subscribed to for the game or application. By default, this function will exclude locally disabled items.
+ *
+ * @param {Bool} include_locally_disabled Whether to include locally disabled items in the return value or not. Defaults to `false`.
+ * @returns {Real} 
+ * @function_end 
+ */
+
+/**
+ * @function steam_ugc_get_subscribed_items
+ * @description > **Steamworks Function**: [ISteamUGC::GetSubscribedItems](https://partner.steamgames.com/doc/api/ISteamUGC#GetSubscribedItems)
+ *
+ * This function gets a list of all of the items the current user is subscribed to for the current game, excluding any that have been locally disabled by the user.
  * 
- * @param {int64} published_file_id The workshop item to add to the user's favorites list.
+ * By default, the items are returned in the order that the user subscribed to them. Users can change the ordering in the Steam Client, or you can do so via the ${function.steam_ugc_set_subscriptions_load_order} call.
+ *
+ * @param {Real} max_entries The maximum number of items to return. This typically matches the value returned by ${function.steam_ugc_get_num_subscribed_items}.
+ * @param {Bool} include_locally_disabled Whether to include locally disabled items in the return value or not. Defaults to `false`.
+ * @returns {Array[Real]} 
+ * @function_end 
+ */
+
+/**
+ * @function steam_ugc_get_query_ugc_result
+ * @description > **Steamworks Function**: [ISteamUGC::GetQueryUGCResult](https://partner.steamgames.com/doc/api/ISteamUGC#GetQueryUGCResult)
+ *
+ * This function retrieves the details of an individual workshop item after receiving a querying UGC call result.
  * 
- * @returns {real} The async identifier for the request.
+ * You should call this in a loop to get the details of all the workshop items returned.
  * 
- * @event steam
- * @desc 
- * @member {real} id The async ID returned in the original function call
- * @member {string} event_type The string `"steam_ugc_add_item_to_favorites"`
- * @member {real} result The result of the operation.
- * @member {real} published_file_id The item which was added.
+ * [[Note: This must only be called with the handle obtained from a successful [SteamUGCQueryCompleted_t](https://partner.steamgames.com/doc/api/ISteamUGC#SteamUGCQueryCompleted_t) call result.]]
+ *
+ * @param {Real} query_handle The UGC query handle to get the results from.
+ * @param {Real} index The index of the item to get the details of.
+ * @returns {Struct.SteamUgcQueryResult}
+ * @function_end
+ */
+
+/**
+ * @function steam_ugc_get_query_ugc_num_tags
+ * @description > **Steamworks Function**: [ISteamUGC::GetQueryUGCNumTags](https://partner.steamgames.com/doc/api/ISteamUGC#GetQueryUGCNumTags)
+ *
+ * This function retrieves the number of tags of an individual workshop item after receiving a querying UGC call result.
+ *
+ * You should call this in a loop to get the details of all the workshop items returned.
+ *
+ * [[Note: This must only be called with the handle obtained from a successful [SteamUGCQueryCompleted_t](https://partner.steamgames.com/doc/api/ISteamUGC#SteamUGCQueryCompleted_t) call result.]]
+ *
+ * @param {Real} query_handle The UGC query handle to get the results from.
+ * @param {Real} index The index of the item to get the details of.
+ * @returns {Real}
+ * @function_end
+ */
+
+/**
+ * @function steam_ugc_get_query_ugc_tag
+ * @description > **Steamworks Function**: [ISteamUGC::GetQueryUGCTag](https://partner.steamgames.com/doc/api/ISteamUGC#GetQueryUGCTag)
+ *
+ * This function retrieves a tag associated with an individual workshop item after receiving a querying UGC call result.
+ *
+ * You should call this in a loop to get the details of all the workshop items returned.
+ *
+ * [[Note: This must only be called with the handle obtained from a successful [SteamUGCQueryCompleted_t](https://partner.steamgames.com/doc/api/ISteamUGC#SteamUGCQueryCompleted_t) call result.]]
+ *
+ * Before calling this you should call ${function.steam_ugc_get_query_ugc_num_tags} to get the number of tags.
+ *
+ * @param {Real} query_handle The UGC query handle to get the results from.
+ * @param {Real} index The index of the item to get the details of.
+ * @param {Real} tag_index The index of the tag to get.
+ * @returns {String}
+ * @function_end
+ */
+
+/**
+ * @function steam_ugc_get_query_ugc_tag_display_name
+ * @description > **Steamworks Function**: [ISteamUGC::GetQueryUGCTagDisplayName](https://partner.steamgames.com/doc/api/ISteamUGC#GetQueryUGCTagDisplayName)
+ *
+ * This function retrieves the display name of a tag associated with an individual workshop item after receiving a querying UGC call result.
+ *
+ * You should call this in a loop to get the details of all the workshop items returned.
+ *
+ * [[Note: This must only be called with the handle obtained from a successful [SteamUGCQueryCompleted_t](https://partner.steamgames.com/doc/api/ISteamUGC#SteamUGCQueryCompleted_t) call result.]]
+ *
+ * Before calling this you should call ${function.steam_ugc_get_query_ugc_num_tags} to get the number of tags.
+ *
+ * @param {Real} query_handle The UGC query handle to get the results from.
+ * @param {Real} index The index of the item to get the details of.
+ * @param {Real} tag_index The index of the tag to get the display name of.
+ * @returns {String}
+ * @function_end
+ */
+
+/**
+ * @function steam_ugc_get_query_ugc_preview_url
+ * @description > **Steamworks Function**: [ISteamUGC::GetQueryUGCPreviewURL](https://partner.steamgames.com/doc/api/ISteamUGC#GetQueryUGCPreviewURL)
+ *
+ * This function retrieves the URL to the preview image of an individual workshop item after receiving a querying UGC call result.
+ * 
+ * You should call this in a loop to get the details of all the workshop items returned.
+ * 
+ * [[Note: This must only be called with the handle obtained from a successful [SteamUGCQueryCompleted_t](https://partner.steamgames.com/doc/api/ISteamUGC#SteamUGCQueryCompleted_t) call result.]]
+ *
+ * @param {Real} query_handle The UGC query handle to get the results from.
+ * @param {Real} index The index of the item to get the details of.
+ * @returns {String}
+ * @function_end 
+ */
+
+/**
+ * @function steam_ugc_get_query_ugc_metadata
+ * @description > **Steamworks Function**: [ISteamUGC::GetQueryUGCMetadata](https://partner.steamgames.com/doc/api/ISteamUGC#GetQueryUGCMetadata)
+ *
+ * This function retrieves the developer set metadata of an individual workshop item after receiving a querying UGC call result.
+ * 
+ * You should call this in a loop to get the details of all the workshop items returned.
+ * 
+ * [[Note: This must only be called with the handle obtained from a successful [SteamUGCQueryCompleted_t](https://partner.steamgames.com/doc/api/ISteamUGC#SteamUGCQueryCompleted_t) call result.]]
+ *
+ * @param {Real} query_handle The UGC query handle to get the results from.
+ * @param {Real} index The index of the item to get the details of.
+ * @returns {String}
+ * @function_end 
+ */
+
+/**
+ * @function steam_ugc_get_query_ugc_children
+ * @description > **Steamworks Function**: [ISteamUGC::GetQueryUGCChildren](https://partner.steamgames.com/doc/api/ISteamUGC#GetQueryUGCChildren)
+ *
+ * This function retrieves the ids of any child items of an individual workshop item after receiving a querying UGC call result. These items can either be a part of a collection or some other dependency (see ${function.steam_ugc_add_dependency}).
+ * 
+ * You should call this in a loop to get the details of all the workshop items returned.
+ * 
+ * [[Note: This must only be called with the handle obtained from a successful [SteamUGCQueryCompleted_t](https://partner.steamgames.com/doc/api/ISteamUGC#SteamUGCQueryCompleted_t) call result.]]
+ *
+ * @param {Real} query_handle The UGC query handle to get the results from.
+ * @param {Real} index The index of the item to get the details of.
+ * @param {Real} max_entries The maximum number of child item ids to return.
+ * @returns {Array[Real]} 
+ * @function_end 
+ */
+
+/**
+ * @function steam_ugc_get_query_ugc_statistic
+ * @description > **Steamworks Function**: [ISteamUGC::GetQueryUGCStatistic](https://partner.steamgames.com/doc/api/ISteamUGC#GetQueryUGCStatistic)
+ *
+ * This function retrieves various statistics of an individual workshop item after receiving a querying UGC call result.
+ * 
+ * You should call this in a loop to get the details of all the workshop items returned.
+ * 
+ * [[Note: This must only be called with the handle obtained from a successful [SteamUGCQueryCompleted_t](https://partner.steamgames.com/doc/api/ISteamUGC#SteamUGCQueryCompleted_t) call result.]]
+ *
+ * @param {Real} query_handle The UGC query handle to get the results from.
+ * @param {Real} index The index of the item to get the details of.
+ * @param {Enum.SteamUgcStatisticType} stat_type The statistic to retrieve.
+ * @returns {Real} 
+ * @function_end 
+ */
+
+/**
+ * @function steam_ugc_get_query_ugc_num_additional_previews
+ * @description > **Steamworks Function**: [ISteamUGC::GetQueryUGCNumAdditionalPreviews](https://partner.steamgames.com/doc/api/ISteamUGC#GetQueryUGCNumAdditionalPreviews)
+ *
+ * This function retrieves the number of additional previews of an individual workshop item after receiving a querying UGC call result.
+ * 
+ * You should call this in a loop to get the details of all the workshop items returned.
+ * 
+ * [[Note: This must only be called with the handle obtained from a successful [SteamUGCQueryCompleted_t](https://partner.steamgames.com/doc/api/ISteamUGC#SteamUGCQueryCompleted_t) call result.]]
+ * 
+ * You can then call ${function.steam_ugc_get_query_ugc_additional_preview} to get the details of each additional preview.
+ *
+ * @param {Real} query_handle The UGC query handle to get the results from.
+ * @param {Real} index The index of the item to get the details of.
+ * @returns {Real} 
+ * @function_end 
+ */
+
+/**
+ * @function steam_ugc_get_supported_game_version_data
+ * @desc > **Steamworks Function**: [ISteamUGC::GetSupportedGameVersionData](https://partner.steamgames.com/doc/api/ISteamUGC#GetSupportedGameVersionData)
+ * 
+ * This function retrieves what Steam (beta) branches this item version is valid for. If the minimum branch is an empty string, then it is valid for all versions up to the maximum branch. If the maximum branch is an empty string, then the this item version is valid for every branch published after the minimum branch. If both strings are empty, then this item version is valid for all Steam branches. The version that is downloaded by the Steam client is dictated by what versions are valid for the item and what Steam (beta) branch the user has opted into.
+ * 
+ * [[Note: This must only be called with the handle obtained from a successful [SteamUGCQueryCompleted_t](https://partner.steamgames.com/doc/api/ISteamUGC#SteamUGCQueryCompleted_t) call result.]]
+ * 
+ * @param {Real} query_handle The UGC query handle to get the results from.
+ * @param {Real} index The index of the item.
+ * @param {Real} version_index The index of the item version.
+ * @returns {Struct.SteamUgcSupportedGameVersionData} 
+ * @function_end 
+ */
+
+/**
+ * @function steam_ugc_get_query_ugc_additional_preview
+ * @description > **Steamworks Function**: [ISteamUGC::GetQueryUGCAdditionalPreview](https://partner.steamgames.com/doc/api/ISteamUGC#GetQueryUGCAdditionalPreview)
+ *
+ * This function retrieves the details of an additional preview associated with an individual workshop item after receiving a querying UGC call result.
+ * 
+ * You should call this in a loop to get the details of all the workshop items returned.
+ * 
+ * [[Note: This must only be called with the handle obtained from a successful [SteamUGCQueryCompleted_t](https://partner.steamgames.com/doc/api/ISteamUGC#SteamUGCQueryCompleted_t) call result.]]
+ * 
+ * Before calling this you should call ${function.steam_ugc_get_query_ugc_num_additional_previews} to get number of additional previews.
+ *
+ * @param {Real} query_handle The UGC query handle to get the results from.
+ * @param {Real} index The index of the item to get the details of.
+ * @param {Real} preview_index The index of the additional preview to get the details of.
+ * @returns {Struct.SteamUgcAdditionalPreview}
+ * @function_end
+ */
+
+/**
+ * @function steam_ugc_get_query_ugc_num_key_value_tags
+ * @description > **Steamworks Function**: [ISteamUGC::GetQueryUGCNumKeyValueTags](https://partner.steamgames.com/doc/api/ISteamUGC#GetQueryUGCNumKeyValueTags)
+ *
+ * This function retrieves the number of key-value tags of an individual workshop item after receiving a querying UGC call result.
+ * 
+ * You should call this in a loop to get the details of all the workshop items returned.
+ * 
+ * [[Note: This must only be called with the handle obtained from a successful [SteamUGCQueryCompleted_t](https://partner.steamgames.com/doc/api/ISteamUGC#SteamUGCQueryCompleted_t) call result.]]
+ *
+ * @param {Real} query_handle The UGC query handle to get the results from.
+ * @param {Real} index The index of the item to get the details of.
+ * @returns {Real} 
+ * @function_end 
+ */
+
+/**
+ * @function steam_ugc_get_query_ugc_key_value_tag
+ * @description > **Steamworks Function**: [ISteamUGC::GetQueryUGCKeyValueTag](https://partner.steamgames.com/doc/api/ISteamUGC#GetQueryUGCKeyValueTag)
+ *
+ * This function retrieves the details of a key-value tag associated with an individual workshop item after receiving a querying UGC call result.
+ * 
+ * You should call this in a loop to get the details of all the workshop items returned.
+ * 
+ * [[Note: This must only be called with the handle obtained from a successful [SteamUGCQueryCompleted_t](https://partner.steamgames.com/doc/api/ISteamUGC#SteamUGCQueryCompleted_t) call result.]]
+ * 
+ * Before calling this you should call ${function.steam_ugc_get_query_ugc_num_key_value_tags} to get number of tags.
+ *
+ * @param {Real} query_handle The UGC query handle to get the results from.
+ * @param {Real} index The index of the item to get the details of.
+ * @param {Real} key_value_tag_index The index of the tag to get the details of.
+ * @returns {Struct.SteamUgcKeyValueTag} 
+ * @function_end 
+ */
+
+/**
+ * @function steam_ugc_get_query_ugc_content_descriptors
+ * @description > **Steamworks Function**: [ISteamUGC::GetQueryUGCContentDescriptors](https://partner.steamgames.com/doc/api/ISteamUGC#GetQueryUGCContentDescriptors)
+ *
+ * This function retrieves an array of ${constant.SteamUgcContentDescriptorId} set on the item.
+ *
+ * @param {Real} query_handle The UGC query handle to get the results from.
+ * @param {Real} index The index of the item to get the details of.
+ * @param {Real} max_descriptors The maximum number of content descriptors to return.
+ * @returns {Array[Enum.SteamUgcContentDescriptorId]}
+ * @function_end
+ */
+
+/**
+ * @function steam_ugc_get_user_content_descriptor_preferences
+ * @description > **Steamworks Function**: [ISteamUGC::GetUserContentDescriptorPreferences](https://partner.steamgames.com/doc/api/ISteamUGC#GetUserContentDescriptorPreferences)
+ *
+ * This function retrieves an array of ${constant.SteamUgcContentDescriptorId} the local user has excluded from search/download.
+ *
+ * @param {Real} max_descriptors The maximum number of content descriptors to return.
+ * @returns {Array[Enum.SteamUgcContentDescriptorId]}
+ * @function_end
+ */
+
+/**
+ * @function steam_ugc_remove_app_dependency
+ * @description > **Steamworks Function**: [ISteamUGC::RemoveAppDependency](https://partner.steamgames.com/doc/api/ISteamUGC#RemoveAppDependency)
+ *
+ * This function removes the dependency between the given item and the app ID. This list of dependencies can be retrieved by calling ${function.steam_ugc_get_app_dependencies}.
+ *
+ * @param {Real} published_file_id The workshop item to remove the dependency from.
+ * @param {Real} app_id The app or DLC to remove as a dependency.
+ * @param {Function} callback The function to call upon completion.
+ * 
+ * @event callback
+ * @desc > **Steamworks Callback**: [ISteamUGC::RemoveAppDependencyResult_t](https://partner.steamgames.com/doc/api/ISteamUGC#RemoveAppDependencyResult_t)
+ * 
+ * Triggered upon completion.
+ * 
+ * @member {Struct.SteamUgcRemoveAppDependencyResult} result The result of the operation.
  * @event_end
- * 
- * @example
- * ```gml
- * /// Mouse Left Pressed Event
- * request_id = steam_ugc_add_item_to_favorites(item);
- * ```
- * The code above calls the function and stores the request ID in an instance variable.
- * ```gml
- * /// Async Steam Event
- * if (async_load[? "id"] != request_id) { exit; }
- * 
- * var _event_type = async_load[? "event_type"];
- * var _id = async_load[? "published_file_id"];
- * var _success = (async_load[? "result"] == ugc_result_success) ? "succeeded" : "failed";
- * show_debug_message("{0} {1} (published file ID: {2})", _event_type, _success, _id);
- * ```
- * The code above shows the code in the ${event.steam}. The event is exited early if the ID for which it is triggered is not the request ID returned in the original function call, otherwise a debug message is output that shows information about the result of the call.
- * @func_end
+ * @function_end
  */
 
 /**
- * @func steam_ugc_remove_item_from_favorites
- * @desc > **Steamworks Function**: [ISteamUGC::RemoveItemFromFavorites](https://partner.steamgames.com/doc/api/ISteamUGC#RemoveItemFromFavorites)
+ * @function steam_ugc_remove_dependency
+ * @description > **Steamworks Function**: [ISteamUGC::RemoveDependency](https://partner.steamgames.com/doc/api/ISteamUGC#RemoveDependency)
+ *
+ * This function removes a workshop item as a dependency from the specified item.
+ *
+ * @param {Real} parent_published_file_id The workshop item to remove a dependency from.
+ * @param {Real} child_published_file_id The dependency to remove from the parent.
+ * @param {Function} callback The function to call upon completion.
  * 
- * This function removes a workshop item from the user's favorites list.
+ * @event callback
+ * @desc > **Steamworks Callback**: [ISteamUGC::RemoveUGCDependencyResult_t](https://partner.steamgames.com/doc/api/ISteamUGC#RemoveUGCDependencyResult_t)
  * 
- * @param {int64} published_file_id The workshop item to remove from the user's favorites list.
+ * Triggered upon completion.
  * 
- * @returns {real} The async identifier for the request.
- * 
- * @event steam
- * @desc 
- * @member {real} id The async ID returned in the original function call
- * @member {string} event_type The string `"steam_ugc_remove_item_from_favorites"`
- * @member {real} result The result of the operation.
- * @member {real} published_file_id The item which was removed.
+ * @member {Struct.SteamUgcRemoveUGCDependencyResult} result The result of the operation.
  * @event_end
- * 
- * @example
- * ```gml
- * /// Mouse Left Pressed Event
- * request_id = steam_ugc_add_item_to_favorites(item);
- * ```
- * The code above calls the function and stores the request ID in an instance variable.
- * ```gml
- * /// Async Steam Event
- * if (async_load[? "id"] != request_id) { exit; }
- * 
- * var _event_type = async_load[? "event_type"];
- * var _id = async_load[? "published_file_id"];
- * var _success = (async_load[? "result"] == ugc_result_success) ? "succeeded" : "failed";
- * show_debug_message("{0} {1} (published file ID: {2})", _event_type, _success, _id);
- * ```
- * The code above shows the code in the ${event.steam}. The event is exited early if the ID for which it is triggered is not the request ID returned in the original function call, otherwise a debug message is output that shows information about the result of the call.
- * @func_end
+ * @function_end
  */
 
 /**
- * @func steam_ugc_set_user_item_vote
- * @desc > **Steamworks Function**: [ISteamUGC::SetUserItemVote](https://partner.steamgames.com/doc/api/ISteamUGC#SetUserItemVote)
+ * @function steam_ugc_remove_item_from_favorites
+ * @description > **Steamworks Function**: [ISteamUGC::RemoveItemFromFavorites](https://partner.steamgames.com/doc/api/ISteamUGC#RemoveItemFromFavorites)
+ *
+ * This function removes a workshop item from the user's favourites list.
+ *
+ * @param {Real} app_id The app ID that this item belongs to.
+ * @param {Real} published_file_id The workshop item to remove from the user's favourites list.
+ * @param {Function} callback The function to call upon completion.
+ *
+ * @event callback
+ * @desc > **Steamworks Callback**: [ISteamUGC::UserFavoriteItemsListChanged_t](https://partner.steamgames.com/doc/api/ISteamUGC#UserFavoriteItemsListChanged_t)
+ *
+ * Called when an item is added to or removed from the user's list of favourite workshop items.
+ *
+ * @member {Struct.SteamUgcFavoriteItemsListChanged} result The result of the operation.
+ * @event_end
+ * @function_end
+ */
+
+/**
+ * @function steam_ugc_remove_all_item_key_value_tags
+ * @description > **Steamworks Function**: [ISteamUGC::RemoveAllItemKeyValueTags](https://partner.steamgames.com/doc/api/ISteamUGC#RemoveAllItemKeyValueTags)
+ *
+ * This function removes all existing key-value tags from an item.
+ *
+ * [[Note: This must be set before you submit the UGC update handle using ${function.steam_ugc_submit_item_update}.]]
+ *
+ * @param {Real} update_handle The workshop item update handle to customise.
+ * @returns {Bool}
+ * @function_end
+ */
+
+/**
+ * @function steam_ugc_remove_item_key_value_tags
+ * @description > **Steamworks Function**: [ISteamUGC::RemoveItemKeyValueTags](https://partner.steamgames.com/doc/api/ISteamUGC#RemoveItemKeyValueTags)
+ *
+ * This function removes an existing key-value tag from an item.
  * 
+ * You can only call this up to 100 times per item update. If you need to remove more tags than that you'll need to make subsequent item updates.
+ * 
+ * [[Note: This must be set before you submit the UGC update handle using ${function.steam_ugc_submit_item_update}.]]
+ *
+ * @param {Real} update_handle The workshop item update handle to customise.
+ * @param {String} key The key to remove from the item.
+ * @returns {Bool} 
+ * @function_end 
+ */
+
+/**
+ * @function steam_ugc_remove_item_preview
+ * @description > **Steamworks Function**: [ISteamUGC::RemoveItemPreview](https://partner.steamgames.com/doc/api/ISteamUGC#RemoveItemPreview)
+ *
+ * This function removes an existing preview from an item.
+ *
+ * @param {Real} update_handle The workshop item update handle to customise.
+ * @param {Real} index The index of the preview to remove from the item.
+ * @returns {Bool} 
+ * @function_end 
+ */
+
+/**
+ * @function steam_ugc_add_content_descriptor
+ * @description > **Steamworks Function**: [ISteamUGC::AddContentDescriptor](https://partner.steamgames.com/doc/api/ISteamUGC#AddContentDescriptor)
+ *
+ * This function sets the given ${constant.SteamUgcContentDescriptorId} on the item.
+ *
+ * @param {Real} update_handle The workshop item update handle to customise.
+ * @param {Enum.SteamUgcContentDescriptorId} descriptor_id The content descriptor to set on the item.
+ * @returns {Bool} 
+ * @function_end 
+ */
+
+/**
+ * @function steam_ugc_remove_content_descriptor
+ * @description > **Steamworks Function**: [ISteamUGC::RemoveContentDescriptor](https://partner.steamgames.com/doc/api/ISteamUGC#RemoveContentDescriptor)
+ *
+ * This function removes the given ${constant.SteamUgcContentDescriptorId} from the item.
+ *
+ * @param {Real} update_handle The workshop item update handle to customise.
+ * @param {Enum.SteamUgcContentDescriptorId} descriptor_id The content descriptor to remove from the item.
+ * @returns {Bool} 
+ * @function_end 
+ */
+
+/**
+ * @function steam_ugc_set_required_game_versions
+ * @description > **Steamworks Function**: [ISteamUGC::SetRequiredGameVersions](https://partner.steamgames.com/doc/api/ISteamUGC#SetRequiredGameVersions)
+ *
+ * This function sets what Steam (beta) branches this item is valid for. An empty string for either `game_branch_min` or `game_branch_max` means that it will match any version on that end of the range. This will only be applied if the actual content has been changed. Users will download the version of the item that is valid for the Steam (beta) branch they have opted into.
+ *
+ * @param {Real} update_handle The workshop item update handle to customise.
+ * @param {String} game_branch_min The name of the minimum Steam branch this item is valid for.
+ * @param {String} game_branch_max The name of the maximum Steam branch this item is valid for.
+ * @returns {Bool} 
+ * @function_end 
+ */
+
+/**
+ * @function steam_ugc_send_query_ugc_request
+ * @description > **Steamworks Function**: [ISteamUGC::SendQueryUGCRequest](https://partner.steamgames.com/doc/api/ISteamUGC#SendQueryUGCRequest)
+ *
+ * This function sends a UGC query to Steam.
+ * 
+ * This must be called with a handle obtained from ${function.steam_ugc_create_query_user_ugc_request}, ${function.steam_ugc_create_query_all_ugc_request}, or ${function.steam_ugc_create_query_ugc_details_request} to actually send the request to Steam. Before calling this you should use one more of the following functions to customise your query:
+ * 
+ * ${function.steam_ugc_add_required_tag}, ${function.steam_ugc_add_excluded_tag}, ${function.steam_ugc_set_return_only_ids}, ${function.steam_ugc_set_return_key_value_tags}, ${function.steam_ugc_set_return_long_description}, ${function.steam_ugc_set_return_metadata}, ${function.steam_ugc_set_return_children}, ${function.steam_ugc_set_return_additional_previews}, ${function.steam_ugc_set_return_total_only}, ${function.steam_ugc_set_language}, ${function.steam_ugc_set_allow_cached_response}, ${function.steam_ugc_set_cloud_file_name_filter}, ${function.steam_ugc_set_match_any_tag}, ${function.steam_ugc_set_search_text}, ${function.steam_ugc_set_ranked_by_trend_days}, ${function.steam_ugc_add_required_key_value_tag}
+ *
+ * @param {Real} query_handle The UGC query request handle to send.
+ * @param {Function} callback The function to call upon completion.
+ *
+ * @event callback
+ * @desc > **Steamworks Callback**: [ISteamUGC::SteamUGCQueryCompleted_t](https://partner.steamgames.com/doc/api/ISteamUGC#SteamUGCQueryCompleted_t)
+ *
+ * Called when a UGC query request has completed.
+ *
+ * @member {Struct.SteamUgcQueryCompleted} result The result of the operation.
+ * @event_end
+ * @function_end
+ */
+
+/**
+ * @function steam_ugc_release_query_ugc_request
+ * @description > **Steamworks Function**: [ISteamUGC::ReleaseQueryUGCRequest](https://partner.steamgames.com/doc/api/ISteamUGC#ReleaseQueryUGCRequest)
+ *
+ * This function releases a UGC query handle when you are done with it to free up memory.
+ *
+ * @param {Real} query_handle The UGC query handle to release.
+ * @function_end
+ */
+
+/**
+ * @function steam_ugc_set_callback_item_installed
+ * @description > **Steamworks Function**: N / A
+ *
+ * This function sets the function to be called when a workshop item has been installed or updated.
+ * 
+ * [[Note: This callback goes out to all running applications, ensure that the app ID associated with the item matches what you expect.]]
+ *
+ * @param {Function} callback The function to be called when a workshop item is installed.
+ *
+ * @event callback
+ * @desc > **Steamworks Callback**: [ISteamUGC::ItemInstalled_t](https://partner.steamgames.com/doc/api/ISteamUGC#ItemInstalled_t)
+ *
+ * Called when a workshop item has been installed or updated.
+ *
+ * @member {Struct.SteamUgcItemInstalled} result The details of the installed item.
+ * @event_end
+ * @function_end 
+ */
+
+/**
+ * @function steam_ugc_clear_callback_item_installed
+ * @description > **Steamworks Function**: N / A
+ *
+ * This function clears the callback function previously set using ${function.steam_ugc_set_callback_item_installed}.
+ *
+ * @function_end
+ */
+
+/**
+ * @function steam_ugc_set_callback_download_item_result
+ * @description > **Steamworks Function**: N / A
+ *
+ * This function sets the function to be called when a workshop item download initiated by ${function.steam_ugc_download_item} has finished (successfully or not).
+ *
+ * @param {Function} callback The function to be called when a workshop item download completes.
+ *
+ * @event callback
+ * @desc > **Steamworks Callback**: [ISteamUGC::DownloadItemResult_t](https://partner.steamgames.com/doc/api/ISteamUGC#DownloadItemResult_t)
+ *
+ * Called when a workshop item download started with ${function.steam_ugc_download_item} has finished.
+ *
+ * @member {Struct.SteamUgcDownloadItemResult} result The details of the download.
+ * @event_end
+ * @function_end
+ */
+
+/**
+ * @function steam_ugc_clear_callback_download_item_result
+ * @description > **Steamworks Function**: N / A
+ *
+ * This function clears the callback function previously set using ${function.steam_ugc_set_callback_download_item_result}.
+ *
+ * @function_end
+ */
+
+/**
+ * @function steam_ugc_set_allow_cached_response
+ * @description > **Steamworks Function**: [ISteamUGC::SetAllowCachedResponse](https://partner.steamgames.com/doc/api/ISteamUGC#SetAllowCachedResponse)
+ *
+ * This function sets whether results will be returned from the cache for the specific period of time on a pending UGC Query.
+ * 
+ * [[Note: This must be set before you send a UGC Query handle using ${function.steam_ugc_send_query_ugc_request}.]]
+ *
+ * @param {Real} query_handle The UGC query handle to customise, as returned by ${function.steam_ugc_create_query_user_ugc_request} or ${function.steam_ugc_create_query_all_ugc_request}.
+ * @param {Real} max_age_seconds The maximum amount of time that an item can be returned without a cache invalidation.
+ * @returns {Bool} 
+ * @function_end 
+ */
+
+/**
+ * @function steam_ugc_set_cloud_file_name_filter
+ * @description > **Steamworks Function**: [ISteamUGC::SetCloudFileNameFilter](https://partner.steamgames.com/doc/api/ISteamUGC#SetCloudFileNameFilter)
+ *
+ * This function sets to only return items that have a specific filename on a pending UGC Query.
+ * 
+ * [[Note: This can only be used with ${function.steam_ugc_create_query_user_ugc_request}.]]
+ * 
+ * [[Note: This must be set before you send a UGC Query handle using ${function.steam_ugc_send_query_ugc_request}.]]
+ *
+ * @param {Real} query_handle The UGC query handle to customise, as returned by ${function.steam_ugc_create_query_user_ugc_request} or ${function.steam_ugc_create_query_all_ugc_request}.
+ * @param {String} match_cloud_file_name The filename that returned items must have in order to match the query.
+ * @returns {Bool} 
+ * @function_end 
+ */
+
+/**
+ * @function steam_ugc_set_item_content
+ * @description > **Steamworks Function**: [ISteamUGC::SetItemContent](https://partner.steamgames.com/doc/api/ISteamUGC#SetItemContent)
+ *
+ * This function sets the folder that will be stored as the content for an item.
+ * 
+ * For efficient upload and download, files should not be merged or compressed into single files (e.g. zip files).
+ * 
+ * [[Note: This must be set before you submit the UGC update handle using ${function.steam_ugc_submit_item_update}.]]
+ *
+ * @param {Real} update_handle The item update handle, as returned by ${function.steam_ugc_start_item_update}.
+ * @param {String} content_folder The absolute path to a local folder containing the content for the item.
+ * @returns {Bool} 
+ * @function_end 
+ */
+
+/**
+ * @function steam_ugc_set_item_description
+ * @description > **Steamworks Function**: [ISteamUGC::SetItemDescription](https://partner.steamgames.com/doc/api/ISteamUGC#SetItemDescription)
+ *
+ * This function sets a new description for an item.
+ * 
+ * The description must be limited to the length defined by `STEAM_REMOTE_STORAGE_PUBLISHED_DOCUMENT_DESCRIPTION_MAX`.
+ * 
+ * You can set what language this is for by using ${function.steam_ugc_set_item_update_language}, if no language is set then "english" is assumed.
+ * 
+ * [[Note: This must be set before you submit the UGC update handle using ${function.steam_ugc_submit_item_update}.]]
+ *
+ * @param {Real} update_handle The item update handle, as returned by ${function.steam_ugc_start_item_update}.
+ * @param {String} description The new description of the item, with a maximum length of 8000 bytes.
+ * @returns {Bool} 
+ * @function_end 
+ */
+
+/**
+ * @function steam_ugc_set_item_metadata
+ * @description > **Steamworks Function**: [ISteamUGC::SetItemMetadata](https://partner.steamgames.com/doc/api/ISteamUGC#SetItemMetadata)
+ *
+ * This function sets arbitrary metadata for an item. This metadata can be returned from queries without having to download and install the actual content.
+ * 
+ * The metadata must be limited to the size defined by `STEAM_UGC_DEVELOPER_METADATA_MAX`.
+ * 
+ * [[Note:  This must be set before you submit the UGC update handle using ${function.steam_ugc_submit_item_update}.]]
+ *
+ * @param {Real} update_handle The item update handle, as returned by ${function.steam_ugc_start_item_update}.
+ * @param {String} metadata The metadata to set for the item, with a maximum length of 5000 bytes.
+ * @returns {Bool} 
+ * @function_end 
+ */
+
+/**
+ * @function steam_ugc_set_item_preview
+ * @description > **Steamworks Function**: [ISteamUGC::SetItemPreview](https://partner.steamgames.com/doc/api/ISteamUGC#SetItemPreview)
+ *
+ * This function sets the primary preview image for the item.
+ * 
+ * The format should be one that both the web and the application (if necessary) can render. Suggested formats include JPG, PNG and GIF.
+ * 
+ * [[Note: This must be set before you submit the UGC update handle using ${function.steam_ugc_submit_item_update}.]]
+ *
+ * @param {Real} update_handle The item update handle, as returned by ${function.steam_ugc_start_item_update}.
+ * @param {String} preview_file The absolute path to a local preview file (image) to use as the primary preview for the item.
+ * @returns {Bool} 
+ * @function_end 
+ */
+
+/**
+ * @function steam_ugc_set_item_tags
+ * @description > **Steamworks Function**: [ISteamUGC::SetItemTags](https://partner.steamgames.com/doc/api/ISteamUGC#SetItemTags)
+ *
+ * This function sets arbitrary developer specified tags on an item.
+ * 
+ * Each tag must be limited to 255 characters. Tag names can only include printable characters, excluding ','. For reference on what characters are allowed, refer to http://en.cppreference.com/w/c/string/byte/isprint.
+ *
+ * @param {Real} update_handle The item update handle, as returned by ${function.steam_ugc_start_item_update}.
+ * @param {Array[String]} tags_csv An array of strings holding the tags to set on the item.
+ * @returns {Bool} 
+ * @function_end 
+ */
+
+/**
+ * @function steam_ugc_set_item_title
+ * @description > **Steamworks Function**: [ISteamUGC::SetItemTitle](https://partner.steamgames.com/doc/api/ISteamUGC#SetItemTitle)
+ *
+ * This function sets a new title for an item.
+ * 
+ * The title must be limited to the size defined by `STEAM_REMOTE_STORAGE_PUBLISHED_DOCUMENT_TITLE_MAX`.
+ * 
+ * You can set what language this is for by using ${function.steam_ugc_set_item_update_language}, if no language is set then "english" is assumed.
+ * 
+ * [[Note: This must be set before you submit the UGC update handle using ${function.steam_ugc_submit_item_update}.]]
+ *
+ * @param {Real} update_handle The item update handle, as returned by ${function.steam_ugc_start_item_update}.
+ * @param {String} title The new title of the item, with a maximum length of 128 bytes.
+ * @returns {Bool} 
+ * @function_end 
+ */
+
+/**
+ * @function steam_ugc_set_item_update_language
+ * @description > **Steamworks Function**: [ISteamUGC::SetItemUpdateLanguage](https://partner.steamgames.com/doc/api/ISteamUGC#SetItemUpdateLanguage)
+ *
+ * This function sets the language of the title and description that will be set in this item update.
+ * 
+ * This must be in the format of the [API language code](https://partner.steamgames.com/doc/store/localization#supported_languages).
+ * 
+ * If this is not set then "english" is assumed.
+ * 
+ * [[Note: This must be set before you submit the UGC update handle using ${function.steam_ugc_submit_item_update}.]]
+ *
+ * @param {Real} update_handle The item update handle, as returned by ${function.steam_ugc_start_item_update}.
+ * @param {String} language The language to set, as a Steam supported [API language code](https://partner.steamgames.com/doc/store/localization/languages).
+ * @returns {Bool} 
+ * @function_end 
+ */
+
+/**
+ * @function steam_ugc_set_items_disabled_locally
+ * @description > **Steamworks Function**: [ISteamUGC::SetItemsDisabledLocally](https://partner.steamgames.com/doc/api/ISteamUGC#SetItemsDisabledLocally)
+ *
+ * This function sets whether the items should be disabled locally or not. This means that it will not be returned in ${function.steam_ugc_get_num_subscribed_items} and ${function.steam_ugc_get_subscribed_items} by default.
+ *
+ * @param {Array[Real]} published_file_ids An array of the unique IDs of the published items to set the disabled state for.
+ * @param {Bool} disabled_locally Whether the items should be disabled locally (`true`) or enabled (`false`).
+ * @returns {Bool} 
+ * @function_end
+ */
+
+/**
+ * @function steam_ugc_set_item_visibility
+ * @description > **Steamworks Function**: [ISteamUGC::SetItemVisibility](https://partner.steamgames.com/doc/api/ISteamUGC#SetItemVisibility)
+ *
+ * This function sets the visibility of an item.
+ * 
+ * [[Note: This must be set before you submit the UGC update handle using ${function.steam_ugc_submit_item_update}.]]
+ *
+ * @param {Real} update_handle The item update handle, as returned by ${function.steam_ugc_start_item_update}.
+ * @param {Enum.SteamRemoteStoragePublishedFileVisibility} visibility The desired visibility to set for the item.
+ * @returns {Bool} 
+ * @function_end 
+ */
+
+/**
+ * @function steam_ugc_set_language
+ * @description > **Steamworks Function**: [ISteamUGC::SetLanguage](https://partner.steamgames.com/doc/api/ISteamUGC#SetLanguage)
+ *
+ * This function sets the language to return the title and description in for the items on a pending UGC Query.
+ * 
+ * This must be in the format of the [API Language code](https://partner.steamgames.com/doc/store/localization#supported_languages).
+ *
+ * @param {Real} query_handle The UGC query handle to customise, as returned by ${function.steam_ugc_create_query_user_ugc_request} or ${function.steam_ugc_create_query_all_ugc_request}.
+ * @param {String} language The language to return the title and description in, as a Steam supported [API language code](https://partner.steamgames.com/doc/store/localization/languages).
+ * @returns {Bool} 
+ * @function_end 
+ */
+
+/**
+ * @function steam_ugc_set_match_any_tag
+ * @description > **Steamworks Function**: [ISteamUGC::SetMatchAnyTag](https://partner.steamgames.com/doc/api/ISteamUGC#SetMatchAnyTag)
+ *
+ * This function sets whether workshop items will be returned if they have one or more matching tags, or if all tags need to match on a pending UGC Query.
+ * 
+ * [[Note: This can only be used with ${function.steam_ugc_create_query_all_ugc_request}.]]
+ * 
+ * [[Note: This must be set before you send a UGC Query handle using ${function.steam_ugc_send_query_ugc_request}.]]
+ *
+ * @param {Real} query_handle The UGC query handle to customise, as returned by ${function.steam_ugc_create_query_user_ugc_request} or ${function.steam_ugc_create_query_all_ugc_request}.
+ * @param {Bool} match_any_tag If `true`, items must have at least one of the required tags to match; if `false`, items must have all of the required tags.
+ * @returns {Bool} 
+ * @function_end 
+ */
+
+/**
+ * @function steam_ugc_set_ranked_by_trend_days
+ * @description > **Steamworks Function**: [ISteamUGC::SetRankedByTrendDays](https://partner.steamgames.com/doc/api/ISteamUGC#SetRankedByTrendDays)
+ *
+ * This function sets whether the order of the results will be updated based on the rank of items over a number of days on a pending UGC Query.
+ * 
+ * [[Note: This can only be used with ${function.steam_ugc_create_query_all_ugc_request}.]]
+ * 
+ * [[Note: This must be set before you send a UGC Query handle using ${function.steam_ugc_send_query_ugc_request}.]]
+ *
+ * @param {Real} query_handle The UGC query handle to customise, as returned by ${function.steam_ugc_create_query_all_ugc_request}.
+ * @param {Real} days The number of days to rank items over, used with the `SteamUgcQuery.RankedByTrend` query type.
+ * @returns {Bool} 
+ * @function_end 
+ */
+
+/**
+ * @function steam_ugc_set_return_additional_previews
+ * @description > **Steamworks Function**: [ISteamUGC::SetReturnAdditionalPreviews](https://partner.steamgames.com/doc/api/ISteamUGC#SetReturnAdditionalPreviews)
+ *
+ * This function sets whether to return any additional images/videos attached to the items on a pending UGC Query.
+ * 
+ * [[Note: This must be set before you send a UGC Query handle using ${function.steam_ugc_send_query_ugc_request}.]]
+ *
+ * @param {Real} query_handle The UGC query handle to customise, as returned by ${function.steam_ugc_create_query_user_ugc_request} or ${function.steam_ugc_create_query_all_ugc_request}.
+ * @param {Bool} return_additional_previews Whether to return any additional previews (images and videos) for the items in the query results.
+ * @returns {Bool} 
+ * @function_end 
+ */
+
+/**
+ * @function steam_ugc_set_return_children
+ * @description > **Steamworks Function**: [ISteamUGC::SetReturnChildren](https://partner.steamgames.com/doc/api/ISteamUGC#SetReturnChildren)
+ *
+ * This function sets whether to return the IDs of the child items of the item on a pending UGC Query.
+ * 
+ * [[Note: This must be set before you send a UGC Query handle using ${function.steam_ugc_send_query_ugc_request}.]]
+ *
+ * @param {Real} query_handle The UGC query handle to customise, as returned by ${function.steam_ugc_create_query_user_ugc_request} or ${function.steam_ugc_create_query_all_ugc_request}.
+ * @param {Bool} return_children Whether to return the IDs of the child items of each item in the query results.
+ * @returns {Bool} 
+ * @function_end 
+ */
+
+/**
+ * @function steam_ugc_set_return_key_value_tags
+ * @description > **Steamworks Function**: [ISteamUGC::SetReturnKeyValueTags](https://partner.steamgames.com/doc/api/ISteamUGC#SetReturnKeyValueTags)
+ *
+ * This function sets whether to return any key-value tags for the items on a pending UGC Query.
+ * 
+ * [[Note: This must be set before you send a UGC Query handle using ${function.steam_ugc_send_query_ugc_request}.]]
+ *
+ * @param {Real} query_handle The UGC query handle to customise, as returned by ${function.steam_ugc_create_query_user_ugc_request} or ${function.steam_ugc_create_query_all_ugc_request}.
+ * @param {Bool} return_key_value_tags Whether to return any key-value tags for the items in the query results.
+ * @returns {Bool} 
+ * @function_end 
+ */
+
+/**
+ * @function steam_ugc_set_return_long_description
+ * @description > **Steamworks Function**: [ISteamUGC::SetReturnLongDescription](https://partner.steamgames.com/doc/api/ISteamUGC#SetReturnLongDescription)
+ *
+ * This function sets whether to return the full description for the items on a pending UGC Query.
+ * 
+ * If you don't set this then you only receive the summary which is the description truncated at 255 bytes.
+ * 
+ * [[Note: This must be set before you send a UGC Query handle using ${function.steam_ugc_send_query_ugc_request}.]]
+ *
+ * @param {Real} query_handle The UGC query handle to customise, as returned by ${function.steam_ugc_create_query_user_ugc_request} or ${function.steam_ugc_create_query_all_ugc_request}.
+ * @param {Bool} return_long_description Whether to return the full description for the items in the query results.
+ * @returns {Bool} 
+ * @function_end 
+ */
+
+/**
+ * @function steam_ugc_set_return_metadata
+ * @description > **Steamworks Function**: [ISteamUGC::SetReturnMetadata](https://partner.steamgames.com/doc/api/ISteamUGC#SetReturnMetadata)
+ *
+ * This function sets whether to return the developer-specified metadata for the items on a pending UGC Query.
+ * 
+ * [[Note: This must be set before you send a UGC Query handle using ${function.steam_ugc_send_query_ugc_request}.]]
+ *
+ * @param {Real} query_handle The UGC query handle to customise, as returned by ${function.steam_ugc_create_query_user_ugc_request} or ${function.steam_ugc_create_query_all_ugc_request}.
+ * @param {Bool} return_metadata Whether to return the developer-specified metadata for the items in the query results.
+ * @returns {Bool} 
+ * @function_end 
+ */
+
+/**
+ * @function steam_ugc_set_return_only_ids
+ * @description > **Steamworks Function**: [ISteamUGC::SetReturnOnlyIDs](https://partner.steamgames.com/doc/api/ISteamUGC#SetReturnOnlyIDs)
+ *
+ * This function sets whether to only return IDs instead of all the details on a pending UGC Query.
+ * 
+ * This is useful for when you don't need all the information (e.g. you just want to get the IDs of the items a user has in their favourites list.)
+ * 
+ * [[Note: This must be set before you send a UGC Query handle using ${function.steam_ugc_send_query_ugc_request}.]]
+ *
+ * @param {Real} query_handle The UGC query handle to customise, as returned by ${function.steam_ugc_create_query_user_ugc_request} or ${function.steam_ugc_create_query_all_ugc_request}.
+ * @param {Bool} return_only_ids Whether to only return the IDs of the items, omitting all other details, in the query results.
+ * @returns {Bool} 
+ * @function_end 
+ */
+
+/**
+ * @function steam_ugc_set_return_playtime_stats
+ * @description > **Steamworks Function**: [ISteamUGC::SetReturnPlaytimeStats](https://partner.steamgames.com/doc/api/ISteamUGC#SetReturnPlaytimeStats)
+ *
+ * This function sets whether to return the playtime stats on a pending UGC Query.
+ * 
+ * [[Note: This must be set before you send a UGC Query handle using ${function.steam_ugc_send_query_ugc_request}.]]
+ *
+ * @param {Real} query_handle The UGC query handle to customise, as returned by ${function.steam_ugc_create_query_user_ugc_request} or ${function.steam_ugc_create_query_all_ugc_request}.
+ * @param {Real} days The number of days worth of playtime stats to return for the items in the query results.
+ * @returns {Bool} 
+ * @function_end 
+ */
+
+/**
+ * @function steam_ugc_set_return_total_only
+ * @description > **Steamworks Function**: [ISteamUGC::SetReturnTotalOnly](https://partner.steamgames.com/doc/api/ISteamUGC#SetReturnTotalOnly)
+ *
+ * This function sets whether to only return the total number of matching items on a pending UGC Query.
+ * 
+ * The actual items will not be returned when [SteamUGCQueryCompleted_t](https://partner.steamgames.com/doc/api/ISteamUGC#SteamUGCQueryCompleted_t) is called.
+ * 
+ * [[Note: This must be set before you send a UGC Query handle using ${function.steam_ugc_send_query_ugc_request}.]]
+ * 
+ * @param {Real} query_handle The UGC query handle to customise, as returned by ${function.steam_ugc_create_query_user_ugc_request} or ${function.steam_ugc_create_query_all_ugc_request}.
+ * @param {Bool} return_total_only Whether to only return the total number of matching items, without returning any item details.
+ * @returns {Bool} 
+ * @function_end 
+ */
+
+/**
+ * @function steam_ugc_set_search_text
+ * @description > **Steamworks Function**: [ISteamUGC::SetSearchText](https://partner.steamgames.com/doc/api/ISteamUGC#SetSearchText)
+ *
+ * This function sets a string that items need to match in either the title or the description on a pending UGC Query.
+ * 
+ * [[Note: This can only be used with ${function.steam_ugc_create_query_all_ugc_request}.]]
+ * 
+ * [[Note: This must be set before you send a UGC Query handle using ${function.steam_ugc_send_query_ugc_request}.]]
+ * 
+ * @param {Real} query_handle The UGC query handle to customise, as returned by ${function.steam_ugc_create_query_all_ugc_request}.
+ * @param {String} search_text The text that items must match in either their title or description to be returned.
+ * @returns {Bool} 
+ * @function_end 
+ */
+
+/**
+ * @function steam_ugc_set_subscriptions_load_order
+ * @description > **Steamworks Function**: [ISteamUGC::SetSubscriptionsLoadOrder](https://partner.steamgames.com/doc/api/ISteamUGC#SetSubscriptionsLoadOrder)
+ *
+ * This function sets the local load order for these items. If there are any items not in the given list, they will sort by the time subscribed.
+ *
+ * @param {Array[Real]} published_file_ids An array of the unique IDs of the subscribed items, in the desired load order.
+ * @returns {Bool} 
+ * @function_end 
+ */
+
+/**
+ * @function steam_ugc_set_user_item_vote
+ * @description > **Steamworks Function**: [ISteamUGC::SetUserItemVote](https://partner.steamgames.com/doc/api/ISteamUGC#SetUserItemVote)
+ *
  * This function allows the user to rate a workshop item up or down.
- * 
- * @param {int64} published_file_id The workshop item ID to vote on.
- * @param {bool} vote_up Vote up (`true`) or down (`false`)?
- * 
- * @returns {real} The async identifier for the request.
- * 
- * @event steam
- * @desc 
- * @member {real} id The async ID returned in the original function call
- * @member {string} event_type The string `"steam_ugc_set_user_item_vote"`
- * @member {real} result The result of the operation.
- * @member {bool} vote_up Was the vote up (`true`) or down (`false`)?
- * @member {int64} published_file_id The workshop item that the user voted on.
+ *
+ * @param {Real} published_file_id The unique ID of the workshop item to vote on.
+ * @param {Bool} vote_up Whether to vote the item up (`true`) or down (`false`).
+ * @param {Function} callback The function to call upon completion.
+ *
+ * @event callback
+ * @desc > **Steamworks Callback**: [ISteamUGC::SetUserItemVoteResult_t](https://partner.steamgames.com/doc/api/ISteamUGC#SetUserItemVoteResult_t)
+ *
+ * Called when the user has voted on a workshop item.
+ *
+ * @member {Struct.SteamUgcSetUserItemVoteResult} result The result of the operation.
  * @event_end
- * 
- * @example
- * ```gml
- * /// Mouse Left Pressed Event
- * request_id = steam_ugc_set_user_item_vote(item, true);
- * ```
- * The code above calls the function and stores the request ID in an instance variable.
- * ```gml
- * /// Async Steam Event
- * if (async_load[? "id"] != request_id) { exit; }
- * 
- * var _event_type = async_load[? "event_type"];
- * var _id = async_load[? "published_file_id"];
- * var _success = (async_load[? "result"] == ugc_result_success) ? "succeeded" : "failed";
- * var _up = (async_load[? "vote_up"]) ? "up" : "down";
- * show_debug_message("{0} {1} (published file ID: {2}) - voted {3}", _event_type, _success, _id, _up);
- * ```
- * The code above shows the code in the ${event.steam}. The event is exited early if the ID for which it is triggered is not the request ID returned in the original function call, otherwise a debug message is output that shows information about the result of the call.
- * @func_end
+ * @function_end
  */
 
 /**
- * @func steam_ugc_get_user_item_vote
- * @desc > **Steamworks Function**: [ISteamUGC::GetUserItemVote](https://partner.steamgames.com/doc/api/ISteamUGC#GetUserItemVote)
- * 
+ * @function steam_ugc_get_user_item_vote
+ * @description > **Steamworks Function**: [ISteamUGC::GetUserItemVote](https://partner.steamgames.com/doc/api/ISteamUGC#GetUserItemVote)
+ *
  * This function gets the user's vote status on a workshop item.
+ *
+ * @param {Real} published_file_id The unique ID of the workshop item to get the user's vote status for.
+ * @param {Function} callback The function to call upon completion.
+ *
+ * @event callback
+ * @desc > **Steamworks Callback**: [ISteamUGC::GetUserItemVoteResult_t](https://partner.steamgames.com/doc/api/ISteamUGC#GetUserItemVoteResult_t)
+ *
+ * Called when the user's current vote on a workshop item has been retrieved.
+ *
+ * @member {Struct.SteamUgcGetUserItemVoteResult} result The result of the operation.
+ * @event_end
+ * @function_end
+ */
+
+/**
+ * @function steam_ugc_start_item_update
+ * @description > **Steamworks Function**: [ISteamUGC::StartItemUpdate](https://partner.steamgames.com/doc/api/ISteamUGC#StartItemUpdate)
+ *
+ * This function starts the item update process.
  * 
- * @param {int64} published_file_id The workshop item ID to get the user's vote of.
+ * This gets you a handle that you can use to modify the item before finally sending off the update to the server with ${function.steam_ugc_submit_item_update}.
+ *
+ * @param {Real} consumer_app_id The App ID that will consume this item.
+ * @param {Real} published_file_id The unique ID of the workshop item to update.
+ * @returns {Real} A handle that you can use with future calls to modify the item before finally sending the update.
+ * @function_end
+ */
+
+/**
+ * @function steam_ugc_start_playtime_tracking
+ * @description > **Steamworks Function**: [ISteamUGC::StartPlaytimeTracking](https://partner.steamgames.com/doc/api/ISteamUGC#StartPlaytimeTracking)
+ *
+ * This function starts tracking playtime on a set of workshop items.
  * 
- * @returns {real} The async identifier for the request.
+ * When your app shuts down, playtime tracking will automatically stop.
+ *
+ * @param {Array[Real]} published_file_ids An array of the unique IDs of the workshop items to start tracking playtime for.
+ * @param {Function} callback The function to call upon completion.
  * 
- * @event steam
- * @desc 
- * @member {real} id The async ID returned in the original function call
- * @member {string} event_type The string `"steam_ugc_get_user_item_vote"`
- * @member {real} result The result of the operation.
- * @member {bool} voted_up Has the user voted the item up?
- * @member {bool} voted_down Has the user voted the item down?
- * @member {bool} vote_skipped Has the user skipped voting on this item?
- * @member {int64} published_file_id The workshop item to get the vote status of.
+ * @event callback
+ * @desc > **Steamworks Callback**: [ISteamUGC::StartPlaytimeTrackingResult_t](https://partner.steamgames.com/doc/api/ISteamUGC#StartPlaytimeTrackingResult_t)
+ * 
+ * Called when workshop item playtime tracking has started.
+ * 
+ * @member {Struct.SteamUgcStartPlaytimeTrackingResult} result The result of the operation.
  * @event_end
  * 
- * @example
- * ```gml
- * /// Mouse Left Pressed Event
- * request_id = steam_ugc_get_user_item_vote(item);
- * ```
- * The code above calls the function and stores the request ID in an instance variable.
- * ```gml
- * /// Async Steam Event
- * if (async_load[? "id"] != request_id) { exit; }
- * 
- * var _event_type = async_load[? "event_type"];
- * var _id = async_load[? "published_file_id"];
- * var _success = (async_load[? "result"] == ugc_result_success) ? "succeeded" : "failed";
- * var _voted_up = async_load[? "voted_up"];
- * var _vote_status = (async_load[? "vote_skipped"] ? "skipped" : ((_voted_up) ? "up" : "down"));
- * show_debug_message("{0} {1} (published file ID: {2}) - vote {3}", _event_type, _success, _id, _vote_status);
- * ```
- * The code above shows the code in the ${event.steam}. The event is exited early if the ID for which it is triggered is not the request ID returned in the original function call, otherwise a debug message is output that shows information about the result of the call.
- * @func_end
+ * @function_end
  */
 
 /**
- * @const UGCFileType
- * @desc These constants specify the way that a shared file will be shared with the community and should be used while creating a new item with ${function.steam_ugc_create_item}.
+ * @function steam_ugc_stop_playtime_tracking
+ * @description > **Steamworks Function**: [ISteamUGC::StopPlaytimeTracking](https://partner.steamgames.com/doc/api/ISteamUGC#StopPlaytimeTracking)
+ *
+ * This function stops tracking playtime on a set of workshop items. This will increment the number of "playtime" sessions for those items by one.
  * 
- * [[NOTE: See [Steam Docs](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#EWorkshopFileType) for more details.]]
+ * When your app shuts down, playtime tracking will automatically stop.
+ *
+ * @param {Array[Real]} published_file_ids An array of the unique IDs of the workshop items to stop tracking playtime for.
+ * @param {Function} callback The function to call upon completion.
  * 
- * @member ugc_filetype_community This is used to create files that will be uploaded and made available to anyone in the community
- * @member ugc_filetype_microtrans This is used to describe files that are uploaded but intended only for the game to consider adding as official content
- * @const_end
+ * @event callback
+ * @description > **Steamworks Callback**: [ISteamUGC::StopPlaytimeTrackingResult_t](https://partner.steamgames.com/doc/api/ISteamUGC#StopPlaytimeTrackingResult_t)
+ * 
+ * Called when workshop item playtime tracking has stopped.
+ * 
+ * @member {Struct.SteamUgcStopPlaytimeTrackingResult} result The result of the operation.
+ * @event_end
+ * 
+ * @function_end
  */
 
 /**
- * @const UGCFileVisibility
- * @desc These constants specify possible visibility states that a Workshop item can be in. They are used with the function ${function.steam_ugc_set_item_visibility} and are an async callback parameter for the functions ${function.steam_ugc_request_item_details} and ${function.steam_ugc_send_query}.
+ * @function steam_ugc_stop_playtime_tracking_for_all_items
+ * @description > **Steamworks Function**: [ISteamUGC::StopPlaytimeTrackingForAllItems](https://partner.steamgames.com/doc/api/ISteamUGC#StopPlaytimeTrackingForAllItems)
+ *
+ * This function stops tracking playtime of all workshop items.
  * 
- * [[NOTE: See [Steam Docs](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#ERemoteStoragePublishedFileVisibility) for more details.]]
+ * When your app shuts down, playtime tracking will automatically stop. This will increment the number of "playtime" sessions for those all items that were being tracked by one.
+ *
+ * @param {Function} callback The function to call upon completion.
  * 
- * @member ugc_visibility_public Set the item to be publicly visible
- * @member ugc_visibility_friends_only Set the item to be visible to only people on the users friends list
- * @member ugc_visibility_private Set the item to be private
- * @member ugc_visibility_unlisted Set the item to be unlisted, so it is hidden from searches and browsing but can still be accessed by anyone who has a direct link to it
- * @const_end
+ * @event callback
+ * @description > **Steamworks Callback**: [ISteamUGC::StopPlaytimeTrackingResult_t](https://partner.steamgames.com/doc/api/ISteamUGC#StopPlaytimeTrackingResult_t)
+ * 
+ * Called when workshop item playtime tracking has stopped.
+ * 
+ * @member {Struct.SteamUgcStopPlaytimeTrackingResult} result The result of the operation.
+ * @event_end
+ * @function_end
  */
 
 /**
- * @const UGCListSortOrder
- * @desc These constants specify the sorting order of user published UGC lists.
+ * @function steam_ugc_submit_item_update
+ * @description > **Steamworks Function**: [ISteamUGC::SubmitItemUpdate](https://partner.steamgames.com/doc/api/ISteamUGC#SubmitItemUpdate)
+ *
+ * This function uploads the changes made to an item to the Steam Workshop.
  * 
- * [[NOTE: See [Steam UGC Docs](https://partner.steamgames.com/doc/api/ISteamUGC#EUserUGCListSortOrder) for more details.]]
- * 
- * @member ugc_sortorder_CreationOrderDesc Returns items by creation date. Descending - the newest items are first
- * @member ugc_sortorder_CreationOrderAsc Returns items by creation date. Ascending - the oldest items are first
- * @member ugc_sortorder_TitleAsc Returns items by name
- * @member ugc_sortorder_LastUpdatedDesc Returns the most recently updated items first
- * @member ugc_sortorder_SubscriptionDateDesc Returns the most recently subscribed items first
- * @member ugc_sortorder_VoteScoreDesc Returns the items with the more recent score updates first
- * @member ugc_sortorder_ForModeration Returns the items that have been reported for moderation
- * @const_end
+ * You can track the progress of an item update with ${function.steam_ugc_get_item_update_progress}.
+ *
+ * @param {Real} update_handle The item update handle, as returned by ${function.steam_ugc_start_item_update}.
+ * @param {String} change_note A change note detailing what was altered in this item update; can be an empty string.
+ * @param {Function} callback The function to call upon completion.
+ *
+ * @event callback
+ * @desc > **Steamworks Callback**: [ISteamUGC::SubmitItemUpdateResult_t](https://partner.steamgames.com/doc/api/ISteamUGC#SubmitItemUpdateResult_t)
+ *
+ * Called when a workshop item update has been submitted and uploaded.
+ *
+ * @member {Struct.SteamUgcSubmitItemUpdateResult} result The result of this operation.
+ * @event_end
+ * @function_end
  */
 
 /**
- * @const UGCListType
- * @desc These constants specify the type of published UGC list to obtain.
- * 
- * [[NOTE: See [Steam UGC Docs](https://partner.steamgames.com/doc/api/ISteamUGC#EUserUGCList) for more details.]]
- * 
- * @member ugc_list_Published List of files the user has published
- * @member ugc_list_VotedOn List of files the user has voted on. Includes both VotedUp and VotedDown
- * @member ugc_list_VotedUp List of files the user has voted up (restricted to the current user only)
- * @member ugc_list_VotedDown List of files the user has voted down (restricted to the current user only)
- * @member ugc_list_WillVoteLater :warning: DEPRECATED
- * @member ugc_list_Favorited List of files the user has favorited
- * @member ugc_list_Subscribed List of files the user has subscribed to (restricted to the current user only)
- * @member ugc_list_UsedOrPlayed List of files the user has spent time in game with
- * @member ugc_list_Followed List of files the user is following updates for
- * @const_end
+ * @function steam_ugc_subscribe_item
+ * @description > **Steamworks Function**: [ISteamUGC::SubscribeItem](https://partner.steamgames.com/doc/api/ISteamUGC#SubscribeItem)
+ *
+ * This function subscribes to a workshop item. It will be downloaded and installed as soon as possible.
+ *
+ * @param {Real} published_file_id The unique ID of the workshop item to subscribe to.
+ * @param {Function} callback The function to call upon completion.
+ *
+ * @event callback
+ * @desc > **Steamworks Callback**: [ISteamRemoteStorage::RemoteStorageSubscribePublishedFileResult_t](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#RemoteStorageSubscribePublishedFileResult_t)
+ *
+ * Called when the user has subscribed to a piece of UGC.
+ *
+ * @member {Struct.SteamUgcSubscribeItemResult} result The result of this operation.
+ * @event_end
+ * @function_end
  */
 
 /**
- * @const UGCMatchType
- * @desc These constants specify the types of UGC to obtain.
+ * @function steam_ugc_suspend_downloads
+ * @description > **Steamworks Function**: [ISteamUGC::SuspendDownloads](https://partner.steamgames.com/doc/api/ISteamUGC#SuspendDownloads)
+ *
+ * This function suspends and resumes all workshop downloads.
  * 
- * [[NOTE: See [Steam UGC Docs](https://partner.steamgames.com/doc/api/ISteamUGC#EUGCMatchingUGCType) for more details.]]
- * 
- * @member ugc_match_Items Both microtransaction items and ready-to-use items
- * @member ugc_match_Items_Mtx Microtransaction items
- * @member ugc_match_Items_ReadyToUse Regular in game items that players have uploaded
- * @member ugc_match_Collections Shared collections of UGC
- * @member ugc_match_Artwork Artwork which has been shared
- * @member ugc_match_Videos Videos which have been shared
- * @member ugc_match_Screenshots Screenshots which have been shared
- * @member ugc_match_AllGuides Both web guides and integrated guides
- * @member ugc_match_WebGuides Guides that are only available on the [Steam Community](https://steamcommunity.com/)
- * @member ugc_match_IntegratedGuides Guides that you can use within your game (like Dota 2's in-game character guides)
- * @member ugc_match_UsableInGame Ready-to-use items and integrated guides
- * @member ugc_match_ControllerBindings Controller bindings which have been shared
- * @const_end
+ * If you call this with `suspend` set to `true` then downloads will be suspended until you resume them by setting `suspend` to `false` or when the game ends.
+ *
+ * @param {Bool} suspend Whether to suspend (`true`) or resume (`false`) all workshop downloads.
+ * @function_end
  */
 
 /**
- * @const UGCQueryType (Sorting & Filtering)
- * @desc These constants specify the sorting and filtering for queries across all available UGC.
- * 
- * [[NOTE: See [Steam UGC Docs](https://partner.steamgames.com/doc/api/ISteamUGC#EUGCQuery) for more details.]]
- * 
- * @member ugc_query_RankedByVote Sort by vote popularity all-time
- * @member ugc_query_RankedByPublicationDate Sort by publication date descending
- * @member ugc_query_AcceptedForGameRankedByAcceptanceDate Sort by date accepted (for mtx items)
- * @member ugc_query_RankedByTrend Sort by vote popularity within the given "trend" period (set in ${function.steam_ugc_query_set_ranked_by_trend_days})
- * @member ugc_query_FavoritedByFriendsRankedByPublicationDate Filter to items the user's friends have favourited, sorted descending by publication date
- * @member ugc_query_CreatedByFriendsRankedByPublicationDate Filter to items created by friends, sorted by publication date descending
- * @member ugc_query_RankedByNumTimesReported Sort by report weight descending
- * @member ugc_query_CreatedByFollowedUsersRankedByPublicationDate Filter to items created by users that the current user has followed, sorted descending by publication date
- * @member ugc_query_NotYetRated Filtered to the user's voting queue
- * @member ugc_query_RankedByTotalVotesAsc Sort by total number of votes ascending (used internally for building the user's voting queue)
- * @member ugc_query_RankedByVotesUp Sort by number of votes up descending. Will use the "trend" period if specified (set in ${function.steam_ugc_query_set_ranked_by_trend_days})
- * @member ugc_query_RankedByTextSearch Sort by keyword text search relevancy
- * @const_end
+ * @function steam_ugc_unsubscribe_item
+ * @description > **Steamworks Function**: [ISteamUGC::UnsubscribeItem](https://partner.steamgames.com/doc/api/ISteamUGC#UnsubscribeItem)
+ *
+ * This function unsubscribes from a workshop item. This will result in the item being removed after the game quits.
+ *
+ * @param {Real} published_file_id The unique ID of the workshop item to unsubscribe from.
+ * @param {Function} callback The function to call upon completion.
+ *
+ * @event callback
+ * @desc > **Steamworks Callback**: [ISteamRemoteStorage::RemoteStorageUnsubscribePublishedFileResult_t](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#RemoteStorageUnsubscribePublishedFileResult_t)
+ *
+ * Called when the user has unsubscribed from a piece of UGC.
+ *
+ * @member {Struct.SteamUgcUnsubscribeItemResult} result The result of the operation.
+ * @event_end
+ * @function_end
  */
+
+/**
+ * @function steam_ugc_set_callback_user_subscribed_items_list_changed
+ * @description > **Steamworks Function**: N / A
+ *
+ * This function sets the function to be called when the user has added or removed an item to/from their subscriptions for the returned app ID.
+ *
+ * @param {Function} callback The function to be called when the user's list of subscribed items changes.
+ *
+ * @event callback
+ * @desc > **Steamworks Callback**: [ISteamUGC::UserSubscribedItemsListChanged_t](https://partner.steamgames.com/doc/api/ISteamUGC#UserSubscribedItemsListChanged_t)
+ *
+ * Called when the user adds an item to, or removes an item from, their subscriptions.
+ *
+ * @member {Struct.SteamUgcUserSubscribedItemsListChanged} result The app ID whose subscriptions changed.
+ * @event_end
+ * @function_end
+ */
+
+/**
+ * @function steam_ugc_clear_callback_user_subscribed_items_list_changed
+ * @description > **Steamworks Function**: N / A
+ *
+ * This function clears the callback function previously set using ${function.steam_ugc_set_callback_user_subscribed_items_list_changed}.
+ *
+ * @function_end
+ */
+
+/**
+ * @function steam_ugc_update_item_preview_file
+ * @description > **Steamworks Function**: [ISteamUGC::UpdateItemPreviewFile](https://partner.steamgames.com/doc/api/ISteamUGC#UpdateItemPreviewFile)
+ *
+ * This function updates an existing additional preview file for the item.
+ * 
+ * If the preview type is an image then the format should be one that both the web and the application (if necessary) can render, and must be under 1MB. Suggested formats include JPG, PNG and GIF.
+ * 
+ * [[Note: This must be set before you submit the UGC update handle using ${function.steam_ugc_submit_item_update}.]]
+ *
+ * @param {Real} update_handle The item update handle, as returned by ${function.steam_ugc_start_item_update}.
+ * @param {Real} index The (zero-based) index of the preview file to update.
+ * @param {String} preview_file The absolute path to the local image file that will replace the existing preview.
+ * @returns {Bool} 
+ * @function_end
+ */
+
+/**
+ * @function steam_ugc_update_item_preview_video
+ * @description > **Steamworks Function**: [ISteamUGC::UpdateItemPreviewVideo](https://partner.steamgames.com/doc/api/ISteamUGC#UpdateItemPreviewVideo)
+ *
+ * This function updates an additional video preview from YouTube for the item.
+ * 
+ * [[Note: This must be set before you submit the UGC update handle using ${function.steam_ugc_submit_item_update}.]]
+ *
+ * @param {Real} update_handle The item update handle, as returned by ${function.steam_ugc_start_item_update}.
+ * @param {Real} index The (zero-based) index of the preview video to update.
+ * @param {String} video_id The ID of the YouTube video that will replace the existing preview video.
+ * @returns {Bool} 
+ * @function_end
+ */
+
+/**
+ * @function steam_ugc_show_workshop_eula
+ * @description > **Steamworks Function**: [ISteamUGC::ShowWorkshopEULA](https://partner.steamgames.com/doc/api/ISteamUGC#ShowWorkshopEULA)
+ *
+ * This function shows the app's latest Workshop EULA to the user in an overlay window, where they can accept it or not.
+ *
+ * @returns {Bool} 
+ * @function_end
+ */
+
+/**
+ * @function steam_ugc_get_workshop_eula_status
+ * @description > **Steamworks Function**: [ISteamUGC::GetWorkshopEULAStatus](https://partner.steamgames.com/doc/api/ISteamUGC#GetWorkshopEULAStatus)
+ *
+ * This function asynchronously retrieves data about whether the user accepted the Workshop EULA for the current app.
+ *
+ * @param {Function} callback The function to call upon completion.
+ * 
+ * @event callback
+ * @description > **Steamworks Callback**: [ISteamUGC::WorkshopEULAStatus_t](https://partner.steamgames.com/doc/api/ISteamUGC#WorkshopEULAStatus_t)
+ * 
+ * Triggered upon completion of the request.
+ * 
+ * @member {Struct.SteamUgcWorkshopEULAStatusResult} result The result of the operation.
+ * @event_end
+ * @function_end
+ */
+
+/**
+ * @function steam_ugc_get_num_supported_game_versions
+ * @description > **Steamworks Function**: [ISteamUGC::GetNumSupportedGameVersions](https://partner.steamgames.com/doc/api/ISteamUGC#GetNumSupportedGameVersions)
+ *
+ * This function returns the number of supported game versions; items can have multiple versions, whose support can be valid for a range of Steam beta branches.
+ * 
+ * [[Note: This must only be called with the handle obtained from a successful [SteamUGCQueryCompleted_t](https://partner.steamgames.com/doc/api/ISteamUGC#SteamUGCQueryCompleted_t) call result.]]
+ *
+ * @param {Real} query_handle The UGC query handle to query, as returned by ${function.steam_ugc_create_query_user_ugc_request} or ${function.steam_ugc_create_query_all_ugc_request}.
+ * @param {Real} index The (zero-based) index of the item within the query results to get the number of supported game versions for.
+ * @returns {Real} 
+ * @function_end
+ */
+
+// STRUCTS
+
+/**
+ * @struct SteamUgcItemDownloadInfo
+ * @description > **Steamworks Struct**: N / A
+ *
+ * This struct holds information returned by ${function.steam_ugc_get_item_download_info}.
+ * 
+ * @member {Real} bytes_downloaded the current bytes downloaded.
+ * @member {Real} bytes_total The total bytes. This is only valid after the download has started.
+ * @struct_end
+ */
+
+/**
+ * @struct SteamUgcItemInstallInfo
+ * @description > **Steamworks Struct**: N / A
+ *
+ * This struct hold information returned by ${function.steam_ugc_get_item_install_info}.
+ * 
+ * @member {Real} size_on_disk The size of the workshop item in bytes.
+ * @member {String} folder The absolute path to the folder containing the content by copying it.
+ * @member {Real} timestamp The time when the workshop item was last updated.
+ * @struct_end
+ */
+
+/**
+ * @struct SteamUgcItemUpdateProgress
+ * @description > **Steamworks Struct**: N / A
+ *
+ * This struct holds the result of ${function.steam_ugc_get_item_update_progress}.
+ *
+ * @member {Enum.SteamUgcItemUpdateStatus} status The current status.
+ * @member {Real} bytes_processed The current number of bytes uploaded.
+ * @member {Real} bytes_total The total number of bytes that will be uploaded.
+ * @struct_end
+ */
+
+/**
+ * @struct SteamUgcQueryResult
+ * @description > **Steamworks Struct**: [ISteamUGC::SteamUGCDetails_t](https://partner.steamgames.com/doc/api/ISteamUGC#SteamUGCDetails_t)
+ *
+ * This struct holds the details of an individual workshop item after receiving a querying UGC call result.
+ *
+ * @member {Real} published_file_id The globally unique item handle to this piece of UGC.
+ * @member {String} title The title of the item.
+ * @member {String} description The description of the item.
+ * @member {Real} time_created Time when the published item was created, provided in Unix epoch format (time since Jan 1st, 1970).
+ * @member {Real} time_updated Time when the published item was last updated, provided in Unix epoch format (time since Jan 1st, 1970).
+ * @member {Enum.SteamRemoteStoragePublishedFileVisibility} visibility The visibility of the item.
+ * @member {Bool} banned Whether the item was banned.
+ * @member {Bool} accepted_for_use Whether the developer of this app has specifically flagged this item as accepted in the Workshop. (See: [Curated Workshop](https://partner.steamgames.com/doc/features/workshop#curated_workshop))
+ * @member {Bool} tags_truncated Whether the list of tags was too long to be returned in the provided buffer, and were therefore truncated.
+ * @member {String} tags Comma separated list of all tags associated with this item.
+ * @member {Enum.SteamApiResult} result The result of the operation.
+ * @member {Enum.SteamRemoteStorageWorkshopFileType} file_type The type of the item.
+ * @member {Real} creator_app_id App Id of the app that created this item.
+ * @member {Real} consumer_app_id App Id of the app that will consume this item.
+ * @member {Real} owner_steam_id The Steam ID of the user who created this content.
+ * @member {Real} time_added_to_user_list Time when the user added the published item to their list (not always applicable), provided in Unix epoch format (time since Jan 1st, 1970).
+ * @member {Real} handle_file The handle of the primary file.
+ * @member {Real} handle_preview_file The handle of the preview file.
+ * @member {String} file_name The cloud filename of the primary file.
+ * @member {Real} file_size The file size of the primary file.
+ * @member {Real} preview_file_size The file size of the preview file.
+ * @member {String} url The URL associated with this item. (For a video or a website.)
+ * @member {Real} votes_up Number of votes up.
+ * @member {Real} votes_down Number of votes down.
+ * @member {Real} score The bayesian average for up votes / total votes, between [0,1].
+ * @member {Real} num_children The number of items in the collection if `file_type` is `SteamRemoteStorageWorkshopFileType.Collection`, or the number of items this specific item has a dependency on (see ${function.steam_ugc_add_dependency}).
+ * @member {Real} total_files_size The total file size of all files in the content package.
+ * @struct_end
+ */
+
+/**
+ * @struct SteamUgcAdditionalPreview
+ * @description > **Steamworks Struct**: N / A
+ *
+ * This struct holds information returned by ${function.steam_ugc_get_query_ugc_additional_preview}.
+ * 
+ * @member {String} url_or_video_id The URL or Video ID of the additional preview.
+ * @member {Enum.SteamUgcItemPreviewType} preview_type The type of preview that was returned.
+ * @struct_end
+ */
+
+/**
+ * @struct SteamUgcKeyValueTag
+ * @description > **Steamworks Struct**: N / A
+ *
+ * This struct holds a key-value tag returned by ${function.steam_ugc_get_query_ugc_key_value_tag}.
+ * 
+ * @member {String} key The key.
+ * @member {String} value The value.
+ * @struct_end
+ */
+
+/**
+ * @struct SteamUgcItemInstalled
+ * @description > **Steamworks Struct**: [ISteamUGC::ItemInstalled_t](https://partner.steamgames.com/doc/api/ISteamUGC#ItemInstalled_t)
+ *
+ * This struct holds information passed to a `ISteamUGC::ItemInstalled_t` callback, which is called when a workshop item has been installed or updated.
+ * 
+ * [[Note: This callback goes out to all running applications, ensure that the app ID associated with the item matches what you expect.]]
+ *
+ * @member {Real} app_id The app ID associated with the workshop item.
+ * @member {Real} published_file_id The workshop item that has finished installing. This can be used with ${function.steam_ugc_get_item_install_info} to access the information about the item.
+ * @struct_end
+ */
+
+/**
+ * @struct SteamUgcUserSubscribedItemsListChanged
+ * @description > **Steamworks Struct**: [ISteamUGC::UserSubscribedItemsListChanged_t](https://partner.steamgames.com/doc/api/ISteamUGC#UserSubscribedItemsListChanged_t)
+ *
+ * This struct holds information about when the user has added or removed an item to/from their subscriptions for the returned app ID.
+ *
+ * @member {Real} app_id The related app ID.
+ * @struct_end
+ */
+
+/**
+ * @struct SteamUgcQueryCompleted
+ * @description > **Steamworks Struct**: [ISteamUGC::SteamUGCQueryCompleted_t](https://partner.steamgames.com/doc/api/ISteamUGC#SteamUGCQueryCompleted_t)
+ *
+ * This struct holds info on a completed UGC query request.
+ *
+ * @member {Real} query_handle The handle of the query that completed.
+ * @member {Enum.SteamApiResult} result The result of the operation.
+ * @member {Real} num_results_returned The number of results returned in this query.
+ * @member {Real} total_matching_results The total number of items that matched the query in the database.
+ * @member {Bool} cached_data Whether the returned data was retrieved from the local cache rather than from the server.
+ * @struct_end
+ */
+
+/**
+ * @struct SteamUgcCreateItemResult
+ * @description > **Steamworks Struct**: [ISteamUGC::CreateItemResult_t](https://partner.steamgames.com/doc/api/ISteamUGC#CreateItemResult_t)
+ *
+ * This struct holds info on the creation of a new workshop item.
+ *
+ * @member {Enum.SteamApiResult} result The result of the operation.
+ * @member {Real} published_file_id The ID of the newly created workshop item.
+ * @member {Bool} legal_agreement_required Does the user need to accept the Steam Workshop legal agreement (`true`) or not (`false`)? See the [Workshop Legal Agreement](https://partner.steamgames.com/doc/features/workshop/implementation#Legal) for more information.
+ * @struct_end
+ */
+
+/**
+ * @struct SteamUgcSubmitItemUpdateResult
+ * @description > **Steamworks Struct**: [ISteamUGC::SubmitItemUpdateResult_t](https://partner.steamgames.com/doc/api/ISteamUGC#SubmitItemUpdateResult_t)
+ *
+ * This struct holds info returned when a workshop item update has been submitted and uploaded.
+ *
+ * @member {Enum.SteamApiResult} result The result of the operation.
+ * @member {Bool} legal_agreement_required Whether the user needs to accept the Steam Workshop legal agreement.
+ * @struct_end
+ */
+
+/**
+ * @struct SteamUgcSubscribeItemResult
+ * @description > **Steamworks Struct**: [ISteamRemoteStorage::RemoteStorageSubscribePublishedFileResult_t](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#RemoteStorageSubscribePublishedFileResult_t)
+ *
+ * This struct holds info on the user subscribing to a piece of UGC.
+ *
+ * @member {Enum.SteamApiResult} result The result of the operation.
+ * @member {Real} published_file_id The workshop item that the user subscribed to.
+ * @struct_end
+ */
+
+/**
+ * @struct SteamUgcUnsubscribeItemResult
+ * @description > **Steamworks Struct**: [ISteamRemoteStorage::RemoteStorageUnsubscribePublishedFileResult_t](https://partner.steamgames.com/doc/api/ISteamRemoteStorage#RemoteStorageUnsubscribePublishedFileResult_t)
+ *
+ * This struct holds info on the user subscribing from a piece of UGC.
+ *
+ * @member {Enum.SteamApiResult} result The result of the operation.
+ * @member {Real} published_file_id The workshop item that the user unsubscribed from.
+ * @struct_end 
+ */
+
+/**
+ * @struct SteamUgcFavoriteItemsListChanged
+ * @description > **Steamworks Struct**: [ISteamUGC::UserFavoriteItemsListChanged_t](https://partner.steamgames.com/doc/api/ISteamUGC#UserFavoriteItemsListChanged_t)
+ *
+ * This struct holds information received in a `ISteamUGC::UserFavoriteItemsListChanged_t` callback.
+ *
+ * @member {Enum.SteamApiResult} result The result of the operation.
+ * @member {Real} published_file_id The item which was added/removed.
+ * @member {Bool} was_add_request Whether the item was added to (`true`) or removed from (`false`) the user's favourites.
+ * @struct_end
+ */
+
+/**
+ * @struct SteamUgcSetUserItemVoteResult
+ * @description > **Steamworks Struct**: [ISteamUGC::SetUserItemVoteResult_t](https://partner.steamgames.com/doc/api/ISteamUGC#SetUserItemVoteResult_t)
+ *
+ * This struct holds info on a workshop item vote.
+ *
+ * @member {Enum.SteamApiResult} result The result of the operation.
+ * @member {Real} published_file_id The workshop item that was voted on.
+ * @member {Bool} vote_up The vote that was set; `true` for an up vote, `false` for a down vote.
+ * @struct_end
+ */
+
+/**
+ * @struct SteamUgcGetUserItemVoteResult
+ * @description > **Steamworks Struct**: [ISteamUGC::GetUserItemVoteResult_t](https://partner.steamgames.com/doc/api/ISteamUGC#GetUserItemVoteResult_t)
+ *
+ * This struct holds info on the retrieval of a workshop item.
+ *
+ * @member {Enum.SteamApiResult} result The result of the operation.
+ * @member {Real} published_file_id The workshop item the vote information is for.
+ * @member {Bool} voted_up Whether the user has voted the item up.
+ * @member {Bool} voted_down Whether the user has voted the item down.
+ * @member {Bool} vote_skipped Whether the user has skipped voting on the item.
+ * @struct_end
+ */
+
+/**
+ * @struct SteamUgcSupportedGameVersionData
+ * @description > **Steamworks Struct**: N / A
+ *
+ * This struct holds information returned by ${function.steam_ugc_get_supported_game_version_data}.
+ * 
+ * @member {String} game_branch_min The minimum Steam (beta) branch this version of the item supports.
+ * @member {String} game_branch_max The maximum Steam (beta) branch version this version of the item supports.
+ * @struct_end 
+ */
+
+/**
+ * @struct SteamUgcDeleteItemResult
+ * @description > **Steamworks Struct**: [ISteamUGC::DeleteItemResult_t](https://partner.steamgames.com/doc/api/ISteamUGC#DeleteItemResult_t)
+ *
+ * This struct holds info on the deletion of a workshop item.
+ *
+ * @member {Enum.SteamApiResult} result The result of the operation.
+ * @member {Real} published_file_id The workshop item that was deleted.
+ * @struct_end
+ */
+
+/**
+ * @struct SteamUgcAddAppDependencyResult
+ * @description > **Steamworks Struct**: [ISteamUGC::AddAppDependencyResult_t](https://partner.steamgames.com/doc/api/ISteamUGC#AddAppDependencyResult_t)
+ * 
+ * This struct holds information about an app dependency result.
+ * 
+ * @member {Enum.SteamApiResult} result The result of the operation.
+ * @member {Real} published_file_id The parent workshop item that the dependency was added to.
+ * @member {Real} app_id The app/dlc.
+ * @struct_end
+ */
+
+/**
+ * @struct SteamUgcRemoveAppDependencyResult
+ * @description > **Steamworks Struct**: [ISteamUGC::AddAppDependencyResult_t](https://partner.steamgames.com/doc/api/ISteamUGC#AddAppDependencyResult_t)
+ * 
+ * This struct holds information about the removal of an app dependency.
+ * 
+ * @member {Enum.SteamApiResult} result The result of the operation.
+ * @member {Real} published_file_id The parent workshop item that the dependency was removed from.
+ * @member {Real} app_id The app/dlc.
+ * @struct_end
+ */
+
+/**
+ * @struct SteamUgcAddUGCDependencyResult
+ * @description > **Steamworks Struct**: [ISteamUGC::AddUGCDependencyResult_t](https://partner.steamgames.com/doc/api/ISteamUGC#AddUGCDependencyResult_t)
+ * 
+ * This struct holds information about the adding of a dependency.
+ * 
+ * @member {Enum.SteamApiResult} result The result of the operation.
+ * @member {Real} published_file_id The parent workshop item that the dependency was added to.
+ * @member {Real} child_published_file_id The child workshop item which was added as a dependency to the parent item.
+ * @struct_end
+ */
+
+/**
+ * @struct SteamUgcRemoveUGCDependencyResult
+ * @description > **Steamworks Struct**: [ISteamUGC::RemoveUGCDependencyResult_t](https://partner.steamgames.com/doc/api/ISteamUGC#RemoveUGCDependencyResult_t)
+ * 
+ * This struct holds information about the result of a dependency removal.
+ * 
+ * @member {Enum.SteamApiResult} result The result of the operation.
+ * @member {Real} published_file_id The parent workshop item that the dependency was removed from.
+ * @member {Real} child_published_file_id The child workshop item which was removed as a dependency from the parent item.
+ * @struct_end
+ */
+
+/**
+ * @struct SteamUgcGetAppDependenciesResult
+ * @description > **Steamworks Struct**: [ISteamUGC::GetAppDependenciesResult_t](https://partner.steamgames.com/doc/api/ISteamUGC#GetAppDependenciesResult_t)
+ * 
+ * This struct holds the result of getting the app dependencies for an item.
+ * 
+ * @member {Enum.SteamApiResult} result The result of the operation.
+ * @member {Real} published_file_id The workshop item to get app dependencies for.
+ * @member {Array[Real]} app_ids Array of app dependencies.
+ * @member {Real} num_app_dependencies Number of app dependencies.
+ * @member {Real} total_num_app_dependencies Total app dependencies found.
+ * @struct_end 
+ */
+
+/**
+ * @struct SteamUgcStartPlaytimeTrackingResult
+ * @description > **Steamworks Struct**: [ISteamUGC::StartPlaytimeTrackingResult_t](https://partner.steamgames.com/doc/api/ISteamUGC#StartPlaytimeTrackingResult_t)
+ * 
+ * This struct holds the result when workshop item playtime tracking has started.
+ * 
+ * @member {Enum.SteamApiResult} result The result of the operation.
+ * @struct_end 
+ */
+
+/**
+ * @struct SteamUgcStopPlaytimeTrackingResult
+ * @description > **Steamworks Struct**: [ISteamUGC::StopPlaytimeTrackingResult_t](https://partner.steamgames.com/doc/api/ISteamUGC#StopPlaytimeTrackingResult_t)
+ * 
+ * This struct holds the result when workshop item playtime tracking has stopped.
+ * 
+ * @member {Enum.SteamApiResult} result The result of the operation.
+ * @struct_end 
+ */
+
+/**
+ * @struct SteamUgcDownloadItemResult
+ * @description > **Steamworks Struct**: [ISteamUGC::DownloadItemResult_t](https://partner.steamgames.com/doc/api/ISteamUGC#DownloadItemResult_t)
+ *
+ * This struct holds info on the download of a workshop item.
+ *
+ * @member {Real} app_id The app ID associated with this workshop item.
+ * @member {Real} published_file_id The workshop item that has finished downloading.
+ * @member {Enum.SteamApiResult} result The result of the operation.
+ * @struct_end
+ */
+
+/**
+ * @struct SteamUgcWorkshopEULAStatusResult
+ * @description > **Steamworks Struct**: [ISteamUGC::WorkshopEULAStatus_t](https://partner.steamgames.com/doc/api/ISteamUGC#WorkshopEULAStatus_t)
+ * 
+ * This struct holds info returned in a workshop EULA status callback.
+ * 
+ * @member {Enum.SteamApiResult} result The result of the operation.
+ * @member {Real} app_id The related app ID.
+ * @member {Real} version The version of the signed EULA, if applicable.
+ * @member {Real} time_action Unix timestamp of when the user signed the EULA, if applicable.
+ * @member {Bool} accepted `true` if the user accepted the given version, `false` otherwise. Note that this can be `true` if the user accepted an older version of the EULA.
+ * @member {Bool} needs_action `true` if the user needs to accept the latest Workshop EULA, `false` otherwise.
+ * @struct_end
+ */
+
+// CONSTANTS
+
+/**
+ * @enum SteamUgcMatchingUgcType
+ * @description > **Steamworks Enum**: [ISteamUGC::EUGCMatchingUGCType](https://partner.steamgames.com/doc/api/ISteamUGC#EUGCMatchingUGCType)
+ *
+ * This enum specifies the types of UGC to obtain from a call to ${function.steam_ugc_create_query_user_ugc_request} or ${function.steam_ugc_create_query_all_ugc_request}.
+ *
+ * @member Items Both Microtransaction items and Ready-to-use items.
+ * @member Items_Mtx Microtransaction items. (See: [Curated Workshop](https://partner.steamgames.com/doc/features/workshop#curated_workshop))
+ * @member Items_ReadyToUse Regular in game items that players have uploaded. (See: [Ready-To-Use Workshop](https://partner.steamgames.com/doc/features/workshop#ready-to-use_workshop))
+ * @member Collections Shared collections of UGC.
+ * @member Artwork Artwork which has been shared.
+ * @member Videos Videos which have been shared.
+ * @member Screenshots Screenshots which have been shared.
+ * @member AllGuides Both web guides and integrated guides.
+ * @member WebGuides Guides that are only available on the Steam Community.
+ * @member IntegratedGuides Guides that you can use within your game. (Like Dota 2's in game character guides.)
+ * @member UsableInGame Ready-to-use items and integrated guides.
+ * @member ControllerBindings Controller Bindings which have been shared.
+ * @member GameManagedItems Game managed items (Not managed by users.)
+ * @member All Return everything.
+ * @enum_end 
+ */
+
+/**
+ * @enum SteamUgcQuery
+ * @description > **Steamworks Enum**: [ISteamUGC::EUGCQuery](https://partner.steamgames.com/doc/api/ISteamUGC#EUGCQuery)
+ *
+ * This enum is used with ${function.steam_ugc_create_query_all_ugc_request} to specify the sorting and filtering for queries across all available UGC.
+ *
+ * @member RankedByVote Sort by vote popularity all-time.
+ * @member RankedByPublicationDate Sort by publication date descending.
+ * @member AcceptedForGameRankedByAcceptanceDate Sort by date accepted (for mtx items).
+ * @member RankedByTrend Sort by vote popularity within the given "trend" period (set in ${function.steam_ugc_set_ranked_by_trend_days})
+ * @member FavoritedByFriendsRankedByPublicationDate Filter to items the user's friends have favorited, sorted by publication date descending.
+ * @member CreatedByFriendsRankedByPublicationDate Filter to items created by friends, sorted by publication date descending.
+ * @member RankedByNumTimesReported Sort by report weight descending.
+ * @member CreatedByFollowedUsersRankedByPublicationDate Filter to items created by users that the current user has followed, sorted by publication date descending.
+ * @member NotYetRated Filtered to the user's voting queue.
+ * @member RankedByTotalVotesAsc Sort by total # of votes ascending (used internally for building the user's voting queue)
+ * @member RankedByVotesUp Sort by number of votes up descending. Will use the "trend" period if specified (set in ${function.steam_ugc_set_ranked_by_trend_days})
+ * @member RankedByTextSearch Sort by keyword text search relevancy.
+ * @member RankedByTotalUniqueSubscriptions Sort by lifetime total unique # of subscribers descending.
+ * @member RankedByPlaytimeTrend Sort by total playtime in the "trend" period descending (set with ${function.steam_ugc_set_ranked_by_trend_days})
+ * @member RankedByTotalPlaytime Sort by total lifetime playtime descending.
+ * @member RankedByAveragePlaytimeTrend Sort by average playtime in the "trend" period descending (set in ${function.steam_ugc_set_ranked_by_trend_days})
+ * @member RankedByLifetimeAveragePlaytime Soft by lifetime average playtime descending.
+ * @member RankedByPlaytimeSessionsTrend Sort by number of play sessions in the "trend" period descending (set in ${function.steam_ugc_set_ranked_by_trend_days})
+ * @member RankedByLifetimePlaytimeSessions Sort by number of lifetime play sessions descending.
+ * @member RankedByLastUpdatedDate Sort by last updated time.
+ * @enum_end 
+ */
+
+/**
+ * @enum SteamUgcItemPreviewType
+ * @description > **Steamworks Enum**: [ISteamUGC::EItemPreviewType](https://partner.steamgames.com/doc/api/ISteamUGC#EItemPreviewType)
+ *
+ * This enum holds the flags that specify the type of preview an item has. Set with ${function.steam_ugc_add_item_preview_file}, and received with ${function.steam_ugc_get_query_ugc_additional_preview}.
+ *
+ * @member Image Standard web viewable image file. Supported types: PNG, JPG, and GIF.
+ * @member YouTubeVideo YouTube video ID. (e.g. "jHgZh4GV9G0")
+ * @member Sketchfab Sketchfab model ID.
+ * @member EnvironmentMap_HorizontalCross Standard image file containing a map of an environment in a horizontal cross layout. Supported types: PNG, JPG, and GIF.
+ * @member EnvironmentMap_LatLong Standard image file containing a map of an environment in a LatLong layout. Supported types: PNG, JPG, and GIF. Not currently used in web views.
+ * @member Clip Clip ID is stored.
+ * @member ReservedMax Reserved. You can specify your own types above this value.
+ * @enum_end
+ */
+
+/**
+ * @enum SteamUgcContentDescriptorId
+ * @description > **Steamworks Enum**: [ISteamUGC::EUGCContentDescriptorID](https://partner.steamgames.com/doc/api/ISteamUGC#EUGCContentDescriptorID)
+ *
+ * This enum holds the filters that define what user-generated content users want to see under the *Mature Content Filtering* section in their preferences.
+ *
+ * @member NudityOrSexualContent Some Nudity or Sexual Content: Contains content that has some nudity or sexual themes, but not as the primary focus.
+ * @member FrequentViolenceOrGore Frequent Violence or Gore: Contains content that features extreme violence or gore.
+ * @member AdultOnlySexualContent Adult Only Sexual Content: Contains content that is sexually explicit or graphic and is intended for adults only. Users must affirm that they are at least eighteen years old before they can view content with this content descriptor.
+ * @member GratuitousSexualContent Frequent Nudity or Sexual Content: Contains content that primarily features nudity or sexual themes. Users must affirm that they are at least eighteen years old before they can view content with this content descriptor.
+ * @member AnyMatureContent General Mature Content: Contains mature topics that may not be appropriate for all audiences.
+ * @enum_end 
+ */
+
+/**
+ * @enum SteamUgcItemState
+ * @description > **Steamworks Enum**: [ISteamUGC::EItemState](https://partner.steamgames.com/doc/api/ISteamUGC#EItemState)
+ * 
+ * This enum specifies an item's state. These are flags that can be combined. Returned by ${function.steam_ugc_get_item_state}.
+ * 
+ * @member None The item is not tracked on client.
+ * @member Subscribed The current user is subscribed to this item. Not just cached.
+ * @member LegacyItem The item was created with the old workshop functions in ${module.remote_storage}.
+ * @member Installed Item is installed and usable (but may be out of date).
+ * @member NeedsUpdate The item needs an update. Either because it's not installed yet or creator updated the content.
+ * @member Downloading The item update is currently downloading.
+ * @member DownloadPending ${function.steam_ugc_download_item} was called for this item, the content isn't available until ${struct.SteamUgcDownloadItemResult} is fired.
+ * @member DisabledLocally The item is disabled locally.
+ * @enum_end
+ */
+
+/**
+ * @enum SteamUgcItemUpdateStatus
+ * @description > **Steamworks Enum**: [ISteamUGC::EItemUpdateStatus](https://partner.steamgames.com/doc/api/ISteamUGC#EItemUpdateStatus)
+ * 
+ * This enum specifies the status of a [`UGCUpdateHandle_t`](https://partner.steamgames.com/doc/api/ISteamUGC#UGCUpdateHandle_t) after a call to ${function.steam_ugc_get_item_update_progress}, returned by ${function.steam_ugc_get_item_update_progress}.
+ * 
+ * @member Invalid The item update handle was invalid, the job might be finished, a ${struct.SteamUgcSubmitItemUpdateResult} call result should have been returned for it.
+ * @member PreparingConfig The item update is processing configuration data.
+ * @member PreparingContent The item update is reading and processing content files.
+ * @member UploadingContent The item update is uploading content changes to Steam.
+ * @member UploadingPreviewFile The item update is uploading new preview file image.
+ * @member CommittingChanges The item update is committing all changes.
+ * @enum_end
+ */
+
+/**
+ * @enum SteamUgcStatisticType
+ * @description > **Steamworks Enum**: [ISteamUGC::EItemStatistic](https://partner.steamgames.com/doc/api/ISteamUGC#EItemStatistic)
+ *
+ * This enum is used to retrieve item statistics with ${function.steam_ugc_get_query_ugc_statistic}.
+ *
+ * @member NumSubscriptions Gets the number of subscriptions.
+ * @member NumFavorites Gets the number of favourites.
+ * @member NumFollowers Gets the number of followers.
+ * @member NumUniqueSubscriptions Gets the number of unique subscriptions.
+ * @member NumUniqueFavorites Gets the number of unique favourites.
+ * @member NumUniqueFollowers Gets the number of unique followers.
+ * @member NumUniqueWebsiteViews Gets the number of unique views the item has on its Steam Workshop page.
+ * @member ReportScore Gets the number of times the item has been reported.
+ * @member NumSecondsPlayed Gets the total number of seconds this item has been used across all players.
+ * @member NumPlaytimeSessions Gets the total number of play sessions this item has been used in.
+ * @member NumComments Gets the number of comments on the items that steam has on its Steam Workshop page.
+ * @member NumSecondsPlayedDuringTimePeriod Gets the number of seconds this item has been used over the given time period.
+ * @member NumPlaytimeSessionsDuringTimePeriod Gets the number of sessions this item has been used in over the given time period.
+ * @enum_end 
+ */
+
+// MODULE
 
 /**
  * @module ugc
  * @title UGC
- * @desc This section is for those users that have been given access to the Steam API for publishing your game to that platform and that want to use the possibilities that the Steam Workshop and Community gives you for adding and generating user content in your projects. The simplest form of user-generated content is the ability for the user to take and share screenshots, which is facilitated using the following two functions:
+ * @desc > **Steamworks Interface**: [ISteamUGC](https://partner.steamgames.com/doc/api/ISteamUGC)
  * 
- * * ${function.steam_is_screenshot_requested}
- * * ${function.steam_send_screenshot}
+ * This module contains functions to create, consume, and interact with the [Steam Workshop](https://partner.steamgames.com/doc/features/workshop).
  * 
- * Before using any of the built-in functions for the Steam UGC (**U**ser **G**enerated **C**ontent) API you need to have set up your game correctly from the Steam dashboard and you should have read through the required documentation found here:
- * 
- * * [Sharing User-Generated Content](https://partner.steamgames.com/documentation/ugc#Tech)
- * 
- * [[NOTE: You need to have your game accepted for the Steam online store and have access to the developer areas of the Steam API documentation.]]
- * 
- * All subscribed UGC items will be downloaded by the Steam client automatically, and you should have code in the ${event.steam} to catch this and store the ID of the UGC that has been downloaded for use in the other UGC functions.
- * 
- * [[WARNING: Steam UGC IDs can be huge numbers. This means that sometimes you may need to store these as a string rather than try and store them as a real value, especially if working with buffers or trying to write the value to a text file (since this will convert it to a simplified standard format like "6.6624e+003" which will cause issues being read back).]]
- * 
- * The normal workflow for getting UGC into your game would be as follows:
- * 
- * 1. The user would subscribe to an item (either from your game using ${function.steam_ugc_subscribe_item} or from the client/browser). If done from the game you are able to "listen" to the callback from the Steam Async Event.
- * 2. When you get a successful subscription callback this means that your game is now downloading the UGC. You would then check if the item is installed (i.e.: download completed) with ${function.steam_ugc_get_item_install_info}.
- * 3. If the item is not completely installed, you can use ${function.steam_ugc_get_item_update_info} to track the download progress.
- * 
- * The following sections explain all the functions required to get UGC functioning in GameMaker:
- * 
- * @section_func Creating And Editing Content
- * @desc The following functions are essentially "wrapper" functions for those supplied in the Steam API for creating and uploading content to their servers. As such, we recommend that you read over the linked Steam documentation before using them to gain a greater understanding of how they work: [Creating And Uploading Content](https://partner.steamgames.com/documentation/ugc#CreateUploadContent).
- * 
- * @ref steam_ugc_create_item
- * @ref steam_ugc_delete_item
- * @ref steam_ugc_start_item_update
- * @ref steam_ugc_set_item_title
- * @ref steam_ugc_set_item_description
- * @ref steam_ugc_set_item_visibility
- * @ref steam_ugc_set_item_tags
- * @ref steam_ugc_set_item_content
- * @ref steam_ugc_set_item_preview
- * @ref steam_ugc_set_item_metadata
- * @ref steam_ugc_submit_item_update
- * @ref steam_ugc_get_item_update_progress
- * 
- * @section_end
- * 
- * @section_func Consuming Content
- * @desc Once your user content has been created and the workshop has it available for download, people can subscribe to it through the Steam App or through the Web portal. However GameMaker also includes the following functions to use the Steam API for creating and canceling subscriptions as well as for getting information about what the user is subscribed to currently:
- * 
- * @ref steam_ugc_subscribe_item
- * @ref steam_ugc_unsubscribe_item
- * @ref steam_ugc_num_subscribed_items
- * @ref steam_ugc_get_subscribed_items
- * @ref steam_ugc_get_item_install_info
- * @ref steam_ugc_get_item_update_info
- * @ref steam_ugc_request_item_details
- * 
- * @section_end
- * 
- * @section_func Querying Content
- * @desc There are also a large number of functions available to query the Steam API about the UGC items available:
- * @ref steam_is_screenshot_requested
- * @ref steam_send_screenshot
- * @ref steam_ugc_create_item
- * @ref steam_ugc_delete_item
- * @ref steam_ugc_start_item_update
- * @ref steam_ugc_set_item_title
- * @ref steam_ugc_set_item_description
- * @ref steam_ugc_set_item_visibility
- * @ref steam_ugc_set_item_tags
- * @ref steam_ugc_set_item_content
- * @ref steam_ugc_set_item_preview
- * @ref steam_ugc_set_item_metadata
- * @ref steam_ugc_submit_item_update
- * @ref steam_ugc_get_item_update_progress
- * @ref steam_ugc_subscribe_item
- * @ref steam_ugc_unsubscribe_item
- * @ref steam_ugc_num_subscribed_items
- * @ref steam_ugc_get_subscribed_items
- * @ref steam_ugc_get_item_install_info
- * @ref steam_ugc_get_item_update_info
- * @ref steam_ugc_request_item_details
- * @ref steam_ugc_create_query_user
- * @ref steam_ugc_create_query_user_ex
- * @ref steam_ugc_create_query_all
- * @ref steam_ugc_create_query_all_ex
- * @ref steam_ugc_query_set_cloud_filename_filter
- * @ref steam_ugc_query_set_match_any_tag
- * @ref steam_ugc_query_set_search_text
- * @ref steam_ugc_query_set_ranked_by_trend_days
- * @ref steam_ugc_query_add_required_tag
- * @ref steam_ugc_query_add_excluded_tag
- * @ref steam_ugc_query_set_return_long_description
- * @ref steam_ugc_query_set_return_metadata
- * @ref steam_ugc_query_set_return_total_only
- * @ref steam_ugc_query_set_allow_cached_response
- * @ref steam_ugc_send_query
- * @ref steam_ugc_download
- * @section_end
- * 
- * @section_func Voting And Favouriting
- * @desc The following functions are provided by the extension to work with voting and favouriting:
- * @ref steam_ugc_add_item_to_favorites
- * @ref steam_ugc_remove_item_from_favorites
- * @ref steam_ugc_set_user_item_vote
- * @ref steam_ugc_get_user_item_vote
+ * @section_func Functions
+ * @desc These are the functions of the UGC module:
+ * @ref steam_ugc_*
  * @section_end
  * 
  * @section_const Constants
- * @desc This section also provides a set of constants to be used along side the functions provided above:
- * @ref UGCFileType
- * @ref UGCFileVisibility
- * @ref UGCListSortOrder
- * @ref UGCListType
- * @ref UGCMatchType
- * @ref UGCQueryType
+ * @desc These are the constants and enums of the UGC module:
+ * @ref SteamUgc*
  * @section_end
  * 
+ * @section_struct Structs
+ * @desc These are the structs of the UGC module:
+ * @ref SteamUgc*
+ * @section_end
  * @module_end
  */
- 

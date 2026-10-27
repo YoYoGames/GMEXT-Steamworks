@@ -1,0 +1,2 @@
+
+steam_remote_storage_file_delete(global.steam_selected_file)

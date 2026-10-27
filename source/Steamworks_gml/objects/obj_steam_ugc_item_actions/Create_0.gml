@@ -1,7 +1,4 @@
-/// @description Insert description here
-// You can write your code in this editor
 
-// Inherit the parent event
 event_inherited();
 
 font = fnt_gm_15;
@@ -17,7 +14,9 @@ text =
   (7) Add To Favorites
   (8) Remove From Favorites
   (9) Vote Up
-  (10) Get Vote"
+  (10) Get Vote
+  (11) Download
+  "
   ;
 
 valign = fa_top;

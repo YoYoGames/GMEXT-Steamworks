@@ -1,11 +1,20 @@
+
 event_inherited();
 
 text = "Net Sockets"
 
-conn_a = -1;
-conn_b = -1;
-socket_demo_ready = false;
-send_counter = 0;
+
+var array = steam_networking_sockets_create_socket_pair(true);
+if (array_length(array) != 2) {
+    show_debug_message("Failed to create socket pair");
+    socket_demo_ready = false;
+    exit;
+}
+
+conn_a = array[0]
+conn_b = array[1]
+
+show_debug_message($"Socket pair created: A={conn_a} B={conn_b}");
 
 buf_size = 1024;
 buf = buffer_create(buf_size, buffer_grow, 1);
@@ -18,5 +27,13 @@ function log_add(msg) {
     if (array_length(log) > log_max) {
         array_delete(log, 0, array_length(log) - log_max);
     }
-	show_debug_message(msg)
 }
+
+log_add("Demo ready. Press SPACE to send from A -> B");
+log_add("Hold LEFT SHIFT and press SPACE to send from B -> A");
+
+socket_demo_ready = true;
+send_counter = 0;
+
+
+

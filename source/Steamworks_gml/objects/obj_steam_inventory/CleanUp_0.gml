@@ -1,0 +1,7 @@
+
+steam_inventory_clear_callback_result_ready()
+steam_inventory_clear_callback_full_update()
+steam_inventory_clear_callback_definition_update()
+
+
+

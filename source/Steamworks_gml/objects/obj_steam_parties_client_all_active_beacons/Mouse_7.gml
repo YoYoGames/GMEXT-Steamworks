@@ -12,7 +12,7 @@ for (var i = 0; i < count; i++)
 
 	show_debug_message(details)
 	
-    if (!details.ok)
+    if (is_undefined(details))
         continue;
 	
 	instance_create_depth(300,200+i*80,0,obj_steam_parties_client_beacon,{beacon_id: beacon_id, data: details})

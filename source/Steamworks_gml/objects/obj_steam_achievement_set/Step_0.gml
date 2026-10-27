@@ -1,5 +1,10 @@
 
 event_inherited();
 
-locked = steam_get_achievement(achievement)
+var val = steam_userstats_get_achievement(achievement)
 
+locked = true
+
+if(!is_undefined(val))
+if(val)
+	locked = false
