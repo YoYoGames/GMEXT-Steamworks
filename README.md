@@ -5,6 +5,15 @@ This repository was created with the intent of presenting users with the latest 
 
 This extension will work on Windows, macOS and Linux.
 
+> [!IMPORTANT]
+> **Version 3.0.0 is a breaking change.** The extension has been fully rewritten, with the native
+> bindings generated from a single GMIDL spec and the API organised by Steamworks interface (Apps,
+> Friends, Matchmaking, Remote Storage, User Stats, ...). Function names and signatures differ from
+> 2.x, and results are delivered to a GML callback function instead of the Steam Async Event.
+> Projects upgrading from an earlier (2.x) version will need to rewrite their Steamworks code, and
+> projects that need the old API should stay on the final 2.2.2 release. Check
+> [the documentation](../../wiki) for the current API.
+
 SOURCE CODE: `source/Steamworks_gml/extensions/steamworks/source/` (`spec.gmidl` API contract, hand-written
 native implementation in `src/`, CMake build files)
 
