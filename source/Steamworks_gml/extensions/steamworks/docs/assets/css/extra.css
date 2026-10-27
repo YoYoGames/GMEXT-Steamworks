@@ -47,6 +47,15 @@
   --gm-h1-color: #bdbdbd;
 }
 
+/* CODE */
+
+[data-md-color-scheme="slate"] .hljs-string,
+[data-md-color-scheme="slate"] .hljs-regexp { color: #5394d9; }
+
+[data-md-color-scheme="slate"] .hljs-number,
+[data-md-color-scheme="slate"] .hljs-literal { color: #5394d9; }
+
+
 /* ==========================================================================
    Colours that follow the scheme
 
