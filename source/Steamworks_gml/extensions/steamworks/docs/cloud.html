@@ -248,7 +248,7 @@ The above code checks to see if the Steam Cloud is enabled for the game and if s
 {
     steam_file_share("Save.txt");
 }</code></pre>
-The above code checks to see if the user has the Steam Cloud enabled and if it returns <code>true</code>, it will then synchronize the given file.</p>
+The above code checks to see if the user has the Steam Cloud enabled and if it returns <code>true</code>, it will then upload and share the given file right away.</p>
 <p><br></p>
 <p><br></p>
 <hr />
@@ -427,7 +427,7 @@ The above code stores the size of a file from the Steam Cloud in the variable "f
 {
     steam_file_share("Save.txt");
 }</code></pre>
-The above code will check to see if a file has been stored to the Steam Cloud, and if it has not it will then synchronize it.</p>
+The above code will check to see if a file has been stored to the Steam Cloud, and if it has not it will then upload and share it right away.</p>
 <p><br></p>
 <p><br></p>
 <hr />
@@ -683,7 +683,16 @@ The above code creates a buffer, writes some random data, saves the buffer into 
 <p align="right"><a href="#top">Back To Top</a></p>
 
 <h1 id="steam_file_share">steam_file_share</h1>
-<p>With this function you can force your game to synchronize the given file with the Steam Cloud. This is not normally necessary due to the fact that the game will synchronize automatically at the end of the player's session, nor is it recommended by Steam, but it can be useful to ensure sensitive information is synchronized immediately. The function will return a value of 0 if it fails for whatever reason and a value greater than 0 if it succeeds.</p>
+<blockquote>
+<p><strong>Steamworks Function</strong>: <a href="https://partner.steamgames.com/doc/api/ISteamRemoteStorage#FileShare">ISteamRemoteStorage::FileShare</a></p>
+</blockquote>
+<p>With this function you can share a file that is stored in the Steam Cloud. Steam uploads the file right away and gives back a UGC handle for it. You can pass this handle to functions that work with shared content, such as <a href="ugc.html#steam_ugc_download">steam_ugc_download</a>. The file must already have been written to the Steam Cloud (for example with <a href="cloud.html#steam_file_write">steam_file_write</a>).</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You don't need this function to save normal game files. Steam synchronizes Cloud files automatically at the end of the player's session.</p>
+</div>
+<p>This is an asynchronous function that will return an asynchronous ID and trigger the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a> when the task is finished. It returns 0 if the request couldn't be made, for example because the user isn't logged on to Steam or the file doesn't exist.</p>
+<p>This function operates asynchronously, which means that it does not immediately return the requested result. Instead, upon completion of the task, it will trigger the <a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a>.</p>
 <p><br></p>
 <p><strong>Syntax:</strong></p>
 <blockquote>
@@ -701,7 +710,7 @@ The above code creates a buffer, writes some random data, saves the buffer into 
 <tr>
 <td>filename</td>
 <td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
-<td>The name of the file synchronize.</td>
+<td>The name of the Steam Cloud file to share.</td>
 </tr>
 </tbody>
 </table>
@@ -713,12 +722,63 @@ The above code creates a buffer, writes some random data, saves the buffer into 
 <p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
 </blockquote>
 <p><br></p>
+<p><strong>Triggers:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm">Steam Async Event</a></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The asynchronous request ID</td>
+</tr>
+<tr>
+<td>event_type</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The string value <code>"file_share"</code></td>
+</tr>
+<tr>
+<td>result</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>This will either be the GML constant <code>ugc_result_success</code> or some other real number (see the <a href="https://partner.steamgames.com/doc/api/steam_api">Steam docs</a> under <strong>EResult</strong> for more details). It is 0 if the request failed because of an IO failure.</td>
+</tr>
+<tr>
+<td>filename</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The name of the file you passed in</td>
+</tr>
+<tr>
+<td>ugc_handle</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Int64</a></td>
+<td>The UGC handle of the shared file. This is only valid if <code>result</code> is <code>ugc_result_success</code>.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
 <p><strong>Example:</strong></p>
-<p><pre class="highlight"><code class="language-gml">if (!steam_file_persisted("Save.txt"))
+<p>In this example we first share a file and store the async ID value in a variable:</p>
+<p><pre class="highlight"><code class="language-gml">share_id = steam_file_share("Replay.dat");</code></pre>
+This sends the request to the Steam API, which will trigger an async event that we can handle as follows:</p>
+<p><pre class="highlight"><code class="language-gml">if (async_load[? "id"] == share_id &amp;&amp; async_load[? "event_type"] == "file_share")
 {
-    steam_file_share("Save.txt");
+    if (async_load[? "result"] == ugc_result_success)
+    {
+        replay_handle = async_load[? "ugc_handle"];
+    }
+    else
+    {
+        show_debug_message("Could not share " + async_load[? "filename"]);
+    }
 }</code></pre>
-The above code will check to see if a file has been stored to the Steam Cloud, and if it has not it will then synchronize it.</p>
+The above code checks the result of the share and, if it worked, stores the UGC handle of the file so it can be used later.</p>
 <p><br></p>
 <p><br></p>
 <hr />
