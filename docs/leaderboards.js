@@ -296,6 +296,68 @@
  */
 
 /**
+ * @func steam_attach_leaderboard_ugc
+ * @desc > **Steamworks Function**: [ISteamUserStats::AttachLeaderboardUGC](https://partner.steamgames.com/doc/api/ISteamUserStats#AttachLeaderboardUGC)
+ *
+ * With this function you can attach a piece of shared user generated content, such as a replay or a ghost, to the current user's entry on a leaderboard. The content must first be shared with ${function.steam_file_share}, which gives you the UGC handle to pass to this function. The leaderboard name is a string that was defined when you created the leaderboard using the function ${function.steam_create_leaderboard}.
+ *
+ * Other players can get the attached handle from the entries returned by ${function.steam_download_scores}, ${function.steam_download_scores_around_user} and ${function.steam_download_friends_scores} (see ${struct.LeaderboardEntry}) and then download the content with ${function.steam_ugc_download}.
+ *
+ * [[NOTE: Attach the content after the score has been uploaded, as the content is attached to the user's existing entry on the leaderboard.]]
+ *
+ * This is an asynchronous function that will return an asynchronous ID and trigger the ${event.steam} when the task is finished. It returns 0 if the request couldn't be made, for example because the user isn't logged on to Steam or the UGC handle is not valid.
+ *
+ * @param {string} lb_name The name of the leaderboard that the entry is on
+ * @param {int64} ugc_handle The UGC handle of the shared file to attach
+ *
+ * @returns {real}
+ *
+ * @event steam
+ * @member {real} id The asynchronous request ID
+ * @member {string} event_type The string value `"leaderboard_attach_ugc"`
+ * @member {string} lb_name The name of the leaderboard
+ * @member {real} result This will either be the GML constant `ugc_result_success` or some other real number (see the [Steam docs](https://partner.steamgames.com/doc/api/steam_api) under **EResult** for more details). It is 0 if the request failed because of an IO failure.
+ * @event_end
+ *
+ * @example
+ * In this example we first upload a score. Once the score has been uploaded we share the replay file, and once the file has been shared we attach it to the leaderboard entry. We start by uploading the score and storing the async ID value in a variable:
+ *
+ * ```gml
+ * upload_id = steam_upload_score("Game Scores", score);
+ * ```
+ * Each step is then handled in the ${event.steam}:
+ *
+ * ```gml
+ * var _type = async_load[? "event_type"];
+ * if (_type == "leaderboard_upload" && async_load[? "post_id"] == upload_id)
+ * {
+ *     // The score is on the leaderboard, so we can share the replay file
+ *     if (async_load[? "success"])
+ *     {
+ *         share_id = steam_file_share("Replay.dat");
+ *     }
+ * }
+ * else if (_type == "file_share" && async_load[? "id"] == share_id)
+ * {
+ *     // The replay has been shared, so we can attach its UGC handle to the entry
+ *     if (async_load[? "result"] == ugc_result_success)
+ *     {
+ *         attach_id = steam_attach_leaderboard_ugc("Game Scores", async_load[? "ugc_handle"]);
+ *     }
+ * }
+ * else if (_type == "leaderboard_attach_ugc" && async_load[? "id"] == attach_id)
+ * {
+ *     if (async_load[? "result"] == ugc_result_success)
+ *     {
+ *         show_debug_message("Replay attached to " + async_load[? "lb_name"]);
+ *     }
+ * }
+ * ```
+ * The code above waits for each step to finish before starting the next one, and reports when the replay has been attached.
+ * @func_end
+ */
+
+/**
  * @func steam_download_scores
  * @desc This function is used to retrieve a sequential range of leaderboard entries by leaderboard ranking. The `start_idx` and `end_idx` parameters control the requested range of ranks, for example, you can display the top 10 on a leaderboard for your game by setting the start value to 1 and the end value to 10. The leaderboard name is a string that was defined when you created the leaderboard using the function ${function.steam_create_leaderboard}.
  * 
@@ -499,8 +561,9 @@
  * @member {real} score The score attributed to this entry
  * @member {string} name The display name of the player for this entry
  * @member {int64} userID The unique user ID of the player for this entry
- * 
+ *
  * [[NOTE: If ${function.steam_upload_score_buffer} or ${function.steam_upload_score_buffer_ext} were used to upload the score, the decoded entry will now have a `"data"` key so you can retrieve the data of the uploaded buffer (see the ${function.steam_download_scores} extended code example for further details). This data will be base64-encoded and so you will need to use the function ${function.buffer_base64_decode} on the data before reading from the buffer.]]
+ * @member {int64} ugc_handle The UGC handle of the content attached to this entry with ${function.steam_attach_leaderboard_ugc}, which can be passed to ${function.steam_ugc_download} :eight_pointed_black_star: OPTIONAL
  * @struct_end
  */
 
@@ -535,6 +598,7 @@
  * @ref steam_upload_score_ext
  * @ref steam_upload_score_buffer
  * @ref steam_upload_score_buffer_ext
+ * @ref steam_attach_leaderboard_ugc
  * @ref steam_download_scores
  * @ref steam_download_scores_around_user
  * @ref steam_download_friends_scores
