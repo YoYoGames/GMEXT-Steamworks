@@ -37,6 +37,7 @@
         {"$GMExtensionConstant":"","%Name":"ugc_visibility_public","hidden":false,"name":"ugc_visibility_public","resourceType":"GMExtensionConstant","resourceVersion":"2.0","value":"0",},
         {"$GMExtensionConstant":"","%Name":"ugc_visibility_friends_only","hidden":false,"name":"ugc_visibility_friends_only","resourceType":"GMExtensionConstant","resourceVersion":"2.0","value":"1",},
         {"$GMExtensionConstant":"","%Name":"ugc_visibility_private","hidden":false,"name":"ugc_visibility_private","resourceType":"GMExtensionConstant","resourceVersion":"2.0","value":"2",},
+        {"$GMExtensionConstant":"","%Name":"ugc_visibility_unlisted","hidden":false,"name":"ugc_visibility_unlisted","resourceType":"GMExtensionConstant","resourceVersion":"2.0","value":"3",},
         {"$GMExtensionConstant":"","%Name":"ugc_query_RankedByVote","hidden":false,"name":"ugc_query_RankedByVote","resourceType":"GMExtensionConstant","resourceVersion":"2.0","value":"0",},
         {"$GMExtensionConstant":"","%Name":"ugc_query_RankedByPublicationDate","hidden":false,"name":"ugc_query_RankedByPublicationDate","resourceType":"GMExtensionConstant","resourceVersion":"2.0","value":"1",},
         {"$GMExtensionConstant":"","%Name":"ugc_query_AcceptedForGameRankedByAcceptanceDate","hidden":false,"name":"ugc_query_AcceptedForGameRankedByAcceptanceDate","resourceType":"GMExtensionConstant","resourceVersion":"2.0","value":"2",},
