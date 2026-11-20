@@ -1,7 +1,7 @@
 # Builds and tests with the Steamworks SDK and a signed-in Steam client: on main, nightly, and for a pull request
 # after a maintainer has reviewed it (dispatched on main with the PR number and the head SHA they reviewed).
 #
-# For now this is only the skeleton. The steamworks-steam runner (tier 3) is in a runner group that accepts only this
+# For now this only checks the tier 3 runner. The steamworks-steam runner (tier 3) is in a runner group that accepts only this
 # file on main, and GitHub only accepts a workflow for that list once the file is on main, so it lands first. The
 # builds, tier 2 and tier 3 jobs follow.
 name: trusted
@@ -22,11 +22,25 @@ permissions:
   contents: read
 
 jobs:
-  placeholder:
+  steam-check:
     # Meant to be dispatched on main only. This only catches a mistake: a run from another branch uses that branch's
     # copy of this file, which can drop the check. What protects the runner is its group, which accepts only this file
     # on main; the secrets will be in an environment limited to main, set on the jobs that need them
+    #
+    # For now this only checks that the tier 3 runner is usable: the Steam client is running in the runner's session
+    # and is signed in. It checks out no code. The builds, tier 2 and tier 3 jobs follow
     if: github.ref == 'refs/heads/main'
-    runs-on: ubuntu-24.04
+    runs-on: [self-hosted, steamworks-steam]
+    timeout-minutes: 5
     steps:
-      - run: echo "trusted.yml has no jobs yet"
+      - name: Steam client is running and signed in
+        shell: powershell
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $steam = Get-Process -Name steam -ErrorAction SilentlyContinue
+          if (-not $steam) { Write-Error 'steam.exe is not running in the runner session' }
+          Write-Host "steam.exe running (pid $($steam[0].Id))"
+          # ActiveUser is the signed-in account's ID, 0 when nobody is signed in. Not printed: the log is public
+          $active = (Get-ItemProperty 'HKCU:\Software\Valve\Steam\ActiveProcess' -ErrorAction SilentlyContinue).ActiveUser
+          if (-not $active) { Write-Error 'Steam is running but nobody is signed in' }
+          Write-Host 'Steam is signed in'
