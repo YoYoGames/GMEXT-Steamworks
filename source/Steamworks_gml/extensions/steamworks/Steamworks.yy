@@ -1,5 +1,5 @@
 {
-  "$GMExtension":"",
+  "$GMExtension":"v1",
   "%Name":"Steamworks",
   "androidactivityinject":"",
   "androidclassname":"",
@@ -641,6 +641,8 @@
         {"$GMExtensionFunction":"","%Name":"__Steamworks_queue_buffer","argCount":2,"args":[1,2,],"documentation":"@param {Pointer} _buffer_ptr\r\n@param {Real} _buffer_size","externalName":"__EXT_NATIVE__Steamworks_queue_buffer","help":"","hidden":true,"kind":4,"name":"__Steamworks_queue_buffer","resourceType":"GMExtensionFunction","resourceVersion":"2.0","returnType":2,},
       ],"init":"","kind":4,"name":"Steamworks.ext","origname":"extensions\\Steamworks.dll","ProxyFiles":[
         {"$GMProxyFile":"","%Name":"Steamworks.dll","name":"Steamworks.dll","resourceType":"GMProxyFile","resourceVersion":"2.0","TargetMask":6,},
+        {"$GMProxyFile":"","%Name":"libSteamworks.dylib","name":"libSteamworks.dylib","resourceType":"GMProxyFile","resourceVersion":"2.0","TargetMask":1,},
+        {"$GMProxyFile":"","%Name":"libSteamworks.so","name":"libSteamworks.so","resourceType":"GMProxyFile","resourceVersion":"2.0","TargetMask":7,},
       ],"resourceType":"GMExtensionFile","resourceVersion":"2.0","uncompress":false,"usesRunnerInterface":true,},
     {"$GMExtensionFile":"v1","%Name":"","constants":[],"copyToTargets":2,"filename":"libsteam_api.dylib","final":"","functions":[],"init":"","kind":1,"name":"","origname":"","ProxyFiles":[],"resourceType":"GMExtensionFile","resourceVersion":"2.0","uncompress":false,"usesRunnerInterface":false,},
   ],
@@ -660,8 +662,10 @@
   "iosSystemFrameworkEntries":[],
   "iosThirdPartyFrameworkEntries":[],
   "license":"Proprietary",
+  "maccodeinjection":"",
   "maccompilerflags":"",
   "maclinkerflags":"",
+  "macProps":false,
   "macsourcedir":"",
   "name":"Steamworks",
   "options":[
