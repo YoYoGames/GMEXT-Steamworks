@@ -44,7 +44,13 @@ call %Utils% pathResolveExisting "%YYprojectDir%" "%SDK_PATH%" SDK_PATH
 :: NOTE: GMRT (the new runner) expects the dependencies inside its assets folder: 'assets' in the
 :: output folder, or 'build\assets' for GMRT builds that put the game one level down
 if "%YYTARGET_runtime%" == "GMRT" (
-    if exist "%YYoutputFolder%\build\assets\" (pushd "%YYoutputFolder%\build\assets") else (pushd "%YYoutputFolder%\assets")
+    if exist "%YYoutputFolder%\build\assets\" (
+        pushd "%YYoutputFolder%\build\assets"
+    ) else (
+        REM Without the folder the copy below would land wherever we are and the build would still pass
+        if not exist "%YYoutputFolder%\assets\" call %Utils% logError "GMRT assets folder not found in '%YYoutputFolder%'."
+        pushd "%YYoutputFolder%\assets"
+    )
 ) else (
     pushd "%YYoutputFolder%"
 )
@@ -156,6 +162,13 @@ exit /b 0
     call %Utils% assertFileHashEquals %SDK_SOURCE% %SDK_HASH_LINUX% "%ERROR_SDK_HASH%"
 
     echo "Copying Linux (64 bit) dependencies"
+
+    REM GMRT (the new runner) loads the library from its assets folder, which we already pushd'd into;
+    REM there is no zip to update
+    if "%YYTARGET_runtime%" == "GMRT" (
+        call %Utils% itemCopyTo %SDK_SOURCE% "libsteam_api.so"
+        exit /b 0
+    )
 
     setlocal enabledelayedexpansion
 
