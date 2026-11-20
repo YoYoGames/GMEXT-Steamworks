@@ -23,7 +23,9 @@ permissions:
 
 jobs:
   placeholder:
-    # dispatched on main only: run from another branch, an edited copy of this file would get the secrets
+    # Meant to be dispatched on main only. This only catches a mistake: a run from another branch uses that branch's
+    # copy of this file, which can drop the check. What protects the runner is its group, which accepts only this file
+    # on main; the secrets will be in an environment limited to main, set on the jobs that need them
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-24.04
     steps:
