@@ -36,7 +36,9 @@ jobs:
     timeout-minutes: 5
     steps:
       - name: Steam client is running and signed in
-        shell: powershell
+        # The runner machine's execution policy blocks scripts, and GitHub's built-in powershell shell dot-sources a
+        # script file; Bypass applies to this process only
+        shell: powershell -NoProfile -NonInteractive -ExecutionPolicy Bypass -File {0}
         run: |
           $ErrorActionPreference = 'Stop'
           # Only steam.exe in this job's session counts: the Steam API can't reach a client in another session, as
