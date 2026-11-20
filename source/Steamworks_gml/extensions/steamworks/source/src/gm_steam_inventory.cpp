@@ -671,7 +671,7 @@ bool steam_inventory_set_property_bool(std::uint64_t update_handle,
 bool steam_inventory_set_property_int64(std::uint64_t update_handle,
                                         std::uint64_t item_instance_id,
                                         std::string_view property_name,
-                                        long long value)
+                                        std::int64_t value)
 {
     STEAM_GUARD_RET(false);
 

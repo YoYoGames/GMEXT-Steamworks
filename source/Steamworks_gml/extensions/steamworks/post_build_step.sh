@@ -1,6 +1,7 @@
 #!/bin/bash
 
-sed -i -e 's/\r$//' "$(dirname "$0")/scriptUtils.sh"
+# '-i.bak' works with both GNU and BSD (macOS) sed; BSD sed reads '-i -e' as a backup suffix and leaves 'scriptUtils.sh-e'
+sed -i.bak -e 's/\r$//' "$(dirname "$0")/scriptUtils.sh" && rm -f "$(dirname "$0")/scriptUtils.sh.bak"
 chmod +x "$(dirname "$0")/scriptUtils.sh"
 source "$(dirname "$0")/scriptUtils.sh"
 
@@ -129,9 +130,20 @@ setupmacOS() {
     fi
 }
 
+# The folder a GMRT build loads its files from: 'assets' in the output folder,
+# or 'build/assets' for GMRT builds that put the game one level down.
+# Usage: gmrtAssetsFolder result
+gmrtAssetsFolder() {
+    if [ -d "./build/assets" ]; then
+        printf -v "$1" "%s" "./build/assets"
+    else
+        printf -v "$1" "%s" "./assets"
+    fi
+}
+
 # GMRT (the new runner) variant of the macOS setup.
 # Under GMRT the platform name is 'Mac' (this dispatches here) and the
-# dependencies must live inside the output 'build/assets' folder.
+# dependencies must live inside the folder the game loads its assets from.
 setupMac() {
 
     SDK_SOURCE="$SDK_PATH/redistributable_bin/osx/libsteam_api.dylib"
@@ -158,8 +170,12 @@ setupMac() {
 
     echo "Copying macOS (64 bit) dependencies (GMRT)"
 
-    # GMRT expects the dependencies inside the 'build/assets' folder
-    pushd "./build/assets/" >/dev/null
+    # GMRT expects the dependencies inside its assets folder
+    gmrtAssetsFolder ASSETS_FOLDER
+    if [ ! -d "$ASSETS_FOLDER" ]; then
+        logError "GMRT assets folder not found in '$(pwd)'."
+    fi
+    pushd "$ASSETS_FOLDER" >/dev/null
 
     itemCopyTo "$SDK_SOURCE" "./libsteam_api.dylib"
 
@@ -184,6 +200,16 @@ setupLinux() {
     assertFileHashEquals $SDK_SOURCE $SDK_HASH_LINUX "$ERROR_SDK_HASH"
 
     echo "Copying Linux (64 bit) dependencies"
+
+    # GMRT (the new runner) loads the library from its assets folder; there is no zip to update
+    if [ "$YYTARGET_runtime" == "GMRT" ]; then
+        gmrtAssetsFolder ASSETS_FOLDER
+        if [ ! -d "$ASSETS_FOLDER" ]; then
+            logError "GMRT assets folder not found in '$(pwd)'."
+        fi
+        itemCopyTo "$SDK_SOURCE" "${ASSETS_FOLDER}/libsteam_api.so"
+        return
+    fi
 
     # When running from CI the 'YYprojectName' will not be set use 'YYprojectPath' instead.
     if [ -z "$YYprojectName" ]; then
