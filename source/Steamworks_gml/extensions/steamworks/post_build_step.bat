@@ -41,9 +41,10 @@ if not "%YYTARGET_runtime%" == "GMRT" (
 call %Utils% pathResolveExisting "%YYprojectDir%" "%SDK_PATH%" SDK_PATH
 
 :: Ensure we are on the output path
-:: NOTE: GMRT (the new runner) expects the dependencies inside the 'build\assets' folder
+:: NOTE: GMRT (the new runner) expects the dependencies inside its assets folder: 'assets' in the
+:: output folder, or 'build\assets' for GMRT builds that put the game one level down
 if "%YYTARGET_runtime%" == "GMRT" (
-    pushd "%YYoutputFolder%\build\assets"
+    if exist "%YYoutputFolder%\build\assets\" (pushd "%YYoutputFolder%\build\assets") else (pushd "%YYoutputFolder%\assets")
 ) else (
     pushd "%YYoutputFolder%"
 )
@@ -136,7 +137,7 @@ exit /b 0
 :: ----------------------------------------------------------------------------------------------------
 :: GMRT (the new runner) variant of the macOS setup. Under GMRT the platform name is 'Mac' (legacy is
 :: 'macOS', which dispatches to :setupMacOS above) and the dependency goes bare into the output
-:: 'build\assets' folder we already pushd'd into. No code signing here - that only happens on a macOS
+:: assets folder we already pushd'd into. No code signing here - that only happens on a macOS
 :: host, via post_build_step.sh's setupMac().
 :setupMac
 
