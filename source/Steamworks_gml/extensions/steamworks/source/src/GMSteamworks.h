@@ -52,6 +52,10 @@ bool steam_api_is_initialized();
 // Internal: set init flag (used by steam_api_init/shutdown).
 void steam_set_initialized(bool v);
 
+// Internal: releases messages held by steam_networking_messages_receive_message_on_channel (used by steam_api_shutdown,
+// since a message can't be released once Steam is shut down).
+void steam_networking_messages_release_held_messages();
+
 // ------------------------------------------------------------
 // Small shared conversion helpers (optional)
 // ------------------------------------------------------------
