@@ -1,0 +1,30 @@
+# Builds and tests with the Steamworks SDK and a signed-in Steam client: on main, nightly, and for a pull request
+# after a maintainer has reviewed it (dispatched on main with the PR number and the head SHA they reviewed).
+#
+# For now this is only the skeleton. The steamworks-steam runner (tier 3) is in a runner group that accepts only this
+# file on main, and GitHub only accepts a workflow for that list once the file is on main, so it lands first. The
+# builds, tier 2 and tier 3 jobs follow.
+name: trusted
+
+on:
+  workflow_dispatch:
+    inputs:
+      pr:
+        description: Pull request number (empty to build main)
+        required: false
+        type: string
+      sha:
+        description: The pull request's head SHA that you reviewed
+        required: false
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  placeholder:
+    # dispatched on main only: run from another branch, an edited copy of this file would get the secrets
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-24.04
+    steps:
+      - run: echo "trusted.yml has no jobs yet"
