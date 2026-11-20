@@ -564,6 +564,7 @@
  * @member STEAM_MATCHMAKING_SERVERS_INTERFACE_VERSION (value: '"SteamMatchMakingServers002"') Steam Matchmaking servers interface version.
  * @member STEAM_MATCHMAKING_INTERFACE_VERSION (value: '"SteamMatchMaking009"') Steam Matchmaking interface version.
  * @member STEAM_NETWORKING_POLL_GROUP_INVALID (value: '0') Invalid pollgroup handle.
+ * @member STEAM_NETWORKING_MESSAGES_RECEIVE_DOES_NOT_FIT (value: '-1') Returned by ${function.steam_networking_messages_receive_message_on_channel} when the next message doesn't fit in the buffer; the message is held for the next call on that channel.
  * @const_end
  */
 

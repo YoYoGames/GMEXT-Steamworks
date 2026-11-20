@@ -6009,6 +6009,28 @@ function steam_networking_messages_receive_messages_on_channel(
     count: uint32
 ): gmval;
 
+// Receive the next message on channel into out buffer at an offset, without allocating. Its sender and size are read
+// with the get_last_message functions. Returns the size written, 0 when nothing is waiting, or
+// STEAM_NETWORKING_MESSAGES_RECEIVE_DOES_NOT_FIT when the message is held for the next call on this channel.
+[global, bind = typed_gml]
+function steam_networking_messages_receive_message_on_channel(
+    local_channel: int32,
+    [type_hint=buffer] out_data: gmval,
+    [type_hint=`uint32?`] buffer_offset: gmval
+): int32;
+
+// Releases the message held on channel by a STEAM_NETWORKING_MESSAGES_RECEIVE_DOES_NOT_FIT receive.
+[global, bind = typed_gml]
+function steam_networking_messages_discard_held_message(local_channel: int32): bool;
+
+[global, bind = typed_gml, type_hint = `uint64`]
+function steam_networking_messages_get_last_message_steam_id(): gmval;
+
+[global, bind = typed_gml]
+function steam_networking_messages_get_last_message_size(): uint32;
+
+const STEAM_NETWORKING_MESSAGES_RECEIVE_DOES_NOT_FIT : int32 = -1;
+
 [global, bind = typed_gml]
 function steam_networking_messages_accept_session_with_user([type_hint=uint64] steam_id_remote: gmval): bool;
 

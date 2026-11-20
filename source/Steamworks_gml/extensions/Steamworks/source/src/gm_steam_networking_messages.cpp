@@ -6,6 +6,7 @@
 #include <climits>
 #include <cstdint>
 #include <string>
+#include <unordered_map>
 #include <vector>
 #include <mutex>
 
@@ -226,6 +227,89 @@ std::vector<gm_structs::SteamNetworkingMessage> steam_networking_messages_receiv
     }
 
     return out;
+}
+
+// One message per call, for games that receive every frame: nothing here allocates once a channel has been used
+// (its map entry is created on first use and then kept, set back to nullptr rather than erased). A message that
+// doesn't fit where the caller asked is held for its channel instead of released, so it's never lost: the caller
+// makes room (handles what it already read and reads at offset 0, or grows the buffer) or discards it.
+static std::unordered_map<std::int32_t, SteamNetworkingMessage_t*> g_snm_held_messages;
+static std::uint64_t g_snm_last_message_steam_id = 0;
+static std::uint32_t g_snm_last_message_size = 0;
+
+static SteamNetworkingMessage_t* snm_next_message_take(ISteamNetworkingMessages* m, std::int32_t local_channel)
+{
+    SteamNetworkingMessage_t*& held = g_snm_held_messages[local_channel];
+    if (held) {
+        SteamNetworkingMessage_t* msg = held;
+        held = nullptr;
+        return msg;
+    }
+    SteamNetworkingMessage_t* msg = nullptr;
+    return (m->ReceiveMessagesOnChannel((int)local_channel, &msg, 1) > 0) ? msg : nullptr;
+}
+
+std::int32_t steam_networking_messages_receive_message_on_channel(std::int32_t local_channel,
+                                                                  gm::wire::GMBuffer out_data,
+                                                                  std::optional<std::uint32_t> buffer_offset)
+{
+    STEAM_GUARD_RET(0);
+
+    ISteamNetworkingMessages* m = steam_networking_messages_iface();
+    if (!m) return 0;
+
+    // An empty message carries nothing to write, and a size of 0 already means "nothing waiting".
+    SteamNetworkingMessage_t* msg = snm_next_message_take(m, local_channel);
+    while (msg && msg->m_cbSize == 0) {
+        msg->Release();
+        msg = snm_next_message_take(m, local_channel);
+    }
+    if (!msg) return 0;
+
+    g_snm_last_message_steam_id = (std::uint64_t)msg->m_identityPeer.GetSteamID64();
+    g_snm_last_message_size = (std::uint32_t)msg->m_cbSize;
+
+    const std::uint64_t offset = buffer_offset.value_or(0);
+    if (offset + g_snm_last_message_size > out_data.length()) {
+        g_snm_held_messages[local_channel] = msg;
+        return gm_consts::STEAM_NETWORKING_MESSAGES_RECEIVE_DOES_NOT_FIT;
+    }
+
+    {
+        auto w = out_data.getWriter();
+        w.skip((size_t)offset);
+        w.writeBytes((const char*)msg->m_pData, (int)g_snm_last_message_size);
+    }
+    msg->Release();
+    return (std::int32_t)g_snm_last_message_size;
+}
+
+bool steam_networking_messages_discard_held_message(std::int32_t local_channel)
+{
+    steam_clear_last_error();
+    auto it = g_snm_held_messages.find(local_channel);
+    if (it == g_snm_held_messages.end() || !it->second) return false;
+    it->second->Release();
+    it->second = nullptr;
+    return true;
+}
+
+std::uint64_t steam_networking_messages_get_last_message_steam_id()
+{
+    return g_snm_last_message_steam_id;
+}
+
+std::uint32_t steam_networking_messages_get_last_message_size()
+{
+    return g_snm_last_message_size;
+}
+
+void steam_networking_messages_release_held_messages()
+{
+    for (auto& [channel, msg] : g_snm_held_messages) {
+        if (msg) msg->Release();
+    }
+    g_snm_held_messages.clear();
 }
 
 bool steam_networking_messages_accept_session_with_user(std::uint64_t steam_id_remote)
