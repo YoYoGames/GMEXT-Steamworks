@@ -30,7 +30,9 @@ jobs:
     # For now this only checks that the tier 3 runner is usable: the Steam client is running in the runner's session
     # and is signed in. It checks out no code. The builds, tier 2 and tier 3 jobs follow
     if: github.ref == 'refs/heads/main'
-    runs-on: [self-hosted, steamworks-steam]
+    # The runner was registered with --no-default-labels, so it has only this label; listing self-hosted as well would
+    # leave the job queued forever
+    runs-on: steamworks-steam
     timeout-minutes: 5
     steps:
       - name: Steam client is running and signed in
