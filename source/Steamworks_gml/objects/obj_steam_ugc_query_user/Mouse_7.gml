@@ -9,8 +9,6 @@ query_handle = steam_ugc_create_query_user_ugc_request(
 	steam_utils_get_app_id(),
 	1);
 
-//var query_handle = steam_ugc_create_query_all(ugc_query_RankedByTrend,ugc_match_Items,1);
-
 //steam_ugc_add_required_tag(query_handle, "Single-player");
 //steam_ugc_set_return_long_description(query_handle, true);
 //steam_ugc_set_allow_cached_response(query_handle, true);

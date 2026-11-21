@@ -10,7 +10,7 @@ for (var _i = 0; _i < array_length(controllers); ++_i) {
 	
 	var conhandle = controllers[_i];
 	
-	var _origin = steam_input_get_action_origin_from_xbox_origin(conhandle, SteamXboxOrigin.A);
+	var _origin = steam_input_get_action_origin_from_xbox_origin(conhandle, SteamInputXboxOrigin.A);
 	var _originsprpath = steam_input_get_glyph_png_for_action_origin(_origin, SteamInputGlyphSize.Small, SteamInputGlyphStyle.Knockout);
 	var _originspr = button_sprite_exists(_originsprpath);
 	

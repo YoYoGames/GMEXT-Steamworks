@@ -1,5 +1,5 @@
 
-show_debug_message("POST steam_create_leaderboard")
+show_debug_message("POST steam_userstats_find_or_create_leaderboard")
 
 steam_userstats_find_leaderboard(SteamLeaderboard,function(data){
 		if(data.leaderboard_found)
