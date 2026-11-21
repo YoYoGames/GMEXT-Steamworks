@@ -6714,6 +6714,46 @@ GMEXPORT double __EXT_NATIVE__steam_networking_messages_receive_messages_on_chan
     return 0;
 }
 
+GMEXPORT double __EXT_NATIVE__steam_networking_messages_receive_message_on_channel(char* __arg_buffer, double __arg_buffer_length)
+{
+    gm::byteio::BufferReader __br{__arg_buffer, static_cast<size_t>(__arg_buffer_length)};
+
+    // field: local_channel, type: Int32
+    std::int32_t local_channel = gm::wire::codec::readValue<std::int32_t>(__br);
+
+    // field: out_data, type: Buffer
+    gm::wire::GMBuffer out_data = __buffer_queue.front();
+    __buffer_queue.pop();
+
+    // field: buffer_offset, type: optional<UInt32>
+    std::optional<std::uint32_t> buffer_offset = gm::wire::codec::readOptional<std::uint32_t>(__br);
+
+    auto&& __result = steam_networking_messages_receive_message_on_channel(local_channel, out_data, buffer_offset);
+    return static_cast<double>(__result);
+}
+
+GMEXPORT double __EXT_NATIVE__steam_networking_messages_discard_held_message(double local_channel)
+{
+    auto&& __result = steam_networking_messages_discard_held_message(static_cast<std::int32_t>(local_channel));
+    return static_cast<double>(__result);
+}
+
+GMEXPORT double __EXT_NATIVE__steam_networking_messages_get_last_message_steam_id(char* __ret_buffer, double __ret_buffer_length)
+{
+    auto&& __result = steam_networking_messages_get_last_message_steam_id();
+    gm::byteio::BufferWriter __bw{__ret_buffer, static_cast<size_t>(__ret_buffer_length)};
+
+    // return: __result, type: UInt64
+    gm::wire::codec::writeValue(__bw, __result);
+    return 0;
+}
+
+GMEXPORT double __EXT_NATIVE__steam_networking_messages_get_last_message_size()
+{
+    auto&& __result = steam_networking_messages_get_last_message_size();
+    return static_cast<double>(__result);
+}
+
 GMEXPORT double __EXT_NATIVE__steam_networking_messages_accept_session_with_user(char* __arg_buffer, double __arg_buffer_length)
 {
     gm::byteio::BufferReader __br{__arg_buffer, static_cast<size_t>(__arg_buffer_length)};

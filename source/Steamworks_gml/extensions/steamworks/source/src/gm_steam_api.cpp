@@ -312,6 +312,7 @@ void steam_api_shutdown()
         return;
 
     steam_api_clear_all_callbacks();
+    steam_networking_messages_release_held_messages();
 
     SteamAPI_Shutdown();
     steam_set_initialized(false);

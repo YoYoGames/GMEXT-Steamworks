@@ -116,6 +116,7 @@
     {"name":"rm_steam_main","order":2,"path":"rooms/rm_steam_main/rm_steam_main.yy",},
     {"name":"rm_steam_networking_lobby","order":5,"path":"rooms/rm_steam_networking_lobby/rm_steam_networking_lobby.yy",},
     {"name":"rm_steam_networking_messages","order":1,"path":"rooms/rm_steam_networking_messages/rm_steam_networking_messages.yy",},
+    {"name":"rm_steam_networking_messages_no_alloc","order":2,"path":"rooms/rm_steam_networking_messages_no_alloc/rm_steam_networking_messages_no_alloc.yy",},
     {"name":"rm_steam_networking_sockets_client","order":2,"path":"rooms/rm_steam_networking_sockets_client/rm_steam_networking_sockets_client.yy",},
     {"name":"rm_steam_networking_sockets_local_test","order":1,"path":"rooms/rm_steam_networking_sockets_local_test/rm_steam_networking_sockets_local_test.yy",},
     {"name":"rm_steam_networking_sockets_server","order":1,"path":"rooms/rm_steam_networking_sockets_server/rm_steam_networking_sockets_server.yy",},
