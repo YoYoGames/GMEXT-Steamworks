@@ -14,7 +14,7 @@ This extension will work on Windows, macOS and Linux.
 > projects that need the old API should stay on the final 2.2.2 release. Check
 > [the documentation](../../wiki) for the current API.
 
-SOURCE CODE: `source/Steamworks_gml/extensions/steamworks/source/` (`spec.gmidl` API contract, hand-written
+SOURCE CODE: `source/Steamworks_gml/extensions/Steamworks/source/` (`spec.gmidl` API contract, hand-written
 native implementation in `src/`, CMake build files)
 
 All platforms (Windows, macOS, Linux, iOS, tvOS, Android) build from this single source folder via CMake

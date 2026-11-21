@@ -5,7 +5,7 @@ draw_set_halign(fa_left)
 
 var _i = 0;
 
-/////////////////////////////////////////////steam_remotestorage.cpp
+// Remote Storage
 draw_text(50, 100 + _i++ * 30,$"steam_is_cloud_enabled_for_app: {steam_remote_storage_is_cloud_enabled_for_app()}")
 draw_text(50, 100 + _i++ * 30,$"steam_is_cloud_enabled_for_account: {steam_remote_storage_is_cloud_enabled_for_account()}")
 draw_text(50, 100 + _i++ * 30,$"steam_get_quota_total: {steam_remote_storage_get_quota()}")
