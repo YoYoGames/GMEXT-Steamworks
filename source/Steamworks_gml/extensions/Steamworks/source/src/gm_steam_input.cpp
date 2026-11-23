@@ -512,21 +512,30 @@ bool steam_input_set_dualsense_trigger_effect(
         switch (sceParam.command[i].mode)
         {
             case SCE_PAD_TRIGGER_EFFECT_MODE_OFF:
-            default:
             {
                 // no fields here
                 break;
             }
             case SCE_PAD_TRIGGER_EFFECT_MODE_FEEDBACK:
             {
-                auto p = param.command[i].command_data.feedback_param.value_or({});
+                if (!param.command[i].command_data.feedback_param)
+                {
+                    steam_set_last_error("steam_input_set_dualsense_trigger_effect: .feedback_param is undefined but one was expected per the .mode");
+                    return false;
+                }
+                const auto& p = param.command[i].command_data.feedback_param.value();
                 sceParam.command[i].commandData.feedbackParam.position = p.position;
                 sceParam.command[i].commandData.feedbackParam.strength = p.strength;
                 break;
             }
             case SCE_PAD_TRIGGER_EFFECT_MODE_WEAPON:
             {
-                auto p = param.command[i].command_data.weapon_param.value_or({});
+                if (!param.command[i].command_data.weapon_param)
+                {
+                    steam_set_last_error("steam_input_set_dualsense_trigger_effect: .weapon_param is undefined but one was expected per the .mode");
+                    return false;
+                }
+                const auto& p = param.command[i].command_data.weapon_param.value();
                 sceParam.command[i].commandData.weaponParam.startPosition = p.start_position;
                 sceParam.command[i].commandData.weaponParam.endPosition = p.end_position;
                 sceParam.command[i].commandData.weaponParam.strength = p.strength;
@@ -534,7 +543,12 @@ bool steam_input_set_dualsense_trigger_effect(
             }
             case SCE_PAD_TRIGGER_EFFECT_MODE_VIBRATION:
             {
-                auto p = param.command[i].command_data.vibration_param.value_or({});
+                if (!param.command[i].command_data.vibration_param)
+                {
+                    steam_set_last_error("steam_input_set_dualsense_trigger_effect: .vibration_param is undefined but one was expected per the .mode");
+                    return false;
+                }
+                const auto& p = param.command[i].command_data.vibration_param.value();
                 sceParam.command[i].commandData.vibrationParam.position = p.position;
                 sceParam.command[i].commandData.vibrationParam.amplitude = p.amplitude;
                 sceParam.command[i].commandData.vibrationParam.frequency = p.frequency;
@@ -542,7 +556,12 @@ bool steam_input_set_dualsense_trigger_effect(
             }
             case SCE_PAD_TRIGGER_EFFECT_MODE_MULTIPLE_POSITION_FEEDBACK:
             {
-                auto p = param.command[i].command_data.multiple_position_feedback_param.value_or({});
+                if (!param.command[i].command_data.multiple_position_feedback_param)
+                {
+                    steam_set_last_error("steam_input_set_dualsense_trigger_effect: .multiple_position_feedback_param is undefined but one was expected per the .mode");
+                    return false;
+                }
+                const auto& p = param.command[i].command_data.multiple_position_feedback_param.value();
                 std::copy(
                     p.strength.begin(),
                     p.strength.end(),
@@ -552,7 +571,12 @@ bool steam_input_set_dualsense_trigger_effect(
             }
             case SCE_PAD_TRIGGER_EFFECT_MODE_SLOPE_FEEDBACK:
             {
-                auto p = param.command[i].command_data.slope_feedback_param.value_or({});
+                if (!param.command[i].command_data.slope_feedback_param)
+                {
+                    steam_set_last_error("steam_input_set_dualsense_trigger_effect: .slope_feedback_param is undefined but one was expected per the .mode");
+                    return false;
+                }
+                const auto& p = param.command[i].command_data.slope_feedback_param.value();
                 sceParam.command[i].commandData.slopeFeedbackParam.startPosition = p.start_position;
                 sceParam.command[i].commandData.slopeFeedbackParam.endPosition = p.end_position;
                 sceParam.command[i].commandData.slopeFeedbackParam.startStrength = p.start_strength;
@@ -561,7 +585,12 @@ bool steam_input_set_dualsense_trigger_effect(
             }
             case SCE_PAD_TRIGGER_EFFECT_MODE_MULTIPLE_POSITION_VIBRATION:
             {
-                auto p = param.command[i].command_data.multiple_position_vibration_param.value_or({});
+                if (!param.command[i].command_data.multiple_position_vibration_param)
+                {
+                    steam_set_last_error("steam_input_set_dualsense_trigger_effect: .multiple_position_vibration_param is undefined but one was expected per the .mode");
+                    return false;
+                }
+                const auto& p = param.command[i].command_data.multiple_position_vibration_param.value();
                 sceParam.command[i].commandData.multiplePositionVibrationParam.frequency = p.frequency;
                 std::copy(
                     p.amplitude.begin(),
@@ -569,6 +598,11 @@ bool steam_input_set_dualsense_trigger_effect(
                     std::begin(sceParam.command[i].commandData.multiplePositionVibrationParam.amplitude)
                 );
                 break;
+            }
+            default:
+            {
+                steam_set_last_error("steam_input_set_dualsense_trigger_effect: .mode value is out of SteamInputTriggerEffectMode range");
+                return false;
             }
         }
     }

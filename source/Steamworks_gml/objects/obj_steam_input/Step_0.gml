@@ -14,38 +14,28 @@ for(var i = 0; i < array_length(controllers); i++)
 	if (contype == SteamInputType.PS5Controller)
     {
         // -- adaptive trigger effects example
-        var vibparam = new SteamInputTriggerEffectVibrationParam();
+        input_effect_param.trigger_mask = SteamInputTriggerEffectTriggerMask.L2 | SteamInputTriggerEffectTriggerMask.R2;
+        // --
+        input_effect_param.command[STEAM_INPUT_TRIGGER_EFFECT_PARAM_INDEX_FOR_L2].mode = SteamInputTriggerEffectMode.VIBRATION;
+        var vibparam = input_effect_param.command[STEAM_INPUT_TRIGGER_EFFECT_PARAM_INDEX_FOR_L2].command_data.vibration_param;
         vibparam.position = 1;
         vibparam.frequency = 10;
         vibparam.amplitude = 8;
-        var modevibparam = SteamInputTriggerEffectMode.VIBRATION;
         // --
-        //var wparam = new SteamInputTriggerEffectWeaponParam();
+        //input_effect_param.command[STEAM_INPUT_TRIGGER_EFFECT_PARAM_INDEX_FOR_R2].mode = SteamInputTriggerEffectMode.WEAPON;
+        //var wparam = input_effect_param.command[STEAM_INPUT_TRIGGER_EFFECT_PARAM_INDEX_FOR_R2].command_data.weapon_param;
         //wparam.start_position = 2;
         //wparam.end_position = 5;
         //wparam.strength = 8;
-        //var modewparam = SteamInputTriggerEffectMode.WEAPON;
         // --
-        var mpvibparam = new SteamInputTriggerEffectMultiplePositionVibrationParam();
+        input_effect_param.command[STEAM_INPUT_TRIGGER_EFFECT_PARAM_INDEX_FOR_R2].mode = SteamInputTriggerEffectMode.MULTIPLE_POSITION_VIBRATION;
+        var mpvibparam = input_effect_param.command[STEAM_INPUT_TRIGGER_EFFECT_PARAM_INDEX_FOR_R2].command_data.multiple_position_vibration_param;
         mpvibparam.frequency = 10;
-        mpvibparam.amplitude = [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 8 ];
-        var modempvibparam = SteamInputTriggerEffectMode.MULTIPLE_POSITION_VIBRATION;
+        // 0, 1, 2, 3, 4, 5, 6, 7, 8, 8 sequence
+        for (var n = 0; n < STEAM_INPUT_TRIGGER_EFFECT_CONTROL_POINT_NUM; ++n)
+            mpvibparam.amplitude[n] = (n == 9) ? 8 : n;
         // --
-        var trigmask = SteamInputTriggerEffectTriggerMask.L2 | SteamInputTriggerEffectTriggerMask.R2;
-		var param = new SteamInputTriggerEffectParam();
-        param.trigger_mask = trigmask;
-        param.command = [ new SteamInputTriggerEffectCommand(), new SteamInputTriggerEffectCommand() ];
-        // --
-        param.command[STEAM_INPUT_TRIGGER_EFFECT_PARAM_INDEX_FOR_L2].mode = modevibparam;
-        param.command[STEAM_INPUT_TRIGGER_EFFECT_PARAM_INDEX_FOR_L2].command_data = new SteamInputTriggerEffectCommandData();
-        param.command[STEAM_INPUT_TRIGGER_EFFECT_PARAM_INDEX_FOR_L2].command_data.vibration_param = vibparam;
-        // --
-        //param.command[STEAM_INPUT_TRIGGER_EFFECT_PARAM_INDEX_FOR_R2].mode = modewparam;
-        param.command[STEAM_INPUT_TRIGGER_EFFECT_PARAM_INDEX_FOR_R2].mode = modempvibparam;
-        param.command[STEAM_INPUT_TRIGGER_EFFECT_PARAM_INDEX_FOR_R2].command_data = new SteamInputTriggerEffectCommandData();
-        //param.command[STEAM_INPUT_TRIGGER_EFFECT_PARAM_INDEX_FOR_R2].command_data.weapon_param = wparam;
-        param.command[STEAM_INPUT_TRIGGER_EFFECT_PARAM_INDEX_FOR_R2].command_data.multiple_position_vibration_param = mpvibparam;
-        steam_input_set_dualsense_trigger_effect(controllers[i], param);
+        steam_input_set_dualsense_trigger_effect(controllers[i], input_effect_param);
 	}
 }
 
