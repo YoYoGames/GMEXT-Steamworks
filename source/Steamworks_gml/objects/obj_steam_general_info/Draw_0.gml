@@ -24,7 +24,6 @@ draw_text(50, 100 + _i++ * 30,$"available_languages: {steam_apps_get_available_g
 draw_text(50, 100 + _i++ * 30,$"user_owns_dlc [447130]: {steam_apps_is_subscribed_app(447130)}");
 draw_text(50, 100 + _i++ * 30,$"user_installed_dlc [447130]: {steam_apps_is_dlc_installed(447130)}");
 
-//draw_text(50, 100 + _i++ * 30,"steam_is_screenshot_requested: " + string(steam_is_screenshot_requested()));
 
 draw_text(50, 100 + _i++ * 30,$"is_subscribed: {steam_apps_is_subscribed()}");
 

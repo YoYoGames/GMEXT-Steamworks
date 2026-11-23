@@ -19,8 +19,8 @@
 # must NOT be ignored. It is declared as a macOS file in Steamworks.yy so the
 # generated macOS Xcode project gets a reference to it at compile time;
 # post_build_step copies the real SDK library into the OUTPUT folder, never here.
-source/Steamworks_gml/extensions/steamworks/steam_api64.dll
-source/Steamworks_gml/extensions/steamworks/libsteam_api.so
+source/Steamworks_gml/extensions/Steamworks/steam_api64.dll
+source/Steamworks_gml/extensions/Steamworks/libsteam_api.so
 
 # Steamworks DEMO options
 source/Steamworks_gml/options/
@@ -38,6 +38,6 @@ xcuserdata/
 
 # Release packages
 output/
-source/Steamworks_gml/extensions/steamworks/scriptUtils.bat.bak
+source/Steamworks_gml/extensions/Steamworks/scriptUtils.bat.bak
 
-source/Steamworks_gml/extensions/steamworks/scriptUtils.sh.bak
+source/Steamworks_gml/extensions/Steamworks/scriptUtils.sh.bak

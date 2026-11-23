@@ -1,6 +1,4 @@
 
-//steam_create_leaderboard(SteamLeaderboard, lb_sort_ascending, lb_disp_numeric);;
-
 steam_userstats_find_leaderboard(SteamLeaderboard,function(data){
 		if(data.leaderboard_found)
 		{
