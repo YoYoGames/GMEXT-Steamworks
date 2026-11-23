@@ -3,6 +3,7 @@
 // Steamworks module: input (ISteamInput)
 
 #include "GMSteamworks.h"
+#include <steam/isteamdualsense.h>
 #include <unordered_set>
 #include <unordered_map>
 
@@ -492,14 +493,123 @@ void steam_input_run_frame()
 }
 
 bool steam_input_set_dualsense_trigger_effect(
-    std::uint64_t, const std::vector<std::uint32_t>&
+    std::uint64_t input_handle,
+    const gm_structs::SteamInputTriggerEffectParam& param
 )
 {
     STEAM_GUARD_RET(false);
-    steam_set_last_error(
-        "Steam Input: SetDualSenseTriggerEffect not supported in GM binding (requires native pointer)"
-    );
-    return false;
+
+    ISteamInput* s = steam_input_iface();
+    if (!s)
+        return false;
+    
+    // this type is in the isteamdualsense header
+    ScePadTriggerEffectParam sceParam{};
+    sceParam.triggerMask = param.trigger_mask;
+    for (int i = 0; i < SCE_PAD_TRIGGER_EFFECT_TRIGGER_NUM; ++i)
+    {
+        sceParam.command[i].mode = (ScePadTriggerEffectMode)param.command[i].mode;
+        switch (sceParam.command[i].mode)
+        {
+            case SCE_PAD_TRIGGER_EFFECT_MODE_OFF:
+            {
+                // no fields here
+                break;
+            }
+            case SCE_PAD_TRIGGER_EFFECT_MODE_FEEDBACK:
+            {
+                if (!param.command[i].command_data.feedback_param)
+                {
+                    steam_set_last_error("steam_input_set_dualsense_trigger_effect: .feedback_param is undefined but one was expected per the .mode");
+                    return false;
+                }
+                const auto& p = param.command[i].command_data.feedback_param.value();
+                sceParam.command[i].commandData.feedbackParam.position = p.position;
+                sceParam.command[i].commandData.feedbackParam.strength = p.strength;
+                break;
+            }
+            case SCE_PAD_TRIGGER_EFFECT_MODE_WEAPON:
+            {
+                if (!param.command[i].command_data.weapon_param)
+                {
+                    steam_set_last_error("steam_input_set_dualsense_trigger_effect: .weapon_param is undefined but one was expected per the .mode");
+                    return false;
+                }
+                const auto& p = param.command[i].command_data.weapon_param.value();
+                sceParam.command[i].commandData.weaponParam.startPosition = p.start_position;
+                sceParam.command[i].commandData.weaponParam.endPosition = p.end_position;
+                sceParam.command[i].commandData.weaponParam.strength = p.strength;
+                break;
+            }
+            case SCE_PAD_TRIGGER_EFFECT_MODE_VIBRATION:
+            {
+                if (!param.command[i].command_data.vibration_param)
+                {
+                    steam_set_last_error("steam_input_set_dualsense_trigger_effect: .vibration_param is undefined but one was expected per the .mode");
+                    return false;
+                }
+                const auto& p = param.command[i].command_data.vibration_param.value();
+                sceParam.command[i].commandData.vibrationParam.position = p.position;
+                sceParam.command[i].commandData.vibrationParam.amplitude = p.amplitude;
+                sceParam.command[i].commandData.vibrationParam.frequency = p.frequency;
+                break;
+            }
+            case SCE_PAD_TRIGGER_EFFECT_MODE_MULTIPLE_POSITION_FEEDBACK:
+            {
+                if (!param.command[i].command_data.multiple_position_feedback_param)
+                {
+                    steam_set_last_error("steam_input_set_dualsense_trigger_effect: .multiple_position_feedback_param is undefined but one was expected per the .mode");
+                    return false;
+                }
+                const auto& p = param.command[i].command_data.multiple_position_feedback_param.value();
+                std::copy(
+                    p.strength.begin(),
+                    p.strength.end(),
+                    std::begin(sceParam.command[i].commandData.multiplePositionFeedbackParam.strength)
+                );
+                break;
+            }
+            case SCE_PAD_TRIGGER_EFFECT_MODE_SLOPE_FEEDBACK:
+            {
+                if (!param.command[i].command_data.slope_feedback_param)
+                {
+                    steam_set_last_error("steam_input_set_dualsense_trigger_effect: .slope_feedback_param is undefined but one was expected per the .mode");
+                    return false;
+                }
+                const auto& p = param.command[i].command_data.slope_feedback_param.value();
+                sceParam.command[i].commandData.slopeFeedbackParam.startPosition = p.start_position;
+                sceParam.command[i].commandData.slopeFeedbackParam.endPosition = p.end_position;
+                sceParam.command[i].commandData.slopeFeedbackParam.startStrength = p.start_strength;
+                sceParam.command[i].commandData.slopeFeedbackParam.endStrength = p.end_strength;
+                break;
+            }
+            case SCE_PAD_TRIGGER_EFFECT_MODE_MULTIPLE_POSITION_VIBRATION:
+            {
+                if (!param.command[i].command_data.multiple_position_vibration_param)
+                {
+                    steam_set_last_error("steam_input_set_dualsense_trigger_effect: .multiple_position_vibration_param is undefined but one was expected per the .mode");
+                    return false;
+                }
+                const auto& p = param.command[i].command_data.multiple_position_vibration_param.value();
+                sceParam.command[i].commandData.multiplePositionVibrationParam.frequency = p.frequency;
+                std::copy(
+                    p.amplitude.begin(),
+                    p.amplitude.end(),
+                    std::begin(sceParam.command[i].commandData.multiplePositionVibrationParam.amplitude)
+                );
+                break;
+            }
+            default:
+            {
+                steam_set_last_error("steam_input_set_dualsense_trigger_effect: .mode value is out of SteamInputTriggerEffectMode range");
+                return false;
+            }
+        }
+    }
+
+    // after all parameters have been copied
+    s->SetDualSenseTriggerEffect((InputHandle_t)input_handle, &sceParam);
+    return true;
 }
 
 void steam_input_set_led_color(

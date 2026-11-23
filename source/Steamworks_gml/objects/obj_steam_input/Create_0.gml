@@ -3,6 +3,59 @@
 
 controllers = []
 
+/// @description Correctly pre-allocates an empty param struct that you can edit without allocating anything extra.
+///
+/// You are expected to copy and paste this function into your project and tweak it as you see fit.
+/// @returns {Struct.SteamInputTriggerEffectParam} preallocated effect param struct
+function input_new_empty_effect_param()
+{
+    var param = new SteamInputTriggerEffectParam();
+    param.trigger_mask = SteamInputTriggerEffectTriggerMask.L2;
+    var command = array_create(STEAM_INPUT_TRIGGER_EFFECT_TRIGGER_NUM);
+    for (var i = 0, n = array_length(command); i < n; ++i)
+    {
+        var cmd = new SteamInputTriggerEffectCommand();
+        cmd.mode = SteamInputTriggerEffectMode.OFF;
+        // extra params are ignored, only the one that's set by .mode is read
+        // .OFF makes it so that no params are read
+        var data = new SteamInputTriggerEffectCommandData();
+        var feedback_param = new SteamInputTriggerEffectFeedbackParam();
+        feedback_param.position = 0;
+        feedback_param.strength = 0;
+        data.feedback_param = feedback_param;
+        var weapon_param = new SteamInputTriggerEffectWeaponParam();
+        weapon_param.start_position = 0;
+        weapon_param.end_position = 0;
+        weapon_param.strength = 0;
+        data.weapon_param = weapon_param;
+        var vibration_param = new SteamInputTriggerEffectVibrationParam();
+        vibration_param.position = 0;
+        vibration_param.amplitude = 0;
+        vibration_param.frequency = 0;
+        data.vibration_param = vibration_param;
+        var multiple_position_feedback_param = new SteamInputTriggerEffectMultiplePositionFeedbackParam();
+        // these must be unique arrays per each trigger
+        multiple_position_feedback_param.strength = array_create(STEAM_INPUT_TRIGGER_EFFECT_CONTROL_POINT_NUM);
+        data.multiple_position_feedback_param = multiple_position_feedback_param;
+        var slope_feedback_param = new SteamInputTriggerEffectSlopeFeedbackParam();
+        slope_feedback_param.start_position = 0;
+        slope_feedback_param.end_position = 0;
+        slope_feedback_param.start_strength = 0;
+        slope_feedback_param.end_strength = 0;
+        data.slope_feedback_param = slope_feedback_param;
+        var multiple_position_vibration_param = new SteamInputTriggerEffectMultiplePositionVibrationParam();
+        multiple_position_vibration_param.frequency = 0;
+        multiple_position_vibration_param.amplitude = array_create(STEAM_INPUT_TRIGGER_EFFECT_CONTROL_POINT_NUM);
+        data.multiple_position_vibration_param = multiple_position_vibration_param;
+        cmd.command_data = data;
+        command[i] = cmd;
+    }
+    param.command = command;
+    return param;
+}
+
+input_effect_param = input_new_empty_effect_param()
+
 steam_input_set_callback_device_connected(function(data) {
     show_debug_message($"CONNECTED: {data.controller_handle}");
 	input_setup()
@@ -72,8 +125,5 @@ function input_setup()
 		);	
 	};
 
-
-
-	// DualSense trigger effects are not in the demo yet: steam_input_set_dualsense_trigger_effect is missing from 3.0.0 (#204)
 }
 

@@ -2397,7 +2397,7 @@
 /**
  * @function_partial steam_input_set_dualsense_trigger_effect
  * @param {Real} input_handle
- * @param {Array[Real]} param
+ * @param {Struct.SteamInputTriggerEffectParam} param
  * @returns {Bool}
  * @function_end
  */
@@ -5005,6 +5005,51 @@
  */
 
 /**
+ * @struct_partial SteamInputTriggerEffectFeedbackParam
+ * @member {Real} position
+ * @member {Real} strength
+ * @struct_end
+ */
+
+/**
+ * @struct_partial SteamInputTriggerEffectWeaponParam
+ * @member {Real} start_position
+ * @member {Real} end_position
+ * @member {Real} strength
+ * @struct_end
+ */
+
+/**
+ * @struct_partial SteamInputTriggerEffectVibrationParam
+ * @member {Real} position
+ * @member {Real} amplitude
+ * @member {Real} frequency
+ * @struct_end
+ */
+
+/**
+ * @struct_partial SteamInputTriggerEffectMultiplePositionFeedbackParam
+ * @member {Array[Real]/*len:10*/} strength
+ * @struct_end
+ */
+
+/**
+ * @struct_partial SteamInputTriggerEffectSlopeFeedbackParam
+ * @member {Real} start_position
+ * @member {Real} end_position
+ * @member {Real} start_strength
+ * @member {Real} end_strength
+ * @struct_end
+ */
+
+/**
+ * @struct_partial SteamInputTriggerEffectMultiplePositionVibrationParam
+ * @member {Real} frequency
+ * @member {Array[Real]/*len:10*/} amplitude
+ * @struct_end
+ */
+
+/**
  * @struct_partial SteamInputDeviceEvent
  * @member {Real} controller_handle
  * @struct_end
@@ -5503,10 +5548,35 @@
  */
 
 /**
+ * @struct_partial SteamInputTriggerEffectCommandData
+ * @member {Struct.SteamInputTriggerEffectFeedbackParam} [feedback_param]
+ * @member {Struct.SteamInputTriggerEffectWeaponParam} [weapon_param]
+ * @member {Struct.SteamInputTriggerEffectVibrationParam} [vibration_param]
+ * @member {Struct.SteamInputTriggerEffectMultiplePositionFeedbackParam} [multiple_position_feedback_param]
+ * @member {Struct.SteamInputTriggerEffectSlopeFeedbackParam} [slope_feedback_param]
+ * @member {Struct.SteamInputTriggerEffectMultiplePositionVibrationParam} [multiple_position_vibration_param]
+ * @struct_end
+ */
+
+/**
  * @struct_partial SteamNetworkingSocketsStatusChanged
  * @member {Real} conn
  * @member {Enum.SteamNetworkingConnectionState} old_state
  * @member {Struct.SteamNetworkingSocketsConnectionInfo} info
+ * @struct_end
+ */
+
+/**
+ * @struct_partial SteamInputTriggerEffectCommand
+ * @member {Enum.SteamInputTriggerEffectMode} mode
+ * @member {Struct.SteamInputTriggerEffectCommandData} command_data
+ * @struct_end
+ */
+
+/**
+ * @struct_partial SteamInputTriggerEffectParam
+ * @member {Real} trigger_mask
+ * @member {Array[Struct.SteamInputTriggerEffectCommand]/*len:2*/} command
  * @struct_end
  */
 
@@ -6780,6 +6850,25 @@
  */
 
 /**
+ * @enum_partial SteamInputTriggerEffectTriggerMask
+ * @member L2
+ * @member R2
+ * @enum_end
+ */
+
+/**
+ * @enum_partial SteamInputTriggerEffectMode
+ * @member OFF
+ * @member FEEDBACK
+ * @member WEAPON
+ * @member VIBRATION
+ * @member MULTIPLE_POSITION_FEEDBACK
+ * @member SLOPE_FEEDBACK
+ * @member MULTIPLE_POSITION_VIBRATION
+ * @enum_end
+ */
+
+/**
  * @enum_partial SteamLeaderboardDataRequest
  * @member Global
  * @member GlobalAroundUser
@@ -7128,6 +7217,10 @@
  * @member STEAM_INPUT_MAX_DIGITAL_ACTIONS (value: '256')
  * @member STEAM_INPUT_MAX_ORIGINS (value: '8')
  * @member STEAM_INPUT_MIN_ANALOG_ACTION_DATA (value: '-1.0')
+ * @member STEAM_INPUT_TRIGGER_EFFECT_PARAM_INDEX_FOR_L2 (value: '0')
+ * @member STEAM_INPUT_TRIGGER_EFFECT_PARAM_INDEX_FOR_R2 (value: '1')
+ * @member STEAM_INPUT_TRIGGER_EFFECT_TRIGGER_NUM (value: '2')
+ * @member STEAM_INPUT_TRIGGER_EFFECT_CONTROL_POINT_NUM (value: '10')
  * @member STEAM_USER_STATS_LEADERBOARD_NAME_MAX (value: '128')
  * @member STEAM_USER_STATS_STAT_NAME_MAX (value: '128')
  * @member STEAM_USER_STATS_LEADERBOARD_DETAILS_MAX (value: '64')
